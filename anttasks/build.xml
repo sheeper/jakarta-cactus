@@ -219,7 +219,7 @@
          Generate a full release (i.e. the zipped release file)
        ========================================================================
     -->
-    <target name="release.prepare">
+    <target name="release.prepare" depends="init">
 
         <!-- For a release, the suffix is the version -->
         <property name="project.suffix" value="-${project.version}"/>
@@ -239,7 +239,7 @@
          Generate a nightly release (i.e. the zipped release file)
        ========================================================================
     -->
-    <target name="nightly.prepare">
+    <target name="nightly.prepare" depends="init">
 
         <!-- Sets the date for the release prefix : YYYYMMDD -->
         <tstamp/>
