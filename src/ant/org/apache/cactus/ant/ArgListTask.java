@@ -53,9 +53,11 @@
  */
 package org.apache.cactus.ant;
 
-import java.util.*;
+import java.util.Enumeration;
+import java.util.Vector;
 
-import org.apache.tools.ant.*;
+import org.apache.tools.ant.BuildException;
+import org.apache.tools.ant.Task;
 
 /**
  * Compute a string (returned as an Ant property) that contains a list of
@@ -70,7 +72,7 @@ import org.apache.tools.ant.*;
  *   <property name="property1"/>
  *   <property name="property2"/>
  *   <property name="property3"/>
-  * </argList>
+ * </argList>
  *
  * <echo message="${result}"/>
  * </code></pre>
@@ -124,7 +126,7 @@ public class ArgListTask extends Task
         while (args.hasMoreElements()) {
 
             String propertyName =
-                ((ArgListProperty)args.nextElement()).getName();
+                ((ArgListProperty) args.nextElement()).getName();
 
             // Check if this property is defined
             String value = getProject().getProperty(propertyName);

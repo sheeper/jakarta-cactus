@@ -53,10 +53,10 @@
  */
 package org.apache.cactus.ant;
 
-import java.net.*;
-import java.io.*;
-import java.util.*;
-import java.lang.reflect.*;
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.Vector;
 
 /**
  * Abstract class for starting/stopping an application server. When this
@@ -74,7 +74,7 @@ public abstract class AbstractServerRun extends Thread
     /**
      * Internal socket port that we use to stop the server.
      */
-	private int port = 7777;
+    private int port = 7777;
 
     /**
      * Host name. We assume the server is started and stoppped in the same
@@ -104,157 +104,157 @@ public abstract class AbstractServerRun extends Thread
     /**
      * Starts the server (in a blocking mode) and set up a socket listener.
      */
-	abstract protected void doStartServer() throws Exception;
+    abstract protected void doStartServer() throws Exception;
 
     /**
      * Stops the server by connecting to the socket set up when the server
      * was started.
      */
-	abstract protected void doStopServer() throws Exception;
+    abstract protected void doStopServer() throws Exception;
 
     /**
      * Parse and process the command line to start/stop the server.
      */
-	protected void doRun()
-	{
-		// Look for a -start or -stop flag
-		boolean isStart = true;
-		Vector newArgs = new Vector();
+    protected void doRun()
+    {
+        // Look for a -start or -stop flag
+        boolean isStart = true;
+        Vector newArgs = new Vector();
 
-		for (int i = 0; i < this.args.length; i++) {
-			if (this.args[i].equalsIgnoreCase("-start")) {
-				isStart = true;
-			} else if (this.args[i].equalsIgnoreCase("-stop")) {
-				isStart = false;
-			} else if (this.args[i].equalsIgnoreCase("-port")) {
-				this.port = Integer.parseInt(this.args[i+1]);
-				i++;
-			} else {
-				newArgs.add(this.args[i]);
-			}
-		}
+        for (int i = 0; i < this.args.length; i++) {
+            if (this.args[i].equalsIgnoreCase("-start")) {
+                isStart = true;
+            } else if (this.args[i].equalsIgnoreCase("-stop")) {
+                isStart = false;
+            } else if (this.args[i].equalsIgnoreCase("-port")) {
+                this.port = Integer.parseInt(this.args[i + 1]);
+                i++;
+            } else {
+                newArgs.add(this.args[i]);
+            }
+        }
 
         // Remove the command line arguments that should not be part of the
         // server command line (i.e. our own arguments).
         String[] strArgs = new String[0];
-        this.args = (String[])newArgs.toArray(strArgs);
+        this.args = (String[]) newArgs.toArray(strArgs);
 
-		if (isStart) {
-			startServer();
-		} else {
-			stopServer();
-		}
+        if (isStart) {
+            startServer();
+        } else {
+            stopServer();
+        }
 
-	}
+    }
 
     /**
      * Starts the server.
      */
-	private void startServer()
-	{
+    private void startServer()
+    {
         // If the server is already started, do nothing
         if (this.isStarted) {
             return;
         }
 
-		try {
-			doStartServer();
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException("Error starting server");
-		}
+        try {
+            doStartServer();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Error starting server");
+        }
 
         // Server is now started
         this.isStarted = true;
 
-		// Set up listener socket for listening to request to stop server
-		new Thread(this).start();
-	}
+        // Set up listener socket for listening to request to stop server
+        new Thread(this).start();
+    }
 
     /**
      * Stops the running server.
      */
-	private void stopServer()
-	{
-		// Open socket connection
-		Socket clientSocket = null;
+    private void stopServer()
+    {
+        // Open socket connection
+        Socket clientSocket = null;
 
-		try {
-			clientSocket = new Socket(this.host, this.port);
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException("Error opening socket to " + this.host +
+        try {
+            clientSocket = new Socket(this.host, this.port);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Error opening socket to " + this.host +
                 ":" + this.port + "]");
-		} finally {
-			try {
-				if (clientSocket != null) {
-					clientSocket.close();
-				}
-			} catch (IOException e) {
-				throw new RuntimeException("Cannot close client socket");
-			}
-		}
-	}
+        } finally {
+            try {
+                if (clientSocket != null) {
+                    clientSocket.close();
+                }
+            } catch (IOException e) {
+                throw new RuntimeException("Cannot close client socket");
+            }
+        }
+    }
 
     /**
      * Sets up a listener socket and wait until we receive a request on it to
      * stop the running server.
      */
-	public void run()
-	{
-		ServerSocket serverSocket = setUpListenerSocket();
+    public void run()
+    {
+        ServerSocket serverSocket = setUpListenerSocket();
 
-		// Accept a client socket connection
-		Socket clientSocket = null;
-		try {
-			clientSocket = serverSocket.accept();
-		} catch (IOException e) {
-			throw new RuntimeException("Error accepting connection for " +
+        // Accept a client socket connection
+        Socket clientSocket = null;
+        try {
+            clientSocket = serverSocket.accept();
+        } catch (IOException e) {
+            throw new RuntimeException("Error accepting connection for " +
                 "server socket [" + serverSocket + "]");
-		} finally {
-			// Stop server socket
-			try {
-				serverSocket.close();
-			} catch (IOException e) {
-				throw new RuntimeException("Cannot close server socket [" +
+        } finally {
+            // Stop server socket
+            try {
+                serverSocket.close();
+            } catch (IOException e) {
+                throw new RuntimeException("Cannot close server socket [" +
                     serverSocket + "]");
-			}
-		}
+            }
+        }
 
-		// Stop server
-		try {
-			this.doStopServer();
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException("Cannot stop server");
-		}
+        // Stop server
+        try {
+            this.doStopServer();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Cannot stop server");
+        }
 
-		// Stop server socket
-		try {
-			serverSocket.close();
-		} catch (IOException e) {
-			throw new RuntimeException("Cannot close server socket [" +
+        // Stop server socket
+        try {
+            serverSocket.close();
+        } catch (IOException e) {
+            throw new RuntimeException("Cannot close server socket [" +
                 serverSocket + "]");
-		}
+        }
 
-	}
+    }
 
     /**
      * Sets up the listener socket.
      */
-	private ServerSocket setUpListenerSocket()
-	{
-		ServerSocket serverSocket = null;
+    private ServerSocket setUpListenerSocket()
+    {
+        ServerSocket serverSocket = null;
 
-		try {
-			serverSocket = new ServerSocket(this.port);
-		} catch (IOException e) {
-			e.printStackTrace();
-			throw new RuntimeException("Error setting up the server " +
+        try {
+            serverSocket = new ServerSocket(this.port);
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Error setting up the server " +
                 "listener socket");
-		}
+        }
 
-		return serverSocket;
-	}
+        return serverSocket;
+    }
 
 }

@@ -53,11 +53,8 @@
  */
 package org.apache.cactus.ant;
 
-import java.net.*;
-import java.io.*;
-
-import org.apache.tools.ant.*;
-import org.apache.tools.ant.taskdefs.*;
+import org.apache.tools.ant.BuildException;
+import org.apache.tools.ant.Task;
 
 /**
  * An Ant Task that does the following :

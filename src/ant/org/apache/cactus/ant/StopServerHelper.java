@@ -53,11 +53,14 @@
  */
 package org.apache.cactus.ant;
 
-import java.net.*;
-import java.io.*;
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 
-import org.apache.tools.ant.*;
-import org.apache.tools.ant.taskdefs.*;
+import org.apache.tools.ant.BuildException;
+import org.apache.tools.ant.Task;
+import org.apache.tools.ant.taskdefs.CallTarget;
 
 /**
  * A helper class for an Ant task that does the following : stop a running
@@ -113,7 +116,7 @@ public class StopServerHelper implements Runnable
         // Try connecting in case the server is already stopped.
         try {
             HttpURLConnection connection =
-                (HttpURLConnection)this.testURL.openConnection();
+                (HttpURLConnection) this.testURL.openConnection();
             connection.connect();
             StartServerHelper.readFully(connection);
             connection.disconnect();
@@ -138,7 +141,7 @@ public class StopServerHelper implements Runnable
 
             try {
                 HttpURLConnection connection =
-                    (HttpURLConnection)this.testURL.openConnection();
+                    (HttpURLConnection) this.testURL.openConnection();
                 connection.connect();
                 StartServerHelper.readFully(connection);
                 connection.disconnect();
@@ -174,7 +177,7 @@ public class StopServerHelper implements Runnable
     {
         // Call the Ant target using the "antcall" task.
         CallTarget callee;
-        callee = (CallTarget)(this.task.getProject().createTask("antcall"));
+        callee = (CallTarget) (this.task.getProject().createTask("antcall"));
         callee.setOwningTarget(this.task.getOwningTarget());
         callee.setTaskName(this.task.getTaskName());
         callee.setLocation(this.task.getLocation());

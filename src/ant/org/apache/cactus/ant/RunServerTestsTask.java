@@ -53,11 +53,9 @@
  */
 package org.apache.cactus.ant;
 
-import java.net.*;
-import java.io.*;
-
-import org.apache.tools.ant.*;
-import org.apache.tools.ant.taskdefs.*;
+import org.apache.tools.ant.BuildException;
+import org.apache.tools.ant.Task;
+import org.apache.tools.ant.taskdefs.CallTarget;
 
 /**
  * Task to automate running in-container unit test. It has the following
@@ -96,7 +94,7 @@ public class RunServerTestsTask extends Task
     /**
      * The helper object used to start the server. We use a helper so that it
      * can also be reused in the <code>StartServerTask</code> task. Indeed,
-     * with Ant 1.3 and before there are classloaders issues with calling a 
+     * with Ant 1.3 and before there are classloaders issues with calling a
      * custom task from another custom task. Using a helper is a workaround.
      */
     private StartServerHelper startHelper;
@@ -104,7 +102,7 @@ public class RunServerTestsTask extends Task
     /**
      * The helper object used to stop the server. We use a helper so that it
      * can also be reused in the <code>StopServerTask</code> task. Indeed,
-     * with Ant 1.3 and before there are classloaders issues with calling a 
+     * with Ant 1.3 and before there are classloaders issues with calling a
      * custom task from another custom task. Using a helper is a workaround.
      */
     private StopServerHelper stopHelper;
@@ -157,7 +155,7 @@ public class RunServerTestsTask extends Task
     private void callTests()
     {
         CallTarget callee;
-        callee = (CallTarget)project.createTask("antcall");
+        callee = (CallTarget) project.createTask("antcall");
         callee.setOwningTarget(target);
         callee.setTaskName(getTaskName());
         callee.setLocation(location);

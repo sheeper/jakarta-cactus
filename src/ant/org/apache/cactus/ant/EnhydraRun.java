@@ -53,10 +53,7 @@
  */
 package org.apache.cactus.ant;
 
-import java.net.*;
-import java.io.*;
-import java.util.*;
-import java.lang.reflect.*;
+import java.lang.reflect.Method;
 
 /**
  * Starts/stop Enhydra by setting up a listener socket.
@@ -81,11 +78,11 @@ public class EnhydraRun extends AbstractServerRun
      *
      * @param theArgs the command line arguments
      */
-	public static void main(String[] theArgs)
-	{
+    public static void main(String[] theArgs)
+    {
         EnhydraRun enhydra = new EnhydraRun(theArgs);
         enhydra.doRun();
-	}
+    }
 
     /**
      * @param theArgs the command line arguments
@@ -99,36 +96,36 @@ public class EnhydraRun extends AbstractServerRun
      * Start the Enhydra server. We use reflection so that the Enhydra jars do
      * not need to be in the classpath to compile this class.
      */
-	protected void doStartServer()
+    protected void doStartServer()
     {
         try {
             Class enhydraClass =
                 Class.forName("com.lutris.multiServer.MultiServer");
             Method initMethod = enhydraClass.getMethod("main",
-                new Class[] {this.args.getClass()});
-            initMethod.invoke(null, new Object[] {this.args});
+                new Class[]{this.args.getClass()});
+            initMethod.invoke(null, new Object[]{this.args});
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException("Cannot create instance of MultiServer");
         }
-	}
+    }
 
     /**
      * Stops the Enhydra server. We use reflection so that the Enhydra jars do
      * not need to be in the classpath to compile this class.
      */
-	protected void doStopServer()
+    protected void doStopServer()
     {
         try {
             Class enhydraClass =
                 Class.forName("com.lutris.multiServer.MultiServer");
             Method shutDownMethod = enhydraClass.getMethod("shutdown", null);
-            shutDownMethod.invoke(null, null );
+            shutDownMethod.invoke(null, null);
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException("Cannot stop running instance of " +
                 "MultiServer");
         }
-	}
+    }
 
 }

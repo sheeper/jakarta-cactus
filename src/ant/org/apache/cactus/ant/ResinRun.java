@@ -53,10 +53,8 @@
  */
 package org.apache.cactus.ant;
 
-import java.net.*;
-import java.io.*;
-import java.util.*;
-import java.lang.reflect.*;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
 
 /**
  * Starts/stop Resin by setting up a listener socket.
@@ -81,11 +79,11 @@ public class ResinRun extends AbstractServerRun
      *
      * @param theArgs the command line arguments
      */
-	public static void main(String[] theArgs)
-	{
+    public static void main(String[] theArgs)
+    {
         ResinRun resin = new ResinRun(theArgs);
         resin.doRun();
-	}
+    }
 
     /**
      * @param theArgs the command line arguments
@@ -99,18 +97,18 @@ public class ResinRun extends AbstractServerRun
      * Start the Resin server. We use reflection so that the Resin jars do not
      * need to be in the classpath to compile this class.
      */
-	protected void doStartServer()
+    protected void doStartServer()
     {
         try {
             Class resinClass =
                 Class.forName("com.caucho.server.http.ResinServer");
             Constructor constructor = resinClass.getConstructor(
-                new Class[] {this.args.getClass(), boolean.class});
+                new Class[]{this.args.getClass(), boolean.class});
             this.resinServer = constructor.newInstance(
-                new Object[] {this.args, new Boolean(true)});
+                new Object[]{this.args, new Boolean(true)});
             Method initMethod = resinClass.getMethod("init",
-                new Class[] {boolean.class});
-            initMethod.invoke(this.resinServer, new Object[] {new Boolean(true)});
+                new Class[]{boolean.class});
+            initMethod.invoke(this.resinServer, new Object[]{new Boolean(true)});
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException("Cannot create instance of ResinServer");
@@ -121,7 +119,7 @@ public class ResinRun extends AbstractServerRun
      * Stops the Resin server. We use reflection so that the Resin jars do not
      * need to be in the classpath to compile this class.
      */
-	protected void doStopServer()
+    protected void doStopServer()
     {
         try {
             Method closeMethod =

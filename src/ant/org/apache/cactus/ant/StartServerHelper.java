@@ -53,11 +53,15 @@
  */
 package org.apache.cactus.ant;
 
-import java.net.*;
-import java.io.*;
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 
-import org.apache.tools.ant.*;
-import org.apache.tools.ant.taskdefs.*;
+import org.apache.tools.ant.BuildException;
+import org.apache.tools.ant.Task;
+import org.apache.tools.ant.taskdefs.CallTarget;
 
 /**
  * A helper class for an Ant Task that does the following :
@@ -132,7 +136,7 @@ public class StartServerHelper implements Runnable
         try {
 
             HttpURLConnection connection =
-                (HttpURLConnection)this.testURL.openConnection();
+                (HttpURLConnection) this.testURL.openConnection();
             connection.connect();
             readFully(connection);
             connection.disconnect();
@@ -145,7 +149,7 @@ public class StartServerHelper implements Runnable
 
         } catch (IOException e) {
             // An error occurred. It just means the server is not running. Do
-            // nothing        
+            // nothing
         }
 
         // Call the target that starts the server, in another thread. The called
@@ -167,7 +171,7 @@ public class StartServerHelper implements Runnable
 
             try {
                 HttpURLConnection connection =
-                    (HttpURLConnection)this.testURL.openConnection();
+                    (HttpURLConnection) this.testURL.openConnection();
                 connection.connect();
                 readFully(connection);
                 connection.disconnect();
@@ -199,7 +203,8 @@ public class StartServerHelper implements Runnable
         BufferedInputStream is =
             new BufferedInputStream(connection.getInputStream());
         byte[] buffer = new byte[256];
-        while((is.read(buffer)) > 0) {}
+        while ((is.read(buffer)) > 0) {
+        }
         is.close();
     }
 
@@ -211,7 +216,7 @@ public class StartServerHelper implements Runnable
     {
         // Call the Ant target using the "antcall" task.
         CallTarget callee;
-        callee = (CallTarget)(this.task.getProject().createTask("antcall"));
+        callee = (CallTarget) (this.task.getProject().createTask("antcall"));
         callee.setOwningTarget(this.task.getOwningTarget());
         callee.setTaskName(this.task.getTaskName());
         callee.setLocation(this.task.getLocation());
