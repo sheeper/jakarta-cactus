@@ -182,6 +182,7 @@ public class CactusLaunchShortcut
             };
             try
             {
+                dialog.setCancelable(true);
                 dialog.run(true, true, runnable);
             }
             catch (InvocationTargetException e)
@@ -240,7 +241,7 @@ public class CactusLaunchShortcut
                 e.getMessage(),
                 null);
         }
-
+        thePM.done();
     }
 
     /**
@@ -263,6 +264,7 @@ public class CactusLaunchShortcut
                 e.getMessage(),
                 e.getStatus());
         }
+        //thePM.done();
     }
     /**
      * @see org.eclipse.jdt.internal.junit.runner.ITestRunListener#testRunStarted(int)
@@ -278,30 +280,33 @@ public class CactusLaunchShortcut
      */
     public void testRunEnded(long theElapsedTime)
     {
-        ProgressMonitorDialog dialog =
-            new ProgressMonitorDialog(getShell());
-        IRunnableWithProgress runnable = new IRunnableWithProgress()
-        {
-            public void run(IProgressMonitor thePM)
-                throws InterruptedException
-            {
-                teardownCactusTests(thePM);
-            }
-        };
-        try
-        {
-            dialog.run(true, true, runnable);
-        }
-        catch (InvocationTargetException e)
-        {
-            e.printStackTrace();
-            // TODO: handle exception
-        }
-        catch (InterruptedException e)
-        {
-            e.printStackTrace();
-            // TODO: handle exception (cancel button ?)
-        }
+        // For some reason it's impossible to get the active UI shell
+        // after the JUnit tests ended.
+        // The commented code below should be used when this problem
+        // has been addressed.
+        teardownCactusTests(null);
+//        ProgressMonitorDialog dialog =
+//            new ProgressMonitorDialog(getShell());
+//        try
+//        {
+//            IRunnableWithProgress runnable = new IRunnableWithProgress()
+//            {
+//                public void run(IProgressMonitor thePM)
+//                    throws InterruptedException
+//                {
+//                    teardownCactusTests(thePM);
+//                }
+//            };
+//            dialog.run(true, true, runnable);
+//        }
+//        catch (InvocationTargetException e)
+//        {
+//            // TODO: handle exception
+//        }
+//        catch (InterruptedException e)
+//        {
+//            // TODO: handle exception (cancel button ?)
+//        }
     }
 
     /**
