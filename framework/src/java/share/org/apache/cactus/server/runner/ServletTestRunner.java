@@ -123,6 +123,14 @@ public class ServletTestRunner extends HttpServlet
     private Object transformer = null;
 
     /**
+     * Indicates whether the servlet has sufficient permissions to set a
+     * system property, to be able to set the cactus.contentURL property. This
+     * is set to false if the first attempt to set the property throws a
+     * SecurityException.
+     */
+    private boolean canSetSystemProperty = true;
+
+    /**
      * Called by the container when the servlet is initialized.
      * 
      * @throws ServletException If an initialization parameter contains an
@@ -130,6 +138,8 @@ public class ServletTestRunner extends HttpServlet
      */
     public void init() throws ServletException
     {
+        // Check whether XSLT transformations should be done server-side and
+        // build the templates if an XSLT processor is available
         String xslStylesheetParam = getInitParameter(XSL_STYLESHEET_PARAM);
         if (xslStylesheetParam != null)
         {
@@ -181,18 +191,32 @@ public class ServletTestRunner extends HttpServlet
         // Verify if a suite parameter exists
         String suiteClassName = theRequest.getParameter(HTTP_SUITE_PARAM);
 
+        // Set up default Cactus System properties so that there is no need
+        // to have a cactus.properties file in WEB-INF/classes
+        if (canSetSystemProperty)
+        {
+            try
+            {
+                System.setProperty(
+                    BaseConfiguration.CACTUS_CONTEXT_URL_PROPERTY, 
+                    "http://" + theRequest.getServerName() + ":"
+                    + theRequest.getServerPort()
+                    + theRequest.getContextPath());
+            }
+            catch (SecurityException se)
+            {
+                log("Could not set the Cactus context URL as system property, "
+                    + "you will have to include a Cactus properties file in "
+                    + "the class path of the web application", se);
+                canSetSystemProperty = false;
+            }
+        }
+
         if (suiteClassName == null)
         {
             throw new ServletException("Missing HTTP parameter ["
                 + HTTP_SUITE_PARAM + "] in request");
         }
-
-        // Set up default Cactus System properties so that there is no need
-        // to have a cactus.properties file in WEB-INF/classes
-        System.setProperty(BaseConfiguration.CACTUS_CONTEXT_URL_PROPERTY, 
-            "http://" + theRequest.getServerName() + ":"
-            + theRequest.getServerPort()
-            + theRequest.getContextPath());
 
         // Get the XSL stylesheet parameter if any
         String xslParam = theRequest.getParameter(HTTP_XSL_PARAM);
