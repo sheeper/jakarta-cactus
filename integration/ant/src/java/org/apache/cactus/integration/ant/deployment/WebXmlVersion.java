@@ -66,7 +66,7 @@ import org.w3c.dom.DocumentType;
  * @since Cactus 1.5
  * @version $Id$
  */
-public class WebXmlVersion implements Comparable
+public final class WebXmlVersion implements Comparable
 {
 
     // Public Constants --------------------------------------------------------

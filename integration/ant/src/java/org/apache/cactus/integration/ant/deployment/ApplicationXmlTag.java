@@ -65,7 +65,7 @@ package org.apache.cactus.integration.ant.deployment;
  * @since Cactus 1.5
  * @version $Id$
  */
-public class ApplicationXmlTag
+public final class ApplicationXmlTag
 {
     
     // Public Constants --------------------------------------------------------
