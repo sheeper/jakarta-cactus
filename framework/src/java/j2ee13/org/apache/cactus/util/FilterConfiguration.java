@@ -101,7 +101,7 @@ public class FilterConfiguration extends Configuration
 
         if (filterRedirectorName == null)
         {
-            filterRedirectorName = "ServletRedirector";
+            filterRedirectorName = "FilterRedirector";
         }
 
         return filterRedirectorName;
