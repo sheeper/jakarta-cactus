@@ -8,6 +8,9 @@
   <body>
 
     <release version="1.7dev" date="in CVS">
+      <action dev="vmassol" type="update" issue="CACTUS-135" due-to="Felipe Leme">
+        The Cactus HTML report now displays the stac trace in case of failure.
+      </action>
       <action dev="vmassol" type="fix" issue="CACTUS-64">
         The plugin now correctly uses the <code>maven.war.build.dir</code>,
         <code>maven.war.final.name</code>, <code>maven.ejb.build.dir</code>
