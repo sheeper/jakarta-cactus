@@ -63,7 +63,7 @@ import java.lang.reflect.Constructor;
 
 import javax.servlet.ServletException;
 
-import org.apache.cactus.AbstractServerTestCase;
+import org.apache.cactus.AbstractWebServerTestCase;
 import org.apache.cactus.HttpServiceDefinition;
 import org.apache.cactus.ServiceEnumeration;
 import org.apache.cactus.WebTestResult;
@@ -119,7 +119,7 @@ public abstract class AbstractWebTestCaller
      *            objects
      */
     protected abstract void setTestCaseFields(
-        AbstractServerTestCase theTestCase) throws Exception;
+        AbstractWebServerTestCase theTestCase) throws Exception;
 
     /**
      * @return a <code>Writer</code> object that will be used to return the
@@ -142,7 +142,7 @@ public abstract class AbstractWebTestCaller
         try
         {
             // Create an instance of the test class
-            AbstractServerTestCase testInstance = getTestClassInstance(
+            AbstractWebServerTestCase testInstance = getTestClassInstance(
                 getTestClassName(), getTestMethodName());
 
             // Set its fields (implicit objects)
@@ -337,19 +337,19 @@ public abstract class AbstractWebTestCaller
      *            test fails to be instanciated (for example if some
      *            information is missing from the HTTP request)
      */
-    protected AbstractServerTestCase getTestClassInstance(String theClassName, 
+    protected AbstractWebServerTestCase getTestClassInstance(String theClassName, 
         String theTestCaseName) throws ServletException
     {
         // Get the class to call and build an instance of it.
         Class testClass = getTestClassClass(theClassName);
-        AbstractServerTestCase testInstance = null;
+        AbstractWebServerTestCase testInstance = null;
 
         try
         {
             Constructor constructor = testClass.getConstructor(
                 new Class[] {String.class});
 
-            testInstance = (AbstractServerTestCase) constructor.newInstance(
+            testInstance = (AbstractWebServerTestCase) constructor.newInstance(
                 new Object[] {theTestCaseName});
         }
         catch (Exception e)

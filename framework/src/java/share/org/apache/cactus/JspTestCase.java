@@ -102,7 +102,7 @@ public class JspTestCase extends ServletTestCase
     }
 
     /**
-     * @see AbstractTestCase#createConfiguration()
+     * @see AbstractClientTestCase#createConfiguration()
      */
     protected Configuration createConfiguration()
     {

@@ -72,7 +72,7 @@ import org.apache.cactus.util.FilterConfiguration;
  *
  * @version $Id$
  */
-public class FilterTestCase extends AbstractWebTestCase
+public class FilterTestCase extends AbstractWebServerTestCase
 {
     /**
      * Valid <code>HttpServletRequest</code> object that you can access from
@@ -121,7 +121,7 @@ public class FilterTestCase extends AbstractWebTestCase
     }
 
     /**
-     * @see AbstractTestCase#createConfiguration()
+     * @see AbstractClientTestCase#createConfiguration()
      */
     protected Configuration createConfiguration()
     {

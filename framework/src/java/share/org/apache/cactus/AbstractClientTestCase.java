@@ -86,7 +86,7 @@ import org.apache.commons.logging.LogFactory;
  *
  * @version $Id$
  */
-public abstract class AbstractTestCase extends TestCase
+public abstract class AbstractClientTestCase extends TestCase
 {
     /**
      * The prefix of a test method.
@@ -145,7 +145,7 @@ public abstract class AbstractTestCase extends TestCase
      *
      * @param theName the name of the test case
      */
-    public AbstractTestCase(String theName)
+    public AbstractClientTestCase(String theName)
     {
         super(theName);
         this.setCurrentTestMethod(JUnitVersionHelper.getTestCaseName(this));

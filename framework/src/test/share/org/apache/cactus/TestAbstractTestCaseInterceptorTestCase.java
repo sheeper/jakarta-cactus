@@ -78,7 +78,7 @@ import org.apache.cactus.util.WebConfiguration;
  * @version $Id$
  */
 public class TestAbstractTestCaseInterceptorTestCase
-    extends AbstractWebTestCase
+    extends AbstractWebServerTestCase
 {
     /**
      * Constructs a test case with the given name.

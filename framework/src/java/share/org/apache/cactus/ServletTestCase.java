@@ -72,7 +72,7 @@ import org.apache.cactus.util.ServletConfiguration;
  *
  * @version $Id$
  */
-public class ServletTestCase extends AbstractWebTestCase
+public class ServletTestCase extends AbstractWebServerTestCase
 {
     /**
      * Valid <code>HttpServletRequest</code> object that you can access from
@@ -121,7 +121,7 @@ public class ServletTestCase extends AbstractWebTestCase
     }
 
     /**
-     * @see AbstractTestCase#createConfiguration()
+     * @see AbstractClientTestCase#createConfiguration()
      */
     protected Configuration createConfiguration()
     {

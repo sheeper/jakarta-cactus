@@ -59,42 +59,32 @@ package org.apache.cactus;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.net.HttpURLConnection;
 
+import org.apache.cactus.client.DefaultHttpClient;
+import org.apache.cactus.util.WebConfiguration;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * Abstract test case class that extends {@link AbstractTestCase} by
- * adding generic code to run the tests on the server side.
- *
- * This class is independent of the protocol used to communicate from the
- * Cactus client side and the Cactus server side; it can be HTTP, JMS, etc.
- * Subclasses will define additional behaviour that depends on the protocol.
+ * Abstract Test Case for Web Test Cases that extends 
+ * {@link AbstractWebClientTestCase} to add support for running tests
+ * on the server side.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
  */
-public abstract class AbstractServerTestCase extends AbstractTestCase
+public abstract class AbstractWebServerTestCase extends AbstractWebClientTestCase
 {
     /**
      * Constructs a JUnit test case with the given name.
      *
      * @param theName the name of the test case
      */
-    public AbstractServerTestCase(String theName)
+    public AbstractWebServerTestCase(String theName)
     {
         super(theName);
     }
-
-    /**
-     * Runs a test case. This method is overriden from the JUnit
-     * <code>TestCase</code> class in order to perform different
-     * use cases such as seamlessly calling the Cactus Redirector, etc.
-     *
-     * @exception Throwable any error that occurred when calling the test method
-     *            for the current test case.
-     */
-    protected abstract void runTest() throws Throwable;
 
     /**
      * Run the test that was specified in the constructor on the server side,
@@ -172,6 +162,96 @@ public abstract class AbstractServerTestCase extends AbstractTestCase
             e.fillInStackTrace();
             throw e;
         }
+    }
+
+    /**
+     * Execute the test case begin method, then connect to the server proxy
+     * redirector (where the test case test method is executed) and then
+     * executes the test case end method.
+     *
+     * @param theHttpClient the HTTP client class to use to connect to the
+     *        proxy redirector.
+     * @exception Throwable any error that occurred when calling the test method
+     *            for the current test case.
+     */
+    protected void runGenericTest(DefaultHttpClient theHttpClient)
+        throws Throwable
+    {
+        WebRequest request = new WebRequest(
+            (WebConfiguration) getConfiguration());
+
+        // Call the set up and begin methods to fill the request object
+        callClientGlobalBegin(request);
+        callBeginMethod(request);
+
+        // Run the web test
+        HttpURLConnection connection = runWebTest(request, theHttpClient);
+
+        // Call the end method
+        Object response = callEndMethod(request, connection);
+
+        // call the tear down method
+        callClientGlobalEnd(request, connection, response);
+
+        // Close the input stream (just in the case the user has not done it
+        // in it's endXXX method (or if he has no endXXX method) ....
+        connection.getInputStream().close();
+    }
+
+    /**
+     * Run the web test by connecting to the server proxy
+     * redirector (where the test case test method is executed).
+     *
+     * @param theRequest the request object which will contain data that will
+     *        be used to connect to the Cactus server side redirectors.
+     * @param theHttpClient the HTTP client class to use to connect to the
+     *        proxy redirector.
+     * @return the HTTP connection object that was used to call the server side
+     * @exception Throwable any error that occurred when calling the test method
+     *            for the current test case.
+     */
+    private HttpURLConnection runWebTest(WebRequest theRequest, 
+        DefaultHttpClient theHttpClient) throws Throwable
+    {
+        // Add the class name, the method name, the URL to simulate and
+        // automatic session creation flag to the request
+        // Note: All these pareameters are passed in the URL. This is to allow
+        // the user to send whatever he wants in the request body. For example
+        // a file, ...
+        theRequest.addParameter(HttpServiceDefinition.CLASS_NAME_PARAM, 
+            this.getClass().getName(), WebRequest.GET_METHOD);
+        theRequest.addParameter(HttpServiceDefinition.METHOD_NAME_PARAM, 
+            this.getCurrentTestMethod(), WebRequest.GET_METHOD);
+        theRequest.addParameter(HttpServiceDefinition.AUTOSESSION_NAME_PARAM, 
+            theRequest.getAutomaticSession() ? "true" : "false", 
+            WebRequest.GET_METHOD);
+
+        // Add the simulated URL (if one has been defined)
+        if (theRequest.getURL() != null)
+        {
+            theRequest.getURL().saveToRequest(theRequest);
+        }
+
+        // Open the HTTP connection to the servlet redirector
+        // and manage errors that could be returned in the
+        // HTTP response.
+        HttpURLConnection connection = theHttpClient.doTest(theRequest);
+
+        return connection;
+    }
+
+    /**
+     * Runs a test case. This method is overriden from the JUnit
+     * <code>TestCase</code> class in order to seamlessly call the
+     * Cactus redirection servlet.
+     *
+     * @exception Throwable if any error happens during the execution of
+     *            the test
+     */
+    protected void runTest() throws Throwable
+    {
+        runGenericTest(new DefaultHttpClient(
+            (WebConfiguration) getConfiguration()));        
     }
 
 }

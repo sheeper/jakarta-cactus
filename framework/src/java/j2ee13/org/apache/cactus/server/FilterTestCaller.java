@@ -63,7 +63,7 @@ import java.lang.reflect.Field;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.cactus.AbstractServerTestCase;
+import org.apache.cactus.AbstractWebServerTestCase;
 import org.apache.cactus.FilterTestCase;
 import org.apache.cactus.ServletURL;
 
@@ -86,10 +86,10 @@ public class FilterTestCaller extends AbstractWebTestCaller
     }
 
     /**
-     * @see AbstractWebTestCaller#setTestCaseFields(AbstractServerTestCase)
+     * @see AbstractWebTestCaller#setTestCaseFields(AbstractWebServerTestCase)
      */
-    protected void setTestCaseFields(AbstractServerTestCase theTestInstance)
-                              throws Exception
+    protected void setTestCaseFields(AbstractWebServerTestCase theTestInstance)
+        throws Exception
     {
         FilterTestCase filterInstance = (FilterTestCase) theTestInstance;
         FilterImplicitObjects filterImplicitObjects = 
