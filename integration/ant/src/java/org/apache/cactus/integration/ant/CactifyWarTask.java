@@ -603,6 +603,53 @@ public class CactifyWarTask extends War
     }
 
     /**
+     * Adds the definitions corresponding to the nested redirector elements to
+     * the provided deployment descriptor. 
+     * 
+     * @param theWebXml The deployment descriptor
+     */
+    private void addRedirectorDefinitions(WebXml theWebXml)
+    {
+        boolean filterRedirectorDefined = false;
+        boolean jspRedirectorDefined = false;
+        boolean servletRedirectorDefined = false;
+        
+        // add the user defined redirectors
+        for (Iterator i = this.redirectors.iterator(); i.hasNext();)
+        {
+            Redirector redirector = (Redirector) i.next();
+            if (redirector instanceof FilterRedirector)
+            {
+                filterRedirectorDefined = true;
+            }
+            else if (redirector instanceof JspRedirector)
+            {
+                jspRedirectorDefined = true;
+            }
+            else if (redirector instanceof ServletRedirector)
+            {
+                servletRedirectorDefined = true;
+            }
+            redirector.mergeInto(theWebXml);
+        }
+
+        // now add the default redirectors if they haven't been provided by
+        // the user
+        if (!filterRedirectorDefined)
+        {
+            new FilterRedirector().mergeInto(theWebXml);
+        }
+        if (!servletRedirectorDefined)
+        {
+            new ServletRedirector().mergeInto(theWebXml);
+        }
+        if (!jspRedirectorDefined)
+        {
+            new JspRedirector().mergeInto(theWebXml);
+        }
+    }
+
+    /**
      * Enhances the provided web deployment descriptor with the definitions 
      * required for testing with Cactus.
      * 
@@ -611,11 +658,7 @@ public class CactifyWarTask extends War
      */
     private File cactifyWebXml(WebXml theWebXml)
     {
-        // Add the redirectors the the web application
-        WebXml redirectorsWebXml = getPrototypeWebXml(theWebXml);
-        WebXmlMerger merger = new WebXmlMerger(theWebXml);
-        merger.setLog(new AntLog(this));
-        merger.merge(redirectorsWebXml);
+        addRedirectorDefinitions(theWebXml);
         addJspRedirector();
         
         // If the user has specified a deployment descriptor to merge into the
@@ -626,6 +669,8 @@ public class CactifyWarTask extends War
             {
                 WebXml parsedMergeWebXml = WebXmlIo.parseWebXmlFromFile(
                     this.mergeWebXml, this.xmlCatalog);
+                WebXmlMerger merger = new WebXmlMerger(theWebXml);
+                merger.setLog(new AntLog(this));
                 merger = new WebXmlMerger(theWebXml);
                 merger.setLog(new AntLog(this));
                 merger.merge(parsedMergeWebXml);
@@ -698,67 +743,6 @@ public class CactifyWarTask extends War
         catch (ParserConfigurationException e)
         {
             throw new BuildException("XML parser configuration error", e);
-        }
-    }
-
-    /**
-     * Returns a prototype deployment descriptor containing definitions
-     * corresponding to the nested redirector elements. 
-     * 
-     * @param theWebXml The original deployment descriptor
-     * @return The descriptor with the redirector definitions
-     * @throws BuildException If an error ocurrs with JAXP initialization
-     */
-    private WebXml getPrototypeWebXml(WebXml theWebXml) throws BuildException
-    {
-        try
-        {
-            WebXml webXml = WebXmlIo.newWebXml(theWebXml.getVersion());
-
-            boolean filterRedirectorDefined = false;
-            boolean jspRedirectorDefined = false;
-            boolean servletRedirectorDefined = false;
-            
-            // add the user defined redirectors
-            for (Iterator i = this.redirectors.iterator(); i.hasNext();)
-            {
-                Redirector redirector = (Redirector) i.next();
-                if (redirector instanceof FilterRedirector)
-                {
-                    filterRedirectorDefined = true;
-                }
-                else if (redirector instanceof JspRedirector)
-                {
-                    jspRedirectorDefined = true;
-                }
-                else if (redirector instanceof ServletRedirector)
-                {
-                    servletRedirectorDefined = true;
-                }
-                redirector.mergeInto(webXml);
-            }
-
-            // now add the default redirectors if they haven't been provided by
-            // the user
-            if (!filterRedirectorDefined)
-            {
-                new FilterRedirector().mergeInto(webXml);
-            }
-            if (!servletRedirectorDefined)
-            {
-                new ServletRedirector().mergeInto(webXml);
-            }
-            if (!jspRedirectorDefined)
-            {
-                new JspRedirector().mergeInto(webXml);
-            }
-
-            return webXml;
-        }
-        catch (ParserConfigurationException e)
-        {
-            throw new BuildException(
-                "Could not parse deployment descriptor", e);
         }
     }
 
