@@ -494,7 +494,7 @@ public class Cookie implements Serializable
             }
         }
 
-        LOGGER.debug("Cookie validation pah = [" + path + "]");
+        LOGGER.debug("Cookie validation path = [" + path + "]");
 
         return path;
     }
