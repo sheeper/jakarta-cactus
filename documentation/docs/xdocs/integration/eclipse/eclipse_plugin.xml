@@ -10,216 +10,39 @@
   </properties>
 
   <body>
-    <section title="Requirements">
-      <p>
-        The Cactus plugin requires a version of the Eclipse platform later
-        than 2.1 RC2.
-      </p>
-    </section>
-    <section title="Installation">
-      <p>
-        Uncompress the zip file and copy the
-        'org.apache.cactus.integration.eclipse_[version]' folder to your
-        Eclipse 'plugins' folder and restart Eclipse.
-      </p>
-    </section>
-    <section title="Configuration">
-      <p>Go to Window -> Preferences -> Cactus and set your preferences.</p>
-    </section>
-    <section title="How to use the plug-in">
-      <p>
-        While the Cactify action is not implemented you must do the
-        following :
-        <ul>
-          <li>
-            add Cactus client and common libraries to your Java project
-          </li>
-          <li>
-            your Java project must have the following directory structure :
-            [project's root]/web/WEB-INF/lib (create these as 'folders')
-          </li>
-        </ul>
-        Select any Cactus test class file and select from the toolbar :
-        Run As -> Cactus Test
-        <figure src="images/eclipse/launchShortcut.png"
-          alt="Cactus launch shortcut"/>
-      </p>
-    </section>
-
     <section title="Overview">
       <p>
-        The Cactus framework extends JUnit. In the same way the Cactus plugin
-        for Eclipse extends in a certain manner the existing JUnit plugin. For
-        example
-        <code>JUnitLaunchShortcut</code>
-        is overloaded to be able to:
+        The
+        <link href="site:eclipse">Eclipse</link>
+        plug-in for Cactus is a runner for server-side unit tests. It is
+        intended to hide the complexity of setting up an environment for
+        running Cactus tests. It supports a variety of commercial and
+        open-source application servers (better called containers).
       </p>
-      <ul>
-        <li>
-          prepare tests: set up the container (deployment) and start it
-          up
-        </li>
-        <li>execute tests using the JUnit plugin</li>
-        <li>
-          tear down tests: stop the container and clean the deployment.
-        </li>
-      </ul>
-      <p>
-        The plugin uses Ant scripts from the Ant integration subproject for
-        container management.
-      </p>
-
+      <li>
+        <jump anchor="features">Features</jump>
+      </li>
+      <li>
+        <jump anchor="installation">Installation</jump>
+      </li>
+      <li>
+        <jump anchor="using">Using</jump>
+      </li>
+      <li>
+        <jump anchor="next">What's next</jump>
+      </li>
+      <li>
+        <jump anchor="developer">Developer's corner</jump>
+      </li>
     </section>
-    <section title="How it works">
 
-      <section title="Extension points">
-        <ul>
-          <li>
-            <em>
-              org.eclipse.debug.core.launchConfigurationTypes
-            </em>
-            registers cactusLaunchConfiguration
-          </li>
-          <li>
-            <em>org.eclipse.debug.ui.launchShortcuts</em>
-            registers a shortcut which appears in the run and debug
-            cascade menus to launch the current workbench selection in the Java
-            perspective
-          </li>
-          <li>
-            <em>org.eclipse.ui.preferencePages</em>
-            adds the Cactus preference page to the preferences.
-          </li>
-        </ul>
-      </section>
-      <section title="GUI: preference page">
-        <p>
-          A preference page is contributed to the Eclipse preferences. It shows
-          the following entries:
-        </p>
-        <ul>
-          <li>Cactus properties (contextURL)</li>
-          <li>
-            directory of all the jars needed for Cactus tests (client
-            side and server side)
-          </li>
-          <li>setting of the container homes</li>
-        </ul>
-      </section>
-
-      <section title="IContainerProvider">
-        <p>
-          To enable different ways to setup, start, and stop containers the
-          idea of container providers has been introduced in the plugin.
-        </p>
-        <p>
-          A container provider is responsible for deploying a web application
-          to the container, starting and stopping it, and undeploying the web
-          app. This concept is concretized in the interface
-          <code>IContainerProvider</code>
-          . See its javadoc for more information.
-        </p>
-        <p>
-          A container provider is implemented in the current version of the
-          plugin, which uses Ant scripts to carry out these actions. It is
-          called
-          <code>GenericAntProvider</code>
-          and may be used to execute tests on all the containers supported by
-          the Ant integration subproject.
-        </p>
-      </section>
-      <section title="What happens when a test is launched">
-        <p>
-          The
-          <code>launch(IType theType, String theMode)</code>
-          method of the
-          <code>CactusLaunchShortcut</code>
-          class is called, which sets up the container, launches the tests
-          by delegating these to the JUnit plugin, and then tears down the
-          container setup.
-        </p>
-        <ul>
-          <li>
-            Tests preparation
-            <p>This includes:</p>
-            <ul>
-              <li>
-                creating the war file for the cactus tests: this is done
-                by the
-                <code>
-                  WarBuilder
-                </code>
-                class, and relies on an Ant script for that.
-              </li>
-              <li>
-                setting up the container: prepares the configuration for
-                the selected container
-              </li>
-              <li>starting the container.</li>
-            </ul>
-            <p>
-              In the case of
-              <code>GenericAntProvider</code>
-              :
-            </p>
-            <ul>
-              <li>
-                setting up is done by an Ant script
-              </li>
-              <li>
-                starting the container is delegated to the
-                <code>
-                  StartServerHelper
-                </code>
-                class, which initiates a thread starting the container and
-                then pings it constantly to see if it has effectively been
-                launched.
-              </li>
-            </ul>
-          </li>
-          <li>
-            Tests launch
-            <p>
-              This behaviour is inherited from the JUnit plugin since
-              <code>CactusLaunchShortcut</code>
-              extends
-              <code>JUnitLaunchShortcut</code>
-              .
-            </p>
-          </li>
-          <li>
-            Tests end
-            <p>
-              To know when tests have ended we register our TestListener to
-              the JUnit plugin. To this end the JUnit plugin needed a
-              modification which has been integrated in the release 2.1 M5 of
-              the Eclipse platform.
-            </p>
-          </li>
-
-          <li>
-            Test environment cleaning
-            <p>
-              After the tests have completed we stop the container, and
-              delete the configuration and war files created beforehand.
-            </p>
-          </li>
-        </ul>
-      </section>
-    </section>
-    <section title="What has been done so far">
-      <p>
-        The plug-in currently incorporates the basic functionalities to be
-        able to run Cactus tests on the variety of containers supported by the
-        Ant integration subproject.
-      </p>
-    </section>
+    <anchor id="features" />
     <section title="Features">
       <ul>
         <li>
           Adds a shortcut for Cactus tests launching.
           <figure src="images/eclipse/launchShortcut.png"
-            alt="Cactus launch shortcut"/>
+            alt="Cactus launch shortcut" />
         </li>
       </ul>
       <ul>
@@ -243,7 +66,7 @@
         <p>
           Cactus preference page
           <figure src="images/eclipse/preferences.png"
-            alt="Cactus preference page"/>
+            alt="Cactus preference page" />
         </p>
         <li>Port on which the container is started.</li>
         <li>
@@ -252,7 +75,7 @@
         </li>
         <li>Support for several containers</li>
         <figure src="images/eclipse/preferences_containers.png"
-          alt="Preferences for containers"/>
+          alt="Preferences for containers" />
       </ul>
       <ul>
         <li>
@@ -264,32 +87,249 @@
         <li>
           Relies on the JUnit plug-in for test runs and result reports.
           <figure src="images/eclipse/junit.png"
-            alt="JUnit plug-in"/>
+            alt="JUnit plug-in" />
         </li>
       </ul>
     </section>
 
-    <section title="What is next">
+    <anchor id="installation"/>
+    <section title="Installation">
+      <section title="Requirements">
+        <p>
+          The Cactus plugin requires a version of the Eclipse platform later
+          than 2.1 RC2.
+        </p>
+      </section>
+      <section title="Installation">
+        <p>
+          Uncompress the zip file and copy the
+          'org.apache.cactus.integration.eclipse_[version]' folder to your
+          Eclipse 'plugins' folder and restart Eclipse.
+        </p>
+      </section>
+      <section title="Configuration">
+        <p>
+          Go to Window -> Preferences -> Cactus and set your preferences.
+        </p>
+      </section>
+
+    </section>
+    
+    <anchor id="using" />
+    <section title="Using">
       <p>
-        In order to release a production-quality tool the following features
-        are needed :
+        While the Cactify action is not implemented you have to do the
+        following :
+        <ul>
+          <li>
+            add Cactus client and common libraries to your Java project
+          </li>
+          <li>
+            your Java project must have the following directory structure :
+            [project's root]/web/WEB-INF/lib (create these as 'folders')
+          </li>
+        </ul>
+        Select any Cactus test class file and select from the toolbar :
+        Run As -> Cactus Test
+        <figure src="images/eclipse/launchShortcut.png"
+          alt="Cactus launch shortcut" />
       </p>
-      <ul>
-        <li>
-          Ability to Cactify a Java project :
+    </section>
+
+    <anchor id="next" />
+    <section title="What's next">
+      <p>
+        In order to release a production-quality tool some features remain to
+        be done.
+      </p>
+      <p>
+        See the todo section on the Cactus framework page for a list of
+        remaining features
+      </p>
+    </section>
+
+    <anchor id="developer" />
+    <section title="Developer's corner">
+      <section title="Overview of the plug-in">
+        <p>
+          The Cactus framework extends JUnit. In the same way the Cactus
+          plugin for Eclipse extends in a certain manner the existing JUnit
+          plugin. For example
+          <code>JUnitLaunchShortcut</code>
+          is overloaded to be able to:
+        </p>
+        <ul>
+          <li>
+            prepare tests: set up the container (deployment) and start it
+            up
+          </li>
+          <li>execute tests using the JUnit plugin</li>
+          <li>
+            tear down tests: stop the container and clean the deployment.
+          </li>
+        </ul>
+        <p>
+          The plugin uses Ant scripts from the Ant integration subproject for
+          container management.
+        </p>
+
+      </section>
+      <section title="How it works">
+
+        <section title="Extension points">
           <ul>
             <li>
-              add the client-side jars to the project's build path
+              <em>
+                org.eclipse.debug.core.launchConfigurationTypes
+              </em>
+              registers cactusLaunchConfiguration
             </li>
             <li>
-              create a web application folder structure
+              <em>
+                org.eclipse.debug.ui.launchShortcuts
+              </em>
+              registers a shortcut which appears in the run and debug
+              cascade menus to launch the current workbench selection in the
+              Java perspective
+            </li>
+            <li>
+              <em>
+                org.eclipse.ui.preferencePages
+              </em>
+              adds the Cactus preference page to the preferences.
             </li>
           </ul>
-        </li>
-        <li>Automate tests on the plugin</li>
-        <li>Ability to leave the container running between redeployments</li>
-        <li>Add a log console a la Ant</li>
-      </ul>
+        </section>
+        <section title="GUI: preference page">
+          <p>
+            A preference page is contributed to the Eclipse preferences. It
+            shows the following entries:
+          </p>
+          <ul>
+            <li>Cactus properties (contextURL)</li>
+            <li>
+              directory of all the jars needed for Cactus tests (client
+              side and server side)
+            </li>
+            <li>setting of the container homes</li>
+          </ul>
+        </section>
+
+        <section title="IContainerProvider">
+          <p>
+            To enable different ways to setup, start, and stop containers the
+            idea of container providers has been introduced in the plugin.
+          </p>
+          <p>
+            A container provider is responsible for deploying a web application
+            to the container, starting and stopping it, and undeploying the web
+            app. This concept is concretized in the interface
+            <code>IContainerProvider</code>
+            . See its javadoc for more information.
+          </p>
+          <p>
+            A container provider is implemented in the current version of the
+            plugin, which uses Ant scripts to carry out these actions. It is
+            called
+            <code>GenericAntProvider</code>
+            and may be used to execute tests on all the containers supported
+            by the Ant integration subproject.
+          </p>
+        </section>
+        <section title="What happens when a test is launched">
+          <p>
+            The
+            <code>launch(IType theType, String theMode)</code>
+            method of the
+            <code>CactusLaunchShortcut</code>
+            class is called, which sets up the container, launches the
+            tests by delegating these to the JUnit plugin, and then tears down
+            the container setup.
+          </p>
+          <ul>
+            <li>
+              Tests preparation
+              <p>This includes:</p>
+              <ul>
+                <li>
+                  creating the war file for the cactus tests: this is
+                  done by the
+                  <code>
+                    WarBuilder
+                  </code>
+                  class, and relies on an Ant script for that.
+                </li>
+                <li>
+                  setting up the container: prepares the configuration
+                  for the selected container
+                </li>
+                <li>
+                  starting the container.
+                </li>
+              </ul>
+              <p>
+                In the case of
+                <code>
+                  GenericAntProvider
+                </code>
+                :
+              </p>
+              <ul>
+                <li>
+                  setting up is done by an Ant script
+                </li>
+                <li>
+                  starting the container is delegated to the
+                  <code>
+                    StartServerHelper
+                  </code>
+                  class, which initiates a thread starting the container
+                  and then pings it constantly to see if it has effectively
+                  been launched.
+                </li>
+              </ul>
+            </li>
+            <li>
+              Tests launch
+              <p>
+                This behaviour is inherited from the JUnit plugin since
+                <code>
+                  CactusLaunchShortcut
+                </code>
+                extends
+                <code>
+                  JUnitLaunchShortcut
+                </code>
+                .
+              </p>
+            </li>
+            <li>
+              Tests end
+              <p>
+                To know when tests have ended we register our TestListener to
+                the JUnit plugin. To this end the JUnit plugin needed a
+                modification which has been integrated in the release 2.1 M5 of
+                the Eclipse platform.
+              </p>
+            </li>
+
+            <li>
+              Test environment cleaning
+              <p>
+                After the tests have completed we stop the container, and
+                delete the configuration and war files created beforehand.
+              </p>
+            </li>
+          </ul>
+        </section>
+      </section>
+      <section title="Contributing">
+        <p>
+          Read the DEV-README.txt file for indications on how to set up your
+          Eclipse environment.
+        </p>
+      </section>
     </section>
+
   </body>
 </document>
