@@ -134,8 +134,8 @@ public class TestServletTestCase1
      * This is to verify that non serializable exceptions raised on the
      * server side are properly propagated on the client side.
      *
-     * @exception TestServletTestCase1_ExceptionNotSerializable the non
-     *            serializable exception to thow
+     * @exception TestServletTestCase1ExceptionNotSerializable the non
+     * serializable exception to thow
      */
     public void testExceptionNotSerializable()
         throws TestServletTestCase1ExceptionNotSerializable
@@ -153,8 +153,8 @@ public class TestServletTestCase1
      * This is to verify that serializable exceptions raised on the
      * server side are properly propagated on the client side.
      *
-     * @exception TestServletTestCase1_ExceptionSerializable the
-     *            serializable exception to throw
+     * @exception TestServletTestCase1ExceptionSerializable the
+     * serializable exception to throw
      */
     public void testExceptionSerializable()
         throws TestServletTestCase1ExceptionSerializable
