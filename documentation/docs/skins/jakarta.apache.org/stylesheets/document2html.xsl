@@ -542,8 +542,15 @@
   <xsl:template match="img">
     <img alt="{@alt}" border="0" vspace="0" hspace="0">
       <xsl:attribute name="src">
-        <xsl:call-template name="get-base-directory"/>
-        <xsl:value-of select="@src"/>
+        <xsl:choose>
+          <xsl:when test="starts-with(@src,'http:')">
+            <xsl:value-of select="@src"/>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:call-template name="get-base-directory"/>
+            <xsl:value-of select="@src"/>
+          </xsl:otherwise>
+        </xsl:choose>
       </xsl:attribute>
     </img>
   </xsl:template>

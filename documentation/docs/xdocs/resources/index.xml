@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+
+<document id="resources">
+
+  <properties>
+    <title>Resources</title>
+    <authors>
+      <author name="Vincent Massol" email="vmassol@apache.org"/>
+    </authors>
+  </properties>
+
+  <body>
+
+    <section title="Resources">
+
+      <p>
+        This section presents resources related to Cactus:
+      </p>
+      <ul>
+        <li>
+          <a href="site:resources_cactus">Cactus links</a>,
+        </li>
+        <li>
+          <a href="site:resources_books">Cactus books</a>,
+        </li>
+        <li>
+          <a href="site:resources_testing">Testing links</a>
+        </li>
+      </ul>
+
+    </section>
+
+  </body>
+</document>

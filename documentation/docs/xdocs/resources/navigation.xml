@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE navigation
+  PUBLIC "-//Apache Software Foundation//DTD Cactus Navigation V1.0//EN"
+  "file:../../dtds/navigation-v10.dtd">
+
+<navigation title="Resources" index="resources">
+
+  <menu label="Main Page" id="index"/>
+
+  <menu label="Resources">
+    <item id="resources_cactus" label="Cactus Links"/>
+    <item id="resources_books" label="Cactus Books"/>
+    <item id="resources_testing" label="Testing links"/>
+  </menu>
+
+</navigation>

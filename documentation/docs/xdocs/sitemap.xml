@@ -287,9 +287,21 @@
   <resource id="logos_img_vgritsenko" target="images/logos/vgritsenko.jpg"/>
   <resource id="logos_img_vgritsenko2" target="images/logos/vgritsenko2.jpg"/>
   
-  <resource id="resources" target="resources.html"
-      name="External Resources">
-    Links to external resources about Cactus as well as testing in general.
+  <resource id="resources" target="resources/index.html"
+      name="Resources">
+    Links to Cactus related resources.
+  </resource>
+  <resource id="resources_cactus" target="resources/resources_cactus.html"
+      name="Cactus links">
+    Links about Cactus.
+  </resource>
+  <resource id="resources_books" target="resources/resources_books.html"
+      name="Cactus books">
+    Books covering Cactus.
+  </resource>
+  <resource id="resources_testing" target="resources/resources_testing.html"
+      name="Testing links">
+    Links about testing and unit testing in general.
   </resource>
   
   <resource id="coverage" target="participating/coverage.html"

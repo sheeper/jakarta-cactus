@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+
+<document id="resources_cactus">
+
+  <properties>
+    <title>Cactus books</title>
+    <authors>
+      <author name="Vincent Massol" email="vmassol@apache.org"/>
+    </authors>
+  </properties>
+
+  <body>
+
+    <section title="Books covering Cactus">
+
+      <note>
+        Recent entries comes first in the table.
+      </note>
+      
+      <table>
+        <tr>
+          <th>Cover</th>
+          <th>Title</th>
+        </tr>
+
+        <tr>
+          <td>
+            <img src="http://images.amazon.com/images/P/1930110995.01._PE30_PI_SCMZZZZZZZ_.jpg"/>
+          </td>
+          <td>
+            <a href="http://www.amazon.com/exec/obidos/ASIN/1930110995/qid%3D1058045160/sr%3D11-1/ref%3Dsr%5F11%5F1/104-1481474-9343103">
+            JUnit in Action
+            </a>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <img src="http://images.amazon.com/images/P/0471449156.01._PE30_PI_SCMZZZZZZZ_.jpg"/>
+          </td>
+          <td>
+            <a href="http://www.amazon.com/exec/obidos/ASIN/0471449156/qid%3D1058045001/sr%3D11-1/ref%3Dsr%5F11%5F1/104-1481474-9343103">
+            Jakarta Pitfalls : Time-Saving Solutions for Struts, Ant, JUnit, 
+            and Cactus (Java Open Source Library           
+            </a>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <img src="http://g-images.amazon.com/images/G/01/books/icons/books-no-image.gif"/>
+          </td>
+          <td>
+            <a href="http://www.amazon.com/exec/obidos/ASIN/076454389X/qid%3D1058044892/sr%3D11-1/ref%3Dsr%5F11%5F1/104-1481474-9343103">
+            Professional Java Tools : Real World Ant, JUnit, CVS, Cactus, 
+            Bugzilla, Maven, JMeter and XDoclet
+            </a>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <img src="http://images.amazon.com/images/P/047120708X.01._PE30_PIdp-schmoo2,TopRight,7,-26_SCMZZZZZZZ_.jpg"/>
+          </td>
+          <td>
+            <a href="http://www.amazon.com/exec/obidos/tg/detail/-/047120708X/qid=1058043679/sr=8-1/ref=sr_8_1/104-1481474-9343103?v=glance&amp;s=books&amp;n=507846">
+            Java Tools for Extreme Programming: Mastering Open Source Tools 
+            Including Ant, JUnit, and Cactus 
+            </a>
+          </td>
+        </tr>
+
+      </table>
+
+    </section>
+
+  </body>
+</document>
