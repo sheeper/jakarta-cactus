@@ -45,7 +45,6 @@
     <property name="src.java.dir" location="${src.dir}/java"/>
     <property name="src.test.dir" location="${src.dir}/test"/>
     <property name="src.testinput.dir" location="${src.dir}/test-input"/>
-    <property name="src.script.dir" location="${src.dir}/scripts"/>
     <property name="src.conf.dir" location="${src.dir}/confs"/>
     <property name="build.dir" location="${base.dir}/."/>
 
