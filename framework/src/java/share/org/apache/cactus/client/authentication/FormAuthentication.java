@@ -173,12 +173,12 @@ public class FormAuthentication extends AbstractAuthentication
      */
     public URL getSecurityCheckURL()
     {
-        if (securityCheckURL == null)
+        if (this.securityCheckURL == null)
         {
             // Configure default
             try
             {
-                securityCheckURL = new URL(Configuration.getContextURL() 
+                this.securityCheckURL = new URL(Configuration.getContextURL() 
                     + "/j_security_check");
             }
             catch (MalformedURLException e)
@@ -189,7 +189,10 @@ public class FormAuthentication extends AbstractAuthentication
                     + "]");
             }
         }
-        
+
+        LOGGER.debug("Using security check URL [" + this.securityCheckURL
+            + "]");
+
         return securityCheckURL;
     }
 
