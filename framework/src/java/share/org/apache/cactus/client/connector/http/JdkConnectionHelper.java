@@ -164,7 +164,6 @@ public class JdkConnectionHelper implements ConnectionHelper
 
         // Add the cookies
         String cookieString = CookieUtil.getCookieString(theRequest, url);
-
         if (cookieString != null)
         {
             connection.setRequestProperty("Cookie", cookieString);
@@ -181,10 +180,8 @@ public class JdkConnectionHelper implements ConnectionHelper
             addHttpPostParameters(theRequest, connection);
         }
 
-
         // Log content length
         LOGGER.debug("ContentLength = [" + connection.getContentLength() + "]");
-
 
         // Open the connection and get the result
         connection.connect();
