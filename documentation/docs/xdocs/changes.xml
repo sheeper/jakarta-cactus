@@ -127,16 +127,6 @@
           task. It is now recommended to use the Ant Integration.
         </action>
         <action dev="VMA" type="update">
-          Due to the new addition of 2 new Cactus subprojects: The Ant 
-          Integration and the Eclipse Integration, the Cactus project is now 
-          delivering several zips instead of one. Namely they are:
-          <code>jakarta-cactus-integration-ant-[J2EE API]-[version].zip</code>,
-          <code>jakarta-cactus-integration-eclipse-[J2EE API]-[version].zip</code>,
-          <code>jakarta-cactus-sample-servlet-[J2EE API]-[version].zip</code>
-          and
-          <code>jakarta-cactus-documentation-[J2EE API]-[version].zip</code>.
-        </action>
-        <action dev="VMA" type="update">
           Improved (and normalized) build system. This change should not 
           affect nor be visible by Cactus end-users.
         </action>
