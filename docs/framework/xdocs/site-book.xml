@@ -42,6 +42,7 @@
     <menu-item label="Ant integration" source="ant.xml"/>
     <menu-item label="Servlet Engines" source="servlets.xml"/>
     <menu-item label="VAJava Config" source="ide_vajava.xml"/>
+    <menu-item label="JBuilder4 Config" source="ide_jbuilder.xml"/>
     <menu-item label="API Reference" source="javadoc.xml"/>
   </menu>
 

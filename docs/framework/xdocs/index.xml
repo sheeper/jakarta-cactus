@@ -47,6 +47,15 @@
       <table>
         <tr>
           <td>
+            14/07/2001
+          </td>
+          <td>
+            New <link href="ide_jbuilder.html">tutorial</link> for setting up
+            Cactus inside JBuilder.
+          </td>
+        </tr>
+        <tr>
+          <td>
             07/07/2001
           </td>
           <td>
@@ -92,44 +101,6 @@
             download</link>. It is a bug fix release with
             a few new features. Check the <link href="changes.html">changes
             </link> page for a list of changes.
-          </td>
-        </tr>
-        <tr>
-          <td>
-            14/06/2001
-          </td>
-          <td>
-            <link href="logos.html">New logos for Cactus</link> proposed !
-          </td>
-        </tr>
-        <tr>
-          <td>
-            14/06/2001
-          </td>
-          <td>
-            New page containing <link href="resources.html">resources on 
-            testing</link>.
-          </td>
-        </tr>
-        <tr>
-          <td>
-            18/05/2001
-          </td>
-          <td>
-            New page containing proposition of <link href="logos.html">logos 
-            for Cactus</link>. Thanks to Victor Gritsenko for the first logo 
-            proposition ! Who can beat that logo !
-          </td>
-        </tr>
-        <tr>
-          <td>
-            12/05/2001
-          </td>
-          <td>
-            New page on
-            <link href="mockobjects.html">Mock Objects vs In-container</link>
-            unit testing strategies. Explains principles and details pros and
-            cons of each.
           </td>
         </tr>
       </table>
