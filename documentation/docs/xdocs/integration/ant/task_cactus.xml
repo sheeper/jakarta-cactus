@@ -69,6 +69,7 @@
         <li><jump anchor="orion1x">Orion Application Server 1.x</jump></li>
         <li><jump anchor="orion2x">Orion Application Server 2.x</jump></li>
         <li><jump anchor="resin2x">Resin Server 2.x</jump></li>
+        <li><jump anchor="resin3x">Resin Server 3.x</jump></li>
         <li><jump anchor="weblogic7x">WebLogic 7.x</jump></li>
       </ul>
     </p>
@@ -754,6 +755,108 @@
 
           <p>
             The <strong>resin2x</strong> container supports the following
+            nested elements:
+          </p>
+
+          <section title="exclude">
+
+            <p>
+              Multiple <strong>exclude</strong> elements can be used as in
+              standard Ant PatternSets or FileSets to exclude specific tests
+              from running in the container.
+            </p>
+
+          </section>
+
+        </section>
+
+      </section>
+
+      <anchor id="resin3x"/>
+      <section title="resin3x">
+
+        <p>
+          The nested element <strong>resin3x</strong> allows running the tests
+          against the Resin Server 3.x.
+        </p>
+
+        <section title="Parameters">
+
+          <table>
+            <tr>
+              <th>Name</th>
+              <th>Description</th>
+              <th>Required</th>
+            </tr>
+            <tr>
+              <td><strong>dir</strong></td>
+              <td>
+                The installation directory of the Resin 3.x server
+              </td>
+              <td>Yes</td>
+            </tr>
+            <tr>
+              <td>resinconf</td>
+              <td>
+                The configuration file to use instead of the default one
+              </td>
+              <td>No</td>
+            </tr>
+            <tr>
+              <td>port</td>
+              <td>
+                The TCP port that the container should listen to
+              </td>
+              <td>No, default is 8080</td>
+            </tr>
+            <tr>
+              <td>tmpdir</td>
+              <td>
+                The directory to which the container will be installed for the
+                tests.
+              </td>
+              <td>No (by default the system temporary directory is used)</td>
+            </tr>
+            <tr>
+              <td>output</td>
+              <td>
+                Name of a file to write the output of the container to. If not
+                specified, the standard output will be used
+              </td>
+              <td>No</td>
+            </tr>
+            <tr>
+              <td>append</td>
+              <td>
+                Whether output should be appended to or overwrite an existing
+                file.
+              </td>
+              <td>No, default is <em>false</em></td>
+            </tr>
+            <tr>
+              <td>if</td>
+              <td>
+                Tests will only be run in the container if a property of the
+                given name exists in the current project
+              </td>
+              <td>No</td>
+            </tr>
+            <tr>
+              <td>unless</td>
+              <td>
+                Tests will only be run in the container if a property of the
+                given name doesn't exist in the current project
+              </td>
+              <td>No</td>
+            </tr>
+          </table>
+
+        </section>
+
+        <section title="Nested Elements">
+
+          <p>
+            The <strong>resin3x</strong> container supports the following
             nested elements:
           </p>
 
