@@ -32,6 +32,9 @@
         <li>
           Supports Servlet API 2.3 only.
         </li>
+        <li>
+          Automatically discover test classes from non-test classes.
+        </li>
       </ul>
     </section>
  </body>

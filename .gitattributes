@@ -582,6 +582,9 @@ integration/maven/sample/src/test-cactus/org/apache/maven/cactus/sample/TestSamp
 integration/maven/sample/src/test-cactus/org/apache/maven/cactus/sample/TestSampleServlet.java svn_keywords=Author+Date+Id+Revision
 integration/maven/sample/src/test-cactus/org/apache/maven/cactus/sample/test.xml svn_keywords=Author+Date+Id+Revision
 integration/maven/sample/src/webapp/WEB-INF/web.xml svn_keywords=Author+Date+Id+Revision
+integration/maven/src/main/org/apache/cactus/integration/maven/CactusScanner.java svn_keywords=Author+Date+Id+Revision
+integration/maven/src/main/org/apache/cactus/integration/maven/CactusScannerTag.java svn_keywords=Author+Date+Id+Revision
+integration/maven/src/main/org/apache/cactus/integration/maven/CactusTagLibrary.java svn_keywords=Author+Date+Id+Revision
 integration/maven/src/plugin-resources/cactus.jsl svn_keywords=Author+Date+Id+Revision
 integration/maven/src/plugin-resources/jboss3x/jboss-web.xml svn_keywords=Author+Date+Id+Revision
 integration/maven/src/plugin-resources/jboss3x/roles.properties svn_keywords=Author+Date+Id+Revision

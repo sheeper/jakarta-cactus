@@ -17,7 +17,8 @@
   xmlns:doc="doc" 
   xmlns:util="jelly:util"
   xmlns:ant="jelly:ant"
-  xmlns:define="jelly:define">
+  xmlns:define="jelly:define"
+  xmlns:cactus="jelly:org.apache.cactus.integration.maven.CactusTagLibrary">
 
   <!--
      ========================================================================
@@ -35,17 +36,17 @@
   <goal name="cactus:init" prereqs="war:war">
 
     <ant:path id="cactus.classpath">
-      <pathelement location="${plugin.getDependencyPath('cactus:cactus-ant')}"/>
-      <pathelement location="${plugin.getDependencyPath('cactus:cactus')}"/>
-      <pathelement location="${plugin.getDependencyPath('commons-logging:commons-logging')}"/>
-      <pathelement location="${plugin.getDependencyPath('junit:junit')}"/>
-      <pathelement location="${plugin.getDependencyPath('commons-httpclient:commons-httpclient')}"/>
-      <pathelement location="${plugin.getDependencyPath('aspectj:aspectjrt')}"/>
-      <pathelement location="${plugin.getDependencyPath('httpunit:httpunit')}"/>
-      <pathelement location="${plugin.getDependencyPath('nekohtml:nekohtml')}"/>
-      <pathelement location="${plugin.getDependencyPath('xerces:xerces')}"/>
-      <pathelement location="${plugin.getDependencyPath('xml-apis:xml-apis')}"/>
-      <pathelement location="${plugin.getDependencyPath('rhino:js')}"/>
+      <ant:pathelement location="${plugin.getDependencyPath('cactus:cactus-ant')}"/>
+      <ant:pathelement location="${plugin.getDependencyPath('cactus:cactus')}"/>
+      <ant:pathelement location="${plugin.getDependencyPath('commons-logging:commons-logging')}"/>
+      <ant:pathelement location="${plugin.getDependencyPath('junit:junit')}"/>
+      <ant:pathelement location="${plugin.getDependencyPath('commons-httpclient:commons-httpclient')}"/>
+      <ant:pathelement location="${plugin.getDependencyPath('aspectj:aspectjrt')}"/>
+      <ant:pathelement location="${plugin.getDependencyPath('httpunit:httpunit')}"/>
+      <ant:pathelement location="${plugin.getDependencyPath('nekohtml:nekohtml')}"/>
+      <ant:pathelement location="${plugin.getDependencyPath('xerces:xerces')}"/>
+      <ant:pathelement location="${plugin.getDependencyPath('xml-apis:xml-apis')}"/>
+      <ant:pathelement location="${plugin.getDependencyPath('rhino:js')}"/>
     </ant:path>
 
     <ant:taskdef resource="cactus.tasks" classpathref="cactus.classpath"/>
@@ -64,6 +65,15 @@
     <util:available file="${cactus.src.dir}">
       <j:set var="cactusSourcePresent" value="true"/>
     </util:available>
+
+    <!-- The Cactus scanner automatically discovers Cactus tests -->
+
+    <ant:path id="cactus.scanner.classpath">
+      <ant:pathElement location="${maven.build.dest}"/>
+      <ant:pathElement location="${cactus.target.classes.dir}"/>
+      <ant:path refid="maven.dependency.classpath"/>
+      <ant:path refid="cactus.classpath"/>
+    </ant:path>
 
   </goal>
 
@@ -109,7 +119,7 @@
   <goal name="cactus:compile" prereqs="cactus:init"
       description="Compiles the cactus tests">
 
-    <mkdir dir="${cactus.target.classes.dir}"/>
+    <ant:mkdir dir="${cactus.target.classes.dir}"/>
     
     <j:choose>
       <j:when test="${cactusSourcePresent == 'true'}">
@@ -259,10 +269,18 @@
   	  prereqs="cactus:init,cactus:init-report,cactus:cactifywar"
       description="Run all Cactus Test Cases">
 
+    <cactus:scanner var="cactusScanner" classpathref="cactus.scanner.classpath">
+      <fileset dir="${cactus.target.classes.dir}">
+        <include name="${cactus.test.includes}"/>
+        <exclude name="${cactus.test.excludes}"/>
+      </fileset>
+    </cactus:scanner>
+
     <cactus warfile="${maven.build.dir}/${pom.artifactId}-cactus.war" 
         fork="yes" errorproperty="cactustests.error" 
         failureproperty="cactustests.failure"
         printsummary="${cactus.printsummary}">
+
       <ant:classpath>
         <ant:pathelement path="${maven.build.dest}"/>
         <ant:pathelement location="${cactus.target.classes.dir}"/>
@@ -365,13 +383,14 @@
         </weblogic7x>            
 
       </containerset>
+
       <ant:formatter type="plain" usefile="${cactus.junit.usefile}"/>
       <ant:formatter type="xml"/>
-      <ant:batchtest>
-        <ant:fileset dir="${cactus.src.dir}"
-          includes="${cactus.src.includes}"
-          excludes="${cactus.src.excludes}"/>
-      </ant:batchtest>
+
+      <j:forEach var="test" items="${cactusScanner.iterator()}">
+        <test name="${test}"/>
+      </j:forEach>
+
     </cactus>
 
     <!-- TODO: Change the Cactus stylesheet (cactus.jsl) to handle reports

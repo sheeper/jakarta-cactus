@@ -47,22 +47,22 @@
           </td>
         </tr>
         <tr>
-          <td>cactus.src.includes</td>
+          <td>cactus.test.includes</td>
           <td>Yes</td>
           <td>
             <p>
               Lists of test classes that will be executed. Default value is
-              <code>**/*Test*.java</code>.
+              <code>**/*Test*.class</code>.
             </p>
           </td>
         </tr>
         <tr>
-          <td>cactus.src.excludes</td>
+          <td>cactus.test.excludes</td>
           <td>Yes</td>
           <td>
             <p>
               Lists of classes that will be excluded in the tests. Default 
-              value is <code>**/AllTests.java,**/Test*All.java</code>.
+              value is <code>**/All*Test*.class,**/Test*All.class</code>.
             </p>
           </td>
         </tr>
