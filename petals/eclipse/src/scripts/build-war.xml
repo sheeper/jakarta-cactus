@@ -100,9 +100,7 @@
          Create a Cactus test war file for the sample application.
        ========================================================================
     -->
-	<target name="testwar" depends="user.testwar, default.testwar"/>
-
-    <target name="user.testwar" if="user.webfiles.dir">
+    <target name="testwar">
 
         <!-- Make sure the directory for the war exist -->
         <mkdir dir="${target.test.dir}"/>
@@ -125,36 +123,7 @@
                  classloader -->
             <lib dir="${jars.dir}"/>
 
-            <fileset dir="${webfiles.dir}"/>
-            <fileset dir="${user.webfiles.dir}"/>
-       </war>
-
-    </target>
-
-    <target name="default.testwar" unless="user.webfiles.dir">
-
-        <!-- Make sure the directory for the war exist -->
-        <mkdir dir="${target.test.dir}"/>
-
-        <!-- Create the war file -->
-        <war warfile="${war.path}"
-             webxml="${webxml.path}">
-
-            <classes dir="${classes.dir}"/>
-
-            <!-- log_server.properties need to be in the server classpath -->
-            <classes dir="${classes.dir}">
-                <include name="log4j.properties"/>
-            </classes>
-
-            <!-- We need to copy all dependent jar in the war. This is
-                 because if we just put these jars in the global classpath for
-                 the Servlet engine, the Cactus jar might not be able to load
-                 the test case class as it may be loadable only by the war
-                 classloader -->
-            <lib dir="${jars.dir}"/>
-
-            <fileset dir="${webfiles.dir}"/>
+            <fileset dir="${webfiles.dir}" excludes="WEB-INF/"/>
        </war>
 
     </target>
