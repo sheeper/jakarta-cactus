@@ -134,16 +134,6 @@
          </action>
       </objectContribution>
    </extension>
-
-   <extension
-         point="org.eclipse.debug.core.launchConfigurationTypes">
-      <launchConfigurationType
-            name="Cactus Ant"
-            delegate="org.apache.cactus.eclipse.containers.ant.AntLaunchDelegate"
-            modes="run, debug"
-            id="org.apache.cactus.eclipse.launching.ant">
-      </launchConfigurationType>
-   </extension>
    
    <!-- Extra Classpath - The wrong Jar file is there on purpose. This is a trick to force
    the AntCore classloader to use the Cactus plugin classloader instead of an JarClassLoader.
