@@ -51,87 +51,51 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
-package org.apache.cactus.sample.unit;
+package org.apache.cactus.util;
 
+import java.lang.reflect.*;
 import junit.framework.*;
 
-import org.apache.cactus.client.*;
-import org.apache.cactus.*;
-
 /**
- * Helper class for the <code>TestServletTestCase1</code> tests. It is used to
- * intercept exceptions. Indeed, in order to verify excpetion handling in our
- * unit test cases we must not let these exceptions get through to JUnit
- * (otherwise the test will appear as failed).
+ * Work around for some changes to the public JUnit API between
+ * different JUnit releases.
  *
+ * @author <a href="mailto:stefan.bodewig@epost.de">Stefan Bodewig</a>
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
- * @see TestServletTestCase1
  */
-public class TestServletTestCase1_InterceptorServletTestCase 
-    extends ServletTestCase
+public class JUnitVersionHelper
 {
-    /**
-     * Constructs a test case with the given name.
-     *
-     * @param theName the name of the test case
-     */
-    public TestServletTestCase1_InterceptorServletTestCase(String theName)
-    {
-        super(theName);
+    private static Method testCaseName = null;
+
+    static {
+        try {
+            testCaseName = TestCase.class.getMethod("getName", new Class[0]);
+        } catch (NoSuchMethodException e) {
+            // pre JUnit 3.7
+            try {
+                testCaseName = TestCase.class.getMethod("name", new Class[0]);
+            } catch (NoSuchMethodException e2) {
+                throw new ChainedRuntimeException("Cannot find method 'name()'");
+            }
+        }
     }
 
     /**
-     * Intercepts running test cases to check for normal exceptions.
+     * JUnit 3.7 introduces TestCase.getName() and subsequent versions
+     * of JUnit remove the old name() method.  This method provides
+     * access to the name of a TestCase via reflection that is
+     * supposed to work with version before and after JUnit 3.7.
      */
-     protected void runTest() throws Throwable
-     {
-        try {
-            super.runTest();
-        } catch (AssertionFailedErrorWrapper e) {
-
-            // If the test case is "testAssertionFailedError" and the exception
-            // is of type AssertionFailedError and contains the text
-            // "test assertion failed error", then the test is ok.
-            if (this.currentTestMethod.equals("testAssertionFailedError")) {
-                if (e.instanceOf(AssertionFailedError.class)) {
-                    assertEquals("test assertion failed error", e.getMessage());
-                    return;
-                }
-            }
-
-        } catch (ServletExceptionWrapper e) {
-
-            // If the test case is "testExceptionNotSerializable" and the
-            // exception is of type
-            // TestServletTestCaseHelper1_ExceptionNotSerializable
-            // and contains the text "test non serializable exception", then
-            // the test is ok.
-            if (this.currentTestMethod.equals("testExceptionNotSerializable")) {
-                if (e.instanceOf(
-                    TestServletTestCase1_ExceptionNotSerializable.class)) {
-
-                    assertEquals("test non serializable exception",
-                        e.getMessage());
-                    return;
-                }
-            }
-
-            // If the test case is "testExceptionSerializable" and the exception
-            // is of type TestServletTestCaseHelper1_ExceptionSerializable
-            // and contains the text "test serializable exception", then
-            // the test is ok.
-            if (this.currentTestMethod.equals("testExceptionSerializable")) {
-                assert(e.instanceOf(
-                    TestServletTestCase1_ExceptionSerializable.class));
-
-                assertEquals("test serializable exception", e.getMessage());
-                return;
-            }
-
-            throw e;
-
+    public static String getTestCaseName(TestCase t)
+    {
+        if (testCaseName != null) {
+            try {
+                return (String) testCaseName.invoke(t, new Object[0]);
+            } catch (Throwable e) {}
         }
-     }
+        return "unknown";
+    }
+
 }
