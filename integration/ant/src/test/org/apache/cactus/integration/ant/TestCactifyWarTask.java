@@ -146,6 +146,26 @@ public final class TestCactifyWarTask extends AntTestCase
     }
 
     /**
+     * Verifies the error raised when the source archive does not contain a web
+     * deployment descriptor.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
+    public void testSrcFileWithoutWebXml() throws Exception
+    {
+        try
+        {
+            executeTestTarget();
+            fail("Expected BuildException");
+        }
+        catch (BuildException expected)
+        {
+            assertEquals("The source file does not contain a deployment "
+                + "descriptor", expected.getMessage());
+        }
+    }
+
+    /**
      * Tests whether the Cactus test redirectors are correctly added to the 
      * descriptor of the cactified WAR. 
      * 

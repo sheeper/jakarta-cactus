@@ -16,6 +16,11 @@
     <cactifywar srcfile="empty.war"/>
   </target>
 
+  <target name="testSrcFileWithoutWebXml">
+    <cactifywar srcfile="nowebxml.war"
+        destfile="${work.dir}/destfile.war"/>
+  </target>
+
   <target name="testDefaultRedirectorsNoDoctype">
     <cactifywar srcfile="empty.war"
         destfile="${work.dir}/destfile.war"/>
