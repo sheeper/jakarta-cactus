@@ -160,8 +160,11 @@ public abstract class AbstractConnectionHelper
      * @param theRequest the request containing all data to pass to the server
      *        redirector.
      * @param theUrl the URL to connect to
+     * @throws ClientException if an error occurred when creating the cookie
+     *         string
      */
     public String getCookieString(WebRequest theRequest, URL theUrl)
+        throws ClientException
     {
         // If no Cookies, then exit
         Vector cookies = theRequest.getCookies();
@@ -212,8 +215,7 @@ public abstract class AbstractConnectionHelper
             }
 
             // and create the cookie header to send
-            Header cookieHeader = 
-                org.apache.commons.httpclient.Cookie.createCookieHeader(
+            Header cookieHeader = createCookieHeader(
                 Cookie.getCookieDomain(theRequest, theUrl.getHost()), 
                 Cookie.getCookiePath(theRequest, theUrl.getFile()), 
                 httpclientCookies);
@@ -222,5 +224,36 @@ public abstract class AbstractConnectionHelper
         }
 
         return null;
+    }
+
+    /**
+     * Create a HttpClient {@link Header} for cookies that matches
+     * the domain and path.
+     * 
+     * @param theDomain the cookie domain to match
+     * @param thePath the cookie path to match
+     * @param theCookies the list of potential cookies
+     * @return the HttpClient {@link Header} containing the matching 
+     *         cookies
+     * @throws ClientException if no cookie was matching the domain
+     *         and path
+     */
+    private Header createCookieHeader(String theDomain, String thePath,
+        org.apache.commons.httpclient.Cookie[] theCookies)
+        throws ClientException
+    {
+        Header cookieHeader =
+            org.apache.commons.httpclient.Cookie.createCookieHeader(
+            theDomain, thePath, theCookies);
+
+        if (cookieHeader == null)
+        {
+            throw new ClientException("Failed to create Cookie header for ["
+                + "domain = [" + theDomain + ", path = [" + thePath
+                + ", cookies = [" + theCookies + "]]. Turn on HttpClient "
+                + "logging for more information about the error"); 
+        }
+        
+        return cookieHeader;
     }
 }
