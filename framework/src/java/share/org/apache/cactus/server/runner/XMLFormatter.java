@@ -222,9 +222,9 @@ public class XMLFormatter implements XMLConstants, TestListener
         StringBuffer xml = new StringBuffer();
 
         xml.append("<" + ERROR + " " + ATTR_MESSAGE + "=\"" +
-            failure.exceptionMessage() + "\" " + ATTR_TYPE + "=\"" +
+            xmlEncode(failure.exceptionMessage()) + "\" " + ATTR_TYPE + "=\"" +
             failure.thrownException().getClass().getName() + "\">");
-        xml.append("<![CDATA[" + failure.trace() + "]]>");
+        xml.append(xmlEncode(failure.trace()));
         xml.append("</" + ERROR + ">");
 
         this.currentTestFailure = xml.toString();
@@ -242,9 +242,9 @@ public class XMLFormatter implements XMLConstants, TestListener
         StringBuffer xml = new StringBuffer();
 
         xml.append("<" + FAILURE + " " + ATTR_MESSAGE + "=\"" +
-            failure.exceptionMessage() + "\" " + ATTR_TYPE + "=\"" +
+            xmlEncode(failure.exceptionMessage()) + "\" " + ATTR_TYPE + "=\"" +
             failure.thrownException().getClass().getName() + "\">");
-        xml.append("<![CDATA[" + failure.trace() + "]]>");
+        xml.append(xmlEncode(failure.trace()));
         xml.append("</" + FAILURE + ">");
 
         this.currentTestFailure = xml.toString();
@@ -272,6 +272,57 @@ public class XMLFormatter implements XMLConstants, TestListener
         xml.append("</" + TESTCASE + ">");
 
         this.currentTestCaseResults.append(xml.toString());
+    }
+
+    /**
+     * Escapes reserved XML characters.
+     *
+     * @param theString the string to escape
+     * @return the escaped string
+     */
+    private String xmlEncode(String theString)
+    {
+        String newString;
+
+        // It is important to replace the "&" first as the other replacements
+        // also introduces "&" chars ...
+        newString = XMLFormatter.replace(theString, '&', "&amp;");
+
+        newString = XMLFormatter.replace(newString, '<', "&lt;");
+        newString = XMLFormatter.replace(newString, '>', "&gt;");
+
+        return newString;
+    }
+
+    /**
+     * Replaces a character in a string by a substring.
+     *
+     * @param theBaseString the base string in which to perform replacements
+     * @param theChar the char to look for
+     * @param theNewString the string with which to replace the char
+     * @return the string with replacements done
+     */
+    public static String replace(String theBaseString, char theChar,
+        String theNewString)
+    {
+        final int len = theBaseString.length() - 1;
+        int pos = -1;
+
+        while ((pos = theBaseString.indexOf(theChar, pos + 1)) > -1) {
+            if (pos == 0) {
+                final String after = theBaseString.substring(1);
+                theBaseString = theNewString + after;
+            } else if (pos == len) {
+                final String before = theBaseString.substring(0, pos);
+                theBaseString = before + theNewString;
+            } else {
+                final String before = theBaseString.substring(0, pos);
+                final String after = theBaseString.substring(pos + 1);
+                theBaseString = before + theNewString + after;
+            }
+        }
+        return theBaseString;
+
     }
 
 }
