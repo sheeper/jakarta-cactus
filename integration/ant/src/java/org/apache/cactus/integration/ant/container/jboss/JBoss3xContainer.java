@@ -256,10 +256,10 @@ public class JBoss3xContainer extends AbstractJavaContainer
             new File(binDir, "shutdown.jar"));
 
         java.setClassname("org.jboss.Shutdown");
-        java.createArg().setValue("--server=localhost:" + this.getJndiPort());
         
         if (this.version.startsWith("3.2"))
         {
+        	java.createArg().setValue("--server=localhost:" + this.getJndiPort());
             java.createArg().setValue("--shutdown");
         }
         else

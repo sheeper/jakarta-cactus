@@ -90,6 +90,13 @@
       </devs>
 
       <release version="1.7dev" date="in CVS">
+        <action dev="VMA" type="fix" issue="CACTUS-122" due-to="Raphael Philipe Mendes da Silva">
+          Fixed "<code>java.lang.NumberFormatException: For input string: 
+          "localhost"</code>" error that was happening when using the 
+          &lt;cactus&gt; task with JBoss 3.0.8. It was due to the fact that 
+          JBoss 3.0.8 does not support the new <code>--server</code> parameter 
+          which works with newer versions of JBoss 3.x
+        </action>
         <action dev="VMA" type="add">
           Added new <code>&lt;resin2x&gt;</code> and
           <code>&lt;resin3x&gt;</code> tasks to start/stop
