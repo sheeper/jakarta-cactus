@@ -175,7 +175,7 @@ public class CheckSitemapTask extends Task
         
         log("Checking sitemap at [" + sitemap + "]", Project.MSG_INFO);
         log("Generated doc output directory is [" + outputDir + "]", 
-            Project.MSG_INFO);
+            Project.MSG_VERBOSE);
                
         try
         {
