@@ -58,6 +58,7 @@ import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
@@ -209,10 +210,11 @@ public class TestServletTestCase2 extends ServletTestCase
      */
     public void endWriteOutputStream(WebResponse theResponse) throws IOException
     {
-        DataInputStream dis = new DataInputStream(
-            theResponse.getConnection().getInputStream());
+        BufferedReader br = 
+            new BufferedReader(new InputStreamReader(new DataInputStream(
+            theResponse.getConnection().getInputStream())));
 
-        assertEquals("should not result in an error", dis.readLine());
+        assertEquals("should not result in an error", br.readLine());
     }
 
     //-------------------------------------------------------------------------
