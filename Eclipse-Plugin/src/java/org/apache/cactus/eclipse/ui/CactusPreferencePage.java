@@ -57,7 +57,6 @@
 package org.apache.cactus.eclipse.ui;
 
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
-import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.RadioGroupFieldEditor;
 import org.eclipse.jface.preference.StringFieldEditor;
 import org.eclipse.jface.preference.IntegerFieldEditor;
@@ -82,8 +81,10 @@ import org.eclipse.ui.IWorkbenchPreferencePage;
  * @version $Id:$
  * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
+ * @author <a href="mailto:jruaux@octo.com">Julien Ruaux</a>
  */
-public class CactusPreferencePage extends FieldEditorPreferencePage
+public class CactusPreferencePage
+    extends FieldEditorPreferencePage
     implements IWorkbenchPreferencePage
 {
     /**
@@ -94,8 +95,9 @@ public class CactusPreferencePage extends FieldEditorPreferencePage
         super(GRID);
         setPreferenceStore(CactusPlugin.getDefault().getPreferenceStore());
         // TODO: externalize
-        setDescription("Preferences of the Apache Cactus plug-in "
-            + "for in-container unit testing");
+        setDescription(
+            "Preferences of the Apache Cactus plug-in "
+                + "for in-container unit testing");
     }
 
     /**
@@ -108,18 +110,37 @@ public class CactusPreferencePage extends FieldEditorPreferencePage
     {
         // TODO: externalize labels
         addField(new RadioGroupFieldEditor(
-            CactusPreferences.CONTEXT_URL_SCHEME, "Protocol:", 1,
-            new String[][] { { "HTTP", "http" }, { "HTTP over SSL", "https" } },
-            getFieldEditorParent()));
-        addField(new StringFieldEditor(
-            CactusPreferences.CONTEXT_URL_HOST, "Host:",
-            getFieldEditorParent()));
-        addField(new IntegerFieldEditor(
-            CactusPreferences.CONTEXT_URL_PORT, "Port:",
-            getFieldEditorParent()));
-        addField(new StringFieldEditor(
-            CactusPreferences.CONTEXT_URL_PATH, "Context:",
-            getFieldEditorParent()));
+            CactusPreferences.CONTEXT_URL_SCHEME,
+            "Protocol:",
+            1,
+            new String[][] { { "HTTP", "http" }, {
+                "HTTP over SSL", "https" }
+        }, getFieldEditorParent()));
+        addField(
+            new StringFieldEditor(
+                CactusPreferences.CONTEXT_URL_HOST,
+                "Host:",
+                getFieldEditorParent()));
+        addField(
+            new IntegerFieldEditor(
+                CactusPreferences.CONTEXT_URL_PORT,
+                "Port:",
+                getFieldEditorParent()));
+        addField(
+            new StringFieldEditor(
+                CactusPreferences.CONTEXT_URL_PATH,
+                "Context:",
+                getFieldEditorParent()));
+        addField(
+            new StringFieldEditor(
+                CactusPreferences.JARS_DIR,
+                "Jars directory:",
+                getFieldEditorParent()));
+        addField(
+            new StringFieldEditor(
+                CactusPreferences.TEMP_DIR,
+                "Temp directory:",
+                getFieldEditorParent()));
     }
 
     /**

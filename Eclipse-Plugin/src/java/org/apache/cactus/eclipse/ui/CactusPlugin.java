@@ -56,6 +56,8 @@
  */
 package org.apache.cactus.eclipse.ui;
 
+import org.apache.cactus.eclipse.containers.GenericAntProvider;
+import org.apache.cactus.eclipse.containers.IContainerProvider;
 import org.eclipse.core.runtime.IPluginDescriptor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -134,8 +136,13 @@ public class CactusPlugin extends AbstractUIPlugin
 
     public static void log(Throwable theThrowable)
     {
-        log(new Status(IStatus.ERROR, getPluginId(), IStatus.ERROR, "Error", 
-            theThrowable));
+        log(
+            new Status(
+                IStatus.ERROR,
+                getPluginId(),
+                IStatus.ERROR,
+                "Error",
+                theThrowable));
     }
 
     public static void log(IStatus theStatus)
@@ -168,6 +175,20 @@ public class CactusPlugin extends AbstractUIPlugin
         theStore.setDefault(CactusPreferences.CONTEXT_URL_HOST, "localhost");
         theStore.setDefault(CactusPreferences.CONTEXT_URL_PORT, 8080);
         theStore.setDefault(CactusPreferences.CONTEXT_URL_PATH, "test");
+        theStore.setDefault(
+            CactusPreferences.JARS_DIR,
+            "D:/dev/cactus/jakarta-cactus-13-1.4b1/lib");
+        theStore.setDefault(CactusPreferences.TEMP_DIR, "D:/temp/target");
     }
 
+    /**
+     * Returns a container provider.
+     * @return IContainerProvider a container provider to use for Cactus tests.
+     */
+    public static IContainerProvider getContainerProvider()
+    {
+        return new GenericAntProvider(
+            CactusPreferences.getContextURLPort(),
+            CactusPreferences.getTempDir());
+    }
 }

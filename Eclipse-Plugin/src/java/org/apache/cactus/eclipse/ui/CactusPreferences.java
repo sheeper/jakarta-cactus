@@ -63,6 +63,7 @@ import org.eclipse.jface.preference.IPreferenceStore;
  * 
  * @version $Id:$
  * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
+ * @author <a href="mailto:jruaux@octo.com">Julien Ruaux</a>
  */
 public class CactusPreferences
 {
@@ -70,26 +71,32 @@ public class CactusPreferences
      * The protocol scheme component of the context URL (either 'http' or 
      * 'https') preference.
      */
-    public static final String CONTEXT_URL_SCHEME =
-        "contextURL_Scheme";
+    public static final String CONTEXT_URL_SCHEME = "contextURL_Scheme";
 
     /**
      * The host component of the context URL preference. 
      */
-    public static final String CONTEXT_URL_HOST =
-        "contextURL_Host";
+    public static final String CONTEXT_URL_HOST = "contextURL_Host";
 
     /**
      * The port component of the context URL preference.
      */
-    public static final String CONTEXT_URL_PORT =
-        "contextURL_Port";
+    public static final String CONTEXT_URL_PORT = "contextURL_Port";
 
     /**
      * The path component of the context URL preference.
      */
-    public static final String CONTEXT_URL_PATH =
-        "contextURL_Path";
+    public static final String CONTEXT_URL_PATH = "contextURL_Path";
+    
+    /**
+     * The directory of the jars needed by Cactus.
+     */
+    public static final String JARS_DIR = "jars_Dir";
+
+    /**
+     * The temp directory used by the plugin to set up containers.
+     */
+    public static final String TEMP_DIR = "temp_Dir";
 
     /**
      * Returns the context URL that should be used by the client, as 
@@ -100,12 +107,63 @@ public class CactusPreferences
     public static String getContextURL()
     {
         IPreferenceStore store = CactusPlugin.getDefault().getPreferenceStore();
-        StringBuffer buf = new StringBuffer()
-            .append(store.getString(CONTEXT_URL_SCHEME)).append("://")
-            .append(store.getString(CONTEXT_URL_HOST)).append(":")
-            .append(store.getInt(CONTEXT_URL_PORT)).append("/")
-            .append(store.getString(CONTEXT_URL_PATH));
+        StringBuffer buf =
+            new StringBuffer()
+                .append(store.getString(CONTEXT_URL_SCHEME))
+                .append("://")
+                .append(store.getString(CONTEXT_URL_HOST))
+                .append(":")
+                .append(store.getInt(CONTEXT_URL_PORT))
+                .append("/")
+                .append(store.getString(CONTEXT_URL_PATH));
         return buf.toString();
     }
 
+    /**
+     * Returns the context URL port that should be used by the client, as 
+     * configured in the plug-in preferences.
+     * 
+     * @return the context port
+     */
+    public static int getContextURLPort()
+    {
+        IPreferenceStore store = CactusPlugin.getDefault().getPreferenceStore();
+        return store.getInt(CONTEXT_URL_PORT);
+    }
+    
+    /**
+     * Returns the context URL path that should be used by the client, as 
+     * configured in the plug-in preferences.
+     * 
+     * @return the context path
+     */
+    public static String getContextURLPath()
+    {
+        IPreferenceStore store = CactusPlugin.getDefault().getPreferenceStore();
+        return store.getString(CONTEXT_URL_PATH);
+    }
+
+    /**
+     * Returns the directory containing the jars needed by cactus, as 
+     * configured in the plug-in preferences.
+     * 
+     * @return the context path
+     */
+    public static String getJarsDir()
+    {
+        IPreferenceStore store = CactusPlugin.getDefault().getPreferenceStore();
+        return store.getString(JARS_DIR);
+    }
+
+    /**
+     * Returns the temp directory used by cactus, as 
+     * configured in the plug-in preferences.
+     * 
+     * @return the context path
+     */
+    public static String getTempDir()
+    {
+        IPreferenceStore store = CactusPlugin.getDefault().getPreferenceStore();
+        return store.getString(TEMP_DIR);
+    }    
 }
