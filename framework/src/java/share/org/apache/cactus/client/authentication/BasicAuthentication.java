@@ -158,7 +158,7 @@ public class BasicAuthentication extends AbstractAuthentication
             {
                 // Bad theName! Go to your room!
                 throw new IllegalArgumentException(
-                    "Given theName contains illegal characters.");
+                    "[" + theName + "] contains illegal characters.");
             }
         }
     }
