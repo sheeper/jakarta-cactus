@@ -126,7 +126,6 @@
         <echo message="cactus.ant.jar = ${cactus.ant.jar}"/>
         <echo message="servlet.jar = ${servlet.jar}"/>
         <echo message="junit.jar = ${junit.jar}"/>
-        <echo message="httpclient.jar = ${httpclient.jar}"/>
 
         <!-- Filters -->
         <filter token="version" value="${project.version}"/>
@@ -375,8 +374,6 @@
 
         <junit printsummary="yes" haltonfailure="yes" haltonerror="yes" fork="yes">
 
-            <jvmarg value="-Djava.protocol.handler.pkgs=HTTPClient"/>
-
             <classpath>
                 <pathelement location="${servlet.jar}"/>
 
@@ -385,7 +382,6 @@
 
                 <pathelement location="${cactus.jar}"/>
                 <pathelement location="${junit.jar}"/>
-                <pathelement location="${httpclient.jar}"/>
                 <pathelement location="${out.classes.dir}"/>
                 <pathelement path="${java.class.path}"/>
             </classpath>
@@ -433,7 +429,6 @@
         <!-- Gather libraries in a place where they can be copied in the
              war -->
         <copy tofile="${out.lib.dir}/junit.jar" file="${junit.jar}"/>
-        <copy tofile="${out.lib.dir}/commons-httpclient.jar" file="${httpclient.jar}"/>
         <copy tofile="${out.lib.dir}/commons-cactus-@servlet.api@.jar" file="${cactus.jar}"/>
 
         <!-- Make sure the directory for the war exist -->

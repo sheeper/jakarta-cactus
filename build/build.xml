@@ -32,11 +32,6 @@
                               Required for compiling and running the unit
                               tests (used in build-servletapi.xml).
 
-        httpclient.jar        [REQUIRED] The path to the Commons HttpClient
-                              jar file. Required for performing all Cactus
-                              HTTP requests. It is also required for
-                              bundling it in the the distribution.
-
         log4j.jar             [REQUIRED] The path to the Log4j jar file.
                               Required for bundling it in the distribution
                               (used in build-servletapi.xml).

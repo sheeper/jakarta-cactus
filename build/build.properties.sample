@@ -8,11 +8,6 @@ junit.jar=f:/applis/jakarta-ant-1.3/lib/junit.jar
 # HttpUnit jar (needed for compiling and running the unit tests)
 httpunit.jar=f:/applis/httpunit/lib/httpunit.jar
 
-# Commons HttpClient class (because Sun's HttpURLConnection is broken and 
-# because Sun's implementation is missing a lot of useful methods for handling
-# cookies, ...)
-httpclient.jar=f:/applis/apache-dev/jakarta-commons/httpclient/dist/commons-httpclient.jar
-
 # Note: If you want to build only for a given servlet API, just comment the
 #       properties for the servlet jar that you don't want to build for. For
 #       example if you don't want to build the Servlet 2.2 API, comment
