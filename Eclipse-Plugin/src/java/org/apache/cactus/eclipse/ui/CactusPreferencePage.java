@@ -96,7 +96,6 @@ public class CactusPreferencePage extends FieldEditorPreferencePage
         // TODO: externalize
         setDescription("Preferences of the Apache Cactus plug-in "
             + "for in-container unit testing");
-        initializeDefaults();
     }
 
     /**

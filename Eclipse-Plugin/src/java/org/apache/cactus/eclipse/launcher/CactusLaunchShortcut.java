@@ -56,10 +56,22 @@
  */
 package org.apache.cactus.eclipse.launcher;
 
+import java.lang.reflect.InvocationTargetException;
+
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.DebugPlugin;
+import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationType;
 import org.eclipse.debug.core.ILaunchManager;
+import org.eclipse.debug.ui.DebugUITools;
+import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.internal.junit.launcher.JUnitLaunchShortcut;
+import org.eclipse.jdt.internal.junit.ui.JUnitMessages;
+import org.eclipse.jdt.internal.junit.ui.JUnitPlugin;
+import org.eclipse.jdt.internal.junit.util.TestSearchEngine;
+import org.eclipse.jface.dialogs.ErrorDialog;
+import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 
 /**
  * Launch shortcut used to start the Cactus launch configuration on the
@@ -80,7 +92,71 @@ public class CactusLaunchShortcut extends JUnitLaunchShortcut
     {
         ILaunchManager lm = DebugPlugin.getDefault().getLaunchManager();
         return lm.getLaunchConfigurationType(
-            CactusLaunchConfiguration.ID_CACTUS_APPLICATION);        
-    }   
+            CactusLaunchConfiguration.ID_CACTUS_APPLICATION);
+    }
 
+    protected void launchType(Object[] search, String mode)
+    {
+        IType[] types = null;
+        try
+        {
+            types =
+                TestSearchEngine.findTests(
+                    new ProgressMonitorDialog(getShell()),
+                    search);
+        }
+        catch (InterruptedException e)
+        {
+            JUnitPlugin.log(e);
+            return;
+        }
+        catch (InvocationTargetException e)
+        {
+            JUnitPlugin.log(e);
+            return;
+        }
+        IType type = null;
+        if (types.length == 0)
+        {
+            MessageDialog.openInformation(getShell(), JUnitMessages.getString("LaunchTestAction.dialog.title"), JUnitMessages.getString("LaunchTestAction.message.notests")); //$NON-NLS-1$ //$NON-NLS-2$
+        }
+        else if (types.length > 1)
+        {
+            type = chooseType(types, mode);
+        }
+        else
+        {
+            type = types[0];
+        }
+        if (type != null)
+        {
+            launch(type, mode);
+        }
+    }
+
+    private void launch(IType type, String mode)
+    {
+        ILaunchConfiguration config = findLaunchConfiguration(type, mode);
+        System.out.println("Setting up the container");
+        System.out.println("Starting the container");
+        launchConfiguration(mode, config);
+        System.out.println("Stoping the container");
+        System.out.println("Cleaning the container");
+    }
+
+    private void launchConfiguration(String mode, ILaunchConfiguration config)
+    {
+        try
+        {
+            if (config != null)
+            {
+                DebugUITools.saveAndBuildBeforeLaunch();
+                config.launch(mode, null);
+            }
+        }
+        catch (CoreException e)
+        {
+            ErrorDialog.openError(getShell(), JUnitMessages.getString("LaunchTestAction.message.launchFailed"), e.getMessage(), e.getStatus()); //$NON-NLS-1$
+        }
+    }
 }

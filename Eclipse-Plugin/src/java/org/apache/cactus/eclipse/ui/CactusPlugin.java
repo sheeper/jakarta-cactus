@@ -59,6 +59,7 @@ package org.apache.cactus.eclipse.ui;
 import org.eclipse.core.runtime.IPluginDescriptor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbench;
@@ -155,6 +156,18 @@ public class CactusPlugin extends AbstractUIPlugin
             display = Display.getDefault();
         }
         return display;
+    }
+    /**
+     * Initializes all preferences to their default values.
+     * 
+     * @param theStore the preference store
+     */
+    protected void initializeDefaultPreferences(IPreferenceStore theStore)
+    {
+        theStore.setDefault(CactusPreferences.CONTEXT_URL_SCHEME, "http");
+        theStore.setDefault(CactusPreferences.CONTEXT_URL_HOST, "localhost");
+        theStore.setDefault(CactusPreferences.CONTEXT_URL_PORT, 8080);
+        theStore.setDefault(CactusPreferences.CONTEXT_URL_PATH, "test");
     }
 
 }
