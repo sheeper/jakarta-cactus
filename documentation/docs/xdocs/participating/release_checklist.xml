@@ -44,11 +44,12 @@
           template</jump> is provided at the bottom of this page.
         </li>
         <li>
-          Ensure that the Cactus web site is up to date with the new release.
-        </li>
-        <li>
           Ensure you have added a news item for the new Cactus release on
           the <link href="site:news">News</link> page.
+        </li>
+        <li>
+          Edit <code>changes.xml</code> and replace "<code>in CVS</code>" with
+          the date of the release.
         </li>
         <li>
           Edit <code>build-common.xml</code> and
@@ -73,10 +74,12 @@
         </li>
         <li>
           Upload the Cactus releases (for all Servlet APIs and the source one)
-          and the zipped Ant distribution to <code>jakarta.apache.org</code>,
-          putting them in a
-          <code>/www/jakarta.apache.org/builds/jakarta-cactus/release/&lt;version&gt;</code>
-          directory.
+          and the zipped Ant distribution to <code>archive.apache.org</code>,
+          putting them in the
+          <code>/www/archive.apache.org/dist/jakarta/cactus</code>
+          directory (binaries go in <code>binaries/</code> and sources in
+          <code>source/</code>). Also make sure you link the latest versions
+          to the <code>*-current.zip</code> files.
         </li>
         <li>
           Upload the Cactus website by running <code>ant upload</code> in the 
