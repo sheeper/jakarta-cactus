@@ -142,7 +142,13 @@ public class Configuration
             Enumeration keys = config.getKeys();
             while (keys.hasMoreElements()) {
                 String key = (String) keys.nextElement();
-                System.setProperty(key, config.getString(key));
+
+                // Only set the system property if it does not already exist.
+                // This allows to have a cactus properties file and override
+                // some values on the command line.
+                if (System.getProperty(key) == null) {
+                    System.setProperty(key, config.getString(key));
+                }
             }
 
             isInitialized = true;
