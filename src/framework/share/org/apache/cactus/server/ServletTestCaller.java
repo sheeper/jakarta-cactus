@@ -62,6 +62,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 
 import org.apache.commons.cactus.*;
+import org.apache.commons.cactus.util.log.*;
 
 /**
  * Call the test method on the server side after assigning the servlet implicit
@@ -78,6 +79,11 @@ public class ServletTestCaller
     private final static String TEST_RESULTS = "ServletTestRedirector_TestResults";
 
     /**
+     * The logger
+     */
+    private static Log logger = LogService.getInstance().getLog(ServletTestRedirector.class.getName());
+
+    /**
      * Call the method to test.
      *
      * @param theClassName the name of the test class to call
@@ -87,6 +93,8 @@ public class ServletTestCaller
      */
     private void callTestMethod(String theClassName, String theMethod, ServletImplicitObjects theObjects) throws Throwable
     {
+        logger.entry("callTestMethod(...)");
+
         // Get the class to call and build an instance of it.
         Class testClass = null;
         ServletTestCase testInstance = null;
@@ -139,6 +147,7 @@ public class ServletTestCaller
         // Call the test method
         testInstance.runBareServerTest();
 
+        logger.exit("callTestMethod");
     }
 
     /**
@@ -152,10 +161,23 @@ public class ServletTestCaller
      */
     public void doTest(ServletImplicitObjects theObjects) throws ServletException
     {
+        logger.entry("doTest(...)");
+
         ServletTestResult result = null;
+  
+        // Reset TEST_RESULTS to a new results holder to prevent premature
+        // requests for results from seeing either no results or old results
+        ResultHolder holder = new ResultHolder();
+        theObjects.m_Config.getServletContext().setAttribute(TEST_RESULTS, holder);
 
+        logger.debug("Result holder semaphore is in place");
+
+        // From this point forward, any thread trying to access the result
+        // stored in the holder, itself stored in the application scope, will
+        // block and wait until a result is set.
+ 
         try {
-
+  
             // Extract from the HTTP request the test class name and method to call.
 
             String testClassName = theObjects.m_Request.getParameter(ServiceDefinition.CLASS_NAME_PARAM);
@@ -164,11 +186,15 @@ public class ServletTestCaller
                     ServiceDefinition.CLASS_NAME_PARAM + "] in HTTP request.");
             }
 
+            logger.debug("Class to call = " + testClassName);
+
             String methodName = theObjects.m_Request.getParameter(ServiceDefinition.METHOD_NAME_PARAM);
             if (methodName == null) {
                 throw new ServletException("Missing parameter [" +
                     ServiceDefinition.METHOD_NAME_PARAM + "] in HTTP request.");
             }
+
+            logger.debug("Method to call = " + methodName);
 
             // Call the method to test
             callTestMethod(testClassName, methodName, theObjects);
@@ -185,9 +211,12 @@ public class ServletTestCaller
 
         }
 
-        // Save the test result.
-        theObjects.m_Config.getServletContext().setAttribute(TEST_RESULTS, result);
+        // Set the test result.
+        holder.setResult(result);
 
+        logger.debug("Result holder semaphore inactive (result set in holder)");
+
+        logger.exit("doTest");
     }
 
     /**
@@ -199,10 +228,14 @@ public class ServletTestCaller
      */
     public void doGetResults(ServletImplicitObjects theObjects) throws ServletException
     {
-        ServletTestResult result = (ServletTestResult)theObjects.m_Config.getServletContext().getAttribute(TEST_RESULTS);
-        if (result == null) {
-            throw new ServletException("No test results found in the application scope");
-        }
+        logger.entry("doGetResults(...)");
+
+        logger.debug("Try to read results from Holder ...");
+
+        ResultHolder holder = (ResultHolder)(theObjects.m_Config.getServletContext().getAttribute(TEST_RESULTS));
+        ServletTestResult result = holder.getResult();
+
+        logger.debug("... results read");
 
         // Write back the results as a serialized object to the outgoing stream.
         try {
@@ -218,6 +251,7 @@ public class ServletTestCaller
         } catch (IOException e) {
             throw new ServletException("Error writing ServletTestResult instance to output stream", e);
         }
-    }
 
+        logger.exit("doGetResults");
+    }
 }

@@ -62,6 +62,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 
 import org.apache.commons.cactus.*;
+import org.apache.commons.cactus.util.log.*;
 
 /**
  * Generic Servlet redirector that calls a test method on the server side.
@@ -72,6 +73,28 @@ import org.apache.commons.cactus.*;
 public class ServletTestRedirector extends HttpServlet
 {
     /**
+     * Initialize the logging subsystem so that it can get it's configuration
+     * details from the correct properties file. Initialization is done here
+     * as this servlet is the first point of entry to the server code.
+     */
+    static {
+        LogService.getInstance().init("/log_server.properties");
+    }
+
+    /**
+     * The logger
+     */
+    private static Log logger = LogService.getInstance().getLog(ServletTestRedirector.class.getName());
+
+    /**
+     * Some magic keyword that is prepended to the servlet output stream in
+     * order to never have an empty stream returned to the client side. This is
+     * needed because the client side will try to read all the returned data and
+     * if there is none will block ...
+     */
+    static final String MAGIC_KEYWORD = "C*&()C$$";
+
+    /**
      * Handle GET requests.
      *
      * @param theRequest the incoming HTTP client request
@@ -80,10 +103,14 @@ public class ServletTestRedirector extends HttpServlet
      * @exception ServletException if an error occurred when sending back
      *                             the response to the client.
      */
-    public void doGet(HttpServletRequest theRequest, HttpServletResponse theResponse) throws ServletException
+    public void doGet(HttpServletRequest theRequest, HttpServletResponse theResponse) throws ServletException, IOException
     {
+        logger.entry("doGet(...)");
+
         // Same handling than for a POST
         doPost(theRequest, theResponse);
+
+        logger.exit("doGet");
     }
 
     /**
@@ -95,14 +122,20 @@ public class ServletTestRedirector extends HttpServlet
      *
      * @exception ServletException if an unexpected error occurred
      */
-    public void doPost(HttpServletRequest theRequest, HttpServletResponse theResponse) throws ServletException
+    public void doPost(HttpServletRequest theRequest, HttpServletResponse theResponse) throws ServletException, IOException
     {
+        logger.entry("doPost(...)");
+
+        logger.debug("Default buffer size = " + theResponse.getBufferSize());
+
         // Call the correct Service method
         String serviceName = theRequest.getParameter(ServiceDefinition.SERVICE_NAME_PARAM);
         if (serviceName == null) {
             throw new ServletException("Missing parameter [" +
                 ServiceDefinition.SERVICE_NAME_PARAM + "] in HTTP request.");
         }
+
+        logger.debug("Service called = " + serviceName);
 
         ServletTestCaller caller = new ServletTestCaller();
         ServletImplicitObjects objects = new ServletImplicitObjects();
@@ -115,6 +148,43 @@ public class ServletTestRedirector extends HttpServlet
 
             caller.doTest(objects);
 
+            // Ugly hack here : The client side need to read all the data
+            // returned on the servlet output stream. Otherwise the servlet
+            // engine might do an io block, waiting for the client to read
+            // more data. Is this happens, then we are stuck because the client
+            // side is waiting for the test result to be committed but the
+            // latter will only be committed when all the data has been sent
+            // on the servlet output stream. So we need to read the data from
+            // the client side. However, some tests do not return any data and
+            // thus the read would block ... So we always send at the end of
+            // the stream a magic keyword so that the returned stream is never
+            // empty. This magic keyword will be ignored by the client side
+            // ... ugly, no ?
+
+            // This can easily be corrected with the Servlet API 2.3 (by
+            // doing all the read on the server side instead of the client side
+            // ). However it does not work on some 2.2 API servlet engines
+            // (like Tomcat 3.2 ...).
+
+            // Send magic keyword ... well at least try ... Yes, you read it
+            // correctly ! I said 'try' because if the test has done a forward
+            // for example, then the Writer or OutputStream will have already
+            // been used and thus it would lead to an error to try to write to
+            // them ... In that case, we won't write anything back but that
+            // should be fine as a forward is supposed to return something ...
+    
+            // Note: There might still be the case where I get a Writer in my
+            // test case but don't use it ... hum ... To verify ... later ...
+
+            // Try sending the magic keyword ...
+            logger.debug("Sending magic keyword ...");
+            try {
+                theResponse.getOutputStream().print(MAGIC_KEYWORD);
+            } catch (Exception e) {
+                logger.debug("Failed to to send magic keyword (this is normal)", e);
+                // It failed ... Do nothing
+            }
+
         // Is it the get test results service ?
         } else if (ServiceEnumeration.GET_RESULTS_SERVICE.equals(serviceName)) {
 
@@ -124,6 +194,8 @@ public class ServletTestRedirector extends HttpServlet
             throw new ServletException("Unknown service [" + serviceName +
                 "] in HTTP request.");
         }
+
+        logger.exit("doPost");
 
     }
 
