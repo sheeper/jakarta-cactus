@@ -42,6 +42,7 @@
 
     <items>
       <rdf:Seq>
+        <rdf:li rdf:resource="http://jakarta.apache.org/cactus/news.html#news27"/>
         <rdf:li rdf:resource="http://jakarta.apache.org/cactus/news.html#news26"/>
         <rdf:li rdf:resource="http://jakarta.apache.org/cactus/news.html#news25"/>
         <rdf:li rdf:resource="http://jakarta.apache.org/cactus/news.html#news24"/>
@@ -72,6 +73,21 @@
     </items>
 
   </channel>
+
+  <item rdf:about="http://jakarta.apache.org/cactus/news.html#news27">
+    <title>AppServerUnit testing framework</title>
+    <link>http://jakarta.apache.org/cactus/news.html#news27</link>
+    <description>
+<![CDATA[Christian Sell has started a new framework called
+<a href="http://appserverunit.dev.java.net/">AppServerUnit</a>. Its principle seems
+very similar to Cactus in that it also uses a server interception approach in order
+to run JUnit test cases on the server side. It focuses only on EJB and has some
+client side tools to create test-instrumented EARs.]]>
+    </description>
+    <dc:subject></dc:subject>
+    <dc:creator>vmassol</dc:creator>
+    <dc:date>2005-01-07T00:00:00+00:00</dc:date>
+  </item>
 
   <item rdf:about="http://jakarta.apache.org/cactus/news.html#news26">
     <title>Testing Your Enterprise JavaBeans with Cactus</title>
