@@ -24,9 +24,6 @@
 
   <properties>
     <title>Release Checklist</title>
-    <authors>
-      <author name="Vincent Massol" email="vmassol@apache.org"/>
-    </authors>
   </properties>
 
   <body>
