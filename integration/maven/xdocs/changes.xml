@@ -8,10 +8,15 @@
   <body>
 
     <release version="1.6dev" date="in CVS">
+      <action dev="vmassol" type="add" due-to="Tony Czupryna" due-to-email="tczupryna@orbitz.com">
+        Added support for the new <code>configxml</code> attribute used in the
+        <code>&lt;weblogic7x&gt;</code> element of the 
+        <code>&lt;cactus&gt;</code> task.
+      </action>
       <action dev="vmassol" type="add" issue="24754" due-to="Michael Gaffney" due-to-email="michael.gaffney@panacya.com">
-       Added support for EJB testing with Cactus. Calling 
-       <code>cactus:test-ear</code> packages the whole thing in an EAR and
-       executes the Cactus tests.
+        Added support for EJB testing with Cactus. Calling 
+        <code>cactus:test-ear</code> packages the whole thing in an EAR and
+        executes the Cactus tests.
       </action>
       <action dev="vmassol" type="add">
         The <code>cactus:test</code> goal now automatically discovers JUnit 

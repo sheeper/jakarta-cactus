@@ -384,6 +384,9 @@
           <j:if test="${context.getVariable('cactus.weblogic7x.beahome') != null}">
             <ant:setProperty name="beahome" value="${cactus.weblogic7x.beahome}"/>
           </j:if> 
+          <j:if test="${context.getVariable('cactus.weblogic7x.config') != null}">
+            <ant:setProperty name="configxml" value="${cactus.weblogic7x.config}"/>
+          </j:if>
         </weblogic7x>            
 
       </containerset>
@@ -579,6 +582,9 @@
           <j:if test="${context.getVariable('cactus.weblogic7x.beahome') != null}">
             <ant:setProperty name="beahome" value="${cactus.weblogic7x.beahome}"/>
           </j:if> 
+          <j:if test="${context.getVariable('cactus.weblogic7x.config') != null}">
+            <ant:setProperty name="configxml" value="${cactus.weblogic7x.config}"/>
+          </j:if>
         </weblogic7x>            
 
       </containerset>
@@ -713,6 +719,9 @@
           <j:if test="${context.getVariable('cactus.weblogic7x.beahome') != null}">
             <ant:setProperty name="beahome" value="${cactus.weblogic7x.beahome}"/>
           </j:if> 
+          <j:if test="${context.getVariable('cactus.weblogic7x.config') != null}">
+            <ant:setProperty name="configxml" value="${cactus.weblogic7x.config}"/>
+          </j:if>
         </weblogic7x>            
 
       </containerset>
@@ -891,6 +900,9 @@
           </j:if>
           <j:if test="${context.getVariable('cactus.weblogic7x.beahome') != null}">
             <ant:setProperty name="beahome" value="${cactus.weblogic7x.beahome}"/>
+          </j:if>
+          <j:if test="${context.getVariable('cactus.weblogic7x.config') != null}">
+            <ant:setProperty name="configxml" value="${cactus.weblogic7x.config}"/>
           </j:if>
         </weblogic7x>
 

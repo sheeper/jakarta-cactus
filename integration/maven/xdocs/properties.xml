@@ -350,6 +350,16 @@
             </p>
           </td>
         </tr>
+        <tr>
+          <td>cactus.weblogic7x.config</td>
+          <td>Yes</td>
+          <td>
+            <p>
+              Location of the WebLogic 7.x configuration file if you don't want 
+              to use the cactus-provided one.
+            </p>
+          </td>
+        </tr>
       </table>
     </section>
 
