@@ -56,7 +56,15 @@
  */
 package org.apache.cactus.integration.ant.container;
 
+import java.io.File;
+import java.io.Reader;
+import java.io.StringReader;
+import java.util.Vector;
+
 import junit.framework.TestCase;
+
+import org.apache.tools.ant.filters.util.ChainReaderHelper;
+import org.apache.tools.ant.types.FilterChain;
 
 /**
  * Unit tests for {@link AbstractContainer}.
@@ -107,18 +115,22 @@ public class TestAbstractContainer extends TestCase
      */
     public void testCreateFilterChainOk() throws Exception
     {
-//        File earFile = new File("test.ear");
-//        this.container.setDeployableFile(earFile);
-//        String buffer = "@cactus.port@:@cactus.context@";
-//                        
-//        FilterChain chain = this.container.createFilterChain();        
-//
-//        ChainReaderHelper helper = new ChainReaderHelper();
-//        Vector chains = new Vector();
-//        chains.addElement(chain);
-//        helper.setFilterChains(chains);
-//        helper.setPrimaryReader(new StringReader(buffer));
-//        assertEquals("8080:test", 
-//            helper.readFully(helper.getAssembledReader()));
+        File earFile = new File("test.ear");
+        this.container.setDeployableFile(earFile);
+
+        // Note that we needed to add a last character to the string
+        // after the @cactus.context@ token as otherwise the Ant code 
+        // fails! It looks like an Ant bug to me...       
+        String buffer = "@cactus.port@:@cactus.context@:";
+                        
+        FilterChain chain = this.container.createFilterChain();        
+
+        ChainReaderHelper helper = new ChainReaderHelper();
+        Vector chains = new Vector();
+        chains.addElement(chain);
+        helper.setFilterChains(chains);
+        helper.setPrimaryReader(new StringReader(buffer));
+        Reader reader = helper.getAssembledReader();       
+        assertEquals("8080:test:", helper.readFully(reader)); 
     }
 }
