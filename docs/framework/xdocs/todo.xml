@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE todo SYSTEM "./dtd/todo-v10.dtd">
+
+<todo title="Things To Do for Cactus">
+
+  <devs>
+    <person name="Vincent Massol" email="vmassol@users.sourceforge.net" id="VMA"/>
+    <person name="Philip Aston" email="paston@bea.com" id="PAS"/>
+    <person name="P. Babu Naidu" email="pbn@bea.com" id="BNA"/>
+  </devs>
+
+  <actions priority="medium">
+    <action context="docs">
+      Write a tutorial that shows how to test EJBs.
+    </action>
+    <action context="samples">
+      Add a sample that shows how to test EJBs.
+    </action>
+    <action context="design" assigned-to="VMA">
+      Add support for testing custom JSP Taglibs (suggested by Sohail Aslam) +
+      tutorial + sample
+    </action>
+    <action context="design" assigned-to="VMA">
+      Add support for testing Servlet API 2.3 Filters.
+    </action>
+    <action context="docs" assigned-to="VMA">
+      Write a short "Testing strategy" tutorial that explains the different
+      kind of tests and what tool to use for each kind. Speak about facade,
+      MCV model.
+    </action>
+  </actions>
+
+  <actions priority="low">
+    <action context="docs" assigned-to="VMA">
+      Add a page to the web site that explains the long term goals of Cactus:
+      go as far as possible for testing server-side components but explain why
+      this is limited and will fail in the long term as components benefit
+      more and more from services provided by the container. The solution will
+      be to provide testing API/SPI in the container specifications so that
+      frameworks like Cactus can be plugged into the containers. Explain that
+      one goal of Cactus is to make Tomcat/Sun aware of this and try to push
+      in this direction. (Note: This is my view, verify if other share it or if
+      I'm wrong in thinking in these terms).
+    </action>
+    <action context="code" assigned-to="PAS">
+      Modify the Ant <code>runservertest</code> task so that it also works when
+      a servlet engine is already up and running (thanks to Philip Aston who
+      requested and provided the code for this feature)
+    </action>
+    <action context="code">
+      Make the methods <code>setUp()</code> and <code>tearDown()</code>
+      protected on the server side so that it is consistent with JUnit (for the
+      moment they need to be public to work).
+    </action>
+    <action context="code">
+      Manage multivalued HTTP headers in <code>ServletTestRequest</code>.
+    </action>
+    <action context="docs">
+      Write a Cactus integration tutorial for JBuilder 4.
+    </action>
+    <action context="docs">
+      Write a Cactus integration tutorial for VAJava 3.5.
+    </action>
+    <action context="build">
+      Add Ant scripts to support WebLogic 6.0.
+    </action>
+    <action context="code" assigned-to="VMA">
+      Handle <code>getRealPath()</code>, <code>getPathTranslated()</code> in the
+      <code>ServletRedirectorRequest</code> class.
+    </action>
+    <action context="admin" assigned-to="VMA">
+      On the Cactus news web page, provide a list of pages that have been
+      recently modified so that end users can see at a glance what has changed
+      recently on the web site.
+    </action>
+    <action context="build" assigned-to="VMA">
+      Generate changelog file from CVS change log information and put in the
+      documentation of each release.
+    </action>
+    <action context="docs" assigned-to="VMA">
+      Add a license section to the Cactus web site that explains that Cactus
+      is under the APL license and shows the license statement.
+    </action>
+    <action context="docs" assigned-to="VMA">
+      Add a contributing section to the Cactus web site (see the contributing
+      section of Cocoon as a sample).
+    </action>
+    <action context="build" assigned-to="VMA">
+      On the documentation web pages (i.e. not the site web pages) add a sub
+      header for each page with a message saying "Click here if you want to
+      see the latest online version of this page". Modify a stylebook stylesheet
+      to do this (combined with an Ant token filter or an Ant replace task).
+    </action>
+    <action context="code">
+      Add API in <code>ServletTestRequest</code> to send data to the URL
+      connection output stream. This is to easily test code that sends bytes
+      of data as POST data to the servlet (requested by Daniel Cohen and 
+      custommonkey).
+    </action>
+    <action context="code">
+      Automatically add the query string parameters defined when using the
+      <code>ServletTestRequest.setURL()</code> API to the list of parameters
+      passed to the server redirector, so that it won't be necessary to call
+      <code>ServletTestRequest.addParameter()</code> for each of these
+      parameters.
+    </action>
+  </actions>
+
+  <actions priority="wish">
+    <action context="code">
+      Integration for Netbeans by integration with the Netbeans XTest module.
+    </action>
+    <action context="design" assigned-to="BNA">
+      Provide a mechanism for easier testing of EJBs. The mechanism is to be
+      defined (requested by notyy).
+    </action>
+  </actions>
+
+</todo>

@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Created-By: Ant
+
+Name: cactus/ant/
+Specification-Title: Custom Cactus tasks for Ant
+Specification-Vendor: Apache Software Foundation
+Implementation-Vendor: Apache Software Foundation
+Specification-Version: @version@
+Implementation-Version: @version@
+Implementation-Title: cactus-ant

@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE document SYSTEM "./dtd/document-v10.dtd">
+
+<document>
+  <header>
+    <title>Contributors</title>
+    <authors>
+      <person name="Vincent Massol" email="vmassol@users.sourceforge.net"/>
+    </authors>
+   </header>
+
+  <body>
+
+    <s1 title="Cactus contributors">
+
+      <p>Thanks to all that have contributed so far to Cactus ... </p>
+
+      <s2 title="Commiters">
+
+        <table>
+          <tr>
+            <td>
+              <link href="mailto:vmassol@users.sourceforge.net">Vincent Massol</link><br/>
+              Main developer of Cactus, current project maintainer.
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <link href="mailto:lthouvenot@octo.com">Lyonel Thouvenot</link><br/>
+              Cactus logo (and web site design and graphisms when Cactus was not
+              using Stylebook).
+            </td>
+          </tr>
+        </table>
+
+      </s2>
+
+      <s2 title="Contributors">
+
+        <p>
+          Thanks to all that have reported bugs or suggested ideas for Cactus.
+        </p>
+        <p>
+          A special thank to Erik Meade for linking Cactus on the
+          <link href="http://junit.org">JUnit web site</link>.
+        </p>
+        <p>
+          Thanks also to the <link href="http://jakarta.apache.org">Apache
+          Jakarta</link> project and more specifically the
+          <link href="http://jakarta.apache.org/commons">Jakarta Commons</link>
+          project for accepting the donation of J2EEUnit (renamed Cactus), thus
+          giving it a home and a family.
+        </p>
+
+      </s2>
+
+      <s2 title="Sponsors">
+
+        <table>
+          <tr>
+            <td>
+              <link href="http://www.octo.com">OCTO Technology</link> (the company
+              for which I work),<br/>
+              An IT consulting company on the cutting edge of new technologies,
+              providing expert Architects in the fields of applications servers
+              (J2EE, Microsoft DNA &amp; .NET, ...), EAI and IRM.
+            </td>
+          </tr>
+        </table>
+
+      </s2>
+
+    </s1>
+
+  </body>
+</document>

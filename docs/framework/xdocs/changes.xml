@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE changes SYSTEM "./dtd/changes-v10.dtd">
+
+<changes title="History of Changes">
+
+  <devs>
+    <person name="Vincent Massol" email="vmassol@users.sourceforge.net" id="VMA"/>
+  </devs>
+
+  <release version="1.0b1" date="April 9 2001">
+    <action dev="VMA" type="update">
+      Updated the Cactus distribution so that everything is contained into one
+      single file (doc + jars + sample). The sources are available separately
+      in a second file.
+    </action>
+    <action dev="VMA" type="add">
+      Added a section on the main web site page to explain the reason for the
+      Cactus name.
+    </action>
+    <action dev="VMA" type="update">
+      Tested with JUnit 3.6.
+    </action>
+    <action dev="VMA" type="update">
+      Changed the web site skin to be the Jakarta skin and not the Apache XML
+      skin. This is because Cactus is now part of the Jakarta Commons project.
+    </action>
+    <action dev="VMA" type="update">
+      Updated the web site installation section to better explain the
+      required steps to install Cactus. Namely, it covers
+      <link href="installation_ant.html">installing Ant</link> and
+      <link href="installation_sample.html">installing the Cactus Sample
+      application</link>.
+    </action>
+    <action dev="VMA" type="remove">
+      Removed the deliverable dependencies jar. Instead, provides a zipped
+      installation of Ant containing the needed jars for tasks used by Cactus
+      and Cactus Sample build files.
+    </action>
+    <action dev="VMA" type="update">
+      Removed the <code>misc/</code> directory and JBuilder files from CVS
+      and source distribution.
+    </action>
+    <action dev="VMA" type="update">
+      Renamed the project from J2EEUnit to Cactus. Although it was a difficult
+      decision to make, it had to be done as J2EE is a Sun trademark. Renamed
+      all occurrences of J2EEUnit to Cactus and changed package names (from
+      <code>j2eeunit.*</code> to <code>org.apache.commons.castor.*</code>.
+    </action>
+    <action dev="VMA" type="fix">
+      The sample application sources now contains all needed configuration
+      files (the manifest and web.xml files were missing in the previous
+      release).
+    </action>
+    <action dev="VMA" type="update">
+      Donated the project to the Apache Software Foundation.
+      Changed license from GPL to APL. Moved packages from
+      <code>j2eeunit.*</code> to <code>org.apache.commons.j2eeunit.*</code>
+      and changed copyrights
+    </action>
+  </release>
+
+</changes>

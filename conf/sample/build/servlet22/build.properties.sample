@@ -1,0 +1,19 @@
+# Properties related to the user's environment. This file should be provided
+# for building the Cactus Sample or the properties need to be specified on
+# the command line when starting Ant with the -D switch
+
+servlet.jar = f:/applis/apache-dev/jakarta-servletapi/lib/servlet.jar
+cactus.jar = ../lib/commons-cactus.jar
+cactus.ant.jar = ../lib/commons-cactus-ant.jar
+junit.jar=f:/applis/jakarta-ant-1.4alpha/lib/junit.jar
+
+# Servlet engine locations for the tests
+
+# Note: If you don't want to run the test on a given servlet engine, just
+#       comment it's home property. For example, if you don't want to run the
+#       tests on the Resin 1.2, comment the "resin.home.12" property.
+
+resin.home.12 = f:/applis/resin-1.2.s010208
+tomcat.home.32 = f:/applis/jakarta-tomcat-3.2.1
+orion.home.14 = f:/applis/orion-1.4.5
+weblogic.home.51 = e:/weblogic

@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE document SYSTEM "./dtd/document-v10.dtd">
+
+<document>
+  <header>
+    <title>API Reference</title>
+    <authors>
+      <person name="Vincent Massol" email="vmassol@users.sourceforge.net"/>
+    </authors>
+  </header>
+
+  <body>
+
+    <s1 title="Javadocs">
+
+      <p>
+        These are the generated javadocs for the different Servlet API.
+      </p>
+      
+      <table>
+        <tr>
+          <th>
+            <strong>Name</strong>
+          </th>
+        </tr>
+        <tr>
+          <td>
+            <link href="javadoc/servlet22/index.html">Javadoc for Cactus 1.0 Servlet
+            API 2.2</link>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <link href="javadoc/servlet23/index.html">Javadoc for Cactus 1.0 Servlet
+            API 2.3</link>
+          </td>
+        </tr>
+      </table>
+
+    </s1>
+
+  </body>
+</document>

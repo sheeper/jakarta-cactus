@@ -1,0 +1,569 @@
+<?xml version="1.0"?>
+
+<!-- 
+  =============================================================================
+    Build file for the Cactus project. This build file will call the
+    build-servletapi.xml build file for several Servlet API (2.2 and 2.3).
+    
+    The following properties need to be set in a ./build.properties or
+    or ${user.home}/build.properties file :
+
+        servlet22.jar         [OPTIONAL] The path to the Servlet API 2.2 jar.
+                              Required only if you want to build against this
+                              API
+
+        servlet23.jar         [OPTIONAL] The path to the Servlet API 2.3 jar.
+                              Required only if you want to build against this
+                              API
+
+        junit.jar             [REQUIRED] The path to the JUnit jar file
+    
+        stylebook.jar         [OPTIONAL] The path to the Stylebook jar file.
+                              Required only for the dependencies target
+
+        xerces.jar            [OPTIONAL] The path to the Xerces jar file.
+                              Required only for the dependencies target
+           
+        xalan.jar             [OPTIONAL] The path to the Xalan jar file.
+                              Required only for the dependencies target
+
+        crimson.jar           [OPTIONAL] The path to the Crimson jar file.
+                              Required only for the dependencies target
+
+        dist.dir              [OPTIONAL] The directories where distributable
+                              files will be copied with version number
+                              postfixed. Required for the dist target only.
+                              Default is out/dist
+             
+    Additionally and depending on the servlet engines whith which you wish to
+    run your tests, you'll need to set the following properties :
+
+        resin.home.12         [OPTIONAL] Resin 1.2 home directory (required for
+                              the tests_resin_12 target only)
+
+        resin.home.13         [OPTIONAL] Resin 1.3 home directory (required for
+                              the tests_resin_13 target only)
+
+        tomcat.home.32        [OPTIONAL] Tomcat 3.2 home directory (required
+                              for the tests_tomcat_32 target only)
+
+        tomcat.home.40        [OPTIONAL] Tomcat 4.0 home directory (required
+                              for the tests_tomcat_40 target only)
+
+        weblogic.home.51      [OPTIONAL] WebLogic 5.1 home directory (required
+                              for the tests_weblogic_51 target only)
+
+    This script should be started with the following command line :
+
+        ant <target>
+
+    Run "ant usage" to get a list of available targets. The default target is
+    "jar"
+  ============================================================================= 
+-->
+<project name="Cactus" default="jar" basedir="..">
+
+    <!-- Give user a chance to override without editing this file 
+         (and without typing -D each time it compiles it) -->
+    <property file="build/build.properties" />
+    <property file="${user.home}/build.properties" />
+
+    <!-- Generic project properties -->
+    <property name="project.fullname" value="Cactus"/>
+    <property name="project.version" value="1.0-b1"/>
+    <property name="project.name" value="commons-cactus"/>
+
+    <!-- Miscellaneous settings -->
+    <property name="year" value="2000-2001"/>
+    <property name="debug" value="on"/>
+    <property name="optimize" value="off"/>
+    <property name="deprecation" value="off"/>
+
+    <!-- 
+       ========================================================================
+         Set the properties related to the source tree
+       ========================================================================
+    -->
+    <!-- Source locations for the build -->
+    <property name="src.dir" value="src"/>
+    <property name="build.dir" value="build"/>
+    <property name="etc.dir" value="${build.dir}/etc"/>
+    <property name="src.java.share.dir" value="${src.dir}/framework/share"/>
+    <property name="src.java.test.share.dir" value="${src.dir}/test/share"/>
+    <property name="src.java.ant.dir" value="${src.dir}/ant"/>
+    <property name="conf.dir" value="conf"/>
+    <property name="doc.root.dir" value="docs"/>
+    <property name="doc.dir" value="${doc.root.dir}/framework"/>
+    <property name="xdoc.dir" value="${doc.dir}/xdocs"/>
+    <property name="skin.dir" value="${doc.dir}/skins"/>
+    <property name="web.dir" value="web"/>
+
+    <!-- Source locations for the Cactus sample application -->
+    <property name="sample.src.dir" value="${src.dir}/sample"/>
+    <property name="sample.build.dir" value="${conf.dir}/sample/build"/>
+    <property name="sample.etc.dir" value="${sample.build.dir}/etc"/>
+    <property name="sample.conf.dir" value="${conf.dir}/sample/conf"/>
+    <property name="sample.web.dir" value="${web.dir}/sample"/>
+    <property name="sample.doc.dir" value="${doc.root.dir}/sample"/>
+
+    <!-- 
+       ========================================================================
+         Set the properties related to the build area
+       ========================================================================
+    -->
+    <!-- Destination locations for the build (relative to the basedir as
+         specified in the basedir attribute of the project tag) -->
+    <property name="out.root.dir" value="out"/>
+    <property name="out.site.dir" value="${out.root.dir}/doc"/>
+    <property name="out.classes.ant.dir" value="${out.root.dir}/classes"/>
+    <property name="out.src.ant.dir" value="${out.root.dir}/src"/>
+    <property name="out.conf.ant.dir" value="${out.root.dir}/conf"/>
+
+    <!-- 
+       ========================================================================
+         Default values for properties not defined in build.properties
+       ========================================================================
+    -->
+    <property name="dist.dir" value="${out.root.dir}/dist"/>
+
+    <!-- 
+       ========================================================================
+        Short names of deliverables
+       ========================================================================
+    -->
+
+    <!-- The Cactus jar containing custom Ant tasks and helper classes -->
+    <property name="jar.ant.name" value="${project.name}-ant"/>
+
+    <!-- The full sources of Cactus in a zip file -->
+    <property name="src.name" value="${project.name}-src"/>
+
+    <!-- The Cactus web site in a gzip file (without the Javadoc but
+         with a link pointing to javadoc : <htdocs>/servletXX/index.html -->
+    <property name="site.name" value="${project.name}-website"/>
+
+    <!-- 
+       ========================================================================
+         Full names of deliverables
+       ========================================================================
+    -->
+
+    <!-- The Cactus jar containing custom Ant tasks and helper classes -->
+    <property name="final.jar.ant.name" value="${out.root.dir}/${jar.ant.name}.jar"/>
+
+    <!-- The Cactus web site in a gzip file (without the Javadoc but
+         with a link pointing to javadoc : <htdocs>/servletXX/index.html -->
+    <property name="final.site.name" value="${out.root.dir}/${site.name}"/>
+
+    <!-- 
+       ========================================================================
+         Useful file patterns for targets
+       ========================================================================
+    -->
+    <!-- All source files of the projet. These source files will be copied
+         to the destination source directory in the prepare task -->
+    <patternset id="all.src.files">
+
+        <!-- All java files -->
+        <include name="**/*.java"/>
+
+        <!-- All doc files -->
+        <include name="**/package.html"/>
+        <include name="**/overview.html"/>
+
+        <!-- All conf files (including test files) -->
+        <include name="**/*.txt"/>
+        <include name="**/*.xml"/>
+        <include name="**/*.properties"/>
+
+    </patternset>
+
+    <!-- 
+       ========================================================================
+         Initialize the build. Must be called by all targets
+       ========================================================================
+    -->
+    <target name="check_servlet22" unless="servlet22.jar.present">
+
+        <echo message=""/>
+        <echo message="*********************************************************"/>
+        <echo message="WARNING : The 'servlet22.jar' property has not been set."/>
+        <echo message="          No output will be generated for Servlet API 2.2"/>
+        <echo message="*********************************************************"/>
+        <echo message=""/>
+
+    </target>
+
+    <target name="check_servlet23" unless="servlet23.jar.present">
+
+        <echo message=""/>
+        <echo message="*********************************************************"/>
+        <echo message="WARNING : The 'servlet23.jar' property has not been set."/>
+        <echo message="          No output will be generated for Servlet API 2.3"/>
+        <echo message="*********************************************************"/>
+        <echo message=""/>
+
+    </target>
+
+    <target name="init">
+
+        <tstamp/>
+
+        <echo message="--------- ${project.fullname} ${project.version} ---------"/>
+        <echo message=""/>
+
+        <echo message="java.class.path = ${java.class.path}"/>
+        <echo message=""/>
+        <echo message="java.home = ${java.home}"/>
+        <echo message="user.home = ${user.home}"/>
+        <echo message="ant.home = ${ant.home}"/>
+        <echo message=""/>
+
+        <!-- Full names of distributables. They are defined here because the
+             properties need to have a valid ${DSTAMP} property set and the
+             tstamp task need to be located in a target -->
+    
+        <!-- The Cactus jar containing custom Ant tasks and helper classes -->
+        <property name="dist.jar.ant.name"
+            value="${dist.dir}/${jar.ant.name}-${DSTAMP}.jar"/>
+    
+        <!-- The full sources of Cactus in a zip file -->
+        <property name="dist.src.name"
+            value="${dist.dir}/${src.name}-${DSTAMP}.zip"/>
+    
+        <!-- The Cactus web site in a gzip file (without the Javadoc but
+             with a link pointing to javadoc : <htdocs>/servletXX/index.html -->
+        <property name="dist.site.name" value="${dist.dir}/${site.name}"/>
+
+        <!-- Filters -->
+        <filter token="version" value="${project.version}"/>
+        <filter token="year" value="${year}"/>
+        <filter token="today" value="${TODAY}"/>
+
+        <!-- Check availabilities -->
+        <available file="${servlet22.jar}" property="servlet22.jar.present"/>
+        <available file="${servlet23.jar}" property="servlet23.jar.present"/>
+
+        <!-- Emit warning if need properties have not been set -->
+        <antcall target="check_servlet22"/>
+        <antcall target="check_servlet23"/>
+
+    </target>
+
+    <!-- 
+       ========================================================================
+         Help on usage. List available targets
+       ========================================================================
+    -->
+    <target name="usage" depends="init">
+
+        <echo message=""/>
+        <echo message="${project.fullname} build file"/>
+        <echo message="------------------------------------------------------"/>
+        <echo message=""/>
+        <echo message=" Available targets are :"/>
+        <echo message=""/>
+        <echo message=" jar              --> generates the jar file (default)"/>
+        <echo message=" doc              --> generates the docs (javadoc, ...)"/>
+        <echo message=" site             --> generate the web site"/>
+        <echo message=" sample           --> generate the sample application"/>
+        <echo message=" tests-unit       --> run the unit tests"/>
+        <echo message=" tests-functional --> run the functional tests"/>
+        <echo message=" tests            --> run both the unit and functional tests"/>
+        <echo message=" clean            --> cleans up the build directory"/>
+        <echo message=" all              --> do it all at once (clean, jar, sample"/>
+        <echo message="                      source, doc, site, tests, dist)"/>
+        <echo message=" dist             --> version all distributables and copies"/>
+        <echo message="                      them to the dist.dir directory"/>
+        <echo message=""/>
+
+    </target>
+
+    <!-- 
+       ========================================================================
+         Create the runtime jar file
+       ========================================================================
+    -->
+    <target name="jar.22" depends="init" if="servlet22.jar.present">
+        <ant antfile="build/build-servletapi.xml" target="jar">
+            <property name="servlet.api" value="22"/>
+            <property name="servlet.jar" value="${servlet22.jar}"/>
+        </ant>        
+    </target>
+
+    <target name="jar.23" depends="init" if="servlet23.jar.present">
+        <ant antfile="build/build-servletapi.xml" target="jar">
+            <property name="servlet.api" value="23"/>
+            <property name="servlet.jar" value="${servlet23.jar}"/>
+        </ant>        
+    </target>
+
+    <target name="jar" depends="jar.22,jar.23">
+
+        <!-- Copy source files to apply tokens -->
+        <mkdir dir="${out.src.ant.dir}"/>
+        <mkdir dir="${out.classes.ant.dir}"/>
+        <mkdir dir="${out.conf.ant.dir}"/>
+
+        <copy todir="${out.src.ant.dir}" filtering="on">
+            <fileset dir="${src.java.ant.dir}">
+                <patternset refid="all.src.files"/>
+            </fileset>
+        </copy>
+
+        <!-- Compile the files -->
+        <javac srcdir="${out.src.ant.dir}"
+            destdir="${out.classes.ant.dir}"
+            debug="${debug}"
+            deprecation="${deprecation}"
+            optimize="${optimize}">
+
+            <classpath>
+                <pathelement path="${java.class.path}"/>
+            </classpath>
+        </javac>
+
+        <!-- Copy the manifest in order to replace the version token filter -->
+        <copy tofile="${out.conf.ant.dir}/manifest"
+            file="${conf.dir}/manifest-ant"/>
+
+        <jar jarfile="${final.jar.ant.name}" basedir="${out.classes.ant.dir}"
+            manifest="${out.conf.ant.dir}/manifest"/>
+
+    </target>
+
+    <!-- 
+       ========================================================================
+         Generate the full documentation for a given Servlet API, i.e.
+         web site + javadoc + README
+       ========================================================================
+    -->
+    <target name="doc.22" depends="init" if="servlet22.jar.present">
+        <ant antfile="build/build-servletapi.xml" target="doc">
+            <property name="servlet.api" value="22"/>
+            <property name="servlet.jar" value="${servlet22.jar}"/>
+        </ant>        
+    </target>
+
+    <target name="doc.23" depends="init" if="servlet23.jar.present">
+        <ant antfile="build/build-servletapi.xml" target="doc">
+            <property name="servlet.api" value="23"/>
+            <property name="servlet.jar" value="${servlet23.jar}"/>
+        </ant>        
+    </target>
+
+    <target name="doc" depends="doc.22,doc.23">
+    </target>
+
+    <!-- 
+       ========================================================================
+         Generate the web site
+       ========================================================================
+    -->
+    <target name="prepare-site" depends="init">
+
+        <mkdir dir="${out.site.dir}"/>
+        <mkdir dir="${out.site.dir}/images"/>
+
+        <!-- Copy site-book.xml to book.xml for defining the web site content
+             and replacing token filters (year) -->
+        <delete file="${xdoc.dir}/book.xml"/>
+        <copy file="${xdoc.dir}/site-book.xml" tofile="${xdoc.dir}/book.xml"
+            filtering="on"/>
+
+        <!-- Copy the version.txt file -->
+        <copy file="${conf.dir}/version.txt"
+            tofile="${out.site.dir}/version.txt" filtering="on"/>
+
+        <!-- Copy the images -->
+        <copy todir="${out.site.dir}/images">
+            <fileset dir="${xdoc.dir}/images"/>
+        </copy>
+
+        <!-- Note that we do not copy the javadoc to the web site. This is
+             because the web site need to evolve independently of the javadoc
+             for a given version of Cactus. In other words, the javadoc on
+             the web site must not change until a new release of Cactus is
+             out -->
+
+    </target>
+
+    <!-- Generate the web site -->
+    <target name="site" depends="prepare-site">
+
+        <stylebook book="${xdoc.dir}/book.xml"
+            skinDirectory="${skin.dir}/jakarta.apache.org"
+            targetDirectory="${out.site.dir}">
+
+            <classpath>
+                <pathelement path="${java.class.path}"/>
+            </classpath>
+
+        </stylebook>
+
+        <!-- Create the gzipped web site -->
+        <tar tarfile="${final.site.name}-${DSTAMP}.tar" basedir="${out.site.dir}"/>
+        <gzip zipfile="${final.site.name}-${DSTAMP}.tar.gz" src="${final.site.name}-${DSTAMP}.tar"/>
+        <delete file="${final.site.name}-${DSTAMP}.tar"/>
+
+    </target>
+
+    <!-- 
+       ========================================================================
+         Generate the sample application directory structure and zip file.
+         This sample application will be used to exercise Cactus functional
+         tests. And of course, it serves as a sample on how to use Cactus
+       ========================================================================
+    -->
+    <target name="sample.22" depends="init" if="servlet22.jar.present">
+        <ant antfile="build/build-servletapi.xml" target="sample">
+            <property name="servlet.api" value="22"/>
+            <property name="servlet.jar" value="${servlet22.jar}"/>
+        </ant>        
+    </target>
+
+    <target name="sample.23" depends="init" if="servlet23.jar.present">
+        <ant antfile="build/build-servletapi.xml" target="sample">
+            <property name="servlet.api" value="23"/>
+            <property name="servlet.jar" value="${servlet23.jar}"/>
+        </ant>        
+    </target>
+
+    <target name="sample" depends="jar,sample.22,sample.23">
+    </target>
+
+    <!-- 
+       ========================================================================
+         Remove all build generated files
+       ========================================================================
+    -->
+    <target name="clean" depends="init">
+
+        <delete>
+            <fileset dir=".">
+                <include name="**/*.bak"/>
+                <include name="${xdoc.dir}/book.xml"/>
+            </fileset>
+        </delete>
+
+        <!-- Deletes all files ending with '~' -->
+        <delete>
+            <fileset dir="." includes="**/*~" defaultexcludes="no"/>
+        </delete>
+
+        <!-- Remove the out directory -->
+        <delete dir="${out.root.dir}"/>
+
+        <!-- Delete log files and version.txt -->
+        <delete>
+            <fileset dir=".">
+                <include name="**/*.log"/>
+                <include name="version.txt"/>
+            </fileset>
+        </delete>
+
+    </target>
+
+    <!-- 
+       ========================================================================
+         Run the unit tests. Only run the tests that do not need a servlet
+         engine. For the other tests needing a servlet engine, they are part
+         of the sample application and will be exercised there
+       ========================================================================
+    -->
+    <target name="tests-unit.22" depends="init" if="servlet22.jar.present">
+        <ant antfile="build/build-servletapi.xml" target="tests-unit">
+            <property name="servlet.api" value="22"/>
+            <property name="servlet.jar" value="${servlet22.jar}"/>
+        </ant>        
+    </target>
+
+    <target name="tests-unit.23" depends="init" if="servlet23.jar.present">
+        <ant antfile="build/build-servletapi.xml" target="tests-unit">
+            <property name="servlet.api" value="23"/>
+            <property name="servlet.jar" value="${servlet23.jar}"/>
+        </ant>        
+    </target>
+
+    <target name="tests-unit" depends="tests-unit.22,tests-unit.23">
+    </target>
+
+    <!-- 
+       ========================================================================
+         Run the functional tests
+       ========================================================================
+    -->
+    <target name="tests-functional.22" depends="init" if="servlet22.jar.present">
+        <ant antfile="build/build-servletapi.xml" target="tests-functional22">
+            <property name="servlet.api" value="22"/>
+            <property name="servlet.jar" value="${servlet22.jar}"/>
+        </ant>        
+    </target>
+
+    <target name="tests-functional.23" depends="init" if="servlet23.jar.present">
+        <ant antfile="build/build-servletapi.xml" target="tests-functional23">
+            <property name="servlet.api" value="23"/>
+            <property name="servlet.jar" value="${servlet23.jar}"/>
+        </ant>        
+    </target>
+
+    <target name="tests-functional" depends="sample,tests-functional.22,tests-functional.23">
+    </target>
+
+    <!-- 
+       ========================================================================
+         Run both the unit and functional tests
+       ========================================================================
+    -->
+    <target name="tests" depends="tests-unit,tests-functional">
+    </target>
+
+    <!-- 
+       ========================================================================
+         Build all distributables and copies them to the dist.dir directory
+       ========================================================================
+    -->
+    <target name="dist.22" depends="init" if="servlet22.jar.present">
+
+        <ant antfile="build/build-servletapi.xml" target="dist">
+            <property name="servlet.api" value="22"/>
+            <property name="servlet.jar" value="${servlet22.jar}"/>
+        </ant>        
+
+    </target>
+
+    <target name="dist.23" depends="init" if="servlet23.jar.present">
+
+        <ant antfile="build/build-servletapi.xml" target="dist">
+            <property name="servlet.api" value="23"/>
+            <property name="servlet.jar" value="${servlet23.jar}"/>
+        </ant>        
+
+    </target>
+    <target name="dist" depends="clean,jar,sample,doc,site,dist.22,dist.23">
+
+        <mkdir dir="${dist.dir}"/>
+
+        <!-- Package the sources in the distribution -->
+        <zip zipfile="${dist.src.name}">
+
+            <zipfileset dir="." prefix="${project.name}-${DSTAMP}">
+                <exclude name="${out.root.dir}/**"/>
+                <exclude name="**/build.properties"/>
+                <exclude name="**/*.log"/>
+                <exclude name="**/*.bak"/>
+                <exclude name="**/*.class"/>
+            </zipfileset>
+        </zip>
+
+    </target>
+
+    <!-- 
+       ========================================================================
+         Do it all
+       ========================================================================
+    -->
+    <target name="all" depends="clean,jar,sample,doc,site,tests,dist">
+    </target>
+
+</project>

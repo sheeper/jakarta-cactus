@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+
+<book software="Cactus" 
+      title="Local Cactus Documentation" 
+      copyright="@year@ The Apache Software Foundation">
+
+  <menu label="About">
+    <menu-item label="News" source="index.xml"/>
+    <menu-item label="Features" source="features.xml"/>
+    <menu-item label="Changes" source="changes.xml" type="changes"/>
+    <menu-item label="Todo" source="todo.xml" type="todo"/>
+    <menu-item label="Contributors" source="contributors.xml"/>
+  </menu>
+
+  <menu label="Downloads">
+    <menu-item label="Downloads" source="downloads.xml"/>
+  </menu>
+
+  <menu label="User Guides">
+    <menu-item label="Installation" source="installation.xml"/>
+    <menu-item label="Installing Ant" source="installation_ant.xml"/>
+    <menu-item label="Installing Sample" source="installation_sample.xml"/>
+    <menu-item label="Configuration" source="configuration.xml"/>
+    <menu-item label="Using" source="using.xml"/>
+    <menu-item label="Servlet Sample" source="sample_servlet.xml"/>
+  </menu>
+
+  <menu label="Developer's Corner">
+    <menu-item label="Architecture" source="architecture.xml"/>
+    <menu-item label="Ant integration" source="ant.xml"/>
+    <menu-item label="Servlet Engines" source="servlets.xml"/>
+    <menu-item label="API Reference" href="javadoc/index.html" type="external"/>
+  </menu>
+
+  <menu label="Support">
+    <menu-item label="CVS" href="http://jakarta.apache.org/site/cvsindex.html" type="external"/>
+    <menu-item label="Bug database" href="http://jakarta.apache.org/site/bugs.html" type="external"/>
+    <menu-item label="Mailing lists" href="http://jakarta.apache.org/site/mail.html" type="external"/>
+    <menu-item label="FAQ" href="http://jakarta.apache.org:8080/jyve-faq/Turbine/screen/DisplayTopics/action/SetAll/project_id/2/faq_id/39" type="external"/>
+  </menu>
+
+</book>

@@ -1,0 +1,177 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE document SYSTEM "./dtd/document-v10.dtd">
+
+<document>
+  <header>
+    <title>Features</title>
+    <authors>
+      <person name="Vincent Massol" email="vmassol@users.sourceforge.net"/>
+    </authors>
+   </header>
+ 
+  <body>
+
+    <s1 title="Cactus feature list">
+      <p><br/></p>
+      <ul>
+        <li>
+          Integrates seamlessly with the JUnit testing framework. Your testing 
+          class just has to extend
+          <code>org.apache.commons.cactus.ServletTestCase</code> or
+          <code>org.apache.commons.cactus.JspTestCase</code> (which themselves
+          extends <code>junit.framework.TestCase</code>) instead of extending
+          <code>junit.framework.TestCase</code> directly.
+        </li>
+        <li>
+          Execute your test methods in a servlet/JSP environment, i.e. you have 
+          access to the following implicit objects : <code>request</code> ( of
+          type <code>HttpServletRequest</code>), <code>response</code> (of type
+          <code>HttpServletResponse</code>), <code>session</code> (of type
+          <code>HttpSession</code>), <code>config</code> (of type
+          <code>ServletConfig</code>). Moreover you can also have access to 2
+          additional JSP implicit objects if you need them in your test class :
+          <code>pageContext</code> (of type <code>PageContext</code>) and
+          <code>out</code> (of type <code>JspWriter</code>).
+        </li>
+        <li>
+          Definition of a <code>beginXXX()</code> method for each <code>testXXX()</code> 
+          test method. This is for having a chance to initialize the following 
+          data that will be available in the <code>HttpServletRequest</code> object 
+          in your test method :
+          <ul>
+            <li>
+              HTTP parameters,
+            </li>
+            <li>
+              HTTP headers,
+            </li>
+            <li>
+              HTTP cookies,
+            </li>
+            <li>
+              Simulated URL. You can simulate all the parts of a URL : server 
+              name, port, context path, servlet path, path info and the query string. 
+              The following methods will return the simulated parts : 
+              <ul>
+                <li>
+                  <code>HttpServletRequest.getServerName()</code>,
+                </li>
+                <li>
+                  <code>HttpServletRequest.getServerPort()</code>,
+                </li>
+                <li>
+                  <code>HttpServletRequest.getRequestURI()</code>,
+                </li>
+                <li>
+                  <code>HttpServletRequest.getContextPath()</code>,
+                </li>
+                <li>
+                  <code>HttpServletRequest.getServletPath()</code>,
+                </li>
+                <li>
+                  <code>HttpServletRequest.getQueryString()</code>,
+                </li>
+                <li>
+                  <code>HttpServletRequest.getPathInfo()</code>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>  
+        <li>
+          Definition of an <code>endXXX()</code> method for each <code>testXXX()</code> 
+          test method. This is for having a chance to check the following data 
+          from the returned HTTP response :
+          <ul>
+            <li>
+              HTTP headers,
+            </li>
+            <li>
+              HTTP cookies
+            </li>
+          </ul>
+        </li>
+        <li>
+          Predefined Ant 1.3 build scripts that show how to automate Cactus 
+          unit tests (automatically starting your servlet engine, running the
+          tests and stopping your server). There are scripts for the following
+          Servlet engines : 
+          <ul>
+            <li>
+              Tomcat 3.2.1 (Servlet API 2.2)
+            </li>
+            <li>
+              Tomcat 4.0 (Servlet API 2.3)
+            </li>
+            <li>
+              Resin 1.2 (Servlet API 2.2)
+            </li>
+            <li>
+              Resin 1.3 (Servlet API 2.3)
+            </li>
+            <li>
+              WebLogic 5.1 (Servlet API 2.2)
+            </li>
+            <li>
+              Orion 1.4 (Servlet API 2.2 and 2.3)
+            </li>
+          </ul>
+        </li>
+        <li>
+          Possibility to modify the URL to which the Cactus Redirector servlet 
+          and Redirector JSP are mapped to (defined in a properties file)
+        </li>
+        <li>
+          Possibility to specify whether an <code>HttpSession</code> object 
+          will be automatically created or not for your test methods
+        </li>
+        <li>
+          Handles <code>setUp()</code> and <code>tearDown()</code> methods which 
+          work the same as for JUnit except that they are run on the server side 
+          before and after calling each <code>testXXX()</code> method
+        </li>
+        <li>
+          Works with JUnit 3.5
+        </li>
+        <li>
+          Support for Servlet API 2.2 and 2.3 (Support for Servlet API 2.1 is
+          not provided as it is now too old).
+        </li>
+        <li>
+          Support for JDK 1.2 or greater.
+        </li>
+        <li>
+          Possibility to assert the returned servlet output stream from classes
+          under test (in the <code>endXXX()</code> methods).
+        </li>
+        <li>
+          Helper classes to help assert cookies returned in the HTTP response,
+          ...
+        </li>
+        <li>
+          Implicit objects are actually subclasses of standard servlet
+          objects and provides additional methods to help unit test your code :
+          <ul>
+            <li>
+              Using the <code>config</code> implicit object :
+              <ul>
+                <li>
+                  <code>setInitParameter(String, String)</code> : sets a
+                  parameter as if it were set in the <code>web.xml</code> file
+                  using an <code>init-param</code> tag,
+                </li>
+                <li>
+                  <code>setServletName(String)</code> : sets the servlet name.
+                  This is the value that is returned by a call to
+                  <code>getServletName()</code>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </s1>
+ 
+  </body>
+</document>

@@ -1,0 +1,201 @@
+/*
+ * The Apache Software License, Version 1.1
+ *
+ * Copyright (c) 1999 The Apache Software Foundation.  All rights
+ * reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in
+ *    the documentation and/or other materials provided with the
+ *    distribution.
+ *
+ * 3. The end-user documentation included with the redistribution, if
+ *    any, must include the following acknowlegement:
+ *       "This product includes software developed by the
+ *        Apache Software Foundation (http://www.apache.org/)."
+ *    Alternately, this acknowlegement may appear in the software itself,
+ *    if and wherever such third-party acknowlegements normally appear.
+ *
+ * 4. The names "The Jakarta Project", "Ant", and "Apache Software
+ *    Foundation" must not be used to endorse or promote products derived
+ *    from this software without prior written permission. For written
+ *    permission, please contact apache@apache.org.
+ *
+ * 5. Products derived from this software may not be called "Apache"
+ *    nor may "Apache" appear in their names without prior written
+ *    permission of the Apache Group.
+ *
+ * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
+ * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+ * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED.  IN NO EVENT SHALL THE APACHE SOFTWARE FOUNDATION OR
+ * ITS CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+ * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF
+ * USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT
+ * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals on behalf of the Apache Software Foundation.  For more
+ * information on the Apache Software Foundation, please see
+ * <http://www.apache.org/>.
+ */
+package org.apache.commons.cactus.sample.unit;
+
+import junit.framework.*;
+
+import org.apache.commons.cactus.client.*;
+import org.apache.commons.cactus.*;
+
+/**
+ * Helper class for the <code>TestServletTestCase1</code> tests. It is used to
+ * intercept exceptions. Indeed, in order to verify excpetion handling in our
+ * unit test cases we must not let these exceptions get through to JUnit
+ * (otherwise the test will appear as failed).
+ *
+ * @version @version@
+ * @see TestServletTestCase1
+ */
+public class TestServletTestCase1_InterceptorServletTestCase extends ServletTestCase
+{
+    /**
+     * Constructs a test case with the given name.
+     *
+     * @param theName the name of the test case
+     */
+    public TestServletTestCase1_InterceptorServletTestCase(String theName)
+    {
+        super(theName);
+    }
+
+    /**
+     * Intercepts running test cases to check for normal exceptions.
+     */
+     protected void runTest() throws Throwable
+     {
+        try {
+            super.runTest();
+        } catch (AssertionFailedErrorWrapper e) {
+
+            // If the test case is "testAssertionFailedError" and the exception
+            // is of type AssertionFailedError and contains the text
+            // "test assertion failed error", then the test is ok.
+            if (name().equals("testAssertionFailedError")) {
+                if (e.instanceOf(AssertionFailedError.class)) {
+                    assertEquals("test assertion failed error", e.getMessage());
+                    return;
+                }
+            }
+
+        } catch (ServletExceptionWrapper e) {
+
+            // If the test case is "testExceptionNotSerializable" and the exception
+            // is of type TestServletTestCaseHelper1_ExceptionNotSerializable
+            // and contains the text "test non serializable exception", then
+            // the test is ok.
+            if (name().equals("testExceptionNotSerializable")) {
+                if (e.instanceOf(TestServletTestCase1_ExceptionNotSerializable.class)) {
+                    assertEquals("test non serializable exception", e.getMessage());
+                    return;
+                }
+            }
+
+            // If the test case is "testExceptionSerializable" and the exception
+            // is of type TestServletTestCaseHelper1_ExceptionSerializable
+            // and contains the text "test serializable exception", then
+            // the test is ok.
+            if (name().equals("testExceptionSerializable")) {
+                assert(e.instanceOf(TestServletTestCase1_ExceptionSerializable.class));
+                assertEquals("test serializable exception", e.getMessage());
+                return;
+            }
+
+            throw e;
+
+        } catch (Throwable e) {
+
+            // Test that when a begin method for a given test does not have the correct
+            // return type (i.e. void), a <code>AssertionFailedError</code> exception
+            // is returned.
+            if (name().equals("testBeginMethodBadReturnType")) {
+                if (e instanceof AssertionFailedError) {
+                    assertEquals("The begin method [beginBeginMethodBadReturnType] should return void and not [java.lang.String]",
+                        e.getMessage());
+                    return;
+                }
+            }
+
+            // Test that when a begin method for a given test is not declared public
+            // a <code>AssertionFailedError</code> exception is returned.
+            // Note: the assert is done in the
+            // <code>TestServletTestCase_InterceptorServletTestCase</code> class.
+            if (name().equals("testBeginMethodNotPublic")) {
+                if (e instanceof AssertionFailedError) {
+                    assertEquals("Method [beginBeginMethodNotPublic] should be declared public",
+                        e.getMessage());
+                    return;
+                }
+            }
+
+            // Test that when a begin method for a given test has the wrong
+            // type of parameters, a <code>AssertionFailedError</code> exception
+            // is returned.
+            if (name().equals("testBeginMethodBadParams")) {
+                if (e instanceof AssertionFailedError) {
+                    assertEquals("The begin method [beginBeginMethodBadParams] must accept a single parameter of type [org.apache.commons.cactus.ServletTestRequest]",
+                        e.getMessage());
+                    return;
+                }
+            }
+
+            // Test that when an end method for a given test does not have the correct
+            // return type (i.e. void), a <code>AssertionFailedError</code> exception
+            // is returned.
+            if (name().equals("testEndMethodBadReturnType")) {
+                if (e instanceof AssertionFailedError) {
+                    assertEquals("The end method [endEndMethodBadReturnType] should return void and not [java.lang.String]",
+                        e.getMessage());
+                    return;
+                }
+            }
+
+            // Test that when an end method for a given test is not declared public
+            // a <code>AssertionFailedError</code> exception is returned.
+            // Note: the assert is done in the
+            // <code>TestServletTestCase_InterceptorServletTestCase</code> class.
+            if (name().equals("testEndMethodNotPublic")) {
+                if (e instanceof AssertionFailedError) {
+                    assertEquals("Method [endEndMethodNotPublic] should be declared public",
+                        e.getMessage());
+                    return;
+                }
+            }
+
+            // Test that when an end method for a given test has the wrong
+            // type of parameters, a <code>AssertionFailedError</code> exception
+            // is returned.
+            if (name().equals("testEndMethodBadParams")) {
+                if (e instanceof AssertionFailedError) {
+                    assertEquals("The end method [endEndMethodBadParams] must accept a single parameter of type [java.net.HttpURLConnection]",
+                        e.getMessage());
+                    return;
+                }
+            }
+
+            throw e;
+
+        }
+
+     }
+}
