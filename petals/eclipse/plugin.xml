@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin id="org.apache.cactus.eclipse"
+  name="%pluginName"
+  version="0.1"
+  provider-name="%providerName"
+  class="org.apache.cactus.eclipse.ui.CactusPlugin">
+
+    <runtime>
+        <library name="cactussupport.jar">
+            <export name="*"/>
+        </library>
+    </runtime>
+    
+    <requires>
+    	<import plugin="org.eclipse.ui"/>
+        <import plugin="org.eclipse.core.resources"/>
+        <import plugin="org.eclipse.core.boot"/>
+        <import plugin="org.eclipse.debug.core"/>
+        <import plugin="org.eclipse.debug.ui"/>
+        <import plugin="org.eclipse.jdt.core"/>
+        <import plugin="org.eclipse.jdt.ui"/>
+        <import plugin="org.eclipse.jdt.debug"/>
+        <import plugin="org.eclipse.swt"/>
+        <import plugin="org.eclipse.core.runtime"/>
+        <import plugin="org.eclipse.jdt.launching"/>
+        <import plugin="org.eclipse.jdt.debug.ui"/>
+        <import plugin="org.eclipse.jdt.junit"/>
+        <import plugin="org.junit"/>
+        <import plugin="org.eclipse.ant.core"/>
+        <import plugin="org.apache.ant"/>
+    </requires>
+
+    <!-- Registers the Cactus launch configuration -->
+    <extension point="org.eclipse.debug.core.launchConfigurationTypes">
+        <launchConfigurationType name="%Launch.label"
+          delegate="org.apache.cactus.eclipse.launcher.CactusLaunchConfiguration"
+          modes="run, debug" id="org.apache.cactus.eclipse.launchconfig">
+
+            <fileExtension default="false" extension="java"/>
+	        <fileExtension default="false" extension="class"/>
+        </launchConfigurationType>
+    </extension>
+
+    <!-- Registers the Cactus launch shortcut (runs a launch configuration
+         on a selected class in the workbench) -->
+    <extension point="org.eclipse.debug.ui.launchShortcuts">
+    	<shortcut label="%CactusShortcut.label"
+          icon="icons/calaunch.gif"
+          modes="run, debug"
+          class="org.apache.cactus.eclipse.launcher.CactusLaunchShortcut"
+          id="org.apache.cactus.eclipse.cactusShortcut">
+     
+	    	<perspective id="org.eclipse.jdt.ui.JavaPerspective"/>
+            <perspective id="org.eclipse.jdt.ui.JavaHierarchyPerspective"/>
+            <perspective id="org.eclipse.jdt.ui.JavaBrowsingPerspective"/>
+            <perspective id="org.eclipse.debug.ui.DebugPerspective"/>
+        </shortcut>
+    </extension>
+
+    <!-- Registers the Cactus launch configuration image (it is the image that
+         appears in the Launch configuration dialog box) -->
+    <extension point="org.eclipse.debug.ui.launchConfigurationTypeImages">
+    	<launchConfigurationTypeImage id="org.apache.cactus.eclipse.launchimage"
+          configTypeID="org.apache.cactus.eclipse.launchconfig"
+          icon="icons/calaunch.gif">
+        </launchConfigurationTypeImage>	
+    </extension>
+
+	<!-- Registers the JUnit Tab groups for the Cactus plugin (in the future
+	     Cactus will have its own TabGroup) -->
+    <extension point="org.eclipse.debug.ui.launchConfigurationTabGroups">
+    	<launchConfigurationTabGroup 
+          id="org.apache.cactus.eclipse.launchConfigurationTabGroup.junit"
+          type="org.apache.cactus.eclipse.launchconfig"
+          class="org.eclipse.jdt.internal.junit.launcher.JUnitTabGroup">
+        </launchConfigurationTabGroup>
+    </extension>
+
+    <!-- Registers the Cactus preferences page -->
+    <extension point="org.eclipse.ui.preferencePages">
+      <page id="org.apache.cactus.eclipse.preferencePage"
+        name="%PreferencePage.label"
+        class="org.apache.cactus.eclipse.ui.CactusPreferencePage">
+      </page>
+      <page
+         name="%ContainersPreferencePage.label"
+         id="org.apache.cactus.eclipse.ui.containersPreferencePage"
+         class="org.apache.cactus.eclipse.ui.ContainersPreferencePage"
+         category="org.apache.cactus.eclipse.preferencePage">
+	  </page>
+   </extension>
+
+</plugin>

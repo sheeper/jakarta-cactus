@@ -1,0 +1,9 @@
+bin
+build.properties
+target
+dist
+release
+lib
+web
+build-local.xml
+ant

@@ -1,0 +1,61 @@
+# -----------------------------------------------------------------------------
+# build.properties.sample
+#
+# Customize Ant build for the Cactus Eclipse plugin.
+#
+# $Id: build.properties.sample,v 1.31 2002/12/15 09:53:12 vmassol Exp $
+# -----------------------------------------------------------------------------
+
+# WARNING:  The relative paths below are relative to the directory where the
+# build.xml file is located.
+
+# -----------------------------------------------------------------------------
+# Mandatory properties
+# -----------------------------------------------------------------------------
+
+# Location of Eclipse.
+eclipse.home = D:/dev/eclipse-M4
+
+# Locations of Eclipse dependent plugin jars
+
+# Example for Eclipse 2.1 M4 - Windows platform
+eclipse.junit.jar = ${eclipse.home}/plugins/org.junit/junit.jar
+eclipse.core.boot.jar = ${eclipse.home}/plugins/org.eclipse.core.boot_2.1.0/boot.jar
+eclipse.core.resources.jar = ${eclipse.home}/plugins/org.eclipse.core.resources_2.1.0/resources.jar
+eclipse.core.runtime.jar = ${eclipse.home}/plugins/org.eclipse.core.runtime_2.1.0/runtime.jar
+eclipse.debug.core.jar = ${eclipse.home}/plugins/org.eclipse.debug.core_2.1.0/dtcore.jar
+eclipse.debug.ui.jar = ${eclipse.home}/plugins/org.eclipse.debug.ui_2.1.0/dtui.jar
+eclipse.jdt.core.jar = ${eclipse.home}/plugins/org.eclipse.jdt.core_2.1.0/jdtcore.jar
+eclipse.jdt.junit.jar = ${eclipse.home}/plugins/org.eclipse.jdt.junit_2.1.0/junitsupport.jar
+eclipse.jdt.launching.jar = ${eclipse.home}/plugins/org.eclipse.jdt.launching_2.1.0/launching.jar
+eclipse.swt.jar = ${eclipse.home}/plugins/org.eclipse.swt.win32_2.1.0/ws/win32/swt.jar
+eclipse.jface.jar = ${eclipse.home}/plugins/org.eclipse.jface_2.1.0/jface.jar
+eclipse.ant.core.jar = ${eclipse.home}/plugins/org.eclipse.ant.core_2.1.0/antsupport.jar
+eclipse.ui.workbench.jar = ${eclipse.home}/plugins/org.eclipse.ui.workbench_2.1.0/workbench.jar
+
+# Location of all jars. Note: This is not a mandatory property. It is only
+# used here so that it can be reused when defining the location of all the jars
+# below. You do not have to put all the external jars in a single location.
+lib.repo = D:/dev/cactus/jakarta-cactus-13-1.4b1/lib
+
+# Location of the J2EE jar (it is needed because we want to copy it
+# in the plugin lib/client directory).
+j2ee.jar = ${lib.repo}/servletapi-2.3.jar
+
+# The location of the Commons Logging jar
+commons.logging.jar = ${lib.repo}/commons-logging-1.0.jar
+
+# The location of the log4j jar
+log4j.jar = ${lib.repo}/log4j-1.2.5.jar
+
+# The location of the Commons Httpclient jar
+commons.httpclient.jar = ${lib.repo}/commons-httpclient.jar
+
+# The location of the Httpunit jar
+httpunit.jar = ${lib.repo}/httpunit-1.4.1.jar
+
+# The location of the AspectJ runtime jar
+aspectjrt.jar = ${lib.repo}/aspectjrt-1.0.5.jar
+
+# The location of the Junit jar
+junit.jar = D:/dev/cactus/jars/junit-3.7.jar
