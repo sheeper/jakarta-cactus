@@ -115,8 +115,8 @@ public class StringUtil
     static String filterStackTrace(String theStackTrace,
                                    String[] theFilterPatterns)
     { 
-        if ((theFilterPatterns == null) || (theFilterPatterns.length == 0) ||
-            (theStackTrace == null)) 
+        if ((theFilterPatterns == null) || (theFilterPatterns.length == 0) 
+            || (theStackTrace == null)) 
         {
             return theStackTrace;
         }
