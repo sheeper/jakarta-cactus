@@ -161,8 +161,10 @@
       </zipfileset>
       <zipfileset dir="framework/web"
           prefix="${main.release.name}/web"/>
-      <zipfileset dir="." prefix="${main.release.name}"
-          includes="LICENSE.*"/>
+      <zipfileset dir="." prefix="${main.release.name}">
+        <include name="LICENSE.*"/>
+        <include name="ANNOUNCEMENT.txt"/>
+      </zipfileset>
     </zip>
 
   </target>
