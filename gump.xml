@@ -198,7 +198,34 @@
      ========================================================================
   -->
 
-  <!-- Not ready yet. Need to find out how to get the Eclipse jars in Gump -->
+  <project name="jakarta-cactus-integration-eclipse-12">
+
+    <ant buildfile="integration/eclipse/build.xml" target="release">
+
+      <property name="project.version" value="@@DATE@@"/>
+      <depend property="j2ee.jar" project="jakarta-servletapi"/>
+	    <depend property="eclipse.junit.jar" id="junit"/>
+	    <depend property="eclipse.core.boot.jar" id="boot"/>
+	    <depend property="eclipse.core.resources.jar" id="resources"/>
+	    <depend property="eclipse.core.runtime.jar" id="runtime"/>
+	    <depend property="eclipse.debug.core.jar" id="dtcore"/>
+	    <depend property="eclipse.debug.ui.jar" id="dtui"/>
+	    <depend property="eclipse.jdt.core.jar" id="jdtcore"/>
+	    <depend property="eclipse.jdt.launching.jar" id="launching"/>
+	    <depend property="eclipse.swt.jar" id="swt"/>
+	    <depend property="eclipse.jface.jar" id="jface"/>
+	    <depend property="eclipse.ant.core.jar" id="antsupport"/>
+	    <depend property="eclipse.ui.workbench.jar" id="workbench"/>
+
+    </ant>
+  
+    <depend project="jakarta-ant" inherit="runtime"/>
+    <depend project="xml-xerces"/>
+
+    <nag from="Vincent Massol &lt;vmassol@apache.org&gt;"
+      to="cactus-dev@jakarta.apache.org"/>
+
+  </project>
   
   <!--
      ========================================================================
@@ -206,7 +233,34 @@
      ========================================================================
   -->
 
-  <!-- Not ready yet. Need to find out how to get the Eclipse jars in Gump -->
+  <project name="jakarta-cactus-integration-eclipse-13">
+
+    <ant buildfile="integration/eclipse/build.xml" target="release">
+
+      <property name="project.version" value="@@DATE@@"/>
+      <depend property="j2ee.jar" project="jakarta-servletapi-4"/>
+	    <depend property="eclipse.junit.jar" id="junit"/>
+	    <depend property="eclipse.core.boot.jar" id="boot"/>
+	    <depend property="eclipse.core.resources.jar" id="resources"/>
+	    <depend property="eclipse.core.runtime.jar" id="runtime"/>
+	    <depend property="eclipse.debug.core.jar" id="dtcore"/>
+	    <depend property="eclipse.debug.ui.jar" id="dtui"/>
+	    <depend property="eclipse.jdt.core.jar" id="jdtcore"/>
+	    <depend property="eclipse.jdt.launching.jar" id="launching"/>
+	    <depend property="eclipse.swt.jar" id="swt"/>
+	    <depend property="eclipse.jface.jar" id="jface"/>
+	    <depend property="eclipse.ant.core.jar" id="antsupport"/>
+	    <depend property="eclipse.ui.workbench.jar" id="workbench"/>
+
+    </ant>
+  
+    <depend project="jakarta-ant" inherit="runtime"/>
+    <depend project="xml-xerces"/>
+
+    <nag from="Vincent Massol &lt;vmassol@apache.org&gt;"
+      to="cactus-dev@jakarta.apache.org"/>
+
+  </project>
 
   <!--
      ========================================================================
