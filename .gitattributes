@@ -333,7 +333,6 @@ integration/eclipse/src/java/org/apache/cactus/eclipse/containers/Credential.jav
 integration/eclipse/src/java/org/apache/cactus/eclipse/containers/IContainerProvider.java svn_keywords=Author+Date+Id+Revision
 integration/eclipse/src/java/org/apache/cactus/eclipse/containers/ant/ContainerHome.java svn_keywords=Author+Date+Id+Revision
 integration/eclipse/src/java/org/apache/cactus/eclipse/containers/ant/GenericAntProvider.java svn_keywords=Author+Date+Id+Revision
-integration/eclipse/src/java/org/apache/cactus/eclipse/containers/ant/StartServerHelper.java svn_keywords=Author+Date+Id+Revision
 integration/eclipse/src/java/org/apache/cactus/eclipse/launcher/CactusLaunchConfiguration.java svn_keywords=Author+Date+Id+Revision
 integration/eclipse/src/java/org/apache/cactus/eclipse/launcher/CactusLaunchShortcut.java svn_keywords=Author+Date+Id+Revision
 integration/eclipse/src/java/org/apache/cactus/eclipse/launcher/WarBuilder.java svn_keywords=Author+Date+Id+Revision
