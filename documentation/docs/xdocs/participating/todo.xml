@@ -42,6 +42,10 @@
 
     <category title="Documentation">
       <action>
+        Add doc for the new feature to run JUnit Test Case without modifying 
+        them on the server side.
+      </action>
+      <action>
         Modify the web site presentation: start by introducing the Cactus
         Ecosystem: framework + front ends.
       </action>
