@@ -2,7 +2,7 @@
 <plugin
    id="org.apache.cactus.eclipse.webapp"
    name="%pluginName"
-   version="1.0.0"
+   version="1.5.0"
    provider-name="%providerName"
    class="org.apache.cactus.eclipse.webapp.ui.WebappPlugin">
 
