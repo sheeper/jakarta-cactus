@@ -356,7 +356,7 @@ public class CookieUtil
 
     /**
      * Create an HttpClient {@link HttpState} object containing all cookies 
-     * stored in the passed {@link WbeRequest} object.
+     * stored in the passed {@link WebRequest} object.
      *
      * @param theRequest the request containing the cookies to use when calling
      *        the server side
