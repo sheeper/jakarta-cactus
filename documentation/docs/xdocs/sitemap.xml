@@ -264,6 +264,11 @@
     Explains how to use the special integration Cactus provides for the Jetty
     servlet container.
   </resource>
+
+  <resource id="integration_browser" target="integration/integration_browser.html"
+      name="Browser Integration">
+    Explains how to run Cactus tests from a browser.
+  </resource>
   
   <resource id="howto_tomcat" target="integration/howto_tomcat.html"
       name="Tomcat Howto">

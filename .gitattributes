@@ -106,6 +106,7 @@ documentation/docs/xdocs/integration/howto_ide_vajava_wte.xml svn_keywords=Autho
 documentation/docs/xdocs/integration/howto_junitee.xml svn_keywords=Author+Date+Id+Revision
 documentation/docs/xdocs/integration/howto_tomcat.xml svn_keywords=Author+Date+Id+Revision
 documentation/docs/xdocs/integration/index.xml svn_keywords=Author+Date+Id+Revision
+documentation/docs/xdocs/integration/integration_browser.xml svn_keywords=Author+Date+Id+Revision
 documentation/docs/xdocs/integration/integration_jetty.xml svn_keywords=Author+Date+Id+Revision
 documentation/docs/xdocs/integration/navigation.xml svn_keywords=Author+Date+Id+Revision
 documentation/docs/xdocs/javadoc.xml svn_keywords=Author+Date+Id+Revision

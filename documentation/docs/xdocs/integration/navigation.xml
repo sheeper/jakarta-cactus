@@ -17,6 +17,7 @@
     <item id="integration_ant" label="Ant"/>
     <item id="integration_eclipse" label="Eclipse"/>
     <item id="integration_jetty" label="Jetty"/>
+    <item id="integration_browser" label="Browser"/>
     <item id="maven_cactus" label="Maven"/>
     <item id="howto_ide" label="Various IDEs"/>
     <item id="howto_junitee" label="JUnitEE"/>
