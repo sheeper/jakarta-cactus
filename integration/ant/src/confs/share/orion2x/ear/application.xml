@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE orion-application PUBLIC "-//Evermind//DTD J2EE Application runtime 1.2//EN" "http://www.orionserver.com/dtds/orion-application.dtd">
+
+<orion-application>
+
+    <web-module id="defaultWebApp" path="../default-web-app"/>
+
+	<persistence path="../persistence"/>
+	
+	<principals path="./principals.xml"/>
+
+	<log>
+		<file path="../log/global-application.log"/>
+	</log>
+
+</orion-application>

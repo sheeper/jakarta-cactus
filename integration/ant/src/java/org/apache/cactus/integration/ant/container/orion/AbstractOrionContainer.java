@@ -221,36 +221,68 @@ public abstract class AbstractOrionContainer extends AbstractJavaContainer
             this.tmpDir = createTempDirectory(theDirName);
         }
 
-        // copy configuration files into the temporary container directory
+        // Copy configuration files into the temporary container directory
+
         File confDir = createDirectory(tmpDir, "conf");
+
+        // Configuration files are not the same whether we deploy a 
+        // WAR or an EAR
+        String sharePath = RESOURCE_PATH + theResourcePrefix + "/share";
+        String specificPath;
+        if (getDeployableFile().isWar())
+        {
+            specificPath = RESOURCE_PATH + theResourcePrefix + "/war";
+        }
+        else
+        {
+            specificPath = RESOURCE_PATH + theResourcePrefix + "/ear";
+        }
+
         ResourceUtils.copyResource(getProject(),
-            RESOURCE_PATH + theResourcePrefix + "/application.xml",
+            specificPath + "/server.xml",
+            new File(confDir, "server.xml"), filterChain);
+        ResourceUtils.copyResource(getProject(), 
+            specificPath + "/application.xml",
             new File(confDir, "application.xml"), filterChain);
         ResourceUtils.copyResource(getProject(), 
-            RESOURCE_PATH + theResourcePrefix + "/default-web-site.xml",
+            specificPath + "/default-web-site.xml",
             new File(confDir, "default-web-site.xml"), filterChain);
+
         ResourceUtils.copyResource(getProject(),
-            RESOURCE_PATH + theResourcePrefix + "/global-web-application.xml",
+            sharePath + "/global-web-application.xml",
             new File(confDir, "global-web-application.xml"), filterChain);
         ResourceUtils.copyResource(getProject(),
-            RESOURCE_PATH + theResourcePrefix + "/mime.types",
+            sharePath + "/mime.types",
             new File(confDir, "mime.types"), filterChain);
         ResourceUtils.copyResource(getProject(),
-            RESOURCE_PATH + theResourcePrefix + "/principals.xml",
+            sharePath + "/principals.xml",
             new File(confDir, "principals.xml"), filterChain);
         ResourceUtils.copyResource(getProject(),
-            RESOURCE_PATH + theResourcePrefix + "/rmi.xml",
+            sharePath + "/rmi.xml",
             new File(confDir, "rmi.xml"), filterChain);
+
+        // Create default web app (required by Orion unfortunately...)
+        File defaultWebAppDir = createDirectory(tmpDir, 
+            "default-web-app/WEB-INF");
         ResourceUtils.copyResource(getProject(),
-            RESOURCE_PATH + theResourcePrefix + "/server.xml",
-            new File(confDir, "server.xml"), filterChain);
+            sharePath + "/web.xml",
+            new File(defaultWebAppDir, "web.xml"), filterChain);       
         
         // Orion need to have a /persistence directory created, otherwise it
         // throws an error
         createDirectory(tmpDir, "persistence");
-        
+
+        // Directory where modules to be deployed are located
+        File appDir = createDirectory(tmpDir, "applications");
+
+        // Deployment directory (i.e. where Orion expands modules)
+        createDirectory(tmpDir, "application-deployments");
+
+        // Orion log directory
+        createDirectory(tmpDir, "log");
+               
         fileUtils.copyFile(getDeployableFile().getFile(),
-            new File(tmpDir, getDeployableFile().getFile().getName()), 
+            new File(appDir, getDeployableFile().getFile().getName()), 
             null, true);
     }
 
