@@ -6,6 +6,8 @@
 <!-- Checkstyle properties for Cactus projects -->
 <module name="Checker">
   
+  <module name="NewlineAtEndOfFile"/>
+
   <module name="TreeWalker">
     
     <!-- General file checks -->
@@ -71,6 +73,7 @@
     </module>
     <module name="InnerAssignment"/>
     <module name="MethodLength"/>
+    <module name="MissingSwitchDefault"/>
     <module name="ModifierOrder"/>
     <module name="ParameterNumber"/>
     <module name="ParenPad"/>
@@ -82,13 +85,15 @@
       <property name="protectedAllowed" value="true"/>
       <property name="publicMemberPattern" value="^[a-z][a-zA-Z0-9]*$"/>
     </module>
+    <module name="FinalClass"/>
+
     <module name="GenericIllegalRegexp">
       <!-- Avoid finalizers
       	  (this will not find violations that contain linebreaks) -->
       <property name="format"
                 value="((public)|(protected))\s+void\s+finalize\(\s*\)"/>
     </module>
-        
+
     <!-- Javadoc related checks -->
     <module name="JavadocType">
       <property name="scope" value="private"/>
