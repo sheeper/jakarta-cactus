@@ -433,8 +433,8 @@ public class TestServletTestCase2 extends ServletTestCase
      *
      * @param theResponse the response from the server side.
      */
-    public void endGetRequestDispatcherFromNamedDispatcherOK(WebResponse theResponse)
-        throws IOException
+    public void endGetRequestDispatcherFromNamedDispatcherOK(
+        WebResponse theResponse) throws IOException
     {
         String result = theResponse.getText();
         assertTrue("Page not found, got [" + result + "]",

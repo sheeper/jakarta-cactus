@@ -111,7 +111,8 @@ public class ResinRun extends AbstractServerRun
                 new Object[]{this.args, new Boolean(true)});
             Method initMethod = resinClass.getMethod("init",
                 new Class[]{boolean.class});
-            initMethod.invoke(this.resinServer, new Object[]{new Boolean(true)});
+            initMethod.invoke(this.resinServer, new Object[]{
+                new Boolean(true)});
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException("Cannot create instance of ResinServer");
