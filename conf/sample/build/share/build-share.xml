@@ -420,7 +420,6 @@
         <!-- Gather libraries in a place where they can be copied in the
              war -->
         <copy tofile="${out.lib.dir}/junit.jar" file="${junit.jar}"/>
-        <copy tofile="${out.lib.dir}/httpclient.jar" file="${httpclient.jar}"/>
         <copy tofile="${out.lib.dir}/cactus.jar" file="${cactus.jar}"/>
         <copy tofile="${out.lib.dir}/aspectjrt.jar" file="${aspectjrt.jar}"/>
 
