@@ -54,3 +54,84 @@
  * <http://www.apache.org/>.
  *
  */
+package org.apache.cactus.server;
+
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * Holder class that contains the instances of the implicit objects that exist
+ * for all web requests. Namely they are <code>HttpServletRequest</code>,
+ * <code>HttpServletResponse</code> and <code>ServletContext</code>.
+ *
+ * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
+ *
+ * @version $Id$
+ */
+public abstract class AbstractWebImplicitObjects implements WebImplicitObjects
+{
+    /**
+     * The HTTP request object.
+     */
+    protected HttpServletRequest request;
+
+    /**
+     * The HTTP response object.
+     */
+    protected HttpServletResponse response;
+
+    /**
+     * The Context object.
+     */
+    protected ServletContext context;
+
+    /**
+     * @return the <code>ServletContext</code> implicit object
+     */
+    public ServletContext getServletContext()
+    {
+        return this.context;
+    }
+
+    /**
+     * @param theContext the <code>ServletContext</code> implicit object
+     */
+    public void setServletContext(ServletContext theContext)
+    {
+        this.context = theContext;
+    }
+
+    /**
+     * @return the <code>HttpServletResponse</code> implicit object
+     */
+    public HttpServletResponse getHttpServletResponse()
+    {
+        return this.response;
+    }
+
+    /**
+     * @param theResponse the <code>HttpServletResponse</code> implicit object
+     */
+    public void setHttpServletResponse(HttpServletResponse theResponse)
+    {
+        this.response = theResponse;
+    }
+
+    /**
+     * @return the <code>HttpServletRequest</code> implicit object
+     */
+    public HttpServletRequest getHttpServletRequest()
+    {
+        return this.request;
+    }
+
+    /**
+     * @param theRequest the <code>HttpServletRequest</code> implicit object
+     */
+    public void setHttpServletRequest(HttpServletRequest theRequest)
+    {
+        this.request = theRequest;
+    }
+
+}

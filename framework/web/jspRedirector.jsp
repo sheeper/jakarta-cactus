@@ -1,4 +1,5 @@
-<%@page import="org.apache.cactus.server.*" session="false" %><%
+<%@page import="org.apache.cactus.server.*,
+                org.apache.cactus.util.log.LogService" session="false" %><%
 
     /**                                                
      *                                                 
@@ -15,6 +16,14 @@
      * example we need access to JSP implicit objects (PageContext and
      * JspWriter).
      */
+
+    /**
+     * Initialise logging if not already initialised
+     */
+    if (!LogService.getInstance().isInitialized())
+    {
+        LogService.getInstance().init("/log_server.properties");
+    }
 
     JspImplicitObjects objects = new JspImplicitObjects();
     objects.setHttpServletRequest(request);

@@ -65,7 +65,7 @@ import javax.servlet.FilterConfig;
  *
  * @version $Id$
  */
-public class FilterImplicitObjects extends WebImplicitObjects
+public class FilterImplicitObjects extends AbstractWebImplicitObjects
 {
     /**
      * The Filter configuration object.

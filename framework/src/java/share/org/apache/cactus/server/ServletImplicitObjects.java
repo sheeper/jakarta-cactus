@@ -67,7 +67,7 @@ import javax.servlet.ServletConfig;
  *
  * @version $Id$
  */
-public class ServletImplicitObjects extends WebImplicitObjects
+public class ServletImplicitObjects extends AbstractWebImplicitObjects
 {
     /**
      * The Servlet configuration object.

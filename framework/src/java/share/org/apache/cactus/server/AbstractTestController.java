@@ -179,7 +179,8 @@ public abstract class AbstractTestController
 
         if (serviceName == null) {
             String message = "Missing service name parameter [" +
-                ServiceDefinition.SERVICE_NAME_PARAM + "] in HTTP request.";
+                ServiceDefinition.SERVICE_NAME_PARAM + "] in HTTP request. " +
+                "Received query string is [" + queryString + "].";
             LOGGER.debug(message);
             throw new ServletException(message);
         }

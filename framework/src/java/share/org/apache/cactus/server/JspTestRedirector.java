@@ -73,16 +73,6 @@ import org.apache.cactus.util.log.LogService;
 public class JspTestRedirector
 {
     /**
-     * Initialize the logging subsystem so that it can get it's configuration
-     * details from the correct properties file. Initialization is done here
-     * as this servlet is the first point of entry to the server code.
-     */
-    static
-    {
-        LogService.getInstance().init("/log_server.properties");
-    }
-
-    /**
      * The logger
      */
     private static final Log LOGGER =

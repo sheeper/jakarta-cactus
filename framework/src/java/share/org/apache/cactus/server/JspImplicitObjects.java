@@ -112,5 +112,4 @@ public class JspImplicitObjects extends ServletImplicitObjects
     {
         this.jspWriter = theWriter;
     }
-
 }

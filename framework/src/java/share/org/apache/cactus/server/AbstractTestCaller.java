@@ -57,8 +57,8 @@
 package org.apache.cactus.server;
 
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.io.OutputStream;
+import java.io.ObjectOutputStream;
 import java.lang.reflect.Constructor;
 import javax.servlet.ServletException;
 
@@ -184,8 +184,7 @@ public abstract class AbstractTestCaller
         // Write back the results as a serialized object to the outgoing stream.
         try {
 
-            OutputStream os =
-                this.webImplicitObjects.getHttpServletResponse().
+            OutputStream os = this.webImplicitObjects.getHttpServletResponse().
                 getOutputStream();
 
             // Write back the result object as a serialized object
