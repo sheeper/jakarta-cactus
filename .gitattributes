@@ -289,7 +289,6 @@ framework/web/jspRedirector.jsp svn_keywords=Author+Date+Id+Revision
 petals/ant/.cvsignore svn_keywords=Author+Date+Id+Revision
 petals/ant/build.properties.sample -text svneol=unset#application/octet-stream
 petals/ant/build.xml svn_keywords=Author+Date+Id+Revision
-petals/ant/src/confs/j2ee12/enhydra31/multiserver.conf -text svneol=unset#application/octet-stream
 petals/ant/src/confs/j2ee12/web.xml svn_keywords=Author+Date+Id+Revision
 petals/ant/src/confs/j2ee12/weblogic51/weblogic.policy -text svneol=unset#application/octet-stream
 petals/ant/src/confs/j2ee12/weblogic51/weblogic.properties svn_keywords=Author+Date+Id+Revision
