@@ -110,7 +110,7 @@
     -->
     <!-- Destination locations for the build (relative to the basedir as
          specified in the basedir attribute of the project tag) -->
-    <property name="out.root.dir" value="out"/>
+    <property name="out.root.dir" value="target"/>
     <property name="out.site.dir" value="${out.root.dir}/doc"/>
     <property name="out.classes.ant.dir" value="${out.root.dir}/classes"/>
     <property name="out.src.ant.dir" value="${out.root.dir}/src"/>

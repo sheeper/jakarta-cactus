@@ -28,7 +28,7 @@ xalan.jar = f:/applis/jakarta-ant-1.4alpha/lib/xalan.jar
 crimson.jar = f:/applis/jakarta-ant-1.4alpha/lib/crimson.jar
 
 # Distribution directory (if none is specified here, it will default to
-# out/dist
+# ${out.root.dir}/dist
 #dist.dir = e:/tmp/cactus-dist
 
 # Port that will be used to start the servlet engines for testing. This is
@@ -44,7 +44,7 @@ crimson.jar = f:/applis/jakarta-ant-1.4alpha/lib/crimson.jar
 
 resin.home.12 = f:/applis/resin-1.2.5
 tomcat.home.32 = f:/applis/jakarta-tomcat-3.2.2
-#tomcat.home.33 = f:/applis/jakarta-tomcat-3.3-b1
+tomcat.home.33 = f:/applis/jakarta-tomcat-3.3-b1
 orion.home.14 = f:/applis/orion-1.4.5
 weblogic.home.51 = e:/weblogic
 resin.home.20 = f:/applis/resin-2.0.0
