@@ -198,12 +198,12 @@ img {
     padding: 1px 2px;
   }
   #content h1 {
-    background: #023264 url("../images/corner.gif") top left no-repeat;
+    background: #525D76;
     padding-left: 4px;
     padding-top: 2px;
   }
   #content h2, #content h3, #content h4, #content h5 {
-    background: #828DA6 url("../images/corner.gif") top left no-repeat;
+    background: #828DA6;
     padding-left: 4px;
     padding-top: 2px;
   }
@@ -221,9 +221,7 @@ img {
   #content .note {
     background: url("../images/note.gif") center left no-repeat;
     min-height: 32px;
-    padding-bottom: 0.5em;
-    padding-top: 0.5em;
-    padding-left: 40px;
+    padding: 0.5em 40px;
     vertical-align: middle;
   }
   #content .section {
@@ -242,7 +240,7 @@ img {
     margin: 0.1in;
   }
   #content .tabular th {
-    background: #039acc url("../images/corner.gif") top left no-repeat;
+    background: #039acc;
     color: white;
     text-align: left;
     vertical-align: middle;
