@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 
-<document id="task_cactify">
+<document id="task_cactifywar">
 
   <properties>
-    <title>Cactify Ant Task</title>
+    <title>CactifyWar Ant Task</title>
     <authors>
       <author name="Christopher Lenz" email="cmlenz@apache.org"/>
     </authors>
@@ -11,15 +11,15 @@
 
   <body>
 
-    <section title="Cactify Task">
+    <section title="CactifyWar Task">
 
       <p>
-        The task <strong>cactify</strong> allows the enhancement of an existing
+        The task <strong>cactifywar</strong> allows the enhancement of an existing
         web-application archive (WAR) with the elements needed to run Cactus 
         in-container tests. This includes adding the definitions of the test 
         redirectors to the deployment descriptor, as well as adding the libraries
         that Cactus requires on the server side (see the 
-        <link href="site:howto_classpath">Classpath Howto</link> for details).
+        <link href="site:howto_classpath">Classpath Guide</link> for details).
       </p>
 
       <note>
@@ -31,7 +31,7 @@
       </note>
 
       <p>
-        The <strong>cactify</strong> task extends the built-in Ant task
+        The <strong>cactifywar</strong> task extends the built-in Ant task
         <strong>war</strong>, so it also supports all attributes and nested
         elements that <strong>war</strong> supports.
       </p>
@@ -43,7 +43,7 @@
           also supports all the attributes supported by the
           <strong>war</strong> task. The only exception is the
           <em>warfile</em> attribute, which has been renamed to
-          <em>destfile</em> for the <strong>cactify</strong> task.
+          <em>destfile</em> for the <strong>cactifywar</strong> task.
         </p>
 
         <table>
@@ -214,7 +214,7 @@
         </p>
 
         <source><![CDATA[
-<cactify srcfile="${build.dir}/my.war" destfile="${build.dir}/test.war"/>
+<cactifywar srcfile="${build.dir}/my.war" destfile="${build.dir}/test.war"/>
 ]]></source>
 
         <p>
@@ -223,11 +223,11 @@
         </p>
 
         <source><![CDATA[
-<cactify srcfile="${build.dir}/my.war" destfile="${build.dir}/test.war">
+<cactifywar srcfile="${build.dir}/my.war" destfile="${build.dir}/test.war">
   <filterredirector mapping="/test/filterRedirector"/>
   <jspredirector mapping="/test/jspRedirector"/>
   <servletredirector mapping="/test/servletRedirector"/>
-</cactify>
+</cactifywar>
 ]]></source>
 
         <p>
@@ -237,10 +237,10 @@
         </p>
 
         <source><![CDATA[
-<cactify srcfile="${build.dir}/my.war" destfile="${build.dir}/test.war">
+<cactifywar srcfile="${build.dir}/my.war" destfile="${build.dir}/test.war">
   <classes dir="${build.dir}/classes/test" includes="**/*.class"/>
   <lib file="${httpunit.jar}"/>
-</cactify>
+</cactifywar>
 ]]></source>
 
       </section>

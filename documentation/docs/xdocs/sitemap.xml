@@ -184,10 +184,10 @@
     Documentation for the &lt;cactus&gt; task provided by Cactus.
   </resource>
   
-  <resource id="task_cactify"
-      target="integration/ant/task_cactify.html"
-      name="Cactify Ant Task">
-    Documentation for the &lt;cactify&gt; task provided by Cactus.
+  <resource id="task_cactifywar"
+      target="integration/ant/task_cactifywar.html"
+      name="CactifyWar Ant Task">
+    Documentation for the &lt;cactifywar&gt; task provided by Cactus.
   </resource>
   
   <resource id="task_runservertests"
