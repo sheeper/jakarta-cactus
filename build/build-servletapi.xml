@@ -683,7 +683,7 @@
             <fileset dir="${out.dist.dir}">
                 <exclude name="**/build.properties"/>
                 <exclude name="**/*.log"/>
-                <exclude name="${out.dir}"/>
+                <exclude name="**/target/**"/>
             </fileset>
         </copy>
 
