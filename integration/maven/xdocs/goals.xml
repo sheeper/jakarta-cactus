@@ -65,9 +65,9 @@
         </description>
       </goal>
       <goal>
-        <name>cactus:jar</name>
+        <name>cactus:jar-install</name>
         <description>
-          Deploy the Cactus jar to the local Maven repository. This is 
+          Installs the Cactus jar in your local Maven repository. This is
           useful if you wish to put Cactus test classes in one Maven 
           project and execute the Cactus tests in another Maven project.
         </description>
