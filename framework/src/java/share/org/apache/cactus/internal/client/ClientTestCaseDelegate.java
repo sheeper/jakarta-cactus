@@ -65,7 +65,6 @@ import junit.framework.Test;
 
 import org.apache.cactus.Request;
 import org.apache.cactus.WebRequest;
-import org.apache.cactus.client.initialization.ClientInitializer;
 import org.apache.cactus.configuration.Configuration;
 import org.apache.cactus.util.JUnitVersionHelper;
 import org.apache.commons.logging.Log;
@@ -119,12 +118,6 @@ public class ClientTestCaseDelegate extends Assert
      * side (if it exists).
      */
     protected static final String CLIENT_GLOBAL_END_METHOD = "end";
-
-    /**
-     * Flag used to verify if client initialization has already been performed
-     * for the current test suite or not.
-     */
-    private static boolean isClientInitialized;
 
     /**
      * The logger (only used on the client side).
@@ -282,14 +275,6 @@ public class ClientTestCaseDelegate extends Assert
         // current extending class so that log statements will contain the
         // actual class name (that's why the logged instance is not static).
         this.logger = LogFactory.getLog(this.getClass());
-
-        // Initialize client side configuration
-        if (!isClientInitialized)
-        {
-            // Call client side initializer (if defined). It will be called 
-            // only once per JVM.
-            ClientInitializer.initialize(getConfiguration());
-        }
 
         // Mark beginning of test on client side
         getLogger().debug("------------- Test: " 

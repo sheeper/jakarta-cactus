@@ -58,7 +58,9 @@ package org.apache.cactus.extension.jetty;
 
 import java.net.URL;
 
-import org.apache.cactus.client.initialization.Initializable;
+import junit.extensions.TestSetup;
+import junit.framework.Test;
+
 import org.apache.cactus.configuration.BaseConfiguration;
 import org.apache.cactus.configuration.Configuration;
 import org.apache.cactus.configuration.FilterConfiguration;
@@ -68,14 +70,20 @@ import org.apache.cactus.server.ServletTestRedirector;
 import org.apache.cactus.util.ClassLoaderUtils;
 
 /**
- * Cactus initializer to start an embedded Jetty server. It will be stopped
- * automatically upon JVM shutdown.
+ * Custom JUnit test setup to use to automatically start Jetty. Example:<br/>
+ * <code><pre>
+ * public static Test suite()
+ * {
+ *     TestSuite suite = new TestSuite(Myclass.class);
+ *     return new JettyTestSetup(suite);
+ * }
+ * </pre></code>
  * 
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
  */
-public class JettyInitializer implements Initializable
+public class JettyTestSetup extends TestSetup
 {
     /**
      * Name of optional system property that points to a Jetty XML
@@ -92,6 +100,14 @@ public class JettyInitializer implements Initializable
         "cactus.jetty.resourceDir";
 
     /**
+     * @param theTest the test we are decorating (usually a test suite)
+     */
+    public JettyTestSetup(Test theTest)
+    {
+        super(theTest);
+    }
+
+    /**
      * Start an embedded Jetty server. It is allowed to pass a Jetty XML as
      * a system property (<code>cactus.jetty.config</code>) to further 
      * configure Jetty. Example: 
@@ -99,7 +115,7 @@ public class JettyInitializer implements Initializable
      *
      * @exception Exception if an error happens during initialization
      */
-    public void initialize() throws Exception
+    public void setUp() throws Exception
     {
         // Note: We are currently using reflection in order not to need Jetty
         // to compile Cactus. If the code becomes more complex or we need to 
@@ -151,7 +167,7 @@ public class JettyInitializer implements Initializable
      * 
      * @exception Exception if an error happens during initialization
      */
-    public Object createServer(Configuration theConfiguration) 
+    private Object createServer(Configuration theConfiguration) 
         throws Exception
     {
         // Create Jetty Server object
@@ -179,7 +195,7 @@ public class JettyInitializer implements Initializable
      * 
      * @exception Exception if an error happens during initialization
      */
-    public Object createContext(Object theServer,
+    private Object createContext(Object theServer,
         Configuration theConfiguration) throws Exception
     {
         // Add a web application. This creates a WebApplicationContext.
@@ -213,7 +229,7 @@ public class JettyInitializer implements Initializable
      * 
      * @exception Exception if an error happens during initialization
      */
-    public void addServletRedirector(Object theContext,
+    private void addServletRedirector(Object theContext,
         ServletConfiguration theConfiguration) throws Exception
     {
         theContext.getClass().getMethod("addServlet", 
@@ -233,7 +249,7 @@ public class JettyInitializer implements Initializable
      * 
      * @exception Exception if an error happens during initialization
      */
-    public void addJspRedirector(Object theContext) throws Exception
+    private void addJspRedirector(Object theContext) throws Exception
     {
         if (System.getProperty(CACTUS_JETTY_RESOURCE_DIR_PROPERTY) != null)
         {
@@ -271,7 +287,7 @@ public class JettyInitializer implements Initializable
      * 
      * @exception Exception if an error happens during initialization
      */
-    public void addFilterRedirector(Object theContext,
+    private void addFilterRedirector(Object theContext,
         FilterConfiguration theConfiguration) throws Exception
     {
         if (System.getProperty(CACTUS_JETTY_RESOURCE_DIR_PROPERTY) != null)

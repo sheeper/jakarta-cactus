@@ -47,6 +47,7 @@
     <property name="src.conf.dir" location="${base.dir}/src/conf"/>
     <property name="src.java.dir" location="${src.dir}/java"/>
     <property name="src.cactus.dir" location="${src.dir}/test-cactus"/>
+    <property name="src.cactus.jetty.dir" location="${base.dir}/src/test-cactus"/>
     <property name="src.script.dir" location="${base.dir}/src/script"/>
     <property name="src.webapp.dir" location="${base.dir}/src/webapp"/>
 
@@ -153,6 +154,11 @@ be resolved. Please check you build.properties file, and run Ant with the
     <mkdir dir="${target.sample.src.cactus.dir}"/>
     <copy todir="${target.sample.src.cactus.dir}">
       <fileset dir="${src.cactus.dir}" excludes="**/unit/**"/>
+    </copy>
+
+    <!-- Copy the Jetty-sample specific source files to the target src dir -->
+    <copy todir="${target.sample.src.cactus.dir}">
+      <fileset dir="${src.cactus.jetty.dir}"/>
     </copy>
 
     <!-- Copy web-app files -->

@@ -296,16 +296,8 @@ experimental and needs some work
           be protected.
         </li>
         <li>
-          Provides a hook for executing initialization code once on the client
-          side through the use a <code>cactus.initializer</code> System 
-          property which points to your class implementing the
-          <code>org.apache.cactus.util.Initializable</code> interface.
-          <img src="images/new.jpg" alt="New in Cactus 1.5"/>           
-        </li>
-        <li>
-          Provides a Jetty Initializer which can be used to seamlessly and
-          automatically start the Jetty container before running the Cactus
-          tests.
+          Provides a <code>JettyTestSetup</code> JUnit TestSetup class to
+          automatically start Jetty before a test suite starts executing.
           <img src="images/new.jpg" alt="New in Cactus 1.5"/>           
         </li>
         <li>
@@ -315,7 +307,7 @@ experimental and needs some work
         </li>
         <li>
           Provide a sample application that demonstrates how to use the 
-          Jetty Initializer to run Cactus tests.
+          <code>JettyTestSetup</code> feature to run Cactus tests.
           <img src="images/new.jpg" alt="New in Cactus 1.5"/>           
         </li>
         <li>

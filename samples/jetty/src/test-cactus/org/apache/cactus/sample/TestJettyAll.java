@@ -54,22 +54,40 @@
  * <http://www.apache.org/>.
  *
  */
-package org.apache.cactus.client.initialization;
+package org.apache.cactus.sample;
+
+import org.apache.cactus.extension.jetty.JettyTestSetup;
+
+import junit.framework.Test;
+import junit.framework.TestCase;
+import junit.framework.TestSuite;
 
 /**
- * A class that needs to be run once on the client to initialize the 
- * system must implement this interface.
+ * Run all tests inside the Jetty container.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
  */
-public interface Initializable
+public class TestJettyAll extends TestCase
 {
     /**
-     * Initialize class.
-     *
-     * @exception Exception if an error happens during initialization
+     * @return a <code>JettyTestSetup</code> test suite that wraps all our
+     *         tests so that Jetty will be started before the tests execute
      */
-    void initialize() throws Exception;
+    public static Test suite()
+    {
+        TestSuite suite = new TestSuite(
+            "Cactus unit tests executing in Jetty");
+
+        // Functional tests
+         suite.addTestSuite(org.apache.cactus.sample.TestSampleServlet.class);
+         suite.addTestSuite(
+             org.apache.cactus.sample.TestSampleServletConfig.class);
+         suite.addTestSuite(org.apache.cactus.sample.TestSampleTag.class);
+         suite.addTestSuite(org.apache.cactus.sample.TestSampleBodyTag.class);
+         suite.addTestSuite(org.apache.cactus.sample.TestSampleFilter.class);
+
+        return new JettyTestSetup(suite);
+    }
 }

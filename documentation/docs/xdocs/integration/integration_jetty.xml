@@ -6,6 +6,7 @@
     <title>Jetty Integration</title>
     <authors>
       <author name="Julien Ruaux" email="jruaux@octo.com"/>
+      <author name="Vincent Massol" email="vmassol@apache.org"/>
     </authors>
   </properties>
 
@@ -24,47 +25,60 @@
     <section title="Setting up Jetty">
 
       <p>
-        The idea is to use the Jetty initializer provided by Cactus so that
-        Jetty is run before the tests are run. Generally Cactus tests are
-        launched by a JUnit runner, so we will describe here how to hook the
-        initializer to it.
+        The idea is to use the 
+        <code>org.apache.cactus.extension.jetty.JettyTestSetup</code> JUnit
+        TestSetup class provided by Cactus so that Jetty is started before the 
+        tests are run.
       </p>
       
       <p>
-        There are only two things to do to set up Cactus for Jetty :
-        <ul>
-          <li>
-            Add the Jetty and optionally Jasper jars to the classpath
-          </li>
-          <li>
-            Set the appropriate system properties :
-            <ul>
-              <li>
-                <code>cactus.initializer</code> (required), value :
-                <code>org.apache.cactus.extension.jetty.JettyInitializer</code> 
-                : tells Cactus to use JettyInitializer as the initializer.
-              </li>
-              <li>
-                <code>cactus.jetty.config</code> (optional), value :
-                location of a jetty.xml file (see Jetty's documentation
-                for details)
-              </li>
-              <li>
-                <code>cactus.jetty.resourceDir</code> (optional), value :
-                location of a webapp directory (expanded war)
-              </li>
-            </ul>
-          </li>
-        </ul>
+        In order to use the TestSetup, perform the following steps you need
+        to wrap your test suite in <code>JettyTestSetup</code>:
       </p>
+<source><![CDATA[
+public class TestJettyAll extends TestCase
+{
+    public static Test suite()
+    {
+        TestSuite suite = new TestSuite();
+        suite.addTestSuite(MyTestClass1.class);
+        [...]
+        suite.addTestSuite(MyTestClassN.class);
+        
+        return new JettyTestSetup(suite);
+    }        
+]]></source>
+      
+      <p>
+        You also need to define some System properties to control the Jetty
+        Test Setup behavior:
+      </p>      
+      <ul>
+        <li>
+          <code>cactus.jetty.config</code> (optional), value :
+          location of a jetty.xml file (see Jetty's documentation
+          for details)
+        </li>
+        <li>
+          <code>cactus.jetty.resourceDir</code> (optional), value :
+          location of a webapp directory (expanded war)
+        </li>
+      </ul>
 
-	    <section title="Case 1: running from Ant">
+      <note>
+        If you're using JSPs you'll need to add the Jasper jars to your 
+        runtime Classpath (in addition to the Jetty jar).
+      </note>      
+
+      <section title="Case 1: running from Ant">
 	
-	      <p>
-	        Let's assume we have a JUnit task that launches the tests.
-	        All we have to do is add the correct VM arguments to tell Cactus
-	        to launch Jetty before the tests, and add the Jetty and optionally
-	        Jasper jars to the classpath. For example : <br/><br/>
+        <p>
+          Let's assume we have a JUnit task that launches the tests.
+          We need to add the Jetty jar and optionally the Jasper jars
+          (if we use JSPs) to the runtime classpath. Then, all we have 
+          to do is add the correct VM arguments to configure
+          the <code>JettyTestSetup</code> behavior. For example:
+        </p>
 <source><![CDATA[
 <junit>
 
@@ -72,7 +86,6 @@
     
     <jvmarg value="-Dcactus.contextURL=http://localhost:${test.port}/test"/>
     <jvmarg value="-Dcactus.jetty.resourceDir=${src.webapp.dir}"/>
-    <jvmarg value="-Dcactus.initializer=org.apache.cactus.extension.jetty.JettyInitializer"/>
     <jvmarg value="-Dcactus.jetty.config=${src.webapp.dir}/test/jetty.xml"/>
 
     <classpath>
@@ -83,29 +96,28 @@
         <pathelement location="${jasper-runtime.jar}"/>    
     </classpath>
     
-    <test name="org.apache.cactus.sample.TestAll"/>
+    <test name="org.apache.cactus.sample.TestJettyAll"/>
 
 </junit>
 ]]></source>
-	      </p>
 	    
-	    </section>
+      </section>
 	    
-		  <section title="Case 2: running from an IDE">
+      <section title="Case 2: running from an IDE">
 		
-		    <p>
-		      Again all you have to do is add the correct VM arguments, and the
-		      Jetty and Jasper jars, to the JUnit launch.
-		    </p>
+        <p>
+          Again all you have to do is add the correct VM arguments, and the
+          Jetty and Jasper jars, to the JUnit launch.
+        </p>
 		    
-		    <p>
-		      For example in Eclipse you would add the jars, and create a JUnit
-		      launch configuration as below:
-		      <figure src="images/jetty_eclipse.png"
-		        alt="Eclipse configuration for Jetty"/>          
-		    </p>
+        <p>
+          For example in Eclipse you would add the jars, and create a JUnit
+          launch configuration as below:
+        </p>
+        <figure src="images/jetty_eclipse.png"
+          alt="Eclipse configuration for Jetty"/>          
 		
-		  </section>
+      </section>
 
     </section>
   </body>

@@ -125,11 +125,6 @@
     Introduction to writing Cactus-based unit tests.
   </resource>
 
-  <resource id="howto_initializer" target="writing/howto_initializer.html"
-      name="Initializer Howto">
-    Information about using the Cactus initializer feature.
-  </resource>
-  
   <resource id="howto_testcase_servlet"
       target="writing/howto_testcase_servlet.html"
       name="Writing Cactus Tests for Servlets">

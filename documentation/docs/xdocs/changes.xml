@@ -320,16 +320,17 @@ Note: To be added once we include the Eclipse plugin in a release
         </action>
         <action dev="VMA" type="add">
           Added a Jetty Sample application to demonstrate how to use the new
-          Jetty initializer.
+          <code>JettyTestSetup</code> that automatically starts Jetty before
+          a test suite.
         </action>
         <action dev="JRU" type="add">
           Added a <link href="site:integration_jetty">Jetty integration 
           tutorial</link>.
         </action>
         <action dev="VMA" type="add">
-          Added a Jetty initializer. This is the first implementation of the 
-          new initializer feature. This initializer starts Jetty before Cactus 
-          tests are run. This is really nice to quickly run tests inside any 
+          Added a <code>org.apache.cactus.extension.jetty.JettyTestSetup</code>
+          JUnit TestSetup to automatically start Jetty before a test suite
+          is executed. This is really nice to quickly run tests inside any 
           IDE or even from a simple <code>&lt;junit&gt;</code> Ant taks without 
           the need to package and deploy a WAR. In addition, it is real nice to 
           debug tests this way. Moreover, Jetty starts in less than 1 second, 
@@ -337,17 +338,6 @@ Note: To be added once we include the Eclipse plugin in a release
           order of magnitude as pure JUnit tests in term of speed ... :-). Of 
           course, this is only for Servlet tests ... I am still waiting for an
           embeddable EJB container that starts in less than 1 second ...
-        </action>
-        <action dev="JRU" type="add">
-          Added a <link href="site:howto_initializer">tutorial</link> that explains 
-          how to use the initializer feature.
-        </action>
-        <action dev="VMA" type="add">
-          Added notion of Initializer. This is an optional class that you can 
-          specify in <code>cactus.properties</code> or as a System property (
-          the property name is <code>cactus.initializer</code>). It will be run
-          once per JVM only. The initializer class must implement the
-          <code>org.apache.cactus.util.Initializable</code> interface.
         </action>
         <action dev="VMA" type="add">
           Added support for client side <code>begin(...)</code>

@@ -19,7 +19,6 @@
   <menu label="Advanced Topics">
     <item id="howto_httpunit" label="Integrating HttpUnit"/>
     <item id="howto_security" label="Using Authentication"/>
-    <item id="howto_initializer" label="Using Initializers"/>
   </menu>
 
   <menu label="Reference">
