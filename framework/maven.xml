@@ -14,6 +14,10 @@
         location="${pom.build.sourceDirectory}/../j2ee${cactus.j2ee.version}"/>
     <maven:addPath id="maven.compile.src.set" 
         refid="maven.j2ee.compile.src.set"/>
+    <path id="maven.j2ee.test.compile.src.set"
+        location="${pom.build.unitTestSourceDirectory}/../j2ee${cactus.j2ee.version}"/>
+    <maven:addPath id="maven.test.compile.src.set" 
+        refid="maven.j2ee.test.compile.src.set"/>
   </goal>
   
   <preGoal name="java:compile">
