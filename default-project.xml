@@ -13,9 +13,10 @@
   <inceptionYear>2001-2003</inceptionYear>
   <package>org.apache.cactus</package>
 
-  <shortDescription>
-    Cactus is a simple test framework for unit testing server-side java code.
-  </shortDescription>
+  <!-- Note: This description should be on one line without end of lines as it 
+       is in various place such as in jar manifests and a single line is 
+       rendered better -->
+  <shortDescription>Cactus is a simple test framework for unit testing server-side java code.</shortDescription>
 
   <!-- Gump integration -->
   <gumpRepositoryId>jakarta</gumpRepositoryId>
