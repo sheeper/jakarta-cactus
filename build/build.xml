@@ -58,7 +58,7 @@
 
     <!-- Generic project properties -->
     <property name="project.fullname" value="Cactus"/>
-    <property name="project.version" value="1.1"/>
+    <property name="project.version" value="1.2"/>
     <property name="project.name" value="commons-cactus"/>
 
     <!-- Miscellaneous settings -->
@@ -75,7 +75,6 @@
     <!-- Source locations for the build -->
     <property name="src.dir" value="src"/>
     <property name="build.dir" value="build"/>
-    <property name="etc.dir" value="${build.dir}/etc"/>
     <property name="src.java.share.dir" value="${src.dir}/framework/share"/>
     <property name="src.java.test.share.dir" value="${src.dir}/test/share"/>
     <property name="src.java.ant.dir" value="${src.dir}/ant"/>
@@ -89,7 +88,6 @@
     <!-- Source locations for the Cactus sample application -->
     <property name="sample.src.dir" value="${src.dir}/sample"/>
     <property name="sample.build.dir" value="${conf.dir}/sample/build"/>
-    <property name="sample.etc.dir" value="${sample.build.dir}/etc"/>
     <property name="sample.conf.dir" value="${conf.dir}/sample/conf"/>
     <property name="sample.web.dir" value="${web.dir}/sample"/>
     <property name="sample.doc.dir" value="${doc.root.dir}/sample"/>
