@@ -45,9 +45,21 @@
     <devs>
       <person name="Vincent Massol" email="vmassol@apache.org" id="VMA"/>
       <person name="Nicholas Lesiecki" email="ndlesiecki@yahoo.com" id="NDL"/>
+      <person name="Christopher Lenz" email="cmlenz@gmx.de" id="CML"/>
     </devs>
 
     <release version="1.5" date="- in CVS">
+      <action dev="CML" type="fix">
+        Enable the <code>ServletTestRunner</code> to run in an environment where
+        it is not allowed to set system properties. In such cases, the
+        <code>cactus.properties</code> configuration file needs to be on the 
+        server classpath.
+      </action>
+      <action dev="CML" type="update">
+        Implemented server-side XSLT transformations in the
+        <code>ServletTestRunner</code>. The code is based on the TraX API but
+        uses reflection to avoid a direct runtime dependancy.
+      </action>
       <action dev="VMA" type="add">
         Added automated Ant scripts for JBoss/Jetty 3.x.
       </action>
