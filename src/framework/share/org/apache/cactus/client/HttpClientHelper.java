@@ -86,7 +86,7 @@ public class HttpClientHelper
     /**
      * The logger
      */
-    private static Log logger =
+    private static final Log LOGGER =
         LogService.getInstance().getLog(HttpClientHelper.class.getName());
 
     /**
@@ -169,6 +169,9 @@ public class HttpClientHelper
         } else {
             addParametersPost(theRequest, connection);
         }
+
+        // Log content length
+        LOGGER.debug("ContentLength = [" + connection.getContentLength());
 
         // Open the connection and get the result
         connection.connect();
@@ -377,7 +380,7 @@ public class HttpClientHelper
                     HttpClientHelper.getPath(theRequest, theConnection),
                     httpclientCookies);
 
-            logger.debug("Cookie string = [" + cookieHeader.getValue() +
+            LOGGER.debug("Cookie string = [" + cookieHeader.getValue() +
                 "]");
 
             theConnection.setRequestProperty("Cookie",
@@ -407,7 +410,7 @@ public class HttpClientHelper
             domain = theConnection.getURL().getHost();
         }
 
-        logger.debug("Cookie validation domain = [" + domain + "]");
+        LOGGER.debug("Cookie validation domain = [" + domain + "]");
 
         return domain;
     }
@@ -434,7 +437,7 @@ public class HttpClientHelper
             port = theConnection.getURL().getPort();
         }
 
-        logger.debug("Cookie validation port = [" + port + "]");
+        LOGGER.debug("Cookie validation port = [" + port + "]");
 
         return port;
     }
@@ -481,7 +484,7 @@ public class HttpClientHelper
 
         }
 
-        logger.debug("Cookie validation pah = [" + path + "]");
+        LOGGER.debug("Cookie validation pah = [" + path + "]");
 
         return path;
     }
