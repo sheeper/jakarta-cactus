@@ -6,7 +6,7 @@
   <header>
     <title>Contributors</title>
     <authors>
-      <person name="Vincent Massol" email="vmassol@users.sourceforge.net"/>
+      <person name="Vincent Massol" email="vmassol@apache.org"/>
     </authors>
    </header>
 
@@ -35,7 +35,7 @@
 
       <ul>
         <li>
-          <link href="mailto:vmassol@users.sourceforge.net">Vincent
+          <link href="mailto:vmassol@apache.org">Vincent
           Massol</link>
         </li>
         <li>
@@ -62,7 +62,7 @@
 
       <ul>
         <li>
-          <link href="mailto:vmassol@users.sourceforge.net">Vincent
+          <link href="mailto:vmassol@apache.org">Vincent
           Massol</link>
         </li>
         <li>
@@ -81,6 +81,9 @@
         <li>
           <link href="mailto:ndlesiecki@yahoo.com">Nicholas Lesiecki</link>
         </li>
+        <li>
+          <link href="mailto:hudsoncwwong@yahoo.com">Hudson Wong</link>
+        </li>
       </ul>
 
     </s1>
@@ -90,7 +93,7 @@
 
       <ul>
         <li>
-          <link href="mailto:vmassol@users.sourceforge.net">Vincent
+          <link href="mailto:vmassol@apache.org">Vincent
           Massol</link>
         </li>
         <li>

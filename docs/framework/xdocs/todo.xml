@@ -31,13 +31,6 @@
 
   <version title="Version 1.2">
 
-    <category title="Documentation">
-      <action assigned-to="Hudson Wong">
-        Add a tutorial that explains how to unit test EJBs in the current
-        version of Cactus.
-      </action>
-    </category>
-
     <category title="Design/Code">
       <action assigned-to="Nicholas Lesiecki">
         Provide some sample taglib tests.

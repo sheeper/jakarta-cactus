@@ -27,8 +27,6 @@
     <menu-item label="How it works ?" source="how_it_works.xml"/>
     <menu-item label="Getting Started" source="getting_started.xml"/>
     <menu-item label="Mock vs Container" source="mockobjects.xml"/>
-    <!-- To be added : Testing Strategies (explains the different kind of
-         tests and how Cactus is positioned -->
     <menu-item type="external" label="API Reference" href="javadoc/index.html"/>
   </menu>
 
@@ -49,7 +47,10 @@
 
     <menu-item label="HttpUnit Howto" source="howto_httpunit.xml"/>
     <menu-item label="Sample Howto" source="howto_sample.xml"/>
-    <!--menu-item label="Reference Manual" source="reference_manual.xml"/-->
+
+    <!-- EJB tutorial -->
+    <menu-item label="EJB Howto" source="howto_ejb.xml"/>
+    <menu-item type="hidden" source="howto_ejb_j2eeri.xml"/>
 
     <!-- IDE tutorials -->
     <menu-item label="IDE Howto" source="howto_ide.xml"/>

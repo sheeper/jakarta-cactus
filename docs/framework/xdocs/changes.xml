@@ -28,6 +28,15 @@
     <table>
       <tr>
         <td>
+          22/09/2001
+        </td>
+        <td>
+          The <link href="howto_ejb.html">EJB testing
+          tutorial</link> is now available ! Thanks Hudson !
+        </td>
+      </tr>
+      <tr>
+        <td>
           18/09/2001
         </td>
         <td>
@@ -54,6 +63,15 @@
           been updated to reflect this and package names have changed from
           <code>org.apache.commons.cactus.*</code> to
           <code>org.apache.cactus.*</code>.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          10/09/2001
+        </td>
+        <td>
+          The <link href="howto_testcase_filter.html">Filter testing
+          tutorial</link> is now available !
         </td>
       </tr>
     </table>
@@ -85,10 +103,21 @@
   <releases title="Release changes">
 
     <devs>
-      <person name="Vincent Massol" email="vmassol@users.sourceforge.net" id="VMA"/>
+      <person name="Vincent Massol" email="vmassol@apache.org" id="VMA"/>
+      <person name="Nicholas Lesiecki" email="ndlesiecki@yahoo.com" id="NDL"/>
     </devs>
 
     <release version="1.2 in CVS">
+      <action dev="VMA" type="add">
+        Tutorial for unit testing EJBs. Thanks to
+        <link href="mailto:hudsoncwwong@yahoo.com">Hudson Wong</link>.
+      </action>
+      <action dev="NDL" type="add">
+        Tutorial for unit testing Taglibs.
+      </action>
+      <action dev="VMA" type="add">
+        Tutorial for unit testing Servlet Filters.
+      </action>
       <action dev="VMA" type="add">
         <code>HttpServletRequestWrapper.getPathTranslated()</code> now takes
         into account any path info set up in <code>WebRequest.setURL()</code>.
