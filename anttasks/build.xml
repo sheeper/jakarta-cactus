@@ -58,6 +58,7 @@
     -->
     <!-- Source locations for the build -->
     <property name="src.dir" value="src"/>
+    <property name="src.java.dir" value="${src.dir}/java"/>
     <property name="build.dir" value="."/>
     <property name="conf.dir" value="conf"/>
 
@@ -69,6 +70,7 @@
     <!-- Destination locations for the build -->
     <property name="target.dir" value="target"/>
     <property name="target.classes.dir" value="${target.dir}/classes"/>
+    <property name="target.classes.java.dir" value="${target.classes.dir}/java"/>
     <property name="target.conf.dir" value="${target.dir}/conf"/>
 
     <!-- Distribution directory, i.e. where the expanded distibutable files
@@ -136,9 +138,9 @@
     -->
     <target name="compile" depends="init" description="Compile the sources">
 
-        <mkdir dir="${target.classes.dir}"/>
+        <mkdir dir="${target.classes.java.dir}"/>
 
-        <javac srcdir="${src.dir}" destdir="${target.classes.dir}"
+        <javac srcdir="${src.java.dir}" destdir="${target.classes.java.dir}"
           deprecation="${deprecation}" optimize="${optimize}">
             <include name="**/*.java"/>
             <classpath refid="compile.classpath"/>
@@ -161,7 +163,7 @@
 
         <jar jarfile="${target.dir}/${anttasks.jar.name}.jar"
           manifest="${target.conf.dir}/manifest">
-            <fileset dir="${target.classes.dir}"/>
+            <fileset dir="${target.classes.java.dir}"/>
         </jar>
 
     </target>
@@ -275,7 +277,7 @@
         <checkstyle paramPattern="^(the|is|has)[A-Z][a-zA-Z0-9]*$"
             allowProtected="true" headerFile="LICENSE">
 
-            <fileset dir="${src.dir}">
+            <fileset dir="${src.java.dir}">
                 <include name="**/*.java"/>
             </fileset>
             <formatter type="xml" toFile="${target.dir}/checkstyle_errors.xml"/>
