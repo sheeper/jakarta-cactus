@@ -43,16 +43,16 @@
     <maven:get plugin="maven-war-plugin" property="plugin" var="warPlugin" />
     <j:if test="${warPlugin.currentVersion.compareTo('1.7') lt 0}">
       <ant:fail>
-        Must have WAR plugin v1.7 installed to use this version of the Cactus plugin.
-        Try: maven plugin:download -DgroupId=maven -DartifactId=maven-war-plugin -Dversion=1.7
+        Must have WAR plugin v1.7 or greater installed to use this version of the Cactus plugin.
+        Try: maven plugin:download -DgroupId=maven -DartifactId=maven-war-plugin -Dversion=[version]
       </ant:fail>
     </j:if>
 
     <maven:get plugin="maven-ejb-plugin" property="plugin" var="ejbPlugin" />
     <j:if test="${warPlugin.currentVersion.compareTo('1.6') lt 0}">
       <ant:fail>
-        Must have EJB plugin v1.6 installed to use this version of the Cactus plugin.
-        Try: maven plugin:download -DgroupId=maven -DartifactId=maven-ejb-plugin -Dversion=1.6
+        Must have EJB plugin v1.6 or greater installed to use this version of the Cactus plugin.
+        Try: maven plugin:download -DgroupId=maven -DartifactId=maven-ejb-plugin -Dversion=[version]
       </ant:fail>
     </j:if>
     
