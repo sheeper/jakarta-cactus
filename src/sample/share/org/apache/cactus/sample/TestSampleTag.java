@@ -217,7 +217,7 @@ public class TestSampleTag extends JspTestCase
     {
         String target = theResponse.getText();
         boolean containsMessage = target.indexOf("This tag has a parent. <BR>") > 0;
-        assert(!containsMessage);
+        assertTrue(!containsMessage);
     }
 
     //--------------------------------------------------------------------------

@@ -125,7 +125,7 @@ public class TestServletTestCase_Authentication extends ServletTestCase
     {
         assertEquals("testuser", request.getUserPrincipal().getName());
         assertEquals("testuser", request.getRemoteUser());
-        assert("User not in 'test' role", request.isUserInRole("test"));
+        assertTrue("User not in 'test' role", request.isUserInRole("test"));
     }
 
 }

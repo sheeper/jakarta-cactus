@@ -124,7 +124,7 @@ public class TestServletTestCase1_InterceptorServletTestCase
             // and contains the text "test serializable exception", then
             // the test is ok.
             if (this.getCurrentTestMethod().equals("testExceptionSerializable")) {
-                assert(e.instanceOf(
+                assertTrue(e.instanceOf(
                     TestServletTestCase1_ExceptionSerializable.class));
 
                 assertEquals("test serializable exception", e.getMessage());

@@ -160,10 +160,10 @@ public class TestSampleBodyTag extends JspTestCase
     {
         String content = theResponse.getText();
 
-        assert("Response should have contained the [" +
+        assertTrue("Response should have contained the [" +
             "replacement is now replacement] string",
             content.indexOf("replacement is now replacement") > -1);
-        assert("Response should have contained the [" +
+        assertTrue("Response should have contained the [" +
             "replacement_replacement] string", content.indexOf("replacement") > -1);
     }
 

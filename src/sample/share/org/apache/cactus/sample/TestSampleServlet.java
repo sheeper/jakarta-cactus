@@ -178,7 +178,7 @@ public class TestSampleServlet extends ServletTestCase
         SampleServlet servlet = new SampleServlet();
         servlet.setSessionVariable(request);
 
-        assert(session != null);
+        assertNotNull(session);
         assertEquals("value_setSessionVariable",
             session.getAttribute("name_setSessionVariable"));
     }
@@ -217,8 +217,8 @@ public class TestSampleServlet extends ServletTestCase
         SampleServlet servlet = new SampleServlet();
         Hashtable params = servlet.getRequestParameters(request);
 
-        assert(params.get("param1") != null);
-        assert(params.get("param2") != null);
+        assertNotNull(params.get("param1"));
+        assertNotNull(params.get("param2"));
         assertEquals("value1", params.get("param1"));
         assertEquals("value2", params.get("param2"));
     }
@@ -272,8 +272,8 @@ public class TestSampleServlet extends ServletTestCase
         SampleServlet servlet = new SampleServlet();
         Hashtable cookies = servlet.getRequestCookies(request);
 
-        assert("Cannot find [testcookie] cookie in request",
-            cookies.get("testcookie") != null);
+        assertNotNull("Cannot find [testcookie] cookie in request",
+            cookies.get("testcookie"));
         assertEquals("thisisacookie", cookies.get("testcookie"));
     }
 
@@ -297,10 +297,10 @@ public class TestSampleServlet extends ServletTestCase
         SampleServlet servlet = new SampleServlet();
         Hashtable cookies = servlet.getRequestCookies(request);
 
-        assert(cookies.get("testcookie1") != null);
+        assertNotNull(cookies.get("testcookie1"));
         assertEquals("cookie1", cookies.get("testcookie1"));
 
-        assert(cookies.get("testcookie2") != null);
+        assertNotNull(cookies.get("testcookie2"));
         assertEquals("cookie2", cookies.get("testcookie2"));
     }
 
@@ -373,7 +373,7 @@ public class TestSampleServlet extends ServletTestCase
     {
         Cookie cookie = theResponse.getCookie("responsecookie");
 
-        assert("Cannot find [responsecookie]", cookie != null);
+        assertNotNull("Cannot find [responsecookie]", cookie);
         assertEquals("responsecookie", cookie.getName());
 
         // Some servers may encode the cookie value (ex: the latest
@@ -413,7 +413,7 @@ public class TestSampleServlet extends ServletTestCase
         // different Servlet engine return different text ! For example some
         // return the JSP comment, other do not, ...
         // Thus, we only test for a match of "Hello !"
-        assert("Text missing 'Hello !' : [" + theResponse.getText() + "]",
+        assertTrue("Text missing 'Hello !' : [" + theResponse.getText() + "]",
             theResponse.getText().indexOf("Hello !") > 0);
     }
 
@@ -444,7 +444,7 @@ public class TestSampleServlet extends ServletTestCase
         // different Servlet engine return different text ! For example some
         // return the JSP comment, other do not, ...
         // Thus, we only test for a match of "Hello !"
-        assert("Text missing 'Hello !' : [" + theResponse.getText() + "]",
+        assertTrue("Text missing 'Hello !' : [" + theResponse.getText() + "]",
             theResponse.getText().indexOf("Hello !") > 0);
     }
 

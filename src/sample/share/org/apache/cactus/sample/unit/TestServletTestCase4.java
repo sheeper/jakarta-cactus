@@ -243,7 +243,7 @@ public class TestServletTestCase4 extends ServletTestCase
         assertEquals(80, request.getServerPort());
         assertEquals("/catalog", request.getContextPath());
         assertEquals("/help/feedback.jsp", request.getServletPath());
-        assert(request.getPathInfo() == null);
+        assertNull(request.getPathInfo());
     }
 
     //-------------------------------------------------------------------------
@@ -274,7 +274,7 @@ public class TestServletTestCase4 extends ServletTestCase
         assertEquals(80, request.getServerPort());
         assertEquals("/catalog", request.getContextPath());
         assertEquals("/help/feedback.jsp", request.getServletPath());
-        assert(request.getPathInfo() == null);
+        assertNull(request.getPathInfo());
         assertEquals("PARAM1=param1&PARAM2=&PARAM3=param3",
             request.getQueryString());
         assertEquals(request.getParameter("PARAM1"), "param1");

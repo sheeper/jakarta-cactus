@@ -141,8 +141,8 @@ public class TestServletTestCase2 extends ServletTestCase
      */
     public void testNoAutomaticSessionCreation()
     {
-        assert("A valid session has been found when no session should exist",
-            session == null);
+        assertNull("A valid session has been found when no session should exist",
+            session);
     }
 
     //-------------------------------------------------------------------------
@@ -222,7 +222,7 @@ public class TestServletTestCase2 extends ServletTestCase
             }
         }
 
-        assert("[testparam] not found in parameter names", found);
+        assertTrue("[testparam] not found in parameter names", found);
     }
 
     //-------------------------------------------------------------------------
@@ -372,13 +372,13 @@ public class TestServletTestCase2 extends ServletTestCase
         String[] results1 = theResponse.getTextAsArray();
         String[] results2 = theResponse.getTextAsArray();
 
-        assert("Should have returned 3 lines of text but returned [" +
+        assertTrue("Should have returned 3 lines of text but returned [" +
             results1.length + "]", results1.length == 3);
         assertEquals("<html><head/>", results1[0]);
         assertEquals("<body>A GET request</body>", results1[1]);
         assertEquals("</html>", results1[2]);
 
-        assert("Should have returned 3 lines of text but returned [" +
+        assertTrue("Should have returned 3 lines of text but returned [" +
             results2.length + "]", results2.length == 3);
         assertEquals("<html><head/>", results2[0]);
         assertEquals("<body>A GET request</body>", results2[1]);
@@ -438,7 +438,7 @@ public class TestServletTestCase2 extends ServletTestCase
         throws IOException
     {
         String result = theResponse.getText();
-        assert("Page not found, got [" + result + "]",
+        assertTrue("Page not found, got [" + result + "]",
             result.indexOf("Hello !") > 0);
     }
 
@@ -478,7 +478,7 @@ public class TestServletTestCase2 extends ServletTestCase
         throws IOException
     {
         String result = theResponse.getText();
-        assert("Page not found, got [" + result + "]",
+        assertTrue("Page not found, got [" + result + "]",
             result.indexOf("Hello !") > 0);
     }
 
@@ -497,7 +497,7 @@ public class TestServletTestCase2 extends ServletTestCase
 
         Vector logs = ((ServletContextWrapper) context).getLogs();
         assertEquals("Found more than one log message", logs.size(), 1);
-        assert("Cannot find expected log message : [" + message + "]",
+        assertTrue("Cannot find expected log message : [" + message + "]",
             logs.contains("some test log"));
     }
 
@@ -598,7 +598,7 @@ public class TestServletTestCase2 extends ServletTestCase
             assertNull("Should have been null", pathTranslated);
         } else {
             assertNotNull("Should not be null", pathTranslated);
-            assert("Should end with [" + nativePathInfo + "] but got [" +
+            assertTrue("Should end with [" + nativePathInfo + "] but got [" +
                 pathTranslated + "] instead",
                 pathTranslated.endsWith(nativePathInfo));
         }

@@ -120,7 +120,7 @@ public class TestServletTestCase5
     public void testTearDown() throws Exception
     {
         // Provoke an exception
-        assert(false);
+        fail("provoked error");
     }
 
     /**
