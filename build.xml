@@ -100,8 +100,8 @@
         <echo message="servlet.jar = ${servlet.jar}"/>
         <echo message=""/>
         <echo message="cvs.executable = ${cvs.executable}"/>
-        <echo message="stylebook.jar = ${stylebook.jar}"/>
         <echo message=""/>
+        <echo message="stylebook.jar (optional) = ${stylebook.jar}"/>
         <echo message="clover.enable (optional) = ${clover.enable}"/>
         <echo message=""/>
 

@@ -55,9 +55,6 @@ jstl.jar = ${lib.repo}/jstl/jars/jstl-1.0.2.jar
 # The location of the JSTL jar
 standard.jar = ${lib.repo}/taglibs/jars/standard-1.0.2.jar
 
-# The location of the Stylebook jar (used to generate the documentation)
-stylebook.jar = ${lib.repo}/stylebook/jars/stylebook.jar
-
 # CVS executable to use for documentation generation (used to automatically
 # generate web site changelog).
 cvs.executable = cvs
@@ -70,6 +67,10 @@ cvs.executable = cvs
 # for both APIs)
 j2ee.12.jar = ${lib.repo}/j2ee/jars/j2ee-1.2.jar
 j2ee.13.jar = ${lib.repo}/j2ee/jars/j2ee-1.3.jar
+
+# The location of the Stylebook jar (used to generate the documentation).
+# If not specified here, the jar must be present in ANTHOME/lib
+stylebook.jar = ${lib.repo}/stylebook/jars/stylebook-1.0-b3_xalan-2.jar
 
 # The port to use for starting the servers during unit testing. If not
 # sepcified, it defaults to port 8080.
