@@ -109,40 +109,12 @@ public abstract class AbstractHttpClient
     public HttpURLConnection doTest(WebRequest theRequest)
         throws Throwable
     {
-        logger.entry("doTest(" + theRequest + ")");
-
         // Open the first connection to the redirector to execute the test on
         // the server side
-        HttpClientHelper helper1 =
-                new HttpClientHelper(getRedirectorURL());
-
-        // Specify the service to call on the redirector side
-        theRequest.addParameter(ServiceDefinition.SERVICE_NAME_PARAM,
-            ServiceEnumeration.CALL_TEST_SERVICE.toString());
-        HttpURLConnection connection = helper1.connect(theRequest);
-
-        // Wrap the connection to ensure that all servlet output is read
-        // before we ask for results
-        connection = new AutoReadHttpURLConnection(connection);
-
-        // Trigger the transfer of data
-        connection.getInputStream();
+        HttpURLConnection connection = callRunTest(theRequest);
 
         // Open the second connection to get the test results
-        HttpClientHelper helper2 =
-                new HttpClientHelper(getRedirectorURL());
-
-        WebRequest resultsRequest = new WebRequest();
-        resultsRequest.addParameter(ServiceDefinition.SERVICE_NAME_PARAM,
-            ServiceEnumeration.GET_RESULTS_SERVICE.toString());
-        HttpURLConnection resultConnection = helper2.connect(resultsRequest);
-
-        // Read the results as a serialized object
-        ObjectInputStream ois =
-            new ObjectInputStream(resultConnection.getInputStream());
-        WebTestResult result = (WebTestResult)ois.readObject();
-
-        ois.close();
+        WebTestResult result = callGetResult();
 
         // Check if the returned result object returned contains an error or
         // not. If yes, we need to raise an exception so that the JUnit
@@ -180,8 +152,71 @@ public abstract class AbstractHttpClient
 
         }
 
-        logger.exit("doTest");
         return connection;
+    }
+
+    /**
+     * Execute the test by calling the redirector.
+     *
+     * @param theRequest the request containing all data to pass to the
+     *                   redirector servlet.
+     * @return the <code>HttpURLConnection</code> that contains the HTTP
+     *         response when the test was called.
+     *
+     * @exception Throwable if an error occured in the test method or in the
+     *                      redirector servlet.
+     */
+    private HttpURLConnection callRunTest(WebRequest theRequest) throws Throwable
+    {
+        // Open the first connection to the redirector to execute the test on
+        // the server side
+        HttpClientHelper helper =
+                new HttpClientHelper(getRedirectorURL());
+
+        // Specify the service to call on the redirector side
+        theRequest.addParameter(ServiceDefinition.SERVICE_NAME_PARAM,
+            ServiceEnumeration.CALL_TEST_SERVICE.toString(),
+            WebRequest.GET_METHOD);
+        HttpURLConnection connection = helper.connect(theRequest);
+
+        // Wrap the connection to ensure that all servlet output is read
+        // before we ask for results
+        connection = new AutoReadHttpURLConnection(connection);
+
+        // Trigger the transfer of data
+        connection.getInputStream();
+
+        return connection;
+    }
+
+    /**
+     * Get the test result from the redirector.
+     *
+     * @return the result that was returned by the redirector.
+     *
+     * @exception Throwable if an error occured in the test method or in the
+     *                      redirector servlet.
+     */
+    private WebTestResult callGetResult() throws Throwable
+    {
+        // Open the second connection to get the test results
+        HttpClientHelper helper =
+                new HttpClientHelper(getRedirectorURL());
+
+        WebRequest resultsRequest = new WebRequest();
+        resultsRequest.addParameter(ServiceDefinition.SERVICE_NAME_PARAM,
+            ServiceEnumeration.GET_RESULTS_SERVICE.toString(),
+            WebRequest.GET_METHOD);
+        HttpURLConnection resultConnection = helper.connect(resultsRequest);
+
+        // Read the results as a serialized object
+        ObjectInputStream ois =
+            new ObjectInputStream(resultConnection.getInputStream());
+        WebTestResult result = (WebTestResult)ois.readObject();
+
+        ois.close();
+
+        return result;
     }
 
 }
