@@ -85,7 +85,7 @@
   <resource id="release_checklist" target="participating/release_checklist.html"/>
   <resource id="howto_build" target="participating/howto_build.html"/>
 
-  <resource id="eclipse_integration" target="integration/eclipse/eclipse_integration.html"/>
+  <resource id="integration_eclipse" target="integration/eclipse/index.html"/>
   <resource id="runner_plugin" target="integration/eclipse/runner_plugin.html"/>
   <resource id="webapp_plugin" target="integration/eclipse/webapp_plugin.html"/>  
 
