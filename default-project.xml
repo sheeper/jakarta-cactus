@@ -10,7 +10,7 @@
     <!-- TODO: Missing jakarta logo. How can we make that work without
          duplicating the logo in all subprojects? -->
   </organization>
-  <inceptionYear>2001-2003</inceptionYear>
+  <inceptionYear>2001</inceptionYear>
   <package>org.apache.cactus</package>
 
   <!-- Note: This description should be on one line without end of lines as it 
