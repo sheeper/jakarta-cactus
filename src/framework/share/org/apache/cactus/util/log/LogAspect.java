@@ -66,83 +66,170 @@ import org.aspectj.lang.*;
 public aspect LogAspect
 {
     /**
-     * Saves the call depth to print indented logs
-     * TODO: move this feature to the log4j wrapper so that all other log
-     * message in the code will benefit from it.
+     * All objects in the log package. We don't want to log these as they are the object that
+     * perform the logging and thus at execution time we would enter an infinite recursive loop.
      */
-    protected static int callDepth = 0;
+    pointcut logObjectCalls() :
+        call(public * org.apache.cactus.util.log..*(..));
 
     /**
-     * All calls that take longer than this default duration will have their
-     * exact duration logged. Value is in ms.
+     * All public static methods that have parameters.
      */
-    protected static long duration = 200;
+    pointcut publicStaticMethodsWithParameterCalls() :
+        !call(public static * org.apache.cactus..*()) &&
+        call(public static * org.apache.cactus..*(..));
 
     /**
-     * Log all entries and exits of methods. Also logs returned values when
-     * concerned method returns a value.
+     * All public methods that have parameters.
+     */
+    pointcut publicMethodsWithParameterCalls() :
+        !call(public * org.apache.cactus..*()) &&
+        call(public * org.apache.cactus..*(..));
+
+    /**
+     * All public methods that return values
+     */
+    pointcut publicMethodsWithReturnValueCalls() :
+        !call(public void org.apache.cactus..*(..)) &&
+        call(public * org.apache.cactus..*(..));
+
+    /**
+     * Log all entries and exits of static methods that have no return values.
      */
     Object around() :
-        !within(org.apache.cactus.util.log.*) && target(org.apache.cactus.*) && call(* *(..))
+        !logObjectCalls() && publicMethodsWithParameterCalls() &&
+        publicStaticMethodsWithParameterCalls() && !publicMethodsWithReturnValueCalls()
     {
-        // The class name that uses the method that has been called
-        String targetName = thisJoinPoint.getTarget().getClass().getName();
+        // Get the logger to perform logging
+        Log logger = LogService.getInstance().getLog(
+            thisJoinPoint.getSignature().getDeclaringType().getName());
 
-        // The class name that declares the method called (can be different from the class that
-        // uses the method - think inheritance).
-        String declaringName = thisJoinPoint.getSignature().getDeclaringType().getName();
-
-        Class declaringReturnType = ((MethodSignature)(thisJoinPoint.getSignature())).getReturnType();
-        Object result;
-
-        // Only log methods that belong to the cactus codebase
-        if (declaringName.startsWith("org.apache.cactus")) {
-            Log log = LogService.getInstance().getLog(targetName);
-            log.entry(getIndentations() + getFullSignature(thisJoinPoint));
-
-            callDepth++;
-
-            long entryTime = System.currentTimeMillis();
+        if (logger.isDebugEnabled()) {
+            // Log the entry
+            logger.entry(getFullSignature(thisJoinPoint));
 
             // Execute the method
-            result = proceed();
+            final Object result = proceed();
 
-            long exitTime = System.currentTimeMillis();
-
-            callDepth--;
-
-            // Compute the exit string to print
-            StringBuffer exitString = new StringBuffer(getIndentations());
-            exitString.append(getFullSignature(thisJoinPoint));
-
-            // Log the result if the declaring method is returning a value
-            if (declaringReturnType != Void.TYPE) {
-                exitString.append(" = [" + result + "]");
-            }
-
-            // Add the time if > default duration
-            if ((exitTime - entryTime) >= duration) {
-                exitString.append(", duration = " + (exitTime - entryTime) + "ms");
-            }
-
-            log.exit(exitString.toString());
-
-        } else {
-            result = proceed();
+            // Log the exit
+            logger.exit(thisJoinPoint.getSignature().getName());
+            return result;
         }
 
-        return result;
+        return proceed();
+    }
+
+    /**
+     * Log all entries and exits of non-static methods that have no return values.
+     */
+    Object around() :
+        !logObjectCalls() && publicMethodsWithParameterCalls() &&
+        !publicStaticMethodsWithParameterCalls() && !publicMethodsWithReturnValueCalls()
+    {
+        // The class name that uses the method that has been called
+        final String targetName = thisJoinPoint.getTarget().getClass().getName();
+
+        // Get the logger to perform logging
+        Log logger = LogService.getInstance().getLog(targetName);
+
+        if (logger.isDebugEnabled()) {
+            // Log the entry
+            logger.entry(getFullSignature(thisJoinPoint));
+
+            // Execute the method
+            final Object result = proceed();
+
+            // Log the exit
+            logger.exit(thisJoinPoint.getSignature().getName());
+            return result;
+        }
+
+        return proceed();
+    }
+
+    /**
+     * Log all entries and exits of static methods that have return values.
+     */
+    Object around() :
+        !logObjectCalls() && publicMethodsWithParameterCalls() &&
+        publicMethodsWithReturnValueCalls() && publicStaticMethodsWithParameterCalls()
+    {
+        // Get the logger to perform logging
+        Log logger = LogService.getInstance().getLog(
+            thisJoinPoint.getSignature().getDeclaringType().getName());
+
+        if (logger.isDebugEnabled()) {
+            // Log the entry
+            logger.entry(getFullSignature(thisJoinPoint));
+
+            // Execute the method
+            final Object result = proceed();
+
+            // Compute the exit string to print
+            final StringBuffer exitString = new StringBuffer(thisJoinPoint.getSignature().getName());
+
+            exitString.append(' ');
+            exitString.append('=');
+            exitString.append(' ');
+            exitString.append('[');
+            exitString.append(result);
+            exitString.append(']');
+
+            // Log the exit
+            logger.exit(exitString.toString());
+            return result;
+        }
+
+        return proceed();
+    }
+
+    /**
+     * Log all entries and exits of non-static methods that have return values.
+     */
+    Object around() :
+        !logObjectCalls() && publicMethodsWithParameterCalls() &&
+        publicMethodsWithReturnValueCalls() && !publicStaticMethodsWithParameterCalls()
+    {
+        // The class name that uses the method that has been called
+        final String targetName = thisJoinPoint.getTarget().getClass().getName();
+
+        // Get the logger to perform logging
+        Log logger = LogService.getInstance().getLog(targetName);
+
+        if (logger.isDebugEnabled()) {
+            // Log the entry
+            logger.entry(getFullSignature(thisJoinPoint));
+
+            // Execute the method
+            final Object result = proceed();
+
+            // Compute the exit string to print
+            final StringBuffer exitString = new StringBuffer(thisJoinPoint.getSignature().getName());
+
+            exitString.append(' ');
+            exitString.append('=');
+            exitString.append(' ');
+            exitString.append('[');
+            exitString.append(result);
+            exitString.append(']');
+
+            // Log the exit
+            logger.exit(exitString.toString());
+            return result;
+        }
+
+        return proceed();
     }
 
     /**
      * @return the full signature of a method
      */
-    private String getFullSignature(JoinPoint jp)
+    private final String getFullSignature(final JoinPoint jp)
     {
         StringBuffer buffer = new StringBuffer();
         buffer.append(jp.getSignature().getName());
         buffer.append('(');
-        Object[] objs = jp.getArgs();
+        final Object[] objs = jp.getArgs();
         if (objs.length > 0) {
             for (int i = 0; i < objs.length - 1; i++) {
                 buffer.append('[');
@@ -156,19 +243,6 @@ public aspect LogAspect
             buffer.append(']');
         }
         buffer.append(')');
-        return buffer.toString();
-    }
-
-    /**
-     * Prints spaces for log indentation.
-     */
-    private static String getIndentations()
-    {
-        StringBuffer buffer = new StringBuffer();
-        for (int i = 0; i < callDepth; i++) {
-            buffer.append(' ');
-            buffer.append(' ');
-        }
         return buffer.toString();
     }
 

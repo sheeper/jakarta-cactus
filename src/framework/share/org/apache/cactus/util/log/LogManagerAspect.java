@@ -72,7 +72,7 @@ public aspect LogManagerAspect dominates LogAspect
      * Initialise logging subsystem for the client side (client JVM)
      */
     before() :
-        call(void *.runBare())
+        initialization(org.apache.cactus.AbstractTestCase.new(..))
     {
         if (!LogService.getInstance().isInitialized()) {
             LogService.getInstance().init("/" + LogManagerAspect.LOG_CLIENT_CONFIG);
