@@ -217,6 +217,7 @@
     <ant buildfile="build.xml" target="gump">
 
       <depend property="j2ee.jar" project="jakarta-servletapi"/>
+      <depend property="servlet.jar" project="jakarta-servletapi"/>
       <depend property="log4j.jar" project="jakarta-log4j"/>
       <depend property="commons.httpclient.jar" project="commons-httpclient"/>
       <depend property="httpunit.jar" project="httpunit"/>
@@ -254,6 +255,7 @@
     <ant buildfile="build.xml" target="gump">
 
       <depend property="j2ee.jar" project="jakarta-servletapi-4"/>
+      <depend property="servlet.jar" project="jakarta-servletapi-4"/>
       <depend property="log4j.jar" project="jakarta-log4j"/>
       <depend property="commons.httpclient.jar" project="commons-httpclient"/>
       <depend property="httpunit.jar" project="httpunit"/>
@@ -291,6 +293,7 @@
     <ant buildfile="build.xml" target="gump.src">
 
       <depend property="j2ee.jar" project="jakarta-servletapi-4"/>
+      <depend property="servlet.jar" project="jakarta-servletapi-4"/>
       <depend property="log4j.jar" project="jakarta-log4j"/>
       <depend property="commons.httpclient.jar" project="commons-httpclient"/>
       <depend property="httpunit.jar" project="httpunit"/>
