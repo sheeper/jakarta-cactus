@@ -254,9 +254,17 @@ public abstract class AbstractServletContextWrapper implements ServletContext
      */
     public RequestDispatcher getRequestDispatcher(String thePath)
     {
-        RequestDispatcher dispatcher = new RequestDispatcherWrapper(
+        RequestDispatcher wrappedDispatcher = null;
+
+        RequestDispatcher originalDispatcher =
             this.originalContext.getRequestDispatcher(thePath));
-        return dispatcher;
+
+        if (originalDispatcher != null) {
+            wrappedDispatcher =
+                new RequestDispatcherWrapper(originalDispatcher);
+        }
+
+        return wrappedDispatcher;
     }
 
     /**
