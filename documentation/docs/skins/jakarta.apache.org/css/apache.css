@@ -112,7 +112,6 @@ img {
 #sidebar {
   vertical-align: top;
   margin-left: 6px;
-  overflow: hidden;
   width: 160px;
 }
 @media screen {
