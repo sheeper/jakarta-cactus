@@ -57,6 +57,12 @@
           </tr>
           <tr>
             <td>Resin</td>
+            <td>2.1.4</td>
+            <td>1.2, 1.3</td>
+            <td/>
+          </tr>
+          <tr>
+            <td>Resin</td>
             <td>2.1.6</td>
             <td>1.3</td>
             <td/>
@@ -81,6 +87,24 @@
           </tr>
           <tr>
             <td>Tomcat</td>
+            <td>3.3.1</td>
+            <td>1.2</td>
+            <td/>
+          </tr>
+          <tr>
+            <td>Tomcat</td>
+            <td>4.0.6</td>
+            <td>1.2, 1.3</td>
+            <td/>
+          </tr>
+          <tr>
+            <td>Tomcat</td>
+            <td>4.1.18</td>
+            <td>1.2, 1.3</td>
+            <td/>
+          </tr>
+          <tr>
+            <td>Tomcat</td>
             <td>4.1.24</td>
             <td>1.2, 1.3</td>
             <td/>
@@ -99,6 +123,12 @@
               One test from the Cactus test suite is failing: 
               <code>testGetRequestDispatcherFromNamedDispatcherOK</code>.
             </td>
+          </tr>
+          <tr>
+            <td>JBoss/Jetty</td>
+            <td>3.0.7</td>
+            <td>1.3</td>
+            <td/>
           </tr>
           <tr>
             <td>JBoss/Jetty</td>
