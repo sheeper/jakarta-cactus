@@ -307,6 +307,7 @@ sample-servlet/conf/sample/conf/test/share/tomcat40/tomcat-users.xml svn_keyword
 sample-servlet/conf/sample/conf/test/share/weblogic61/SerializedSystemIni.dat -text svneol=unset#application/octet-stream
 sample-servlet/conf/sample/conf/test/share/weblogic61/config.xml svn_keywords=Author+Date+Id+Revision
 sample-servlet/conf/sample/conf/test/share/weblogic61/fileRealm.properties svn_keywords=Author+Date+Id+Revision
+sample-servlet/conf/sample/conf/test/share/weblogic61/weblogic.xml svn_keywords=Author+Date+Id+Revision
 sample-servlet/conf/sample/conf/test/share/weblogic70/DefaultAuthenticatorInit.ldift svn_keywords=Author+Date+Id+Revision
 sample-servlet/conf/sample/conf/test/share/weblogic70/SerializedSystemIni.dat -text svneol=unset#application/octet-stream
 sample-servlet/conf/sample/conf/test/share/weblogic70/config.xml svn_keywords=Author+Date+Id+Revision
