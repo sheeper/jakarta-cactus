@@ -36,11 +36,11 @@
 
     <section title="Parameters">
 
-      <note>
+      <p>
         As this task is an extension of the <strong>junit</strong> task, it
         also supports all attributes that the <strong>junit</strong> task
-        supports.
-      </note>
+        supports. In addition, the following parameters are supported:
+      </p>
 
       <table>
         <tr>
@@ -73,11 +73,12 @@
 
     <section title="Nested Elements">
 
-      <note>
+      <p>
         As this task is an extension of the <strong>junit</strong> task, it
         also supports all the nested elements supported by the
-        <strong>junit</strong> task.
-      </note>
+        <strong>junit</strong> task. In addition, the following nested 
+        elements are supported:
+      </p>
 
       <section title="containerset">
 
@@ -167,6 +168,26 @@
               <td>No, default is 8080</td>
             </tr>
             <tr>
+              <td>startuptarget</td>
+              <td>
+                The name of a target that should be called to perform the
+                starting up of the container.
+              </td>
+              <td>
+                Yes, unless there's a nested <strong>startup</strong> element
+              </td>
+            </tr>
+            <tr>
+              <td>shutdowntarget</td>
+              <td>
+                The name of a target that should be called to perform the
+                shutting down of the container.
+              </td>
+              <td>
+                Yes, unless there's a nested <strong>shutdown</strong> element
+              </td>
+            </tr>
+            <tr>
               <td>if</td>
               <td>
                 Tests will only be run in the container if a property of the
@@ -197,8 +218,8 @@
 
             <p>
               Multiple <strong>exclude</strong> elements can be used as in
-              standard Ant PatternSets or FileSets to exclude specific tests
-              from running in the container.
+              standard Ant <em>PatternSets</em> or <em>FileSets</em> to
+              exclude specific tests from running in the container.
             </p>
 
           </section>
@@ -667,7 +688,7 @@
 
             <p>
               A fileset that can be used to specify the set of files that
-              should be placed into the <code>conf</code> directory of the
+              should be placed into the <strong>conf</strong> directory of the
               installation directory. This fileset should not include the
               <code>serverxml</code> file.
             </p>
@@ -771,7 +792,7 @@
 
             <p>
               A fileset that can be used to specify the set of files that
-              should be placed into the <code>conf</code> directory of the
+              should be placed into the <strong>conf</strong> directory of the
               installation directory. This fileset should not include the
               <code>serverxml</code> file.
             </p>
@@ -875,7 +896,7 @@
 
             <p>
               A fileset that can be used to specify the set of files that
-              should be placed into the <code>conf</code> directory of the
+              should be placed into the <strong>conf</strong> directory of the
               installation directory. This fileset should not include the
               <code>serverxml</code> file.
             </p>
