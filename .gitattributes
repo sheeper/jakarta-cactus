@@ -1,5 +1,6 @@
 * text=auto !eol
 /.cvsignore svn_keywords=Author+Date+Id+Revision
+/LICENSE.aspectj.html svn_keywords=Author+Date+Id+Revision
 /LICENSE.cactus svn_keywords=Author+Date+Id+Revision
 /LICENSE.httpclient svn_keywords=Author+Date+Id+Revision
 /LICENSE.httpunit svn_keywords=Author+Date+Id+Revision
