@@ -174,6 +174,10 @@ public class WebLogic7xContainer extends AbstractJavaContainer
         {
             throw new BuildException(this.dir + " is not a directory");
         }
+        if (this.beaHome == null)
+        {
+            throw new BuildException("The beaHome attribute must be set");
+        }
     }
 
     /**
