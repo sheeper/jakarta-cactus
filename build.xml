@@ -53,14 +53,14 @@
     <ant antfile="framework/build.xml" inheritAll="false" 
         target="dist">
       <property name="j2ee.jar" value="${j2ee.12.jar}"/>
-      <property name="servlet.jar" value=""/>
+      <property name="servlet.jar" value="${servlet.22.jar}"/>
       <property name="clover.enable" value="true"/>
       <property name="env" value="${env}"/>
     </ant>
     <ant antfile="framework/build.xml" inheritAll="false" 
         target="dist">
       <property name="j2ee.jar" value="${j2ee.13.jar}"/>
-      <property name="servlet.jar" value=""/>
+      <property name="servlet.jar" value="${servlet.23.jar}"/>
       <property name="clover.enable" value="true"/>
       <property name="env" value="${env}"/>
     </ant>
@@ -283,12 +283,12 @@
     <ant antfile="framework/build.xml" inheritAll="false" 
         target="clean">
       <property name="j2ee.jar" value="${j2ee.12.jar}"/>
-      <property name="servlet.jar" value=""/>
+      <property name="servlet.jar" value="${servlet.22.jar}"/>
     </ant>
     <ant antfile="framework/build.xml" inheritAll="false" 
         target="clean">
       <property name="j2ee.jar" value="${j2ee.13.jar}"/>
-      <property name="servlet.jar" value=""/>
+      <property name="servlet.jar" value="${servlet.23.jar}"/>
     </ant>
     <ant antfile="integration/ant/build.xml" inheritAll="false" 
         target="clean">
