@@ -148,8 +148,14 @@ public class DefaultHttpClient
             // an AssertionFailedError exception and print it differently in
             // it's runner console). Otherwise we use an instance of
             // ServletExceptionWrapper.
-            if (result.getExceptionClassName().equals(
+
+            // Note: We have to test the exceptions by string name as the JUnit
+            // AssertionFailedError class is unfortunately not serializable...
+
+            if ((result.getExceptionClassName().equals(
                 "junit.framework.AssertionFailedError"))
+                || (result.getExceptionClassName().equals(
+                "junit.framework.ComparisonFailure")))
             {
                 throw new AssertionFailedErrorWrapper(
                     result.getExceptionMessage(), 

@@ -63,6 +63,7 @@ import org.apache.cactus.client.AssertionFailedErrorWrapper;
 import org.apache.cactus.client.ServletExceptionWrapper;
 
 import junit.framework.AssertionFailedError;
+import junit.framework.ComparisonFailure;
 
 /**
  * Verifies the correct handling of exceptions that happen when running
@@ -132,6 +133,21 @@ public class TestServerSideExceptions extends ServletTestCase
                     return;
                 }
             }
+
+            // If the test case is "testComparisonFailure" and the exception
+            // is of type ComparisonFailure and contains the text
+            // "test comparison failure", then the test is ok.
+            else if (
+                this.getCurrentTestMethod().equals("testComparisonFailure"))
+            {
+                if (e.instanceOf(AssertionFailedError.class))
+                {
+                    assertEquals("test comparison failure", e.getMessage());
+
+                    return;
+                }
+            }
+
         }
         catch (ServletExceptionWrapper e)
         {
@@ -216,4 +232,18 @@ public class TestServerSideExceptions extends ServletTestCase
     {
         throw new SerializableException("test serializable exception");
     }
+
+    //-------------------------------------------------------------------------
+
+    /**
+     * Verify that the new {@link ComparisonFailure} introduced in JUnit 3.8.1
+     * is correctly reported as a failure and not as an error in the Test 
+     * Runner when Cactus is used.
+     */
+    public void testComparisonFailure()
+    {
+        throw new ComparisonFailure("test comparison failure", "some value", 
+            "other value");
+    }
+
 }
