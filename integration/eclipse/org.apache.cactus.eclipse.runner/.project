@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>eclipse</name>
+	<name>org.apache.cactus.eclipse.runner</name>
 	<comment></comment>
 	<projects>
 		<project>org.apache.ant</project>
+		<project>org.apache.cactus.eclipse.webapp</project>
 		<project>org.eclipse.ant.core</project>
 		<project>org.eclipse.core.boot</project>
 		<project>org.eclipse.core.resources</project>
@@ -12,17 +13,11 @@
 		<project>org.eclipse.debug.ui</project>
 		<project>org.eclipse.jdt.core</project>
 		<project>org.eclipse.jdt.debug</project>
-		<project>org.eclipse.jdt.debug.ui</project>
 		<project>org.eclipse.jdt.junit</project>
 		<project>org.eclipse.jdt.launching</project>
 		<project>org.eclipse.jdt.ui</project>
-		<project>org.eclipse.sdk.win32</project>
 		<project>org.eclipse.swt</project>
-		<project>org.eclipse.swt.win32</project>
 		<project>org.eclipse.ui</project>
-		<project>org.eclipse.ui.externaltools</project>
-		<project>org.eclipse.ui.win32</project>
-		<project>webapp</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
