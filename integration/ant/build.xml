@@ -346,7 +346,7 @@ be resolved. Please check you build.properties file, and run Ant with the
        Create the runtime jar file
      ========================================================================
   -->
-  <target name="jar.clover" depends="compile.clover">
+  <target name="jar.clover" depends="compile.clover" if="clover.enable">
 
     <jar jarfile="${target.dir}/${cactus.ant.clover.jar.name}.jar">
       <manifest>
