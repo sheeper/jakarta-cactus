@@ -1,9 +1,9 @@
 Eclipse Plug-in for Cactus
 
 
-* Prerequisites
+* Requirements
 
-The Cactus plugin requires versions of the Eclipse platform higher than 2.1 M5.
+The Cactus plugin requires a version of the Eclipse platform higher than 2.1 M5.
 
 
 * Installation
@@ -25,4 +25,4 @@ While the Cactify action is not implemented you must do the following :
 (create these as 'folders')
 
 Select any Cactus test class file and select from the toolbar :
-Run As -> Cactus Test
+  Run As -> Cactus Test
