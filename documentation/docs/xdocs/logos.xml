@@ -86,7 +86,7 @@
 
       </s2>
 
-      <s2 title="Proposition 4 : [unnamed]">
+      <s2 title="Proposition 4">
 
           <p>
             This is a proposition from
@@ -95,6 +95,18 @@
           </p>
 
           <figure src="images/logos/aceglia.jpg" alt="Proposition 4: [unnamed]"/>
+
+      </s2>
+
+      <s2 title="Proposition 5">
+
+          <p>
+            This is a proposition from
+            <link href="mailto:bogglins@yahoo.com">Dimenzio Design Works</link>
+              .
+          </p>
+
+          <figure src="images/logos/bogglins.gif" alt="Proposition 5"/>
 
       </s2>
 
