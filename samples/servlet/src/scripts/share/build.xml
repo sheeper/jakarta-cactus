@@ -255,6 +255,12 @@
             <classes dir="${target.classes.cactus.dir}"/>
             <lib file="${httpunit.jar}"/>
 
+            <!-- Provide a secured servlet redirector in addition to the
+                 default servlet redirector -->
+            <servletredirector/>
+            <servletredirector name="ServletRedirectorSecure"
+                mapping="/ServletRedirectorSecure" roles="test"/>
+
             <!-- Orion fails on a servlet filter that is not mapped to an actual
                  resource, to trick it -->
             <filterredirector mapping="/test/filterRedirector.jsp"/>
