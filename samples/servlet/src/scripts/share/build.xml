@@ -129,6 +129,7 @@
 
     <path id="cactus.classpath">
         <pathelement location="${target.classes.java.dir}"/>
+        @cactus.clover.pathelement@
         <path refid="project.classpath"/>
     </path>
 
@@ -181,6 +182,7 @@
         <fail message="Missing property or property pointing to an invalid file (check your build.properties file)"/>
 
     </target>
+
     <!--
        ========================================================================
          Initialize the build. Must be called by all targets

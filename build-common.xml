@@ -41,7 +41,15 @@
        ========================================================================
     -->
     <target name="init.properties.target.j2ee" if="j2ee.api">
+
         <property name="target.dir" value="${base.dir}/target-${j2ee.api}"/>
+
+        <!-- Clover write data at compile time *and* at runtime in this file.
+        	 Note: This property is required by Clover and represents the
+        	 location of the Clover database. -->
+        <property name="clover.initstring"
+            value="${basedir}/target-${j2ee.api}/clover-coverage.db"/>
+
     </target>
     <target name="init.properties.target.noj2ee" unless="j2ee.api">
         <property name="target.dir" value="${base.dir}/target"/>

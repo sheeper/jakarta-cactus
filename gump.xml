@@ -336,11 +336,20 @@
 
     <ant buildfile="documentation/build.xml" target="release">
       <property name="project.version" value="@@DATE@@"/>
+      <property name="javadoc.include" value="true"/>
     </ant>
 
     <depend project="jakarta-ant" inherit="runtime"/>
     <depend project="xml-xerces"/>
     <depend project="xml-xalan2"/>
+
+    <!-- Dependencies to make sure this project is not built if one of the
+    	 dependent project fails -->
+    <depend project="jakarta-cactus-framework-12"/>
+    <depend project="jakarta-cactus-framework-13"/>
+    <depend project="jakarta-cactus-anttasks"/>
+    <depend project="jakarta-cactus-sample-servlet-13"/>
+    <depend project="jakarta-cactus-sample-servlet-12"/>
 
     <work nested="documentation/target/classes/java"/>
 

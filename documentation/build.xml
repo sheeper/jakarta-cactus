@@ -81,6 +81,8 @@
     -->
     <target name="init" depends="init.common,properties">
 
+        <echo>clover.enable (optional) = ${clover.enable}</echo>
+
         <xmlcatalog id="documentation.dtds">
           <dtd publicId="-//Apache Software Foundation//DTD Cactus Navigation V1.0//EN"
               location="${doc.dtd.dir}/navigation-v10.dtd"/>

@@ -111,6 +111,7 @@
         depends="init.common,properties,check.properties">
 
         <echo>cactus.port (optional) = ${cactus.port}</echo>
+        <echo>clover.enable (optional) = ${clover.enable}</echo>
 
         <!-- Custom Ant task definition used in the test targets below.
              It is used for computing the "-D" parameter list
@@ -184,9 +185,8 @@
         <antcall target="sample.replace.${j2ee.api}"/>
         
     </target>
-    
-    <target name="sample" depends="init"
-        description="Generate the sample application">
+        
+    <target name="sample.main">
 
         <!-- Create output directory structure and copy sample files in it -->
         <mkdir dir="${target.sample.dir}"/>
@@ -243,13 +243,47 @@
         <antcall target="sample.replace"/>
 
     </target>
+    
+    <target name="sample.clover" if="clover.enable">
+        <copy todir="${target.sample.lib.dir}" file="${clover.jar}"/>
+    </target>
+    
+    <target name="sample" depends="init,sample.main,sample.clover"
+        description="Generate the sample application">
+    </target>
 
     <!--
        ========================================================================
          Run the full suite of tests on all defined containers.
        ========================================================================
     -->
-    <target name="test" depends="sample"
+    <target name="test.prepare.clover" if="clover.enable">
+    
+        <property name="clover.system.parameter"
+            value="-Dcactus.framework.jar=${basedir}/${cactus.framework.clover.jar}"/>
+
+        <replace file="${target.sample.dir}/build.xml"
+            token="@cactus.clover.pathelement@">
+            <replacevalue><![CDATA[
+              <pathelement location="${clover.jar}"/>
+            ]]></replacevalue>
+        </replace>        
+    
+    </target>
+
+    <target name="test.prepare.noclover" unless="clover.enable">
+
+        <property name="clover.system.parameter" value=""/>
+
+        <replace file="${target.sample.dir}/build.xml"
+            token="@cactus.clover.pathelement@">
+            <replacevalue><![CDATA[]]></replacevalue>
+        </replace>        
+
+    </target>
+    
+    <target name="test" 
+        depends="sample,test.prepare.clover,test.prepare.noclover"
         description="Run the tests on all defined servers">
 
         <argsList property="test.args.list">
@@ -264,7 +298,7 @@
             <property name="cactus.home.weblogic6x"/>
             <property name="cactus.home.weblogic7x"/>
             <property name="cactus.home.jboss3x"/>
-            <property name="cactus.port"/>
+            <property name="cactus.port"/>            
         </argsList>
 
         <java classname="org.apache.tools.ant.Main" fork="yes"
@@ -283,6 +317,10 @@
             <arg line="-buildfile ${target.sample.dir}/build.xml"/>
             <arg value="test"/>
 
+            <!-- Override default cactus jar defined in the called script
+                 by the clovered one if clover is enabled -->
+            <arg line="${clover.system.parameter}"/>
+                 
             <classpath>
                 <pathelement path="${java.class.path}"/>
             </classpath>
