@@ -72,6 +72,7 @@ import org.w3c.dom.NodeList;
  * manipulation.
  *
  * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
+ * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
  */
