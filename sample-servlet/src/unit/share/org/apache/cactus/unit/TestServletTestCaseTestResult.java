@@ -77,14 +77,14 @@ import org.apache.cactus.ServletTestCase;
  *
  * @version $Id$
  */
-public class TestServletTestCase_TestResult extends ServletTestCase
+public class TestServletTestCaseTestResult extends ServletTestCase
 {
     /**
      * Defines the testcase name for JUnit.
      *
      * @param theName the testcase's name.
      */
-    public TestServletTestCase_TestResult(String theName)
+    public TestServletTestCaseTestResult(String theName)
     {
         super(theName);
     }
@@ -97,7 +97,7 @@ public class TestServletTestCase_TestResult extends ServletTestCase
     public static void main(String[] theArgs)
     {
         junit.swingui.TestRunner.main(
-            new String[] { TestServletTestCase_TestResult.class.getName() });
+            new String[] { TestServletTestCaseTestResult.class.getName() });
     }
 
     /**
@@ -107,7 +107,7 @@ public class TestServletTestCase_TestResult extends ServletTestCase
     public static Test suite()
     {
         // All methods starting with "test" will be executed in the test suite.
-        return new TestSuite(TestServletTestCase_TestResult.class);
+        return new TestSuite(TestServletTestCaseTestResult.class);
     }
 
     //-------------------------------------------------------------------------

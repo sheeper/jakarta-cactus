@@ -53,13 +53,16 @@
  */
 package org.apache.cactus.unit;
 
-import junit.framework.AssertionFailedError;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
+import org.apache.cactus.ServletTestCase;
+import org.apache.cactus.WebRequest;
+
 /**
- * Cactus unit tests for testing exception handling of
- * <code>ServletTestCase</code>.
+ * Cactus unit tests for testing that it is possible to override a servlet
+ * redirector as defined in <code>cactus.properties</code> on a per test case
+ * basis.
  *
  * These tests should not really be part of the sample application functional
  * tests as they are unit tests for Cactus. However, they are unit tests that
@@ -67,25 +70,19 @@ import junit.framework.TestSuite;
  * package here for convenience. They can also be read by end-users to
  * understand how Cactus work.
  * <br><br>
- * Note : This class extends
- * <code>TestServletTestCase1_InterceptorServletTestCase</code> (which itself
- * extends <code>ServletTestCase</code>) because we need to be able to verify
- * exception handling in our unit test cases so we must not let these exceptions
- * get through to JUnit (otherwise the test will appear as failed).
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
  */
-public class TestServletTestCase1
-    extends TestServletTestCase1InterceptorServletTestCase
+public class TestServletTestCaseOverrideRedirector extends ServletTestCase
 {
     /**
      * Defines the testcase name for JUnit.
      *
      * @param theName the testcase's name.
      */
-    public TestServletTestCase1(String theName)
+    public TestServletTestCaseOverrideRedirector(String theName)
     {
         super(theName);
     }
@@ -97,8 +94,8 @@ public class TestServletTestCase1
      */
     public static void main(String[] theArgs)
     {
-        junit.swingui.TestRunner.main(
-            new String[] { TestServletTestCase1.class.getName() });
+        junit.swingui.TestRunner.main(new String[] { 
+            TestServletTestCaseOverrideRedirector.class.getName() });
     }
 
     /**
@@ -108,58 +105,49 @@ public class TestServletTestCase1
     public static Test suite()
     {
         // All methods starting with "test" will be executed in the test suite.
-        return new TestSuite(TestServletTestCase1.class);
+        return new TestSuite(TestServletTestCaseOverrideRedirector.class);
     }
 
     //-------------------------------------------------------------------------
 
     /**
-     * Raises an <code>AssertionFailedError</code> exception. The exception is
-     * caught in
-     * <code>TestServletTestCase_InterceptorServletTestCase.runTest()</code>.
-     * This is to verify that <code>AssertionFailedError</code> raised on the
-     * server side are properly propagated on the client side.
-     */
-    public void testAssertionFailedError()
-    {
-        throw new AssertionFailedError("test assertion failed error");
-    }
-
-    //-------------------------------------------------------------------------
-
-    /**
-     * Raises a non serializable exception. The exception is
-     * caught in
-     * <code>TestServletTestCase_InterceptorServletTestCase.runTest()</code>.
-     * This is to verify that non serializable exceptions raised on the
-     * server side are properly propagated on the client side.
+     * Verify that it is possible to override the default redirector.
      *
-     * @exception TestServletTestCase1_ExceptionNotSerializable the non
-     *            serializable exception to thow
+     * @param theRequest the request object that serves to initialize the
+     *                   HTTP connection to the server redirector.
      */
-    public void testExceptionNotSerializable()
-        throws TestServletTestCase1ExceptionNotSerializable
+    public void beginRedirectorOverride1(WebRequest theRequest)
     {
-        throw new TestServletTestCase1ExceptionNotSerializable(
-            "test non serializable exception");
+        theRequest.setRedirectorName("ServletRedirectorOverride");
+    }
+
+    /**
+     * Verify that it is possible to override the default redirector.
+     */
+    public void testRedirectorOverride1()
+    {
+        assertEquals("value2 used for testing", 
+            config.getInitParameter("param2"));
     }
 
     //-------------------------------------------------------------------------
 
-    /**
-     * Raises a serializable exception. The exception is
-     * caught in
-     * <code>TestServletTestCase_InterceptorServletTestCase.runTest()</code>.
-     * This is to verify that serializable exceptions raised on the
-     * server side are properly propagated on the client side.
-     *
-     * @exception TestServletTestCase1_ExceptionSerializable the
-     *            serializable exception to throw
-     */
-    public void testExceptionSerializable()
-        throws TestServletTestCase1ExceptionSerializable
+    public void beginRedirectorOverride2(WebRequest theRequest)
     {
-        throw new TestServletTestCase1ExceptionSerializable(
-            "test serializable exception");
+        theRequest.setRedirectorName("ServletRedirector");
+    }
+
+    public void testRedirectorOverride2()
+    {
+        assertEquals("value1 used for testing", 
+            config.getInitParameter("param1"));
+    }
+
+    //-------------------------------------------------------------------------
+
+    public void testRedirectorOverride3()
+    {
+        assertEquals("value1 used for testing", 
+            config.getInitParameter("param1"));
     }
 }

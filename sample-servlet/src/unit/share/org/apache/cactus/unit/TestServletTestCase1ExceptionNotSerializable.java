@@ -53,44 +53,22 @@
  */
 package org.apache.cactus.unit;
 
-import org.apache.cactus.ServletTestCase;
-
 /**
- * Helper class for the <code>TestServletTestCase5</code> tests. It is used to
- * intercept exceptions. Indeed, in order to verify excpetion handling in our
- * unit test cases we must not let these exceptions get through to JUnit
- * (otherwise the test will appear as failed).
+ * Used by <code>TestServletTestCase1</code> to test the case where
+ * a non serializable exception is returned by a test method.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
  * @see TestServletTestCase1
  */
-public class TestServletTestCase5_InterceptorServletTestCase
-    extends ServletTestCase
+public class TestServletTestCase1ExceptionNotSerializable extends Exception
 {
     /**
-     * Constructs a test case with the given name.
-     *
-     * @param theName the name of the test case
+     * @param theMessage the exception message
      */
-    public TestServletTestCase5_InterceptorServletTestCase(String theName)
+    public TestServletTestCase1ExceptionNotSerializable(String theMessage)
     {
-        super(theName);
-    }
-
-    /**
-     * Intercepts running test cases to check for normal exceptions.
-     */
-    protected void runTest()
-    {
-        try
-        {
-            super.runTest();
-        }
-        catch (Throwable e)
-        {
-            assertEquals("testTearDown() worked", e.getMessage());
-        }
+        super(theMessage);
     }
 }

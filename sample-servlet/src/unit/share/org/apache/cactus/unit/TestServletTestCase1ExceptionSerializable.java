@@ -64,13 +64,13 @@ import java.io.Serializable;
  * @version $Id$
  * @see TestServletTestCase1
  */
-public class TestServletTestCase1_ExceptionSerializable extends Exception
+public class TestServletTestCase1ExceptionSerializable extends Exception
     implements Serializable
 {
     /**
      * @param theMessage the exception message.
      */
-    public TestServletTestCase1_ExceptionSerializable(String theMessage)
+    public TestServletTestCase1ExceptionSerializable(String theMessage)
     {
         super(theMessage);
     }

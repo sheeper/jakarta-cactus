@@ -53,101 +53,44 @@
  */
 package org.apache.cactus.unit;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
-
 import org.apache.cactus.ServletTestCase;
-import org.apache.cactus.WebRequest;
 
 /**
- * Cactus unit tests for testing that it is possible to override a servlet
- * redirector as defined in <code>cactus.properties</code> on a per test case
- * basis.
- *
- * These tests should not really be part of the sample application functional
- * tests as they are unit tests for Cactus. However, they are unit tests that
- * need a servlet environment running for their execution, so they have been
- * package here for convenience. They can also be read by end-users to
- * understand how Cactus work.
- * <br><br>
+ * Helper class for the <code>TestServletTestCase5</code> tests. It is used to
+ * intercept exceptions. Indeed, in order to verify excpetion handling in our
+ * unit test cases we must not let these exceptions get through to JUnit
+ * (otherwise the test will appear as failed).
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
+ * @see TestServletTestCase1
  */
-public class TestServletTestCase_OverrideRedirector extends ServletTestCase
+public class TestServletTestCase5InterceptorServletTestCase
+    extends ServletTestCase
 {
     /**
-     * Defines the testcase name for JUnit.
+     * Constructs a test case with the given name.
      *
-     * @param theName the testcase's name.
+     * @param theName the name of the test case
      */
-    public TestServletTestCase_OverrideRedirector(String theName)
+    public TestServletTestCase5InterceptorServletTestCase(String theName)
     {
         super(theName);
     }
 
     /**
-     * Start the tests.
-     *
-     * @param theArgs the arguments. Not used
+     * Intercepts running test cases to check for normal exceptions.
      */
-    public static void main(String[] theArgs)
+    protected void runTest()
     {
-        junit.swingui.TestRunner.main(new String[] { 
-            TestServletTestCase_OverrideRedirector.class.getName() });
-    }
-
-    /**
-     * @return a test suite (<code>TestSuite</code>) that includes all methods
-     *         starting with "test"
-     */
-    public static Test suite()
-    {
-        // All methods starting with "test" will be executed in the test suite.
-        return new TestSuite(TestServletTestCase_OverrideRedirector.class);
-    }
-
-    //-------------------------------------------------------------------------
-
-    /**
-     * Verify that it is possible to override the default redirector.
-     *
-     * @param theRequest the request object that serves to initialize the
-     *                   HTTP connection to the server redirector.
-     */
-    public void beginRedirectorOverride1(WebRequest theRequest)
-    {
-        theRequest.setRedirectorName("ServletRedirectorOverride");
-    }
-
-    /**
-     * Verify that it is possible to override the default redirector.
-     */
-    public void testRedirectorOverride1()
-    {
-        assertEquals("value2 used for testing", 
-            config.getInitParameter("param2"));
-    }
-
-    //-------------------------------------------------------------------------
-
-    public void beginRedirectorOverride2(WebRequest theRequest)
-    {
-        theRequest.setRedirectorName("ServletRedirector");
-    }
-
-    public void testRedirectorOverride2()
-    {
-        assertEquals("value1 used for testing", 
-            config.getInitParameter("param1"));
-    }
-
-    //-------------------------------------------------------------------------
-
-    public void testRedirectorOverride3()
-    {
-        assertEquals("value1 used for testing", 
-            config.getInitParameter("param1"));
+        try
+        {
+            super.runTest();
+        }
+        catch (Throwable e)
+        {
+            assertEquals("testTearDown() worked", e.getMessage());
+        }
     }
 }

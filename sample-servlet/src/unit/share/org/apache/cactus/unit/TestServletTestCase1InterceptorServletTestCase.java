@@ -70,7 +70,7 @@ import org.apache.cactus.client.ServletExceptionWrapper;
  * @version $Id$
  * @see TestServletTestCase1
  */
-public class TestServletTestCase1_InterceptorServletTestCase
+public class TestServletTestCase1InterceptorServletTestCase
     extends ServletTestCase
 {
     /**
@@ -78,7 +78,7 @@ public class TestServletTestCase1_InterceptorServletTestCase
      *
      * @param theName the name of the test case
      */
-    public TestServletTestCase1_InterceptorServletTestCase(String theName)
+    public TestServletTestCase1InterceptorServletTestCase(String theName)
     {
         super(theName);
     }
@@ -120,7 +120,7 @@ public class TestServletTestCase1_InterceptorServletTestCase
                 "testExceptionNotSerializable"))
             {
                 if (e.instanceOf(
-                    TestServletTestCase1_ExceptionNotSerializable.class))
+                    TestServletTestCase1ExceptionNotSerializable.class))
                 {
                     assertEquals("test non serializable exception", 
                         e.getMessage());
@@ -136,7 +136,7 @@ public class TestServletTestCase1_InterceptorServletTestCase
             if (this.getCurrentTestMethod().equals("testExceptionSerializable"))
             {
                 assertTrue(e.instanceOf(
-                    TestServletTestCase1_ExceptionSerializable.class));
+                    TestServletTestCase1ExceptionSerializable.class));
 
                 assertEquals("test serializable exception", e.getMessage());
 

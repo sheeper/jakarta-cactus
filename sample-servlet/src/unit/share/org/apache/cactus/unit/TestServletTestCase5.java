@@ -78,7 +78,7 @@ import junit.framework.TestSuite;
  * @version $Id$
  */
 public class TestServletTestCase5
-    extends TestServletTestCase5_InterceptorServletTestCase
+    extends TestServletTestCase5InterceptorServletTestCase
 {
     /**
      * Defines the testcase name for JUnit.
