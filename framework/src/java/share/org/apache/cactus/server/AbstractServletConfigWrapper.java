@@ -124,6 +124,7 @@ public abstract class AbstractServletConfigWrapper
 
     /**
      * @return the original unmodified config object
+     * @since 1.5
      */
     public ServletConfig getOriginalConfig()
     {
