@@ -72,7 +72,7 @@ public class JspConfiguration extends Configuration
      * Name of the cactus property that specifies the name of the JSP
      * redirector.
      */
-    public static final String CACTUS_JSP_REDIRECTOR_NAME_PROPERTY =
+    public static final String CACTUS_JSP_REDIRECTOR_NAME_PROPERTY = 
         "cactus.jspRedirectorName";
 
     /**
@@ -88,11 +88,14 @@ public class JspConfiguration extends Configuration
 
         // Try to read it from a System property first and then if it fails
         // from the Cactus configuration file.
-        String jspRedirectorName =
+        String jspRedirectorName = 
             System.getProperty(CACTUS_JSP_REDIRECTOR_NAME_PROPERTY);
-        if (jspRedirectorName == null) {
+
+        if (jspRedirectorName == null)
+        {
             jspRedirectorName = "JspRedirector";
         }
+
         return getContextURL() + "/" + jspRedirectorName;
     }
 }

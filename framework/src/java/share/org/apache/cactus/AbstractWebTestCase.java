@@ -59,11 +59,12 @@ package org.apache.cactus;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+
 import java.net.HttpURLConnection;
 
 import org.apache.cactus.client.AbstractHttpClient;
-import org.apache.cactus.client.WebResponseObjectFactory;
 import org.apache.cactus.client.ClientException;
+import org.apache.cactus.client.WebResponseObjectFactory;
 
 /**
  * Abstract class for Web Test Cases (i.e. HTTP connection to the server) that
@@ -103,26 +104,30 @@ public abstract class AbstractWebTestCase extends AbstractTestCase
      * @exception Throwable any error that occurred when calling the end method
      *            for the current test case.
      */
-    private Object callGenericEndMethod(WebRequest theRequest,
-        HttpURLConnection theConnection, String theMethodName,
+    private Object callGenericEndMethod(WebRequest theRequest, 
+        HttpURLConnection theConnection, String theMethodName, 
         Object theResponse) throws Throwable
     {
         Method methodToCall = null;
         Object paramObject = null;
 
         Method[] methods = getClass().getMethods();
-        for (int i = 0; i < methods.length; i++) {
-            if (methods[i].getName().equals(theMethodName)) {
 
+        for (int i = 0; i < methods.length; i++)
+        {
+            if (methods[i].getName().equals(theMethodName))
+            {
                 // Check return type
-                if (!methods[i].getReturnType().getName().equals("void")) {
+                if (!methods[i].getReturnType().getName().equals("void"))
+                {
                     fail("The method [" + methods[i].getName()
                         + "] should return void and not ["
                         + methods[i].getReturnType().getName() + "]");
                 }
 
                 // Check if method is public
-                if (!Modifier.isPublic(methods[i].getModifiers())) {
+                if (!Modifier.isPublic(methods[i].getModifiers()))
+                {
                     fail("Method [" + methods[i].getName()
                         + "] should be declared public");
                 }
@@ -131,49 +136,57 @@ public abstract class AbstractWebTestCase extends AbstractTestCase
                 Class[] parameters = methods[i].getParameterTypes();
 
                 // Verify only one parameter is defined
-                if (parameters.length != 1) {
+                if (parameters.length != 1)
+                {
                     fail("The method [" + methods[i].getName()
                         + "] must only have a single parameter");
                 }
 
                 paramObject = theResponse;
 
-                if (paramObject == null) {
-                    try {
-                        paramObject =
-                            new WebResponseObjectFactory().getResponseObject(
-                            parameters[0].getName(), theRequest, theConnection);
-                    } catch (ClientException e) {
+                if (paramObject == null)
+                {
+                    try
+                    {
+                        paramObject = new WebResponseObjectFactory()
+                            .getResponseObject(parameters[0].getName(), 
+                            theRequest, theConnection);
+                    }
+                    catch (ClientException e)
+                    {
                         throw new ClientException("The method ["
-                            + methods[i].getName()
+                            + methods[i].getName() 
                             + "] has a bad parameter of type ["
                             + parameters[0].getName() + "]", e);
                     }
                 }
 
                 // Has a method to call already been found ?
-                if (methodToCall != null) {
-                    fail("There can only be one method [" + methods[i].getName()
-                        + "] per test case. "
+                if (methodToCall != null)
+                {
+                    fail("There can only be one method ["
+                        + methods[i].getName() + "] per test case. "
                         + "Test case [" + this.getCurrentTestMethod()
                         + "] has two at least !");
                 }
 
                 methodToCall = methods[i];
-
             }
         }
 
-        if (methodToCall != null) {
-
-            try {
-
-                methodToCall.invoke(this, new Object[]{paramObject});
-
-            } catch (InvocationTargetException e) {
+        if (methodToCall != null)
+        {
+            try
+            {
+                methodToCall.invoke(this, new Object[] { paramObject });
+            }
+            catch (InvocationTargetException e)
+            {
                 e.fillInStackTrace();
                 throw e.getTargetException();
-            } catch (IllegalAccessException e) {
+            }
+            catch (IllegalAccessException e)
+            {
                 e.fillInStackTrace();
                 throw e;
             }
@@ -195,10 +208,10 @@ public abstract class AbstractWebTestCase extends AbstractTestCase
      *        which case it is created from the HttpURLConnection
      * @exception Throwable any error that occurred when calling the method
      */
-    protected void callClientGlobalEnd(WebRequest theRequest,
+    protected void callClientGlobalEnd(WebRequest theRequest, 
         HttpURLConnection theConnection, Object theResponse) throws Throwable
     {
-        callGenericEndMethod(theRequest, theConnection,
+        callGenericEndMethod(theRequest, theConnection, 
             CLIENT_GLOBAL_END_METHOD, theResponse);
     }
 
@@ -215,11 +228,11 @@ public abstract class AbstractWebTestCase extends AbstractTestCase
      * @exception Throwable any error that occurred when calling the end method
      *         for the current test case.
      */
-    protected Object callEndMethod(WebRequest theRequest,
+    protected Object callEndMethod(WebRequest theRequest, 
         HttpURLConnection theConnection) throws Throwable
     {
-        return callGenericEndMethod(
-            theRequest, theConnection, getEndMethodName(), null);
+        return callGenericEndMethod(theRequest, theConnection, 
+            getEndMethodName(), null);
     }
 
     /**
@@ -267,25 +280,25 @@ public abstract class AbstractWebTestCase extends AbstractTestCase
      * @exception Throwable any error that occurred when calling the test method
      *            for the current test case.
      */
-    private HttpURLConnection runWebTest(WebRequest theRequest,
+    private HttpURLConnection runWebTest(WebRequest theRequest, 
         AbstractHttpClient theHttpClient) throws Throwable
     {
         // Add the class name, the method name, the URL to simulate and
         // automatic session creation flag to the request
-
         // Note: All these pareameters are passed in the URL. This is to allow
         // the user to send whatever he wants in the request body. For example
         // a file, ...
-        theRequest.addParameter(HttpServiceDefinition.CLASS_NAME_PARAM,
+        theRequest.addParameter(HttpServiceDefinition.CLASS_NAME_PARAM, 
             this.getClass().getName(), WebRequest.GET_METHOD);
-        theRequest.addParameter(HttpServiceDefinition.METHOD_NAME_PARAM,
+        theRequest.addParameter(HttpServiceDefinition.METHOD_NAME_PARAM, 
             this.getCurrentTestMethod(), WebRequest.GET_METHOD);
-        theRequest.addParameter(HttpServiceDefinition.AUTOSESSION_NAME_PARAM,
-            theRequest.getAutomaticSession() ? "true" : "false",
+        theRequest.addParameter(HttpServiceDefinition.AUTOSESSION_NAME_PARAM, 
+            theRequest.getAutomaticSession() ? "true" : "false", 
             WebRequest.GET_METHOD);
 
         // Add the simulated URL (if one has been defined)
-        if (theRequest.getURL() != null) {
+        if (theRequest.getURL() != null)
+        {
             theRequest.getURL().saveToRequest(theRequest);
         }
 
