@@ -86,24 +86,33 @@
       <property name="publicMemberPattern" value="^[a-z][a-zA-Z0-9]*$"/>
     </module>
     <module name="FinalClass"/>
+
+    <!-- Avoid finalizers (this will not find violations that contain 
+         linebreaks) -->
     <module name="GenericIllegalRegexp">
-      <!-- Avoid finalizers
-           (this will not find violations that contain linebreaks) -->
       <property name="format"
           value="((public)|(protected))\s+void\s+finalize\(\s*\)"/>
       <property name="message" value="Avoid finalizers"/>
     </module>
+
+    <!-- No direct printing to System.out or System.err -->
     <module name="GenericIllegalRegexp">
-      <!-- No direct printing to System.out or System.err -->
       <property name="format" value="System\.(out|err)\."/>
       <property name="message"
           value="Don't write directly to System.out our System.err"/>
     </module>
 
+    <!-- No @author tags -->
+    <module name="GenericIllegalRegexp">
+      <property name="format" value="@author"/>
+      <property name="message"
+          value="No @author tag allowed"/>
+    </module>
+
     <!-- Javadoc related checks -->
     <module name="JavadocType">
       <property name="scope" value="private"/>
-      <property name="authorFormat" value="\S"/>
+      <!--property name="authorFormat" value=""/-->
       <property name="versionFormat" value="\$Id.*\$"/>
     </module>
     <module name="JavadocMethod">
