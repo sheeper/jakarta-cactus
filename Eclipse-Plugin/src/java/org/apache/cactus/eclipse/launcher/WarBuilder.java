@@ -171,19 +171,23 @@ public class WarBuilder
         }
         Vector arguments = new Vector();
         String jarFilesPath = jarFilesDir.getAbsolutePath();
+		arguments.add("-Djars.dir=" + jarFilesPath);
         String webXMLPath = webXML.getAbsolutePath();
-        String webFilesPath = webFilesDir.getAbsolutePath();
+		arguments.add("-Dwebxml.path=" + webXMLPath);
         String classFilesPath = classFilesDir.getAbsolutePath();
+		arguments.add("-Dclasses.dir=" + classFilesPath);
         String warFilePath = testWar.getAbsolutePath();
         arguments.add("-Dwar.path=" + warFilePath);
-        arguments.add("-Dwebxml.path=" + webXMLPath);
-        arguments.add("-Dclasses.dir=" + classFilesPath);
-        arguments.add("-Djars.dir=" + jarFilesPath);
         // If a web dir is present in the user's project
-        // we add it to the War file
-		if (webFilesDir.exists()) {
-			arguments.add("-Dwebfiles.dir=" + webFilesPath);
+        // we use it for the War file, otherwise we use a blank one
+		boolean userWebExists = webFilesDir.exists();
+		if (!userWebExists) {
+			String tempPath = System.getProperty("java.io.tmpdir");
+			webFilesDir = new File(tempPath,"web");
+			webFilesDir.mkdir();
 		}
+		String webFilesPath = webFilesDir.getAbsolutePath();
+		arguments.add("-Dwebfiles.dir=" + webFilesPath);
         String[] antArguments = (String[]) arguments.toArray(new String[0]);
         AntRunner runner = new AntRunner();
         runner.setBuildFileLocation(buildFileLocation.getAbsolutePath());
@@ -191,6 +195,13 @@ public class WarBuilder
         String[] targets = { "testwar" };
         runner.setExecutionTargets(targets);
         runner.run();
+        // Delete the created Web dir, if any.
+        // Could not use deleteOnExit on this dir because the VM launched by
+        // Ant seems to be crashing when shut down by the 'stop' task
+        //  
+        if (!userWebExists) {
+        	webFilesDir.delete();
+        }
         return testWar;
     }
 }
