@@ -338,6 +338,59 @@ public final class TestWebXml extends TestCase
     }
     
     /**
+     * Tests whether a retrieving a filter name by the name of the class
+     * implementing the filter works correctly for a descriptor with a single
+     * filter definition.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
+    public void testGetFilterNamesForClassWithSingleFilter() throws Exception
+    {
+        String xml = "<web-app>"
+            + "  <filter>"
+            + "    <filter-name>f1</filter-name>"
+            + "    <filter-class>f1class</filter-class>"
+            + "  </filter>"
+            + "</web-app>";
+        Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
+        WebXml webXml = new WebXml(doc);
+        Iterator filterNames = webXml.getFilterNamesForClass("f1class");
+        assertEquals("f1", filterNames.next());
+        assertTrue(!filterNames.hasNext());
+    }
+    
+    /**
+     * Tests whether a retrieving the filter names by the name of the class
+     * implementing the filter works correctly for a descriptor with multiple
+     * filter definitions.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
+    public void testGetFilterNamesForClassWithMultipleFilters() throws Exception
+    {
+        String xml = "<web-app>"
+            + "  <filter>"
+            + "    <filter-name>f1</filter-name>"
+            + "    <filter-class>f1class</filter-class>"
+            + "  </filter>"
+            + "  <filter>"
+            + "    <filter-name>f2</filter-name>"
+            + "    <filter-class>f2class</filter-class>"
+            + "  </filter>"
+            + "  <filter>"
+            + "    <filter-name>f3</filter-name>"
+            + "    <filter-class>f1class</filter-class>"
+            + "  </filter>"
+            + "</web-app>";
+        Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
+        WebXml webXml = new WebXml(doc);
+        Iterator filterNames = webXml.getFilterNamesForClass("f1class");
+        assertEquals("f1", filterNames.next());
+        assertEquals("f3", filterNames.next());
+        assertTrue(!filterNames.hasNext());
+    }
+    
+    /**
      * Tests whether a filter-mapping is correctly retrieved from a descriptor.
      * 
      * @throws Exception If an unexpected error occurs
@@ -659,6 +712,114 @@ public final class TestWebXml extends TestCase
         assertTrue(!servletNames.hasNext());
     }
 
+    /**
+     * Tests whether a retrieving a servlet name by the name of the class
+     * implementing the servlet works correctly for a descriptor with a single
+     * servlet definition.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
+    public void testGetServletNamesForClassWithSingleServlet() throws Exception
+    {
+        String xml = "<web-app>"
+            + "  <servlet>"
+            + "    <servlet-name>s1</servlet-name>"
+            + "    <servlet-class>s1class</servlet-class>"
+            + "  </servlet>"
+            + "</web-app>";
+        Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
+        WebXml webXml = new WebXml(doc);
+        Iterator servletNames = webXml.getServletNamesForClass("s1class");
+        assertEquals("s1", servletNames.next());
+        assertTrue(!servletNames.hasNext());
+    }
+    
+    /**
+     * Tests whether a retrieving the servlet names by the name of the class
+     * implementing the servlet works correctly for a descriptor with multiple
+     * servlet definitions.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
+    public void testGetServletNamesForClassWithMultipleServlets()
+        throws Exception
+    {
+        String xml = "<web-app>"
+            + "  <servlet>"
+            + "    <servlet-name>s1</servlet-name>"
+            + "    <servlet-class>sclass1</servlet-class>"
+            + "  </servlet>"
+            + "  <servlet>"
+            + "    <servlet-name>s2</servlet-name>"
+            + "    <servlet-class>sclass2</servlet-class>"
+            + "  </servlet>"
+            + "  <servlet>"
+            + "    <servlet-name>s3</servlet-name>"
+            + "    <servlet-class>sclass1</servlet-class>"
+            + "  </servlet>"
+            + "</web-app>";
+        Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
+        WebXml webXml = new WebXml(doc);
+        Iterator servletNames = webXml.getServletNamesForClass("sclass1");
+        assertEquals("s1", servletNames.next());
+        assertEquals("s3", servletNames.next());
+        assertTrue(!servletNames.hasNext());
+    }
+    
+    /**
+     * Tests whether a retrieving a servlet name by the path of the JSP file
+     * implementing the servlet works correctly for a descriptor with a single
+     * servlet definition.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
+    public void testGetServletNamesForJspFileWithSingleServlet()
+        throws Exception
+    {
+        String xml = "<web-app>"
+            + "  <servlet>"
+            + "    <servlet-name>s1</servlet-name>"
+            + "    <jsp-file>/s1.jsp</jsp-file>"
+            + "  </servlet>"
+            + "</web-app>";
+        Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
+        WebXml webXml = new WebXml(doc);
+        Iterator servletNames = webXml.getServletNamesForJspFile("/s1.jsp");
+        assertEquals("s1", servletNames.next());
+        assertTrue(!servletNames.hasNext());
+    }
+    
+    /**
+     * Tests whether a retrieving the servlet names by the path of the JSP file
+     * implementing the servlet works correctly for a descriptor with multiple
+     * servlet definitions.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
+    public void testGetServletNamesForJspFileWithMultipleServlets()
+        throws Exception
+    {
+        String xml = "<web-app>"
+            + "  <servlet>"
+            + "    <servlet-name>s1</servlet-name>"
+            + "    <jsp-file>/s1.jsp</jsp-file>"
+            + "  </servlet>"
+            + "  <servlet>"
+            + "    <servlet-name>s2</servlet-name>"
+            + "    <servlet-class>sclass2</servlet-class>"
+            + "  </servlet>"
+            + "  <servlet>"
+            + "    <servlet-name>s3</servlet-name>"
+            + "    <jsp-file>/s3.jsp</jsp-file>"
+            + "  </servlet>"
+            + "</web-app>";
+        Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
+        WebXml webXml = new WebXml(doc);
+        Iterator servletNames = webXml.getServletNamesForJspFile("/s3.jsp");
+        assertEquals("s3", servletNames.next());
+        assertTrue(!servletNames.hasNext());
+    }
+    
     /**
      * Tests whether a single serrvlet-mapping is correctly retrieved from a
      * descriptor.

@@ -288,6 +288,34 @@ public class WebXml
     }
     
     /**
+     * Returns a list of names of filters that are mapped to the specified
+     * class.
+     * 
+     * @param theClassName The fully qualified name of the filter class
+     * @return An iterator over the names of the filters mapped to the class
+     */
+    public final Iterator getFilterNamesForClass(String theClassName)
+    {
+        if (theClassName == null)
+        {
+            throw new NullPointerException();
+        }
+        Iterator filterElements = getElements(WebXmlTag.FILTER);
+        List filterNames = new ArrayList();
+        while (filterElements.hasNext())
+        {
+            Element filterElement = (Element) filterElements.next();
+            if (theClassName.equals(getNestedText(
+                filterElement, WebXmlTag.FILTER_CLASS)))
+            {
+                filterNames.add(getNestedText(
+                    filterElement, WebXmlTag.FILTER_NAME));
+            }
+        }
+        return filterNames.iterator();
+    }
+    
+    /**
      * Returns the value of an initialization parameter of the specified filter.
      * 
      * @param theFilterName The name of the servlet filter
@@ -555,6 +583,63 @@ public class WebXml
             if (servletName != null)
             {
                 servletNames.add(servletName);
+            }
+        }
+        return servletNames.iterator();
+    }
+    
+    /**
+     * Returns a list of names of servlets that are mapped to the specified
+     * class.
+     * 
+     * @param theClassName The fully qualified name of the servlet class
+     * @return An iterator over the names of the servlets mapped to the class
+     */
+    public final Iterator getServletNamesForClass(String theClassName)
+    {
+        if (theClassName == null)
+        {
+            throw new NullPointerException();
+        }
+        Iterator servletElements = getElements(WebXmlTag.SERVLET);
+        List servletNames = new ArrayList();
+        while (servletElements.hasNext())
+        {
+            Element servletElement = (Element) servletElements.next();
+            if (theClassName.equals(getNestedText(
+                servletElement, WebXmlTag.SERVLET_CLASS)))
+            {
+                servletNames.add(getNestedText(
+                    servletElement, WebXmlTag.SERVLET_NAME));
+            }
+        }
+        return servletNames.iterator();
+    }
+    
+    /**
+     * Returns a list of names of servlets that are mapped to the specified
+     * JSP file.
+     * 
+     * @param theJspFile The path to the JSP file, relative to the root of the
+     *        web-application
+     * @return An iterator over the names of the servlets mapped to the JSP file
+     */
+    public final Iterator getServletNamesForJspFile(String theJspFile)
+    {
+        if (theJspFile == null)
+        {
+            throw new NullPointerException();
+        }
+        Iterator servletElements = getElements(WebXmlTag.SERVLET);
+        List servletNames = new ArrayList();
+        while (servletElements.hasNext())
+        {
+            Element servletElement = (Element) servletElements.next();
+            if (theJspFile.equals(getNestedText(
+                servletElement, WebXmlTag.JSP_FILE)))
+            {
+                servletNames.add(getNestedText(
+                    servletElement, WebXmlTag.SERVLET_NAME));
             }
         }
         return servletNames.iterator();
