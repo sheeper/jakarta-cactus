@@ -73,31 +73,41 @@ package org.apache.cactus;
  */
 public interface HttpServiceDefinition
 {
-    /**
+	
+	String COMMAND = "Cactus_";
+
+	/**
+	 * Name of the parameter in the HTTP request that represents the unique id
+	 * of the test case (to ensure that the client-side test gets the correct
+	 * results).
+	 */
+    String TEST_ID = COMMAND + "UniqueId";
+
+	/**
      * Name of the parameter in the HTTP request that represents the name of the
      * Test class to call. The name is voluntarily long so that it will not
      * clash with a user-defined parameter.
      */
-    String CLASS_NAME_PARAM = "Cactus_TestClass";
+    String CLASS_NAME_PARAM = COMMAND + "TestClass";
 
     /**
      * Name of the parameter in the HTTP request that represents an optional
      * Test being wrapped by the class represented by CLASS_NAME_PARAM.
      */
-    String WRAPPED_CLASS_NAME_PARAM = "Cactus_WrappedTestClass";
+    String WRAPPED_CLASS_NAME_PARAM = COMMAND + "WrappedTestClass";
 
     /**
      * Name of the parameter in the HTTP request that represents the name of the
      * Test method to call. The name is voluntarily long so that it will not
      * clash with a user-defined parameter.
      */
-    String METHOD_NAME_PARAM = "Cactus_TestMethod";
+    String METHOD_NAME_PARAM = COMMAND + "TestMethod";
 
     /**
      * Name of the parameter in the HTTP request that specify if a session
      * should be automatically created for the user or not.
      */
-    String AUTOSESSION_NAME_PARAM = "Cactus_AutomaticSession";
+    String AUTOSESSION_NAME_PARAM = COMMAND + "AutomaticSession";
 
     /**
      * Name of the parameter in the HTTP request that specify the service asked
@@ -107,5 +117,5 @@ public interface HttpServiceDefinition
      *
      * @see ServiceEnumeration
      */
-    String SERVICE_NAME_PARAM = "Cactus_Service";
+    String SERVICE_NAME_PARAM = COMMAND + "Service";
 }
