@@ -116,7 +116,7 @@ public class TestAll extends TestCase
         suite.addTest(
             org.apache.cactus.unit.TestServletTestCaseAuthentication.suite());
         suite.addTest(
-            org.apache.cactus.unit.TestServletTestCase_HttpUnit.suite());
+            org.apache.cactus.unit.TestServletTestCaseHttpUnit.suite());
 
         // Test cases specific to J2EE 1.3 only
         suite.addTest(

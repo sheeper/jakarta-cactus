@@ -66,16 +66,16 @@ import org.apache.cactus.ServletTestCase;
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
- * @version $Id: TestServletTestCase_HttpUnit.java._,v 1.1 2002/03/10 14:26:04 vmassol Exp $
+ * @version $Id$
  */
-public class TestServletTestCase_HttpUnit extends ServletTestCase
+public class TestServletTestCaseHttpUnit extends ServletTestCase
 {
     /**
      * Defines the testcase name for JUnit.
      *
      * @param theName the testcase's name.
      */
-    public TestServletTestCase_HttpUnit(String theName)
+    public TestServletTestCaseHttpUnit(String theName)
     {
         super(theName);
     }
@@ -88,7 +88,7 @@ public class TestServletTestCase_HttpUnit extends ServletTestCase
     public static void main(String[] theArgs)
     {
         junit.swingui.TestRunner.main(
-            new String[] { TestServletTestCase_HttpUnit.class.getName() });
+            new String[] { TestServletTestCaseHttpUnit.class.getName() });
     }
 
     /**
@@ -98,7 +98,7 @@ public class TestServletTestCase_HttpUnit extends ServletTestCase
     public static Test suite()
     {
         // All methods starting with "test" will be executed in the test suite.
-        return new TestSuite(TestServletTestCase_HttpUnit.class);
+        return new TestSuite(TestServletTestCaseHttpUnit.class);
     }
 
     //-------------------------------------------------------------------------
