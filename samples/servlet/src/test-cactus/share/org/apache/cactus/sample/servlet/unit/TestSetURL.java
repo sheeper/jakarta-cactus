@@ -85,7 +85,7 @@ public class TestSetURL extends ServletTestCase
      * Verify that we can simulate the basic parts of the URL : server name,
      * default server port of 80, no servlet context, servlet path.
      */
-    public void testSimulatedURLBasics() throws Exception
+    public void testSimulatedURLBasics()
     {
         assertEquals("/test/test.jsp", request.getRequestURI());
         assertEquals("http://jakarta.apache.org:80/test/test.jsp", 
