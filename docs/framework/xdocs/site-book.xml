@@ -78,6 +78,7 @@
     <menu-item type="external" label="CVS"
         href="http://jakarta.apache.org/site/cvsindex.html"/>
     <menu-item label="Coding Conventions" source="coding_conventions.xml"/>
+    <menu-item label="Build results" source="build_result.xml"/>
   </menu>
 
 </book>

@@ -28,6 +28,15 @@
     <table>
       <tr>
         <td>
+          20/01/2002
+        </td>
+        <td>
+          Link to Cactus nightly build result added to the left menu in the
+          developer section.
+        </td>
+      </tr>
+      <tr>
+        <td>
           19/01/2002
         </td>
         <td>
@@ -42,16 +51,6 @@
         <td>
           New tutorial that explains how to use JUnitEE with Cactus. Check it
           <link href="howto_junitee.html">here</link>. Thanks Kaarle !
-        </td>
-      </tr>
-      <tr>
-        <td>
-          25/09/2001
-        </td>
-        <td>
-          Cactus 1.2 is now available for
-          <link href="downloads.html">download</link> ! Check the
-          <link href="changes.html#release_changes">Release Notes</link>.
         </td>
       </tr>
     </table>

@@ -75,6 +75,7 @@ docs/framework/skins/jakarta.apache.org/stylesheets/copyover.xsl svn_keywords=Au
 docs/framework/skins/jakarta.apache.org/stylesheets/document2html.xsl svn_keywords=Author+Date+Id+Revision
 docs/framework/skins/jakarta.apache.org/stylesheets/roadmap2document.xsl svn_keywords=Author+Date+Id+Revision
 docs/framework/skins/jakarta.apache.org/stylesheets/todo2document.xsl svn_keywords=Author+Date+Id+Revision
+docs/framework/xdocs/build_result.xml svn_keywords=Author+Date+Id+Revision
 docs/framework/xdocs/cactusname.xml svn_keywords=Author+Date+Id+Revision
 docs/framework/xdocs/changes.xml svn_keywords=Author+Date+Id+Revision
 docs/framework/xdocs/coding_conventions.xml svn_keywords=Author+Date+Id+Revision
