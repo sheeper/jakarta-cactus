@@ -6,6 +6,7 @@ Uncompress the zip file and copy the 'org.apache.cactus.eclipse_0.1.0' folder to
 Download this file from the Cactus web site :
 http://jakarta.apache.org/builds/jakarta-cactus/release/v1.5/jakarta-cactus-eclipse-junitsupport.jar
 and replace the file 'junitsupport.jar' in the JUnit plugin folder (org.eclipse.jdt.junit_2.1.0) with this one.
+(see explanation at : http://jakarta.apache.org/builds/jakarta-cactus/release/v1.5/ )
 
 
 Configuration
