@@ -49,6 +49,10 @@
 
     <release version="1.4 in CVS">
       <action dev="VMA" type="remove">
+        Removed deprecated <code>org.apache.cactus.util.ClientCookie</code>
+        class (was deprecated in Cactus 1.2).
+      </action>
+      <action dev="VMA" type="remove">
         Removed deprecated <code>org.apache.cactus.util.AssertUtils</code>
         class (was deprecated in Cactus 1.2).
       </action>
