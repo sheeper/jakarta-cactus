@@ -96,7 +96,7 @@
         and <code>cactus.test.excludes</code>. The previous names were
         misleading and some Cactus useres thought it referred to 
         inclusion/exclusion of classes during the compilation. Please also note
-        that file to include/exclude are now <code>.class</code> files and no
+        that files to include/exclude are now <code>.class</code> files and no
         longer <code>.java</code> files.
       </action>
       <action dev="vmassol" type="add">
