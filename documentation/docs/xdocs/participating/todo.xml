@@ -203,9 +203,6 @@
         redeploy)
       </action>
       <action>
-        Add a log view a la Ant plugin
-      </action>
-      <action>
         Separate the container start/stop/deploy feature in a separate plugin
       </action>
       <action>
