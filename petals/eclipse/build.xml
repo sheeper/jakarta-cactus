@@ -70,13 +70,6 @@
 	<property name="target.dir" value="${base.dir}/target"/>
 	<property name="target.classes.dir" value="${target.dir}/classes"/>
 
-    <!-- Distribution directory, i.e. where the expanded distibutable files
-         are located -->
-	<property name="dist.dir" value="${base.dir}/dist"/>
-
-    <!-- Release directory, i.e. where the zipped distribution is located -->
-    <property name="release.dir" value="${base.dir}/release"/>
-
     <!--
        ========================================================================
          Find out the J2EE API version
@@ -97,6 +90,20 @@
         <fail message="Unsupported J2EE version" unless="j2ee.api"/>
 
         <echo message="j2ee.api = ${j2ee.api}"/>
+
+    </target>
+
+    <!--
+       ========================================================================
+         Set the properties related to the distribution tree
+         Note: These properties are defined in a target as some need the
+               j2ee.api property to be set
+       ========================================================================
+    -->
+    <target name="properties.distribution">
+
+        <property name="dist.dir" value="${base.dir}/dist-${j2ee.api}"/>
+        <property name="release.dir" value="${base.dir}/release-${j2ee.api}"/>
 
     </target>
         
@@ -124,11 +131,19 @@
 
     <!--
        ========================================================================
+         Load all dynamic properties
+       ========================================================================
+    -->
+    <target name="load.properties"
+        depends="check.j2ee.version,properties.distribution"/>
+
+    <!--
+       ========================================================================
          Initialize the build. Must be called by all targets
        ========================================================================
     -->
     
-    <target name="init" depends="check.j2ee.version, display.properties">
+    <target name="init" depends="load.properties, display.properties">
 
         <tstamp/>
 
@@ -287,5 +302,61 @@
         <delete dir="${dist.dir}"/>
         
     </target>
+
+
+    <!--
+       ========================================================================
+         Build all : builds the distribution for both J2EE API 1.2 and 1.3
+       ========================================================================
+    -->
+    <target name="dist.all"
+        description="Generate the distributable files (for all J2EE APIs)">
+
+        <ant antfile="eclipse/build.xml" target="dist" inheritAll="false">
+            <property name="j2ee.jar" value="${j2ee.12.jar}"/>
+        </ant>
+
+        <ant antfile="eclipse/build.xml" target="dist" inheritAll="false">
+            <property name="j2ee.jar" value="${j2ee.13.jar}"/>
+        </ant>
+
+    </target>
+
+    <!--
+       ========================================================================
+         Release all : generate the zipped plugin for J2EE API 1.2 and 1.3
+       ========================================================================
+    -->
+    <target name="release.all"
+        description="Generate the zipped plugin (for all J2EE APIs)">
+
+        <ant antfile="eclipse/build.xml" target="release" inheritAll="false">
+            <property name="j2ee.jar" value="${j2ee.12.jar}"/>
+        </ant>
+
+        <ant antfile="eclipse/build.xml" target="release" inheritAll="false">
+            <property name="j2ee.jar" value="${j2ee.13.jar}"/>
+        </ant>
+
+    </target>
+
+    <!--
+       ========================================================================
+         Clean all, for all J2EE APIs
+       ========================================================================
+    -->
+    <target name="clean.all"
+        description="Clean all generated files (for all J2EE APIs)">
+
+        <ant antfile="eclipse/build.xml" target="clean" inheritAll="false">
+            <property name="j2ee.jar" value="${j2ee.12.jar}"/>
+        </ant>
+
+        <ant antfile="eclipse/build.xml" target="clean" inheritAll="false">
+            <property name="j2ee.jar" value="${j2ee.13.jar}"/>
+        </ant>
+
+    </target>
+    
     
 </project>
