@@ -132,6 +132,13 @@ public class EarDeployableFile extends AbstractDeployableFile
             throw new BuildException("Could not find the Cactus context "
                 + "path in the EAR");            
         }
+
+        // Remove leading "/" if there is one.
+        if (context.startsWith("/"))
+        {
+            context = context.substring(1);
+        }
+        
         this.contextPath = context;
     }   
 

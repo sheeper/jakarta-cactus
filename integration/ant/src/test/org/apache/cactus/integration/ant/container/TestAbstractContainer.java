@@ -143,6 +143,6 @@ public class TestAbstractContainer extends TestCase
         helper.setFilterChains(chains);
         helper.setPrimaryReader(new StringReader(buffer));
         Reader reader = helper.getAssembledReader();       
-        assertEquals("8080:/empty:", helper.readFully(reader)); 
+        assertEquals("8080:empty:", helper.readFully(reader)); 
     }
 }
