@@ -51,28 +51,29 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
-package org.apache.cactus.unit;
+package org.apache.cactus.sample.unit;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
-import org.apache.cactus.ServletTestCase;
+import org.apache.cactus.JspTestCase;
+import org.apache.cactus.WebResponse;
 
 /**
- * Test the HtppUnit integration.
+ * Test the usage of the <code>out</code> implicit object when using
+ * <code>JspTestCase</code>.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
  */
-public class TestHttpUnitIntegration extends ServletTestCase
+public class TestJspOut extends JspTestCase
 {
     /**
      * Defines the testcase name for JUnit.
      *
      * @param theName the testcase's name.
      */
-    public TestHttpUnitIntegration(String theName)
+    public TestJspOut(String theName)
     {
         super(theName);
     }
@@ -80,29 +81,25 @@ public class TestHttpUnitIntegration extends ServletTestCase
     //-------------------------------------------------------------------------
 
     /**
-     * Verify that the HttpUnit integration works.
+     * Verify that we can write some text to the output Jsp writer.
      * 
      * @exception IOException on test failure
      */
-    public void testHttpUnitGetText() throws IOException
+    public void testOut() throws IOException
     {
-        PrintWriter pw = response.getWriter();
-
-        pw.print("something to return for the test");
+        out.print("some text sent back using out");
     }
 
     /**
-     * Verify that HttpUnit integration works
+     * Verify that we can write some text to the output Jsp writer.
      *
      * @param theResponse the response from the server side.
      * 
      * @exception IOException on test failure
      */
-    public void endHttpUnitGetText(
-        com.meterware.httpunit.WebResponse theResponse) throws IOException
+    public void endOut(WebResponse theResponse) throws IOException
     {
-        String text = theResponse.getText();
-
-        assertEquals("something to return for the test", text);
+        assertEquals("some text sent back using out",
+            theResponse.getText());
     }
 }

@@ -51,115 +51,119 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
-package org.apache.cactus.unit;
+package org.apache.cactus.sample.unit;
 
 import org.apache.cactus.ServletTestCase;
 import org.apache.cactus.WebRequest;
+import org.apache.cactus.WebResponse;
+import org.apache.cactus.client.DefaultHttpClient;
+import org.apache.cactus.util.WebConfiguration;
 
 /**
- * Tests manipulating HTTP headers.
+ * Test global client side <code>begin()</code> and <code>end()</code> 
+ * methods.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
  */
-public class TestHttpHeaders extends ServletTestCase
+public class TestGlobalBeginEnd extends ServletTestCase
 {
+    /**
+     * true if <code>end()</code> has been called.
+     */
+    private boolean isClientGlobalEndCalled;
+
     /**
      * Defines the testcase name for JUnit.
      *
      * @param theName the testcase's name.
      */
-    public TestHttpHeaders(String theName)
+    public TestGlobalBeginEnd(String theName)
     {
         super(theName);
     }
 
-    //-------------------------------------------------------------------------
-
     /**
-     * Verify that we can simulate several HTTP header values with the same
-     * header name.
-     *
-     * @param theRequest the request object that serves to initialize the
-     *                   HTTP connection to the server redirector.
+     * Verifies that <code>end()</code> has been called correctly.
+     * 
+     * @exception Throwable on test failure
      */
-    public void beginSendMultivaluedHeader(WebRequest theRequest)
+    protected void runTest() throws Throwable
     {
-        theRequest.addHeader("testheader", "value1");
-        theRequest.addHeader("testheader", "value2");
-    }
+        runGenericTest(new DefaultHttpClient(
+            (WebConfiguration) getConfiguration()));
 
-    /**
-     * Verify that we can simulate several HTTP header values with the same
-     * header name.
-     */
-    public void testSendMultivaluedHeader()
-    {
-        // Note: I am not sure how to retrieve multi valued headers. The
-        // problem is that I use
-        // URLConnection.setRequestProperty("testheader", "value1,value2") in
-        // JdkConnectionHelper to send the headers but request.getHeaders() does
-        // not seem to separate the different header values.
-        // The RFC 2616 says :
-        // message-header = field-name ":" [ field-value ]
-        // field-name     = token
-        // field-value    = *( field-content | LWS )
-        // field-content  = <the OCTETs making up the field-value
-        //                  and consisting of either *TEXT or combinations
-        //                  of token, separators, and quoted-string>
-        // [...]
-        // Multiple message-header fields with the same field-name MAY be
-        // present in a message if and only if the entire field-value for that
-        // header field is defined as a comma-separated list [i.e., #(values)].
-        // It MUST be possible to combine the multiple header fields into one
-        // "field-name: field-value" pair, without changing the semantics of
-        // the message, by appending each subsequent field-value to the first,
-        // each separated by a comma. The order in which header fields with the
-        // same field-name are received is therefore significant to the
-        // interpretation of the combined field value, and thus a proxy MUST
-        // NOT change the order of these field values when a message is
-        // forwarded.
-        // ... so it should be ok ...
-        assertEquals("value1,value2", request.getHeader("testheader"));
-
-        // Here is commented out what I would have thought I should have
-        // written to verify this test but it does not seem to work this way ...
-
-        /*
-        Enumeration values = request.getHeaders("testheader");
-        int count = 0;
-        while (values.hasMoreElements()) {
-            String value = (String)values.nextElement();
-            if (!(value.equals("value1") || value.equals("value2"))) {
-                fail("unknown value [" + value + "] for header [testheader]");
-            }
-            count++;
+        if (!this.isClientGlobalEndCalled)
+        {
+            fail("end() has not been called");
         }
-        assertEquals("Should have received 2 values for header [testheader]",
-            2, count);
-        */
+    }
+
+    /**
+     * Verify that it is possible to modify the <code>WebRequest</code> in
+     * the common <code>begin()</code> method. It also verifies that
+     * <code>begin()</code> is called at all.
+     *
+     * @param theRequest the request object that serves to initialize the
+     *                   HTTP connection to the server redirector.
+     */
+    public void begin(WebRequest theRequest)
+    {
+        theRequest.addParameter("param1", "value1");
+    }
+
+    /**
+     * Verify that it is possible to read the connection object once in
+     * endXXX() and then again in <code>end()</code>. It also
+     * verifies that <code>end()</code> is called at all.
+     *
+     * @param theResponse the response from the server side.
+     */
+    public void end(WebResponse theResponse)
+    {
+        assertEquals("Hello there!", theResponse.getText());
+        this.isClientGlobalEndCalled = true;
     }
 
     //-------------------------------------------------------------------------
 
     /**
-     * Verify we can set the content type by setting an HTTP header.
+     * Verify that it is possible to modify the <code>WebRequest</code> in
+     * the common <code>begin()()</code> method. It also verifies that
+     * <code>begin()</code> is called at all.
      *
      * @param theRequest the request object that serves to initialize the
      *                   HTTP connection to the server redirector.
      */
-    public void beginSetContentTypeHeader(WebRequest theRequest)
+    public void beginGlobalBeginEnd(WebRequest theRequest)
     {
-        theRequest.addHeader("Content-type", "text/xml");
+        assertEquals("value1", theRequest.getParameterGet("param1"));
     }
 
     /**
-     * Verify we can set the content type by setting an HTTP header.
+     * Verify that it is possible to modify the <code>WebRequest</code> in
+     * the common <code>begin()()</code> method. It also verifies that
+     * <code>begin()()</code> is called at all.
+     * 
+     * @exception Exception on test failure
      */
-    public void testSetContentTypeHeader()
+    public void testGlobalBeginEnd() throws Exception
     {
-        assertEquals("text/xml", request.getContentType());
+        assertEquals("value1", request.getParameter("param1"));
+        response.getWriter().print("Hello there!");
+    }
+
+    /**
+     * Verify that it is possible to read the connection object once in
+     * endXXX() and then again in <code>end()</code>. It also
+     * verifies that <code>end()</code> is called at all.
+     *
+     * @param theResponse the response from the server side.
+     */
+    public void endGlobalBeginEnd(WebResponse theResponse)
+    {
+        assertEquals("Hello there!", theResponse.getText());
     }
 
 }

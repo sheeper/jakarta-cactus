@@ -51,27 +51,31 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
-package org.apache.cactus.unit;
+package org.apache.cactus.sample.unit;
+
+import java.util.Enumeration;
+import java.util.Vector;
+
+import javax.servlet.ServletContext;
 
 import org.apache.cactus.ServletTestCase;
-import org.apache.cactus.WebResponse;
+import org.apache.cactus.server.ServletContextWrapper;
 
 /**
- * Test that <code>setUp()</code> and <code>tearDown()</code> methods are 
- * called and can access implicit objects in <code>ServletTestCase</code>.
+ * Tests that exercise the Servlet Config.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
  */
-public class TestSetUpTearDown extends ServletTestCase
+public class TestServletConfig extends ServletTestCase
 {
     /**
      * Defines the testcase name for JUnit.
      *
      * @param theName the testcase's name.
      */
-    public TestSetUpTearDown(String theName)
+    public TestServletConfig(String theName)
     {
         super(theName);
     }
@@ -79,53 +83,63 @@ public class TestSetUpTearDown extends ServletTestCase
     //-------------------------------------------------------------------------
 
     /**
-     * Put a value in the session to verify that this method is called prior
-     * to the test, and that it can access servlet implicit objects.
+     * Verify that we can add parameters to the config list of parameters
+     * programatically, without having to define them in <code>web.xml</code>.
      */
-    protected void setUp()
+    public void testSetConfigParameter()
     {
-        session.setAttribute("setUpFlag", "a setUp test flag");
-    }
+        config.setInitParameter("testparam", "test value");
 
-    /**
-     * Verify that <code>setUp()</code> has been called and that it put a
-     * value in the session object.
-     */
-    public void testSetUp()
-    {
-        assertEquals("a setUp test flag", session.getAttribute("setUpFlag"));
+        assertEquals("test value", config.getInitParameter("testparam"));
+
+        boolean found = false;
+        Enumeration enum = config.getInitParameterNames();
+
+        while (enum.hasMoreElements())
+        {
+            String name = (String) enum.nextElement();
+
+            if (name.equals("testparam"))
+            {
+                found = true;
+
+                break;
+            }
+        }
+
+        assertTrue("[testparam] not found in parameter names", found);
     }
 
     //-------------------------------------------------------------------------
 
     /**
-     * Set an HTTP response header to verify that this method is called after
-     * the test, and that it can access servlet implicit objects.
+     * Verify that we can override the
+     * <code>ServletConfig.getServletName()</code> method.
      */
-    protected void tearDown()
+    public void testGetServletName()
     {
-        response.setHeader("Teardownheader", "tear down header");
+        config.setServletName("MyServlet");
+        assertEquals("MyServlet", config.getServletName());
     }
 
-    /**
-     * Verify that <code>tearDown()</code> has been called and that it created
-     * an HTTP reponse header.
-     */
-    public void testTearDown()
-    {
-    }
+    //-------------------------------------------------------------------------
 
     /**
-     * Verify that <code>tearDown()</code> has been called and that it created
-     * an HTTP reponse header.
-     *
-     * @param theResponse the HTTP connection that was used to call the
-     *                    server redirector. It contains the returned HTTP
-     *                    response.
+     * Verify that calls to <code>ServletContext.log()</code> methods can
+     * be retrieved and asserted.
      */
-    public void endTearDown(WebResponse theResponse)
+    public void testGetLogs()
     {
-        assertEquals("tear down header", 
-            theResponse.getConnection().getHeaderField("Teardownheader"));
+        String message = "some test log";
+        ServletContext context = config.getServletContext();
+
+        context.log(message);
+
+        Vector logs = ((ServletContextWrapper) context).getLogs();
+
+        assertEquals("Found more than one log message", logs.size(), 1);
+        assertTrue("Cannot find expected log message : [" + message + "]", 
+            logs.contains("some test log"));
     }
+
 }

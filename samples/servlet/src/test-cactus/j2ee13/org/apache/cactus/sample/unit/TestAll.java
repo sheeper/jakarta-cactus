@@ -51,77 +51,48 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
-package org.apache.cactus.unit;
+package org.apache.cactus.sample.unit;
 
-import javax.servlet.ServletOutputStream;
-
-import org.apache.cactus.ServletTestCase;
+import junit.framework.Test;
+import junit.framework.TestCase;
+import junit.framework.TestSuite;
 
 /**
- * Verify that the Cactus client side only reads the test result *after* the
- * test is finished (ie after the test result has been saved in the application
- * scope). This JUnit test need to be the first one to be run. Otherwise, the
- * test result might be that of the previous test and not the current test one,
- * thus proving nothing !!
+ * Run all the Cactus unit tests related to J2EE API 1.3.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
  */
-public class TestClientServerSynchronization extends ServletTestCase
+public class TestAll extends TestCase
 {
     /**
      * Defines the testcase name for JUnit.
      *
      * @param theName the testcase's name.
      */
-    public TestClientServerSynchronization(String theName)
+    public TestAll(String theName)
     {
         super(theName);
     }
 
-    //-------------------------------------------------------------------------
-
     /**
-     * Verify that the test result can be returned correctly even when the
-     * logic in the method to test takes a long time and thus it verifies that
-     * the test result is only returned after it has been written in the
-     * application scope on the server side.
-     * 
-     * @exception Exception on test failure
+     * @return a test suite (<code>TestSuite</code>) that includes all methods
+     *         starting with "test"
      */
-    public void testLongProcess() throws Exception
+    public static Test suite()
     {
-        ServletOutputStream os = response.getOutputStream();
+        TestSuite suite = new TestSuite(
+            "Cactus unit tests for J2EE 1.3");
 
-        os.print("<html><head><Long Process></head><body>");
-        os.flush();
+        // Add shared tests
+        suite.addTest(TestShareAll.suite());
 
-        // do some processing that takes a while ...
-        Thread.sleep(3000);
-        os.println("Some data</body></html>");
-    }
+        // Test cases specific to J2EE 1.3 only
+        suite.addTestSuite(TestHttpRequestSpecific.class);
+        suite.addTestSuite(TestJspTagLifecycle.class);
+        suite.addTestSuite(TestFilterHttpHeaders.class);
 
-    //-------------------------------------------------------------------------
-
-    /**
-     * Verify that when big amount of data is returned by the servlet output
-     * stream, it does not io-block.
-     * 
-     * @exception Exception on test failure
-     */
-    public void testLotsOfData() throws Exception
-    {
-        ServletOutputStream os = response.getOutputStream();
-
-        os.println("<html><head>Lots of Data</head><body>");
-        os.flush();
-
-        for (int i = 0; i < 5000; i++)
-        {
-            os.println("<p>Lots and lots of data here");
-        }
-
-        os.println("</body></html>");
+        return suite;
     }
 }

@@ -51,26 +51,27 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
-package org.apache.cactus.unit;
+package org.apache.cactus.sample.unit;
 
 import org.apache.cactus.ServletTestCase;
 import org.apache.cactus.WebRequest;
+import org.apache.cactus.client.authentication.BasicAuthentication;
 
 /**
- * Tests related to Cookies.
+ * Test running some test using BASIC authentication.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
  */
-public class TestCookie extends ServletTestCase
+public class TestBasicAuthentication extends ServletTestCase
 {
     /**
      * Defines the testcase name for JUnit.
      *
      * @param theName the testcase's name.
      */
-    public TestCookie(String theName)
+    public TestBasicAuthentication(String theName)
     {
         super(theName);
     }
@@ -78,36 +79,26 @@ public class TestCookie extends ServletTestCase
     //-------------------------------------------------------------------------
 
     /**
-     * Verify that special characters in cookies are not URL encoded
-     *
+     * Verify basic authentication.
+     * 
      * @param theRequest the request object that serves to initialize the
      *                   HTTP connection to the server redirector.
      */
-    public void beginCookieEncoding(WebRequest theRequest)
+    public void beginBasicAuthentication(WebRequest theRequest)
     {
-        // Note: the pipe ('&') character is a special character regarding
-        // URL encoding
-        theRequest.addCookie("testcookie", "user&pwd");
+        theRequest.setRedirectorName("ServletRedirectorSecure");
+        theRequest.setAuthentication(
+            new BasicAuthentication("testuser", "testpassword"));
     }
 
     /**
-     * Verify that special characters in cookies are not encoded
+     * Verify basic authentication. Note: This method is protected in the
+     * <code>web. xml</code> deployment descriptor.
      */
-    public void testCookieEncoding()
+    public void testBasicAuthentication()
     {
-        javax.servlet.http.Cookie[] cookies = request.getCookies();
-
-        for (int i = 0; i < cookies.length; i++)
-        {
-            if (cookies[i].getName().equals("testcookie"))
-            {
-                assertEquals("user&pwd", cookies[i].getValue());
-
-                return;
-            }
-        }
-
-        fail("No cookie named 'testcookie' found");
+        assertEquals("testuser", request.getUserPrincipal().getName());
+        assertEquals("testuser", request.getRemoteUser());
+        assertTrue("User not in 'test' role", request.isUserInRole("test"));
     }
-
 }

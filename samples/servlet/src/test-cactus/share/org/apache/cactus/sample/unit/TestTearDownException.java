@@ -51,95 +51,67 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
-package org.apache.cactus.unit;
-
-import java.util.Enumeration;
-import java.util.Vector;
-
-import javax.servlet.ServletContext;
+package org.apache.cactus.sample.unit;
 
 import org.apache.cactus.ServletTestCase;
-import org.apache.cactus.server.ServletContextWrapper;
+
+import junit.framework.AssertionFailedError;
 
 /**
- * Tests that exercise the Servlet Config.
+ * Test that <code>tearDown()</code> is called even when an exception
+ * occurs during the test.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
  */
-public class TestServletConfig extends ServletTestCase
+public class TestTearDownException extends ServletTestCase
 {
     /**
      * Defines the testcase name for JUnit.
      *
      * @param theName the testcase's name.
      */
-    public TestServletConfig(String theName)
+    public TestTearDownException(String theName)
     {
         super(theName);
     }
 
-    //-------------------------------------------------------------------------
-
     /**
-     * Verify that we can add parameters to the config list of parameters
-     * programatically, without having to define them in <code>web.xml</code>.
+     * Intercepts running test cases to check for normal exceptions.
      */
-    public void testSetConfigParameter()
+    protected void runTest()
     {
-        config.setInitParameter("testparam", "test value");
-
-        assertEquals("test value", config.getInitParameter("testparam"));
-
-        boolean found = false;
-        Enumeration enum = config.getInitParameterNames();
-
-        while (enum.hasMoreElements())
+        try
         {
-            String name = (String) enum.nextElement();
-
-            if (name.equals("testparam"))
-            {
-                found = true;
-
-                break;
-            }
+            super.runTest();
         }
-
-        assertTrue("[testparam] not found in parameter names", found);
+        catch (Throwable e)
+        {
+            assertEquals("testTearDown() worked", e.getMessage());
+        }
     }
 
     //-------------------------------------------------------------------------
 
     /**
-     * Verify that we can override the
-     * <code>ServletConfig.getServletName()</code> method.
+     * Verify that the <code>tearDown()</code> is always called even when there
+     * is an exception raised during the test.
+     * 
+     * @exception Exception on test failure
      */
-    public void testGetServletName()
+    public void testTearDown() throws Exception
     {
-        config.setServletName("MyServlet");
-        assertEquals("MyServlet", config.getServletName());
+        // Provoke an exception
+        fail("provoked error");
     }
-
-    //-------------------------------------------------------------------------
 
     /**
-     * Verify that calls to <code>ServletContext.log()</code> methods can
-     * be retrieved and asserted.
+     * Verify that the <code>tearDown()</code> is always called even when there
+     * is an exception raised during the test.
      */
-    public void testGetLogs()
+    public void tearDown()
     {
-        String message = "some test log";
-        ServletContext context = config.getServletContext();
-
-        context.log(message);
-
-        Vector logs = ((ServletContextWrapper) context).getLogs();
-
-        assertEquals("Found more than one log message", logs.size(), 1);
-        assertTrue("Cannot find expected log message : [" + message + "]", 
-            logs.contains("some test log"));
+        throw new AssertionFailedError("testTearDown() worked");
     }
-
 }

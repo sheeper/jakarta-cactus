@@ -51,28 +51,26 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
-package org.apache.cactus.unit;
-
-import java.util.Map;
+package org.apache.cactus.sample.unit;
 
 import org.apache.cactus.ServletTestCase;
 import org.apache.cactus.WebRequest;
 
 /**
- * Test HTTP request methods specific to Servlet API 2.3.
+ * Test passing HTTP parameters to the server side.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
  */
-public class TestHttpRequestSpecific extends ServletTestCase
+public class TestHttpParameters extends ServletTestCase
 {
     /**
      * Defines the testcase name for JUnit.
      *
      * @param theName the testcase's name.
      */
-    public TestHttpRequestSpecific(String theName)
+    public TestHttpParameters(String theName)
     {
         super(theName);
     }
@@ -80,28 +78,72 @@ public class TestHttpRequestSpecific extends ServletTestCase
     //-------------------------------------------------------------------------
 
     /**
-     * Verify that <code>HttpServletRequest.getParameterMap()</code> works.
+     * Verify that multi value parameters can be sent in the
+     * <code>beingXXX()</code> method to the server redirector.
      *
      * @param theRequest the request object that serves to initialize the
      *                   HTTP connection to the server redirector.
      */
-    public void beginGetParameterMap(WebRequest theRequest)
+    public void beginMultiValueParameters(WebRequest theRequest)
     {
         theRequest.addParameter("multivalue", "value 1");
         theRequest.addParameter("multivalue", "value 2");
     }
 
     /**
-     * Verify that <code>HttpServletRequest.getParameterMap()</code> works.
+     * Verify that multi value parameters can be sent in the
+     * <code>beingXXX()</code> method to the server redirector.
      */
-    public void testGetParameterMap()
+    public void testMultiValueParameters()
     {
-        Map parameters = request.getParameterMap();
-        assertTrue(parameters.containsKey("multivalue"));
-        String[] values = (String[]) parameters.get("multivalue");
-        assertEquals(2, values.length);        
-        assertEquals("value 1", values[0]);        
-        assertEquals("value 2", values[1]);        
+        String[] values = request.getParameterValues("multivalue");
+
+        if (values[0].equals("value 1"))
+        {
+            assertEquals("value 2", values[1]);
+        }
+        else if (values[0].equals("value 2"))
+        {
+            assertEquals("value 1", values[1]);
+        }
+        else
+        {
+            fail("Shoud have returned a vector with the "
+                + "values \"value 1\" and \"value 2\"");
+        }
+    }
+
+    //-------------------------------------------------------------------------
+
+    /**
+     * Verify we can set and retrieve several parameters.
+     *
+     * @param theRequest the request object that serves to initialize the
+     *                   HTTP connection to the server redirector.
+     */
+    public void beginSeveralParameters(WebRequest theRequest)
+    {
+        theRequest.addParameter("PostParameter1", "EMPLOYEE0145", 
+            WebRequest.POST_METHOD);
+        theRequest.addParameter("PostParameter2", "W", WebRequest.GET_METHOD);
+        theRequest.addParameter("PostParameter3", "07/08/2002", 
+            WebRequest.POST_METHOD);
+        theRequest.addParameter("PostParameter4", "/tas/ViewSchedule.esp", 
+            WebRequest.GET_METHOD);
+    }
+
+    /**
+     * Verify we can set and retrieve several parameters.
+     */
+    public void testSeveralParameters()
+    {
+        assertEquals("parameter4", "/tas/ViewSchedule.esp", 
+            request.getParameter("PostParameter4"));
+        assertEquals("parameter1", "EMPLOYEE0145", 
+            request.getParameter("PostParameter1"));
+        assertEquals("parameter2", "W", request.getParameter("PostParameter2"));
+        assertEquals("parameter3", "07/08/2002", 
+            request.getParameter("PostParameter3"));
     }
 
 }

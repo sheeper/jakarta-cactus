@@ -51,28 +51,26 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
-package org.apache.cactus.unit;
+package org.apache.cactus.sample.unit;
 
-import org.apache.cactus.HttpSessionCookie;
 import org.apache.cactus.ServletTestCase;
 import org.apache.cactus.WebRequest;
-import org.apache.cactus.WebResponse;
 
 /**
- * Tests that manipulates the HTTP Session.
+ * Tests related to Cookies.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
  */
-public class TestHttpSession extends ServletTestCase
+public class TestCookie extends ServletTestCase
 {
     /**
      * Defines the testcase name for JUnit.
      *
      * @param theName the testcase's name.
      */
-    public TestHttpSession(String theName)
+    public TestCookie(String theName)
     {
         super(theName);
     }
@@ -80,70 +78,36 @@ public class TestHttpSession extends ServletTestCase
     //-------------------------------------------------------------------------
 
     /**
-     * Verify that it is possible to ask for no automatic session creation in
-     * the <code>beginXXX()</code> method.
+     * Verify that special characters in cookies are not URL encoded
      *
      * @param theRequest the request object that serves to initialize the
      *                   HTTP connection to the server redirector.
      */
-    public void beginNoAutomaticSessionCreation(WebRequest theRequest)
+    public void beginCookieEncoding(WebRequest theRequest)
     {
-        theRequest.setAutomaticSession(false);
+        // Note: the pipe ('&') character is a special character regarding
+        // URL encoding
+        theRequest.addCookie("testcookie", "user&pwd");
     }
 
     /**
-     * Verify that it is possible to ask for no automatic session creation in
-     * the <code>beginXXX()</code> method.
+     * Verify that special characters in cookies are not encoded
      */
-    public void testNoAutomaticSessionCreation()
+    public void testCookieEncoding()
     {
-        assertNull("A valid session has been found when no session should "
-            + "exist", session);
-    }
+        javax.servlet.http.Cookie[] cookies = request.getCookies();
 
-    //-------------------------------------------------------------------------
+        for (int i = 0; i < cookies.length; i++)
+        {
+            if (cookies[i].getName().equals("testcookie"))
+            {
+                assertEquals("user&pwd", cookies[i].getValue());
 
-    /**
-     * Verify that we can get hold of the jsessionid cookie returned by the
-     * server.
-     */
-    public void testVerifyJsessionid()
-    {
-        // By default, Cactus will create an HTTP session.
-    }
-    
-    /**
-     * Verify that we can get hold of the jsessionid cookie returned by the
-     * server.
-     * 
-     * @param theResponse the response from the server side.
-     */
-    public void endVerifyJsessionid(WebResponse theResponse)
-    {
-        assertNotNull(theResponse.getCookieIgnoreCase("jsessionid"));
-    }
+                return;
+            }
+        }
 
-    //-------------------------------------------------------------------------
-
-    /**
-     * Verify that Cactus can provide us with a real HTTP session cookie.
-     *
-     * @param theRequest the request object that serves to initialize the
-     *                   HTTP connection to the server redirector.
-     */
-    public void beginCreateSessionCookie(WebRequest theRequest)
-    {
-        HttpSessionCookie sessionCookie = theRequest.getSessionCookie();
-        theRequest.addCookie(sessionCookie);
-    }
-
-    /**
-     * Verify that Cactus can provide us with a real HTTP session cookie.
-     */
-    public void testCreateSessionCookie()
-    {
-        assertTrue("A session should have been created prior to "
-            + "this request", !session.isNew());
+        fail("No cookie named 'testcookie' found");
     }
 
 }

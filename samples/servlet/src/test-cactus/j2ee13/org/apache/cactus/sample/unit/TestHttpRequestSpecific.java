@@ -51,48 +51,57 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
-package org.apache.cactus.unit;
+package org.apache.cactus.sample.unit;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import java.util.Map;
+
+import org.apache.cactus.ServletTestCase;
+import org.apache.cactus.WebRequest;
 
 /**
- * Run all the Cactus unit tests related to J2EE API 1.3.
+ * Test HTTP request methods specific to Servlet API 2.3.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
  */
-public class TestAll extends TestCase
+public class TestHttpRequestSpecific extends ServletTestCase
 {
     /**
      * Defines the testcase name for JUnit.
      *
      * @param theName the testcase's name.
      */
-    public TestAll(String theName)
+    public TestHttpRequestSpecific(String theName)
     {
         super(theName);
     }
 
+    //-------------------------------------------------------------------------
+
     /**
-     * @return a test suite (<code>TestSuite</code>) that includes all methods
-     *         starting with "test"
+     * Verify that <code>HttpServletRequest.getParameterMap()</code> works.
+     *
+     * @param theRequest the request object that serves to initialize the
+     *                   HTTP connection to the server redirector.
      */
-    public static Test suite()
+    public void beginGetParameterMap(WebRequest theRequest)
     {
-        TestSuite suite = new TestSuite(
-            "Cactus unit tests for J2EE 1.3");
-
-        // Add shared tests
-        suite.addTest(TestShareAll.suite());
-
-        // Test cases specific to J2EE 1.3 only
-        suite.addTestSuite(TestHttpRequestSpecific.class);
-        suite.addTestSuite(TestJspTagLifecycle.class);
-        suite.addTestSuite(TestFilterHttpHeaders.class);
-
-        return suite;
+        theRequest.addParameter("multivalue", "value 1");
+        theRequest.addParameter("multivalue", "value 2");
     }
+
+    /**
+     * Verify that <code>HttpServletRequest.getParameterMap()</code> works.
+     */
+    public void testGetParameterMap()
+    {
+        Map parameters = request.getParameterMap();
+        assertTrue(parameters.containsKey("multivalue"));
+        String[] values = (String[]) parameters.get("multivalue");
+        assertEquals(2, values.length);        
+        assertEquals("value 1", values[0]);        
+        assertEquals("value 2", values[1]);        
+    }
+
 }

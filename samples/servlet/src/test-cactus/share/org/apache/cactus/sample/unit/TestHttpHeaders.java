@@ -51,26 +51,26 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
-package org.apache.cactus.unit;
+package org.apache.cactus.sample.unit;
 
 import org.apache.cactus.ServletTestCase;
 import org.apache.cactus.WebRequest;
 
 /**
- * Test passing HTTP parameters to the server side.
+ * Tests manipulating HTTP headers.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
  */
-public class TestHttpParameters extends ServletTestCase
+public class TestHttpHeaders extends ServletTestCase
 {
     /**
      * Defines the testcase name for JUnit.
      *
      * @param theName the testcase's name.
      */
-    public TestHttpParameters(String theName)
+    public TestHttpHeaders(String theName)
     {
         super(theName);
     }
@@ -78,72 +78,88 @@ public class TestHttpParameters extends ServletTestCase
     //-------------------------------------------------------------------------
 
     /**
-     * Verify that multi value parameters can be sent in the
-     * <code>beingXXX()</code> method to the server redirector.
+     * Verify that we can simulate several HTTP header values with the same
+     * header name.
      *
      * @param theRequest the request object that serves to initialize the
      *                   HTTP connection to the server redirector.
      */
-    public void beginMultiValueParameters(WebRequest theRequest)
+    public void beginSendMultivaluedHeader(WebRequest theRequest)
     {
-        theRequest.addParameter("multivalue", "value 1");
-        theRequest.addParameter("multivalue", "value 2");
+        theRequest.addHeader("testheader", "value1");
+        theRequest.addHeader("testheader", "value2");
     }
 
     /**
-     * Verify that multi value parameters can be sent in the
-     * <code>beingXXX()</code> method to the server redirector.
+     * Verify that we can simulate several HTTP header values with the same
+     * header name.
      */
-    public void testMultiValueParameters()
+    public void testSendMultivaluedHeader()
     {
-        String[] values = request.getParameterValues("multivalue");
+        // Note: I am not sure how to retrieve multi valued headers. The
+        // problem is that I use
+        // URLConnection.setRequestProperty("testheader", "value1,value2") in
+        // JdkConnectionHelper to send the headers but request.getHeaders() does
+        // not seem to separate the different header values.
+        // The RFC 2616 says :
+        // message-header = field-name ":" [ field-value ]
+        // field-name     = token
+        // field-value    = *( field-content | LWS )
+        // field-content  = <the OCTETs making up the field-value
+        //                  and consisting of either *TEXT or combinations
+        //                  of token, separators, and quoted-string>
+        // [...]
+        // Multiple message-header fields with the same field-name MAY be
+        // present in a message if and only if the entire field-value for that
+        // header field is defined as a comma-separated list [i.e., #(values)].
+        // It MUST be possible to combine the multiple header fields into one
+        // "field-name: field-value" pair, without changing the semantics of
+        // the message, by appending each subsequent field-value to the first,
+        // each separated by a comma. The order in which header fields with the
+        // same field-name are received is therefore significant to the
+        // interpretation of the combined field value, and thus a proxy MUST
+        // NOT change the order of these field values when a message is
+        // forwarded.
+        // ... so it should be ok ...
+        assertEquals("value1,value2", request.getHeader("testheader"));
 
-        if (values[0].equals("value 1"))
-        {
-            assertEquals("value 2", values[1]);
+        // Here is commented out what I would have thought I should have
+        // written to verify this test but it does not seem to work this way ...
+
+        /*
+        Enumeration values = request.getHeaders("testheader");
+        int count = 0;
+        while (values.hasMoreElements()) {
+            String value = (String)values.nextElement();
+            if (!(value.equals("value1") || value.equals("value2"))) {
+                fail("unknown value [" + value + "] for header [testheader]");
+            }
+            count++;
         }
-        else if (values[0].equals("value 2"))
-        {
-            assertEquals("value 1", values[1]);
-        }
-        else
-        {
-            fail("Shoud have returned a vector with the "
-                + "values \"value 1\" and \"value 2\"");
-        }
+        assertEquals("Should have received 2 values for header [testheader]",
+            2, count);
+        */
     }
 
     //-------------------------------------------------------------------------
 
     /**
-     * Verify we can set and retrieve several parameters.
+     * Verify we can set the content type by setting an HTTP header.
      *
      * @param theRequest the request object that serves to initialize the
      *                   HTTP connection to the server redirector.
      */
-    public void beginSeveralParameters(WebRequest theRequest)
+    public void beginSetContentTypeHeader(WebRequest theRequest)
     {
-        theRequest.addParameter("PostParameter1", "EMPLOYEE0145", 
-            WebRequest.POST_METHOD);
-        theRequest.addParameter("PostParameter2", "W", WebRequest.GET_METHOD);
-        theRequest.addParameter("PostParameter3", "07/08/2002", 
-            WebRequest.POST_METHOD);
-        theRequest.addParameter("PostParameter4", "/tas/ViewSchedule.esp", 
-            WebRequest.GET_METHOD);
+        theRequest.addHeader("Content-type", "text/xml");
     }
 
     /**
-     * Verify we can set and retrieve several parameters.
+     * Verify we can set the content type by setting an HTTP header.
      */
-    public void testSeveralParameters()
+    public void testSetContentTypeHeader()
     {
-        assertEquals("parameter4", "/tas/ViewSchedule.esp", 
-            request.getParameter("PostParameter4"));
-        assertEquals("parameter1", "EMPLOYEE0145", 
-            request.getParameter("PostParameter1"));
-        assertEquals("parameter2", "W", request.getParameter("PostParameter2"));
-        assertEquals("parameter3", "07/08/2002", 
-            request.getParameter("PostParameter3"));
+        assertEquals("text/xml", request.getContentType());
     }
 
 }

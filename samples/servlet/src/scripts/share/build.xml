@@ -324,6 +324,14 @@
     -->
     <target name="test" depends="war"
         description="Run the tests on the defined containers">
+        
+        <!-- Defines includes and exclude cactus classes in order to only
+             include the Test*All so that tests can be ordered. Note: if you
+             don't need ordering in your test, you needn't define the following
+             2 properties -->
+        <property name="cactus.src.includes" value="**/sample/TestAll.java"/>
+        <property name="cactus.src.excludes" value=""/>
+        
         @containers.share@
         @containers.specific@
 

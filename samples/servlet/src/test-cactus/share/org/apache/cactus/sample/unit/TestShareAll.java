@@ -51,57 +51,68 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
-package org.apache.cactus.unit;
+package org.apache.cactus.sample.unit;
 
-import org.apache.cactus.FilterTestCase;
-
-import com.meterware.httpunit.WebResponse;
+import junit.framework.Test;
+import junit.framework.TestCase;
+import junit.framework.TestSuite;
 
 /**
- * Tests HTTP headers set in Filter code.
- * 
+ * Test suite containing all test cases that should be run on all J2EE 
+ * APIs.
+ *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- * 
+ *
  * @version $Id$
  */
-public class TestFilterHttpHeaders extends FilterTestCase
+public abstract class TestShareAll extends TestCase
 {
     /**
-     * Constructor.
-     * 
-     * @param theName The name of the test case
+     * Defines the testcase name for JUnit.
+     *
+     * @param theName the testcase's name.
      */
-    public TestFilterHttpHeaders(String theName)
+    public TestShareAll(String theName)
     {
         super(theName);
     }
-    
-    //-------------------------------------------------------------------------
-   
+
     /**
-     * Verify headers can be set in a Filter test case and retrieved using
-     * HttpUnit.
+     * @return a test suite (<code>TestSuite</code>) that includes all shared
+     *          tests
      */
-    public void testHeaders()
+    public static Test suite()
     {
-        response.setHeader("xparevcount", "xparevcount");
-        response.setHeader("xxparevcount", "xxparevcount");
+        TestSuite suite = new TestSuite(
+            "Cactus unit tests for all J2EE APIs");
+
+        // Note: This test needs to run first. See the comments in the
+        // test class for more information on why
+        suite.addTestSuite(TestClientServerSynchronization.class);
+
+        // Lifecycle tests
+        suite.addTestSuite(TestGlobalBeginEnd.class);
+
+        // ServletTestCase related tests
+        suite.addTestSuite(TestServerSideExceptions.class);
+        suite.addTestSuite(TestSetUpTearDown.class);
+        suite.addTestSuite(TestSetURL.class);
+        suite.addTestSuite(TestTearDownException.class);
+        suite.addTestSuite(TestBasicAuthentication.class);
+        suite.addTestSuite(TestHttpUnitIntegration.class);
+        suite.addTestSuite(TestServletRedirectorOverride.class);
+        suite.addTestSuite(TestHttpParameters.class);
+        suite.addTestSuite(TestHttpSession.class);
+        suite.addTestSuite(TestHttpResponse.class);
+        suite.addTestSuite(TestCookie.class);
+        suite.addTestSuite(TestRequestDispatcher.class);
+        suite.addTestSuite(TestHttpHeaders.class);
+        suite.addTestSuite(TestHttpRequest.class);
+        suite.addTestSuite(TestServletConfig.class);
+
+        // JspTestCase related tests
+        suite.addTestSuite(TestJspOut.class);
+
+        return suite;
     }
-
-    /**
-     * Verify headers can be set in a Filter test case and retrieved using
-     * HttpUnit.
-     * 
-     * @param theResponse the HTTP response
-     */
-    public void endHeaders(WebResponse theResponse)
-    {
-        String header1 = theResponse.getHeaderField("xxparevcount");
-        String header2 = theResponse.getHeaderField("xparevcount");
-        assertNotNull("Header should not be null", header1);
-        assertNotNull("Header should not be null", header2);
-        assertEquals("xxparevcount", header1);
-        assertEquals("xparevcount", header2);
-       }
-
 }

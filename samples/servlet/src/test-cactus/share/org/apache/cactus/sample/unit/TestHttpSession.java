@@ -51,30 +51,28 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
-package org.apache.cactus.unit;
+package org.apache.cactus.sample.unit;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.File;
-
+import org.apache.cactus.HttpSessionCookie;
 import org.apache.cactus.ServletTestCase;
 import org.apache.cactus.WebRequest;
+import org.apache.cactus.WebResponse;
 
 /**
- * Tests that exercise the HTTP request.
+ * Tests that manipulates the HTTP Session.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
  */
-public class TestHttpRequest extends ServletTestCase
+public class TestHttpSession extends ServletTestCase
 {
     /**
      * Defines the testcase name for JUnit.
      *
      * @param theName the testcase's name.
      */
-    public TestHttpRequest(String theName)
+    public TestHttpSession(String theName)
     {
         super(theName);
     }
@@ -82,99 +80,70 @@ public class TestHttpRequest extends ServletTestCase
     //-------------------------------------------------------------------------
 
     /**
-     * Verify that <code>HttpServletRequestWrapper.getPathTranslated()</code>
-     * takes into account the simulated URL (if any).
+     * Verify that it is possible to ask for no automatic session creation in
+     * the <code>beginXXX()</code> method.
      *
      * @param theRequest the request object that serves to initialize the
      *                   HTTP connection to the server redirector.
      */
-    public void beginGetPathTranslated(WebRequest theRequest)
+    public void beginNoAutomaticSessionCreation(WebRequest theRequest)
     {
-        theRequest.setURL("jakarta.apache.org", "/mywebapp", "/myservlet", 
-            "/test1/test2", "PARAM1=value1");
+        theRequest.setAutomaticSession(false);
     }
 
     /**
-     * Verify that <code>HttpServletRequestWrapper.getPathTranslated()</code>
-     * takes into account the simulated URL (if any) or null in situations
-     * where the servlet container cannot determine a valid file path for
-     * these methods, such as when the web application is executed from an
-     * archive, on a remote file system not accessible locally, or in a
-     * database (see section SRV.4.5 of the Servlet 2.3 spec).
+     * Verify that it is possible to ask for no automatic session creation in
+     * the <code>beginXXX()</code> method.
      */
-    public void testGetPathTranslated()
+    public void testNoAutomaticSessionCreation()
     {
-        String nativePathInfo = File.separator + "test1" + File.separator
-            + "test2";
-
-        String pathTranslated = request.getPathTranslated();
-
-        // Should be null if getRealPath("/") is null
-        if (request.getRealPath("/") == null)
-        {
-            assertNull("Should have been null", pathTranslated);
-        }
-        else
-        {
-            assertNotNull("Should not be null", pathTranslated);
-            assertTrue("Should end with [" + nativePathInfo + "] but got ["
-                + pathTranslated + "] instead", 
-                pathTranslated.endsWith(nativePathInfo));
-        }
+        assertNull("A valid session has been found when no session should "
+            + "exist", session);
     }
 
     //-------------------------------------------------------------------------
 
     /**
-     * Verify that we can send arbitrary data in the request body.
-     *
-     * @param theRequest the request object that serves to initialize the
-     *                   HTTP connection to the server redirector.
+     * Verify that we can get hold of the jsessionid cookie returned by the
+     * server.
      */
-    public void beginSendUserData(WebRequest theRequest)
+    public void testVerifyJsessionid()
     {
-        ByteArrayInputStream bais = new ByteArrayInputStream(
-            "<data>some data to send in the body</data>".getBytes());
-
-        theRequest.setUserData(bais);
-        theRequest.setContentType("text/xml");
+        // By default, Cactus will create an HTTP session.
     }
-
+    
     /**
-     * Verify that we can send arbitrary data in the request body.
+     * Verify that we can get hold of the jsessionid cookie returned by the
+     * server.
      * 
-     * @exception Exception on test failure
+     * @param theResponse the response from the server side.
      */
-    public void testSendUserData() throws Exception
+    public void endVerifyJsessionid(WebResponse theResponse)
     {
-        String buffer;
-        StringBuffer body = new StringBuffer();
-
-        BufferedReader reader = request.getReader();
-
-        while ((buffer = reader.readLine()) != null)
-        {
-            body.append(buffer);
-        }
-
-        assertEquals("<data>some data to send in the body</data>", 
-            body.toString());
-        assertEquals("text/xml", request.getContentType());
+        assertNotNull(theResponse.getCookieIgnoreCase("jsessionid"));
     }
 
     //-------------------------------------------------------------------------
 
     /**
-     * Verify that we can simulate the client remote IP address and the client
-     * remote host name.
+     * Verify that Cactus can provide us with a real HTTP session cookie.
+     *
+     * @param theRequest the request object that serves to initialize the
+     *                   HTTP connection to the server redirector.
      */
-    public void testRemoteClientCheck()
+    public void beginCreateSessionCookie(WebRequest theRequest)
     {
-        request.setRemoteIPAddress("192.168.0.1");
-        request.setRemoteHostName("atlantis");
+        HttpSessionCookie sessionCookie = theRequest.getSessionCookie();
+        theRequest.addCookie(sessionCookie);
+    }
 
-        assertEquals("192.168.0.1", request.getRemoteAddr());
-        assertEquals("atlantis", request.getRemoteHost());
+    /**
+     * Verify that Cactus can provide us with a real HTTP session cookie.
+     */
+    public void testCreateSessionCookie()
+    {
+        assertTrue("A session should have been created prior to "
+            + "this request", !session.isNew());
     }
 
 }

@@ -51,86 +51,57 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
-package org.apache.cactus.unit;
+package org.apache.cactus.sample.unit;
 
-import org.apache.cactus.ServletTestCase;
-import org.apache.cactus.WebRequest;
+import org.apache.cactus.FilterTestCase;
+
+import com.meterware.httpunit.WebResponse;
 
 /**
- * Test that it is possible to override a servlet redirector as defined in
- * <code>cactus.properties</code> on a per test case basis.
- *
+ * Tests HTTP headers set in Filter code.
+ * 
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
+ * 
  * @version $Id$
  */
-public class TestServletRedirectorOverride extends ServletTestCase
+public class TestFilterHttpHeaders extends FilterTestCase
 {
     /**
-     * Defines the testcase name for JUnit.
-     *
-     * @param theName the testcase's name.
+     * Constructor.
+     * 
+     * @param theName The name of the test case
      */
-    public TestServletRedirectorOverride(String theName)
+    public TestFilterHttpHeaders(String theName)
     {
         super(theName);
     }
-
+    
     //-------------------------------------------------------------------------
-
+   
     /**
-     * Verify that it is possible to override the default redirector.
-     *
-     * @param theRequest the request object that serves to initialize the
-     *                   HTTP connection to the server redirector.
+     * Verify headers can be set in a Filter test case and retrieved using
+     * HttpUnit.
      */
-    public void beginRedirectorOverride1(WebRequest theRequest)
+    public void testHeaders()
     {
-        theRequest.setRedirectorName("ServletRedirectorOverride");
+        response.setHeader("xparevcount", "xparevcount");
+        response.setHeader("xxparevcount", "xxparevcount");
     }
 
     /**
-     * Verify that it is possible to override the default redirector.
+     * Verify headers can be set in a Filter test case and retrieved using
+     * HttpUnit.
+     * 
+     * @param theResponse the HTTP response
      */
-    public void testRedirectorOverride1()
+    public void endHeaders(WebResponse theResponse)
     {
-        assertEquals("value2 used for testing", 
-            config.getInitParameter("param2"));
-    }
+        String header1 = theResponse.getHeaderField("xxparevcount");
+        String header2 = theResponse.getHeaderField("xparevcount");
+        assertNotNull("Header should not be null", header1);
+        assertNotNull("Header should not be null", header2);
+        assertEquals("xxparevcount", header1);
+        assertEquals("xparevcount", header2);
+       }
 
-    //-------------------------------------------------------------------------
-
-    /**
-     * Verify that it is possible to set back the original redirector
-     * again.
-     *
-     * @param theRequest the request object that serves to initialize the
-     *                   HTTP connection to the server redirector.
-     */
-    public void beginRedirectorOverride2(WebRequest theRequest)
-    {
-        theRequest.setRedirectorName("ServletRedirector");
-    }
-
-    /**
-     * Verify that it is possible to set back the original redirector
-     * again.
-     */
-    public void testRedirectorOverride2()
-    {
-        assertEquals("value1 used for testing", 
-            config.getInitParameter("param1"));
-    }
-
-    //-------------------------------------------------------------------------
-
-    /**
-     * Verify that when no redirector is overriden the default redirector
-     * is the expected one.
-     */
-    public void testRedirectorOverride3()
-    {
-        assertEquals("value1 used for testing", 
-            config.getInitParameter("param1"));
-    }
 }

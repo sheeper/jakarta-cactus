@@ -51,27 +51,27 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
-package org.apache.cactus.unit;
+package org.apache.cactus.sample.unit;
 
 import org.apache.cactus.ServletTestCase;
-import org.apache.cactus.WebRequest;
-import org.apache.cactus.client.authentication.BasicAuthentication;
+import org.apache.cactus.WebResponse;
 
 /**
- * Test running some test using BASIC authentication.
+ * Test that <code>setUp()</code> and <code>tearDown()</code> methods are 
+ * called and can access implicit objects in <code>ServletTestCase</code>.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
  */
-public class TestBasicAuthentication extends ServletTestCase
+public class TestSetUpTearDown extends ServletTestCase
 {
     /**
      * Defines the testcase name for JUnit.
      *
      * @param theName the testcase's name.
      */
-    public TestBasicAuthentication(String theName)
+    public TestSetUpTearDown(String theName)
     {
         super(theName);
     }
@@ -79,26 +79,53 @@ public class TestBasicAuthentication extends ServletTestCase
     //-------------------------------------------------------------------------
 
     /**
-     * Verify basic authentication.
-     * 
-     * @param theRequest the request object that serves to initialize the
-     *                   HTTP connection to the server redirector.
+     * Put a value in the session to verify that this method is called prior
+     * to the test, and that it can access servlet implicit objects.
      */
-    public void beginBasicAuthentication(WebRequest theRequest)
+    protected void setUp()
     {
-        theRequest.setRedirectorName("ServletRedirectorSecure");
-        theRequest.setAuthentication(
-            new BasicAuthentication("testuser", "testpassword"));
+        session.setAttribute("setUpFlag", "a setUp test flag");
     }
 
     /**
-     * Verify basic authentication. Note: This method is protected in the
-     * <code>web. xml</code> deployment descriptor.
+     * Verify that <code>setUp()</code> has been called and that it put a
+     * value in the session object.
      */
-    public void testBasicAuthentication()
+    public void testSetUp()
     {
-        assertEquals("testuser", request.getUserPrincipal().getName());
-        assertEquals("testuser", request.getRemoteUser());
-        assertTrue("User not in 'test' role", request.isUserInRole("test"));
+        assertEquals("a setUp test flag", session.getAttribute("setUpFlag"));
+    }
+
+    //-------------------------------------------------------------------------
+
+    /**
+     * Set an HTTP response header to verify that this method is called after
+     * the test, and that it can access servlet implicit objects.
+     */
+    protected void tearDown()
+    {
+        response.setHeader("Teardownheader", "tear down header");
+    }
+
+    /**
+     * Verify that <code>tearDown()</code> has been called and that it created
+     * an HTTP reponse header.
+     */
+    public void testTearDown()
+    {
+    }
+
+    /**
+     * Verify that <code>tearDown()</code> has been called and that it created
+     * an HTTP reponse header.
+     *
+     * @param theResponse the HTTP connection that was used to call the
+     *                    server redirector. It contains the returned HTTP
+     *                    response.
+     */
+    public void endTearDown(WebResponse theResponse)
+    {
+        assertEquals("tear down header", 
+            theResponse.getConnection().getHeaderField("Teardownheader"));
     }
 }

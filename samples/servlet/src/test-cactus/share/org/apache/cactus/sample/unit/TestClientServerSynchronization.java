@@ -51,67 +51,77 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
-package org.apache.cactus.unit;
+package org.apache.cactus.sample.unit;
+
+import javax.servlet.ServletOutputStream;
 
 import org.apache.cactus.ServletTestCase;
 
-import junit.framework.AssertionFailedError;
-
 /**
- * Test that <code>tearDown()</code> is called even when an exception
- * occurs during the test.
+ * Verify that the Cactus client side only reads the test result *after* the
+ * test is finished (ie after the test result has been saved in the application
+ * scope). This JUnit test need to be the first one to be run. Otherwise, the
+ * test result might be that of the previous test and not the current test one,
+ * thus proving nothing !!
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
  */
-public class TestTearDownException extends ServletTestCase
+public class TestClientServerSynchronization extends ServletTestCase
 {
     /**
      * Defines the testcase name for JUnit.
      *
      * @param theName the testcase's name.
      */
-    public TestTearDownException(String theName)
+    public TestClientServerSynchronization(String theName)
     {
         super(theName);
-    }
-
-    /**
-     * Intercepts running test cases to check for normal exceptions.
-     */
-    protected void runTest()
-    {
-        try
-        {
-            super.runTest();
-        }
-        catch (Throwable e)
-        {
-            assertEquals("testTearDown() worked", e.getMessage());
-        }
     }
 
     //-------------------------------------------------------------------------
 
     /**
-     * Verify that the <code>tearDown()</code> is always called even when there
-     * is an exception raised during the test.
+     * Verify that the test result can be returned correctly even when the
+     * logic in the method to test takes a long time and thus it verifies that
+     * the test result is only returned after it has been written in the
+     * application scope on the server side.
      * 
      * @exception Exception on test failure
      */
-    public void testTearDown() throws Exception
+    public void testLongProcess() throws Exception
     {
-        // Provoke an exception
-        fail("provoked error");
+        ServletOutputStream os = response.getOutputStream();
+
+        os.print("<html><head><Long Process></head><body>");
+        os.flush();
+
+        // do some processing that takes a while ...
+        Thread.sleep(3000);
+        os.println("Some data</body></html>");
     }
 
+    //-------------------------------------------------------------------------
+
     /**
-     * Verify that the <code>tearDown()</code> is always called even when there
-     * is an exception raised during the test.
+     * Verify that when big amount of data is returned by the servlet output
+     * stream, it does not io-block.
+     * 
+     * @exception Exception on test failure
      */
-    public void tearDown()
+    public void testLotsOfData() throws Exception
     {
-        throw new AssertionFailedError("testTearDown() worked");
+        ServletOutputStream os = response.getOutputStream();
+
+        os.println("<html><head>Lots of Data</head><body>");
+        os.flush();
+
+        for (int i = 0; i < 5000; i++)
+        {
+            os.println("<p>Lots and lots of data here");
+        }
+
+        os.println("</body></html>");
     }
 }

@@ -51,119 +51,130 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
-package org.apache.cactus.unit;
+package org.apache.cactus.sample.unit;
+
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.File;
 
 import org.apache.cactus.ServletTestCase;
 import org.apache.cactus.WebRequest;
-import org.apache.cactus.WebResponse;
-import org.apache.cactus.client.DefaultHttpClient;
-import org.apache.cactus.util.WebConfiguration;
 
 /**
- * Test global client side <code>begin()</code> and <code>end()</code> 
- * methods.
+ * Tests that exercise the HTTP request.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
  */
-public class TestGlobalBeginEnd extends ServletTestCase
+public class TestHttpRequest extends ServletTestCase
 {
-    /**
-     * true if <code>end()</code> has been called.
-     */
-    private boolean isClientGlobalEndCalled;
-
     /**
      * Defines the testcase name for JUnit.
      *
      * @param theName the testcase's name.
      */
-    public TestGlobalBeginEnd(String theName)
+    public TestHttpRequest(String theName)
     {
         super(theName);
-    }
-
-    /**
-     * Verifies that <code>end()</code> has been called correctly.
-     * 
-     * @exception Throwable on test failure
-     */
-    protected void runTest() throws Throwable
-    {
-        runGenericTest(new DefaultHttpClient(
-            (WebConfiguration) getConfiguration()));
-
-        if (!this.isClientGlobalEndCalled)
-        {
-            fail("end() has not been called");
-        }
-    }
-
-    /**
-     * Verify that it is possible to modify the <code>WebRequest</code> in
-     * the common <code>begin()</code> method. It also verifies that
-     * <code>begin()</code> is called at all.
-     *
-     * @param theRequest the request object that serves to initialize the
-     *                   HTTP connection to the server redirector.
-     */
-    public void begin(WebRequest theRequest)
-    {
-        theRequest.addParameter("param1", "value1");
-    }
-
-    /**
-     * Verify that it is possible to read the connection object once in
-     * endXXX() and then again in <code>end()</code>. It also
-     * verifies that <code>end()</code> is called at all.
-     *
-     * @param theResponse the response from the server side.
-     */
-    public void end(WebResponse theResponse)
-    {
-        assertEquals("Hello there!", theResponse.getText());
-        this.isClientGlobalEndCalled = true;
     }
 
     //-------------------------------------------------------------------------
 
     /**
-     * Verify that it is possible to modify the <code>WebRequest</code> in
-     * the common <code>begin()()</code> method. It also verifies that
-     * <code>begin()</code> is called at all.
+     * Verify that <code>HttpServletRequestWrapper.getPathTranslated()</code>
+     * takes into account the simulated URL (if any).
      *
      * @param theRequest the request object that serves to initialize the
      *                   HTTP connection to the server redirector.
      */
-    public void beginGlobalBeginEnd(WebRequest theRequest)
+    public void beginGetPathTranslated(WebRequest theRequest)
     {
-        assertEquals("value1", theRequest.getParameterGet("param1"));
+        theRequest.setURL("jakarta.apache.org", "/mywebapp", "/myservlet", 
+            "/test1/test2", "PARAM1=value1");
     }
 
     /**
-     * Verify that it is possible to modify the <code>WebRequest</code> in
-     * the common <code>begin()()</code> method. It also verifies that
-     * <code>begin()()</code> is called at all.
+     * Verify that <code>HttpServletRequestWrapper.getPathTranslated()</code>
+     * takes into account the simulated URL (if any) or null in situations
+     * where the servlet container cannot determine a valid file path for
+     * these methods, such as when the web application is executed from an
+     * archive, on a remote file system not accessible locally, or in a
+     * database (see section SRV.4.5 of the Servlet 2.3 spec).
+     */
+    public void testGetPathTranslated()
+    {
+        String nativePathInfo = File.separator + "test1" + File.separator
+            + "test2";
+
+        String pathTranslated = request.getPathTranslated();
+
+        // Should be null if getRealPath("/") is null
+        if (request.getRealPath("/") == null)
+        {
+            assertNull("Should have been null", pathTranslated);
+        }
+        else
+        {
+            assertNotNull("Should not be null", pathTranslated);
+            assertTrue("Should end with [" + nativePathInfo + "] but got ["
+                + pathTranslated + "] instead", 
+                pathTranslated.endsWith(nativePathInfo));
+        }
+    }
+
+    //-------------------------------------------------------------------------
+
+    /**
+     * Verify that we can send arbitrary data in the request body.
+     *
+     * @param theRequest the request object that serves to initialize the
+     *                   HTTP connection to the server redirector.
+     */
+    public void beginSendUserData(WebRequest theRequest)
+    {
+        ByteArrayInputStream bais = new ByteArrayInputStream(
+            "<data>some data to send in the body</data>".getBytes());
+
+        theRequest.setUserData(bais);
+        theRequest.setContentType("text/xml");
+    }
+
+    /**
+     * Verify that we can send arbitrary data in the request body.
      * 
      * @exception Exception on test failure
      */
-    public void testGlobalBeginEnd() throws Exception
+    public void testSendUserData() throws Exception
     {
-        assertEquals("value1", request.getParameter("param1"));
-        response.getWriter().print("Hello there!");
+        String buffer;
+        StringBuffer body = new StringBuffer();
+
+        BufferedReader reader = request.getReader();
+
+        while ((buffer = reader.readLine()) != null)
+        {
+            body.append(buffer);
+        }
+
+        assertEquals("<data>some data to send in the body</data>", 
+            body.toString());
+        assertEquals("text/xml", request.getContentType());
     }
 
+    //-------------------------------------------------------------------------
+
     /**
-     * Verify that it is possible to read the connection object once in
-     * endXXX() and then again in <code>end()</code>. It also
-     * verifies that <code>end()</code> is called at all.
-     *
-     * @param theResponse the response from the server side.
+     * Verify that we can simulate the client remote IP address and the client
+     * remote host name.
      */
-    public void endGlobalBeginEnd(WebResponse theResponse)
+    public void testRemoteClientCheck()
     {
-        assertEquals("Hello there!", theResponse.getText());
+        request.setRemoteIPAddress("192.168.0.1");
+        request.setRemoteHostName("atlantis");
+
+        assertEquals("192.168.0.1", request.getRemoteAddr());
+        assertEquals("atlantis", request.getRemoteHost());
     }
 
 }
