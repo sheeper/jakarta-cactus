@@ -60,6 +60,7 @@ import org.eclipse.jface.preference.BooleanFieldEditor;
 import org.eclipse.jface.preference.DirectoryFieldEditor;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.jface.preference.StringFieldEditor;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 
@@ -106,26 +107,39 @@ public class ContainersPreferencePage
      */
     public void createFieldEditors()
     {
+        Composite parent = getFieldEditorParent();
         for (int i = 0; i < containerIds.length; i++)
         {
-            addField(
+            DirectoryFieldEditor dirEditor =
                 new DirectoryFieldEditor(
                     containerIds[i],
                     containerIds[i],
-                    getFieldEditorParent()));
+                    parent);
+            dirEditor.getTextControl(parent).setToolTipText(
+                CactusMessages.getString(
+                    "ContainersPreferencePage.label.container"));
+            addField(dirEditor);
         }
-        addField(
+        BooleanFieldEditor jetty =
             new BooleanFieldEditor(
                 CactusPreferences.JETTY,
-                "Jetty",
+                CactusMessages.getString(
+                    "ContainersPreferencePage.label.jetty"),
                 BooleanFieldEditor.SEPARATE_LABEL,
-                getFieldEditorParent()));
+                parent);
+        jetty.getLabelControl(parent).setToolTipText(
+            CactusMessages.getString(
+                "ContainersPreferencePage.label.jetty.tooltip"));
+        addField(jetty);
         StringFieldEditor jettyXML =
             new StringFieldEditor(
                 CactusPreferences.JETTY_XML,
                 CactusMessages.getString(
                     "ContainersPreferencePage.label.jettyxml"),
-                getFieldEditorParent());
+                parent);
+        jettyXML.getTextControl(parent).setToolTipText(
+            CactusMessages.getString(
+                "ContainersPreferencePage.label.jettyxml.tooltip"));
         addField(jettyXML);
     }
 
@@ -134,7 +148,7 @@ public class ContainersPreferencePage
      */
     public void init(IWorkbench theWorkbench)
     {
-            containerIds = CactusPlugin.getContainerIds();
+        containerIds = CactusPlugin.getContainerIds();
 
     }
 
