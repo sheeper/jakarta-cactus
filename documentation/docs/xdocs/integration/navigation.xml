@@ -13,12 +13,13 @@
     <item id="howto_classpath" label="Classpath Setup"/>
   </menu>
 
-  <menu label="Tool Integration">
+  <menu label="Integrations">
     <item id="integration_ant" label="Ant"/>
     <item id="integration_eclipse" label="Eclipse"/>
-    <item id="howto_junitee" label="JUnitEE"/>
+    <item id="integration_jetty" label="Jetty"/>
     <item id="maven_cactus" label="Maven"/>
     <item id="howto_ide" label="Various IDEs"/>
+    <item id="howto_junitee" label="JUnitEE"/>
   </menu>
 
 </navigation>
