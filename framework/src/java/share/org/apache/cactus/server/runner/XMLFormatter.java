@@ -311,6 +311,10 @@ public class XMLFormatter implements XMLConstants, TestListener
     public static String replace(String theBaseString, char theChar,
         String theNewString)
     {
+        if (theBaseString == null) {
+            return null;
+        }
+            
         final int len = theBaseString.length() - 1;
         int pos = -1;
 
