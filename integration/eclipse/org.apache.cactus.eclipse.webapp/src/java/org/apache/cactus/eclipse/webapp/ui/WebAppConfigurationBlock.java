@@ -268,7 +268,7 @@ public class WebAppConfigurationBlock
             PreferencesMessages.getString(
                 WebappMessages.getString(
                     "WebAppConfigurationBlock.outputchooser.label")));
-        dialog.setFilterExtensions(new String[] { "*.war" });
+        dialog.setFilterExtensions(new String[] {"*.war"});
         dialog.setFilterPath(initPath);
         String res = dialog.open();
         if (res != null)
