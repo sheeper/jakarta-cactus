@@ -17,8 +17,8 @@
   <xsl:import href="common.xsl"/>
 
   <xsl:output method="html"
-      doctype-public="-//W3C//DTD HTML 4.0 Transitional//EN"
-      doctype-system="http://www.w3.org/TR/html4/loose.dtd"/>
+      doctype-public="-//W3C//DTD HTML 4.0.1//EN"
+      doctype-system="http://www.w3.org/TR/html4/strict.dtd"/>
 
   <!-- ==================================================================== -->
   <!-- Parameters -->
@@ -64,128 +64,107 @@
           </xsl:attribute>
         </meta>
 
-        <!-- CSS stylesheet -->
-        <link rel="stylesheet" type="text/css">
+        <!-- CSS style sheets -->
+        <link rel="stylesheet" type="text/css" media="screen">
           <xsl:attribute name="href">
             <xsl:value-of select="$basedir"/>
             <xsl:text>css/apache.css</xsl:text>
           </xsl:attribute>
         </link>
+	<link rel="stylesheet" type="text/css" media="print">
+	  <xsl:attribute name="href">
+	    <xsl:value-of select="$basedir"/>
+	    <xsl:text>css/print.css</xsl:text>
+	  </xsl:attribute>
+	</link>
 
         <!-- Add the document title -->
         <title><xsl:call-template name="get-title"/></title>
 
       </head>
 
-      <body text="#000000" link="#525D76" vlink="#023264" alink="#023264">
+      <body>
 
         <!-- ============================================================== -->
         <!-- Header -->
         <!-- ============================================================== -->
 
-        <div id="header">
-          <table border="0" width="100%">
-            <tr>
-              <td width="50%">
-                <div id="projectLogo">
-                  <a href="http://jakarta.apache.org/">
-                    <img border="0">
-                      <xsl:attribute name="alt">
-                        <xsl:text>The Apache Jakarta Project</xsl:text>
-                      </xsl:attribute>
-                      <xsl:attribute name="src">
-                        <xsl:value-of select="$basedir"/>
-                        <xsl:text>images/jakarta-logo.gif</xsl:text>
-                      </xsl:attribute>
-                    </img>
-                  </a>
-                </div>
-              </td>
-              <td width="50%">
-                <div id="subprojectLogo">
-                  <a href="http://jakarta.apache.org/cactus/">
-                    <img>
-                      <xsl:attribute name="alt">
-                        <xsl:call-template name="get-title"/>
-                      </xsl:attribute>
-                      <xsl:attribute name="src">
-                        <xsl:value-of select="$basedir"/>
-                        <xsl:text>images/logocactus.gif</xsl:text>
-                      </xsl:attribute>
-                    </img>
-                  </a>
-                </div>
-              </td>
-            </tr>
-          </table>
-          <div id="contextBar">
-            <table width="100%">
-              <tr>
-                <td id="breadCrumbs" width="50%">
-                  <xsl:call-template name="generate-breadcrumbs"/>
-                </td>
-                <td id="status" width="50%">
-                  Docs for:
-                  <strong>v<xsl:value-of select="$project.version"/></strong>
-                  <xsl:text> | </xsl:text>
-                  <a>
-                    <xsl:attribute name="href">
-                      <xsl:value-of select="$basedir"/>
-                      <xsl:choose>
-                        <xsl:when test="contains($project.version,'dev')">
-                          <xsl:value-of select="$project.version.previous"/>
-                        </xsl:when>
-                        <xsl:otherwise>
-                          <xsl:text>..</xsl:text>
-                        </xsl:otherwise>
-                      </xsl:choose>
-                    </xsl:attribute>
-                    <xsl:text>v</xsl:text>
-                    <xsl:value-of select="$project.version.previous"/>
-                  </a>
-                  &#160;&#160;
-                  Last update: <xsl:value-of select="$last.updated.date"/>
-                </td>
-              </tr>
-            </table>
-          </div>
-        </div>
-
+        <table id="header" cellspacing="0" width="100%">
+          <tr>
+            <td class="logo" id="projectLogo" width="50%">
+              <a href="http://jakarta.apache.org/">
+                <img>
+                  <xsl:attribute name="alt">
+                    <xsl:text>The Apache Jakarta Project</xsl:text>
+                  </xsl:attribute>
+                  <xsl:attribute name="src">
+                    <xsl:value-of select="$basedir"/>
+                    <xsl:text>images/jakarta-logo.gif</xsl:text>
+                  </xsl:attribute>
+                </img>
+              </a>
+            </td>
+            <td class="logo" id="subprojectLogo" width="50%">
+              <a href="http://jakarta.apache.org/cactus/">
+                <img>
+                  <xsl:attribute name="alt">
+                    <xsl:call-template name="get-title"/>
+                  </xsl:attribute>
+                  <xsl:attribute name="src">
+                    <xsl:value-of select="$basedir"/>
+                    <xsl:text>images/logocactus.gif</xsl:text>
+                  </xsl:attribute>
+                </img>
+              </a>
+            </td>
+          </tr>
+	  <tr id="contextBar">
+            <td id="breadCrumbs">
+              <xsl:call-template name="generate-breadcrumbs"/>
+            </td>
+            <td id="status">
+              Docs for:
+              <strong>v<xsl:value-of select="$project.version"/></strong>
+              <xsl:text> | </xsl:text>
+              <a>
+                <xsl:attribute name="href">
+                  <xsl:value-of select="$basedir"/>
+                  <xsl:choose>
+                    <xsl:when test="contains($project.version,'dev')">
+                      <xsl:value-of select="$project.version.previous"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                      <xsl:text>..</xsl:text>
+                    </xsl:otherwise>
+                  </xsl:choose>
+                </xsl:attribute>
+                <xsl:text>v</xsl:text>
+                <xsl:value-of select="$project.version.previous"/>
+              </a>
+              &#160;&#160;
+              Last update: <xsl:value-of select="$last.updated.date"/>
+            </td>
+          </tr>
+        </table>
         <div id="main">
 
-          <table width="100%" border="0" cellpadding="0" cellspacing="0">
-            <tr>
+          <!-- ======================================================== -->
+          <!-- Sidebar -->
+          <!-- ======================================================== -->
 
-              <!-- ======================================================== -->
-              <!-- Sidebar -->
-              <!-- ======================================================== -->
+          <div id="sidebar">
+            <div id="navigation">
+              <xsl:call-template name="apply-navigation"/>
+            </div>
+          </div>
 
-              <td valign="top">
-                <div id="sidebar">
-                  <div style="margin: 0.5em 0">
-                  	<a href="http://apachecon.com/2003/US/index.html">
-                      <img alt="ApacheCON US 2003" width="150" height="86"
-                          src="http://jakarta.apache.org/images/logos/ac2003-150.gif"/>
-                    </a>
-                  </div>
-                  <div id="navigation">
-                    <xsl:call-template name="apply-navigation"/>
-                  </div>
-                </div>
-              </td>
+          <!-- ======================================================== -->
+          <!-- Content -->
+          <!-- ======================================================== -->
 
-              <!-- ======================================================== -->
-              <!-- Content -->
-              <!-- ======================================================== -->
-
-              <td valign="top">
-                <div id="content">
-                  <xsl:apply-templates/>
-                </div>
-              </td>
-
-            </tr>
-          </table>
+          <div id="content">
+            <xsl:apply-templates/>
+          </div>
 
         </div>
 
@@ -195,9 +174,9 @@
 
         <div id="footer">
           <p>
-            Copyright &#169; <xsl:value-of select="$copyright"/>.
+	    Copyright &#169; <xsl:value-of select="$copyright"/>.
             All Rights Reserved.
-          </p>
+	  </p>
         </div>
 
       </body>
@@ -353,9 +332,7 @@
           <h5><xsl:value-of select="@title"/></h5>
         </xsl:otherwise>
       </xsl:choose>
-      <blockquote>
-        <xsl:apply-templates/>
-      </blockquote>
+      <xsl:apply-templates/>
     </div>
   </xsl:template>
 
@@ -420,7 +397,7 @@
 
   <xsl:template match="table">
     <div class="tabular">
-      <table border="1" cellspacing="2" cellpadding="2">
+      <table border="0" cellspacing="2" cellpadding="2">
         <caption><xsl:apply-templates select="caption"/></caption>
         <xsl:apply-templates/>
       </table>

@@ -23,6 +23,7 @@ documentation/conf/version.txt svn_keywords=Author+Date+Id+Revision
 documentation/docs/dtds/navigation-v10.dtd svn_keywords=Author+Date+Id+Revision
 documentation/docs/dtds/sitemap-v10.dtd svn_keywords=Author+Date+Id+Revision
 documentation/docs/skins/jakarta.apache.org/css/apache.css svn_keywords=Author+Date+Id+Revision
+documentation/docs/skins/jakarta.apache.org/css/print.css svn_keywords=Author+Date+Id+Revision
 documentation/docs/skins/jakarta.apache.org/images/add.jpg -text
 documentation/docs/skins/jakarta.apache.org/images/corner.gif -text
 documentation/docs/skins/jakarta.apache.org/images/fix.jpg -text
