@@ -165,7 +165,7 @@ public class StartServerHelper implements Runnable
 
         thread.start();
 
-        // Wait a few ms more (just to make sur the servlet engine is
+        // Wait a few ms more (just to make sure the servlet engine is
         // ready to accept connections)
         try {
             Thread.sleep(1000);
