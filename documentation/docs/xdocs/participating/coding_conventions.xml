@@ -240,18 +240,16 @@ public void someMethod(String theClassName)
 
         <p>
           Do <strong>not</strong> use <code>System.out</code> to log. Instead,
-          use the Cactus logging classes which are a facade to Log4j. Use the
-          name of your class as the Log4j <code>Category</code>. For
-          example:
+          use the <code>commons-logging</code> Logging system. For example:
         </p>
 
 <source><![CDATA[
-private static Log logger =
-		LogService.getInstance().getLog(MyClass.class.getName());
+private static final Log LOGGER = 
+    LogFactory.getLog(MyClass.class);
 
 public void someMethod()
 {
-		logger.debug("some debug text");
+		LOGGER.debug("some debug text");
 }
 ]]></source>
 
