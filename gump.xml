@@ -162,6 +162,9 @@
     <depend project="xml-xerces"/>
     <depend project="aspectj"/>
 
+    <home nested="integration/ant/dist-12"/>
+    <jar name="bin/cactus-integration-ant/lib/client/cactus-integration-ant-@@DATE@@.jar"
+    	
     <license name="LICENSE.cactus"/>
 
     <nag from="Vincent Massol &lt;vmassol@apache.org&gt;"
@@ -196,6 +199,9 @@
     <depend project="jakarta-ant" inherit="runtime"/>
     <depend project="xml-xerces"/>
     <depend project="aspectj"/>
+
+    <home nested="integration/ant/dist-13"/>
+    <jar name="bin/cactus-integration-ant/lib/client/cactus-integration-ant-@@DATE@@.jar"
 
     <license name="LICENSE.cactus"/>
 
