@@ -6,7 +6,7 @@
     <p>
       As is stated on the Cactus <link href="goals.html">goals</link> page, the
       intention is to explore as much as possible in the realm of unit testing
-      of server side java code ... 
+      of server side java code ...
     </p>
     <p>
       This brings a bad news and a good one ... The
@@ -49,14 +49,14 @@
       </action>
       <action>
         Add a tutorial/FAQ entry for explaining unit testing of persistent
-        sessions, i.e. to explain that each unit test is *independent* of 
-        another and that each test need to set up it's own preconditions 
+        sessions, i.e. to explain that each unit test is *independent* of
+        another and that each test need to set up it's own preconditions
         (HTTP paramteres, cookies, HTTP headers, ...) but *also* values that
         are expected to be set in the HTTP Session, application scope, ...
         before running the test.
       </action>
       <action assigned-to="Jari Worsley">
-        Write a tutorial that explains how to use Cactus to do unit testing of 
+        Write a tutorial that explains how to use Cactus to do unit testing of
         JSP, i.e. only test
         the JSP itself and not the controller part and the model (only test the
         View in an MVC model). This is done by using mock implementations of
@@ -94,11 +94,6 @@
         Add Ant scripts to support WebLogic 6.0.
       </action>
       <action>
-        In the Ant task that stops a servlet engine, do not stop it if the
-        server was running before the start task was called. In other words, if
-        the server was running before running the Ant tests, leave it running.
-      </action>
-      <action>
         Finalize support for Enhydra 3.1.1. Verify it works and correct if not.
       </action>
     </category>
@@ -133,12 +128,6 @@
         Support unit testing of Servlet code that uses Security APIs, such as
         <code>isUserInRole()</code>, ...
       </action>
-      <action>
-        Ensure that the Log4j configuration of Cactus does not interfere with
-        an existing Log4j configuration used in the application to test 
-        (requested by <link href="mailto:henrik.fredholm@telenor.com">
-        Henrik Fredholm</link>).
-      </action>
     </category>
 
   </version>
@@ -147,8 +136,9 @@
 
     <category title="Design/Code">
       <action>
-        Design and implement a mechanism for supporting unit testing of EJBs.
-        There are several possible mechanisms :
+        Design and implement a mechanism for better supporting unit testing of
+        EJBs (they are currently supported). There are several possible
+        mechanisms :
         <ul>
           <li>
             in-container, calling the remote methods from the testXXX() methods
@@ -168,11 +158,11 @@
 
     <category title="Ideas">
       <p>
-        Ideas to explore ... 
+        Ideas to explore ...
       </p>
       <action>
         Create a Cactus Doclet. This will introduce new javadoc tags (like the
-        <link href="http://sourceforge.net/projects/ejbdoclet">EJBDoclet</link>) 
+        <link href="http://sourceforge.net/projects/ejbdoclet">EJBDoclet</link>)
         that will be used by the javadoc command
         to do several things : generate test classes and test methods, generate
         richer documentation. Indeed, the best documentation for a method is
@@ -181,7 +171,7 @@
         example.
       </action>
       <action>
-        Integration to Netbeans in general and especially integration with the 
+        Integration to Netbeans in general and especially integration with the
         Netbeans XTest module.
       </action>
       <action>
@@ -189,7 +179,7 @@
         (for example), we can use Cactus to provide access to all Servlet API
         implicit objects. However, there is still a need to get access to
         Struts implicit objects (for example, calling the perform() method
-        of an Action class need to get hold of several Struts object 
+        of an Action class need to get hold of several Struts object
         beforehand). A solution might be to provide some factory helper classes
         to provide these objects. This could go in a
         <code>org.apache.commons.cactus.util.struts</code> package but will
@@ -200,12 +190,7 @@
         Another solution is to use Struts Mock Objects (could be done as part
         of the SourceForge Mock Objects project - www.mockobjects.com).
       </action>
-      <action assigned-to="Vincent Massol, Jari Worsley">
-        Integrate with HttpUnit so that we can use DOM representations and
-        associated API within Cactus in order to validate returned output from
-        servlet output stream.
-      </action>
-        
+
     </category>
 
   </version>
