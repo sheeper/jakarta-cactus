@@ -24,7 +24,7 @@ import java.io.Serializable;
 import org.apache.cactus.ServletTestCase;
 import org.apache.cactus.internal.client.AssertionFailedErrorWrapper;
 import org.apache.cactus.internal.client.ServletExceptionWrapper;
-import org.apache.cactus.util.JUnitVersionHelper;
+import org.apache.cactus.internal.util.JUnitVersionHelper;
 
 import junit.framework.AssertionFailedError;
 import junit.framework.ComparisonFailure;
