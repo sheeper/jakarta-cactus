@@ -57,6 +57,8 @@ import java.net.*;
 import java.util.*;
 import java.io.*;
 
+import org.apache.commons.cactus.*;
+
 /**
  * Cactus utility classes to help assert returned results from server side
  * code.
@@ -77,17 +79,8 @@ public class AssertUtils
     public static String getResponseAsString(HttpURLConnection theConnection)
         throws IOException
     {
-        StringBuffer sb = new StringBuffer();
-        BufferedReader input = new BufferedReader(
-            new InputStreamReader(theConnection.getInputStream()));
-        char[] buffer = new char[2048];
-        int nb;
-        while (-1 != (nb = input.read(buffer, 0, 2048))) {
-            sb.append(buffer, 0, nb);
-        }
-        input.close ();
-
-        return sb.toString();
+        WebResponse response = new WebResponse(theConnection);
+        return response.getText();
     }
 
     /**
@@ -99,19 +92,8 @@ public class AssertUtils
     public static String[] getResponseAsStringArray(
         HttpURLConnection theConnection) throws IOException
     {
-        BufferedReader input = new BufferedReader(
-            new InputStreamReader(theConnection.getInputStream()));
-        Vector lines = new Vector();
-        String str;
-        while (null != (str = input.readLine())) {
-            lines.addElement(str);
-        }
-        input.close ();
-
-        // Fixme: I don't know why but if I don't use this dummy stuff I get a
-        // ClassCastException !
-        String[] dummy = new String[lines.size()];
-        return (String[])(lines.toArray(dummy));
+        WebResponse response = new WebResponse(theConnection);
+        return response.getTextAsArray();
     }
 
     /**
@@ -123,153 +105,7 @@ public class AssertUtils
      */
     public static Hashtable getCookies(HttpURLConnection theConnection)
     {
-        // We conform to the RFC 2109 :
-        //
-        //   The syntax for the Set-Cookie response header is
-        //
-        //   set-cookie      =       "Set-Cookie:" cookies
-        //   cookies         =       1#cookie
-        //   cookie          =       NAME "=" VALUE *(";" cookie-av)
-        //   NAME            =       attr
-        //   VALUE           =       value
-        //   cookie-av       =       "Comment" "=" value
-        //                   |       "Domain" "=" value
-        //                   |       "Max-Age" "=" value
-        //                   |       "Path" "=" value
-        //                   |       "Secure"
-        //                   |       "Version" "=" 1*DIGIT
-
-        Hashtable cookies = new Hashtable();
-
-        // There can be several headers named "Set-Cookie", so loop through all
-        // the headers, looking for cookies
-        String headerName = theConnection.getHeaderFieldKey(0);
-        String headerValue = theConnection.getHeaderField(0);
-        for (int i = 1; (headerName != null) || (headerValue != null); i++) {
-
-            if ((headerName != null) && headerName.equals("Set-Cookie")) {
-
-                // Parse the cookie definition
-                Vector clientCookies = parseSetCookieHeader(headerValue);
-
-                if (clientCookies.isEmpty()) {
-                    continue;
-                }
-
-                // Check if the cookie name already exist in the hashtable.
-                // If so, then add it to the vector of cookies for that name.
-
-                String name =
-                    ((ClientCookie)clientCookies.elementAt(0)).getName();
-
-                if (cookies.containsKey(name)) {
-                    Vector cookieValues = (Vector)cookies.get(name);
-                    cookieValues.addAll(clientCookies);
-                } else {
-                    Vector cookieValues = new Vector();
-                    cookieValues.addAll(clientCookies);
-                    cookies.put(name, cookieValues);
-                }
-            }
-
-            headerName = theConnection.getHeaderFieldKey(i);
-            headerValue = theConnection.getHeaderField(i);
-
-        }
-
-        return cookies;
+        WebResponse response = new WebResponse(theConnection);
+        return response.getCookies();
     }
-
-    /**
-     * Parse a single "Set-Cookie" header.
-     *
-     * @return a vector og <code>ClientCookie</code> objects containing the
-     *         parsed values from the "Set-Cookie" header.
-     */
-    protected static Vector parseSetCookieHeader(String theHeaderValue)
-    {
-        String name;
-        String value;
-        String comment = null;
-        String path = null;
-        String domain = null;
-        long maxAge = 0;
-        boolean isSecure = false;
-        float version = 1;
-
-        Vector cookies = new Vector();
-
-        // Find all cookies, they are comma-separated
-        StringTokenizer stCookies = new StringTokenizer(theHeaderValue, ",");
-        while (stCookies.hasMoreTokens()) {
-            String singleCookie = stCookies.nextToken();
-            singleCookie = singleCookie.trim();
-
-            // Parse a single cookie
-
-            // Extract cookie values, they are semi-colon separated
-            StringTokenizer stParams = new StringTokenizer(singleCookie, ";");
-
-            // The first parameter is always NAME = VALUE
-            String param = stParams.nextToken();
-            param = param.trim();
-
-            int pos = param.indexOf("=");
-            if (pos < 0) {
-                System.err.println("Bad 'Set-Cookie' syntax, missing '=' [" +
-                    param + "]");
-                continue;
-            }
-
-            name = param.substring(0, pos).trim();
-            value = param.substring(pos + 1).trim();
-
-            while (stParams.hasMoreTokens()) {
-                param = stParams.nextToken();
-                param = param.trim();
-
-                String left;
-                String right;
-
-                // Tokenize on "="
-                pos = param.indexOf("=");
-                if (pos < 0) {
-                    left = param;
-                    right = "";
-                } else {
-                    left = param.substring(0, pos).trim();
-                    right = param.substring(pos + 1).trim();
-                }
-
-                // Is it a comment ?
-                if (left.equalsIgnoreCase("comment")) {
-                    comment = right;
-                } else if (left.equalsIgnoreCase("domain")) {
-                    domain = right;
-                } else if (left.equalsIgnoreCase("max-age")) {
-                    maxAge = Long.parseLong(right);
-                } else if (left.equalsIgnoreCase("path")) {
-                    path = right;
-                } else if (left.equalsIgnoreCase("secure")) {
-                    isSecure = true;
-                } else if (left.equalsIgnoreCase("version")) {
-                    version = Float.parseFloat(right);
-                } else {
-                    System.err.println("Bad 'Set-Cookie' syntax, bad name [" +
-                        param + "]");
-                    continue;
-                }
-
-            }
-
-            // Create the client cookie
-            ClientCookie cookie = new ClientCookie(name, value, comment,
-                domain, maxAge, path, isSecure, version);
-
-            cookies.add(cookie);
-        }
-
-        return cookies;
-    }
-
 }
