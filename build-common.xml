@@ -84,6 +84,13 @@
             <equals arg1="${j2ee.api}" arg2="13"/>
         </condition>
 
+        <condition property="j2ee.title" value="J2EE 1.2">
+            <isset property="j2ee.api"/>
+        </condition>
+        <condition property="j2ee.title" value="J2EE 1.3">
+            <equals arg1="${j2ee.api}" arg2="13"/>
+        </condition>
+
         <fail message="Unsupported J2EE version or invalid J2EE jar [${j2ee.jar}]" 
             unless="j2ee.api"/>
 

@@ -278,7 +278,7 @@
             <manifest>
                 <section name="org/apache/cactus/">
                     <attribute name="Specification-Title"
-                        value="${project.name.text}"/>
+                        value="${project.name.text} for ${j2ee.title}"/>
                     <attribute name="Specification-Version"
                         value="${project.version}"/>
                     <attribute name="Specification-Vendor"
@@ -308,7 +308,7 @@
             <manifest>
                 <section name="org/apache/cactus/">
                     <attribute name="Specification-Title"
-                        value="${project.name.text}"/>
+                        value="${project.name.text} for ${j2ee.title}"/>
                     <attribute name="Specification-Version"
                         value="${project.version}"/>
                     <attribute name="Specification-Vendor"
