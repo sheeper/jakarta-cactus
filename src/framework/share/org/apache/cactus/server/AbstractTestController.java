@@ -74,7 +74,7 @@ import org.apache.cactus.util.log.LogService;
 public abstract class AbstractTestController
 {
     /**
-     * The logger
+     * The LOGGER
      */
     private static Log logger =
         LogService.getInstance().getLog(AbstractTestController.class.getName());

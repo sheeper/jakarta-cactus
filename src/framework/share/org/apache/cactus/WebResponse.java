@@ -85,7 +85,7 @@ import org.apache.cactus.util.log.LogService;
 public class WebResponse
 {
     /**
-     * The logger
+     * The LOGGER
      */
     private static Log logger =
         LogService.getInstance().getLog(WebResponse.class.getName());

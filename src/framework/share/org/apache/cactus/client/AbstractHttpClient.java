@@ -82,7 +82,7 @@ import org.apache.cactus.util.log.LogService;
 public abstract class AbstractHttpClient
 {
     /**
-     * The logger
+     * The LOGGER
      */
     private static Log logger =
         LogService.getInstance().getLog(AbstractHttpClient.class.getName());

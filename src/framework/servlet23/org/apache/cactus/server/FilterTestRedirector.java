@@ -87,7 +87,7 @@ public class FilterTestRedirector implements Filter
     }
 
     /**
-     * The logger
+     * The LOGGER
      */
     private static Log logger =
         LogService.getInstance().getLog(FilterTestRedirector.class.getName());

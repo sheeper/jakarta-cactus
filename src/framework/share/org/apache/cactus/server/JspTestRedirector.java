@@ -80,7 +80,7 @@ public class JspTestRedirector
     }
 
     /**
-     * The logger
+     * The LOGGER
      */
     private static Log logger =
         LogService.getInstance().getLog(JspTestRedirector.class.getName());

@@ -141,114 +141,177 @@ public abstract class AbstractPageContextWrapper extends PageContext
 
     // Unmodified overridden methods -----------------------------------------
 
+    /**
+     * @see PageContext#findAttribute(String)
+     */
     public Object findAttribute(String theName)
     {
         return this.originalPageContext.findAttribute(theName);
     }
 
+    /**
+     * @see PageContext#forward(String)
+     */
     public void forward(String theRelativeURLPath) throws ServletException,
         IOException
     {
         this.originalPageContext.forward(theRelativeURLPath);
     }
 
+    /**
+     * @see PageContext#getAttribute(String)
+     */
     public Object getAttribute(String theName)
     {
         return this.originalPageContext.getAttribute(theName);
     }
 
+    /**
+     * @see PageContext#getAttribute(String, int)
+     */
     public Object getAttribute(String theName, int theScope)
     {
         return this.originalPageContext.getAttribute(theName, theScope);
     }
 
+    /**
+     * @see PageContext#getAttributeNamesInScope(int)
+     */
     public Enumeration getAttributeNamesInScope(int theScope)
     {
         return this.originalPageContext.getAttributeNamesInScope(theScope);
     }
 
+    /**
+     * @see PageContext#getAttributesScope(String)
+     */
     public int getAttributesScope(String theName)
     {
         return this.originalPageContext.getAttributesScope(theName);
     }
 
+    /**
+     * @see PageContext#getException()
+     */
     public Exception getException()
     {
         return this.originalPageContext.getException();
     }
 
+    /**
+     * @see PageContext#getOut()
+     */
     public JspWriter getOut()
     {
         return this.originalPageContext.getOut();
     }
 
+    /**
+     * @see PageContext#getPage()
+     */
     public Object getPage()
     {
         return this.originalPageContext.getPage();
     }
 
+    /**
+     * @see PageContext#getResponse()
+     */
     public ServletResponse getResponse()
     {
         return this.originalPageContext.getResponse();
     }
 
+    /**
+     * @see PageContext#getSession()
+     */
     public HttpSession getSession()
     {
         return this.originalPageContext.getSession();
     }
 
+    /**
+     * @see PageContext#handlePageException(Exception)
+     */
     public void handlePageException(Exception theException)
         throws ServletException, IOException
     {
         this.originalPageContext.handlePageException(theException);
     }
 
+    /**
+     * @see PageContext#include(String)
+     */
     public void include(String theRelativeURLPath) throws ServletException,
         IOException
     {
         this.originalPageContext.include(theRelativeURLPath);
     }
 
+    /**
+     * @see PageContext#initialize(Servlet, ServletRequest, ServletResponse, String, boolean, int, boolean)
+     */
     public void initialize(Servlet theServlet, ServletRequest theRequest,
         ServletResponse theResponse, String theErrorPageURL,
-        boolean needsSession, int thebufferSize, boolean iSAutoFlush)
+        boolean isSessionNeeded, int theBufferSize, boolean isAutoFlush)
         throws IOException, IllegalStateException, IllegalArgumentException
     {
         this.originalPageContext.initialize(theServlet, theRequest,
-            theResponse, theErrorPageURL, needsSession, thebufferSize,
-            iSAutoFlush);
+            theResponse, theErrorPageURL, isSessionNeeded, theBufferSize,
+            isAutoFlush);
     }
 
+    /**
+     * @see PageContext#popBody()
+     */
     public JspWriter popBody()
     {
         return this.originalPageContext.popBody();
     }
 
+    /**
+     * @see PageContext#pushBody()
+     */
     public BodyContent pushBody()
     {
         return this.originalPageContext.pushBody();
     }
 
+    /**
+     * @see PageContext#release()
+     */
     public void release()
     {
         this.originalPageContext.release();
     }
 
+    /**
+     * @see PageContext#removeAttribute(String)
+     */
     public void removeAttribute(String theName)
     {
         this.originalPageContext.removeAttribute(theName);
     }
 
+    /**
+     * @see PageContext#removeAttribute(String, int)
+     */
     public void removeAttribute(String theName, int theScope)
     {
         this.originalPageContext.removeAttribute(theName, theScope);
     }
 
+    /**
+     * @see PageContext#setAttribute(String, Object)
+     */
     public void setAttribute(String theName, Object theAttribute)
     {
         this.originalPageContext.setAttribute(theName, theAttribute);
     }
 
+    /**
+     * @see PageContext#setAttribute(String, Object)
+     */
     public void setAttribute(String theName, Object theAttribute,
         int theScope)
     {

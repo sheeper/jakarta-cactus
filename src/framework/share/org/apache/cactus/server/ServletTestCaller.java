@@ -74,12 +74,6 @@ import org.apache.cactus.util.log.LogService;
 public class ServletTestCaller extends AbstractTestCaller
 {
     /**
-     * The logger
-     */
-    protected static Log logger =
-        LogService.getInstance().getLog(ServletTestCaller.class.getName());
-
-    /**
      * @param theObjects the implicit objects coming from the redirector
      */
     public ServletTestCaller(ServletImplicitObjects theObjects)

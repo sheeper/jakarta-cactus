@@ -73,12 +73,6 @@ import org.apache.cactus.util.log.LogService;
 public class JspTestCaller extends ServletTestCaller
 {
     /**
-     * The logger
-     */
-    protected static Log logger =
-        LogService.getInstance().getLog(JspTestCaller.class.getName());
-
-    /**
      * @param theObjects the implicit objects coming from the redirector
      */
     public JspTestCaller(JspImplicitObjects theObjects)

@@ -83,7 +83,7 @@ public class ServletTestRedirector extends HttpServlet
     }
 
     /**
-     * The logger
+     * The LOGGER
      */
     private static Log logger =
         LogService.getInstance().getLog(ServletTestRedirector.class.getName());

@@ -89,7 +89,7 @@ import org.apache.cactus.util.ChainedRuntimeException;
 public class HttpClientHelper
 {
     /**
-     * The logger
+     * The LOGGER
      */
     private static final Log LOGGER =
         LogService.getInstance().getLog(HttpClientHelper.class.getName());

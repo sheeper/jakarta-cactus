@@ -73,7 +73,7 @@ import org.apache.cactus.util.log.LogService;
 public class FilterTestCaller extends AbstractTestCaller
 {
     /**
-     * The logger
+     * The LOGGER
      */
     protected static Log logger =
         LogService.getInstance().getLog(FilterTestCaller.class.getName());

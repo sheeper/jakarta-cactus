@@ -148,7 +148,7 @@ public class ServletURL
     private String queryString;
 
     /**
-     * The logger
+     * The LOGGER
      */
     private static Log logger =
         LogService.getInstance().getLog(ServletURL.class.getName());

@@ -112,7 +112,7 @@ public abstract class AbstractTestCase extends TestCase
     private String currentTestMethod;
 
     /**
-     * The logger (only used on the client side).
+     * The LOGGER (only used on the client side).
      */
     private Log logger;
 
@@ -128,7 +128,7 @@ public abstract class AbstractTestCase extends TestCase
     }
 
     /**
-     * @return the logger used by the <code>TestCase</code> class and
+     * @return the LOGGER used by the <code>TestCase</code> class and
      *         subclasses to perform logging.
      */
     protected final Log getLogger()
@@ -386,7 +386,7 @@ public abstract class AbstractTestCase extends TestCase
         ClientConfigurationChecker.getInstance().checkHttpClient();
         ClientConfigurationChecker.getInstance().checkLog4j();
 
-        // We make sure we reinitialize the logger with the name of the
+        // We make sure we reinitialize the LOGGER with the name of the
         // current class (that's why the logged instance is not static).
         this.logger =
             LogService.getInstance().getLog(this.getClass().getName());

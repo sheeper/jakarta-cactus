@@ -69,7 +69,7 @@ import org.apache.cactus.util.log.LogService;
 public class ServletUtil
 {
     /**
-     * The logger
+     * The LOGGER
      */
     private static Log logger =
         LogService.getInstance().getLog(ServletUtil.class.getName());

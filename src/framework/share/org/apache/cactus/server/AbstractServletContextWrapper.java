@@ -118,11 +118,17 @@ public abstract class AbstractServletContextWrapper implements ServletContext
         this.originalContext = theOriginalContext;
     }
 
+    /**
+     * @see ServletContext#setAttribute(String, Object)
+     */
     public void setAttribute(String theName, Object theAttribute)
     {
         this.originalContext.setAttribute(theName, theAttribute);
     }
 
+    /**
+     * @see ServletContext#removeAttribute(String)
+     */
     public void removeAttribute(String theName)
     {
         this.originalContext.removeAttribute(theName);
@@ -133,7 +139,12 @@ public abstract class AbstractServletContextWrapper implements ServletContext
      * log messages that can then later be retrieved and asserted by the
      * test case writer. Note that the throwable is not saved.
      *
+     * @param theMessage a <code>String</code> that describes the error or
+     *        exception
+     * @param theCause the <code>Throwable</code> error or exception
+     *
      * @see #getLogs()
+     * @see ServletContext#log(String, Throwable)
      */
     public void log(String theMessage, Throwable theCause)
     {
@@ -148,7 +159,11 @@ public abstract class AbstractServletContextWrapper implements ServletContext
      * log messages that can then later be retrieved and asserted by the
      * test case writer. Note that the throwable is not saved.
      *
+     * @param theMessage a <code>String</code> that describes the error or
+     *        exception
+     *
      * @see #getLogs()
+     * @see ServletContext#log(String)
      */
     public void log(String theMessage)
     {
@@ -163,7 +178,18 @@ public abstract class AbstractServletContextWrapper implements ServletContext
      * log messages that can then later be retrieved and asserted by the
      * test case writer. Note that the throwable is not saved.
      *
+     * @param theException the exception to log
+     * @param theMessage a <code>String</code> that describes the error or
+     *        exception
+     *
      * @see #getLogs()
+     * @see ServletContext#log(Exception, String)
+     *
+     * @deprecated As of Java Servlet API 2.1, use
+     *             {@link #log(String message, Throwable throwable)} instead.
+     *             This method was originally defined to write an exception's
+     *             stack trace and an explanatory error message to the servlet
+     *             log file.
      */
     public void log(Exception theException, String theMessage)
     {
@@ -173,38 +199,58 @@ public abstract class AbstractServletContextWrapper implements ServletContext
         this.originalContext.log(theException, theMessage);
     }
 
+    /**
+     * @see ServletContext#getServlets()
+     */
     public Enumeration getServlets()
     {
         return this.originalContext.getServlets();
     }
 
+    /**
+     * @see ServletContext#getServletNames()
+     */
     public Enumeration getServletNames()
     {
         return this.originalContext.getServletNames();
     }
 
+    /**
+     * @see ServletContext#getServlet(String)
+     */
     public Servlet getServlet(String theName) throws ServletException
     {
         return this.originalContext.getServlet(theName);
     }
 
+    /**
+     * @see ServletContext#getServerInfo()
+     */
     public String getServerInfo()
     {
         return this.originalContext.getServerInfo();
     }
 
+    /**
+     * @see ServletContext#getResourceAsStream(String)
+     */
     public InputStream getResourceAsStream(String thePath)
     {
         return this.originalContext.getResourceAsStream(thePath);
     }
 
+    /**
+     * @see ServletContext#getResource(String)
+     */
     public URL getResource(String thePath) throws MalformedURLException
     {
         return this.originalContext.getResource(thePath);
     }
 
     /**
+     * @param thePath a string specifying the pathname to the resource
      * @return our request dispatcher wrapper
+     * @see ServletContext#getRequestDispatcher(String)
      */
     public RequestDispatcher getRequestDispatcher(String thePath)
     {
@@ -214,9 +260,10 @@ public abstract class AbstractServletContextWrapper implements ServletContext
     }
 
     /**
+     * @param theName a string specifying the name of a servlet to wrap
      * @return our request dispatcher wrapper or null if the servlet cannot
      *         be found.
-     * @see javax.servlet.ServletContext.getNamedDispatcher(String)
+     * @see ServletContext#getNamedDispatcher(String)
      */
     public RequestDispatcher getNamedDispatcher(String theName)
     {
@@ -233,38 +280,59 @@ public abstract class AbstractServletContextWrapper implements ServletContext
         return wrappedDispatcher;
     }
 
+    /**
+     * @see ServletContext#getRealPath(String)
+     */
     public String getRealPath(String thePath)
     {
         return this.originalContext.getRealPath(thePath);
     }
 
+    /**
+     * @see ServletContext#getMinorVersion()
+     */
     public int getMinorVersion()
     {
         return this.originalContext.getMinorVersion();
     }
 
+    /**
+     * @see ServletContext#getMimeType(String)
+     */
     public String getMimeType(String theFilename)
     {
         return this.originalContext.getMimeType(theFilename);
     }
 
+    /**
+     * @see ServletContext#getMajorVersion()
+     */
     public int getMajorVersion()
     {
         return this.originalContext.getMajorVersion();
     }
 
+    /**
+     * @see ServletContext#getInitParameterNames()
+     */
     public Enumeration getInitParameterNames()
     {
         return this.originalContext.getInitParameterNames();
     }
 
+    /**
+     * @see ServletContext#getInitParameter(String)
+     */
     public String getInitParameter(String theName)
     {
         return this.originalContext.getInitParameter(theName);
     }
 
     /**
+     * @param theUripath a String specifying the context path of another web
+     *        application in the container
      * @return our servlet context wrapper
+     * @see ServletContext#getContext(String)
      */
     public ServletContext getContext(String theUripath)
     {
@@ -273,11 +341,17 @@ public abstract class AbstractServletContextWrapper implements ServletContext
         return context;
     }
 
+    /**
+     * @see ServletContext#getAttributeNames()
+     */
     public Enumeration getAttributeNames()
     {
         return this.originalContext.getAttributeNames();
     }
 
+    /**
+     * @see ServletContext#getAttribute(String)
+     */
     public Object getAttribute(String theName)
     {
         return this.originalContext.getAttribute(theName);

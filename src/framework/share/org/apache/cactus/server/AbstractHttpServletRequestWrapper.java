@@ -66,6 +66,7 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Cookie;
 
 import org.apache.cactus.ServletURL;
 import org.apache.cactus.util.log.Log;
@@ -79,7 +80,8 @@ import org.apache.cactus.util.log.LogService;
  *
  * @version $Id$
  */
-public abstract class AbstractHttpServletRequestWrapper implements HttpServletRequest
+public abstract class AbstractHttpServletRequestWrapper
+        implements HttpServletRequest
 {
     /**
      * The real HTTP request
@@ -92,7 +94,7 @@ public abstract class AbstractHttpServletRequestWrapper implements HttpServletRe
     protected ServletURL url;
 
     /**
-     * The logger
+     * The LOGGER
      */
     private static Log logger =
         LogService.getInstance().
@@ -283,11 +285,13 @@ public abstract class AbstractHttpServletRequestWrapper implements HttpServletRe
     }
 
     /**
+     * @param thePath the path to the resource
      * @return a wrapped request dispatcher instead of the real one, so that
      *         forward() and include() calls will use the wrapped dispatcher
      *         passing it the *original* request [this is needed for some
      *         servlet engine like Tomcat 3.x which do not support the new
      *         mechanism introduced by Servlet 2.3 Filters].
+     * @see HttpServletRequest#getRequestDispatcher(String)
      */
     public RequestDispatcher getRequestDispatcher(String thePath)
     {
@@ -334,223 +338,339 @@ public abstract class AbstractHttpServletRequestWrapper implements HttpServletRe
     }
 
     /**
-     * Will concatenate 2 paths, dealing with ..
+     * Will concatenate 2 paths, normalising it. For example :
      * ( /a/b/c + d = /a/b/d, /a/b/c + ../d = /a/d ). Code borrowed from
      * Tomcat 3.2.2 !
      *
-     * @return null if error occurs
+     * @param theLookupPath the first part of the path
+     * @param thePath the part to add to the lookup path
+     * @return the concatenated thePath or null if an error occurs
      */
-    private String catPath(String lookupPath, String path)
+    private String catPath(String theLookupPath, String thePath)
     {
         // Cut off the last slash and everything beyond
-        int index = lookupPath.lastIndexOf("/");
-        lookupPath = lookupPath.substring(0, index);
+        int index = theLookupPath.lastIndexOf("/");
+        theLookupPath = theLookupPath.substring(0, index);
 
-        // Deal with .. by chopping dirs off the lookup path
-        while (path.startsWith("../")) {
-            if (lookupPath.length() > 0) {
-                index = lookupPath.lastIndexOf("/");
-                lookupPath = lookupPath.substring(0, index);
+        // Deal with .. by chopping dirs off the lookup thePath
+        while (thePath.startsWith("../")) {
+            if (theLookupPath.length() > 0) {
+                index = theLookupPath.lastIndexOf("/");
+                theLookupPath = theLookupPath.substring(0, index);
             } else {
                 // More ..'s than dirs, return null
                 return null;
             }
 
-            index = path.indexOf("../") + 3;
-            path = path.substring(index);
+            index = thePath.indexOf("../") + 3;
+            thePath = thePath.substring(index);
         }
 
-        return lookupPath + "/" + path;
+        return theLookupPath + "/" + thePath;
     }
 
     // Not modified methods --------------------------------------------------
 
+    /**
+     * @see HttpServletRequest#isRequestedSessionIdFromURL()
+     */
     public boolean isRequestedSessionIdFromURL()
     {
         return this.request.isRequestedSessionIdFromURL();
     }
 
+    /**
+     * @see HttpServletRequest#isRequestedSessionIdFromUrl()
+     */
     public boolean isRequestedSessionIdFromUrl()
     {
         return this.request.isRequestedSessionIdFromURL();
     }
 
+    /**
+     * @see HttpServletRequest#isUserInRole(String)
+     */
     public boolean isUserInRole(String theRole)
     {
         return this.request.isUserInRole(theRole);
     }
 
+    /**
+     * @see HttpServletRequest#isRequestedSessionIdValid()
+     */
     public boolean isRequestedSessionIdValid()
     {
         return this.request.isRequestedSessionIdValid();
     }
 
+    /**
+     * @see HttpServletRequest#isRequestedSessionIdFromCookie()
+     */
     public boolean isRequestedSessionIdFromCookie()
     {
         return this.request.isRequestedSessionIdFromCookie();
     }
 
+    /**
+     * @see HttpServletRequest#getLocales()
+     */
     public Enumeration getLocales()
     {
         return this.request.getLocales();
     }
 
+    /**
+     * @see HttpServletRequest#getHeader(String)
+     */
     public String getHeader(String theName)
     {
         return this.request.getHeader(theName);
     }
 
+    /**
+     * @see HttpServletRequest#getHeaders(String)
+     */
     public Enumeration getHeaders(String theName)
     {
         return this.request.getHeaders(theName);
     }
 
+    /**
+     * @see HttpServletRequest#getHeaderNames()
+     */
     public Enumeration getHeaderNames()
     {
         return this.request.getHeaderNames();
     }
 
+    /**
+     * @see HttpServletRequest#getScheme()
+     */
     public String getScheme()
     {
         return this.request.getScheme();
     }
 
+    /**
+     * @see HttpServletRequest#getAuthType()
+     */
     public String getAuthType()
     {
         return this.request.getAuthType();
     }
 
+    /**
+     * @see HttpServletRequest#getRealPath(String)
+     */
     public String getRealPath(String thePath)
     {
         return this.request.getRealPath(thePath);
     }
 
+    /**
+     * @see HttpServletRequest#getSession()
+     */
     public HttpSession getSession()
     {
         return this.request.getSession();
     }
 
+    /**
+     * @see HttpServletRequest#getSession(boolean)
+     */
     public HttpSession getSession(boolean isCreate)
     {
         return this.request.getSession(isCreate);
     }
 
+    /**
+     * @see HttpServletRequest#getRemoteHost()
+     */
     public String getRemoteHost()
     {
         return this.request.getRemoteHost();
     }
 
+    /**
+     * @see HttpServletRequest#getReader()
+     */
     public BufferedReader getReader() throws IOException
     {
         return this.request.getReader();
     }
 
+    /**
+     * @see HttpServletRequest#getContentLength()
+     */
     public int getContentLength()
     {
         return this.request.getContentLength();
     }
 
+    /**
+     * @see HttpServletRequest#getParameterValues(String)
+     */
     public String[] getParameterValues(String theName)
     {
         return this.request.getParameterValues(theName);
     }
 
+    /**
+     * @see HttpServletRequest#getContentType()
+     */
     public String getContentType()
     {
         return this.request.getContentType();
     }
 
+    /**
+     * @see HttpServletRequest#getLocale()
+     */
     public Locale getLocale()
     {
         return this.request.getLocale();
     }
 
+    /**
+     * @see HttpServletRequest#removeAttribute(String)
+     */
     public void removeAttribute(String theName)
     {
         this.request.removeAttribute(theName);
     }
 
+    /**
+     * @see HttpServletRequest#getParameter(String)
+     */
     public String getParameter(String theName)
     {
         return this.request.getParameter(theName);
     }
 
+    /**
+     * @see HttpServletRequest#getInputStream()
+     */
     public ServletInputStream getInputStream() throws IOException
     {
         return this.request.getInputStream();
     }
 
+    /**
+     * @see HttpServletRequest#getUserPrincipal()
+     */
     public Principal getUserPrincipal()
     {
         return this.request.getUserPrincipal();
     }
 
+    /**
+     * @see HttpServletRequest#isSecure()
+     */
     public boolean isSecure()
     {
         return this.request.isSecure();
     }
 
+    /**
+     * @see HttpServletRequest#getRemoteAddr()
+     */
     public String getRemoteAddr()
     {
         return this.request.getRemoteAddr();
     }
 
+    /**
+     * @see HttpServletRequest#getCharacterEncoding()
+     */
     public String getCharacterEncoding()
     {
         return this.request.getCharacterEncoding();
     }
 
+    /**
+     * @see HttpServletRequest#getParameterNames()
+     */
     public Enumeration getParameterNames()
     {
         return this.request.getParameterNames();
     }
 
+    /**
+     * @see HttpServletRequest#getMethod()
+     */
     public String getMethod()
     {
         return this.request.getMethod();
     }
 
+    /**
+     * @see HttpServletRequest#setAttribute(String, Object)
+     */
     public void setAttribute(String theName, Object theAttribute)
     {
         this.request.setAttribute(theName, theAttribute);
     }
 
+    /**
+     * @see HttpServletRequest#getAttribute(String)
+     */
     public Object getAttribute(String theName)
     {
         return this.request.getAttribute(theName);
     }
 
+    /**
+     * @see HttpServletRequest#getIntHeader(String)
+     */
     public int getIntHeader(String theName)
     {
         return this.request.getIntHeader(theName);
     }
 
+    /**
+     * @see HttpServletRequest#getDateHeader(String)
+     */
     public long getDateHeader(String theName)
     {
         return this.request.getDateHeader(theName);
     }
 
+    /**
+     * @see HttpServletRequest#getAttributeNames()
+     */
     public Enumeration getAttributeNames()
     {
         return this.request.getAttributeNames();
     }
 
+    /**
+     * @see HttpServletRequest#getRemoteUser()
+     */
     public String getRemoteUser()
     {
         return this.request.getRemoteUser();
     }
 
+    /**
+     * @see HttpServletRequest#getProtocol()
+     */
     public String getProtocol()
     {
         return this.request.getProtocol();
     }
 
+    /**
+     * @see HttpServletRequest#getRequestedSessionId()
+     */
     public String getRequestedSessionId()
     {
         return this.request.getRequestedSessionId();
     }
 
-    public javax.servlet.http.Cookie[] getCookies()
+    /**
+     * @see HttpServletRequest#getCookies()
+     */
+    public Cookie[] getCookies()
     {
         return this.request.getCookies();
     }

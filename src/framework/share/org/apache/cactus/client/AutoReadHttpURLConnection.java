@@ -91,7 +91,7 @@ import org.apache.cactus.util.log.LogService;
 final class AutoReadHttpURLConnection extends HttpURLConnection
 {
     /**
-     * The logger
+     * The LOGGER
      */
     private static final Log LOGGER =
         LogService.getInstance().

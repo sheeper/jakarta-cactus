@@ -1,4 +1,6 @@
 /*
+ * ====================================================================
+ *
  * The Apache Software License, Version 1.1
  *
  * Copyright (c) 2001-2002 The Apache Software Foundation.  All rights
@@ -23,10 +25,10 @@
  *    Alternately, this acknowlegement may appear in the software itself,
  *    if and wherever such third-party acknowlegements normally appear.
  *
- * 4. The names "The Jakarta Project", "Cactus", and "Apache Software
- *    Foundation" must not be used to endorse or promote products derived
- *    from this software without prior written permission. For written
- *    permission, please contact apache@apache.org.
+ * 4. The names "The Jakarta Project", "Cactus" and "Apache Software
+ *    Foundation" must not be used to endorse or promote products
+ *    derived from this software without prior written permission. For
+ *    written permission, please contact apache@apache.org.
  *
  * 5. Products derived from this software may not be called "Apache"
  *    nor may "Apache" appear in their names without prior written
@@ -50,6 +52,7 @@
  * individuals on behalf of the Apache Software Foundation.  For more
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
+ *
  */
 package org.apache.cactus.server;
 
@@ -84,9 +87,9 @@ public abstract class AbstractTestCaller
         "ServletTestRedirector_TestResults";
 
     /**
-     * The logger
+     * The logger.
      */
-    protected static Log logger =
+    private static final Log LOGGER =
         LogService.getInstance().getLog(AbstractTestCaller.class.getName());
 
     /**
@@ -146,13 +149,13 @@ public abstract class AbstractTestCaller
 
         }
 
-        logger.debug("Test result : [" + result + "]");
+        LOGGER.debug("Test result : [" + result + "]");
 
         // Set the test result.
         this.webImplicitObjects.getServletContext().setAttribute(TEST_RESULTS,
             result);
 
-        logger.debug("Result saved in context scope");
+        LOGGER.debug("Result saved in context scope");
     }
 
     /**
@@ -174,7 +177,7 @@ public abstract class AbstractTestCaller
             (WebTestResult) (this.webImplicitObjects.getServletContext().
             getAttribute(TEST_RESULTS));
 
-        logger.debug("Test Result = [" + result + "]");
+        LOGGER.debug("Test Result = [" + result + "]");
 
         // Write back the results as a serialized object to the outgoing stream.
         try {
@@ -192,7 +195,7 @@ public abstract class AbstractTestCaller
         } catch (IOException e) {
             String message = "Error writing WebTestResult instance to output " +
                 "stream";
-            logger.error(message, e);
+            LOGGER.error(message, e);
             throw new ServletException(message, e);
         }
     }
@@ -223,11 +226,11 @@ public abstract class AbstractTestCaller
         if (className == null) {
             String message = "Missing class name parameter [" +
                 ServiceDefinition.CLASS_NAME_PARAM + "] in HTTP request.";
-            logger.error(message);
+            LOGGER.error(message);
             throw new ServletException(message);
         }
 
-        logger.debug("Class to call = " + className);
+        LOGGER.debug("Class to call = " + className);
 
         return className;
     }
@@ -246,11 +249,11 @@ public abstract class AbstractTestCaller
         if (methodName == null) {
             String message = "Missing method name parameter [" +
                 ServiceDefinition.METHOD_NAME_PARAM + "] in HTTP request.";
-            logger.error(message);
+            LOGGER.error(message);
             throw new ServletException(message);
         }
 
-        logger.debug("Method to call = " + methodName);
+        LOGGER.debug("Method to call = " + methodName);
 
         return methodName;
     }
@@ -268,7 +271,7 @@ public abstract class AbstractTestCaller
 
         boolean isAutomaticSession = new Boolean(autoSession).booleanValue();
 
-        logger.debug("Auto session is " + isAutomaticSession);
+        LOGGER.debug("Auto session is " + isAutomaticSession);
 
         return isAutomaticSession;
     }
@@ -282,7 +285,7 @@ public abstract class AbstractTestCaller
         String theTestCaseName) throws ServletException
     {
         // Print info on the classloader used to load this class
-        if (logger.isDebugEnabled()) {
+        if (LOGGER.isDebugEnabled()) {
             StringBuffer buffer = new StringBuffer("Classloaders = ");
             ClassLoader classLoader = this.getClass().getClassLoader();
             while (classLoader != null) {
@@ -292,7 +295,7 @@ public abstract class AbstractTestCaller
                     buffer.append(", ");
                 }
             }
-            logger.debug(buffer.toString());
+            LOGGER.debug(buffer.toString());
         }
 
         // Get the class to call and build an instance of it.
@@ -306,7 +309,7 @@ public abstract class AbstractTestCaller
         } catch (Exception e) {
             String message = "Error instantiating class [" + theClassName +
                 "(" + theTestCaseName + ")]";
-            logger.error(message, e);
+            LOGGER.error(message, e);
             throw new ServletException(message, e);
         }
 
@@ -336,7 +339,7 @@ public abstract class AbstractTestCaller
             message += " your test classes reside in a specific webapp,\r\n";
             message += "\t- Something else ... !";
 
-            logger.error(message, e);
+            LOGGER.error(message, e);
             throw new ServletException(message, e);
         }
 
