@@ -35,7 +35,7 @@
     <!-- JUnit Runner to use for executing the tests. Valid values are
     	 "text" and "swing" -->
     <property name="cactus.runner" value="text"/>
-    
+
     <!--
        ========================================================================
          Set the properties related to the source tree.
@@ -92,7 +92,7 @@
         <!-- Initialize Cactus custom Ant task needed for running the server
              tests -->
         <taskdef resource="cactus.tasks"
-          classpath="${cactus.antintegration.jar}"/>
+          classpath="${cactus.antintegration.jar}"/>         
 
     </target>
 
@@ -126,6 +126,20 @@
             </fileset>
         </copy>
         
+    </target>
+
+    <!--
+       ========================================================================
+         Copy the Cactus test classes if sources are provided
+       ========================================================================
+    -->
+    <target name="cactus.copyclasses" if="cactus.src.dir" depends="cactus.compile">
+
+        <!-- Copy the Cactus test classes -->
+        <copy todir="${cactus.target.dir}/${cactus.context}/WEB-INF/classes">
+            <fileset dir="${cactus.target.classes.dir}"/>
+        </copy>
+
     </target>
 
     <!--
@@ -185,7 +199,7 @@
          Cactifify a plain war (pointed to by the cactus.war property).
        ========================================================================
     -->
-    <target name="cactus.war" depends="cactus.compile" 
+    <target name="cactus.war"
         description="Cactify the war">
                 
         <unwar src="${cactus.war}" 
@@ -197,12 +211,9 @@
         <!-- Copy the log4j configuration files -->
         <copy tofile="${cactus.target.dir}/${cactus.context}/WEB-INF/classes/log4j.properties"
         	file="${cactus.conf.dir}/log_server.properties"/>
-
-        <!-- Copy the Cactus test classes -->
-        <copy todir="${cactus.target.dir}/${cactus.context}/WEB-INF/classes">
-            <fileset dir="${cactus.target.classes.dir}"/>
-        </copy>
-                
+        	
+        <antcall target="cactus.copyclasses"/>
+	
         <!-- Copy the Cactus jars that should be on server side classpath. 
         	 Note: we used the named jars as it should
         	 be possible to override the locations of jars and they should not
@@ -235,7 +246,18 @@
          Trigger the Cactus test by running a JUnit Test Runner
        ========================================================================
     -->
-    <target name="cactus.test">
+    <target name="cactus.test" depends="cactus.test.eclipse, cactus.test.junit"/>
+
+    <!-- Target called when running Eclipse -->
+    <target name="cactus.test.eclipse" if="cactus.test.runeclipse">
+
+      <taskdef name="eclipseruntests"
+               classname="org.apache.cactus.eclipse.runner.containers.ant.EclipseRunTests"/> 
+      <eclipseruntests/>
+
+    </target>
+
+    <target name="cactus.test.junit" unless="cactus.test.runeclipse">
 
         <!-- Copy the log4j client side configuration file in a location that
         	we put in the classpath of the JUnit Test Runner -->
