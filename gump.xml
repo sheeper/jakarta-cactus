@@ -251,14 +251,14 @@
       <depend property="eclipse.debug.core.jar" project="eclipse" id="dtcore"/>
       <depend property="eclipse.debug.ui.jar" project="eclipse" id="dtui"/>
       <depend property="eclipse.jdt.core.jar" project="eclipse" id="jdtcore"/>
+      <depend property="eclipse.jdt.junit.jar" project="eclipse" id="jdtjunit"/>
       <depend property="eclipse.jdt.launching.jar" project="eclipse" id="launching"/>
+      <depend property="eclipse.jdt.ui.jar" project="eclipse" id="jdtui"/>
       <depend property="eclipse.swt.jar" project="eclipse" id="swt"/>
       <depend property="eclipse.jface.jar" project="eclipse" id="jface"/>
       <depend property="eclipse.ant.core.jar" project="eclipse" id="antsupport"/>
       <depend property="eclipse.ui.workbench.jar" project="eclipse" id="workbench"/>
-
-      <property name="eclipse.jdt.junit.jar" 
-        value="integration/eclipse/lib/junitsupport-2.1.0dev.jar"/>
+      
 
     </ant>
   
@@ -295,7 +295,7 @@
       <property name="project.version" value="@@DATE@@"/>
 
       <depend property="cactus.anttasks.jar" project="jakarta-cactus-anttasks"/>
-      <depend property="j2ee.jar" project="jakarta-servletapi-4"/>
+      <depend property="j2ee.jar" project="jakarta-servletapi"/>
       <depend property="eclipse.junit.jar" project="eclipse" id="junit"/>
       <depend property="eclipse.core.boot.jar" project="eclipse" id="boot"/>
       <depend property="eclipse.core.resources.jar" project="eclipse" id="resources"/>
@@ -303,14 +303,13 @@
       <depend property="eclipse.debug.core.jar" project="eclipse" id="dtcore"/>
       <depend property="eclipse.debug.ui.jar" project="eclipse" id="dtui"/>
       <depend property="eclipse.jdt.core.jar" project="eclipse" id="jdtcore"/>
+      <depend property="eclipse.jdt.junit.jar" project="eclipse" id="jdtjunit"/>
       <depend property="eclipse.jdt.launching.jar" project="eclipse" id="launching"/>
+      <depend property="eclipse.jdt.ui.jar" project="eclipse" id="jdtui"/>
       <depend property="eclipse.swt.jar" project="eclipse" id="swt"/>
       <depend property="eclipse.jface.jar" project="eclipse" id="jface"/>
       <depend property="eclipse.ant.core.jar" project="eclipse" id="antsupport"/>
       <depend property="eclipse.ui.workbench.jar" project="eclipse" id="workbench"/>
-
-      <property name="eclipse.jdt.junit.jar" 
-        value="integration/eclipse/lib/junitsupport-2.1.0dev.jar"/>
 
     </ant>
     
