@@ -207,6 +207,14 @@
         "cactify" should check if the jars it adds are already in the project
         build path before adding them
       </action>
+      <action>
+        In Eclipse 3.0M2, there is a new extension point for quick fixes. The idea
+        is to add a quick fix for Cactus: it would suggest to "Add Cactus libraries"
+        if an import cannot be resolved on a cactus-related class. for more 
+        information, see
+        <link href="http://download.eclipse.org/downloads/drops/S-3.0M2-200307181617/eclipse-news-M2.html">
+        Eclipse 3.0 M2 - New and Noteworthy</link>
+      </action>
     </category>
 
   </version>
