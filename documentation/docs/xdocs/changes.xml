@@ -68,6 +68,11 @@
       </devs>
 
       <release version="1.6dev" date="in CVS">
+        <action dev="VMA" type="add">
+          Added the Maven plugin. It was formerly hosted in the Maven project's
+          own CVS. It is now in the Cactus CVS and is part of the Cactus
+          distribution.
+        </action>
       </release>
 
       <release version="1.5-rc2" date="in CVS">
