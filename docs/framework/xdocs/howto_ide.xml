@@ -25,8 +25,16 @@
           <link href="howto_ide_jbuilder.html">JBuilder Integration</link>,
         </li>
         <li>
-          <link href="howto_ide_vajava.html">VisualAge for Java
-          Integration</link>
+          VisualAge for Java Integration :
+          <ul>
+            <li>
+              <link href="howto_ide_vajava_wte.html">VAJava and integrated WebSphere Test
+              Environment (WTE)</link>
+            </li>
+            <li>
+              <link href="howto_ide_vajava_tomcat.html">VAJava and Tomcat Test Environment</link>
+            </li>
+          </ul>
         </li>
       </ul>
 

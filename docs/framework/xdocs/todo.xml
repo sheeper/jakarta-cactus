@@ -32,13 +32,6 @@
   <version title="Version 1.3">
 
     <category title="Documentation">
-      <action>
-        Add a tutorial for VAJava with Tomcat environment (the current
-        tutorial on the web site is for VAJava with WTE). Needed steps
-        are detailed on the cactus-user list, thread <code>"Cactus, Apache
-        Tomcat &amp; VisualAge"</code>. Thanks to
-        <link href="mailto:Jim.Young@cibc.com">Jim Young</link>.
-      </action>
       <action assigned-to="Vincent Massol">
         Move old FAQ entries from Jyve to our plain text file.
       </action>
