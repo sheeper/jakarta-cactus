@@ -271,7 +271,8 @@ be resolved. Please check you build.properties file, and run Ant with the
         </copy>
 
         <javac destdir="${target.classes.clover.dir}"
-            deprecation="${deprecation}" optimize="${optimize}">
+            deprecation="${deprecation}" optimize="${optimize}"
+            debug="${debug}">
             <src path="${src.java.dir}"/>
             <exclude name="**/package.html"/>
             <exclude name="**/overview.html"/>
