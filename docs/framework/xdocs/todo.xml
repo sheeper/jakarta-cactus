@@ -136,6 +136,12 @@
         Support unit testing of Servlet code that uses Security APIs, such as
         <code>isUserInRole()</code>, ...
       </action>
+      <action>
+        Ensure that the Log4j configuration of Cactus does not interfere with
+        an existing Log4j configuration used in the application to test 
+        (requested by <link href="mailto:henrik.fredholm@telenor.com>
+        Henrik Fredholm</link>).
+      </action>
     </category>
 
   </version>
