@@ -136,7 +136,7 @@
           </td>
         </tr>
         <tr>
-          <td>maven.tmpdir.dir</td>
+          <td>cactus.tmp.dir</td>
           <td>Yes</td>
           <td>
             <p>
