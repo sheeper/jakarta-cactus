@@ -99,7 +99,7 @@ public final class TestCactusTask extends AntTestCase
      * 
      * @throws Exception If an unexpected error occurs
      */
-    public void testWarFileNotSet() throws Exception
+    public void testNeitherWarFileNorEarFileSet() throws Exception
     {
         try
         {

@@ -2,7 +2,7 @@
 
 <project name="test-cactus" basedir="." default="setup">
 
-  <target name="testWarFileNotSet">
+  <target name="testNeitherWarFileNorEarFileSet">
     <cactus/>
   </target>
 
