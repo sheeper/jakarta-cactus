@@ -121,8 +121,6 @@
           comment="Cactus Tasks for Ant">
             <entry key="runservertests"
               value="org.apache.cactus.integration.ant.RunServerTestsTask"/>
-            <entry key="webmerge"
-              value="org.apache.cactus.integration.ant.WebMergeTask"/>
             <entry key="webxmlmerge"
               value="org.apache.cactus.integration.ant.WebXmlMergeTask"/>
         </propertyfile>
@@ -173,8 +171,6 @@
                 <fileset dir="${src.test.dir}">
                     <include name="**/Test*.java"/>
                     <exclude name="**/TestAll.java"/>
-                    <!-- Temporary exclude, the tests currently fail -->
-                    <exclude name="**/TestWebMerge.java"/>
                 </fileset>
             </batchtest>
 

@@ -310,8 +310,6 @@ integration/ant/src/java/org/apache/cactus/integration/ant/ResinRun.java svn_key
 integration/ant/src/java/org/apache/cactus/integration/ant/RunServerTestsTask.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/java/org/apache/cactus/integration/ant/StartServerHelper.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/java/org/apache/cactus/integration/ant/StopServerHelper.java svn_keywords=Author+Date+Id+Revision
-integration/ant/src/java/org/apache/cactus/integration/ant/WebMerge.java svn_keywords=Author+Date+Id+Revision
-integration/ant/src/java/org/apache/cactus/integration/ant/WebMergeTask.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/java/org/apache/cactus/integration/ant/WebXmlMergeTask.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/java/org/apache/cactus/integration/ant/webxml/WebXml.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/java/org/apache/cactus/integration/ant/webxml/WebXmlMerger.java svn_keywords=Author+Date+Id+Revision
@@ -326,7 +324,6 @@ integration/ant/src/scripts/share/build-tests-resin2x.xml svn_keywords=Author+Da
 integration/ant/src/scripts/share/build-tests-tomcat4x.xml svn_keywords=Author+Date+Id+Revision
 integration/ant/src/scripts/share/build-tests-weblogic6x.xml svn_keywords=Author+Date+Id+Revision
 integration/ant/src/scripts/share/build-tests-weblogic7x.xml svn_keywords=Author+Date+Id+Revision
-integration/ant/src/test/org/apache/cactus/integration/ant/TestWebMerge.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/test/org/apache/cactus/integration/ant/webxml/TestAll.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/test/org/apache/cactus/integration/ant/webxml/TestWebXml.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/test/org/apache/cactus/integration/ant/webxml/TestWebXmlMerger.java svn_keywords=Author+Date+Id+Revision
