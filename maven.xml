@@ -5,21 +5,16 @@
 
   <!-- Note: This file is automatically inherited by all Cactus Maven 
        projects -->
-       
+
   <!--
      ========================================================================
        Package all Cactus modules.
      ========================================================================
   -->
   <goal name="cactus-build:jar">
-    
-    <maven:reactor
-      basedir="${basedir}"
-      includes="*/project.xml,samples/*/project.xml"
-      goals="jar:jar"
-      banner="Building"
-      ignoreFailures="false"
-    />
+
+    <j:set var="goal" value="jar:jar"/>
+    <attainGoal name="multiproject:goal"/>
 
   </goal>
 
@@ -30,13 +25,8 @@
   -->
   <goal name="cactus-build:clean">
 
-    <maven:reactor
-      basedir="${basedir}"
-      includes="*/project.xml,samples/*/project.xml"
-      goals="clean"
-      banner="Cleaning"
-      ignoreFailures="false"
-    />
+    <j:set var="goal" value="clean:clean"/>
+    <attainGoal name="multiproject:goal"/>
 
   </goal>
 
@@ -47,13 +37,7 @@
   -->
   <goal name="cactus-build:site">
 
-    <maven:reactor
-      basedir="${basedir}"
-      includes="*/project.xml,samples/*/project.xml"
-      goals="site"
-      banner="Generating site"
-      ignoreFailures="false"
-    />
+    <attainGoal name="multiproject:site"/>
 
   </goal>
   
