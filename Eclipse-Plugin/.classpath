@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
     <classpathentry kind="src" path="src/java"/>
-    <classpathentry kind="src" path="src/test"/>
     <classpathentry kind="var" path="JRE_LIB" rootpath="JRE_SRCROOT" sourcepath="JRE_SRC"/>
     <classpathentry kind="src" path="/org.eclipse.core.runtime"/>
     <classpathentry kind="src" path="/org.eclipse.debug.core"/>
