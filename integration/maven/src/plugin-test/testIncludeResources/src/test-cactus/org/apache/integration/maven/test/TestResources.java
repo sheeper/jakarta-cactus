@@ -31,7 +31,7 @@ import java.io.InputStream;
  *
  * @version $Id$
  */
-public class ResourcesTest extends ServletTestCase
+public class TestResources extends ServletTestCase
 {
     private void includesTest( String resource )
     {
