@@ -3,427 +3,282 @@
 <document id="howto_ant_cactus">
 
   <properties>
-    <title>Running Cactus tests from Ant</title>
+    <title>Servlet Sample Walkthrough</title>
     <authors>
-      <author name="Vincent Massol" email="vmassol@apache.org"/>
       <author name="Christopher Lenz" email="cmlenz@apache.org"/>
     </authors>
   </properties>
 
   <body>
 
-    <section title="Introduction">
-
-      <note>
-        <strong>You need to have a good understanding of Ant before
-        reading this tutorial. If you don't, I suggest you read the
-        <link href="http://ant.apache.org/manual/index.html">Ant
-        User Manual</link> first</strong>.
-      </note>
+    <section title="Servlet Sample Walkthrough">
 
       <p>
-        This tutorial explains how to integrate Cactus tests with a build
-        process based on Apache <link href="ext:ant">Ant</link>.
+        Cactus is distributed with a small sample web application, generally
+        referred to as the <em>Servlet Sample</em>. You can find this 
+        application in the directory <code>samples/servlet</code> in the
+        main distribution. While the servlet sample is intended to provide
+        insight in how to use Cactus for writing tests, it also nicely
+        demonstrates the use of the Ant integration provided by Cactus.
       </p>
       <p>
-        The Ant tasks involved for running a Cactus test are the following:
+        In this section, we will walk through the build file of the servlet
+        sample step by step, explaining how the Cactus tests are integrated
+        into the overall build of the application. I recommended that you look
+        at the servlet sample build and play with it after or while reading
+        this.
       </p>
-      <ul>
-        <li>
-          <em>Step 0</em>: (optional) Deploy configuration files for your
-          container
-        </li>
-        <li>
-          <em>Step 1</em>: Package your Cactus tests as a WAR file and
-          deploy it to your servlet engine webapps directory
-        </li>
-        <li>
-          <em>Step 2</em>: Start your servlet engine if it is not already
-          started
-        </li>
-        <li>
-          <em>Step 3</em>: Run the tests using JUnit
-        </li>
-        <li>
-          <em>Step 4</em>: Stop the servlet engine if it hadn't been running
-          before
-        </li>
-      </ul>
-      <p>
-        Cactus provides a couple of custom Ant tasks that help perform these 
-        steps. The rest of this tutorial will explain how to write an Ant 
-        build file (<code>build.xml</code>) that performs the above steps using
-        the Cactus custom Ant tasks.
-      </p>
-      <p>
-        During the remainder of this tutorial we will show examples for
-        Tomcat 4.0. However, the principle can be applied to any other
-        container. Ant scripts for other containers are included with the 
-        distribution of the Cactus/Ant-integration.
-      </p>
+
+      <section title="Starting off with a plain build">
+
+        <p>
+          The servlet sample is a simple web application that contains
+          a servlet, some JSP tags, a JSP page and a servlet filter. For the
+          rest of this document we're going to work with the version of the
+          servlet sample for J2EE 1.3.
+        </p>
+        <p>
+          The build file without any Cactus tests is straightforward. As usual,
+          the first thing is that a couple of properties are set up:
+        </p>
+
+        <source><![CDATA[
+<project name="Cactus Servlet Sample" default="dist" basedir=".">
+
+  <property file="build.properties" />
+  <property file="${user.home}/build.properties" />
+
+  <property name="project.name.text" value="Cactus Servlet Sample"/>
+  <property name="project.name.file" value="sample-servlet"/>
+  <property name="project.version" value="@version@"/>
+
+  <property name="project.prefix" value="jakarta-"/>
+
+  <property name="year" value="@year@"/>
+  <property name="debug" value="on"/>
+  <property name="optimize" value="off"/>
+  <property name="deprecation" value="off"/>
+
+  <!-- Directory layout -->
+  <property name="src.dir" location="src"/>
+  <property name="src.java.dir" location="${src.dir}/java"/>
+  <property name="src.webapp.dir" location="${src.dir}/webapp"/>
+  <property name="target.dir" location="target"/>
+  <property name="target.classes.dir" location="${target.dir}/classes"/>
+  <property name="target.classes.java.dir"
+      location="${target.classes.dir}/java"/>
+  <property name="dist.dir" location="dist"/>
+
+  <!-- Required libraries -->
+  <property name="servlet.jar" location="lib/servlet.jar"/>
+  <property name="jstl.jar" location="lib/jstl.jar"/>
+  <property name="standard.jar" location="lib/standard.jar"/>
+  <path id="project.classpath">
+    <pathelement location="${servlet.jar}"/>
+    <pathelement location="${jstl.jar}"/>
+    <pathelement location="${standard.jar}"/>
+  </path>
+]]></source>
+
+        <p>
+          Next, we check whether the required libraries are actually available.
+          This is done in the <em>init</em> target. In this case, we just check
+          whether the corresponding properties point to existing files.
+          Alternatively, we could be checking whether the JARs also contain
+          some class we need. We also set the time stamp.
+        </p>
+
+        <source><![CDATA[
+  <!-- Initialize the build. Must be called by all targets -->
+  <target name="init">
+    <condition property="properties.ok">
+      <and>
+        <available file="${servlet.jar}"/>
+        <available file="${jstl.jar}"/>
+        <available file="${standard.jar}"/>
+      </and>
+    </condition>
+    <fail unless="properties.ok">Missing property...</fail>
+    <tstamp/>
+  </target>
+]]></source>
+
+        <p>
+          The first <em>real</em> thing we'll do in the build is to compile
+          the application classes.
+        </p>
+
+        <source><![CDATA[
+  <!-- Compile the Java source -->
+  <target name="compile" depends="init"
+      description="Compile the application classes">
+    <mkdir dir="${target.classes.java.dir}"/>
+    <javac destdir="${target.classes.java.dir}"
+        debug="${debug}" optimize="${optimize}"
+        deprecation="${deprecation}">
+      <src path="${src.java.dir}"/>
+      <classpath refid="project.classpath"/>
+    </javac>
+  </target>
+]]></source>
+
+        <p>
+          What's left is just the generation of the web-application archice
+          (WAR) for deployment. We do that using the builtin
+          <em>&lt;war&gt;</em> task.
+        </p>
+
+        <source><![CDATA[
+  <!-- Create the war file -->
+  <target name="war" depends="compile"
+      description="Generate the runtime war">
+    <war warfile="${target.dir}/${project.name.file}.war"
+        webxml="${src.webapp.dir}/WEB-INF/web.xml">
+      <fileset dir="${src.webapp.dir}"/>
+      <classes dir="${target.classes.java.dir}"/>
+      <lib file="${jstl.jar}">
+      <lib file="${standard.jar}">
+    </war>
+  </target>
+]]></source>
+
+        <p>
+          After that, we might want to copy the generated WAR file to the
+          distribution directory. In a somewhat more sophisticated application
+          we'd also copy things like the API documentation or a user's
+          guide to the distribution directory in this target. We also make
+          the <em>dist</em> target depend on the <em>clean</em> target, so that
+          distribution builds are always a full rebuild.
+        </p>
+
+        <source><![CDATA[
+  <target name="dist" depends="clean, war"
+      description="Generate the distributable files">
+    <copy file="${target.dir}/${project.name.file}.war"
+        todir="${dist.dir}"/>
+  </target>
+
+  <target name="clean"
+      description="Remove all generated files">
+    <delete dir="${target.dir}"/>
+    <delete dir="${dist.dir}"/>
+  </target>
+]]></source>
+
+      </section>
+
+      <section title="Defining the Cactus Ant tasks">
+
+        <p>
+          Now we're ready to start integrating Cactus tests into the build.
+          The first thing we need to do for that is to define the Cactus tasks,
+          so that they can be used in the build file.
+        </p>
+
+        <p>
+          The prerequisite for defining the Cactus tasks is to make the Cactus
+          JARs accessible to Ant. This can be done in a number of ways, but
+          here we're going to assume that they are stored in a <em>lib</em>
+          directory of the project. We then define properties representing the
+          individual JARs, so that they can be overridden by the user. And we 
+          build a reusable classpath using the Ant <em>&lt;path&gt;</em> type.
+        </p>
+
+        <source><![CDATA[
+  <!-- Libraries required for the Cactus tests -->
+  <property name="aspectjrt.jar" location="lib/aspectjrt.jar"/>
+  <property name="cactus.jar" location="lib/cactus.jar"/>
+  <property name="cactus.ant.jar" location="lib/cactus.ant.jar"/>
+  <property name="commons.httpclient.jar"
+      location="lib/commons.httpclient.jar"/>
+  <property name="commons.logging.jar"
+      location="lib/commons.logging.jar"/>
+  <property name="httpunit.jar" location="lib/httpunit.jar"/>
+  <property name="junit.jar" location="lib/junit.jar"/>
+  <property name="nekohtml.jar" location="lib/nekohtml.jar"/>
+  <path id="cactus.classpath">
+    <path refid="project.classpath"/>
+    <pathelement location="${aspectjrt.jar}"/>
+    <pathelement location="${cactus.jar}"/>
+    <pathelement location="${cactus.ant.jar}"/>
+    <pathelement location="${commons.httpclient.jar}"/>
+    <pathelement location="${commons.logging.jar}"/>
+    <pathelement location="${junit.jar}"/>
+  </path>
+]]></source>
+
+        <p>
+          Once this is done, we can proceed with the actual definition of the
+          Cactus tasks, using the Ant <em>&lt;taskdef&gt;</em> task.
+        </p>
+
+        <source><![CDATA[
+  <taskdef resource="cactus.tasks" classpathref="cactus.classpath"/>
+]]></source>
+
+        <p>
+          By using the <em>cactus.tasks</em> property file included in the
+          <code>cactus-ant.jar</code> library, we can define all Cactus tasks
+          in one go, without needing to know the names of the individual task
+          classes.
+        </p>
+
+      </section>
+
+      <section title="Compiling the Test Code">
+
+        <p>
+          Next we need to compile the test case classes. In the servlet sample,
+          these are located in the directory <code>src/test-cactus</code>.
+          After adding the definition of the two properties
+          <em>src.cactus.dir</em> and <em>test.classes.cactus.dir</em> at the
+          top of the build file, we can add a target for the test compilation:
+        </p>
+
+        <source><![CDATA[
+  <!-- Compiles the Cactus test sources -->
+  <target name="compile.cactus" depends="compile.java">
+    <mkdir dir="${target.classes.cactus.dir}"/>
+    <javac destdir="${target.classes.cactus.dir}"
+        debug="${debug}" optimize="${optimize}"
+        deprecation="${deprecation}">
+      <src path="${src.cactus.dir}"/>
+      <classpath>
+        <path refid="cactus.classpath"/>
+        <pathelement location="${httpunit.jar}"/>
+        <pathelement location="${nekohtml.jar}"/>
+        <pathelement location="${target.classes.java.dir}"/>
+      </classpath>
+    </javac>
+  </target>
+
+  <target name="compile" depends="compile.java, compile.test">
+  </target>
+]]></source>
+
+        <p>
+          Note that we renamed the target to compile the application classes
+          from <em>compile</em> to <em>compile.java</em>, and added a wrapper
+          target <em>compile</em> that depends on both <em>compile.java</em>
+          and <em>compile.test</em>.
+        </p>
+
+      </section>
+
+      <section title="Cactifying the Web Application">
+
+        <p>(To be written)</p>
+
+      </section>
+
+      <section title="Running the Cactus Tests">
+
+        <p>(To be written)</p>
+
+      </section>
 
     </section>
 
-    <section title="Using the Cactus Ant Tasks">
-
-      <p>
-        The Cactus/Ant-integration includes some custom tasks that can be used
-        from within Ant build files.
-        <ul>
-          <li>
-            <link href="site:task_runservertests">RunServerTests</link>
-            provides support for starting up a servlet container to run
-            in-container tests, and shutting it down again after the tests have
-            completed.
-          </li>
-          <li>
-            <link href="site:task_webxmlmerge">WebXmlMerge</link> provides a
-            convenient way to inject external definitions into a web deployment
-            descriptor (<code>web.xml</code>) from an Ant build
-          </li>
-        </ul>
-      </p>
-      
-      <p>
-        Before you can use one of these tasks, you need to introduce it to Ant
-        as it is not a built-in task. This is done in a build file using the
-        <code>taskdef</code> task:
-      </p>
-
-<source><![CDATA[
-<taskdef resource="cactus.tasks">
-  <classpath>
-    <pathelement location="${cactus-ant.jar}"/>
-  </classpath>
-</taskdef>
-]]></source>
-
-       <p>
-         In this example, <code>${cactus-ant.jar}</code> is an Ant property that
-         points to the Cactus JAR that contains the custom Ant tasks. Note that
-         by specifying the <code>resource</code> attribute, it is not
-         necessary to define each task individually. The value of this
-         attribute, <code>cactus.tasks</code>, is a property file contained in 
-         the JAR file which lists all tasks provided by Cactus.
-       </p>
-
-     </section>
-
-     <section title="Step 0: Deploy container configuration files">
-
-       <p>
-         There are 2 possibilities for configuring your application server:
-       </p>
-       <ol>
-         <li>
-           You install it somewhere on your computer (or on another machine)
-           and you deploy your test WAR (see Step 1 below) by copying it
-           to the right subdirectory within it. Your WAR will then be placed
-           alongside with others and your webapp will use the configuration
-           files common to all webapps,
-         </li>
-         <li>
-           Or, you can create your own set of container configuration files,
-           hosted within your project, that you copy to your own deployment
-           subdirectory (i.e. not shared).
-         </li>
-       </ol>
-       <p>
-         In the provided Cactus Ant scripts, we have decided to follow
-         approach 2 for the following reasons:
-       </p>
-       <ul>
-         <li>
-           We keep the control of our project files as they are deployed
-           within the directory of our project and thus it is easy to
-           perform a clean of all generated files,
-         </li>
-         <li>
-           We do not "pollute" the installed container by dropping files
-           within it and we do not need to modify global configuration
-           files that may prevent other applications we are developing
-           from not running someday (because we would have made an
-           incompatible change),
-         </li>
-         <li>
-           We completely control our needed container configuration.
-         </li>
-         <li>
-           We can guarantee to the user who wants to try the Cactus sample
-           application that it will not deploy anything outside the scope of
-           the Sample directory. Unlike windows applications that you install
-           and that copies tens of DLL to shared directory, overwrite existing
-           files, ... :(
-         </li>
-       </ul>
-       <p>
-         However, this may not be the best approach for all cases, as:
-       </p>
-       <ul>
-         <li>
-           It is more difficult to set up as you need to understand how your
-           container is configured (However, we have already done the job for
-           you for most of the existing containers),
-         </li>
-         <li>
-           You have only a single application to run and test and have
-           dedicated your application server installation for it so you don't
-           care about putting files in there and modifying global
-           configuration,
-         </li>
-         <li>
-           You want to be able to deploy in production several webapps that
-           share the same server and thus must coexist and share common
-           configuration files.
-         </li>
-       </ul>
-
-       <p>
-         If you choose solution 1, then you can simply skip this step. The
-         only actions to perform will be, for some containers, to edit their
-         configuration files to tell them about your webapp (some will
-         automatically pick you test WAR if you drop it in the correct
-         directory).
-       </p>
-
-       <p>
-         Example:
-       </p>
-
-<source><![CDATA[
-<!--
-   ========================================================================
-     Prepare directories and variables for running the tests
-   ========================================================================
--->
-<target name="prepare.test.tomcat.40"
-    depends="check.test.tomcat.40,testwar" if="tomcat.home.40">
-
-    <echo message="tomcat.home.40 = ${tomcat.home.40}"/>
-
-    <property name="target.tomcat40.dir"
-        value="${target.test.dir}/tomcat40"/>
-    <property name="conf.tomcat40.dir" value="${conf.test.dir}/tomcat40"/>
-
-    <!-- Create work and conf directories and copy configuration files -->
-    <mkdir dir="${target.tomcat40.dir}/conf"/>
-    <mkdir dir="${target.tomcat40.dir}/work"/>
-    <mkdir dir="${target.tomcat40.dir}/webapps"/>
-
-    <!-- Delete some config file so that they will be copied every time -->
-    <delete file="${target.tomcat40.dir}/conf/server.xml"/>
-
-    <!-- Remove the auto deployed webapp so that it is redeployed every
-         time -->
-    <delete dir="${target.tomcat40.dir}/webapps/test"/>
-
-    <copy todir="${target.tomcat40.dir}/conf" filtering="on">
-        <fileset dir="${conf.tomcat40.dir}"/>
-    </copy>
-
-    <!-- Copy the Tomcat web.xml -->
-    <copy file="${tomcat.home.40}/conf/web.xml"
-        todir="${target.tomcat40.dir}/conf"/>
-
-    <!-- Copy the war file -->
-    <copy file="${target.test.dir}/test.war"
-        tofile="${target.tomcat40.dir}/webapps/test.war"/>
-
-</target>
-]]></source>
-
-       <note>
-         The <code>${target.test.dir}</code> Ant property needs to be
-         defined prior to calling this target and needs to be set to the
-         location where the tests will be deployed. It should be set to any
-         subdirectory of your output directory. This property will also be
-         used later on in step 1 to copy the test WAR file.
-       </note>
-
-       <note>
-         The <code>${conf.test.dir}</code> Ant property also needs to be
-         defined prior to calling this target and represent the location of
-         server configuration files (in the current example of Tomcat 4.0,
-         these are the global <code>web.xml</code> and
-         <code>server.xml</code>).
-       </note>
-
-     </section>
-
-     <section title="Step 1: create and deploy test WAR file">
-
-        <p>
-          Creating a WAR file is the preferred way of deploying Cactus tests
-          to your servlet engine. Check the
-          <link href="site:getting_started">Getting Started</link> guide and
-          the example below for details on what files to include in the WAR.
-        </p>
-        <p>
-          Example:
-        </p>
-
-<source><![CDATA[
-<!--
-   ========================================================================
-     Create a Cactus test war file for the sample application.
-   ========================================================================
--->
-<target name="testwar" depends="compile">
-
-    <!-- Create the war file -->
-    <war warfile="${target.test.dir}/test.war"
-         webxml="${conf.test.dir}/web.xml">
-
-        <classes dir="${target.classes.sample.dir}"/>
-        <classes dir="${target.classes.unit.dir}"/>
-
-        <!-- log_server.properties need to be in the server classpath -->
-        <classes dir="${conf.test.dir}">
-            <include name="log_server.properties"/>
-            <include name="cactus.properties"/>
-        </classes>
-
-        <lib dir="${target.lib.dir}"/>
-        <fileset dir="${web.dir}"/>
-   </war>
-
-</target>
-]]></source>
-
-       <p>
-         where:
-       </p>
-       <ul>
-         <li>
-           <code>${conf.test.dir}</code>: directory containing configuration
-           files for the test,
-         </li>
-         <li>
-           <code>${target.classes.*.dir}</code>: directory where the java
-           classes have been compiled. These are the classes under test + the
-           test classes,
-         </li>
-         <li>
-           <code>${target.lib.dir}</code>: directory containing the needed jars
-           (<code>junit.jar</code>, <code>cactus.jar</code>, ...).
-         </li>
-         <li>
-           <code>${web.dir}</code>: directory containing the web files to
-           include in the test webapp (JSPs, HTML, ...).
-         </li>
-       </ul>
-
-       <note>
-         The <code>compile</code> target is used to compile all java classes
-         into the <code>${target.classes.*.dir}</code> directory.
-       </note>
-
-     </section>
-
-     <section title="Step 2: Start the container">
-
-       <p>
-         Example:
-       </p>
-
-<source><![CDATA[
-<!--
-   ========================================================================
-     Start Tomcat 4.0
-   ========================================================================
--->
-<target name="start.tomcat.40">
-
-    <java classname="org.apache.catalina.startup.Bootstrap" fork="yes">
-        <jvmarg value="-Dcatalina.home=${tomcat.home.40}"/>
-        <jvmarg value="-Dcatalina.base=${target.tomcat40.dir}"/>
-        <arg value="start"/>
-        <classpath>
-            <pathelement path="${java.home}/../lib/tools.jar"/>
-            <fileset dir="${tomcat.home.40}">
-                <include name="bin/bootstrap.jar"/>
-            </fileset>
-        </classpath>
-    </java>
-
-</target>
-]]></source>
-
-     </section>
-
-     <section title="Step 3: Run the unit tests">
-
-       <p>
-         We start the unit test by calling a JUnit test runner (we use the
-         text runner in this example). Example:
-       </p>
-
-<source><![CDATA[
-<!--
-   ========================================================================
-     Run the client JUnit test cases.
-   ========================================================================
--->
-<target name="test">
-
-    <junit printsummary="yes" haltonfailure="yes" haltonerror="yes"
-        fork="yes">
-
-        <classpath>
-            <!-- Cactus.propertie and log_client.properties need to be in
-                 the classpath -->
-            <pathelement location="${target.conf.dir}"/>
-            <pathelement location="${target.classes.sample.dir}"/>
-            <pathelement location="${target.classes.unit.dir}"/>
-            <path refid="project.class.path"/>
-        </classpath>
-
-        <formatter type="plain" usefile="false"/>
-        <test name="org.apache.cactus.unit.TestAll"/>
-        <test name="org.apache.cactus.sample.TestAll"/>
-
-    </junit>
-
-</target>
-]]></source>
-
-       <note>
-         The list of jars to include in your classpath is explained and
-         detailed in the <link href="site:howto_classpath">Classpath
-         Howto</link> guide.
-       </note>
-
-     </section>
-
-     <section title="Step 4: Stop the container">
-
-       <p>
-         Example:
-       </p>
-
-<source><![CDATA[
-<!--
-   ========================================================================
-     Stop Tomcat 4.0
-   ========================================================================
--->
-<target name="stop.tomcat.40">
-
-    <java classname="org.apache.catalina.startup.Bootstrap" fork="yes">
-        <jvmarg value="-Dcatalina.home=${tomcat.home.40}"/>
-        <jvmarg value="-Dcatalina.base=${target.tomcat40.dir}"/>
-        <arg value="stop"/>
-        <classpath>
-          <fileset dir="${tomcat.home.40}">
-              <include name="bin/bootstrap.jar"/>
-          </fileset>
-        </classpath>
-    </java>
-
-</target>
-]]></source>
-
-     </section>
-
   </body>
+
 </document>
