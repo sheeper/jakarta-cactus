@@ -54,43 +54,83 @@
 package org.apache.cactus.unit;
 
 import org.apache.cactus.ServletTestCase;
+import org.apache.cactus.WebRequest;
 
 /**
- * Helper class for the <code>TestServletTestCase5</code> tests. It is used to
- * intercept exceptions. Indeed, in order to verify excpetion handling in our
- * unit test cases we must not let these exceptions get through to JUnit
- * (otherwise the test will appear as failed).
+ * Test that it is possible to override a servlet redirector as defined in
+ * <code>cactus.properties</code> on a per test case basis.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
- * @see TestServletTestCase1
  */
-public class TestServletTestCase5InterceptorServletTestCase
-    extends ServletTestCase
+public class TestServletRedirectorOverride extends ServletTestCase
 {
     /**
-     * Constructs a test case with the given name.
+     * Defines the testcase name for JUnit.
      *
-     * @param theName the name of the test case
+     * @param theName the testcase's name.
      */
-    public TestServletTestCase5InterceptorServletTestCase(String theName)
+    public TestServletRedirectorOverride(String theName)
     {
         super(theName);
     }
 
+    //-------------------------------------------------------------------------
+
     /**
-     * Intercepts running test cases to check for normal exceptions.
+     * Verify that it is possible to override the default redirector.
+     *
+     * @param theRequest the request object that serves to initialize the
+     *                   HTTP connection to the server redirector.
      */
-    protected void runTest()
+    public void beginRedirectorOverride1(WebRequest theRequest)
     {
-        try
-        {
-            super.runTest();
-        }
-        catch (Throwable e)
-        {
-            assertEquals("testTearDown() worked", e.getMessage());
-        }
+        theRequest.setRedirectorName("ServletRedirectorOverride");
+    }
+
+    /**
+     * Verify that it is possible to override the default redirector.
+     */
+    public void testRedirectorOverride1()
+    {
+        assertEquals("value2 used for testing", 
+            config.getInitParameter("param2"));
+    }
+
+    //-------------------------------------------------------------------------
+
+    /**
+     * Verify that it is possible to set back the original redirector
+     * again.
+     *
+     * @param theRequest the request object that serves to initialize the
+     *                   HTTP connection to the server redirector.
+     */
+    public void beginRedirectorOverride2(WebRequest theRequest)
+    {
+        theRequest.setRedirectorName("ServletRedirector");
+    }
+
+    /**
+     * Verify that it is possible to set back the original redirector
+     * again.
+     */
+    public void testRedirectorOverride2()
+    {
+        assertEquals("value1 used for testing", 
+            config.getInitParameter("param1"));
+    }
+
+    //-------------------------------------------------------------------------
+
+    /**
+     * Verify that when no redirector is overriden the default redirector
+     * is the expected one.
+     */
+    public void testRedirectorOverride3()
+    {
+        assertEquals("value1 used for testing", 
+            config.getInitParameter("param1"));
     }
 }

@@ -53,22 +53,79 @@
  */
 package org.apache.cactus.unit;
 
+import org.apache.cactus.ServletTestCase;
+import org.apache.cactus.WebResponse;
+
 /**
- * Used by <code>TestServletTestCase1</code> to test the case where
- * a non serializable exception is returned by a test method.
+ * Test that <code>setUp()</code> and <code>tearDown()</code> methods are 
+ * called and can access implicit objects in <code>ServletTestCase</code>.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
- * @see TestServletTestCase1
  */
-public class TestServletTestCase1ExceptionNotSerializable extends Exception
+public class TestSetUpTearDown extends ServletTestCase
 {
     /**
-     * @param theMessage the exception message
+     * Defines the testcase name for JUnit.
+     *
+     * @param theName the testcase's name.
      */
-    public TestServletTestCase1ExceptionNotSerializable(String theMessage)
+    public TestSetUpTearDown(String theName)
     {
-        super(theMessage);
+        super(theName);
+    }
+
+    //-------------------------------------------------------------------------
+
+    /**
+     * Put a value in the session to verify that this method is called prior
+     * to the test, and that it can access servlet implicit objects.
+     */
+    protected void setUp()
+    {
+        session.setAttribute("setUpFlag", "a setUp test flag");
+    }
+
+    /**
+     * Verify that <code>setUp()</code> has been called and that it put a
+     * value in the session object.
+     */
+    public void testSetUp()
+    {
+        assertEquals("a setUp test flag", session.getAttribute("setUpFlag"));
+    }
+
+    //-------------------------------------------------------------------------
+
+    /**
+     * Set an HTTP response header to verify that this method is called after
+     * the test, and that it can access servlet implicit objects.
+     */
+    protected void tearDown()
+    {
+        response.setHeader("Teardownheader", "tear down header");
+    }
+
+    /**
+     * Verify that <code>tearDown()</code> has been called and that it created
+     * an HTTP reponse header.
+     */
+    public void testTearDown()
+    {
+    }
+
+    /**
+     * Verify that <code>tearDown()</code> has been called and that it created
+     * an HTTP reponse header.
+     *
+     * @param theResponse the HTTP connection that was used to call the
+     *                    server redirector. It contains the returned HTTP
+     *                    response.
+     */
+    public void endTearDown(WebResponse theResponse)
+    {
+        assertEquals("tear down header", 
+            theResponse.getConnection().getHeaderField("Teardownheader"));
     }
 }

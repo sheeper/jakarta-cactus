@@ -53,116 +53,128 @@
  */
 package org.apache.cactus.unit;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.File;
 
 import org.apache.cactus.ServletTestCase;
 import org.apache.cactus.WebRequest;
 
 /**
- * Cactus unit tests for testing that it is possible to override a servlet
- * redirector as defined in <code>cactus.properties</code> on a per test case
- * basis.
- *
- * These tests should not really be part of the sample application functional
- * tests as they are unit tests for Cactus. However, they are unit tests that
- * need a servlet environment running for their execution, so they have been
- * package here for convenience. They can also be read by end-users to
- * understand how Cactus work.
- * <br><br>
+ * Tests that exercise the HTTP request.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
  */
-public class TestServletTestCaseOverrideRedirector extends ServletTestCase
+public class TestHttpRequest extends ServletTestCase
 {
     /**
      * Defines the testcase name for JUnit.
      *
      * @param theName the testcase's name.
      */
-    public TestServletTestCaseOverrideRedirector(String theName)
+    public TestHttpRequest(String theName)
     {
         super(theName);
     }
 
-    /**
-     * Start the tests.
-     *
-     * @param theArgs the arguments. Not used
-     */
-    public static void main(String[] theArgs)
-    {
-        junit.swingui.TestRunner.main(new String[] { 
-            TestServletTestCaseOverrideRedirector.class.getName() });
-    }
-
-    /**
-     * @return a test suite (<code>TestSuite</code>) that includes all methods
-     *         starting with "test"
-     */
-    public static Test suite()
-    {
-        // All methods starting with "test" will be executed in the test suite.
-        return new TestSuite(TestServletTestCaseOverrideRedirector.class);
-    }
-
     //-------------------------------------------------------------------------
 
     /**
-     * Verify that it is possible to override the default redirector.
+     * Verify that <code>HttpServletRequestWrapper.getPathTranslated()</code>
+     * takes into account the simulated URL (if any).
      *
      * @param theRequest the request object that serves to initialize the
      *                   HTTP connection to the server redirector.
      */
-    public void beginRedirectorOverride1(WebRequest theRequest)
+    public void beginGetPathTranslated(WebRequest theRequest)
     {
-        theRequest.setRedirectorName("ServletRedirectorOverride");
+        theRequest.setURL("jakarta.apache.org", "/mywebapp", "/myservlet", 
+            "/test1/test2", "PARAM1=value1");
     }
 
     /**
-     * Verify that it is possible to override the default redirector.
+     * Verify that <code>HttpServletRequestWrapper.getPathTranslated()</code>
+     * takes into account the simulated URL (if any) or null in situations
+     * where the servlet container cannot determine a valid file path for
+     * these methods, such as when the web application is executed from an
+     * archive, on a remote file system not accessible locally, or in a
+     * database (see section SRV.4.5 of the Servlet 2.3 spec).
      */
-    public void testRedirectorOverride1()
+    public void testGetPathTranslated()
     {
-        assertEquals("value2 used for testing", 
-            config.getInitParameter("param2"));
+        String nativePathInfo = File.separator + "test1" + File.separator
+            + "test2";
+
+        String pathTranslated = request.getPathTranslated();
+
+        // Should be null if getRealPath("/") is null
+        if (request.getRealPath("/") == null)
+        {
+            assertNull("Should have been null", pathTranslated);
+        }
+        else
+        {
+            assertNotNull("Should not be null", pathTranslated);
+            assertTrue("Should end with [" + nativePathInfo + "] but got ["
+                + pathTranslated + "] instead", 
+                pathTranslated.endsWith(nativePathInfo));
+        }
     }
 
     //-------------------------------------------------------------------------
 
     /**
-     * Verify that it is possible to set back the original redirector
-     * again.
+     * Verify that we can send arbitrary data in the request body.
      *
      * @param theRequest the request object that serves to initialize the
      *                   HTTP connection to the server redirector.
      */
-    public void beginRedirectorOverride2(WebRequest theRequest)
+    public void beginSendUserData(WebRequest theRequest)
     {
-        theRequest.setRedirectorName("ServletRedirector");
+        ByteArrayInputStream bais = new ByteArrayInputStream(
+            "<data>some data to send in the body</data>".getBytes());
+
+        theRequest.setUserData(bais);
+        theRequest.setContentType("text/xml");
     }
 
     /**
-     * Verify that it is possible to set back the original redirector
-     * again.
+     * Verify that we can send arbitrary data in the request body.
+     * 
+     * @exception Exception on test failure
      */
-    public void testRedirectorOverride2()
+    public void testSendUserData() throws Exception
     {
-        assertEquals("value1 used for testing", 
-            config.getInitParameter("param1"));
+        String buffer;
+        StringBuffer body = new StringBuffer();
+
+        BufferedReader reader = request.getReader();
+
+        while ((buffer = reader.readLine()) != null)
+        {
+            body.append(buffer);
+        }
+
+        assertEquals("<data>some data to send in the body</data>", 
+            body.toString());
+        assertEquals("text/xml", request.getContentType());
     }
 
     //-------------------------------------------------------------------------
 
     /**
-     * Verify that when no redirector is overriden the default redirector
-     * is the expected one.
+     * Verify that we can simulate the client remote IP address and the client
+     * remote host name.
      */
-    public void testRedirectorOverride3()
+    public void testRemoteClientCheck()
     {
-        assertEquals("value1 used for testing", 
-            config.getInitParameter("param1"));
+        request.setRemoteIPAddress("192.168.0.1");
+        request.setRemoteHostName("atlantis");
+
+        assertEquals("192.168.0.1", request.getRemoteAddr());
+        assertEquals("atlantis", request.getRemoteHost());
     }
+
 }

@@ -53,80 +53,97 @@
  */
 package org.apache.cactus.unit;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-
-import junit.framework.Test;
-import junit.framework.TestSuite;
-
 import org.apache.cactus.ServletTestCase;
+import org.apache.cactus.WebRequest;
 
 /**
- * Some tests that verify Cactus HtppUnit integration.
+ * Test passing HTTP parameters to the server side.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
  */
-public class TestServletTestCaseHttpUnit extends ServletTestCase
+public class TestHttpParameters extends ServletTestCase
 {
     /**
      * Defines the testcase name for JUnit.
      *
      * @param theName the testcase's name.
      */
-    public TestServletTestCaseHttpUnit(String theName)
+    public TestHttpParameters(String theName)
     {
         super(theName);
-    }
-
-    /**
-     * Start the tests.
-     *
-     * @param theArgs the arguments. Not used
-     */
-    public static void main(String[] theArgs)
-    {
-        junit.swingui.TestRunner.main(
-            new String[] { TestServletTestCaseHttpUnit.class.getName() });
-    }
-
-    /**
-     * @return a test suite (<code>TestSuite</code>) that includes all methods
-     *         starting with "test"
-     */
-    public static Test suite()
-    {
-        // All methods starting with "test" will be executed in the test suite.
-        return new TestSuite(TestServletTestCaseHttpUnit.class);
     }
 
     //-------------------------------------------------------------------------
 
     /**
-     * Verify that the HttpUnit integration works.
-     * 
-     * @exception IOException on test failure
+     * Verify that multi value parameters can be sent in the
+     * <code>beingXXX()</code> method to the server redirector.
+     *
+     * @param theRequest the request object that serves to initialize the
+     *                   HTTP connection to the server redirector.
      */
-    public void testHttpUnitGetText() throws IOException
+    public void beginMultiValueParameters(WebRequest theRequest)
     {
-        PrintWriter pw = response.getWriter();
-
-        pw.print("something to return for the test");
+        theRequest.addParameter("multivalue", "value 1");
+        theRequest.addParameter("multivalue", "value 2");
     }
 
     /**
-     * Verify that HttpUnit integration works
-     *
-     * @param theResponse the response from the server side.
-     * 
-     * @exception IOException on test failure
+     * Verify that multi value parameters can be sent in the
+     * <code>beingXXX()</code> method to the server redirector.
      */
-    public void endHttpUnitGetText(
-        com.meterware.httpunit.WebResponse theResponse) throws IOException
+    public void testMultiValueParameters()
     {
-        String text = theResponse.getText();
+        String[] values = request.getParameterValues("multivalue");
 
-        assertEquals("something to return for the test", text);
+        if (values[0].equals("value 1"))
+        {
+            assertEquals("value 2", values[1]);
+        }
+        else if (values[0].equals("value 2"))
+        {
+            assertEquals("value 1", values[1]);
+        }
+        else
+        {
+            fail("Shoud have returned a vector with the "
+                + "values \"value 1\" and \"value 2\"");
+        }
     }
+
+    //-------------------------------------------------------------------------
+
+    /**
+     * Verify we can set and retrieve several parameters.
+     *
+     * @param theRequest the request object that serves to initialize the
+     *                   HTTP connection to the server redirector.
+     */
+    public void beginSeveralParameters(WebRequest theRequest)
+    {
+        theRequest.addParameter("PostParameter1", "EMPLOYEE0145", 
+            WebRequest.POST_METHOD);
+        theRequest.addParameter("PostParameter2", "W", WebRequest.GET_METHOD);
+        theRequest.addParameter("PostParameter3", "07/08/2002", 
+            WebRequest.POST_METHOD);
+        theRequest.addParameter("PostParameter4", "/tas/ViewSchedule.esp", 
+            WebRequest.GET_METHOD);
+    }
+
+    /**
+     * Verify we can set and retrieve several parameters.
+     */
+    public void testSeveralParameters()
+    {
+        assertEquals("parameter4", "/tas/ViewSchedule.esp", 
+            request.getParameter("PostParameter4"));
+        assertEquals("parameter1", "EMPLOYEE0145", 
+            request.getParameter("PostParameter1"));
+        assertEquals("parameter2", "W", request.getParameter("PostParameter2"));
+        assertEquals("parameter3", "07/08/2002", 
+            request.getParameter("PostParameter3"));
+    }
+
 }

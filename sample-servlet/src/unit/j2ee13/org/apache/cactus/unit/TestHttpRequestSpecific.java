@@ -53,57 +53,55 @@
  */
 package org.apache.cactus.unit;
 
-import org.apache.cactus.FilterTestCase;
+import java.util.Map;
 
-import com.meterware.httpunit.WebResponse;
-
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.apache.cactus.ServletTestCase;
+import org.apache.cactus.WebRequest;
 
 /**
- * Cactus unit tests for testing <code>FilterTestCase</code>. These tests are
- * specific to Servlet API 2.3 only.
- * 
+ * Test HTTP request methods specific to Servlet API 2.3.
+ *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- * 
+ *
  * @version $Id$
  */
-public class TestFilterTestCaseSpecific extends FilterTestCase
+public class TestHttpRequestSpecific extends ServletTestCase
 {
     /**
-     * Constructor.
-     * 
-     * @param theName The name of the test case
+     * Defines the testcase name for JUnit.
+     *
+     * @param theName the testcase's name.
      */
-    public TestFilterTestCaseSpecific(String theName)
+    public TestHttpRequestSpecific(String theName)
     {
         super(theName);
     }
-    
+
+    //-------------------------------------------------------------------------
+
     /**
-     * @return a test suite (<code>TestSuite</code>) that includes all methods
-     *         starting with "test"
+     * Verify that <code>HttpServletRequest.getParameterMap()</code> works.
+     *
+     * @param theRequest the request object that serves to initialize the
+     *                   HTTP connection to the server redirector.
      */
-    public static Test suite()
+    public void beginGetParameterMap(WebRequest theRequest)
     {
-        // All methods starting with "test" will be executed in the test suite.
-        return new TestSuite(TestFilterTestCaseSpecific.class);
-    }
-    
-    public void testHeaders()
-    {
-        response.setHeader("xparevcount", "xparevcount");
-        response.setHeader("xxparevcount", "xxparevcount");
+        theRequest.addParameter("multivalue", "value 1");
+        theRequest.addParameter("multivalue", "value 2");
     }
 
-    public void endHeaders(WebResponse theResponse)
+    /**
+     * Verify that <code>HttpServletRequest.getParameterMap()</code> works.
+     */
+    public void testGetParameterMap()
     {
-        String header1 = theResponse.getHeaderField("xxparevcount");
-        String header2 = theResponse.getHeaderField("xparevcount");
-        assertNotNull("Header should not be null", header1);
-        assertNotNull("Header should not be null", header2);
-        assertEquals("xxparevcount", header1);
-        assertEquals("xparevcount", header2);
-       }
+        Map parameters = request.getParameterMap();
+        assertTrue(parameters.containsKey("multivalue"));
+        String[] values = (String[]) parameters.get("multivalue");
+        assertEquals(2, values.length);        
+        assertEquals("value 1", values[0]);        
+        assertEquals("value 2", values[1]);        
+    }
 
 }

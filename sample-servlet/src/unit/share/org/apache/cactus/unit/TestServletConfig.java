@@ -53,57 +53,93 @@
  */
 package org.apache.cactus.unit;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import java.util.Enumeration;
+import java.util.Vector;
+
+import javax.servlet.ServletContext;
 
 import org.apache.cactus.ServletTestCase;
+import org.apache.cactus.server.ServletContextWrapper;
 
 /**
- * Cactus unit tests for testing <code>ServletTestCase</code>. These tests
- * are specific to Servlet API 2.2 only.
- *
- * These tests should not really be part of the sample application functional
- * tests as they are unit tests for Cactus. However, they are unit tests that
- * need a servlet environment running for their execution, so they have been
- * package here for convenience. They can also be read by end-users to
- * understand how Cactus work.
+ * Tests that exercise the Servlet Config.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
  */
-public class TestServletTestCaseSpecific extends ServletTestCase
+public class TestServletConfig extends ServletTestCase
 {
     /**
      * Defines the testcase name for JUnit.
      *
      * @param theName the testcase's name.
      */
-    public TestServletTestCaseSpecific(String theName)
+    public TestServletConfig(String theName)
     {
         super(theName);
     }
 
-    /**
-     * Start the tests.
-     *
-     * @param theArgs the arguments. Not used
-     */
-    public static void main(String[] theArgs)
-    {
-        junit.swingui.TestRunner.main(
-            new String[] { TestServletTestCaseSpecific.class.getName() });
-    }
+    //-------------------------------------------------------------------------
 
     /**
-     * @return a test suite (<code>TestSuite</code>) that includes all methods
-     *         starting with "test"
+     * Verify that we can add parameters to the config list of parameters
+     * programatically, without having to define them in <code>web.xml</code>.
      */
-    public static Test suite()
+    public void testSetConfigParameter()
     {
-        // All methods starting with "test" will be executed in the test suite.
-        return new TestSuite();
+        config.setInitParameter("testparam", "test value");
+
+        assertEquals("test value", config.getInitParameter("testparam"));
+
+        boolean found = false;
+        Enumeration enum = config.getInitParameterNames();
+
+        while (enum.hasMoreElements())
+        {
+            String name = (String) enum.nextElement();
+
+            if (name.equals("testparam"))
+            {
+                found = true;
+
+                break;
+            }
+        }
+
+        assertTrue("[testparam] not found in parameter names", found);
     }
 
-    // No specific tests for Servlet API 2.2 for the moment !
+    //-------------------------------------------------------------------------
+
+    /**
+     * Verify that we can override the
+     * <code>ServletConfig.getServletName()</code> method.
+     */
+    public void testGetServletName()
+    {
+        config.setServletName("MyServlet");
+        assertEquals("MyServlet", config.getServletName());
+    }
+
+    //-------------------------------------------------------------------------
+
+    /**
+     * Verify that calls to <code>ServletContext.log()</code> methods can
+     * be retrieved and asserted.
+     */
+    public void testGetLogs()
+    {
+        String message = "some test log";
+        ServletContext context = config.getServletContext();
+
+        context.log(message);
+
+        Vector logs = ((ServletContextWrapper) context).getLogs();
+
+        assertEquals("Found more than one log message", logs.size(), 1);
+        assertTrue("Cannot find expected log message : [" + message + "]", 
+            logs.contains("some test log"));
+    }
+
 }

@@ -53,97 +53,65 @@
  */
 package org.apache.cactus.unit;
 
+import org.apache.cactus.ServletTestCase;
+
 import junit.framework.AssertionFailedError;
 
-import org.apache.cactus.ServletTestCase;
-import org.apache.cactus.client.AssertionFailedErrorWrapper;
-import org.apache.cactus.client.ServletExceptionWrapper;
-
 /**
- * Helper class for the <code>TestServletTestCase1</code> tests. It is used to
- * intercept exceptions. Indeed, in order to verify excpetion handling in our
- * unit test cases we must not let these exceptions get through to JUnit
- * (otherwise the test will appear as failed).
+ * Test that <code>tearDown()</code> is called even when an exception
+ * occurs during the test.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
- * @see TestServletTestCase1
  */
-public class TestServletTestCase1InterceptorServletTestCase
-    extends ServletTestCase
+public class TestTearDownException extends ServletTestCase
 {
     /**
-     * Constructs a test case with the given name.
+     * Defines the testcase name for JUnit.
      *
-     * @param theName the name of the test case
+     * @param theName the testcase's name.
      */
-    public TestServletTestCase1InterceptorServletTestCase(String theName)
+    public TestTearDownException(String theName)
     {
         super(theName);
     }
 
     /**
      * Intercepts running test cases to check for normal exceptions.
-     * 
-     * @exception Throwable on test failure
      */
-    protected void runTest() throws Throwable
+    protected void runTest()
     {
         try
         {
             super.runTest();
         }
-        catch (AssertionFailedErrorWrapper e)
+        catch (Throwable e)
         {
-            // If the test case is "testAssertionFailedError" and the exception
-            // is of type AssertionFailedError and contains the text
-            // "test assertion failed error", then the test is ok.
-            if (this.getCurrentTestMethod().equals("testAssertionFailedError"))
-            {
-                if (e.instanceOf(AssertionFailedError.class))
-                {
-                    assertEquals("test assertion failed error", e.getMessage());
-
-                    return;
-                }
-            }
+            assertEquals("testTearDown() worked", e.getMessage());
         }
-        catch (ServletExceptionWrapper e)
-        {
-            // If the test case is "testExceptionNotSerializable" and the
-            // exception is of type
-            // TestServletTestCaseHelper1_ExceptionNotSerializable
-            // and contains the text "test non serializable exception", then
-            // the test is ok.
-            if (this.getCurrentTestMethod().equals(
-                "testExceptionNotSerializable"))
-            {
-                if (e.instanceOf(
-                    TestServletTestCase1ExceptionNotSerializable.class))
-                {
-                    assertEquals("test non serializable exception", 
-                        e.getMessage());
+    }
 
-                    return;
-                }
-            }
+    //-------------------------------------------------------------------------
 
-            // If the test case is "testExceptionSerializable" and the exception
-            // is of type TestServletTestCaseHelper1_ExceptionSerializable
-            // and contains the text "test serializable exception", then
-            // the test is ok.
-            if (this.getCurrentTestMethod().equals("testExceptionSerializable"))
-            {
-                assertTrue(e.instanceOf(
-                    TestServletTestCase1ExceptionSerializable.class));
+    /**
+     * Verify that the <code>tearDown()</code> is always called even when there
+     * is an exception raised during the test.
+     * 
+     * @exception Exception on test failure
+     */
+    public void testTearDown() throws Exception
+    {
+        // Provoke an exception
+        fail("provoked error");
+    }
 
-                assertEquals("test serializable exception", e.getMessage());
-
-                return;
-            }
-
-            throw e;
-        }
+    /**
+     * Verify that the <code>tearDown()</code> is always called even when there
+     * is an exception raised during the test.
+     */
+    public void tearDown()
+    {
+        throw new AssertionFailedError("testTearDown() worked");
     }
 }

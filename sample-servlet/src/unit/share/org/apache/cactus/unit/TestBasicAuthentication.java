@@ -53,110 +53,52 @@
  */
 package org.apache.cactus.unit;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
-
 import org.apache.cactus.ServletTestCase;
-import org.apache.cactus.WebResponse;
+import org.apache.cactus.WebRequest;
+import org.apache.cactus.client.authentication.BasicAuthentication;
 
 /**
- * Cactus unit tests for verifying that <code>setUp()</code> and
- * <code>tearDown()</code> methods are called and can access implicit objects
- * in <code>ServletTestCase</code>.
- *
- * These tests should not really be part of the sample application functional
- * tests as they are unit tests for Cactus. However, they are unit tests that
- * need a servlet environment running for their execution, so they have been
- * package here for convenience. They can also be read by end-users to
- * understand how Cactus work.
+ * Test running some test using BASIC authentication.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
  */
-public class TestServletTestCase3 extends ServletTestCase
+public class TestBasicAuthentication extends ServletTestCase
 {
     /**
      * Defines the testcase name for JUnit.
      *
      * @param theName the testcase's name.
      */
-    public TestServletTestCase3(String theName)
+    public TestBasicAuthentication(String theName)
     {
         super(theName);
     }
 
-    /**
-     * Start the tests.
-     *
-     * @param theArgs the arguments. Not used
-     */
-    public static void main(String[] theArgs)
-    {
-        junit.swingui.TestRunner.main(
-            new String[] { TestServletTestCase3.class.getName() });
-    }
-
-    /**
-     * @return a test suite (<code>TestSuite</code>) that includes all methods
-     *         starting with "test"
-     */
-    public static Test suite()
-    {
-        // All methods starting with "test" will be executed in the test suite.
-        return new TestSuite(TestServletTestCase3.class);
-    }
-
     //-------------------------------------------------------------------------
 
     /**
-     * Put a value in the session to verify that this method is called prior
-     * to the test, and that it can access servlet implicit objects.
+     * Verify basic authentication.
+     * 
+     * @param theRequest the request object that serves to initialize the
+     *                   HTTP connection to the server redirector.
      */
-    protected void setUp()
+    public void beginBasicAuthentication(WebRequest theRequest)
     {
-        session.setAttribute("setUpFlag", "a setUp test flag");
+        theRequest.setRedirectorName("ServletRedirectorSecure");
+        theRequest.setAuthentication(
+            new BasicAuthentication("testuser", "testpassword"));
     }
 
     /**
-     * Verify that <code>setUp()</code> has been called and that it put a
-     * value in the session object.
+     * Verify basic authentication. Note: This method is protected in the
+     * <code>web. xml</code> deployment descriptor.
      */
-    public void testSetUp()
+    public void testBasicAuthentication()
     {
-        assertEquals("a setUp test flag", session.getAttribute("setUpFlag"));
-    }
-
-    //-------------------------------------------------------------------------
-
-    /**
-     * Set an HTTP response header to verify that this method is called after
-     * the test, and that it can access servlet implicit objects.
-     */
-    protected void tearDown()
-    {
-        response.setHeader("Teardownheader", "tear down header");
-    }
-
-    /**
-     * Verify that <code>tearDown()</code> has been called and that it created
-     * an HTTP reponse header.
-     */
-    public void testTearDown()
-    {
-    }
-
-    /**
-     * Verify that <code>tearDown()</code> has been called and that it created
-     * an HTTP reponse header.
-     *
-     * @param theResponse the HTTP connection that was used to call the
-     *                    server redirector. It contains the returned HTTP
-     *                    response.
-     */
-    public void endTearDown(WebResponse theResponse)
-    {
-        assertEquals("tear down header", 
-            theResponse.getConnection().getHeaderField("Teardownheader"));
+        assertEquals("testuser", request.getUserPrincipal().getName());
+        assertEquals("testuser", request.getRemoteUser());
+        assertTrue("User not in 'test' role", request.isUserInRole("test"));
     }
 }

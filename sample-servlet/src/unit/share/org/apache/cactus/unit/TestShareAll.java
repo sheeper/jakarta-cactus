@@ -53,25 +53,66 @@
  */
 package org.apache.cactus.unit;
 
-import java.io.Serializable;
+import junit.framework.Test;
+import junit.framework.TestCase;
+import junit.framework.TestSuite;
 
 /**
- * Used by <code>TestServletTestCase1</code> to test the case where
- * a serializable exception is raised by a test method.
+ * Test suite containing all test cases that should be run on all J2EE 
+ * APIs.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
- * @see TestServletTestCase1
  */
-public class TestServletTestCase1ExceptionSerializable extends Exception
-    implements Serializable
+public abstract class TestShareAll extends TestCase
 {
     /**
-     * @param theMessage the exception message.
+     * Defines the testcase name for JUnit.
+     *
+     * @param theName the testcase's name.
      */
-    public TestServletTestCase1ExceptionSerializable(String theMessage)
+    public TestShareAll(String theName)
     {
-        super(theMessage);
+        super(theName);
+    }
+
+    /**
+     * @return a test suite (<code>TestSuite</code>) that includes all shared
+     *          tests
+     */
+    public static Test suite()
+    {
+        TestSuite suite = new TestSuite(
+            "Cactus unit tests for all J2EE APIs");
+
+        // Note: This test needs to run first. See the comments in the
+        // test class for more information on why
+        suite.addTestSuite(TestClientServerSynchronization.class);
+
+        // Lifecycle tests
+        suite.addTestSuite(TestGlobalBeginEnd.class);
+
+        // ServletTestCase related tests
+        suite.addTestSuite(TestServerSideExceptions.class);
+        suite.addTestSuite(TestSetUpTearDown.class);
+        suite.addTestSuite(TestSetURL.class);
+        suite.addTestSuite(TestTearDownException.class);
+        suite.addTestSuite(TestBasicAuthentication.class);
+        suite.addTestSuite(TestHttpUnitIntegration.class);
+        suite.addTestSuite(TestServletRedirectorOverride.class);
+        suite.addTestSuite(TestHttpParameters.class);
+        suite.addTestSuite(TestHttpSession.class);
+        suite.addTestSuite(TestHttpResponse.class);
+        suite.addTestSuite(TestCookie.class);
+        suite.addTestSuite(TestRequestDispatcher.class);
+        suite.addTestSuite(TestHttpHeaders.class);
+        suite.addTestSuite(TestHttpRequest.class);
+        suite.addTestSuite(TestServletConfig.class);
+
+        // JspTestCase related tests
+        suite.addTestSuite(TestJspOut.class);
+
+        return suite;
     }
 }

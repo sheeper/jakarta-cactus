@@ -53,81 +53,97 @@
  */
 package org.apache.cactus.unit;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
-
+import org.apache.cactus.HttpSessionCookie;
 import org.apache.cactus.ServletTestCase;
 import org.apache.cactus.WebRequest;
-import org.apache.cactus.client.authentication.BasicAuthentication;
+import org.apache.cactus.WebResponse;
 
 /**
- * Some Cactus unit tests for testing Authentication support.
- *
- * These tests should not really be part of the sample application functional
- * tests as they are unit tests for Cactus. However, they are unit tests that
- * need a servlet environment running for their execution, so they have been
- * package here for convenience. They can also be read by end-users to
- * understand how Cactus work.
+ * Tests that manipulates the HTTP Session.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
- * @version $Id: TestServletTestCase_Authentication.java,v 1.3 2002/07/21 10:52:41 vmassol Exp $
+ * @version $Id$
  */
-public class TestServletTestCaseAuthentication extends ServletTestCase
+public class TestHttpSession extends ServletTestCase
 {
     /**
      * Defines the testcase name for JUnit.
      *
      * @param theName the testcase's name.
      */
-    public TestServletTestCaseAuthentication(String theName)
+    public TestHttpSession(String theName)
     {
         super(theName);
-    }
-
-    /**
-     * Start the tests.
-     *
-     * @param theArgs the arguments. Not used
-     */
-    public static void main(String[] theArgs)
-    {
-        junit.swingui.TestRunner.main(new String[] { 
-            TestServletTestCaseAuthentication.class.getName() });
-    }
-
-    /**
-     * @return a test suite (<code>TestSuite</code>) that includes all methods
-     *         starting with "test"
-     */
-    public static Test suite()
-    {
-        // All methods starting with "test" will be executed in the test suite.
-        return new TestSuite(TestServletTestCaseAuthentication.class);
     }
 
     //-------------------------------------------------------------------------
 
     /**
-     * Verify basic authentication.
-     * 
+     * Verify that it is possible to ask for no automatic session creation in
+     * the <code>beginXXX()</code> method.
+     *
      * @param theRequest the request object that serves to initialize the
      *                   HTTP connection to the server redirector.
      */
-    public void beginBasicAuthentication(WebRequest theRequest)
+    public void beginNoAutomaticSessionCreation(WebRequest theRequest)
     {
-        theRequest.setRedirectorName("ServletRedirectorSecure");
-        theRequest.setAuthentication(
-            new BasicAuthentication("testuser", "testpassword"));
+        theRequest.setAutomaticSession(false);
     }
 
     /**
-     * Verify basic authentication.
+     * Verify that it is possible to ask for no automatic session creation in
+     * the <code>beginXXX()</code> method.
      */
-    public void testBasicAuthentication()
+    public void testNoAutomaticSessionCreation()
     {
-        assertEquals("testuser", request.getUserPrincipal().getName());
-        assertEquals("testuser", request.getRemoteUser());
-        assertTrue("User not in 'test' role", request.isUserInRole("test"));
+        assertNull("A valid session has been found when no session should "
+            + "exist", session);
     }
+
+    //-------------------------------------------------------------------------
+
+    /**
+     * Verify that we can get hold of the jsessionid cookie returned by the
+     * server.
+     */
+    public void testVerifyJsessionid()
+    {
+        // By default, Cactus will create an HTTP session.
+    }
+    
+    /**
+     * Verify that we can get hold of the jsessionid cookie returned by the
+     * server.
+     * 
+     * @param theResponse the response from the server side.
+     */
+    public void endVerifyJsessionid(WebResponse theResponse)
+    {
+        assertNotNull(theResponse.getCookieIgnoreCase("jsessionid"));
+    }
+
+    //-------------------------------------------------------------------------
+
+    /**
+     * Verify that Cactus can provide us with a real HTTP session cookie.
+     *
+     * @param theRequest the request object that serves to initialize the
+     *                   HTTP connection to the server redirector.
+     */
+    public void beginCreateSessionCookie(WebRequest theRequest)
+    {
+        HttpSessionCookie sessionCookie = theRequest.getSessionCookie();
+        theRequest.addCookie(sessionCookie);
+    }
+
+    /**
+     * Verify that Cactus can provide us with a real HTTP session cookie.
+     */
+    public void testCreateSessionCookie()
+    {
+        assertTrue("A session should have been created prior to "
+            + "this request", !session.isNew());
+    }
+
 }

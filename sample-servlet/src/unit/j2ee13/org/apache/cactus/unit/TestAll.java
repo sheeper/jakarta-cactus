@@ -77,16 +77,6 @@ public class TestAll extends TestCase
     }
 
     /**
-     * Start the tests.
-     *
-     * @param theArgs the arguments. Not used
-     */
-    public static void main(String[] theArgs)
-    {
-        junit.swingui.TestRunner.main(new String[] { TestAll.class.getName() });
-    }
-
-    /**
      * @return a test suite (<code>TestSuite</code>) that includes all methods
      *         starting with "test"
      */
@@ -95,38 +85,13 @@ public class TestAll extends TestCase
         TestSuite suite = new TestSuite(
             "Cactus unit tests for J2EE 1.3");
 
-        // Note: This test need to run first. See the comments in the
-        // test class for more information on why
-        suite.addTest(
-            org.apache.cactus.unit.TestServletTestCaseTestResult.suite());
-
-        // AbstractTestCase related tests
-        suite.addTestSuite(
-            org.apache.cactus.unit.TestAbstractWebTestCase.class);
-
-        // ServletTestCase related tests
-        suite.addTest(org.apache.cactus.unit.TestServletTestCase1.suite());
-        suite.addTest(org.apache.cactus.unit.TestServletTestCase2.suite());
-        suite.addTest(org.apache.cactus.unit.TestServletTestCase3.suite());
-        suite.addTest(org.apache.cactus.unit.TestServletTestCase4.suite());
-        suite.addTest(org.apache.cactus.unit.TestServletTestCase5.suite());
-        suite.addTest(
-            org.apache.cactus.unit.TestServletTestCaseOverrideRedirector
-            .suite());
-        suite.addTest(
-            org.apache.cactus.unit.TestServletTestCaseAuthentication.suite());
-        suite.addTest(
-            org.apache.cactus.unit.TestServletTestCaseHttpUnit.suite());
+        // Add shared tests
+        suite.addTest(TestShareAll.suite());
 
         // Test cases specific to J2EE 1.3 only
-        suite.addTest(
-            org.apache.cactus.unit.TestServletTestCaseSpecific.suite());
-        suite.addTest(org.apache.cactus.unit.TestJspTagLifecycle.suite());
-        suite.addTest(
-            org.apache.cactus.unit.TestFilterTestCaseSpecific.suite());
-
-        // JspTestCase related tests
-        suite.addTest(org.apache.cactus.unit.TestJspTestCase.suite());
+        suite.addTestSuite(TestHttpRequestSpecific.class);
+        suite.addTestSuite(TestJspTagLifecycle.class);
+        suite.addTestSuite(TestFilterHttpHeaders.class);
 
         return suite;
     }

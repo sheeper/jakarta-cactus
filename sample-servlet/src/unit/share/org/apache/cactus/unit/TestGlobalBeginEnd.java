@@ -60,21 +60,14 @@ import org.apache.cactus.client.DefaultHttpClient;
 import org.apache.cactus.util.WebConfiguration;
 
 /**
- * Some Cactus unit tests for testing <code>AbstractWebTestCase</code> that
- * verifies that the client <code>clientSetUp()</code> and
- * <code>clientTearDown()</code> work correctly.
- *
- * These tests should not really be part of the sample application functional
- * tests as they are unit tests for Cactus. However, they are unit tests that
- * need a servlet environment running for their execution, so they have been
- * package here for convenience. They can also be read by end-users to
- * understand how Cactus work.
+ * Test global client side <code>begin()</code> and <code>end()</code> 
+ * methods.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
  */
-public class TestAbstractWebTestCase extends ServletTestCase
+public class TestGlobalBeginEnd extends ServletTestCase
 {
     /**
      * true if <code>end()</code> has been called.
@@ -86,20 +79,9 @@ public class TestAbstractWebTestCase extends ServletTestCase
      *
      * @param theName the testcase's name.
      */
-    public TestAbstractWebTestCase(String theName)
+    public TestGlobalBeginEnd(String theName)
     {
         super(theName);
-    }
-
-    /**
-     * Start the tests.
-     *
-     * @param theArgs the arguments. Not used
-     */
-    public static void main(String[] theArgs)
-    {
-        junit.swingui.TestRunner.main(
-            new String[] { TestAbstractWebTestCase.class.getName() });
     }
 
     /**
@@ -130,6 +112,21 @@ public class TestAbstractWebTestCase extends ServletTestCase
     {
         theRequest.addParameter("param1", "value1");
     }
+
+    /**
+     * Verify that it is possible to read the connection object once in
+     * endXXX() and then again in <code>end()</code>. It also
+     * verifies that <code>end()</code> is called at all.
+     *
+     * @param theResponse the response from the server side.
+     */
+    public void end(WebResponse theResponse)
+    {
+        assertEquals("Hello there!", theResponse.getText());
+        this.isClientGlobalEndCalled = true;
+    }
+
+    //-------------------------------------------------------------------------
 
     /**
      * Verify that it is possible to modify the <code>WebRequest</code> in
@@ -169,16 +166,4 @@ public class TestAbstractWebTestCase extends ServletTestCase
         assertEquals("Hello there!", theResponse.getText());
     }
 
-    /**
-     * Verify that it is possible to read the connection object once in
-     * endXXX() and then again in <code>end()</code>. It also
-     * verifies that <code>end()</code> is called at all.
-     *
-     * @param theResponse the response from the server side.
-     */
-    public void end(WebResponse theResponse)
-    {
-        assertEquals("Hello there!", theResponse.getText());
-        this.isClientGlobalEndCalled = true;
-    }
 }

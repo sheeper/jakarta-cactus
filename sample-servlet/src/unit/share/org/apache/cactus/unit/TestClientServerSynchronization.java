@@ -53,95 +53,75 @@
  */
 package org.apache.cactus.unit;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import javax.servlet.ServletOutputStream;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
-
-import org.apache.cactus.JspTestCase;
-import org.apache.cactus.WebResponse;
+import org.apache.cactus.ServletTestCase;
 
 /**
- * Cactus unit tests for testing <code>JspTestCase</code>.
- *
- * These tests should not really be part of the sample application functional
- * tests as they are unit tests for Cactus. However, they are unit tests that
- * need a servlet environment running for their execution, so they have been
- * package here for convenience. They can also be read by end-users to
- * understand how Cactus work.
+ * Verify that the Cactus client side only reads the test result *after* the
+ * test is finished (ie after the test result has been saved in the application
+ * scope). This JUnit test need to be the first one to be run. Otherwise, the
+ * test result might be that of the previous test and not the current test one,
+ * thus proving nothing !!
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
  */
-public class TestJspTestCase extends JspTestCase
+public class TestClientServerSynchronization extends ServletTestCase
 {
     /**
      * Defines the testcase name for JUnit.
      *
      * @param theName the testcase's name.
      */
-    public TestJspTestCase(String theName)
+    public TestClientServerSynchronization(String theName)
     {
         super(theName);
-    }
-
-    /**
-     * Start the tests.
-     *
-     * @param theArgs the arguments. Not used
-     */
-    public static void main(String[] theArgs)
-    {
-        junit.swingui.TestRunner.main(
-            new String[] { TestJspTestCase.class.getName() });
-    }
-
-    /**
-     * @return a test suite (<code>TestSuite</code>) that includes all methods
-     *         starting with "test"
-     */
-    public static Test suite()
-    {
-        // All methods starting with "test" will be executed in the test suite.
-        return new TestSuite(TestJspTestCase.class);
     }
 
     //-------------------------------------------------------------------------
 
     /**
-     * Verify that we can write some text to the output Jsp writer.
+     * Verify that the test result can be returned correctly even when the
+     * logic in the method to test takes a long time and thus it verifies that
+     * the test result is only returned after it has been written in the
+     * application scope on the server side.
      * 
-     * @exception IOException on test failure
+     * @exception Exception on test failure
      */
-    public void testOut() throws IOException
+    public void testLongProcess() throws Exception
     {
-        out.print("some text sent back using out");
+        ServletOutputStream os = response.getOutputStream();
+
+        os.print("<html><head><Long Process></head><body>");
+        os.flush();
+
+        // do some processing that takes a while ...
+        Thread.sleep(3000);
+        os.println("Some data</body></html>");
     }
 
-    /**
-     * Verify that we can write some text to the output Jsp writer.
-     *
-     * @param theResponse the response from the server side.
-     * 
-     * @exception IOException on test failure
-     */
-    public void endOut(WebResponse theResponse) throws IOException
-    {
-        StringBuffer sb = new StringBuffer();
-        BufferedReader input = new BufferedReader(new InputStreamReader(
-            theResponse.getConnection().getInputStream()));
-        String str;
+    //-------------------------------------------------------------------------
 
-        while (null != (str = input.readLine()))
+    /**
+     * Verify that when big amount of data is returned by the servlet output
+     * stream, it does not io-block.
+     * 
+     * @exception Exception on test failure
+     */
+    public void testLotsOfData() throws Exception
+    {
+        ServletOutputStream os = response.getOutputStream();
+
+        os.println("<html><head>Lots of Data</head><body>");
+        os.flush();
+
+        for (int i = 0; i < 5000; i++)
         {
-            sb.append(str);
+            os.println("<p>Lots and lots of data here");
         }
 
-        input.close();
-
-        assertEquals("some text sent back using out", sb.toString());
+        os.println("</body></html>");
     }
 }

@@ -53,105 +53,56 @@
  */
 package org.apache.cactus.unit;
 
-import javax.servlet.ServletOutputStream;
-
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 import org.apache.cactus.ServletTestCase;
 
 /**
- * Verify that the Cactus client side only read the test result *after* the
- * test is finished (i.e. after the test result has been saved in the
- * application scope). This JUnit test need to be the first one to be run.
- * Otherwise, the test result might be that of the previous test and not the
- * current test one, thus proving nothing !!
- *
- * These tests should not really be part of the sample application functional
- * tests as they are unit tests for Cactus. However, they are unit tests that
- * need a servlet environment running for their execution, so they have been
- * package here for convenience. They can also be read by end-users to
- * understand how Cactus work.
+ * Test the HtppUnit integration.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
  */
-public class TestServletTestCaseTestResult extends ServletTestCase
+public class TestHttpUnitIntegration extends ServletTestCase
 {
     /**
      * Defines the testcase name for JUnit.
      *
      * @param theName the testcase's name.
      */
-    public TestServletTestCaseTestResult(String theName)
+    public TestHttpUnitIntegration(String theName)
     {
         super(theName);
     }
 
+    //-------------------------------------------------------------------------
+
     /**
-     * Start the tests.
+     * Verify that the HttpUnit integration works.
+     * 
+     * @exception IOException on test failure
+     */
+    public void testHttpUnitGetText() throws IOException
+    {
+        PrintWriter pw = response.getWriter();
+
+        pw.print("something to return for the test");
+    }
+
+    /**
+     * Verify that HttpUnit integration works
      *
-     * @param theArgs the arguments. Not used
-     */
-    public static void main(String[] theArgs)
-    {
-        junit.swingui.TestRunner.main(
-            new String[] { TestServletTestCaseTestResult.class.getName() });
-    }
-
-    /**
-     * @return a test suite (<code>TestSuite</code>) that includes all methods
-     *         starting with "test"
-     */
-    public static Test suite()
-    {
-        // All methods starting with "test" will be executed in the test suite.
-        return new TestSuite(TestServletTestCaseTestResult.class);
-    }
-
-    //-------------------------------------------------------------------------
-
-    /**
-     * Verify that the test result can be returned correctly even when the
-     * logic in the method to test takes a long time and thus it verifies that
-     * the test result is only returned after it has been written in the
-     * application scope on the server side.
+     * @param theResponse the response from the server side.
      * 
-     * @exception Exception on test failure
+     * @exception IOException on test failure
      */
-    public void testLongProcess() throws Exception
+    public void endHttpUnitGetText(
+        com.meterware.httpunit.WebResponse theResponse) throws IOException
     {
-        ServletOutputStream os = response.getOutputStream();
+        String text = theResponse.getText();
 
-        os.print("<html><head><Long Process></head><body>");
-        os.flush();
-
-        // do some processing that takes a while ...
-        Thread.sleep(3000);
-        os.println("Some data</body></html>");
-    }
-
-    //-------------------------------------------------------------------------
-
-    /**
-     * Verify that when big amount of data is returned by the servlet output
-     * stream, it does not io-block.
-     * 
-     * @exception Exception on test failure
-     */
-    public void testLotsOfData() throws Exception
-    {
-        ServletOutputStream os = response.getOutputStream();
-
-        os.println("<html><head>Lots of Data</head><body>");
-        os.flush();
-
-        for (int i = 0; i < 5000; i++)
-        {
-            os.println("<p>Lots and lots of data here");
-        }
-
-        os.println("</body></html>");
+        assertEquals("something to return for the test", text);
     }
 }

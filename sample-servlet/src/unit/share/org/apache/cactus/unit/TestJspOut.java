@@ -53,84 +53,53 @@
  */
 package org.apache.cactus.unit;
 
-import junit.framework.AssertionFailedError;
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import java.io.IOException;
+
+import org.apache.cactus.JspTestCase;
+import org.apache.cactus.WebResponse;
 
 /**
- * Cactus unit tests for testing exception handling of
- * <code>ServletTestCase</code>.
- *
- * These tests should not really be part of the sample application functional
- * tests as they are unit tests for Cactus. However, they are unit tests that
- * need a servlet environment running for their execution, so they have been
- * package here for convenience. They can also be read by end-users to
- * understand how Cactus work.
- * <br><br>
- * Note : This class extends
- * <code>TestServletTestCase5_InterceptorServletTestCase</code> (which itself
- * extends <code>ServletTestCase</code>) because we need to be able to verify
- * exception handling in our unit test cases so we must not let these exceptions
- * get through to JUnit (otherwise the test will appear as failed).
+ * Test the usage of the <code>out</code> implicit object when using
+ * <code>JspTestCase</code>.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
  */
-public class TestServletTestCase5
-    extends TestServletTestCase5InterceptorServletTestCase
+public class TestJspOut extends JspTestCase
 {
     /**
      * Defines the testcase name for JUnit.
      *
      * @param theName the testcase's name.
      */
-    public TestServletTestCase5(String theName)
+    public TestJspOut(String theName)
     {
         super(theName);
-    }
-
-    /**
-     * Start the tests.
-     *
-     * @param theArgs the arguments. Not used
-     */
-    public static void main(String[] theArgs)
-    {
-        junit.swingui.TestRunner.main(
-            new String[] { TestServletTestCase5.class.getName() });
-    }
-
-    /**
-     * @return a test suite (<code>TestSuite</code>) that includes all methods
-     *         starting with "test"
-     */
-    public static Test suite()
-    {
-        // All methods starting with "test" will be executed in the test suite.
-        return new TestSuite(TestServletTestCase5.class);
     }
 
     //-------------------------------------------------------------------------
 
     /**
-     * Verify that the <code>tearDown()</code> is always called even when there
-     * is an exception raised during the test.
+     * Verify that we can write some text to the output Jsp writer.
      * 
-     * @exception Exception on test failure
+     * @exception IOException on test failure
      */
-    public void testTearDown() throws Exception
+    public void testOut() throws IOException
     {
-        // Provoke an exception
-        fail("provoked error");
+        out.print("some text sent back using out");
     }
 
     /**
-     * Verify that the <code>tearDown()</code> is always called even when there
-     * is an exception raised during the test.
+     * Verify that we can write some text to the output Jsp writer.
+     *
+     * @param theResponse the response from the server side.
+     * 
+     * @exception IOException on test failure
      */
-    public void tearDown()
+    public void endOut(WebResponse theResponse) throws IOException
     {
-        throw new AssertionFailedError("testTearDown() worked");
+        assertEquals("some text sent back using out",
+            theResponse.getText());
     }
 }

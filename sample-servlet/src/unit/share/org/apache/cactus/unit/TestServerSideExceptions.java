@@ -53,62 +53,127 @@
  */
 package org.apache.cactus.unit;
 
+import java.io.Serializable;
+
+import org.apache.cactus.ServletTestCase;
+import org.apache.cactus.client.AssertionFailedErrorWrapper;
+import org.apache.cactus.client.ServletExceptionWrapper;
+
 import junit.framework.AssertionFailedError;
-import junit.framework.Test;
-import junit.framework.TestSuite;
 
 /**
- * Cactus unit tests for testing exception handling of
- * <code>ServletTestCase</code>.
+ * Verifies the correct handling of exceptions that happen when running
+ * inside the server. Specifically verifies that serializable,
+ * non-serializable and {@link AssertionFailedError} exceptions are 
+ * correctly propagated to the client side.
  *
- * These tests should not really be part of the sample application functional
- * tests as they are unit tests for Cactus. However, they are unit tests that
- * need a servlet environment running for their execution, so they have been
- * package here for convenience. They can also be read by end-users to
- * understand how Cactus work.
- * <br><br>
- * Note : This class extends
- * <code>TestServletTestCase1_InterceptorServletTestCase</code> (which itself
- * extends <code>ServletTestCase</code>) because we need to be able to verify
- * exception handling in our unit test cases so we must not let these exceptions
- * get through to JUnit (otherwise the test will appear as failed).
- *
+ * @see
+ * 
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
  */
-public class TestServletTestCase1
-    extends TestServletTestCase1InterceptorServletTestCase
+public class TestServerSideExceptions extends ServletTestCase
 {
     /**
      * Defines the testcase name for JUnit.
      *
      * @param theName the testcase's name.
      */
-    public TestServletTestCase1(String theName)
+    public TestServerSideExceptions(String theName)
     {
         super(theName);
     }
 
     /**
-     * Start the tests.
-     *
-     * @param theArgs the arguments. Not used
+     * Not serializable exception.
      */
-    public static void main(String[] theArgs)
+    public class NotSerializableException extends Exception
     {
-        junit.swingui.TestRunner.main(
-            new String[] { TestServletTestCase1.class.getName() });
+        /**
+         * @param theMessage the exception message
+         */
+        public NotSerializableException(String theMessage)
+        {
+            super(theMessage);
+        }
     }
 
     /**
-     * @return a test suite (<code>TestSuite</code>) that includes all methods
-     *         starting with "test"
+     * Serializable exception.
      */
-    public static Test suite()
+    public class SerializableException extends Exception 
+        implements Serializable
     {
-        // All methods starting with "test" will be executed in the test suite.
-        return new TestSuite(TestServletTestCase1.class);
+        /**
+         * @param theMessage the exception message
+         */
+        public SerializableException(String theMessage)
+        {
+            super(theMessage);
+        }
+    }
+
+    /**
+     * Intercepts running test cases to check for normal exceptions.
+     * 
+     * @exception Throwable on test failure
+     */
+    protected void runTest() throws Throwable
+    {
+        try
+        {
+            super.runTest();
+        }
+        catch (AssertionFailedErrorWrapper e)
+        {
+            // If the test case is "testAssertionFailedError" and the exception
+            // is of type AssertionFailedError and contains the text
+            // "test assertion failed error", then the test is ok.
+            if (this.getCurrentTestMethod().equals("testAssertionFailedError"))
+            {
+                if (e.instanceOf(AssertionFailedError.class))
+                {
+                    assertEquals("test assertion failed error", e.getMessage());
+
+                    return;
+                }
+            }
+        }
+        catch (ServletExceptionWrapper e)
+        {
+            // If the test case is "testExceptionNotSerializable" and the
+            // exception is of type
+            // TestServletTestCaseHelper1_ExceptionNotSerializable
+            // and contains the text "test non serializable exception", then
+            // the test is ok.
+            if (this.getCurrentTestMethod().equals(
+                "testExceptionNotSerializable"))
+            {
+                if (e.instanceOf(NotSerializableException.class))
+                {
+                    assertEquals("test non serializable exception", 
+                        e.getMessage());
+
+                    return;
+                }
+            }
+
+            // If the test case is "testExceptionSerializable" and the exception
+            // is of type TestServletTestCaseHelper1_ExceptionSerializable
+            // and contains the text "test serializable exception", then
+            // the test is ok.
+            if (this.getCurrentTestMethod().equals("testExceptionSerializable"))
+            {
+                assertTrue(e.instanceOf(SerializableException.class));
+
+                assertEquals("test serializable exception", e.getMessage());
+
+                return;
+            }
+
+            throw e;
+        }
     }
 
     //-------------------------------------------------------------------------
@@ -134,14 +199,13 @@ public class TestServletTestCase1
      * This is to verify that non serializable exceptions raised on the
      * server side are properly propagated on the client side.
      *
-     * @exception TestServletTestCase1ExceptionNotSerializable the non
-     * serializable exception to thow
+     * @exception NotSerializableException the non serializable exception to
+     *             throw
      */
     public void testExceptionNotSerializable()
-        throws TestServletTestCase1ExceptionNotSerializable
+        throws NotSerializableException
     {
-        throw new TestServletTestCase1ExceptionNotSerializable(
-            "test non serializable exception");
+        throw new NotSerializableException("test non serializable exception");
     }
 
     //-------------------------------------------------------------------------
@@ -153,13 +217,10 @@ public class TestServletTestCase1
      * This is to verify that serializable exceptions raised on the
      * server side are properly propagated on the client side.
      *
-     * @exception TestServletTestCase1ExceptionSerializable the
-     * serializable exception to throw
+     * @exception SerializableException the serializable exception to throw
      */
-    public void testExceptionSerializable()
-        throws TestServletTestCase1ExceptionSerializable
+    public void testExceptionSerializable() throws SerializableException
     {
-        throw new TestServletTestCase1ExceptionSerializable(
-            "test serializable exception");
+        throw new SerializableException("test serializable exception");
     }
 }

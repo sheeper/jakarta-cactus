@@ -53,86 +53,61 @@
  */
 package org.apache.cactus.unit;
 
-import java.util.Map;
-
-import junit.framework.Test;
-import junit.framework.TestSuite;
-
 import org.apache.cactus.ServletTestCase;
 import org.apache.cactus.WebRequest;
 
 /**
- * Cactus unit tests for testing <code>ServletTestCase</code>. These tests
- * are specific to Servlet API 2.3 only.
- *
- * These tests should not really be part of the sample application functional
- * tests as they are unit tests for Cactus. However, they are unit tests that
- * need a servlet environment running for their execution, so they have been
- * package here for convenience. They can also be read by end-users to
- * understand how Cactus work.
+ * Tests related to Cookies.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
  */
-public class TestServletTestCaseSpecific extends ServletTestCase
+public class TestCookie extends ServletTestCase
 {
     /**
      * Defines the testcase name for JUnit.
      *
      * @param theName the testcase's name.
      */
-    public TestServletTestCaseSpecific(String theName)
+    public TestCookie(String theName)
     {
         super(theName);
-    }
-
-    /**
-     * Start the tests.
-     *
-     * @param theArgs the arguments. Not used
-     */
-    public static void main(String[] theArgs)
-    {
-        junit.swingui.TestRunner.main(
-            new String[] { TestServletTestCaseSpecific.class.getName() });
-    }
-
-    /**
-     * @return a test suite (<code>TestSuite</code>) that includes all methods
-     *         starting with "test"
-     */
-    public static Test suite()
-    {
-        // All methods starting with "test" will be executed in the test suite.
-        return new TestSuite(TestServletTestCaseSpecific.class);
     }
 
     //-------------------------------------------------------------------------
 
     /**
-     * Verify that <code>HttpServletRequest.getParameterMap()</code> works.
+     * Verify that special characters in cookies are not URL encoded
      *
      * @param theRequest the request object that serves to initialize the
      *                   HTTP connection to the server redirector.
      */
-    public void beginGetParameterMap(WebRequest theRequest)
+    public void beginCookieEncoding(WebRequest theRequest)
     {
-        theRequest.addParameter("multivalue", "value 1");
-        theRequest.addParameter("multivalue", "value 2");
+        // Note: the pipe ('&') character is a special character regarding
+        // URL encoding
+        theRequest.addCookie("testcookie", "user&pwd");
     }
 
     /**
-     * Verify that <code>HttpServletRequest.getParameterMap()</code> works.
+     * Verify that special characters in cookies are not encoded
      */
-    public void testGetParameterMap()
+    public void testCookieEncoding()
     {
-        Map parameters = request.getParameterMap();
-        assertTrue(parameters.containsKey("multivalue"));
-        String[] values = (String[]) parameters.get("multivalue");
-        assertEquals(2, values.length);        
-        assertEquals("value 1", values[0]);        
-        assertEquals("value 2", values[1]);        
+        javax.servlet.http.Cookie[] cookies = request.getCookies();
+
+        for (int i = 0; i < cookies.length; i++)
+        {
+            if (cookies[i].getName().equals("testcookie"))
+            {
+                assertEquals("user&pwd", cookies[i].getValue());
+
+                return;
+            }
+        }
+
+        fail("No cookie named 'testcookie' found");
     }
 
 }

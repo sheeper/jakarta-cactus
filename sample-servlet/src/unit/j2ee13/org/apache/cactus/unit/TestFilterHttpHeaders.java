@@ -53,44 +53,55 @@
  */
 package org.apache.cactus.unit;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import org.apache.cactus.FilterTestCase;
+
+import com.meterware.httpunit.WebResponse;
 
 /**
- * Run all the Cactus unit tests related to Servlet API 2.2.
- *
+ * Tests HTTP headers set in Filter code.
+ * 
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
+ * 
  * @version $Id$
  */
-public class TestAll extends TestCase
+public class TestFilterHttpHeaders extends FilterTestCase
 {
     /**
-     * Defines the testcase name for JUnit.
-     *
-     * @param theName the testcase's name.
+     * Constructor.
+     * 
+     * @param theName The name of the test case
      */
-    public TestAll(String theName)
+    public TestFilterHttpHeaders(String theName)
     {
         super(theName);
     }
+    
+    //-------------------------------------------------------------------------
+   
+    /**
+     * Verify headers can be set in a Filter test case and retrieved using
+     * HttpUnit.
+     */
+    public void testHeaders()
+    {
+        response.setHeader("xparevcount", "xparevcount");
+        response.setHeader("xxparevcount", "xxparevcount");
+    }
 
     /**
-     * @return a test suite (<code>TestSuite</code>) that includes all methods
-     *         starting with "test"
+     * Verify headers can be set in a Filter test case and retrieved using
+     * HttpUnit.
+     * 
+     * @param theResponse the HTTP response
      */
-    public static Test suite()
+    public void endHeaders(WebResponse theResponse)
     {
-        TestSuite suite = new TestSuite(
-            "Cactus unit tests for Servlet API 2.2");
+        String header1 = theResponse.getHeaderField("xxparevcount");
+        String header2 = theResponse.getHeaderField("xparevcount");
+        assertNotNull("Header should not be null", header1);
+        assertNotNull("Header should not be null", header2);
+        assertEquals("xxparevcount", header1);
+        assertEquals("xparevcount", header2);
+       }
 
-        // Add shared tests
-        suite.addTest(TestShareAll.suite());
-
-        // Test cases specific to Servlet API 2.2 only
-        // Note: There are no specific tests at the moment
-
-        return suite;
-    }
 }

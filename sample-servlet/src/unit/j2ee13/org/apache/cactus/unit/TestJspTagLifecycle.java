@@ -60,9 +60,6 @@ import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.tagext.BodyContent;
 import javax.servlet.jsp.jstl.core.LoopTagStatus;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
-
 import org.apache.cactus.extension.jsp.JspTagLifecycle;
 import org.apache.cactus.JspTestCase;
 import org.apache.cactus.WebResponse;
@@ -84,13 +81,12 @@ import org.apache.taglibs.standard.tag.el.core.WhenTag;
  * </p>
  * 
  * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
+ * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  * 
  * @version $Id$
  */
-public class TestJspTagLifecycle
-    extends JspTestCase
-{
-    
+public class TestJspTagLifecycle extends JspTestCase
+{   
     // Constructors ------------------------------------------------------------
     
     /**
@@ -101,18 +97,6 @@ public class TestJspTagLifecycle
     public TestJspTagLifecycle(String theName)
     {
         super(theName);
-    }
-    
-    // Public Static Methods ---------------------------------------------------
-    
-    /**
-     * @return a test suite (<code>TestSuite</code>) that includes all methods
-     *         starting with "test"
-     */
-    public static Test suite()
-    {
-        // All methods starting with "test" will be executed in the test suite.
-        return new TestSuite(TestJspTagLifecycle.class);
     }
     
     // Test Methods ------------------------------------------------------------
