@@ -7,7 +7,7 @@
   <!-- Note: Although we inherit from default-project.xml, we still cannot 
   	   remove the <currentVersion> tag as this project.xml is parsed at 
   	   runtime whenever our plugin is called. -->
-  <currentVersion>1.6</currentVersion>
+  <currentVersion>1.7dev</currentVersion>
 
   <name>Maven Cactus plugin</name>
   <package>org.apache.cactus.integration.maven</package>
@@ -15,7 +15,7 @@
   <shortDescription>Maven plugin for Cactus</shortDescription>
   <url>http://jakarta.apache.org/cactus/integration/maven/</url>
   <siteAddress>cvs.apache.org</siteAddress>
-  <siteDirectory>/www/jakarta.apache.org/cactus/1.6/integration/maven/</siteDirectory>
+  <siteDirectory>/www/jakarta.apache.org/cactus/integration/maven/</siteDirectory>
   <repository>
     <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-cactus/integration/maven/</connection>
     <url>http://cvs.apache.org/viewcvs/jakarta-cactus/integration/maven</url>

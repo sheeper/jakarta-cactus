@@ -1,69 +1,27 @@
-The Cactus project is pleased to announce the release of version 1.6.
+The Cactus project is pleased to announce the release of version <v>.
 Cactus is a unit testing framework for testing server side java code.
 
 Goals
 -----
 
-Primarily a bug fix release. Several usability enhancements and the 
-addition of the Maven plugin as part of the Cactus distribution. Move
-to the Apache 2.0 license.
+[add description of main focus here]
 
 Main new features
 -----------------
 
-* [Core] Added the Maven plugin. It was formerly hosted in the Maven 
-  project's own CVS. It is now in the Cactus CVS and is part of the 
-  Cactus distribution. To install the plugin in your Maven installation 
-  please see 
-  http://jakarta.apache.org/cactus/integration/maven/installing.html
-* [Core] Added new ServletContextWrapper.setInitParameters() method which allows 
-  to programatically define Context init parameters.
-* [Ant] The <cactus> Ant task now supports Mac OSX.
-* [Ant] Added support for Resin 3.x in the <cactus> Ant task (<resin3x> element).
-* [Ant] Better configurability of the <cactus> container elements:
-    - new configXml attribute for the <weblogic7x> element
-    - added support for JBoss jboss-web.xml in the <jboss3x> element
-    - new contextxml attribute for the <tomcat4x> element
-    - new jndiport attribute for the <jboss3x> element
-* [Maven] Only runs tests if there are Cactus tests present in the filesystem.
-* [Maven] Added support for EJB testing with Cactus.
-* [Maven] Added cactus.jboss3x.jndiport property to specify which JNDI port to 
-  use when shutting down JBoss.
-* [Maven] Added support for Resin 3.x (above version 3.0.5).
-* [Maven] Added support for custom ports when using JBoss. Please note that 
-  this will only work with custom JBoss configs. The default config used by
-  Cactus uses port 8080 (that's the default JBoss config).
-* [Maven] Added 2 new properties to support debugging Cactus tests:
-  cactus.logging.config.client and cactus.logging.config.server. They point 
-  to logging config properties file.
-* [Maven] Added support for custom WebLogic config.xml
-* [Maven] The cactus:test goal now automatically discovers JUnit Test Cases 
-  from non JUnit java classes and by default excludes all classes that are 
-  not tests.
+[add main new features here]
 
 Changes
 -------
 
 Please check the Changes page at
 http://jakarta.apache.org/cactus/changes.html for a full list of the 
-changes in version 1.6.
-
-Please check the Changes page at
-http://jakarta.apache.org/cactus/integration/maven/changes-report.html
-for a full list of the changes in the Maven plugin for Cactus 1.6.
+changes in version <v>. 
 
 Known limitations and bugs:
 ---------------------------
 
-* Possible binary compatibility problem: We've had a big internal 
-  restructuration: we have moved all the non public API classes to java 
-  packages with the name "internal". As a result of this change you may 
-  need in some cases to rebuild your code with the new cactus jar in the 
-  classpath.
-* Due to the internal package restructuration, the jspredirector.jsp file 
-  was modified. If you have installed this file manually somewhere, you'll 
-  need to remember to update it with the new version.
-* List of known bugs are available on http://tinyurl.com/3edgv
+[add main limitations and known bugs here]
 
 For more information about Cactus, please visit
 http://jakarta.apache.org/cactus/.

@@ -89,6 +89,9 @@
         <person name="Julien Ruaux" email="jruaux@apache.org" id="JRU"/>
       </devs>
 
+      <release version="1.7dev" date="in CVS">
+      </release>
+
       <release version="1.6" date="08 May 2004">
         <action dev="VMA" type="update">
           The <code>ServletTestRunner</code> now looks for am optional 

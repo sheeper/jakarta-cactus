@@ -488,9 +488,9 @@
   <external id="httpunit" url="http://httpunit.sourceforge.net/"/>
 
   <!-- ATM, the maven web site is generated separately. -->
-  <external id="integration_maven" url="http://jakarta.apache.org/cactus/1.6/integration/maven/index.html"/>
-  <external id="integration_maven_changes" url="http://jakarta.apache.org/cactus/1.6/integration/maven/changes-report.html"/>
-  <external id="integration_maven_installing" url="http://jakarta.apache.org/cactus/1.6/integration/maven/installing.html"/>
+  <external id="integration_maven" url="http://jakarta.apache.org/cactus/integration/maven/index.html"/>
+  <external id="integration_maven_changes" url="http://jakarta.apache.org/cactus/integration/maven/changes-report.html"/>
+  <external id="integration_maven_installing" url="http://jakarta.apache.org/cactus/integration/maven/installing.html"/>
 
   <external id="jakarta" url="http://jakarta.apache.org/"/>
   <external id="jakarta_roles" url="http://jakarta.apache.org/site/roles.html"/>
