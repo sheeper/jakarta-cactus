@@ -52,9 +52,21 @@
         <tr>
           <td><strong>warfile</strong></td>
           <td>
-            The web-application archive that should be tested.
+            The web application archive that should be tested. The archive must
+            already contain everything needed for running Cactus tests (it must
+            be <em><link href="site:task_cactify">cactified</link></em>).
           </td>
-          <td>Yes</td>
+          <td>Yes, unless the <em>earfile</em> attribute is specified</td>
+        </tr>
+        <tr>
+          <td><strong>earfile</strong></td>
+          <td>
+            The enterprise application archive that should be tested. The
+            archive must contain a web module that already contains everything
+            needed for running Cactus tests (it must be
+            <em><link href="site:task_cactify">cactified</link></em>).
+          </td>
+          <td>Yes, unless the <em>warfile</em> attribute is specified</td>
         </tr>
       </table>
 
