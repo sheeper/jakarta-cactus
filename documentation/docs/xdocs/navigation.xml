@@ -29,7 +29,6 @@
     <item label="Mock vs Container" id="mockobjects"/>
     <item label="Javadocs" id="javadoc"/>
     <item label="FAQ" id="faq"/>
-    <item label="Eclipse plugin" id="eclipse_plugin"/>
   </menu>
 
   <menu label="Howto Guides">
@@ -44,8 +43,6 @@
     <item label="Runner Howto" id="howto_runner"/>
     <item label="Security Howto" id="howto_security"/>
 
-    <!-- Ant tutorial -->
-    <item label="Ant Howto" id="howto_ant"/>
 
     <item label="HttpUnit Howto" id="howto_httpunit"/>
     <item label="Sample Howto" id="howto_sample"/>
@@ -59,6 +56,11 @@
     <item label="Tomcat Howto" id="howto_tomcat"/>
 
     <item label="JUnitEE Howto" id="howto_junitee"/>
+  </menu>
+
+  <menu label="Integration">
+    <item label="Ant" id="howto_ant"/>
+    <item label="Eclipse" id="eclipse_plugin"/>
   </menu>
 
   <menu label="Support">
