@@ -79,11 +79,18 @@
   </xsl:template>
 
   <xsl:template match="changelog">
-    <table>
-      <xsl:apply-templates select="entry">
-        <xsl:sort select="date" order="descending"/>
-      </xsl:apply-templates>
-    </table>
+    <xsl:choose>
+      <xsl:when test="entry">
+        <table>
+          <xsl:apply-templates select="entry">
+            <xsl:sort select="date" order="descending"/>
+          </xsl:apply-templates>
+        </table>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:text>&lt;no changes&gt;</xsl:text>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
 
   <xsl:template match="entry">
