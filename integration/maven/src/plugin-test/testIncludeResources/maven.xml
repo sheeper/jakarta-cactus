@@ -15,19 +15,12 @@
  * limitations under the License.
  */
  -->
-
 <project default="testPlugin"
-         xmlns:j="jelly:core"
-         xmlns:ant="jelly:ant"
-         xmlns:util="jelly:util"
-         >
-
-
+    xmlns:j="jelly:core"
+    xmlns:ant="jelly:ant"
+    xmlns:util="jelly:util">
   <goal name="testPlugin">
     <echo>Set maven.compile.target as ${maven.compile.target}</echo>
     <attainGoal name="cactus:test"/>
   </goal>
-
-
-
 </project>
