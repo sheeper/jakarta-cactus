@@ -25,11 +25,11 @@ lib.repo = c:/apps/maven/repository
 # it, the corresponding Cactus Framework will be built. For example if you use
 # J2EE 1.3 jar, then the Cactus jar will contain the Filter Redirector which is
 # only available for Servlet 2.3 (part of J2EE 1.3).
-j2ee.jar = ${lib.repo}/j2ee/jars/j2ee-1.2.jar
+j2ee.jar = ${lib.repo}/j2ee/jars/j2ee-1.3.jar
 
 # Location of the Servlet API jar (it is needed because we want to copy it
 # in the Cactus distribution).
-servlet.jar = ${lib.repo}/servletapi/jars/servletapi-2.2.jar
+servlet.jar = ${lib.repo}/servletapi/jars/servletapi-2.3.jar
 
 # The location of the Commons Logging jar
 commons.logging.jar = ${lib.repo}/commons-logging/jars/commons-logging-1.0.jar
@@ -59,8 +59,8 @@ cvs.executable = cvs
 
 # Locations J2EE APIs for the "all" target (which builds the Cactus framework
 # for both APIs)
-#j2ee.12.jar = ${lib.repo}/j2ee-1.2.jar
-#j2ee.13.jar = ${lib.repo}/j2ee-1.3.jar
+j2ee.12.jar = ${lib.repo}/j2ee/jars/j2ee-1.2.jar
+j2ee.13.jar = ${lib.repo}/j2ee/jars/j2ee-1.3.jar
 
 # The port to use for starting the servers during unit testing. If not
 # sepcified, it defaults to port 8080.
@@ -105,7 +105,7 @@ cvs.executable = cvs
 #clover.enable = true
 
 # Clover jar
-clover.jar = ${lib.repo}/clover-0.6b.jar
+clover.jar = ${lib.repo}/clover/jars/clover-0.6b.jar
 
 # -----------------------------------------------------------------------------
 # Optional properties used by the build-admin.xml Ant build script only
