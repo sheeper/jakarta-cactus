@@ -202,9 +202,6 @@
             <fileset dir="." includes="**/*.log"/>
         </delete>
 
-        <ant antfile="anttasks/build.xml" inheritAll="false" 
-            target="clean"/>
-
         <ant antfile="framework/build.xml" inheritAll="false" 
             target="clean">
             <property name="j2ee.jar" value="${j2ee.12.jar}"/> 

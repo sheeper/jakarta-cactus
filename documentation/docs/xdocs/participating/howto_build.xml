@@ -226,9 +226,6 @@
       </p>
       <ul>
         <li>
-          <strong>anttasks</strong>: Some Ant tasks useful for Cactus
-        </li>
-        <li>
           <strong>framework</strong>: The main Cactus framework
         </li>
         <li>
