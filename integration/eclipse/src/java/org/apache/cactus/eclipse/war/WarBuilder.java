@@ -58,20 +58,22 @@ package org.apache.cactus.eclipse.war;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Vector;
 
 import org.apache.cactus.eclipse.ui.CactusMessages;
+import org.apache.cactus.eclipse.ui.CactusPlugin;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.taskdefs.Copy;
 import org.apache.tools.ant.taskdefs.War;
+import org.apache.tools.ant.taskdefs.Zip;
 import org.apache.tools.ant.types.FileSet;
 import org.apache.tools.ant.types.ZipFileSet;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.jdt.core.IClasspathEntry;
-import org.eclipse.jdt.core.IJavaModelStatusConstants;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaModelException;
 
@@ -181,7 +183,8 @@ public class WarBuilder
     public File createWar(IProgressMonitor thePM) throws CoreException
     {
         thePM.subTask(CactusMessages.getString("CactusLaunch.message.war"));
-        Vector arguments = new Vector();
+        war.delete();
+        War warTask = new War();
         IPath tempJarsPath =
             new Path(tempDir.getAbsolutePath()).append(JARS_PATH);
         File tempJarsDir = tempJarsPath.toFile();
@@ -194,7 +197,6 @@ public class WarBuilder
         thePM.worked(1);
         Project antProject = new Project();
         antProject.init();
-        War warTask = new War();
         warTask.setProject(antProject);
         warTask.setDestFile(war);
         ZipFileSet classes = new ZipFileSet();
@@ -219,18 +221,25 @@ public class WarBuilder
         {
             // Without a webxml attribute the Ant war task
             // requires the update attribute set to true
-            // That's why we actually need an existing war file. 
-            war.delete();
+            // That's why we actually need an existing war file.
             try
             {
-                war.createNewFile();
+                // A file is needed for war creation
+                File voidFile = File.createTempFile("void", null);
+                createZipFile(war, voidFile);
+                voidFile.delete();
             }
             catch (IOException e)
             {
-                throw new JavaModelException(
-                    e,
-                    IJavaModelStatusConstants.IO_EXCEPTION);
+                throw new CoreException(
+                    new Status(
+                        IStatus.ERROR,
+                        CactusPlugin.getPluginId(),
+                        IStatus.OK,
+                        "Could not create temporary file",
+                        e));
             }
+
             warTask.setUpdate(true);
         }
         ZipFileSet lib = new ZipFileSet();
@@ -291,6 +300,24 @@ public class WarBuilder
             {
                 theFile.delete();
             }
+    }
+
+    /**
+     * Creates a zip file containing the given existing file. 
+     * @param theZipFile the zip file to create
+     * @param theExistingFile the file to include in the zip
+     */
+    private void createZipFile(File theZipFile, File theExistingFile)
+    {
+        Project antProject = new Project();
+        antProject.init();
+        Zip zip = new Zip();
+        zip.setProject(antProject);
+        zip.setDestFile(theZipFile);
+        FileSet existingFileSet = new FileSet();
+        existingFileSet.setFile(theExistingFile);
+        zip.addFileset(existingFileSet);
+        zip.execute();
     }
 
 }
