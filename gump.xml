@@ -126,7 +126,7 @@
         id="standard"/>
       <depend property="cactus.framework.jar" project="jakarta-cactus-framework-12"/>
       <depend property="cactus.ant.jar" project="jakarta-cactus-ant"/>
-      <property name="test.port" value="8081"/>
+      <property name="test.port" value="8082"/>
       <property name="tomcat.home.33" reference="home" project="jakarta-tomcat"/>
 
     </ant>
