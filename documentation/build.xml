@@ -429,7 +429,7 @@ generated. Run 'ant dist.javadoc -verbose' to know what the problem is.</fail>
         <echo>Deploying release version to ${cactus.homepage} ...</echo>
         
         <exec dir="." executable="${ssh}">
-            <arg line="-l ${jakarta.username} jakarta.apache.org 'cd /tmp;rm -Rf ${main.release.name};unzip ${main.release.name}.zip;cp -Rfv ${main.release.name}/* ${cactus.homepage};rm -Rf ${main.release.name}.zip;rm -Rf ${main.release.name}'"/>
+            <arg line="-l ${jakarta.username} jakarta.apache.org 'cd /tmp;rm -Rf ${main.release.name};unzip ${main.release.name}.zip;cp -Rfv ${main.release.name}/* ${cactus.homepage}/${project.version};rm -Rf ${main.release.name}.zip;rm -Rf ${main.release.name}'"/>
         </exec>
 
     </target>
@@ -440,7 +440,7 @@ generated. Run 'ant dist.javadoc -verbose' to know what the problem is.</fail>
         <echo>Deploying dev version to ${cactus.homepage}/${project.version} ...</echo>
 
         <exec dir="." executable="${ssh}">
-            <arg line="-l ${jakarta.username} jakarta.apache.org 'cd /tmp;rm -Rf ${main.release.name};unzip ${main.release.name}.zip;cp -Rfv ${main.release.name}/* ${cactus.homepage}/${project.version};rm -Rf ${main.release.name}.zip;rm -Rf ${main.release.name}'"/>
+            <arg line="-l ${jakarta.username} jakarta.apache.org 'cd /tmp;rm -Rf ${main.release.name};unzip ${main.release.name}.zip;cp -Rfv ${main.release.name}/* ${cactus.homepage};rm -Rf ${main.release.name}.zip;rm -Rf ${main.release.name}'"/>
         </exec>
 
     </target>

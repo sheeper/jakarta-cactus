@@ -160,10 +160,10 @@
                     <xsl:value-of select="$basedir"/>
                     <xsl:choose>
                       <xsl:when test="contains($project.version,'dev')">
-                        <xsl:text>..</xsl:text>
+                        <xsl:value-of select="$project.version.previous"/>
                       </xsl:when>
                       <xsl:otherwise>
-                        <xsl:value-of select="$project.version.previous"/>
+                        <xsl:text>..</xsl:text>
                       </xsl:otherwise>
                     </xsl:choose>
                   </xsl:attribute>
