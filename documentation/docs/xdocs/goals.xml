@@ -16,7 +16,8 @@
       <ul>
         <li>
           Provide a simple unit testing framework focused on server side java 
-          code which tries to cover all J2EE component models,
+          code which tries to cover all J2EE component models and potentially
+          other type of components.
         </li>
         <li>
           Try to be the preferred Jakarta unit testing framework. This may
@@ -31,7 +32,7 @@
         
     </section>
 
-    <section title="Short terms goals">
+    <section title="Short terms goals and ieas">
 
       <p>
         The short term goals for Cactus are to continue providing and improving
@@ -41,7 +42,8 @@
         
       <ul>
         <li>
-          Add support for Servlet API 2.4/JSP 1.4 (by using Tomcat 5),
+          Add support for Servlet API 2.4/JSP 1.4 (by using 
+          Tomcat 5/Resin 3.x),
         </li>
         <li>
           Pre-packaged Cactus with leading containers so that it is ultra-easy 
@@ -67,51 +69,30 @@
         </li>
         <li>
           More tutorial on AspectJ testing. Potentially add a Cactus Aspect 
-          extension to allow writing test cases as Aspects (this would allow to
-          remove the need for Cactus redirectors in most cases).
+          extension to allow writing test cases as Aspects (this may allow to
+          remove the need for Cactus redirectors).
         </li>
         <li>
-          Improve Cactus usability by providing different Cactus front ends 
-          that does all the packaging of the application by simply specifying 
-          source location, resource location and web.xml. These front ends would
-          already contains all the logic to create the war and deploy it 
-          for a given application server. Possibilies are:
-          <ul>
-            <li>
-          	  Cactus standalone application which uses the JUnit Swing TestRunner
-          	</li>
-          	<li>
-          	  Cactus Ant tasks
-          	</li>
-          	<li>
-          	  Generic Cactus plugin for IDEs
-          	</li>
-          	<li>
-          	  Special Cactus plugin for Eclipse
-          	</li>
-          </ul>
+          Add EJB Redirectors to be able to unit test Session Beans, Entity 
+          Beans and MessageDriven Beans          
         </li>
         <li>
-          Add EJB Redirectors to be able to unit test Session Beans, Entity Beans
-          and MessageDriven Beans          
-        </li>
-        <li>
-          Ability to write Cactus tests by extending normal JUnit TestCase instead
-          of Cactus extensions (by using special Cactus TestSuite objects). This
-          will allow to easily execute the same test outside and inside of the 
-          container (for test not depending on container objects).
+          Decouple the Cactus framework into the core and its "plugins". This 
+          means to publish a public API and a public SPI. The SPI would allow
+          to support plugin for testing different type of components (Servlet,
+          Entity EJB, Struts Action, etc).
         </li>
       </ul>
 
     </section>
 
-    <section title="Long term goals">
+    <section title="Long term vision">
 
       <section title="The Future of Component Unit Testing">
 
         <p>
           We believe unit testing server side components is going to get harder
-          and harder in the future (unless something is done about it !). 
+          and harder in the future, unless something is done about it!
           Even now, depending on the specifications
           for a given component model it is more or less easy. Sometimes it is
           even not feasible to test all kind of code.
@@ -194,10 +175,7 @@
         How do you view the future of Cactus?
       </p>
       <p>
-        Do you like the goals defined above?
-      </p>
-      <p>
-        Do you think it is feasible?
+        Do you like the goals and vision defined above?
       </p>
       <p>
         Please send all answers to the 
