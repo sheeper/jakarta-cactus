@@ -869,4 +869,26 @@ public class TestServletTestCase2 extends ServletTestCase
             theResponse.getConnection().getContentType());
     }
     
+    //-------------------------------------------------------------------------
+
+    /**
+     * Verify that we can get hold of the jsessionid cookie returned by the
+     * server.
+     */
+    public void testVerifyJsessionid()
+    {
+        // By default, Cactus will create an HTTP session.
+    }
+    
+    /**
+     * Verify that we can get hold of the jsessionid cookie returned by the
+     * server.
+     * 
+     * @param theResponse the response from the server side.
+     */
+    public void endVerifyJsessionid(WebResponse theResponse)
+    {
+        assertNotNull(theResponse.getCookieIgnoreCase("jsessionid"));
+    }
+
 }
