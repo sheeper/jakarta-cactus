@@ -632,9 +632,10 @@ public class TestServletTestCase2 extends ServletTestCase
     public void beginSendUserData(WebRequest theRequest)
     {
         ByteArrayInputStream bais = new ByteArrayInputStream(
-            "some data to send in the body".getBytes());
+            "<data>some data to send in the body</data>".getBytes());
 
         theRequest.setUserData(bais);
+        theRequest.setContentType("text/xml");
     }
 
     /**
@@ -650,7 +651,9 @@ public class TestServletTestCase2 extends ServletTestCase
             body.append(buffer);
         }
 
-        assertEquals("some data to send in the body", body.toString());
+        assertEquals("<data>some data to send in the body</data>",
+            body.toString());
+        assertEquals("text/xml", request.getContentType());
     }
 
 }

@@ -132,6 +132,29 @@ public class WebRequest
     private InputStream dataStream;
 
     /**
+     * The content type to set in the http request
+     */
+    private String contentType = "application/x-www-form-urlencoded";
+
+    /**
+     * Sets the content type that will be set in the http request
+     *
+     * @param theContentType the content type
+     */
+    public void setContentType(String theContentType)
+    {
+        this.contentType = theContentType;
+    }
+
+    /**
+     * @return the content type that will be set in the http request
+     */
+    public String getContentType()
+    {
+        return this.contentType;
+    }
+
+    /**
      * Allow the user to send arbitrary data in the request body
      *
      * @param theDataStream the stream on which the data are put by the user
@@ -566,7 +589,7 @@ public class WebRequest
                 addParameter(nameValue.substring(0, breakParam),
                     nameValue.substring(breakParam+1));
             } else {
-                throw new RuntimeException("Bad QueryString [" + 
+                throw new RuntimeException("Bad QueryString [" +
                     theQueryString + "] NameValue pair: [" + nameValue + "]");
             }
         }

@@ -142,6 +142,10 @@ public class HttpClientHelper
 
         connection.setUseCaches(false);
 
+        // Sets the content type
+        connection.setRequestProperty("Content-type",
+            theRequest.getContentType());
+
         // Add the other header fields
         addHeaders(theRequest, connection);
 
@@ -363,7 +367,7 @@ public class HttpClientHelper
             Header cookieHeader =
                 org.apache.commons.httpclient.Cookie.createCookieHeader(
                     HttpClientHelper.getDomain(theRequest, theConnection),
-                    HttpClientHelper.getPath(theRequest, theConnection), 
+                    HttpClientHelper.getPath(theRequest, theConnection),
                     httpclientCookies);
 
             logger.debug("Cookie string = [" + cookieHeader.getValue() +

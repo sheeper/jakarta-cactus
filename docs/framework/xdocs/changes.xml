@@ -119,6 +119,14 @@
 
     <release version="1.3 in CVS">
       <action dev="VMA" type="add">
+        Added a new method : <code>WebRequest.setContentType(String)</code>
+        (if you don't specify anything it default to
+        "application/x-www-form-urlencoded"). This will set the
+        content type HTTP header for the request. You can get this value from
+        your server code by calling
+        <code>HttpServletRequest.getContentType()</code>.
+      </action>
+      <action dev="VMA" type="add">
         Added new method : <code>WebRequest.setUserData(InputStream)</code> to
         allow sending arbitrary data in the request body. Note that calling this
         method will invalidate any parameters that were set to be sent in the
