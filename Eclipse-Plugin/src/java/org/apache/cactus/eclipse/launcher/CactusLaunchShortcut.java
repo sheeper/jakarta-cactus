@@ -165,14 +165,14 @@ public class CactusLaunchShortcut
         }
         if (type != null)
         {
-			prepareCactusTests(type);
-			JUnitPlugin.getDefault().addTestRunListener(this);
+            prepareCactusTests(type);
+            JUnitPlugin.getDefault().addTestRunListener(this);
             super.launchType(theSearch, theMode);
         }
     }
 
     /**
-
+    
      * @param theType test or test suite to launch
      * @param theMode mode for launch configuration
      */
