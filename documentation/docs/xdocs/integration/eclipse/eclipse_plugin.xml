@@ -273,11 +273,9 @@
               <ul>
                 <li>
                   creating the war file for the cactus tests: this is
-                  done by the
-                  <code>
-                    WarBuilder
-                  </code>
-                  class, and relies on an Ant script for that.
+                  done in a call to the 
+                  <link href="site:webapp_plugin">Webapp plug-in</link>
+                  <code>WarBuilder</code> class.
                 </li>
                 <li>
                   setting up the container: prepares the configuration
@@ -328,7 +326,7 @@
               <p>
                 To know when tests have ended we register our TestListener to
                 the JUnit plugin. To this end the JUnit plugin needed a
-                modification which has been integrated in the release 2.1 M5 of
+                modification which has been integrated in the 2.1 release of
                 the Eclipse platform.
               </p>
             </li>
