@@ -80,9 +80,12 @@ import org.apache.commons.cactus.*;
  * exception handling in our unit test cases so we must not let these exceptions
  * get through to JUnit (otherwise the test will appear as failed).
  *
- * @version @version@
+ * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
+ *
+ * @version $Id$
  */
-public class TestServletTestCase1 extends TestServletTestCase1_InterceptorServletTestCase
+public class TestServletTestCase1
+    extends TestServletTestCase1_InterceptorServletTestCase
 {
     /**
      * Defines the testcase name for JUnit.
@@ -101,7 +104,8 @@ public class TestServletTestCase1 extends TestServletTestCase1_InterceptorServle
      */
     public static void main(String[] theArgs)
     {
-        junit.ui.TestRunner.main(new String[] {TestServletTestCase1.class.getName()});
+        junit.ui.TestRunner.main(new String[] {
+            TestServletTestCase1.class.getName()});
     }
 
     /**
@@ -143,7 +147,8 @@ public class TestServletTestCase1 extends TestServletTestCase1_InterceptorServle
     public void testExceptionNotSerializable()
         throws TestServletTestCase1_ExceptionNotSerializable
     {
-        throw new TestServletTestCase1_ExceptionNotSerializable("test non serializable exception");
+        throw new TestServletTestCase1_ExceptionNotSerializable(
+            "test non serializable exception");
     }
 
     //-------------------------------------------------------------------------
@@ -161,7 +166,8 @@ public class TestServletTestCase1 extends TestServletTestCase1_InterceptorServle
     public void testExceptionSerializable()
         throws TestServletTestCase1_ExceptionSerializable
     {
-        throw new TestServletTestCase1_ExceptionSerializable("test serializable exception");
+        throw new TestServletTestCase1_ExceptionSerializable(
+            "test serializable exception");
     }
 
 }

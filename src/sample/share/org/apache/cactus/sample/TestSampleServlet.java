@@ -68,7 +68,9 @@ import org.apache.commons.cactus.util.*;
 /**
  * Tests of the <code>SampleServlet</code> servlet class.
  *
- * @version @version@
+ * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
+ *
+ * @version $Id$
  */
 public class TestSampleServlet extends ServletTestCase
 {
@@ -89,7 +91,8 @@ public class TestSampleServlet extends ServletTestCase
      */
     public static void main(String[] theArgs)
     {
-        junit.ui.TestRunner.main(new String[] {TestSampleServlet.class.getName()});
+        junit.ui.TestRunner.main(new String[] {
+            TestSampleServlet.class.getName()});
     }
 
     /**
@@ -120,7 +123,8 @@ public class TestSampleServlet extends ServletTestCase
      *                      server redirector. It contains the returned HTTP
      *                      response.
      */
-    public void endReadServletOutputStream(HttpURLConnection theConnection) throws IOException
+    public void endReadServletOutputStream(HttpURLConnection theConnection)
+        throws IOException
     {
         String expected = "<html><head/><body>A GET request</body></html>";
         String result = AssertUtils.getResponseAsString(theConnection);
@@ -174,7 +178,8 @@ public class TestSampleServlet extends ServletTestCase
         servlet.setSessionVariable(request);
 
         assert(session != null);
-        assertEquals("value_setSessionVariable", session.getAttribute("name_setSessionVariable"));
+        assertEquals("value_setSessionVariable",
+            session.getAttribute("name_setSessionVariable"));
     }
 
     /**
@@ -185,7 +190,8 @@ public class TestSampleServlet extends ServletTestCase
         SampleServlet servlet = new SampleServlet();
         servlet.setRequestAttribute(request);
 
-        assertEquals("value_setRequestAttribute", request.getAttribute("name_setRequestAttribute"));
+        assertEquals("value_setRequestAttribute",
+            request.getAttribute("name_setRequestAttribute"));
     }
 
     //-------------------------------------------------------------------------
@@ -318,7 +324,8 @@ public class TestSampleServlet extends ServletTestCase
      */
     public void endReceiveHeader(HttpURLConnection theConnection)
     {
-        assertEquals("this is a response header", theConnection.getHeaderField("responseheader"));
+        assertEquals("this is a response header",
+            theConnection.getHeaderField("responseheader"));
     }
 
     //-------------------------------------------------------------------------
@@ -374,10 +381,12 @@ public class TestSampleServlet extends ServletTestCase
      *                      server redirector. It contains the returned HTTP
      *                      response.
      */
-    public void endRequestDispatcher(HttpURLConnection theConnection) throws IOException
+    public void endRequestDispatcher(HttpURLConnection theConnection)
+        throws IOException
     {
         StringBuffer sb = new StringBuffer();
-        BufferedReader input = new BufferedReader(new InputStreamReader(theConnection.getInputStream()));
+        BufferedReader input = new BufferedReader(
+            new InputStreamReader(theConnection.getInputStream()));
         String str;
         while (null != ((str = input.readLine()))) {
             sb.append(str);

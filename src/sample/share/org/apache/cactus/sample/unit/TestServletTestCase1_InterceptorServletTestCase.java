@@ -64,7 +64,9 @@ import org.apache.commons.cactus.*;
  * unit test cases we must not let these exceptions get through to JUnit
  * (otherwise the test will appear as failed).
  *
- * @version @version@
+ * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
+ *
+ * @version $Id$
  * @see TestServletTestCase1
  */
 public class TestServletTestCase1_InterceptorServletTestCase 
@@ -107,8 +109,10 @@ public class TestServletTestCase1_InterceptorServletTestCase
             // and contains the text "test non serializable exception", then
             // the test is ok.
             if (name().equals("testExceptionNotSerializable")) {
-                if (e.instanceOf(TestServletTestCase1_ExceptionNotSerializable.class)) {
-                    assertEquals("test non serializable exception", 
+                if (e.instanceOf(
+                    TestServletTestCase1_ExceptionNotSerializable.class)) {
+
+                    assertEquals("test non serializable exception",
                         e.getMessage());
                     return;
                 }
@@ -119,7 +123,9 @@ public class TestServletTestCase1_InterceptorServletTestCase
             // and contains the text "test serializable exception", then
             // the test is ok.
             if (name().equals("testExceptionSerializable")) {
-                assert(e.instanceOf(TestServletTestCase1_ExceptionSerializable.class));
+                assert(e.instanceOf(
+                    TestServletTestCase1_ExceptionSerializable.class));
+
                 assertEquals("test serializable exception", e.getMessage());
                 return;
             }

@@ -78,7 +78,9 @@ import org.apache.commons.cactus.util.*;
  * package here for convenience. They can also be read by end-users to
  * understand how Cactus work.
  *
- * @version @version@
+ * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
+ *
+ * @version $Id$
  */
 public class TestServletTestCase_TestResult extends ServletTestCase
 {
@@ -99,7 +101,8 @@ public class TestServletTestCase_TestResult extends ServletTestCase
      */
     public static void main(String[] theArgs)
     {
-        junit.ui.TestRunner.main(new String[] {TestServletTestCase_TestResult.class.getName()});
+        junit.ui.TestRunner.main(new String[] {
+            TestServletTestCase_TestResult.class.getName()});
     }
 
     /**

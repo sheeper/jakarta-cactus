@@ -60,14 +60,16 @@ import java.io.*;
  * exception but it will be caught by JUnit so the application will not stop.
  * The test will be reported as failed. It implements chaining.
  *
- * @version @version@
+ * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
+ *
+ * @version $Id$
  */
 public class ChainedRuntimeException extends RuntimeException
 {
     /**
      * Original exception which caused this exception.
      */
-    protected Throwable m_OriginalException;
+    protected Throwable originalException;
 
     /**
      * Create a <code>TestException</code> and set the exception error
@@ -89,7 +91,7 @@ public class ChainedRuntimeException extends RuntimeException
     public ChainedRuntimeException(String theMessage, Throwable theException)
     {
         super(theMessage);
-        m_OriginalException = theException;
+        this.originalException = theException;
     }
 
     /**
@@ -102,7 +104,7 @@ public class ChainedRuntimeException extends RuntimeException
     public ChainedRuntimeException(Throwable theException)
     {
         super(theException.getMessage());
-        m_OriginalException = theException;
+        this.originalException = theException;
     }
 
     /**
@@ -121,8 +123,8 @@ public class ChainedRuntimeException extends RuntimeException
     public void printStackTrace(PrintStream thePs)
     {
         super.printStackTrace(thePs);
-        if (m_OriginalException != null) {
-            m_OriginalException.printStackTrace(thePs);
+        if (this.originalException != null) {
+            this.originalException.printStackTrace(thePs);
         }
     }
 
@@ -134,8 +136,8 @@ public class ChainedRuntimeException extends RuntimeException
     public void printStackTrace(PrintWriter thePw)
     {
         super.printStackTrace(thePw);
-        if (m_OriginalException != null) {
-            m_OriginalException.printStackTrace(thePw);
+        if (this.originalException != null) {
+            this.originalException.printStackTrace(thePw);
         }
     }
 

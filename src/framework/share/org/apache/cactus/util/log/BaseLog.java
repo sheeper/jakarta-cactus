@@ -63,6 +63,10 @@ import org.apache.log4j.Category;
  * name).
  *
  * The order of priority is as follows : ERROR > WARNING > DEBUG > INFO
+ *
+ * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
+ *
+ * @version $Id$
  */
 public class BaseLog implements Log
 {
@@ -77,7 +81,7 @@ public class BaseLog implements Log
      */
     public BaseLog(String theCategoryName)
     {
-    	category = Category.getInstance(theCategoryName);
+    	this.category = Category.getInstance(theCategoryName);
     }
 
     /**
@@ -87,7 +91,7 @@ public class BaseLog implements Log
      */
     public void debug(String theMessage)
     {
-        category.debug(theMessage);
+        this.category.debug(theMessage);
     }
 
     /**
@@ -98,7 +102,7 @@ public class BaseLog implements Log
      */
     public void debug(String theMessage, Throwable theThrowable)
     {
-        category.debug(theMessage, theThrowable);
+        this.category.debug(theMessage, theThrowable);
     }
 
     /**
@@ -108,7 +112,7 @@ public class BaseLog implements Log
      */
     public void error(String theMessage)
     {
-        category.error(theMessage);
+        this.category.error(theMessage);
     }
 
     /**
@@ -119,7 +123,7 @@ public class BaseLog implements Log
      */
     public void error(String theMessage, Throwable theThrowable)
     {
-        category.error(theMessage, theThrowable);
+        this.category.error(theMessage, theThrowable);
     }
 
     /**
@@ -130,7 +134,7 @@ public class BaseLog implements Log
      */
     public void error(Throwable theThrowable)
     {
-        category.error("", theThrowable);
+        this.category.error("", theThrowable);
     }
 
     /**
@@ -140,7 +144,7 @@ public class BaseLog implements Log
      */
     public void info(String theMessage)
     {
-        category.info(theMessage);
+        this.category.info(theMessage);
     }
 
     /**
@@ -151,7 +155,7 @@ public class BaseLog implements Log
      */
     public void info(String theMessage, Throwable theThrowable)
     {
-        category.info(theMessage, theThrowable);
+        this.category.info(theMessage, theThrowable);
     }
 
     /**
@@ -161,7 +165,7 @@ public class BaseLog implements Log
      */
     public void warn(String theMessage)
     {
-        category.warn(theMessage);
+        this.category.warn(theMessage);
     }
 
     /**
@@ -172,7 +176,7 @@ public class BaseLog implements Log
      */
     public void warn(String theMessage, Throwable theThrowable)
     {
-        category.warn(theMessage, theThrowable);
+        this.category.warn(theMessage, theThrowable);
     }
 
     /**
@@ -182,7 +186,7 @@ public class BaseLog implements Log
      */
     public void entry(String theMessage)
     {
-        category.debug('>' + theMessage);
+        this.category.debug('>' + theMessage);
     }
 
     /**
@@ -192,7 +196,7 @@ public class BaseLog implements Log
      */
     public void exit(String theMessage)
     {
-        category.debug('<' + theMessage);
+        this.category.debug('<' + theMessage);
     }
 
     /**
@@ -200,7 +204,7 @@ public class BaseLog implements Log
      */
     public boolean isDebugEnabled()
     {
-        return category.isDebugEnabled();
+        return this.category.isDebugEnabled();
     }
 
 }

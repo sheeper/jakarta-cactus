@@ -57,7 +57,9 @@ package org.apache.commons.cactus.sample.unit;
  * Used by <code>TestServletTestCase1</code> to test the case where
  * a non serializable exception is returned by a test method.
  *
- * @version @version@
+ * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
+ *
+ * @version $Id$
  * @see TestServletTestCase1
  */
 public class TestServletTestCase1_ExceptionNotSerializable extends Exception

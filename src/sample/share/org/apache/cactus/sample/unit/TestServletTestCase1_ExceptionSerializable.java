@@ -59,10 +59,13 @@ import java.io.*;
  * Used by <code>TestServletTestCase1</code> to test the case where
  * a serializable exception is raised by a test method.
  *
- * @version @version@
+ * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
+ *
+ * @version $Id$
  * @see TestServletTestCase1
  */
-public class TestServletTestCase1_ExceptionSerializable extends Exception implements Serializable
+public class TestServletTestCase1_ExceptionSerializable
+    extends Exception implements Serializable
 {
     /**
      * @param theMessage the exception message.

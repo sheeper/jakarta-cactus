@@ -73,7 +73,9 @@ import org.apache.commons.cactus.*;
  * package here for convenience. They can also be read by end-users to
  * understand how Cactus work.
  *
- * @version @version@
+ * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
+ *
+ * @version $Id$
  */
 public class TestServletTestCase4 extends ServletTestCase
 {

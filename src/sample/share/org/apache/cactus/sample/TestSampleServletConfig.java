@@ -72,7 +72,9 @@ import org.apache.commons.cactus.util.*;
  * have been inherited from <code>GenericServlet</code>) can be unit-tested
  * with Cactus.
  *
- * @version @version@
+ * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
+ *
+ * @version $Id$
  */
 public class TestSampleServletConfig extends ServletTestCase
 {
@@ -93,7 +95,8 @@ public class TestSampleServletConfig extends ServletTestCase
      */
     public static void main(String[] theArgs)
     {
-        junit.ui.TestRunner.main(new String[] {TestSampleServletConfig.class.getName()});
+        junit.ui.TestRunner.main(new String[] {
+            TestSampleServletConfig.class.getName()});
     }
 
     /**

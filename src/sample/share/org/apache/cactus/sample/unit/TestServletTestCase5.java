@@ -80,7 +80,9 @@ import org.apache.commons.cactus.*;
  * exception handling in our unit test cases so we must not let these exceptions
  * get through to JUnit (otherwise the test will appear as failed).
  *
- * @version @version@
+ * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
+ *
+ * @version $Id$
  */
 public class TestServletTestCase5
     extends TestServletTestCase5_InterceptorServletTestCase

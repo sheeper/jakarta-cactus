@@ -61,7 +61,9 @@ import java.io.*;
  * Cactus utility classes to help assert returned results from server side
  * code.
  *
- * @version @version@
+ * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
+ *
+ * @version $Id$
  * @deprecated As of Cactus 1.2, replaced by WebResponse
  * @see org.apache.commons.cactus.WebResponse
  */
@@ -72,10 +74,12 @@ public class AssertUtils
      *                      redirector.
      * @return the servlet output stream bytes as a string.
      */
-    public static String getResponseAsString(HttpURLConnection theConnection) throws IOException
+    public static String getResponseAsString(HttpURLConnection theConnection)
+        throws IOException
     {
         StringBuffer sb = new StringBuffer();
-        BufferedReader input = new BufferedReader(new InputStreamReader(theConnection.getInputStream()));
+        BufferedReader input = new BufferedReader(
+            new InputStreamReader(theConnection.getInputStream()));
         char[] buffer = new char[2048];
         int nb;
         while (-1 != (nb = input.read(buffer, 0, 2048))) {
@@ -92,9 +96,11 @@ public class AssertUtils
      * @return the servlet output stream bytes as an array of string (each
      *         string is a separate line from the output stream).
      */
-    public static String[] getResponseAsStringArray(HttpURLConnection theConnection) throws IOException
+    public static String[] getResponseAsStringArray(
+        HttpURLConnection theConnection) throws IOException
     {
-        BufferedReader input = new BufferedReader(new InputStreamReader(theConnection.getInputStream()));
+        BufferedReader input = new BufferedReader(
+            new InputStreamReader(theConnection.getInputStream()));
         Vector lines = new Vector();
         String str;
         while (null != (str = input.readLine())) {
@@ -153,7 +159,8 @@ public class AssertUtils
                 // Check if the cookie name already exist in the hashtable.
                 // If so, then add it to the vector of cookies for that name.
 
-                String name = ((ClientCookie)clientCookies.elementAt(0)).getName();
+                String name =
+                    ((ClientCookie)clientCookies.elementAt(0)).getName();
 
                 if (cookies.containsKey(name)) {
                     Vector cookieValues = (Vector)cookies.get(name);
@@ -209,7 +216,8 @@ public class AssertUtils
 
             int pos = param.indexOf("=");
             if (pos < 0) {
-                System.err.println("Bad 'Set-Cookie' syntax, missing '=' [" + param + "]");
+                System.err.println("Bad 'Set-Cookie' syntax, missing '=' [" +
+                    param + "]");
                 continue;
             }
 
@@ -247,7 +255,8 @@ public class AssertUtils
                 } else if (left.equalsIgnoreCase("version")) {
                     version = Float.parseFloat(right);
                 } else {
-                    System.err.println("Bad 'Set-Cookie' syntax, bad name [" + param + "]");
+                    System.err.println("Bad 'Set-Cookie' syntax, bad name [" +
+                        param + "]");
                     continue;
                 }
 

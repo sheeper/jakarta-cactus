@@ -57,44 +57,46 @@ package org.apache.commons.cactus.util;
  * Contains cookie information for cookies returned from the server to the
  * client.
  *
- * @version @version@
+ * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
+ *
+ * @version $Id$
  */
 public class ClientCookie
 {
     /**
      * The cookie's name.
      */
-    private String m_Name;
+    private String name;
 
     /**
      * The cookie's value.
      */
-    private String m_Value;
+    private String value;
 
     /**
      * The cookie's comment.
      */
-    private String m_Comment;
+    private String comment;
 
     /**
      * The cookie's domain.
      */
-    private String m_Domain;
+    private String domain;
 
     /**
      * The cookie's max age.
      */
-    private long m_MaxAge;
+    private long maxAge;
 
     /**
      * The cookie's path.
      */
-    private String m_Path;
+    private String path;
 
     /**
      * Specify if the cookie is a secure cookie
      */
-    private boolean m_IsSecure;
+    private boolean isSecure;
 
     /**
      * The cookie's spec. version
@@ -114,15 +116,16 @@ public class ClientCookie
      * @param theVersion the cookie's version
      */
     public ClientCookie(String theName, String theValue, String theComment,
-        String theDomain, long theMaxAge, String thePath, boolean isSecure, float theVersion)
+        String theDomain, long theMaxAge, String thePath, boolean isSecure,
+        float theVersion)
     {
-        m_Comment = theComment;
-        m_Domain = theDomain;
-        m_IsSecure = isSecure;
-        m_MaxAge = theMaxAge;
-        m_Name = theName;
-        m_Path = thePath;
-        m_Value = theValue;
+        this.comment = theComment;
+        this.domain = theDomain;
+        this.isSecure = isSecure;
+        this.maxAge = theMaxAge;
+        this.name = theName;
+        this.path = thePath;
+        this.value = theValue;
         m_Version = theVersion;
     }
 
@@ -131,7 +134,7 @@ public class ClientCookie
      */
     public String getName()
     {
-        return m_Name;
+        return this.name;
     }
 
     /**
@@ -139,7 +142,7 @@ public class ClientCookie
      */
     public String getValue()
     {
-        return m_Value;
+        return this.value;
     }
 
     /**
@@ -147,7 +150,7 @@ public class ClientCookie
      */
     public String getComment()
     {
-        return m_Comment;
+        return this.comment;
     }
 
     /**
@@ -155,7 +158,7 @@ public class ClientCookie
      */
     public String getDomain()
     {
-        return m_Domain;
+        return this.domain;
     }
 
     /**
@@ -163,7 +166,7 @@ public class ClientCookie
      */
     public long getMaxAge()
     {
-        return m_MaxAge;
+        return this.maxAge;
     }
 
     /**
@@ -171,7 +174,7 @@ public class ClientCookie
      */
     public String getPath()
     {
-        return m_Path;
+        return this.path;
     }
 
     /**
@@ -179,7 +182,7 @@ public class ClientCookie
      */
     public boolean isSecure()
     {
-        return m_IsSecure;
+        return this.isSecure;
     }
 
     /**

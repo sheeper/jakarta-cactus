@@ -64,7 +64,9 @@ import java.util.*;
  * different test cases as possible rather than implementing a meaningful
  * business logic.
  *
- * @version @version@
+ * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
+ *
+ * @version $Id$
  */
 public class SampleServlet extends HttpServlet
 {
@@ -76,7 +78,8 @@ public class SampleServlet extends HttpServlet
      * @param theRequest the HTTP request
      * @param theResponse the HTTP response
      */
-    public void doGet(HttpServletRequest theRequest, HttpServletResponse theResponse) throws IOException
+    public void doGet(HttpServletRequest theRequest,
+        HttpServletResponse theResponse) throws IOException
     {
         PrintWriter pw = theResponse.getWriter();
 
@@ -113,7 +116,8 @@ public class SampleServlet extends HttpServlet
     public void setSessionVariable(HttpServletRequest theRequest)
     {
         HttpSession session = theRequest.getSession(false);
-        session.setAttribute("name_setSessionVariable", "value_setSessionVariable");
+        session.setAttribute("name_setSessionVariable",
+            "value_setSessionVariable");
     }
 
     /**
@@ -123,7 +127,8 @@ public class SampleServlet extends HttpServlet
      */
     public void setRequestAttribute(HttpServletRequest theRequest)
     {
-        theRequest.setAttribute("name_setRequestAttribute", "value_setRequestAttribute");
+        theRequest.setAttribute("name_setRequestAttribute",
+            "value_setRequestAttribute");
     }
 
     /**
@@ -188,7 +193,8 @@ public class SampleServlet extends HttpServlet
      */
      public void setResponseCookie(HttpServletResponse theResponse)
      {
-        Cookie cookie = new Cookie("responsecookie", "this is a response cookie");
+        Cookie cookie = new Cookie("responsecookie",
+            "this is a response cookie");
         cookie.setDomain("jakarta.apache.org");
         theResponse.addCookie(cookie);
     }
@@ -202,9 +208,12 @@ public class SampleServlet extends HttpServlet
      * @param theResponse the HTTP response
      * @param theConfig the servlet config object
      */
-    public void doForward(HttpServletRequest theRequest, HttpServletResponse theResponse, ServletConfig theConfig) throws IOException, ServletException
+    public void doForward(HttpServletRequest theRequest,
+        HttpServletResponse theResponse, ServletConfig theConfig)
+        throws IOException, ServletException
     {
-        RequestDispatcher rd = theConfig.getServletContext().getRequestDispatcher("/test/test.jsp");
+        RequestDispatcher rd = theConfig.getServletContext().
+            getRequestDispatcher("/test/test.jsp");
         rd.forward(theRequest, theResponse);
     }
 

@@ -57,6 +57,10 @@ import java.util.*;
 
 /**
  * Dummy class that logs nothing.
+ *
+ * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
+ *
+ * @version $Id$
  */
 public class BaseLogDummy implements Log
 {

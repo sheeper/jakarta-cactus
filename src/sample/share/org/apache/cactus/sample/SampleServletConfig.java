@@ -64,7 +64,9 @@ import java.util.*;
  * <code>log()</code>, ... (i.e. methods inherited from
  * <code>GenericServlet</code>).
  *
- * @version @version@
+ * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
+ *
+ * @version $Id$
  */
 public class SampleServletConfig extends HttpServlet
 {

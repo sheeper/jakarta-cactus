@@ -55,6 +55,10 @@ package org.apache.commons.cactus.util.log;
 
 /**
  * Interface for logging implementation classes
+ *
+ * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
+ *
+ * @version $Id$
  */
 public interface Log
 {

@@ -64,10 +64,13 @@ import org.apache.commons.cactus.*;
  * unit test cases we must not let these exceptions get through to JUnit
  * (otherwise the test will appear as failed).
  *
- * @version @version@
+ * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
+ *
+ * @version $Id$
  * @see TestServletTestCase1
  */
-public class TestServletTestCase5_InterceptorServletTestCase extends ServletTestCase
+public class TestServletTestCase5_InterceptorServletTestCase
+    extends ServletTestCase
 {
     /**
      * Constructs a test case with the given name.

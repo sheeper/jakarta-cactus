@@ -61,6 +61,10 @@ import org.apache.log4j.PropertyConfigurator;
 /**
  * Logging service acting as a wrapper around the Jakarta Log4j logging
  * framework.
+ *
+ * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
+ *
+ * @version $Id$
  */
 public class LogService
 {
@@ -94,11 +98,12 @@ public class LogService
         // implementation that does nothing. This is to make it easy on user
         // who do not want to have to download log4j and put it in their
         // classpath !
-        isLog4jInClasspath = true;
+        this.isLog4jInClasspath = true;
         try {
-            Class aClass = Class.forName("org.apache.log4j.PropertyConfigurator");
+            Class aClass =
+                Class.forName("org.apache.log4j.PropertyConfigurator");
         } catch (ClassNotFoundException e) {
-            isLog4jInClasspath = false;
+            this.isLog4jInClasspath = false;
         }
     }
 
@@ -107,10 +112,10 @@ public class LogService
      */
     public static synchronized LogService getInstance()
     {
-        if (instance == null) {
-            instance = new LogService();
+        if (this.instance == null) {
+            this.instance = new LogService();
         }
-        return instance;
+        return this.instance;
     }
 
     /**
@@ -131,7 +136,7 @@ public class LogService
 
         if (theFileName != null) {
 
-            if (isLog4jInClasspath) {
+            if (this.isLog4jInClasspath) {
 
                 URL url = this.getClass().getResource(theFileName);
                 if (url != null) {
@@ -140,15 +145,16 @@ public class LogService
                 } else {
                     // Failed to configure logging system, simply print
                     // a warning on stderr
-                    System.err.println("Failed to configure logging " +
-                        "system : Could not find file [" + theFileName + "]");
+                    System.err.println("[warning] Failed to configure " +
+                        "logging system : Could not find file [" +
+                        theFileName + "]");
                 }
 
             }
 
         }
 
-        isInitialized = true;
+        this.isInitialized = true;
     }
 
     /**
@@ -160,21 +166,21 @@ public class LogService
     public synchronized Log getLog(String theCategoryName)
     {
         // Check first if initialization has been performed
-        if (!isInitialized) {
+        if (!isInitialized()) {
             throw new RuntimeException("Must call init() first");
         }
 
-        Log log = (Log)logCategories.get(theCategoryName);
+        Log log = (Log)this.logCategories.get(theCategoryName);
 
         if (log == null) {
 
-            if (isLog4jInClasspath) {
+            if (this.isLog4jInClasspath) {
                 log = new BaseLog(theCategoryName);
             } else {
                 log = new BaseLogDummy(theCategoryName);
             }
 
-            logCategories.put(theCategoryName, log);
+            this.logCategories.put(theCategoryName, log);
 
         }
 
@@ -186,7 +192,7 @@ public class LogService
      */
     public boolean isInitialized()
     {
-        return isInitialized;
+        return this.isInitialized;
     }
 
 }
