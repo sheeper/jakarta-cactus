@@ -75,8 +75,9 @@
       <action>
         Continue the JMS Redirector/Client to test Message Driven Beans.
       </action>
-      <action assigned-to="Peter Wong, Jason Robertson, Vincent Massol">
-        Add support for Form-based authentication.
+      <action assigned-to="Jason Robertson, Vincent Massol">
+        Add test case for form-based authentication and test it on several
+        servers. Also add documentation on web site to explain how to use it.
       </action>
       <action>
         Add EJB Redirectors so that unit testing of code that require an EJB

@@ -48,6 +48,9 @@
     </devs>
 
     <release version="1.5" date="- in CVS">
+      <action dev="VMA" type="add" due-to="Jason Robertson" due-to-email="Jason.Robertson@acs-inc.com">
+        Added Form-based authentication support (Submitted by Jason Robertson).
+      </action>
       <action dev="VMA" type="add">
         Added a <link href="howto_build.html">tutorial</link> that explains how
         to build Cactus from the sources.
