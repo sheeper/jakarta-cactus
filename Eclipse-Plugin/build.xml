@@ -229,23 +229,21 @@
 		<copy file="${base.dir}/plugin.properties" todir="${dist.dir}"/>
 		<copy file="${base.dir}/README.txt" todir="${dist.dir}"/>		
 		<copy todir="${dist.dir}/icons">
-			<fileset dir="${base.dir}/icons"/>
+		    <fileset dir="${base.dir}/icons"/>
 		</copy>
-		<copy todir="${dist.dir}/ant">
-			<fileset dir="${base.dir}/ant"/>
-		</copy>
-
-		<copy todir="${dist.dir}/lib/client" file="${commons.httpclient.jar}"/>
-    	<copy todir="${dist.dir}/lib/client" file="${servlet.jar}"/>
-		<copy todir="${dist.dir}/lib/share" file="${aspectjrt.jar}"/>
-    	<copy todir="${dist.dir}/lib/share" file="${junit.jar}"/>
-    	<copy todir="${dist.dir}/lib/share" file="${commons.logging.jar}"/>
-		<copy todir="${dist.dir}/lib/share" file="framework/dist-${j2ee.api}/lib/cactus.jar"/>
-
+	    <copy todir="${dist.dir}/ant">
+            <fileset dir="${base.dir}/ant"/>
+        </copy>
+        <copy todir="${dist.dir}/lib/client" file="${commons.httpclient.jar}"/>
+        <copy todir="${dist.dir}/lib/client" file="${j2ee.jar}"/>
+        <copy todir="${dist.dir}/lib/share" file="${aspectjrt.jar}"/>
+        <copy todir="${dist.dir}/lib/share" file="${junit.jar}"/>
+        <copy todir="${dist.dir}/lib/share" file="${commons.logging.jar}"/>
+        <copy todir="${dist.dir}/lib/share" file="framework/dist-${j2ee.api}/lib/cactus.jar"/>
         <copy todir="${dist.dir}/web">
             <fileset dir="framework/dist-${j2ee.api}/web"/>
         </copy>
-	</target>
+    </target>
 
     <!--
        ========================================================================
@@ -270,17 +268,17 @@
         </zip>
 
     </target>
-    	
+        
     <!--
        ========================================================================
          Clean up build-generated files and directories
        ========================================================================
     -->
-	<target name="clean">
-	
-		<delete dir="${target.dir}"/>
-		<delete dir="${dist.dir}"/>
-		
-	</target>
-	
+    <target name="clean">
+    
+        <delete dir="${target.dir}"/>
+        <delete dir="${dist.dir}"/>
+        
+    </target>
+    
 </project>

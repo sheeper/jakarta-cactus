@@ -38,12 +38,9 @@ eclipse.ui.workbench.jar = ${eclipse.home}/plugins/org.eclipse.ui.workbench_2.1.
 # below. You do not have to put all the external jars in a single location.
 lib.repo = D:/dev/cactus/jakarta-cactus-13-1.4b1/lib
 
-# Location of the Servlet API jar (it is needed because we want to copy it
-# in the Cactus distribution).
-servlet.jar = ${lib.repo}/servletapi-2.3.jar
-# Location of the Servlet API jar (it is needed because we want to copy it
-# in the Cactus distribution).
-servlet.jar = ${lib.repo}/servletapi-2.3.jar
+# Location of the J2EE jar (it is needed because we want to copy it
+# in the plugin lib/client directory).
+j2ee.jar = ${lib.repo}/servletapi-2.3.jar
 
 # The location of the Commons Logging jar
 commons.logging.jar = ${lib.repo}/commons-logging-1.0.jar
