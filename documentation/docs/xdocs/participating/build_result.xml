@@ -23,80 +23,51 @@
         Please find below the links to the Cactus Nightly Build results:
       </p>
 
-      <table>
-        <tr>
-          <th>
-            <strong>Name</strong>
-          </th>
-        </tr>
-        <tr>
-          <td>
-            <link href="ext:gump_cactus_anttasks">Cactus Ant tasks</link>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <link href="ext:gump_cactus_doc">Cactus Documentation</link>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <link href="ext:gump_cactus_framework_12">Cactus Framework for 
-            J2EE 1.2</link>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <link href="ext:gump_cactus_framework_13">Cactus Framework for 
-            J2EE 1.3</link>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <link href="ext:gump_cactus_integration_ant_12">Cactus Ant 
-            Integration for J2EE 1.2</link>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <link href="ext:gump_cactus_integration_ant_13">Cactus Ant 
-            Integration for J2EE 1.3</link>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <link href="ext:gump_cactus_integration_eclipse_12">Cactus 
-            Eclipse Plugin for J2EE 1.2</link>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <link href="ext:gump_cactus_integration_eclipse_13">Cactus 
-            Eclipse Plugin for J2EE 1.3</link>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <link href="ext:gump_cactus_sample_servlet_12">Cactus Servlet 
-            Sample for J2EE 1.2 (Servlet API 2.2)</link>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <link href="ext:gump_cactus_sample_servlet_13">Cactus Servlet 
-            Sample for J2EE 1.3 (Servlet API 2.3)</link>
-          </td>
-        </tr>
-      </table>
+      <ul>
+        <li>
+          <link href="ext:gump_cactus_anttasks">Cactus Ant tasks</link>
+        </li>
+        <li>
+          <link href="ext:gump_cactus_doc">Cactus Documentation</link>
+        </li>
+        <li>
+          <link href="ext:gump_cactus_framework_12">Cactus Framework for 
+          J2EE 1.2</link>
+        </li>
+        <li>
+          <link href="ext:gump_cactus_framework_13">Cactus Framework for 
+          J2EE 1.3</link>
+        </li>
+        <li>
+          <link href="ext:gump_cactus_integration_ant_12">Cactus Ant 
+          Integration for J2EE 1.2</link>
+        </li>
+        <li>
+          <link href="ext:gump_cactus_integration_ant_13">Cactus Ant 
+          Integration for J2EE 1.3</link>
+        </li>
+        <li>
+          <link href="ext:gump_cactus_integration_eclipse_12">Cactus 
+          Eclipse Plugin for J2EE 1.2</link>
+        </li>
+        <li>
+          <link href="ext:gump_cactus_integration_eclipse_13">Cactus 
+          Eclipse Plugin for J2EE 1.3</link>
+        </li>
+        <li>
+          <link href="ext:gump_cactus_sample_servlet_12">Cactus Servlet 
+          Sample for J2EE 1.2 (Servlet API 2.2)</link>
+        </li>
+        <li>
+          <link href="ext:gump_cactus_sample_servlet_13">Cactus Servlet 
+          Sample for J2EE 1.3 (Servlet API 2.3)</link>
+        </li>
+      </ul>
 
-      <p>
+      <note>
         All Gump results are available
         <link href="ext:gump_results">here</link>.
-      </p>
-
-    </section>
-
-    <section title="Nightly Build results">
+      </note>
 
       <p>
         If the nightly build is successful, Gump posts the packaged Cactus
