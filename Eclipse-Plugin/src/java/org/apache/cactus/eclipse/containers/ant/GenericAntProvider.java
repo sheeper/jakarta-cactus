@@ -158,7 +158,7 @@ public class GenericAntProvider implements IContainerProvider
         antArguments.add("-Dtarget.dir=" + theTargetDir);
     }
     /**
-     * @see org.apache.cactus.eclipse.containers.IContainerProvider#start(org.apache.cactus.eclipse.containers.ContainerInfo)
+     * @see IContainerProvider#start(ContainerInfo)
      */
     public void start(ContainerInfo theContainerInfo, IProgressMonitor thePM)
         throws CoreException
@@ -200,7 +200,7 @@ public class GenericAntProvider implements IContainerProvider
     }
 
     /**
-     * @see org.apache.cactus.eclipse.containers.IContainerProvider#deploy(java.lang.String, java.net.URL, org.apache.cactus.eclipse.containers.Credential)
+     * @see IContainerProvider#deploy(String, URL, Credential)
      */
     public void deploy(
         String theContextPath,
@@ -219,7 +219,7 @@ public class GenericAntProvider implements IContainerProvider
     }
 
     /**
-     * @see org.apache.cactus.eclipse.containers.IContainerProvider#undeploy(java.lang.String, org.apache.cactus.eclipse.containers.Credential)
+     * @see IContainerProvider#undeploy (String, Credential)
      */
     public void undeploy(
         String theContextPath,
@@ -232,7 +232,7 @@ public class GenericAntProvider implements IContainerProvider
     }
 
     /**
-     * @see org.apache.cactus.eclipse.containers.IContainerProvider#stop(org.apache.cactus.eclipse.containers.ContainerInfo)
+     * @see IContainerProvider#stop(ContainerInfo)
      */
     public void stop(ContainerInfo theContainerInfo, IProgressMonitor thePM)
         throws CoreException

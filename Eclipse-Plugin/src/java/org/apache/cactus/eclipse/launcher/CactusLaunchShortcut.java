@@ -401,7 +401,7 @@ public class CactusLaunchShortcut
     }
 
     /**
-     * @see org.eclipse.jdt.internal.junit.runner.ITestRunListener#testFailed(int, java.lang.String, java.lang.String)
+     * @see ITestRunListener#testFailed (int, String, String)
      */
     public void testFailed(int theStatus, String theTestName, String theTrace)
     {
@@ -424,7 +424,7 @@ public class CactusLaunchShortcut
     }
 
     /**
-     * @see org.eclipse.jdt.internal.junit.runner.ITestRunListener#testReran(java.lang.String, java.lang.String, int, java.lang.String)
+     * @see ITestRunListener#testReran(String, String, int, String)
      */
     public void testReran(
         String theTestClass,
