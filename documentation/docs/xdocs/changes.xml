@@ -66,10 +66,15 @@
 
       <release version="1.5" date="- in CVS">
         <action dev="VMA" type="update">
-          Deprecated <code>XXXTestCase.getCurrentTestMethod()</code> which
-          returns the current test name. Replaced it by
-          <code>XXXTestCase.getCurrentTestName()</code> which is better
-          named.
+          Refactoring of <code>XXXTestCase</code> class hierarchy. Whereas 
+          it was previously inheriting from <code>AbstractWebTestCase</code>
+          and <code>AbstractTestCase</code> it is now simply inheriting
+          from JUnit <code>TestCase</code>. Thus all non-public API are now
+          not visible from user (as they should be). This has broken binary 
+          compatibility. If you had some framework compiled with Cactus 1.4.1
+          and using some methods from <code>AbstractWebTestCase</code>
+          or <code>AbstractTestCase</code>, you'll need to recompile it 
+          with Cactus 1.5.
         </action>
         <action dev="CML" type="add">
           Added a <code>HttpServletRequestWrapper.setRemoteUser()</code> method
