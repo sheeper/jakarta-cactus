@@ -227,7 +227,8 @@
 
         <!-- Copy webapp files -->
         <copy todir="${target.sample.src.webapp.dir}">
-            <fileset dir="${src.webapp.dir}"/>
+            <fileset dir="${src.webapp.dir}/share"/>
+            <fileset dir="${src.webapp.dir}/j2ee${j2ee.api}"/>
         </copy>
 
         <!-- Copy application jars -->
