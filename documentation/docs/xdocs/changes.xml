@@ -49,6 +49,13 @@
     <anchor id="release_changes"/>
     <releases title="Release changes">
 
+      <p>
+        The changes below are important changes visible to the user. Small
+        scale changes that are not externally visible are available from
+        the Cactus CVS using the cvs log feature or using the ViewCVS
+        interface.
+      </p>
+
       <devs>
         <person name="Vincent Massol" email="vmassol@apache.org" id="VMA"/>
         <person name="Nicholas Lesiecki" email="ndlesiecki@yahoo.com" id="NDL"/>
