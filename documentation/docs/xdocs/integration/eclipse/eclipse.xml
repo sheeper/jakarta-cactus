@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+
+<document id="eclipse">
+
+  <properties>
+    <title>Cactus integration in Eclipse</title>
+    <authors>
+      <author name="Julien Ruaux" email="jruaux@octo.com" />
+    </authors>
+  </properties>
+
+  <body>
+    <section title="Overview">
+      <p>
+        The integration of Cactus in the 
+        <link href="ext:eclipse">Eclipse</link> platform relies on 2 separate plug-ins :
+      </p>
+      <li>
+        The <link href="site:runner_plugin">Cactus runner plug-in</link>
+      </li>
+      <li>
+        The <link href="site:webapp_plugin">Webapp Eclipse plug-in</link>
+      </li>
+    </section>
+
+    <anchor id="features" />
+    <section title="Features at a glance">
+      <ul>
+        <li>
+          Shortcut for launching Cactus tests
+          <figure src="images/eclipse/runner/launchshortcut.png"
+            alt="Cactus launch shortcut"/>
+        </li>
+      </ul>
+      <ul>
+        <li>
+          Project property page for setting up the web application.
+          <figure src="images/eclipse/webapp/propertypage.png"
+            alt="Webapp property page"/>
+        </li>
+      </ul>    
+    </section>
+
+    <anchor id="installation"/>
+    <section title="Installation">
+      <section title="Requirements">
+        <p>
+          A version of the Eclipse platform later than 2.1 RC2 is needed.
+        </p>
+      </section>
+      <section title="Installation">
+        <p>
+          Connect to the Cactus update site (available soon) from Eclipse
+          to install both plug-ins at once as an <code>Eclipse feature</code>.
+        </p>
+      </section>
+      <section title="Configuration">
+        <p>
+          The plug-ins are functional 'off the shelf'.
+          Refer to the corresponding plug-in section for specific configuration.
+        </p>
+      </section>
+    </section>
+
+  </body>
+</document>
