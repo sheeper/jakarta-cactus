@@ -297,11 +297,18 @@ public class CactusTask extends JUnitTask
             }
             else
             {
-                war = getTestWar(this.earFile);
-                if (war == null)
+                EarArchive ear = new EarArchive(this.earFile);
+                String webUri = getUriOfCactifiedWebModule(ear);
+                if (webUri == null)
                 {
                     throw new BuildException("Could not find cactified web "
                         + "module in the EAR");
+                }
+                war = ear.getWebModule(webUri);
+                if (war == null)
+                {
+                    throw new BuildException("Could not find the WAR " + webUri
+                        + " in the EAR");
                 }
             }
             addRedirectorNameProperties(war);
@@ -632,24 +639,27 @@ public class CactusTask extends JUnitTask
 
     /**
      * Finds the web module in the enterprise application archive that contains
-     * the servlet test redirector.
+     * the servlet test redirector, and returns the web-uri of the module found.
      * 
-     * @param theEarFile The enterprise application archive
-     * @return The input stream for the WAR containing the tests
+     * <em>A web-app is considered cactified when it contains at least a mapping
+     * for the Cactus servlet test redirector</em>
+     * 
+     * @param theEar The enterprise application archive
+     * @return The URI of the cactified web-module, or <code>null</code> if no
+     *         cactified web-app could be found
      */
-    private WarArchive getTestWar(File theEarFile)
+    private String getUriOfCactifiedWebModule(EarArchive theEar)
     {
         try
         {
-            EarArchive ear = new EarArchive(theEarFile);
-            ApplicationXml applicationXml = ear.getApplicationXml();
+            ApplicationXml applicationXml = theEar.getApplicationXml();
             for (Iterator i = applicationXml.getWebModuleUris(); i.hasNext();)
             {
                 String webUri = (String) i.next();
-                WarArchive war = ear.getWebModule(webUri);
+                WarArchive war = theEar.getWebModule(webUri);
                 if ((war != null) && (getServletRedirectorMapping(war) != null))
                 {
-                    return war;
+                    return webUri;
                 }
             }
         }
