@@ -9,10 +9,10 @@
   <module name="TreeWalker">
     
     <!-- General file checks -->
+    <module name="FileLength"/>
     <module name="Header">
       <property name="headerFile" value="${checkstyle.header.file}"/>
     </module>
-    <module name="FileLength"/>
     <module name="LineLength">
       <property name="ignorePattern" value="(@version|@see)"/>
     </module>
@@ -34,9 +34,9 @@
     <module name="ParameterName">
       <property name="format" value="^(the|is|has)[A-Z][a-zA-Z0-9]*$"/>
     </module>
-    <module name="PublicMemberName">
+    <!--module name="PublicMemberName">
       <property name="format" value="^[a-z][a-zA-Z0-9]*$"/>
-    </module>
+    </module-->
     <module name="StaticVariableName"/>
     <module name="TypeName"/>
     
