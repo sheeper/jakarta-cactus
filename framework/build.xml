@@ -486,14 +486,33 @@
          Run the full suite of unit tests.
        ========================================================================
     -->
-    <target name="test" depends="jar" description="Run the unit tests">
+    <target name="test.clover.prepare" if="clover.enable">
+
+        <path id="test.class.path">
+            <pathelement path="${target.classes.clover.dir}"/>
+            <pathelement path="${target.classes.test.dir}"/>
+            <path refid="project.class.path"/>
+        </path>
+
+    </target>
+
+    <target name="test.main.prepare" unless="clover.enable">
+
+        <path id="test.class.path">
+            <pathelement path="${target.classes.java.dir}"/>
+            <pathelement path="${target.classes.test.dir}"/>
+            <path refid="project.class.path"/>
+        </path>
+
+    </target>
+
+    <target name="test" depends="jar,test.clover.prepare,test.main.prepare"
+        description="Run the unit tests">
 
         <junit printsummary="yes" haltonfailure="yes" fork="yes">
 
             <classpath>
-                <path path="${target.classes.clover.dir}"/>
-                <path path="${target.classes.test.dir}"/>
-                <path refid="project.class.path"/>
+                <path refid="test.class.path"/>
             </classpath>
 
             <formatter type="plain" usefile="false"/>
