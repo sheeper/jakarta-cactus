@@ -90,6 +90,7 @@
             <td width="*" valign="top" align="left">
               <table border="0" cellspacing="0" cellpadding="3">
                 <tr><td><br/><xsl:apply-templates/></td></tr>
+<!--
                 <tr>
                  <td align="right">
                   <xsl:if test="header/authors">
@@ -102,6 +103,7 @@
                   </xsl:if>
                  </td>
                 </tr>
+-->
               </table>
             </td>
           </tr>
