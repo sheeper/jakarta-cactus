@@ -1,7 +1,7 @@
 /* 
  * ========================================================================
  * 
- * Copyright 2001-2003 The Apache Software Foundation.
+ * Copyright 2001-2004 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,18 +17,11 @@
  * 
  * ========================================================================
  */
-package org.apache.cactus;
+package org.apache.cactus.internal;
 
 /**
  * Constants that define HTTP parameters required for defining a service that
  * is performed by the <code>ServletTestRedirector</code> servlet.
- *
- * <p>
- *   <strong>WARNING</strong><br/>
- *   This interface is not intended for use by API clients. It may be altered in
- *   backwards-incompatible ways and even moved or removed at any time without
- *   further notice.
- * </p>
  * 
  * @version $Id$
  */

@@ -1,7 +1,7 @@
 /* 
  * ========================================================================
  * 
- * Copyright 2001-2003 The Apache Software Foundation.
+ * Copyright 2001-2004 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -56,7 +56,7 @@ public class JspTestCase extends ServletTestCase
     public JspWriter out;
 
     /**
-     * @see AbstractCactusTestCase#AbstractCactusTestCase()
+     * @see ServletTestCase#ServletTestCase()
      */
     public JspTestCase()
     {
@@ -64,7 +64,7 @@ public class JspTestCase extends ServletTestCase
     }
 
     /**
-     * @see AbstractCactusTestCase#AbstractCactusTestCase(String)
+     * @see ServletTestCase#ServletTestCase(String)
      */
     public JspTestCase(String theName)
     {
@@ -72,7 +72,7 @@ public class JspTestCase extends ServletTestCase
     }
 
     /**
-     * @see AbstractCactusTestCase#AbstractCactusTestCase(String, Test)
+     * @see ServletTestCase#ServletTestCase(String, Test)
      */
     public JspTestCase(String theName, Test theTest)
     {
@@ -80,7 +80,7 @@ public class JspTestCase extends ServletTestCase
     }
 
     /**
-     * @see AbstractCactusTestCase#createProtocolHandler()
+     * @see ServletTestCase#createProtocolHandler()
      */
     protected ProtocolHandler createProtocolHandler()
     {

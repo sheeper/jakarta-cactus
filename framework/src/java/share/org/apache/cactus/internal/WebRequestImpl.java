@@ -1,7 +1,7 @@
 /* 
  * ========================================================================
  * 
- * Copyright 2001-2003 The Apache Software Foundation.
+ * Copyright 2001-2004 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,8 +24,6 @@ import java.util.StringTokenizer;
 
 import org.apache.cactus.Cookie;
 import org.apache.cactus.HttpSessionCookie;
-import org.apache.cactus.RequestDirectives;
-import org.apache.cactus.ServiceEnumeration;
 import org.apache.cactus.ServletURL;
 import org.apache.cactus.WebResponse;
 import org.apache.cactus.client.WebResponseObjectFactory;

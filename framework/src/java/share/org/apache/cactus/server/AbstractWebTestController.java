@@ -1,7 +1,7 @@
 /* 
  * ========================================================================
  * 
- * Copyright 2001-2003 The Apache Software Foundation.
+ * Copyright 2001-2004 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,8 +22,8 @@ package org.apache.cactus.server;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.cactus.HttpServiceDefinition;
-import org.apache.cactus.ServiceEnumeration;
+import org.apache.cactus.internal.HttpServiceDefinition;
+import org.apache.cactus.internal.ServiceEnumeration;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

@@ -1,7 +1,7 @@
 /* 
  * ========================================================================
  * 
- * Copyright 2001-2003 The Apache Software Foundation.
+ * Copyright 2001-2004 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,13 +21,13 @@ package org.apache.cactus.client.connector.http;
 
 import java.net.HttpURLConnection;
 
-import org.apache.cactus.HttpServiceDefinition;
-import org.apache.cactus.RequestDirectives;
-import org.apache.cactus.ServiceEnumeration;
 import org.apache.cactus.WebRequest;
-import org.apache.cactus.WebTestResult;
 import org.apache.cactus.configuration.WebConfiguration;
+import org.apache.cactus.internal.HttpServiceDefinition;
+import org.apache.cactus.internal.RequestDirectives;
+import org.apache.cactus.internal.ServiceEnumeration;
 import org.apache.cactus.internal.WebRequestImpl;
+import org.apache.cactus.internal.WebTestResult;
 import org.apache.cactus.internal.client.AssertionFailedErrorWrapper;
 import org.apache.cactus.internal.client.ParsingException;
 import org.apache.cactus.internal.client.ServletExceptionWrapper;

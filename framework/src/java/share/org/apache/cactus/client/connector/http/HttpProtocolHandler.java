@@ -1,7 +1,7 @@
 /* 
  * ========================================================================
  * 
- * Copyright 2003 The Apache Software Foundation.
+ * Copyright 2003-2004 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,13 +25,13 @@ import java.net.HttpURLConnection;
 import junit.framework.Test;
 
 import org.apache.cactus.Request;
-import org.apache.cactus.RequestDirectives;
 import org.apache.cactus.WebRequest;
 import org.apache.cactus.client.ResponseObjectFactory;
 import org.apache.cactus.client.WebResponseObjectFactory;
 import org.apache.cactus.client.connector.ProtocolHandler;
 import org.apache.cactus.client.connector.ProtocolState;
 import org.apache.cactus.configuration.WebConfiguration;
+import org.apache.cactus.internal.RequestDirectives;
 import org.apache.cactus.internal.WebRequestImpl;
 import org.apache.cactus.util.JUnitVersionHelper;
 

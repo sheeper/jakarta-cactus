@@ -1,7 +1,7 @@
 /* 
  * ========================================================================
  * 
- * Copyright 2003 The Apache Software Foundation.
+ * Copyright 2003-2004 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,24 +17,17 @@
  * 
  * ========================================================================
  */
-package org.apache.cactus;
+package org.apache.cactus.internal;
 
+import org.apache.cactus.WebRequest;
 
 /**
  * Encapsulates the Cactus-specific parameters added to a request.
  *
- * <p>
- *   <strong>WARNING</strong><br/>
- *   This interface is not intended for use by API clients. It may be altered in
- *   backwards-incompatible ways and even moved or removed at any time without
- *   further notice.
- * </p>
- * 
  * @version $Id$
  */
 public class RequestDirectives
 {
-
     /**
      * The WebRequest that the directives modifies.
      */

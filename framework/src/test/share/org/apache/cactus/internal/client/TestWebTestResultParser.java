@@ -21,7 +21,7 @@ package org.apache.cactus.internal.client;
 
 import junit.framework.TestCase;
 
-import org.apache.cactus.WebTestResult;
+import org.apache.cactus.internal.WebTestResult;
 
 /**
  * Unit tests of the <code>WebTestResultParser</code> class.
