@@ -65,6 +65,10 @@
       </devs>
 
       <release version="1.5" date="- in CVS">
+        <action dev="VMA" type="add">
+          Added a <a href="site:resources_books">Cactus books</a> section
+          for books covering the Cactus framework.
+        </action>
         <action dev="VMA" type="update">
           Refactoring of <code>XXXTestCase</code> class hierarchy. Whereas 
           it was previously inheriting from <code>AbstractWebTestCase</code>
