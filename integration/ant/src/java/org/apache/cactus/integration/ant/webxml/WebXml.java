@@ -657,8 +657,10 @@ public class WebXml
      * 
      * @param theElement The element to check
      * @param theExpectedTag The expected tag name
+     * @throws IllegalArgumentException If the element name doesn't match
      */
     private void checkElement(Element theElement, WebXmlTag theExpectedTag)
+        throws IllegalArgumentException
     {
         if (!theExpectedTag.getTagName().equals(theElement.getNodeName()))
         {
