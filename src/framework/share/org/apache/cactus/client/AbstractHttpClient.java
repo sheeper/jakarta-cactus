@@ -63,12 +63,32 @@ import org.apache.commons.cactus.*;
 /**
  * Abstract class that all HTTP clients to the server redirector must extend.
  * It provides a common abstraction of the <code>doTest</code> method and
- * provides the URL to the server redirector servlet or JSP.
+ * provides the URL to the server redirector servlet or JSP. It also makes some
+ * configuration checks to verify if the runtime configuration is right (see
+ * the <code>ClientConfigurationChecker</code> class for details).
  *
  * @version @version@
  */
 public abstract class AbstractHttpClient
 {
+    /**
+     * Name of the Cactus configuration file
+     */
+    public final static String CONFIG_NAME = "cactus";
+
+    /**
+     * Properties file holding configuration data for Cactus.
+     */
+    public final static ResourceBundle CONFIG =
+        PropertyResourceBundle.getBundle(CONFIG_NAME);
+
+    /**
+     * Check client configuration parameters.
+     */
+    static {
+        ClientConfigurationChecker.checkConfigProperties();
+    }
+
     /**
      * Calls the test method indirectly by calling the Redirector servlet and
      * then open a second HTTP connection to retrieve the test results.
