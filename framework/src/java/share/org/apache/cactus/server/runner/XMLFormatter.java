@@ -177,12 +177,13 @@ public class XMLFormatter implements XMLConstants, TestListener
     {
         StringBuffer xml = new StringBuffer();
 
+        xml.append("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>");
+
         if (this.xslFileName != null) {
             xml.append("<?xml-stylesheet type=\"text/xsl\" "
                 + "href=\"" + this.xslFileName + "\"?>");
         }
 
-        xml.append("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>");
         xml.append("<" + TESTSUITES + ">");
 
         xml.append("<" + TESTSUITE + " " + ATTR_NAME + "=\""
