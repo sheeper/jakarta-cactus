@@ -44,15 +44,14 @@
     -->
     <target name="stop_tomcat_33">
 
-        <java classname="org.apache.tomcat.startup.Main" fork="yes">
+        <java classname="org.apache.tomcat.startup.StopTomcat" fork="yes">
             <jvmarg value="-Dtomcat.home=${tomcat.home.33}"/>
-            <arg value="-stop"/>
-            <arg value="-config"/>
-            <arg value="${out.tomcat33.full.dir}/conf/server.xml"/>
+            <arg value="-ajpid"/>
+            <arg value="${out.tomcat33.full.dir}/conf/ajp12.id"/>
             <classpath>            
                 <pathelement location="${java.home}/../lib/tools.jar"/>
                 <fileset dir="${tomcat.home.33}/lib">
-                    <include name="tomcat.jar"/>
+                    <include name="stop-tomcat.jar"/>
                 </fileset>
             </classpath>
         </java>
