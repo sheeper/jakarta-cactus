@@ -16,11 +16,6 @@
 # Mandatory properties
 # -----------------------------------------------------------------------------
 
-# Location of all jars. Note: This is not a mandatory property. It is only
-# used here so that it can be reused when defining the location of all the jars
-# below. You do not have to put all the external jars in a single location.
-lib.repo = c:/apps/maven/repository
-
 # CVS executable to use for documentation generation (used to automatically
 # generate web site changelog).
 cvs.executable = cvs
@@ -28,6 +23,11 @@ cvs.executable = cvs
 # -----------------------------------------------------------------------------
 # Optional properties
 # -----------------------------------------------------------------------------
+
+# Location of all jars. Note: This is not a mandatory property. It is only
+# used here so that it can be reused when defining the location of all the jars
+# below. You do not have to put all the external jars in a single location.
+lib.repo = c:/apps/maven/repository
 
 # The location of the Stylebook jar (used to generate the documentation).
 # If not specified here, the jar must be present in ANTHOME/lib
