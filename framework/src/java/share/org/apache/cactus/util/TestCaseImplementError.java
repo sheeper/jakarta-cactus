@@ -1,7 +1,7 @@
 /* 
  * ========================================================================
  * 
- * Copyright 2003-2004 The Apache Software Foundation.
+ * Copyright 2004 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,31 +19,30 @@
  */
 package org.apache.cactus.util;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import junit.framework.AssertionFailedError;
 
 /**
- * Run the unit tests of the Cactus util package that do not need a servlet
- * environment to run.
+ * Represent an error around TestCase implementation.
  *
  * @version $Id$
  */
-public class TestAll
+public class TestCaseImplementError extends AssertionFailedError
 {
     /**
-     * @return a test suite (<code>TestSuite</code>) that includes all methods
-     *         starting with "test"
+     * Create a <code>TestCaseImplementError</code> and set the error message
+     *
+     * @param theMessage the message of the error
      */
-    public static Test suite()
+    public TestCaseImplementError(String theMessage)
     {
-        TestSuite suite = new TestSuite(
-            "Cactus unit tests for the  util package");
+        super(theMessage);
+    }
 
-        suite.addTestSuite(TestStringUtil.class);
-        suite.addTestSuite(TestCookieUtil.class);
-        suite.addTestSuite(TestUniqueGenerator.class);
-        suite.addTestSuite(TestTestCaseImplementChecker.class);
-
-        return suite;
+    /**
+     * Print the full stack trace, including the original exception.
+     */
+    public void printStackTrace()
+    {
+        super.printStackTrace(System.err);
     }
 }

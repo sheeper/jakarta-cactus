@@ -284,6 +284,8 @@ framework/src/java/share/org/apache/cactus/util/HttpURLConnection.java svn_keywo
 framework/src/java/share/org/apache/cactus/util/IoUtil.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/util/JUnitVersionHelper.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/util/StringUtil.java svn_keywords=Author+Date+Id+Revision
+framework/src/java/share/org/apache/cactus/util/TestCaseImplementChecker.java svn_keywords=Author+Date+Id+Revision
+framework/src/java/share/org/apache/cactus/util/TestCaseImplementError.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/util/UniqueGenerator.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/util/UrlUtil.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/util/package.html svn_keywords=Author+Date+Id+Revision
@@ -291,6 +293,7 @@ framework/src/java/share/overview.html svn_keywords=Author+Date+Id+Revision
 framework/src/test/share/org/apache/cactus/AbstractTestAbstractTestCase.java svn_keywords=Author+Date+Id+Revision
 framework/src/test/share/org/apache/cactus/TestAbstractTestCase.java svn_keywords=Author+Date+Id+Revision
 framework/src/test/share/org/apache/cactus/TestAll.java svn_keywords=Author+Date+Id+Revision
+framework/src/test/share/org/apache/cactus/TestNoNameTestCase.java svn_keywords=Author+Date+Id+Revision
 framework/src/test/share/org/apache/cactus/TestServletURL.java svn_keywords=Author+Date+Id+Revision
 framework/src/test/share/org/apache/cactus/TestServletUtil.java svn_keywords=Author+Date+Id+Revision
 framework/src/test/share/org/apache/cactus/TestWebRequest.java svn_keywords=Author+Date+Id+Revision
@@ -302,6 +305,7 @@ framework/src/test/share/org/apache/cactus/server/runner/TestXMLFormatter.java s
 framework/src/test/share/org/apache/cactus/util/TestAll.java svn_keywords=Author+Date+Id+Revision
 framework/src/test/share/org/apache/cactus/util/TestCookieUtil.java svn_keywords=Author+Date+Id+Revision
 framework/src/test/share/org/apache/cactus/util/TestStringUtil.java svn_keywords=Author+Date+Id+Revision
+framework/src/test/share/org/apache/cactus/util/TestTestCaseImplementChecker.java svn_keywords=Author+Date+Id+Revision
 framework/src/test/share/org/apache/cactus/util/TestUniqueGenerator.java svn_keywords=Author+Date+Id+Revision
 framework/web/jspRedirector.jsp svn_keywords=Author+Date+Id+Revision
 integration/ant/.cvsignore svn_keywords=Author+Date+Id+Revision

@@ -50,6 +50,7 @@ public class TestAll
         ConfigurationInitializer.initialize();
         
         suite.addTestSuite(TestAbstractTestCase.class);
+        suite.addTestSuite(TestNoNameTestCase.class);
         suite.addTestSuite(TestServletURL.class);
         suite.addTestSuite(TestServletUtil.class);
         suite.addTestSuite(TestWebTestResult.class);

@@ -1,7 +1,7 @@
 /* 
  * ========================================================================
  * 
- * Copyright 2001-2003 The Apache Software Foundation.
+ * Copyright 2001-2004 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,6 @@ package org.apache.cactus.internal.client;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
 
 import junit.framework.Assert;
 import junit.framework.Test;
@@ -32,6 +31,7 @@ import org.apache.cactus.client.connector.ProtocolHandler;
 import org.apache.cactus.client.connector.ProtocolState;
 import org.apache.cactus.configuration.Configuration;
 import org.apache.cactus.util.JUnitVersionHelper;
+import org.apache.cactus.util.TestCaseImplementChecker;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -357,40 +357,7 @@ public class ClientTestCaseCaller extends Assert
         {
             if (methods[i].getName().equals(theMethodName))
             {
-                // Check return type
-                if (!methods[i].getReturnType().getName().equals("void"))
-                {
-                    fail("The method [" + methods[i].getName()
-                        + "] should return void and not ["
-                        + methods[i].getReturnType().getName() + "]");
-                }
-
-                // Check if method is public
-                if (!Modifier.isPublic(methods[i].getModifiers()))
-                {
-                    fail("Method [" + methods[i].getName()
-                        + "] should be declared public");
-                }
-
-                // Check parameters
-                Class[] parameters = methods[i].getParameterTypes();
-
-                if (parameters.length != 1)
-                {
-                    fail("The method [" + methods[i].getName()
-                        + "] must accept a single parameter implementing "
-                        + "interface [" + Request.class.getName() + "], "
-                        + "but " + parameters.length
-                        + " parameters were found");
-                }
-                else if (!Request.class.isAssignableFrom(parameters[0]))
-                {
-                    fail("The method [" + methods[i].getName()
-                        + "] must accept a single parameter implementing "
-                        + "interface [" + Request.class.getName() + "], "
-                        + "but found a [" + parameters[0].getName() + "] "
-                        + "parameter instead");
-                }
+                TestCaseImplementChecker.checkAsBeginMethod(methods[i]);
 
                 try
                 {
@@ -439,35 +406,13 @@ public class ClientTestCaseCaller extends Assert
         {
             if (methods[i].getName().equals(theMethodName))
             {
-                // Check return type
-                if (!methods[i].getReturnType().getName().equals("void"))
-                {
-                    fail("The method [" + methods[i].getName()
-                       + "] should return void and not ["
-                       + methods[i].getReturnType().getName() + "]");
-                }
-
-                // Check if method is public
-                if (!Modifier.isPublic(methods[i].getModifiers()))
-                {
-                    fail("Method [" + methods[i].getName()
-                       + "] should be declared public");
-                }
-
-                // Check parameters
-                Class[] parameters = methods[i].getParameterTypes();
-
-                // Verify only one parameter is defined
-                if (parameters.length != 1)
-                {
-                    fail("The method [" + methods[i].getName()
-                       + "] must only have a single parameter");
-                }
+                TestCaseImplementChecker.checkAsEndMethod(methods[i]);
 
                 paramObject = theResponse;
 
                 if (paramObject == null)
                 {
+                    Class[] parameters = methods[i].getParameterTypes();
                     try
                     {
                         paramObject = theResponseFactory.getResponseObject(

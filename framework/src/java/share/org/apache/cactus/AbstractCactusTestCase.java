@@ -1,7 +1,7 @@
 /* 
  * ========================================================================
  * 
- * Copyright 2003 The Apache Software Foundation.
+ * Copyright 2003-2004 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,6 +26,7 @@ import org.apache.cactus.client.connector.ProtocolHandler;
 import org.apache.cactus.configuration.ConfigurationInitializer;
 import org.apache.cactus.internal.client.ClientTestCaseCaller;
 import org.apache.cactus.internal.server.ServerTestCaseCaller;
+import org.apache.cactus.util.TestCaseImplementChecker;
 
 /**
  * Base class for all Cactus test case extensions.
@@ -120,6 +121,10 @@ public abstract class AbstractCactusTestCase extends TestCase
      */
     public void runBare() throws Throwable
     {
+        TestCaseImplementChecker.checkTestName(this);
+        TestCaseImplementChecker.checkTestName(
+            getServerCaller().getWrappedTest());
+
         runBareClient();
     }
 

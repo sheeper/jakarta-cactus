@@ -1,7 +1,7 @@
 /* 
  * ========================================================================
  * 
- * Copyright 2001-2003 The Apache Software Foundation.
+ * Copyright 2001-2004 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -159,9 +159,8 @@ public abstract class AbstractTestAbstractTestCase extends TestCase
         if (checkName("testBeginMethodBadParamType"))
         {
             assertEquals("The method "
-                + "[beginBeginMethodBadParamType] must accept a single "
-                + "parameter implementing interface "
-                + "[org.apache.cactus.Request], but "
+                + "[beginBeginMethodBadParamType] must accept "
+                + "[org.apache.cactus.Request] as 1st parameter, but "
                 + "found a [java.lang.String] parameter instead", theMessage);
 
             return true;
@@ -173,10 +172,9 @@ public abstract class AbstractTestAbstractTestCase extends TestCase
         if (checkName("testBeginMethodBadParamNumber"))
         {
             assertEquals("The method "
-                + "[beginBeginMethodBadParamNumber] must accept a single "
-                + "parameter implementing interface "
-                + "[org.apache.cactus.Request], but 2 "
-                + "parameters were found", theMessage);
+                + "[beginBeginMethodBadParamNumber] must have "
+                + "1 parameter(s), but 2 parameter(s) were found",
+                theMessage);
 
             return true;
         }
@@ -241,7 +239,8 @@ public abstract class AbstractTestAbstractTestCase extends TestCase
         if (checkName("testEndMethodBadParamNumber"))
         {
             assertEquals("The method [endEndMethodBadParamNumber] "
-                + "must only have a single parameter", theMessage);
+                + "must have 1 parameter(s), but 2 parameter(s) were found",
+                theMessage);
 
             return true;
         }
