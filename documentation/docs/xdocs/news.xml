@@ -215,6 +215,17 @@
 
         <tr>
           <td>
+            08/04/2003
+          </td>
+          <td>
+            Release 2.0 of the 
+            <link href="ext:maven_cactus">Cactus plugin for Maven</link> is 
+            out. It now a pure wrapper around the new Cactus/Ant Integration.
+          </td>
+        </tr>
+
+        <tr>
+          <td>
             01/12/2002
           </td>
           <td>
