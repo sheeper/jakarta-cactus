@@ -108,6 +108,13 @@
     </devs>
 
     <release version="1.2 in CVS">
+      <action dev="VMA" type="fix">
+        Transform the <code>WebResponse.getText()</code> and
+        <code>WebResponse.getTestAsArray()</code> so that they can be called
+        repeatably and produce the same results. Previously the data were
+        read from the server output stream and thus the second read was not
+        returning anything (as it has already been read).
+      </action>
       <action dev="VMA" type="update">
         <strong>Cactus is now a top level Jakarta project. The package names
         have been changed from <code>org.apache.commons.cactus</code> to
@@ -178,8 +185,7 @@
         Some major refactorings and clean up of code ...
       </action>
       <action dev="VMA" type="add">
-        Added automatic Ant script support for Orion 1.5 [still failing for
-        <code>forward()</code> calls, don't know why].
+        Added automatic Ant script support for Orion 1.5.x
       </action>
       <action dev="VMA" type="fix" due-to="Navjeet Chabbewal" due-to-email="navjeet@proxicom.com">
         The test result object that was placed in the
