@@ -86,7 +86,7 @@ public class TestAll extends TestCase
      */
     public static void main(String[] theArgs)
     {
-        junit.swingui.TestRunner.main(new String[] { TestAll.class.getName() });
+        junit.swingui.TestRunner.main(new String[] {TestAll.class.getName()});
     }
 
     /**
