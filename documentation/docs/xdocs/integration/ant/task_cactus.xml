@@ -586,7 +586,7 @@
       <section title="resin2x">
 
         <p>
-          The nested element <strong>orion1x</strong> allows running the tests
+          The nested element <strong>resin2x</strong> allows running the tests
           against the Resin Server 2.x.
         </p>
 
