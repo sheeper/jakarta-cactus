@@ -105,6 +105,13 @@
           subdirectories, support for dynamic menu items and sitemap 
           generation.
         </action>
+        <action dev="VMA" type="fix">
+          The Cactus <code>runservertests</code> custom Ant task has been
+          improved and it is now propagating correctly Ant references to the
+          targets you defined for starting the container, stopping it and 
+          runnning the Cactus tests. Previously, it was only propagating
+          the Ant properties.
+        </action>
         <action dev="JRU" type="add">
           First release of the Eclipse plugin. See the
           <link href="site:eclipse_plugin">Eclipse Plugin documentation</link>
