@@ -68,15 +68,15 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * Wraps JUnit {@link TestCase} on the server side in order to call
- * the <code>setUp()</code>, <code>testXXX()</code> and 
+ * Delegate class that allows executing JUnit test on the server side by
+ * calling <code>setUp()</code>, <code>testXXX()</code> and 
  * <code>tearDown()</code>.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
  */
-public class ServerTestCaseWrapper extends Assert
+public class ServerTestCaseDelegate extends Assert
 {
     /**
      * The logger.
@@ -84,34 +84,67 @@ public class ServerTestCaseWrapper extends Assert
     private Log logger;
 
     /**
-     * JUnit test we are wrapping.
+     * The test we are delegating for.
+     */
+    private Test delegatedTest;   
+
+    /**
+     * Pure JUnit Test Case that we are wrapping (if any)
      */
     private Test wrappedTest;
 
     /**
-     * @param theTest the test being wrapped
+     * @param theDelegatedTest the test we are delegating for
+     * @param theWrappedTest the test being wrapped by this delegate (or null 
+     *        if none)
      */
-    public ServerTestCaseWrapper(Test theTest) 
-    {
-        this.wrappedTest = theTest;
+    public ServerTestCaseDelegate(Test theDelegatedTest, Test theWrappedTest) 
+    {        
+        if (theDelegatedTest == null)
+        {
+            throw new IllegalStateException(
+                "The test object passed must not be null");
+        }
+
+        setDelegatedTest(theDelegatedTest); 
+        setWrappedTest(theWrappedTest);
     }
 
     /**
-     * @return the wrapped test
+     * @param theWrappedTest the pure JUnit test that we need to wrap 
      */
-    private Test getWrappedTest()
+    public void setWrappedTest(Test theWrappedTest)
+    {
+        this.wrappedTest = theWrappedTest;
+    }
+
+    /**
+     * @return the wrapped JUnit test
+     */
+    public Test getWrappedTest()
     {
         return this.wrappedTest;
     }
 
     /**
-     * Run the test on the server side, calling <code>setUp()</code> and 
-     * <code>tearDown()</code> methods.
-     *
-     * @exception Throwable any error that occurred when calling the test method
-     *         for the current test case, on the server side.
+     * @param theDelegatedTest the test we are delegating for
      */
-    public void runBareServerTest() throws Throwable
+    public void setDelegatedTest(Test theDelegatedTest)
+    {
+        this.delegatedTest = theDelegatedTest;
+    }
+
+    /**
+     * @return the test we are delegating for
+     */
+    public Test getDelegatedTest()
+    {
+        return this.delegatedTest;
+    }
+
+    /**
+     */
+    public void runBareInit()
     {
         // Initialize the logging system. As this class is instanciated both
         // on the server side and on the client side, we need to differentiate
@@ -119,20 +152,8 @@ public class ServerTestCaseWrapper extends Assert
         // side, so we instanciate the log for server side here.
         if (getLogger() == null)
         {
-            setLogger(LogFactory.getLog(getWrappedTest().getClass()));
+            setLogger(LogFactory.getLog(getDelegatedTest().getClass()));
         }        
-
-        callMethod("setUp", false);
-
-        try
-        {
-            callMethod(JUnitVersionHelper.getTestCaseName(getWrappedTest()),
-                true);
-        }
-        finally
-        {
-            callMethod("tearDown", false);
-        }
     }
     
     /**
@@ -153,47 +174,39 @@ public class ServerTestCaseWrapper extends Assert
     }
 
     /**
-     * Helper method to call a method on our wrapped test by reflection.
-     *   
-     * @param theMethodName the method to call
-     * @param isStoppingOnNoSuchMethod if true, then an exception is raised if
-     *        the method is not found. Otherwise, the call is not performed and
-     *        the method silently exits
-     * @throws Throwable on error
+     * Run the test that was specified in the constructor on the server side
+     * by executing the testXXX method.
+     *
+     * @exception Throwable any error that occurred when calling the test method
+     *         for the current test case, on the server side.
      */
-    private void callMethod(String theMethodName, 
-        boolean isStoppingOnNoSuchMethod) throws Throwable
+    public void runServerTest() throws Throwable
     {
         Method runMethod = null;
 
         try
         {
-            // use getMethod to get all public inherited
+            // Use getMethod to get all public inherited
             // methods. getDeclaredMethods returns all
             // methods of this class but excludes the
             // inherited ones.
-            runMethod = getWrappedTest().getClass().getMethod(theMethodName,
+            runMethod = getWrappedTest().getClass().getMethod(
+                JUnitVersionHelper.getTestCaseName(getWrappedTest()),
                 new Class[0]);
         }
         catch (NoSuchMethodException e)
         {
-            if (isStoppingOnNoSuchMethod)
-            {
-                fail("Method [" + theMethodName
-                    + "()] does not exist for class [" 
-                    + getWrappedTest().getClass().getName() + "(\"" 
-                    + JUnitVersionHelper.getTestCaseName(getWrappedTest())
-                    + "\")].");
-            }
-            else
-            {
-                return;
-            }
+            fail("Method [" 
+                + JUnitVersionHelper.getTestCaseName(getWrappedTest())
+                + "()] does not exist for class [" 
+                + getWrappedTest().getClass().getName() + "].");
         }
 
         if ((runMethod != null) && !Modifier.isPublic(runMethod.getModifiers()))
         {
-            fail("Method [" + theMethodName + "()] should be public");
+            fail("Method [" 
+                + JUnitVersionHelper.getTestCaseName(getWrappedTest())
+                + "()] should be public");
         }
 
         try

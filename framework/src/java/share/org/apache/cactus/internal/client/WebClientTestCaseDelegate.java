@@ -81,7 +81,7 @@ import org.apache.cactus.configuration.WebConfiguration;
  *
  * @version $Id$
  */
-public class WebClientTestCaseDelegator extends ClientTestCaseDelegator
+public class WebClientTestCaseDelegate extends ClientTestCaseDelegate
 {
     /**
      * @param theDelegatedTest the test we are delegating for
@@ -89,7 +89,7 @@ public class WebClientTestCaseDelegator extends ClientTestCaseDelegator
      *        if none)
      * @param theConfiguration the configuration to use 
      */
-    public WebClientTestCaseDelegator(Test theDelegatedTest, 
+    public WebClientTestCaseDelegate(Test theDelegatedTest, 
         Test theWrappedTest, Configuration theConfiguration)
     {
         super(theDelegatedTest, theWrappedTest, theConfiguration);

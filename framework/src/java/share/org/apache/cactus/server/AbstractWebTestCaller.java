@@ -63,13 +63,13 @@ import java.lang.reflect.Constructor;
 
 import javax.servlet.ServletException;
 
+import junit.framework.Test;
 import junit.framework.TestCase;
 
 import org.apache.cactus.HttpServiceDefinition;
 import org.apache.cactus.ServiceEnumeration;
 import org.apache.cactus.WebTestResult;
 import org.apache.cactus.configuration.Version;
-import org.apache.cactus.internal.server.ServerTestCaseWrapper;
 import org.apache.cactus.util.ClassLoaderUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -152,13 +152,8 @@ public abstract class AbstractWebTestCaller
             // Set its fields (implicit objects)
             setTestCaseFields(testInstance);
 
-            // Wrap it in a server test case that will call all setUp(),
-            // testXXX() and tearDown() methods. 
-            ServerTestCaseWrapper wrappedTestInstance =
-                new ServerTestCaseWrapper(testInstance);
-
             // Call it's method corresponding to the current test case
-            wrappedTestInstance.runBareServerTest();
+            testInstance.runBare();
 
             // Return an instance of <code>WebTestResult</code> with a
             // positive result.
@@ -432,19 +427,27 @@ public abstract class AbstractWebTestCaller
                 Constructor wrappedConstructor =
                     getTestClassConstructor(wrappedTestClass);
 
+                TestCase wrappedTestInstance;
                 if (wrappedConstructor.getParameterTypes().length == 0)
                 {
-                    testInstance = 
+                    wrappedTestInstance = 
                         (TestCase) wrappedConstructor.newInstance(
                         new Object[0]);
-                    testInstance.setName(theTestCaseName);                     
+                    wrappedTestInstance.setName(theTestCaseName);
                 }
                 else
                 {
-                    testInstance = 
+                    wrappedTestInstance = 
                         (TestCase) wrappedConstructor.newInstance(
                         new Object[] {theTestCaseName});
-                }                                  
+                }
+
+                constructor = testClass.getConstructor(
+                    new Class[] {String.class, Test.class});
+
+                testInstance = 
+                    (TestCase) constructor.newInstance(
+                    new Object[] {theTestCaseName, wrappedTestInstance});
             }
         }
         catch (Exception e)

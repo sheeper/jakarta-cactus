@@ -72,7 +72,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * Delegator class that provides useful methods for the Cactus  
+ * Delegate class that provides useful methods for the Cactus  
  * <code>XXXTestCase</code> classes. All the methods provided are independent
  * of any communication protocol between client side and server side (HTTP, 
  * JMS, etc). Subclasses will define additional behaviour that depends on the 
@@ -91,7 +91,7 @@ import org.apache.commons.logging.LogFactory;
  *
  * @version $Id$
  */
-public class ClientTestCaseDelegator extends Assert
+public class ClientTestCaseDelegate extends Assert
 {
     /**
      * The prefix of a test method.
@@ -148,11 +148,11 @@ public class ClientTestCaseDelegator extends Assert
     
     /**
      * @param theDelegatedTest the test we are delegating for
-     * @param theWrappedTest the test being wrapped by this delegator (or null 
+     * @param theWrappedTest the test being wrapped by this delegate (or null 
      *        if none)
      * @param theConfiguration the configuration to use 
      */
-    public ClientTestCaseDelegator(Test theDelegatedTest, 
+    public ClientTestCaseDelegate(Test theDelegatedTest, 
         Test theWrappedTest, Configuration theConfiguration)
     {        
         if (theDelegatedTest == null)

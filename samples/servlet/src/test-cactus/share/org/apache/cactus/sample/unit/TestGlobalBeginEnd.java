@@ -59,8 +59,6 @@ package org.apache.cactus.sample.unit;
 import org.apache.cactus.ServletTestCase;
 import org.apache.cactus.WebRequest;
 import org.apache.cactus.WebResponse;
-import org.apache.cactus.configuration.ServletConfiguration;
-import org.apache.cactus.internal.client.WebClientTestCaseDelegator;
 
 /**
  * Test global client side <code>begin()</code> and <code>end()</code> 
@@ -84,15 +82,17 @@ public class TestGlobalBeginEnd extends ServletTestCase
      */
     protected void runTest() throws Throwable
     {
-        WebClientTestCaseDelegator delegator = 
-            new WebClientTestCaseDelegator(this, this, 
-            new ServletConfiguration());
+        super.runTest();
 
-        delegator.runTest();        
-
-        if (!this.isClientGlobalEndCalled)
+        // Make sure we verify if end() has been called only on
+        // the client side. Reason is that the runTest() method is
+        // called both on the client side and on the server side.
+        if (this.request == null)
         {
-            fail("end() has not been called");
+            if (!this.isClientGlobalEndCalled)
+            {
+                fail("end() has not been called");
+            }
         }
     }
 

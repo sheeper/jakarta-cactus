@@ -63,7 +63,8 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 
 import org.apache.cactus.configuration.ServletConfiguration;
-import org.apache.cactus.internal.client.WebClientTestCaseDelegator;
+import org.apache.cactus.internal.client.WebClientTestCaseDelegate;
+import org.apache.cactus.internal.server.ServerTestCaseDelegate;
 import org.apache.cactus.server.ServletConfigWrapper;
 
 /**
@@ -114,11 +115,18 @@ public class ServletTestCase extends TestCase
     public ServletConfigWrapper config;
 
     /**
-     * Delegator that provides all Cactus related test case logic. We are using
-     * a delegator in order to hide non public API to the users and thus to be 
-     * able to easily change the implementation.
+     * Delegate that provides all client side Cactus related test case logic. 
+     * We are using a delegate in order to hide non public API to the users 
+     * and thus to be able to easily change the implementation.
      */
-    private WebClientTestCaseDelegator delegator;
+    private WebClientTestCaseDelegate clientDelegate;
+
+    /**
+     * Delegate that provides all server side Cactus related test case logic. 
+     * We are using a delegate in order to hide non public API to the users 
+     * and thus to be able to easily change the implementation.
+     */
+    private ServerTestCaseDelegate serverDelegate;
 
     /**
      * Default constructor defined in order to allow creating Test Case
@@ -163,38 +171,78 @@ public class ServletTestCase extends TestCase
      */
     void init(Test theTest)
     {
-        setDelegator(new WebClientTestCaseDelegator(
+        setClientDelegate(new WebClientTestCaseDelegate(
             this, theTest, new ServletConfiguration()));        
+        setServerDelegate(new ServerTestCaseDelegate(this, theTest));
     }
 
     /**
-     * @param theDelegator the client test case delegator
+     * @param theDelegate the client test case delegate
      */
-    void setDelegator(WebClientTestCaseDelegator theDelegator)
+    void setClientDelegate(WebClientTestCaseDelegate theDelegate)
     {
-        this.delegator = theDelegator;
+        this.clientDelegate = theDelegate;
     }
 
     /**
-     * @return the client test case delegator
+     * @param theDelegate the client test case delegate
      */
-    WebClientTestCaseDelegator getDelegator()
+    void setServerDelegate(ServerTestCaseDelegate theDelegate)
     {
-        return this.delegator;
+        this.serverDelegate = theDelegate;
     }
 
     /**
-     * Runs the bare test. This method is overridden from the JUnit 
-     * {@link TestCase} class in order to prevent the latter to call the 
-     * <code>setUp()</code> and <code>tearDown()</code> methods which, in 
-     * our case, need to be executed on the server side.
+     * @return the client test case delegate
+     */
+    WebClientTestCaseDelegate getClientDelegate()
+    {
+        return this.clientDelegate;
+    }
+
+    /**
+     * @return the server test case delegate
+     */
+    private ServerTestCaseDelegate getServerDelegate()
+    {
+        return this.serverDelegate;
+    }
+
+    /**
+     * @return true if this test class has been instanciated on the server
+     *         side or false otherwise 
+     */
+    private boolean isServerSide()
+    {
+        boolean result = false;
+        
+        if (this.request != null)
+        {
+            result = true;                    
+        }
+        return result;
+    }
+
+    /**
+     * Runs the bare test (either on the client side or on the server side). 
+     * This method is overridden from the JUnit 
+     * {@link TestCase} class in order to prevent the latter to immediatly
+     * call the <code>setUp()</code> and <code>tearDown()</code> methods 
+     * which, in our case, need to be executed on the server side.
      *
      * @exception Throwable if any exception is thrown during the test. Any
      *            exception will be displayed by the JUnit Test Runner
      */
     public void runBare() throws Throwable
     {
-        getDelegator().runBareInit();
+        if (isServerSide())
+        {
+            getServerDelegate().runBareInit();            
+        }
+        else
+        {
+            getClientDelegate().runBareInit();            
+        }
 
         // Catch the exception just to have a chance to log it
         try
@@ -204,7 +252,10 @@ public class ServletTestCase extends TestCase
         }
         catch (Throwable t)
         {
-            getDelegator().getLogger().debug("Exception in test", t);
+            if (!isServerSide())
+            {
+                getClientDelegate().getLogger().debug("Exception in test", t);
+            }
             throw t;
         }
     }   
@@ -212,13 +263,30 @@ public class ServletTestCase extends TestCase
     /**
      * Runs a test case. This method is overriden from the JUnit
      * {@link TestCase} class in order to seamlessly call the
-     * Cactus redirector.
+     * Cactus redirector on the client side and the test on the server
+     * side.
      *
      * @exception Throwable if any error happens during the execution of
      *            the test
      */
     protected void runTest() throws Throwable
     {
-        getDelegator().runTest();        
+        if (isServerSide())
+        {
+            setUp();
+
+            try
+            {
+                getServerDelegate().runServerTest();
+            }
+            finally
+            {
+                tearDown();
+            }
+        }
+        else
+        {
+            getClientDelegate().runTest();
+        }
     }
 }
