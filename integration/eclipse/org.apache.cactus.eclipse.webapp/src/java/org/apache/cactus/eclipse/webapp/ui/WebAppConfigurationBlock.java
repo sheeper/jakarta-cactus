@@ -256,20 +256,31 @@ public class WebAppConfigurationBlock
     private File chooseOutput()
     {
         File output = new File(outputField.getText());
-        if (!output.exists())
-        {
-            output = output.getParentFile();
-        }
         String initPath = "";
+        String initFileName = "webapp.war";
+
         if (output != null)
         {
-            initPath = output.getPath();
+            if (!output.isDirectory())
+            {
+                File dir = output.getParentFile();
+                if (dir != null)
+                {
+                    initPath = dir.getPath();
+                }
+                initFileName = output.getName();
+            }
+            else
+            {
+                initPath = output.getPath();
+            }
         }
         FileDialog dialog = new FileDialog(shell);
         dialog.setText(
             PreferencesMessages.getString(
                 WebappMessages.getString(
                     "WebAppConfigurationBlock.outputchooser.label")));
+        dialog.setFileName(initFileName);
         dialog.setFilterExtensions(new String[] {"*.war"});
         dialog.setFilterPath(initPath);
         String res = dialog.open();
