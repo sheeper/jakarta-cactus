@@ -69,7 +69,9 @@
 
       <release version="1.6dev" date="in CVS">
         <action dev="VMA" type="add">
-          Added support for Resin 3.x in the Ant integration. Note that
+          Added support for Resin 3.x in the Ant integration. Only Resin 3.0.5
+          and above are supported (the reason is that it seems the configuration
+          file format has changed between Resin 3.0.3 and 3.0.5). Note that
           Servlet API 2.4/JSP 2.0 are not yet supported by Cactus.
         </action>          
         <action dev="VMA" type="add">
