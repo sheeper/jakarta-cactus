@@ -17,7 +17,7 @@
  * 
  * ========================================================================
  */
-package org.apache.cactus.test05;
+package org.apache.cactus.test;
 
 import java.util.Map;
 
