@@ -7,8 +7,12 @@
    class="org.apache.cactus.eclipse.webapp.ui.WebappPlugin">
 
    <runtime>
-      <library name="webapp.jar"/>
+      <library name="webapp.jar">  
+         <export name="*"/>
+         <packages prefixes="org.apache.cactus.eclipse.webapp"/>
+      </library> 
    </runtime>
+
    <requires>
       <import plugin="org.apache.ant"/>
       <import plugin="org.eclipse.core.boot"/>
