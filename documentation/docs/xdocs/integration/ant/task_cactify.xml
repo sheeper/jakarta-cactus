@@ -1,0 +1,189 @@
+<?xml version="1.0"?>
+
+<document id="task_cactify">
+
+  <properties>
+    <title>Cactify Ant Task</title>
+    <authors>
+      <author name="Christopher Lenz" email="cmlenz@apache.org"/>
+    </authors>
+  </properties>
+
+  <body>
+
+    <section title="Cactify Task">
+
+      <p>
+        The task <strong>cactify</strong> allows the enhancement of an existing
+        web-application archive (WAR) with the elements needed to run Cactus 
+        in-container tests. This includes adding the definitions of the test 
+        redirectors to the deployment descriptor, as well as adding the libraries
+        that Cactus requires on the server side (see the 
+        <link href="site:howto_classpath">Classpath Howto</link> for details).
+      </p>
+
+      <p>
+        The <strong>cactify</strong> task extends the built-in Ant task
+        <strong>war</strong>, so it also supports all attributes and nested
+        elements that <strong>war</strong> supports.
+      </p>
+
+      <section title="Parameters">
+
+        <p>
+          As this task is an extension of the <strong>war</strong> task, it
+          also supports all attributes that the <strong>war</strong> task
+          supports. In addition, you can specify the URL-patterns to map the 
+          Cactus test redirectors to which the nested elements
+          <strong>filterredirector</strong>, <strong>jspredirector</strong> and
+          <strong>servletredirector</strong>. If you don't specify those
+          elements, the test redirectors will be mapped to the default
+          URL-pattern.
+        </p>
+
+        <table>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Required</th>
+          </tr>
+          <tr>
+            <td><strong>srcfile</strong></td>
+            <td>
+              The original web-application archive that is going to be cactified
+            </td>
+            <td>Yes</td>
+          </tr>
+          <tr>
+            <td><strong>destfile</strong></td>
+            <td>
+              The location of the cactified web-application archive
+            </td>
+            <td>Yes</td>
+          </tr>
+          <tr>
+            <td><strong>mergewebxml</strong></td>
+            <td>
+              Allows the specification of a web deployment descriptor whose 
+              content will get merged into the resulting descriptor. This is
+              only required for purposes like adding special security
+              constraints for testing, as the Cactus test redirectors will be
+              added to the cactified deployment descriptor anyway. The merging
+              of the descriptors is based on the same principles as used by the
+              <link href="site:task_webxmlmerge">webxmlmerge</link> task.
+            </td>
+            <td>No</td>
+          </tr>
+        </table>
+
+      </section>
+
+      <section title="Nested Elements">
+
+        <note>
+          As this task is an extension of the <strong>war</strong> task, it
+          also supports all the nested elements supported by the
+          <strong>war</strong> task.
+        </note>
+
+        <section title="filterredirector">
+
+          <p>
+            The <strong>filterredirector</strong> element lets you specify the
+            URL pattern to which the Cactus filter test redirector is mapped in
+            the web application.
+          </p>
+
+          <section title="Parameters">
+
+            <table>
+              <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Required</th>
+              </tr>
+              <tr>
+                <td><strong>mapping</strong></td>
+                <td>
+                  The URL-pattern to which the redirector should be mapped.
+                  Must start with a forward slash (&quot;/&quot;).
+                </td>
+                <td>Yes</td>
+              </tr>
+            </table>
+
+          </section>
+
+          <note>
+            This element will be ignored for Servlet 2.2 web applications.
+          </note>
+
+        </section>
+
+        <section title="jspredirector">
+
+          <p>
+            The <strong>jspredirector</strong> element lets you specify the
+            URL pattern to which the Cactus JSP test redirector is mapped in
+            the web application.
+          </p>
+
+          <section title="Parameters">
+
+            <table>
+              <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Required</th>
+              </tr>
+              <tr>
+                <td><strong>mapping</strong></td>
+                <td>
+                  The URL-pattern to which the redirector should be mapped.
+                  Must start with a forward slash (&quot;/&quot;).
+                </td>
+                <td>Yes</td>
+              </tr>
+            </table>
+
+          </section>
+
+        </section>
+
+        <section title="servletredirector">
+
+          <p>
+            The <strong>servletredirector</strong> element lets you specify the
+            URL pattern to which the Cactus servlet test redirector is mapped in
+            the web application.
+          </p>
+
+          <section title="Parameters">
+
+            <table>
+              <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Required</th>
+              </tr>
+              <tr>
+                <td><strong>mapping</strong></td>
+                <td>
+                  The URL-pattern to which the redirector should be mapped.
+                  Must start with a forward slash (&quot;/&quot;).
+                </td>
+                <td>Yes</td>
+              </tr>
+            </table>
+
+          </section>
+
+        </section>
+
+      </section>
+
+    </section>
+
+  </body>
+
+</document>

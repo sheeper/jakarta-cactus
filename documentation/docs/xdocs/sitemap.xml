@@ -178,6 +178,18 @@
     Quick introduction to the basic concepts of the Ant build tool.
   </resource>
   
+  <resource id="task_cactus"
+      target="integration/ant/task_cactus.html"
+      name="Cactus Ant Task">
+    Documentation for the &lt;cactus&gt; task provided by Cactus.
+  </resource>
+  
+  <resource id="task_cactify"
+      target="integration/ant/task_cactify.html"
+      name="Cactify Ant Task">
+    Documentation for the &lt;cactify&gt; task provided by Cactus.
+  </resource>
+  
   <resource id="task_runservertests"
       target="integration/ant/task_runservertests.html"
       name="RunServerTests Ant Task">
