@@ -27,6 +27,20 @@
 
         <tr>
           <td>
+            <link href="http://www.freeroller.net/page/tradem/20030722">
+            Testing FileUploads with Cactus</link>.
+          </td>
+		  <td>
+		    Article
+		  </td>
+		  <td>
+            Shows how to perform file uploads with Cactus, Java NIO and
+            Commons-httpclient.
+          </td>
+        </tr>
+
+        <tr>
+          <td>
             <link href="http://www.ftponline.com/javapro/2003_07/online/cactus_kjones_07_08_03/">
             Unit Test Java Web Apps with Cactus</link>.
           </td>

@@ -22,6 +22,7 @@
 
     <items>
       <rdf:Seq>
+        <rdf:li rdf:resource="http://jakarta.apache.org/cactus/news.html#news13"/>
         <rdf:li rdf:resource="http://jakarta.apache.org/cactus/news.html#news12"/>
         <rdf:li rdf:resource="http://jakarta.apache.org/cactus/news.html#news11"/>
         <rdf:li rdf:resource="http://jakarta.apache.org/cactus/news.html#news10"/>
@@ -38,6 +39,20 @@
     </items>
 
   </channel>
+
+  <item rdf:about="http://jakarta.apache.org/cactus/news.html#news13">
+    <title>Testing FileUploads with Cactus</title>
+    <link>http://jakarta.apache.org/cactus/news.html#news13</link>
+    <description>
+<![CDATA[Tobias has a nice 
+<a href="http://www.freeroller.net/page/tradem/20030722">blog entry</a> 
+about performing fileuploads with Cactus, Java NIO and Commons-httpclient.
+]]>
+    </description>
+    <dc:subject></dc:subject>
+    <dc:creator>vmassol</dc:creator>
+    <dc:date>2003-08-05T00:00:00+00:00</dc:date>
+  </item>
 
   <item rdf:about="http://jakarta.apache.org/cactus/news.html#news12">
     <title>Cactus 1.5-beta1 released</title>
