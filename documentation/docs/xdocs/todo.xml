@@ -39,6 +39,11 @@
       <action>
         Add a tutorial for building Cactus from the source distribution.
       </action>
+      <action>
+        Fix Clover reports as they seem broken. They do not count any tests
+        executed on the server. Overall coverage is reported as 45% whereas
+        it is more thaqn 60% in reality ...
+      </action>
     </category>
 
     <category title="Build Process">
