@@ -17,7 +17,7 @@
  * 
  * ========================================================================
  */
-package org.apache.cactus.client.connector.http;
+package org.apache.cactus.internal.client.connector.http;
 
 import java.net.HttpURLConnection;
 

@@ -1,7 +1,7 @@
 /* 
  * ========================================================================
  * 
- * Copyright 2001-2003 The Apache Software Foundation.
+ * Copyright 2001-2004 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,12 +17,12 @@
  * 
  * ========================================================================
  */
-package org.apache.cactus.client.connector.http;
+package org.apache.cactus.internal.client.connector.http;
 
 import java.net.HttpURLConnection;
 
 import org.apache.cactus.WebRequest;
-import org.apache.cactus.configuration.Configuration;
+import org.apache.cactus.internal.configuration.Configuration;
 
 /**
  * Helper class to open an HTTP connection to the server redirector and pass

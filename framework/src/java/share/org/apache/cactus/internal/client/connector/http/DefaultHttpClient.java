@@ -17,12 +17,11 @@
  * 
  * ========================================================================
  */
-package org.apache.cactus.client.connector.http;
+package org.apache.cactus.internal.client.connector.http;
 
 import java.net.HttpURLConnection;
 
 import org.apache.cactus.WebRequest;
-import org.apache.cactus.configuration.WebConfiguration;
 import org.apache.cactus.internal.HttpServiceDefinition;
 import org.apache.cactus.internal.RequestDirectives;
 import org.apache.cactus.internal.ServiceEnumeration;
@@ -32,6 +31,7 @@ import org.apache.cactus.internal.client.AssertionFailedErrorWrapper;
 import org.apache.cactus.internal.client.ParsingException;
 import org.apache.cactus.internal.client.ServletExceptionWrapper;
 import org.apache.cactus.internal.client.WebTestResultParser;
+import org.apache.cactus.internal.configuration.WebConfiguration;
 import org.apache.cactus.util.ChainedRuntimeException;
 import org.apache.cactus.util.IoUtil;
 

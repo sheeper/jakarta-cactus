@@ -19,7 +19,7 @@
  */
 package org.apache.cactus;
 
-import org.apache.cactus.configuration.ConfigurationInitializer;
+import org.apache.cactus.internal.configuration.ConfigurationInitializer;
 import org.apache.cactus.server.runner.TestXMLFormatter;
 
 import junit.framework.Test;

@@ -371,16 +371,10 @@ be resolved. Please check you build.properties file, and run Ant with the
       </group>
       <group title="Internal API">
         <package name="org.apache.cactus.internal"/>
+        <package name="org.apache.cactus.internal.configuration"/>
         <package name="org.apache.cactus.internal.client"/>
+        <package name="org.apache.cactus.internal.client.connector.http"/>
         <package name="org.apache.cactus.internal.server"/>
-        <package name="org.apache.cactus.client"/>
-        <package name="org.apache.cactus.client.connector"/>
-        <package name="org.apache.cactus.client.connector.http"/>
-        <package name="org.apache.cactus.client.initialization"/>
-        <package name="org.apache.cactus.configuration"/>
-        <package name="org.apache.cactus.extension.jetty"/>
-        <package name="org.apache.cactus.server.runner"/>
-        <package name="org.apache.cactus.util"/>
       </group>
       <sourcepath>
         <pathelement location="${src.java.share.dir}"/>

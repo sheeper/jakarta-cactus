@@ -20,7 +20,7 @@
 package org.apache.cactus.client.authentication;
 
 import org.apache.cactus.WebRequest;
-import org.apache.cactus.configuration.Configuration;
+import org.apache.cactus.internal.configuration.Configuration;
 import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.HttpState;
 import org.apache.commons.httpclient.UsernamePasswordCredentials;

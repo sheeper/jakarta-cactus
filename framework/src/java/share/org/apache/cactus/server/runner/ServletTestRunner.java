@@ -37,7 +37,7 @@ import javax.servlet.http.HttpServletResponse;
 import junit.framework.Test;
 import junit.framework.TestResult;
 
-import org.apache.cactus.configuration.BaseConfiguration;
+import org.apache.cactus.internal.configuration.BaseConfiguration;
 
 /**
  * Helper servlet to start a JUnit Test Runner in a webapp.

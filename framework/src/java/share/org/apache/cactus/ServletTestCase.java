@@ -24,10 +24,10 @@ import javax.servlet.http.HttpSession;
 
 import junit.framework.Test;
 
-import org.apache.cactus.client.connector.http.HttpProtocolHandler;
-import org.apache.cactus.configuration.ServletConfiguration;
 import org.apache.cactus.internal.AbstractCactusTestCase;
 import org.apache.cactus.internal.CactusTestCase;
+import org.apache.cactus.internal.client.connector.http.HttpProtocolHandler;
+import org.apache.cactus.internal.configuration.ServletConfiguration;
 import org.apache.cactus.server.ServletConfigWrapper;
 import org.apache.cactus.spi.client.connector.ProtocolHandler;
 

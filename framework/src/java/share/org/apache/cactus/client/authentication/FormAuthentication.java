@@ -25,10 +25,10 @@ import java.net.URL;
 
 import org.apache.cactus.Cookie;
 import org.apache.cactus.WebRequest;
-import org.apache.cactus.client.connector.http.HttpClientConnectionHelper;
-import org.apache.cactus.configuration.Configuration;
-import org.apache.cactus.configuration.WebConfiguration;
 import org.apache.cactus.internal.WebRequestImpl;
+import org.apache.cactus.internal.client.connector.http.HttpClientConnectionHelper;
+import org.apache.cactus.internal.configuration.Configuration;
+import org.apache.cactus.internal.configuration.WebConfiguration;
 import org.apache.cactus.util.ChainedRuntimeException;
 import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.HttpState;

@@ -1,7 +1,7 @@
 /* 
  * ========================================================================
  * 
- * Copyright 2001-2003 The Apache Software Foundation.
+ * Copyright 2001-2004 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,8 +23,8 @@ import java.util.Enumeration;
 
 import junit.framework.TestCase;
 
-import org.apache.cactus.configuration.ServletConfiguration;
 import org.apache.cactus.internal.WebRequestImpl;
+import org.apache.cactus.internal.configuration.ServletConfiguration;
 import org.apache.cactus.util.ChainedRuntimeException;
 
 /**

@@ -1,7 +1,7 @@
 /* 
  * ========================================================================
  * 
- * Copyright 2001-2003 The Apache Software Foundation.
+ * Copyright 2001-2004 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ import java.util.Vector;
 import org.apache.cactus.Cookie;
 import org.apache.cactus.WebRequest;
 import org.apache.cactus.client.authentication.Authentication;
-import org.apache.cactus.configuration.Configuration;
+import org.apache.cactus.internal.configuration.Configuration;
 import org.apache.cactus.util.ChainedRuntimeException;
 
 /**

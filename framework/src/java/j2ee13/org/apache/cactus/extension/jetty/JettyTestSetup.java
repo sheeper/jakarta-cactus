@@ -1,7 +1,7 @@
 /* 
  * ========================================================================
  * 
- * Copyright 2001-2003 The Apache Software Foundation.
+ * Copyright 2001-2004 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,10 +27,10 @@ import junit.framework.Protectable;
 import junit.framework.Test;
 import junit.framework.TestResult;
 
-import org.apache.cactus.configuration.BaseConfiguration;
-import org.apache.cactus.configuration.Configuration;
 import org.apache.cactus.configuration.FilterConfiguration;
-import org.apache.cactus.configuration.ServletConfiguration;
+import org.apache.cactus.internal.configuration.BaseConfiguration;
+import org.apache.cactus.internal.configuration.Configuration;
+import org.apache.cactus.internal.configuration.ServletConfiguration;
 import org.apache.cactus.server.FilterTestRedirector;
 import org.apache.cactus.server.ServletTestRedirector;
 import org.apache.cactus.util.ClassLoaderUtils;
