@@ -297,9 +297,18 @@ integration/ant/src/confs/share/orion1x/mime.types -text svneol=unset#applicatio
 integration/ant/src/confs/share/orion1x/principals.xml svn_keywords=Author+Date+Id+Revision
 integration/ant/src/confs/share/orion1x/rmi.xml svn_keywords=Author+Date+Id+Revision
 integration/ant/src/confs/share/orion1x/server.xml svn_keywords=Author+Date+Id+Revision
+integration/ant/src/confs/share/orion2x/application.xml svn_keywords=Author+Date+Id+Revision
+integration/ant/src/confs/share/orion2x/default-web-site.xml svn_keywords=Author+Date+Id+Revision
+integration/ant/src/confs/share/orion2x/global-web-application.xml svn_keywords=Author+Date+Id+Revision
+integration/ant/src/confs/share/orion2x/mime.types -text svneol=unset#application/octet-stream
+integration/ant/src/confs/share/orion2x/principals.xml svn_keywords=Author+Date+Id+Revision
+integration/ant/src/confs/share/orion2x/rmi.xml svn_keywords=Author+Date+Id+Revision
+integration/ant/src/confs/share/orion2x/server.xml svn_keywords=Author+Date+Id+Revision
 integration/ant/src/confs/share/resin2x/resin.conf svn_keywords=Author+Date+Id+Revision
 integration/ant/src/confs/share/tomcat4x/server.xml svn_keywords=Author+Date+Id+Revision
 integration/ant/src/confs/share/tomcat4x/tomcat-users.xml svn_keywords=Author+Date+Id+Revision
+integration/ant/src/confs/share/tomcat5x/server.xml svn_keywords=Author+Date+Id+Revision
+integration/ant/src/confs/share/tomcat5x/tomcat-users.xml svn_keywords=Author+Date+Id+Revision
 integration/ant/src/confs/share/weblogic6x/SerializedSystemIni.dat -text svneol=unset#application/octet-stream
 integration/ant/src/confs/share/weblogic6x/config.xml svn_keywords=Author+Date+Id+Revision
 integration/ant/src/confs/share/weblogic6x/fileRealm.properties svn_keywords=Author+Date+Id+Revision
@@ -315,6 +324,8 @@ integration/ant/src/confs/share/weblogic7x/testserver/ldap/ldapfiles/EmbeddedLDA
 integration/ant/src/confs/share/weblogic7x/testserver/ldap/ldapfiles/EmbeddedLDAP.trpos -text
 integration/ant/src/confs/share/weblogic7x/testserver/ldap/ldapfiles/EmbeddedLDAP.twpos -text
 integration/ant/src/confs/share/weblogic7x/weblogic.xml svn_keywords=Author+Date+Id+Revision
+integration/ant/src/confs/web-app_2_2.dtd svn_keywords=Author+Date+Id+Revision
+integration/ant/src/confs/web-app_2_3.dtd svn_keywords=Author+Date+Id+Revision
 integration/ant/src/java/org/apache/cactus/ant/RunServerTestsTask.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/java/org/apache/cactus/integration/ant/AbstractServerRun.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/java/org/apache/cactus/integration/ant/EnhydraRun.java svn_keywords=Author+Date+Id+Revision
