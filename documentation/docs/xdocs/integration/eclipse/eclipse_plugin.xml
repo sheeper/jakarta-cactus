@@ -41,7 +41,7 @@
         </ul>
         Select any Cactus test class file and select from the toolbar :
         Run As -> Cactus Test
-        <figure src="images/eclipse_launchShortcut.png"
+        <figure src="images/eclipse/launchShortcut.png"
           alt="Cactus launch shortcut"/>
       </p>
     </section>
@@ -218,7 +218,7 @@
       <ul>
         <li>
           Adds a shortcut for Cactus tests launching.
-          <figure src="images/eclipse_launchShortcut.png"
+          <figure src="images/eclipse/launchShortcut.png"
             alt="Cactus launch shortcut"/>
         </li>
       </ul>
@@ -242,7 +242,7 @@
       <ul>
         <p>
           Cactus preference page
-          <figure src="images/eclipse_preferences.png"
+          <figure src="images/eclipse/preferences.png"
             alt="Cactus preference page"/>
         </p>
         <li>Port on which the container is started.</li>
@@ -251,7 +251,7 @@
           files (packaged war, container configuration files, etc).
         </li>
         <li>Support for several containers</li>
-        <figure src="images/eclipse_preferences_containers.png"
+        <figure src="images/eclipse/preferences_containers.png"
           alt="Preferences for containers"/>
       </ul>
       <ul>
@@ -263,7 +263,7 @@
       <ul>
         <li>
           Relies on the JUnit plug-in for test runs and result reports.
-          <figure src="images/eclipse_junit.png"
+          <figure src="images/eclipse/junit.png"
             alt="JUnit plug-in"/>
         </li>
       </ul>
