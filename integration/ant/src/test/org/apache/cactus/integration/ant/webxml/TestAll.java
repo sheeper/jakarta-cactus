@@ -96,7 +96,7 @@ public final class TestAll extends TestCase
     public static Test suite()
     {
         TestSuite suite = new TestSuite(
-            "Cactus unit tests for the web.xml support classes");
+            "Unit tests for the web.xml support classes");
 
         suite.addTestSuite(TestWebXml.class);
         suite.addTestSuite(TestWebXmlMerger.class);

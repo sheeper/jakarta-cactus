@@ -154,7 +154,7 @@ public final class TestWebXml extends TestCase
             + "<web-app></web-app>";
         Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
         WebXml webXml = new WebXml(doc);
-        assertEquals(WebXml.SERVLET_VERSION_2_2, webXml.getVersion());
+        assertEquals(WebXmlVersion.V2_2, webXml.getVersion());
     }
     
     /**
@@ -170,7 +170,7 @@ public final class TestWebXml extends TestCase
             + "<web-app></web-app>";
         Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
         WebXml webXml = new WebXml(doc);
-        assertEquals(WebXml.SERVLET_VERSION_2_3, webXml.getVersion());
+        assertEquals(WebXmlVersion.V2_3, webXml.getVersion());
     }
     
     /**
