@@ -134,7 +134,6 @@
 
         <!-- Filters -->
         <filter token="version" value="${project.version}"/>
-        <filter token="otherversion" value="${project.other.version}"/>
         <filter token="year" value="${year}"/>
         <filter token="today" value="${TODAY}"/>
 
@@ -165,7 +164,7 @@
             elapsed="15" executable="${cvs.executable}">
 
             <fileset dir="${doc.xdoc.dir}">
-                <exclude name="book.xml"/>
+                <exclude name="navigation.xml"/>
                 <exclude name="todo.xml"/>
                 <exclude name="changes.xml"/>
                 <exclude name="**/cvslog.xml"/>
@@ -200,35 +199,33 @@
             filtering="on"/>
 
         <!-- Generate the docs -->
-        <style basedir="${target.xdoc.dir}" destdir="${target.doc.dir}"
+		<style basedir="${target.xdoc.dir}" destdir="${target.doc.dir}"
           style="${doc.skin.dir}/jakarta.apache.org/stylesheets/document2html.xsl">
 
-            <include name="*.xml"/>
-            <exclude name="book.xml"/>
+        	<include name="*.xml"/>
+        	<exclude name="navigation.xml"/>
 
-            <!--Location of the book.xml file relative to where the stylesheet 
-                is located. Note: this path MUST be relative as it is used as a
-                realtive URI from within the stylesheet -->
-            <param name="bookfile"
-                expression="../../../../../${target.xdoc.dir}/book.xml"/>
+			<param name="software" expression="Cactus"/>
+			<param name="title" expression="Cactus Documentation"/>
+			<param name="copyright" expression="${year} The Apache Software Foundation"/>
+            <param name="project.version" expression="${project.version}"/>
+            <param name="project.other.version" expression="${project.other.version}"/>
+            <param name="last.updated.date" expression="${TODAY}"/>
 
-            <!-- Location of the cvslog.xml file relative to where the 
-                 stylesheet is located. Note: this path MUST be relative as it
-                 is used as a realtive URI from within the stylesheet -->
-            <param name="cvslogfile"
-                expression="../../../../../${target.xdoc.dir}/cvslog/cvslog.xml"/>
+            <!--Location of the navigation.xml file relative to where the 
+                stylesheet is located. Note: this path MUST be relative as it 
+                is used as a relative URI from within the stylesheet -->
+            <param name="navfile" expression="../../../../../${target.xdoc.dir}/navigation.xml"/>
 
-            <param name="project.version"
-                expression="${project.version}"/>
-            <param name="project.other.version"
-                expression="${project.other.version}"/>
-            <param name="last.updated.date"
-                expression="${TODAY}"/>
-
+			<!-- Location of the cvslog.xml file relative to where the 
+			     stylesheet is located. Note: this path MUST be relative as it
+			     is used as a realtive URI from within the stylesheet -->
+            <param name="cvslogfile" expression="../../../../../${target.xdoc.dir}/cvslog/cvslog.xml"/>
+			     
         </style>
 
-    </target>
-
+	</target>
+	
     <!--
        ========================================================================
          Generate the documentation (without the generated clover reports that

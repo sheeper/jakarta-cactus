@@ -6,18 +6,25 @@
 <!-- ====================================================================== -->
 
 <!-- TODOS:
-     - remove all color references and expose them as variables
-     - remove stylesheet images (add, update, fix, remove) from
-       xdocs/images
+     - remove all color references and expose them as variables. Second
+       step is to use CSS
      - handle xdocs located in sub-directories (issue is with the 
-       relative path to the images)
+       relative path to the images). Solution: add "url" attribute to
+       the <document> tag.
+     - add an XSL param that is the absolute path
+       from this stylesheet to the xdoc root. This is to compute the
+       location of per-directory navigation.xml files
 -->
 
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
-  <!-- Location of the book.xml file, which describes the web site meta
+  <xsl:param name="software" select="''"/>
+  <xsl:param name="title" select="''"/>
+  <xsl:param name="copyright" select="''"/>
+  
+  <!-- Location of the navigation.xml file, which describes the web site meta
        data such as the menu items, etc -->
-  <xsl:param name="bookfile" select="''"/>
+  <xsl:param name="navfile" select="''"/>
 
   <!-- Location of the cvslog.xml file which contains the CVS changelog
        items for the last 15 days web site changes -->
@@ -46,10 +53,10 @@
   <xsl:variable name="banner-bg"  select="'#023264'"/>
   <xsl:variable name="banner-fg"  select="'#ffffff'"/>
 
-  <!-- Read the menu definitions. It is located in a file named book.xml
-       placed at the same level as the xdoc files. The path we specify is
-       relative to where this stylesheet is located -->
-  <xsl:variable name="book" select="document($bookfile)/book"/>
+  <!-- Read the menu definitions. They are located in a file named 
+       navigation.xml placed at the same level as the xdoc files. 
+       The path we specify is relative to where this stylesheet is located -->
+  <xsl:variable name="navigation" select="document($navfile)/navigation"/>
 
   <!-- ==================================================================== -->
   <!-- Document section -->
@@ -155,7 +162,7 @@
 
               <br/>
               <font face="arial,helvetica,sanserif">
-                <xsl:apply-templates select="$book"/>
+                <xsl:apply-templates select="$navigation"/>
               </font>
 
             </td>
@@ -183,7 +190,7 @@
             <td align="center">
              <font face="arial,helvetica,sanserif" size="-1" color="{$body-link}">
                <i>
-                Copyright &#169; <xsl:value-of select="$book/@copyright"/>.
+                Copyright &#169; <xsl:value-of select="$copyright"/>.
                 All Rights Reserved.
                </i>
              </font>
@@ -209,7 +216,7 @@
   <!-- Menu elements: "menu/menu-item/separator" elements -->
   <!-- ==================================================================== -->
 
-  <xsl:template match="menu-item">
+  <xsl:template match="menu/item">
 
     <xsl:choose>
       <xsl:when test="@type='external'">
@@ -590,7 +597,7 @@
       <xsl:with-param name="width">98%</xsl:with-param>
       <xsl:with-param name="font-size">+0</xsl:with-param>
       <xsl:with-param name="name">
-        <xsl:value-of select="$book/@software"/><xsl:text> </xsl:text>
+        <xsl:value-of select="$software"/><xsl:text> </xsl:text>
         <xsl:value-of select="@version"/>
         <xsl:if test="@date">
           <xsl:text> (released on </xsl:text>
@@ -782,7 +789,7 @@
         <xsl:value-of select="/document/properties/title"/>
       </xsl:when>
       <xsl:otherwise>
-        <xsl:value-of select="$book/@title"/>
+        <xsl:value-of select="$title"/>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
