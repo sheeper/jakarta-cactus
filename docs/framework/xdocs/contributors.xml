@@ -51,6 +51,24 @@
         </tr>
         <tr>
           <td>
+            <link href="mailto:andrew.forman@wcom.com">
+            Andrew B Forman</link>
+          </td>
+          <td>
+            Tutorial for VisualAge for Java integration
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <link href="mailto:Todd_Idler@jdedwards.com">
+            Todd Idler</link>
+          </td>
+          <td>
+            Tutorial for VisualAge for Java integration
+          </td>
+        </tr>
+        <tr>
+          <td>
             <link href="mailto:digital@ix.net.au">
             Robert Leftwich</link>
           </td>
@@ -74,6 +92,15 @@
           <td>
             Cactus logo (and web site design and graphisms when Cactus was not
             using Stylebook)
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <link href="mailto:jariw@hyperlink-interactive.co.uk">
+            Jari Worsley</link>
+          </td>
+          <td>
+            Bugfix, patches and active participant
           </td>
         </tr>
       </table>
