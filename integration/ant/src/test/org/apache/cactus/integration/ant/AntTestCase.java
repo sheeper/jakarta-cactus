@@ -61,7 +61,9 @@ import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import junit.framework.AssertionFailedError;
 import junit.framework.TestCase;
@@ -96,9 +98,16 @@ public abstract class AntTestCase extends TestCase implements BuildListener
     private String buildFile;
 
     /**
-     * Buffer containing all messages logged by Ant. 
+     * Buffer containing all messages logged by Ant. Keys correspond to the 
+     * message priority as <code>java.lang.Integer</code>, the values are are
+     * <code>java.lang.StringBuffer</code>s containing the actual log messages.
      */
     private Map log = new HashMap();
+
+    /**
+     * The targets the have been executed.
+     */
+    private Set executedTargets = new HashSet();
 
     // Constructors ------------------------------------------------------------
 
@@ -140,6 +149,7 @@ public abstract class AntTestCase extends TestCase implements BuildListener
      */
     public void targetFinished(BuildEvent theEvent)
     {
+        this.executedTargets.add(theEvent.getTarget().getName());
     }
 
     /**
@@ -269,6 +279,17 @@ public abstract class AntTestCase extends TestCase implements BuildListener
         }
         throw new AssertionFailedError(
             "Expected log message containing '" + theSubstring + "'");
+    }
+
+    /**
+     * Asserts that a named target has been executed.
+     * 
+     * @param theName The name of the target
+     */
+    protected void assertTargetExecuted(String theName)
+    {
+        assertTrue("Target '" + theName + "' should have been executed",
+            this.executedTargets.contains(theName));
     }
 
     /**
