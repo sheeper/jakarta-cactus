@@ -48,6 +48,14 @@
     </devs>
 
     <release version="1.5" date="- in CVS">
+      <action dev="VMA" type="update">
+        Updated to the latest <code>junit-noframes.xsl</code> from Ant.
+      </action>
+      <action dev="VMA" type="add" due-to="Atsushi Hasegawa" due-to-email="ahasegawa@borland.com">
+        Added support for internationalisation (double byte characters) for 
+        sending back test results. This allows Cactus to be used with any
+        character set.
+      </action>
       <action dev="VMA" type="fix" due-to="Pranab Dhar" due-to-email="Pranab.Dhar@dfa.state.ny.us">
         Fixed bug where a redirector overriden by calling 
         <code>WebRequest.setRedirectorName()</code> was not used to fetch the
