@@ -111,6 +111,7 @@ public class StopServerHelper implements Runnable
         try {
             HttpURLConnection connection = (HttpURLConnection)m_TestURL.openConnection();
             connection.connect();
+            StartServerHelper.readFully(connection);
             connection.disconnect();
         } catch (IOException e) {
             // Server is not running. Make this task a no-op.
@@ -134,6 +135,7 @@ public class StopServerHelper implements Runnable
             try {
                 HttpURLConnection connection = (HttpURLConnection)m_TestURL.openConnection();
                 connection.connect();
+                StartServerHelper.readFully(connection);
                 connection.disconnect();
             } catch (IOException e) {
                 break;

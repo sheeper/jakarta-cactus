@@ -116,6 +116,7 @@ public class StartServerHelper implements Runnable
         try {
             HttpURLConnection connection = (HttpURLConnection)m_TestURL.openConnection();
             connection.connect();
+            readFully(connection);
             connection.disconnect();
 
             // Server is already running. Make this task a no-op.
@@ -145,6 +146,7 @@ public class StartServerHelper implements Runnable
             try {
                 HttpURLConnection connection = (HttpURLConnection)m_TestURL.openConnection();
                 connection.connect();
+                readFully(connection);
                 connection.disconnect();
             } catch (IOException e) {
                 try {
@@ -166,6 +168,15 @@ public class StartServerHelper implements Runnable
         }
 
         // We're done ... Ant will continue processing other tasks
+    }
+
+    static void readFully(HttpURLConnection connection) throws IOException
+    {
+        // finish reading it to prevent (harmless) server-side exceptions
+        BufferedInputStream is = new BufferedInputStream(connection.getInputStream());
+        byte[] buffer = new byte[256];
+        while((is.read(buffer)) > 0) {}
+        is.close();
     }
 
     /**
