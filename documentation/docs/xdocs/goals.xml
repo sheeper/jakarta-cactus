@@ -46,21 +46,6 @@
           Tomcat 5/Resin 3.x),
         </li>
         <li>
-          Pre-packaged Cactus with leading containers so that it is ultra-easy 
-          to test a user application. Some already implemented ideas:
-          <ul>
-          	<li>
-              See the <link href="site:howto_tomcat">Tomcat Howto</link> for 
-              an example of Tomcat integration. However, it could be made even 
-              easier by providing a packaged Tomcat.
-            </li>
-            <li>
-              Jetty integration is mostly finished and provides an 
-              unpredecented ease of use.
-            </li>
-          </ul>
-        </li>
-        <li>
           Provide a full servlet container test suite a la Watchdog using Cactus.,
         </li>
         <li>
