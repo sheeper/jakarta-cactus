@@ -67,9 +67,11 @@ import org.apache.cactus.integration.ant.util.ResourceUtils;
 import org.apache.cactus.integration.ant.webxml.WebXml;
 import org.apache.cactus.integration.ant.webxml.WebXmlIo;
 import org.apache.cactus.integration.ant.webxml.WebXmlMerger;
+import org.apache.cactus.integration.ant.webxml.WebXmlVersion;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.taskdefs.War;
+import org.apache.tools.ant.types.EnumeratedAttribute;
 import org.apache.tools.ant.types.FileSet;
 import org.apache.tools.ant.types.XMLCatalog;
 import org.apache.tools.ant.types.ZipFileSet;
@@ -158,6 +160,22 @@ public class CactifyWarTask extends War
 
     }
 
+    /**
+     * Enumeration for the <em>version</em> attribute.
+     */
+    public static class Version extends EnumeratedAttribute
+    {
+
+        /**
+         * @see org.apache.tools.ant.types.EnumeratedAttribute#getValues()
+         */
+        public String[] getValues()
+        {
+            return new String[] {"2.2", "2.3"};
+        }
+
+    }
+
     // Instance Variables ------------------------------------------------------
 
     /**
@@ -191,6 +209,11 @@ public class CactifyWarTask extends War
      */
     private XMLCatalog xmlCatalog = null;
 
+    /**
+     * The web-app version to use when creating a WAR from scratch.
+     */
+    private String version = null;
+
     // Public Methods ----------------------------------------------------------
 
     /**
@@ -198,18 +221,45 @@ public class CactifyWarTask extends War
      */
     public void execute() throws BuildException
     {
-        if (this.srcFile == null)
+        WebXml webXml = null;
+        if (this.srcFile != null)
         {
-            throw new BuildException("The [srcfile] attribute is required");
+            // Add everything that's in the source WAR to the destination WAR
+            ZipFileSet currentFiles = new ZipFileSet();
+            currentFiles.setSrc(this.srcFile);
+            currentFiles.createExclude().setName("WEB-INF/web.xml");
+            addZipfileset(currentFiles);
+
+            // Parse the original deployment descriptor
+            webXml = getOriginalWebXml();
+        }
+        else
+        {
+            if (this.version == null)
+            {
+                throw new BuildException("You need to specify either the "
+                    + "[srcfile] or the [version] attribute");
+            }
+            WebXmlVersion webXmlVersion = null;
+            if (this.version.equals("2.2"))
+            {
+                webXmlVersion = WebXmlVersion.V2_2;
+            }
+            else
+            {
+                webXmlVersion = WebXmlVersion.V2_3;
+            }
+            try
+            {
+                webXml = WebXmlIo.newWebXml(webXmlVersion);
+            }
+            catch (ParserConfigurationException pce)
+            {
+                throw new BuildException(
+                    "Could not create deployment descriptor", pce);
+            }
         }
 
-        // Add everything that's in the source WAR to the destination WAR
-        ZipFileSet currentFiles = new ZipFileSet();
-        currentFiles.setSrc(this.srcFile);
-        currentFiles.createExclude().setName("WEB-INF/web.xml");
-        addZipfileset(currentFiles);
-
-        WebXml webXml = getOriginalWebXml();
         File tmpWebXml = cactifyWebXml(webXml);
         setWebxml(tmpWebXml);
 
@@ -293,6 +343,16 @@ public class CactifyWarTask extends War
         this.srcFile = theSrcFile;
     }
 
+    /**
+     * Sets the web-app version to use when creating a WAR file from scratch.
+     * 
+     * @param theVersion The version
+     */
+    public final void setVersion(Version theVersion)
+    {
+        this.version = theVersion.getValue();
+    }
+
     // Private Methods ---------------------------------------------------------
 
     /**
@@ -300,11 +360,13 @@ public class CactifyWarTask extends War
      */
     private void addCactusJars()
     {
-        addJarWithClass("org.aspectj.lang.JoinPoint");
-        addJarWithClass("org.apache.cactus.ServletTestCase");
-        addJarWithClass("org.apache.commons.logging.Log");
-        addJarWithClass("org.apache.commons.httpclient.HttpClient");
-        addJarWithClass("junit.framework.TestCase");
+        addJarWithClass("org.aspectj.lang.JoinPoint", "AspectJ Runtime");
+        addJarWithClass("org.apache.cactus.ServletTestCase",
+            "Cactus Framework");
+        addJarWithClass("org.apache.commons.logging.Log", "Commons-Logging");
+        addJarWithClass("org.apache.commons.httpclient.HttpClient",
+            "Commons-HttpClient");
+        addJarWithClass("junit.framework.TestCase", "JUnit");
     }
 
     /**
@@ -312,8 +374,10 @@ public class CactifyWarTask extends War
      * folder of a web-application archive.
      * 
      * @param theClassName The name of the class that the JAR contains
+     * @param theDescription A description of the JAR that should be displayed
+     *        to the user in log messages
      */
-    private void addJarWithClass(String theClassName)
+    private void addJarWithClass(String theClassName, String theDescription)
     {
         String resourceName = "/" + theClassName.replace('.', '/') + ".class";
         ZipFileSet jar = new ZipFileSet();
@@ -325,8 +389,11 @@ public class CactifyWarTask extends War
         }
         else
         {
-            log("Could not find JAR containing class " + theClassName,
+            log("Could not find the " + theDescription + " JAR",
                 Project.MSG_WARN);
+            log("You need to add the JAR to the classpath of the task",
+                Project.MSG_INFO);
+            log("(Searched for class " + theClassName + ")", Project.MSG_DEBUG);
         }
     }
 
