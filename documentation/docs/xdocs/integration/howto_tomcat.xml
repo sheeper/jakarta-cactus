@@ -180,9 +180,7 @@
       <p>
         Then, create the following <code>SampleServlet.java</code> java source
         file, compile it and copy the resulting .class file in
-        <code>[tomcat-root]/webapps/test/WEB-INF/classes</code>. Note that
-        you can download the pre-compiled class file
-        <link href="site:code_sample_servlet">here</link>.
+        <code>[tomcat-root]/webapps/test/WEB-INF/classes</code>.
       </p>
 
 <source><![CDATA[
@@ -210,9 +208,7 @@ public class SampleServlet extends HttpServlet
         We're now read to create our first Cactus test case. Create the
         following <code>TestSampleServlet.java</code> java source file, compile
         it and copy the resulting .class file in
-        <code>[tomcat-root]/webapps/test/WEB-INF/classes</code>. Note that
-        you can download the pre-compiled class file
-        <link href="site:code_test_sample_servlet">here</link>.
+        <code>[tomcat-root]/webapps/test/WEB-INF/classes</code>.
       </p>
 
 <source><![CDATA[

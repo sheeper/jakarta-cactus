@@ -58,10 +58,6 @@
     Archives of older Cactus release changes.
   </resource>
 
-  <resource id="code_sample_servlet" target="misc/SampleServlet.class"/>
-
-  <resource id="code_test_sample_servlet" target="misc/TestSampleServlet.class"/>
-
   <resource id="coding_conventions"
       target="participating/coding_conventions.html"
       name="Coding Conventions">

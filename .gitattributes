@@ -121,8 +121,6 @@ documentation/docs/xdocs/integration/navigation.xml svn_keywords=Author+Date+Id+
 documentation/docs/xdocs/javadoc.xml svn_keywords=Author+Date+Id+Revision
 documentation/docs/xdocs/license.xml svn_keywords=Author+Date+Id+Revision
 documentation/docs/xdocs/mailinglist.xml svn_keywords=Author+Date+Id+Revision
-documentation/docs/xdocs/misc/SampleServlet.class -text
-documentation/docs/xdocs/misc/TestSampleServlet.class -text
 documentation/docs/xdocs/misc/cactus-report.xsl svn_keywords=Author+Date+Id+Revision
 documentation/docs/xdocs/mock_vs_cactus.xml svn_keywords=Author+Date+Id+Revision
 documentation/docs/xdocs/navigation.xml svn_keywords=Author+Date+Id+Revision
