@@ -162,11 +162,11 @@
         <action dev="VMA" type="update">
           Migrated to Apache license 2.0.
         </action>
-        <action dev="VMA" type="update" fixes-bug="25034" due-to="Daniel Rabe" due-to-email="drabe@opentext.com">
+        <action dev="VMA" type="update" fixes-bug="CACTUS-79" due-to="Daniel Rabe" due-to-email="drabe@opentext.com">
           The <code>&lt;cactus&gt;</code> task now also cleans custom tmp
           directories (passed using the <code>tmpdir</code> attribute).
         </action>
-        <action dev="VMA" type="add" fixes-bug="25968" due-to="James Carpenter" due-to-email="jacarpenter@ercot.com">
+        <action dev="VMA" type="add" fixes-bug="CACTUS-85" due-to="James Carpenter" due-to-email="jacarpenter@ercot.com">
           Added support for specifying which JNDI port to use when shutting 
           down JBoss 3.x in the Cactus Ant integration. 
           The <code>&lt;jboss3x&gt;</code> nested element now supports the new
@@ -180,7 +180,7 @@
           <code>encoding</code> parameters allows using a user-specified 
           encoding.
         </action>
-        <action dev="VMA" type="fix" fixes-bug="26401" due-to="Scott Leberknight" due-to-email="scott.leberknight@nearinfinity.com">
+        <action dev="VMA" type="fix" fixes-bug="CACTUS-89" due-to="Scott Leberknight" due-to-email="scott.leberknight@nearinfinity.com">
           Fixed <code>request.getRequestURL()</code> (J2EE 1.3 only) which was 
           not working properly when <code>WebRequest.setURL()</code> was called
           with a null pathinfo parameter.
@@ -200,7 +200,7 @@
           <code>&lt;conf&gt;</code> element (see the <code>&lt;cactus&gt;</code>
           task documentation for more details).
         </action>
-        <action dev="VMA" type="fix" fixes-bug="25859" due-to="Brian Topping" due-to-email="topping@digidemic.com">
+        <action dev="VMA" type="fix" fixes-bug="CACTUS-84" due-to="Brian Topping" due-to-email="topping@digidemic.com">
           In the Ant integration, added support for web contexts defined in
           JBoss's <code>jboss-web.xml</code>.
         </action>
@@ -210,7 +210,7 @@
           object you got from your Cactus test case (i.e. a Cactus request 
           wrapper object). Instead we got [...]</code>.
         </action>
-        <action dev="VMA" type="add" fixes-bug="23016">
+        <action dev="VMA" type="add" fixes-bug="CACTUS-53">
           In the Ant integration module, added new <code>configXml</code> 
           attribute to the <code>&lt;weblogic7x&gt;</code> container 
           element of the <code>&lt;cactus&gt;</code> task.
@@ -238,14 +238,14 @@
           version provided by Cactus. This is for the Tomcat 4.x and 5.x
           containers.
         </action>
-        <action dev="VMA" type="fix" fixes-bug="24072" due-to="James Stangler" due-to-email="jastangler@yahoo.com">
+        <action dev="VMA" type="fix" fixes-bug="CACTUS-63" due-to="James Stangler" due-to-email="jastangler@yahoo.com">
           The Jetty Test Setup was not shutting Jetty down if an error ocurred
           during setUp.
         </action>
       </release>
       
       <release version="1.5-rc1" date="26 October 2003">
-        <action dev="VMA" type="fix" fixes-bug="23604" due-to="Norbert Pabis" due-to-email="npabis@astercity.net">
+        <action dev="VMA" type="fix" fixes-bug="CACTUS-58" due-to="Norbert Pabis" due-to-email="npabis@astercity.net">
           The Cactus Ant integration now reports the HTTP error code when it 
           fails to start the container and timeouts. It was previously doing 
           this but only in debug mode.
@@ -279,7 +279,7 @@
           JUnit test cases, the <code>setUp()</code> and 
           <code>tearDown()</code> methods were not called.
         </action>
-        <action dev="VMA" type="fix" fixes-bug="22794" due-to="Jonathan Kovacs" due-to-email="jdk@jdk.ca">
+        <action dev="VMA" type="fix" fixes-bug="CACTUS-52" due-to="Jonathan Kovacs" due-to-email="jdk@jdk.ca">
           In the Ant integration, when using the &lt;cactus&gt; task with
           an EAR, the test webapp context was not correctly set.
         </action>
