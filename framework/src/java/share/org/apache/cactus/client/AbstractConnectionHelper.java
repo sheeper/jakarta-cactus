@@ -56,15 +56,16 @@
  */
 package org.apache.cactus.client;
 
-import org.apache.cactus.WebRequest;
-import org.apache.cactus.Cookie;
-import org.apache.commons.httpclient.Header;
-
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+
 import java.util.Enumeration;
 import java.util.Vector;
+
+import org.apache.cactus.Cookie;
+import org.apache.cactus.WebRequest;
+import org.apache.commons.httpclient.Header;
 
 /**
  * Common helper methods for implementing <code>ConnectionHelper</code>. These
@@ -74,7 +75,8 @@ import java.util.Vector;
  *
  * @version $Id$
  */
-public abstract class AbstractConnectionHelper implements ConnectionHelper
+public abstract class AbstractConnectionHelper
+    implements ConnectionHelper
 {
     /**
      * Add the HTTP parameters that need to be passed in the query string of
@@ -90,7 +92,8 @@ public abstract class AbstractConnectionHelper implements ConnectionHelper
         throws MalformedURLException
     {
         // If no parameters, then exit
-        if (!theRequest.getParameterNamesGet().hasMoreElements()) {
+        if (!theRequest.getParameterNamesGet().hasMoreElements())
+        {
             return theURL;
         }
 
@@ -98,13 +101,17 @@ public abstract class AbstractConnectionHelper implements ConnectionHelper
 
         Enumeration keys = theRequest.getParameterNamesGet();
 
-        if (keys.hasMoreElements()) {
+        if (keys.hasMoreElements())
+        {
             String key = (String) keys.nextElement();
             String[] values = theRequest.getParameterValuesGet(key);
+
             queryString.append(key);
             queryString.append('=');
             queryString.append(URLEncoder.encode(values[0]));
-            for (int i = 1; i < values.length; i++) {
+
+            for (int i = 1; i < values.length; i++)
+            {
                 queryString.append('&');
                 queryString.append(key);
                 queryString.append('=');
@@ -112,10 +119,13 @@ public abstract class AbstractConnectionHelper implements ConnectionHelper
             }
         }
 
-        while (keys.hasMoreElements()) {
+        while (keys.hasMoreElements())
+        {
             String key = (String) keys.nextElement();
             String[] values = theRequest.getParameterValuesGet(key);
-            for (int i = 0; i < values.length; i++) {
+
+            for (int i = 0; i < values.length; i++)
+            {
                 queryString.append('&');
                 queryString.append(key);
                 queryString.append('=');
@@ -126,17 +136,21 @@ public abstract class AbstractConnectionHelper implements ConnectionHelper
         String file = theURL.getFile();
 
         // Remove the trailing "/" if there is one
-        if (file.endsWith("/")) {
+        if (file.endsWith("/"))
+        {
             file = file.substring(0, file.length() - 1);
         }
 
-        if (theURL.toString().indexOf("?") > 0) {
+        if (theURL.toString().indexOf("?") > 0)
+        {
             file = file + "&" + queryString.toString();
-        } else {
+        }
+        else
+        {
             file = file + "?" + queryString.toString();
         }
 
-        return new URL(theURL.getProtocol(), theURL.getHost(),
+        return new URL(theURL.getProtocol(), theURL.getHost(), 
             theURL.getPort(), file);
     }
 
@@ -151,54 +165,62 @@ public abstract class AbstractConnectionHelper implements ConnectionHelper
     {
         // If no Cookies, then exit
         Vector cookies = theRequest.getCookies();
-        if (!cookies.isEmpty()) {
 
+        if (!cookies.isEmpty())
+        {
             // transform the Cactus cookies into HttpClient cookies
-            org.apache.commons.httpclient.Cookie[] httpclientCookies =
+            org.apache.commons.httpclient.Cookie[] httpclientCookies = 
                 new org.apache.commons.httpclient.Cookie[cookies.size()];
-            for (int i = 0; i < cookies.size(); i++) {
+
+            for (int i = 0; i < cookies.size(); i++)
+            {
                 Cookie cactusCookie = (Cookie) cookies.elementAt(i);
 
                 // If no domain has been specified, use a default one
                 String domain;
-                if (cactusCookie.getDomain() == null) {
-                    domain = Cookie.getCookieDomain(theRequest,
+
+                if (cactusCookie.getDomain() == null)
+                {
+                    domain = Cookie.getCookieDomain(theRequest, 
                         theUrl.getHost());
-                } else {
+                }
+                else
+                {
                     domain = cactusCookie.getDomain();
                 }
 
                 // If not path has been specified , use a default one
                 String path;
-                if (cactusCookie.getPath() == null) {
+
+                if (cactusCookie.getPath() == null)
+                {
                     path = Cookie.getCookiePath(theRequest, theUrl.getFile());
-                } else {
+                }
+                else
+                {
                     path = cactusCookie.getPath();
                 }
 
-                httpclientCookies[i] =
-                    new org.apache.commons.httpclient.Cookie(
-                        domain, cactusCookie.getName(),
-                        cactusCookie.getValue());
+                httpclientCookies[i] = new org.apache.commons.httpclient.Cookie(
+                    domain, cactusCookie.getName(), cactusCookie.getValue());
 
                 httpclientCookies[i].setComment(cactusCookie.getComment());
                 httpclientCookies[i].setExpiryDate(
-                        cactusCookie.getExpiryDate());
+                    cactusCookie.getExpiryDate());
                 httpclientCookies[i].setPath(path);
                 httpclientCookies[i].setSecure(cactusCookie.isSecure());
             }
 
             // and create the cookie header to send
-            Header cookieHeader =
+            Header cookieHeader = 
                 org.apache.commons.httpclient.Cookie.createCookieHeader(
-                    Cookie.getCookieDomain(theRequest, theUrl.getHost()),
-                    Cookie.getCookiePath(theRequest, theUrl.getFile()),
-                    httpclientCookies);
+                Cookie.getCookieDomain(theRequest, theUrl.getHost()), 
+                Cookie.getCookiePath(theRequest, theUrl.getFile()), 
+                httpclientCookies);
 
             return cookieHeader.getValue();
         }
 
         return null;
     }
-
 }

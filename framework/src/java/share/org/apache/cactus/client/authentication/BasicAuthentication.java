@@ -56,10 +56,10 @@
  */
 package org.apache.cactus.client.authentication;
 
-import org.apache.cactus.WebRequest;
-
 import java.text.CharacterIterator;
 import java.text.StringCharacterIterator;
+
+import org.apache.cactus.WebRequest;
 
 /**
  * Basic Authentication support.
@@ -78,28 +78,37 @@ public class BasicAuthentication extends AbstractAuthentication
      * Provides encoding of raw bytes to base64-encoded characters, and
      * decoding of base64 characters to raw bytes.
      */
-    private static char[] alphabet =
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=".
-            toCharArray();
+    private static char[] alphabet = 
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/="
+        .toCharArray();
 
     /**
      * Lookup table for converting base64 characters to value in range 0..63
      */
     private static byte[] codes = new byte[256];
 
-    static {
-        for (int i = 0; i < 256; i++) {
+    static
+    {
+        for (int i = 0; i < 256; i++)
+        {
             codes[i] = -1;
         }
-        for (int i = 'A'; i <= 'Z'; i++) {
+
+        for (int i = 'A'; i <= 'Z'; i++)
+        {
             codes[i] = (byte) (i - 'A');
         }
-        for (int i = 'a'; i <= 'z'; i++) {
+
+        for (int i = 'a'; i <= 'z'; i++)
+        {
             codes[i] = (byte) (26 + i - 'a');
         }
-        for (int i = '0'; i <= '9'; i++) {
+
+        for (int i = '0'; i <= '9'; i++)
+        {
             codes[i] = (byte) (52 + i - '0');
         }
+
         codes['+'] = 62;
         codes['/'] = 63;
     }
@@ -129,11 +138,10 @@ public class BasicAuthentication extends AbstractAuthentication
         //            "{" | "}" | SP | HT
         // SP       = <US-ASCII SP, space (32)>
         // HT       = <US-ASCII HT, horizontal-tab (9)>
-
         // Validate the given theName
-
         // The theName is optional, it can be blank.
-        if (theName == null) {
+        if (theName == null)
+        {
             return;
         }
 
@@ -143,15 +151,14 @@ public class BasicAuthentication extends AbstractAuthentication
         StringCharacterIterator iter = new StringCharacterIterator(theName);
 
         for (char c = iter.first(); c != CharacterIterator.DONE;
-             c = iter.next()) {
-
-            if ((illegalChars.indexOf(c) != -1)
-                || ((c >= 0) && (c <= 31))
-                || (c == 127)) {
-
-                    // Bad theName! Go to your room!
+             c = iter.next())
+        {
+            if ((illegalChars.indexOf(c) != -1) || ((c >= 0) && (c <= 31))
+                || (c == 127))
+            {
+                // Bad theName! Go to your room!
                 throw new IllegalArgumentException(
-                        "Given theName contains illegal characters.");
+                    "Given theName contains illegal characters.");
             }
         }
     }
@@ -172,32 +179,31 @@ public class BasicAuthentication extends AbstractAuthentication
         // LF    = <US-ASCII LF, linefeed (10)>
         // SP    = <US-ASCII SP, space (32)>
         // HT    = <US-ASCII HT, horizontal-tab (9)>
-
         // Validate the given thePassword
-
         // The thePassword can have zero characters, i.e. be blank.
-        if (thePassword == null) {
+        if (thePassword == null)
+        {
             return;
         }
 
         // If it's non-blank, there is no maximum length
         // and it can't contain any illegal characters
         String exceptionChars = "\r\n \t"; // CR LF SP HT
-        StringCharacterIterator iter =
-                new StringCharacterIterator(thePassword);
+        StringCharacterIterator iter = new StringCharacterIterator(thePassword);
 
-        for (char c = iter.first(); c != CharacterIterator.DONE;
-             c = iter.next()) {
-
-            if (((c >= 0) && (c <= 31)) || (c == 127)) {
-
-                if (exceptionChars.indexOf(c) != -1) {
+        for (char c = iter.first(); c != CharacterIterator.DONE; 
+            c = iter.next())
+        {
+            if (((c >= 0) && (c <= 31)) || (c == 127))
+            {
+                if (exceptionChars.indexOf(c) != -1)
+                {
                     continue;
                 }
 
                 // Bad thePassword! Go to your room!
                 throw new IllegalArgumentException(
-                        "Given thePassword contains illegal characters.");
+                    "Given thePassword contains illegal characters.");
             }
         }
     }
@@ -214,7 +220,6 @@ public class BasicAuthentication extends AbstractAuthentication
         // userid-password   = [ token ] ":" *TEXT
         //
         // see setName and setPassword for details of token and TEXT
-
         String basicCookie = getName() + ":" + getPassword();
         String basicCredentials = "Basic "
             + new String(base64Encode(basicCookie.getBytes()));
@@ -237,21 +242,25 @@ public class BasicAuthentication extends AbstractAuthentication
         // 3 bytes encode to 4 chars. Output is always an even
         // multiple of 4 characters.
         //
-        for (int i = 0, index = 0; i < theData.length; i += 3, index += 4) {
+        for (int i = 0, index = 0; i < theData.length; i += 3, index += 4)
+        {
             boolean quad = false;
             boolean trip = false;
 
             int val = (0xFF & (int) theData[i]);
+
             val <<= 8;
 
-            if ((i + 1) < theData.length) {
+            if ((i + 1) < theData.length)
+            {
                 val |= (0xFF & (int) theData[i + 1]);
                 trip = true;
             }
 
             val <<= 8;
 
-            if ((i + 2) < theData.length) {
+            if ((i + 2) < theData.length)
+            {
                 val |= (0xFF & (int) theData[i + 2]);
                 quad = true;
             }
@@ -267,6 +276,7 @@ public class BasicAuthentication extends AbstractAuthentication
 
             out[index + 0] = alphabet[val & 0x3F];
         }
+
         return out;
     }
 }
