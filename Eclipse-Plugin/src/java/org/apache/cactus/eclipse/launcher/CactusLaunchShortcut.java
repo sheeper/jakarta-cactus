@@ -180,7 +180,7 @@ public class CactusLaunchShortcut
     {
         prepareCactusTests(theType);
         ILaunchConfiguration config = findLaunchConfiguration(theType, theMode);
-    	JUnitPlugin.getDefault().addTestRunListener(this);
+        JUnitPlugin.getDefault().addTestRunListener(this);
         if (config != null)
         {
             try
