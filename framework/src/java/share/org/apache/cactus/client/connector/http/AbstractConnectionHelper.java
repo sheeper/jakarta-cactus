@@ -176,46 +176,7 @@ public abstract class AbstractConnectionHelper
         {
             // transform the Cactus cookies into HttpClient cookies
             org.apache.commons.httpclient.Cookie[] httpclientCookies = 
-                new org.apache.commons.httpclient.Cookie[cookies.size()];
-
-            for (int i = 0; i < cookies.size(); i++)
-            {
-                Cookie cactusCookie = (Cookie) cookies.elementAt(i);
-
-                // If no domain has been specified, use a default one
-                String domain;
-
-                if (cactusCookie.getDomain() == null)
-                {
-                    domain = Cookie.getCookieDomain(theRequest, 
-                        theUrl.getHost());
-                }
-                else
-                {
-                    domain = cactusCookie.getDomain();
-                }
-
-                // If not path has been specified , use a default one
-                String path;
-
-                if (cactusCookie.getPath() == null)
-                {
-                    path = Cookie.getCookiePath(theRequest, theUrl.getFile());
-                }
-                else
-                {
-                    path = cactusCookie.getPath();
-                }
-
-                httpclientCookies[i] = new org.apache.commons.httpclient.Cookie(
-                    domain, cactusCookie.getName(), cactusCookie.getValue());
-
-                httpclientCookies[i].setComment(cactusCookie.getComment());
-                httpclientCookies[i].setExpiryDate(
-                    cactusCookie.getExpiryDate());
-                httpclientCookies[i].setPath(path);
-                httpclientCookies[i].setSecure(cactusCookie.isSecure());
-            }
+                createHttpClientCookies(theRequest, theUrl);
 
             // and create the cookie header to send
             Header cookieHeader = createCookieHeader(
@@ -227,6 +188,81 @@ public abstract class AbstractConnectionHelper
         }
 
         return null;
+    }
+
+    /**
+     * Transforms an array of Cactus cookies into an array of Commons-HttpClient
+     * cookies, using information from the request and URL.
+     * 
+     * @param theRequest The request
+     * @param theUrl The URL
+     * @param theCactusCookies The array of Cactus Cookies
+     * @return The array of HttpClient cookies
+     */
+    protected org.apache.commons.httpclient.Cookie[] createHttpClientCookies(
+        WebRequest theRequest, URL theUrl)
+    {
+        Vector cactusCookies = theRequest.getCookies();
+        
+        // transform the Cactus cookies into HttpClient cookies
+        org.apache.commons.httpclient.Cookie[] httpclientCookies = 
+            new org.apache.commons.httpclient.Cookie[cactusCookies.size()];
+
+        for (int i = 0; i < cactusCookies.size(); i++)
+        {
+            Cookie cactusCookie = (Cookie) cactusCookies.elementAt(i);
+            httpclientCookies[i] =
+                createHttpClientCookie(theRequest, theUrl, cactusCookie);
+        }
+
+        return httpclientCookies;
+    }
+
+    /**
+     * Create a Commons-HttpClient cookie from a Cactus cookie, with information
+     * from the web request and the URL.
+     * 
+     * @param theRequest The request
+     * @param theUrl The URL
+     * @param theCactusCookie The Cactus Cookie object
+     * @return The HttpClient cookie
+     */
+    protected org.apache.commons.httpclient.Cookie createHttpClientCookie(
+        WebRequest theRequest, URL theUrl, Cookie theCactusCookie)
+    {
+        // If no domain has been specified, use a default one
+        String domain;
+        if (theCactusCookie.getDomain() == null)
+        {
+            domain = Cookie.getCookieDomain(theRequest, theUrl.getHost());
+        }
+        else
+        {
+            domain = theCactusCookie.getDomain();
+        }
+
+        // If not path has been specified , use a default one
+        String path;
+        if (theCactusCookie.getPath() == null)
+        {
+            path = Cookie.getCookiePath(theRequest, theUrl.getFile());
+        }
+        else
+        {
+            path = theCactusCookie.getPath();
+        }
+
+        // Assemble the HttpClient cookie
+        org.apache.commons.httpclient.Cookie httpclientCookie =
+            new org.apache.commons.httpclient.Cookie(domain,
+                theCactusCookie.getName(), theCactusCookie.getValue());
+        httpclientCookie.setComment(theCactusCookie.getComment());
+        httpclientCookie.setExpiryDate(
+            theCactusCookie.getExpiryDate());
+        httpclientCookie.setPath(path);
+        httpclientCookie.setSecure(theCactusCookie.isSecure());
+        
+        return httpclientCookie;
     }
 
     /**
@@ -275,4 +311,5 @@ public abstract class AbstractConnectionHelper
         
         return cookieHeader;
     }
+
 }
