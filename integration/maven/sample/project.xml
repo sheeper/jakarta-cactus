@@ -29,6 +29,10 @@
        and com.mycompany.accounts.utils, the package would be
        'com.mycompany.accounts' -->
   <package>org.apache.maven.cactus.sample</package>
+
+  <!-- a description of what the project does. This is displayed on the 
+  	   generated web site -->
+  <description>A sample project demonstrating how to use the Cactus plugin for Maven.</description>
   
   <!-- a short description of what the project does -->
   <shortDescription>A sample project using the Cactus plugin for Maven</shortDescription>
