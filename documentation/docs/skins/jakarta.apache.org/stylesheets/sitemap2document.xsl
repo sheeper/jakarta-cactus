@@ -25,7 +25,9 @@
       </properties>
       <body>
         <section title="Sitemap">
-          <xsl:apply-templates/>
+          <xsl:apply-templates select="resource">
+            <xsl:sort select="@name|@id"/>
+          </xsl:apply-templates>
         </section>
       </body>
     </document>
@@ -33,23 +35,24 @@
 
   <xsl:template match="resource">
     <li class="sitemap">
-      <a>
+      <link>
         <xsl:attribute name="href">
-          <xsl:value-of select="@target"/>
+          <xsl:value-of select="concat('site:', @id)"/>
         </xsl:attribute>
-        <xsl:choose>
-          <xsl:when test="@name">
-            <xsl:value-of select="@name"/>
-          </xsl:when>
-          <xsl:otherwise>
-            <xsl:value-of select="@id"/>
-          </xsl:otherwise>
-        </xsl:choose>
-      </a>
+        <strong>
+          <xsl:choose>
+            <xsl:when test="@name">
+              <xsl:value-of select="@name"/>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:value-of select="@id"/>
+            </xsl:otherwise>
+          </xsl:choose>
+        </strong>
+      </link>
+      <xsl:text>: </xsl:text>
       <xsl:if test="text()">
-        <p>
-          <xsl:apply-templates/>
-        </p>
+        <xsl:apply-templates/>
       </xsl:if>
     </li>
   </xsl:template>
