@@ -70,8 +70,7 @@
         </li>
         <li>
           Edit <code>build-common.xml</code> and
-          modify the <code>project.version.*</code> and 
-          <code>project.doc.version.version</code> Ant properties so that
+          modify the <code>project.version.*</code> Ant properties so that
           they reflect the version number for the release (no 
           <code>dev</code> suffix should remain). Commit the changes.
         </li>
