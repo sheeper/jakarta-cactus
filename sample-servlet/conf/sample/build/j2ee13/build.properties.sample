@@ -56,15 +56,15 @@ httpunit.jar = ../lib/httpunit.jar
 #       comment it's home property. For example, if you don't want to run the
 #       tests on the Resin 1.2, comment the "resin.home.12" property.
 
-#resin.home.20 = c:/apps/resin-2.1.0
-#resin.home.13 = f:/applis/resin-1.3.s010125
-#tomcat.home.40 = c:/apps/jakarta-tomcat-4.0.2
-#orion.home.15 = f:/applis/orion-1.5.2
+#resin.home.20 = c:/Apps/resin-2.1.0
+#resin.home.13 = xxx
+#tomcat.home.40 = c:/Apps/jakarta-tomcat-4.0.3
+#orion.home.15 = c:/Apps/orion-1.5.4
 
 # Note: weblogic.home.61 is the location of BEA Home and NOT the location of
 # wlserver6.1, inside the bea home directory.
-#weblogic.home.61 = c:/bea
+#weblogic.home.61 = c:/Apps/bea
 
 # Note: There seems to be a bug in Orion 1.4 preventing it to run correctly
 #       the testSendUserData() test. It runs fine in Orion 1.5 though.
-#orion.home.14 = f:/applis/orion-1.4.5
+#orion.home.14 = xxx

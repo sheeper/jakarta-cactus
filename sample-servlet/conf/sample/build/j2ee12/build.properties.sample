@@ -57,13 +57,13 @@ httpunit.jar = ../lib/httpunit.jar
 #       tests on the Resin 1.2, comment the "resin.home.12" property.
 
 #resin.home.20 = c:/Apps/resin-2.1.0
-#resin.home.12 = f:/applis/resin-1.2.5
+#resin.home.12 = xxx
 #tomcat.home.32 = c:/Apps/jakarta-tomcat-3.2.4
 #tomcat.home.33 = c:/Apps/jakarta-tomcat-3.3.1
-#orion.home.15 = f:/applis/orion-1.5.2
-#weblogic.home.51 = e:/weblogic
-#enhydra.home.31 =
+#orion.home.15 = c:/Apps/orion-1.5.4
+#weblogic.home.51 = xxx
+#enhydra.home.31 = xxx
 
 # Note: There seems to be a bug in Orion 1.4 preventing it to run correctly
 #       the testSendUserData() test. It runs fine in Orion 1.5 though.
-#orion.home.14 = f:/applis/orion-1.4.5
+#orion.home.14 = xxx
