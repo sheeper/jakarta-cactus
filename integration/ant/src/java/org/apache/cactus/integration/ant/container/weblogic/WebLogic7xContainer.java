@@ -240,7 +240,10 @@ public class WebLogic7xContainer extends AbstractJavaContainer
         java.createArg().setValue("weblogic");
         java.createArg().setValue("-password");
         java.createArg().setValue("weblogic");
-        java.createArg().setValue("SHUTDOWN");
+        
+        // Forcing WebLogic shutdown to speed up the shutdown process
+        java.createArg().setValue("FORCESHUTDOWN");
+
         java.execute();
     }
 

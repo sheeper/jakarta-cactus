@@ -90,6 +90,11 @@
       </devs>
 
       <release version="1.7dev" date="in CVS">
+        <action dev="VMA" type="update" issue="CACTUS-120">
+          Ensure faster shutdown times with WebLogic 7.x by using the 
+          <code>FORCESHUTDOWN</code> WebLogic command instead of the graceful
+          one.
+        </action>  
         <action dev="VMA" type="update" issue="CACTUS-118">
           The <code>JettyTestSetup</code> class now checks if the Jetty server
           is already started and only starts it if it isn't running. It also
