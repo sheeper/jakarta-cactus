@@ -246,10 +246,28 @@
     </target>
     
     <target name="sample.clover" if="clover.enable">
+
         <copy todir="${target.sample.lib.dir}" file="${clover.jar}"/>
+
+        <replace file="${target.sample.dir}/build.xml"
+            token="@cactus.clover.pathelement@">
+            <replacevalue><![CDATA[
+              <pathelement location="${clover.jar}"/>
+            ]]></replacevalue>
+        </replace>        
+
+    </target>
+
+    <target name="sample.noclover" unless="clover.enable">
+
+        <replace file="${target.sample.dir}/build.xml"
+            token="@cactus.clover.pathelement@">
+            <replacevalue><![CDATA[]]></replacevalue>
+        </replace>        
+
     </target>
     
-    <target name="sample" depends="init,sample.main,sample.clover"
+    <target name="sample" depends="init,sample.main,sample.clover,sample.noclover"
         description="Generate the sample application">
     </target>
 
@@ -262,24 +280,12 @@
     
         <property name="clover.system.parameter"
             value="-Dcactus.framework.jar=${basedir}/${cactus.framework.clover.jar}"/>
-
-        <replace file="${target.sample.dir}/build.xml"
-            token="@cactus.clover.pathelement@">
-            <replacevalue><![CDATA[
-              <pathelement location="${clover.jar}"/>
-            ]]></replacevalue>
-        </replace>        
     
     </target>
 
     <target name="test.prepare.noclover" unless="clover.enable">
 
         <property name="clover.system.parameter" value=""/>
-
-        <replace file="${target.sample.dir}/build.xml"
-            token="@cactus.clover.pathelement@">
-            <replacevalue><![CDATA[]]></replacevalue>
-        </replace>        
 
     </target>
     
