@@ -118,7 +118,7 @@ public abstract class AbstractTestCase extends TestCase
     public AbstractTestCase(String theName)
     {
         super(theName);
-        this.currentTestMethod = name();
+        this.currentTestMethod = getName();
     }
 
     /**
@@ -128,12 +128,12 @@ public abstract class AbstractTestCase extends TestCase
     private String getBaseMethodName()
     {
         // Sanity check
-        if (!name().startsWith(TEST_METHOD_PREFIX)) {
-            throw new RuntimeException("bad name [" + name() +
+        if (!getName().startsWith(TEST_METHOD_PREFIX)) {
+            throw new RuntimeException("bad name [" + getName() +
                 "]. It should start with [" + TEST_METHOD_PREFIX + "].");
         }
 
-        return name().substring(TEST_METHOD_PREFIX.length());
+        return getName().substring(TEST_METHOD_PREFIX.length());
     }
 
     /**
@@ -421,7 +421,7 @@ public abstract class AbstractTestCase extends TestCase
         // a file, ...
         request.addParameter(ServiceDefinition.CLASS_NAME_PARAM,
             this.getClass().getName(), WebRequest.GET_METHOD);
-        request.addParameter(ServiceDefinition.METHOD_NAME_PARAM, name(),
+        request.addParameter(ServiceDefinition.METHOD_NAME_PARAM, getName(),
             WebRequest.GET_METHOD);
         request.addParameter(ServiceDefinition.AUTOSESSION_NAME_PARAM,
             new Boolean(request.getAutomaticSession()).toString(),
