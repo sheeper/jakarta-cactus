@@ -59,11 +59,9 @@ package org.apache.cactus.integration.ant.deployment;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.jar.JarInputStream;
 
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.apache.cactus.integration.ant.util.ResourceUtils;
 import org.xml.sax.SAXException;
 
 /**
@@ -129,12 +127,12 @@ public class EarArchive extends JarArchive
     {
         if (this.applicationXml == null)
         {
-            JarInputStream in = null;
+            InputStream in = null;
             try
             {
-                in = getContentAsStream();
+                in = getResource("META-INF/application.xml");
                 this.applicationXml =
-                    ApplicationXmlIo.parseApplicationXmlFromEar(in, null);
+                    ApplicationXmlIo.parseApplicationXml(in, null);
             }
             finally
             {
@@ -158,11 +156,10 @@ public class EarArchive extends JarArchive
     public WarArchive getWebModule(String theUri)
         throws IOException
     {
-        JarInputStream in = null;
+        InputStream war = null;
         try
         {
-            in = getContentAsStream();
-            InputStream war = ResourceUtils.getResource(in, theUri);
+            getResource(theUri);
             if (war != null)
             {
                 return new WarArchive(war);
@@ -170,9 +167,9 @@ public class EarArchive extends JarArchive
         }
         finally
         {
-            if (in != null)
+            if (war != null)
             {
-                in.close();
+                war.close();
             }
         }
         return null;

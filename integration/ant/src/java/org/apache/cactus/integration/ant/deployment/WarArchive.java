@@ -59,7 +59,6 @@ package org.apache.cactus.integration.ant.deployment;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.jar.JarInputStream;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -127,11 +126,11 @@ public class WarArchive extends JarArchive
     {
         if (this.webXml == null)
         {
-            JarInputStream in = null;
+            InputStream in = null;
             try
             {
-                in = getContentAsStream();
-                this.webXml = WebXmlIo.parseWebXmlFromWar(in, null);
+                in = getResource("WEB-INF/web.xml");
+                this.webXml = WebXmlIo.parseWebXml(in, null);
             }
             finally
             {
