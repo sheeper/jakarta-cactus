@@ -137,9 +137,13 @@ public class ServletTestCaller
 
         }
 
+        this.logger.debug("Test result : [" + result + "]");
+
         // Set the test result.
         this.servletImplicitObjects.getServletConfig().getServletContext().
             setAttribute(TEST_RESULTS, result);
+
+        this.logger.debug("Result saved in context scope");
 
         this.logger.exit("doTest");
     }
