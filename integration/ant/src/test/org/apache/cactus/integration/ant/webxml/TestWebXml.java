@@ -82,11 +82,17 @@ import org.xml.sax.SAXException;
  */
 public class TestWebXml extends TestCase
 {
+    /**
+     * The document builder factory.
+     */
     private DocumentBuilderFactory factory;
 
-	private DocumentBuilder builder;
+    /**
+     * The JAXP document builder.
+     */
+    private DocumentBuilder builder;
 
-	/**
+    /**
      * @see TestCase#TestCase(String)
      */
     public TestWebXml(String theTestName)
@@ -94,13 +100,16 @@ public class TestWebXml extends TestCase
         super(theTestName);        
     }
 
+    /**
+     * @see TestCase#setUp
+     */
     public void setUp() throws ParserConfigurationException
     {
-		factory = DocumentBuilderFactory.newInstance();
+        factory = DocumentBuilderFactory.newInstance();
         factory.setValidating(false);
         factory.setNamespaceAware(false);
 
-		builder = factory.newDocumentBuilder();
+        builder = factory.newDocumentBuilder();
         builder.setEntityResolver(new EntityResolver()
         {
             public InputSource resolveEntity(String thePublicId, 
@@ -111,6 +120,13 @@ public class TestWebXml extends TestCase
         });
     }
     
+    /**
+     * Tests whether the construction of a WebXml object with a
+     * <code>null</code> parameter for the DOM document throws a
+     * <code>NullPointerException</code>.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
     public void testConstructionWithNullDocument() throws Exception
     {
         try
@@ -125,6 +141,11 @@ public class TestWebXml extends TestCase
         
     }
     
+    /**
+     * Tests whether a servlet API version 2.2 descriptor is correctly detected.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
     public void testGetVersion22() throws Exception
     {
         String xml = "<!DOCTYPE web-app "
@@ -136,6 +157,11 @@ public class TestWebXml extends TestCase
         assertEquals(WebXml.SERVLET_VERSION_2_2, webXml.getVersion());
     }
     
+    /**
+     * Tests whether a servlet API version 2.3 descriptor is correctly detected.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
     public void testGetVersion23() throws Exception
     {
         String xml = "<!DOCTYPE web-app "
@@ -147,6 +173,12 @@ public class TestWebXml extends TestCase
         assertEquals(WebXml.SERVLET_VERSION_2_3, webXml.getVersion());
     }
     
+    /**
+     * Tests whether WebXml#getVersion returns <code>null</code> when the public
+     * ID of the <code>DOCTYPE</code> is not recognized.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
     public void testGetVersionUnknown() throws Exception
     {
         String xml = "<!DOCTYPE web-app "
@@ -158,6 +190,12 @@ public class TestWebXml extends TestCase
         assertNull(webXml.getVersion());
     }
     
+    /**
+     * Tests whether WebXml#getVersion returns <code>null</code> when the
+     * <code>DOCTYPE</code> is missing.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
     public void testGetVersionWithoutDoctype() throws Exception
     {
         String xml = "<web-app></web-app>";
@@ -166,6 +204,13 @@ public class TestWebXml extends TestCase
         assertNull(webXml.getVersion());
     }
     
+    /**
+     * Tests whether calling {@link WebXml.hasFilter} with <code>null</code> as
+     * filter name parameter results in a <code>NullPointerException</code> 
+     * being thrown. 
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
     public void testHasFilterWithNullName() throws Exception
     {
         String xml = "<web-app></web-app>";
@@ -183,6 +228,12 @@ public class TestWebXml extends TestCase
         
     }
     
+    /**
+     * Tests whether {@link WebXml.hasFilter} returns the correct value for
+     * a descriptor containing one filter definition.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
     public void testHasFilterWithOneFilter() throws Exception
     {
         String xml = "<web-app>"
@@ -197,6 +248,12 @@ public class TestWebXml extends TestCase
         assertTrue(!webXml.hasFilter("f2"));
     }
 
+    /**
+     * Tests whether {@link WebXml.hasFilter} returns the correct values for
+     * a descriptor containing multiple filter definitions.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
     public void testHasFilterWithMultipleFilters() throws Exception
     {
         String xml = "<web-app>"
@@ -221,6 +278,12 @@ public class TestWebXml extends TestCase
         assertTrue(!webXml.hasFilter("f4"));
     }
 
+    /**
+     * Tests whether a DOM element representing a single filter definition can
+     * be correctly retrieved from a descriptor containing only that filter.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
     public void testGetFilterElementWithOneFilter() throws Exception
     {
         String xml = "<web-app>"
@@ -244,6 +307,11 @@ public class TestWebXml extends TestCase
             servletElement.getLastChild().getFirstChild().getNodeValue());
     }
 
+    /**
+     * Tests whether the filter names are retrieved in the expected order.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
     public void testGetFilterNames() throws Exception
     {
         String xml = "<web-app>"
@@ -269,6 +337,11 @@ public class TestWebXml extends TestCase
         assertTrue(!filterNames.hasNext());
     }
     
+    /**
+     * Tests whether a filter-mapping is correctly retrieved from a descriptor.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
     public void testGetFilterMappingsWithOneMapping() throws Exception
     {
         String xml = "<web-app>"
@@ -284,6 +357,12 @@ public class TestWebXml extends TestCase
         assertTrue(!filterMappings.hasNext());
     }
     
+    /**
+     * Tests whether multiple filter-mappings are correctly retrieved from a 
+     * descriptor.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
     public void testGetFilterMappingsWithMultipleMappings() throws Exception
     {
         String xml = "<web-app>"
@@ -309,6 +388,11 @@ public class TestWebXml extends TestCase
         assertTrue(!filterMappings.hasNext());
     }
     
+    /**
+     * Tests whether a filter-mapping is correctly retrieved from a descriptor.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
     public void testGetFilterMappingsWithFilter() throws Exception
     {
         String xml = "<web-app>"
@@ -328,6 +412,12 @@ public class TestWebXml extends TestCase
         assertTrue(!filterMappings.hasNext());
     }
     
+    /**
+     * Tests whether a single filter is correctly inserted into an empty
+     * descriptor.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
     public void testAddFilterToEmptyDocument() throws Exception
     {
         String xml = "<web-app></web-app>";
@@ -338,6 +428,12 @@ public class TestWebXml extends TestCase
         assertTrue(webXml.hasFilter("f1"));
     }
 
+    /**
+     * Tests whether a single filter is correctly inserted into a descriptor 
+     * that already contains an other filter definition.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
     public void testAddFilterToDocumentWithAnotherFilter() throws Exception
     {
         String xml = "<web-app>"
@@ -354,6 +450,12 @@ public class TestWebXml extends TestCase
         assertTrue(webXml.hasFilter("f2"));
     }
 
+    /**
+     * Tests whether trying to add a filter to a descriptor that already
+     * contains a filter definition with the same name results in a exception.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
     public void testAddFilterToDocumentWithTheSameFilter() throws Exception
     {
         String xml = "<web-app>"
@@ -376,6 +478,12 @@ public class TestWebXml extends TestCase
         }
     }
 
+    /**
+     * Tests whether a single initialization parameter can be added to a filter
+     * definition.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
     public void testAddOneFilterInitParam() throws Exception
     {
         String xml = "<web-app>"
@@ -392,6 +500,12 @@ public class TestWebXml extends TestCase
         assertTrue(!initParams.hasNext());
     }
 
+    /**
+     * Tests whether multiple initialization parameter can be added to a filter
+     * definition.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
     public void testAddMultipleFilterInitParams() throws Exception
     {
         String xml = "<web-app>"
@@ -412,54 +526,12 @@ public class TestWebXml extends TestCase
         assertTrue(!initParams.hasNext());
     }
 
-    public void testRemoveFilterUndefined() throws Exception
-    {
-        String xml = "<web-app></web-app>";
-        Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
-        WebXml webXml = new WebXml(doc);
-        Element filterElement = webXml.removeFilter("f1");
-        assertNull(filterElement);
-    }
-
-    public void testRemoveFilterFromDocumentWithOneFilter() throws Exception
-    {
-        String xml = "<web-app>"
-            + "  <filter>"
-            + "    <filter-name>f1</filter-name>"
-            + "    <filter-class>fclass1</filter-class>"
-            + "  </filter>"
-            + "</web-app>";
-        Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
-        WebXml webXml = new WebXml(doc);
-        webXml.removeFilter("f1");
-        assertTrue(!webXml.hasFilter("f1"));
-    }
-
-    public void testRemoveFilterFromDocumentWithMoreFilters()
-        throws Exception
-    {
-        String xml = "<web-app>"
-            + "  <filter>"
-            + "    <filter-name>f1</filter-name>"
-            + "    <filter-class>fclass1</filter-class>"
-            + "  </filter>"
-            + "  <filter>"
-            + "    <filter-name>f2</filter-name>"
-            + "    <filter-class>fclass2</filter-class>"
-            + "  </filter>"
-            + "  <filter>"
-            + "    <filter-name>f3</filter-name>"
-            + "    <filter-class>fclass3</filter-class>"
-            + "  </filter>"
-            + "</web-app>";
-        Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
-        WebXml webXml = new WebXml(doc);
-        webXml.removeFilter("f1");
-        assertTrue(!webXml.hasFilter("f1"));
-        assertTrue(webXml.hasFilter("f2"));
-        assertTrue(webXml.hasFilter("f3"));
-    }
-
+    /**
+     * Tests whether calling {@link WebXml#hasServlet} with a <code>null</code> 
+     * parameter as servlet name throws a <code>NullPointerException</code>.  
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
     public void testHasServletWithNullName() throws Exception
     {
         String xml = "<web-app></web-app>";
@@ -477,6 +549,12 @@ public class TestWebXml extends TestCase
         
     }
     
+    /**
+     * Tests whether {@link WebXml#hasServlet} reports the correct values for a
+     * descriptor containing a single servlet definition.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
     public void testHasServletWithOneServlet() throws Exception
     {
         String xml = "<web-app>"
@@ -491,6 +569,12 @@ public class TestWebXml extends TestCase
         assertTrue(!webXml.hasServlet("s2"));
     }
 
+    /**
+     * Tests whether {@link WebXml#hasServlet} reports the correct values for a
+     * descriptor containing multiple servlet definitions.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
     public void testHasServletWithMultipleServlets() throws Exception
     {
         String xml = "<web-app>"
@@ -515,6 +599,12 @@ public class TestWebXml extends TestCase
         assertTrue(!webXml.hasServlet("s4"));
     }
 
+    /**
+     * Tests whether a servlet element is correctly retrieved from a descriptor
+     * containing only one servlet definition.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
     public void testGetServletElementWithOneServlet() throws Exception
     {
         String xml = "<web-app>"
@@ -538,6 +628,12 @@ public class TestWebXml extends TestCase
             servletElement.getLastChild().getFirstChild().getNodeValue());
     }
 
+    /**
+     * Tests whether the names of the servlets defined in a descriptor are
+     * correctly returned in the expected order.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
     public void testGetServletNames() throws Exception
     {
         String xml = "<web-app>"
@@ -563,6 +659,12 @@ public class TestWebXml extends TestCase
         assertTrue(!servletNames.hasNext());
     }
 
+    /**
+     * Tests whether a single serrvlet-mapping is correctly retrieved from a
+     * descriptor.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
     public void testGetServletMappingsWithOneMapping() throws Exception
     {
         String xml = "<web-app>"
@@ -578,6 +680,12 @@ public class TestWebXml extends TestCase
         assertTrue(!servletMappings.hasNext());
     }
 
+    /**
+     * Tests whether multiple servlet mappings are correctly retrieved from a
+     * descriptor.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
     public void testGetServletMappingsWithMultipleMappings() throws Exception
     {
         String xml = "<web-app>"
@@ -603,6 +711,11 @@ public class TestWebXml extends TestCase
         assertTrue(!servletMappings.hasNext());
     }
 
+    /**
+     * Tests whether a single servlet can be added to an empty descriptor.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
     public void testAddServletToEmptyDocument() throws Exception
     {
         String xml = "<web-app></web-app>";
@@ -612,6 +725,12 @@ public class TestWebXml extends TestCase
         assertTrue(webXml.hasServlet("s1"));
     }
 
+    /**
+     * Tests whether a single servlet can be added to a descriptor already 
+     * containing an other servlet.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
     public void testAddServletToDocumentWithAnotherServlet() throws Exception
     {
         String xml = "<web-app>"
@@ -627,6 +746,12 @@ public class TestWebXml extends TestCase
         assertTrue(webXml.hasServlet("s2"));
     }
 
+    /**
+     * Tests whether trying to add a servlet to a descriptor that already
+     * contains a servlet with the same name results in an exception.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
     public void testAddServletToDocumentWithTheSameServlet() throws Exception
     {
         String xml = "<web-app>"
@@ -648,6 +773,12 @@ public class TestWebXml extends TestCase
         }
     }
 
+    /**
+     * Tests whether a single initialization parameter is correctly added to an
+     * existing servlet definition.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
     public void testAddOneServletInitParam() throws Exception
     {
         String xml = "<web-app>"
@@ -664,6 +795,12 @@ public class TestWebXml extends TestCase
         assertTrue(!initParams.hasNext());
     }
 
+    /**
+     * Tests whether multiple initialization parameters are correctly added to
+     * an existing servlet definition.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
     public void testAddMultipleServletInitParams() throws Exception
     {
         String xml = "<web-app>"
@@ -684,54 +821,12 @@ public class TestWebXml extends TestCase
         assertTrue(!initParams.hasNext());
     }
 
-    public void testRemoveServletUndefined() throws Exception
-    {
-        String xml = "<web-app></web-app>";
-        Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
-        WebXml webXml = new WebXml(doc);
-        Element servletElement = webXml.removeServlet("s1");
-        assertNull(servletElement);
-    }
-
-    public void testRemoveServletFromDocumentWithOneServlet() throws Exception
-    {
-        String xml = "<web-app>"
-            + "  <servlet>"
-            + "    <servlet-name>s1</servlet-name>"
-            + "    <servlet-class>sclass1</servlet-class>"
-            + "  </servlet>"
-            + "</web-app>";
-        Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
-        WebXml webXml = new WebXml(doc);
-        webXml.removeServlet("s1");
-        assertTrue(!webXml.hasServlet("s1"));
-    }
-
-    public void testRemoveServletFromDocumentWithMoreServlets()
-        throws Exception
-    {
-        String xml = "<web-app>"
-            + "  <servlet>"
-            + "    <servlet-name>s1</servlet-name>"
-            + "    <servlet-class>sclass1</servlet-class>"
-            + "  </servlet>"
-            + "  <servlet>"
-            + "    <servlet-name>s2</servlet-name>"
-            + "    <servlet-class>sclass2</servlet-class>"
-            + "  </servlet>"
-            + "  <servlet>"
-            + "    <servlet-name>s3</servlet-name>"
-            + "    <servlet-class>sclass3</servlet-class>"
-            + "  </servlet>"
-            + "</web-app>";
-        Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
-        WebXml webXml = new WebXml(doc);
-        webXml.removeServlet("s1");
-        assertTrue(!webXml.hasServlet("s1"));
-        assertTrue(webXml.hasServlet("s2"));
-        assertTrue(webXml.hasServlet("s3"));
-    }
-
+    /**
+     * Tests whether retrieving security-constraint elements from an empty
+     * descriptor results in an empty iterator.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
     public void testGetSecurityConstraintEmpty()
         throws Exception
     {
@@ -743,6 +838,12 @@ public class TestWebXml extends TestCase
         assertTrue(!securityConstraints.hasNext());
     }
 
+    /**
+     * Tests whether a single security-constraint element in the descriptor is
+     * correctly retrieved.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
     public void testGetSingleSecurityConstraint()
         throws Exception
     {
@@ -761,6 +862,12 @@ public class TestWebXml extends TestCase
         assertTrue(!securityConstraints.hasNext());
     }
 
+    /**
+     * Tests whether multiple security-constraint elements are returned in 
+     * the expected order.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
     public void testGetMutlipleSecurityConstraints()
         throws Exception
     {
@@ -791,6 +898,12 @@ public class TestWebXml extends TestCase
         assertTrue(!securityConstraints.hasNext());
     }
 
+    /**
+     * Tests whether retrieving the login-config from an empty descriptor 
+     * returns <code>null</code>.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
     public void testGetLoginConfigEmpty()
         throws Exception
     {
@@ -800,6 +913,11 @@ public class TestWebXml extends TestCase
         assertTrue(!webXml.getElements(WebXmlTag.LOGIN_CONFIG).hasNext());
     }
 
+    /**
+     * Tests whether the login-config element can be correctly retrieved.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
     public void testGetLoginConfig()
         throws Exception
     {
@@ -809,6 +927,12 @@ public class TestWebXml extends TestCase
         assertTrue(webXml.getElements(WebXmlTag.LOGIN_CONFIG).hasNext());
     }
 
+    /**
+     * Tests whether retrieving the security-role elements from an empty
+     * descriptor results in an empty iterator.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
     public void testGetSecurityRoleEmpty()
         throws Exception
     {
@@ -819,6 +943,11 @@ public class TestWebXml extends TestCase
         assertTrue(!securityRoles.hasNext());
     }
 
+    /**
+     * Tests whether a single security-role element is correctly retrieved.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
     public void testGetSingleSecurityRole()
         throws Exception
     {
@@ -834,6 +963,12 @@ public class TestWebXml extends TestCase
         assertTrue(!securityRoles.hasNext());
     }
 
+    /**
+     * Tests whether multiple security-role elements are correctly retrieved
+     * in the expected order.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
     public void testGetMutlipleSecurityRoles()
         throws Exception
     {
@@ -857,6 +992,11 @@ public class TestWebXml extends TestCase
         assertTrue(!securityRoles.hasNext());
     }
 
+    /**
+     * Tests whether a filter is inserted before a servlet element.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
     public void testElementOrderFilterBeforeServlet() throws Exception
     {
         String xml = "<web-app>"
@@ -873,6 +1013,12 @@ public class TestWebXml extends TestCase
         assertEquals("servlet", order.item(1).getNodeName());
     }
 
+    /**
+     * Tests whether a filter is inserted before the comment node preceding a 
+     * servlet definition.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
     public void testElementOrderFilterBeforeServletWithComment()
         throws Exception
     {
@@ -892,6 +1038,11 @@ public class TestWebXml extends TestCase
         assertEquals("servlet", order.item(2).getNodeName());
     }
 
+    /**
+     * Tests whether a servlet is inserted after a filter.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
     public void testElementOrderServletAfterFilter() throws Exception
     {
         String xml = "<web-app>"
@@ -908,6 +1059,12 @@ public class TestWebXml extends TestCase
         assertEquals("servlet", order.item(1).getNodeName());
     }
 
+    /**
+     * Tests whether a servlet is inserted after a filter that is preceded by
+     * a comment node.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
     public void testElementOrderServletAfterFilterWithComment()
         throws Exception
     {
@@ -929,8 +1086,18 @@ public class TestWebXml extends TestCase
 
     // Private Methods ---------------------------------------------------------
 
+    /**
+     * Create a <code>filter</code> element containing the specified text in 
+     * the child elements.
+     * 
+     * @param theDocument The DOM document
+     * @param theFilterName The name of the filter
+     * @param theFilterClass The name of the filter implementation class
+     * @return The created element
+     */
     public Element createFilterElement(Document theDocument,
-            String theFilterName, String theFilterClass) {
+            String theFilterName, String theFilterClass)
+    {
         Element filterElement = theDocument.createElement("filter");
         Element filterNameElement = theDocument.createElement("filter-name");
         filterNameElement.appendChild(
@@ -943,8 +1110,18 @@ public class TestWebXml extends TestCase
         return filterElement;
     }
     
+    /**
+     * Create a <code>servlet</code> element containing the specified text in 
+     * the child elements.
+     * 
+     * @param theDocument The DOM document
+     * @param theServletName The name of the servlet
+     * @param theServletClass The name of the servlet implementation class
+     * @return The created element
+     */
     public Element createServletElement(Document theDocument,
-            String theServletName, String theServletClass) {
+            String theServletName, String theServletClass)
+    {
         Element filterElement = theDocument.createElement("servlet");
         Element filterNameElement = theDocument.createElement("servlet-name");
         filterNameElement.appendChild(
