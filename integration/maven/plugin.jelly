@@ -290,16 +290,21 @@
   <goal name="cactus:test" description="Run all Cactus tests" 
       prereqs="cactus:init">
 
-    <j:if test="${cactusSourcePresent}">  
-      <j:choose>
-        <j:when test="${context.getVariable('cactus.is.ear') == 'true'}">
-          <attainGoal name="cactus:test-ear"/>
-        </j:when>
-        <j:otherwise>
-          <attainGoal name="cactus:test-war"/>
-        </j:otherwise>
-      </j:choose>
-    </j:if>
+    <j:choose>
+      <j:when test="${cactusSourcePresent}">
+        <j:choose>
+          <j:when test="${context.getVariable('cactus.is.ear') == 'true'}">
+            <attainGoal name="cactus:test-ear"/>
+          </j:when>
+          <j:otherwise>
+            <attainGoal name="cactus:test-war"/>
+          </j:otherwise>
+        </j:choose>
+      </j:when>
+      <j:otherwise>
+        <ant:echo>No Cactus tests to run.</ant:echo>
+      </j:otherwise>
+    </j:choose>
 
   </goal>
 
