@@ -63,6 +63,7 @@ import java.util.Vector;
 
 import org.apache.cactus.eclipse.ui.CactusMessages;
 import org.apache.cactus.eclipse.ui.CactusPlugin;
+import org.apache.cactus.eclipse.ui.CactusPreferences;
 import org.eclipse.ant.core.AntRunner;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
@@ -111,17 +112,15 @@ public class WarBuilder
     /**
      * User's project relative path to the web directory
      */
-    private static final String USER_WEB_FILES_PATH = "web";
+    private String userWebFilesPath = CactusPreferences.getWebappDir();
     /**
      * User's project relative path to the web.xml file
      */
-    private static final String USER_WEB_XML_PATH =
-        USER_WEB_FILES_PATH + "/WEB-INF/web.xml";
+    private String userWebXMLPath = userWebFilesPath + "/WEB-INF/web.xml";
     /**
      * User's project relative path to the lib directory
      */
-    private static final String USER_JAR_FILES_PATH =
-        USER_WEB_FILES_PATH + "/WEB-INF/lib";
+    private String userJarFilesPath = userWebFilesPath + "/WEB-INF/lib";
     /**
      * Constructor.
      * @param theBuildFileLocation the build file for war creation
@@ -167,7 +166,7 @@ public class WarBuilder
             projectPath.removeLastSegments(1).append(
                 theJavaProject.getOutputLocation());
         userClassFilesDir = classFilesPath.toFile();
-        userWebXML = projectPath.append(USER_WEB_XML_PATH).toFile();
+        userWebXML = projectPath.append(userWebXMLPath).toFile();
         if (!userWebXML.exists())
         {
             URL webXMLURL = thePlugin.find(new Path(WEB_XML_PATH));
@@ -181,9 +180,9 @@ public class WarBuilder
             }
             userWebXML = new File(webXMLURL.getPath());
         }
-        userJarFilesDir = projectPath.append(USER_JAR_FILES_PATH).toFile();
+        userJarFilesDir = projectPath.append(userJarFilesPath).toFile();
         // copy any web folder situated in the user's project
-        userWebFilesDir = projectPath.append(USER_WEB_FILES_PATH).toFile();
+        userWebFilesDir = projectPath.append(userWebFilesPath).toFile();
     }
 
     /**
