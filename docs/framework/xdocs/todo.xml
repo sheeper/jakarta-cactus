@@ -9,6 +9,16 @@
     <person name="Kelvin Tan" email="kelvin@myangel.com" id="KTA"/>
   </devs>
 
+  <actions priority="high">
+    <action context="docs">
+      Update web site documentation to explain new dependency with Log4j
+    </action>
+    <action context="docs">
+      Write a Roadmap page to explain the planned future versions, when they
+      will be delivered and what will be in them ...
+    </action>
+  </actions>
+
   <actions priority="medium">
     <action context="docs">
       Write a tutorial that shows how to test EJBs.
@@ -30,6 +40,20 @@
   </actions>
 
   <actions priority="low">
+    <action context="build">
+      Upgrade from Orion 1.4 to Orion 1.5.2
+    </action>
+    <action context="build">
+      Use the latest build of Ant instead of Ant 1.3
+    </action>
+    <action context="build">
+      Add the Ant scripts for JBoss 2.x w/Tomcat provided by Jeffrey Madynski
+      (jmadynski@food.com)
+    </action>
+    <action context="build">
+      Add the Ant scripts for Enhydra 3.1 provided by Robert Leftwich
+      (digital@ix.net.au)
+    </action>
     <action context="docs">
       Write a Cactus integration tutorial for JBuilder 4.
     </action>
