@@ -56,14 +56,15 @@
  */
 package org.apache.cactus.util;
 
-import org.apache.cactus.client.HttpClientConnectionHelper;
-
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.PropertyResourceBundle;
-import java.util.ResourceBundle;
+
 import java.util.Enumeration;
 import java.util.MissingResourceException;
+import java.util.PropertyResourceBundle;
+import java.util.ResourceBundle;
+
+import org.apache.cactus.client.HttpClientConnectionHelper;
 
 /**
  * Provides access to the Cactus configuration parameters that are independent
@@ -95,7 +96,7 @@ public class Configuration
      * This is the base URL to call for the redirectors. It is made up of :
      * "http://" + serverName + port + "/" + contextName.
      */
-    public static final String CACTUS_CONTEXT_URL_PROPERTY =
+    public static final String CACTUS_CONTEXT_URL_PROPERTY = 
         "cactus.contextURL";
 
     /**
@@ -103,13 +104,13 @@ public class Configuration
      * {@link org.apache.cactus.client.ConnectionHelper}. Defaults to
      * {@link org.apache.cactus.client.HttpClientConnectionHelper}
      */
-    private static final String CACTUS_CONNECTION_HELPER_CLASSNAME_PROPERTY =
+    private static final String CACTUS_CONNECTION_HELPER_CLASSNAME_PROPERTY = 
         "cactus.connectionHelper.classname";
 
     /**
      * Default {@link org.apache.cactus.client.ConnectionHelper} to use.
      */
-    public static final String DEFAULT_CACTUS_CONNECTION_HELPER_CLASSNAME =
+    public static final String DEFAULT_CACTUS_CONNECTION_HELPER_CLASSNAME = 
         HttpClientConnectionHelper.class.getName();
 
     /**
@@ -126,29 +127,39 @@ public class Configuration
      */
     public static final void initialize()
     {
-        if (!isInitialized) {
-
+        if (!isInitialized)
+        {
             ResourceBundle config;
 
             // Has the user passed the location of the cactus configuration
             // file as a java property
             String configOverride = System.getProperty(CACTUS_CONFIG_PROPERTY);
-            if (configOverride == null) {
+
+            if (configOverride == null)
+            {
                 // Try to read the default cactus configuration file from the
                 // classpath
-                try {
+                try
+                {
                     config = ClassLoaderUtils.loadPropertyResourceBundle(
                         DEFAULT_CONFIG_NAME, Configuration.class);
-                } catch (MissingResourceException e) {
+                }
+                catch (MissingResourceException e)
+                {
                     // Cannot find cactus properties file. Do nothing.
                     return;
                 }
-            } else {
+            }
+            else
+            {
                 // Try to read from specified properties file
-                try {
+                try
+                {
                     config = new PropertyResourceBundle(
-                            new FileInputStream(configOverride));
-                } catch (IOException e) {
+                        new FileInputStream(configOverride));
+                }
+                catch (IOException e)
+                {
                     throw new ChainedRuntimeException(
                         "Cannot read cactus configuration file ["
                         + configOverride + "]", e);
@@ -156,13 +167,16 @@ public class Configuration
             }
 
             Enumeration keys = config.getKeys();
-            while (keys.hasMoreElements()) {
+
+            while (keys.hasMoreElements())
+            {
                 String key = (String) keys.nextElement();
 
                 // Only set the system property if it does not already exist.
                 // This allows to have a cactus properties file and override
                 // some values on the command line.
-                if (System.getProperty(key) == null) {
+                if (System.getProperty(key) == null)
+                {
                     System.setProperty(key, config.getString(key));
                 }
             }
@@ -181,10 +195,13 @@ public class Configuration
         // Try to read it from a System property first and then if it fails
         // from the Cactus configuration file.
         String contextURL = System.getProperty(CACTUS_CONTEXT_URL_PROPERTY);
-        if (contextURL == null) {
+
+        if (contextURL == null)
+        {
             throw new ChainedRuntimeException("Missing Cactus property ["
                 + CACTUS_CONTEXT_URL_PROPERTY + "]");
         }
+
         return contextURL;
     }
 
@@ -196,10 +213,12 @@ public class Configuration
     {
         // Try to read it from a System property first and then if not defined
         // use the default.
-        String connectionHelperClassname =
-            System.getProperty(CACTUS_CONNECTION_HELPER_CLASSNAME_PROPERTY);
-        if (connectionHelperClassname == null) {
-            connectionHelperClassname =
+        String connectionHelperClassname = System.getProperty(
+            CACTUS_CONNECTION_HELPER_CLASSNAME_PROPERTY);
+
+        if (connectionHelperClassname == null)
+        {
+            connectionHelperClassname = 
                 DEFAULT_CACTUS_CONNECTION_HELPER_CLASSNAME;
         }
 

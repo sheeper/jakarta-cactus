@@ -82,15 +82,15 @@ public class TestServletTestCase5_InterceptorServletTestCase
     /**
      * Intercepts running test cases to check for normal exceptions.
      */
-    protected void runTest() throws Throwable
+    protected void runTest()
     {
-        try {
+        try
+        {
             super.runTest();
-        } catch (Throwable e) {
-
-            assertEquals("testTearDown() worked", e.getMessage());
-
         }
-
+        catch (Throwable e)
+        {
+            assertEquals("testTearDown() worked", e.getMessage());
+        }
     }
 }

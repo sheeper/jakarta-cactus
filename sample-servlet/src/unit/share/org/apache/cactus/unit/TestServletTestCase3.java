@@ -93,8 +93,8 @@ public class TestServletTestCase3 extends ServletTestCase
      */
     public static void main(String[] theArgs)
     {
-        junit.swingui.TestRunner.main(new String[]{
-            TestServletTestCase3.class.getName()});
+        junit.swingui.TestRunner.main(
+            new String[] { TestServletTestCase3.class.getName() });
     }
 
     /**
@@ -156,8 +156,7 @@ public class TestServletTestCase3 extends ServletTestCase
      */
     public void endTearDown(WebResponse theResponse)
     {
-        assertEquals("tear down header",
+        assertEquals("tear down header", 
             theResponse.getConnection().getHeaderField("Teardownheader"));
     }
-
 }

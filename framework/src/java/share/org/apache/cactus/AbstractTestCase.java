@@ -155,9 +155,11 @@ public abstract class AbstractTestCase extends TestCase
     private String getBaseMethodName()
     {
         // Sanity check
-        if (!this.getCurrentTestMethod().startsWith(TEST_METHOD_PREFIX)) {
+        if (!this.getCurrentTestMethod().startsWith(TEST_METHOD_PREFIX))
+        {
             throw new RuntimeException("bad name ["
-                + this.getCurrentTestMethod() + "]. It should start with ["
+                + this.getCurrentTestMethod()
+                + "]. It should start with ["
                 + TEST_METHOD_PREFIX + "].");
         }
 
@@ -202,13 +204,17 @@ public abstract class AbstractTestCase extends TestCase
         // actual class name (that's why the logged instance is not static).
         this.logger = LogFactory.getLog(this.getClass());
 
+
         // Mark beginning of test on client side
         getLogger().debug("------------- Test: " + this.getCurrentTestMethod());
 
         // Catch the exception just to have a chance to log it
-        try {
+        try
+        {
             runTest();
-        } catch (Throwable t) {
+        }
+        catch (Throwable t)
+        {
             logger.debug("Exception in test", t);
             throw t;
         }
@@ -240,14 +246,19 @@ public abstract class AbstractTestCase extends TestCase
         // on the server side and on the client side, we need to differentiate
         // the logging initialisation. This method is only called on the server
         // side, so we instanciate the log for server side here.
-        if (getLogger() == null) {
+        if (getLogger() == null)
+        {
             this.logger = LogFactory.getLog(this.getClass());
         }
 
         setUp();
-        try {
+
+        try
+        {
             runServerTest();
-        } finally {
+        }
+        finally
+        {
             tearDown();
         }
     }
@@ -261,41 +272,45 @@ public abstract class AbstractTestCase extends TestCase
      * @param theMethodName the name of the begin method to call
      * @exception Throwable any error that occurred when calling the method
      */
-    private void callGenericBeginMethod(Request theRequest,
+    private void callGenericBeginMethod(Request theRequest, 
         String theMethodName) throws Throwable
     {
         // First, verify if a begin method exist. If one is found, verify if
         // it has the correct signature. If not, send a warning.
         Method[] methods = getClass().getMethods();
-        for (int i = 0; i < methods.length; i++) {
-            if (methods[i].getName().equals(theMethodName)) {
 
+        for (int i = 0; i < methods.length; i++)
+        {
+            if (methods[i].getName().equals(theMethodName))
+            {
                 // Check return type
-                if (!methods[i].getReturnType().getName().equals("void")) {
+                if (!methods[i].getReturnType().getName().equals("void"))
+                {
                     fail("The method [" + methods[i].getName()
                         + "] should return void and not ["
                         + methods[i].getReturnType().getName() + "]");
                 }
 
                 // Check if method is public
-                if (!Modifier.isPublic(methods[i].getModifiers())) {
+                if (!Modifier.isPublic(methods[i].getModifiers()))
+                {
                     fail("Method [" + methods[i].getName()
                         + "] should be declared public");
                 }
 
                 // Check parameters
                 Class[] parameters = methods[i].getParameterTypes();
-                if (parameters.length != 1) {
 
+                if (parameters.length != 1)
+                {
                     fail("The method [" + methods[i].getName()
                         + "] must accept a single parameter derived from "
                         + "class [" + WebRequest.class.getName() + "], "
                         + "but " + parameters.length
                         + " parameters were found");
-
-                } else if (!theRequest.getClass().isAssignableFrom(
-                    parameters[0])) {
-
+                }
+                else if (!theRequest.getClass().isAssignableFrom(parameters[0]))
+                {
                     fail("The method [" + methods[i].getName()
                         + "] must accept a single parameter derived from "
                         + "class [" + theRequest.getClass().getName() + "], "
@@ -303,17 +318,22 @@ public abstract class AbstractTestCase extends TestCase
                         + "parameter instead");
                 }
 
-                try {
-                    methods[i].invoke(this, new Object[]{theRequest});
+                try
+                {
+                    methods[i].invoke(this, new Object[] { theRequest });
+
                     break;
-                } catch (InvocationTargetException e) {
+                }
+                catch (InvocationTargetException e)
+                {
                     e.fillInStackTrace();
                     throw e.getTargetException();
-                } catch (IllegalAccessException e) {
+                }
+                catch (IllegalAccessException e)
+                {
                     e.fillInStackTrace();
                     throw e;
                 }
-
             }
         }
     }
@@ -352,30 +372,40 @@ public abstract class AbstractTestCase extends TestCase
     protected void runServerTest() throws Throwable
     {
         Method runMethod = null;
-        try {
+
+        try
+        {
             // use getMethod to get all public inherited
             // methods. getDeclaredMethods returns all
             // methods of this class but excludes the
             // inherited ones.
-            runMethod = getClass().getMethod(this.getCurrentTestMethod(),
-                new Class[0]);
-
-        } catch (NoSuchMethodException e) {
-            fail("Method [" + this.getCurrentTestMethod()
-                + "()] does not exist for class ["
-                + this.getClass().getName() + "].");
+            runMethod = getClass().getMethod(
+                this.getCurrentTestMethod(), new Class[0]);
         }
-        if (runMethod != null && !Modifier.isPublic(runMethod.getModifiers())) {
+        catch (NoSuchMethodException e)
+        {
+            fail("Method [" + this.getCurrentTestMethod()
+                + "()] does not exist for class [" + this.getClass().getName()
+                + "].");
+        }
+
+        if ((runMethod != null) && !Modifier.isPublic(runMethod.getModifiers()))
+        {
             fail("Method [" + this.getCurrentTestMethod()
                 + "()] should be public");
         }
 
-        try {
+        try
+        {
             runMethod.invoke(this, new Class[0]);
-        } catch (InvocationTargetException e) {
+        }
+        catch (InvocationTargetException e)
+        {
             e.fillInStackTrace();
             throw e.getTargetException();
-        } catch (IllegalAccessException e) {
+        }
+        catch (IllegalAccessException e)
+        {
             e.fillInStackTrace();
             throw e;
         }
@@ -398,5 +428,4 @@ public abstract class AbstractTestCase extends TestCase
     {
         this.currentTestMethod = theCurrentTestMethod;
     }
-
 }

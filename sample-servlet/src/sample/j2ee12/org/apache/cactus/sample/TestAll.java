@@ -83,7 +83,7 @@ public class TestAll extends TestCase
      */
     public static void main(String[] theArgs)
     {
-        junit.swingui.TestRunner.main(new String[]{TestAll.class.getName()});
+        junit.swingui.TestRunner.main(new String[] { TestAll.class.getName() });
     }
 
     /**
@@ -92,8 +92,7 @@ public class TestAll extends TestCase
      */
     public static Test suite()
     {
-        TestSuite suite =
-            new TestSuite("Sample Servlet API 2.2 Cactus tests");
+        TestSuite suite = new TestSuite("Sample Servlet API 2.2 Cactus tests");
 
         // Functional tests
         suite.addTest(org.apache.cactus.sample.TestSampleServlet.suite());
@@ -103,5 +102,4 @@ public class TestAll extends TestCase
 
         return suite;
     }
-
 }

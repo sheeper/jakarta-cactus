@@ -92,8 +92,8 @@ public class TestServletTestCase4 extends ServletTestCase
      */
     public static void main(String[] theArgs)
     {
-        junit.swingui.TestRunner.main(new String[]{
-            TestServletTestCase4.class.getName()});
+        junit.swingui.TestRunner.main(
+            new String[] { TestServletTestCase4.class.getName() });
     }
 
     /**
@@ -117,7 +117,7 @@ public class TestServletTestCase4 extends ServletTestCase
      */
     public void beginSimulatedURLBasics(WebRequest theRequest)
     {
-        theRequest.setURL("jakarta.apache.org", "", "/test/test.jsp", null,
+        theRequest.setURL("jakarta.apache.org", "", "/test/test.jsp", null, 
             null);
     }
 
@@ -150,7 +150,7 @@ public class TestServletTestCase4 extends ServletTestCase
      */
     public void beginSimulatedURL1(WebRequest theRequest)
     {
-        theRequest.setURL("jakarta.apache.org", "/mywebapp", "/test/test.jsp",
+        theRequest.setURL("jakarta.apache.org", "/mywebapp", "/test/test.jsp", 
             null, null);
     }
 
@@ -175,7 +175,7 @@ public class TestServletTestCase4 extends ServletTestCase
      */
     public void beginSimulatedURL2(WebRequest theRequest)
     {
-        theRequest.setURL("jakarta.apache.org", "/catalog", "/lawn",
+        theRequest.setURL("jakarta.apache.org", "/catalog", "/lawn", 
             "/index.html", null);
     }
 
@@ -202,7 +202,7 @@ public class TestServletTestCase4 extends ServletTestCase
      */
     public void beginSimulatedURL3(WebRequest theRequest)
     {
-        theRequest.setURL("jakarta.apache.org", "/catalog", "/garden",
+        theRequest.setURL("jakarta.apache.org", "/catalog", "/garden", 
             "/implements/", null);
     }
 
@@ -229,7 +229,7 @@ public class TestServletTestCase4 extends ServletTestCase
      */
     public void beginSimulatedURL4(WebRequest theRequest)
     {
-        theRequest.setURL("jakarta.apache.org", "/catalog",
+        theRequest.setURL("jakarta.apache.org", "/catalog", 
             "/help/feedback.jsp", null, null);
     }
 
@@ -258,7 +258,7 @@ public class TestServletTestCase4 extends ServletTestCase
      */
     public void beginSimulatedURL5(WebRequest theRequest)
     {
-        theRequest.setURL("jakarta.apache.org", "/catalog",
+        theRequest.setURL("jakarta.apache.org", "/catalog", 
             "/help/feedback.jsp", null, "PARAM1=param1&PARAM2=&PARAM3=param3");
     }
 
@@ -275,11 +275,10 @@ public class TestServletTestCase4 extends ServletTestCase
         assertEquals("/catalog", request.getContextPath());
         assertEquals("/help/feedback.jsp", request.getServletPath());
         assertNull(request.getPathInfo());
-        assertEquals("PARAM1=param1&PARAM2=&PARAM3=param3",
+        assertEquals("PARAM1=param1&PARAM2=&PARAM3=param3", 
             request.getQueryString());
         assertEquals(request.getParameter("PARAM1"), "param1");
         assertEquals(request.getParameter("PARAM2"), "");
         assertEquals(request.getParameter("PARAM3"), "param3");
     }
-
 }

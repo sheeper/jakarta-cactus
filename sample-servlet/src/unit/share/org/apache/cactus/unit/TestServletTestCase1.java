@@ -97,8 +97,8 @@ public class TestServletTestCase1
      */
     public static void main(String[] theArgs)
     {
-        junit.swingui.TestRunner.main(new String[]{
-            TestServletTestCase1.class.getName()});
+        junit.swingui.TestRunner.main(
+            new String[] { TestServletTestCase1.class.getName() });
     }
 
     /**
@@ -162,5 +162,4 @@ public class TestServletTestCase1
         throw new TestServletTestCase1_ExceptionSerializable(
             "test serializable exception");
     }
-
 }

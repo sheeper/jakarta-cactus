@@ -97,8 +97,8 @@ public class TestServletTestCase5
      */
     public static void main(String[] theArgs)
     {
-        junit.swingui.TestRunner.main(new String[]{
-            TestServletTestCase5.class.getName()});
+        junit.swingui.TestRunner.main(
+            new String[] { TestServletTestCase5.class.getName() });
     }
 
     /**
@@ -116,6 +116,8 @@ public class TestServletTestCase5
     /**
      * Verify that the <code>tearDown()</code> is always called even when there
      * is an exception raised during the test.
+     * 
+     * @exception Exception on test failure
      */
     public void testTearDown() throws Exception
     {
@@ -131,5 +133,4 @@ public class TestServletTestCase5
     {
         throw new AssertionFailedError("testTearDown() worked");
     }
-
 }

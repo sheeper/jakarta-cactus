@@ -55,6 +55,7 @@ package org.apache.cactus.sample;
 
 import java.io.IOException;
 import java.io.OutputStream;
+
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -87,11 +88,12 @@ public class SampleFilter implements Filter
      * cycle of the filter.
      *
      * @param theConfig the filter config
+     * 
+     * @exception ServletException on failure
      */
     public void init(FilterConfig theConfig) throws ServletException
     {
         this.config = theConfig;
-
     }
 
     /**
@@ -102,19 +104,23 @@ public class SampleFilter implements Filter
      * @param theResponse the returned HTTP response
      * @param theChain the chain of filters extracted from the definition
      *        given in <code>web.xml</code> by the container.
+     * 
+     * @exception ServletException on failure
+     * @exception IOException on failure
      */
-    public void doFilter(ServletRequest theRequest,
-        ServletResponse theResponse, FilterChain theChain)
-        throws IOException, ServletException
+    public void doFilter(ServletRequest theRequest, 
+        ServletResponse theResponse, FilterChain theChain) throws IOException,
+        ServletException
     {
         OutputStream out = theResponse.getOutputStream();
+
         addHeader(out);
 
         // Create a wrapper of the response so that we can later write to
         // the response (add the footer). If we did not do this, we would
         // get an error saying that the response has already been
         // committed.
-        GenericResponseWrapper wrapper =
+        GenericResponseWrapper wrapper = 
             new GenericResponseWrapper((HttpServletResponse) theResponse);
 
         theChain.doFilter(theRequest, wrapper);
@@ -130,13 +136,15 @@ public class SampleFilter implements Filter
      * <code>web.xml</code>). Don't write anything if no parameter is defined.
      *
      * @param theOutputStream the output stream
+     * 
+     * @exception IOException on failure
      */
-    protected void addHeader(OutputStream theOutputStream)
-        throws IOException
+    protected void addHeader(OutputStream theOutputStream) throws IOException
     {
         String header = this.config.getInitParameter("header");
 
-        if (header != null) {
+        if (header != null)
+        {
             theOutputStream.write(header.getBytes());
         }
     }
@@ -147,13 +155,15 @@ public class SampleFilter implements Filter
      * <code>web.xml</code>). Don't write anything if no parameter is defined.
      *
      * @param theOutputStream the output stream
+     * 
+     * @exception IOException on failure
      */
-    protected void addFooter(OutputStream theOutputStream)
-        throws IOException
+    protected void addFooter(OutputStream theOutputStream) throws IOException
     {
         String footer = this.config.getInitParameter("footer");
 
-        if (footer != null) {
+        if (footer != null)
+        {
             theOutputStream.write(footer.getBytes());
         }
     }
@@ -165,5 +175,4 @@ public class SampleFilter implements Filter
     public void destroy()
     {
     }
-
 }
