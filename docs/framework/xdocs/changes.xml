@@ -23,7 +23,13 @@
       <person name="Philip Aston" email="paston@bea.com" id="PAS"/>
     </devs>
 
-    <release version="1.0 in CVS">
+    <release version="1.0" date="May 2 2001">
+      <action dev="VMA" type="fix" due-to="Arun Katkere" due-to-email="katkere@praja.com">
+        Applied patch from Arun Katkere in order to prevent the
+        "connexion reset by peer" error message that may appear in Tomcat when
+        the connection is broken without reading the requested URL by the
+        custom Ant tasks to start and stop a server.
+      </action>
       <action dev="VMA" type="add">
         Added a contributing section that explains how to contribute to Cactus.
       </action>

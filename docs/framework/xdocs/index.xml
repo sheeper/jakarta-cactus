@@ -37,78 +37,21 @@
       <table>
         <tr>
           <td>
+            02/05/2001
+          </td>
+          <td>
+            Cactus 1.0 is available for
+            <link href="downloads.html">download</link>. Check the updated
+            <link href="changes.html">changes</link> for the details.
+          </td>
+        </tr>
+        <tr>
+          <td>
             28/04/2001
           </td>
           <td>
             The <link href="changes.html">changes</link> page now also lists
             the pages that have recently changed on this web site.
-          </td>
-        </tr>
-        <tr>
-          <td>
-            20/04/2001
-          </td>
-          <td>
-            Cactus 1.0 beta 2 is available for
-            <link href="downloads.html">download</link>. Check the updated
-            <link href="changes.html">changes</link> for the details.
-          </td>
-        </tr>
-        <tr>
-          <td>
-            14/04/2001
-          </td>
-          <td>
-            Added 2 new pages to the site : A <link href="goals.html">Cactus
-            goals</link> page describing Cactus goals and a
-            <link href="scope.html">scope and status</link> page describing the
-            scope and status of Cactus as of now.
-          </td>
-        </tr>
-        <tr>
-          <td>
-            10/04/2001
-          </td>
-          <td>
-            Added explanations for the Cactus name on the news page.
-          </td>
-        </tr>
-        <tr>
-          <td>
-            09/04/2001
-          </td>
-          <td>
-            Cactus 1.0 beta 1 is available for
-            <link href="downloads.html">download</link>. Check the updated
-            <link href="features.html">feature list</link> and the
-            <link href="changes.html">changes</link> for the details.
-          </td>
-        </tr>
-        <tr>
-          <td>
-            09/04/2001
-          </td>
-          <td>
-            The web site has been updated to reflect the modifications that
-            occurred during the donation to Apache and the change of name :
-            the license has changed to APL, the packages have moved from
-            <code>j2eeunit.*</code> to <code>org.apache.commons.cactus.*</code>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            09/04/2001
-          </td>
-          <td>
-            J2EEUnit has been renamed to Cactus.
-          </td>
-        </tr>
-        <tr>
-          <td>
-            09/04/2001
-          </td>
-          <td>
-            J2EEUnit has been donated to the Apache Software Foundation.
           </td>
         </tr>
       </table>
