@@ -69,19 +69,19 @@ public class ServiceEnumeration
     /**
      * Call test method Service.
      */
-    public static final ServiceEnumeration CALL_TEST_SERVICE =
+    public static final ServiceEnumeration CALL_TEST_SERVICE = 
         new ServiceEnumeration("CALL_TEST");
 
     /**
      * Get the previous test results Service.
      */
-    public static final ServiceEnumeration GET_RESULTS_SERVICE =
+    public static final ServiceEnumeration GET_RESULTS_SERVICE = 
         new ServiceEnumeration("GET_RESULTS");
 
     /**
      * Get the previous test results Service.
      */
-    public static final ServiceEnumeration RUN_TEST_SERVICE =
+    public static final ServiceEnumeration RUN_TEST_SERVICE = 
         new ServiceEnumeration("RUN_TEST");
 
     /**
@@ -118,5 +118,4 @@ public class ServiceEnumeration
     {
         return this.name;
     }
-
 }

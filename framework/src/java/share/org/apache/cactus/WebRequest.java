@@ -57,6 +57,7 @@
 package org.apache.cactus;
 
 import java.io.InputStream;
+
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.StringTokenizer;
@@ -97,16 +98,6 @@ import org.apache.cactus.util.ChainedRuntimeException;
 public class WebRequest implements Request
 {
     /**
-     * The request parameters that need to be sent in the body (POST)
-     */
-    private Hashtable parametersPost = new Hashtable();
-
-    /**
-     * The request parameters that need to be sent in the URL (GET)
-     */
-    private Hashtable parametersGet = new Hashtable();
-
-    /**
      * GET Method identifier.
      */
     public static final String GET_METHOD = "GET";
@@ -115,6 +106,16 @@ public class WebRequest implements Request
      * POST Method identifier.
      */
     public static final String POST_METHOD = "POST";
+
+    /**
+     * The request parameters that need to be sent in the body (POST)
+     */
+    private Hashtable parametersPost = new Hashtable();
+
+    /**
+     * The request parameters that need to be sent in the URL (GET)
+     */
+    private Hashtable parametersGet = new Hashtable();
 
     /**
      * The Cookies
@@ -184,7 +185,7 @@ public class WebRequest implements Request
      * @param theAuthenticationObject the authentication object
      */
     public void setAuthentication(
-            AbstractAuthentication theAuthenticationObject)
+        AbstractAuthentication theAuthenticationObject)
     {
         this.authentication = theAuthenticationObject;
     }
@@ -293,10 +294,10 @@ public class WebRequest implements Request
      *                       <code>HttpServletResquest.getQueryString()</code>.
      *                       Can be null.
      */
-    public void setURL(String theServerName, String theContextPath,
+    public void setURL(String theServerName, String theContextPath, 
         String theServletPath, String thePathInfo, String theQueryString)
     {
-        this.url = new ServletURL(theServerName, theContextPath,
+        this.url = new ServletURL(theServerName, theContextPath, 
             theServletPath, thePathInfo, theQueryString);
 
         // Now automatically add all HTTP parameters to the list of passed
@@ -328,11 +329,16 @@ public class WebRequest implements Request
         Hashtable parameters;
 
         // Decide if the parameter is to be sent using in the url or not
-        if (theMethod.equalsIgnoreCase(WebRequest.POST_METHOD)) {
+        if (theMethod.equalsIgnoreCase(WebRequest.POST_METHOD))
+        {
             parameters = this.parametersPost;
-        } else if (theMethod.equalsIgnoreCase(WebRequest.GET_METHOD)) {
+        }
+        else if (theMethod.equalsIgnoreCase(WebRequest.GET_METHOD))
+        {
             parameters = this.parametersGet;
-        } else {
+        }
+        else
+        {
             throw new ChainedRuntimeException("The method need to be either "
                 + "\"POST\" or \"GET\"");
         }
@@ -340,12 +346,16 @@ public class WebRequest implements Request
         // If there is already a parameter of the same name, add the
         // new value to the Vector. If not, create a Vector an add it to the
         // hashtable
-
-        if (parameters.containsKey(theName)) {
+        if (parameters.containsKey(theName))
+        {
             Vector v = (Vector) parameters.get(theName);
+
             v.addElement(theValue);
-        } else {
+        }
+        else
+        {
             Vector v = new Vector();
+
             v.addElement(theValue);
             parameters.put(theName, v);
         }
@@ -405,7 +415,8 @@ public class WebRequest implements Request
     {
         String[] values = getParameterValuesGet(theName);
 
-        if (values != null) {
+        if (values != null)
+        {
             return values[0];
         }
 
@@ -425,7 +436,8 @@ public class WebRequest implements Request
     {
         String[] values = getParameterValuesPost(theName);
 
-        if (values != null) {
+        if (values != null)
+        {
             return values[0];
         }
 
@@ -470,15 +482,18 @@ public class WebRequest implements Request
      */
     private String[] getParameterValues(String theName, Hashtable theParameters)
     {
-        if (theParameters.containsKey(theName)) {
-
+        if (theParameters.containsKey(theName))
+        {
             Vector v = (Vector) theParameters.get(theName);
 
             Object[] objs = new Object[v.size()];
+
             v.copyInto(objs);
 
             String[] result = new String[objs.length];
-            for (int i = 0; i < objs.length; i++) {
+
+            for (int i = 0; i < objs.length; i++)
+            {
                 result[i] = (String) objs[i];
             }
 
@@ -559,20 +574,26 @@ public class WebRequest implements Request
     {
         // If the header is "Content-type", then call setContentType() instead.
         // This is to prevent the content type to be set twice.
-        if (theName.equalsIgnoreCase("Content-type")) {
+        if (theName.equalsIgnoreCase("Content-type"))
+        {
             setContentType(theValue);
+
             return;
         }
 
         // If there is already a header of the same name, add the
         // new header to the Vector. If not, create a Vector an add it to the
         // hashtable
-
-        if (this.headers.containsKey(theName)) {
+        if (this.headers.containsKey(theName))
+        {
             Vector v = (Vector) this.headers.get(theName);
+
             v.addElement(theValue);
-        } else {
+        }
+        else
+        {
             Vector v = new Vector();
+
             v.addElement(theValue);
             this.headers.put(theName, v);
         }
@@ -597,7 +618,8 @@ public class WebRequest implements Request
     {
         String[] values = getHeaderValues(theName);
 
-        if (values != null) {
+        if (values != null)
+        {
             return values[0];
         }
 
@@ -613,15 +635,18 @@ public class WebRequest implements Request
      */
     public String[] getHeaderValues(String theName)
     {
-        if (this.headers.containsKey(theName)) {
-
+        if (this.headers.containsKey(theName))
+        {
             Vector v = (Vector) this.headers.get(theName);
 
             Object[] objs = new Object[v.size()];
+
             v.copyInto(objs);
 
             String[] result = new String[objs.length];
-            for (int i = 0; i < objs.length; i++) {
+
+            for (int i = 0; i < objs.length; i++)
+            {
                 result[i] = (String) objs[i];
             }
 
@@ -643,22 +668,29 @@ public class WebRequest implements Request
      */
     private void addQueryStringParameters(String theQueryString)
     {
-        if (theQueryString == null) {
+        if (theQueryString == null)
+        {
             return;
         }
 
         String nameValue = null;
         StringTokenizer tokenizer = new StringTokenizer(theQueryString, "&");
         int breakParam = -1;
-        while (tokenizer.hasMoreTokens()) {
+
+        while (tokenizer.hasMoreTokens())
+        {
             nameValue = tokenizer.nextToken();
             breakParam = nameValue.indexOf("=");
-            if (breakParam != -1) {
-                addParameter(nameValue.substring(0, breakParam),
+
+            if (breakParam != -1)
+            {
+                addParameter(nameValue.substring(0, breakParam), 
                     nameValue.substring(breakParam + 1));
-            } else {
-                throw new RuntimeException("Bad QueryString ["
-                    + theQueryString + "] NameValue pair: [" + nameValue + "]");
+            }
+            else
+            {
+                throw new RuntimeException("Bad QueryString [" + theQueryString
+                    + "] NameValue pair: [" + nameValue + "]");
             }
         }
     }
@@ -669,6 +701,7 @@ public class WebRequest implements Request
     public String toString()
     {
         StringBuffer buffer = new StringBuffer();
+
         buffer.append("simulation URL = [" + getURL() + "], ");
         buffer.append("automatic session = [" + getAutomaticSession() + "], ");
 
@@ -701,14 +734,21 @@ public class WebRequest implements Request
         StringBuffer buffer = new StringBuffer();
 
         Enumeration headers = getHeaderNames();
-        while (headers.hasMoreElements()) {
+
+        while (headers.hasMoreElements())
+        {
             buffer.append("[");
+
             String headerName = (String) headers.nextElement();
             String[] headerValues = getHeaderValues(headerName);
+
             buffer.append("[" + headerName + "] = [");
-            for (int i = 0; i < headerValues.length - 1; i++) {
+
+            for (int i = 0; i < (headerValues.length - 1); i++)
+            {
                 buffer.append("[" + headerValues[i] + "], ");
             }
+
             buffer.append("[" + headerValues[headerValues.length - 1] + "]]");
             buffer.append("]");
         }
@@ -724,8 +764,11 @@ public class WebRequest implements Request
         StringBuffer buffer = new StringBuffer();
 
         Enumeration cookies = getCookies().elements();
-        while (cookies.hasMoreElements()) {
+
+        while (cookies.hasMoreElements())
+        {
             Cookie cookie = (Cookie) cookies.nextElement();
+
             buffer.append("[" + cookie + "]");
         }
 
@@ -760,15 +803,22 @@ public class WebRequest implements Request
         StringBuffer buffer = new StringBuffer();
 
         Enumeration parameters = getParameterNames(theParameters);
-        while (parameters.hasMoreElements()) {
+
+        while (parameters.hasMoreElements())
+        {
             buffer.append("[");
+
             String parameterName = (String) parameters.nextElement();
-            String[] parameterValues = getParameterValues(parameterName,
+            String[] parameterValues = getParameterValues(parameterName, 
                 theParameters);
+
             buffer.append("[" + parameterName + "] = [");
-            for (int i = 0; i < parameterValues.length - 1; i++) {
+
+            for (int i = 0; i < (parameterValues.length - 1); i++)
+            {
                 buffer.append("[" + parameterValues[i] + "], ");
             }
+
             buffer.append("[" + parameterValues[parameterValues.length - 1]
                 + "]]");
             buffer.append("]");
@@ -776,5 +826,4 @@ public class WebRequest implements Request
 
         return buffer.toString();
     }
-
 }

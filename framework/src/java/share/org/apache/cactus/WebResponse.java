@@ -60,16 +60,17 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
+
 import java.net.HttpURLConnection;
+
 import java.util.Vector;
 
+import org.apache.cactus.util.ChainedRuntimeException;
+import org.apache.cactus.util.IoUtil;
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import org.apache.cactus.util.ChainedRuntimeException;
-import org.apache.cactus.util.IoUtil;
 
 /**
  * Default web response implementation that provides a minimal
@@ -140,11 +141,14 @@ public class WebResponse
     {
         // Get the text from the save content if content has already been
         // read.
-        if (this.content == null) {
-
-            try {
+        if (this.content == null)
+        {
+            try
+            {
                 this.content = IoUtil.getText(this.connection.getInputStream());
-            } catch (IOException e) {
+            }
+            catch (IOException e)
+            {
                 throw new ChainedRuntimeException(e);
             }
         }
@@ -160,26 +164,33 @@ public class WebResponse
     {
         Vector lines = new Vector();
 
-        try {
-
+        try
+        {
             // Read content first
-            if (this.content == null) {
+            if (this.content == null)
+            {
                 getText();
             }
 
             BufferedReader input = new BufferedReader(
                 new StringReader(this.content));
             String str;
-            while (null != (str = input.readLine())) {
+
+            while (null != (str = input.readLine()))
+            {
                 lines.addElement(str);
             }
+
             input.close();
-        } catch (IOException e) {
+        }
+        catch (IOException e)
+        {
             throw new ChainedRuntimeException(e);
         }
 
         // Dummy variable to explicitely tell the object type to copy.
         String[] dummy = new String[lines.size()];
+
         return (String[]) (lines.toArray(dummy));
     }
 
@@ -188,9 +199,12 @@ public class WebResponse
      **/
     public InputStream getInputStream()
     {
-        try {
+        try
+        {
             return this.connection.getInputStream();
-        } catch (IOException e) {
+        }
+        catch (IOException e)
+        {
             throw new ChainedRuntimeException(e);
         }
     }
@@ -207,9 +221,13 @@ public class WebResponse
         Cookie result = null;
 
         Cookie[] cookies = getCookies();
-        for (int i = 0; i < cookies.length; i++) {
-            if (cookies[i].getName().equals(theName)) {
+
+        for (int i = 0; i < cookies.length; i++)
+        {
+            if (cookies[i].getName().equals(theName))
+            {
                 result = cookies[i];
+
                 break;
             }
         }
@@ -226,43 +244,47 @@ public class WebResponse
 
         // There can be several headers named "Set-Cookie", so loop through
         // all the headers, looking for cookies
-
         String headerName = this.connection.getHeaderFieldKey(0);
         String headerValue = this.connection.getHeaderField(0);
 
         Vector cookieVector = new Vector();
 
-        for (int i = 1; (headerName != null) || (headerValue != null); i++) {
-
+        for (int i = 1; (headerName != null) || (headerValue != null); i++)
+        {
             LOGGER.debug("Header name  = [" + headerName + "]");
             LOGGER.debug("Header value = [" + headerValue + "]");
 
             if ((headerName != null)
-                && (headerName.toLowerCase().equals("set-cookie")
-                || headerName.toLowerCase().equals("set-cookie2"))) {
-
+                && (headerName.toLowerCase().equals("set-cookie") 
+                || headerName.toLowerCase().equals("set-cookie2")))
+            {
                 // Parse the cookie definition
                 org.apache.commons.httpclient.Cookie[] cookies;
-                try {
+
+                try
+                {
                     cookies = org.apache.commons.httpclient.Cookie.parse(
-                        Cookie.getCookieDomain(getWebRequest(),
-                            getConnection().getURL().getHost()),
-                        Cookie.getCookiePort(getWebRequest(),
-                            getConnection().getURL().getPort()),
-                        Cookie.getCookiePath(getWebRequest(),
-                            getConnection().getURL().getFile()),
+                        Cookie.getCookieDomain(getWebRequest(), 
+                            getConnection().getURL().getHost()), 
+                        Cookie.getCookiePort(getWebRequest(), 
+                            getConnection().getURL().getPort()), 
+                        Cookie.getCookiePath(getWebRequest(), 
+                            getConnection().getURL().getFile()), 
                         new Header(headerName, headerValue));
-                } catch (HttpException e) {
+                }
+                catch (HttpException e)
+                {
                     throw new ChainedRuntimeException(
                         "Error parsing cookies", e);
                 }
 
                 // Transform the HttpClient cookies into Cactus cookies and
                 // add them to the cookieVector vector
-                for (int j = 0; j < cookies.length; j++) {
-                    Cookie cookie = new Cookie(
-                        cookies[j].getDomain(), cookies[j].getName(),
-                        cookies[j].getValue());
+                for (int j = 0; j < cookies.length; j++)
+                {
+                    Cookie cookie = new Cookie(cookies[j].getDomain(), 
+                        cookies[j].getName(), cookies[j].getValue());
+
                     cookie.setComment(cookies[j].getComment());
                     cookie.setExpiryDate(cookies[j].getExpiryDate());
                     cookie.setPath(cookies[j].getPath());
@@ -281,5 +303,4 @@ public class WebResponse
 
         return returnCookies;
     }
-
 }

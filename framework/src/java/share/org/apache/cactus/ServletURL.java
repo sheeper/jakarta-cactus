@@ -91,23 +91,21 @@ public class ServletURL
      * (HTTP, HTTPS, etc) in the URL to simulate. The name is voluntarily long
      * so that it will not clash with a user-defined parameter.
      */
-    public static final String URL_PROTOCOL_PARAM =
-        "Cactus_URL_Protocol";
+    public static final String URL_PROTOCOL_PARAM = "Cactus_URL_Protocol";
 
     /**
      * Name of the parameter in the HTTP request that represents the Server
      * name (+ port) in the URL to simulate. The name is voluntarily long so
      * that it will not clash with a user-defined parameter.
      */
-    public static final String URL_SERVER_NAME_PARAM =
-        "Cactus_URL_Server";
+    public static final String URL_SERVER_NAME_PARAM = "Cactus_URL_Server";
 
     /**
      * Name of the parameter in the HTTP request that represents the context
      * path in the URL to simulate. The name is voluntarily long so that it
      * will not clash with a user-defined parameter.
      */
-    public static final String URL_CONTEXT_PATH_PARAM =
+    public static final String URL_CONTEXT_PATH_PARAM = 
         "Cactus_URL_ContextPath";
 
     /**
@@ -115,7 +113,7 @@ public class ServletURL
      * Path in the URL to simulate. The name is voluntarily long so that it
      * will not clash with a user-defined parameter.
      */
-    public static final String URL_SERVLET_PATH_PARAM =
+    public static final String URL_SERVLET_PATH_PARAM = 
         "Cactus_URL_ServletPath";
 
     /**
@@ -123,15 +121,14 @@ public class ServletURL
      * in the URL to simulate. The name is voluntarily long so that it will not
      * clash with a user-defined parameter.
      */
-    public static final String URL_PATH_INFO_PARAM =
-        "Cactus_URL_PathInfo";
+    public static final String URL_PATH_INFO_PARAM = "Cactus_URL_PathInfo";
 
     /**
      * Name of the parameter in the HTTP request that represents the Query
      * String in the URL to simulate. The name is voluntarily long so that it
      * will not clash with a user-defined parameter.
      */
-    public static final String URL_QUERY_STRING_PARAM =
+    public static final String URL_QUERY_STRING_PARAM = 
         "Cactus_URL_QueryString";
 
     /**
@@ -143,6 +140,11 @@ public class ServletURL
      * Https protocol.
      */
     public static final String PROTOCOL_HTTPS = "https";
+
+    /**
+     * The logger
+     */
+    private static final Log LOGGER = LogFactory.getLog(ServletURL.class);
 
     /**
      * The server name to simulate (including port number)
@@ -173,11 +175,6 @@ public class ServletURL
      * The protocol to use. Default to HTTP.
      */
     private String protocol = PROTOCOL_HTTP;
-
-    /**
-     * The logger
-     */
-    private static final Log LOGGER = LogFactory.getLog(ServletURL.class);
 
     /**
      * Default constructor. Need to call the different setters to make this
@@ -219,8 +216,8 @@ public class ServletURL
      *                       <code>HttpServletResquest.getQueryString()</code>.
      *                       Can be null.
      */
-    public ServletURL(String theProtocol, String theServerName,
-        String theContextPath, String theServletPath, String thePathInfo,
+    public ServletURL(String theProtocol, String theServerName, 
+        String theContextPath, String theServletPath, String thePathInfo, 
         String theQueryString)
     {
         setProtocol(theProtocol);
@@ -260,10 +257,10 @@ public class ServletURL
      *                       <code>HttpServletResquest.getQueryString()</code>.
      *                       Can be null.
      */
-    public ServletURL(String theServerName, String theContextPath,
+    public ServletURL(String theServerName, String theContextPath, 
         String theServletPath, String thePathInfo, String theQueryString)
     {
-        this(PROTOCOL_HTTP, theServerName, theContextPath, theServletPath,
+        this(PROTOCOL_HTTP, theServerName, theContextPath, theServletPath, 
             thePathInfo, theQueryString);
     }
 
@@ -287,11 +284,12 @@ public class ServletURL
     {
         // Only HTTP and HTTPS are currently supported.
         if ((!theProtocol.equals(PROTOCOL_HTTP))
-            && (!theProtocol.equals(PROTOCOL_HTTPS))) {
-
+            && (!theProtocol.equals(PROTOCOL_HTTPS)))
+        {
             throw new RuntimeException("Invalid protocol [" + theProtocol
-                + "]. Currently supported protocols are [" + PROTOCOL_HTTP
-                + "] and [" + PROTOCOL_HTTPS + "].");
+                + "]. Currently supported protocols are ["
+                + PROTOCOL_HTTP + "] and ["
+                + PROTOCOL_HTTPS + "].");
         }
 
         this.protocol = theProtocol;
@@ -328,9 +326,12 @@ public class ServletURL
     {
         String host = getServerName();
 
-        if (host != null) {
+        if (host != null)
+        {
             int pos = host.indexOf(":");
-            if (pos > 0) {
+
+            if (pos > 0)
+            {
                 host = host.substring(0, pos);
             }
         }
@@ -346,17 +347,21 @@ public class ServletURL
     {
         int port = -1;
 
-        if (getServerName() != null) {
-
+        if (getServerName() != null)
+        {
             int pos = getServerName().indexOf(":");
 
-            if (pos < 0) {
+            if (pos < 0)
+            {
                 return -1;
             }
 
-            try {
+            try
+            {
                 port = Integer.parseInt(getServerName().substring(pos + 1));
-            } catch (NumberFormatException e) {
+            }
+            catch (NumberFormatException e)
+            {
                 port = -1;
             }
         }
@@ -457,11 +462,12 @@ public class ServletURL
     {
         String path;
 
-        path = getContextPath() == null ? "" : getContextPath();
-        path += getServletPath() == null ? "" : getServletPath();
-        path += getPathInfo() == null ? "" : getPathInfo();
+        path = (getContextPath() == null) ? "" : getContextPath();
+        path += ((getServletPath() == null) ? "" : getServletPath());
+        path += ((getPathInfo() == null) ? "" : getPathInfo());
 
-        if (path.length() == 0) {
+        if (path.length() == 0)
+        {
             path = null;
         }
 
@@ -478,28 +484,36 @@ public class ServletURL
         // Note: All these pareameters are passed in the URL. This is to allow
         // the user to send whatever he wants in the request body. For example
         // a file, ...
-
-        theRequest.addParameter(URL_PROTOCOL_PARAM, getProtocol(),
+        theRequest.addParameter(URL_PROTOCOL_PARAM, getProtocol(), 
             WebRequest.GET_METHOD);
 
-        if (getServerName() != null) {
-            theRequest.addParameter(URL_SERVER_NAME_PARAM, getServerName(),
+        if (getServerName() != null)
+        {
+            theRequest.addParameter(URL_SERVER_NAME_PARAM, getServerName(), 
                 WebRequest.GET_METHOD);
         }
-        if (getContextPath() != null) {
-            theRequest.addParameter(URL_CONTEXT_PATH_PARAM, getContextPath(),
+
+        if (getContextPath() != null)
+        {
+            theRequest.addParameter(URL_CONTEXT_PATH_PARAM, getContextPath(), 
                 WebRequest.GET_METHOD);
         }
-        if (getServletPath() != null) {
-            theRequest.addParameter(URL_SERVLET_PATH_PARAM, getServletPath(),
+
+        if (getServletPath() != null)
+        {
+            theRequest.addParameter(URL_SERVLET_PATH_PARAM, getServletPath(), 
                 WebRequest.GET_METHOD);
         }
-        if (getPathInfo() != null) {
-            theRequest.addParameter(URL_PATH_INFO_PARAM, getPathInfo(),
+
+        if (getPathInfo() != null)
+        {
+            theRequest.addParameter(URL_PATH_INFO_PARAM, getPathInfo(), 
                 WebRequest.GET_METHOD);
         }
-        if (getQueryString() != null) {
-            theRequest.addParameter(URL_QUERY_STRING_PARAM, getQueryString(),
+
+        if (getQueryString() != null)
+        {
+            theRequest.addParameter(URL_QUERY_STRING_PARAM, getQueryString(), 
                 WebRequest.GET_METHOD);
         }
     }
@@ -518,39 +532,51 @@ public class ServletURL
 
         ServletURL url = new ServletURL();
 
-        String protocol = ServletUtil.getQueryStringParameter(qString,
+        String protocol = ServletUtil.getQueryStringParameter(qString, 
             URL_PROTOCOL_PARAM);
-        if (protocol != null) {
+
+        if (protocol != null)
+        {
             url.setProtocol(protocol);
         }
 
-        String serverName = ServletUtil.getQueryStringParameter(qString,
+        String serverName = ServletUtil.getQueryStringParameter(qString, 
             URL_SERVER_NAME_PARAM);
-        if (serverName != null) {
+
+        if (serverName != null)
+        {
             url.setServerName(serverName);
         }
 
-        String contextPath = ServletUtil.getQueryStringParameter(qString,
+        String contextPath = ServletUtil.getQueryStringParameter(qString, 
             URL_CONTEXT_PATH_PARAM);
-        if (contextPath != null) {
+
+        if (contextPath != null)
+        {
             url.setContextPath(contextPath);
         }
 
-        String servletPath = ServletUtil.getQueryStringParameter(qString,
+        String servletPath = ServletUtil.getQueryStringParameter(qString, 
             URL_SERVLET_PATH_PARAM);
-        if (servletPath != null) {
+
+        if (servletPath != null)
+        {
             url.setServletPath(servletPath);
         }
 
-        String pathInfo = ServletUtil.getQueryStringParameter(qString,
+        String pathInfo = ServletUtil.getQueryStringParameter(qString, 
             URL_PATH_INFO_PARAM);
-        if (pathInfo != null) {
+
+        if (pathInfo != null)
+        {
             url.setPathInfo(pathInfo);
         }
 
-        String queryString = ServletUtil.getQueryStringParameter(qString,
+        String queryString = ServletUtil.getQueryStringParameter(qString, 
             URL_QUERY_STRING_PARAM);
-        if (queryString != null) {
+
+        if (queryString != null)
+        {
             url.setQueryString(queryString);
         }
 
@@ -565,6 +591,7 @@ public class ServletURL
     public String toString()
     {
         StringBuffer buffer = new StringBuffer();
+
         buffer.append("protocol = [" + getProtocol() + "], ");
         buffer.append("host name = [" + getHost() + "], ");
         buffer.append("port = [" + getPort() + "], ");
@@ -575,5 +602,4 @@ public class ServletURL
 
         return buffer.toString();
     }
-
 }

@@ -56,11 +56,12 @@
  */
 package org.apache.cactus;
 
+import java.io.Serializable;
+
+import java.util.Date;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import java.io.Serializable;
-import java.util.Date;
 
 /**
  * Client cookie. Used for manipulating client cookies either in
@@ -127,13 +128,18 @@ public class Cookie implements Serializable
      */
     public Cookie(String theDomain, String theName, String theValue)
     {
-        if (theDomain == null) {
+        if (theDomain == null)
+        {
             throw new NullPointerException("missing cookie domain");
         }
-        if (theName == null) {
+
+        if (theName == null)
+        {
             throw new NullPointerException("missing cookie name");
         }
-        if (theValue == null) {
+
+        if (theValue == null)
+        {
             throw new NullPointerException("missing cookie value");
         }
 
@@ -264,9 +270,12 @@ public class Cookie implements Serializable
     public void setDomain(String theDomain)
     {
         int ndx = theDomain.indexOf(":");
-        if (ndx != -1) {
+
+        if (ndx != -1)
+        {
             theDomain = theDomain.substring(0, ndx);
         }
+
         this.domain = theDomain.toLowerCase();
     }
 
@@ -345,12 +354,15 @@ public class Cookie implements Serializable
      */
     public boolean equals(Object theObject)
     {
-        if ((theObject != null) && (theObject instanceof Cookie)) {
+        if ((theObject != null) && (theObject instanceof Cookie))
+        {
             Cookie other = (Cookie) theObject;
+
             return (this.getName().equals(other.getName())
                 && this.getPath().equals(other.getPath())
                 && this.getDomain().equals(other.getDomain()));
         }
+
         return false;
     }
 
@@ -383,15 +395,18 @@ public class Cookie implements Serializable
      *        use it if no simulation host has been specified.
      * @return the cookie domain to use
      */
-    public static String getCookieDomain(WebRequest theRequest,
+    public static String getCookieDomain(WebRequest theRequest, 
         String theRealHost)
     {
         String domain;
         ServletURL url = theRequest.getURL();
 
-        if ((url != null) && (url.getHost() != null)) {
+        if ((url != null) && (url.getHost() != null))
+        {
             domain = url.getHost();
-        } else {
+        }
+        else
+        {
             domain = theRealHost;
         }
 
@@ -416,9 +431,12 @@ public class Cookie implements Serializable
         int port;
         ServletURL url = theRequest.getURL();
 
-        if ((url != null) && (url.getHost() != null)) {
+        if ((url != null) && (url.getHost() != null))
+        {
             port = url.getPort();
-        } else {
+        }
+        else
+        {
             port = theRealPort;
         }
 
@@ -443,24 +461,35 @@ public class Cookie implements Serializable
      *        use it if no simulation path has been specified.
      * @return the path to use to decide if a cookie will get sent
      */
-    public static String getCookiePath(WebRequest theRequest,
+    public static String getCookiePath(WebRequest theRequest, 
         String theRealPath)
     {
         String path;
         ServletURL url = theRequest.getURL();
 
-        if ((url != null) && (url.getPath() != null)) {
+        if ((url != null) && (url.getPath() != null))
+        {
             path = url.getPath();
-        } else {
+        }
+        else
+        {
             String file = theRealPath;
-            if (file != null) {
+
+            if (file != null)
+            {
                 int q = file.lastIndexOf('?');
-                if (q != -1) {
+
+                if (q != -1)
+                {
                     path = file.substring(0, q);
-                } else {
+                }
+                else
+                {
                     path = file;
                 }
-            } else {
+            }
+            else
+            {
                 path = null;
             }
         }
@@ -469,6 +498,4 @@ public class Cookie implements Serializable
 
         return path;
     }
-
 }
-

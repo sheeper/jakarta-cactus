@@ -57,8 +57,8 @@
 package org.apache.cactus;
 
 import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.io.Serializable;
+import java.io.StringWriter;
 
 /**
  * Represent the result of the execution of the Test class by the
@@ -71,23 +71,6 @@ import java.io.Serializable;
  */
 public class WebTestResult implements Serializable
 {
-    /**
-     * Name of the exception class if an error occurred
-     */
-    private String exceptionClassName;
-
-    /**
-     * Save the stack trace as text because otherwise it will not be
-     * transmitted back to the client (the stack trac field in the
-     * <code>Throwable</code> class is transient).
-     */
-    private String exceptionStackTrace;
-
-    /**
-     * The exception message if an error occurred
-     */
-    private String exceptionMessage;
-
     /**
      * Name of Root XML tag (see {@link #toXml()}).
      */
@@ -115,6 +98,23 @@ public class WebTestResult implements Serializable
     public static final String XML_EXCEPTION_STACKTRACE_ELEMENT = "stacktrace";
 
     /**
+     * Name of the exception class if an error occurred
+     */
+    private String exceptionClassName;
+
+    /**
+     * Save the stack trace as text because otherwise it will not be
+     * transmitted back to the client (the stack trac field in the
+     * <code>Throwable</code> class is transient).
+     */
+    private String exceptionStackTrace;
+
+    /**
+     * The exception message if an error occurred
+     */
+    private String exceptionMessage;
+
+    /**
      * Constructor to call when the test was ok and no error was raised.
      */
     public WebTestResult()
@@ -134,6 +134,7 @@ public class WebTestResult implements Serializable
         // Save the stack trace as text
         StringWriter sw = new StringWriter();
         PrintWriter pw = new PrintWriter(sw);
+
         theException.printStackTrace(pw);
         this.exceptionStackTrace = sw.toString();
     }
@@ -148,7 +149,7 @@ public class WebTestResult implements Serializable
      * @param theStackTrace the stack trace of the exception thrown on the
      *        server side
      */
-    public WebTestResult(String theClassName, String theMessage,
+    public WebTestResult(String theClassName, String theMessage, 
         String theStackTrace)
     {
         this.exceptionClassName = theClassName;
@@ -197,10 +198,13 @@ public class WebTestResult implements Serializable
     {
         StringBuffer buffer = new StringBuffer();
 
-        if (hasException()) {
+        if (hasException())
+        {
             buffer.append("Test failed, Exception message = ["
                 + getExceptionMessage() + "]");
-        } else {
+        }
+        else
+        {
             buffer.append("Test ok");
         }
 
@@ -214,9 +218,11 @@ public class WebTestResult implements Serializable
     public String toXml()
     {
         StringBuffer xmlText = new StringBuffer();
+
         xmlText.append("<" + XML_ROOT_ELEMENT + ">");
 
-        if (hasException()) {
+        if (hasException())
+        {
             xmlText.append("<" + XML_EXCEPTION_ELEMENT + " "
                 + XML_EXCEPTION_CLASSNAME_ATTRIBUTE + "=\"");
             xmlText.append(this.exceptionClassName);
