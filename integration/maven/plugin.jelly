@@ -333,6 +333,9 @@
       prereqs="cactus:init">
 
     <j:choose>
+      <j:when test="${maven.test.skip}">
+        <ant:echo>Not runnnig Cactus tests because maven.test.skip is true.</ant:echo>
+      </j:when>
       <j:when test="${cactusSourcePresent}">
         <j:choose>
           <j:when test="${context.getVariable('cactus.is.ear') == 'true'}">
