@@ -117,7 +117,6 @@
         <echo message="servlet.jar = ${servlet.jar}"/>
         <echo message="cactus.jar = ${cactus.jar}"/>
         <echo message="junit.jar = ${junit.jar}"/>
-        <echo message="log4j.jar = ${log4j.jar}"/>
         <echo message="cactus.ant.jar = ${cactus.ant.jar}"/>
 
         <!-- Filters -->

@@ -55,29 +55,17 @@ package org.apache.commons.cactus.util.log;
 
 import java.util.*;
 
-import org.apache.log4j.Category;
-
 /**
- * Wrapper around the Log4j <code>Category</code> class. A category is
- * usually the full name of the class in which to log (including the package
- * name).
- *
- * The order of priority is as follows : ERROR > WARNING > DEBUG > INFO
+ * Dummy class that logs nothing.
  */
-public class BaseLog implements Log
+public class BaseLogDummy implements Log
 {
-    /**
-     * Corresponding Log4j <code>Category</code> instance
-     */
-    protected Category category;
-
     /**
      * @param theCategoryName the category's name. Usually, it is the full
      *        name of the class being logged, including the package name
      */
-    public BaseLog(String theCategoryName)
+    public BaseLogDummy(String theCategoryName)
     {
-    	category = Category.getInstance(theCategoryName);
     }
 
     /**
@@ -87,7 +75,6 @@ public class BaseLog implements Log
      */
     public void debug(String theMessage)
     {
-        category.debug(theMessage);
     }
 
     /**
@@ -98,7 +85,6 @@ public class BaseLog implements Log
      */
     public void debug(String theMessage, Throwable theThrowable)
     {
-        category.debug(theMessage, theThrowable);
     }
 
     /**
@@ -108,7 +94,6 @@ public class BaseLog implements Log
      */
     public void error(String theMessage)
     {
-        category.error(theMessage);
     }
 
     /**
@@ -119,7 +104,6 @@ public class BaseLog implements Log
      */
     public void error(String theMessage, Throwable theThrowable)
     {
-        category.error(theMessage, theThrowable);
     }
 
     /**
@@ -130,7 +114,6 @@ public class BaseLog implements Log
      */
     public void error(Throwable theThrowable)
     {
-        category.error("", theThrowable);
     }
 
     /**
@@ -140,7 +123,6 @@ public class BaseLog implements Log
      */
     public void info(String theMessage)
     {
-        category.info(theMessage);
     }
 
     /**
@@ -151,7 +133,6 @@ public class BaseLog implements Log
      */
     public void info(String theMessage, Throwable theThrowable)
     {
-        category.info(theMessage, theThrowable);
     }
 
     /**
@@ -161,7 +142,6 @@ public class BaseLog implements Log
      */
     public void warn(String theMessage)
     {
-        category.warn(theMessage);
     }
 
     /**
@@ -172,7 +152,6 @@ public class BaseLog implements Log
      */
     public void warn(String theMessage, Throwable theThrowable)
     {
-        category.warn(theMessage, theThrowable);
     }
 
     /**
@@ -182,7 +161,6 @@ public class BaseLog implements Log
      */
     public void entry(String theMessage)
     {
-        category.debug('>' + theMessage);
     }
 
     /**
@@ -192,7 +170,6 @@ public class BaseLog implements Log
      */
     public void exit(String theMessage)
     {
-        category.debug('<' + theMessage);
     }
 
     /**
@@ -200,7 +177,7 @@ public class BaseLog implements Log
      */
     public boolean isDebugEnabled()
     {
-        return category.isDebugEnabled();
+        return false;
     }
 
 }

@@ -53,8 +53,6 @@
  */
 package org.apache.commons.cactus.util.log;
 
-import org.apache.log4j.Category;
-
 /**
  * Interface for logging implementation classes
  */

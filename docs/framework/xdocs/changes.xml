@@ -35,9 +35,10 @@
       </action>
       <action dev="VMA" type="add">
         Added logging facility to Cactus, using the Log4j logging framework.
-        Note that according to the result of the message I posted on
-        <code>jakarta-commons</code>, this function may be deleted or
-        implemented differently in the 1.2 version of Cactus.
+        In order to make it easy on end users, Log4j is only required when
+        building Cactus from the sources. It is however optional when running
+        Cactus tests. If the log4j jar is present logs will be generated and if
+        not, then no log will be generated.
       </action>
       <action dev="VMA" type="fix" due-to="Bob Davison" due-to-email="bob.davison@reuters.com">
         (<link href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=1612">

@@ -76,6 +76,11 @@ public class LogService
     private boolean isInitialized = false;
 
     /**
+     * Is Log4j in the classpath ?
+     */
+    private boolean isLog4jInClasspath = false;
+
+    /**
      * The singleton's unique instance
      */
     private static LogService instance;
@@ -85,6 +90,16 @@ public class LogService
      */
     private LogService()
     {
+        // Check if Log4j is in the classpath. If not, use a dummy
+        // implementation that does nothing. This is to make it easy on user
+        // who do not want to have to download log4j and put it in their
+        // classpath !
+        isLog4jInClasspath = true;
+        try {
+            Class aClass = Class.forName("org.apache.log4j.PropertyConfigurator");
+        } catch (ClassNotFoundException e) {
+            isLog4jInClasspath = false;
+        }
     }
 
     /**
@@ -107,7 +122,11 @@ public class LogService
     public void init(String theFileName)
     {
         URL url = LogService.class.getResource(theFileName);
-        PropertyConfigurator.configure(url);
+
+        if (isLog4jInClasspath) {
+            // Initialize Log4j
+            PropertyConfigurator.configure(url);
+        }
 
         isInitialized = true;
     }
@@ -129,7 +148,12 @@ public class LogService
 
         if (log == null) {
 
-            log = new BaseLog(theCategoryName);
+            if (isLog4jInClasspath) {
+                log = new BaseLog(theCategoryName);
+            } else {
+                log = new BaseLogDummy(theCategoryName);
+            }
+
             logCategories.put(theCategoryName, log);
 
         }
