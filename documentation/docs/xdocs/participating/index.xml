@@ -128,9 +128,9 @@
       (code or documentation), then it counts as a <strong>patch</strong>. If 
       you have a patch and would like to see it incorporated into the Cactus
       distribution, take note of the Licensing Requirements listed below, and 
-      then post a message to the <link href="site:mailinglist">Cactus mailing
-      list</link> with <code>[PATCH]</code> in the subject and include a
-      <code>diff</code> of your patch against the latest CVS version of the code.
+      then create a <link href="ext:bug_database">JIRA issue</link> and attach
+      to it  a unified diff (<code>cvs patch</code>) of your changes against 
+      the latest CVS version of the code (CVS HEAD).
     </p>
   
     <section title="Licensing Requirements for the Cactus Distribution">
