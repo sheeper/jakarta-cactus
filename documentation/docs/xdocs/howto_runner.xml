@@ -14,7 +14,7 @@
 
     <s1 title="Starting Cactus tests">
 
-	  <p>
+      <p>
         The Cactus tests are started using a JUnit Test Runner. There are
         several configurations for executing these test runners :
       </p>
@@ -164,7 +164,7 @@
         <p>
           Ok, that's nice ... But what if I want HTML instead of XML ? Don't
           worry there is a solution. Grab the following
-          <link href="http://cvs.apache.org/viewcvs/~checkout~/jakarta-ant/src/etc/junit-noframes.xsl?rev=1.7">stylesheet</link>
+          <link href="misc/junit-noframes.xsl">stylesheet</link>
           used to format JUnitReport Ant task results and drop it in your
           webapp and name it <code>junit-noframes.xsl</code> (in the root
           directory for example). Then, open a browser and type

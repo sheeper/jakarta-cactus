@@ -183,6 +183,7 @@
         <copy todir="${target.xdoc.dir}" filtering="on">
             <fileset dir="${doc.xdoc.dir}">
                 <exclude name="book.xml"/>
+                <exclude name="original/**"/>
                 <exclude name="misc/**"/>
             </fileset>
         </copy>
@@ -194,6 +195,11 @@
         <!-- Copy the images -->
         <copy todir="${target.doc.dir}/images">
             <fileset dir="${doc.xdoc.dir}/images"/>
+        </copy>
+
+        <!-- Copy the misc doc files needed by the web site -->
+        <copy todir="${target.doc.dir}/misc">
+            <fileset dir="${doc.xdoc.dir}/misc"/>
         </copy>
 
         <!-- Generate the docs -->

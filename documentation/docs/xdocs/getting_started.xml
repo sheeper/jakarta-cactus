@@ -12,6 +12,22 @@
 
   <body>
 
+    <s1 title="Forewords">
+      <p>
+        If you want to quickly get a feeling of Cactus, there is a
+        <link href="howto_tomcat.html">20 minutes tutorial</link> that take you
+        through running your first Cactus test using Tomcat. It doesn't explain
+        how Cactus works or any other details but let's you have something
+        running quickly.
+      </p>
+      <p>
+        We suggest you take this quicky tutorial and then come back here and
+        continue reading below. You would have had a first glimpse of Cactus
+        in action and will be ready to understand the concepts behind it and
+        its full power.
+      </p>
+    </s1>
+
     <s1 title="Installing Cactus">
 
       <p>
@@ -23,8 +39,8 @@
         below.
       </p>
       <p>
-        There are 2 kinds of environments in which you may want to use
-        Cactus, mainly :
+        There are 2 kinds of productivity environments in which you may want to
+        use Cactus, mainly :
       </p>
       <ul>
         <li>

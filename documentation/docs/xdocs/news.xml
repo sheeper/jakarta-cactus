@@ -20,7 +20,8 @@
           <jump anchor="who_talks_news">Who talks about Cactus ?</jump>
         </li>
         <li>
-          <jump anchor="internal_news">Internal web site news</jump>
+          <jump anchor="internal_news">Internal web site news big
+          headlines)</jump>
         </li>
       </ul>
 
@@ -133,9 +134,30 @@
     </s1>
 
     <anchor id="internal_news"/>
-    <s1 title="Internal Web site News">
+    <s1 title="Internal Web site News (big headlines)">
 
       <table>
+
+        <tr>
+          <td>
+            14/05/2002
+          </td>
+          <td>
+            New <link href="howto_tomcat.html">Quick start tutorial</link> that
+            explains how to run Cactus tests quickly in Tomcat.
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            13/05/2002
+          </td>
+          <td>
+            New tutorial that explains a new of running Cactus tests : through
+            a browser. Check the <link href="howto_runner.html">TestRunner
+            Howto</link> now !
+          </td>
+        </tr>
 
         <tr>
           <td>

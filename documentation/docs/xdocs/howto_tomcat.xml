@@ -1,0 +1,288 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE document SYSTEM "./dtd/document-v10.dtd">
+
+<document>
+  <header>
+    <title>Tomcat Quickstart</title>
+    <authors>
+      <person name="Vincent Massol" email="vmassol@apache.org"/>
+    </authors>
+  </header>
+
+  <body>
+
+    <s1 title="Tomcat Quickstart forewords">
+
+      <note>
+        This tutorial applies to Cactus 1.4 or greater and Tomcat 4.0 or
+        greater.
+      </note>
+
+      <p>
+        This document is a step by step tutorial that explains how to set up
+        Cactus and run Cactus tests in Tomcat in less than 20 minutes !
+        (discounting download time of course :-)).
+      </p>
+      <p>
+        There are 2 ways of packaging Cactus so that you can execute Cactus
+        tests on your application :
+      </p>
+      <ul>
+        <li>
+          By putting all Cactus jars in your <code>WEB-INF/lib</code> directory,
+          as described in the <link href="howto_classpath.html">Classpath
+          Tutorial</link>,
+        </li>
+        <li>
+          By putting the Cactus jars in your container classpath so that Cactus
+          will load them using the container Context class loader. This
+          tutorial will describe this strategy as it is the less intrusive one
+          and provides reuse of Cactus jars across several webapps.
+        </li>
+      </ul>
+      <p>
+        In addition to this, there are several ways to trigger the execution of
+        the Cactus tests (see the <link href="howto_runner.html">TestRunner
+        Howto</link> tutorial). We will describe the easiest one to set up in
+        this tutorial, which is by using a browser.
+      </p>
+      <note>
+        Step 1 to step 3 are a one time install steps that you need to perform
+        only once to be able to run Cactus tests within Tomcat.
+      </note>
+
+    </s1>
+
+    <s1 title="Step 1 : Install Tomcat">
+      <p>
+        Download <link href="http://jakarta.apache.org/builds/jakarta-tomcat-4.0/release/">Tomcat</link>
+        4.0 or greater and unzip it in any directory. Let's call this directory
+        <code>[tomcat root]</code>.
+      </p>
+    </s1>
+
+    <s1 title="Step 2 : Copy the Cactus jars">
+      <p>
+        Download the Cactus jars from the <link href="downloads.html">Cactus
+        download page</link>. They are located in the <code>lib/</code>
+        directory in the zip.
+      </p>
+      <note>
+        <strong>Cactus 1.4 is not released yet and thus you'll need to
+        download any nightly distribution after the 14/05/2002</strong>
+      </note>
+      <p>
+        Copy the following jars to <code>[tomcat root]/common/lib</code> :
+      </p>
+      <ul>
+        <li>
+          <code>cactus.jar</code>
+        </li>
+        <li>
+          <code>commons-httpclient*.jar</code>
+        </li>
+        <li>
+          <code>junit.jar</code>
+        </li>
+      </ul>
+      <note>
+        This is the minium set of jars needed. If later on you wish to use the
+        Cactus <link href="howto_httpunit.html">HttpUnit integration</link>
+        you'll also need to copy <code>httpunit.jar</code>.
+      </note>
+    </s1>
+
+    <s1 title="Step 3 : Modify Tomcat web.xml">
+      <p>
+        Edit <code>[tomcat root]/conf/web.xml</code> and add the following at
+        the beginning of the file, after the <code>&lt;webapp&gt;</code> tag :
+      </p>
+<source><![CDATA[
+<servlet>
+    <servlet-name>ServletRedirector</servlet-name>
+    <servlet-class>org.apache.cactus.server.ServletTestRedirector</servlet-class>
+    <init-param>
+      <param-name>param1</param-name>
+      <param-value>value1 used for testing</param-value>
+    </init-param>
+</servlet>
+
+<servlet>
+    <servlet-name>ServletTestRunner</servlet-name>
+    <servlet-class>org.apache.cactus.server.runner.ServletTestRunner</servlet-class>
+</servlet>
+]]></source>
+
+      <p>
+        Then, after the last <code>&lt;servlet&gt;</code> definition (there
+        are a few provided by Tomcat in addition to our 2 above), add :
+      </p>
+
+<source><![CDATA[
+<servlet-mapping>
+    <servlet-name>ServletRedirector</servlet-name>
+    <url-pattern>/ServletRedirector</url-pattern>
+</servlet-mapping>
+
+<servlet-mapping>
+    <servlet-name>ServletTestRunner</servlet-name>
+    <url-pattern>/ServletTestRunner</url-pattern>
+</servlet-mapping>
+]]></source>
+
+    </s1>
+
+    <s1 title="Step 4 : Creating a sample applicaton to test">
+      <p>
+        We're now going to create a very very simple application to server
+        so that we can unit test it.
+      </p>
+      <p>
+        First, create the following directory structure :
+      </p>
+
+<source><![CDATA[
+[tomcat root]/webapps
+  |_ test
+    |_ WEB-INF
+      |_ classes
+]]></source>
+
+      <p>
+        Then, create the following <code>SampleServlet.java</code> java source
+        file, compile it and copy the resulting .class file in
+        <code>[tomcat root]/webapps/test/WEB-INF/classes</code>. Note that
+        you can download the pre-compiled class file
+        <link href="misc/SampleServlet.class">here</link>.
+      </p>
+
+<source><![CDATA[
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+
+public class SampleServlet extends HttpServlet
+{
+    public void saveToSession(HttpServletRequest request)
+    {
+    	String testparam = request.getParameter("testparam");
+    	request.getSession().setAttribute("testAttribute", testparam);
+    }
+}
+]]></source>
+
+      <note>
+        You'll notice that this isn't even a finished servlet ! However, this
+        shows that you can start testing your code with Cactus even before
+        you have finished writing it completely. Extreme Programmers should
+        like this :-)
+      </note>
+
+      <p>
+        We're now read to create our first Cactus test case. Create the
+        following <code>TestSampleServlet.java</code> java source file, compile
+        it and copy the resulting .class file in
+        <code>[tomcat root]/webapps/test/WEB-INF/classes</code>. Note that
+        you can download the pre-compiled class file
+        <link href="misc/TestSampleServlet.class">here</link>.
+      </p>
+
+<source><![CDATA[
+import junit.framework.Test;
+import junit.framework.TestSuite;
+
+import org.apache.cactus.ServletTestCase;
+import org.apache.cactus.WebRequest;
+
+public class TestSampleServlet extends ServletTestCase
+{
+    public TestSampleServlet(String theName)
+    {
+        super(theName);
+    }
+
+    public static Test suite()
+    {
+        return new TestSuite(TestSampleServlet.class);
+    }
+
+    public void beginSaveToSessionOK(WebRequest webRequest)
+    {
+        webRequest.addParameter("testparam", "it works!");
+    }
+
+    public void testSaveToSessionOK()
+    {
+        SampleServlet servlet = new SampleServlet();
+        servlet.saveToSession(request);
+        assertEquals("it works!", session.getAttribute("testAttribute"));
+    }
+}
+]]></source>
+
+    </s1>
+
+    <s1 title="Step 5 : Configure Cactus">
+
+      <p>
+        This is the last step. Create a file named
+        <code>cactus.properties</code> with the following content and copy
+        it to <code>[tomcat root]/webapps/test/WEB-INF/classes</code>.
+      </p>
+
+<source><![CDATA[
+# Configuration file for Cactus.
+
+# Web app Context under which our application to test runs
+cactus.contextURL = http://localhost:8080/test
+
+# Default Servlet Redirector Name. Used by ServletTestCase test cases.
+cactus.servletRedirectorName = ServletRedirector
+]]></source>
+
+      <note>
+        This assumes Tomcat is running on port 8080. Modify with your port if
+        you're using a different one (default is 8080).
+      </note>
+
+    </s1>
+
+    <s1 title="Step 6 : Run the test">
+
+      <p>
+        Time to enjoy our hard work ! Start Tomcat by running
+        <code>[tomcat root]/bin/startup.bat</code> (for windows) or
+        <code>[tomcat root]/bin/startup.sh</code> (for unix).
+      </p>
+      <p>
+        Open a browser and point it at <code>http://localhost:8080/test/ServletTestRunner?suite=TestSampleServlet</code>
+      </p>
+      <p>
+        You should see :
+      </p>
+      <figure src="images/tomcat_xml.jpg" alt="XML output of ServletTestRunner"/>
+
+    </s1>
+
+    <s1 title="Step 7 : Even more fun !">
+      <p>
+        Ok, that's nice ... But what if I want HTML instead of XML ? Don't
+        worry there is a solution. Grab the following
+        <link href="misc/junit-noframes.xsl">junit-noframes.xsl</link>
+        stylesheet used to format JUnitReport Ant task results and drop it in
+        <code>[tomcat root]/webapps/test</code>. Then, open a browser and type
+        <code>http://localhost:8080/test/ServletTestRunner?suite=TestSampleServlet&amp;xsl=junit-noframes.xsl</code>.
+        You should now see the following :
+      </p>
+
+      <figure src="images/tomcat_html.jpg" alt="HTML output of ServletTestRunner"/>
+
+      <note>
+        This will work with Internet Explorer as the XSL transformation is
+        performed on the client side (i.e by the browser). I'm not sure
+        about other browsers.
+      </note>
+    </s1>
+
+  </body>
+</document>

@@ -49,6 +49,10 @@
 
     <release version="1.4 in CVS">
       <action dev="VMA" type="add">
+        New <link href="howto_tomcat.html">Quick start tutorial</link> that
+        explains how to run Cactus tests quickly in Tomcat.
+      </action>
+      <action dev="VMA" type="add">
         A cool new way to quickly execute your test cases : Cactus now has
         a JUnit Test Runner called ServletTestRunner (it is a servlet) that
         you start using your browser. See the

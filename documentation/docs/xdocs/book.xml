@@ -68,6 +68,8 @@
     <menu-item type="hidden" source="howto_ide_jbuilder4.xml"/>
     <menu-item type="hidden" source="howto_ide_jbuilder5.xml"/>
 
+    <menu-item label="Tomcat Howto" source="howto_tomcat.xml"/>
+
     <menu-item label="JUnitEE Howto" source="howto_junitee.xml"/>
   </menu>
 
