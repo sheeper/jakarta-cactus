@@ -132,4 +132,45 @@ public final class TestCactusTask extends AntTestCase
         }
     }
 
+    /**
+     * Verifies that the task throws an exception when the earfile attribute 
+     * is set to an empty enterprise application archive.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
+    public void testEarFileEmpty() throws Exception
+    {
+        try
+        {
+            executeTestTarget();
+            fail("Expected BuildException");
+        }
+        catch (BuildException expected)
+        {
+            assertEquals("Could not find cactified web module in the EAR",
+                expected.getMessage());
+        }
+    }
+
+    /**
+     * Verifies that the task throws an exception when the earfile attribute 
+     * is set to an enterprise application archive that doesn't contain a web
+     * module with the definition of the test redirectors.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
+    public void testEarFileNotCactified() throws Exception
+    {
+        try
+        {
+            executeTestTarget();
+            fail("Expected BuildException");
+        }
+        catch (BuildException expected)
+        {
+            assertEquals("Could not find cactified web module in the EAR",
+                expected.getMessage());
+        }
+    }
+
 }

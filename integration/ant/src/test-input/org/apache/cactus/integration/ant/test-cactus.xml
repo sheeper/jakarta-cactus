@@ -10,4 +10,12 @@
     <cactus warfile="idontexist.war"/>
   </target>
 
+  <target name="testEarFileEmpty">
+    <cactus earfile="empty.ear"/>
+  </target>
+
+  <target name="testEarFileNotCactified">
+    <cactus earfile="notcactified.ear"/>
+  </target>
+
 </project>
