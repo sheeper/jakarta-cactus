@@ -53,17 +53,21 @@
  */
 package org.apache.cactus;
 
-import java.lang.reflect.*;
-import javax.servlet.*;
-import javax.servlet.http.*;
-import java.net.*;
+import java.lang.reflect.Modifier;
+import java.lang.reflect.Method;
+import java.lang.reflect.InvocationTargetException;
+import java.net.HttpURLConnection;
+import java.net.URLConnection;
 
-import junit.framework.*;
+import junit.framework.TestCase;
 
-import org.apache.cactus.client.*;
-import org.apache.cactus.server.*;
-import org.apache.cactus.util.log.*;
-import org.apache.cactus.util.*;
+import org.apache.cactus.util.log.Log;
+import org.apache.cactus.util.log.LogService;
+import org.apache.cactus.util.JUnitVersionHelper;
+import org.apache.cactus.util.ChainedRuntimeException;
+import org.apache.cactus.client.ClientConfigurationChecker;
+import org.apache.cactus.client.AbstractHttpClient;
+
 
 /**
  * Abstract class that specific test cases (<code>ServletTestCase</code>,
@@ -439,7 +443,7 @@ public abstract class AbstractTestCase extends TestCase
         // Call the end method
         callEndMethod(request, connection);
 
-        // Close the intput stream (just in the case the user has not done it
+        // Close the input stream (just in the case the user has not done it
         // in it's endXXX method (or if he has no endXXX method) ....
         connection.getInputStream().close();
      }
