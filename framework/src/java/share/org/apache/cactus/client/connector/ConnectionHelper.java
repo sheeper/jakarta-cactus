@@ -54,7 +54,7 @@
  * <http://www.apache.org/>.
  *
  */
-package org.apache.cactus.client;
+package org.apache.cactus.client.connector;
 
 import java.net.HttpURLConnection;
 

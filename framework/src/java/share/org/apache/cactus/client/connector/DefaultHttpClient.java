@@ -54,7 +54,7 @@
  * <http://www.apache.org/>.
  *
  */
-package org.apache.cactus.client;
+package org.apache.cactus.client.connector;
 
 import java.net.HttpURLConnection;
 
@@ -63,6 +63,10 @@ import org.apache.cactus.ServiceEnumeration;
 import org.apache.cactus.WebRequest;
 import org.apache.cactus.WebResponse;
 import org.apache.cactus.WebTestResult;
+import org.apache.cactus.client.AssertionFailedErrorWrapper;
+import org.apache.cactus.client.ParsingException;
+import org.apache.cactus.client.ServletExceptionWrapper;
+import org.apache.cactus.client.WebTestResultParser;
 import org.apache.cactus.configuration.WebConfiguration;
 import org.apache.cactus.util.ChainedRuntimeException;
 import org.apache.cactus.util.IoUtil;
@@ -76,7 +80,7 @@ import org.apache.cactus.util.IoUtil;
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  * @author <a href="mailto:Jason.Robertson@acs-inc.com">Jason Robertson</a>
  *
- * @version $Id: AbstractHttpClient.java,v 1.12 2002/09/26 16:43:32 vmassol Exp $
+ * @version $Id$
  */
 public class DefaultHttpClient
 {

@@ -60,9 +60,9 @@ import java.net.HttpURLConnection;
 import java.util.StringTokenizer;
 
 import org.apache.cactus.client.ClientException;
-import org.apache.cactus.client.ConnectionHelper;
-import org.apache.cactus.client.ConnectionHelperFactory;
 import org.apache.cactus.client.WebResponseObjectFactory;
+import org.apache.cactus.client.connector.ConnectionHelper;
+import org.apache.cactus.client.connector.ConnectionHelperFactory;
 import org.apache.cactus.configuration.WebConfiguration;
 import org.apache.cactus.util.ChainedRuntimeException;
 

@@ -74,7 +74,7 @@ public class FilterConfiguration extends AbstractWebConfiguration
         "cactus.filterRedirectorName";
 
     /**
-     * @see WebConfiguration#getDefaultRedirectorName()
+     * @see AbstractWebConfiguration#getDefaultRedirectorName()
      */
     public String getDefaultRedirectorName()
     {

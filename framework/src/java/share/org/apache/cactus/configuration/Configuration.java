@@ -71,8 +71,8 @@ public interface Configuration
     String getContextURL();
 
     /**
-     * @return the {@link org.apache.cactus.client.ConnectionHelper} classname
-     *         to use for opening the HTTP connection
+     * @return the {@link org.apache.cactus.client.connector.ConnectionHelper} 
+     * classname to use for opening the HTTP connection
      */
     String getConnectionHelper();
 

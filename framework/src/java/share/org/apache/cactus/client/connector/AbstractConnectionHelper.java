@@ -54,7 +54,7 @@
  * <http://www.apache.org/>.
  *
  */
-package org.apache.cactus.client;
+package org.apache.cactus.client.connector;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -65,6 +65,7 @@ import java.util.Vector;
 
 import org.apache.cactus.Cookie;
 import org.apache.cactus.WebRequest;
+import org.apache.cactus.client.ClientException;
 import org.apache.commons.httpclient.Header;
 
 /**
