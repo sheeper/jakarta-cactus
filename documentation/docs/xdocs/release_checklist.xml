@@ -30,6 +30,10 @@
           Ensure that the Cactus web site is up to date with the new release.
         </li>
         <li>
+          Ensure you have added a news item for the new Cactus release on
+          the <link href="news.html">News/link> page.
+        </li>
+        <li>
           Edit the <code>build.xml</code> file for each Cactus subprojects and
           modify the <code>project.version</code> Ant property so that it
           reflects the version number for the release. Commit the changes.
