@@ -91,6 +91,14 @@ integration/eclipse/web
 /maven.log
 /misc
 /release
+samples/ejb/ant.bat
+samples/ejb/build.properties
+samples/ejb/dist-12
+samples/ejb/dist-13
+samples/ejb/release-12
+samples/ejb/release-13
+samples/ejb/target-12
+samples/ejb/target-13
 samples/jetty/ant.bat
 samples/jetty/build.properties
 samples/jetty/dist-12
