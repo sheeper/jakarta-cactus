@@ -323,8 +323,7 @@ class HttpClientHelper
             url = addParametersUsingGet(theRequest, url);
         }
 
-        HttpURLConnection connection =
-                (HttpURLConnection)url.openConnection();
+        HttpURLConnection connection = (HttpURLConnection)url.openConnection();
 
         connection.setDoInput(true);
 
