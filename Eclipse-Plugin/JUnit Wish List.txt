@@ -1,0 +1,8 @@
+Wish list for JUnit modifications to allow other plugins to extend it:
+
+- JUnit has a bug where in JUnitBaseLaunchConfiguration.launchTypes(), 
+  the VM arguments set in createVMRunner() are overwritten!
+  
+- API to expose:
+  - createVMRunner() to let extensions customize the VM configuration
+  
