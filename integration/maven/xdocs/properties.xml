@@ -167,12 +167,23 @@
           </td>
         </tr>
         <tr>
-          <td>cactus.war</td>
+          <td>cactus.src.war</td>
           <td>Yes</td>
           <td>
             <p>
               Location of war to cactify. Defaults to
               <code>${maven.build.dir}/${pom.artifactId}.war</code>.
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td>cactus.src.ejb</td>
+          <td>Yes</td>
+          <td>
+            <p>
+              Location of the EJB to test (for the test-ear goal only). 
+              Defaults to
+              <code>${maven.build.dir}/${pom.artifactId}-${pom.currentVersion}.jar</code>.
             </p>
           </td>
         </tr>

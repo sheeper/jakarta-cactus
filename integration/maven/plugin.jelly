@@ -77,7 +77,10 @@
 
     <ant:dirname property="cactus.war.dir" file="${cactus.war}"/>
     <ant:basename property="cactus.war.name" file="${cactus.war}"/>
-      
+
+    <ant:dirname property="cactus.ejb.dir" file="${cactus.src.ejb}"/>
+    <ant:basename property="cactus.ejb.name" file="${cactus.src.ejb}"/>
+     
     <j:set var="cactus.ear" 
         value="${maven.build.dir}/${pom.artifactId}-cactus.ear"/>
 
@@ -992,9 +995,6 @@
      ========================================================================
   -->
   <goal name="cactus:generate-ear-descriptor" prereqs="cactus:init">
-
-    <j:set var="cactus.ejb.dir" value="${maven.build.dir}"/>
-    <j:set var="cactus.ejb.name" value="${maven.final.name}.jar"/>
 
     <mkdir dir="${maven.build.dir}"/>
 
