@@ -76,7 +76,7 @@ import org.apache.commons.logging.LogFactory;
  * on the server side.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- * 			   <a href="mailto:ndlesiecki@apache.org>Nicholas Lesiecki</a>
+ *         <a href="mailto:ndlesiecki@apache.org>Nicholas Lesiecki</a>
  *
  * @version $Id$
  */
@@ -240,31 +240,36 @@ public abstract class AbstractWebServerTestCase
      * @exception Throwable any error that occurred when calling the test method
      *            for the current test case.
      */
-    private HttpURLConnection runWebTest(WebRequest theRequest, 
-        DefaultHttpClient theHttpClient) throws Throwable
+    private HttpURLConnection runWebTest(
+        WebRequest theRequest,
+        DefaultHttpClient theHttpClient)
+        throws Throwable
     {
         // Add the class name, the method name, to the request to simulate and
         // automatic session creation flag to the request
-		addCactusCommand(HttpServiceDefinition.CLASS_NAME_PARAM,
-						 this.getClass().getName(),
-						 theRequest);
-		addCactusCommand(HttpServiceDefinition.METHOD_NAME_PARAM,
-						 this.getCurrentTestMethod(), 
-						 theRequest);
-		addCactusCommand(HttpServiceDefinition.AUTOSESSION_NAME_PARAM,
-						 theRequest.getAutomaticSession() ? "true" : "false", 
-						 theRequest);
+        addCactusCommand(
+            HttpServiceDefinition.CLASS_NAME_PARAM,
+            this.getClass().getName(),
+            theRequest);
+        addCactusCommand(
+            HttpServiceDefinition.METHOD_NAME_PARAM,
+            this.getCurrentTestMethod(),
+            theRequest);
+        addCactusCommand(
+            HttpServiceDefinition.AUTOSESSION_NAME_PARAM,
+            theRequest.getAutomaticSession() ? "true" : "false",
+            theRequest);
 
-		theRequest.setUniqueId(generateUniqueId());
+        theRequest.setUniqueId(generateUniqueId());
 
         // Add the wrapped test if it is not equal to our current instance
         if (wrappingATest())
         {
-			addCactusCommand(HttpServiceDefinition.WRAPPED_CLASS_NAME_PARAM,
-							 wrappedTestName(), 
-							 theRequest);
+            addCactusCommand(
+                HttpServiceDefinition.WRAPPED_CLASS_NAME_PARAM,
+                wrappedTestName(),
+                theRequest);
         }
-        
         // Add the simulated URL (if one has been defined)
         if (theRequest.getURL() != null)
         {
@@ -279,45 +284,67 @@ public abstract class AbstractWebServerTestCase
         return connection;
     }
 
-	private String wrappedTestName()
-	{
-		return getWrappedTest().getClass().getName();
-	}
+    /**
+     * Shortcut to the wrappedTest's name.
+     */
+    private String wrappedTestName()
+    {
+        return getWrappedTest().getClass().getName();
+    }
 
-	private boolean wrappingATest() {
-		return getWrappedTest() != this;
-	}
+    /**
+     * Shortcut to determine wrapping of status.
+     */
+    private boolean wrappingATest()
+    {
+        return getWrappedTest() != this;
+    }
 
-	private String generateUniqueId() {
-		String id = "testCase:" +this.getClass().getName()+"_";
-		id += "testMethod:" + this.getCurrentTestMethod()+"_";
-		if(wrappingATest()){
-			id += "wrapping:"+wrappedTestName()+"_";
-		}
-		id += "thread:" + Thread.currentThread().toString()+"_";
-		id += "runtime_hash:" + Runtime.getRuntime().hashCode()+"_";
-		id += "client_ip:" + getIp()+"_";
-		id += "time:" + System.currentTimeMillis()+"_";
-		return id;
-	}
+    /**
+     * Generates a (possibly) unique id for this testcase.
+     */
+    private String generateUniqueId()
+    {
+        String id = "testCase:" + this.getClass().getName() + "_";
+        id += "testMethod:" + this.getCurrentTestMethod() + "_";
+        if (wrappingATest())
+        {
+            id += "wrapping:" + wrappedTestName() + "_";
+        }
+        id += "thread:" + Thread.currentThread().toString() + "_";
+        id += "runtime_hash:" + Runtime.getRuntime().hashCode() + "_";
+        id += "client_ip:" + getIp() + "_";
+        id += "time:" + System.currentTimeMillis() + "_";
+        return id;
+    }
 
-	private String getIp()
-	{
-		InetAddress thisIp;
-		try
-		{
-			thisIp = InetAddress.getLocalHost();
-		} catch (UnknownHostException e)
-		{
-			throw new ChainedRuntimeException(e);
-		}
-		return thisIp.getHostAddress(); 
-	}
+    /**
+     * Obtains the client machine's IP.
+     */
+    private String getIp()
+    {
+        InetAddress thisIp;
+        try
+        {
+            thisIp = InetAddress.getLocalHost();
+        }
+        catch (UnknownHostException e)
+        {
+            throw new ChainedRuntimeException(e);
+        }
+        return thisIp.getHostAddress();
+    }
 
-
-	private void addCactusCommand(String commandName, String commandValue, WebRequest theRequest) {
-		theRequest.addCactusCommand(commandName, commandValue);
-	}
+    /**
+     * Shortcut to addCactusCommand.
+     */
+    private void addCactusCommand(
+        String theCommandName,
+        String theCommandValue,
+        WebRequest theRequest)
+    {
+        theRequest.addCactusCommand(theCommandName, theCommandValue);
+    }
 
     /**
      * Runs a test case. This method is overriden from the JUnit

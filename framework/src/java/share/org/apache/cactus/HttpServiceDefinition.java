@@ -73,17 +73,19 @@ package org.apache.cactus;
  */
 public interface HttpServiceDefinition
 {
-	
-	String COMMAND = "Cactus_";
+    /**
+     * Prefix indicating that a String is an official Cactus command.
+     */
+    String COMMAND = "Cactus_";
 
-	/**
-	 * Name of the parameter in the HTTP request that represents the unique id
-	 * of the test case (to ensure that the client-side test gets the correct
-	 * results).
-	 */
+    /**
+     * Name of the parameter in the HTTP request that represents the unique id
+     * of the test case (to ensure that the client-side test gets the correct
+     * results).
+     */
     String TEST_ID = COMMAND + "UniqueId";
 
-	/**
+    /**
      * Name of the parameter in the HTTP request that represents the name of the
      * Test class to call. The name is voluntarily long so that it will not
      * clash with a user-defined parameter.

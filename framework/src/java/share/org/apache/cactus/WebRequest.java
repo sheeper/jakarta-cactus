@@ -77,9 +77,12 @@ import org.apache.cactus.util.ChainedRuntimeException;
  */
 public class WebRequest extends BaseWebRequest
 {
+    /**
+     * The unique identifier for this test case.
+     */
     private String uniqueId;
-
-	/**
+    
+    /**
      * The URL to simulate
      */
     private ServletURL url;
@@ -337,45 +340,51 @@ public class WebRequest extends BaseWebRequest
         return sessionCookie;
     }
 
-	/**
-	 * Adds a cactus-specific command to the URL
-	 * The URL is used to allow the user to send whatever he wants
-	 * in the request body. For example a file, ...
-	 */
-	public void addCactusCommand(String commandName, String commandValue)
-	{
-		if(!commandName.startsWith(HttpServiceDefinition.COMMAND))
-		{
-			throw new IllegalArgumentException("Cactus commands must begin with " +
-												HttpServiceDefinition.COMMAND + 
-												" offending command was " +
-												commandName);
-		}
-		addParameter(commandName, commandValue, GET_METHOD);
-	}
+    /**
+     * Adds a cactus-specific command to the URL
+     * The URL is used to allow the user to send whatever he wants
+     * in the request body. For example a file, ...
+     * 
+     * @param theCommandName The name of the command to add--must start with 
+     *                       "Cactus_"
+     * @param theCommandValue Value of the command
+     */
+    public void addCactusCommand(String theCommandName, String theCommandValue)
+    {
+        if (!theCommandName.startsWith(HttpServiceDefinition.COMMAND))
+        {
+            throw new IllegalArgumentException(
+                "Cactus commands must begin with "
+                    + HttpServiceDefinition.COMMAND
+                    + " offending command was "
+                    + theCommandName);
+        }
+        addParameter(theCommandName, theCommandValue, GET_METHOD);
+    }
 
-	/**
-	 * Sets the unique id of the test case. Also adds
-	 * a cactus command consisting of the id
-	 * to the actual HTTP request.
-	 */
-	public void setUniqueId(String uniqueId)
-	{
-		if(this.uniqueId != null){
-			throw new IllegalStateException("uniqueId already set!");
-		}
-		this.uniqueId = uniqueId;
-		addCactusCommand(HttpServiceDefinition.TEST_ID, uniqueId);
-	}
-	
-	/**
-	 * Gets the unique id of the test case. Also adds
-	 * a cactus command consisting of the id
-	 * to the actual HTTP request.
-	 */
-	public String getUniqueId()
-	{
-		return uniqueId;
-	}
+    /**
+     * Sets the unique id of the test case. Also adds
+     * a cactus command consisting of the id
+     * to the actual HTTP request.
+     * @param theUniqueId new uniqueId for the test case associated
+     *        with this request
+     */
+    public void setUniqueId(String theUniqueId)
+    {
+        if (this.uniqueId != null)
+        {
+            throw new IllegalStateException("uniqueId already set!");
+        }
+        this.uniqueId = theUniqueId;
+        addCactusCommand(HttpServiceDefinition.TEST_ID, theUniqueId);
+    }
+
+    /**
+     * @return Gets the unique id of the test case
+     */
+    public String getUniqueId()
+    {
+        return uniqueId;
+    }
 
 }
