@@ -101,13 +101,6 @@ public class Webapp
         new QualifiedName(WebappPlugin.getPluginId(), "dir");
 
     /**
-     * QualifiedName of the temporary directory property
-     * used for persistence of project properties. 
-     */
-    private QualifiedName tempDirQN =
-        new QualifiedName(WebappPlugin.getPluginId(), "tempDir");
-
-    /**
      * QualifiedName of the classpath property
      * used for persistence of project properties. 
      */
@@ -123,11 +116,6 @@ public class Webapp
      * Directory of the webapp relative to the user's project. 
      */
     private String dir;
-
-    /**
-     * Temporary directory for jars copy. 
-     */
-    private String tempDir;
 
     /**
      * Paths to the webapp libraries
@@ -183,7 +171,6 @@ public class Webapp
 
         if (output == null
             || dir == null
-            || tempDir == null
             || classpath == null)
         {
             loadDefaultValues();
@@ -203,7 +190,6 @@ public class Webapp
 
         this.output = theProject.getPersistentProperty(outputQN);
         this.dir = theProject.getPersistentProperty(dirQN);
-        this.tempDir = theProject.getPersistentProperty(tempDirQN);
         this.classpath = toClasspathEntryArray(
             theProject.getPersistentProperty(classpathQN));
     }
@@ -215,7 +201,6 @@ public class Webapp
     {
         this.output = System.getProperty("java.io.tmpdir") + "webapp.war";
         this.dir = "src" + File.separator + "webapp";
-        this.tempDir = System.getProperty("java.io.tmpdir");
 
         try
         {
@@ -236,7 +221,6 @@ public class Webapp
         IProject project = javaProject.getProject();
         project.setPersistentProperty(outputQN, output);
         project.setPersistentProperty(dirQN, dir);
-        project.setPersistentProperty(tempDirQN, tempDir);
         project.setPersistentProperty(classpathQN, toString(classpath));
     }
 
@@ -307,15 +291,6 @@ public class Webapp
     }
 
     /**
-     * Sets the temporary directory.
-     * @param theTempDir The temporary dir to set
-     */
-    public void setTempDir(String theTempDir)
-    {
-        this.tempDir = theTempDir;
-    }
-
-    /**
      * Sets the output.
      * @param theOutput The output to set
      */
@@ -352,14 +327,6 @@ public class Webapp
         }
         IPath projectPath = javaProject.getProject().getLocation();
         return projectPath.append(dir).toFile();
-    }
-
-    /**
-     * @return String temporary directory for jar copy
-     */
-    public String getTempDir()
-    {
-        return this.tempDir;
     }
 
     /**
