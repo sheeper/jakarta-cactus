@@ -48,6 +48,14 @@
     </devs>
 
     <release version="1.5" date="- in CVS">
+      <action dev="VMA" type="fix" due-to="Dave Hoover" due-to-email="dave@redsquirrel.com">
+        The encoding in the sample <code>junit-noframes</code> XSL 
+        stylesheet was set to be "US-ASCII". It is now set to "UTF-8". 
+        Apparently, XSLT processors are only required to support utf-8 
+        and utf-16, the rest is processor specific. For example your 
+        processor might spupport US-ASCII-7 and others might support 
+        US-ASCII. Thanks to Robert Koberg for the explanation!
+      </action>
       <action dev="VMA" type="add">
         Added support for client side <code>begin(...)</code>
         and <code>end(...)</code> methods. They are called on the
