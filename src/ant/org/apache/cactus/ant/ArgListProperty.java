@@ -53,29 +53,34 @@
  */
 package org.apache.commons.cactus.ant;
 
-import java.io.*;
-import java.util.*;
-import java.text.*;
-import java.net.*;
-
-import org.apache.tools.ant.*;
-import org.apache.tools.ant.taskdefs.*;
-import org.apache.tools.ant.types.*;
-
 /**
- * Placeholder for properties to check
+ * Placeholder for a property's name.
+ *
+ * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
+ *
+ * @version $Id$
+ * @see ArgListTask
  */
 public class ArgListProperty
 {
-    private String m_Name;
+    /**
+     * Name of the property
+     */
+    private String name;
 
+    /**
+     * @param theName the property's name
+     */
     public void setName(String theName)
     {
-        m_Name = theName;
+        this.name = theName;
     }
 
+    /**
+     * @return the property's name
+     */
     public String getName()
     {
-        return m_Name;
+        return this.name;
     }
 }

@@ -53,14 +53,9 @@
  */
 package org.apache.commons.cactus.ant;
 
-import java.io.*;
 import java.util.*;
-import java.text.*;
-import java.net.*;
 
 import org.apache.tools.ant.*;
-import org.apache.tools.ant.taskdefs.*;
-import org.apache.tools.ant.types.*;
 
 /**
  * Compute a string (returned as an Ant property) that contains a list of
@@ -82,27 +77,29 @@ import org.apache.tools.ant.types.*;
  * <br>
  * will print "<code>-Dproperty1=value1 -Dproperty3=value3</code>".
  *
- * @version @version@
+ * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
+ *
+ * @version $Id$
  */
 public class ArgListTask extends Task
 {
     /**
      * List of Ant properties to check for inclusing in the arg list
      */
-    private Vector m_Properties = new Vector();
+    private Vector properties = new Vector();
 
     /**
      * Name of Ant property that will be set and which will contain the arg
      * list
      */
-    private String m_NewProperty;
+    private String newProperty;
 
     /**
      * Add a new property to the list of properties to check
      */
     public void addProperty(ArgListProperty theProperty)
     {
-        m_Properties.addElement(theProperty);
+        this.properties.addElement(theProperty);
     }
 
     /**
@@ -110,7 +107,7 @@ public class ArgListTask extends Task
      */
     public void setProperty(String theNewProperty)
     {
-        m_NewProperty = theNewProperty;
+        this.newProperty = theNewProperty;
     }
 
     /**
@@ -123,10 +120,11 @@ public class ArgListTask extends Task
         boolean isEmpty = true;
 
         // Build the arg list ("-D" separated string).
-        Enumeration args = m_Properties.elements();
+        Enumeration args = this.properties.elements();
         while (args.hasMoreElements()) {
 
-            String propertyName = ((ArgListProperty)args.nextElement()).getName();
+            String propertyName =
+                ((ArgListProperty)args.nextElement()).getName();
 
             // Check if this property is defined
             String value = getProject().getProperty(propertyName);
@@ -147,7 +145,7 @@ public class ArgListTask extends Task
         }
 
         // Set the new property
-        getProject().setProperty(m_NewProperty, argBuffer.toString());
+        getProject().setProperty(this.newProperty, argBuffer.toString());
     }
 
 }
