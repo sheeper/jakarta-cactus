@@ -167,7 +167,8 @@ public class HttpClientConnectionHelper extends AbstractConnectionHelper
         // Open the connection and get the result
         HttpClient client = new HttpClient();
 
-        client.startSession(url.getHost(), url.getPort());
+        client.startSession(url.getHost(), url.getPort(), 
+            url.getProtocol().equalsIgnoreCase("HTTPS"));
         client.executeMethod(this.method);
 
         // Wrap the HttpClient method in a java.net.HttpURLConnection object
