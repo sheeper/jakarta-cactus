@@ -720,11 +720,18 @@
       <h2>
         <xsl:value-of select="$software"/><xsl:text> </xsl:text>
         <xsl:value-of select="@version"/>
-        <xsl:if test="@date">
-          <xsl:text> (released on </xsl:text>
-          <xsl:value-of select="@date"/>
-          <xsl:text>)</xsl:text>
-        </xsl:if>
+        <xsl:choose>
+          <xsl:when test="contains(@date, 'CVS')">
+            <xsl:text> (in CVS)</xsl:text>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:if test="@date">
+              <xsl:text> (released on </xsl:text>
+              <xsl:value-of select="@date"/>
+              <xsl:text>)</xsl:text>
+            </xsl:if>            
+          </xsl:otherwise>
+        </xsl:choose>
       </h2>
       <ul class="changes">
         <xsl:apply-templates select="action"/>
