@@ -135,6 +135,27 @@
           class for all details. You should also look at the
           samples provided in the Cactus distribution.
         </p>
+
+        <s3 title="Additional methods">
+
+          <p>
+            Additional methods provided:
+          </p>
+          <ul>
+            <li>
+              <code>setInitParameter()</code>: sets an initialisation
+              parameter (as if it has been defined in the <code>web.xml</code>
+              file),
+            </li>
+            <li>
+              <code>setFilterName()</code>: sets the Filter name that will be
+              returned by <code>getFilterName()</code> (if not set, the
+              Cactus Filter redirector name will be returned).
+            </li>
+          </ul>
+
+        </s3>
+
       </s2>
 
       <anchor id="filter_filterChain"/>
