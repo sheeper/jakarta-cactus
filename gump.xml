@@ -212,7 +212,6 @@
       <depend property="nekohtml.jar" project="nekohtml" id="nekohtml"/>
       <depend property="xerces.jar" project="xml-xerces" id="parser"/>
       <depend property="xmlapis.jar" project="xml-xerces" id="apis"/>
-      <depend property="tidy.jar" project="jtidy"/>
 
     </ant>
   
@@ -267,7 +266,6 @@
       <depend property="nekohtml.jar" project="nekohtml" id="nekohtml"/>
       <depend property="xerces.jar" project="xml-xerces" id="parser"/>
       <depend property="xmlapis.jar" project="xml-xerces" id="apis"/>
-      <depend property="tidy.jar" project="jtidy"/>
 
     </ant>
   
@@ -422,6 +420,7 @@
         id="jstl"/>
       <depend property="standard.jar" project="jakarta-taglibs-standard"
         id="standard"/>
+      <depend property="nekohtml.jar" project="nekohtml" id="nekohtml"/>
       <depend property="cactus.framework.jar" 
         project="jakarta-cactus-framework-12"/>
       <depend property="cactus.anttasks.jar" 
@@ -487,6 +486,7 @@
         id="jstl"/>
       <depend property="standard.jar" project="jakarta-taglibs-standard"
         id="standard"/>
+      <depend property="nekohtml.jar" project="nekohtml" id="nekohtml"/>
       <depend property="cactus.framework.jar" 
         project="jakarta-cactus-framework-13"/>
       <depend property="cactus.anttasks.jar" 
