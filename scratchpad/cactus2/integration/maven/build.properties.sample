@@ -1,0 +1,18 @@
+# -----------------------------------------------------------------------------
+# Environment-dependent properties. Create a copy of this file and
+# name if build.properties. Then edit the file and tune it to match your
+# environment.
+#
+# $Id: build.properties.sample,v 1.1 2003/11/08 16:46:45 vmassol Exp $
+# -----------------------------------------------------------------------------
+
+# Properties required to upload the Cactus plugin web site
+maven.username = vmassol
+maven.ssh.executable = tortoiseplink
+maven.scp.executable = pscp
+
+# (optional). Properties to use if you're behind a firewall
+#maven.proxy.host = 
+#maven.proxy.port = 
+#maven.proxy.username = 
+#maven.proxy.password =

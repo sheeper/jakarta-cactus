@@ -1,0 +1,7 @@
+<project
+  xmlns:j="jelly:core"
+  xmlns:maven="jelly:maven">
+
+  <goal name="dist" prereqs="clean,cactus2:test-war"/>
+  
+</project>

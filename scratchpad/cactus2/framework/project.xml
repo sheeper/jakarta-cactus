@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project>
+  <extend>${basedir}/../default-project.xml</extend>
+  <id>cactus2-framework</id>
+  <name>Cactus2 Framework</name>
+  <package>org.apache.cactus.framework</package>
+  <description>Cactus2 Framework</description>
+  <shortDescription>Cactus2 Framework</shortDescription>
+  <url>http://jakarta.apache.org/cactus/${pom.currentVersion}/framework/</url>
+  <siteDirectory>/www/jakarta.apache.org/cactus/${pom.currentVersion}/framework/</siteDirectory>
+  <repository>
+    <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-cactus2/framework/</connection>
+    <url>http://cvs.apache.org/viewcvs/jakarta-cactus2/framework</url>
+  </repository>
+</project>
