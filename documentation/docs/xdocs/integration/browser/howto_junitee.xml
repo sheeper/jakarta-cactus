@@ -23,7 +23,7 @@
 
       <p>
         You can use the
-        <link href="http://junitee.sourceforge.net">JUnitEE</link> user
+        <link href="ext:junitee">JUnitEE</link> user
         interface to run your all your tests inside the Container. JUnitEE is
         a JUnit TestRunner that has been written as a servlet with the user
         interface in HTML format.
@@ -80,10 +80,9 @@
     <section title="How to install JUnitEE">
 
       <p>
-        Download the
-        <link href="http://junitee.sourceforge.net">JUnitEE</link>
-        zip-file. Add a reference to junitee.jar to your Container classpath.
-        Add also references to
+        Download the <link href="ext:junitee">JUnitEE</link>
+        zip-file. Add a reference to <code>junitee.jar</code> to your Container
+        classpath. Add also references to
         <code>junit.jar</code>,
         <code>httpunit.jar</code>
         <code>cactus.jar</code> and
