@@ -53,10 +53,7 @@
  */
 package org.apache.cactus.sample;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-import java.io.*;
-import java.util.*;
+import javax.servlet.http.HttpServlet;
 
 /**
  * Sample servlet to show how to unit test a servlet that makes calls to

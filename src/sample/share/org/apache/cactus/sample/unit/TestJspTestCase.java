@@ -53,16 +53,15 @@
  */
 package org.apache.cactus.sample.unit;
 
-import java.util.*;
-import java.text.*;
-import javax.servlet.*;
-import javax.servlet.http.*;
-import java.net.*;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
-import junit.framework.*;
+import junit.framework.Test;
+import junit.framework.TestSuite;
 
-import org.apache.cactus.*;
+import org.apache.cactus.JspTestCase;
+import org.apache.cactus.WebResponse;
 
 /**
  * Cactus unit tests for testing <code>JspTestCase</code>.
@@ -96,7 +95,7 @@ public class TestJspTestCase extends JspTestCase
      */
     public static void main(String[] theArgs)
     {
-        junit.ui.TestRunner.main(new String[] {
+        junit.ui.TestRunner.main(new String[]{
             TestJspTestCase.class.getName()});
     }
 
@@ -134,7 +133,7 @@ public class TestJspTestCase extends JspTestCase
         while (null != ((str = input.readLine()))) {
             sb.append(str);
         }
-        input.close ();
+        input.close();
 
         assertEquals("some text sent back using out", sb.toString());
     }

@@ -53,10 +53,11 @@
  */
 package org.apache.cactus.server;
 
-import java.io.*;
-
-import javax.servlet.*;
-import javax.servlet.http.*;
+import java.io.IOException;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 
 /**
  * Wrapper around <code>RequestDispatcher</code> which overrides the
@@ -72,7 +73,7 @@ public class RequestDispatcherWrapper implements RequestDispatcher
     /**
      * The original request dispatcher object
      */
-     private RequestDispatcher originalDispatcher;
+    private RequestDispatcher originalDispatcher;
 
     /**
      * @param theOriginalDispatcher the original request dispatcher object
@@ -94,7 +95,7 @@ public class RequestDispatcherWrapper implements RequestDispatcher
         throws IOException, ServletException
     {
         HttpServletRequestWrapper request =
-            (HttpServletRequestWrapper)theRequest;
+            (HttpServletRequestWrapper) theRequest;
         this.originalDispatcher.forward(request.getOriginalRequest(),
             theResponse);
     }
@@ -111,7 +112,7 @@ public class RequestDispatcherWrapper implements RequestDispatcher
         throws IOException, ServletException
     {
         HttpServletRequestWrapper request =
-            (HttpServletRequestWrapper)theRequest;
+            (HttpServletRequestWrapper) theRequest;
         this.originalDispatcher.include(request.getOriginalRequest(),
             theResponse);
     }

@@ -53,10 +53,10 @@
  */
 package org.apache.cactus.sample;
 
-import java.util.*;
-import javax.servlet.jsp.*;
-import javax.servlet.jsp.tagext.*;
-import java.io.*;
+import java.io.IOException;
+import javax.servlet.jsp.JspTagException;
+import javax.servlet.jsp.JspWriter;
+import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /**
  * Sample tag that interacts with its body. The tag acts as a filter for its
@@ -72,14 +72,14 @@ public class SampleBodyTag extends BodyTagSupport
     /**
      * The substring to be replaced in the body.
      */
-    private String target;    
+    private String target;
 
     /**
      * The substring that will replace the target in the body.
      */
     private String replacement;
 
-    /** 
+    /**
      * Sets the substring to be replaced in the body.
      *
      * @param theTarget the substring to be replaced in the body
@@ -88,48 +88,48 @@ public class SampleBodyTag extends BodyTagSupport
     {
         this.target = theTarget;
     }
-    
-    /** 
+
+    /**
      * Sets the substring that will replace the target in the body.
      */
-    public void setReplacement(String theReplacement) 
+    public void setReplacement(String theReplacement)
     {
         this.replacement = theReplacement;
     }
-    
+
     /**
      * Performs the replacement.
-     */ 
+     */
     public int doAfterBody() throws JspTagException
     {
         String contentString = this.bodyContent.getString();
         StringBuffer contentBuffer = new StringBuffer(contentString);
-        
+
         int beginIndex = -1;
         int targetLength = this.target.length();
-        
+
         // while instances of target still exist
-        while ((beginIndex = contentString.indexOf(this.target)) > -1){
-            
+        while ((beginIndex = contentString.indexOf(this.target)) > -1) {
+
             int endIndex = beginIndex + targetLength;
             contentBuffer.replace(beginIndex, endIndex, this.replacement);
-            
+
             contentString = contentBuffer.toString();
         }
-        
+
         // write out the changed body
         JspWriter pageWriter = this.bodyContent.getEnclosingWriter();
         try {
-            
+
             pageWriter.write(contentString);
-        
-        } catch (IOException e){
+
+        } catch (IOException e) {
             throw new JspTagException(e.getMessage());
         }
-        
+
         return SKIP_BODY;
     }
-    
+
     public void release()
     {
         this.target = null;

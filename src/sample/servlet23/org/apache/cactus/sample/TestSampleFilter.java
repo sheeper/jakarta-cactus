@@ -53,17 +53,20 @@
  */
 package org.apache.cactus.sample;
 
-import java.util.*;
-import java.text.*;
-import java.net.*;
-import java.io.*;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 
-import javax.servlet.*;
+import junit.framework.Test;
+import junit.framework.TestSuite;
 
-import junit.framework.*;
-
-import org.apache.cactus.*;
-import org.apache.cactus.util.*;
+import org.apache.cactus.FilterTestCase;
+import org.apache.cactus.WebResponse;
 
 /**
  * Tests of the <code>SampleFilter</code> filter class.
@@ -91,7 +94,7 @@ public class TestSampleFilter extends FilterTestCase
      */
     public static void main(String[] theArgs)
     {
-        junit.ui.TestRunner.main(new String[] {
+        junit.ui.TestRunner.main(new String[]{
             TestSampleFilter.class.getName()});
     }
 
@@ -190,7 +193,8 @@ public class TestSampleFilter extends FilterTestCase
         config.setInitParameter("footer", "<h1>footer</h1>");
         filter.init(config);
 
-        FilterChain mockFilterChain = new FilterChain() {
+        FilterChain mockFilterChain = new FilterChain()
+        {
             public void doFilter(ServletRequest theRequest,
                 ServletResponse theResponse) throws IOException, ServletException
             {
@@ -198,9 +202,11 @@ public class TestSampleFilter extends FilterTestCase
                 writer.print("<p>some content</p>");
                 writer.close();
             }
+
             public void init(FilterConfig theConfig)
             {
             }
+
             public void destroy()
             {
             }

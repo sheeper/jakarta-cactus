@@ -53,15 +53,17 @@
  */
 package org.apache.cactus.sample;
 
-import java.util.*;
-import java.text.*;
-import java.net.*;
-import java.io.*;
+import java.io.IOException;
+import java.net.URLDecoder;
+import java.util.Hashtable;
 
-import junit.framework.*;
+import junit.framework.Test;
+import junit.framework.TestSuite;
 
-import org.apache.cactus.*;
-import org.apache.cactus.util.*;
+import org.apache.cactus.Cookie;
+import org.apache.cactus.ServletTestCase;
+import org.apache.cactus.WebRequest;
+import org.apache.cactus.WebResponse;
 
 /**
  * Tests of the <code>SampleServlet</code> servlet class.
@@ -89,7 +91,7 @@ public class TestSampleServlet extends ServletTestCase
      */
     public static void main(String[] theArgs)
     {
-        junit.ui.TestRunner.main(new String[] {
+        junit.ui.TestRunner.main(new String[]{
             TestSampleServlet.class.getName()});
     }
 
@@ -270,7 +272,7 @@ public class TestSampleServlet extends ServletTestCase
         Hashtable cookies = servlet.getRequestCookies(request);
 
         assert("Cannot find [testcookie] cookie in request",
-                cookies.get("testcookie") != null);
+            cookies.get("testcookie") != null);
         assertEquals("thisisacookie", cookies.get("testcookie"));
     }
 
@@ -387,7 +389,7 @@ public class TestSampleServlet extends ServletTestCase
 
     /**
      * Verify that we can use a <code>RequestDispatcher</code> in the class to
-     * test to forward to another page and compare the result sent to the 
+     * test to forward to another page and compare the result sent to the
      * output stream on the client side.
      */
     public void testRequestDispatcherForward() throws Exception
@@ -398,7 +400,7 @@ public class TestSampleServlet extends ServletTestCase
 
     /**
      * Verify that we can use a <code>RequestDispatcher</code> in the class to
-     * test to forward to another page and compare the result sent to the 
+     * test to forward to another page and compare the result sent to the
      * output stream on the client side.
      *
      * @param theResponse the response from the server side.
@@ -418,7 +420,7 @@ public class TestSampleServlet extends ServletTestCase
 
     /**
      * Verify that we can use a <code>RequestDispatcher</code> in the class to
-     * test to include another page and compare the result sent to the 
+     * test to include another page and compare the result sent to the
      * output stream on the client side.
      */
     public void testRequestDispatcherInclude() throws Exception
@@ -429,7 +431,7 @@ public class TestSampleServlet extends ServletTestCase
 
     /**
      * Verify that we can use a <code>RequestDispatcher</code> in the class to
-     * test to include another page and compare the result sent to the 
+     * test to include another page and compare the result sent to the
      * output stream on the client side.
      *
      * @param theResponse the response from the server side.

@@ -53,16 +53,9 @@
  */
 package org.apache.cactus.sample.unit;
 
-import java.util.*;
-import java.text.*;
-import javax.servlet.*;
-import javax.servlet.http.*;
-import java.net.*;
-import java.io.*;
-
-import junit.framework.*;
-
-import org.apache.cactus.*;
+import junit.framework.AssertionFailedError;
+import junit.framework.Test;
+import junit.framework.TestSuite;
 
 /**
  * Cactus unit tests for testing exception handling of
@@ -104,7 +97,7 @@ public class TestServletTestCase5
      */
     public static void main(String[] theArgs)
     {
-        junit.ui.TestRunner.main(new String[] {
+        junit.ui.TestRunner.main(new String[]{
             TestServletTestCase5.class.getName()});
     }
 

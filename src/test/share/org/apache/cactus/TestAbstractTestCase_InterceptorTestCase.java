@@ -53,13 +53,12 @@
  */
 package org.apache.cactus;
 
-import java.net.*;
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.net.URL;
 
-import junit.framework.*;
+import junit.framework.AssertionFailedError;
 
-import org.apache.cactus.*;
-import org.apache.cactus.mock.*;
+import org.apache.cactus.mock.MockHttpURLConnection;
 
 /**
  * Test <code>TestCase</code> class that intercepts all exceptions (and assert
@@ -95,8 +94,8 @@ public class TestAbstractTestCase_InterceptorTestCase
     /**
      * Intercepts running test cases to check for normal exceptions.
      */
-     protected void runTest() throws Throwable
-     {
+    protected void runTest() throws Throwable
+    {
         try {
             // Call the begin method
             WebRequest request = new WebRequest();
@@ -240,5 +239,5 @@ public class TestAbstractTestCase_InterceptorTestCase
 
         }
 
-     }
+    }
 }

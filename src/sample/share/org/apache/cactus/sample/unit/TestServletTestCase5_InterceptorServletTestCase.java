@@ -53,10 +53,7 @@
  */
 package org.apache.cactus.sample.unit;
 
-import junit.framework.*;
-
-import org.apache.cactus.client.*;
-import org.apache.cactus.*;
+import org.apache.cactus.ServletTestCase;
 
 /**
  * Helper class for the <code>TestServletTestCase5</code> tests. It is used to
@@ -85,8 +82,8 @@ public class TestServletTestCase5_InterceptorServletTestCase
     /**
      * Intercepts running test cases to check for normal exceptions.
      */
-     protected void runTest() throws Throwable
-     {
+    protected void runTest() throws Throwable
+    {
         try {
             super.runTest();
         } catch (Throwable e) {
@@ -95,5 +92,5 @@ public class TestServletTestCase5_InterceptorServletTestCase
 
         }
 
-     }
+    }
 }

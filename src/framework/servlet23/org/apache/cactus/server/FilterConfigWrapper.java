@@ -53,13 +53,11 @@
  */
 package org.apache.cactus.server;
 
-import java.util.*;
-import java.io.*;
-import java.security.*;
-import java.net.*;
-
-import javax.servlet.*;
-import javax.servlet.http.*;
+import java.util.Enumeration;
+import java.util.Hashtable;
+import java.util.Vector;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletContext;
 
 /**
  * Wrapper around <code>FilterConfig</code> which overrides the
@@ -158,14 +156,14 @@ public class FilterConfigWrapper implements FilterConfig
         // Add parameters that were added using setInitParameter()
         Enumeration enum = this.initParameters.keys();
         while (enum.hasMoreElements()) {
-            String value = (String)enum.nextElement();
+            String value = (String) enum.nextElement();
             names.add(value);
         }
 
         // Add parameters from web.xml
         enum = this.originalConfig.getInitParameterNames();
         while (enum.hasMoreElements()) {
-            String value = (String)enum.nextElement();
+            String value = (String) enum.nextElement();
             if (!names.contains(value)) {
                 names.add(value);
             }
@@ -184,7 +182,7 @@ public class FilterConfigWrapper implements FilterConfig
     {
         // Look first in the list of parameters set using the
         // setInitParameter() method.
-        String value = (String)this.initParameters.get(theName);
+        String value = (String) this.initParameters.get(theName);
         if (value == null) {
             value = this.originalConfig.getInitParameter(theName);
         }

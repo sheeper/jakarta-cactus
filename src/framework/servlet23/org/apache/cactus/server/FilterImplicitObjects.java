@@ -53,8 +53,8 @@
  */
 package org.apache.cactus.server;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
 
 /**
  * Holder class that contains the instances of the implicit objects that will

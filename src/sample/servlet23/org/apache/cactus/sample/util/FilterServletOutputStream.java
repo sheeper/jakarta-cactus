@@ -53,8 +53,10 @@
  */
 package org.apache.cactus.sample.util;
 
-import javax.servlet.*;
-import java.io.*;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import javax.servlet.ServletOutputStream;
 
 /**
  * Helper class to help write filters that manipulates the output stream. This

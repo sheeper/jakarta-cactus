@@ -53,9 +53,9 @@
  */
 package org.apache.cactus.mock;
 
-import java.net.*;
-import java.io.*;
-import java.util.*;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 /**
  * Mock implementation of <code>HttpURLConnection</code>.

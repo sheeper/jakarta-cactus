@@ -53,10 +53,13 @@
  */
 package org.apache.cactus.sample;
 
-import java.util.*;
-import javax.servlet.jsp.*;
-import javax.servlet.jsp.tagext.*;
-import java.io.*;
+import java.io.IOException;
+import java.util.Enumeration;
+import javax.servlet.jsp.JspTagException;
+import javax.servlet.jsp.JspWriter;
+import javax.servlet.jsp.PageContext;
+import javax.servlet.jsp.tagext.Tag;
+import javax.servlet.jsp.tagext.TagSupport;
 
 /**
  * Sample tag that implements simple tag logic.
@@ -71,12 +74,12 @@ public class SampleTag extends TagSupport
      * Determines whether the tag's body should be shown.
      */
     private boolean showBody;
-    
+
     /**
      * Determines whether page should continue after the tag.
      */
     private boolean stopPage;
-    
+
     /** Determines whether the tag's body should be shown.
      * @param showBody a String equaling 'true' will be taken as
      *                 <code>true</code>. Anything else will be
@@ -87,7 +90,7 @@ public class SampleTag extends TagSupport
         showBody = showBody.toLowerCase();
         this.showBody = "true".equals(showBody);
     }
-    
+
     /** Determines whether page should stop after the tag.
      * @param showBody a String equaling 'true' will be taken as
      *                 <code>true</code>. Anything else will be
@@ -97,7 +100,7 @@ public class SampleTag extends TagSupport
     {
         this.stopPage = "true".equals(stopPage);
     }
-    
+
     /**
      * Prints the names and values of everything in page scope to the response,
      * along with the body (if showBody is set to <code>true</code>).
@@ -105,35 +108,34 @@ public class SampleTag extends TagSupport
     public int doStartTag() throws JspTagException
     {
         Enumeration names =
-                   pageContext.getAttributeNamesInScope(PageContext.PAGE_SCOPE);
-        
+            pageContext.getAttributeNamesInScope(PageContext.PAGE_SCOPE);
+
         JspWriter out = pageContext.getOut();
-        
+
         try {
-            
+
             out.println("The following attributes exist in page scope: <BR>");
-            
+
             while (names.hasMoreElements()) {
-                String name = (String)names.nextElement();
+                String name = (String) names.nextElement();
                 Object attribute = pageContext.getAttribute(name);
-                
+
                 out.println(name + " = " + attribute + " <BR>");
             }
-            
-            
+
             if (this.showBody) {
-                
+
                 out.println("Body Content Follows: <BR>");
                 return EVAL_BODY_INCLUDE;
             }
-            
+
         } catch (IOException e) {
             throw new JspTagException(e.getMessage());
         }
-        
+
         return SKIP_BODY;
     }
-    
+
     /**
      * Does two things:
      * <ul>
@@ -145,23 +147,23 @@ public class SampleTag extends TagSupport
     {
         //get the parent if any
         Tag parent = this.getParent();
-        
+
         if (parent != null) {
             try {
                 JspWriter out = this.pageContext.getOut();
                 out.println("This tag has a parent. <BR>");
-                
+
             } catch (IOException e) {
                 throw new JspTagException(e.getMessage());
             }
         }
-     
-        if (this.stopPage){
-            
+
+        if (this.stopPage) {
+
             return Tag.SKIP_PAGE;
         }
-        
+
         return Tag.EVAL_PAGE;
     }
-    
+
 }

@@ -53,7 +53,7 @@
  */
 package org.apache.cactus.sample.unit;
 
-import java.io.*;
+import java.io.Serializable;
 
 /**
  * Used by <code>TestServletTestCase1</code> to test the case where

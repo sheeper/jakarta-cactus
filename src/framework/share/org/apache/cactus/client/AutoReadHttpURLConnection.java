@@ -90,7 +90,7 @@ final class AutoReadHttpURLConnection extends HttpURLConnection
     /**
      * The logger
      */
-    private static final Log logger =
+    private static final Log LOGGER =
         LogService.getInstance().
         getLog(AutoReadHttpURLConnection.class.getName());
 
@@ -126,7 +126,7 @@ final class AutoReadHttpURLConnection extends HttpURLConnection
         // Catch IOException to log the content of the error stream
         try {
             if (this.streamBuffer == null) {
-                logger.debug("Original connection = " + this.delegate);
+                LOGGER.debug("Original connection = " + this.delegate);
                 InputStream is = this.delegate.getInputStream();
                 this.streamBuffer = bufferInputStream(is);
             }
@@ -146,7 +146,7 @@ final class AutoReadHttpURLConnection extends HttpURLConnection
                 new InputStreamReader(theErrorStream));
             String buffer;
             while ((buffer = errorStream.readLine()) != null) {
-                logger.debug("ErrorStream [" + buffer + "]");
+                LOGGER.debug("ErrorStream [" + buffer + "]");
             }
         }
     }
@@ -172,7 +172,7 @@ final class AutoReadHttpURLConnection extends HttpURLConnection
         // that all servers that return no content-length header also do
         // not block on read() operations !
 
-        logger.debug("Content-Length : [" +
+        LOGGER.debug("Content-Length : [" +
             this.delegate.getContentLength() + "]");
 
         if (this.delegate.getContentLength() != 0) {
@@ -228,7 +228,7 @@ final class AutoReadHttpURLConnection extends HttpURLConnection
             prefix.append(" ...] [... ");
         }
 
-        logger.debug("Read [" + theCount + "]: [" + prefix + suffix + "]");
+        LOGGER.debug("Read [" + theCount + "]: [" + prefix + suffix + "]");
     }
 
     // Delegated methods

@@ -53,10 +53,17 @@
  */
 package org.apache.cactus.sample;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-import java.io.*;
-import java.util.*;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Hashtable;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Sample servlet that implement some very simple business logic. The goal is
@@ -193,8 +200,8 @@ public class SampleServlet extends HttpServlet
      *
      * @param theResponse the HTTP response
      */
-     public void setResponseCookie(HttpServletResponse theResponse)
-     {
+    public void setResponseCookie(HttpServletResponse theResponse)
+    {
         Cookie cookie = new Cookie("responsecookie",
             "this is a response cookie");
         cookie.setDomain("jakarta.apache.org");

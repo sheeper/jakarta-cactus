@@ -53,14 +53,14 @@
  */
 package org.apache.cactus.sample;
 
-import java.util.*;
-import java.io.*;
-import javax.servlet.jsp.*;
-import javax.servlet.jsp.tagext.*;
-import junit.framework.*;
+import javax.servlet.jsp.tagext.BodyContent;
+import javax.servlet.jsp.tagext.BodyTag;
 
-import org.apache.cactus.*;
-import org.apache.cactus.util.*;
+import junit.framework.Test;
+import junit.framework.TestSuite;
+
+import org.apache.cactus.JspTestCase;
+import org.apache.cactus.WebResponse;
 
 /**
  * Tests of the <code>SampleBodyTag</code> class.
@@ -88,7 +88,7 @@ public class TestSampleBodyTag extends JspTestCase
      */
     public static void main(String[] theArgs)
     {
-        junit.ui.TestRunner.main(new String[] {
+        junit.ui.TestRunner.main(new String[]{
             TestSampleBodyTag.class.getName()});
     }
 
@@ -105,8 +105,9 @@ public class TestSampleBodyTag extends JspTestCase
     //-------------------------------------------------------------------------
 
     private SampleBodyTag tag;
+
     private BodyContent tagContent;
-    
+
     /**
      * In addition to creating the tag instance and adding the pageContext to
      * it, this method creates a BodyContent object and passes it to the tag.
@@ -115,7 +116,7 @@ public class TestSampleBodyTag extends JspTestCase
     {
         this.tag = new SampleBodyTag();
         this.tag.setPageContext(this.pageContext);
-        
+
         //create the BodyContent object and call the setter on the tag instance
         this.tagContent = this.pageContext.pushBody();
         this.tag.setBodyContent(this.tagContent);
@@ -132,38 +133,38 @@ public class TestSampleBodyTag extends JspTestCase
         //set the target and the String to replace it with
         this.tag.setTarget("@target@");
         this.tag.setReplacement("replacement");
-        
+
         //add the tag's body by writing to the BodyContent object created in
         //setUp()
         this.tagContent.println("@target@ is now @target@");
         this.tagContent.println("@target@_@target@");
-        
-        //none of the other life cycle methods need to be implemented, so they 
+
+        //none of the other life cycle methods need to be implemented, so they
         //do not need to be called.
         int result = this.tag.doAfterBody();
         assertEquals(BodyTag.SKIP_BODY, result);
-        
+
     }
-    
+
     public void tearDown()
-    {    
+    {
         //necessary for tag to output anything on most servlet engines.
         this.pageContext.popBody();
     }
-    
+
     /**
-     * Verifies that the target String has indeed been replaced in the tag's 
+     * Verifies that the target String has indeed been replaced in the tag's
      * body.
      */
     public void endReplacement(WebResponse theResponse)
     {
         String content = theResponse.getText();
-              
+
         assert("Response should have contained the [" +
             "replacement is now replacement] string",
             content.indexOf("replacement is now replacement") > -1);
         assert("Response should have contained the [" +
             "replacement_replacement] string", content.indexOf("replacement") > -1);
     }
-    
+
 }

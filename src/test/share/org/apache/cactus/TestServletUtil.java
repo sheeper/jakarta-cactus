@@ -53,10 +53,12 @@
  */
 package org.apache.cactus;
 
-import junit.framework.*;
+import junit.framework.Test;
+import junit.framework.TestCase;
+import junit.framework.TestSuite;
 
-import org.apache.cactus.util.log.*;
 import org.apache.cactus.server.ServletUtil;
+import org.apache.cactus.util.log.LogService;
 
 /**
  * Unit tests of the <code>ServletUtil</code> class.
@@ -68,7 +70,8 @@ import org.apache.cactus.server.ServletUtil;
 public class TestServletUtil extends TestCase
 {
     // Initialize logging system first
-    static {
+    static
+    {
         LogService.getInstance().init(null);
     }
 
@@ -90,7 +93,7 @@ public class TestServletUtil extends TestCase
     public static void main(String[] theArgs)
     {
         junit.ui.TestRunner.main(
-            new String[] {TestServletUtil.class.getName()});
+            new String[]{TestServletUtil.class.getName()});
     }
 
     /**

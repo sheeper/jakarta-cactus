@@ -53,10 +53,13 @@
  */
 package org.apache.cactus.sample;
 
-import javax.servlet.jsp.tagext.*;
-import junit.framework.*;
+import javax.servlet.jsp.tagext.Tag;
 
-import org.apache.cactus.*;
+import junit.framework.Test;
+import junit.framework.TestSuite;
+
+import org.apache.cactus.JspTestCase;
+import org.apache.cactus.WebResponse;
 
 /**
  * Tests of the <code>SampleTag</code> class.
@@ -84,7 +87,7 @@ public class TestSampleTag extends JspTestCase
      */
     public static void main(String[] theArgs)
     {
-        junit.ui.TestRunner.main(new String[] {
+        junit.ui.TestRunner.main(new String[]{
             TestSampleTag.class.getName()});
     }
 
@@ -101,17 +104,17 @@ public class TestSampleTag extends JspTestCase
     //-------------------------------------------------------------------------
 
     private SampleTag tag;
-    
+
     public void setUp()
     {
         this.tag = new SampleTag();
         this.tag.setPageContext(this.pageContext);
     }
-    
+
     //-------------------------------------------------------------------------
 
     /**
-     * Tests whether doStartTag() will skip the body if the corresponding tag 
+     * Tests whether doStartTag() will skip the body if the corresponding tag
      * attribute is set. Also tests whether an attribute put into page scope
      * before the tag executes will be output to the response.
      */
@@ -119,28 +122,28 @@ public class TestSampleTag extends JspTestCase
     {
         //put something in page scope to see if it shows up in the response...
         this.pageContext.setAttribute("test-key", "test-value");
-        
+
         this.tag.setShowBody("false");
         int result = this.tag.doStartTag();
-        
+
         //body should not show up
         assertEquals(Tag.SKIP_BODY, result);
     }
-    
+
     /**
      * Verifies that the output includes the output from doStartTag (a message
      * from the tag and the attribute set into page scope).
      */
     public void endDoStartTag(WebResponse theResponse)
     {
-        // check that two of the lines output by the tag showed up in 
+        // check that two of the lines output by the tag showed up in
         // the response
         assertContains(theResponse,
-                       "The following attributes exist in page scope: <BR>");
-        
+            "The following attributes exist in page scope: <BR>");
+
         assertContains(theResponse, "test-key = test-value <BR>");
     }
-    
+
     //-------------------------------------------------------------------------
 
     /**
@@ -150,9 +153,9 @@ public class TestSampleTag extends JspTestCase
     public void testDoStartTagInclude() throws Exception
     {
         this.tag.setShowBody("true");
-        
+
         int result = this.tag.doStartTag();
-        
+
         //body should show up
         assertEquals(Tag.EVAL_BODY_INCLUDE, result);
     }
@@ -166,7 +169,7 @@ public class TestSampleTag extends JspTestCase
         // check that the pre-body message printed by the tag shows up
         assertContains(theResponse, "Body Content Follows: <BR>");
     }
-    
+
     //-------------------------------------------------------------------------
 
     /**
@@ -177,11 +180,11 @@ public class TestSampleTag extends JspTestCase
     {
         this.tag.setParent(new SampleTag());
         this.tag.setStopPage("false");
-        
+
         int result = this.tag.doEndTag();
         assertEquals(Tag.EVAL_PAGE, result);
     }
-    
+
     /**
      * Checks whether the tag has printed a message indicating that it has a
      * parent tag.
@@ -190,22 +193,22 @@ public class TestSampleTag extends JspTestCase
     {
         assertContains(theResponse, "This tag has a parent. <BR>");
     }
-    
+
     //-------------------------------------------------------------------------
 
     /**
-     * Checks if the tag will signal that page processing should stop if 
+     * Checks if the tag will signal that page processing should stop if
      * stopPage is set to "true"
      */
     public void testDoEndTagStop() throws Exception
     {
         //no parent set
         this.tag.setStopPage("true");
-        
+
         int result = this.tag.doEndTag();
         assertEquals(Tag.SKIP_PAGE, result);
     }
-    
+
     /**
      * Checks whether the tag has printed a message indicating that it has a
      * parent tag. (In this case it should not.)
@@ -216,9 +219,9 @@ public class TestSampleTag extends JspTestCase
         boolean containsMessage = target.indexOf("This tag has a parent. <BR>") > 0;
         assert(!containsMessage);
     }
-    
+
     //--------------------------------------------------------------------------
-    
+
     /**
      * Convenience function that asserts that a substring can be found in a
      * target String.
@@ -226,8 +229,8 @@ public class TestSampleTag extends JspTestCase
     public void assertContains(WebResponse theResponse, String theSubstring)
     {
         String target = theResponse.getText();
-        
-        if (target.indexOf(theSubstring) < 0){
+
+        if (target.indexOf(theSubstring) < 0) {
             fail("Response did not contain the substring: [" +
                 theSubstring + "]");
         }

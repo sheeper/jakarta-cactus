@@ -53,13 +53,18 @@
  */
 package org.apache.cactus.server;
 
-import java.io.*;
+import java.io.IOException;
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-
-import org.apache.cactus.*;
-import org.apache.cactus.util.log.*;
+import org.apache.cactus.util.log.Log;
+import org.apache.cactus.util.log.LogService;
 
 /**
  * Generic Filter redirector that calls a test method on the server side.
@@ -76,7 +81,8 @@ public class FilterTestRedirector implements Filter
      * details from the correct properties file. Initialization is done here
      * as this servlet is the first point of entry to the server code.
      */
-    static {
+    static
+    {
         LogService.getInstance().init("/log_server.properties");
     }
 
@@ -110,8 +116,8 @@ public class FilterTestRedirector implements Filter
 
         // Create implicit object holder
         FilterImplicitObjects objects = new FilterImplicitObjects();
-        objects.setHttpServletRequest((HttpServletRequest)theRequest);
-        objects.setHttpServletResponse((HttpServletResponse)theResponse);
+        objects.setHttpServletRequest((HttpServletRequest) theRequest);
+        objects.setHttpServletResponse((HttpServletResponse) theResponse);
         objects.setFilterConfig(this.config);
         objects.setServletContext(this.config.getServletContext());
         objects.setFilterChain(theFilterChain);

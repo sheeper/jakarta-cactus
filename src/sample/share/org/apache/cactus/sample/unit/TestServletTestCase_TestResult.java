@@ -53,21 +53,16 @@
  */
 package org.apache.cactus.sample.unit;
 
-import java.io.*;
-import java.util.*;
-import java.text.*;
-import javax.servlet.*;
-import javax.servlet.http.*;
-import java.net.*;
+import javax.servlet.ServletOutputStream;
 
-import junit.framework.*;
+import junit.framework.Test;
+import junit.framework.TestSuite;
 
-import org.apache.cactus.*;
-import org.apache.cactus.util.*;
+import org.apache.cactus.ServletTestCase;
 
 /**
  * Verify that the Cactus client side only read the test result *after* the
- * test is finished (i.e. after the test result has been saved in the 
+ * test is finished (i.e. after the test result has been saved in the
  * application scope). This JUnit test need to be the first one to be run.
  * Otherwise, the test result might be that of the previous test and not the
  * current test one, thus proving nothing !!
@@ -101,7 +96,7 @@ public class TestServletTestCase_TestResult extends ServletTestCase
      */
     public static void main(String[] theArgs)
     {
-        junit.ui.TestRunner.main(new String[] {
+        junit.ui.TestRunner.main(new String[]{
             TestServletTestCase_TestResult.class.getName()});
     }
 
@@ -128,7 +123,7 @@ public class TestServletTestCase_TestResult extends ServletTestCase
         ServletOutputStream os = response.getOutputStream();
         os.print("<html><head><Long Process></head><body>");
         os.flush();
-        
+
         // do some processing that takes a while ...
         Thread.sleep(3000);
         os.println("Some data</body></html>");
@@ -145,7 +140,7 @@ public class TestServletTestCase_TestResult extends ServletTestCase
         ServletOutputStream os = response.getOutputStream();
         os.println("<html><head>Lots of Data</head><body>");
         os.flush();
-        for (int i = 0 ; i < 5000 ; i++) {
+        for (int i = 0; i < 5000; i++) {
             os.println("<p>Lots and lots of data here");
         }
         os.println("</body></html>");

@@ -53,18 +53,27 @@
  */
 package org.apache.cactus.sample.unit;
 
-import java.util.*;
-import java.text.*;
-import javax.servlet.*;
-import javax.servlet.http.*;
-import java.net.*;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.DataInputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.util.Enumeration;
+import java.util.Vector;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletResponse;
 
-import junit.framework.*;
+import junit.framework.Test;
+import junit.framework.TestSuite;
 
-import org.apache.cactus.*;
-import org.apache.cactus.server.*;
-import org.apache.cactus.util.*;
+import org.apache.cactus.ServletTestCase;
+import org.apache.cactus.WebRequest;
+import org.apache.cactus.WebResponse;
+import org.apache.cactus.server.ServletContextWrapper;
 
 /**
  * Some Cactus unit tests for testing <code>ServletTestCase</code>.
@@ -98,7 +107,7 @@ public class TestServletTestCase2 extends ServletTestCase
      */
     public static void main(String[] theArgs)
     {
-        junit.ui.TestRunner.main(new String[] {
+        junit.ui.TestRunner.main(new String[]{
             TestServletTestCase2.class.getName()});
     }
 
@@ -205,8 +214,8 @@ public class TestServletTestCase2 extends ServletTestCase
 
         boolean found = false;
         Enumeration enum = config.getInitParameterNames();
-        while(enum.hasMoreElements()) {
-            String name = (String)enum.nextElement();
+        while (enum.hasMoreElements()) {
+            String name = (String) enum.nextElement();
             if (name.equals("testparam")) {
                 found = true;
                 break;
@@ -486,7 +495,7 @@ public class TestServletTestCase2 extends ServletTestCase
 
         context.log(message);
 
-        Vector logs = ((ServletContextWrapper)context).getLogs();
+        Vector logs = ((ServletContextWrapper) context).getLogs();
         assertEquals("Found more than one log message", logs.size(), 1);
         assert("Cannot find expected log message : [" + message + "]",
             logs.contains("some test log"));

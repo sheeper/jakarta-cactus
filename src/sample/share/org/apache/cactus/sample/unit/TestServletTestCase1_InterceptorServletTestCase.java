@@ -53,10 +53,11 @@
  */
 package org.apache.cactus.sample.unit;
 
-import junit.framework.*;
+import junit.framework.AssertionFailedError;
 
-import org.apache.cactus.client.*;
-import org.apache.cactus.*;
+import org.apache.cactus.ServletTestCase;
+import org.apache.cactus.client.AssertionFailedErrorWrapper;
+import org.apache.cactus.client.ServletExceptionWrapper;
 
 /**
  * Helper class for the <code>TestServletTestCase1</code> tests. It is used to
@@ -85,8 +86,8 @@ public class TestServletTestCase1_InterceptorServletTestCase
     /**
      * Intercepts running test cases to check for normal exceptions.
      */
-     protected void runTest() throws Throwable
-     {
+    protected void runTest() throws Throwable
+    {
         try {
             super.runTest();
         } catch (AssertionFailedErrorWrapper e) {
@@ -133,5 +134,5 @@ public class TestServletTestCase1_InterceptorServletTestCase
             throw e;
 
         }
-     }
+    }
 }

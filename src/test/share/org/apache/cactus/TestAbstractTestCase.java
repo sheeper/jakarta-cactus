@@ -53,13 +53,12 @@
  */
 package org.apache.cactus;
 
-import java.util.*;
-import java.net.*;
+import java.net.HttpURLConnection;
 
-import junit.framework.*;
+import junit.framework.Test;
+import junit.framework.TestSuite;
 
-import org.apache.cactus.*;
-import org.apache.cactus.util.log.*;
+import org.apache.cactus.util.log.LogService;
 
 /**
  * Unit tests of the <code>AbstractTestCase</code> class.
@@ -72,7 +71,8 @@ public class TestAbstractTestCase extends
     TestAbstractTestCase_InterceptorTestCase
 {
     // Initialize logging system first
-    static {
+    static
+    {
         LogService.getInstance().init(null);
     }
 
@@ -94,7 +94,7 @@ public class TestAbstractTestCase extends
     public static void main(String[] theArgs)
     {
         junit.ui.TestRunner.main(
-            new String[] {TestAbstractTestCase.class.getName()});
+            new String[]{TestAbstractTestCase.class.getName()});
     }
 
     /**

@@ -53,11 +53,17 @@
  */
 package org.apache.cactus.sample;
 
-import java.io.*;
-import javax.servlet.*;
-import javax.servlet.http.*;
+import java.io.IOException;
+import java.io.OutputStream;
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletResponse;
 
-import org.apache.cactus.sample.util.*;
+import org.apache.cactus.sample.util.GenericResponseWrapper;
 
 /**
  * Sample filter that implements some very simple business logic. The goal is
@@ -109,7 +115,7 @@ public class SampleFilter implements Filter
         // get an error saying that the response has already been
         // committed.
         GenericResponseWrapper wrapper =
-            new GenericResponseWrapper((HttpServletResponse)theResponse);
+            new GenericResponseWrapper((HttpServletResponse) theResponse);
 
         theChain.doFilter(theRequest, wrapper);
 

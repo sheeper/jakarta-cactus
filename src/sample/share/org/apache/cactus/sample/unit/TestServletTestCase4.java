@@ -53,15 +53,11 @@
  */
 package org.apache.cactus.sample.unit;
 
-import java.util.*;
-import java.text.*;
-import javax.servlet.*;
-import javax.servlet.http.*;
-import java.net.*;
+import junit.framework.Test;
+import junit.framework.TestSuite;
 
-import junit.framework.*;
-
-import org.apache.cactus.*;
+import org.apache.cactus.ServletTestCase;
+import org.apache.cactus.WebRequest;
 
 /**
  * Cactus unit tests for testing simulation URL for
@@ -96,7 +92,7 @@ public class TestServletTestCase4 extends ServletTestCase
      */
     public static void main(String[] theArgs)
     {
-        junit.ui.TestRunner.main(new String[] {
+        junit.ui.TestRunner.main(new String[]{
             TestServletTestCase4.class.getName()});
     }
 
@@ -253,7 +249,7 @@ public class TestServletTestCase4 extends ServletTestCase
     //-------------------------------------------------------------------------
 
     /**
-     * Verify that we can simulate different parts of the URL. Also verify 
+     * Verify that we can simulate different parts of the URL. Also verify
      * that HTTP parameters put in the simulation URL will be
      * available on the server side as real HTTP parameters.
      *
@@ -262,12 +258,12 @@ public class TestServletTestCase4 extends ServletTestCase
      */
     public void beginSimulatedURL5(WebRequest theRequest)
     {
-        theRequest.setURL("jakarta.apache.org", "/catalog", 
+        theRequest.setURL("jakarta.apache.org", "/catalog",
             "/help/feedback.jsp", null, "PARAM1=param1&PARAM2=&PARAM3=param3");
     }
 
     /**
-     * Verify that we can simulate different parts of the URL. Also verify 
+     * Verify that we can simulate different parts of the URL. Also verify
      * that HTTP parameters put in the simulation URL will be
      * available on the server side as real HTTP parameters.
      */

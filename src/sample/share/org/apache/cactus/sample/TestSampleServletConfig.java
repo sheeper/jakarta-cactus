@@ -53,17 +53,12 @@
  */
 package org.apache.cactus.sample;
 
-import java.util.*;
-import java.text.*;
-import javax.servlet.*;
-import javax.servlet.http.*;
-import java.net.*;
-import java.io.*;
+import javax.servlet.ServletException;
 
-import junit.framework.*;
+import junit.framework.Test;
+import junit.framework.TestSuite;
 
-import org.apache.cactus.*;
-import org.apache.cactus.util.*;
+import org.apache.cactus.ServletTestCase;
 
 /**
  * Tests of the <code>SampleServletConfig</code> servlet class. This to show
@@ -95,7 +90,7 @@ public class TestSampleServletConfig extends ServletTestCase
      */
     public static void main(String[] theArgs)
     {
-        junit.ui.TestRunner.main(new String[] {
+        junit.ui.TestRunner.main(new String[]{
             TestSampleServletConfig.class.getName()});
     }
 

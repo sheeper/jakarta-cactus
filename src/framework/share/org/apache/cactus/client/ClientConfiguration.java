@@ -59,8 +59,6 @@ import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 
 import org.apache.cactus.util.ChainedRuntimeException;
-import org.apache.cactus.util.log.Log;
-import org.apache.cactus.util.log.LogService;
 
 /**
  * Provides acces to the client side Cactus configuration.
@@ -71,12 +69,6 @@ import org.apache.cactus.util.log.LogService;
  */
 public class ClientConfiguration
 {
-    /**
-     * The logger
-     */
-    private static final Log logger =
-        LogService.getInstance().getLog(ClientConfiguration.class.getName());
-
     /**
      * Name of the Cactus configuration file if cactus is to look for it in
      * the classpath.
@@ -93,7 +85,7 @@ public class ClientConfiguration
     /**
      * Properties file holding configuration data for Cactus.
      */
-    private static ResourceBundle CONFIG = null;
+    private static ResourceBundle config = null;
 
     /**
      * Tries to read the cactus configuration from the java property defined
@@ -104,24 +96,24 @@ public class ClientConfiguration
      */
     private static final ResourceBundle getConfiguration()
     {
-        if (CONFIG == null) {
+        if (config == null) {
             // Has the user passed the location of the cactus configuration file
             // as a java property
             String configOverride = System.getProperty(CONFIG_PROPERTY);
             if (configOverride == null) {
                 // Try to read the default cactus configuration file from the
                 // classpath
-                CONFIG = PropertyResourceBundle.getBundle(CONFIG_DEFAULT_NAME);
+                config = PropertyResourceBundle.getBundle(CONFIG_DEFAULT_NAME);
             } else {
                 try {
-                    CONFIG = new PropertyResourceBundle(new FileInputStream(configOverride));
+                    config = new PropertyResourceBundle(new FileInputStream(configOverride));
                 } catch (IOException e) {
                     throw new ChainedRuntimeException("Cannot read cactus configuration file [" +
                         configOverride + "]", e);
                 }
             }
         }
-        return CONFIG;
+        return config;
     }
 
     /**

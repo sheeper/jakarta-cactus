@@ -53,14 +53,9 @@
  */
 package org.apache.cactus.server;
 
-import java.util.*;
-import java.io.*;
-import java.security.*;
-import java.net.*;
-import java.lang.reflect.*;
-
-import javax.servlet.*;
-import javax.servlet.http.*;
+import java.lang.reflect.Method;
+import java.util.Set;
+import javax.servlet.ServletContext;
 
 /**
  * Wrapper around Servlet 2.3 <code>ServletContext</code>. This wrapper
@@ -101,7 +96,7 @@ public class ServletContextWrapper extends AbstractServletContextWrapper
                 getMethod("getResourcePaths", null);
 
             if (method != null) {
-                returnSet = (Set)method.invoke(this.originalContext, null);
+                returnSet = (Set) method.invoke(this.originalContext, null);
             } else {
                 throw new RuntimeException("Method ServletContext." +
                     "getResourcePaths() no longer supported by your servlet " +
@@ -130,11 +125,11 @@ public class ServletContextWrapper extends AbstractServletContextWrapper
         // upgraded yet)
         try {
             Method method = this.originalContext.getClass().
-                getMethod("getResourcePaths", new Class[] { String.class });
+                getMethod("getResourcePaths", new Class[]{String.class});
 
             if (method != null) {
-                returnSet = (Set)method.invoke(this.originalContext,
-                    new Object[] { thePath });
+                returnSet = (Set) method.invoke(this.originalContext,
+                    new Object[]{thePath});
             } else {
                 throw new RuntimeException("Method ServletContext." +
                     "getResourcePaths(String path) not supported yet by your " +

@@ -53,16 +53,11 @@
  */
 package org.apache.cactus.server;
 
-import java.util.*;
-import java.io.*;
-import java.security.*;
-import java.net.*;
+import java.io.UnsupportedEncodingException;
+import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-
-import org.apache.cactus.*;
-import org.apache.cactus.util.log.*;
+import org.apache.cactus.ServletURL;
 
 /**
  * Encapsulation class for the Servlet 2.3 API <code>HttpServletRequest</code>.

@@ -53,15 +53,11 @@
  */
 package org.apache.cactus;
 
-import java.lang.reflect.*;
-import javax.servlet.*;
-import javax.servlet.http.*;
-import java.net.*;
+import javax.servlet.FilterChain;
+import javax.servlet.http.HttpServletResponse;
 
-import junit.framework.*;
-
-import org.apache.cactus.client.*;
-import org.apache.cactus.server.*;
+import org.apache.cactus.client.FilterHttpClient;
+import org.apache.cactus.server.FilterConfigWrapper;
 
 /**
  * Test classes that need access to valid Filter implicit objects (such as the
