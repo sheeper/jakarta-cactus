@@ -42,6 +42,13 @@
 
     <category title="Documentation">
       <action>
+        Modify the web site presentation: start by introducing the Cactus
+        Ecosystem: framework + front ends.
+      </action>
+      <action assigned-to="Christopher Lenz">
+        Add a web site sitemap.
+      </action>
+      <action>
         Update web site for new <code>begin()</code> and <code>end()</code>
         methods.
       </action>
@@ -52,44 +59,12 @@
         Add documentation for a new way to start Cactus tests by using the
         Jetty Initializer.
       </action>
-    </category>
-
-    <category title="Build Process">
-      <p>
-        All tasks that are related to building Cactus in general.
-      </p>
-      <action>
-        Add support for Enhydra 5.
-      </action>
-      <action>
-        Add Ant scripts for JBoss/Tomcat.
+      <action assigned-to="Jason Robertson, Vincent Massol">
+        Add documentation for form-based authentication.
       </action>
     </category>
 
     <category title="Design/Code">
-      <action assigned-to="Christopher Lenz">
-        Improve the ServletTestRunner: look at ways to make it run without the
-        permission to set system properties.
-        Potentially look at replacing it by the JUnitEE test runner.
-      </action>
-      <action>
-        Continue the JMS Redirector/Client to test Message Driven Beans.
-      </action>
-      <action assigned-to="Jason Robertson, Vincent Massol">
-        Add test case for form-based authentication and test it on several
-        servers. Also add documentation on web site to explain how to use it.
-      </action>
-      <action>
-        Add EJB Redirectors so that unit testing of code that require an EJB
-        is facilitated. For example, let's imagine you need to test that an
-        object that has been put in the JNDI tree by a servlet can be retrieved
-        by an EJB. These are not unit tests per see but rather integration
-        tests, which is Cactus favorite domain. Also these redirectors could be
-        used to directly unit tests EJB whithout requiring a servlet
-        environment (at the current time, you need to call your EJB from a
-        Servlet/JSP/Filter Redirector, which is fine for certain tests but not
-        needed for others.
-      </action>
       <action assigned-to="Hudson Wong, Vincent Massol">
         Add an EJB sample application to demonstrate how to perform EJB
         unit testing.
@@ -97,6 +72,10 @@
     </category>
 
     <category title="Eclipse Plugin">
+      <action>
+        Fix bug that prevents the plugin from working with Eclipse M5 (has to
+        do with starting more than one AntRunner simultaneously).
+      </action>
       <action>
         Add client jars in the user's project classpath (popup menu to Cactify the project)
       </action>
@@ -123,11 +102,28 @@
       <action assigned-to="Jason Van Zyl">
         Move Cactus to Maven.
       </action>
+      <action>
+        Add Ant scripts for JBoss/Tomcat.
+      </action>
+      <action>
+        Add Ant scripts for the J2EE RI.
+      </action>
     </category>
     
     <category title="Design/Code">
+      <action assigned-to="Jason Robertson, Vincent Massol">
+        Add test case for form-based authentication.
+      </action>
+      <action assigned-to="Christopher Lenz">
+        Improve the ServletTestRunner: look at ways to make it run without the
+        permission to set system properties.
+        Potentially look at replacing it by the JUnitEE test runner.
+      </action>
       <action>
-        Add support for Servlet API 2.4/JSP 2.0 (by using Tomcat 5).
+        Continue the JMS Redirector/Client to test Message Driven Beans.
+      </action>
+      <action>
+        Add support for Servlet API 2.4/JSP 2.0 (by using Resin 3, Tomcat 5).
       </action>
       <action>
         Potentially replace access to instance variables of redirectors by 
@@ -143,6 +139,17 @@
         Improve support for the JUnitReport XML format so that the Ant-provided
         <code>junit-noframes.xsl</code> XSL is completely supported. ATM, some
         sections appear blank.
+      </action>
+      <action>
+        Add EJB Redirectors so that unit testing of code that require an EJB
+        is facilitated. For example, let's imagine you need to test that an
+        object that has been put in the JNDI tree by a servlet can be retrieved
+        by an EJB. These are not unit tests per see but rather integration
+        tests, which is Cactus favorite domain. Also these redirectors could be
+        used to directly unit tests EJB whithout requiring a servlet
+        environment (at the current time, you need to call your EJB from a
+        Servlet/JSP/Filter Redirector, which is fine for certain tests but not
+        needed for others.
       </action>
     </category>
 
