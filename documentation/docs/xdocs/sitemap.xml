@@ -524,5 +524,6 @@
   <external id="tomcat5_context_xml" url="http://jakarta.apache.org/tomcat/tomcat-5.0-doc/config/context.html"/>
   <external id="velocity" url="http://jakarta.apache.org/velocity/"/>
   <external id="xalanj" url="http://xml.apache.org/xalan-j/"/>
+  <external id="xdoclet" url="http://xdoclet.sourceforge.net/xdoclet/index.html"/>
 
 </sitemap>

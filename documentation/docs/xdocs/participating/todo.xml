@@ -191,7 +191,7 @@
         Integrate JUnitPerf.
       </action>
       <action>
-        Use <link href="http://xdoclet.sourceforge.net/docs/">XDoclet</link>
+        Use <link href="ext:xdoclet">XDoclet</link>
         with Cactus to better provide continuous integration. It could be
         used to automatically generate <code>web.xml</code> files,
         automatically generating test cases from methods to test, ...
