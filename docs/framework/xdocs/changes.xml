@@ -22,6 +22,13 @@
       <person name="Vincent Massol" email="vmassol@users.sourceforge.net" id="VMA"/>
     </devs>
 
+    <release version="1.2 in CVS">
+      <action dev="VMA" type="fix" due-to="Kunal Vaishnav" due-to-email="Kunal_Vaishnav@jdedwards.com">
+        Fixed bug : URL encoding was applied to cookies so that when passing
+        a special in a cookie it would get encoded when trying to retrieve it.
+      </action>
+    </release>
+
     <release version="1.1" date="June 18 2001">
       <action dev="VMA" type="add" due-to="Robert Leftwich" due-to-email="digital@ix.net.au">
         Added automatic script support for Enhydra 3.1
