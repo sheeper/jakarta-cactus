@@ -61,6 +61,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -633,6 +634,10 @@ public class CactifyWarTask extends War
                         }
                         webXml.addFilter(name, FILTER_REDIRECTOR_CLASS);
                         webXml.addFilterMapping(name, mapping);
+                        if (redirector.getRoles() != null)
+                        {
+                            addRoles(webXml, redirector.getRoles());
+                        }
                     }
                 }
                 else
@@ -664,6 +669,10 @@ public class CactifyWarTask extends War
                     }
                     webXml.addJspFile(name, "/jspRedirector.jsp");
                     webXml.addServletMapping(name, mapping);
+                    if (redirector.getRoles() != null)
+                    {
+                        addRoles(webXml, redirector.getRoles());
+                    }
                 }
             }
             else
@@ -692,6 +701,10 @@ public class CactifyWarTask extends War
                     }
                     webXml.addServlet(name, SERVLET_REDIRECTOR_CLASS);
                     webXml.addServletMapping(name, mapping);
+                    if (redirector.getRoles() != null)
+                    {
+                        addRoles(webXml, redirector.getRoles());
+                    }
                 }
             }
             else
@@ -708,6 +721,25 @@ public class CactifyWarTask extends War
         {
             throw new BuildException(
                 "Could not parse deployment descriptor", e);
+        }
+    }
+
+    /**
+     * Adds a comma-separated list of security roles to a deployment descriptor.
+     * 
+     * @param theWebXml The deployment descriptor
+     * @param theRoles The comma-separated list of role names
+     */
+    private void addRoles(WebXml theWebXml, String theRoles)
+    {
+        StringTokenizer tokenizer = new StringTokenizer(theRoles, ",");
+        while (tokenizer.hasMoreTokens())
+        {
+            String role = tokenizer.nextToken().trim();
+            if (!theWebXml.hasSecurityRole(role))
+            {
+                theWebXml.addSecurityRole(role);
+            }
         }
     }
 

@@ -418,6 +418,26 @@ public final class TestCactifyWarTask extends AntTestCase
     }
 
     /**
+     * Verifies that a secured servlet redirector gets added alongside the role
+     * names.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
+    public void testSecuredServletRedirector() throws Exception
+    {
+        executeTestTarget();
+
+        File destFile = getProject().resolveFile("work/destfile.war");
+        WarArchive destWar = new WarArchive(destFile);
+        WebXml webXml = destWar.getWebXml();
+        assertTrue(webXml.hasServlet("ServletRedirectorSecure"));
+        assertEquals("/ServletRedirectorSecure",
+            webXml.getServletMappings("ServletRedirectorSecure").next());
+        assertTrue(webXml.hasSecurityRole("test"));
+        assertTrue(webXml.hasSecurityRole("cactus"));
+    }
+
+    /**
      * Verifies that JARs already contained by the source archive are not added
      * again.
      * 

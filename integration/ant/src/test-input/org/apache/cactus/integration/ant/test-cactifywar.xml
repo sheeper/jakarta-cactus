@@ -104,6 +104,15 @@
     </cactifywar>
   </target>
 
+  <target name="testSecuredServletRedirector">
+    <cactifywar srcfile="empty-2_3.war"
+        destfile="${work.dir}/destfile.war">
+      <servletredirector name="ServletRedirectorSecure"
+          mapping="/ServletRedirectorSecure"
+          roles="test, cactus"/>
+    </cactifywar>
+  </target>
+
   <target name="testNoDuplicateJars">
     <cactifywar srcfile="containscactusjars.war"
         destfile="${work.dir}/destfile.war"/>
