@@ -165,7 +165,13 @@
 				<pathelement location="${eclipse.ui.workbench.jar}"/>
 			</classpath>
 		</javac>
-
+		
+		<copy todir="${target.classes.dir}">
+		    <fileset dir="${src.java.dir}">
+		        <exclude name="**/*.java"/>
+		    </fileset>
+		</copy>
+		
 	</target>
 
     <!--
