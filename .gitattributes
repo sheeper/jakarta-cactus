@@ -100,6 +100,9 @@ src/framework/share/org/apache/cactus/server/ServletTestCaller.java svn_keywords
 src/framework/share/org/apache/cactus/server/ServletTestRedirector.java svn_keywords=Author+Date+Id+Revision
 src/framework/share/org/apache/cactus/util/AssertUtils.java svn_keywords=Author+Date+Id+Revision
 src/framework/share/org/apache/cactus/util/ClientCookie.java svn_keywords=Author+Date+Id+Revision
+src/framework/share/org/apache/cactus/util/log/BaseLog.java svn_keywords=Author+Date+Id+Revision
+src/framework/share/org/apache/cactus/util/log/Log.java svn_keywords=Author+Date+Id+Revision
+src/framework/share/org/apache/cactus/util/log/LogService.java svn_keywords=Author+Date+Id+Revision
 src/sample/servlet22/org/apache/cactus/sample/unit/TestServletTestCaseSpecific.java svn_keywords=Author+Date+Id+Revision
 src/sample/servlet23/org/apache/cactus/sample/unit/TestServletTestCaseSpecific.java svn_keywords=Author+Date+Id+Revision
 src/sample/share/org/apache/cactus/sample/SampleServlet.java svn_keywords=Author+Date+Id+Revision
