@@ -53,6 +53,7 @@ CHANGE HISTORY:
   20000404 Removed the "role" attribute from common-xxx.att (SM)
   20000606 Allowed nested markup tags (SM)
   20000911 Allowed link tags inside markup (BL)
+  20010429 Added a nowrap attribute to TR (VMA)
 
 COPYRIGHT:
   Copyright (c) 1999-2000 The Apache Software Foundation.
@@ -415,7 +416,8 @@ COPYRIGHT:
             <!-- The table row description element -->
             <!ELEMENT td (%content.mix;)*>
             <!ATTLIST td %common.att;
-                         %cell.span;>
+                         %cell.span;
+                         nowrap CDATA #IMPLIED>
 
     <!-- ==================================================== -->
     <!-- Lists -->
