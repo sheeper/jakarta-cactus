@@ -54,6 +54,10 @@
         <li>
           <jump anchor="faq10">How do I maintain a Session between 2 Cactus test?</jump>
         </li>
+        <li>
+          <jump anchor="faq11">What version of Eclipse do I need for the 
+          Eclipse plugin?</jump>
+        </li>
       </ul>
     </section>
 
@@ -477,6 +481,16 @@ public void MyTest extends ServletTestCase
           method.
         </p>
       </section>
+	</section>
+
+    <anchor id="faq11"/>
+    <section title="What version of Eclipse do I need for the Eclipse plugin?">
+
+      <p>
+        The Cactus plugin for Eclipse requires Eclipse 2.1 RC2 or greater.
+        It has not yet been tested with Eclipse 3.0.
+      </p>      	
+
 	</section>
 
   </body>
