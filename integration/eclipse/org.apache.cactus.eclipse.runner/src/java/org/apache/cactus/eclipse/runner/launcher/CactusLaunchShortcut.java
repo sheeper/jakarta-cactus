@@ -175,14 +175,15 @@ public class CactusLaunchShortcut
                 CactusMessages.getString("CactusLaunch.message.notests"),
                 null);
         }
-        else if (types.length > 1)
-        {
-            type = chooseType(types, theMode);
-        }
         else
-        {
-            type = types[0];
-        }
+            if (types.length > 1)
+            {
+                type = chooseType(types, theMode);
+            }
+            else
+            {
+                type = types[0];
+            }
         if (type != null)
         {
             launchEnded = false;
@@ -416,6 +417,7 @@ public class CactusLaunchShortcut
                         e.getTargetException().getMessage(),
                         null);
                     cancelPreparation();
+                    launchEnded = true;
                     return;
                 }
                 catch (InterruptedException e)
@@ -426,6 +428,7 @@ public class CactusLaunchShortcut
                         e.getMessage(),
                         null);
                     cancelPreparation();
+                    launchEnded = true;
                     return;
                 }
             }
