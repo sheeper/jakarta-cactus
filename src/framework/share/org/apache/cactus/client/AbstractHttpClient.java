@@ -177,7 +177,8 @@ public abstract class AbstractHttpClient
      * @exception Throwable if an error occured in the test method or in the
      *                      redirector servlet.
      */
-    private HttpURLConnection callRunTest(WebRequest theRequest) throws Throwable
+    private HttpURLConnection callRunTest(WebRequest theRequest)
+        throws Throwable
     {
         // Specify the service to call on the redirector side
         theRequest.addParameter(ServiceDefinition.SERVICE_NAME_PARAM,
@@ -232,7 +233,7 @@ public abstract class AbstractHttpClient
         // Read the results as a serialized object
         ObjectInputStream ois =
             new ObjectInputStream(resultConnection.getInputStream());
-        WebTestResult result = (WebTestResult)ois.readObject();
+        WebTestResult result = (WebTestResult) ois.readObject();
 
         ois.close();
 

@@ -53,9 +53,10 @@
  */
 package org.apache.cactus.client;
 
-import java.io.*;
+import java.io.PrintStream;
+import java.io.PrintWriter;
 
-import junit.framework.*;
+import junit.framework.AssertionFailedError;
 
 /**
  * Same as <code>ServletExceptionWrapper</code> except that this exception class
@@ -146,6 +147,8 @@ public class AssertionFailedErrorWrapper extends AssertionFailedError
      * know the original server exception class.
      *
      * @param theClass the class to compare with the server exception class
+     * @return true if the current exception class is of the same type as the
+     *         class passed as parameter.
      */
     public boolean instanceOf(Class theClass)
     {
