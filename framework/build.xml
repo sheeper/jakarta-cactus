@@ -235,6 +235,9 @@
             <classpath refid="project.class.path"/>
         </javac>
 
+        <copy todir="${target.classes.java.dir}/org/apache/cactus/server"
+            file="{web.dir}/jspRedirector.jsp"/>
+
     </target>
 
     <target name="compile.test" depends="compile.main">
@@ -286,6 +289,9 @@
 
             <classpath refid="project.class.path"/>
         </ajc>
+
+        <copy todir="${target.classes.java.dir}/org/apache/cactus/server"
+            file="${web.dir}/jspRedirector.jsp"/>
 
     </target>
 
