@@ -92,6 +92,9 @@
 
       <release version="1.7dev" date="in CVS">
         <action dev="VMA" type="update">
+          Added support for Resin 3.0.9 and above.
+        </action>
+        <action dev="VMA" type="update">
           Upgraded following dependencies: Commons BeanUtils to 1.7.0, Commons
           Collections to 3.1, Commons HttpClient to 2.0.2 and Commons Logging
           to 1.0.4.
