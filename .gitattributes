@@ -97,6 +97,7 @@ docs/framework/xdocs/howto_httpunit.xml svn_keywords=Author+Date+Id+Revision
 docs/framework/xdocs/howto_ide.xml svn_keywords=Author+Date+Id+Revision
 docs/framework/xdocs/howto_ide_jbuilder.xml svn_keywords=Author+Date+Id+Revision
 docs/framework/xdocs/howto_ide_vajava.xml svn_keywords=Author+Date+Id+Revision
+docs/framework/xdocs/howto_junitee.xml svn_keywords=Author+Date+Id+Revision
 docs/framework/xdocs/howto_sample.xml svn_keywords=Author+Date+Id+Revision
 docs/framework/xdocs/howto_testcase.xml svn_keywords=Author+Date+Id+Revision
 docs/framework/xdocs/howto_testcase_filter.xml svn_keywords=Author+Date+Id+Revision
