@@ -214,13 +214,13 @@
             <property name="project.name.text" value="Cactus Ant tasks"/>
             <property name="project.name.file" value="cactus-ant"/>
             <property name="target.dir" value="${anttasks.dir}/target"/>
-            <property name="dist.dir" value="${anttasks.dir}/${dist.dir}"/>
+            <property name="dist.dir" value="${anttasks.dir}/dist"/>
             <property name="dist.lib.dir"
-                value="${anttasks.dir}/${dist.lib.dir}"/>
+                value="${anttasks.dir}/dist/lib"/>
             <property name="dist.doc.dir"
-                value="${anttasks.dir}/${dist.doc.dir}"/>
+                value="${anttasks.dir}/dist/doc"/>
             <property name="dist.doc.api.dir"
-                value="${anttasks.dir}/${dist.doc.api.dir}"/>
+                value="${anttasks.dir}/dist/doc/api"/>
         </ant>
 
     </target>
@@ -294,9 +294,9 @@
             <property name="base.dir" value="${documentation.dir}"/>
             <property name="target.dir" value="${documentation.dir}/target"/>
             <property name="dist.dir"
-                value="${documentation.dir}/${dist.dir}"/>
+                value="${documentation.dir}/dist"/>
             <property name="dist.doc.dir"
-                value="${documentation.dir}/${dist.doc.dir}"/>
+                value="${documentation.dir}/dist/doc"/>
             <property name="cactus.ant.jar" value="${anttasks.jar}"/>
         </ant>
 
