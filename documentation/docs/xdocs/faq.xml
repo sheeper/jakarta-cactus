@@ -415,7 +415,7 @@ org.apache.cactus.AbstractTestCase.runBare(AbstractTestCase.java:188)
         <section title="Solution">
           <p>
 	        Check the 
-	        <jump href="ext:junit_faq_runner" anchor="runners_8">JUnit 
+	        <jump href="ext:junit_faq" anchor="running_8">JUnit 
 	        FAQ</jump>. Indeed, JUnit uses a special class loader to load 
 	        classes that is incompatible with the Commons-Logging framework. 
 	        Thus you need to put the commons-logging package in the JUnit 
