@@ -28,6 +28,15 @@
     <table>
       <tr>
         <td>
+          10/02/2002
+        </td>
+        <td>
+          New <link href="http://jakarta.apache.org/cactus/stats/index.html">Web
+          site Statistics</link> page.
+        </td>
+      </tr>
+      <tr>
+        <td>
           20/01/2002
         </td>
         <td>
@@ -87,6 +96,10 @@
     </devs>
 
     <release version="1.3 in CVS">
+      <action dev="VMA" type="add">
+        New <link href="http://jakarta.apache.org/cactus/stats/index.html">Web
+        site Statistics</link> page, using Webalizer.
+      </action>
       <action dev="VMA" type="fix" due-to="Kim Madsen" due-to-email="kim.madsen@inceptor.com">
         Corrected issue with <code>getNamedDispatcher()</code> not returning
         <code>null</code> when called with a servlet name that cannot be found,

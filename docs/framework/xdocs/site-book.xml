@@ -73,6 +73,9 @@
   <menu label="Misc.">
     <menu-item label="Why the name ?" source="cactusname.xml"/>
     <menu-item label="Resources" source="resources.xml"/>
+    <menu-item type="external" label="Stats"
+        href="http://jakarta.apache.org/cactus/stats/index.html"/>
+    <menu-item type="hidden" source="webalizer.xml"/>
   </menu>
 
   <menu label="Developers">

@@ -149,6 +149,7 @@ docs/framework/xdocs/mockobjects.xml svn_keywords=Author+Date+Id+Revision
 docs/framework/xdocs/resources.xml svn_keywords=Author+Date+Id+Revision
 docs/framework/xdocs/site-book.xml svn_keywords=Author+Date+Id+Revision
 docs/framework/xdocs/todo.xml svn_keywords=Author+Date+Id+Revision
+docs/framework/xdocs/webalizer.xml svn_keywords=Author+Date+Id+Revision
 docs/sample/README svn_keywords=Author+Date+Id+Revision
 src/ant/org/apache/cactus/ant/AbstractServerRun.java svn_keywords=Author+Date+Id+Revision
 src/ant/org/apache/cactus/ant/ArgListProperty.java svn_keywords=Author+Date+Id+Revision
