@@ -60,13 +60,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.jar.JarInputStream;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.apache.cactus.integration.ant.util.ResourceUtils;
 import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -121,46 +119,6 @@ public class ApplicationXmlIo
 
     // Public Methods ----------------------------------------------------------
 
-    /**
-     * Parses the deployment descriptor of a enterprise application archive
-     * (EAR).
-     * 
-     * @param theEar The enterprise application archive
-     * @param theEntityResolver A SAX entity resolver, or <code>null</code> to
-     *        use the default
-     * @return The parsed descriptor, or <code>null</code> if no descriptor was
-     *         found in the WAR
-     * @throws SAXException If the descriptor could not be parsed
-     * @throws ParserConfigurationException If the XML parser was not correctly
-     *          configured
-     * @throws IOException If an I/O error occurs
-     */
-    public static ApplicationXml parseApplicationXmlFromEar(
-        JarInputStream theEar, EntityResolver theEntityResolver)
-        throws SAXException, ParserConfigurationException, IOException
-    {
-        InputStream in = null;
-        try
-        {
-            in = ResourceUtils.getResource(theEar, "META-INF/application.xml");
-            return parseApplicationXml(in, theEntityResolver);
-        }
-        finally
-        {
-            if (in != null)
-            {
-                try
-                {
-                    in.close();
-                }
-                catch (IOException ioe)
-                {
-                    // we'll pass on the original IO error, so ignore this one
-                }
-            }
-        }
-    }
-    
     /**
      * Parses a deployment descriptor stored in a regular file.
      * 
