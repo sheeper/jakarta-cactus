@@ -361,6 +361,7 @@ integration/eclipse/org.apache.cactus.eclipse.runner/src/java/org/apache/cactus/
 integration/eclipse/org.apache.cactus.eclipse.runner/src/java/org/apache/cactus/eclipse/runner/ui/ContainersPreferencePage.java svn_keywords=Author+Date+Id+Revision
 integration/eclipse/org.apache.cactus.eclipse.runner/src/scripts/eclipse/build-share.xml svn_keywords=Author+Date+Id+Revision
 integration/eclipse/org.apache.cactus.eclipse.runner/src/scripts/eclipse/build.xml svn_keywords=Author+Date+Id+Revision
+integration/eclipse/org.apache.cactus.eclipse.site/.cvsignore svn_keywords=Author+Date+Id+Revision
 integration/eclipse/org.apache.cactus.eclipse.site/build.xml svn_keywords=Author+Date+Id+Revision
 integration/eclipse/org.apache.cactus.eclipse.site/site.xml svn_keywords=Author+Date+Id+Revision
 integration/eclipse/org.apache.cactus.eclipse.webapp/.classpath svn_keywords=Author+Date+Id+Revision

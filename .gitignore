@@ -63,6 +63,8 @@ integration/eclipse/org.apache.cactus.eclipse.runner/target-12
 integration/eclipse/org.apache.cactus.eclipse.runner/target-13
 integration/eclipse/org.apache.cactus.eclipse.runner/temp
 integration/eclipse/org.apache.cactus.eclipse.runner/web
+integration/eclipse/org.apache.cactus.eclipse.site/release-12
+integration/eclipse/org.apache.cactus.eclipse.site/release-13
 integration/eclipse/org.apache.cactus.eclipse.webapp/bin
 integration/eclipse/org.apache.cactus.eclipse.webapp/build.properties
 integration/eclipse/org.apache.cactus.eclipse.webapp/dist
