@@ -62,28 +62,29 @@ public class ConfigurationInitializer
      * Have the Cactus configuration files been initialized?
      */
     private static boolean isInitialized;
-
-    /**
-     * @param isInitializedFlag if false consider the system as uninitialized 
-     *        so that next time the {@link #initialize()} method is called the
-     *        Cactus configurations will be read again
-     */
-    public static void setIsInitialized(boolean isInitializedFlag)
-    {
-        isInitialized = isInitializedFlag;
-    }
     
+    /**
+     * Read Cactus configuration files.
+     * 
+     * @param isReinitialization if true then force a re-read of the Cactus 
+     *        configuration files
+     */
+    public static synchronized void initialize(boolean isReinitialization)
+    {
+        if (!isInitialized)
+        {    
+            initializeConfig(isReinitialization);
+            initializeLoggingConfig(isReinitialization);
+            isInitialized = true;
+        }
+    }
+
     /**
      * Read Cactus configuration files.
      */
     public static synchronized void initialize()
     {
-        if (!isInitialized)
-        {    
-            initializeConfig();
-            initializeLoggingConfig();
-            setIsInitialized(true);
-        }
+        initialize(false);
     }
     
     /**
@@ -92,8 +93,11 @@ public class ConfigurationInitializer
      * (named CACTUS_CONFIG_PROPERTY) and if none has been defined tries to 
      * read the DEFAULT_CONFIG_NAME file from the classpath. All properties 
      * found are exported as java system properties.
+     * 
+     * @param isReinitialization if true then force a re-read of the Cactus 
+     *        configuration files
      */
-    private static void initializeConfig()
+    private static void initializeConfig(boolean isReinitialization)
     {
         ResourceBundle config;
 
@@ -132,13 +136,16 @@ public class ConfigurationInitializer
             }
         }
 
-        addSystemProperties(config);
+        addSystemProperties(config, isReinitialization);
     }
 
     /**
      * Initialize logging configuration.
+     * 
+     * @param isReinitialization if true then force a re-read of the Cactus 
+     *        configuration files
      */
-    private static void initializeLoggingConfig()
+    private static void initializeLoggingConfig(boolean isReinitialization)
     {
         String logConfig = System.getProperty(CACTUS_LOGGING_CONFIG_PROPERTY);
         if (logConfig != null)
@@ -154,7 +161,7 @@ public class ConfigurationInitializer
                 throw new ChainedRuntimeException("Failed to load logging "
                     + "configuration file [" + logConfig + "]");
             }
-            addSystemProperties(bundle);
+            addSystemProperties(bundle, isReinitialization);
         }
     }
 
@@ -164,19 +171,23 @@ public class ConfigurationInitializer
      *
      * @param theBundle the resource bundle containing the properties to
      *        set as system properties
+     * @param isReinitialization if true then force a re-read of the Cactus 
+     *        configuration files
      */
-    private static void addSystemProperties(ResourceBundle theBundle)
+    private static void addSystemProperties(ResourceBundle theBundle,
+            boolean isReinitialization)
     {
         Enumeration keys = theBundle.getKeys();
 
         while (keys.hasMoreElements())
         {
             String key = (String) keys.nextElement();
+
             // Only set the system property if it does not already exist.
             // This allows system properties defined on the command line
             // override Cactus properties located in the Cactus configuration
-            // files
-            if (System.getProperty(key) == null)
+            // files.
+            if ((System.getProperty(key) == null) || isReinitialization)
             {
                 System.setProperty(key, theBundle.getString(key));
             }

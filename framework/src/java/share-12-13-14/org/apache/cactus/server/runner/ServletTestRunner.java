@@ -110,10 +110,7 @@ public class ServletTestRunner extends HttpServlet
         // Reset the Cactus initialization so that multiple web application can 
         // work with different Cactus configurations. Otherwise, as the Cactus 
         // initialization is JVM-wide, the config is not read again.
-        ConfigurationInitializer.setIsInitialized(false);
-        
-        // Initialize Cactus configuration
-        ConfigurationInitializer.initialize();
+        ConfigurationInitializer.initialize(true);
 
         // Check whether XSLT transformations should be done server-side and
         // build the templates if an XSLT processor is available
