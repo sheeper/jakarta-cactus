@@ -61,18 +61,6 @@
           Integration for J2EE 1.3</link>
         </li>
         <li>
-          <link href="ext:gump_cactus_integration_eclipse_webapp">Cactus 
-          Eclipse Webapp Plugin</link>
-        </li>
-        <li>
-          <link href="ext:gump_cactus_integration_eclipse_runner_12">Cactus 
-          Eclipse Runner Plugin for J2EE 1.2</link>
-        </li>
-        <li>
-          <link href="ext:gump_cactus_integration_eclipse_runner_13">Cactus 
-          Eclipse Runner Plugin for J2EE 1.3</link>
-        </li>
-        <li>
           <link href="ext:gump_cactus_sample_servlet_12">Cactus Servlet 
           Sample for J2EE 1.2 (Servlet API 2.2)</link>
         </li>

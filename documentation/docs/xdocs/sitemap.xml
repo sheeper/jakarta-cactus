@@ -471,19 +471,16 @@
   <external id="eblox" url="http://www.eblox.com"/>
   <external id="french" url="http://www.ressources-java.net/cactus"/>
   <external id="gump" url="http://jakarta.apache.org/gump/"/>
-  <external id="gump_cactus_doc" url="http://cvs.apache.org/builds/gump/latest/jakarta-cactus-documentation.html"/>
-  <external id="gump_cactus_framework_12" url="http://cvs.apache.org/builds/gump/latest/jakarta-cactus-framework-12.html"/>
-  <external id="gump_cactus_framework_13" url="http://cvs.apache.org/builds/gump/latest/jakarta-cactus-framework-13.html"/>
-  <external id="gump_cactus_sample_servlet_12" url="http://cvs.apache.org/builds/gump/latest/jakarta-cactus-sample-servlet-12.html"/>
-  <external id="gump_cactus_sample_servlet_13" url="http://cvs.apache.org/builds/gump/latest/jakarta-cactus-sample-servlet-13.html"/>
-  <external id="gump_cactus_sample_jetty_13" url="http://cvs.apache.org/builds/gump/latest/jakarta-cactus-sample-jetty-13.html"/>
-  <external id="gump_cactus_integration_ant_12" url="http://cvs.apache.org/builds/gump/latest/jakarta-cactus-integration-ant-12.html"/>
-  <external id="gump_cactus_integration_ant_13" url="http://cvs.apache.org/builds/gump/latest/jakarta-cactus-integration-ant-13.html"/>
-  <external id="gump_cactus_integration_eclipse_webapp" url="http://cvs.apache.org/builds/gump/latest/jakarta-cactus-integration-eclipse-webapp.html"/>
-  <external id="gump_cactus_integration_eclipse_runner_12" url="http://cvs.apache.org/builds/gump/latest/jakarta-cactus-integration-eclipse-runner-12.html"/>
-  <external id="gump_cactus_integration_eclipse_runner_13" url="http://cvs.apache.org/builds/gump/latest/jakarta-cactus-integration-eclipse-runner-13.html"/>
+  <external id="gump_cactus_doc" url="http://lsd.student.utwente.nl/gump/jakarta-cactus/jakarta-cactus-documentation/index.html"/>
+  <external id="gump_cactus_framework_12" url="http://lsd.student.utwente.nl/gump/jakarta-cactus/jakarta-cactus-framework-12/index.html"/>
+  <external id="gump_cactus_framework_13" url="http://lsd.student.utwente.nl/gump/jakarta-cactus/jakarta-cactus-framework-13/index.html"/>
+  <external id="gump_cactus_sample_servlet_12" url="http://lsd.student.utwente.nl/gump/jakarta-cactus/jakarta-cactus-sample-servlet-12/index.html"/>
+  <external id="gump_cactus_sample_servlet_13" url="http://lsd.student.utwente.nl/gump/jakarta-cactus/jakarta-cactus-sample-servlet-13/index.html"/>
+  <external id="gump_cactus_sample_jetty_13" url="http://lsd.student.utwente.nl/gump/jakarta-cactus/jakarta-cactus-sample-jetty-13/index.html"/>
+  <external id="gump_cactus_integration_ant_12" url="http://lsd.student.utwente.nl/gump/jakarta-cactus/jakarta-cactus-integration-ant-12/index.html"/>
+  <external id="gump_cactus_integration_ant_13" url="http://lsd.student.utwente.nl/gump/jakarta-cactus/jakarta-cactus-integration-ant-13/index.html"/>
   <external id="gump_jars" url="http://gump.covalent.net/jars/latest/"/>
-  <external id="gump_results" url="http://cvs.apache.org/builds/gump/latest"/>
+  <external id="gump_results" url="http://lsd.student.utwente.nl/gump/projects.html"/>
   <external id="httpclient_other" url="http://www.innovation.ch/java/HTTPClient/"/>
   <external id="httpunit" url="http://httpunit.sourceforge.net/"/>
 
