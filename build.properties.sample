@@ -87,6 +87,7 @@ j2ee.13.jar = ${lib.repo}/j2ee/jars/j2ee-1.3.jar
 #tomcat.home.40 = c:/Apps/jakarta-tomcat-4.0.4
 #resin.home.13 = xxx
 #tomcat.home.33 = c:/Apps/jakarta-tomcat-3.3.1
+#jboss.home.3x = c:/Apps/jboss-3.0.4
 
 # Note: Enhydra 3.3.1 does not seem to support BASIC authentication as defined
 # in the Servlet spec. and thus the tests which involve security are failing.

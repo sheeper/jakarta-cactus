@@ -99,7 +99,6 @@
              configuration and adding the JBossWeb Service -->
         <copy todir="${target.jboss3x.dir}/server/cactus">
             <fileset dir="${jboss.home.3x}/server/minimal"/>
-            <!--fileset dir="${jboss.home.3x}/server/default"/-->
         </copy>
 
         <copy todir="${target.jboss3x.dir}/server/cactus/deploy/jbossweb.sar">
