@@ -92,6 +92,16 @@ import org.eclipse.jdt.internal.core.JavaModel;
 public class WarBuilder
 {
     /**
+     * The Java project to build the war from
+     */
+    private IJavaProject javaProject;
+
+    /**
+     * The Webapp object that stores webapp preferences 
+     */
+    private Webapp webapp;
+
+    /**
      * Name of the WEB-INF directory
      */
     public static final String WEBINF = "WEB-INF";
@@ -113,75 +123,38 @@ public class WarBuilder
         "org.apache.cactus.eclipse.webapp.jars.temp";
 
     /**
-     * Directory where to find classes
-     */
-    private File userClassFilesDir;
-
-    /**
-     * Location of the <code>web.xml</code> file
-     */
-    private File userWebXML;
-
-    /**
-     * Directory where to find user's webapp web files
-     */
-    private File userWebFilesDir;
-
-    /**
-     * Location of generated war file
-     */
-    private File outputWar;
-
-    /**
-     * Location of the temporary directory for jar copy
-     */
-    private File tempDir;
-
-    /**
-     * Jar entries to include in the war
-     */
-    private IClasspathEntry[] jarEntries;
-
-    /**
      * @param theJavaProject the Java project for which the webapp will be 
      *        created
      * @throws JavaModelException if we can't get the output location
      */
     public WarBuilder(IJavaProject theJavaProject) throws JavaModelException
     {
-        // Find the java project absolute output path
-        this.userClassFilesDir = getAbsoluteOutputLocation(theJavaProject);
+        this.javaProject = theJavaProject;
+        this.webapp = new Webapp(theJavaProject);
+    }
 
-        // TODO: Why not save the Webapp object directly?
-        Webapp webapp = new Webapp(theJavaProject);
-        webapp.loadValues();
-
-        this.outputWar = new File(webapp.getOutput());
-        this.tempDir = new File(webapp.getTempDir());
-        this.jarEntries = getAbsoluteEntries(webapp.getClasspath());
-
-        // path to the web directory relative to the user's project
-        String userWebFilesPath = webapp.getDir();
-        if (userWebFilesPath == null || userWebFilesPath.equals(""))
+    /**
+     * @param theWebFilesDir webapp directory to get the web.xml from
+     * @return the web.xml file in the given webapp directory,
+     *  or null if none
+     */
+    public File getWebXML(File theWebFilesDir)
+    {
+        if (theWebFilesDir == null)
         {
-            this.userWebFilesDir = null;
-            this.userWebXML = null;
+            return null;
         }
         else
         {
-            IPath projectPath = theJavaProject.getProject().getLocation();
-
-            // web application folder situated in the user's project
-            this.userWebFilesDir =
-                projectPath.append(userWebFilesPath).toFile();
-
-            // path to the web.xml file relative to the user's project
             String userWebXMLPath =
-                userWebFilesPath + "/" + WEBINF + "/" + WEBXML;
-            this.userWebXML = projectPath.append(userWebXMLPath).toFile();
+                theWebFilesDir.getAbsolutePath()
+                    + File.separator
+                    + WEBINF
+                    + File.separator
+                    + WEBXML;
+            return new File(userWebXMLPath);
         }
     }
-
     /**
      * For each IClasspathEntry transform the path in an absolute path.
      * @param theEntries array of IClasspathEntry to render asbolute
@@ -213,15 +186,15 @@ public class WarBuilder
                         JavaCore.newLibraryEntry(absolutePath, null, null));
                 }
                 else
-                if (target instanceof File)
-                {
-                    File file = (File) target;
-                    result.add(
-                        JavaCore.newLibraryEntry(
-                            new Path(file.getAbsolutePath()),
-                            null,
-                            null));
-                }
+                    if (target instanceof File)
+                    {
+                        File file = (File) target;
+                        result.add(
+                            JavaCore.newLibraryEntry(
+                                new Path(file.getAbsolutePath()),
+                                null,
+                                null));
+                    }
             }
         }
         return (IClasspathEntry[]) result.toArray(
@@ -239,9 +212,9 @@ public class WarBuilder
         throws JavaModelException
     {
         IPath projectPath = theJavaProject.getProject().getLocation();
+        IPath outputLocation = theJavaProject.getOutputLocation();
         IPath classFilesPath =
-            projectPath.removeLastSegments(1).append(
-                theJavaProject.getOutputLocation());
+            projectPath.append(outputLocation.removeFirstSegments(1));
         return classFilesPath.toFile();
     }
 
@@ -255,22 +228,30 @@ public class WarBuilder
     {
         thePM.subTask(
             WebappMessages.getString("WarBuilder.message.createwar.monitor"));
-        this.outputWar.delete();
+        this.webapp.loadValues();
+        File outputWar = getOutputWar();
+        File tempDir = getTempDir();
+        File userWebFilesDir = getUserWebFilesDir();
+        File userWebXML = getWebXML(userWebFilesDir);
+        IClasspathEntry[] jarEntries = getJarEntries();
+        File userClassFilesDir = getAbsoluteOutputLocation(this.javaProject);
+        
+        outputWar.delete();
         War warTask = new War();
         IPath tempJarsPath =
-            new Path(this.tempDir.getAbsolutePath()).append(JARS_PATH);
+            new Path(tempDir.getAbsolutePath()).append(JARS_PATH);
         File tempJarsDir = tempJarsPath.toFile();
         if (tempJarsDir.exists())
         {
             delete(tempJarsDir);
         }
         tempJarsDir.mkdir();
-        copyJars(this.jarEntries, tempJarsDir);
+        copyJars(jarEntries, tempJarsDir);
         thePM.worked(1);
         Project antProject = new Project();
         antProject.init();
         warTask.setProject(antProject);
-        warTask.setDestFile(this.outputWar);
+        warTask.setDestFile(outputWar);
         ZipFileSet classes = new ZipFileSet();
         classes.setDir(userClassFilesDir);
         warTask.addClasses(classes);
@@ -278,16 +259,16 @@ public class WarBuilder
         classes.setDir(userClassFilesDir);
         classes.setIncludes("log4j.properties");
         warTask.addClasses(classes);
-        if (this.userWebFilesDir != null && this.userWebFilesDir.exists())
+        if (userWebFilesDir != null && userWebFilesDir.exists())
         {
             FileSet webFiles = new FileSet();
-            webFiles.setDir(this.userWebFilesDir);
+            webFiles.setDir(userWebFilesDir);
             webFiles.setExcludes(WEBINF);
             warTask.addFileset(webFiles);
         }
-        if (this.userWebXML != null && this.userWebXML.exists())
+        if (userWebXML != null && userWebXML.exists())
         {
-            warTask.setWebxml(this.userWebXML);
+            warTask.setWebxml(userWebXML);
         }
         else
         {
@@ -298,7 +279,7 @@ public class WarBuilder
             {
                 // A file is needed for war creation
                 File voidFile = File.createTempFile("void", null);
-                createZipFile(this.outputWar, voidFile);
+                createZipFile(outputWar, voidFile);
                 voidFile.delete();
             }
             catch (IOException e)
@@ -321,7 +302,51 @@ public class WarBuilder
         warTask.execute();
         delete(tempJarsDir);
         thePM.worked(2);
-        return this.outputWar;
+        return outputWar;
+    }
+
+    /**
+     * @return the web application folder situated in the user's project
+     */
+    private File getUserWebFilesDir()
+    {
+        // path to the web directory relative to the user's project
+        String userWebFilesPath = webapp.getDir();
+        if (userWebFilesPath == null || userWebFilesPath.equals(""))
+        {
+            return null;
+        }
+        else
+        {
+            IPath projectPath = this.javaProject.getProject().getLocation();
+
+            // web application folder situated in the user's project
+            return projectPath.append(userWebFilesPath).toFile();
+        }
+    }
+
+    /**
+     * @return the jar entries
+     */
+    private IClasspathEntry[] getJarEntries()
+    {
+        return getAbsoluteEntries(webapp.getClasspath());
+    }
+
+    /**
+     * @return the temporary directory
+     */
+    private File getTempDir()
+    {
+        return new File(webapp.getTempDir());
+    }
+
+    /**
+     * @return the output war file
+     */
+    private File getOutputWar()
+    {
+        return new File(webapp.getOutput());
     }
 
     /**
