@@ -13,7 +13,47 @@
 
   <body>
 
-    <s1 title="Resources related to Cactus">
+    <s1 title="External resources related to Cactus">
+
+      <table>
+        <tr>
+          <td>
+            Link
+          </td>
+          <td>
+            <link href="http://kacoma.sourceforge.net">KaCoMa</link>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Type
+          </td>
+          <td>
+            Tutorial
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Date
+          </td>
+          <td>
+            Submitted on May 2002
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Description
+          </td>
+          <td>
+            KaCoMa (abbreviation for Kaarle's ContentManagement until further
+            notice) is a ContentManagement system for web-sites that serves
+            as a tutorial for beginners of custom taglibraries and/or Unit
+            testing of corresponding software.
+          </td>
+        </tr>
+      </table>
+
+      <p/>
 
       <table>
         <tr>
@@ -46,11 +86,12 @@
             Description
           </td>
           <td>
-            StrutsTestCase for JUnit is an extension of the standard JUnit TestCase class that
-            provides facilities for testing code based on the Struts framework. StrutsTestCase
-            provides both a Mock Object approach and a Cactus approach to actually run the Struts
-            ActionServlet, allowing you to test your Struts code with or without a running servlet
-            engine.
+            StrutsTestCase for JUnit is an extension of the standard JUnit
+            TestCase class that provides facilities for testing code based on
+            the Struts framework. StrutsTestCase provides both a Mock Object
+            approach and a Cactus approach to actually run the Struts
+            ActionServlet, allowing you to test your Struts code with or
+            without a running servlet engine.
           </td>
         </tr>
       </table>
@@ -64,8 +105,8 @@
           </td>
           <td>
             <link href="http://www.amazon.com/exec/obidos/ASIN/047120708X/">
-            Java Tools for Extreme Programming: Mastering Open Source Tools, including Ant,
-            JUnit, and Cactus</link>
+            Java Tools for Extreme Programming: Mastering Open Source Tools,
+            including Ant, JUnit, and Cactus</link>
           </td>
         </tr>
         <tr>
@@ -89,15 +130,12 @@
             Description
           </td>
           <td>
-            Co-authored by 
-	    <link href="contributors.html#nick_bio">
-	    Nicholas Lesiecki
-	    </link> (a Cactus commiter)
-	    and Richard Hightower, this book covers key open source testing and integration
-	    tools that work well in agile processes such as XP. The book 
-	    features a Cactus API reference, an in-depth tutorial on Cactus use, 
-	    and an example of applying in-container techniques to a real-world 
-	    application.
+            Co-authored by <link href="contributors.html#nick_bio">Nicholas
+            Lesiecki</link> (a Cactus commiter) and Richard Hightower, this
+            book covers key open source testing and integration tools that work
+            well in agile processes such as XP. The book features a Cactus API
+            reference, an in-depth tutorial on Cactus use, and an example of
+            applying in-container techniques to a real-world application.
           </td>
         </tr>
       </table>
@@ -142,7 +180,7 @@
 
     </s1>
 
-    <s1 title="Resources related to testing">
+    <s1 title="External resources related to testing in general">
 
       <table>
         <tr>
