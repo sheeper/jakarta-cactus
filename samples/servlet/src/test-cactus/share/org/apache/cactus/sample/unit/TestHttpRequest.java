@@ -163,9 +163,11 @@ public class TestHttpRequest extends ServletTestCase
     {
         request.setRemoteIPAddress("192.168.0.1");
         request.setRemoteHostName("atlantis");
+        request.setRemoteUser("george");
 
         assertEquals("192.168.0.1", request.getRemoteAddr());
         assertEquals("atlantis", request.getRemoteHost());
+        assertEquals("george", request.getRemoteUser());
     }
 
 }
