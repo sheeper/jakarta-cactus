@@ -60,3 +60,12 @@ standard.jar = ${lib.repo}/taglibs/jars/standard-1.0.2.jar
 # Note: cactus.home.weblogic7x is the location of BEA Home and NOT the 
 # location of weblogic7xx, inside the bea home directory.
 #cactus.home.weblogic7x = c:/bea
+
+# Should we instrument our code with Clover (test coverage tool) ?
+# For this to work, the clover.jar needs to be in ANTHOME/lib.
+# Comment out to disable Clover (setting the property to false will have no
+# effect).
+#clover.enable = true
+
+# Clover jar
+clover.jar = ${ant.home}/lib/clover.jar
