@@ -438,6 +438,11 @@ public class BaseWebRequest implements Request
      */
     public void addCookie(Cookie theCookie)
     {
+        if (theCookie == null)
+        {
+            throw new IllegalStateException(
+                "The cookie cannot be null");           
+        }
         this.cookies.addElement(theCookie);
     }
 
