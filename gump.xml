@@ -544,7 +544,7 @@
     <depend project="jakarta-cactus-sample-servlet-12"/>
     <depend project="jakarta-cactus-integration-ant-12"/>
     <depend project="jakarta-cactus-integration-eclipse-runner-12"/>
-    <depend project="jakarta-cactus-integration-eclipse-webapp-12"/>
+    <depend project="jakarta-cactus-integration-eclipse-webapp"/>
 
     <deliver fromdir="framework/release-12" tosite="jakarta.apache.org"
       todir="builds/jakarta-cactus/nightly/@@DATE@@/" />
@@ -577,7 +577,8 @@
     <depend project="jakarta-cactus-sample-servlet-13"/>
     <depend project="jakarta-cactus-integration-ant-13"/>
     <depend project="jakarta-cactus-integration-eclipse-runner-13"/>
-
+    <depend project="jakarta-cactus-integration-eclipse-webapp"/>
+    
     <deliver fromdir="framework/release-13" tosite="jakarta.apache.org"
       todir="builds/jakarta-cactus/nightly/@@DATE@@/" />
 
