@@ -20,7 +20,7 @@
         1.6 of the EJB plugin.
       </action>
       <action dev="vmassol" type="fix">
-        Cactus now guess automatically what Java source files are Cactus tests
+        Cactus now guesses automatically what Java source files are Cactus tests
         when packaging tests in an EAR (it was already supported when running
         tests packaged in a WAR).
       </action>
