@@ -163,7 +163,7 @@ public class JBoss3xContainer extends AbstractJavaContainer
     // Container Implementation ------------------------------------------------
 
     /**
-     * @see AbstractContainer#getTestContext()
+     * @see AbstractJavaContainer#getTestContext()
      */
     public String getTestContext()
     {
@@ -171,7 +171,7 @@ public class JBoss3xContainer extends AbstractJavaContainer
     }
     
     /**
-     * @see AbstractContainer#getName()
+     * @see AbstractJavaContainer#getName()
      */
     public final String getName()
     {
@@ -179,7 +179,7 @@ public class JBoss3xContainer extends AbstractJavaContainer
     }
 
     /**
-     * @see AbstractContainer#getPort() 
+     * @see AbstractJavaContainer#getPort() 
      */
     public final int getPort()
     {
@@ -187,7 +187,7 @@ public class JBoss3xContainer extends AbstractJavaContainer
     }
     
     /**
-     * @see AbstractContainer#init()
+     * @see AbstractJavaContainer#init()
      */
     public final void init()
     {
@@ -215,7 +215,7 @@ public class JBoss3xContainer extends AbstractJavaContainer
     }
 
     /**
-     * @see AbstractContainer#startUp()
+     * @see AbstractJavaContainer#startUp()
      */
     public final void startUp()
     {
@@ -256,7 +256,7 @@ public class JBoss3xContainer extends AbstractJavaContainer
     }
 
     /**
-     * @see AbstractContainer#shutDown()
+     * @see AbstractJavaContainer#shutDown()
      */
     public final void shutDown()
     {
