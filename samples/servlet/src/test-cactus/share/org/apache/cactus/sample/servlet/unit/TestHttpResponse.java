@@ -24,7 +24,6 @@ import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.io.StringWriter;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -70,50 +69,42 @@ public class TestHttpResponse extends ServletTestCase
     //-------------------------------------------------------------------------
 
     /**
-     * Verify that the <code>AsertUtils.getResponseAsString()</code> method
-     * works with output text sent on multiple lines.
+     * Verify that the <code>WebResponse.getText()</code> method works.
      * 
      * @exception IOException on test failure
      */
-    public void testGetResponseAsStringMultiLines() throws IOException
+    public void testGetResponseAsText() throws IOException
     {
         PrintWriter pw = response.getWriter();
 
-        response.setContentType("text/html");
-        pw.println("<html><head/>");
-        pw.println("<body>A GET request</body>");
-        pw.println("</html>");
+        // Note: Ideally we could also test multi line to verify that end 
+        // of lines are correctly handled. However, the different containers
+        // handle end of lines differently (some return "\r\n" - Windows
+        // style, others return "\n" - Unix style).
+        pw.print("<html><head/><body>A GET request</body></html>");
     }
 
     /**
-     * Verify that the <code>AsertUtils.getResponseAsString()</code> method
-     * works with output text sent on multiple lines.
+     * Verify that the <code>WebResponse.getText()</code> method works.
      *
      * @param theResponse the response from the server side.
      * 
      * @exception IOException on test failure
      */
-    public void endGetResponseAsStringMultiLines(WebResponse theResponse)
+    public void endGetResponseAsText(WebResponse theResponse)
         throws IOException
     {
-        StringWriter sw = new StringWriter();
-        PrintWriter pw = new PrintWriter(sw);
-
-        pw.println("<html><head/>");
-        pw.println("<body>A GET request</body>");
-        pw.println("</html>");
-
+        String expected = "<html><head/><body>A GET request</body></html>";
+        
         String result = theResponse.getText();
 
-        assertEquals(sw.toString(), result);
-
-        pw.close();
+        assertEquals(expected, result);
     }
 
     //-------------------------------------------------------------------------
 
     /**
-     * Verify that the <code>getTestAsArray()</code> method
+     * Verify that the <code>getTextAsArray()</code> method
      * works with output text sent on multiple lines. We also verify that
      * we can call it several times with the same result.
      * 
@@ -130,7 +121,7 @@ public class TestHttpResponse extends ServletTestCase
     }
 
     /**
-     * Verify that the <code>getTestAsArray()</code> method
+     * Verify that the <code>getTextAsArray()</code> method
      * works with output text sent on multiple lines. We also verify that
      * we can call it several times with the same result.
      *
