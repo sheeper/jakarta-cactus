@@ -223,44 +223,22 @@ public class TestAbstractTestCase extends
     //-------------------------------------------------------------------------
 
     /**
-     * Verify that the deprecated begin method with a
-     * <code>ServletTestRequest</code> parameter is still supported.
-     */
-    public void beginBeginMethodOK1(ServletTestRequest theRequest)
-    {
-        // We send an exception just to verify that this code has been reached
-        // The exception is intercepted in
-        // TestAbstractTestCase_InterceptorTestCase
-        fail("beginBeginMethodOK1");
-    }
-
-    /**
-     * Verify that the deprecated begin method with a
-     * <code>ServletTestRequest</code> parameter is still supported.
-     */
-    public void testBeginMethodOK1()
-    {
-    }
-
-    //-------------------------------------------------------------------------
-
-    /**
      * Verify that the begin method with a
      * <code>WebRequest</code> parameter is called correctly.
      */
-    public void beginBeginMethodOK2(WebRequest theRequest)
+    public void beginBeginMethodOK(WebRequest theRequest)
     {
         // We send an exception just to verify that this code has been reached
         // The exception is intercepted in
         // TestAbstractTestCase_InterceptorTestCase
-        fail("beginBeginMethodOK2");
+        fail("beginBeginMethodOK");
     }
 
     /**
      * Verify that the begin method with a
      * <code>WebRequest</code> parameter is called correctly.
      */
-    public void testBeginMethodOK2()
+    public void testBeginMethodOK()
     {
     }
 

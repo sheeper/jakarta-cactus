@@ -113,7 +113,7 @@ public abstract class AbstractHttpClient
      * @exception Throwable if an error occured in the test method or in the
      *                      redirector servlet.
      */
-    public HttpURLConnection doTest(ServletTestRequest theRequest)
+    public HttpURLConnection doTest(WebRequest theRequest)
         throws Throwable
     {
         logger.entry("doTest(" + theRequest + ")");
@@ -139,7 +139,7 @@ public abstract class AbstractHttpClient
         HttpClientHelper helper2 =
                 new HttpClientHelper(getRedirectorURL());
 
-        ServletTestRequest resultsRequest = new ServletTestRequest();
+        WebRequest resultsRequest = new WebRequest();
         resultsRequest.addParameter(ServiceDefinition.SERVICE_NAME_PARAM,
             ServiceEnumeration.GET_RESULTS_SERVICE.toString());
         HttpURLConnection resultConnection = helper2.connect(resultsRequest);

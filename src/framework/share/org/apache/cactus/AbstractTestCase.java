@@ -133,7 +133,7 @@ public abstract class AbstractTestCase extends TestCase
 
     /**
      * @return the name of the test begin method to call that initialize the
-     *         test by initializing the <code>ServletTestRequest</code> object
+     *         test by initializing the <code>WebRequest</code> object
      *         for the test case.
      */
     protected String getBeginMethodName()
@@ -154,10 +154,10 @@ public abstract class AbstractTestCase extends TestCase
     /**
      * Call the test case begin method
      *
-     * @param theRequest the <code>ServletTestRequest</code> object to
+     * @param theRequest the <code>WebRequest</code> object to
      *                   pass to the begin method.
      */
-    protected void callBeginMethod(ServletTestRequest theRequest)
+    protected void callBeginMethod(WebRequest theRequest)
         throws Throwable
     {
         // First, verify if a begin method exist. If one is found, verify if
@@ -225,7 +225,7 @@ public abstract class AbstractTestCase extends TestCase
      *        codes, headers, cookies can be checked using the get methods of
      *        this object.
      */
-    protected void callEndMethod(ServletTestRequest theRequest,
+    protected void callEndMethod(WebRequest theRequest,
         HttpURLConnection theConnection) throws Throwable
     {
         // First, verify if an end method exist. If one is found, verify if
@@ -400,7 +400,7 @@ public abstract class AbstractTestCase extends TestCase
         logger.debug("Test case = " + currentTestMethod);
 
         // Call the begin method to fill the request object
-        ServletTestRequest request = new ServletTestRequest();
+        WebRequest request = new WebRequest();
         callBeginMethod(request);
 
         // Add the class name, the method name, the URL to simulate and

@@ -33,9 +33,9 @@
         <li>
           The JUnit Test Runner calls a <code>YYYTestCase.runTest()</code>
           method. This method looks for a
-          <code>beginXXX(ServletTestRequest)</code> method and executes it if
+          <code>beginXXX(WebRequest)</code> method and executes it if
           one is found. This is executed on the client side (i.e. not in a
-          server engine). The <code>ServletTestRequest</code>
+          server engine). The <code>WebRequest</code>
           parameter passed to the <code>beginXXX()</code> method is used
           to set the HTTP headers, the HTTP parameters, ... that will be
           sent in step 2 to the Redirector proxy.
@@ -78,7 +78,7 @@
             <li>
               creates an HTTP Session if the user has expressed the wish
               (using the
-              <code>ServletTestRequest.setAutomaticSession(boolean)</code>
+              <code>WebRequest.setAutomaticSession(boolean)</code>
               code in the <code>beginXXX()</code> method. By default a session
               is always created) and the redirector fills by reflection the
               <code>session</code> implicit object.

@@ -90,7 +90,7 @@ public class TestAbstractTestCase_InterceptorTestCase
      {
         try {
             // Call the begin method
-            ServletTestRequest request = new ServletTestRequest();
+            WebRequest request = new WebRequest();
             callBeginMethod(request);
 
             // Create a mock HttpURLConnection as it is needed by HttpUnit
@@ -156,17 +156,10 @@ public class TestAbstractTestCase_InterceptorTestCase
                 return;
             }
 
-            // Verify that the deprecated begin method with a
-            // <code>ServletTestRequest</code> parameter is still supported.
-            if (name().equals("testBeginMethodOK1")) {
-                assertEquals("beginBeginMethodOK1", e.getMessage());
-                return;
-            }
-
             // Verify that the begin method with a
             // <code>WebRequest</code> parameter is called correctly.
-            if (name().equals("testBeginMethodOK2")) {
-                assertEquals("beginBeginMethodOK2", e.getMessage());
+            if (name().equals("testBeginMethodOK")) {
+                assertEquals("beginBeginMethodOK", e.getMessage());
                 return;
             }
 

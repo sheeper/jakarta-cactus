@@ -184,7 +184,7 @@
         <p>
           If you right click on the file containing your test case and click on <code>debug</code>,
           you can stop at breakpoints on methods that are executed on the client side like
-          <code>void endXXX(HttpURLConnection)</code> or <code>void beginXXX(ServletTestRequest)</code>
+          <code>void endXXX(WebResponse)</code> or <code>void beginXXX(WebRequest)</code>
         </p>
       </s2>
     </s1>

@@ -96,7 +96,7 @@
     MyServlet myServlet = new MyServlet();
 [...]
 
-public void beginXXX(ServletTestRequest theRequest)
+public void beginXXX(WebRequest theRequest)
 {
     theRequest.addParameter("param1", "value1");
     theRequest.addParameter("param2", "value2");
@@ -110,9 +110,9 @@ public void testXXX()
     assertEquals("some value", session.getAttribute("some_name_set_in_mymethod"));
 }
 
-public void endXXX()
+public void endXXX(WebResponse theResponse)
 {
-    String result = AssertUtils.getResponseAsString(theConnection);
+    String result = theResponse.getText();
     assertEquals("<html><head/><body>A GET request</body></html>", result);
 }
 
