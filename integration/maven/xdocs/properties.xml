@@ -146,18 +146,6 @@
             </p>
           </td>
         </tr>
-<!--
-        <tr>
-          <td>cactus.runner</td>
-          <td>Yes</td>
-          <td>
-            <p>
-              The JUnit Runner to use for executing the tests. Valid values 
-              are "text" and "swing". Default value is <code>text</code>.
-            </p>
-          </td>
-        </tr>
--->
       </table>
     </section>
 
