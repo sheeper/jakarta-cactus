@@ -417,12 +417,21 @@ public abstract class AbstractClientTestCase extends TestCase
     }
 
     /**
+     * @see #getCurrentTestName()
+     * @deprecated Use {@link #getCurrentTestName()} instead
+     */
+    protected String getCurrentTestMethod()
+    {
+        return getCurrentTestName();
+    }
+
+    /**
      * @return the name of the current test case being executed (it corresponds
      *         to the name of the test method with the "test" prefix removed.
      *         For example, for "testSomeTestOk" would return "someTestOk".
      */
-    protected String getCurrentTestMethod()
+    protected String getCurrentTestName()
     {
-        return JUnitVersionHelper.getTestCaseName(this);
+        return JUnitVersionHelper.getTestCaseName(this);        
     }
 }

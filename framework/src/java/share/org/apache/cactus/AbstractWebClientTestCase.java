@@ -190,7 +190,7 @@ public abstract class AbstractWebClientTestCase extends AbstractClientTestCase
                 {
                     fail("There can only be one method ["
                         + methods[i].getName() + "] per test case. "
-                        + "Test case [" + this.getCurrentTestMethod()
+                        + "Test case [" + this.getCurrentTestName()
                         + "] has two at least !");
                 }
 

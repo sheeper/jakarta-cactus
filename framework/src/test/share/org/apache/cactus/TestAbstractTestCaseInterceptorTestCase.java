@@ -164,7 +164,7 @@ public class TestAbstractTestCaseInterceptorTestCase
         // Test that when a begin method for a given test does not have the
         // correct return type (i.e. void), a
         // <code>AssertionFailedError</code> exception is returned.
-        if (this.getCurrentTestMethod().equals("testBeginMethodBadReturnType"))
+        if (this.getCurrentTestName().equals("testBeginMethodBadReturnType"))
         {
             assertEquals("The method "
                 + "[beginBeginMethodBadReturnType] should return void and "
@@ -175,7 +175,7 @@ public class TestAbstractTestCaseInterceptorTestCase
 
         // Test that when a begin method for a given test is not declared
         // public a <code>AssertionFailedError</code> exception is returned.
-        if (this.getCurrentTestMethod().equals("testBeginMethodNotPublic"))
+        if (this.getCurrentTestName().equals("testBeginMethodNotPublic"))
         {
             assertEquals("Method [beginBeginMethodNotPublic] should be "
                 + "declared public", theMessage);
@@ -186,7 +186,7 @@ public class TestAbstractTestCaseInterceptorTestCase
         // Test that when a begin method for a given test has the wrong
         // type of parameters, a <code>AssertionFailedError</code> exception
         // is returned.
-        if (this.getCurrentTestMethod().equals("testBeginMethodBadParamType"))
+        if (this.getCurrentTestName().equals("testBeginMethodBadParamType"))
         {
             assertEquals("The method "
                 + "[beginBeginMethodBadParamType] must accept a single "
@@ -200,7 +200,7 @@ public class TestAbstractTestCaseInterceptorTestCase
         // Test that when a begin method for a given test has the wrong
         // number of parameters, a <code>AssertionFailedError</code>
         // exception is returned.
-        if (this.getCurrentTestMethod().equals("testBeginMethodBadParamNumber"))
+        if (this.getCurrentTestName().equals("testBeginMethodBadParamNumber"))
         {
             assertEquals("The method "
                 + "[beginBeginMethodBadParamNumber] must accept a single "
@@ -213,7 +213,7 @@ public class TestAbstractTestCaseInterceptorTestCase
 
         // Verify that the begin method with a
         // <code>WebRequest</code> parameter is called correctly.
-        if (this.getCurrentTestMethod().equals("testBeginMethodOK"))
+        if (this.getCurrentTestName().equals("testBeginMethodOK"))
         {
             assertEquals("beginBeginMethodOK", theMessage);
 
@@ -234,7 +234,7 @@ public class TestAbstractTestCaseInterceptorTestCase
         // Test that when an end method for a given test does not have the
         // correct return type (i.e. void), a
         // <code>AssertionFailedError</code> exception is returned.
-        if (this.getCurrentTestMethod().equals("testEndMethodBadReturnType"))
+        if (this.getCurrentTestName().equals("testEndMethodBadReturnType"))
         {
             assertEquals("The method "
                 + "[endEndMethodBadReturnType] should return void and "
@@ -245,7 +245,7 @@ public class TestAbstractTestCaseInterceptorTestCase
 
         // Test that when an end method for a given test is not declared
         // public a <code>AssertionFailedError</code> exception is returned.
-        if (this.getCurrentTestMethod().equals("testEndMethodNotPublic"))
+        if (this.getCurrentTestName().equals("testEndMethodNotPublic"))
         {
             assertEquals("Method [endEndMethodNotPublic] should be "
                 + "declared public", theMessage);
@@ -256,7 +256,7 @@ public class TestAbstractTestCaseInterceptorTestCase
         // Test that when an end method for a given test has the wrong
         // type of parameters, a <code>AssertionFailedError</code> exception
         // is returned.
-        if (this.getCurrentTestMethod().equals("testEndMethodBadParamType"))
+        if (this.getCurrentTestName().equals("testEndMethodBadParamType"))
         {
             assertEquals("The method [endEndMethodBadParamType] "
                 + "has a bad parameter of type [java.lang.String]", 
@@ -268,7 +268,7 @@ public class TestAbstractTestCaseInterceptorTestCase
         // Test that when an end method for a given test has the wrong
         // number of parameters, a <code>AssertionFailedError</code>
         // exception is returned.
-        if (this.getCurrentTestMethod().equals("testEndMethodBadParamNumber"))
+        if (this.getCurrentTestName().equals("testEndMethodBadParamNumber"))
         {
             assertEquals("The method [endEndMethodBadParamNumber] "
                 + "must only have a single parameter", theMessage);
@@ -279,7 +279,7 @@ public class TestAbstractTestCaseInterceptorTestCase
         // Test that the end method is called correctly when it's signature
         // contains a <code>org.apache.cactus.WebResponse</code>
         // parameter.
-        if (this.getCurrentTestMethod().equals("testEndMethodOK1"))
+        if (this.getCurrentTestName().equals("testEndMethodOK1"))
         {
             assertEquals("endEndMethodOK1", theMessage);
 
@@ -289,7 +289,7 @@ public class TestAbstractTestCaseInterceptorTestCase
         // Test that the end method is called correctly when it's signature
         // contains a <code>com.meterware.httpunit.WebResponse</code>
         // parameter.
-        if (this.getCurrentTestMethod().equals("testEndMethodOK2"))
+        if (this.getCurrentTestName().equals("testEndMethodOK2"))
         {
             assertEquals("endEndMethodOK2", theMessage);
 
@@ -299,7 +299,7 @@ public class TestAbstractTestCaseInterceptorTestCase
         // Test that the deprecated end method with the
         // <code>HttpURLConnection</code> parameter can still be called
         // correctly.
-        if (this.getCurrentTestMethod().equals("testEndMethodOK3"))
+        if (this.getCurrentTestName().equals("testEndMethodOK3"))
         {
             assertEquals("endEndMethodOK3", theMessage);
 

@@ -65,6 +65,7 @@ import junit.framework.Test;
 
 import org.apache.cactus.client.connector.http.DefaultHttpClient;
 import org.apache.cactus.configuration.WebConfiguration;
+import org.apache.cactus.util.UniqueGenerator;
 import org.apache.commons.logging.LogFactory;
 
 /**
@@ -160,18 +161,18 @@ public abstract class AbstractWebServerTestCase
             // methods of this class but excludes the
             // inherited ones.
             runMethod = getWrappedTest().getClass().getMethod(
-                this.getCurrentTestMethod(), new Class[0]);
+                this.getCurrentTestName(), new Class[0]);
         }
         catch (NoSuchMethodException e)
         {
-            fail("Method [" + this.getCurrentTestMethod()
+            fail("Method [" + this.getCurrentTestName()
                 + "()] does not exist for class [" 
                 + getWrappedTest().getClass().getName() + "].");
         }
 
         if ((runMethod != null) && !Modifier.isPublic(runMethod.getModifiers()))
         {
-            fail("Method [" + this.getCurrentTestMethod()
+            fail("Method [" + this.getCurrentTestName()
                 + "()] should be public");
         }
 
@@ -246,7 +247,7 @@ public abstract class AbstractWebServerTestCase
         // automatic session creation flag to the request
         RequestDirectives directives = new RequestDirectives(theRequest);
         directives.setClassName(this.getClass().getName());
-        directives.setMethodName(this.getCurrentTestMethod());
+        directives.setMethodName(this.getCurrentTestName());
         directives.setAutoSession(
             theRequest.getAutomaticSession() ? "true" : "false");
 

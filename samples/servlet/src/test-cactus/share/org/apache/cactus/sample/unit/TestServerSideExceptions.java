@@ -124,7 +124,7 @@ public class TestServerSideExceptions extends ServletTestCase
             // If the test case is "testAssertionFailedError" and the exception
             // is of type AssertionFailedError and contains the text
             // "test assertion failed error", then the test is ok.
-            if (this.getCurrentTestMethod().equals("testAssertionFailedError"))
+            if (this.getCurrentTestName().equals("testAssertionFailedError"))
             {
                 if (e.instanceOf(AssertionFailedError.class))
                 {
@@ -138,7 +138,7 @@ public class TestServerSideExceptions extends ServletTestCase
             // is of type ComparisonFailure and contains the text
             // "test comparison failure", then the test is ok.
             else if (
-                this.getCurrentTestMethod().equals("testComparisonFailure"))
+                this.getCurrentTestName().equals("testComparisonFailure"))
             {
                 if (e.instanceOf(AssertionFailedError.class))
                 {
@@ -156,7 +156,7 @@ public class TestServerSideExceptions extends ServletTestCase
             // TestServletTestCaseHelper1_ExceptionNotSerializable
             // and contains the text "test non serializable exception", then
             // the test is ok.
-            if (this.getCurrentTestMethod().equals(
+            if (this.getCurrentTestName().equals(
                 "testExceptionNotSerializable"))
             {
                 if (e.instanceOf(NotSerializableException.class))
@@ -172,7 +172,7 @@ public class TestServerSideExceptions extends ServletTestCase
             // is of type TestServletTestCaseHelper1_ExceptionSerializable
             // and contains the text "test serializable exception", then
             // the test is ok.
-            if (this.getCurrentTestMethod().equals("testExceptionSerializable"))
+            if (this.getCurrentTestName().equals("testExceptionSerializable"))
             {
                 assertTrue(e.instanceOf(SerializableException.class));
 
