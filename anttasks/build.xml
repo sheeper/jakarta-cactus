@@ -249,7 +249,7 @@
             allowPackage="false"
             allowNoAuthor="false"
             maxLineLen="80"
-            ignoreLineLengthPattern="@version.*\$Id"
+            ignoreLineLengthPattern="(@version.*\$Id|@see)"
             ignoreImportLen="true"
             maxMethodLen="100"
             maxConstructorLen="100"
