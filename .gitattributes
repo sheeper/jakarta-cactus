@@ -38,7 +38,6 @@ conf/sample/conf/test/servlet23/cactus.properties svn_keywords=Author+Date+Id+Re
 conf/sample/conf/test/servlet23/resin13/resin.conf svn_keywords=Author+Date+Id+Revision
 conf/sample/conf/test/servlet23/tomcat40/server.xml svn_keywords=Author+Date+Id+Revision
 conf/sample/conf/test/servlet23/tomcat40/tomcat-users.xml svn_keywords=Author+Date+Id+Revision
-conf/sample/conf/test/servlet23/tomcat40/web.xml svn_keywords=Author+Date+Id+Revision
 conf/sample/conf/test/servlet23/web.xml svn_keywords=Author+Date+Id+Revision
 conf/sample/conf/test/servlet23/weblogic61/SerializedSystemIni.dat -text svneol=unset#application/octet-stream
 conf/sample/conf/test/servlet23/weblogic61/config.xml svn_keywords=Author+Date+Id+Revision

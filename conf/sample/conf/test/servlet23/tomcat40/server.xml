@@ -10,7 +10,7 @@
 
       <Realm className="org.apache.catalina.realm.MemoryRealm" />
 
-      <Host name="localhost" debug="0" appBase="@out.tomcat40.full.dir@/webapps">
+      <Host name="localhost" debug="0" appBase="webapps" unpackWARs="true">
       </Host>
 
     </Engine>

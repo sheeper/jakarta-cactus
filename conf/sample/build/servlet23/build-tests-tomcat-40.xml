@@ -25,8 +25,7 @@
 
         <java classname="org.apache.catalina.startup.Bootstrap" fork="yes">
             <jvmarg value="-Dcatalina.home=${tomcat.home.40}"/>
-            <arg value="-config"/>
-            <arg value="${out.tomcat40.full.dir}/conf/server.xml"/>
+            <jvmarg value="-Dcatalina.base=${out.tomcat40.dir}"/>
             <arg value="start"/>
             <classpath>
 
@@ -38,7 +37,7 @@
               <!-- These are ignore if -Dbuild.sysclasspath=only is used -->
               <fileset dir="${tomcat.home.40}">
                   <include name="bin/bootstrap.jar"/>
-                  <include name="server/catalina.jar"/>
+                  <!--include name="server/catalina.jar"/-->
               </fileset>
             </classpath>
         </java>
@@ -54,6 +53,7 @@
 
         <java classname="org.apache.catalina.startup.Bootstrap" fork="yes">
             <jvmarg value="-Dcatalina.home=${tomcat.home.40}"/>
+            <jvmarg value="-Dcatalina.base=${out.tomcat40.dir}"/>
             <arg value="stop"/>
             <classpath>
 
@@ -100,9 +100,6 @@
 
         <property name="out.tomcat40.dir" value="${out.test.dir}/tomcat40"/>
         <property name="conf.tomcat40.dir" value="${conf.test.dir}/tomcat40"/>
-        <property name="out.tomcat40.full.dir" value="${basedir}/${out.tomcat40.dir}"/>
-
-        <filter token="out.tomcat40.full.dir" value="${out.tomcat40.full.dir}"/>
 
         <!-- Create work and conf directories and copy configuration files -->
         <mkdir dir="${out.tomcat40.dir}/conf"/>
@@ -119,6 +116,11 @@
         <copy todir="${out.tomcat40.dir}/conf" filtering="on">
             <fileset dir="${conf.tomcat40.dir}"/>
         </copy>
+
+        <!-- Copy the Tomcat web.xml - We need to copy this file as it has 
+             changed between Tomcat 4.x versions and one version of it doesn't
+             work with another version of Tomcat 4 -->
+        <copy file="${tomcat.home.40}/conf/web.xml" todir="${out.tomcat40.dir}/conf"/>
 
         <!-- Copy the war file -->
         <copy file="${out.test.dir}/test.war" tofile="${out.tomcat40.dir}/webapps/test.war"/>
