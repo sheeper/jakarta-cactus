@@ -124,13 +124,13 @@
             location="integration/ant/dist-${j2ee.api}/lib/${cactus.antintegration.clover.jar.name}.jar"/>
 
         <!-- The Cactus Eclipse Runner Integration dist -->
-        <property name="cactus.eclipse.runner.bin" value="integration/eclipse/org.apache.cactus.eclipse.runner/dist-${j2ee.api}/bin/cactus-integration-eclipse-runner"/>
+        <property name="cactus.eclipse.runner.bin" location="integration/eclipse/org.apache.cactus.eclipse.runner/dist-${j2ee.api}/bin/cactus-integration-eclipse-runner"/>
         
         <!-- The Cactus Eclipse Webapp Integration dist -->
-        <property name="cactus.eclipse.webapp.bin" value="integration/eclipse/org.apache.cactus.eclipse.webapp/dist/bin/cactus-integration-eclipse-webapp"/>
+        <property name="cactus.eclipse.webapp.bin" location="integration/eclipse/org.apache.cactus.eclipse.webapp/dist/bin/cactus-integration-eclipse-webapp"/>
         
          <!-- The Sample Servlet dist -->
-        <property name="cactus.samples.servlet.bin" value="samples/servlet/dist-${j2ee.api}/bin/cactus-sample-servlet"/>
+        <property name="cactus.samples.servlet.bin" location="samples/servlet/dist-${j2ee.api}/bin/cactus-sample-servlet"/>
 
 
     </target>
