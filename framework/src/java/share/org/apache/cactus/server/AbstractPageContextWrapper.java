@@ -105,6 +105,7 @@ public abstract class AbstractPageContextWrapper extends PageContext
         ServletURL theURL)
     {
         this.originalPageContext = theOriginalPageContext;
+        this.url = theURL;
     }
 
     // Modified overridden methods -------------------------------------------
