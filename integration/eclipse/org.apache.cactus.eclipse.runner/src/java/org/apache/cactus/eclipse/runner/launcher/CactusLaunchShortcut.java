@@ -56,6 +56,7 @@
  */
 package org.apache.cactus.eclipse.runner.launcher;
 
+import org.apache.cactus.eclipse.runner.ui.CactusPreferences;
 import org.eclipse.debug.core.DebugPlugin;
 import org.eclipse.debug.core.ILaunchConfigurationType;
 import org.eclipse.debug.core.ILaunchManager;
@@ -81,7 +82,12 @@ public class CactusLaunchShortcut
     protected ILaunchConfigurationType getJUnitLaunchConfigType()
     {
         ILaunchManager lm = DebugPlugin.getDefault().getLaunchManager();
-        return lm.getLaunchConfigurationType(
-            CactusLaunchConfiguration.ID_CACTUS_APPLICATION);
+        String configID = CactusLaunchConfiguration.ID_CACTUS_APPLICATION;
+        if (CactusPreferences.getJetty())
+        {
+            configID =
+                JettyCactusLaunchConfiguration.ID_CACTUS_APPLICATION_JETTY;
+        }
+        return lm.getLaunchConfigurationType(configID);
     }
 }

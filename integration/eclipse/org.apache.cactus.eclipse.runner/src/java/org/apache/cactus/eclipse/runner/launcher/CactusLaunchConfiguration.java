@@ -56,34 +56,28 @@
  */
 package org.apache.cactus.eclipse.runner.launcher;
 
-import java.io.File;
-import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.Vector;
 
-import org.apache.cactus.eclipse.runner.common.JarFilenameFilter;
 import org.apache.cactus.eclipse.runner.common.LibraryHelper;
-import org.apache.cactus.eclipse.runner.containers.jetty.JettyContainerManager;
 import org.apache.cactus.eclipse.runner.ui.CactusMessages;
 import org.apache.cactus.eclipse.runner.ui.CactusPlugin;
 import org.apache.cactus.eclipse.runner.ui.CactusPreferences;
 import org.eclipse.ant.core.AntCorePlugin;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.ILibrary;
-import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.IPluginDescriptor;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.Path;
-import org.eclipse.core.runtime.Platform;
-import org.eclipse.core.runtime.Plugin;
 import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.ILaunchConfiguration;
+import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
+import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
-import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.internal.junit.launcher.JUnitLaunchConfiguration;
 import org.eclipse.jdt.internal.junit.ui.JUnitPlugin;
 import org.eclipse.jdt.junit.ITestRunListener;
-import org.eclipse.jdt.launching.VMRunnerConfiguration;
+import org.eclipse.jdt.launching.IJavaLaunchConfigurationConstants;
+import org.eclipse.jdt.launching.IRuntimeClasspathEntry;
+import org.eclipse.jdt.launching.JavaRuntime;
 import org.eclipse.swt.widgets.Display;
 
 /**
@@ -116,60 +110,9 @@ public class CactusLaunchConfiguration
         "org.apache.cactus.eclipse.runner.launchconfig";
 
     /**
-     * Path to the Jetty library directory in the Cactus plugin
-     * structure
+     * Separator between VM arguments
      */
-    private static final String JETTY_LIBRARY_PATH = "./lib/";
-
-    /**
-     * Returns a valid VM configuration for Cactus. This method overrides
-     * the JUnit plugin one in order to add Cactus required VM parameters. 
-     *
-     * @param theConfiguration the launch configuration
-     * @param theMode the mode (debug, run)
-     * @param theTests the JUnit tests that will be run
-     * @param thePort the JUnit remote port
-     * @return the configuration for the VM in which to run the tests. It
-     *         includes both the JUnit plugin configuration and the Cactus
-     *         required configuration 
-     * 
-     * @exception CoreException on critical failures
-     */
-    protected VMRunnerConfiguration launchTypes(
-        ILaunchConfiguration theConfiguration,
-        String theMode,
-        IType[] theTests,
-        int thePort)
-        throws CoreException
-    {
-        CactusPlugin.log("creating VMRunnerConfiguration for Cactus");
-        VMRunnerConfiguration configuration =
-            super.launchTypes(theConfiguration, theMode, theTests, thePort);
-        String[] jUnitArgs = configuration.getVMArguments();
-        String[] cactusVMArgs = getCactusVMArgs(theTests);
-        String[] globalArgs = concatenateStringArrays(jUnitArgs, cactusVMArgs);
-        configuration.setVMArguments(globalArgs);
-        CactusPlugin.log("Cactus VM arguments : [" + cactusVMArgs + "]");
-
-        String[] junitClasspath = configuration.getClassPath();
-        String[] cactusClasspath = getCactusClasspath();
-        String[] globalClasspath =
-            concatenateStringArrays(cactusClasspath, junitClasspath);
-        VMRunnerConfiguration cactusConfig =
-            new VMRunnerConfiguration(
-                configuration.getClassToLaunch(),
-                globalClasspath);
-        CactusPlugin.log(
-            "Cactus VM classpath : ["
-                + getRepresentation(cactusClasspath)
-                + "]");
-
-        cactusConfig.setBootClassPath(configuration.getBootClassPath());
-        cactusConfig.setProgramArguments(configuration.getProgramArguments());
-        cactusConfig.setVMArguments(configuration.getVMArguments());
-        cactusConfig.setWorkingDirectory(configuration.getWorkingDirectory());
-        return cactusConfig;
-    }
+    protected static final String VM_ARG_SEPARATOR = " ";
 
     /**
      * @see ILaunchConfigurationDelegate#launch(ILaunchConfiguration, String)
@@ -181,11 +124,43 @@ public class CactusLaunchConfiguration
         final IProgressMonitor thePM)
         throws CoreException
     {
+        final IJavaProject javaProject = getJavaProject(theConfiguration);
+        Vector userClasspath =
+            toMemento(
+                JavaRuntime.computeUnresolvedRuntimeClasspath(javaProject));
+        Vector cactusClasspath = toMemento(getCactusClasspath());
+        List classpath =
+            theConfiguration.getAttribute(
+                IJavaLaunchConfigurationConstants.ATTR_CLASSPATH,
+                (List) null);
+        if (classpath == null)
+        {
+            classpath = userClasspath;
+            classpath.addAll(0, cactusClasspath);
+        }
+        else
+        {
+            classpath.addAll(0, userClasspath);
+            classpath.addAll(0, cactusClasspath);
+        }
+        final ILaunchConfigurationWorkingCopy cactusConfig =
+            theConfiguration.getWorkingCopy();
+        cactusConfig.setAttribute(
+            IJavaLaunchConfigurationConstants.ATTR_CLASSPATH,
+            classpath);
+        cactusConfig.setAttribute(
+            IJavaLaunchConfigurationConstants.ATTR_DEFAULT_CLASSPATH,
+            false);
+        String jUnitArgs = getVMArguments(theConfiguration);
+        String cactusVMArgs = getCactusVMArgs(javaProject);
+        String globalArgs = jUnitArgs + VM_ARG_SEPARATOR + cactusVMArgs;
+        cactusConfig.setAttribute(
+            IJavaLaunchConfigurationConstants.ATTR_VM_ARGUMENTS,
+            globalArgs);
         this.launchEnded = false;
         // Register the instance of CactusLaunchShortcut to the JUnitPlugin
         // for TestRunEnd notification.
         JUnitPlugin.getDefault().addTestRunListener(this);
-        final IJavaProject javaProject = getJavaProject(theConfiguration);
         // Run the preparation in a new thread so that the UI thread which is
         // the current thread be not blocked by the sleep of
         // IContainerManager.prepare().
@@ -203,7 +178,7 @@ public class CactusLaunchConfiguration
                             try
                             {
                                 CactusLaunchConfiguration.super.launch(
-                                    theConfiguration,
+                                    cactusConfig,
                                     theMode,
                                     theLaunch,
                                     thePM);
@@ -238,17 +213,50 @@ public class CactusLaunchConfiguration
     }
 
     /**
-     * @param theClasspath an array of classpaths
-     * @return a representation of the given classpath array
+     * @param theEntries the array of IClasspathEntry to build mementos from 
+     * @return a Vector of mementos from the given array
      */
-    private String getRepresentation(String[] theClasspath)
+    private Vector toMemento(IClasspathEntry[] theEntries)
     {
-        String cactusClasspathRepresentation = "";
-        for (int i = 0; i < theClasspath.length; i++)
+        Vector result = new Vector();
+        for (int i = 0; i < theEntries.length; i++)
         {
-            cactusClasspathRepresentation += theClasspath[i] + ";";
+            try
+            {
+                result.add(
+                    JavaRuntime
+                        .newArchiveRuntimeClasspathEntry(
+                            theEntries[i].getPath())
+                        .getMemento());
+            }
+            catch (CoreException e)
+            {
+                // Do nothing
+            }
         }
-        return cactusClasspathRepresentation;
+        return result;
+    }
+
+    /**
+     * @param theEntries the array of IRuntimeClasspathEntry to build
+     * mementos from 
+     * @return a Vector of mementos from the given array
+     */
+    private Vector toMemento(IRuntimeClasspathEntry[] theEntries)
+    {
+        Vector result = new Vector();
+        for (int i = 0; i < theEntries.length; i++)
+        {
+            try
+            {
+                result.add(theEntries[i].getMemento());
+            }
+            catch (CoreException e)
+            {
+                // Do nothing
+            }
+        }
+        return result;
     }
 
     /**
@@ -256,193 +264,43 @@ public class CactusLaunchConfiguration
      * @throws CoreException when an error occurs while
      * trying to build the classpath
      */
-    private String[] getCactusClasspath() throws CoreException
+    protected IClasspathEntry[] getCactusClasspath() throws CoreException
     {
-        String[] clientClasspath = LibraryHelper.getClientJarPaths();
-        String[] commonClasspath = LibraryHelper.getCommonJarPaths();
-        String[] cactusClasspath =
-            concatenateStringArrays(clientClasspath, commonClasspath);
+        IClasspathEntry[] cactusClasspath =
+            LibraryHelper.getClientSideEntries();
         URL[] antURLs = AntCorePlugin.getPlugin().getPreferences().getAntURLs();
-        String[] apacheJarPaths = getJarPaths(antURLs);
+        IClasspathEntry[] apacheClasspath = getClasspathEntryArray(antURLs);
         cactusClasspath =
-            concatenateStringArrays(cactusClasspath, apacheJarPaths);
-        if (CactusPreferences.getJetty())
-        {
-            cactusClasspath =
-                concatenateStringArrays(cactusClasspath, getJettyClasspath());
-        }
+            LibraryHelper.concatenateEntries(cactusClasspath, apacheClasspath);
         return cactusClasspath;
     }
 
     /**
-     * @return an array of Jar paths needed for Cactus
-     * @throws CoreException if a Jar cannot be found
-     */
-    private String[] getJettyClasspath() throws CoreException
-    {
-        CactusPlugin thePlugin = CactusPlugin.getDefault();
-        URL libURL = thePlugin.find(new Path(JETTY_LIBRARY_PATH));
-        if (libURL == null)
-        {
-            throw CactusPlugin.createCoreException(
-                "CactusLaunch.message.prepare.error.plugin.file",
-                " : " + libURL.getPath(),
-                null);
-        }
-        File libDir = new File(libURL.getPath());
-        String[] jettyJarPaths = getJarPaths(libDir);
-        String[] apacheJarPaths = new String[0];
-        Plugin tomcatPlugin = Platform.getPlugin("org.eclipse.tomcat");
-        if (tomcatPlugin != null)
-        {
-            IPluginDescriptor descriptor = tomcatPlugin.getDescriptor();
-            apacheJarPaths = getLibrariesPaths(descriptor, "org.apache.jasper");
-        }
-        return concatenateStringArrays(jettyJarPaths, apacheJarPaths);
-    }
-
-    /**
-     * @param theTests the types to get the arguments for
+     * @param theJavaProject the Java project to get the arguments for
      * @return an array of the specific Cactus VM arguments
      */
-    private String[] getCactusVMArgs(IType[] theTests)
+    protected String getCactusVMArgs(IJavaProject theJavaProject)
     {
-        Vector cactusVMArgs = new Vector();
-        cactusVMArgs.add(
-            "-Dcactus.contextURL=" + CactusPreferences.getContextURL());
-        if (CactusPreferences.getJetty())
-        {
-            if (theTests.length > 0)
-            {
-                String jettyResourcePath =
-                    CactusPreferences.getTempDir()
-                        + File.separator
-                        + JettyContainerManager.getJettyWebappPath();
-                cactusVMArgs.add(
-                    "-Dcactus.jetty.resourceDir=" + jettyResourcePath);
-                IPath projectLocation =
-                    theTests[0].getJavaProject().getProject().getLocation();
-                File jettyXML =
-                    projectLocation
-                        .append(CactusPreferences.getJettyXML())
-                        .toFile();
-                if (jettyXML.exists())
-                {
-                    cactusVMArgs.add(
-                        "-Dcactus.jetty.config=" + jettyXML.getAbsolutePath());
-                }
-            }
-            cactusVMArgs.add(
-                "-Dcactus.initializer="
-                    + "org.apache.cactus.extension.jetty.JettyInitializer");
-        }
-        return (String[]) cactusVMArgs.toArray(new String[cactusVMArgs.size()]);
-    }
-
-    /**
-     * Concatenate two string arrays.
-     * 
-     * @param theArray1 the first array
-     * @param theArray2 the second array
-     * @return a string array containing the first array followed by the second
-     *         one
-     */
-    private String[] concatenateStringArrays(
-        String[] theArray1,
-        String[] theArray2)
-    {
-        String[] newArray = new String[theArray1.length + theArray2.length];
-        System.arraycopy(theArray1, 0, newArray, 0, theArray1.length);
-        System.arraycopy(
-            theArray2,
-            0,
-            newArray,
-            theArray1.length,
-            theArray2.length);
-        return newArray;
-    }
-
-    /**
-     * @param theDirectory the directory to list jars from
-     * @return the array of jar paths in the given directory
-     */
-    private String[] getJarPaths(File theDirectory)
-    {
-        File[] jars = theDirectory.listFiles(new JarFilenameFilter());
-        String[] jarPaths = new String[jars.length];
-        for (int i = 0; i < jarPaths.length; i++)
-        {
-            jarPaths[i] = jars[i].getAbsolutePath();
-        }
-        return jarPaths;
+        String cactusVMArgs = "";
+        cactusVMArgs += "-Dcactus.contextURL="
+            + CactusPreferences.getContextURL()
+            + VM_ARG_SEPARATOR;
+        return cactusVMArgs;
     }
 
     /**
      * @param theAntURLs array of URLs to convert to Jar paths
      * @return the array of jar paths from the given URLs
      */
-    private String[] getJarPaths(URL[] theAntURLs)
+    private IClasspathEntry[] getClasspathEntryArray(URL[] theAntURLs)
     {
-        String[] jarPaths = new String[theAntURLs.length];
+        IClasspathEntry[] result = new IClasspathEntry[theAntURLs.length];
         for (int i = 0; i < theAntURLs.length; i++)
         {
-            jarPaths[i] = theAntURLs[i].getFile();
+            result[i] =
+                LibraryHelper.getIClasspathEntry(theAntURLs[i].getPath());
         }
-        return jarPaths;
-    }
-
-    /**
-     * @param theDescriptor the plug-in descriptor to get libraries from
-     * @param thePackagePrefix package prefix used to filter libraries 
-     * @return an array of jar paths exposed by the plug-in
-     */
-    private String[] getLibrariesPaths(
-        IPluginDescriptor theDescriptor,
-        String thePackagePrefix)
-    {
-        Vector result = new Vector();
-        URL root = theDescriptor.getInstallURL();
-        ILibrary[] libraries = theDescriptor.getRuntimeLibraries();
-        for (int i = 0; i < libraries.length; i++)
-        {
-            ILibrary currentLib = libraries[i];
-            if (thePackagePrefix == null
-                || isContained(thePackagePrefix, currentLib))
-            {
-                try
-                {
-                    URL url = new URL(root, currentLib.getPath().toString());
-                    result.add(Platform.asLocalURL(url).getFile());
-                }
-                catch (IOException e)
-                {
-                    // if the URL is not valid we don't add it
-                    CactusPlugin.log(e);
-                    continue;
-                }
-            }
-        }
-        return (String[]) result.toArray(new String[result.size()]);
-    }
-
-    /**
-     * @param thePackagePrefix prefix which presence is to be tested
-     * @param theCurrentLib the library in which the prefix will be searched 
-     * @return true if the library declares the given package prefix
-     */
-    private boolean isContained(
-        String thePackagePrefix,
-        ILibrary theCurrentLib)
-    {
-        String[] prefixes = theCurrentLib.getPackagePrefixes();
-        for (int i = 0; i < prefixes.length; i++)
-        {
-            if (prefixes[i].equals(thePackagePrefix))
-            {
-                return true;
-            }
-        }
-        return false;
+        return result;
     }
 
     /**
@@ -543,5 +401,4 @@ public class CactusLaunchConfiguration
         String theTrace)
     {
     }
-
 }
