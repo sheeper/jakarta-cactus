@@ -212,6 +212,7 @@ public class CactusLaunchShortcut
         IJavaProject theJavaProject,
         IProgressMonitor thePM)
     {
+        thePM.beginTask("Preparing for Cactus tests", 10);
         provider = CactusPlugin.getContainerProvider();
         try
         {
