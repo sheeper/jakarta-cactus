@@ -117,7 +117,7 @@
        ========================================================================
     -->
     <target name="cactus.setup.resin2x"
-        depends="cactus.check.resin2x" if="cactus.home.resin2x"
+        depends="cactus.init, cactus.check.resin2x" if="cactus.home.resin2x"
         description="Set up a Resin 2.x directory structure">
 
         <mkdir dir="${cactus.target.resin2x}"/>
@@ -126,4 +126,15 @@
         <copy file="${cactus.conf.resin2x}/resin.conf" 
             tofile="${cactus.target.resin2x}/resin.conf" filtering="on"/>
 
+    </target>
+
+    <!--
+       ========================================================================
+         Clean generated files (including distributables)
+       ========================================================================
+    -->
+    <target name="cactus.clean.resin2x" depends="cactus.init, cactus.clean" description="Clean target directory">
+        <delete includeEmptyDirs="true">
+            <fileset dir="${cactus.target.resin2x}"/>
+        </delete>
     </target>

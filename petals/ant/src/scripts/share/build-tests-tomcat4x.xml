@@ -114,7 +114,7 @@
        ========================================================================
     -->
     <target name="cactus.setup.tomcat4x"
-        depends="cactus.check.tomcat4x" if="cactus.home.tomcat4x"
+        depends="cactus.init, cactus.check.tomcat4x" if="cactus.home.tomcat4x"
         description="Set up a Tomcat 4.x directory structure">
 
         <!-- Create work and conf directories and copy configuration files -->
@@ -139,4 +139,15 @@
         <copy file="${cactus.home.tomcat4x}/conf/web.xml"
             todir="${cactus.target.tomcat4x}/conf"/>
 
+    </target>
+
+    <!--
+       ========================================================================
+         Clean generated files (including distributables)
+       ========================================================================
+    -->
+    <target name="cactus.clean.tomcat4x" depends="cactus.init, cactus.clean" description="Clean target directory">
+        <delete includeEmptyDirs="true">
+            <fileset dir="${cactus.target.tomcat4x}"/>
+        </delete>
     </target>

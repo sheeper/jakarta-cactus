@@ -108,7 +108,7 @@
        ========================================================================
     -->
     <target name="cactus.setup.orion1x"
-        depends="cactus.check.orion1x" if="cactus.home.orion1x"
+        depends="cactus.init, cactus.check.orion1x" if="cactus.home.orion1x"
         description="Set up a Orion 1.x directory structure">
 
         <!-- Create work and conf directories and copy configuration files -->
@@ -123,4 +123,15 @@
             <fileset dir="${cactus.conf.orion1x}"/>
         </copy>
 
+    </target>
+
+    <!--
+       ========================================================================
+         Clean generated files (including distributables)
+       ========================================================================
+    -->
+    <target name="cactus.clean.orion1x" depends="cactus.init, cactus.clean" description="Clean target directory">
+        <delete includeEmptyDirs="true">
+            <fileset dir="${cactus.target.orion1x}"/>
+        </delete>
     </target>

@@ -141,7 +141,7 @@
        ========================================================================
     -->
     <target name="cactus.setup.weblogic6x"
-        depends="cactus.check.weblogic6x" if="cactus.home.weblogic6x"
+        depends="cactus.init, cactus.check.weblogic6x" if="cactus.home.weblogic6x"
         description="Set up a WebLogic 6.x directory structure">
 
         <mkdir dir="${cactus.target.weblogic6x}/config/testdomain/applications"/>
@@ -154,4 +154,15 @@
         <copy file="${cactus.conf.weblogic6x}/SerializedSystemIni.dat"
             todir="${cactus.target.weblogic6x}/config/testdomain"/>
 
+    </target>
+
+    <!--
+       ========================================================================
+         Clean generated files (including distributables)
+       ========================================================================
+    -->
+    <target name="cactus.clean.weblogic6x" depends="cactus.init, cactus.clean" description="Clean target directory">
+        <delete includeEmptyDirs="true">
+            <fileset dir="${cactus.target.weblogic6x}"/>
+        </delete>
     </target>

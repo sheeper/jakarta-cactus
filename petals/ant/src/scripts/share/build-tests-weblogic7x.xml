@@ -140,7 +140,7 @@
        ========================================================================
     -->
     <target name="cactus.setup.weblogic7x"
-        depends="cactus.check.weblogic7x" if="cactus.home.weblogic7x"
+        depends="cactus.init, cactus.check.weblogic7x" if="cactus.home.weblogic7x"
         description="Set up a WebLogic 7.x directory structure">
 
         <mkdir dir="${cactus.target.weblogic7x}/testdomain/applications"/>
@@ -161,4 +161,15 @@
             <fileset dir="${cactus.conf.weblogic7x}/testserver"/>
         </copy>
 
+    </target>
+
+    <!--
+       ========================================================================
+         Clean generated files (including distributables)
+       ========================================================================
+    -->
+    <target name="cactus.clean.weblogic7x" depends="cactus.init, cactus.clean" description="Clean target directory">
+        <delete includeEmptyDirs="true">
+            <fileset dir="${cactus.target.weblogic7x}"/>
+        </delete>
     </target>
