@@ -98,17 +98,13 @@
 
     <category title="Eclipse Plugin">
       <action>
-        The user must be able to provide its own web.xml file.
-        Otherwise the plugin will use the one provided by default.
+        Add client jars in the user's project classpath (popup menu to Cactify the project)
       </action>
       <action>
-        User interface: no shell popups for Ant tasks, preferences
-        for JAR files (JARs should be included in the Plugin, override by
-        the user possible)
+        Add a log view à la Ant plugin
       </action>
       <action>
-        Add full plugin documentation and development documentation
-        (for todos, etc).
+        Add a few screenshots of the plugin to the user's doc
       </action>
     </category>
 
@@ -191,13 +187,8 @@
     <category title="Eclipse Plugin">
       <action>
         Ability to leave the server running after the test is
-        finished so that we donâ€™t need to start it again for the next
+        finished so that we don't need to start it again for the next
         test (needs hot redeploy)
-      </action>
-      <action>
-        Externalize the Ant scripts for container management.
-        Many plugins and tools need such functionality so there is a need
-        for common Ant scripts.
       </action>
     </category>
     
