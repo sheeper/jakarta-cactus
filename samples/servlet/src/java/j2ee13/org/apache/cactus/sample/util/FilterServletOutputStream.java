@@ -100,24 +100,25 @@ public class FilterServletOutputStream extends ServletOutputStream
     /**
      * @see ServletOutputStream#write(int)
      */
-    public void write(int b) throws IOException
+    public void write(int theData) throws IOException
     {
-        stream.write(b);
+        stream.write(theData);
     }
 
     /**
      * @see ServletOutputStream#write(byte[])
      */
-    public void write(byte[] b) throws IOException
+    public void write(byte[] theData) throws IOException
     {
-        stream.write(b);
+        stream.write(theData);
     }
 
     /**
      * @see ServletOutputStream#write(byte[], int, int)
      */
-    public void write(byte[] b, int off, int len) throws IOException
+    public void write(byte[] theData, int theOffset, int theLength) 
+        throws IOException
     {
-        stream.write(b, off, len);
+        stream.write(theData, theOffset, theLength);
     }
 }

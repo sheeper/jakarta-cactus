@@ -85,26 +85,25 @@ public class SampleTag extends TagSupport
     /** 
      * Determines whether the tag's body should be shown.
      * 
-     * @param showBody a String equaling 'true' will be taken as
+     * @param isBodyShown a String equaling 'true' will be taken as
      *                 <code>true</code>. Anything else will be
      *                 taken as <code>false</code>.
      */
-    public void setShowBody(String showBody)
+    public void setShowBody(String isBodyShown)
     {
-        showBody = showBody.toLowerCase();
-        this.showBody = "true".equals(showBody);
+        this.showBody = "true".equals(isBodyShown.toLowerCase());
     }
 
     /** 
      * Determines whether page should stop after the tag.
      * 
-     * @param stopPage a String equaling 'true' will be taken as
+     * @param isPageStopped a String equaling 'true' will be taken as
      *                 <code>true</code>. Anything else will be
      *                 taken as <code>false</code>.
      */
-    public void setStopPage(String stopPage)
+    public void setStopPage(String isPageStopped)
     {
-        this.stopPage = "true".equals(stopPage);
+        this.stopPage = "true".equals(isPageStopped);
     }
 
     /**
