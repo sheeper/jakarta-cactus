@@ -149,11 +149,24 @@ final class AutoReadHttpURLConnection extends HttpURLConnection
     {
         this.logger.entry("copy(...)");
 
-        byte[] buf = new byte[this.chunkSize];
-        int count;
+        // Only copy if there are data to copy ... The problem is that not
+        // all servers return a content-length header. If there is no header
+        // getContentLength() returns -1. It seems to work and it seems
+        // that all servers that return no content-length header also do
+        // not block on read() operations !
 
-        while(-1 != (count = is.read(buf))) {
-            os.write(buf, 0, count);
+        this.logger.debug("Content-Length : [" +
+            this.delegate.getContentLength() + "]");
+
+        if (this.delegate.getContentLength() != 0) {
+
+            byte[] buf = new byte[this.chunkSize];
+            int count;
+
+            while(-1 != (count = is.read(buf))) {
+                os.write(buf, 0, count);
+            }
+
         }
 
         this.logger.exit("copy");
