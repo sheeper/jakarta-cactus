@@ -277,7 +277,8 @@ public abstract class AbstractWebTestCaller
         String autoSession = ServletUtil.getQueryStringParameter(queryString,
             ServiceDefinition.AUTOSESSION_NAME_PARAM);
 
-        boolean isAutomaticSession = Boolean.valueOf(autoSession).booleanValue();
+        boolean isAutomaticSession = Boolean.valueOf(
+            autoSession).booleanValue();
 
         LOGGER.debug("Auto session is " + isAutomaticSession);
 
