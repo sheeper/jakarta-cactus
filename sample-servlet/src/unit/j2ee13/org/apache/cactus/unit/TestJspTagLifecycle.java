@@ -57,7 +57,6 @@ import java.io.IOException;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
-import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.BodyContent;
 import javax.servlet.jsp.jstl.core.LoopTagStatus;
 
@@ -576,20 +575,20 @@ public class TestJspTagLifecycle
                     assertEquals(0, status.getIndex());
                     assertEquals(1, status.getCount());
                     assertTrue(status.isFirst());
-                    assertFalse(status.isLast());
+                    assertTrue(!status.isLast());
                 }
                 else if (theIteration == 1)
                 {
                     assertEquals(1, status.getIndex());
                     assertEquals(2, status.getCount());
-                    assertFalse(status.isFirst());
-                    assertFalse(status.isLast());
+                    assertTrue(!status.isFirst());
+                    assertTrue(!status.isLast());
                 }
                 else if (theIteration == 2)
                 {
                     assertEquals(2, status.getIndex());
                     assertEquals(3, status.getCount());
-                    assertFalse(status.isFirst());
+                    assertTrue(!status.isFirst());
                     assertTrue(status.isLast());
                 }
             }
@@ -737,7 +736,9 @@ public class TestJspTagLifecycle
         {
             lifecycle.invoke();
             fail("Expected JSPTagException");
-        } catch (JspTagException je) {
+        } 
+        catch (JspTagException je)
+        {
             // expected
         }
     }
