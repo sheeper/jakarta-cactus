@@ -122,6 +122,9 @@
       </and>
     </condition>
 
+    <fail unless="j2ee13.available">Servlet API 2.3 is required for the Jetty
+sample</fail>
+
     <fail unless="properties.ok">One or more required dependencies could not
 be resolved. Please check you build.properties file, and run Ant with the 
 -verbose option for more details</fail>
