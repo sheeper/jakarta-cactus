@@ -60,14 +60,13 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Vector;
 
+import org.apache.cactus.eclipse.ui.CactusMessages;
 import org.apache.cactus.eclipse.ui.CactusPlugin;
 import org.eclipse.ant.core.AntRunner;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaModelException;
@@ -168,7 +167,7 @@ public class WarBuilder
      */
     public File createWar(IProgressMonitor thePM) throws CoreException
     {
-        thePM.subTask("Creating the WAR file");
+        thePM.subTask(CactusMessages.getString("CactusLaunch.message.war"));
         File testWar = null;
         try
         {
@@ -176,13 +175,9 @@ public class WarBuilder
         }
         catch (IOException e)
         {
-            throw new CoreException(
-                new Status(
-                    IStatus.ERROR,
-                    CactusPlugin.getPluginId(),
-                    IStatus.OK,
-                    e.getMessage(),
-                    e));
+            CactusPlugin.throwCoreException(
+                "CactusLaunch.message.war.error",
+                e);
         }
         Vector arguments = new Vector();
         String jarFilesPath = jarFilesDir.getAbsolutePath();

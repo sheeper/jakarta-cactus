@@ -67,8 +67,6 @@ import org.apache.cactus.eclipse.ui.CactusPlugin;
 import org.apache.cactus.eclipse.ui.CactusPreferences;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Status;
 import org.eclipse.debug.core.DebugPlugin;
 import org.eclipse.debug.core.ILaunchConfigurationType;
 import org.eclipse.debug.core.ILaunchManager;
@@ -199,12 +197,22 @@ public class CactusLaunchShortcut
             catch (InvocationTargetException e)
             {
                 dialog.close();
+                CactusPlugin.displayErrorMessage(
+                    CactusMessages.getString(
+                        "CactusLaunch.message.prepare.error"),
+                    e.getTargetException().getMessage(),
+                    null);
                 cancelPreparation();
                 return;
             }
             catch (InterruptedException e)
             {
                 dialog.close();
+                CactusPlugin.displayErrorMessage(
+                    CactusMessages.getString(
+                        "CactusLaunch.message.prepare.error"),
+                    e.getMessage(),
+                    null);
                 cancelPreparation();
                 return;
             }
@@ -221,7 +229,14 @@ public class CactusLaunchShortcut
         {
             public void run(IProgressMonitor thePM) throws InterruptedException
             {
-                teardownCactusTests(thePM);
+                try
+                {
+                    teardownCactusTests(thePM);
+                }
+                catch (CoreException e)
+                {
+                    throw new InterruptedException(e.getMessage());
+                }
             }
         };
         try
@@ -233,13 +248,18 @@ public class CactusLaunchShortcut
             CactusPlugin
                 .displayErrorMessage(
                     CactusMessages.getString(
-                        "CactusLaunch.message.teardown.failed"),
+                        "CactusLaunch.message.teardown.error"),
                     tearDownE.getTargetException().getMessage(),
                 null);
         }
         catch (InterruptedException tearDownE)
         {
-            // Do nothing
+            CactusPlugin
+                .displayErrorMessage(
+                    CactusMessages.getString(
+                        "CactusLaunch.message.teardown.error"),
+                    tearDownE.getMessage(),
+                null);
         }
     }
     
@@ -262,10 +282,15 @@ public class CactusLaunchShortcut
         {
             WarBuilder newWar = new WarBuilder(theJavaProject);
             war = newWar.createWar(thePM);
-
             URL warURL = war.toURL();
+            String contextURLPath = CactusPreferences.getContextURLPath();
+            if (contextURLPath.equals(""))
+            {
+                CactusPlugin.throwCoreException(
+                    "CactusLaunch.message.invalidproperty.contextpath", null);
+            }
             provider.deploy(
-                CactusPreferences.getContextURLPath(),
+                contextURLPath,
                 warURL,
                 null,
                 thePM);
@@ -274,14 +299,9 @@ public class CactusLaunchShortcut
         catch (MalformedURLException e)
         {
             CactusPlugin.log(e);
-            throw new CoreException(
-                new Status(
-                    IStatus.ERROR,
-                    CactusPlugin.getPluginId(),
-                    IStatus.OK,
-                    CactusMessages.getString(
-                        "CactusLaunch.message.war.malformed"),
-                    e));
+            CactusPlugin.throwCoreException(
+                "CactusLaunch.message.war.malformed",
+                e);
         }
         thePM.done();
     }
@@ -290,25 +310,16 @@ public class CactusLaunchShortcut
      * Stops the container and undeploys (cleans) it.
      * @param thePM a progress monitor that reflects progress made while tearing
      * down the container setup
+     * @throws CoreException if an error occurs when tearing down
      */
     private void teardownCactusTests(IProgressMonitor thePM)
+        throws CoreException
     {
         // The commented code is linked to the crashing VM problem
         //thePM.beginTask("Tearing down Cactus tests", 10);
-        try
-        {
-            provider.stop(null, thePM);
-            provider.undeploy(null, null, thePM);
-            war.delete();
-        }
-        catch (CoreException e)
-        {
-            CactusPlugin.displayErrorMessage(
-                CactusMessages.getString(
-                    "CactusLaunch.message.teardown.error"),
-                e.getMessage(),
-                e.getStatus());
-        }
+        provider.stop(null, thePM);
+        provider.undeploy(null, null, thePM);
+        war.delete();
         //thePM.done();
     }
     /**
@@ -329,7 +340,18 @@ public class CactusLaunchShortcut
         // after the JUnit tests ended.
         // The commented code below should be used when this problem
         // has been addressed.
-        teardownCactusTests(null);
+        // TODO: Address the crashing problem
+        try
+        {
+            teardownCactusTests(null);
+        }
+        catch (CoreException e)
+        {
+            CactusPlugin.displayErrorMessage(
+                CactusMessages.getString("CactusLaunch.message.teardown.error"),
+                e.getMessage(),
+                null);
+            }
 //        ProgressMonitorDialog dialog =
 //            new ProgressMonitorDialog(getShell());
 //        try

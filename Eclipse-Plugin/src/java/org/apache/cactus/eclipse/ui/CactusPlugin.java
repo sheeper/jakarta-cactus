@@ -58,6 +58,7 @@ package org.apache.cactus.eclipse.ui;
 
 import org.apache.cactus.eclipse.containers.IContainerProvider;
 import org.apache.cactus.eclipse.containers.ant.GenericAntProvider;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPluginDescriptor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -200,7 +201,7 @@ public class CactusPlugin extends AbstractUIPlugin
                 "CactusPreferencePage.label.context.init"));
         theStore.setDefault(
             CactusPreferences.JARS_DIR,
-            CactusMessages.getString("CactusPreferencePage.label.temp.init"));
+            CactusMessages.getString("CactusPreferencePage.label.jars.init"));
         theStore.setDefault(
             CactusPreferences.TEMP_DIR,
             System.getProperty("java.io.tmpdir"));
@@ -209,8 +210,10 @@ public class CactusPlugin extends AbstractUIPlugin
     /**
      * Returns a container provider.
      * @return IContainerProvider a container provider to use for Cactus tests.
+     * @throws CoreException if the container provider can't be contructed
      */
     public static IContainerProvider getContainerProvider()
+        throws CoreException
     {
         return new GenericAntProvider(
             CactusPreferences.getContextURLPort(),
@@ -234,4 +237,25 @@ public class CactusPlugin extends AbstractUIPlugin
             theTitle,
             theMessage);
     }
+    /**
+     * Helper method for other classes. Throws a CoreException with
+     * the message corresponding to the given message key.
+     * @param theMessageKey the key of the message to be thrown
+     * @param theException a low-level exception, or null if not applicable 
+     * @throws CoreException always thrown
+     */
+    public static void throwCoreException(
+        String theMessageKey,
+        Throwable theException)
+        throws CoreException
+    {
+        String message = CactusMessages.getString(theMessageKey);
+        throw new CoreException(
+            new Status(
+                IStatus.ERROR,
+                CactusPlugin.getPluginId(),
+                IStatus.OK,
+                message,
+                theException));
+    }    
 }

@@ -70,9 +70,7 @@ import org.apache.tools.ant.BuildException;
 import org.eclipse.ant.core.AntRunner;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.SubProgressMonitor;
 
 /**
@@ -114,12 +112,29 @@ public class GenericAntProvider implements IContainerProvider
      * @param thePort the port that will be used when setting up the container
      * @param theTargetDir the directory to be used for container configuration
      * @param theHomes ContainerHome array for container config
+     * @throws CoreException if an argument is invalid
      */
     public GenericAntProvider(
         int thePort,
         String theTargetDir,
         ContainerHome[] theHomes)
+        throws CoreException
     {
+        if (thePort <= 0)
+        {
+            CactusPlugin.throwCoreException(
+                "CactusLaunch.message.invalidproperty.port", null);
+        }
+        if (theTargetDir.equalsIgnoreCase(""))
+        {
+            CactusPlugin.throwCoreException(
+                "CactusLaunch.message.invalidproperty.tempdir", null);
+        }
+        if (theHomes.length == 0)
+        {
+            CactusPlugin.throwCoreException(
+                "CactusLaunch.message.invalidproperty.containers", null);
+        }
         port = thePort;
         containerHomes = theHomes;
         antArguments = new Vector();
@@ -166,13 +181,9 @@ public class GenericAntProvider implements IContainerProvider
         }
         catch (MalformedURLException e)
         {
-            throw new CoreException(
-                new Status(
-                    IStatus.ERROR,
-                    CactusPlugin.getPluginId(),
-                    IStatus.OK,
-                    e.getMessage(),
-                    e));
+            CactusPlugin.throwCoreException(
+                "CactusLaunch.message.start.error",
+                e);
         }
         startHelper.setTestURL(testURL);
         startHelper.setProgressMonitor(new SubProgressMonitor(thePM, 4));
@@ -182,13 +193,9 @@ public class GenericAntProvider implements IContainerProvider
         }
         catch (BuildException e)
         {
-            throw new CoreException(
-                new Status(
-                    IStatus.ERROR,
-                    CactusPlugin.getPluginId(),
-                    IStatus.OK,
-                    e.getMessage(),
-                    e));
+            CactusPlugin.throwCoreException(
+                "CactusLaunch.message.start.error",
+                e);
         }
     }
 
