@@ -823,7 +823,7 @@ public class TestServletTestCase2 extends ServletTestCase
      * @param theRequest the request object that serves to initialize the
      *                   HTTP connection to the server redirector.
      */
-    public void beginTestSeveralParameters(WebRequest theRequest)
+    public void beginSeveralParameters(WebRequest theRequest)
     {
         theRequest.addParameter("PostParameter1", "EMPLOYEE0145", 
             theRequest.POST_METHOD);
@@ -837,7 +837,7 @@ public class TestServletTestCase2 extends ServletTestCase
     /**
      * Verify we can set and retrieve several parameters.
      */
-    public void testTestSeveralParameters()
+    public void testSeveralParameters()
     {
         assertEquals("parameter4", "/tas/ViewSchedule.esp", 
             request.getParameter("PostParameter4"));
@@ -847,4 +847,26 @@ public class TestServletTestCase2 extends ServletTestCase
         assertEquals("parameter3", "07/08/2002", 
             request.getParameter("PostParameter3"));
     }
+
+    //-------------------------------------------------------------------------
+
+    /**
+     * Verify we can set and retrieve the content type.
+     */
+    public void testSetContentType()
+    {
+        response.setContentType("text/xml");
+    }
+    
+    /**
+     * Verify we can set and retrieve the content type.
+     * 
+     * @param theResponse the response from the server side.
+     */
+    public void endSetContentType(WebResponse theResponse)
+    {
+        assertEquals("text/xml", 
+            theResponse.getConnection().getContentType());
+    }
+    
 }
