@@ -127,14 +127,14 @@
          Initialize Clover related properties (for test coverage reports).
        ========================================================================
     -->
-    <target name="init.clover" depends="init.common" if="clover.enable">
+    <!-- target name="init.clover" depends="init.common" if="clover.enable">
 
         <dirname property="clover.db.dir" file="${clover.initstring}"/>
         <mkdir dir="${clover.db.dir}"/>
 
         <property name="clover.excludes"
             value="**/*Aspect.*,**/Test*.java,**/Mock*.java,**/AssertUtils.java,**/ClientCookie.java"/>
-    </target>
+    </target -->
 
     <!--
        ========================================================================
@@ -174,7 +174,8 @@
          Compiles the sources
        ========================================================================
     -->
-    <target name="compile.prepare">
+    <target name="compile.prepare"
+        depends="init">
 
         <!-- Copy the source files to resolve the project version in the
              Version.java source file -->
@@ -184,59 +185,36 @@
         
     </target>
 
-    <target name="compile.clover.prepare" depends="compile.prepare"
+    <target name="compile.clover"
+        depends="compile.prepare"
         if="clover.enable">
 
-        <!-- Only recompile if source files have changed since the last time
-             the clover jar was created -->
-        <condition property="compile.clover.required">
-            <not>
-                <uptodate targetfile="${target.dir}/${cactus.framework.clover.jar.name}.jar">
-                    <srcfiles dir="${target.src.dir}"/>
-                    <srcfiles dir="${src.java.specific.dir}"/>
-                </uptodate>
-            </not>
-        </condition>
-
-    </target>
-
-    <target name="compile.clover" depends="init,compile.clover.prepare"
-        if="compile.clover.required">
+        <clover-setup initstring="${clover.initstring}" enabled="yes">
+            <files>
+                <exclude name="**/*Aspect.*"/>
+                <exclude name="**/Test*.*"/>
+                <exclude name="**/Mock*.*"/>
+                <exclude name="**/AssertUtils.*"/>
+                <exclude name="**/ClientCookie.*"/>
+            </files>
+        </clover-setup>
 
         <mkdir dir="${target.classes.clover.dir}"/>
 
-        <ajc destdir="${target.classes.clover.dir}" preprocess="true"
-          deprecation="${deprecation}" optimize="${optimize}"
-          workingdir="${target.dir}/ajworkingdir">
-
+        <javac destdir="${target.classes.clover.dir}"
+            deprecation="${deprecation}" optimize="${optimize}">
             <src path="${target.src.dir}"/>
             <src path="${src.java.specific.dir}"/>
-
             <exclude name="**/package.html"/>
             <exclude name="**/overview.html"/>
-
-            <!-- We exclude the Logging Aspect as it adds 2 new methods for
-                 each method to log and thus leads to flawed test coverage
-                 statistics -->
-            <exclude name="**/LogAspect.*"/>
-
-            <classpath refid="project.class.path"/>
-        </ajc>
-
-        <javac destdir="${target.classes.clover.dir}"
-            deprecation="${deprecation}" optimize="${optimize}"
-            compiler="org.apache.tools.ant.taskdefs.CloverCompilerAdapter">
-
-            <src path="${target.dir}/ajworkingdir"/>
-
-            <exclude name="**/package.html"/>
-            <exclude name="**/overview.html"/>
-
             <classpath refid="project.class.path"/>
         </javac>
 
         <copy todir="${target.classes.java.dir}/org/apache/cactus/server"
             file="${web.dir}/jspRedirector.jsp"/>
+
+        <!-- Disable Clover for subsequent compilations -->
+        <clover-setup initstring="${clover.initstring}" enabled="no"/>
 
     </target>
 
@@ -273,7 +251,7 @@
 
     </target>
 
-    <target name="compile.main" depends="init,compile.main.prepare"
+    <target name="compile.main" depends="init, compile.main.prepare"
         if="compile.main.required">
 
         <mkdir dir="${target.classes.java.dir}"/>
@@ -295,7 +273,7 @@
 
     </target>
 
-    <target name="compile" depends="compile.main,compile.clover,compile.test"
+    <target name="compile" depends="compile.main,compile.test,compile.clover"
         description="Compile the sources"/>
 
     <!--

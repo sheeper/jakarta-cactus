@@ -300,7 +300,9 @@ generated. Run 'ant dist.javadoc -verbose' to find out what the problem is.</fai
          Copy clover files and generate the Clover report.
        ========================================================================
     -->
-    <target name="dist.clover.check.12" depends="init" if="clover.enable">
+    <target name="dist.clover.check.12"
+        depends="init, init.clover"
+        if="clover.enable">
 
         <condition property="clover.enable.ok.12" value="true">
             <and>
@@ -310,24 +312,24 @@ generated. Run 'ant dist.javadoc -verbose' to find out what the problem is.</fai
 
     </target>
 
-    <target name="dist.clover.12" depends="dist.clover.check.12" 
+    <target name="dist.clover.12"
+        depends="dist.clover.check.12" 
         if="clover.enable.ok.12">
         
-        <java classname="com.cortexeb.tools.clover.reporters.html.HtmlReporter">
+        <clover-setup initstring="${clover.initstring.12}"/>
 
-            <arg value="--outputdir"/>
-            <arg path="${dist.doc.dir}/clover-12"/>
-            <arg value="--showSrc"/>
-            <arg value="--initstring"/>
-            <arg path="${clover.initstring.12}"/>
-            <arg value="--title"/>
-            <arg value="'Cactus ${project.version} for J2EE API 12'"/>
-
-        </java>
+        <clover-report>
+            <current title="Cactus ${project.version} for J2EE API 1.2"
+                outfile="${dist.doc.dir}/clover-12">
+                <format type="html"/>
+            </current>
+        </clover-report>
 
     </target>
 
-    <target name="dist.clover.check.13" depends="init" if="clover.enable">
+    <target name="dist.clover.check.13"
+        depends="init, init.clover"
+        if="clover.enable">
 
         <condition property="clover.enable.ok.13" value="true">
             <and>
@@ -337,20 +339,18 @@ generated. Run 'ant dist.javadoc -verbose' to find out what the problem is.</fai
 
     </target>
 
-    <target name="dist.clover.13" depends="dist.clover.check.13" 
+    <target name="dist.clover.13"
+        depends="dist.clover.check.13" 
         if="clover.enable.ok.13">
         
-        <java classname="com.cortexeb.tools.clover.reporters.html.HtmlReporter">
+        <clover-setup initstring="${clover.initstring.13}"/>
 
-            <arg value="--outputdir"/>
-            <arg path="${dist.doc.dir}/clover-13"/>
-            <arg value="--showSrc"/>
-            <arg value="--initstring"/>
-            <arg path="${clover.initstring.13}"/>
-            <arg value="--title"/>
-            <arg value="'Cactus ${project.version} for J2EE API 13'"/>
-
-        </java>
+        <clover-report>
+            <current title="Cactus ${project.version} for J2EE API 1.2"
+                outfile="${dist.doc.dir}/clover-12">
+                <format type="html"/>
+            </current>
+        </clover-report>
 
     </target>
 
