@@ -40,7 +40,6 @@ documentation/docs/skins/jakarta.apache.org/images/update.jpg -text
 documentation/docs/skins/jakarta.apache.org/stylesheets/common.xsl svn_keywords=Author+Date+Id+Revision
 documentation/docs/skins/jakarta.apache.org/stylesheets/document2html.xsl svn_keywords=Author+Date+Id+Revision
 documentation/docs/skins/jakarta.apache.org/stylesheets/sitemap2document.xsl svn_keywords=Author+Date+Id+Revision
-documentation/docs/xdocs/build_result.xml svn_keywords=Author+Date+Id+Revision
 documentation/docs/xdocs/cactusname.xml svn_keywords=Author+Date+Id+Revision
 documentation/docs/xdocs/changes.xml svn_keywords=Author+Date+Id+Revision
 documentation/docs/xdocs/cvslog/cvslog.xml svn_keywords=Author+Date+Id+Revision
@@ -130,6 +129,7 @@ documentation/docs/xdocs/original/archi_servlet.ppt -text
 documentation/docs/xdocs/original/archiani.ppt -text
 documentation/docs/xdocs/original/ecosystem.ppt -text
 documentation/docs/xdocs/original/scope.ppt -text
+documentation/docs/xdocs/participating/build_result.xml svn_keywords=Author+Date+Id+Revision
 documentation/docs/xdocs/participating/coding_conventions.xml svn_keywords=Author+Date+Id+Revision
 documentation/docs/xdocs/participating/contributors.xml svn_keywords=Author+Date+Id+Revision
 documentation/docs/xdocs/participating/coverage.xml svn_keywords=Author+Date+Id+Revision
