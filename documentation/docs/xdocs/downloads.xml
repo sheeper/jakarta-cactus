@@ -6,67 +6,106 @@
     <title>Downloads</title>
     <authors>
       <author name="Vincent Massol" email="vmassol@apache.org"/>
+      <author name="Christopher Lenz" email="cmlenz@apache.org"/>
     </authors>
   </properties>
 
   <body>
 
-    <section title="File list">
+    <section title="Downloadable Files">
 
       <p>
-        Here follows the list of files that you can download:
+        The following files are available for download:
       </p>
-      <ul>
-        <li>
-          <strong><code>jakarta-cactus-anttasks-&lt;version&gt;.zip</code>
-          </strong>: some generic Ant tasks that are used internally by the 
-          Cactus build scripts and which can be useful to other projects.
-        </li>
-        <li>
-          <strong><code>jakarta-cactus-doc-&lt;version&gt;.zip</code>
-          </strong>: the Cactus documentation. It contains the same
-          information as that found on the Cactus web site, but it can
-          be browsed locally.
-        </li>
-        <li>
-          Cactus currently has 4 Integration modules (a.k.a. front-ends) that 
-          you can use to run Cactus tests. You need to pick the one that
-          corresponds to the way you want to use Cactus:
-          <ul>
-            <li>
-              <em>"Manual" Integration</em>: This is the 
-              <strong><code>jakarta-cactus-framework-&lt;j2eeapi&gt;-&lt;version&gt;.zip</code>
-              </strong> zip file. It contains the core Cactus Framework jar
-              and its javadoc.             
-            </li>
-            <li>
-              <em>Ant Integration</em>: This is the 
-              <strong><code>jakarta-cactus-integration-ant-&lt;j2eeapi&gt;-&lt;version&gt;.zip</code>
-              </strong> zip file. It contains a complete ready to use Ant 
-              "plugin" that you can call directly from your own Ant scripts.
-            </li>
-            <li>
-              <em>Eclipse Integration</em>: This is the 
-              <strong><code>jakarta-cactus-integration-eclipse-&lt;j2eeapi&gt;-&lt;version&gt;.zip</code>
-              </strong> zip file. It is an Eclipse plugin.
-            </li>
-            <li>
-              <em>Maven Integration</em>: This is a Cactus plugin for Maven. 
-              This plugin is hosted by the Maven project. It can be downloaded
-              <link href="ext:maven_cactus">here</link>.
-            </li>
-          </ul>
-        </li>
-        <li>
-          <strong><code>jakarta-cactus-sample-servlet-&lt;j2eeapi&gt;-&lt;version&gt;.zip</code>
-          </strong>: A full sample application demonstrating both how to write 
-          Cactus tests and how to use the Ant Integration module.
-        </li>
-      </ul>
+
+      <section title="Core Distribution">
+
+        <p>
+          The core distribution consists of the actual Cactus framework for
+          server-side unit tests, as well as documentation, examples and the
+          Cactus <link href="site:integration_ant">Ant tasks</link>.
+        </p>
+
+        <ul>
+          <li>
+            <strong>jakarta-cactus-12-&lt;version&gt;.zip</strong>
+            <p>
+              The main binary distribution of Cactus for J2EE 1.2. Includes the
+              Cactus framework, the complete set of documentation, the Cactus Ant
+              tasks and the examples.
+            </p>
+          </li>
+          <li>
+            <strong>jakarta-cactus-13-&lt;version&gt;.zip</strong>
+            <p>
+              The main binary distribution of Cactus for J2EE 1.3. Includes the
+              Cactus framework, the complete set of documentation, the Cactus Ant
+              tasks and the examples.
+            </p>
+          </li>
+          <li>
+            <strong>jakarta-cactus-&lt;version&gt;-src.zip</strong> (or
+            <strong>jakarta-cactus-src-&lt;version&gt;.zip</strong>)
+            <p>
+              The source distribution of Cactus. This corresponds to a clean CVS
+              checkout of the Cactus sources at the time the version was
+              released.
+            </p>
+          </li>
+          <li>
+            <strong>jakarta-cactus-ant-*.zip</strong>
+            <p>
+              A distribution of Ant that has been pre-configured to run Cactus
+              tests. <em>This archive is no longer being made available as of
+              Cactus 1.5. See the documentation about the
+              <link href="site:integration_ant">Ant integration</link> for
+              information on how to setup Ant for use with Cactus.</em>
+            </p>
+          </li>
+        </ul>
+
+      </section>
+
+      <section title="Eclipse Plugins">
+
+        <p>
+          Early versions of an
+          <link href="site:integration_eclipse">Eclipse plugin</link> for
+          Cactus are available from the nightly builds area.
+        </p>
+
+        <ul>
+          <li>
+            <strong>jakarta-cactus-integration-eclipse-runner-12-&lt;version&gt;.zip</strong>
+            <p>
+              The
+              <link href="site:integration_eclipse_runner">Cactus Runner</link>
+              plugin for J2EE 1.2.
+            </p>
+          </li>
+          <li>
+            <strong>jakarta-cactus-integration-eclipse-runner-13-&lt;version&gt;.zip</strong>
+            <p>
+              The
+              <link href="site:integration_eclipse_runner">Cactus Runner</link>
+              plugin for J2EE 1.3.
+            </p>
+          </li>
+          <li>
+            <strong>jakarta-cactus-integration-eclipse-webapp-&lt;version&gt;.zip</strong>
+            <p>
+              The
+              <link href="site:integration_eclipse_webapp">Web Application</link>
+              plugin.
+            </p>
+          </li>
+        </ul>
+
+      </section>
 
       <note>
         <code>&lt;version&gt;</code> represents the version number for releases
-        and date stamp for nightly builds.
+        and the date stamp for nightly builds.
       </note>
 
     </section>
@@ -88,7 +127,8 @@
 
       <note>
         You can also check the <link href="site:build_result">Build 
-        result</link> page, which gives information on Cactus nightly builds.
+        result</link> page, which contains information on the status of the
+        Cactus nightly builds (yes, they fail from time to time).
       </note>
 
     </section>
