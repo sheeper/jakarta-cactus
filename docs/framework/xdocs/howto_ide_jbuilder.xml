@@ -16,12 +16,6 @@
 
     <s1 title="Forewords and Requirements">
       <p>
-        I would like to thank <link href="mailto:cchabanois@ifrance.com">
-        Cedric Chabanois</link> and
-        <link href="mailto:Kunal_Vaishnav@jdedwards.com">Kunal Vaishnav</link>
-        for providing this tutorial.
-      </p>
-      <p>
         First of all, JUnit and Cactus jar files are needed for this tutorial, please
         download them :
       </p>
@@ -33,10 +27,6 @@
           <link href="http://www.junit.org/">junit</link>
         </li>
       </ul>
-      <note>
-        If for any reason you cannot succeed in integrating Cactus with
-        JBuilder, please send a mail to the Cactus mailing list.
-      </note>
     </s1>
 
     <s1 title="Step 1 : Create junit and cactus libraries">

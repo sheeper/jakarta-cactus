@@ -15,22 +15,10 @@
     <s1 title="Forewords and Requirements">
 
       <p>
-        I would like to thank <link href="mailto:Todd_Idler@jdedwards.com">
-        Todd Idler</link> and <link href="mailto:andrew.forman@wcom.com">
-        Andrew B Forman</link> for providing this tutorial.
-      </p>
-
-      <p>
-        I have received reports that the following tutorial works with
+        We have received reports that the following tutorial works with
         VAJava 3.5.2 and 3.5.3. Please tell us if you find that it works with
         other versions.
       </p>
-
-      <note>
-        If for any reason you cannot succeed in integrating Cactus with
-        VisualAge for Java, please send a mail to the Cactus mailing list.
-        Make sure you mention your exact version of VAJava (with patch level).
-      </note>
 
     </s1>
 
