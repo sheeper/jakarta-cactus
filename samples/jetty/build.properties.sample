@@ -107,9 +107,10 @@ j2ee.13.jar = ${lib.repo}/j2ee/jars/j2ee-1.3.jar
 #orion.home.14 = xxx
 
 # Should we instrument our code with Clover (test coverage tool) ?
+# For this to work, the clover.jar needs to be in ANTHOME/lib.
 # Comment out to disable Clover (setting the property to false will have no
 # effect).
 #clover.enable = true
 
 # Clover jar
-clover.jar = ${lib.repo}/clover/jars/clover-0.6b.jar
+clover.jar = ${ant.home}/clover.jar

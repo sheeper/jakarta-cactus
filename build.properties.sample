@@ -143,12 +143,13 @@ commons.collections.jar = ${lib.repo}/commons-collections/jars/commons-collectio
 regexp.jar = ${lib.repo}/regexp/jars/regexp-1.2.jar
 
 # Should we instrument our code with Clover (test coverage tool) ?
+# For this to work, the clover.jar needs to be in ANTHOME/lib.
 # Comment out to disable Clover (setting the property to false will have no
 # effect).
 #clover.enable = true
 
 # Clover jar
-clover.jar = ${lib.repo}/clover/jars/clover-0.6b.jar
+clover.jar = ${ant.home}/clover.jar
 
 # -----------------------------------------------------------------------------
 # Optional properties for the Servlet Sample subproject
