@@ -87,6 +87,10 @@ public final class TestXMLFormatter extends TestCase
         testResult = new TestResult();
     }
 
+    /**
+     * Verify that calling {@link XMLFormatter#toXML(TestResult)} works
+     * when using the default encoding. 
+     */
     public void testToXmlEmptyWithDefaultEncoding()
     {
         String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
@@ -97,6 +101,10 @@ public final class TestXMLFormatter extends TestCase
         assertEquals(expected, result);
     }
 
+    /**
+     * Verify that calling {@link XMLFormatter#toXML(TestResult)} works
+     * when using a custom encoding of ISO-8859-1. 
+     */
     public void testToXmlEmptyWithCustomEncoding()
     {
         String expected = "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>"
