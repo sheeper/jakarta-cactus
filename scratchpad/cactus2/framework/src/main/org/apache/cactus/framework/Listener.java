@@ -19,38 +19,19 @@
  */
 package org.apache.cactus.framework;
 
-import org.codehaus.aspectwerkz.attribdef.Pointcut;
-import org.codehaus.aspectwerkz.attribdef.aspect.Aspect;
-import org.codehaus.aspectwerkz.joinpoint.JoinPoint;
-
-/**
- * Intercepts client side JUnit tests and sets up the test listener socket
- * if not set.
- */
-public class TestListenerAspect extends Aspect
+public class Listener
 {
-    /**
-     * @Execution * *..TestCase+.test*()
-     */
-    Pointcut interceptClientTest;
-    
     /**
      * Has the test listener socket been set up? 
      */
     private boolean isSetup = false;
-    
-    /**
-     * @Around interceptClientTest
-     */
-    public synchronized Object setupListener(JoinPoint joinPoint) 
-        throws Throwable
+
+    public synchronized void setupListener() throws Throwable
     {
         if (!this.isSetup)
         {
             System.out.println("Setting up test listener socket");
             this.isSetup = true;
         }
-
-        return joinPoint.proceed();
     }
 }
