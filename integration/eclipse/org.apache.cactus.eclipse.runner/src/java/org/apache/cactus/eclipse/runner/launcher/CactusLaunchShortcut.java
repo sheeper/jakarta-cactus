@@ -417,7 +417,6 @@ public class CactusLaunchShortcut
                         e.getTargetException().getMessage(),
                         null);
                     cancelPreparation();
-                    launchEnded = true;
                     return;
                 }
                 catch (InterruptedException e)
@@ -428,8 +427,11 @@ public class CactusLaunchShortcut
                         e.getMessage(),
                         null);
                     cancelPreparation();
-                    launchEnded = true;
                     return;
+                }
+                finally
+                {
+                    launchEnded = true;
                 }
             }
 
