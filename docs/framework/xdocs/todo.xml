@@ -75,11 +75,6 @@
       <p>
         All tasks that are related to building Cactus in general.
       </p>
-      <action assigned-to="Vincent Massol">
-        Add support for Orion 1.5 in Ant build files (current support is for
-        Orion 1.4 only but may work on 1.5.2 - need to be tested though).
-        90% done.
-      </action>
       <action>
         Add the Ant scripts for JBoss 2.x w/Tomcat provided by Jeffrey Madynski
         (jmadynski@food.com) on the jakarta-commons mailing list (Subject
