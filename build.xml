@@ -222,6 +222,19 @@
 
     </target>
 
+    <!-- Run Eclipse Petal dist target -->
+    <target name="run.petal.eclipse" depends="init, run.framework">
+
+        <ant target="dist" antfile="petals/eclipse/build.xml"
+            inheritAll="false">
+
+            <property file="build.properties"/>
+            <property file="${user.home}/build.properties"/>
+
+        </ant>
+
+    </target>
+
     <!-- Run Cactus Servlet Sample dist target -->
     <target name="run.sample-servlet" depends="run.anttasks,run.framework">
 

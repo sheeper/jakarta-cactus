@@ -1,14 +1,5 @@
 /.classpath
 /.project
-Eclipse-Plugin/ant
-Eclipse-Plugin/bin
-Eclipse-Plugin/build-local.xml
-Eclipse-Plugin/build.properties
-Eclipse-Plugin/dist
-Eclipse-Plugin/lib
-Eclipse-Plugin/release
-Eclipse-Plugin/target
-Eclipse-Plugin/web
 /ant.bat
 anttasks/ant.bat
 anttasks/build.properties
