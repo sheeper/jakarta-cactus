@@ -670,9 +670,11 @@
   <xsl:template match="jump">
     <a>
       <xsl:attribute name="href">
-        <xsl:call-template name="compute-link-href">
-          <xsl:with-param name="href" select="@href"/>
-        </xsl:call-template>
+        <xsl:if test="@href">
+          <xsl:call-template name="compute-link-href">
+            <xsl:with-param name="href" select="@href"/>
+          </xsl:call-template>
+        </xsl:if>
         <xsl:text>#</xsl:text>
         <xsl:value-of select="@anchor"/>
       </xsl:attribute>
