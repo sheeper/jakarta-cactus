@@ -62,7 +62,7 @@
           <td>Yes</td>
           <td>
             <p>
-              Lists of classes that will be excluded in the tests. Default 
+              Lists of test classes that will not be excluded. Default 
               value is <code>**/All*Test*.class,**/Test*All.class</code>.
             </p>
           </td>
