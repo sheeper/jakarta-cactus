@@ -31,8 +31,8 @@
        ========================================================================
     -->
     <property name="src.dir" value="${base.dir}/src"/>
-    <property name="src.sample.dir" value="${src.dir}/sample"/>
-    <property name="src.unit.dir" value="${src.dir}/unit"/>
+    <property name="src.java.dir" value="${src.dir}/java"/>
+    <property name="src.cactus.dir" value="${src.dir}/test-cactus"/>
     <property name="build.dir" value="${base.dir}/build"/>
     <property name="conf.dir" value="${base.dir}/conf"/>
     <property name="conf.test.dir" value="${conf.dir}/test"/>
@@ -46,10 +46,10 @@
     <!-- Destination locations for the build -->
     <property name="target.dir" value="${base.dir}/target"/>
     <property name="target.classes.dir" value="${target.dir}/classes"/>
-    <property name="target.classes.sample.dir"
-        value="${target.classes.dir}/sample"/>
-    <property name="target.classes.unit.dir"
-        value="${target.classes.dir}/unit"/>
+    <property name="target.classes.java.dir"
+        value="${target.classes.dir}/java"/>
+    <property name="target.classes.cactus.dir"
+        value="${target.classes.dir}/cactus"/>
     <property name="target.conf.dir" value="${target.dir}/conf"/>
     <property name="target.conf.client.dir" value="${target.conf.dir}/client"/>
     <property name="target.conf.server.dir" value="${target.conf.dir}/server"/>
@@ -203,43 +203,40 @@
          Compiles the sources
        ========================================================================
     -->
-    <!-- Compiles the sample sources -->
-    <target name="compile.sample" depends="init">
+    <!-- Compiles the java sources -->
+    <target name="compile.java" depends="init">
 
-        <mkdir dir="${target.classes.sample.dir}"/>
+        <mkdir dir="${target.classes.java.dir}"/>
 
-        <javac destdir="${target.classes.sample.dir}"
+        <javac destdir="${target.classes.java.dir}"
           deprecation="${deprecation}" optimize="${optimize}">
 
-            <src path="${src.sample.dir}"/>
-
+            <src path="${src.java.dir}"/>
             <classpath>
                 <path refid="project.class.path"/>
             </classpath>
-
         </javac>
 
     </target>
 
-    <!-- Compiles the unit sources -->
-    <target name="compile.unit" depends="init">
+    <!-- Compiles the Cactus test sources -->
+    <target name="compile.cactus" depends="compile.java">
 
-        <mkdir dir="${target.classes.unit.dir}"/>
+        <mkdir dir="${target.classes.cactus.dir}"/>
 
-        <javac destdir="${target.classes.unit.dir}"
+        <javac destdir="${target.classes.cactus.dir}"
           deprecation="${deprecation}" optimize="${optimize}">
 
-            <src path="${src.unit.dir}"/>
-
+            <src path="${src.cactus.dir}"/>
             <classpath>
                 <path refid="project.class.path"/>
+				<pathelement location="${target.classes.java.dir}"/>
             </classpath>
-
         </javac>
 
     </target>
 
-    <target name="compile" depends="compile.sample,compile.unit"
+    <target name="compile" depends="compile.java,compile.cactus"
         description="Compile the sources">
     </target>
 
@@ -263,14 +260,7 @@
              webxml="${conf.dir}/web.xml"
              manifest="${target.conf.client.dir}/manifest">
 
-            <classes dir="${target.classes.sample.dir}">
-                <!-- Do not include test files in the runtime war -->
-                <exclude name="**/Test*.*"/>
-            </classes>
-            <classes dir="${target.classes.unit.dir}">
-                <!-- Do not include test files in the runtime war -->
-                <exclude name="**/Test*.*"/>
-            </classes>
+            <classes dir="${target.classes.java.dir}"/>
         </war>
 
     </target>
@@ -296,8 +286,8 @@
             bottom="Copyright &amp;copy; ${year} Apache Software Foundation. All Rights Reserved.">
 
             <sourcepath>
-                <pathelement location="${src.sample.dir}"/>
-                <pathelement location="${src.unit.dir}"/>
+                <pathelement location="${src.java.dir}"/>
+                <pathelement location="${src.cactus.dir}"/>
             </sourcepath>
 
             <classpath refid="project.class.path"/>
@@ -364,8 +354,8 @@
                 <!-- Cactus.propertie and log_client.properties need to be in
                      the classpath -->
                 <pathelement location="${target.conf.client.dir}"/>
-                <pathelement location="${target.classes.sample.dir}"/>
-                <pathelement location="${target.classes.unit.dir}"/>
+                <pathelement location="${target.classes.java.dir}"/>
+                <pathelement location="${target.classes.cactus.dir}"/>
                 <path refid="project.class.path"/>
             </classpath>
 
@@ -429,8 +419,8 @@
         <war warfile="${target.test.dir}/test.war"
              webxml="${conf.test.dir}/web.xml">
 
-            <classes dir="${target.classes.sample.dir}"/>
-            <classes dir="${target.classes.unit.dir}"/>
+            <classes dir="${target.classes.java.dir}"/>
+            <classes dir="${target.classes.cactus.dir}"/>
 
             <!-- log_server.properties need to be in the server classpath -->
             <classes dir="${target.conf.server.dir}">

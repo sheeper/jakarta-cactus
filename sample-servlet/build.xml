@@ -70,8 +70,8 @@
 
         <!-- Source locations for the build -->
         <property name="src.dir" value="${base.dir}/src"/>
-        <property name="src.sample.dir" value="${src.dir}/sample"/>
-        <property name="src.unit.dir" value="${src.dir}/unit"/>
+        <property name="src.java.dir" value="${src.dir}/java"/>
+        <property name="src.cactus.dir" value="${src.dir}/test-cactus"/>
         <property name="conf.dir" value="${base.dir}/conf"/>
         <property name="conf.sample.dir" value="${conf.dir}/sample"/>
         <property name="conf.sample.build.dir" value="${conf.sample.dir}/build"/>
@@ -116,10 +116,10 @@
         <property name="target.sample.build.dir" value="${target.sample.dir}/build"/>
         <property name="target.sample.conf.dir" value="${target.sample.dir}/conf"/>
         <property name="target.sample.src.dir" value="${target.sample.dir}/src"/>
-        <property name="target.sample.src.sample.dir"
-            value="${target.sample.src.dir}/sample"/>
-        <property name="target.sample.src.unit.dir"
-            value="${target.sample.src.dir}/unit"/>
+        <property name="target.sample.src.java.dir"
+            value="${target.sample.src.dir}/java"/>
+        <property name="target.sample.src.cactus.dir"
+            value="${target.sample.src.dir}/test-cactus"/>
         <property name="target.sample.web.dir" value="${target.sample.dir}/web"/>
 
     </target>
@@ -276,8 +276,8 @@
         <mkdir dir="${target.sample.dir}"/>
         <mkdir dir="${target.sample.build.dir}"/>
         <mkdir dir="${target.sample.conf.dir}/test"/>
-        <mkdir dir="${target.sample.src.sample.dir}"/>
-        <mkdir dir="${target.sample.src.unit.dir}"/>
+        <mkdir dir="${target.sample.src.java.dir}"/>
+        <mkdir dir="${target.sample.src.cactus.dir}"/>
         <mkdir dir="${target.sample.web.dir}/test"/>
 
         <!-- Copy build files -->
@@ -287,13 +287,13 @@
         </copy>
 
         <!-- Copy src files -->
-        <copy todir="${target.sample.src.sample.dir}">
-            <fileset dir="${src.sample.dir}/share"/>
-            <fileset dir="${src.sample.dir}/j2ee${j2ee.api}"/>
+        <copy todir="${target.sample.src.java.dir}">
+            <fileset dir="${src.java.dir}/share"/>
+            <fileset dir="${src.java.dir}/j2ee${j2ee.api}"/>
         </copy>
-        <copy todir="${target.sample.src.unit.dir}">
-            <fileset dir="${src.unit.dir}/share"/>
-            <fileset dir="${src.unit.dir}/j2ee${j2ee.api}"/>
+        <copy todir="${target.sample.src.cactus.dir}">
+            <fileset dir="${src.cactus.dir}/share"/>
+            <fileset dir="${src.cactus.dir}/j2ee${j2ee.api}"/>
         </copy>
 
         <!-- Copy conf files -->
