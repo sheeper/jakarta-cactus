@@ -71,6 +71,11 @@
       </release>
       
       <release version="1.5-rc1" date="in CVS">
+        <action dev="VMA" type="add">
+          Added new optional <code>cactus.logging.config</code> Cactus 
+          property. If specified Cactus will load the properties file pointed
+          by this property and will set each property as a system property.
+        </action>
         <action dev="VMA" type="update">
           Updated to use AspectJ 1.1.1. When you upgrade to Cactus 1.5-rc1
           make sure you update your <code>aspectjrt.jar</code> to version
