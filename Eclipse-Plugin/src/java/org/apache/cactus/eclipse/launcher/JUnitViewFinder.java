@@ -7,8 +7,7 @@ import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbenchPage;
 
 /**
- * Launch shortcut used to start the Cactus launch configuration on the
- * current workbench selection.
+ * Used to find the JUnit view.
  * 
  * @author <a href="mailto:jruaux@octo.com">Julien Ruaux</a>
  * @version $Id: $
