@@ -761,7 +761,8 @@ public class WebXml
         if (theElement != null)
         {
             NodeList initParamElements =
-                theElement.getElementsByTagName(WebXmlTag.INIT_PARAM.getTagName());
+                theElement.getElementsByTagName(
+                    WebXmlTag.INIT_PARAM.getTagName());
             for (int i = 0; i < initParamElements.getLength(); i++)
             {
                 Element initParamElement = (Element) initParamElements.item(i);
