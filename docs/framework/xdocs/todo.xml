@@ -87,6 +87,14 @@
 
     <category title="Design/Code">
       <action>
+        Provide support for generating Session cookies and URL Sessions
+        (URL rewriting). A description of the mechanism has been
+        posted in thread "How does cactus simulate a session" on the
+        Cactus user mailing list. Thanks to
+        <link href="mailto:kyle.w.willkomm@accenture.com">Kyle W.
+        Willkomm</link>.
+      </action>
+      <action>
         Add an API in <code>WebRequest</code> to send data to the URL
         connection output stream. This is, for example, to easily test code
         that upload files to a servlet. This would need managing
