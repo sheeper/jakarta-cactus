@@ -39,6 +39,10 @@ aspectjrt.jar = ../aspectj/lib/aspectjrt.jar
 # The location of the Junit jar
 junit.jar = ../junit/junit3.7/junit.jar
 
+# CVS executable to use for documentation generation (used to automatically
+# generate web site changelog).
+cvs.executable = cvs
+
 # -----------------------------------------------------------------------------
 # Optional properties
 # -----------------------------------------------------------------------------

@@ -102,6 +102,7 @@
         <echo message="ant.home = ${ant.home}"/>
         <echo message=""/>
         <echo message="cactus.ant.jar = ${cactus.ant.jar}"/>
+        <echo message="cvs.executable = ${cvs.executable}"/>
         <echo message=""/>
 
     </target>
@@ -116,6 +117,7 @@
         <condition property="properties.ok">
             <and>
                 <available file="${cactus.ant.jar}"/>
+                <isset property="cvs.executable"/>
            </and>
         </condition>
 
