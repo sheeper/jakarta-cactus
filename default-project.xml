@@ -1,0 +1,128 @@
+<?xml version="1.0"?>
+<project>
+  <pomVersion>3</pomVersion>
+  <name>Jakarta Cactus</name>
+  <id>jakarta-cactus</id>
+  <currentVersion>1.6dev</currentVersion>
+  <organization>
+    <name>Apache Software Foundation</name>
+    <url>http://jakarta.apache.org/</url>
+    <!-- TODO: Missing jakarta logo. How can we make that work without
+         duplicating the logo in all subprojects? -->
+  </organization>
+  <inceptionYear>2001-2003</inceptionYear>
+  <package>org.apache.cactus</package>
+
+  <shortDescription>
+    Cactus is a simple test framework for unit testing server-side java code.
+  </shortDescription>
+
+  <!-- Gump integration -->
+  <gumpRepositoryId>jakarta</gumpRepositoryId>
+
+  <description>
+     Cactus is a simple test framework for unit testing server-side java code 
+     (Servlets, EJBs, Tag Libs, Filters, ...). The intent of Cactus is to 
+     lower the cost of writing tests for server-side code. It uses JUnit and 
+     extends it.
+  </description>
+
+  <url>http://jakarta.apache.org/cactus/</url>
+  <!-- TODO: Missing Cactus logo. How can we make that work without
+       duplicating the logo in all subprojects? -->
+  <issueTrackingUrl>http://jakarta.apache.org/site/bugs.html</issueTrackingUrl>
+  <siteAddress>jakarta.apache.org</siteAddress>
+  <siteDirectory>/www/jakarta.apache.org/cactus/${pom.currentVersion}</siteDirectory>
+  <distributionDirectory>/www/www.apache.org/dist/jakarta/cactus/</distributionDirectory>
+
+  <repository>
+    <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-cactus</connection>
+    <url>http://cvs.apache.org/viewcvs/jakarta-cactus/</url>
+  </repository>
+
+  <versions>
+    <version>
+      <id>1.5-beta1</id>
+      <name>1.5-beta1</name>
+      <tag>CACTUS_15_BETA1_RELEASE</tag>
+    </version>
+    <version>
+      <id>1.6dev</id>
+      <name>1.6dev</name>
+      <tag>HEAD</tag>
+    </version>
+  </versions>
+
+  <mailingLists>
+    <mailingList>
+      <name>Cactus User List</name>
+      <subscribe>cactus-user-subscribe@jakarta.apache.org</subscribe>
+      <unsubscribe>cactus-user-unsubscribe@jakarta.apache.org</unsubscribe>
+      <archive>http://www.mail-archive.com/cactus-user@jakarta.apache.org/</archive>
+    </mailingList>
+    <mailingList>
+      <name>Cactus Developer List</name>
+      <subscribe>cactus-dev-subscribe@jakarta.apache.org</subscribe>
+      <unsubscribe>cactus-dev-unsubscribe@jakarta.apache.org</unsubscribe>
+      <archive>http://www.mail-archive.com/cactus-dev@jakarta.apache.org/</archive>
+    </mailingList>
+  </mailingLists>
+
+  <developers>
+    <developer>
+      <name>Vincent Massol</name>
+      <id>vmassol</id>
+      <email>vmassol@pivolis.com</email>
+      <organization>Pivolis</organization>
+    </developer>
+    <developer>
+      <name>Jari Worsley</name>
+      <id>jariw</id>
+      <email>jariw@hyperlink-interactive.co.uk</email>
+      <organization></organization>
+    </developer>
+    <developer>
+      <name>Nicholas Lesiecki</name>
+      <id>ndlesiecki</id>
+      <email>ndlesiecki@yahoo.com</email>
+      <organization></organization>
+    </developer>
+    <developer>
+      <name>Julien Ruaux</name>
+      <id>jruaux</id>
+      <email>jruaux@octo.com</email>
+      <organization>Octo Technology</organization>
+    </developer>
+    <developer>
+      <name>Christopher Lenz</name>
+      <id>cmlenz</id>
+      <email>cmlenz@gmx.de</email>
+      <organization></organization>
+    </developer>
+  </developers>
+  <contributors/>
+
+  <dependencies>
+    <dependency>
+      <groupId>servletapi</groupId>
+      <artifactId>servletapi</artifactId>
+      <version>2.3</version>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <nagEmailAddress>cactus-dev@jakarta.apache.org</nagEmailAddress>
+
+	<!-- Note: The source directory for a specific J2EE version is added
+	     in maven.xml at runtime as Maven only supports a single source
+	     directory -->
+    <sourceDirectory>src/java/share</sourceDirectory>
+
+	<!-- Note: The test source directory for a specific J2EE version is added
+	     in maven.xml at runtime as Maven only supports a single source
+	     directory -->
+    <unitTestSourceDirectory>src/test/share</unitTestSourceDirectory>
+
+  </build>
+
+</project>

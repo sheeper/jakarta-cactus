@@ -12,6 +12,7 @@
 /build-common.xml svn_keywords=Author+Date+Id+Revision
 /build.properties.sample svn_keywords=Author+Date+Id+Revision
 /build.xml svn_keywords=Author+Date+Id+Revision
+/default-project.xml svn_keywords=Author+Date+Id+Revision
 documentation/.cvsignore svn_keywords=Author+Date+Id+Revision
 documentation/README svn_keywords=Author+Date+Id+Revision
 documentation/build.properties.sample svn_keywords=Author+Date+Id+Revision
@@ -546,6 +547,7 @@ integration/eclipse/org.apache.cactus.eclipse.webapp/src/java/org/apache/cactus/
 integration/eclipse/org.apache.cactus.eclipse.webapp/src/java/org/apache/cactus/eclipse/webapp/internal/ui/WebappMessages.java svn_keywords=Author+Date+Id+Revision
 integration/eclipse/org.apache.cactus.eclipse.webapp/src/java/org/apache/cactus/eclipse/webapp/internal/ui/WebappMessages.properties svn_keywords=Author+Date+Id+Revision
 integration/eclipse/org.apache.cactus.eclipse.webapp/src/java/org/apache/cactus/eclipse/webapp/internal/ui/WebappPlugin.java svn_keywords=Author+Date+Id+Revision
+/project.xml svn_keywords=Author+Date+Id+Revision
 samples/ejb/.cvsignore svn_keywords=Author+Date+Id+Revision
 samples/ejb/README svn_keywords=Author+Date+Id+Revision
 samples/ejb/build.properties.sample svn_keywords=Author+Date+Id+Revision

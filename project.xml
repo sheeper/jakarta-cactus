@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<project>
+  <extend>${basedir}/default-project.xml</extend>
+  <id>jakarta-cactus-master</id>
+  <name>Jakarta Cactus Master Build</name>
+  <dependencies/>
+  <build/>
+</project>
