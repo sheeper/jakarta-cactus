@@ -364,7 +364,7 @@
          Generate the distributable files
        ========================================================================
     -->
-    <target name="dist" depends="jar,test,doc"
+    <target name="dist" depends="jar,test,doc,checkstyle"
         description="Generate the distributable files">
 
         <mkdir dir="${dist.lib.dir}"/>
@@ -440,7 +440,7 @@
             ignoreWhitespace="false"
             ignoreCastWhitespace="false"
             ignoreBraces="false"
-            failOnViolation="false"
+            failOnViolation="true"
             cacheFile="${target.dir}/checkstyle.cache">
 
             <fileset dir="${src.java.dir}">
@@ -450,6 +450,7 @@
             <fileset dir="${src.test.dir}">
                 <include name="**/*.java"/>
             </fileset>
+            <formatter type="plain"/>
             <formatter type="xml" toFile="${target.dir}/checkstyle_errors.xml"/>
         </checkstyle>
 
