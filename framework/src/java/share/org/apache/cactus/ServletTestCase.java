@@ -113,6 +113,17 @@ public class ServletTestCase extends AbstractWebServerTestCase
     public ServletConfigWrapper config;
 
     /**
+     * Default constructor defined in order to allow creating Test Case
+     * without needing to define constructor (new feature in JUnit 3.8.1).
+     * Should only be used with JUnit 3.8.1 or greater. 
+     * 
+     * @since 1.5 
+     */
+    public ServletTestCase()
+    {
+    }
+
+    /**
      * Constructs a JUnit test case with the given name.
      *
      * @param theName the name of the test case

@@ -123,15 +123,6 @@ public abstract class AbstractClientTestCase extends TestCase
     private static boolean isClientInitialized;
 
     /**
-     * The name of the current test method being executed. This name is valid
-     * both on the client side and on the server side, meaning you can call it
-     * from a <code>testXXX()</code>, <code>setUp()</code> or
-     * <code>tearDown()</code> method, as well as from <code>beginXXX()</code>
-     * and <code>endXXX()</code> methods.
-     */
-    private String currentTestMethod;
-
-    /**
      * The logger (only used on the client side).
      */
     private Log logger;
@@ -146,6 +137,19 @@ public abstract class AbstractClientTestCase extends TestCase
      * JUnit Test Case using Cactus.
      */
     private Test wrappedTest;
+
+    /**
+     * Default constructor defined in order to allow creating Test Case
+     * without needing to define constructor (new feature in JUnit 3.8.1).
+     * Should only be used with JUnit 3.8.1 or greater. 
+     * 
+     * @since 1.5 
+     */
+    public AbstractClientTestCase()
+    {
+        super(null);
+        this.wrappedTest = this;
+    }
     
     /**
      * Constructs a JUnit test case with the given name.
@@ -155,7 +159,6 @@ public abstract class AbstractClientTestCase extends TestCase
     public AbstractClientTestCase(String theName)
     {
         super(theName);
-        this.setCurrentTestMethod(JUnitVersionHelper.getTestCaseName(this));
         this.wrappedTest = this;
     }
 
@@ -420,14 +423,6 @@ public abstract class AbstractClientTestCase extends TestCase
      */
     protected String getCurrentTestMethod()
     {
-        return this.currentTestMethod;
-    }
-
-    /**
-     * @param theCurrentTestMethod the name of the current test case.
-     */
-    private void setCurrentTestMethod(String theCurrentTestMethod)
-    {
-        this.currentTestMethod = theCurrentTestMethod;
+        return JUnitVersionHelper.getTestCaseName(this);
     }
 }

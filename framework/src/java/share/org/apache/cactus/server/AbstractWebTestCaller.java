@@ -64,6 +64,7 @@ import java.lang.reflect.Constructor;
 import javax.servlet.ServletException;
 
 import junit.framework.Test;
+import junit.framework.TestCase;
 
 import org.apache.cactus.AbstractWebServerTestCase;
 import org.apache.cactus.HttpServiceDefinition;
@@ -406,17 +407,26 @@ public abstract class AbstractWebTestCaller
         {
             if (theWrappedClassName == null)
             {
-                constructor = testClass.getConstructor(
-                    new Class[] {String.class});
+                constructor = getTestClassConstructor(testClass); 
 
-                testInstance = 
-                    (AbstractWebServerTestCase) constructor.newInstance(
-                    new Object[] {theTestCaseName});                
+                if (constructor.getParameterTypes().length == 0)
+                {
+                    testInstance = 
+                        (AbstractWebServerTestCase) constructor.newInstance(
+                        new Object[0]);
+                    ((TestCase) testInstance).setName(theTestCaseName);
+                }
+                else
+                {
+                    testInstance = 
+                        (AbstractWebServerTestCase) constructor.newInstance(
+                        new Object[] {theTestCaseName});                
+                }
             }
             else
             {
                 Class wrappedTestClass = 
-                    getWrappedTestClassClass(theWrappedClassName);
+                    getTestClassClass(theWrappedClassName);
                 Constructor wrappedConstructor =
                     wrappedTestClass.getConstructor(
                     new Class[] {String.class});
@@ -445,6 +455,28 @@ public abstract class AbstractWebTestCaller
     }
 
     /**
+     * @param theTestClass the test class for which we want to find the
+     *        constructor
+     * @return the availble constructor for the test class
+     * @throws NoSuchMethodException if no suitable constructor is found
+     */
+    private Constructor getTestClassConstructor(Class theTestClass)
+        throws NoSuchMethodException
+    {
+        Constructor constructor;
+        try 
+        {
+            constructor = theTestClass.getConstructor(
+                new Class[] {String.class});         
+        }
+        catch (NoSuchMethodException e)
+        {
+            constructor = theTestClass.getConstructor(new Class[0]);
+        }
+        return constructor;        
+    }
+
+    /**
      * @param theClassName the name of the test class
      * @return the class object the test class to call
      * @exception ServletException if the class of the current test case
@@ -465,43 +497,6 @@ public abstract class AbstractWebTestCaller
         catch (Exception e)
         {
             String message = "Error finding class [" + theClassName
-                + "] using both the Context classloader and the webapp "
-                + "classloader. Possible causes include:\r\n";
-
-            message += ("\t- Your webapp does not include your test " 
-                + "classes,\r\n");
-            message += ("\t- The cactus.jar is not located in your " 
-                + "WEB-INF/lib directory and your Container has not set the " 
-                + "Context classloader to point to the webapp one");
-
-            LOGGER.error(message, e);
-            throw new ServletException(message, e);
-        }
-
-        return testClass;
-    }
-
-    /**
-     * @param theWrappedClassName the name of the wrapped test class
-     * @return the class object to wrapped test class
-     * @exception ServletException if the class of the wrapped test case
-     *            cannot be loaded in memory (i.e. it is not in the
-     *            classpath)
-     */
-    protected Class getWrappedTestClassClass(String theWrappedClassName)
-        throws ServletException
-    {
-        // Get the class to call and build an instance of it.
-        Class testClass = null;
-
-        try
-        {
-            testClass = ClassLoaderUtils.loadClass(theWrappedClassName, 
-                this.getClass());
-        }
-        catch (Exception e)
-        {
-            String message = "Error finding class [" + theWrappedClassName
                 + "] using both the Context classloader and the webapp "
                 + "classloader. Possible causes include:\r\n";
 

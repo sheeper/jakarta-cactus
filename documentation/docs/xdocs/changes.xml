@@ -57,6 +57,12 @@
       </devs>
 
       <release version="1.5" date="- in CVS">
+        <action dev="VMA" type="add">
+          Allows creating Cactus TestCase without the need for a constructor 
+          that takes a String parameter (a default constructor is good enough).
+          Obviously, this feature works only with JUnit 3.8.1 (but Cactus
+          continues to support JUnit 3.7).
+        </action>
         <action dev="CML" type="update">
           Update of jars bundled in the Cactus distribution: Commons Logging
           1.0.2, Log4j 1.2.7, HttpClient 2.0alpha3, HttpUnit 1.5 and 
