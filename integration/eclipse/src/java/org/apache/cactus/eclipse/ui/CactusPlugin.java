@@ -58,6 +58,7 @@ package org.apache.cactus.eclipse.ui;
 
 import org.apache.cactus.eclipse.containers.IContainerProvider;
 import org.apache.cactus.eclipse.containers.ant.GenericAntProvider;
+import org.apache.cactus.eclipse.launcher.CactusLaunchShortcut;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPluginDescriptor;
 import org.eclipse.core.runtime.IStatus;
@@ -83,6 +84,10 @@ public class CactusPlugin extends AbstractUIPlugin
      * The single instance of this plug-in runtime class.
      */
     private static CactusPlugin plugin;
+    /**
+     * The current instance of CactusLaunchShortcut.
+     */
+    private CactusLaunchShortcut launchShortcut;
 
     /**
      * @see org.eclipse.core.runtime.Plugin#Plugin(IPluginDescriptor)
@@ -284,7 +289,7 @@ public class CactusPlugin extends AbstractUIPlugin
     {
         return createCoreException(theMessageKey, "", theException);
     }
-    
+
     /**
      * Helper method for other classes. Returns a CoreException with a message
      * corresponding to the given message key and the additional String.
@@ -307,5 +312,23 @@ public class CactusPlugin extends AbstractUIPlugin
                 IStatus.OK,
                 message,
                 theException));
-    }      
+    }
+
+    /**
+     * @return the current CactusLaunchShortcut instance.
+     */
+    public CactusLaunchShortcut getCactusLaunchShortcut()
+    {
+        return launchShortcut;
+    }
+
+    /**
+     * Sets the current CactusLaunchShortcut
+     * @param theCactusLaunchShortcut the instance to set
+     */
+    public void addCactusLaunchShortcut(
+        CactusLaunchShortcut theCactusLaunchShortcut)
+    {
+        this.launchShortcut = theCactusLaunchShortcut;
+    }
 }

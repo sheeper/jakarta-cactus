@@ -57,16 +57,15 @@
 package org.apache.cactus.eclipse.containers.ant;
 
 import java.io.File;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Vector;
 
+import org.apache.cactus.eclipse.ant.EclipseRunTests;
 import org.apache.cactus.eclipse.containers.ContainerInfo;
 import org.apache.cactus.eclipse.containers.Credential;
 import org.apache.cactus.eclipse.containers.IContainerProvider;
 import org.apache.cactus.eclipse.ui.CactusMessages;
 import org.apache.cactus.eclipse.ui.CactusPlugin;
-import org.apache.tools.ant.BuildException;
 import org.eclipse.ant.core.AntRunner;
 import org.eclipse.core.boot.BootLoader;
 import org.eclipse.core.runtime.CoreException;
@@ -111,7 +110,15 @@ public class GenericAntProvider implements IContainerProvider
     /**
      * Plug-in relative path to the Ant build file.
      */
-    private String buildFilePath = "./ant/build.xml";
+    private String buildFilePath = "./ant/eclipse/build.xml";
+    /**
+     * The Eclipse runner associated to the Ant container provider.
+     */
+    private EclipseRunTests eclipseRunner;
+    /**
+     * A boolean indicating if the container is running.
+     */
+    private boolean serverStopped;
     /**
      * Constructor.
      * @param thePort the port that will be used when setting up the container
@@ -128,17 +135,20 @@ public class GenericAntProvider implements IContainerProvider
         if (thePort <= 0)
         {
             throw CactusPlugin.createCoreException(
-                "CactusLaunch.message.invalidproperty.port", null);
+                "CactusLaunch.message.invalidproperty.port",
+                null);
         }
         if (theTargetDir.equalsIgnoreCase(""))
         {
             throw CactusPlugin.createCoreException(
-                "CactusLaunch.message.invalidproperty.tempdir", null);
+                "CactusLaunch.message.invalidproperty.tempdir",
+                null);
         }
         if (theHomes.length == 0)
         {
             throw CactusPlugin.createCoreException(
-                "CactusLaunch.message.invalidproperty.containers", null);
+                "CactusLaunch.message.invalidproperty.containers",
+                null);
         }
         port = thePort;
         containerHomes = theHomes;
@@ -170,7 +180,7 @@ public class GenericAntProvider implements IContainerProvider
             antArguments.add("-Dcactus.jvm=javaw");
         }
     }
-    
+
     /**
      * @see IContainerProvider#start(ContainerInfo)
      */
@@ -178,39 +188,11 @@ public class GenericAntProvider implements IContainerProvider
         throws CoreException
     {
         thePM.subTask(CactusMessages.getString("CactusLaunch.message.start"));
-        String[] targets = getMasked("cactus.start.");
+        String[] targets = getMasked("cactus.run.");
         AntRunner runner = createAntRunner(targets);
-        StartServerHelper startHelper = new StartServerHelper(runner);
-        URL testURL = null;
-        try
-        {
-            testURL =
-                new URL(
-                    "http://localhost:"
-                        + port
-                        + "/"
-                        + contextPath
-                        + "/ServletRedirector"
-                        + "?Cactus_Service=RUN_TEST");
-        }
-        catch (MalformedURLException e)
-        {
-            throw CactusPlugin.createCoreException(
-                "CactusLaunch.message.start.error",
-                e);
-        }
-        startHelper.setTestURL(testURL);
-        startHelper.setProgressMonitor(new SubProgressMonitor(thePM, 4));
-        try
-        {
-            startHelper.execute();
-        }
-        catch (BuildException e)
-        {
-            throw CactusPlugin.createCoreException(
-                "CactusLaunch.message.start.error",
-                e);
-        }
+        serverStopped = false;
+        runner.run(new SubProgressMonitor(thePM, 1));
+        serverStopped = true;
     }
 
     /**
@@ -228,12 +210,6 @@ public class GenericAntProvider implements IContainerProvider
         String warPath = theDeployableObject.getPath();
         antArguments.add("-Dcactus.war=" + warPath);
         antArguments.add("-Dcactus.context=" + theContextPath);
-        String[] warTarget = { "cactus.war.framework" };
-        String[] setupTargets = getMasked("cactus.setup.");
-        String[] deployTargets = getMasked("cactus.deploy.");
-        createAntRunner(warTarget).run(new SubProgressMonitor(thePM, 1));
-        createAntRunner(setupTargets).run(new SubProgressMonitor(thePM, 1));
-        createAntRunner(deployTargets).run(new SubProgressMonitor(thePM, 1));
     }
 
     /**
@@ -253,7 +229,6 @@ public class GenericAntProvider implements IContainerProvider
         createAntRunner(targets).run(spm);
         spm.worked(10);
         spm.done();
-
     }
 
     /**
@@ -263,12 +238,18 @@ public class GenericAntProvider implements IContainerProvider
         throws CoreException
     {
         thePM.subTask(CactusMessages.getString("CactusLaunch.message.stop"));
-        String[] targets = getMasked("cactus.stop.");
-        SubProgressMonitor spm = new SubProgressMonitor(thePM, 5);
-        spm.beginTask("", 10);
-        createAntRunner(targets).run(spm);
-        spm.worked(10);
-        spm.done();
+        eclipseRunner.finish();
+        while (!serverStopped)
+        {
+            try
+            {
+                Thread.sleep(50);
+            }
+            catch (InterruptedException e)
+            {
+                // Do nothing
+            }
+        }
     }
 
     /**
@@ -298,5 +279,14 @@ public class GenericAntProvider implements IContainerProvider
             result[i] = thePrefix + containerHomes[i].getTargetMask();
         }
         return result;
+    }
+
+    /**
+     * @param theEclipseRunner the EclipseRunTests instance to associate with
+     * this container provider, which will be notified of test run end.
+     */
+    public void setEclipseRunner(EclipseRunTests theEclipseRunner)
+    {
+        this.eclipseRunner = theEclipseRunner;
     }
 }

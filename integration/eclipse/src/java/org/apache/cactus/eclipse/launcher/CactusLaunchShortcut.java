@@ -101,7 +101,14 @@ public class CactusLaunchShortcut
      * The provider to use for container setup.
      */
     private IContainerProvider provider;
-
+    /**
+     * The current search to launch on.
+     */
+    private Object[] search;
+    /**
+     * The current mode to launch with.
+     */
+    private String mode;
     /**
      * @return the Cactus launch configuration type. This method overrides
      *         the one in {@link JUnitLaunchShortcut} so that we can return
@@ -172,6 +179,9 @@ public class CactusLaunchShortcut
             // Register the instance of CactusLaunchShortcut to the JUnitPlugin
             // for TestRun end notification.
             JUnitPlugin.getDefault().addTestRunListener(this);
+            this.search = theSearch;
+            this.mode = theMode;
+            CactusPlugin.getDefault().addCactusLaunchShortcut(this);
             final IJavaProject theJavaProject = type.getJavaProject();
             final IRunnableWithProgress runnable = new IRunnableWithProgress()
             {
@@ -221,9 +231,24 @@ public class CactusLaunchShortcut
                     }
                 }
             });
-            CactusPlugin.log("Launching tests");
-            super.launchType(theSearch, theMode);
         }
+    }
+
+    /**
+     * Launches the Junit tests.
+     */
+    public void launchJunitTests()
+    {
+        CactusPlugin.log("Launching tests");
+        super.launchType(search, mode);
+    }
+    /**
+     * Returns the provider associated with this CactusLaunchShortcut instance.
+     * @return the provider associated with this instance
+     */
+    public IContainerProvider getContainerProvider()
+    {
+        return provider;
     }
     /**
      * Launches a new progress dialog for preparation cancellation.
