@@ -138,28 +138,23 @@ public class TestServerSideExceptions extends ServletTestCase
             // "test assertion failed error", then the test is ok.
             if (checkName("testAssertionFailedError"))
             {
-                if (e.instanceOf(AssertionFailedError.class))
-                {
-                    assertEquals("test assertion failed error", e.getMessage());
-
-                    return;
-                }
+                assertEquals(AssertionFailedError.class.getName(), 
+                    e.getWrappedClassName());
+                assertEquals("test assertion failed error", e.getMessage());
+                return;
             }
 
             // If the test case is "testComparisonFailure" and the exception
             // is of type ComparisonFailure and contains the text
             // "test comparison failure", then the test is ok.
-            else if (
-                checkName("testComparisonFailure"))
+            else if (checkName("testComparisonFailure"))
             {
-                if (e.instanceOf(AssertionFailedError.class))
-                {
-                    assertEquals("test comparison failure", e.getMessage());
-
-                    return;
-                }
+                assertEquals(ComparisonFailure.class.getName(), 
+                    e.getWrappedClassName());
+                assertEquals("test comparison failure expected:<some...> "
+                    + "but was:<other...>", e.getMessage());
+                return;
             }
-
         }
         catch (ServletExceptionWrapper e)
         {
@@ -168,33 +163,30 @@ public class TestServerSideExceptions extends ServletTestCase
             // TestServletTestCaseHelper1_ExceptionNotSerializable
             // and contains the text "test non serializable exception", then
             // the test is ok.
-            if (checkName(
-                "testExceptionNotSerializable"))
+            if (checkName("testExceptionNotSerializable"))
             {
-                if (e.instanceOf(NotSerializableException.class))
-                {
-                    assertEquals("test non serializable exception", 
-                        e.getMessage());
-
-                    return;
-                }
+                assertEquals(NotSerializableException.class.getName(), 
+                    e.getWrappedClassName());
+                assertEquals("test non serializable exception", 
+                    e.getMessage());
+                return;
             }
 
             // If the test case is "testExceptionSerializable" and the exception
             // is of type TestServletTestCaseHelper1_ExceptionSerializable
             // and contains the text "test serializable exception", then
             // the test is ok.
-            if (checkName("testExceptionSerializable"))
+            else if (checkName("testExceptionSerializable"))
             {
-                assertTrue(e.instanceOf(SerializableException.class));
-
+                assertEquals(SerializableException.class.getName(), 
+                    e.getWrappedClassName());
                 assertEquals("test serializable exception", e.getMessage());
-
                 return;
             }
-
-            throw e;
         }
+
+        throw new AssertionFailedError("Unexpected test ["
+            + JUnitVersionHelper.getTestCaseName(this) + "]");
     }
 
     //-------------------------------------------------------------------------

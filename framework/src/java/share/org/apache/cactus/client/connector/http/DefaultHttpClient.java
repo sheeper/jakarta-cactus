@@ -141,11 +141,11 @@ public class DefaultHttpClient
             // exception class with overloaded <code>printStackTrace()</code>
             // methods so that when JUnit calls this method it will print the
             // stack trace that was set on the server side.
-            // If the error was an AssertionFailedError then we use an instance
-            // of AssertionFailedErrorWrapper (so that JUnit recognize it is
-            // an AssertionFailedError exception and print it differently in
-            // it's runner console). Otherwise we use an instance of
-            // ServletExceptionWrapper.
+            // If the error was an AssertionFailedError or ComparisonFailure
+            // then we use an instance of AssertionFailedErrorWrapper (so that 
+            // JUnit recognize it is an AssertionFailedError exception and 
+            // print it differently in it's runner console). Otherwise we use 
+            // an instance of ServletExceptionWrapper.
 
             // Note: We have to test the exceptions by string name as the JUnit
             // AssertionFailedError class is unfortunately not serializable...

@@ -156,21 +156,10 @@ public class ServletExceptionWrapper extends Throwable
     }
 
     /**
-     * As all the server exceptions are wrapped into this
-     * <code>ServletExceptionWrapper</code> class, we need to be able to
-     * know the original server exception class.
-     *
-     * @param theClass the class to compare with the server exception class
-     * @return true if the class passed as parameter is an instance of
-     *         <code>ServletExceptionWrapper</code> (this class)
+     * @return the wrapped class name
      */
-    public boolean instanceOf(Class theClass)
+    public String getWrappedClassName()
     {
-        if (this.className == null)
-        {
-            return false;
-        }
-
-        return theClass.getName().equals(this.className);
+        return this.className;
     }
 }

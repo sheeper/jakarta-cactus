@@ -151,21 +151,10 @@ public class AssertionFailedErrorWrapper extends AssertionFailedError
     }
 
     /**
-     * As all the server exceptions are wrapped into this
-     * <code>ServletExceptionWrapper</code> class, we need to be able to
-     * know the original server exception class.
-     *
-     * @param theClass the class to compare with the server exception class
-     * @return true if the current exception class is of the same type as the
-     *         class passed as parameter.
+     * @return the wrapped class name
      */
-    public boolean instanceOf(Class theClass)
+    public String getWrappedClassName()
     {
-        if (this.className == null)
-        {
-            return false;
-        }
-
-        return theClass.getName().equals(this.className);
+        return this.className;
     }
 }
