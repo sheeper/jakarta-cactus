@@ -106,20 +106,6 @@ public class CactusPreferencePage
      */
     public void createFieldEditors()
     {
-        addField(new RadioGroupFieldEditor(
-            CactusPreferences.CONTEXT_URL_SCHEME,
-            CactusMessages.getString("CactusPreferencePage.label.protocol"),
-            1,
-            new String[][] {
-                {
-                    CactusMessages.getString(
-                        "CactusPreferencePage.label.protocol1"),
-                    "http" },
-                {
-                CactusMessages.getString(
-                    "CactusPreferencePage.label.protocol2"),
-                    "https" }
-        }, getFieldEditorParent()));
         addField(
             new StringFieldEditor(
                 CactusPreferences.CONTEXT_URL_HOST,
