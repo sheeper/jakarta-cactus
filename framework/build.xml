@@ -196,7 +196,7 @@
             <classpath refid="project.class.path"/>
         </javac>
 
-        <copy todir="${target.classes.java.dir}/org/apache/cactus/server"
+        <copy todir="${target.classes.clover.dir}/org/apache/cactus/server"
             file="${web.dir}/jspRedirector.jsp"/>
 
         <!-- Disable Clover for subsequent compilations -->
