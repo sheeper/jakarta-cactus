@@ -322,15 +322,6 @@ integration/ant/src/scripts/share/build-tests-tomcat4x.xml svn_keywords=Author+D
 integration/ant/src/scripts/share/build-tests-weblogic6x.xml svn_keywords=Author+Date+Id+Revision
 integration/ant/src/scripts/share/build-tests-weblogic7x.xml svn_keywords=Author+Date+Id+Revision
 integration/ant/src/test/org/apache/cactus/integration/ant/TestWebMerge.java svn_keywords=Author+Date+Id+Revision
-integration/eclipse/.classpath svn_keywords=Author+Date+Id+Revision
-integration/eclipse/.classpath.sample -text svneol=unset#application/octet-stream
-integration/eclipse/.cvsignore svn_keywords=Author+Date+Id+Revision
-integration/eclipse/.project svn_keywords=Author+Date+Id+Revision
-integration/eclipse/DEV-README.txt svn_keywords=Author+Date+Id+Revision
-integration/eclipse/README.txt svn_keywords=Author+Date+Id+Revision
-integration/eclipse/build.properties.sample -text svneol=unset#application/octet-stream
-integration/eclipse/build.xml svn_keywords=Author+Date+Id+Revision
-integration/eclipse/icons/calaunch.gif -text
 integration/eclipse/org.apache.cactus.eclipse.runner/.classpath svn_keywords=Author+Date+Id+Revision
 integration/eclipse/org.apache.cactus.eclipse.runner/.classpath.sample svn_keywords=Author+Date+Id+Revision
 integration/eclipse/org.apache.cactus.eclipse.runner/.cvsignore svn_keywords=Author+Date+Id+Revision
@@ -374,8 +365,6 @@ integration/eclipse/org.apache.cactus.eclipse.webapp/src/java/org/apache/cactus/
 integration/eclipse/org.apache.cactus.eclipse.webapp/src/java/org/apache/cactus/eclipse/webapp/ui/WebappMessages.java svn_keywords=Author+Date+Id+Revision
 integration/eclipse/org.apache.cactus.eclipse.webapp/src/java/org/apache/cactus/eclipse/webapp/ui/WebappMessages.properties svn_keywords=Author+Date+Id+Revision
 integration/eclipse/org.apache.cactus.eclipse.webapp/src/java/org/apache/cactus/eclipse/webapp/ui/WebappPlugin.java svn_keywords=Author+Date+Id+Revision
-integration/eclipse/plugin.properties svn_keywords=Author+Date+Id+Revision
-integration/eclipse/plugin.xml svn_keywords=Author+Date+Id+Revision
 integration/eclipse/src/java/org/apache/cactus/eclipse/runner/containers/ContainerInfo.java svn_keywords=Author+Date+Id+Revision
 integration/eclipse/src/java/org/apache/cactus/eclipse/runner/containers/Credential.java svn_keywords=Author+Date+Id+Revision
 integration/eclipse/src/java/org/apache/cactus/eclipse/runner/containers/IContainerProvider.java svn_keywords=Author+Date+Id+Revision

@@ -230,6 +230,49 @@
 
   </project>
 
+
+  <!--
+     ========================================================================
+       Build the Cactus Eclipse Webapp Integration
+     ========================================================================
+  -->
+
+  <project name="jakarta-cactus-integration-eclipse-webapp">
+
+    <ant buildfile="integration/eclipse/org.apache.cactus.eclipse.webapp/build.xml" target="release">
+
+      <property name="project.version" value="@@DATE@@"/>
+
+      <depend property="eclipse.junit.jar" project="eclipse" id="junit"/>
+      <depend property="eclipse.core.boot.jar" project="eclipse" id="boot"/>
+      <depend property="eclipse.core.resources.jar" project="eclipse" id="resources"/>
+      <depend property="eclipse.core.runtime.jar" project="eclipse" id="runtime"/>
+      <depend property="eclipse.debug.core.jar" project="eclipse" id="dtcore"/>
+      <depend property="eclipse.debug.ui.jar" project="eclipse" id="dtui"/>
+      <depend property="eclipse.jdt.core.jar" project="eclipse" id="jdtcore"/>
+      <depend property="eclipse.jdt.junit.jar" project="eclipse" id="jdtjunit"/>
+      <depend property="eclipse.jdt.launching.jar" project="eclipse" id="launching"/>
+      <depend property="eclipse.jdt.ui.jar" project="eclipse" id="jdtui"/>
+      <depend property="eclipse.swt.jar" project="eclipse" id="swt"/>
+      <depend property="eclipse.jface.jar" project="eclipse" id="jface"/>
+      <depend property="eclipse.ant.core.jar" project="eclipse" id="antsupport"/>
+      <depend property="eclipse.ui.workbench.jar" project="eclipse" id="workbench"/>
+      
+    </ant>
+  
+    <depend project="ant" inherit="runtime"/>
+    <depend project="xml-xerces"/>
+
+    <home nested="integration/eclipse/org.apache.cactus.eclipse.webapp/dist"/>
+    <jar name="bin/cactus-integration-eclipse-webapp/webapp.jar"/>
+
+    <license name="LICENSE.cactus"/>
+
+    <nag from="Vincent Massol &lt;vmassol@apache.org&gt;"
+      to="cactus-dev@jakarta.apache.org"/>
+
+  </project>  
+
   <!--
      ========================================================================
        Build the Cactus Eclipse Runner Integration for J2EE 1.2
@@ -265,6 +308,8 @@
     <depend project="ant" inherit="runtime"/>
     <depend project="xml-xerces"/>
     <depend project="jakarta-cactus-integration-ant-12"/>
+    <depend project="jakarta-cactus-integration-eclipse-webapp"/>
+    
 
     <home nested="integration/eclipse/org.apache.cactus.eclipse.runner/dist-12"/>
     <jar name="bin/cactus-integration-eclipse-runner/cactussupport.jar"/>
@@ -315,6 +360,7 @@
     <depend project="ant" inherit="runtime"/>
     <depend project="xml-xerces"/>
     <depend project="jakarta-cactus-integration-ant-13"/>
+    <depend project="jakarta-cactus-integration-eclipse-webapp"/>
 
     <home nested="integration/eclipse/org.apache.cactus.eclipse.runner/dist-13"/>
     <jar name="bin/cactus-integration-eclipse-runner/cactussupport.jar"/>
@@ -331,106 +377,6 @@
 
   </project>
 
-  <!--
-     ========================================================================
-       Build the Cactus Eclipse Webapp Integration for J2EE 1.2
-     ========================================================================
-  -->
-
-  <project name="jakarta-cactus-integration-eclipse-webapp-12">
-
-    <ant buildfile="integration/eclipse/org.apache.cactus.eclipse.webapp/build.xml" target="release">
-
-      <property name="project.version" value="@@DATE@@"/>
-
-      <depend property="cactus.anttasks.jar" project="jakarta-cactus-anttasks"/>
-      <depend property="j2ee.jar" project="jakarta-servletapi"/>
-      <depend property="eclipse.junit.jar" project="eclipse" id="junit"/>
-      <depend property="eclipse.core.boot.jar" project="eclipse" id="boot"/>
-      <depend property="eclipse.core.resources.jar" project="eclipse" id="resources"/>
-      <depend property="eclipse.core.runtime.jar" project="eclipse" id="runtime"/>
-      <depend property="eclipse.debug.core.jar" project="eclipse" id="dtcore"/>
-      <depend property="eclipse.debug.ui.jar" project="eclipse" id="dtui"/>
-      <depend property="eclipse.jdt.core.jar" project="eclipse" id="jdtcore"/>
-      <depend property="eclipse.jdt.junit.jar" project="eclipse" id="jdtjunit"/>
-      <depend property="eclipse.jdt.launching.jar" project="eclipse" id="launching"/>
-      <depend property="eclipse.jdt.ui.jar" project="eclipse" id="jdtui"/>
-      <depend property="eclipse.swt.jar" project="eclipse" id="swt"/>
-      <depend property="eclipse.jface.jar" project="eclipse" id="jface"/>
-      <depend property="eclipse.ant.core.jar" project="eclipse" id="antsupport"/>
-      <depend property="eclipse.ui.workbench.jar" project="eclipse" id="workbench"/>
-      
-
-    </ant>
-  
-    <depend project="ant" inherit="runtime"/>
-    <depend project="xml-xerces"/>
-    <depend project="jakarta-cactus-integration-ant-12"/>
-
-    <home nested="integration/eclipse/org.apache.cactus.eclipse.webapp/dist-12"/>
-    <jar name="bin/cactus-integration-eclipse-webapp/cactussupport.jar"/>
-
-    <license name="LICENSE.cactus"/>
-
-    <nag from="Vincent Massol &lt;vmassol@apache.org&gt;"
-      to="cactus-dev@jakarta.apache.org"/>
-
-    <!-- Note: The release is delivered in the jakarta-cactus-release-12
-    	project. Reason: only deliver it if the sample-servlet project
-    	builds successfully (functional tests are executed in the 
-    	sample-servlet project). -->
-
-  </project>
-  
-  <!--
-     ========================================================================
-       Build the Cactus Eclipse Webapp Integration for J2EE 1.3
-     ========================================================================
-  -->
-
-  <project name="jakarta-cactus-integration-eclipse-webapp-13">
-
-    <ant buildfile="integration/eclipse/org.apache.cactus.eclipse.webapp/build.xml" target="release">
-
-      <property name="project.version" value="@@DATE@@"/>
-
-      <depend property="cactus.anttasks.jar" project="jakarta-cactus-anttasks"/>
-      <depend property="j2ee.jar" project="jakarta-servletapi"/>
-      <depend property="eclipse.junit.jar" project="eclipse" id="junit"/>
-      <depend property="eclipse.core.boot.jar" project="eclipse" id="boot"/>
-      <depend property="eclipse.core.resources.jar" project="eclipse" id="resources"/>
-      <depend property="eclipse.core.runtime.jar" project="eclipse" id="runtime"/>
-      <depend property="eclipse.debug.core.jar" project="eclipse" id="dtcore"/>
-      <depend property="eclipse.debug.ui.jar" project="eclipse" id="dtui"/>
-      <depend property="eclipse.jdt.core.jar" project="eclipse" id="jdtcore"/>
-      <depend property="eclipse.jdt.junit.jar" project="eclipse" id="jdtjunit"/>
-      <depend property="eclipse.jdt.launching.jar" project="eclipse" id="launching"/>
-      <depend property="eclipse.jdt.ui.jar" project="eclipse" id="jdtui"/>
-      <depend property="eclipse.swt.jar" project="eclipse" id="swt"/>
-      <depend property="eclipse.jface.jar" project="eclipse" id="jface"/>
-      <depend property="eclipse.ant.core.jar" project="eclipse" id="antsupport"/>
-      <depend property="eclipse.ui.workbench.jar" project="eclipse" id="workbench"/>
-
-    </ant>
-    
-    <depend project="ant" inherit="runtime"/>
-    <depend project="xml-xerces"/>
-    <depend project="jakarta-cactus-integration-ant-13"/>
-
-    <home nested="integration/eclipse/org.apache.cactus.eclipse.webapp/dist-13"/>
-    <jar name="bin/cactus-integration-eclipse-webapp/cactussupport.jar"/>
-    
-    <license name="LICENSE.cactus"/>
-
-    <nag from="Vincent Massol &lt;vmassol@apache.org&gt;"
-      to="cactus-dev@jakarta.apache.org"/>
-
-    <!-- Note: The release is delivered in the jakarta-cactus-release-13
-    	project. Reason: only deliver it if the sample-servlet project
-    	builds successfully (functional tests are executed in the 
-    	sample-servlet project). -->
-
-  </project>
 
   <!--
      ========================================================================
