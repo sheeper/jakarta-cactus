@@ -152,11 +152,13 @@ public class StartServerHelper implements Runnable
         Thread thread = new Thread(this);
 
         thread.start();
-
+        // UI contribution, the number is relative to the task which
+        // total is 10
+        pm.worked(1);
         // Wait a few ms more (just to make sure the servlet engine is
         // ready to accept connections)
         sleep(1000);
-
+        pm.worked(2);
         // Continuously try calling the test URL until it succeeds
         while (true)
         {
@@ -164,7 +166,7 @@ public class StartServerHelper implements Runnable
             if (!isURLCallable())
             {
                 sleep(500);
-
+                pm.worked(1);
                 continue;
             }
 
