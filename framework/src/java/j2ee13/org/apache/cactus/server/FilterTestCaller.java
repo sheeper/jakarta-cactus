@@ -87,7 +87,7 @@ public class FilterTestCaller extends AbstractWebTestCaller
     }
 
     /**
-     * @see AbstractWebTestCaller#setTestCaseFields(AbstractWebServerTestCase)
+     * @see AbstractWebTestCaller#setTestCaseFields(TestCase)
      */
     protected void setTestCaseFields(TestCase theTestInstance)
         throws Exception

@@ -87,7 +87,7 @@ public class JspTestCaller extends ServletTestCaller
     }
 
     /**
-     * @see AbstractWebTestCaller#setTestCaseFields(AbstractWebServerTestCase)
+     * @see AbstractWebTestCaller#setTestCaseFields(TestCase)
      */
     protected void setTestCaseFields(TestCase theTestInstance)
         throws Exception

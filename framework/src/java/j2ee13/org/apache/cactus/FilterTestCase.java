@@ -71,8 +71,6 @@ import org.apache.cactus.server.FilterConfigWrapper;
  * Test classes that need access to valid Filter implicit objects (such as the
  * <code>FilterConfig</code> and <code>FilterChain</code> objects) must
  * subclass this class.
- *
- * @todo Find a way to factorize FilterTestCase and ServletTestCase
  * 
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
@@ -80,6 +78,8 @@ import org.apache.cactus.server.FilterConfigWrapper;
  */
 public class FilterTestCase extends TestCase
 {
+    // TODO: Find a way to factorize FilterTestCase and ServletTestCase
+
     /**
      * Valid <code>HttpServletRequest</code> object that you can access from
      * the <code>testXXX()</code>, <code>setUp</code> and
