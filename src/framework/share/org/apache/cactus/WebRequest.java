@@ -297,7 +297,7 @@ public class WebRequest
      * @param theName  the parameter's name
      * @param theValue the parameter's value
      *
-     * @see WebRequest.addParameter(String, String, String)
+     * @see #addParameter(String, String, String)
      */
     public void addParameter(String theName, String theValue)
     {
