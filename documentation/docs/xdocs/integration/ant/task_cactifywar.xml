@@ -202,6 +202,25 @@
 
         </section>
 
+        <section title="xmlcatalog">
+
+          <p>
+            The <code>xmlcatalog</code> element can be used to perform Entity
+            and DTD resolution. This is a built-in Ant type. See the
+            <link href="ext:ant_manual">Ant Manual</link> for details.
+          </p>
+
+          <note>
+            The <strong>cactifywar</strong> task resolves the DTDs of web-app
+            descriptors (version 2.2 as well as 2.3) automatically to copies
+            stored in the JAR. So normally, you shouldn't need to specify a
+            nested <code>xmlcatalog</code> element. Further, actually
+            specifying it will disable the default behaviour, and you'll need
+            to provide the web-app DTDs yourself.
+          </note>
+
+        </section>
+
       </section>
 
       <section title="Examples">

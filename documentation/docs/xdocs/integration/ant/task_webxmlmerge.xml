@@ -132,6 +132,15 @@
           <link href="ext:ant">Ant documentation</link> for details.
         </p>
 
+        <note>
+          The <strong>webxmlmerge</strong> task resolves the DTDs of web-app
+          descriptors (version 2.2 as well as 2.3) automatically to copies
+          stored in the JAR. So normally, you shouldn't need to specify a
+          nested <code>xmlcatalog</code> element. Further, actually
+          specifying it will disable the default behaviour, and you'll need
+          to provide the web-app DTDs yourself.
+        </note>
+
       </section>
 
     </section>
