@@ -76,7 +76,7 @@ import org.eclipse.ui.dialogs.PropertyPage;
 public class WebAppPropertyPage extends PropertyPage
 {
     /**
-     * Block showing the jar path list. 
+     * The only UI block for this property page. 
      */
     private WebAppConfigurationBlock webAppConfigurationBlock;
 

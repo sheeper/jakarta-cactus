@@ -71,7 +71,9 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.internal.core.JavaProject;
 
 /**
- * Helper class for creating War files.
+ * Represents a web application for a given project.
+ * It knows how to load its values from project properties and
+ * how to persist them.
  * 
  * @author <a href="mailto:jruaux@octo.com">Julien Ruaux</a>
  * @version $Id$
@@ -294,7 +296,7 @@ public class Webapp
     }
 
     /**
-     * @return IClasspathEntry[]
+     * @return IClasspathEntry[] the array of jar entries for this webapp
      */
     public IClasspathEntry[] getClasspath()
     {
@@ -302,7 +304,7 @@ public class Webapp
     }
 
     /**
-     * @return String
+     * @return String directory of this webapp source files 
      */
     public String getDir()
     {
@@ -310,7 +312,7 @@ public class Webapp
     }
 
     /**
-     * @return String
+     * @return String temporary directory for jar copy
      */
     public String getTempDir()
     {
@@ -318,7 +320,7 @@ public class Webapp
     }
 
     /**
-     * @return String
+     * @return String location of the generated war
      */
     public String getOutput()
     {

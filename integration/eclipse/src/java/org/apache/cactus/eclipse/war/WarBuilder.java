@@ -84,11 +84,11 @@ import org.eclipse.jdt.core.JavaModelException;
 public class WarBuilder
 {
     /**
-     * the directory where to find classes
+     * directory where to find classes
      */
     private File userClassFilesDir;
     /**
-     * the web.xml file
+     * web.xml file
      */
     private File userWebXML;
 
@@ -97,14 +97,20 @@ public class WarBuilder
      */
     private File userWebFilesDir;
     /**
-     * the location of the Ant build file for creating wars
+     * location of the Ant build file for creating wars
      */
     private File buildFileLocation;
-
+    /**
+     * location of generated war file
+     */
     private File war;
-
+    /**
+     * location of the temporary directory for jar copy
+     */
     private File tempDir;
-
+    /**
+     * jar entries to include in the war
+     */
     private IClasspathEntry[] jarEntries;
     /**
      * Cactus plug-in relative path to the war build file
@@ -114,13 +120,21 @@ public class WarBuilder
      * Cactus plug-in relative path to the web.xml file
      */
     private static final String WEB_XML_PATH = "./ant/confs/web.xml";
-
+    /**
+     * name of the WEB-INF directory
+     */
     public static final String WEBINF = "WEB-INF";
-
+    /**
+     * name of the lib directory
+     */
     public static final String LIB = "lib";
-
+    /**
+     * name of the web.xml file
+     */
     public static final String WEBXML = "web.xml";
-
+    /**
+     * name of the temporary directory for jar copy 
+     */
     private static final String JARS_PATH =
         "org.apache.cactus.eclipse.war.jars.temp";
 

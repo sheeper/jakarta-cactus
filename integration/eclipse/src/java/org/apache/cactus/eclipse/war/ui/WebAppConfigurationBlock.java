@@ -85,22 +85,52 @@ import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Shell;
 
 /**
- * Helper class for creating War files.
+ * UI block which shows a list of jar entries.
  * 
  * @author <a href="mailto:jruaux@octo.com">Julien Ruaux</a>
  * @version $Id$
  */
 public class WebAppConfigurationBlock
 {
+    /**
+     * Field for the output war location. 
+     */
     private StringButtonDialogField outputField;
+    /**
+     * Field for the webapp location. 
+     */
     private StringDialogField webappDirField;
+    /**
+     * Field for the temporary folder location. 
+     */
     private StringButtonDialogField tempDirField;
+    /**
+     * UI block that shows a list of jar entries. 
+     */
     private LibrariesWorkbookPage libraryPage;
-
+    /**
+     * List of entries displayed by the libraryPage. 
+     */
     private CheckedListDialogField classPathList;
+    /**
+     * Java project needed for the libraryPage initialization. 
+     */
     private IJavaProject javaProject;
+    /**
+     * The shell used by dialog popups (directory and file choosers). 
+     */
     private Shell shell;
 
+    /**
+     * Constructor.
+     * @param theShell The shell used by dialog popups
+     *     (directory and file choosers)
+     * @param theJavaProject Java project needed for libraryPage initialization
+     * @param theOutput initial output field value
+     * @param theDir initial webapp directory value
+     * @param theTempDir initial temporary location value
+     * @param theEntries initial list of entries
+     */
     public WebAppConfigurationBlock(
         Shell theShell,
         IJavaProject theJavaProject,
@@ -135,30 +165,50 @@ public class WebAppConfigurationBlock
         update(theOutput, theDir, theTempDir, theEntries);
     }
 
+    /**
+     * Adapter that displatches control events.
+     */
     private class BuildPathAdapter
         implements IStringButtonAdapter, IDialogFieldListener
     {
 
-        // -------- IStringButtonAdapter --------
-        public void changeControlPressed(DialogField field)
+        /**
+         * @see org.eclipse.jdt.internal.ui.wizards.dialogfields.
+         *     IStringButtonAdapter#changeControlPressed(
+         *     org.eclipse.jdt.internal.ui.wizards.dialogfields.DialogField)
+         */
+        public void changeControlPressed(DialogField theField)
         {
-            buildPathChangeControlPressed(field);
+            webappChangeControlPressed(theField);
         }
 
-        // ---------- IDialogFieldListener --------
-        public void dialogFieldChanged(DialogField field)
+        /**
+         * @see org.eclipse.jdt.internal.ui.wizards.dialogfields.
+         *     IDialogFieldListener#dialogFieldChanged(
+         *     org.eclipse.jdt.internal.ui.wizards.dialogfields.DialogField)
+         */
+        public void dialogFieldChanged(DialogField theField)
         {
-            buildPathDialogFieldChanged(field);
+            webappDialogFieldChanged(theField);
         }
     }
-
-    private void buildPathDialogFieldChanged(DialogField field)
+    /**
+     * Adapter that dispatches events from Dialog fields.
+     * Possible use : validation of an entry in a dialog field.
+     * @param theField field that triggered an event.
+     */
+    private void webappDialogFieldChanged(DialogField theField)
     {
+        // TODO: validate entries in dialogs
+        // Do nothing.
     }
-
-    private void buildPathChangeControlPressed(DialogField field)
+    /**
+     * Adapter that dispatches events from StringButtonDialog fields.
+     * @param theField field that triggered an event.
+     */
+    private void webappChangeControlPressed(DialogField theField)
     {
-        if (field == tempDirField)
+        if (theField == tempDirField)
         {
             File tempDir = chooseTempDir();
             if (tempDir != null)
@@ -168,7 +218,7 @@ public class WebAppConfigurationBlock
         }
         else
         {
-            if (field == outputField)
+            if (theField == outputField)
             {
                 File output = chooseOutput();
                 if (output != null)
@@ -178,12 +228,17 @@ public class WebAppConfigurationBlock
             }
         }
     }
-    
+
+    /**
+     * Displays a file chooser dialog and returns the chosen file.
+     * @return File the chosen file
+     */
     private File chooseOutput()
     {
         File output = new File(outputField.getText());
-        if (!output.exists()) {
-        	output = output.getParentFile();
+        if (!output.exists())
+        {
+            output = output.getParentFile();
         }
         String initPath = "";
         if (output != null)
@@ -192,7 +247,7 @@ public class WebAppConfigurationBlock
         }
         FileDialog dialog = new FileDialog(shell);
         dialog.setText(PreferencesMessages.getString("War file selection"));
-        dialog.setFilterExtensions(new String[] {"*.war"});
+        dialog.setFilterExtensions(new String[] { "*.war" });
         dialog.setFilterPath(initPath);
         String res = dialog.open();
         if (res != null)
@@ -202,6 +257,10 @@ public class WebAppConfigurationBlock
         return null;
     }
 
+    /**
+     * Displays a directory chooser dialog and returns the chosen directory.
+     * @return File the chosen directory
+     */
     private File chooseTempDir()
     {
         File tempDir = new File(tempDirField.getText());
@@ -223,6 +282,11 @@ public class WebAppConfigurationBlock
         return null;
     }
 
+    /**
+     * Returns the UI control for this block.
+     * @param theParent the parent control.
+     * @return Control the created control
+     */
     public Control createContents(Composite theParent)
     {
         final Composite topComp = new Composite(theParent, SWT.NONE);
@@ -247,35 +311,55 @@ public class WebAppConfigurationBlock
         return topComp;
     }
 
+    /**
+     * Validates entries in dialog fields.
+     */
     private void doValidation()
     {
 
         String text = outputField.getText();
         if (text.length() > 0)
         {
-            //            File file = new File(text);
-            //            if (!file.isFile())
-            //            {
-            //                status.setError(PreferencesMessages.getString("JavadocPreferencePage.error.notexists")); 
-            //            }
+            // File file = new File(text);
+            // if (!file.isFile())
+            // {
+            //     status.setError(PreferencesMessages.getString(
+            //         "JavadocPreferencePage.error.notexists")); 
+            // }
         }
     }
 
+    /**
+     * Returns the text entered in the output field.
+     * @return String the text entered
+     */
     public String getOutput()
     {
         return outputField.getText();
     }
 
+    /**
+     * Returns the text entered in the webapp field.
+     * @return String the text entered
+     */
     public String getWebappDir()
     {
         return webappDirField.getText();
     }
 
+    /**
+     * Returns the text entered in the tempDir field.
+     * @return String the text entered
+     */
     public String getTempDir()
     {
         return tempDirField.getText();
     }
 
+    /**
+     * Returns the array of jar entries selected in the libraryPage.
+     * @return IClasspathEntry[] the array of jar entries selected
+     */
     public IClasspathEntry[] getWebappClasspath()
     {
         Vector result = new Vector();
@@ -292,12 +376,17 @@ public class WebAppConfigurationBlock
             new IClasspathEntry[result.size()]);
     }
 
-    private ArrayList getExistingEntries(IClasspathEntry[] classpathEntries)
+    /**
+     * Returns a list of jar entries contained in an array of entries.
+     * @param theClasspathEntries array of classpath entries 
+     * @return ArrayList list containing the jar entries
+     */
+    private ArrayList getExistingEntries(IClasspathEntry[] theClasspathEntries)
     {
         ArrayList newClassPath = new ArrayList();
-        for (int i = 0; i < classpathEntries.length; i++)
+        for (int i = 0; i < theClasspathEntries.length; i++)
         {
-            IClasspathEntry curr = classpathEntries[i];
+            IClasspathEntry curr = theClasspathEntries[i];
             if (curr.getEntryKind() == IClasspathEntry.CPE_LIBRARY)
             {
                 try
@@ -317,6 +406,13 @@ public class WebAppConfigurationBlock
 
     }
 
+    /**
+     * Refreshes the control with the given values.
+     * @param theOutput webapp output war location 
+     * @param theDir webapp directory
+     * @param theTempDir temporary directory
+     * @param theEntries jar entries for the webapp
+     */
     public void update(
         String theOutput,
         String theDir,
@@ -329,6 +425,9 @@ public class WebAppConfigurationBlock
         classPathList.setElements(getExistingEntries(theEntries));
     }
 
+    /**
+     * Refreshes the control.
+     */
     public void refresh()
     {
         libraryPage.init(javaProject);
