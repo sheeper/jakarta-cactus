@@ -96,26 +96,32 @@ public class WebAppConfigurationBlock
      * Field for the output war location. 
      */
     private StringButtonDialogField outputField;
+
     /**
      * Field for the webapp location. 
      */
     private StringDialogField webappDirField;
+
     /**
      * Field for the temporary folder location. 
      */
     private StringButtonDialogField tempDirField;
+
     /**
      * UI block that shows a list of jar entries. 
      */
     private LibrariesWorkbookPage libraryPage;
+
     /**
      * List of entries displayed by the libraryPage. 
      */
     private CheckedListDialogField classPathList;
+
     /**
      * Java project needed for the libraryPage initialization. 
      */
     private IJavaProject javaProject;
+
     /**
      * The shell used by dialog popups (directory and file choosers). 
      */
@@ -202,6 +208,7 @@ public class WebAppConfigurationBlock
             webappDialogFieldChanged(theField);
         }
     }
+
     /**
      * Adapter that dispatches events from Dialog fields.
      * Possible use : validation of an entry in a dialog field.
@@ -212,6 +219,7 @@ public class WebAppConfigurationBlock
         // TODO: validate entries in dialogs
         // Do nothing.
     }
+
     /**
      * Adapter that dispatches events from StringButtonDialog fields.
      * @param theField field that triggered an event.
@@ -325,24 +333,6 @@ public class WebAppConfigurationBlock
         libraryPage.init(javaProject);
 
         return topComp;
-    }
-
-    /**
-     * Validates entries in dialog fields.
-     */
-    private void doValidation()
-    {
-
-        String text = outputField.getText();
-        if (text.length() > 0)
-        {
-            // File file = new File(text);
-            // if (!file.isFile())
-            // {
-            //     status.setError(PreferencesMessages.getString(
-            //         "JavadocPreferencePage.error.notexists")); 
-            // }
-        }
     }
 
     /**

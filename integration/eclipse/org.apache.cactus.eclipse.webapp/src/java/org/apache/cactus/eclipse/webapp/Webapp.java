@@ -68,7 +68,6 @@ import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
-import org.eclipse.jdt.internal.core.JavaProject;
 
 /**
  * Represents a web application for a given project.
@@ -84,46 +83,55 @@ public class Webapp
      * Delimiter for classpaths in the String that will be persisted. 
      */
     private static final String CLASSPATH_DELIMITER = ";";
+
     /**
      * QualifiedName of the output war property
      * used for persistence of project properties. 
      */
     private QualifiedName outputQN =
         new QualifiedName(WebappPlugin.getPluginId(), "output");
+
     /**
      * QualifiedName of the webapp directory property
      * used for persistence of project properties. 
      */
     private QualifiedName dirQN =
         new QualifiedName(WebappPlugin.getPluginId(), "dir");
+
     /**
      * QualifiedName of the temporary directory property
      * used for persistence of project properties. 
      */
     private QualifiedName tempDirQN =
         new QualifiedName(WebappPlugin.getPluginId(), "tempDir");
+
     /**
      * QualifiedName of the classpath property
      * used for persistence of project properties. 
      */
     private QualifiedName classpathQN =
         new QualifiedName(WebappPlugin.getPluginId(), "webappClasspath");
+
     /**
      * Full path to the webapp War.
      */
     private String output;
+
     /**
      * Directory of the webapp relative to the user's project. 
      */
     private String dir;
+
     /**
      * Temporary directory for jars copy. 
      */
     private String tempDir;
+
     /**
      * Paths to the webapp libraries
      */
     private IClasspathEntry[] classpath;
+
     /**
      * The current project to which this webapp refers.  
      */
@@ -145,38 +153,57 @@ public class Webapp
      */
     public boolean init()
     {
-        try
-        {
-            loadValues();
-            return false;
-        }
-        catch (CoreException e)
-        {
-            loadDefaultValues();
-            return true;
-        }
+        return loadValues();
     }
 
     /**
-     * Loads this webapp from the project properties.
-     * @throws CoreException if an error occurs while loading the properties 
+     * Loads this webapp from the project properties. If the persistent
+     * properties cannot be loaded or if a value is not set, we load the 
+     * default values.
+     * 
+     * @return true if the default values were loaded or false if the 
+     *         persistent ones were loaded
      */
-    public void loadValues() throws CoreException
+    public boolean loadValues()
     {
-        IProject theProject = javaProject.getProject();
-        output = theProject.getPersistentProperty(outputQN);
-        dir = theProject.getPersistentProperty(dirQN);
-        tempDir = theProject.getPersistentProperty(tempDirQN);
-        classpath =
-            toClasspathEntryArray(
-                theProject.getPersistentProperty(classpathQN));
+        boolean isDefaultValues;
+        
+        try 
+        {
+            loadPersistentValues();
+            isDefaultValues = false;
+        }
+        catch (CoreException ce)
+        {
+            loadDefaultValues();
+            isDefaultValues = true;
+        }
+
         if (output == null
             || dir == null
             || tempDir == null
             || classpath == null)
         {
             loadDefaultValues();
+            isDefaultValues = true;
         }
+
+        return isDefaultValues;        
+    }
+
+    /**
+     * Loads the persistent properties for this webapp.
+     * @throws CoreException if we fail to load a persistent property
+     */
+    public void loadPersistentValues() throws CoreException
+    {
+        IProject theProject = javaProject.getProject();
+
+        this.output = theProject.getPersistentProperty(outputQN);
+        this.dir = theProject.getPersistentProperty(dirQN);
+        this.tempDir = theProject.getPersistentProperty(tempDirQN);
+        this.classpath = toClasspathEntryArray(
+            theProject.getPersistentProperty(classpathQN));       
     }
 
     /**
@@ -184,16 +211,17 @@ public class Webapp
      */
     public void loadDefaultValues()
     {
-        output = "c:/temp/webapp.war";
-        dir = "src/webapp";
-        tempDir = System.getProperty("java.io.tmpdir");
+        this.output = "c:/temp/webapp.war";
+        this.dir = "src/webapp";
+        this.tempDir = System.getProperty("java.io.tmpdir");
+
         try
         {
-            classpath = javaProject.getRawClasspath();
+            this.classpath = javaProject.getRawClasspath();
         }
         catch (JavaModelException e)
         {
-            classpath = new IClasspathEntry[0];
+            this.classpath = new IClasspathEntry[0];
         }
     }
 
@@ -230,7 +258,6 @@ public class Webapp
             String element = cpTokenizer.nextToken();
             try
             {
-                JavaProject jp = (JavaProject) javaProject;
                 IClasspathEntry newEntry =
                     JavaCore.newLibraryEntry(new Path(element), null, null);
                 result.add(newEntry);
@@ -300,7 +327,7 @@ public class Webapp
      */
     public IClasspathEntry[] getClasspath()
     {
-        return classpath;
+        return this.classpath;
     }
 
     /**
@@ -308,7 +335,7 @@ public class Webapp
      */
     public String getDir()
     {
-        return dir;
+        return this.dir;
     }
 
     /**
@@ -316,7 +343,7 @@ public class Webapp
      */
     public String getTempDir()
     {
-        return tempDir;
+        return this.tempDir;
     }
 
     /**
@@ -324,7 +351,7 @@ public class Webapp
      */
     public String getOutput()
     {
-        return output;
+        return this.output;
     }
 
 }

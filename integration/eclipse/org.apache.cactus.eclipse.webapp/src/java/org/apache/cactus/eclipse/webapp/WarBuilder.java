@@ -81,97 +81,117 @@ import org.eclipse.jdt.core.JavaModelException;
  * Helper class for creating War files.
  * 
  * @author <a href="mailto:jruaux@octo.com">Julien Ruaux</a>
+ * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  * @version $Id$
  */
 public class WarBuilder
 {
     /**
-     * directory where to find classes
-     */
-    private File userClassFilesDir;
-    /**
-     * web.xml file
-     */
-    private File userWebXML;
-    /**
-     * directory where to find user's web files
-     */
-    private File userWebFilesDir;
-    /**
-     * location of generated war file
-     */
-    private File war;
-    /**
-     * location of the temporary directory for jar copy
-     */
-    private File tempDir;
-    /**
-     * jar entries to include in the war
-     */
-    private IClasspathEntry[] jarEntries;
-    /**
-     * Cactus plug-in relative path to the web.xml file
-     */
-    private static final String WEB_XML_PATH = "./ant/confs/web.xml";
-    /**
-     * name of the WEB-INF directory
+     * Name of the WEB-INF directory
      */
     public static final String WEBINF = "WEB-INF";
-    /**
-     * name of the lib directory
-     */
-    public static final String LIB = "lib";
-    /**
-     * name of the web.xml file
-     */
-    public static final String WEBXML = "web.xml";
-    /**
-     * name of the temporary directory for jar copy 
-     */
-    private static final String JARS_PATH =
-        "org.apache.cactus.eclipse.war.jars.temp";
 
     /**
-     * Constructor.
-     * @param theJavaProject the Java project which Java classes will be used
-     * @throws JavaModelException if we can't get the ouput location
+     * Name of the lib directory
+     */
+    public static final String LIB = "lib";
+
+    /**
+     * Name of the web.xml file
+     */
+    public static final String WEBXML = "web.xml";
+
+    /**
+     * Name of the temporary directory for jar copy 
+     */
+    private static final String JARS_PATH =
+        "org.apache.cactus.eclipse.webapp.jars.temp";
+
+    /**
+     * Directory where to find classes
+     */
+    private File userClassFilesDir;
+
+    /**
+     * Location of the <code>web.xml</code> file
+     */
+    private File userWebXML;
+
+    /**
+     * Directory where to find user's webapp web files
+     */
+    private File userWebFilesDir;
+
+    /**
+     * Location of generated war file
+     */
+    private File outputWar;
+
+    /**
+     * Location of the temporary directory for jar copy
+     */
+    private File tempDir;
+
+    /**
+     * Jar entries to include in the war
+     */
+    private IClasspathEntry[] jarEntries;
+
+    /**
+     * @param theJavaProject the Java project for which the webapp will be 
+     *        created
+     * @throws JavaModelException if we can't get the output location
      */
     public WarBuilder(IJavaProject theJavaProject) throws JavaModelException
+    {
+        // Find the java project absolute output path
+        this.userClassFilesDir = getAbsoluteOutputLocation(theJavaProject);
+
+        // TODO: Why not save the Webapp object directly?
+        Webapp webapp = new Webapp(theJavaProject.getProject());
+        webapp.loadValues();
+
+        this.outputWar = new File(webapp.getOutput());
+        this.tempDir = new File(webapp.getTempDir());
+        this.jarEntries = webapp.getClasspath();
+
+        // path to the web directory relative to the user's project
+        String userWebFilesPath = webapp.getDir();
+        if (userWebFilesPath.equals("") || userWebFilesPath == null)
+        {
+            this.userWebFilesDir = null;
+            this.userWebXML = null;
+        }
+        else
+        {
+            IPath projectPath = theJavaProject.getProject().getLocation();
+
+            // web application folder situated in the user's project
+            this.userWebFilesDir = 
+                projectPath.append(userWebFilesPath).toFile();
+
+            // path to the web.xml file relative to the user's project
+            String userWebXMLPath =
+                userWebFilesPath + "/" + WEBINF + "/" + WEBXML;
+            this.userWebXML = projectPath.append(userWebXMLPath).toFile();
+        }
+    }
+
+    /**
+     * @param theJavaProject the java project for which we want to get the
+     *        absolute output path 
+     * @return the absolute project output path
+     * @throws JavaModelException if we fail to get the project relative 
+     *         output location
+     */
+    private File getAbsoluteOutputLocation(IJavaProject theJavaProject)
+        throws JavaModelException
     {
         IPath projectPath = theJavaProject.getProject().getLocation();
         IPath classFilesPath =
             projectPath.removeLastSegments(1).append(
                 theJavaProject.getOutputLocation());
-        userClassFilesDir = classFilesPath.toFile();
-        Webapp webapp = new Webapp(theJavaProject.getProject());
-        try
-        {
-            webapp.loadValues();
-        }
-        catch (CoreException e)
-        {
-            throw new JavaModelException(e);
-        }
-        war = new File(webapp.getOutput());
-        tempDir = new File(webapp.getTempDir());
-        jarEntries = webapp.getClasspath();
-        // path to the web directory relative to the user's project
-        String userWebFilesPath = webapp.getDir();
-        if (userWebFilesPath.equals("") || userWebFilesPath == null)
-        {
-            userWebFilesDir = null;
-            userWebXML = null;
-        }
-        else
-        {
-            // web application folder situated in the user's project
-            userWebFilesDir = projectPath.append(userWebFilesPath).toFile();
-            // path to the web.xml file relative to the user's project
-            String userWebXMLPath =
-                userWebFilesPath + "/" + WEBINF + "/" + WEBXML;
-            userWebXML = projectPath.append(userWebXMLPath).toFile();
-        }
-
+        return classFilesPath.toFile();
     }
 
     /**
@@ -184,7 +204,7 @@ public class WarBuilder
     {
         thePM.subTask(
             WebappMessages.getString("WarBuilder.message.createwar.monitor"));
-        war.delete();
+        outputWar.delete();
         War warTask = new War();
         IPath tempJarsPath =
             new Path(tempDir.getAbsolutePath()).append(JARS_PATH);
@@ -199,7 +219,7 @@ public class WarBuilder
         Project antProject = new Project();
         antProject.init();
         warTask.setProject(antProject);
-        warTask.setDestFile(war);
+        warTask.setDestFile(outputWar);
         ZipFileSet classes = new ZipFileSet();
         classes.setDir(userClassFilesDir);
         warTask.addClasses(classes);
@@ -227,7 +247,7 @@ public class WarBuilder
             {
                 // A file is needed for war creation
                 File voidFile = File.createTempFile("void", null);
-                createZipFile(war, voidFile);
+                createZipFile(outputWar, voidFile);
                 voidFile.delete();
             }
             catch (IOException e)
@@ -250,7 +270,7 @@ public class WarBuilder
         warTask.execute();
         delete(tempJarsDir);
         thePM.worked(2);
-        return war;
+        return outputWar;
     }
 
     /**
@@ -282,6 +302,7 @@ public class WarBuilder
         }
         jarCopy.execute();
     }
+
     /**
      * Removes the specified file or directory, and all subdirectories
      * @param theFile the file or directory to delete
@@ -297,11 +318,10 @@ public class WarBuilder
             }
             theFile.delete();
         }
-        else
-            if (theFile.exists())
-            {
-                theFile.delete();
-            }
+        else if (theFile.exists())
+        {
+            theFile.delete();
+        }
     }
 
     /**
