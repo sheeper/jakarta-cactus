@@ -89,13 +89,13 @@
             </li>
             <li>
               Cactus user mailing list: Send the announcement there with a
-              subject of <code>[Announce] Cactus &lt;version&gt; has been
+              subject of <code>[ANN] Cactus &lt;version&gt; has been
               released</code>.
             </li>
             <li>
              Jakarta Announcement mailing list
              (<code>announcements@jakarta.apache.org</code>): Send the
-             announcement there with a subject of <code>[Announce] Cactus
+             announcement there with a subject of <code>[ANN] Cactus
              &lt;version&gt; has been released</code>.
             </li>
           </ul>
