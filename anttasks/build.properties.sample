@@ -17,4 +17,4 @@
 # -----------------------------------------------------------------------------
 
 # Location of the Ant jar
-#ant.jar=../../jakarta-ant/build/lib/ant.jar
+ant.jar=../../jakarta-ant/build/lib/ant.jar
