@@ -1,4 +1,3 @@
 build/build.properties
 dist
-out
-docs/framework/xdocs/book.xml
+target
