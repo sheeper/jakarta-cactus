@@ -383,6 +383,8 @@
 
             <fileset dir="${xdoc.dir}">
                 <exclude name="*book.xml"/>
+                <exclude name="todo.xml"/>
+                <exclude name="changes.xml"/>
                 <exclude name="**/cvslog.xml"/>
                 <include name="**/*.xml"/>
             </fileset>

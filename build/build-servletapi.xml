@@ -387,7 +387,11 @@
         <cvslog users="${xdoc.dir}/cvslog/users.properties" work="${xdoc.dir}"
             output="${xdoc.dir}/cvslog/cvslog.xml" elapsed="15">
 
-            <fileset dir="${xdoc.dir}" excludes="book.xml,cvslog.xml,doc-book.xml,site-book.xml">
+            <fileset dir="${xdoc.dir}">
+                <exclude name="*book.xml"/>
+                <exclude name="todo.xml"/>
+                <exclude name="changes.xml"/>
+                <exclude name="**/cvslog.xml"/>
                 <include name="**/*.xml"/>
             </fileset>
 
