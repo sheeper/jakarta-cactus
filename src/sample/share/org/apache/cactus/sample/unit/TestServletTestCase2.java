@@ -337,8 +337,9 @@ public class TestServletTestCase2 extends ServletTestCase
     //-------------------------------------------------------------------------
 
     /**
-     * Verify that the <code>AsertUtils.getResponseAsStringArray()</code> method
-     * works with output text sent on multiple lines.
+     * Verify that the <code>getTestAsArray()</code> method
+     * works with output text sent on multiple lines. We also verify that
+     * we can call it several times with the same result.
      */
     public void testGetResponseAsStringArrayMultiLines() throws IOException
     {
@@ -350,20 +351,29 @@ public class TestServletTestCase2 extends ServletTestCase
     }
 
     /**
-     * Verify that the <code>AsertUtils.getResponseAsStringArray()</code> method
-     * works with output text sent on multiple lines.
+     * Verify that the <code>getTestAsArray()</code> method
+     * works with output text sent on multiple lines. We also verify that
+     * we can call it several times with the same result.
      *
      * @param theResponse the response from the server side.
      */
     public void endGetResponseAsStringArrayMultiLines(WebResponse theResponse)
         throws IOException
     {
-        String[] results = theResponse.getTextAsArray();
+        String[] results1 = theResponse.getTextAsArray();
+        String[] results2 = theResponse.getTextAsArray();
 
-        assert("Should have returned 3 lines of text", results.length == 3);
-        assertEquals("<html><head/>", results[0]);
-        assertEquals("<body>A GET request</body>", results[1]);
-        assertEquals("</html>", results[2]);
+        assert("Should have returned 3 lines of text but returned [" +
+            results1.length + "]", results1.length == 3);
+        assertEquals("<html><head/>", results1[0]);
+        assertEquals("<body>A GET request</body>", results1[1]);
+        assertEquals("</html>", results1[2]);
+
+        assert("Should have returned 3 lines of text but returned [" +
+            results2.length + "]", results2.length == 3);
+        assertEquals("<html><head/>", results2[0]);
+        assertEquals("<body>A GET request</body>", results2[1]);
+        assertEquals("</html>", results2[2]);
     }
 
     //-------------------------------------------------------------------------
