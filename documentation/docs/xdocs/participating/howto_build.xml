@@ -103,9 +103,6 @@
             <td>
               The AspectJ runtime.
               Availabe <link href="ext:aspectj">here</link>.
-              This JAR file must be placed in the <code>lib</code> directory of
-              your Ant installation, or Ant will not be able to load the 
-              required classes.
             </td>
           </tr>
           <tr>
