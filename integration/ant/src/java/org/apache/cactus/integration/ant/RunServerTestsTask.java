@@ -60,8 +60,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -98,7 +96,9 @@ import org.apache.tools.ant.taskdefs.CallTarget;
  * </ul>
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
+ * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
+ * 
+ * @since Cactus 1.5
  * @version $Id$
  */
 public class RunServerTestsTask extends Task
@@ -199,13 +199,6 @@ public class RunServerTestsTask extends Task
     private Hook testHook;
 
     /**
-     * The fully qualified name of the test task.
-     * 
-     * TODO: remove this when the hook-based approach is verified
-     */
-    private String testTask;
-
-    /**
      * The hook that is called when the container should be started.
      */
     private Hook startHook;
@@ -246,7 +239,7 @@ public class RunServerTestsTask extends Task
         try
         {
             startServer();
-            runTests();
+            this.testHook.execute();
         }
         finally
         {
@@ -372,16 +365,6 @@ public class RunServerTestsTask extends Task
     }
 
     /**
-     * Sets the target to call to run the tests.
-     *
-     * @param theTestTask the Ant task to call
-     */
-    public void setTestTask(String theTestTask)
-    {
-        this.testTask = theTestTask;
-    }
-
-    /**
      * @param theTimeout the timeout after which we stop trying to call the test
      *        URL.
      */
@@ -391,60 +374,6 @@ public class RunServerTestsTask extends Task
     }
 
     // Private Methods ---------------------------------------------------------
-
-    /**
-     * Calls the run tests task.
-     * 
-     * TODO: remove this when the hook-based approach is verified
-     * 
-     * @throws BuildException If an error occurred calling the test task
-     */
-    private void callTestTask() throws BuildException
-    {
-        // Create task object
-        try
-        {
-
-            Class taskClass = Class.forName(testTask);
-            Object task = taskClass.newInstance();
-            Method[] methods = task.getClass().getMethods();
-            for (int i = 0; i < methods.length; i++)
-            {
-                if (methods[i].getName().equals("setProject"))
-                {
-                    Class[] parameters = methods[i].getParameterTypes();
-                    Object[] arg = new Object[parameters.length];
-                    for (int j = 0; j < parameters.length; j++)
-                    {
-                        arg[j] = parameters[j].newInstance();
-                    }
-                    arg[0] = project;
-                    methods[i].invoke(task, arg);
-                }
-            }
-            taskClass.getMethod("execute", null).invoke(task, null);
-        }
-        catch (ClassNotFoundException e)
-        {
-            throw new BuildException(e);
-        }
-        catch (InstantiationException e)
-        {
-            throw new BuildException(e);
-        }
-        catch (IllegalAccessException e)
-        {
-            throw new BuildException(e);
-        }
-        catch (InvocationTargetException e)
-        {
-            throw new BuildException(e);
-        }
-        catch (NoSuchMethodException e)
-        {
-            throw new BuildException(e);
-        }        
-    }
 
     /**
      * @return true if the test URL could be called without error or false
@@ -590,24 +519,6 @@ public class RunServerTestsTask extends Task
         // Wait a few ms more (just to be sure !)
         sleep(500);
         log("Server started", Project.MSG_VERBOSE);
-    }
-
-    /**
-     * Runs the tests by executing the test hook.
-     * 
-     * @throws BuildException If an error occurs executing the test hook
-     */
-    private void runTests() throws BuildException
-    {
-        if (this.testTask != null)
-        {
-            // TODO: remove this when the hook-based approach is verified
-            callTestTask();
-        }
-        else
-        {
-            this.testHook.execute();
-        }
     }
 
     /**
