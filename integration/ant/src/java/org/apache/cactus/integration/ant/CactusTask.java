@@ -306,7 +306,7 @@ public class CactusTask extends JUnitTask
                 if (war == null)
                 {
                     throw new BuildException("Could not find cactified web "
-                        + "module in EAR " + this.earFile);
+                        + "module in the EAR");
                 }
             }
             webXml = WebXmlIo.parseWebXmlFromWar(war, null);
@@ -657,12 +657,12 @@ public class CactusTask extends JUnitTask
                 ApplicationXmlIo.parseApplicationXmlFromEar(ear, null);
             for (Iterator i = applicationXml.getWebModuleUris(); i.hasNext();)
             {
-                JarInputStream jar = new JarInputStream(
+                JarInputStream war = new JarInputStream(
                     ResourceUtils.getResource(ear, (String) i.next()));
-                WebXml webXml = WebXmlIo.parseWebXml(jar, null);
-                if (getServletRedirectorMapping(jar, webXml) != null)
+                WebXml webXml = WebXmlIo.parseWebXmlFromWar(war, null);
+                if (getServletRedirectorMapping(war, webXml) != null)
                 {
-                    return jar;
+                    return war;
                 }
             }
         }
