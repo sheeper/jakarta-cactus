@@ -3,6 +3,12 @@
   xmlns:maven="jelly:maven">
   
   <goal name="dist">
+  	<j:set var="goal" value="dist"/>
+    <attainGoal name="multiproject:goal"/>
+  </goal>
+
+  <goal name="dist-clean">
+  	<j:set var="goal" value="dist-clean"/>
     <attainGoal name="multiproject:goal"/>
   </goal>
   

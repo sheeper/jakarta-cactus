@@ -2,6 +2,7 @@
   xmlns:j="jelly:core"
   xmlns:maven="jelly:maven">
 
-  <goal name="dist" prereqs="clean,plugin:install,plugin:deploy"/>
+  <goal name="dist" prereqs="plugin:install,plugin:deploy"/>
+  <goal name="dist-clean" prereqs="clean,dist"/>
   
 </project>
