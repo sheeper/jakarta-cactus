@@ -22,7 +22,15 @@
       </p>
       <ul>
         <li>
-          <link href="howto_ide_jbuilder.html">JBuilder Integration</link>,
+          <link href="howto_ide_jbuilder4.html">JBuilder Integration
+          Tutorial</link> (more focused on JBuilder 4),
+        </li>
+        <li>
+          Another <link href="howto_ide_jbuilder5.html">JBuilder Integration
+          Tutorial</link> (more focused on JBuilder 5),
+        </li>
+        <li>
+          <link href="howto_ide_jbuilder.html">JBuilder 4 Integration</link>,
         </li>
         <li>
           VisualAge for Java Integration :
@@ -45,7 +53,8 @@
         from your IDE (possibly in debug mode if you wish to debug your
         test case) and set up correctly the class path (see the
         <link href="getting_started.html">Getting Started</link> tutorial
-        for understanding the classpath).
+        for understanding the classpath). Look at the tutorials for other IDEs
+        and do the same for yours.
       </p>
 
     </s1>

@@ -1,0 +1,152 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE document SYSTEM "./dtd/document-v10.dtd">
+
+<document>
+  <header>
+    <title>JBuilder 5 Integration</title>
+    <authors>
+      <person name="Sean Zhang" email="sean.zhang@verizon.com"/>
+      <person name="Vincent Massol" email="vmassol@apache.org"/>
+    </authors>
+  </header>
+
+  <body>
+
+    <s1 title="Forewords and Requirements">
+
+      <p>
+        This document describes steps to setup Cactus to unit test Server side
+        code (i.e. EJBs, Servlets, etc) deployed to Weblogic 6.1 within
+        Jbuilder5 IDE.
+      </p>
+
+      <p>
+        The steps described below apply to current release (Cactus 1.2 as of
+        this writing) and assuming that Cactus has been installed correctly
+        (which means that you can run sample successfully).
+      </p>
+
+    </s1>
+
+    <s1 title="Step 1 : Create cactus.properties file">
+
+      <p>
+        Create cactus.properties file : Add entry to identify the URL of the
+        redirector. For example:
+        <code>cactus.servletRedirectorURL =
+        http://localhost:7001/test/ServletRedirector </code>. Modify this to
+        reflect the actual redirector used and the actual URL of the
+        redirector.
+      </p>
+
+    </s1>
+
+    <s1 title="Step 2 : Configure Cactus to work with JBuilder5">
+
+      <p>
+        Follow these steps :
+      </p>
+      <ol>
+        <li>
+          Click Menu item Tools/Configure Libraries to open Configure Libraries
+          wizard
+        </li>
+        <li>
+          On the lefthand side of Configure Libraries wizard, click on New
+          button to open New Library Wizard.
+        </li>
+        <li>
+          Enter value <code>"cactus"</code> in the Name field.  Choose
+          <code>"user home"</code> from the Location drop down menu.
+        </li>
+        <li>
+          Click on Add button to open the dialog to choose files.
+        </li>
+        <li>
+          Navigate to <code>[cactus home]/lib/</code> directory, select
+          <code>cactus.jar</code> and click OK button.
+        </li>
+        <li>
+          Click on Add button again to open the dialog to choose files.
+        </li>
+        <li>
+          Navigate to the directory where the <code>cactus.properties</code>
+          file is saved.
+        </li>
+        <li>
+          Click OK button.
+        </li>
+        <li>
+          Click "Add as Class Path" button if "No Paths Found" dialog box pops
+          up
+        </li>
+        <li>
+          Follow steps 2 - 6 to add <code>junit.jar</code>,
+          <code>httpclient.jar</code> which are all in
+          <code>[cactus home]/lib</code> directory
+        </li>
+        <li>
+          Optionally, add <code>log4j-core.jar</code> in
+          <code>[cactus home]/lib</code> directory to enable cactus logging
+        </li>
+        <li>
+          Click Menu item Project/Project Properties to open Project
+          Properties dialog box
+        </li>
+        <li>
+          Click Path tab and then Required Libraries tab
+        </li>
+        <li>
+          Click Add button and add the libraries created above to your project.
+        </li>
+      </ol>
+
+    </s1>
+
+    <s1 title="Step 3 : Configure Cactus for Weblogic6.1">
+
+      <ol>
+        <li>
+          Open <code>web.xml</code> in <code>WEB-INF</code> directory of the
+          web application deployed on Weblogic
+        </li>
+        <li>
+          Add the mapping for the redirector under the
+          <code>&lt;web-app&gt;</code> element.
+        </li>
+        <li>
+          Copy <code>cactus.jar</code>, <code>junit.jar</code>,
+          <code>log4j-core.jar</code>(optional) to <code>WEB-INF/lib</code>
+          directory of the web application
+        </li>
+        <li>
+          Copy your classes files to <code>WEB-INF/classes</code> directory of
+          the web application
+        </li>
+      </ol>
+
+    </s1>
+
+    <s1 title="Step 4 : Run the test">
+
+      <ol>
+        <li>
+          In JBuilder, click Menu item Project/Project Properties
+        </li>
+        <li>
+          Click Run tab and then Application tab
+        </li>
+        <li>
+          Open "Select Main Class for Project" dialog box and choose the test
+          case class which has a main method in it.
+        </li>
+        <li>
+          Run your project
+        </li>
+      </ol>
+
+    </s1>
+
+  </body>
+</document>
