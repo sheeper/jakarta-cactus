@@ -149,7 +149,7 @@ public class WebXmlMergeTask extends Task
      */
     public void execute() throws BuildException
     {
-        if (this.srcFile == null)
+        if ((this.srcFile == null) || !this.srcFile.isFile())
         {
             throw new BuildException("The [srcfile] attribute is required");
         }
@@ -162,6 +162,10 @@ public class WebXmlMergeTask extends Task
         {
             if (this.mergeFile != null)
             {
+                if (!this.mergeFile.isFile())
+                {
+                    throw new BuildException("The merge file doesn't exist");
+                }
                 if (force
                  || (srcFile.lastModified() > destFile.lastModified())
                  || (mergeFile.lastModified() > destFile.lastModified()))
