@@ -69,6 +69,8 @@ import org.apache.cactus.eclipse.ui.CactusPlugin;
 import org.eclipse.ant.core.AntRunner;
 import org.eclipse.core.boot.BootLoader;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.ILibrary;
+import org.eclipse.core.runtime.IPluginDescriptor;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.SubProgressMonitor;
@@ -187,6 +189,20 @@ public class GenericAntProvider implements IContainerProvider
     public void start(ContainerInfo theContainerInfo, IProgressMonitor thePM)
         throws CoreException
     {
+        IPluginDescriptor descriptor =
+            CactusPlugin.getDefault().getDescriptor();
+        ILibrary[] pluginLibraries = descriptor.getRuntimeLibraries();
+        ILibrary lib = pluginLibraries[0];
+        URL libURL = descriptor.find(lib.getPath());
+        if (libURL == null)
+        {
+            throw CactusPlugin.createCoreException(
+                "CactusLaunch.message.prepare.error.plugin.lib",
+                " : " + lib.toString(),
+                null);
+        }
+        antArguments.add(
+            "-Dcactus.eclipseintegration.jar.name=" + libURL.getPath());
         thePM.subTask(CactusMessages.getString("CactusLaunch.message.start"));
         String[] targets = getMasked("cactus.run.");
         AntRunner runner = createAntRunner(targets);
@@ -238,16 +254,19 @@ public class GenericAntProvider implements IContainerProvider
         throws CoreException
     {
         thePM.subTask(CactusMessages.getString("CactusLaunch.message.stop"));
-        eclipseRunner.finish();
-        while (!serverStopped)
+        if (eclipseRunner != null)
         {
-            try
+            eclipseRunner.finish();
+            while (!serverStopped)
             {
-                Thread.sleep(50);
-            }
-            catch (InterruptedException e)
-            {
-                // Do nothing
+                try
+                {
+                    Thread.sleep(50);
+                }
+                catch (InterruptedException e)
+                {
+                    // Do nothing
+                }
             }
         }
     }
