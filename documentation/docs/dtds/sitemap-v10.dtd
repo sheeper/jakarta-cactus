@@ -19,7 +19,7 @@ TYPICAL INVOCATION:
 <!-- Sitemap -->
 <!-- =============================================================== -->
 
-<!ELEMENT sitemap (resource*, external-ref*)>
+<!ELEMENT sitemap (resource*, external*)>
 
 <!ELEMENT resource (#PCDATA)>
 <!ATTLIST resource
@@ -28,8 +28,8 @@ TYPICAL INVOCATION:
     name CDATA #IMPLIED
 >
 
-<!ELEMENT external-ref (#PCDATA)>
-<!ATTLIST external-ref
+<!ELEMENT external (#PCDATA)>
+<!ATTLIST external
     id ID #REQUIRED
     url CDATA #IMPLIED
     name CDATA #IMPLIED

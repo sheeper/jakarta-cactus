@@ -688,7 +688,7 @@
       </xsl:when>
       <xsl:when test="starts-with(@href,'ext:')">
         <xsl:variable name="id" select="substring-after(@href,'ext:')"/>
-        <xsl:value-of select="$sitemap//external-ref[@id=$id]/@url"/>
+        <xsl:value-of select="$sitemap//external[@id=$id]/@url"/>
       </xsl:when>
       <xsl:when test="starts-with(@href,'http:')">
         <xsl:value-of select="@href"/>
