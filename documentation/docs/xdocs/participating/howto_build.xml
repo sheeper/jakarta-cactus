@@ -93,7 +93,9 @@
 
         <p>
           To build Cactus from source, you'll need to have
-          <link href="ext:ant">Ant</link> 1.6.1 (or later) installed.
+          <link href="ext:ant">Ant</link> 1.6.1 (or later) installed. For
+          building the Maven plugin you'll need to have 
+          <link href="ext:maven">Maven</link> 1.0 rc3 (or later) installed.
         </p>
 
         <p>
@@ -377,31 +379,35 @@
         its own build:
       </p>
       <dl>
-      	<dt>documentation</dt>
+      	<dt>documentation/</dt>
       	<dd>
       	  The Cactus documentation.
       	</dd>
-        <dt>framework</dt>
+        <dt>framework/</dt>
         <dd>
           The Cactus framework.
         </dd>
-        <dt>integration</dt>
+        <dt>integration/</dt>
         <dd>
           Various tool integration modules.
           <dl>
-            <dt>ant</dt>
+            <dt>ant/</dt>
             <dd>
               <link href="ext:ant">Ant</link> tasks and support classes
               provided by Cactus.
             </dd>
-            <dt>eclipse</dt>
+            <dt>eclipse/</dt>
             <dd>
               Plugins for integration with the open-source IDE
               <link href="ext:eclipse">Eclipse</link>.
             </dd>
+            <dt>maven/</dt>
+            <dd>
+              <link href="ext:maven">Maven</link> plugins for Cactus.
+            </dd>
           </dl>
         </dd>
-        <dt>samples</dt>
+        <dt>samples/</dt>
         <dd>
           Sample applications using Cactus.
           <dl>
@@ -425,11 +431,12 @@
       </dl>
       <p>
         All modules follow a similar directory structure and they all use
-        Ant as the build tool.
+        Ant as the build tool (except for the <code>maven/</code> module
+        which is built with Maven.
       </p>
     </section>
 
-    <section title="Performing Builds">
+    <section title="Performing Ant builds">
 
       <p>
         Good news: it should be extremely easy to build Cactus from the 
