@@ -61,7 +61,7 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 /**
- * Run all the unit tests for the web.xml support classes.
+ * Run all the unit tests for the container support classes.
  *
  * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
  *
@@ -69,15 +69,6 @@ import junit.framework.TestSuite;
  */
 public final class TestAll extends TestCase
 {
-    /**
-     * Defines the testcase name for JUnit.
-     *
-     * @param theName the testcase's name.
-     */
-    public TestAll(String theName)
-    {
-        super(theName);
-    }
 
     /**
      * Start the tests.

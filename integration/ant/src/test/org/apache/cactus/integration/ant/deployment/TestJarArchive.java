@@ -75,16 +75,6 @@ import junit.framework.TestCase;
 public final class TestJarArchive extends TestCase
 {
 
-    // Constructors ------------------------------------------------------------
-
-    /**
-     * @see TestCase#TestCase(String)
-     */
-    public TestJarArchive(String theTestName)
-    {
-        super(theTestName);        
-    }
-
     // Test Methods ------------------------------------------------------------
 
     /**

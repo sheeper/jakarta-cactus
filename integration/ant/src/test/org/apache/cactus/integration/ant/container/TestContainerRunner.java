@@ -80,16 +80,6 @@ public final class TestContainerRunner extends TestCase
      */
     private MockHttpServer server;
 
-    // Constructors ------------------------------------------------------------
-
-    /**
-     * @see TestCase#TestCase(String)
-     */
-    public TestContainerRunner(String theTestName)
-    {
-        super(theTestName);        
-    }
-
     // TestCase Implementation -------------------------------------------------
 
     /**

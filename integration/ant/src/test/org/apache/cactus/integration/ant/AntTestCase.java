@@ -105,12 +105,10 @@ public abstract class AntTestCase extends TestCase implements BuildListener
     /**
      * Constructor
      * 
-     * @param theName The name of the test
      * @param theBuildFile The Ant build file corresponding to the test fixture
      */
-    public AntTestCase(String theName, String theBuildFile)
+    public AntTestCase(String theBuildFile)
     {
-        super(theName);
         this.buildFile = theBuildFile;
     }
 

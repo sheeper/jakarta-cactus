@@ -71,12 +71,11 @@ public final class TestCactusTask extends AntTestCase
     // Constructors ------------------------------------------------------------
 
     /**
-     * @see TestCase#TestCase(String)
+     * @see AntTestCase#AntTestCase
      */
-    public TestCactusTask(String theTestName)
+    public TestCactusTask()
     {
-        super(theTestName,
-            "org/apache/cactus/integration/ant/test-cactus.xml");
+        super("org/apache/cactus/integration/ant/test-cactus.xml");
     }
 
     // TestCase Implementation -------------------------------------------------

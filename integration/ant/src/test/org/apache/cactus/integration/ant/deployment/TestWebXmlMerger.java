@@ -89,14 +89,6 @@ public final class TestWebXmlMerger extends TestCase
     private DocumentBuilder builder;
 
     /**
-     * @see TestCase#TestCase(String)
-     */
-    public TestWebXmlMerger(String theTestName)
-    {
-        super(theTestName);        
-    }
-    
-    /**
      * @see TestCase#setUp
      */
     public void setUp() throws ParserConfigurationException

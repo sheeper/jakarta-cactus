@@ -80,14 +80,6 @@ public final class TestWebXmlVersion extends TestCase
     private DOMImplementation domImpl;
 
     /**
-     * @see TestCase#TestCase(String)
-     */
-    public TestWebXmlVersion(String theTestName)
-    {
-        super(theTestName);        
-    }
-    
-    /**
      * @see TestCase#setUp
      */
     public void setUp() throws ParserConfigurationException

@@ -84,12 +84,11 @@ public final class TestCactifyWarTask extends AntTestCase
     // Constructors ------------------------------------------------------------
 
     /**
-     * @see TestCase#TestCase(String)
+     * @see AntTestCase#AntTestCase
      */
-    public TestCactifyWarTask(String theTestName)
+    public TestCactifyWarTask()
     {
-        super(theTestName,
-            "org/apache/cactus/integration/ant/test-cactifywar.xml");
+        super("org/apache/cactus/integration/ant/test-cactifywar.xml");
     }
 
     // TestCase Implementation -------------------------------------------------

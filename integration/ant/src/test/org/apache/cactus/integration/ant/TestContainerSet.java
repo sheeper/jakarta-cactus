@@ -71,12 +71,11 @@ public final class TestContainerSet extends AntTestCase
     // Constructors ------------------------------------------------------------
 
     /**
-     * @see TestCase#TestCase(String)
+     * @see AntTestCase#AntTestCase
      */
-    public TestContainerSet(String theTestName)
+    public TestContainerSet()
     {
-        super(theTestName,
-            "org/apache/cactus/integration/ant/test-containerset.xml");
+        super("org/apache/cactus/integration/ant/test-containerset.xml");
     }
 
     // TestCase Implementation -------------------------------------------------

@@ -93,14 +93,6 @@ public final class TestWebXml extends TestCase
     private DocumentBuilder builder;
 
     /**
-     * @see TestCase#TestCase(String)
-     */
-    public TestWebXml(String theTestName)
-    {
-        super(theTestName);        
-    }
-
-    /**
      * @see TestCase#setUp
      */
     public void setUp() throws ParserConfigurationException

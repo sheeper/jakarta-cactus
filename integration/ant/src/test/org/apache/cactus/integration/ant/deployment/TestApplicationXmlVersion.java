@@ -80,14 +80,6 @@ public final class TestApplicationXmlVersion extends TestCase
     private DOMImplementation domImpl;
 
     /**
-     * @see TestCase#TestCase(String)
-     */
-    public TestApplicationXmlVersion(String theTestName)
-    {
-        super(theTestName);        
-    }
-    
-    /**
      * @see TestCase#setUp
      */
     public void setUp() throws ParserConfigurationException

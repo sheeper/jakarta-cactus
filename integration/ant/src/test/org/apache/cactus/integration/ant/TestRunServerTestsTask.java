@@ -71,12 +71,11 @@ public final class TestRunServerTestsTask extends AntTestCase
     // Constructors ------------------------------------------------------------
 
     /**
-     * @see TestCase#TestCase(String)
+     * @see AntTestCase#AntTestCase
      */
-    public TestRunServerTestsTask(String theTestName)
+    public TestRunServerTestsTask()
     {
-        super(theTestName,
-            "org/apache/cactus/integration/ant/test-runservertests.xml");
+        super("org/apache/cactus/integration/ant/test-runservertests.xml");
     }
 
     // TestCase Implementation -------------------------------------------------

@@ -91,14 +91,6 @@ public final class TestApplicationXml extends TestCase
     private DocumentBuilder builder;
 
     /**
-     * @see TestCase#TestCase(String)
-     */
-    public TestApplicationXml(String theTestName)
-    {
-        super(theTestName);        
-    }
-
-    /**
      * @see TestCase#setUp
      */
     public void setUp() throws ParserConfigurationException
