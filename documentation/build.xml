@@ -36,7 +36,7 @@
 
     <!-- Global project properties -->
     <property name="project.name.text" value="Cactus Documentation"/>
-    <property name="project.version" value="1.4dev"/>
+    <property name="project.version" value="1.4b1"/>
 
     <!-- Prefix to add to all distributable files -->
     <property name="project.prefix" value="jakarta-"/>
