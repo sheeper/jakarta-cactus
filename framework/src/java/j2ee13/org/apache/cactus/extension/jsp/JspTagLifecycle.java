@@ -701,7 +701,7 @@ public final class JspTagLifecycle
         {
             for (Iterator i = interceptors.iterator(); i.hasNext();)
             {
-                ((Interceptor)i.next()).evalBody(theIteration, theBody);
+                ((Interceptor) i.next()).evalBody(theIteration, theBody);
             }
         }
     }
@@ -715,7 +715,7 @@ public final class JspTagLifecycle
         {
             for (Iterator i = interceptors.iterator(); i.hasNext();)
             {
-                ((Interceptor)i.next()).skipBody();
+                ((Interceptor) i.next()).skipBody();
             }
         }
     }
