@@ -761,7 +761,7 @@
       <xsl:if test="@issue">
         <xsl:text> Fixes issue </xsl:text>
           <!-- link -->
-          <a href="http://nagoya.apache.org/jira/browse/{@issue}">
+          <a href="http://issues.apache.org/jira/browse/{@issue}">
             <xsl:value-of select="@issue"/>
           </a>
         <xsl:text>.</xsl:text>

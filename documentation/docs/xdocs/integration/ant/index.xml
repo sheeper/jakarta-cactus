@@ -92,7 +92,7 @@
             </li>
             <li>
               The document
-              <link href="http://nagoya.apache.org/wiki/apachewiki.cgi?TheElementsOfAntStyle">
+              <link href="http://wiki.apache.org/ant/TheElementsOfAntStyle">
               The Elements of Ant Style</link> in the Apache Wiki lists some
               general rules for using Ant effectively in any kind of project.
             </li>

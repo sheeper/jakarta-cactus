@@ -442,9 +442,9 @@
   <external id="australian_slang" url="http://www.koalanet.com.au/australian-slang.html#C"/>
   <external id="blog_vmassol" url="http://blogs.codehaus.org/people/vmassol/"/>
   <external id="book_javatools" url="http://www.amazon.com/exec/obidos/ASIN/047120708X/"/>
-  <external id="bug_database" url="http://nagoya.apache.org/jira/secure/BrowseProject.jspa?id=10471"/>
-  <external id="bug_database_cactus_open_issues" url="http://nagoya.apache.org/jira/secure/BrowseProject.jspa?id=10471"/>
-  <external id="bug_database_cactus_open_bugs" url="http://nagoya.apache.org/jira/secure/IssueNavigator.jspa?view=&amp;decorator=&amp;start=0&amp;mode=hide&amp;tempMax=-1"/>
+  <external id="bug_database" url="http://issues.apache.org/jira/secure/BrowseProject.jspa?id=10471"/>
+  <external id="bug_database_cactus_open_issues" url="http://issues.apache.org/jira/secure/BrowseProject.jspa?id=10471"/>
+  <external id="bug_database_cactus_open_bugs" url="http://issues.apache.org/jira/secure/IssueNavigator.jspa?view=&amp;decorator=&amp;start=0&amp;mode=hide&amp;tempMax=-1"/>
   <external id="c2_mock_object" url="http://c2.com/cgi/wiki?MockObject"/>
   <external id="cactus_dutronc_lyrics" url="http://www.frmusique.ru/texts/d/dutronc_jacques/cactus.htm"/>
   <external id="cactus_dutronc_midi" url="http://membres.lycos.fr/nabla007/musique/jacques_dutronc_(les_cactus).mid"/>

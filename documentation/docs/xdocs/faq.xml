@@ -605,7 +605,7 @@ java.lang.NoSuchMethodError:
         with HttpUnit. HttpUnit does support asserting page containing 
         Javascript. However, the Cactus integration with HttpUnit currently 
         does not support this use case (There's a 
-        <a href="http://nagoya.apache.org/jira/secure/ViewIssue.jspa?key=CACTUS-76">bug</a> 
+        <a href="http://issues.apache.org/jira/secure/ViewIssue.jspa?key=CACTUS-76">bug</a> 
         opened for adding this support).
       </p>
     </section>
