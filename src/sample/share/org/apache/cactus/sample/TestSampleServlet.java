@@ -117,15 +117,13 @@ public class TestSampleServlet extends ServletTestCase
     /**
      * Verify that we can assert the servlet output stream.
      *
-     * @param theConnection the HTTP connection that was used to call the
-     *                      server redirector. It contains the returned HTTP
-     *                      response.
+     * @param theResponse the response from the server side.
      */
-    public void endReadServletOutputStream(HttpURLConnection theConnection)
+    public void endReadServletOutputStream(WebResponse theResponse)
         throws IOException
     {
         String expected = "<html><head/><body>A GET request</body></html>";
-        String result = AssertUtils.getResponseAsString(theConnection);
+        String result = theResponse.getText();
         assertEquals(expected, result);
     }
 
@@ -317,14 +315,12 @@ public class TestSampleServlet extends ServletTestCase
      * Verify that it is possible to send back a header and verify it on the
      * client side.
      *
-     * @param theConnection the HTTP connection that was used to call the
-     *                      server redirector. It contains the returned HTTP
-     *                      response.
+     * @param theResponse the response from the server side.
      */
-    public void endReceiveHeader(HttpURLConnection theConnection)
+    public void endReceiveHeader(WebResponse theResponse)
     {
         assertEquals("this is a response header",
-            theConnection.getHeaderField("responseheader"));
+            theResponse.getConnection().getHeaderField("responseheader"));
     }
 
     //-------------------------------------------------------------------------
@@ -391,27 +387,17 @@ public class TestSampleServlet extends ServletTestCase
      * Verify that we can use a <code>RequestDispatcher</code> in the class to
      * test and compare the result sent to the output stream on the client side.
      *
-     * @param theConnection the HTTP connection that was used to call the
-     *                      server redirector. It contains the returned HTTP
-     *                      response.
+     * @param theResponse the response from the server side.
      */
-    public void endRequestDispatcher(HttpURLConnection theConnection)
+    public void endRequestDispatcher(WebResponse theResponse)
         throws IOException
     {
-        StringBuffer sb = new StringBuffer();
-        BufferedReader input = new BufferedReader(
-            new InputStreamReader(theConnection.getInputStream()));
-        String str;
-        while (null != ((str = input.readLine()))) {
-            sb.append(str);
-        }
-        input.close ();
-
         // We cannot test what is exactly returned by the called JSP between
         // different Servlet engine return different text ! For example some
         // return the JSP comment, other do not, ...
         // Thus, we only test for a match of "Hello !"
-        assert(sb.toString().indexOf("Hello !") > 0);
+        assert("Text missing 'Hello !' : [" + theResponse.getText() + "]",
+            theResponse.getText().indexOf("Hello !") > 0);
     }
 
 }
