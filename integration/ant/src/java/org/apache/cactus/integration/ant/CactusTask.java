@@ -303,9 +303,13 @@ public class CactusTask extends JUnitTask
             else
             {
                 war = getTestWar(this.earFile);
+                if (war == null)
+                {
+                    throw new BuildException("Could not find cactified web "
+                        + "module in EAR " + this.earFile);
+                }
             }
             webXml = WebXmlIo.parseWebXmlFromWar(war, null);
-
             addRedirectorNameProperties(war, webXml);
         }
         catch (SAXException e)
@@ -352,7 +356,8 @@ public class CactusTask extends JUnitTask
             {
                 containers[i].setAntTaskFactory(this.antTaskFactory);
                 containers[i].setLog(new AntLog(this));
-                containers[i].setDeployableFile(this.warFile);
+                containers[i].setDeployableFile(
+                    this.earFile != null ? this.earFile : this.warFile);
                 if (containers[i].isEnabled())
                 {
                     containers[i].init();
