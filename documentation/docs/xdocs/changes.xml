@@ -344,8 +344,7 @@ Note: To be added once we include the Eclipse plugin in a release
           and <code>end(...)</code> methods. They are called on the
           client side, before and after every test in the same way as the
           JUnit <code>setUp()</code> and <code>tearDown()</code> are called
-          before and after each test, but on the server side. <em>Note: web 
-          site documentation is not yet up to date</em>.
+          before and after each test, but on the server side.
         </action>
       </release>
 
