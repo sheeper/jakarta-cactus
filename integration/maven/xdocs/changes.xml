@@ -31,9 +31,7 @@
         Cactus tests are now automatically started by default when the site is 
         generated. This feature can be turned off.
       </action>
-      <action dev="vmassol" type="fix">
-        Fixed bug 
-        <a href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=24447">24447</a>.
+      <action dev="vmassol" type="fix" issue="24447">
         The plugin now correctly uses the <code>${maven.war.final.name}</code>
         property instead of hard-coding the war name to 
         <code>${pom.artifactId}.war</code>.
