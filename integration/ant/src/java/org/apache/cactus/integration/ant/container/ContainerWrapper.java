@@ -198,4 +198,29 @@ public class ContainerWrapper implements Container
     {
         return this.container.getContainerClasspath();
     }
+
+    /**
+     * @see Container#getServer()
+     */
+    public String getServer()
+    {
+        return this.container.getServer();
+    }
+
+    /**
+     * @see Container#getProtocol()
+     */
+    public String getProtocol()
+    {
+       return this.container.getProtocol();
+    }
+
+    /**
+     * @see Container#getBaseURL()
+     */
+    public String getBaseURL()
+    {
+        return this.container.getBaseURL();
+    }
+
 }

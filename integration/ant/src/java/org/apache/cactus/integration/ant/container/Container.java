@@ -1,7 +1,7 @@
 /* 
  * ========================================================================
  * 
- * Copyright 2003-2004 The Apache Software Foundation.
+ * Copyright 2003-2005 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,8 +36,6 @@ import org.apache.tools.ant.types.Environment.Variable;
  */
 public interface Container
 {
-    // Public Methods ----------------------------------------------------------
-
     /**
      * Returns a displayable name of the container for logging purposes.
      * 
@@ -161,4 +159,24 @@ public interface Container
      * shutting down the container.
      */
     void shutDown();
+
+    /**
+     * Returns the server (name or IP) to where the container is living.
+     * 
+     * @return The server
+     */
+    String getServer();
+
+    /**
+     * Returns the protocol, that should be used for communication to the 
+     * container.
+     * 
+     * @return The protocol
+     */
+    String getProtocol();
+
+    /**
+     * @return the base URL of the container, including protocol, name and port
+     */
+    String getBaseURL();
 }

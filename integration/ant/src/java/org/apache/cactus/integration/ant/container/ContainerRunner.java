@@ -1,7 +1,7 @@
 /* 
  * ========================================================================
  * 
- * Copyright 2003-2004 The Apache Software Foundation.
+ * Copyright 2003-2005 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -265,16 +265,17 @@ public final class ContainerRunner
     }
 
     /**
-     * Sets the HTTP URL that will be continuously pinged to check if the
+     * Sets the HTTP/HTTPS URL that will be continuously pinged to check if the
      * container is running.
      * 
      * @param theTestURL The URL to set
      */
     public void setURL(URL theTestURL)
     {
-        if (!theTestURL.getProtocol().equals("http"))
+        if (!(theTestURL.getProtocol().equalsIgnoreCase("http") 
+            || theTestURL.getProtocol().equalsIgnoreCase("https")))
         {
-            throw new IllegalArgumentException("Not a HTTP URL");
+            throw new IllegalArgumentException("Not a HTTP or HTTPS URL");
         } 
         this.testURL = theTestURL;
     }

@@ -91,6 +91,13 @@
       </devs>
 
       <release version="1.8dev" date="in CVS">
+        <action dev="VMA" type="add" issue="CACTUS-81" due-to="Thomas Schapitz">
+          Added 3 new attributes to the nested containers of the 
+          <code>&lt;cactus&gt;</code> task: <code>protocol</code>,
+          <code>server</code> and <code>port</code>. This allows
+          running Cactus tests located in a container that is
+          remote from the Cactus client.
+        </action>
       </release>
       
       <release version="1.7" date="28 Jan 2005">

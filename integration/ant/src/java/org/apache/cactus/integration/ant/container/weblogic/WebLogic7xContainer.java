@@ -235,7 +235,7 @@ public class WebLogic7xContainer extends AbstractJavaContainer
 
         java.setClassname("weblogic.Admin");
         java.createArg().setValue("-url");
-        java.createArg().setValue("t3://localhost:" + getPort());
+        java.createArg().setValue("t3://" + this.getServer() + ":" + getPort());
         java.createArg().setValue("-username");
         java.createArg().setValue("weblogic");
         java.createArg().setValue("-password");

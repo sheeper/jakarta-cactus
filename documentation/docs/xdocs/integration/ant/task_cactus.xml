@@ -248,14 +248,45 @@
         as appropriate.
       </p>
 
-      <note>
-        The &lt;cactus&gt; task assumes that the container that it starts will 
-        accept requests from localhost. If you have specified a custom 
-        container configuration, make sure you have configured your 
-        container to listen to localhost. Otherwise, the &lt;cactus&gt; task
-        will fail to notice your container is running as it checks for that
-        on localhost.
-      </note>
+      <section title="Common Parameters">
+
+        <p>
+          Here is a list of parameters that are common to all containers.
+        </p>
+
+        <table>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Required</th>
+          </tr>
+          <tr>
+            <td>protocol</td>
+            <td>
+              Protocol to use for communication, one of http or https. Note that
+              https will only work, if a.) JSSE is installed b.) the proper
+              certificates are installed.
+            </td>
+            <td>No, default is http</td>
+          </tr>
+          <tr>
+            <td>server</td>
+            <td>
+              Host name or ip of the machine running the server. Note, that
+              the built in deployment support will not work for remote hosts.
+            </td>
+            <td>No, default is localhost</td>
+          </tr>
+          <tr>
+            <td>port</td>
+            <td>
+              The TCP port that the container should listen to
+            </td>
+            <td>No, default is 8080</td>
+          </tr>
+        </table>
+
+      </section>
 
       <anchor id="generic"/>
       <section title="generic">

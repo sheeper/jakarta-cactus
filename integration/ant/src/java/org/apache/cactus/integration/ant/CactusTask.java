@@ -1,7 +1,7 @@
 /* 
  * ========================================================================
  * 
- * Copyright 2003-2004 The Apache Software Foundation.
+ * Copyright 2003-2005 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -197,15 +197,13 @@ public class CactusTask extends JUnitTask
                 {
                     containers[i].init();
                     log("--------------------------------------------------"
-                        + "---------------",
-                        Project.MSG_INFO);
-                    log("Running tests against " + containers[i].getName(),
+                        + "---------------", Project.MSG_INFO);
+                    log("Running tests against " + containers[i].getName()
+                        + " @ " + containers[i].getBaseURL(),
                         Project.MSG_INFO);
                     log("--------------------------------------------------"
-                        + "---------------",
-                        Project.MSG_INFO);
-                    contextUrl.setValue(
-                        "http://localhost:" + containers[i].getPort() + "/"
+                        + "---------------", Project.MSG_INFO);
+                    contextUrl.setValue(containers[i].getBaseURL() + "/"
                         + thisDeployable.getTestContext());
                     executeInContainer(containers[i], thisDeployable); 
                 }
@@ -432,8 +430,7 @@ public class CactusTask extends JUnitTask
         runner.setLog(new AntLog(this));
         try
         {
-            URL url =
-                new URL("http", "localhost", theContainer.getPort(), "/"
+            URL url = new URL(theContainer.getBaseURL() + "/"
                 + theFile.getTestContext() 
                 + theFile.getServletRedirectorMapping()
                 + "?Cactus_Service=RUN_TEST");

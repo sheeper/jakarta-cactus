@@ -1,7 +1,7 @@
 /* 
  * ========================================================================
  * 
- * Copyright 2003-2004 The Apache Software Foundation.
+ * Copyright 2003-2005 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -110,6 +110,16 @@ public abstract class AbstractContainer extends ProjectComponent
      * start the containers.
      */
     private Path containerClasspath;    
+
+    /**
+     * The server (name or ip) the container is living on
+     */
+    private String server = "localhost";
+
+    /**
+     * The protocol the container is using
+     */
+    private String protocol = "http";
     
     // Public Methods ----------------------------------------------------------
 
@@ -191,6 +201,26 @@ public abstract class AbstractContainer extends ProjectComponent
         this.unlessCondition = theUnlessCondition;
     }
 
+    /**
+     * Sets the server (name or ip) to which the container is living.
+     * 
+     * @param theServer The server to set
+     */
+    public final void setServer(String theServer)
+    {
+        this.server = theServer;
+    }
+
+    /**
+     * Sets the protocol the container should use
+     * 
+     * @param theProtocol The protocol to set
+     */
+    public final void setProtocol(String theProtocol)
+    {
+       this.protocol = theProtocol;
+    }
+    
     // Container Implementation ------------------------------------------------
 
     /**
@@ -311,6 +341,31 @@ public abstract class AbstractContainer extends ProjectComponent
     public Path getContainerClasspath()
     {
         return this.containerClasspath;
+    }
+
+    /**
+     * @see Container#getServer()
+     */
+    public final String getServer()
+    {
+        return this.server;
+    }
+    
+    /**
+     * @see Container#getProtocol()
+     */
+    public final String getProtocol()
+    {
+        return this.protocol;
+    }
+
+    /**
+     * @see Container#getBaseURL()
+     */
+    public final String getBaseURL()
+    {
+        return this.getProtocol() + "://" + this.getServer() + ":" 
+            + this.getPort();
     }
     
     // Protected Methods -------------------------------------------------------

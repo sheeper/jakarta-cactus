@@ -195,6 +195,30 @@ public final class MockContainer implements Container
         }
     }
 
+    /**
+     * @see Container#getServer()
+     */
+    public String getServer()
+    {
+        return null;
+    }
+
+    /**
+     * @see Container#getProtocol()
+     */
+    public String getProtocol()
+    {
+       return null;
+    }
+
+    /**
+     * @see Container#getBaseURL()
+     */
+    public String getBaseURL()
+    {
+        return null;
+    }
+    
     // Public Methods ----------------------------------------------------------
 
     /**

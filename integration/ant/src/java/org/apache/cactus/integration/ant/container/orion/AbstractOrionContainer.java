@@ -124,7 +124,7 @@ public abstract class AbstractOrionContainer extends AbstractJavaContainer
         fileSet.createInclude().setName("*.jar");
         classpath.addFileset(fileSet);
         java.setClassname("com.evermind.client.orion.OrionConsoleAdmin");
-        java.createArg().setValue("ormi://localhost:23791/");
+        java.createArg().setValue("ormi://" + this.getServer() + ":23791/");
         java.createArg().setValue("admin");
         java.createArg().setValue("password");
         java.createArg().setValue("-shutdown");
