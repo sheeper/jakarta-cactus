@@ -70,6 +70,10 @@
 
     <category title="Design/Code">
       <action>
+      	Remove HttpURLConnection and replace it by the one we have submitted
+      	to the HttpClient project.
+      </action>
+      <action>
         Improve the ServletTestRunner. Move stylesheet definition to web.xml
         and provide support for XSLT performed inside ServletTestRunner.
       </action>
