@@ -371,7 +371,7 @@ be resolved. Please check you build.properties file, and run Ant with the
               <package name="org.apache.cactus"/>
               <package name="org.apache.cactus.client.authentication"/>
               <package name="org.apache.cactus.extension.jsp"/>
-              <package name="org.apache.cactus.server.wrapper"/>
+              <package name="org.apache.cactus.server"/>
             </group>
             <group title="Internal API">
               <package name="org.apache.cactus.client"/>
@@ -379,7 +379,6 @@ be resolved. Please check you build.properties file, and run Ant with the
               <package name="org.apache.cactus.client.initialization"/>
               <package name="org.apache.cactus.configuration"/>
               <package name="org.apache.cactus.extension.jetty"/>
-              <package name="org.apache.cactus.server"/>
               <package name="org.apache.cactus.server.runner"/>
               <package name="org.apache.cactus.util"/>
             </group>
