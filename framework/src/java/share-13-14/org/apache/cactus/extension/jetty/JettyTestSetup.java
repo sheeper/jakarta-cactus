@@ -255,10 +255,16 @@ public class JettyTestSetup extends TestSetup
             boolean started = ((Boolean) this.server.getClass().getMethod(
                 "isStarted", null).invoke(this.server, null)).booleanValue(); 
 
-            // Stop the Jetty server, if started
+            // Stop and destroy the Jetty server, if started
             if (started)
             {
+                // Stop all listener and contexts
                 this.server.getClass().getMethod("stop", null).invoke(
+                    this.server, null);
+
+                // Destroy a stopped server. Remove all components and send 
+                // notifications to all event listeners.  
+                this.server.getClass().getMethod("destroy", null).invoke(
                     this.server, null);
             }
         } 
