@@ -253,7 +253,7 @@ public class TestSampleServlet extends ServletTestCase
         (based on the stylesheet used by the
         <strong>&lt;junitreport&gt;</strong> Ant task) and drop it in
         <code>[tomcat-root]/webapps/test</code>. Then, open a browser and type
-        <code>http://localhost:8080/test/ServletTestRunner?suite=TestSampleServlet&amp;xsl=junit-noframes.xsl</code>.
+        <code>http://localhost:8080/test/ServletTestRunner?suite=TestSampleServlet&amp;xsl=cactus-report.xsl</code>.
         You should now see the following:
       </p>
 
