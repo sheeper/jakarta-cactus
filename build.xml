@@ -103,7 +103,7 @@
     <ant antfile="samples/ejb/build.xml" inheritAll="false" 
         target="dist">
       <property name="j2ee.jar" value="${j2ee.13.jar}"/>
-      <property name="servlet.jar" value=""/>
+      <property name="servlet.jar" value="${servlet.23.jar}"/>
       <property name="clover.enable" value="true"/>
       <property name="env" value="${env}"/>
     </ant>
@@ -319,7 +319,7 @@
     <ant antfile="samples/ejb/build.xml" inheritAll="false" 
         target="clean">
       <property name="j2ee.jar" value="${j2ee.13.jar}"/>
-      <property name="servlet.jar" value=""/>
+      <property name="servlet.jar" value="${servlet.23.jar}"/>
     </ant>
     <ant antfile="documentation/build.xml" inheritAll="false" 
         target="clean"/>
