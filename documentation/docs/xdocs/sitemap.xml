@@ -410,10 +410,9 @@
   <external id="gump_cactus_integration_eclipse_13" url="http://cvs.apache.org/builds/gump/latest/jakarta-cactus-integration-eclipse-13.html"/>
   <external id="gump_jars" url="http://gump.covalent.net/jars/latest/"/>
   <external id="gump_results" url="http://cvs.apache.org/builds/gump/latest"/>
-  <external id="httpclient" url="http://jakarta.apache.org/commons/httpclient"/>
   <external id="httpclient_other" url="http://www.innovation.ch/java/HTTPClient/"/>
-  <external id="httpunit" url="http://sourceforge.net/projects/httpunit"/>
-  <external id="jakarta" url="http://jakarta.apache.org"/>
+  <external id="httpunit" url="http://httpunit.sourceforge.net/"/>
+  <external id="jakarta" url="http://jakarta.apache.org/"/>
   <external id="jakarta_roles" url="http://jakarta.apache.org/site/roles.html"/>
   <external id="japanese" url="http://www.ingrid.org/jajakarta/cactus/"/>
   <external id="jetty" url="http://mortbay.org/jetty/"/>  
@@ -421,9 +420,11 @@
   <external id="junit" url="http://junit.org"/>
   <external id="junitee" url="http://www.junitee.org/"/>
   <external id="junit_faq" url="http://junit.sourceforge.net/doc/faq/faq.htm"/>
+  <external id="log4j" url="http://jakarta.apache.org/log4j/"/>
   <external id="korean" url="http://jakarta.apache-korea.org/cactus/index.html"/>
   <external id="maven_cactus" url="http://maven.apache.org/reference/plugins/cactus"/>
   <external id="mockobjects" url="http://www.mockobjects.com"/>
+  <external id="nekohtml" url="http://www.apache.org/~andyc/neko/doc/html/"/>
   <external id="octo" url="http://www.octo.com"/>
   <external id="opensource" url="http://www.opensource.org/"/>
   <external id="regexp" url="http://jakarta.apache.org/regexp/"/>
@@ -435,6 +436,7 @@
   <external id="sun_coding_conventions" url="http://java.sun.com/docs/codeconv/html/CodeConvTOC.doc.html"/>
   <external id="sun_j2ee_downloads" url="http://java.sun.com/j2ee/download.html"/>
   <external id="sun_servlet_downloads" url="http://java.sun.com/products/servlet/download.html"/>
+  <external id="taglibs_standard" url="http://jakarta.apache.org/taglibs/doc/standard-doc/intro.html"/>
   <external id="velocity" url="http://jakarta.apache.org/velocity/"/>
   <external id="xalanj" url="http://xml.apache.org/xalan-j/"/>
 

@@ -269,7 +269,8 @@
         </li>
         <li>
           Uses Jakarta Commons
-          <link href="ext:httpclient">HttpClient</link> for HTTP connections.
+          <link href="ext:commons_httpclient">HttpClient</link> for HTTP
+          connections.
         </li>
         <li>
           Support for BASIC and Form-based authentication methods. You can test 
