@@ -13,6 +13,11 @@
 
     <section title="Current scope and status of Cactus">
 
+      <p>
+        Cactus has the ability to unit test the following kind of components
+        running in a Servlet/EJB container:
+      </p>
+
       <figure src="images/scope.jpg" alt="Scope and Status"/>
 
       <note>
@@ -47,7 +52,8 @@
         </li>
         <li>
           Cactus let you test and automate the deployment process to your
-          server (using prebuilt powerful custom Ant task),
+          server (using powerful Integration Modules with different build 
+          tools and IDEs),
         </li>
         <li>
           Cactus does not mandate any change to your classes to test, although
@@ -55,7 +61,7 @@
         </li>
         <li>
           Cactus provides a good middle ground in term of test granularity:
-          too fine-grained tests are hard to write (like mock objects tests
+          too fine-grained tests are hard to write (like Mock Objects tests
           that completely simulates the domain objects and focus exclusively
           on unit testing your code logic) and need complementary tests. Too
           coarse-grained tests (like functional tests) are not enough to
@@ -68,34 +74,46 @@
     </section>
 
     <section title="Detailed feature list">
-      <p><br/></p>
+      <p>
+        <img src="images/new.jpg" alt="New in Cactus 1.5"/><em> = 
+        New in Cactus 1.5</em>
+      </p>
       <ul>
         <li>
           Integrates seamlessly with the JUnit testing framework. Any tool
           that works with JUnit will work with Cactus because a Cactus test
-          is a JUnit test ! See
+          is a JUnit test! See the
           <link href="site:howto_testcase">TestCase Howto</link>
           tutorial for details.
         </li>
         <li>
           Provides a <code>ServletTestCase</code> class that your test case
-          must extends for unit testing Servlets or any java classes that
+          can extend for unit testing Servlets or any java classes that
           make use of Servlet API objects.
         </li>
         <li>
           Provides a <code>JspTestCase</code> class that your test case
-          must extends for unit testing Taglibs or any java classes that
-          make use of JSP API objects.
+          can extend for unit testing Taglibs or any java classes that
+          make use of JSP API objects. In addition, provides a
+          <code>TestJspTagLifecycle</code> extension to help test JSP Taglibs.
+          <img src="images/new.jpg" alt="New in Cactus 1.5"/>
         </li>
         <li>
           Provides a <code>FilterTestCase</code> class that your test case
-          must extends for unit testing Filters or any java classes that
+          can extend for unit testing Filters or any java classes that
           make use of Filter API objects.
         </li>
         <li>
+          Allows to run existing JUnit Test Case classes on the server side.
+          This is provided by special Cactus TestSuite classes that wrap
+          your existing Test Cases.
+          <img src="images/new.jpg" alt="New in Cactus 1.5"/>
+        </li>
+        <li>
           Ability to unit test EJBs (including local interfaces) by calling
-          them from a <code>ServletTestCase</code> class (see the
-          <link href="site:howto_ejb">EJB Howto</link>).
+          them from a <code>ServletTestCase</code>,
+          <code>JspTestCase</code> or <code>FilterTestCase</code> class (see 
+          the <link href="site:howto_ejb">EJB Howto</link>).
         </li>
         <li>
           Extends JUnit by defining two additional (and optional) methods
@@ -110,6 +128,10 @@
           <ul>
             <li>
               HTTP cookies,
+            </li>
+            <li>
+              Servlet Session Cookie,
+              <img src="images/new.jpg" alt="New in Cactus 1.5"/> 
             </li>
             <li>
               HTTP parameters (GET and POST),
@@ -146,13 +168,53 @@
           </ul>
         </li>
         <li>
-          Predefined Ant build scripts that demonstrate how to automate Cactus
-          unit tests (automatically starting your servlet engine, running the
-          tests and stopping your server). There are scripts provided for the
-          following Servlet engines (but it is easy to add new engines and some
-          Cactus users have already posted scripts on the
-          <link href="site:mailinglist">Cactus mailing list</link> for other
-          containers):
+          Handles <code>setUp()</code> and <code>tearDown()</code> methods
+          which work the same as for JUnit except that they are run on the
+          server side before and after calling each <code>testXXX()</code>
+          method
+        </li>
+        <li>
+          Extends JUnit by providing a global <code>begin()</code> and
+          <code>end()</code> which are run on the client side before and 
+          after each test. They are the equivalent of JUnit's 
+          <code>setUp()</code> and <code>tearDown()</code> which are run
+          on the Server side.
+          <img src="images/new.jpg" alt="New in Cactus 1.5"/>           
+        </li>
+        <li>
+          Provides several Integration Module for easily running Cactus
+          tests:
+          <ul>
+            <li>
+              <em>Ant Integration Module</em>: generic and directly usable 
+              scripts to run Cactus tests (start and stop containers 
+              automatically, package and deploy a Cactify webapp and run the 
+              tests).
+              <img src="images/new.jpg" alt="New in Cactus 1.5"/>           
+            </li>
+            <li>
+              <em>Eclipse Plugin</em>: An Eclipse Plugin that integrates
+              Cactus in the Eclipse IDE (start and stop containers 
+              automatically, package and deploy a Cactify webapp and run the 
+              tests).
+              <img src="images/new.jpg" alt="New in Cactus 1.5"/>           
+            </li>
+            <li>
+              <em>Browser Integration</em>: It is possible to run Cactus tests
+              from a Browser. Results can be displayed either in XML or in
+              HTML (either server-side XSLT or Browser XSLT for the Browsers 
+              which support it)
+              <img src="images/new.jpg" alt="New in Cactus 1.5"/>           
+            </li>
+            <li>
+              Several other integration provided by third parties
+              (Maven, etc).
+            </li>
+          </ul>
+        </li>
+        <li>
+          The Ant Integration Module and the Eclipse Plugin support the
+          following containers:
           <ul>
             <li>
               Tomcat 3.x (Servlet API 2.2)
@@ -161,45 +223,22 @@
               Tomcat 4.x (Servlet API 2.2 and 2.3)
             </li>
             <li>
-              Resin 1.2 (Servlet API 2.2)
-            </li>
-            <li>
-              Resin 1.3 (Servlet API 2.3)
-            </li>
-            <li>
               Resin 2.x (Servlet API 2.2 and 2.3)
             </li>
             <li>
-              WebLogic 5.1 (Servlet API 2.2)
+              WebLogic 6.x (Servlet API 2.2 and 2.3)
             </li>
             <li>
-              WebLogic 6.1 (Servlet API 2.2 and 2.3)
+              WebLogic 7.x (Servlet API 2.2 and 2.3)
             </li>
             <li>
-              WebLogic 7.0 (Servlet API 2.2 and 2.3)
-            </li>
-            <li>
-              Orion 1.4 (Servlet API 2.2 and 2.3)
-            </li>
-            <li>
-              Orion 1.5 (Servlet API 2.2 and 2.3)
-            </li>
-            <li>
-              Orion 1.6 (Servlet API 2.2 and 2.3)
-            </li>
-            <li>
-              Enhydra 3.1 (Servlet API 2.2)
+              Orion 1.x (Servlet API 2.2 and 2.3)
             </li>
             <li>
               JBoss/Jetty 3.x (Servlet API 2.3)
+              <img src="images/new.jpg" alt="New in Cactus 1.5"/>           
             </li>
           </ul>
-        </li>
-        <li>
-          Handles <code>setUp()</code> and <code>tearDown()</code> methods
-          which work the same as for JUnit except that they are run on the
-          server side before and after calling each <code>testXXX()</code>
-          method
         </li>
         <li>
           Tested with all versions of JUnit up to the current one in JUnit CVS.
@@ -242,6 +281,33 @@
           for example, when you want to test some code that is using the
           Servlet Security API at the same time as other code that should not
           be protected.
+        </li>
+        <li>
+          Provides a hook for executing initialization code once on the client
+          side through the use a <code>cactus.initializer</code> System 
+          property which points to your class implementing the
+          <code>org.apache.cactus.util.Initializable</code> interface.
+          <img src="images/new.jpg" alt="New in Cactus 1.5"/>           
+        </li>
+        <li>
+          Provides a Jetty Initializer which can be used to seamlessly and
+          automatically start the Jetty container before running the Cactus
+          tests.
+          <img src="images/new.jpg" alt="New in Cactus 1.5"/>           
+        </li>
+        <li>
+          Provide a sample application that demonstrates how to write Cactus
+          tests and how to use the Ant Integration Module.
+          <img src="images/new.jpg" alt="New in Cactus 1.5"/>           
+        </li>
+        <li>
+          Provide a sample application that demonstrates how to use the 
+          Jetty Initializer to run Cactus tests.
+          <img src="images/new.jpg" alt="New in Cactus 1.5"/>           
+        </li>
+        <li>
+          Supports internationalization.
+          <img src="images/new.jpg" alt="New in Cactus 1.5"/>           
         </li>
       </ul>
     </section>
