@@ -7,10 +7,12 @@
    class="org.apache.cactus.eclipse.runner.ui.CactusPlugin">
 
    <runtime>
-      <library name="cactussupport.jar">
+      <library name="cactussupport.jar">  
          <export name="*"/>
-      </library>
+         <packages prefixes="org.apache.cactus.eclipse.runner"/>
+      </library> 
    </runtime>
+
    <requires>
       <import plugin="org.apache.ant"/>
       <import plugin="org.apache.cactus.eclipse.webapp"/>
