@@ -77,6 +77,9 @@
         <li>
           <jump anchor="faq15">I have problems using StrutsTestCase...</jump>
         </li>
+        <li>
+          <jump anchor="faq16">Does Cactus support HTTPS?</jump>
+        </li>
       </ul>
     </section>
 
@@ -564,6 +567,19 @@ java.lang.NoSuchMethodError:
         <a href="ext:strutstestcase">StrutsTestCase</a> is a project separate 
         from Cactus. It has its own mailing list/forum. Please post your 
         questions there.
+      </p>
+    </section>
+
+    <anchor id="faq16"/>
+    <section title="Does Cactus support HTTPS?">
+      <p>
+        No, Cactus doesn't support HTTPS. The reason is that we don't think 
+        it's necessary. Whether you use HTTP or HTTPS should be transparent 
+        to the tested code. And you should run the tests in a test 
+        environment anyway, which doesn't necessarily need to be HTTPS just 
+        because the production environment is. Of course, if you have good 
+        arguments for HTTPS support and a patch, we might change our 
+        collective mind :-)
       </p>
     </section>
 
