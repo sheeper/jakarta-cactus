@@ -110,8 +110,8 @@ public class TestAbstractTestCase_InterceptorTestCase
             // Set the values expected by Http Unit. Note: only the test
             // cases that have an end method with an HttpUnit WebReponse
             // will use the HttpURLConnection.
-            connection.addGetHeaderFieldValue("HTTP/1.1 200 OK");
-            connection.addGetInputStream(new ByteArrayInputStream(
+            connection.setExpectedGetHeaderField("HTTP/1.1 200 OK");
+            connection.setExpectedGetInputStream(new ByteArrayInputStream(
                 "".getBytes()));
 
             // Create a WebResponse object and call the end method

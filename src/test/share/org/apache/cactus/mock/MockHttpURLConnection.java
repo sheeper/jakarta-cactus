@@ -68,42 +68,40 @@ public class MockHttpURLConnection extends HttpURLConnection
 {
     /**
      * Store the header fields that the <code>getHeaderField()</code> will
-     * return (for each call, the last entry of the vector will be returned
-     * and removed from the vector).
+     * return.
      */
-    private Vector getHeaderFieldValues = new Vector();
+    private String getHeaderFieldValue;
 
     /**
-     * Store the input streams that the <code>getHeaderField()</code> will
-     * return (for each call, the last entry of the vector will be returned
-     * and removed from the vector).
+     * Store the input streams that the <code>getInputStream()</code> will
+     * return.
      */
-    private Vector getInputStreamValues = new Vector();
+    private InputStream getInputStreamValue;
 
     // -----------------------------------------------------------------------
     // Methods added on top of those found in HttpURLConnection
     // -----------------------------------------------------------------------
 
     /**
-     * Add a new header field value to the vector of values that will be
-     * returned by <code>getHeaderField()</code>.
+     * Sets the header field value that will be returned by
+     * <code>getHeaderField()</code>.
      *
-     * @param theValue the header file value to add
+     * @param theValue the header field value
      */
-    public void addGetHeaderFieldValue(String theValue)
+    public void setExpectedGetHeaderField(String theValue)
     {
-        this.getHeaderFieldValues.addElement(theValue);
+        this.getHeaderFieldValue = theValue;
     }
 
     /**
-     * Add a new input stream to the vector of values that will be
-     * returned by <code>getInputStream()</code>.
+     * Sets the input stream value that will be returned by
+     * <code>getInputStream()</code>.
      *
-     * @param theValue the input stream to add
+     * @param theValue the input stream value
      */
-    public void addGetInputStream(InputStream theValue)
+    public void setExpectedGetInputStream(InputStream theValue)
     {
-        this.getInputStreamValues.addElement(theValue);
+        this.getInputStreamValue = theValue;
     }
 
     // -----------------------------------------------------------------------
@@ -123,15 +121,11 @@ public class MockHttpURLConnection extends HttpURLConnection
      */
     public String getHeaderField(int fieldNumber)
     {
-        if (this.getHeaderFieldValues.isEmpty()) {
-            throw new RuntimeException("Must call addGetHeaderFieldValue() " +
+        if (this.getHeaderFieldValue == null) {
+            throw new RuntimeException("Must call setExpectedGetHeaderField() " +
                 "first !");
         }
-        String result = (String)this.getHeaderFieldValues.elementAt(
-            this.getHeaderFieldValues.size() - 1);
-        this.getHeaderFieldValues.removeElementAt(
-            this.getHeaderFieldValues.size() - 1);
-        return result;
+        return this.getHeaderFieldValue;
     }
 
     /**
@@ -139,15 +133,11 @@ public class MockHttpURLConnection extends HttpURLConnection
      */
     public InputStream getInputStream()
     {
-        if (this.getInputStreamValues.isEmpty()) {
-            throw new RuntimeException("Must call addGetInputStream() " +
+        if (this.getInputStreamValue == null) {
+            throw new RuntimeException("Must call setExpectedGetInputStream() " +
                 "first !");
         }
-        InputStream result = (InputStream)this.getInputStreamValues.elementAt(
-            this.getInputStreamValues.size() - 1);
-        this.getInputStreamValues.removeElementAt(
-            this.getInputStreamValues.size() - 1);
-        return result;
+        return this.getInputStreamValue;
     }
 
     // -----------------------------------------------------------------------
