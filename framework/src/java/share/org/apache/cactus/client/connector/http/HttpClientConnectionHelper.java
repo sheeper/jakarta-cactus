@@ -73,6 +73,7 @@ import org.apache.cactus.util.UrlUtil;
 import org.apache.commons.httpclient.HostConfiguration;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpState;
+import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
@@ -92,7 +93,7 @@ public class HttpClientConnectionHelper implements ConnectionHelper
      * The <code>HttpMethod</code> used to connect to the HTTP server. It is
      * either a <code>GetMethod</code> or a <code>PostMethod</code>.
      */
-    private GetMethod method;
+    private HttpMethod method;
 
     /**
      * The URL that will be used for the HTTP connection.
