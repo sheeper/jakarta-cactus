@@ -178,8 +178,8 @@ public abstract class AbstractTestCase extends TestCase
      *
      * @param theRequest the <code>WebRequest</code> object to
      *                   pass to the begin method.
-     * @exception Throwable any error that occurred when calling the begin method
-     *         for the current test case.
+     * @exception Throwable any error that occurred when calling the begin
+     *            method for the current test case.
      */
     protected void callBeginMethod(WebRequest theRequest)
         throws Throwable
