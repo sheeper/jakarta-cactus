@@ -50,9 +50,9 @@
        </ul>
        <p>
          Cactus provides a custom Ant task (called the
-         <code>runservertests</code> task) that helps perform all this tasks.
+         <code>runservertests</code> task) that helps perform all these tasks.
          The rest of this tutorial will explain how to write an Ant build
-         file (<code>build.xml</code>) that performs all these tasks and use
+         file (<code>build.xml</code>) that performs these tasks and use
          the Cactus custom Ant task.
        </p>
         <p>
@@ -68,7 +68,7 @@
      <s1 title="The 'runservertests' task">
 
         <p>
-          This task will do perform several actions, in the following order :
+          This task will perform several actions, in the following order :
         </p>
         <ul>
           <li>
@@ -88,18 +88,18 @@
             It will then call the Ant target defined by the
             <code>testTarget</code> attribute (see the example below). This
             target is
-            supposed to start the unit tests. This is usually done by using
-            the Ant <code>junit</code> task,
+            supposed to start the unit tests. This is usually implemented
+            by using the Ant <code>junit</code> task,
           </li>
           <li>
             Once the tests are finished (i.e. when the
-            <code>testTarget</code>) has finished executing, it will then
+            <code>testTarget</code> has finished executing), it will then
             call the Ant target defined by the <code>stopTarget</code>
             attribute (see the example below). This target is supposed to stop
             the container. The <code>runservertests</code>
             task will then constantly poll the server by calling the test URL
             until the server stops answering, at which point it will consider
-            the server to be stopped. Noye that the <code>stopTarget</code>
+            the server to be stopped. Note that the <code>stopTarget</code>
             will only get called if the server was not already started when
             the <code>runservertests</code> task began executing. This is to
             allow keeping running servers for intensive debugging phases.
@@ -108,8 +108,8 @@
         <p>
           The <code>runservertests</code> task is generic in the sense that
           you are free to implement the <code>startTarget</code>,
-          <code>testTarget</code> and <code>stopTarget</code> as you wish.
-          Our custom task will simply call them at the right time.
+          <code>testTarget</code> and <code>stopTarget</code> as you wish and
+          they will get called at the right time.
         </p>
         <p>
           Example :
@@ -135,7 +135,7 @@
 
        <p>
          Before you can execute the <code>runservertests</code> task, you
-         need to define it as it is not a standard task provided by Ant. A
+         need to define it for Ant as it is not a standard Ant task. A
          good place to do this is in the <code>init</code> target.
        </p>
        <p>
@@ -162,7 +162,7 @@
 
        <p>
          where <code>${cactus.ant.jar}</code> is an Ant property that points
-         to the <code>commons-cactus-ant.jarr</code> file found in the
+         to the <code>commons-cactus-ant.jar</code> file found in the
          <code>lib/</code> directory where you unpacked the Cactus
          distribution.
        </p>
@@ -194,9 +194,9 @@
          <li>
            You install it somewhere on your computer (or on another machine)
            and you deploy your test WAR (see Step 1 below) by copying it
-           to a subdirectory within it. Your WAR will then be placed
-           alongside with others and you will used the configuration files
-           common to all webapps,
+           to the right subdirectory within it. Your WAR will then be placed
+           alongside with others and your webapp will use the configuration
+           files common to all webapps,
          </li>
          <li>
            Or, you can create your own set of container configuration files,
@@ -218,8 +218,8 @@
            We do not "pollute" the installed container by dropping files
            within it and we do not need to modify global configuration
            files that may prevent other applications we are developing
-           from not running someday (because we have made an incompatible
-           change),
+           from not running someday (because we would have made an
+           incompatible change),
          </li>
          <li>
            We completely control our needed container configuration.
@@ -249,16 +249,17 @@
          </li>
          <li>
            You want to be able to deploy in production several webapps that
-           on the same server and thus they must coexist and share common
+           share the same server and thus must coexist and share common
            configuration files.
          </li>
        </ul>
 
        <p>
          If you choose solution 1, then you can simply skip this step. The
-         only actions to perform will be to copy the test WAR file to the
-         correct location and, for some containers, edit configuration files
-         to tell the container about your webapp.
+         only actions to perform will be, for some containers, to edit their
+         configuration files to tell them about your webapp (some will
+         automatically pick you test WAR if you drop it in the correct
+         directory).
        </p>
 
        <p>
@@ -296,15 +297,15 @@
 ]]></source>
 
        <note>
-         The <code>${out.server.dir}</code> Ant property need to be
-         defined prior to calling this target and need to be set to the
+         The <code>${out.server.dir}</code> Ant property needs to be
+         defined prior to calling this target and needs to be set to the
          location where the tests will be deployed. It should be set to any
          subdirectory of your output directory. This property will also be
          used later on in step 1 to copy the test WAR file.
        </note>
 
        <note>
-         The <code>${conf.server.dir}</code> Ant property also need to be
+         The <code>${conf.server.dir}</code> Ant property also needs to be
          defined prior to calling this target and represent the location of
          server configuration files (in the current example of Tomcat 4.0,
          these are the global <code>web.xml</code> and
