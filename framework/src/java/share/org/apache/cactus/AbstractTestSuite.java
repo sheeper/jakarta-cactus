@@ -91,14 +91,14 @@ public abstract class AbstractTestSuite implements Test
     private String name;
     
     /**
-     * @see TestSuite#TestSuite()
+     * @see junit.framework.TestSuite#TestSuite()
      */
     public AbstractTestSuite()
     {
     }
 
     /**
-     * @see TestSuite#TestSuite(Class)
+     * @see junit.framework.TestSuite#TestSuite(Class)
      */
     public AbstractTestSuite(final Class theClass)
     {
@@ -141,7 +141,7 @@ public abstract class AbstractTestSuite implements Test
     }
 
     /**
-     * @see TestSuite#TestSuite(String)
+     * @see junit.framework.TestSuite#TestSuite(String)
      */
     public AbstractTestSuite(String theName)
     {
@@ -321,7 +321,7 @@ public abstract class AbstractTestSuite implements Test
     }
 
     /**
-     * @see junit.framework.TestSuite#setName()
+     * @see junit.framework.TestSuite#setName(String)
      */
     public void setName(String theName)
     {
