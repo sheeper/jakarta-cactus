@@ -151,46 +151,6 @@
    
     <!--
        ========================================================================
-         Framework-cactifify a plain war (pointed to by the cactus.war property).
-         Difference with cactus.war : does not include Cactus test classes.
-       ========================================================================
-    -->
-    <target name="cactus.war.framework" depends="cactus.compile" 
-        description="Cactify the war">
-                
-        <unwar src="${cactus.war}" 
-            dest="${cactus.target.dir}/${cactus.context}"/>
-
-        <!-- TODO: Perform a web.xml merge -->
-
-        <!-- Copy the Cactus web.xml -->
-        <copy todir="${cactus.target.dir}/${cactus.context}/WEB-INF">
-            <fileset dir="${cactus.conf.dir}">
-                <include name="web.xml"/>
-            </fileset>
-        </copy>
-                
-        <!-- Copy the Cactus jars -->
-        <copy todir="${cactus.target.dir}/${cactus.context}/WEB-INF/lib">
-            <fileset dir="${cactus.lib.server.dir}">
-                <include name="*.jar"/>
-            </fileset>
-            <fileset dir="${cactus.lib.common.dir}">
-                <include name="*.jar"/>
-            </fileset>
-        </copy>
-
-        <!-- Copy the JSP Redirector -->
-        <copy todir="${cactus.target.dir}/${cactus.context}">
-            <fileset dir="${cactus.conf.dir}">
-                <include name="jspRedirector.jsp"/>
-            </fileset>          
-        </copy>
-                    
-    </target>
-       
-    <!--
-       ========================================================================
          Trigger the Cactus test by running a JUnit Test Runner
        ========================================================================
     -->
