@@ -102,9 +102,9 @@ public class CactusPreferences
     public static final String TEMP_DIR = "temp_Dir";
 
     /**
-     * Home directory of Tomcat 4.0.
+     * Home directory of Tomcat 4.x.
      */
-    public static final String TOMCAT40_DIR = "tomcat.40";
+    public static final String TOMCAT4X_DIR = "tomcat4x";
 
     /**
      * Home directory of Resin 2.0.
@@ -197,14 +197,14 @@ public class CactusPreferences
         return result;
     }
     /**
-     * Returns the TOMCAT40_DIR.
+     * Returns the TOMCAT4X_DIR.
      * @return String
      */
-    public static String getTomcat40Dir()
+    public static String getTomcat4xDir()
     {
         IPreferenceStore store = CactusPlugin.getDefault().getPreferenceStore();
-        String result = store.getString(TOMCAT40_DIR);
-        CactusPlugin.log("Cactus preference : Tomcat40Dir = [" + result + "]");
+        String result = store.getString(TOMCAT4X_DIR);
+        CactusPlugin.log("Cactus preference : Tomcat4xDir = [" + result + "]");
         return result;
     }
 
@@ -240,10 +240,10 @@ public class CactusPreferences
     public static ContainerHome[] getContainerHomes()
     {
         Vector containerHomes = new Vector();
-        if (!getTomcat40Dir().equals(""))
+        if (!getTomcat4xDir().equals(""))
         {
             containerHomes.addElement(
-                new ContainerHome(TOMCAT40_DIR, getTomcat40Dir()));
+                new ContainerHome(TOMCAT4X_DIR, getTomcat4xDir()));
         }
         if (!getResin20Dir().equals(""))
         {

@@ -102,9 +102,9 @@ public class ContainersPreferencePage
     {
         addField(
             new DirectoryFieldEditor(
-                CactusPreferences.TOMCAT40_DIR,
+                CactusPreferences.TOMCAT4X_DIR,
                 CactusMessages.getString(
-                    "ContainersPreferencePage.label.tomcat40"),
+                    "ContainersPreferencePage.label.tomcat4x"),
                 getFieldEditorParent()));
         addField(
             new DirectoryFieldEditor(
