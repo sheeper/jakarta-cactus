@@ -210,6 +210,7 @@ experimental and needs some work
               automation with minimal setup. It's probably currently the easiest
               way to run Cactus tests (provided you have Maven installed on
               your machine).
+              <img src="images/new.jpg" alt="New in Cactus 1.6"/>
             </li>
             <li>
               Several other integration provided by third parties.
@@ -228,14 +229,14 @@ experimental and needs some work
             </li>
             <li>
               Tomcat 5.x
-              <img src="images/new.jpg" alt="New in Cactus 1.5"/>
+              <img src="images/new.jpg" alt="New in Cactus 1.6"/>
             </li>
             <li>
               Resin 2.x
             </li>
             <li>
               Resin 3.x (above version 3.0.5)
-              <img src="images/new.jpg" alt="New in Cactus 1.5"/>
+              <img src="images/new.jpg" alt="New in Cactus 1.6"/>
             </li>
             <li>
               WebLogic 7.x
