@@ -827,12 +827,12 @@ public class TestServletTestCase2 extends ServletTestCase
     public void beginSeveralParameters(WebRequest theRequest)
     {
         theRequest.addParameter("PostParameter1", "EMPLOYEE0145", 
-            theRequest.POST_METHOD);
-        theRequest.addParameter("PostParameter2", "W", theRequest.GET_METHOD);
+            WebRequest.POST_METHOD);
+        theRequest.addParameter("PostParameter2", "W", WebRequest.GET_METHOD);
         theRequest.addParameter("PostParameter3", "07/08/2002", 
-            theRequest.POST_METHOD);
+            WebRequest.POST_METHOD);
         theRequest.addParameter("PostParameter4", "/tas/ViewSchedule.esp", 
-            theRequest.GET_METHOD);
+            WebRequest.GET_METHOD);
     }
 
     /**
