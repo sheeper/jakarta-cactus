@@ -61,6 +61,15 @@
 
     <category title="Build Process">
       <action>
+        Fix the nightly Gump build so that the changes page get generated
+        with the CVS changelog information. ATM, it's always empty which
+        negates this nice feature...
+      </action>
+      <action>
+        Prevent the sample jetty project from building if the J2EE API
+        is 1.2.
+      </action>
+      <action>
         Add a Gump definition for building the Eclipse Site project
         and only released an installed Eclipse update web site (no
         zips). Same as what is on 
