@@ -605,7 +605,7 @@
   -->
   <project name="jakarta-cactus-release-12">
 
-    <ant buildfile="build.xml" target="release.bin">
+    <ant buildfile="build.xml" target="release.j2ee12">
       <property name="project.version" value="@@DATE@@"/>
       <property name="release.dir" value="release"/>
       <property name="j2ee.dependant" value="true"/>
@@ -638,7 +638,7 @@
   -->
   <project name="jakarta-cactus-release-13">
 
-    <ant buildfile="build.xml" target="release.bin">
+    <ant buildfile="build.xml" target="release.j2ee13">
       <property name="project.version" value="@@DATE@@"/>
       <property name="release.dir" value="release"/>
       <property name="j2ee.dependant" value="true"/>
