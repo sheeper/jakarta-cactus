@@ -216,7 +216,7 @@
     How to get started with the sample application provided by Cactus.
   </resource>
 
-  <resource id="howto_security" target="writing/howto_security.html">
+  <resource id="howto_security" target="writing/howto_security.html"/>
   
   <resource id="howto_testcase" target="writing/howto_testcase.html"
       name="Writing Cactus Tests">
@@ -288,6 +288,11 @@
       name="Jetty Integration">
     Explains how to use the special integration Cactus provides for the Jetty
     servlet container.
+  </resource>
+
+  <resource id="integration_manual" target="integration/manual/index.html"
+      name="Manual Integration">
+    Explains how to manually configure Cactus.
   </resource>
 
   <resource id="javadoc" target="javadoc.html"
