@@ -233,7 +233,7 @@
          plugin structure.
        ========================================================================
     -->
-	<target name="dist" depends="jar"
+	<target name="dist" depends="checkstyle,jar"
 	  description="Generate the distributable files">
 	  
 		<mkdir dir="${dist.bin.integration.dir}"/>
@@ -265,6 +265,34 @@
                 <include name="LICENSE.*"/>
             </fileset>
         </copy>
+
+    </target>
+
+    <!--
+       ========================================================================
+         Perform a code audit using CheckStyle. Only performs the audit if
+         the checkstyle jar is in the Ant classpasth.
+       ========================================================================
+    -->
+    <target name="checkstyle" depends="init,init.checkstyle" 
+        if="checkstyle.available"
+        description="Perform a code audit using Checkstyle">
+
+        <mkdir dir="${target.dir}"/>
+
+        <checkstyle config="./checkstyle.xml" failOnViolation="true">
+
+            <fileset dir="${src.java.dir}">
+                <include name="**/*.java"/>
+            </fileset>
+
+            <formatter type="plain"/>
+            <formatter type="xml"
+                toFile="${target.dir}/checkstyle_results.xml"/>
+
+            <property key="checkstyle.header.file" file="./LICENSE.cactus"/>
+
+        </checkstyle>
 
     </target>
 
