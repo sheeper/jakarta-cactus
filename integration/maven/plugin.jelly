@@ -741,12 +741,46 @@
   <goal name="cactus:report"
     description="Generate a report from the test results">
 
-    <doc:jsl
-      input="${cactus.reports.dir}/TESTS-TestSuites-Cactus.xml"
-      output="cactus-report.xml"
-      stylesheet="${plugin.resources}/cactus.jsl"
-      outputMode="xml"
-      prettyPrint="true"/>
+    <j:if test="${context.getVariable('cactus.execute.during.report') == 'true'}">
+      <attainGoal name="cactus:test"/>
+    </j:if>
+ 
+    <!-- Before running the report, check the required test suite xml file has
+         been generated -->
+    <util:file var="inputAsFile" 
+        name="${cactus.reports.dir}/TESTS-TestSuites-Cactus.xml}"/>
+    <j:choose>
+      <j:when test="${inputAsFile.exists()}">
+
+        <doc:jsl
+            input="${cactus.reports.dir}/TESTS-TestSuites-Cactus.xml"
+            output="cactus-report.xml"
+            stylesheet="${plugin.resources}/cactus.jsl"
+            outputMode="xml"
+            prettyPrint="true"/>
+
+      </j:when>
+      <j:otherwise>
+        <ant:mkdir dir="${maven.gen.docs}"/>
+        <j:file name="${maven.gen.docs}/cactus-report.xml" prettyPrint="true" 
+            xmlns="cactus">
+          <document>
+            <properties>
+              <title>Cactus Test Results</title>
+            </properties>
+            <body>
+              <section name="Cactus test results">
+                <p>
+                  No Cactus results to report. Make sure the Cactus tests are
+                  run before the report is generated.
+                </p>
+              </section>
+            </body>
+          </document>
+        </j:file>
+        <echo>You need to run Cactus tests before generating the report.</echo>
+      </j:otherwise>
+    </j:choose>     
 
   </goal>
   
