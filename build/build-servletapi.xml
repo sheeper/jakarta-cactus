@@ -22,23 +22,14 @@
                               postfixed.
 
     Additionally and depending on the servlet engines whith which you wish to
-    run your tests, you'll need to set the following properties :
+    run your tests, you'll need to set the following kind of properties :
 
-        resin.home.12         [OPTIONAL] Resin 1.2 home directory (required for
-                              the tests_resin_12 target only)
+        <server name>.home.<version>
 
-        resin.home.13         [OPTIONAL] Resin 1.3 home directory (required for
-                              the tests_resin_13 target only)
+    Example: For Resin 2.0, you'll need to have a "resin.home.20" property
+    defined and pointing to the location where Resin 2.0 is installed.
 
-        tomcat.home.32        [OPTIONAL] Tomcat 3.2 home directory (required
-                              for the tests_tomcat_32 target only)
-
-        tomcat.home.40        [OPTIONAL] Tomcat 4.0 home directory (required
-                              for the tests_tomcat_40 target only)
-
-        weblogic.home.51      [OPTIONAL] WebLogic 5.1 home directory (required
-                              for the tests_weblogic_51 target only)
-
+    Note:
     This script must not be called directly. It must be called by the build.xml
     script in the same directory. It will inherit numerous properties from that
     build file.
@@ -480,9 +471,8 @@
         <mkdir dir="${out.sample.web.dir}"/>
 
         <!-- Copy build files -->
-
         <copy todir="${out.sample.build.dir}" filtering="on">
-            <fileset dir="${sample.build.dir}" excludes="servlet22,servlet23"/>
+            <fileset dir="${sample.build.dir}/share"/>
             <fileset dir="${sample.build.dir}/servlet${servlet.api}"/>
         </copy>
 
@@ -650,12 +640,20 @@
     <target name="tests-functional23-tomcat40-else" unless="tomcat.home.40">
         <property name="tomcat.flag.40" value=""/>
     </target>
+    <target name="tests-functional23-orion14-if" if="orion.home.14">
+        <property name="orion.flag.14" value="-Dorion.home.14=${orion.home.14}"/>
+    </target>
+    <target name="tests-functional23-orion14-else" unless="orion.home.14">
+        <property name="orion.flag.14" value=""/>
+    </target>
 
     <target name="tests-functional23-checks"
         depends="tests-functional23-resin13-if,
                  tests-functional23-resin13-else,
-                 tests-functional22-resin20-if,
-                 tests-functional22-resin20-else,
+                 tests-functional23-resin20-if,
+                 tests-functional23-resin20-else,
+                 tests-functional23-orion14-if,
+                 tests-functional23-orion14-else,
                  tests-functional23-tomcat40-if,
                  tests-functional23-tomcat40-else">
     </target>
@@ -670,6 +668,7 @@
 
             <arg value="${resin.flag.13}"/>
             <arg value="${resin.flag.20}"/>
+            <arg value="${orion.flag.14}"/>
             <arg value="${tomcat.flag.40}"/>
             <arg value="tests_all"/>
 

@@ -34,22 +34,12 @@
                               Default is <root>/dist
              
     Additionally and depending on the servlet engines whith which you wish to
-    run your tests, you'll need to set the following properties :
+    run your tests, you'll need to set the following kind of properties :
 
-        resin.home.12         [OPTIONAL] Resin 1.2 home directory (required for
-                              the tests_resin_12 target only)
+        <server name>.home.<version>
 
-        resin.home.13         [OPTIONAL] Resin 1.3 home directory (required for
-                              the tests_resin_13 target only)
-
-        tomcat.home.32        [OPTIONAL] Tomcat 3.2 home directory (required
-                              for the tests_tomcat_32 target only)
-
-        tomcat.home.40        [OPTIONAL] Tomcat 4.0 home directory (required
-                              for the tests_tomcat_40 target only)
-
-        weblogic.home.51      [OPTIONAL] WebLogic 5.1 home directory (required
-                              for the tests_weblogic_51 target only)
+    Example: For Resin 2.0, you'll need to have a "resin.home.20" property
+    defined and pointing to the location where Resin 2.0 is installed.
 
     This script should be started with the following command line :
 
