@@ -733,11 +733,7 @@ public class WebXml
      */
     public final void addElement(WebXmlTag theTag, Element theElement)
     {
-        if (!theTag.getTagName().equals(theElement.getNodeName()))
-        {
-            throw new IllegalArgumentException("Not a '" + theTag
-                + "' element");
-        }
+        checkElement(theElement, theTag);
         if (!theTag.isMultipleAllowed() && getElements(theTag).hasNext())
         {
             throw new IllegalStateException("The tag '" + theTag
