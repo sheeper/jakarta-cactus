@@ -67,7 +67,7 @@ import org.apache.cactus.eclipse.runner.containers.IContainerManager;
 import org.apache.cactus.eclipse.runner.containers.IContainerProvider;
 import org.apache.cactus.eclipse.runner.ui.CactusMessages;
 import org.apache.cactus.eclipse.runner.ui.CactusPlugin;
-import org.apache.cactus.eclipse.webapp.WarBuilder;
+import org.apache.cactus.eclipse.webapp.internal.WarBuilder;
 import org.eclipse.core.boot.BootLoader;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
