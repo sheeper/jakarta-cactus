@@ -320,7 +320,7 @@
             <arg line="${test.args.list}"/>
             <arg line="-buildfile ${target.sample.dir}/build.xml"/>
             <arg value="test"/>
-                 
+
             <classpath>
                 <pathelement path="${java.class.path}"/>
             </classpath>
@@ -356,7 +356,18 @@
          Generate the release
        ========================================================================
     -->
-    <target name="release" depends="clean,dist"
+    <target name="release.common" depends="dist">
+
+        <mkdir dir="${release.dir}"/>
+
+        <zip destfile="${release.dir}/${main.release.name}.zip">
+            <zipfileset dir="${dist.bin.dir}/${project.name.file}" 
+                prefix="${main.release.name}"/>
+        </zip>
+        
+    </target>
+
+    <target name="release" depends="clean,release.common"
         description="Generate the release files">
 
         <mkdir dir="${release.dir}"/>
@@ -366,6 +377,13 @@
                 prefix="${main.release.name}"/>
         </zip>
         
+    </target>
+
+    <!-- Generate the release (for Gump). Does not clean the directories
+         because some class paths that are created by the build need to be
+         added to the Ant classpath before the build starts (because of the
+         use of build.sysclasspath=only by Gump -->
+    <target name="release.gump" depends="release.common">
     </target>
 
 </project>

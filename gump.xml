@@ -296,7 +296,7 @@
     <mkdir dir="samples/servlet/target-12/sample/target/classes/cactus"/>
     <mkdir dir="samples/servlet/target-12/sample/target/conf/client"/>
 
-    <ant buildfile="samples/servlet/build.xml" target="release">
+    <ant buildfile="samples/servlet/build.xml" target="release.gump">
 
       <property name="project.version" value="@@DATE@@"/>
 
@@ -354,7 +354,7 @@
     <mkdir dir="samples/servlet/target-13/sample/target/classes/cactus"/>
     <mkdir dir="samples/servlet/target-13/sample/target/conf/client"/>
 
-    <ant buildfile="samples/servlet/build.xml" target="release">
+    <ant buildfile="samples/servlet/build.xml" target="release.gump">
 
       <property name="project.version" value="@@DATE@@"/>
 
