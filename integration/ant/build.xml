@@ -5,7 +5,7 @@
 
 <!--
   =============================================================================
-    Build file for the Cactus Ant Petal project.
+    Build file for the Cactus Ant Integration project.
 
     See build.properties.sample for mandatory and optional Ant properties that
     need to be set prior to calling this build script.
@@ -21,17 +21,17 @@
           relative paths.
   =============================================================================
 -->
-<project name="Cactus Ant Petal" default="dist" basedir="../..">
+<project name="Cactus Ant Integration" default="dist" basedir="../..">
 
     <!-- Base directory for all file related operations -->
-    <property name="base.dir" value="petals/ant"/>
+    <property name="base.dir" value="integration/ant"/>
 
     <!-- Include properties and targets common to the different subprojects -->
     &common;
 
     <!-- Global project properties -->
-    <property name="project.name.text" value="Cactus Ant Petal"/>
-    <property name="project.name.file" value="cactus-petal-ant"/>
+    <property name="project.name.text" value="Cactus Ant Integration"/>
+    <property name="project.name.file" value="cactus-integration-ant"/>
 
     <!--
        ========================================================================
@@ -54,19 +54,19 @@
 	    <property name="target.doc.dir" value="${target.dir}/doc"/>
 	    <property name="target.doc.api.dir" value="${target.doc.dir}/api"/>
 
-        <property name="target.petal.dir" value="${target.dir}/petal"/>
-        <property name="target.petal.lib.dir" 
-            value="${target.petal.dir}/lib"/>
-	    <property name="target.petal.lib.client.dir" 
-	        value="${target.petal.lib.dir}/client"/>
-	    <property name="target.petal.lib.server.dir"
-	        value="${target.petal.lib.dir}/server"/>
-	    <property name="target.petal.lib.common.dir"
-	        value="${target.petal.lib.dir}/common"/>
-	    <property name="target.petal.script.dir" 
-	        value="${target.petal.dir}/scripts"/>
-	    <property name="target.petal.conf.dir" 
-	        value="${target.petal.dir}/confs"/>
+        <property name="target.integration.dir" value="${target.dir}/integration"/>
+        <property name="target.integration.lib.dir" 
+            value="${target.integration.dir}/lib"/>
+	    <property name="target.integration.lib.client.dir" 
+	        value="${target.integration.lib.dir}/client"/>
+	    <property name="target.integration.lib.server.dir"
+	        value="${target.integration.lib.dir}/server"/>
+	    <property name="target.integration.lib.common.dir"
+	        value="${target.integration.lib.dir}/common"/>
+	    <property name="target.integration.script.dir" 
+	        value="${target.integration.dir}/scripts"/>
+	    <property name="target.integration.conf.dir" 
+	        value="${target.integration.dir}/confs"/>
 
     </target>
 
@@ -125,12 +125,12 @@
          Create the runtime jar file
        ========================================================================
     -->
-    <target name="jar" depends="compile" description="Generate the petal jar">
+    <target name="jar" depends="compile" description="Generate the integration jar">
 
-        <jar jarfile="${target.dir}/${cactus.antpetal.jar.name}.jar">
+        <jar jarfile="${target.dir}/${cactus.antintegration.jar.name}.jar">
 
             <manifest>
-                <section name="org/apache/cactus/petal/ant/">
+                <section name="org/apache/cactus/integration/ant/">
                     <attribute name="Specification-Title"
                         value="${project.name.text}"/>
                     <attribute name="Specification-Version"
@@ -176,7 +176,7 @@
 
         <javadoc
             sourcepath="${src.java.dir}"
-            packagenames="org.apache.cactus.petal.ant.*"
+            packagenames="org.apache.cactus.integration.ant.*"
             destdir="${target.doc.api.dir}"
             author="true"
             public="true"
@@ -198,40 +198,40 @@
     -->
     <target name="dist.prepare" depends="jar,doc,checkstyle">
 
-        <mkdir dir="${target.petal.dir}"/>
-        <mkdir dir="${target.petal.lib.client.dir}"/>
-        <mkdir dir="${target.petal.lib.server.dir}"/>
-        <mkdir dir="${target.petal.lib.common.dir}"/>
-        <mkdir dir="${target.petal.script.dir}"/>
-        <mkdir dir="${target.petal.conf.dir}"/>
+        <mkdir dir="${target.integration.dir}"/>
+        <mkdir dir="${target.integration.lib.client.dir}"/>
+        <mkdir dir="${target.integration.lib.server.dir}"/>
+        <mkdir dir="${target.integration.lib.common.dir}"/>
+        <mkdir dir="${target.integration.script.dir}"/>
+        <mkdir dir="${target.integration.conf.dir}"/>
 
 		<!-- Gather all server side Cactus jars -->
         <!-- (None at the moment) -->
         
 		<!-- Gather all client side Cactus jars -->
-        <copy tofile="${target.petal.lib.client.dir}/${cactus.antpetal.jar.name}-${project.version}.jar"
-            file="${target.dir}/${cactus.antpetal.jar.name}.jar"/>
+        <copy tofile="${target.integration.lib.client.dir}/${cactus.antintegration.jar.name}-${project.version}.jar"
+            file="${target.dir}/${cactus.antintegration.jar.name}.jar"/>
 
         <!-- Note: ATM we copy the servlet jar (and not the J2EE one). The 
              reasons are that ATM we only need the servlet API and that the
              J2EE jar is not redistributable -->
-        <copy todir="${target.petal.lib.client.dir}" file="${servlet.jar}"/>
+        <copy todir="${target.integration.lib.client.dir}" file="${servlet.jar}"/>
 
-        <copy todir="${target.petal.lib.client.dir}" file="${commons.httpclient.jar}"/>
+        <copy todir="${target.integration.lib.client.dir}" file="${commons.httpclient.jar}"/>
 
 		<!-- Gather all shared (client and server) Cactus jars -->
-        <copy tofile="${target.petal.lib.common.dir}/${cactus.framework.jar.name}-${project.version}.jar"
+        <copy tofile="${target.integration.lib.common.dir}/${cactus.framework.jar.name}-${project.version}.jar"
         	file="${cactus.framework.jar}"/>
-        <copy todir="${target.petal.lib.common.dir}" file="${commons.logging.jar}"/>
-        <copy todir="${target.petal.lib.common.dir}" file="${log4j.jar}"/>
-        <copy todir="${target.petal.lib.common.dir}" file="${aspectjrt.jar}"/>
-        <copy todir="${target.petal.lib.common.dir}" file="${junit.jar}"/>
-        <copy todir="${target.petal.lib.common.dir}" file="${httpunit.jar}"/>
+        <copy todir="${target.integration.lib.common.dir}" file="${commons.logging.jar}"/>
+        <copy todir="${target.integration.lib.common.dir}" file="${log4j.jar}"/>
+        <copy todir="${target.integration.lib.common.dir}" file="${aspectjrt.jar}"/>
+        <copy todir="${target.integration.lib.common.dir}" file="${junit.jar}"/>
+        <copy todir="${target.integration.lib.common.dir}" file="${httpunit.jar}"/>
 
 		<!-- Copy the scripts for the current J2EE API -->
 
-        <filter token="cactus.antpetal.jar.name" 
-        	value="${cactus.antpetal.jar.name}-${project.version}.jar"/>
+        <filter token="cactus.antintegration.jar.name" 
+        	value="${cactus.antintegration.jar.name}-${project.version}.jar"/>
         <filter token="cactus.framework.jar.name" 
         	value="${cactus.framework.jar.name}-${project.version}.jar"/>
 
@@ -248,23 +248,23 @@
 		<basename property="httpunit.jar.name" file="${httpunit.jar}"/>
         <filter token="httpunit.jar.name" value="${httpunit.jar.name}"/>
 
-		<copy todir="${target.petal.script.dir}" filtering="on">
+		<copy todir="${target.integration.script.dir}" filtering="on">
 			<fileset dir="${src.script.dir}/share"/>
 			<fileset dir="${src.script.dir}/j2ee${j2ee.api}">
 				<exclude name="build.xml"/>
 			</fileset>
 		</copy>
-		<copy todir="${target.petal.dir}"
+		<copy todir="${target.integration.dir}"
 			file="${src.script.dir}/j2ee${j2ee.api}/build.xml"/>
 
 		<!-- Copy the confs for the current J2EE API -->
-		<copy todir="${target.petal.conf.dir}">
+		<copy todir="${target.integration.conf.dir}">
 			<fileset dir="${src.conf.dir}/share"/>
 			<fileset dir="${src.conf.dir}/j2ee${j2ee.api}"/>
 		</copy>
 
 		<!-- Copy the JSP Redirector -->
-		<copy todir="${target.petal.conf.dir}" 
+		<copy todir="${target.integration.conf.dir}" 
 			file="${cactus.framework.web}/jspRedirector.jsp"/>
 
     </target>
@@ -275,9 +275,9 @@
         <mkdir dir="${dist.bin.dir}"/>
         <mkdir dir="${dist.doc.api.dir}"/>
         
-        <!-- Copy the petal -->
+        <!-- Copy the Integration -->
         <copy todir="${dist.bin.dir}/${project.name.file}">
-            <fileset dir="${target.petal.dir}"/>
+            <fileset dir="${target.integration.dir}"/>
         </copy>
         
         <!-- Copy the generated documentation -->

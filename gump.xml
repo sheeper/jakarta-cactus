@@ -131,12 +131,12 @@
 
   <!--
      ========================================================================
-       Build the Cactus Ant Petal for J2EE 1.2
+       Build the Cactus Ant Integration for J2EE 1.2
      ========================================================================
   -->
-  <project name="jakarta-cactus-petal-ant-12">
+  <project name="jakarta-cactus-integration-ant-12">
 
-    <ant buildfile="petals/ant/build.xml" target="release">
+    <ant buildfile="integration/ant/build.xml" target="release">
 
       <property name="project.version" value="@@DATE@@"/>
 
@@ -164,12 +164,12 @@
   
   <!--
      ========================================================================
-       Build the Cactus Ant Petal for J2EE 1.3
+       Build the Cactus Ant Integration for J2EE 1.3
      ========================================================================
   -->
-  <project name="jakarta-cactus-petal-ant-13">
+  <project name="jakarta-cactus-integration-ant-13">
 
-    <ant buildfile="petals/ant/build.xml" target="release">
+    <ant buildfile="integration/ant/build.xml" target="release">
 
       <property name="project.version" value="@@DATE@@"/>
 
@@ -197,7 +197,7 @@
 
   <!--
      ========================================================================
-       Build the Cactus Eclipse Petal for J2EE 1.2
+       Build the Cactus Eclipse Integration for J2EE 1.2
      ========================================================================
   -->
 
@@ -205,7 +205,7 @@
   
   <!--
      ========================================================================
-       Build the Cactus Eclipse Petal for J2EE 1.3
+       Build the Cactus Eclipse Integration for J2EE 1.3
      ========================================================================
   -->
 
@@ -367,7 +367,7 @@
     <deliver fromdir="framework/release-12" tosite="jakarta.apache.org"
       todir="builds/jakarta-cactus/nightly/@@DATE@@/" />
 
-    <deliver fromdir="petals/ant/release-12" tosite="jakarta.apache.org"
+    <deliver fromdir="integration/ant/release-12" tosite="jakarta.apache.org"
       todir="builds/jakarta-cactus/nightly/@@DATE@@/" />
 
     <deliver fromdir="samples/servlet/release-12" tosite="jakarta.apache.org"
@@ -388,7 +388,7 @@
     <deliver fromdir="framework/release-13" tosite="jakarta.apache.org"
       todir="builds/jakarta-cactus/nightly/@@DATE@@/" />
 
-    <deliver fromdir="petals/ant/release-13" tosite="jakarta.apache.org"
+    <deliver fromdir="integration/ant/release-13" tosite="jakarta.apache.org"
       todir="builds/jakarta-cactus/nightly/@@DATE@@/" />
 
     <deliver fromdir="samples/servlet/release-13" tosite="jakarta.apache.org"

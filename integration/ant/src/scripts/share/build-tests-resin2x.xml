@@ -32,7 +32,7 @@
     <target name="cactus.start.resin2x" description="Start Resin 2.x"
         depends="cactus.check.resin2x" if="cactus.home.resin2x">
 
-        <java jvm="${cactus.jvm}" classname="org.apache.cactus.petal.ant.ResinRun" 
+        <java jvm="${cactus.jvm}" classname="org.apache.cactus.integration.ant.ResinRun" 
             fork="yes">
 
             <arg value="-start"/>
@@ -45,7 +45,7 @@
             <jvmarg value="-Dresin.home=${cactus.target.resin2x}"/>
 
             <classpath>
-                <pathelement location="${cactus.antpetal.jar}"/>
+                <pathelement location="${cactus.antintegration.jar}"/>
                 <fileset dir="${cactus.home.resin2x}/lib">
                     <include name="*.jar"/>
                 </fileset>
@@ -63,13 +63,13 @@
     <target name="cactus.stop.resin2x" description="Stop Resin 2.x"
         depends="cactus.check.resin2x" if="cactus.home.resin2x">
 
-        <java jvm="${cactus.jvm}" classname="org.apache.cactus.petal.ant.ResinRun" 
+        <java jvm="${cactus.jvm}" classname="org.apache.cactus.integration.ant.ResinRun" 
             fork="yes">
 
             <arg value="-stop"/>
 
             <classpath>
-                <pathelement location="${cactus.antpetal.jar}"/>
+                <pathelement location="${cactus.antintegration.jar}"/>
                 <fileset dir="${cactus.home.resin2x}/lib">
                     <include name="*.jar"/>
                 </fileset>

@@ -3,7 +3,8 @@
 <!--
   =============================================================================
     Master build file for building all Cactus components (the Ant tasks,
-    the framework itself, the Petals, the documentation, the samples, etc).
+    the framework itself, the Integrations, the documentation, the samples, 
+    etc).
 
     See build.properties.sample for details of mandatory and optional
     properties to set.
@@ -33,9 +34,9 @@
             target="release"/>
         <ant antfile="framework/build.xml" inheritAll="false" 
             target="release"/>
-        <ant antfile="petals/ant/build.xml" inheritAll="false" 
+        <ant antfile="integration/ant/build.xml" inheritAll="false" 
             target="release"/>
-        <ant antfile="petals/eclipse/build.xml" inheritAll="false" 
+        <ant antfile="integration/eclipse/build.xml" inheritAll="false" 
             target="release"/>
         <ant antfile="samples/servlet/build.xml" inheritAll="false" 
             target="release"/>
@@ -57,9 +58,9 @@
             target="clean"/>
         <ant antfile="framework/build.xml" inheritAll="false" 
             target="clean"/>
-        <ant antfile="petals/ant/build.xml" inheritAll="false" 
+        <ant antfile="integration/ant/build.xml" inheritAll="false" 
             target="clean"/>
-        <ant antfile="petals/eclipse/build.xml" inheritAll="false" 
+        <ant antfile="integration/eclipse/build.xml" inheritAll="false" 
             target="clean"/>
         <ant antfile="samples/servlet/build.xml" inheritAll="false" 
             target="clean"/>

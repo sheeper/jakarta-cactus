@@ -52,8 +52,8 @@
         <!-- Set the properties related to the target area -->
         <property name="target.sample.dir" value="${target.dir}/sample"/>
         <property name="target.sample.build.dir" value="${target.sample.dir}/build"/>
-        <property name="target.sample.build.petal.dir" 
-            value="${target.sample.build.dir}/cactus-petal-ant"/>
+        <property name="target.sample.build.integration.dir" 
+            value="${target.sample.build.dir}/cactus-integration-ant"/>
         <property name="target.sample.src.dir" value="${target.sample.dir}/src"/>
         <property name="target.sample.src.java.dir"
             value="${target.sample.src.dir}/java"/>
@@ -135,7 +135,7 @@
             token="@containers.specific@">
 
             <replacevalue><![CDATA[
-        <ant dir="${build.petal.dir}" target="cactus.run.tomcat3x">
+        <ant dir="${build.integration.dir}" target="cactus.run.tomcat3x">
             <reference refid="cactus.classpath"/>
         </ant>]]></replacevalue>
 
@@ -149,7 +149,7 @@
             token="@containers.specific@">
 
             <replacevalue><![CDATA[
-        <ant dir="${build.petal.dir}" target="cactus.run.jboss3x">
+        <ant dir="${build.integration.dir}" target="cactus.run.jboss3x">
             <reference refid="cactus.classpath"/>
         </ant>]]></replacevalue>
 
@@ -163,19 +163,19 @@
             token="@containers.share@">
 
             <replacevalue><![CDATA[
-        <ant dir="${build.petal.dir}" target="cactus.run.tomcat4x">
+        <ant dir="${build.integration.dir}" target="cactus.run.tomcat4x">
             <reference refid="cactus.classpath"/>
         </ant>
-        <ant dir="${build.petal.dir}" target="cactus.run.resin2x">
+        <ant dir="${build.integration.dir}" target="cactus.run.resin2x">
 		    <reference refid="cactus.classpath"/>
 		</ant>
-		<ant dir="${build.petal.dir}" target="cactus.run.orion1x">
+		<ant dir="${build.integration.dir}" target="cactus.run.orion1x">
 		    <reference refid="cactus.classpath"/>
 		</ant>
-		<ant dir="${build.petal.dir}" target="cactus.run.weblogic6x">
+		<ant dir="${build.integration.dir}" target="cactus.run.weblogic6x">
 		    <reference refid="cactus.classpath"/>
 		</ant>
-		<ant dir="${build.petal.dir}" target="cactus.run.weblogic7x">
+		<ant dir="${build.integration.dir}" target="cactus.run.weblogic7x">
 		    <reference refid="cactus.classpath"/>
 		</ant>]]></replacevalue>
 
@@ -195,11 +195,11 @@
         <mkdir dir="${target.sample.src.java.dir}"/>
         <mkdir dir="${target.sample.src.cactus.dir}"/>
         <mkdir dir="${target.sample.src.webapp.dir}"/>
-        <mkdir dir="${target.sample.build.petal.dir}"/>
+        <mkdir dir="${target.sample.build.integration.dir}"/>
         
-        <!-- Copy the Ant Petal files -->
-        <copy todir="${target.sample.build.petal.dir}">
-            <fileset dir="${cactus.antpetal.bin}"/>
+        <!-- Copy the Ant Integration files -->
+        <copy todir="${target.sample.build.integration.dir}">
+            <fileset dir="${cactus.antintegration.bin}"/>
          </copy>
                      
         <!-- Copy src files -->

@@ -54,7 +54,7 @@
  * <http://www.apache.org/>.
  *
  */
-package org.apache.cactus.petal.ant;
+package org.apache.cactus.integration.ant;
 
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;

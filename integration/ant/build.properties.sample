@@ -2,11 +2,11 @@
 # build.properties.sample
 #
 # This is an example "build.properties" file, used to customize building the
-# Cactus Ant Petal for your local environment.  Make any changes you need, and
-# rename this file to "build.properties" in the same directory that contains the
-# "build.xml" file.
+# Cactus Ant Integration for your local environment.  Make any changes you 
+# need, and rename this file to "build.properties" in the same directory that 
+# contains the "build.xml" file.
 #
-# $Id: build.properties.sample,v 1.4 2002/12/26 13:11:50 cmlenz Exp $
+# $Id$
 # -----------------------------------------------------------------------------
 
 # WARNING:  The relative paths below are relative to the directory where the

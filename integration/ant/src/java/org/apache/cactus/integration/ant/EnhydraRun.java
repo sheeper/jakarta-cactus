@@ -54,131 +54,82 @@
  * <http://www.apache.org/>.
  *
  */
-package org.apache.cactus.petal.ant;
+package org.apache.cactus.integration.ant;
 
-import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 
-import java.util.ArrayList;
-
 /**
- * Starts/stop Resin by setting up a listener socket.
+ * Starts/stop Enhydra by setting up a listener socket.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  * @author <a href="mailto:digital@ix.net.au">Robert Leftwich</a>
+ * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
  * @see AbstractServerRun
  */
-public class ResinRun extends AbstractServerRun
+public class EnhydraRun extends AbstractServerRun
 {
-    /**
-     * The started Resin server class. We use <code>Object</code> instead of
-     * the Resin class so that we don't need the Resin jars in the classpath
-     * to compile this class.
-     */
-    private Object resinServer;
-
     /**
      * @param theArgs the command line arguments
      */
-    public ResinRun(String[] theArgs)
+    public EnhydraRun(String[] theArgs)
     {
         super(theArgs);
     }
 
     /**
-     * Entry point to start/stop the Resin server.
+     * Entry point to start/stop the Enhydra server.
      *
      * @param theArgs the command line arguments
      */
     public static void main(String[] theArgs)
     {
-        ResinRun resin = new ResinRun(theArgs);
+        EnhydraRun enhydra = new EnhydraRun(theArgs);
 
-        resin.doRun();
+        enhydra.doRun();
     }
 
     /**
-     * Start the Resin server. We use reflection so that the Resin jars do not
-     * need to be in the classpath to compile this class.
+     * Start the Enhydra server. We use reflection so that the Enhydra jars do
+     * not need to be in the classpath to compile this class.
      */
     protected void doStartServer()
     {
         try
         {
-            Class resinClass = 
-                Class.forName("com.caucho.server.http.ResinServer");
-            Constructor constructor = resinClass.getConstructor(
-                new Class[] {this.args.getClass(), boolean.class});
+            Class enhydraClass = 
+                Class.forName("com.lutris.multiServer.MultiServer");
+            Method initMethod = enhydraClass.getMethod("main", 
+                new Class[] {this.args.getClass()});
 
-            this.resinServer = constructor.newInstance(
-                new Object[] {this.args, Boolean.TRUE});
-
-            // Try Resin 2.0 first
-            try
-            {
-                startResin20(this.resinServer);
-            }
-            catch (NoSuchMethodException nsme)
-            {
-                // Try Resin 2.1
-                startResin21(this.resinServer);
-            }
+            initMethod.invoke(null, new Object[] {this.args});
         }
         catch (Exception e)
         {
             e.printStackTrace();
-            throw new RuntimeException("Cannot create instance of ResinServer");
+            throw new RuntimeException("Cannot create instance of MultiServer");
         }
     }
 
     /**
-     * Starts Resin 2.0.x
-     *
-     * @param theResinServer the <code>ResinServer</code> instance
-     * @throws Exception if an error happens when starting the server
-     */
-    private void startResin20(Object theResinServer) throws Exception
-    {
-        Method initMethod = theResinServer.getClass().getMethod("init", 
-            new Class[] {boolean.class});
-
-        initMethod.invoke(theResinServer, new Object[] {Boolean.TRUE});
-    }
-
-    /**
-     * Starts Resin 2.1.x
-     *
-     * @param theResinServer the <code>ResinServer</code> instance
-     * @throws Exception if an error happens when starting the server
-     */
-    private void startResin21(Object theResinServer) throws Exception
-    {
-        Method initMethod = theResinServer.getClass().getMethod("init",
-            new Class[] {ArrayList.class});
-
-        initMethod.invoke(theResinServer, new Object[] {null});
-    }
-
-    /**
-     * Stops the Resin server. We use reflection so that the Resin jars do not
-     * need to be in the classpath to compile this class.
+     * Stops the Enhydra server. We use reflection so that the Enhydra jars do
+     * not need to be in the classpath to compile this class.
      */
     protected void doStopServer()
     {
         try
         {
-            Method closeMethod = this.resinServer.getClass().getMethod(
-                "close", null);
+            Class enhydraClass = 
+                Class.forName("com.lutris.multiServer.MultiServer");
+            Method shutDownMethod = enhydraClass.getMethod("shutdown", null);
 
-            closeMethod.invoke(this.resinServer, null);
+            shutDownMethod.invoke(null, null);
         }
         catch (Exception e)
         {
             e.printStackTrace();
             throw new RuntimeException("Cannot stop running instance of "
-                + "ResinServer");
+                + "MultiServer");
         }
     }
 }

@@ -45,32 +45,32 @@
   <resource id="mock_vs_cactus" target="mock_vs_cactus.html"/>
   <resource id="javadoc" target="javadoc.html"/>
   <resource id="faq" target="faq.html"/>
-  <resource id="eclipse_plugin" target="petals/eclipse/eclipse_plugin.html"/>
-  <resource id="howto_classpath" target="petals/manual/howto_classpath.html"/>
-  <resource id="howto_config" target="petals/manual/howto_config.html"/>
+  <resource id="eclipse_plugin" target="integration/eclipse/eclipse_plugin.html"/>
+  <resource id="howto_classpath" target="integration/manual/howto_classpath.html"/>
+  <resource id="howto_config" target="integration/manual/howto_config.html"/>
   <resource id="howto_migration" target="howto_migration.html"/>
   <resource id="howto_testcase" target="writing/howto_testcase.html"/>
   <resource id="howto_testcase_servlet" target="writing/howto_testcase_servlet.html"/>
   <resource id="howto_testcase_jsp" target="writing/howto_testcase_jsp.html"/>
   <resource id="howto_testcase_filter" target="writing/howto_testcase_filter.html"/>
   <resource id="howto_jsp" target="writing/howto_jsp.html"/>
-  <resource id="howto_runner" target="petals/howto_runner.html"/>
+  <resource id="howto_runner" target="integration/howto_runner.html"/>
   <resource id="howto_security" target="writing/howto_security.html"/>
-  <resource id="howto_ant" target="petals/ant/howto_ant.html"/>
-  <resource id="howto_ant_cactus" target="petals/ant/howto_ant_cactus.html"/>
-  <resource id="howto_ant_install" target="petals/ant/howto_ant_install.html"/>
-  <resource id="howto_ant_primer" target="petals/ant/howto_ant_primer.html"/>
+  <resource id="howto_ant" target="integration/ant/howto_ant.html"/>
+  <resource id="howto_ant_cactus" target="integration/ant/howto_ant_cactus.html"/>
+  <resource id="howto_ant_install" target="integration/ant/howto_ant_install.html"/>
+  <resource id="howto_ant_primer" target="integration/ant/howto_ant_primer.html"/>
   <resource id="howto_httpunit" target="writing/howto_httpunit.html"/>
   <resource id="howto_sample" target="howto_sample.html"/>
   <resource id="howto_ejb" target="writing/howto_ejb.html"/>
   <resource id="howto_ejb_j2eeri" target="writing/howto_ejb_j2eeri.html"/>
-  <resource id="howto_ide" target="petals/manual/howto_ide.html"/>
-  <resource id="howto_ide_vajava_wte" target="petals/manual/howto_ide_vajava_wte.html"/>
-  <resource id="howto_ide_vajava_tomcat" target="petals/manual/howto_ide_vajava_tomcat.html"/>
-  <resource id="howto_ide_jbuilder4" target="petals/manual/howto_ide_jbuilder4.html"/>
-  <resource id="howto_ide_jbuilder5" target="petals/manual/howto_ide_jbuilder5.html"/>
-  <resource id="howto_tomcat" target="petals/browser/howto_tomcat.html"/>
-  <resource id="howto_junitee" target="petals/browser/howto_junitee.html"/>
+  <resource id="howto_ide" target="integration/manual/howto_ide.html"/>
+  <resource id="howto_ide_vajava_wte" target="integration/manual/howto_ide_vajava_wte.html"/>
+  <resource id="howto_ide_vajava_tomcat" target="integration/manual/howto_ide_vajava_tomcat.html"/>
+  <resource id="howto_ide_jbuilder4" target="integration/manual/howto_ide_jbuilder4.html"/>
+  <resource id="howto_ide_jbuilder5" target="integration/manual/howto_ide_jbuilder5.html"/>
+  <resource id="howto_tomcat" target="integration/browser/howto_tomcat.html"/>
+  <resource id="howto_junitee" target="integration/browser/howto_junitee.html"/>
   <resource id="mailinglist" target="mailinglist.html"/>
   <resource id="cactusname" target="cactusname.html"/>
   <resource id="logos" target="participating/logos.html"/>

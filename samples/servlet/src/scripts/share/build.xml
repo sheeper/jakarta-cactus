@@ -75,7 +75,7 @@
     <property name="src.cactus.dir" value="${src.dir}/test-cactus"/>
     <property name="src.webapp.dir" value="${src.dir}/webapp"/>
     <property name="build.dir" value="${base.dir}/build"/>
-    <property name="build.petal.dir" value="${build.dir}/cactus-petal-ant"/>
+    <property name="build.integration.dir" value="${build.dir}/cactus-integration-ant"/>
 
     <!--
        ========================================================================
@@ -109,7 +109,7 @@
 
     <!--
        ========================================================================
-         Set the properties related to the Ant Petal
+         Set the properties related to the Ant Integration
        ========================================================================
     -->
     <property name="cactus.war" value="${basedir}/${target.dir}/${sample.war.name}.war"/>
@@ -216,7 +216,7 @@
     <!-- Compiles the Cactus test sources -->
     <target name="compile.cactus" depends="compile.java">
 
-        <ant dir="${build.petal.dir}" target="cactus.compile">
+        <ant dir="${build.integration.dir}" target="cactus.compile">
             <reference refid="cactus.classpath"/>
         </ant>
 

@@ -54,7 +54,7 @@
  * <http://www.apache.org/>.
  *
  */
-package org.apache.cactus.petal.ant;
+package org.apache.cactus.integration.ant;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

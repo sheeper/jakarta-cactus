@@ -35,8 +35,8 @@
     <property name="cactus.target.classes.dir" value="${cactus.target.dir}/classes"/>
 
     <!-- Cactus related jar locations -->
-    <property name="cactus.antpetal.jar" 
-        value="${cactus.lib.client.dir}/@cactus.antpetal.jar.name@"/>
+    <property name="cactus.antintegration.jar" 
+        value="${cactus.lib.client.dir}/@cactus.antintegration.jar.name@"/>
 
     <property name="cactus.framework.jar" 
         value="${cactus.lib.common.dir}/@cactus.framework.jar.name@"/>
@@ -68,9 +68,9 @@
         <!-- Initialize Cactus custom Ant task needed for running the server
              tests -->
         <taskdef name="runservertests"
-            classname="org.apache.cactus.petal.ant.RunServerTestsTask">
+            classname="org.apache.cactus.integration.ant.RunServerTestsTask">
             <classpath>
-                <pathelement location="${cactus.antpetal.jar}"/>
+                <pathelement location="${cactus.antintegration.jar}"/>
             </classpath>
         </taskdef>
 

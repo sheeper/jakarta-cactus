@@ -59,16 +59,16 @@
       <release version="1.5" date="- in CVS">
         <action dev="VMA" type="remove">
           Moved some Ant tasks that were previously in the Cactus Ant tasks;
-          they are now in the Ant Petal project. They are the tasks used
+          they are now in the Ant Integration project. They are the tasks used
           to start/stop the containers and the <code>runservertests</code>
-          task. It is now recommended to use the Ant Petal.
+          task. It is now recommended to use the Ant Integration.
         </action>
         <action dev="VMA" type="update">
-          Due to the new addition of 2 new Cactus subprojects: The Ant Petal
-          and the Eclipse Petal, the Cactus project is now delivering 
-          several zips instead of one. Namely they are:
-          <code>jakarta-cactus-petal-ant-[J2EE API]-[version].zip</code>,
-          <code>jakarta-cactus-petal-eclipse-[J2EE API]-[version].zip</code>,
+          Due to the new addition of 2 new Cactus subprojects: The Ant 
+          Integration and the Eclipse Integration, the Cactus project is now 
+          delivering several zips instead of one. Namely they are:
+          <code>jakarta-cactus-integration-ant-[J2EE API]-[version].zip</code>,
+          <code>jakarta-cactus-integration-eclipse-[J2EE API]-[version].zip</code>,
           <code>jakarta-cactus-sample-servlet-[J2EE API]-[version].zip</code>
           and
           <code>jakarta-cactus-documentation-[J2EE API]-[version].zip</code>.
@@ -81,12 +81,12 @@
           Improved test classe names in the Servlet Sample application.
         </action>
         <action dev="VMA" type="update">
-          The Servlet Sample build is now using the Cactus Ant Petal.
+          The Servlet Sample build is now using the Cactus Ant Integration.
         </action>
         <action dev="VMA" type="add">
-          New Cactus front end: The Cactus Ant Petal. It provides a generic
-          and directly reusable Ant directory structure for easily running
-          Cactus tests from one's own Ant build.
+          New Cactus front end: The Cactus Ant Integration. It provides a 
+          generic and directly reusable Ant directory structure for easily 
+          running Cactus tests from one's own Ant build.
         </action>
         <action dev="VMA" type="update">
           Modified the build process to generate the Cactus web site by 

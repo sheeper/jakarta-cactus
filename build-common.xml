@@ -99,12 +99,12 @@
 	    <property name="cactus.framework.web" 
 	    	value="framework/dist-${j2ee.api}/web"/>
 
-        <!-- The Ant Petal jar and helper classes -->
-        <property name="cactus.antpetal.jar.name" value="cactus-petal-ant"/>
-        <property name="cactus.antpetal.jar" 
-            value="petals/ant/dist-${j2ee.api}/lib/${cactus.antpetal.jar.name}.jar"/>
-        <property name="cactus.antpetal.bin" 
-            value="petals/ant/dist-${j2ee.api}/bin/${cactus.antpetal.jar.name}"/>
+        <!-- The Ant Integration jar and helper classes -->
+        <property name="cactus.antintegration.jar.name" value="cactus-integration-ant"/>
+        <property name="cactus.antintegration.jar" 
+            value="integration/ant/dist-${j2ee.api}/lib/${cactus.antintegration.jar.name}.jar"/>
+        <property name="cactus.antintegration.bin" 
+            value="integration/ant/dist-${j2ee.api}/bin/${cactus.antintegration.jar.name}"/>
 
     </target>
 
@@ -157,8 +157,8 @@
                 <equals arg1="${base.dir}" arg2="framework"/>
                 <equals arg1="${base.dir}" arg2="samples/servlet"/>
                 <equals arg1="${base.dir}" arg2="samples/jetty"/>
-                <equals arg1="${base.dir}" arg2="petals/ant"/>
-                <equals arg1="${base.dir}" arg2="petals/eclipse"/>
+                <equals arg1="${base.dir}" arg2="integration/ant"/>
+                <equals arg1="${base.dir}" arg2="integration/eclipse"/>
             </or>
         </condition>
 
