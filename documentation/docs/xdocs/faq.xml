@@ -44,6 +44,11 @@
         <li>
           <jump anchor="faq7">How to send multipart/form-data ?</jump>
         </li>
+        <li>
+          <jump anchor="faq8">I get a "java.lang.ClassCastException: 
+          org.apache.commons.logging.impl.LogFactoryImpl" error when I use 
+          a JUnit TestRunner different from TextTestRunner</jump>
+        </li>
       </ul>
     </s1>
 
@@ -354,6 +359,38 @@ public void beginUpload(WebRequest theRequest)
 
       </s2>
     </s1>
+
+    <anchor id="faq8"/>
+    <s1 title="I get a 'java.lang.ClassCastException: org.apache.commons.logging.impl.LogFactoryImpl' error when I use a JUnit TestRunner different from TextTestRunner">
+
+        <s2 title="Question">
+          <p>
+            Cactus tests run fine when I use the JUnit TextTestRunner but 
+            fails with other runners like the SwingTestRunner. I get the
+            following exception :
+          </p>
+<source><![CDATA[
+org.apache.commons.logging.LogConfigurationException:
+java.lang.ClassCastException: org.apache.commons.logging.impl.LogFactoryImpl
+at org.apache.commons.logging.LogFactory.newFactory(LogFactory.java:505)
+at org.apache.commons.logging.LogFactory.getFactory(LogFactory.java:340)
+at org.apache.commons.logging.LogFactory.getLog(LogFactory.java:381) 	at
+org.apache.cactus.AbstractTestCase.runBare(AbstractTestCase.java:188) 
+]]></source>
+
+        </s2>
+        <s2 title="Solution">
+          <p>
+	        Check the 
+	        <link href="http://junit.sourceforge.net/doc/faq/faq.htm#runners_1">JUnit 
+	        FAQ</link>. Indeed, JUnit uses a special class loader to 
+	        load classes that is incompatible with the Commons-Logging 
+	        framework. Thus you need to put the commons-logging package in the
+	        JUnit <code>excluded.properties</code> file (see the JUnit FAQ).
+		  </p>
+		</s2>
+
+	</s1>
 
   </body>
 </document>
