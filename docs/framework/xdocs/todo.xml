@@ -85,6 +85,10 @@
     <action context="code">
       Integration for Netbeans by integration with the Netbeans XTest module.
     </action>
+    <action context="code">
+      Look at <link href="http://jxunit.sourceforge.net">JXUnit</link> to
+      see if an integration with Cactus can be done (proposed by Will Sargent).
+    </action>
   </actions>
 
 </todo>
