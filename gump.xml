@@ -245,6 +245,7 @@
     <depend project="ant" inherit="runtime"/>
     <depend project="xml-xerces"/>
     <depend project="jakarta-cactus-integration-ant-12"/>
+    <work nested="integration/eclipse/lib/junitsupport-2.1.0dev.jar"/>
 
     <license name="LICENSE.cactus"/>
 
@@ -288,7 +289,8 @@
     <depend project="ant" inherit="runtime"/>
     <depend project="xml-xerces"/>
     <depend project="jakarta-cactus-integration-ant-13"/>
-
+    <work nested="integration/eclipse/lib/junitsupport-2.1.0dev.jar"/>
+    
     <license name="LICENSE.cactus"/>
 
     <nag from="Vincent Massol &lt;vmassol@apache.org&gt;"
