@@ -18,6 +18,11 @@
       </p>
       <ol>
         <li>
+          Ensure that the bugs have been either fixed, marked as INVALID or 
+          WONTFIX  or marked as LATER (indicating that they will be resolved 
+          after this release) .
+        </li>
+        <li>
           Ensure that the Cactus tests have been run on several application
           servers and update the <link href="site:testedon">Tested On</link>
           page accordingly.
