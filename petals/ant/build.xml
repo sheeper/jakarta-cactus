@@ -91,7 +91,7 @@
     -->
     <target name="properties.target">
 
-	    <property name="target.dir" location="${base.dir}/target"/>
+	    <property name="target.dir" location="${base.dir}/target-${j2ee.api}"/>
 	    <property name="target.classes.dir" location="${target.dir}/classes"/>
 	    <property name="target.classes.java.dir"
 	        location="${target.classes.dir}/java"/>
@@ -110,7 +110,7 @@
     -->
     <target name="properties.distribution">
 
-	    <property name="dist.dir" location="${base.dir}/dist"/>
+	    <property name="dist.dir" location="${base.dir}/dist-${j2ee.api}"/>
 	    <property name="dist.lib.dir" location="${dist.dir}/lib"/>
 	    <property name="dist.lib.client.dir" location="${dist.lib.dir}/client"/>
 	    <property name="dist.lib.server.dir" location="${dist.lib.dir}/server"/>
@@ -173,7 +173,7 @@
         </taskdef>
 
         <checkProperty>
-            <property name="servlet.jar" isfile="true"/>
+            <property name="j2ee.jar" isfile="true"/>
             <property name="aspectjrt.jar" isfile="true"/>
             <property name="commons.logging.jar" isfile="true"/>
             <property name="commons.httpclient.jar" isfile="true"/>
@@ -194,7 +194,7 @@
         <condition property="j2ee.api" value="13">
             <available classname="javax.servlet.Filter">
 	            <classpath>
-	                <pathelement location="${servlet.jar}"/>
+	                <pathelement location="${j2ee.jar}"/>
 	            </classpath>
             </available>
         </condition>
@@ -202,7 +202,7 @@
         <condition property="j2ee.api" value="12">
             <available classname="javax.servlet.Servlet">
 	            <classpath>
-	                <pathelement location="${servlet.jar}"/>
+	                <pathelement location="${j2ee.jar}"/>
 	            </classpath>
             </available>
         </condition>
@@ -341,7 +341,7 @@
 		<!-- Gather all client side Cactus jars -->
         <copy tofile="${dist.lib.client.dir}/${antpetal.jar.name}-${project.version}.jar"
             file="${target.dir}/${antpetal.jar.name}.jar"/>
-        <copy todir="${dist.lib.dir}/client" file="${servlet.jar}"/>
+        <copy todir="${dist.lib.dir}/client" file="${j2ee.jar}"/>
         <copy todir="${dist.lib.dir}/client" file="${commons.httpclient.jar}"/>
         <copy todir="${dist.lib.dir}/client" file="${httpunit.jar}"/>
 
