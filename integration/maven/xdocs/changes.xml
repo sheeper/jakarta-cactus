@@ -8,6 +8,14 @@
   <body>
 
     <release version="1.7dev" date="in CVS">
+      <action dev="vmassol" type="fix" issue="CACTUS-64">
+        The plugin now correctly uses the <code>maven.war.build.dir</code>,
+        <code>maven.war.final.name</code>, <code>maven.ejb.build.dir</code>
+        and <code>maven.ejb.final.name</code> properties from the WAR and EJB
+        plugins instead of hard-coding the values. Note that as a result, the 
+        Cactus plugins now requires version 1.7 of the WAR plugin and version
+        1.6 of the EJB plugin.
+      </action>
       <action dev="vmassol" type="fix">
         Cactus now guess automatically what Java source files are Cactus tests
         when packaging tests in an EAR (it was already supported when running

@@ -19,6 +19,7 @@
   xmlns:ant="jelly:ant"
   xmlns:define="jelly:define"
   xmlns:x="jelly:xml"
+  xmlns:maven="jelly:maven"
   xmlns:test="test"
   xmlns:cactustag="cactus"
   xmlns:cactus="jelly:org.apache.cactus.integration.maven.CactusTagLibrary">
@@ -33,10 +34,48 @@
 
   <!--
      ========================================================================
+       Verify that the instlaled Maven has compatible versions of dependent 
+       plugins.
+     ========================================================================
+  -->
+  <goal name="cactus:check-plugin-dependencies">
+    
+    <maven:get plugin="maven-war-plugin" property="plugin" var="warPlugin" />
+    <j:if test="${warPlugin.currentVersion.compareTo('1.7') lt 0}">
+      <ant:fail>
+        Must have WAR plugin v1.7 installed to use this version of the Cactus plugin.
+        Try: maven plugin:download -DgroupId=maven -DartifactId=maven-war-plugin -Dversion=1.7
+      </ant:fail>
+    </j:if>
+
+    <maven:get plugin="maven-ejb-plugin" property="plugin" var="ejbPlugin" />
+    <j:if test="${warPlugin.currentVersion.compareTo('1.6') lt 0}">
+      <ant:fail>
+        Must have EJB plugin v1.6 installed to use this version of the Cactus plugin.
+        Try: maven plugin:download -DgroupId=maven -DartifactId=maven-ejb-plugin -Dversion=1.6
+      </ant:fail>
+    </j:if>
+    
+  </goal>
+
+  <!--
+     ========================================================================
        Initializations.
      ========================================================================
   -->
-  <goal name="cactus:init">
+  <goal name="cactus:init" prereqs="cactus:check-plugin-dependencies">
+
+    <!-- Compute the default location of the input war file to cactify -->
+    <maven:get var="warBuildDir" plugin="maven-war-plugin" property="maven.war.build.dir"/>
+    <maven:get var="warFinalName" plugin="maven-war-plugin" property="maven.war.final.name"/>
+    <maven:property var="cactus.src.war" name="cactus.src.war" 
+        defaultValue="${warBuildDir}/${warFinalName}"/>
+
+    <!-- Compute the default location of the input EJB file to cactify -->
+    <maven:get var="ejbBuildDir" plugin="maven-ejb-plugin" property="maven.ejb.build.dir"/>
+    <maven:get var="ejbFinalName" plugin="maven-ejb-plugin" property="maven.ejb.final.name"/>
+    <maven:property var="cactus.src.ejb" name="cactus.src.ejb"
+        defaultValue="${ejbBuildDir}/${ejbFinalName}"/>
 
     <!-- Not sure why but this is needed, otherwise the taskdefs below fail -->
     <!-- DEPRECATION: Should now use <maven:get>/<maven:set> instead. Once 
