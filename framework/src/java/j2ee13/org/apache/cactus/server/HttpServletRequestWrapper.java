@@ -106,9 +106,9 @@ public class HttpServletRequestWrapper extends AbstractHttpServletRequestWrapper
 
         if (this.url != null) {
 
-            result = new StringBuffer(this.url.getProtocol() + "://" +
-                getServerName() + ":" + getServerPort() + getContextPath() +
-                getServletPath() + getPathInfo());
+            result = new StringBuffer(this.url.getProtocol() + "://"
+                + getServerName() + ":" + getServerPort() + getContextPath()
+                + getServletPath() + getPathInfo());
 
         } else {
             result = this.request.getRequestURL();

@@ -113,15 +113,15 @@ public abstract class AbstractWebTestCase extends AbstractTestCase
 
                 // Check return type
                 if (!methods[i].getReturnType().getName().equals("void")) {
-                    fail("The end method [" + methods[i].getName() +
-                        "] should return void and not [" +
-                        methods[i].getReturnType().getName() + "]");
+                    fail("The end method [" + methods[i].getName()
+                        + "] should return void and not ["
+                        + methods[i].getReturnType().getName() + "]");
                 }
 
                 // Check if method is public
                 if (!Modifier.isPublic(methods[i].getModifiers())) {
-                    fail("Method [" + methods[i].getName() +
-                        "] should be declared public");
+                    fail("Method [" + methods[i].getName()
+                        + "] should be declared public");
                 }
 
                 // Check parameters
@@ -129,8 +129,8 @@ public abstract class AbstractWebTestCase extends AbstractTestCase
 
                 // Verify only one parameter is defined
                 if (parameters.length != 1) {
-                    fail("The end method [" + methods[i].getName() +
-                        "] must only have a single parameter");
+                    fail("The end method [" + methods[i].getName()
+                        + "] must only have a single parameter");
                 }
 
                 // Is it a Http Unit WebResponse ?
@@ -153,16 +153,16 @@ public abstract class AbstractWebTestCase extends AbstractTestCase
 
                     // Else it is an error ...
                 } else {
-                    fail("The end method [" + methods[i].getName() +
-                        "] has a bad parameter of type [" +
-                        parameters[0].getName() + "]");
+                    fail("The end method [" + methods[i].getName()
+                        + "] has a bad parameter of type ["
+                        + parameters[0].getName() + "]");
                 }
 
                 // Has a method to call already been found ?
                 if (methodToCall != null) {
-                    fail("There can only be one end method per test case. " +
-                        "Test case [" + this.getCurrentTestMethod() +
-                        "] has two at least !");
+                    fail("There can only be one end method per test case. "
+                        + "Test case [" + this.getCurrentTestMethod()
+                        + "] has two at least !");
                 }
 
                 methodToCall = methods[i];
@@ -209,10 +209,10 @@ public abstract class AbstractWebTestCase extends AbstractTestCase
                 new Class[]{URLConnection.class});
             webResponse = method.invoke(null, new Object[]{theConnection});
         } catch (Exception e) {
-            throw new ChainedRuntimeException("Error calling " +
-                "[public static com.meterware.httpunit.WebResponse " +
-                "com.meterware.httpunit.WebResponse.newResponse(" +
-                "java.net.URLConnection) throws java.io.IOException]", e);
+            throw new ChainedRuntimeException("Error calling "
+                + "[public static com.meterware.httpunit.WebResponse "
+                + "com.meterware.httpunit.WebResponse.newResponse("
+                + "java.net.URLConnection) throws java.io.IOException]", e);
         }
 
         return webResponse;

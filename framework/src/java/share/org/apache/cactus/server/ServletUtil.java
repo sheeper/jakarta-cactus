@@ -116,8 +116,8 @@ public class ServletUtil
             try {
                 value = URLDecoder.decode(value);
             } catch (Exception e) {
-                throw new ChainedRuntimeException("Error URL decoding [" +
-                    value + "]", e);
+                throw new ChainedRuntimeException("Error URL decoding ["
+                    + value + "]", e);
             }
         }
 

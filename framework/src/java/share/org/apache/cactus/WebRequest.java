@@ -333,8 +333,8 @@ public class WebRequest implements Request
         } else if (theMethod.equalsIgnoreCase(WebRequest.GET_METHOD)) {
             parameters = this.parametersGet;
         } else {
-            throw new ChainedRuntimeException("The method need to be either " +
-                "\"POST\" or \"GET\"");
+            throw new ChainedRuntimeException("The method need to be either "
+                + "\"POST\" or \"GET\"");
         }
 
         // If there is already a parameter of the same name, add the
@@ -650,8 +650,8 @@ public class WebRequest implements Request
                 addParameter(nameValue.substring(0, breakParam),
                     nameValue.substring(breakParam + 1));
             } else {
-                throw new RuntimeException("Bad QueryString [" +
-                    theQueryString + "] NameValue pair: [" + nameValue + "]");
+                throw new RuntimeException("Bad QueryString ["
+                    + theQueryString + "] NameValue pair: [" + nameValue + "]");
             }
         }
     }
@@ -762,8 +762,8 @@ public class WebRequest implements Request
             for (int i = 0; i < parameterValues.length - 1; i++) {
                 buffer.append("[" + parameterValues[i] + "], ");
             }
-            buffer.append("[" + parameterValues[parameterValues.length - 1] +
-                "]]");
+            buffer.append("[" + parameterValues[parameterValues.length - 1]
+                + "]]");
             buffer.append("]");
         }
 

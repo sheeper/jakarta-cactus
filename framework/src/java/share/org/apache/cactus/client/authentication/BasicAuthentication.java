@@ -144,9 +144,9 @@ public class BasicAuthentication extends AbstractAuthentication
         for (char c = iter.first(); c != CharacterIterator.DONE;
              c = iter.next()) {
 
-            if ((illegalChars.indexOf(c) != -1) ||
-                ((c >= 0) && (c <= 31)) ||
-                (c == 127)) {
+            if ((illegalChars.indexOf(c) != -1)
+                || ((c >= 0) && (c <= 31))
+                || (c == 127)) {
 
                     // Bad theName! Go to your room!
                 throw new IllegalArgumentException(
@@ -215,8 +215,8 @@ public class BasicAuthentication extends AbstractAuthentication
         // see setName and setPassword for details of token and TEXT
 
         String basicCookie = getName() + ":" + getPassword();
-        String basicCredentials = "Basic " +
-            new String(base64Encode(basicCookie.getBytes()));
+        String basicCredentials = "Basic "
+            + new String(base64Encode(basicCookie.getBytes()));
 
         theConnection.setRequestProperty("Authorization", basicCredentials);
     }

@@ -207,8 +207,8 @@ public abstract class AbstractHttpServletRequestWrapper
 
         if ((this.url != null) && (this.url.getServerName() != null)) {
             result = this.url.getHost();
-            LOGGER.debug("Using simulated server name : [" + result +
-                "]");
+            LOGGER.debug("Using simulated server name : [" + result
+                + "]");
         } else {
             result = this.request.getServerName();
         }
@@ -245,9 +245,9 @@ public abstract class AbstractHttpServletRequestWrapper
 
         if (this.url != null) {
 
-            result = getContextPath() +
-                ((getServletPath() == null) ? "" : getServletPath()) +
-                ((getPathInfo() == null) ? "" : getPathInfo());
+            result = getContextPath()
+                + ((getServletPath() == null) ? "" : getServletPath())
+                + ((getPathInfo() == null) ? "" : getPathInfo());
 
             LOGGER.debug("Using simulated request URI : [" + result + "]");
         } else {
@@ -267,8 +267,8 @@ public abstract class AbstractHttpServletRequestWrapper
 
         if (this.url != null) {
             result = this.url.getServletPath();
-            LOGGER.debug("Using simulated servlet path : [" + result +
-                "]");
+            LOGGER.debug("Using simulated servlet path : [" + result
+                + "]");
         } else {
             result = this.request.getServletPath();
         }
@@ -295,15 +295,15 @@ public abstract class AbstractHttpServletRequestWrapper
             } else {
 
                 // Compute the translated path using the root real path
-                String newPathInfo = (pathInfo.startsWith("/") ?
-                    pathInfo.substring(1) : pathInfo);
+                String newPathInfo = (pathInfo.startsWith("/")
+                    ? pathInfo.substring(1) : pathInfo);
                 if (this.request.getRealPath("/").endsWith("/")) {
-                    pathTranslated = this.request.getRealPath("/") +
-                        newPathInfo.replace('/', File.separatorChar);
+                    pathTranslated = this.request.getRealPath("/")
+                        + newPathInfo.replace('/', File.separatorChar);
                 } else {
-                    pathTranslated = this.request.getRealPath("/") +
-                        File.separatorChar + newPathInfo.replace('/',
-                            File.separatorChar);
+                    pathTranslated = this.request.getRealPath("/")
+                        + File.separatorChar + newPathInfo.replace('/',
+                        File.separatorChar);
                 }
             }
         } else {
@@ -323,8 +323,8 @@ public abstract class AbstractHttpServletRequestWrapper
 
         if (this.url != null) {
             result = this.url.getQueryString();
-            LOGGER.debug("Using simulated query string : [" + result +
-                "]");
+            LOGGER.debug("Using simulated query string : [" + result
+                + "]");
         } else {
             result = this.request.getQueryString();
         }

@@ -548,7 +548,6 @@
             publicMemberPattern="^[a-z][a-zA-Z0-9]*$"
             headerFile="./LICENSE.cactus"
             failOnViolation="true"
-            wrapOp="ignore"
             maxParameters="10"
             cacheFile="${target.dir}/checkstyle.cache">
 

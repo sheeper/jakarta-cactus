@@ -172,9 +172,9 @@ public class TestWebTestResultParser extends TestCase
      */
     public void testReadRootElementFull() throws ParsingException
     {
-        String expectedStart = "<exception classname=\"" +
-            "java.lang.Exception\"><message><![CDATA[test exception]]>" +
-            "</message><stacktrace><![CDATA[";
+        String expectedStart = "<exception classname=\""
+            + "java.lang.Exception\"><message><![CDATA[test exception]]>"
+            + "</message><stacktrace><![CDATA[";
         String expectedEnd = "]]></stacktrace></exception>";
 
         Exception e = new Exception("test exception");
@@ -195,8 +195,8 @@ public class TestWebTestResultParser extends TestCase
      */
     public void testReadExceptionClassName() throws ParsingException
     {
-        String expectedStart = "<message><![CDATA[test exception]]>" +
-            "</message><stacktrace><![CDATA[";
+        String expectedStart = "<message><![CDATA[test exception]]>"
+            + "</message><stacktrace><![CDATA[";
         String expectedEnd = "]]></stacktrace>";
 
         Exception e = new Exception("test exception");

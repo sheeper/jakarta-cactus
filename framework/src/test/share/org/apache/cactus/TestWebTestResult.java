@@ -125,9 +125,9 @@ public class TestWebTestResult extends TestCase
      */
     public void testToXmlWithException()
     {
-        String expectedStart = "<webresult><exception classname=\"" +
-            "java.lang.Exception\"><message><![CDATA[test exception]]>" +
-            "</message><stacktrace><![CDATA[";
+        String expectedStart = "<webresult><exception classname=\""
+            + "java.lang.Exception\"><message><![CDATA[test exception]]>"
+            + "</message><stacktrace><![CDATA[";
         String expectedEnd = "]]></stacktrace></exception></webresult>";
 
         Exception e = new Exception("test exception");

@@ -197,8 +197,8 @@ public abstract class AbstractWebTestCaller
             writer.close();
 
         } catch (IOException e) {
-            String message = "Error writing WebTestResult instance to output " +
-                "stream";
+            String message = "Error writing WebTestResult instance to output "
+                + "stream";
             LOGGER.error(message, e);
             throw new ServletException(message, e);
         }
@@ -230,8 +230,8 @@ public abstract class AbstractWebTestCaller
             HttpServiceDefinition.CLASS_NAME_PARAM);
 
         if (className == null) {
-            String message = "Missing class name parameter [" +
-                HttpServiceDefinition.CLASS_NAME_PARAM + "] in HTTP request.";
+            String message = "Missing class name parameter ["
+                + HttpServiceDefinition.CLASS_NAME_PARAM + "] in HTTP request.";
             LOGGER.error(message);
             throw new ServletException(message);
         }
@@ -255,8 +255,9 @@ public abstract class AbstractWebTestCaller
             HttpServiceDefinition.METHOD_NAME_PARAM);
 
         if (methodName == null) {
-            String message = "Missing method name parameter [" +
-                HttpServiceDefinition.METHOD_NAME_PARAM + "] in HTTP request.";
+            String message = "Missing method name parameter ["
+                + HttpServiceDefinition.METHOD_NAME_PARAM
+                + "] in HTTP request.";
             LOGGER.error(message);
             throw new ServletException(message);
         }
@@ -305,8 +306,8 @@ public abstract class AbstractWebTestCaller
             testInstance = (AbstractTestCase) constructor.newInstance(
                 new Object[]{theTestCaseName});
         } catch (Exception e) {
-            String message = "Error instantiating class [" + theClassName +
-                "(" + theTestCaseName + ")]";
+            String message = "Error instantiating class [" + theClassName
+                + "(" + theTestCaseName + ")]";
             LOGGER.error(message, e);
             throw new ServletException(message, e);
         }
@@ -330,14 +331,14 @@ public abstract class AbstractWebTestCaller
             testClass = ClassLoaderUtils.loadClass(theClassName,
                 this.getClass());
         } catch (Exception e) {
-            String message = "Error finding class [" + theClassName +
-                "] using both the Context classloader and the webapp " +
-                "classloader. Possible causes include:\r\n";
-            message += "\t- Your webapp does not include your test " +
-                "classes,\r\n";
-            message += "\t- The cactus.jar is not located in your " +
-                "WEB-INF/lib directory and your Container has not set the " +
-                "Context classloader to point to the webapp one";
+            String message = "Error finding class [" + theClassName
+                + "] using both the Context classloader and the webapp "
+                + "classloader. Possible causes include:\r\n";
+            message += "\t- Your webapp does not include your test "
+                + "classes,\r\n";
+            message += "\t- The cactus.jar is not located in your "
+                + "WEB-INF/lib directory and your Container has not set the "
+                + "Context classloader to point to the webapp one";
 
             LOGGER.error(message, e);
             throw new ServletException(message, e);

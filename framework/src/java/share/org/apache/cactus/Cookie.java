@@ -313,8 +313,8 @@ public class Cookie implements Serializable
      */
     public boolean isExpired()
     {
-        return (this.getExpiryDate() != null &&
-            this.getExpiryDate().getTime() <= System.currentTimeMillis());
+        return (this.getExpiryDate() != null
+            && this.getExpiryDate().getTime() <= System.currentTimeMillis());
     }
 
     /**
@@ -324,8 +324,8 @@ public class Cookie implements Serializable
      */
     public int hashCode()
     {
-        return (this.getName().hashCode() + this.getValue().hashCode() +
-            this.getDomain().hashCode());
+        return (this.getName().hashCode() + this.getValue().hashCode()
+            + this.getDomain().hashCode());
     }
 
     /**
@@ -339,9 +339,9 @@ public class Cookie implements Serializable
     {
         if ((theObject != null) && (theObject instanceof Cookie)) {
             Cookie other = (Cookie) theObject;
-            return (this.getName().equals(other.getName()) &&
-                this.getPath().equals(other.getPath()) &&
-                this.getDomain().equals(other.getDomain()));
+            return (this.getName().equals(other.getName())
+                && this.getPath().equals(other.getPath())
+                && this.getDomain().equals(other.getDomain()));
         }
         return false;
     }

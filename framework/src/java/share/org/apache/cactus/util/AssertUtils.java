@@ -203,8 +203,8 @@ public class AssertUtils
 
             int pos = param.indexOf("=");
             if (pos < 0) {
-                System.err.println("Bad 'Set-Cookie' syntax, missing '=' [" +
-                    param + "]");
+                System.err.println("Bad 'Set-Cookie' syntax, missing '=' ["
+                    + param + "]");
                 continue;
             }
 
@@ -242,8 +242,8 @@ public class AssertUtils
                 } else if (left.equalsIgnoreCase("version")) {
                     version = Float.parseFloat(right);
                 } else {
-                    System.err.println("Bad 'Set-Cookie' syntax, bad name [" +
-                        param + "]");
+                    System.err.println("Bad 'Set-Cookie' syntax, bad name ["
+                        + param + "]");
                     continue;
                 }
 

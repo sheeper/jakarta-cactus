@@ -130,8 +130,8 @@ public class TestAbstractTestCaseInterceptorTestCase
         } catch (AssertionFailedError e) {
 
             // Perform asserts
-            if (!verifyBeginMethodsOk(e.getMessage()) &&
-                !verifyEndMethodsOk(e.getMessage())) {
+            if (!verifyBeginMethodsOk(e.getMessage())
+                && !verifyEndMethodsOk(e.getMessage())) {
 
                 throw e;
             }
@@ -154,9 +154,9 @@ public class TestAbstractTestCaseInterceptorTestCase
         if (this.getCurrentTestMethod().equals(
                 "testBeginMethodBadReturnType")) {
 
-            assertEquals("The begin method " +
-                "[beginBeginMethodBadReturnType] should return void and " +
-                "not [java.lang.String]", theMessage);
+            assertEquals("The begin method "
+                + "[beginBeginMethodBadReturnType] should return void and "
+                + "not [java.lang.String]", theMessage);
             return true;
         }
 
@@ -165,8 +165,8 @@ public class TestAbstractTestCaseInterceptorTestCase
         if (this.getCurrentTestMethod().equals(
                 "testBeginMethodNotPublic")) {
 
-            assertEquals("Method [beginBeginMethodNotPublic] should be " +
-                "declared public", theMessage);
+            assertEquals("Method [beginBeginMethodNotPublic] should be "
+                + "declared public", theMessage);
             return true;
         }
 
@@ -176,11 +176,11 @@ public class TestAbstractTestCaseInterceptorTestCase
         if (this.getCurrentTestMethod().equals(
                 "testBeginMethodBadParamType")) {
 
-            assertEquals("The begin method " +
-                "[beginBeginMethodBadParamType] must accept a single " +
-                "parameter derived from class " +
-                "[org.apache.cactus.WebRequest], but " +
-                "found a [java.lang.String] parameter instead",
+            assertEquals("The begin method "
+                + "[beginBeginMethodBadParamType] must accept a single "
+                + "parameter derived from class "
+                + "[org.apache.cactus.WebRequest], but "
+                + "found a [java.lang.String] parameter instead",
                 theMessage);
             return true;
         }
@@ -191,11 +191,11 @@ public class TestAbstractTestCaseInterceptorTestCase
         if (this.getCurrentTestMethod().equals(
                 "testBeginMethodBadParamNumber")) {
 
-            assertEquals("The begin method " +
-                "[beginBeginMethodBadParamNumber] must accept a single " +
-                "parameter derived from class " +
-                "[org.apache.cactus.WebRequest], but 2 " +
-                "parameters were found",
+            assertEquals("The begin method "
+                + "[beginBeginMethodBadParamNumber] must accept a single "
+                + "parameter derived from class "
+                + "[org.apache.cactus.WebRequest], but 2 "
+                + "parameters were found",
                 theMessage);
             return true;
         }
@@ -224,17 +224,17 @@ public class TestAbstractTestCaseInterceptorTestCase
         if (this.getCurrentTestMethod().equals(
                 "testEndMethodBadReturnType")) {
 
-            assertEquals("The end method " +
-                "[endEndMethodBadReturnType] should return void and " +
-                "not [java.lang.String]", theMessage);
+            assertEquals("The end method "
+                + "[endEndMethodBadReturnType] should return void and "
+                + "not [java.lang.String]", theMessage);
             return true;
         }
 
         // Test that when an end method for a given test is not declared
         // public a <code>AssertionFailedError</code> exception is returned.
         if (this.getCurrentTestMethod().equals("testEndMethodNotPublic")) {
-            assertEquals("Method [endEndMethodNotPublic] should be " +
-                "declared public", theMessage);
+            assertEquals("Method [endEndMethodNotPublic] should be "
+                + "declared public", theMessage);
             return true;
         }
 
@@ -244,8 +244,8 @@ public class TestAbstractTestCaseInterceptorTestCase
         if (this.getCurrentTestMethod().equals(
                 "testEndMethodBadParamType")) {
 
-            assertEquals("The end method [endEndMethodBadParamType] " +
-                "has a bad parameter of type [java.lang.String]",
+            assertEquals("The end method [endEndMethodBadParamType] "
+                + "has a bad parameter of type [java.lang.String]",
                 theMessage);
             return true;
         }
@@ -256,8 +256,8 @@ public class TestAbstractTestCaseInterceptorTestCase
         if (this.getCurrentTestMethod().equals(
                 "testEndMethodBadParamNumber")) {
 
-            assertEquals("The end method [endEndMethodBadParamNumber] " +
-                "must only have a single parameter", theMessage);
+            assertEquals("The end method [endEndMethodBadParamNumber] "
+                + "must only have a single parameter", theMessage);
             return true;
         }
 

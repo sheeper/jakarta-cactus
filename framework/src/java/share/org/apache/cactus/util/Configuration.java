@@ -134,8 +134,8 @@ public class Configuration
                             new FileInputStream(configOverride));
                 } catch (IOException e) {
                     throw new ChainedRuntimeException(
-                            "Cannot read cactus configuration file [" +
-                            configOverride + "]", e);
+                            "Cannot read cactus configuration file ["
+                            + configOverride + "]", e);
                 }
             }
 
@@ -166,8 +166,8 @@ public class Configuration
         // from the Cactus configuration file.
         String contextURL = System.getProperty(CACTUS_CONTEXT_URL_PROPERTY);
         if (contextURL == null) {
-            new ChainedRuntimeException("Missing Cactus property [" +
-                CACTUS_CONTEXT_URL_PROPERTY + "]");
+            new ChainedRuntimeException("Missing Cactus property ["
+                + CACTUS_CONTEXT_URL_PROPERTY + "]");
         }
         return contextURL;
     }

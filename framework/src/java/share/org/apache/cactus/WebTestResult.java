@@ -198,8 +198,8 @@ public class WebTestResult implements Serializable
         StringBuffer buffer = new StringBuffer();
 
         if (hasException()) {
-            buffer.append("Test failed, Exception message = [" +
-                getExceptionMessage() + "]");
+            buffer.append("Test failed, Exception message = ["
+                + getExceptionMessage() + "]");
         } else {
             buffer.append("Test ok");
         }
@@ -217,15 +217,15 @@ public class WebTestResult implements Serializable
         xmlText.append("<" + XML_ROOT_ELEMENT + ">");
 
         if (hasException()) {
-            xmlText.append("<" + XML_EXCEPTION_ELEMENT + " " +
-                XML_EXCEPTION_CLASSNAME_ATTRIBUTE + "=\"");
+            xmlText.append("<" + XML_EXCEPTION_ELEMENT + " "
+                + XML_EXCEPTION_CLASSNAME_ATTRIBUTE + "=\"");
             xmlText.append(this.exceptionClassName);
             xmlText.append("\">");
             xmlText.append("<" + XML_EXCEPTION_MESSAGE_ELEMENT + "><![CDATA[");
             xmlText.append(this.exceptionMessage);
             xmlText.append("]]></" + XML_EXCEPTION_MESSAGE_ELEMENT + ">");
-            xmlText.append("<" + XML_EXCEPTION_STACKTRACE_ELEMENT +
-                "><![CDATA[");
+            xmlText.append("<" + XML_EXCEPTION_STACKTRACE_ELEMENT
+                + "><![CDATA[");
             xmlText.append(this.exceptionStackTrace);
             xmlText.append("]]></" + XML_EXCEPTION_STACKTRACE_ELEMENT + ">");
             xmlText.append("</" + XML_EXCEPTION_ELEMENT + ">");

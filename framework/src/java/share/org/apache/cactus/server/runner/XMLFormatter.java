@@ -177,19 +177,19 @@ public class XMLFormatter implements XMLConstants, TestListener
         StringBuffer xml = new StringBuffer();
 
         if (this.xslFileName != null) {
-            xml.append("<?xml-stylesheet type=\"text/xsl\" " +
-                "href=\"" + this.xslFileName + "\"?>");
+            xml.append("<?xml-stylesheet type=\"text/xsl\" "
+                + "href=\"" + this.xslFileName + "\"?>");
         }
 
         xml.append("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>");
         xml.append("<" + TESTSUITES + ">");
 
-        xml.append("<" + TESTSUITE + " " + ATTR_NAME + "=\"" +
-            getSuiteClassName() + "\" " + ATTR_TESTS + "=\"" +
-            theResult.runCount() + "\" " + ATTR_FAILURES + "=\"" +
-            theResult.failureCount() + "\" " + ATTR_ERRORS + "=\"" +
-            theResult.errorCount() + "\" " + ATTR_TIME + "=\"" +
-            getTotalDurationAsString() + "\">");
+        xml.append("<" + TESTSUITE + " " + ATTR_NAME + "=\""
+            + getSuiteClassName() + "\" " + ATTR_TESTS + "=\""
+            + theResult.runCount() + "\" " + ATTR_FAILURES + "=\""
+            + theResult.failureCount() + "\" " + ATTR_ERRORS + "=\""
+            + theResult.errorCount() + "\" " + ATTR_TIME + "=\""
+            + getTotalDurationAsString() + "\">");
 
         xml.append(this.currentTestCaseResults.toString());
 
@@ -221,9 +221,9 @@ public class XMLFormatter implements XMLConstants, TestListener
         TestFailure failure = new TestFailure(theTest, theThrowable);
         StringBuffer xml = new StringBuffer();
 
-        xml.append("<" + ERROR + " " + ATTR_MESSAGE + "=\"" +
-            xmlEncode(failure.exceptionMessage()) + "\" " + ATTR_TYPE + "=\"" +
-            failure.thrownException().getClass().getName() + "\">");
+        xml.append("<" + ERROR + " " + ATTR_MESSAGE + "=\""
+            + xmlEncode(failure.exceptionMessage()) + "\" " + ATTR_TYPE + "=\""
+            + failure.thrownException().getClass().getName() + "\">");
         xml.append(xmlEncode(failure.trace()));
         xml.append("</" + ERROR + ">");
 
@@ -241,9 +241,9 @@ public class XMLFormatter implements XMLConstants, TestListener
         TestFailure failure = new TestFailure(theTest, theError);
         StringBuffer xml = new StringBuffer();
 
-        xml.append("<" + FAILURE + " " + ATTR_MESSAGE + "=\"" +
-            xmlEncode(failure.exceptionMessage()) + "\" " + ATTR_TYPE + "=\"" +
-            failure.thrownException().getClass().getName() + "\">");
+        xml.append("<" + FAILURE + " " + ATTR_MESSAGE + "=\""
+            + xmlEncode(failure.exceptionMessage()) + "\" " + ATTR_TYPE + "=\""
+            + failure.thrownException().getClass().getName() + "\">");
         xml.append(xmlEncode(failure.trace()));
         xml.append("</" + FAILURE + ">");
 
@@ -261,9 +261,9 @@ public class XMLFormatter implements XMLConstants, TestListener
         String duration = getDurationAsString(
             System.currentTimeMillis() - this.currentTestStartTime);
 
-        xml.append("<" + TESTCASE + " " + ATTR_NAME + "=\"" +
-            JUnitVersionHelper.getTestCaseName(theTest) + "\" " + ATTR_TIME +
-            "=\"" + duration + "\">");
+        xml.append("<" + TESTCASE + " " + ATTR_NAME + "=\""
+            + JUnitVersionHelper.getTestCaseName(theTest) + "\" " + ATTR_TIME
+            + "=\"" + duration + "\">");
 
         if (this.currentTestFailure != null) {
             xml.append(this.currentTestFailure);

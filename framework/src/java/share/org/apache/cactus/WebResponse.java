@@ -239,9 +239,9 @@ public class WebResponse
             LOGGER.debug("Header name  = [" + headerName + "]");
             LOGGER.debug("Header value = [" + headerValue + "]");
 
-            if ((headerName != null) &&
-                (headerName.toLowerCase().equals("set-cookie") ||
-                headerName.toLowerCase().equals("set-cookie2"))) {
+            if ((headerName != null)
+                && (headerName.toLowerCase().equals("set-cookie")
+                || headerName.toLowerCase().equals("set-cookie2"))) {
 
                 // Parse the cookie definition
                 org.apache.commons.httpclient.Cookie[] cookies;

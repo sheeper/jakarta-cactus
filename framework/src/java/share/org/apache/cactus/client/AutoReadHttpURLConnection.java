@@ -206,8 +206,8 @@ final class AutoReadHttpURLConnection extends HttpURLConnection
         // that all servers that return no content-length header also do
         // not block on read() operations !
 
-        LOGGER.debug("Content-Length : [" +
-            this.delegate.getContentLength() + "]");
+        LOGGER.debug("Content-Length : ["
+            + this.delegate.getContentLength() + "]");
 
         if (this.delegate.getContentLength() != 0) {
 

@@ -141,9 +141,9 @@ public abstract class AbstractTestCase extends TestCase
     {
         // Sanity check
         if (!this.getCurrentTestMethod().startsWith(TEST_METHOD_PREFIX)) {
-            throw new RuntimeException("bad name [" +
-                this.getCurrentTestMethod() + "]. It should start with [" +
-                TEST_METHOD_PREFIX + "].");
+            throw new RuntimeException("bad name ["
+                + this.getCurrentTestMethod() + "]. It should start with ["
+                + TEST_METHOD_PREFIX + "].");
         }
 
         return this.getCurrentTestMethod().substring(
@@ -256,34 +256,35 @@ public abstract class AbstractTestCase extends TestCase
 
                 // Check return type
                 if (!methods[i].getReturnType().getName().equals("void")) {
-                    fail("The begin method [" + methods[i].getName() +
-                        "] should return void and not [" +
-                        methods[i].getReturnType().getName() + "]");
+                    fail("The begin method [" + methods[i].getName()
+                        + "] should return void and not ["
+                        + methods[i].getReturnType().getName() + "]");
                 }
 
                 // Check if method is public
                 if (!Modifier.isPublic(methods[i].getModifiers())) {
-                    fail("Method [" + methods[i].getName() +
-                        "] should be declared public");
+                    fail("Method [" + methods[i].getName()
+                        + "] should be declared public");
                 }
 
                 // Check parameters
                 Class[] parameters = methods[i].getParameterTypes();
                 if (parameters.length != 1) {
 
-                    fail("The begin method [" + methods[i].getName() +
-                        "] must accept a single parameter derived from " +
-                        "class [" + WebRequest.class.getName() + "], " +
-                        "but " + parameters.length + " parameters were found");
+                    fail("The begin method [" + methods[i].getName()
+                        + "] must accept a single parameter derived from "
+                        + "class [" + WebRequest.class.getName() + "], "
+                        + "but " + parameters.length
+                        + " parameters were found");
 
                 } else if (!theRequest.getClass().isAssignableFrom(
                     parameters[0])) {
 
-                    fail("The begin method [" + methods[i].getName() +
-                        "] must accept a single parameter derived from " +
-                        "class [" + theRequest.getClass().getName() + "], " +
-                        "but found a [" + parameters[0].getName() + "] " +
-                        "parameter instead");
+                    fail("The begin method [" + methods[i].getName()
+                        + "] must accept a single parameter derived from "
+                        + "class [" + theRequest.getClass().getName() + "], "
+                        + "but found a [" + parameters[0].getName() + "] "
+                        + "parameter instead");
                 }
 
                 try {
@@ -319,13 +320,13 @@ public abstract class AbstractTestCase extends TestCase
                 new Class[0]);
 
         } catch (NoSuchMethodException e) {
-            fail("Method [" + this.getCurrentTestMethod() +
-                "()] does not exist for class [" +
-                this.getClass().getName() + "].");
+            fail("Method [" + this.getCurrentTestMethod()
+                + "()] does not exist for class ["
+                + this.getClass().getName() + "].");
         }
         if (runMethod != null && !Modifier.isPublic(runMethod.getModifiers())) {
-            fail("Method [" + this.getCurrentTestMethod() +
-                "()] should be public");
+            fail("Method [" + this.getCurrentTestMethod()
+                + "()] should be public");
         }
 
         try {

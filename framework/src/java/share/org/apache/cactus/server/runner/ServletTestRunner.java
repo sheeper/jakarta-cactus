@@ -114,8 +114,8 @@ public class ServletTestRunner extends HttpServlet
         // Verify if a suite parameter exists
         String suiteClassName = theRequest.getParameter(HTTP_SUITE_PARAM);
         if (suiteClassName == null) {
-            throw new ServletException("Missing HTTP parameter [" +
-                HTTP_SUITE_PARAM + "] in request");
+            throw new ServletException("Missing HTTP parameter ["
+                + HTTP_SUITE_PARAM + "] in request");
         }
 
         // Get the XSL stylesheet parameter if any
@@ -124,8 +124,8 @@ public class ServletTestRunner extends HttpServlet
         // Set up default Cactus System properties so that there is no need
         // to have a cactus.properties file in WEB-INF/classes
         System.setProperty(Configuration.CACTUS_CONTEXT_URL_PROPERTY,
-            "http://" + theRequest.getServerName() + ":" +
-            theRequest.getServerPort() + theRequest.getContextPath());
+            "http://" + theRequest.getServerName() + ":"
+            + theRequest.getServerPort() + theRequest.getContextPath());
 
         // Run the tests
         String xml = run(suiteClassName, xslParam);
@@ -162,9 +162,9 @@ public class ServletTestRunner extends HttpServlet
 
         Test suite = testRunner.getTest(theSuiteClassName);
         if (suite == null) {
-            throw new ServletException("Failed to load test suite [" +
-                theSuiteClassName + "], Reason is [" +
-                testRunner.getErrorMessage() + "]");
+            throw new ServletException("Failed to load test suite ["
+                + theSuiteClassName + "], Reason is ["
+                + testRunner.getErrorMessage() + "]");
         }
 
         // Run the tests

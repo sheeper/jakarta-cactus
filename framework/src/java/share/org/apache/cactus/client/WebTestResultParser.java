@@ -131,8 +131,8 @@ public class WebTestResultParser
         // before perfoming the checks.
         String trimmedData = theData.trim();
 
-        if (trimmedData.startsWith(startRootString) &&
-            trimmedData.endsWith(endRootString)) {
+        if (trimmedData.startsWith(startRootString)
+            && trimmedData.endsWith(endRootString)) {
 
             buffer = trimmedData.substring(startRootString.length(),
                 trimmedData.length() - endRootString.length());
@@ -154,8 +154,8 @@ public class WebTestResultParser
     protected String readExceptionClassname(String theData)
         throws ParsingException
     {
-        String startString = "<" + WebTestResult.XML_EXCEPTION_ELEMENT +
-            " " + WebTestResult.XML_EXCEPTION_CLASSNAME_ATTRIBUTE + "=\"";
+        String startString = "<" + WebTestResult.XML_EXCEPTION_ELEMENT
+            + " " + WebTestResult.XML_EXCEPTION_CLASSNAME_ATTRIBUTE + "=\"";
         String endString = "</" + WebTestResult.XML_EXCEPTION_ELEMENT + ">";
         String buffer;
 
@@ -163,8 +163,8 @@ public class WebTestResultParser
             int pos = theData.indexOf('\"', startString.length());
             this.exceptionClassname = theData.substring(startString.length(),
                 pos);
-            buffer = theData.substring(startString.length() +
-                this.exceptionClassname.length() + 2,
+            buffer = theData.substring(startString.length()
+                + this.exceptionClassname.length() + 2,
                 theData.length() - endString.length());
         } else {
             throw new ParsingException("Not a valid response");
@@ -184,10 +184,10 @@ public class WebTestResultParser
     protected String readExceptionMessage(String theData)
         throws ParsingException
     {
-        String startString = "<" + WebTestResult.XML_EXCEPTION_MESSAGE_ELEMENT +
-            "><![CDATA[";
-        String endString = "]]></" +
-            WebTestResult.XML_EXCEPTION_MESSAGE_ELEMENT + ">";
+        String startString = "<" + WebTestResult.XML_EXCEPTION_MESSAGE_ELEMENT
+            + "><![CDATA[";
+        String endString = "]]></"
+            + WebTestResult.XML_EXCEPTION_MESSAGE_ELEMENT + ">";
         String buffer;
 
         if (theData.startsWith(startString)) {
@@ -213,10 +213,10 @@ public class WebTestResultParser
     protected String readExceptionStacktrace(String theData)
         throws ParsingException
     {
-        String startString = "<" +
-            WebTestResult.XML_EXCEPTION_STACKTRACE_ELEMENT + "><![CDATA[";
-        String endString = "]]></" +
-            WebTestResult.XML_EXCEPTION_STACKTRACE_ELEMENT + ">";
+        String startString = "<"
+            + WebTestResult.XML_EXCEPTION_STACKTRACE_ELEMENT + "><![CDATA[";
+        String endString = "]]></"
+            + WebTestResult.XML_EXCEPTION_STACKTRACE_ELEMENT + ">";
         String buffer;
 
         if (theData.startsWith(startString)) {

@@ -104,14 +104,14 @@ public class ServletContextWrapper extends AbstractServletContextWrapper
             if (method != null) {
                 returnSet = (Set) method.invoke(this.originalContext, null);
             } else {
-                throw new RuntimeException("Method ServletContext." +
-                    "getResourcePaths() no longer supported by your servlet " +
-                    "engine !");
+                throw new RuntimeException("Method ServletContext."
+                    + "getResourcePaths() no longer supported by your servlet "
+                    + "engine !");
             }
         } catch (Exception e) {
             e.printStackTrace();
-            throw new RuntimeException("Error getting/calling method " +
-                "getResourcePaths()");
+            throw new RuntimeException("Error getting/calling method "
+                + "getResourcePaths()");
         }
 
         return returnSet;
@@ -139,14 +139,14 @@ public class ServletContextWrapper extends AbstractServletContextWrapper
                 returnSet = (Set) method.invoke(this.originalContext,
                     new Object[]{thePath});
             } else {
-                throw new RuntimeException("Method ServletContext." +
-                    "getResourcePaths(String path) not supported yet by your " +
-                    "servlet engine !");
+                throw new RuntimeException("Method ServletContext."
+                    + "getResourcePaths(String path) not supported yet by your "
+                    + "servlet engine !");
             }
         } catch (Exception e) {
             e.printStackTrace();
-            throw new RuntimeException("Error getting/calling method " +
-                "getResourcePaths(String path)");
+            throw new RuntimeException("Error getting/calling method "
+                + "getResourcePaths(String path)");
         }
 
         return returnSet;

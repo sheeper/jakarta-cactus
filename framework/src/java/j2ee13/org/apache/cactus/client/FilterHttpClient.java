@@ -82,8 +82,8 @@ public class FilterHttpClient extends AbstractHttpClient
 
         // Check if user has overriden the servlet redirector
         if (theRequest.getRedirectorName() != null) {
-            url = FilterConfiguration.getContextURL() + "/" +
-                theRequest.getRedirectorName();
+            url = FilterConfiguration.getContextURL() + "/"
+                + theRequest.getRedirectorName();
         } else {
             url = FilterConfiguration.getFilterRedirectorURL();
         }

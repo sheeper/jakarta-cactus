@@ -134,9 +134,9 @@ public class LogService
                 } else {
                     // Failed to configure logging system, simply print
                     // a warning on stderr
-                    System.err.println("[warning] Failed to configure " +
-                        "logging system : Could not find file [" +
-                        theFileName + "]");
+                    System.err.println("[warning] Failed to configure "
+                        + "logging system : Could not find file ["
+                        + theFileName + "]");
                 }
 
             }

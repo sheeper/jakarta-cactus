@@ -113,11 +113,11 @@ public abstract class AbstractHttpClient
         try {
             result = callGetResult(theRequest.getAuthentication());
         } catch (ParsingException e) {
-            throw new ChainedRuntimeException("Failed to get the test " +
-                "results. This is probably due to an error that happened on " +
-                "the server side when trying to execute the tests. Here is " +
-                "what was returned by the server : [" +
-                new WebResponse(theRequest, connection).getText() + "]", e);
+            throw new ChainedRuntimeException("Failed to get the test "
+                + "results. This is probably due to an error that happened on "
+                + "the server side when trying to execute the tests. Here is "
+                + "what was returned by the server : ["
+                + new WebResponse(theRequest, connection).getText() + "]", e);
         }
 
         // Check if the returned result object returned contains an error or

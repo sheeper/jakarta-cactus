@@ -138,8 +138,8 @@ public class HttpClientHelper
         // - If at least one parameter is to be sent in the request body, then
         //   we are doing a POST.
         // - If user data has been specified, then we are doing a POST
-        if (theRequest.getParameterNamesPost().hasMoreElements() ||
-            (theRequest.getUserData() != null)) {
+        if (theRequest.getParameterNamesPost().hasMoreElements()
+            || (theRequest.getUserData() != null)) {
 
             connection.setDoOutput(true);
         } else {
@@ -332,12 +332,12 @@ public class HttpClientHelper
             out = theConnection.getOutputStream();
         } catch (IOException e) {
             // Cannot connect to server, try to explain why ...
-            String reason = "Cannot connect to URL [" + theConnection.getURL() +
-                "]. Reason : [" + e.getMessage() + "]\r\n";
+            String reason = "Cannot connect to URL [" + theConnection.getURL()
+                + "]. Reason : [" + e.getMessage() + "]\r\n";
             reason += "Possible reasons :\r\n";
             reason += "\t- The server is not running,\r\n";
-            reason += "\t- The server redirector is not correctly mapped in " +
-                "web.xml,\r\n";
+            reason += "\t- The server redirector is not correctly mapped in "
+                + "web.xml,\r\n";
             reason += "\t- Something else ... !";
 
             throw new ChainedRuntimeException(reason);
@@ -403,8 +403,8 @@ public class HttpClientHelper
                     HttpClientHelper.getPath(theRequest, theConnection),
                     httpclientCookies);
 
-            LOGGER.debug("Cookie string = [" + cookieHeader.getValue() +
-                "]");
+            LOGGER.debug("Cookie string = [" + cookieHeader.getValue()
+                + "]");
 
             theConnection.setRequestProperty("Cookie",
                 cookieHeader.getValue());
