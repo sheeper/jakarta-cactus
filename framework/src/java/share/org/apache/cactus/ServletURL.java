@@ -567,6 +567,7 @@ public class ServletURL
     public static ServletURL loadFromRequest(HttpServletRequest theRequest)
     {
         String qString = theRequest.getQueryString();
+        boolean isDefined = false;
 
         ServletURL url = new ServletURL();
 
@@ -575,6 +576,7 @@ public class ServletURL
 
         if (protocol != null)
         {
+            isDefined = true;
             url.setProtocol(protocol);
         }
 
@@ -583,6 +585,7 @@ public class ServletURL
 
         if (serverName != null)
         {
+            isDefined = true;
             url.setServerName(serverName);
         }
 
@@ -591,6 +594,7 @@ public class ServletURL
 
         if (contextPath != null)
         {
+            isDefined = true;
             url.setContextPath(contextPath);
         }
 
@@ -599,6 +603,7 @@ public class ServletURL
 
         if (servletPath != null)
         {
+            isDefined = true;
             url.setServletPath(servletPath);
         }
 
@@ -607,6 +612,7 @@ public class ServletURL
 
         if (pathInfo != null)
         {
+            isDefined = true;
             url.setPathInfo(pathInfo);
         }
 
@@ -615,10 +621,19 @@ public class ServletURL
 
         if (queryString != null)
         {
+            isDefined = true;
             url.setQueryString(queryString);
         }
 
-        LOGGER.debug("URL = [" + url + "]");
+        if (!isDefined)
+        {
+            LOGGER.debug("Undefined simulation URL");
+            url = null;
+        }
+        else
+        {
+            LOGGER.debug("Simulation URL = [" + url + "]");
+        }
 
         return url;
     }
@@ -658,20 +673,4 @@ public class ServletURL
         }
     }
 
-    /**
-     * @return true if the simulation URL is not defined or false otherwise. 
-     */
-    public boolean isDefined()
-    {
-        boolean defined = true;
-
-        if ((getHost() == null) && (getPort() == -1) 
-            && (getContextPath() == null) && (getServletPath() == null) 
-            && (getPathInfo() == null) && (getQueryString() == null))
-        {
-            defined = false;
-        }
-        
-        return defined; 
-    }
 }
