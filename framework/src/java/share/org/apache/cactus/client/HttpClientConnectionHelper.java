@@ -68,9 +68,9 @@ import org.apache.cactus.client.authentication.AbstractAuthentication;
 import org.apache.cactus.util.UrlUtil;
 import org.apache.commons.httpclient.HostConfiguration;
 import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.Protocol;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
+import org.apache.commons.httpclient.protocol.Protocol;
 
 /**
  * Implementation of <code>ConnectionHelper</code> using Jakarta Commons
