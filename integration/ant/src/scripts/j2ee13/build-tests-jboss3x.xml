@@ -1,3 +1,6 @@
+    <!-- WARNING: This script does not support the cactus.port property
+    	 JBoss will be started on the port defined in the server 
+    	 configuration (in jboss-service.xml) -->
 
     <!-- Global properties -->
     <property name="cactus.conf.jboss3x" value="${cactus.conf.dir}/jboss3x"/>
