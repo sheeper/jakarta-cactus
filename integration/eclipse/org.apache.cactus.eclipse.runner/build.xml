@@ -236,6 +236,33 @@
     -->
 	<target name="dist" depends="checkstyle,jar"
 	  description="Generate the distributable files">
+
+
+        <filter token="cactus.antintegration.jar.name" 
+        	value="${cactus.antintegration.jar.name}-${project.version}.jar"/>
+        <filter token="cactus.framework.jar.name" 
+        	value="${cactus.framework.jar.name}-${project.version}.jar"/>
+
+		<basename property="log4j.jar.name" file="${log4j.jar}"/>
+        <filter token="log4j.jar.name" value="${log4j.jar.name}"/>
+		<basename property="aspectjrt.jar.name" file="${aspectjrt.jar}"/>
+        <filter token="aspectjrt.jar.name" value="${aspectjrt.jar.name}"/>
+		<basename property="commons.logging.jar.name" file="${commons.logging.jar}"/>
+        <filter token="commons.logging.jar.name" value="${commons.logging.jar.name}"/>
+		<basename property="junit.jar.name" file="${junit.jar}"/>
+        <filter token="junit.jar.name" value="${junit.jar.name}"/>
+		<basename property="commons.httpclient.jar.name" file="${commons.httpclient.jar}"/>
+        <filter token="commons.httpclient.jar.name" value="${commons.httpclient.jar.name}"/>
+		<basename property="httpunit.jar.name" file="${httpunit.jar}"/>
+        <filter token="httpunit.jar.name" value="${httpunit.jar.name}"/>
+		<basename property="nekohtml.jar.name" file="${nekohtml.jar}"/>
+        <filter token="nekohtml.jar.name" value="${nekohtml.jar.name}"/>
+		<basename property="xerces.jar.name" file="${xerces.jar}"/>
+        <filter token="xerces.jar.name" value="${xerces.jar.name}"/>
+		<basename property="xmlapis.jar.name" file="${xmlapis.jar}"/>
+        <filter token="xmlapis.jar.name" value="${xmlapis.jar.name}"/>
+
+
 	  
 		<mkdir dir="${dist.bin.integration.dir}"/>
 
@@ -260,7 +287,7 @@
             <fileset dir="${cactus.antintegration.bin}"/>
          </copy>
 
-        <copy todir="${dist.bin.integration.dir}/ant">
+        <copy todir="${dist.bin.integration.dir}/ant" filtering="on">
             <fileset dir="${src.scripts.dir}"/>
         </copy>
 

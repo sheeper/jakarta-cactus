@@ -19,6 +19,22 @@
     
     <!-- Default webapp context -->
     <property name="cactus.context" value="cactustest"/>
+
+    <!-- Decides whether the test result will be printed to the console or
+    	 not. Default is true -->
+    <property name="cactus.junit.usefile" value="false"/>   
+
+    <!-- Location of junit test reports for the Cactus tests -->
+    <property name="cactus.reports.dir" 
+      value="${cactus.target.dir}/test-cactus-reports"/>
+
+    <!-- Decides whether to halt the build on error and/or on failure -->
+    <property name="cactus.halt.on.failure" value="true"/>
+    <property name="cactus.halt.on.error" value="true"/>
+
+    <!-- JUnit Runner to use for executing the tests. Valid values are
+    	 "text" and "swing" -->
+    <property name="cactus.runner" value="text"/>
     
     <!--
        ========================================================================
@@ -33,26 +49,33 @@
     <property name="cactus.script.dir" value="scripts"/>
 
     <property name="cactus.target.classes.dir" value="${cactus.target.dir}/classes"/>
+    <property name="cactus.target.conf.dir" value="${cactus.target.dir}/conf"/>
 
     <!-- Cactus related jar locations -->
     <property name="cactus.antintegration.jar" 
-        value="${cactus.lib.client.dir}/cactus-integration-ant-1.5dev.jar"/>
+        value="${cactus.lib.client.dir}/@cactus.antintegration.jar.name@"/>
 
     <property name="cactus.framework.jar" 
-        value="${cactus.lib.common.dir}/cactus-framework-1.5dev.jar"/>
+        value="${cactus.lib.common.dir}/@cactus.framework.jar.name@"/>
     <property name="cactus.log4j.jar" 
-        value="${cactus.lib.common.dir}/log4j-1.2.5.jar"/>
+        value="${cactus.lib.common.dir}/@log4j.jar.name@"/>
     <property name="cactus.aspectjrt.jar" 
-        value="${cactus.lib.common.dir}/aspectjrt-1.0.6.jar"/>
+        value="${cactus.lib.common.dir}/@aspectjrt.jar.name@"/>
     <property name="cactus.commons.logging.jar" 
-        value="${cactus.lib.common.dir}/commons-logging-1.0.jar"/>
+        value="${cactus.lib.common.dir}/@commons.logging.jar.name@"/>
     <property name="cactus.junit.jar" 
-        value="${cactus.lib.common.dir}/junit-3.7.jar"/>
+        value="${cactus.lib.common.dir}/@junit.jar.name@"/>
     <property name="cactus.httpunit.jar" 
-        value="${cactus.lib.common.dir}/httpunit-1.5.1.jar"/>
+        value="${cactus.lib.common.dir}/@httpunit.jar.name@"/>
 
     <property name="cactus.commons.httpclient.jar" 
-        value="${cactus.lib.client.dir}/commons-httpclient.jar"/>
+        value="${cactus.lib.client.dir}/@commons.httpclient.jar.name@"/>
+    <property name="cactus.nekohtml.jar" 
+        value="${cactus.lib.client.dir}/@nekohtml.jar.name@"/>
+    <property name="cactus.xerces.jar" 
+        value="${cactus.lib.client.dir}/@xerces.jar.name@"/>
+    <property name="cactus.xmlapis.jar" 
+        value="${cactus.lib.client.dir}/@xmlapis.jar.name@"/>
 
     <!--
        ========================================================================
@@ -69,8 +92,7 @@
              tests -->
         <taskdef resource="cactus.tasks"
           classpath="${cactus.antintegration.jar}"/>
-        <taskdef name="eclipseruntests"
-          classname="org.apache.cactus.eclipse.runner.containers.ant.EclipseRunTests"/>
+
     </target>
 
     <!--
@@ -117,24 +139,50 @@
         <unwar src="${cactus.war}" 
             dest="${cactus.target.dir}/${cactus.context}"/>
 
-        <!-- TODO: Perform a web.xml merge -->
+        <!-- Perform a web.xml merge -->
+		<webxmlmerge 
+		  srcfile="${cactus.target.dir}/${cactus.context}/WEB-INF/web.xml"
+		  mergefile="${cactus.conf.dir}/web.xml"
+		  destfile="${cactus.target.dir}/${cactus.context}/WEB-INF/web.xml">
+            <xmlcatalog>
+                <dtd
+                  publicId="-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+                  location="${cactus.conf.dir}/web-app.dtd"/>
+                <dtd
+                  publicId="-//Sun Microsystems, Inc.//DTD Web Application 2.2//EN"
+                  location="${cactus.conf.dir}/web-app.dtd"/>
+            </xmlcatalog>
+		</webxmlmerge>
 
         <!-- Copy the Cactus web.xml -->
-        <copy todir="${cactus.target.dir}/${cactus.context}/WEB-INF">
+        <copy todir="${cactus.target.dir}/${cactus.context}/WEB-INF" 
+        	overwrite="true">
             <fileset dir="${cactus.conf.dir}">
                 <include name="web.xml"/>
             </fileset>
         </copy>
+
+        <!-- Copy the log4j configuration files -->
+        <copy tofile="${cactus.target.dir}/${cactus.context}/WEB-INF/classes/log4j.properties"
+        	file="${cactus.conf.dir}/log_server.properties"/>
                 
-        <!-- Copy the Cactus jars -->
-        <copy todir="${cactus.target.dir}/${cactus.context}/WEB-INF/lib">
-            <fileset dir="${cactus.lib.server.dir}">
-                <include name="*.jar"/>
-            </fileset>
-            <fileset dir="${cactus.lib.common.dir}">
-                <include name="*.jar"/>
-            </fileset>
-        </copy>
+        <!-- Copy the Cactus jars that should be on server side classpath. 
+        	 Note: we used the named jars as it should
+        	 be possible to override the locations of jars and they should not
+        	 be expected to be in ${cactus.lib.*.dir}. For example this feature
+        	 is used by the Maven plugin for Cactus. -->
+        <copy todir="${cactus.target.dir}/${cactus.context}/WEB-INF/lib"
+          file="${cactus.framework.jar}"/>
+        <copy todir="${cactus.target.dir}/${cactus.context}/WEB-INF/lib"
+          file="${cactus.log4j.jar}"/>
+        <copy todir="${cactus.target.dir}/${cactus.context}/WEB-INF/lib"
+          file="${cactus.aspectjrt.jar}"/>
+        <copy todir="${cactus.target.dir}/${cactus.context}/WEB-INF/lib"
+          file="${cactus.commons.logging.jar}"/>
+        <copy todir="${cactus.target.dir}/${cactus.context}/WEB-INF/lib"
+          file="${cactus.junit.jar}"/>
+        <copy todir="${cactus.target.dir}/${cactus.context}/WEB-INF/lib"
+          file="${cactus.httpunit.jar}"/>
 
         <!-- Copy the JSP Redirector -->
         <copy todir="${cactus.target.dir}/${cactus.context}">
@@ -144,22 +192,23 @@
         </copy>
                     
     </target>
-       
+   
     <!--
        ========================================================================
-         Run the tests in Eclipse
+         Trigger the Cactus test by running a JUnit Test Runner
        ========================================================================
     -->
     <target name="cactus.test">
       <eclipseruntests/>
     </target>
-       
+          
     <!--
        ========================================================================
          Clean generated files (including distributables)
        ========================================================================
     -->
-    <target name="cactus.clean" depends="cactus.init" description="Clean target directory">
+    <target name="cactus.clean" depends="cactus.init" 
+      description="Clean target directory">
         <delete includeEmptyDirs="true">
             <fileset dir="${cactus.target.dir}/${cactus.context}"/>
         </delete>
