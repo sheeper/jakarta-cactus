@@ -45,7 +45,6 @@
   <resource id="mock_vs_cactus" target="mock_vs_cactus.html"/>
   <resource id="javadoc" target="javadoc.html"/>
   <resource id="faq" target="faq.html"/>
-  <resource id="eclipse_plugin" target="integration/eclipse/eclipse_plugin.html"/>
   <resource id="howto_classpath" target="integration/manual/howto_classpath.html"/>
   <resource id="howto_config" target="integration/manual/howto_config.html"/>
   <resource id="howto_migration" target="howto_migration.html"/>
@@ -86,7 +85,8 @@
   <resource id="release_checklist" target="participating/release_checklist.html"/>
   <resource id="howto_build" target="participating/howto_build.html"/>
 
-  <resource id="runner_plugin" target="integration/eclipse/eclipse_plugin.html"/>
+  <resource id="eclipse_integration" target="integration/eclipse/eclipse_integration.html"/>
+  <resource id="runner_plugin" target="integration/eclipse/runner_plugin.html"/>
   <resource id="webapp_plugin" target="integration/eclipse/webapp_plugin.html"/>  
 
   <resource id="code_sample_servlet" target="misc/SampleServlet.class"/>
