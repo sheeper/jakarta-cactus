@@ -109,7 +109,7 @@ public abstract class AbstractServerRun extends Thread
      *
      * @exception Exception if any error happens when starting the server
      */
-    abstract protected void doStartServer() throws Exception;
+    protected abstract void doStartServer() throws Exception;
 
     /**
      * Stops the server by connecting to the socket set up when the server
@@ -117,7 +117,7 @@ public abstract class AbstractServerRun extends Thread
      *
      * @exception Exception if any error happens when stopping the server
      */
-    abstract protected void doStopServer() throws Exception;
+    protected abstract void doStopServer() throws Exception;
 
     /**
      * Parse and process the command line to start/stop the server.
