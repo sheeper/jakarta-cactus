@@ -129,7 +129,7 @@ aspectj-ant.jar = ${lib.repo}/aspectj/jars/aspectj-ant-1.0.6.jar
 
 # Dependancies for Checkstyle code auditing
 # If not specified here, the JARs must be present in ANTHOME/lib
-antlr.jar = ${lib.repo}/antlr/jars/antlr-2.7.1.jar
+antlr.jar = ${lib.repo}/antlr/jars/antlr-2.7.2.jar
 checkstyle.jar = ${lib.repo}/checkstyle/jars/checkstyle-3.1.jar
 commons.beanutils.jar = ${lib.repo}/commons-beanutils/jars/commons-beanutils-1.6.1.jar
 commons.collections.jar = ${lib.repo}/commons-collections/jars/commons-collections-2.1.jar

@@ -28,7 +28,7 @@
 # below. You do not have to put all the external jars in a single location.
 lib.repo = c:/apps/maven/repository
 
-antlr.jar = ${lib.repo}/antlr/jars/antlr-2.7.1.jar
+antlr.jar = ${lib.repo}/antlr/jars/antlr-2.7.2.jar
 checkstyle.jar = ${lib.repo}/checkstyle/jars/checkstyle-3.1.jar
 commons.beanutils.jar = ${lib.repo}/commons-beanutils/jars/commons-beanutils-1.6.1.jar
 commons.collections.jar = ${lib.repo}/commons-collections/jars/commons-collections-2.1.jar
