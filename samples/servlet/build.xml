@@ -314,129 +314,30 @@
 
     </target>
     
-    <target name="test.jboss3x" 
-        depends="prepare.dist, test.prepare"
-        if="cactus.home.jboss3x">
-
-       <ant dir="${dist.bin.dir}/${project.name.file}" target="test"
-           inheritAll="false">
-         <property name="cactus.home.jboss3x" value="${cactus.home.jboss3x}"/>
-         <property name="target.dir" location="${target.test.dir}"/>
-         <property name="cactus.framework.jar"
-             location="${test.cactus.framework.jar}"/>
-         <property name="cactus.ant.jar"
-             location="${test.cactus.antintegration.jar}"/>
-         <property name="clover.jar" value="${clover.jar}"/>
-       </ant>
-
-    </target>
-
-    <target name="test.orion1x"
-        depends="prepare.dist, test.prepare"
-        if="cactus.home.orion1x">
-
-       <ant dir="${dist.bin.dir}/${project.name.file}" target="test"
-           inheritAll="false">
-         <property name="cactus.home.orion1x" value="${cactus.home.orion1x}"/>
-         <property name="target.dir" location="${target.test.dir}"/>
-         <property name="cactus.framework.jar"
-             location="${test.cactus.framework.jar}"/>
-         <property name="cactus.ant.jar"
-             location="${test.cactus.antintegration.jar}"/>
-         <property name="clover.jar" value="${clover.jar}"/>
-       </ant>
-
-    </target>
-
-    <target name="test.orion2x"
-        depends="prepare.dist, test.prepare"
-        if="cactus.home.orion2x">
-
-       <ant dir="${dist.bin.dir}/${project.name.file}" target="test"
-           inheritAll="false">
-         <property name="cactus.home.orion2x" value="${cactus.home.orion2x}"/>
-         <property name="target.dir" location="${target.test.dir}"/>
-         <property name="cactus.framework.jar"
-             location="${test.cactus.framework.jar}"/>
-         <property name="cactus.ant.jar"
-             location="${test.cactus.antintegration.jar}"/>
-         <property name="clover.jar" value="${clover.jar}"/>
-       </ant>
-
-    </target>
-
-    <target name="test.resin2x" 
-        depends="prepare.dist, test.prepare"
-        if="cactus.home.resin2x">
-
-       <ant dir="${dist.bin.dir}/${project.name.file}" target="test"
-           inheritAll="false">
-         <property name="cactus.home.resin2x" value="${cactus.home.resin2x}"/>
-         <property name="target.dir" location="${target.test.dir}"/>
-         <property name="cactus.framework.jar"
-             location="${test.cactus.framework.jar}"/>
-         <property name="cactus.ant.jar"
-             location="${test.cactus.antintegration.jar}"/>
-         <property name="clover.jar" value="${clover.jar}"/>
-       </ant>
-
-    </target>
-
-    <target name="test.tomcat3x" 
-        depends="prepare.dist, test.prepare"
-        if="cactus.home.tomcat3x">
-
-       <ant dir="${dist.bin.dir}/${project.name.file}" target="test"
-           inheritAll="false">
-         <property name="cactus.home.tomcat3x" value="${cactus.home.tomcat3x}"/>
-         <property name="target.dir" location="${target.test.dir}"/>
-         <property name="cactus.framework.jar"
-             location="${test.cactus.framework.jar}"/>
-         <property name="cactus.ant.jar"
-             location="${test.cactus.antintegration.jar}"/>
-         <property name="clover.jar" value="${clover.jar}"/>
-       </ant>
-
-    </target>
-
-    <target name="test.tomcat4x" 
-        depends="prepare.dist, test.prepare"
-        if="cactus.home.tomcat4x">
-
-       <ant dir="${dist.bin.dir}/${project.name.file}" target="test"
-           inheritAll="false">
-         <property name="cactus.home.tomcat4x" value="${cactus.home.tomcat4x}"/>
-         <property name="target.dir" location="${target.test.dir}"/>
-         <property name="cactus.framework.jar"
-             location="${test.cactus.framework.jar}"/>
-         <property name="cactus.ant.jar"
-             location="${test.cactus.antintegration.jar}"/>
-         <property name="clover.jar" value="${clover.jar}"/>
-       </ant>
-
-    </target>
-
-    <target name="test.tomcat5x" 
-        depends="prepare.dist, test.prepare"
-        if="cactus.home.tomcat5x">
-
-       <ant dir="${dist.bin.dir}/${project.name.file}" target="test"
-           inheritAll="false">
-         <property name="cactus.home.tomcat5x" value="${cactus.home.tomcat5x}"/>
-         <property name="target.dir" location="${target.test.dir}"/>
-         <property name="cactus.framework.jar"
-             location="${test.cactus.framework.jar}"/>
-         <property name="cactus.ant.jar"
-             location="${test.cactus.antintegration.jar}"/>
-         <property name="clover.jar" value="${clover.jar}"/>
-       </ant>
-
-    </target>
-
     <target name="test" 
-        description="Run the tests on all defined servers"
-        depends="test.jboss3x, test.orion1x, test.orion2x, test.resin2x,
-                 test.tomcat3x, test.tomcat4x, test.tomcat5x">
+        depends="prepare.dist, test.prepare"
+        description="Run the tests on all defined servers">
+
+        <ant dir="${target.sample.dir}" target="test">
+            <property name="src.dir" location="${target.sample.src.dir}"/>
+            <property name="src.java.dir"
+                location="${target.sample.src.java.dir}"/>
+            <property name="src.conf.dir"
+                location="${target.sample.src.conf.dir}"/>
+            <property name="src.cactus.dir"
+                location="${target.sample.src.cactus.dir}"/>
+            <property name="src.webapp.dir"
+                location="${target.sample.src.webapp.dir}"/>
+            <property name="target.dir" location="${target.test.dir}"/>
+            <property name="target.classes.dir"
+                location="${target.test.dir}/classes"/>
+            <property name="target.classes.java.dir"
+                location="${target.test.dir}/classes/java"/>
+            <property name="target.classes.cactus.dir"
+                location="${target.test.dir}/classes/cactus"/>
+            <property name="target.testreports.dir"
+                location="${target.test.dir}/test-reports"/>
+       </ant>
 
     </target>
 
@@ -526,6 +427,20 @@
          added to the Ant classpath before the build starts (because of the
          use of build.sysclasspath=only by Gump -->
     <target name="release.gump" depends="release.common">
+    </target>
+
+    <!--
+       ========================================================================
+         Clean generated files (including distributables)
+       ========================================================================
+    -->
+    <target name="clean" depends="init.display,init.properties"
+    	description="Clean all generated files">
+
+        <delete dir="${target.dir}"/>
+        <delete dir="${dist.dir}"/>
+        <delete dir="${release.dir}"/>
+
     </target>
 
 </project>
