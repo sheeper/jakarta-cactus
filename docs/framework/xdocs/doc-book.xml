@@ -10,10 +10,10 @@
   </menu>
 
   <menu label="About">
-    <menu-item label="News" source="index.xml"/>
+    <menu-item label="What is Cactus ?" source="index.xml"/>
     <menu-item label="Features" source="features.xml"/>
     <menu-item label="Goals" source="goals.xml"/>
-    <menu-item type="changes" label="Changes" source="changes.xml"/>
+    <menu-item type="changes" label="News/Changes" source="changes.xml"/>
     <menu-item type="roadmap" label="Roadmap/Todo" source="todo.xml"/>
     <menu-item label="Contributors" source="contributors.xml"/>
     <menu-item label="Contributing" source="contributing.xml"/>

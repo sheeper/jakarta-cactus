@@ -2,7 +2,7 @@
 
 <roadmap title="Roadmap/Todo for Cactus">
 
-  <s1 title="Introduction">
+  <s1 title="Forewords">
     <p>
       As is stated on the Cactus <link href="goals.html">goals</link> page, the
       intention is to explore as much as possible in the realm of unit testing
@@ -47,10 +47,6 @@
         Write a tutorial that explains how to unit test Tag libraries (only
         taglets that extend TagSupport for the moment).
       </action>
-      <action assigned-to="Cedric Chabanois, Kunal Vaishnav">
-        Write a Cactus integration tutorial for JBuilder 4/5 that explains how
-        to run Cactus tests within JBuilder4/5.
-      </action>
       <action>
         Add a tutorial/FAQ entry for explaining unit testing of persistent
         sessions, i.e. to explain that each unit test is *independent* of 
@@ -79,7 +75,8 @@
         All tasks that are related to building Cactus in general.
       </p>
       <action assigned-to="Vincent Massol">
-        Set up nightly builds (it is high time !). Almost done !
+        Set up nightly builds (it is high time !). Almost done (works for
+        Cactus for Servlet API 2.3 and soon for Cactus for Servlet API 2.2) !
       </action>
       <action>
         Add support for Orion 1.5 in Ant build files (current support is for
@@ -187,12 +184,6 @@
         Integration to Netbeans in general and especially integration with the 
         Netbeans XTest module.
       </action>
-      <action  assigned-to="Vincent Massol, Alex Fernandez">
-        Mock Object seem to be useful (see the
-        <link href="mockobjects.html">comparison</link> between Cactus and
-        Mock objects). Now we need to think on how we could bring the benefits
-        of both approach together and whether it is feasible on not.
-      </action>
       <action>
         When we want to unit test classes written for the Struts framework
         (for example), we can use Cactus to provide access to all Servlet API
@@ -206,16 +197,13 @@
         might be to host these helper classes within Struts itself. We need to
         think about that (same issue as with Ant custom tasks - There have
         been lengthy discussion on the subject on the Ant mailing list).
+        Another solution is to use Struts Mock Objects (could be done as part
+        of the SourceForge Mock Objects project - www.mockobjects.com).
       </action>
-      <action assigned-to="Jari Worsley">
+      <action assigned-to="Vincent Massol, Jari Worsley">
         Integrate with HttpUnit so that we can use DOM representations and
         associated API within Cactus in order to validate returned output from
-        servlet output stream. Integration could be done by providing these
-        HttpUnit features in the endXXX() method. Need to validate how the
-        integration could be done (Russell Gold propose extending the HttpUnit
-        WebResponse class - Check thread
-        "[cactus]A Heath Robinson lash up with HttpUnit" in Jakarta Commons 
-        mailing list)
+        servlet output stream.
       </action>
         
     </category>

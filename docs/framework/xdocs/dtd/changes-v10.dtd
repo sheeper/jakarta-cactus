@@ -48,6 +48,10 @@ COPYRIGHT:
 
 ==================================================================== -->
 
+<!-- =============================================================== -->
+<!-- Needed to include the generated XML file representing the CVS -->
+<!-- log  -->
+<!-- =============================================================== -->
 <!ENTITY cvslog SYSTEM "../cvslog/cvslog.xml">
 
 <!-- =============================================================== -->
@@ -69,7 +73,7 @@ COPYRIGHT:
 <!-- Document Type Definition -->
 <!-- =============================================================== -->
 
-<!ELEMENT changes (cvslogs?, releases?)>
+<!ELEMENT changes ((s1|anchor|cvslogs|releases)*)>
 <!ATTLIST changes %common.att;
                   %title.att;>
 

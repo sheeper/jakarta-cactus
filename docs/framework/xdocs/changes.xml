@@ -2,8 +2,88 @@
 
 <!DOCTYPE changes SYSTEM "./dtd/changes-v10.dtd">
 
-<changes title="History of Changes">
+<changes title="Changes">
 
+  <s1 title="Summary of changes">
+    <ul>
+      <li>
+        <jump anchor="major_news">Major news and announcements</jump>
+      </li>
+      <li>
+        <jump anchor="website_changes">Last 15 days web site changes</jump>
+      </li>
+      <li>
+        <jump anchor="release_changes">Release changes</jump>
+      </li>
+    </ul>
+  </s1>
+
+  <!-- ================================================================= -->
+  <!-- Major news and announcements -->
+  <!-- ================================================================= -->
+
+  <anchor id="major_news"/>
+  <s1 title="Major news and announcements">
+
+    <table>
+      <tr>
+        <td>
+          14/07/2001
+        </td>
+        <td>
+          New <link href="ide_jbuilder.html">tutorial</link> for setting up
+          Cactus inside JBuilder.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          05/07/2001
+        </td>
+        <td>
+          Cactus now has its dedicated mailing list ! Thanks to its growing
+          community, that is thanks to us ! :-). New directions can be found
+          <link href="mailinglist.html">here</link>.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          01/07/2001
+        </td>
+        <td>
+          New <link href="todo.html">Roadmap/Todo</link> page that lists
+          the actions that need to be performed before releasing the next
+          version of Cactus. Come help !
+        </td>
+      </tr>
+      <tr>
+        <td>
+          01/07/2001
+        </td>
+        <td>
+          New <link href="ide_vajava.html">tutorial</link> for installing
+          Cactus inside VisualAge for Java.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          18/06/2001
+        </td>
+        <td>
+          Cactus v1.1 is available for <link href="downloads.html">
+          download</link>. It is a bug fix release with
+          a few new features. Check the <link href="changes.html">changes
+          </link> page for a list of changes.
+        </td>
+      </tr>
+    </table>
+
+  </s1>
+
+  <!-- ================================================================= -->
+  <!-- Last 15 days web site changes -->
+  <!-- ================================================================= -->
+
+  <anchor id="website_changes"/>
   <cvslogs title="Last 15 days web site changes">
 
     <p>
@@ -13,10 +93,15 @@
     </p>
 
     &cvslog;
-    
+
   </cvslogs>
 
-  <releases title="Cactus changes">
+  <!-- ================================================================= -->
+  <!-- Release changes -->
+  <!-- ================================================================= -->
+
+  <anchor id="release_changes"/>
+  <releases title="Release changes">
 
     <devs>
       <person name="Vincent Massol" email="vmassol@users.sourceforge.net" id="VMA"/>
@@ -26,7 +111,7 @@
       <action dev="VMA" type="add">
         New tutorial for integration within JBuilder. Thanks to
         <link href="mailto:cchabanois@ifrance.com">Cedric Chabanois</link>
-        and <link href="mailto:Kunal_Vaishnav@jdedwards.com">Kunal 
+        and <link href="mailto:Kunal_Vaishnav@jdedwards.com">Kunal
         Vaishnav</link> for providing this tutorial.
       </action>
       <action dev="VMA" type="fix" due-to="Jari Worsley" due-to-email="jariw@hyperlink-interactive.co.uk">
@@ -35,7 +120,7 @@
       </action>
       <action dev="VMA" type="fix" due-to="Jari Worsley" due-to-email="jariw@hyperlink-interactive.co.uk">
         <code>HttpServletRequestWrapper.getRequestDispatcher()</code> was not
-        returning a wrapped request dispatcher, thus causing error when 
+        returning a wrapped request dispatcher, thus causing error when
         forward() or include() was used afterwards.
       </action>
       <action dev="VMA" type="add">
@@ -84,8 +169,8 @@
         risk that the test result will not be committed to the servlet
         application scope *before* the client requests the test result, thus
         getting a no result exception or, worse, getting the result from the
-        previous test. Also, if the returned result is bigger than the default 
-        buffer the server would block until the client side reads the data, 
+        previous test. Also, if the returned result is bigger than the default
+        buffer the server would block until the client side reads the data,
         thus resulting in a deadlock with the above-mentionned bug.
       </action>
       <action dev="VMA" type="add">
@@ -177,7 +262,7 @@
         jars are not in the <code>CLASSPATH</code> prior to running the build.
       </action>
     </release>
-    
+
     <release version="1.0b1" date="April 9 2001">
       <action dev="VMA" type="update">
         Updated the Cactus distribution so that everything is contained into one
