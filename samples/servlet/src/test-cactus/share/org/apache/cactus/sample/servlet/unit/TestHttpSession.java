@@ -19,6 +19,9 @@
  */
 package org.apache.cactus.sample.servlet.unit;
 
+import junit.framework.Test;
+import junit.framework.TestSuite;
+
 import org.apache.cactus.HttpSessionCookie;
 import org.apache.cactus.ServletTestCase;
 import org.apache.cactus.WebRequest;
@@ -31,6 +34,48 @@ import org.apache.cactus.WebResponse;
  */
 public class TestHttpSession extends ServletTestCase
 {
+    /**
+     * Save the session cookie for the testDependentTestUsingSession tests. 
+     * The idea is to share the same session object on the server side.
+     */
+    private HttpSessionCookie sessionCookie;
+
+    /**
+     * Link this test to another test. This is to cleanly be able to pass a
+     * parameter to another test (in our case the session cookie). 
+     */
+    private TestHttpSession dependentTest;
+
+    public TestHttpSession(String name)
+    {
+        super(name);
+    }
+
+    public TestHttpSession(String name, TestHttpSession test)
+    {
+        super(name);
+        this.dependentTest = test;
+    }
+
+    /**
+     * We order the tests so that we are sure that testDependentTestUsingSession
+     * is run before testDependentTestUsingSession2. This is because we wish to
+     * verify it is possible to share session data between 2 tests.
+     */
+    public static Test suite()
+    {
+        TestSuite suite = new TestSuite();
+        suite.addTest(new TestHttpSession("testNoAutomaticSessionCreation"));
+        suite.addTest(new TestHttpSession("testVerifyJsessionid"));
+        suite.addTest(new TestHttpSession("testCreateSessionCookie"));
+
+        TestHttpSession test = new TestHttpSession("testDependentTestUsingSession");
+        suite.addTest(test);
+        suite.addTest(new TestHttpSession("testDependentTestUsingSession2", test));
+        
+        return suite;
+    }
+    
     /**
      * Verify that it is possible to ask for no automatic session creation in
      * the <code>beginXXX()</code> method.
@@ -99,4 +144,54 @@ public class TestHttpSession extends ServletTestCase
             + "this request", !session.isNew());
     }
 
+    //-------------------------------------------------------------------------
+
+    /**
+     * Verify that it is possible to share the HTTP Session between 2 tests.
+     * Please note that this is *NOT* recommended at all as unit tests must
+     * be independent one from another. 
+     *
+     * @param theRequest the request object that serves to initialize the
+     *                   HTTP connection to the server redirector.
+     */
+    public void beginDependentTestUsingSession(WebRequest theRequest)
+    {
+        this.sessionCookie = theRequest.getSessionCookie();
+        assertNotNull("Session cookie should not be null", sessionCookie);
+        theRequest.addCookie(sessionCookie);
+    }
+
+    /**
+     * Verify that it is possible to share the HTTP Session between 2 tests.
+     * Please note that this is *NOT* recommended at all as unit tests must
+     * be independent one from another. 
+     */
+    public void testDependentTestUsingSession()
+    {
+        session.setAttribute("dependentTestId", "dependentTestValue");
+    }
+    
+    /**
+     * Verify that it is possible to share the HTTP Session between 2 tests.
+     * Please note that this is *NOT* recommended at all as unit tests must
+     * be independent one from another. 
+     *
+     * @param theRequest the request object that serves to initialize the
+     *                   HTTP connection to the server redirector.
+     */
+    public void beginDependentTestUsingSession2(WebRequest theRequest)
+    {
+        assertNotNull(this.dependentTest.sessionCookie);
+        theRequest.addCookie(this.dependentTest.sessionCookie);        
+    }
+
+    /**
+     * Verify that it is possible to share the HTTP Session between 2 tests.
+     * Please note that this is *NOT* recommended at all as unit tests must
+     * be independent one from another. 
+     */
+    public void testDependentTestUsingSession2()
+    {
+        assertEquals("dependentTestValue", session.getAttribute("dependentTestId"));
+    }
 }
