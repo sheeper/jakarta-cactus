@@ -90,12 +90,6 @@
       </devs>
 
       <release version="1.6dev" date="in CVS">
-        <action dev="VMA" type="fix" due-to="Gertjan van Oosten">
-          Ensure that the &lt;cactus&gt; task correctly checks if the 
-          container is up and running, even when the user has defined
-          custom secured redirectors. This is achieved by always registering
-          some default not-secured Cactus redirectors.
-        </action>
         <action dev="VMA" type="add">
           Added new optional nested <code>&lt;containerclasspath&gt;</code> 
           element for the <code>&lt;cactus&gt;</code> task. It allows 

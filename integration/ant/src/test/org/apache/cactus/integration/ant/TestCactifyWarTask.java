@@ -147,9 +147,9 @@ public final class TestCactifyWarTask extends AntTestCase
             webXml.getVersion());
         assertServletMapping(webXml,
             "org.apache.cactus.server.ServletTestRedirector",
-            "DefaultServletRedirector",
+            "ServletRedirector",
             "/ServletRedirector");
-        assertJspMapping(webXml, "/jspRedirector.jsp", "DefaultJspRedirector", 
+        assertJspMapping(webXml, "/jspRedirector.jsp", "JspRedirector", 
             "/JspRedirector");
         // As the deployment descriptor in the source WAR doesn't contain a 
         // DOCTYPE, it is assumed to be a version 2.2 descriptor. Thus it 
@@ -175,9 +175,9 @@ public final class TestCactifyWarTask extends AntTestCase
         assertEquals(WebXmlVersion.V2_2, webXml.getVersion());
         assertServletMapping(webXml, 
             "org.apache.cactus.server.ServletTestRedirector",
-            "DefaultServletRedirector",
+            "ServletRedirector",
             "/ServletRedirector");
-        assertJspMapping(webXml, "/jspRedirector.jsp", "DefaultJspRedirector",
+        assertJspMapping(webXml, "/jspRedirector.jsp", "JspRedirector",
             "/JspRedirector");
         assertTrue("Filter test redirector should not have been defined",
             !webXml.getFilterNames().hasNext());
@@ -199,13 +199,13 @@ public final class TestCactifyWarTask extends AntTestCase
         assertEquals(WebXmlVersion.V2_3, webXml.getVersion());
         assertServletMapping(webXml, 
             "org.apache.cactus.server.ServletTestRedirector",
-            "DefaultServletRedirector",
+            "ServletRedirector",
             "/ServletRedirector");
-        assertJspMapping(webXml, "/jspRedirector.jsp", "DefaultJspRedirector",
+        assertJspMapping(webXml, "/jspRedirector.jsp", "JspRedirector",
             "/JspRedirector");
         assertFilterMapping(webXml,
             "org.apache.cactus.server.FilterTestRedirector",
-            "DefaultFilterRedirector",
+            "FilterRedirector",
             "/FilterRedirector");
     }
 
@@ -226,9 +226,9 @@ public final class TestCactifyWarTask extends AntTestCase
         assertEquals(WebXmlVersion.V2_2, webXml.getVersion());
         assertServletMapping(webXml,
             "org.apache.cactus.server.ServletTestRedirector",
-            "DefaultServletRedirector",
+            "ServletRedirector",
             "/ServletRedirector");
-        assertJspMapping(webXml, "/jspRedirector.jsp", "DefaultJspRedirector",
+        assertJspMapping(webXml, "/jspRedirector.jsp", "JspRedirector",
             "/JspRedirector");
         assertTrue("Filter test redirector should not have been defined",
             !webXml.getFilterNames().hasNext());
@@ -251,13 +251,13 @@ public final class TestCactifyWarTask extends AntTestCase
         assertEquals(WebXmlVersion.V2_3, webXml.getVersion());
         assertServletMapping(webXml,
             "org.apache.cactus.server.ServletTestRedirector",                
-            "DefaultServletRedirector",
+            "ServletRedirector",
             "/ServletRedirector");
-        assertJspMapping(webXml, "/jspRedirector.jsp", "DefaultJspRedirector",
+        assertJspMapping(webXml, "/jspRedirector.jsp", "JspRedirector",
             "/JspRedirector");
         assertFilterMapping(webXml,
             "org.apache.cactus.server.FilterTestRedirector",
-            "DefaultFilterRedirector",
+            "FilterRedirector",
             "/FilterRedirector");
     }
 
