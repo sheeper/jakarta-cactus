@@ -168,15 +168,16 @@
     -->
     <target name="display.properties">
 
-        <echo message="----- ${project.name.text} ${project.version} -----"/>
-        <echo message=""/>
-        <echo message="java.class.path = ${java.class.path}"/>
-        <echo message=""/>
-        <echo message="java.home = ${java.home}"/>
-        <echo message="user.home = ${user.home}"/>
-        <echo message="ant.home = ${ant.home}"/>
-        <echo message=""/>
-        <echo message="clover.enable (optional) = ${clover.enable}"/>
+        <echo>----- ${project.name.text} ${project.version} -----</echo>
+        <echo></echo>
+        <echo>java.class.path = ${java.class.path}"</echo>
+        <echo></echo>
+        <echo>java.home = ${java.home}</echo>
+        <echo>user.home = ${user.home}</echo>
+        <echo>ant.home = ${ant.home}</echo>
+        <echo></echo>
+        <echo>clover.enable (optional) = ${clover.enable}</echo>
+        <echo></echo>
 
     </target>
 
@@ -246,7 +247,6 @@
         <!-- Clover write data at compile time *and* at runtime in this file -->
         <property name="clover.initstring"
             location="${basedir}/target-${j2ee.api}/clover-coverage.db"/>
-        <echo message="clover.initstring = ${clover.initstring}"/>
 
         <dirname property="clover.db.dir" file="${clover.initstring}"/>
         <mkdir dir="${clover.db.dir}"/>
@@ -620,10 +620,6 @@
 
         <mkdir dir="${target.dir}"/>
 
-        <property name="checkstyle.results.file"
-            location="${target.dir}/checkstyle_errors.xml"/>
-        <echo message="Errors are reported in ${checkstyle.results.file}"/>
-
         <checkstyle config="./checkstyle.xml" 
             failOnViolation="false">
 
@@ -636,7 +632,8 @@
             </fileset>
 
             <formatter type="plain"/>
-            <formatter type="xml" toFile="${checkstyle.results.file}"/>
+            <formatter type="xml"
+                toFile="${target.dir}/checkstyle_results.xml"/>
 
             <property key="checkstyle.header.file" file="./LICENSE.cactus"/>
 
