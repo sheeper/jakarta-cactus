@@ -18,6 +18,12 @@
     <runservertests stoptarget="stopDummy" testtarget="testDummy"/>
   </target>
 
+  <target name="testStartTimeout">
+    <runservertests starttarget="startDummy" stoptarget="stopDummy"
+        testtarget="testDummy" timeout="0"
+        testurl="http://localhost:9093/dummy"/>
+  </target>
+
   <target name="testStopNotSet">
     <runservertests starttarget="startDummy" testtarget="testDummy"/>
   </target>
@@ -40,12 +46,15 @@
   <!-- Utility Targets -->
 
   <target name="startDummy">
+    <touch file="${work.dir}/startDummy.tmp"/>
   </target>
 
   <target name="stopDummy">
+    <touch file="${work.dir}/stopDummy.tmp"/>
   </target>
 
   <target name="testDummy">
+    <touch file="${work.dir}/testDummy.tmp"/>
   </target>
 
 </project>

@@ -95,7 +95,9 @@ public final class TestRunServerTestsTask extends AntTestCase
     // Test Methods ------------------------------------------------------------
 
     /**
-     * 
+     * Verifies that a build exception is thrown if neither the
+     * <code>starttarget</code> nor a nested <code>start</code> element has been
+     * specified.
      * 
      * @throws Exception If an unexpected error occurs
      */
@@ -114,7 +116,31 @@ public final class TestRunServerTestsTask extends AntTestCase
     }
 
     /**
+     * Verifies that the <code>starttarget</code> is run before the timeout is 
+     * exceeded. 
      * 
+     * @throws Exception If an unexpected error occurs
+     */
+    public void testStartTimeout() throws Exception
+    {
+        try
+        {
+            executeTestTarget();
+            fail("Expected BuildException");
+        }
+        catch (BuildException expected)
+        {
+            assertEquals("Failed to start the container after more than [0] "
+                + "ms.", expected.getMessage());
+        }
+        assertTrue("The [starttarget] was not run",
+            getProject().resolveFile("work/startDummy.tmp").isFile());
+    }
+
+    /**
+     * Verifies that a build exception is thrown if neither the
+     * <code>stoptarget</code> nor a nested <code>stop</code> element has been
+     * specified.
      * 
      * @throws Exception If an unexpected error occurs
      */
@@ -133,7 +159,9 @@ public final class TestRunServerTestsTask extends AntTestCase
     }
 
     /**
-     * 
+     * Verifies that a build exception is thrown if neither the
+     * <code>testtarget</code> nor a nested <code>test</code> element has been
+     * specified.
      * 
      * @throws Exception If an unexpected error occurs
      */
