@@ -354,6 +354,12 @@ be resolved. Please check you build.properties file, and run Ant with the
 
     <target name="dist" depends="checkstyle, prepare.dist, test"
         description="Generate the distributable files">
+
+        <zip destfile="${dist.bin.dir}/${project.name.file}.zip">
+            <zipfileset dir="${dist.bin.dir}/${project.name.file}" 
+                prefix="${project.name.file}"/>
+        </zip>
+
     </target>
 
     <!--

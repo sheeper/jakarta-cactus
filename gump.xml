@@ -407,7 +407,7 @@
     <!-- Note: The sample project delivers a zip, not a jar. However, we
     	need to put a <jar> entry so that dependent project will get a 
     	PREREQ failure if this build was not successful -->
-    <jar name="samples/servlet/dist-12/bin/cactus-sample-servlet"/>
+    <jar name="samples/servlet/dist-12/bin/cactus-sample-servlet.zip"/>
 
     <license name="LICENSE.cactus"/>
 
@@ -469,7 +469,7 @@
     <!-- Note: The sample project delivers a zip, not a jar. However, we
     	need to put a <jar> entry so that dependent project will get a 
     	PREREQ failure if this build was not successful -->
-    <jar name="samples/servlet/dist-13/bin/cactus-sample-servlet"/>
+    <jar name="samples/servlet/dist-13/bin/cactus-sample-servlet.zip"/>
 
     <license name="LICENSE.cactus"/>
 
