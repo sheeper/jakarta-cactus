@@ -86,27 +86,30 @@ import org.eclipse.jdt.launching.VMRunnerConfiguration;
 import org.eclipse.jdt.launching.sourcelookup.JavaSourceLocator;
 
 /**
- * @author Julien Ruaux
- *
- * This class contains the configuration for the VM that will actually launch the cactus tests.
+ * This class contains the configuration for the VM that will actually launch 
+ * the cactus tests.
  * 
  * @version $Id: $
+ * @author <a href="mailto:jruaux@octo.com">Julien Ruaux</a>
+ * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  */
 public class CactusLaunchConfiguration extends JUnitLaunchConfiguration
 {
-
-    public static final String ID_CACTUS_APPLICATION = "org.apache.cactus.eclipse.launchconfig"; //$NON-NLS-1$
+    public static final String ID_CACTUS_APPLICATION = 
+        "org.apache.cactus.eclipse.launchconfig";
 
     /**
      * @see org.eclipse.debug.core.model.ILaunchConfigurationDelegate#launch(ILaunchConfiguration, String, ILaunch, IProgressMonitor)
      */
-    public void launch(ILaunchConfiguration configuration, String mode,
+    public void launch(ILaunchConfiguration Configuration, String Mode,
         ILaunch launch, IProgressMonitor pm) throws CoreException
     {
         IJavaProject javaProject = getJavaProject(configuration);
         if ((javaProject == null) || !javaProject.exists())
         {
-            abort(JUnitMessages.getString("JUnitBaseLaunchConfiguration.error.invalidproject"), null, IJavaLaunchConfigurationConstants.ERR_NOT_A_JAVA_PROJECT); //$NON-NLS-1$
+            abort(JUnitMessages.getString(
+                "JUnitBaseLaunchConfiguration.error.invalidproject"), null, 
+                IJavaLaunchConfigurationConstants.ERR_NOT_A_JAVA_PROJECT);
         }
 
         IType testType = getTestType(configuration, javaProject);
@@ -116,7 +119,10 @@ public class CactusLaunchConfiguration extends JUnitLaunchConfiguration
 
         if (runner == null)
         {
-            abort(MessageFormat.format(JUnitMessages.getString("JUnitBaseLaunchConfiguration.error.novmrunner"), new String[] { install.getId()}), null, IJavaLaunchConfigurationConstants.ERR_VM_RUNNER_DOES_NOT_EXIST); //$NON-NLS-1$
+            abort(MessageFormat.format(JUnitMessages.getString(
+                "JUnitBaseLaunchConfiguration.error.novmrunner"),
+                new String[] { install.getId()}), null, 
+                IJavaLaunchConfigurationConstants.ERR_VM_RUNNER_DOES_NOT_EXIST);
         }
 
         File workingDir = verifyWorkingDirectory(configuration);
@@ -177,33 +183,36 @@ public class CactusLaunchConfiguration extends JUnitLaunchConfiguration
      * @see org.eclipse.jdt.internal.junit.launcher.JUnitBaseLaunchConfiguration#createVMRunner(ILaunchConfiguration, IType[], int, String)
      */
     protected VMRunnerConfiguration createVMRunner(
-        ILaunchConfiguration configuration,
-        IType[] testTypes,
-        int port,
-        String runMode)
-        throws CoreException
+        ILaunchConfiguration configuration, IType[] testTypes, int port, 
+        String runMode) throws CoreException
     {
         String[] classPath = createClassPath(configuration, testTypes[0]);
-        VMRunnerConfiguration vmConfig = new VMRunnerConfiguration("org.eclipse.jdt.internal.junit.runner.RemoteTestRunner", classPath); //$NON-NLS-1$
+        VMRunnerConfiguration vmConfig = new VMRunnerConfiguration(
+            "org.eclipse.jdt.internal.junit.runner.RemoteTestRunner", 
+            classPath);
 
         Vector argv = new Vector(10);
-        argv.add("-port"); //$NON-NLS-1$
+        argv.add("-port");
         argv.add(Integer.toString(port));
-        //argv("-debugging");
-        argv.add("-classNames"); //$NON-NLS-1$
+        argv.add("-classNames");
 
-        if (keepAlive(configuration)
+        if (keepAlive(configuration) 
             && runMode.equals(ILaunchManager.DEBUG_MODE))
-            argv.add(0, "-keepalive"); //$NON-NLS-1$
-
+        {
+            argv.add(0, "-keepalive");
+        }
+        
         for (int i = 0; i < testTypes.length; i++)
+        {
             argv.add(testTypes[i].getFullyQualifiedName());
-
+        }
+        
         String[] args = new String[argv.size()];
         argv.copyInto(args);
         vmConfig.setProgramArguments(args);
 
-        // We set a VM argument related to the Cactus framework (QQQ : get this from the plugin preference page)
+        // We set a VM argument related to the Cactus framework (QQQ : get 
+        // this from the plugin preference page).
         String[] vmArgs = { "-Dcactus.contextURL=http://localhost:8081/test" };
         vmConfig.setVMArguments(vmArgs);
         return vmConfig;
@@ -216,10 +225,8 @@ public class CactusLaunchConfiguration extends JUnitLaunchConfiguration
      * @return String[]
      * @throws CoreException
      */
-    private String[] createClassPath(
-        ILaunchConfiguration configuration,
-        IType type)
-        throws CoreException
+    private String[] createClassPath(ILaunchConfiguration configuration, 
+        IType type) throws CoreException
     {
         URL url = JUnitPlugin.getDefault().getDescriptor().getInstallURL();
         String[] cp = getClasspath(configuration);
@@ -232,15 +239,20 @@ public class CactusLaunchConfiguration extends JUnitLaunchConfiguration
             if (inDevelopmentMode)
             {
                 // assumption is that the output folder is called bin!
-                classPath[0] = Platform.asLocalURL(new URL(url, "bin")).getFile(); //$NON-NLS-1$
-            } else
+                classPath[0] = Platform.asLocalURL(
+                    new URL(url, "bin")).getFile();
+            } 
+            else
             {
-                classPath[0] = Platform.asLocalURL(new URL(url, "junitsupport.jar")).getFile(); //$NON-NLS-1$
+                classPath[0] = Platform.asLocalURL(
+                    new URL(url, "junitsupport.jar")).getFile();
             }
-        } catch (MalformedURLException e)
+        } 
+        catch (MalformedURLException e)
         {
             JUnitPlugin.log(e); // TO DO abort run and inform user
-        } catch (IOException e)
+        } 
+        catch (IOException e)
         {
             JUnitPlugin.log(e); // TO DO abort run and inform user
         }
