@@ -357,7 +357,7 @@ Ant with the -verbose option for more details</fail>
       </fileset>
       <formatter type="plain"/>
       <formatter type="xml" tofile="${target.dir}/checkstyle_results.xml"/>
-      <property key="checkstyle.header.file" file="./LICENSE.cactus"/>
+      <property key="checkstyle.header.file" file="./checkstyle.license"/>
     </checkstyle>
 
   </target>

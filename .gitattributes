@@ -8,11 +8,13 @@
 /LICENSE.log4j svn_keywords=Author+Date+Id+Revision
 /LICENSE.logging svn_keywords=Author+Date+Id+Revision
 /LICENSE.servletapi svn_keywords=Author+Date+Id+Revision
+/NOTICE.cactus svn_keywords=Author+Date+Id+Revision
 /README svn_keywords=Author+Date+Id+Revision
 /build-common.xml svn_keywords=Author+Date+Id+Revision
 /build.properties.sample svn_keywords=Author+Date+Id+Revision
 /build.properties.vmassol svn_keywords=Author+Date+Id+Revision
 /build.xml svn_keywords=Author+Date+Id+Revision
+/checkstyle.license svn_keywords=Author+Date+Id+Revision
 /default-project.xml svn_keywords=Author+Date+Id+Revision
 /dependencies.xml svn_keywords=Author+Date+Id+Revision
 documentation/.cvsignore svn_keywords=Author+Date+Id+Revision

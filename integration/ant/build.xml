@@ -363,6 +363,7 @@ be resolved. Please check you build.properties file, and run Ant with the
       </manifest>
       <metainf dir=".">
         <include name="LICENSE.cactus"/>
+        <include name="NOTICE.cactus"/>
       </metainf>
       <fileset dir="${target.classes.java.dir}"/>
     </jar>
@@ -493,7 +494,7 @@ be resolved. Please check you build.properties file, and run Ant with the
       <formatter type="plain"/>
       <formatter type="xml"
           toFile="${target.dir}/checkstyle_results.xml"/>
-      <property key="checkstyle.header.file" file="./LICENSE.cactus"/>
+      <property key="checkstyle.header.file" file="./checkstyle.license"/>
     </checkstyle>
 
   </target>

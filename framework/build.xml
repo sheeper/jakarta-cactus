@@ -282,6 +282,7 @@ be resolved. Please check you build.properties file, and run Ant with the
       </manifest>
       <metainf dir=".">
         <include name="LICENSE.cactus"/>
+        <include name="NOTICE.cactus"/>
       </metainf>
       <fileset dir="${target.classes.clover.dir}"/>
     </jar>
@@ -505,7 +506,7 @@ be resolved. Please check you build.properties file, and run Ant with the
       <formatter type="xml"
           toFile="${target.dir}/checkstyle_results.xml"/>
 
-      <property key="checkstyle.header.file" file="./LICENSE.cactus"/>
+      <property key="checkstyle.header.file" file="./checkstyle.license"/>
 
       <classpath>
         <pathelement path="${target.classes.java.dir}"/>      
