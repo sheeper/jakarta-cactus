@@ -105,7 +105,7 @@
        ========================================================================
     -->
     <target name="init.junitplugin.find">
-
+        <echo>***** Needs Eclipse 2.1 RC2 or later *****</echo>
         <condition property="junitplugin.version" value="ok">
             <available classname="org.eclipse.jdt.junit.ITestRunListener">
                 <classpath>
