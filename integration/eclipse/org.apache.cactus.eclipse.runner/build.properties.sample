@@ -33,5 +33,6 @@ eclipse.jface.jar = ${eclipse.home}/plugins/org.eclipse.jface_2.1.0/jface.jar
 eclipse.swt.jar = ${eclipse.home}/plugins/org.eclipse.swt.win32_2.1.0/ws/win32/swt.jar
 eclipse.ui.workbench.jar = ${eclipse.home}/plugins/org.eclipse.ui.workbench_2.1.0/workbench.jar
 
-# Location of Jetty 4.1.4 jar
-jetty.jar = D:/dev/jetty/jetty-4.1.4.jar
+# The Jetty container is packaged in the Eclipse plugin and is used as the 
+# default container in which to run the Cactus tests.
+jetty.jar = ${lib.repo}/jetty/jars/org.mortbay.jetty-jdk1.2-4.2.9.jar
