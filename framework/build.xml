@@ -274,7 +274,23 @@
          Compiles the sources
        ========================================================================
     -->
-    <target name="compile.clover" depends="init" if="clover.enable">
+    <target name="compile.clover.prepare" if="clover.enable">
+
+        <!-- Only recompile if source files have changed since the last time
+             the clover jar was created -->
+        <condition property="compile.clover.required">
+            <not>
+                <uptodate targetfile="${target.dir}/${framework.clover.jar.name}.jar">
+                    <srcfiles dir="${src.java.share.dir}"/>
+                    <srcfiles dir="${src.java.specific.dir}"/>
+                </uptodate>
+            </not>
+        </condition>
+
+    </target>
+
+    <target name="compile.clover" depends="init,compile.clover.prepare"
+        if="compile.clover.required">
 
         <mkdir dir="${target.classes.clover.dir}"/>
 
@@ -288,8 +304,9 @@
             <exclude name="**/package.html"/>
             <exclude name="**/overview.html"/>
 
-            <!-- We exclude the Loggin Aspect as it adds 2 new methods for each method to log
-                 and thus leads to flawed test coverage statistics -->
+            <!-- We exclude the Logging Aspect as it adds 2 new methods for
+                 each method to log and thus leads to flawed test coverage
+                 statistics -->
             <exclude name="**/LogAspect.java"/>
 
             <classpath refid="project.class.path"/>
@@ -327,7 +344,23 @@
 
     </target>
 
-    <target name="compile.main" depends="init">
+    <target name="compile.main.prepare">
+
+        <!-- Only recompile if source files have changed since the last time
+             the main jar was created -->
+        <condition property="compile.main.required">
+            <not>
+                <uptodate targetfile="${target.dir}/${framework.jar.name}.jar">
+                    <srcfiles dir="${src.java.share.dir}"/>
+                    <srcfiles dir="${src.java.specific.dir}"/>
+                </uptodate>
+            </not>
+        </condition>
+
+    </target>
+
+    <target name="compile.main" depends="init,compile.main.prepare"
+        if="compile.main.required">
 
         <mkdir dir="${target.classes.java.dir}"/>
 
