@@ -66,8 +66,10 @@ import java.util.ArrayList;
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  * @author <a href="mailto:digital@ix.net.au">Robert Leftwich</a>
  *
- * @version $Id$
  * @see AbstractServerRun
+ * 
+ * @since Cactus 1.5
+ * @version $Id$
  */
 public class ResinRun extends AbstractServerRun
 {

@@ -74,6 +74,7 @@ import org.w3c.dom.NodeList;
  * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
+ * @since Cactus 1.5
  * @version $Id$
  */
 public class WebXml

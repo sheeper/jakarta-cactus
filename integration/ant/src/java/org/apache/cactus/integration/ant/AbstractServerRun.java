@@ -70,6 +70,7 @@ import java.util.Vector;
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  * @author <a href="mailto:digital@ix.net.au">Robert Leftwich</a>
  *
+ * @since Cactus 1.5
  * @version $Id$
  */
 public abstract class AbstractServerRun extends Thread

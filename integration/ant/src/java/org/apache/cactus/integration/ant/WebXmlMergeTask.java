@@ -82,6 +82,7 @@ import org.xml.sax.SAXException;
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
  *
+ * @since Cactus 1.5
  * @version $Id$
  */
 public class WebXmlMergeTask extends Task

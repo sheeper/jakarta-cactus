@@ -62,6 +62,7 @@ package org.apache.cactus.integration.ant.webxml;
  * 
  * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
  *
+ * @since Cactus 1.5
  * @version $Id$
  */
 public class WebXmlTag
