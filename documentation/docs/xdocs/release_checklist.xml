@@ -49,6 +49,11 @@
           the Sample application tests for one application server.
         </li>
         <li>
+          Tag the CVS HEAD with a new release tag named
+          <code>CACTUS_&lt;version&gt;_RELEASE</code> (ex:
+          <code>CACTUS_14_RELEASE</code>).
+        </li>
+        <li>
           (optional) Create a zipped packaged version of Ant containing all the
           jars needed to build Cactus in its <code>lib/</code> directory. Name
           it <code>jakarta-cactus-ant-&lt;version of
