@@ -213,73 +213,83 @@
   <!-- ==================================================================== -->
 
   <xsl:template match="menu//item">
-
-    <xsl:variable name="curid" select="@id"/>
-    <xsl:variable name="cursite" select="$sitemap//*[@id=$curid]"/>
-
-    <xsl:variable name="level" select="count(ancestor::item)+1"/>
-
-    <xsl:choose>
-      <xsl:when test="name($cursite) = 'external'">
-        <li class="menuItem">
-          <a href="{$cursite/@url}" target="{@id}">
-            <!-- Use the label from the sitemap if none has been defined
-                 in the navigation file -->
-            <xsl:choose>
-              <xsl:when test="@label">
-                <xsl:value-of select="@label"/>
-              </xsl:when>
-              <xsl:otherwise>
-                <xsl:value-of select="$cursite/@name"/>
-              </xsl:otherwise>
-            </xsl:choose>
-            <xsl:apply-templates/>
-          </a>
-        </li>
-      </xsl:when>
-      <xsl:when test="name($cursite) = 'resource'">
-        <li class="menuItem">
-          <a>
-            <xsl:attribute name="href">
-              <xsl:call-template name="get-base-directory"/>
-              <xsl:value-of select="$cursite/@target"/>
-            </xsl:attribute>
-            <xsl:attribute name="title">
-              <xsl:variable name="description">
-                <xsl:call-template name="get-resource-description">
-                  <xsl:with-param name="id" select="$curid"/>
-                </xsl:call-template>
-              </xsl:variable>
-              <xsl:value-of select="normalize-space($description)"/>
-            </xsl:attribute>
-            <!-- Use the label from the sitemap if none has been defined
-                 in the navigation file -->
-            <xsl:choose>
-              <xsl:when test="@label">
-                <xsl:value-of select="@label"/>
-              </xsl:when>
-              <xsl:otherwise>
-                <xsl:value-of select="$cursite/@name"/>
-              </xsl:otherwise>
-            </xsl:choose>
-            <xsl:apply-templates/>
-          </a>
-        </li>
-      </xsl:when>
-      <xsl:otherwise><!-- hidden --></xsl:otherwise>
-    </xsl:choose>
-    
+    <li class="menuItem">
+      <xsl:call-template name="generate-navigation-entry">
+        <xsl:with-param name="node" select="."/>
+      </xsl:call-template>
+    </li>
   </xsl:template>
-
-  <xsl:template match="separator"></xsl:template>
 
   <xsl:template match="menu">
     <li class="menu">
-      <xsl:value-of select="@label"/>
+      <xsl:choose>
+        <xsl:when test="@id">
+          <xsl:call-template name="generate-navigation-entry">
+            <xsl:with-param name="node" select="."/>
+          </xsl:call-template>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="@label"/>
+        </xsl:otherwise>
+      </xsl:choose>
       <ul>
         <xsl:apply-templates/>
       </ul>
     </li>
+  </xsl:template>
+
+  <xsl:template name="generate-navigation-entry">
+    <xsl:param name="node"/>
+    <xsl:variable name="curid" select="$node/@id"/>
+    <xsl:variable name="cursite" select="$sitemap//*[@id=$curid]"/>
+    <xsl:choose>
+      <xsl:when test="name($cursite) = 'external'">
+        <a href="{$cursite/@url}" target="{$curid}">
+          <!-- Use the label from the sitemap if none has been defined
+               in the navigation file -->
+          <xsl:choose>
+            <xsl:when test="@label">
+              <xsl:value-of select="@label"/>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:value-of select="$cursite/@name"/>
+            </xsl:otherwise>
+          </xsl:choose>
+          <xsl:apply-templates/>
+        </a>
+      </xsl:when>
+      <xsl:when test="name($cursite) = 'resource'">
+        <a>
+          <xsl:attribute name="href">
+            <xsl:call-template name="get-base-directory"/>
+            <xsl:value-of select="$cursite/@target"/>
+          </xsl:attribute>
+          <xsl:attribute name="title">
+            <xsl:variable name="description">
+              <xsl:call-template name="get-resource-description">
+                <xsl:with-param name="id" select="$curid"/>
+              </xsl:call-template>
+            </xsl:variable>
+            <xsl:value-of select="normalize-space($description)"/>
+          </xsl:attribute>
+          <xsl:if test="$curid = $document/@id">
+            <xsl:attribute name="class">currentPage</xsl:attribute>
+          </xsl:if>
+          <!-- Use the label from the sitemap if none has been defined
+               in the navigation file -->
+          <xsl:choose>
+            <xsl:when test="@label">
+              <xsl:value-of select="@label"/>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:value-of select="$cursite/@name"/>
+            </xsl:otherwise>
+          </xsl:choose>
+          <xsl:apply-templates/>
+        </a>
+      </xsl:when>
+      <xsl:otherwise><!-- hidden --></xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
 
   <!-- ==================================================================== -->
