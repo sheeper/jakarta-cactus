@@ -159,11 +159,19 @@ public class CactusLaunchConfiguration extends JUnitLaunchConfiguration
 
     /**
      * @return an array of Jar paths needed for Cactus
+     * @throws CoreException if a Jar cannot be found
      */
-    private String[] getCactusJarPaths()
+    private String[] getCactusJarPaths() throws CoreException
     {
         CactusPlugin thePlugin = CactusPlugin.getDefault();
         URL libURL = thePlugin.find(new Path(JETTY_LIBRARY_PATH));
+        if (libURL == null)
+        {
+            throw CactusPlugin.createCoreException(
+                "CactusLaunch.message.prepare.error.plugin.file",
+                " : " + libURL.getPath(),
+                null);
+        }
         File libDir = new File(libURL.getPath());
         String[] jettyJarPaths = getJarPaths(libDir);
         URL[] antURLs =
