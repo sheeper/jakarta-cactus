@@ -64,6 +64,7 @@ import java.util.Vector;
 import org.apache.cactus.eclipse.runner.common.JarFilenameFilter;
 import org.apache.cactus.eclipse.runner.common.LibraryHelper;
 import org.apache.cactus.eclipse.runner.containers.jetty.JettyContainerManager;
+import org.apache.cactus.eclipse.runner.ui.CactusMessages;
 import org.apache.cactus.eclipse.runner.ui.CactusPlugin;
 import org.apache.cactus.eclipse.runner.ui.CactusPreferences;
 import org.eclipse.ant.core.AntCorePlugin;
@@ -71,13 +72,19 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.ILibrary;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IPluginDescriptor;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Plugin;
+import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.ILaunchConfiguration;
+import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.internal.junit.launcher.JUnitLaunchConfiguration;
+import org.eclipse.jdt.internal.junit.ui.JUnitPlugin;
+import org.eclipse.jdt.junit.ITestRunListener;
 import org.eclipse.jdt.launching.VMRunnerConfiguration;
+import org.eclipse.swt.widgets.Display;
 
 /**
  * Provides a launcher to start Cactus tests. This is done by extending
@@ -91,8 +98,17 @@ import org.eclipse.jdt.launching.VMRunnerConfiguration;
  * @author <a href="mailto:jruaux@octo.com">Julien Ruaux</a>
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  */
-public class CactusLaunchConfiguration extends JUnitLaunchConfiguration
+public class CactusLaunchConfiguration
+    extends JUnitLaunchConfiguration
+    implements ITestRunListener
 {
+    /**
+     * Indicates whether we already went through the launch cycle.
+     * This is used because there currently is no way to unregister
+     * an ITestRunListener from the JUnit plugin.
+     */
+    private boolean launchEnded;
+
     /**
      * Id under which the Cactus launch configuration has been registered. 
      */
@@ -153,6 +169,72 @@ public class CactusLaunchConfiguration extends JUnitLaunchConfiguration
         cactusConfig.setVMArguments(configuration.getVMArguments());
         cactusConfig.setWorkingDirectory(configuration.getWorkingDirectory());
         return cactusConfig;
+    }
+
+    /**
+     * @see ILaunchConfigurationDelegate#launch(ILaunchConfiguration, String)
+     */
+    public void launch(
+        final ILaunchConfiguration theConfiguration,
+        final String theMode,
+        final ILaunch theLaunch,
+        final IProgressMonitor thePM)
+        throws CoreException
+    {
+        this.launchEnded = false;
+        // Register the instance of CactusLaunchShortcut to the JUnitPlugin
+        // for TestRunEnd notification.
+        JUnitPlugin.getDefault().addTestRunListener(this);
+        final IJavaProject javaProject = getJavaProject(theConfiguration);
+        // Run the preparation in a new thread so that the UI thread which is
+        // the current thread be not blocked by the sleep of
+        // IContainerManager.prepare().
+        new Thread(new Runnable()
+        {
+            public void run()
+            {
+                try
+                {
+                    CactusPlugin.getContainerManager(true).prepare(javaProject);
+                    Display.getDefault().asyncExec(new Runnable()
+                    {
+                        public void run()
+                        {
+                            try
+                            {
+                                CactusLaunchConfiguration.super.launch(
+                                    theConfiguration,
+                                    theMode,
+                                    theLaunch,
+                                    thePM);
+                            }
+                            catch (CoreException e)
+                            {
+                                CactusPlugin.displayErrorMessage(
+                                    CactusMessages.getString(
+                            "CactusLaunch.message.containerManager.error"),
+                                    e.getMessage(),
+                                    null);
+                                return;
+                            }
+                        }
+                    });
+                }
+                catch (CoreException e)
+                {
+                    CactusPlugin.displayErrorMessage(
+                        CactusMessages.getString(
+                            "CactusLaunch.message.containerManager.error"),
+                        e.getMessage(),
+                        null);
+                    return;
+                }
+            }
+        }).start();
+
+
+
+
     }
 
     /**
@@ -362,4 +444,104 @@ public class CactusLaunchConfiguration extends JUnitLaunchConfiguration
         }
         return false;
     }
+
+    /**
+     * @see ITestRunListener#testRunStarted(int)
+     */
+    public void testRunStarted(int theTestCount)
+    {
+    }
+
+    /**
+     * Test run has ended so we tear down the container setup.
+     * @param theElapsedTime not used here
+     */
+    public void testRunEnded(long theElapsedTime)
+    {
+        // If we already finished the launch (i.e. we already went here)
+        // we do nothing. 
+        if (this.launchEnded)
+        {
+            return;
+        }
+        CactusPlugin.log("Test run ended");
+        try
+        {
+            CactusPlugin.getContainerManager(false).tearDown();
+        }
+        catch (CoreException e)
+        {
+            CactusPlugin.displayErrorMessage(
+                CactusMessages.getString(
+                    "CactusLaunch.message.containerManager.error"),
+                e.getMessage(),
+                null);
+            return;
+        }
+        this.launchEnded = true;
+    }
+
+    /**
+     * If test run has stopped we have to do the same thing
+     * as if the test run had ended normally.
+     * @param theElapsedTime not used here
+     */
+    public void testRunStopped(long theElapsedTime)
+    {
+        testRunEnded(0);
+    }
+
+    /**
+     * @see ITestRunListener#testStarted(String, String)
+     */
+    public void testStarted(String theTestId, String theTestName)
+    {
+    }
+
+    /**
+     * @see ITestRunListener#testEnded(String, String)
+     */
+    public void testEnded(String theTestId, String theTestName)
+    {
+    }
+
+    /**
+     * @see ITestRunListener#testFailed (int, String, String, String)
+     */
+    public void testFailed(
+        int theStatus,
+        String theTestId,
+        String theTestName,
+        String theTrace)
+    {
+    }
+
+    /**
+     * @see ITestRunListener#testTreeEntry(String)
+     */
+    public void testTreeEntry(String theEntry)
+    {
+    }
+
+    /**
+     * If test run has been terminated we have to do the same thing
+     * as if the test run had ended normally.
+     */
+    public void testRunTerminated()
+    {
+        testRunEnded(0);
+    }
+
+    /**
+     * @see ITestRunListener#testReran(String, String, String, int, String)
+     */
+    public void testReran(
+        String theTestId,
+        String theTestClass,
+        String theTestName,
+        int theStatus,
+        String theTrace)
+    {
+    }
+
 }
