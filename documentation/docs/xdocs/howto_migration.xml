@@ -12,6 +12,53 @@
 
   <body>
 
+    <s1 title="From Cactus 1.3 to 1.4">
+
+      <p>
+        See the <link href="changes.html#release_changes">Changes</link> page
+        for full list of changes.
+      </p>
+      <p>
+        Here are the changes that might affect your previous installation of
+        Cactus 1.3:
+      </p>
+      <ul>
+        <li>
+          Configuring Cactus logging has changed. See the
+          <link href="howto_config.html">Config Howto</link> page. Thus, the old
+          <code>cactus.enableLogging</code> property no longer has any effect.
+        </li>
+        <li>
+          One new jar needs to be put in both client and server side classpaths:
+          <code>commons-logging.jar</code>, due to the new logging system.
+        </li>
+        <li>
+          The following classes have been removed (they were
+          deprecated in Cactus 1.2):
+          <ul>
+            <li>
+              <code>org.apache.cactus.ServletTestRequest</code>,
+            </li>
+            <li>
+              <code>org.apache.cactus.util.ClientCookie</code>,
+            </li>
+            <li>
+              <code>org.apache.cactus.util.AssertUtils</code>
+            </li>
+          </ul>
+        </li>
+        <li>
+          External jars provided by Cactus have been renamed to contain their
+          version suffixed to their name.
+        </li>
+        <li>
+          The <code>jspRedirector.jsp</code> now creates a HTTP Session by
+          default (it was not previously).
+        </li>
+      </ul>
+
+    </s1>
+
     <s1 title="From Cactus 1.2 to 1.3">
 
       <p>
