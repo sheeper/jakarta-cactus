@@ -241,6 +241,7 @@ public class WebResponse
      *
      * @param theName the cookie name to find (case-insensitive)
      * @return the cookie or null if not found
+     * @since 1.5
      */
     public Cookie getCookieIgnoreCase(String theName)
     {
