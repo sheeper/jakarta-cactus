@@ -25,6 +25,12 @@ framework/target-13
 /maven.log
 /misc
 /release
+sample-jetty/ant.bat
+sample-jetty/build.properties
+sample-jetty/dist-12
+sample-jetty/dist-13
+sample-jetty/target-12
+sample-jetty/target-13
 sample-servlet/ant.bat
 sample-servlet/build.properties
 sample-servlet/dist-12
