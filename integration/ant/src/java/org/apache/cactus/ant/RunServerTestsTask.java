@@ -97,8 +97,9 @@ public class RunServerTestsTask
      */
     public void execute() throws BuildException
     {
-        log("The task '" + this.getClass().getName() + "' is deprecated. Use '"
-            + super.getClass().getName() + " instead");
+        log("The task 'org.apache.cactus.ant.RunServerTestsTask' is "
+            + "deprecated. Use "
+            + "'org.apache.cactus.integration.ant.RunServerTestsTask' instead");
         super.execute();
     }
 
