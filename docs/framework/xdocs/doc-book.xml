@@ -11,6 +11,7 @@
   <menu label="About">
     <menu-item label="News" source="index.xml"/>
     <menu-item label="Features" source="features.xml"/>
+    <menu-item label="Goals" source="goals.xml"/>
     <menu-item label="Changes" source="changes.xml" type="changes"/>
     <menu-item label="Todo" source="todo.xml" type="todo"/>
     <menu-item label="Contributors" source="contributors.xml"/>

@@ -32,17 +32,6 @@
   </actions>
 
   <actions priority="low">
-    <action context="docs" assigned-to="VMA">
-      Add a page to the web site that explains the long term goals of Cactus:
-      go as far as possible for testing server-side components but explain why
-      this is limited and will fail in the long term as components benefit
-      more and more from services provided by the container. The solution will
-      be to provide testing API/SPI in the container specifications so that
-      frameworks like Cactus can be plugged into the containers. Explain that
-      one goal of Cactus is to make Tomcat/Sun aware of this and try to push
-      in this direction. (Note: This is my view, verify if other share it or if
-      I'm wrong in thinking in these terms).
-    </action>
     <action context="code" assigned-to="PAS">
       Modify the Ant <code>runservertest</code> task so that it also works when
       a servlet engine is already up and running (thanks to Philip Aston who

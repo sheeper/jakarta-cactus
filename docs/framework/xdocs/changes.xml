@@ -9,6 +9,10 @@
   </devs>
 
   <release version="1.0b2 in CVS" date="">
+    <action dev="VMA">
+      Added a "Cactus goals" page on the web site that gives rough goals and
+      guidelines for the future of Cactus.
+    </action>
     <action dev="VMA" type="update" due-to="Jeff Turner" due-to-email="jeff@socialchange.net.au">
       Improved build process so that it nows works even if junit, stylebook, ..
       jars are not in the <code>CLASSPATH</code> prior to running the build.

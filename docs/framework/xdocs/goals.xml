@@ -1,0 +1,142 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE document SYSTEM "./dtd/document-v10.dtd">
+
+<document>
+  <header>
+    <title>Cactus goals</title>
+    <authors>
+      <person name="Vincent Massol" email="vmassol@users.sourceforge.net"/>
+    </authors>
+  </header>
+
+  <body>
+
+    <s1 title="Short terms goals">
+
+      <p>
+        The short term goals for Cactus are :
+      </p>
+      <ul>
+        <li>
+          Provide a comprehensive and easy to use unit testing framework for
+          testing java code that uses Servlet API java classes. This includes
+          <ul>
+            <li>
+              Servlets,
+            </li>
+            <li>
+              Java code called by servlets,
+            </li>
+            <li>
+              Servlet 2.3 Filters,
+            </li>
+          </ul>              
+        </li>
+        <li>
+          Try to provide mechanisms to unit test JSP taglibs. Note that this
+          feature is still in it's design phase. We are not sure if it is
+          possible nor if it is relevant for a unit test framework (it might
+          belong more to a functional test framework like HttpUnit).
+        </li>
+        <li>
+          Provide a comprehensive and easy to use unit testing framework for
+          testing EJB code. Note that unit testing of EJB methods that do not
+          use any of the container's services is already possible. The next
+          step is to be able to unit test the methods that calls some
+          container's services (like JNDI, Security, Transactions, ...).
+        </li>
+      </ul>
+
+    </s1>
+
+    <s1 title="Long term goals">
+
+      <s2 title="The Future of Unit Testing Components">
+
+        <p>
+          We believe unit testing server side components is going to get harder
+          and harder in the future. Even now, depending on the specifications
+          for a given component model it is more or less easy. Sometimes it is
+          even not feasible to test every case.
+        </p>
+        <p>
+          We believe that we will see more and more components in the future.
+          By components we mean pieces of code that execute in a container.
+          The container will provide more and more services for the components
+          (like transactions, security, life cycle, persistence, interfaces
+          - like web services -, logging, ...). Thus it will become harder and
+          harder to write a unit test framework for these components.
+        </p>
+        <p>
+          We believe the only satisfactory solution is to include (unit) testing
+          APIs as <em>part</em> of the container specifications. This could be
+          in the form of a SPI (Service Provider Interface) against which a
+          generic unit testing framework could be plugged.
+        </p> 
+
+      </s2>
+
+      <s2 title="Long term goals for Cactus">
+
+        <p>
+          Expanding from the previous chapter on the future of component unit
+          testing, here are the future guidelines and directions that we'd like
+          to set for Cactus :
+        </p>
+        <ul>
+          <li>        
+            Try to support all existing and forthcoming server side components
+            models as much as possible,
+          </li>
+          <li>
+            Help specify needed container API/SPI for unit testing, i.e. create
+            an additional service of the container :  a "unit-testing service"
+            (in addition to the existing Security, Transaction, Life Cycle, ...
+            Services). As Cactus and Tomcat projects are both hosted on Jakarta
+            it might be a good test ground for this kind of work. Of course,
+            the first step would be to convince Tomcat developers that unit
+            testing (and testing in general) is indeed a need. The ultimate
+            goal will be reached when this new API/SPI is accepted and become
+            a de jure
+            standard. It would then be time to think about integrating it into
+            the Servlet Specifications (or other components -like EJBs -
+            specifications).
+          </li>        
+        </ul>
+
+      </s2>
+
+    </s1>
+
+    <s1 title="Feedback needed !">
+
+      <p>
+        Cactus is an open source project where everyone is free to participate
+        (and even encouraged). Thus, we'd really like to have your opinions on
+        the subject of Cactus future.
+      </p>
+      <p>
+        How do you view the future of Cactus ?
+      </p>
+      <p>
+        Do you like the goals defined above ?
+      </p>
+      <p>
+        Do you think it is feasible ?
+      </p>
+      <p>
+        Please send all answers to the
+        <link href="mailto:jakarta-commons@jakarta.apache.org">jakarta-commons
+        </link> mailing list (You can subscribe by clicking
+        <link href="mailto:jakarta-commons-subscribe@jakarta.apache.org">here
+        </link>). Please prefix the subject of all messages with "[cactus]".
+      </p>
+      <p>
+        Thanks.
+      </p>
+
+    </s1>
+
+  </body>
+</document>
