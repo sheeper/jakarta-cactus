@@ -355,7 +355,7 @@
         </ant>        
     </target>
 
-    <target name="doc" depends="doc.22,doc.23">
+    <target name="doc" depends="jar,doc.22,doc.23">
     </target>
 
     <!-- 
