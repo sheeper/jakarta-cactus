@@ -249,7 +249,7 @@ public class ConverterTest extends ServletTestCase
 
     <servlet-mapping>
         <servlet-name>ServletRedirector</servlet-name>
-        <url-pattern>/ServletRedirector/</url-pattern>
+        <url-pattern>/ServletRedirector</url-pattern>
     </servlet-mapping>
 
 [...]
