@@ -75,7 +75,6 @@ import org.apache.commons.httpclient.cookie.CookieSpec;
  * methods are common to any implementation.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public abstract class AbstractConnectionHelper
@@ -180,8 +179,8 @@ public abstract class AbstractConnectionHelper
 
             // and create the cookie header to send
             Header cookieHeader = createCookieHeader(
-                Cookie.getCookieDomain(theRequest, theUrl.getHost()), 
-                Cookie.getCookiePath(theRequest, theUrl.getFile()), 
+                CookieUtil.getCookieDomain(theRequest, theUrl.getHost()), 
+                CookieUtil.getCookiePath(theRequest, theUrl.getFile()), 
                 httpclientCookies);
 
             return cookieHeader.getValue();
@@ -233,7 +232,7 @@ public abstract class AbstractConnectionHelper
         String domain;
         if (theCactusCookie.getDomain() == null)
         {
-            domain = Cookie.getCookieDomain(theRequest, theUrl.getHost());
+            domain = CookieUtil.getCookieDomain(theRequest, theUrl.getHost());
         }
         else
         {
@@ -244,7 +243,7 @@ public abstract class AbstractConnectionHelper
         String path;
         if (theCactusCookie.getPath() == null)
         {
-            path = Cookie.getCookiePath(theRequest, theUrl.getFile());
+            path = CookieUtil.getCookiePath(theRequest, theUrl.getFile());
         }
         else
         {

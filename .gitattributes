@@ -208,6 +208,7 @@ framework/src/java/share/org/apache/cactus/client/connector/http/AbstractConnect
 framework/src/java/share/org/apache/cactus/client/connector/http/AutoReadHttpURLConnection.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/client/connector/http/ConnectionHelper.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/client/connector/http/ConnectionHelperFactory.java svn_keywords=Author+Date+Id+Revision
+framework/src/java/share/org/apache/cactus/client/connector/http/CookieUtil.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/client/connector/http/DefaultHttpClient.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/client/connector/http/HttpClientConnectionHelper.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/client/connector/http/JdkConnectionHelper.java svn_keywords=Author+Date+Id+Revision

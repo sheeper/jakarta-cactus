@@ -65,6 +65,7 @@ import java.net.HttpURLConnection;
 
 import java.util.Vector;
 
+import org.apache.cactus.client.connector.http.CookieUtil;
 import org.apache.cactus.util.ChainedRuntimeException;
 import org.apache.cactus.util.IoUtil;
 import org.apache.commons.httpclient.Header;
@@ -291,11 +292,11 @@ public class WebResponse
                 try
                 {
                     cookies = org.apache.commons.httpclient.Cookie.parse(
-                        Cookie.getCookieDomain(getWebRequest(), 
+                        CookieUtil.getCookieDomain(getWebRequest(), 
                             getConnection().getURL().getHost()), 
-                        Cookie.getCookiePort(getWebRequest(), 
+                        CookieUtil.getCookiePort(getWebRequest(), 
                             getConnection().getURL().getPort()), 
-                        Cookie.getCookiePath(getWebRequest(), 
+                        CookieUtil.getCookiePath(getWebRequest(), 
                             getConnection().getURL().getFile()), 
                         new Header(headerName, headerValue));
                 }
