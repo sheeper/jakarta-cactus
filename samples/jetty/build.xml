@@ -3,7 +3,7 @@
 <!--
   =============================================================================
     Build file for the Cactus Jetty Sample subproject (it shows how to use
-    Cactus and Jelly in an integrated way for unit testing the Servlet API : 
+    Cactus and Jetty in an integrated way for unit testing the Servlet API : 
     Servlets, Fitlers, Taglibs).
 
     The following Ant tasks need to be available in your ant installation (i.e.
