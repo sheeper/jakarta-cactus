@@ -88,7 +88,7 @@
     <echo>  eclipse.ui.workbench.jar = [${eclipse.ui.workbench.jar}]</echo>
     <echo>  eclipse.ui.externaltools.jar = [${eclipse.ui.externaltools.jar}]</echo>
     <echo>  httpunit.jar = [${httpunit.jar}]</echo>
-    <echo>  j2ee.jar = [${j2ee.jar}]</echo>
+    <echo>  servlet.jar = [${servlet.jar}]</echo>
     <echo>  jetty.jar = [${jetty.jar}]</echo>
     <echo>  junit.jar = [${junit.jar}]</echo>
     <echo>  log4j.jar = [${log4j.jar}]</echo>
@@ -117,7 +117,7 @@
         <available file="${eclipse.ui.workbench.jar}"/>
         <available file="${eclipse.ui.externaltools.jar}"/>
         <available file="${httpunit.jar}"/>
-        <available file="${j2ee.jar}"/>
+        <available file="${servlet.jar}"/>
         <available file="${jetty.jar}"/>
         <available file="${junit.jar}"/>
         <available file="${log4j.jar}"/>
@@ -293,7 +293,7 @@ be resolved. Please check you build.properties file, and run Ant with the
     <copy todir="${dist.bin.dir}/lib/client">
       <fileset file="${cactus.ant.jar}"/>
       <fileset file="${commons.httpclient.jar}"/>
-      <fileset file="${j2ee.jar}"/>
+      <fileset file="${servlet.jar}"/>
       <fileset file="${nekohtml.jar}"/>
     </copy>
     <mkdir dir="${dist.bin.dir}/lib/common"/>
