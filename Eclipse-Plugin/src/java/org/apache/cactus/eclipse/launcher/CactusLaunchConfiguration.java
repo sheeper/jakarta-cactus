@@ -76,6 +76,9 @@ import org.eclipse.jdt.launching.VMRunnerConfiguration;
  */
 public class CactusLaunchConfiguration extends JUnitLaunchConfiguration
 {
+    /**
+     * Id under which the Cactus launch configuration has been registered. 
+     */
     public static final String ID_CACTUS_APPLICATION = 
         "org.apache.cactus.eclipse.launchconfig";
 
