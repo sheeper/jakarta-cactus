@@ -94,7 +94,7 @@ public class CactusPlugin extends AbstractUIPlugin
     /**
      * Plug-in relative path to the Ant build file.
      */
-    private static final String BUILD_FILE_PATH = "./ant/eclipse/build.xml";
+    private static final String BUILD_FILE_PATH = "./ant/build.xml";
 
     /**
      * Plug-in relative path to the Ant container build files.

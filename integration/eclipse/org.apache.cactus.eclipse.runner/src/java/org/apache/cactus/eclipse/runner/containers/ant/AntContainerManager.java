@@ -201,6 +201,7 @@ public class AntContainerManager implements IContainerManager
         this.containerHomes = theHomes;
         antArguments.add("-Dcactus.port=" + thePort);
         antArguments.add("-Dcactus.target.dir=" + theTargetDir);
+        antArguments.add("-Dcactus.test.runeclipse=" + "true");
         // Avoid Ant console popups on win32 platforms
         if (BootLoader.getOS().equals(BootLoader.OS_WIN32))
         {
