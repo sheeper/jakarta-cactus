@@ -1032,6 +1032,16 @@
 
   <xsl:template name="get-source-from-id">
     <xsl:param name="id"/>     
+
+    <!-- Issue a warning if the id is invalid -->
+    <xsl:if test="not($sitemap//resource[@id=$id])">
+      <xsl:message>
+        <xsl:text>Id [</xsl:text>
+        <xsl:value-of select="$id"/>
+        <xsl:text>] has no reference in sitemap.xml</xsl:text>
+      </xsl:message>   
+    </xsl:if>
+    
     <xsl:value-of select="$sitemap//resource[@id=$id]/@source"/>
   </xsl:template>
 
