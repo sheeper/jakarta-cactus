@@ -162,6 +162,10 @@
             </strong> : will be called by your test classes.
           </li>
           <li>
+            <strong><code>aspectjrt.jar</code></strong> :
+            <link href="http://www.aspectj.org">AspectJ</link> runtime jar.
+          </li>
+          <li>
             <strong><code>WEB-INF/lib/commons-logging.jar</code></strong> :
             Cactus uses the Jakarta Commons Logging facade framework to provide
             seamless Cactus logging using any existing Logging framework (Log4j,
