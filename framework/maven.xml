@@ -5,10 +5,15 @@
   xmlns:maven="jelly:maven">
 
   <preGoal name="java:compile">
+
+    <!-- Add the J2EE specific source directory to the list of source 
+         directories, as Maven only supports defining a single source
+         directory in project.xml -->
     <path id="maven.j2ee.compile.src.set"
         location="${pom.build.sourceDirectory}/../j2ee${cactus.j2ee.version}"/>
     <maven:addPath id="maven.compile.src.set" 
         refid="maven.j2ee.compile.src.set"/>
+
   </preGoal>
 
   <preGoal name="jar:jar">
