@@ -43,14 +43,8 @@
     <!-- Set the properties related to the source tree -->
     <property name="src.dir" location="${base.dir}/src"/>
     <property name="src.java.dir" location="${src.dir}/java"/>
-    <property name="src.java.share.dir" location="${src.java.dir}/share"/>
-    <property name="src.java.specific.dir"
-        location="${src.java.dir}/j2ee${j2ee.api}"/>
     <property name="src.test.dir" location="${src.dir}/test"/>
-    <property name="src.test.share.dir" location="${src.test.dir}/share"/>
-    <property name="src.test.specific.dir"
-        location="${src.test.dir}/j2ee${j2ee.api}"/>
-      <property name="src.aspect.dir" location="${src.dir}/aspect"/>
+    <property name="src.aspect.dir" location="${src.dir}/aspect"/>
     <property name="build.dir" location="${base.dir}/."/>
     <property name="conf.dir" location="${base.dir}/conf"/>
     <property name="web.dir" location="${base.dir}/web"/>
@@ -170,10 +164,16 @@ be resolved. Please check you build.properties file, and run Ant with the
   <target name="compile.prepare"
       depends="init">
 
-    <!-- Copy the source files to resolve the project version in the
+    <!-- Copy the shared source files to resolve the project version in the
          Version.java source file -->
     <copy todir="${target.src.dir}" filtering="on">
-      <fileset dir="${src.java.share.dir}"/>
+      <fileset dir="${src.java.dir}/share-12-13-14"/>
+      <fileset dir="${src.java.dir}/share-13-14">
+        <or>
+          <selector if="j2ee13.available"/>
+          <selector if="j2ee14.available"/>
+        </or>
+      </fileset>              
     </copy>
 
   </target>
@@ -197,9 +197,26 @@ be resolved. Please check you build.properties file, and run Ant with the
     <javac destdir="${target.classes.clover.dir}"
         debug="${debug}" deprecation="${deprecation}"
         optimize="${optimize}">
-      <src path="${target.src.dir}"/>
-      <src path="${src.java.specific.dir}"/>
-      <src path="${src.aspect.dir}"/>
+      <src>
+        <pathelement location="${target.src.dir}"/>
+        <dirset dir="${src.java.dir}">
+          <or>
+            <and>
+              <filename name="j2ee-12"/>
+              <selector if="j2ee12.available"/>
+            </and>
+            <and>
+              <filename name="j2ee-13"/>
+              <selector if="j2ee13.available"/>
+            </and>
+            <and>
+              <filename name="j2ee-14"/>
+              <selector if="j2ee14.available"/>
+            </and>
+          </or>
+        </dirset>
+        <pathelement location="${src.aspect.dir}"/>
+      </src>
       <exclude name="**/package.html"/>
       <exclude name="**/overview.html"/>
       <classpath refid="project.classpath"/>
@@ -220,8 +237,32 @@ be resolved. Please check you build.properties file, and run Ant with the
     <javac destdir="${target.classes.test.dir}"
         debug="${debug}" deprecation="${deprecation}"
         optimize="${optimize}">
-      <src path="${src.test.share.dir}"/>
-      <src path="${src.test.specific.dir}"/>
+      <src>
+        <pathelement location="${src.test.dir}/share-12-13-14"/>
+        <dirset dir="${src.test.dir}">
+          <or>
+            <and>
+              <filename name="share-13-14"/>
+              <or>
+                <selector if="j2ee13.available"/>
+                <selector if="j2ee14.available"/>
+              </or>
+            </and>
+            <and>
+              <filename name="j2ee-12"/>
+              <selector if="j2ee12.available"/>
+            </and>
+            <and>
+              <filename name="j2ee-13"/>
+              <selector if="j2ee13.available"/>
+            </and>
+            <and>
+              <filename name="j2ee-14"/>
+              <selector if="j2ee14.available"/>
+            </and>
+          </or>
+        </dirset>
+      </src>
       <classpath>
         <path path="${target.classes.java.dir}"/>
         <path refid="project.classpath"/>
@@ -239,8 +280,16 @@ be resolved. Please check you build.properties file, and run Ant with the
     <condition property="compile.main.required">
       <not>
         <uptodate targetfile="${target.dir}/${cactus.jar.name}.jar">
-          <srcfiles dir="${target.src.dir}"/>
-          <srcfiles dir="${src.java.specific.dir}"/>
+          <srcfiles dir="${target.src.dir}"/>    
+          <srcfiles dir="${src.java.dir}/j2ee-12">
+            <selector if="j2ee12.available"/>
+          </srcfiles>
+          <srcfiles dir="${src.java.dir}/j2ee-13">
+            <selector if="j2ee13.available"/>
+          </srcfiles>
+          <srcfiles dir="${src.java.dir}/j2ee-14">
+            <selector if="j2ee14.available"/>
+          </srcfiles>
           <srcfiles dir="${src.aspect.dir}"/>
         </uptodate>
       </not>
@@ -255,10 +304,25 @@ be resolved. Please check you build.properties file, and run Ant with the
 
     <iajc destdir="${target.classes.java.dir}" verbose="${verbose}"
         debug="${debug}" deprecation="${deprecation}"
-        sourceRootCopyFilter="**/CVS/*,**/*.java,**/*.html">
+        sourceRootCopyFilter="**/CVS/*,**/*.java,**/*.html,**/.keepit,**/*.aj">
       <sourceroots>
         <pathelement location="${target.src.dir}"/>
-        <pathelement location="${src.java.specific.dir}"/>
+        <dirset dir="${src.java.dir}">
+          <or>
+            <and>
+              <filename name="j2ee-12"/>
+              <selector if="j2ee12.available"/>
+            </and>
+            <and>
+              <filename name="j2ee-13"/>
+              <selector if="j2ee13.available"/>
+            </and>
+            <and>
+              <filename name="j2ee-14"/>
+              <selector if="j2ee14.available"/>
+            </and>
+          </or>
+        </dirset> 
         <pathelement location="${src.aspect.dir}"/>
       </sourceroots>
       <classpath refid="project.classpath"/>
@@ -347,10 +411,24 @@ be resolved. Please check you build.properties file, and run Ant with the
 
     <uptodate property="doc.uptodate"
         targetfile="${target.doc.api.dir}/index.html">
-      <srcfiles dir="${src.java.share.dir}"
+      <srcfiles dir="${src.java.dir}/j2ee-12" includes="**/*.java, **/*.html">
+        <selector if="j2ee12.available"/>
+      </srcfiles>
+      <srcfiles dir="${src.java.dir}/j2ee-13" includes="**/*.java, **/*.html">
+        <selector if="j2ee13.available"/>
+      </srcfiles>
+      <srcfiles dir="${src.java.dir}/j2ee-14" includes="**/*.java, **/*.html">
+        <selector if="j2ee14.available"/>
+      </srcfiles>
+      <srcfiles dir="${src.java.dir}/share-12-13-14" 
           includes="**/*.java, **/*.html"/>
-      <srcfiles dir="${src.java.specific.dir}"
-          includes="**/*.java, **/*.html"/>
+      <srcfiles dir="${src.java.dir}/share-13-14"
+          includes="**/*.java, **/*.html">
+        <or>
+          <selector if="j2ee13.available"/>
+          <selector if="j2ee14.available"/>
+        </or>
+      </srcfiles>
     </uptodate>
 
   </target>
@@ -372,7 +450,7 @@ be resolved. Please check you build.properties file, and run Ant with the
         use="true"
         windowtitle="${project.name.text} ${project.doc.version}"
         doctitle="${project.name.text} ${project.doc.version}"
-        overview="${src.java.share.dir}/overview.html"
+        overview="${src.java.dir}/share-12-13-14/overview.html"
         bottom="Copyright &amp;copy; ${year} Apache Software Foundation.
                 All Rights Reserved.">
       <group title="Public API">
@@ -399,8 +477,30 @@ be resolved. Please check you build.properties file, and run Ant with the
         <package name="org.apache.cactus.internal.util"/>
       </group>
       <sourcepath>
-        <pathelement location="${src.java.share.dir}"/>
-        <pathelement location="${src.java.specific.dir}"/>
+        <pathelement location="${src.java.dir}/share-12-13-14"/>
+        <dirset dir="${src.java.dir}">
+          <or>
+            <and>
+              <filename name="share-13-14"/>
+              <or>
+                <selector if="j2ee13.available"/>
+                <selector if="j2ee14.available"/>
+              </or>
+            </and>
+            <and>
+              <filename name="j2ee-12"/>
+              <selector if="j2ee12.available"/>
+            </and>
+            <and>
+              <filename name="j2ee-13"/>
+              <selector if="j2ee13.available"/>
+            </and>
+            <and>
+              <filename name="j2ee-14"/>
+              <selector if="j2ee14.available"/>
+            </and>
+          </or>
+        </dirset>
       </sourcepath>
       <classpath refid="project.classpath"/>
     </javadoc>
@@ -523,12 +623,43 @@ be resolved. Please check you build.properties file, and run Ant with the
     <checkstyle config="./checkstyle.xml" 
         failOnViolation="true">
 
-      <fileset dir="${src.java.dir}">
-        <include name="**/*.java"/>
-        <exclude name="**/*Aspect.*"/>
+      <fileset dir="${src.java.dir}/j2ee-12" 
+          includes="**/*.java" excludes="**/*Aspect.*">
+        <selector if="j2ee12.available"/>
       </fileset>
-      <fileset dir="${src.test.dir}">
-        <include name="**/*.java"/>
+      <fileset dir="${src.java.dir}/j2ee-13"
+          includes="**/*.java" excludes="**/*Aspect.*">
+        <selector if="j2ee13.available"/>
+      </fileset>
+      <fileset dir="${src.java.dir}/j2ee-14"
+          includes="**/*.java" excludes="**/*Aspect.*">
+        <selector if="j2ee14.available"/>
+      </fileset>
+      <fileset dir="${src.java.dir}/share-12-13-14"
+          includes="**/*.java" excludes="**/*Aspect.*"/>
+      <fileset dir="${src.java.dir}/share-13-14"
+          includes="**/*.java" excludes="**/*Aspect.*">
+        <or>
+          <selector if="j2ee13.available"/>
+          <selector if="j2ee14.available"/>
+        </or>
+      </fileset>
+
+      <fileset dir="${src.test.dir}/j2ee-12" includes="**/*.java">
+        <selector if="j2ee12.available"/>
+      </fileset>
+      <fileset dir="${src.test.dir}/j2ee-13" includes="**/*.java">
+        <selector if="j2ee13.available"/>
+      </fileset>
+      <fileset dir="${src.test.dir}/j2ee-14" includes="**/*.java">
+        <selector if="j2ee14.available"/>
+      </fileset>
+      <fileset dir="${src.test.dir}/share-12-13-14" includes="**/*.java"/>
+      <fileset dir="${src.test.dir}/share-13-14" includes="**/*.java">
+        <or>
+          <selector if="j2ee13.available"/>
+          <selector if="j2ee14.available"/>
+        </or>
       </fileset>
 
       <formatter type="plain"/>

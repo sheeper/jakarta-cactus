@@ -22,7 +22,7 @@ package org.apache.cactus;
 /**
  * Cookie containing an HTTP Session id.
  * 
- * @version $Id: TestHttpSession.java,v 1.4 2003/05/26 12:15:14 cmlenz Exp $
+ * @version $Id$
  * @since 1.5
  */
 public class HttpSessionCookie extends Cookie

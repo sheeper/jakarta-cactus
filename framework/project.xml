@@ -69,13 +69,42 @@
   <packageGroups>
     <packageGroup>
       <title>Public API</title>
-      <packages>org.apache.cactus,org.apache.cactus.client.authentication,org.apache.cactus.extension.jsp,org.apache.cactus.server</packages>
+      <packages>org.apache.cactus,org.apache.cactus.client.authentication,org.apache.cactus.extension.jsp,org.apache.cactus.server,org.apache.cactus.server.runner,org.apache.cactus.util,org.apache.cactus.extension.jetty</packages>
+    </packageGroup>
+    <packageGroup>
+      <title>Public SPI</title>
+      <packages>org.apache.cactus.spi.client,org.apache.cactus.spi.client.connector,org.apache.cactus.spi.server</packages>
     </packageGroup>
     <packageGroup>
       <title>Internal API</title>
-      <packages>org.apache.cactus.client,org.apache.cactus.client.connector.http,org.apache.cactus.client.initialization,org.apache.cactus.configuration,org.apache.cactus.extension.jetty,org.apache.cactus.server.runner,org.apache.cactus.util</packages>
+      <packages>org.apache.cactus.internal,org.apache.cactus.internal.configuration,org.apache.cactus.internal.client,org.apache.cactus.internal.client.connector.http,org.apache.cactus.internal.server,org.apache.cactus.internal.server.runner,org.apache.cactus.internal.util</packages>
     </packageGroup>
   </packageGroups>  
+
+  <build>
+    <nagEmailAddress>cactus-dev@jakarta.apache.org</nagEmailAddress>
+
+	<!-- Note: The source directory for a specific J2EE version is added
+	     in maven.xml at runtime as Maven only supports a single source
+	     directory -->
+    <sourceDirectory>src/java/share-12-13-14</sourceDirectory>
+
+	<!-- Note: The test source directory for a specific J2EE version is added
+	     in maven.xml at runtime as Maven only supports a single source
+	     directory -->
+    <unitTestSourceDirectory>src/test/share-12-13-14</unitTestSourceDirectory>
+    <unitTest>
+      <includes>
+        <include>**/Test*.class</include>
+      </includes>
+      <excludes>
+        <exclude>**/Test*All.class</exclude>
+        <exclude>**/Test*$$*.class</exclude>
+      </excludes>
+    </unitTest>            
+
+    <aspectSourceDirectory>src/aspect</aspectSourceDirectory>
+  </build>
 
   <reports>
     <!--report>maven-statcvs-plugin</report-->
