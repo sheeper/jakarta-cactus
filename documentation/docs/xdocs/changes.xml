@@ -73,6 +73,12 @@
     </release>
 
     <release version="1.4.1" date="31 August 2002">
+      <action dev="VMA" type="fix" due-to="Micah Williams" due-to-email="backOffice@thirdmillenniumvisions.com">
+        Fixed bug where <code>NullPointerException</code> would be thrown by Cactus
+        <code>ServletTestRunner</code> if an exception raised in a test case had not
+        specified a message (i.e. <code>getMessage()</code> returning 
+        <code>null</code>).
+      </action>
       <action dev="VMA" type="fix" due-to="Gerhard Kreutzer" due-to-email="g.kreutzer@kreutzersoft.de">
         Some JDK implementation return "null" when Class.getClassLoader() is 
         called to indicate that the given class has been loaded by the 
