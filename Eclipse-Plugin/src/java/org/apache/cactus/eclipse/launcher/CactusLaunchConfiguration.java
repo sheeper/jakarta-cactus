@@ -112,7 +112,9 @@ public class CactusLaunchConfiguration extends JUnitLaunchConfiguration
                 IJavaLaunchConfigurationConstants.ERR_NOT_A_JAVA_PROJECT);
         }
 
-        IType testType = getTestType(theConfiguration, javaProject);
+//        IType testType = getTestType(theConfiguration, javaProject);
+        IType testType = (getTestTypes(theConfiguration, javaProject, thePm))[0];
+
         IVMInstallType type = getVMInstallType(theConfiguration);
         IVMInstall install = getVMInstall(theConfiguration);
         IVMRunner runner = install.getVMRunner(theMode);
@@ -176,41 +178,23 @@ public class CactusLaunchConfiguration extends JUnitLaunchConfiguration
     }
 
     /**
-     * @see org.eclipse.jdt.internal.junit.launcher.JUnitBaseLaunchConfiguration#createVMRunner(ILaunchConfiguration, IType[], int, String)
+     * Create a VM which will be used to run the Cactus tests. This VM is 
+     * created by getting the JUnit plugin VM and adding Cactus specific
+     * parameters to it. This method overrides the JUnit Plugin one.
      */
     protected VMRunnerConfiguration createVMRunner(
         ILaunchConfiguration theConfiguration, IType[] theTestTypes, 
         int thePort, String theRunMode) throws CoreException
     {
-        String[] classPath = createClassPath(theConfiguration, theTestTypes[0]);
-        VMRunnerConfiguration vmConfig = new VMRunnerConfiguration(
-            "org.eclipse.jdt.internal.junit.runner.RemoteTestRunner", 
-            classPath);
-
-        Vector argv = new Vector(10);
-        argv.add("-port");
-        argv.add(Integer.toString(thePort));
-        argv.add("-classNames");
-
-        if (keepAlive(theConfiguration) 
-            && theRunMode.equals(ILaunchManager.DEBUG_MODE))
-        {
-            argv.add(0, "-keepalive");
-        }
-        
-        for (int i = 0; i < theTestTypes.length; i++)
-        {
-            argv.add(theTestTypes[i].getFullyQualifiedName());
-        }
-        
-        String[] args = new String[argv.size()];
-        argv.copyInto(args);
-        vmConfig.setProgramArguments(args);
-
-        // We set a VM argument related to the Cactus framework (QQQ : get 
-        // this from the plugin preference page).
+        // Get the VM used by the JUnit plugin
+        VMRunnerConfiguration vmConfig = super.createVMRunner(theConfiguration,        
+            theTestTypes, thePort, theRunMode);
+            
+        // Add Cactus specific arguments
+        // TODO: Get this from the plugin preference page.
         String[] vmArgs = { "-Dcactus.contextURL=http://localhost:8081/test" };
         vmConfig.setVMArguments(vmArgs);
+
         return vmConfig;
     }
 
