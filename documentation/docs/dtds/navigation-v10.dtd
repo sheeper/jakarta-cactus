@@ -27,7 +27,7 @@ TYPICAL INVOCATION:
     label CDATA #REQUIRED
 >
 
-<!ELEMENT item EMPTY>
+<!ELEMENT item (item*)>
 <!ATTLIST item
     id ID #REQUIRED
     label CDATA #IMPLIED
