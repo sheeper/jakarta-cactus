@@ -39,7 +39,7 @@ log4j.jar = ../lib/log4j-1.2.6.jar
 commons.httpclient.jar = ../lib/commons-httpclient-2.0alpha1-20020829.jar
 
 # The location of the Junit jar
-junit.jar = ../lib/junit-3.7.jar
+junit.jar = ../lib/junit-3.8.1.jar
 
 # The location of the Httpunit jar
 httpunit.jar = ../lib/httpunit-1.4.5.jar

@@ -40,7 +40,7 @@ log4j.jar = ${lib.repo}/log4j/jars/log4j-1.2.6.jar
 commons.httpclient.jar = ${lib.repo}/commons-httpclient/jars/commons-httpclient-2.0alpha1-20020829.jar
 
 # The location of the Junit jar
-junit.jar = ${lib.repo}/junit/jars/junit-3.7.jar
+junit.jar = ${lib.repo}/junit/jars/junit-3.8.1.jar
 
 # The location of the Httpunit jar
 httpunit.jar = ${lib.repo}/httpunit/jars/httpunit-1.4.5.jar

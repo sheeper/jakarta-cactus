@@ -69,13 +69,8 @@
       </action>
       <action dev="VMA" type="update">
         Update of jars bundled in the Cactus distribution: Commons Logging
-        1.0.1, Log4j 1.2.6, HttpClient 2.0alpha1 built on 29/08/2002 and
-        HttpUnit 1.4.5.
-        Note: We are not packaging JUnit
-        3.8 as it has several issues (<code>ComparisonFailure</code> class 
-        problem with <code>null</code> values, and it now uses the context
-        class loader which is fine but may break existing setups). However,
-        Cactus is fully compatible with JUnit 3.8.
+        1.0.1, Log4j 1.2.6, HttpClient 2.0alpha1 built on 29/08/2002,
+        HttpUnit 1.4.5 and JUnit 3.8.1.
       </action>
       <action dev="VMA" type="add">
         Added support for client side <code>begin(...)</code>

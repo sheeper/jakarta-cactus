@@ -47,7 +47,7 @@ httpunit.jar = ${lib.repo}/httpunit/jars/httpunit-1.4.5.jar
 aspectjrt.jar = ${lib.repo}/aspectj/jars/aspectjrt-1.0.6.jar
 
 # The location of the Junit jar
-junit.jar = ${lib.repo}/junit/jars/junit-3.7.jar
+junit.jar = ${lib.repo}/junit/jars/junit-3.8.1.jar
 
 # CVS executable to use for documentation generation (used to automatically
 # generate web site changelog).
