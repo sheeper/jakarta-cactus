@@ -56,26 +56,14 @@
  */
 package org.apache.cactus.eclipse.launcher;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import org.apache.cactus.eclipse.ui.CactusPlugin;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.DebugPlugin;
-import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationType;
-import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.debug.core.ILaunchManager;
-import org.eclipse.debug.ui.IDebugUIConstants;
-import org.eclipse.jdt.core.IType;
-import org.eclipse.jdt.debug.ui.JavaUISourceLocator;
-import org.eclipse.jdt.internal.junit.launcher.JUnitBaseLaunchConfiguration;
 import org.eclipse.jdt.internal.junit.launcher.JUnitLaunchShortcut;
-import org.eclipse.jdt.launching.IJavaLaunchConfigurationConstants;
 
 /**
- * This is the LaunchShortcut class used as an extension point by the plugin.
+ * Launch shortcut used to start the Cactus launch configuration on the
+ * current workbench selection.
  * 
  * @version $Id: $
  * @author <a href="mailto:jruaux@octo.com">Julien Ruaux</a>
@@ -84,120 +72,15 @@ import org.eclipse.jdt.launching.IJavaLaunchConfigurationConstants;
 public class CactusLaunchShortcut extends JUnitLaunchShortcut
 {
     /**
-     * Create & return a new configuration based on the specified 
-     * <code>IType</code>.
+     * @return the Cactus launch configuration type. This method overrides
+     *         the one in {@link JUnitLaunchShortcut} so that we can return
+     *         a Cactus configuration type and not a JUnit one
      */
-    protected ILaunchConfiguration createConfiguration(IType theType)
-    {
-        ILaunchConfiguration config = null;
-        try
-        {
-            ILaunchConfigurationType configType = getCactusLaunchConfigType();
-            ILaunchConfigurationWorkingCopy wc = configType.newInstance(null, 
-                getLaunchManager().generateUniqueLaunchConfigurationNameFrom(
-                theType.getElementName()));
-            wc.setAttribute(
-                IJavaLaunchConfigurationConstants.ATTR_MAIN_TYPE_NAME,
-                theType.getFullyQualifiedName());
-            wc.setAttribute(
-                IJavaLaunchConfigurationConstants.ATTR_PROJECT_NAME,
-                theType.getJavaProject().getElementName());
-            wc.setAttribute(
-                IDebugUIConstants.ATTR_TARGET_DEBUG_PERSPECTIVE,
-                IDebugUIConstants.PERSPECTIVE_DEFAULT);
-            wc.setAttribute(
-                IDebugUIConstants.ATTR_TARGET_RUN_PERSPECTIVE,
-                IDebugUIConstants.PERSPECTIVE_NONE);
-            wc.setAttribute(
-                ILaunchConfiguration.ATTR_SOURCE_LOCATOR_ID,
-                JavaUISourceLocator.ID_PROMPTING_JAVA_SOURCE_LOCATOR);
-            wc.setAttribute(JUnitBaseLaunchConfiguration.ATTR_KEEPRUNNING, 
-                false);
-            config = wc.doSave();
-        } 
-        catch (CoreException ce)
-        {
-            CactusPlugin.log(ce);
-        }
-        return config;
-    }
-
-    /**
-     * Locate a configuration to relaunch for the given type.  If one cannot 
-     * be found, create one.
-     * 
-     * @return a re-useable config or <code>null</code> if none
-     */
-    protected ILaunchConfiguration findLaunchConfiguration(IType theType,
-        String theMode)
-    {
-        ILaunchConfigurationType configType = getCactusLaunchConfigType();
-        List candidateConfigs = Collections.EMPTY_LIST;
-
-        try
-        {
-            ILaunchConfiguration[] configs =
-                getLaunchManager().getLaunchConfigurations(configType);
-
-            candidateConfigs = new ArrayList(configs.length);
-
-            for (int i = 0; i < configs.length; i++)
-            {
-                ILaunchConfiguration config = configs[i];
-                if (config.getAttribute(
-                    IJavaLaunchConfigurationConstants.ATTR_MAIN_TYPE_NAME, "")
-                    .equals(theType.getFullyQualifiedName()))
-                {
-                    if (config.getAttribute(
-                        IJavaLaunchConfigurationConstants.ATTR_PROJECT_NAME, "")
-                        .equals(theType.getJavaProject().getElementName()))
-                    {
-                        candidateConfigs.add(config);
-                    }
-                }
-            }
-        } 
-        catch (CoreException e)
-        {
-            CactusPlugin.log(e);
-        }
-
-        // If there are no existing configs associated with the IType, create 
-        // one. If there is exactly one config associated with the IType, 
-        // return it. Otherwise, if there is more than one config associated 
-        // with the IType, prompt the user to choose one.
-        int candidateCount = candidateConfigs.size();
-        if (candidateCount < 1)
-        {
-            return createConfiguration(theType);
-        } 
-        else if (candidateCount == 1)
-        {
-            return (ILaunchConfiguration) candidateConfigs.get(0);
-        } 
-        else
-        {
-            // Prompt the user to choose a config.  A null result means the 
-            // user cancelled the dialog, in which case this method returns 
-            // null, since cancelling the dialog should also cancel launching 
-            // anything.
-            ILaunchConfiguration config = chooseConfiguration(
-                candidateConfigs, theMode);
-            if (config != null)
-            {
-                return config;
-            }
-        }
-        return null;
-    }
-
-    /**
-     * @return the local java launch config type
-     */
-    protected ILaunchConfigurationType getCactusLaunchConfigType()
+    protected ILaunchConfigurationType getJUnitLaunchConfigType()
     {
         ILaunchManager lm = DebugPlugin.getDefault().getLaunchManager();
         return lm.getLaunchConfigurationType(
-            CactusLaunchConfiguration.ID_CACTUS_APPLICATION);
-    }
+            CactusLaunchConfiguration.ID_CACTUS_APPLICATION);        
+    }   
+
 }
