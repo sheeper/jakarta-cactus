@@ -402,6 +402,12 @@
       name="Cactus Ant Task">
     Documentation for the &lt;cactus&gt; task provided by Cactus.
   </resource>
+
+  <resource id="task_resin"
+      target="integration/ant/task_resin.html"
+      name="Resin[2x|3x] Ant Task">
+    Documentation for the &lt;resin2x&gt; and &lt;resin3x&gt; tasks provided by Cactus.
+  </resource>
   
   <resource id="task_runservertests"
       target="integration/ant/task_runservertests.html"

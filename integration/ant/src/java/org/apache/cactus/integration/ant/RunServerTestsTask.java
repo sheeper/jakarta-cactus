@@ -1,7 +1,7 @@
 /* 
  * ========================================================================
  * 
- * Copyright 2001-2003 The Apache Software Foundation.
+ * Copyright 2001-2004 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@ import java.net.URL;
 import org.apache.cactus.integration.ant.container.ContainerRunner;
 import org.apache.cactus.integration.ant.container.GenericContainer;
 import org.apache.cactus.integration.ant.util.AntLog;
-import org.apache.cactus.integration.ant.util.AntTaskFactory;
+import org.apache.cactus.integration.ant.util.DefaultAntTaskFactory;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
 
@@ -72,31 +72,13 @@ public class RunServerTestsTask extends Task
     /**
      * The URL that is continuously pinged to verify if the server is running.
      */
-    private URL testUrl;
+    private URL testURL;
 
     /**
      * Timeout after which we stop trying to connect to the test URL (in ms).
      */
     private long timeout = 180000;
     
-    /**
-     * The factory for creating ant tasks that is passed to the containers.
-     */
-    private AntTaskFactory antTaskFactory = new AntTaskFactory()
-    {
-        public Task createTask(String theName)
-        {
-            Task retVal = getProject().createTask(theName);
-            if (retVal != null)
-            {
-                retVal.setTaskName(getTaskName());
-                retVal.setLocation(getLocation());
-                retVal.setOwningTarget(getOwningTarget());
-            }
-            return retVal;
-        }
-    };
-
     // Task Implementation -----------------------------------------------------
 
     /**
@@ -123,17 +105,18 @@ public class RunServerTestsTask extends Task
         }
 
         // Verify that a test URL has been specified
-        if (this.testUrl == null)
+        if (this.testURL == null)
         {
             throw new BuildException(
                 "The [testurl] attribute must be specified");
         }
 
-        this.container.setAntTaskFactory(antTaskFactory);
+        this.container.setAntTaskFactory(new DefaultAntTaskFactory(
+            getProject(), getTaskName(), getLocation(), getOwningTarget())); 
 
         ContainerRunner runner = new ContainerRunner(this.container);
         runner.setLog(new AntLog(this));
-        runner.setUrl(this.testUrl);
+        runner.setURL(this.testURL);
         runner.setTimeout(this.timeout);
         runner.startUpContainer();
         try
@@ -243,11 +226,11 @@ public class RunServerTestsTask extends Task
     /**
      * Sets the URL to call for testing if the server is running.
      *
-     * @param theTestUrl the test URL to ping
+     * @param theTestURL the test URL to ping
      */
-    public void setTestUrl(URL theTestUrl)
+    public void setTestURL(URL theTestURL)
     {
-        this.testUrl = theTestUrl;
+        this.testURL = theTestURL;
     }
 
     /**

@@ -21,6 +21,8 @@ package org.apache.cactus.integration.ant;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.HashMap;
@@ -45,7 +47,6 @@ import org.apache.tools.ant.Target;
  */
 public abstract class AntTestCase extends TestCase implements BuildListener
 {
-
     // Instance Variables ------------------------------------------------------
 
     /**
@@ -66,6 +67,12 @@ public abstract class AntTestCase extends TestCase implements BuildListener
     private Map log = new HashMap();
 
     /**
+     * File where to log Ant outputs for debugging. If no file location has 
+     * been passed, there will be no file logging.
+     */
+    private FileOutputStream outputStream;
+    
+    /**
      * The targets the have been executed.
      */
     private Set executedTargets = new HashSet();
@@ -73,13 +80,24 @@ public abstract class AntTestCase extends TestCase implements BuildListener
     // Constructors ------------------------------------------------------------
 
     /**
-     * Constructor
-     * 
      * @param theBuildFile The Ant build file corresponding to the test fixture
      */
     public AntTestCase(String theBuildFile)
     {
         this.buildFile = theBuildFile;
+        
+        String outputString = System.getProperty("logfile");
+        if (outputString != null)
+        {
+            try
+            {
+                this.outputStream = new FileOutputStream(outputString);
+            }
+            catch (FileNotFoundException e)
+            {
+                // Silently ignore error when creating output stream
+            }
+        }
     }
 
     // BuildListener Implementation --------------------------------------------
@@ -140,6 +158,18 @@ public abstract class AntTestCase extends TestCase implements BuildListener
             log.put(new Integer(theEvent.getPriority()), buffer);
         }
         buffer.append(theEvent.getMessage()).append("\n");
+        if (this.outputStream != null)
+        {
+            try
+            {
+                this.outputStream.write(theEvent.getMessage().getBytes());
+                this.outputStream.write('\n');
+            }
+            catch (IOException e)
+            {
+                // Silently ignore log error
+            }
+        }
     }
 
     // TestCase Implementation -------------------------------------------------
@@ -186,6 +216,23 @@ public abstract class AntTestCase extends TestCase implements BuildListener
     // Protected Methods -------------------------------------------------------
 
     /**
+     * @return the buffer containing all Ant logs for the specified
+     *         log level
+     * @param theLogLevel The log level of the message
+     */
+    protected String getLog(int theLogLevel)
+    {
+        String result = null;
+        StringBuffer buffer = (StringBuffer) this.log.get(
+            new Integer(theLogLevel));
+        if (buffer != null)
+        {
+            result = buffer.toString();
+        }
+        return result;
+    }
+    
+    /**
      * Asserts that a specific message has been logged at a specific log level.
      * 
      * @param theMessage The message to check for
@@ -195,11 +242,11 @@ public abstract class AntTestCase extends TestCase implements BuildListener
     protected final void assertMessageLogged(String theMessage, int theLogLevel)
         throws IOException
     {
-        StringBuffer buffer = (StringBuffer) log.get(new Integer(theLogLevel));
+        String buffer = getLog(theLogLevel);
         if (buffer != null)
         {
             BufferedReader reader =
-                new BufferedReader(new StringReader(buffer.toString()));
+                new BufferedReader(new StringReader(buffer));
             String line = null;
             while ((line = reader.readLine()) != null)
             {

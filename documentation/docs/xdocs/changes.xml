@@ -90,6 +90,11 @@
       </devs>
 
       <release version="1.7dev" date="in CVS">
+        <action dev="VMA" type="add">
+          Added new <code>&lt;resin2x&gt;</code> and
+          <code>&lt;resin3x&gt;</code> tasks to start/stop
+          Resin 2.x/3.x instances.
+        </action>
         <action dev="VMA" type="update">
           Building Cactus from the sources now requires Ant 1.6.1+. The 
           Cactus build also been simplified a lot and external libraries

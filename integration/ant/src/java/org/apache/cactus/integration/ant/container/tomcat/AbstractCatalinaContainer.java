@@ -182,7 +182,8 @@ public abstract class AbstractCatalinaContainer extends AbstractTomcatContainer
         FileUtils fileUtils = FileUtils.newFileUtils();
         FilterChain filterChain = createFilterChain();
 
-        setTmpDir(prepareTempDirectory(getTmpDir(), theDirName));
+        setTmpDir(setupTempDirectory(getTmpDir(), theDirName));
+        cleanTempDirectory(getTmpDir());
 
         File confDir = createDirectory(getTmpDir(), "conf");
         

@@ -1,7 +1,7 @@
 /* 
  * ========================================================================
  * 
- * Copyright 2003 The Apache Software Foundation.
+ * Copyright 2003-2004 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -46,7 +46,7 @@ public final class ContainerRunner
     /**
      * The URL that is continuously pinged to check if the container is running.
      */
-    private URL url;
+    private URL testURL;
 
     /**
      * Timeout in milliseconds after which to give up connecting to the
@@ -116,14 +116,14 @@ public final class ContainerRunner
      */
     public void startUpContainer() throws IllegalStateException
     {
-        if (this.url == null)
+        if (this.testURL == null)
         {
-            throw new IllegalStateException("Property 'url' must be set");
+            throw new IllegalStateException("Property [url] must be set");
         }
 
         // Try connecting in case the server is already running. If so, does
         // nothing
-        this.alreadyRunning = isAvailable(testConnectivity(this.url));
+        this.alreadyRunning = isAvailable(testConnectivity(this.testURL));
         if (this.alreadyRunning)
         {
             // Server is already running. Record this information so that we
@@ -152,20 +152,20 @@ public final class ContainerRunner
             {
                 throw new BuildException("Failed to start the container after "
                     + "more than [" + this.timeout + "] ms. Trying to connect "
-                    + "to the [" + this.url + "] test URL yielded a ["
+                    + "to the [" + this.testURL + "] test URL yielded a ["
                     + responseCode + "] error code. Please run in debug mode "
                     + "for more details about the error.");
             }
             sleep(this.checkInterval);
             this.log.debug("Checking if server is up ...");
-            responseCode = testConnectivity(this.url);
+            responseCode = testConnectivity(this.testURL);
         } while (!isAvailable(responseCode));
 
         // Wait a few ms more (just to be sure !)
         sleep(this.container.getStartUpWait());
 
-        this.serverName = retrieveServerName(this.url);
-        this.log.trace("Server '" + this.serverName + "' started");
+        this.serverName = retrieveServerName(this.testURL);
+        this.log.trace("Server [" + this.serverName + "] started");
     }
 
     /**
@@ -178,9 +178,9 @@ public final class ContainerRunner
      */
     public void shutDownContainer() throws IllegalStateException
     {
-        if (this.url == null)
+        if (this.testURL == null)
         {
-            throw new IllegalStateException("Property 'url' must be set");
+            throw new IllegalStateException("Property [url] must be set");
         }
 
         // Don't shut down a container that has not been started by us
@@ -189,7 +189,7 @@ public final class ContainerRunner
             return;
         }
         
-        if (!isAvailable(testConnectivity(this.url)))
+        if (!isAvailable(testConnectivity(this.testURL)))
         {
             this.log.debug("Server isn't running!");
             return;
@@ -210,7 +210,7 @@ public final class ContainerRunner
         do 
         {
             sleep(this.checkInterval);
-        } while (isAvailable(testConnectivity(this.url)));
+        } while (isAvailable(testConnectivity(this.testURL)));
 
         // sleep a bit longer to be sure the container has terminated
         sleep(this.shutDownWait);
@@ -268,15 +268,15 @@ public final class ContainerRunner
      * Sets the HTTP URL that will be continuously pinged to check if the
      * container is running.
      * 
-     * @param theUrl The URL to set
+     * @param theTestURL The URL to set
      */
-    public void setUrl(URL theUrl)
+    public void setURL(URL theTestURL)
     {
-        if (!theUrl.getProtocol().equals("http"))
+        if (!theTestURL.getProtocol().equals("http"))
         {
             throw new IllegalArgumentException("Not a HTTP URL");
         } 
-        this.url = theUrl;
+        this.testURL = theTestURL;
     }
 
     // Private Methods ---------------------------------------------------------
@@ -304,7 +304,7 @@ public final class ContainerRunner
         }
         catch (IOException e)
         {
-            this.log.debug("Failed to connect to " + theUrl, e);
+            this.log.debug("Failed to connect to [" + theUrl + "]", e);
             code = -1;
         }
         return code;
@@ -353,7 +353,8 @@ public final class ContainerRunner
         }
         catch (IOException e)
         {
-            this.log.debug("Could not get server name from " + theUrl, e);
+            this.log.debug("Could not get server name from [" 
+                + theUrl + "]", e);
         }
         return retVal;
     }
@@ -401,5 +402,4 @@ public final class ContainerRunner
             throw new BuildException("Interruption during sleep", e);
         }
     }
-
 }

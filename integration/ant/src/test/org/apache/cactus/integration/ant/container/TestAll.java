@@ -1,7 +1,7 @@
 /* 
  * ========================================================================
  * 
- * Copyright 2003 The Apache Software Foundation.
+ * Copyright 2003-2004 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,8 @@
  * ========================================================================
  */
 package org.apache.cactus.integration.ant.container;
+
+import org.apache.cactus.integration.ant.container.resin.TestResin3xTask;
 
 import junit.framework.Test;
 import junit.framework.TestSuite;
@@ -38,9 +40,10 @@ public final class TestAll
         TestSuite suite = new TestSuite(
             "Unit tests for the container support classes");
 
-        suite.addTestSuite(TestContainerRunner.class);
         suite.addTestSuite(TestAbstractContainer.class);
-        suite.addTestSuite(TestEarParser.class);
+        suite.addTestSuite(TestContainerRunner.class);
+
+        suite.addTestSuite(TestResin3xTask.class);
         
         return suite;
     }

@@ -22,6 +22,7 @@ package org.apache.cactus.integration.ant.container;
 import java.io.File;
 import java.io.IOException;
 
+import org.apache.cactus.integration.ant.deployment.DeployableFile;
 import org.apache.cactus.integration.ant.util.AntLog;
 import org.apache.cactus.integration.ant.util.AntTaskFactory;
 import org.apache.commons.logging.Log;
@@ -373,41 +374,79 @@ public abstract class AbstractContainer extends ProjectComponent
         replacePort.addConfiguredToken(token);
         filterChain.addReplaceTokens(replacePort);
 
-        // Token for the cactus webapp context 
-        ReplaceTokens replaceContext = new ReplaceTokens();
-        token = new ReplaceTokens.Token();
-        token.setKey("cactus.context");
-        token.setValue(getDeployableFile().getTestContext());
-        replaceContext.addConfiguredToken(token);
-        filterChain.addReplaceTokens(replaceContext);
-
+        // Token for the cactus webapp context.
+        if (getDeployableFile() != null)
+        {
+            ReplaceTokens replaceContext = new ReplaceTokens();
+            token = new ReplaceTokens.Token();
+            token.setKey("cactus.context");
+            token.setValue(getDeployableFile().getTestContext());
+            replaceContext.addConfiguredToken(token);
+            filterChain.addReplaceTokens(replaceContext);
+        }
+        
         return filterChain;
     }
 
     /**
-     * Create and clean up a temporary directory where the container will be
-     * setup and Cascctus tests will be run.
-     *
-     * @return the temp directory  
+     * Clean the temporary directory.
+     * 
+     * @param theTmpDir the temp directory to clean
+     */
+    protected void cleanTempDirectory(File theTmpDir)
+    {
+        // Clean up stuff previously put in the temporary directory
+        Delete delete = (Delete) createAntTask("delete");
+        FileSet fileSet = new FileSet();
+        fileSet.setDir(theTmpDir);
+        fileSet.createInclude().setName("**/*");
+        delete.addFileset(fileSet);
+        delete.setIncludeEmptyDirs(true);
+        delete.setFailOnError(false);
+        delete.execute();
+    }
+    
+    /**
+     * Convenience method that creates a temporary directory or
+     * prepares the one passed by the user.
+     * 
+     * @return The temporary directory
      * @param theCustomTmpDir The user specified custom dir or null if none has
      *        been specified (ie we'll create default one).
      * @param theName The name of the directory relative to the system specific
-     *        temporary directory. This is only used if the custom dir 
-     *        parameter is null.
+     *        temporary directory
      */
-    protected final File prepareTempDirectory(File theCustomTmpDir, 
-        String theName)
+    protected File setupTempDirectory(File theCustomTmpDir, String theName)
     {
-        File tmpDir = theCustomTmpDir;
-        if (tmpDir == null)
+        File tmpDir;
+        
+        if (theCustomTmpDir == null)
         {
-            tmpDir = createTempDirectory(theName);
+            tmpDir = new File(System.getProperty("java.io.tmpdir"), theName);
         }
-        // Clean up tmp dir
-        cleanTempDirectory(tmpDir);
+        else
+        {
+            tmpDir = theCustomTmpDir;
+        }
+        
+        if (!tmpDir.exists())
+        {
+            if (!tmpDir.mkdirs())
+            {
+                throw new BuildException("Could not create temporary "
+                    + "directory [" + tmpDir + "]");
+            }
+        }
+
+        // make sure we're returning a directory
+        if (!tmpDir.isDirectory())
+        {
+            throw new BuildException("[" + tmpDir + "] is not a directory");
+        }
+
         return tmpDir;
     }
-
+    
     /**
      * Returns the log to use.
      * 
@@ -430,51 +469,7 @@ public abstract class AbstractContainer extends ProjectComponent
     }
 
     // Private Methods ---------------------------------------------------------
-
-    /**
-     * Clean the temporary directory.
-     * 
-     * @param theTmpDir the temp directory to clean
-     */
-    private void cleanTempDirectory(File theTmpDir)
-    {
-        // Clean up stuff previously put in the temporary directory
-        Delete delete = (Delete) createAntTask("delete");
-        FileSet fileSet = new FileSet();
-        fileSet.setDir(theTmpDir);
-        fileSet.createInclude().setName("**/*");
-        delete.addFileset(fileSet);
-        delete.setIncludeEmptyDirs(true);
-        delete.setFailOnError(false);
-        delete.execute();
-    }
-    
-    /**
-     * Convenience method that creates a temporary directory.
-     * 
-     * @param theName The name of the directory relative to the system specific
-     *        temporary directory
-     * @return The temporary directory
-     */
-    private File createTempDirectory(String theName)
-    {
-        File tmpDir = new File(System.getProperty("java.io.tmpdir"), theName);
-        if (!tmpDir.exists())
-        {
-            if (!tmpDir.mkdirs())
-            {
-                throw new BuildException("Could not create temporary "
-                    + "directory " + tmpDir);
-            }
-        }
-        // make sure we're returning a directory
-        if (!tmpDir.isDirectory())
-        {
-            throw new BuildException(tmpDir + " is not a directory");
-        }
-        return tmpDir;
-    }
-    
+        
     /**
      * Tests whether the property necessary to run the tests in the container 
      * has been set.

@@ -23,6 +23,7 @@ import java.io.File;
 
 import junit.framework.Assert;
 
+import org.apache.cactus.integration.ant.deployment.DeployableFile;
 import org.apache.cactus.integration.ant.util.AntTaskFactory;
 import org.apache.commons.logging.Log;
 import org.apache.tools.ant.types.Path;

@@ -41,7 +41,7 @@ public abstract class AbstractResinContainer extends AbstractJavaContainer
     // Instance Variables ------------------------------------------------------
 
     /**
-     * The Resin installation directory.
+     * The mandatory Resin installation directory.
      */
     private File dir;
 
@@ -60,7 +60,7 @@ public abstract class AbstractResinContainer extends AbstractJavaContainer
      * The temporary directory from which the container will be started.
      */
     private File tmpDir;
-
+    
     // Public Methods ----------------------------------------------------------
 
     /**
@@ -73,6 +73,16 @@ public abstract class AbstractResinContainer extends AbstractJavaContainer
         this.dir = theDir;
     }
 
+    /**
+     * Sets the temporary directory from which the container is run.
+     * 
+     * @param theTmpDir The temporary directory to set
+     */
+    public final void setTmpDir(File theTmpDir)
+    {
+        this.tmpDir = theTmpDir;
+    }
+    
     /**
      * Sets the configuration file to use for the test installation of Resin
      * 
@@ -94,15 +104,23 @@ public abstract class AbstractResinContainer extends AbstractJavaContainer
     }
 
     /**
-     * Sets the temporary directory from which the container is run.
-     * 
-     * @param theTmpDir The temporary directory to set
+     * Checks if all mandatory properties have been set and that they
+     * contain valid values.
      */
-    public final void setTmpDir(File theTmpDir)
+    public void verify()
     {
-        this.tmpDir = theTmpDir;
-    }
+        if (getDir() == null)
+        {
+            throw new BuildException(
+                "You must specify the mandatory [dir] attribute"); 
+        }
 
+        if (!getDir().isDirectory())
+        {
+            throw new BuildException("[" + getDir() + "] is not a directory");
+        }
+    }
+    
     // AbstractContainer Implementation ----------------------------------------
 
     /**
@@ -120,10 +138,7 @@ public abstract class AbstractResinContainer extends AbstractJavaContainer
      */
     public final void init()
     {
-        if (!getDir().isDirectory())
-        {
-            throw new BuildException(getDir() + " is not a directory");
-        }
+        verify();
     }
 
     /**
@@ -133,11 +148,15 @@ public abstract class AbstractResinContainer extends AbstractJavaContainer
     {
         try
         {
-            prepare("cactus/" + getContainerDirName());
+            File installDir = setupTempDirectory(getTmpDir(),
+                "cactus/" + getContainerDirName());
+            cleanTempDirectory(installDir);
             
-            // invoke the main class
+            prepare(installDir);
+            
+            // Invoke the main class
             Java java = createJavaForStartUp();           
-            java.addSysproperty(createSysProperty("resin.home", this.tmpDir));
+            java.addSysproperty(createSysProperty("resin.home", installDir));
             Path classpath = java.createClasspath();
             classpath.createPathElement().setLocation(
                 ResourceUtils.getResourceLocation("/"
@@ -149,8 +168,8 @@ public abstract class AbstractResinContainer extends AbstractJavaContainer
             java.setClassname(ResinRun.class.getName());
             java.createArg().setValue("-start");
             java.createArg().setValue("-conf");
-            java.createArg().setFile(new File(tmpDir, "resin.conf"));
-
+            java.createArg().setFile(new File(installDir, "resin.conf"));
+    
             // Add settings specific to a given container version
             startUpAdditions(java, classpath);
             
@@ -168,10 +187,13 @@ public abstract class AbstractResinContainer extends AbstractJavaContainer
      */
     public final void shutDown()
     {
-        // invoke the main class
+        File installDir = setupTempDirectory(getTmpDir(),
+            "cactus/" + getContainerDirName());
+
+        // Invoke the main class
         Java java = createJavaForShutDown();
         java.setFork(true);
-        java.addSysproperty(createSysProperty("resin.home", this.tmpDir));
+        java.addSysproperty(createSysProperty("resin.home", installDir));
         Path classpath = java.createClasspath();
         classpath.createPathElement().setLocation(
             ResourceUtils.getResourceLocation("/"
@@ -202,12 +224,14 @@ public abstract class AbstractResinContainer extends AbstractJavaContainer
      * Allow specific version implementations to add custom preparation steps
      * before the container is started.
      * 
+     * @param theInstallDir The directory in which to create the temporary
+     *        container installation
      * @param theFilterChain the filter chain used to replace Ant tokens in 
      *        configuration
      * @exception IOException in case of an error
      */
-    protected abstract void prepareAdditions(FilterChain theFilterChain)
-        throws IOException;
+    protected abstract void prepareAdditions(File theInstallDir, 
+        FilterChain theFilterChain) throws IOException;
 
     /**
      * @return the name of the directory where the container will be set up
@@ -237,37 +261,39 @@ public abstract class AbstractResinContainer extends AbstractJavaContainer
      * Prepares a temporary installation of the container and deploys the 
      * web-application.
      * 
-     * @param theDirName The name of the temporary container installation
-     *        directory
+     * @param theInstallDir The directory in which to create the temporary
+     *        container installation
      * @throws IOException If an I/O error occurs
      */
-    private void prepare(String theDirName) throws IOException
+    private void prepare(File theInstallDir) throws IOException
     {
         FileUtils fileUtils = FileUtils.newFileUtils();
         FilterChain filterChain = createFilterChain();
 
-        this.tmpDir = prepareTempDirectory(this.tmpDir, theDirName);
-
-        // copy configuration files into the temporary container directory
+        // Copy configuration files into the temporary container directory
         if (this.resinConf != null)
         {
-            fileUtils.copyFile(this.resinConf, new File(tmpDir, "resin.conf"));
+            fileUtils.copyFile(this.resinConf, 
+                new File(theInstallDir, "resin.conf"));
         }
         else
         {
             ResourceUtils.copyResource(getProject(),
                 RESOURCE_PATH + getContainerDirName() + "/resin.conf",
-                new File(tmpDir, "resin.conf"), filterChain);
+                new File(theInstallDir, "resin.conf"), filterChain);
         }
 
-        // deploy the web-app by copying the WAR file into the webapps
+        // Deploy the web-app by copying the WAR file into the webapps
         // directory
-        File webappsDir = createDirectory(tmpDir, "webapps");
-        fileUtils.copyFile(getDeployableFile().getFile(),
-            new File(webappsDir, getDeployableFile().getFile().getName()), 
-            null, true);
-
+        if (getDeployableFile() != null)
+        {
+            File webappsDir = createDirectory(theInstallDir, "webapps");
+            fileUtils.copyFile(getDeployableFile().getFile(),
+                new File(webappsDir, getDeployableFile().getFile().getName()), 
+                null, true);
+        }
+        
         // Add preparation steps specific to a given container version
-        prepareAdditions(filterChain);
+        prepareAdditions(theInstallDir, filterChain);
     }
 }

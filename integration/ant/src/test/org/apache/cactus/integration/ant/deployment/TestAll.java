@@ -1,7 +1,7 @@
 /* 
  * ========================================================================
  * 
- * Copyright 2003 The Apache Software Foundation.
+ * Copyright 2003-2004 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,13 @@
  * ========================================================================
  */
 package org.apache.cactus.integration.ant.deployment;
+
+import org.apache.cactus.integration.ant.deployment.application.TestApplicationXml;
+import org.apache.cactus.integration.ant.deployment.application.TestApplicationXmlVersion;
+import org.apache.cactus.integration.ant.deployment.webapp.TestWarArchive;
+import org.apache.cactus.integration.ant.deployment.webapp.TestWebXml;
+import org.apache.cactus.integration.ant.deployment.webapp.TestWebXmlMerger;
+import org.apache.cactus.integration.ant.deployment.webapp.TestWebXmlVersion;
 
 import junit.framework.Test;
 import junit.framework.TestSuite;
@@ -40,10 +47,14 @@ public final class TestAll
 
         suite.addTestSuite(TestApplicationXml.class);
         suite.addTestSuite(TestApplicationXmlVersion.class);
-        suite.addTestSuite(TestJarArchive.class);
+
         suite.addTestSuite(TestWebXml.class);
         suite.addTestSuite(TestWebXmlMerger.class);
         suite.addTestSuite(TestWebXmlVersion.class);
+        suite.addTestSuite(TestWarArchive.class);
+
+        suite.addTestSuite(TestJarArchive.class);
+        suite.addTestSuite(TestEarParser.class);
 
         return suite;
     }

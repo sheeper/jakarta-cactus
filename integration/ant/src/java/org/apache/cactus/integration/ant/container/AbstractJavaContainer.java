@@ -1,7 +1,7 @@
 /* 
  * ========================================================================
  * 
- * Copyright 2003 The Apache Software Foundation.
+ * Copyright 2003-2004 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -106,13 +106,16 @@ public abstract class AbstractJavaContainer extends AbstractContainer
         addExtraClasspath(java);
        
         // Add Cactus properties for the server side
-        for (int i = 0; i < getSystemProperties().length; i++)
+        if (getSystemProperties() != null)
         {
-            java.addSysproperty(
-                createSysProperty(getSystemProperties()[i].getKey(),
-                    getSystemProperties()[i].getValue()));
+            for (int i = 0; i < getSystemProperties().length; i++)
+            {
+                java.addSysproperty(
+                    createSysProperty(getSystemProperties()[i].getKey(),
+                        getSystemProperties()[i].getValue()));
+            }
         }
-
+        
         return java;
     }
 

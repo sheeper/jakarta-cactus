@@ -57,18 +57,6 @@ import org.apache.cactus.internal.server.runner.XMLFormatter;
 public class ServletTestRunner extends HttpServlet
 {
     /**
-     * As this class is the first one loaded on the server side, we ensure
-     * that the Cactus configuration has been initialized. A better 
-     * implementation might be to perform this initialization in the 
-     * init() method. However, that requires removing the static LOGGER
-     * object.
-     */
-    static
-    {
-        ConfigurationInitializer.initialize();
-    }
-
-    /**
      * HTTP parameter containing name of test suite to execute
      */
     private static final String HTTP_SUITE_PARAM = "suite";
@@ -119,6 +107,9 @@ public class ServletTestRunner extends HttpServlet
      */
     public void init() throws ServletException
     {
+        // Initialize Cactus configuration
+        ConfigurationInitializer.initialize();
+
         // Check whether XSLT transformations should be done server-side and
         // build the templates if an XSLT processor is available
         String xslStylesheetParam = getInitParameter(XSL_STYLESHEET_PARAM);

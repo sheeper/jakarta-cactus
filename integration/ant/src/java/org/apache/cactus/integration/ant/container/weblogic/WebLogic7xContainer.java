@@ -262,7 +262,8 @@ public class WebLogic7xContainer extends AbstractJavaContainer
         FileUtils fileUtils = FileUtils.newFileUtils();
         FilterChain filterChain = createFilterChain();
         
-        this.tmpDir = prepareTempDirectory(this.tmpDir, theDirName);
+        this.tmpDir = setupTempDirectory(this.tmpDir, theDirName);
+        cleanTempDirectory(this.tmpDir);
 
         File testDomainDir = createDirectory(this.tmpDir, "testdomain");
 

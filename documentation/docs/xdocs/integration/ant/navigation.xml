@@ -38,6 +38,7 @@
     <item id="task_cactus" label="Cactus"/>
     <item id="task_runservertests" label="RunServerTests"/>
     <item id="task_webxmlmerge" label="WebXmlMerge"/>
+    <item id="task_resin" label="Resin[2x|3x]"/>
   </menu>
 
   <menu label="Development">

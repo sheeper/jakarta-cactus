@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+
+<project name="test-resin3x" basedir="." default="setup">
+
+  <target name="testExecuteWhenNoDirSpecified">
+    <resin3x/>
+  </target>
+
+  <target name="testExecuteWhenNoActionSpecified">
+    <resin3x dir="${cactus.home.resin3x}"/>
+  </target>
+
+  <target name="testExecuteWhenWrongActionSpecified">
+    <resin3x dir="${cactus.home.resin3x}" action="invalid"/>
+  </target>
+
+  <target name="testExecuteStartWithNoDeployableAndNoTestURL">
+    <parallel>
+      <resin3x dir="${cactus.home.resin3x}" action="start"/>
+      <sequential>
+      	<waitfor>
+          <http url="http://localhost:${cactus.port}"/>
+        </waitfor>
+        <resin3x dir="${cactus.home.resin3x}" action="stop"/>
+      	<waitfor>
+      	  <not>
+            <http url="http://localhost:${cactus.port}"/>
+      	  </not>
+        </waitfor>
+      </sequential>
+    </parallel>
+  </target>
+
+  <target name="testExecuteStartWithWarDeployableAndNoTestURL">
+    <parallel>
+      <resin3x dir="${cactus.home.resin3x}" warfile="../../empty.war" 
+          action="start"/>
+      <sequential>
+      	<waitfor>
+          <http url="http://localhost:${cactus.port}/empty"/>
+        </waitfor>
+        <resin3x dir="${cactus.home.resin3x}" action="stop"/>
+      	<waitfor>
+      	  <not>
+            <http url="http://localhost:${cactus.port}/empty"/>
+      	  </not>
+        </waitfor>
+      </sequential>
+    </parallel>
+  </target>
+
+  <target name="testExecuteStartWithNoDeployableAndWithTestURL">
+    <resin3x dir="${cactus.home.resin3x}" action="start"
+        testurl="http://localhost:${cactus.port}"/>
+    <resin3x dir="${cactus.home.resin3x}" action="stop"
+        testurl="http://localhost:${cactus.port}"/>
+  </target>
+
+</project>

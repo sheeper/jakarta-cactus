@@ -63,6 +63,9 @@
     <property name="target.testinput.dir"
         location="${target.dir}/testinput"/>
 
+    <!-- Ensure that there is always a default for the container port -->
+    <property name="cactus.port" value="8080"/>
+
   </target>
 
   <!--
@@ -170,6 +173,8 @@ be resolved. Please check you build.properties file, and run Ant with the
           value="org.apache.cactus.integration.ant.RunServerTestsTask"/>
       <entry key="webxmlmerge"
           value="org.apache.cactus.integration.ant.WebXmlMergeTask"/>
+      <entry key="resin3x"
+          value="org.apache.cactus.integration.ant.container.resin.Resin3xTask"/>
     </propertyfile>
 
     <copy todir="${target.classes.java.dir}">
@@ -313,7 +318,23 @@ be resolved. Please check you build.properties file, and run Ant with the
     <mkdir dir="${target.doc.testreports.dir}"/>
 
     <junit failureproperty="tests.failed" fork="yes">
+  
+      <!-- Directory where test resources are located -->
       <sysproperty key="testinput.dir" file="${target.testinput.dir}"/>
+
+      <!-- File where to log Ant test otputs. Useful for debugging -->
+      <sysproperty key="logfile" file="${target.dir}/test.log"/>
+                            
+      <!-- We pass all cactus.home.* properties so that we can run 
+           integration tests for containers which are installed -->
+      <syspropertyset>
+        <propertyref prefix="cactus.home."/>
+      </syspropertyset>
+
+      <!-- Allow using a port different than the default (8080) for
+           the integration tests         -->
+      <sysproperty key="cactus.port" value="${cactus.port}"/>
+                            
       <classpath refid="test.classpath"/>
       <test name="${testcase}" if="testcase"/>
       <batchtest todir="${target.doc.testreports.dir}" unless="testcase">

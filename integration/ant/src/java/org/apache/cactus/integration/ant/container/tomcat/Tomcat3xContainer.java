@@ -143,7 +143,8 @@ public class Tomcat3xContainer extends AbstractTomcatContainer
         FileUtils fileUtils = FileUtils.newFileUtils();
         FilterChain filterChain = createFilterChain();
         
-        this.tmpDir = prepareTempDirectory(this.tmpDir, theDirName);
+        this.tmpDir = setupTempDirectory(this.tmpDir, theDirName);
+        cleanTempDirectory(this.tmpDir);
 
         // copy configuration files into the temporary container directory
         File confDir = createDirectory(tmpDir, "conf");

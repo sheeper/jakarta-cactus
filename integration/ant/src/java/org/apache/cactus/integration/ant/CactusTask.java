@@ -29,15 +29,15 @@ import java.util.ResourceBundle;
 
 import org.apache.cactus.integration.ant.container.Container;
 import org.apache.cactus.integration.ant.container.ContainerRunner;
-import org.apache.cactus.integration.ant.container.DeployableFile;
-import org.apache.cactus.integration.ant.container.EarParser;
-import org.apache.cactus.integration.ant.container.WarParser;
+import org.apache.cactus.integration.ant.deployment.DeployableFile;
+import org.apache.cactus.integration.ant.deployment.EarParser;
+import org.apache.cactus.integration.ant.deployment.WarParser;
 import org.apache.cactus.integration.ant.util.AntLog;
 import org.apache.cactus.integration.ant.util.AntTaskFactory;
+import org.apache.cactus.integration.ant.util.DefaultAntTaskFactory;
 import org.apache.cactus.integration.ant.util.PropertySet;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Project;
-import org.apache.tools.ant.Task;
 import org.apache.tools.ant.taskdefs.optional.junit.JUnitTask;
 import org.apache.tools.ant.taskdefs.optional.junit.JUnitTest;
 import org.apache.tools.ant.types.Environment;
@@ -81,24 +81,6 @@ public class CactusTask extends JUnitTask
      */
     private Path containerClasspath;
     
-    /**
-     * The factory for creating ant tasks that is passed to the containers.
-     */
-    private AntTaskFactory antTaskFactory = new AntTaskFactory()
-    {
-        public Task createTask(String theName)
-        {
-            Task retVal = getProject().createTask(theName);
-            if (retVal != null)
-            {
-                retVal.setTaskName(getTaskName());
-                retVal.setLocation(getLocation());
-                retVal.setOwningTarget(getOwningTarget());
-            }
-            return retVal;
-        }
-    };
-
     // Constructors ------------------------------------------------------------
     
     /**
@@ -171,9 +153,13 @@ public class CactusTask extends JUnitTask
             Variable contextUrl = new Variable();
             contextUrl.setKey("cactus.contextURL");
             addSysproperty(contextUrl);
+
+            AntTaskFactory antTaskFactory = new DefaultAntTaskFactory(
+                getProject(), getTaskName(), getLocation(), getOwningTarget()); 
+            
             for (int i = 0; i < containers.length; i++)
             {
-                containers[i].setAntTaskFactory(this.antTaskFactory);
+                containers[i].setAntTaskFactory(antTaskFactory);
                 containers[i].setLog(new AntLog(this));
 
                 // Clone the DeployableFile instance as each container can
@@ -453,7 +439,7 @@ public class CactusTask extends JUnitTask
                 + theFile.getTestContext() 
                 + theFile.getServletRedirectorMapping()
                 + "?Cactus_Service=RUN_TEST");
-            runner.setUrl(url);
+            runner.setURL(url);
             if (this.containerSet.getTimeout() > 0)
             {
                 runner.setTimeout(this.containerSet.getTimeout());

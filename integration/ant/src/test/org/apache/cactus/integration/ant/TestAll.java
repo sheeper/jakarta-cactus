@@ -45,6 +45,8 @@ public final class TestAll
 
         suite.addTestSuite(TestCactifyWarTask.class);
         suite.addTestSuite(TestCactusTask.class);
+        suite.addTestSuite(TestContainerSet.class);
+        suite.addTestSuite(TestRunServerTestsTask.class);
 
         return suite;
     }

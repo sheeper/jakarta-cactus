@@ -22,11 +22,11 @@ package org.apache.cactus.integration.ant;
 import java.io.File;
 import java.util.Iterator;
 
-import org.apache.cactus.integration.ant.deployment.DefaultWarArchive;
-import org.apache.cactus.integration.ant.deployment.WarArchive;
-import org.apache.cactus.integration.ant.deployment.WebXml;
-import org.apache.cactus.integration.ant.deployment.WebXmlTag;
-import org.apache.cactus.integration.ant.deployment.WebXmlVersion;
+import org.apache.cactus.integration.ant.deployment.webapp.DefaultWarArchive;
+import org.apache.cactus.integration.ant.deployment.webapp.WarArchive;
+import org.apache.cactus.integration.ant.deployment.webapp.WebXml;
+import org.apache.cactus.integration.ant.deployment.webapp.WebXmlTag;
+import org.apache.cactus.integration.ant.deployment.webapp.WebXmlVersion;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Project;
 import org.w3c.dom.Element;

@@ -679,7 +679,7 @@
     <xsl:param name="href"/>
     <xsl:if test="starts-with(@href,'site:')">
       <xsl:call-template name="get-resource-description">
-        <xsl:with-param name="id" select="substring-after(@href, 'site:')"/>
+        <xsl:with-param name="id" select="substring-after(@href,'site:')"/>
       </xsl:call-template>
     </xsl:if>
   </xsl:template>

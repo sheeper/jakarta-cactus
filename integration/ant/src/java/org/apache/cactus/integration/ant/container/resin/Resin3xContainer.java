@@ -75,13 +75,13 @@ public class Resin3xContainer extends AbstractResinContainer
     }
 
     /**
-     * @see AbstractResinContainer#prepareAdditions(FilterChain)
+     * @see AbstractResinContainer#prepareAdditions(File, FilterChain)
      */
-    protected void prepareAdditions(FilterChain theFilterChain) 
-        throws IOException
+    protected void prepareAdditions(File theInstallDir, 
+        FilterChain theFilterChain) throws IOException
     {
         ResourceUtils.copyResource(getProject(),
             RESOURCE_PATH + getContainerDirName() + "/app-default.xml",
-            new File(getTmpDir(), "app-default.xml"), theFilterChain);
+            new File(theInstallDir, "app-default.xml"), theFilterChain);
     }
 }

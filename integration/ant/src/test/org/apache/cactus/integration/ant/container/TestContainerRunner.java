@@ -1,7 +1,7 @@
 /* 
  * ========================================================================
  * 
- * Copyright 2003 The Apache Software Foundation.
+ * Copyright 2003-2004 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -72,7 +72,7 @@ public final class TestContainerRunner extends TestCase
             new ContainerRunner(new MockContainer(this.server));
         try
         {
-            runner.setUrl(new URL("ftp://ftp.example.com/test/"));
+            runner.setURL(new URL("ftp://ftp.example.com/test/"));
             fail("Expected IllegalArgumentException");
         }
         catch (IllegalArgumentException expected)
@@ -136,7 +136,7 @@ public final class TestContainerRunner extends TestCase
 
         ContainerRunner runner =
             new ContainerRunner(new MockContainer(this.server));
-        runner.setUrl(
+        runner.setURL(
             new URL("http", "localhost", this.server.getPort(), "/test"));
         runner.setTimeout(0);
         runner.setCheckInterval(250);
@@ -160,7 +160,7 @@ public final class TestContainerRunner extends TestCase
 
         ContainerRunner runner =
             new ContainerRunner(new MockContainer(this.server));
-        runner.setUrl(
+        runner.setURL(
             new URL("http", "localhost", this.server.getPort(), "/test"));
         runner.setTimeout(0);
         runner.setCheckInterval(250);
@@ -193,7 +193,7 @@ public final class TestContainerRunner extends TestCase
 
         ContainerRunner runner =
             new ContainerRunner(new MockContainer(this.server));
-        runner.setUrl(
+        runner.setURL(
             new URL("http", "localhost", this.server.getPort(), "/test"));
         runner.setTimeout(5000);
         runner.setCheckInterval(250);
@@ -237,7 +237,7 @@ public final class TestContainerRunner extends TestCase
         container.expectShutDownCalled(false);
 
         ContainerRunner runner = new ContainerRunner(container);
-        runner.setUrl(
+        runner.setURL(
             new URL("http", "localhost", this.server.getPort(), "/test"));
         runner.setTimeout(0);
         runner.setCheckInterval(250);

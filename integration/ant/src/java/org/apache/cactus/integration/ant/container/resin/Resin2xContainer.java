@@ -19,6 +19,8 @@
  */
 package org.apache.cactus.integration.ant.container.resin;
 
+import java.io.File;
+
 import org.apache.tools.ant.taskdefs.Java;
 import org.apache.tools.ant.types.FilterChain;
 import org.apache.tools.ant.types.Path;
@@ -59,9 +61,10 @@ public class Resin2xContainer extends AbstractResinContainer
     }
 
     /**
-     * @see AbstractResinContainer#prepareAdditions(FilterChain)
+     * @see AbstractResinContainer#prepareAdditions(File, FilterChain)
      */
-    protected void prepareAdditions(FilterChain theFilterChain)
+    protected void prepareAdditions(File theInstallDir, 
+        FilterChain theFilterChain)
     {
         // Nothing additional required
     }

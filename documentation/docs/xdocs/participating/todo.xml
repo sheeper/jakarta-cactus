@@ -70,34 +70,15 @@
           Improve the documentation CheckSitemap Ant task to check external URLs
           (when online).
         </action>
-        <action>
-          Rewrite "Quick start guide" to take into account the different
-          front ends.
-        </action>
       </category>
 
     <category title="Build Process">
       <action>
-        Fix the nightly Gump build so that the changes page get generated
-        with the CVS changelog information. ATM, it's always empty which
-        negates this nice feature...
-      </action>
-      <action>
-        Add an automated Maven build (using codehaus). See
-        http://wiki.codehaus.org/general/CodehausBuildmeister.
-      </action>
-      <action>
         Prevent the sample jetty project from building if the J2EE API
         is 1.2.
       </action>
-      <action>
-        Add a Gump definition for building the Eclipse Site project
-        and only released an installed Eclipse update web site (no
-        zips). Same as what is on 
-        http://dev.eclipse.org/viewcvs/indextech.cgi/~checkout~/org.eclipse.ajdt/download.html.
-      </action>
       <action assigned-to="Julien Dubois, Vincent Massol">
-        Move Cactus to Maven.
+        Move Cactus build to Maven.
       </action>
       <action>
         Add support in Ant Integration for JBoss/Tomcat (JBoss/Jetty is 
@@ -105,6 +86,15 @@
       </action>
       <action>
         Add support in Ant Integration for the J2EE RI.
+      </action>
+      <action>
+        Add support in Ant Integration for Jonas.
+      </action>
+      <action>
+        Add support in Ant Integration for WebSphere.
+      </action>
+      <action>
+        Add support in Ant Integration for OpenEJB.
       </action>
     </category>
     

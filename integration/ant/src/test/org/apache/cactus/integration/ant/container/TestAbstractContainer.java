@@ -26,6 +26,7 @@ import java.util.Vector;
 
 import junit.framework.TestCase;
 
+import org.apache.cactus.integration.ant.deployment.EarParser;
 import org.apache.tools.ant.filters.util.ChainReaderHelper;
 import org.apache.tools.ant.types.FilterChain;
 
