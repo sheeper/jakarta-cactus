@@ -48,6 +48,25 @@
     </devs>
 
     <release version="1.4 in CVS">
+      <action dev="VMA" type="update">
+        Renamed all external jars used in Cactus by suffixing them with their
+        versions. This is so that Cactus users will know exactly what jars
+        Cactus is packaging. You are of course free to use your own jars and
+        Cactus only packages these jars for your convenience. Cactus nows
+        packages Log4j 1.2.3, AspectJ Runtime 1.0.4, JUnit 3.7,
+        HttpClient 2.0alpha1 built on 6/6/2002, HttpUnit 1.4 and (new) the
+        Servlet API 2.2 and 2.3 jars. The Cactus jars have also been renamed
+        to include the version number in their names.
+      </action>
+      <action dev="VMA" type="fix">
+        Cactus Sample can be built using Ant 1.4 (support for Ant 1.4 was
+        broken by a line introduced in Cactus 1.3 that would only work with
+        Ant 1.5. However, this line can easily be commented out).
+      </action>
+      <action dev="VMA" type="fix">
+        Cactus does not check for existing <code>log_client.properties</code>
+        and <code>log_server.properties</code> when logging is not enabled.
+      </action>
       <action dev="VMA" type="fix" due-to="Marc Brette" due-to-email="Marc.Brette@mkms.xerox.com">
         (<link href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=8640">
          Bug #8640</link>. It also solves bug
