@@ -88,9 +88,9 @@
     <category title="Design/Code">
       <action>
         Add methods that are called before and after each test, but on the
-        client side (i.e. before the <code>beginXXX()</code> and 
+        client side (i.e. before the <code>beginXXX()</code> and
         <code>endXXX()</code> methods). They
-        would act the same way as <code>setUp()</code> and 
+        would act the same way as <code>setUp()</code> and
         <code>tearDown()</code> but on the client side. They could be
         named <code>init()</code> and <code>destroy()</code>, or maybe we
         should rather rename the existing <code>setUp()</code> and
@@ -162,6 +162,19 @@
       <p>
         Ideas to explore ...
       </p>
+      <action>
+        Create a new package <code>org.apache.cactus.extensions</code> for
+        putting extensions to Cactus Test Cases. The first extension
+        would be an extension that runs a bunch of test at the same time,
+        thus spawing several threads in the container in order to discover
+        bugs [Note: We would have to correct the name under which Cactus test
+        results are stored in the application context so that it is unique
+        per test case]. We would need to create a
+        <code>org.apache.cactus.extensions.ParallelServletTestCase</code>.
+        The constructor would take some parameters, such as the number of
+        parallel threads to spawn, ... Idea suggested by
+        <link href="mailto:rimovm@centercomp.com">Michael Rimov</link>.
+      </action>
       <action>
         Create a Cactus Doclet. This will introduce new javadoc tags (like the
         <link href="http://sourceforge.net/projects/ejbdoclet">EJBDoclet</link>)
