@@ -84,7 +84,8 @@
         <code>[cactus root]</code> directory.
       </p>
       <p>
-        The Cactus jars are :
+        The jars making up Cactus can be found in
+        <code>[cactus root]/lib</code>. Namely, they are :
       </p>
       <ul>
         <li>
@@ -100,6 +101,19 @@
           Cactus with Ant, see the
           <link href="howto_ant.html">Ant Howto</link> tutorial. You also
           find this jar in <code>[cactus root]/lib</code>.
+        </li>
+        <li>
+          <strong><code>httpclient.jar</code></strong> : Cactus is relying
+          on the Jakarta Commons HttpClient framework for Cookie handling.
+        </li>
+        <li>
+          <strong><code>junit.jar</code></strong> : Cactus extends JUnit and
+          thus needs the JUnit jar.
+        </li>
+        <li>
+          <strong><code>log4j-core.jar</code></strong> : Cactus uses Log4j
+          for performing all internal logging. This jar is optional and if
+          you don't put in the classpaths, no logs will be generated.
         </li>
       </ul>
       <p>
@@ -167,6 +181,10 @@
             <link href="http://java.sun.com/j2ee/download.html">J2EE download
             page</link> of the Sun web site (but it contains a lot of other
             API that you probably don't need).
+          </li>
+          <li>
+            <strong><code>httpclient.jar</code></strong> : needed for
+            Cactus Cookie handling.
           </li>
           <li>
             <strong><code>log4j.jar</code> (optional)</strong> : only needed
