@@ -70,6 +70,12 @@
 
     <property name="cactus.commons.httpclient.jar" 
         value="${cactus.lib.client.dir}/@commons.httpclient.jar.name@"/>
+    <property name="cactus.nekohtml.jar" 
+        value="${cactus.lib.client.dir}/@nekohtml.jar.name@"/>
+    <property name="cactus.xerces.jar" 
+        value="${cactus.lib.client.dir}/@xerces.jar.name@"/>
+    <property name="cactus.xmlapis.jar" 
+        value="${cactus.lib.client.dir}/@xmlapis.jar.name@"/>
 
     <!--
        ========================================================================
@@ -254,6 +260,9 @@
                 <pathelement location="${cactus.junit.jar}"/>
                 <pathelement location="${cactus.commons.httpclient.jar}"/>
                 <pathelement location="${cactus.httpunit.jar}"/>
+                <pathelement location="${cactus.nekohtml.jar}"/>
+                <pathelement location="${cactus.xerces.jar}"/>
+                <pathelement location="${cactus.xmlapis.jar}"/>
                 <path refid="cactus.classpath"/>
             </classpath>
 
@@ -299,6 +308,9 @@
                 <pathelement location="${cactus.junit.jar}"/>
                 <pathelement location="${cactus.commons.httpclient.jar}"/>
                 <pathelement location="${cactus.httpunit.jar}"/>
+                <pathelement location="${cactus.nekohtml.jar}"/>
+                <pathelement location="${cactus.xerces.jar}"/>
+                <pathelement location="${cactus.xmlapis.jar}"/>
                 <path refid="cactus.classpath"/>
             </classpath>
 

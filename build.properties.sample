@@ -43,9 +43,6 @@ log4j.jar = ${lib.repo}/log4j/jars/log4j-1.2.7.jar
 # The location of the Commons Httpclient jar
 commons.httpclient.jar = ${lib.repo}/commons-httpclient/jars/commons-httpclient-2.0-alpha3.jar
 
-# The location of the Httpunit jar
-httpunit.jar = ${lib.repo}/httpunit/jars/httpunit-1.5.jar
-
 # The location of the AspectJ runtime jar
 aspectjrt.jar = ${lib.repo}/aspectj/jars/aspectjrt-1.0.6.jar
 
@@ -57,6 +54,18 @@ jstl.jar = ${lib.repo}/jstl/jars/jstl-1.0.2.jar
  
 # The location of the JSTL jar
 standard.jar = ${lib.repo}/taglibs/jars/standard-1.0.2.jar
+
+# The location of the Httpunit jar
+httpunit.jar = ${lib.repo}/httpunit/jars/httpunit-1.5.jar
+
+# Neko HTML (required by HttpUnit)
+nekohtml.jar = ${lib.repo}/nekohtml/jars/nekohtml-0.7.4.jar
+
+# Xerces (required by HttpUnit)
+xerces.jar = ${lib.repo}/xerces/jars/xercesImpl-2.3.0.jar
+
+# XML Parsers API (required by HttpUnit)
+xmlapis.jar = ${lib.repo}/xerces/jars/xmlParserAPIs-2.2.1.jar
 
 # -----------------------------------------------------------------------------
 # Mandatory properties for the Eclipse plugin only

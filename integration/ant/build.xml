@@ -93,8 +93,11 @@
             <property name="commons.logging.jar" isfile="true"/>
             <property name="commons.httpclient.jar" isfile="true"/>
             <property name="junit.jar" isfile="true"/>
-            <property name="httpunit.jar" isfile="true"/>
             <property name="log4j.jar" isfile="true"/>
+            <property name="httpunit.jar" isfile="true"/>
+            <property name="nekohtml.jar" isfile="true"/>
+            <property name="xerces.jar" isfile="true"/>
+            <property name="xmlapis.jar" isfile="true"/>
         </checkProperty>
 
     </target>
@@ -270,11 +273,13 @@
 		<!-- Gather all server side Cactus jars -->
 		<!-- The directory needs a file because it is otherwise pruned by the Eclipse update feature -->
 		<touch file="${target.integration.lib.server.dir}/KEEPIT"/>
-        <!-- (None at the moment) -->
         
 		<!-- Gather all client side Cactus jars -->
         <copy tofile="${target.integration.lib.client.dir}/${cactus.antintegration.jar.name}-${project.version}.jar"
             file="${target.dir}/${cactus.antintegration.jar.name}.jar"/>
+        <copy todir="${target.integration.lib.client.dir}" file="${nekohtml.jar}"/>
+        <copy todir="${target.integration.lib.client.dir}" file="${xerces.jar}"/>
+        <copy todir="${target.integration.lib.client.dir}" file="${xmlapis.jar}"/>
 
         <!-- Note: ATM we copy the servlet jar (and not the J2EE one). The 
              reasons are that ATM we only need the servlet API and that the
@@ -311,6 +316,12 @@
         <filter token="commons.httpclient.jar.name" value="${commons.httpclient.jar.name}"/>
 		<basename property="httpunit.jar.name" file="${httpunit.jar}"/>
         <filter token="httpunit.jar.name" value="${httpunit.jar.name}"/>
+		<basename property="nekohtml.jar.name" file="${nekohtml.jar}"/>
+        <filter token="nekohtml.jar.name" value="${nekohtml.jar.name}"/>
+		<basename property="xerces.jar.name" file="${xerces.jar}"/>
+        <filter token="xerces.jar.name" value="${xerces.jar.name}"/>
+		<basename property="xmlapis.jar.name" file="${xmlapis.jar}"/>
+        <filter token="xmlapis.jar.name" value="${xmlapis.jar.name}"/>
 
 		<copy todir="${target.integration.script.dir}" filtering="on">
 			<fileset dir="${src.script.dir}/share"/>
