@@ -13,7 +13,8 @@ Main new features
 
 * Added the Maven plugin. It was formerly hosted in the Maven project's
   own CVS. It is now in the Cactus CVS and is part of the Cactus 
-  distribution.
+  distribution. To install the plugin in your Maven installation please
+  see http://jakarta.apache.org/cactus/integration/maven/installing.html
 * The <cactus> Ant task now supports Mac OSX.
 * Added support for Resin 3.x in the <cactus> Ant task (<resin3x> element).
 * Better configurability of the <cactus> container elements:
