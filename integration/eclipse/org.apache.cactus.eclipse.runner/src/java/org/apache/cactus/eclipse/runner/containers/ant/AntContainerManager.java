@@ -68,17 +68,21 @@ import org.apache.cactus.eclipse.runner.containers.IContainerProvider;
 import org.apache.cactus.eclipse.runner.ui.CactusMessages;
 import org.apache.cactus.eclipse.runner.ui.CactusPlugin;
 import org.apache.cactus.eclipse.webapp.WarBuilder;
-import org.eclipse.ant.core.AntRunner;
 import org.eclipse.core.boot.BootLoader;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.debug.core.DebugPlugin;
+import org.eclipse.debug.core.ILaunchConfigurationType;
+import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
+import org.eclipse.debug.core.ILaunchManager;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.externaltools.internal.model.IExternalToolConstants;
 
 /**
  * Implementation of IContainerManager based on Ant.
@@ -89,6 +93,11 @@ import org.eclipse.swt.widgets.Shell;
  */
 public class AntContainerManager implements IContainerManager
 {
+    /**
+     * The progress monitor associated with the current action. 
+     */
+    private IProgressMonitor currentPM;
+
     /**
      * True if the provider has successfully been deployed. 
      */
@@ -201,7 +210,6 @@ public class AntContainerManager implements IContainerManager
         this.containerHomes = theHomes;
         antArguments.add("-Dcactus.port=" + thePort);
         antArguments.add("-Dcactus.target.dir=" + theTargetDir);
-        antArguments.add("-Dcactus.test.runeclipse=" + "true");
         // Avoid Ant console popups on win32 platforms
         if (BootLoader.getOS().equals(BootLoader.OS_WIN32))
         {
@@ -231,19 +239,17 @@ public class AntContainerManager implements IContainerManager
     }
 
     /**
-     * returns an AntRunner for a container provider.
-     * @param theTarget the ant target to be called (in that order)
+     * @param theTarget the Ant target to be called
      * @param theProviderArguments the Ant arguments specific for
      *     the container provider
-     * @return the AntRunner for the script
-     * @throws CoreException if an AntRunner cannot be created
+     * @return a launch configuration copy for Ant build
+     * @throws CoreException if the launch configuration cannot be created
      */
-    public AntRunner createAntRunner(
+    public ILaunchConfigurationWorkingCopy createAntLaunchConfiguration(
         String[] theProviderArguments,
         String theTarget)
         throws CoreException
     {
-        AntRunner runner = new AntRunner();
         CactusPlugin thePlugin = CactusPlugin.getDefault();
         URL buildFileURL = thePlugin.find(new Path(buildFilePath));
         if (buildFileURL == null)
@@ -254,10 +260,46 @@ public class AntContainerManager implements IContainerManager
                 null);
         }
         File buildFileLocation = new File(buildFileURL.getPath());
-        runner.setBuildFileLocation(buildFileLocation.getAbsolutePath());
-        runner.setArguments(getAllAntArguments(theProviderArguments));
-        runner.setExecutionTargets(new String[] {theTarget});
-        return runner;
+
+        ILaunchManager launchManager =
+            DebugPlugin.getDefault().getLaunchManager();
+        ILaunchConfigurationType antType =
+            launchManager.getLaunchConfigurationType(
+                IExternalToolConstants.ID_ANT_LAUNCH_CONFIGURATION_TYPE);
+                
+        String name = "Cactus container start-up";
+        String uniqueName =
+            launchManager.generateUniqueLaunchConfigurationNameFrom(name);
+        ILaunchConfigurationWorkingCopy antConfig =
+            antType.newInstance(null, uniqueName);
+
+        antConfig.setAttribute(
+            IExternalToolConstants.ATTR_LOCATION,
+            buildFileLocation.getAbsolutePath());
+        antConfig.setAttribute(
+            IExternalToolConstants.ATTR_TOOL_ARGUMENTS,
+            getString(getAllAntArguments(theProviderArguments)));
+        antConfig.setAttribute(
+            IExternalToolConstants.ATTR_ANT_TARGETS,
+            theTarget);
+        antConfig.setAttribute(
+            IExternalToolConstants.ATTR_RUN_IN_BACKGROUND,
+            false);
+        return antConfig;
+    }
+
+    /**
+     * @param theStringArray an array of String
+     * @return the concatenation of the String elements 
+     */
+    private String getString(String[] theStringArray)
+    {
+        String result = "";
+        for (int i = 0; i < theStringArray.length; i++)
+        {
+            result += theStringArray[i] + " ";
+        }
+        return result;
     }
 
     /**
@@ -364,6 +406,7 @@ public class AntContainerManager implements IContainerManager
         IContainerProvider theProvider)
         throws CoreException
     {
+        this.currentPM = thePM;
         thePM.beginTask(
             CactusMessages.getString("CactusLaunch.message.prepare"),
             10);

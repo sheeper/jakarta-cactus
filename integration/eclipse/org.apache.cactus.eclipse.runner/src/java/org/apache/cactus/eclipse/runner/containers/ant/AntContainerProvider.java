@@ -63,10 +63,13 @@ import org.apache.cactus.eclipse.runner.containers.ContainerInfo;
 import org.apache.cactus.eclipse.runner.containers.Credential;
 import org.apache.cactus.eclipse.runner.containers.IContainerProvider;
 import org.apache.cactus.eclipse.runner.ui.CactusMessages;
-import org.eclipse.ant.core.AntRunner;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.SubProgressMonitor;
+import org.eclipse.debug.core.DebugPlugin;
+import org.eclipse.debug.core.ILaunch;
+import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
+import org.eclipse.debug.core.ILaunchManager;
 
 /**
  * Implementation of IContainerProvider that uses ant scripts to set up
@@ -102,6 +105,10 @@ public class AntContainerProvider implements IContainerProvider
      * The Ant target mask for this provider, for example "tomcat4x".
      */
     private String targetMask;
+    /**
+     * Reference to the launch created to start the container.
+     */    
+    private ILaunch startLaunch;
     
     /**
      * @param theManager the manager of this provider
@@ -140,15 +147,21 @@ public class AntContainerProvider implements IContainerProvider
     public void start(ContainerInfo theContainerInfo, IProgressMonitor thePM)
         throws CoreException
     {
+        ILaunchManager launchManager =
+            DebugPlugin.getDefault().getLaunchManager();
+        
         thePM.subTask(CactusMessages.getString("CactusLaunch.message.start"));
         String target = getTarget("cactus.run.");
+        antArguments.add(
+            "-Dcactus.test.task=" + EclipseRunTests.class.getName());
         antArguments.add("-Dcactus.home." + this.targetMask + "=" + home);
         String[] arguments =
             (String[]) antArguments.toArray(new String[antArguments.size()]);
-        AntRunner runner = this.manager.createAntRunner(arguments, target);
-        serverStopped = false;
-        runner.run(new SubProgressMonitor(thePM, 8));
-        serverStopped = true;
+        ILaunchConfigurationWorkingCopy antCopy =
+            this.manager.createAntLaunchConfiguration(arguments, target);
+        this.startLaunch = antCopy.launch(
+            ILaunchManager.RUN_MODE,
+            new SubProgressMonitor(thePM, 8));
     }
 
     /**
@@ -161,18 +174,19 @@ public class AntContainerProvider implements IContainerProvider
         if (eclipseRunner != null)
         {
             eclipseRunner.finish();
-            thePM.worked(30);
-            while (!serverStopped)
+            try
             {
-                try
+                thePM.worked(30);
+                while (!this.startLaunch.isTerminated())
                 {
+
                     Thread.sleep(300);
                     thePM.worked(7);
                 }
-                catch (InterruptedException e)
-                {
-                    // Do nothing
-                }
+            }
+            catch (InterruptedException e)
+            {
+                // Do nothing
             }
         }
     }
@@ -191,8 +205,10 @@ public class AntContainerProvider implements IContainerProvider
         String antTarget = getTarget("cactus.clean.");
         String[] arguments =
             (String[]) antArguments.toArray(new String[antArguments.size()]);
-        AntRunner runner = this.manager.createAntRunner(arguments, antTarget);
-        runner.run(
+        ILaunchConfigurationWorkingCopy antCopy =
+            this.manager.createAntLaunchConfiguration(arguments, antTarget);
+        antCopy.launch(
+            ILaunchManager.RUN_MODE,
             new SubProgressMonitor(thePM, 50));
     }
     
