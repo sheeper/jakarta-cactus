@@ -103,7 +103,7 @@ public class TestStringUtil extends TestCase
     public void testFilterLinePackageFalse()
     {
         String[] filterPatterns = new String[] {"my.package" };
-        assertFalse(StringUtil.filterLine(
+        assertTrue(!StringUtil.filterLine(
             "    at other.package.MyClass.method(MyClass.java:100)",
             filterPatterns));
     }
@@ -125,7 +125,7 @@ public class TestStringUtil extends TestCase
     public void testFilterLineClassFalse1()
     {
         String[] filterPatterns = new String[] {"my.package.MyClass" };
-        assertFalse(StringUtil.filterLine(
+        assertTrue(!StringUtil.filterLine(
             "    at my.package.OtherClass.method(MyClass.java:100)",
             filterPatterns));
     }
@@ -136,7 +136,7 @@ public class TestStringUtil extends TestCase
     public void testFilterLineClassFalse2()
     {
         String[] filterPatterns = new String[] {"my.package.MyClass" };
-        assertFalse(StringUtil.filterLine(
+        assertTrue(!StringUtil.filterLine(
             "    at other.package.MyClass.method(MyClass.java:100)",
             filterPatterns));
     }
