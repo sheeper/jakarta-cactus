@@ -59,6 +59,7 @@ package org.apache.cactus.util;
 import java.lang.reflect.Method;
 
 import junit.framework.TestCase;
+import junit.framework.Test;
 
 /**
  * Work around for some changes to the public JUnit API between
@@ -96,16 +97,15 @@ public class JUnitVersionHelper
      * access to the name of a TestCase via reflection that is
      * supposed to work with version before and after JUnit 3.7.
      *
-     * @param theTestCase the test case for which to retrieve the name
+     * @param theTest the test case for which to retrieve the name
      * @return the test case name
      */
-    public static String getTestCaseName(TestCase theTestCase)
+    public static String getTestCaseName(Test theTest)
     {
-        if (testCaseName != null) {
+        if (theTest instanceof TestCase && testCaseName != null) {
             try {
-                return (String) testCaseName.invoke(theTestCase, new Object[0]);
-            } catch (Throwable e) {
-            }
+                return (String) testCaseName.invoke(theTest, new Object[0]);
+            } catch (Throwable e) {}
         }
         return "unknown";
     }
