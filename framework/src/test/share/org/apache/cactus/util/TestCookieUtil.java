@@ -31,7 +31,6 @@ import junit.framework.TestCase;
 /**
  * Unit tests for the {@link CookieUtil} class.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  * @version $Id$
  */
 public class TestCookieUtil extends TestCase

@@ -30,8 +30,6 @@ import org.apache.cactus.util.ChainedRuntimeException;
 /**
  * Unit tests of the <code>WebRequest</code> class.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- * @author <a href="mailto:ndlesiecki@apache.org">Nicholas Lesiecki</a>
  * @version $Id$
  */
 public class TestWebRequest extends TestCase

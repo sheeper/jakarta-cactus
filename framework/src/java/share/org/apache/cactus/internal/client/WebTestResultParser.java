@@ -27,8 +27,6 @@ import org.apache.cactus.WebTestResult;
  *
  * @see WebTestResult
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class WebTestResultParser

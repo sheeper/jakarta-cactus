@@ -30,8 +30,6 @@ package org.apache.cactus;
  *   further notice.
  * </p>
  * 
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public interface HttpServiceDefinition

@@ -29,8 +29,6 @@ import junit.runner.TestSuiteLoader;
  * a webapp. This test runner is supposed to be executed from within the
  * webapp.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class WebappTestRunner extends BaseTestRunner

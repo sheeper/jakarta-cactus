@@ -43,8 +43,6 @@ import javax.servlet.ServletException;
  * calls to the <code>log()</code> methods can be retrieved and asserted by
  * calling the <code>getLogs()</code> method.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public abstract class AbstractServletContextWrapper implements ServletContext

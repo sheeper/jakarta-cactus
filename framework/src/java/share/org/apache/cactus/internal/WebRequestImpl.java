@@ -39,9 +39,6 @@ import org.apache.cactus.util.ChainedRuntimeException;
  * Extends {@link BaseWebRequest} to add properties specific to the
  * Cactus Web Redirectors.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- * @author <a href="mailto:Jason.Robertson@acs-inc.com">Jason Robertson</a>
- *
  * @version $Id$
  */
 public class WebRequestImpl extends BaseWebRequest

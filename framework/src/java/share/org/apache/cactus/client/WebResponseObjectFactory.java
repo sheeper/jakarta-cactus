@@ -34,8 +34,6 @@ import org.apache.cactus.internal.client.ClientException;
  * {@link org.apache.cactus.WebResponse} and HttpUnit 
  * <code>com.meterware.httpunit.WebResponse</code> response object creation.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class WebResponseObjectFactory implements ResponseObjectFactory

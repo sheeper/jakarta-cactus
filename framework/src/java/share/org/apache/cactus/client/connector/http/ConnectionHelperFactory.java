@@ -30,8 +30,6 @@ import org.apache.cactus.util.ChainedRuntimeException;
  *
  * @see Configuration
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class ConnectionHelperFactory

@@ -34,8 +34,6 @@ import org.apache.cactus.util.StringUtil;
 /**
  * Format the test results in XML.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class XMLFormatter implements XMLConstants, TestListener

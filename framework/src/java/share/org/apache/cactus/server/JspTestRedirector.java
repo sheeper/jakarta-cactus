@@ -30,8 +30,6 @@ import org.apache.commons.logging.LogFactory;
  * realm in order to provide a symmetry with the <code>ServletRedirector</code>
  * and minimize the amount of java code in <code>jspRedirector.jsp</code>.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class JspTestRedirector

@@ -24,8 +24,6 @@ import org.apache.cactus.util.ChainedException;
 /**
  * A Cactus client side exception.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class ClientException extends ChainedException

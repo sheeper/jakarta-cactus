@@ -42,8 +42,6 @@ import org.apache.commons.logging.LogFactory;
  * dependent methods must be provided and implemented in the 
  * {@link ProtocolHandler} implementation class.
  *  
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class ClientTestCaseCaller extends Assert

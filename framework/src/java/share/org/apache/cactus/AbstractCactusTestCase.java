@@ -30,8 +30,6 @@ import org.apache.cactus.internal.server.ServerTestCaseCaller;
 /**
  * Base class for all Cactus test case extensions.
  * 
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  * @since 1.6 
  */

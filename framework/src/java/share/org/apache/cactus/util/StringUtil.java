@@ -28,9 +28,6 @@ import java.io.StringWriter;
 /**
  * Various utility methods for string manipulation.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
- *
  * @version $Id$
  */
 public class StringUtil

@@ -48,9 +48,6 @@ import org.apache.commons.logging.LogFactory;
  * This class is final so we don't have to provide access to protected instance
  * variables and methods of the wrapped connection.
  *
- * @author <a href="mailto:Bob.Davison@reuters.com">Bob Davison</a>
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 final class AutoReadHttpURLConnection extends HttpURLConnection

@@ -22,8 +22,6 @@ package org.apache.cactus;
 /**
  * Common interface that must be implemented by all Cactus test cases.
  * 
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public interface CactusTestCase

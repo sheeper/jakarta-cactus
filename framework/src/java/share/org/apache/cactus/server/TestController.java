@@ -25,8 +25,6 @@ package org.apache.cactus.server;
  * extracting data from the request and calling the test method to execute.
  * Note that this is independent of the protocol (HTTP, JMS, etc).
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public interface TestController

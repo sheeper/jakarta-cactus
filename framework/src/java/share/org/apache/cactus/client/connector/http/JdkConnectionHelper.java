@@ -43,9 +43,6 @@ import org.apache.commons.logging.LogFactory;
  * Implementation of <code>ConnectionHelper</code> using the JDK
  * <code>HttpURLConnection</code> class.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- * @author <a href="mailto:Jason.Robertson@acs-inc.com">Jason Robertson</a>
- *
  * @version $Id$
  */
 public class JdkConnectionHelper implements ConnectionHelper

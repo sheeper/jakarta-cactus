@@ -28,8 +28,6 @@ import javax.servlet.http.HttpServletResponse;
  * for all web requests. Namely they are <code>HttpServletRequest</code>,
  * <code>HttpServletResponse</code> and <code>ServletContext</code>.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public abstract class AbstractWebImplicitObjects implements WebImplicitObjects

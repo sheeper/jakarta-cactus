@@ -27,8 +27,6 @@ import java.io.InputStreamReader;
 /**
  * Various utility methods for manipulating IO streams.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class IoUtil

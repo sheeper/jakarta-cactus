@@ -22,8 +22,6 @@ package org.apache.cactus.configuration;
 /**
  * Contains all configuration information for the Cactus framework.
  * 
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public interface Configuration

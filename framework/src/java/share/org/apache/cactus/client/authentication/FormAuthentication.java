@@ -43,10 +43,6 @@ import org.apache.commons.logging.LogFactory;
  * cookie for the next request. The second time it is called, it simply
  * addes the session cookie for the next request.
  * 
- * @author <a href="mailto:Jason.Robertson@acs-inc.com">Jason Robertson</a>
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- * @author <a href="mailto:suguri.kazuhito@lab.ntt.co.jp">Kazuhito SUGURI</a>
- *
  * @since 1.5
  *
  * @version $Id: $

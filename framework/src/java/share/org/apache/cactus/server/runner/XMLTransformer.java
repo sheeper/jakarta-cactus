@@ -36,8 +36,6 @@ import javax.xml.transform.stream.StreamSource;
  * Helper class that handles the transformation of the XML test results to
  * some output format determined by a stylesheet.
  * 
- * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  * @since Cactus 1.5
  * 
  * @version $Id$

@@ -40,8 +40,6 @@ import org.apache.cactus.util.JUnitVersionHelper;
  * them) coming from test case classes that inherits from it. This class is
  * used to unit test the <code>TestAbstractTestCase</code> class.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public abstract class AbstractTestAbstractTestCase extends TestCase 

@@ -28,9 +28,6 @@ import junit.framework.TestCase;
  * Work around for some changes to the public JUnit API between
  * different JUnit releases.
  *
- * @author <a href="mailto:stefan.bodewig@epost.de">Stefan Bodewig</a>
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class JUnitVersionHelper

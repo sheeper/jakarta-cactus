@@ -24,8 +24,6 @@ import javax.servlet.ServletConfig;
 /**
  * Wrapper around <code>ServletConfig</code> for Servlet API 2.3.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  * @see AbstractServletConfigWrapper
  */

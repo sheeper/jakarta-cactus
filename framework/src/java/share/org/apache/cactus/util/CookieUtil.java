@@ -37,7 +37,6 @@ import org.apache.commons.logging.LogFactory;
  * Utility methods to manipulate cookies and transform Cactus cookie objects 
  * to HttpClient cookie objects.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  * @version $Id$
  * @since 1.5
  */

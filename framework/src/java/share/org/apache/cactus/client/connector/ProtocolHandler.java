@@ -57,8 +57,6 @@ import org.apache.cactus.client.ResponseObjectFactory;
  *   </li>
  * </ul> 
  * 
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  * @since 1.6 
  */

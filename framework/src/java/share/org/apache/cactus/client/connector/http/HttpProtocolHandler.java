@@ -40,8 +40,6 @@ import org.apache.cactus.util.JUnitVersionHelper;
  * using HTTP and passing Cactus information (test case to run, etc) as HTTP
  * GET parameters. 
  * 
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class HttpProtocolHandler implements ProtocolHandler

@@ -56,8 +56,6 @@ import org.apache.commons.logging.LogFactory;
  *   Context Path or the Servlet Path. <b>It is either null if there is no 
  *   extra path, or is a string with a leading "/"</b>.</li></ul></pre></code>
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class ServletURL

@@ -30,8 +30,6 @@ import org.apache.cactus.configuration.Configuration;
  * possible implementations of an HTTP connection (ex: using the JDK
  * <code>HttpURLConnection</code> or using Jakarta HttpClient).
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public interface ConnectionHelper

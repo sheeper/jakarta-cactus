@@ -26,8 +26,6 @@ import org.apache.cactus.WebTestResult;
 /**
  * Unit tests of the <code>WebTestResultParser</code> class.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class TestWebTestResultParser extends TestCase

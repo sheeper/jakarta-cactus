@@ -29,8 +29,6 @@ import junit.framework.AssertionFailedError;
  * extends JUnit <code>AssertionFailedError</code> so that JUnit will
  * print a different message in it's runner console.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class AssertionFailedErrorWrapper extends AssertionFailedError

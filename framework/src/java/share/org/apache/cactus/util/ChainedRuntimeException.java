@@ -27,8 +27,6 @@ import java.io.PrintWriter;
  * exception but it will be caught by JUnit so the application will not stop.
  * The test will be reported as failed. It implements chaining.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class ChainedRuntimeException extends RuntimeException

@@ -24,8 +24,6 @@ package org.apache.cactus.configuration;
  * Provides access to the Cactus configuration parameters related to the
  * JSP Redirector.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class JspConfiguration extends AbstractWebConfiguration

@@ -23,8 +23,6 @@ package org.apache.cactus.configuration;
  * Provides the Cactus version at runtime. The version is resolved
  * by the project build file.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class Version

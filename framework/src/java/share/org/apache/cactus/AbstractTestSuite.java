@@ -36,8 +36,6 @@ import junit.framework.TestResult;
  * Test Suite that wraps all the tests of the suite in Cactus Test Case 
  * objects so that pure JUnit tests can be run on the server side.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  * @since 1.5
  */

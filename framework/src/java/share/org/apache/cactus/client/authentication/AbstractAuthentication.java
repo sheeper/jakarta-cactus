@@ -30,10 +30,6 @@ package org.apache.cactus.client.authentication;
  * by adding the request property "Authorization" with a value
  * "Basic &lt;base64encode of 'userid:password'&gt;".
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- * @author <a href="mailto:Jason.Robertson@acs-inc.com">Jason Robertson</a>
- * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
- *
  * @since 1.3
  *
  * @version $Id$

@@ -30,8 +30,6 @@ import org.apache.cactus.util.CookieUtil;
  * <code>beginXXX()</code> (to send cookies) or in
  * <code>endXXX()</code> methods (to assert returned cookies).
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class Cookie implements Serializable

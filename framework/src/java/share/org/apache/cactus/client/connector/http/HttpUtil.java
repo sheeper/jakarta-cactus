@@ -29,7 +29,6 @@ import org.apache.cactus.WebRequest;
 /**
  * Utility methods to manipulate HTTP requests.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  * @version $Id$
  * @since 1.5
  */

@@ -26,8 +26,6 @@ import org.apache.cactus.internal.client.ClientException;
  * Constructs response object that are passed as parameter to
  * <code>endXXX()</code> and global <code>end()</code> methods.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public interface ResponseObjectFactory

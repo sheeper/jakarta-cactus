@@ -24,8 +24,6 @@ package org.apache.cactus.server;
  * are instanciated by the containers and that need to be made visible to your
  * test case classes.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public interface ImplicitObjects

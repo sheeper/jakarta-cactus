@@ -28,8 +28,6 @@ import java.io.StringWriter;
  * server redirector.If any exception was raised during the test, it
  * is saved by this class.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class WebTestResult implements Serializable

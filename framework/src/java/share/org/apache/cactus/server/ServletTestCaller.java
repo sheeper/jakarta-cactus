@@ -36,8 +36,6 @@ import org.apache.cactus.ServletURL;
  * Responsible for instanciating the <code>TestCase</code> class on the server
  * side, set up the implicit objects and call the test method.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class ServletTestCaller extends AbstractWebTestCaller

@@ -32,9 +32,6 @@ import junit.framework.TestCase;
 /**
  * Smoke test for the unique id generator.
  * 
- * @author <a href="mailto:ndlesiecki@apache.org>Nicholas Lesiecki</a>
- * @author <a href="mailto:cmlenz@apache.org>Christopher Lenz</a>
- *
  * @version $Id$
  */
 public class TestUniqueGenerator extends TestCase

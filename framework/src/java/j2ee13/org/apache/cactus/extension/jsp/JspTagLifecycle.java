@@ -216,7 +216,6 @@ import org.apache.commons.logging.LogFactory;
  * &lt;/c:choose&gt;</pre>
  * </p>
  * 
- * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
  * @since Cactus 1.5
  * 
  * @version $Id$
@@ -231,7 +230,6 @@ public final class JspTagLifecycle
      * of the methods to insert expectations about the tag's behaviour while it
      * is being executed.
      * 
-     * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
      * @since Cactus 1.5
      */
     public abstract static class Interceptor
@@ -282,7 +280,6 @@ public final class JspTagLifecycle
      * A specialized interceptor that verifies that the tag's body is evaluated
      * at least once.
      * 
-     * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
      * @since Cactus 1.5
      */
     private static class ExpectBodyEvaluatedInterceptor
@@ -341,7 +338,6 @@ public final class JspTagLifecycle
     /**
      * A specialized interceptor that asserts that the tag's body is skipped.
      * 
-     * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
      * @since Cactus 1.5
      */
     private static class ExpectBodySkippedInterceptor
@@ -362,7 +358,6 @@ public final class JspTagLifecycle
      * A specialized interceptor that checks whether a specific scoped variable
      * is exposed in the body of the tag with a specific value.
      * 
-     * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
      * @since Cactus 1.5
      */
     private class ExpectScopedVariableExposedInterceptor
@@ -414,7 +409,6 @@ public final class JspTagLifecycle
     /**
      * A specialized interceptor that invokes the lifecycle of a nested tag.
      * 
-     * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
      * @since Cactus 1.5
      */
     private class NestedTagInterceptor
@@ -452,7 +446,6 @@ public final class JspTagLifecycle
      * A specialized interceptor that prints nested template text when the tag's
      * body is evaluated.
      * 
-     * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
      * @since Cactus 1.5
      */
     private class NestedTextInterceptor

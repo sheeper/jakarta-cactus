@@ -43,9 +43,6 @@ import org.apache.commons.logging.LogFactory;
  * side, set up the implicit objects and call the test method. This class
  * provides a common abstraction for all test web requests.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- * @author <a href="mailto:ndlesiecki@apache.org">Nicholas Lesiecki</a>
- *
  * @version $Id$
  */
 public abstract class AbstractWebTestCaller

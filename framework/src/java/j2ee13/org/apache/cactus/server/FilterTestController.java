@@ -25,8 +25,6 @@ package org.apache.cactus.server;
  * <code>FilterTestCaller</code>. There are 2 services available : one for
  * executing the test and one for returning the test result.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class FilterTestController extends AbstractWebTestController

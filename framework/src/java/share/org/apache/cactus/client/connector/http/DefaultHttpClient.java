@@ -41,9 +41,6 @@ import org.apache.cactus.util.IoUtil;
  * stream and then opening a second HTTP connection to retrieve the test 
  * result.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- * @author <a href="mailto:Jason.Robertson@acs-inc.com">Jason Robertson</a>
- *
  * @version $Id$
  */
 public class DefaultHttpClient

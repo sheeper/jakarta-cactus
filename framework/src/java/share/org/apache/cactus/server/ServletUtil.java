@@ -26,8 +26,6 @@ import org.apache.cactus.util.ChainedRuntimeException;
 /**
  * All prupose utility methods for manipulating the Servlet API.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class ServletUtil

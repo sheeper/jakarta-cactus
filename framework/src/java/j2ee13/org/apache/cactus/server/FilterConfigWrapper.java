@@ -31,8 +31,6 @@ import javax.servlet.ServletContext;
  * <code>getServletContext()</code> method to return our own wrapper around
  * <code>ServletContext</code>.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  * @see ServletContext
  */

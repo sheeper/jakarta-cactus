@@ -29,9 +29,6 @@ package org.apache.cactus;
  *   further notice.
  * </p>
  * 
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
- *
  * @version $Id$
  */
 public final class ServiceEnumeration

@@ -25,8 +25,6 @@ import junit.framework.Test;
  * {@link junit.framework.TestSuite} wrapper that wraps all the tests of the 
  * suite in Cactus {@link ServletTestCase} objects.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  * @since 1.5
  */

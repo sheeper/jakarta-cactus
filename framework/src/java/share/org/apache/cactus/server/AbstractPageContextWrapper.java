@@ -41,8 +41,6 @@ import org.apache.cactus.ServletURL;
  * Abstract wrapper around <code>PageContext</code>. This class provides
  * a common implementation of the wrapper for the different servlet API.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public abstract class AbstractPageContextWrapper extends PageContext

@@ -33,8 +33,6 @@ import org.apache.cactus.server.PageContextWrapper;
  * page context, the output jsp writer, the HTTP request, ...) must subclass
  * this class.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class JspTestCase extends ServletTestCase

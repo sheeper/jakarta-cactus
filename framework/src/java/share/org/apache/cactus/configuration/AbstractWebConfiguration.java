@@ -25,8 +25,6 @@ import org.apache.cactus.WebRequest;
  * Common implementation for all <code>WebConfiguration</code> 
  * implementations.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public abstract class AbstractWebConfiguration extends BaseConfiguration 

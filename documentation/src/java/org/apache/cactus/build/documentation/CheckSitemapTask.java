@@ -38,9 +38,6 @@ import org.xml.sax.SAXException;
 /**
  * Checks the sitemap for invalid resource links (currently only local).
  *
- * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- * 
  * @version $Id$
  */
 public class CheckSitemapTask extends Task

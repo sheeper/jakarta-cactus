@@ -25,8 +25,6 @@ import java.io.PrintWriter;
 /**
  * A checked chained exception.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class ChainedException extends Exception

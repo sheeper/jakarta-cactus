@@ -27,8 +27,6 @@ import java.util.ResourceBundle;
 /**
  * Utiliy methods related to class loading in a webapp environment.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class ClassLoaderUtils

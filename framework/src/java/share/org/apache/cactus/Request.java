@@ -24,8 +24,6 @@ package org.apache.cactus;
  * the Cactus client side to store information related to the request that
  * will be sent to the Cactus redirector (on the Cactus Server side).
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public interface Request

@@ -24,8 +24,6 @@ import junit.framework.TestCase;
 /**
  * Unit tests for the {@link StringUtil} class.
  *
- * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
- *
  * @version $Id$
  */
 public class TestStringUtil extends TestCase

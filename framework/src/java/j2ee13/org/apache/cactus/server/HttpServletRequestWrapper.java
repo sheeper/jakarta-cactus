@@ -37,8 +37,6 @@ import org.apache.cactus.ServletURL;
  * <code>getRequestURI()</code> method or others alike) would be the URL of the
  * Cactus redirector servlet and not a URL that the test case want to simulate.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class HttpServletRequestWrapper 

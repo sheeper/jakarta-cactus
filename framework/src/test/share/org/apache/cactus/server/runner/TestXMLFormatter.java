@@ -25,8 +25,6 @@ import junit.framework.TestResult;
 /**
  * Unit tests for {@link XMLFormatter}.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public final class TestXMLFormatter extends TestCase

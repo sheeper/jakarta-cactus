@@ -27,10 +27,6 @@ import org.apache.cactus.configuration.Configuration;
  * invoked on the client side to perform the actual authentication, for example
  * by modifying the request to includes credentials.
  * 
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- * @author <a href="mailto:Jason.Robertson@acs-inc.com">Jason Robertson</a>
- * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
- * 
  * @since 1.5
  *
  * @version $Id$

@@ -26,8 +26,6 @@ import org.apache.cactus.server.ServletUtil;
 /**
  * Unit tests of the <code>ServletUtil</code> class.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class TestServletUtil extends TestCase

@@ -35,8 +35,6 @@ import org.apache.cactus.ServletURL;
  * Call the test method on the server side after assigning the JSP implicit
  * objects using reflection.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class JspTestCaller extends ServletTestCaller

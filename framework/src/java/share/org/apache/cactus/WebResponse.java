@@ -44,8 +44,6 @@ import org.apache.commons.logging.LogFactory;
  * complex assertions, use an <code>com.meterware.httpunit.WebResponse</code>
  * instead as parameter of your <code>endXXX()</code> methods.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class WebResponse

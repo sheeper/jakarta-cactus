@@ -32,8 +32,6 @@ import org.apache.cactus.client.connector.ProtocolState;
  * response factory instance and that clean up the test (the HTTP connection
  * is closed if need be).
  * 
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class HttpProtocolState implements ProtocolState

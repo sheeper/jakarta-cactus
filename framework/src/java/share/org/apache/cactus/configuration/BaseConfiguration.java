@@ -26,8 +26,6 @@ import org.apache.cactus.util.ChainedRuntimeException;
  * of any redirector. All Cactus configuration are defined as Java System
  * Properties.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class BaseConfiguration implements Configuration

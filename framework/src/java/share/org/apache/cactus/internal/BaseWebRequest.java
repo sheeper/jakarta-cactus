@@ -36,9 +36,6 @@ import org.apache.cactus.util.ChainedRuntimeException;
  * the fact that there is or there is not a Cactus redirector. It is the 
  * data that will be sent to the server side.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- * @author <a href="mailto:Jason.Robertson@acs-inc.com">Jason Robertson</a>
- *
  * @version $Id$
  */
 public abstract class BaseWebRequest implements WebRequest

@@ -24,8 +24,6 @@ import java.net.URL;
 /**
  * Various utility methods for URL manipulation.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class UrlUtil

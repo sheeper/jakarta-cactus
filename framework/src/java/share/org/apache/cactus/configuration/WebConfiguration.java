@@ -25,8 +25,6 @@ import org.apache.cactus.WebRequest;
  * Extends the generic <code>Configuration<code> interface with methods
  * provided configuration information related to Web redirectors.
  * 
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public interface WebConfiguration extends Configuration

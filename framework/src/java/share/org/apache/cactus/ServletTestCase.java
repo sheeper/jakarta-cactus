@@ -34,8 +34,6 @@ import org.apache.cactus.server.ServletConfigWrapper;
  * valid Servlet implicit objects (such as the HTTP request, the HTTP response,
  * the servlet config, ...) must subclass this class.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class ServletTestCase 

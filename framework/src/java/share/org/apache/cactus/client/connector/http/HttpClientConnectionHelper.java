@@ -46,8 +46,6 @@ import org.apache.commons.httpclient.protocol.Protocol;
  * Implementation of <code>ConnectionHelper</code> using Jakarta Commons
  * HttpClient.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class HttpClientConnectionHelper implements ConnectionHelper

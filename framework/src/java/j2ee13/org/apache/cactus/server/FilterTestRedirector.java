@@ -37,8 +37,6 @@ import org.apache.commons.logging.LogFactory;
 /**
  * Generic Filter redirector that calls a test method on the server side.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  * @see FilterTestCaller
  */

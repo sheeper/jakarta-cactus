@@ -27,8 +27,6 @@ import org.apache.cactus.util.ChainedException;
  *
  * @see WebTestResultParser
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class ParsingException extends ChainedException

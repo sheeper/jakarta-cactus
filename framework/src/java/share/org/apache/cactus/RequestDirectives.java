@@ -30,9 +30,6 @@ package org.apache.cactus;
  *   further notice.
  * </p>
  * 
- * @author <a href="mailto:ndlesiecki@apache.org>Nicholas Lesiecki</a>
- * @author <a href="mailto:cmlenz@apache.org>Christopher Lenz</a>
- *
  * @version $Id$
  */
 public class RequestDirectives

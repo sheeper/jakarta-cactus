@@ -42,8 +42,6 @@ import org.apache.commons.httpclient.HttpMethodBase;
  * behaviours for <code>HttpURLConnection</code> (And I'm not even including
  * the numerous <code>HttpURLConnection</code> bugs!).
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- * 
  * @deprecated This class has been donated to the
  * <a href="http://jakarta.apache.org/commons/httpclient/">Jakarta 
  * Commons-HttpClient</a> project, and is now maintained there as 

@@ -34,8 +34,6 @@ import java.io.PrintWriter;
  * and overloading the <code>printStackTrace()</code> methods to print a
  * text stack trace.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class ServletExceptionWrapper extends Throwable

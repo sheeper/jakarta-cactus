@@ -24,8 +24,6 @@ import junit.framework.TestCase;
 /**
  * Unit tests of the <code>WebTestResult</code> class.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class TestWebTestResult extends TestCase

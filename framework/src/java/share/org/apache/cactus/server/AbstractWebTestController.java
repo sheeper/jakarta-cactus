@@ -33,8 +33,6 @@ import org.apache.commons.logging.LogFactory;
  * returning the test result, verifying that the controller is correctly 
  * configured, etc.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public abstract class AbstractWebTestController implements TestController

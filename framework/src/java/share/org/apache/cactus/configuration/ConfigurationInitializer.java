@@ -34,8 +34,6 @@ import org.apache.cactus.util.ClassLoaderUtils;
  * Read Cactus configuration files and set the properties found as
  * System properties.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class ConfigurationInitializer

@@ -31,8 +31,6 @@ import javax.servlet.ServletResponse;
  * <code>forward()</code> and <code>include</code> methods to use the original
  * HTTP request object instead of the simulated one used by Cactus.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class RequestDispatcherWrapper implements RequestDispatcher

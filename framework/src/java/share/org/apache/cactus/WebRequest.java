@@ -28,8 +28,6 @@ import org.apache.cactus.client.authentication.Authentication;
 /**
  * Contains HTTP request data for a Cactus test case.
  * 
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public interface WebRequest extends Request

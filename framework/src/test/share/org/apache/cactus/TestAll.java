@@ -30,9 +30,6 @@ import junit.framework.TestSuite;
  * environment to run. These other tests will be exercised in the sample
  * application.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
- *
  * @version $Id$
  */
 public class TestAll

@@ -27,9 +27,6 @@ import junit.framework.TestCase;
 /**
  * Generates a quasi-unique id for a test case.
  *
- * @author <a href="mailto:ndlesiecki@apache.org>Nicholas Lesiecki</a>
- * @author <a href="mailto:cmlenz@apache.org>Christopher Lenz</a>
- *
  * @version $Id$
  */
 public class UniqueGenerator

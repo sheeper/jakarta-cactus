@@ -27,8 +27,6 @@ import java.net.URL;
 /**
  * Mock implementation of <code>HttpURLConnection</code>.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class MockHttpURLConnection extends HttpURLConnection

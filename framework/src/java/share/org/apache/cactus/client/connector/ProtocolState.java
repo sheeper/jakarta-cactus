@@ -30,8 +30,6 @@ package org.apache.cactus.client.connector;
  * {@link org.apache.cactus.client.connector.ProtocolHandler} implementation
  * classes.
  * 
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  * @since 1.6 
  */

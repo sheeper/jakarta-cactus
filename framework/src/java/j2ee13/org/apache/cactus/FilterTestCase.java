@@ -34,8 +34,6 @@ import org.apache.cactus.server.FilterConfigWrapper;
  * <code>FilterConfig</code> and <code>FilterChain</code> objects) must
  * subclass this class.
  * 
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class FilterTestCase 

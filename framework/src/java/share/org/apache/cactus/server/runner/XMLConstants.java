@@ -25,8 +25,6 @@ package org.apache.cactus.server.runner;
  * Note: This class was copied from the Jakarta Ant project and heavily
  * adapted for Cactus.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  *
  * @see XMLFormatter

@@ -45,8 +45,6 @@ import org.apache.cactus.util.ClassLoaderUtils;
  * }
  * </pre></code>
  * 
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class JettyTestSetup extends TestSetup

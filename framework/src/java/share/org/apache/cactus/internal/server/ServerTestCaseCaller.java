@@ -31,8 +31,6 @@ import org.apache.commons.logging.LogFactory;
  * <code>testXXX()</code> and <code>tearDown()</code> methods on the server
  * side.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class ServerTestCaseCaller extends Assert
