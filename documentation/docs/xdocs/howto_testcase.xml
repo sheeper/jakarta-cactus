@@ -123,12 +123,13 @@ public class TestSampleFilter extends FilterTestCase
             A constructor with a single parameter (it is the test name),
           </li>
           <li>
-            A <code>main()</code> method in which you start a JUnit test
-            runner if you want your test to be executable,
+            (optional): A <code>main()</code> method in which you start a JUnit
+            test runner if you want your test to be executable,
           </li>
           <li>
-            A <code>suite()</code> method to list the tests that should
-            be executed by your test class
+            (optional): A <code>suite()</code> method to list the tests that
+            should be executed by your test class (default is to include all
+            method starting with "<code>test</code>").
           </li>
         </ul>
         <p>
@@ -200,7 +201,8 @@ public static Test suite()
             (of type <code>HttpServletRequest</code>),
             <code>config</code> (of type <code>ServletConfig</code> for
             <code>ServletTestCase</code> or of type <code>FilterConfig</code>
-            for <code>FilterTestCase</code>), ... (see Step 8 below),
+            for <code>FilterTestCase</code>), ... (see the "Testcase Specific
+            Details" Step below),
           </li>
           <li>
             call the method to test,

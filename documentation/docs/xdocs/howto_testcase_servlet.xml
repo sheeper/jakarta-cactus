@@ -95,6 +95,28 @@
           </code> classes for all details. You should also look at the
           samples provided in the Cactus distribution.
         </p>
+
+        <s3 title="Additional methods">
+
+          <p>
+            Cactus provides some additional methods to ease writing tests
+            (see the javadoc for full details). These methods are provided
+            because it is not easy (if not downright impossible in some
+            cases) to simulate them with real configuration data:
+          </p>
+          <ul>
+            <li>
+              <code>setRemoteIPAddress()</code>: sets the remote IP address
+              that will be returned by <code>getRemoteIPAddress()</code>,
+            </li>
+            <li>
+              <code>setRemoteHostName()</code>: sets the remote Host name
+              that will be returned by <code>getRemoteHostName()</code>,
+            </li>
+          </ul>
+
+        </s3>
+
       </s2>
 
       <anchor id="servlet_response"/>
@@ -178,6 +200,65 @@
           class for all details. You should also look at the
           samples provided in the Cactus distribution.
         </p>
+
+        <s3 title="Additional methods">
+
+          <p>
+            Additional methods provided:
+          </p>
+          <ul>
+            <li>
+              <code>setInitParameter()</code>: sets an initialisation
+              parameter (as if it has been defined in the <code>web.xml</code>
+              file),
+            </li>
+            <li>
+              <code>setServletName()</code>: sets the Servlet name that will be
+              returned by <code>getServletName()</code> (if not set, the
+              Cactus Servlet redirector name will be returned).
+            </li>
+          </ul>
+
+        </s3>
+
+      </s2>
+
+      <anchor id="servlet_context"/>
+      <s2 title="ServletContextWrapper">
+
+        <p>
+          This is not an implicit object per see (as it is not accessible as
+          an instance variable). It is available by calling
+          <code>config.getServletContext()</code>.
+        </p>
+        <p>
+          However, Cactus wraps the <code>ServletContext</code> in a
+          <code>ServletContextWrapper</code> in order to take into account
+          simulated URLs and provide additional methods to help write tests.
+        </p>
+
+        <p>
+          See the javadoc for the
+          <code>org.apache.cactus.server.ServletContextWrapper</code>
+          class for all details. You should also look at the
+          samples provided in the Cactus distribution.
+        </p>
+
+        <s3 title="Additional methods">
+
+          <p>
+            Additional methods provided:
+          </p>
+          <ul>
+            <li>
+              <code>getLogs()</code>: returns the text that has been logged
+              by calls to <code>ServletContext.log()</code> methods. This is
+              a helper method that makes it easy to assert what is logged.
+            </li>
+          </ul>
+
+        </s3>
+
       </s2>
 
       <anchor id="servlet_session"/>
