@@ -238,9 +238,9 @@ class HttpClientHelper
             String key = (String)keys.nextElement();
             String value = (String)theRequest.getCookieValue(key);
             cookieString.append(';');
-            cookieString.append(URLEncoder.encode(key));
+            cookieString.append(key);
             cookieString.append('=');
-            cookieString.append(URLEncoder.encode(value));
+            cookieString.append(value);
         }
 
         theConnection.setRequestProperty("Cookie", cookieString.toString());
