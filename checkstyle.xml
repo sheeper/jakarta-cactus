@@ -1,93 +1,93 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE config PUBLIC
+<!DOCTYPE module PUBLIC
     "-//Puppy Crawl//DTD Check Configuration 1.0//EN"
     "http://www.puppycrawl.com/dtds/configuration_1_0.dtd">
 
 <!-- Checkstyle properties for Cactus projects -->
-<config name="configuration">
+<module name="Checker">
   
-  <config name="TreeWalker">
-    <config name="AvoidStarImport"/>
-    <config name="ConstantNameCheck"/>
-    <config name="EmptyBlockCheck">
+  <module name="TreeWalker">
+    <module name="AvoidStarImport"/>
+    <module name="ConstantNameCheck"/>
+    <module name="EmptyBlockCheck">
       <property name="option" value="text"/>
-    </config>
-    <!-- config name="EqualsHashCodeCheck"/ -->
-    <config name="FileLengthCheck"/>
-    <config name="HeaderCheck">
+    </module>
+    <!-- module name="EqualsHashCodeCheck"/ -->
+    <module name="FileLengthCheck"/>
+    <module name="HeaderCheck">
       <property name="headerFile" value="${checkstyle.header.file}"/>
-    </config>
-    <config name="IllegalImportCheck"/>
-    <config name="IllegalInstantiationCheck"/>
-    <config name="InnerAssignmentCheck"/>
-    <config name="JavadocTypeCheck">
+    </module>
+    <module name="IllegalImportCheck"/>
+    <module name="IllegalInstantiationCheck"/>
+    <module name="InnerAssignmentCheck"/>
+    <module name="JavadocTypeCheck">
       <property name="authorFormat" value="\S"/>
-    </config>
-    <config name="JavadocMethodCheck">
+    </module>
+    <module name="JavadocMethodCheck">
       <property name="checkUnusedThrows" value="true"/>
-    </config>
-    <config name="JavadocVariableCheck"/>
-    <config name="LineLengthCheck">
+    </module>
+    <module name="JavadocVariableCheck"/>
+    <module name="LineLengthCheck">
       <property name="ignorePattern" value="(@version|@see)"/>
-    </config>
-    <config name="LocalFinalVariableNameCheck"/>
-    <config name="LocalVariableNameCheck"/>
-    <config name="MemberNameCheck"/>
-    <config name="MethodLeftCurlyCheck">
+    </module>
+    <module name="LocalFinalVariableNameCheck"/>
+    <module name="LocalVariableNameCheck"/>
+    <module name="MemberNameCheck"/>
+    <module name="MethodLeftCurlyCheck">
       <property name="option" value="nl"/>
-    </config>
-    <config name="MethodLengthCheck"/>
-    <config name="MethodNameCheck"/>
-    <config name="ModifierCheck"/>
-    <config name="NeedBracesCheck"/>
-    <config name="NoWhitespaceAfterCheck"/>
-    <config name="NoWhitespaceBeforeCheck"/>
-    <config name="NoWhitespaceAfterCheck">
+    </module>
+    <module name="MethodLengthCheck"/>
+    <module name="MethodNameCheck"/>
+    <module name="ModifierCheck"/>
+    <module name="NeedBracesCheck"/>
+    <module name="NoWhitespaceAfterCheck"/>
+    <module name="NoWhitespaceBeforeCheck"/>
+    <module name="NoWhitespaceAfterCheck">
       <property name="tokens" value="DOT"/>
       <property name="allowLineBreaks" value="true"/>
-    </config>
-    <config name="NoWhitespaceBeforeCheck">
+    </module>
+    <module name="NoWhitespaceBeforeCheck">
       <property name="tokens" value="DOT"/>
       <property name="allowLineBreaks" value="true"/>
-    </config>
-    <config name="OperatorWrapCheck"/>
-    <config name="OperatorWrapCheck">
+    </module>
+    <module name="OperatorWrapCheck"/>
+    <module name="OperatorWrapCheck">
       <property name="tokens" value="ASSIGN, DIV_ASSIGN, PLUS_ASSIGN, MINUS_ASSIGN, STAR_ASSIGN, MOD_ASSIGN, SR_ASSIGN, BSR_ASSIGN, SL_ASSIGN, BXOR_ASSIGN, BOR_ASSIGN, BAND_ASSIGN"/>
       <property name="option" value="eol"/>
-    </config>
-    <config name="OtherLeftCurlyCheck">
+    </module>
+    <module name="OtherLeftCurlyCheck">
       <property name="option" value="nl"/>
-    </config>
-    <config name="PackageNameCheck"/>
-    <config name="ParameterNameCheck">
+    </module>
+    <module name="PackageNameCheck"/>
+    <module name="ParameterNameCheck">
       <property name="format" value="^(the|is|has)[A-Z][a-zA-Z0-9]*$"/>
-    </config>
-    <config name="ParameterNumberCheck"/>
-    <config name="ParenPadCheck"/>
-    <config name="PublicMemberNameCheck">
+    </module>
+    <module name="ParameterNumberCheck"/>
+    <module name="ParenPadCheck"/>
+    <module name="PublicMemberNameCheck">
       <property name="format" value="^[a-z][a-zA-Z0-9]*$"/>
-    </config>
-    <config name="RedundantImportCheck"/>
-    <config name="RedundantModifierCheck"/>
-    <config name="RightCurlyCheck">
+    </module>
+    <module name="RedundantImportCheck"/>
+    <module name="RedundantModifierCheck"/>
+    <module name="RightCurlyCheck">
       <property name="option" value="alone"/>
-    </config>
-    <config name="SimplifyBooleanExpressionCheck"/>
-    <config name="SimplifyBooleanReturnCheck"/>
-    <config name="StaticVariableNameCheck"/>
-    <config name="TabCharacterCheck"/>
-    <config name="TypeLeftCurlyCheck">
+    </module>
+    <module name="SimplifyBooleanExpressionCheck"/>
+    <module name="SimplifyBooleanReturnCheck"/>
+    <module name="StaticVariableNameCheck"/>
+    <module name="TabCharacterCheck"/>
+    <module name="TypeLeftCurlyCheck">
       <property name="option" value="nl"/>
-    </config>
-    <config name="TypeNameCheck"/>
-    <config name="UnusedImportsCheck"/>
-    <config name="UpperEllCheck"/>
-    <config name="VisibilityModifierCheck">
+    </module>
+    <module name="TypeNameCheck"/>
+    <module name="UnusedImportsCheck"/>
+    <module name="UpperEllCheck"/>
+    <module name="VisibilityModifierCheck">
       <property name="protectedAllowed" value="true"/>
       <property name="publicMemberPattern" value="^[a-z][a-zA-Z0-9]*$"/>
-    </config>
-    <config name="WhitespaceAfterCheck"/>
-    <config name="WhitespaceAroundCheck"/>
-  </config>
+    </module>
+    <module name="WhitespaceAfterCheck"/>
+    <module name="WhitespaceAroundCheck"/>
+  </module>
   
-</config>
+</module>
