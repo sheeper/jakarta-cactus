@@ -60,23 +60,56 @@ import org.apache.tools.ant.*;
 import org.apache.tools.ant.taskdefs.*;
 
 /**
+ * Task to automate running in-container unit test. It has the following
+ * syntax when used in Ant :
+ * <code><pre>
+ *   &lt;runservertests testURL="&t;url&gt;"
+ *          startTarget="&lt;start target name&gt;"
+ *          stopTarget="&lt;stop target name&gt;"
+ *          testTarget="&lt;test target name&gt;"/>
+ * </pre></code>
+ * where <code>&lt;url&gt;</code> is the URL that is used by this task to
+ * ensure that the server is running. Indeed, the algorithm is as follow :
+ * <ul>
+ *  <li>Checks if server is running by trying to open an HTTP connection to
+ *  the URL,</li>
+ *  <li>If it fails, call the start target and loop until the HTTP connection
+ *  the URL can be established,</li>
+ *  <li>Call the test target. This target is supposed to start the test,
+ *  usually by running the junit Ant task,</li>
+ *  <li>When the tests are finished, call the stop target to stop the server.
+ *  Note: The stop target is called only if the server was not already running
+ *  when this task was executed.</li>
+ * </ul>
  *
  * @version @version@
  */
 public class RunServerTestsTask extends Task
 {
+    /**
+     * the test target name.
+     */
     private String m_TestTarget;
 
     /**
-     *
+     * The helper object used to start the server. We use a helper so that it
+     * can also be reused in the <code>StartServerTask</code> task. Indeed,
+     * with Ant 1.3 and before there are classloaders issues with calling a 
+     * custom task from another custom task. Using a helper is a workaround.
      */
     private StartServerHelper m_StartHelper;
 
     /**
-     *
+     * The helper object used to stop the server. We use a helper so that it
+     * can also be reused in the <code>StopServerTask</code> task. Indeed,
+     * with Ant 1.3 and before there are classloaders issues with calling a 
+     * custom task from another custom task. Using a helper is a workaround.
      */
     private StopServerHelper m_StopHelper;
 
+    /**
+     * Initialize the task.
+     */
     public void init()
     {
         m_StartHelper = new StartServerHelper(this);
@@ -92,8 +125,11 @@ public class RunServerTestsTask extends Task
             callStart();
             callTests();
         } finally {
-            // Make sure we stop the server
-            callStop();
+            // Make sure we stop the server but only if it were not already
+            // started before the execution of this task.
+            if (!m_StartHelper.isServerAlreadyStarted()) {
+                callStop();
+            }
         }
     }
 

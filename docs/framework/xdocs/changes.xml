@@ -116,6 +116,12 @@
     </devs>
 
     <release version="1.2 in CVS">
+      <action dev="VMA" type="update" due-to="Paul Dillon" due-to-email"paul.dillon@solnet.com.au">
+        The Cactus <code>runservertests</code> custom Ant task will now not
+        stop the server if it was running before the task was executed. This
+        is to allow to run and rerun Cactus tests without starting/stopping
+        the server every time you run the tests.
+      </action>
       <action dev="VMA" type="update">
         Updated all Cactus documentation and reorganised it to better
         understand what Cactus is, how it works and how to use it.

@@ -62,7 +62,9 @@ import org.apache.tools.ant.taskdefs.*;
 /**
  * Call an Ant stop target in another thread and wait for the servlet engine
  * to be stopped by trying to continously connect to a test URL. If it succeeds
- *it means the server is not stopped yet !
+ * it means the server is not stopped yet ! If the server was already running
+ * when the start task was invoked, then it is not stopped when this tasks 
+ * executes.
  *
  * @version @version@
  */

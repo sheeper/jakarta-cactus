@@ -89,7 +89,17 @@ public class StartServerHelper implements Runnable
     private Task m_Task;
 
     /**
-     *
+     * True if the server was already started when this task is executed.
+     */
+    private boolean m_IsServerAlreadyStarted = false;
+
+    public boolean isServerAlreadyStarted()
+    {
+        return m_IsServerAlreadyStarted;
+    }
+
+    /**
+     * @param theTask the Ant task that is calling this helper
      */
     public StartServerHelper(Task theTask)
     {
@@ -114,15 +124,20 @@ public class StartServerHelper implements Runnable
         // Try connecting in case the server is already running. If so, does
         // nothing
         try {
+
             HttpURLConnection connection = (HttpURLConnection)m_TestURL.openConnection();
             connection.connect();
             readFully(connection);
             connection.disconnect();
 
-            // Server is already running. Make this task a no-op.
+            // Server is already running. Record this information so that we
+            // don't stop it afterwards.
+            m_IsServerAlreadyStarted = true;
+
             return;
+
         } catch (IOException e) {
-            // An error occurred. It just measn the server is not running. Do
+            // An error occurred. It just means the server is not running. Do
             // nothing        
         }
 

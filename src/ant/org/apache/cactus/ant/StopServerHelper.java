@@ -85,7 +85,7 @@ public class StopServerHelper implements Runnable
     private Task m_Task;
 
     /**
-     *
+     * @param theTask the Ant task that is calling this helper
      */
     public StopServerHelper(Task theTask)
     {
