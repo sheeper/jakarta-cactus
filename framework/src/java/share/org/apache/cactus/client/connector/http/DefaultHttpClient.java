@@ -61,7 +61,6 @@ import java.net.HttpURLConnection;
 import org.apache.cactus.HttpServiceDefinition;
 import org.apache.cactus.ServiceEnumeration;
 import org.apache.cactus.WebRequest;
-import org.apache.cactus.WebResponse;
 import org.apache.cactus.WebTestResult;
 import org.apache.cactus.client.AssertionFailedErrorWrapper;
 import org.apache.cactus.client.ParsingException;
@@ -127,11 +126,9 @@ public class DefaultHttpClient
         }
         catch (ParsingException e)
         {
+            String url = this.configuration.getRedirectorURL(theRequest);
             throw new ChainedRuntimeException("Failed to get the test "
-                + "results. This is probably due to an error that happened on "
-                + "the server side when trying to execute the tests. Here is "
-                + "what was returned by the server : ["
-                + new WebResponse(theRequest, connection).getText() + "]", e);
+                + "results at [" + url + "]", e);
         }
 
         // Check if the returned result object returned contains an error or
@@ -248,12 +245,16 @@ public class DefaultHttpClient
 
         HttpURLConnection resultConnection = 
             helper.connect(resultsRequest, this.configuration);
+        if (resultConnection.getResponseCode() != 200)
+        {
+            throw new ParsingException("Not a valid response ["
+                + resultConnection.getResponseCode() + " "
+                + resultConnection.getResponseMessage() + "]");
+        }
 
         // Read the test result
         WebTestResultParser parser = new WebTestResultParser();
-        WebTestResult result = parser.parse(
+        return parser.parse(
             IoUtil.getText(resultConnection.getInputStream(), "UTF-8"));
-
-        return result;
     }
 }
