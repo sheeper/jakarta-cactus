@@ -54,37 +54,27 @@
  * <http://www.apache.org/>.
  *
  */
-package org.apache.cactus.server;
+package org.apache.cactus.server.wrapper;
 
-import javax.servlet.jsp.PageContext;
-
-import org.apache.cactus.ServletURL;
+import javax.servlet.ServletContext;
 
 /**
- * Wrapper around <code>PageContext</code> so that get methods that would
- * normally return implicit objects will now return Cactus wrapper of
- * implicit objects instead.
+ * Wrapper around Servlet 2.2 <code>ServletContext</code>. This wrapper
+ * provides additional behaviour (see
+ * <code>AbstractServletContextWrapper</code>).
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
+ * @see AbstractServletContextWrapper
  */
-public class PageContextWrapper extends AbstractPageContextWrapper
+public class ServletContextWrapper extends AbstractServletContextWrapper
 {
     /**
-     * Construct an <code>PageContext</code> instance that delegates
-     * it's method calls to the page context object passed as parameter and
-     * that uses the URL passed as parameter to simulate a URL from which
-     * the request would come from.
-     *
-     * @param theOriginalPageContext the real page context
-     * @param theURL the URL to simulate or <code>null</code> if none
+     * @param theOriginalContext the original servlet context object
      */
-    public PageContextWrapper(PageContext theOriginalPageContext, 
-        ServletURL theURL)
+    public ServletContextWrapper(ServletContext theOriginalContext)
     {
-        super(theOriginalPageContext, theURL);
+        super(theOriginalContext);
     }
-
-    // Unmodified overridden methods -----------------------------------------
 }

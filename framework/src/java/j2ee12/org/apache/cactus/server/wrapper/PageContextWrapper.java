@@ -54,42 +54,37 @@
  * <http://www.apache.org/>.
  *
  */
-package org.apache.cactus.server;
+package org.apache.cactus.server.wrapper;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.jsp.PageContext;
 
 import org.apache.cactus.ServletURL;
 
 /**
- * Encapsulation class for the Servlet 2.2 API <code>HttpServletRequest</code>.
- * This is an implementation that delegates all the call to the
- * <code>HttpServletRequest</code> object passed in the constructor except for
- * some overridden methods which are use to simulate a URL. This is to be able
- * to simulate any URL that would have been used to call the test method : if
- * this was not done, the URL that would be returned (by calling the
- * <code>getRequestURI()</code> method or others alike) would be the URL of the
- * server redirector servlet or JSP and not a URL that the test case want to
- * simulate.
+ * Wrapper around <code>PageContext</code> so that get methods that would
+ * normally return implicit objects will now return Cactus wrapper of
+ * implicit objects instead.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
  */
-public class HttpServletRequestWrapper
-    extends AbstractHttpServletRequestWrapper
+public class PageContextWrapper extends AbstractPageContextWrapper
 {
     /**
-     * Construct an <code>HttpServletRequest</code> instance that delegates
-     * it's method calls to the request object passed as parameter and that
-     * uses the URL passed as parameter to simulate a URL from which the request
-     * would come from.
+     * Construct an <code>PageContext</code> instance that delegates
+     * it's method calls to the page context object passed as parameter and
+     * that uses the URL passed as parameter to simulate a URL from which
+     * the request would come from.
      *
-     * @param theRequest the real HTTP request
+     * @param theOriginalPageContext the real page context
      * @param theURL the URL to simulate or <code>null</code> if none
      */
-    public HttpServletRequestWrapper(HttpServletRequest theRequest, 
+    public PageContextWrapper(PageContext theOriginalPageContext, 
         ServletURL theURL)
     {
-        super(theRequest, theURL);
+        super(theOriginalPageContext, theURL);
     }
+
+    // Unmodified overridden methods -----------------------------------------
 }

@@ -54,27 +54,42 @@
  * <http://www.apache.org/>.
  *
  */
-package org.apache.cactus.server;
+package org.apache.cactus.server.wrapper;
 
-import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.cactus.ServletURL;
 
 /**
- * Wrapper around Servlet 2.2 <code>ServletContext</code>. This wrapper
- * provides additional behaviour (see
- * <code>AbstractServletContextWrapper</code>).
+ * Encapsulation class for the Servlet 2.2 API <code>HttpServletRequest</code>.
+ * This is an implementation that delegates all the call to the
+ * <code>HttpServletRequest</code> object passed in the constructor except for
+ * some overridden methods which are use to simulate a URL. This is to be able
+ * to simulate any URL that would have been used to call the test method : if
+ * this was not done, the URL that would be returned (by calling the
+ * <code>getRequestURI()</code> method or others alike) would be the URL of the
+ * server redirector servlet or JSP and not a URL that the test case want to
+ * simulate.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
- * @see AbstractServletContextWrapper
  */
-public class ServletContextWrapper extends AbstractServletContextWrapper
+public class HttpServletRequestWrapper
+    extends AbstractHttpServletRequestWrapper
 {
     /**
-     * @param theOriginalContext the original servlet context object
+     * Construct an <code>HttpServletRequest</code> instance that delegates
+     * it's method calls to the request object passed as parameter and that
+     * uses the URL passed as parameter to simulate a URL from which the request
+     * would come from.
+     *
+     * @param theRequest the real HTTP request
+     * @param theURL the URL to simulate or <code>null</code> if none
      */
-    public ServletContextWrapper(ServletContext theOriginalContext)
+    public HttpServletRequestWrapper(HttpServletRequest theRequest, 
+        ServletURL theURL)
     {
-        super(theOriginalContext);
+        super(theRequest, theURL);
     }
 }

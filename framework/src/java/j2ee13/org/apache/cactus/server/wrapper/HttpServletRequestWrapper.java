@@ -54,7 +54,7 @@
  * <http://www.apache.org/>.
  *
  */
-package org.apache.cactus.server;
+package org.apache.cactus.server.wrapper;
 
 import java.io.UnsupportedEncodingException;
 
