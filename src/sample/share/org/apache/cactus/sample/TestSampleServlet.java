@@ -152,6 +152,7 @@ public class TestSampleServlet extends ServletTestCase
     {
         SampleServlet servlet = new SampleServlet();
         assertEquals("POST", servlet.checkMethod(request));
+        assertEquals("value", request.getParameter("param"));
     }
 
     //-------------------------------------------------------------------------
