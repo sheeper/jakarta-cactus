@@ -112,7 +112,7 @@
          Deploy the cactified webapp
        ========================================================================
     -->
-    <target name="cactus.deploy.weblogic6x" 
+    <target name="cactus.deploy.weblogic6x" if="cactus.home.weblogic6x" 
         description="Deploy the webapp on WebLogic 6.x">
 
         <!-- Copy the webapp -->

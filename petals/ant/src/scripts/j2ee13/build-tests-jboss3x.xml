@@ -94,7 +94,7 @@
          Deploy the cactified webapp
        ========================================================================
     -->
-    <target name="cactus.deploy.jboss3x" 
+    <target name="cactus.deploy.jboss3x" if="cactus.home.jboss3x"
         description="Deploy the webapp on JBoss 3.x">
 
         <!-- Note: It seems JBoss requires a war file in its deploy directory. 

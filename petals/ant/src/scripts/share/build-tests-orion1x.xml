@@ -92,7 +92,7 @@
          Deploy the cactified webapp
        ========================================================================
     -->
-    <target name="cactus.deploy.orion1x" 
+    <target name="cactus.deploy.orion1x" if="cactus.home.orion1x"
         description="Deploy the webapp on Orion 1.x">
 
         <jar destfile="${cactus.target.orion1x}/${cactus.context}.war">

@@ -101,7 +101,7 @@
          Deploy the cactified webapp
        ========================================================================
     -->
-    <target name="cactus.deploy.resin2x" 
+    <target name="cactus.deploy.resin2x" if="cactus.home.resin2x"
         description="Deploy the webapp on Resin 2.x">
 
         <jar destfile="${cactus.target.resin2x}/${cactus.context}.war">

@@ -97,7 +97,7 @@
          Deploy the cactified webapp
        ========================================================================
     -->
-    <target name="cactus.deploy.tomcat4x" 
+    <target name="cactus.deploy.tomcat4x" if="cactus.home.tomcat4x"
         description="Deploy the webapp on Tomcat 4.x">
 
         <!-- Copy the webapp -->
@@ -146,7 +146,8 @@
          Clean generated files (including distributables)
        ========================================================================
     -->
-    <target name="cactus.clean.tomcat4x" depends="cactus.init, cactus.clean" description="Clean target directory">
+    <target name="cactus.clean.tomcat4x" depends="cactus.init,cactus.clean" 
+    	description="Clean target directory">
         <delete includeEmptyDirs="true">
             <fileset dir="${cactus.target.tomcat4x}"/>
         </delete>
