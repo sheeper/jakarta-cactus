@@ -164,8 +164,6 @@ public class ChangeLogTask extends Task implements ExecuteStreamHandler
     private PrintWriter debug;
 
     // state machine states
-    private final static int GET_ENTRY = 0;
-
     private final static int GET_FILE = 1;
 
     private final static int GET_DATE = 2;
