@@ -41,26 +41,6 @@
       </action>
     </category>
 
-    <category title="Build Process">
-      <p>
-        All tasks that are related to building Cactus in general.
-      </p>
-      <action>
-        Add the Ant scripts for JBoss 2.x w/Tomcat provided by Jeffrey Madynski
-        (jmadynski@food.com) on the jakarta-commons mailing list (Subject
-        "[cactus] Using Cactus with JBoss-2.2.1 with Embedded Tomcat"). The
-        scripts need to be reworked so that the deployed test war is deployed
-        within the <code>target</code> output directory and not to where
-        JBoss/Tomcat is installed.
-      </action>
-      <action assigned-to="Vincent Massol">
-        Add Ant scripts to support WebLogic 6.0.
-      </action>
-      <action>
-        Finalize support for Enhydra 3.1.1. Verify it works and correct if not.
-      </action>
-    </category>
-
     <category title="Design/Code">
       <action assigned-to="Jari Worsley, Nicholas Lesiecki">
         Continue support for JSP Taglib. Possibly add some heper classes to
@@ -84,6 +64,28 @@
         java beans used in the JSP to unit test, set these java beans in the
         testXXX() method of a cactus test and then assert the result of the
         JSP executing in the endXXX() method.
+      </action>
+    </category>
+
+    <category title="Build Process">
+      <p>
+        All tasks that are related to building Cactus in general.
+      </p>
+      <action>
+        Add Ant scripts to support WebLogic 6.0.
+      </action>
+      <action>
+        Finalize support for Enhydra 3.1.1. There are some errors upon
+        starting the enhydra server and the <code>testOut()</code> method
+        is failing. Need help from Enhydra experts to go forward.
+      </action>
+      <action>
+        Add the Ant scripts for JBoss 2.x w/Tomcat provided by Jeffrey Madynski
+        (jmadynski@food.com) on the jakarta-commons mailing list (Subject
+        "[cactus] Using Cactus with JBoss-2.2.1 with Embedded Tomcat"). The
+        scripts need to be reworked so that the deployed test war is deployed
+        within the <code>target</code> output directory and not to where
+        JBoss/Tomcat is installed.
       </action>
     </category>
 
