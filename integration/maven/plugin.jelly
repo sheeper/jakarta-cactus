@@ -262,7 +262,7 @@
     <cactus warfile="${maven.build.dir}/${pom.artifactId}-cactus.war" 
         fork="yes" errorproperty="cactustests.error" 
         failureproperty="cactustests.failure"
-        printsummary="${maven.cactus.printsummary}">
+        printsummary="${cactus.printsummary}">
       <ant:classpath>
         <ant:pathelement path="${maven.build.dest}"/>
         <ant:pathelement location="${cactus.target.classes.dir}"/>
@@ -456,7 +456,7 @@
      <cactus warfile="${maven.build.dir}/${pom.artifactId}-cactus.war" 
         fork="yes" errorproperty="cactustests.error" 
         failureproperty="cactustests.failure"
-        printsummary="${maven.cactus.printsummary}">
+        printsummary="${cactus.printsummary}">
       <ant:classpath>
         <ant:pathelement path="${maven.build.dest}"/>
         <ant:pathelement location="${cactus.target.classes.dir}"/>
@@ -590,7 +590,7 @@
      <cactus warfile="${maven.build.dir}/${pom.artifactId}-cactus.war" 
         fork="yes" errorproperty="cactustests.error" 
         failureproperty="cactustests.failure"
-        printsummary="${maven.cactus.printsummary}">
+        printsummary="${cactus.printsummary}">
       <ant:classpath>
         <ant:pathelement path="${maven.build.dest}"/>
         <ant:pathelement location="${cactus.target.classes.dir}"/>

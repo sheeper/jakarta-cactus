@@ -124,7 +124,7 @@
           </td>
         </tr>
         <tr>
-          <td>maven.cactus.printsummary</td>
+          <td>cactus.printsummary</td>
           <td>Yes</td>
           <td>
             <p>
