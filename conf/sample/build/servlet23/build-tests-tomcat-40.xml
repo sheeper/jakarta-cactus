@@ -29,7 +29,13 @@
             <arg value="${out.tomcat40.full.dir}/conf/server.xml"/>
             <arg value="start"/>
             <classpath>
-              <pathelement location="${java.home}/../lib/tools.jar"/>
+
+              <!-- This is to allow the use of -Dbuild.sysclasspath=only when
+                   starting Ant - Meaning that all jars need to be on the
+                   initial classpath -->
+              <pathelement path="${java.class.path}"/>
+
+              <!-- These are ignore if -Dbuild.sysclasspath=only is used -->
               <fileset dir="${tomcat.home.40}">
                   <include name="bin/bootstrap.jar"/>
                   <include name="server/catalina.jar"/>
@@ -50,6 +56,13 @@
             <jvmarg value="-Dcatalina.home=${tomcat.home.40}"/>
             <arg value="stop"/>
             <classpath>
+
+              <!-- This is to allow the use of -Dbuild.sysclasspath=only when
+                   starting Ant - Meaning that all jars need to be on the
+                   initial classpath -->
+              <pathelement path="${java.class.path}"/>
+
+              <!-- These are ignore if -Dbuild.sysclasspath=only is used -->
               <fileset dir="${tomcat.home.40}">
                   <include name="bin/bootstrap.jar"/>
                   <include name="server/catalina.jar"/>
