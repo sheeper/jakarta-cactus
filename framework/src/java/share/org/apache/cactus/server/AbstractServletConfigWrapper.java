@@ -187,6 +187,8 @@ public abstract class AbstractServletConfigWrapper
         {
             String value = (String) enum.nextElement();
 
+            // Do not add parameters that have been overriden by calling
+            // the setInitParameter() method.
             if (!names.contains(value))
             {
                 names.add(value);
