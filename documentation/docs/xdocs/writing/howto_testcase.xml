@@ -61,54 +61,87 @@ import junit.framework.*;
 
       </section>
 
-      <section title="Step 2: Extend a Cactus TestCase class">
-
-        <p>
-          Now, we need to create a class (our test class) that extends one of
-          Cactus test cases, depending on what we are testing:
-        </p>
-        <ul>
-          <li>
-            <strong><code>ServletTestCase</code></strong>: extend this class
-            for writing tests for unit testing code that uses Servlet API
-            objects (<code>HttpServletRequest</code>,
-            <code>HttpServletResponse</code>, <code>HttpSession</code>,
-            <code>ServletConfig</code>, <code>ServletContext</code>, ...),
-            like Servlets or any java classes which have methods that
-            manipulates Servlet API objects. For example:<br/><br/>
-<source><![CDATA[
-public class TestSampleServlet extends ServletTestCase
-{
-]]></source>
-            <br/>
-          </li>
-          <li>
-            <strong><code>JspTestCase</code></strong>: extend this class for
-            writing tests for unit testing code that uses JSP API objects
-            (<code>PageContext</code>, <code>JspWriter</code>, ...), like
-            Taglibs or any java classes which have methods that manipulates
-            JSP API objects. For example:<br/><br/>
-<source><![CDATA[
-public class TestSampleTag extends JspTestCase
-{
-]]></source>
-            <br/>
-          </li>
-          <li>
-            <strong><code>FilterTestCase</code></strong>: extend this class
-            for writing tests for unit testing code that uses Filter API
-            objects (<code>FilterChain</code>, <code>FilterConfig</code>,
-            <code>HttpServletRequest</code>, <code>HttpServletResponse</code>,
-            ...), like Filters or any java classes which have methods that
-            manipulates Filter API objects. For example:<br/><br/>
-<source><![CDATA[
-public class TestSampleFilter extends FilterTestCase
-{
-]]></source>
-            <br/>
-          </li>
-        </ul>
-
+      <section title="Step 2: Extend a Cactus TestCase class or reuse a JUnit TestCase">
+        
+        <section title="Option A: Extend a Cactus TestCase class">
+  
+          <p>
+            We need to create a class (our test class) that extends one of
+            Cactus test cases, depending on what we are testing:
+          </p>
+          <ul>
+            <li>
+              <strong><code>ServletTestCase</code></strong>: extend this class
+              for writing tests for unit testing code that uses Servlet API
+              objects (<code>HttpServletRequest</code>,
+              <code>HttpServletResponse</code>, <code>HttpSession</code>,
+              <code>ServletConfig</code>, <code>ServletContext</code>, ...),
+              like Servlets or any java classes which have methods that
+              manipulates Servlet API objects. For example:<br/><br/>
+  <source><![CDATA[
+  public class TestSampleServlet extends ServletTestCase
+  {
+  ]]></source>
+              <br/>
+            </li>
+            <li>
+              <strong><code>JspTestCase</code></strong>: extend this class for
+              writing tests for unit testing code that uses JSP API objects
+              (<code>PageContext</code>, <code>JspWriter</code>, ...), like
+              Taglibs or any java classes which have methods that manipulates
+              JSP API objects. For example:<br/><br/>
+  <source><![CDATA[
+  public class TestSampleTag extends JspTestCase
+  {
+  ]]></source>
+              <br/>
+            </li>
+            <li>
+              <strong><code>FilterTestCase</code></strong>: extend this class
+              for writing tests for unit testing code that uses Filter API
+              objects (<code>FilterChain</code>, <code>FilterConfig</code>,
+              <code>HttpServletRequest</code>, <code>HttpServletResponse</code>,
+              ...), like Filters or any java classes which have methods that
+              manipulates Filter API objects. For example:<br/><br/>
+  <source><![CDATA[
+  public class TestSampleFilter extends FilterTestCase
+  {
+  ]]></source>
+              <br/>
+            </li>
+          </ul>
+  
+        </section>
+  
+        <section title="Option B: reuse a JUnit TestCase">
+  
+          <p>
+            Cactus is able to run pure JUnit TestCase on the server side.
+            This is done by using the <code>ServletTestSuite</code> Test Suite
+            that wraps your existing Test Cases. For example:<br/><br/>
+  <source><![CDATA[
+  public class TestJUnitTestCaseWrapper extends TestCase
+  {
+      public TestJUnitTestCaseWrapper(String theName)
+      {
+          super(theName);
+      }
+  
+      public static Test suite()
+      {
+          ServletTestSuite suite = new ServletTestSuite();
+          suite.addTestSuite(TestJUnitTestCaseWrapper.class);
+          return suite;
+      }
+  
+      public void testXXX()
+      {
+      }
+  }
+  ]]></source>
+          </p>
+        </section>
+  
       </section>
 
       <section title="Step 3: Standard JUnit methods">
