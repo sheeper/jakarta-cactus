@@ -156,10 +156,11 @@
     <unitTestSourceDirectory>src/test/share</unitTestSourceDirectory>
     <unitTest>
       <includes>
-        <include>**/Test*.java</include>
+        <include>**/Test*.class</include>
       </includes>
       <excludes>
-        <exclude>**/Test*All.java</exclude>
+        <exclude>**/Test*All.class</exclude>
+        <exclude>**/Test*$$*.class</exclude>
       </excludes>
     </unitTest>            
 

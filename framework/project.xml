@@ -48,6 +48,12 @@
       <url>http://www.mockobjects.com</url>
     </dependency>
     <dependency>
+      <groupId>jetty</groupId>
+      <artifactId>org.mortbay.jetty</artifactId>
+      <version>4.2.17</version>
+      <url>http://jetty.mortbay.org/jetty/</url>
+    </dependency>
+    <dependency>
       <groupId>httpunit</groupId>
       <artifactId>httpunit</artifactId>
       <version>1.5.4</version>
