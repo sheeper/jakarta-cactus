@@ -93,7 +93,7 @@ public class TestServletTestCase3 extends ServletTestCase
      */
     public static void main(String[] theArgs)
     {
-        junit.ui.TestRunner.main(new String[]{
+        junit.swingui.TestRunner.main(new String[]{
             TestServletTestCase3.class.getName()});
     }
 
