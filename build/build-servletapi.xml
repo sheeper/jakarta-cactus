@@ -5,6 +5,15 @@
     Build file for the Cactus project, for a given Servlet API. All targets
     that depend upon the Servlet API are found here.
 
+    The following Ant tasks must be available in your ant installation
+    (i.e. the Ant task themselves and their dependent jars need to be put
+    in ANT_HOME/lib) :
+
+        stylebook             [REQUIRED] For builing the documentation and
+                               web site.
+
+        junit                 [REQUIRED] For running the unit tests.
+
     The following properties need to be set prior to calling this build file :
 
         servlet.api           [REQUIRED] The Servlet API against which Cactus
@@ -14,11 +23,19 @@
                               the chosen Servlet API
 
         junit.jar             [REQUIRED] The path to the JUnit jar file.
-                              Required for running the sample application
-                              unit tests.
+                              Required for compiling Cactus classes.
 
         httpunit.jar          [REQUIRED] The path to the HttpUnit jar file.
-                              Required for the unit tests.
+                              Required for compiling and running the unit
+                              tests.
+
+        httpclient.jar        [REQUIRED] The path to the Commons HttpClient
+                              jar file. Required for performing all Cactus
+                              HTTP requests. It is also required for
+                              bundling it in the the distribution.
+
+        log4j.jar             [REQUIRED] The path to the Log4j jar file.
+                              Required for bundling it in the distribution.
 
         dist.dir              [REQUIRED] The directories where distributable
                               files will be copied with version number
@@ -269,10 +286,12 @@
             <exclude name="**/*.properties"/>
 
             <classpath>
-                <pathelement path="${java.class.path}"/>
                 <pathelement location="${servlet.jar}"/>
                 <pathelement location="${httpunit.jar}"/>
                 <pathelement location="${log4j.jar}"/>
+                <pathelement location="${httpclient.jar}"/>
+                <pathelement location="${junit.jar}"/>
+                <pathelement path="${java.class.path}"/>
             </classpath>
 
         </javac>
@@ -357,10 +376,12 @@
             bottom="Copyright &amp;copy; ${year} Apache Software Foundation. All Rights Reserved.">
 
             <classpath>
-                <pathelement path="${java.class.path}"/>
                 <pathelement location="${servlet.jar}"/>
                 <pathelement location="${httpunit.jar}"/>
                 <pathelement location="${log4j.jar}"/>
+                <pathelement location="${httpclient.jar}"/>
+                <pathelement location="${junit.jar}"/>
+                <pathelement path="${java.class.path}"/>
             </classpath>
 
         </javadoc>
@@ -443,9 +464,6 @@
 
             <classpath>
                 <pathelement path="${java.class.path}"/>
-                <pathelement location="${stylebook.jar}"/>
-                <pathelement location="${xerces.jar}"/>
-                <pathelement location="${xalan.jar}"/>
             </classpath>
 
         </stylebook>
@@ -530,10 +548,12 @@
         <junit printsummary="yes" haltonfailure="yes" fork="yes">
 
             <classpath>
-                <pathelement path="${java.class.path}"/>
                 <pathelement location="${servlet.jar}"/>
                 <pathelement location="${httpunit.jar}"/>
+                <pathelement location="${httpclient.jar}"/>
                 <pathelement location="${out.classes.dir}"/>
+                <pathelement path="${junit.jar}"/>
+                <pathelement path="${java.class.path}"/>
             </classpath>
 
             <formatter type="plain" usefile="false"/>
@@ -572,6 +592,7 @@
             <arg value="-Dcactus.jar=../lib/${jar.name}.jar"/>
             <arg value="-Dcactus.ant.jar=../../../${jar.ant.name}.jar"/>
             <arg value="-Djunit.jar=${junit.jar}"/>
+            <arg value="-Dhttpclient.jar=${httpclient.jar}"/>
             <arg value="-Dlog4j.jar=${log4j.jar}"/>
 
             <!-- Pass all servlet engine properties -->
@@ -605,6 +626,7 @@
             <arg value="-Dcactus.jar=../lib/${jar.name}.jar"/>
             <arg value="-Dcactus.ant.jar=../../../${jar.ant.name}.jar"/>
             <arg value="-Djunit.jar=${junit.jar}"/>
+            <arg value="-Dhttpclient.jar=${httpclient.jar}"/>
             <arg value="-Dlog4j.jar=${log4j.jar}"/>
 
             <!-- Pass all servlet engine properties -->
@@ -613,7 +635,6 @@
 
             <classpath>
                 <pathelement path="${java.class.path}"/>
-                <pathelement location="${stylebook.jar}"/>
             </classpath>
 
         </java>
@@ -647,9 +668,11 @@
 
     <target name="dist" depends="prepare-dist">
 
-        <!-- Copy the log4j jar in the lib directory so that it is bundled
-             with the distribution -->
+        <!-- Copy the jars that need to be bundled in the distribution in
+             the ${out.lib.dir} directory -->
         <copy todir="${out.lib.dir}" file="${log4j.jar}"/>
+        <copy todir="${out.lib.dir}" file="${junit.jar}"/>
+        <copy todir="${out.lib.dir}" file="${httpclient.jar}"/>
 
         <zip zipfile="${dist.full.name}.zip">
             <zipfileset dir="${out.dist.dir}"
@@ -657,7 +680,7 @@
 
                 <exclude name="**/build.properties"/>
                 <exclude name="**/*.log"/>
-                <exclude name="**/${out.root.dir}"/>
+                <exclude name="${out.dir}"/>
             </zipfileset>
         </zip>
 
