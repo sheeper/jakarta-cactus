@@ -112,8 +112,8 @@ public class StopServerHelper implements Runnable
 
         // Verify that a stop target has been specified
         if (this.stopTarget == null) {
-            throw new BuildException("A stopTarget Ant target name must be " +
-                "specified");
+            throw new BuildException("A stopTarget Ant target name must be "
+                + "specified");
         }
 
         // Try connecting in case the server is already stopped.

@@ -190,8 +190,8 @@ public abstract class AbstractServerRun extends Thread
             clientSocket = new Socket(this.host, this.port);
         } catch (Exception e) {
             e.printStackTrace();
-            throw new RuntimeException("Error opening socket to " + this.host +
-                ":" + this.port + "]");
+            throw new RuntimeException("Error opening socket to " + this.host
+                + ":" + this.port + "]");
         } finally {
             try {
                 if (clientSocket != null) {
@@ -215,15 +215,15 @@ public abstract class AbstractServerRun extends Thread
         try {
             serverSocket.accept();
         } catch (IOException e) {
-            throw new RuntimeException("Error accepting connection for " +
-                "server socket [" + serverSocket + "]");
+            throw new RuntimeException("Error accepting connection for "
+                + "server socket [" + serverSocket + "]");
         } finally {
             // Stop server socket
             try {
                 serverSocket.close();
             } catch (IOException e) {
-                throw new RuntimeException("Cannot close server socket [" +
-                    serverSocket + "]");
+                throw new RuntimeException("Cannot close server socket ["
+                    + serverSocket + "]");
             }
         }
 
@@ -239,8 +239,8 @@ public abstract class AbstractServerRun extends Thread
         try {
             serverSocket.close();
         } catch (IOException e) {
-            throw new RuntimeException("Cannot close server socket [" +
-                serverSocket + "]");
+            throw new RuntimeException("Cannot close server socket ["
+                + serverSocket + "]");
         }
     }
 
@@ -257,8 +257,8 @@ public abstract class AbstractServerRun extends Thread
             serverSocket = new ServerSocket(this.port);
         } catch (IOException e) {
             e.printStackTrace();
-            throw new RuntimeException("Error setting up the server " +
-                "listener socket");
+            throw new RuntimeException("Error setting up the server "
+                + "listener socket");
         }
 
         return serverSocket;

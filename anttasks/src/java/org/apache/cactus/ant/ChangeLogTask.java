@@ -267,8 +267,8 @@ public class ChangeLogTask extends Task implements ExecuteStreamHandler
         try {
             this.thresholdDate = INPUT_DATE.parse(theThresholdDate);
         } catch (ParseException e) {
-            throw new BuildException("Bad date format [" +
-                theThresholdDate + "].");
+            throw new BuildException("Bad date format ["
+                + theThresholdDate + "].");
         }
     }
 
@@ -341,9 +341,9 @@ public class ChangeLogTask extends Task implements ExecuteStreamHandler
     {
         if (this.userConfigFile != null) {
             if (!this.userConfigFile.exists()) {
-                throw new BuildException("User list configuration file [" +
-                    this.userConfigFile.getAbsolutePath() +
-                    "] was not found. Please check location.");
+                throw new BuildException("User list configuration file ["
+                    + this.userConfigFile.getAbsolutePath()
+                    + "] was not found. Please check location.");
             }
             try {
                 this.userList.load(new FileInputStream(this.userConfigFile));
@@ -407,8 +407,8 @@ public class ChangeLogTask extends Task implements ExecuteStreamHandler
         }
 
         if (!this.cvsWorkingDirectory.exists()) {
-            throw new BuildException("Cannot find CVS working directory [" +
-                this.cvsWorkingDirectory.getAbsolutePath() + "]");
+            throw new BuildException("Cannot find CVS working directory ["
+                + this.cvsWorkingDirectory.getAbsolutePath() + "]");
         }
 
         if (this.outputFile == null) {
@@ -431,8 +431,8 @@ public class ChangeLogTask extends Task implements ExecuteStreamHandler
 
         // Check if a threshold date has been specified
         if (this.thresholdDate != null) {
-            toExecute.createArgument().setValue("-d\">=" +
-                OUTPUT_DATE.format(this.thresholdDate) + "\"");
+            toExecute.createArgument().setValue("-d\">="
+                + OUTPUT_DATE.format(this.thresholdDate) + "\"");
         }
 
         // Check if list of files to check has been specified
@@ -562,8 +562,8 @@ public class ChangeLogTask extends Task implements ExecuteStreamHandler
                         if ((this.userList != null) &&
                             this.userList.containsKey(author)) {
 
-                            author = "<![CDATA[" +
-                                this.userList.getProperty(author) + "]]>";
+                            author = "<![CDATA["
+                                + this.userList.getProperty(author) + "]]>";
                         }
 
                         status = GET_COMMENT;
@@ -581,8 +581,8 @@ public class ChangeLogTask extends Task implements ExecuteStreamHandler
 
                         debug("Text: [" + line);
                     }
-                    comment = "<![CDATA[" +
-                        comment.substring(0, comment.length() - 1) + "]]>";
+                    comment = "<![CDATA["
+                        + comment.substring(0, comment.length() - 1) + "]]>";
 
                     // Add the entry to the list of entries
                     Entry entry;
@@ -689,17 +689,17 @@ public class ChangeLogTask extends Task implements ExecuteStreamHandler
 
         public String toString()
         {
-            return this.author + "\n" + this.date + "\n" + this.files + "\n" +
-                this.comment;
+            return this.author + "\n" + this.date + "\n" + this.files + "\n"
+                + this.comment;
         }
 
         public void print()
         {
             output.println("\t<entry>");
-            output.println("\t\t<date>" + OUTPUT_DATE.format(this.date) +
-                "</date>");
-            output.println("\t\t<time>" + OUTPUT_TIME.format(this.date) +
-                "</time>");
+            output.println("\t\t<date>" + OUTPUT_DATE.format(this.date)
+                + "</date>");
+            output.println("\t\t<time>" + OUTPUT_TIME.format(this.date)
+                + "</time>");
             output.println("\t\t<author>" + this.author + "</author>");
 
             Enumeration e = this.files.elements();
@@ -707,8 +707,8 @@ public class ChangeLogTask extends Task implements ExecuteStreamHandler
                 RCSFile file = (RCSFile) e.nextElement();
                 output.println("\t\t<file>");
                 output.println("\t\t\t<name>" + file.getName() + "</name>");
-                output.println("\t\t\t<revision>" + file.getRevision() +
-                    "</revision>");
+                output.println("\t\t\t<revision>" + file.getRevision()
+                    + "</revision>");
                 output.println("\t\t</file>");
             }
             output.println("\t\t<msg>" + this.comment + "</msg>");

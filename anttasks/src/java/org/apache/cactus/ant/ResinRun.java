@@ -128,30 +128,29 @@ public class ResinRun extends AbstractServerRun
     /**
      * Starts Resin 2.0.x
      *
-     * @param resinServer the <code>ResinServer</code> instance
+     * @param theResinServer the <code>ResinServer</code> instance
      * @throws Exception if an error happens when starting the server
      */
-    private void startResin20(Object resinServer)
-        throws Exception
+    private void startResin20(Object theResinServer) throws Exception
     {
-        Method initMethod = resinServer.getClass().getMethod("init",
+        Method initMethod = theResinServer.getClass().getMethod("init",
             new Class[]{boolean.class});
-        initMethod.invoke(resinServer, new Object[]{
+        initMethod.invoke(theResinServer, new Object[]{
             new Boolean(true)});
     }
 
     /**
      * Starts Resin 2.1.x
      *
-     * @param resinServer the <code>ResinServer</code> instance
+     * @param theResinServer the <code>ResinServer</code> instance
      * @throws Exception if an error happens when starting the server
      */
-    private void startResin21(Object resinServer)
+    private void startResin21(Object theResinServer)
         throws Exception
     {
-        Method initMethod = resinServer.getClass().getMethod("init",
+        Method initMethod = theResinServer.getClass().getMethod("init",
             new Class[]{ArrayList.class});
-        initMethod.invoke(resinServer, new Object[]{ null });
+        initMethod.invoke(theResinServer, new Object[]{ null });
     }
 
     /**
@@ -166,8 +165,8 @@ public class ResinRun extends AbstractServerRun
             closeMethod.invoke(this.resinServer, null);
         } catch (Exception e) {
             e.printStackTrace();
-            throw new RuntimeException("Cannot stop running instance of " +
-                "ResinServer");
+            throw new RuntimeException("Cannot stop running instance of "
+                + "ResinServer");
         }
     }
 

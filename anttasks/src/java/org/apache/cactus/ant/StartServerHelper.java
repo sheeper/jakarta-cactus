@@ -60,7 +60,6 @@ import java.io.InputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -134,8 +133,8 @@ public class StartServerHelper implements Runnable
 
         // Verify that a start target has been specified
         if (this.startTarget == null) {
-            throw new BuildException("A startTarget Ant target name must " +
-                "be specified");
+            throw new BuildException("A startTarget Ant target name must "
+                + "be specified");
         }
 
         // Try connecting in case the server is already running. If so, does
@@ -222,8 +221,8 @@ public class StartServerHelper implements Runnable
             e.printStackTrace(writer);
             writer.close();
 
-            this.task.log("Failed to call test URL. Reason :" +
-                new String(baos.toByteArray()), Project.MSG_DEBUG);
+            this.task.log("Failed to call test URL. Reason :"
+                + new String(baos.toByteArray()), Project.MSG_DEBUG);
         }
 
         return isURLCallable;

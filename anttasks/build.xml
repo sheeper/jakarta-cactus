@@ -253,7 +253,6 @@
             publicMemberPattern="^[a-z][a-zA-Z0-9]*$"
             headerFile="./LICENSE.cactus"
             failOnViolation="true"
-            wrapOp="ignore"
             cacheFile="${target.dir}/checkstyle.cache">
 
             <fileset dir="${src.java.dir}">

@@ -70,13 +70,6 @@ import java.lang.reflect.Method;
 public class EnhydraRun extends AbstractServerRun
 {
     /**
-     * The started Enhydra server class. We use <code>Object</code> instead of
-     * the Enhydra class so that we don't need the Resin jars in the classpath
-     * to compile this class.
-     */
-    private Object enhydraServer;
-
-    /**
      * Entry point to start/stop the Enhydra server.
      *
      * @param theArgs the command line arguments
@@ -126,8 +119,8 @@ public class EnhydraRun extends AbstractServerRun
             shutDownMethod.invoke(null, null);
         } catch (Exception e) {
             e.printStackTrace();
-            throw new RuntimeException("Cannot stop running instance of " +
-                "MultiServer");
+            throw new RuntimeException("Cannot stop running instance of "
+                + "MultiServer");
         }
     }
 
