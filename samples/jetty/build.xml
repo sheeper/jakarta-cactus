@@ -213,7 +213,7 @@ be resolved. Please check you build.properties file, and run Ant with the
        Generate the distributable files
      ========================================================================
   -->
-  <target name="dist" depends="sample">
+  <target name="dist" depends="sample,test">
 
     <mkdir dir="${dist.bin.dir}"/>
     <copy todir="${dist.bin.dir}">
