@@ -848,7 +848,7 @@
   <!-- Generate the breadcrumbs trail -->
   <!-- ==================================================================== -->
   <xsl:template name="generate-breadcrumbs">
-    <!-- Per directory navigation file -->
+    <!-- Get current directory relative to the root xdoc directory -->
     <xsl:param name="dir">
       <xsl:call-template name="get-directory">
         <xsl:with-param name="file">
@@ -856,11 +856,17 @@
         </xsl:with-param>
       </xsl:call-template>
     </xsl:param>
+    <!-- Recursively add the bread crumbs from parent directories, as well as
+         the static 'Apache' and 'Jakarta' crumbs -->
     <xsl:choose>
-      <xsl:when
-          test="document(concat($xdocdir,'/',$dir,'../navigation.xml'))/navigation">
+      <xsl:when test="$dir!=''">
         <xsl:call-template name="generate-breadcrumbs">
-          <xsl:with-param name="dir" select="concat($dir,'../')"/>
+          <xsl:with-param name="dir">
+            <xsl:call-template name="get-directory">
+              <xsl:with-param name="file"
+                  select="substring($dir,0,string-length($dir)-1)"/>
+            </xsl:call-template>
+          </xsl:with-param>
         </xsl:call-template>
         <xsl:text> &gt; </xsl:text>
       </xsl:when>
@@ -871,6 +877,7 @@
         <xsl:text> &gt; </xsl:text>
       </xsl:otherwise>
     </xsl:choose>
+    <!-- Now append the crumb representing the current directory -->
     <xsl:variable name="curnav"
         select="document(concat($xdocdir,'/',$dir,'navigation.xml'))/navigation"/>
     <a>
