@@ -196,6 +196,16 @@
       <action assigned-to="Vincent Massol">
         Evaluate the use of AspectJ for writing Cactus test cases.
       </action>
+      <action>
+        Help Cactus users test multipart/form-data. At least explain how to do
+        it. Some idea: use cos.jar (from
+        <link href="http://www.servlets.com/cos/index.html">http://www.servlets.com/cos/index.html</link>)
+        to read multipart/form-data on the server side. Now we still need to
+        provide a mechanism to easily send multipart/form-data on the Cactus
+        client side. The best solution would be to use HttpClient but we need
+        to check if it has this feature or if it can be added. Submitted by
+        <link href="mailto:Gunnar.Skogen@ergo.no">Gunnar Ole Skogen</link>.
+      </action>
     </category>
 
   </version>
