@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<document id="webapp_plugin">
+<document id="integration_eclipse_webapp">
 
   <properties>
     <title>Webapp Eclipse plug-in</title>
@@ -57,8 +57,8 @@
       <section title="Installation">
         <p>
           Uncompress the zip file and copy the
-          'org.apache.cactus.integration.eclipse_[version]' folder to your
-          Eclipse 'plugins' folder and restart Eclipse.
+          <code>org.apache.cactus.integration.eclipse_[version]</code> folder to 
+          your Eclipse <code>plugins</code> folder and restart Eclipse.
         </p>
       </section>
       <section title="Configuration">
@@ -73,8 +73,8 @@
     <section title="Using">
       <p>
         This plug-in can only be called by another plug-in. See the 
-        <link href="site:runner_plugin">Cactus runner plug-in</link> for
-        a use case.
+        <link href="site:integration_eclipse_runner">Cactus runner 
+        plug-in</link> for a use case.
       </p>
     </section>
 

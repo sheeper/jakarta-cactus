@@ -141,8 +141,8 @@
         </action>
         <action dev="JRU" type="add">
           First release of the Eclipse plugin. See the
-          <link href="site:integration_eclipse">Eclipse integration documentation</link>
-          for more information.
+          <link href="site:integration_eclipse">Eclipse integration 
+          documentation</link> for more information.
         </action>
         <action dev="CML" type="update">
           Added stack trace filtering to the ServletTestRunner. Stack frames

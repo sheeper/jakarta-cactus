@@ -16,10 +16,12 @@
         <link href="ext:eclipse">Eclipse</link> platform relies on 2 separate plug-ins :
       </p>
       <li>
-        The <link href="site:runner_plugin">Cactus runner plug-in</link>
+        The <link href="site:integration_eclipse_runner">Cactus runner 
+        plug-in</link>
       </li>
       <li>
-        The <link href="site:webapp_plugin">Webapp Eclipse plug-in</link>
+        The <link href="site:integration_eclipse_webapp">Webapp Eclipse 
+        plug-in</link>
       </li>
     </section>
 

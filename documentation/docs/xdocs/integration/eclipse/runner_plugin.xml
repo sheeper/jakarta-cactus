@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<document id="runner_plugin">
+<document id="integration_eclipse_runner">
 
   <properties>
     <title>Eclipse plug-in for Cactus</title>
@@ -48,8 +48,8 @@
       <ul>
         <li>
           Uses the 
-          <link href="site:webapp_plugin">Webapp Eclipse plug-in</link> to
-          package a WAR file containing the web application.
+          <link href="site:integration_eclipse_webapp">Webapp Eclipse 
+          plug-in</link> to package a WAR file containing the web application.
         </li>
       </ul>
       <ul>
@@ -128,8 +128,8 @@
       <section title="Installation">
         <p>
           Uncompress the zip file and copy the
-          'org.apache.cactus.integration.eclipse_[version]' folder to your
-          Eclipse 'plugins' folder and restart Eclipse.
+          <code>org.apache.cactus.integration.eclipse_[version]</code> folder 
+          to your Eclipse <code>plugins</code> folder and restart Eclipse.
         </p>
       </section>
       <section title="Configuration">
@@ -279,8 +279,8 @@
                 <li>
                   creating the war file for the cactus tests: this is
                   done in a call to the 
-                  <link href="site:webapp_plugin">Webapp plug-in</link>
-                  <code>WarBuilder</code> class.
+                  <link href="site:integration_eclipse_webapp">Webapp 
+                  plug-in</link> <code>WarBuilder</code> class.
                 </li>
                 <li>
                   setting up the container: prepares the configuration
