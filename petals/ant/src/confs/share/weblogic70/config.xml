@@ -11,5 +11,5 @@
         Realm="wl_default_realm" RealmSetup="true"/>
     <SecurityConfiguration
         Credential="{3DES}VXIBKpJ4bKQa1IbvnNqcaZa6BPWIg0zhWlcSd2lrfZmn7KZ9gF7QnMZqhjswb/KzSbiBo/cuJGV7qLrkNbpL64iLduDXGin1" Name="testdomain"/>
-    <Server Name="testserver" NativeIOEnabled="true" ListenPort="@test.port@"/>
+    <Server Name="testserver" NativeIOEnabled="true" ListenPort="@cactus.port@"/>
 </Domain>
