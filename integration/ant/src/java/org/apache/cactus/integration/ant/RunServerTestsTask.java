@@ -150,6 +150,9 @@ public class RunServerTestsTask extends Task
 
     /**
      * Call the test task or test target.
+     * 
+     * @throws BuildException If neither a test target nor a test task has been
+     *         specified
      */
     private void callTestTaskOrTarget() throws BuildException
     {
@@ -164,7 +167,8 @@ public class RunServerTestsTask extends Task
             }
             else
             {
-                throw new BuildException("Missing required attribute, one of testTarget or testTask");
+                throw new BuildException(
+                    "Either [testtarget] or [testtask] attribute required");
             }
     }
 
@@ -203,7 +207,9 @@ public class RunServerTestsTask extends Task
     }
 
     /**
-     * Call the run tests target
+     * Calls the run tests task.
+     * 
+     * @throws BuildException If an error occurred calling the test task
      */
     private void callTestTask() throws BuildException
     {
@@ -214,19 +220,21 @@ public class RunServerTestsTask extends Task
             Class taskClass = Class.forName(testTask);
             Object task = taskClass.newInstance();
             Method[] methods = task.getClass().getMethods();
-			for (int i = 0; i < methods.length; i++)
-			{
-				if (methods[i].getName().equals("setProject")) {
-					Class[] parameters = methods[i].getParameterTypes();
-					Object[] arg = new Object[parameters.length];
-					for (int j=0;j<parameters.length;j++) {
-						arg[j] = parameters[j].newInstance();
-					}
-					arg[0] = project;
-					methods[i].invoke(task, arg);
-				}
-			}
-			taskClass.getMethod("execute", null).invoke(task, null);
+            for (int i = 0; i < methods.length; i++)
+            {
+                if (methods[i].getName().equals("setProject"))
+                {
+                    Class[] parameters = methods[i].getParameterTypes();
+                    Object[] arg = new Object[parameters.length];
+                    for (int j = 0; j < parameters.length; j++)
+                    {
+                        arg[j] = parameters[j].newInstance();
+                    }
+                    arg[0] = project;
+                    methods[i].invoke(task, arg);
+                }
+            }
+            taskClass.getMethod("execute", null).invoke(task, null);
         }
         catch (ClassNotFoundException e)
         {
@@ -240,12 +248,14 @@ public class RunServerTestsTask extends Task
         {
             throw new BuildException(e);
         }
-        catch (InvocationTargetException e) {
-        	throw new BuildException(e);
+        catch (InvocationTargetException e)
+        {
+            throw new BuildException(e);
         }
-		catch (NoSuchMethodException e) {
-			throw new BuildException(e);
-		}        
+        catch (NoSuchMethodException e)
+        {
+            throw new BuildException(e);
+        }        
     }
 
     /**
@@ -292,7 +302,7 @@ public class RunServerTestsTask extends Task
     /**
      * Sets the target to call to run the tests.
      *
-     * @param theTestTarget the Ant target to call
+     * @param theTestTask the Ant task to call
      */
     public void setTestTask(String theTestTask)
     {
@@ -301,7 +311,7 @@ public class RunServerTestsTask extends Task
 
     /**
      * @param theTimeout the timeout after which we stop trying to call the test
-     * URL.
+     *        URL.
      */
     public void setTimeout(long theTimeout)
     {
