@@ -180,4 +180,50 @@
          to="cactus-dev@jakarta.apache.org"/>
   </project>
 
+  <!-- Build the Cactus distribution for J2EE 1.2 -->
+  <project name="jakarta-cactus-distribution-12">
+
+    <ant buildfile="build.xml" target="gump">
+
+      <depend property="j2ee.jar" project="jakarta-servletapi"/>
+      <depend property="log4j.jar" project="jakarta-log4j"/>
+      <depend property="commons.httpclient.jar" project="commons-httpclient"/>
+      <depend property="httpunit.jar" project="httpunit"/>
+      <depend property="aspectjrt.jar" project="aspectj" id="aspectjrt"/>
+      <depend property="junit.jar" project="junit"/>
+      <property name="dist.dir" value="dist-12"/>
+      <property name="target.dir" value="target-12"/>
+
+    </ant>
+
+    <depend project="jakarta-ant"/>
+    <depend project="xml-xerces"/>
+
+    <nag from="Vincent Massol &lt;vmassol@apache.org&gt;"
+         to="cactus-dev@jakarta.apache.org"/>
+  </project>
+
+  <!-- Build the Cactus distribution for J2EE 1.3 -->
+  <project name="jakarta-cactus-distribution-13">
+
+    <ant buildfile="build.xml" target="gump">
+
+      <depend property="j2ee.jar" project="jakarta-servletapi-4"/>
+      <depend property="log4j.jar" project="jakarta-log4j"/>
+      <depend property="commons.httpclient.jar" project="commons-httpclient"/>
+      <depend property="httpunit.jar" project="httpunit"/>
+      <depend property="aspectjrt.jar" project="aspectj" id="aspectjrt"/>
+      <depend property="junit.jar" project="junit"/>
+      <property name="dist.dir" value="dist-13"/>
+      <property name="target.dir" value="target-13"/>
+
+    </ant>
+
+    <depend project="jakarta-ant"/>
+    <depend project="xml-xerces"/>
+
+    <nag from="Vincent Massol &lt;vmassol@apache.org&gt;"
+         to="cactus-dev@jakarta.apache.org"/>
+  </project>
+
 </module>

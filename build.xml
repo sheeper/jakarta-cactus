@@ -162,9 +162,9 @@
     </target>
 
     <!--
-        ========================================================================
+       ========================================================================
           Find out the J2EE API version
-        ========================================================================
+       ========================================================================
      -->
      <target name="check.j2ee.version">
 
@@ -196,13 +196,13 @@
     </target>
 
     <!--
-        ========================================================================
+       ========================================================================
           Generate the distributable files
-        ========================================================================
+       ========================================================================
     -->
 
-    <!-- Generate Cactus Ant tasks deliverables -->
-    <target name="dist.anttasks" depends="init">
+    <!-- Run Cactus Ant tasks dist target -->
+    <target name="run.anttasks" depends="init">
 
         <ant target="dist" antfile="${anttasks.dir}/build.xml"
             inheritAll="true">
@@ -223,19 +223,10 @@
                 value="${anttasks.dir}/${dist.doc.api.dir}"/>
         </ant>
 
-        <copy todir="${dist.lib.dir}">
-            <fileset dir="${anttasks.dir}/${dist.lib.dir}"/>
-        </copy>
-
-        <!-- Copy javadoc in correct directory -->
-        <copy todir="${dist.doc.api.dir}/anttasks">
-            <fileset dir="${anttasks.dir}/${dist.doc.api.dir}"/>
-        </copy>
-
     </target>
 
-    <!-- Generate Cactus Ant tasks deliverables -->
-    <target name="dist.framework" depends="init">
+    <!-- Run Cactus Framework dist target -->
+    <target name="run.framework" depends="init">
 
         <ant target="dist" antfile="${framework.dir}/build.xml"
             inheritAll="true">
@@ -258,23 +249,10 @@
                 value="${framework.dir}/${dist.web.dir}"/>
         </ant>
 
-        <copy todir="${dist.lib.dir}">
-            <fileset dir="${framework.dir}/${dist.lib.dir}"/>
-        </copy>
-
-        <copy todir="${dist.web.dir}">
-            <fileset dir="${framework.dir}/${dist.web.dir}"/>
-        </copy>
-
-        <!-- Copy javadoc in correct directory -->
-        <copy todir="${dist.doc.api.dir}/framework/j2ee${j2ee.api}">
-            <fileset dir="${framework.dir}/${dist.doc.api.dir}"/>
-        </copy>
-
     </target>
 
-    <!-- Generate Cactus Servlet Sample deliverables -->
-    <target name="dist.sample-servlet" depends="init">
+    <!-- Run Cactus Servlet Sample dist target -->
+    <target name="run.sample-servlet" depends="init">
 
          <ant target="dist" antfile="${sample-servlet.dir}/build.xml"
             inheritAll="true">
@@ -302,13 +280,10 @@
                 value="${framework.dir}/${dist.web.dir}"/>
         </ant>
 
-        <unzip src="${sample-servlet.dir}/${dist.dir}/bin/sample-servlet.zip"
-            dest="${dist.dir}/sample-servlet"/>
-
     </target>
 
-    <!-- Generate Documentation deliverables -->
-    <target name="dist.documentation" depends="dist.anttasks">
+    <!-- Run Documentation dist target -->
+    <target name="run.documentation" depends="run.anttasks">
 
         <ant target="dist" antfile="${documentation.dir}/build.xml"
             inheritAll="true">
@@ -325,6 +300,58 @@
             <property name="cactus.ant.jar" value="${anttasks.jar}"/>
         </ant>
 
+    </target>
+
+    <!-- Run the dist target of all dependent projects -->
+    <target name="run"
+        depends="run.anttasks,run.framework,run.sample-servlet,run.documentation">
+    </target>
+
+    <!--
+       ========================================================================
+          Package all generated distributables from all subprojects into the
+          main distribution area.
+       ========================================================================
+     -->
+    <target name="package.anttasks" depends="init">
+
+        <copy todir="${dist.lib.dir}">
+            <fileset dir="${anttasks.dir}/${dist.lib.dir}"/>
+        </copy>
+
+        <!-- Copy javadoc in correct directory -->
+        <copy todir="${dist.doc.api.dir}/anttasks">
+            <fileset dir="${anttasks.dir}/${dist.doc.api.dir}"/>
+        </copy>
+
+    </target>
+
+    <target name="package.framework" depends="init">
+
+        <copy todir="${dist.lib.dir}">
+            <fileset dir="${framework.dir}/${dist.lib.dir}"/>
+        </copy>
+
+        <copy todir="${dist.web.dir}">
+            <fileset dir="${framework.dir}/${dist.web.dir}"/>
+        </copy>
+
+        <!-- Copy javadoc in correct directory -->
+        <copy todir="${dist.doc.api.dir}/framework/j2ee${j2ee.api}">
+            <fileset dir="${framework.dir}/${dist.doc.api.dir}"/>
+        </copy>
+
+    </target>
+
+    <target name="package.sample-servlet" depends="init">
+
+        <unzip src="${sample-servlet.dir}/${dist.dir}/bin/sample-servlet.zip"
+            dest="${dist.dir}/sample-servlet"/>
+
+    </target>
+
+    <target name="package.documentation" depends="init">
+
         <!-- Copy doc in correct directory -->
         <copy todir="${dist.doc.dir}">
             <fileset dir="${documentation.dir}/${dist.doc.dir}"/>
@@ -332,9 +359,16 @@
 
     </target>
 
-    <!-- Generate all distributables -->
-    <target name="dist"
-        depends="dist.anttasks,dist.framework,dist.sample-servlet,dist.documentation">
+    <target name="package"
+        depends="package.anttasks,package.framework,package.sample-servlet,package.documentation">
+    </target>
+
+    <!--
+       ========================================================================
+          Make the distribution.
+       ========================================================================
+     -->
+    <target name="dist" depends="run,package">
     </target>
 
    <!--
@@ -399,15 +433,15 @@
 
     <!--
        ========================================================================
-         Common script for both "release" and "nightly" targets. Must only be
-         called by "release" or "nightly" target as it needs the following
+         Common script for both "release" and "gump" targets. Must only be
+         called by "release" or "gump" target as it needs the following
          properties defined before calling it :
 
-             anttasks.release.name
+             cactus.release.name
 
        ========================================================================
     -->
-    <target name="release.common" depends="dist">
+    <target name="release.common" depends="init">
 
         <mkdir dir="${target.lib.dir}"/>
         <mkdir dir="${release.dir}"/>
@@ -453,16 +487,20 @@
 
     </target>
 
-    <target name="release" depends="release.prepare,clean,release.common"
+    <target name="release" depends="release.prepare,clean,dist,release.common"
         description="Generate a release">
     </target>
 
     <!--
        ========================================================================
-         Generate a nightly release (i.e. the zipped release file)
+         Generate a nightly gump release (i.e. the zipped release file).
+         Note: Our Gump scripts builds all sub projects separately (see
+         gump.xml) and thus we only need to package the distribution but there
+         is no need to actually run the dependent projects as they have already
+         been run by Gump at this stage.
        ========================================================================
     -->
-    <target name="nightly.prepare" depends="init">
+    <target name="gump.prepare" depends="init">
 
         <!-- Sets the date for the release prefix : YYYYMMDD -->
         <tstamp/>
@@ -476,8 +514,8 @@
 
     </target>
 
-    <target name="nightly" depends="nightly.prepare,release.common"
-        description="Generate a nightly release">
+    <target name="gump" depends="gump.prepare,package,release.common"
+        description="Generate a nightly gump release">
     </target>
 
 </project>
