@@ -107,14 +107,12 @@ public class WebXmlMerger
     public final void merge(WebXml theMergeWebXml)
     {
         checkServletVersions(theMergeWebXml);
-        if ((this.webXml.getVersion() != null)
-         && (this.webXml.getVersion().compareTo(WebXmlVersion.V2_3) >= 0))
+        if (WebXmlVersion.V2_3.compareTo(this.webXml.getVersion()) <= 0)
         {
             mergeFilters(theMergeWebXml);
         }
         mergeServlets(theMergeWebXml);
-        if ((this.webXml.getVersion() != null)
-         && (this.webXml.getVersion().compareTo(WebXmlVersion.V2_3) >= 0))
+        if (WebXmlVersion.V2_3.compareTo(this.webXml.getVersion()) <= 0)
         {
             mergeResourceEnvironmentReferences(theMergeWebXml);
         }
@@ -124,8 +122,7 @@ public class WebXmlMerger
         mergeSecurityRoles(theMergeWebXml);
         mergeEnvironmentEntries(theMergeWebXml);
         mergeEjbRefs(theMergeWebXml);
-        if ((this.webXml.getVersion() != null)
-         && (this.webXml.getVersion().compareTo(WebXmlVersion.V2_3) >= 0))
+        if (WebXmlVersion.V2_3.compareTo(this.webXml.getVersion()) <= 0)
         {
             mergeEjbLocalRefs(theMergeWebXml);
         }
