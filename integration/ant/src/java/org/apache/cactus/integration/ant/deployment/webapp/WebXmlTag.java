@@ -1,7 +1,7 @@
 /* 
  * ========================================================================
  * 
- * Copyright 2003 The Apache Software Foundation.
+ * Copyright 2003-2005 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,7 +28,6 @@ package org.apache.cactus.integration.ant.deployment.webapp;
  */
 public final class WebXmlTag
 {
-    
     // Public Constants --------------------------------------------------------
     
     /**
@@ -138,6 +137,12 @@ public final class WebXmlTag
      */
     public static final WebXmlTag LOAD_ON_STARTUP =
         new WebXmlTag("load-on-startup");
+    
+    /**
+     * Element name 'run-as'.
+     */
+    public static final WebXmlTag RUN_AS =
+        new WebXmlTag("run-as");
     
     /**
      * Element name 'servlet-mapping'.

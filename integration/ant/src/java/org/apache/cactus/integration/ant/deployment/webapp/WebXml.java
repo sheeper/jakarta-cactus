@@ -1,7 +1,7 @@
 /* 
  * ========================================================================
  * 
- * Copyright 2003-2004 The Apache Software Foundation.
+ * Copyright 2003-2005 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,7 +39,6 @@ import org.w3c.dom.NodeList;
  */
 public class WebXml
 {
-    
     // Private Constants -------------------------------------------------------
     
     /**
@@ -544,6 +543,23 @@ public class WebXml
     }
     
     /**
+     * Adds a run-as declaration to the specified servlet.
+     * 
+     * @param theServletName the name of the servlet to manipulate
+     * @param theRoleName the role name that the servlet should be running as
+     */
+    public final void addServletRunAsRoleName(String theServletName, 
+                                              String theRoleName)
+    {
+        Element servlet = getServlet(theServletName);
+        Element runAsElement =
+            this.document.createElement(WebXmlTag.RUN_AS.getTagName());
+        runAsElement.appendChild(createNestedText(WebXmlTag.ROLE_NAME, 
+                                                  theRoleName));
+        servlet.appendChild(runAsElement);
+    }
+    
+    /**
      * Adds a servlet mapping to the descriptor.
      * 
      * @param theServletName The name of the servlet
@@ -618,6 +634,35 @@ public class WebXml
     public final Iterator getServletInitParamNames(String theServletName)
     {
         return getInitParamNames(getServlet(theServletName));
+    }
+    
+    /**
+     * Returns the role name that the servlet is running as.
+     * 
+     * @param theServletName The name of the servlet of which the role name 
+     * should be retrieved
+     * @return the roleName or null if non is specified
+     */
+    public final String getServletRunAsRoleName(String theServletName)
+    {
+        if (theServletName == null)
+        {
+            throw new NullPointerException();
+        }
+        String roleName = null;
+        Element servlet = getServlet(theServletName);
+        NodeList nodeList = 
+            servlet.getElementsByTagName(WebXmlTag.RUN_AS.getTagName());
+        if (nodeList != null)
+        {
+            Element e = (Element) nodeList.item(0);
+            if (e != null)
+            {
+                roleName = getNestedText(e, WebXmlTag.ROLE_NAME);
+            }
+        }
+        
+        return roleName;
     }
     
     /**
