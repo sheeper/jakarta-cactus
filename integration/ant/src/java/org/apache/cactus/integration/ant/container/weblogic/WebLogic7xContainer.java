@@ -64,7 +64,6 @@ import org.apache.cactus.integration.ant.util.ResourceUtils;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.taskdefs.Jar;
 import org.apache.tools.ant.taskdefs.Java;
-import org.apache.tools.ant.types.FileSet;
 import org.apache.tools.ant.types.FilterChain;
 import org.apache.tools.ant.types.Path;
 import org.apache.tools.ant.types.ZipFileSet;
@@ -75,6 +74,7 @@ import org.apache.tools.ant.types.ZipFileSet;
  * FIXME: this doesn't work for me on JDK 1.3.1 and WL 7.0 SP2
  * 
  * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
+ * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  * 
  * @version $Id$
  */
@@ -89,7 +89,8 @@ public class WebLogic7xContainer extends AbstractJavaContainer
     private File beaHome;
 
     /**
-     * The WebLogic 7.x installation directory.
+     * The WebLogic 7.x installation directory. For example:
+     * "c:/bea/weblogic700".
      */
     private File dir;
 
@@ -174,9 +175,14 @@ public class WebLogic7xContainer extends AbstractJavaContainer
         {
             throw new BuildException(this.dir + " is not a directory");
         }
+
+        // If the beaHome attribute is not set, guess the bea home
+        // directory using the parent directory of this.dir 
         if (this.beaHome == null)
         {
-            throw new BuildException("The beaHome attribute must be set");
+            getLog().debug("Extrapolating beaHome to be ["
+                + this.dir.getParentFile() + "]");
+            this.beaHome = this.dir.getParentFile();
         }
     }
 
@@ -193,8 +199,8 @@ public class WebLogic7xContainer extends AbstractJavaContainer
             java.setDir(new File(this.tmpDir, "testdomain"));
             
             java.createJvmarg().setValue("-hotspot");
-            java.createJvmarg().setValue("-ms64m");
-            java.createJvmarg().setValue("-mx64m");
+            java.createJvmarg().setValue("-Xms32m");
+            java.createJvmarg().setValue("-Xmx200m");
             
             File serverDir = new File(this.dir, "server");
             
@@ -210,9 +216,9 @@ public class WebLogic7xContainer extends AbstractJavaContainer
             java.addSysproperty(
                 createSysProperty("bea.home", this.beaHome));
             java.addSysproperty(
-                createSysProperty("weblogic.management.username", "system"));
+                createSysProperty("weblogic.management.username", "weblogic"));
             java.addSysproperty(
-                createSysProperty("weblogic.management.password", "password"));
+                createSysProperty("weblogic.management.password", "weblogic"));
             java.addSysproperty(
                 createSysProperty("java.security.policy",
                     "=./server/lib/weblogic.policy"));
@@ -252,9 +258,9 @@ public class WebLogic7xContainer extends AbstractJavaContainer
         java.createArg().setValue("-url");
         java.createArg().setValue("t3://localhost:" + getPort());
         java.createArg().setValue("-username");
-        java.createArg().setValue("system");
+        java.createArg().setValue("weblogic");
         java.createArg().setValue("-password");
-        java.createArg().setValue("password");
+        java.createArg().setValue("weblogic");
         java.createArg().setValue("SHUTDOWN");
         java.execute();
     }
@@ -284,50 +290,13 @@ public class WebLogic7xContainer extends AbstractJavaContainer
             new File(testDomainDir, "config.xml"),
             filterChain);
         ResourceUtils.copyResource(getProject(),
-            RESOURCE_PATH + "weblogic7x/fileRealm.properties",
-            new File(testDomainDir, "fileRealm.properties"),
-            filterChain);
-        ResourceUtils.copyResource(getProject(),
-            RESOURCE_PATH + "weblogic7x/fileRealm.properties",
-            new File(testDomainDir, "fileRealm.properties"),
-            filterChain);
-        ResourceUtils.copyResource(getProject(),
-            RESOURCE_PATH + "weblogic7x/SerializedSystemIni.dat",
-            new File(testDomainDir, "SerializedSystemIni.dat"),
-            filterChain);
-        ResourceUtils.copyResource(getProject(),
             RESOURCE_PATH + "weblogic7x/DefaultAuthenticatorInit.ldift",
             new File(testDomainDir, "DefaultAuthenticatorInit.ldift"),
             filterChain);
 
-        File testServerDir = createDirectory(testDomainDir, "testserver");
-        File ldapFilesDir =
-            createDirectory(testServerDir, "ldap/ldapfiles");
-        ResourceUtils.copyResource(getProject(), RESOURCE_PATH
-            + "weblogic7x/testserver/ldap/ldapfiles/EmbeddedLDAP.data",
-            new File(ldapFilesDir, "EmbeddedLDAP.data"),
-            filterChain);
-        ResourceUtils.copyResource(getProject(), RESOURCE_PATH
-            + "weblogic7x/testserver/ldap/ldapfiles/EmbeddedLDAP.delete",
-            new File(ldapFilesDir, "EmbeddedLDAP.delete"),
-            filterChain);
-        ResourceUtils.copyResource(getProject(), RESOURCE_PATH
-            + "weblogic7x/testserver/ldap/ldapfiles/EmbeddedLDAP.index",
-            new File(ldapFilesDir, "EmbeddedLDAP.index"),
-            filterChain);
-        ResourceUtils.copyResource(getProject(), RESOURCE_PATH
-            + "weblogic7x/testserver/ldap/ldapfiles/EmbeddedLDAP.tran",
-            new File(ldapFilesDir, "EmbeddedLDAP.tran"),
-            filterChain);
-        ResourceUtils.copyResource(getProject(), RESOURCE_PATH
-            + "weblogic7x/testserver/ldap/ldapfiles/EmbeddedLDAP.trpos",
-            new File(ldapFilesDir, "EmbeddedLDAP.trpos"),
-            filterChain);
-        ResourceUtils.copyResource(getProject(), RESOURCE_PATH
-            + "weblogic7x/testserver/ldap/ldapfiles/EmbeddedLDAP.twpos",
-            new File(ldapFilesDir, "EmbeddedLDAP.trwpos"),
-            filterChain);
-
+        // TODO: For improvement, do not copy the weblogic.xml file
+        // in the tmpdir.
+        
         // Extract the weblogic.xml descriptor
         File weblogicXml = new File(this.tmpDir, "weblogic.xml");
         ResourceUtils.copyResource(getProject(),
@@ -335,7 +304,7 @@ public class WebLogic7xContainer extends AbstractJavaContainer
             weblogicXml, filterChain);
 
         // deploy the web-app by copying the WAR file into the applications
-        // directory, adding the weblogic.xml descriptor
+        // directory, adding the weblogic.xml descriptor in WEB-INF
         File applicationsDir =
             createDirectory(testDomainDir, "applications");
         Jar jar = (Jar) createAntTask("jar");
@@ -344,10 +313,11 @@ public class WebLogic7xContainer extends AbstractJavaContainer
         ZipFileSet zip = new ZipFileSet();
         zip.setSrc(getDeployableFile());
         jar.addZipfileset(zip);
-        FileSet fileSet = new FileSet();
+        ZipFileSet fileSet = new ZipFileSet();
         fileSet.setDir(this.tmpDir);
         fileSet.createInclude().setName("weblogic.xml");
-        jar.addFileset(fileSet);
+        fileSet.setPrefix("WEB-INF");
+        jar.addZipfileset(fileSet);
         jar.execute();
     }
 

@@ -77,6 +77,15 @@ Note: To be added once we include the Eclipse plugin in a release
         </action>
 -->
       <release version="1.6" date="in CVS">
+        <action dev="VMA" type="fix">
+          Fixed bugs in the WebLogic 7.x configuration: the
+          <code>weblogic.xml</code> file was not correctly copied
+          in the <code>WEB-INF</code> directory of the cactified
+          war, and an NPE happened when the bea home property was not 
+          set. It now tries to guess it from the
+          <code>cactus.home.weblogic7x</code> property if not set.
+          In addition, the configuration has also been greatly simplified.
+        </action>
         <action dev="VMA" type="update">
           In the cactifywar Ant task, changed the default realm name
           that is used when adding Cactus default configuration data.
