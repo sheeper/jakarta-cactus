@@ -271,7 +271,6 @@
     <@j2ee13.begin@mkdir dir="${target.testreports.dir}/jboss3x"/@j2ee13.end@>
     <mkdir dir="${target.testreports.dir}/orion1x"/>
     <mkdir dir="${target.testreports.dir}/orion2x"/>
-    <mkdir dir="${target.testreports.dir}/weblogic7x"/>
 
   </target>
 
@@ -300,10 +299,6 @@
             dir="${cactus.home.orion2x}" port="${cactus.port}"
             output="${target.testreports.dir}/orion2x.out"
             todir="${target.testreports.dir}/orion2x"/>
-        <weblogic7x if="cactus.home.weblogic7x"
-            dir="${cactus.home.weblogic7x}" port="${cactus.port}"
-            output="${target.testreports.dir}/weblogic7x.out"
-            todir="${target.testreports.dir}/weblogic7x"/>
       </containerset>
       <formatter type="brief" usefile="false"/>
       <formatter type="xml"/>
@@ -332,12 +327,6 @@
       <fileset dir="${target.testreports.dir}/orion2x"
           includes="TEST-*.xml"/>
       <report todir="${target.testreports.dir}/orion2x"
-          format="frames"/>
-    </junitreport>
-    <junitreport todir="${target.testreports.dir}/weblogic7x">
-      <fileset dir="${target.testreports.dir}/weblogic7x"
-          includes="TEST-*.xml"/>
-      <report todir="${target.testreports.dir}/weblogic7x"
           format="frames"/>
     </junitreport>
 
