@@ -56,21 +56,13 @@
  */
 package org.apache.cactus.integration.ant;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.PrintWriter;
-import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 
+import org.apache.cactus.integration.ant.container.ContainerRunner;
+import org.apache.cactus.integration.ant.container.GenericContainer;
+import org.apache.cactus.integration.ant.util.AntLog;
 import org.apache.tools.ant.BuildException;
-import org.apache.tools.ant.Project;
 import org.apache.tools.ant.Task;
-import org.apache.tools.ant.TaskContainer;
-import org.apache.tools.ant.taskdefs.CallTarget;
 
 /**
  * Task to automate running in-container unit test. It has the following
@@ -104,119 +96,22 @@ import org.apache.tools.ant.taskdefs.CallTarget;
 public class RunServerTestsTask extends Task
 {
 
-    // Inner Classes -----------------------------------------------------------
+    // Instance Variables ------------------------------------------------------
 
     /**
-     * Class that represents the nested 'startup' and 'shutdown' elements. It
-     * supports either an Ant target to delegate to, or a list of nested tasks
-     * that are to be executed in order to perform the operation. 
+     * The generic container.
      */
-    public class Hook implements TaskContainer
-    {
-        
-        // Instance Variables --------------------------------------------------
-        
-        /**
-         * The target to call when the hook is executed. 
-         */
-        private String target;
-
-        /**
-         * Ordered list of the contained tasks that should be invoked when the
-         * hook is executed.
-         */
-        private List tasks = new ArrayList();
-
-        // Public Methods ------------------------------------------------------
-        
-        /**
-         * Sets the target to call.
-         * 
-         * @param theTarget The name of the target
-         */
-        public void setTarget(String theTarget)
-        {
-            if (!this.tasks.isEmpty())
-            {
-                throw new BuildException("This element supports either "
-                    + "a [target] attribute or nested tasks, but not both");
-            }
-            this.target = theTarget;
-        }
-
-        /**
-         * @see org.apache.tools.ant.TaskContainer#addTask
-         */
-        public void addTask(Task theTask) throws BuildException
-        {
-            if (this.target != null)
-            {
-                throw new BuildException("This element supports either "
-                    + "a [target] attribute or nested tasks, but not both");
-            }
-            this.tasks.add(theTask);
-        }
-
-        /**
-         * Executes the hook by either calling the specified target, or invoking
-         * all nested tasks.
-         * 
-         * @throws BuildException If thrown by the called target or one of the
-         *         nested tasks
-         */
-        public void execute() throws BuildException
-        {
-            if (this.target != null)
-            {
-                CallTarget callee;
-                callee = (CallTarget) project.createTask("antcall");
-                callee.setOwningTarget(getOwningTarget());
-                callee.setTaskName(getTaskName());
-                callee.setLocation(location);
-                callee.setInheritAll(true);
-                callee.setInheritRefs(true);
-                callee.init();
-                callee.setTarget(this.target);
-                callee.execute();
-            }
-            else
-            {
-                for (Iterator i = this.tasks.iterator(); i.hasNext();)
-                {
-                    Task task = (Task) i.next();
-                    task.perform();
-                }
-            }
-        }
-
-    }
-
-    // Instance Variables ------------------------------------------------------
+    private GenericContainer container = new GenericContainer();
 
     /**
      * The hook that is called when the tests should be run.
      */
-    private Hook testHook;
-
-    /**
-     * The hook that is called when the container should be started.
-     */
-    private Hook startHook;
-
-    /**
-     * The hook that is called when the container should be stopped.
-     */
-    private Hook stopHook;
+    private GenericContainer.Hook testHook;
 
     /**
      * The URL that is continuously pinged to verify if the server is running.
      */
-    private URL testURL;
-
-    /**
-     * True if the server was already started when this task is executed.
-     */
-    private boolean isServerAlreadyStarted = false;
+    private URL testUrl;
 
     /**
      * Timeout after which we stop trying to connect to the test URL (in ms).
@@ -230,25 +125,43 @@ public class RunServerTestsTask extends Task
      */
     public void execute() throws BuildException
     {
-        // Verify that a test URL has been specified
-        if (this.testURL == null)
+        if (!this.container.isStartUpSet())
         {
-            throw new BuildException("A testURL attribute must be specified");
+            throw new BuildException("You must specify either a nested [start] "
+                + "element or the [starttarget] attribute");
+        }
+        
+        if (!this.container.isShutDownSet())
+        {
+            throw new BuildException("You must specify either a nested [stop] "
+                + "element or the [stoptarget] attribute");
         }
 
+        if (this.testHook == null)
+        {
+            throw new BuildException("You must specify either a nested [test] "
+                + "element or the [testtarget] attribute");
+        }
+
+        // Verify that a test URL has been specified
+        if (this.testUrl == null)
+        {
+            throw new BuildException(
+                "The [testurl] attribute must be specified");
+        }
+
+        ContainerRunner runner = new ContainerRunner(this.container);
+        runner.setLog(new AntLog(this));
+        runner.setUrl(this.testUrl);
+        runner.setTimeout(this.timeout);
+        runner.startUpContainer();
         try
         {
-            startServer();
             this.testHook.execute();
         }
         finally
         {
-            // Make sure we stop the server but only if it were not already
-            // started before the execution of this task.
-            if (!this.isServerAlreadyStarted)
-            {
-                stopServer();
-            }
+            runner.shutDownContainer();
         }
     }
 
@@ -259,15 +172,14 @@ public class RunServerTestsTask extends Task
      * 
      * @return The start element
      */
-    public Hook createStart()
+    public GenericContainer.Hook createStart()
     {
-        if (this.startHook != null)
+        if (this.container.isStartUpSet())
         {
-            throw new BuildException("Either specify the [starttarget] "
-                + "attribute or the nested [start] element, but not both");
+            throw new BuildException(
+                "This task supports only one nested [start] element");
         }
-        this.startHook = new Hook();
-        return this.startHook;
+        return this.container.createStartUp();
     }
 
     /**
@@ -277,13 +189,12 @@ public class RunServerTestsTask extends Task
      */
     public void setStartTarget(String theStartTarget)
     {
-        if (this.startHook != null)
+        if (this.container.isStartUpSet())
         {
             throw new BuildException("Either specify the [starttarget] "
                 + "attribute or the nested [start] element, but not both");
         }
-        this.startHook = new Hook();
-        this.startHook.setTarget(theStartTarget);
+        this.container.setStartUpTarget(theStartTarget);
     }
 
     /**
@@ -291,15 +202,14 @@ public class RunServerTestsTask extends Task
      * 
      * @return The stop element
      */
-    public Hook createStop()
+    public GenericContainer.Hook createStop()
     {
-        if (this.stopHook != null)
+        if (this.container.isShutDownSet())
         {
-            throw new BuildException("Either specify the [stoptarget] "
-                + "attribute or the nested [stop] element, but not both");
+            throw new BuildException(
+                "This task supports only one nested [stop] element");
         }
-        this.stopHook = new Hook();
-        return this.stopHook;
+        return this.container.createShutDown();
     }
 
     /**
@@ -309,13 +219,12 @@ public class RunServerTestsTask extends Task
      */
     public void setStopTarget(String theStopTarget)
     {
-        if (this.stopHook != null)
+        if (this.container.isShutDownSet())
         {
             throw new BuildException("Either specify the [stoptarget] "
                 + "attribute or the nested [stop] element, but not both");
         }
-        this.stopHook = new Hook();
-        this.stopHook.setTarget(theStopTarget);
+        this.container.setShutDownTarget(theStopTarget);
     }
 
     /**
@@ -323,14 +232,14 @@ public class RunServerTestsTask extends Task
      * 
      * @return The test element
      */
-    public Hook createTest()
+    public GenericContainer.Hook createTest()
     {
         if (this.testHook != null)
         {
-            throw new BuildException("Either specify the [testtarget] "
-                + "attribute or the nested [test] element, but not both");
+            throw new BuildException(
+                "This task supports only one nested [test] element");
         }
-        this.testHook = new Hook();
+        this.testHook = container.new Hook();
         return this.testHook;
     }
 
@@ -343,25 +252,21 @@ public class RunServerTestsTask extends Task
     {
         if (this.testHook != null)
         {
-            throw new BuildException("Eitehr specify the [testtarget] "
+            throw new BuildException("Either specify the [testtarget] "
                 + "attribute or the nested [test] element, but not both");
         }
-        this.testHook = new Hook();
+        this.testHook = container.new Hook();
         this.testHook.setTarget(theTestTarget);
     }
 
     /**
      * Sets the URL to call for testing if the server is running.
      *
-     * @param theTestURL the test URL to ping
+     * @param theTestUrl the test URL to ping
      */
-    public void setTestURL(URL theTestURL)
+    public void setTestUrl(URL theTestUrl)
     {
-        if (!theTestURL.getProtocol().equals("http"))
-        {
-            throw new IllegalArgumentException("Not a HTTP URL");
-        } 
-        this.testURL = theTestURL;
+        this.testUrl = theTestUrl;
     }
 
     /**
@@ -371,191 +276,6 @@ public class RunServerTestsTask extends Task
     public void setTimeout(long theTimeout)
     {
         this.timeout = theTimeout;
-    }
-
-    // Private Methods ---------------------------------------------------------
-
-    /**
-     * @return true if the test URL could be called without error or false
-     *         otherwise
-     */
-    private boolean isURLCallable()
-    {
-        boolean isURLCallable = false;
-
-        try
-        {
-            HttpURLConnection connection = 
-                (HttpURLConnection) this.testURL.openConnection();
-
-            connection.connect();
-            readFully(connection);
-            connection.disconnect();
-            isURLCallable = true;
-        }
-        catch (IOException e)
-        {
-            // Log an information in debug mode
-            // Get stacktrace text
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            PrintWriter writer = new PrintWriter(baos);
-
-            e.printStackTrace(writer);
-            writer.close();
-
-            this.log("Failed to call test URL. Reason :"
-                + new String(baos.toByteArray()), Project.MSG_DEBUG);
-        }
-
-        return isURLCallable;
-    }
-
-    /**
-     * Fully reads the input stream from the passed HTTP URL connection to
-     * prevent (harmless) server-side exception.
-     *
-     * @param theConnection the HTTP URL connection to read from
-     * @exception IOException if an error happens during the read
-     */
-    private void readFully(HttpURLConnection theConnection)
-                   throws IOException
-    {
-        // Only read if there is data to read ... The problem is that not
-        // all servers return a content-length header. If there is no header
-        // getContentLength() returns -1. It seems to work and it seems
-        // that all servers that return no content-length header also do
-        // not block on read() operations !
-        if (theConnection.getContentLength() != 0)
-        {
-            byte[] buf = new byte[256];
-
-            InputStream is = theConnection.getInputStream();
-
-            while (-1 != is.read(buf))
-            {
-                // Make sure we read all the data in the stream
-            }
-        }
-    }
-
-    /**
-     * Sleeps n milliseconds.
-     *
-     * @param theMs the number of milliseconds to wait
-     * @throws BuildException if the sleeping thread is interrupted
-     */
-    private void sleep(int theMs) throws BuildException
-    {
-        try
-        {
-            Thread.sleep(theMs);
-        }
-        catch (InterruptedException e)
-        {
-            throw new BuildException("Interruption during sleep", e);
-        }
-    }
-
-    /**
-     * Starts the server in another thread and blocks until the test URL becomes
-     * available. 
-     *
-     * @throws BuildException If an error occurs during startup
-     */
-    private void startServer() throws BuildException
-    {
-        // Try connecting in case the server is already running. If so, does
-        // nothing
-        if (isURLCallable())
-        {
-            // Server is already running. Record this information so that we
-            // don't stop it afterwards.
-            this.isServerAlreadyStarted = true;
-            log("Server is already running", Project.MSG_VERBOSE);
-            return;
-        }
-        else
-        {
-            log("Server is not running", Project.MSG_DEBUG);
-        }
-
-        // Call the target that starts the server, in another thread. The called
-        // target must be blocking.
-        Thread thread = new Thread()
-        {
-            public void run()
-            {
-                if (startHook != null)
-                {
-                    startHook.execute();
-                }
-            }
-        };
-        thread.start();
-
-        // Wait a few ms more (just to make sure the servlet engine is
-        // ready to accept connections)
-        sleep(1000);
-
-        // Continuously try calling the test URL until it succeeds or
-        // until a timeout is reached (we then throw a build exception).
-        long startTime = System.currentTimeMillis();
-        while (true)
-        {
-            if (System.currentTimeMillis() - startTime > this.timeout)
-            {
-                throw new BuildException("Failed to start the container after "
-                    + "more than [" + this.timeout + "] ms.");
-            }
-            log("Checking if server is up ...", Project.MSG_DEBUG);
-            if (!isURLCallable())
-            {
-                sleep(500);
-                continue;
-            }
-            break;
-        }
-
-        // Wait a few ms more (just to be sure !)
-        sleep(500);
-        log("Server started", Project.MSG_VERBOSE);
-    }
-
-    /**
-     * Stops the server in another thread and blocks until the server stops
-     * responding to HTTP requests.
-     *
-     * @throws BuildException If an error occurs during shutdown
-     */
-    private void stopServer() throws BuildException
-    {
-        if (!isURLCallable())
-        {
-            // Server is not running. Make this task a no-op.
-            return;
-        }
-
-        // Call the target that stops the server, in another thread.
-        Thread thread = new Thread()
-        {
-            public void run()
-            {
-                if (stopHook != null)
-                {
-                    stopHook.execute();
-                }
-            }
-        };
-        thread.start();
-
-        // Continuously try calling the test URL until it fails
-        do
-        {
-            sleep(500);
-        } while (isURLCallable());
-
-        sleep(1000);
-        log("Server stopped!", Project.MSG_VERBOSE);
     }
 
 }
