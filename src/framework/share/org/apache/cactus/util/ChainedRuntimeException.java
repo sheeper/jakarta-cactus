@@ -51,7 +51,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
-package org.apache.commons.cactus.util;
+package org.apache.cactus.util;
 
 import java.io.*;
 

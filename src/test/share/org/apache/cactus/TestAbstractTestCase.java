@@ -51,15 +51,15 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
-package org.apache.commons.cactus;
+package org.apache.cactus;
 
 import java.util.*;
 import java.net.*;
 
 import junit.framework.*;
 
-import org.apache.commons.cactus.*;
-import org.apache.commons.cactus.util.log.*;
+import org.apache.cactus.*;
+import org.apache.cactus.util.log.*;
 
 /**
  * Unit tests of the <code>AbstractTestCase</code> class.
@@ -363,7 +363,7 @@ public class TestAbstractTestCase extends
 
     /**
      * Test that the end method is called correctly when it's signature
-     * contains a <code>org.apache.commons.cactus.WebResponse</code> parameter.
+     * contains a <code>org.apache.cactus.WebResponse</code> parameter.
      */
     public void testEndMethodOK1()
     {
@@ -371,7 +371,7 @@ public class TestAbstractTestCase extends
 
     /**
      * Test that the end method is called correctly when it's signature
-     * contains a <code>org.apache.commons.cactus.WebResponse</code> parameter.
+     * contains a <code>org.apache.cactus.WebResponse</code> parameter.
      */
     public void endEndMethodOK1(WebResponse theResponse)
     {

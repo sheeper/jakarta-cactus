@@ -51,7 +51,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
-package org.apache.commons.cactus;
+package org.apache.cactus;
 
 import java.net.*;
 import java.io.*;
@@ -59,10 +59,10 @@ import java.util.*;
 
 import org.apache.commons.httpclient.*;
 
-import org.apache.commons.cactus.*;
-import org.apache.commons.cactus.client.*;
-import org.apache.commons.cactus.util.*;
-import org.apache.commons.cactus.util.log.*;
+import org.apache.cactus.*;
+import org.apache.cactus.client.*;
+import org.apache.cactus.util.*;
+import org.apache.cactus.util.log.*;
 
 /**
  * Default web response implementation that provides a minimal

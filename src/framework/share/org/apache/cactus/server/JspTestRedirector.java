@@ -51,13 +51,13 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
-package org.apache.commons.cactus.server;
+package org.apache.cactus.server;
 
 import java.io.*;
 import javax.servlet.*;
 
-import org.apache.commons.cactus.*;
-import org.apache.commons.cactus.util.log.*;
+import org.apache.cactus.*;
+import org.apache.cactus.util.log.*;
 
 /**
  * Extension of the <code>redirector.jsp</code> JSP Redirector in the java

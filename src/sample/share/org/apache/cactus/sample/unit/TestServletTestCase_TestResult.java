@@ -51,7 +51,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
-package org.apache.commons.cactus.sample.unit;
+package org.apache.cactus.sample.unit;
 
 import java.io.*;
 import java.util.*;
@@ -62,8 +62,8 @@ import java.net.*;
 
 import junit.framework.*;
 
-import org.apache.commons.cactus.*;
-import org.apache.commons.cactus.util.*;
+import org.apache.cactus.*;
+import org.apache.cactus.util.*;
 
 /**
  * Verify that the Cactus client side only read the test result *after* the

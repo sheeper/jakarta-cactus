@@ -51,7 +51,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
-package org.apache.commons.cactus;
+package org.apache.cactus;
 
 import java.util.*;
 import java.io.*;
@@ -62,7 +62,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 
 import junit.framework.*;
-import org.apache.commons.cactus.util.log.*;
+import org.apache.cactus.util.log.*;
 
 /**
  * Simulate an HTTP URL by breaking it into its different parts :<br>

@@ -51,12 +51,12 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
-package org.apache.commons.cactus.client;
+package org.apache.cactus.client;
 
 import java.util.*;
 import java.io.*;
 
-import org.apache.commons.cactus.*;
+import org.apache.cactus.*;
 
 /**
  * Helper class that checks configuration parameters (for the client side)

@@ -51,13 +51,13 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
-package org.apache.commons.cactus.server;
+package org.apache.cactus.server;
 
 import java.io.*;
 import javax.servlet.jsp.*;
 import javax.servlet.*;
 
-import org.apache.commons.cactus.*;
+import org.apache.cactus.*;
 
 /**
  * Wrapper around <code>PageContext</code> so that get methods that would

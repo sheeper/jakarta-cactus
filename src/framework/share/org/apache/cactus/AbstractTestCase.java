@@ -51,7 +51,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
-package org.apache.commons.cactus;
+package org.apache.cactus;
 
 import java.lang.reflect.*;
 import javax.servlet.*;
@@ -60,10 +60,10 @@ import java.net.*;
 
 import junit.framework.*;
 
-import org.apache.commons.cactus.client.*;
-import org.apache.commons.cactus.server.*;
-import org.apache.commons.cactus.util.log.*;
-import org.apache.commons.cactus.util.*;
+import org.apache.cactus.client.*;
+import org.apache.cactus.server.*;
+import org.apache.cactus.util.log.*;
+import org.apache.cactus.util.*;
 
 /**
  * Abstract class that specific test cases (<code>ServletTestCase</code>,
@@ -268,7 +268,7 @@ public abstract class AbstractTestCase extends TestCase
 
                 // Is it a Cactus WebResponse ?
                 } else if (parameters[0].getName().
-                    equals("org.apache.commons.cactus.WebResponse")) {
+                    equals("org.apache.cactus.WebResponse")) {
 
                     paramObject = new WebResponse(theRequest, theConnection);
 

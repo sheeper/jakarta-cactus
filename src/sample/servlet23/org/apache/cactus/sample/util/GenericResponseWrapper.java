@@ -51,7 +51,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
-package org.apache.commons.cactus.sample.util;
+package org.apache.cactus.sample.util;
 
 import javax.servlet.*;
 import javax.servlet.http.*;

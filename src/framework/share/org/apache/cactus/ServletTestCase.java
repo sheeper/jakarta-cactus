@@ -51,7 +51,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
-package org.apache.commons.cactus;
+package org.apache.cactus;
 
 import java.lang.reflect.*;
 import javax.servlet.*;
@@ -60,8 +60,8 @@ import java.net.*;
 
 import junit.framework.*;
 
-import org.apache.commons.cactus.client.*;
-import org.apache.commons.cactus.server.*;
+import org.apache.cactus.client.*;
+import org.apache.cactus.server.*;
 
 /**
  * Test classes that need access to valid Servlet implicit objects (such as the
@@ -81,7 +81,7 @@ public class ServletTestCase extends AbstractTestCase
      * <code>beginXXX()</code> or <code>endXXX()</code> methods it will
      * have the <code>null</code> value.
      */
-    public org.apache.commons.cactus.server.HttpServletRequestWrapper request;
+    public org.apache.cactus.server.HttpServletRequestWrapper request;
 
     /**
      * Valid <code>HttpServletResponse</code> object that you can access from

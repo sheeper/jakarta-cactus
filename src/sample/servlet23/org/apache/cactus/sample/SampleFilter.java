@@ -51,13 +51,13 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
-package org.apache.commons.cactus.sample;
+package org.apache.cactus.sample;
 
 import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
-import org.apache.commons.cactus.sample.util.*;
+import org.apache.cactus.sample.util.*;
 
 /**
  * Sample filter that implements some very simple business logic. The goal is

@@ -51,7 +51,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
-package org.apache.commons.cactus.sample;
+package org.apache.cactus.sample;
 
 import java.util.*;
 import java.text.*;
@@ -60,8 +60,8 @@ import java.io.*;
 
 import junit.framework.*;
 
-import org.apache.commons.cactus.*;
-import org.apache.commons.cactus.util.*;
+import org.apache.cactus.*;
+import org.apache.cactus.util.*;
 
 /**
  * Tests of the <code>SampleServlet</code> servlet class.

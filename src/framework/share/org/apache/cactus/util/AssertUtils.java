@@ -51,14 +51,14 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
-package org.apache.commons.cactus.util;
+package org.apache.cactus.util;
 
 import java.net.*;
 import java.util.*;
 import java.io.*;
 import java.text.*;
 
-import org.apache.commons.cactus.*;
+import org.apache.cactus.*;
 
 /**
  * Cactus utility classes to help assert returned results from server side
@@ -68,7 +68,7 @@ import org.apache.commons.cactus.*;
  *
  * @version $Id$
  * @deprecated As of Cactus 1.2, replaced by WebResponse
- * @see org.apache.commons.cactus.WebResponse
+ * @see org.apache.cactus.WebResponse
  */
 public class AssertUtils
 {

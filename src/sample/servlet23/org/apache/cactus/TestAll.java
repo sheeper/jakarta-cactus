@@ -51,7 +51,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
-package org.apache.commons.cactus;
+package org.apache.cactus;
 
 import junit.framework.*;
 
@@ -96,25 +96,25 @@ public class TestAll extends TestCase
 
         // Note: This test need to run first. See the comments in the
         // test class for more information on why
-        suite.addTest(org.apache.commons.cactus.sample.unit.TestServletTestCase_TestResult.suite());
+        suite.addTest(org.apache.cactus.sample.unit.TestServletTestCase_TestResult.suite());
 
         // Functional tests
-        suite.addTest(org.apache.commons.cactus.sample.TestSampleServlet.suite());
-        suite.addTest(org.apache.commons.cactus.sample.TestSampleServletConfig.suite());
-        suite.addTest(org.apache.commons.cactus.sample.TestSampleFilter.suite());
+        suite.addTest(org.apache.cactus.sample.TestSampleServlet.suite());
+        suite.addTest(org.apache.cactus.sample.TestSampleServletConfig.suite());
+        suite.addTest(org.apache.cactus.sample.TestSampleFilter.suite());
 
         // Unit tests requiring a servlet engine
 
         // ServletTestCase tests
-        suite.addTest(org.apache.commons.cactus.sample.unit.TestServletTestCase1.suite());
-        suite.addTest(org.apache.commons.cactus.sample.unit.TestServletTestCase2.suite());
-        suite.addTest(org.apache.commons.cactus.sample.unit.TestServletTestCase3.suite());
-        suite.addTest(org.apache.commons.cactus.sample.unit.TestServletTestCase4.suite());
-        suite.addTest(org.apache.commons.cactus.sample.unit.TestServletTestCase5.suite());
-        suite.addTest(org.apache.commons.cactus.sample.unit.TestServletTestCaseSpecific.suite());
+        suite.addTest(org.apache.cactus.sample.unit.TestServletTestCase1.suite());
+        suite.addTest(org.apache.cactus.sample.unit.TestServletTestCase2.suite());
+        suite.addTest(org.apache.cactus.sample.unit.TestServletTestCase3.suite());
+        suite.addTest(org.apache.cactus.sample.unit.TestServletTestCase4.suite());
+        suite.addTest(org.apache.cactus.sample.unit.TestServletTestCase5.suite());
+        suite.addTest(org.apache.cactus.sample.unit.TestServletTestCaseSpecific.suite());
 
         // JspTestCase tests
-        suite.addTest(org.apache.commons.cactus.sample.unit.TestJspTestCase.suite());
+        suite.addTest(org.apache.cactus.sample.unit.TestJspTestCase.suite());
 
         return suite;
     }

@@ -51,15 +51,15 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
-package org.apache.commons.cactus;
+package org.apache.cactus;
 
 import java.net.*;
 import java.io.*;
 
 import junit.framework.*;
 
-import org.apache.commons.cactus.*;
-import org.apache.commons.cactus.mock.*;
+import org.apache.cactus.*;
+import org.apache.cactus.mock.*;
 
 /**
  * Test <code>TestCase</code> class that intercepts all exceptions (and assert
@@ -137,7 +137,7 @@ public class TestAbstractTestCase_InterceptorTestCase
                 assertEquals("The begin method " +
                     "[beginBeginMethodBadParamType] must accept a single " +
                     "parameter derived from class " +
-                    "[org.apache.commons.cactus.WebRequest], but " +
+                    "[org.apache.cactus.WebRequest], but " +
                     "found a [java.lang.String] parameter instead",
                     e.getMessage());
                 return;
@@ -150,7 +150,7 @@ public class TestAbstractTestCase_InterceptorTestCase
                 assertEquals("The begin method " +
                     "[beginBeginMethodBadParamNumber] must accept a single " +
                     "parameter derived from class " +
-                    "[org.apache.commons.cactus.WebRequest], but 2 " +
+                    "[org.apache.cactus.WebRequest], but 2 " +
                     "parameters were found",
                     e.getMessage());
                 return;
@@ -210,7 +210,7 @@ public class TestAbstractTestCase_InterceptorTestCase
             }
 
             // Test that the end method is called correctly when it's signature
-            // contains a <code>org.apache.commons.cactus.WebResponse</code>
+            // contains a <code>org.apache.cactus.WebResponse</code>
             // parameter.
             if (name().equals("testEndMethodOK1")) {
                 assertEquals("endEndMethodOK1", e.getMessage());

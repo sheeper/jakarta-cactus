@@ -51,7 +51,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
-package org.apache.commons.cactus.server;
+package org.apache.cactus.server;
 
 import java.io.*;
 import java.util.*;
@@ -60,7 +60,7 @@ import javax.servlet.jsp.tagext.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
-import org.apache.commons.cactus.*;
+import org.apache.cactus.*;
 
 /**
  * Abstract wrapper around <code>PageContext</code>. This class provides

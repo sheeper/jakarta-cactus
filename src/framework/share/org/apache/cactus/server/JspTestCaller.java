@@ -51,7 +51,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
-package org.apache.commons.cactus.server;
+package org.apache.cactus.server;
 
 import java.io.*;
 import java.lang.reflect.*;
@@ -62,8 +62,8 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.jsp.*;
 
-import org.apache.commons.cactus.*;
-import org.apache.commons.cactus.util.log.*;
+import org.apache.cactus.*;
+import org.apache.cactus.util.log.*;
 
 /**
  * Call the test method on the server side after assigning the JSP implicit

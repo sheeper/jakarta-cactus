@@ -51,7 +51,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
-package org.apache.commons.cactus.server;
+package org.apache.cactus.server;
 
 import java.io.*;
 import java.lang.reflect.*;
@@ -61,8 +61,8 @@ import java.util.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
-import org.apache.commons.cactus.*;
-import org.apache.commons.cactus.util.log.*;
+import org.apache.cactus.*;
+import org.apache.cactus.util.log.*;
 
 /**
  * Generic Servlet redirector that calls a test method on the server side.

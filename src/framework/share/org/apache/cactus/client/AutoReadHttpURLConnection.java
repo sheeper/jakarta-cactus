@@ -51,13 +51,13 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
-package org.apache.commons.cactus.client;
+package org.apache.cactus.client;
 
 import java.io.*;
 import java.net.*;
 import java.security.*;
 
-import org.apache.commons.cactus.util.log.*;
+import org.apache.cactus.util.log.*;
 
 /**
  * Wrapper class for the real <code>HttpURLConnection</code> to the test servlet

@@ -51,7 +51,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
-package org.apache.commons.cactus.client;
+package org.apache.cactus.client;
 
 import java.util.*;
 import java.net.*;
@@ -60,9 +60,9 @@ import java.io.*;
 import junit.framework.*;
 import org.apache.commons.httpclient.*;
 
-import org.apache.commons.cactus.*;
-import org.apache.commons.cactus.util.log.*;
-import org.apache.commons.cactus.util.*;
+import org.apache.cactus.*;
+import org.apache.cactus.util.log.*;
+import org.apache.cactus.util.*;
 
 /**
  * Helper class to open an HTTP connection to the server redirector and pass
@@ -247,8 +247,8 @@ public class HttpClientHelper
             Vector httpclientCookies = new Vector();
             Enumeration enumCookies = cookies.elements();
             while (enumCookies.hasMoreElements()) {
-                org.apache.commons.cactus.Cookie cactusCookie =
-                    (org.apache.commons.cactus.Cookie)enumCookies.nextElement();
+                org.apache.cactus.Cookie cactusCookie =
+                    (org.apache.cactus.Cookie)enumCookies.nextElement();
                 org.apache.commons.httpclient.Cookie httpclientCookie =
                     new org.apache.commons.httpclient.Cookie(
                         cactusCookie.getDomain(), cactusCookie.getName(),

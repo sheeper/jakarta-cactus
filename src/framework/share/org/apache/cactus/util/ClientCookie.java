@@ -51,7 +51,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
-package org.apache.commons.cactus.util;
+package org.apache.cactus.util;
 
 /**
  * Contains cookie information for cookies returned from the server to the
@@ -60,8 +60,8 @@ package org.apache.commons.cactus.util;
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
- * @deprecated As of Cactus 1.2, replaced by org.apache.commons.cactus.Cookie
- * @see org.apache.commons.cactus.Cookie
+ * @deprecated As of Cactus 1.2, replaced by org.apache.cactus.Cookie
+ * @see org.apache.cactus.Cookie
  */
 public class ClientCookie
 {

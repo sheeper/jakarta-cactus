@@ -51,7 +51,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
-package org.apache.commons.cactus;
+package org.apache.cactus;
 
 import junit.framework.*;
 
@@ -95,7 +95,7 @@ public class TestAll extends TestCase
         TestSuite suite =
             new TestSuite("Cactus unit tests not needing servlet engine");
 
-        suite.addTest(org.apache.commons.cactus.TestAbstractTestCase.suite());
+        suite.addTest(org.apache.cactus.TestAbstractTestCase.suite());
 
         return suite;
     }

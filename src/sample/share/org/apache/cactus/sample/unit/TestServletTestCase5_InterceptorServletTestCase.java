@@ -51,12 +51,12 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
-package org.apache.commons.cactus.sample.unit;
+package org.apache.cactus.sample.unit;
 
 import junit.framework.*;
 
-import org.apache.commons.cactus.client.*;
-import org.apache.commons.cactus.*;
+import org.apache.cactus.client.*;
+import org.apache.cactus.*;
 
 /**
  * Helper class for the <code>TestServletTestCase5</code> tests. It is used to

@@ -51,7 +51,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
-package org.apache.commons.cactus.sample.unit;
+package org.apache.cactus.sample.unit;
 
 import java.util.*;
 import java.text.*;
@@ -62,9 +62,9 @@ import java.io.*;
 
 import junit.framework.*;
 
-import org.apache.commons.cactus.*;
-import org.apache.commons.cactus.server.*;
-import org.apache.commons.cactus.util.*;
+import org.apache.cactus.*;
+import org.apache.cactus.server.*;
+import org.apache.cactus.util.*;
 
 /**
  * Some Cactus unit tests for testing <code>ServletTestCase</code>.

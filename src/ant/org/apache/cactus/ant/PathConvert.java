@@ -52,7 +52,7 @@
  * <http://www.apache.org/>.
  */
 
-package org.apache.commons.cactus.ant;
+package org.apache.cactus.ant;
 
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Project;

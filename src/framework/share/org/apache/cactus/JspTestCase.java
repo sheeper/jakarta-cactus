@@ -51,12 +51,12 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
-package org.apache.commons.cactus;
+package org.apache.cactus;
 
 import javax.servlet.jsp.*;
 
-import org.apache.commons.cactus.client.*;
-import org.apache.commons.cactus.server.*;
+import org.apache.cactus.client.*;
+import org.apache.cactus.server.*;
 
 /**
  * Test classes that need access to valid JSP implicit objects (such as the
