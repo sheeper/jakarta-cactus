@@ -65,6 +65,12 @@
       </devs>
 
       <release version="1.5" date="- in CVS">
+        <action dev="VMA" type="update">
+          Deprecated <code>XXXTestCase.getCurrentTestMethod()</code> which
+          returns the current test name. Replaced it by
+          <code>XXXTestCase.getCurrentTestName()</code> which is better
+          named.
+        </action>
         <action dev="CML" type="add">
           Added a <code>HttpServletRequestWrapper.setRemoteUser()</code> method
           to simulate a remote user. Thus, there is now 2 methods to get a 
