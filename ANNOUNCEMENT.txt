@@ -11,6 +11,15 @@ Known limitations or not fixed bugs:
 * [Bug 21237] CactifyWarTask duplicates init-param lines in existing web.xml 
   servlet tag  
 * [Bug 17933] FormAuthentication assumes "localhost" when adding cookies  
+* Some binary incompatiblity was introduced by the refactoring of the
+  XXXTestCase class hierarchy. Whereas it was previously inheriting from 
+  AbstractWebTestCase and AbstractTestCase, it is now simply inheriting
+  from JUnit TestCase. Thus all non-public API are now not visible from 
+  users (as they should be). If you had some framework compiled with Cactus 
+  1.4.1 and using some methods from AbstractWebTestCase or 
+  AbstractTestCase, you'll need to recompile it with Cactus 1.5 or you 
+  might get a NoClassDefFoundError exception. We'll be more careful in the
+  future.
 
 Existing users of Cactus 1.4.1 can also check the Migration page
 (http://jakarta.apache.org/cactus/howto_migration.html) which explains how to
