@@ -81,7 +81,7 @@
             <xsl:with-param name="file" select="$remainder"/>
           </xsl:call-template>
         </xsl:variable>
-        <xsl:value-of select="concat($dir,$path)"/>
+        <xsl:value-of select="concat($dir,'/',$path)"/>
       </xsl:when>
       <xsl:otherwise/>
     </xsl:choose>
