@@ -330,7 +330,7 @@
         project="jakarta-cactus-framework-12"/>
       <depend property="cactus.anttasks.jar" 
         project="jakarta-cactus-anttasks"/>
-      <depend propery="cactus.antintegration.jar"
+      <depend property="cactus.antintegration.jar"
       	project="jakarta-cactus-integration-ant-12"/>
       <property name="cactus.port" value="8082"/>
       <property name="cactus.home.tomcat3x" reference="home" project="jakarta-tomcat"/>
@@ -390,7 +390,7 @@
         project="jakarta-cactus-framework-13"/>
       <depend property="cactus.anttasks.jar" 
         project="jakarta-cactus-anttasks"/>
-      <depend propery="cactus.antintegration.jar"
+      <depend property="cactus.antintegration.jar"
       	project="jakarta-cactus-integration-ant-13"/>
       <property name="cactus.port" value="8082"/>
       <property name="cactus.home.tomcat4x" project="jakarta-tomcat-4.0"
