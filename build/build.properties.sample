@@ -2,6 +2,9 @@
 # for building Cactus or the properties need to be specified on the command
 # line when starting Ant with the -D switch or from a higher level build file
 
+# Cactus Ant jar
+cactus.ant.jar=anttasks/dist/lib/cactus-ant.jar
+
 # JUnit jar (needed by Cactus as it is an extension of JUnit)
 junit.jar=f:/applis/jakarta-ant-1.4.1/lib/junit.jar
 

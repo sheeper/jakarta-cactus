@@ -1,0 +1,4 @@
+This subproject contains custom Ant tasks useful for automating cactus unit
+testing.
+
+Note that all these tasks are generic and can be used without using Cactus.

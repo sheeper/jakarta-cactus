@@ -200,7 +200,7 @@
              property is not defined, it won't be added to the list -->
         <taskdef name="argsList" classname="org.apache.cactus.ant.ArgListTask">
             <classpath>
-                <pathelement location="${final.jar.ant.name}"/>
+                <pathelement location="${cactus.ant.jar}"/>
                 <pathelement path="${java.class.path}"/>
             </classpath>
         </taskdef>
@@ -435,7 +435,7 @@
         <!-- Custom Ant task definitions -->
         <taskdef name="cvslog" classname="org.apache.cactus.ant.ChangeLogTask">
             <classpath>
-                <pathelement location="${final.jar.ant.name}"/>
+                <pathelement location="${cactus.ant.jar}"/>
                 <pathelement path="${java.class.path}"/>
             </classpath>
         </taskdef>
@@ -610,7 +610,7 @@
             <!-- Pass all required properties -->
             <arg value="-Dservlet.jar=${servlet.jar}"/>
             <arg value="-Dcactus.jar=../lib/${jar.name}.jar"/>
-            <arg value="-Dcactus.ant.jar=../../../${jar.ant.name}.jar"/>
+            <arg value="-Dcactus.ant.jar=${basedir}/${cactus.ant.jar}"/>
             <arg value="-Djunit.jar=${junit.jar}"/>
             <arg value="-Dlog4j.jar=${log4j.jar}"/>
             <arg value="-Dhttpclient.jar=${httpclient.jar}"/>
@@ -647,7 +647,7 @@
             <!-- Pass all required properties -->
             <arg value="-Dservlet.jar=${servlet.jar}"/>
             <arg value="-Dcactus.jar=../lib/${jar.name}.jar"/>
-            <arg value="-Dcactus.ant.jar=../../../${jar.ant.name}.jar"/>
+            <arg value="-Dcactus.ant.jar=${basedir}/${cactus.ant.jar}"/>
             <arg value="-Djunit.jar=${junit.jar}"/>
             <arg value="-Dlog4j.jar=${log4j.jar}"/>
             <arg value="-Dhttpclient.jar=${httpclient.jar}"/>
@@ -681,7 +681,7 @@
 
         <!-- Copy the custom Ant tasks jar to the servlet API dist directory
         -->
-        <copy file="${final.jar.ant.name}" todir="${out.lib.dir}"/>
+        <copy file="${cactus.ant.jar}" todir="${out.lib.dir}"/>
 
         <!-- Copy the license file -->
         <copy file="LICENSE" todir="${out.dist.dir}"/>

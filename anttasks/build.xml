@@ -1,0 +1,286 @@
+<?xml version="1.0"?>
+
+<!--
+  =============================================================================
+    Build file for the Cactus custom Ant tasks.
+
+    The following Ant tasks need to be available in your ant installation (i.e.
+    the Ant task themselves and their dependent jars need to be put in
+    ANT_HOME/lib) :
+
+        checkstyle            [OPTIONAL] Only needed for the "checkstyle" target
+                                         which is used to check coding and
+                                         naming conventions.
+
+    The following properties need to be set in either a ./build.properties or
+    a ${user.home}/build.properties one or in a calling Ant script :
+
+        ant.jar               [REQUIRED] Location of the Ant jar
+
+    This script should be started with the following command line :
+
+        ant <target>
+
+    Run "ant -projecthelp" to get a list of available targets. The default
+    target is "dist"
+  =============================================================================
+-->
+<project name="Cactus Ant custom tasks" default="dist" basedir=".">
+
+    <!-- Give user a chance to override without editing this file
+         (and without typing -D each time it compiles it) -->
+    <property file="build.properties" />
+    <property file="${user.home}/build.properties" />
+
+    <!-- Global project properties -->
+    <property name="project.name.text" value="Cactus Ant tasks"/>
+    <property name="project.name.file" value="cactus-ant"/>
+    <property name="project.version" value="1.3dev"/>
+
+    <!-- Prefix to add to all distributable files -->
+    <property name="project.prefix" value="jakarta-"/>
+
+    <!--
+       ========================================================================
+         Default values for properties not defined in build.properties or in
+         a higher level calling Ant script
+       ========================================================================
+    -->
+    <property name="year" value="2000-2002"/>
+    <property name="debug" value="on"/>
+    <property name="optimize" value="off"/>
+    <property name="deprecation" value="off"/>
+
+    <!--
+       ========================================================================
+         Set the properties related to the source tree
+       ========================================================================
+    -->
+    <!-- Source locations for the build -->
+    <property name="src.dir" value="src"/>
+    <property name="build.dir" value="."/>
+    <property name="conf.dir" value="conf"/>
+
+    <!--
+       ========================================================================
+         Set the properties related to the target area
+       ========================================================================
+    -->
+    <!-- Destination locations for the build -->
+    <property name="target.dir" value="target"/>
+    <property name="target.classes.dir" value="${target.dir}/classes"/>
+    <property name="target.conf.dir" value="${target.dir}/conf"/>
+
+    <!-- Distribution directory, i.e. where the expanded distibutable files
+         are located -->
+    <property name="dist.dir" value="dist"/>
+    <property name="dist.lib.dir" value="${dist.dir}/lib"/>
+    <property name="dist.doc.dir" value="${dist.dir}/doc"/>
+    <property name="dist.doc.api.dir" value="${dist.doc.dir}/api"/>
+
+    <!-- Release directory, i.e. where the zipped distribution is located -->
+    <property name="release.dir" value="release"/>
+
+    <!--
+       ========================================================================
+        Names of deliverables
+       ========================================================================
+    -->
+
+    <!-- The custom task jar and helper classes -->
+    <property name="anttasks.jar.name" value="${project.name.file}"/>
+
+    <!--
+       ========================================================================
+         Useful patterns for targets
+       ========================================================================
+    -->
+    <!-- Compilation classpath -->
+    <path id="compile.classpath">
+      <pathelement location="${ant.jar}"/>
+    </path>
+
+    <!--
+       ========================================================================
+         Initialize the build. Must be called by all targets
+       ========================================================================
+    -->
+    <target name="init">
+
+        <tstamp/>
+
+        <echo message="----- ${project.name.text} ${project.version} -----"/>
+        <echo message=""/>
+        <echo message="java.class.path = ${java.class.path}"/>
+        <echo message=""/>
+        <echo message="java.home = ${java.home}"/>
+        <echo message="user.home = ${user.home}"/>
+        <echo message="ant.home = ${ant.home}"/>
+        <echo message=""/>
+        <echo message="ant.jar = ${ant.jar}"/>
+        <echo message=""/>
+
+        <!-- Filters -->
+        <filter token="version" value="${project.version}"/>
+        <filter token="year" value="${year}"/>
+        <filter token="today" value="${TODAY}"/>
+        <filter token="project.name.text" value="${project.name.text}"/>
+        <filter token="project.name.file" value="${project.name.file}"/>
+
+    </target>
+
+    <!--
+       ========================================================================
+         Compiles the sources
+       ========================================================================
+    -->
+    <target name="compile" depends="init" description="Compile the sources">
+
+        <mkdir dir="${target.classes.dir}"/>
+
+        <javac srcdir="${src.dir}" destdir="${target.classes.dir}"
+          deprecation="${deprecation}" optimize="${optimize}">
+            <include name="**/*.java"/>
+            <classpath refid="compile.classpath"/>
+        </javac>
+
+    </target>
+
+    <!--
+       ========================================================================
+         Create the runtime jar file
+       ========================================================================
+    -->
+    <target name="jar" depends="compile" description="Generate the library jar">
+
+        <mkdir dir="${target.conf.dir}"/>
+
+        <!-- Copy the manifest in order to replace the version token filter -->
+        <copy todir="${target.conf.dir}" file="${conf.dir}/manifest-ant"
+            filtering="on"/>
+
+        <jar jarfile="${target.dir}/${anttasks.jar.name}.jar"
+          manifest="${target.conf.dir}/manifest-ant">
+            <fileset dir="${target.classes.dir}"/>
+        </jar>
+
+    </target>
+
+    <!--
+       ========================================================================
+         Generate the distributable files
+       ========================================================================
+    -->
+    <target name="dist" depends="jar" 
+      description="Generate the distributable files">
+
+        <mkdir dir="${dist.lib.dir}"/>
+
+        <copy todir="${dist.lib.dir}"
+            file="${target.dir}/${anttasks.jar.name}.jar"/>
+
+    </target>
+
+    <!--
+       ========================================================================
+         Common script for both "release" and "nightly" targets. Must only be
+         called by "release" or "nightly" target as it needs the following
+         properties defined before calling it :
+
+             anttasks.release.name
+
+       ========================================================================
+    -->
+    <target name="release.common" depends="clean,dist">
+
+        <mkdir dir="${release.dir}"/>
+
+        <zip zipfile="${release.dir}/${anttasks.release.name}.zip">
+            <fileset dir="${dist.dir}"/>
+        </zip>
+
+    </target>
+
+    <!--
+       ========================================================================
+         Generate a full release (i.e. the zipped release file)
+       ========================================================================
+    -->
+    <target name="release.prepare">
+
+        <!-- For a release, the suffix is the version -->
+        <property name="project.suffix" value="-${project.version}"/>
+
+        <!-- Name of full release -->
+        <property name="anttasks.release.name"
+            value="${project.prefix}${anttasks.jar.name}${project.suffix}"/>
+
+    </target>
+
+    <target name="release" depends="release.prepare,release.common"
+        description="Generate the release">
+    </target>
+
+    <!--
+       ========================================================================
+         Generate a nightly release (i.e. the zipped release file)
+       ========================================================================
+    -->
+    <target name="nightly.prepare">
+
+        <!-- Sets the date for the release prefix : YYYYMMDD -->
+        <tstamp/>
+
+        <!-- Suffix to add to all distributable files -->
+        <property name="project.suffix" value="-${DSTAMP}"/>
+
+        <!-- Name of nightly release -->
+        <property name="anttasks.release.name"
+            value="${project.prefix}${anttasks.jar.name}${project.suffix}"/>
+
+    </target>
+
+    <target name="nightly" depends="nightly.prepare,release.common"
+        description="Generate the release">
+    </target>
+
+    <!--
+       ========================================================================
+         Clean generated files (including distributables)
+       ========================================================================
+    -->
+    <target name="clean" depends="init" description="Clean all generated files">
+
+        <delete dir="${target.dir}"/>
+        <delete dir="${dist.dir}"/>
+        <delete dir="${release.dir}"/>
+
+    </target>
+
+    <!--
+       ========================================================================
+         Perform a code audit using CheckStyle.
+       ========================================================================
+    -->
+    <target name="checkstyle" depends="init"
+        description="Perform a code audit using Checkstyle">
+
+        <taskdef name="checkstyle"
+            classname="com.puppycrawl.tools.checkstyle.CheckStyleTask"/>
+
+        <mkdir dir="${target.dir}"/>
+
+        <echo message="Errors are reported in ${target.dir}/checkstyle_errors.xml"/>
+
+        <checkstyle paramPattern="^(the|is|has)[A-Z][a-zA-Z0-9]*$"
+            allowProtected="true" headerFile="LICENSE">
+
+            <fileset dir="${src.dir}">
+                <include name="**/*.java"/>
+            </fileset>
+            <formatter type="xml" toFile="${target.dir}/checkstyle_errors.xml"/>
+        </checkstyle>
+
+    </target>
+
+</project>

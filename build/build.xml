@@ -20,6 +20,8 @@
     The following properties need to be set in a ./build.properties or
     or ${user.home}/build.properties file :
 
+        cactus.ant.jar        [REQUIRED] The path to the Cactus Ant jar.
+
         servlet22.jar         [OPTIONAL] The path to the Servlet API 2.2 jar.
                               Required only if you want to build against this
                               API
@@ -105,7 +107,6 @@
     <property name="build.dir" value="build"/>
     <property name="src.java.share.dir" value="${src.dir}/framework/share"/>
     <property name="src.java.test.share.dir" value="${src.dir}/test/share"/>
-    <property name="src.java.ant.dir" value="${src.dir}/ant"/>
     <property name="conf.dir" value="conf"/>
     <property name="doc.root.dir" value="docs"/>
     <property name="doc.dir" value="${doc.root.dir}/framework"/>
@@ -129,9 +130,6 @@
          specified in the basedir attribute of the project tag) -->
     <property name="out.root.dir" value="target"/>
     <property name="out.site.dir" value="${out.root.dir}/doc"/>
-    <property name="out.classes.ant.dir" value="${out.root.dir}/classes"/>
-    <property name="out.src.ant.dir" value="${out.root.dir}/src"/>
-    <property name="out.conf.ant.dir" value="${out.root.dir}/conf"/>
     <property name="out.xdoc.site.dir" value="${out.root.dir}/xdocs"/>
 
     <!--
@@ -147,9 +145,6 @@
        ========================================================================
     -->
 
-    <!-- The Cactus jar containing custom Ant tasks and helper classes -->
-    <property name="jar.ant.name" value="${project.name.short}-ant"/>
-
     <!-- The full sources of Cactus in a zip file -->
     <property name="src.name" value="${project.name.short}-src"/>
 
@@ -162,9 +157,6 @@
          Full names of deliverables
        ========================================================================
     -->
-
-    <!-- The Cactus jar containing custom Ant tasks and helper classes -->
-    <property name="final.jar.ant.name" value="${out.root.dir}/${jar.ant.name}.jar"/>
 
     <!-- The Cactus web site in a gzip file (without the Javadoc but
          with a link pointing to javadoc : <htdocs>/servletXX/index.html -->
@@ -237,10 +229,6 @@
         <!-- Full names of distributables. They are defined here because the
              properties need to have a valid ${DSTAMP} property set and the
              tstamp task need to be located in a target -->
-
-        <!-- The Cactus jar containing custom Ant tasks and helper classes -->
-        <property name="dist.jar.ant.name"
-            value="${dist.dir}/${project.name.prefix}${jar.ant.name}-${DSTAMP}.jar"/>
 
         <!-- The full sources of Cactus in a zip file -->
         <property name="dist.src.name"
@@ -315,46 +303,7 @@
         </ant>
     </target>
 
-    <target name="jar.ant" depends="init">
-
-        <!-- Copy source files to apply tokens -->
-        <mkdir dir="${out.src.ant.dir}"/>
-        <mkdir dir="${out.classes.ant.dir}"/>
-        <mkdir dir="${out.conf.ant.dir}"/>
-
-        <copy todir="${out.src.ant.dir}" filtering="on">
-            <fileset dir="${src.java.ant.dir}">
-                <patternset refid="all.src.files"/>
-            </fileset>
-        </copy>
-
-        <!-- Compile the files -->
-        <javac srcdir="${out.src.ant.dir}"
-            destdir="${out.classes.ant.dir}"
-            debug="${debug}"
-            deprecation="${deprecation}"
-            optimize="${optimize}">
-
-            <classpath>
-                <pathelement path="${java.class.path}"/>
-            </classpath>
-        </javac>
-
-        <!-- Copy the manifest in order to replace the version token filter -->
-        <copy tofile="${out.conf.ant.dir}/manifest"
-            file="${conf.dir}/manifest-ant"/>
-
-        <jar jarfile="${final.jar.ant.name}" basedir="${out.classes.ant.dir}"
-            manifest="${out.conf.ant.dir}/manifest">
-
-            <metainf dir=".">
-                <include name="LICENSE"/>
-            </metainf>
-        </jar>
-
-    </target>
-
-    <target name="jar" depends="jar.ant,jar.22,jar.23">
+    <target name="jar" depends="jar.22,jar.23">
     </target>
 
     <!--
@@ -394,7 +343,7 @@
         <!-- Custom Ant task definitions -->
         <taskdef name="cvslog" classname="org.apache.cactus.ant.ChangeLogTask">
             <classpath>
-                <pathelement location="${final.jar.ant.name}"/>
+                <pathelement location="${cactus.ant.jar}"/>
                 <pathelement path="${java.class.path}"/>
             </classpath>
         </taskdef>
@@ -559,7 +508,7 @@
          Run both the unit and functional tests
        ========================================================================
     -->
-    <target name="tests" depends="jar.ant,tests-unit,tests-functional">
+    <target name="tests" depends="tests-unit,tests-functional">
     </target>
 
     <!--
@@ -595,6 +544,13 @@
         <zip zipfile="${dist.src.name}">
 
             <zipfileset dir="." prefix="${project.name.prefix}${project.name.short}-${project.version}">
+
+                <include name="anttasks/src/**"/>
+                <include name="anttasks/conf/**"/>
+                <include name="anttasks/LICENSE"/>
+                <include name="anttasks/README"/>
+                <include name="anttasks/build.properties.sample"/>
+                <include name="anttasks/build.xml"/>
 
                 <include name="${build.dir}/**"/>
                 <include name="${conf.dir}/**"/>
@@ -707,9 +663,6 @@
                 <exclude name="**/*Aspect.java"/>
             </fileset>
             <fileset dir="${src.java.test.share.dir}">
-                <include name="**/*.java"/>
-            </fileset>
-            <fileset dir="${src.java.ant.dir}">
                 <include name="**/*.java"/>
             </fileset>
             <fileset dir="${sample.build.dir}/share">
