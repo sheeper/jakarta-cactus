@@ -44,8 +44,7 @@
             </p>
           </li>
           <li>
-            <strong>jakarta-cactus-&lt;version&gt;-src.zip</strong> (or
-            <strong>jakarta-cactus-src-&lt;version&gt;.zip</strong>)
+            <strong>jakarta-cactus-src-&lt;version&gt;.zip</strong>
             <p>
               The source distribution of Cactus. This corresponds to a clean CVS
               checkout of the Cactus sources at the time the version was

@@ -224,8 +224,8 @@
   <target name="release.src"
       depends="init.properties">
 
-    <zip zipfile="${release.dir}/${main.release.name}-src.zip">
-      <zipfileset dir="." prefix="${main.release.name}-src">
+    <zip zipfile="${release.dir}/${main.release.src.name}.zip">
+      <zipfileset dir="." prefix="${main.release.src.name}">
         <exclude name="**/target*/**"/>
         <exclude name="**/dist*/**"/>
         <exclude name="**/release/**"/>

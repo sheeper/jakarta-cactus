@@ -2,7 +2,6 @@
   =============================================================================
     Build file used by the different Cactus subprojects. It contains common
     Ant properties and common useful targets.
-    
 
     $Id$
   =============================================================================
@@ -160,16 +159,25 @@
 
     <property name="release.j2ee.dir"
         location="${base.dir}/release-${j2ee.api}"/>
+
     <condition property="release.dir" value="${release.j2ee.dir}">
       <isset property="j2ee.api"/>
     </condition>
     <property name="release.dir" location="${base.dir}/release"/>
+
     <condition property="main.release.name"
         value="${project.prefix}-${project.name.file}-${j2ee.api}-${project.version}">
       <isset property="j2ee.api"/>
     </condition>
     <property name="main.release.name" 
         value="${project.prefix}-${project.name.file}-${project.version}"/>
+
+    <condition property="main.release.src.name"
+        value="${project.prefix}-${project.name.file}-${j2ee.api}-src-${project.version}">
+      <isset property="j2ee.api"/>
+    </condition>
+    <property name="main.release.src.name" 
+        value="${project.prefix}-${project.name.file}-src-${project.version}"/>
 
   </target>
 
