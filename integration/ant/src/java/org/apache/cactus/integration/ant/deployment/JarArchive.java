@@ -62,6 +62,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.jar.JarInputStream;
 import java.util.zip.ZipEntry;
 
@@ -74,7 +76,7 @@ import java.util.zip.ZipEntry;
  * @since Cactus 1.5
  * @version $Id$
  */
-public abstract class JarArchive
+public class JarArchive
 {
 
     // Instance Variables ------------------------------------------------------
@@ -129,6 +131,21 @@ public abstract class JarArchive
     }
 
     // Public Methods ----------------------------------------------------------
+
+    /**
+     * Returns whether a class of the specified name is contained in the
+     * archive.
+     * 
+     * @param theClassName The name of the class to search for
+     * @return Whether the class was found
+     * @throws IOException If an I/O error occurred reading the archive
+     */
+    public boolean containsClass(String theClassName)
+        throws IOException
+    {
+        String resourceName = theClassName.replace('.', '/') + ".class";
+        return (getResource(resourceName) != null);
+    }
 
     /**
      * Returns the full path of a named resource in the archive.
@@ -208,6 +225,41 @@ public abstract class JarArchive
             }
         }
         return null;
+    }
+
+    /**
+     * Returns the list of resources in the specified directory.
+     * 
+     * @param thePath The directory
+     * @return The list of resources
+     * @throws IOException If an I/O error occurs
+     */
+    public List getResources(String thePath)
+        throws IOException
+    {
+        List resources = new ArrayList();
+        JarInputStream in = null;
+        try
+        {
+            in = getContentAsStream();
+            ZipEntry zipEntry = null;
+            while ((zipEntry = in.getNextEntry()) != null)
+            {
+                if ((zipEntry.getName().startsWith(thePath)
+                 && !zipEntry.getName().equals(thePath)))
+                {
+                    resources.add(zipEntry.getName());
+                }
+            }
+        }
+        finally
+        {
+            if (in != null)
+            {
+                in.close();
+            }
+        }
+        return resources;
     }
 
     // Protected Methods -------------------------------------------------------

@@ -420,6 +420,7 @@ integration/ant/src/test/org/apache/cactus/integration/ant/deployment/TestAll.ja
 integration/ant/src/test/org/apache/cactus/integration/ant/deployment/TestApplicationXml.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/test/org/apache/cactus/integration/ant/deployment/TestApplicationXmlVersion.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/test/org/apache/cactus/integration/ant/deployment/TestJarArchive.java svn_keywords=Author+Date+Id+Revision
+integration/ant/src/test/org/apache/cactus/integration/ant/deployment/TestWarArchive.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/test/org/apache/cactus/integration/ant/deployment/TestWebXml.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/test/org/apache/cactus/integration/ant/deployment/TestWebXmlMerger.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/test/org/apache/cactus/integration/ant/deployment/TestWebXmlVersion.java svn_keywords=Author+Date+Id+Revision

@@ -56,139 +56,65 @@
  */
 package org.apache.cactus.integration.ant.deployment;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.StringReader;
 
 import junit.framework.TestCase;
 
 /**
- * Unit tests for {@link JarArchive}.
+ * Unit tests for {@link WarArchive}.
  *
  * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
  *
  * @version $Id$
  */
-public final class TestJarArchive extends TestCase
+public final class TestWarArchive extends TestCase
 {
 
     // Test Methods ------------------------------------------------------------
 
     /**
-     * Verifies that a <code>NullPointerException</code> is thrown when the 
-     * constructor is passed a <code>null</code> argument as file.
+     * Verifies that the method <code>containsClass()</code> returns
+     * <code>true</code> if the WAR contains the requested class in
+     * <code>WEB-INF/classes</code>.
      * 
      * @throws Exception If an unexpected error occurs
      */
-    public void testConstructorWithNullFile() throws Exception
+    public void testContainsClassInWebinfClasses() throws Exception
     {
-        try
-        {
-            new JarArchive((File) null);
-            fail("NullPointerException expected");
-        }
-        catch (NullPointerException expected)
-        {
-            // expected
-        }
-    }
-
-    /**
-     * Verifies that a <code>NullPointerException</code> is thrown when the 
-     * constructor is passed a <code>null</code> argument as input stream.
-     * 
-     * @throws Exception If an unexpected error occurs
-     */
-    public void testConstructorWithNullInputStream() throws Exception
-    {
-        try
-        {
-            new JarArchive((InputStream) null);
-            fail("NullPointerException expected");
-        }
-        catch (NullPointerException expected)
-        {
-            // expected
-        }
-    }
-
-    /**
-     * Verifies that random access to resources in the JAR is provided.
-     * 
-     * @throws Exception If an unexpected error occurs
-     */
-    public void testRandomAccess() throws Exception
-    {
-        JarArchive jar = new JarArchive(getTestInput(
-            "org/apache/cactus/integration/ant/deployment/randomaccess.jar"));
-        assertContains(jar.getResource("firstEntry.txt"), "firstEntry");
-        assertContains(jar.getResource("secondEntry.txt"), "secondEntry");
-        assertContains(jar.getResource("secondEntry.txt"), "secondEntry");
-        assertContains(jar.getResource("firstEntry.txt"), "firstEntry");
+        WarArchive war = new WarArchive(getTestInput(
+            "org/apache/cactus/integration/ant/deployment/containsclass.war"));
+        assertTrue(war.containsClass("test.Test"));
     }
 
     /**
      * Verifies that the method <code>containsClass()</code> returns
-     * <code>true</code> if the JAR contains the requested class.
+     * <code>true</code> if the WAR contains the requested class in a JAR in
+     * <code>WEB-INF/lib</code>.
      * 
      * @throws Exception If an unexpected error occurs
      */
-    public void testContainsClass() throws Exception
+    public void testContainsClassInWebinfLib() throws Exception
     {
-        JarArchive jar = new JarArchive(getTestInput(
-            "org/apache/cactus/integration/ant/deployment/containsclass.jar"));
-        assertTrue(jar.containsClass("test.Test"));
+        WarArchive war = new WarArchive(getTestInput(
+            "org/apache/cactus/integration/ant/deployment/"
+            + "containsclasslib.war"));
+        assertTrue(war.containsClass("test.Test"));
     }
 
     /**
      * Verifies that the method <code>containsClass()</code> returns
-     * <code>false</code> if the JAR does not contain such a class.
+     * <code>false</code> if the WAR does not contain such a class.
      * 
      * @throws Exception If an unexpected error occurs
      */
     public void testContainsClassEmpty() throws Exception
     {
-        JarArchive jar = new JarArchive(getTestInput(
-            "org/apache/cactus/integration/ant/deployment/empty.jar"));
-        assertTrue(!jar.containsClass("test.Test"));
+        WarArchive war = new WarArchive(getTestInput(
+            "org/apache/cactus/integration/ant/deployment/empty.war"));
+        assertTrue(!war.containsClass("test.Test"));
     }
 
     // Private Methods ---------------------------------------------------------
-
-    /**
-     * Asserts whether the content of the specified input stream matches the 
-     * specified string line per line.
-     * 
-     * @param theInput The input stream to check
-     * @param theExpectedString The expected string
-     * @throws IOException If an I/O error occurs reading from the input stream
-     */
-    private void assertContains(InputStream theInput, String theExpectedString)
-        throws IOException
-    {
-        try
-        {
-            BufferedReader inReader =
-                new BufferedReader(new InputStreamReader(theInput));
-            BufferedReader stringReader =
-                new BufferedReader(new StringReader(theExpectedString));
-            String line = null;
-            while ((line = inReader.readLine()) != null)
-            {
-                assertEquals(stringReader.readLine(), line);
-            }
-        }
-        finally
-        {
-            if (theInput != null)
-            {
-                theInput.close();
-            }
-        }
-    }
 
     /**
      * Returns a file from the test inputs directory, which is determined by the
