@@ -48,6 +48,12 @@
     </devs>
 
     <release version="1.4 in CVS">
+      <action dev="VMA" type="fix" due-to="Daniel Dennison" due-to-email="dennison@mitec.net">
+        (<link href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=9544">
+         Bug #9544</link>. It seems that it is possible that the test result contain an end of line
+         character and the Cactus <code>WebTestResultParser</code> was choking on this and seeing
+         the returned result as invalid. This has been fixed.
+      </action>
       <action dev="VMA" type="add">
         Added Test Coverage Reports as part of the Web Site generation.
       </action>
