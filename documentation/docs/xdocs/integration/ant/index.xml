@@ -115,6 +115,7 @@
     |   |- commons-httpclient.jar
     |   |- commons-logging.jar
     |   |- junit.jar
+    |   |- aspectjrt.jar
     |- src
     |   |- java
     |   |  ...
@@ -143,6 +144,7 @@
     <pathelement location="lib/cactus-ant.jar"/>
     <pathelement location="lib/commons-httpclient.jar"/>
     <pathelement location="lib/commons-logging.jar"/>
+    <pathelement location="lib/aspectjrt.jar"/>
   </classpath>
 </taskdef>
 ]]></source>
