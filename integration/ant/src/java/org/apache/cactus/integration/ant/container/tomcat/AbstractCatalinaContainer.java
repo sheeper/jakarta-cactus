@@ -57,7 +57,6 @@
 package org.apache.cactus.integration.ant.container.tomcat;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 import java.util.jar.JarFile;
@@ -200,15 +199,7 @@ public abstract class AbstractCatalinaContainer extends AbstractTomcatContainer
         Path classpath = java.createClasspath();
         classpath.createPathElement().setLocation(
             new File(getDir(), "bin/bootstrap.jar"));
-        try
-        {
-            classpath.createPathElement().setLocation(getToolsJar());
-        }
-        catch (FileNotFoundException fnfe)
-        {
-            getLog().warn(
-                "Couldn't find tools.jar (needed for JSP compilation)");
-        }
+        addToolsJarToClasspath(classpath);
         java.setClassname("org.apache.catalina.startup.Bootstrap");
         java.createArg().setValue(theArg);
         java.execute();

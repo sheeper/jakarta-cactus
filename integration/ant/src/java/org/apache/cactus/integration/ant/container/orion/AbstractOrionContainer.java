@@ -57,7 +57,6 @@
 package org.apache.cactus.integration.ant.container.orion;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import org.apache.cactus.integration.ant.container.AbstractJavaContainer;
@@ -185,15 +184,7 @@ public abstract class AbstractOrionContainer extends AbstractJavaContainer
         fileSet.setDir(this.dir);
         fileSet.createInclude().setName("*.jar");
         classpath.addFileset(fileSet);
-        try
-        {
-            classpath.createPathElement().setLocation(getToolsJar());
-        }
-        catch (FileNotFoundException fnfe)
-        {
-            getLog().warn(
-                "Couldn't find tools.jar (needed for JSP compilation)");
-        }
+        addToolsJarToClasspath(classpath);
         java.setClassname("com.evermind.server.ApplicationServer");
         java.createArg().setValue("-config");
         java.createArg().setFile(new File(tmpDir, "conf/server.xml"));

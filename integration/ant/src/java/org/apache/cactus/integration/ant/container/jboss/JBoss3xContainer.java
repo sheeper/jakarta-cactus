@@ -57,7 +57,6 @@
 package org.apache.cactus.integration.ant.container.jboss;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.jar.Attributes;
 import java.util.jar.JarFile;
@@ -213,19 +212,10 @@ public class JBoss3xContainer extends AbstractJavaContainer
                 createSysProperty("jboss.server.home.url",
                     new File(configDir, this.config).toURL().toString()));
 
-            Path classPath = java.createClasspath();
-            classPath.createPathElement().setLocation(
+            Path classpath = java.createClasspath();
+            classpath.createPathElement().setLocation(
                 new File(binDir, "run.jar"));
-            try
-            {
-                classPath.createPathElement().setLocation(getToolsJar());
-            }
-            catch (FileNotFoundException fnfe)
-            {
-                getLog().warn(
-                    "Couldn't find tools.jar (needed for JSP compilation)");
-            }
-
+            addToolsJarToClasspath(classpath);
             java.setClassname("org.jboss.Main");
             java.createArg().setValue("-c");
             java.createArg().setValue(this.config);

@@ -197,17 +197,54 @@ public abstract class AbstractJavaContainer extends AbstractContainer
     }
 
     /**
-     * Returns the file containing the JDK tools (such as the compiler).
+     * Adds the tools.jar to the classpath, except for Mac OSX as it is not
+     * needed.
+     * 
+     * @param theClasspath the classpath object to which to add the tools.jar
+     */
+    protected final void addToolsJarToClasspath(Path theClasspath)
+    {
+        // On OSX, the tools.jar classes are included in the classes.jar so 
+        // there is no need to include any tools.jar file to the cp.
+        if (!isOSX())
+           {    
+            try
+            {
+                theClasspath.createPathElement().setLocation(getToolsJar());
+            }            
+            catch (FileNotFoundException fnfe)
+            {
+                getLog().warn(
+                    "Couldn't find tools.jar (needed for JSP compilation)");
+            }
+        }
+    }
+    
+    // Private Methods -------------------------------------------------------
+
+    /**
+     * Is the user running on a Macintosh OS X system?  Heuristic derived from
+     * <a href="http://developer.apple.com/technotes/tn/tn2042.html#Section0_1">
+     * Apple Tech Note 2042</a>.
+     *
+     * @return true if the user's system is determined to be Mac OS X.
+     */
+    private final boolean isOSX()
+    {
+        return (System.getProperty("mrj.version") != null);
+    }    
+
+    /**
+     * Returns the file containing the JDK tools (such as the compiler). This
+     * method must not be called on Mac OSX as there is no tools.jar file on
+     * that platform (everything is included in classes.jar).
      * 
      * @return The tools.jar file
      * @throws FileNotFoundException If the tools.jar file could not be found
      */
-    protected final File getToolsJar()
-        throws FileNotFoundException
+    protected final File getToolsJar() throws FileNotFoundException
     {
         String javaHome = System.getProperty("java.home"); 
-        // TODO: Fix this as it fails on Max OSX (which doesn't have a 
-        // tools.jar file).
         File toolsJar = new File(javaHome, "../lib/tools.jar");
         if (!toolsJar.isFile())
         {
@@ -215,4 +252,5 @@ public abstract class AbstractJavaContainer extends AbstractContainer
         }
         return toolsJar;
     }   
+    
 }
