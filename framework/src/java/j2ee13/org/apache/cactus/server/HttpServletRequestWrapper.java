@@ -92,17 +92,40 @@ public class HttpServletRequestWrapper extends AbstractHttpServletRequestWrapper
 
     // Not modified methods --------------------------------------------------
 
+    /**
+     * @return the URL from the simulated URL or the real URL
+     *         if a simulation URL has not been defined.
+     * @see HttpServletRequest#getRequestURL()
+     */
     public StringBuffer getRequestURL()
     {
-        return this.request.getRequestURL();
+        StringBuffer result;
+
+        if (this.url != null) {
+
+            result = new StringBuffer(this.url.getProtocol() + "://" +
+                getServerName() + ":" + getServerPort() + getContextPath() +
+                getServletPath() + getPathInfo());
+
+        } else {
+            result = this.request.getRequestURL();
+        }
+
+        return result;
     }
 
+    /**
+     * @see HttpServletRequest#setCharacterEncoding(String)
+     */
     public void setCharacterEncoding(String env)
         throws UnsupportedEncodingException
     {
         this.request.setCharacterEncoding(env);
     }
 
+    /**
+     * @see HttpServletRequest#getParameterMap()
+     */
     public Map getParameterMap()
     {
         return this.request.getParameterMap();
