@@ -27,7 +27,6 @@ import org.apache.cactus.ServletURL;
 import org.apache.cactus.WebRequest;
 import org.apache.cactus.internal.client.ClientException;
 import org.apache.commons.httpclient.Header;
-import org.apache.commons.httpclient.HttpState;
 import org.apache.commons.httpclient.cookie.CookiePolicy;
 import org.apache.commons.httpclient.cookie.CookieSpec;
 import org.apache.commons.logging.Log;
@@ -314,24 +313,5 @@ public class CookieUtil
         }
 
         return null;
-    }
-
-    /**
-     * Create an HttpClient {@link HttpState} object containing all cookies 
-     * stored in the passed {@link WebRequest} object.
-     *
-     * @param theRequest the request containing the cookies to use when calling
-     *        the server side
-     * @param theUrl the URL to connect to
-     * @return an HttpClient {@link HttpState} object which has been set with
-     *         the cookies
-     */
-    public static HttpState createHttpState(WebRequest theRequest, 
-        URL theUrl)
-    {
-        HttpState state = new HttpState();
-        state.addCookies(CookieUtil.createHttpClientCookies(theRequest, 
-            theUrl));
-        return state;        
     }
 }

@@ -77,6 +77,8 @@ public class HttpClientConnectionHelper implements ConnectionHelper
     {
         URL url = new URL(this.url);
 
+        HttpState state = new HttpState();
+        
         // Add Authentication headers, if necessary. This is the first
         // step to allow authentication to add extra headers, HTTP parameters,
         // etc.
@@ -126,8 +128,9 @@ public class HttpClientConnectionHelper implements ConnectionHelper
             addHttpPostParameters(theRequest);
         }
 
-        // Add the cookies
-        HttpState state = CookieUtil.createHttpState(theRequest, url);
+        // Add the cookies to the state
+        state.addCookies(CookieUtil.createHttpClientCookies(theRequest, 
+            url));
 
         // Open the connection and get the result
         HttpClient client = new HttpClient();

@@ -45,8 +45,9 @@ public class TestCookieUtil extends TestCase
         throws Exception
     {
         WebRequest request = new WebRequestImpl();
-        HttpState state = CookieUtil.createHttpState(request, 
-            new URL("http://jakarta.apache.org"));
+        HttpState state = new HttpState(); 
+        state.addCookies(CookieUtil.createHttpClientCookies(request, 
+            new URL("http://jakarta.apache.org")));
         assertEquals(0, state.getCookies().length);
     }
 
@@ -63,8 +64,10 @@ public class TestCookieUtil extends TestCase
         request.addCookie(new Cookie("domain1", "name1", "value1"));
         request.addCookie(new Cookie("domain2", "name2", "value2"));
         
-        HttpState state = CookieUtil.createHttpState(request, 
-            new URL("http://jakarta.apache.org"));
+        HttpState state = new HttpState(); 
+        state.addCookies(CookieUtil.createHttpClientCookies(request, 
+            new URL("http://jakarta.apache.org")));
+
         assertEquals(2, state.getCookies().length);
     }
 
