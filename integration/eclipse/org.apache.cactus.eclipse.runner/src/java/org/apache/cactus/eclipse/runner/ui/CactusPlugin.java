@@ -248,17 +248,25 @@ public class CactusPlugin extends AbstractUIPlugin
         theStore.setDefault(
             CactusPreferences.WEBAPP_DIR,
             CactusMessages.getString("CactusPreferencePage.label.webapp.init"));
-
+        theStore.setDefault(
+            CactusPreferences.JETTY,
+            true
+        );
     }
 
     /**
-     * Returns a container provider.
-     * @return IContainerProvider a container provider to use for Cactus tests.
-     * @throws CoreException if the container provider can't be contructed
+     * Returns a container manager.
+     * @return a container provider to use for Cactus tests
+     *  or null if Jelly is selected as the container.
+     * @throws CoreException if the container manager can't be contructed
      */
     public static IContainerManager getContainerManager()
         throws CoreException
     {
+        if (CactusPreferences.getJetty())
+        {
+            return null;
+        }
         return new AntContainerManager(
             BUILD_FILE_PATH,
             CactusPreferences.getContextURLPort(),
@@ -353,7 +361,7 @@ public class CactusPlugin extends AbstractUIPlugin
      * Sets the current CactusLaunchShortcut
      * @param theCactusLaunchShortcut the instance to set
      */
-    public void addCactusLaunchShortcut(
+    public void setCactusLaunchShortcut(
         CactusLaunchShortcut theCactusLaunchShortcut)
     {
         this.launchShortcut = theCactusLaunchShortcut;

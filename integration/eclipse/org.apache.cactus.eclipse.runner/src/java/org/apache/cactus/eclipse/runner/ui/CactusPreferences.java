@@ -106,6 +106,11 @@ public class CactusPreferences
     public static final String WEBAPP_DIR = "webapp_Dir";
 
     /**
+     * id for the Jetty container selection preference.
+     */
+    public static final String JETTY = "jetty";
+
+    /**
      * Returns the context URL that should be used by the client, as 
      * configured in the plug-in preferences.
      * 
@@ -211,6 +216,18 @@ public class CactusPreferences
         String result = store.getString(theContainerId);
         CactusPlugin.log(
             "Cactus preference : " + theContainerId + "= [" + result + "]");
+        return result;
+    }
+
+    /**
+     * Returns true if Jetty is selected.
+     * @return true if Jetty is selected
+     */
+    public static boolean getJetty()
+    {
+        IPreferenceStore store = CactusPlugin.getDefault().getPreferenceStore();
+        boolean result = store.getBoolean(JETTY);
+        CactusPlugin.log("Cactus preference : Jetty = [" + result + "]");
         return result;
     }
 

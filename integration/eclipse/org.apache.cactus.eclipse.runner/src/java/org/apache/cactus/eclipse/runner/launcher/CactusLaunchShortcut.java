@@ -107,7 +107,7 @@ public class CactusLaunchShortcut
     /**
      * The container provider that is used in this launch.
      */
-    private IContainerProvider provider;
+    private IContainerProvider provider = null;
 
     /**
      * The current search to launch on.
@@ -191,61 +191,91 @@ public class CactusLaunchShortcut
             // Register the instance of CactusLaunchShortcut to the JUnitPlugin
             // for TestRunEnd notification.            
             JUnitPlugin.getDefault().addTestRunListener(this);
-            this.search = theSearch;
-            this.mode = theMode;
-            CactusPlugin.getDefault().addCactusLaunchShortcut(this);
-            final IJavaProject theJavaProject = type.getJavaProject();
-            final IRunnableWithProgress runnable = new IRunnableWithProgress()
+            CactusPlugin.getDefault().setCactusLaunchShortcut(this);
+            try
             {
-                public void run(IProgressMonitor thePM)
-                    throws InterruptedException
+                IContainerManager manager = CactusPlugin.getContainerManager();
+                // when manager is null we use Jetty as the container
+                if (manager == null)
                 {
-                    try
-                    {
-                        CactusPlugin.log("Preparing cactus tests");
-                        prepareCactusTests(theJavaProject, thePM);
-                    }
-                    catch (CoreException e)
-                    {
-                        throw new InterruptedException(e.getMessage());
-                    }
+                    super.launchType(theSearch, theMode);
                 }
-            };
-            Display.getDefault().asyncExec(new Runnable()
+                else
+                {
+                    this.search = theSearch;
+                    this.mode = theMode;
+                    this.provider = manager.getContainerProviders()[0];
+                    prepare(type.getJavaProject(), getContainerProvider());
+                }
+            }
+            catch (CoreException e)
             {
-                public void run()
-                {
-                    try
-                    {
-                        ProgressMonitorDialog dialog =
-                            new ProgressMonitorDialog(getShell());
-                        dialog.run(true, true, runnable);
-                    }
-                    catch (InvocationTargetException e)
-                    {
-                        CactusPlugin.displayErrorMessage(
-                            CactusMessages.getString(
-                                "CactusLaunch.message.prepare.error"),
-                            e.getTargetException().getMessage(),
-                            null);
-                        cancelPreparation();
-                        return;
-                    }
-                    catch (InterruptedException e)
-                    {
-                        CactusPlugin.displayErrorMessage(
-                            CactusMessages.getString(
-                                "CactusLaunch.message.prepare.error"),
-                            e.getMessage(),
-                            null);
-                        cancelPreparation();
-                        return;
-                    }
-                }
-            });
+                CactusPlugin.displayErrorMessage(
+                    CactusMessages.getString(
+                        "CactusLaunch.message.prepare.error"),
+                    e.getMessage(),
+                    e.getStatus());
+            }
         }
     }
-
+    
+    /**
+     * Prepares the Cactus test launch.
+     * @param theJavaProject the project that the Cactus tests are run from
+     * @param theProvider the provider to be prepared for the tests
+     */
+    private void prepare(
+        final IJavaProject theJavaProject,
+        final IContainerProvider theProvider)
+    {
+        final IRunnableWithProgress runnable = new IRunnableWithProgress()
+        {
+            public void run(IProgressMonitor thePM) throws InterruptedException
+            {
+                try
+                {
+                    CactusPlugin.log("Preparing cactus tests");
+                    prepareCactusTests(theJavaProject, thePM, theProvider);
+                }
+                catch (CoreException e)
+                {
+                    throw new InterruptedException(e.getMessage());
+                }
+            }
+        };
+        Display.getDefault().asyncExec(new Runnable()
+        {
+            public void run()
+            {
+                try
+                {
+                    ProgressMonitorDialog dialog =
+                        new ProgressMonitorDialog(getShell());
+                    dialog.run(true, true, runnable);
+                }
+                catch (InvocationTargetException e)
+                {
+                    CactusPlugin.displayErrorMessage(
+                        CactusMessages.getString(
+                            "CactusLaunch.message.prepare.error"),
+                        e.getTargetException().getMessage(),
+                        null);
+                    cancelPreparation(theProvider);
+                    return;
+                }
+                catch (InterruptedException e)
+                {
+                    CactusPlugin.displayErrorMessage(
+                        CactusMessages.getString(
+                            "CactusLaunch.message.prepare.error"),
+                        e.getMessage(),
+                        null);
+                    cancelPreparation(theProvider);
+                    return;
+                }
+            }
+        });
+    }
     /**
      * Launches the Junit tests.
      */
@@ -256,7 +286,8 @@ public class CactusLaunchShortcut
     }
 
     /**
-     * Returns the provider associated with this CactusLaunchShortcut instance.
+     * Returns the provider associated with this CactusLaunchShortcut instance,
+     * or null if there is none (i.e. Jelly).
      * @return the provider associated with this instance
      */
     public IContainerProvider getContainerProvider()
@@ -266,8 +297,9 @@ public class CactusLaunchShortcut
 
     /**
      * Launches a new progress dialog for preparation cancellation.
+     * @param theProvider the provider which preparation to cancel
      */
-    private void cancelPreparation()
+    private void cancelPreparation(final IContainerProvider theProvider)
     {
         ProgressMonitorDialog dialog = new ProgressMonitorDialog(getShell());
         IRunnableWithProgress tearDownRunnable = new IRunnableWithProgress()
@@ -276,7 +308,7 @@ public class CactusLaunchShortcut
             {
                 try
                 {
-                    teardownCactusTests(thePM);
+                    teardownCactusTests(thePM, theProvider);
                 }
                 catch (CoreException e)
                 {
@@ -308,18 +340,18 @@ public class CactusLaunchShortcut
      * creates the war file, deploys and launches the container.
      * @param theJavaProject the Java file
      * @param thePM the progress monitor to report to
+     * @param theProvider the provider to prepare
      * @throws CoreException if anything goes wrong during preparation
      */
     private void prepareCactusTests(
         IJavaProject theJavaProject,
-        IProgressMonitor thePM)
+        IProgressMonitor thePM,
+        IContainerProvider theProvider)
         throws CoreException
     {
         thePM.beginTask(
             CactusMessages.getString("CactusLaunch.message.prepare"),
             10);
-        IContainerManager manager = CactusPlugin.getContainerManager();
-        this.provider = manager.getContainerProviders()[0];
         try
         {
             WarBuilder newWar = new WarBuilder(theJavaProject);
@@ -332,8 +364,8 @@ public class CactusLaunchShortcut
                     "CactusLaunch.message.invalidproperty.contextpath",
                     null);
             }
-            this.provider.deploy(contextURLPath, warURL, null, thePM);
-            this.provider.start(null, thePM);
+            theProvider.deploy(contextURLPath, warURL, null, thePM);
+            theProvider.start(null, thePM);
         }
         catch (MalformedURLException e)
         {
@@ -349,20 +381,20 @@ public class CactusLaunchShortcut
      * Stops the container and undeploys (cleans) it.
      * @param thePM a progress monitor that reflects progress made while tearing
      * down the container setup
+     * @param theProvider the provider of the container to stop and undeploy
      * @throws CoreException if an error occurs when tearing down
      */
-    private void teardownCactusTests(IProgressMonitor thePM)
+    private void teardownCactusTests(
+        IProgressMonitor thePM,
+        IContainerProvider theProvider)
         throws CoreException
     {
         thePM.beginTask(
             CactusMessages.getString("CactusLaunch.message.teardown"),
             100);
-        if (this.provider != null)
-        {
-            this.provider.stop(null, thePM);
-            this.provider.undeploy(null, null, thePM);
-            this.war.delete();
-        }
+        theProvider.stop(null, thePM);
+        theProvider.undeploy(null, null, thePM);
+        this.war.delete();
         thePM.done();
     }
 
@@ -386,6 +418,19 @@ public class CactusLaunchShortcut
             return;
         }
         CactusPlugin.log("Test run ended");
+        if (getContainerProvider() != null)
+        {
+            teardown(getContainerProvider());
+        }
+        this.launchEnded = true;
+    }
+
+    /**
+     * Tears down the Cactus tests
+     * @param theProvider the container provider to tear down
+     */
+    private void teardown(final IContainerProvider theProvider)
+    {
         final IRunnableWithProgress runnable = new IRunnableWithProgress()
         {
             public void run(IProgressMonitor thePM) throws InterruptedException
@@ -393,7 +438,7 @@ public class CactusLaunchShortcut
                 CactusPlugin.log("Tearing down cactus tests");
                 try
                 {
-                    teardownCactusTests(thePM);
+                    teardownCactusTests(thePM, theProvider);
                 }
                 catch (CoreException e)
                 {
@@ -418,7 +463,7 @@ public class CactusLaunchShortcut
                             "CactusLaunch.message.teardown.error"),
                         e.getTargetException().getMessage(),
                         null);
-                    cancelPreparation();
+                    cancelPreparation(theProvider);
                     return;
                 }
                 catch (InterruptedException e)
@@ -428,7 +473,7 @@ public class CactusLaunchShortcut
                             "CactusLaunch.message.teardown.error"),
                         e.getMessage(),
                         null);
-                    cancelPreparation();
+                    cancelPreparation(theProvider);
                     return;
                 }
                 finally
@@ -438,7 +483,6 @@ public class CactusLaunchShortcut
             }
 
         });
-        this.launchEnded = true;
     }
 
     /**

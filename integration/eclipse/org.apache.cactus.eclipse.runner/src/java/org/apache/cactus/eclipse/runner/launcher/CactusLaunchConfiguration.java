@@ -56,9 +56,23 @@
  */
 package org.apache.cactus.eclipse.runner.launcher;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.util.Vector;
+
+import org.apache.cactus.eclipse.runner.common.JarFilenameFilter;
 import org.apache.cactus.eclipse.runner.ui.CactusPlugin;
 import org.apache.cactus.eclipse.runner.ui.CactusPreferences;
+import org.apache.cactus.eclipse.webapp.Webapp;
+import org.apache.cactus.eclipse.webapp.ui.WebappPlugin;
+import org.eclipse.ant.core.AntCorePlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.ILibrary;
+import org.eclipse.core.runtime.IPluginDescriptor;
+import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.Plugin;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.internal.junit.launcher.JUnitLaunchConfiguration;
@@ -83,7 +97,11 @@ public class CactusLaunchConfiguration extends JUnitLaunchConfiguration
      */
     public static final String ID_CACTUS_APPLICATION =
         "org.apache.cactus.eclipse.runner.launchconfig";
-
+    /**
+     * Path to the Jetty library directory in the Cactus plugin
+     * structure
+     */
+    private static final String JETTY_LIBRARY_PATH = "./lib/";
     /**
      * Returns a valid VM configuration for Cactus. This method overrides
      * the JUnit plugin one in order to add Cactus required VM parameters. 
@@ -105,14 +123,92 @@ public class CactusLaunchConfiguration extends JUnitLaunchConfiguration
         CactusPlugin.log("creating VMRunnerConfiguration for Cactus");
         VMRunnerConfiguration configuration =
             super.launchTypes(theConfiguration, theMode, theTests, thePort);
-
-        String[] cactusVMArgs =
-            {"-Dcactus.contextURL=" + CactusPreferences.getContextURL()};
         String[] jUnitArgs = configuration.getVMArguments();
-        String[] globalArgs = concatenateStringArrays(jUnitArgs, cactusVMArgs);
+        String[] cactusVMArgs = getCactusVMArgs(theTests);
+        String[] globalArgs =
+            concatenateStringArrays(
+                jUnitArgs,
+                cactusVMArgs);
         configuration.setVMArguments(globalArgs);
-        CactusPlugin.log("Cactus VM arguments : [" + cactusVMArgs[0] + "]");
-        return configuration;
+        CactusPlugin.log("Cactus VM arguments : [" + cactusVMArgs + "]");
+
+        String[] junitClasspath = configuration.getClassPath();
+        String[] cactusJarPaths = getCactusJarPaths();
+        String[] globalClasspath =
+            concatenateStringArrays(
+                junitClasspath,
+                cactusJarPaths);
+        VMRunnerConfiguration cactusConfig =
+            new VMRunnerConfiguration(
+                configuration.getClassToLaunch(),
+                globalClasspath);
+        String cactusClasspathRepresentation = "";
+        for (int i = 0; i < cactusJarPaths.length; i++)
+        {
+            cactusClasspathRepresentation += cactusJarPaths[i] + ";";
+        }
+        CactusPlugin.log(
+            "Cactus VM classpath : [" + cactusClasspathRepresentation + "]");
+
+        cactusConfig.setBootClassPath(configuration.getBootClassPath());
+        cactusConfig.setProgramArguments(configuration.getProgramArguments());
+        cactusConfig.setVMArguments(configuration.getVMArguments());
+        cactusConfig.setWorkingDirectory(configuration.getWorkingDirectory());
+        return cactusConfig;
+    }
+
+    /**
+     * @return an array of Jar paths needed for Cactus
+     */
+    private String[] getCactusJarPaths()
+    {
+        CactusPlugin thePlugin = CactusPlugin.getDefault();
+        URL libURL = thePlugin.find(new Path(JETTY_LIBRARY_PATH));
+        File libDir = new File(libURL.getPath());
+        String[] jettyJarPaths = getJarPaths(libDir);
+        URL[] antURLs =
+            AntCorePlugin.getPlugin().getPreferences().getAntURLs();
+        String[] apacheJarPaths = getJarPaths(antURLs);
+        Plugin xercesPlugin = Platform.getPlugin("org.apache.xerces");
+        if (xercesPlugin != null)
+        {
+            IPluginDescriptor descriptor = xercesPlugin.getDescriptor();
+            apacheJarPaths =
+                concatenateStringArrays(
+                    apacheJarPaths,
+                    getLibrariesPaths(descriptor));
+        }
+        return concatenateStringArrays(jettyJarPaths, apacheJarPaths);
+    }
+
+    /**
+     * @param theTests the types to get the arguments for
+     * @return an array of the specific Cactus VM arguments
+     */
+    private String[] getCactusVMArgs(IType[] theTests)
+    {
+        Vector cactusVMArgs = new Vector();
+        cactusVMArgs.add(
+            "-Dcactus.contextURL=" + CactusPreferences.getContextURL());
+        if (CactusPreferences.getJetty())
+        {
+            if (theTests.length > 0)
+            {
+                Webapp webapp =
+                    WebappPlugin.getWebapp(theTests[0].getJavaProject());
+                webapp.init();
+                File webappDir = webapp.getAbsoluteDir();
+                if (webappDir != null && webappDir.exists())
+                {
+                    cactusVMArgs.add(
+                        "-Dcactus.jetty.resourceDir=" + webappDir.getPath());
+                }
+            }
+            cactusVMArgs.add(
+                "-Dcactus.initializer="
+                    + "org.apache.cactus.extension.jetty.JettyInitializer");
+        }
+        return (String[]) cactusVMArgs.toArray(new String[cactusVMArgs.size()]);
     }
 
     /**
@@ -133,4 +229,58 @@ public class CactusLaunchConfiguration extends JUnitLaunchConfiguration
         return newArray;
     }
 
+    /**
+     * @param theDirectory the directory to list jars from
+     * @return the array of jar paths in the given directory
+     */
+    private String[] getJarPaths(File theDirectory)
+    {
+        File[] jars = theDirectory.listFiles(new JarFilenameFilter());
+        String[] jarPaths = new String[jars.length];
+        for (int i = 0; i < jarPaths.length; i++)
+        {
+            jarPaths[i] = jars[i].getAbsolutePath();
+        }
+        return jarPaths;
+    }
+
+    /**
+     * @param theAntURLs array of URLs to convert to Jar paths
+     * @return the array of jar paths from the given URLs
+     */
+    private String[] getJarPaths(URL[] theAntURLs)
+    {
+        String[] jarPaths = new String[theAntURLs.length];
+        for (int i = 0; i < theAntURLs.length; i++)
+        {
+            jarPaths[i] = theAntURLs[i].getFile();
+        }
+        return jarPaths;
+    }
+
+    /**
+     * @param theDescriptor the plug-in descriptor to get libraries from 
+     * @return an array of jar paths exposed by the plug-in
+     */
+    private String[] getLibrariesPaths(IPluginDescriptor theDescriptor)
+    {
+        Vector result = new Vector();
+        URL root = theDescriptor.getInstallURL();
+        ILibrary[] libraries = theDescriptor.getRuntimeLibraries();
+        for (int i = 0; i < libraries.length; i++)
+        {
+            try
+            {
+                URL url = new URL(root, libraries[i].getPath().toString());
+                result.add(Platform.asLocalURL(url).getFile());
+            }
+            catch (IOException e)
+            {
+                // if the URL is not valid we don't add it
+                CactusPlugin.log(e);
+                continue;
+            }
+        }
+        return (String[]) result.toArray(new String[result.size()]);
+    }
 }

@@ -57,10 +57,10 @@
 package org.apache.cactus.eclipse.runner.ui;
 
 import java.io.File;
-import java.io.FilenameFilter;
 import java.net.URL;
 import java.util.Vector;
 
+import org.apache.cactus.eclipse.runner.common.JarFilenameFilter;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
@@ -204,25 +204,6 @@ public class CactifyActionDelegate implements IObjectActionDelegate
         }
         return result;
     }
-    /**
-     * Filter for jar files.
-     * i.e. accepts files like 'library.jar'
-     * 
-     * @author <a href="mailto:jruaux@octo.com">Julien Ruaux</a>
-     * 
-     * @version $Id$
-     */
-    static class JarFilenameFilter implements FilenameFilter
-    {
-        /**
-         * @see java.io.FilenameFilter#accept(java.io.File, java.lang.String)
-         */
-        public boolean accept(File theDir, String theFilename)
-        {
-            return theFilename.endsWith(".jar");
-        }
-    }
-
     /**
      * @param theFirstArray an array of classpath entries
      * @param theSecondArray an array of classpath entries
