@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+/*
+ * Copyright 2005 The Apache Software Foundation.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ -->
+
+
+<project>
+  <pomVersion>3</pomVersion>
+  <name>testBundlePropertiesTest</name>
+  <artifactId>testBundlePropertiesTest</artifactId>
+  <currentVersion>1.0.0</currentVersion>
+  <shortDescription>Test for new properties ear.bundle.name and ear.bundle.dir</shortDescription>
+  <description>Tests if a dependency which has the properties ear.bundle.name or ear.bundle.dir it is properly bundled in the EAR (see issues MPEAR-26, MPEAR-23 and CACTUS-197)</description>
+  <dependencies>
+    <dependency>
+      <groupId>commons-logging</groupId>
+      <artifactId>commons-logging</artifactId>
+      <version>1.0.3</version>
+      <properties>
+        <ear.bundle.dir>/APP-INF/lib</ear.bundle.dir>
+        <ear.module>true</ear.module>
+      </properties>
+    </dependency>
+    <dependency>
+      <groupId>commons-collections</groupId>
+      <artifactId>commons-collections</artifactId>
+      <version>2.1</version>
+      <properties>
+        <ear.bundle>true</ear.bundle>
+      </properties>
+    </dependency>
+    <dependency>
+      <groupId>commons-digester</groupId>
+      <artifactId>commons-digester</artifactId>
+      <version>1.6</version>
+      <properties>
+        <ear.bundle>true</ear.bundle>
+        <ear.bundle.name>commons-digester.jar</ear.bundle.name>
+      </properties>
+    </dependency>
+    <dependency>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+      <version>1.2.8</version>
+      <properties>
+        <ear.bundle>true</ear.bundle>
+        <ear.bundle.name>LOG4J.JAR</ear.bundle.name>
+        <ear.bundle.dir>/APP-INF/lib</ear.bundle.dir>
+      </properties>
+    </dependency>
+  </dependencies>
+</project>

@@ -21,6 +21,7 @@
   xmlns:x="jelly:xml"
   xmlns:maven="jelly:maven"
   xmlns:test="test"
+  xmlns:ear="ear"
   xmlns:cactustag="cactus"
   xmlns:cactus="jelly:org.apache.cactus.integration.maven.CactusTagLibrary">
 
@@ -1022,14 +1023,30 @@
       </ant:fileset>
 
       <!-- include marked dependencies -->
+      <j:set var="tmpDependenciesDir" value="${maven.build.dir}/tmpEarDeps"/>
       <j:forEach var="lib" items="${pom.artifacts}">
         <j:set var="dep" value="${lib.dependency}"/>      
+        <j:set var="originalPath" value="${lib.file.name}"/>      
         <j:if test="${dep.getProperty('ear.bundle')=='true' || dep.getProperty('ear.module')=='true'}">
-          <ant:fileset dir="${lib.file.parent}">
-            <ant:include name="${lib.file.name}"/>
-          </ant:fileset>
+          <ear:setPath lib="${lib}" var="bundledPath"/>
+          <j:choose>
+             <j:when test="${originalPath.equals(bundledPath)}">
+               <ant:fileset dir="${lib.file.parent}">
+                 <ant:include name="${originalPath}"/>
+               </ant:fileset>
+             </j:when>
+             <j:otherwise>
+               <echo>Dependency ${lib.file.name} will be bundled as ${bundledPath}</echo>
+               <ant:copy file="${lib.file.parent}/${lib.file.name}" tofile="${tmpDependenciesDir}/${bundledPath}"/>
+             </j:otherwise>
+          </j:choose>
         </j:if>  
       </j:forEach>
+
+      <!-- bundle all dependencies that were copied to a temporary dir -->
+      <util:available file="${tmpDependenciesDir}">
+         <ant:fileset dir="${tmpDependenciesDir}"/>
+      </util:available>
 
       <j:if test="${cactus.ear.manifest.available}">
         <ant:setProperty name="manifest" 
@@ -1266,36 +1283,37 @@
 
         <j:forEach var="lib" items="${pom.artifacts}">
           <j:set var="dep" value="${lib.dependency}"/>
+          <ear:setPath lib="${lib}" var="bundledPath"/>
           <j:if test="${dep.getProperty('ear.bundle')=='true' || dep.getProperty('ear.module')=='true'}">
             <j:choose>
               <j:when test="${dep.type=='war'}">
                 <x:element name="module">
                   <x:element name="web">
-                    <x:element name="web-uri">${dep.getArtifact()}</x:element>
+                    <x:element name="web-uri">${bundledPath}</x:element>
                     <x:element name="context-root">${dep.getProperty('ear.appxml.war.context-root')}</x:element>
                  </x:element>                
                 </x:element>
               </j:when>
               <j:when test="${dep.type=='ejb'}">
                 <x:element name="module">
-                  <x:element name="ejb">${dep.getArtifact()}</x:element>                 
+                  <x:element name="ejb">${bundledPath}</x:element>                 
                 </x:element>
               </j:when>       
               <j:when test="${dep.type=='jar'}">
                 <j:if test="${dep.getProperty('ear.module')=='true'}">
                   <x:element name="module">  
-                    <x:element name="java">${dep.getArtifact()}</x:element>                 
+                  <x:element name="java">${bundledPath}</x:element>                 
                   </x:element>
                 </j:if>
               </j:when>
               <j:when test="${dep.type=='rar'}">
                 <x:element name="module">  
-                  <x:element name="connector">${dep.getArtifact()}</x:element>                 
+                <x:element name="connector">${bundledPath}</x:element>                 
                 </x:element>
               </j:when>
               <j:when test="${dep.type=='sar'}">
                 <x:element name="module">
-                  <x:element name="connector">${dep.getArtifact()}</x:element>
+                <x:element name="connector">${bundledPath}</x:element>
                 </x:element>
               </j:when>
             </j:choose> 
