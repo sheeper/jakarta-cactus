@@ -156,9 +156,10 @@ public class TestServletTestCase3 extends ServletTestCase
      *                      server redirector. It contains the returned HTTP
      *                      response.
      */
-    public void endTearDown(HttpURLConnection theConnection)
+    public void endTearDown(WebResponse theResponse)
     {
-        assertEquals("tear down header", theConnection.getHeaderField("teardownheader"));
+        assertEquals("tear down header",
+            theResponse.getConnection().getHeaderField("teardownheader"));
     }
 
 }

@@ -148,9 +148,9 @@ public class TestSampleServlet extends ServletTestCase
      * @param theRequest the request object that serves to initialize the
      *                   HTTP connection to the server redirector.
      */
-    public void beginGetMethod(ServletTestRequest theRequest)
+    public void beginGetMethod(WebRequest theRequest)
     {
-        theRequest.setMethod(ServletTestRequest.GET_METHOD);
+        theRequest.setMethod(WebRequest.GET_METHOD);
     }
 
     /**
@@ -196,7 +196,7 @@ public class TestSampleServlet extends ServletTestCase
      * @param theRequest the request object that serves to initialize the
      *                   HTTP connection to the server redirector.
      */
-    public void beginSendParams(ServletTestRequest theRequest)
+    public void beginSendParams(WebRequest theRequest)
     {
         theRequest.addParameter("param1", "value1");
         theRequest.addParameter("param2", "value2");
@@ -224,7 +224,7 @@ public class TestSampleServlet extends ServletTestCase
      * @param theRequest the request object that serves to initialize the
      *                   HTTP connection to the server redirector.
      */
-    public void beginSendHeader(ServletTestRequest theRequest)
+    public void beginSendHeader(WebRequest theRequest)
     {
         theRequest.addHeader("testheader", "this is a header test");
     }
@@ -248,7 +248,7 @@ public class TestSampleServlet extends ServletTestCase
      * @param theRequest the request object that serves to initialize the
      *                   HTTP connection to the server redirector.
      */
-    public void beginSendCookie(ServletTestRequest theRequest)
+    public void beginSendCookie(WebRequest theRequest)
     {
         // Note: The cookie value that was chosen is a string without spaces
         // because there is a problem with Resin 1.2.1 which does not support
@@ -275,7 +275,7 @@ public class TestSampleServlet extends ServletTestCase
      * @param theRequest the request object that serves to initialize the
      *                   HTTP connection to the server redirector.
      */
-    public void beginSendMultipleCookies(ServletTestRequest theRequest)
+    public void beginSendMultipleCookies(WebRequest theRequest)
     {
         theRequest.addCookie("testcookie1", "cookie1");
         theRequest.addCookie("testcookie2", "cookie2");

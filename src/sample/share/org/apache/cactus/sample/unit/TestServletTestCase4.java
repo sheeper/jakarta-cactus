@@ -94,7 +94,8 @@ public class TestServletTestCase4 extends ServletTestCase
      */
     public static void main(String[] theArgs)
     {
-        junit.ui.TestRunner.main(new String[] {TestServletTestCase4.class.getName()});
+        junit.ui.TestRunner.main(new String[] {
+            TestServletTestCase4.class.getName()});
     }
 
     /**
@@ -116,9 +117,10 @@ public class TestServletTestCase4 extends ServletTestCase
      * @param theRequest the request object that serves to initialize the
      *                   HTTP connection to the server redirector.
      */
-    public void beginSimulatedURLBasics(ServletTestRequest theRequest)
+    public void beginSimulatedURLBasics(WebRequest theRequest)
     {
-        theRequest.setURL("jakarta.apache.org", "", "/test/test.jsp", null, null);
+        theRequest.setURL("jakarta.apache.org", "", "/test/test.jsp", null,
+            null);
     }
 
     /**
@@ -148,9 +150,10 @@ public class TestServletTestCase4 extends ServletTestCase
      * @param theRequest the request object that serves to initialize the
      *                   HTTP connection to the server redirector.
      */
-    public void beginSimulatedURL1(ServletTestRequest theRequest)
+    public void beginSimulatedURL1(WebRequest theRequest)
     {
-        theRequest.setURL("jakarta.apache.org", "/mywebapp", "/test/test.jsp", null, null);
+        theRequest.setURL("jakarta.apache.org", "/mywebapp", "/test/test.jsp",
+            null, null);
     }
 
     /**
@@ -172,9 +175,10 @@ public class TestServletTestCase4 extends ServletTestCase
      * @param theRequest the request object that serves to initialize the
      *                   HTTP connection to the server redirector.
      */
-    public void beginSimulatedURL2(ServletTestRequest theRequest)
+    public void beginSimulatedURL2(WebRequest theRequest)
     {
-        theRequest.setURL("jakarta.apache.org", "/catalog", "/lawn", "/index.html", null);
+        theRequest.setURL("jakarta.apache.org", "/catalog", "/lawn",
+            "/index.html", null);
     }
 
     /**
@@ -198,9 +202,10 @@ public class TestServletTestCase4 extends ServletTestCase
      * @param theRequest the request object that serves to initialize the
      *                   HTTP connection to the server redirector.
      */
-    public void beginSimulatedURL3(ServletTestRequest theRequest)
+    public void beginSimulatedURL3(WebRequest theRequest)
     {
-        theRequest.setURL("jakarta.apache.org", "/catalog", "/garden", "/implements/", null);
+        theRequest.setURL("jakarta.apache.org", "/catalog", "/garden",
+            "/implements/", null);
     }
 
     /**
@@ -224,9 +229,10 @@ public class TestServletTestCase4 extends ServletTestCase
      * @param theRequest the request object that serves to initialize the
      *                   HTTP connection to the server redirector.
      */
-    public void beginSimulatedURL4(ServletTestRequest theRequest)
+    public void beginSimulatedURL4(WebRequest theRequest)
     {
-        theRequest.setURL("jakarta.apache.org", "/catalog", "/help/feedback.jsp", null, null);
+        theRequest.setURL("jakarta.apache.org", "/catalog",
+            "/help/feedback.jsp", null, null);
     }
 
     /**
@@ -252,7 +258,7 @@ public class TestServletTestCase4 extends ServletTestCase
      * @param theRequest the request object that serves to initialize the
      *                   HTTP connection to the server redirector.
      */
-    public void beginSimulatedURL5(ServletTestRequest theRequest)
+    public void beginSimulatedURL5(WebRequest theRequest)
     {
         theRequest.setURL("jakarta.apache.org", "/catalog", 
             "/help/feedback.jsp", null, "PARAM1=param1&PARAM2=&PARAM3=param3");
@@ -271,7 +277,8 @@ public class TestServletTestCase4 extends ServletTestCase
         assertEquals("/catalog", request.getContextPath());
         assertEquals("/help/feedback.jsp", request.getServletPath());
         assert(request.getPathInfo() == null);
-        assertEquals("PARAM1=param1&PARAM2=&PARAM3=param3", request.getQueryString());
+        assertEquals("PARAM1=param1&PARAM2=&PARAM3=param3",
+            request.getQueryString());
         assertEquals(request.getParameter("PARAM1"), "param1");
         assertEquals(request.getParameter("PARAM2"), "");
         assertEquals(request.getParameter("PARAM3"), "param3");

@@ -117,6 +117,32 @@ public class WebResponse
     }
 
     /**
+     * @return the text of the response (excluding headers) as an array of
+     *         strings (each string is a separate line from the output stream).
+     */
+    public String[] getTextAsArray()
+    {
+        Vector lines = new Vector();
+
+        try {
+            BufferedReader input = new BufferedReader(
+                new InputStreamReader(m_Connection.getInputStream()));
+            String str;
+            while (null != (str = input.readLine())) {
+                lines.addElement(str);
+            }
+            input.close ();
+        } catch (IOException e) {
+            throw new ChainedRuntimeException(e);
+        }
+
+        // Fixme: I don't know why but if I don't use this dummy stuff I get a
+        // ClassCastException !
+        String[] dummy = new String[lines.size()];
+        return (String[])(lines.toArray(dummy));
+    }
+
+    /**
      * @return a buffered input stream for reading the response data.
      **/
     public InputStream getInputStream()

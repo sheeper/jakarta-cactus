@@ -82,7 +82,8 @@ import org.apache.commons.cactus.*;
  *
  * @version @version@
  */
-public class TestServletTestCase5 extends TestServletTestCase5_InterceptorServletTestCase
+public class TestServletTestCase5
+    extends TestServletTestCase5_InterceptorServletTestCase
 {
     /**
      * Defines the testcase name for JUnit.
@@ -101,7 +102,8 @@ public class TestServletTestCase5 extends TestServletTestCase5_InterceptorServle
      */
     public static void main(String[] theArgs)
     {
-        junit.ui.TestRunner.main(new String[] {TestServletTestCase5.class.getName()});
+        junit.ui.TestRunner.main(new String[] {
+            TestServletTestCase5.class.getName()});
     }
 
     /**

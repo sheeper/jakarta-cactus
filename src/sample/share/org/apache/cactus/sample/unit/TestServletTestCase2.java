@@ -95,7 +95,8 @@ public class TestServletTestCase2 extends ServletTestCase
      */
     public static void main(String[] theArgs)
     {
-        junit.ui.TestRunner.main(new String[] {TestServletTestCase2.class.getName()});
+        junit.ui.TestRunner.main(new String[] {
+            TestServletTestCase2.class.getName()});
     }
 
     /**
@@ -117,7 +118,7 @@ public class TestServletTestCase2 extends ServletTestCase
      * @param theRequest the request object that serves to initialize the
      *                   HTTP connection to the server redirector.
      */
-    public void beginNoAutomaticSessionCreation(ServletTestRequest theRequest)
+    public void beginNoAutomaticSessionCreation(WebRequest theRequest)
     {
         theRequest.setAutomaticSession(false);
     }
@@ -128,7 +129,8 @@ public class TestServletTestCase2 extends ServletTestCase
      */
     public void testNoAutomaticSessionCreation()
     {
-        assert("A valid session has been found when no session should exist", session == null);
+        assert("A valid session has been found when no session should exist",
+            session == null);
     }
 
     //-------------------------------------------------------------------------
@@ -140,7 +142,7 @@ public class TestServletTestCase2 extends ServletTestCase
      * @param theRequest the request object that serves to initialize the
      *                   HTTP connection to the server redirector.
      */
-    public void beginMultiValueParameters(ServletTestRequest theRequest)
+    public void beginMultiValueParameters(WebRequest theRequest)
     {
         theRequest.addParameter("multivalue", "value 1");
         theRequest.addParameter("multivalue", "value 2");
@@ -158,7 +160,8 @@ public class TestServletTestCase2 extends ServletTestCase
         } else if (values[0].equals("value 2")) {
             assertEquals("value 1", values[1]);
         } else {
-            fail("Shoud have returned a vector with the values \"value 1\" and \"value 2\"");
+            fail("Shoud have returned a vector with the " +
+                "values \"value 1\" and \"value 2\"");
         }
     }
 
@@ -176,13 +179,12 @@ public class TestServletTestCase2 extends ServletTestCase
     /**
      * Verify that it is possible to write to the servlet output stream.
      *
-     * @param theConnection the HTTP connection that was used to call the
-     *                      server redirector. It contains the returned HTTP
-     *                      response.
+     * @param theResponse the response from the server side.
      */
-    public void endWriteOutputStream(HttpURLConnection theConnection) throws IOException
+    public void endWriteOutputStream(WebResponse theResponse) throws IOException
     {
-        DataInputStream dis = new DataInputStream(theConnection.getInputStream());
+        DataInputStream dis = new DataInputStream(
+            theResponse.getConnection().getInputStream());
         assertEquals("should not result in an error", dis.readLine());
     }
 
@@ -232,7 +234,7 @@ public class TestServletTestCase2 extends ServletTestCase
      * @param theRequest the request object that serves to initialize the
      *                   HTTP connection to the server redirector.
      */
-    public void beginSendMultivaluedHeader(ServletTestRequest theRequest)
+    public void beginSendMultivaluedHeader(WebRequest theRequest)
     {
         theRequest.addHeader("testheader", "value1");
         theRequest.addHeader("testheader", "value2");
@@ -288,7 +290,8 @@ public class TestServletTestCase2 extends ServletTestCase
             }
             count++;
         }
-        assertEquals("Should have received 2 values for header [testheader]", 2, count);
+        assertEquals("Should have received 2 values for header [testheader]",
+            2, count);
         */
     }
 
@@ -311,11 +314,10 @@ public class TestServletTestCase2 extends ServletTestCase
      * Verify that the <code>AsertUtils.getResponseAsString()</code> method
      * works with output text sent on multiple lines.
      *
-     * @param theConnection the HTTP connection that was used to call the
-     *                      server redirector. It contains the returned HTTP
-     *                      response.
+     * @param theResponse the response from the server side.
      */
-    public void endGetResponseAsStringMultiLines(HttpURLConnection theConnection) throws IOException
+    public void endGetResponseAsStringMultiLines(WebResponse theResponse)
+        throws IOException
     {
         StringWriter sw = new StringWriter();
         PrintWriter pw = new PrintWriter(sw);
@@ -323,7 +325,7 @@ public class TestServletTestCase2 extends ServletTestCase
         pw.println("<body>A GET request</body>");
         pw.println("</html>");
 
-        String result = AssertUtils.getResponseAsString(theConnection);
+        String result = theResponse.getText();
         assertEquals(sw.toString(), result);
 
         pw.close();
@@ -348,13 +350,12 @@ public class TestServletTestCase2 extends ServletTestCase
      * Verify that the <code>AsertUtils.getResponseAsStringArray()</code> method
      * works with output text sent on multiple lines.
      *
-     * @param theConnection the HTTP connection that was used to call the
-     *                      server redirector. It contains the returned HTTP
-     *                      response.
+     * @param theResponse the response from the server side.
      */
-    public void endGetResponseAsStringArrayMultiLines(HttpURLConnection theConnection) throws IOException
+    public void endGetResponseAsStringArrayMultiLines(WebResponse theResponse)
+        throws IOException
     {
-        String[] results = AssertUtils.getResponseAsStringArray(theConnection);
+        String[] results = theResponse.getTextAsArray();
 
         assert("Should have returned 3 lines of text", results.length == 3);
         assertEquals("<html><head/>", results[0]);
@@ -370,7 +371,7 @@ public class TestServletTestCase2 extends ServletTestCase
      * @param theRequest the request object that serves to initialize the
      *                   HTTP connection to the server redirector.
      */
-    public void beginCookieEncoding(ServletTestRequest theRequest)
+    public void beginCookieEncoding(WebRequest theRequest)
     {
         // Note: the pipe ('&') character is a special character regarding
         // URL encoding
@@ -398,7 +399,8 @@ public class TestServletTestCase2 extends ServletTestCase
      * Verify that request.getRequestDispatcher() works properly with an
      * absolute path
      */
-    public void testGetRequestDispatcherFromRequest1() throws ServletException, IOException
+    public void testGetRequestDispatcherFromRequest1()
+        throws ServletException, IOException
     {
         RequestDispatcher rd = request.getRequestDispatcher("/test/test.jsp");
         rd.include(request, response);
@@ -408,14 +410,14 @@ public class TestServletTestCase2 extends ServletTestCase
      * Verify that request.getRequestDispatcher() works properly with an
      * absolute path
      *
-     * @param theConnection the HTTP connection that was used to call the
-     *                      server redirector. It contains the returned HTTP
-     *                      response.
+     * @param theResponse the response from the server side.
      */
-    public void endGetRequestDispatcherFromRequest1(HttpURLConnection theConnection) throws IOException
+    public void endGetRequestDispatcherFromRequest1(WebResponse theResponse)
+        throws IOException
     {
-        String result = AssertUtils.getResponseAsString(theConnection);
-        assert("Page not found, got [" + result + "]", result.indexOf("Hello !") > 0);
+        String result = theResponse.getText();
+        assert("Page not found, got [" + result + "]",
+            result.indexOf("Hello !") > 0);
     }
 
     //-------------------------------------------------------------------------
@@ -427,7 +429,8 @@ public class TestServletTestCase2 extends ServletTestCase
      * @param theRequest the request object that serves to initialize the
      *                   HTTP connection to the server redirector.
      */
-    public void beginGetRequestDispatcherFromRequest2(ServletTestRequest theRequest)
+    public void beginGetRequestDispatcherFromRequest2(
+        WebRequest theRequest)
     {
         theRequest.setURL(null, "/test", "/anything.jsp", null, null);
     }
@@ -436,7 +439,8 @@ public class TestServletTestCase2 extends ServletTestCase
      * Verify that request.getRequestDispatcher() works properly with a
      * relative path.
      */
-    public void testGetRequestDispatcherFromRequest2() throws ServletException, IOException
+    public void testGetRequestDispatcherFromRequest2()
+        throws ServletException, IOException
     {
         RequestDispatcher rd = request.getRequestDispatcher("test/test.jsp");
         rd.include(request, response);
@@ -446,14 +450,14 @@ public class TestServletTestCase2 extends ServletTestCase
      * Verify that request.getRequestDispatcher() works properly with a
      * relative path.
      *
-     * @param theConnection the HTTP connection that was used to call the
-     *                      server redirector. It contains the returned HTTP
-     *                      response.
+     * @param theResponse the response from the server side.
      */
-    public void endGetRequestDispatcherFromRequest2(HttpURLConnection theConnection) throws IOException
+    public void endGetRequestDispatcherFromRequest2(WebResponse theResponse)
+        throws IOException
     {
-        String result = AssertUtils.getResponseAsString(theConnection);
-        assert("Page not found, got [" + result + "]", result.indexOf("Hello !") > 0);
+        String result = theResponse.getText();
+        assert("Page not found, got [" + result + "]",
+            result.indexOf("Hello !") > 0);
     }
 
 }

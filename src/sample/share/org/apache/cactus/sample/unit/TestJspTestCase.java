@@ -120,14 +120,13 @@ public class TestJspTestCase extends JspTestCase
     /**
      * Verify that we write some text to the output Jsp writer.
      *
-     * @param theConnection the HTTP connection that was used to call the
-     *                      server redirector. It contains the returned HTTP
-     *                      response.
+     * @param theResponse the response from the server side.
      */
-    public void endOut(HttpURLConnection theConnection) throws IOException
+    public void endOut(WebResponse theResponse) throws IOException
     {
         StringBuffer sb = new StringBuffer();
-        BufferedReader input = new BufferedReader(new InputStreamReader(theConnection.getInputStream()));
+        BufferedReader input = new BufferedReader(new InputStreamReader(
+            theResponse.getConnection().getInputStream()));
         String str;
         while (null != ((str = input.readLine()))) {
             sb.append(str);
