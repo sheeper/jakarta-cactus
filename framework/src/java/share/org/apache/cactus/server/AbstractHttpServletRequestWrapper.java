@@ -215,20 +215,18 @@ public abstract class AbstractHttpServletRequestWrapper
 
     /**
      * @return the server name from the simulated URL or the real server name
-     *         if a simulation URL has not been defined.
+     *         if a simulation URL has not been defined. If the server name
+     *         defined in the simulation URL is null, return the real server
+     *         name.
      */
     public String getServerName()
     {
-        String result;
+        String result = this.request.getServerName();
 
-        if (this.url != null)
+        if ((this.url != null) && (this.url.getHost() != null))
         {
             result = this.url.getHost();
             LOGGER.debug("Using simulated server name : [" + result + "]");
-        }
-        else
-        {
-            result = this.request.getServerName();
         }
 
         return result;
@@ -236,21 +234,19 @@ public abstract class AbstractHttpServletRequestWrapper
 
     /**
      * @return the server port number from the simulated URL or the real server
-     *         port number if a simulation URL has not been defined. If not
-     *         port is defined, then port 80 is returned.
+     *         port number if a simulation URL has not been defined. If no
+     *         port is defined in the simulation URL, then port 80 is returned.
+     *         If the server name has been defined with a null value in
+     *         in the simulation URL, return the real server port. 
      */
     public int getServerPort()
     {
-        int result;
+        int result = this.request.getServerPort();
 
-        if (this.url != null)
+        if ((this.url != null) && (this.url.getServerName() != null))
         {
             result = (this.url.getPort() == -1) ? 80 : this.url.getPort();
             LOGGER.debug("Using simulated server port : [" + result + "]");
-        }
-        else
-        {
-            result = this.request.getServerPort();
         }
 
         return result;

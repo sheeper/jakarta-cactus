@@ -77,11 +77,13 @@
         </action>
         <action dev="VMA" type="fix">
           When a simulation URL is used and null values are passed for the
-          Context Path and Servlet Path parameters, calls to Cactus
+          Server name, Context Path and Servlet Path parameters, calls to 
+          Cactus <code>HttpServletRequestWrapper.getServerName()</code>,
+          <code>HttpServletRequestWrapper.getServerPort()</code>,
           <code>HttpServletRequestWrapper.getContextPath()</code> and
           <code>HttpServletRequestWrapper.getServletPath()</code> now correctly
-          return the Context Path and Servlet Path from the original Request
-          (and not the wrapped one) handled by the Servlet Redirector.
+          return the values from the original Request object
+          (and not the wrapped one), handled by the Servlet Redirector.
         </action>
         <action dev="VMA" type="update">
           Added verification code in Cactus to verify that the parameters 

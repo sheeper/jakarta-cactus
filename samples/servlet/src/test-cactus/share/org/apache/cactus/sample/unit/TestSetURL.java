@@ -253,6 +253,8 @@ public class TestSetURL extends ServletTestCase
      */
     public void testSimulatedURLNullValues()
     {
+        assertNotNull(request.getServerName());
+        assertTrue(request.getServerPort() > 0);
         assertNotNull(request.getContextPath());       
         assertNotNull(request.getServletPath());       
         assertEquals("", request.getPathInfo());       
