@@ -54,6 +54,7 @@
 package org.apache.cactus;
 
 import java.util.*;
+import java.io.*;
 
 import org.apache.cactus.util.*;
 
@@ -124,6 +125,29 @@ public class WebRequest
      * Automatic session creation flag (default is true).
      */
     private boolean isAutomaticSession = true;
+
+    /**
+     * Binary data to send in the request body (if any)
+     */
+    private InputStream dataStream;
+
+    /**
+     * Allow the user to send arbitrary data in the request body
+     *
+     * @param theDataStream the stream on which the data are put by the user
+     */
+    public void setUserData(InputStream theDataStream)
+    {
+        this.dataStream = theDataStream;
+    }
+
+    /**
+     * @return the data stream set up by the user
+     */
+    public InputStream getUserData()
+    {
+        return this.dataStream;
+    }
 
     /**
      * @param isAutomaticSession whether the redirector servlet will

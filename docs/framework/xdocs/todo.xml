@@ -97,16 +97,6 @@
         Willkomm</link>.
       </action>
       <action>
-        Add an API in <code>WebRequest</code> to send data to the URL
-        connection output stream. This is, for example, to easily test code
-        that upload files to a servlet. This would need managing
-        "multipart/form-data" MIME type in the HTTP connection. A
-        convenience method, like
-        <code>WebRequest.uploadFile(InputStream)</code> should be added. We
-        should wait till Cactus moves to using commons-httpclient for HTTP
-        connections (in replacement of <code>HttpURLConnection</code>).
-      </action>
-      <action>
         Design and implement a mechanism for better supporting unit testing of
         EJBs (they are currently supported). There are several possible
         mechanisms :

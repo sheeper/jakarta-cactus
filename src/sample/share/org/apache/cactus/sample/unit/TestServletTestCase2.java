@@ -621,4 +621,36 @@ public class TestServletTestCase2 extends ServletTestCase
         assertEquals("test=something", body.toString());
     }
 
+    //-------------------------------------------------------------------------
+
+    /**
+     * Verify that we can send arbitrary data in the request body.
+     *
+     * @param theRequest the request object that serves to initialize the
+     *                   HTTP connection to the server redirector.
+     */
+    public void beginSendUserData(WebRequest theRequest)
+    {
+        ByteArrayInputStream bais = new ByteArrayInputStream(
+            "some data to send in the body".getBytes());
+
+        theRequest.setUserData(bais);
+    }
+
+    /**
+     * Verify that we can send arbitrary data in the request body.
+     */
+    public void testSendUserData() throws Exception
+    {
+        String buffer;
+        StringBuffer body = new StringBuffer();
+
+        BufferedReader reader = request.getReader();
+        while ((buffer = reader.readLine()) != null) {
+            body.append(buffer);
+        }
+
+        assertEquals("some data to send in the body", body.toString());
+    }
+
 }

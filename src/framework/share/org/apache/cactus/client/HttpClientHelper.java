@@ -131,7 +131,10 @@ public class HttpClientHelper
         // Choose the method that we will use to post data :
         // - If at least one parameter is to be sent in the request body, then
         //   we are doing a POST.
-        if (theRequest.getParameterNamesPost().hasMoreElements()) {
+        // - If user data has been specified, then we are doing a POST
+        if (theRequest.getParameterNamesPost().hasMoreElements() ||
+            (theRequest.getUserData() != null)) {
+
             connection.setDoOutput(true);
         } else {
             connection.setDoOutput(false);
@@ -145,14 +148,46 @@ public class HttpClientHelper
         // Add the cookies
         addCookies(theRequest, connection);
 
-        // Add the POST parameters
-        addParametersPost(theRequest, connection);
+        // Add the POST parameters if no user data has been specified (user data
+        // overried post parameters)
+        if (theRequest.getUserData() != null) {
+            addUserData(theRequest, connection);
+        } else {
+            addParametersPost(theRequest, connection);
+        }
 
         // Open the connection and get the result
         connection.connect();
 
         logger.exit("connect");
         return connection;
+    }
+
+    /**
+     * Add user data in the request body.
+     *
+     * @param theRequest the request containing all data to pass to the server
+     *        redirector.
+     * @param theConnection the HTTP connection
+     */
+    private void addUserData(WebRequest theRequest,
+        URLConnection theConnection) throws Throwable
+    {
+        // If no user data, then exit
+        if (theRequest.getUserData() == null) {
+            return;
+        }
+
+        OutputStream out = getConnectionStream(theConnection);
+        InputStream stream = theRequest.getUserData();
+
+        byte[] buffer = new byte[2048];
+        int length;
+        while ((length = stream.read(buffer)) != -1) {
+            out.write(buffer, 0, length);
+        }
+
+        out.close();
     }
 
     /**
@@ -233,25 +268,8 @@ public class HttpClientHelper
             return;
         }
 
-        PrintWriter out;
-        try {
-            out = new PrintWriter(theConnection.getOutputStream());
-        } catch (ConnectException e) {
-
-            // Cannot connect to server, try to explain why ...
-            String reason = "Cannot connect to URL [" + theConnection.getURL() +
-                "]. Reason : [" + e.getMessage() + "]\r\n";
-            reason += "Possible reasons :\r\n";
-            reason += "\t- The server is not running,\r\n";
-            reason += "\t- The server redirector is not correctly mapped in " +
-                "web.xml,\r\n";
-            reason += "\t- Something else ... !";
-
-            throw new Exception(reason);
-        }
-
+        PrintWriter out = new PrintWriter(getConnectionStream(theConnection));
         StringBuffer queryString = new StringBuffer();
-
         Enumeration keys = theRequest.getParameterNamesPost();
 
         if (keys.hasMoreElements()) {
@@ -281,6 +299,32 @@ public class HttpClientHelper
 
         out.print(queryString.toString());
         out.close();
+    }
+
+    /**
+     * @param theConnection the HTTP connection
+     * @return an output stream to write in the request body
+     */
+    private OutputStream getConnectionStream(URLConnection theConnection)
+        throws Throwable
+    {
+        OutputStream out;
+        try {
+            out = theConnection.getOutputStream();
+        } catch (IOException e) {
+            // Cannot connect to server, try to explain why ...
+            String reason = "Cannot connect to URL [" + theConnection.getURL() +
+                "]. Reason : [" + e.getMessage() + "]\r\n";
+            reason += "Possible reasons :\r\n";
+            reason += "\t- The server is not running,\r\n";
+            reason += "\t- The server redirector is not correctly mapped in " +
+                "web.xml,\r\n";
+            reason += "\t- Something else ... !";
+
+            throw new Exception(reason);
+        }
+
+        return out;
     }
 
     /**
