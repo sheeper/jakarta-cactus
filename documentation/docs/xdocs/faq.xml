@@ -51,6 +51,9 @@
         <li>
           <jump anchor="faq9">How can I parametrize my Cactus tests?</jump>
         </li>
+        <li>
+          <jump anchor="faq10">How do I maintain a Session between 2 Cactus test?</jump>
+        </li>
       </ul>
     </section>
 
@@ -441,6 +444,28 @@ public void MyTest extends ServletTestCase
             Properties during the Cactus initialization.
           </li>
         </ol>           
+      </section>
+	</section>
+
+    <anchor id="faq10"/>
+    <section title="How do I maintain a Session between 2 Cactus test?">
+
+      <section title="Question">
+        <p>
+          I would like to use the same HTTP Session between several Cactus 
+          tests. How can I do that?
+        </p>
+      </section>
+      <section title="Solution">
+        <p>
+          Cactus is a unit testing framework and not a functional testing 
+          framework. Each test <em>must</em> be independent of the others.
+          There are several reasons for this: tests become very brittle,
+          test order is not guaranteed by the JVM, etc. Thus, before each
+          test you must set the fixture. This can be factorized in the
+          <code>setUp()</code> method or in the Cactus <code>begin()</code>
+          method.
+        </p>
       </section>
 	</section>
 
