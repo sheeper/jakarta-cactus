@@ -67,6 +67,39 @@
               Note
             </th>
           </tr>
+
+          <tr>
+            <td>
+              Resin
+            </td>
+            <td>
+              2.1.6
+            </td>
+            <td>
+              1.3
+            </td>
+            <td>
+              <link href="mailto:vmassol@apache.org">Vincent Massol</link>
+            </td>
+            <td/>
+          </tr>
+
+          <tr>
+            <td>
+              Tomcat
+            </td>
+            <td>
+              4.1.24
+            </td>
+            <td>
+              1.3
+            </td>
+            <td>
+              <link href="mailto:vmassol@apache.org">Vincent Massol</link>
+            </td>
+            <td/>
+          </tr>
+
         </table>
         
       </section>
