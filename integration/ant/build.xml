@@ -88,6 +88,10 @@
       <pathelement location="${commons.logging.jar}"/>
       <pathelement location="${xerces.jar}"/>
       <pathelement location="${xmlapis.jar}"/>
+      
+      <!-- Required for Gump -->
+      <pathelement location="${java.class.path}"/>
+      
     </path>
 
     <condition property="properties.ok">
