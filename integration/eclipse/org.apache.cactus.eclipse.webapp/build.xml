@@ -263,9 +263,7 @@
         <mkdir dir="${release.dir}"/>
 
         <zip destfile="${release.dir}/${main.release.name}.zip">
-            <zipfileset dir="${dist.bin.integration.dir}"
-                prefix="org.apache.cactus.integration.eclipse.webapp_${project.version}">
-            </zipfileset>
+            <zipfileset dir="${dist.bin.integration.dir}"/>
         </zip>
         
     </target>
