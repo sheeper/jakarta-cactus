@@ -42,9 +42,6 @@
                 <pathelement location="${junit.jar}"/>
             </classpath>
 
-            <!-- When using Log4j for logging -->
-            <jvmarg value="-Dlog4j.configuration=log_server.properties"/>
-
             <jvmarg value="-hotspot"/>
             <jvmarg value="-ms64m"/>
             <jvmarg value="-mx64m"/>

@@ -32,9 +32,6 @@
             <arg value="-conf"/>
             <arg value="resin.conf"/>
 
-            <!-- When using Log4j for logging -->
-            <jvmarg value="-Dlog4j.configuration=log_server.properties"/>
-
             <!-- Needed so that Resin use the resin.home.12 variable as it's
                  root directory for resolving file paths -->
             <jvmarg value="-Dresin.home=${target.resin12.dir}"/>

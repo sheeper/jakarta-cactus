@@ -32,9 +32,6 @@
               <pathelement location="${weblogic.home.51}/classes/boot"/>
             </classpath>
 
-            <!-- When using Log4j for logging -->
-            <jvmarg value="-Dlog4j.configuration=log_server.properties"/>
-
             <jvmarg value="-ms64m"/>
             <jvmarg value="-mx64m"/>
             <jvmarg value="-Dweblogic.class.path=${weblogic.home.51}/lib/weblogic510sp8.jar;${weblogic.home.51}/license;${weblogic.home.51}/classes;${weblogic.home.51}/lib/weblogicaux.jar"/>

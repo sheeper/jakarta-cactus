@@ -51,6 +51,8 @@
     <property name="target.classes.unit.dir"
         value="${target.classes.dir}/unit"/>
     <property name="target.conf.dir" value="${target.dir}/conf"/>
+    <property name="target.conf.client.dir" value="${target.conf.dir}/client"/>
+    <property name="target.conf.server.dir" value="${target.conf.dir}/server"/>
     <property name="target.doc.dir" value="${target.dir}/doc"/>
     <property name="target.doc.api.dir" value="${target.doc.dir}/api"/>
     <property name="target.test.dir" value="${target.dir}/test"/>
@@ -242,10 +244,10 @@
     -->
     <target name="war" depends="compile" description="Generate the runtime war">
 
-        <mkdir dir="${target.conf.dir}"/>
+        <mkdir dir="${target.conf.client.dir}"/>
 
         <!-- Copy the manifest in order to replace the version token filter -->
-        <copy todir="${target.conf.dir}" filtering="on">
+        <copy todir="${target.conf.client.dir}" filtering="on">
             <fileset dir="${conf.dir}" >
                 <include name="manifest"/>
             </fileset>
@@ -253,7 +255,7 @@
 
         <war warfile="${target.dir}/${sample.war.name}.war"
              webxml="${conf.dir}/web.xml"
-             manifest="${target.conf.dir}/manifest">
+             manifest="${target.conf.client.dir}/manifest">
 
             <classes dir="${target.classes.sample.dir}">
                 <!-- Do not include test files in the runtime war -->
@@ -339,10 +341,10 @@
     <target name="prepare.test" depends="init">
 
         <!-- Copy cactus.properties to replace the token filters -->
-        <copy todir="${target.conf.dir}"
+        <copy todir="${target.conf.client.dir}"
             file="${conf.test.dir}/cactus.properties" filtering="on"/>
         <!-- Copy log_client.properties so that it is in the classpath -->
-        <copy todir="${target.conf.dir}"
+        <copy tofile="${target.conf.client.dir}/log4j.properties"
             file="${conf.test.dir}/log_client.properties"/>
 
     </target>
@@ -352,13 +354,10 @@
         <junit printsummary="yes" haltonfailure="yes" haltonerror="yes"
             fork="yes">
 
-            <!-- When using Log4j for logging -->
-            <jvmarg value="-Dlog4j.configuration=log_client.properties"/>
-
             <classpath>
                 <!-- Cactus.propertie and log_client.properties need to be in
                      the classpath -->
-                <pathelement location="${target.conf.dir}"/>
+                <pathelement location="${target.conf.client.dir}"/>
                 <pathelement location="${target.classes.sample.dir}"/>
                 <pathelement location="${target.classes.unit.dir}"/>
                 <path refid="project.class.path"/>
@@ -406,6 +405,11 @@
         <copy todir="${target.lib.dir}" file="${aspectjrt.jar}"/>
         <copy todir="${target.lib.dir}" file="${commons.logging.jar}"/>
 
+        <!-- Copy the log4j server configuration file in order to change its
+             name to log4j.properties (the default name for Log4j) -->
+        <copy tofile="${target.conf.server.dir}/log4j.properties"
+            file="${conf.test.dir}/log_server.properties"/>
+
         <!-- Make sure the directory for the war exist -->
         <mkdir dir="${target.test.dir}"/>
 
@@ -417,9 +421,8 @@
             <classes dir="${target.classes.unit.dir}"/>
 
             <!-- log_server.properties need to be in the server classpath -->
-            <classes dir="${conf.test.dir}">
-                <include name="log_server.properties"/>
-                <include name="cactus.properties"/>
+            <classes dir="${target.conf.server.dir}">
+                <include name="log4j.properties"/>
             </classes>
 
             <!-- We need to copy all dependent jar in the war. This is

@@ -26,10 +26,6 @@
     <target name="start.enhydra.31">
 
         <java classname="org.apache.cactus.ant.EnhydraRun" fork="yes">
-
-            <!-- When using Log4j for logging -->
-            <jvmarg value="-Dlog4j.configuration=log_server.properties"/>
-
             <arg value="-start"/>
             <arg value="${target.enhydra31.dir}/conf/multiserver.conf"/>
             <classpath>

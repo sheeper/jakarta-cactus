@@ -88,12 +88,6 @@ public class Configuration
     private static final String CACTUS_CONFIG_PROPERTY = "cactus.config";
 
     /**
-     * Name of Cactus property that enables Cactus logging.
-     */
-    public static final String CACTUS_ENABLE_LOGGING_PROPERTY =
-        "cactus.enableLogging";
-
-    /**
      * Name of Cactus property that specify the URL up to the webapp context.
      * This is the base URL to call for the redirectors. It is made up of :
      * "http://" + serverName + port + "/" + contextName.
@@ -172,14 +166,4 @@ public class Configuration
         return contextURL;
     }
 
-    /**
-     * @return true if logging is enabled or false otherwise.
-     */
-    public static boolean isLoggingEnabled()
-    {
-        initialize();
-
-        return Boolean.valueOf(
-            System.getProperty(CACTUS_ENABLE_LOGGING_PROPERTY)).booleanValue();
-    }
 }

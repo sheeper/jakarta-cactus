@@ -30,9 +30,6 @@
             <jvmarg value="-Dcatalina.home=${tomcat.home.40}"/>
             <jvmarg value="-Dcatalina.base=${target.tomcat40.dir}"/>
 
-            <!-- When using Log4j for logging -->
-            <jvmarg value="-Dlog4j.configuration=log_server.properties"/>
-
             <arg value="start"/>
             <classpath>
 
