@@ -125,6 +125,10 @@
             </fileset>
         </copy>
 
+        <!-- Copy the log4j configuration files -->
+        <copy tofile="${cactus.target.dir}/${cactus.context}/WEB-INF/classes/log4j.properties"
+        	file="${cactus.conf.dir}/log_server.properties"/>
+        	
         <!-- Copy the Cactus test classes -->
         <copy todir="${cactus.target.dir}/${cactus.context}/WEB-INF/classes">
             <fileset dir="${cactus.target.classes.dir}"/>
