@@ -17,29 +17,37 @@
  * 
  * ========================================================================
  */
-package org.apache.cactus;
+package org.apache.cactus.internal.server;
 
-import junit.framework.TestCase;
-
-import org.apache.cactus.internal.server.ServletUtil;
+import javax.servlet.ServletConfig;
 
 /**
- * Unit tests of the <code>ServletUtil</code> class.
+ * Holder class that contains the instances of the implicit objects that will
+ * be accessible in the test classes (ie subclasses of
+ * <code>ServletTestCase</code>).
  *
  * @version $Id$
  */
-public class TestServletUtil extends TestCase
+public class ServletImplicitObjects extends AbstractWebImplicitObjects
 {
     /**
-     * Verify than <code>getQueryStringParameterEmpty()</code> returns an
-     * empty string if the parameter existe but has no value defined.
+     * The Servlet configuration object.
      */
-    public void testGetQueryStringParameterEmpty()
-    {
-        String queryString = "param1=&param2=value2";
-        String result = ServletUtil.getQueryStringParameter(queryString, 
-            "param1");
+    protected ServletConfig config;
 
-        assertEquals("", result);
+    /**
+     * @return the <code>ServletConfig</code> implicit object
+     */
+    public ServletConfig getServletConfig()
+    {
+        return this.config;
+    }
+
+    /**
+     * @param theConfig the <code>ServletConfig</code> implicit object
+     */
+    public void setServletConfig(ServletConfig theConfig)
+    {
+        this.config = theConfig;
     }
 }

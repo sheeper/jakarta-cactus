@@ -1,7 +1,7 @@
 /* 
  * ========================================================================
  * 
- * Copyright 2001-2003 The Apache Software Foundation.
+ * Copyright 2001-2004 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,10 +17,11 @@
  * 
  * ========================================================================
  */
-package org.apache.cactus.server;
+package org.apache.cactus.internal.server;
 
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
+
 
 /**
  * Holder class that contains the instances of the implicit objects that will

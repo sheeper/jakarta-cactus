@@ -17,13 +17,15 @@
  * 
  * ========================================================================
  */
-package org.apache.cactus.server;
+package org.apache.cactus.internal.server;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.cactus.internal.HttpServiceDefinition;
 import org.apache.cactus.internal.ServiceEnumeration;
+import org.apache.cactus.spi.server.ImplicitObjects;
+import org.apache.cactus.spi.server.TestController;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

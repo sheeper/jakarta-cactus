@@ -17,7 +17,7 @@
  * 
  * ========================================================================
  */
-package org.apache.cactus.server;
+package org.apache.cactus.internal.server;
 
 import java.io.IOException;
 import java.io.Writer;

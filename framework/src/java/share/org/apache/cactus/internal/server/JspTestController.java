@@ -1,7 +1,7 @@
 /* 
  * ========================================================================
  * 
- * Copyright 2001-2003 The Apache Software Foundation.
+ * Copyright 2001-2004 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,23 +17,23 @@
  * 
  * ========================================================================
  */
-package org.apache.cactus.server;
+package org.apache.cactus.internal.server;
 
 /**
- * Servlet Controller that extracts the requested service from the
+ * JSP Controller that extracts the requested service from the
  * HTTP request and executes the request by calling a
- * <code>ServletTestCaller</code>. There are 2 services available : one for
+ * <code>JspTestCaller</code>. There are 2 services available : one for
  * executing the test and one for returning the test result.
  *
  * @version $Id$
  */
-public class ServletTestController extends AbstractWebTestController
+public class JspTestController extends AbstractWebTestController
 {
     /**
      * @see AbstractWebTestController#getTestCaller(WebImplicitObjects)
      */
     protected AbstractWebTestCaller getTestCaller(WebImplicitObjects theObjects)
     {
-        return new ServletTestCaller((ServletImplicitObjects) theObjects);
+        return new JspTestCaller((JspImplicitObjects) theObjects);
     }
 }

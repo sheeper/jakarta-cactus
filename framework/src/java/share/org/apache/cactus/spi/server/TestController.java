@@ -1,7 +1,7 @@
 /* 
  * ========================================================================
  * 
- * Copyright 2001-2003 The Apache Software Foundation.
+ * Copyright 2001-2004 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,10 +17,10 @@
  * 
  * ========================================================================
  */
-package org.apache.cactus.server;
+package org.apache.cactus.spi.server;
 
 /**
- * Controller interface that simlulates a bit the controller from the MVC
+ * Controller interface that simulates a bit the controller from the MVC
  * model in that this controller implementation classes are in charge of
  * extracting data from the request and calling the test method to execute.
  * Note that this is independent of the protocol (HTTP, JMS, etc).

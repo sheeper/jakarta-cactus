@@ -17,9 +17,7 @@
  * 
  * ========================================================================
  */
-package org.apache.cactus.configuration;
-
-import org.apache.cactus.internal.configuration.AbstractWebConfiguration;
+package org.apache.cactus.internal.configuration;
 
 /**
  * Provides access to the Cactus configuration parameters related to the

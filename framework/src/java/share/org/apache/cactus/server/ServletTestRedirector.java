@@ -25,6 +25,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.cactus.internal.configuration.ConfigurationInitializer;
+import org.apache.cactus.internal.server.ServletImplicitObjects;
+import org.apache.cactus.internal.server.ServletTestController;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -32,7 +34,7 @@ import org.apache.commons.logging.LogFactory;
  * Generic Servlet redirector that calls a test method on the server side.
  *
  * @version $Id$
- * @see ServletTestCaller
+ * @see org.apache.cactus.internal.server.ServletTestCaller
  */
 public class ServletTestRedirector extends HttpServlet
 {

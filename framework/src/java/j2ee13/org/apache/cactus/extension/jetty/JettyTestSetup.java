@@ -27,9 +27,9 @@ import junit.framework.Protectable;
 import junit.framework.Test;
 import junit.framework.TestResult;
 
-import org.apache.cactus.configuration.FilterConfiguration;
 import org.apache.cactus.internal.configuration.BaseConfiguration;
 import org.apache.cactus.internal.configuration.Configuration;
+import org.apache.cactus.internal.configuration.FilterConfiguration;
 import org.apache.cactus.internal.configuration.ServletConfiguration;
 import org.apache.cactus.server.FilterTestRedirector;
 import org.apache.cactus.server.ServletTestRedirector;

@@ -1,7 +1,7 @@
 /* 
  * ========================================================================
  * 
- * Copyright 2001-2003 The Apache Software Foundation.
+ * Copyright 2001-2004 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,37 +17,23 @@
  * 
  * ========================================================================
  */
-package org.apache.cactus.server;
-
-import javax.servlet.ServletConfig;
+package org.apache.cactus.internal.server;
 
 /**
- * Holder class that contains the instances of the implicit objects that will
- * be accessible in the test classes (ie subclasses of
- * <code>ServletTestCase</code>).
+ * Servlet Controller that extracts the requested service from the
+ * HTTP request and executes the request by calling a
+ * <code>ServletTestCaller</code>. There are 2 services available : one for
+ * executing the test and one for returning the test result.
  *
  * @version $Id$
  */
-public class ServletImplicitObjects extends AbstractWebImplicitObjects
+public class ServletTestController extends AbstractWebTestController
 {
     /**
-     * The Servlet configuration object.
+     * @see AbstractWebTestController#getTestCaller(WebImplicitObjects)
      */
-    protected ServletConfig config;
-
-    /**
-     * @return the <code>ServletConfig</code> implicit object
-     */
-    public ServletConfig getServletConfig()
+    protected AbstractWebTestCaller getTestCaller(WebImplicitObjects theObjects)
     {
-        return this.config;
-    }
-
-    /**
-     * @param theConfig the <code>ServletConfig</code> implicit object
-     */
-    public void setServletConfig(ServletConfig theConfig)
-    {
-        this.config = theConfig;
+        return new ServletTestCaller((ServletImplicitObjects) theObjects);
     }
 }

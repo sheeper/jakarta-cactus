@@ -31,6 +31,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.cactus.internal.configuration.ConfigurationInitializer;
+import org.apache.cactus.internal.server.FilterImplicitObjects;
+import org.apache.cactus.internal.server.FilterTestController;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -38,7 +40,7 @@ import org.apache.commons.logging.LogFactory;
  * Generic Filter redirector that calls a test method on the server side.
  *
  * @version $Id$
- * @see FilterTestCaller
+ * @see org.apache.cactus.internal.server.FilterTestCaller
  */
 public class FilterTestRedirector implements Filter
 {

@@ -17,7 +17,7 @@
  * 
  * ========================================================================
  */
-package org.apache.cactus.server;
+package org.apache.cactus.internal.server;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -30,6 +30,7 @@ import junit.framework.TestCase;
 
 import org.apache.cactus.JspTestCase;
 import org.apache.cactus.ServletURL;
+import org.apache.cactus.server.PageContextWrapper;
 
 /**
  * Call the test method on the server side after assigning the JSP implicit

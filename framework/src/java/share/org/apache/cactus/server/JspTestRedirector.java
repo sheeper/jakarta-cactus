@@ -22,6 +22,8 @@ package org.apache.cactus.server;
 import javax.servlet.ServletException;
 
 import org.apache.cactus.internal.configuration.ConfigurationInitializer;
+import org.apache.cactus.internal.server.JspImplicitObjects;
+import org.apache.cactus.internal.server.JspTestController;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

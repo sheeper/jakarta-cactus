@@ -368,6 +368,7 @@ be resolved. Please check you build.properties file, and run Ant with the
       <group title="Public SPI">
         <package name="org.apache.cactus.spi.client"/>
         <package name="org.apache.cactus.spi.client.connector"/>
+        <package name="org.apache.cactus.spi.server"/>
       </group>
       <group title="Internal API">
         <package name="org.apache.cactus.internal"/>

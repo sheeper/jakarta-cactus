@@ -1,7 +1,7 @@
 /* 
  * ========================================================================
  * 
- * Copyright 2001-2003 The Apache Software Foundation.
+ * Copyright 2001-2004 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@
  * 
  * ========================================================================
  */
-package org.apache.cactus.server;
+package org.apache.cactus.internal.server;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -31,6 +31,8 @@ import junit.framework.TestCase;
 
 import org.apache.cactus.ServletTestCase;
 import org.apache.cactus.ServletURL;
+import org.apache.cactus.server.HttpServletRequestWrapper;
+import org.apache.cactus.server.ServletConfigWrapper;
 
 /**
  * Responsible for instanciating the <code>TestCase</code> class on the server
