@@ -64,6 +64,7 @@ import java.util.Vector;
 import org.apache.cactus.eclipse.containers.ContainerInfo;
 import org.apache.cactus.eclipse.containers.Credential;
 import org.apache.cactus.eclipse.containers.IContainerProvider;
+import org.apache.cactus.eclipse.ui.CactusMessages;
 import org.apache.cactus.eclipse.ui.CactusPlugin;
 import org.apache.tools.ant.BuildException;
 import org.eclipse.ant.core.AntRunner;
@@ -147,7 +148,7 @@ public class GenericAntProvider implements IContainerProvider
     public void start(ContainerInfo theContainerInfo, IProgressMonitor thePM)
         throws CoreException
     {
-        thePM.subTask("Starting the container");
+        thePM.subTask(CactusMessages.getString("CactusLaunch.message.start"));
         String[] targets = getMasked("start.");
         AntRunner runner = createAntRunner(targets);
         StartServerHelper startHelper = new StartServerHelper(runner);
@@ -201,7 +202,7 @@ public class GenericAntProvider implements IContainerProvider
         IProgressMonitor thePM)
         throws CoreException
     {
-        thePM.subTask("Deploying the container");
+        thePM.subTask(CactusMessages.getString("CactusLaunch.message.deploy"));
         contextPath = theContextPath;
         String warPath = theDeployableObject.getPath();
         antArguments.add("-Dwar.path=" + warPath);

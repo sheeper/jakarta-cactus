@@ -140,7 +140,7 @@ public class CactusLaunchShortcut
         catch (InterruptedException e)
         {
             CactusPlugin.displayErrorMessage(
-                CactusMessages.getString("LaunchTestAction.message.error"),
+                CactusMessages.getString("CactusLaunch.message.error"),
                 e.getMessage(),
                 null);
             return;
@@ -148,7 +148,7 @@ public class CactusLaunchShortcut
         catch (InvocationTargetException e)
         {
             CactusPlugin.displayErrorMessage(
-                CactusMessages.getString("LaunchTestAction.message.error"),
+                CactusMessages.getString("CactusLaunch.message.error"),
                 e.getMessage(),
                 null);
             return;
@@ -157,8 +157,8 @@ public class CactusLaunchShortcut
         if (types.length == 0)
         {
             CactusPlugin.displayErrorMessage(
-                CactusMessages.getString("LaunchTestAction.dialog.title"),
-                CactusMessages.getString("LaunchTestAction.message.notests"),
+                CactusMessages.getString("CactusLaunch.dialog.title"),
+                CactusMessages.getString("CactusLaunch.message.notests"),
                 null);
         }
         else if (types.length > 1)
@@ -230,9 +230,11 @@ public class CactusLaunchShortcut
         }
         catch (InvocationTargetException tearDownE)
         {
-            CactusPlugin.displayErrorMessage(
-                CactusMessages.getString("TearDownCactusTests.message.failed"),
-                tearDownE.getTargetException().getMessage(),
+            CactusPlugin
+                .displayErrorMessage(
+                    CactusMessages.getString(
+                        "CactusLaunch.message.teardown.failed"),
+                    tearDownE.getTargetException().getMessage(),
                 null);
         }
         catch (InterruptedException tearDownE)
@@ -252,7 +254,9 @@ public class CactusLaunchShortcut
         IProgressMonitor thePM)
         throws CoreException
     {
-        thePM.beginTask("Preparing for Cactus tests", 10);
+        thePM.beginTask(
+            CactusMessages.getString("CactusLaunch.message.prepare"),
+            10);
         provider = CactusPlugin.getContainerProvider();
         try
         {
@@ -275,7 +279,8 @@ public class CactusLaunchShortcut
                     IStatus.ERROR,
                     CactusPlugin.getPluginId(),
                     IStatus.OK,
-                    "The WAR file's URL is malformed",
+                    CactusMessages.getString(
+                        "CactusLaunch.message.war.malformed"),
                     e));
         }
         thePM.done();
@@ -299,7 +304,8 @@ public class CactusLaunchShortcut
         catch (CoreException e)
         {
             CactusPlugin.displayErrorMessage(
-                "Error when tearing down tests",
+                CactusMessages.getString(
+                    "CactusLaunch.message.teardown.error"),
                 e.getMessage(),
                 e.getStatus());
         }

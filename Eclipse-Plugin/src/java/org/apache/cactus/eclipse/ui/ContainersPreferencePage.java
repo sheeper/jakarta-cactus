@@ -89,8 +89,8 @@ public class ContainersPreferencePage
     {
         super(GRID);
         setPreferenceStore(CactusPlugin.getDefault().getPreferenceStore());
-        // TODO: externalize
-        setDescription("Preferences for the containers");
+        setDescription(
+            CactusMessages.getString("ContainersPreferencePage.description"));
     }
     /**
      * Creates the field editors. Field editors are abstractions of
@@ -100,22 +100,24 @@ public class ContainersPreferencePage
      */
     public void createFieldEditors()
     {
-        // TODO: externalize labels
         addField(
             new DirectoryFieldEditor(
                 CactusPreferences.TOMCAT40_DIR,
-                "Tomcat 4.0 home directory:",
+                CactusMessages.getString(
+                    "ContainersPreferencePage.label.tomcat40"),
                 getFieldEditorParent()));
         addField(
             new DirectoryFieldEditor(
                 CactusPreferences.RESIN20_DIR,
-                "Resin 2.0 home directory:",
+                CactusMessages.getString(
+                    "ContainersPreferencePage.label.resin20"),
                 getFieldEditorParent()));
         addField(
             new DirectoryFieldEditor(
                 CactusPreferences.WEBLOGIC70_DIR,
-                "Weblogic 7.0 home directory:",
-                getFieldEditorParent()));        
+                CactusMessages.getString(
+                    "ContainersPreferencePage.label.weblogic70"),
+                getFieldEditorParent()));
     }
 
     /**

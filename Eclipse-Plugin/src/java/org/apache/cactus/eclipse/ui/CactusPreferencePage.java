@@ -94,10 +94,8 @@ public class CactusPreferencePage
     {
         super(GRID);
         setPreferenceStore(CactusPlugin.getDefault().getPreferenceStore());
-        // TODO: externalize
         setDescription(
-            "Preferences of the Apache Cactus plug-in "
-                + "for in-container unit testing");
+            CactusMessages.getString("CactusPreferencePage.description"));
     }
 
     /**
@@ -108,38 +106,46 @@ public class CactusPreferencePage
      */
     public void createFieldEditors()
     {
-        // TODO: externalize labels
         addField(new RadioGroupFieldEditor(
             CactusPreferences.CONTEXT_URL_SCHEME,
-            "Protocol:",
+            CactusMessages.getString("CactusPreferencePage.label.protocol"),
             1,
-            new String[][] { { "HTTP", "http" }, {
-                "HTTP over SSL", "https" }
+            new String[][] {
+                {
+                    CactusMessages.getString(
+                        "CactusPreferencePage.label.protocol1"),
+                    "http" },
+                {
+                    CactusMessages.getString(
+                        "CactusPreferencePage.label.protocol2"),
+                        "https" }
         }, getFieldEditorParent()));
         addField(
             new StringFieldEditor(
                 CactusPreferences.CONTEXT_URL_HOST,
-                "Host:",
+                CactusMessages.getString("CactusPreferencePage.label.host"),
                 getFieldEditorParent()));
         addField(
             new IntegerFieldEditor(
                 CactusPreferences.CONTEXT_URL_PORT,
-                "Port:",
+                CactusMessages.getString("CactusPreferencePage.label.port"),
                 getFieldEditorParent()));
         addField(
             new StringFieldEditor(
                 CactusPreferences.CONTEXT_URL_PATH,
-                "Context:",
+                CactusMessages.getString("CactusPreferencePage.label.context"),
                 getFieldEditorParent()));
-        addField(
-            new DirectoryFieldEditor(
-                CactusPreferences.JARS_DIR,
-                "Jars directory:",
-                getFieldEditorParent()));
+        // Jars needed by Cactus are now provided with the plugin
+        // Left for future user-override capability
+//        addField(
+//            new DirectoryFieldEditor(
+//                CactusPreferences.JARS_DIR,
+//                "Jars directory:",
+//                getFieldEditorParent()));
         addField(
             new DirectoryFieldEditor(
                 CactusPreferences.TEMP_DIR,
-                "Temp directory:",
+                CactusMessages.getString("CactusPreferencePage.label.temp"),
                 getFieldEditorParent()));
     }
 

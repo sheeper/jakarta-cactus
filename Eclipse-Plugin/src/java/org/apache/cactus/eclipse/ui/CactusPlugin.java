@@ -184,16 +184,26 @@ public class CactusPlugin extends AbstractUIPlugin
      */
     protected void initializeDefaultPreferences(IPreferenceStore theStore)
     {
-        theStore.setDefault(CactusPreferences.CONTEXT_URL_SCHEME, "http");
-        theStore.setDefault(CactusPreferences.CONTEXT_URL_HOST, "localhost");
-        theStore.setDefault(CactusPreferences.CONTEXT_URL_PORT, 8080);
-        theStore.setDefault(CactusPreferences.CONTEXT_URL_PATH, "test");
+        theStore.setDefault(
+            CactusPreferences.CONTEXT_URL_SCHEME,
+            CactusMessages.getString(
+                "CactusPreferencePage.label.protocol.init"));
+        theStore.setDefault(
+            CactusPreferences.CONTEXT_URL_HOST,
+            CactusMessages.getString("CactusPreferencePage.label.host.init"));
+        theStore.setDefault(
+            CactusPreferences.CONTEXT_URL_PORT,
+            CactusMessages.getString("CactusPreferencePage.label.port.init"));
+        theStore.setDefault(
+            CactusPreferences.CONTEXT_URL_PATH,
+            CactusMessages.getString(
+                "CactusPreferencePage.label.context.init"));
         theStore.setDefault(
             CactusPreferences.JARS_DIR,
-            "D:/dev/cactus/jakarta-cactus-13-1.4b1/lib");
-        theStore.setDefault(CactusPreferences.TEMP_DIR, "C:/temp");
-        theStore.setDefault(CactusPreferences.TOMCAT40_DIR, "");
-        theStore.setDefault(CactusPreferences.RESIN20_DIR, "");
+            CactusMessages.getString("CactusPreferencePage.label.temp.init"));
+        theStore.setDefault(
+            CactusPreferences.TEMP_DIR,
+            System.getProperty("java.io.tmpdir"));
     }
 
     /**

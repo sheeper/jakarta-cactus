@@ -131,7 +131,9 @@ public class StartServerHelper implements Runnable
         // Verify that a test URL has been specified
         if (this.testURL == null)
         {
-            throw new BuildException("A testURL attribute must be specified");
+            throw new BuildException(
+                CactusMessages.getString(
+                    "CactusLaunch.message.start.url.error"));
         }
 
         // Try connecting in case the server is already running. If so, does
@@ -172,7 +174,8 @@ public class StartServerHelper implements Runnable
             if (pm.isCanceled())
             {
                 throw new BuildException(
-                    CactusMessages.getString("ContainerStart.message.failed"));
+                    CactusMessages.getString(
+                        "CactusLaunch.message.start.error"));
             }
             break;
         }
@@ -197,7 +200,10 @@ public class StartServerHelper implements Runnable
         }
         catch (InterruptedException e)
         {
-            throw new BuildException("Interruption during sleep", e);
+            throw new BuildException(
+                CactusMessages.getString(
+                    "CactusLaunch.message.start.sleep.error"),
+                e);
         }
     }
 
