@@ -1,4 +1,6 @@
 /*
+ * ====================================================================
+ *
  * The Apache Software License, Version 1.1
  *
  * Copyright (c) 2001-2002 The Apache Software Foundation.  All rights
@@ -23,10 +25,10 @@
  *    Alternately, this acknowlegement may appear in the software itself,
  *    if and wherever such third-party acknowlegements normally appear.
  *
- * 4. The names "The Jakarta Project", "Cactus", and "Apache Software
- *    Foundation" must not be used to endorse or promote products derived
- *    from this software without prior written permission. For written
- *    permission, please contact apache@apache.org.
+ * 4. The names "The Jakarta Project", "Cactus" and "Apache Software
+ *    Foundation" must not be used to endorse or promote products
+ *    derived from this software without prior written permission. For
+ *    written permission, please contact apache@apache.org.
  *
  * 5. Products derived from this software may not be called "Apache"
  *    nor may "Apache" appear in their names without prior written
@@ -50,6 +52,7 @@
  * individuals on behalf of the Apache Software Foundation.  For more
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
+ *
  */
 package org.apache.cactus.server;
 
@@ -61,9 +64,9 @@ import org.apache.cactus.ServletURL;
  * Encapsulation class for the Servlet 2.2 API <code>HttpServletRequest</code>.
  * This is an implementation that delegates all the call to the
  * <code>HttpServletRequest</code> object passed in the constructor except for
- * some overridden methods which are use to simulate a URL. This is to be able to
- * simulate any URL that would have been used to call the test method : if this
- * was not done, the URL that would be returned (by calling the
+ * some overridden methods which are use to simulate a URL. This is to be able
+ * to simulate any URL that would have been used to call the test method : if
+ * this was not done, the URL that would be returned (by calling the
  * <code>getRequestURI()</code> method or others alike) would be the URL of the
  * server redirector servlet or JSP and not a URL that the test case want to
  * simulate.
