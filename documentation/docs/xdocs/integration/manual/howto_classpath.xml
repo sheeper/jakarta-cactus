@@ -169,16 +169,7 @@
             the JUnit <code>org.junit.framework.TestCase</code> class.
           </li>
           <li>
-            <strong><code>WEB-INF/classes/&lt;your test classes&gt;</code>
-            </strong>: obviously as their <code>testXXX()</code> methods will
-            get executed in the container.
-          </li>
-          <li>
-            <strong><code>WEB-INF/classes/&lt;your classes under test&gt;</code>
-            </strong>: will be called by your test classes.
-          </li>
-          <li>
-            <strong><code>aspectjrt.jar</code></strong>:
+            <strong><code>WEB-INF/lib/aspectjrt.jar</code></strong>:
             <link href="ext:aspectj">AspectJ</link> runtime jar.
           </li>
           <li>
@@ -194,6 +185,15 @@
             LogKit jar, etc). It is optional as it is only needed for internal
             Cactus logging and in addition, the Commons Logging framework
             provides a simple logger that logs on the console.
+          </li>
+          <li>
+            <strong><code>WEB-INF/classes/&lt;your test classes&gt;</code>
+            </strong>: obviously as their <code>testXXX()</code> methods will
+            get executed in the container.
+          </li>
+          <li>
+            <strong><code>WEB-INF/classes/&lt;your classes under test&gt;</code>
+            </strong>: will be called by your test classes.
           </li>
         </ul>
 
