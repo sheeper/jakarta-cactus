@@ -1,6 +1,7 @@
 * text=auto !eol
 /.checkstyle -text svneol=unset#application/octet-stream
 /.cvsignore svn_keywords=Author+Date+Id+Revision
+Eclipse-Plugin/.classpath.sample svn_keywords=Author+Date+Id+Revision
 Eclipse-Plugin/icons/calaunch.gif -text
 /LICENSE.aspectj.html svn_keywords=Author+Date+Id+Revision
 /LICENSE.cactus svn_keywords=Author+Date+Id+Revision
