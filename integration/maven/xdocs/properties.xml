@@ -262,6 +262,16 @@
             </p>
           </td>
         </tr>
+        <tr>
+          <td>cactus.jboss3x.jndiport</td>
+          <td>Yes</td>
+          <td>
+            <p>
+              Name of the JNDI port on which JBoss is started. This is only 
+              used to shutdown JBoss. Defaults to <code>1099</code>.
+            </p>
+          </td>
+        </tr>
       </table>
     </section>
 
