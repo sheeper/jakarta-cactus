@@ -12,11 +12,6 @@
                                          which is used to check coding and
                                          naming conventions.
 
-    The following properties need to be set in either a ./build.properties or
-    a ${user.home}/build.properties one or in a calling Ant script :
-
-        ant.jar               [REQUIRED] Location of the Ant jar
-
     This script should be started with the following command line :
 
         ant <target>
@@ -96,15 +91,6 @@
 
     <!--
        ========================================================================
-         Useful patterns for targets
-       ========================================================================
-    -->
-    <path id="project.class.path">
-      <pathelement location="${ant.jar}"/>
-    </path>
-
-    <!--
-       ========================================================================
          Initialize the build. Must be called by all targets
        ========================================================================
     -->
@@ -119,8 +105,6 @@
         <echo message="java.home = ${java.home}"/>
         <echo message="user.home = ${user.home}"/>
         <echo message="ant.home = ${ant.home}"/>
-        <echo message=""/>
-        <echo message="ant.jar = ${ant.jar}"/>
         <echo message=""/>
 
         <!-- Filters -->
@@ -142,9 +126,7 @@
         <mkdir dir="${target.classes.java.dir}"/>
 
         <javac srcdir="${src.java.dir}" destdir="${target.classes.java.dir}"
-          deprecation="${deprecation}" optimize="${optimize}">
-            <classpath refid="project.class.path"/>
-        </javac>
+          deprecation="${deprecation}" optimize="${optimize}"/>
 
     </target>
 
@@ -188,12 +170,6 @@
             windowtitle="${project.name.text} ${project.version}"
             doctitle="${project.name.text} ${project.version}"
             bottom="Copyright &amp;copy; ${year} Apache Software Foundation. All Rights Reserved.">
-
-            <classpath>
-                <path refid="project.class.path"/>
-                <!-- javadoc needs an XML parser -->
-                <path path="${java.class.path}"/>
-            </classpath>
 
         </javadoc>
 
