@@ -68,6 +68,7 @@ import org.apache.cactus.eclipse.ui.CactusMessages;
 import org.apache.cactus.eclipse.ui.CactusPlugin;
 import org.apache.tools.ant.BuildException;
 import org.eclipse.ant.core.AntRunner;
+import org.eclipse.core.boot.BootLoader;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
@@ -138,25 +139,31 @@ public class GenericAntProvider implements IContainerProvider
         port = thePort;
         containerHomes = theHomes;
         antArguments = new Vector();
-        antArguments.add("-Dtest.port=" + thePort);
+        antArguments.add("-Dcactus.port=" + thePort);
         for (int i = 0; i < containerHomes.length; i++)
         {
             ContainerHome currentContainerHome = containerHomes[i];
             antArguments.add(
-                "-Dhome."
+                "-Dcactus.home."
                     + currentContainerHome.getTargetMask()
                     + "="
                     + currentContainerHome.getDirectory());
         }
         CactusPlugin thePlugin = CactusPlugin.getDefault();
-        File antFilesLocation =
-            new File(thePlugin.find(new Path("./ant")).getPath());
+        //File antFilesLocation =
+        //    new File(thePlugin.find(new Path("./ant")).getPath());
         buildFileLocation =
             new File(
-                thePlugin.find(new Path("./ant/build/build.xml")).getPath());
-        antArguments.add("-Dbase.dir=" + antFilesLocation.getAbsolutePath());
-        antArguments.add("-Dtarget.dir=" + theTargetDir);
+                thePlugin.find(new Path("./ant/build.xml")).getPath());
+        //antArguments.add("-Dbase.dir=" + antFilesLocation.getAbsolutePath());
+        antArguments.add("-Dcactus.target.dir=" + theTargetDir);
+        // Avoid Ant console popups on win32 platforms
+        if (BootLoader.getOS().equals(BootLoader.OS_WIN32))
+        {
+            antArguments.add("-Dcactus.jvm=javaw");
+        }
     }
+    
     /**
      * @see IContainerProvider#start(ContainerInfo)
      */
@@ -164,7 +171,7 @@ public class GenericAntProvider implements IContainerProvider
         throws CoreException
     {
         thePM.subTask(CactusMessages.getString("CactusLaunch.message.start"));
-        String[] targets = getMasked("start.");
+        String[] targets = getMasked("cactus.start.");
         AntRunner runner = createAntRunner(targets);
         StartServerHelper startHelper = new StartServerHelper(runner);
         URL testURL = null;
@@ -212,10 +219,14 @@ public class GenericAntProvider implements IContainerProvider
         thePM.subTask(CactusMessages.getString("CactusLaunch.message.deploy"));
         contextPath = theContextPath;
         String warPath = theDeployableObject.getPath();
-        antArguments.add("-Dwar.path=" + warPath);
-        antArguments.add("-Dcontext.path=" + theContextPath);
-        String[] targets = getMasked("prepare.");
-        createAntRunner(targets).run(new SubProgressMonitor(thePM, 3));
+        antArguments.add("-Dcactus.war=" + warPath);
+        antArguments.add("-Dcactus.context=" + theContextPath);
+        String[] warTarget = { "cactus.war.framework" };
+        String[] setupTargets = getMasked("cactus.setup.");
+        String[] deployTargets = getMasked("cactus.deploy.");
+        createAntRunner(warTarget).run(new SubProgressMonitor(thePM, 1));
+        createAntRunner(setupTargets).run(new SubProgressMonitor(thePM, 1));
+        createAntRunner(deployTargets).run(new SubProgressMonitor(thePM, 1));
     }
 
     /**
@@ -227,7 +238,7 @@ public class GenericAntProvider implements IContainerProvider
         IProgressMonitor thePM)
         throws CoreException
     {
-        String[] targets = { "clean" };
+        String[] targets = getMasked("cactus.clean.");
         createAntRunner(targets).run(/*thePM*/);
     }
 
@@ -237,7 +248,7 @@ public class GenericAntProvider implements IContainerProvider
     public void stop(ContainerInfo theContainerInfo, IProgressMonitor thePM)
         throws CoreException
     {
-        String[] targets = getMasked("stop.");
+        String[] targets = getMasked("cactus.stop.");
         createAntRunner(targets).run(/*thePM*/);
     }
 
