@@ -126,7 +126,9 @@
     <depend project="aspectj"/>
     <depend project="jakarta-tomcat" inherit="runtime"/>
 
-    <work nested="sample-servlet/target-12/sample/target/classes"/>
+    <work nested="sample-servlet/target-12/sample/target/classes/unit"/>
+    <work nested="sample-servlet/target-12/sample/target/classes/sample"/>
+    <work nested="sample-servlet/target-12/sample/target/conf/client"/>
 
     <jar name="sample-servlet/dist-12/bin/sample-servlet.zip"/>
 
@@ -201,7 +203,9 @@
     <depend project="jakarta-tomcat-4.0" inherit="runtime"/>
     <depend project="aspectj"/>
 
-    <work nested="sample-servlet/target-13/sample/target/classes"/>
+    <work nested="sample-servlet/target-13/sample/target/classes/unit"/>
+    <work nested="sample-servlet/target-13/sample/target/classes/sample"/>
+    <work nested="sample-servlet/target-13/sample/target/conf/client"/>
 
     <jar name="sample-servlet/dist-13/bin/sample-servlet.zip"/>
 
