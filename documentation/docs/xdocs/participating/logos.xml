@@ -3,7 +3,7 @@
 <!--
  * ========================================================================
  * 
- * Copyright 2001-2004 The Apache Software Foundation.
+ * Copyright 2001-2005 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -228,6 +228,18 @@
         </p>
 
         <figure src="images/logos/jgresse.gif" alt="Proposition 13"/>
+
+      </section>
+
+      <section title="Proposition 14">
+
+        <p>
+          This is a proposition from
+          <link href="mailto:eoghan.mcilwaine2@mail.dcu.ie">Eoghan McIlwaine</link>.
+        </p>
+
+        <figure src="images/logos/eoghan1.gif" alt="Proposition 13"/>
+        <figure src="images/logos/eoghan2.jpg" alt="Proposition 13 in situation"/>
 
       </section>
 
