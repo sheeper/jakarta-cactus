@@ -43,6 +43,8 @@
      artifact="servletapi" version="2.2"/>
   <servlet.23 project="servletapi"
      artifact="servletapi" version="2.3"/>
+  <j2ee.13 project="jboss"
+     artifact="jboss-j2ee" version="3.2.3"/>
   <standard project="taglibs"
      artifact="standard" version="1.0.2"/>
   <xerces project="xerces"

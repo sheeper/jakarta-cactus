@@ -103,6 +103,7 @@
     <echo>  commons.logging.jar = [${commons.logging.jar}]</echo>
     <echo>  httpunit.jar = [${httpunit.jar}]</echo>
     <echo>  j2ee.jar = [${j2ee.jar}]</echo>
+    <echo>  servlet.jar = [${servlet.jar}]</echo>
     <echo>  junit.jar = [${junit.jar}]</echo>
     <echo>  mockobjects.jar = [${mockobjects.jar}]</echo>
     <echo>  jetty.jar = [${jetty.jar}]</echo>
@@ -120,6 +121,7 @@
       <pathelement location="${commons.httpclient.jar}"/>
       <pathelement location="${httpunit.jar}"/>
       <pathelement location="${j2ee.jar}"/>
+      <pathelement location="${servlet.jar}"/>
       <pathelement location="${junit.jar}"/>
       <pathelement location="${xmlapis.jar}"/>
     </path>
@@ -131,6 +133,7 @@
         <available file="${commons.logging.jar}"/>
         <available file="${httpunit.jar}"/>
         <available file="${j2ee.jar}"/>
+        <available file="${servlet.jar}"/>
         <available file="${junit.jar}"/>
         <available file="${mockobjects.jar}"/>
         <available file="${jetty.jar}"/>
