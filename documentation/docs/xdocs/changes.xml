@@ -70,10 +70,12 @@
       <release version="1.6dev" date="in CVS">
         <action dev="VMA" type="add">
           In the Ant integration, added new <code>contextxml</code> attributes
-          to the <code>&lt;tomcat4x&gt;</code> and <code>&lt;tomcat5x&gt;</code>
-          nested elements of the <code>&lt;cactus&gt;</code> task. This is to
-          support the new context xml configuration file that appeared with
-          Tomcat 4.1.x.
+          to the <code>&lt;tomcat4x&gt;</code> nested elements of the 
+          <code>&lt;cactus&gt;</code> task. This is to support the context xml 
+          configuration file that appeared with Tomcat 4.1.x. Note that for
+          Tomcat 5.x you need to use the existing nested 
+          <code>&lt;conf&gt;</code> element (see the <code>&lt;cactus&gt;</code>
+          task documentation for more details).
         </action>
         <action dev="VMA" type="fix" fixes-bug="25859" due-to="Brian Topping" due-to-email="topping@digidemic.com">
           In the Ant integration, added support for web contexts defined in

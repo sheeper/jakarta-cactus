@@ -73,6 +73,7 @@ import org.apache.tools.ant.util.FileUtils;
  * Base support for Catalina based containers.
  * 
  * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
+ * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  * 
  * @version $Id$
  */
@@ -90,11 +91,6 @@ public abstract class AbstractCatalinaContainer extends AbstractTomcatContainer
      * installation directory.
      */
     private String version;
-
-    /**
-     * A user-specific context xml configuration file.
-     */
-    private File contextXml;
     
     // Public Methods ----------------------------------------------------------
 
@@ -106,25 +102,6 @@ public abstract class AbstractCatalinaContainer extends AbstractTomcatContainer
     public final void setTmpDir(File theTmpDir)
     {
         this.tmpDir = theTmpDir;
-    }
-
-    /**
-     * @return The context xml file, if set or null otherwise
-     */
-    public final File getContextXml()
-    {
-        return this.contextXml;
-    }
-
-    /**
-     * Sets a user-custom context xml configuration file to use for the test
-     * installation of Tomcat.
-     * 
-     * @param theContextXml the custom context xml file to use
-     */
-    public final void setContextXml(File theContextXml)
-    {
-        this.contextXml = theContextXml;
     }
     
     // AbstractContainer Implementation ----------------------------------------
@@ -219,7 +196,7 @@ public abstract class AbstractCatalinaContainer extends AbstractTomcatContainer
             java = createJavaForShutDown();
         }
         java.addSysproperty(createSysProperty("catalina.home", getDir()));
-        java.addSysproperty(createSysProperty("catalina.base", this.tmpDir));
+        java.addSysproperty(createSysProperty("catalina.base", getTmpDir()));
         Path classpath = java.createClasspath();
         classpath.createPathElement().setLocation(
             new File(getDir(), "bin/bootstrap.jar"));
@@ -239,18 +216,18 @@ public abstract class AbstractCatalinaContainer extends AbstractTomcatContainer
      *        directory
      * @throws IOException If an I/O error occurs
      */
-    protected final void prepare(String theResourcePrefix, String theDirName)
+    protected void prepare(String theResourcePrefix, String theDirName)
         throws IOException
     {
         FileUtils fileUtils = FileUtils.newFileUtils();
         FilterChain filterChain = createFilterChain();
 
-        if (this.tmpDir == null)
+        if (getTmpDir() == null)
         {
-            this.tmpDir = createTempDirectory(theDirName);
+            setTmpDir(createTempDirectory(theDirName));
         }
 
-        File confDir = createDirectory(tmpDir, "conf");
+        File confDir = createDirectory(getTmpDir(), "conf");
         
         // Copy first the default configuration files so that they can be
         // overriden by the user-provided ones.
@@ -270,7 +247,7 @@ public abstract class AbstractCatalinaContainer extends AbstractTomcatContainer
 
         // deploy the web-app by copying the WAR file into the webapps
         // directory
-        File webappsDir = createDirectory(tmpDir, "webapps");
+        File webappsDir = createDirectory(getTmpDir(), "webapps");
         fileUtils.copyFile(getDeployableFile().getFile(),
             new File(webappsDir, getDeployableFile().getFile().getName()), 
             null, true);
@@ -278,15 +255,14 @@ public abstract class AbstractCatalinaContainer extends AbstractTomcatContainer
         // Copy user-provided configuration files into the temporary conf/ 
         // container directory.
         copyConfFiles(confDir);
-
-        // Copy user-provided context xml file into the temporary webapp/
-        // container directory
-        if (getContextXml() != null)
-        {
-            fileUtils.copyFile(getContextXml(), 
-                new File(webappsDir, getContextXml().getName()));
-        }
-        
     }
 
+    /**
+     * @return The temporary directory from which the container will be 
+     *         started.
+     */
+    protected final File getTmpDir()
+    {
+        return this.tmpDir;
+    }
 }

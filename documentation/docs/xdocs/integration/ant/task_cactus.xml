@@ -817,8 +817,8 @@
               <td>contextxml</td>
               <td>
                 An optional <a href="ext:tomcat4_context_xml">context xml</a> 
-                file to use. This feature is only supported by Tomcat versions 
-                4.1.x and above.
+                file to use. Any file specified here will be copied into
+                the <code>webapps/</code> directory.
               </td>
               <td>No</td>
             </tr>
@@ -914,6 +914,16 @@
           against the Apache Tomcat 5.x servlet container.
         </p>
 
+        <p>
+          Note: For Tomcat 5.x, there is no <code>contextxml</code> attribute as
+          it is not required. Tomcat 5.x requires the context file to be put 
+          under the <code>conf/</code> directory (see the 
+          <a href="ext:tomcat5_context_xml">context documentation page</a>).
+          Thus you'll simply need to use the nested <code>&lt;conf&gt;</code>
+          element. Alternatively you should be able to also put your context 
+          file in <code>META-INF/context.xml</code>.
+        </p>
+
         <section title="Parameters">
 
           <table>
@@ -933,14 +943,6 @@
               <td>serverxml</td>
               <td>
                 The server configuration file to use instead of the default one
-              </td>
-              <td>No</td>
-            </tr>
-            <tr>
-              <td>contextxml</td>
-              <td>
-                An optional <a href="ext:tomcat5_context_xml">context xml</a> 
-                file to use.
               </td>
               <td>No</td>
             </tr>
