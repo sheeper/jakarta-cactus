@@ -209,6 +209,7 @@
       <depend property="nekohtml.jar" project="nekohtml" id="nekohtml"/>
       <depend property="xerces.jar" project="xml-xerces" id="parser"/>
       <depend property="xmlapis.jar" project="xml-xerces" id="apis"/>
+      <depend property="tidy.jar" project="jtidy"/>
 
     </ant>
   
@@ -258,6 +259,7 @@
       <depend property="nekohtml.jar" project="nekohtml" id="nekohtml"/>
       <depend property="xerces.jar" project="xml-xerces" id="parser"/>
       <depend property="xmlapis.jar" project="xml-xerces" id="apis"/>
+      <depend property="tidy.jar" project="jtidy"/>
 
     </ant>
   
