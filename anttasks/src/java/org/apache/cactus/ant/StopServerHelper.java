@@ -184,6 +184,7 @@ public class StopServerHelper implements Runnable
         callee.setOwningTarget(this.task.getOwningTarget());
         callee.setTaskName(this.task.getTaskName());
         callee.setLocation(this.task.getLocation());
+        callee.setInheritAll(true);
 
         callee.init();
 

@@ -18,13 +18,17 @@
 
     Run "ant -projecthelp" to get a list of available targets. The default
     target is "dist"
+
+    Note: basedir points to the main Cactus directory in order to have the same
+          base dir for all Cactus subprojects and thus be able to share
+          relative paths.
   =============================================================================
 -->
-<project name="Cactus Ant custom tasks" default="dist" basedir=".">
+<project name="Cactus Ant custom tasks" default="dist" basedir="..">
 
     <!-- Give user a chance to override without editing this file
          (and without typing -D each time it compiles it) -->
-    <property file="build.properties" />
+    <property file="anttasks/build.properties" />
     <property file="${user.home}/build.properties" />
 
     <!-- Global project properties -->
@@ -48,14 +52,21 @@
 
     <!--
        ========================================================================
+         Base directory for all file related operations
+       ========================================================================
+    -->
+    <property name="base.dir" value="anttasks"/>
+
+    <!--
+       ========================================================================
          Set the properties related to the source tree
        ========================================================================
     -->
     <!-- Source locations for the build -->
-    <property name="src.dir" value="src"/>
+    <property name="src.dir" value="${base.dir}/src"/>
     <property name="src.java.dir" value="${src.dir}/java"/>
-    <property name="build.dir" value="."/>
-    <property name="conf.dir" value="conf"/>
+    <property name="build.dir" value="${base.dir}/."/>
+    <property name="conf.dir" value="${base.dir}/conf"/>
 
     <!--
        ========================================================================
@@ -63,7 +74,7 @@
        ========================================================================
     -->
     <!-- Destination locations for the build -->
-    <property name="target.dir" value="target"/>
+    <property name="target.dir" value="${base.dir}/target"/>
     <property name="target.classes.dir" value="${target.dir}/classes"/>
     <property name="target.classes.java.dir" value="${target.classes.dir}/java"/>
     <property name="target.conf.dir" value="${target.dir}/conf"/>
@@ -72,13 +83,10 @@
 
     <!-- Distribution directory, i.e. where the expanded distibutable files
          are located -->
-    <property name="dist.dir" value="dist"/>
+    <property name="dist.dir" value="${base.dir}/dist"/>
     <property name="dist.lib.dir" value="${dist.dir}/lib"/>
     <property name="dist.doc.dir" value="${dist.dir}/doc"/>
     <property name="dist.doc.api.dir" value="${dist.doc.dir}/api"/>
-
-    <!-- Release directory, i.e. where the zipped distribution is located -->
-    <property name="release.dir" value="release"/>
 
     <!--
        ========================================================================
@@ -91,12 +99,10 @@
 
     <!--
        ========================================================================
-         Initialize the build. Must be called by all targets
+         Display configurable properties values
        ========================================================================
     -->
-    <target name="init">
-
-        <tstamp/>
+    <target name="display.properties">
 
         <echo message="----- ${project.name.text} ${project.version} -----"/>
         <echo message=""/>
@@ -107,10 +113,19 @@
         <echo message="ant.home = ${ant.home}"/>
         <echo message=""/>
 
+    </target>
+
+    <!--
+       ========================================================================
+         Initialize the build. Must be called by all targets
+       ========================================================================
+    -->
+    <target name="init" depends="display.properties">
+
+        <tstamp/>
+
         <!-- Filters -->
         <filter token="version" value="${project.version}"/>
-        <filter token="year" value="${year}"/>
-        <filter token="today" value="${TODAY}"/>
         <filter token="project.name.text" value="${project.name.text}"/>
         <filter token="project.name.file" value="${project.name.file}"/>
 
@@ -196,77 +211,13 @@
 
     <!--
        ========================================================================
-         Common script for both "release" and "nightly" targets. Must only be
-         called by "release" or "nightly" target as it needs the following
-         properties defined before calling it :
-
-             anttasks.release.name
-
-       ========================================================================
-    -->
-    <target name="release.common" depends="clean,dist">
-
-        <mkdir dir="${release.dir}"/>
-
-        <zip destfile="${release.dir}/${anttasks.release.name}.zip">
-            <fileset dir="${dist.dir}"/>
-        </zip>
-
-    </target>
-
-    <!--
-       ========================================================================
-         Generate a full release (i.e. the zipped release file)
-       ========================================================================
-    -->
-    <target name="release.prepare" depends="init">
-
-        <!-- For a release, the suffix is the version -->
-        <property name="project.suffix" value="-${project.version}"/>
-
-        <!-- Name of full release -->
-        <property name="anttasks.release.name"
-            value="${project.prefix}${anttasks.jar.name}${project.suffix}"/>
-
-    </target>
-
-    <target name="release" depends="release.prepare,release.common"
-        description="Generate a release">
-    </target>
-
-    <!--
-       ========================================================================
-         Generate a nightly release (i.e. the zipped release file)
-       ========================================================================
-    -->
-    <target name="nightly.prepare" depends="init">
-
-        <!-- Sets the date for the release prefix : YYYYMMDD -->
-        <tstamp/>
-
-        <!-- Suffix to add to all distributable files -->
-        <property name="project.suffix" value="-${DSTAMP}"/>
-
-        <!-- Name of nightly release -->
-        <property name="anttasks.release.name"
-            value="${project.prefix}${anttasks.jar.name}${project.suffix}"/>
-
-    </target>
-
-    <target name="nightly" depends="nightly.prepare,release.common"
-        description="Generate a nightly release">
-    </target>
-
-    <!--
-       ========================================================================
          Clean generated files (including distributables)
        ========================================================================
     -->
-    <target name="clean" depends="init" description="Clean all generated files">
+    <target name="clean" description="Clean all generated files">
 
         <delete dir="${target.dir}"/>
         <delete dir="${dist.dir}"/>
-        <delete dir="${release.dir}"/>
 
     </target>
 
@@ -286,7 +237,7 @@
         <echo message="Errors are reported in ${target.dir}/checkstyle_errors.xml"/>
 
         <checkstyle paramPattern="^(the|is|has)[A-Z][a-zA-Z0-9]*$"
-            allowProtected="true" headerFile="LICENSE">
+            allowProtected="true" headerFile="LICENSE.cactus">
 
             <fileset dir="${src.java.dir}">
                 <include name="**/*.java"/>

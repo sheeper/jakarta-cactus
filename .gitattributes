@@ -2,7 +2,6 @@
 /.cvsignore svn_keywords=Author+Date+Id+Revision
 /LICENSE svn_keywords=Author+Date+Id+Revision
 /README svn_keywords=Author+Date+Id+Revision
-anttasks/LICENSE svn_keywords=Author+Date+Id+Revision
 anttasks/README svn_keywords=Author+Date+Id+Revision
 anttasks/build.properties.sample svn_keywords=Author+Date+Id+Revision
 anttasks/build.xml svn_keywords=Author+Date+Id+Revision
