@@ -19,9 +19,8 @@
  */
 package org.apache.cactus.util;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
-
-import org.apache.tools.ant.filters.StringInputStream;
 
 import junit.framework.TestCase;
 
@@ -42,7 +41,7 @@ public class TestIoUtil extends TestCase
     {
         String expected = 
             "<html><head/>\n<body>A GET request</body>\n</html>\n";
-        StringInputStream in = new StringInputStream(expected);
+        ByteArrayInputStream in = new ByteArrayInputStream(expected.getBytes());
 
         String result = IoUtil.getText(in);
 
@@ -57,7 +56,7 @@ public class TestIoUtil extends TestCase
      */
     public void testGetTextEmpty() throws IOException
     {
-        StringInputStream in = new StringInputStream("");
+        ByteArrayInputStream in = new ByteArrayInputStream("".getBytes());
 
         String result = IoUtil.getText(in);
 
