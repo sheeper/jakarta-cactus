@@ -140,10 +140,7 @@ public class ArgListTask extends Task
             // Check if this property is defined
             String value = getProject().getProperty(propertyName);
             if (value == null) {
-                value = getProject().getUserProperty(propertyName);
-                if (value == null) {
-                    continue;
-                }
+                continue;
             }
 
             // Yes, add the property the list of args

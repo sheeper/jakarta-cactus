@@ -114,12 +114,9 @@ public class CheckPropertiesTask extends Task
 
             String value = getProject().getProperty(property.getName());
             if (value == null) {
-                value = getProject().getUserProperty(property.getName());
-                if (value == null) {
-                    // The property does not exist
-                    throw new BuildException("The property ["
-                            + property.getName() + "] is not defined");
-                }
+                // The property does not exist
+                throw new BuildException("The property ["
+                        + property.getName() + "] is not defined");
             }
 
             // Print the property name/value
