@@ -342,7 +342,7 @@
 
     <!-- Generate all distributables -->
     <target name="dist"
-        depends="clean.cactus,dist.anttasks,dist.framework,dist.sample-servlet,dist.documentation">
+        depends="dist.anttasks,dist.framework,dist.sample-servlet,dist.documentation">
     </target>
 
    <!--
@@ -461,7 +461,7 @@
 
     </target>
 
-    <target name="release" depends="release.prepare,release.common"
+    <target name="release" depends="release.prepare,clean,release.common"
         description="Generate a release">
     </target>
 
