@@ -113,7 +113,7 @@ public class EclipseRunTests extends Task implements Runnable
         try
         {
             AntContainerManager antManager =
-                (AntContainerManager) CactusPlugin.getContainerManager();
+                (AntContainerManager) CactusPlugin.getContainerManager(false);
             antManager.setEclipseRunner(this);
             antManager.preparationDone();
         }

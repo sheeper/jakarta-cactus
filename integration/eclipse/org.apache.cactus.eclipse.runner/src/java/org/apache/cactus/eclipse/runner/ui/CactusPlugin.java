@@ -249,13 +249,17 @@ public class CactusPlugin extends AbstractUIPlugin
 
     /**
      * Returns a container manager.
+     * @param theInitializeFlag true if the container manager should be
+     * initialized
      * @return a container provider to use for Cactus tests
      *  or null if Jetty is selected as the container.
      * @throws CoreException if the container manager can't be contructed
      */
-    public static IContainerManager getContainerManager() throws CoreException
+    public static IContainerManager getContainerManager(
+        boolean theInitializeFlag)
+        throws CoreException
     {
-        if (containerManager != null)
+        if (containerManager != null && !theInitializeFlag)
         {
             return containerManager;
         }

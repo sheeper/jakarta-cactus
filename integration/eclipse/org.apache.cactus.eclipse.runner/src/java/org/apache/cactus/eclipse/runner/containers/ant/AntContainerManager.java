@@ -255,7 +255,7 @@ public class AntContainerManager implements IContainerManager
         File buildFileLocation = new File(buildFileURL.getPath());
         runner.setBuildFileLocation(buildFileLocation.getAbsolutePath());
         runner.setArguments(getAllAntArguments(theProviderArguments));
-        runner.setExecutionTargets(new String[] { theTarget });
+        runner.setExecutionTargets(new String[] {theTarget});
         return runner;
     }
 

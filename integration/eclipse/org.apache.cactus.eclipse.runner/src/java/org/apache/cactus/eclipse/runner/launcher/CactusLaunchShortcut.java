@@ -176,7 +176,7 @@ public class CactusLaunchShortcut
                 {
                     try
                     {
-                        CactusPlugin.getContainerManager().prepare(
+                        CactusPlugin.getContainerManager(true).prepare(
                             finalType.getJavaProject());
                         Display.getDefault().asyncExec(new Runnable()
                         {
@@ -224,7 +224,7 @@ public class CactusLaunchShortcut
         CactusPlugin.log("Test run ended");
         try
         {
-            CactusPlugin.getContainerManager().tearDown();
+            CactusPlugin.getContainerManager(false).tearDown();
         }
         catch (CoreException e)
         {
