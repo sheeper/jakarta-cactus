@@ -1,0 +1,175 @@
+Index: src/org/eclipse/jdt/internal/junit/ui/RemoteTestRunnerClient.java
+===================================================================
+RCS file: /home/eclipse/org.eclipse.jdt.junit/src/org/eclipse/jdt/internal/junit/ui/RemoteTestRunnerClient.java,v
+retrieving revision 1.3
+diff -u -r1.3 RemoteTestRunnerClient.java
+--- src/org/eclipse/jdt/internal/junit/ui/RemoteTestRunnerClient.java	13 Apr 2002 23:43:08 -0000	1.3
++++ src/org/eclipse/jdt/internal/junit/ui/RemoteTestRunnerClient.java	31 Oct 2002 15:52:15 -0000
+@@ -11,6 +11,8 @@
+ import java.net.ServerSocket;
+ import java.net.Socket;
+ import java.net.SocketException;
++import java.util.Enumeration;
++import java.util.Vector;
+ 
+ import org.eclipse.jdt.internal.junit.runner.ITestRunListener;
+ import org.eclipse.jdt.internal.junit.runner.MessageIds;
+@@ -23,7 +25,8 @@
+ 	/**
+ 	 * A listener that is informed about test events.
+ 	 */
+-	private ITestRunListener fListener;
++	private Vector fListeners = new Vector();
++
+ 	/**
+ 	 * The server socket
+ 	 */
+@@ -91,7 +94,10 @@
+ 				while(fBufferedReader != null && (message= readMessage(fBufferedReader)) != null)
+ 					receiveMessage(message);
+ 			} catch (SocketException e) {
+-				fListener.testRunTerminated();
++                Enumeration listeners = fListeners.elements();
++                while (listeners.hasMoreElements()) {
++                    ((ITestRunListener)listeners.nextElement()).testRunTerminated();
++                }
+ 			} catch (IOException e) {
+ 				System.out.println(e);
+ 				// fall through
+@@ -100,12 +106,17 @@
+ 		}
+ 	}
+ 
++    public synchronized void addListener(ITestRunListener listener)
++    {
++        fListeners.addElement(listener);
++    }
++    
+ 	/**
+ 	 * Start listening to a test run. Start a server connection that
+ 	 * the RemoteTestRunner can connect to.
+ 	 */
+ 	public synchronized void startListening(ITestRunListener listener, int port) {
+-		fListener= listener;
++		addListener(listener);
+ 		fPort= port;
+ 		ServerConnection connection= new ServerConnection(port);
+ 		connection.start();		
+@@ -178,7 +189,13 @@
+ 		}
+ 		if (message.startsWith(MessageIds.TRACE_END)) {
+ 			fInReadTrace= false;
+-			fListener.testFailed(fFailureKind, fFailedTest, fFailedTrace);
++
++            Enumeration listeners = fListeners.elements();
++            while (listeners.hasMoreElements()) {
++                ((ITestRunListener)listeners.nextElement())
++                    .testFailed(fFailureKind, fFailedTest, fFailedTrace);
++            }
++
+ 			fFailedTrace= ""; //$NON-NLS-1$
+ 			return;
+ 		}
+@@ -204,15 +221,29 @@
+ 		String arg= message.substring(MessageIds.MSG_HEADER_LENGTH);
+ 		if (message.startsWith(MessageIds.TEST_RUN_START)) {
+ 			int count= Integer.parseInt(arg);
+-			fListener.testRunStarted(count);
++
++            Enumeration listeners = fListeners.elements();
++            while (listeners.hasMoreElements()) {
++                ((ITestRunListener)listeners.nextElement())
++                    .testRunStarted(count);
++            }
++
+ 			return;
+ 		}
+ 		if (message.startsWith(MessageIds.TEST_START)) {
+-			fListener.testStarted(arg);
++            Enumeration listeners = fListeners.elements();
++            while (listeners.hasMoreElements()) {
++                ((ITestRunListener)listeners.nextElement())
++                    .testStarted(arg);
++            }
+ 			return;
+ 		}
+ 		if (message.startsWith(MessageIds.TEST_END)) {
+-			fListener.testEnded(arg);
++            Enumeration listeners = fListeners.elements();
++            while (listeners.hasMoreElements()) {
++                ((ITestRunListener)listeners.nextElement())
++                    .testEnded(arg);
++            }
+ 			return;
+ 		}
+ 		if (message.startsWith(MessageIds.TEST_ERROR)) {
+@@ -227,17 +258,33 @@
+ 		}
+ 		if (message.startsWith(MessageIds.TEST_RUN_END)) {
+ 			long elapsedTime= Long.parseLong(arg);
+-			fListener.testRunEnded(elapsedTime);
++
++            Enumeration listeners = fListeners.elements();
++            while (listeners.hasMoreElements()) {
++                ((ITestRunListener)listeners.nextElement())
++                    .testRunEnded(elapsedTime);
++            }
++
+ 			return;
+ 		}
+ 		if (message.startsWith(MessageIds.TEST_STOPPED)) {
+ 			long elapsedTime= Long.parseLong(arg);
+-			fListener.testRunStopped(elapsedTime);
++
++            Enumeration listeners = fListeners.elements();
++            while (listeners.hasMoreElements()) {
++                ((ITestRunListener)listeners.nextElement())
++                    .testRunStopped(elapsedTime);
++            }
++
+ 			shutDown();
+ 			return;
+ 		}
+ 		if (message.startsWith(MessageIds.TEST_TREE)) {
+-			fListener.testTreeEntry(arg);
++            Enumeration listeners = fListeners.elements();
++            while (listeners.hasMoreElements()) {
++                ((ITestRunListener)listeners.nextElement())
++                    .testTreeEntry(arg);
++            }
+ 			return;
+ 		}
+ 		if (message.startsWith(MessageIds.TEST_RERAN)) {
+@@ -257,7 +304,12 @@
+ 			String trace= ""; //$NON-NLS-1$
+ 			if (statusCode != ITestRunListener.STATUS_OK)
+ 				trace= fFailedRerunTrace; // assumption a rerun trace was sent before
+-			fListener.testReran(className, testName, statusCode, trace);
++
++            Enumeration listeners = fListeners.elements();
++            while (listeners.hasMoreElements()) {
++                ((ITestRunListener)listeners.nextElement())
++                    .testReran(className, testName, statusCode, trace);
++            }
+ 		}
+ 	}
+ }
+Index: src/org/eclipse/jdt/internal/junit/ui/TestRunnerViewPart.java
+===================================================================
+RCS file: /home/eclipse/org.eclipse.jdt.junit/src/org/eclipse/jdt/internal/junit/ui/TestRunnerViewPart.java,v
+retrieving revision 1.20
+diff -u -r1.20 TestRunnerViewPart.java
+--- src/org/eclipse/jdt/internal/junit/ui/TestRunnerViewPart.java	8 Oct 2002 12:41:29 -0000	1.20
++++ src/org/eclipse/jdt/internal/junit/ui/TestRunnerViewPart.java	31 Oct 2002 15:52:16 -0000
+@@ -876,5 +876,10 @@
+ 			}
+ 		});
+ 	}
+-	
++
++    public RemoteTestRunnerClient getRemoteTestRunnerClient()
++    {
++        return fTestRunnerClient;
++    }
++     	
+ }
