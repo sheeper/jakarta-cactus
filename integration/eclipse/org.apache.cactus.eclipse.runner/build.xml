@@ -78,8 +78,8 @@
 
         <checkProperty>
             <property name="org.apache.cactus.eclipse.webapp.jar" isfile="true"/>
-                    
-            <property name="eclipse.junit.jar" isfile="true"/>
+
+            <property name="eclipse.ant.core.jar" isfile="true"/>
             <property name="eclipse.core.boot.jar" isfile="true"/>
             <property name="eclipse.core.resources.jar" isfile="true"/>
             <property name="eclipse.core.runtime.jar" isfile="true"/>
@@ -89,10 +89,8 @@
             <property name="eclipse.jdt.junit.jar" isfile="true"/>
             <property name="eclipse.jdt.launching.jar" isfile="true"/>
             <property name="eclipse.jdt.ui.jar" isfile="true"/>
-            <property name="eclipse.swt.jar" isfile="true"/>
-            <property name="eclipse.jface.jar" isfile="true"/>
-            <property name="eclipse.ant.core.jar" isfile="true"/>
             <property name="eclipse.ui.workbench.jar" isfile="true"/>
+
         </checkProperty>
 
     </target>
