@@ -81,9 +81,6 @@
     <action context="docs">
       Add a FAQ entry for explaining unit testing of persistent sessions.
     </action>
-    <action context="code">
-      Handle multiple cvs log for a single file in the ChangeLogTask task.
-    </action>
   </actions>
 
   <actions priority="wish">
