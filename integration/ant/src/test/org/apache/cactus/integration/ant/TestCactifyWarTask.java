@@ -70,7 +70,7 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 /**
- * Unit tests for {@link CactifyTask}.
+ * Unit tests for {@link CactifyWarTask}.
  * 
  * TODO: test whether all files contained by the source WAR are also added to
  *       the cactified WAR
@@ -83,7 +83,7 @@ import org.xml.sax.SAXException;
  *
  * @version $Id$
  */
-public final class TestCactifyTask extends AntTestCase
+public final class TestCactifyWarTask extends AntTestCase
 {
 
     // Inner Classes -----------------------------------------------------------
@@ -111,10 +111,10 @@ public final class TestCactifyTask extends AntTestCase
     /**
      * @see TestCase#TestCase(String)
      */
-    public TestCactifyTask(String theTestName)
+    public TestCactifyWarTask(String theTestName)
     {
         super(theTestName,
-            "org/apache/cactus/integration/ant/test-cactify.xml");
+            "org/apache/cactus/integration/ant/test-cactifywar.xml");
     }
 
     // TestCase Implementation -------------------------------------------------
@@ -126,7 +126,7 @@ public final class TestCactifyTask extends AntTestCase
     {
         super.setUp();
 
-        getProject().addTaskDefinition("cactify", CactifyTask.class);
+        getProject().addTaskDefinition("cactifywar", CactifyWarTask.class);
     }
 
     // Test Methods ------------------------------------------------------------

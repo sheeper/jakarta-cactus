@@ -138,8 +138,8 @@
 
         <propertyfile file="${target.classes.java.dir}/cactus.tasks"
           comment="Cactus Tasks for Ant">
-            <entry key="cactify"
-              value="org.apache.cactus.integration.ant.CactifyTask"/>
+            <entry key="cactifywar"
+              value="org.apache.cactus.integration.ant.CactifyWarTask"/>
             <entry key="cactus"
               value="org.apache.cactus.integration.ant.CactusTask"/>
             <entry key="runservertests"

@@ -84,7 +84,7 @@ import org.xml.sax.SAXException;
  *
  * @version $Id$
  */
-public class CactifyTask extends War
+public class CactifyWarTask extends War
 {
 
     // Constants ---------------------------------------------------------------

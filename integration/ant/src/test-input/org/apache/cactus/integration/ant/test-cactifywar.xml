@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<project name="cactify-test" basedir="." default="help">
+<project name="test-cactifywar" basedir="." default="help">
 
   <property name="work.dir" location="${basedir}/work"/>
 
@@ -15,30 +15,30 @@
   </target>
 
   <target name="testSrcFileNotSet">
-    <cactify destfile="destfile.war"/>
+    <cactifywar destfile="destfile.war"/>
   </target>
 
   <target name="testDestFileNotSet">
-    <cactify srcfile="empty.war"/>
+    <cactifywar srcfile="empty.war"/>
   </target>
 
   <target name="testDefaultRedirectorsNoDoctype">
-    <cactify srcfile="empty.war"
+    <cactifywar srcfile="empty.war"
         destfile="${work.dir}/destfile.war"/>
   </target>
 
   <target name="testDefaultRedirectors22Doctype">
-    <cactify srcfile="empty-2_2.war"
+    <cactifywar srcfile="empty-2_2.war"
         destfile="${work.dir}/destfile.war">
       <xmlcatalog refid="j2ee.dtds"/>
-    </cactify>
+    </cactifywar>
   </target>
 
   <target name="testDefaultRedirectors23Doctype">
-    <cactify srcfile="empty-2_3.war"
+    <cactifywar srcfile="empty-2_3.war"
         destfile="${work.dir}/destfile.war">
       <xmlcatalog refid="j2ee.dtds"/>
-    </cactify>
+    </cactifywar>
   </target>
 
   <target name="tearDown">
