@@ -45,8 +45,8 @@
       </p>
 
       <p>
-        You need to create 3 projects : one for JUnit, one for Cactus (
-        let's call it "Cactus") and
+        You need to create 4 projects : one for JUnit, one for Cactus (
+        let's call it "Cactus"), one for HttpClient and
         optionally one for Log4j. Note that the Log4j one is useful only if
         wish to get some Cactus runtime logs. If you don't import the Log4j
         classes, some Cactus classes will appear with a red cross in VAJava
@@ -138,9 +138,9 @@
       <s2 title="Create a test.webapp file">
 
         <p>
-          Create a <code>test.webapp</code> file in
-          <code>{WTE dir}/host/default_app/servlets</code> and put the following
-          content :
+          Create a test.webapp file in
+          <code>{WTE dir}/hosts/default_host/test/servlets</code> and put the
+          following content :
         </p>
 
 <source><![CDATA[
@@ -246,6 +246,7 @@
 <source><![CDATA[
 {VAJava dir}\ide\project_resources\JUnit\;
 {VAJava dir}\ide\project_resources\Cactus\;
+{VAJava dir}\ide\project_resources\HttpClient\;
 {VAJava dir}\ide\project_resources\Log4j\;
 {VAJava dir}\ide\project_resources\Servlet API Classes\;
 ]]></source>
@@ -256,8 +257,8 @@
 
       <p>
         In the WebSphere Test Environment under Servlet Engine, add Cactus,
-        JUnit, Log4j, and the project that contained the tests to the
-        classpath.
+        JUnit, HttpClient, Log4j, and the project that contained the tests to
+        the classpath.
       </p>
 
     </s1>
@@ -270,6 +271,13 @@
         tested}</code> and <code>cactus_server.log</code> under
         <code>{VAJava dir}/ide/tools/com-ibm-ivj-ui-webcontrolcenter</code>
         when you run your tests.
+      </note>
+
+      <note>
+        If you get a "Failed to invoke suite():
+        java.lang.NoClassDefFoundError" error message, you msy get around that
+        problem by explicitly adding the test cases to the TestSuite that's
+        returned in suite(), for your test case.
       </note>
 
     </s1>
