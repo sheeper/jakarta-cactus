@@ -163,9 +163,9 @@ public class EarParser
         if (context == null)
         {
             // The application.xml does not define a <context-root> element.
-            // We will thus assume that the root context is the webUri
-            // retrieved above minus the extension.
-            context = theWebUri.substring(0, theWebUri.length() - 4);
+            // This is wrong!
+            throw new BuildException("Your application.xml must define a "
+                + "<context-root> element in the <web> module definition.");
         }
 
         // Remove leading "/" if there is one.

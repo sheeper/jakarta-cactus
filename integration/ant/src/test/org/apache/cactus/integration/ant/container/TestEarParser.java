@@ -58,6 +58,7 @@ package org.apache.cactus.integration.ant.container;
 
 import org.apache.cactus.integration.ant.deployment.ApplicationXml;
 import org.apache.cactus.integration.ant.deployment.EarArchive;
+import org.apache.tools.ant.BuildException;
 
 import com.mockobjects.dynamic.Mock;
 
@@ -124,19 +125,23 @@ public final class TestEarParser extends TestCase
 
     /**
      * Verify that if the <code>application.xml</code> does not define a
-     * <code>context-root</code> element, then Cactus will use the web URI
-     * as the test context (minus the ".war" extension). This test context
-     * is used when polling the container to see if it is started.
+     * <code>context-root</code> element, an exception is raised.
      * 
      * @exception Exception on error
      */
-    public void testParseTestContextWhenNoWebUriInApplicationXml() 
+    public void testParseTestContextWhenNoWebUriInApplicationXml()
         throws Exception
     {
         mockApplicationXml.expectAndReturn("getWebModuleContextRoot", 
             "test.war", null);
-        
-        String context = EarParser.parseTestContext(archive, "test.war");
-        assertEquals("test", context);
+
+        try
+        {
+            EarParser.parseTestContext(archive, "test.war");
+        }
+        catch (BuildException expected)
+        {
+            assertTrue(true);
+        }
     }
 }
