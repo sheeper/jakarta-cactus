@@ -293,6 +293,7 @@
             <property name="build.sysclasspath"/>
 
             <property name="cactus.home.resin2x"/>
+            <property name="cactus.home.tomcat3x"/>
             <property name="cactus.home.tomcat4x"/>
             <property name="cactus.home.orion1x"/>
             <property name="cactus.home.weblogic6x"/>
