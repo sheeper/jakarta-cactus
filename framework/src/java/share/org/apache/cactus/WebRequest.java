@@ -557,6 +557,13 @@ public class WebRequest implements Request
      */
     public void addHeader(String theName, String theValue)
     {
+        // If the header is "Content-type", then call setContentType() instead.
+        // This is to prevent the content type to be set twice.
+        if (theName.equalsIgnoreCase("Content-type")) {
+            setContentType(theValue);
+            return;
+        }
+
         // If there is already a header of the same name, add the
         // new header to the Vector. If not, create a Vector an add it to the
         // hashtable

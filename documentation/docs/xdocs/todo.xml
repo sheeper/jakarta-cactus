@@ -136,17 +136,6 @@
         in a subsequent release as it involves some changes in the build
         process).
       </action>
-      <action>
-        Consider moving from HttpURLConnection to Commons HttpClient. This
-        will solve the problem of asserting code that returns an error
-        response code. Note: this has been fixed in JDK 1.3.1 I believe for
-        HttpURLConnection but as we're already using HttpClient for handling
-        cookies (because the JDK does not seem to provide any API for that).
-        Review JDK 1.4's HttpURLConnection to check if the JDK is making any
-        progress in this area. In term of design, isolate the implementation
-        with an interface so that different implementation can be plugged in
-        without affecting any other business classes.
-      </action>
     </category>
 
   </version>

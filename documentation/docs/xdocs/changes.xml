@@ -49,6 +49,30 @@
 
     <release version="1.4 in CVS">
       <action dev="VMA" type="add">
+        It is now possible to assert response codes in
+        <code>endXXX()</code>. For example, you can verify that you servlet
+        has returned a 500 response code. See the tests provided in the Sample
+        Servlet application which is part of the Cactus distribution. This
+        change was possible because we moved the underlying implementation from
+        <code>HttpURLConnection</code> to Jakarta Commons
+        <link href="http://jakarta.apache.org/commons/httpclient">
+        HttpClient</link>. Note: It is still not possible to test a 401
+        response code (this limitation has been raised to the HttpClient team).
+      </action>
+      <action dev="VMA" type="update">
+        Refactored internal code to be able to use different HTTP connection
+        implementation. 2 are currently provided : one using the JDK
+        <code>HttpURLConnection</code> and one using Jakarta Commons
+        <link href="http://jakarta.apache.org/commons/httpclient">
+        HttpClient</link> (the default one). It can be modified by setting
+        the following System property :
+        <code>cactus.connectionHelper.classname =
+        org.apache.cactus.client.JdkConnectionHelper</code> (for the JDK
+        <code>HttpURLConnection</code>). Note that the Servlet Sample test
+        that assert response code will fail with the JDK
+        <code>HttpURLConnection</code> implementation.
+      </action>
+      <action dev="VMA" type="add">
         Cactus now requires the Commons Logging library
         (<code>commons-logging.jar</code>). It is needed as Commons HttpClient
         is now using Commons Logging for logging and Cactus depends on

@@ -135,7 +135,7 @@ public class TestServletTestCase3 extends ServletTestCase
      */
     protected void tearDown()
     {
-        response.setHeader("teardownheader", "tear down header");
+        response.setHeader("Teardownheader", "tear down header");
     }
 
     /**
@@ -157,7 +157,7 @@ public class TestServletTestCase3 extends ServletTestCase
     public void endTearDown(WebResponse theResponse)
     {
         assertEquals("tear down header",
-            theResponse.getConnection().getHeaderField("teardownheader"));
+            theResponse.getConnection().getHeaderField("Teardownheader"));
     }
 
 }

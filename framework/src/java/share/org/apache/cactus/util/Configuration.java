@@ -56,6 +56,8 @@
  */
 package org.apache.cactus.util;
 
+import org.apache.cactus.client.HttpClientConnectionHelper;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.PropertyResourceBundle;
@@ -78,7 +80,7 @@ public class Configuration
      * Name of the Cactus configuration file if cactus is to look for it in
      * the classpath.
      */
-    private static final String CONFIG_DEFAULT_NAME = "cactus";
+    private static final String DEFAULT_CONFIG_NAME = "cactus";
 
     /**
      * Name of the java property for specifying the location of the cactus
@@ -96,6 +98,20 @@ public class Configuration
         "cactus.contextURL";
 
     /**
+     * Name of the Cactus property for overriding the default
+     * {@link org.apache.cactus.client.ConnectionHelper}. Defaults to
+     * {@link org.apache.cactus.client.HttpClientConnectionHelper}
+     */
+    private static final String CACTUS_CONNECTION_HELPER_CLASSNAME_PROPERTY =
+        "cactus.connectionHelper.classname";
+
+    /**
+     * Default {@link org.apache.cactus.client.ConnectionHelper} to use.
+     */
+    public static final String DEFAULT_CACTUS_CONNECTION_HELPER_CLASSNAME =
+        HttpClientConnectionHelper.class.getName();
+
+    /**
      * True if the Cactus configuration file has already been read.
      * @see #initialize()
      */
@@ -104,7 +120,7 @@ public class Configuration
     /**
      * Read the cactus configuration file from the java property defined
      * on the command line (named CACTUS_CONFIG_PROPERTY) and if none has been
-     * defined tries to read the CONFIG_DEFAULT_NAME file from the classpath.
+     * defined tries to read the DEFAULT_CONFIG_NAME file from the classpath.
      * All properties found are exported as java system properties.
      */
     public static final void initialize()
@@ -120,7 +136,7 @@ public class Configuration
                 // Try to read the default cactus configuration file from the
                 // classpath
                 config = ClassLoaderUtils.loadPropertyResourceBundle(
-                    CONFIG_DEFAULT_NAME, Configuration.class);
+                    DEFAULT_CONFIG_NAME, Configuration.class);
             } else {
                 // Try to read from specified properties file
                 try {
@@ -160,10 +176,27 @@ public class Configuration
         // from the Cactus configuration file.
         String contextURL = System.getProperty(CACTUS_CONTEXT_URL_PROPERTY);
         if (contextURL == null) {
-            new ChainedRuntimeException("Missing Cactus property ["
+            throw new ChainedRuntimeException("Missing Cactus property ["
                 + CACTUS_CONTEXT_URL_PROPERTY + "]");
         }
         return contextURL;
     }
 
+    /**
+     * @return the {@link org.apache.cactus.client.ConnectionHelper} classname
+     *         to use for opening the HTTP connection
+     */
+    public static String getConnectionHelper()
+    {
+        // Try to read it from a System property first and then if not defined
+        // use the default.
+        String connectionHelperClassname =
+            System.getProperty(CACTUS_CONNECTION_HELPER_CLASSNAME_PROPERTY);
+        if (connectionHelperClassname == null) {
+            connectionHelperClassname =
+                DEFAULT_CACTUS_CONNECTION_HELPER_CLASSNAME;
+        }
+
+        return connectionHelperClassname;
+    }
 }

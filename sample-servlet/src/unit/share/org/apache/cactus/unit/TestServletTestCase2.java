@@ -548,15 +548,11 @@ public class TestServletTestCase2 extends ServletTestCase
      * status code (> 400).
      *
      * Note: HttpURLConnection will return a FileNotFoundException if the
-     * status code is > 400 and the request does not end with a "/" ! In
-     * order to prevent, this ensure the Servlet Redirector URL in
-     * cactus.properties does end with a "/" and modify the servlet mapping
-     * in web.xml to include the trailing slash.
+     * status code is > 400 and the request does not end with a "/" !
      */
     public void testStatusCode()
     {
-// FIXME: use HttpClient for http connection
-//        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     }
 
     /**
@@ -564,19 +560,15 @@ public class TestServletTestCase2 extends ServletTestCase
      * status code (> 400).
      *
      * Note: HttpURLConnection will return a FileNotFoundException if the
-     * status code is > 400 and the request does not end with a "/" ! In
-     * order to prevent, this ensure the Servlet Redirector URL in
-     * cactus.properties does end with a "/" and modify the servlet mapping
-     * in web.xml to include the trailing slash.
+     * status code is > 400 and the request does not end with a "/" !
      *
      * @param theResponse the response from the server side.
      */
     public void endStatusCode(WebResponse theResponse)
         throws IOException
     {
-// FIXME: use HttpClient for http connection
-//        assertEquals(HttpServletResponse.SC_UNAUTHORIZED,
-//            theResponse.getConnection().getResponseCode());
+        assertEquals(HttpServletResponse.SC_INTERNAL_SERVER_ERROR,
+            theResponse.getConnection().getResponseCode());
     }
 
     //-------------------------------------------------------------------------

@@ -56,10 +56,16 @@
  */
 package org.apache.cactus.client;
 
+import org.apache.cactus.util.Configuration;
+import org.apache.cactus.util.ChainedRuntimeException;
+
+import java.lang.reflect.Constructor;
+
 /**
  * Factory that returns the <code>ConnectionHelper</code> specified in Cactus
- * configuration or the default one (<code>JdkConnectionHelper</code>) if none
- * has been specified.
+ * configuration or the default one if none has been specified.
+ *
+ * @see Configuration
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
@@ -68,14 +74,28 @@ package org.apache.cactus.client;
 public class ConnectionHelperFactory
 {
     /**
-     * @return the <code>ConnectionHelper</code> specified in Cactus
-     *         configuration or the default one
+     * @return a <code>ConnectionHelper</code> instance of the type specified
+     *         in Cactus configuration or the default one
      *         (<code>JdkConnectionHelper</code>)
      * @param theUrl the URL to connect to as a String
      */
     public static ConnectionHelper getConnectionHelper(String theUrl)
     {
-        // ATM only return the default one.
-        return new JdkConnectionHelper(theUrl);
+        // Load the corresponding class
+        ConnectionHelper connectionHelper;
+        try {
+            Class connectionHelperClass =
+                Class.forName(Configuration.getConnectionHelper());
+            Constructor constructor = connectionHelperClass.getConstructor(
+                new Class[] {String.class});
+            connectionHelper = (ConnectionHelper) constructor.newInstance(
+                new Object[] {theUrl});
+        } catch (Exception e) {
+            throw new ChainedRuntimeException("Failed to load the ["
+                + Configuration.getConnectionHelper() + "] ConnectionHelper "
+                + "class", e);
+        }
+
+        return connectionHelper;
     }
 }

@@ -184,6 +184,7 @@ framework/src/java/share/org/apache/cactus/client/AssertionFailedErrorWrapper.ja
 framework/src/java/share/org/apache/cactus/client/AutoReadHttpURLConnection.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/client/ConnectionHelper.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/client/ConnectionHelperFactory.java svn_keywords=Author+Date+Id+Revision
+framework/src/java/share/org/apache/cactus/client/HttpClientConnectionHelper.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/client/JdkConnectionHelper.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/client/JspHttpClient.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/client/ParsingException.java svn_keywords=Author+Date+Id+Revision
@@ -221,6 +222,7 @@ framework/src/java/share/org/apache/cactus/util/ChainedException.java svn_keywor
 framework/src/java/share/org/apache/cactus/util/ChainedRuntimeException.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/util/ClassLoaderUtils.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/util/Configuration.java svn_keywords=Author+Date+Id+Revision
+framework/src/java/share/org/apache/cactus/util/HttpURLConnection.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/util/IoUtil.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/util/JUnitVersionHelper.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/util/JspConfiguration.java svn_keywords=Author+Date+Id+Revision
