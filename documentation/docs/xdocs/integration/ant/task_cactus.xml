@@ -298,7 +298,7 @@
       <section title="jboss3x">
 
         <p>
-          The nested element <strong>orion1x</strong> allows running the tests
+          The nested element <strong>jboss3x</strong> allows running the tests
           against the JBoss 3.x application server.
         </p>
 
@@ -334,6 +334,16 @@
                 be implemented in the future).
               </td>
               <td>No, default is 8080</td>
+            </tr>
+            <tr>
+              <td>jndiport</td>
+              <td>
+                The JNDI server port on which the JBoss server has been
+                started. This attribute is only used for shutting down JBoss
+                and should only be used if you are running JBoss on a custom
+                JNDI port.
+              </td>
+              <td>No, default is 1099</td>
             </tr>
             <tr>
               <td>output</td>

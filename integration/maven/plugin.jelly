@@ -324,6 +324,9 @@
           <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
             <ant:setProperty name="tmpdir" value="${cactus.tmp.dir}"/>
           </j:if>    
+          <j:if test="${context.getVariable('cactus.jboss3x.jndiport') != null}">
+            <ant:setProperty name="jndiport" value="${cactus.jboss3x.jndiport}"/>
+          </j:if>    
         </jboss3x>
 
         <orion1x if="cactus.home.orion1x" port="${cactus.port}"
@@ -554,6 +557,9 @@
           <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
             <ant:setProperty name="tmpdir" value="${cactus.tmp.dir}"/>
           </j:if>    
+          <j:if test="${context.getVariable('cactus.jboss3x.jndiport') != null}">
+            <ant:setProperty name="jndiport" value="${cactus.jboss3x.jndiport}"/>
+          </j:if>    
         </jboss3x>
 
         <orion1x if="cactus.home.orion1x" port="${cactus.port}"
@@ -720,6 +726,9 @@
             config="${cactus.jboss3x.config.name}">
           <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
             <ant:setProperty name="tmpdir" value="${cactus.tmp.dir}"/>
+          </j:if>    
+          <j:if test="${context.getVariable('cactus.jboss3x.jndiport') != null}">
+            <ant:setProperty name="jndiport" value="${cactus.jboss3x.jndiport}"/>
           </j:if>    
         </jboss3x>
 
@@ -937,6 +946,9 @@
           <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
             <ant:setProperty name="tmpdir" value="${cactus.tmp.dir}"/>
           </j:if>
+          <j:if test="${context.getVariable('cactus.jboss3x.jndiport') != null}">
+            <ant:setProperty name="jndiport" value="${cactus.jboss3x.jndiport}"/>
+          </j:if>    
         </jboss3x>
 
         <orion1x if="cactus.home.orion1x" port="${cactus.port}"

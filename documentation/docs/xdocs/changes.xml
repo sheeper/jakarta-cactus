@@ -68,6 +68,13 @@
       </devs>
 
       <release version="1.6dev" date="in CVS">
+        <action dev="VMA" type="fix" fixes-bug="25968" due-to="James Carpenter" due-to-email="jacarpenter@ercot.com">
+          Added support for specifying which JNDI port to use when shutting 
+          down JBoss 3.x in the Cactus Ant integration. 
+          The <code>&lt;jboss3x&gt;</code> nested element now supports the new
+          <code>jndiport</code> attribute for specifying the port. If not
+          specified, it defaults to 1099.
+        </action>
         <action dev="VMA" type="add">
           Added new <code>encoding</code> HTTP parameter for the Cactus Servlet 
           TestRunner. By default the XML returned (when there is no server-side

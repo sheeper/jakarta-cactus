@@ -9,6 +9,11 @@
 
     <release version="1.6dev" date="in CVS">
       <action dev="vmassol" type="add">
+        Added new <code>cactus.jboss3x.jndiport</code> property to specify
+        which JNDI port to use when shutting down JBoss. Defaults to 1099
+        (the JBoss default).
+      </action>
+      <action dev="vmassol" type="add">
         Added support for Resin 3.x (above version 3.0.5).
       </action>
       <action dev="vmassol" type="add" issue="25983" due-to="Stephane Nicoll" due-to-email="snicoll@kiala.com">

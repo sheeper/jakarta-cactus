@@ -104,13 +104,18 @@ public class JBoss3xContainer extends AbstractJavaContainer
     /**
      * The port to which the container should be bound.
      */
-    private transient int port = 8080;
+    private int port = 8080;
 
+    /**
+     * The server JNDI Port (used during shutdown)
+     */
+    private int jndiPort = 1099;
+    
     /**
      * The JBoss version detected by reading the Manifest file in the
      * installation directory.
      */
-    private transient String version;
+    private String version;
 
     /**
      * The context root of the tested application.
@@ -160,6 +165,16 @@ public class JBoss3xContainer extends AbstractJavaContainer
         this.port = thePort;
     }
 
+    /**
+     * Specify the JNDI port to use.
+     *
+     * @param theJndiPort The JNDI port
+     */
+    public final void setJndiPort(int theJndiPort)
+    {
+        this.jndiPort = theJndiPort;
+    }
+    
     // Container Implementation ------------------------------------------------
 
     /**
@@ -184,6 +199,16 @@ public class JBoss3xContainer extends AbstractJavaContainer
     public final int getPort()
     {
         return this.port;
+    }
+
+    /**
+     * Returns the server JNDI port.
+     *
+     * @return The JNDI port
+     */
+    public final int getJndiPort()
+    {
+        return this.jndiPort;
     }
     
     /**
@@ -270,6 +295,8 @@ public class JBoss3xContainer extends AbstractJavaContainer
             new File(binDir, "shutdown.jar"));
 
         java.setClassname("org.jboss.Shutdown");
+        java.createArg().setValue("--server=localhost:" + this.getJndiPort());
+        
         if (this.version.startsWith("3.2"))
         {
             java.createArg().setValue("--shutdown");
