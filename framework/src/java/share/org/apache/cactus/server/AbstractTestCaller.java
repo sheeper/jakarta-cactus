@@ -57,7 +57,7 @@
 package org.apache.cactus.server;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.Writer;
 import java.lang.reflect.Constructor;
 import javax.servlet.ServletException;
 
@@ -116,6 +116,13 @@ public abstract class AbstractTestCaller
      */
     protected abstract void setTestCaseFields(AbstractTestCase theTestCase)
         throws Exception;
+
+    /**
+     * @return a <code>Writer</code> object that will be used to return the
+     *         test result to the client side.
+     * @exception IOException if an error occurs when retrieving the writer
+     */
+    protected abstract Writer getResponseWriter() throws IOException;
 
     /**
      * Calls a test method. The parameters needed to call this method are found
@@ -184,10 +191,9 @@ public abstract class AbstractTestCaller
         // Write back the results to the outgoing stream as an XML string.
         try {
 
-            PrintWriter pw =
-                this.webImplicitObjects.getHttpServletResponse().getWriter();
-            pw.print(result.toXml());
-            pw.close();
+            Writer writer = getResponseWriter();
+            writer.write(result.toXml());
+            writer.close();
 
         } catch (IOException e) {
             String message = "Error writing WebTestResult instance to output " +

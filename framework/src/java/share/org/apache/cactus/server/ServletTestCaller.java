@@ -57,6 +57,8 @@
 package org.apache.cactus.server;
 
 import java.lang.reflect.Field;
+import java.io.Writer;
+import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -133,6 +135,14 @@ public class ServletTestCaller extends AbstractTestCaller
             sessionField.set(servletInstance, session);
 
         }
+    }
+
+    /**
+     * @see AbstractTestCaller#getResponseWriter()
+     */
+    protected Writer getResponseWriter() throws IOException
+    {
+        return this.webImplicitObjects.getHttpServletResponse().getWriter();
     }
 
 }

@@ -57,6 +57,8 @@
 package org.apache.cactus.server;
 
 import java.lang.reflect.Field;
+import java.io.Writer;
+import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.cactus.AbstractTestCase;
@@ -115,6 +117,16 @@ public class JspTestCaller extends ServletTestCaller
 
         Field outField = jspInstance.getClass().getField("out");
         outField.set(jspInstance, jspImplicitObjects.getJspWriter());
+    }
+
+    /**
+     * @see AbstractTestCaller#getResponseWriter()
+     */
+    protected Writer getResponseWriter() throws IOException
+    {
+        JspImplicitObjects jspImplicitObjects =
+            (JspImplicitObjects) this.webImplicitObjects;
+        return jspImplicitObjects.getJspWriter();
     }
 
 }
