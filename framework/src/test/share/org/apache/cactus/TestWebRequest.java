@@ -67,7 +67,7 @@ import org.apache.cactus.util.ChainedRuntimeException;
  * Unit tests of the <code>WebRequest</code> class.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *         <a href="mailto:ndlesiecki@apache.org">Nicholas Lesiecki</a>
+ * @author <a href="mailto:ndlesiecki@apache.org">Nicholas Lesiecki</a>
  * @version $Id$
  */
 public class TestWebRequest extends TestCase
@@ -287,25 +287,34 @@ public class TestWebRequest extends TestCase
      * Verifies that setting the unique id on the request adds it to
      * the list of query string parameters.
      */
-    public void testSetUniqueId()
+    public void testUniqueIdIsAddedToListOfQueryStringParameters()
     {
         WebRequest request = new WebRequest(new ServletConfiguration());
 
         String testId = "XXX-TEST";
         request.setUniqueId(testId);
         assertEquals(testId, request.getUniqueId());
-        assertEquals(
-            testId,
+        assertEquals(testId, 
             request.getParameterGet(HttpServiceDefinition.TEST_ID));
+    }
+
+    /**
+     * Verifies that once the unique id is set on the request object, 
+     * it cannot be set to anything else.
+     */
+    public void testUniqueIdCannotBeReset()
+    {
+        WebRequest request = new WebRequest(new ServletConfiguration());
+        request.setUniqueId("XXX-TEST");
 
         try
         {
             request.setUniqueId("something-else");
-            fail("Should have thrown IllegalStateException");
+            fail("The unique id should not be able to be reset");
         } 
-        catch (IllegalStateException success)
+        catch (IllegalStateException expected)
         {
-            //success!
+            assertTrue(true);
         }
     }
 
