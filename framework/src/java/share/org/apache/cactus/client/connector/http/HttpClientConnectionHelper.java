@@ -165,8 +165,7 @@ public class HttpClientConnectionHelper implements ConnectionHelper
         }
 
         // Add the cookies
-        HttpState state = new HttpState();
-        state.addCookies(CookieUtil.createHttpClientCookies(theRequest, url));
+        HttpState state = CookieUtil.createHttpState(theRequest, url);
 
         // Open the connection and get the result
         HttpClient client = new HttpClient();

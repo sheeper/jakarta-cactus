@@ -274,6 +274,7 @@ framework/src/test/share/org/apache/cactus/TestWebRequest.java svn_keywords=Auth
 framework/src/test/share/org/apache/cactus/TestWebTestResult.java svn_keywords=Author+Date+Id+Revision
 framework/src/test/share/org/apache/cactus/client/TestWebTestResultParser.java svn_keywords=Author+Date+Id+Revision
 framework/src/test/share/org/apache/cactus/mock/MockHttpURLConnection.java svn_keywords=Author+Date+Id+Revision
+framework/src/test/share/org/apache/cactus/util/TestCookieUtil.java svn_keywords=Author+Date+Id+Revision
 framework/src/test/share/org/apache/cactus/util/TestStringUtil.java svn_keywords=Author+Date+Id+Revision
 framework/web/jspRedirector.jsp svn_keywords=Author+Date+Id+Revision
 /gump.xml svn_keywords=Author+Date+Id+Revision
