@@ -63,63 +63,23 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 
 /**
- * Wrapper around <code>ServletContext</code> which overrides the
- * <code>getRequestDispatcher()</code> method to return our own wrapper around
- * <code>RequestDispatcher</code>.
+ * Wrapper around Servlet 2.3 <code>ServletContext</code>. This wrapper
+ * provides additional behaviour (see
+ * <code>AbstractServletContextWrapper</code>).
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
  * @see RequestDispatcherWrapper
  */
-public class ServletContextWrapper implements ServletContext
+public class ServletContextWrapper extends AbstractServletContextWrapper
 {
-    /**
-     * The original servlet context object
-     */
-    private ServletContext originalContext;
-
     /**
      * @param theOriginalContext the original servlet context object
      */
     public ServletContextWrapper(ServletContext theOriginalContext)
     {
-        this.originalContext = theOriginalContext;
-    }
-
-    public void setAttribute(String theName, Object theAttribute)
-    {
-        this.originalContext.setAttribute(theName, theAttribute);
-    }
-
-    public void removeAttribute(String theName)
-    {
-        this.originalContext.removeAttribute(theName);
-    }
-
-    public void log(String theMessage, Throwable theCause)
-    {
-        this.originalContext.log(theMessage, theCause);
-    }
-
-    public void log(String theMessage)
-    {
-        this.originalContext.log(theMessage);
-    }
-
-    public void log(Exception theException, String theMessage)
-    {
-        this.originalContext.log(theException, theMessage);
-    }
-
-    public Enumeration getServlets()
-    {
-        return this.originalContext.getServlets();
-    }
-
-    public Enumeration getServletNames()
-    {
-        return this.originalContext.getServletNames();
+        super(theOriginalContext);
     }
 
     public String getServletContextName()
@@ -127,16 +87,9 @@ public class ServletContextWrapper implements ServletContext
         return this.originalContext.getServletContextName();
     }
 
-    public Servlet getServlet(String theName) throws ServletException
-    {
-        return this.originalContext.getServlet(theName);
-    }
-
-    public String getServerInfo()
-    {
-        return this.originalContext.getServerInfo();
-    }
-
+    /**
+     * @see getResourcePaths(String)
+     */
     public Set getResourcePaths()
     {
         Set returnSet;
@@ -166,8 +119,8 @@ public class ServletContextWrapper implements ServletContext
     /**
      * Added to support the changes of the Jakarta Servlet API 2.3 of the
      * 17/03/2001 (in anticipation of the upcoming draft of Servlet 2.3). Kept
-     * the method without parameters for servlet engines that do have upgraded
-     * yet to the new signature.
+     * the method without parameters for servlet engines that do not have
+     * upgraded yet to the new signature.
      */
     public Set getResourcePaths(String thePath)
     {
@@ -194,86 +147,6 @@ public class ServletContextWrapper implements ServletContext
         }
 
         return returnSet;
-    }
-
-    public InputStream getResourceAsStream(String thePath)
-    {
-        return this.originalContext.getResourceAsStream(thePath);
-    }
-
-    public URL getResource(String thePath) throws MalformedURLException
-    {
-        return this.originalContext.getResource(thePath);
-    }
-
-    /**
-     * @return our request dispatcher wrapper
-     */
-    public RequestDispatcher getRequestDispatcher(String thePath)
-    {
-        RequestDispatcher dispatcher = new RequestDispatcherWrapper(
-            this.originalContext.getRequestDispatcher(thePath));
-        return dispatcher;
-    }
-
-    public String getRealPath(String thePath)
-    {
-        return this.originalContext.getRealPath(thePath);
-    }
-
-    /**
-     * @return our request dispatcher wrapper
-     */
-    public RequestDispatcher getNamedDispatcher(String theName)
-    {
-        RequestDispatcher dispatcher = new RequestDispatcherWrapper(
-            this.originalContext.getNamedDispatcher(theName));
-        return dispatcher;
-    }
-
-    public int getMinorVersion()
-    {
-        return this.originalContext.getMinorVersion();
-    }
-
-    public String getMimeType(String theFilename)
-    {
-        return this.originalContext.getMimeType(theFilename);
-    }
-
-    public int getMajorVersion()
-    {
-        return this.originalContext.getMajorVersion();
-    }
-
-    public Enumeration getInitParameterNames()
-    {
-        return this.originalContext.getInitParameterNames();
-    }
-
-    public String getInitParameter(String theName)
-    {
-        return this.originalContext.getInitParameter(theName);
-    }
-
-    /**
-     * @return our servlet context wrapper
-     */
-    public ServletContext getContext(String theUripath)
-    {
-        ServletContext context = new ServletContextWrapper(
-            this.originalContext.getContext(theUripath));
-        return context;
-    }
-
-    public Enumeration getAttributeNames()
-    {
-        return this.originalContext.getAttributeNames();
-    }
-
-    public Object getAttribute(String theName)
-    {
-        return this.originalContext.getAttribute(theName);
     }
 
 }
