@@ -181,13 +181,13 @@
         Integration to Netbeans in general and especially integration with the 
         Netbeans XTest module.
       </action>
-      <action assigned-to="Vincent Massol">
+      <action  assigned-to="Vincent Massol, Alex Fernandez">
         Mock Object seem to be useful (see the
         <link href="mockobjects.html">comparison</link> between Cactus and
         Mock objects). Now we need to think on how we could bring the benefits
         of both approach together and whether it is feasible on not.
       </action>
-      <action assigned-to="Vincent Massol, Alex Fernandez">
+      <action>
         When we want to unit test classes written for the Struts framework
         (for example), we can use Cactus to provide access to all Servlet API
         implicit objects. However, there is still a need to get access to
