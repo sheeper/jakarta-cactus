@@ -88,7 +88,29 @@
               HTTP headers,
             </li>
             <li>
-              HTTP cookies
+              HTTP cookies. In order to simplify the assertion of received
+              cookies, the following methods are provided :
+              <ul>
+                <li>
+                  <code>AssertUtils.getCookies()</code> : returns the list of
+                  received cookies
+                </li>
+              </ul>
+            </li>
+            <li>
+              Servlet output stream. In order to simplify the assertion of
+              received stream, the following methods are provided :
+              <ul>
+                <li>
+                  <code>AssertUtils.getResponseAsString()</code> : returns the
+                  servlet output stream as a string,
+                </li>
+                <li>
+                  <code>AssertUtils.getResponseAsStringArray()</code> : returns
+                  the servlet output stream as an array of strings (each line
+                  is a string)
+                </li>
+              </ul>
             </li>
           </ul>
         </li>
