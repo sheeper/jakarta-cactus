@@ -66,12 +66,12 @@ package org.apache.cactus.server;
  *
  * @version $Id$
  */
-public class JspTestController extends AbstractTestController
+public class JspTestController extends AbstractWebTestController
 {
     /**
-     * @see AbstractTestController#getTestCaller(WebImplicitObjects)
+     * @see AbstractWebTestController#getTestCaller(WebImplicitObjects)
      */
-    protected AbstractTestCaller getTestCaller(
+    protected AbstractWebTestCaller getTestCaller(
         WebImplicitObjects theObjects)
     {
         return new JspTestCaller((JspImplicitObjects) theObjects);

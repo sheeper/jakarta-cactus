@@ -57,24 +57,24 @@
 package org.apache.cactus.server;
 
 /**
- * Filter Controller that extracts the requested service from the
- * HTTP request and executes the request by calling a
- * <code>FilterTestCaller</code>. There are 2 services available : one for
- * executing the test and one for returning the test result.
+ * Controller interface that simlulates a bit the controller from the MVC
+ * model in that this controller implementation classes are in charge of
+ * extracting data from the request and calling the test method to execute.
+ * Note that this is independent of the protocol (HTTP, JMS, etc).
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
  */
-public class FilterTestController extends AbstractWebTestController
+public interface TestController
 {
     /**
-     * @see AbstractWebTestController#getTestCaller(WebImplicitObjects)
+     * Handles the incoming request by extracting the requested service and
+     * calling the correct test method.
+     *
+     * @param theObjects the implicit objects (they are different for the
+     *                   different redirectors)
+     * @exception Exception if an error occurs when servicing the request
      */
-    protected AbstractWebTestCaller getTestCaller(
-        WebImplicitObjects theObjects)
-    {
-        return new FilterTestCaller((FilterImplicitObjects) theObjects);
-    }
-
+    void handleRequest(ImplicitObjects theObjects) throws Exception;
 }

@@ -74,19 +74,20 @@ import org.apache.cactus.util.log.LogService;
  *
  * @version $Id$
  */
-public abstract class AbstractTestController
+public abstract class AbstractWebTestController implements TestController
 {
     /**
      * The logger
      */
     private static final Log LOGGER =
-        LogService.getInstance().getLog(AbstractTestController.class.getName());
+        LogService.getInstance().getLog(
+            AbstractWebTestController.class.getName());
 
     /**
      * @param theObjects the implicit objects coming from the redirector
      * @return the test caller that will be used to execute the test
      */
-    protected abstract AbstractTestCaller getTestCaller(
+    protected abstract AbstractWebTestCaller getTestCaller(
         WebImplicitObjects theObjects);
 
     /**
@@ -98,9 +99,11 @@ public abstract class AbstractTestController
      * @exception ServletException if an error occurs when servicing the
      *            request
      */
-    public void handleRequest(WebImplicitObjects theObjects)
+    public void handleRequest(ImplicitObjects theObjects)
         throws ServletException
     {
+        WebImplicitObjects webImplicitObjects = (WebImplicitObjects) theObjects;
+
         // If the Cactus user has forgotten to put a needed jar on the server
         // classpath (i.e. in WEB-INF/lib), then the servlet engine Webapp
         // class loader will throw a NoClassDefFoundError exception. As this
@@ -113,9 +116,9 @@ public abstract class AbstractTestController
         try {
 
             String serviceName =
-                getServiceName(theObjects.getHttpServletRequest());
+                getServiceName(webImplicitObjects.getHttpServletRequest());
 
-            AbstractTestCaller caller = getTestCaller(theObjects);
+            AbstractWebTestCaller caller = getTestCaller(webImplicitObjects);
 
             // Is it the call test method service ?
             if (ServiceEnumeration.CALL_TEST_SERVICE.equals(serviceName)) {

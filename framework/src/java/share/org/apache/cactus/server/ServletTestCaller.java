@@ -74,7 +74,7 @@ import org.apache.cactus.ServletURL;
  *
  * @version $Id$
  */
-public class ServletTestCaller extends AbstractTestCaller
+public class ServletTestCaller extends AbstractWebTestCaller
 {
     /**
      * @param theObjects the implicit objects coming from the redirector
@@ -85,7 +85,7 @@ public class ServletTestCaller extends AbstractTestCaller
     }
 
     /**
-     * @see AbstractTestCaller#setTestCaseFields(AbstractTestCase)
+     * @see AbstractWebTestCaller#setTestCaseFields(AbstractTestCase)
      */
     protected void setTestCaseFields(AbstractTestCase theTestInstance)
         throws Exception
@@ -138,7 +138,7 @@ public class ServletTestCaller extends AbstractTestCaller
     }
 
     /**
-     * @see AbstractTestCaller#getResponseWriter()
+     * @see AbstractWebTestCaller#getResponseWriter()
      */
     protected Writer getResponseWriter() throws IOException
     {

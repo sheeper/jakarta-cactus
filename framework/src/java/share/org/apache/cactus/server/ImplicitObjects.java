@@ -57,24 +57,14 @@
 package org.apache.cactus.server;
 
 /**
- * Filter Controller that extracts the requested service from the
- * HTTP request and executes the request by calling a
- * <code>FilterTestCaller</code>. There are 2 services available : one for
- * executing the test and one for returning the test result.
+ * Tagging interface for implicit objects. Implicit objects are objects that
+ * are instanciated by the containers and that need to be made visible to your
+ * test case classes.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
  */
-public class FilterTestController extends AbstractWebTestController
+public interface ImplicitObjects
 {
-    /**
-     * @see AbstractWebTestController#getTestCaller(WebImplicitObjects)
-     */
-    protected AbstractWebTestCaller getTestCaller(
-        WebImplicitObjects theObjects)
-    {
-        return new FilterTestCaller((FilterImplicitObjects) theObjects);
-    }
-
 }

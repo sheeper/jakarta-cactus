@@ -84,7 +84,7 @@ public class JspTestCaller extends ServletTestCaller
     }
 
     /**
-     * @see AbstractTestCaller#setTestCaseFields(AbstractTestCase)
+     * @see AbstractWebTestCaller#setTestCaseFields(AbstractTestCase)
      */
     protected void setTestCaseFields(AbstractTestCase theTestInstance)
         throws Exception
@@ -120,7 +120,7 @@ public class JspTestCaller extends ServletTestCaller
     }
 
     /**
-     * @see AbstractTestCaller#getResponseWriter()
+     * @see AbstractWebTestCaller#getResponseWriter()
      */
     protected Writer getResponseWriter() throws IOException
     {

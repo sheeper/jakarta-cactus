@@ -1,7 +1,7 @@
 This sample application demonstrates how to use Cactus for unit testing
-server side java code. The goal is to show as many use cases as possible.
-You can use this sample to get familiar with Cactus and also as a starting
-point for building your own test classes.
+server side java code (Servlet, Taglib and Filters). The goal is to show as
+many use cases as possible. You can use this sample to get familiar with
+Cactus and also as a starting point for building your own test classes.
 
 In addition, it also shows the following features :
 - how to integrate Cactus unit tests with Ant by providing an already made

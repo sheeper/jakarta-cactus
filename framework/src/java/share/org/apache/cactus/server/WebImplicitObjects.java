@@ -69,7 +69,7 @@ import javax.servlet.http.HttpServletRequest;
  *
  * @version $Id$
  */
-public interface WebImplicitObjects
+public interface WebImplicitObjects extends ImplicitObjects
 {
     /**
      * @return the <code>ServletContext</code> implicit object

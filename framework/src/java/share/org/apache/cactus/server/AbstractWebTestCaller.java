@@ -77,7 +77,7 @@ import org.apache.cactus.util.log.LogService;
  *
  * @version $Id$
  */
-public abstract class AbstractTestCaller
+public abstract class AbstractWebTestCaller
 {
     /**
      * Name of the attribute in the <code>application</code> scope that will
@@ -90,7 +90,7 @@ public abstract class AbstractTestCaller
      * The logger.
      */
     private static final Log LOGGER =
-        LogService.getInstance().getLog(AbstractTestCaller.class.getName());
+        LogService.getInstance().getLog(AbstractWebTestCaller.class.getName());
 
     /**
      * The implicit objects (which will be used to set the test case fields
@@ -101,7 +101,7 @@ public abstract class AbstractTestCaller
     /**
      * @param theObjects the implicit objects coming from the redirector
      */
-    public AbstractTestCaller(WebImplicitObjects theObjects)
+    public AbstractWebTestCaller(WebImplicitObjects theObjects)
     {
         this.webImplicitObjects = theObjects;
     }
