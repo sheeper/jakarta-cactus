@@ -2,7 +2,8 @@
 
 <book software="Cactus" 
       title="Cactus Documentation" 
-      copyright="@year@ The Apache Software Foundation">
+      copyright="@year@ The Apache Software Foundation"
+      updated="@today@">
 
   <menu label="Home">
     <menu-item label="Jakarta Commons" href="http://jakarta.apache.org/commons" type="external"/>  
@@ -27,7 +28,7 @@
     <menu-item label="Installing Ant" source="installation_ant.xml"/>
     <menu-item label="Installing Sample" source="installation_sample.xml"/>
     <menu-item label="Configuration" source="configuration.xml"/>
-    <menu-item label="Using" source="using.xml"/>
+    <menu-item label="Writing Test Case" source="using.xml"/>
     <menu-item label="Servlet Sample" source="sample_servlet.xml"/>
   </menu>
 
