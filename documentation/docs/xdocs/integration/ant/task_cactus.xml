@@ -477,6 +477,14 @@
               </td>
               <td>No</td>
             </tr>
+            <tr>
+              <td>jvmArgs</td>
+              <td>
+                Arguments to be passed to the JVM running the container (for
+                instance, -Xms256m -Xmx800m)
+              </td>
+              <td>No</td>
+            </tr>
           </table>
 
         </section>
@@ -572,6 +580,14 @@
               </td>
               <td>No</td>
             </tr>
+            <tr>
+              <td>jvmArgs</td>
+              <td>
+                Arguments to be passed to the JVM running the container (for
+                instance, -Xms256m -Xmx800m)
+              </td>
+              <td>No</td>
+            </tr>
           </table>
 
         </section>
@@ -664,6 +680,14 @@
               <td>
                 Tests will only be run in the container if a property of the
                 given name doesn't exist in the current project
+              </td>
+              <td>No</td>
+            </tr>
+            <tr>
+              <td>jvmArgs</td>
+              <td>
+                Arguments to be passed to the JVM running the container (for
+                instance, -Xms256m -Xmx800m)
               </td>
               <td>No</td>
             </tr>
@@ -769,6 +793,14 @@
               </td>
               <td>No</td>
             </tr>
+            <tr>
+              <td>jvmArgs</td>
+              <td>
+                Arguments to be passed to the JVM running the container (for
+                instance, -Xms256m -Xmx800m)
+              </td>
+              <td>No</td>
+            </tr>
           </table>
 
         </section>
@@ -871,6 +903,14 @@
               </td>
               <td>No</td>
             </tr>
+            <tr>
+              <td>jvmArgs</td>
+              <td>
+                Arguments to be passed to the JVM running the container (for
+                instance, -Xms256m -Xmx800m)
+              </td>
+              <td>No</td>
+            </tr>
           </table>
 
         </section>
@@ -970,6 +1010,14 @@
               <td>
                 Tests will only be run in the container if a property of the
                 given name doesn't exist in the current project
+              </td>
+              <td>No</td>
+            </tr>
+            <tr>
+              <td>jvmArgs</td>
+              <td>
+                Arguments to be passed to the JVM running the container (for
+                instance, -Xms256m -Xmx800m)
               </td>
               <td>No</td>
             </tr>
@@ -1097,6 +1145,14 @@
               </td>
               <td>No</td>
             </tr>
+            <tr>
+              <td>jvmArgs</td>
+              <td>
+                Arguments to be passed to the JVM running the container (for
+                instance, -Xms256m -Xmx800m)
+              </td>
+              <td>No</td>
+            </tr>
           </table>
 
         </section>
@@ -1219,6 +1275,14 @@
               <td>
                 Tests will only be run in the container if a property of the
                 given name doesn't exist in the current project
+              </td>
+              <td>No</td>
+            </tr>
+            <tr>
+              <td>jvmArgs</td>
+              <td>
+                Arguments to be passed to the JVM running the container (for
+                instance, -Xms256m -Xmx800m)
               </td>
               <td>No</td>
             </tr>
@@ -1348,6 +1412,14 @@
               <td>
                 Tests will only be run in the container if a property of the
                 given name doesn't exist in the current project
+              </td>
+              <td>No</td>
+            </tr>
+            <tr>
+              <td>jvmArgs</td>
+              <td>
+                Arguments to be passed to the JVM running the container (for
+                instance, -Xms256m -Xmx800m)
               </td>
               <td>No</td>
             </tr>

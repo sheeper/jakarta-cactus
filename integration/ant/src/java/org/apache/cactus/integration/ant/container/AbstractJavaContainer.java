@@ -47,6 +47,12 @@ public abstract class AbstractJavaContainer extends AbstractContainer
      */
     private boolean append;
 
+
+    /**
+     * The arguments for JVM.
+     */
+    private String jvmArgs;
+
     // Public Methods ----------------------------------------------------------
 
     /**
@@ -68,6 +74,17 @@ public abstract class AbstractJavaContainer extends AbstractContainer
     public final void setAppend(boolean isAppend)
     {
         this.append = isAppend;
+    }
+
+
+    /**
+     * Sets the arguments for JVM.
+     *
+     * @param theJVMArgs The arguments
+     */
+    public final void setJVMArgs(String theJVMArgs)
+    {
+        this.jvmArgs = theJVMArgs;
     }
 
     // Protected Methods -------------------------------------------------------
@@ -101,6 +118,14 @@ public abstract class AbstractJavaContainer extends AbstractContainer
         java.setFork(true);
         java.setOutput(this.output);
         java.setAppend(this.append);
+
+        // pass arguments to the JVM
+        if (this.jvmArgs != null) 
+        {
+            getLog().trace(
+                "Passing arguments to the container JVM: " + this.jvmArgs);
+            java.setJvmargs(this.jvmArgs);
+        }
 
         // Add extra container classpath entries specified by the user.
         addExtraClasspath(java);
@@ -223,7 +248,15 @@ public abstract class AbstractJavaContainer extends AbstractContainer
             }
         }
     }
-    
+
+    /**
+     * @return The arguments for JVM.
+     */
+    protected final String getJVMArgs()
+    {
+        return this.jvmArgs;
+    }
+
     // Private Methods -------------------------------------------------------
 
     /**

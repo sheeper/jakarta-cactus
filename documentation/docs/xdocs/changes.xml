@@ -87,9 +87,13 @@
         <person name="Nicholas Lesiecki" email="ndlesiecki@yahoo.com" id="NDL"/>
         <person name="Christopher Lenz" email="cmlenz@gmx.de" id="CML"/>
         <person name="Julien Ruaux" email="jruaux@apache.org" id="JRU"/>
+        <person name="Felipe Leme" email="maven@felipeal.net" id="FAL"/>
       </devs>
 
       <release version="1.7dev" date="in CVS">
+        <action dev="FAL" type="add" issue="CACTUS-158" due-to="Matheus Bianconi">
+          Add attribute <code>jvmArgs</code> in the container tasks.
+        </action>
         <action dev="VMA" type="fix">
           The <code>&lt;resin3x&gt;</code> element of the 
           <code>&lt;cactus&gt;</code> task is now correctly using the
