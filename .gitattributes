@@ -352,7 +352,6 @@ integration/eclipse/src/java/org/apache/cactus/eclipse/war/WarBuilder.java svn_k
 integration/eclipse/src/java/org/apache/cactus/eclipse/war/Webapp.java svn_keywords=Author+Date+Id+Revision
 integration/eclipse/src/java/org/apache/cactus/eclipse/war/ui/WebAppConfigurationBlock.java svn_keywords=Author+Date+Id+Revision
 integration/eclipse/src/java/org/apache/cactus/eclipse/war/ui/WebAppPropertyPage.java svn_keywords=Author+Date+Id+Revision
-integration/eclipse/src/scripts/build-war.xml svn_keywords=Author+Date+Id+Revision
 integration/eclipse/src/scripts/eclipse/build-share.xml svn_keywords=Author+Date+Id+Revision
 integration/eclipse/src/scripts/eclipse/build.xml svn_keywords=Author+Date+Id+Revision
 samples/jetty/.cvsignore svn_keywords=Author+Date+Id+Revision
