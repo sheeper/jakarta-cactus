@@ -20,3 +20,5 @@ default.lst
 .checkclipse
 junit*.properties
 dependencies.xml
+.settings
+.clover

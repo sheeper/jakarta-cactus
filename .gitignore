@@ -1,7 +1,9 @@
 /.checkclipse
 /.checkstyle
 /.classpath
+/.clover
 /.project
+/.settings
 /ant.bat
 /bin
 /build.properties
