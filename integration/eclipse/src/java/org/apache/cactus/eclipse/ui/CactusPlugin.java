@@ -245,6 +245,14 @@ public class CactusPlugin extends AbstractUIPlugin
     }
 
     /**
+     * @return an array of identifiers of supported containers
+     */
+    public static String[] getContainers()
+    {
+        return GenericAntProvider.getContainers();
+    }
+
+    /**
      * Displays an error dialog.
      * @param theTitle title of the dialog
      * @param theMessage message to display in the dialog
@@ -331,8 +339,7 @@ public class CactusPlugin extends AbstractUIPlugin
      * Sets the current CactusLaunchShortcut
      * @param theCactusLaunchShortcut the instance to set
      */
-    public void addCactusLaunchShortcut(
-        CactusLaunchShortcut theCactusLaunchShortcut)
+    public void addCactusLaunchShortcut(CactusLaunchShortcut theCactusLaunchShortcut)
     {
         this.launchShortcut = theCactusLaunchShortcut;
     }

@@ -57,6 +57,7 @@
 package org.apache.cactus.eclipse.containers.ant;
 
 import java.io.File;
+import java.io.FilenameFilter;
 import java.net.URL;
 import java.util.Vector;
 
@@ -117,6 +118,16 @@ public class GenericAntProvider implements IContainerProvider
      * A boolean indicating if the container is running.
      */
     private boolean serverStopped;
+    /**
+     * Plug-in relative path to the Ant container build files.
+     */
+    private static final String CONTAINER_BUILD_FILES_PATH = "./ant/scripts";
+
+    /**
+     * Prefix of container build files.
+     */
+    private static final String CONTAINER_BUILD_FILES_PREFIX = "build-tests-";
+
     /**
      * Constructor.
      * @param thePort the port that will be used when setting up the container
@@ -287,5 +298,64 @@ public class GenericAntProvider implements IContainerProvider
     public void setEclipseRunner(EclipseRunTests theEclipseRunner)
     {
         this.eclipseRunner = theEclipseRunner;
+    }
+
+    /**
+     * @return an array of unique identifiers for a container in this container
+     *     provider
+     */
+    public static String[] getContainers()
+    {
+        Vector containers = new Vector();
+        URL containerDirURL =
+            CactusPlugin.getDefault().find(
+                new Path(CONTAINER_BUILD_FILES_PATH));
+        if (containerDirURL == null)
+        {
+            // No container available
+            return new String[0];
+        }
+        Path containerDir = new Path(containerDirURL.getPath());
+        File dir = containerDir.toFile();
+        String[] containerFiles = dir.list(new BuildFilenameFilter());
+        for (int i = 0; i < containerFiles.length; i++)
+        {
+            String currentFileName = containerFiles[i];
+            String currentId =
+                currentFileName.substring(
+                    CONTAINER_BUILD_FILES_PREFIX.length(),
+                    currentFileName.lastIndexOf("."));
+            containers.add(currentId);
+        }
+        return (String[]) containers.toArray(
+            new String[containers.size()]);
+    }
+
+    /**
+     * Filter for container script files.
+     * i.e. accepts files like 'build-tests-mycontainer3.1.xml'
+     * 
+     * @author <a href="mailto:jruaux@octo.com">Julien Ruaux</a>
+     * 
+     * @version $Id$
+     */
+    static class BuildFilenameFilter implements FilenameFilter
+    {
+        /**
+         * @see java.io.FilenameFilter#accept(java.io.File, java.lang.String)
+         */
+        public boolean accept(File theDir, String theFilename)
+        {
+            if (theFilename
+                .substring(0, CONTAINER_BUILD_FILES_PREFIX.length())
+                .equals(CONTAINER_BUILD_FILES_PREFIX))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

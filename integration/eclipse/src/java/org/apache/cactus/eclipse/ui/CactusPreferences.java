@@ -59,6 +59,7 @@ package org.apache.cactus.eclipse.ui;
 import java.util.Vector;
 
 import org.apache.cactus.eclipse.containers.ant.ContainerHome;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.preference.IPreferenceStore;
 
 /**
@@ -105,21 +106,6 @@ public class CactusPreferences
      * The directory where the plugin can find the web application.
      */
     public static final String WEBAPP_DIR = "webapp_Dir";
-
-    /**
-     * Home directory of Tomcat 4.x.
-     */
-    public static final String TOMCAT4X_DIR = "tomcat4x";
-
-    /**
-     * Home directory of Resin 2.0.
-     */
-    public static final String RESIN20_DIR = "resin.20";
-
-    /**
-     * Home directory of Weblogic 7.0.
-     */
-    public static final String WEBLOGIC70_DIR = "weblogic.70";
 
     /**
      * Returns the context URL that should be used by the client, as 
@@ -217,39 +203,16 @@ public class CactusPreferences
     }
 
     /**
-     * Returns the TOMCAT4X_DIR.
+     * Returns the home directory for the given container id.
+     * @param theContainerId container id
      * @return String
      */
-    public static String getTomcat4xDir()
+    public static String getContainerDir(String theContainerId)
     {
         IPreferenceStore store = CactusPlugin.getDefault().getPreferenceStore();
-        String result = store.getString(TOMCAT4X_DIR);
-        CactusPlugin.log("Cactus preference : Tomcat4xDir = [" + result + "]");
-        return result;
-    }
-
-    /**
-     * Returns the RESIN20_DIR.
-     * @return String
-     */
-    public static String getResin20Dir()
-    {
-        IPreferenceStore store = CactusPlugin.getDefault().getPreferenceStore();
-        String result = store.getString(RESIN20_DIR);
-        CactusPlugin.log("Cactus preference : Resin20Dir = [" + result + "]");
-        return result;
-    }
-
-    /**
-     * Returns the WEBLOGIC70_DIR.
-     * @return String
-     */
-    public static String getWeblogic70Dir()
-    {
-        IPreferenceStore store = CactusPlugin.getDefault().getPreferenceStore();
-        String result = store.getString(WEBLOGIC70_DIR);
+        String result = store.getString(theContainerId);
         CactusPlugin.log(
-            "Cactus preference : Weblogic70Dir = [" + result + "]");
+            "Cactus preference : " + theContainerId + "= [" + result + "]");
         return result;
     }
 
@@ -260,21 +223,21 @@ public class CactusPreferences
     public static ContainerHome[] getContainerHomes()
     {
         Vector containerHomes = new Vector();
-        if (!getTomcat4xDir().equals(""))
-        {
-            containerHomes.addElement(
-                new ContainerHome(TOMCAT4X_DIR, getTomcat4xDir()));
-        }
-        if (!getResin20Dir().equals(""))
-        {
-            containerHomes.addElement(
-                new ContainerHome(RESIN20_DIR, getResin20Dir()));
-        }
-        if (!getWeblogic70Dir().equals(""))
-        {
-            containerHomes.addElement(
-                new ContainerHome(WEBLOGIC70_DIR, getWeblogic70Dir()));
-        }
+            String[] containerIds =
+                CactusPlugin.getContainers();
+
+            for (int i = 0; i < containerIds.length; i++)
+            {
+                String currentId = containerIds[i];
+                String currentContainerDir = getContainerDir(currentId);
+                if (!currentContainerDir.equals(""))
+                {
+                    containerHomes.addElement(
+                        new ContainerHome(currentId, currentContainerDir));
+                }
+
+            }
+
         ContainerHome[] result =
             (ContainerHome[]) containerHomes.toArray(new ContainerHome[0]);
         CactusPlugin.log(

@@ -56,6 +56,8 @@
  */
 package org.apache.cactus.eclipse.ui;
 
+import org.apache.cactus.eclipse.containers.IContainerProvider;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.preference.DirectoryFieldEditor;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.ui.IWorkbench;
@@ -83,6 +85,10 @@ public class ContainersPreferencePage
     implements IWorkbenchPreferencePage
 {
     /**
+     * Array of container identifiers.
+     */
+    private String[] containerIds;
+    /**
      * Sets default plugin container preferences.
      */
     public ContainersPreferencePage()
@@ -100,24 +106,14 @@ public class ContainersPreferencePage
      */
     public void createFieldEditors()
     {
-        addField(
-            new DirectoryFieldEditor(
-                CactusPreferences.TOMCAT4X_DIR,
-                CactusMessages.getString(
-                    "ContainersPreferencePage.label.tomcat4x"),
-                getFieldEditorParent()));
-        addField(
-            new DirectoryFieldEditor(
-                CactusPreferences.RESIN20_DIR,
-                CactusMessages.getString(
-                    "ContainersPreferencePage.label.resin20"),
-                getFieldEditorParent()));
-        addField(
-            new DirectoryFieldEditor(
-                CactusPreferences.WEBLOGIC70_DIR,
-                CactusMessages.getString(
-                    "ContainersPreferencePage.label.weblogic70"),
-                getFieldEditorParent()));
+        for (int i = 0; i < containerIds.length; i++)
+        {
+            addField(
+                new DirectoryFieldEditor(
+                    containerIds[i],
+                    containerIds[i],
+                    getFieldEditorParent()));
+        }
     }
 
     /**
@@ -125,7 +121,8 @@ public class ContainersPreferencePage
      */
     public void init(IWorkbench theWorkbench)
     {
-        // nothing to do (yet)
+            containerIds = CactusPlugin.getContainers();
+
     }
 
 }
