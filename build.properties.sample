@@ -61,7 +61,11 @@ junit.jar = ../junit/junit3.7/junit.jar
 #tomcat.home.40 = c:/Apps/jakarta-tomcat-4.0.3
 #resin.home.13 = xxx
 #tomcat.home.33 = c:/Apps/jakarta-tomcat-3.3.1
-#enhydra.home.31 = xxx
+
+# Note: Enhydra 3.3.1 does not seem to support BASIC authentication as defined
+# in the Servlet spec. and thus the tests which involve security are failing.
+# All other tests work fine. This is a limitation of Enhydra.
+#enhydra.home.31 = c:/Apps/enhydra3.1.1b1
 
 # Note: weblogic.home.61 is the location of BEA Home and NOT the location of
 # wlserver6.1, inside the bea home directory.

@@ -62,7 +62,11 @@ httpunit.jar = ../lib/httpunit.jar
 #tomcat.home.33 = c:/Apps/jakarta-tomcat-3.3.1
 #orion.home.15 = c:/Apps/orion-1.5.4
 #weblogic.home.51 = xxx
-#enhydra.home.31 = xxx
+
+# Note: Enhydra 3.3.1 does not seem to support BASIC authentication as defined
+# in the Servlet spec. and thus the tests which involve security are failing.
+# All other tests work fine. This is a limitation of Enhydra.
+#enhydra.home.31 = c:/Apps/enhydra3.1.1b1
 
 # Note: There seems to be a bug in Orion 1.4 preventing it to run correctly
 #       the testSendUserData() test. It runs fine in Orion 1.5 though.
