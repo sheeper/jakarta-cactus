@@ -3,3 +3,5 @@ dist
 target
 release
 ant.bat
+.classpath
+.project

@@ -12,6 +12,8 @@
 /dist
 /dist-12
 /dist-13
+documentation/.classpath
+documentation/.project
 documentation/ant.bat
 documentation/build.properties
 documentation/dist
