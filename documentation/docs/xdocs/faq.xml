@@ -65,6 +65,9 @@
         <li>
           <jump anchor="faq13">Does Cactus work with load-balancers?</jump>
         </li>
+        <li>
+          <jump anchor="faq14">Does Cactus supports asserting HTML pages with Javascript?</jump>
+        </li>
       </ul>
     </section>
 
@@ -531,6 +534,18 @@ java.lang.NoSuchMethodError:
         (Servlet context). Thus, if the load-balancer directs the second
         HTTP connection to another server instance, the test result will
         not be correct.
+      </p>
+    </section>
+
+    <anchor id="faq14"/>
+    <section title="Does Cactus supports asserting HTML pages with Javascript?">
+      <p>
+        Cactus provides powerful response assertion through its integration 
+        with HttpUnit. HttpUnit does support asserting page containing 
+        Javascript. However, the Cactus integration with HttpUnit currently 
+        does not support this use case (There's a 
+        <a href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=24876">bug</a> 
+        opened for adding this support).
       </p>
     </section>
 
