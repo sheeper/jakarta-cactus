@@ -10,7 +10,8 @@
              unit tests, stop the servlet engine, wait for it to be stopped.
              The servlet engine is stopped if the tests fail for any reason -->
 
-        <runservertests testURL="http://localhost:${test.port}/test"
+        <runservertests
+            testURL="http://localhost:${test.port}/test/ServletRedirector?Cactus_Service=RUN_TEST"
             startTarget="start.tomcat.32"
             stopTarget="stop.tomcat.32"
             testTarget="test"/>
