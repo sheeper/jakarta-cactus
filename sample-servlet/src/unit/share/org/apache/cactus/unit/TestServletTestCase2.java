@@ -261,7 +261,7 @@ public class TestServletTestCase2 extends ServletTestCase
         // Note: I am not sure how to retrieve multi valued headers. The
         // problem is that I use
         // URLConnection.setRequestProperty("testheader", "value1,value2") in
-        // HttpClientHelper to send the headers but request.getHeaders() does
+        // JdkConnectionHelper to send the headers but request.getHeaders() does
         // not seem to separate the different header values.
 
         // The RFC 2616 says :

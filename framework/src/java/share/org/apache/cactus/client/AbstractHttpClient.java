@@ -180,8 +180,8 @@ public abstract class AbstractHttpClient
 
         // Open the first connection to the redirector to execute the test on
         // the server side
-        HttpClientHelper helper =
-            new HttpClientHelper(getRedirectorURL(theRequest));
+        ConnectionHelper helper =
+            new JdkConnectionHelper(getRedirectorURL(theRequest));
 
         HttpURLConnection connection = helper.connect(theRequest);
 
@@ -219,8 +219,8 @@ public abstract class AbstractHttpClient
         resultsRequest.setAuthentication(theAuthentication);
 
         // Open the second connection to get the test results
-        HttpClientHelper helper =
-            new HttpClientHelper(getRedirectorURL(resultsRequest));
+        ConnectionHelper helper =
+            new JdkConnectionHelper(getRedirectorURL(resultsRequest));
 
         HttpURLConnection resultConnection = helper.connect(resultsRequest);
 

@@ -78,20 +78,21 @@ import org.apache.cactus.client.authentication.AbstractAuthentication;
 import org.apache.cactus.util.ChainedRuntimeException;
 
 /**
- * Helper class to open an HTTP connection to the server redirector and pass
- * to it HTTP parameters, Cookies and HTTP headers.
+ * Implementation of <code>ConnectionHelper</code> using the JDK
+ * <code>HttpURLConnection</code> class.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  * @author <a href="mailto:Jason.Robertson@acs-inc.com">Jason Robertson</a>
  *
  * @version $Id$
  */
-public class HttpClientHelper
+public class JdkConnectionHelper implements ConnectionHelper
 {
     /**
      * The logger
      */
-    private static final Log LOGGER = LogFactory.getLog(HttpClientHelper.class);
+    private static final Log LOGGER =
+        LogFactory.getLog(JdkConnectionHelper.class);
 
     /**
      * The URL that will be used for the HTTP connection.
@@ -108,18 +109,13 @@ public class HttpClientHelper
     /**
      * @param theURL the URL that will be used for the HTTP connection.
      */
-    public HttpClientHelper(String theURL)
+    public JdkConnectionHelper(String theURL)
     {
         this.url = theURL;
     }
 
     /**
-     * Connects to the Cactus Redirector using HTTP.
-     *
-     * @param theRequest the request containing all data to pass to the
-     *        server redirector.
-     * @return the HTTP Connection used to connect to the redirector.
-     * @exception Throwable if an unexpected error occured
+     * @see ConnectionHelper#connect(WebRequest)
      */
     public HttpURLConnection connect(WebRequest theRequest)
         throws Throwable
@@ -369,7 +365,7 @@ public class HttpClientHelper
                 // If no domain has been specified, use a default one
                 String domain;
                 if (cactusCookie.getDomain() == null) {
-                    domain = HttpClientHelper.getDomain(theRequest,
+                    domain = JdkConnectionHelper.getDomain(theRequest,
                         theConnection);
                 } else {
                     domain = cactusCookie.getDomain();
@@ -378,7 +374,8 @@ public class HttpClientHelper
                 // If not path has been specified , use a default one
                 String path;
                 if (cactusCookie.getPath() == null) {
-                    path = HttpClientHelper.getPath(theRequest, theConnection);
+                    path = JdkConnectionHelper.getPath(theRequest,
+                        theConnection);
                 } else {
                     path = cactusCookie.getPath();
                 }
@@ -398,8 +395,8 @@ public class HttpClientHelper
             // and create the cookie header to send
             Header cookieHeader =
                 org.apache.commons.httpclient.Cookie.createCookieHeader(
-                    HttpClientHelper.getDomain(theRequest, theConnection),
-                    HttpClientHelper.getPath(theRequest, theConnection),
+                    JdkConnectionHelper.getDomain(theRequest, theConnection),
+                    JdkConnectionHelper.getPath(theRequest, theConnection),
                     httpclientCookies);
 
             LOGGER.debug("Cookie string = [" + cookieHeader.getValue()
