@@ -417,6 +417,9 @@
     <target name="clean.all"
         description="Clean all generated files (for all J2EE APIs)">
 
+        <echo message="j2ee.12.jar = ${j2ee.12.jar}"/>
+        <echo message="j2ee.13.jar = ${j2ee.13.jar}"/>
+
         <ant target="clean" inheritAll="false">
             <property name="j2ee.jar" value="${j2ee.12.jar}"/>
         </ant>
