@@ -8,6 +8,14 @@
   <body>
 
     <release version="1.6dev" date="in CVS">
+    </release>
+
+    <release version="1.6dev" date="development build of 2004-01-15">
+      <action dev="vmassol" type="add">
+        Added new optional <code>cactus.src.war</code> and
+        <code>cactus.src.ejb</code> properties to specify where to find the
+        artifacts to test using Cactus.
+      </action>
       <action dev="vmassol" type="add" issue="24754" due-to="Sean Timm" due-to-email="stimm@proclarity.com">
         Added 2 properties (<code>cactus.build.goal.war</code> and
         <code>cactus.build.goal.ejb</code>) for defining which goal is called 
@@ -61,6 +69,9 @@
         property instead of hard-coding the war name to 
         <code>${pom.artifactId}.war</code>.
       </action>
+    </release>
+
+    <release version="1.6dev" date="development build of 2003-10-31">
       <action dev="vmassol" type="add">
         Moved the Cactus plugin from the Maven CVS to the Cactus CVS.
       </action>
