@@ -61,7 +61,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.net.HttpURLConnection;
 
-import org.apache.cactus.client.connector.DefaultHttpClient;
+import org.apache.cactus.client.connector.http.DefaultHttpClient;
 import org.apache.cactus.configuration.WebConfiguration;
 import org.apache.commons.logging.LogFactory;
 

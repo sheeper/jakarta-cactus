@@ -56,7 +56,7 @@ package org.apache.cactus.sample.unit;
 import org.apache.cactus.ServletTestCase;
 import org.apache.cactus.WebRequest;
 import org.apache.cactus.WebResponse;
-import org.apache.cactus.client.connector.DefaultHttpClient;
+import org.apache.cactus.client.connector.http.DefaultHttpClient;
 import org.apache.cactus.configuration.WebConfiguration;
 
 /**

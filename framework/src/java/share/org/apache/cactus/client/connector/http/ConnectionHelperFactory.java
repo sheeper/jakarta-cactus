@@ -54,7 +54,7 @@
  * <http://www.apache.org/>.
  *
  */
-package org.apache.cactus.client.connector;
+package org.apache.cactus.client.connector.http;
 
 import java.lang.reflect.Constructor;
 

@@ -64,7 +64,7 @@ import java.util.MissingResourceException;
 import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 
-import org.apache.cactus.client.connector.HttpClientConnectionHelper;
+import org.apache.cactus.client.connector.http.HttpClientConnectionHelper;
 import org.apache.cactus.util.ChainedRuntimeException;
 import org.apache.cactus.util.ClassLoaderUtils;
 
@@ -110,8 +110,8 @@ public class BaseConfiguration implements Configuration
         "cactus.connectionHelper.classname";
 
     /**
-     * Default {@link org.apache.cactus.client.connector.ConnectionHelper} to 
-     * use.
+     * Default {@link org.apache.cactus.client.connector.http.ConnectionHelper}
+     * to use.
      */
     public static final String DEFAULT_CACTUS_CONNECTION_HELPER_CLASSNAME = 
         HttpClientConnectionHelper.class.getName();
@@ -213,7 +213,8 @@ public class BaseConfiguration implements Configuration
     }
 
     /**
-     * @return the {@link org.apache.cactus.client.connector.ConnectionHelper} 
+     * @return the 
+     * {@link org.apache.cactus.client.connector.http.ConnectionHelper} 
      * classname to use for opening the HTTP connection
      */
     public String getConnectionHelper()

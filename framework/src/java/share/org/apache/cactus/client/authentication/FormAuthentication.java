@@ -61,8 +61,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import org.apache.cactus.WebRequest;
-import org.apache.cactus.client.connector.ConnectionHelper;
-import org.apache.cactus.client.connector.ConnectionHelperFactory;
+import org.apache.cactus.client.connector.http.ConnectionHelper;
+import org.apache.cactus.client.connector.http.ConnectionHelperFactory;
 import org.apache.cactus.configuration.WebConfiguration;
 import org.apache.cactus.util.ChainedRuntimeException;
 import org.apache.commons.logging.Log;
