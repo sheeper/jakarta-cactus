@@ -180,15 +180,6 @@
         Provide a full servlet container test suite a la Watchdog using Cactus
       </action>
       <action>
-        Improve Cactus usability by providing different Cactus front ends 
-        that does all the packaging of the application by simply specifying 
-        source location, resource location and web.xml. These front ends would
-        already contains all the logic to create the war and deploy it 
-        for a given application server. Possibilies are: Cactus standalone 
-        application which uses the JUnit Swing TestRunner, Cactus Ant tasks,
-        Generic Cactus plugin for IDEs, Special Cactus plugin for Eclipse.
-      </action>
-      <action>
         Ability to write Cactus tests by extending normal JUnit TestCase 
         instead of Cactus extensions (by using special Cactus TestSuite 
         objects). This will allow to easily execute the same test outside and 
