@@ -203,7 +203,7 @@
          Generate the distributable files
        ========================================================================
     -->
-    <target name="dist" depends="jar,doc"
+    <target name="dist" depends="jar,doc,checkstyle"
         description="Generate the distributable files">
 
         <mkdir dir="${dist.lib.dir}"/>
@@ -234,7 +234,14 @@
          Perform a code audit using CheckStyle.
        ========================================================================
     -->
-    <target name="checkstyle" depends="init"
+    <target name="checkstyle.check">
+
+        <available property="checkstyle.present"
+            classname="com.puppycrawl.tools.checkstyle.CheckStyleTask"/>
+
+    </target>
+    <target name="checkstyle" depends="checkstyle.check,init"
+        if="checkstyle.present"
         description="Perform a code audit using Checkstyle">
 
         <taskdef name="checkstyle"
@@ -244,14 +251,17 @@
 
         <echo message="Errors are reported in ${target.dir}/checkstyle_errors.xml"/>
 
-        <checkstyle properties="./checkstyle.properties" 
+        <checkstyle config="./checkstyle.xml" 
         	failOnViolation="true">
 
             <fileset dir="${src.java.dir}">
                 <include name="**/*.java"/>
             </fileset>
+        
             <formatter type="plain"/>
             <formatter type="xml" toFile="${target.dir}/checkstyle_errors.xml"/>
+
+            <property key="checkstyle.header.file" file="./LICENSE.cactus"/>
         </checkstyle>
 
     </target>

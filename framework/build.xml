@@ -594,7 +594,7 @@
 
         <echo message="Errors are reported in ${target.dir}/checkstyle_errors.xml"/>
 
-        <checkstyle properties="./checkstyle.properties" 
+        <checkstyle config="./checkstyle.xml" 
         	failOnViolation="true">
 
             <fileset dir="${src.java.dir}">
@@ -604,8 +604,12 @@
             <fileset dir="${src.test.dir}">
                 <include name="**/*.java"/>
             </fileset>
+
             <formatter type="plain"/>
             <formatter type="xml" toFile="${target.dir}/checkstyle_errors.xml"/>
+
+            <property key="checkstyle.header.file" file="./LICENSE.cactus"/>
+
         </checkstyle>
 
     </target>
