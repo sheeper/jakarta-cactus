@@ -97,22 +97,27 @@ public class CactusLaunchShortcut
      * Indicates whether we already went through the launch cycle.
      */
     private boolean launchEnded;
+
     /**
      * Reference to the War file so that we can delete it on tearDown()
      */
     private File war;
+
     /**
      * The provider to use for container setup.
      */
     private IContainerProvider provider;
+
     /**
      * The current search to launch on.
      */
     private Object[] search;
+
     /**
      * The current mode to launch with.
      */
     private String mode;
+
     /**
      * @return the Cactus launch configuration type. This method overrides
      *         the one in {@link JUnitLaunchShortcut} so that we can return
@@ -170,15 +175,14 @@ public class CactusLaunchShortcut
                 CactusMessages.getString("CactusLaunch.message.notests"),
                 null);
         }
+        else if (types.length > 1)
+        {
+            type = chooseType(types, theMode);
+        }
         else
-            if (types.length > 1)
-            {
-                type = chooseType(types, theMode);
-            }
-            else
-            {
-                type = types[0];
-            }
+        {
+            type = types[0];
+        }
         if (type != null)
         {
             launchEnded = false;
@@ -248,6 +252,7 @@ public class CactusLaunchShortcut
         CactusPlugin.log("Launching tests");
         super.launchType(search, mode);
     }
+
     /**
      * Returns the provider associated with this CactusLaunchShortcut instance.
      * @return the provider associated with this instance
@@ -256,6 +261,7 @@ public class CactusLaunchShortcut
     {
         return provider;
     }
+
     /**
      * Launches a new progress dialog for preparation cancellation.
      */
@@ -314,7 +320,6 @@ public class CactusLaunchShortcut
         try
         {
             WarBuilder newWar = new WarBuilder(theJavaProject);
-            File tempDir = new File(CactusPreferences.getTempDir());
             war = newWar.createWar(thePM);
             URL warURL = war.toURL();
             String contextURLPath = CactusPreferences.getContextURLPath();
@@ -357,6 +362,7 @@ public class CactusLaunchShortcut
         }
         thePM.done();
     }
+
     /**
      * @see ITestRunListener#testRunStarted(int)
      */
