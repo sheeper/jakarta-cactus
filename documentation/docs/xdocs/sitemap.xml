@@ -30,6 +30,12 @@
   <!-- Internal links (sorted alphabetically by id) -->
   <!-- ================================================================== -->
 
+  <resource id="apis" target="participating/apis.html"
+      name="Public API/SPIs">
+    Explains how the Cactus project differentiates between public API/SPI
+    and internal implementation classes.
+  </resource>
+
   <resource id="build_result" target="participating/build_result.html"
       name="Nightly Build Results">
     Aggregated links to the results of the nightly builds.
@@ -460,6 +466,7 @@
   <external id="cvs" url="http://jakarta.apache.org/site/cvsindex.html"/>
   <external id="easymock" url="http://easymock.org"/>
   <external id="eclipse" url="http://www.eclipse.org"/>
+  <external id="eclipse_api_usage" url="http://www.eclipse.org/articles/Article-API%20use/eclipse-api-usage-rules.html"/>
   <external id="eblox" url="http://www.eblox.com"/>
   <external id="french" url="http://www.ressources-java.net/cactus"/>
   <external id="gump" url="http://jakarta.apache.org/gump/"/>
