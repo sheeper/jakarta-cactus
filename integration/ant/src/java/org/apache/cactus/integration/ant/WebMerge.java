@@ -121,8 +121,8 @@ public class WebMerge
         /**
          * @see EntityResolver#resolveEntity(String, String)
          */
-        public InputSource resolveEntity(String publicId, String systemId)
-            throws SAXException
+        public InputSource resolveEntity(String thePublicId, 
+            String theSystemId) throws SAXException
         {
             ByteArrayInputStream bais = 
                 new ByteArrayInputStream("".getBytes()); 
@@ -158,7 +158,10 @@ public class WebMerge
 
     /**
      * Perform the merge.
-     * 
+     *
+     * @param theOriginalDoc the original web.xml document object
+     * @param theOverrideDoc the override web.xml document object
+     * @return the merged document object 
      * @exception Exception on failure
      */
     public Document merge(Document theOriginalDoc, Document theOverrideDoc) 
@@ -187,7 +190,7 @@ public class WebMerge
             // If the element is unique and present in the override document
             // and the original document, then remove it from the original
             // document.
-            if (!new Boolean(ELEMENTS[i][1]).booleanValue()) 
+            if (!Boolean.valueOf(ELEMENTS[i][1]).booleanValue()) 
             {
                 NodeList originalNl = 
                     theOriginalDoc.getElementsByTagName(ELEMENTS[i][0]);
@@ -216,6 +219,7 @@ public class WebMerge
      * @param theCurrentNode the node before which to insert all the tags
      * @param theOriginalDocument the original document
      * @param theOverrideDocument the override document
+     * @return the new insert point node 
      */
     protected Node insertTag(String theTagName, Node theCurrentNode,
         Document theOriginalDocument, Document theOverrideDocument)
