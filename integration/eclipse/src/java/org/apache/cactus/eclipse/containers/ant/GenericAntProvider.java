@@ -108,7 +108,7 @@ public class GenericAntProvider implements IContainerProvider
     /**
      * Plug-in relative path to the Ant build file.
      */
-    private String buildFilePath = "./ant/eclipse/build.xml";
+    private static final String BUILD_FILE_PATH = "./ant/eclipse/build.xml";
     /**
      * The Eclipse runner associated to the Ant container provider.
      */
@@ -162,12 +162,12 @@ public class GenericAntProvider implements IContainerProvider
                     + currentContainerHome.getDirectory());
         }
         CactusPlugin thePlugin = CactusPlugin.getDefault();
-        URL buildFileURL = thePlugin.find(new Path(buildFilePath));
+        URL buildFileURL = thePlugin.find(new Path(BUILD_FILE_PATH));
         if (buildFileURL == null)
         {
             throw CactusPlugin.createCoreException(
                 "CactusLaunch.message.prepare.error.plugin.file",
-                " : " + buildFilePath,
+                " : " + BUILD_FILE_PATH,
                 null);
         }
         buildFileLocation = new File(buildFileURL.getPath());

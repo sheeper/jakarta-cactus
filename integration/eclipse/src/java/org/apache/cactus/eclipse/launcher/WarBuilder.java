@@ -103,23 +103,25 @@ public class WarBuilder
     /**
      * Cactus plug-in relative path to the war build file
      */
-    private String buildFilePath = "./ant/build-war.xml";
+    private static final String BUILD_FILE_PATH = "./ant/build-war.xml";
     /**
      * Cactus plug-in relative path to the web.xml file
-     */    
-    private String webXMLPath = "./ant/confs/web.xml";
+     */
+    private static final String WEB_XML_PATH = "./ant/confs/web.xml";
     /**
      * User's project relative path to the web directory
-     */    
-    private String userWebFilesPath = "web";
+     */
+    private static final String USER_WEB_FILES_PATH = "web";
     /**
      * User's project relative path to the web.xml file
-     */    
-    private String userWebXMLPath = userWebFilesPath + "/WEB-INF/web.xml";
+     */
+    private static final String USER_WEB_XML_PATH =
+        USER_WEB_FILES_PATH + "/WEB-INF/web.xml";
     /**
      * User's project relative path to the lib directory
-     */    
-    private String userJarFilesPath = userWebFilesPath + "/WEB-INF/lib";
+     */
+    private static final String USER_JAR_FILES_PATH =
+        USER_WEB_FILES_PATH + "/WEB-INF/lib";
     /**
      * Constructor.
      * @param theBuildFileLocation the build file for war creation
@@ -137,7 +139,7 @@ public class WarBuilder
     {
         this.buildFileLocation = theBuildFileLocation;
         this.userClassFilesDir = theClassFilesDir;
-        this.userWebXML = theWebXML;        
+        this.userWebXML = theWebXML;
         this.userJarFilesDir = theJarFilesDir;
         this.userWebFilesDir = theWebFilesDir;
     }
@@ -147,43 +149,41 @@ public class WarBuilder
      * @param theJavaProject the Java project which Java classes will be used
      * @throws JavaModelException if we can't get the ouput location
      */
-    public WarBuilder(IJavaProject theJavaProject)
-        throws JavaModelException
+    public WarBuilder(IJavaProject theJavaProject) throws JavaModelException
     {
         CactusPlugin thePlugin = CactusPlugin.getDefault();
-        URL buildFileURL = thePlugin.find(new Path(buildFilePath));
+        URL buildFileURL = thePlugin.find(new Path(BUILD_FILE_PATH));
         if (buildFileURL == null)
         {
             throw new JavaModelException(
                 CactusPlugin.createCoreException(
                     "CactusLaunch.message.prepare.error.plugin.file",
-                    " : " + buildFilePath,
+                    " : " + BUILD_FILE_PATH,
                     null));
         }
-        buildFileLocation =
-            new File(buildFileURL.getPath());
+        buildFileLocation = new File(buildFileURL.getPath());
         IPath projectPath = theJavaProject.getProject().getLocation();
         IPath classFilesPath =
             projectPath.removeLastSegments(1).append(
                 theJavaProject.getOutputLocation());
         userClassFilesDir = classFilesPath.toFile();
-        userWebXML = projectPath.append(userWebXMLPath).toFile();
+        userWebXML = projectPath.append(USER_WEB_XML_PATH).toFile();
         if (!userWebXML.exists())
         {
-            URL webXMLURL = thePlugin.find(new Path(webXMLPath));
+            URL webXMLURL = thePlugin.find(new Path(WEB_XML_PATH));
             if (webXMLURL == null)
             {
                 throw new JavaModelException(
                     CactusPlugin.createCoreException(
                         "CactusLaunch.message.prepare.error.plugin.file",
-                        " : " + webXMLPath,
+                        " : " + WEB_XML_PATH,
                         null));
             }
             userWebXML = new File(webXMLURL.getPath());
         }
-        userJarFilesDir = projectPath.append(userJarFilesPath).toFile();
+        userJarFilesDir = projectPath.append(USER_JAR_FILES_PATH).toFile();
         // copy any web folder situated in the user's project
-        userWebFilesDir = projectPath.append(userWebFilesPath).toFile();
+        userWebFilesDir = projectPath.append(USER_WEB_FILES_PATH).toFile();
     }
 
     /**
@@ -207,16 +207,16 @@ public class WarBuilder
                 e);
         }
         Vector arguments = new Vector();
-        
+
         String jarFilesPath = userJarFilesDir.getAbsolutePath();
         arguments.add("-Djars.dir=" + jarFilesPath);
 
         String webXMLPath = userWebXML.getAbsolutePath();
         arguments.add("-Dwebxml.path=" + webXMLPath);
-        
+
         String classFilesPath = userClassFilesDir.getAbsolutePath();
         arguments.add("-Dclasses.dir=" + classFilesPath);
-        
+
         String warFilePath = testWar.getAbsolutePath();
         arguments.add("-Dwar.path=" + warFilePath);
 
