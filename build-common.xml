@@ -182,8 +182,6 @@
             value="cactus-ant-${project.version}"/>
         <property name="cactus.ant.jar" 
             location="integration/ant/dist-${j2ee.api}/lib/${cactus.ant.jar.name}.jar"/>
-        <property name="cactus.ant.bin"
-            location="integration/ant/dist-${j2ee.api}/bin/cactus-integration-ant"/>
 
         <!-- The location of the Clover(ed) Ant integration jar -->
         <property name="cactus.ant.clover.jar.name"
