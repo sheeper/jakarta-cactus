@@ -80,7 +80,7 @@
         </li>
         <li>
           Upload the Cactus website by running <code>ant -f
-          build-admin.xml deploy.website</code> in the Cactus directory.
+          build-admin.xml deploy</code> in the Cactus directory.
         </li>
         <li>
           Announce the release on the following locations (see below for the
