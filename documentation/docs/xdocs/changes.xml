@@ -50,6 +50,11 @@
 
     <release version="1.5" date="- in CVS">
       <action dev="CML" type="update">
+        Cactus now uses the <code>HttpURLConnection</code> adapter from the 
+        Commons-HttpClient code base. The version in the Cactus 
+        <code>util</code> package has been deprecated.
+      </action>
+      <action dev="CML" type="update">
         Added stack trace filtering to the ServletTestRunner. Stack frames
         in the JUnit framework classes as well as in the Cactus base test case
         classes are filtered out.

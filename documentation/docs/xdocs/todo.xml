@@ -64,10 +64,6 @@
     </category>
 
     <category title="Design/Code">
-      <action assigned-to="Vincent Massol">
-        Remove HttpURLConnection and replace it by the one we have submitted
-        to the HttpClient project.
-      </action>
       <action assigned-to="Christopher Lenz">
         Improve the ServletTestRunner. Move stylesheet definition to web.xml
         and provide support for XSLT performed inside ServletTestRunner. 
