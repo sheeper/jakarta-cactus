@@ -174,7 +174,22 @@ public static Test suite()
 
       </section>
 
-      <section title="Step 5: testXXX() methods">
+      <section title="Step 5 (optional): begin() and end() methods">
+
+        <p>
+          <code>begin(...)</code> and <code>end(...)</code> methods are the
+          client side equivalent of the <code>setUp()</code> and a
+          <code>tearDown()</code> methods (see previous step). They are called
+          on the client side, before and after every test.
+        </p>
+        <p>
+          The <code>begin()</code> and <code>end()</code>
+          methods are optional.
+        </p>
+
+      </section>
+
+      <section title="Step 6: testXXX() methods">
 
         <p>
           As in JUnit, the main method for a test is the
@@ -237,7 +252,7 @@ public void testXXX()
 
       </section>
 
-      <section title="Step 6 (optional): beginXXX() methods">
+      <section title="Step 7 (optional): beginXXX() methods">
 
         <p>
           For each XXX test case, you can define a corresponding
@@ -280,7 +295,7 @@ public void beginXXX(WebRequest theRequest)
       </section>
 
       <anchor id="endxxx"/>
-      <section title="Step 7 (optional): endXXX() methods">
+      <section title="Step 8 (optional): endXXX() methods">
 
         <p>
           For each XXX test case, you can define a corresponding
