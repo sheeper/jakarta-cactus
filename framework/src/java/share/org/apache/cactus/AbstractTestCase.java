@@ -273,7 +273,7 @@ public abstract class AbstractTestCase extends TestCase
     }
 
     /**
-     * Call an end method which takes either a Cactus WebResponse parameter
+     * Call a begin method which takes either a Cactus WebResponse parameter
      * or a HttpUnit WebResponse object as paramter.
      *
      * @param theRequest the request object which will contain data that will
