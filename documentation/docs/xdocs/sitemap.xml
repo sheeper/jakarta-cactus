@@ -353,6 +353,7 @@
   
   <external id="ant" url="http://ant.apache.org/"/>
   <external id="ant_manual" url="http://ant.apache.org/manual/index.html"/>
+  <external id="anthill" url="http://www.urbancode.com/projects/anthill/"/>
   <external id="antlr" url="http://antlr.org/"/>
   <external id="apache" url="http://www.apache.org/"/>
   <external id="aspectj" url="http://www.eclipse.org/aspectj/"/>
@@ -369,6 +370,7 @@
   <external id="checkstyle" url="http://checkstyle.sf.net"/>
   <external id="clover" url="http://www.thecortex.net/clover/index.html"/>
   <external id="collections" url="http://jakarta.apache.org/commons/collections.html"/>
+  <external id="cruisecontrol" url="http://cruisecontrol.sourceforge.net/"/>
   <external id="cvs" url="http://jakarta.apache.org/site/cvsindex.html"/>
   <external id="eclipse" url="http://www.eclipse.org"/>  
   <external id="eblox" url="http://www.eblox.com"/>
