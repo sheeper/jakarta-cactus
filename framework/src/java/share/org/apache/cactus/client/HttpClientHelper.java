@@ -369,14 +369,32 @@ public class HttpClientHelper
             for (int i = 0; i < cookies.size(); i++) {
                 org.apache.cactus.Cookie cactusCookie =
                     (org.apache.cactus.Cookie) cookies.elementAt(i);
+
+                // If no domain has been specified, use a default one
+                String domain;
+                if (cactusCookie.getDomain() == null) {
+                    domain = HttpClientHelper.getDomain(theRequest, theConnection);
+                } else {
+                    domain = cactusCookie.getDomain();
+                }
+
+                // If not path has been specified , use a default one
+                String path;
+                if (cactusCookie.getPath() == null) {
+                    path = HttpClientHelper.getPath(theRequest, theConnection);
+                } else {
+                    path = cactusCookie.getPath();
+                }
+
                 httpclientCookies[i] =
                     new org.apache.commons.httpclient.Cookie(
-                        cactusCookie.getDomain(), cactusCookie.getName(),
+                        domain, cactusCookie.getName(),
                         cactusCookie.getValue());
+
                 httpclientCookies[i].setComment(cactusCookie.getComment());
                 httpclientCookies[i].setExpiryDate(
                         cactusCookie.getExpiryDate());
-                httpclientCookies[i].setPath(cactusCookie.getPath());
+                httpclientCookies[i].setPath(path);
                 httpclientCookies[i].setSecure(cactusCookie.isSecure());
             }
 
