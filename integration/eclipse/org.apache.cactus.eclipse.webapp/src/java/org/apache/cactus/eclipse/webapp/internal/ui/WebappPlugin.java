@@ -54,82 +54,114 @@
  * <http://www.apache.org/>.
  *
  */
-package org.apache.cactus.eclipse.webapp.ui;
+package org.apache.cactus.eclipse.webapp.internal.ui;
 
-import java.text.MessageFormat;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
+import org.apache.cactus.eclipse.webapp.internal.Webapp;
+import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.IPluginDescriptor;
+import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.ui.plugin.AbstractUIPlugin;
+
 /**
- * Helper class to format text messages from the Cactus property resource 
- * bundle.
+ * The main plugin class to be used in the desktop.
  * 
  * @version $Id$
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
+ * @author <a href="mailto:jruaux@octo.com">Julien Ruaux</a>
  */
-public final class WebappMessages
+public class WebappPlugin extends AbstractUIPlugin
 {
     /**
-     * Name and location of property resource bundle on disk.
+     * The shared instance.
      */
-    private static final String BUNDLE_NAME = 
-        "org.apache.cactus.eclipse.webapp.ui.WebappMessages";
+    private static WebappPlugin plugin;
+    /**
+     * Resource bundle.
+     */
+    private ResourceBundle resourceBundle;
 
     /**
-     * The resource bundle object were Cactus messages are stored.
+     * The constructor.
+     * @param theDescriptor the descriptor for this plugin
      */
-    private static final ResourceBundle RESOURCE_BUNDLE = 
-        ResourceBundle.getBundle(BUNDLE_NAME);
-
-    /**
-     * Prevent this class from being instantiated. It containes only static
-     * methods.
-     */
-    private WebappMessages()
+    public WebappPlugin(IPluginDescriptor theDescriptor)
     {
-    }
-
-    /**
-     * Gets a string from the resource bundle and formats it with one argument.
-     * 
-     * @param theKey the string used to get the bundle value, must not be null
-     * @param theArg the object to use when constructing the message
-     * @return the formatted string
-     */
-    public static String getFormattedString(String theKey, Object theArg)
-    {
-        return MessageFormat.format(getString(theKey), 
-            new Object[] {theArg});
-    }
-
-    /**
-     * Gets a string from the resource bundle and formats it with arguments.
-     * 
-     * @param theKey the string used to get the bundle value, must not be null
-     * @param theArgs the objects to use when constructing the message
-     * @return the formatted string
-     */
-    public static String getFormattedString(String theKey, Object[] theArgs)
-    {
-        return MessageFormat.format(getString(theKey), theArgs);
-    }
-
-    /**
-     * Gets an unformatted string from the resource bundle.
-     * 
-     * @param theKey the string used to get the bundle value, must not be null
-     * @return the string from the resource bundle or "![key name]!" if the key
-     *         does not exist in the resource bundle
-     */
-    public static String getString(String theKey)
-    {
+        super(theDescriptor);
+        plugin = this;
         try
         {
-            return RESOURCE_BUNDLE.getString(theKey);
-        } 
+            resourceBundle =
+                ResourceBundle.getBundle("webapp.webappPluginResources");
+        }
+        catch (MissingResourceException x)
+        {
+            resourceBundle = null;
+        }
+    }
+
+    /**
+     * Returns the shared instance.
+     * @return the instance of this plugin
+     */
+    public static WebappPlugin getDefault()
+    {
+        return plugin;
+    }
+
+    /**
+     * Returns the workspace instance.
+     * @return the instance of the current workspace
+     */
+    public static IWorkspace getWorkspace()
+    {
+        return ResourcesPlugin.getWorkspace();
+    }
+
+    /**
+     * Returns the string from the plugin's resource bundle,
+     * or 'key' if not found.
+     * @param theKey the key of the resource to return
+     * @return the string
+     */
+    public static String getResourceString(String theKey)
+    {
+        ResourceBundle bundle = WebappPlugin.getDefault().getResourceBundle();
+        try
+        {
+            return bundle.getString(theKey);
+        }
         catch (MissingResourceException e)
         {
-            return '!' + theKey + '!';
+            return theKey;
         }
+    }
+
+    /**
+     * Returns the plugin's resource bundle
+     * @return the resource bundle
+     */
+    public ResourceBundle getResourceBundle()
+    {
+        return resourceBundle;
+    }
+
+    /**
+     * @return the plugin identifier
+     */
+    public static String getPluginId()
+    {
+        return getDefault().getDescriptor().getUniqueIdentifier();
+    }
+
+    /**
+     * @param theJavaProject the Java project to get the webapp from
+     * @return the webapp associated to the given Java project
+     */
+    public static Webapp getWebapp(IJavaProject theJavaProject)
+    {
+        return new Webapp(theJavaProject);
     }
 }

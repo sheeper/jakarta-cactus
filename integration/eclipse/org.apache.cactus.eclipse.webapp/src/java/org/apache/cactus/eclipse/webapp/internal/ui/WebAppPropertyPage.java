@@ -54,9 +54,9 @@
  * <http://www.apache.org/>.
  *
  */
-package org.apache.cactus.eclipse.webapp.ui;
+package org.apache.cactus.eclipse.webapp.internal.ui;
 
-import org.apache.cactus.eclipse.webapp.Webapp;
+import org.apache.cactus.eclipse.webapp.internal.Webapp;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;

@@ -54,13 +54,13 @@
  * <http://www.apache.org/>.
  *
  */
-package org.apache.cactus.eclipse.webapp;
+package org.apache.cactus.eclipse.webapp.internal;
 
 import java.io.File;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
-import org.apache.cactus.eclipse.webapp.ui.WebappPlugin;
+import org.apache.cactus.eclipse.webapp.internal.ui.WebappPlugin;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;

@@ -4,12 +4,12 @@
    name="%pluginName"
    version="1.5.0"
    provider-name="%providerName"
-   class="org.apache.cactus.eclipse.webapp.ui.WebappPlugin">
+   class="org.apache.cactus.eclipse.webapp.internal.ui.WebappPlugin">
 
    <runtime>
       <library name="webapp.jar">  
          <export name="*"/>
-         <packages prefixes="org.apache.cactus.eclipse.webapp"/>
+         <packages prefixes="org.apache.cactus.eclipse.webapp.internal"/>
       </library> 
    </runtime>
 
@@ -27,13 +27,13 @@
       <page name="%webAppPageName"
          id="org.apache.cactus.eclipse.WebAppPropertyPage"
 	     objectClass="org.eclipse.jdt.core.IJavaProject"
-	     class="org.apache.cactus.eclipse.webapp.ui.WebAppPropertyPage">
+	     class="org.apache.cactus.eclipse.webapp.internal.ui.WebAppPropertyPage">
 	     <filter name="nature" value="org.eclipse.jdt.core.javanature"/>
 	  </page>
       <page name="%webAppPageName"
          id="org.apache.cactus.eclipse.WebAppPropertyPage"
 	     objectClass="org.eclipse.core.resources.IProject"
-	     class="org.apache.cactus.eclipse.webapp.ui.WebAppPropertyPage">
+	     class="org.apache.cactus.eclipse.webapp.internal.ui.WebAppPropertyPage">
 	     <filter name="nature" value="org.eclipse.jdt.core.javanature"/>
 	  </page>
    </extension>

@@ -54,14 +54,14 @@
  * <http://www.apache.org/>.
  *
  */
-package org.apache.cactus.eclipse.webapp;
+package org.apache.cactus.eclipse.webapp.internal;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Vector;
 
-import org.apache.cactus.eclipse.webapp.ui.WebappMessages;
-import org.apache.cactus.eclipse.webapp.ui.WebappPlugin;
+import org.apache.cactus.eclipse.webapp.internal.ui.WebappMessages;
+import org.apache.cactus.eclipse.webapp.internal.ui.WebappPlugin;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.taskdefs.Copy;
 import org.apache.tools.ant.taskdefs.War;

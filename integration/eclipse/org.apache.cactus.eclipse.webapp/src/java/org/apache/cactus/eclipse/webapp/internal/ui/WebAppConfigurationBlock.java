@@ -54,7 +54,7 @@
  * <http://www.apache.org/>.
  *
  */
-package org.apache.cactus.eclipse.webapp.ui;
+package org.apache.cactus.eclipse.webapp.internal.ui;
 
 import java.io.File;
 import java.util.ArrayList;
