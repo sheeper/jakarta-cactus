@@ -464,6 +464,23 @@ public final class TestCactifyWarTask extends AntTestCase
     }
 
     /**
+     * Verifies that a already existent login configuration does not get
+     * replaced by the default BASIC login configuration when secured
+     * redirectors are defined.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
+    public void testLoginConfigNotOverwritten() throws Exception
+    {
+        executeTestTarget();
+
+        File destFile = getProject().resolveFile("work/destfile.war");
+        WarArchive destWar = new WarArchive(destFile);
+        WebXml webXml = destWar.getWebXml();
+        assertEquals("FORM", webXml.getLoginConfigAuthMethod());
+    }
+
+    /**
      * Verifies that JARs already contained by the source archive are not added
      * again.
      * 

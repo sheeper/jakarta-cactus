@@ -113,6 +113,15 @@
     </cactifywar>
   </target>
 
+  <target name="testLoginConfigNotOverwritten">
+    <cactifywar srcfile="formloginconfig.war"
+        destfile="${work.dir}/destfile.war">
+      <servletredirector name="ServletRedirectorSecure"
+          mapping="/ServletRedirectorSecure"
+          roles="test"/>
+    </cactifywar>
+  </target>
+
   <target name="testNoDuplicateJars">
     <cactifywar srcfile="containscactusjars.war"
         destfile="${work.dir}/destfile.war"/>
