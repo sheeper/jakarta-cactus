@@ -66,6 +66,7 @@ import org.apache.cactus.ServiceDefinition;
 import org.apache.cactus.WebTestResult;
 import org.apache.cactus.util.log.Log;
 import org.apache.cactus.util.log.LogService;
+import org.apache.cactus.util.ClassLoaderUtils;
 
 /**
  * Responsible for instanciating the <code>TestCase</code> class on the server
@@ -325,16 +326,8 @@ public abstract class AbstractWebTestCaller
         // Get the class to call and build an instance of it.
         Class testClass = null;
         try {
-
-            try {
-                // Try first from Context class loader so that we can put the
-                // Cactus jar as an external library.
-                testClass = getTestClassFromContextClassLoader(theClassName);
-            } catch (Exception internalException) {
-                // It failed... Try from the webapp classloader.
-                testClass = getTestClassFromWebappClassLoader(theClassName);
-            }
-
+            testClass = ClassLoaderUtils.loadClass(theClassName,
+                this.getClass());
         } catch (Exception e) {
             String message = "Error finding class [" + theClassName +
                 "] using both the Context classloader and the webapp " +
@@ -350,36 +343,6 @@ public abstract class AbstractWebTestCaller
         }
 
         return testClass;
-    }
-
-    /**
-     * Try loading test class using the Context class loader.
-     *
-     * @param theClassName the test class to load
-     * @return the <code>Class</code> object for the class to load
-     * @exception ClassNotFoundException if the class cannot be loaded through
-     *            this class loader
-     */
-    private Class getTestClassFromContextClassLoader(String theClassName)
-        throws ClassNotFoundException
-    {
-        return Class.forName(theClassName, true,
-            Thread.currentThread().getContextClassLoader());
-    }
-
-    /**
-     * Try loading test class using the Webapp class loader.
-     *
-     * @param theClassName the test class to load
-     * @return the <code>Class</code> object for the class to load
-     * @exception ClassNotFoundException if the class cannot be loaded through
-     *            this class loader
-     */
-    private Class getTestClassFromWebappClassLoader(String theClassName)
-        throws ClassNotFoundException
-    {
-        return Class.forName(theClassName, true,
-            this.getClass().getClassLoader());
     }
 
 }
