@@ -53,16 +53,21 @@
  */
 package org.apache.cactus;
 
-import java.net.*;
-import java.io.*;
-import java.util.*;
+import java.net.HttpURLConnection;
+import java.util.Vector;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+import java.io.StringReader;
+import java.io.InputStream;
 
-import org.apache.commons.httpclient.*;
+import org.apache.commons.httpclient.Header;
+import org.apache.commons.httpclient.HttpException;
 
-import org.apache.cactus.*;
-import org.apache.cactus.client.*;
-import org.apache.cactus.util.*;
-import org.apache.cactus.util.log.*;
+import org.apache.cactus.util.log.Log;
+import org.apache.cactus.util.log.LogService;
+import org.apache.cactus.util.ChainedRuntimeException;
+import org.apache.cactus.client.HttpClientHelper;
 
 /**
  * Default web response implementation that provides a minimal
