@@ -68,8 +68,6 @@ import java.util.jar.JarInputStream;
 
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.apache.cactus.integration.ant.applicationxml.ApplicationXml;
-import org.apache.cactus.integration.ant.applicationxml.ApplicationXmlIo;
 import org.apache.cactus.integration.ant.container.Container;
 import org.apache.cactus.integration.ant.container.ContainerFactory;
 import org.apache.cactus.integration.ant.container.ContainerRunner;
@@ -77,8 +75,10 @@ import org.apache.cactus.integration.ant.container.ContainerWrapper;
 import org.apache.cactus.integration.ant.util.AntLog;
 import org.apache.cactus.integration.ant.util.AntTaskFactory;
 import org.apache.cactus.integration.ant.util.ResourceUtils;
-import org.apache.cactus.integration.ant.webxml.WebXml;
-import org.apache.cactus.integration.ant.webxml.WebXmlIo;
+import org.apache.cactus.integration.ant.deployment.ApplicationXml;
+import org.apache.cactus.integration.ant.deployment.ApplicationXmlIo;
+import org.apache.cactus.integration.ant.deployment.WebXml;
+import org.apache.cactus.integration.ant.deployment.WebXmlIo;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.DynamicConfigurator;
 import org.apache.tools.ant.Project;

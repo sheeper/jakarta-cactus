@@ -62,9 +62,9 @@ import java.io.IOException;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.cactus.integration.ant.util.AntLog;
-import org.apache.cactus.integration.ant.webxml.WebXml;
-import org.apache.cactus.integration.ant.webxml.WebXmlIo;
-import org.apache.cactus.integration.ant.webxml.WebXmlMerger;
+import org.apache.cactus.integration.ant.deployment.WebXml;
+import org.apache.cactus.integration.ant.deployment.WebXmlIo;
+import org.apache.cactus.integration.ant.deployment.WebXmlMerger;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.Task;
