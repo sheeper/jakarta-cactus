@@ -351,7 +351,6 @@
             file="${target.dir}/${antpetal.jar.name}.jar"/>
         <copy todir="${target.petal.lib.client.dir}" file="${j2ee.jar}"/>
         <copy todir="${target.petal.lib.client.dir}" file="${commons.httpclient.jar}"/>
-        <copy todir="${target.petal.lib.client.dir}" file="${httpunit.jar}"/>
 
 		<!-- Gather all shared (client and server) Cactus jars -->
         <copy tofile="${target.petal.lib.common.dir}/cactus-${project.version}.jar" 
@@ -360,6 +359,7 @@
         <copy todir="${target.petal.lib.common.dir}" file="${log4j.jar}"/>
         <copy todir="${target.petal.lib.common.dir}" file="${aspectjrt.jar}"/>
         <copy todir="${target.petal.lib.common.dir}" file="${junit.jar}"/>
+        <copy todir="${target.petal.lib.common.dir}" file="${httpunit.jar}"/>
 
 		<!-- Copy the scripts for the current J2EE API -->
 
