@@ -80,4 +80,10 @@ junit.jar = ../junit/junit3.7/junit.jar
 # -----------------------------------------------------------------------------
 
 # Username to use when connection to jakarta.apache.org
-jakarta.username=vmassol
+admin.jakarta.username=vmassol
+
+# Executable to perform remote copy of files
+admin.scp = scp
+
+# Executable to perform remote login to Jakarta web site
+admin.ssh = ssh
