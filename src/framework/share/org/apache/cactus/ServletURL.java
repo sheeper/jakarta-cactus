@@ -94,7 +94,7 @@ public class ServletURL
      * clash with a user-defined parameter.
      */
     public final static String URL_SERVER_NAME_PARAM =
-        "ServletTestCase_URL_Server";
+        "Cactus_URL_Server";
 
     /**
      * Name of the parameter in the HTTP request that represents the context
@@ -102,7 +102,7 @@ public class ServletURL
      * will not clash with a user-defined parameter.
      */
     public final static String URL_CONTEXT_PATH_PARAM =
-        "ServletTestCase_URL_ContextPath";
+        "Cactus_URL_ContextPath";
 
     /**
      * Name of the parameter in the HTTP request that represents the Servlet
@@ -110,7 +110,7 @@ public class ServletURL
      * will not clash with a user-defined parameter.
      */
     public final static String URL_SERVLET_PATH_PARAM =
-        "ServletTestCase_URL_ServletPath";
+        "Cactus_URL_ServletPath";
 
     /**
      * Name of the parameter in the HTTP request that represents the Path Info
@@ -118,7 +118,7 @@ public class ServletURL
      * clash with a user-defined parameter.
      */
     public final static String URL_PATH_INFO_PARAM =
-        "ServletTestCase_URL_PathInfo";
+        "Cactus_URL_PathInfo";
 
     /**
      * Name of the parameter in the HTTP request that represents the Query
@@ -126,7 +126,7 @@ public class ServletURL
      * will not clash with a user-defined parameter.
      */
     public final static String URL_QUERY_STRING_PARAM =
-        "ServletTestCase_URL_QueryString";
+        "Cactus_URL_QueryString";
 
     /**
      * The server name to simulate (including port number)
@@ -216,7 +216,7 @@ public class ServletURL
         if (host != null) {
             int pos = host.indexOf(":");
             if (pos > 0) {
-                host = host.substring(0, pos + 1);
+                host = host.substring(0, pos);
             }
         }
 
@@ -341,8 +341,6 @@ public class ServletURL
      */
     public static ServletURL loadFromRequest(HttpServletRequest theRequest)
     {
-        logger.entry("loadFromRequest(...)");
-
         String qString = theRequest.getQueryString();
 
         String serverName = ServletUtil.getQueryStringParameter(qString,
@@ -361,7 +359,6 @@ public class ServletURL
 
         logger.debug("URL = [" + url + "]");
 
-        logger.entry("loadFromRequest(...)");
         return url;
     }
 

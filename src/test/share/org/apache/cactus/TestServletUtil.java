@@ -51,87 +51,70 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
-package org.apache.cactus.server;
+package org.apache.cactus;
 
-import java.io.*;
-import java.lang.reflect.*;
-import java.net.*;
-import java.util.*;
+import junit.framework.*;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-
-import org.apache.cactus.*;
 import org.apache.cactus.util.log.*;
+import org.apache.cactus.server.ServletUtil;
 
 /**
- * Responsible for instanciating the <code>TestCase</code> class on the server
- * side, set up the implicit objects and call the test method.
+ * Unit tests of the <code>ServletUtil</code> class.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
  */
-public class FilterTestCaller extends AbstractTestCaller
+public class TestServletUtil extends TestCase
 {
-    /**
-     * The logger
-     */
-    protected static Log logger =
-        LogService.getInstance().getLog(FilterTestCaller.class.getName());
-
-    /**
-     * @param theObjects the implicit objects coming from the redirector
-     */
-    public FilterTestCaller(FilterImplicitObjects theObjects)
-    {
-        super(theObjects);
+    // Initialize logging system first
+    static {
+        LogService.getInstance().init(null);
     }
 
     /**
-     * Sets the test case fields using the implicit objects (using reflection).
-     * @param theTestInstance the test class instance
+     * Defines the testcase name for JUnit.
+     *
+     * @param theName the testcase's name.
      */
-    protected void setTestCaseFields(AbstractTestCase theTestInstance)
-        throws Exception
+    public TestServletUtil(String theName)
     {
-        FilterTestCase filterInstance = (FilterTestCase)theTestInstance;
-        FilterImplicitObjects filterImplicitObjects =
-            (FilterImplicitObjects)this.webImplicitObjects;
+        super(theName);
+    }
 
-        // Sets the request field of the test case class
-        // ---------------------------------------------
+    /**
+     * Start the tests.
+     *
+     * @param theArgs the arguments. Not used
+     */
+    public static void main(String[] theArgs)
+    {
+        junit.ui.TestRunner.main(
+            new String[] {TestServletUtil.class.getName()});
+    }
 
-        // Extract from the HTTP request the URL to simulate (if any)
-        HttpServletRequest request =
-            filterImplicitObjects.getHttpServletRequest();
+    /**
+     * @return a test suite (<code>TestSuite</code>) that includes all methods
+     *         starting with "test"
+     */
+    public static Test suite()
+    {
+        // All methods starting with "test" will be executed in the test suite.
+        return new TestSuite(TestServletUtil.class);
+    }
 
-        ServletURL url = ServletURL.loadFromRequest(request);
+    //-------------------------------------------------------------------------
 
-        Field requestField = filterInstance.getClass().getField("request");
-        requestField.set(filterInstance,
-            new HttpServletRequestWrapper(request, url));
-
-        // Set the response field of the test case class
-        // ---------------------------------------------
-
-        Field responseField = filterInstance.getClass().getField("response");
-        responseField.set(filterInstance,
-            filterImplicitObjects.getHttpServletResponse());
-
-        // Set the config field of the test case class
-        // -------------------------------------------
-
-        Field configField = filterInstance.getClass().getField("config");
-        configField.set(filterInstance,
-            new FilterConfigWrapper(filterImplicitObjects.getFilterConfig()));
-
-        // Set the filter chain of the test case class
-        // -------------------------------------------
-
-        Field chainField = filterInstance.getClass().getField("filterChain");
-        chainField.set(filterInstance,
-            filterImplicitObjects.getFilterChain());
+    /**
+     * Verify than <code>getQueryStringParameterEmpty()</code> returns an
+     * empty string if the parameter existe but has no value defined.
+     */
+    public void testGetQueryStringParameterEmpty()
+    {
+        String queryString = "param1=&param2=value2";
+        String result = ServletUtil.getQueryStringParameter(
+            queryString, "param1");
+        assertEquals("", result);
     }
 
 }

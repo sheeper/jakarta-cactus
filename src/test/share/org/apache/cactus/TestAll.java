@@ -96,6 +96,8 @@ public class TestAll extends TestCase
             new TestSuite("Cactus unit tests not needing servlet engine");
 
         suite.addTest(org.apache.cactus.TestAbstractTestCase.suite());
+        suite.addTest(org.apache.cactus.TestServletURL.suite());
+        suite.addTest(org.apache.cactus.TestServletUtil.suite());
 
         return suite;
     }

@@ -53,6 +53,9 @@
  */
 package org.apache.cactus.server;
 
+import org.apache.cactus.util.log.*;
+import org.apache.cactus.*;
+
 import java.net.*;
 
 /**
@@ -64,6 +67,12 @@ import java.net.*;
  */
 public class ServletUtil
 {
+    /**
+     * The logger
+     */
+    private static Log logger =
+        LogService.getInstance().getLog(ServletUtil.class.getName());
+
     /**
      * A substitute method for <code>HttpServletRequest.getParameter()</code>.
      * Contrary to <code>getParameter()</code>, this method does not
@@ -79,7 +88,8 @@ public class ServletUtil
      * @param theQueryString the query string to parse
      * @param theParameter the name of the parameter to locate
      * @return the value for theParameter in theQueryString, null if
-     *         theParameter does not exist.
+     *         theParameter does not exist and "" if the parameter exists but
+     *         has no value defined in the query string
      */
     public static String getQueryStringParameter(String theQueryString, String theParameter)
     {
@@ -98,6 +108,8 @@ public class ServletUtil
 
             if (endIndex > startIndex) {
                 value = theQueryString.substring(startIndex, endIndex);
+            } else if (endIndex == startIndex) {
+                value = "";
             } else {
                 value = theQueryString.substring(startIndex);
             }

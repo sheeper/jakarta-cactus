@@ -238,6 +238,8 @@ src/sample/share/org/apache/cactus/sample/unit/TestServletTestCase_TestResult.ja
 src/test/share/org/apache/cactus/TestAbstractTestCase.java svn_keywords=Author+Date+Id+Revision
 src/test/share/org/apache/cactus/TestAbstractTestCase_InterceptorTestCase.java svn_keywords=Author+Date+Id+Revision
 src/test/share/org/apache/cactus/TestAll.java svn_keywords=Author+Date+Id+Revision
+src/test/share/org/apache/cactus/TestServletURL.java svn_keywords=Author+Date+Id+Revision
+src/test/share/org/apache/cactus/TestServletUtil.java svn_keywords=Author+Date+Id+Revision
 src/test/share/org/apache/cactus/mock/MockHttpURLConnection.java svn_keywords=Author+Date+Id+Revision
 web/jspRedirector.jsp svn_keywords=Author+Date+Id+Revision
 web/sample/test/test.jsp svn_keywords=Author+Date+Id+Revision
