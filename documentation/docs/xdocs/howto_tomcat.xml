@@ -70,7 +70,7 @@
       </p>
       <note>
         <strong>Cactus 1.4 is not released yet and thus you'll need to
-        download any nightly distribution after the 14/05/2002</strong>
+        download any nightly distribution after the 19/05/2002</strong>
       </note>
       <p>
         Copy the following jars to <code>[tomcat root]/common/lib</code> :
