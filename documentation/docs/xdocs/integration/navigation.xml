@@ -5,6 +5,8 @@
 
 <navigation title="Running Tests" index="howto_runner">
 
+  <menu label="Main Page" id="index"/>
+
   <menu label="Running Tests">
     <item id="howto_runner" label="Overview"/>
     <item id="howto_config" label="Configuration Guide"/>

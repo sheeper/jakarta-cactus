@@ -26,12 +26,13 @@ TYPICAL INVOCATION:
     index CDATA #REQUIRED
 >
 
-<!ELEMENT menu (item*)>
+<!ELEMENT menu (menu|item)*>
 <!ATTLIST menu
+    id ID #IMPLIED
     label CDATA #REQUIRED
 >
 
-<!ELEMENT item (item*)>
+<!ELEMENT item EMPTY>
 <!ATTLIST item
     id ID #REQUIRED
     label CDATA #IMPLIED

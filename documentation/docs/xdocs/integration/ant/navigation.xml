@@ -5,6 +5,8 @@
 
 <navigation title="Ant" index="integration_ant">
 
+  <menu label="Main Page" id="index"/>
+
   <menu label="Ant Integration">
     <item id="integration_ant" label="Overview"/>
     <item id="howto_ant_install" label="Ant Installation"/>

@@ -5,6 +5,8 @@
 
 <navigation title="Participating" index="participating">
 
+  <menu label="Main Page" id="index"/>
+
   <menu label="Participating">
     <item id="participating" label="Introduction"/>
     <item id="contributors"/>
