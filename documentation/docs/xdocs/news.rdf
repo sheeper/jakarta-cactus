@@ -22,6 +22,8 @@
 
     <items>
       <rdf:Seq>
+        <rdf:li rdf:resource="http://jakarta.apache.org/cactus/news.html#news20"/>
+        <rdf:li rdf:resource="http://jakarta.apache.org/cactus/news.html#news19"/>
         <rdf:li rdf:resource="http://jakarta.apache.org/cactus/news.html#news18"/>
         <rdf:li rdf:resource="http://jakarta.apache.org/cactus/news.html#news17"/>
         <rdf:li rdf:resource="http://jakarta.apache.org/cactus/news.html#news16"/>
@@ -44,6 +46,34 @@
     </items>
 
   </channel>
+
+  <item rdf:about="http://jakarta.apache.org/cactus/news.html#news20">
+    <title>Cactus v2 architecture proposal</title>
+    <link>http://jakarta.apache.org/cactus/news.html#news20</link>
+    <description>
+<![CDATA[Vincent is proposing a <a href="http://blogs.codehaus.org/people/vmassol/archives/000520_cactus_v2_architecture_proposal.html">new 
+architecture</a> for Cactus v2. We have set up a <a href="http://wiki.apache.org/jakarta-cactus/Cactus2Proposal">wiki 
+page</a> to discuss it. There is some start at implementing it in Cactus CVS in 
+the <a href="http://cvs.apache.org/viewcvs.cgi/jakarta-cactus/scratchpad/cactus2">scratchpad</a> area.
+]]>
+    </description>
+    <dc:subject></dc:subject>
+    <dc:creator>vmassol</dc:creator>
+    <dc:date>2004-02-13T00:00:00+00:00</dc:date>
+  </item>
+
+  <item rdf:about="http://jakarta.apache.org/cactus/news.html#news19">
+    <title>New Cactus wiki</title>
+    <link>http://jakarta.apache.org/cactus/news.html#news19</link>
+    <description>
+<![CDATA[There is now a new <a href="http://wiki.apache.org/jakarta-cactus/">Cactus wiki</a>.
+This new wiki is based on MoinMoin. All changes go to the cactus-dev mailing list.
+]]>
+    </description>
+    <dc:subject></dc:subject>
+    <dc:creator>vmassol</dc:creator>
+    <dc:date>2004-02-13T00:00:00+00:00</dc:date>
+  </item>
 
   <item rdf:about="http://jakarta.apache.org/cactus/news.html#news18">
     <title>MockEJB 0.5 released</title>
