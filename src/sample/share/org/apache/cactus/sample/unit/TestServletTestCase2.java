@@ -362,4 +362,34 @@ public class TestServletTestCase2 extends ServletTestCase
         assertEquals("</html>", results[2]);
     }
 
+    //-------------------------------------------------------------------------
+
+    /**
+     * Verify that special characters in cookies are not URL encoded
+     *
+     * @param theRequest the request object that serves to initialize the
+     *                   HTTP connection to the server redirector.
+     */
+    public void beginCookieEncoding(ServletTestRequest theRequest)
+    {
+        // Note: the pipe ('&') character is a special character regarding
+        // URL encoding
+        theRequest.addCookie("testcookie", "user&pwd");
+    }
+
+    /**
+     * Verify that special characters in cookies are not encoded
+     */
+    public void testCookieEncoding()
+    {
+        Cookie[] cookies = request.getCookies();
+        for (int i = 0; i < cookies.length; i++) {
+            if (cookies[i].getName().equals("testcookie")) {
+                assertEquals("user&pwd", cookies[i].getValue());
+                return;
+            }
+        }
+        fail("No cookie named 'testcookie' found");
+    }
+
 }
