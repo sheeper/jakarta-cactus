@@ -12,6 +12,12 @@
   <body>
 
     <section title="Mock Objects vs In-Container testing">
+      <note><strong>
+        This article was written about 2 years ago and is starting to
+        be a bit old. The general content is still valid but several
+        details are no longer true as the frameworks (be it Cactus or
+        the mock objects frameworks) have evolved since then.
+      </strong></note>
       <note>
         Throughout this article, we'll use the abbreviations MO for Mock
         Objects and IC for In-Container strategy.
@@ -417,35 +423,29 @@ public void testXXX()
       <p>
         <ul>
           <li>
-            <link href="http://mockobjects.sourceforge.net/endotesting.html">
+            <link href="ext:mockobjects_endotesting">
             "Endo-Testing: Unit Testing with Mock Objects"</link> (PDF).
             Describes the vision behind MO.
           </li>
           <li>
-            <link href="http://c2.com/ppr/wiki/RecentChanges/MockObject.html">
-            Mock Object discussions on Wiki</link>.
+            <link href="ext:c2_mock_object">Mock Object discussions on 
+            Wiki</link>.
           </li>
           <li>
-            <link href="http://mockobjects.sourceforge.net">Mock Object
-            project</link> on SourceForge. MO framework and some mock
-            implementations.
+            <link href="ext:mockobjects">Mock Object project</link> on 
+            SourceForge. MO framework and some static mock implementations.
+            Also supports runtime mocks using Dynamic Proxies.
           </li>
           <li>
-            <link
-            href="http://www.xpdeveloper.com/cgi-bin/wiki.cgi?MockMaker">Mock
-            Maker</link>. Generates build time MO implementations for the
-            SourceForge Mock Objects project. Generation is done from
-            interfaces.
+            <link href="ext:mockmaker">MockMaker</link>. Generates build 
+            time MO implementations for the SourceForge Mock Objects project.
+            Generation is done from interfaces or classes.
           </li>
           <li>
-            <link href="http://tammofreese.de/easymock/">Easy Mock</link>.
-            Uses dynamic proxies (JDK 1.3) to provide runtime
+            <link href="ext:easymock">Easy Mock</link>.
+            Uses Dynamic Proxies (JDK 1.3) to provide runtime
             mock implementations, thus eliminating the need for generating/
             writing the mock implementations.
-          </li>
-          <li>
-            <link href="http://www.xpdeveloper.com">xpdeveloper.com</link> web
-            site and it's Extreme Tuesday Club (Xtc) ...
           </li>
         </ul>
       </p>
