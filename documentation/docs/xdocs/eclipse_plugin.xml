@@ -181,21 +181,19 @@
       </p>
     </s1>
     <s1 title="Features">
-      <p>Milestone 1</p>
       <ul>
         <li>a minimalistic launch configuration</li>
         <li>a minimalistic launch shortcut</li>
         <li>a minimalistic launch configuration tab group</li>
       </ul>
-      <p>Milestone 2</p>
       <ul>
         <li>
-          Validate calling Ant script before and after running
+          Validates calling Ant script before and after running
           the tests to package and deploy the application to the
           container and start it.
         </li>
         <li>
-          Execute the Cactus Ant script for Tomcat before
+          Executes the Cactus Ant script for Tomcat before
           starting the JUnit Test Runner (and after). This Ant script
           needs to be part of the Cactus plugin and does the
           following: creates a WAR from the application sources and
@@ -203,9 +201,8 @@
           run to stop Tomcat.
         </li>
       </ul>
-      <p>Milestone 3</p>
       <ul>
-        <li>Added a Cactus preference page (see below for content)</li>
+        <li>Cactus preference page (see below for content)</li>
         <li>Support for several containers</li>
         <li>
           On preference page and on Cactus TabGroup page: ability to
