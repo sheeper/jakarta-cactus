@@ -457,8 +457,8 @@ be resolved. Please check you build.properties file, and run Ant with the
             public="true"
             version="true"
             use="true"
-            windowtitle="${project.name.text} ${project.version}"
-            doctitle="${project.name.text} ${project.version}"
+            windowtitle="${project.name.text} ${project.doc.version}"
+            doctitle="${project.name.text} ${project.doc.version}"
             bottom="Copyright &amp;copy; ${year} Apache Software Foundation.
                     All Rights Reserved.">
 

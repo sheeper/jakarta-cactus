@@ -361,8 +361,8 @@ be resolved. Please check you build.properties file, and run Ant with the
             protected="true"
             version="true"
             use="true"
-            windowtitle="${project.name.text} ${project.version}"
-            doctitle="${project.name.text} ${project.version}"
+            windowtitle="${project.name.text} ${project.doc.version}"
+            doctitle="${project.name.text} ${project.doc.version}"
             overview="${src.java.share.dir}/overview.html"
             bottom="Copyright &amp;copy; ${year} Apache Software Foundation.
                     All Rights Reserved.">

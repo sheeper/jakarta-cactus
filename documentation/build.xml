@@ -238,9 +238,9 @@
             <param name="title" expression="Cactus Documentation"/>
             <param name="copyright"
                 expression="${year} The Apache Software Foundation"/>
-            <param name="project.version" expression="${project.version}"/>
+            <param name="project.version" expression="${project.doc.version}"/>
             <param name="project.version.previous"
-                expression="${project.version.previous}"/>
+                expression="${project.doc.version.previous}"/>
             <param name="last.updated.date" expression="${TODAY}"/>
 
             <!-- Location of the xdoc directory relative to where the
@@ -337,7 +337,7 @@ generated. Run 'ant dist.javadoc -verbose' to find out what the problem is.</fai
         <clover-setup initstring="${clover.initstring.12}"/>
 
         <clover-report>
-            <current title="Cactus ${project.version} for J2EE API 1.2"
+            <current title="Cactus ${project.doc.version} for J2EE API 1.2"
                 outfile="${dist.doc.dir}/clover-12">
                 <format type="html"/>
             </current>
@@ -364,7 +364,7 @@ generated. Run 'ant dist.javadoc -verbose' to find out what the problem is.</fai
         <clover-setup initstring="${clover.initstring.13}"/>
 
         <clover-report>
-            <current title="Cactus ${project.version} for J2EE API 1.3"
+            <current title="Cactus ${project.doc.version} for J2EE API 1.3"
                 outfile="${dist.doc.dir}/clover-13">
                 <format type="html"/>
             </current>
