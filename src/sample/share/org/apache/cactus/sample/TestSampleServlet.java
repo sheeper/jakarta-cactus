@@ -354,7 +354,9 @@ public class TestSampleServlet extends ServletTestCase
         Hashtable cookies = AssertUtils.getCookies(theConnection);
 
         Vector list = (Vector)cookies.get("responsecookie");
-        assert(list.size() == 1);
+        assert("Cannot find [responsecookie]", list != null);
+        assert("There is more than one cookie value for " +
+            "cookie [responsecookie]", list.size() == 1);
 
         ClientCookie cookie = (ClientCookie)list.elementAt(0);
         assertEquals("responsecookie", cookie.getName());
