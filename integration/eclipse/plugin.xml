@@ -11,6 +11,7 @@
          <export name="*"/>
       </library>
    </runtime>
+
    <requires>
       <import plugin="org.eclipse.ui"/>
       <import plugin="org.eclipse.core.resources"/>
@@ -31,8 +32,7 @@
       <import plugin="org.eclipse.ui.externaltools"/>
    </requires>
 
-
-<!-- Registers the Cactus launch configuration -->
+   <!-- Registers the Cactus launch configuration -->
    <extension
          point="org.eclipse.debug.core.launchConfigurationTypes">
       <launchConfigurationType
@@ -50,7 +50,8 @@
          </fileExtension>
       </launchConfigurationType>
    </extension>
-<!-- Registers the Cactus launch shortcut (runs a launch configuration
+
+   <!-- Registers the Cactus launch shortcut (runs a launch configuration
     on a selected class in the workbench) -->
    <extension
          point="org.eclipse.debug.ui.launchShortcuts">
@@ -74,7 +75,8 @@
          </perspective>
       </shortcut>
    </extension>
-<!-- Registers the Cactus launch configuration image (it is the image that
+
+   <!-- Registers the Cactus launch configuration image (it is the image that
     appears in the Launch configuration dialog box) -->
    <extension
          point="org.eclipse.debug.ui.launchConfigurationTypeImages">
@@ -84,7 +86,8 @@
             id="org.apache.cactus.eclipse.launchimage">
       </launchConfigurationTypeImage>
    </extension>
-<!-- Registers the JUnit Tab groups for the Cactus plugin (in the future
+
+   <!-- Registers the JUnit Tab groups for the Cactus plugin (in the future
     Cactus will have its own TabGroup) -->
    <extension
          point="org.eclipse.debug.ui.launchConfigurationTabGroups">
@@ -94,7 +97,8 @@
             id="org.apache.cactus.eclipse.launchConfigurationTabGroup.junit">
       </launchConfigurationTabGroup>
    </extension>
-<!-- Registers the Cactus preferences page -->
+
+   <!-- Registers the Cactus preferences page -->
    <extension
          point="org.eclipse.ui.preferencePages">
       <page
@@ -109,7 +113,8 @@
             id="org.apache.cactus.eclipse.ui.containersPreferencePage">
       </page>
    </extension>
-<!-- Adds a popup menu in the JDT perspective -->
+
+   <!-- Adds a popup menu in the JDT perspective -->
    <extension
          id="org.apache.cactus.eclipse.ui.PopupMenus"
          name="Cactify"
@@ -129,6 +134,7 @@
          </action>
       </objectContribution>
    </extension>
+
    <extension
          point="org.eclipse.debug.core.launchConfigurationTypes">
       <launchConfigurationType
@@ -138,10 +144,13 @@
             id="org.apache.cactus.eclipse.launching.ant">
       </launchConfigurationType>
    </extension>
-   <!-- Extra Classpath -->
+   
+   <!-- Extra Classpath - The wrong Jar file is there on purpose. This is a trick to force
+   the AntCore classloader to use the Cactus plugin classloader instead of an JarClassLoader.
+   -->
    <extension point="org.eclipse.ant.core.extraClasspathEntries">
       <extraClasspathEntry
-         library="cactussupport.jar">
+         library="cactussupportsrc.jar">
       </extraClasspathEntry>
    </extension>
 
