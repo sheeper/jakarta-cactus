@@ -79,6 +79,13 @@
       <code>ServletTestRequest.addParameter()</code> for each of these
       parameters.
     </action>
+    <action context="code">
+      Check why zipped distributable files have a mode of 644 on unix systems
+      (it should rather be 755). Thanks to Jason Crickmer.
+    </action>
+    <action context="docs">
+      Add a FAQ entry for explaining unit testing of persistent sessions.
+    </action>
   </actions>
 
   <actions priority="wish">
