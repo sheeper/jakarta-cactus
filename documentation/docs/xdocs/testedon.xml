@@ -48,6 +48,65 @@
         <code>[TestedOn]</code> in the subject.
       </p>
 
+      <s2 title="Cactus 1.4">
+
+        <table>
+          <tr>
+            <th>
+              Server
+            </th>
+            <th>
+              Version
+            </th>
+            <th>
+              J2EE API
+            </th>
+            <th>
+              Submitted by
+            </th>
+            <th>
+              Note
+            </th>
+          </tr>
+
+          <tr>
+            <td>
+              Resin
+            </td>
+            <td>
+              2.1.0
+            </td>
+            <td>
+              1.3
+            </td>
+            <td>
+              <link href="mailto:vmassol@apache.org">Vincent Massol</link>
+            </td>
+            <td/>
+          </tr>
+          <tr>
+            <td>
+              Tomcat
+            </td>
+            <td>
+              4.1.3 beta
+            </td>
+            <td>
+              1.3
+            </td>
+            <td>
+              <link href="mailto:vmassol@apache.org">Vincent Massol</link>
+            </td>
+            <td>
+              A NullPointerException is raised when stopping Tomcat 4.1.3.
+              However it seems to be stopped correctly.
+            </td>
+          </tr>
+
+        </table>
+
+      </s2>
+
       <s2 title="Cactus 1.3">
 
         <table>
@@ -64,6 +123,9 @@
             <th>
               Submitted by
             </th>
+            <th>
+              Note
+            </th>
           </tr>
 
           <tr>
@@ -79,6 +141,7 @@
             <td>
               <link href="mailto:vmassol@apache.org">Vincent Massol</link>
             </td>
+            <td/>
           </tr>
           <tr>
             <td>
@@ -93,6 +156,7 @@
             <td>
               <link href="mailto:vmassol@apache.org">Vincent Massol</link>
             </td>
+            <td/>
           </tr>
           <tr>
             <td>
@@ -107,6 +171,7 @@
             <td>
               <link href="mailto:vmassol@apache.org">Vincent Massol</link>
             </td>
+            <td/>
           </tr>
           <tr>
             <td>
@@ -121,6 +186,7 @@
             <td>
               <link href="mailto:vmassol@apache.org">Vincent Massol</link>
             </td>
+            <td/>
           </tr>
           <tr>
             <td>
@@ -135,6 +201,7 @@
             <td>
               <link href="mailto:vmassol@apache.org">Vincent Massol</link>
             </td>
+            <td/>
           </tr>
           <tr>
             <td>
@@ -149,6 +216,7 @@
             <td>
               <link href="mailto:vmassol@apache.org">Vincent Massol</link>
             </td>
+            <td/>
           </tr>
           <tr>
             <td>
@@ -163,6 +231,7 @@
             <td>
               <link href="mailto:vmassol@apache.org">Vincent Massol</link>
             </td>
+            <td/>
           </tr>
           <tr>
             <td>
@@ -177,6 +246,7 @@
             <td>
               <link href="mailto:vmassol@apache.org">Vincent Massol</link>
             </td>
+            <td/>
           </tr>
           <tr>
             <td>
@@ -191,6 +261,7 @@
             <td>
               <link href="mailto:vmassol@apache.org">Vincent Massol</link>
             </td>
+            <td/>
           </tr>
           <tr>
             <td>
@@ -205,6 +276,7 @@
             <td>
               <link href="mailto:vmassol@apache.org">Vincent Massol</link>
             </td>
+            <td/>
           </tr>
           <tr>
             <td>
@@ -219,6 +291,7 @@
             <td>
               <link href="mailto:vmassol@apache.org">Vincent Massol</link>
             </td>
+            <td/>
           </tr>
           <tr>
             <td>
@@ -233,6 +306,7 @@
             <td>
               <link href="mailto:vmassol@apache.org">Vincent Massol</link>
             </td>
+            <td/>
           </tr>
           <tr>
             <td>
@@ -247,6 +321,7 @@
             <td>
               <link href="mailto:vmassol@apache.org">Vincent Massol</link>
             </td>
+            <td/>
           </tr>
           <tr>
             <td>
@@ -261,6 +336,7 @@
             <td>
               <link href="mailto:vmassol@apache.org">Vincent Massol</link>
             </td>
+            <td/>
           </tr>
           <tr>
             <td>
@@ -275,6 +351,7 @@
             <td>
               <link href="mailto:vmassol@apache.org">Vincent Massol</link>
             </td>
+            <td/>
           </tr>
           <tr>
             <td>
@@ -289,6 +366,7 @@
             <td>
               <link href="mailto:vmassol@apache.org">Vincent Massol</link>
             </td>
+            <td/>
           </tr>
           <tr>
             <td>
@@ -303,6 +381,7 @@
             <td>
               <link href="mailto:vmassol@apache.org">Vincent Massol</link>
             </td>
+            <td/>
           </tr>
           <tr>
             <td>
@@ -317,6 +396,7 @@
             <td>
               <link href="mailto:vmassol@apache.org">Vincent Massol</link>
             </td>
+            <td/>
           </tr>
 
         </table>
