@@ -58,6 +58,8 @@ package org.apache.cactus.integration.ant.webxml;
 
 import java.util.Iterator;
 
+import org.apache.cactus.integration.ant.util.AntLog;
+import org.apache.commons.logging.Log;
 import org.w3c.dom.Element;
 
 /**
@@ -70,12 +72,21 @@ import org.w3c.dom.Element;
  */
 public class WebXmlMerger
 {
-    
+
+    // Instance Variables ------------------------------------------------------
+
     /**
      * The original, authorative descriptor onto which the merges are performed.
      */
     private WebXml webXml;
     
+    /**
+     * The log to use.
+     */
+    private Log log = AntLog.NULL;
+
+    // Constructors ------------------------------------------------------------
+
     /**
      * Constructor.
      * 
@@ -85,16 +96,67 @@ public class WebXmlMerger
     {
         this.webXml = theWebXml;
     }
-    
+
+    // Public Methods ----------------------------------------------------------
+
+    /**
+     * Merges the merge descriptor with the original descriptor. 
+     * 
+     * @param theMergeWebXml The descriptor to merge in
+     */
+    public final void merge(WebXml theMergeWebXml)
+    {
+        checkServletVersions(theMergeWebXml);
+        if (this.webXml.getVersion() == WebXmlVersion.V2_3)
+        {
+            mergeFilters(theMergeWebXml);
+        }
+        mergeServlets(theMergeWebXml);
+        mergeSecurityConstraints(theMergeWebXml);
+        mergeLoginConfig(theMergeWebXml);
+        mergeSecurityRoles(theMergeWebXml);
+    }
+
+    /**
+     * Sets the log to which events should be written. This method must be 
+     * called before any of the other methods, because the class will rely on 
+     * being able to log.
+     * 
+     * @param theLog The log to use
+     */
+    public final void setLog(Log theLog)
+    {
+        this.log = theLog;
+    }
+
+    // Protected Methods -------------------------------------------------------
+
+    /**
+     * Checks the versions of the servlet API in each descriptor, and logs
+     * a warning if a mismatch might result in the loss of definitions.
+     * 
+     * @param theWebXml The descriptor that will be merged with the original
+     */
+    protected final void checkServletVersions(WebXml theWebXml)
+    {
+        if ((this.webXml.getVersion() != null)
+         && (this.webXml.getVersion().compareTo(theWebXml.getVersion()) < 0))
+        {
+            this.log.warn(
+                "Merging elements from a version " + theWebXml.getVersion()
+                + " descriptor into a version " + this.webXml.getVersion() 
+                + ", some elements may be skipped");
+        }
+    }
+
     /**
      * Merges the servlet definitions from the specified descriptor into the 
      * original descriptor.
      * 
      * @param theWebXml The descriptor that contains the filter definitions
      *         that are to be merged into the original descriptor
-     * @return The number of filters merged into the original descriptor
      */
-    public final int mergeFilters(WebXml theWebXml)
+    protected final void mergeFilters(WebXml theWebXml)
     {
         Iterator filterNames = theWebXml.getFilterNames();
         int count = 0;
@@ -128,7 +190,8 @@ public class WebXmlMerger
             }
             count++;
         }
-        return count;
+        this.log.trace("Merged " + count + " filter definition"
+            + (count != 1 ? "s " : " ") + "into the descriptor");
     }
 
     /**
@@ -137,9 +200,8 @@ public class WebXmlMerger
      * 
      * @param theWebXml The descriptor that contains the servlet definitions
      *         that are to be merged into the original descriptor
-     * @return The number of servlets merged into the original descriptor
      */
-    public final int mergeServlets(WebXml theWebXml)
+    protected final void mergeServlets(WebXml theWebXml)
     {
         Iterator servletNames = theWebXml.getServletNames();
         int count = 0;
@@ -174,7 +236,8 @@ public class WebXmlMerger
             }
             count++;
         }
-        return count;
+        this.log.trace("Merged " + count + " servlet definition"
+            + (count != 1 ? "s " : " ") + "into the descriptor");
     }
 
     /**
@@ -182,10 +245,8 @@ public class WebXmlMerger
      * 
      * @param theWebXml The descriptor that contains the security constraints
      *         that are to be merged into the original descriptor
-     * @return The number of security constraints merged into the original
-     *          descriptor
      */
-    public final int mergeSecurityConstraints(WebXml theWebXml)
+    protected final void mergeSecurityConstraints(WebXml theWebXml)
     {
         Iterator securityConstraints =
             theWebXml.getElements(WebXmlTag.SECURITY_CONSTRAINT);
@@ -197,7 +258,8 @@ public class WebXmlMerger
                 securityConstraint);
             count++;
         }
-        return count;
+        this.log.trace("Merged " + count + " security constraint"
+            + (count != 1 ? "s " : " ") + "into the descriptor");
     }
 
     /**
@@ -205,18 +267,17 @@ public class WebXmlMerger
      * 
      * @param theWebXml The descriptor that contains the login config that
      *         is to be merged into the original descriptor
-     * @return Whether the login config was merged
      */
-    public final boolean mergeLoginConfig(WebXml theWebXml)
+    protected final void mergeLoginConfig(WebXml theWebXml)
     {
         Iterator loginConfigs = theWebXml.getElements(WebXmlTag.LOGIN_CONFIG);
         if (loginConfigs.hasNext())
         {
             webXml.replaceElement(WebXmlTag.LOGIN_CONFIG,
                 (Element) loginConfigs.next());
-            return true;
+            this.log.trace(
+                "Merged the login configuration into the descriptor");
         }
-        return false;
     }
 
     /**
@@ -224,10 +285,8 @@ public class WebXmlMerger
      * 
      * @param theWebXml The descriptor that contains the security roles that
      *         are to be merged into the original descriptor
-     * @return The number of security constraints merged into the original
-     *          descriptor
      */
-    public final int mergeSecurityRoles(WebXml theWebXml)
+    protected final void mergeSecurityRoles(WebXml theWebXml)
     {
         Iterator securityRoles =
             theWebXml.getElements(WebXmlTag.SECURITY_ROLE);
@@ -239,7 +298,8 @@ public class WebXmlMerger
                 securityRole);
             count++;
         }
-        return count;
+        this.log.trace("Merged " + count + " security role"
+            + (count != 1 ? "s " : " ") + "into the descriptor");
     }
 
 }

@@ -57,22 +57,18 @@
 package org.apache.cactus.integration.ant;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.apache.cactus.integration.ant.util.AntLog;
 import org.apache.cactus.integration.ant.webxml.WebXml;
+import org.apache.cactus.integration.ant.webxml.WebXmlIo;
 import org.apache.cactus.integration.ant.webxml.WebXmlMerger;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.Task;
 import org.apache.tools.ant.types.XMLCatalog;
-import org.apache.xml.serialize.OutputFormat;
-import org.apache.xml.serialize.XMLSerializer;
 import org.xml.sax.SAXException;
 
 /**
@@ -124,27 +120,10 @@ public class WebXmlMergeTask extends Task
     /**
      * For resolving entities such as DTDs.
      */
-    private XMLCatalog xmlCatalog = new XMLCatalog();
-
-    /**
-     * The factory for JAXP document builders.
-     */
-    private DocumentBuilderFactory factory;
+    private XMLCatalog xmlCatalog = null;
 
     // Public Methods ----------------------------------------------------------
     
-    /**
-     * @see org.apache.tools.ant.Task#init()
-     */
-    public void init() throws BuildException
-    {
-        this.factory = DocumentBuilderFactory.newInstance();
-        this.factory.setValidating(false);
-        this.factory.setNamespaceAware(false);
-    
-        this.xmlCatalog.setProject(project);
-    }
-
     /**
      * @see Task#execute()
      */
@@ -171,11 +150,14 @@ public class WebXmlMergeTask extends Task
                  || (srcFile.lastModified() > destFile.lastModified())
                  || (mergeFile.lastModified() > destFile.lastModified()))
                 {
-                    WebXml srcWebXml = parseWebXml(this.srcFile);
-                    WebXml mergeWebXml = parseWebXml(this.mergeFile);
-                    checkServletVersions(srcWebXml, mergeWebXml);
-                    merge(srcWebXml, mergeWebXml);
-                    writeWebXml(srcWebXml, this.destFile);
+                    WebXml srcWebXml =
+                        WebXmlIo.parseWebXml(this.srcFile, this.xmlCatalog);
+                    WebXml mergeWebXml =
+                        WebXmlIo.parseWebXml(this.mergeFile, this.xmlCatalog);
+                    WebXmlMerger merger = new WebXmlMerger(srcWebXml);
+                    merger.setLog(new AntLog(this));
+                    merger.merge(mergeWebXml);
+                    WebXmlIo.writeWebXml(srcWebXml, this.destFile);
                 }
                 else
                 {
@@ -194,6 +176,11 @@ public class WebXmlMergeTask extends Task
             throw new BuildException("XML parser configuration problem: "
                 + pce.getMessage(), pce);
         }
+        catch (SAXException saxe)
+        {
+            throw new BuildException("Failed to parse descriptor: "
+                + saxe.getMessage(), saxe);
+        }
         catch (IOException ioe)
         {
             throw new BuildException("An I/O error occurred: "
@@ -208,6 +195,11 @@ public class WebXmlMergeTask extends Task
      */
     public final void addConfiguredXMLCatalog(XMLCatalog theXmlCatalog)
     {
+        if (this.xmlCatalog == null)
+        {
+            this.xmlCatalog = new XMLCatalog();
+            this.xmlCatalog.setProject(getProject());
+        }
         this.xmlCatalog.addConfiguredXMLCatalog(theXmlCatalog);
     }
 
@@ -272,168 +264,6 @@ public class WebXmlMergeTask extends Task
     public final void setIndent(boolean isIndent)
     {
         this.indent = isIndent;
-    }
-
-    // Private Methods ---------------------------------------------------------
-    
-    /**
-     * Checks the versions of the servlet API in each descriptor, and logs
-     * warnings if a mismatch might result in loss of definitions.
-     * 
-     * @param theSrcWebXml The source descriptor
-     * @param theMergeWebXml The descriptor to merge
-     * @throws BuildException If the versions are incompatible
-     */
-    private void checkServletVersions(WebXml theSrcWebXml,
-        WebXml theMergeWebXml) throws BuildException
-    {
-        String srcVersion = theSrcWebXml.getVersion();
-        String mergeVersion = theMergeWebXml.getVersion();
-        if (srcVersion != mergeVersion)
-        {
-            if (WebXml.SERVLET_VERSION_2_2.equals(srcVersion)
-             && WebXml.SERVLET_VERSION_2_3.equals(mergeVersion))
-            {
-                log("Merging elements from a version 2.3 into a version 2.2 "
-                    + "descriptor, some elements may be skipped");
-            }
-        }
-    }
-
-    /**
-     * Merges the merge descriptor with the original descriptor. 
-     * 
-     * @param theSrcWebXml The original descriptor
-     * @param theMergeWebXml The descriptor to merge in
-     * @throws BuildException If the operation fails
-     */
-    private void merge(WebXml theSrcWebXml, WebXml theMergeWebXml)
-        throws BuildException
-    {
-        WebXmlMerger merger = new WebXmlMerger(theSrcWebXml);
-        if (WebXml.SERVLET_VERSION_2_3.equals(theSrcWebXml.getVersion()))
-        {
-            int filtersMerged = merger.mergeFilters(theMergeWebXml);
-            if (filtersMerged > 0)
-            {
-                log("Merged " + filtersMerged + " filter definition"
-                    + (filtersMerged != 1 ? "s " : " ")
-                    + "into the descriptor", Project.MSG_INFO);
-            }
-        }
-        int servletsMerged = merger.mergeServlets(theMergeWebXml);
-        if (servletsMerged > 0)
-        {
-            log("Merged " + servletsMerged + " servlet definition"
-                + (servletsMerged != 1 ? "s " : " ")
-                + "into the descriptor", Project.MSG_INFO);
-        }
-        int securityConstraintsMerged =
-            merger.mergeSecurityConstraints(theMergeWebXml);
-        if (securityConstraintsMerged > 0)
-        {
-            log("Merged " + securityConstraintsMerged + " security constraint"
-                + (securityConstraintsMerged != 1 ? "s " : " ")
-                + "into the descriptor", Project.MSG_INFO);
-        }
-        boolean loginConfigMerged = merger.mergeLoginConfig(theMergeWebXml);
-        if (loginConfigMerged)
-        {
-            log("Merged the login configuration into the descriptor",
-                Project.MSG_INFO);
-        }
-        int securityRolesMerged = merger.mergeSecurityRoles(theMergeWebXml);
-        if (securityRolesMerged > 0)
-        {
-            log("Merged " + securityRolesMerged + " security role"
-                + (securityRolesMerged != 1 ? "s " : " ")
-                + "into the descriptor", Project.MSG_INFO);
-        }
-    }
-    
-    /**
-     * Parses a deployment descriptor.
-     * 
-     * @param theFile The file to parse
-     * @return The parsed document
-     * @throws BuildException If the file could not be parsed
-     * @throws ParserConfigurationException If the XML parser was not correctly
-     *          configured
-     * @throws IOException If an I/O error occurs
-     */
-    private WebXml parseWebXml(File theFile)
-        throws BuildException, ParserConfigurationException, IOException
-    {
-        FileInputStream in = null;
-        try
-        {
-            log("Parsing file [" + theFile + "]", Project.MSG_VERBOSE);
-            DocumentBuilder builder = factory.newDocumentBuilder();
-            builder.setEntityResolver(this.xmlCatalog);
-            in = new FileInputStream(theFile);
-            return new WebXml(builder.parse(in));
-        }
-        catch (SAXException saxe)
-        {
-            throw new BuildException("Error parsing file ["
-                + theFile + "]: " + saxe.getMessage(), saxe);
-        }
-        finally
-        {
-            if (in != null)
-            {
-                try
-                {
-                    in.close();
-                }
-                catch (IOException ioe)
-                {
-                    // we'll pass on the original IO error, so ignore this one
-                }
-            }
-        }
-    }
-    
-    /**
-     * Writes the specified document to an output stream.
-     * 
-     * @param theWebXml The descriptor to serialize
-     * @param theFile The file to write to
-     * @throws IOException If an I/O error occurs
-     */
-    private void writeWebXml(WebXml theWebXml, File theFile)
-        throws IOException
-    {
-        FileOutputStream out = null;
-        try
-        {
-            log("Writing to file [" + theFile + "]", Project.MSG_VERBOSE);
-            out = new FileOutputStream(theFile);
-            OutputFormat outputFormat =
-                new OutputFormat(theWebXml.getDocument());
-            if (this.encoding != null)
-            {
-                outputFormat.setEncoding(this.encoding);
-            }
-            outputFormat.setIndenting(this.indent);
-            outputFormat.setPreserveSpace(false);
-            XMLSerializer serializer = new XMLSerializer(out, outputFormat);
-            serializer.serialize(theWebXml.getDocument());
-        }
-        finally
-        {
-            if (out != null)
-            {
-                try
-                {
-                    out.close();
-                }
-                catch (IOException ioe)
-                {
-                    // we'll pass on the original IO error, so ignore this one
-                }
-            }
-        }
     }
 
 }

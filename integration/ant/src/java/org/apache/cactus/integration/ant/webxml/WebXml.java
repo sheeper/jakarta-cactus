@@ -80,31 +80,7 @@ import org.w3c.dom.NodeList;
 public class WebXml
 {
     
-    // Public Constants --------------------------------------------------------
-    
-    /**
-     * Servlet API version 2.2.
-     */
-    public static final String SERVLET_VERSION_2_2 = "2.2";
-    
-    /**
-     * Servlet API version 2.3.
-     */
-    public static final String SERVLET_VERSION_2_3 = "2.3";
-    
     // Private Constants -------------------------------------------------------
-    
-    /**
-     * Public ID of the web-app DTD of Servlet API version 2.2.
-     */
-    private static final String WEB_APP_2_2_PUBLIC_ID =
-        "-//Sun Microsystems, Inc.//DTD Web Application 2.2//EN";
-    
-    /**
-     * Public ID of the web-app DTD of Servlet API version 2.3.
-     */
-    private static final String WEB_APP_2_3_PUBLIC_ID =
-        "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN";
     
     /**
      * Specifies the order in which the top-level elements must appear in the
@@ -175,25 +151,16 @@ public class WebXml
     }
     
     /**
-     * Returns the servlet API version, one of {@link #SERVLET_VERSION_2_2} and 
-     * {@link #SERVLET_VERSION_2_3}.
+     * Returns the servlet API version.
      * 
-     * @return The servlet API version.
+     * @return The version.
      */
-    public final String getVersion()
+    public final WebXmlVersion getVersion()
     {
         DocumentType docType = this.document.getDoctype();
         if (docType != null)
         {
-            String publicId = docType.getPublicId();
-            if (WEB_APP_2_2_PUBLIC_ID.equals(publicId))
-            {
-                return SERVLET_VERSION_2_2;
-            }
-            else if (WEB_APP_2_3_PUBLIC_ID.equals(publicId))
-            {
-                return SERVLET_VERSION_2_3;
-            }
+            return WebXmlVersion.valueOf(docType);
         }
         return null;
     }
