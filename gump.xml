@@ -70,6 +70,7 @@
 
     <ant buildfile="framework/build.xml" target="dist">
 
+      <depend property="cactus.ant.jar" project="jakarta-cactus-ant"/>
       <depend property="j2ee.jar" project="jakarta-servletapi"/>
       <depend property="log4j.jar" project="jakarta-log4j"/>
       <depend property="commons.logging.jar" project="commons-logging" id="all"/>
@@ -142,6 +143,7 @@
 
     <ant buildfile="framework/build.xml" target="dist">
 
+      <depend property="cactus.ant.jar" project="jakarta-cactus-ant"/>
       <depend property="j2ee.jar" project="jakarta-servletapi-4"/>
       <depend property="log4j.jar" project="jakarta-log4j"/>
       <depend property="commons.logging.jar" project="commons-logging" id="all"/>

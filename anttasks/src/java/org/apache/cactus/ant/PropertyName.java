@@ -57,14 +57,14 @@
 package org.apache.cactus.ant;
 
 /**
- * Placeholder for a property's name.
+ * Data object for holding a Property name.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
- * @see ArgListTask
+ * @see CheckPropertiesTask
  */
-public class ArgListProperty
+public class PropertyName
 {
     /**
      * Name of the property

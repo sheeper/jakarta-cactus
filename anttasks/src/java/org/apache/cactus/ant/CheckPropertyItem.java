@@ -56,107 +56,37 @@
  */
 package org.apache.cactus.ant;
 
-import java.util.Enumeration;
-import java.util.Vector;
-
-import org.apache.tools.ant.BuildException;
-import org.apache.tools.ant.Task;
-
 /**
- * Compute a string (returned as an Ant property) that contains a list of
- * args (in the format [-Dname=value]*) that can be used on a java command line.
- *
- * Example :<br>
- * <pre><code>
- * <property name="property1" value="value1"/>
- * <property name="property3" value="value3"/>
- *
- * <argList property="result">
- *   <property name="property1"/>
- *   <property name="property2"/>
- *   <property name="property3"/>
- * </argList>
- *
- * <echo message="${result}"/>
- * </code></pre>
- * <br>
- * will print "<code>-Dproperty1=value1 -Dproperty3=value3</code>".
+ * Data object for holding a Property for the <code>CheckProperties</code> task.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
+ * @see ArgListTask
  */
-public class ArgListTask extends Task
+public class CheckPropertyItem extends PropertyName
 {
     /**
-     * List of Ant properties to check for inclusing in the arg list
+     * Is the property representing a file/directory ? If so we will check
+     * whether the value it points to exsits on the file system.
      */
-    private Vector properties = new Vector();
+    private boolean isFile = false;
 
     /**
-     * Name of Ant property that will be set and which will contain the arg
-     * list
+     * @param isFile true if the property represents a file or directory for
+     *        which to check its existence.
      */
-    private String newProperty;
-
-    /**
-     * Add a new property to the list of properties to check.
-     *
-     * @param theProperty the property to add to the list
-     */
-    public void addProperty(PropertyName theProperty)
+    public void setIsfile(boolean isFile)
     {
-        this.properties.addElement(theProperty);
+        this.isFile = isFile;
     }
 
     /**
-     * Set the name of the new Ant property that will contain the arg list.
-     *
-     * @param theNewProperty the property that will contain the arg list
+     * @return true if the property represents a file or directory for which
+     *         to check its existence.
      */
-    public void setProperty(String theNewProperty)
+    public boolean isFile()
     {
-        this.newProperty = theNewProperty;
+        return this.isFile;
     }
-
-    /**
-     * Execute task. Check all specified Ant properties for existence and if
-     * they exist add them to the arg list ("-Dname=value" format).
-     *
-     * @see Task#execute()
-     */
-    public void execute() throws BuildException
-    {
-        StringBuffer argBuffer = new StringBuffer();
-        boolean isEmpty = true;
-
-        // Build the arg list ("-D" separated string).
-        Enumeration args = this.properties.elements();
-        while (args.hasMoreElements()) {
-
-            String propertyName =
-                ((PropertyName) args.nextElement()).getName();
-
-            // Check if this property is defined
-            String value = getProject().getProperty(propertyName);
-            if (value == null) {
-                value = getProject().getUserProperty(propertyName);
-                if (value == null) {
-                    continue;
-                }
-            }
-
-            // Yes, add the property the list of args
-            if (isEmpty) {
-                argBuffer.append("-D" + propertyName + "=" + value);
-                isEmpty = false;
-            } else {
-                argBuffer.append(" -D" + propertyName + "=" + value);
-            }
-        }
-
-        // Set the new property
-        getProject().setProperty(this.newProperty, argBuffer.toString());
-    }
-
 }

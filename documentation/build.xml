@@ -102,10 +102,6 @@
         <echo message="java.home = ${java.home}"/>
         <echo message="user.home = ${user.home}"/>
         <echo message="ant.home = ${ant.home}"/>
-        <echo message=""/>
-        <echo message="cactus.ant.jar = ${cactus.ant.jar}"/>
-        <echo message="cvs.executable = ${cvs.executable}"/>
-        <echo message=""/>
 
     </target>
 
@@ -116,15 +112,15 @@
     -->
     <target name="check.properties" depends="display.properties">
 
-        <condition property="properties.ok">
-            <and>
-                <available file="${cactus.ant.jar}"/>
-                <isset property="cvs.executable"/>
-           </and>
-        </condition>
+        <taskdef name="checkProperty" classname="org.apache.cactus.ant.CheckPropertiesTask">
+            <classpath>
+                <pathelement location="${cactus.ant.jar}"/>
+            </classpath>
+        </taskdef>
 
-        <fail message="Missing property or property pointing to an invalid file (check your build.properties file)"
-            unless="properties.ok"/>
+        <checkProperty>
+            <property name="cvs.executable"/>
+        </checkProperty>
 
     </target>
 

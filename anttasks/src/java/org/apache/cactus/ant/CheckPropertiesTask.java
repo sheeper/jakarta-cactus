@@ -58,105 +58,90 @@ package org.apache.cactus.ant;
 
 import java.util.Enumeration;
 import java.util.Vector;
+import java.io.File;
 
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
 
 /**
- * Compute a string (returned as an Ant property) that contains a list of
- * args (in the format [-Dname=value]*) that can be used on a java command line.
+ * Check the existence of a list of properties, display their values and stop Ant if a property
+ * does not exist.
  *
  * Example :<br>
  * <pre><code>
  * <property name="property1" value="value1"/>
- * <property name="property3" value="value3"/>
  *
- * <argList property="result">
- *   <property name="property1"/>
- *   <property name="property2"/>
- *   <property name="property3"/>
- * </argList>
- *
- * <echo message="${result}"/>
+ * <checkProperties>
+ *   <property name="property1" isfile="true|false"/>
+ *   <property name="property2" isfile="true|false"/>
+ * </checkProperties>
  * </code></pre>
  * <br>
- * will print "<code>-Dproperty1=value1 -Dproperty3=value3</code>".
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
  */
-public class ArgListTask extends Task
+public class CheckPropertiesTask extends Task
 {
     /**
-     * List of Ant properties to check for inclusing in the arg list
+     * List of Ant properties to check.
      */
     private Vector properties = new Vector();
-
-    /**
-     * Name of Ant property that will be set and which will contain the arg
-     * list
-     */
-    private String newProperty;
 
     /**
      * Add a new property to the list of properties to check.
      *
      * @param theProperty the property to add to the list
      */
-    public void addProperty(PropertyName theProperty)
+    public void addProperty(CheckPropertyItem theProperty)
     {
         this.properties.addElement(theProperty);
     }
 
     /**
-     * Set the name of the new Ant property that will contain the arg list.
-     *
-     * @param theNewProperty the property that will contain the arg list
-     */
-    public void setProperty(String theNewProperty)
-    {
-        this.newProperty = theNewProperty;
-    }
-
-    /**
-     * Execute task. Check all specified Ant properties for existence and if
-     * they exist add them to the arg list ("-Dname=value" format).
+     * Execute task.
      *
      * @see Task#execute()
      */
     public void execute() throws BuildException
     {
-        StringBuffer argBuffer = new StringBuffer();
-        boolean isEmpty = true;
+        Enumeration properties = this.properties.elements();
+        while (properties.hasMoreElements()) {
 
-        // Build the arg list ("-D" separated string).
-        Enumeration args = this.properties.elements();
-        while (args.hasMoreElements()) {
+            CheckPropertyItem property =
+                    (CheckPropertyItem) properties.nextElement();
 
-            String propertyName =
-                ((PropertyName) args.nextElement()).getName();
-
-            // Check if this property is defined
-            String value = getProject().getProperty(propertyName);
+            String value = getProject().getProperty(property.getName());
             if (value == null) {
-                value = getProject().getUserProperty(propertyName);
+                value = getProject().getUserProperty(property.getName());
                 if (value == null) {
-                    continue;
+                    // The property does not exist
+                    throw new BuildException("The property ["
+                            + property.getName() + "] is not defined");
                 }
             }
 
-            // Yes, add the property the list of args
-            if (isEmpty) {
-                argBuffer.append("-D" + propertyName + "=" + value);
-                isEmpty = false;
-            } else {
-                argBuffer.append(" -D" + propertyName + "=" + value);
+            // Print the property name/value
+            log(property.getName() + " = [" + value + "]");
+
+            // Check if the file/dir exist
+            if (property.isFile()) {
+                File file = project.resolveFile(value);
+                if (!file.exists()) {
+                    if (file.isDirectory()) {
+                        throw new BuildException("The directory ["
+                            + value + "] pointed by ["
+                            + property.getName() + "] does not exist");
+                    } else {
+                        throw new BuildException("The file ["
+                            + value + "] pointed by ["
+                            + property.getName() + "] does not exist");
+                    }
+                }
             }
         }
 
-        // Set the new property
-        getProject().setProperty(this.newProperty, argBuffer.toString());
     }
 
 }
