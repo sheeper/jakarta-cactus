@@ -386,6 +386,8 @@ integration/ant/src/test/org/apache/cactus/integration/ant/TestAll.java svn_keyw
 integration/ant/src/test/org/apache/cactus/integration/ant/TestCactifyWarTask.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/test/org/apache/cactus/integration/ant/TestCactusTask.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/test/org/apache/cactus/integration/ant/TestRunServerTestsTask.java svn_keywords=Author+Date+Id+Revision
+integration/ant/src/test/org/apache/cactus/integration/ant/applicationxml/TestAll.java svn_keywords=Author+Date+Id+Revision
+integration/ant/src/test/org/apache/cactus/integration/ant/applicationxml/TestApplicationXml.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/test/org/apache/cactus/integration/ant/container/MockContainer.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/test/org/apache/cactus/integration/ant/container/MockHttpServer.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/test/org/apache/cactus/integration/ant/container/TestAll.java svn_keywords=Author+Date+Id+Revision
