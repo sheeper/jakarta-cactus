@@ -225,9 +225,6 @@ public class DefaultHttpClient
         WebRequest resultsRequest = new WebRequest(this.configuration);
         RequestDirectives directives = new RequestDirectives(resultsRequest);
         directives.setService(ServiceEnumeration.GET_RESULTS_SERVICE);
-//        resultsRequest.addCactusCommand(
-//            HttpServiceDefinition.SERVICE_NAME_PARAM,
-//            ServiceEnumeration.GET_RESULTS_SERVICE.toString());
 
         // Use the same redirector as was used by the original request
         resultsRequest.setRedirectorName(
