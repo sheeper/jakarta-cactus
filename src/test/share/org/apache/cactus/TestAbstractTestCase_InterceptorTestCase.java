@@ -88,6 +88,10 @@ public class TestAbstractTestCase_InterceptorTestCase
     /**
      * Override default method so that configuration checks are not run during
      * these unit tests.
+     *
+     * @exception Throwable if any exception is thrown during the test. Any
+     *            exception will be displayed by the JUnit Test Runner
+     * @see AbstractTestCase#runBare()
      */
     public void runBare() throws Throwable
     {
@@ -96,6 +100,10 @@ public class TestAbstractTestCase_InterceptorTestCase
 
     /**
      * Intercepts running test cases to check for normal exceptions.
+     *
+     * @exception Throwable any error that occurred when calling the test method
+     *            for the current test case.
+     * @see AbstractTestCase#runTest()
      */
     protected void runTest() throws Throwable
     {
@@ -126,7 +134,9 @@ public class TestAbstractTestCase_InterceptorTestCase
             // Test that when a begin method for a given test does not have the
             // correct return type (i.e. void), a
             // <code>AssertionFailedError</code> exception is returned.
-            if (this.getCurrentTestMethod().equals("testBeginMethodBadReturnType")) {
+            if (this.getCurrentTestMethod().equals(
+                    "testBeginMethodBadReturnType")) {
+
                 assertEquals("The begin method " +
                     "[beginBeginMethodBadReturnType] should return void and " +
                     "not [java.lang.String]", e.getMessage());
@@ -135,7 +145,9 @@ public class TestAbstractTestCase_InterceptorTestCase
 
             // Test that when a begin method for a given test is not declared
             // public a <code>AssertionFailedError</code> exception is returned.
-            if (this.getCurrentTestMethod().equals("testBeginMethodNotPublic")) {
+            if (this.getCurrentTestMethod().equals(
+                    "testBeginMethodNotPublic")) {
+
                 assertEquals("Method [beginBeginMethodNotPublic] should be " +
                     "declared public", e.getMessage());
                 return;
@@ -144,7 +156,9 @@ public class TestAbstractTestCase_InterceptorTestCase
             // Test that when a begin method for a given test has the wrong
             // type of parameters, a <code>AssertionFailedError</code> exception
             // is returned.
-            if (this.getCurrentTestMethod().equals("testBeginMethodBadParamType")) {
+            if (this.getCurrentTestMethod().equals(
+                    "testBeginMethodBadParamType")) {
+
                 assertEquals("The begin method " +
                     "[beginBeginMethodBadParamType] must accept a single " +
                     "parameter derived from class " +
@@ -157,7 +171,9 @@ public class TestAbstractTestCase_InterceptorTestCase
             // Test that when a begin method for a given test has the wrong
             // number of parameters, a <code>AssertionFailedError</code>
             // exception is returned.
-            if (this.getCurrentTestMethod().equals("testBeginMethodBadParamNumber")) {
+            if (this.getCurrentTestMethod().equals(
+                    "testBeginMethodBadParamNumber")) {
+
                 assertEquals("The begin method " +
                     "[beginBeginMethodBadParamNumber] must accept a single " +
                     "parameter derived from class " +
@@ -179,7 +195,9 @@ public class TestAbstractTestCase_InterceptorTestCase
             // Test that when an end method for a given test does not have the
             // correct return type (i.e. void), a
             // <code>AssertionFailedError</code> exception is returned.
-            if (this.getCurrentTestMethod().equals("testEndMethodBadReturnType")) {
+            if (this.getCurrentTestMethod().equals(
+                    "testEndMethodBadReturnType")) {
+
                 assertEquals("The end method " +
                     "[endEndMethodBadReturnType] should return void and " +
                     "not [java.lang.String]", e.getMessage());
@@ -197,7 +215,9 @@ public class TestAbstractTestCase_InterceptorTestCase
             // Test that when an end method for a given test has the wrong
             // type of parameters, a <code>AssertionFailedError</code> exception
             // is returned.
-            if (this.getCurrentTestMethod().equals("testEndMethodBadParamType")) {
+            if (this.getCurrentTestMethod().equals(
+                    "testEndMethodBadParamType")) {
+
                 assertEquals("The end method [endEndMethodBadParamType] " +
                     "has a bad parameter of type [java.lang.String]",
                     e.getMessage());
@@ -207,7 +227,9 @@ public class TestAbstractTestCase_InterceptorTestCase
             // Test that when an end method for a given test has the wrong
             // number of parameters, a <code>AssertionFailedError</code>
             // exception is returned.
-            if (this.getCurrentTestMethod().equals("testEndMethodBadParamNumber")) {
+            if (this.getCurrentTestMethod().equals(
+                    "testEndMethodBadParamNumber")) {
+
                 assertEquals("The end method [endEndMethodBadParamNumber] " +
                     "must only have a single parameter", e.getMessage());
                 return;

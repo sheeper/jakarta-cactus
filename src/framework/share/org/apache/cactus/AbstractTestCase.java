@@ -377,7 +377,8 @@ public abstract class AbstractTestCase extends TestCase
      * which, in our case, need to be ran in the servlet engine by the
      * servlet redirector class.
      *
-     * @exception Throwable if any exception is thrown
+     * @exception Throwable if any exception is thrown during the test. Any
+     *            exception will be displayed by the JUnit Test Runner
      */
     public void runBare() throws Throwable
     {
@@ -410,7 +411,7 @@ public abstract class AbstractTestCase extends TestCase
      * Cactus redirection servlet.
      *
      * @exception Throwable any error that occurred when calling the test method
-     *         for the current test case.
+     *            for the current test case.
      */
     protected abstract void runTest() throws Throwable;
 

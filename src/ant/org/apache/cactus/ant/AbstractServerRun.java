@@ -106,12 +106,16 @@ public abstract class AbstractServerRun extends Thread
 
     /**
      * Starts the server (in a blocking mode) and set up a socket listener.
+     *
+     * @exception Exception if any error happens when starting the server
      */
     abstract protected void doStartServer() throws Exception;
 
     /**
      * Stops the server by connecting to the socket set up when the server
      * was started.
+     *
+     * @exception Exception if any error happens when stopping the server
      */
     abstract protected void doStopServer() throws Exception;
 
@@ -239,11 +243,12 @@ public abstract class AbstractServerRun extends Thread
             throw new RuntimeException("Cannot close server socket [" +
                 serverSocket + "]");
         }
-
     }
 
     /**
      * Sets up the listener socket.
+     *
+     * @return the listener socket that has been set up
      */
     private ServerSocket setUpListenerSocket()
     {
