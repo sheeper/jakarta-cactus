@@ -892,8 +892,23 @@
 
     <ant:mkdir dir="${maven.build.dir}"/>
 
+    <!-- Ensure that the ear properties are loaded in memory so that they can be
+         referenced -->
+    <attainGoal name="ear:load"/>
+         
+    <ant:available property="cactus.ear.manifest.available"
+        file="${pom.getPluginContext('maven-ear-plugin').getVariable('maven.ear.manifest')}"/>
+
+    <ant:available property="cactus.ear.src.available"
+        file="${pom.getPluginContext('maven-ear-plugin').getVariable('maven.ear.src')}"/>
+        
     <ant:ear destfile="${cactus.ear}" 
         appxml="${maven.build.dir}/application.xml">
+
+      <j:if test="${cactus.ear.src.available}">
+        <fileset dir="${pom.getPluginContext('maven-ear-plugin').getVariable('maven.ear.src')}"
+            casesensitive="false" excludes="**/META-INF/application.xml"/>
+      </j:if>
 
       <!-- include cactus generated archives -->
       <ant:fileset dir="${cactus.war.dir}">
@@ -905,31 +920,18 @@
 
       <!-- include marked dependencies -->
       <j:forEach var="lib" items="${pom.artifacts}">
-        <j:set var="dep" value="${lib.dependency}"/>
-        <j:if test="${dep.getProperty('ejb.manifest.classpath')=='true'}">
-
-          <j:set var="bundle" value="false"/>
-          <j:if test="${dep.type == 'jar'}">
-            <j:set var="bundle" value="true"/>
-          </j:if>
-          <j:if test="${dep.type == 'war'}">
-            <j:set var="bundle" value="true"/>
-          </j:if>
-          <j:if test="${dep.type == 'ejb'}">
-            <j:set var="bundle" value="true"/>
-          </j:if>
-          <j:if test="${dep.type == 'rar'}">
-            <j:set var="bundle" value="true"/>
-          </j:if>
-
-          <j:if test="${bundle}">
-            <ant:fileset dir="${lib.file.parent}">
-              <ant:include name="${lib.file.name}"/>
-            </ant:fileset>
-          </j:if>
-
-        </j:if>
+        <j:set var="dep" value="${lib.dependency}"/>      
+        <j:if test="${dep.getProperty('ear.bundle')=='true'}">
+          <ant:fileset dir="${lib.file.parent}">
+            <ant:include name="${lib.file.name}"/>
+          </ant:fileset>
+        </j:if>  
       </j:forEach>
+
+      <j:if test="${cactus.ear.manifest.available}">
+        <ant:setProperty name="manifest" 
+            value="${pom.getPluginContext('maven-ear-plugin').getVariable('maven.ear.manifest')}"/>
+      </j:if>
 
     </ant:ear>
 
