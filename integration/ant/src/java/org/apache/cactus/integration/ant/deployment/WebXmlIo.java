@@ -115,8 +115,6 @@ public class WebXmlIo
                     return new InputSource(in);
                 }
             }
-            System.err.println("Resource for public ID " + thePublicId
-                + " not found");
             return null;
         }
 

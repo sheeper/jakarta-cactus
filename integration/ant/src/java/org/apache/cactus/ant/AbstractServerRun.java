@@ -56,6 +56,8 @@
  */
 package org.apache.cactus.ant;
 
+import java.io.PrintStream;
+
 /**
  * Abstract class for starting/stopping an application server. When this
  * application is first called to start the server, a listener socket is
@@ -79,10 +81,21 @@ public abstract class AbstractServerRun
     public AbstractServerRun(String[] theArgs)
     {
         super(theArgs);
-        System.err.println("The class "
+        logDeprecation(System.err, "The class "
             + "'org.apache.cactus.ant.AbstractServerRun' is deprecated. Use "
             + "'org.apache.cactus.integration.ant.container.AbstractServerRun' "
             + "instead");
+    }
+
+    /**
+     * Prints the specified deprecation message to the output stream.
+     * 
+     * @param theOut The output stream
+     * @param theMessage The deprecation message
+     */
+    private void logDeprecation(PrintStream theOut, String theMessage)
+    {
+        theOut.println(theMessage);
     }
 
 }

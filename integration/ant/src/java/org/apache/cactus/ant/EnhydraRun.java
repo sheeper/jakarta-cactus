@@ -56,6 +56,8 @@
  */
 package org.apache.cactus.ant;
 
+import java.io.PrintStream;
+
 /**
  * Starts/stop Enhydra by setting up a listener socket.
  *
@@ -77,10 +79,21 @@ public class EnhydraRun
     public EnhydraRun(String[] theArgs)
     {
         super(theArgs);
-        System.err.println("The class "
+        logDeprecation(System.err, "The class "
             + "'org.apache.cactus.ant.EnhydraRun' is deprecated. Use "
             + "'org.apache.cactus.integration.ant.container.enhydra.EnhydraRun'"
             + " instead");
+    }
+
+    /**
+     * Prints the specified deprecation message to the output stream.
+     * 
+     * @param theOut The output stream
+     * @param theMessage The deprecation message
+     */
+    private void logDeprecation(PrintStream theOut, String theMessage)
+    {
+        theOut.println(theMessage);
     }
 
 }

@@ -56,6 +56,8 @@
  */
 package org.apache.cactus.ant;
 
+import java.io.PrintStream;
+
 /**
  * Starts/stop Resin by setting up a listener socket.
  *
@@ -78,10 +80,21 @@ public class ResinRun
     public ResinRun(String[] theArgs)
     {
         super(theArgs);
-        System.err.println("The class "
+        logDeprecation(System.err, "The class "
             + "'org.apache.cactus.ant.ResinRun' is deprecated. Use "
             + "'org.apache.cactus.integration.ant.container.resin.ResinRun' "
             + "instead");
+    }
+
+    /**
+     * Prints the specified deprecation message to the output stream.
+     * 
+     * @param theOut The output stream
+     * @param theMessage The deprecation message
+     */
+    private void logDeprecation(PrintStream theOut, String theMessage)
+    {
+        theOut.println(theMessage);
     }
 
 }

@@ -216,7 +216,7 @@ public abstract class AntTestCase extends TestCase implements BuildListener
             }
             catch (BuildException be)
             {
-                System.err.println("Exception in tearDown: " + be.getMessage());
+                // exception has been logged
             }
         }
     }

@@ -110,8 +110,6 @@ public class ApplicationXmlIo
                     return new InputSource(in);
                 }
             }
-            System.err.println("Resource for public ID " + thePublicId
-                + " not found");
             return null;
         }
 
