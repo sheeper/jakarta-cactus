@@ -99,18 +99,6 @@ public class CactusPreferencePage extends FieldEditorPreferencePage
     }
 
     /**
-     * Sets the default values of the preferences.
-     */
-    private void initializeDefaults()
-    {
-        IPreferenceStore store = getPreferenceStore();
-        store.setDefault(CactusPreferences.CONTEXT_URL_SCHEME, "http");
-        store.setDefault(CactusPreferences.CONTEXT_URL_HOST, "localhost");
-        store.setDefault(CactusPreferences.CONTEXT_URL_PORT, 8080);
-        store.setDefault(CactusPreferences.CONTEXT_URL_PATH, "test");
-    }
-
-    /**
      * Creates the field editors. Field editors are abstractions of
      * the common GUI blocks needed to manipulate various types
      * of preferences. Each field editor knows how to save and
