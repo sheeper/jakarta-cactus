@@ -350,6 +350,7 @@ integration/eclipse/org.apache.cactus.eclipse.runner/icons/calaunch.gif -text
 integration/eclipse/org.apache.cactus.eclipse.runner/plugin.properties svn_keywords=Author+Date+Id+Revision
 integration/eclipse/org.apache.cactus.eclipse.runner/plugin.xml svn_keywords=Author+Date+Id+Revision
 integration/eclipse/org.apache.cactus.eclipse.runner/src/java/org/apache/cactus/eclipse/runner/common/JarFilenameFilter.java svn_keywords=Author+Date+Id+Revision
+integration/eclipse/org.apache.cactus.eclipse.runner/src/java/org/apache/cactus/eclipse/runner/common/LibraryHelper.java svn_keywords=Author+Date+Id+Revision
 integration/eclipse/org.apache.cactus.eclipse.runner/src/java/org/apache/cactus/eclipse/runner/containers/ContainerInfo.java svn_keywords=Author+Date+Id+Revision
 integration/eclipse/org.apache.cactus.eclipse.runner/src/java/org/apache/cactus/eclipse/runner/containers/Credential.java svn_keywords=Author+Date+Id+Revision
 integration/eclipse/org.apache.cactus.eclipse.runner/src/java/org/apache/cactus/eclipse/runner/containers/IContainerManager.java svn_keywords=Author+Date+Id+Revision

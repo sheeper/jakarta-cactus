@@ -62,10 +62,9 @@ import java.net.URL;
 import java.util.Vector;
 
 import org.apache.cactus.eclipse.runner.common.JarFilenameFilter;
+import org.apache.cactus.eclipse.runner.common.LibraryHelper;
 import org.apache.cactus.eclipse.runner.ui.CactusPlugin;
 import org.apache.cactus.eclipse.runner.ui.CactusPreferences;
-import org.apache.cactus.eclipse.webapp.Webapp;
-import org.apache.cactus.eclipse.webapp.ui.WebappPlugin;
 import org.eclipse.ant.core.AntCorePlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.ILibrary;
@@ -97,11 +96,13 @@ public class CactusLaunchConfiguration extends JUnitLaunchConfiguration
      */
     public static final String ID_CACTUS_APPLICATION =
         "org.apache.cactus.eclipse.runner.launchconfig";
+
     /**
      * Path to the Jetty library directory in the Cactus plugin
      * structure
      */
     private static final String JETTY_LIBRARY_PATH = "./lib/";
+
     /**
      * Returns a valid VM configuration for Cactus. This method overrides
      * the JUnit plugin one in order to add Cactus required VM parameters. 
@@ -133,22 +134,17 @@ public class CactusLaunchConfiguration extends JUnitLaunchConfiguration
         CactusPlugin.log("Cactus VM arguments : [" + cactusVMArgs + "]");
 
         String[] junitClasspath = configuration.getClassPath();
-        String[] cactusJarPaths = getCactusJarPaths();
+        String[] cactusClasspath = getCactusClasspath();
         String[] globalClasspath =
-            concatenateStringArrays(
-                junitClasspath,
-                cactusJarPaths);
+            concatenateStringArrays(cactusClasspath, junitClasspath);
         VMRunnerConfiguration cactusConfig =
             new VMRunnerConfiguration(
                 configuration.getClassToLaunch(),
                 globalClasspath);
-        String cactusClasspathRepresentation = "";
-        for (int i = 0; i < cactusJarPaths.length; i++)
-        {
-            cactusClasspathRepresentation += cactusJarPaths[i] + ";";
-        }
         CactusPlugin.log(
-            "Cactus VM classpath : [" + cactusClasspathRepresentation + "]");
+            "Cactus VM classpath : ["
+                + getRepresentation(cactusClasspath)
+                + "]");
 
         cactusConfig.setBootClassPath(configuration.getBootClassPath());
         cactusConfig.setProgramArguments(configuration.getProgramArguments());
@@ -158,10 +154,47 @@ public class CactusLaunchConfiguration extends JUnitLaunchConfiguration
     }
 
     /**
+     * @param theClasspath an array of classpaths
+     * @return a representation of the given classpath array
+     */
+    private String getRepresentation(String[] theClasspath)
+    {
+        String cactusClasspathRepresentation = "";
+        for (int i = 0; i < theClasspath.length; i++)
+        {
+            cactusClasspathRepresentation += theClasspath[i] + ";";
+        }
+        return cactusClasspathRepresentation;
+    }
+
+    /**
+     * @return an array of classpaths needed for Cactus
+     * @throws CoreException when an error occurs while
+     * trying to build the classpath
+     */
+    private String[] getCactusClasspath() throws CoreException
+    {
+        String[] clientClasspath = LibraryHelper.getClientJarPaths();
+        String[] commonClasspath = LibraryHelper.getCommonJarPaths();
+        String[] cactusClasspath =
+            concatenateStringArrays(clientClasspath, commonClasspath);
+        URL[] antURLs = AntCorePlugin.getPlugin().getPreferences().getAntURLs();
+        String[] apacheJarPaths = getJarPaths(antURLs);
+        cactusClasspath =
+            concatenateStringArrays(cactusClasspath, apacheJarPaths);
+        if (CactusPreferences.getJetty())
+        {
+            cactusClasspath =
+                concatenateStringArrays(cactusClasspath, getJettyClasspath());
+        }
+        return cactusClasspath;
+    }
+
+    /**
      * @return an array of Jar paths needed for Cactus
      * @throws CoreException if a Jar cannot be found
      */
-    private String[] getCactusJarPaths() throws CoreException
+    private String[] getJettyClasspath() throws CoreException
     {
         CactusPlugin thePlugin = CactusPlugin.getDefault();
         URL libURL = thePlugin.find(new Path(JETTY_LIBRARY_PATH));
@@ -174,26 +207,13 @@ public class CactusLaunchConfiguration extends JUnitLaunchConfiguration
         }
         File libDir = new File(libURL.getPath());
         String[] jettyJarPaths = getJarPaths(libDir);
-        URL[] antURLs =
-            AntCorePlugin.getPlugin().getPreferences().getAntURLs();
-        String[] apacheJarPaths = getJarPaths(antURLs);
-        Plugin xercesPlugin = Platform.getPlugin("org.apache.xerces");
-        if (xercesPlugin != null)
-        {
-            IPluginDescriptor descriptor = xercesPlugin.getDescriptor();
-            apacheJarPaths =
-                concatenateStringArrays(
-                    apacheJarPaths,
-                    getLibrariesPaths(descriptor, null));
-        }
+        String[] apacheJarPaths = new String[0];
         Plugin tomcatPlugin = Platform.getPlugin("org.eclipse.tomcat");
         if (tomcatPlugin != null)
         {
             IPluginDescriptor descriptor = tomcatPlugin.getDescriptor();
             apacheJarPaths =
-                concatenateStringArrays(
-                    apacheJarPaths,
-                    getLibrariesPaths(descriptor, "org.apache.jasper"));
+                    getLibrariesPaths(descriptor, "org.apache.jasper");
         }
         return concatenateStringArrays(jettyJarPaths, apacheJarPaths);
     }
@@ -211,15 +231,12 @@ public class CactusLaunchConfiguration extends JUnitLaunchConfiguration
         {
             if (theTests.length > 0)
             {
-                Webapp webapp =
-                    WebappPlugin.getWebapp(theTests[0].getJavaProject());
-                webapp.init();
-                File webappDir = webapp.getAbsoluteDir();
-                if (webappDir != null && webappDir.exists())
-                {
-                    cactusVMArgs.add(
-                        "-Dcactus.jetty.resourceDir=" + webappDir.getPath());
-                }
+                String jettyResourcePath =
+                    CactusPreferences.getTempDir()
+                        + File.separator
+                        + CactusLaunchShortcut.getJettyWebappPath();
+                cactusVMArgs.add(
+                    "-Dcactus.jetty.resourceDir=" + jettyResourcePath);
             }
             cactusVMArgs.add(
                 "-Dcactus.initializer="
