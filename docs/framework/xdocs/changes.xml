@@ -119,6 +119,18 @@
 
     <release version="1.3 in CVS">
       <action dev="VMA" type="update">
+        Moved the Jyve FAQ to an internal FAQ - because Jyve was not always up and also so that
+        we can have our FAQ in CVS along with the rest of the documentation.
+      </action>
+      <action dev="VMA" type="fix" due-to="Chris Hazen" due-to-email="cjkchazen@earthlink.net">
+        (<link href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=4563">
+        Bug #4563</link>).
+        The getHost method of the ServletURL class returns the ":" signifing the start
+        of the port number of the host. This has side effects in Cactus in that passing
+        in the host name and port into the WebRequest method as "127.0.0.1:7001" will
+        cause Cactus to use this url "http://127.0.0.1::7001".
+      </action>
+      <action dev="VMA" type="update">
         Added support for JUnit 3.8 (which has replaced the <code>name()</code> method by a
         <code>getName()</code> one). Note that Cactus is still supporting earlier versions of
         JUnit.
