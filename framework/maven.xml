@@ -13,7 +13,7 @@
 
   <preGoal name="jar:jar">
     <j:set var="maven.final.name" 
-        value="${maven.final.name}-j2ee${cactus.j2ee.version}"/>
+        value="${pom.artifactId}-${cactus.j2ee.version}-${pom.currentVersion}"/>
   </preGoal>
 
 </project>
