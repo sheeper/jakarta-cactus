@@ -69,9 +69,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * Abstract class that is a thin layer on top of JUnit and that knows about
- * test cases that are executed on the server side. It also provides the
- * ability to run common code before each test on the client side (note
+ * Abstract class that is a thin layer on top of JUnit and that provides 
+ * the ability to run common code before each test on the client side (note
  * that calling common tear down code is delegated to extending classes as the
  * method signature depends on the protocol used).
  *
@@ -115,11 +114,6 @@ public abstract class AbstractTestCase extends TestCase
      * side (if it exists).
      */
     protected static final String CLIENT_GLOBAL_END_METHOD = "end";
-
-    /**
-     * Name of properties file to initialize logging subsystem
-     */
-    public static final String LOG_CLIENT_CONFIG = "log_client.properties";
 
     /**
      * Flag used to verify if client initialization has already been performed
@@ -166,6 +160,14 @@ public abstract class AbstractTestCase extends TestCase
         return this.logger;
     }
 
+    /**
+     * @param theLogger the logger to use 
+     */
+    protected void setLogger(Log theLogger)
+    {
+        this.logger = theLogger;
+    }
+    
     /**
      * @return the Cactus configuration
      */
@@ -283,51 +285,7 @@ public abstract class AbstractTestCase extends TestCase
     protected abstract Configuration createConfiguration();
     
     /**
-     * Runs a test case. This method is overriden from the JUnit
-     * <code>TestCase</code> class in order to seamlessly call the
-     * Cactus redirection servlet.
-     *
-     * @exception Throwable any error that occurred when calling the test method
-     *            for the current test case.
-     */
-    protected abstract void runTest() throws Throwable;
-
-    // Methods below are only called by the Cactus redirector on the server
-    // side
-
-    /**
-     * Run the test that was specified in the constructor on the server side,
-     * calling <code>setUp()</code> and <code>tearDown()</code>.
-     *
-     * @exception Throwable any error that occurred when calling the test method
-     *         for the current test case, on the server side.
-     */
-    public void runBareServerTest() throws Throwable
-    {
-        // Initialize the logging system. As this class is instanciated both
-        // on the server side and on the client side, we need to differentiate
-        // the logging initialisation. This method is only called on the server
-        // side, so we instanciate the log for server side here.
-        if (getLogger() == null)
-        {
-            this.logger = LogFactory.getLog(this.getClass());
-        }
-
-        setUp();
-
-        try
-        {
-            runServerTest();
-        }
-        finally
-        {
-            tearDown();
-        }
-    }
-
-    /**
-     * Call a begin method which takes either a Cactus WebResponse parameter
-     * or a HttpUnit WebResponse object as paramter.
+     * Call a begin method which takes Cactus WebRequest as parameter
      *
      * @param theRequest the request object which will contain data that will
      *        be used to connect to the Cactus server side redirectors.
@@ -426,61 +384,13 @@ public abstract class AbstractTestCase extends TestCase
     }
 
     /**
-     * Run the test that was specified in the constructor on the server side.
-     *
-     * @exception Throwable any error that occurred when calling the test method
-     *         for the current test case, on the server side.
-     */
-    protected void runServerTest() throws Throwable
-    {
-        Method runMethod = null;
-
-        try
-        {
-            // use getMethod to get all public inherited
-            // methods. getDeclaredMethods returns all
-            // methods of this class but excludes the
-            // inherited ones.
-            runMethod = getClass().getMethod(this.getCurrentTestMethod(), 
-                new Class[0]);
-        }
-        catch (NoSuchMethodException e)
-        {
-            fail("Method [" + this.getCurrentTestMethod()
-                + "()] does not exist for class [" + this.getClass().getName()
-                + "].");
-        }
-
-        if ((runMethod != null) && !Modifier.isPublic(runMethod.getModifiers()))
-        {
-            fail("Method [" + this.getCurrentTestMethod()
-                + "()] should be public");
-        }
-
-        try
-        {
-            runMethod.invoke(this, new Class[0]);
-        }
-        catch (InvocationTargetException e)
-        {
-            e.fillInStackTrace();
-            throw e.getTargetException();
-        }
-        catch (IllegalAccessException e)
-        {
-            e.fillInStackTrace();
-            throw e;
-        }
-    }
-
-    /**
      * @return the name of the current test case being executed (it corresponds
      *         to the name of the test method with the "test" prefix removed.
      *         For example, for "testSomeTestOk" would return "someTestOk".
      */
     protected String getCurrentTestMethod()
     {
-        return currentTestMethod;
+        return this.currentTestMethod;
     }
 
     /**

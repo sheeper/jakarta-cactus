@@ -76,7 +76,7 @@ import org.apache.cactus.util.WebConfiguration;
  *
  * @version $Id$
  */
-public abstract class AbstractWebTestCase extends AbstractTestCase
+public abstract class AbstractWebTestCase extends AbstractServerTestCase
 {
     /**
      * Constructs a JUnit test case with the given name.
