@@ -21,6 +21,46 @@
             Link
           </td>
           <td>
+            <link href="http://sourceforge.net/projects/cactuswizard">Cactus Wizard
+            for JBuilder</link>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Type
+          </td>
+          <td>
+            IDE Plugin
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Date
+          </td>
+          <td>
+            Submitted on June 2002
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Description
+          </td>
+          <td>
+            CactusWizard offers a JBuilder Wizard to generate Unit-Tests for the Java Programming
+            Language. It is possible to create JUnit-TestCases, -TestSuites and Cactus-TestCases
+            like ServletTestCase or JSPTestCase
+          </td>
+        </tr>
+      </table>
+
+      <p/>
+
+      <table>
+        <tr>
+          <td>
+            Link
+          </td>
+          <td>
             <link href="http://www-106.ibm.com/developerworks/java/library/j-aspectj2/?loc=j">Test
             flexibly with AspectJ and mock objects</link>
           </td>
