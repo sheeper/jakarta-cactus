@@ -12,8 +12,14 @@
   <body>
 
     <section title="FAQ Content">
-      <ul>
 
+      <p>
+        Please also make sure you visit the
+        <a href="ext:cactus_wiki_faq">online user FAQ</a> on our 
+        <a href="ext:cactus_wiki">Wiki</a>.
+      </p>
+      
+      <ul>
         <li>
           <jump anchor="faq1">"Can't find resource for cactus" error
           message</jump>
