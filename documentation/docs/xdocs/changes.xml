@@ -47,6 +47,9 @@
       <person name="Nicholas Lesiecki" email="ndlesiecki@yahoo.com" id="NDL"/>
     </devs>
 
+    <release version="1.4 in CVS">
+    </release>
+
     <release version="1.3" date="April 21 2002">
       <action dev="VMA" type="update">
         Improved classloader support on the server side : Cactus first tries
