@@ -78,10 +78,12 @@ public class LibraryHelper
      * Path to the plugin's library directory
      */
     private static final String CACTUS_LIBRARY_PATH = "./ant/lib/";
+
     /**
      * Name of the common libraries folder
      */
     private static final String CACTUS_COMMON_LIBRARY_PATH = "/common";
+
     /**
      * Name of the client libraries folder
      */
@@ -109,7 +111,6 @@ public class LibraryHelper
      */
     private static IPath[] getClientJarPathArray()
     {
-        CactusPlugin thePlugin = CactusPlugin.getDefault();
         File clientLibDir = getClientLibPath().toFile();
         return getJarPathArray(clientLibDir);
     }
@@ -119,7 +120,6 @@ public class LibraryHelper
      */
     private static IPath[] getCommonJarPathArray()
     {
-        CactusPlugin thePlugin = CactusPlugin.getDefault();
         File commmonLibDir = getCommonLibPath().toFile();
         return getJarPathArray(commmonLibDir);
     }
@@ -171,8 +171,7 @@ public class LibraryHelper
      *         followed by the second one
      */
     public static IClasspathEntry[] concatenateEntries(
-        IClasspathEntry[] theArray1,
-        IClasspathEntry[] theArray2)
+        IClasspathEntry[] theArray1, IClasspathEntry[] theArray2)
     {
         IClasspathEntry[] newArray =
             new IClasspathEntry[theArray1.length + theArray2.length];

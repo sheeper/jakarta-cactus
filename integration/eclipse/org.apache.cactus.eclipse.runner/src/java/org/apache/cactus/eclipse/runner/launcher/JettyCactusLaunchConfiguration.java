@@ -190,27 +190,12 @@ public class JettyCactusLaunchConfiguration
     }
 
     /**
-     * @param theAntURLs array of URLs to convert to Jar paths
-     * @return the array of jar paths from the given URLs
-     */
-    private String[] getJarPaths(URL[] theAntURLs)
-    {
-        String[] jarPaths = new String[theAntURLs.length];
-        for (int i = 0; i < theAntURLs.length; i++)
-        {
-            jarPaths[i] = theAntURLs[i].getFile();
-        }
-        return jarPaths;
-    }
-
-    /**
      * @param theDescriptor the plug-in descriptor to get libraries from
      * @param thePackagePrefix package prefix used to filter libraries 
      * @return an array of jar paths exposed by the plug-in
      */
     private IClasspathEntry[] getLibrariesPaths(
-        IPluginDescriptor theDescriptor,
-        String thePackagePrefix)
+        IPluginDescriptor theDescriptor, String thePackagePrefix)
     {
         Vector result = new Vector();
         URL root = theDescriptor.getInstallURL();
@@ -245,9 +230,7 @@ public class JettyCactusLaunchConfiguration
      * @param theCurrentLib the library in which the prefix will be searched 
      * @return true if the library declares the given package prefix
      */
-    private boolean isContained(
-        String thePackagePrefix,
-        ILibrary theCurrentLib)
+    private boolean isContained(String thePackagePrefix, ILibrary theCurrentLib)
     {
         String[] prefixes = theCurrentLib.getPackagePrefixes();
         for (int i = 0; i < prefixes.length; i++)
