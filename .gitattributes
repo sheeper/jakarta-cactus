@@ -333,6 +333,7 @@ integration/eclipse/org.apache.cactus.eclipse.runner/.cvsignore svn_keywords=Aut
 integration/eclipse/org.apache.cactus.eclipse.runner/.project svn_keywords=Author+Date+Id+Revision
 integration/eclipse/org.apache.cactus.eclipse.runner/DEV-README.txt svn_keywords=Author+Date+Id+Revision
 integration/eclipse/org.apache.cactus.eclipse.runner/README.txt svn_keywords=Author+Date+Id+Revision
+integration/eclipse/org.apache.cactus.eclipse.runner/build-eclipse.properties svn_keywords=Author+Date+Id+Revision
 integration/eclipse/org.apache.cactus.eclipse.runner/build.properties.sample svn_keywords=Author+Date+Id+Revision
 integration/eclipse/org.apache.cactus.eclipse.runner/build.xml svn_keywords=Author+Date+Id+Revision
 integration/eclipse/org.apache.cactus.eclipse.runner/icons/calaunch.gif -text
@@ -359,6 +360,7 @@ integration/eclipse/org.apache.cactus.eclipse.webapp/.classpath svn_keywords=Aut
 integration/eclipse/org.apache.cactus.eclipse.webapp/.classpath.sample svn_keywords=Author+Date+Id+Revision
 integration/eclipse/org.apache.cactus.eclipse.webapp/.cvsignore svn_keywords=Author+Date+Id+Revision
 integration/eclipse/org.apache.cactus.eclipse.webapp/.project svn_keywords=Author+Date+Id+Revision
+integration/eclipse/org.apache.cactus.eclipse.webapp/build-eclipse.properties svn_keywords=Author+Date+Id+Revision
 integration/eclipse/org.apache.cactus.eclipse.webapp/build.properties.sample svn_keywords=Author+Date+Id+Revision
 integration/eclipse/org.apache.cactus.eclipse.webapp/build.xml svn_keywords=Author+Date+Id+Revision
 integration/eclipse/org.apache.cactus.eclipse.webapp/plugin.properties svn_keywords=Author+Date+Id+Revision
