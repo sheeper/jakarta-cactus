@@ -127,6 +127,7 @@
         <echo message="servlet.jar = ${servlet.jar}"/>
         <echo message="junit.jar = ${junit.jar}"/>
         <echo message="httpclient.jar = ${httpclient.jar}"/>
+        <echo message="log4j.jar = ${log4j.jar}"/>
 
         <!-- Filters -->
         <filter token="version" value="${project.version}"/>
@@ -379,7 +380,7 @@
             <classpath>
                 <pathelement location="${servlet.jar}"/>
 
-                <!-- Will be ignore if log4j.jar is not defined -->
+                <!-- Will be ignored if log4j.jar is not defined -->
                 <pathelement location="${log4j.jar}"/>
 
                 <pathelement location="${cactus.jar}"/>
