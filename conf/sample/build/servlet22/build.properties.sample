@@ -10,7 +10,7 @@ cactus.jar = ../lib/commons-cactus.jar
 cactus.ant.jar = ../lib/commons-cactus-ant.jar
 
 # Junit jar (needed by Cactus)
-junit.jar = f:/applis/jakarta-ant-1.4alpha/lib/junit.jar
+junit.jar = f:/applis/jakarta-ant-1.4/lib/junit.jar
 
 # Commons HttpClient class (needed by Cactus)
 httpclient.jar=../lib/commons-httpclient.jar
