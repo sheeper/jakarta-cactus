@@ -8,7 +8,7 @@
   <body>
 
     <release version="1.8dev" date="in CVS">
-      <action dev="felipeal" type="fix" due-to="Brett Porter" issue="CACTUS-197">
+      <action dev="felipeal" type="fix" issue="CACTUS-197">
         Added support for <code>ear.bundle.name</code> and
         <code>ear.bundle.dir</code> properties.
       </action>
