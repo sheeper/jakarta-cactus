@@ -12,10 +12,7 @@
   </description>
 
   <cvs repository="jakarta"/>
-
-  <!-- Note: The order of the projects is important as they depend upon
-  	   each other -->
-  	   
+ 	   
   <!--
      ========================================================================
        Build the Cactus Ant Tasks
@@ -254,6 +251,7 @@
     <depend project="xml-xerces"/>
     <depend project="jakarta-tomcat" inherit="runtime"/>
     <depend project="aspectj"/>
+    <depend project="jakarta-cactus-integration-ant"/>
 
     <work nested="samples/servlet/target-13/sample/target/classes/java"/>
     <work nested="samples/servlet/target-13/sample/target/classes/cactus"/>
@@ -310,6 +308,7 @@
     <depend project="xml-xerces"/>
     <depend project="jakarta-tomcat-4.0" inherit="runtime"/>
     <depend project="aspectj"/>
+    <depend project="jakarta-cactus-integration-ant"/>
 
     <work nested="samples/servlet/target-13/sample/target/classes/java"/>
     <work nested="samples/servlet/target-13/sample/target/classes/cactus"/>
