@@ -162,7 +162,7 @@ public class WarBuilder
      */
     public File createWar(IProgressMonitor thePM) throws CoreException
     {
-        thePM.subTask("Packaging the WAR file");
+        thePM.subTask("Creating the WAR file");
         File testWar = null;
         try
         {
@@ -214,6 +214,7 @@ public class WarBuilder
         {
             webFilesDir.delete();
         }
+        thePM.done();
         return testWar;
     }
 }

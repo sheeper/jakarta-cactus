@@ -145,7 +145,7 @@ public class GenericAntProvider implements IContainerProvider
     public void start(ContainerInfo theContainerInfo, IProgressMonitor thePM)
         throws CoreException
     {
-        thePM.subTask("Starting container");
+        thePM.subTask("Starting the container");
         String[] targets = getMasked("start.");
         AntRunner runner = createAntRunner(targets);
         StartServerHelper startHelper = new StartServerHelper(runner);
@@ -174,6 +174,7 @@ public class GenericAntProvider implements IContainerProvider
         startHelper.setTestURL(testURL);
         startHelper.setProgressMonitor(thePM);
         startHelper.execute();
+        thePM.done();
     }
 
     /**
@@ -193,7 +194,7 @@ public class GenericAntProvider implements IContainerProvider
         antArguments.add("-Dcontext.path=" + theContextPath);
         String[] targets = getMasked("prepare.");
         createAntRunner(targets).run(thePM);
-
+        thePM.done();
     }
 
     /**
@@ -205,9 +206,8 @@ public class GenericAntProvider implements IContainerProvider
         IProgressMonitor thePM)
         throws CoreException
     {
-        thePM.subTask("Undeploying the container");
         String[] targets = { "clean" };
-        createAntRunner(targets).run();
+        createAntRunner(targets).run(/*thePM*/);
     }
 
     /**
@@ -216,9 +216,8 @@ public class GenericAntProvider implements IContainerProvider
     public void stop(ContainerInfo theContainerInfo, IProgressMonitor thePM)
         throws CoreException
     {
-        thePM.subTask("Stopping the container");
         String[] targets = getMasked("stop.");
-        createAntRunner(targets).run(thePM);
+        createAntRunner(targets).run(/*thePM*/);
     }
 
     /**
