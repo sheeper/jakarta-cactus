@@ -57,6 +57,12 @@
       </devs>
 
       <release version="1.5" date="- in CVS">
+        <action dev="CML" type="add">
+          Added a new custom Ant task (WebXmlMerge) that merges the content of
+          two web deployment descriptors into one. That includes the
+          definitions of filters and servlets, as well as some security-related
+          elements.
+        </action>
         <action dev="VMA" type="add">
           Allows creating Cactus TestCase without the need for a constructor 
           that takes a String parameter (a default constructor is good enough).
