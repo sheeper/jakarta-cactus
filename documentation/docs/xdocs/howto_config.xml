@@ -370,7 +370,7 @@
 
         <p>
           Since Cactus 1.4, we have switched to using the
-          <link href="http://jakarta.apache.org/commons/logging">Jakarta
+          <link href="http://jakarta.apache.org/commons/logging.html">Jakarta
           Commons Logging</link> framework for Cactus internal logs (and any
           log you may wish to output as part of your test).
         </p>
