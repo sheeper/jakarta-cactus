@@ -5,7 +5,7 @@
   <properties>
     <title>Ant Integration</title>
     <authors>
-      <author name="Vincent Massol" email="vmassol@apache.org"/>
+      <author name="Christopher Lenz" email="cmlenz@apache.org"/>
     </authors>
   </properties>
 
