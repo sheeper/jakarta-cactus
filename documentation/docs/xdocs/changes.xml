@@ -48,6 +48,14 @@
     </devs>
 
     <release version="1.3 in CVS">
+      <action dev="VMA" type="update">
+        Improved Cactus logging. Cactus logging is now enabled by a
+        <code>cactus.enableLogging=true</code> property that needs to be either
+        defined in <code>cactus.properties</code> (which also needs to be part
+        of the server WAR if you wish to turn on logging on the server side) or
+        by using a java parameter (<code>-Dcactus.enableLogging=true</code>).
+        If Log4J is not in the classpath, then logging is disabled.
+      </action>
       <action dev="VMA" type="add">
         Added a <link href="news.html">"News"</link> page with all news and
         events regarding Cactus. It is also supposed to act as a history page.

@@ -65,8 +65,7 @@
          is not set
        ========================================================================
     -->
-    <target name="check.test.tomcat.32" depends="testwar"
-        unless="tomcat.home.32">
+    <target name="check.test.tomcat.32" unless="tomcat.home.32">
 
         <echo message=""/>
         <echo message="******************************************************"/>
@@ -83,7 +82,7 @@
        ========================================================================
     -->
     <target name="prepare.test.tomcat.32"
-        depends="check.test.tomcat.32,prepare.test" if="tomcat.home.32">
+        depends="check.test.tomcat.32,testwar" if="tomcat.home.32">
 
         <echo message="tomcat.home.32 = ${tomcat.home.32}"/>
 

@@ -74,7 +74,7 @@
          is not set
        ========================================================================
     -->
-    <target name="check.test.resin.20" depends="testwar" unless="resin.home.20">
+    <target name="check.test.resin.20" unless="resin.home.20">
 
         <echo message=""/>
         <echo message="******************************************************"/>
@@ -91,7 +91,7 @@
        ========================================================================
     -->
     <target name="prepare.test.resin.20"
-        depends="check.test.resin.20,prepare.test" if="resin.home.20">
+        depends="check.test.resin.20,testwar" if="resin.home.20">
 
         <echo message="resin.home.20 = ${resin.home.20}"/>
 

@@ -63,7 +63,7 @@
          is not set
        ========================================================================
     -->
-    <target name="check.test.orion.14" depends="testwar" unless="orion.home.14">
+    <target name="check.test.orion.14" unless="orion.home.14">
 
         <echo message=""/>
         <echo message="******************************************************"/>
@@ -80,7 +80,7 @@
        ========================================================================
     -->
     <target name="prepare.test.orion.14"
-        depends="check.test.orion.14,prepare.test" if="orion.home.14">
+        depends="check.test.orion.14,testwar" if="orion.home.14">
 
         <echo message="orion.home.14 = ${orion.home.14}"/>
 

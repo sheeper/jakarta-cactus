@@ -378,7 +378,7 @@
 
     </target>
 
-    <target name="testwar" depends="compile,prepare.testwar.log4j">
+    <target name="testwar" depends="compile,prepare.testwar.log4j,prepare.test">
 
         <!-- Gather libraries in a place where they can be copied in the
              war -->
@@ -399,6 +399,7 @@
             <!-- log_server.properties need to be in the server classpath -->
             <classes dir="${conf.test.dir}">
                 <include name="log_server.properties"/>
+                <include name="cactus.properties"/>
             </classes>
 
             <!-- We need to copy all dependent jar in the war. This is

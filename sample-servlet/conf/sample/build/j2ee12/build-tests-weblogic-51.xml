@@ -75,8 +75,7 @@
          is not set
        ========================================================================
     -->
-    <target name="check.test.weblogic.51" depends="testwar"
-        unless="weblogic.home.51">
+    <target name="check.test.weblogic.51" unless="weblogic.home.51">
 
         <echo message=""/>
         <echo message="******************************************************"/>
@@ -93,7 +92,7 @@
        ========================================================================
     -->
     <target name="prepare.test.weblogic.51"
-        depends="check.test.weblogic.51,prepare.test" if="weblogic.home.51">
+        depends="check.test.weblogic.51,testwar" if="weblogic.home.51">
 
         <echo message="weblogic.home.51 = ${weblogic.home.51}"/>
 

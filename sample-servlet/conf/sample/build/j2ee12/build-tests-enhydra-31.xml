@@ -66,8 +66,7 @@
          is not set
        ========================================================================
     -->
-    <target name="check.test.enhydra.31" depends="testwar"
-        unless="enhydra.home.31">
+    <target name="check.test.enhydra.31" unless="enhydra.home.31">
 
         <echo message=""/>
         <echo message="******************************************************"/>
@@ -84,7 +83,7 @@
        ========================================================================
     -->
     <target name="prepare.test.enhydra.31"
-        depends="check.test.enhydra.31,prepare.test" if="enhydra.home.31">
+        depends="check.test.enhydra.31,testwar" if="enhydra.home.31">
 
         <echo message="enhydra.home.31 = ${enhydra.home.31}"/>
 

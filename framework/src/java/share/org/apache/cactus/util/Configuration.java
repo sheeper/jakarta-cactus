@@ -54,23 +54,21 @@
  * <http://www.apache.org/>.
  *
  */
-package org.apache.cactus.client;
+package org.apache.cactus.util;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 
-import org.apache.cactus.util.ChainedRuntimeException;
-
 /**
- * Provides acces to the client side Cactus configuration.
+ * Provides acces to the Cactus configuration.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
  */
-public class ClientConfiguration
+public class Configuration
 {
     /**
      * Name of the Cactus configuration file if cactus is to look for it in
@@ -84,6 +82,13 @@ public class ClientConfiguration
      * put in the classpath.
      */
     private static final String CONFIG_PROPERTY = "cactus.config";
+
+    /**
+     * Name of property in Cactus configuration file that enables Cactus
+     * logging.
+     */
+    private static final String ENABLE_LOGGING_PROPERTY =
+        "cactus.enableLogging";
 
     /**
      * Properties file holding configuration data for Cactus.
@@ -164,4 +169,12 @@ public class ClientConfiguration
             getConfiguration().getString("cactus.filterRedirectorName");
     }
 
+    /**
+     * @return true if logging is enabled or false otherwise.
+     */
+    public static boolean isLoggingEnabled()
+    {
+        return (new Boolean(getConfiguration().
+            getString(ENABLE_LOGGING_PROPERTY)).booleanValue());
+    }
 }

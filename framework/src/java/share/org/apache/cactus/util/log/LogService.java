@@ -58,8 +58,10 @@ package org.apache.cactus.util.log;
 
 import java.net.URL;
 import java.util.Hashtable;
+import java.util.MissingResourceException;
 
 import org.apache.log4j.PropertyConfigurator;
+import org.apache.cactus.util.Configuration;
 
 /**
  * Logging service acting as a wrapper around the Jakarta Log4j logging
@@ -72,6 +74,13 @@ import org.apache.log4j.PropertyConfigurator;
 public class LogService
 {
     /**
+     * Name of property that enables Cactus logging if passed as a System
+     * property.
+     */
+    private static final String ENABLE_LOGGING_PROPERTY =
+        "cactus.enableLogging";
+
+    /**
      * List of <code>Log</code> instances (i.e. <code>Category</code>
      * objects for Log4j) indexed on the category's name.
      */
@@ -83,31 +92,9 @@ public class LogService
     private boolean isInitialized = false;
 
     /**
-     * Is Log4j in the classpath ?
-     */
-    private boolean isLog4jInClasspath = false;
-
-    /**
      * The singleton's unique instance
      */
     private static LogService instance;
-
-    /**
-     * Initialization
-     */
-    private LogService()
-    {
-        // Check if Log4j is in the classpath. If not, use a dummy
-        // implementation that does nothing. This is to make it easy on user
-        // who do not want to have to download log4j and put it in their
-        // classpath !
-        this.isLog4jInClasspath = true;
-        try {
-            Class.forName("org.apache.log4j.PropertyConfigurator");
-        } catch (ClassNotFoundException e) {
-            this.isLog4jInClasspath = false;
-        }
-    }
 
     /**
      * @return the unique singleton instance
@@ -138,7 +125,7 @@ public class LogService
 
         if (theFileName != null) {
 
-            if (this.isLog4jInClasspath) {
+            if (isLoggingEnabled()) {
 
                 URL url = this.getClass().getResource(theFileName);
                 if (url != null) {
@@ -160,6 +147,49 @@ public class LogService
     }
 
     /**
+     * @return true if logging is enabled or false otherwise.
+     */
+    private boolean isLoggingEnabled()
+    {
+        boolean isLoggingEnabled = false;
+
+        // 1 - Checks if a ENABLE_LOGGING_PROPERTY System property exist and
+        //     if it is set to "true"
+        // 2 - Checks if logging has been enabled in Cactus configuration
+        //     file
+
+        String value = System.getProperty(ENABLE_LOGGING_PROPERTY);
+        if ((value != null) && (value.equalsIgnoreCase("true"))) {
+            isLoggingEnabled = true;
+        } else {
+            try {
+                isLoggingEnabled = Configuration.isLoggingEnabled();
+            } catch (MissingResourceException e) {
+                // ignored. It simply means that the cactus configuration file
+                // has not been defined or is not in the classpath.
+            }
+        }
+
+        // 3 - If logging is turned on but log4j is not on the classpath, do
+        //     not do anything.
+        return isLoggingEnabled && isLog4jInClasspath();
+    }
+
+    /**
+     * @return true if Log4J is in the classpath, false otherwise.
+     */
+    private boolean isLog4jInClasspath()
+    {
+        boolean isLog4jInClasspath = false;
+        try {
+            Class.forName("org.apache.log4j.PropertyConfigurator");
+            isLog4jInClasspath = true;
+        } catch (ClassNotFoundException e) {
+        }
+        return isLog4jInClasspath;
+    }
+
+    /**
      * @param theCategoryName the category's name. Usually, it is the full
      *        name of the class being logged, including the package name
      * @return the <code>Log</code> instance associated with the specified
@@ -176,14 +206,13 @@ public class LogService
 
         if (log == null) {
 
-            if (this.isLog4jInClasspath) {
+            if (isLoggingEnabled()) {
                 log = new BaseLog(theCategoryName);
             } else {
                 log = new BaseLogDummy();
             }
 
             this.logCategories.put(theCategoryName, log);
-
         }
 
         return log;
