@@ -18,22 +18,18 @@
 
         junit.jar             [REQUIRED] The path to the JUnit jar file
     
-        stylebook.jar         [OPTIONAL] The path to the Stylebook jar file.
-                              Required only for the dependencies target
+        stylebook.jar         [REQUIRED] The path to the Stylebook jar file.
 
-        xerces.jar            [OPTIONAL] The path to the Xerces jar file.
-                              Required only for the dependencies target
+        xerces.jar            [REQUIRED] The path to the Xerces jar file.
            
-        xalan.jar             [OPTIONAL] The path to the Xalan jar file.
-                              Required only for the dependencies target
+        xalan.jar             [REQUIRED] The path to the Xalan jar file.
 
-        crimson.jar           [OPTIONAL] The path to the Crimson jar file.
-                              Required only for the dependencies target
+        crimson.jar           [REQUIRED] The path to the Crimson jar file.
 
         dist.dir              [OPTIONAL] The directories where distributable
                               files will be copied with version number
                               postfixed. Required for the dist target only.
-                              Default is out/dist
+                              Default is <root>/dist
              
     Additionally and depending on the servlet engines whith which you wish to
     run your tests, you'll need to set the following properties :
