@@ -59,32 +59,28 @@ package org.apache.cactus.client.connector.http;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
-
 import java.util.Enumeration;
 
 import org.apache.cactus.WebRequest;
 
 /**
- * Common helper methods for implementing <code>ConnectionHelper</code>. These
- * methods are common to any implementation.
+ * Utility methods to manipulate HTTP requests.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  * @version $Id$
+ * @since 1.5
  */
-public abstract class AbstractConnectionHelper
-    implements ConnectionHelper
+public class HttpUtil
 {
     /**
-     * Add the HTTP parameters that need to be passed in the query string of
-     * the URL.
+     * Add HTTP GET parameters to the URL passed as parameter.
      *
-     * @param theRequest the request containing all data to pass to the server
-     *        redirector.
-     * @param theURL the URL used to connect to the server redirector.
-     * @return the new URL
+     * @param theRequest the request containing the HTTP GET parameters to add
+     * @param theURL the URL that will be enriched with the HTTP GET parameters
+     * @return the enriched URL
      * @exception MalformedURLException if the URL is malformed
      */
-    protected URL addParametersGet(WebRequest theRequest, URL theURL)
+    public static URL addHttpGetParameters(WebRequest theRequest, URL theURL)
         throws MalformedURLException
     {
         // If no parameters, then exit

@@ -86,7 +86,7 @@ import org.apache.commons.httpclient.protocol.Protocol;
  *
  * @version $Id$
  */
-public class HttpClientConnectionHelper extends AbstractConnectionHelper
+public class HttpClientConnectionHelper implements ConnectionHelper
 {
     /**
      * The <code>HttpMethod</code> used to connect to the HTTP server. It is
@@ -126,7 +126,7 @@ public class HttpClientConnectionHelper extends AbstractConnectionHelper
         }
 
         // Add the parameters that need to be passed as part of the URL
-        url = addParametersGet(theRequest, url);
+        url = HttpUtil.addHttpGetParameters(theRequest, url);
 
         // Choose the method that we will use to post data :
         // - If at least one parameter is to be sent in the request body, then
@@ -161,7 +161,7 @@ public class HttpClientConnectionHelper extends AbstractConnectionHelper
         }
         else
         {
-            addParametersPost(theRequest);
+            addHttpPostParameters(theRequest);
         }
 
         // Add the cookies
@@ -187,7 +187,7 @@ public class HttpClientConnectionHelper extends AbstractConnectionHelper
      * @param theRequest the request containing all data to pass to the server
      *        redirector.
      */
-    private void addParametersPost(WebRequest theRequest)
+    private void addHttpPostParameters(WebRequest theRequest)
     {
         // If no parameters, then exit
         if (!theRequest.getParameterNamesPost().hasMoreElements())

@@ -85,7 +85,7 @@ import org.apache.commons.logging.LogFactory;
  *
  * @version $Id$
  */
-public class JdkConnectionHelper extends AbstractConnectionHelper
+public class JdkConnectionHelper implements ConnectionHelper
 {
     /**
      * The logger
@@ -133,7 +133,7 @@ public class JdkConnectionHelper extends AbstractConnectionHelper
         }
 
         // Add the parameters that need to be passed as part of the URL
-        url = addParametersGet(theRequest, url);
+        url = HttpUtil.addHttpGetParameters(theRequest, url);
 
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
@@ -178,7 +178,7 @@ public class JdkConnectionHelper extends AbstractConnectionHelper
         }
         else
         {
-            addParametersPost(theRequest, connection);
+            addHttpPostParameters(theRequest, connection);
         }
 
 
@@ -230,7 +230,7 @@ public class JdkConnectionHelper extends AbstractConnectionHelper
      *        redirector.
      * @param theConnection the HTTP connection
      */
-    private void addParametersPost(WebRequest theRequest, 
+    private void addHttpPostParameters(WebRequest theRequest, 
                                    URLConnection theConnection)
     {
         // If no parameters, then exit

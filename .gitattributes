@@ -204,12 +204,12 @@ framework/src/java/share/org/apache/cactus/client/authentication/AbstractAuthent
 framework/src/java/share/org/apache/cactus/client/authentication/Authentication.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/client/authentication/BasicAuthentication.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/client/authentication/package.html svn_keywords=Author+Date+Id+Revision
-framework/src/java/share/org/apache/cactus/client/connector/http/AbstractConnectionHelper.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/client/connector/http/AutoReadHttpURLConnection.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/client/connector/http/ConnectionHelper.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/client/connector/http/ConnectionHelperFactory.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/client/connector/http/DefaultHttpClient.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/client/connector/http/HttpClientConnectionHelper.java svn_keywords=Author+Date+Id+Revision
+framework/src/java/share/org/apache/cactus/client/connector/http/HttpUtil.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/client/connector/http/JdkConnectionHelper.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/client/connector/http/package.html svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/client/initialization/ClientInitializer.java svn_keywords=Author+Date+Id+Revision
