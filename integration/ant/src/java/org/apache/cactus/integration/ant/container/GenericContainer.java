@@ -190,12 +190,12 @@ public class GenericContainer extends AbstractContainer
      * @return The new hook element
      * @throws BuildException If a startup hook has already been added
      */
-    public final Hook createStartup() throws BuildException
+    public final Hook createStartUp() throws BuildException
     {
-        if (this.startUpHook != null)
+        if (isStartUpSet())
         {
             throw new BuildException("The container element supports only one"
-                + "nested startup element");
+                + "nested [startup] element");
         }
         this.startUpHook = new Hook();
         return this.startUpHook;
@@ -207,15 +207,37 @@ public class GenericContainer extends AbstractContainer
      * @return The new hook element
      * @throws BuildException If a shutdown hook has already been added
      */
-    public final Hook createShutdown() throws BuildException
+    public final Hook createShutDown() throws BuildException
     {
-        if (this.shutDownHook != null)
+        if (isShutDownSet())
         {
             throw new BuildException("The container element supports only one"
-                + "nested shutdown element");
+                + "nested [shutdown] element");
         }
         this.shutDownHook = new Hook();
         return this.shutDownHook;
+    }
+
+    /**
+     * Returns whether a way to start the container has already been set, either
+     * as a target, or as a nested task container.
+     * 
+     * @return <code>true</code> if the shut down procedure has been set
+     */
+    public boolean isShutDownSet()
+    {
+        return (this.shutDownHook != null);
+    }
+
+    /**
+     * Returns whether a way to stop the container has already been set, either
+     * as a target, or as a nested task container.
+     * 
+     * @return <code>true</code> if the start up procedure has been set
+     */
+    public boolean isStartUpSet()
+    {
+        return (this.startUpHook != null);
     }
 
     /**
@@ -236,6 +258,38 @@ public class GenericContainer extends AbstractContainer
     public final void setPort(int thePort)
     {
         this.port = thePort;
+    }
+
+    /**
+     * Sets the target to call to start the server.
+     *
+     * @param theStartTarget the Ant target to call
+     */
+    public void setStartUpTarget(String theStartUpTarget)
+    {
+        if (isStartUpSet())
+        {
+            throw new BuildException("Either specify the [startuptarget] "
+                + "attribute or the nested [startup] element, but not both");
+        }
+        this.startUpHook = new Hook();
+        this.startUpHook.setTarget(theStartUpTarget);
+    }
+
+    /**
+     * Sets the target to call to stop the server.
+     *
+     * @param theStopTarget the Ant target to call
+     */
+    public void setShutDownTarget(String theShutDownTarget)
+    {
+        if (isShutDownSet())
+        {
+            throw new BuildException("Either specify the [shutdowntarget] "
+                + "attribute or the nested [shutdown] element, but not both");
+        }
+        this.shutDownHook = new Hook();
+        this.shutDownHook.setTarget(theShutDownTarget);
     }
 
     // AbstractContainer Implementation ----------------------------------------
