@@ -35,4 +35,4 @@ eclipse.ui.workbench.jar = ${eclipse.home}/plugins/org.eclipse.ui.workbench_2.1.
 # Use the Junit support jar from Eclipse 2.1 M5 after 2002-02-07. This is 
 # needed for our Eclipse Plugin as the JUnit plugin has been patched for us
 # at that date.
-eclipse.jdt.junit.jar = lib/junitsupport-2.1.0dev.jar
+eclipse.jdt.junit.jar = integration/eclipse/lib/junitsupport-2.1.0dev.jar
