@@ -70,7 +70,7 @@
       <release version="1.6dev" date="in CVS">
       </release>
       
-      <release version="1.5-rc1" date="24 October 2003">
+      <release version="1.5-rc1" date="26 October 2003">
         <action dev="VMA" type="fix" fixes-bug="23604" due-to="Norbert Pabis" due-to-email="npabis@astercity.net">
           The Cactus Ant integration now reports the HTTP error code when it 
           fails to start the container and timeouts. It was previously doing 
