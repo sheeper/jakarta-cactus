@@ -81,12 +81,12 @@ public abstract class AbstractAuthentication
     /**
      * User name part of the Credential
      */
-    private String name;
+    protected String name;
 
     /**
      * Password part of the Credential
      */
-    private String password;
+    protected String password;
 
     /**
      * @param theName user name of the Credential
