@@ -132,11 +132,22 @@ public class TestServletTestCaseOverrideRedirector extends ServletTestCase
 
     //-------------------------------------------------------------------------
 
+    /**
+     * Verify that it is possible to set back the original redirector
+     * again.
+     *
+     * @param theRequest the request object that serves to initialize the
+     *                   HTTP connection to the server redirector.
+     */
     public void beginRedirectorOverride2(WebRequest theRequest)
     {
         theRequest.setRedirectorName("ServletRedirector");
     }
 
+    /**
+     * Verify that it is possible to set back the original redirector
+     * again.
+     */
     public void testRedirectorOverride2()
     {
         assertEquals("value1 used for testing", 
@@ -145,6 +156,10 @@ public class TestServletTestCaseOverrideRedirector extends ServletTestCase
 
     //-------------------------------------------------------------------------
 
+    /**
+     * Verify that when no redirector is overriden the default redirector
+     * is the expected one.
+     */
     public void testRedirectorOverride3()
     {
         assertEquals("value1 used for testing", 
