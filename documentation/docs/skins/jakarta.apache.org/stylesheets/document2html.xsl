@@ -805,7 +805,9 @@
         </xsl:for-each>
       </td>
       <td>
-        <xsl:value-of select="msg"/>
+        <xsl:call-template name="br-replace">
+          <xsl:with-param name="word" select="msg"/>
+        </xsl:call-template>
       </td>
     </tr>
   </xsl:template>
@@ -944,4 +946,23 @@
     </xsl:choose>
   </xsl:template>
   
+  <!-- ==================================================================== -->
+  <!-- Converts a carriage return into a br tag -->
+  <!--  ==================================================================== -->
+  <xsl:template name="br-replace">
+    <xsl:param name="word"/>
+    <xsl:choose>
+      <xsl:when test="contains($word,'&#xA;')">
+        <xsl:value-of select="substring-before($word,'&#xA;')"/>
+        <br/>
+        <xsl:call-template name="br-replace">
+          <xsl:with-param name="word" select="substring-after($word,'&#xA;')"/>
+        </xsl:call-template>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="$word"/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+
 </xsl:stylesheet>
