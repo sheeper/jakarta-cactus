@@ -48,11 +48,13 @@
         <ant antfile="integration/ant/build.xml" inheritAll="false" 
             target="release">
             <property name="j2ee.jar" value="${j2ee.12.jar}"/> 
+            <property name="clover.enable" value="true"/> 
         </ant>
 
         <ant antfile="integration/ant/build.xml" inheritAll="false" 
             target="release">
             <property name="j2ee.jar" value="${j2ee.13.jar}"/> 
+            <property name="clover.enable" value="true"/> 
         </ant>
 
         <ant antfile="integration/eclipse/org.apache.cactus.eclipse.webapp/build.xml" 
