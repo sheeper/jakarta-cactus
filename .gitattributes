@@ -81,6 +81,10 @@ docs/framework/xdocs/features.xml svn_keywords=Author+Date+Id+Revision
 docs/framework/xdocs/getting_started.xml svn_keywords=Author+Date+Id+Revision
 docs/framework/xdocs/goals.xml svn_keywords=Author+Date+Id+Revision
 docs/framework/xdocs/how_it_works.xml svn_keywords=Author+Date+Id+Revision
+docs/framework/xdocs/howto_ant.xml svn_keywords=Author+Date+Id+Revision
+docs/framework/xdocs/howto_ant_cactus.xml svn_keywords=Author+Date+Id+Revision
+docs/framework/xdocs/howto_ant_install.xml svn_keywords=Author+Date+Id+Revision
+docs/framework/xdocs/howto_ant_primer.xml svn_keywords=Author+Date+Id+Revision
 docs/framework/xdocs/howto_config.xml svn_keywords=Author+Date+Id+Revision
 docs/framework/xdocs/howto_httpunit.xml svn_keywords=Author+Date+Id+Revision
 docs/framework/xdocs/images/add.jpg -text

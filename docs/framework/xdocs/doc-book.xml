@@ -39,15 +39,18 @@
 
   <menu label="Howto Guides">
     <menu-item label="Config Howto" source="howto_config.xml"/>
-    <!--menu-item label="Ant Howto" source="howto_ant.xml"/-->
+
+    <!-- Ant tutorial -->
+    <menu-item label="Ant Howto" source="howto_ant.xml"/>
+    <menu-item type="hidden" source="howto_ant_cactus.xml"/>
+    <menu-item type="hidden" source="howto_ant_install.xml"/>
+    <menu-item type="hidden" source="howto_ant_primer.xml"/>
+
     <menu-item label="HttpUnit Howto" source="howto_httpunit.xml"/>
-    <menu-item label="Installing Ant" source="installation_ant.xml"/>
     <menu-item label="Installing Sample" source="installation_sample.xml"/>
     <menu-item label="Writing Test Case" source="using.xml"/>
     <!--menu-item label="Reference Manual" source="reference_manual.xml"/-->
     <menu-item label="Servlet Sample" source="sample_servlet.xml"/>
-    <menu-item label="Ant integration" source="ant.xml"/>
-    <menu-item label="Servlet Engines" source="servlets.xml"/>
     <menu-item label="VAJava Config" source="ide_vajava.xml"/>
     <menu-item label="JBuilder4 Config" source="ide_jbuilder.xml"/>
   </menu>
