@@ -48,22 +48,9 @@
         Fix the Jetty build to be at the same quality standard
         as the other builds.
       </action>
-      <action>
-        Add a Gump definition for building the Eclipse Site project
-        and only released an installed Eclipse update web site (no
-        zips). Same as what is on 
-        http://dev.eclipse.org/viewcvs/indextech.cgi/~checkout~/org.eclipse.ajdt/download.html.
-      </action>
     </category>
 
     <category title="Design/Code">
-      <action>
-        Modify the Eclipse plugin to use the new Ant integration.
-      </action>
-      <action>
-        Enhance the <code>runservertests</code> task to accept nested
-        <code>&lt;containerset&gt;</code> elements.
-      </action>
     </category>
     
   </version>
@@ -81,6 +68,12 @@
     </category>
 
     <category title="Build Process">
+      <action>
+        Add a Gump definition for building the Eclipse Site project
+        and only released an installed Eclipse update web site (no
+        zips). Same as what is on 
+        http://dev.eclipse.org/viewcvs/indextech.cgi/~checkout~/org.eclipse.ajdt/download.html.
+      </action>
       <action assigned-to="Jason Van Zyl">
         Move Cactus to Maven.
       </action>
@@ -94,6 +87,13 @@
     </category>
     
     <category title="Design/Code">
+      <action>
+        Modify the Eclipse plugin to use the new Ant integration.
+      </action>
+      <action>
+        Enhance the <code>runservertests</code> task to accept nested
+        <code>&lt;containerset&gt;</code> elements.
+      </action>
       <action assigned-to="Hudson Wong, Vincent Massol">
         Add an EJB sample application to demonstrate how to perform EJB
         unit testing.
