@@ -17,7 +17,9 @@
                               API
 
         junit.jar             [REQUIRED] The path to the JUnit jar file
-    
+
+        log4j.jar             [REQUIRED] The path to the Log4j jar file
+
         stylebook.jar         [REQUIRED] The path to the Stylebook jar file.
 
         xerces.jar            [REQUIRED] The path to the Xerces jar file.
