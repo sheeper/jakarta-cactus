@@ -41,8 +41,9 @@
                               Required for bundling it in the distribution
                               (used in build-servletapi.xml).
 
-        aspectjrt.jar         [REQUIRED] The path to the AspectJ runtime jar. It is used by Cactus
-                              for logging entries and exit of methods, configuration checking, ...)
+        aspectjrt.jar         [REQUIRED] The path to the AspectJ runtime jar.
+                              It is used by Cactus for logging entries and
+                              exit of methods, configuration checking, ...)
 
         dist.dir              [OPTIONAL] The directories where distributable
                               files will be copied with version number
@@ -341,7 +342,12 @@
             file="${conf.dir}/manifest-ant"/>
 
         <jar jarfile="${final.jar.ant.name}" basedir="${out.classes.ant.dir}"
-            manifest="${out.conf.ant.dir}/manifest"/>
+            manifest="${out.conf.ant.dir}/manifest">
+
+            <metainf dir=".">
+                <include name="LICENSE"/>
+            </metainf>
+        </jar>
 
     </target>
 

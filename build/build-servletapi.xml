@@ -341,6 +341,10 @@
 
         <jar jarfile="${final.jar.name}" manifest="${out.conf.dir}/manifest">
 
+            <metainf dir=".">
+                <include name="LICENSE"/>
+            </metainf>
+
             <fileset dir="${out.classes.dir}">
                 <!-- Do not include test files in the runtime jar -->
                 <exclude name="**/Test*.*"/>

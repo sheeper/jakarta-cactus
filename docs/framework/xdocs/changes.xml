@@ -127,6 +127,10 @@
     </devs>
 
     <release version="1.3 in CVS">
+      <action dev="VMA" type="add">
+        Added LICENSE file to all Cactus jars, in <code>META-INF/</code>
+        directory.
+      </action>
       <action dev="VMA" type="fix" due-to="Larry Isaacs" due-to-email="Larry.Isaacs@sas.com">
         Improved Tomcat 3.3 configuration that is bundled with the Cactus
         sample application.
