@@ -269,6 +269,7 @@ public class StartServerHelper implements Runnable
 
             while (-1 != is.read(buf))
             {
+                // Make sure we read all the data in the stream
             }
         }
     }
