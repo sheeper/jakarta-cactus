@@ -323,6 +323,7 @@
       <depend property="eclipse.jface.jar" project="eclipse" id="jface"/>
       <depend property="eclipse.swt.jar" project="eclipse" id="swt"/>
       <depend property="eclipse.ui.workbench.jar" project="eclipse" id="workbench"/>
+      <depend property="eclipse.ui.externaltools.jar" project="eclipse" id="externaltools"/>
       
     </ant>
   
@@ -369,6 +370,7 @@
       <depend property="eclipse.jface.jar" project="eclipse" id="jface"/>
       <depend property="eclipse.swt.jar" project="eclipse" id="swt"/>
       <depend property="eclipse.ui.workbench.jar" project="eclipse" id="workbench"/>
+      <depend property="eclipse.ui.externaltools.jar" project="eclipse" id="externaltools"/>
 
     </ant>
     
