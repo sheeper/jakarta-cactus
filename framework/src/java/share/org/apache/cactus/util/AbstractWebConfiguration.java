@@ -78,7 +78,7 @@ public abstract class AbstractWebConfiguration extends BaseConfiguration
     }
 
     /**
-     * @see WebConfiguration#getRedirectorURL()
+     * @see WebConfiguration#getRedirectorURL(WebRequest)
      */
     public String getRedirectorURL(WebRequest theRequest)
     {
@@ -86,7 +86,7 @@ public abstract class AbstractWebConfiguration extends BaseConfiguration
     }
 
     /**
-     * @see WebConfiguration#getRedirectorName()
+     * @see WebConfiguration#getRedirectorName(WebRequest)
      */
     public String getRedirectorName(WebRequest theRequest)
     {
