@@ -228,7 +228,7 @@
 
     <mkdir dir="${target.testreports.dir}"/>
 
-    <junit fork="no" failureproperty="tests.failed">
+    <junit fork="yes" failureproperty="tests.failed">
       <sysproperty key="cactus.contextURL"
           value="http://localhost:${cactus.port}/test"/>
       <sysproperty key="cactus.jetty.resourceDir" file="${src.webapp.dir}"/>
@@ -239,6 +239,7 @@
         <path refid="cactus.classpath"/>
         <pathelement location="${target.classes.java.dir}"/>
         <pathelement location="${target.classes.cactus.dir}"/>
+        <pathelement location="${java.home}/../lib/tools.jar"/>
       </classpath>
       <formatter type="brief" usefile="false"/>
       <formatter type="xml"/>
