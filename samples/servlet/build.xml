@@ -294,7 +294,8 @@ be resolved. Please check you build.properties file, and run Ant with the
          Run the full suite of tests on all defined containers.
        ========================================================================
     -->
-    <target name="test.prepare">
+    <target name="test.prepare"
+        depends="sample">
 
         <condition property="test.cactus.jar" value="${cactus.clover.jar}">
             <isset property="clover.enable"/>
@@ -311,7 +312,7 @@ be resolved. Please check you build.properties file, and run Ant with the
     </target>
     
     <target name="test" 
-        depends="prepare.dist, test.prepare"
+        depends="test.prepare"
         description="Run the tests on all defined servers">
 
         <ant dir="${target.sample.dir}" target="test">
@@ -346,26 +347,14 @@ be resolved. Please check you build.properties file, and run Ant with the
          Generate the distributable files
        ========================================================================
     -->
-    <!-- This target is there simply so that we can zip the sample application
-         before it is run, as this will generate temporary files that we do
-         not want in the zip -->
-    <target name="prepare.dist" depends="sample">
+    <target name="dist" depends="checkstyle, test"
+        description="Generate the distributable files">
 
         <mkdir dir="${dist.bin.dir}"/>
 
         <copy todir="${dist.bin.dir}/${project.name.file}">
             <fileset dir="${target.sample.dir}"/>
         </copy>
-
-    </target>
-
-    <target name="dist" depends="checkstyle, prepare.dist, test"
-        description="Generate the distributable files">
-
-        <zip destfile="${dist.bin.dir}/${project.name.file}.zip">
-            <zipfileset dir="${dist.bin.dir}/${project.name.file}" 
-                prefix="${project.name.file}"/>
-        </zip>
 
     </target>
 

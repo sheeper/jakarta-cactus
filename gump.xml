@@ -409,10 +409,10 @@
     <work nested="samples/servlet/target-12/test/classes/java"/>
     <work nested="samples/servlet/target-12/test/classes/cactus"/>
 
-    <!-- Note: The sample project delivers a zip, not a jar. However, we
-    	need to put a <jar> entry so that dependent project will get a 
-    	PREREQ failure if this build was not successful -->
-    <jar name="samples/servlet/dist-12/bin/cactus-sample-servlet.zip"/>
+    <!-- Note: The servlet-sample does not deliver a jar. However, we
+         need to put a <jar> entry so that dependent project will get a 
+         PREREQ failure if this build was not successful -->
+    <jar name="samples/servlet/dist-12/bin/cactus-sample-servlet"/>
 
     <license name="LICENSE.cactus"/>
 
@@ -471,10 +471,10 @@
     <work nested="samples/servlet/target-13/test/classes/java"/>
     <work nested="samples/servlet/target-13/test/classes/cactus"/>
 
-    <!-- Note: The sample project delivers a zip, not a jar. However, we
-    	need to put a <jar> entry so that dependent project will get a 
-    	PREREQ failure if this build was not successful -->
-    <jar name="samples/servlet/dist-13/bin/cactus-sample-servlet.zip"/>
+    <!-- Note: The servlet-sample does not deliver a jar. However, we
+         need to put a <jar> entry so that dependent project will get a 
+         PREREQ failure if this build was not successful -->
+    <jar name="samples/servlet/dist-13/bin/cactus-sample-servlet"/>
 
     <license name="LICENSE.cactus"/>
 
