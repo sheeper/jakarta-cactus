@@ -201,11 +201,14 @@
       <depend property="log4j.jar" project="jakarta-log4j" id="log4j"/>
       <depend property="commons.logging.jar" project="commons-logging" id="all"/>
       <depend property="commons.httpclient.jar" project="commons-httpclient"/>
-      <depend property="httpunit.jar" project="httpunit"/>
       <depend property="aspectjrt.jar" project="aspectj" id="aspectjrt"/>
       <depend property="junit.jar" project="junit"/>
       <depend property="cactus.framework.jar" project="jakarta-cactus-framework-12"/>
       <depend property="cactus.anttasks.jar" project="jakarta-cactus-anttasks"/>
+      <depend property="httpunit.jar" project="httpunit"/>
+      <depend property="nekohtml.jar" project="nekohtml" id="nekohtml"/>
+      <depend property="xerces.jar" project="xml-xerces" id="parser"/>
+      <depend property="xmlapis.jar" project="xml-xerces" id="apis"/>
 
     </ant>
   
@@ -247,11 +250,14 @@
       <depend property="log4j.jar" project="jakarta-log4j" id="log4j"/>
       <depend property="commons.logging.jar" project="commons-logging" id="all"/>
       <depend property="commons.httpclient.jar" project="commons-httpclient"/>
-      <depend property="httpunit.jar" project="httpunit"/>
       <depend property="aspectjrt.jar" project="aspectj" id="aspectjrt"/>
       <depend property="junit.jar" project="junit"/>
       <depend property="cactus.framework.jar" project="jakarta-cactus-framework-13"/>
       <depend property="cactus.anttasks.jar" project="jakarta-cactus-anttasks"/>
+      <depend property="httpunit.jar" project="httpunit"/>
+      <depend property="nekohtml.jar" project="nekohtml" id="nekohtml"/>
+      <depend property="xerces.jar" project="xml-xerces" id="parser"/>
+      <depend property="xmlapis.jar" project="xml-xerces" id="apis"/>
 
     </ant>
   
