@@ -63,6 +63,7 @@ import org.apache.cactus.integration.ant.deployment.WarArchive;
 import org.apache.cactus.integration.ant.deployment.WebXml;
 import org.apache.cactus.integration.ant.deployment.WebXmlVersion;
 import org.apache.tools.ant.BuildException;
+import org.apache.tools.ant.Project;
 
 /**
  * Unit tests for {@link CactifyWarTask}.
@@ -353,6 +354,27 @@ public final class TestCactifyWarTask extends AntTestCase
         assertTrue("The filter redirector should not have been defined",
             !webXml.getFilterNamesForClass(
                 "org.apache.cactus.server.FilterTestRedirector").hasNext());
+    }
+
+    /**
+     * TODO
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
+    public void testNoDuplicateJars() throws Exception
+    {
+        executeTestTarget();
+
+        assertMessageLogged("The AspectJ Runtime JAR is already present in the "
+            + "WAR", Project.MSG_VERBOSE);
+        assertMessageLogged("The Cactus Framework JAR is already present in "
+            + "the WAR", Project.MSG_VERBOSE);
+        assertMessageLogged("The Commons-Logging JAR is already present in the "
+            + "WAR", Project.MSG_VERBOSE);
+        assertMessageLogged("The Commons-HttpClient JAR is already present in "
+            + "the WAR", Project.MSG_VERBOSE);
+        assertMessageLogged("The JUnit JAR is already present in the WAR",
+            Project.MSG_VERBOSE);
     }
 
     // Private Methods ---------------------------------------------------------

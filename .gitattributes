@@ -392,6 +392,7 @@ integration/ant/src/scripts/share/build-tests-weblogic6x.xml svn_keywords=Author
 integration/ant/src/scripts/share/build-tests-weblogic7x.xml svn_keywords=Author+Date+Id+Revision
 integration/ant/src/test-input/org/apache/cactus/integration/ant/cactified.ear -text
 integration/ant/src/test-input/org/apache/cactus/integration/ant/cactified.war -text
+integration/ant/src/test-input/org/apache/cactus/integration/ant/containscactusjars.war -text
 integration/ant/src/test-input/org/apache/cactus/integration/ant/deployment/containsclass.jar -text
 integration/ant/src/test-input/org/apache/cactus/integration/ant/deployment/containsclass.war -text
 integration/ant/src/test-input/org/apache/cactus/integration/ant/deployment/containsclasslib.war -text

@@ -74,6 +74,11 @@
     </cactifywar>
   </target>
 
+  <target name="testNoDuplicateJars">
+    <cactifywar srcfile="containscactusjars.war"
+        destfile="${work.dir}/destfile.war"/>
+  </target>
+
   <target name="tearDown">
     <delete dir="${work.dir}"/>
   </target>

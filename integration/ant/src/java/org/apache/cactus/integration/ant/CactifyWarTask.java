@@ -360,13 +360,21 @@ public class CactifyWarTask extends War
      */
     private void addCactusJars()
     {
-        addJarWithClass("org.aspectj.lang.JoinPoint", "AspectJ Runtime");
-        addJarWithClass("org.apache.cactus.ServletTestCase",
-            "Cactus Framework");
-        addJarWithClass("org.apache.commons.logging.Log", "Commons-Logging");
-        addJarWithClass("org.apache.commons.httpclient.HttpClient",
-            "Commons-HttpClient");
-        addJarWithClass("junit.framework.TestCase", "JUnit");
+        try
+        {
+            addJarWithClass("org.aspectj.lang.JoinPoint", "AspectJ Runtime");
+            addJarWithClass("org.apache.cactus.ServletTestCase",
+                "Cactus Framework");
+            addJarWithClass("org.apache.commons.logging.Log",
+                "Commons-Logging");
+            addJarWithClass("org.apache.commons.httpclient.HttpClient",
+                "Commons-HttpClient");
+            addJarWithClass("junit.framework.TestCase", "JUnit");
+        }
+        catch (IOException ioe)
+        {
+            throw new BuildException("An I/O error occurred", ioe);
+        }
     }
 
     /**
@@ -376,13 +384,26 @@ public class CactifyWarTask extends War
      * @param theClassName The name of the class that the JAR contains
      * @param theDescription A description of the JAR that should be displayed
      *        to the user in log messages
+     * @throws IOException If there is a problem reading the source WAR to find
+     *         out about already present libraries
      */
     private void addJarWithClass(String theClassName, String theDescription)
+        throws IOException
     {
         // TODO: only add a JAR if the source WAR doesn't already contain an
         // equivalent JAR. We'd probably determine equivalence by looking at the
         // 'Extension-Name' attributes in the JARs MANIFESTs
         String resourceName = "/" + theClassName.replace('.', '/') + ".class";
+        if (this.srcFile != null)
+        {
+            WarArchive srcWar = new WarArchive(srcFile);
+            if (srcWar.containsClass(theClassName))
+            {
+                log("The " + theDescription + " JAR is already present in "
+                    + "the WAR", Project.MSG_VERBOSE);
+                return;
+            }
+        }
         ZipFileSet jar = new ZipFileSet();
         File file = ResourceUtils.getResourceLocation(resourceName);
         if (file != null)
