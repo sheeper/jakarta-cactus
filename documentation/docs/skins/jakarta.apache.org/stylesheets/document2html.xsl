@@ -95,7 +95,7 @@
 
       <body text="{$body-fg}" link="#525D76" vlink="{$body-link}" 
         alink="{$body-link}" topmargin="4" leftmargin="4" 
-        marginwidth="4" marginheight="4" bgcolor="${banner-fg}">
+        marginwidth="4" marginheight="4" bgcolor="{$banner-fg}">
 
         <!-- ============================================================== -->
         <!-- Top level header -->
