@@ -80,10 +80,6 @@
           <code>@since Cactus 1.6</code>.
         </action>
         <action>
-          Cleanly separate what is public API from what isn't. Also
-          use the final keyword to improve future extensibility.
-        </action>
-        <action>
           Modify the Eclipse plugin to use the new Ant integration.
         </action>
         <action>
