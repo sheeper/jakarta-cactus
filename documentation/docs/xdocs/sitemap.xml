@@ -20,6 +20,11 @@
     Cactus release changelogs and list of all the web site pages that
     have been recently changed.
   </resource>
+
+  <resource id="changes_archive" target="changes_archive.html" 
+      name="Changes archive">
+    Archives of older Cactus release changes.
+  </resource>
   
   <resource id="features" target="features.html" name="Features">
     Cactus feature list.
