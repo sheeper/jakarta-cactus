@@ -135,9 +135,8 @@
                 <@j2ee13.begin@available file="${standard.jar}"/@j2ee13.end@>
            </and>
         </condition>
-        <fail message="Missing property or property pointing to an invalid file
-                       (check your build.properties file)"
-             unless="properties.ok"/>
+        <fail unless="properties.ok">Missing property or property pointing to an invalid file
+(check your build.properties file)</fail>
 
         <taskdef resource="cactus.tasks" classpathref="cactus.classpath"/>
 
