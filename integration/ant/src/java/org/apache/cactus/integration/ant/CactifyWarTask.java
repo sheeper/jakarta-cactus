@@ -688,15 +688,15 @@ public class CactifyWarTask extends War
             WebXml webXml = war.getWebXml();
             if (webXml == null)
             {
-                throw new BuildException(
-                    "The source file does not contain a deployment descriptor");
+                throw new BuildException("The WAR source file does not "
+                    + "contain a WEB-INF/web.xml deployment descriptor");
             }
             return webXml;
         }
         catch (SAXException e)
         {
             throw new BuildException(
-                "Parsing of deployment descriptor failed", e);
+                "Parsing of web.xml deployment descriptor failed", e);
         }
         catch (IOException e)
         {

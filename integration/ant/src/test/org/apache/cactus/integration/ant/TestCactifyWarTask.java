@@ -124,8 +124,9 @@ public final class TestCactifyWarTask extends AntTestCase
         }
         catch (BuildException expected)
         {
-            assertEquals("The source file does not contain a deployment "
-                + "descriptor", expected.getMessage());
+            assertEquals("The WAR source file does not contain a "
+                + "WEB-INF/web.xml deployment descriptor", 
+                expected.getMessage());
         }
     }
 
