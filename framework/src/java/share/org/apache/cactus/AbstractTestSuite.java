@@ -108,7 +108,7 @@ public abstract class AbstractTestSuite implements Test
         {
             // Avoid generating multiple error messages
             constructor = theClass.getConstructor(
-                new Class[] { String.class });
+                new Class[] {String.class});
         }
         catch (NoSuchMethodException e)
         {
@@ -179,7 +179,7 @@ public abstract class AbstractTestSuite implements Test
         {
             theNames.addElement(name);
 
-            Object[] args = new Object[] { name };
+            Object[] args = new Object[] {name};
             try
             {
                 // Note: We wrap the Test in a Cactus Test Case
