@@ -102,7 +102,7 @@ public class Configuration
      *
      * @return the cactus configuration as a <code>ResourceBundle</code>.
      */
-    private static final ResourceBundle getConfiguration()
+    protected static final ResourceBundle getConfiguration()
     {
         if (config == null) {
             // Has the user passed the location of the cactus configuration file
@@ -128,45 +128,10 @@ public class Configuration
 
     /**
      * @return the context URL under which our application to test runs.
-     * @throw MissingResourceException if the property defining the context
-     *        is missing.
      */
     public static String getContextURL()
     {
         return getConfiguration().getString("cactus.contextURL");
-    }
-
-    /**
-     * @return the Servlet redirector
-     * @throw MissingResourceException if the property defining the servlet
-     *        redirector is missing.
-     */
-    public static String getServletRedirectorURL()
-    {
-        return getContextURL() + "/" +
-            getConfiguration().getString("cactus.servletRedirectorName");
-    }
-
-    /**
-     * @return the JSP redirector
-     * @throw MissingResourceException if the property defining the JSP
-     *        redirector is missing.
-     */
-    public static String getJspRedirectorURL()
-    {
-        return getContextURL() + "/" +
-            getConfiguration().getString("cactus.jspRedirectorName");
-    }
-
-    /**
-     * @return the Filter redirector
-     * @throw MissingResourceException if the property defining the Filter
-     *        redirector is missing.
-     */
-    public static String getFilterRedirectorURL()
-    {
-        return getContextURL() + "/" +
-            getConfiguration().getString("cactus.filterRedirectorName");
     }
 
     /**

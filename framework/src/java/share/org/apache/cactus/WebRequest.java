@@ -94,7 +94,7 @@ import org.apache.cactus.util.ChainedRuntimeException;
  *
  * @version $Id$
  */
-public class WebRequest
+public class WebRequest implements Request
 {
     /**
      * The request parameters that need to be sent in the body (POST)

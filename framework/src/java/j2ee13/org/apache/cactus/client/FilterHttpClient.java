@@ -57,7 +57,7 @@
 package org.apache.cactus.client;
 
 import org.apache.cactus.WebRequest;
-import org.apache.cactus.util.Configuration;
+import org.apache.cactus.util.FilterConfiguration;
 
 /**
  * Manage the logic for calling the Servlet redirector for executing a test on
@@ -82,10 +82,10 @@ public class FilterHttpClient extends AbstractHttpClient
 
         // Check if user has overriden the servlet redirector
         if (theRequest.getRedirectorName() != null) {
-            url = Configuration.getContextURL() + "/" +
+            url = FilterConfiguration.getContextURL() + "/" +
                 theRequest.getRedirectorName();
         } else {
-            url = Configuration.getFilterRedirectorURL();
+            url = FilterConfiguration.getFilterRedirectorURL();
         }
 
         return url;

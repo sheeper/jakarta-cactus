@@ -54,41 +54,23 @@
  * <http://www.apache.org/>.
  *
  */
-package org.apache.cactus.client;
-
-import org.apache.cactus.WebRequest;
-import org.apache.cactus.util.ServletConfiguration;
+package org.apache.cactus.util;
 
 /**
- * Manage the logic for calling the Servlet redirector for executing a test on
- * the server side.
+ * Provides acces to Servlet specific configuration parameters.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
  */
-public class ServletHttpClient extends AbstractHttpClient
+public class ServletConfiguration extends Configuration
 {
     /**
-     * Return the redirector URL to connect to.
-     *
-     * @param theRequest Request data from the user. We need it here as the user
-     *        may have chosen to override the default redirector.
-     * @return the URL to call the redirector
+     * @return the Servlet redirector
      */
-    protected String getRedirectorURL(WebRequest theRequest)
+    public static String getServletRedirectorURL()
     {
-        String url;
-
-        // Check if user has overriden the servlet redirector
-        if (theRequest.getRedirectorName() != null) {
-            url = ServletConfiguration.getContextURL() + "/" +
-                theRequest.getRedirectorName();
-        } else {
-            url = ServletConfiguration.getServletRedirectorURL();
-        }
-
-        return url;
+        return getContextURL() + "/" +
+            getConfiguration().getString("cactus.servletRedirectorName");
     }
-
 }

@@ -68,7 +68,10 @@ import org.apache.cactus.util.log.LogService;
 
 /**
  * Abstract class that is a thin layer on top of JUnit and that knows about
- * test cases that are executed on the server side.
+ * test cases that are executed on the server side. This class is independent
+ * of the protocol used to communicate from the Cactus client side and the
+ * Cactus server side; it can be HTTP, JMS, etc. Subclasses will define
+ * additional behaviour that depends on the protocol.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *

@@ -57,7 +57,7 @@
 package org.apache.cactus.client;
 
 import org.apache.cactus.WebRequest;
-import org.apache.cactus.util.Configuration;
+import org.apache.cactus.util.JspConfiguration;
 
 /**
  * Manage the logic for calling the JSP redirector for executing a test on
@@ -82,10 +82,10 @@ public class JspHttpClient extends AbstractHttpClient
 
         // Check if user has overriden the servlet redirector
         if (theRequest.getRedirectorName() != null) {
-            url = Configuration.getContextURL() + "/" +
+            url = JspConfiguration.getContextURL() + "/" +
                 theRequest.getRedirectorName();
         } else {
-            url = Configuration.getJspRedirectorURL();
+            url = JspConfiguration.getJspRedirectorURL();
         }
 
         return url;
