@@ -198,8 +198,11 @@
         <ant target="dist" antfile="framework/build.xml"
             inheritAll="false">
 
-            <property file="build.properties" />
-            <property file="${user.home}/build.properties" />
+            <!-- j2ee.jar property is needed here as it is overriden in the
+                 build-admin.xml and we need to propagate it -->
+            <property name="j2ee.jar" value="${j2ee.jar}"/>
+            <property file="build.properties"/>
+            <property file="${user.home}/build.properties"/>
 
         </ant>
 
@@ -211,8 +214,11 @@
          <ant target="dist" antfile="sample-servlet/build.xml"
             inheritAll="false">
 
-            <property file="build.properties" />
-            <property file="${user.home}/build.properties" />
+             <!-- j2ee.jar property is needed here as it is overriden in the
+                  build-admin.xml and we need to propagate it -->
+            <property name="j2ee.jar" value="${j2ee.jar}"/>
+            <property file="build.properties"/>
+            <property file="${user.home}/build.properties"/>
 
         </ant>
 
