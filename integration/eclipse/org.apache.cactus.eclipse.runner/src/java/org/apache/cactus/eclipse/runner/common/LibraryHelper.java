@@ -60,7 +60,10 @@ import java.io.File;
 import java.net.URL;
 
 import org.apache.cactus.eclipse.runner.ui.CactusPlugin;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.jdt.core.IClasspathEntry;
+import org.eclipse.jdt.core.JavaCore;
 
 /**
  * Helper class for library access.
@@ -78,11 +81,11 @@ public class LibraryHelper
     /**
      * Name of the common libraries folder
      */
-    private static final String CACTUS_COMMON_LIBRARY_PATH = "common";
+    private static final String CACTUS_COMMON_LIBRARY_PATH = "/common";
     /**
      * Name of the client libraries folder
      */
-    private static final String CACTUS_CLIENT_LIBRARY_PATH = "client";
+    private static final String CACTUS_CLIENT_LIBRARY_PATH = "/client";
 
     /**
      * Returns an array of jar paths contained
@@ -90,41 +93,140 @@ public class LibraryHelper
      * @param theDirectory the directory to list jars from
      * @return an array of jar paths
      */
-    private static String[] getJarPaths(File theDirectory)
+    private static IPath[] getJarPathArray(File theDirectory)
     {
         File[] files = theDirectory.listFiles(new JarFilenameFilter());
-        String[] fileNames = new String[files.length];
+        IPath[] result = new IPath[files.length];
         for (int i = 0; i < files.length; i++)
         {
-            fileNames[i] = files[i].getAbsolutePath();
+            result[i] = new Path(files[i].getAbsolutePath());
         }
-        return fileNames;
+        return result;
     }
 
     /**
-     * @return an array of jar paths contained in the client dir
+     * @return an IPath array of the jar files in client lib directory
      */
-    public static String[] getClientJarPaths()
+    private static IPath[] getClientJarPathArray()
     {
         CactusPlugin thePlugin = CactusPlugin.getDefault();
-        URL clientLibURL =
-            thePlugin.find(
-                new Path(CACTUS_LIBRARY_PATH + CACTUS_CLIENT_LIBRARY_PATH));
-        File clientLibDir = new File(clientLibURL.getPath());
-        return getJarPaths(clientLibDir);
+        File clientLibDir = getClientLibPath().toFile();
+        return getJarPathArray(clientLibDir);
     }
 
     /**
-     * @return an array of jar paths contained in the common dir
+     * @return an IPath array of the jar files in client lib directory
      */
-    public static String[] getCommonJarPaths()
+    private static IPath[] getCommonJarPathArray()
     {
         CactusPlugin thePlugin = CactusPlugin.getDefault();
-        URL commonLibURL =
-            thePlugin.find(
-                new Path(CACTUS_LIBRARY_PATH + CACTUS_COMMON_LIBRARY_PATH));
-        File commmonLibDir = new File(commonLibURL.getPath());
-        return getJarPaths(commmonLibDir);
+        File commmonLibDir = getCommonLibPath().toFile();
+        return getJarPathArray(commmonLibDir);
     }
 
+    /**
+     * @return an array of IClasspathEntry contained in the client dir
+     */
+    public static IClasspathEntry[] getClientEntries()
+    {
+        IPath[] clientJars = getClientJarPathArray();
+        IClasspathEntry[] result = new IClasspathEntry[clientJars.length];
+        for (int i = 0; i < clientJars.length; i++)
+        {
+            result[i] = getIClasspathEntry(clientJars[i]);
+        }
+        return result;
+    }
+
+    /**
+     * @return an array of IClasspathEntry contained in the common dir
+     */
+    public static IClasspathEntry[] getCommonEntries()
+    {
+        IPath[] commonJars = getCommonJarPathArray();
+        IClasspathEntry[] result = new IClasspathEntry[commonJars.length];
+        for (int i = 0; i < commonJars.length; i++)
+        {
+            result[i] =  getIClasspathEntry(commonJars[i]);
+        }
+        return result;
+    }
+
+    /**
+     * @return an array of IClasspathEntry contained in the common dir
+     */
+    public static IClasspathEntry[] getClientSideEntries()
+    {
+        IClasspathEntry[] clientEntries = getClientEntries();
+        IClasspathEntry[] commonEntries = getCommonEntries();
+        return concatenateEntries(clientEntries, commonEntries);
+    }
+
+    /**
+     * Concatenate two IClasspathEntry arrays.
+     * 
+     * @param theArray1 the first array
+     * @param theArray2 the second array
+     * @return an IClasspathEntry array containing the first array
+     *         followed by the second one
+     */
+    public static IClasspathEntry[] concatenateEntries(
+        IClasspathEntry[] theArray1,
+        IClasspathEntry[] theArray2)
+    {
+        IClasspathEntry[] newArray =
+            new IClasspathEntry[theArray1.length + theArray2.length];
+        System.arraycopy(theArray1, 0, newArray, 0, theArray1.length);
+        System.arraycopy(
+            theArray2,
+            0,
+            newArray,
+            theArray1.length,
+            theArray2.length);
+        return newArray;
+    }
+
+    /**
+     * @return the path to the library directory
+     */
+    private static IPath getLibPath()
+    {
+        CactusPlugin thePlugin = CactusPlugin.getDefault();
+        URL antLibURL = thePlugin.find(new Path(CACTUS_LIBRARY_PATH));
+        return new Path(antLibURL.getPath());
+    }
+
+    /**
+     * @return the path to the client library directory
+     */
+    private static IPath getClientLibPath()
+    {
+        return getLibPath().append(CACTUS_CLIENT_LIBRARY_PATH);
+    }
+
+    /**
+     * @return the path to the common library directory
+     */
+    private static IPath getCommonLibPath()
+    {
+        return getLibPath().append(CACTUS_COMMON_LIBRARY_PATH);
+    }
+
+    /**
+     * @param thePath path to convert to an IClasspathEntry
+     * @return the IClasspathEntry built from the given path
+     */
+    private static IClasspathEntry getIClasspathEntry(IPath thePath)
+    {
+        return JavaCore.newLibraryEntry(thePath, null, null);
+    }
+    
+    /**
+     * @param thePath path to convert to an IClasspathEntry
+     * @return the IClasspathEntry built from the given path
+     */
+    public static IClasspathEntry getIClasspathEntry(String thePath)
+    {
+        return getIClasspathEntry(new Path(thePath));
+    }
 }
