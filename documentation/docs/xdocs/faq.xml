@@ -48,6 +48,9 @@
           org.apache.commons.logging.impl.LogFactoryImpl" error when I use 
           a JUnit TestRunner different from TextTestRunner</jump>
         </li>
+        <li>
+          <jump anchor="faq9">How can I parametrize my Cactus tests?</jump>
+        </li>
       </ul>
     </section>
 
@@ -389,7 +392,56 @@ org.apache.cactus.AbstractTestCase.runBare(AbstractTestCase.java:188)
 	        <code>excluded.properties</code> file (see the JUnit FAQ).
 		  </p>
 		</section>
+	</section>
 
+    <anchor id="faq9"/>
+    <section title="How can I parametrize my Cactus tests?">
+
+      <section title="Question">
+        <p>
+          I would like to pass some configuration information to my
+          Cactus tests but without having to hardcode them in my tests.
+          Can I do this, and how?
+        </p>
+      </section>
+      <section title="Solution">
+        <p>
+          The easiest solution is to pass dynamic configuration 
+          information as System properties to Cactus. For example, if 
+          you have to pass a username and password as HTTP parameter to
+          your servletfor all your tests and you cannot control your 
+          environment by defining a test user, you could write the 
+          following:
+        </p>
+<source><![CDATA[           
+public void MyTest extends ServletTestCase
+{
+    public void begin(WebRequest request)
+    {
+        request.addParameter("username", System.getProperty("username"));
+        request.addParameter("password", System.getProperty("password"));
+    }
+    [...]
+}
+]]></source>
+        <p>
+          In order to pass the system properties to cactus you have 2 
+          options:
+        </p>
+        <ol>
+          <li>
+            Pass them on the command line that you use to start the JUnit 
+            Test Runner. If you're using the ServletTestRunner, then that 
+            would be on the command line that you use to start your 
+            container.
+          </li>
+          <li>
+            Add these properties in the <code>cactus.properties</code> file.
+            All properties found in this file are imported as System 
+            Properties during the Cactus initialization.
+          </li>
+        </ol>           
+      </section>
 	</section>
 
   </body>
