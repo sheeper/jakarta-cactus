@@ -73,6 +73,12 @@ import org.apache.commons.cactus.*;
 public class JspHttpClient extends AbstractHttpClient
 {
     /**
+     * Default URL to call the <code>jspRedirector</code> JSP.
+     */
+    protected final static String m_JspRedirectorURL = 
+        PropertyResourceBundle.getBundle("cactus").getString("cactus.jspRedirectorURL");
+
+    /**
      * Calls the test method indirectly by calling the Redirector JSP and
      * then open a second HTTP connection to the Servlet Redirector to retrieve
      * the test results.

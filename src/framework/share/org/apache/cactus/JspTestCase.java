@@ -60,8 +60,7 @@ import org.apache.commons.cactus.client.*;
 /**
  * Test classes that need access to valid JSP implicit objects (such as the
  * page context, the output jsp writer, the HTTP request, ...) must subclass
- * this class. It also provides support for <code>beginXXX</code> and
- * <code>endXXX()</code> methods.
+ * this class.
  *
  * @version @version@
  */

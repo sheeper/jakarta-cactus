@@ -66,28 +66,12 @@ import org.apache.commons.cactus.server.*;
 /**
  * Test classes that need access to valid Servlet implicit objects (such as the
  * the HTTP request, the HTTP response, the servlet config, ...) must subclass
- * this class. It also provides support for <code>beginXXX</code> and
- * <code>endXXX()</code> methods.
+ * this class.
  *
  * @version @version@
  */
-public class ServletTestCase extends TestCase
+public class ServletTestCase extends AbstractTestCase
 {
-    /**
-     * The prefix of a test method.
-     */
-    protected final static String TEST_METHOD_PREFIX = "test";
-
-    /**
-     * The prefix of a begin test method.
-     */
-    protected final static String BEGIN_METHOD_PREFIX = "begin";
-
-    /**
-     * The prefix of an end test method.
-     */
-    protected final static String END_METHOD_PREFIX = "end";
-
     /**
      * Valid <code>HttpServletRequest</code> object that you can access from
      * the <code>testXXX()</code>, <code>setUp</code> and <code>tearDown()</code>
@@ -125,15 +109,6 @@ public class ServletTestCase extends TestCase
     public ServletConfigWrapper config;
 
     /**
-     * The name of the current test method being executed. This name is valid
-     * both on the client side and on the server side, meaning you can call it
-     * from a <code>testXXX()</code>, <code>setUp()</code> or
-     * <code>tearDown()</code> method, as well as from <code>beginXXX()</code>
-     * and <code>endXXX()</code> methods.
-     */
-    public String currentTestMethod;
-
-    /**
      * Constructs a JUnit test case with the given name.
      *
      * @param theName the name of the test case
@@ -141,160 +116,6 @@ public class ServletTestCase extends TestCase
     public ServletTestCase(String theName)
     {
         super(theName);
-        currentTestMethod = name();
-    }
-
-    /**
-     * @return the name of the test method to call without the
-     *         TEST_METHOD_PREFIX prefix
-     */
-    private String getBaseMethodName()
-    {
-        // Sanity check
-        if (!name().startsWith(TEST_METHOD_PREFIX)) {
-            // qqq throw new InvalidMethodNameException
-            throw new RuntimeException("bad name [" + name() + "]. It should start with [" + TEST_METHOD_PREFIX + "].");
-        }
-
-        return name().substring(TEST_METHOD_PREFIX.length());
-    }
-
-    /**
-     * @return the name of the test begin method to call that initialize the
-     *         test by initializing the <code>ServletTestRequest</code> object
-     *         for the test case.
-     */
-    protected String getBeginMethodName()
-    {
-        return BEGIN_METHOD_PREFIX + getBaseMethodName();
-    }
-
-    /**
-     * @return the name of the test end method to call when the test has been
-     *         run on the server. It can be used to verify returned headers,
-     *         cookies, ...
-     */
-    protected String getEndMethodName()
-    {
-        return END_METHOD_PREFIX + getBaseMethodName();
-    }
-
-    /**
-     * Call the test case begin method
-     *
-     * @param theRequest the <code>ServletTestRequest</code> object to
-     *                   pass to the begin method.
-     */
-    protected void callBeginMethod(ServletTestRequest theRequest) throws Throwable
-    {
-        // First, verify if a begin method exist. If one is found, verify if
-        // it has the correct signature. If not, send a warning.
-        Method[] methods = getClass().getMethods();
-        for (int i = 0; i < methods.length; i++) {
-            if (methods[i].getName().equals(getBeginMethodName())) {
-
-                // Check return type
-                if (!methods[i].getReturnType().getName().equals("void")) {
-                    fail("The begin method [" + methods[i].getName() +
-                        "] should return void and not [" +
-                        methods[i].getReturnType().getName() + "]");
-                }
-
-                // Check if method is public
-                if (!Modifier.isPublic(methods[i].getModifiers())) {
-                   fail("Method [" + methods[i].getName() + "] should be declared public");
-                }
-
-                // Check parameters
-                Class[] parameters = methods[i].getParameterTypes();
-                if ((parameters.length != 1) || (!parameters[0].equals(ServletTestRequest.class))) {
-                    fail("The begin method [" + methods[i].getName() +
-                    "] must accept a single parameter of type [" +
-                    ServletTestRequest.class.getName() + "]");
-                }
-
-                try {
-
-                    methods[i].invoke(this, new Object[] { theRequest });
-
-                } catch (InvocationTargetException e) {
-                    e.fillInStackTrace();
-                    throw e.getTargetException();
-                }
-                catch (IllegalAccessException e) {
-                    e.fillInStackTrace();
-                    throw e;
-                }
-
-            }
-        }
-    }
-
-    /**
-     * Call the test case end method
-     *
-     * @param theConnection the <code>HttpURLConnection</code> that was used
-     *        to open the connection to the redirection servlet. The response
-     *        codes, headers, cookies can be checked using the get methods of
-     *        this object.
-     */
-    protected void callEndMethod(HttpURLConnection theConnection) throws Throwable
-    {
-        // First, verify if an end method exist. If one is found, verify if
-        // it has the correct signature. If not, send a warning.
-        Method[] methods = getClass().getMethods();
-        for (int i = 0; i < methods.length; i++) {
-            if (methods[i].getName().equals(getEndMethodName())) {
-
-                // Check return type
-                if (!methods[i].getReturnType().getName().equals("void")) {
-                    fail("The end method [" + methods[i].getName() +
-                        "] should return void and not [" +
-                        methods[i].getReturnType().getName() + "]");
-                }
-
-                // Check if method is public
-                if (!Modifier.isPublic(methods[i].getModifiers())) {
-                   fail("Method [" + methods[i].getName() + "] should be declared public");
-                }
-
-                // Check parameters
-                Class[] parameters = methods[i].getParameterTypes();
-                if ((parameters.length != 1) || (!parameters[0].equals(HttpURLConnection.class))) {
-                    fail("The end method [" + methods[i].getName() +
-                    "] must accept a single parameter of type [" +
-                    HttpURLConnection.class.getName() + "]");
-                }
-
-                try {
-
-                    methods[i].invoke(this, new Object[] { theConnection });
-
-                } catch (InvocationTargetException e) {
-                    e.fillInStackTrace();
-                    throw e.getTargetException();
-                }
-                catch (IllegalAccessException e) {
-                    e.fillInStackTrace();
-                    throw e;
-                }
-
-            }
-        }
-    }
-
-    /**
-     * Runs the bare test sequence. This method is overridden from the
-     * JUnit <code>TestCase</code> class in order to prevent the latter
-     * to call the <code>setUp()</code> and <code>tearDown()</code> methods
-     * which, in our case, need to be ran in the servlet engine by the
-     * servlet redirector class.
-     *
-     * @exception Throwable if any exception is thrown
-     */
-    public void runBare() throws Throwable
-    {
-        runTest();
     }
 
     /**
@@ -339,54 +160,5 @@ public class ServletTestCase extends TestCase
         connection.getInputStream().close();
         //connection.disconnect();
      }
-
-	/**
-	 * Run the test that was specified in the constructor on the server side,
-     * calling <code>setUp()</code> and <code>tearDown()</code>.
-	 */
-    public void runBareServerTest() throws Throwable
-    {
-		setUp();
-		try {
-            runServerTest();
-		}
-		finally {
-	        tearDown();
-		}
-	}
-
-	/**
-	 * Run the test that was specified in the constructor on the server side,
-	 */
-	protected void runServerTest() throws Throwable
-    {
-		Method runMethod= null;
-		try {
-			// use getMethod to get all public inherited
-			// methods. getDeclaredMethods returns all
-			// methods of this class but excludes the
-			// inherited ones.
-			runMethod = getClass().getMethod(currentTestMethod, new Class[0]);
-		} catch (NoSuchMethodException e) {
-            fail("Method [" + currentTestMethod +
-                "()] does not exist for class [" + 
-                this.getClass().getName() + "].");
-		}
-		if (runMethod != null && !Modifier.isPublic(runMethod.getModifiers())) {
-			fail("Method [" + currentTestMethod + "()] should be public");
-		}
-
-		try {
-			runMethod.invoke(this, new Class[0]);
-		}
-		catch (InvocationTargetException e) {
-			e.fillInStackTrace();
-			throw e.getTargetException();
-		}
-		catch (IllegalAccessException e) {
-			e.fillInStackTrace();
-			throw e;
-		}
-	}
 	
 }
