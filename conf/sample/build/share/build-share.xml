@@ -202,6 +202,7 @@
                 <pathelement location="${servlet.jar}"/>
                 <pathelement location="${cactus.jar}"/>
                 <pathelement location="${junit.jar}"/>
+                <pathelement location="${httpunit.jar}"/>
                 <pathelement path="${java.class.path}"/>
             </classpath>
 
@@ -384,6 +385,8 @@
                 <pathelement location="${cactus.jar}"/>
                 <pathelement location="${junit.jar}"/>
                 <pathelement location="${httpclient.jar}"/>
+                <pathelement location="${httpunit.jar}"/>
+                <pathelement location="${aspectjrt.jar}"/>
                 <pathelement location="${out.classes.dir}"/>
                 <pathelement path="${java.class.path}"/>
             </classpath>
@@ -418,6 +421,7 @@
         <copy tofile="${out.lib.dir}/junit.jar" file="${junit.jar}"/>
         <copy tofile="${out.lib.dir}/httpclient.jar" file="${httpclient.jar}"/>
         <copy tofile="${out.lib.dir}/cactus.jar" file="${cactus.jar}"/>
+        <copy tofile="${out.lib.dir}/aspectjrt.jar" file="${aspectjrt.jar}"/>
 
         <!-- Make sure the directory for the war exist -->
         <mkdir dir="${out.test.dir}"/>
