@@ -72,10 +72,66 @@
 
   <!--
      ========================================================================
+       Initialize filters used in copy operations
+     ========================================================================
+  -->
+  <target name="init.filters.clover" depends="init.common" if="clover.enable">
+
+    <filterset id="clover.enablement">
+      <filter token="clover.begin" value=""/>
+      <filter token="clover.end" value=""/>
+    </filterset>
+
+  </target>
+
+  <target name="init.filters.noclover" depends="init.common" unless="clover.enable">
+
+    <filterset id="clover.enablement">
+      <filter token="clover.begin" value="!-- "/>
+      <filter token="clover.end" value=" --"/>
+    </filterset>
+
+  </target>
+
+  <target name="init.filters" depends="init.filters.clover, init.filters.noclover">
+
+    <!-- Copy scripts -->
+    <basename property="servlet.jar.name" file="${servlet.jar}"/>
+    <basename property="aspectjrt.jar.name" file="${aspectjrt.jar}"/>
+    <basename property="commons.httpclient.jar.name"
+        file="${commons.httpclient.jar}"/>
+    <basename property="commons.logging.jar.name"
+        file="${commons.logging.jar}"/>
+    <basename property="httpunit.jar.name" file="${httpunit.jar}"/>
+    <basename property="junit.jar.name" file="${junit.jar}"/>
+    <basename property="jetty.jar.name" file="${jetty.jar}"/>
+    <basename property="jasper-compiler.jar.name" file="${jasper-compiler.jar}"/>
+    <basename property="jasper-runtime.jar.name" file="${jasper-runtime.jar}"/>
+
+    <filterset id="jar.names">
+      <filter token="cactus.jar.name" value="${cactus.jar.name}.jar"/>
+      <filter token="servlet.jar.name" value="${servlet.jar.name}"/>
+      <filter token="aspectjrt.jar.name" value="${aspectjrt.jar.name}"/>
+      <filter token="commons.httpclient.jar.name"
+          value="${commons.httpclient.jar.name}"/>
+      <filter token="commons.logging.jar.name"
+          value="${commons.logging.jar.name}"/>
+      <filter token="httpunit.jar.name" value="${httpunit.jar.name}"/>
+      <filter token="junit.jar.name" value="${junit.jar.name}"/>
+      <filter token="jetty.jar.name" value="${jetty.jar.name}"/>
+      <filter token="jasper-compiler.jar.name"
+          value="${jasper-compiler.jar.name}"/>
+      <filter token="jasper-runtime.jar.name" value="${jasper-runtime.jar.name}"/>
+    </filterset>
+
+  </target>
+
+  <!--
+     ========================================================================
        Initialize the build. Must be called by all targets
      ========================================================================
   -->
-  <target name="init" depends="init.common, properties">
+  <target name="init" depends="init.common, init.filters, properties">
 
     <echo>Dependencies:</echo>
     <echo>  aspectjrt.jar = [${aspectjrt.jar}]</echo>
@@ -85,7 +141,6 @@
     <echo>  httpunit.jar = [${httpunit.jar}]</echo>
     <echo>  servlet.jar = [${servlet.jar}]</echo>
     <echo>  junit.jar = [${junit.jar}]</echo>
-    <echo>  nekohtml.jar = [${nekohtml.jar}]</echo>
     <echo>  jetty.jar = [${jetty.jar}]</echo>
     <echo>  jasper-compiler.jar = [${jasper-compiler.jar}]</echo>
     <echo>  jasper-runtime.jar = [${jasper-runtime.jar}]</echo>
@@ -93,6 +148,8 @@
     <echo>  xmlapis.jar (optional) = [${xmlapis.jar}]</echo>
     <echo/>
     <echo>Options:</echo>
+    <echo>  clover.enable = ${clover.enable}</echo>
+    <echo>  clover.jar = [${clover.jar}]</echo>
     <echo>  cactus.port = ${cactus.port}</echo>
 
     <condition property="properties.ok">
@@ -107,7 +164,6 @@
         <available file="${jasper-compiler.jar}"/>
         <available file="${jasper-runtime.jar}"/>
         <available file="${junit.jar}"/>
-        <available file="${nekohtml.jar}"/>
         <!-- Check for a JAXP class instead of the xmlapis.jar file so that
              the build works on JDK 1.4 without needing to define the
              xmlapis.jar property -->
@@ -118,6 +174,17 @@
              needing to define the xerces.jar property -->
         <available classname="org.apache.xml.serialize.XMLSerializer"
             classpath="${xerces.jar}"/>
+        <!-- Check that clover.jar points to a valid file if clover is 
+             enabled -->
+        <or>
+          <and>        
+            <isset property="clover.enable"/>
+            <available file="${clover.jar}"/>
+          </and>
+          <not>
+            <isset property="clover.enable"/>
+          </not>
+        </or>            
       </and>
     </condition>
 
@@ -175,33 +242,10 @@ be resolved. Please check you build.properties file, and run Ant with the
     </copy>
 
     <!-- Copy build file -->
-    <filter token="cactus.jar.name" value="${cactus.jar.name}.jar"/>
-    <basename property="servlet.jar.name" file="${servlet.jar}"/>
-    <filter token="servlet.jar.name" value="${servlet.jar.name}"/>
-    <basename property="junit.jar.name" file="${junit.jar}"/>
-    <filter token="junit.jar.name" value="${junit.jar.name}"/>
-    <basename property="commons.logging.jar.name"
-        file="${commons.logging.jar}"/>
-    <filter token="commons.logging.jar.name"
-        value="${commons.logging.jar.name}"/>
-    <basename property="commons.httpclient.jar.name"
-        file="${commons.httpclient.jar}"/>
-    <filter token="commons.httpclient.jar.name"
-        value="${commons.httpclient.jar.name}"/>
-    <basename property="aspectjrt.jar.name" file="${aspectjrt.jar}"/>
-    <filter token="aspectjrt.jar.name" value="${aspectjrt.jar.name}"/>
-    <basename property="httpunit.jar.name" file="${httpunit.jar}"/>
-    <filter token="httpunit.jar.name" value="${httpunit.jar.name}"/>
-    <basename property="jetty.jar.name" file="${jetty.jar}"/>
-    <filter token="jetty.jar.name" value="${jetty.jar.name}"/>
-    <basename property="jasper-compiler.jar.name"
-        file="${jasper-compiler.jar}"/>
-    <filter token="jasper-compiler.jar.name"
-        value="${jasper-compiler.jar.name}"/>
-    <basename property="jasper-runtime.jar.name" file="${jasper-runtime.jar}"/>
-    <filter token="jasper-runtime.jar.name" value="${jasper-runtime.jar.name}"/>
     <copy todir="${target.sample.dir}" filtering="on">
       <fileset dir="${src.script.dir}"/>
+      <filterset refid="clover.enablement"/>
+      <filterset refid="jar.names"/>
     </copy>
     
   </target>
@@ -211,8 +255,16 @@ be resolved. Please check you build.properties file, and run Ant with the
        Run the full suite of tests on all defined containers.
      ========================================================================
   -->
-  <target name="test"
-      depends="sample"
+  <target name="test.prepare" depends="sample">
+
+    <condition property="test.cactus.jar" value="${cactus.clover.jar}">
+      <isset property="clover.enable"/>
+    </condition>
+    <property name="test.cactus.jar" value="${cactus.jar}"/>
+
+  </target>
+
+  <target name="test" depends="test.prepare"
       description="Run the tests on all defined servers">
 
     <ant dir="${target.sample.dir}" target="test">
@@ -225,6 +277,7 @@ be resolved. Please check you build.properties file, and run Ant with the
           location="${target.sample.src.cactus.dir}"/>
       <property name="src.webapp.dir"
           location="${target.sample.src.webapp.dir}"/>
+      <property name="cactus.jar" location="${test.cactus.jar}"/>
     </ant>
 
   </target>

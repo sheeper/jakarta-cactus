@@ -118,6 +118,7 @@
     <pathelement location="${jasper-runtime.jar}"/>
     <pathelement location="${jetty.jar}"/>
     <pathelement location="${junit.jar}"/>
+    <@clover.begin@pathelement location="${clover.jar}"/@clover.end@>
   </path>
 
   <!--
@@ -168,7 +169,6 @@
       <classpath>
         <path refid="cactus.classpath"/>
         <pathelement location="${httpunit.jar}"/>
-        <pathelement location="${nekohtml.jar}"/>
         <pathelement location="${target.classes.java.dir}"/>
       </classpath>
     </javac>
