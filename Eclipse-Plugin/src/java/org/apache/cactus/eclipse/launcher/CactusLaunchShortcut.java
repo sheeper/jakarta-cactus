@@ -76,7 +76,6 @@ import org.eclipse.jdt.internal.junit.ui.JUnitPlugin;
 import org.eclipse.jdt.internal.junit.util.TestSearchEngine;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
-import org.eclipse.ui.IWorkbenchPage;
 
 /**
  * Launch shortcut used to start the Cactus launch configuration on the
@@ -99,6 +98,7 @@ public class CactusLaunchShortcut
      * The provider to use for container setup.
      */
     private IContainerProvider provider;
+
     /**
      * @return the Cactus launch configuration type. This method overrides
      *         the one in {@link JUnitLaunchShortcut} so that we can return
@@ -180,6 +180,7 @@ public class CactusLaunchShortcut
     {
         prepareCactusTests(theType);
         ILaunchConfiguration config = findLaunchConfiguration(theType, theMode);
+    	JUnitPlugin.getDefault().addTestRunListener(this);
         if (config != null)
         {
             try
@@ -194,11 +195,8 @@ public class CactusLaunchShortcut
                     e.getMessage(),
                     e.getStatus());
             }
+            
         }
-        IWorkbenchPage wbPage = JUnitPlugin.getDefault().getActivePage();
-        JUnitViewFinder finder = new JUnitViewFinder(wbPage, this);
-        Thread theThread = new Thread(finder);
-        theThread.start();
     }
 
     /**
