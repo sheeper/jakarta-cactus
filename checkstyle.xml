@@ -14,7 +14,9 @@
     </config>
     <!-- config name="EqualsHashCodeCheck"/ -->
     <config name="FileLengthCheck"/>
-    <!-- config name="HeaderCheck"/ -->
+    <config name="HeaderCheck">
+      <property name="headerFile" value="${checkstyle.header.file}"/>
+    </config>
     <config name="IllegalImportCheck"/>
     <config name="IllegalInstantiationCheck"/>
     <config name="InnerAssignmentCheck"/>
@@ -67,7 +69,6 @@
     </config>
     <config name="RedundantImportCheck"/>
     <config name="RedundantModifierCheck"/>
-    <!-- config name="RegexpHeaderCheck"/ -->
     <config name="RightCurlyCheck">
       <property name="option" value="alone"/>
     </config>
