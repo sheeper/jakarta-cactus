@@ -41,8 +41,6 @@ import org.apache.tools.ant.Target;
 /**
  * An AntTestCase is a TestCase specialization for unit testing Ant tasks.
  * 
- * @author <a href="mailto:cmlenz@gmx.de">Christopher Lenz</a>
- *
  * @version $Id$
  */
 public abstract class AntTestCase extends TestCase implements BuildListener

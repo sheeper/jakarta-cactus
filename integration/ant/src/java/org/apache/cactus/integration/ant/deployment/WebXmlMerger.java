@@ -28,9 +28,6 @@ import org.w3c.dom.Element;
 /**
  * Helper class that can merge two web deployment descriptors.
  *
- * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @since Cactus 1.5
  * @version $Id$
  */

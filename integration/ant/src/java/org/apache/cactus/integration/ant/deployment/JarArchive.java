@@ -26,8 +26,6 @@ import java.util.List;
 /**
  * Provide convenient methods to read information from a Jar archive.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @since Cactus 1.5
  * @version $Id$
  */

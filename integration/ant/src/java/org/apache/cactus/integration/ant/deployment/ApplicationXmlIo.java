@@ -36,8 +36,6 @@ import org.xml.sax.SAXException;
  * Provides convenience methods for reading and writing enterprise application
  * deployment descriptors (application.xml).
  *
- * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
- *
  * @since Cactus 1.5
  * @version $Id$
  */

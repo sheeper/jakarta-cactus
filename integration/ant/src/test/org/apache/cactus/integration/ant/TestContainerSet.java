@@ -24,8 +24,6 @@ import org.apache.cactus.integration.ant.container.Container;
 /**
  * Unit tests for {@link ContainerSet}.
  * 
- * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
- *
  * @version $Id$
  */
 public final class TestContainerSet extends AntTestCase

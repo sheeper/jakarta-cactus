@@ -40,8 +40,6 @@ import org.w3c.dom.NodeList;
  * TODO: test whether the mergewebxml is actually merged into the cactified 
  *       web.xml  
  * 
- * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
- *
  * @version $Id$
  */
 public final class TestCactifyWarTask extends AntTestCase

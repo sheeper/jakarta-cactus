@@ -24,8 +24,6 @@ import org.apache.tools.ant.BuildException;
 /**
  * Unit tests for {@link CactusTask}.
  * 
- * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
- *
  * @version $Id$
  */
 public final class TestCactusTask extends AntTestCase

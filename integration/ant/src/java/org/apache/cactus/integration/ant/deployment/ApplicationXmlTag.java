@@ -23,8 +23,6 @@ package org.apache.cactus.integration.ant.deployment;
  * Represents the various top-level tags in a enterprise application deployment
  * descriptor as a typesafe enumeration.
  * 
- * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
- *
  * @since Cactus 1.5
  * @version $Id$
  */

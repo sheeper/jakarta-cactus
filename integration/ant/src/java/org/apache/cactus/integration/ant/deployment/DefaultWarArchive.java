@@ -32,9 +32,6 @@ import org.xml.sax.SAXException;
 /**
  * Class that encapsulates access to a WAR.
  * 
- * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @since Cactus 1.5
  * @version $Id$
  */

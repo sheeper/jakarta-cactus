@@ -40,8 +40,6 @@ import org.apache.tools.ant.types.FilterChain;
  * Utility class that provides a couple of methods for extracting files stored
  * as resource in a JAR.
  * 
- * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
- *
  * @version $Id$
  */
 public final class ResourceUtils

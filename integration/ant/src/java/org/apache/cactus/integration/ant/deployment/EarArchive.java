@@ -28,8 +28,6 @@ import org.xml.sax.SAXException;
 /**
  * Class that encapsulates access to an EAR.
  * 
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @since Cactus 1.5
  * @version $Id$
  */

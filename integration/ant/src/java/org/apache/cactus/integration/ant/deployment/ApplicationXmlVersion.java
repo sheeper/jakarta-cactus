@@ -25,8 +25,6 @@ import org.w3c.dom.DocumentType;
  * Enumerated type that represents the version of the deployment descriptor of
  * a enterprise application (application.xml).
  * 
- * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
- *
  * @since Cactus 1.5
  * @version $Id$
  */

@@ -29,8 +29,6 @@ import org.w3c.dom.Element;
  * (<code>application.xml</code>) to provide convenience methods for easy 
  * access and manipulation.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @since Cactus 1.5
  * @version $Id$
  */

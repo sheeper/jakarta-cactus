@@ -25,9 +25,6 @@ import junit.framework.TestSuite;
 /**
  * Run all the unit tests for the web.xml support classes.
  *
- * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public final class TestAll

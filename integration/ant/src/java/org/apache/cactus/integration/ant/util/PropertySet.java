@@ -31,8 +31,6 @@ import org.apache.tools.ant.BuildException;
  * Ant element used to tell the Cactus task to load a properties file
  * and passed its properties to the client side or server side JVMs. 
  * 
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class PropertySet

@@ -37,8 +37,6 @@ import org.apache.tools.ant.Task;
  * <em>VERBOSE</em>, which is probably inappropriate for components that do not
  * know they are using the <code>AntLog</code> class. 
  * 
- * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
- *
  * @version $Id$
  */
 public final class AntLog implements Log

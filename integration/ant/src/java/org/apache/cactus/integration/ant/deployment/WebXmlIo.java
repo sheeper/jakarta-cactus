@@ -42,8 +42,6 @@ import org.xml.sax.SAXException;
  * Provides convenience methods for reading and writing web deployment
  * descriptors.
  *
- * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
- *
  * @since Cactus 1.5
  * @version $Id$
  */

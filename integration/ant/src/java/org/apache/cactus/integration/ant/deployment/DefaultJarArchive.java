@@ -33,8 +33,6 @@ import java.util.zip.ZipEntry;
 /**
  * Provide convenient methods to read information from a Jar archive.
  * 
- * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
- *
  * @since Cactus 1.5
  * @version $Id$
  */

@@ -24,8 +24,6 @@ import org.w3c.dom.DocumentType;
 /**
  * Enumerated type that represents the version of the web deployment descriptor.
  * 
- * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
- *
  * @since Cactus 1.5
  * @version $Id$
  */
