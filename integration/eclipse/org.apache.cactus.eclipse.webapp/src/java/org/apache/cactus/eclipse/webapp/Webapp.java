@@ -77,36 +77,50 @@ import org.eclipse.jdt.core.JavaModelException;
  * how to persist them.
  * 
  * @author <a href="mailto:jruaux@octo.com">Julien Ruaux</a>
+ * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  * @version $Id$
  */
 public class Webapp
 {
     /**
-     * Delimiter for classpaths in the String that will be persisted. 
+     * Delimiter for classpaths entries in the String that will be used
+     * for persisting the webapp settings. 
      */
     private static final String CLASSPATH_DELIMITER = ";";
 
     /**
-     * QualifiedName of the output war property
-     * used for persistence of project properties. 
+     * Qualified name of the output war property. Used for persistence of 
+     * project properties. 
      */
-    private QualifiedName outputQN =
+    private static final QualifiedName OUTPUT_QN =
         new QualifiedName(WebappPlugin.getPluginId(), "output");
 
     /**
-     * QualifiedName of the webapp directory property
-     * used for persistence of project properties. 
+     * Qualified name of the webapp directory property. Used for persistence 
+     * of project properties. 
      */
-    private QualifiedName dirQN =
+    private static final QualifiedName DIR_QN =
         new QualifiedName(WebappPlugin.getPluginId(), "dir");
 
     /**
-     * QualifiedName of the classpath property
-     * used for persistence of project properties. 
+     * Qualified name of the classpath property. Used for persistence of 
+     * project properties. 
      */
-    private QualifiedName classpathQN =
+    private static final QualifiedName CLASSPATH_QN =
         new QualifiedName(WebappPlugin.getPluginId(), "webappClasspath");
 
+    /**
+     * Default path for the generated war 
+     */
+    private static final String DEFAULT_OUTPUT =
+        System.getProperty("java.io.tmpdir") + "webapp.war";
+
+    /**
+     * Default directory of where the webapp is located. 
+     */
+    private static final String DEFAULT_DIR =
+        "src" + File.separator + "webapp";
+            
     /**
      * Full path to the webapp War.
      */
@@ -128,12 +142,11 @@ public class Webapp
     private IJavaProject javaProject;
 
     /**
-     * Constructor.
      * @param theJavaProject the project this webapp is linked to
      */
     public Webapp(IJavaProject theJavaProject)
     {
-        javaProject = theJavaProject;
+        this.javaProject = theJavaProject;
     }
 
     /**
@@ -188,10 +201,10 @@ public class Webapp
     {
         IProject theProject = javaProject.getProject();
 
-        this.output = theProject.getPersistentProperty(outputQN);
-        this.dir = theProject.getPersistentProperty(dirQN);
+        this.output = theProject.getPersistentProperty(OUTPUT_QN);
+        this.dir = theProject.getPersistentProperty(DIR_QN);
         this.classpath = toClasspathEntryArray(
-            theProject.getPersistentProperty(classpathQN));
+            theProject.getPersistentProperty(CLASSPATH_QN));
     }
 
     /**
@@ -199,8 +212,8 @@ public class Webapp
      */
     public void loadDefaultValues()
     {
-        this.output = System.getProperty("java.io.tmpdir") + "webapp.war";
-        this.dir = "src" + File.separator + "webapp";
+        this.output = DEFAULT_OUTPUT;
+        this.dir = DEFAULT_DIR;
 
         try
         {
@@ -219,14 +232,15 @@ public class Webapp
     public void persist() throws CoreException
     {
         IProject project = javaProject.getProject();
-        project.setPersistentProperty(outputQN, output);
-        project.setPersistentProperty(dirQN, dir);
-        project.setPersistentProperty(classpathQN, toString(classpath));
+        project.setPersistentProperty(OUTPUT_QN, output);
+        project.setPersistentProperty(DIR_QN, dir);
+        project.setPersistentProperty(CLASSPATH_QN, toString(classpath));
     }
 
     /**
-     * Converts a String classpath to an array of library classpath entries
-     * @param theClasspathEntriesString string of delimiter-separated classpaths
+     * Converts a String classpath to an array of library classpath entries.
+     * @param theClasspathEntriesString string of delimiter-separated 
+     *        classpaths
      * @return an array of library entries
      */
     private IClasspathEntry[] toClasspathEntryArray(
@@ -236,9 +250,13 @@ public class Webapp
         {
             return null;
         }
+
         Vector result = new Vector();
+
         StringTokenizer cpTokenizer =
-            new StringTokenizer(theClasspathEntriesString, CLASSPATH_DELIMITER);
+            new StringTokenizer(theClasspathEntriesString, 
+            CLASSPATH_DELIMITER);
+            
         while (cpTokenizer.hasMoreElements())
         {
             String element = cpTokenizer.nextToken();
@@ -253,6 +271,7 @@ public class Webapp
                 // Do not add the entry
             }
         }
+
         return (IClasspathEntry[]) result.toArray(
             new IClasspathEntry[result.size()]);
     }
@@ -264,14 +283,16 @@ public class Webapp
      */
     private String toString(IClasspathEntry[] theClasspathEntries)
     {
-        String result = "";
+        StringBuffer result = new StringBuffer();
         for (int i = 0; i < theClasspathEntries.length; i++)
         {
             IClasspathEntry current = theClasspathEntries[i];
-            result += current.getPath() + CLASSPATH_DELIMITER;
+            result.append(current.getPath());
+            result.append(CLASSPATH_DELIMITER);
         }
-        return result;
+        return result.toString();
     }
+
     /**
      * Sets the classpath.
      * @param theClasspath The classpath to set
@@ -321,12 +342,14 @@ public class Webapp
      */
     public File getAbsoluteDir()
     {
-        if (dir == null)
+        File result = null;
+
+        if (this.dir != null)
         {
-            return null;
-        }
-        IPath projectPath = javaProject.getProject().getLocation();
-        return projectPath.append(dir).toFile();
+            IPath projectPath = javaProject.getProject().getLocation();
+            result = projectPath.append(this.dir).toFile();
+        } 
+        return result; 
     }
 
     /**
@@ -336,5 +359,4 @@ public class Webapp
     {
         return this.output;
     }
-
 }
