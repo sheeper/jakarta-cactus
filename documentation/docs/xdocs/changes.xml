@@ -90,7 +90,7 @@
       </devs>
 
       <release version="1.7dev" date="in CVS">
-        <action dev="VMA" type="change">
+        <action dev="VMA" type="update">
           Building Cactus from the sources now requires Ant 1.6.1+.
         </action>
         <action dev="VMA" type="update" issue="CACTUS-120">
