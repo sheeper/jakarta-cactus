@@ -65,6 +65,11 @@
       </devs>
 
       <release version="1.5" date="- in CVS">
+        <action dev="CML" type="update">
+          Refactored the authentication support by introducing the interface
+          <code>Authentication</code>, which the class
+          <code>AbstractAuthentication</code> now implements.
+        </action>
         <action dev="VMA" type="add">
           Added a quick tutorial for Cactus developers who want to 
           <a href="site:integration_eclipse_dev">set up their Eclipse 

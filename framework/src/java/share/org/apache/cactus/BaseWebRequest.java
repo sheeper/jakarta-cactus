@@ -62,7 +62,7 @@ import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Vector;
 
-import org.apache.cactus.client.authentication.AbstractAuthentication;
+import org.apache.cactus.client.authentication.Authentication;
 import org.apache.cactus.configuration.Configuration;
 import org.apache.cactus.util.ChainedRuntimeException;
 
@@ -126,7 +126,7 @@ public class BaseWebRequest implements Request
     /**
      * The Authentication Object that will configure the http request
      */
-    private AbstractAuthentication authentication;
+    private Authentication authentication;
 
     /**
      * Default constructor that requires that 
@@ -674,18 +674,17 @@ public class BaseWebRequest implements Request
     /**
      * Sets the authentication object that will configure the http request
      *
-     * @param theAuthenticationObject the authentication object
+     * @param theAuthentication the authentication object
      */
-    public void setAuthentication(
-        AbstractAuthentication theAuthenticationObject)
+    public void setAuthentication(Authentication theAuthentication)
     {
-        this.authentication = theAuthenticationObject;
+        this.authentication = theAuthentication;
     }
 
     /**
-     * @return the authentication object that will configure the http request
+     * @return the authentication that will configure the http request
      */
-    public AbstractAuthentication getAuthentication()
+    public Authentication getAuthentication()
     {
         return this.authentication;
     }

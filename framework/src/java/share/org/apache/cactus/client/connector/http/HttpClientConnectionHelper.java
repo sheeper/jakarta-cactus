@@ -66,7 +66,7 @@ import java.util.Enumeration;
 import java.util.List;
 
 import org.apache.cactus.WebRequest;
-import org.apache.cactus.client.authentication.AbstractAuthentication;
+import org.apache.cactus.client.authentication.Authentication;
 import org.apache.cactus.configuration.Configuration;
 import org.apache.cactus.util.UrlUtil;
 import org.apache.commons.httpclient.HostConfiguration;
@@ -117,7 +117,7 @@ public class HttpClientConnectionHelper extends AbstractConnectionHelper
         // Add Authentication headers, if necessary. This is the first
         // step to allow authentication to add extra headers, HTTP parameters,
         // etc.
-        AbstractAuthentication authentication = theRequest.getAuthentication();
+        Authentication authentication = theRequest.getAuthentication();
 
         if (authentication != null)
         {

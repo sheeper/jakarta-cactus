@@ -17,17 +17,13 @@
         Beginning with version 1.3, Cactus is able to unit test Servlet code
         that uses the Servlet Security API (<code>getRemoteUser()</code>,
         <code>isUserInRole()</code>, <code>getUserPrincipal()</code>).
+        Cactus supports the BASIC and FORM authentication methods.
       </p>
       <p>
         The way to perform this is by securing a Servlet Redirector defined
         in your <code>web.xml</code> and then to specify user credentials
         in your <code>beginXXX()</code>, as defined below.
       </p>
-
-      <note>
-        The only currently supported authentication mechanism in Cactus 1.3 is
-        the BASIC authentication.
-      </note>
 
       <note>
         The Cactus sample application demonstrates how to unit test everything
@@ -78,9 +74,13 @@ public void testBasicAuthentication()
         </li>
         <li>
           <code>WebRequest.setAuthentication()</code> is used to pass
-          credentials to the server. It takes a parameter which is a
-          <code>BasicAuthentication</code> object (the only type of
-          authentication currently supported by Cactus).
+          credentials to the server. It takes an implementation of the 
+          <code>Authentication</code> interface as argument. In this example,
+          we pass in a <code>BasicAuthentication</code> which corresponds to
+          the BASIC authentication method. Testing with form-based
+          authentication just involves using the
+          <code>FormAuthentication</code> class instead of
+          <code>BasicAuthentication</code>.
         </li>
       </ul>
 
