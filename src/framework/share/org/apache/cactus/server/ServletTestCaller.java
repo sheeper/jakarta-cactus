@@ -65,10 +65,12 @@ import org.apache.commons.cactus.*;
 import org.apache.commons.cactus.util.log.*;
 
 /**
- * Call the test method on the server side after assigning the servlet implicit
- * objects using reflection and retri
+ * Responsible for instanciating the <code>TestCase</code> class on the server
+ * side, set up the implicit objects and call the test method.
  *
- * @version @version@
+ * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
+ *
+ * @version $Id$
  */
 public class ServletTestCaller
 {
@@ -76,78 +78,27 @@ public class ServletTestCaller
      * Name of the attribute in the <code>application</code> scope that will
      * hold the results of the test.
      */
-    private final static String TEST_RESULTS = "ServletTestRedirector_TestResults";
+    private final static String TEST_RESULTS =
+        "ServletTestRedirector_TestResults";
 
     /**
      * The logger
      */
-    private static Log logger = LogService.getInstance().getLog(ServletTestCaller.class.getName());
+    protected static Log logger =
+        LogService.getInstance().getLog(ServletTestCaller.class.getName());
 
     /**
-     * Call the method to test.
-     *
-     * @param theClassName the name of the test class to call
-     * @param theMethod the name of the test method to call
-     * @param theObjects the implicit objects that will be assigned by
-     *                   reflection to the test class.
+     * The implicit objects (which will be used to set the test case fields
+     * in the <code>setTesCaseFields</code> method.
      */
-    private void callTestMethod(String theClassName, String theMethod, ServletImplicitObjects theObjects) throws Throwable
+    protected ServletImplicitObjects servletImplicitObjects;
+
+    /**
+     * @param theObjects the implicit objects coming from the redirector
+     */
+    public ServletTestCaller(ServletImplicitObjects theObjects)
     {
-        logger.entry("callTestMethod(...)");
-
-        // Get the class to call and build an instance of it.
-        Class testClass = null;
-        ServletTestCase testInstance = null;
-        try {
-            testClass = Class.forName(theClassName);
-            Constructor constructor = testClass.getConstructor(new Class[] { String.class });
-            testInstance = (ServletTestCase)constructor.newInstance(new Object[] { theMethod });
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new ServletException("Error instanciating class [" + theClassName + "]", e);
-        }
-
-        // Set the current method name field
-        Field methodField = testClass.getField("currentTestMethod");
-        methodField.set(testInstance, theMethod);
-
-        // Set the request field of the test case class
-
-        // Extract from the HTTP request the URL to simulate (if any)
-        ServletURL url = ServletURL.loadFromRequest(theObjects.m_Request);
-
-        Field requestField = testClass.getField("request");
-        requestField.set(testInstance, new HttpServletRequestWrapper(theObjects.m_Request, url));
-
-        // Set the response field of the test case class
-        Field responseField = testClass.getField("response");
-        responseField.set(testInstance, theObjects.m_Response);
-
-        // Set the config field of the test case class
-        Field configField = testClass.getField("config");
-        configField.set(testInstance, new ServletConfigWrapper(theObjects.m_Config));
-
-        // Set the session field of the test case class
-
-        // Get a valid session object if the auto session flag is on
-
-        // Get the autologin flag from the request
-        String autoSession = theObjects.m_Request.getParameter(ServiceDefinition.AUTOSESSION_NAME_PARAM);
-        boolean isAutomaticSession = new Boolean(autoSession).booleanValue();
-
-        if (isAutomaticSession) {
-
-            theObjects.m_Session = theObjects.m_Request.getSession(true);
-
-            Field sessionField = testClass.getField("session");
-            sessionField.set(testInstance, theObjects.m_Session);
-
-        }
-
-        // Call the test method
-        testInstance.runBareServerTest();
-
-        logger.exit("callTestMethod");
+        this.servletImplicitObjects = theObjects;
     }
 
     /**
@@ -155,92 +106,84 @@ public class ServletTestCaller
      * in the HTTP request. Save the results in the <code>application</code>
      * scope so that the Get Test Result service can find them.
      *
-     * @param theObjects the implicit objects that will be assigned by
-     *                   reflection to the test class.
      * @exception ServletException if an unexpected error occurred
      */
-    public void doTest(ServletImplicitObjects theObjects) throws ServletException
+    public void doTest() throws ServletException
     {
-        logger.entry("doTest(...)");
+        this.logger.entry("doTest()");
 
-        ServletTestResult result = null;
-  
+        WebTestResult result = null;
+
         // Reset TEST_RESULTS to a new results holder to prevent premature
         // requests for results from seeing either no results or old results
         ResultHolder holder = new ResultHolder();
-        theObjects.m_Config.getServletContext().setAttribute(TEST_RESULTS, holder);
+        this.servletImplicitObjects.getServletConfig().getServletContext().
+            setAttribute(TEST_RESULTS, holder);
 
-        logger.debug("Result holder semaphore is in place");
+        this.logger.debug("Result holder semaphore is in place");
 
         // From this point forward, any thread trying to access the result
         // stored in the holder, itself stored in the application scope, will
         // block and wait until a result is set.
- 
+
         try {
-  
-            // Extract from the HTTP request the test class name and method to call.
 
-            String testClassName = theObjects.m_Request.getParameter(ServiceDefinition.CLASS_NAME_PARAM);
-            if (testClassName == null) {
-                throw new ServletException("Missing parameter [" +
-                    ServiceDefinition.CLASS_NAME_PARAM + "] in HTTP request.");
-            }
+            // Create an instance of the test class
+            ServletTestCase testInstance = getTestClassInstance(
+                getTestClassName(), getTestMethodName());
 
-            logger.debug("Class to call = " + testClassName);
+            // Set its fields (implicit objects)
+            setTestCaseFields(testInstance);
 
-            String methodName = theObjects.m_Request.getParameter(ServiceDefinition.METHOD_NAME_PARAM);
-            if (methodName == null) {
-                throw new ServletException("Missing parameter [" +
-                    ServiceDefinition.METHOD_NAME_PARAM + "] in HTTP request.");
-            }
+            // Call it's method corresponding to the current test case
+            testInstance.runBareServerTest();
 
-            logger.debug("Method to call = " + methodName);
-
-            // Call the method to test
-            callTestMethod(testClassName, methodName, theObjects);
-
-            // Return an instance of <code>ServletTestResult</code> with a
+            // Return an instance of <code>WebTestResult</code> with a
             // positive result.
-            result = new ServletTestResult();
+            result = new WebTestResult();
 
         } catch (Throwable e) {
 
             // An error occurred, return an instance of
-            // <code>ServletTestResult</code> with an exception.
-            result = new ServletTestResult(e);
+            // <code>WebTestResult</code> with an exception.
+            result = new WebTestResult(e);
 
         }
 
-        // Set the test result.
+        // Set the test result. This will deactivate the semaphore.
         holder.setResult(result);
 
-        logger.debug("Result holder semaphore inactive (result set in holder)");
+        this.logger.debug("Result holder semaphore inactive (result set in " +
+            "holder)");
 
-        logger.exit("doTest");
+        this.logger.exit("doTest");
     }
 
     /**
      * Return the last test results as a serialized object in the HTTP response.
      *
-     * @param theObjects the implicit objects that will be assigned by
-     *                   reflection to the test class.
      * @exception ServletException if an unexpected error occurred
      */
-    public void doGetResults(ServletImplicitObjects theObjects) throws ServletException
+    public void doGetResults() throws ServletException
     {
-        logger.entry("doGetResults(...)");
+        this.logger.entry("doGetResults()");
 
-        logger.debug("Try to read results from Holder ...");
+        this.logger.debug("Try to read results from Holder ...");
 
-        ResultHolder holder = (ResultHolder)(theObjects.m_Config.getServletContext().getAttribute(TEST_RESULTS));
-        ServletTestResult result = holder.getResult();
+        ResultHolder holder = (ResultHolder)(
+            this.servletImplicitObjects.getServletConfig().
+            getServletContext().getAttribute(TEST_RESULTS));
 
-        logger.debug("... results read");
+        WebTestResult result = holder.getResult();
+
+        this.logger.debug("... results has been read");
 
         // Write back the results as a serialized object to the outgoing stream.
         try {
 
-            OutputStream os = theObjects.m_Response.getOutputStream();
+            OutputStream os =
+                this.servletImplicitObjects.getHttpServletResponse().
+                getOutputStream();
 
             // Write back the result object as a serialized object
             ObjectOutputStream oos = new ObjectOutputStream(os);
@@ -249,9 +192,192 @@ public class ServletTestCaller
             oos.close();
 
         } catch (IOException e) {
-            throw new ServletException("Error writing ServletTestResult instance to output stream", e);
+            String message = "Error writing WebTestResult instance to output " +
+                "stream";
+            this.logger.error(message, e);
+            throw new ServletException(message, e);
         }
 
-        logger.exit("doGetResults");
+        this.logger.exit("doGetResults");
     }
+
+    /**
+     * @return the class to test class name, extracted from the HTTP request
+     */
+    protected String getTestClassName() throws ServletException
+    {
+        this.logger.entry("getTestClassName()");
+
+        String className = this.servletImplicitObjects.
+            getHttpServletRequest().
+            getParameter(ServiceDefinition.CLASS_NAME_PARAM);
+
+        if (className == null) {
+            String message = "Missing class name parameter [" +
+                ServiceDefinition.CLASS_NAME_PARAM + "] in HTTP request.";
+            this.logger.error(message);
+            throw new ServletException(message);
+        }
+
+        this.logger.debug("Class to call = " + className);
+
+        this.logger.entry("getTestClassName");
+        return className;
+    }
+
+    /**
+     * @return the class method to call for the current test case, extracted
+     *         from the HTTP request
+     */
+    protected String getTestMethodName() throws ServletException
+    {
+        this.logger.entry("getTestMethodName()");
+
+        String methodName = this.servletImplicitObjects.getHttpServletRequest().
+            getParameter(ServiceDefinition.METHOD_NAME_PARAM);
+
+        if (methodName == null) {
+            String message = "Missing method name parameter [" +
+                ServiceDefinition.METHOD_NAME_PARAM + "] in HTTP request.";
+            this.logger.error(message);
+            throw new ServletException(message);
+        }
+
+        this.logger.debug("Method to call = " + methodName);
+
+        this.logger.exit("getTestMethodName");
+        return methodName;
+    }
+
+    /**
+     * @return true if the auto session flag for the Session can be found in
+     *         the HTTP request
+     */
+    protected boolean isAutoSession()
+    {
+        this.logger.entry("isAutoSession()");
+
+        String autoSession = this.servletImplicitObjects.
+            getHttpServletRequest().
+            getParameter(ServiceDefinition.AUTOSESSION_NAME_PARAM);
+
+        boolean isAutomaticSession = new Boolean(autoSession).booleanValue();
+
+        this.logger.debug("Auto session is " + isAutomaticSession);
+
+        this.logger.exit("isAutoSession");
+        return isAutomaticSession;
+    }
+
+    /**
+     * @param theClassName the name of the test class
+     * @param theTestCaseName the name of the current test case
+     * @return an instance of the test class to call
+     */
+    protected ServletTestCase getTestClassInstance(String theClassName,
+        String theTestCaseName) throws ServletException
+    {
+        this.logger.entry("getTestClassInstance(" + theClassName + ", " +
+            theTestCaseName + ")");
+
+        // Get the class to call and build an instance of it.
+        Class testClass = null;
+        ServletTestCase testInstance = null;
+        try {
+            testClass = getTestClassClass(theClassName);
+            Constructor constructor = testClass.getConstructor(
+                new Class[] { String.class });
+            testInstance = (ServletTestCase)constructor.newInstance(
+                new Object[] { theTestCaseName });
+        } catch (Exception e) {
+            String message = "Error instanciating class [" + theClassName +
+                "(" + theTestCaseName + ")]";
+            this.logger.error(message, e);
+            throw new ServletException(message, e);
+        }
+
+        this.logger.exit("getTestClassInstance");
+        return testInstance;
+    }
+
+    /**
+     * @param theClassName the name of the test class
+     * @param theTestCaseName the name of the current test case
+     * @return the class object the test class to call
+     */
+    protected Class getTestClassClass(String theClassName)
+        throws ServletException
+    {
+        this.logger.entry("getTestClassClass(" + theClassName + ")");
+
+        // Get the class to call and build an instance of it.
+        Class testClass = null;
+        try {
+            testClass = Class.forName(theClassName);
+        } catch (Exception e) {
+            String message = "Error finding class [" + theClassName +
+                "] in classpath";
+            this.logger.error(message, e);
+            throw new ServletException(message, e);
+        }
+
+        this.logger.exit("getTestClassClass");
+        return testClass;
+    }
+
+    /**
+     * Sets the test case fields using the implicit objects (using reflection).
+     * @param theTestInstance the test class instance
+     */
+    protected void setTestCaseFields(ServletTestCase theTestInstance)
+        throws Exception
+    {
+        this.logger.entry("setTestCaseFields(" + theTestInstance + ")");
+
+        // Sets the request field of the test case class
+        // ---------------------------------------------
+
+        // Extract from the HTTP request the URL to simulate (if any)
+        HttpServletRequest request =
+            this.servletImplicitObjects.getHttpServletRequest();
+
+        ServletURL url = ServletURL.loadFromRequest(request);
+
+        Field requestField = theTestInstance.getClass().getField("request");
+        requestField.set(theTestInstance,
+            new HttpServletRequestWrapper(request, url));
+
+        // Set the response field of the test case class
+        // ---------------------------------------------
+
+        Field responseField = theTestInstance.getClass().getField("response");
+        responseField.set(theTestInstance,
+            this.servletImplicitObjects.getHttpServletResponse());
+
+        // Set the config field of the test case class
+        // -------------------------------------------
+
+        Field configField = theTestInstance.getClass().getField("config");
+        configField.set(theTestInstance,
+            new ServletConfigWrapper(
+                this.servletImplicitObjects.getServletConfig()));
+
+        // Set the session field of the test case class
+        // --------------------------------------------
+
+        // Create a Session object if the auto session flag is on
+        if (isAutoSession()) {
+
+            HttpSession session =
+                this.servletImplicitObjects.getHttpServletRequest().
+                getSession(true);
+
+            Field sessionField = theTestInstance.getClass().getField("session");
+            sessionField.set(theTestInstance, session);
+
+        }
+
+        this.logger.exit("setTestCaseFields");
+    }
+
 }

@@ -54,26 +54,60 @@
 package org.apache.commons.cactus.server;
 
 import javax.servlet.jsp.*;
+import javax.servlet.http.*;
 
 /**
  * Holder class that contains the instances of the implicit objects that will
  * be accessible in the test classes (i.e. subclasses of
  * <code>JspTestCase</code>).
  *
- * @version @version@
+ * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
+ *
+ * @version $Id$
  */
 public class JspImplicitObjects extends ServletImplicitObjects
 {
     /**
-     * Correspond to the JSP <code>pageContext</code> implicit object that is
-     * available in JSP pages.
+     * The JSP redirector <code>PageContext</code> object.
      */
-    public PageContext m_PageContext;
+    protected PageContext pageContext;
 
     /**
-     * Correspond to the JSP <code>out</code> implicit object that is
-     * available in JSP pages.
+     * The JSP redirector <code>JspWriter</code> object (same as
+     * <code>pagecontext.getOut()</code>).
      */
-    public JspWriter m_JspWriter;
+    protected JspWriter jspWriter;
+
+    /**
+     * @return the <code>PageContext</code> implicit object
+     */
+    public PageContext getPageContext()
+    {
+        return this.pageContext;
+    }
+
+    /**
+     * @param thePageContext the <code>PageContext</code> implicit object
+     */
+    public void setPageContext(PageContext thePageContext)
+    {
+        this.pageContext = thePageContext;
+    }
+
+    /**
+     * @return the <code>JspWriter</code> implicit object
+     */
+    public JspWriter getJspWriter()
+    {
+        return this.jspWriter;
+    }
+
+    /**
+     * @param theWriter the <code>JspWriter</code> implicit object
+     */
+    public void setJspWriter(JspWriter theWriter)
+    {
+        this.jspWriter = theWriter;
+    }
 
 }

@@ -54,80 +54,54 @@
 package org.apache.commons.cactus.server;
 
 import javax.servlet.*;
-import javax.servlet.http.*;
+
+import org.apache.commons.cactus.*;
+import org.apache.commons.cactus.util.log.*;
 
 /**
- * Holder class that contains the instances of the implicit objects that will
- * be accessible in the test classes (i.e. subclasses of
- * <code>ServletTestCase</code>).
+ * Extension of the <code>redirector.jsp</code> JSP Redirector in the java
+ * realmn in order to provide a symmetry with the <code>ServletRedirector</code>
+ * and minimize the amount of java code in <code>redirector.jsp</code>.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
  */
-public class ServletImplicitObjects
+public class JspTestRedirector
 {
     /**
-     * The HTTP request object.
+     * Initialize the logging subsystem so that it can get it's configuration
+     * details from the correct properties file. Initialization is done here
+     * as this servlet is the first point of entry to the server code.
      */
-    protected HttpServletRequest request;
-
-    /**
-     * The HTTP response object.
-     */
-    protected HttpServletResponse response;
-
-    /**
-     * The Servlet configuration object.
-     */
-    protected ServletConfig config;
-
-    /**
-     * @return the <code>ServletConfig</code> implicit object
-     */
-    public ServletConfig getServletConfig()
-    {
-        return this.config;
+    static {
+        LogService.getInstance().init("/log_server.properties");
     }
 
     /**
-     * @param theConfig the <code>ServletConfig</code> implicit object
+     * The logger
      */
-    public void setServletConfig(ServletConfig theConfig)
-    {
-        this.config = theConfig;
-    }
+    private static Log logger =
+        LogService.getInstance().getLog(JspTestRedirector.class.getName());
 
     /**
-     * @return the <code>HttpServletResponse</code> implicit object
+     * Handles requests from the <code>redirector.jsp</code> JSP Redirector.
+     * @param theObjects the implicit objects that will be passed to the test
+     *        case
      */
-    public HttpServletResponse getHttpServletResponse()
+    public void doGet(JspImplicitObjects theObjects) throws ServletException
     {
-        return this.response;
-    }
+        // Note: we write star simply because this is the entry point on
+        // the server side and it makes it easier to read the logs to see
+        // what happens for a given test case.
+        this.logger.entry("doPost(...) *****");
 
-    /**
-     * @param theResponse the <code>HttpServletResponse</code> implicit object
-     */
-    public void setHttpServletResponse(HttpServletResponse theResponse)
-    {
-        this.response = theResponse;
-    }
+        // We only handle the "do test" service here. The "get results" service
+        // is handled by the servlet redirector on behalf of the JSP Redirector
+        JspTestCaller caller = new JspTestCaller(theObjects);
+        caller.doTest();
 
-    /**
-     * @return the <code>HttpServletRequest</code> implicit object
-     */
-    public HttpServletRequest getHttpServletRequest()
-    {
-        return this.request;
-    }
-
-    /**
-     * @param theRequest the <code>HttpServletRequest</code> implicit object
-     */
-    public void setHttpServletRequest(HttpServletRequest theRequest)
-    {
-        this.request = theRequest;
+        this.logger.exit("doGet");
     }
 
 }
