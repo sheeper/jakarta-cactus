@@ -489,8 +489,7 @@ public class CactusTask extends JUnitTask
         }
         else
         {
-            throw new BuildException("Mapping of the servlet redirector not "
-                + "found in " + this.warFile);
+            throw new BuildException("The WAR has not been cactified");
         }
     }
 
