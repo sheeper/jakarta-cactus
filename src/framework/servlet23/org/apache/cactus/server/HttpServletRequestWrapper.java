@@ -414,7 +414,17 @@ public class HttpServletRequestWrapper implements HttpServletRequest
 
         } else {
 
-            fullPath = getServletPath() + "/../" + thePath;
+    	    String pI = getPathInfo();
+    	    if (pI == null) {
+                fullPath = catPath(getServletPath(), thePath);
+            } else {
+	            fullPath = catPath(getServletPath() + pI, thePath);
+            }
+
+	        if (fullPath == null) {
+                m_Logger.exit("getRequestDispatcher");
+                return null;
+            }
 
         }
                 
@@ -425,6 +435,36 @@ public class HttpServletRequestWrapper implements HttpServletRequest
 
         m_Logger.exit("getRequestDispatcher");
         return dispatcher;
+    }
+
+    /**
+     * Will concatenate 2 paths, dealing with ..
+     * ( /a/b/c + d = /a/b/d, /a/b/c + ../d = /a/d ). Code borrowed from 
+     * Tomcat 3.2.2 !
+     *
+     * @return null if error occurs
+     */
+    private String catPath(String lookupPath, String path)
+    {
+    	// Cut off the last slash and everything beyond
+	    int index = lookupPath.lastIndexOf("/");
+	    lookupPath = lookupPath.substring(0, index);
+	
+	    // Deal with .. by chopping dirs off the lookup path
+	    while (path.startsWith("../")) { 
+	        if (lookupPath.length() > 0) {
+		        index = lookupPath.lastIndexOf("/");
+		        lookupPath = lookupPath.substring(0, index);
+	        } else {
+    		// More ..'s than dirs, return null
+	    	return null;
+	        }
+	    
+    	    index = path.indexOf("../") + 3;
+	        path = path.substring(index);
+	    }
+	
+	    return lookupPath + "/" + path;
     }
 
     public String getRemoteHost()
