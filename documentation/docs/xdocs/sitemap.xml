@@ -7,7 +7,7 @@
 
   <!-- Internal links -->
 
-  <resource id="index" target="index.html" name="What is Cactus?">
+  <resource id="index" target="index.html" name="Overview">
     Describes what the Cactus framework is, defines several types of
     unit tests and explains which are best implemented with Cactus.
   </resource>
@@ -37,42 +37,199 @@
     List of todo tasks for the next Cactus releases.
   </resource>
   
-  <resource id="contributors" target="participating/contributors.html"/>
-  <resource id="contributing" target="participating/contributing.html"/>
-  <resource id="users" target="participating/users.html"/>
-  <resource id="testedon" target="testedon.html"/>
-  <resource id="license" target="license.html"/>
-  <resource id="downloads" target="downloads.html"/>
-  <resource id="how_it_works" target="how_it_works.html"/>
-  <resource id="how_it_works_uml" target="how_it_works_uml.html"/>
-  <resource id="getting_started" target="getting_started.html"/>
-  <resource id="mock_vs_cactus" target="mock_vs_cactus.html"/>
-  <resource id="javadoc" target="javadoc.html"/>
-  <resource id="faq" target="faq.html"/>
-  <resource id="howto_classpath" target="integration/manual/howto_classpath.html"/>
-  <resource id="howto_config" target="integration/manual/howto_config.html"/>
-  <resource id="howto_migration" target="howto_migration.html"/>
-  <resource id="howto_testcase" target="writing/howto_testcase.html"/>
-  <resource id="howto_initializer" target="writing/howto_initializer.html"/>
-  <resource id="howto_testcase_servlet" target="writing/howto_testcase_servlet.html"/>
-  <resource id="howto_testcase_jsp" target="writing/howto_testcase_jsp.html"/>
-  <resource id="howto_testcase_filter" target="writing/howto_testcase_filter.html"/>
-  <resource id="howto_jsp" target="writing/howto_jsp.html"/>
-  <resource id="howto_runner" target="integration/howto_runner.html"/>
+  <resource id="contributors" target="participating/contributors.html"
+      name="Contributors">
+    Lists people who are or have been contributing to Cactus.
+  </resource>
+  
+  <resource id="contributing" target="participating/contributing.html"
+      name="Contributing">
+    Information on how to contribute to the development of Cactus.
+  </resource>
+  
+  <resource id="users" target="participating/users.html"
+      name="Who Uses Cactus?">
+    Informal list about who is using Cactus.
+  </resource>
+  
+  <resource id="testedon" target="testedon.html"
+      name="Tested On">
+    A list of containers that Cactus was tested on for each release.
+  </resource>
+  
+  <resource id="license" target="license.html"
+      name="License">
+    The Cactus License.
+  </resource>
+  
+  <resource id="downloads" target="downloads.html"
+      name="Downloads">
+    Downloads of Cactus releases and nightly builds.
+  </resource>
+  
+  <resource id="how_it_works" target="how_it_works.html"
+      name="How It Works">
+    High level view of the inner workings of Cactus.
+  </resource>
+  
+  <resource id="how_it_works_uml" target="how_it_works_uml.html"
+      name="How It Works (UML)">
+    High level view of the inner workings of Cactus as a UML sequence diagram.
+  </resource>
+  
+  <resource id="getting_started" target="getting_started.html"
+      name="Getting Started">
+    Gentle introduction to get you up to speed with Cactus.
+  </resource>
+  
+  <resource id="mock_vs_cactus" target="mock_vs_cactus.html"
+      name="Mock Objects vs. In-Container">
+    Discussion of in-container testing as compared to using a mock objects
+    approach.
+  </resource>
+  
+  <resource id="javadoc" target="javadoc.html"
+      name="API Documentation">
+    The API documentation for the various parts of Cactus.
+  </resource>
+  
+  <resource id="faq" target="faq.html"
+      name="Frequently Asked Questions">
+    Questions frequently asked (and sometimes answered)
+  </resource>
+  
+  <resource id="howto_classpath"
+      target="integration/manual/howto_classpath.html"
+      name="Classpath Howto">
+    Information on how to set up the classpath for running Cactus tests.
+  </resource>
+  
+  <resource id="howto_config"
+      target="integration/manual/howto_config.html"
+      name="Configuration Howto">
+    Information on how to configure Cactus when running tests manually.
+  </resource>
+  
+  <resource id="howto_migration" target="howto_migration.html"
+    name="Migration Guide">
+    Information on how to migrate to a more recent version of Cactus.
+  </resource>
+  
+  <resource id="howto_testcase" target="writing/howto_testcase.html"
+      name="Writing Cactus Tests">
+    Introduction to writing Cactus-based unit tests.
+  </resource>
+
+  <resource id="howto_initializer" target="writing/howto_initializer.html"
+      name="Initializer Howto">
+    Information about using the Cactus initializer feature.
+  </resource>
+  
+  <resource id="howto_testcase_servlet"
+      target="writing/howto_testcase_servlet.html"
+      name="Writing Cactus Tests for Servlets">
+    Information on writing Cactus-based tests to test Servlets.
+  </resource>
+  
+  <resource id="howto_testcase_jsp" target="writing/howto_testcase_jsp.html"
+      name="Writing Cactus Tests for JSP Taglibs">
+    How to write unit tests for JSP tag libraries using Cactus.
+  </resource>
+  
+  <resource id="howto_testcase_filter"
+      target="writing/howto_testcase_filter.html"
+      name="Writing Cactus Tests for Filters">
+    How to write unit tests for Servlet Filters using Cactus.
+  </resource>
+  
+  <resource id="howto_jsp" target="writing/howto_jsp.html"
+      name="Writing Cactus Tests for JSP Pages">
+    How to write unit tests for JSP pages using Cactus.
+  </resource>
+  
+  <resource id="howto_runner" target="integration/howto_runner.html"
+      name="Using the Cactus ServletTestRunner">
+    Information on using the Cactus ServletTestRunner to run tests from a
+    Web-browser.
+  </resource>
+  
   <resource id="howto_security" target="writing/howto_security.html"/>
-  <resource id="integration_ant" target="integration/ant/index.html"/>
-  <resource id="howto_ant_cactus" target="integration/ant/howto_ant_cactus.html"/>
-  <resource id="howto_ant_install" target="integration/ant/howto_ant_install.html"/>
-  <resource id="howto_ant_primer" target="integration/ant/howto_ant_primer.html"/>
-  <resource id="task_runservertests" target="integration/ant/task_runservertests.html"/>
-  <resource id="task_webxmlmerge" target="integration/ant/task_webxmlmerge.html"/>
-  <resource id="howto_httpunit" target="writing/howto_httpunit.html"/>
-  <resource id="howto_sample" target="howto_sample.html"/>
-  <resource id="howto_ejb" target="writing/howto_ejb.html"/>
-  <resource id="howto_ejb_j2eeri" target="writing/howto_ejb_j2eeri.html"/>
-  <resource id="howto_ide" target="integration/manual/howto_ide.html"/>
-  <resource id="howto_ide_vajava_wte" target="integration/manual/howto_ide_vajava_wte.html"/>
-  <resource id="howto_ide_vajava_tomcat" target="integration/manual/howto_ide_vajava_tomcat.html"/>
+  
+  <resource id="integration_ant" target="integration/ant/index.html"
+      name="Ant Integration">
+    Overview of the Ant integration mechanisms provided by Cactus.
+  </resource>
+  
+  <resource id="howto_ant_cactus"
+      target="integration/ant/howto_ant_cactus.html"
+      name="Using Cactus with Ant">
+    How to integrate Cactus tests with an existing Ant build.
+  </resource>
+  
+  <resource id="howto_ant_install"
+      target="integration/ant/howto_ant_install.html"
+      name="Ant installation">
+    Tips for installing and setting up Ant.
+  </resource>
+  
+  <resource id="howto_ant_primer"
+      target="integration/ant/howto_ant_primer.html"
+      name="Ant Primer">
+    Quick introduction to the basic concepts of the Ant build tool.
+  </resource>
+  
+  <resource id="task_runservertests"
+      target="integration/ant/task_runservertests.html"
+      name="RunServerTests Ant Task">
+    Documentation for the &lt;runservertests&gt; task provided by Cactus.
+  </resource>
+  
+  <resource id="task_webxmlmerge"
+      target="integration/ant/task_webxmlmerge.html"
+      name="WebXmlMerge Ant Task">
+    Documentation for the &lt;webxmlmerge&gt; task provided by Cactus.
+  </resource>
+  
+  <resource id="howto_httpunit" target="writing/howto_httpunit.html"
+      name="HttpUnit Howto">
+    How to use HttpUnit tests inside Cactus test cases
+  </resource>
+  
+  <resource id="howto_sample" target="howto_sample.html"
+      name="Samples Howto">
+    How to get started with the sample application provided by Cactus.
+  </resource>
+  
+  <resource id="howto_ejb" target="writing/howto_ejb.html"
+      name="Writing Cactus Tests for EJBs">
+    How to test Enterprise JavaBeans using Cactus.
+  </resource>
+  
+  <resource id="howto_ejb_j2eeri" target="writing/howto_ejb_j2eeri.html"
+      name="J2EE-RI Howto">
+    Information on running EJB unit tests against the J2EE reference
+    implementation.
+  </resource>
+  
+  <resource id="howto_ide" target="integration/manual/howto_ide.html"
+      name="IDE Howto">
+    Information on integrating Cactus with some IDEs
+  </resource>
+  
+  <resource id="howto_ide_vajava_wte"
+      target="integration/manual/howto_ide_vajava_wte.html"
+      name="IDE Howto: Visual Age for Java with WebSphere">
+    Information on using Cactus from the Visual Age for Java IDE with the
+    WebSphere Test Environment.
+  </resource>
+  
+  <resource id="howto_ide_vajava_tomcat"
+      target="integration/manual/howto_ide_vajava_tomcat.html"
+      name="IDE Howto: Visual Age for Java with Tomcat">
+    Information on using Cactus from the Visual Age for Java IDE with the
+    Tomcat Test Environment.
+  </resource>
+  
   <resource id="howto_ide_jbuilder4" target="integration/manual/howto_ide_jbuilder4.html"/>
   <resource id="howto_ide_jbuilder5" target="integration/manual/howto_ide_jbuilder5.html"/>
   <resource id="integration_jetty" target="integration/integration_jetty.html"/>  
