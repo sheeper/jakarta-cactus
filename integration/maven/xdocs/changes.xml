@@ -9,26 +9,30 @@
 
     <release version="1.7dev" date="in CVS">
       <action dev="felipeal" type="add" due-to="Nicolas Chalumeau" due-to-email="Nicolas.CHALUMEAU@arsoe-trelaze.com" issue="CACTUS-132">
-        Allows Cactus to include some resources in the webapp classpath (WEB-INF/classes), through the use of variable <code>cactus.resources.dirs</code>
+        Allows Cactus to include some resources in the webapp classpath
+        (<code>WEB-INF/classes</code>), through the use of variable 
+        <code>cactus.resources.dirs</code>.
       </action>
       <action dev="felipeal" type="update" issue="CACTUS-129" due-to"Mark Lambert">
-        Updated <code>Aspectj</code> to 1.2.1rc1, so Cactus compiles and run under JDK 1.5.
+        Updated AspectJ to 1.2.1rc1, so Cactus compiles and run under JDK 1.5.
       </action>
       <action dev="felipeal" type="add" issue="CACTUS-128" due-to"Maxwell Grender-Jones">
         Extended <code>cactus.sysproperties</code> property to the
         <code>cactus:match</code> and <code>cactus:single</code> goals.
       </action>
       <action dev="felipeal" type="new" issue="CACTUS-146">
-        Goal <code>cactus:test</code> is not executed if property <code>maven.test.skip</code> is set.
+        Goal <code>cactus:test</code> is not executed if property
+        <code>maven.test.skip</code> is set.
       </action>
       <action dev="felipeal" type="update" issue="CACTUS-139">
-        Cactus now uses <code>HttpUnit 1.6</code>.
+        Cactus now uses HttpUnit 1.6.
       </action>
       <action dev="felipeal" type="update" issue="CACTUS-137">
         Plugin is now buildable withouth any manual intervention.
       </action>
       <action dev="vmassol" type="update" issue="CACTUS-135" due-to="Felipe Leme">
-        The Cactus HTML report now displays the stack trace in case of failure.
+        The Cactus HTML JUnit report now displays the stack trace in case of 
+        failure.
       </action>
       <action dev="vmassol" type="fix" issue="CACTUS-64">
         The plugin now correctly uses the <code>maven.war.build.dir</code>,
