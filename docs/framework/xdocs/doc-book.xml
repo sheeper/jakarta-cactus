@@ -14,7 +14,7 @@
     <menu-item label="Features" source="features.xml"/>
     <menu-item label="Goals" source="goals.xml"/>
     <menu-item type="changes" label="Changes" source="changes.xml"/>
-    <menu-item type="todo" label="Todo" source="todo.xml"/>
+    <menu-item type="roadmap" label="Roadmap/Todo" source="todo.xml"/>
     <menu-item label="Contributors" source="contributors.xml"/>
     <menu-item label="Contributing" source="contributing.xml"/>
     <menu-item label="License" source="license.xml"/>

@@ -1,92 +1,194 @@
 <?xml version="1.0"?>
 
-<!DOCTYPE todo SYSTEM "./dtd/todo-v10.dtd">
+<roadmap title="Roadmap/Todo for Cactus">
 
-<todo title="Things To Do for Cactus">
+  <s1 title="Introduction">
+    <p>
+      As is stated on the Cactus <link href="goals.html">goals</link> page, the
+      intention is to explore as much as possible in the realm of unit testing
+      of server side java code ... 
+    </p>
+    <p>
+      This brings a bad news and a good one ... The
+      bad one is that the TODO list is likely to keep growing or at least
+      have a respectable size ... The good one
+      is that there will be work for everyone ... :-)
+    </p>
+    <p>
+      If you are interested in participating, send an email on the Cactus mailing
+      list stating your interest and you'll be enrolled right away ... We're
+      always looking for help ! Don't be put off if in the "Volunteer" column
+      there is already a person listed. On the contrary, the more person that
+      participate in a given task, the better (like in pair programming, several
+      sets of eyes are always better than one!). However you'll need to sync.
+      with these others persons but this is easily done by posting to the
+      mailing-list.
+    </p>
+    <p>
+      The game has just begun ... !
+    </p>
+  </s1>
 
-  <devs>
-    <person name="Vincent Massol" email="vmassol@users.sourceforge.net" id="VMA"/>
-  </devs>
+  <version title="Version 1.2">
 
-  <actions priority="high">
-    <action context="build">
-      Set up nightly builds (it is high time !). Almost done !
-    </action>
-    <action context="docs">
-      Update web site documentation to explain new dependency with Log4j
-    </action>
-    <action context="docs">
-      Write a Roadmap page to explain the planned future versions, when they
-      will be delivered and what will be in them ...
-    </action>
-  </actions>
+    <category title="Documentation">
+      <action>
+        Update web site documentation to explain new dependency with Log4j in
+        the installation tutorial.
+      </action>
+      <action>
+        Add a tutorial for building Cactus from the source distribution.
+      </action>
+      <action>
+        Add a tutorial that explains how to unit test EJBs in the current
+        version of Cactus.
+      </action>
+      <action>
+        Write a tutorial that explains how to unit test Tag libraries (only
+        taglets that extend TagSupport for the moment).
+      </action>
+      <action>
+        Write a Cactus integration tutorial for JBuilder 4/5 that explains how
+        to run Cactus tests within JBuilder4/5.
+      </action>
+      <action>
+        Add a tutorial/FAQ entry for explaining unit testing of persistent
+        sessions, i.e. to explain that each unit test is *independent* of 
+        another and that each test need to set up it's own preconditions 
+        (HTTP paramteres, cookies, HTTP headers, ...) but *also* values that
+        are expected to be set in the HTTP Session, application scope, ...
+        before running the test.
+      </action>
+    </category>
 
-  <actions priority="medium">
-    <action context="docs">
-      Write a tutorial that shows how to test EJBs.
-    </action>
-    <action context="samples">
-      Add a sample that shows how to test EJBs.
-    </action>
-    <action context="design">
-      Add support for testing custom JSP Taglibs (suggested by Sohail Aslam) +
-      tutorial + sample
-    </action>
-    <action context="design" assigned-to="VMA">
-      Add support for testing Servlet API 2.3 Filters.
-    </action>
-    <action context="code">
-      Provide support for easier testing of EJBs. The mechanism is yet to be
-      defined (requested by notyy and others!).
-    </action>
-  </actions>
+    <category title="Build Process">
+      <p>
+        All tasks that are related to building Cactus in general.
+      </p>
+      <action assigned-to="Vincent Massol">
+        Set up nightly builds (it is high time !). Almost done !
+      </action>
+      <action>
+        Add support for Orion 1.5 in Ant build files (current support is for
+        Orion 1.4 only but may work on 1.5.2 - need to be tested though).
+      </action>
+      <action>
+        Add the Ant scripts for JBoss 2.x w/Tomcat provided by Jeffrey Madynski
+        (jmadynski@food.com) on the jakarta-commons mailing list (Subject
+        "[cactus] Using Cactus with JBoss-2.2.1 with Embedded Tomcat"). The
+        scripts need to be reworked so that the deployed test war is deployed
+        within the <code>out</code> output directory and not to where
+        JBoss/Tomcat is installed.
+      </action>
+      <action>
+        Add Ant scripts to support WebLogic 6.0.
+      </action>
+    </category>
 
-  <actions priority="low">
-    <action context="build">
-      Upgrade from Orion 1.4 to Orion 1.5.2
-    </action>
-    <action context="build">
-      Add the Ant scripts for JBoss 2.x w/Tomcat provided by Jeffrey Madynski
-      (jmadynski@food.com)
-    </action>
-    <action context="docs">
-      Write a Cactus integration tutorial for JBuilder 4.
-    </action>
-    <action context="build">
-      Add Ant scripts to support WebLogic 6.0.
-    </action>
-    <action context="code">
-      Handle <code>getRealPath()</code>, <code>getPathTranslated()</code> in the
-      <code>ServletRedirectorRequest</code> class.
-    </action>
-    <action context="code">
-      Add API in <code>ServletTestRequest</code> to send data to the URL
-      connection output stream. This is to easily test code that sends bytes
-      of data as POST data to the servlet (requested by Daniel Cohen and 
-      custommonkey).
-    </action>
-    <action context="code">
-      Check why zipped distributable files have a mode of 644 on unix systems
-      (it should rather be 755). Thanks to Jason Crickmer.
-    </action>
-    <action context="docs">
-      Add a FAQ entry for explaining unit testing of persistent sessions.
-    </action>
-  </actions>
+    <category title="Design/Code">
+      <action assigned-to="Vincent Massol, Jari Worsley">
+        Continue support for JSP Taglib to fully support all types of taglets
+        (even the one with body content which extend TagBodySupport). At the
+        current time only taglib that extend TagSupport are supported.
+      </action>
+      <action>
+        Design and implement support for unit testing Filters (Servlet API
+        2.3 only).
+      </action>
+      <action>
+        Handle <code>getRealPath()</code>, <code>getPathTranslated()</code> in
+        the <code>ServletRedirectorRequest</code> class. With the current
+        version if you use these API, it will return the native path for the
+        Servlet Redirector and not for your servlet being tested.
+      </action>
+      <action>
+        Add an API in <code>ServletTestRequest</code> to send data to the URL
+        connection output stream. This is to easily test code that sends bytes
+        of data as POST data to the servlet.
+      </action>
+      <action>
+        Check why zipped distributable files have a mode of 644 on unix systems
+        (it should rather be 755). Reported by Jason Crickmer. Need to verify
+        first that the problem still exist.
+      </action>
+    </category>
 
-  <actions priority="wish">
-    <action context="code">
-      Create a Cactus Doclet. This will introduce new javadoc tags (like the
-      <link href="">EJBDoclet</link>) that will be used by the javadoc command
-      to do several things : generate test classes and test methods, generate
-      richer documentation. Indeed, the best documentation for a method is
-      it's test methods that show how to use it effectively. So maybe we could
-      append to the HTML javadoc for a method the java test method code as an
-      example.
-    </action>
-    <action context="code">
-      Integration for Netbeans by integration with the Netbeans XTest module.
-    </action>
-  </actions>
+  </version>
 
-</todo>
+  <version title="Version 1.x where x>2">
+
+    <category title="Design/Code">
+      <action>
+        Design and implement a mechanism for supporting unit testing of EJBs.
+        There are several possible mechanisms :
+        <ul>
+          <li>
+            in-container, calling the remote methods from the testXXX() methods
+            by providing a helper class that looks up the home interface, create
+            an instance and call the method,
+          </li>
+          <li>
+            in-container, by providing an EJB Redirector which is itself an EJB
+            (and thus has access to container objects) and just call the EJB
+            method to test as a standard java class, providing implicit objects
+            to an EJBTestCase that user need to derive (exactly the same
+            mechanism currently used for Servlets),
+          </li>
+        </ul>
+      </action>
+    </category>
+
+    <category title="Ideas">
+      <p>
+        Ideas to explore ... 
+      </p>
+      <action>
+        Create a Cactus Doclet. This will introduce new javadoc tags (like the
+        <link href="http://sourceforge.net/projects/ejbdoclet">EJBDoclet</link>) 
+        that will be used by the javadoc command
+        to do several things : generate test classes and test methods, generate
+        richer documentation. Indeed, the best documentation for a method is
+        it's test methods that show how to use it effectively. So maybe we could
+        append to the HTML javadoc for a method the java test method code as an
+        example.
+      </action>
+      <action>
+        Integration to Netbeans in general and especially integration with the 
+        Netbeans XTest module.
+      </action>
+      <action assigned-to="Vincent Massol">
+        Mock Object seem to be useful (see the
+        <link href="mockobjects.html">comparison</link> between Cactus and
+        Mock objects). Now we need to think on how we could bring the benefits
+        of both approach together and whether it is feasible on not.
+      </action>
+      <action>
+        When we want to unit test classes written for the Struts framework
+        (for example), we can use Cactus to provide access to all Servlet API
+        implicit objects. However, there is still a need to get access to
+        Struts implicit objects (for example, calling the perform() method
+        of an Action class need to get hold of several Struts object 
+        beforehand). A solution might be to provide some factory helper classes
+        to provide these objects. This could go in a
+        <code>org.apache.commons.cactus.util.struts</code> package but will
+        need to be maintained and synced with Struts versions. Another solution
+        might be to host these helper classes within Struts itself. We need to
+        think about that (same issue as with Ant custom tasks - There have
+        been lengthy discussion on the subject on the Ant mailing list).
+      </action>
+      <action assigned-to="Jari Worsley">
+        Integrate with HttpUnit so that we can use DOM representations and
+        associated API within Cactus in order to validate returned output from
+        servlet output stream. Integration could be done by providing these
+        HttpUnit features in the endXXX() method. Need to validate how the
+        integration could be done (Russell Gold propose extending the HttpUnit
+        WebResponse class - Check thread
+        "[cactus]A Heath Robinson lash up with HttpUnit" in Jakarta Commons 
+        mailing list)
+      </action>
+        
+    </category>
+
+  </version>
+
+</roadmap>

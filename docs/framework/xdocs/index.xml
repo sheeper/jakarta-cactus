@@ -50,6 +50,16 @@
             01/07/2001
           </td>
           <td>
+            New <link href="todo.html">Roadmap/Todo</link> page that lists
+            the actions that need to be performed before releasing the next
+            version of Cactus. Come help !
+          </td>
+        </tr>
+        <tr>
+          <td>
+            01/07/2001
+          </td>
+          <td>
             New <link href="ide_vajava.html">tutorial</link> for installing 
             Cactus inside VisualAge for Java.
           </td>
