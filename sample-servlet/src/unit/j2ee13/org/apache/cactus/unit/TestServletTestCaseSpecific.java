@@ -53,10 +53,13 @@
  */
 package org.apache.cactus.unit;
 
+import java.util.Map;
+
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
 import org.apache.cactus.ServletTestCase;
+import org.apache.cactus.WebRequest;
 
 /**
  * Cactus unit tests for testing <code>ServletTestCase</code>. These tests
@@ -102,8 +105,34 @@ public class TestServletTestCaseSpecific extends ServletTestCase
     public static Test suite()
     {
         // All methods starting with "test" will be executed in the test suite.
-        return new TestSuite();
+        return new TestSuite(TestServletTestCaseSpecific.class);
     }
 
-    // No specific tests for Servlet API 2.3 for the moment !
+    //-------------------------------------------------------------------------
+
+    /**
+     * Verify that <code>HttpServletRequest.getParameterMap()</code> works.
+     *
+     * @param theRequest the request object that serves to initialize the
+     *                   HTTP connection to the server redirector.
+     */
+    public void beginGetParameterMap(WebRequest theRequest)
+    {
+        theRequest.addParameter("multivalue", "value 1");
+        theRequest.addParameter("multivalue", "value 2");
+    }
+
+    /**
+     * Verify that <code>HttpServletRequest.getParameterMap()</code> works.
+     */
+    public void testGetParameterMap()
+    {
+        Map parameters = request.getParameterMap();
+        assertTrue(parameters.containsKey("multivalue"));
+        String[] values = (String[]) parameters.get("multivalue");
+        assertEquals(2, values.length);        
+        assertEquals("value 1", values[0]);        
+        assertEquals("value 2", values[1]);        
+    }
+
 }
