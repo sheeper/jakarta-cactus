@@ -126,4 +126,20 @@
         <copy file="${target.test.dir}/test.war"
             todir="${target.weblogic61.dir}/config/testdomain/applications"/>
 
+        <!-- Update the war to include the proprietary weblogic.xml config
+             file. -->
+
+        <!-- Hack: Make sure weblogic.xml is always newer than the war so that
+             the later is always updated. Waiting for an Ant bug fix -->
+        <touch file="${target.weblogic61.dir}/config/testdomain/applications/test.war"
+            datetime="06/28/2000 2:02 pm"/>
+
+        <war update="true"
+            warfile="${target.weblogic61.dir}/config/testdomain/applications/test.war">
+
+            <webinf dir="${conf.weblogic61.dir}">
+                <include name="weblogic.xml"/>
+            </webinf>
+        </war>
+
     </target>

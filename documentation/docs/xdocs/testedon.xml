@@ -104,6 +104,22 @@
               Tomcat
             </td>
             <td>
+              3.2.4
+            </td>
+            <td>
+              1.2
+            </td>
+            <td>
+              <link href="mailto:vmassol@apache.org">Vincent Massol</link>
+            </td>
+            <td>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Tomcat
+            </td>
+            <td>
               4.0.4
             </td>
             <td>
@@ -187,6 +203,22 @@
             </td>
             <td>
               1.6.0
+            </td>
+            <td>
+              1.2
+            </td>
+            <td>
+              <link href="mailto:vmassol@apache.org">Vincent Massol</link>
+            </td>
+            <td>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              WebLogic
+            </td>
+            <td>
+              6.1 SP3
             </td>
             <td>
               1.2
