@@ -17,8 +17,6 @@ Eclipse-Plugin/ant/conf/test/weblogic70/testserver/ldap/ldapfiles/EmbeddedLDAP.i
 Eclipse-Plugin/ant/conf/test/weblogic70/testserver/ldap/ldapfiles/EmbeddedLDAP.tran -text
 Eclipse-Plugin/ant/conf/test/weblogic70/testserver/ldap/ldapfiles/EmbeddedLDAP.trpos -text
 Eclipse-Plugin/ant/conf/test/weblogic70/testserver/ldap/ldapfiles/EmbeddedLDAP.twpos -text
-Eclipse-Plugin/ant/web/jspRedirector.jsp -text svneol=unset#application/octet-stream
-Eclipse-Plugin/ant/web/test/test.jsp -text svneol=unset#application/octet-stream
 Eclipse-Plugin/build.properties.sample -text svneol=unset#application/octet-stream
 Eclipse-Plugin/build.xml svn_keywords=Author+Date+Id+Revision
 Eclipse-Plugin/icons/calaunch.gif -text
