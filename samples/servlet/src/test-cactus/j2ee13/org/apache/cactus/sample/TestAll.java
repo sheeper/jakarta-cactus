@@ -57,7 +57,6 @@
 package org.apache.cactus.sample;
 
 import junit.framework.Test;
-import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 /**
@@ -67,18 +66,8 @@ import junit.framework.TestSuite;
  *
  * @version $Id$
  */
-public class TestAll extends TestCase
+public class TestAll
 {
-    /**
-     * Start the tests.
-     *
-     * @param theArgs the arguments. Not used
-     */
-    public static void main(String[] theArgs)
-    {
-        junit.swingui.TestRunner.main(new String[] {TestAll.class.getName()});
-    }
-
     /**
      * @return a test suite (<code>TestSuite</code>) that includes all methods
      *         starting with "test"

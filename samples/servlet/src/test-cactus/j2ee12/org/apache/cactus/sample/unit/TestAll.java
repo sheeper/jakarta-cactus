@@ -57,7 +57,6 @@
 package org.apache.cactus.sample.unit;
 
 import junit.framework.Test;
-import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 /**
@@ -67,7 +66,7 @@ import junit.framework.TestSuite;
  *
  * @version $Id$
  */
-public class TestAll extends TestCase
+public class TestAll
 {
     /**
      * @return a test suite (<code>TestSuite</code>) that includes all methods
