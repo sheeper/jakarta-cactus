@@ -38,69 +38,69 @@
       
       <ul>
         <li>
-          <jump anchor="faq1">"Can't find resource for cactus" error
+          <jump anchor="faq_cant_find_resource">"Can't find resource for cactus" error
           message</jump>
         </li>
         <li>
-          <jump anchor="faq2">How can I have a web.xml that is valid both for
+          <jump anchor="faq_webxml_test_prod">How can I have a web.xml that is valid both for
           testing and for production?</jump>
         </li>
         <li>
-          <jump anchor="faq3">I'm getting a
+          <jump anchor="faq_stream_corrupted_exception">I'm getting a
           <code>java.io.StreamCorruptedException: InputStream does not contain a
           serialized object</code> error. What does it mean?</jump>
         </li>
         <li>
-          <jump anchor="faq4">How can I test the chaining of several HTTP
+          <jump anchor="faq_chaining_requests">How can I test the chaining of several HTTP
           requests?</jump>
         </li>
         <li>
-          <jump anchor="faq5">The &lt;runservertests&gt; Ant task hangs when 
+          <jump anchor="faq_runservertests_hangs">The &lt;runservertests&gt; Ant task hangs when 
           my server is started</jump>
         </li>
         <li>
-          <jump anchor="faq6">I'm getting a
+          <jump anchor="faq_not_a_valid_response">I'm getting a
           "<code>not a valid response</code> error message. What does it
           mean?</jump>
         </li>
         <li>
-          <jump anchor="faq7">How to send multipart/form-data?</jump>
+          <jump anchor="faq_send_multipart">How to send multipart/form-data?</jump>
         </li>
         <li>
-          <jump anchor="faq8">I get a "java.lang.ClassCastException: 
-          org.apache.commons.logging.impl.LogFactoryImpl" error when I use 
-          a JUnit TestRunner different from TextTestRunner</jump>
+          <jump anchor="faq_classcastexception_logfactoryimpl">I get a 
+          "java.lang.ClassCastException: org.apache.commons.logging.impl.LogFactoryImpl" 
+          error when I use a JUnit TestRunner different from TextTestRunner</jump>
         </li>
         <li>
-          <jump anchor="faq9">How can I parametrize my Cactus tests?</jump>
+          <jump anchor="faq_parametrize">How can I parametrize my Cactus tests?</jump>
         </li>
         <li>
-          <jump anchor="faq10">How do I maintain a Session between 2 Cactus test?</jump>
+          <jump anchor="faq_maintain_session">How do I maintain a Session between 2 Cactus test?</jump>
         </li>
         <li>
-          <jump anchor="faq11">What version of Eclipse do I need for the 
+          <jump anchor="faq_eclipse_version">What version of Eclipse do I need for the 
           Eclipse plugin?</jump>
         </li>
         <li>
-          <jump anchor="faq12">Why do I get an HttpClient NoSuchMethodError when 
-          running Cactus tests with JBoss 3.x?</jump>
+          <jump anchor="faq_httpclient_nosuchmethoderror">Why do I get an HttpClient 
+          NoSuchMethodError when running Cactus tests with JBoss 3.x?</jump>
         </li>
         <li>
-          <jump anchor="faq13">Does Cactus work with load-balancers?</jump>
+          <jump anchor="faq_load_balancing">Does Cactus work with load-balancers?</jump>
         </li>
         <li>
-          <jump anchor="faq14">Does Cactus supports asserting HTML pages with Javascript?</jump>
+          <jump anchor="faq_javascript_assert">Does Cactus supports asserting HTML pages with Javascript?</jump>
         </li>
         <li>
-          <jump anchor="faq15">I have problems using StrutsTestCase...</jump>
+          <jump anchor="faq_strutstestcase">I have problems using StrutsTestCase...</jump>
         </li>
         <li>
-          <jump anchor="faq16">Does Cactus support HTTPS?</jump>
+          <jump anchor="faq_https_support">Does Cactus support HTTPS?</jump>
         </li>
       </ul>
     </section>
 
-    <anchor id="faq1"/>
+    <anchor id="faq_cant_find_resource"/>
     <section title="Can't find resource for cactus error message">
 
       <p>
@@ -125,7 +125,7 @@ at java.util.ResourceBundle.getBundle(ResourceBundle.java:546)
       </p>
     </section>
 
-    <anchor id="faq2"/>
+    <anchor id="faq_webxml_test_prod"/>
     <section title="How can I have a web.xml that is valid both for testing and for production?">
 
       <section title="Question">
@@ -193,7 +193,7 @@ web application is built)
 
     </section>
 
-    <anchor id="faq3"/>
+    <anchor id="faq_stream_corrupted_exception"/>
     <section title="I'm getting a java.io.StreamCorruptedException error. What does it mean?">
 
       <note>
@@ -265,7 +265,7 @@ web application is built)
 
     </section>
 
-    <anchor id="faq4"/>
+    <anchor id="faq_chaining_requests"/>
     <section title="How can I test the chaining of several HTTP requests?">
 
       <section title="Question">
@@ -300,7 +300,7 @@ web application is built)
 
     </section>
 
-    <anchor id="faq5"/>
+    <anchor id="faq_runservertests_hangs"/>
     <section title="The &lt;runservertests&gt; Ant task hangs when my server is started">
 
       <section title="Question">
@@ -331,7 +331,7 @@ web application is built)
 
     </section>
 
-    <anchor id="faq6"/>
+    <anchor id="faq_not_a_valid_response"/>
     <section title="I'm getting a 'not a valid response' error message. What does it mean?">
 
       <section title="Question">
@@ -366,7 +366,7 @@ org.apache.cactus.client.WebTestResultParser.readRootElement(
 
     </section>
 
-    <anchor id="faq7"/>
+    <anchor id="faq_send_multipart"/>
     <section title="How to send multipart/form-data?">
 
         <section title="Question">
@@ -419,7 +419,7 @@ public void beginUpload(WebRequest theRequest)
       </section>
     </section>
 
-    <anchor id="faq8"/>
+    <anchor id="faq_classcastexception_logfactoryimpl"/>
     <section title="I get a 'java.lang.ClassCastException: org.apache.commons.logging.impl.LogFactoryImpl' error when I use a JUnit TestRunner different from TextTestRunner">
 
         <section title="Question">
@@ -450,7 +450,7 @@ org.apache.cactus.AbstractTestCase.runBare(AbstractTestCase.java:188)
 		</section>
 	</section>
 
-    <anchor id="faq9"/>
+    <anchor id="faq_parametrize"/>
     <section title="How can I parametrize my Cactus tests?">
 
       <section title="Question">
@@ -500,7 +500,7 @@ public void MyTest extends ServletTestCase
       </section>
 	</section>
 
-    <anchor id="faq10"/>
+    <anchor id="faq_maintain_session"/>
     <section title="How do I maintain a Session between 2 Cactus test?">
 
       <section title="Question">
@@ -522,7 +522,7 @@ public void MyTest extends ServletTestCase
       </section>
 	</section>
 
-    <anchor id="faq11"/>
+    <anchor id="faq_eclipse_version"/>
     <section title="What version of Eclipse do I need for the Eclipse plugin?">
 
       <p>
@@ -532,7 +532,7 @@ public void MyTest extends ServletTestCase
 
 	</section>
 
-    <anchor id="faq12"/>
+    <anchor id="faq_httpclient_nosuchmethoderror"/>
     <section title="Why do I get an HttpClient NoSuchMethodError when running Cactus tests with JBoss 3.x?">
 
       <section title="Question">
@@ -554,7 +554,7 @@ java.lang.NoSuchMethodError:
       </section>
 	</section>
 
-    <anchor id="faq13"/>
+    <anchor id="faq_load_balancing"/>
     <section title="Does Cactus work with load-balancers?">
       <p>
         Answer: No. For each test, Cactus performs 2 HTTP connections to the
@@ -566,7 +566,7 @@ java.lang.NoSuchMethodError:
       </p>
     </section>
 
-    <anchor id="faq14"/>
+    <anchor id="faq_javascript_assert"/>
     <section title="Does Cactus supports asserting HTML pages with Javascript?">
       <p>
         Cactus provides powerful response assertion through its integration 
@@ -578,7 +578,7 @@ java.lang.NoSuchMethodError:
       </p>
     </section>
 
-    <anchor id="faq15"/>
+    <anchor id="faq_strutstestcase"/>
     <section title="I have problems using StrutsTestCase...">
       <p>
         <a href="ext:strutstestcase">StrutsTestCase</a> is a project separate 
@@ -587,7 +587,7 @@ java.lang.NoSuchMethodError:
       </p>
     </section>
 
-    <anchor id="faq16"/>
+    <anchor id="faq_https_support"/>
     <section title="Does Cactus support HTTPS?">
       <p>
         No, Cactus doesn't support HTTPS. The reason is that we don't think 
