@@ -50,7 +50,7 @@
     <dependency>
       <groupId>aspectj</groupId>
       <artifactId>aspectjrt</artifactId>
-      <version>1.2.1rc1</version>
+      <version>1.2.1</version>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
