@@ -186,7 +186,7 @@ public class CactusLaunchShortcut
             }
         if (type != null)
         {
-            launchEnded = false;
+            this.launchEnded = false;
             // Register the instance of CactusLaunchShortcut to the JUnitPlugin
             // for TestRunEnd notification.            
             JUnitPlugin.getDefault().addTestRunListener(this);
@@ -379,7 +379,7 @@ public class CactusLaunchShortcut
     {
         // If we already finished the launch (i.e. we already went here)
         // we do nothing. 
-        if (launchEnded)
+        if (this.launchEnded)
         {
             return;
         }
@@ -431,12 +431,12 @@ public class CactusLaunchShortcut
                 }
                 finally
                 {
-                    launchEnded = true;
+                    CactusLaunchShortcut.this.launchEnded = true;
                 }
             }
 
         });
-        launchEnded = true;
+        this.launchEnded = true;
     }
 
     /**
