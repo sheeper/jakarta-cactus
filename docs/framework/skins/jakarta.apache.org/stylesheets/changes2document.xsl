@@ -2,11 +2,7 @@
 
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
-  <xsl:template match="@*|node()">
-    <xsl:copy>
-      <xsl:apply-templates select="@*|node()"/>
-    </xsl:copy>
-  </xsl:template>
+ <xsl:import href="copyover.xsl"/>
 
  <xsl:template match="changes">
   <document>
@@ -14,24 +10,33 @@
     <title><xsl:value-of select="@title"/></title>
    </header>
    <body>
-    <xsl:apply-templates/>
+     <xsl:apply-templates/>
    </body>
   </document>
  </xsl:template>
 
- <xsl:template match="release">
-  <s1>
+ <xsl:template match="releases">
+   <s1>
     <xsl:attribute name="title">
-      <xsl:value-of select="@name"/><xsl:text> </xsl:text>
-      <xsl:value-of select="@version"/><xsl:text> </xsl:text>
+      <xsl:value-of select="@title"/>
+    </xsl:attribute>
+    <xsl:apply-templates/>
+   </s1>
+ </xsl:template>
+
+ <xsl:template match="release">
+  <s2>
+    <xsl:attribute name="title">
+      <xsl:value-of select="$software"/><xsl:text> </xsl:text>
+      <xsl:value-of select="@version"/>
       <xsl:if test="@date">
+        <xsl:text> (released on </xsl:text>
         <xsl:value-of select="@date"/>
+        <xsl:text>)</xsl:text>
       </xsl:if>
     </xsl:attribute>
-   <sl>
     <xsl:apply-templates/>
-   </sl>
-  </s1>
+  </s2>
  </xsl:template>
 
  <xsl:template match="action">
@@ -59,5 +64,42 @@
  <xsl:template match="devs">
   <!-- remove -->
  </xsl:template>
+
+<!-- ====================================================================== -->
+<!-- changelog section -->
+<!-- ====================================================================== -->
+
+  <xsl:template match="cvslogs">
+    <s1>
+      <xsl:attribute name="title">
+        <xsl:value-of select="@title"/>
+      </xsl:attribute>
+      <xsl:apply-templates/>
+     </s1>
+  </xsl:template>
+
+  <xsl:template match="changelog">
+    <table>
+      <xsl:apply-templates select="entry">
+        <xsl:sort select="date" order="descending"/>
+      </xsl:apply-templates>
+    </table>
+  </xsl:template>
+
+  <xsl:template match="entry">
+    <tr>
+      <td>
+        <xsl:value-of select="date"/>
+      </td>
+      <td>
+        <link href="{concat(substring-before(file/name, '.'),'.html')}">
+          <xsl:value-of select="substring-before(file/name, '.')"/>
+        </link>
+      </td>
+      <td>
+        <xsl:value-of select="msg"/>
+      </td>
+    </tr>
+  </xsl:template>
 
 </xsl:stylesheet>
