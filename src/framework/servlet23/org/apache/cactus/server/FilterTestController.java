@@ -66,7 +66,7 @@ package org.apache.cactus.server;
 public class FilterTestController extends AbstractTestController
 {
     /**
-     * @return the test caller that will be used to execute the test
+     * @see AbstractTestController#getTestCaller(WebImplicitObjects)
      */
     protected AbstractTestCaller getTestCaller(
         WebImplicitObjects theObjects)

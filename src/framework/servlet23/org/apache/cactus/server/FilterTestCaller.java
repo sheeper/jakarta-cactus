@@ -81,8 +81,7 @@ public class FilterTestCaller extends AbstractTestCaller
     }
 
     /**
-     * Sets the test case fields using the implicit objects (using reflection).
-     * @param theTestInstance the test class instance
+     * @see AbstractTestCaller#setTestCaseFields(AbstractTestCase)
      */
     protected void setTestCaseFields(AbstractTestCase theTestInstance)
         throws Exception

@@ -111,6 +111,8 @@ public abstract class AbstractTestCaller
      *
      * @param theTestCase the instance of the test case class on which the
      *        class variable (implicit objects) should be set
+     * @exception Exception if an errors occurs when setting the implicit
+     *            objects
      */
     protected abstract void setTestCaseFields(AbstractTestCase theTestCase)
         throws Exception;
@@ -215,6 +217,8 @@ public abstract class AbstractTestCaller
 
     /**
      * @return the class to test class name, extracted from the HTTP request
+     * @exception ServletException if the class name of the test case is missing
+     *            from the HTTP request
      */
     protected String getTestClassName() throws ServletException
     {
@@ -238,6 +242,8 @@ public abstract class AbstractTestCaller
     /**
      * @return the class method to call for the current test case, extracted
      *         from the HTTP request
+     * @exception ServletException if the method name of the test case is
+     *            missing from the HTTP request
      */
     protected String getTestMethodName() throws ServletException
     {
@@ -280,6 +286,9 @@ public abstract class AbstractTestCaller
      * @param theClassName the name of the test class
      * @param theTestCaseName the name of the current test case
      * @return an instance of the test class to call
+     * @exception ServletException if the test case instance for the current
+     *            test fails to be instanciated (for example if some
+     *            information is missing from the HTTP request)
      */
     protected AbstractTestCase getTestClassInstance(String theClassName,
         String theTestCaseName) throws ServletException
@@ -318,8 +327,10 @@ public abstract class AbstractTestCaller
 
     /**
      * @param theClassName the name of the test class
-     * @param theTestCaseName the name of the current test case
      * @return the class object the test class to call
+     * @exception ServletException if the class of the current test case
+     *            cannot be loaded in memory (i.e. it is not in the
+     *            classpath)
      */
     protected Class getTestClassClass(String theClassName)
         throws ServletException

@@ -66,8 +66,6 @@ import org.apache.cactus.ServiceEnumeration;
 import org.apache.cactus.WebRequest;
 import org.apache.cactus.WebTestResult;
 import org.apache.cactus.client.authentication.AbstractAuthentication;
-import org.apache.cactus.util.log.Log;
-import org.apache.cactus.util.log.LogService;
 
 /**
  * Abstract class for performing the steps necessary to run a test. It involves

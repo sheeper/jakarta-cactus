@@ -183,7 +183,8 @@ public class WebRequest
      *
      * @param theAuthenticationObject the authentication object
      */
-    public void setAuthentication(AbstractAuthentication theAuthenticationObject)
+    public void setAuthentication(
+            AbstractAuthentication theAuthenticationObject)
     {
         this.authentication = theAuthenticationObject;
     }

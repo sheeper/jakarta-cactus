@@ -98,7 +98,6 @@ public interface Log
     /**
      * Log an ERROR level exception only
      *
-     * @param theMessage the message to log
      * @param theThrowable the exception to log
      */
     public void error(Throwable theThrowable);

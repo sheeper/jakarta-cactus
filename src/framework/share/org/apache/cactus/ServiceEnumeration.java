@@ -1,4 +1,6 @@
 /*
+ * ====================================================================
+ *
  * The Apache Software License, Version 1.1
  *
  * Copyright (c) 2001-2002 The Apache Software Foundation.  All rights
@@ -23,10 +25,10 @@
  *    Alternately, this acknowlegement may appear in the software itself,
  *    if and wherever such third-party acknowlegements normally appear.
  *
- * 4. The names "The Jakarta Project", "Cactus", and "Apache Software
- *    Foundation" must not be used to endorse or promote products derived
- *    from this software without prior written permission. For written
- *    permission, please contact apache@apache.org.
+ * 4. The names "The Jakarta Project", "Cactus" and "Apache Software
+ *    Foundation" must not be used to endorse or promote products
+ *    derived from this software without prior written permission. For
+ *    written permission, please contact apache@apache.org.
  *
  * 5. Products derived from this software may not be called "Apache"
  *    nor may "Apache" appear in their names without prior written
@@ -50,6 +52,7 @@
  * individuals on behalf of the Apache Software Foundation.  For more
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
+ *
  */
 package org.apache.cactus;
 
@@ -86,7 +89,12 @@ public class ServiceEnumeration
      */
     private String name;
 
-    public ServiceEnumeration(String theServiceName)
+    /**
+     * Private constructor so that only allowed enumeration can be created.
+     *
+     * @param theServiceName the name of the service
+     */
+    private ServiceEnumeration(String theServiceName)
     {
         this.name = theServiceName;
     }
@@ -95,6 +103,7 @@ public class ServiceEnumeration
      * Compares a string representing the name of the service with the Service
      * enumerated type.
      *
+     * @param theString the string to compare with this Service name
      * @return true if the string corresponds to the current Service
      */
     public boolean equals(String theString)

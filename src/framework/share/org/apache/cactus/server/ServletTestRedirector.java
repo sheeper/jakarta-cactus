@@ -1,4 +1,6 @@
 /*
+ * ====================================================================
+ *
  * The Apache Software License, Version 1.1
  *
  * Copyright (c) 2001-2002 The Apache Software Foundation.  All rights
@@ -23,10 +25,10 @@
  *    Alternately, this acknowlegement may appear in the software itself,
  *    if and wherever such third-party acknowlegements normally appear.
  *
- * 4. The names "The Jakarta Project", "Cactus", and "Apache Software
- *    Foundation" must not be used to endorse or promote products derived
- *    from this software without prior written permission. For written
- *    permission, please contact apache@apache.org.
+ * 4. The names "The Jakarta Project", "Cactus" and "Apache Software
+ *    Foundation" must not be used to endorse or promote products
+ *    derived from this software without prior written permission. For
+ *    written permission, please contact apache@apache.org.
  *
  * 5. Products derived from this software may not be called "Apache"
  *    nor may "Apache" appear in their names without prior written
@@ -50,10 +52,10 @@
  * individuals on behalf of the Apache Software Foundation.  For more
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
+ *
  */
 package org.apache.cactus.server;
 
-import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -94,11 +96,11 @@ public class ServletTestRedirector extends HttpServlet
      * @param theRequest the incoming HTTP client request
      * @param theResponse the outgoing HTTP client request to send back.
      *
-     * @exception ServletException if an error occurred when sending back
-     *                             the response to the client.
+     * @exception ServletException if an error occurs when servicing the
+     *            request
      */
     public void doGet(HttpServletRequest theRequest,
-        HttpServletResponse theResponse) throws ServletException, IOException
+        HttpServletResponse theResponse) throws ServletException
     {
         // Same handling than for a POST
         doPost(theRequest, theResponse);
@@ -111,10 +113,11 @@ public class ServletTestRedirector extends HttpServlet
      * @param theRequest the incoming HTTP request.
      * @param theResponse the outgoing HTTP response.
      *
-     * @exception ServletException if an unexpected error occurred
+     * @exception ServletException if an error occurs when servicing the
+     *            request
      */
     public void doPost(HttpServletRequest theRequest,
-        HttpServletResponse theResponse) throws ServletException, IOException
+        HttpServletResponse theResponse) throws ServletException
     {
         // Mark beginning of test on server side
         LOGGER.debug("------------- Start Servlet service");

@@ -1,4 +1,6 @@
 /*
+ * ====================================================================
+ *
  * The Apache Software License, Version 1.1
  *
  * Copyright (c) 2001-2002 The Apache Software Foundation.  All rights
@@ -23,10 +25,10 @@
  *    Alternately, this acknowlegement may appear in the software itself,
  *    if and wherever such third-party acknowlegements normally appear.
  *
- * 4. The names "The Jakarta Project", "Cactus", and "Apache Software
- *    Foundation" must not be used to endorse or promote products derived
- *    from this software without prior written permission. For written
- *    permission, please contact apache@apache.org.
+ * 4. The names "The Jakarta Project", "Cactus" and "Apache Software
+ *    Foundation" must not be used to endorse or promote products
+ *    derived from this software without prior written permission. For
+ *    written permission, please contact apache@apache.org.
  *
  * 5. Products derived from this software may not be called "Apache"
  *    nor may "Apache" appear in their names without prior written
@@ -50,6 +52,7 @@
  * individuals on behalf of the Apache Software Foundation.  For more
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
+ *
  */
 package org.apache.cactus.util;
 
@@ -68,6 +71,10 @@ import junit.framework.TestCase;
  */
 public class JUnitVersionHelper
 {
+    /**
+     * The <code>Method</code> to use to get the test name from a
+     * <code>TestCase</code> object.
+     */
     private static Method testCaseName = null;
 
     static
@@ -89,12 +96,15 @@ public class JUnitVersionHelper
      * of JUnit remove the old name() method.  This method provides
      * access to the name of a TestCase via reflection that is
      * supposed to work with version before and after JUnit 3.7.
+     *
+     * @param theTestCase the test case for which to retrieve the name
+     * @return the test case name
      */
-    public static String getTestCaseName(TestCase t)
+    public static String getTestCaseName(TestCase theTestCase)
     {
         if (testCaseName != null) {
             try {
-                return (String) testCaseName.invoke(t, new Object[0]);
+                return (String) testCaseName.invoke(theTestCase, new Object[0]);
             } catch (Throwable e) {
             }
         }

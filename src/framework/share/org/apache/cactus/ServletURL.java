@@ -1,4 +1,6 @@
 /*
+ * ====================================================================
+ *
  * The Apache Software License, Version 1.1
  *
  * Copyright (c) 2001-2002 The Apache Software Foundation.  All rights
@@ -23,10 +25,10 @@
  *    Alternately, this acknowlegement may appear in the software itself,
  *    if and wherever such third-party acknowlegements normally appear.
  *
- * 4. The names "The Jakarta Project", "Cactus", and "Apache Software
- *    Foundation" must not be used to endorse or promote products derived
- *    from this software without prior written permission. For written
- *    permission, please contact apache@apache.org.
+ * 4. The names "The Jakarta Project", "Cactus" and "Apache Software
+ *    Foundation" must not be used to endorse or promote products
+ *    derived from this software without prior written permission. For
+ *    written permission, please contact apache@apache.org.
  *
  * 5. Products derived from this software may not be called "Apache"
  *    nor may "Apache" appear in their names without prior written
@@ -50,6 +52,7 @@
  * individuals on behalf of the Apache Software Foundation.  For more
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
+ *
  */
 package org.apache.cactus;
 
@@ -72,7 +75,8 @@ import org.apache.cactus.util.log.LogService;
  *   path will be an empty string. Otherwise, this path starts with a character
  *   but does not end with a character.</li>
  *   <li><b>Servlet Path</b>: The path section that directly corresponds to the
- *   mapping which activated this request. This path starts with a character.</li>
+ *   mapping which activated this request. This path starts with a
+ *   character.</li>
  *   <li><b>PathInfo</b>: The part of the request path that is not part of the
  *   Context Path or the Servlet Path.</li></ul></pre></code>
  *
@@ -83,9 +87,9 @@ import org.apache.cactus.util.log.LogService;
 public class ServletURL
 {
     /**
-     * Name of the parameter in the HTTP request that represents the Server name
-     * in the URL to simulate. The name is voluntarily long so that it will not
-     * clash with a user-defined parameter.
+     * Name of the parameter in the HTTP request that represents the Server
+     * name in the URL to simulate. The name is voluntarily long so that it
+     * will not clash with a user-defined parameter.
      */
     public final static String URL_SERVER_NAME_PARAM =
         "Cactus_URL_Server";
@@ -332,6 +336,8 @@ public class ServletURL
      * HTTP request.
      *
      * @param theRequest the incoming HTTP request.
+     * @return the <code>ServletURL</code> object unserialized from the HTTP
+     *         request
      */
     public static ServletURL loadFromRequest(HttpServletRequest theRequest)
     {

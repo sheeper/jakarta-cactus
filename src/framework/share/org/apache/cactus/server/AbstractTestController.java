@@ -1,4 +1,6 @@
 /*
+ * ====================================================================
+ *
  * The Apache Software License, Version 1.1
  *
  * Copyright (c) 2001-2002 The Apache Software Foundation.  All rights
@@ -23,10 +25,10 @@
  *    Alternately, this acknowlegement may appear in the software itself,
  *    if and wherever such third-party acknowlegements normally appear.
  *
- * 4. The names "The Jakarta Project", "Cactus", and "Apache Software
- *    Foundation" must not be used to endorse or promote products derived
- *    from this software without prior written permission. For written
- *    permission, please contact apache@apache.org.
+ * 4. The names "The Jakarta Project", "Cactus" and "Apache Software
+ *    Foundation" must not be used to endorse or promote products
+ *    derived from this software without prior written permission. For
+ *    written permission, please contact apache@apache.org.
  *
  * 5. Products derived from this software may not be called "Apache"
  *    nor may "Apache" appear in their names without prior written
@@ -50,6 +52,7 @@
  * individuals on behalf of the Apache Software Foundation.  For more
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
+ *
  */
 package org.apache.cactus.server;
 
@@ -80,6 +83,7 @@ public abstract class AbstractTestController
         LogService.getInstance().getLog(AbstractTestController.class.getName());
 
     /**
+     * @param theObjects the implicit objects coming from the redirector
      * @return the test caller that will be used to execute the test
      */
     protected abstract AbstractTestCaller getTestCaller(
@@ -91,6 +95,8 @@ public abstract class AbstractTestController
      *
      * @param theObjects the implicit objects (they are different for the
      *                   different redirectors)
+     * @exception ServletException if an error occurs when servicing the
+     *            request
      */
     public void handleRequest(WebImplicitObjects theObjects)
         throws ServletException
@@ -160,6 +166,8 @@ public abstract class AbstractTestController
      * @param theRequest the HTTP request
      * @return the service name of the service to call (there are 2 services
      *         "do test" and "get results"), extracted from the HTTP request
+     * @exception ServletException if the service to execute is missing from
+     *            the HTTP request
      */
     private String getServiceName(HttpServletRequest theRequest)
         throws ServletException

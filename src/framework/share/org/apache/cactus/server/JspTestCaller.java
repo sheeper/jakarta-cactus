@@ -1,4 +1,6 @@
 /*
+ * ====================================================================
+ *
  * The Apache Software License, Version 1.1
  *
  * Copyright (c) 2001-2002 The Apache Software Foundation.  All rights
@@ -23,10 +25,10 @@
  *    Alternately, this acknowlegement may appear in the software itself,
  *    if and wherever such third-party acknowlegements normally appear.
  *
- * 4. The names "The Jakarta Project", "Cactus", and "Apache Software
- *    Foundation" must not be used to endorse or promote products derived
- *    from this software without prior written permission. For written
- *    permission, please contact apache@apache.org.
+ * 4. The names "The Jakarta Project", "Cactus" and "Apache Software
+ *    Foundation" must not be used to endorse or promote products
+ *    derived from this software without prior written permission. For
+ *    written permission, please contact apache@apache.org.
  *
  * 5. Products derived from this software may not be called "Apache"
  *    nor may "Apache" appear in their names without prior written
@@ -50,6 +52,7 @@
  * individuals on behalf of the Apache Software Foundation.  For more
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
+ *
  */
 package org.apache.cactus.server;
 
@@ -59,8 +62,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.cactus.AbstractTestCase;
 import org.apache.cactus.JspTestCase;
 import org.apache.cactus.ServletURL;
-import org.apache.cactus.util.log.Log;
-import org.apache.cactus.util.log.LogService;
 
 /**
  * Call the test method on the server side after assigning the JSP implicit
@@ -81,8 +82,7 @@ public class JspTestCaller extends ServletTestCaller
     }
 
     /**
-     * Sets the test case fields using the implicit objects (using reflection).
-     * @param theTestInstance the test class instance
+     * @see AbstractTestCaller#setTestCaseFields(AbstractTestCase)
      */
     protected void setTestCaseFields(AbstractTestCase theTestInstance)
         throws Exception

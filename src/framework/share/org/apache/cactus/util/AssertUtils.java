@@ -1,4 +1,6 @@
 /*
+ * ====================================================================
+ *
  * The Apache Software License, Version 1.1
  *
  * Copyright (c) 2001-2002 The Apache Software Foundation.  All rights
@@ -23,10 +25,10 @@
  *    Alternately, this acknowlegement may appear in the software itself,
  *    if and wherever such third-party acknowlegements normally appear.
  *
- * 4. The names "The Jakarta Project", "Cactus", and "Apache Software
- *    Foundation" must not be used to endorse or promote products derived
- *    from this software without prior written permission. For written
- *    permission, please contact apache@apache.org.
+ * 4. The names "The Jakarta Project", "Cactus" and "Apache Software
+ *    Foundation" must not be used to endorse or promote products
+ *    derived from this software without prior written permission. For
+ *    written permission, please contact apache@apache.org.
  *
  * 5. Products derived from this software may not be called "Apache"
  *    nor may "Apache" appear in their names without prior written
@@ -50,10 +52,10 @@
  * individuals on behalf of the Apache Software Foundation.  For more
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
+ *
  */
 package org.apache.cactus.util;
 
-import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.util.Hashtable;
 import java.util.StringTokenizer;
@@ -79,7 +81,6 @@ public class AssertUtils
      * @return the servlet output stream bytes as a string.
      */
     public static String getResponseAsString(HttpURLConnection theConnection)
-        throws IOException
     {
         WebResponse response = new WebResponse(null, theConnection);
         return response.getText();
@@ -92,7 +93,7 @@ public class AssertUtils
      *         string is a separate line from the output stream).
      */
     public static String[] getResponseAsStringArray(
-        HttpURLConnection theConnection) throws IOException
+        HttpURLConnection theConnection)
     {
         WebResponse response = new WebResponse(null, theConnection);
         return response.getTextAsArray();
@@ -167,6 +168,8 @@ public class AssertUtils
     /**
      * Parse a single "Set-Cookie" header.
      *
+     * @param theHeaderValue the raw Cookie header to parse and from which to
+     *        extract the different cookies
      * @return a vector og <code>ClientCookie</code> objects containing the
      *         parsed values from the "Set-Cookie" header.
      */
