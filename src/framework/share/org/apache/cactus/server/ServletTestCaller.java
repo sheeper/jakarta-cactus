@@ -114,18 +114,6 @@ public class ServletTestCaller
 
         WebTestResult result = null;
 
-        // Reset TEST_RESULTS to a new results holder to prevent premature
-        // requests for results from seeing either no results or old results
-        ResultHolder holder = new ResultHolder();
-        this.servletImplicitObjects.getServletConfig().getServletContext().
-            setAttribute(TEST_RESULTS, holder);
-
-        this.logger.debug("Result holder semaphore is in place");
-
-        // From this point forward, any thread trying to access the result
-        // stored in the holder, itself stored in the application scope, will
-        // block and wait until a result is set.
-
         try {
 
             // Create an instance of the test class
@@ -150,11 +138,9 @@ public class ServletTestCaller
 
         }
 
-        // Set the test result. This will deactivate the semaphore.
-        holder.setResult(result);
-
-        this.logger.debug("Result holder semaphore inactive (result set in " +
-            "holder)");
+        // Set the test result.
+        this.servletImplicitObjects.getServletConfig().getServletContext().
+            setAttribute(TEST_RESULTS, result);
 
         this.logger.exit("doTest");
     }
@@ -168,15 +154,19 @@ public class ServletTestCaller
     {
         this.logger.entry("doGetResults()");
 
-        this.logger.debug("Try to read results from Holder ...");
+        // One could think there is a potential risk that the client side of
+        // Cactus will request the result before it has been written to the
+        // context scope as the HTTP request will not block in some containers.
+        // However this will not happend because on the client side, once the
+        // first request is done to execute the test, all the result is read
+        // by the AutoReadHttpURLConnection class, thus ensuring that the
+        // request is fully finished and the resukt has been committed ...
 
-        ResultHolder holder = (ResultHolder)(
-            this.servletImplicitObjects.getServletConfig().
+        WebTestResult result =
+            (WebTestResult)(this.servletImplicitObjects.getServletConfig().
             getServletContext().getAttribute(TEST_RESULTS));
 
-        WebTestResult result = holder.getResult();
-
-        this.logger.debug("... results has been read");
+        this.logger.debug("Test Result = [" + result + "]");
 
         // Write back the results as a serialized object to the outgoing stream.
         try {
