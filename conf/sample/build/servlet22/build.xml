@@ -39,6 +39,13 @@
 
         httpclient.jar        [REQUIRED] The Commons HttpClient jar file
 
+        aspectjrt.jar         [REQUIRED] The path to the AspectJ runtime jar. It is used by Cactus
+                              for logging entries and exit of methods, configuration checking, ...)
+
+        httpunit.jar          [REQUIRED] The path to the HttpUnit jar file.
+                              Required for compiling and running the unit
+                              tests.
+
         cactus.ant.jar        [REQUIRED] The path to the Cactus custom Ant
                               tasks jar file
 

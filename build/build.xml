@@ -41,6 +41,9 @@
                               Required for bundling it in the distribution
                               (used in build-servletapi.xml).
 
+        aspectjrt.jar         [REQUIRED] The path to the AspectJ runtime jar. It is used by Cactus
+                              for logging entries and exit of methods, configuration checking, ...)
+
         dist.dir              [OPTIONAL] The directories where distributable
                               files will be copied with version number
                               postfixed. Required for the dist target only.

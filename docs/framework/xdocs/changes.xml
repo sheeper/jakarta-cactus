@@ -128,6 +128,14 @@
 
     <release version="1.3 in CVS">
       <action dev="VMA" type="add">
+        Cactus is now using AspectJ under the hood to provide automatic logging of entries and
+        exits of methods (for debugging purpose) and to automatically initialise the logging
+        subsystem. The next step is to add automatic configuration checking using AspectJ. The
+        consequence for end users if that they now need to include the <code>aspectjrt.jar</code>
+        jar in their classpaths (both client side and server side). It is a small jar (25ko) that
+        is packaged in the cactus distribution.
+      </action>
+      <action dev="VMA" type="add">
         Added new java property "<code>cactus.config</code>" to specify location of cactus
         properties file (you pass it on the command line, ex:
         "<code>java -Dcactus.property=conf/mycactus.properties</code>"). If not specified,

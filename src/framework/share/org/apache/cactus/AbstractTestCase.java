@@ -363,14 +363,6 @@ public abstract class AbstractTestCase extends TestCase
         ClientConfigurationChecker.getInstance().checkHttpClient();
         ClientConfigurationChecker.getInstance().checkLog4j();
 
-        // Initialize the logging system. As this class is instanciated both
-        // on the server side and on the client side, we need to differentiate
-        // the logging initialisation. This method is only called on the client
-        // side, so we instanciate the log for client side here.
-        if (!LogService.getInstance().isInitialized()) {
-            LogService.getInstance().init("/" + AbstractTestCase.LOG_CLIENT_CONFIG);
-        }
-
         // We make sure we reinitialize the logger with the name of the
         // current class (that's why the logged instance is not static).
         this.logger =
@@ -404,8 +396,6 @@ public abstract class AbstractTestCase extends TestCase
     protected void runGenericTest(AbstractHttpClient theHttpClient)
         throws Throwable
     {
-        logger.entry("runGenericTest(...)");
-
         // Log the test name
         logger.debug("Test case = " + currentTestMethod);
 
@@ -443,8 +433,6 @@ public abstract class AbstractTestCase extends TestCase
         // Close the intput stream (just in the case the user has not done it
         // in it's endXXX method (or if he has no endXXX method) ....
         connection.getInputStream().close();
-
-        logger.exit("runGenericTest");
      }
 
     // Methods below are only called by the Cactus redirector on the server
@@ -465,8 +453,6 @@ public abstract class AbstractTestCase extends TestCase
                 LogService.getInstance().getLog(this.getClass().getName());
         }
 
-        logger.entry("runBareServerTest()");
-
         setUp();
         try {
             runServerTest();
@@ -474,8 +460,6 @@ public abstract class AbstractTestCase extends TestCase
         finally {
             tearDown();
         }
-
-        logger.exit("runBareServerTest");
 	}
 
 	/**
@@ -483,8 +467,6 @@ public abstract class AbstractTestCase extends TestCase
 	 */
 	protected void runServerTest() throws Throwable
     {
-        logger.entry("runServerTest()");
-
 		Method runMethod= null;
 		try {
 			// use getMethod to get all public inherited
@@ -514,8 +496,6 @@ public abstract class AbstractTestCase extends TestCase
 			e.fillInStackTrace();
 			throw e;
 		}
-
-        logger.exit("runServerTest");
 	}
 
 }

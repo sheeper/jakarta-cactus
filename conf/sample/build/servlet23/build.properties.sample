@@ -15,6 +15,9 @@ junit.jar = f:/applis/jakarta-ant-1.4.1/lib/junit.jar
 # Commons HttpClient class (needed by Cactus)
 httpclient.jar=../lib/commons-httpclient.jar
 
+# AspectJ runtime jar (used by Cactus for logging, configuration checking, ...)
+aspectjrt.jar=../lib/aspectjrt.jar
+
 # You have 2 options. Define a property named "log4j.jar" and point it to the
 # log4j jar file. In that case, Cactus will generate log files (named
 # cactus_server.log and cactus_client.log). the second option is not to define

@@ -202,6 +202,13 @@
             </classpath>
         </taskdef>
 
+        <!-- AspectJ task definition -->
+        <taskdef name="ajc" classname="org.aspectj.tools.ant.taskdefs.Ajc" >
+            <classpath>
+                <pathelement path="${java.class.path}"/>
+            </classpath>
+        </taskdef>
+
     </target>
 
     <!--
@@ -236,9 +243,6 @@
 
         <mkdir dir="${out.src.dir}"/>
 
-        <!-- Copy all source files to destination dir. Apply the filters in
-             order to replace the tokens for the copyright year and the
-             version -->
         <copy todir="${out.src.dir}" filtering="on">
             <fileset dir="${src.java.share.dir}">
                 <patternset refid="all.src.files"/>
@@ -263,24 +267,26 @@
 
         <mkdir dir="${out.classes.dir}"/>
 
+        <!-- Only run the ajc task if at least one of the source file has been
+             modified. -->
+        <uptodate property="ajc.notrequired" targetfile="${final.jar.name}">
+            <srcfiles dir="${out.src.dir}">
+                <patternset refid="all.src.files"/>
+            </srcfiles>
+        </uptodate>
+
     </target>
 
     <!-- Run the java compilation -->
-    <target name="compile" depends="prepare-compile">
+    <target name="compile" depends="prepare-compile" unless="ajc.notrequired">
 
-        <javac srcdir="${out.src.dir}"
+        <ajc srcdir="${out.src.dir}"
             destdir="${out.classes.dir}"
-            debug="${debug}"
             deprecation="${deprecation}"
             optimize="${optimize}">
 
-            <!-- Exclude all files that are not .java source files -->
-
-            <!-- All doc files -->
             <exclude name="**/package.html"/>
             <exclude name="**/overview.html"/>
-
-            <!-- All conf files (including test files) -->
             <exclude name="**/*.txt"/>
             <exclude name="**/*.xml"/>
             <exclude name="**/*.properties"/>
@@ -291,10 +297,11 @@
                 <pathelement location="${log4j.jar}"/>
                 <pathelement location="${httpclient.jar}"/>
                 <pathelement location="${junit.jar}"/>
+                <pathelement location="${aspectjrt.jar}"/>
                 <pathelement path="${java.class.path}"/>
             </classpath>
 
-        </javac>
+        </ajc>
 
         <!-- Copies non java files that need to be in the classes directory -->
         <copy todir="${out.classes.dir}">
@@ -543,7 +550,7 @@
          of the sample application and will be exercised there
        ========================================================================
     -->
-    <target name="tests-unit" depends="compile">
+    <target name="tests-unit" depends="jar">
 
         <junit printsummary="yes" haltonfailure="yes" fork="yes">
 
@@ -551,6 +558,7 @@
                 <pathelement location="${servlet.jar}"/>
                 <pathelement location="${httpunit.jar}"/>
                 <pathelement location="${httpclient.jar}"/>
+                <pathelement location="${aspectjrt.jar}"/>
                 <pathelement location="${out.classes.dir}"/>
                 <pathelement path="${junit.jar}"/>
                 <pathelement path="${java.class.path}"/>
@@ -593,6 +601,8 @@
             <arg value="-Djunit.jar=${junit.jar}"/>
             <arg value="-Dlog4j.jar=${log4j.jar}"/>
             <arg value="-Dhttpclient.jar=${httpclient.jar}"/>
+            <arg value="-Daspectjrt.jar=${aspectjrt.jar}"/>
+            <arg value="-Dhttpunit.jar=${httpunit.jar}"/>
 
             <!-- Pass all servlet engine properties -->
             <arg line="${test22.args.list}"/>
@@ -627,6 +637,8 @@
             <arg value="-Djunit.jar=${junit.jar}"/>
             <arg value="-Dlog4j.jar=${log4j.jar}"/>
             <arg value="-Dhttpclient.jar=${httpclient.jar}"/>
+            <arg value="-Daspectjrt.jar=${aspectjrt.jar}"/>
+            <arg value="-Dhttpunit.jar=${httpunit.jar}"/>
 
             <!-- Pass all servlet engine properties -->
             <arg line="${test23.args.list}"/>
@@ -676,6 +688,7 @@
         <copy todir="${out.lib.dir}" file="${log4j.jar}"/>
         <copy todir="${out.lib.dir}" file="${junit.jar}"/>
         <copy todir="${out.lib.dir}" file="${httpclient.jar}"/>
+        <copy todir="${out.lib.dir}" file="${aspectjrt.jar}"/>
 
         <!-- Copy the dist directory for the current Servlet API to the
              dist.dir directory -->
