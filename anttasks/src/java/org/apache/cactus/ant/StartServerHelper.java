@@ -58,6 +58,9 @@ package org.apache.cactus.ant;
 
 import java.io.InputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -137,26 +140,14 @@ public class StartServerHelper implements Runnable
 
         // Try connecting in case the server is already running. If so, does
         // nothing
-        try {
-
-            HttpURLConnection connection =
-                (HttpURLConnection) this.testURL.openConnection();
-            connection.connect();
-            readFully(connection);
-            connection.disconnect();
-
+        if (isURLCallable()) {
             // Server is already running. Record this information so that we
             // don't stop it afterwards.
             this.isServerAlreadyStarted = true;
-
-            this.task.log("Server is already running", Project.MSG_VERBOSE);
-
+            this.task.log("Server is already running", Project.MSG_DEBUG);
             return;
-
-        } catch (IOException e) {
-            // An error occurred. It just means the server is not running. Do
-            // nothing
-            this.task.log("Server is not running", Project.MSG_VERBOSE);
+        } else {
+            this.task.log("Server is not running", Project.MSG_DEBUG);
         }
 
         // Call the target that starts the server, in another thread. The called
@@ -167,53 +158,75 @@ public class StartServerHelper implements Runnable
 
         // Wait a few ms more (just to make sure the servlet engine is
         // ready to accept connections)
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            throw new BuildException("Interruption during sleep", e);
-        }
+        sleep(1000);
 
         // Continuously try calling the test URL until it succeeds
         while (true) {
 
-            this.task.log("Checking if server is up ...", Project.MSG_VERBOSE);
+            this.task.log("Checking if server is up ...", Project.MSG_DEBUG);
 
-            try {
-                HttpURLConnection connection =
-                    (HttpURLConnection) this.testURL.openConnection();
-                connection.connect();
-                readFully(connection);
-                connection.disconnect();
-            } catch (IOException e) {
-
-                this.task.log("... got error : " + e.getMessage(),
-                    Project.MSG_VERBOSE);
-
-                try {
-                    Thread.sleep(500);
-                } catch (InterruptedException ee) {
-                    throw new BuildException("Interruption during sleep", ee);
-                }
-
+            if (!isURLCallable()) {
+                sleep(500);
                 continue;
             }
 
-            this.task.log("Server is up !", Project.MSG_VERBOSE);
+            this.task.log("Server is up !", Project.MSG_DEBUG);
 
             break;
         }
 
         // Wait a few ms more (just to be sure !)
+        sleep(500);
+
+        this.task.log("Server started", Project.MSG_DEBUG);
+
+        // We're done ... Ant will continue processing other tasks
+    }
+
+    /**
+     * Sleeps n milliseconds.
+     *
+     * @param theMs the number of milliseconds to wait
+     * @throws BuildException if the sleeping thread is interrupted
+     */
+    private void sleep(int theMs) throws BuildException
+    {
         try {
-            Thread.sleep(500);
+            Thread.sleep(theMs);
         } catch (InterruptedException e) {
             throw new BuildException("Interruption during sleep", e);
         }
+    }
 
-        this.task.log("Server started", Project.MSG_VERBOSE);
+    /**
+     * @return true if the test URL could be called without error or false
+     *         otherwise
+     */
+    private boolean isURLCallable()
+    {
+        boolean isURLCallable = false;
 
-        // We're done ... Ant will continue processing other tasks
+        try {
+            HttpURLConnection connection =
+                (HttpURLConnection) this.testURL.openConnection();
+            connection.connect();
+            readFully(connection);
+            connection.disconnect();
+            isURLCallable = true;
+        } catch (IOException e) {
+            // Log an information in debug mode
 
+            // Get stacktrace text
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            PrintWriter writer = new PrintWriter(baos);
+            e.printStackTrace(writer);
+            writer.close();
+
+            this.task.log("Failed to call test URL. Reason :" +
+                new String(baos.toByteArray()), Project.MSG_DEBUG);
+        }
+
+        return isURLCallable;
     }
 
     /**
@@ -275,6 +288,8 @@ public class StartServerHelper implements Runnable
         } catch (MalformedURLException e) {
             throw new BuildException("Bad URL [" + theTestURL + "]", e);
         }
+
+        this.task.log("Test URL = [" + this.testURL + "]", Project.MSG_DEBUG);
     }
 
     /**

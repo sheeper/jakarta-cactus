@@ -48,6 +48,13 @@
     </devs>
 
     <release version="1.4 in CVS">
+      <action dev="VMA" type="update">
+        Improved debugging of <code>runservertests</code> task. Simply run
+        Ant in debug mode (<code>ant -debug xxx</code>) and the task will
+        print information. Very useful to know why the
+        <code>runservertests</code> task seems to hang after starting your
+        server ...
+      </action>
     </release>
 
     <release version="1.3" date="April 21 2002">
