@@ -64,6 +64,7 @@ import junit.framework.AssertionFailedError;
 import junit.framework.TestCase;
 
 import org.apache.cactus.client.ClientException;
+import org.apache.cactus.client.WebResponseObjectFactory;
 import org.apache.cactus.configuration.ServletConfiguration;
 import org.apache.cactus.configuration.WebConfiguration;
 import org.apache.cactus.internal.WebRequestImpl;
@@ -128,7 +129,8 @@ public abstract class AbstractTestAbstractTestCase extends TestCase
                 new ByteArrayInputStream("".getBytes()));
 
             // Create a WebResponse object and call the end method
-            delegator.callEndMethod(request, connection);
+            delegator.callEndMethod(request, 
+                new WebResponseObjectFactory(connection));
         }
         catch (AssertionFailedError e)
         {

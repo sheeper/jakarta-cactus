@@ -76,30 +76,45 @@ import org.apache.cactus.WebResponse;
 public class WebResponseObjectFactory implements ResponseObjectFactory
 {
     /**
+     * Connection object used to connect to the Cactus server side. Required
+     * to create the response object.  
+     */
+    private HttpURLConnection connection;
+    
+    /**
+     * @param theConnection the connection object used to connect to the 
+     *        Cactus server side
+     */
+    public WebResponseObjectFactory(HttpURLConnection theConnection)
+    {
+        this.connection = theConnection;
+    }
+       
+    /**
      * @see ResponseObjectFactory#getResponseObject
      */
-    public Object getResponseObject(String theClassName, Request theRequest, 
-        HttpURLConnection theConnection) throws ClientException
+    public Object getResponseObject(String theClassName, Request theRequest) 
+        throws ClientException
     {
         Object responseObject;
 
         // Is it a Http Unit WebResponse ?
         if (theClassName.equals("com.meterware.httpunit.WebResponse"))
         {
-            responseObject = createHttpUnitWebResponse(theConnection);
+            responseObject = createHttpUnitWebResponse(this.connection);
 
             // Is it a Cactus WebResponse ?
         }
         else if (theClassName.equals("org.apache.cactus.WebResponse"))
         {
             responseObject = new WebResponse((WebRequest) theRequest, 
-                theConnection);
+                this.connection);
 
             // Is it an old HttpURLConnection (deprecated) ?
         }
         else if (theClassName.equals("java.net.HttpURLConnection"))
         {
-            responseObject = theConnection;
+            responseObject = this.connection;
 
             // Else it is an error ...
         }

@@ -64,6 +64,8 @@ import junit.framework.Assert;
 import junit.framework.Test;
 
 import org.apache.cactus.Request;
+import org.apache.cactus.client.ClientException;
+import org.apache.cactus.client.ResponseObjectFactory;
 import org.apache.cactus.configuration.Configuration;
 import org.apache.cactus.util.JUnitVersionHelper;
 import org.apache.commons.logging.Log;
@@ -76,9 +78,8 @@ import org.apache.commons.logging.LogFactory;
  * JMS, etc). Subclasses will define additional behaviour that depends on the 
  * protocol.
  *  
- * It provides the ability to run common code before each test on the client 
- * side (note that calling common tear down code is delegated to child classes 
- * as the method signature depends on the protocol used).
+ * It provides the ability to run common code before and after each test on the
+ * client side.
  *
  * In addition it provides the ability to execute some one time (per-JVM)
  * initialisation code (a pity this is not provided in JUnit). It can be 
@@ -374,7 +375,7 @@ public abstract class AbstractClientTestCaseDelegate
             }
         }
     }
-
+    
     /**
      * Call the global begin method. This is the method that is called before
      * each test if it exists. It is called on the client side only.
@@ -383,7 +384,7 @@ public abstract class AbstractClientTestCaseDelegate
      *        be used to connect to the Cactus server side redirectors.
      * @exception Throwable any error that occurred when calling the method
      */
-    protected void callClientGlobalBegin(Request theRequest) throws Throwable
+    protected void callGlobalBeginMethod(Request theRequest) throws Throwable
     {
         callGenericBeginMethod(theRequest, CLIENT_GLOBAL_BEGIN_METHOD);
     }
@@ -400,6 +401,145 @@ public abstract class AbstractClientTestCaseDelegate
         callGenericBeginMethod(theRequest, getBeginMethodName());
     }
 
+    /**
+     * Call the global end method. This is the method that is called after
+     * each test if it exists. It is called on the client side only.
+     *
+     * @param theRequest the request data that were used to open the
+     *        connection.
+     * @param theResponseFactory the factory to use to return response objects.
+     * @param theMethodName the name of the end method to call
+     * @param theResponse the Response object if it exists. Can be null in
+     *        which case it is created from the response object factory
+     * @return the created Reponse object
+     * @exception Throwable any error that occurred when calling the end method
+     *            for the current test case.
+     */
+    private Object callGenericEndMethod(Request theRequest,
+        ResponseObjectFactory theResponseFactory, String theMethodName, 
+        Object theResponse) throws Throwable
+    {
+        Method methodToCall = null;
+        Object paramObject = null;
+
+        Method[] methods = getTest().getClass().getMethods();
+
+        for (int i = 0; i < methods.length; i++)
+        {
+            if (methods[i].getName().equals(theMethodName))
+            {
+                // Check return type
+                if (!methods[i].getReturnType().getName().equals("void"))
+                {
+                    fail("The method [" + methods[i].getName()
+                       + "] should return void and not ["
+                       + methods[i].getReturnType().getName() + "]");
+                }
+
+                // Check if method is public
+                if (!Modifier.isPublic(methods[i].getModifiers()))
+                {
+                    fail("Method [" + methods[i].getName()
+                       + "] should be declared public");
+                }
+
+                // Check parameters
+                Class[] parameters = methods[i].getParameterTypes();
+
+                // Verify only one parameter is defined
+                if (parameters.length != 1)
+                {
+                    fail("The method [" + methods[i].getName()
+                       + "] must only have a single parameter");
+                }
+
+                paramObject = theResponse;
+
+                if (paramObject == null)
+                {
+                    try
+                    {
+                        paramObject = theResponseFactory.getResponseObject(
+                            parameters[0].getName(), theRequest);
+                    }
+                    catch (ClientException e)
+                    {
+                        throw new ClientException("The method ["
+                            + methods[i].getName() 
+                            + "] has a bad parameter of type ["
+                            + parameters[0].getName() + "]", e);
+                    }
+                }
+
+                // Has a method to call already been found ?
+                if (methodToCall != null)
+                {
+                    fail("There can only be one method ["
+                       + methods[i].getName() + "] per test case. "
+                       + "Test case [" + this.getCurrentTestName()
+                       + "] has two at least !");
+                }
+
+                methodToCall = methods[i];
+            }
+        }
+
+        if (methodToCall != null)
+        {
+            try
+            {
+                methodToCall.invoke(getTest(), new Object[] {paramObject});
+            }
+            catch (InvocationTargetException e)
+            {
+                e.fillInStackTrace();
+                throw e.getTargetException();
+            }
+            catch (IllegalAccessException e)
+            {
+                e.fillInStackTrace();
+                throw e;
+            }
+        }
+
+        return paramObject;
+    }
+
+    /**
+     * Call the client tear down up method if it exists.
+     *
+     * @param theRequest the request data that were used to open the
+     *                   connection.
+     * @param theResponseFactory the factory to use to return response objects.
+     * @param theResponse the Response object if it exists. Can be null in
+     *        which case it is created from the response object factory
+     * @exception Throwable any error that occurred when calling the method
+     */
+    protected void callGlobalEndMethod(Request theRequest, 
+        ResponseObjectFactory theResponseFactory, Object theResponse) 
+        throws Throwable
+    {
+        callGenericEndMethod(theRequest, theResponseFactory,
+            CLIENT_GLOBAL_END_METHOD, theResponse);
+    }
+
+    /**
+     * Call the test case end method
+     *
+     * @param theRequest the request data that were used to open the
+     *                   connection.
+     * @param theResponseFactory the factory to use to return response objects.
+     * @return the created Reponse object
+     * @exception Throwable any error that occurred when calling the end method
+     *         for the current test case.
+     */
+    public Object callEndMethod(Request theRequest, 
+        ResponseObjectFactory theResponseFactory) throws Throwable
+    {
+        return callGenericEndMethod(theRequest, theResponseFactory,
+            getEndMethodName(), null);
+    }
+    
     /**
      * @see #getCurrentTestName()
      * @deprecated Use {@link #getCurrentTestName()} instead

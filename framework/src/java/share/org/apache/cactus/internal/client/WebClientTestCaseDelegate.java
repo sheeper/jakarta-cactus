@@ -56,17 +56,12 @@
  */
 package org.apache.cactus.internal.client;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
-
 import java.net.HttpURLConnection;
 
 import junit.framework.Test;
 
 import org.apache.cactus.RequestDirectives;
 import org.apache.cactus.WebRequest;
-import org.apache.cactus.client.ClientException;
 import org.apache.cactus.client.WebResponseObjectFactory;
 import org.apache.cactus.client.connector.http.DefaultHttpClient;
 import org.apache.cactus.configuration.Configuration;
@@ -74,9 +69,7 @@ import org.apache.cactus.configuration.WebConfiguration;
 import org.apache.cactus.internal.WebRequestImpl;
 
 /**
- * Delegator extension to support test cases using the HTTP protocol. It adds 
- * support for end methods (as they are dependent on the protocol used, which 
- * is HTTP here).
+ * Delegator extension to support test cases using the HTTP protocol.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
@@ -94,154 +87,6 @@ public class WebClientTestCaseDelegate extends AbstractClientTestCaseDelegate
         Test theWrappedTest, Configuration theConfiguration)
     {
         super(theDelegatedTest, theWrappedTest, theConfiguration);
-    }
-
-    /**
-     * Call the global end method. This is the method that is called after
-     * each test if it exists. It is called on the client side only.
-     *
-     * @param theRequest the request data that were used to open the
-     *        connection.
-     * @param theConnection the <code>HttpURLConnection</code> that was used
-     *        to open the connection to the redirection servlet. The response
-     *        codes, headers, cookies can be checked using the get methods of
-     *        this object.
-     * @param theMethodName the name of the end method to call
-     * @param theResponse the Response object if it exists. Can be null in
-     *        which case it is created from the HttpURLConnection
-     * @return the created WebReponse object (either Cactus or HttpClient)
-     * @exception Throwable any error that occurred when calling the end method
-     *            for the current test case.
-     */
-    private Object callGenericEndMethod(WebRequest theRequest, 
-        HttpURLConnection theConnection, String theMethodName, 
-        Object theResponse) throws Throwable
-    {
-        Method methodToCall = null;
-        Object paramObject = null;
-
-        Method[] methods = getTest().getClass().getMethods();
-
-        for (int i = 0; i < methods.length; i++)
-        {
-            if (methods[i].getName().equals(theMethodName))
-            {
-                // Check return type
-                if (!methods[i].getReturnType().getName().equals("void"))
-                {
-                    fail("The method [" + methods[i].getName()
-                        + "] should return void and not ["
-                        + methods[i].getReturnType().getName() + "]");
-                }
-
-                // Check if method is public
-                if (!Modifier.isPublic(methods[i].getModifiers()))
-                {
-                    fail("Method [" + methods[i].getName()
-                        + "] should be declared public");
-                }
-
-                // Check parameters
-                Class[] parameters = methods[i].getParameterTypes();
-
-                // Verify only one parameter is defined
-                if (parameters.length != 1)
-                {
-                    fail("The method [" + methods[i].getName()
-                        + "] must only have a single parameter");
-                }
-
-                paramObject = theResponse;
-
-                if (paramObject == null)
-                {
-                    try
-                    {
-                        paramObject = new WebResponseObjectFactory()
-                            .getResponseObject(parameters[0].getName(), 
-                            theRequest, theConnection);
-                    }
-                    catch (ClientException e)
-                    {
-                        throw new ClientException("The method ["
-                            + methods[i].getName() 
-                            + "] has a bad parameter of type ["
-                            + parameters[0].getName() + "]", e);
-                    }
-                }
-
-                // Has a method to call already been found ?
-                if (methodToCall != null)
-                {
-                    fail("There can only be one method ["
-                        + methods[i].getName() + "] per test case. "
-                        + "Test case [" + this.getCurrentTestName()
-                        + "] has two at least !");
-                }
-
-                methodToCall = methods[i];
-            }
-        }
-
-        if (methodToCall != null)
-        {
-            try
-            {
-                methodToCall.invoke(getTest(), new Object[] {paramObject});
-            }
-            catch (InvocationTargetException e)
-            {
-                e.fillInStackTrace();
-                throw e.getTargetException();
-            }
-            catch (IllegalAccessException e)
-            {
-                e.fillInStackTrace();
-                throw e;
-            }
-        }
-
-        return paramObject;
-    }
-
-    /**
-     * Call the client tear down up method if it exists.
-     *
-     * @param theRequest the request data that were used to open the
-     *                   connection.
-     * @param theConnection the <code>HttpURLConnection</code> that was used
-     *        to open the connection to the redirection servlet. The response
-     *        codes, headers, cookies can be checked using the get methods of
-     *        this object.
-     * @param theResponse the Response object if it exists. Can be null in
-     *        which case it is created from the HttpURLConnection
-     * @exception Throwable any error that occurred when calling the method
-     */
-    protected void callClientGlobalEnd(WebRequest theRequest, 
-        HttpURLConnection theConnection, Object theResponse) throws Throwable
-    {
-        callGenericEndMethod(theRequest, theConnection, 
-            CLIENT_GLOBAL_END_METHOD, theResponse);
-    }
-
-    /**
-     * Call the test case end method
-     *
-     * @param theRequest the request data that were used to open the
-     *                   connection.
-     * @param theConnection the <code>HttpURLConnection</code> that was used
-     *        to open the connection to the redirection servlet. The response
-     *        codes, headers, cookies can be checked using the get methods of
-     *        this object.
-     * @return the created WebReponse object (either Cactus or HttpClient)
-     * @exception Throwable any error that occurred when calling the end method
-     *         for the current test case.
-     */
-    public Object callEndMethod(WebRequest theRequest, 
-        HttpURLConnection theConnection) throws Throwable
-    {
-        return callGenericEndMethod(theRequest, theConnection, 
-            getEndMethodName(), null);
     }
 
     /**
@@ -275,17 +120,19 @@ public class WebClientTestCaseDelegate extends AbstractClientTestCaseDelegate
             (WebConfiguration) getConfiguration());
 
         // Call the set up and begin methods to fill the request object
-        callClientGlobalBegin(request);
+        callGlobalBeginMethod(request);
         callBeginMethod(request);
 
         // Run the web test
         HttpURLConnection connection = runWebTest(request, theHttpClient);
 
         // Call the end method
-        Object response = callEndMethod(request, connection);
+        Object response = callEndMethod(request, 
+            new WebResponseObjectFactory(connection));
 
         // call the tear down method
-        callClientGlobalEnd(request, connection, response);
+        callGlobalEndMethod(request, new WebResponseObjectFactory(connection), 
+            response);
 
         // Close the input stream (just in the case the user has not done it
         // in it's endXXX method (or if he has no endXXX method) ....
@@ -304,10 +151,8 @@ public class WebClientTestCaseDelegate extends AbstractClientTestCaseDelegate
      * @exception Throwable any error that occurred when calling the test method
      *            for the current test case.
      */
-    private HttpURLConnection runWebTest(
-        WebRequest theRequest,
-        DefaultHttpClient theHttpClient)
-        throws Throwable
+    private HttpURLConnection runWebTest(WebRequest theRequest,
+        DefaultHttpClient theHttpClient) throws Throwable
     {
         // Add the class name, the method name, to the request to simulate and
         // automatic session creation flag to the request

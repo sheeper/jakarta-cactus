@@ -56,8 +56,6 @@
  */
 package org.apache.cactus.client;
 
-import java.net.HttpURLConnection;
-
 import org.apache.cactus.Request;
 
 /**
@@ -76,12 +74,10 @@ public interface ResponseObjectFactory
      *
      * @param theClassName the class name of the object to construct
      * @param theRequest the request that was sent by Cactus to the server side
-     * @param theConnection the HTTP connection object that was used by Cactus
-     *        to connect to the server side
      * @return the response object that will be passed to <code>endXXX()</code>
      *         methods and to the global end method
      * @throws ClientException if it fails to construct the response object
      */
-    Object getResponseObject(String theClassName, Request theRequest, 
-        HttpURLConnection theConnection) throws ClientException;
+    Object getResponseObject(String theClassName, Request theRequest) 
+        throws ClientException;
 }

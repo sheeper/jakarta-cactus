@@ -267,11 +267,10 @@ public class WebRequestImpl extends BaseWebRequest
         WebResponse response;
         try
         {
-            response =
-                (WebResponse) new WebResponseObjectFactory().getResponseObject(
+            response = (WebResponse) new WebResponseObjectFactory(
+                resultConnection).getResponseObject(
                     WebResponse.class.getName(),
-                    obtainSessionIdRequest,
-                    resultConnection);
+                    obtainSessionIdRequest);
         }
         catch (ClientException e)
         {
