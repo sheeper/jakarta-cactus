@@ -94,7 +94,7 @@ public class TestServletURL extends TestCase
      */
     public static void main(String[] theArgs)
     {
-        junit.ui.TestRunner.main(
+        junit.swingui.TestRunner.main(
             new String[]{TestServletURL.class.getName()});
     }
 

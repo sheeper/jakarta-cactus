@@ -96,7 +96,7 @@ public class TestAbstractTestCase extends
      */
     public static void main(String[] theArgs)
     {
-        junit.ui.TestRunner.main(
+        junit.swingui.TestRunner.main(
             new String[]{TestAbstractTestCase.class.getName()});
     }
 

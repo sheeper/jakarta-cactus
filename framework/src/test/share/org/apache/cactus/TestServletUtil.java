@@ -95,7 +95,7 @@ public class TestServletUtil extends TestCase
      */
     public static void main(String[] theArgs)
     {
-        junit.ui.TestRunner.main(
+        junit.swingui.TestRunner.main(
             new String[]{TestServletUtil.class.getName()});
     }
 
