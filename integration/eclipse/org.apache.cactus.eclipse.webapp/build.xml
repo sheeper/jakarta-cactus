@@ -144,8 +144,7 @@
          Generate the jars
        ========================================================================
     -->
-    <target name="jar" depends="compile"
-        description="Generates the jars">
+    <target name="jar" depends="compile" description="Generates the jars">
         
 		<mkdir dir="${target.dir}"/>
 
@@ -219,7 +218,7 @@
 
         <copy todir="${dist.bin.integration.dir}">
             <fileset dir=".">
-                <include name="LICENSE.*"/>
+                <include name="LICENSE.cactus"/>
             </fileset>
         </copy>
 
