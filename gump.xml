@@ -567,7 +567,6 @@
     <!-- Only release if the projects have built successfully -->
     <depend project="jakarta-cactus-framework-12"/>
     <depend project="jakarta-cactus-integration-ant-12"/>
-    <depend project="jakarta-cactus-integration-eclipse-runner-12"/>
     <depend project="jakarta-cactus-sample-servlet-12"/>
 
     <deliver fromdir="release" tosite="jakarta.apache.org"
@@ -594,7 +593,6 @@
     <!-- Only release if the projects have built successfully -->
     <depend project="jakarta-cactus-framework-13"/>
     <depend project="jakarta-cactus-integration-ant-13"/>
-    <depend project="jakarta-cactus-integration-eclipse-runner-13"/>
     <depend project="jakarta-cactus-sample-servlet-13"/>
     
     <deliver fromdir="release" tosite="jakarta.apache.org"
