@@ -234,9 +234,6 @@ experimental and needs some work
               Resin 2.x (Servlet API 2.2 and 2.3)
             </li>
             <li>
-              WebLogic 6.x (Servlet API 2.2 and 2.3)
-            </li>
-            <li>
               WebLogic 7.x (Servlet API 2.2 and 2.3)
             </li>
             <li>
@@ -244,6 +241,11 @@ experimental and needs some work
             </li>
             <li>
               JBoss/Jetty 3.x (Servlet API 2.3)
+              <img src="images/new.jpg" alt="New in Cactus 1.5"/>
+            </li>
+            <li>
+              Note: The WebLogic 6.x support has been dropped as BEA does not
+              provide a link to download WebLogic 6.x anymore.
               <img src="images/new.jpg" alt="New in Cactus 1.5"/>
             </li>
           </ul>
@@ -256,7 +258,7 @@ experimental and needs some work
           no longer provided)
         </li>
         <li>
-          Works with JDK 1.2, 1.3 and 1.4.
+          Works with JDK 1.2, 1.3 and 1.4+
         </li>
         <li>
           Wraps some of the standard API objects in order to provide
