@@ -130,6 +130,11 @@ public class ServletTestCase extends AbstractTestCase
 
     protected void runGenericTest(AbstractHttpClient theHttpClient) throws Throwable
     {
+        logger.entry("runGenericTest(...)");
+
+        // Log the test name
+        logger.debug("Test case = " + currentTestMethod);
+
         // Call the begin method to fill the request object
         ServletTestRequest request = new ServletTestRequest();
         callBeginMethod(request);
@@ -159,6 +164,8 @@ public class ServletTestCase extends AbstractTestCase
         // in it's endXXX method (or if he has no endXXX method) ....
         connection.getInputStream().close();
         //connection.disconnect();
+
+        logger.exit("runGenericTest");
      }
 	
 }
