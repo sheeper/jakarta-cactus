@@ -18,12 +18,12 @@
         Test Runner (in the client JVM) and that the Cactus TestCase that you
         have extended will connect to the Cactus Redirector (in the server
         JVM), where your <code>testXXX()</code> methods will be executed. See
-        <link href="how_it_works.html">How it works</link> to understand the
+        <link href="site:how_it_works">How it works</link> to understand the
         mechanism.
       </p>
 
       <p>
-        Please also check the <link href="howto_runner.html">TestRunner
+        Please also check the <link href="site:howto_runner">TestRunner
         Howto</link> tutorial which explains all the different ways to
         start a JUnit Test Runner.
       </p>
@@ -100,12 +100,12 @@
             wish to use
             <link href="http://httpunit.sourceforge.net">HttpUnit</link>
             in your <code>endXXX()</code> methods (see the
-            <link href="howto_httpunit.html">HttpUnit Howto</link> tutorial).
+            <link href="site:howto_httpunit">HttpUnit Howto</link> tutorial).
             The 3 jars mentioned above are part of the HttpUnit distribution.
           </li>
           <li>
             <strong><code>aspectjrt.jar</code></strong> :
-            <link href="http://www.aspectj.org">AspectJ</link> runtime jar.
+            <link href="ext:aspectj">AspectJ</link> runtime jar.
           </li>
         </ul>
 
@@ -121,14 +121,14 @@
           to put the <strong><code>cactus.properties</code></strong>
           configuration file in your classpath (Only if you are using it to
           configure Cactus of course). Details are described in the
-          <link href="howto_config.html">Config Howto</link> tutorial).
+          <link href="site:howto_config">Config Howto</link> tutorial).
         </p>
 
         <note>
           If you are using Log4J as the logging framework, you will also
           need to put a <code>log4j.properties</code> Log4j configuration
           file in your client side classpath (See the
-          <link href="howto_config.html">Config Howto</link> tutorial).
+          <link href="site:howto_config">Config Howto</link> tutorial).
         </note>
 
       </s2>
@@ -162,7 +162,7 @@
           </li>
           <li>
             <strong><code>aspectjrt.jar</code></strong> :
-            <link href="http://www.aspectj.org">AspectJ</link> runtime jar.
+            <link href="ext:aspectj">AspectJ</link> runtime jar.
           </li>
           <li>
             <strong><code>WEB-INF/lib/commons-logging.jar</code></strong> :

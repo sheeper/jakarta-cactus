@@ -47,7 +47,7 @@
       <p>
       	This is easily done by implementing a
       	<code>endXXX(WebResponse)</code> method as described in the
-      	<link href="howto_testcase.html#endxxx">TestCase tutorial</link>.
+      	<jump href="site:howto_testcase" anchor="endxxx">TestCase tutorial</jump>.
       </p>
       <p>
       	Your test case class will also need to extend 
@@ -85,7 +85,7 @@ public class MyTest extends ServletTestCase
       <p>
       	This is easily done by creating a test case class that extends
       	<code>JspTestCase</code>. See the 
-      	<link href="howto_testcase_jsp.html">Taglib TestCase 
+      	<link href="site:howto_testcase_jsp">Taglib TestCase 
         tutorial</link>.
       </p>
       

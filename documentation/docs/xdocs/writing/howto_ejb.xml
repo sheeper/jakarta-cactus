@@ -107,7 +107,7 @@
   <s1 title="J2EE RI Tutorial">
 
     <p>
-      This <link href="howto_ejb_j2eeri.html">J2EE RI tutorial</link>
+      This <link href="site:howto_ejb_j2eeri">J2EE RI tutorial</link>
       is a step by step guide for writing Cactus EJB unit test for the
       Sun J2EE RI server.
     </p>

@@ -41,7 +41,7 @@
       </p>
       <note>
         You may ask yourself how Cactus initializes these objects. The
-        mechanism is described in the <link href="how_it_works.html">How it
+        mechanism is described in the <link href="site:how_it_works">How it
         works</link> guide.
       </note>
 

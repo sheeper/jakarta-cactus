@@ -314,7 +314,7 @@ public void endXXX(HttpURLConnection theConnection)
           checking, we have integrated with the
           <link href="http://httpunit.sourceforge.net">HttpUnit</link>
           framework. See the
-          <link href="howto_httpunit.html">HttpUnit tutorial</link> for the
+          <link href="site:howto_httpunit">HttpUnit tutorial</link> for the
           end method signatures and a full description.
         </p>
         <p>
@@ -337,15 +337,15 @@ public void endXXX(HttpURLConnection theConnection)
       </p>
       <ul>
         <li>
-          <link href="howto_testcase_servlet.html">ServletTestCase
+          <link href="site:howto_testcase_servlet">ServletTestCase
           principles</link>,
         </li>
         <li>
-          <link href="howto_testcase_jsp.html">JspTestCase
+          <link href="site:howto_testcase_jsp">JspTestCase
           principles</link>,
         </li>
         <li>
-          <link href="howto_testcase_filter.html">FilterTestCase
+          <link href="site:howto_testcase_filter">FilterTestCase
           principles</link>
         </li>
       </ul>

@@ -14,7 +14,7 @@
     <s1 title="Cactus Configuration">
 
       <note>
-        You should read the <link href="getting_started.html">Getting
+        You should read the <link href="site:getting_started">Getting
         Started</link> guide first.
       </note>
 
@@ -142,7 +142,7 @@
               server side in <code>web.xml</code> (see below). This property
               is needed only if your test classes are extending
               <code>ServletTestCase</code> (see the
-              <link href="howto_testcase.html">TestCase Howto</link>
+              <link href="site:howto_testcase">TestCase Howto</link>
               tutorial).
             </td>
           </tr>
@@ -186,7 +186,7 @@
               server side in <code>web.xml</code> (see below). This property
               is needed only if your test classes are extending
               <code>JspTestCase</code> (see the
-              <link href="howto_testcase.html">TestCase Howto</link>
+              <link href="site:howto_testcase">TestCase Howto</link>
               tutorial).
             </td>
           </tr>
@@ -230,7 +230,7 @@
               server side in <code>web.xml</code> (see below). This property
               is needed only if your test classes are extending
               <code>FilterTestCase</code> (see the
-              <link href="howto_testcase.html">TestCase Howto</link>
+              <link href="site:howto_testcase">TestCase Howto</link>
               tutorial).
             </td>
           </tr>
@@ -252,7 +252,7 @@
         <p>
           On Cactus server side, you only need to properly configure your
           application <code>web.xml</code> file to include definitions for
-          Cactus Redirectors (see <link href="how_it_works.html">How it
+          Cactus Redirectors (see <link href="site:how_it_works">How it
           works</link> if you don't know what a Cactus Redirector is).
         </p>
 
@@ -359,7 +359,7 @@
         <p>
           Last, if you need to unit test code that uses the Servlet
           Security API, please check the
-          <link href="howto_security.html">Security Howto</link>.
+          <link href="site:howto_security">Security Howto</link>.
         </p>
 
       </s2>

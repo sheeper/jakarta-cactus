@@ -16,7 +16,7 @@
     <s1 title="Forewords and Requirements">
       <p>
         First of all, you need to download the
-        <link href="downloads.html">Cactus distribution</link>
+        <link href="site:downloads">Cactus distribution</link>
       </p>
     </s1>
 
@@ -72,7 +72,7 @@
 
       <p>
         Edit a new file named <code>cactus.properties</code>
-        (see the <link href="howto_config.html">Configuration Howto</link>
+        (see the <link href="site:howto_config">Configuration Howto</link>
         tutorial for more details on <code>cactus.properties</code>).
       </p>
       <p>

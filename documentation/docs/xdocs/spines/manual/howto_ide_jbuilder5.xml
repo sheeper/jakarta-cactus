@@ -32,7 +32,7 @@
 
       <p>
         Create cactus.properties file : Add entry to identify the URL of the
-        redirector (see the <link href="howto_config.html">Configuration
+        redirector (see the <link href="site:howto_config">Configuration
         Howto</link> for details).
       </p>
 

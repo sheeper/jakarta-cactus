@@ -44,14 +44,14 @@
         </li>
         <li>
           Add the Cactus redirector mappings to your web.xml file (see the
-          <link href="howto_config.xml">Configuration Howto</link>), which is
+          <link href="site:howto_config">Configuration Howto</link>), which is
           located at
           <code>{VAJava dir}\ide\project_resources\Apache_Tomcat_Test_Environment\webapps\myApp\WEB-INF\</code>,
         </li>
         <li>
           Make sure the <code>cactus.properties</code> file has the correct
           URL for the redirectors (see the
-          <link href="howto_config.xml">Configuration Howto</link>). Put the
+          <link href="site:howto_config">Configuration Howto</link>). Put the
           file in
           <code>{VAJava dir}\ide\project_resources\Apache_Tomcat_Test_Environment\webapps\myApp\WEB-INF\</code>,
         </li>

@@ -21,22 +21,22 @@
       </p>
       <ul>
         <li>
-          <link href="howto_ide_jbuilder4.html">JBuilder Integration
+          <link href="site:howto_ide_jbuilder4">JBuilder Integration
           Tutorial</link> (more focused on JBuilder 4),
         </li>
         <li>
-          Another <link href="howto_ide_jbuilder5.html">JBuilder Integration
+          Another <link href="site:howto_ide_jbuilder5">JBuilder Integration
           Tutorial</link> (more focused on JBuilder 5),
         </li>
         <li>
           VisualAge for Java Integration :
           <ul>
             <li>
-              <link href="howto_ide_vajava_wte.html">VAJava and integrated WebSphere Test
+              <link href="site:howto_ide_vajava_wte">VAJava and integrated WebSphere Test
               Environment (WTE)</link>
             </li>
             <li>
-              <link href="howto_ide_vajava_tomcat.html">VAJava and Tomcat Test Environment</link>
+              <link href="site:howto_ide_vajava_tomcat">VAJava and Tomcat Test Environment</link>
             </li>
           </ul>
         </li>
@@ -48,7 +48,7 @@
         environment. You simply need to know how to start your servlet engine
         from your IDE (possibly in debug mode if you wish to debug your
         test case) and set up correctly the class path (see the
-        <link href="howto_classpath.html">Classpath Howto</link> tutorial
+        <link href="site:howto_classpath">Classpath Howto</link> tutorial
         for understanding the classpath). Look at the tutorials for other IDEs
         and do the same for yours.
       </p>

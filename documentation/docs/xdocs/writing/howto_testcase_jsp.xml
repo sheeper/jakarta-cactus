@@ -81,7 +81,7 @@
         as instance variables of your test case class).
       </p>
       <note>
-        See the <link href="how_it_works.html">How it
+        See the <link href="site:how_it_works">How it
         works</link> guide for details on how Cactus initializes these objects.
       </note>
 
@@ -94,8 +94,8 @@
 
         <p>
          See <code>ServletTestCase</code><code>
-         <link href="howto_testcase_servlet.html#servlet_request">request
-         </link></code> implicit object for documentation.
+         <jump href="site:howto_testcase_servlet" anchor="servlet_request">request
+         </jump></code> implicit object for documentation.
        </p>
 
       </s2>
@@ -105,8 +105,8 @@
 
         <p>
          See <code>ServletTestCase</code><code>
-         <link href="howto_testcase_servlet.html#servlet_response">response
-         </link></code> implicit object for documentation.
+         <jump href="site:howto_testcase_servlet" anchor="servlet_response">response
+         </jump></code> implicit object for documentation.
         </p>
 
       </s2>
@@ -116,8 +116,8 @@
 
         <p>
          See <code>ServletTestCase</code><code>
-         <link href="howto_testcase_servlet.html#servlet_config">config
-         </link></code> implicit object for documentation.
+         <jump href="site:howto_testcase_servlet" anchor="servlet_config">config
+         </jump></code> implicit object for documentation.
         </p>
       </s2>
 
@@ -126,8 +126,8 @@
 
         <p>
          See <code>ServletTestCase</code><code>
-         <link href="howto_testcase_servlet.html#servlet_session">session
-         </link></code> implicit object for documentation.
+         <jump href="site:howto_testcase_servlet" anchor="servlet_session">session
+         </jump></code> implicit object for documentation.
         </p>
       </s2>
 

@@ -43,7 +43,7 @@
       <p>
         If you have tested Cactus on a configuration that is not listed
         below, please send an email to the
-        <link href="mailinglist.html">Cactus user mailing list</link> with
+        <link href="site:mailinglist">Cactus user mailing list</link> with
         <code>[TestedOn]</code> in the subject.
       </p>
 
