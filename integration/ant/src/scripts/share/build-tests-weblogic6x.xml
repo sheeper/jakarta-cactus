@@ -6,7 +6,7 @@
     <!-- Location of WebLogic server directory. Can be overriden by calling
          scripts -->
     <property name="cactus.weblogic6x.server" 
-        value="${cactus.home.weblogic6x}/wlserver6.x"/>
+        value="${cactus.home.weblogic6x}/wlserver6.1"/>
 
 	<!-- Allow additional libraries to be added -->
 	<property name="cactus.weblogic6x.libpath" value=""/>
@@ -39,6 +39,11 @@
     -->
     <target name="cactus.start.weblogic6x" description="Start WebLogic 6.x"
         depends="cactus.check.weblogic6x" if="cactus.home.weblogic6x">
+
+        <available property="cactus.jdk1.4+" 
+            classname="java.lang.CharSequence"/>
+        <fail if="cactus.jdk1.4+">Our script does not yet support running 
+WL 6.x under JDK 1.4+. Please submit a patch!</fail>
 
         <property name="cactus.weblogic6x.java.library.path"
             location="${java.library.path};${cactus.weblogic6x.libpath};${cactus.weblogic6x.server}/bin"/>
@@ -129,7 +134,7 @@
             </fileset>
         </copy>
 
-        <jar destfile="${cactus.target.weblogic6x}/testdomain/applications/${cactus.context}.war">
+        <jar destfile="${cactus.target.weblogic6x}/config/testdomain/applications/${cactus.context}.war">
             <fileset dir="${cactus.target.weblogic6x}/tmp/${cactus.context}"/>
         </jar>
 
