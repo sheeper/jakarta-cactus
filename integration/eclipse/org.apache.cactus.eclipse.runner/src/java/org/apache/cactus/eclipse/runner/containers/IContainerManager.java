@@ -67,6 +67,7 @@ public interface IContainerManager
 {
     /**
      * @return array of supported container providers
+     *         must not be null, but can be an empty array
      */
     IContainerProvider[] getContainerProviders();
 }
