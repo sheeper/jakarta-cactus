@@ -67,23 +67,33 @@ import org.eclipse.debug.core.ILaunchManager;
 import org.eclipse.debug.ui.DebugUITools;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.internal.junit.launcher.JUnitLaunchShortcut;
+import org.eclipse.jdt.internal.junit.runner.ITestRunListener;
 import org.eclipse.jdt.internal.junit.ui.JUnitMessages;
 import org.eclipse.jdt.internal.junit.ui.JUnitPlugin;
 import org.eclipse.jdt.internal.junit.util.TestSearchEngine;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
+import org.eclipse.ui.IWorkbenchPage;
 
 /**
  * Launch shortcut used to start the Cactus launch configuration on the
  * current workbench selection.
  * 
- * @version $Id: $
  * @author <a href="mailto:jruaux@octo.com">Julien Ruaux</a>
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
+ * @version $Id: $
  */
-public class CactusLaunchShortcut extends JUnitLaunchShortcut
+public class CactusLaunchShortcut
+    extends JUnitLaunchShortcut
+    implements ITestRunListener
 {
+    /**
+     * The provider to use for container setup.
+     */
+    private Tomcat40AntContainerProvider tomcat =
+        new Tomcat40AntContainerProvider();
+
     /**
      * @return the Cactus launch configuration type. This method overrides
      *         the one in {@link JUnitLaunchShortcut} so that we can return
@@ -122,7 +132,10 @@ public class CactusLaunchShortcut extends JUnitLaunchShortcut
         IType type = null;
         if (types.length == 0)
         {
-            MessageDialog.openInformation(getShell(), JUnitMessages.getString("LaunchTestAction.dialog.title"), JUnitMessages.getString("LaunchTestAction.message.notests")); //$NON-NLS-1$ //$NON-NLS-2$
+            MessageDialog.openInformation(
+            getShell(),
+            JUnitMessages.getString("LaunchTestAction.dialog.title"),
+            JUnitMessages.getString("LaunchTestAction.message.notests"));
         }
         else if (types.length > 1)
         {
@@ -144,44 +157,27 @@ public class CactusLaunchShortcut extends JUnitLaunchShortcut
     private void launch(IType type, String mode)
     {
         ILaunchConfiguration config = findLaunchConfiguration(type, mode);
-        System.out.println("Setting up the container");
-        Tomcat40AntContainerProvider matou = new Tomcat40AntContainerProvider();
         try
         {
-            matou.deploy();
+            tomcat.deploy();
         }
         catch (CoreException e)
         {
             e.printStackTrace();
         }
-        System.out.println("Starting the container");
         try
         {
-            matou.start();
+            tomcat.start();
         }
         catch (CoreException e)
         {
             e.printStackTrace();
         }
         launchConfiguration(mode, config);
-        System.out.println("Stoping the container");
-        try
-        {
-            matou.stop();
-        }
-        catch (CoreException e)
-        {
-            e.printStackTrace();
-        }
-        System.out.println("Cleaning the container");
-        try
-        {
-            matou.undeploy();
-        }
-        catch (CoreException e)
-        {
-            e.printStackTrace();
-        }
+        IWorkbenchPage wbPage = JUnitPlugin.getDefault().getActivePage();
+        JUnitViewFinder finder = new JUnitViewFinder(wbPage, this);
+        Thread theThread = new Thread(finder);
+        theThread.start();
     }
 
     /**
@@ -199,7 +195,96 @@ public class CactusLaunchShortcut extends JUnitLaunchShortcut
         }
         catch (CoreException e)
         {
-            ErrorDialog.openError(getShell(), JUnitMessages.getString("LaunchTestAction.message.launchFailed"), e.getMessage(), e.getStatus()); //$NON-NLS-1$
+            ErrorDialog.openError(getShell(),
+            JUnitMessages.getString("LaunchTestAction.message.launchFailed"),
+            e.getMessage(),
+            e.getStatus());
         }
     }
+
+    /**
+     * @see org.eclipse.jdt.internal.junit.runner.ITestRunListener#testRunStarted(int)
+     */
+    public void testRunStarted(int testCount)
+    {
+    }
+
+    /**
+     * @see org.eclipse.jdt.internal.junit.runner.ITestRunListener#testRunEnded(long)
+     */
+    public void testRunEnded(long elapsedTime)
+    {
+        try
+        {
+            tomcat.stop();
+        }
+        catch (CoreException e)
+        {
+            e.printStackTrace();
+        }
+        try
+        {
+            tomcat.undeploy();
+        }
+        catch (CoreException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * @see org.eclipse.jdt.internal.junit.runner.ITestRunListener#testRunStopped(long)
+     */
+    public void testRunStopped(long elapsedTime)
+    {
+        testRunEnded(0);
+    }
+
+    /**
+     * @see org.eclipse.jdt.internal.junit.runner.ITestRunListener#testStarted(java.lang.String)
+     */
+    public void testStarted(String testName)
+    {
+    }
+
+    /**
+     * @see org.eclipse.jdt.internal.junit.runner.ITestRunListener#testEnded(java.lang.String)
+     */
+    public void testEnded(String testName)
+    {
+    }
+
+    /**
+     * @see org.eclipse.jdt.internal.junit.runner.ITestRunListener#testFailed(int, java.lang.String, java.lang.String)
+     */
+    public void testFailed(int status, String testName, String trace)
+    {
+    }
+
+    /**
+     * @see org.eclipse.jdt.internal.junit.runner.ITestRunListener#testTreeEntry(java.lang.String)
+     */
+    public void testTreeEntry(String entry)
+    {
+    }
+
+    /**
+     * @see org.eclipse.jdt.internal.junit.runner.ITestRunListener#testRunTerminated()
+     */
+    public void testRunTerminated()
+    {
+        testRunEnded(0);
+    }
+
+    /**
+     * @see org.eclipse.jdt.internal.junit.runner.ITestRunListener#testReran(java.lang.String, java.lang.String, int, java.lang.String)
+     */
+    public void testReran(
+        String testClass,
+        String testName,
+        int status,
+        String trace)
+    {
+    }
+
 }
