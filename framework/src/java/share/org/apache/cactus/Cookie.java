@@ -56,6 +56,9 @@
  */
 package org.apache.cactus;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -70,6 +73,11 @@ import java.util.Date;
  */
 public class Cookie implements Serializable
 {
+    /**
+     * The logger
+     */
+    private static final Log LOGGER = LogFactory.getLog(Cookie.class);
+
     /**
      * The cookie name
      */
@@ -362,6 +370,104 @@ public class Cookie implements Serializable
         buffer.append("expiryDate = [" + getExpiryDate() + "]");
 
         return buffer.toString();
+    }
+
+    /**
+     * Returns the domain that will be used to send the cookies. If a host
+     * was specified using <code>setURL()</code> then the domain will be
+     * this host. Otherwise it will be the real redirector host.
+     *
+     * @param theRequest the request containing all data to pass to the server
+     *        redirector.
+     * @param theRealHost the real host to which we are connecting to. We will
+     *        use it if no simulation host has been specified.
+     * @return the cookie domain to use
+     */
+    public static String getCookieDomain(WebRequest theRequest,
+        String theRealHost)
+    {
+        String domain;
+        ServletURL url = theRequest.getURL();
+
+        if ((url != null) && (url.getHost() != null)) {
+            domain = url.getHost();
+        } else {
+            domain = theRealHost;
+        }
+
+        LOGGER.debug("Cookie validation domain = [" + domain + "]");
+
+        return domain;
+    }
+
+    /**
+     * Returns the port that will be used to send the cookies. If a port
+     * was specified using <code>setURL()</code> then the port sent will be
+     * this port. Otherwise it will be the real redirector port.
+     *
+     * @param theRequest the request containing all data to pass to the server
+     *        redirector.
+     * @param theRealPort the real port to which we are connecting to. We will
+     *        use it if no simulation port has been specified.
+     * @return the cookie domain to use
+     */
+    public static int getCookiePort(WebRequest theRequest, int theRealPort)
+    {
+        int port;
+        ServletURL url = theRequest.getURL();
+
+        if ((url != null) && (url.getHost() != null)) {
+            port = url.getPort();
+        } else {
+            port = theRealPort;
+        }
+
+        LOGGER.debug("Cookie validation port = [" + port + "]");
+
+        return port;
+    }
+
+    /**
+     * Returns the path that will be used to validate if a cookie will be
+     * sent or not. The algorithm is as follows : if the cookie path is not
+     * set (i.e. null) then the cookie is always sent (provided the domain
+     * is right). If the cookie path is set, the cookie is sent only if
+     * the request path starts with the same string as the cookie path. If
+     * <code>setURL()</code> has been called, return the path it has been
+     * set to (context + servletPath + pathInfo). Otherwise return the
+     * real redirector path.
+     *
+     * @param theRequest the request containing all data to pass to the server
+     *        redirector.
+     * @param theRealPath the real path to which we are connecting to. We will
+     *        use it if no simulation path has been specified.
+     * @return the path to use to decide if a cookie will get sent
+     */
+    public static String getCookiePath(WebRequest theRequest,
+        String theRealPath)
+    {
+        String path;
+        ServletURL url = theRequest.getURL();
+
+        if ((url != null) && (url.getPath() != null)) {
+            path = url.getPath();
+        } else {
+            String file = theRealPath;
+            if (file != null) {
+                int q = file.lastIndexOf('?');
+                if (q != -1) {
+                    path = file.substring(0, q);
+                } else {
+                    path = file;
+                }
+            } else {
+                path = null;
+            }
+        }
+
+        LOGGER.debug("Cookie validation pah = [" + path + "]");
+
+        return path;
     }
 
 }

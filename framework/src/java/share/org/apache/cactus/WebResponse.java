@@ -68,7 +68,6 @@ import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import org.apache.cactus.client.JdkConnectionHelper;
 import org.apache.cactus.util.ChainedRuntimeException;
 import org.apache.cactus.util.IoUtil;
 
@@ -246,12 +245,12 @@ public class WebResponse
                 org.apache.commons.httpclient.Cookie[] cookies;
                 try {
                     cookies = org.apache.commons.httpclient.Cookie.parse(
-                        JdkConnectionHelper.getDomain(getWebRequest(),
-                            getConnection()),
-                        JdkConnectionHelper.getPort(getWebRequest(),
-                            getConnection()),
-                        JdkConnectionHelper.getPath(getWebRequest(),
-                            getConnection()),
+                        Cookie.getCookieDomain(getWebRequest(),
+                            getConnection().getURL().getHost()),
+                        Cookie.getCookiePort(getWebRequest(),
+                            getConnection().getURL().getPort()),
+                        Cookie.getCookiePath(getWebRequest(),
+                            getConnection().getURL().getFile()),
                         new Header(headerName, headerValue));
                 } catch (HttpException e) {
                     throw new ChainedRuntimeException(

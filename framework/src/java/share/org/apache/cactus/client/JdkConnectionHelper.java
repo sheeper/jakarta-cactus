@@ -72,8 +72,8 @@ import org.apache.commons.httpclient.Header;
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.logging.Log;
 
-import org.apache.cactus.ServletURL;
 import org.apache.cactus.WebRequest;
+import org.apache.cactus.Cookie;
 import org.apache.cactus.client.authentication.AbstractAuthentication;
 import org.apache.cactus.util.ChainedRuntimeException;
 
@@ -365,8 +365,8 @@ public class JdkConnectionHelper implements ConnectionHelper
                 // If no domain has been specified, use a default one
                 String domain;
                 if (cactusCookie.getDomain() == null) {
-                    domain = JdkConnectionHelper.getDomain(theRequest,
-                        theConnection);
+                    domain = Cookie.getCookieDomain(theRequest,
+                        theConnection.getURL().getHost());
                 } else {
                     domain = cactusCookie.getDomain();
                 }
@@ -374,8 +374,8 @@ public class JdkConnectionHelper implements ConnectionHelper
                 // If not path has been specified , use a default one
                 String path;
                 if (cactusCookie.getPath() == null) {
-                    path = JdkConnectionHelper.getPath(theRequest,
-                        theConnection);
+                    path = Cookie.getCookiePath(theRequest,
+                        theConnection.getURL().getFile());
                 } else {
                     path = cactusCookie.getPath();
                 }
@@ -395,8 +395,10 @@ public class JdkConnectionHelper implements ConnectionHelper
             // and create the cookie header to send
             Header cookieHeader =
                 org.apache.commons.httpclient.Cookie.createCookieHeader(
-                    JdkConnectionHelper.getDomain(theRequest, theConnection),
-                    JdkConnectionHelper.getPath(theRequest, theConnection),
+                    Cookie.getCookieDomain(theRequest,
+                        theConnection.getURL().getHost()),
+                    Cookie.getCookiePath(theRequest,
+                        theConnection.getURL().getFile()),
                     httpclientCookies);
 
             LOGGER.debug("Cookie string = [" + cookieHeader.getValue()
@@ -405,109 +407,6 @@ public class JdkConnectionHelper implements ConnectionHelper
             theConnection.setRequestProperty("Cookie",
                 cookieHeader.getValue());
         }
-    }
-
-    /**
-     * Returns the domain that will be used to send the cookies. If a host
-     * was specified using <code>setURL()</code> then the domain will be
-     * this host. Otherwise it will be the redirector host.
-     *
-     * @param theRequest the request containing all data to pass to the server
-     *        redirector.
-     * @param theConnection the HTTP connection
-     * @return the cookie domain to use
-     */
-    public static String getDomain(WebRequest theRequest,
-        URLConnection theConnection)
-    {
-        String domain;
-        ServletURL url = theRequest.getURL();
-
-        if ((url != null) && (url.getHost() != null)) {
-            domain = url.getHost();
-        } else {
-            domain = theConnection.getURL().getHost();
-        }
-
-        LOGGER.debug("Cookie validation domain = [" + domain + "]");
-
-        return domain;
-    }
-
-    /**
-     * Returns the domain that will be used to send the cookies. If a host
-     * was specified using <code>setURL()</code> then the domain will be
-     * this host. Otherwise it will be the redirector host.
-     *
-     * @param theRequest the request containing all data to pass to the server
-     *        redirector.
-     * @param theConnection the HTTP connection
-     * @return the cookie domain to use
-     */
-    public static int getPort(WebRequest theRequest,
-        URLConnection theConnection)
-    {
-        int port;
-        ServletURL url = theRequest.getURL();
-
-        if ((url != null) && (url.getHost() != null)) {
-            port = url.getPort();
-        } else {
-            port = theConnection.getURL().getPort();
-        }
-
-        LOGGER.debug("Cookie validation port = [" + port + "]");
-
-        return port;
-    }
-
-    /**
-     * Returns the path that will be used to validate if a cookie will be
-     * sent or not. The algorithm is as follows : if the cookie path is not
-     * set (i.e. null) then the cookie is always sent (provided the domain
-     * is right). If the cookie path is set, the cookie is sent only if
-     * the request path starts with the same string as the cookie path. If
-     * <code>setURL()</code> has been called, return the path it has been
-     * set to (context + servletPath + pathInfo). Otherwise return the
-     * redirector path.
-     *
-     * @param theRequest the request containing all data to pass to the server
-     *        redirector.
-     * @param theConnection the HTTP connection
-     * @return the path to use to decide if a cookie will get sent
-     */
-    public static String getPath(WebRequest theRequest,
-            URLConnection theConnection)
-    {
-        String path;
-        ServletURL url = theRequest.getURL();
-
-        if ((url != null) && (url.getPath() != null)) {
-            path = url.getPath();
-        } else {
-
-            // We do not use the URL.getPath() API as it was only introduced
-            // in JDK 1.3 and we want to retain compatibility with JDK 1.2.
-            // Using JDK 1.3, we would have written :
-            //      path = theConnection.getURL().getPath();
-
-            String file = theConnection.getURL().getFile();
-            if (file != null) {
-                int q = file.lastIndexOf('?');
-                if (q != -1) {
-                    path = file.substring(0, q);
-                } else {
-                    path = file;
-                }
-            } else {
-                path = null;
-            }
-
-        }
-
-        LOGGER.debug("Cookie validation pah = [" + path + "]");
-
-        return path;
     }
 
     /**

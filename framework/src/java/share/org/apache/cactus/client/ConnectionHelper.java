@@ -81,4 +81,5 @@ public interface ConnectionHelper
      * @exception Throwable if an unexpected error occured
      */
     HttpURLConnection connect(WebRequest theRequest) throws Throwable;
+
 }
