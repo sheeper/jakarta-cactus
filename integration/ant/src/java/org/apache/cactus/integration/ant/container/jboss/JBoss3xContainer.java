@@ -64,14 +64,10 @@ import java.util.jar.JarFile;
 import java.util.jar.Manifest;
 
 import org.apache.cactus.integration.ant.container.AbstractJavaContainer;
-import org.apache.cactus.integration.ant.util.ResourceUtils;
 import org.apache.tools.ant.BuildException;
-import org.apache.tools.ant.taskdefs.Jar;
 import org.apache.tools.ant.taskdefs.Java;
-import org.apache.tools.ant.types.FileSet;
-import org.apache.tools.ant.types.FilterChain;
 import org.apache.tools.ant.types.Path;
-import org.apache.tools.ant.types.ZipFileSet;
+import org.apache.tools.ant.util.FileUtils;
 
 /**
  * Special container support for the JBoss application server.
@@ -94,11 +90,6 @@ public class JBoss3xContainer extends AbstractJavaContainer
      * The name of the server configuration to use for running the tests.
      */
     private String config = "default";
-
-    /**
-     * The temporary directory from which the container will be started.
-     */
-    private transient File tmpDir;
 
     /**
      * The port to which the container should be bound.
@@ -268,45 +259,17 @@ public class JBoss3xContainer extends AbstractJavaContainer
      */
     private void prepare(String theDirName) throws IOException
     {
-        FilterChain filterChain = createFilterChain();
-
-        this.tmpDir = createTempDirectory(theDirName);
-
-        File configDir = new File(this.dir, "server");
+        FileUtils fileUtils = FileUtils.newFileUtils();
 
         // TODO: Find out how to create a valid default server configuration.
         // Copying the server directory does not seem to be enough
             
-        // Extract the JBoss properties files
-        File jbossWebXml = new File(this.tmpDir, "jboss-web.xml");
-        ResourceUtils.copyResource(getProject(),
-            RESOURCE_PATH + "jboss3x/jboss-web.xml",
-            jbossWebXml, filterChain);
-        File rolesProperties = new File(this.tmpDir, "roles.properties");
-        ResourceUtils.copyResource(getProject(),
-            RESOURCE_PATH + "jboss3x/roles.properties",
-            rolesProperties, filterChain);
-        File usersProperties = new File(this.tmpDir, "users.properties");
-        ResourceUtils.copyResource(getProject(),
-            RESOURCE_PATH + "jboss3x/users.properties",
-            usersProperties, filterChain);
-
         // deploy the web-app by copying the WAR file into the webapps
         // directory
-        // TODO: manipulation of the WAR should really be left to the user
-        Jar jar = (Jar) createAntTask("jar");
-        jar.setDestFile(new File(configDir,
-            this.config + "/deploy/" + getDeployableFile().getName()));
-        ZipFileSet zip = new ZipFileSet();
-        zip.setSrc(getDeployableFile());
-        jar.addZipfileset(zip);
-        FileSet fileSet = new FileSet();
-        fileSet.setDir(this.tmpDir);
-        fileSet.createInclude().setName(jbossWebXml.getName());
-        fileSet.createInclude().setName(rolesProperties.getName());
-        fileSet.createInclude().setName(usersProperties.getName());
-        jar.addFileset(fileSet);
-        jar.execute();
+        File configDir = new File(this.dir, "server");
+        File deployDir = new File(configDir, this.config + "/deploy");
+        fileUtils.copyFile(getDeployableFile(),
+            new File(deployDir, getDeployableFile().getName()), null, true);
     }
 
     /**
