@@ -25,6 +25,12 @@ TYPICAL INVOCATION:
 <!ATTLIST resource
     id ID #REQUIRED
     source CDATA #IMPLIED
-    href CDATA #IMPLIED
+    name CDATA #IMPLIED
+>
+
+<!ELEMENT external-ref (#PCDATA)>
+<!ATTLIST external-ref
+    id ID #REQUIRED
+    url CDATA #IMPLIED
     name CDATA #IMPLIED
 >

@@ -678,7 +678,7 @@
   </xsl:template>  
 
   <xsl:template name="compute-link-href">
-    <xsl:param name="href"/>     
+    <xsl:param name="href"/>
     <xsl:choose>
       <xsl:when test="starts-with(@href,'site:')">
         <xsl:call-template name="get-target-file">
@@ -688,7 +688,7 @@
       </xsl:when>
       <xsl:when test="starts-with(@href,'ext:')">
         <xsl:variable name="id" select="substring-after(@href,'ext:')"/>
-        <xsl:value-of select="$sitemap//resource[@id=$id]/@href"/>
+        <xsl:value-of select="$sitemap//external-ref[@id=$id]/@url"/>
       </xsl:when>
       <xsl:when test="starts-with(@href,'http:')">
         <xsl:value-of select="@href"/>
