@@ -83,7 +83,7 @@
             <td width="14%" valign="top" nowrap="1">
 
             <font size="-2">
-              Last update : <xsl:value-of select="$updated"/>
+              Last update : <xsl:value-of select="@updated"/>
             </font>
 
               <br/>

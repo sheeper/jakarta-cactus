@@ -27,7 +27,7 @@
  <xsl:template match="release">
   <s2>
     <xsl:attribute name="title">
-      <xsl:value-of select="$software"/><xsl:text> </xsl:text>
+      <xsl:value-of select="@software"/><xsl:text> </xsl:text>
       <xsl:value-of select="@version"/>
       <xsl:if test="@date">
         <xsl:text> (released on </xsl:text>
