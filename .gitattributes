@@ -28,6 +28,7 @@ conf/sample/conf/test/servlet22/weblogic51/weblogic.policy svn_keywords=Author+D
 conf/sample/conf/test/servlet22/weblogic51/weblogic.properties svn_keywords=Author+Date+Id+Revision
 conf/sample/conf/test/servlet23/resin13/resin.conf svn_keywords=Author+Date+Id+Revision
 conf/sample/conf/test/servlet23/tomcat40/server.xml svn_keywords=Author+Date+Id+Revision
+conf/sample/conf/test/servlet23/tomcat40/web.xml svn_keywords=Author+Date+Id+Revision
 conf/sample/conf/test/share/log_client.properties svn_keywords=Author+Date+Id+Revision
 conf/sample/conf/test/share/log_server.properties svn_keywords=Author+Date+Id+Revision
 conf/sample/conf/test/share/orion14/application.xml svn_keywords=Author+Date+Id+Revision

@@ -99,17 +99,16 @@
         <!-- Delete some config file so that they will be copied every time -->
         <delete file="${out.tomcat40.dir}/conf/server.xml"/>
 
-        <!-- Remove the auto deployed webapp so that it is redeployed every -->
-        <!-- time.                                                          -->
+        <!-- Remove the auto deployed webapp so that it is redeployed every
+             time -->
         <delete dir="${out.tomcat40.dir}/webapps/test"/>
 
         <!-- Copy the default tomcat web.xml to our test conf/ directory. -->
-        <!-- This is needed otherwise tomcat does not start.              -->
-        <copy file="${tomcat.home.40}/conf/web.xml"
-            tofile="${out.tomcat40.dir}/conf/web.xml"/>
+        <copy file="${conf.tomcat40.dir}/web.xml"
+            todir="${out.tomcat40.dir}/conf"/>
 
         <copy file="${conf.tomcat40.dir}/server.xml"
-            tofile="${out.tomcat40.dir}/conf/server.xml" filtering="on"/>
+            todir="${out.tomcat40.dir}/conf" filtering="on"/>
 
         <!-- Copy the war file -->
         <copy file="${out.test.dir}/test.war" tofile="${out.tomcat40.dir}/webapps/test.war"/>
