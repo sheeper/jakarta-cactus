@@ -47,6 +47,7 @@ integration/eclipse/dist-12
 integration/eclipse/dist-13
 integration/eclipse/lib
 integration/eclipse/org.apache.cactus.eclipse.runner/ant
+integration/eclipse/org.apache.cactus.eclipse.runner/ant.bat
 integration/eclipse/org.apache.cactus.eclipse.runner/bin
 integration/eclipse/org.apache.cactus.eclipse.runner/build-local.xml
 integration/eclipse/org.apache.cactus.eclipse.runner/build.properties
@@ -65,6 +66,7 @@ integration/eclipse/org.apache.cactus.eclipse.runner/temp
 integration/eclipse/org.apache.cactus.eclipse.runner/web
 integration/eclipse/org.apache.cactus.eclipse.site/release-12
 integration/eclipse/org.apache.cactus.eclipse.site/release-13
+integration/eclipse/org.apache.cactus.eclipse.webapp/ant.bat
 integration/eclipse/org.apache.cactus.eclipse.webapp/bin
 integration/eclipse/org.apache.cactus.eclipse.webapp/build.properties
 integration/eclipse/org.apache.cactus.eclipse.webapp/dist
