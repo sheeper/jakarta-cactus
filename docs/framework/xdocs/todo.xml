@@ -33,9 +33,8 @@
 
     <category title="Design/Code">
       <action assigned-to="Peter Wong, Jason Robertson, Vincent Massol">
-        Add support for Form-based authentication + configure all supported
-        containers with authentication so that they pass the Cactus unit
-        tests (done for Tomcat 3.3).
+        Configure all supported containers with authentication so that they
+        pass the Cactus unit tests (done for Tomcat 3.x + Tomcat 4.x).
       </action>
     </category>
     <category title="Documentation">
@@ -50,9 +49,10 @@
 
     <category title="Documentation">
       <action assigned-to="Vincent Massol">
-        Move all documentation to docbook and cocoon2 and generate PDF containing full Cactus
-        documentation. Note: I still need to find out how to make Cocoon2 generate errors during
-        generation of doc. so that the Ant build reports an error and stops upon finding one.
+        Move all documentation to docbook and cocoon2 and generate PDF
+        containing full Cactus documentation. Note: I still need to find out
+        how to make Cocoon2 generate errors during generation of doc. so that
+        the Ant build reports an error and stops upon finding one.
       </action>
       <action>
         Add a tutorial for building Cactus from the source distribution.
@@ -67,8 +67,9 @@
         JSP executing in the endXXX() method.
       </action>
       <action>
-        Add some documentation (possibly in the FAQ) to explain how to unit test Struts classes
-        (refer to the <link href="http://strutstestcase.sourceforge.net/">StrutsTestCase</link>
+        Add some documentation (possibly in the FAQ) to explain how to unit
+        test Struts classes (refer to the
+        <link href="http://strutstestcase.sourceforge.net/">StrutsTestCase</link>
         project).
       </action>
     </category>
@@ -93,10 +94,14 @@
     </category>
 
     <category title="Design/Code">
+      <action assigned-to="Peter Wong, Jason Robertson, Vincent Massol">
+        Add support for Form-based authentication.
+      </action>
       <action>
-        Refactor/redesign the Cactus client side so that it can accept several kinds of protocol
-        injectors (it now only supports HTTP). The idea is to be able to add first JMS so that
-        Message-Driven Beans or simply JMS listeners can be unit tested.
+        Refactor/redesign the Cactus client side so that it can accept several
+        kinds of protocol injectors (it now only supports HTTP). The idea is to
+        be able to add first JMS so that Message-Driven Beans or simply JMS
+        listeners can be unit tested.
       </action>
       <action>
         Add methods that are called before and after each test, but on the
@@ -119,26 +124,34 @@
         Willkomm</link>.
       </action>
       <action>
-        Add EJB Redirectors so that unit testing of code that require an EJB is facilitated. For
-        example, let's imagine you need to test that an object that has been put in the JNDI
-        tree by a servlet can be retrieved by an EJB. These are not unit tests per see but rather
-        integration tests, which is Cactus favorite domain. Also these redirectors could be used
-        to directly unit tests EJB whithout requiring a servlet environment (at the current time,
-        you need to call your EJB from a Servlet/JSP/Filter Redirector, which is fine for certain
-        tests but not needed for others.
+        Add EJB Redirectors so that unit testing of code that require an EJB
+        is facilitated. For example, let's imagine you need to test that an
+        object that has been put in the JNDI tree by a servlet can be retrieved
+        by an EJB. These are not unit tests per see but rather integration
+        tests, which is Cactus favorite domain. Also these redirectors could be
+        used to directly unit tests EJB whithout requiring a servlet
+        environment (at the current time, you need to call your EJB from a
+        Servlet/JSP/Filter Redirector, which is fine for certain tests but not
+        needed for others.
       </action>
       <action>
-        Move to Log4J 1.2 so that we can use the notion of Repository and not interfere with
-        the application to test if this later also uses log4j for its own logging.
+        Move to Log4J 1.2 so that we can use the notion of Repository and not
+        interfere with the application to test if this later also uses log4j
+        for its own logging. Note: What about moving to commons-logging ? Will
+        it also support non-interference with application log ?
+      </action>
+      <action>
+        Consider using Commons Logging Wrapper as it provides seamless support
+        for No Log, Log4J, LogKit and JDK 1.4 logging.
       </action>
       <action assigned-to="Hudson Wong, Vincent Massol">
         Add an EJB sample application to demonstrate how to perform EJB
         unit testing (the tutorial that explains the process will be part
         of Cactus 1.2 but the inclusion of the sample will be delivered
         in a subsequent release as it involves some changes in the build
-        process). Prerequisite: We need to move from Servlet API 2.x paradigm to the J2EE 1.x
-        paradigm (ie. move from servlet.jar to j2ee.jar - this involves a few build and
-        packaging changes).
+        process). Prerequisite: We need to move from Servlet API 2.x paradigm
+        to the J2EE 1.x paradigm (ie. move from servlet.jar to j2ee.jar - this
+        involves a few build and packaging changes).
       </action>
       <action>
         Consider moving from HttpURLConnection to Commons HttpClient. This
@@ -150,10 +163,6 @@
         progress in this area. In term of design, isolate the implementation
         with an interface so that different implementation can be plugged in
         without affecting any other business classes.
-      </action>
-      <action>
-        Consider using Commons Logging Wrapper as it provides seamless support
-        for No Log, Log4J, LogKit and JDK 1.4 logging.
       </action>
     </category>
 
