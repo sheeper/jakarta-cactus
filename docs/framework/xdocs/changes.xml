@@ -23,7 +23,7 @@
     </devs>
 
     <release version="1.2 in CVS">
-      <action dev="VMA" type="docs">
+      <action dev="VMA" type="add">
         New tutorial for integration within VisualAge for Java. Thanks to
         <link href="mailto:Todd_Idler@jdedwards.com">
         Todd Idler</link> and <link href="mailto:andrew.forman@wcom.com">
