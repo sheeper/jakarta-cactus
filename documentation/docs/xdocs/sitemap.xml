@@ -100,7 +100,7 @@
   <external id="ant" url="http://ant.apache.org/"/>
   <external id="antlr" url="http://antlr.org/"/>
   <external id="apache" url="http://www.apache.org/"/>
-  <external id="aspectj" url="http://www.aspectj.org"/>
+  <external id="aspectj" url="http://www.eclipse.org/aspectj/"/>
   <external id="beanutils" url="http://jakarta.apache.org/commons/beanutils.html"/>
   <external id="book_javatools" url="http://www.amazon.com/exec/obidos/ASIN/047120708X/"/>
   <external id="bug_database" url="http://jakarta.apache.org/site/bugs.html"/>
