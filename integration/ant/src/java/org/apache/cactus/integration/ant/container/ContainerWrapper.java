@@ -107,6 +107,14 @@ public class ContainerWrapper implements Container
     }
 
     /**
+     * @see Container#getStartUpWait()
+     */
+    public long getStartUpWait()
+    {
+        return container.getStartUpWait();
+    }
+    
+    /**
      * @see Container#getPort
      */
     public int getPort()

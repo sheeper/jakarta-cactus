@@ -84,7 +84,7 @@
     <echo>  commons.httpclient.jar = [${commons.httpclient.jar}]</echo>
     <echo>  commons.logging.jar = [${commons.logging.jar}]</echo>
     <echo>  httpunit.jar = [${httpunit.jar}]</echo>
-    <echo>  j2ee.jar = [${j2ee.jar}]</echo>
+    <echo>  servlet.jar = [${servlet.jar}]</echo>
     <echo>  junit.jar = [${junit.jar}]</echo>
     <echo>  nekohtml.jar = [${nekohtml.jar}]</echo>
     <echo>  jetty.jar = [${jetty.jar}]</echo>
@@ -104,7 +104,7 @@
         <available file="${commons.httpclient.jar}"/>
         <available file="${commons.logging.jar}"/>
         <available file="${httpunit.jar}"/>
-        <available file="${j2ee.jar}"/>
+        <available file="${servlet.jar}"/>
         <available file="${jetty.jar}"/>
         <available file="${jasper-compiler.jar}"/>
         <available file="${jasper-runtime.jar}"/>
@@ -178,7 +178,7 @@ be resolved. Please check you build.properties file, and run Ant with the
 
     <!-- Copy build file -->
     <filter token="cactus.jar.name" value="${cactus.jar.name}.jar"/>
-    <basename property="servlet.jar.name" file="${j2ee.jar}"/>
+    <basename property="servlet.jar.name" file="${servlet.jar}"/>
     <filter token="servlet.jar.name" value="${servlet.jar.name}"/>
     <basename property="junit.jar.name" file="${junit.jar}"/>
     <filter token="junit.jar.name" value="${junit.jar.name}"/>
@@ -227,7 +227,6 @@ be resolved. Please check you build.properties file, and run Ant with the
           location="${target.sample.src.cactus.dir}"/>
       <property name="src.webapp.dir"
           location="${target.sample.src.webapp.dir}"/>
-      <property name="servlet.jar" value="${j2ee.jar}"/>
     </ant>
 
   </target>

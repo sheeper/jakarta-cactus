@@ -30,7 +30,7 @@
 
   <!-- Global project properties -->
   <property name="project.name.text" value="Cactus EJB Sample"/>
-  <property name="project.name.file" value="sample-ejb"/>
+  <property name="project.name.file" value="cactus-sample-ejb"/>
   <property name="project.version" value="@version@"/>
 
   <!-- Prefix to add to all distributable files -->
@@ -44,7 +44,8 @@
 
   <!-- Properties for the Cactus tests -->
   <property name="cactus.port" value="8080"/>
-
+  <property name="cactus.jboss.startUpWait" value="2000"/>
+  
   <!--
      ========================================================================
        Set the properties related to the source tree.
@@ -241,7 +242,7 @@
 
     <!-- Cactify the web-app archive -->
     <cactifywar srcfile="${target.dir}/${project.name.file}.war"
-        destfile="${target.dir}/test.war"
+        destfile="${target.dir}/${project.name.file}-cactified.war"
         mergewebxml="${src.webapp.dir}/WEB-INF/cactus-web.xml">
       <classes dir="${target.classes.cactus.dir}"/>
       <!-- Needed for Clover coverage reports -->
@@ -249,11 +250,11 @@
     </cactifywar>
 
     <!-- Cactify the EAR -->    
-    <ear earfile="${target.dir}/test.ear"
+    <ear earfile="${target.dir}/${project.name.file}-cactified.ear"
         appxml="${src.application.dir}/cactus/application.xml">   
       <zipfileset excludes="META-INF/application.xml"
           src="${target.dir}/${project.name.file}.ear"/>
-      <fileset file="${target.dir}/test.war"/>
+      <fileset file="${target.dir}/${project.name.file}-cactified.war"/>
     </ear>
         
   </target>
@@ -278,8 +279,8 @@
       description="Run the tests on the defined containers">
 
     <!-- Run the tests -->
-    <cactus earfile="${target.dir}/test.ear" fork="yes"
-        failureproperty="tests.failed">
+    <cactus earfile="${target.dir}/${project.name.file}-cactified.ear" 
+        fork="yes" failureproperty="tests.failed">
       <classpath>
         <path refid="project.classpath"/>
         <@clover.begin@pathelement location="${clover.jar}"/@clover.end@>
@@ -288,6 +289,7 @@
       </classpath>
       <containerset>
         <@j2ee13.begin@jboss3x if="cactus.home.jboss3x"
+            startUpWait="${cactus.jboss.startUpWait}"
             dir="${cactus.home.jboss3x}"
             output="${target.testreports.dir}/jboss3x.out"
             todir="${target.testreports.dir}/jboss3x"/@j2ee13.end@>

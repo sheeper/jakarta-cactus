@@ -179,7 +179,6 @@ public final class TestContainerRunner extends TestCase
             new URL("http", "localhost", this.server.getPort(), "/test"));
         runner.setTimeout(0);
         runner.setCheckInterval(250);
-        runner.setStartUpWait(0);
         runner.setShutDownWait(0);
         runner.startUpContainer();
         runner.shutDownContainer();
@@ -204,7 +203,6 @@ public final class TestContainerRunner extends TestCase
             new URL("http", "localhost", this.server.getPort(), "/test"));
         runner.setTimeout(0);
         runner.setCheckInterval(250);
-        runner.setStartUpWait(0);
         runner.setShutDownWait(0);
         try
         {
@@ -238,7 +236,6 @@ public final class TestContainerRunner extends TestCase
             new URL("http", "localhost", this.server.getPort(), "/test"));
         runner.setTimeout(5000);
         runner.setCheckInterval(250);
-        runner.setStartUpWait(0);
         runner.setShutDownWait(0);
         long startTime = System.currentTimeMillis();
         try
@@ -283,7 +280,6 @@ public final class TestContainerRunner extends TestCase
             new URL("http", "localhost", this.server.getPort(), "/test"));
         runner.setTimeout(0);
         runner.setCheckInterval(250);
-        runner.setStartUpWait(0);
         runner.setShutDownWait(0);
         runner.startUpContainer();
         runner.shutDownContainer();

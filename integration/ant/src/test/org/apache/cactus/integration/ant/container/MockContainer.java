@@ -73,7 +73,6 @@ import org.apache.tools.ant.types.Environment.Variable;
  */
 public final class MockContainer implements Container
 {
-
     // Instance Variables ------------------------------------------------------
 
     /**
@@ -132,6 +131,14 @@ public final class MockContainer implements Container
         return null;
     }
 
+    /**
+     * @see Container#getStartUpWait()
+     */
+    public long getStartUpWait()
+    {
+        return 0;
+    }
+    
     /**
      * @see Container#getPort()
      */

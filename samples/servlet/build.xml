@@ -127,7 +127,7 @@
     <!-- Copy scripts -->
     <basename property="jstl.jar.name" file="${jstl.jar}"/>
     <basename property="standard.jar.name" file="${standard.jar}"/>
-    <basename property="servlet.jar.name" file="${j2ee.jar}"/>
+    <basename property="servlet.jar.name" file="${servlet.jar}"/>
     <basename property="aspectjrt.jar.name" file="${aspectjrt.jar}"/>
     <basename property="commons.httpclient.jar.name"
         file="${commons.httpclient.jar}"/>
@@ -172,7 +172,7 @@
     <echo>  commons.httpclient.jar = [${commons.httpclient.jar}]</echo>
     <echo>  commons.logging.jar = [${commons.logging.jar}]</echo>
     <echo>  httpunit.jar = [${httpunit.jar}]</echo>
-    <echo>  j2ee.jar = [${j2ee.jar}]</echo>
+    <echo>  servlet.jar = [${servlet.jar}]</echo>
     <echo>  junit.jar = [${junit.jar}]</echo>
     <echo>  log4j.jar = [${log4j.jar}]</echo>
     <echo>  nekohtml.jar = [${nekohtml.jar}]</echo>
@@ -194,7 +194,7 @@
         <available file="${commons.httpclient.jar}"/>
         <available file="${commons.logging.jar}"/>
         <available file="${httpunit.jar}"/>
-        <available file="${j2ee.jar}"/>
+        <available file="${servlet.jar}"/>
         <available file="${log4j.jar}"/>
         <or>
           <not>
@@ -348,7 +348,7 @@ be resolved. Please check you build.properties file, and run Ant with the
           location="${target.test.dir}/test-reports"/>
       <property name="cactus.jar" location="${test.cactus.jar}"/>
       <property name="cactus.ant.jar" location="${test.cactus.ant.jar}"/>
-      <property name="servlet.jar" value="${j2ee.jar}"/>
+      <property name="servlet.jar" value="${servlet.jar}"/>
       <property name="clover.jar" value="${clover.jar}"/>
     </ant>
 

@@ -21,12 +21,6 @@
 # below. You do not have to put all the external jars in a single location.
 lib.repo = c:/apps/maven/repository
 
-# The location of the J2EE API jar. Depending on the version (1.2 or 1.3) of
-# it, the corresponding Cactus Framework will be built. For example if you use
-# J2EE 1.3 jar, then the Cactus jar will contain the Filter Redirector which is
-# only available for Servlet 2.3 (part of J2EE 1.3).
-j2ee.jar = ${lib.repo}/servletapi/jars/servletapi-2.3.jar
-
 # The location of the AspectJ runtime jar
 aspectjrt.jar = ${lib.repo}/aspectj/jars/aspectjrt-1.0.6.jar
 
@@ -46,8 +40,12 @@ junit.jar = ${lib.repo}/junit/jars/junit-3.8.1.jar
 httpunit.jar = ${lib.repo}/httpunit/jars/httpunit-1.5.3.jar
 
 # -----------------------------------------------------------------------------
-# Mandatory properties for the Jetty Sample
+# Mandatory properties for the Sample Jetty project.
 # -----------------------------------------------------------------------------
+
+# Location of the Servlet API jar.
+servlet.jar = ${lib.repo}/servletapi/jars/servletapi-2.3.jar
+#servlet.jar = ${lib.repo}/servletapi/jars/servletapi-2.2.jar
 
 # The location of the Jetty jar
 jetty.jar = ${lib.repo}/jetty/jars/org.mortbay.jetty-4.2.11.jar

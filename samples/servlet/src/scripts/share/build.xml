@@ -30,7 +30,7 @@
 
   <!-- Global project properties -->
   <property name="project.name.text" value="Cactus Servlet Sample"/>
-  <property name="project.name.file" value="sample-servlet"/>
+  <property name="project.name.file" value="cactus-sample-servlet"/>
   <property name="project.version" value="@version@"/>
 
   <!-- Prefix to add to all distributable files -->
@@ -271,7 +271,7 @@
   
     <!-- Cactify the web-app archive -->
     <cactifywar srcfile="${target.dir}/${project.name.file}.war"
-        destfile="${target.dir}/test.war"
+        destfile="${target.dir}/${project.name.file}-cactified.war"
         mergewebxml="${src.webapp.dir}/WEB-INF/cactus-web.xml">
       <classes dir="${target.classes.cactus.dir}"/>
       <lib file="${httpunit.jar}"/>
@@ -312,8 +312,8 @@
       description="Run the tests on the defined containers">
 
     <!-- Run the tests -->
-    <cactus warfile="${target.dir}/test.war" fork="yes"
-        failureproperty="tests.failed" haltonerror="true">
+    <cactus warfile="${target.dir}/${project.name.file}-cactified.war" 
+        fork="yes" failureproperty="tests.failed" haltonerror="true">
 
       <!-- Configure the cactus task for logging -->
       <cactusproperty server="false"

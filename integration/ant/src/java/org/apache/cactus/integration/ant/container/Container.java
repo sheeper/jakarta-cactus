@@ -91,6 +91,11 @@ public interface Container
     int getPort();
 
     /**
+     * @return the time to wait after the container has been started up. 
+     */
+    long getStartUpWait();
+    
+    /**
      * Returns the value of the 'todir' attribute.
      * 
      * @return The output directory

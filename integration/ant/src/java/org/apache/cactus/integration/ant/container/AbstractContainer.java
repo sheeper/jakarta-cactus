@@ -136,8 +136,31 @@ public abstract class AbstractContainer extends ProjectComponent
      * List of system properties to set in the container JVM. 
      */
     private Variable[] systemProperties;
-    
+
+    /**
+     * The time to sleep after the container has started up. 
+     */
+    private long startUpWait = 1000;
+
     // Public Methods ----------------------------------------------------------
+
+    /**
+     * Sets the time to wait after the container has been started up.
+     * 
+     * The default time is 1 second.
+     * 
+     * Note: This is a hack while waiting for container specific solutions
+     * that tell exactly when the server is started or not. ATM, the only known
+     * issue is with JBoss, where the servlet engine is started before the full
+     * JBoss is started and thus it may happen that we try to shutdown JBoss 
+     * before it has finished starting, leading to an exception.
+     * 
+     * @param theStartUpWait The time to wait in milliseconds
+     */
+    public void setStartUpWait(long theStartUpWait)
+    {
+        this.startUpWait = theStartUpWait;
+    }
 
     /**
      * Creates a nested exclude element that is added to the pattern set.
@@ -192,6 +215,14 @@ public abstract class AbstractContainer extends ProjectComponent
     }
 
     // Container Implementation ------------------------------------------------
+
+    /**
+     * @see Container#getStartUpWait 
+     */
+    public long getStartUpWait()
+    {
+        return this.startUpWait;
+    }
 
     /**
      * @see Container#getToDir

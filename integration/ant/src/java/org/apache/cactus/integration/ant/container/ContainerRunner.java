@@ -99,11 +99,6 @@ public final class ContainerRunner
     private long checkInterval = 500;
 
     /**
-     * The time to sleep after the container has started up. 
-     */
-    private long startUpWait = 1000;
-
-    /**
      * The time to sleep after the container has shut down. 
      */
     private long shutDownWait = 2000;
@@ -206,7 +201,7 @@ public final class ContainerRunner
         } while (!isAvailable(responseCode));
 
         // Wait a few ms more (just to be sure !)
-        sleep(this.startUpWait);
+        sleep(this.container.getStartUpWait());
 
         this.serverName = retrieveServerName(this.url);
         this.log.trace("Server '" + this.serverName + "' started");
@@ -239,7 +234,7 @@ public final class ContainerRunner
             return;
         }
 
-        // Call the target that starts the server, in another thread. The called
+        // Call the target that stops the server, in another thread. The called
         // target must be blocking.
         Thread thread = new Thread(new Runnable()
         {
@@ -294,18 +289,6 @@ public final class ContainerRunner
     public void setShutDownWait(long theShutDownWait)
     {
         this.shutDownWait = theShutDownWait;
-    }
-
-    /**
-     * Sets the time to wait after the container has been started up.
-     * 
-     * The default time is 1 second.
-     * 
-     * @param theStartUpWait The time to wait in milliseconds
-     */
-    public void setStartUpWait(long theStartUpWait)
-    {
-        this.startUpWait = theStartUpWait;
     }
 
     /**

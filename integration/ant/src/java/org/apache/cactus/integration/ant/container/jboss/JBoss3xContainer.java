@@ -78,7 +78,6 @@ import org.apache.tools.ant.util.FileUtils;
  */
 public class JBoss3xContainer extends AbstractJavaContainer
 {
-
     // Instance Variables ------------------------------------------------------
 
     /**
@@ -164,7 +163,7 @@ public class JBoss3xContainer extends AbstractJavaContainer
     {
         return this.port;
     }
-
+    
     /**
      * @see org.apache.cactus.integration.ant.container.Container#init
      */

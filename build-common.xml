@@ -74,10 +74,14 @@
   <target name="init.j2ee"
       if="j2ee.dependant">
 
+    <!-- TODO: Improve this. We really need to split j2ee and servlet 
+    	 verifications now that we have an EJB sample project. -->
+
     <condition property="j2ee.api" value="13">
       <available classname="javax.servlet.Filter">
         <classpath>
           <pathelement location="${j2ee.jar}"/>
+          <pathelement location="${servlet.jar}"/>
         </classpath>
       </available>
     </condition>
@@ -85,6 +89,7 @@
       <available classname="javax.servlet.Servlet">
         <classpath>
           <pathelement location="${j2ee.jar}"/>
+          <pathelement location="${servlet.jar}"/>
         </classpath>
       </available>
     </condition>

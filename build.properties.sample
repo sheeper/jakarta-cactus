@@ -64,6 +64,14 @@ xerces.jar = ${lib.repo}/xerces/jars/xercesImpl-2.3.0.jar
 xmlapis.jar = ${lib.repo}/xerces/jars/xmlParserAPIs-2.2.1.jar
 
 # -----------------------------------------------------------------------------
+# Mandatory properties for the Sample Servlet project.
+# -----------------------------------------------------------------------------
+
+# Location of the Servlet API jar.
+servlet.jar = ${lib.repo}/servletapi/jars/servletapi-2.3.jar
+#servlet.jar = ${lib.repo}/servletapi/jars/servletapi-2.2.jar
+
+# -----------------------------------------------------------------------------
 # Mandatory properties for the Eclipse plugin ant the Jetty Sample
 # -----------------------------------------------------------------------------
 # The Jetty container is packaged in the Eclipse plugin and is used as the 
@@ -111,9 +119,13 @@ eclipse.ui.externaltools.jar = ${eclipse.home}/plugins/org.eclipse.ui.externalto
 # Optional properties for the main Cactus build
 # -----------------------------------------------------------------------------
 
-# Locations J2EE APIs for the "*.all" targets
+# Location of J2EE API jars for the "*.all" targets
 j2ee.12.jar = ${lib.repo}/j2ee/jars/j2ee-1.2.jar
 j2ee.13.jar = ${lib.repo}/j2ee/jars/j2ee-1.3.jar
+
+# Location of Servlet API jars for the "*.all" targets
+servlet.22.jar = ${lib.repo}/servletapi/jars/servletapi-2.2.jar
+servlet.23.jar = ${lib.repo}/servletapi/jars/servletapi-2.3.jar
 
 # -----------------------------------------------------------------------------
 # Optional properties share by several subprojects
