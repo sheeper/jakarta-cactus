@@ -13,7 +13,7 @@
     <property name="project.prefix" value="jakarta-"/>
 
     <!-- Generic properties -->
-    <property name="year" value="2000-2002"/>
+    <property name="year" value="2000-2003"/>
     <property name="debug" value="on"/>
     <property name="optimize" value="off"/>
     <property name="deprecation" value="off"/>

@@ -37,7 +37,7 @@
     <!-- Prefix to add to all distributable files -->
     <property name="project.prefix" value="jakarta-"/>
 
-    <property name="year" value="2000-2002"/>
+    <property name="year" value="2000-2003"/>
 
     <!--
        ========================================================================
