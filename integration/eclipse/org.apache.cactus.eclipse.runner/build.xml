@@ -74,7 +74,8 @@
     <target name="init" depends="init.common, properties">
 
         <echo>Dependancies:</echo>
-        <echo>  org.apache.cactus.eclipse.webapp.jar = [${org.apache.cactus.eclipse.webapp.jar}]</echo>
+        <echo>  cactus.jar = [${cactus.jar}]</echo>
+        <echo>  cactus.ant.jar = [${cactus.ant.jar}]</echo>
         <echo>  eclipse.ant.core.jar = [${eclipse.ant.core.jar}]</echo>
         <echo>  eclipse.core.boot.jar = [${eclipse.core.boot.jar}]</echo>
         <echo>  eclipse.core.resources.jar = [${eclipse.core.resources.jar}]</echo>
@@ -90,10 +91,12 @@
         <echo>  eclipse.ui.workbench.jar = [${eclipse.ui.workbench.jar}]</echo>
         <echo>  eclipse.ui.externaltools.jar = [${eclipse.ui.externaltools.jar}]</echo>
         <echo>  jetty.jar = [${jetty.jar}]</echo>
+        <echo>  org.apache.cactus.eclipse.webapp.jar = [${org.apache.cactus.eclipse.webapp.jar}]</echo>
 
         <condition property="properties.ok">
           <and>
-            <available file="${org.apache.cactus.eclipse.webapp.jar}"/>
+            <available file="${cactus.jar}"/>
+            <available file="${cactus.ant.jar}"/>
             <available file="${eclipse.ant.core.jar}"/>
             <available file="${eclipse.core.boot.jar}"/>
             <available file="${eclipse.core.resources.jar}"/>
@@ -109,6 +112,7 @@
             <available file="${eclipse.ui.workbench.jar}"/>
             <available file="${eclipse.ui.externaltools.jar}"/>
             <available file="${jetty.jar}"/>
+            <available file="${org.apache.cactus.eclipse.webapp.jar}"/>
           </and>
         </condition>
 
