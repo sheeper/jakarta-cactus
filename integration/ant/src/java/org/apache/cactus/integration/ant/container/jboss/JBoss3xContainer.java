@@ -126,6 +126,25 @@ public class JBoss3xContainer extends AbstractJavaContainer
         this.config = theConfig;
     }
 
+    /**
+     * Sets the port that will be used to poll the server to verify if
+     * it is started. This is needed for the use case where the user
+     * has defined his own JBoss configuration by using the
+     * {@link #setConfig(String)} call and has defined a port other
+     * than the default one. 
+     * 
+     * Note: This value is not yet used to set the port
+     * to which the container will listen to. The reason is that this is
+     * hard to implement with JBoss and nobody had the courage to implement
+     * it yet...
+     * 
+     * @param thePort The port to set
+     */
+    public final void setPort(int thePort)
+    {
+        this.port = thePort;
+    }
+
     // Container Implementation ------------------------------------------------
 
     /**

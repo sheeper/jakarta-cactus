@@ -77,6 +77,14 @@ Note: To be added once we include the Eclipse plugin in a release
         </action>
 -->
       <release version="1.6" date="in CVS">
+        <action dev="VMA" type="add" due-to="Florin Vancea" due-to-email="fvancea@maxiq.ro">
+          Added the ability to define the JBoss port that will be used 
+          in the Ant integration to poll if the JBoss server is up and
+          running. Note: This value will not modify the port of the
+          default JBoss configuration (it is still 8080). However, it
+          is useful for users who have defined their own JBoss 
+          configuration and are using a port other than 8080.
+        </action>
       </release>
       	
       <release version="1.5" date="14 July 2003">
