@@ -10,15 +10,13 @@
       <library name="webapp.jar"/>
    </runtime>
    <requires>
-      <import plugin="org.eclipse.core.resources"/>
-      <import plugin="org.eclipse.ui"/>
       <import plugin="org.apache.ant"/>
       <import plugin="org.eclipse.core.boot"/>
       <import plugin="org.eclipse.core.resources"/>
       <import plugin="org.eclipse.core.runtime"/>
       <import plugin="org.eclipse.jdt.core"/>
       <import plugin="org.eclipse.jdt.ui"/>
-      <import plugin="org.eclipse.ui"/>
+      <import plugin="org.eclipse.ui"/>      
    </requires>
 
    <extension point="org.eclipse.ui.propertyPages">
