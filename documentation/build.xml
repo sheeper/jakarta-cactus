@@ -175,7 +175,7 @@
             </fileset>
 
         </cvschangelog>
-
+-->
         <cvslog users="${doc.xdoc.dir}/cvslog/users.properties"
             work="${doc.xdoc.dir}" output="${doc.xdoc.dir}/cvslog/cvslog.xml"
             debug="toto.txt" elapsed="15">
@@ -189,7 +189,7 @@
             </fileset>
 
         </cvslog>
--->
+
 
         <!-- Copy book.xml to replace the token filters (year) -->
         <copy file="${doc.xdoc.dir}/book.xml"
