@@ -49,6 +49,9 @@
        ========================================================================
     -->
     <property name="base.dir" location="Eclipse-Plugin"/>
+    <property name="framework.dir" location="framework"/>
+    <property name="petals.dir" location="petals"/>
+    <property name="petals.ant.dir" location="${petals.dir}/ant"/>
 
     <!--
        ========================================================================
@@ -237,17 +240,11 @@
 		<copy todir="${dist.dir}/icons">
 		    <fileset dir="${base.dir}/icons"/>
 		</copy>
-	    <copy todir="${dist.dir}/ant">
-            <fileset dir="${base.dir}/ant"/>
+        <copy todir="${dist.dir}/ant">
+            <fileset dir="${petals.ant.dir}/dist-${j2ee.api}/"/>
         </copy>
-        <copy todir="${dist.dir}/lib/client" file="${commons.httpclient.jar}"/>
-        <copy todir="${dist.dir}/lib/client" file="${j2ee.jar}"/>
-        <copy todir="${dist.dir}/lib/share" file="${aspectjrt.jar}"/>
-        <copy todir="${dist.dir}/lib/share" file="${junit.jar}"/>
-        <copy todir="${dist.dir}/lib/share" file="${commons.logging.jar}"/>
-        <copy todir="${dist.dir}/lib/share" file="framework/dist-${j2ee.api}/lib/cactus.jar"/>
         <copy todir="${dist.dir}/web">
-            <fileset dir="framework/dist-${j2ee.api}/web"/>
+            <fileset dir="${framework.dir}/dist-${j2ee.api}/web"/>
         </copy>
     </target>
 
