@@ -78,7 +78,7 @@ import org.apache.tools.ant.Task;
  *
  * @version $Id$
  */
-public class AntLog implements Log
+public final class AntLog implements Log
 {
 
     // Constants ---------------------------------------------------------------

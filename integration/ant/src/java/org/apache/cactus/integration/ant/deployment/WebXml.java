@@ -840,7 +840,7 @@ public class WebXml
      * @param theAuthMethod The authentication method (for example, BASIC)
      * @param theRealmName The name of the realm
      */
-    public void setLoginConfig(String theAuthMethod, String theRealmName)
+    public final void setLoginConfig(String theAuthMethod, String theRealmName)
     {
         if ((theRealmName == null) || (theAuthMethod == null))
         {

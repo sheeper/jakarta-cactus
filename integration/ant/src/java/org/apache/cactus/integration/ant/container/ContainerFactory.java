@@ -109,7 +109,7 @@ public class ContainerFactory
      * @return The instantiated container
      * @throws BuildException If there was a problem creating the container
      */
-    public Container createContainer(String theName) throws BuildException
+    public final Container createContainer(String theName) throws BuildException
     {
         Container container = null;
         try

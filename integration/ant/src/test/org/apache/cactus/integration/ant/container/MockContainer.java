@@ -70,7 +70,7 @@ import org.apache.commons.logging.Log;
  *
  * @version $Id$
  */
-public class MockContainer implements Container
+public final class MockContainer implements Container
 {
 
     // Instance Variables ------------------------------------------------------

@@ -245,7 +245,7 @@ public abstract class AbstractContainer extends ProjectComponent
     /**
      * @see Container#setAntTaskFactory
      */
-    public void setAntTaskFactory(AntTaskFactory theFactory)
+    public final void setAntTaskFactory(AntTaskFactory theFactory)
     {
         this.antTaskFactory = theFactory;
     }
@@ -261,7 +261,7 @@ public abstract class AbstractContainer extends ProjectComponent
     /**
      * @see Container#setLog
      */
-    public void setLog(Log theLog)
+    public final void setLog(Log theLog)
     {
         this.log = theLog;
     }
@@ -314,7 +314,7 @@ public abstract class AbstractContainer extends ProjectComponent
      * 
      * @return The default filter chain
      */
-    protected FilterChain createFilterChain()
+    protected final FilterChain createFilterChain()
     {
         ReplaceTokens.Token token = null;
         FilterChain filterChain = new FilterChain();

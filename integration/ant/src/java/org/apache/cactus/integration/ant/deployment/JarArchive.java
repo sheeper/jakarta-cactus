@@ -154,7 +154,7 @@ public class JarArchive
      * @return The full path to the resource inside the archive
      * @throws IOException If an I/O error occurred reading the archive
      */
-    public String findResource(String theName)
+    public final String findResource(String theName)
         throws IOException
     {
         JarInputStream in = null;
@@ -194,7 +194,7 @@ public class JarArchive
      *         <code>null</code> if the resource was not found in the JAR
      * @throws IOException If an I/O error occurs
      */
-    public InputStream getResource(String thePath)
+    public final InputStream getResource(String thePath)
         throws IOException
     {
         JarInputStream in = null;
@@ -234,7 +234,7 @@ public class JarArchive
      * @return The list of resources
      * @throws IOException If an I/O error occurs
      */
-    public List getResources(String thePath)
+    public final List getResources(String thePath)
         throws IOException
     {
         List resources = new ArrayList();

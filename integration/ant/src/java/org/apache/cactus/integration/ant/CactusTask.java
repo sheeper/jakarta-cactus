@@ -112,7 +112,7 @@ public class CactusTask extends JUnitTask
     /**
      * The factory for creating ant tasks that is passed to the containers.
      */
-    private transient AntTaskFactory antTaskFactory = new AntTaskFactory()
+    private AntTaskFactory antTaskFactory = new AntTaskFactory()
     {
         public Task createTask(String theName)
         {

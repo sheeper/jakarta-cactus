@@ -104,7 +104,8 @@ public class ContainerSet extends DataType implements DynamicConfigurator
     /**
      * @see org.apache.tools.ant.DynamicConfigurator#createDynamicElement
      */
-    public Object createDynamicElement(String theName) throws BuildException
+    public final Object createDynamicElement(String theName)
+        throws BuildException
     {
         if (isReference())
         {
@@ -118,7 +119,7 @@ public class ContainerSet extends DataType implements DynamicConfigurator
     /**
      * @see org.apache.tools.ant.DynamicConfigurator#setDynamicAttribute
      */
-    public void setDynamicAttribute(String theName, String theValue)
+    public final void setDynamicAttribute(String theName, String theValue)
         throws BuildException
     {
         if (isReference())
@@ -136,7 +137,7 @@ public class ContainerSet extends DataType implements DynamicConfigurator
      * 
      * @param theContainer The generic container element to add
      */
-    public void addGeneric(GenericContainer theContainer)
+    public final void addGeneric(GenericContainer theContainer)
     {
         this.containers.add(theContainer);
     }
@@ -147,7 +148,7 @@ public class ContainerSet extends DataType implements DynamicConfigurator
      * 
      * @return An iterator over the nested container elements
      */
-    public Container[] getContainers()
+    public final Container[] getContainers()
     {
         Container[] containers = (Container[])
             this.containers.toArray(new Container[this.containers.size()]);
@@ -173,7 +174,7 @@ public class ContainerSet extends DataType implements DynamicConfigurator
      * 
      * @return The timeout in milliseconds
      */
-    public long getTimeout()
+    public final long getTimeout()
     {
         return this.timeout;
     }
@@ -184,7 +185,7 @@ public class ContainerSet extends DataType implements DynamicConfigurator
      * 
      * @param theTimeout The timeout in milliseconds
      */
-    public void setTimeout(long theTimeout)
+    public final void setTimeout(long theTimeout)
     {
         this.timeout = theTimeout;
     }
@@ -194,7 +195,7 @@ public class ContainerSet extends DataType implements DynamicConfigurator
      * 
      * @return The proxy port
      */
-    public int getProxyPort()
+    public final int getProxyPort()
     {
         return this.proxyPort;
     }
@@ -206,7 +207,7 @@ public class ContainerSet extends DataType implements DynamicConfigurator
      * 
      * @param theProxyPort The proxy port to set
      */
-    public void setProxyPort(int theProxyPort)
+    public final void setProxyPort(int theProxyPort)
     {
         this.proxyPort = theProxyPort;
     }

@@ -81,7 +81,7 @@ import junit.framework.Assert;
  *
  * @version $Id$
  */
-public class MockHttpServer implements Runnable
+public final class MockHttpServer implements Runnable
 {
 
     // Instance Variables ------------------------------------------------------

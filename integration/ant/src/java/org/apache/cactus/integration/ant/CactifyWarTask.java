@@ -169,7 +169,7 @@ public class CactifyWarTask extends War
          * 
          * @param theName The name to set
          */
-        public void setName(String theName)
+        public final void setName(String theName)
         {
             this.name = theName;
         }
@@ -179,7 +179,7 @@ public class CactifyWarTask extends War
          * 
          * @param theMapping The URL pattern to set
          */
-        public void setMapping(String theMapping)
+        public final void setMapping(String theMapping)
         {
             this.mapping = theMapping;
         }
@@ -190,7 +190,7 @@ public class CactifyWarTask extends War
          * 
          * @param theRoles The roles to set
          */
-        public void setRoles(String theRoles)
+        public final void setRoles(String theRoles)
         {
             this.roles = theRoles;
         }
@@ -203,7 +203,7 @@ public class CactifyWarTask extends War
          * 
          * @param theWebXml The deployment descriptor
          */
-        protected void addSecurity(WebXml theWebXml)
+        protected final void addSecurity(WebXml theWebXml)
         {
             StringTokenizer tokenizer = new StringTokenizer(this.roles, ",");
             List roles = new ArrayList();
@@ -328,7 +328,7 @@ public class CactifyWarTask extends War
     /**
      * Enumeration for the <em>version</em> attribute.
      */
-    public static class Version extends EnumeratedAttribute
+    public static final class Version extends EnumeratedAttribute
     {
 
         /**
@@ -438,7 +438,7 @@ public class CactifyWarTask extends War
      * 
      * @param theFilterRedirector The redirector to add
      */
-    public void addFilterRedirector(FilterRedirector theFilterRedirector)
+    public final void addFilterRedirector(FilterRedirector theFilterRedirector)
     {
         this.redirectors.add(theFilterRedirector);
     }
@@ -448,7 +448,7 @@ public class CactifyWarTask extends War
      * 
      * @param theJspRedirector The redirector to add
      */
-    public void addJspRedirector(JspRedirector theJspRedirector)
+    public final void addJspRedirector(JspRedirector theJspRedirector)
     {
         this.redirectors.add(theJspRedirector);
     }
@@ -458,7 +458,8 @@ public class CactifyWarTask extends War
      * 
      * @param theServletRedirector The redirector to add
      */
-    public void addServletRedirector(ServletRedirector theServletRedirector)
+    public final void addServletRedirector(
+        ServletRedirector theServletRedirector)
     {
         this.redirectors.add(theServletRedirector);
     }

@@ -122,7 +122,7 @@ public class EarArchive extends JarArchive
      * @throws ParserConfigurationException If there is an XML parser
      *         configration problem
      */
-    public ApplicationXml getApplicationXml()
+    public final ApplicationXml getApplicationXml()
         throws IOException, SAXException, ParserConfigurationException
     {
         if (this.applicationXml == null)
@@ -153,7 +153,7 @@ public class EarArchive extends JarArchive
      *         the specified URI
      * @throws IOException If there was an errors reading from the EAR or WAR
      */
-    public WarArchive getWebModule(String theUri)
+    public final WarArchive getWebModule(String theUri)
         throws IOException
     {
         InputStream war = null;

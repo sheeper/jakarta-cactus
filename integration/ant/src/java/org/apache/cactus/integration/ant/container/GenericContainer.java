@@ -74,7 +74,7 @@ import org.apache.tools.ant.taskdefs.CallTarget;
  *
  * @version $Id$
  */
-public class GenericContainer extends AbstractContainer
+public final class GenericContainer extends AbstractContainer
 {
 
     // Inner Classes -----------------------------------------------------------
@@ -84,7 +84,7 @@ public class GenericContainer extends AbstractContainer
      * supports either an Ant target to delegate to, or a list of nested tasks
      * that are to be executed in order to perform the operation. 
      */
-    public class Hook implements TaskContainer
+    public final class Hook implements TaskContainer
     {
         
         // Instance Variables --------------------------------------------------

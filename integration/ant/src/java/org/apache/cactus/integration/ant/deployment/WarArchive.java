@@ -123,7 +123,7 @@ public class WarArchive extends JarArchive
      * @throws ParserConfigurationException If there is an XML parser
      *         configration problem
      */
-    public WebXml getWebXml()
+    public final WebXml getWebXml()
         throws IOException, SAXException, ParserConfigurationException
     {
         if (this.webXml == null)
@@ -157,7 +157,7 @@ public class WarArchive extends JarArchive
      * @return Whether the class was found in the archive
      * @throws IOException If an I/O error occurred reading the archive
      */
-    public boolean containsClass(String theClassName)
+    public final boolean containsClass(String theClassName)
         throws IOException
     {
         // Look in WEB-INF/classes first

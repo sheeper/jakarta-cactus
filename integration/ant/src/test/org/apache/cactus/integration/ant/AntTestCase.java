@@ -126,28 +126,28 @@ public abstract class AntTestCase extends TestCase implements BuildListener
     /**
      * @see BuildListener#buildStarted
      */
-    public void buildStarted(BuildEvent theEvent)
+    public final void buildStarted(BuildEvent theEvent)
     {
     }
 
     /**
      * @see BuildListener#buildFinished
      */
-    public void buildFinished(BuildEvent theEvent)
+    public final void buildFinished(BuildEvent theEvent)
     {
     }
 
     /**
      * @see BuildListener#targetStarted
      */
-    public void targetStarted(BuildEvent theEvent)
+    public final void targetStarted(BuildEvent theEvent)
     {
     }
 
     /**
      * @see BuildListener#targetFinished
      */
-    public void targetFinished(BuildEvent theEvent)
+    public final void targetFinished(BuildEvent theEvent)
     {
         this.executedTargets.add(theEvent.getTarget().getName());
     }
@@ -155,21 +155,21 @@ public abstract class AntTestCase extends TestCase implements BuildListener
     /**
      * @see BuildListener#taskStarted
      */
-    public void taskStarted(BuildEvent theEvent)
+    public final void taskStarted(BuildEvent theEvent)
     {
     }
 
     /**
      * @see BuildListener#taskFinished
      */
-    public void taskFinished(BuildEvent theEvent)
+    public final void taskFinished(BuildEvent theEvent)
     {
     }
 
     /**
      * @see BuildListener#messageLogged
      */
-    public void messageLogged(BuildEvent theEvent)
+    public final void messageLogged(BuildEvent theEvent)
     {
         StringBuffer buffer = (StringBuffer)
             log.get(new Integer(theEvent.getPriority()));
@@ -230,7 +230,7 @@ public abstract class AntTestCase extends TestCase implements BuildListener
      * @param theLogLevel The log level of the message
      * @throws IOException If an error occurred reading the log buffer
      */
-    protected void assertMessageLogged(String theMessage, int theLogLevel)
+    protected final void assertMessageLogged(String theMessage, int theLogLevel)
         throws IOException
     {
         StringBuffer buffer = (StringBuffer) log.get(new Integer(theLogLevel));
@@ -259,7 +259,7 @@ public abstract class AntTestCase extends TestCase implements BuildListener
      * @param theLogLevel The log level of the message
      * @throws IOException If an error occurred reading the log buffer
      */
-    protected void assertMessageLoggedContaining(String theSubstring,
+    protected final void assertMessageLoggedContaining(String theSubstring,
         int theLogLevel)
         throws IOException
     {
@@ -286,7 +286,7 @@ public abstract class AntTestCase extends TestCase implements BuildListener
      * 
      * @param theName The name of the target
      */
-    protected void assertTargetExecuted(String theName)
+    protected final void assertTargetExecuted(String theName)
     {
         assertTrue("Target '" + theName + "' should have been executed",
             this.executedTargets.contains(theName));
@@ -296,7 +296,7 @@ public abstract class AntTestCase extends TestCase implements BuildListener
      * Executes the target in the project that corresponds to the current test
      * case.
      */
-    protected void executeTestTarget()
+    protected final void executeTestTarget()
     {
         this.project.executeTarget(getName());
     }
@@ -306,7 +306,7 @@ public abstract class AntTestCase extends TestCase implements BuildListener
      * 
      * @return The project
      */
-    protected Project getProject()
+    protected final Project getProject()
     {
         return this.project;
     }
@@ -316,7 +316,7 @@ public abstract class AntTestCase extends TestCase implements BuildListener
      * 
      * @return The base directory
      */
-    protected File getProjectDir()
+    protected final File getProjectDir()
     {
         return this.project.getBaseDir();
     }
@@ -327,7 +327,7 @@ public abstract class AntTestCase extends TestCase implements BuildListener
      * 
      * @return The test target
      */
-    protected Target getTestTarget()
+    protected final Target getTestTarget()
     {
         return (Target) getProject().getTargets().get(getName());
     }
