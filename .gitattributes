@@ -327,6 +327,7 @@ integration/eclipse/lib/README.txt svn_keywords=Author+Date+Id+Revision
 integration/eclipse/lib/junitsupport-2.1.0dev.jar -text
 integration/eclipse/plugin.properties svn_keywords=Author+Date+Id+Revision
 integration/eclipse/plugin.xml svn_keywords=Author+Date+Id+Revision
+integration/eclipse/src/java/org/apache/cactus/eclipse/ant/EclipseRunTests.java svn_keywords=Author+Date+Id+Revision
 integration/eclipse/src/java/org/apache/cactus/eclipse/containers/ContainerInfo.java svn_keywords=Author+Date+Id+Revision
 integration/eclipse/src/java/org/apache/cactus/eclipse/containers/Credential.java svn_keywords=Author+Date+Id+Revision
 integration/eclipse/src/java/org/apache/cactus/eclipse/containers/IContainerProvider.java svn_keywords=Author+Date+Id+Revision
