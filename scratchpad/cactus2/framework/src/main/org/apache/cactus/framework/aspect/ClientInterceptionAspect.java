@@ -19,19 +19,17 @@
  */
 package org.apache.cactus.framework.aspect;
 
-import org.apache.cactus.framework.internal.orchestrator.Orchestrator;
+import junit.framework.TestCase;
+
+import org.apache.cactus.framework.internal.ClientManager;
 import org.codehaus.aspectwerkz.attribdef.Pointcut;
 import org.codehaus.aspectwerkz.attribdef.aspect.Aspect;
 import org.codehaus.aspectwerkz.joinpoint.JoinPoint;
 
 /**
- * Intercepts client side JUnit tests and initialize the Cactus system: 
- * <ul>
- *   <li>sets up PicoContainer,</li>
- *   <li>sets up the test listener socket if not set</li>
- * </ul>
+ * Intercepts client side JUnit tests.
  */
-public class InitializationAspect extends Aspect
+public class ClientInterceptionAspect extends Aspect
 {
     /**
      * @Execution * *..TestCase+.test*()
@@ -43,21 +41,22 @@ public class InitializationAspect extends Aspect
      */
     private boolean isInitialized = false;
     
+    private ClientManager manager = new ClientManager();
+    
     /**
      * @Around interceptClientTest
      */
-    public synchronized Object initialize(JoinPoint joinPoint) 
+    public synchronized Object intercept(JoinPoint joinPoint) 
         throws Throwable
     {
         if (!this.isInitialized)
         {
-            // TODO: Create a Configuration component to externalize 
-            // configuration data
-            Orchestrator orchestrator = new Orchestrator(7777);
-            orchestrator.start();
-            
+            manager.initialize();
             this.isInitialized = true;
         }
+
+        manager.prepareTest((TestCase) joinPoint.getTargetInstance());
+        
         return joinPoint.proceed();
     }
 }

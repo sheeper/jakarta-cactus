@@ -28,9 +28,27 @@ import org.mortbay.http.handler.AbstractHttpHandler;
 
 public class SetTestHandler extends AbstractHttpHandler
 {
+    public static String PATH_IN_CONTEXT = "/settest";
+
+    private String currentTestName;
+    
     public void handle(String pathInContext, String pathParams, 
         HttpRequest request, HttpResponse response) 
         throws HttpException, IOException
     {
+        if (PATH_IN_CONTEXT.equals(pathInContext))
+        {
+            // TODO: use loggin subsystem
+            System.err.println("Settest: name = [" 
+                + request.getParameter("name") + "]");
+
+            this.currentTestName = request.getParameter("name");
+            request.setHandled(true);
+        }
+    }
+
+    String getCurrentTestName()
+    {
+        return this.currentTestName;
     }
 }

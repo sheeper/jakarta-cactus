@@ -30,7 +30,9 @@ import org.mortbay.http.SocketListener;
 public class Orchestrator
 {
     private int port;
-
+    
+    private HttpServer server;
+    
     public Orchestrator(int port)
     {
         this.port = port;
@@ -46,31 +48,26 @@ public class Orchestrator
         // Setup HTTP server and attach to it handlers to manage
         // the executing test and to manage retrieval of test results
 
-        HttpServer server = new HttpServer();
+        this.server = new HttpServer();
         SocketListener listener = new SocketListener();
         listener.setPort(getPort());
-        server.addListener(listener);
+        this.server.addListener(listener);
 
-        HttpContext getTestContext = new HttpContext();
-        getTestContext.setContextPath("/gettest");
-        getTestContext.addHandler(new GetTestHandler());
-        server.addContext(getTestContext);
+        HttpContext context = this.server.addContext("/");
+        
+        context.addHandler(new SetResultHandler());
+        context.addHandler(new GetResultHandler());
 
-        HttpContext setTestContext = new HttpContext();
-        setTestContext.setContextPath("/settest");
-        setTestContext.addHandler(new SetTestHandler());
-        server.addContext(setTestContext);
+        SetTestHandler setTestHandler = new SetTestHandler();
+        context.addHandler(setTestHandler);
+        context.addHandler(new GetTestHandler(setTestHandler));
 
-        HttpContext getResultContext = new HttpContext();
-        getResultContext.setContextPath("/getresult");
-        getResultContext.addHandler(new GetResultHandler());
-        server.addContext(getResultContext);
-
-        HttpContext setResultContext = new HttpContext();
-        setResultContext.setContextPath("/setresult");
-        setResultContext.addHandler(new SetResultHandler());
-        server.addContext(setResultContext);
-
-        server.start();
+        this.server.start();
     }
+
+    public void stop() throws InterruptedException
+    {
+        this.server.stop();
+    }
+    
 }

@@ -28,9 +28,15 @@ import org.mortbay.http.handler.AbstractHttpHandler;
 
 public class GetResultHandler extends AbstractHttpHandler
 {
+    public static String PATH_IN_CONTEXT = "/getresult";
+
     public void handle(String pathInContext, String pathParams, 
         HttpRequest request, HttpResponse response) 
         throws HttpException, IOException
     {
+        if (PATH_IN_CONTEXT.equals(pathInContext))
+        {
+            request.setHandled(true);
+        }
     }
 }
