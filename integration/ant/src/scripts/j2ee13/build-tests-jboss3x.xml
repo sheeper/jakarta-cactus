@@ -3,6 +3,13 @@
     <property name="cactus.conf.jboss3x" value="${cactus.conf.dir}/jboss3x"/>
     <property name="cactus.target.jboss3x" value="${cactus.target.dir}/jboss3x"/>
 
+    <!-- Location of the server configurations -->
+    <property name="cactus.jboss3x.config.dir" 
+      value="${cactus.home.jboss3x}/server"/>
+
+    <!-- Name of the server configuration to use -->
+    <property name="cactus.jboss3x.config.name" value="default"/>
+
     <!-- 
        ========================================================================
          Run JBoss 3.x tests
@@ -37,10 +44,10 @@
         <java jvm="${cactus.jvm}" classname="org.jboss.Main" fork="yes">
 
             <jvmarg value="-Dprogram.name=${cactus.home.jboss3x}/bin/run.bat"/>
-            <jvmarg value="-Djboss.server.home.dir=${cactus.home.jboss3x}/server/default"/>
-            <jvmarg value="-Djboss.server.home.url=file:/${cactus.home.jboss3x}/server/default"/>
+            <jvmarg value="-Djboss.server.home.dir=${cactus.jboss3x.config.dir}/${cactus.jboss3x.config.name}"/>
+            <jvmarg value="-Djboss.server.home.url=file:/${cactus.jboss3x.config.dir}/${cactus.jboss3x.config.name}"/>
             
-            <arg line="-c default"/>
+            <arg line="-c ${cactus.jboss3x.config.name}"/>
             
             <classpath>
                 <pathelement location="${cactus.home.jboss3x}/bin/run.jar"/>
@@ -114,7 +121,7 @@
             </fileset>
         </copy>
 
-        <jar destfile="${cactus.home.jboss3x}/server/default/deploy/${cactus.context}.war">
+        <jar destfile="${cactus.jboss3x.config.dir}/${cactus.jboss3x.config.name}/deploy/${cactus.context}.war">
             <fileset dir="${cactus.target.jboss3x}/tmp/${cactus.context}"/>
         </jar>
 
