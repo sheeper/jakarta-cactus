@@ -88,6 +88,10 @@
 
     <release version="1.3 in CVS">
       <action dev="VMA" type="add">
+        <link href="howto_migration.html">Migration tutorial</link> that
+        explains how to move from Cactus 1.2 to Cactus 1.3
+      </action>
+      <action dev="VMA" type="add">
         Cactus now supports JDK 1.4. Actually the only change made to support it
         was to use the <code>assertXXX()</code> methods of JUnit instead of
         the <code>assert()</code> one, which is now a reserved keyword in

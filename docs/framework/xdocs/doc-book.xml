@@ -33,6 +33,7 @@
 
   <menu label="Howto Guides">
     <menu-item label="Config Howto" source="howto_config.xml"/>
+    <menu-item label="Migration Howto" source="howto_migration.xml"/>
 
     <!-- TestCase tutorials -->
     <menu-item label="TestCase Howto" source="howto_testcase.xml"/>
