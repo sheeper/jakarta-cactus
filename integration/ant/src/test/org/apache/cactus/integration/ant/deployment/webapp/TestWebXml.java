@@ -1502,6 +1502,48 @@ public final class TestWebXml extends TestCase
         assertEquals("servlet", order.item(2).getNodeName());
     }
 
+    /**
+     * Tests that the a servlets run-as role-name can be extracted
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
+    public void testGetServletRunAsRole() throws Exception
+    {
+        String xml = "<web-app>"
+            + "  <servlet>"
+            + "    <servlet-name>s1</servlet-name>"
+            + "    <servlet-class>sclass1</servlet-class>"
+            + "    <run-as>"
+            + "      <role-name>r1</role-name>"
+            + "    </run-as>"
+            + "  </servlet>"
+            + "</web-app>";
+        Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
+        WebXml webXml = new WebXml(doc);
+        String roleName = webXml.getServletRunAsRoleName("s1");
+        assertEquals("r1", roleName);
+    }
+    
+    /**
+     * Tests that a run-as role-name can be added to a servlet
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
+    public void testAddServletRunAsRole() throws Exception
+    {
+        String xml = "<web-app>"
+            + "  <servlet>"
+            + "    <servlet-name>s1</servlet-name>"
+            + "    <servlet-class>sclass1</servlet-class>"
+            + "  </servlet>"
+            + "</web-app>";
+        Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
+        WebXml webXml = new WebXml(doc);
+        webXml.addServletRunAsRoleName("s1", "r1");
+        String roleName = webXml.getServletRunAsRoleName("s1");
+        assertEquals("r1", roleName);
+    }
+    
     // Private Methods ---------------------------------------------------------
 
     /**
