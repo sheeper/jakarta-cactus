@@ -30,20 +30,6 @@
   </s1>
 
   <version title="Version 1.3">
-
-    <category title="Design/Code">
-      <action assigned-to="Peter Wong, Jason Robertson, Vincent Massol">
-        Configure all supported containers with authentication so that they
-        pass the Cactus unit tests (done for Tomcat 3.x + Tomcat 4.x).
-      </action>
-    </category>
-    <category title="Documentation">
-      <action>
-        Add release notes file when releasing Cactus 1.3 that explains the
-        known bugs and current limitations of this version.
-      </action>
-    </category>
-
   </version>
 
   <version title="Version 1.4">
@@ -79,6 +65,10 @@
       <p>
         All tasks that are related to building Cactus in general.
       </p>
+      <action assigned-to="Peter Wong, Jason Robertson, Vincent Massol">
+        Configure all supported containers with authentication so that they
+        pass the Cactus unit tests (done for Tomcat 3.x + Tomcat 4.x).
+      </action>
       <action assigned-to="Bob Tanner">
         Finalize support for Enhydra 3.1.1. There are some errors upon
         starting the enhydra server and the <code>testOut()</code> method
