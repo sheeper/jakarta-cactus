@@ -124,20 +124,6 @@
 
     <!--
        ========================================================================
-         Initialize Clover related properties (for test coverage reports).
-       ========================================================================
-    -->
-    <!-- target name="init.clover" depends="init.common" if="clover.enable">
-
-        <dirname property="clover.db.dir" file="${clover.initstring}"/>
-        <mkdir dir="${clover.db.dir}"/>
-
-        <property name="clover.excludes"
-            value="**/*Aspect.*,**/Test*.java,**/Mock*.java,**/AssertUtils.java,**/ClientCookie.java"/>
-    </target -->
-
-    <!--
-       ========================================================================
          Initialize AspectJ
        ========================================================================
     -->
