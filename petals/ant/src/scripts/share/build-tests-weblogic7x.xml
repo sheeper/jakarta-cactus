@@ -1,11 +1,11 @@
 
-	<!-- Global properties -->
+    <!-- Global properties -->
     <property name="cactus.conf.weblogic7x" value="${cactus.conf.dir}/weblogic7x"/>
     <property name="cactus.target.weblogic7x" value="${cactus.target.dir}/weblogic7x"/>
 
-	<!-- Location of WebLogic server directory. Can be overriden by calling
-	     scripts -->
-	<property name="cactus.weblogic7x.server" 
+    <!-- Location of WebLogic server directory. Can be overriden by calling
+         scripts -->
+    <property name="cactus.weblogic7x.server" 
         value="${cactus.home.weblogic7x}/weblogic700/server"/>
 
     <!--
@@ -14,7 +14,7 @@
        ========================================================================
     -->
     <target name="cactus.run.weblogic7x" 
-    	depends="cactus.init,cactus.setup.weblogic7x,cactus.war,cactus.deploy.weblogic7x"
+        depends="cactus.init,cactus.setup.weblogic7x,cactus.war,cactus.deploy.weblogic7x"
         if="cactus.home.weblogic7x" description="Run tests on WebLogic 7.x">
 
         <!-- Start the servlet engine, wait for it to be started, run the
@@ -106,26 +106,26 @@
        ========================================================================
     -->
     <target name="cactus.deploy.weblogic7x" 
-    	description="Deploy the webapp on WebLogic 7.x">
+        description="Deploy the webapp on WebLogic 7.x">
 
         <!-- Copy the webapp -->
-		<mkdir dir="${cactus.target.weblogic7x}/tmp/${cactus.context}"/>
-		<copy todir="${cactus.target.weblogic7x}/tmp/${cactus.context}">
-			<fileset dir="${cactus.target.dir}/${cactus.context}"/>
-		</copy>
+        <mkdir dir="${cactus.target.weblogic7x}/tmp/${cactus.context}"/>
+        <copy todir="${cactus.target.weblogic7x}/tmp/${cactus.context}">
+            <fileset dir="${cactus.target.dir}/${cactus.context}"/>
+        </copy>
 
         <!-- Add the WebLogic specific descriptors -->
-		<copy todir="${cactus.target.weblogic7x}/tmp/${cactus.context}/WEB-INF">
+        <copy todir="${cactus.target.weblogic7x}/tmp/${cactus.context}/WEB-INF">
             <fileset dir="${cactus.conf.weblogic7x}">
                 <include name="weblogic.xml"/>
             </fileset>
         </copy>
 
-		<jar destfile="${cactus.target.weblogic7x}/testdomain/applications/${cactus.context}.war">
-			<fileset dir="${cactus.target.weblogic7x}/tmp/${cactus.context}"/>
-		</jar>
+        <jar destfile="${cactus.target.weblogic7x}/testdomain/applications/${cactus.context}.war">
+            <fileset dir="${cactus.target.weblogic7x}/tmp/${cactus.context}"/>
+        </jar>
 
-	</target>
+    </target>
 
     <!--
        ========================================================================

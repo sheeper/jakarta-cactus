@@ -1,5 +1,5 @@
 
-	<!-- Global properties -->
+    <!-- Global properties -->
     <property name="cactus.conf.orion1x" value="${cactus.conf.dir}/orion1x"/>
     <property name="cactus.target.orion1x" value="${cactus.target.dir}/orion1x"/>
 
@@ -9,7 +9,7 @@
        ========================================================================
     -->
     <target name="cactus.run.orion1x" 
-    	depends="cactus.init,cactus.setup.orion1x,cactus.war,cactus.deploy.orion1x"
+        depends="cactus.init,cactus.setup.orion1x,cactus.war,cactus.deploy.orion1x"
         if="cactus.home.orion1x" description="Run tests on Orion 1.x">
 
         <!-- Start the servlet engine, wait for it to be started, run the
@@ -33,8 +33,8 @@
         depends="cactus.check.orion1x" if="cactus.home.orion1x">
 
         <java jvm="${cactus.jvm}" classname="com.evermind.server.ApplicationServer" 
-        	fork="yes">
-        	
+            fork="yes">
+            
             <arg value="-config"/>
             <arg value="${cactus.target.orion1x}/conf/server.xml"/>
             <classpath>
@@ -93,13 +93,13 @@
        ========================================================================
     -->
     <target name="cactus.deploy.orion1x" 
-    	description="Deploy the webapp on Orion 1.x">
+        description="Deploy the webapp on Orion 1.x">
 
-		<jar destfile="${cactus.target.orion1x}/${cactus.context}.war">
-			<fileset dir="${cactus.target.dir}/${cactus.context}"/>
-		</jar>
+        <jar destfile="${cactus.target.orion1x}/${cactus.context}.war">
+            <fileset dir="${cactus.target.dir}/${cactus.context}"/>
+        </jar>
 
-	</target>
+    </target>
 
     <!--
        ========================================================================

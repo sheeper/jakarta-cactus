@@ -24,9 +24,9 @@
         cactus.port                [OPTIONAL] Port on which to start the 
                                    containers (Default is 8080)
 
-		cactus.target.dir          [OPTIONAL] Tmp directory for Cactus 
-		                           operations
-		
+        cactus.target.dir          [OPTIONAL] Tmp directory for Cactus 
+                                   operations
+        
         cactus.war                 Location of the war to cactify        
 
         cactus.src.dir             Location of Cactus java source files
@@ -47,9 +47,9 @@
                                    is called from a java application that has
                                    no shell.
 
-		cactus.context             [OPTIONAL] Webapp context to use for the
-		                           cactified war. Defaults to "cactustest".
-		                           
+        cactus.context             [OPTIONAL] Webapp context to use for the
+                                   cactified war. Defaults to "cactustest".
+                                   
     The following Ant references need to be passed to this script:
     
         cactus.classpath           [OPTIONAL] The classpath reference for 

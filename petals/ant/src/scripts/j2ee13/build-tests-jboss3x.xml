@@ -1,5 +1,5 @@
 
-	<!-- Global properties -->
+    <!-- Global properties -->
     <property name="cactus.conf.jboss3x" value="${cactus.conf.dir}/jboss3x"/>
     <property name="cactus.target.jboss3x" value="${cactus.target.dir}/jboss3x"/>
 
@@ -9,7 +9,7 @@
        ========================================================================
     -->
     <target name="cactus.run.jboss3x"
-    	depends="cactus.init,cactus.setup.jboss3x,cactus.war,cactus.deploy.jboss3x"
+        depends="cactus.init,cactus.setup.jboss3x,cactus.war,cactus.deploy.jboss3x"
         if="cactus.home.jboss3x" description="Run tests on JBoss 3.x">
 
         <!-- Start the container, wait for it to be started, run the
@@ -32,7 +32,7 @@
     <target name="cactus.start.jboss3x" description="Start JBoss 3.x"
         depends="cactus.check.jboss3x" if="cactus.home.jboss3x">
 
-		<dirname property="antfile.dir" file="${ant.file}"/>
+        <dirname property="antfile.dir" file="${ant.file}"/>
 
         <java jvm="${cactus.jvm}" classname="org.jboss.Main" fork="yes">
 
@@ -44,7 +44,7 @@
             
             <classpath>
                 <pathelement location="${cactus.home.jboss3x}/bin/run.jar"/>
-				<pathelement path="${java.home}/../lib/tools.jar"/>
+                <pathelement path="${java.home}/../lib/tools.jar"/>
             </classpath>
 
         </java>
@@ -95,30 +95,30 @@
        ========================================================================
     -->
     <target name="cactus.deploy.jboss3x" 
-    	description="Deploy the webapp on JBoss 3.x">
+        description="Deploy the webapp on JBoss 3.x">
 
-		<!-- Note: It seems JBoss requires a war file in its deploy directory. 
-		     It fails to deploy an expanded webapp (something may need to be
-		     configured to allow this?). -->
-		    
+        <!-- Note: It seems JBoss requires a war file in its deploy directory. 
+             It fails to deploy an expanded webapp (something may need to be
+             configured to allow this?). -->
+            
         <!-- Copy the webapp -->
-		<mkdir dir="${cactus.target.jboss3x}/tmp/${cactus.context}"/>
-		<copy todir="${cactus.target.jboss3x}/tmp/${cactus.context}">
-			<fileset dir="${cactus.target.dir}/${cactus.context}"/>
-		</copy>
+        <mkdir dir="${cactus.target.jboss3x}/tmp/${cactus.context}"/>
+        <copy todir="${cactus.target.jboss3x}/tmp/${cactus.context}">
+            <fileset dir="${cactus.target.dir}/${cactus.context}"/>
+        </copy>
 
         <!-- Add the JBoss specific configuration files -->
-		<copy todir="${cactus.target.jboss3x}/tmp/${cactus.context}/WEB-INF/classes">
+        <copy todir="${cactus.target.jboss3x}/tmp/${cactus.context}/WEB-INF/classes">
             <fileset dir="${cactus.conf.jboss3x}">
                 <include name="*.properties"/>
             </fileset>
         </copy>
 
-		<jar destfile="${cactus.home.jboss3x}/server/default/deploy/${cactus.context}.war">
-			<fileset dir="${cactus.target.jboss3x}/tmp/${cactus.context}"/>
-		</jar>
+        <jar destfile="${cactus.home.jboss3x}/server/default/deploy/${cactus.context}.war">
+            <fileset dir="${cactus.target.jboss3x}/tmp/${cactus.context}"/>
+        </jar>
 
-	</target>
+    </target>
 
     <!--
        ========================================================================
@@ -130,7 +130,7 @@
         depends="cactus.check.jboss3x" if="cactus.home.jboss3x"
         description="Set up a JBoss 3.x directory structure">
 
-		<!-- TODO: Find how to create a valid default server configuration.
-		     Copying the server/ directory does not seem to be enough -->
-		     
+        <!-- TODO: Find how to create a valid default server configuration.
+             Copying the server/ directory does not seem to be enough -->
+             
     </target>

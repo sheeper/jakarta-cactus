@@ -1,5 +1,5 @@
 
-	<!-- Global properties -->
+    <!-- Global properties -->
     <property name="cactus.conf.resin2x" value="${cactus.conf.dir}/resin2x"/>
     <property name="cactus.target.resin2x" value="${cactus.target.dir}/resin2x"/>
 
@@ -9,7 +9,7 @@
        ========================================================================
     -->
     <target name="cactus.run.resin2x" 
-    	depends="cactus.init,cactus.setup.resin2x,cactus.war,cactus.deploy.resin2x"
+        depends="cactus.init,cactus.setup.resin2x,cactus.war,cactus.deploy.resin2x"
         if="cactus.home.resin2x" description="Run tests on Resin 2.x">
 
         <!-- Start the servlet engine, wait for it to be started, run the
@@ -33,7 +33,7 @@
         depends="cactus.check.resin2x" if="cactus.home.resin2x">
 
         <java jvm="${cactus.jvm}" classname="org.apache.cactus.petal.ant.ResinRun" 
-        	fork="yes">
+            fork="yes">
 
             <arg value="-start"/>
 
@@ -102,13 +102,13 @@
        ========================================================================
     -->
     <target name="cactus.deploy.resin2x" 
-    	description="Deploy the webapp on Resin 2.x">
+        description="Deploy the webapp on Resin 2.x">
 
-		<jar destfile="${cactus.target.resin2x}/${cactus.context}.war">
-			<fileset dir="${cactus.target.dir}/${cactus.context}"/>
-		</jar>
+        <jar destfile="${cactus.target.resin2x}/${cactus.context}.war">
+            <fileset dir="${cactus.target.dir}/${cactus.context}"/>
+        </jar>
 
-	</target>
+    </target>
 
     <!--
        ========================================================================

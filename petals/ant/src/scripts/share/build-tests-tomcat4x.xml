@@ -1,5 +1,5 @@
 
-	<!-- Global properties -->
+    <!-- Global properties -->
     <property name="cactus.conf.tomcat4x" value="${cactus.conf.dir}/tomcat4x"/>
     <property name="cactus.target.tomcat4x" value="${cactus.target.dir}/tomcat4x"/>
 
@@ -9,7 +9,7 @@
        ========================================================================
     -->
     <target name="cactus.run.tomcat4x" 
-    	depends="cactus.init,cactus.setup.tomcat4x,cactus.war,cactus.deploy.tomcat4x"
+        depends="cactus.init,cactus.setup.tomcat4x,cactus.war,cactus.deploy.tomcat4x"
         if="cactus.home.tomcat4x" description="Run tests on Tomcat 4.x">
 
         <!-- Start the servlet engine, wait for it to be started, run the
@@ -98,15 +98,15 @@
        ========================================================================
     -->
     <target name="cactus.deploy.tomcat4x" 
-    	description="Deploy the webapp on Tomcat 4.x">
+        description="Deploy the webapp on Tomcat 4.x">
 
         <!-- Copy the webapp -->
-		<copy todir="${cactus.target.tomcat4x}/webapps/${cactus.context}">
-			<fileset dir="${cactus.target.dir}/${cactus.context}"/>
-		</copy>
+        <copy todir="${cactus.target.tomcat4x}/webapps/${cactus.context}">
+            <fileset dir="${cactus.target.dir}/${cactus.context}"/>
+        </copy>
 
-	</target>
-	
+    </target>
+    
     <!--
        ========================================================================
          Set up a valid Tomcat 4.x directory structure in the
