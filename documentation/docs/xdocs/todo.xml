@@ -116,6 +116,10 @@
         "getHttpServletRequest().xxx()". Deprecate the direct access. Needs
         to be discussed on cactus-dev.
       </action>
+      <action>
+        Add support for multi-concurrent Cactus tests. This involves storing
+        each test result under a unique key in the application scope.
+      </action>
     </category>
 
     <category title="Ideas">
