@@ -226,6 +226,7 @@
     <home nested="integration/ant/dist-12"/>
     <jar name="bin/cactus-integration-ant/lib/client/cactus-integration-ant-@@DATE@@.jar"/>
     <javadoc nested="integration/ant/dist-12/doc/api"/>
+    <junitreport nested="integration/ant/target-12/doc/test-reports"/>
     	
     <license name="LICENSE.cactus"/>
 
@@ -280,6 +281,7 @@
     <home nested="integration/ant/dist-13"/>
     <jar name="bin/cactus-integration-ant/lib/client/cactus-integration-ant-@@DATE@@.jar"/>
     <javadoc nested="integration/ant/dist-13/doc/api"/>
+    <junitreport nested="integration/ant/target-13/doc/test-reports"/>
 
     <license name="LICENSE.cactus"/>
 
