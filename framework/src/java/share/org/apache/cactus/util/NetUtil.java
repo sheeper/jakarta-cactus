@@ -63,8 +63,8 @@ import java.net.UnknownHostException;
  * Various network related utility methods.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
+ * @since 1.5
  */
 public class NetUtil
 {
