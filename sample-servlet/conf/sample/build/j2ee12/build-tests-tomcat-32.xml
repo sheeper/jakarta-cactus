@@ -108,8 +108,9 @@
         <copy file="${tomcat.home.32}/conf/web.xml"
             tofile="${target.tomcat32.dir}/conf/web.xml"/>
 
-        <copy file="${conf.tomcat32.dir}/server.xml"
-            tofile="${target.tomcat32.dir}/conf/server.xml" filtering="on"/>
+        <copy todir="${target.tomcat32.dir}/conf" filtering="on">
+            <fileset dir="${conf.tomcat32.dir}"/>
+        </copy>
 
         <!-- Copy the war file -->
         <copy file="${target.test.dir}/test.war"

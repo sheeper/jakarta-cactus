@@ -268,6 +268,7 @@ sample-servlet/conf/sample/conf/test/j2ee12/cactus.properties svn_keywords=Autho
 sample-servlet/conf/sample/conf/test/j2ee12/enhydra31/multiserver.conf svn_keywords=Author+Date+Id+Revision
 sample-servlet/conf/sample/conf/test/j2ee12/resin12/resin.conf svn_keywords=Author+Date+Id+Revision
 sample-servlet/conf/sample/conf/test/j2ee12/tomcat32/server.xml svn_keywords=Author+Date+Id+Revision
+sample-servlet/conf/sample/conf/test/j2ee12/tomcat32/tomcat-users.xml svn_keywords=Author+Date+Id+Revision
 sample-servlet/conf/sample/conf/test/j2ee12/tomcat33/modules.xml svn_keywords=Author+Date+Id+Revision
 sample-servlet/conf/sample/conf/test/j2ee12/tomcat33/server.xml svn_keywords=Author+Date+Id+Revision
 sample-servlet/conf/sample/conf/test/j2ee12/tomcat33/tomcat-users.xml svn_keywords=Author+Date+Id+Revision

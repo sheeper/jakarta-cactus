@@ -52,8 +52,8 @@
         Added automatic script support for Orion 1.6.
       </action>
       <action dev="VMA" type="fix">
-        Ant scripts for Resin and Orion now correctly configures them for
-        Cactus BASIC authentication tests.
+        Ant scripts for Resin, Orion and Tomcat 3.2.4 now correctly configured
+        for Cactus BASIC authentication tests.
       </action>
       <action dev="VMA" type="add">
         Added automatic script support for WebLogic 7.0.
