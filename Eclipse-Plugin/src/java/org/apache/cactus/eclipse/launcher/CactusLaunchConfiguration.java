@@ -54,8 +54,8 @@
  * <http://www.apache.org/>.
  *
  */
-
 package org.apache.cactus.eclipse.launcher;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -100,26 +100,25 @@ public class CactusLaunchConfiguration extends JUnitLaunchConfiguration
     /**
      * @see org.eclipse.debug.core.model.ILaunchConfigurationDelegate#launch(ILaunchConfiguration, String, ILaunch, IProgressMonitor)
      */
-    public void launch(
-        ILaunchConfiguration configuration,
-        String mode,
-        ILaunch launch,
-        IProgressMonitor pm)
-        throws CoreException
+    public void launch(ILaunchConfiguration configuration, String mode,
+        ILaunch launch, IProgressMonitor pm) throws CoreException
     {
         IJavaProject javaProject = getJavaProject(configuration);
         if ((javaProject == null) || !javaProject.exists())
         {
             abort(JUnitMessages.getString("JUnitBaseLaunchConfiguration.error.invalidproject"), null, IJavaLaunchConfigurationConstants.ERR_NOT_A_JAVA_PROJECT); //$NON-NLS-1$
         }
+
         IType testType = getTestType(configuration, javaProject);
         IVMInstallType type = getVMInstallType(configuration);
         IVMInstall install = getVMInstall(configuration);
         IVMRunner runner = install.getVMRunner(mode);
+
         if (runner == null)
         {
             abort(MessageFormat.format(JUnitMessages.getString("JUnitBaseLaunchConfiguration.error.novmrunner"), new String[] { install.getId()}), null, IJavaLaunchConfigurationConstants.ERR_VM_RUNNER_DOES_NOT_EXIST); //$NON-NLS-1$
         }
+
         File workingDir = verifyWorkingDirectory(configuration);
         String workingDirName = null;
         if (workingDir != null)
@@ -129,17 +128,17 @@ public class CactusLaunchConfiguration extends JUnitLaunchConfiguration
 
         // Program & VM args
         String vmArgs = getVMArguments(configuration);
-        ExecutionArguments execArgs = new ExecutionArguments(vmArgs, ""); //$NON-NLS-1$
+        ExecutionArguments execArgs = new ExecutionArguments(vmArgs, "");
 
         // Create VM config
         IType types[] = { testType };
-        int port = SocketUtil.findUnusedLocalPort("", 5000, 15000); //$NON-NLS-1$
+        int port = SocketUtil.findUnusedLocalPort("", 5000, 15000);
 
         VMRunnerConfiguration runConfig =
             createVMRunner(configuration, types, port, mode);
 
-        // Surprisingly enough the JUnit plugin discards all VM arguments set in the configuration
-        // This is why we add the cactus VM argument here
+        // Surprisingly enough the JUnit plugin discards all VM arguments set 
+        // in the configuration. This is why we add the cactus VM argument here
         String[] cactusVMArgs = runConfig.getVMArguments();
         String[] configVMArgs = execArgs.getVMArgumentsArray();
         String[] globalVMArgs =
