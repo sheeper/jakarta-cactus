@@ -257,7 +257,7 @@ public class CactusPlugin extends AbstractUIPlugin
     /**
      * Returns a container manager.
      * @return a container provider to use for Cactus tests
-     *  or null if Jelly is selected as the container.
+     *  or null if Jetty is selected as the container.
      * @throws CoreException if the container manager can't be contructed
      */
     public static IContainerManager getContainerManager()

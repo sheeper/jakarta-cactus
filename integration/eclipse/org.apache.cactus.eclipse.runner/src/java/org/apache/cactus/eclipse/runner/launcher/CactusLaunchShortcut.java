@@ -287,7 +287,7 @@ public class CactusLaunchShortcut
 
     /**
      * Returns the provider associated with this CactusLaunchShortcut instance,
-     * or null if there is none (i.e. Jelly).
+     * or null if there is none (i.e. Jetty).
      * @return the provider associated with this instance
      */
     public IContainerProvider getContainerProvider()
