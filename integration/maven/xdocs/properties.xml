@@ -242,6 +242,17 @@
             </p>
           </td>
         </tr>
+        <tr>
+          <td>cactus.is.ear</td>
+          <td>Yes</td>
+          <td>
+            <p>
+              If this is true then the <code>cactus:test</code> target will 
+              execute <code>cactus:test-ear</code>. Default value is 
+              <code>false</code>.
+            </p>
+          </td>
+        </tr>
       </table>
     </section>
 

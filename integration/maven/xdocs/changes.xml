@@ -8,6 +8,11 @@
   <body>
 
     <release version="1.6dev" date="in CVS">
+      <action dev="vmassol" type="fix" issue="26811" due-to="Archimedes Trajano" due-to-email="trajano@yahoo.com">
+        Added support for running tests packaged as an EAR when the Cactus 
+        plgin is triggered by defining the Cactus report in 
+        <code>project.xml</code>.
+      </action>
       <action dev="vmassol" type="fix">
         When running Cactus tests on an EJB project, through 
         <code>cactus:test-ear</code>, do not include the EJB sources in 

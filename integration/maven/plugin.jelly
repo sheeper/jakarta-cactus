@@ -9,7 +9,7 @@
 
 <!-- 
 	Note: There is significant refactoring required for the goals cactus:test, 
-	cactus:single, and cactus:match.  The <cactus> tasks in each of those goals
+	cactus:single, and cactus:match. The <cactus> tasks in each of those goals
 	are mostly similar.
 -->
 <project 
@@ -27,7 +27,7 @@
        Default goal.
      ========================================================================
   -->
-  <goal name="cactus" description="Run all Cactus Test Cases"
+  <goal name="cactus" description="Run all Cactus tests"
       prereqs="cactus:test"/>
 
   <!--
@@ -129,7 +129,7 @@
      ========================================================================
   -->
   <goal name="cactus:compile" prereqs="cactus:init,java:compile"
-      description="Compiles the cactus tests">
+      description="Compiles the Cactus tests">
 
     <ant:mkdir dir="${cactus.target.classes.dir}"/>
     
@@ -287,9 +287,23 @@
        defined.
      ========================================================================
   -->
-  <goal name="cactus:test" 
+  <goal name="cactus:test" description="Run all Cactus tests">
+    <j:if test="${context.getVariable('cactus.test.ear') == 'true'}">
+      <attainGoal name="cactus:test-ear"/>
+    </j:if>
+    <j:if test="${context.getVariable('cactus.test.ear') != 'true'}">
+      <attainGoal name="cactus:test-war"/>
+    </j:if>
+  </goal>
+
+  <!--
+     ========================================================================
+       Execute the Cactus tests, packaging them in a WAR.
+     ========================================================================
+  -->
+  <goal name="cactus:test-war" 
   	  prereqs="cactus:init,cactus:init-report,cactus:cactifywar"
-      description="Run all Cactus Test Cases (packaged in a WAR)">
+      description="Run all Cactus tests (packaged in a WAR)">
 
     <cactus:scanner var="cactusScanner" classpathref="cactus.scanner.classpath">
       <fileset dir="${cactus.target.classes.dir}">
@@ -519,7 +533,7 @@
 	 ========================================================================
   -->
   <goal name="cactus:single" prereqs="cactus:init,cactus:cactifywar"
-      description="Run a single Cactus Test Case">
+      description="Run a single Cactus test">
 
     <j:choose>
       <j:when test="${empty(testcase)}">
@@ -928,7 +942,7 @@
   -->
   <goal name="cactus:test-ear"
       prereqs="cactus:init,cactus:init-report,cactus:cactifyear"
-      description="Run all Cactus Test Cases (packaged in an EAR)">
+      description="Run all Cactus tests (packaged in an EAR)">
 
     <cactus earfile="${cactus.ear}" fork="yes" 
         errorproperty="cactustests.error" failureproperty="cactustests.failure"
