@@ -173,7 +173,8 @@ public class MockHttpServer implements Runnable
                 Socket socket = serverSocket.accept();
                 try
                 {
-                    if (!this.stopFlag) {
+                    if (!this.stopFlag)
+                    {
                         processRequest(socket);
                     }
                 }
