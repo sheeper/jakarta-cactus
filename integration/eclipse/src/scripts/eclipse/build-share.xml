@@ -70,9 +70,7 @@
         <taskdef resource="cactus.tasks"
           classpath="${cactus.antintegration.jar}"/>
         <taskdef name="eclipseruntests"
-          classname="org.apache.cactus.eclipse.ant.EclipseRunTests"
-          classpath="${cactus.plugin.jar}"/>
-
+          classname="org.apache.cactus.eclipse.containers.ant.EclipseRunTests"/>
     </target>
 
     <!--
