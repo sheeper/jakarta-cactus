@@ -118,16 +118,16 @@
         <echo>  xmlapis.jar (optional) = [${xmlapis.jar}]</echo>
         <echo/>
         <echo>Options:</echo>
-        <echo>  clover.enable (optional) = ${clover.enable}</echo>
+        <echo>  clover.enable = ${clover.enable}</echo>
 
         <path id="project.classpath">
-            <pathelement location="${aspectjrt.jar}"/>
-            <pathelement location="${commons.logging.jar}"/>
-            <pathelement location="${commons.httpclient.jar}"/>
-            <pathelement location="${httpunit.jar}"/>
-            <pathelement location="${j2ee.jar}"/>
-            <pathelement location="${junit.jar}"/>
-            <pathelement location="${xmlapis.jar}"/>
+          <pathelement location="${aspectjrt.jar}"/>
+          <pathelement location="${commons.logging.jar}"/>
+          <pathelement location="${commons.httpclient.jar}"/>
+          <pathelement location="${httpunit.jar}"/>
+          <pathelement location="${j2ee.jar}"/>
+          <pathelement location="${junit.jar}"/>
+          <pathelement location="${xmlapis.jar}"/>
         </path>
 
         <condition property="properties.ok">

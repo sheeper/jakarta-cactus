@@ -415,8 +415,6 @@
       <depend property="nekohtml.jar" project="nekohtml" id="nekohtml"/>
       <depend property="cactus.framework.jar" 
         project="jakarta-cactus-framework-12"/>
-      <depend property="cactus.anttasks.jar" 
-        project="jakarta-cactus-anttasks"/>
       <depend property="cactus.antintegration.jar"
       	project="jakarta-cactus-integration-ant-12"/>
       <property name="cactus.port" value="8082"/>
@@ -479,8 +477,6 @@
       <depend property="nekohtml.jar" project="nekohtml" id="nekohtml"/>
       <depend property="cactus.framework.jar" 
         project="jakarta-cactus-framework-13"/>
-      <depend property="cactus.anttasks.jar" 
-        project="jakarta-cactus-anttasks"/>
       <depend property="cactus.antintegration.jar"
       	project="jakarta-cactus-integration-ant-13"/>
       <property name="cactus.port" value="8082"/>

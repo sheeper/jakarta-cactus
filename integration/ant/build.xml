@@ -106,7 +106,7 @@
         <echo>  xmlapis.jar (optional) = [${xmlapis.jar}]</echo>
         <echo/>
         <echo>Options:</echo>
-        <echo>  clover.enable (optional) = ${clover.enable}</echo>
+        <echo>  clover.enable = ${clover.enable}</echo>
 
         <path id="project.classpath">
           <pathelement location="${commons.logging.jar}"/>

@@ -80,44 +80,6 @@
 
     <!--
        ========================================================================
-         Useful patterns for targets
-       ========================================================================
-    -->
-    <path id="project.class.path">
-        <pathelement location="${j2ee.jar}"/>
-    </path>
-
-    <!--
-       ========================================================================
-         Verify that all mandatory properties have been set
-       ========================================================================
-    -->
-    <target name="check.properties">
-
-        <taskdef name="checkProperty" 
-            classname="org.apache.cactus.ant.CheckPropertiesTask">
-            <classpath>
-                <pathelement location="${cactus.anttasks.jar}"/>
-            </classpath>
-        </taskdef>
-
-        <checkProperty>
-            <property name="j2ee.jar" isfile="true"/>
-            <property name="jstl.jar" isfile="true"/>
-            <property name="standard.jar" isfile="true"/>
-            <property name="aspectjrt.jar" isfile="true"/>
-            <property name="commons.logging.jar" isfile="true"/>
-            <property name="commons.httpclient.jar" isfile="true"/>
-            <property name="junit.jar" isfile="true"/>
-            <property name="log4j.jar" isfile="true"/>
-            <property name="httpunit.jar" isfile="true"/>
-            <property name="nekohtml.jar" isfile="true"/>
-        </checkProperty>
-
-    </target>
-
-    <!--
-       ========================================================================
          Initialize filters used in copy operations
        ========================================================================
     -->
@@ -210,10 +172,54 @@
        ========================================================================
     -->
     <target name="init" 
-        depends="init.common, init.filters, properties, check.properties">
+        depends="init.common, init.filters, properties">
 
-        <echo>cactus.port (optional) = ${cactus.port}</echo>
-        <echo>clover.enable (optional) = ${clover.enable}</echo>
+        <echo>Dependancies:</echo>
+        <echo>  aspectjrt.jar = [${aspectjrt.jar}]</echo>
+        <echo>  commons.httpclient.jar = [${commons.httpclient.jar}]</echo>
+        <echo>  commons.logging.jar = [${commons.logging.jar}]</echo>
+        <echo>  httpunit.jar = [${httpunit.jar}]</echo>
+        <echo>  j2ee.jar = [${j2ee.jar}]</echo>
+        <echo>  jstl.jar = [${jstl.jar}]</echo>
+        <echo>  junit.jar = [${junit.jar}]</echo>
+        <echo>  log4j.jar = [${log4j.jar}]</echo>
+        <echo>  nekohtml.jar = [${nekohtml.jar}]</echo>
+        <echo>  standard.jar = [${standard.jar}]</echo>
+        <echo>  xerces.jar (optional) = [${xerces.jar}]</echo>
+        <echo>  xmlapis.jar (optional) = [${xmlapis.jar}]</echo>
+        <echo/>
+        <echo>Options:</echo>
+        <echo>  clover.enable = ${clover.enable}</echo>
+        <echo>  cactus.port = ${cactus.port}</echo>
+
+        <condition property="properties.ok">
+          <and>
+            <available file="${aspectjrt.jar}"/>
+            <available file="${commons.httpclient.jar}"/>
+            <available file="${commons.logging.jar}"/>
+            <available file="${httpunit.jar}"/>
+            <available file="${j2ee.jar}"/>
+            <available file="${jstl.jar}"/>
+            <available file="${junit.jar}"/>
+            <available file="${log4j.jar}"/>
+            <available file="${nekohtml.jar}"/>
+            <available file="${standard.jar}"/>
+            <!-- Check for a JAXP class instead of the xmlapis.jar file so that
+                 the build works on JDK 1.4 without needing to define the
+                 xmlapis.jar property -->
+            <available classname="javax.xml.parsers.DocumentBuilder"
+                classpath="${xmlapis.jar}"/>
+            <!-- Check for a Xerces class instead of the xerces.jar file so
+                 that the build also works on JDKs that bundle Xerces without
+                 needing to define the xerces.jar property -->
+            <available classname="org.apache.xml.serialize.XMLSerializer"
+                classpath="${xerces.jar}"/>
+          </and>
+        </condition>
+
+        <fail unless="properties.ok">One or more required dependancies could not
+be resolved. Please check you build.properties file, and run Ant with the 
+-verbose option for more details</fail>
 
     </target>
 
