@@ -140,14 +140,14 @@
 
         <!-- Perform a web.xml merge -->
 		<webxmlmerge 
-		  srcFile="${cactus.target.dir}/${cactus.context}/WEB-INF/web.xml"
-		  mergeFile="${cactus.conf.dir}/web.xml"
-		  destFile="${cactus.target.dir}/${cactus.context}/WEB-INF/web.xml">
+		  srcfile="${cactus.target.dir}/${cactus.context}/WEB-INF/web.xml"
+		  mergefile="${cactus.conf.dir}/web.xml"
+		  destfile="${cactus.target.dir}/${cactus.context}/WEB-INF/web.xml">
             <xmlcatalog>
-                <entity 
+                <dtd
                   publicId="-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
                   location="${cactus.conf.dir}/web-app.dtd"/>
-                <entity 
+                <dtd
                   publicId="-//Sun Microsystems, Inc.//DTD Web Application 2.2//EN"
                   location="${cactus.conf.dir}/web-app.dtd"/>
             </xmlcatalog>
@@ -228,7 +228,8 @@
             <istrue value="${cactus.halt.on.error}"/>
           </and>
         </condition>
-        <antcall target="cactus.test.check.error"/>
+        <fail if="cactus.test.error.shouldstop"
+            message="There were test errors"/>
 
         <condition property="cactus.test.failure.shouldstop">
           <and>
@@ -236,17 +237,9 @@
             <istrue value="${cactus.halt.on.failure}"/>
           </and>
         </condition>
-        <antcall target="cactus.test.check.failure"/>
+        <fail if="cactus.test.failure.shouldstop"
+            message="There were test failures"/>
 
-    </target>
-
-    <target name="cactus.test.check.error" if="cactus.test.error.shouldstop">
-        <fail>There were test errors</fail>
-    </target>
-
-    <target name="cactus.test.check.failure" 
-      if="cactus.test.failure.shouldstop">
-        <fail>There were test failures</fail>
     </target>
 
     <!--
@@ -259,13 +252,15 @@
         <junit printsummary="yes" failureproperty="cactus.junit.failure" 
             errorproperty="cactus.junit.error" fork="yes">
 
-            <jvmarg value="-Dcactus.contextURL=http://localhost:${cactus.port}/${cactus.context}"/>
+            <sysproperty key="cactus.contextURL"
+                value="http://localhost:${cactus.port}/${cactus.context}"/>
 
             <!-- This is needed to override the default mapping which is 
                  "/FilterRedirector". The reason is that in web.xml we have
                  mapped the filter redirector to "test/filterRedirector.jsp"
                  as some containers do not support mapping to a directory -->
-            <jvmarg value="-Dcactus.filterRedirectorName=test/filterRedirector.jsp"/>
+            <sysproperty key="cactus.filterRedirectorName"
+                value="test/filterRedirector.jsp"/>
                  
             <classpath>
                 <pathelement location="${cactus.target.conf.dir}"/>
@@ -309,13 +304,15 @@
 
         <java classname="junit.swingui.TestRunner" fork="yes">
 
-            <jvmarg value="-Dcactus.contextURL=http://localhost:${cactus.port}/${cactus.context}"/>
+            <sysproperty key="cactus.contextURL"
+                value="http://localhost:${cactus.port}/${cactus.context}"/>
 
             <!-- This is needed to override the default mapping which is 
                  "/FilterRedirector". The reason is that in web.xml we have
                  mapped the filter redirector to "test/filterRedirector.jsp"
                  as some containers do not support mapping to a directory -->
-            <jvmarg value="-Dcactus.filterRedirectorName=test/filterRedirector.jsp"/>
+            <sysproperty key="cactus.filterRedirectorName"
+                value="test/filterRedirector.jsp"/>
                  
             <classpath>
                 <pathelement location="${cactus.target.conf.dir}"/>
