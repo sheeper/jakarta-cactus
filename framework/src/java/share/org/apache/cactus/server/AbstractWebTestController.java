@@ -140,8 +140,8 @@ public abstract class AbstractWebTestController implements TestController
                 caller.doRunTest();
 
             } else {
-                String message = "Unknown service [" + serviceName +
-                    "] in HTTP request.";
+                String message = "Unknown service [" + serviceName
+                    + "] in HTTP request.";
                 LOGGER.error(message);
                 throw new ServletException(message);
             }
@@ -151,14 +151,14 @@ public abstract class AbstractWebTestController implements TestController
             // try to display messages as descriptive as possible !
 
             if (e.getMessage().startsWith("junit/framework")) {
-                String message = "You must put the JUnit jar in " +
-                    "your server classpath (in WEB-INF/lib for example)";
+                String message = "You must put the JUnit jar in "
+                    + "your server classpath (in WEB-INF/lib for example)";
                 LOGGER.error(message, e);
                 throw new ServletException(message, e);
             } else {
-                String message = "You are missing a jar in your " +
-                    "classpath (class [" + e.getMessage() + "] could not " +
-                    "be found";
+                String message = "You are missing a jar in your "
+                    + "classpath (class [" + e.getMessage() + "] could not "
+                    + "be found";
                 LOGGER.error(message, e);
                 throw new ServletException(message, e);
             }
@@ -181,9 +181,10 @@ public abstract class AbstractWebTestController implements TestController
             HttpServiceDefinition.SERVICE_NAME_PARAM);
 
         if (serviceName == null) {
-            String message = "Missing service name parameter [" +
-                HttpServiceDefinition.SERVICE_NAME_PARAM + "] in HTTP request. " +
-                "Received query string is [" + queryString + "].";
+            String message = "Missing service name parameter ["
+                + HttpServiceDefinition.SERVICE_NAME_PARAM
+                + "] in HTTP request. Received query string is ["
+                + queryString + "].";
             LOGGER.debug(message);
             throw new ServletException(message);
         }
