@@ -1,7 +1,7 @@
 /* 
  * ========================================================================
  * 
- * Copyright 2001-2003 The Apache Software Foundation.
+ * Copyright 2001-2004 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,8 @@
  * ========================================================================
  */
 package org.apache.cactus;
+
+import org.apache.cactus.internal.AbstractTestSuite;
 
 import junit.framework.Test;
 
@@ -53,6 +55,30 @@ public class ServletTestSuite extends AbstractTestSuite
         super(theName);
     }
 
+    /** 
+     * @see AbstractTestSuite#addTest(Test)
+     * 
+     * Note: This method is overriden from {@link AbstractTestSuite} because 
+     * we do not want to create a binary dependency on end user classes
+     * with {@link AbstractTestSuite}.
+     */
+    public void addTest(Test theTest)
+    {
+        super.addTest(theTest);
+    }
+
+    /**
+     * @see AbstractTestSuite#addTestSuite(Class)
+     * 
+     * Note: This method is overriden from {@link AbstractTestSuite} because 
+     * we do not want to create a binary dependency on end user classes
+     * with {@link AbstractTestSuite}.
+     */
+    public void addTestSuite(Class theTestClass)
+    {
+        super.addTestSuite(theTestClass);
+    }
+    
     /**
      * @see AbstractTestSuite#createTestSuite(Class)
      */

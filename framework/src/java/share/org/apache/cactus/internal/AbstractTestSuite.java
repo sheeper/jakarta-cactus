@@ -1,7 +1,7 @@
 /* 
  * ========================================================================
  * 
- * Copyright 2001-2003 The Apache Software Foundation.
+ * Copyright 2001-2004 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@
  * 
  * ========================================================================
  */
-package org.apache.cactus;
+package org.apache.cactus.internal;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -27,6 +27,8 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.Enumeration;
 import java.util.Vector;
+
+import org.apache.cactus.ServletTestCase;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
@@ -111,7 +113,7 @@ public abstract class AbstractTestSuite implements Test
     /**
      * @see junit.framework.TestSuite#addTest(Test)
      */
-    public void addTest(Test theTest)
+    protected void addTest(Test theTest)
     {
         this.tests.addElement(theTest);
     }
@@ -119,7 +121,7 @@ public abstract class AbstractTestSuite implements Test
     /**
      * @see junit.framework.TestSuite#addTestSuite(Class)
      */
-    public void addTestSuite(Class theTestClass)
+    protected void addTestSuite(Class theTestClass)
     {
         addTest(createTestSuite(theTestClass));
     }
@@ -252,7 +254,7 @@ public abstract class AbstractTestSuite implements Test
     /**
      * @see junit.framework.TestSuite#runTest(Test, TestResult)
      */
-    public void runTest(Test theTest, TestResult theResult)
+    protected void runTest(Test theTest, TestResult theResult)
     {
         theTest.run(theResult);
     }
@@ -260,7 +262,7 @@ public abstract class AbstractTestSuite implements Test
     /**
      * @see junit.framework.TestSuite#testAt(int)
      */
-    public Test testAt(int theIndex)
+    protected Test testAt(int theIndex)
     {
         return (Test) this.tests.elementAt(theIndex);
     }
@@ -274,7 +276,7 @@ public abstract class AbstractTestSuite implements Test
      * @exception NoSuchMethodException if no valid constructor is
      *            found
      */
-    public static Constructor getTestConstructor(Class theClass) 
+    protected static Constructor getTestConstructor(Class theClass) 
         throws NoSuchMethodException
     {
         Constructor result;
@@ -292,7 +294,7 @@ public abstract class AbstractTestSuite implements Test
     /**
      * @see junit.framework.TestSuite#testCount()
      */
-    public int testCount()
+    protected int testCount()
     {
         return this.tests.size();
     }
@@ -300,7 +302,7 @@ public abstract class AbstractTestSuite implements Test
     /**
      * @see junit.framework.TestSuite#tests()
      */
-    public Enumeration tests()
+    protected Enumeration tests()
     {
         return this.tests.elements();
     }
@@ -320,7 +322,7 @@ public abstract class AbstractTestSuite implements Test
     /**
      * @see junit.framework.TestSuite#setName(String)
      */
-    public void setName(String theName)
+    protected void setName(String theName)
     {
         this.name = theName;
     }
@@ -328,7 +330,7 @@ public abstract class AbstractTestSuite implements Test
     /**
      * @see junit.framework.TestSuite#getName()
      */
-    public String getName()
+    protected String getName()
     {
         return this.name;
     }
