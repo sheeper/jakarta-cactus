@@ -166,6 +166,9 @@
    <!-- Copy the RDF file for RSS syndicators -->
    <copy todir="${target.doc.dir}" file="${doc.xdoc.dir}/news.rdf"/>
 
+    <!-- Copy the announcement file -->
+    <copy file="ANNOUNCEMENT.txt" todir="${target.doc.dir}"/>
+
   </target>
 
   <target name="doc.cvschangelog" 
