@@ -81,7 +81,6 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.externaltools.internal.model.IExternalToolConstants;
 
@@ -468,54 +467,19 @@ public class AntContainerManager implements IContainerManager
      */
     public void tearDown()
     {
-        final IRunnableWithProgress runnable = new IRunnableWithProgress()
+        CactusPlugin.log("Tearing down cactus tests");
+        try
         {
-            public void run(IProgressMonitor thePM) throws InterruptedException
-            {
-                CactusPlugin.log("Tearing down cactus tests");
-                try
-                {
-                    teardownCactusTests(thePM, provider);
-                }
-                catch (CoreException e)
-                {
-                    throw new InterruptedException(e.getMessage());
-                }
-            }
-        };
-        Display.getDefault().asyncExec(new Runnable()
+            teardownCactusTests(new NullProgressMonitor(), provider);
+        }
+        catch (CoreException e)
         {
-            public void run()
-            {
-                try
-                {
-                    ProgressMonitorDialog dialog =
-                        new ProgressMonitorDialog(getShell());
-                    dialog.run(true, true, runnable);
-                }
-                catch (InvocationTargetException e)
-                {
-                    CactusPlugin.displayErrorMessage(
-                        CactusMessages.getString(
-                            "CactusLaunch.message.teardown.error"),
-                        e.getTargetException().getMessage(),
-                        null);
-                    cancelPreparation(provider);
-                    return;
-                }
-                catch (InterruptedException e)
-                {
-                    CactusPlugin.displayErrorMessage(
-                        CactusMessages.getString(
-                            "CactusLaunch.message.teardown.error"),
-                        e.getMessage(),
-                        null);
-                    cancelPreparation(provider);
-                    return;
-                }
-            }
-
-        });
+            CactusPlugin.displayErrorMessage(
+                CactusMessages.getString("CactusLaunch.message.teardown.error"),
+                e.getMessage(),
+                null);
+            cancelPreparation(provider);
+        }
     }
 
     /**

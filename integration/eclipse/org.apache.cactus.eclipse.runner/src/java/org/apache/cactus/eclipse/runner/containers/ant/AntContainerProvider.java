@@ -177,9 +177,9 @@ public class AntContainerProvider implements IContainerProvider
             try
             {
                 thePM.worked(30);
-                while (!this.startLaunch.isTerminated())
+                while (this.startLaunch == null
+                    || !this.startLaunch.isTerminated())
                 {
-
                     Thread.sleep(300);
                     thePM.worked(7);
                 }
