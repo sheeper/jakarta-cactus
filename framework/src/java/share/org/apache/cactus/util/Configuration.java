@@ -60,10 +60,13 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
-import java.util.MissingResourceException;
+import java.util.Enumeration;
 
 /**
- * Provides acces to the Cactus configuration.
+ * Provides access to the Cactus configuration parameters that are independent
+ * of any redirector. All Cactus configuration are defined as Java System
+ * Properties. However, a Cactus configuration can also be used, in which case
+ * all properties defined withint it will be exported as Java System Properties.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
@@ -79,14 +82,13 @@ public class Configuration
 
     /**
      * Name of the java property for specifying the location of the cactus
-     * configuration file. This overrides any cactus configuration that is
+     * configuration file. This overrides any cactus configuration file that is
      * put in the classpath.
      */
-    private static final String CONFIG_PROPERTY = "cactus.config";
+    private static final String CACTUS_CONFIG_PROPERTY = "cactus.config";
 
     /**
-     * Name of property in Cactus configuration file that enables Cactus
-     * logging.
+     * Name of Cactus property that enables Cactus logging.
      */
     public static final String CACTUS_ENABLE_LOGGING_PROPERTY =
         "cactus.enableLogging";
@@ -100,29 +102,33 @@ public class Configuration
         "cactus.contextURL";
 
     /**
-     * Properties file holding configuration data for Cactus.
+     * True if the Cactus configuration file has already been read.
+     * @see #initialize()
      */
-    private static ResourceBundle config = null;
+    private static boolean isInitialized;
 
     /**
-     * Tries to read the cactus configuration from the java property defined
-     * on the command line (named CONFIG_PROPERTY) and if none has been defined
-     * tries to read the CONFIG_DEFAULT_NAME file from the classpath.
-     *
-     * @return the cactus configuration as a <code>ResourceBundle</code>.
+     * Read the cactus configuration file from the java property defined
+     * on the command line (named CACTUS_CONFIG_PROPERTY) and if none has been
+     * defined tries to read the CONFIG_DEFAULT_NAME file from the classpath.
+     * All properties found are exported as java system properties.
      */
-    protected static final ResourceBundle getConfiguration()
+    public static final void initialize()
     {
-        if (config == null) {
-            // Has the user passed the location of the cactus configuration file
-            // as a java property
-            String configOverride = System.getProperty(CONFIG_PROPERTY);
+        if (!isInitialized) {
+
+            ResourceBundle config;
+
+            // Has the user passed the location of the cactus configuration
+            // file as a java property
+            String configOverride = System.getProperty(CACTUS_CONFIG_PROPERTY);
             if (configOverride == null) {
                 // Try to read the default cactus configuration file from the
                 // classpath
                 config = ClassLoaderUtils.loadPropertyResourceBundle(
                     CONFIG_DEFAULT_NAME, Configuration.class);
             } else {
+                // Try to read from specified properties file
                 try {
                     config = new PropertyResourceBundle(
                             new FileInputStream(configOverride));
@@ -132,8 +138,15 @@ public class Configuration
                             configOverride + "]", e);
                 }
             }
+
+            Enumeration keys = config.getKeys();
+            while (keys.hasMoreElements()) {
+                String key = (String) keys.nextElement();
+                System.setProperty(key, config.getString(key));
+            }
+
+            isInitialized = true;
         }
-        return config;
     }
 
     /**
@@ -141,12 +154,14 @@ public class Configuration
      */
     public static String getContextURL()
     {
+        initialize();
+
         // Try to read it from a System property first and then if it fails
         // from the Cactus configuration file.
         String contextURL = System.getProperty(CACTUS_CONTEXT_URL_PROPERTY);
         if (contextURL == null) {
-            contextURL =
-                getConfiguration().getString(CACTUS_CONTEXT_URL_PROPERTY);
+            new ChainedRuntimeException("Missing Cactus property [" +
+                CACTUS_CONTEXT_URL_PROPERTY + "]");
         }
         return contextURL;
     }
@@ -156,15 +171,9 @@ public class Configuration
      */
     public static boolean isLoggingEnabled()
     {
-        boolean isLoggingEnabled = false;
+        initialize();
 
-        try {
-            isLoggingEnabled = Boolean.valueOf(getConfiguration().
-                getString(CACTUS_ENABLE_LOGGING_PROPERTY)).booleanValue();
-        } catch (MissingResourceException e) {
-            // logging property not found, we disable logging by default
-            isLoggingEnabled = false;
-        }
-        return isLoggingEnabled;
+        return Boolean.valueOf(
+            System.getProperty(CACTUS_ENABLE_LOGGING_PROPERTY)).booleanValue();
     }
 }

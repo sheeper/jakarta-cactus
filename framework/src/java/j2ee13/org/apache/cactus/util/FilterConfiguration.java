@@ -56,14 +56,15 @@
  */
 package org.apache.cactus.util;
 
-import java.util.MissingResourceException;
-
 /**
- * Provides acces to Filter specific configuration parameters.
+ * Provides access to the Cactus configuration parameters related to the
+ * Filter Redirector.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
+ *
+ * @see Configuration
  */
 public class FilterConfiguration extends Configuration
 {
@@ -88,12 +89,7 @@ public class FilterConfiguration extends Configuration
         String filterRedirectorName =
             System.getProperty(CACTUS_FILTER_REDIRECTOR_NAME_PROPERTY);
         if (filterRedirectorName == null) {
-            try {
-                filterRedirectorName = getConfiguration().getString(
-                    CACTUS_FILTER_REDIRECTOR_NAME_PROPERTY);
-            } catch (MissingResourceException e) {
-                filterRedirectorName = "FilterRedirector";
-            }
+            filterRedirectorName = "FilterRedirector";
         }
         return getContextURL() + "/" + filterRedirectorName;
     }
