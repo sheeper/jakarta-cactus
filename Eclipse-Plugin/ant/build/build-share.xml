@@ -1,5 +1,24 @@
     <!--
        ========================================================================
+         Initialize the build. Must be called by all targets
+       ========================================================================
+    -->
+    <target name="init">
+
+        <tstamp/>
+
+        <!-- Filters -->
+        <filter token="version" value="${project.version}"/>
+        <filter token="project.name.text" value="${project.name.text}"/>
+        <filter token="project.name.file" value="${project.name.file}"/>
+        <filter token="year" value="${year}"/>
+        <filter token="test.port" value="${test.port}"/>
+
+    </target>
+
+
+    <!--
+       ========================================================================
          Base directory for all file related operations
        ========================================================================
     -->
@@ -42,32 +61,10 @@
 
     <!--
        ========================================================================
-         Useful patterns for targets
-       ========================================================================
-    -->
-    <path id="project.class.path">
-
-        <pathelement location="${cactus.framework.jar}"/>
-        <pathelement location="${cactus.ant.jar}"/>
-        <pathelement location="${servlet.jar}"/>
-        <pathelement location="${log4j.jar}"/>
-        <pathelement location="${commons.logging.jar}"/>
-        <pathelement location="${commons.httpclient.jar}"/>
-        <pathelement location="${httpunit.jar}"/>
-        <pathelement location="${junit.jar}"/>
-        <pathelement location="${aspectjrt.jar}"/>
-
-        <!-- Includes system classpath for jars that are in ANT_HOME/lib such
-             as aspectrt.jar, etc -->
-        <pathelement path="${java.class.path}"/>
-    </path>
-
-    <!--
-       ========================================================================
          Clean generated files (including distributables)
        ========================================================================
     -->
-    <target name="clean" description="Clean target directory">
+    <target name="clean" depends="init" description="Clean target directory">
 	    <delete includeEmptyDirs="true">
 		    <fileset dir="${target.dir}">
 		    </fileset>

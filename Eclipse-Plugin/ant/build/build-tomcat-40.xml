@@ -112,31 +112,13 @@
 
     </target>
 
-
-    <!--
-       ========================================================================
-         Display a warning message if the needed servlet engine home property
-         is not set
-       ========================================================================
-    -->
-    <target name="check.test.tomcat.40" unless="home.tomcat.40">
-
-        <echo message=""/>
-        <echo message="******************************************************"/>
-        <echo message="WARNING : The 'home.tomcat.40' property has not been"/>
-        <echo message="set. No test will be run on that servlet engine."/>
-        <echo message="******************************************************"/>
-        <echo message=""/>
-
-    </target>
-
     <!--
        ========================================================================
          Prepare directories and variables for running the tests
        ========================================================================
     -->
     <target name="prepare.tomcat.40"
-        depends="check.test.tomcat.40,init" if="home.tomcat.40">
+        depends="init" if="home.tomcat.40">
 
         <echo message="home.tomcat.40 = ${home.tomcat.40}"/>
 

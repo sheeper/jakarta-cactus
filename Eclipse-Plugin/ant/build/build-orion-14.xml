@@ -1,10 +1,10 @@
-    <!--
+    <!-- 
        ========================================================================
-         Run Orion 1.6 tests
+         Run Orion 1.4 tests
        ========================================================================
     -->
-    <target name="test.orion.16" depends="prepare.orion.16"
-        if="home.orion.16" description="Run tests on Orion 1.6">
+    <target name="test.orion.14" depends="prepare.orion.14"
+        if="home.orion.14" description="Run tests on Orion 1.4">
 
         <!-- Start the servlet engine, wait for it to be started, run the
              unit tests, stop the servlet engine, wait for it to be stopped.
@@ -12,24 +12,24 @@
 
         <runservertests
             testURL="http://localhost:${test.port}/test/ServletRedirector?Cactus_Service=RUN_TEST"
-            startTarget="start.orion.16"
-            stopTarget="stop.orion.16"
+            startTarget="start.orion.14"
+            stopTarget="stop.orion.14"
             testTarget="test"/>
 
     </target>
 
-    <!--
+    <!-- 
        ========================================================================
-         Start Orion 1.6
+         Start Orion 1.4
        ========================================================================
     -->
-    <target name="start.orion.16">
+    <target name="start.orion.14">
 
         <java classname="com.evermind.server.ApplicationServer" fork="yes">
             <arg value="-config"/>
-            <arg value="${target.orion16.dir}/conf/server.xml"/>
+            <arg value="${target.orion14.dir}/conf/server.xml"/>
             <classpath>
-              <fileset dir="${home.orion.16}">
+              <fileset dir="${home.orion.14}">
                   <include name="*.jar"/>
               </fileset>
             </classpath>
@@ -37,21 +37,20 @@
 
     </target>
 
-    <!--
+    <!-- 
        ========================================================================
-         Stop Orion 1.6
+         Stop Orion 1.4
        ========================================================================
     -->
-    <target name="stop.orion.16">
+    <target name="stop.orion.14">
 
-        <java classname="com.evermind.client.orion.OrionConsoleAdmin"
-            fork="yes">
+        <java classname="com.evermind.client.orion.OrionConsoleAdmin" fork="yes">
             <arg value="ormi://localhost:23791/"/>
             <arg value="admin"/>
             <arg value="password"/>
             <arg value="-shutdown"/>
             <classpath>
-              <fileset dir="${home.orion.16}">
+              <fileset dir="${home.orion.14}">
                   <include name="*.jar"/>
               </fileset>
             </classpath>
@@ -59,50 +58,50 @@
 
     </target>
 
-    <!--
+    <!-- 
        ========================================================================
          Display a warning message if the needed servlet engine home property
          is not set
        ========================================================================
     -->
-    <target name="check.test.orion.16" unless="home.orion.16">
+    <target name="check.test.orion.14" unless="home.orion.14">
 
         <echo message=""/>
         <echo message="******************************************************"/>
-        <echo message="WARNING : The 'home.orion.16' property has not been"/>
+        <echo message="WARNING : The 'home.orion.14' property has not been"/>
         <echo message="set. No test will be run on that servlet engine."/>
         <echo message="******************************************************"/>
         <echo message=""/>
 
     </target>
 
-    <!--
+    <!-- 
        ========================================================================
          Prepare directories and variables for running the tests
        ========================================================================
     -->
-    <target name="prepare.orion.16"
-        depends="check.test.orion.16,init" if="home.orion.16">
+    <target name="prepare.orion.14"
+        depends="check.test.orion.14" if="home.orion.14">
 
-        <echo message="home.orion.16 = ${home.orion.16}"/>
+        <echo message="home.orion.14 = ${home.orion.14}"/>
 
-        <property name="target.orion16.dir" value="${target.test.dir}/orion16"/>
-        <property name="conf.orion16.dir" value="${conf.test.dir}/orion16"/>
+        <property name="target.orion14.dir" value="${target.test.dir}/orion14"/>
+        <property name="conf.orion14.dir" value="${conf.test.dir}/orion14"/>
 
         <!-- Create work and conf directories and copy configuration files -->
-        <mkdir dir="${target.orion16.dir}"/>
-        <mkdir dir="${target.orion16.dir}/conf"/>
+        <mkdir dir="${target.orion14.dir}"/>
+        <mkdir dir="${target.orion14.dir}/conf"/>
 
         <!-- Orion need to have a /persistence directory created, otherwise
              it throws an error -->
-        <mkdir dir="${target.orion16.dir}/persistence"/>
+        <mkdir dir="${target.orion14.dir}/persistence"/>
 
-        <copy todir="${target.orion16.dir}/conf" filtering="on">
-            <fileset dir="${conf.orion16.dir}"/>
+        <copy todir="${target.orion14.dir}/conf" filtering="on">
+            <fileset dir="${conf.orion14.dir}"/>
         </copy>
 
         <!-- Copy the war file -->
         <copy file="${target.test.dir}/test.war"
-            tofile="${target.orion16.dir}/test.war"/>
+            tofile="${target.orion14.dir}/test.war"/>
 
     </target>

@@ -1,10 +1,10 @@
-    <!--
+    <!-- 
        ========================================================================
-         Run Resin 2.0 tests
+         Run Resin 1.3 tests
        ========================================================================
     -->
-    <target name="test.resin.20" depends="prepare.resin.20"
-        if="home.resin.20" description="Run tests on Resin 2.0">
+    <target name="test.resin.13" depends="prepare.resin.13"
+        if="home.resin.13" description="Run tests on Resin 1.3">
 
         <!-- Start the servlet engine, wait for it to be started, run the
              unit tests, stop the servlet engine, wait for it to be stopped.
@@ -12,18 +12,18 @@
 
         <runservertests
             testURL="http://localhost:${test.port}/test/ServletRedirector?Cactus_Service=RUN_TEST"
-            startTarget="start.resin.20"
-            stopTarget="stop.resin.20"
+            startTarget="start.resin.13"
+            stopTarget="stop.resin.13"
             testTarget="test"/>
 
     </target>
 
     <!-- 
        ========================================================================
-         Start Resin 2.0
+         Start Resin 1.3
        ========================================================================
     -->
-    <target name="start.resin.20">
+    <target name="start.resin.13">
 
         <java classname="org.apache.cactus.ant.ResinRun" fork="yes">
 
@@ -32,13 +32,13 @@
             <arg value="-conf"/>
             <arg value="resin.conf"/>
 
-            <!-- Needed so that Resin use the home.resin.20 variable as it's
+            <!-- Needed so that Resin use the home.resin.13 variable as it's
                  root directory for resolving file paths -->
-            <jvmarg value="-Dresin.home=${target.resin20.dir}"/>
+            <jvmarg value="-Dresin.home=${target.resin13.dir}"/>
 
             <classpath>
                 <pathelement location="${cactus.ant.jar}"/>
-                <fileset dir="${home.resin.20}/lib">
+                <fileset dir="${home.resin.13}/lib">
                     <include name="*.jar"/>
                 </fileset>
             </classpath>
@@ -49,10 +49,10 @@
 
     <!-- 
        ========================================================================
-         Stop Resin 2.0
+         Stop Resin 1.3
        ========================================================================
     -->
-    <target name="stop.resin.20">
+    <target name="stop.resin.13">
 
         <java classname="org.apache.cactus.ant.ResinRun" fork="yes">
 
@@ -60,7 +60,7 @@
 
             <classpath>
                 <pathelement location="${cactus.ant.jar}"/>
-                <fileset dir="${home.resin.20}/lib">
+                <fileset dir="${home.resin.13}/lib">
                     <include name="*.jar"/>
                 </fileset>
             </classpath>
@@ -75,11 +75,11 @@
          is not set
        ========================================================================
     -->
-    <target name="check.test.resin.20" unless="home.resin.20">
+    <target name="check.test.resin.13" unless="home.resin.13">
 
         <echo message=""/>
         <echo message="******************************************************"/>
-        <echo message="WARNING : The 'home.resin.20' property has not been"/>
+        <echo message="WARNING : The 'home.resin.13' property has not been "/>
         <echo message="set. No test will be run on that servlet engine."/>
         <echo message="******************************************************"/>
         <echo message=""/>
@@ -91,23 +91,22 @@
          Prepare directories and variables for running the tests
        ========================================================================
     -->
-    <target name="prepare.resin.20"
-        depends="check.test.resin.20,init" if="home.resin.20">
+    <target name="prepare.resin.13"
+        depends="check.test.resin.13" if="home.resin.13">
 
-        <echo message="home.resin.20 = ${home.resin.20}"/>
+        <echo message="home.resin.13 = ${home.resin.13}"/>
 
-        <property name="target.resin20.dir" value="${target.test.dir}/resin20"/>
-        <property name="conf.resin20.dir" value="${conf.test.dir}/resin20"/>
+        <property name="target.resin13.dir" value="${target.test.dir}/resin13"/>
+        <property name="conf.resin13.dir" value="${conf.test.dir}/resin13"/>
 
-        <mkdir dir="${target.resin20.dir}"/>
+        <mkdir dir="${target.resin13.dir}"/>
 
         <!-- Copy resin configuration files -->
-        <copy file="${conf.resin20.dir}/resin.conf" 
-            tofile="${target.resin20.dir}/resin.conf" filtering="on"/>
+        <copy file="${conf.resin13.dir}/resin.conf"
+            tofile="${target.resin13.dir}/resin.conf" filtering="on"/>
 
         <!-- Create the war file -->
-        <copy file="${war.path}"
-            tofile="${target.resin20.dir}/${context.path}.war"/>
+        <copy file="${target.test.dir}/test.war"
+            tofile="${target.resin13.dir}/test.war"/>
 
     </target>
-

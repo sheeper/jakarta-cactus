@@ -2,6 +2,14 @@
 /.checkstyle -text svneol=unset#application/octet-stream
 /.cvsignore svn_keywords=Author+Date+Id+Revision
 Eclipse-Plugin/.classpath.sample svn_keywords=Author+Date+Id+Revision
+Eclipse-Plugin/ant/build/build-orion-14.xml svn_keywords=Author+Date+Id+Revision
+Eclipse-Plugin/ant/build/build-orion-15.xml svn_keywords=Author+Date+Id+Revision
+Eclipse-Plugin/ant/build/build-orion-16.xml svn_keywords=Author+Date+Id+Revision
+Eclipse-Plugin/ant/build/build-resin-13.xml svn_keywords=Author+Date+Id+Revision
+Eclipse-Plugin/ant/build/build-resin-20.xml svn_keywords=Author+Date+Id+Revision
+Eclipse-Plugin/ant/build/build-tomcat-40.xml svn_keywords=Author+Date+Id+Revision
+Eclipse-Plugin/ant/build/build-weblogic-61.xml svn_keywords=Author+Date+Id+Revision
+Eclipse-Plugin/ant/build/build-weblogic-70.xml svn_keywords=Author+Date+Id+Revision
 Eclipse-Plugin/ant/conf/manifest -text svneol=unset#application/octet-stream
 Eclipse-Plugin/ant/conf/test/orion14/mime.types -text svneol=unset#application/octet-stream
 Eclipse-Plugin/ant/conf/test/orion15/mime.types -text svneol=unset#application/octet-stream

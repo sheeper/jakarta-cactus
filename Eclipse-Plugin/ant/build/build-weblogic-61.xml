@@ -103,7 +103,7 @@
        ========================================================================
     -->
     <target name="prepare.weblogic.61"
-        depends="check.test.weblogic.61,init" if="home.weblogic.61">
+        depends="check.test.weblogic.61" if="home.weblogic.61">
 
         <echo message="home.weblogic.61 = ${home.weblogic.61}"/>
 
