@@ -25,8 +25,12 @@
       </properties>
       <body>
         <section title="Sitemap">
-          <xsl:apply-templates select="resource">
-            <xsl:sort select="@name|@id"/>
+          <p>
+            The following list gives an overview of all documents on the Cactus
+            web site.
+          </p>
+          <xsl:apply-templates select="resource[@name]">
+            <xsl:sort select="@name"/>
           </xsl:apply-templates>
         </section>
       </body>
