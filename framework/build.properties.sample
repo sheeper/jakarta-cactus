@@ -39,15 +39,6 @@ commons.httpclient.jar = ${lib.repo}/commons-httpclient/jars/commons-httpclient-
 # The location of the Httpunit jar
 httpunit.jar = ${lib.repo}/httpunit/jars/httpunit-1.4.5.jar
 
-# The location of the AspectJ runtime jar
-aspectjrt.jar = ${lib.repo}/aspectj/jars/aspectjrt-1.0.6.jar
-
-# The location of the AspectJ tools jar
-aspectj-tools.jar = ${lib.repo}/aspectj/jars/aspectj-tools-1.0.6.jar
-
-# The location of the AspectJ Ant tasks jar
-aspectj-ant.jar = ${lib.repo}/aspectj/jars/aspectj-ant-1.0.6.jar
-
 # -----------------------------------------------------------------------------
 # Optional properties
 # -----------------------------------------------------------------------------
@@ -56,6 +47,18 @@ aspectj-ant.jar = ${lib.repo}/aspectj/jars/aspectj-ant-1.0.6.jar
 # for both APIs)
 j2ee.12.jar = ${lib.repo}/j2ee/jars/j2ee-1.2.jar
 j2ee.13.jar = ${lib.repo}/j2ee/jars/j2ee-1.3.jar
+
+# The location of the AspectJ runtime jar
+# If not specified here, the jar must be present in ANTHOME/lib
+aspectjrt.jar = ${lib.repo}/aspectj/jars/aspectjrt-1.0.6.jar
+
+# The location of the AspectJ tools jar
+# If not specified here, the jar must be present in ANTHOME/lib
+aspectj-tools.jar = ${lib.repo}/aspectj/jars/aspectj-tools-1.0.6.jar
+
+# The location of the AspectJ Ant tasks jar
+# If not specified here, the jar must be present in ANTHOME/lib
+aspectj-ant.jar = ${lib.repo}/aspectj/jars/aspectj-ant-1.0.6.jar
 
 # Should we instrument our code with Clover (test coverage tool) ?
 # Comment out to disable Clover (setting the property to false will have no
