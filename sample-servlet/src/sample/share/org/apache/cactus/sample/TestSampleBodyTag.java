@@ -71,7 +71,15 @@ import org.apache.cactus.WebResponse;
  */
 public class TestSampleBodyTag extends JspTestCase
 {
+    /**
+     * Our tag instance being unit tested
+     */
     private SampleBodyTag tag;
+
+    /**
+     * The tag body content to which we can write to in our unit tests
+     * to simulate a content.
+     */
     private BodyContent tagContent;
 
     /**
@@ -119,11 +127,22 @@ public class TestSampleBodyTag extends JspTestCase
         this.tag.setBodyContent(this.tagContent);
     }
 
+    /**
+     * @see TestCase#tearDown()
+     */
+    public void tearDown()
+    {
+        //necessary for tag to output anything on most servlet engines.
+        this.pageContext.popBody();
+    }
+
     //-------------------------------------------------------------------------
 
     /**
      * Sets the replacement target and replacement String on the tag, then calls
      * doAfterBody(). Most of the assertion work is done in endReplacement().
+     * 
+     * @exception Exception if the test fails for an unexpected reason
      */
     public void testReplacement() throws Exception
     {
@@ -143,15 +162,11 @@ public class TestSampleBodyTag extends JspTestCase
         assertEquals(BodyTag.SKIP_BODY, result);
     }
 
-    public void tearDown()
-    {
-        //necessary for tag to output anything on most servlet engines.
-        this.pageContext.popBody();
-    }
-
     /**
      * Verifies that the target String has indeed been replaced in the tag's
      * body.
+     * 
+     * @param theResponse the response from the server side.
      */
     public void endReplacement(WebResponse theResponse)
     {
