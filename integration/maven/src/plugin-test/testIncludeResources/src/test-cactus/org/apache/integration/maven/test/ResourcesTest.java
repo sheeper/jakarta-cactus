@@ -18,7 +18,7 @@
  * ========================================================================
  */
 
-package org.apache.maven.cactus.sample;
+package org.apache.cactus.integration.maven.test;
 
 import org.apache.cactus.ServletTestCase;
 import java.io.InputStream;
