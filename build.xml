@@ -55,23 +55,17 @@
             <property name="j2ee.jar" value="${j2ee.13.jar}"/> 
         </ant>
 
-        <ant antfile="integration/eclipse/org.apache.cactus.eclipse.webapp/build.xml" inheritAll="false" 
-            target="release">
-            <property name="j2ee.jar" value="${j2ee.12.jar}"/> 
-        </ant>
-
-        <ant antfile="integration/eclipse/org.apache.cactus.eclipse.webapp/build.xml" inheritAll="false" 
-            target="release">
-            <property name="j2ee.jar" value="${j2ee.13.jar}"/> 
+        <ant antfile="integration/eclipse/org.apache.cactus.eclipse.webapp/build.xml" 
+            inheritAll="false" target="release">
         </ant>
             
-        <ant antfile="integration/eclipse/org.apache.cactus.eclipse.runner/build.xml" inheritAll="false" 
-            target="release">
+        <ant antfile="integration/eclipse/org.apache.cactus.eclipse.runner/build.xml" 
+            inheritAll="false" target="release">
             <property name="j2ee.jar" value="${j2ee.12.jar}"/> 
         </ant>
 
-        <ant antfile="integration/eclipse/org.apache.cactus.eclipse.runner/build.xml" inheritAll="false" 
-            target="release">
+        <ant antfile="integration/eclipse/org.apache.cactus.eclipse.runner/build.xml" 
+            inheritAll="false" target="release">
             <property name="j2ee.jar" value="${j2ee.13.jar}"/> 
         </ant>
 
@@ -131,23 +125,17 @@
             <property name="j2ee.jar" value="${j2ee.13.jar}"/> 
         </ant>
 
-        <ant antfile="integration/eclipse/org.apache.cactus.eclipse.webapp/build.xml" inheritAll="false" 
-            target="clean">
-            <property name="j2ee.jar" value="${j2ee.12.jar}"/> 
-        </ant>
-
-        <ant antfile="integration/eclipse/org.apache.cactus.eclipse.webapp/build.xml" inheritAll="false" 
-            target="clean">
-            <property name="j2ee.jar" value="${j2ee.13.jar}"/> 
+        <ant antfile="integration/eclipse/org.apache.cactus.eclipse.webapp/build.xml" 
+            inheritAll="false" target="clean">
         </ant>
                 
-        <ant antfile="integration/eclipse/org.apache.cactus.eclipse.runner/build.xml" inheritAll="false" 
-            target="clean">
+        <ant antfile="integration/eclipse/org.apache.cactus.eclipse.runner/build.xml" 
+            inheritAll="false" target="clean">
             <property name="j2ee.jar" value="${j2ee.12.jar}"/> 
         </ant>
 
-        <ant antfile="integration/eclipse/org.apache.cactus.eclipse.runner/build.xml" inheritAll="false" 
-            target="clean">
+        <ant antfile="integration/eclipse/org.apache.cactus.eclipse.runner/build.xml" 
+            inheritAll="false" target="clean">
             <property name="j2ee.jar" value="${j2ee.13.jar}"/> 
         </ant>
         
