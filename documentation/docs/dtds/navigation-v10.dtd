@@ -1,0 +1,34 @@
+<!-- ===================================================================
+
+     Apache Cactus Navigation DTD (Version 1.0)
+
+PURPOSE:
+  This DTD defines the structure of Navigation files which need to
+  exist in every directory of the documentation to determine the
+  navigation menu items.
+
+TYPICAL INVOCATION:
+
+  <!DOCTYPE navigation PUBLIC
+       "-//Apache Software Foundation//DTD Cactus Navigation V1.0//EN"
+       "navigation-v10.dtd">
+
+==================================================================== -->
+
+
+<!-- =============================================================== -->
+<!-- Navigation -->
+<!-- =============================================================== -->
+
+<!ELEMENT navigation (menu*)>
+
+<!ELEMENT menu (item*)>
+<!ATTLIST menu
+    label CDATA #REQUIRED
+>
+
+<!ELEMENT item EMPTY>
+<!ATTLIST item
+    id ID #REQUIRED
+    label CDATA #IMPLIED
+>

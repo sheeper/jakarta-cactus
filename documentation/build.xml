@@ -61,6 +61,7 @@
     -->
     <!-- Source locations for the build -->
     <property name="doc.dir" value="${base.dir}/docs"/>
+    <property name="doc.dtd.dir" value="${doc.dir}/dtds"/>
     <property name="doc.skin.dir" value="${doc.dir}/skins"/>
     <property name="doc.xdoc.dir" value="${doc.dir}/xdocs"/>
     <property name="build.dir" value="${base.dir}/."/>
@@ -134,6 +135,11 @@
         <filter token="version" value="${project.version}"/>
         <filter token="year" value="${year}"/>
         <filter token="today" value="${TODAY}"/>
+
+        <xmlcatalog id="documentation.dtds">
+          <dtd publicId="-//Apache Software Foundation//DTD Cactus Navigation V1.0//EN"
+              location="${doc.dtd.dir}/navigation-v10.dtd"/>
+        </xmlcatalog>
 
     </target>
 
@@ -224,6 +230,8 @@
         <!-- Generate the docs -->
         <style basedir="${target.xdoc.dir}" destdir="${target.doc.dir}"
             style="${doc.skin.dir}/jakarta.apache.org/stylesheets/document2html.xsl">
+
+            <xmlcatalog refid="documentation.dtds"/>
 
             <include name="**/*.xml"/>
             <exclude name="**/navigation.xml"/>
