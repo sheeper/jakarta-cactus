@@ -48,6 +48,20 @@
     </devs>
 
     <release version="1.4 in CVS">
+      <action dev="VMA" type="fix" due-to="Marc Brette" due-to-email="Marc.Brette@mkms.xerox.com">
+        (<link href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=8640">
+         Bug #8640</link>. It also solves bug
+         <link href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=8640">
+         Bug #4167</link> reported by
+         <link href="mailto:eqwalker@yahoo.com">Eric Walker</link>).
+         Modified the <code>jspRedirector.jsp</code> so that
+         it initializes an HTTP Session (<code>session="true"</code>). There
+         is no way I know to make this parameter dynamic so we set it to true
+         as this is the most used case. If one of your test must not have a
+         session created for it, then you can always use the Redirector
+         overriding feature (<code>WebRequest.setRedirectorName(String
+         redirectorName)</code>).
+      </action>
       <action dev="VMA" type="fix" due-to="Patrick Lightbody" due-to-email="plightbo@hotmail.com">
         Fixed bug where the Test Result object which is put in the Servlet
         Context was not serializable. This might cause some trouble with some

@@ -1,5 +1,5 @@
 <%@page import="org.apache.cactus.server.*,
-                org.apache.cactus.util.log.LogService" session="false" %><%
+                org.apache.cactus.util.log.LogService" session="true" %><%
 
     /**                                                
      *                                                 
