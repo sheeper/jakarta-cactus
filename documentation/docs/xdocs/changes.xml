@@ -48,10 +48,6 @@
     </devs>
 
     <release version="1.4 in CVS">
-      <action dev="VMA" type="fix" due-to="Charles Massey" due-to-email="CMassey@corp.classmates.com">
-        Cactus does not create a new HTTP session anymore when retrieving the test result (as it is
-        not needed as the test result is saved in the Servlet Context).
-      </action>
       <action dev="VMA" type="add">
         Added automatic script support for WebLogic 7.0.
       </action>

@@ -218,10 +218,6 @@ public abstract class AbstractHttpClient
             WebRequest.GET_METHOD);
         resultsRequest.setAuthentication(theAuthentication);
 
-        // Do not create an HTTP session as it is not needed to retrieve the
-        // results
-        resultsRequest.setAutomaticSession(false);
-
         // Open the second connection to get the test results
         HttpClientHelper helper =
             new HttpClientHelper(getRedirectorURL(resultsRequest));
