@@ -72,11 +72,11 @@
       </p>
       <p>
         In addition, Cactus depends on a number of additional external
-        libraries at build time. These can be used by either placing them in
-        the <code>lib</code> directory of your Ant installation, or by
-        explicitly specifying their location in a
-        <code>build.properties</code> file at the root of the Cactus source
-        distribution.
+        libraries at build time. When not otherwise mentioned, these libraries
+        can be used by either placing them in the <code>lib</code> directory of
+        your Ant installation, or by explicitly specifying their location in a 
+        <code>build.properties</code> file at the root of the Cactus 
+        source distribution.
       </p>
 
       <section title="Required Libraries">
@@ -103,6 +103,9 @@
             <td>
               The AspectJ runtime.
               Availabe <link href="ext:aspectj">here</link>.
+              This JAR file must be placed in the <code>lib</code> directory of
+              your Ant installation, or Ant will not be able to load the 
+              required classes.
             </td>
           </tr>
           <tr>
@@ -200,7 +203,7 @@
       <note>
         <strong>If you don't want to have problems with versions, you need 
         to get the versions corresponding to Cactus releases. For example,
-        If you're building Cactus 1.3 from its sources, you'll need to get 
+        If you're building Cactus 1.4.1 from its sources, you'll need to get 
         the jars found in the corresponding Cactus prepackaged 
         jar for Ant. IF you are building from CVS, you can get the latest
         jars from the <link href="ext:gump_jars">Gump nightly builds</link>
