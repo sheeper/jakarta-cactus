@@ -45,7 +45,6 @@ anttasks/src/java/org/apache/cactus/ant/ArgListTask.java svn_keywords=Author+Dat
 anttasks/src/java/org/apache/cactus/ant/ChangeLogTask.java svn_keywords=Author+Date+Id+Revision
 anttasks/src/java/org/apache/cactus/ant/CheckPropertiesTask.java svn_keywords=Author+Date+Id+Revision
 anttasks/src/java/org/apache/cactus/ant/CheckPropertyItem.java svn_keywords=Author+Date+Id+Revision
-anttasks/src/java/org/apache/cactus/ant/CheckSitemapTask.java svn_keywords=Author+Date+Id+Revision
 anttasks/src/java/org/apache/cactus/ant/EnhydraRun.java svn_keywords=Author+Date+Id+Revision
 anttasks/src/java/org/apache/cactus/ant/PropertyName.java svn_keywords=Author+Date+Id+Revision
 anttasks/src/java/org/apache/cactus/ant/ResinRun.java svn_keywords=Author+Date+Id+Revision

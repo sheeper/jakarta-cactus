@@ -226,7 +226,7 @@
     </target>
 
     <!-- Run Documentation dist target -->
-    <target name="run.documentation" depends="run.anttasks">
+    <target name="run.documentation">
 
         <ant target="dist" antfile="documentation/build.xml"
             inheritAll="false">
