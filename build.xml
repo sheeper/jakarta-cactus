@@ -117,13 +117,15 @@
     -->
     <target name="release"
         depends="clean, dist">
-        <antcall target="release.bin">
+        <antcall target="release.bin" inheritall="no">
             <param name="j2ee.dependant" value="true"/>
             <param name="j2ee.jar" location="${j2ee.12.jar}"/>
+            <param name="release.dir" location="release"/>
         </antcall>
-        <antcall target="release.bin">
+        <antcall target="release.bin" inheritall="no">
             <param name="j2ee.dependant" value="true"/>
             <param name="j2ee.jar" location="${j2ee.13.jar}"/>
+            <param name="release.dir" location="release"/>
         </antcall>
         <antcall target="release.src"/>
     </target>
