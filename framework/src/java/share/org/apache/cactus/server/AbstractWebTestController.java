@@ -121,29 +121,28 @@ public abstract class AbstractWebTestController implements TestController
 
             // FIXME: will need a factory here real soon...
             
+            ServiceEnumeration service =
+                ServiceEnumeration.valueOf(serviceName);
+            
             // Is it the call test method service ?
-            if (ServiceEnumeration.CALL_TEST_SERVICE.equals(serviceName))
+            if (service == ServiceEnumeration.CALL_TEST_SERVICE)
             {
                 caller.doTest();
-
-            // Is it the get test results service ?
             }
-            else if (ServiceEnumeration.GET_RESULTS_SERVICE.equals(serviceName))
+            // Is it the get test results service ?
+            else if (service == ServiceEnumeration.GET_RESULTS_SERVICE)
             {
                 caller.doGetResults();
-
+            }
             // Is it the test connection service ?
             // This service is only used to verify that connection between
             // client and server is working fine
-            }
-            else if (ServiceEnumeration.RUN_TEST_SERVICE.equals(serviceName))
+            else if (service == ServiceEnumeration.RUN_TEST_SERVICE)
             {
                 caller.doRunTest();
             }
-
             // Is it the service to create an HTTP session?
-            else if (ServiceEnumeration.CREATE_SESSION_SERVICE.equals(
-                serviceName))
+            else if (service == ServiceEnumeration.CREATE_SESSION_SERVICE)
             {
                 caller.doCreateSession();                
             }

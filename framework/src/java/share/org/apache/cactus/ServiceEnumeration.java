@@ -113,7 +113,8 @@ public class ServiceEnumeration
      *
      * @param theString the string to compare with this Service name
      * @return true if the string corresponds to the current Service
-     * @see java.lang.Object#equals
+     * @deprecated Use {@link ServiceEnumeration#valueOf} and identity
+     *              comparison instead of this method
      */
     public boolean equals(String theString)
     {
@@ -121,16 +122,23 @@ public class ServiceEnumeration
     }
 
     /**
-     * Calculates a hash code for the service.
-     *
-     * @return the hash code
-     * @see java.lang.Object#hashCode
+     * Always compares object identity.
+     * 
+     * @see java.lang.Object#equals(Object)
      */
-    public int hashCode()
+    public final boolean equals(Object theObject)
     {
-        int result = 17;
-        result = 37 * result + this.name.hashCode();
-        return result;
+        return super.equals(theObject);
+    }
+
+    /**
+     * Delegates to the <code>java.lang.Object</code> implementation.
+     * 
+     * @see java.lang.Object#equals(Object)
+     */
+    public final int hashCode()
+    {
+        return super.hashCode();
     }
 
     /**
@@ -142,6 +150,35 @@ public class ServiceEnumeration
     public String toString()
     {
         return this.name;
+    }
+    
+    /**
+     * Returns the enumeration instance corresponding to the provided service 
+     * name.
+     * 
+     * @param theName The name of the service
+     * @return The corresponding service instance
+     * @since Cactus 1.5
+     */
+    public static ServiceEnumeration valueOf(String theName)
+    {
+        if (CALL_TEST_SERVICE.name.equals(theName))
+        {
+            return CALL_TEST_SERVICE;
+        }
+        else if (GET_RESULTS_SERVICE.name.equals(theName))
+        {
+            return GET_RESULTS_SERVICE;
+        }
+        else if (RUN_TEST_SERVICE.name.equals(theName))
+        {
+            return RUN_TEST_SERVICE;
+        }
+        else if (CREATE_SESSION_SERVICE.name.equals(theName))
+        {
+            return CREATE_SESSION_SERVICE;
+        }
+        return null;
     }
     
 }
