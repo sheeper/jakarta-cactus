@@ -316,12 +316,12 @@
     <target name="package.anttasks" depends="init">
 
         <copy todir="${dist.lib.dir}">
-            <fileset dir="${anttasks.dir}/${dist.lib.dir}"/>
+            <fileset dir="${anttasks.dir}/dist/lib"/>
         </copy>
 
         <!-- Copy javadoc in correct directory -->
         <copy todir="${dist.doc.api.dir}/anttasks">
-            <fileset dir="${anttasks.dir}/${dist.doc.api.dir}"/>
+            <fileset dir="${anttasks.dir}/dist/doc/api"/>
         </copy>
 
     </target>
@@ -354,7 +354,7 @@
 
         <!-- Copy doc in correct directory -->
         <copy todir="${dist.doc.dir}">
-            <fileset dir="${documentation.dir}/${dist.doc.dir}"/>
+            <fileset dir="${documentation.dir}/dist/doc"/>
         </copy>
 
     </target>
