@@ -274,10 +274,10 @@ public abstract class AbstractHttpServletRequestWrapper
     {
         String pathTranslated;
 
-        String pathInfo = this.url.getPathInfo();
-
-        if (pathInfo != null)
+        if ((this.url != null) && (this.url.getPathInfo() != null))
         {
+            String pathInfo = this.url.getPathInfo();
+            
             // If getRealPath returns null then getPathTranslated should also
             // return null (see section SRV.4.5 of the Servlet 2.3 spec).
             if (this.request.getRealPath("/") == null)

@@ -68,6 +68,12 @@
       </devs>
 
       <release version="1.6dev" date="in CVS">
+        <action dev="VMA" type="fix" due-to="Paul Green" due-to-email="Paul.Green@ons.gsi.gov.uk"
+          Fixed bug in Cactus wrapper implementation of
+          <code>request.getPathTranslated()</code> which was failing when there
+          was no simulated URL defined (i.e. no call to 
+          <code>WebRequest.setURL()</code>).
+        </action>
         <action dev="VMA" type="update">
           Migrated to Apache license 2.0.
         </action>
