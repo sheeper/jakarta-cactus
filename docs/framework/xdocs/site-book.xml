@@ -4,6 +4,10 @@
       title="Cactus Documentation" 
       copyright="@year@ The Apache Software Foundation">
 
+  <menu label="Home">
+    <menu-item label="Jakarta Commons" href="http://jakarta.apache.org/commons" type="external"/>  
+  </menu>
+
   <menu label="About">
     <menu-item label="News" source="index.xml"/>
     <menu-item label="Features" source="features.xml"/>
@@ -25,7 +29,7 @@
     <menu-item label="Servlet Sample" source="sample_servlet.xml"/>
   </menu>
 
-  <menu label="Developer's Corner">
+  <menu label="For Developers">
     <menu-item label="Architecture" source="architecture.xml"/>
     <menu-item label="Ant integration" source="ant.xml"/>
     <menu-item label="Servlet Engines" source="servlets.xml"/>
