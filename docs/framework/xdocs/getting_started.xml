@@ -235,6 +235,7 @@
           or as expanded war. It should have the following structure, which
           will ensure that the classpath is correct :
         </p>
+
         <ul>
           <li>
             <strong><code>WEB-INF/lib/cactus.jar</code></strong> : the
@@ -260,6 +261,17 @@
             on the server side.
           </li>
         </ul>
+
+       <note>
+          If you have several webapps that use cactus you may be tempted to 
+          place the <code>cactus.jar</code> in your container's shared library
+          folder. However, this approach will not work in many cases because
+          code in a shared location (cactus) cannot access code in a
+          specific webapp (your test cases). This restriction makes sense
+          since you would not want <code>com.foo.EvilClass</code> 
+          in webapp A to conflict with <code>com.foo.EvilClass</code> in webapp
+          B.
+        </note>
 
         <note>
           In theory you would also need to put the
