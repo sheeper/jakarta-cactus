@@ -362,7 +362,7 @@ be resolved. Please check you build.properties file, and run Ant with the
     -->
     <target name="jar.clover" depends="compile.clover">
 
-        <jar jarfile="${target.dir}/${cactus.antintegration.clover.jar.name}.jar">
+        <jar jarfile="${target.dir}/${cactus.ant.clover.jar.name}.jar">
 
             <manifest>
                 <section name="org/apache/cactus/integration/ant/">
@@ -393,7 +393,7 @@ be resolved. Please check you build.properties file, and run Ant with the
 
     <target name="jar.main" depends="compile.main">
 
-        <jar jarfile="${target.dir}/${cactus.antintegration.jar.name}.jar">
+        <jar jarfile="${target.dir}/${cactus.ant.jar.name}.jar">
 
             <manifest>
                 <section name="org/apache/cactus/integration/ant/">
@@ -490,8 +490,8 @@ be resolved. Please check you build.properties file, and run Ant with the
 		<touch file="${target.integration.lib.server.dir}/KEEPIT"/>
         
 		<!-- Gather all client side Cactus jars -->
-        <copy tofile="${target.integration.lib.client.dir}/${cactus.antintegration.jar.name}-${project.version}.jar"
-            file="${target.dir}/${cactus.antintegration.jar.name}.jar"/>
+        <copy todir="${target.integration.lib.client.dir}"
+            file="${target.dir}/${cactus.ant.jar.name}.jar"/>
         <copy todir="${target.integration.lib.client.dir}" file="${nekohtml.jar}"/>
         <copy todir="${target.integration.lib.client.dir}" file="${xerces.jar}"/>
         <copy todir="${target.integration.lib.client.dir}" file="${xmlapis.jar}"/>
@@ -499,8 +499,7 @@ be resolved. Please check you build.properties file, and run Ant with the
         <copy todir="${target.integration.lib.client.dir}" file="${commons.httpclient.jar}"/>
 
 		<!-- Gather all shared (client and server) Cactus jars -->
-        <copy tofile="${target.integration.lib.common.dir}/${cactus.framework.jar.name}-${project.version}.jar"
-        	file="${cactus.framework.jar}"/>
+        <copy todir="${target.integration.lib.common.dir}" file="${cactus.jar}"/>
         <copy todir="${target.integration.lib.common.dir}" file="${commons.logging.jar}"/>
         <copy todir="${target.integration.lib.common.dir}" file="${log4j.jar}"/>
         <copy todir="${target.integration.lib.common.dir}" file="${aspectjrt.jar}"/>
@@ -509,10 +508,8 @@ be resolved. Please check you build.properties file, and run Ant with the
 
 		<!-- Copy the scripts for the current J2EE API -->
 
-        <filter token="cactus.antintegration.jar.name" 
-        	value="${cactus.antintegration.jar.name}-${project.version}.jar"/>
-        <filter token="cactus.framework.jar.name" 
-        	value="${cactus.framework.jar.name}-${project.version}.jar"/>
+        <filter token="cactus.jar.name" value="${cactus.jar.name}.jar"/>
+        <filter token="cactus.ant.jar.name" value="${cactus.ant.jar.name}.jar"/>
 
 		<basename property="log4j.jar.name" file="${log4j.jar}"/>
         <filter token="log4j.jar.name" value="${log4j.jar.name}"/>
@@ -563,7 +560,7 @@ be resolved. Please check you build.properties file, and run Ant with the
         if="clover.enable">
 
         <copy todir="${dist.lib.dir}"
-            file="${target.dir}/${cactus.antintegration.clover.jar.name}.jar"/>
+            file="${target.dir}/${cactus.ant.clover.jar.name}.jar"/>
 
     </target>
 
@@ -571,7 +568,7 @@ be resolved. Please check you build.properties file, and run Ant with the
         description="Generate the distributable files">
 
         <copy todir="${dist.lib.dir}"
-            file="${target.dir}/${cactus.antintegration.jar.name}.jar"/>
+            file="${target.dir}/${cactus.ant.jar.name}.jar"/>
 
         <!-- Copy the Integration -->
         <copy todir="${dist.bin.dir}/${project.name.file}">

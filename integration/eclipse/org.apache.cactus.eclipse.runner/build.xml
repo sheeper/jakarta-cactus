@@ -244,10 +244,9 @@
 	  description="Generate the distributable files">
 
 
-        <filter token="cactus.antintegration.jar.name" 
-        	value="${cactus.antintegration.jar.name}-${project.version}.jar"/>
-        <filter token="cactus.framework.jar.name" 
-        	value="${cactus.framework.jar.name}-${project.version}.jar"/>
+        <filter token="cactus.ant.jar.name"
+            value="${cactus.ant.jar.name}.jar"/>
+        <filter token="cactus.jar.name" value="${cactus.jar.name}.jar"/>
 
 		<basename property="log4j.jar.name" file="${log4j.jar}"/>
         <filter token="log4j.jar.name" value="${log4j.jar.name}"/>
@@ -290,7 +289,7 @@
 
         <!-- Copy the Ant Integration files -->
         <copy todir="${dist.bin.integration.dir}/ant">
-            <fileset dir="${cactus.antintegration.bin}"/>
+            <fileset dir="${cactus.ant.bin}"/>
          </copy>
 
         <copy todir="${dist.bin.integration.dir}">

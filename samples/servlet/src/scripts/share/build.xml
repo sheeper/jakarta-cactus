@@ -97,10 +97,10 @@
     <!-- Libraries required for the Cactus tests -->
     <property name="aspectjrt.jar"
         location="../../lib/@aspectjrt.jar.name@"/>
+    <property name="cactus.jar"
+        location="../../lib/@cactus.jar.name@"/>
     <property name="cactus.ant.jar"
         location="../../lib/@cactus.ant.jar.name@"/>
-    <property name="cactus.framework.jar"
-        location="../../lib/@cactus.framework.jar.name@"/>
     <property name="commons.httpclient.jar"
         location="../../lib/@commons.httpclient.jar.name@"/>
     <property name="commons.logging.jar"
@@ -114,8 +114,8 @@
     <path id="cactus.classpath">
         <path refid="project.classpath"/>
         <pathelement location="${aspectjrt.jar}"/>
+        <pathelement location="${cactus.jar}"/>
         <pathelement location="${cactus.ant.jar}"/>
-        <pathelement location="${cactus.framework.jar}"/>
         <pathelement location="${commons.httpclient.jar}"/>
         <pathelement location="${commons.logging.jar}"/>
         <pathelement location="${junit.jar}"/>
@@ -223,7 +223,7 @@
         description="Generate the distributable files">
 
         <copy todir="${dist.dir}"
-            file="${target.dir}/${sample.war.name}.war"/>
+            file="${target.dir}/${project.name.file}.war"/>
 
     </target>
 

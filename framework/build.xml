@@ -227,7 +227,7 @@ be resolved. Please check you build.properties file, and run Ant with the
              the main jar was created -->
         <condition property="compile.main.required">
             <not>
-                <uptodate targetfile="${target.dir}/${cactus.framework.jar.name}.jar">
+                <uptodate targetfile="${target.dir}/${cactus.jar.name}.jar">
                     <srcfiles dir="${target.src.dir}"/>
                     <srcfiles dir="${src.java.specific.dir}"/>
                 </uptodate>
@@ -269,7 +269,7 @@ be resolved. Please check you build.properties file, and run Ant with the
     -->
     <target name="jar.clover" depends="compile.clover" if="clover.enable">
 
-        <jar jarfile="${target.dir}/${cactus.framework.clover.jar.name}.jar">
+        <jar jarfile="${target.dir}/${cactus.clover.jar.name}.jar">
 
             <manifest>
                 <section name="org/apache/cactus/">
@@ -299,7 +299,7 @@ be resolved. Please check you build.properties file, and run Ant with the
     <target name="jar.main"
         depends="compile.main">
 
-        <jar jarfile="${target.dir}/${cactus.framework.jar.name}.jar">
+        <jar jarfile="${target.dir}/${cactus.jar.name}.jar">
 
             <manifest>
                 <section name="org/apache/cactus/">
@@ -448,7 +448,7 @@ be resolved. Please check you build.properties file, and run Ant with the
     <target name="dist.clover" depends="jar.clover" if="clover.enable">
 
         <copy todir="${dist.lib.dir}"
-            file="${target.dir}/${cactus.framework.clover.jar.name}.jar"/>
+            file="${target.dir}/${cactus.clover.jar.name}.jar"/>
 
     </target>
 
@@ -460,7 +460,7 @@ be resolved. Please check you build.properties file, and run Ant with the
         <mkdir dir="${dist.web.dir}"/>
 
         <copy todir="${dist.lib.dir}"
-            file="${target.dir}/${cactus.framework.jar.name}.jar"/>
+            file="${target.dir}/${cactus.jar.name}.jar"/>
         <copy todir="${dist.doc.api.dir}">
             <fileset dir="${target.doc.api.dir}"/>
         </copy>

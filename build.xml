@@ -142,9 +142,9 @@
                 prefix="${main.release.name}/doc"/>
             <zipfileset file="${aspectjrt.jar}"
                 prefix="${main.release.name}/lib"/>
-            <zipfileset file="${cactus.antintegration.jar}"
+            <zipfileset file="${cactus.ant.jar}"
                 prefix="${main.release.name}/lib"/>
-            <zipfileset file="${cactus.framework.jar}"
+            <zipfileset file="${cactus.jar}"
                 prefix="${main.release.name}/lib"/>
             <zipfileset file="${commons.logging.jar}"
                 prefix="${main.release.name}/lib"/>

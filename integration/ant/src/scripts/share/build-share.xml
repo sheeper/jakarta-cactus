@@ -55,8 +55,8 @@
     <property name="cactus.antintegration.jar" 
         value="${cactus.lib.client.dir}/@cactus.antintegration.jar.name@"/>
 
-    <property name="cactus.framework.jar" 
-        value="${cactus.lib.common.dir}/@cactus.framework.jar.name@"/>
+    <property name="cactus.jar" 
+        value="${cactus.lib.common.dir}/@cactus.jar.name@"/>
     <property name="cactus.log4j.jar" 
         value="${cactus.lib.common.dir}/@log4j.jar.name@"/>
     <property name="cactus.aspectjrt.jar" 
@@ -106,7 +106,7 @@
 
         <javac destdir="${cactus.target.classes.dir}" srcdir="${cactus.src.dir}">
             <classpath>
-                <pathelement location="${cactus.framework.jar}"/>
+                <pathelement location="${cactus.jar}"/>
                 <pathelement location="${cactus.log4j.jar}"/>
                 <pathelement location="${cactus.aspectjrt.jar}"/>
                 <pathelement location="${cactus.commons.logging.jar}"/>
@@ -219,7 +219,7 @@
         	 be expected to be in ${cactus.lib.*.dir}. For example this feature
         	 is used by the Maven plugin for Cactus. -->
         <copy todir="${cactus.target.dir}/${cactus.context}/WEB-INF/lib"
-          file="${cactus.framework.jar}"/>
+          file="${cactus.jar}"/>
         <copy todir="${cactus.target.dir}/${cactus.context}/WEB-INF/lib"
           file="${cactus.log4j.jar}"/>
         <copy todir="${cactus.target.dir}/${cactus.context}/WEB-INF/lib"
@@ -308,7 +308,7 @@
             <classpath>
                 <pathelement location="${cactus.target.conf.dir}"/>
                 <pathelement location="${cactus.target.classes.dir}"/>
-                <pathelement location="${cactus.framework.jar}"/>
+                <pathelement location="${cactus.jar}"/>
                 <pathelement location="${cactus.log4j.jar}"/>
                 <pathelement location="${cactus.aspectjrt.jar}"/>
                 <pathelement location="${cactus.commons.logging.jar}"/>
@@ -360,7 +360,7 @@
             <classpath>
                 <pathelement location="${cactus.target.conf.dir}"/>
                 <pathelement location="${cactus.target.classes.dir}"/>
-                <pathelement location="${cactus.framework.jar}"/>
+                <pathelement location="${cactus.jar}"/>
                 <pathelement location="${cactus.log4j.jar}"/>
                 <pathelement location="${cactus.aspectjrt.jar}"/>
                 <pathelement location="${cactus.commons.logging.jar}"/>

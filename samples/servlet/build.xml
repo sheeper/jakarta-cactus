@@ -151,10 +151,8 @@
             <filter token="standard.jar.name" value="${standard.jar.name}"/>
             <filter token="servlet.jar.name" value="${servlet.jar.name}"/>
             <filter token="aspectjrt.jar.name" value="${aspectjrt.jar.name}"/>
-            <filter token="cactus.ant.jar.name"
-                value="${cactus.antintegration.jar.name}.jar"/>
-            <filter token="cactus.framework.jar.name"
-                value="${cactus.framework.jar.name}.jar"/>
+            <filter token="cactus.ant.jar.name" value="${cactus.ant.jar.name}.jar"/>
+            <filter token="cactus.jar.name" value="${cactus.jar.name}.jar"/>
             <filter token="commons.httpclient.jar.name"
                 value="${commons.httpclient.jar.name}"/>
             <filter token="commons.logging.jar.name"
@@ -287,18 +285,15 @@ be resolved. Please check you build.properties file, and run Ant with the
     -->
     <target name="test.prepare">
 
-        <condition property="test.cactus.framework.jar"
-            value="${cactus.framework.clover.jar}">
+        <condition property="test.cactus.jar" value="${cactus.clover.jar}">
             <isset property="clover.enable"/>
         </condition>
-        <property name="test.cactus.framework.jar"
-            value="${cactus.framework.jar}"/>
-        <condition property="test.cactus.antintegration.jar"
-            value="${cactus.antintegration.clover.jar}">
+        <property name="test.cactus.jar" value="${cactus.jar}"/>
+        <condition property="test.cactus.ant.jar"
+            value="${cactus.ant.clover.jar}">
             <isset property="clover.enable"/>
         </condition>
-        <property name="test.cactus.antintegration.jar"
-            value="${cactus.antintegration.jar}"/>
+        <property name="test.cactus.ant.jar" value="${cactus.ant.jar}"/>
 
         <mkdir dir="${target.test.dir}"/>
 
@@ -327,10 +322,8 @@ be resolved. Please check you build.properties file, and run Ant with the
                 location="${target.test.dir}/classes/cactus"/>
             <property name="target.testreports.dir"
                 location="${target.test.dir}/test-reports"/>
-            <property name="cactus.framework.jar"
-                location="${test.cactus.framework.jar}"/>
-            <property name="cactus.ant.jar"
-                location="${test.cactus.antintegration.jar}"/>
+            <property name="cactus.jar" location="${test.cactus.jar}"/>
+            <property name="cactus.ant.jar" location="${test.cactus.ant.jar}"/>
             <property name="servlet.jar" value="${j2ee.jar}"/>
             <property name="clover.jar" value="${clover.jar}"/>
         </ant>

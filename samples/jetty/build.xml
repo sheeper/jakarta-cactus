@@ -200,7 +200,7 @@
     <target name="check.properties.cactus" depends="check.properties.init">
 
         <checkProperty>
-            <property name="cactus.framework.jar" isfile="true"/>
+            <property name="cactus.jar" isfile="true"/>
             <property name="cactus.framework.web" isfile="true"/>
         </checkProperty>
 
@@ -301,7 +301,7 @@
         <filter token="servlet.jar.name" value="${servlet.jar.name}"/>
         
         <!-- Be careful with the possible property conflict with build-common.xml -->
-          <property name="cactus.jar.name" value="${cactus.framework.jar.name}-${project.version}.jar"/>
+        <property name="cactus.jar.name" value="${cactus.framework.jar.name}-${project.version}.jar"/>
         <filter token="cactus.jar.name" value="${cactus.jar.name}"/>
         
           <basename property="junit.jar.name" file="${junit.jar}"/>
