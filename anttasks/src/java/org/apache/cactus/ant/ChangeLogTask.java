@@ -247,8 +247,7 @@ public class ChangeLogTask extends Task implements ExecuteStreamHandler
      * encountered in the Ant XML build file. This attribute is mandatory.
      *
      * @param theOutputFile the XML output file relative to the Ant project
-     *                      base directory (i.e. basedir attrifbute in build
-     *                      file).
+     *        base directory (ie basedir attribute in build file).
      */
     public void setOutput(File theOutputFile)
     {
@@ -508,7 +507,7 @@ public class ChangeLogTask extends Task implements ExecuteStreamHandler
      * is not used.
      *
      * @param theOs the output stream to write to the standard input stream of
-     *              the subprocess (i.e. the CVS process)
+     *              the subprocess (ie the CVS process)
      */
     public void setProcessInputStream(OutputStream theOs)
     {
@@ -519,7 +518,7 @@ public class ChangeLogTask extends Task implements ExecuteStreamHandler
      * version (should be handled in future versions).
      *
      * @param theIs the input stream to read from the error stream from the
-     *              subprocess (i.e. the CVS process)
+     *              subprocess (ie the CVS process)
      * @exception IOException on failure to create an input stream reader to
      *             read the error stream from CVS
      */
@@ -532,7 +531,7 @@ public class ChangeLogTask extends Task implements ExecuteStreamHandler
      * Set the input stream used to read from CVS log
      *
      * @param theIs the input stream to read from the output stream of the
-     *              subprocess (i.e. the CVS process)
+     *              subprocess (ie the CVS process)
      * @exception IOException on failure to create an input stream reader to
      *             read the output stream from CVS
      */
@@ -542,7 +541,7 @@ public class ChangeLogTask extends Task implements ExecuteStreamHandler
     }
 
     /**
-     * Stop handling of the streams (i.e. the cvs process).
+     * Stop handling of the streams (ie the cvs process).
      */
     public void stop()
     {
