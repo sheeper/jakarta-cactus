@@ -34,7 +34,19 @@
       <p>
         To subscribe to the user list, send an empty message to
         <link href="mailto:cactus-user-subscribe@jakarta.apache.org">
-        cactus-user-subscribe@jakarta.apache.org</link>.
+        cactus-user-subscribe@jakarta.apache.org</link>. Same for the dev
+        mailing list.
+      </p>
+      <p>
+        To unsubscribe from the user list, send an empty message to
+        <link href="mailto:cactus-user-unsubscribe@jakarta.apache.org">
+        cactus-user-unsubscribe@jakarta.apache.org</link>. Same for the dev
+        mailing list. Note that you must unsubscribe using the same email
+        address you've used to subscribe. If you wish to unsubscribe from a
+        different email address, use the following email address:
+        <code>cactus-user-unsubscribe-yourname=yourdomain@jakarta.apache.org</code>
+        (assuming the email address you wish to unsubscribe is
+        <code>yourname@yourdomain</code>).
       </p>
       <p>
         Once you're subscribed, send mail to
