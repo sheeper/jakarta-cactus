@@ -95,9 +95,9 @@ public abstract class AbstractContainer extends ProjectComponent
     // Instance Variables ------------------------------------------------------
 
     /**
-     * The web application archive that should be deployed to the container.
+     * The web or application archive that should be deployed to the container.
      */
-    private File warFile;
+    private File deployableFile;
 
     /**
      * A pattern set which lists patterns for names of test cases that are to be
@@ -193,7 +193,7 @@ public abstract class AbstractContainer extends ProjectComponent
      */
     public final String getContextPath()
     {
-        String contextPath = getWarFile().getName();
+        String contextPath = getDeployableFile().getName();
         int extensionIndex = contextPath.lastIndexOf(".war");
         if (extensionIndex > 0)
         {
@@ -265,19 +265,19 @@ public abstract class AbstractContainer extends ProjectComponent
     }
 
     /**
+     * @see org.apache.cactus.integration.ant.container.Container#setDeployableFile
+     */
+    public final void setDeployableFile(File theDeployableFile)
+    {
+        this.deployableFile = theDeployableFile;
+    }
+
+    /**
      * @see org.apache.cactus.integration.ant.container.Container#setLog
      */
     public void setLog(Log theLog)
     {
         this.log = theLog;
-    }
-
-    /**
-     * @see org.apache.cactus.integration.ant.container.Container#setWarFile
-     */
-    public final void setWarFile(File theWarFile)
-    {
-        this.warFile = theWarFile;
     }
 
     // Protected Methods -------------------------------------------------------
@@ -399,9 +399,9 @@ public abstract class AbstractContainer extends ProjectComponent
      * 
      * @return The WAR file  
      */
-    protected final File getWarFile()
+    protected final File getDeployableFile()
     {
-        return this.warFile;
+        return this.deployableFile;
     }
 
     // Private Methods ---------------------------------------------------------

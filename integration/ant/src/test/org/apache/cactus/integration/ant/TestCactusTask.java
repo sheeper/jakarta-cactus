@@ -108,7 +108,7 @@ public final class TestCactusTask extends AntTestCase
         }
         catch (BuildException expected)
         {
-            assertEquals("The [warfile] attribute is required",
+            assertEquals("You must specify the [warfile] attribute",
                 expected.getMessage());
         }
     }

@@ -280,9 +280,10 @@ public class CactusTask extends JUnitTask
     {
         if (this.warFile == null)
         {
-            throw new BuildException("The [warfile] attribute is required");
+            throw new BuildException(
+                "You must specify the [warfile] attribute");
         }
-        
+
         // Open the archive as JAR file and extract the deployment descriptor
         JarFile war = null;
         WebXml webXml = null;
@@ -323,7 +324,7 @@ public class CactusTask extends JUnitTask
             {
                 containers[i].setAntTaskFactory(this.antTaskFactory);
                 containers[i].setLog(new AntLog(this));
-                containers[i].setWarFile(this.warFile);
+                containers[i].setDeployableFile(this.warFile);
                 if (containers[i].isEnabled())
                 {
                     containers[i].init();

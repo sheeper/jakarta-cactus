@@ -145,12 +145,13 @@ public interface Container
     void setLog(Log theLog);
 
     /**
-     * Sets the web-application archive that is to be deployed to the
+     * Sets the file that should be deployed to the container. This can be
+     * either a WAR or an EAR file, depending on the capabilities of the
      * container.
      * 
-     * @param theWarFile The WAR file to set
+     * @param theDeployableFile The file to deploy
      */
-    void setWarFile(File theWarFile);
+    void setDeployableFile(File theDeployableFile);
 
     /**
      * Subclasses must implement this method to perform the actual task of 

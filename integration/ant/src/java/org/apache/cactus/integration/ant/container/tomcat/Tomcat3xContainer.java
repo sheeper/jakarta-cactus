@@ -181,8 +181,8 @@ public class Tomcat3xContainer extends AbstractTomcatContainer
         
         // deploy the web-app by copying the WAR file
         File webappsDir = createDirectory(tmpDir, "webapps");
-        fileUtils.copyFile(getWarFile(),
-            new File(webappsDir, getWarFile().getName()), null, true);
+        fileUtils.copyFile(getDeployableFile(),
+            new File(webappsDir, getDeployableFile().getName()), null, true);
     }
 
 }

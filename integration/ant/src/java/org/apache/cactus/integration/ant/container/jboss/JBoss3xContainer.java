@@ -296,9 +296,9 @@ public class JBoss3xContainer extends AbstractJavaContainer
         // TODO: manipulation of the WAR should really be left to the user
         Jar jar = (Jar) createAntTask("jar");
         jar.setDestFile(new File(configDir,
-            this.config + "/deploy/" + getWarFile().getName()));
+            this.config + "/deploy/" + getDeployableFile().getName()));
         ZipFileSet zip = new ZipFileSet();
-        zip.setSrc(getWarFile());
+        zip.setSrc(getDeployableFile());
         jar.addZipfileset(zip);
         FileSet fileSet = new FileSet();
         fileSet.setDir(this.tmpDir);

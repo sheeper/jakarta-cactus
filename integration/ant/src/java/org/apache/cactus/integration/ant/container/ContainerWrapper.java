@@ -186,11 +186,11 @@ public class ContainerWrapper implements Container
     }
 
     /**
-     * @see org.apache.cactus.integration.ant.container.Container#setWarFile
+     * @see org.apache.cactus.integration.ant.container.Container#setDeployableFile
      */
-    public void setWarFile(File theWarFile)
+    public void setDeployableFile(File theWarFile)
     {
-        this.container.setWarFile(theWarFile);
+        this.container.setDeployableFile(theWarFile);
     }
 
 }

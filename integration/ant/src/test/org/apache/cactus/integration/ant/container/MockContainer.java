@@ -193,9 +193,9 @@ public class MockContainer implements Container
     }
 
     /**
-     * @see org.apache.cactus.integration.ant.container.Container#setWarFile(java.io.File)
+     * @see org.apache.cactus.integration.ant.container.Container#setDeployableFile
      */
-    public void setWarFile(File theWarFile)
+    public void setDeployableFile(File theWarFile)
     {
     }
 

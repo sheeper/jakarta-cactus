@@ -188,6 +188,12 @@ public abstract class AbstractTomcatContainer extends AbstractJavaContainer
         {
             throw new BuildException(this.dir + " is not a directory");
         }
+
+        if (!getDeployableFile().getName().toLowerCase().endsWith(".war"))
+        {
+            throw new BuildException("Tomcat doesn't support the "
+                + "deployment of EAR files");
+        }
     }
 
     // Protected Methods -------------------------------------------------------
