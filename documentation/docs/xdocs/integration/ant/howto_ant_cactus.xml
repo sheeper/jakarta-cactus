@@ -28,6 +28,10 @@
         at the servlet sample build and play with it after or while reading
         this.
       </p>
+      <note>
+        The actual build file of the sample might differ in a few details from
+        the snippets shown here.
+      </note>
 
       <section title="Starting off with a plain build">
 
@@ -267,13 +271,107 @@
 
       <section title="Cactifying the Web Application">
 
-        <p>(To be written)</p>
+        <p>
+          In order to be able to run the Cactus tests, you have to deploy a
+          <em>cactified</em> web application to the target container. With 
+          <em>cactified</em>, we generally refer to a web-application that 
+          has been enhanced with the elements required for Cactus tests to
+          work. The minimum requirements are as follows:
+          <ul>
+            <li>
+              It contains all the libraries that Cactus needs on the server
+              side (see the
+              <link href="site:howto_classpath">Classpath Guide</link> for
+              details).
+            </li>
+            <li>
+              At least one test redirector is defined in the deployment
+              descriptor of the web-application.
+            </li>
+            <li>
+              If you are using <code>JspTestCase</code>, the file
+              <code>jspRedirector.jsp</code> needs to be included in the web
+              application, and it needs to be named in the deployment
+              descriptor.
+            </li>
+          </ul>
+          Of course, the cactified web-application also needs to contain
+          your test classes.
+        </p>
+        <p>
+          The Cactus tasks for Ant support these requirements with the tasks
+          <strong>&lt;cactifywar&gt;</strong> and
+          <strong>&lt;webxmlmerge&gt;</strong>. While the former is specific to
+          Cactus and probably does all you need in most cases, the latter is
+          more generic and lower-level. In this example, we'll use
+          <strong>&lt;cactifywar&gt;</strong> because it's more powerful and
+          easier to use.
+        </p>
+
+      <p>
+        For the cactification, we add a target called <em>test.prepare</em>,
+        on which the <em>test</em> target will depend. This target itself
+        depends on the application WAR being built (the <em>war</em> target),
+        and the Cactus test cases being compiled (the <em>compile.cactus</em>
+        target):
+      </p>
+
+        <source><![CDATA[
+<target name="test.prepare" depends="war, compile.cactus">
+  
+  <!-- Cactify the web-app archive -->
+  <cactifywar srcfile="${target.dir}/${project.name.file}.war"
+      destfile="${target.dir}/test.war">
+    <classes dir="${target.classes.cactus.dir}"/>
+    <lib file="${httpunit.jar}"/>
+  </cactifywar>
+
+</target>
+]]></source>
+
+        <p>
+          So what the <strong>&lt;cactifywar&gt;</strong> task does here, is to
+          open the WAR file specified by the <em>srcfile</em> attribute, and
+          write the cactified WAR file to the file specified by the
+          <em>destfile</em> attribute.
+        </p>
+        <p>
+          The Cactus test redirectors are automatically injected into the
+          deployment descriptor of the destination archive. By the way, the
+          task will examine the version of the web-app DTD used in the source
+          file, which determines the servlet API version in use (if no
+          <code>DOCTYPE</code> declaration is found, it assumes servlet API
+          2.2). The filter test redirector will only be inserted if the servlet
+          API version is 2.3 (or later). The file
+          <code>jspRedirector.jsp</code> will also be added automatically (to
+          the root of the web-application).
+        </p>
+        <p>
+          <strong>&lt;cactifywar&gt;</strong> will also try to add the Cactus
+          libraries required on the server-side to the destination archive. For
+          this to work, these libraries need to be on the classpath of the
+          task. Because we've done that when defining the task (see above),
+          there shouldn't be problems here. If the task has problems locating
+          the required JARs, a warning will be logged.
+        </p>
+        <p>
+          An important fact to note about the
+          <strong>&lt;cactifywar&gt;</strong> task is that it extends the
+          builtin Ant task <strong>&lt;war&gt;</strong>. That's why we can add
+          the nested <strong>&lt;classes&gt;</strong> and
+          <strong>&lt;lib&gt;</strong> elements in the example above. We do
+          this to add the actual test classes to the cactified WAR, as well as
+          the <link href="site:howto_httpunit">HttpUnit</link> JAR needed for
+          some of the tests.
+        </p>
 
       </section>
 
       <section title="Running the Cactus Tests">
 
-        <p>(To be written)</p>
+        <p>
+          (To be written)
+        </p>
 
       </section>
 

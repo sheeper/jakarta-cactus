@@ -9,7 +9,7 @@
 
   <menu label="Ant Integration">
     <item id="integration_ant" label="Overview"/>
-    <item id="howto_ant_cactus" label="Tutorial"/>
+    <item id="howto_ant_cactus" label="Sample Walkthrough"/>
   </menu>
 
   <menu label="Ant Tasks">
