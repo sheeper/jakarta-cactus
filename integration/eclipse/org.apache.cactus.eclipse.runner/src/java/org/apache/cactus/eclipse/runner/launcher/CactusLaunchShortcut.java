@@ -198,6 +198,7 @@ public class CactusLaunchShortcut
                 // when manager is null we use Jetty as the container
                 if (manager == null)
                 {
+                    this.provider = null;
                     super.launchType(theSearch, theMode);
                 }
                 else
