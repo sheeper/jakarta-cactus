@@ -7,6 +7,9 @@
 
   <body>
 
+    <release version="1.8dev" date="in CVS">
+    </release>
+
     <release version="1.7" date="2005-01-28">
       <action dev="felipeal" type="fix" due-to="Brett Porter" issue="CACTUS-161">
         Proper use of <code>maven.compile.target</code> and

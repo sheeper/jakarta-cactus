@@ -90,6 +90,9 @@
         <person name="Felipe Leme" email="maven@felipeal.net" id="FAL"/>
       </devs>
 
+      <release version="1.8dev" date="in CVS">
+      </release>
+      
       <release version="1.7" date="28 Jan 2005">
         <action dev="VMA" type="update">
           Tested with Orion 1.6.0b, Orion 2.0.4, Tomcat 4.1.31, Tomcat 5.0.29,
