@@ -107,14 +107,28 @@ public class WebXmlMerger
     public final void merge(WebXml theMergeWebXml)
     {
         checkServletVersions(theMergeWebXml);
-        if (this.webXml.getVersion() == WebXmlVersion.V2_3)
+        if ((this.webXml.getVersion() != null)
+         && (this.webXml.getVersion().compareTo(WebXmlVersion.V2_3) >= 0))
         {
             mergeFilters(theMergeWebXml);
         }
         mergeServlets(theMergeWebXml);
+        if ((this.webXml.getVersion() != null)
+         && (this.webXml.getVersion().compareTo(WebXmlVersion.V2_3) >= 0))
+        {
+            mergeResourceEnvironmentReferences(theMergeWebXml);
+        }
+        mergeResourceReferences(theMergeWebXml);
         mergeSecurityConstraints(theMergeWebXml);
         mergeLoginConfig(theMergeWebXml);
         mergeSecurityRoles(theMergeWebXml);
+        mergeEnvironmentEntries(theMergeWebXml);
+        mergeEjbRefs(theMergeWebXml);
+        if ((this.webXml.getVersion() != null)
+         && (this.webXml.getVersion().compareTo(WebXmlVersion.V2_3) >= 0))
+        {
+            mergeEjbLocalRefs(theMergeWebXml);
+        }
     }
 
     /**
@@ -154,7 +168,7 @@ public class WebXmlMerger
      * original descriptor.
      * 
      * @param theWebXml The descriptor that contains the filter definitions
-     *         that are to be merged into the original descriptor
+     *        that are to be merged into the original descriptor
      */
     protected final void mergeFilters(WebXml theWebXml)
     {
@@ -199,7 +213,7 @@ public class WebXmlMerger
      * original descriptor.
      * 
      * @param theWebXml The descriptor that contains the servlet definitions
-     *         that are to be merged into the original descriptor
+     *        that are to be merged into the original descriptor
      */
     protected final void mergeServlets(WebXml theWebXml)
     {
@@ -241,65 +255,186 @@ public class WebXmlMerger
     }
 
     /**
+     * Merges the resource environment references from the provided descriptor
+     * into the original descriptor.
      * 
-     * 
-     * @param theWebXml The descriptor that contains the security constraints
-     *         that are to be merged into the original descriptor
+     * @param theWebXml The descriptor that contains the references that are to
+     *        be merged into the original descriptor
      */
-    protected final void mergeSecurityConstraints(WebXml theWebXml)
+    protected final void mergeResourceEnvironmentReferences(WebXml theWebXml)
     {
-        Iterator securityConstraints =
-            theWebXml.getElements(WebXmlTag.SECURITY_CONSTRAINT);
-        int count = 0;
-        while (securityConstraints.hasNext())
+        int count = insertElements(theWebXml, WebXmlTag.RESOURCE_ENV_REF);
+        if (count > 0)
         {
-            Element securityConstraint = (Element) securityConstraints.next();
-            webXml.addElement(WebXmlTag.SECURITY_CONSTRAINT,
-                securityConstraint);
-            count++;
+            this.log.trace("Merged " + count + " resource environment "
+                + "reference" + (count != 1 ? "s " : " ") + "into the "
+                + "descriptor");
         }
-        this.log.trace("Merged " + count + " security constraint"
-            + (count != 1 ? "s " : " ") + "into the descriptor");
     }
 
     /**
+     * Merges the resource references from the provided descriptor into the
+     * original descriptor.
      * 
+     * @param theWebXml The descriptor that contains the resource refs that
+     *        are to be merged into the original descriptor
+     */
+    protected final void mergeResourceReferences(WebXml theWebXml)
+    {
+        int count = insertElements(theWebXml, WebXmlTag.RESOURCE_REF);
+        if (count > 0)
+        {
+            this.log.trace("Merged " + count + " resource reference"
+                + (count != 1 ? "s " : " ") + "into the descriptor");
+        }
+    }
+
+    /**
+     * Merges the 
+     * 
+     * @param theWebXml The descriptor that contains the security constraints
+     *        that are to be merged into the original descriptor
+     */
+    protected final void mergeSecurityConstraints(WebXml theWebXml)
+    {
+        int count = insertElements(theWebXml, WebXmlTag.SECURITY_CONSTRAINT);
+        if (count > 0)
+        {
+            this.log.trace("Merged " + count + " security constraint"
+                + (count != 1 ? "s " : " ") + "into the descriptor");
+        }
+    }
+
+    /**
+     * Merges the login configuration from the provided descriptor into the
+     * original descriptor, thereby eventually replacing the existing login 
+     * config.
      * 
      * @param theWebXml The descriptor that contains the login config that
-     *         is to be merged into the original descriptor
+     *        is to be merged into the original descriptor
      */
     protected final void mergeLoginConfig(WebXml theWebXml)
     {
-        Iterator loginConfigs = theWebXml.getElements(WebXmlTag.LOGIN_CONFIG);
-        if (loginConfigs.hasNext())
+        boolean replaced = replaceElement(theWebXml, WebXmlTag.LOGIN_CONFIG);
+        if (replaced)
         {
-            webXml.replaceElement(WebXmlTag.LOGIN_CONFIG,
-                (Element) loginConfigs.next());
             this.log.trace(
                 "Merged the login configuration into the descriptor");
         }
     }
 
     /**
-     * 
+     * Merges the security roles from the provided descriptor into the original
+     * descriptor.
      * 
      * @param theWebXml The descriptor that contains the security roles that
-     *         are to be merged into the original descriptor
+     *        are to be merged into the original descriptor
      */
     protected final void mergeSecurityRoles(WebXml theWebXml)
     {
-        Iterator securityRoles =
-            theWebXml.getElements(WebXmlTag.SECURITY_ROLE);
-        int count = 0;
-        while (securityRoles.hasNext())
+        int count = insertElements(theWebXml, WebXmlTag.SECURITY_ROLE);
+        if (count > 0)
         {
-            Element securityRole = (Element) securityRoles.next();
-            webXml.addElement(WebXmlTag.SECURITY_ROLE,
-                securityRole);
+            this.log.trace("Merged " + count + " security role"
+                + (count != 1 ? "s " : " ") + "into the descriptor");
+        }
+    }
+
+    /**
+     * Merges the environment entries from the provided descriptor into the
+     * original descriptor.
+     * 
+     * @param theWebXml The descriptor that contains the environment entries
+     *        that are to be merged into the original descriptor
+     */
+    protected final void mergeEnvironmentEntries(WebXml theWebXml)
+    {
+        int count = insertElements(theWebXml, WebXmlTag.ENV_ENTRY);
+        if (count > 0)
+        {
+            this.log.trace("Merged " + count + " environment entr"
+                + (count != 1 ? "ies " : "y ") + "into the descriptor");
+        }
+    }
+
+    /**
+     * Merges the EJB references from the provided descriptor into the original
+     * descriptor.
+     * 
+     * @param theWebXml The descriptor that contains the EJB refs that are to be
+     *        merged into the original descriptor
+     */
+    protected final void mergeEjbRefs(WebXml theWebXml)
+    {
+        int count = insertElements(theWebXml, WebXmlTag.EJB_REF);
+        if (count > 0)
+        {
+            this.log.trace("Merged " + count + " EJB reference"
+                + (count != 1 ? "s " : "y ") + "into the descriptor");
+        }
+    }
+
+    /**
+     * Merges the EJB local references from the provided descriptor into the
+     * original descriptor.
+     * 
+     * @param theWebXml The descriptor that contains the EJB local refs that are
+     *        to be merged into the original descriptor
+     */
+    protected final void mergeEjbLocalRefs(WebXml theWebXml)
+    {
+        int count = insertElements(theWebXml, WebXmlTag.EJB_LOCAL_REF);
+        if (count > 0)
+        {
+            this.log.trace("Merged " + count + " EJB local reference"
+                + (count != 1 ? "s " : "y ") + "into the descriptor");
+        }
+    }
+
+    // Private Methods ---------------------------------------------------------
+
+    /**
+     * Insert all elements of the specified tag from the given descriptor into
+     * the original descriptor, and returns the number of elements that were
+     * added.
+     * 
+     * @param theWebXml The descriptor that contains the elements that are to be
+     *        merged into the original descriptor
+     * @param theTag Defines which elements will get merged
+     * @return The number of elements inserted into the original descriptor
+     */
+    private int insertElements(WebXml theWebXml, WebXmlTag theTag)
+    {
+        Iterator elements = theWebXml.getElements(theTag);
+        int count = 0;
+        while (elements.hasNext())
+        {
+            Element element = (Element) elements.next();
+            webXml.addElement(theTag, element);
             count++;
         }
-        this.log.trace("Merged " + count + " security role"
-            + (count != 1 ? "s " : " ") + "into the descriptor");
+        return count;
+    }
+
+    /**
+     * Replaces the element of the specified tag in the original descriptor with
+     * the equivalent element in the specified descriptor.
+     * 
+     * @param theWebXml The descriptor that contains the element that is to be
+     *        added to the original descriptor, replacing the original
+     *        definition
+     * @param theTag Defines which element will get replaced
+     * @return Whether the element was replaced
+     */
+    private boolean replaceElement(WebXml theWebXml, WebXmlTag theTag)
+    {
+        Iterator elements = theWebXml.getElements(theTag);
+        if (elements.hasNext())
+        {
+            webXml.replaceElement(theTag, (Element) elements.next());
+            return true;
+        }
+        return false;
     }
 
 }

@@ -32,6 +32,11 @@
           source descriptor, the initialization parameters are merged.
         </li>
         <li>
+          <emphasis>Resource References and Resource Environment References
+          </emphasis>: Any &lt;resource-ref&gt; or &lt;resource-env-ref&gt;
+          elements get inserted into the resulting descriptor verbatim.
+        </li>
+        <li>
           <emphasis>Security Constraints</emphasis>: Any
           &lt;security-constraint&gt; elements get inserted into the resulting
           descriptor verbatim.
@@ -42,8 +47,16 @@
           source descriptor.
         </li>
         <li>
-          <emphasis>Security Roles</emphasis>: Any
-          &lt;security-role&gt; elements get inserted into the resulting
+          <emphasis>Security Roles</emphasis>: Any &lt;security-role&gt;
+          elements get inserted into the resulting descriptor verbatim.
+        </li>
+        <li>
+          <emphasis>Environment Entries</emphasis>: Any &lt;env-entry&gt;
+          elements get inserted into the resulting descriptor verbatim.
+        </li>
+        <li>
+          <emphasis>EJB References</emphasis>: Any &lt;ejb-ref&gt; or
+          &lt;ejb-local-ref&gt; elements get inserted into the resulting
           descriptor verbatim.
         </li>
       </ul>

@@ -69,7 +69,9 @@ import org.w3c.dom.Document;
 
 /**
  * Unit tests for {@link WebXmlMerger}.
- *
+ * 
+ * TODO: we need more tests for the security sections and the various references
+ * 
  * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
  *
  * @version $Id$
@@ -689,6 +691,36 @@ public final class TestWebXmlMerger extends TestCase
         assertEquals("/s1mapping2", servletMappings.next());
         assertEquals("/s1mapping3", servletMappings.next());
         assertTrue(!servletMappings.hasNext());
+    }
+
+    /**
+     * Tests whether a single EJB reference is correctly inserted into an empty
+     * descriptor.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
+    public void testMergeOneEjbRefIntoEmptyDocument()
+        throws Exception
+    {
+        String srcXml = "<web-app></web-app>";
+        Document srcDoc =
+            builder.parse(new ByteArrayInputStream(srcXml.getBytes()));
+        WebXml srcWebXml = new WebXml(srcDoc);
+        String mergeXml = "<web-app>"
+            + "  <ejb-ref>"
+            + "    <ejb-ref-name>ejbref1</ejb-ref-name>"
+            + "    <ejb-ref-type>ejbref1.type</ejb-ref-type>"
+            + "    <home>ejbref1.homeInterface</home>"
+            + "    <remote>ejbref1.remoteInterface</remote>"
+            + "  </ejb-ref>"
+            + "</web-app>";
+        Document mergeDoc =
+            builder.parse(new ByteArrayInputStream(mergeXml.getBytes()));
+        WebXml mergeWebXml = new WebXml(mergeDoc);
+        WebXmlMerger merger = new WebXmlMerger(srcWebXml);
+        merger.mergeEjbRefs(mergeWebXml);
+        Iterator ejbRefs = srcWebXml.getElements(WebXmlTag.EJB_REF); 
+        assertTrue(ejbRefs.hasNext());
     }
 
 }
