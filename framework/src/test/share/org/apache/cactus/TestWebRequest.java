@@ -198,6 +198,7 @@ public class TestWebRequest extends TestCase
     {
         WebRequest request = new WebRequest();
         request.addHeader("header1", "value1");
+        request.addHeader("header1", "value2");
         request.addParameter("param1", "value1", WebRequest.GET_METHOD);
         request.addParameter("param1", "value1", WebRequest.POST_METHOD);
         request.addCookie("cookie1", "value1");
@@ -214,9 +215,28 @@ public class TestWebRequest extends TestCase
             + "session = [false], cookies = [[name = [cookie1], value = "
             + "[value1], domain = [localhost], path = [null], isSecure = "
             + "[false], comment = [null], expiryDate = [null]]], headers = "
-            + "[[[header1] = [[value1]]]], GET parameters = [[[param3] = "
-            + "[[value3]]][[param2] = [[]]][[param1] = [[value1], [value1]]]], "
-            + "POST parameters = [[[param1] = [[value1]]]]", result);
+            + "[[[header1] = [[value1], [value2]]]], GET parameters = "
+            + "[[[param3] = [[value3]]][[param2] = [[]]][[param1] = [[value1], "
+            + "[value1]]]], POST parameters = [[[param1] = [[value1]]]]",
+            result);
+    }
+
+    /**
+     * Verify that an error in the query string of <code>setURL()</code>
+     * raises an exception.
+     */
+    public void testSetURLBadQueryString()
+    {
+        WebRequest request = new WebRequest();
+
+        try {
+            request.setURL("jakarta.apache.org:80", "/catalog", "/garden",
+                "/implements/", "badquerystring");
+            fail("Failed to recognize invalid query string");
+        } catch (RuntimeException e) {
+            assertEquals("Bad QueryString [badquerystring] NameValue pair: "
+                + "[badquerystring]", e.getMessage());
+        }
     }
 
 }
