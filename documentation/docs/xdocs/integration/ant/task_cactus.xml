@@ -68,10 +68,10 @@
         <strong>junit</strong> task.
       </note>
 
-      <section title="containers">
+      <section title="containerset">
 
         <p>
-          The <strong>containers</strong> element lets you specify which
+          The <strong>containerset</strong> element lets you specify which
           containers the tests should run against. Every element nested inside
           this element corresponds to a container. See below for a list of 
           container elements supported in this element.
@@ -80,7 +80,7 @@
         <section title="Parameters">
 
           <note>
-            The <strong>containers</strong> element supports the following
+            The <strong>containerset</strong> element supports the following
             parameters:
           </note>
 
@@ -123,10 +123,10 @@
     <section title="Supported Containers">
 
       <p>
-        All elements nested in the <strong>containers</strong> element represent
-        specific containers. As all these container element derive from a common
-        base, there are a couple of attribute and nested elements that apply to
-        all.
+        All elements nested in the <strong>containerset</strong> element
+        represent specific containers. As all these container element derive
+        from a common base, there are a couple of attribute and nested elements
+        that apply to all.
       </p>
 
       <section title="Parameters">
@@ -710,14 +710,14 @@
     <pathelement location="${build.classes.dir}"/>
     <pathelement location="${test.classes.dir}"/>
   </classpath>
-  <containers>
+  <containerset>
     <jboss2x dir="${jboss3x.home}" config="default"
         todir="${test.reports.dir}/jboss3x"/>
     <resin2x dir="${resin2x.home}" port="8080"
         todir="${test.reports.dir}/resin2x"/>
     <tomcat4x dir="${tomcat4x.home}" port="8080"
         todir="${test.reports.dir}/tomcat4x"/>
-  </containers>
+  </containerset>
   <formatter type="xml"/>
   <batchtest>
     <fileset dir="${src.test.dir}">
