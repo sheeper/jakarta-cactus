@@ -193,8 +193,7 @@ public class JBoss3xContainer extends AbstractJavaContainer
                     new File(configDir, this.config)));
             java.addSysproperty(
                 createSysProperty("jboss.server.home.url",
-                    "file:/" + configDir.getAbsolutePath() + "/"
-                    + this.config));
+                    new File(configDir, this.config).toURL().toString()));
 
             Path classPath = java.createClasspath();
             classPath.createPathElement().setLocation(
