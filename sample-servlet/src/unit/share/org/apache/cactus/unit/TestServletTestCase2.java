@@ -461,6 +461,7 @@ public class TestServletTestCase2 extends ServletTestCase
         RequestDispatcher rd = config.getServletContext().getNamedDispatcher(
             "TestJsp");
 
+        assertNotNull("Missing configuration for \"TestJsp\" in web.xml", rd);
         rd.forward(request, response);
     }
 
