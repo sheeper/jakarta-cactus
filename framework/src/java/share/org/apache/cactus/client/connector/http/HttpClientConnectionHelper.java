@@ -71,6 +71,7 @@ import org.apache.cactus.configuration.Configuration;
 import org.apache.cactus.util.UrlUtil;
 import org.apache.commons.httpclient.HostConfiguration;
 import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.HttpState;
 import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
@@ -151,14 +152,6 @@ public class HttpClientConnectionHelper extends AbstractConnectionHelper
         // Add the other header fields
         addHeaders(theRequest);
 
-        // Add the cookies
-        String cookieString = getCookieString(theRequest, url);
-
-        if (cookieString != null)
-        {
-            this.method.addRequestHeader("Cookie", cookieString);
-        }
-
         // Add the POST parameters if no user data has been specified (user data
         // overried post parameters)
         if (theRequest.getUserData() != null)
@@ -170,11 +163,16 @@ public class HttpClientConnectionHelper extends AbstractConnectionHelper
             addParametersPost(theRequest);
         }
 
+        // Add the cookies
+        HttpState state = new HttpState();
+        state.addCookies(createHttpClientCookies(theRequest, url));
+
         // Open the connection and get the result
         HttpClient client = new HttpClient();
         HostConfiguration hostConfiguration = new HostConfiguration();
         hostConfiguration.setHost(url.getHost(), url.getPort(),
             Protocol.getProtocol(url.getProtocol()));
+        client.setState(state);
         client.executeMethod(hostConfiguration, this.method);
 
         // Wrap the HttpClient method in a java.net.HttpURLConnection object
