@@ -16,7 +16,6 @@
     <menu-item label="Contributors" source="contributors.xml"/>
     <menu-item label="Contributing" source="contributing.xml"/>
     <menu-item label="License" source="license.xml"/>
-    <menu-item type="hidden" source="logos.xml" />
   </menu>
 
   <menu label="Downloads">
@@ -76,6 +75,7 @@
 
   <menu label="Misc.">
     <menu-item label="Why the name ?" source="cactusname.xml"/>
+    <menu-item label="Logo Challenge" source="logos.xml"/>
     <menu-item label="Resources" source="resources.xml"/>
     <menu-item type="external" label="Stats"
         href="http://jakarta.apache.org/cactus/stats/index.html"/>

@@ -88,25 +88,36 @@
 
       <s2 title="Proposition 4">
 
-          <p>
-            This is a proposition from
-            <link href="mailto:alessandro.ceglia@rcn.com">Alessandro Ceglia</link>
-            .
-          </p>
+        <p>
+          This is a proposition from
+          <link href="mailto:alessandro.ceglia@rcn.com">Alessandro Ceglia</link>
+          .
+        </p>
 
-          <figure src="images/logos/aceglia.jpg" alt="Proposition 4: [unnamed]"/>
+        <figure src="images/logos/aceglia.jpg" alt="Proposition 4: [unnamed]"/>
 
       </s2>
 
       <s2 title="Proposition 5">
 
-          <p>
-            This is a proposition from
-            <link href="mailto:bogglins@yahoo.com">Dimenzio Design Works</link>
-              .
-          </p>
+        <p>
+          This is a proposition from
+          <link href="mailto:bogglins@yahoo.com">Dimenzio Design Works</link>
+          .
+        </p>
 
-          <figure src="images/logos/bogglins.gif" alt="Proposition 5"/>
+        <figure src="images/logos/bogglins.gif" alt="Proposition 5"/>
+
+      </s2>
+
+      <s2 title="Proposition 6">
+
+        <p>
+          This is a proposition from
+          <link href="mailto:Arthur.Jasso@acuity.com">Arthur Jasso</link>.
+        </p>
+
+        <figure src="images/logos/ajasso.gif" alt="Proposition 6"/>
 
       </s2>
 
