@@ -57,6 +57,7 @@
 package org.apache.cactus.eclipse.war;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Vector;
 
 import org.apache.cactus.eclipse.ui.CactusMessages;
@@ -70,6 +71,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IClasspathEntry;
+import org.eclipse.jdt.core.IJavaModelStatusConstants;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaModelException;
 
@@ -134,6 +136,11 @@ public class WarBuilder
      */
     public WarBuilder(IJavaProject theJavaProject) throws JavaModelException
     {
+        IPath projectPath = theJavaProject.getProject().getLocation();
+        IPath classFilesPath =
+            projectPath.removeLastSegments(1).append(
+                theJavaProject.getOutputLocation());
+        userClassFilesDir = classFilesPath.toFile();
         Webapp webapp = new Webapp(theJavaProject.getProject());
         try
         {
@@ -143,22 +150,26 @@ public class WarBuilder
         {
             throw new JavaModelException(e);
         }
-
         war = new File(webapp.getOutput());
         tempDir = new File(webapp.getTempDir());
         jarEntries = webapp.getClasspath();
         // path to the web directory relative to the user's project
         String userWebFilesPath = webapp.getDir();
-        // path to the web.xml file relative to the user's project
-        String userWebXMLPath = userWebFilesPath + "/" + WEBINF + "/" + WEBXML;
-        IPath projectPath = theJavaProject.getProject().getLocation();
-        IPath classFilesPath =
-            projectPath.removeLastSegments(1).append(
-                theJavaProject.getOutputLocation());
-        userClassFilesDir = classFilesPath.toFile();
-        userWebXML = projectPath.append(userWebXMLPath).toFile();
-        // copy any web folder situated in the user's project
-        userWebFilesDir = projectPath.append(userWebFilesPath).toFile();
+        if (userWebFilesPath.equals("") || userWebFilesPath == null)
+        {
+            userWebFilesDir = null;
+            userWebXML = null;
+        }
+        else
+        {
+            // web application folder situated in the user's project
+            userWebFilesDir = projectPath.append(userWebFilesPath).toFile();
+            // path to the web.xml file relative to the user's project
+            String userWebXMLPath =
+                userWebFilesPath + "/" + WEBINF + "/" + WEBXML;
+            userWebXML = projectPath.append(userWebXMLPath).toFile();
+        }
+
     }
 
     /**
@@ -186,7 +197,6 @@ public class WarBuilder
         War warTask = new War();
         warTask.setProject(antProject);
         warTask.setDestFile(war);
-        warTask.setWebxml(userWebXML);
         ZipFileSet classes = new ZipFileSet();
         classes.setDir(userClassFilesDir);
         warTask.addClasses(classes);
@@ -194,16 +204,41 @@ public class WarBuilder
         classes.setDir(userClassFilesDir);
         classes.setIncludes("log4j.properties");
         warTask.addClasses(classes);
+        if (userWebFilesDir != null && userWebFilesDir.exists())
+        {
+            FileSet webFiles = new FileSet();
+            webFiles.setDir(userWebFilesDir);
+            webFiles.setExcludes(WEBINF);
+            warTask.addFileset(webFiles);
+        }
+        if (userWebXML != null && userWebXML.exists())
+        {
+            warTask.setWebxml(userWebXML);
+        }
+        else
+        {
+            // Without a webxml attribute the Ant war task
+            // requires the update attribute set to true
+            // That's why we actually need an existing war file. 
+            war.delete();
+            try
+            {
+                war.createNewFile();
+            }
+            catch (IOException e)
+            {
+                throw new JavaModelException(
+                    e,
+                    IJavaModelStatusConstants.IO_EXCEPTION);
+            }
+            warTask.setUpdate(true);
+        }
         ZipFileSet lib = new ZipFileSet();
         lib.setDir(tempJarsDir);
         warTask.addLib(lib);
-        FileSet webFiles = new FileSet();
-        webFiles.setDir(userWebFilesDir);
-        webFiles.setExcludes(WEBINF);
-        warTask.addFileset(webFiles);
         warTask.execute();
-        thePM.worked(2);
         delete(tempJarsDir);
+        thePM.worked(2);
         return war;
     }
 
