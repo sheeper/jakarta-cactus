@@ -362,8 +362,11 @@ public class TestSampleServlet extends ServletTestCase
      * client side.
      *
      * @param theResponse the response from the server side.
+     *
+     * @exception Exception for backward compatibility with JDK 1.2.2 (not
+     *            needed for JDK 1.3+, but needed for URLDecoder.decode())
      */
-    public void endReceiveCookie(WebResponse theResponse)
+    public void endReceiveCookie(WebResponse theResponse) throws Exception
     {
         Cookie cookie = theResponse.getCookie("responsecookie");
 
@@ -384,9 +387,10 @@ public class TestSampleServlet extends ServletTestCase
 
     /**
      * Verify that we can use a <code>RequestDispatcher</code> in the class to
-     * test and compare the result sent to the output stream on the client side.
+     * test to forward to another page and compare the result sent to the 
+     * output stream on the client side.
      */
-    public void testRequestDispatcher() throws Exception
+    public void testRequestDispatcherForward() throws Exception
     {
         SampleServlet servlet = new SampleServlet();
         servlet.doForward(request, response, config);
@@ -394,14 +398,46 @@ public class TestSampleServlet extends ServletTestCase
 
     /**
      * Verify that we can use a <code>RequestDispatcher</code> in the class to
-     * test and compare the result sent to the output stream on the client side.
+     * test to forward to another page and compare the result sent to the 
+     * output stream on the client side.
      *
      * @param theResponse the response from the server side.
      */
-    public void endRequestDispatcher(WebResponse theResponse)
+    public void endRequestDispatcherForward(WebResponse theResponse)
         throws IOException
     {
         // We cannot test what is exactly returned by the called JSP between
+        // different Servlet engine return different text ! For example some
+        // return the JSP comment, other do not, ...
+        // Thus, we only test for a match of "Hello !"
+        assert("Text missing 'Hello !' : [" + theResponse.getText() + "]",
+            theResponse.getText().indexOf("Hello !") > 0);
+    }
+
+    //-------------------------------------------------------------------------
+
+    /**
+     * Verify that we can use a <code>RequestDispatcher</code> in the class to
+     * test to include another page and compare the result sent to the 
+     * output stream on the client side.
+     */
+    public void testRequestDispatcherInclude() throws Exception
+    {
+        SampleServlet servlet = new SampleServlet();
+        servlet.doInclude(request, response, config);
+    }
+
+    /**
+     * Verify that we can use a <code>RequestDispatcher</code> in the class to
+     * test to include another page and compare the result sent to the 
+     * output stream on the client side.
+     *
+     * @param theResponse the response from the server side.
+     */
+    public void endRequestDispatcherInclude(WebResponse theResponse)
+        throws IOException
+    {
+        // We cannot test what is exactly returned by the included JSP between
         // different Servlet engine return different text ! For example some
         // return the JSP comment, other do not, ...
         // Thus, we only test for a match of "Hello !"
