@@ -434,7 +434,7 @@ public class BaseWebRequest implements Request
     {
         if (theCookie == null)
         {
-            throw new IllegalStateException("The cookie cannot be null");           
+            throw new IllegalStateException("The cookie cannot be null");
         }
         this.cookies.addElement(theCookie);
     }
