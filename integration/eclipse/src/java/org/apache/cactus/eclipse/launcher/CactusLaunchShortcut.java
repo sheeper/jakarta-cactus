@@ -92,7 +92,10 @@ public class CactusLaunchShortcut
     extends JUnitLaunchShortcut
     implements ITestRunListener
 {
-
+    /**
+     * Indicates whether we already went through the launch cycle.
+     */
+    private boolean launchEnded;
     /**
      * Reference to the War file so that we can delete it on tearDown()
      */
@@ -166,18 +169,20 @@ public class CactusLaunchShortcut
                 CactusMessages.getString("CactusLaunch.message.notests"),
                 null);
         }
-        else if (types.length > 1)
-        {
-            type = chooseType(types, theMode);
-        }
         else
-        {
-            type = types[0];
-        }
+            if (types.length > 1)
+            {
+                type = chooseType(types, theMode);
+            }
+            else
+            {
+                type = types[0];
+            }
         if (type != null)
         {
+            launchEnded = false;
             // Register the instance of CactusLaunchShortcut to the JUnitPlugin
-            // for TestRun end notification.
+            // for TestRunEnd notification.            
             JUnitPlugin.getDefault().addTestRunListener(this);
             this.search = theSearch;
             this.mode = theMode;
@@ -363,6 +368,12 @@ public class CactusLaunchShortcut
      */
     public void testRunEnded(long theElapsedTime)
     {
+        // If we already finished the launch (i.e. we already went here)
+        // we do nothing. 
+        if (launchEnded)
+        {
+            return;
+        }
         CactusPlugin.log("Test run ended");
         final IRunnableWithProgress runnable = new IRunnableWithProgress()
         {
@@ -412,6 +423,7 @@ public class CactusLaunchShortcut
             }
 
         });
+        launchEnded = true;
     }
 
     /**
