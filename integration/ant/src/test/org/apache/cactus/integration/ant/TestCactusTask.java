@@ -133,6 +133,26 @@ public final class TestCactusTask extends AntTestCase
     }
 
     /**
+     * Verifies that the task throws an exception when the warfile attribute 
+     * is set to a web-app archive that has not been cactified.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
+    public void testWarFileNotCactified() throws Exception
+    {
+        try
+        {
+            executeTestTarget();
+            fail("Expected BuildException");
+        }
+        catch (BuildException expected)
+        {
+            assertEquals("The WAR has not been cactified",
+                expected.getMessage());
+        }
+    }
+
+    /**
      * Verifies that the task throws an exception when the earfile attribute 
      * is set to an empty enterprise application archive.
      * 
