@@ -38,9 +38,14 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <id>junit</id>
       <version>3.8.1</version>
       <url>http://junit.org</url>
+    </dependency>
+    <dependency>
+      <groupId>mockobjects</groupId>
+      <artifactId>mockobjects-core</artifactId>
+      <version>0.09</version>
+      <url>http://www.mockobjects.com</url>
     </dependency>
     <dependency>
       <groupId>httpunit</groupId>
