@@ -56,11 +56,22 @@
  */
 package org.apache.cactus.integration.ant;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import org.apache.tools.ant.BuildException;
+import org.apache.tools.ant.Project;
 import org.apache.tools.ant.Task;
+import org.apache.tools.ant.TaskContainer;
 import org.apache.tools.ant.taskdefs.CallTarget;
 
 /**
@@ -68,9 +79,9 @@ import org.apache.tools.ant.taskdefs.CallTarget;
  * syntax when used in Ant :
  * <code><pre>
  *   &lt;runservertests testURL="&t;url&gt;"
- *          startTarget="&lt;start target name&gt;"
- *          stopTarget="&lt;stop target name&gt;"
- *          testTarget="&lt;test target name&gt;"/>
+ *          starttarget="&lt;start target name&gt;"
+ *          stoptarget="&lt;stop target name&gt;"
+ *          testtarget="&lt;test target name&gt;"/>
  * </pre></code>
  * where <code>&lt;url&gt;</code> is the URL that is used by this task to
  * ensure that the server is running. Indeed, the algorithm is as follow :
@@ -92,122 +103,299 @@ import org.apache.tools.ant.taskdefs.CallTarget;
  */
 public class RunServerTestsTask extends Task
 {
-    /**
-     * the test target name.
-     */
-    private String testTarget;
+
+    // Inner Classes -----------------------------------------------------------
 
     /**
-     * the fully qualified name of the test task.
+     * Class that represents the nested 'startup' and 'shutdown' elements. It
+     * supports either an Ant target to delegate to, or a list of nested tasks
+     * that are to be executed in order to perform the operation. 
+     */
+    public class Hook implements TaskContainer
+    {
+        
+        // Instance Variables --------------------------------------------------
+        
+        /**
+         * The target to call when the hook is executed. 
+         */
+        private String target;
+
+        /**
+         * Ordered list of the contained tasks that should be invoked when the
+         * hook is executed.
+         */
+        private List tasks = new ArrayList();
+
+        // Public Methods ------------------------------------------------------
+        
+        /**
+         * Sets the target to call.
+         * 
+         * @param theTarget The name of the target
+         */
+        public void setTarget(String theTarget)
+        {
+            if (!this.tasks.isEmpty())
+            {
+                throw new BuildException("This element supports either "
+                    + "a [target] attribute or nested tasks, but not both");
+            }
+            this.target = theTarget;
+        }
+
+        /**
+         * @see org.apache.tools.ant.TaskContainer#addTask
+         */
+        public void addTask(Task theTask) throws BuildException
+        {
+            if (this.target != null)
+            {
+                throw new BuildException("This element supports either "
+                    + "a [target] attribute or nested tasks, but not both");
+            }
+            this.tasks.add(theTask);
+        }
+
+        /**
+         * Executes the hook by either calling the specified target, or invoking
+         * all nested tasks.
+         * 
+         * @throws BuildException If thrown by the called target or one of the
+         *         nested tasks
+         */
+        public void execute() throws BuildException
+        {
+            if (this.target != null)
+            {
+                CallTarget callee;
+                callee = (CallTarget) project.createTask("antcall");
+                callee.setOwningTarget(getOwningTarget());
+                callee.setTaskName(getTaskName());
+                callee.setLocation(location);
+                callee.setInheritAll(true);
+                callee.setInheritRefs(true);
+                callee.init();
+                callee.setTarget(this.target);
+                callee.execute();
+            }
+            else
+            {
+                for (Iterator i = this.tasks.iterator(); i.hasNext();)
+                {
+                    Task task = (Task) i.next();
+                    task.perform();
+                }
+            }
+        }
+
+    }
+
+    // Instance Variables ------------------------------------------------------
+
+    /**
+     * The hook that is called when the tests should be run.
+     */
+    private Hook testHook;
+
+    /**
+     * The fully qualified name of the test task.
+     * 
+     * TODO: remove this when the hook-based approach is verified
      */
     private String testTask;
 
     /**
-     * The helper object used to start the server. We use a helper so that it
-     * can also be reused in the <code>StartServerTask</code> task. Indeed,
-     * with Ant 1.3 and before there are classloaders issues with calling a
-     * custom task from another custom task. Using a helper is a workaround.
+     * The hook that is called when the container should be started.
      */
-    private StartServerHelper startHelper;
+    private Hook startHook;
 
     /**
-     * The helper object used to stop the server. We use a helper so that it
-     * can also be reused in the <code>StopServerTask</code> task. Indeed,
-     * with Ant 1.3 and before there are classloaders issues with calling a
-     * custom task from another custom task. Using a helper is a workaround.
+     * The hook that is called when the container should be stopped.
      */
-    private StopServerHelper stopHelper;
+    private Hook stopHook;
 
     /**
-     * Initialize the task.
+     * The URL that is continuously pinged to verify if the server is running.
      */
-    public void init()
-    {
-        this.startHelper = new StartServerHelper(this);
-        this.stopHelper = new StopServerHelper(this);
-    }
+    private URL testURL;
+
+    /**
+     * True if the server was already started when this task is executed.
+     */
+    private boolean isServerAlreadyStarted = false;
+
+    /**
+     * Timeout after which we stop trying to connect to the test URL (in ms).
+     */
+    private long timeout = 180000;
+    
+    // Task Implementation -----------------------------------------------------
 
     /**
      * @see Task#execute()
      */
     public void execute() throws BuildException
     {
+        // Verify that a test URL has been specified
+        if (this.testURL == null)
+        {
+            throw new BuildException("A testURL attribute must be specified");
+        }
+
         try
         {
-            callStart();
-            callTestTaskOrTarget();
+            startServer();
+            runTests();
         }
         finally
         {
             // Make sure we stop the server but only if it were not already
             // started before the execution of this task.
-            if (!this.startHelper.isServerAlreadyStarted())
+            if (!this.isServerAlreadyStarted)
             {
-                callStop();
+                stopServer();
             }
         }
     }
 
+    // Public Methods ----------------------------------------------------------
+
     /**
-     * Call the test task or test target.
+     * Creates a nested start element.
      * 
-     * @throws BuildException If neither a test target nor a test task has been
-     *         specified
+     * @return The start element
      */
-    private void callTestTaskOrTarget() throws BuildException
+    public Hook createStart()
     {
-        if (testTarget != null)
+        if (this.startHook != null)
         {
-            callTestTarget();
+            throw new BuildException("Either specify the [starttarget] "
+                + "attribute or the nested [start] element, but not both");
         }
-        else
-            if (testTask != null)
-            {
-                callTestTask();
-            }
-            else
-            {
-                throw new BuildException(
-                    "Either [testtarget] or [testtask] attribute required");
-            }
+        this.startHook = new Hook();
+        return this.startHook;
     }
 
     /**
-     * Call the start server task
+     * Sets the target to call to start the server.
+     *
+     * @param theStartTarget the Ant target to call
      */
-    private void callStart()
+    public void setStartTarget(String theStartTarget)
     {
-        this.startHelper.execute();
+        if (this.startHook != null)
+        {
+            throw new BuildException("Either specify the [starttarget] "
+                + "attribute or the nested [start] element, but not both");
+        }
+        this.startHook = new Hook();
+        this.startHook.setTarget(theStartTarget);
     }
 
     /**
-     * Call the stop server task
+     * Creates a nested stop element.
+     * 
+     * @return The stop element
      */
-    private void callStop()
+    public Hook createStop()
     {
-        this.stopHelper.execute();
+        if (this.stopHook != null)
+        {
+            throw new BuildException("Either specify the [stoptarget] "
+                + "attribute or the nested [stop] element, but not both");
+        }
+        this.stopHook = new Hook();
+        return this.stopHook;
     }
 
     /**
-     * Call the run tests target
+     * Sets the target to call to stop the server.
+     *
+     * @param theStopTarget the Ant target to call
      */
-    private void callTestTarget()
+    public void setStopTarget(String theStopTarget)
     {
-        CallTarget callee;
-
-        callee = (CallTarget) project.createTask("antcall");
-        callee.setOwningTarget(target);
-        callee.setTaskName(getTaskName());
-        callee.setLocation(location);
-        callee.setInheritAll(true);
-        callee.setInheritRefs(true);
-        callee.init();
-        callee.setTarget(this.testTarget);
-        callee.execute();
+        if (this.stopHook != null)
+        {
+            throw new BuildException("Either specify the [stoptarget] "
+                + "attribute or the nested [stop] element, but not both");
+        }
+        this.stopHook = new Hook();
+        this.stopHook.setTarget(theStopTarget);
     }
+
+    /**
+     * Creates a nested test element.
+     * 
+     * @return The test element
+     */
+    public Hook createTest()
+    {
+        if (this.testHook != null)
+        {
+            throw new BuildException("Either specify the [testtarget] "
+                + "attribute or the nested [test] element, but not both");
+        }
+        this.testHook = new Hook();
+        return this.testHook;
+    }
+
+    /**
+     * Sets the target to call to run the tests.
+     *
+     * @param theTestTarget the Ant target to call
+     */
+    public void setTestTarget(String theTestTarget)
+    {
+        if (this.testHook != null)
+        {
+            throw new BuildException("Eitehr specify the [testtarget] "
+                + "attribute or the nested [test] element, but not both");
+        }
+        this.testHook = new Hook();
+        this.testHook.setTarget(theTestTarget);
+    }
+
+    /**
+     * Sets the URL to call for testing if the server is running.
+     *
+     * @param theTestURL the test URL to ping
+     */
+    public void setTestURL(URL theTestURL)
+    {
+        if (!theTestURL.getProtocol().equals("http"))
+        {
+            throw new IllegalArgumentException("Not a HTTP URL");
+        } 
+        this.testURL = theTestURL;
+    }
+
+    /**
+     * Sets the target to call to run the tests.
+     *
+     * @param theTestTask the Ant task to call
+     */
+    public void setTestTask(String theTestTask)
+    {
+        this.testTask = theTestTask;
+    }
+
+    /**
+     * @param theTimeout the timeout after which we stop trying to call the test
+     *        URL.
+     */
+    public void setTimeout(long theTimeout)
+    {
+        this.timeout = theTimeout;
+    }
+
+    // Private Methods ---------------------------------------------------------
 
     /**
      * Calls the run tests task.
+     * 
+     * TODO: remove this when the hook-based approach is verified
      * 
      * @throws BuildException If an error occurred calling the test task
      */
@@ -259,63 +447,204 @@ public class RunServerTestsTask extends Task
     }
 
     /**
-     * Sets the target to call to start the server.
-     *
-     * @param theStartTarget the Ant target to call
+     * @return true if the test URL could be called without error or false
+     *         otherwise
      */
-    public void setStartTarget(String theStartTarget)
+    private boolean isURLCallable()
     {
-        this.startHelper.setStartTarget(theStartTarget);
+        boolean isURLCallable = false;
+
+        try
+        {
+            HttpURLConnection connection = 
+                (HttpURLConnection) this.testURL.openConnection();
+
+            connection.connect();
+            readFully(connection);
+            connection.disconnect();
+            isURLCallable = true;
+        }
+        catch (IOException e)
+        {
+            // Log an information in debug mode
+            // Get stacktrace text
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            PrintWriter writer = new PrintWriter(baos);
+
+            e.printStackTrace(writer);
+            writer.close();
+
+            this.log("Failed to call test URL. Reason :"
+                + new String(baos.toByteArray()), Project.MSG_DEBUG);
+        }
+
+        return isURLCallable;
     }
 
     /**
-     * Sets the target to call to stop the server.
+     * Fully reads the input stream from the passed HTTP URL connection to
+     * prevent (harmless) server-side exception.
      *
-     * @param theStopTarget the Ant target to call
+     * @param theConnection the HTTP URL connection to read from
+     * @exception IOException if an error happens during the read
      */
-    public void setStopTarget(String theStopTarget)
+    private void readFully(HttpURLConnection theConnection)
+                   throws IOException
     {
-        this.stopHelper.setStopTarget(theStopTarget);
+        // Only read if there is data to read ... The problem is that not
+        // all servers return a content-length header. If there is no header
+        // getContentLength() returns -1. It seems to work and it seems
+        // that all servers that return no content-length header also do
+        // not block on read() operations !
+        if (theConnection.getContentLength() != 0)
+        {
+            byte[] buf = new byte[256];
+
+            InputStream is = theConnection.getInputStream();
+
+            while (-1 != is.read(buf))
+            {
+                // Make sure we read all the data in the stream
+            }
+        }
     }
 
     /**
-     * Sets the URL to call for testing if the server is running.
+     * Sleeps n milliseconds.
      *
-     * @param theTestURL the test URL to ping
+     * @param theMs the number of milliseconds to wait
+     * @throws BuildException if the sleeping thread is interrupted
      */
-    public void setTestURL(String theTestURL)
+    private void sleep(int theMs) throws BuildException
     {
-        this.startHelper.setTestURL(theTestURL);
-        this.stopHelper.setTestURL(theTestURL);
+        try
+        {
+            Thread.sleep(theMs);
+        }
+        catch (InterruptedException e)
+        {
+            throw new BuildException("Interruption during sleep", e);
+        }
     }
 
     /**
-     * Sets the target to call to run the tests.
+     * Starts the server in another thread and blocks until the test URL becomes
+     * available. 
      *
-     * @param theTestTarget the Ant target to call
+     * @throws BuildException If an error occurs during startup
      */
-    public void setTestTarget(String theTestTarget)
+    private void startServer() throws BuildException
     {
-        this.testTarget = theTestTarget;
+        // Try connecting in case the server is already running. If so, does
+        // nothing
+        if (isURLCallable())
+        {
+            // Server is already running. Record this information so that we
+            // don't stop it afterwards.
+            this.isServerAlreadyStarted = true;
+            log("Server is already running", Project.MSG_VERBOSE);
+            return;
+        }
+        else
+        {
+            log("Server is not running", Project.MSG_DEBUG);
+        }
+
+        // Call the target that starts the server, in another thread. The called
+        // target must be blocking.
+        Thread thread = new Thread()
+        {
+            public void run()
+            {
+                if (startHook != null)
+                {
+                    startHook.execute();
+                }
+            }
+        };
+        thread.start();
+
+        // Wait a few ms more (just to make sure the servlet engine is
+        // ready to accept connections)
+        sleep(1000);
+
+        // Continuously try calling the test URL until it succeeds or
+        // until a timeout is reached (we then throw a build exception).
+        long startTime = System.currentTimeMillis();
+        while (true)
+        {
+            if (System.currentTimeMillis() - startTime > this.timeout)
+            {
+                throw new BuildException("Failed to start the container after "
+                    + "more than [" + this.timeout + "] ms.");
+            }
+            log("Checking if server is up ...", Project.MSG_DEBUG);
+            if (!isURLCallable())
+            {
+                sleep(500);
+                continue;
+            }
+            break;
+        }
+
+        // Wait a few ms more (just to be sure !)
+        sleep(500);
+        log("Server started", Project.MSG_VERBOSE);
     }
 
     /**
-     * Sets the target to call to run the tests.
-     *
-     * @param theTestTask the Ant task to call
+     * Runs the tests by executing the test hook.
+     * 
+     * @throws BuildException If an error occurs executing the test hook
      */
-    public void setTestTask(String theTestTask)
+    private void runTests() throws BuildException
     {
-        this.testTask = theTestTask;
+        if (this.testTask != null)
+        {
+            // TODO: remove this when the hook-based approach is verified
+            callTestTask();
+        }
+        else
+        {
+            this.testHook.execute();
+        }
     }
 
     /**
-     * @param theTimeout the timeout after which we stop trying to call the test
-     *        URL.
+     * Stops the server in another thread and blocks until the server stops
+     * responding to HTTP requests.
+     *
+     * @throws BuildException If an error occurs during shutdown
      */
-    public void setTimeout(long theTimeout)
+    private void stopServer() throws BuildException
     {
-        this.startHelper.setTimeout(theTimeout);
+        if (!isURLCallable())
+        {
+            // Server is not running. Make this task a no-op.
+            return;
+        }
+
+        // Call the target that stops the server, in another thread.
+        Thread thread = new Thread()
+        {
+            public void run()
+            {
+                if (stopHook != null)
+                {
+                    stopHook.execute();
+                }
+            }
+        };
+        thread.start();
+
+        // Continuously try calling the test URL until it fails
+        do
+        {
+            sleep(500);
+        } while (isURLCallable());
+
+        sleep(1000);
+        log("Server stopped!", Project.MSG_VERBOSE);
     }
 
 }
