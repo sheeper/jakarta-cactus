@@ -7,7 +7,9 @@
 
 <!-- TODOS:
      - finish removing all style references and put them in the CSS. Only use
-       CSS features that are standard across browsers (it is possible?). VMA
+       CSS features that are standard across browsers (it is possible?).
+     - modify <figure> to support site: and ext: notations
+     - add warnings for external <link> not using ext:
 -->
 
 <xsl:stylesheet version="1.0"
@@ -702,7 +704,7 @@
         <xsl:value-of select="@href"/>
       </xsl:when>
       <xsl:otherwise>
-        <xsl:message>
+        <xsl:message terminate="yes">
           <xsl:text>Bad site id: [</xsl:text>
           <xsl:value-of select="@href"/>
           <xsl:text>]</xsl:text>

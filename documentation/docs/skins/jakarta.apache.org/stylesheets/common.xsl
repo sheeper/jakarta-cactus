@@ -51,7 +51,7 @@
     <xsl:param name="id"/>
     <!-- Issue a warning if the id is invalid -->
     <xsl:if test="not($sitemap/resource[@id=$id])">
-      <xsl:message>
+      <xsl:message terminate="yes">
         <xsl:text>Id [</xsl:text>
         <xsl:text>] has no reference in sitemap.xml</xsl:text>
         (<xsl:value-of select="$sitemap"/>)
