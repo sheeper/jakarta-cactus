@@ -1,0 +1,22 @@
+The Cactus project is pleased to announce the release of version 1.5.
+Cactus is a unit testing framework for testing server side java code.
+
+Please check the Changes page (http://jakarta.apache.org/cactus/changes.html)
+for a full list of the changes in version 1.5. 
+
+Known limitations or not fixed bugs:
+
+* Support for WebLogic 6.x and 7.x has not been tested.
+* [Bug 21484] ClassCastException when casting WebAppRequestDispatcher  
+* [Bug 21237] CactifyWarTask duplicates init-param lines in existing web.xml 
+  servlet tag  
+* [Bug 17933] FormAuthentication assumes "localhost" when adding cookies  
+
+Existing users of Cactus 1.4.1 can also check the Migration page
+(http://jakarta.apache.org/cactus/howto_migration.html) which explains how to
+migrate from the previous vesion to this new version.
+
+For more information about Cactus, please visit
+http://jakarta.apache.org/cactus/.
+
+-The Cactus team
