@@ -11,7 +11,7 @@
       <action dev="vmassol" type="add">
         Added support for Resin 3.x (above version 3.0.5).
       </action>
-      <action dev="vmassol" type="add" issue="25983" due-to="snicoll@kiala.com" due-to-email="Stephane Nicoll">
+      <action dev="vmassol" type="add" issue="25983" due-to="Stephane Nicoll" due-to-email="snicoll@kiala.com">
         Added support for custom ports when using JBoss. Please note that this
         will only work with custom JBoss configs. The default config used by
         Cactus uses port 8080 (that's the default JBoss config).
