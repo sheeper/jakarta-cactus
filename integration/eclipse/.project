@@ -22,6 +22,7 @@
 		<project>org.eclipse.ui</project>
 		<project>org.eclipse.ui.externaltools</project>
 		<project>org.eclipse.ui.win32</project>
+		<project>webapp</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

@@ -54,105 +54,66 @@
  * <http://www.apache.org/>.
  *
  */
-package org.apache.cactus.eclipse.war.ui;
+package org.apache.cactus.eclipse.runner.containers.ant;
 
-import org.apache.cactus.eclipse.war.Webapp;
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IAdaptable;
-import org.eclipse.jdt.core.IJavaProject;
-import org.eclipse.jdt.core.JavaCore;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Control;
-import org.eclipse.ui.dialogs.PropertyPage;
+import org.apache.cactus.eclipse.runner.launcher.CactusLaunchShortcut;
+import org.apache.cactus.eclipse.runner.ui.CactusPlugin;
+import org.apache.tools.ant.Task;
+import org.eclipse.swt.widgets.Display;
 
 /**
- * Property page for the web application.
- * It is displayed in project's property pages.
- * 
+ * This Ant task is used for running tests between container startup and
+ * shutdown.
+ *
  * @author <a href="mailto:jruaux@octo.com">Julien Ruaux</a>
+ *
  * @version $Id$
  */
-public class WebAppPropertyPage extends PropertyPage
+
+public class EclipseRunTests extends Task implements Runnable
 {
     /**
-     * The only UI block for this property page. 
+     * Indicates that tests are finished, meaning that the task can terminate.
      */
-    private WebAppConfigurationBlock webAppConfigurationBlock;
-
+    private boolean isFinished = false;
     /**
-     * The webapp object that is loaded or persisted. 
+     * Launches the Junit tests in Eclipse
      */
-    private Webapp webapp;
-
-    /**
-     * @see org.eclipse.jface.preference.PreferencePage#createContents(
-     *     org.eclipse.swt.widgets.Composite)
-     */
-    protected Control createContents(Composite theParent)
+    public void execute()
     {
-        IJavaProject javaProject = JavaCore.create(getProject());
-        webapp = new Webapp(getProject());
-        boolean loadedDefaults = webapp.init();
-        if (loadedDefaults)
+        Display.getDefault().asyncExec(this);
+        while (!isFinished)
         {
-            // Status line indicating we loaded the defaults 
+            try
+            {
+                Thread.sleep(100);
+            }
+            catch (InterruptedException e)
+            {
+                // Do nothing
+            }
         }
-        webAppConfigurationBlock =
-            new WebAppConfigurationBlock(
-                getShell(),
-                javaProject,
-                webapp.getOutput(),
-                webapp.getDir(),
-                webapp.getTempDir(),
-                webapp.getClasspath());
-        return webAppConfigurationBlock.createContents(theParent);
     }
 
     /**
-     * @see org.eclipse.jface.preference.PreferencePage#performOk()
+     * This method notifies the instance that tests are finished and that
+     * it can terminate.
      */
-    public boolean performOk()
+    public void finish()
     {
-        webapp.setOutput(webAppConfigurationBlock.getOutput());
-        webapp.setDir(webAppConfigurationBlock.getWebappDir());
-        webapp.setTempDir(webAppConfigurationBlock.getTempDir());
-        webapp.setClasspath(webAppConfigurationBlock.getWebappClasspath());
-        try
-        {
-            webapp.persist();
-        }
-        catch (CoreException e)
-        {
-            //TODO: update status line
-            return false;
-        }
-        return true;
+        isFinished = true;
     }
 
     /**
-     * @see org.eclipse.jface.preference.PreferencePage#performDefaults()
+     * Launches Cactus tests.
      */
-    public void performDefaults()
+    public void run()
     {
-        super.performDefaults();
-        webapp.loadDefaultValues();
-        webAppConfigurationBlock.update(
-            webapp.getOutput(),
-            webapp.getDir(),
-            webapp.getTempDir(),
-            webapp.getClasspath());
-        webAppConfigurationBlock.refresh();
-    }
-
-    /**
-     * Returns the project on which this property page has been called.
-     * @return the current project
-     */
-    private IProject getProject()
-    {
-        IAdaptable adaptable = getElement();
-        IProject elem = (IProject) adaptable.getAdapter(IProject.class);
-        return elem;
+        CactusLaunchShortcut launchShortcut =
+            CactusPlugin.getDefault().getCactusLaunchShortcut();
+        GenericAntProvider antProvider =
+            (GenericAntProvider) launchShortcut.getContainerProvider();
+        antProvider.setEclipseRunner(this);
+        launchShortcut.launchJunitTests();
     }
 }

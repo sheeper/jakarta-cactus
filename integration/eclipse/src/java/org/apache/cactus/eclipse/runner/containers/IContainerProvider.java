@@ -54,82 +54,65 @@
  * <http://www.apache.org/>.
  *
  */
-package org.apache.cactus.eclipse.ui;
+package org.apache.cactus.eclipse.runner.containers;
 
-import java.text.MessageFormat;
-import java.util.MissingResourceException;
-import java.util.ResourceBundle;
+import java.net.URL;
+
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
 
 /**
- * Helper class to format text messages from the Cactus property resource 
- * bundle.
+ * Interface for container configuration and startup.
+ * 
+ * @author <a href="mailto:jruaux@octo.com">Julien Ruaux</a>
  * 
  * @version $Id$
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  */
-public class CactusMessages
+public interface IContainerProvider
 {
     /**
-     * Name and location of property resource bundle on disk.
+     * Starts the container.
+     * @param theContainerInfo detail of the container configuration
+     * @param thePM the monitor that reflects progress made while starting
+     * @throws CoreException when starting fails
      */
-    private static final String BUNDLE_NAME = 
-        "org.apache.cactus.eclipse.ui.CactusMessages";
+    void start(ContainerInfo theContainerInfo, IProgressMonitor thePM)
+        throws CoreException;
 
     /**
-     * The resource bundle object were Cactus messages are stored.
+     * Deploy a webapp to the container.
+     * @param theContextPath path to the webapp (for example "test")
+     * @param theDeployableObject war file to be deployed
+     * @param theCredentials credentials for deployment (user:pwd)
+     * @param thePM the monitor that reflects progress made while deploying
+     * @throws CoreException when deployment fails 
      */
-    private static final ResourceBundle RESOURCE_BUNDLE = 
-        ResourceBundle.getBundle(BUNDLE_NAME);
+    void deploy(
+        String theContextPath,
+        URL theDeployableObject,
+        Credential theCredentials,
+        IProgressMonitor thePM)
+        throws CoreException;
 
     /**
-     * Prevent this class from being instantiated. It containes only static
-     * methods.
+     * UnDeploy a webapp to the container.
+     * @param theContextPath path to the webapp
+     * @param theCredentials credentials for undeployment (user:pwd)
+     * @param thePM the monitor that reflects progress made while undeploying
+     * @throws CoreException when undeployment fails
      */
-    private CactusMessages()
-    {
-    }
+    void undeploy(
+        String theContextPath,
+        Credential theCredentials,
+        IProgressMonitor thePM)
+        throws CoreException;
 
     /**
-     * Gets a string from the resource bundle and formats it with one argument.
-     * 
-     * @param theKey the string used to get the bundle value, must not be null
-     * @param theArg the object to use when constructing the message
-     * @return the formatted string
+     * Stops the container.
+     * @param theContainerInfo detail of the container configuration
+     * @param thePM the monitor that reflects progress made while stopping
+     * @throws CoreException when stopping fails
      */
-    public static String getFormattedString(String theKey, Object theArg)
-    {
-        return MessageFormat.format(getString(theKey), 
-            new Object[] { theArg });
-    }
-
-    /**
-     * Gets a string from the resource bundle and formats it with arguments.
-     * 
-     * @param theKey the string used to get the bundle value, must not be null
-     * @param theArgs the objects to use when constructing the message
-     * @return the formatted string
-     */
-    public static String getFormattedString(String theKey, Object[] theArgs)
-    {
-        return MessageFormat.format(getString(theKey), theArgs);
-    }
-
-    /**
-     * Gets an unformatted string from the resource bundle.
-     * 
-     * @param theKey the string used to get the bundle value, must not be null
-     * @return the string from the resource bundle or "![key name]!" if the key
-     *         does not exist in the resource bundle
-     */
-    public static String getString(String theKey)
-    {
-        try
-        {
-            return RESOURCE_BUNDLE.getString(theKey);
-        } 
-        catch (MissingResourceException e)
-        {
-            return '!' + theKey + '!';
-        }
-    }
+    void stop(ContainerInfo theContainerInfo, IProgressMonitor thePM)
+        throws CoreException;
 }

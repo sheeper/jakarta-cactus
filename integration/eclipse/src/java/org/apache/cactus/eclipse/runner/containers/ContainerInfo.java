@@ -54,65 +54,50 @@
  * <http://www.apache.org/>.
  *
  */
-package org.apache.cactus.eclipse.containers;
+package org.apache.cactus.eclipse.runner.containers;
 
 import java.net.URL;
 
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IProgressMonitor;
-
 /**
- * Interface for container configuration and startup.
+ * Configuration information for containers. It contains all information needed
+ * for container start and stop actions.
  * 
  * @author <a href="mailto:jruaux@octo.com">Julien Ruaux</a>
  * 
  * @version $Id$
  */
-public interface IContainerProvider
+public class ContainerInfo
 {
     /**
-     * Starts the container.
-     * @param theContainerInfo detail of the container configuration
-     * @param thePM the monitor that reflects progress made while starting
-     * @throws CoreException when starting fails
+     * @return the URL for the web application context under which the
+     *         cactus test is running. Example: http://localhost:8080/test.
      */
-    void start(ContainerInfo theContainerInfo, IProgressMonitor thePM)
-        throws CoreException;
+    private URL contextURL;
 
     /**
-     * Deploy a webapp to the container.
-     * @param theContextPath path to the webapp (for example "test")
-     * @param theDeployableObject war file to be deployed
-     * @param theCredentials credentials for deployment (user:pwd)
-     * @param thePM the monitor that reflects progress made while deploying
-     * @throws CoreException when deployment fails 
+     * Constructor.
+     * @param theURL the URL related to this container info
      */
-    void deploy(
-        String theContextPath,
-        URL theDeployableObject,
-        Credential theCredentials,
-        IProgressMonitor thePM)
-        throws CoreException;
+    ContainerInfo(URL theURL)
+    {
+        contextURL = theURL;
+    }
 
     /**
-     * UnDeploy a webapp to the container.
-     * @param theContextPath path to the webapp
-     * @param theCredentials credentials for undeployment (user:pwd)
-     * @param thePM the monitor that reflects progress made while undeploying
-     * @throws CoreException when undeployment fails
+     * Returns the contextURL.
+     * @return URL
      */
-    void undeploy(
-        String theContextPath,
-        Credential theCredentials,
-        IProgressMonitor thePM)
-        throws CoreException;
-
+    public URL getContextURL()
+    {
+        return contextURL;
+    }
+    
     /**
-     * Stops the container.
-     * @param theContainerInfo detail of the container configuration
-     * @param thePM the monitor that reflects progress made while stopping
-     * @throws CoreException when stopping fails
+     * Sets the contextURL.
+     * @param theURL the context URL to set
      */
-    void stop(ContainerInfo theContainerInfo, IProgressMonitor thePM)
-        throws CoreException;
+    public void setContextURL(URL theURL)
+    {
+        contextURL = theURL;
+    }
 }

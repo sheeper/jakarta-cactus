@@ -54,7 +54,7 @@
  * <http://www.apache.org/>.
  *
  */
-package org.apache.cactus.eclipse.ui;
+package org.apache.cactus.eclipse.runner.ui;
 
 import org.eclipse.jface.preference.DirectoryFieldEditor;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;

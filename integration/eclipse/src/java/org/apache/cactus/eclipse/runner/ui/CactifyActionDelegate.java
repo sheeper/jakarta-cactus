@@ -54,7 +54,7 @@
  * <http://www.apache.org/>.
  *
  */
-package org.apache.cactus.eclipse.ui;
+package org.apache.cactus.eclipse.runner.ui;
 
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;

@@ -54,10 +54,10 @@
  * <http://www.apache.org/>.
  *
  */
-package org.apache.cactus.eclipse.launcher;
+package org.apache.cactus.eclipse.runner.launcher;
 
-import org.apache.cactus.eclipse.ui.CactusPlugin;
-import org.apache.cactus.eclipse.ui.CactusPreferences;
+import org.apache.cactus.eclipse.runner.ui.CactusPlugin;
+import org.apache.cactus.eclipse.runner.ui.CactusPreferences;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.jdt.core.IType;
@@ -82,7 +82,7 @@ public class CactusLaunchConfiguration extends JUnitLaunchConfiguration
      * Id under which the Cactus launch configuration has been registered. 
      */
     public static final String ID_CACTUS_APPLICATION =
-        "org.apache.cactus.eclipse.launchconfig";
+        "org.apache.cactus.eclipse.runner.launchconfig";
 
     /**
      * Returns a valid VM configuration for Cactus. This method overrides

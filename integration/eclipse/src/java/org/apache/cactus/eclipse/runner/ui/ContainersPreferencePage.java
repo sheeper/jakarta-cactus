@@ -54,50 +54,73 @@
  * <http://www.apache.org/>.
  *
  */
-package org.apache.cactus.eclipse.containers;
+package org.apache.cactus.eclipse.runner.ui;
 
-import java.net.URL;
+import org.eclipse.jface.preference.DirectoryFieldEditor;
+import org.eclipse.jface.preference.FieldEditorPreferencePage;
+import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.IWorkbenchPreferencePage;
 
 /**
- * Configuration information for containers. It contains all information needed
- * for container start and stop actions.
- * 
- * @author <a href="mailto:jruaux@octo.com">Julien Ruaux</a>
+ * This class represents a preference page for the containers
+ * that is contributed to the Cactus Preferences dialog.
+ * <p>
+ *   By subclassing <samp>FieldEditorPreferencePage</samp>, we can use the
+ *   field support built into JFace that allows us to create a page that is 
+ *   small and knows how to save, restore and apply itself.
+ * </p>
+ * <p>
+ *   This page is used to modify preferences only. They are stored in the
+ *   preference store that belongs to the main plug-in class. That way,
+ *   preferences can be accessed directly via the preference store.
+ * </p>
  * 
  * @version $Id$
+ * @author <a href="mailto:jruaux@octo.com">Julien Ruaux</a>
  */
-public class ContainerInfo
+public class ContainersPreferencePage
+    extends FieldEditorPreferencePage
+    implements IWorkbenchPreferencePage
 {
     /**
-     * @return the URL for the web application context under which the
-     *         cactus test is running. Example: http://localhost:8080/test.
+     * Array of container identifiers.
      */
-    private URL contextURL;
-
+    private String[] containerIds;
     /**
-     * Constructor.
-     * @param theURL the URL related to this container info
+     * Sets default plugin container preferences.
      */
-    ContainerInfo(URL theURL)
+    public ContainersPreferencePage()
     {
-        contextURL = theURL;
+        super(GRID);
+        setPreferenceStore(CactusPlugin.getDefault().getPreferenceStore());
+        setDescription(
+            CactusMessages.getString("ContainersPreferencePage.description"));
+    }
+    /**
+     * Creates the field editors. Field editors are abstractions of
+     * the common GUI blocks needed to manipulate various types
+     * of preferences. Each field editor knows how to save and
+     * restore itself.
+     */
+    public void createFieldEditors()
+    {
+        for (int i = 0; i < containerIds.length; i++)
+        {
+            addField(
+                new DirectoryFieldEditor(
+                    containerIds[i],
+                    containerIds[i],
+                    getFieldEditorParent()));
+        }
     }
 
     /**
-     * Returns the contextURL.
-     * @return URL
+     * @see org.eclipse.ui.IWorkbenchPreferencePage#init(IWorkbench)
      */
-    public URL getContextURL()
+    public void init(IWorkbench theWorkbench)
     {
-        return contextURL;
+            containerIds = CactusPlugin.getContainers();
+
     }
-    
-    /**
-     * Sets the contextURL.
-     * @param theURL the context URL to set
-     */
-    public void setContextURL(URL theURL)
-    {
-        contextURL = theURL;
-    }
+
 }

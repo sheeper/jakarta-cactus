@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin
-   id="org.apache.cactus.eclipse"
+   id="org.apache.cactus.eclipse.runner"
    name="%pluginName"
    version="0.1"
    provider-name="%providerName"
-   class="org.apache.cactus.eclipse.ui.CactusPlugin">
+   class="org.apache.cactus.eclipse.runner.ui.CactusPlugin">
 
    <runtime>
       <library name="cactussupport.jar">
@@ -30,6 +30,8 @@
       <import plugin="org.eclipse.ant.core"/>
       <import plugin="org.apache.ant"/>
       <import plugin="org.eclipse.ui.externaltools"/>
+      <import plugin="org.apache.cactus.eclipse.webapp"/>
+      
    </requires>
 
    <!-- Registers the Cactus launch configuration -->
@@ -37,9 +39,9 @@
          point="org.eclipse.debug.core.launchConfigurationTypes">
       <launchConfigurationType
             name="%Launch.label"
-            delegate="org.apache.cactus.eclipse.launcher.CactusLaunchConfiguration"
+            delegate="org.apache.cactus.eclipse.runner.launcher.CactusLaunchConfiguration"
             modes="run, debug"
-            id="org.apache.cactus.eclipse.launchconfig">
+            id="org.apache.cactus.eclipse.runner.launchconfig">
          <fileExtension
                default="false"
                extension="java">
@@ -59,8 +61,8 @@
             label="%CactusShortcut.label"
             icon="icons/calaunch.gif"
             modes="run, debug"
-            class="org.apache.cactus.eclipse.launcher.CactusLaunchShortcut"
-            id="org.apache.cactus.eclipse.cactusShortcut">
+            class="org.apache.cactus.eclipse.runner.launcher.CactusLaunchShortcut"
+            id="org.apache.cactus.eclipse.runner.cactusShortcut">
          <perspective
                id="org.eclipse.jdt.ui.JavaPerspective">
          </perspective>
@@ -82,8 +84,8 @@
          point="org.eclipse.debug.ui.launchConfigurationTypeImages">
       <launchConfigurationTypeImage
             icon="icons/calaunch.gif"
-            configTypeID="org.apache.cactus.eclipse.launchconfig"
-            id="org.apache.cactus.eclipse.launchimage">
+            configTypeID="org.apache.cactus.eclipse.runner.launchconfig"
+            id="org.apache.cactus.eclipse.runner.launchimage">
       </launchConfigurationTypeImage>
    </extension>
 
@@ -92,9 +94,9 @@
    <extension
          point="org.eclipse.debug.ui.launchConfigurationTabGroups">
       <launchConfigurationTabGroup
-            type="org.apache.cactus.eclipse.launchconfig"
+            type="org.apache.cactus.eclipse.runner.launchconfig"
             class="org.eclipse.jdt.internal.junit.launcher.JUnitTabGroup"
-            id="org.apache.cactus.eclipse.launchConfigurationTabGroup.junit">
+            id="org.apache.cactus.eclipse.runner.launchConfigurationTabGroup.junit">
       </launchConfigurationTabGroup>
    </extension>
 
@@ -103,34 +105,34 @@
          point="org.eclipse.ui.preferencePages">
       <page
             name="%PreferencePage.label"
-            class="org.apache.cactus.eclipse.ui.CactusPreferencePage"
-            id="org.apache.cactus.eclipse.preferencePage">
+            class="org.apache.cactus.eclipse.runner.ui.CactusPreferencePage"
+            id="org.apache.cactus.eclipse.runner.preferencePage">
       </page>
       <page
             name="%ContainersPreferencePage.label"
-            category="org.apache.cactus.eclipse.preferencePage"
-            class="org.apache.cactus.eclipse.ui.ContainersPreferencePage"
-            id="org.apache.cactus.eclipse.ui.containersPreferencePage">
+            category="org.apache.cactus.eclipse.runner.preferencePage"
+            class="org.apache.cactus.eclipse.runner.ui.ContainersPreferencePage"
+            id="org.apache.cactus.eclipse.runner.ui.containersPreferencePage">
       </page>
    </extension>
 
    <!-- Adds a popup menu in the JDT perspective -->
    <extension
-         id="org.apache.cactus.eclipse.ui.PopupMenus"
+         id="org.apache.cactus.eclipse.runner.ui.PopupMenus"
          name="Cactify"
          point="org.eclipse.ui.popupMenus">
       <objectContribution
             objectClass="org.eclipse.core.resources.IProject"
             adaptable="true"
-            id="org.apache.cactus.eclipse.ui.Cactify">
+            id="org.apache.cactus.eclipse.runner.ui.Cactify">
          <action
                label="%PopupMenu.cactify"
                icon="icons/calaunch.gif"
                tooltip="%PopupMenu.cactifyTip"
-               class="org.apache.cactus.eclipse.ui.CactifyActionDelegate"
+               class="org.apache.cactus.eclipse.runner.ui.CactifyActionDelegate"
                menubarPath="additions"
                enablesFor="1"
-               id="org.apache.cactus.eclipse.ui.CactifyAction">
+               id="org.apache.cactus.eclipse.runner.ui.CactifyAction">
          </action>
       </objectContribution>
    </extension>
@@ -143,15 +145,5 @@
          library="cactussupportsrc.jar">
       </extraClasspathEntry>
    </extension>
-
-<extension
-	point="org.eclipse.ui.propertyPages">
-   	<page name="%webAppPageName"
-  	   id="org.apache.cactus.eclipse.WebAppPropertyPage"
-       objectClass="org.eclipse.jdt.core.IJavaProject"
-       class="org.apache.cactus.eclipse.war.ui.WebAppPropertyPage">
-       <filter name="nature" value="org.eclipse.jdt.core.javanature"/>
-   	</page>
-</extension>
 
 </plugin>

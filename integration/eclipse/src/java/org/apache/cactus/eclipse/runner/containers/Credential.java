@@ -54,73 +54,17 @@
  * <http://www.apache.org/>.
  *
  */
-package org.apache.cactus.eclipse.ui;
-
-import org.eclipse.jface.preference.DirectoryFieldEditor;
-import org.eclipse.jface.preference.FieldEditorPreferencePage;
-import org.eclipse.ui.IWorkbench;
-import org.eclipse.ui.IWorkbenchPreferencePage;
+package org.apache.cactus.eclipse.runner.containers;
 
 /**
- * This class represents a preference page for the containers
- * that is contributed to the Cactus Preferences dialog.
- * <p>
- *   By subclassing <samp>FieldEditorPreferencePage</samp>, we can use the
- *   field support built into JFace that allows us to create a page that is 
- *   small and knows how to save, restore and apply itself.
- * </p>
- * <p>
- *   This page is used to modify preferences only. They are stored in the
- *   preference store that belongs to the main plug-in class. That way,
- *   preferences can be accessed directly via the preference store.
- * </p>
+ * Credentials (user name, password) passed to the container
+ * when performing administrative actions on it..
+ * 
+ * @author <a href="mailto:jruaux@octo.com">Julien Ruaux</a>
  * 
  * @version $Id$
- * @author <a href="mailto:jruaux@octo.com">Julien Ruaux</a>
  */
-public class ContainersPreferencePage
-    extends FieldEditorPreferencePage
-    implements IWorkbenchPreferencePage
+public class Credential
 {
-    /**
-     * Array of container identifiers.
-     */
-    private String[] containerIds;
-    /**
-     * Sets default plugin container preferences.
-     */
-    public ContainersPreferencePage()
-    {
-        super(GRID);
-        setPreferenceStore(CactusPlugin.getDefault().getPreferenceStore());
-        setDescription(
-            CactusMessages.getString("ContainersPreferencePage.description"));
-    }
-    /**
-     * Creates the field editors. Field editors are abstractions of
-     * the common GUI blocks needed to manipulate various types
-     * of preferences. Each field editor knows how to save and
-     * restore itself.
-     */
-    public void createFieldEditors()
-    {
-        for (int i = 0; i < containerIds.length; i++)
-        {
-            addField(
-                new DirectoryFieldEditor(
-                    containerIds[i],
-                    containerIds[i],
-                    getFieldEditorParent()));
-        }
-    }
-
-    /**
-     * @see org.eclipse.ui.IWorkbenchPreferencePage#init(IWorkbench)
-     */
-    public void init(IWorkbench theWorkbench)
-    {
-            containerIds = CactusPlugin.getContainers();
-
-    }
 
 }

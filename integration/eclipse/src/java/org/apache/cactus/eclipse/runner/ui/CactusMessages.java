@@ -54,66 +54,82 @@
  * <http://www.apache.org/>.
  *
  */
-package org.apache.cactus.eclipse.containers.ant;
+package org.apache.cactus.eclipse.runner.ui;
 
-import org.apache.cactus.eclipse.launcher.CactusLaunchShortcut;
-import org.apache.cactus.eclipse.ui.CactusPlugin;
-import org.apache.tools.ant.Task;
-import org.eclipse.swt.widgets.Display;
+import java.text.MessageFormat;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
 
 /**
- * This Ant task is used for running tests between container startup and
- * shutdown.
- *
- * @author <a href="mailto:jruaux@octo.com">Julien Ruaux</a>
- *
+ * Helper class to format text messages from the Cactus property resource 
+ * bundle.
+ * 
  * @version $Id$
+ * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  */
-
-public class EclipseRunTests extends Task implements Runnable
+public class CactusMessages
 {
     /**
-     * Indicates that tests are finished, meaning that the task can terminate.
+     * Name and location of property resource bundle on disk.
      */
-    private boolean isFinished = false;
+    private static final String BUNDLE_NAME = 
+        "org.apache.cactus.eclipse.runner.ui.CactusMessages";
+
     /**
-     * Launches the Junit tests in Eclipse
+     * The resource bundle object were Cactus messages are stored.
      */
-    public void execute()
+    private static final ResourceBundle RESOURCE_BUNDLE = 
+        ResourceBundle.getBundle(BUNDLE_NAME);
+
+    /**
+     * Prevent this class from being instantiated. It containes only static
+     * methods.
+     */
+    private CactusMessages()
     {
-        Display.getDefault().asyncExec(this);
-        while (!isFinished)
+    }
+
+    /**
+     * Gets a string from the resource bundle and formats it with one argument.
+     * 
+     * @param theKey the string used to get the bundle value, must not be null
+     * @param theArg the object to use when constructing the message
+     * @return the formatted string
+     */
+    public static String getFormattedString(String theKey, Object theArg)
+    {
+        return MessageFormat.format(getString(theKey), 
+            new Object[] { theArg });
+    }
+
+    /**
+     * Gets a string from the resource bundle and formats it with arguments.
+     * 
+     * @param theKey the string used to get the bundle value, must not be null
+     * @param theArgs the objects to use when constructing the message
+     * @return the formatted string
+     */
+    public static String getFormattedString(String theKey, Object[] theArgs)
+    {
+        return MessageFormat.format(getString(theKey), theArgs);
+    }
+
+    /**
+     * Gets an unformatted string from the resource bundle.
+     * 
+     * @param theKey the string used to get the bundle value, must not be null
+     * @return the string from the resource bundle or "![key name]!" if the key
+     *         does not exist in the resource bundle
+     */
+    public static String getString(String theKey)
+    {
+        try
         {
-            try
-            {
-                Thread.sleep(100);
-            }
-            catch (InterruptedException e)
-            {
-                // Do nothing
-            }
+            return RESOURCE_BUNDLE.getString(theKey);
+        } 
+        catch (MissingResourceException e)
+        {
+            return '!' + theKey + '!';
         }
-    }
-
-    /**
-     * This method notifies the instance that tests are finished and that
-     * it can terminate.
-     */
-    public void finish()
-    {
-        isFinished = true;
-    }
-
-    /**
-     * Launches Cactus tests.
-     */
-    public void run()
-    {
-        CactusLaunchShortcut launchShortcut =
-            CactusPlugin.getDefault().getCactusLaunchShortcut();
-        GenericAntProvider antProvider =
-            (GenericAntProvider) launchShortcut.getContainerProvider();
-        antProvider.setEclipseRunner(this);
-        launchShortcut.launchJunitTests();
     }
 }

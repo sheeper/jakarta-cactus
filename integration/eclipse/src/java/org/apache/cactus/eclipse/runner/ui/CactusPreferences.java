@@ -54,11 +54,11 @@
  * <http://www.apache.org/>.
  *
  */
-package org.apache.cactus.eclipse.ui;
+package org.apache.cactus.eclipse.runner.ui;
 
 import java.util.Vector;
 
-import org.apache.cactus.eclipse.containers.ant.ContainerHome;
+import org.apache.cactus.eclipse.runner.containers.ant.ContainerHome;
 import org.eclipse.jface.preference.IPreferenceStore;
 
 /**

@@ -8,7 +8,7 @@ The Cactus plugin requires a version of the Eclipse platform later than 2.1 RC2.
 
 * Installation
 
-Uncompress the zip file and copy the 'org.apache.cactus.integration.eclipse_<version>' folder to your Eclipse 'plugins' folder and restart Eclipse.
+Uncompress the zip file and copy the 'org.apache.cactus.integration.eclipse.runner_<version>' folder to your Eclipse 'plugins' folder and restart Eclipse.
 
 
 * Configuration

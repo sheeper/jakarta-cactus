@@ -54,11 +54,11 @@
  * <http://www.apache.org/>.
  *
  */
-package org.apache.cactus.eclipse.ui;
+package org.apache.cactus.eclipse.runner.ui;
 
-import org.apache.cactus.eclipse.containers.IContainerProvider;
-import org.apache.cactus.eclipse.containers.ant.GenericAntProvider;
-import org.apache.cactus.eclipse.launcher.CactusLaunchShortcut;
+import org.apache.cactus.eclipse.runner.containers.IContainerProvider;
+import org.apache.cactus.eclipse.runner.containers.ant.GenericAntProvider;
+import org.apache.cactus.eclipse.runner.launcher.CactusLaunchShortcut;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPluginDescriptor;
 import org.eclipse.core.runtime.IStatus;
