@@ -47,19 +47,10 @@ httpunit.jar = ${lib.repo}/httpunit/jars/httpunit-1.5.jar
 
 # The location of the Jetty jar
 jetty.jar = ${lib.repo}/jetty/jars/org.mortbay.jetty-4.2.9.jar
-
-
 # The location of the Jasper compiler jar
-
 jasperc.jar = ${lib.repo}/jetty/jars/jasper-compiler-4.0.4.jar
-
-
-
 # The location of the Jasper runtime jar
-
 jasperr.jar = ${lib.repo}/jetty/jars/jasper-runtime-4.0.4.jar
-
-
 # -----------------------------------------------------------------------------
 # Optional properties
 # -----------------------------------------------------------------------------
