@@ -50,6 +50,13 @@
 
     <category title="Documentation">
       <action>
+        Add a tutorial for VAJava with Tomcat environment (the current
+        tutorial on the web site is for VAJava with WTE). Needed steps
+        are detailed on the cactus-user list, thread <code>"Cactus, Apache
+        Tomcat &amp; VisualAge"</code>. Thanks to
+        <link href="mailto:Jim.Young@cibc.com">Jim Young</link>.
+      </action>
+      <action>
         Add a tutorial for building Cactus from the source distribution.
       </action>
       <action assigned-to="Jari Worsley">
@@ -176,14 +183,10 @@
         <link href="mailto:rimovm@centercomp.com">Michael Rimov</link>.
       </action>
       <action>
-        Create a Cactus Doclet. This will introduce new javadoc tags (like the
-        <link href="http://sourceforge.net/projects/ejbdoclet">EJBDoclet</link>)
-        that will be used by the javadoc command
-        to do several things : generate test classes and test methods, generate
-        richer documentation. Indeed, the best documentation for a method is
-        it's test methods that show how to use it effectively. So maybe we could
-        append to the HTML javadoc for a method the java test method code as an
-        example.
+        Use <link href="http://xdoclet.sourceforge.net/docs/">XDoclet</link>
+        with Cactus to better provide continuous integration. It could be
+        used to automatically generate <code>web.xml</code> files,
+        automatically generating test cases from methods to test, ...
       </action>
       <action>
         Integration to Netbeans in general and especially integration with the
