@@ -139,6 +139,7 @@ public class AntContainerManager implements IContainerManager
      * Context path for the container provider
      */
     private String contextURLPath;
+
     /**
      * Reference to the War file so that we can delete it on tearDown()
      */
@@ -146,6 +147,7 @@ public class AntContainerManager implements IContainerManager
 
     /**
      * Constructor.
+     * 
      * @param theBuildFilePath path to the Ant build file for this manager
      * @param thePort the port that will be used when setting up the containers
      * @param theTargetDir temporary directory to use for
@@ -154,12 +156,8 @@ public class AntContainerManager implements IContainerManager
      * @param theContextURLPath context path of the container provider
      * @throws CoreException if an argument is invalid 
      */
-    public AntContainerManager(
-        String theBuildFilePath,
-        int thePort,
-        String theTargetDir,
-        Hashtable theHomes,
-        String theContextURLPath)
+    public AntContainerManager(String theBuildFilePath, int thePort,
+        String theTargetDir, Hashtable theHomes, String theContextURLPath)
         throws CoreException
     {
         this.buildFilePath = theBuildFilePath;
@@ -168,6 +166,7 @@ public class AntContainerManager implements IContainerManager
 
     /**
      * Initializer.
+     * 
      * @param thePort the port that will be used when setting up the containers
      * @param theTargetDir temporary directory to use for
      *     containers configuration
@@ -175,12 +174,8 @@ public class AntContainerManager implements IContainerManager
      * @param theContextURLPath context path of the container provider 
      * @throws CoreException if an argument is invalid
      */
-    public void init(
-        int thePort,
-        String theTargetDir,
-        Hashtable theHomes,
-        String theContextURLPath)
-        throws CoreException
+    public void init(int thePort, String theTargetDir, Hashtable theHomes,
+        String theContextURLPath) throws CoreException
     {
         if (thePort <= 0)
         {
@@ -246,9 +241,7 @@ public class AntContainerManager implements IContainerManager
      * @throws CoreException if the launch configuration cannot be created
      */
     public ILaunchConfigurationWorkingCopy createAntLaunchConfiguration(
-        String[] theProviderArguments,
-        String theTarget)
-        throws CoreException
+        String[] theProviderArguments, String theTarget) throws CoreException
     {
         CactusPlugin thePlugin = CactusPlugin.getDefault();
         URL buildFileURL = thePlugin.find(new Path(buildFilePath));
@@ -371,16 +364,15 @@ public class AntContainerManager implements IContainerManager
     }
 
     /**
-     * creates the war file, deploys and launches the container.
+     * Creates the war file, deploys and launches the container.
+     * 
      * @param theJavaProject the Java file
      * @param thePM the progress monitor to report to
      * @param theProvider the provider to prepare
      * @throws CoreException if anything goes wrong during preparation
      */
-    private void prepareCactusTests(
-        IJavaProject theJavaProject,
-        IProgressMonitor thePM,
-        IContainerProvider theProvider)
+    private void prepareCactusTests(IJavaProject theJavaProject,
+        IProgressMonitor thePM, IContainerProvider theProvider)
         throws CoreException
     {
         this.currentPM = thePM;
@@ -423,6 +415,7 @@ public class AntContainerManager implements IContainerManager
 
     /**
      * Launches a new progress dialog for preparation cancellation.
+     * 
      * @param theProvider the provider which preparation to cancel
      */
     private void cancelPreparation(final IContainerProvider theProvider)
@@ -489,10 +482,8 @@ public class AntContainerManager implements IContainerManager
      * @param theProvider the provider of the container to stop and undeploy
      * @throws CoreException if an error occurs when tearing down
      */
-    private void teardownCactusTests(
-        IProgressMonitor thePM,
-        IContainerProvider theProvider)
-        throws CoreException
+    private void teardownCactusTests(IProgressMonitor thePM,
+        IContainerProvider theProvider) throws CoreException
     {
         thePM.beginTask(
             CactusMessages.getString("CactusLaunch.message.teardown"),
@@ -527,7 +518,7 @@ public class AntContainerManager implements IContainerManager
     }
 
     /**
-     * 
+     * Sets the prepared flag.
      */
     public void preparationDone()
     {

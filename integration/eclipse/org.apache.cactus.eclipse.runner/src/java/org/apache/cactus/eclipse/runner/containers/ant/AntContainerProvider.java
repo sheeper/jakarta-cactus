@@ -66,7 +66,6 @@ import org.apache.cactus.eclipse.runner.ui.CactusMessages;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.SubProgressMonitor;
-import org.eclipse.debug.core.DebugPlugin;
 import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.debug.core.ILaunchManager;
@@ -85,26 +84,27 @@ public class AntContainerProvider implements IContainerProvider
      * the manager of this provider
      */
     private AntContainerManager manager;
+
     /**
      * the Ant arguments specific to this provider
      */
     private Vector antArguments = new Vector();
-    /**
-     * A boolean indicating if the container is running.
-     */
-    private boolean serverStopped;
+
     /**
      * The Eclipse runner associated to the Ant container provider.
      */
     private EclipseRunTests eclipseRunner;
+
     /**
      * The home directory of this provider.
      */
     private String home;
+
     /**
      * The Ant target mask for this provider, for example "tomcat4x".
      */
     private String targetMask;
+
     /**
      * Reference to the launch created to start the container.
      */    
@@ -115,10 +115,8 @@ public class AntContainerProvider implements IContainerProvider
      * @param theTargetMask target mask for this provider
      * @param theHome home directory for this provider's container
      */
-    public AntContainerProvider(
-        AntContainerManager theManager,
-        String theTargetMask,
-        String theHome)
+    public AntContainerProvider(AntContainerManager theManager,
+        String theTargetMask, String theHome)
     {
         this.targetMask = theTargetMask;
         this.home = theHome;
@@ -128,11 +126,8 @@ public class AntContainerProvider implements IContainerProvider
     /**
      * @see IContainerProvider#deploy(String, URL, Credential)
      */
-    public void deploy(
-        String theContextPath,
-        URL theDeployableObject,
-        Credential theCredentials,
-        IProgressMonitor thePM)
+    public void deploy(String theContextPath, URL theDeployableObject,
+        Credential theCredentials, IProgressMonitor thePM)
         throws CoreException
     {
         thePM.subTask(CactusMessages.getString("CactusLaunch.message.deploy"));
@@ -147,9 +142,6 @@ public class AntContainerProvider implements IContainerProvider
     public void start(ContainerInfo theContainerInfo, IProgressMonitor thePM)
         throws CoreException
     {
-        ILaunchManager launchManager =
-            DebugPlugin.getDefault().getLaunchManager();
-        
         thePM.subTask(CactusMessages.getString("CactusLaunch.message.start"));
         String target = getTarget("cactus.run.");
         antArguments.add(
@@ -194,11 +186,8 @@ public class AntContainerProvider implements IContainerProvider
     /**
      * @see IContainerProvider#undeploy (String, Credential)
      */
-    public void undeploy(
-        String theContextPath,
-        Credential theCredentials,
-        IProgressMonitor thePM)
-        throws CoreException
+    public void undeploy(String theContextPath, Credential theCredentials,
+        IProgressMonitor thePM) throws CoreException
     {
         thePM.subTask(
             CactusMessages.getString("CactusLaunch.message.undeploy"));
@@ -213,8 +202,8 @@ public class AntContainerProvider implements IContainerProvider
     }
     
     /**
-     * @param theEclipseRunner the EclipseRunTests instance to associate with
-     * this container provider, which will be notified of test run end.
+     * @param theEclipseRunner The EclipseRunTests instance to associate with
+     *        this container provider, which will be notified of test run end
      */
     public void setEclipseRunner(EclipseRunTests theEclipseRunner)
     {
@@ -223,8 +212,9 @@ public class AntContainerProvider implements IContainerProvider
 
     /**
      * Returns the concatenated String of the prefix and the provider target.
-     * @param thePrefix prefix to append to the provider target
-     * @return String the concatenated string
+     * 
+     * @param thePrefix The prefix to append to the provider target
+     * @return The concatenated string
      */
     private String getTarget(String thePrefix)
     {

@@ -70,13 +70,13 @@ import org.eclipse.swt.widgets.Display;
  *
  * @version $Id$
  */
-
 public class EclipseRunTests extends Task implements Runnable
 {
     /**
      * Indicates that tests are finished, meaning that the task can terminate.
      */
-    private boolean isFinished = false;
+    private volatile boolean isFinished = false;
+
     /**
      * Launches the Junit tests in Eclipse
      */
@@ -122,8 +122,7 @@ public class EclipseRunTests extends Task implements Runnable
             CactusPlugin.displayErrorMessage(
                 CactusMessages.getString(
                     "CactusLaunch.message.containerManager.error"),
-                e.getMessage(),
-                null);
+                e.getMessage(), null);
             return;
         }
     }
