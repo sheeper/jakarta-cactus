@@ -41,6 +41,10 @@
   <version title="Version 1.5">
 
     <category title="Documentation">
+      <action>
+        Update the "how it works" section by adding the new global
+        <code>begin()</code> and <code>end()</code> methods.
+      </action>
     </category>
 
     <category title="Build process">
