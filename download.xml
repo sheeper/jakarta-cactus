@@ -38,9 +38,9 @@
 
   <property name="repo.url" value="http://www.ibiblio.org/maven"/>
 
-  <!-- The dependences.xml file lists all JAR files that we can possibly
+  <!-- The dependencies.xml file lists all JAR files that we can possibly
        download from a Maven-style repository. The following task converts
-       the information into properties so it can be accessed by this script-->
+       the information into properties so it can be accessed by this script -->
   <xmlproperty file="dependencies.xml" keeproot="no"
       collapseattributes="yes" semanticattributes="yes"/>
 
