@@ -146,7 +146,7 @@ regexp.jar = ${lib.repo}/regexp/jars/regexp-1.2.jar
 #clover.enable = true
 
 # Clover jar
-clover.jar = ${ant.home}/clover.jar
+clover.jar = ${ant.home}/lib/clover.jar
 
 # -----------------------------------------------------------------------------
 # Optional properties for the Servlet Sample subproject
