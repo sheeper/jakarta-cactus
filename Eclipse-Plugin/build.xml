@@ -203,6 +203,7 @@
 		
 		<copy file="${base.dir}/plugin.xml" todir="${dist.dir}"/>
 		<copy file="${base.dir}/plugin.properties" todir="${dist.dir}"/>
+		<copy file="${base.dir}/README.txt" todir="${dist.dir}"/>		
 		<copy todir="${dist.dir}/icons">
 			<fileset dir="${base.dir}/icons"/>
 		</copy>

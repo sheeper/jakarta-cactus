@@ -29,6 +29,7 @@
 		
 		<copy file="plugin.xml" todir="${dest}"/>
 		<copy file="plugin.properties" todir="${dest}"/>
+		<copy file="README.txt" todir="${dest}"/>
 		<copy todir="${dest}/icons">
 			<fileset dir="icons" />
 		</copy>
