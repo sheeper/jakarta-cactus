@@ -104,30 +104,6 @@
 
     <!--
        ========================================================================
-         Verify that all mandatory properties have been set
-       ========================================================================
-    -->
-    <target name="check.properties">
-
-        <taskdef name="checkProperty" 
-            classname="org.apache.cactus.ant.CheckPropertiesTask">
-            <classpath>
-                <pathelement location="${cactus.anttasks.jar}"/>
-            </classpath>
-        </taskdef>
-
-        <checkProperty>
-            <property name="j2ee.jar" isfile="true"/>
-            <property name="log4j.jar" isfile="true"/>
-            <property name="commons.logging.jar" isfile="true"/>
-            <property name="commons.httpclient.jar" isfile="true"/>
-            <property name="httpunit.jar" isfile="true"/>
-        </checkProperty>
-
-    </target>
-
-    <!--
-       ========================================================================
          Initialize AspectJ
        ========================================================================
     -->
@@ -153,9 +129,29 @@
        ========================================================================
     -->
     <target name="init" 
-        depends="init.common,properties,check.properties,init.clover,init.aspectj">
+        depends="init.common, properties, init.aspectj, init.clover">
+
+        <echo>j2ee.jar = [${j2ee.jar}]</echo>
+        <echo>log4j.jar = [${log4j.jar}]</echo>
+        <echo>commons.httpclient.jar = [${commons.httpclient.jar}]</echo>
+        <echo>commons.logging.jar = [${commons.logging.jar}]</echo>
+        <echo>httpunit.jar = [${httpunit.jar}]</echo>
 
         <echo>clover.enable (optional) = ${clover.enable}</echo>
+
+        <condition property="properties.ok">
+          <and>
+            <available file="${j2ee.jar}"/>
+            <available file="${log4j.jar}"/>
+            <available file="${commons.httpclient.jar}"/>
+            <available file="${commons.logging.jar}"/>
+            <available file="${httpunit.jar}"/>
+          </and>
+        </condition>
+
+        <fail unless="properties.ok">One or more required dependancies could not
+be resolved. Please check you build.properties file, and run Ant with the 
+-verbose option for more details</fail>
 
     </target>
 
