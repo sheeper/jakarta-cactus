@@ -60,10 +60,10 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.net.HttpURLConnection;
-import java.net.URLConnection;
 
 import org.apache.cactus.client.AbstractHttpClient;
-import org.apache.cactus.util.ChainedRuntimeException;
+import org.apache.cactus.client.WebResponseObjectFactory;
+import org.apache.cactus.client.ClientException;
 
 /**
  * Abstract class for Web Test Cases (i.e. HTTP connection to the server) that
@@ -87,8 +87,8 @@ public abstract class AbstractWebTestCase extends AbstractTestCase
     }
 
     /**
-     * Call an end method which takes either a Cactus WebResponse parameter
-     * or a HttpUnit WebResponse object as paramter.
+     * Call the global end method. This is the method that is called after
+     * each test if it exists. It is called on the client side only.
      *
      * @param theRequest the request data that were used to open the
      *        connection.
@@ -138,36 +138,17 @@ public abstract class AbstractWebTestCase extends AbstractTestCase
 
                 paramObject = theResponse;
 
-                // Is it a Http Unit WebResponse ?
-                if (parameters[0].getName().
-                    equals("com.meterware.httpunit.WebResponse")) {
-
-                    if (paramObject == null) {
-                        paramObject = createHttpUnitWebResponse(theConnection);
+                if (paramObject == null) {
+                    try {
+                        paramObject =
+                            new WebResponseObjectFactory().getResponseObject(
+                            parameters[0].getName(), theRequest, theConnection);
+                    } catch (ClientException e) {
+                        throw new ClientException("The method ["
+                            + methods[i].getName()
+                            + "] has a bad parameter of type ["
+                            + parameters[0].getName() + "]", e);
                     }
-
-                // Is it a Cactus WebResponse ?
-                } else if (parameters[0].getName().
-                    equals("org.apache.cactus.WebResponse")) {
-
-                    if (paramObject == null) {
-                        paramObject = new WebResponse(theRequest,
-                            theConnection);
-                    }
-
-                // Is it an old HttpURLConnection (deprecated) ?
-                } else if (parameters[0].getName().
-                    equals("java.net.HttpURLConnection")) {
-
-                    if (paramObject == null) {
-                        paramObject = theConnection;
-                    }
-
-                // Else it is an error ...
-                } else {
-                    fail("The method [" + methods[i].getName()
-                        + "] has a bad parameter of type ["
-                        + parameters[0].getName() + "]");
                 }
 
                 // Has a method to call already been found ?
@@ -214,11 +195,11 @@ public abstract class AbstractWebTestCase extends AbstractTestCase
      *        which case it is created from the HttpURLConnection
      * @exception Throwable any error that occurred when calling the method
      */
-    protected void callClientTearDown(WebRequest theRequest,
+    protected void callClientGlobalEnd(WebRequest theRequest,
         HttpURLConnection theConnection, Object theResponse) throws Throwable
     {
-        callGenericEndMethod(theRequest, theConnection, CLIENT_TEARDOWN_METHOD,
-            theResponse);
+        callGenericEndMethod(theRequest, theConnection,
+            CLIENT_GLOBAL_END_METHOD, theResponse);
     }
 
     /**
@@ -242,37 +223,6 @@ public abstract class AbstractWebTestCase extends AbstractTestCase
     }
 
     /**
-     * Create a HttpUnit <code>WebResponse</code> object by reflection (so
-     * that we don't need the HttpUnit jar for users who are not using
-     * the HttpUnit endXXX() signature).
-     *
-     * @param theConnection the HTTP connection that was used when connecting
-     *        to the server side and which now contains the returned HTTP
-     *        response that we will pass to HttpUnit so that it can construt
-     *        a <code>com.meterware.httpunit.WebResponse</code> object.
-     * @return a HttpUnit <code>WebResponse</code> object
-     */
-    private Object createHttpUnitWebResponse(HttpURLConnection theConnection)
-    {
-        Object webResponse;
-
-        try {
-            Class responseClass =
-                Class.forName("com.meterware.httpunit.WebResponse");
-            Method method = responseClass.getMethod("newResponse",
-                new Class[]{URLConnection.class});
-            webResponse = method.invoke(null, new Object[]{theConnection});
-        } catch (Exception e) {
-            throw new ChainedRuntimeException("Error calling "
-                + "[public static com.meterware.httpunit.WebResponse "
-                + "com.meterware.httpunit.WebResponse.newResponse("
-                + "java.net.URLConnection) throws java.io.IOException]", e);
-        }
-
-        return webResponse;
-    }
-
-    /**
      * Execute the test case begin method, then connect to the server proxy
      * redirector (where the test case test method is executed) and then
      * executes the test case end method.
@@ -288,7 +238,7 @@ public abstract class AbstractWebTestCase extends AbstractTestCase
         WebRequest request = new WebRequest();
 
         // Call the set up and begin methods to fill the request object
-        callClientSetUp(request);
+        callClientGlobalBegin(request);
         callBeginMethod(request);
 
         // Run the web test
@@ -298,7 +248,7 @@ public abstract class AbstractWebTestCase extends AbstractTestCase
         Object response = callEndMethod(request, connection);
 
         // call the tear down method
-        callClientTearDown(request, connection, response);
+        callClientGlobalEnd(request, connection, response);
 
         // Close the input stream (just in the case the user has not done it
         // in it's endXXX method (or if he has no endXXX method) ....

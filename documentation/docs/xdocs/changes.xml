@@ -49,8 +49,8 @@
 
     <release version="1.5 in CVS">
       <action dev="VMA" type="add">
-        Added support for client side <code>clientSetUp(...)</code>
-        and <code>clientTearDown(...)</code> methods. They are called on the
+        Added support for client side <code>begin(...)</code>
+        and <code>end(...)</code> methods. They are called on the
         client side, before and after every test in the same way as the
         JUnit <code>setUp()</code> and <code>tearDown()</code> are called
         before and after each test, but on the server side. <em>Note: web site

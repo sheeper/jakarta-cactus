@@ -99,54 +99,54 @@ public class TestAbstractWebTestCase extends ServletTestCase
     //-------------------------------------------------------------------------
 
     /**
-     * true if <code>clientTearDown()</code> has been called.
+     * true if <code>end()</code> has been called.
      */
-    private boolean isClientTearDownCalled;
+    private boolean isClientGlobalEndCalled;
 
     /**
-     * Verifies that <code>clientTearDown()</code> has been called correctly.
+     * Verifies that <code>end()</code> has been called correctly.
      */
     protected void runTest() throws Throwable
     {
         runGenericTest(new ServletHttpClient());
 
-        if (!this.isClientTearDownCalled) {
-            fail("clientTearDown has not been called");
+        if (!this.isClientGlobalEndCalled) {
+            fail("end() has not been called");
         }
     }
 
     /**
      * Verify that it is possible to modify the <code>WebRequest</code> in
-     * the common <code>clientSetUp()</code> method. It also verifies that
-     * <code>clientSetUp()</code> is called at all.
+     * the common <code>begin()</code> method. It also verifies that
+     * <code>begin()</code> is called at all.
      *
      * @param theRequest the request object that serves to initialize the
      *                   HTTP connection to the server redirector.
      */
-    public void clientSetUp(WebRequest theRequest)
+    public void begin(WebRequest theRequest)
     {
         theRequest.addParameter("param1", "value1");
     }
 
     /**
      * Verify that it is possible to modify the <code>WebRequest</code> in
-     * the common <code>clientSetUp()</code> method. It also verifies that
-     * <code>clientSetUp()</code> is called at all.
+     * the common <code>begin()()</code> method. It also verifies that
+     * <code>begin()</code> is called at all.
      *
      * @param theRequest the request object that serves to initialize the
      *                   HTTP connection to the server redirector.
      */
-    public void beginSetUpTearDown(WebRequest theRequest)
+    public void beginGlobalBeginEnd(WebRequest theRequest)
     {
         assertEquals("value1", theRequest.getParameterGet("param1"));
     }
 
     /**
      * Verify that it is possible to modify the <code>WebRequest</code> in
-     * the common <code>clientSetUp()</code> method. It also verifies that
-     * <code>clientSetUp()</code> is called at all.
+     * the common <code>begin()()</code> method. It also verifies that
+     * <code>begin()()</code> is called at all.
      */
-    public void testSetUpTearDown() throws Exception
+    public void testGlobalBeginEnd() throws Exception
     {
         assertEquals("value1", request.getParameter("param1"));
         response.getWriter().print("Hello there!");
@@ -154,27 +154,27 @@ public class TestAbstractWebTestCase extends ServletTestCase
 
     /**
      * Verify that it is possible to read the connection object once in
-     * endXXX() and then again in <code>clientTearDown()</code>. It also
-     * verifies that <code>clientTearDown()</code> is called at all.
+     * endXXX() and then again in <code>end()</code>. It also
+     * verifies that <code>end()</code> is called at all.
      *
      * @param theResponse the response from the server side.
      */
-    public void endSetUpTearDown(WebResponse theResponse)
+    public void endGlobalBeginEnd(WebResponse theResponse)
     {
         assertEquals("Hello there!", theResponse.getText());
     }
 
     /**
      * Verify that it is possible to read the connection object once in
-     * endXXX() and then again in <code>clientTearDown()</code>. It also
-     * verifies that <code>clientTearDown()</code> is called at all.
+     * endXXX() and then again in <code>end()</code>. It also
+     * verifies that <code>end()</code> is called at all.
      *
      * @param theResponse the response from the server side.
      */
-    public void clientTearDown(WebResponse theResponse)
+    public void end(WebResponse theResponse)
     {
         assertEquals("Hello there!", theResponse.getText());
-        this.isClientTearDownCalled = true;
+        this.isClientGlobalEndCalled = true;
     }
 
 }

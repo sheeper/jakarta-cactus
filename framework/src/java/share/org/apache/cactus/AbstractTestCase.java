@@ -69,7 +69,7 @@ import org.apache.commons.logging.LogFactory;
 /**
  * Abstract class that is a thin layer on top of JUnit and that knows about
  * test cases that are executed on the server side. It also provides the
- * ability to run common set up code before each test on the client side (note
+ * ability to run common code before each test on the client side (note
  * that calling common tear down code is delegated to extending classes as the
  * method signature depends on the protocol used). This class is independent
  * of the protocol used to communicate from the Cactus client side and the
@@ -98,22 +98,16 @@ public abstract class AbstractTestCase extends TestCase
     protected static final String END_METHOD_PREFIX = "end";
 
     /**
-     * The name of the set up method to run on the client side if it exists.
-     * This method is run before each test in the same way as the JUnit
-     * <code>setUp()</code> method is run. The difference is that is that it
-     * is run on the client side whereas <code>setUp()</code> runs on the
-     * server side.
+     * The name of the method that is called before each test on the client
+     * side (if it exists).
      */
-    protected static final String CLIENT_SETUP_METHOD = "clientSetUp";
+    protected static final String CLIENT_GLOBAL_BEGIN_METHOD = "begin";
 
     /**
-     * The name of the tear down method to run on the client side if it exists.
-     * This method is run after each test in the same way as the JUnit
-     * <code>tearDown()</code> method is run. The difference is that is that it
-     * is run on the client side whereas <code>tearDown()</code> runs on the
-     * server side.
+     * The name of the method that is called after each test on the client
+     * side (if it exists).
      */
-    protected static final String CLIENT_TEARDOWN_METHOD = "clientTearDown";
+    protected static final String CLIENT_GLOBAL_END_METHOD = "end";
 
     /**
      * Name of properties file to initialize logging subsystem
@@ -325,15 +319,16 @@ public abstract class AbstractTestCase extends TestCase
     }
 
     /**
-     * Call the client side set up method if it exists.
+     * Call the global begin method. This is the method that is called before
+     * each test if it exists. It is called on the client side only.
      *
      * @param theRequest the request object which will contain data that will
      *        be used to connect to the Cactus server side redirectors.
      * @exception Throwable any error that occurred when calling the method
      */
-    protected void callClientSetUp(Request theRequest) throws Throwable
+    protected void callClientGlobalBegin(Request theRequest) throws Throwable
     {
-        callGenericBeginMethod(theRequest, CLIENT_SETUP_METHOD);
+        callGenericBeginMethod(theRequest, CLIENT_GLOBAL_BEGIN_METHOD);
     }
 
     /**

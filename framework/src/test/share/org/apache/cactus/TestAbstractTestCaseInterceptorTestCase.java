@@ -62,6 +62,7 @@ import java.net.URL;
 import junit.framework.AssertionFailedError;
 
 import org.apache.cactus.mock.MockHttpURLConnection;
+import org.apache.cactus.client.ClientException;
 
 /**
  * Test <code>TestCase</code> class that intercepts all exceptions (and assert
@@ -128,6 +129,15 @@ public class TestAbstractTestCaseInterceptorTestCase
             callEndMethod(request, connection);
 
         } catch (AssertionFailedError e) {
+
+            // Perform asserts
+            if (!verifyBeginMethodsOk(e.getMessage())
+                && !verifyEndMethodsOk(e.getMessage())) {
+
+                throw e;
+            }
+
+        } catch (ClientException e) {
 
             // Perform asserts
             if (!verifyBeginMethodsOk(e.getMessage())

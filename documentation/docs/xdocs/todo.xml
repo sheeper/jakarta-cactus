@@ -33,8 +33,8 @@
 
     <category title="Documentation">
       <action>
-        Update web site for new <code>clientSetUp()</code> and
-        <code>clientTearDown()</code> methods.
+        Update web site for new <code>begin()</code> and <code>end()</code>
+        methods.
       </action>
       <action assigned-to="Vincent Massol">
         Move all documentation to docbook and cocoon2 and generate PDF
