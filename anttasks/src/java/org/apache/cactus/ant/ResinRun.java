@@ -113,10 +113,10 @@ public class ResinRun extends AbstractServerRun
 
             // Try Resin 2.0 first
             try {
-                startResin20(resinServer, resinClass);
+                startResin20(this.resinServer);
             } catch (NoSuchMethodException nsme) {
                 // Try Resin 2.1
-                startResin21(resinServer, resinClass);
+                startResin21(this.resinServer);
             }
 
         } catch (Exception e) {
@@ -125,19 +125,31 @@ public class ResinRun extends AbstractServerRun
         }
     }
 
-    private void startResin20(Object resinServer, Class resinClass)
+    /**
+     * Starts Resin 2.0.x
+     *
+     * @param resinServer the <code>ResinServer</code> instance
+     * @throws Exception if an error happens when starting the server
+     */
+    private void startResin20(Object resinServer)
         throws Exception
     {
-        Method initMethod = resinClass.getMethod("init",
+        Method initMethod = resinServer.getClass().getMethod("init",
             new Class[]{boolean.class});
         initMethod.invoke(resinServer, new Object[]{
             new Boolean(true)});
     }
 
-    private void startResin21(Object resinServer, Class resinClass)
+    /**
+     * Starts Resin 2.1.x
+     *
+     * @param resinServer the <code>ResinServer</code> instance
+     * @throws Exception if an error happens when starting the server
+     */
+    private void startResin21(Object resinServer)
         throws Exception
     {
-        Method initMethod = resinClass.getMethod("init",
+        Method initMethod = resinServer.getClass().getMethod("init",
             new Class[]{ArrayList.class});
         initMethod.invoke(resinServer, new Object[]{ null });
     }
