@@ -15,3 +15,16 @@
 # -----------------------------------------------------------------------------
 # Mandatory properties
 # -----------------------------------------------------------------------------
+
+# -----------------------------------------------------------------------------
+# Optional properties
+# -----------------------------------------------------------------------------
+
+# Dependancies for Checkstyle code auditing
+# If not specified here, the JARs must be present in ANTHOME/lib
+antlr.jar = ${lib.repo}/antlr/jars/antlr-2.7.1.jar
+checkstyle.jar = ${lib.repo}/checkstyle/jars/checkstyle-2.4.jar
+commons-beanutils.jar = ${lib.repo}/commons-beanutils/jars/commons-beanutils-1.5.jar
+commons-collections.jar = ${lib.repo}/commons-collections/jars/commons-collections-2.1.jar
+regexp.jar = ${lib.repo}/regexp/jars/regexp-1.2.jar
+

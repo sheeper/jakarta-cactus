@@ -17,7 +17,7 @@
             <pathelement location="${commons-beanutils.jar}"/>
             <pathelement location="${commons-collections.jar}"/>
             <pathelement location="${commons-logging.jar}"/>
-            <pathelement location="${jakarta-regexp.jar}"/>
+            <pathelement location="${regexp.jar}"/>
             <!-- Includes system classpath for jars that are in ANT_HOME/lib 
                  such as aspectrt.jar, etc -->
             <pathelement path="${java.class.path}"/>
