@@ -101,11 +101,11 @@
           </ul>
         </li>
         <li>
-          Prepare the next version by editing again the different Cactus
-          <code>build.xml</code> files and modifying the
-          <code>project.version</code> with the new development version
-          (for example after releasing 1.4, the new development version is
-          1.5dev).
+          Prepare the next version by editing again the
+          <code>build-common.xml</code> file and modifying the
+          <code>project.*.version</code> properties with the new development 
+          version (for example after releasing 1.5, the new development 
+          version is 1.6dev).
         </li>
       </ol>
 
