@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE document SYSTEM "./dtd/document-v10.dtd">
+
+<document>
+  <header>
+    <title>Resources</title>
+    <authors>
+      <person name="Vincent Massol" email="vmassol@users.sourceforge.net"/>
+    </authors>
+  </header>
+
+  <body>
+
+    <s1 title="Resources related to testing">
+
+      <p>
+        <em>Link :</em>
+        <link href="http://www.javaworld.com/javaworld/jw-05-2000/jw-0526-testinfect-2.html">
+        Test infect your Enterprise JavaBeans, Javaworld May 2000</link><br/>
+        Article that explains the interest of in-container testing.
+      </p>
+
+      <p>
+        <em>Link :</em>
+        <link href="http://www.sidewize.com/company/mockobjects.pdf">
+        Endo-Testing : Unit Testing with Mock Objects, XP2000</link><br/>
+        Article from the authors of the 
+        <link href="http://sourceforge.net/projects/mockobjects">Mock Object 
+        project</link> on SourceForge that explains well the concept of Mock 
+        Object testing as opposed to "stubbing" and it's benefits. Also explains
+        that Mock Object testing helps write better code. See a comparison
+        between Mock Object vs In-Container testing
+        <link href="mockobjects.html">here</link>.
+      </p>
+
+      <p>
+        <em>Link :</em>
+        <link href="http://sourceforge.net/projects/httpunit">HttpUnit</link>
+        <em>project on SourceForge</em>.<br/>
+        A Java library for the automatic stimulation and testing of web
+        applications.
+      </p>
+
+    </s1>
+
+  </body>
+</document>
