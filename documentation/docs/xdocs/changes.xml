@@ -69,6 +69,13 @@
 
       <release version="1.6dev" date="in CVS">
       </release>
+
+      <release version="1.5-rc2" date="in CVS">
+        <action dev="VMA" type="fix" fixes-bug="24072" due-to="James Stangler" due-to-email="jastangler@yahoo.com">
+          The Jetty Test Setup was not shutting Jetty down if an error ocurred
+          during setUp.
+        </action>
+      </release>
       
       <release version="1.5-rc1" date="26 October 2003">
         <action dev="VMA" type="fix" fixes-bug="23604" due-to="Norbert Pabis" due-to-email="npabis@astercity.net">

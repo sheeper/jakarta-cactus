@@ -60,7 +60,9 @@ import java.io.File;
 import java.net.URL;
 
 import junit.extensions.TestSetup;
+import junit.framework.Protectable;
 import junit.framework.Test;
+import junit.framework.TestResult;
 
 import org.apache.cactus.configuration.BaseConfiguration;
 import org.apache.cactus.configuration.Configuration;
@@ -125,6 +127,34 @@ public class JettyTestSetup extends TestSetup
     }
 
     /**
+     * Make sure that {@link #tearDown} is called if {@link #setUp} fails
+     * to start the container properly. The default 
+     * {@link TestSetup#run(TestResult)} method does not provide this feature
+     * unfortunately.
+     *  
+     * @see TestSetup#run(TestResult)
+     */
+    public void run(final TestResult theResult)
+    {
+        Protectable p = new Protectable()
+        {
+            public void protect() throws Exception
+            {
+                try
+                {
+                    setUp();
+                    basicRun(theResult);
+                }
+                finally
+                {
+                    tearDown();
+                }
+            }
+        };
+        theResult.runProtected(this, p);
+    }  
+    
+    /**
      * Start an embedded Jetty server. It is allowed to pass a Jetty XML as
      * a system property (<code>cactus.jetty.config</code>) to further 
      * configure Jetty. Example: 
@@ -184,9 +214,16 @@ public class JettyTestSetup extends TestSetup
     { 
         if (this.server != null)
         { 
-            // Stop the Jetty server
-            this.server.getClass().getMethod("stop", null).invoke(
-                this.server, null); 
+            // First, verify if the server is running
+            boolean started = ((Boolean) this.server.getClass().getMethod(
+                "isStarted", null).invoke(this.server, null)).booleanValue(); 
+
+            // Stop the Jetty server, if started
+            if (started)
+            {
+                this.server.getClass().getMethod("stop", null).invoke(
+                    this.server, null);
+            }
         } 
     }
 
