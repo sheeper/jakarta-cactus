@@ -35,7 +35,7 @@
             05/01/2003
           </td>
           <td>
-            <link href="http://strutstestcase.sourceforge.net">StrutsTestCase</link> v1.9.5 
+            <link href="ext:strutstestcase">StrutsTestCase</link> v1.9.5 
             has been released. It improves support for Struts 1.1b3 (including support for 
             testing Tiles and sub-applications), provides several requested enhancements, 
             and fixes many reported defects.
@@ -144,10 +144,10 @@
             12/2001
           </td>
           <td>
-            <link href="http://strutstestcase.sourceforge.net/">
-            StrutsTestCase for JUnit</link> is a framework for un it testing
-            Struts code. It provides both mock objects and a Cactus integration
-            for testin inside and outside of the container.
+            <link href="ext:strutstestcase">StrutsTestCase for JUnit</link> is 
+            a framework for un it testing Struts code. It provides both mock 
+            objects and a Cactus integration for testing inside and outside of 
+            the container.
           </td>
         </tr>
 
@@ -213,10 +213,10 @@
           </td>
           <td>
             Release 1.0 of the 
-            <link href="http://jakarta.apache.org/turbine/maven/reference/plugins/cactus">Cactus 
-            plugin for Maven</link> is out. This is certainly the easiest way
-            to run Cactus tests so far. This plugin is part of the core 
-            Maven plugins and is thus delivered with Maven. 
+            <link href="ext:maven_cactus">Cactus plugin for Maven</link> is 
+            out. This is certainly the easiest way to run Cactus tests so far.
+            This plugin is part of the core Maven plugins and is thus delivered
+            with Maven. 
           </td>
         </tr>
 

@@ -135,8 +135,10 @@
   <external id="jakarta_roles" url="http://jakarta.apache.org/site/roles.html"/>
   <external id="japanese" url="http://www.ingrid.org/jajakarta/cactus/"/>
   <external id="junit" url="http://junit.org"/>
+  <external id="junitee" url="http://junitee.sourceforge.net"/>
   <external id="junit_faq" url="http://junit.sourceforge.net/doc/faq/faq.htm"/>
   <external id="korean" url="http://jakarta.apache-korea.org/cactus/index.html"/>
+  <external id="maven_cactus" url="http://jakarta.apache.org/turbine/maven/reference/plugins/cactus"/>
   <external id="mockobjects" url="http://www.mockobjects.com"/>
   <external id="octo" url="http://www.octo.com"/>
   <external id="opensource" url="http://www.opensource.org/"/>
@@ -145,6 +147,7 @@
   <external id="servletapi_2_3" url="http://jakarta.apache.org/builds/jakarta-servletapi-4/"/>
   <external id="stats" url="http://jakarta.apache.org/cactus/stats/index.html"/>
   <external id="storeblox" url="http://eblox.com/storeblox.php"/>
+  <external id="strutstestcase" url="http://strutstestcase.sourceforge.net"/>
   <external id="sun_coding_conventions" url="http://java.sun.com/docs/codeconv/html/CodeConvTOC.doc.html"/>
   <external id="sun_j2ee_downloads" url="http://java.sun.com/j2ee/download.html"/>
   <external id="sun_servlet_downloads" url="http://java.sun.com/products/servlet/download.html"/>

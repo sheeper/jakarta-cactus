@@ -18,26 +18,46 @@
       </p>
       <p>
         The intent of Cactus is to lower the cost of writing tests for
-        server-side code. It
-        uses <link href="ext:junit">JUnit</link> and extends it.
+        server-side code. It uses <link href="ext:junit">JUnit</link> and 
+        extends it.
       </p>
       <p>
-        Cactus has been developed with the idea of automatic testing in mind
-        and it provides a packaged and simple
-        mechanism based on <link href="ext:ant">Ant</link>
-        to automate server-side testing.
+        Cactus implements an in-container strategy (See
+        <link href="site:how_it_works">How it works</link>).
       </p>
       <p>
-        Cactus implements an in-container strategy (click on the diagram below
-        to understand how it works). An alternative but complementary approach
-        not covered by Cactus is to use Mock Objects (see the
-        <link href="site:mock_vs_cactus">Mock vs Container</link> page to
-        understand the differences and why Cactus believes in the
-        usefulness of an in-container approach).
+        <figure src="images/ecosystem.jpg" alt="The Cactus Ecosystem" 
+          usemap="#ecosystem">
+
+          <map name="ecosystem">
+            <area shape="circle" href="site:index" coords="225,200,35"/>
+            <area shape="circle" href="site:eclipse_plugin" coords="165,145,35"/>
+            <area shape="circle" href="site:howto_runner" coords="305,220,35"/>
+            <area shape="circle" href="ext:maven_cactus" coords="390,200,35"/>
+            <area shape="circle" href="ext:strutstestcase" coords="375,260,35"/>
+            <area shape="circle" href="ext:junitee" coords="320,305,35"/>
+          </map>            	
+         
+        </figure>
       </p>
       <p>
-        <figure src="images/archiani.gif" alt="How it works ..."/>
+        The Cactus Ecosystem is made of several components:
       </p>
+      <ul>
+        <li>
+          The Cactus Framework: This is the heart of Cactus. It is the engine
+          that provides the API to write Cactus tests.
+        </li>
+        <li>
+          The Cactus Integration Modules: They are front ends and frameworks 
+          that provide easy ways of using the Cactus Framework (Ant scripts,
+          Eclipse plugin, Maven plugin, ...).
+        </li>
+        <li>
+          The Cactus Samples: They are simple projects that demonstrate how
+          to write Cactus tests and how to use some of the Integration Modules.
+        </li>
+      </ul>
     </section>
 
     <anchor id="unittest_types"/>
