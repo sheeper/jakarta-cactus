@@ -334,8 +334,9 @@ public final class ContainerRunner
     // Private Methods ---------------------------------------------------------
 
     /**
-     * Tests whether the resource pointed to by the specified HTTP URL is
-     * available.
+     * Tests whether we are able to connect to the HTTP server identified by the
+     * specified URL, and whether it responds with a HTTP status code indicating
+     * success (200 up to but excluding 300) for the requested resource.
      * 
      * @param theUrl The URL to check
      * @return <code>true</code> if the test URL could be called without error,
@@ -343,7 +344,7 @@ public final class ContainerRunner
      */
     private boolean isAvailable(URL theUrl)
     {
-        boolean isUrlCallable = false;
+        boolean retVal = false;
         try
         {
             HttpURLConnection connection = 
@@ -352,13 +353,17 @@ public final class ContainerRunner
             connection.connect();
             readFully(connection);
             connection.disconnect();
-            isUrlCallable = true;
+            if ((connection.getResponseCode() != -1)
+             && (connection.getResponseCode() < 300)) 
+            {
+                retVal = true;
+            }
         }
         catch (IOException e)
         {
             this.log.debug("Failed to connect to " + theUrl, e);
         }
-        return isUrlCallable;
+        return retVal;
     }
 
     /**
