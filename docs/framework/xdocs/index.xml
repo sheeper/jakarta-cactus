@@ -16,21 +16,51 @@
     <s1 title="Project description">
       <p>
         Cactus is a simple test framework for unit testing server-side java
-        code. It uses <link href="http://junit.org">JUnit</link> and extends it.
-        It's primary goal is to be able to unit test server side java methods
-        which use Servlet objects such as <code>HttpServletRequest</code>,
-        <code>HttpServletResponse</code>, <code>HttpSession</code>, ... (see
-        the full <link href="features.html">feature list</link>). This
-        framework is <em>not</em> a functional test framework which views your
-        server classes as a black box and only tests the returned results
-        from externally calling your application (see
-        <link href="http://sourceforge.net/projects/httpunit">HttpUnit</link>
-        for this). Both frameworks are complementary.
+        code (Servlets, EJBs, Tag Libs, Filters, ...).
       </p>
       <p>
-        Click <link href="scope.html">here</link> for the detailed scope and
-        status of Cactus.
+        The intent of Cactus is to lower the cost of writing tests for
+        server-side code. It
+        uses <link href="http://junit.org">JUnit</link> and extends it.
       </p>
+      <p>
+        Cactus has been developed with the idea of automatic testing in mind
+        and it provides a packaged and simple 
+        mechanism based on <link href="http://jakarta.apache.org/ant">Ant</link>
+        to automate server-side testing.
+      </p>
+      <p>
+        Cactus implements an in-container strategy (click on the diagram below
+        to undestand how it works). An alternative but complementary approach
+        not covered by Cactus is to use Mock Objects (see the
+        <link href="mockobjects.html">Mock vs Container</link> page to
+        understand the differences and why Cactus believes in the
+        usefulness of an in-container approach).
+      </p>
+      <p>
+        <link href="architecture.html">
+        <figure src="images/archiani.gif" alt="How it works ..."/></link>
+      </p>
+    </s1>
+    <s1 title="What Cactus is not !">
+        <p>
+          Cactus is not :
+        </p>
+        <ul>
+          <li>
+            A functional testing framework offering black box testing. Instead
+            Cactus provides white box testing. For a functional testing
+            framework, see
+            <link href="http://sourceforge.net/projects/httpunit">HttpUnit
+            </link>.
+          </li>
+          <li>
+            A mock objects implementation of server-side APIs. As mentionned
+            above, Cactus has chosen from the beginning to focus on
+            in-container testing. For a mock objects implementation, see the
+            <link href="http://www.mockobjects.com">Mock Objects</link> project.
+          </li>
+        </ul>
     </s1>
 
   </body>

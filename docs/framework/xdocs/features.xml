@@ -16,12 +16,21 @@
       <p><br/></p>
       <ul>
         <li>
-          Integrates seamlessly with the JUnit testing framework. Your testing 
-          class just has to extend
-          <code>org.apache.commons.cactus.ServletTestCase</code> or
-          <code>org.apache.commons.cactus.JspTestCase</code> (which themselves
-          extends <code>junit.framework.TestCase</code>) instead of extending
-          <code>junit.framework.TestCase</code> directly.
+          Integrates seamlessly with the JUnit testing framework.
+          <ul>        
+            <li>
+              Your testing class just has to extend
+              <code>org.apache.commons.cactus.ServletTestCase</code> or
+              <code>org.apache.commons.cactus.JspTestCase</code> (which 
+              themselves extends <code>junit.framework.TestCase</code>) 
+              instead of extending <code>junit.framework.TestCase</code> 
+              directly.
+            </li>
+            <li>
+              Any tool that works with JUnit will work with Cactus because
+              a Cactus test is a JUnit test !
+            </li>
+          </ul>
         </li>
         <li>
           Execute your test methods in a servlet/JSP environment, i.e. you have 

@@ -237,7 +237,7 @@ COPYRIGHT:
 
 <!ENTITY % links "link|connect|jump|fork|anchor">
 
-<!ENTITY % special "br|img|icon">
+<!ENTITY % special "br|img|icon|figure">
 
 <!ENTITY % link-content.mix "%text;|%markup;|%special;%local.content.mix;">
 

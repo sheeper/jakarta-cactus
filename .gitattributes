@@ -72,6 +72,7 @@ docs/framework/xdocs/images/add.jpg -text
 docs/framework/xdocs/images/archi.jpg -text
 docs/framework/xdocs/images/archi_jsp.jpg -text
 docs/framework/xdocs/images/archi_servlet.jpg -text
+docs/framework/xdocs/images/archiani.gif -text
 docs/framework/xdocs/images/fix.jpg -text
 docs/framework/xdocs/images/jb_libraries.gif -text
 docs/framework/xdocs/images/jb_paths.gif -text
@@ -89,6 +90,7 @@ docs/framework/xdocs/mailinglist.xml svn_keywords=Author+Date+Id+Revision
 docs/framework/xdocs/misc/archi.ppt -text
 docs/framework/xdocs/misc/archi_jsp.ppt -text
 docs/framework/xdocs/misc/archi_servlet.ppt -text
+docs/framework/xdocs/misc/archiani.ppt -text
 docs/framework/xdocs/misc/scope.ppt -text
 docs/framework/xdocs/mockobjects.xml svn_keywords=Author+Date+Id+Revision
 docs/framework/xdocs/resources.xml svn_keywords=Author+Date+Id+Revision

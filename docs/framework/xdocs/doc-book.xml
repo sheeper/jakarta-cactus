@@ -11,6 +11,7 @@
 
   <menu label="About">
     <menu-item label="What is Cactus ?" source="index.xml"/>
+    <menu-item label="How it works ?" source="architecture.xml"/>
     <menu-item label="Features" source="features.xml"/>
     <menu-item label="Goals" source="goals.xml"/>
     <menu-item type="changes" label="News/Changes" source="changes.xml"/>
@@ -24,12 +25,6 @@
 
   <menu label="Downloads">
     <menu-item label="Downloads" source="downloads.xml"/>
-  </menu>
-
-  <menu label="Design">
-    <menu-item label="Architecture" source="architecture.xml"/>
-    <menu-item label="Mock vs Container" source="mockobjects.xml"/>
-    <menu-item label="Cactus v2 proposal" source="cactusv2.xml"/>
   </menu>
 
   <menu label="User Guides">
@@ -55,6 +50,8 @@
 
   <menu label="Misc.">
     <menu-item label="Why the name ?" source="cactusname.xml"/>
+    <menu-item label="Mock vs Container" source="mockobjects.xml"/>
+    <menu-item label="Cactus v2 proposal" source="cactusv2.xml"/>
     <menu-item label="Resources" source="resources.xml"/>
   </menu>
 

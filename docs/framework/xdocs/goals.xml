@@ -75,13 +75,22 @@
           The container will provide more and more services for the components
           (like transactions, security, life cycle, persistence, interfaces
           - like web services -, logging, ...). Thus it will become harder and
-          harder to write a unit test framework for these components.
+          harder to write a unit test framework for these components. A solution
+          is through the use of mock objects. However as the component relies
+          more and more on it's container services, the confidence you have
+          that your code will run well in the deployed container will decrease
+          and the need for a solution that ensures your code run well in it's
+          deployed environment will increase.
         </p>
         <p>
-          We believe the only satisfactory solution is to include (unit) testing
-          APIs as <em>part</em> of the container specifications. This could be
-          in the form of a SPI (Service Provider Interface) against which a
-          generic unit testing framework could be plugged.
+          Cactus is trying to provide for this increase in confidence that the
+          code will run well in it's environment.
+        </p>
+        <p>
+          However, we believe the only satisfactory solution is to include
+          (unit) testing APIs as <em>part</em> of the container specifications.
+          This could be in the form of a SPI (Service Provider Interface) 
+          against which a generic unit testing framework could be plugged.
         </p> 
 
       </s2>
@@ -105,12 +114,13 @@
             Services). As Cactus and Tomcat projects are both hosted on Jakarta
             it might be a good test ground for this kind of work. Of course,
             the first step would be to convince Tomcat developers that unit
-            testing (and testing in general) is indeed a need. The ultimate
+            testing (and testing in general) is indeed a need to be
+            addressed in the container itself. The ultimate
             goal will be reached when this new API/SPI is accepted and become
             a de jure
             standard. It would then be time to think about integrating it into
             the Servlet Specifications (or other components -like EJBs -
-            specifications).
+            specifications). Agreed, this far-streched but it is the vision !
           </li>        
         </ul>
 
