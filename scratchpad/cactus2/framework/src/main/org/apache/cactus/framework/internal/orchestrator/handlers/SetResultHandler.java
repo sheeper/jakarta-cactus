@@ -17,21 +17,20 @@
  * 
  * ========================================================================
  */
-package org.apache.cactus.framework;
+package org.apache.cactus.framework.internal.orchestrator.handlers;
 
-public class Listener
+import java.io.IOException;
+
+import org.mortbay.http.HttpException;
+import org.mortbay.http.HttpRequest;
+import org.mortbay.http.HttpResponse;
+import org.mortbay.http.handler.AbstractHttpHandler;
+
+public class SetResultHandler extends AbstractHttpHandler
 {
-    /**
-     * Has the test listener socket been set up? 
-     */
-    private boolean isSetup = false;
-
-    public synchronized void setupListener() throws Throwable
+    public void handle(String pathInContext, String pathParams, 
+        HttpRequest request, HttpResponse response) 
+        throws HttpException, IOException
     {
-        if (!this.isSetup)
-        {
-            System.out.println("Setting up test listener socket");
-            this.isSetup = true;
-        }
     }
 }

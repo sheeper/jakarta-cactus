@@ -13,4 +13,11 @@
     <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-cactus2/framework/</connection>
     <url>http://cvs.apache.org/viewcvs/jakarta-cactus2/framework</url>
   </repository>
+  <dependencies>
+    <dependency>
+      <groupId>jetty</groupId>
+      <artifactId>org.mortbay.jetty</artifactId>
+      <version>4.2.17</version>
+    </dependency>
+  </dependencies>
 </project>

@@ -17,19 +17,32 @@
  * 
  * ========================================================================
  */
-package org.apache.cactus.framework;
+package org.apache.cactus.framework.aspect;
 
-import junit.framework.TestCase;
+import org.apache.cactus.framework.internal.orchestrator.Orchestrator;
+import org.codehaus.aspectwerkz.attribdef.Pointcut;
+import org.codehaus.aspectwerkz.attribdef.aspect.Aspect;
+import org.codehaus.aspectwerkz.joinpoint.JoinPoint;
 
 /**
- * Unit test for {@link Listener}.
+ * Intercepts client side JUnit tests and sets up the test listener socket
+ * if not set.
  */
-public class ListenerTest extends TestCase
+public class OrchestratorAspect extends Aspect
 {
-    public void testSetupListenerWhenNotAlreadySetup() throws Throwable
+    /**
+     * @Execution * *..TestCase+.test*()
+     */
+    private Pointcut interceptClientTest;
+
+    private Orchestrator orchestrator = new Orchestrator();
+    
+    /**
+     * @Around interceptClientTest
+     */
+    public Object setupOrchestrator(JoinPoint joinPoint) throws Throwable
     {
-        // Note: This test is invalid for the time being...
-        Listener listener = new Listener();
-        listener.setupListener();
+        this.orchestrator.initialize();
+        return joinPoint.proceed();
     }
 }

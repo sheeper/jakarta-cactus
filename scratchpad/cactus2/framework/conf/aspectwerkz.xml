@@ -3,7 +3,7 @@
 <aspectwerkz>
   <system id="cactus">
     <package name="org.apache.cactus.framework.aspect">
-      <use-aspect class="ListenerAspect"/>
+      <use-aspect class="OrchestratorAspect"/>
     </package>
   </system>
 </aspectwerkz>
