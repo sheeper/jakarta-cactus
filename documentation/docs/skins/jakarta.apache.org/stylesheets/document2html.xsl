@@ -11,7 +11,6 @@
   <xsl:param name="target"/>
 
   <xsl:output method="html" indent="yes"/>
-<!--  <xsl:strip-space elements="*"/> -->
 
   <!-- voodoo magic to calculate base directory -->
   <xsl:template name="get-base-directory">  
@@ -224,10 +223,48 @@
 <!-- body section -->
 <!-- ====================================================================== -->
 
+  <xsl:template match="section">
+  
+    <xsl:variable name="level" select="count(ancestor::section)+1"/>
+	 
+    <xsl:choose>
+      <xsl:when test="$level=1">
+        <xsl:call-template name="section">
+          <xsl:with-param name="width">100%</xsl:with-param>
+          <xsl:with-param name="font-size">+1</xsl:with-param>
+          <xsl:with-param name="name"><xsl:value-of select="@name"/></xsl:with-param>
+        </xsl:call-template>
+      </xsl:when>
+      <xsl:when test="$level=2">
+        <xsl:call-template name="section">
+          <xsl:with-param name="width">98%</xsl:with-param>
+          <xsl:with-param name="font-size">+0</xsl:with-param>
+          <xsl:with-param name="name"><xsl:value-of select="@name"/></xsl:with-param>
+        </xsl:call-template>
+      </xsl:when>
+      <xsl:when test="$level=3">
+        <xsl:call-template name="section">
+          <xsl:with-param name="width">96%</xsl:with-param>
+          <xsl:with-param name="font-size">-1</xsl:with-param>
+          <xsl:with-param name="name"><xsl:value-of select="@name"/></xsl:with-param>
+        </xsl:call-template>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:call-template name="section">
+          <xsl:with-param name="width">94%</xsl:with-param>
+          <xsl:with-param name="font-size">-2</xsl:with-param>
+          <xsl:with-param name="name"><xsl:value-of select="@name"/></xsl:with-param>
+        </xsl:call-template>
+      </xsl:otherwise>
+    </xsl:choose>
+
+  </xsl:template>  
+
   <xsl:template match="s1">
     <xsl:call-template name="section">
       <xsl:with-param name="width">100%</xsl:with-param>
       <xsl:with-param name="font-size">+1</xsl:with-param>
+      <xsl:with-param name="name"><xsl:value-of select="@title"/></xsl:with-param>
     </xsl:call-template>
   </xsl:template>
 
@@ -235,6 +272,7 @@
     <xsl:call-template name="section">
       <xsl:with-param name="width">98%</xsl:with-param>
       <xsl:with-param name="font-size">+0</xsl:with-param>
+      <xsl:with-param name="name"><xsl:value-of select="@title"/></xsl:with-param>
     </xsl:call-template>
   </xsl:template>
 
@@ -242,6 +280,7 @@
     <xsl:call-template name="section">
       <xsl:with-param name="width">96%</xsl:with-param>
       <xsl:with-param name="font-size">-1</xsl:with-param>
+      <xsl:with-param name="name"><xsl:value-of select="@title"/></xsl:with-param>
     </xsl:call-template>
   </xsl:template>
 
@@ -249,12 +288,14 @@
     <xsl:call-template name="section">
       <xsl:with-param name="width">94%</xsl:with-param>
       <xsl:with-param name="font-size">-2</xsl:with-param>
+      <xsl:with-param name="name"><xsl:value-of select="@title"/></xsl:with-param>
     </xsl:call-template>
   </xsl:template>
 
   <xsl:template name="section">
    <xsl:param name="width" />
    <xsl:param name="font-size" />
+   <xsl:param name="name" />
 
    <div align="right">
     <table border="0" cellspacing="0" cellpadding="2">
@@ -263,7 +304,7 @@
       <td bgcolor="#525D76">
        <font face="arial,helvetica,sanserif" color="#ffffff">
         <xsl:attribute name="size"><xsl:value-of select="$font-size"/></xsl:attribute>
-        <b><xsl:value-of select="@title"/></b>
+        <b><xsl:value-of select="$name"/></b>
        </font>
       </td>
      </tr>
@@ -464,6 +505,10 @@
 <!-- ====================================================================== -->
 <!-- links section -->
 <!-- ====================================================================== -->
+
+ <xsl:template match="a">
+   <a href="{@href}"><xsl:apply-templates/></a>
+ </xsl:template>
 
  <xsl:template match="link">
    <a href="{@href}"><xsl:apply-templates/></a>
