@@ -84,16 +84,26 @@ public class FilterConfiguration extends Configuration
      */
     public static String getFilterRedirectorURL()
     {
-        // Try to read it from a System property first and then if it fails
-        // from the Cactus configuration file.
+        initialize();
+
+        return getContextURL() + "/" + getFilterRedirectorName();
+    }
+
+    /**
+     * @return the Filter redirector name
+     */
+    public static String getFilterRedirectorName()
+    {
+        initialize();
+
         String filterRedirectorName = 
             System.getProperty(CACTUS_FILTER_REDIRECTOR_NAME_PROPERTY);
 
         if (filterRedirectorName == null)
         {
-            filterRedirectorName = "FilterRedirector";
+            filterRedirectorName = "ServletRedirector";
         }
 
-        return getContextURL() + "/" + filterRedirectorName;
+        return filterRedirectorName;
     }
 }
