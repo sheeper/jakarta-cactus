@@ -63,6 +63,7 @@ import java.util.Vector;
 import org.apache.cactus.eclipse.webapp.ui.WebappPlugin;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.QualifiedName;
 import org.eclipse.jdt.core.IClasspathEntry;
@@ -140,11 +141,11 @@ public class Webapp
 
     /**
      * Constructor.
-     * @param theProject the project this webapp is linked to
+     * @param theJavaProject the project this webapp is linked to
      */
-    public Webapp(IProject theProject)
+    public Webapp(IJavaProject theJavaProject)
     {
-        javaProject = JavaCore.create(theProject);
+        javaProject = theJavaProject;
     }
 
     /**
@@ -332,11 +333,25 @@ public class Webapp
     }
 
     /**
-     * @return String directory of this webapp source files 
+     * @return String directory of this webapp source files
+     * relative to the project path 
      */
     public String getDir()
     {
         return this.dir;
+    }
+    
+    /**
+     * @return the absolute directory to this webapp source files
+     */
+    public File getAbsoluteDir()
+    {
+        if (dir == null)
+        {
+            return null;
+        }
+        IPath projectPath = javaProject.getProject().getLocation();
+        return projectPath.append(dir).toFile();
     }
 
     /**

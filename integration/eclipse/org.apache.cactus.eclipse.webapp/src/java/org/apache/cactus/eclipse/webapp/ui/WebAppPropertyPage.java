@@ -92,7 +92,7 @@ public class WebAppPropertyPage extends PropertyPage
     protected Control createContents(Composite theParent)
     {
         IJavaProject javaProject = JavaCore.create(getProject());
-        webapp = new Webapp(getProject());
+        webapp = new Webapp(javaProject);
         boolean loadedDefaults = webapp.init();
         if (loadedDefaults)
         {

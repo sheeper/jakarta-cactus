@@ -59,9 +59,11 @@ package org.apache.cactus.eclipse.webapp.ui;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
+import org.apache.cactus.eclipse.webapp.Webapp;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPluginDescriptor;
+import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 /**
@@ -152,5 +154,14 @@ public class WebappPlugin extends AbstractUIPlugin
     public static String getPluginId()
     {
         return getDefault().getDescriptor().getUniqueIdentifier();
+    }
+
+    /**
+     * @param theJavaProject the Java project to get the webapp from
+     * @return the webapp associated to the given Java project
+     */
+    public static Webapp getWebapp(IJavaProject theJavaProject)
+    {
+        return new Webapp(theJavaProject);
     }
 }

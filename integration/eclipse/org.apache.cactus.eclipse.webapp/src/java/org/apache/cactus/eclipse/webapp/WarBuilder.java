@@ -153,7 +153,7 @@ public class WarBuilder
         this.userClassFilesDir = getAbsoluteOutputLocation(theJavaProject);
 
         // TODO: Why not save the Webapp object directly?
-        Webapp webapp = new Webapp(theJavaProject.getProject());
+        Webapp webapp = new Webapp(theJavaProject);
         webapp.loadValues();
 
         this.outputWar = new File(webapp.getOutput());
