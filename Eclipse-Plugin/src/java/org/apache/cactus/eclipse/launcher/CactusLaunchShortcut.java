@@ -58,6 +58,7 @@ package org.apache.cactus.eclipse.launcher;
 
 import java.lang.reflect.InvocationTargetException;
 
+import org.apache.cactus.eclipse.containers.Tomcat40AntContainerProvider;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.DebugPlugin;
 import org.eclipse.debug.core.ILaunchConfiguration;
@@ -95,6 +96,9 @@ public class CactusLaunchShortcut extends JUnitLaunchShortcut
             CactusLaunchConfiguration.ID_CACTUS_APPLICATION);
     }
 
+    /**
+     * @see JUnitLaunchShortcut#launchType(Object[], String)
+     */
     protected void launchType(Object[] search, String mode)
     {
         IType[] types = null;
@@ -134,16 +138,55 @@ public class CactusLaunchShortcut extends JUnitLaunchShortcut
         }
     }
 
+    /**
+     * @see JUnitLaunchShortcut#launch(IType, String)
+     */
     private void launch(IType type, String mode)
     {
         ILaunchConfiguration config = findLaunchConfiguration(type, mode);
         System.out.println("Setting up the container");
+        Tomcat40AntContainerProvider matou = new Tomcat40AntContainerProvider();
+        try
+        {
+            matou.deploy();
+        }
+        catch (CoreException e)
+        {
+            e.printStackTrace();
+        }
         System.out.println("Starting the container");
+        try
+        {
+            matou.start();
+        }
+        catch (CoreException e)
+        {
+            e.printStackTrace();
+        }
         launchConfiguration(mode, config);
         System.out.println("Stoping the container");
+        try
+        {
+            matou.stop();
+        }
+        catch (CoreException e)
+        {
+            e.printStackTrace();
+        }
         System.out.println("Cleaning the container");
+        try
+        {
+            matou.undeploy();
+        }
+        catch (CoreException e)
+        {
+            e.printStackTrace();
+        }
     }
 
+    /**
+     * @see JUnitLaunchShortcut#launchConfiguration(String, ILaunchConfiguration)
+     */
     private void launchConfiguration(String mode, ILaunchConfiguration config)
     {
         try
