@@ -164,18 +164,18 @@ public class StartServerHelper implements Runnable
         // Continuously try calling the test URL until it succeeds
         while (true)
         {
-
-            if (!isURLCallable())
-            {
-                sleep(500);
-                pm.worked(1);
-                continue;
-            }
+            // If the user cancelled the start
             if (pm.isCanceled())
             {
                 throw new BuildException(
                     CactusMessages.getString(
                         "CactusLaunch.message.start.error"));
+            }
+            if (!isURLCallable())
+            {
+                sleep(500);
+                pm.worked(1);
+                continue;
             }
             break;
         }
