@@ -282,5 +282,27 @@ public class TestWebRequest extends TestCase
             }            
         }
     }
+    
+    /**
+     * Verifies that setting the unique id on the request adds it to
+     * the list of query string parameters.
+     */
+    public void testSetUniqueId(){
+		WebRequest request = new WebRequest(new ServletConfiguration());
+		
+		String testId = "XXX-TEST";
+		request.setUniqueId(testId);
+		assertEquals(testId, request.getUniqueId());
+		assertEquals(testId, request.getParameterGet(HttpServiceDefinition.TEST_ID));
+		
+		try
+		{
+			request.setUniqueId("something-else");
+			fail("Should have thrown IllegalStateException");
+		} 
+		catch (IllegalStateException success)
+		{
+		}
+    }
 
 }
