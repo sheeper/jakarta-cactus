@@ -561,13 +561,6 @@ integration/eclipse/org.apache.cactus.eclipse.webapp/src/java/org/apache/cactus/
 integration/eclipse/org.apache.cactus.eclipse.webapp/src/java/org/apache/cactus/eclipse/webapp/internal/ui/WebappMessages.properties svn_keywords=Author+Date+Id+Revision
 integration/eclipse/org.apache.cactus.eclipse.webapp/src/java/org/apache/cactus/eclipse/webapp/internal/ui/WebappPlugin.java svn_keywords=Author+Date+Id+Revision
 integration/maven/.cvsignore svn_keywords=Author+Date+Id+Revision
-integration/maven/announcements/1.0.ann svn_keywords=Author+Date+Id+Revision
-integration/maven/announcements/1.1.ann svn_keywords=Author+Date+Id+Revision
-integration/maven/announcements/1.2.ann svn_keywords=Author+Date+Id+Revision
-integration/maven/announcements/2.0.ann svn_keywords=Author+Date+Id+Revision
-integration/maven/announcements/3.0.ann svn_keywords=Author+Date+Id+Revision
-integration/maven/announcements/3.1.ann svn_keywords=Author+Date+Id+Revision
-integration/maven/announcements/3.2.ann svn_keywords=Author+Date+Id+Revision
 integration/maven/plugin.jelly svn_keywords=Author+Date+Id+Revision
 integration/maven/plugin.properties svn_keywords=Author+Date+Id+Revision
 integration/maven/project.properties svn_keywords=Author+Date+Id+Revision
