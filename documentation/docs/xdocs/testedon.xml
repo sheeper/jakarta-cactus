@@ -224,7 +224,6 @@
             </td>
             <td>
               A NullPointerException is raised when stopping Tomcat.
-              However it seems to be stopped correctly.
             </td>
           </tr>
           <tr>
