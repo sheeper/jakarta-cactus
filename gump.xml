@@ -430,7 +430,9 @@
   	   the generated build files -->
   <project name="jakarta-cactus-sample-servlet-12-gumplogs">
 
-    <depend project="jakarta-cactus-sample-servlet-12"/>
+    <!-- Note: We do not depend on jakarta-cactus-sample-servlet-12 because if
+    	 we do and it fails, this project will not get run... Thus we hope
+    	 this project will get run *after* jakarta-cactus-sample-servlet-12 -->
     <javadoc nested="samples/servlet/target-12/test/test-reports"/>
 
   </project>
@@ -501,7 +503,9 @@
   	   the generated build files -->
   <project name="jakarta-cactus-sample-servlet-13-gumplogs">
 
-    <depend project="jakarta-cactus-sample-servlet-13/>
+    <!-- Note: We do not depend on jakarta-cactus-sample-servlet-12 because if
+    	 we do and it fails, this project will not get run... Thus we hope
+    	 this project will get run *after* jakarta-cactus-sample-servlet-12 -->
     <javadoc nested="samples/servlet/target-13/test/test-reports"/>
 
   </project>
