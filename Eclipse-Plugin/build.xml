@@ -1,40 +1,111 @@
 <?xml version="1.0"?>
 
-<project name="Cactus Eclipse Plugin" basedir="." default="compile">
+<!--
+  =============================================================================
+    Build file for the Cactus Eclipse Plugin.
+
+    This script should be started with the following command line :
+
+        ant <target>
+
+    Run "ant -projecthelp" to get a list of available targets. The default
+    target is "dist"
+
+    Note: basedir points to the main Cactus directory in order to have the same
+          base dir for all Cactus subprojects and thus be able to share
+          relative paths.
+  =============================================================================
+-->
+<project name="Cactus Eclipse Plugin" basedir=".." default="dist">
 
     <!-- Give user a chance to override without editing this file
          (and without typing -D each time it compiles it) -->
-    <property file="build.properties" />
+    <property file="${basedir}/Eclipse-Plugin/build.properties" />
+    <property file="${basedir}/build.properties" />
     <property file="${user.home}/build.properties" />
 
+    <!-- Global project properties -->
+    <property name="project.name.text" value="Cactus Eclipse Plugin"/>
+    <property name="project.name.file" value="cactus-eclipse"/>
+    <property name="project.version" value="1.5dev"/>
 
+    <!-- Prefix to add to all distributable files -->
     <property name="project.prefix" value="jakarta-"/>
-    <property name="project.name.file" value="cactus-eclipse-plugin"/>    
 
-	<property name="src.dir" value="src"/>
+    <!--
+       ========================================================================
+         Default values for properties not defined in build.properties or in
+         a higher level calling Ant script
+       ========================================================================
+    -->
+    <property name="year" value="2000-2002"/>
+    <property name="debug" value="on"/>
+    <property name="optimize" value="off"/>
+    <property name="deprecation" value="off"/>
+
+    <!--
+       ========================================================================
+         Base directory for all file related operations
+       ========================================================================
+    -->
+    <property name="base.dir" location="Eclipse-Plugin"/>
+
+    <!--
+       ========================================================================
+         Set the properties related to the source tree
+       ========================================================================
+    -->
+	<property name="src.dir" value="${base.dir}/src"/>
 	<property name="src.java.dir" value="${src.dir}/java"/>
 
-	<property name="target.dir" value="target"/>
+    <!--
+       ========================================================================
+         Set the properties related to the target area
+       ========================================================================
+    -->
+	<property name="target.dir" value="${base.dir}/target"/>
 	<property name="target.classes.dir" value="${target.dir}/classes"/>
 
-	<property name="dist.dir" value="dist"/>
+    <!-- Distribution directory, i.e. where the expanded distibutable files
+         are located -->
+	<property name="dist.dir" value="${base.dir}/dist"/>
 
     <!-- Release directory, i.e. where the zipped distribution is located -->
-    <property name="release.dir" value="release"/>
+    <property name="release.dir" value="${base.dir}/release"/>
     
     <!--
        ========================================================================
-         Initialize the build and display mandatory properties.
+         Display configurable properties values
        ========================================================================
     -->
-	<target name="init">
+    <target name="display.properties">
 
+        <echo>----- ${project.name.text} ${project.version} -----</echo>
+        <echo></echo>
+        <echo>java.class.path = ${java.class.path}"</echo>
+        <echo></echo>
+        <echo>java.home = ${java.home}</echo>
+        <echo>user.home = ${user.home}</echo>
+        <echo>ant.home = ${ant.home}</echo>
+        <echo></echo>
 		<echo>eclipse.junit.jar = ${eclipse.junit.jar}</echo>
 		<echo>eclipse.core.boot.jar = ${eclipse.core.boot.jar}</echo>
 		<echo>eclipse.jdt.junit.jar = ${eclipse.jdt.junit.jar}</echo>
+        <echo></echo>
 
-	</target>
-	
+    </target>
+
+    <!--
+       ========================================================================
+         Initialize the build. Must be called by all targets
+       ========================================================================
+    -->
+    <target name="init" depends="display.properties">
+
+        <tstamp/>
+
+    </target>
+
     <!--
        ========================================================================
          Compile the plugin
@@ -50,7 +121,9 @@
         		
 		<mkdir dir="${target.classes.dir}"/>
 
-		<javac destdir="${target.classes.dir}">
+		<javac destdir="${target.classes.dir}" deprecation="${deprecation}" 
+		  optimize="${optimize}" debug="${debug}">
+		
 			<src path="${src.java.dir}"/>
 			<classpath>
 				<pathelement location="${eclipse.junit.jar}"/>
@@ -71,43 +144,85 @@
 
 	</target>
 
-	<target name="package" depends="compile">
-		<mkdir dir="${dist.dir}" />
+    <!--
+       ========================================================================
+         Generate the distributables for this project, i.e the unzipped
+         plugin structure.
+       ========================================================================
+    -->
+	<target name="dist" depends="compile"
+	  description="Generate the distributable files">
+	  
+		<mkdir dir="${dist.dir}"/>
 		
-		<jar 
-			jarfile="${dist.dir}/cactussupport.jar"
-			basedir="${target.classes.dir}"
-		/>
+		<jar jarfile="${dist.dir}/cactussupport.jar">
+            <manifest>
+                <section name="org/apache/cactus/eclipse/">
+                    <attribute name="Specification-Title"
+                        value="${project.name.text}"/>
+                    <attribute name="Specification-Version"
+                        value="${project.version}"/>
+                    <attribute name="Specification-Vendor"
+                        value="Apache Software Foundation"/>
+                    <attribute name="Implementation-Title"
+                        value="${project.name.file}"/>
+                    <attribute name="Implementation-Version"
+                        value="${project.version} ${TODAY}"/>
+                    <attribute name="Implementation-Vendor"
+                        value="Apache Software Foundation"/>
+                </section>
+            </manifest>
+            <metainf dir=".">
+                <include name="LICENSE.cactus"/>
+            </metainf>
+            <fileset dir="${target.classes.dir}"/>
+        </jar>
 				
-		<jar 		
-			jarfile="${dist.dir}/cactussupportsrc.jar"
-			basedir="src/java"
-		/>
+		<jar jarfile="${dist.dir}/cactussupportsrc.jar">
+            <manifest>
+                <section name="org/apache/cactus/eclipse/">
+                    <attribute name="Specification-Title"
+                        value="${project.name.text}"/>
+                    <attribute name="Specification-Version"
+                        value="${project.version}"/>
+                    <attribute name="Specification-Vendor"
+                        value="Apache Software Foundation"/>
+                    <attribute name="Implementation-Title"
+                        value="${project.name.file}"/>
+                    <attribute name="Implementation-Version"
+                        value="${project.version} ${TODAY}"/>
+                    <attribute name="Implementation-Vendor"
+                        value="Apache Software Foundation"/>
+                </section>
+            </manifest>
+            <metainf dir=".">
+                <include name="LICENSE.cactus"/>
+            </metainf>
+            <fileset dir="${src.java.dir}"/>
+		</jar>		
 		
-		<copy file="plugin.xml" todir="${dist.dir}"/>
-		<copy file="plugin.properties" todir="${dist.dir}"/>
+		<copy file="${base.dir}/plugin.xml" todir="${dist.dir}"/>
+		<copy file="${base.dir}/plugin.properties" todir="${dist.dir}"/>
 		<copy todir="${dist.dir}/icons">
-			<fileset dir="icons" />
+			<fileset dir="${base.dir}/icons"/>
 		</copy>
 		<copy todir="${dist.dir}/ant">
-			<fileset dir="ant" />
+			<fileset dir="${base.dir}/ant"/>
 		</copy>
-	</target>
 
+	</target>
 
     <!--
        ========================================================================
-         Script for both "gump" target. Must only be
-         called by "gump" target as it needs the following
-         properties defined before calling it :
-
-             cactus.release.name
-
+         Generate the zipped plugin.
        ========================================================================
     -->
-    <target name="release">
+    <target name="release" depends="dist"
+      description="Generate the installable zipped plugin">
 
         <mkdir dir="${release.dir}"/>
+        <property name="cactus.release.name"
+            value="${project.prefix}${project.name.file}-${project.version}"/>
 
         <zip zipfile="${release.dir}/${cactus.release.name}.zip">
 
@@ -121,30 +236,6 @@
 
     </target>
     	
-    <!--
-       ========================================================================
-         Generate a nightly gump release (i.e. the zipped release file).
-       ========================================================================
-    -->
-    <target name="gump.prepare">
-
-        <!-- Sets the date for the release prefix : YYYYMMDD -->
-        <tstamp/>
-
-        <!-- Suffix to add to all distributable files -->
-        <property name="project.suffix" value="-${DSTAMP}"/>
-
-        <!-- Name of nightly release -->
-        <property name="cactus.release.name"
-            value="${project.prefix}${project.name.file}-${project.suffix}"/>
-
-    </target>
-
-    <target name="gump" depends="clean,gump.prepare,package,release"
-        description="Generate a nightly gump release">
-    </target>
-
-
     <!--
        ========================================================================
          Clean up build-generated files and directories
