@@ -64,6 +64,7 @@ import java.util.jar.JarFile;
 
 import org.apache.cactus.integration.ant.webxml.WebXml;
 import org.apache.cactus.integration.ant.webxml.WebXmlIo;
+import org.apache.cactus.integration.ant.webxml.WebXmlVersion;
 import org.apache.tools.ant.BuildException;
 import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
@@ -132,12 +133,12 @@ public final class TestCactifyWarTask extends AntTestCase
     // Test Methods ------------------------------------------------------------
 
     /**
-     * Verifies that the task throws an exception when the srcfile attribute 
-     * has not been set.
+     * Verifies that the task throws an exception when neither the srcfile
+     * nor the version attribute has been set.
      * 
      * @throws Exception If an unexpected error occurs
      */
-    public void testSrcFileNotSet() throws Exception
+    public void testNeitherSrcFileNorVersionSet() throws Exception
     {
         try
         {
@@ -146,8 +147,8 @@ public final class TestCactifyWarTask extends AntTestCase
         }
         catch (BuildException expected)
         {
-            assertEquals("The [srcfile] attribute is required",
-                expected.getMessage());
+            assertEquals("You need to specify either the [srcfile] or the "
+                + "[version] attribute", expected.getMessage());
         }
     }
 
@@ -204,7 +205,7 @@ public final class TestCactifyWarTask extends AntTestCase
         {
             destWar.close();
         }
-   }
+    }
 
     /**
      * Tests whether the Cactus test redirectors are correctly added to the 
@@ -253,6 +254,69 @@ public final class TestCactifyWarTask extends AntTestCase
             WebXml webXml = WebXmlIo.parseWebXml(destWar,
                 new NullEntityResolver());
             
+            assertServletMapping(webXml,
+                "org.apache.cactus.server.ServletTestRedirector",
+                "/ServletRedirector");
+            assertJspMapping(webXml, "/jspRedirector.jsp", "/JspRedirector");
+            assertFilterMapping(webXml,
+                "org.apache.cactus.server.FilterTestRedirector",
+                "/FilterRedirector");
+        }
+        finally
+        {
+            destWar.close();
+        }
+    }
+
+    /**
+     * Tests whether the Cactus test redirectors are correctly added to the 
+     * descriptor of a WAR when no srcfile attribute had been set, and the 
+     * version has been set to 2.2.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
+    public void testDefaultRedirectorsNewWar22() throws Exception
+    {
+        executeTestTarget();
+
+        File destFile = getProject().resolveFile("work/destfile.war");
+        JarFile destWar = new JarFile(destFile);
+        try
+        {
+            WebXml webXml = WebXmlIo.parseWebXml(destWar,
+                new NullEntityResolver());
+            assertEquals(WebXmlVersion.V2_2, webXml.getVersion());
+            assertServletMapping(webXml,
+                "org.apache.cactus.server.ServletTestRedirector",
+                "/ServletRedirector");
+            assertJspMapping(webXml, "/jspRedirector.jsp", "/JspRedirector");
+            assertTrue("Filter test redirector should not have been defined",
+                !webXml.getFilterNames().hasNext());
+        }
+        finally
+        {
+            destWar.close();
+        }
+    }
+
+    /**
+     * Tests whether the Cactus test redirectors are correctly added to the 
+     * descriptor of a WAR when no srcfile attribute had been set, and the 
+     * version has been set to 2.3.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
+    public void testDefaultRedirectorsNewWar23() throws Exception
+    {
+        executeTestTarget();
+
+        File destFile = getProject().resolveFile("work/destfile.war");
+        JarFile destWar = new JarFile(destFile);
+        try
+        {
+            WebXml webXml = WebXmlIo.parseWebXml(destWar,
+                new NullEntityResolver());
+            assertEquals(WebXmlVersion.V2_3, webXml.getVersion());
             assertServletMapping(webXml,
                 "org.apache.cactus.server.ServletTestRedirector",
                 "/ServletRedirector");

@@ -14,7 +14,7 @@
     </xmlcatalog>
   </target>
 
-  <target name="testSrcFileNotSet">
+  <target name="testNeitherSrcFileNorVersionSet">
     <cactifywar destfile="destfile.war"/>
   </target>
 
@@ -39,6 +39,16 @@
         destfile="${work.dir}/destfile.war">
       <xmlcatalog refid="j2ee.dtds"/>
     </cactifywar>
+  </target>
+
+  <target name="testDefaultRedirectorsNewWar22">
+    <cactifywar version="2.2"
+        destfile="${work.dir}/destfile.war"/>
+  </target>
+
+  <target name="testDefaultRedirectorsNewWar23">
+    <cactifywar version="2.3"
+        destfile="${work.dir}/destfile.war"/>
   </target>
 
   <target name="tearDown">
