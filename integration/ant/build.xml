@@ -282,8 +282,62 @@
          Create the runtime jar file
        ========================================================================
     -->
-    <target name="jar" depends="compile.main"
-        description="Generate the integration jar">
+    <target name="jar.clover" depends="compile.clover">
+
+        <jar jarfile="${target.dir}/${cactus.antintegration.clover.jar.name}.jar">
+
+            <manifest>
+                <section name="org/apache/cactus/integration/ant/">
+                    <attribute name="Specification-Title"
+                        value="${project.name.text}"/>
+                    <attribute name="Specification-Version"
+                        value="${project.version}"/>
+                    <attribute name="Specification-Vendor"
+                        value="Apache Software Foundation"/>
+                    <attribute name="Implementation-Title"
+                        value="${project.name.file}"/>
+                    <attribute name="Implementation-Version"
+                        value="${project.version} ${TODAY}"/>
+                    <attribute name="Implementation-Vendor"
+                        value="Apache Software Foundation"/>
+                </section>
+            </manifest>
+
+            <metainf dir=".">
+                <include name="LICENSE.cactus"/>
+            </metainf>
+
+            <fileset dir="${target.classes.java.dir}"/>
+
+            <zipfileset dir="${src.conf.dir}"
+                prefix="org/apache/cactus/integration/ant/webxml/resources">
+              <include name="web-app_*.*"/>
+            </zipfileset>
+
+            <zipfileset dir="${src.conf.dir}/share"
+                prefix="org/apache/cactus/integration/ant/container/resources">
+              <include name="**/orion1x/**/*.*"/>
+              <include name="**/orion2x/**/*.*"/>
+              <include name="**/resin2x/**/*.*"/>
+              <include name="**/tomcat4x/**/*.*"/>
+              <include name="**/tomcat5x/**/*.*"/>
+              <include name="**/weblogic6x/**/*.*"/>
+              <include name="**/weblogic7x/**/*.*"/>
+            </zipfileset>
+            <zipfileset dir="${src.conf.dir}/j2ee12"
+                prefix="org/apache/cactus/integration/ant/container/resources">
+              <include name="**/tomcat3x/**/*.*"/>
+            </zipfileset>
+            <zipfileset dir="${src.conf.dir}/j2ee13"
+                prefix="org/apache/cactus/integration/ant/container/resources">
+              <include name="**/jboss3x/**/*.*"/>
+            </zipfileset>
+
+        </jar>
+
+    </target>
+
+    <target name="jar.main" depends="compile.main">
 
         <jar jarfile="${target.dir}/${cactus.antintegration.jar.name}.jar">
 
@@ -337,6 +391,10 @@
         </jar>
 
     </target>
+
+    <target name="jar"
+        depends="jar.main, jar.clover"
+        description="Generate the integration jar"/>
 
     <!--
        ========================================================================
@@ -470,15 +528,24 @@
 		<copy todir="${target.integration.conf.dir}" 
 			file="${cactus.framework.web}/jspRedirector.jsp"/>
 
-    </target>
-
-    <target name="dist" depends="dist.prepare"
-        description="Generate the distributable files">
-
         <mkdir dir="${dist.bin.dir}"/>
         <mkdir dir="${dist.lib.dir}"/>
         <mkdir dir="${dist.doc.api.dir}"/>
         
+    </target>
+
+    <target name="dist.clover"
+        depends="jar.clover"
+        if="clover.enable">
+
+        <copy todir="${dist.lib.dir}"
+            file="${target.dir}/${cactus.antintegration.clover.jar.name}.jar"/>
+
+    </target>
+
+    <target name="dist" depends="dist.prepare, dist.clover"
+        description="Generate the distributable files">
+
         <copy todir="${dist.lib.dir}"
             file="${target.dir}/${cactus.antintegration.jar.name}.jar"/>
 
