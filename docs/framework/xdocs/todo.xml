@@ -10,7 +10,7 @@
 
   <actions priority="high">
     <action context="build">
-      Set up nightly builds (it is high time !).
+      Set up nightly builds (it is high time !). Almost done !
     </action>
     <action context="docs">
       Update web site documentation to explain new dependency with Log4j
@@ -46,17 +46,11 @@
       Upgrade from Orion 1.4 to Orion 1.5.2
     </action>
     <action context="build">
-      Use the latest build of Ant instead of Ant 1.3
-    </action>
-    <action context="build">
       Add the Ant scripts for JBoss 2.x w/Tomcat provided by Jeffrey Madynski
       (jmadynski@food.com)
     </action>
     <action context="docs">
       Write a Cactus integration tutorial for JBuilder 4.
-    </action>
-    <action context="docs">
-      Write a Cactus integration tutorial for VAJava 3.5.
     </action>
     <action context="build">
       Add Ant scripts to support WebLogic 6.0.
@@ -92,10 +86,6 @@
     </action>
     <action context="code">
       Integration for Netbeans by integration with the Netbeans XTest module.
-    </action>
-    <action context="code">
-      Look at <link href="http://jxunit.sourceforge.net">JXUnit</link> to
-      see if an integration with Cactus can be done (proposed by Will Sargent).
     </action>
   </actions>
 
