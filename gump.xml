@@ -199,6 +199,9 @@
     <depend project="jakarta-ant"/>
     <depend project="xml-xerces"/>
 
+    <deliver fromdir="dist-12" tosite="jakarta.apache.org"
+             todir="builds/jakarta-cactus/nightly/@@DATE@@/" />
+
     <nag from="Vincent Massol &lt;vmassol@apache.org&gt;"
          to="cactus-dev@jakarta.apache.org"/>
   </project>
@@ -221,6 +224,9 @@
 
     <depend project="jakarta-ant"/>
     <depend project="xml-xerces"/>
+
+    <deliver fromdir="dist-13" tosite="jakarta.apache.org"
+             todir="builds/jakarta-cactus/nightly/@@DATE@@/" />
 
     <nag from="Vincent Massol &lt;vmassol@apache.org&gt;"
          to="cactus-dev@jakarta.apache.org"/>
