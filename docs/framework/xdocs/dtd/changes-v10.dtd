@@ -82,7 +82,7 @@ COPYRIGHT:
     <!ELEMENT release (action+)>
     <!ATTLIST release %common.att;
                       version  CDATA  #REQUIRED
-                      date     CDATA  #REQUIRED>
+                      date     CDATA  #IMPLIED>
 
         <!ELEMENT action (%content.mix;)*>
         <!ATTLIST action %common.att;
