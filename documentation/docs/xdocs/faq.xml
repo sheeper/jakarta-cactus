@@ -32,6 +32,10 @@
           <jump anchor="faq4">How can I test the chaining of several HTTP
           requests ?</jump>
         </li>
+        <li>
+          <jump anchor="faq5">The Ant runservertests task hangs when my server
+          is started</jump>
+        </li>
       </ul>
     </s1>
 
@@ -224,6 +228,36 @@ web application is built)
           integration for example). Note that this second test is rather a
           functional test than a unit test but it can still be viewed as
           unit testing the <code>doGet()</code> method of the JSP ...
+        </p>
+      </s2>
+
+    </s1>
+
+    <anchor id="faq5"/>
+    <s1 title="The Ant runservertests task hangs when my server is started">
+
+      <s2 title="Question">
+        <p>
+          When I use the <code>runservertests</code> Cactus custom Ant task,
+          it starts my server allright but then hangs and the tests are not
+          executed. What is happening ?
+        </p>
+      </s2>
+      <s2 title="Solution">
+        <p>
+          It means that the <code>testURL</code> attribute you've specified
+          in <code>runservertests</code> is not a valid URL. It must be a URL
+          that is valid when the server is up. To diagnosis the problem simply
+          open a browser once your server is started (i.e. when the task hangs)
+          and type the URL in your browser. An alternative to debug is also to
+          run Ant in debug mode (<code>ant -debug [your target]</code>).
+        </p>
+        <p>
+          With Cactus 1.3, the correct URL to call is the following, which is
+          always valid :
+          <code>http://localhost:8080/webapp/ServletRedirector?Cactus_Service=RUN_TEST</code>.
+          Of course replace <code>webapp</code> by your webapp context and
+          replace the port by the one you're using.
         </p>
       </s2>
 

@@ -48,6 +48,13 @@
     </devs>
 
     <release version="1.3 in CVS">
+      <action dev="VMA" type="add">
+        Added a Security Howto tutorial to explain how to unit test secure
+        Servlet code.
+      </action>
+      <action dev="VMA" type="update">
+        Updated the whole web site for Cactus 1.3 and added some FAQ entries.
+      </action>
       <action dev="VMA" type="update">
         Improved Cactus logging. Cactus logging is now enabled by a
         <code>cactus.enableLogging=true</code> property that needs to be either
