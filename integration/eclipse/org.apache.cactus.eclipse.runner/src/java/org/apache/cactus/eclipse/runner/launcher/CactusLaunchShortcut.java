@@ -251,7 +251,7 @@ public class CactusLaunchShortcut
     public void launchJunitTests()
     {
         CactusPlugin.log("Launching tests");
-        super.launchType(search, mode);
+        super.launchType(this.search, this.mode);
     }
 
     /**
@@ -260,7 +260,7 @@ public class CactusLaunchShortcut
      */
     public IContainerProvider getContainerProvider()
     {
-        return provider;
+        return this.provider;
     }
 
     /**
@@ -317,11 +317,11 @@ public class CactusLaunchShortcut
         thePM.beginTask(
             CactusMessages.getString("CactusLaunch.message.prepare"),
             10);
-        provider = CactusPlugin.getContainerProvider();
+        this.provider = CactusPlugin.getContainerProvider();
         try
         {
             WarBuilder newWar = new WarBuilder(theJavaProject);
-            war = newWar.createWar(thePM);
+            this.war = newWar.createWar(thePM);
             URL warURL = war.toURL();
             String contextURLPath = CactusPreferences.getContextURLPath();
             if (contextURLPath.equals(""))
@@ -330,8 +330,8 @@ public class CactusLaunchShortcut
                     "CactusLaunch.message.invalidproperty.contextpath",
                     null);
             }
-            provider.deploy(contextURLPath, warURL, null, thePM);
-            provider.start(null, thePM);
+            this.provider.deploy(contextURLPath, warURL, null, thePM);
+            this.provider.start(null, thePM);
         }
         catch (MalformedURLException e)
         {
@@ -355,11 +355,11 @@ public class CactusLaunchShortcut
         thePM.beginTask(
             CactusMessages.getString("CactusLaunch.message.teardown"),
             100);
-        if (provider != null)
+        if (this.provider != null)
         {
-            provider.stop(null, thePM);
-            provider.undeploy(null, null, thePM);
-            war.delete();
+            this.provider.stop(null, thePM);
+            this.provider.undeploy(null, null, thePM);
+            this.war.delete();
         }
         thePM.done();
     }
