@@ -3,6 +3,10 @@
   <extend>${basedir}/../default-project.xml</extend>
   <id>jakarta-cactus-framework</id>
   <name>Jakarta Cactus Framework</name>
+  <repository>
+    <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-cactus/framework</connection>
+    <url>http://cvs.apache.org/viewcvs/jakarta-cactus/framework</url>
+  </repository>
   <dependencies>
     <dependency>
       <groupId>aspectj</groupId>
