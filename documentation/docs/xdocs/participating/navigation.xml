@@ -44,7 +44,6 @@
     <item id="coverage"/>
     <item id="release_checklist"/>
     <item id="bug_database_cactus_open_issues" label="Open Issues"/>
-    <item id="bug_database_cactus_open_bugs" label="Open Bugs"/>
   </menu>
 
   <menu label="Miscellaneous">
