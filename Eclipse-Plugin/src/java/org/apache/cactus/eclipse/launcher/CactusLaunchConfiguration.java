@@ -56,17 +56,10 @@
  */
 package org.apache.cactus.eclipse.launcher;
 
-import java.net.URL;
-import java.util.Vector;
-
-import org.apache.cactus.eclipse.ui.CactusMessages;
-import org.apache.cactus.eclipse.ui.CactusPlugin;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.internal.junit.launcher.JUnitLaunchConfiguration;
-import org.eclipse.jdt.launching.IJavaLaunchConfigurationConstants;
 import org.eclipse.jdt.launching.VMRunnerConfiguration;
 
 /**
@@ -90,74 +83,34 @@ public class CactusLaunchConfiguration extends JUnitLaunchConfiguration
         "org.apache.cactus.eclipse.launchconfig";
 
     /**
-     * Returns a VM configuration. This method in JUnit actually
-     * dismisses the VM args from theConfiguration, so we redid it
-     * to include them.
+     * Returns a valid VM configuration for Cactus. This method overrides
+     * the JUnit plugin one in order to add Cactus required VM parameters. 
      *
      * @param theConfiguration the launch configuration
-     * @param theMode the mode
+     * @param theMode the mode (debug, run)
      * @param theTests the JUnit tests that will be run
      * @param thePort the JUnit remote port
-     * @return the configuration for the VM in which to run the tests 
+     * @return the configuration for the VM in which to run the tests. It
+     *         includes both the JUnit plugin configuration and the Cactus
+     *         required configuration 
      * 
      * @exception CoreException on critical failures
      */
     protected VMRunnerConfiguration launchTypes(
-        ILaunchConfiguration theConfiguration,
-        String theMode,
-        IType[] theTests,
-        int thePort)
-        throws CoreException
+        ILaunchConfiguration theConfiguration, String theMode, 
+        IType[] theTests, int thePort) throws CoreException
     {
-
-        VMRunnerConfiguration jUnitConf =
+        VMRunnerConfiguration configuration =
             super.launchTypes(theConfiguration, theMode, theTests, thePort);
+
         // Compute new VM arguments : JUnit VM argument + Cactus VM arguments
         // TODO: Get this from the plugin preference page.
         String[] cactusVMArgs =
             { "-Dcactus.contextURL=http://localhost:8081/test" };
-        String[] jUnitArgs = jUnitConf.getVMArguments();
+        String[] jUnitArgs = configuration.getVMArguments();
         String[] globalArgs = concatenateStringArrays(jUnitArgs, cactusVMArgs);
-        jUnitConf.setVMArguments(globalArgs);
-        return jUnitConf;
-    }
-
-    /**
-     * @return the cactus related jars that must be in the Cactus client side 
-     *         classpath
-     * @exception CoreException on critical failures
-     */
-    private String[] getCactusClientJars() throws CoreException
-    {
-        Vector cactusJars = new Vector();
-
-        // Base URL pointing to our plugin directory
-        URL baseUrl = CactusPlugin.getDefault().getDescriptor().getInstallURL();
-
-        try
-        {
-            cactusJars.add(
-                Platform.asLocalURL(new URL(baseUrl, "cactus.jar")).getFile());
-            cactusJars.add(
-                Platform
-                    .asLocalURL(new URL(baseUrl, "aspectjrt.jar"))
-                    .getFile());
-            cactusJars.add(
-                Platform.asLocalURL(new URL(baseUrl, "junit.jar")).getFile());
-            cactusJars.add(
-                Platform
-                    .asLocalURL(new URL(baseUrl, "commons-httpclient.jar"))
-                    .getFile());
-        }
-        catch (Exception e)
-        {
-            abort(
-                CactusMessages.getString("cactus.error.cannotfindjar"),
-                e,
-                IJavaLaunchConfigurationConstants.ERR_INTERNAL_ERROR);
-        }
-
-        return (String[]) cactusJars.toArray();
+        configuration.setVMArguments(globalArgs);
+        return configuration;
     }
 
     /**
@@ -168,17 +121,12 @@ public class CactusLaunchConfiguration extends JUnitLaunchConfiguration
      * @return a string array containing the first array followed by the second
      *         one
      */
-    private String[] concatenateStringArrays(
-        String[] theArray1,
+    private String[] concatenateStringArrays(String[] theArray1,
         String[] theArray2)
     {
         String[] newArray = new String[theArray1.length + theArray2.length];
         System.arraycopy(theArray1, 0, newArray, 0, theArray1.length);
-        System.arraycopy(
-            theArray2,
-            0,
-            newArray,
-            theArray1.length,
+        System.arraycopy(theArray2, 0, newArray, theArray1.length, 
             theArray2.length);
         return newArray;
     }
