@@ -76,11 +76,17 @@ import org.w3c.dom.Document;
  */
 public class TestWebXmlMerger extends TestCase
 {
+    /**
+     * The document builder factory.
+     */
     private DocumentBuilderFactory factory;
 
-	private DocumentBuilder builder;
+    /**
+     * The JAXP document builder.
+     */
+    private DocumentBuilder builder;
 
-	/**
+    /**
      * @see TestCase#TestCase(String)
      */
     public TestWebXmlMerger(String theTestName)
@@ -93,13 +99,19 @@ public class TestWebXmlMerger extends TestCase
      */
     public void setUp() throws ParserConfigurationException
     {
-		factory = DocumentBuilderFactory.newInstance();
+        factory = DocumentBuilderFactory.newInstance();
         factory.setValidating(false);
         factory.setNamespaceAware(false);
 
-		builder = factory.newDocumentBuilder();
+        builder = factory.newDocumentBuilder();
     }
 
+    /**
+     * Tests whether a single filter is correctly merged into an empty
+     * descriptor.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
     public void testMergeOneFilterIntoEmptyDocument() throws Exception
     {
         String srcXml = "<web-app></web-app>";
@@ -120,6 +132,12 @@ public class TestWebXmlMerger extends TestCase
         assertTrue(srcWebXml.hasFilter("f1"));
     }
 
+    /**
+     * Tests whether a single filter is correctly merged into a descriptor that
+     * already contains another filter.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
     public void testMergeOneFilterIntoDocumentWithAnotherFilter()
         throws Exception
     {
@@ -147,6 +165,12 @@ public class TestWebXmlMerger extends TestCase
         assertTrue(srcWebXml.hasFilter("f2"));
     }
 
+    /**
+     * Tests whether a single filter in the merge descriptor is ignored because
+     * a filter with the same name already exists in the source descriptor. 
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
     public void testMergeOneFilterIntoDocumentWithSameFilter()
         throws Exception
     {
@@ -173,6 +197,12 @@ public class TestWebXmlMerger extends TestCase
         assertTrue(srcWebXml.hasFilter("f1"));
     }
 
+    /**
+     * Tests whether a filter initialization parameter is merged into the
+     * descriptor.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
     public void testMergeOneFilterIntoDocumentWithSameFilterAndParam()
         throws Exception
     {
@@ -206,6 +236,12 @@ public class TestWebXmlMerger extends TestCase
         assertTrue(!initParams.hasNext());
     }
 
+    /**
+     * Tests whether a single filter is correctly merged into a descriptor that
+     * already contains multiple other filter definitions.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
     public void testMergeOneFilterIntoDocumentWithMultipleFilters()
         throws Exception
     {
@@ -245,6 +281,12 @@ public class TestWebXmlMerger extends TestCase
         assertTrue(!filterNames.hasNext());
     }
 
+    /**
+     * Tests whether multiple filters are correctly merged into an empty
+     * descriptor.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
     public void testMergeMultipleFiltersIntoEmptyDocument() throws Exception
     {
         String srcXml = "<web-app></web-app>";
@@ -277,6 +319,12 @@ public class TestWebXmlMerger extends TestCase
         assertTrue(!filterNames.hasNext());
     }
 
+    /**
+     * Tests whether a filter with one mapping is correctly merged into an empty
+     * descriptor.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
     public void testMergeOneFilterWithOneMappingIntoEmptyDocument()
         throws Exception
     {
@@ -305,6 +353,12 @@ public class TestWebXmlMerger extends TestCase
         assertTrue(!filterMappings.hasNext());
     }
 
+    /**
+     * Tests wether a single filter with multiple mappings is correctly merged
+     * into an empty descriptor.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
     public void testMergeOneFilterWithMultipleMappingsIntoEmptyDocument()
         throws Exception
     {
@@ -343,6 +397,12 @@ public class TestWebXmlMerger extends TestCase
         assertTrue(!filterMappings.hasNext());
     }
 
+    /**
+     * Tests whether a single servlet is correctly merged into an empty 
+     * descriptor.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
     public void testMergeOneServletIntoEmptyDocument() throws Exception
     {
         String srcXml = "<web-app></web-app>";
@@ -363,6 +423,12 @@ public class TestWebXmlMerger extends TestCase
         assertTrue(srcWebXml.hasServlet("s1"));
     }
 
+    /**
+     * Tests whether a single servlet is correctly merged into a descriptor that
+     * already contains the definition of an other servlet.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
     public void testMergeOneServletIntoDocumentWithAnotherServlet()
         throws Exception
     {
@@ -390,6 +456,12 @@ public class TestWebXmlMerger extends TestCase
         assertTrue(srcWebXml.hasServlet("s2"));
     }
 
+    /**
+     * Tests whether a single servlet is correctly merged into a descriptor that
+     * already contains the definition of a servlet with the same name.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
     public void testMergeOneServletIntoDocumentWithSameServlet()
         throws Exception
     {
@@ -416,6 +488,13 @@ public class TestWebXmlMerger extends TestCase
         assertTrue(srcWebXml.hasServlet("s1"));
     }
 
+    /**
+     * Tets whether a servlet with an initialization parameter is correctly
+     * merged into a descriptor that contains the definition of a servlet with
+     * the same name.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
     public void testMergeOneServletIntoDocumentWithSameServletAndParam()
         throws Exception
     {
@@ -451,6 +530,12 @@ public class TestWebXmlMerger extends TestCase
             srcWebXml.getServletInitParam("s1", "s1param1"));
     }
 
+    /**
+     * Tests whether a single servlet is correctly merged into a descriptor with
+     * multiple servlets.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
     public void testMergeOneServletIntoDocumentWithMultipleServlets()
         throws Exception
     {
@@ -490,6 +575,12 @@ public class TestWebXmlMerger extends TestCase
         assertTrue(!servletNames.hasNext());
     }
 
+    /**
+     * Tests whether multiple servlet in the merge file are correctly inserted
+     * into an empty descriptor.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
     public void testMergeMultipleServletsIntoEmptyDocument() throws Exception
     {
         String srcXml = "<web-app></web-app>";
@@ -522,6 +613,12 @@ public class TestWebXmlMerger extends TestCase
         assertTrue(!servletNames.hasNext());
     }
 
+    /**
+     * Tests whether a single servlet with one mapping is correctly inserted
+     * into an empty descriptor.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
     public void testMergeOneServletWithOneMappingIntoEmptyDocument()
         throws Exception
     {
@@ -550,6 +647,12 @@ public class TestWebXmlMerger extends TestCase
         assertTrue(!servletMappings.hasNext());
     }
 
+    /**
+     * Tests whether a single servlet with multiple mappings is correctly 
+     * inserted into an empty descriptor.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
     public void testMergeOneServletWithMultipleMappingsIntoEmptyDocument()
         throws Exception
     {
