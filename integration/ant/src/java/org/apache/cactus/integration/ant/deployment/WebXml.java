@@ -752,7 +752,7 @@ public class WebXml
      * Returns the element that contains the security constraint defined for the
      * specified URL pattern.
      * 
-     * @param therUrlPattern The URL pattern
+     * @param theUrlPattern The URL pattern
      * @return The DOM element representing the security constraint
      */
     public final Element getSecurityConstraint(String theUrlPattern)
