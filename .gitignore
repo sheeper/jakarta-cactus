@@ -95,6 +95,11 @@ integration/maven/.classpath
 integration/maven/.project
 integration/maven/build.properties
 integration/maven/maven.log
+integration/maven/samples/ejb/build.properties
+integration/maven/samples/ejb/cactus_client.log
+integration/maven/samples/ejb/maven.log
+integration/maven/samples/ejb/target
+integration/maven/samples/ejb/velocity.log
 integration/maven/samples/servlet/build.properties
 integration/maven/samples/servlet/cactus_client.log
 integration/maven/samples/servlet/maven.log

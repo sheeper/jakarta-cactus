@@ -572,6 +572,7 @@ integration/maven/plugin.jelly svn_keywords=Author+Date+Id+Revision
 integration/maven/plugin.properties svn_keywords=Author+Date+Id+Revision
 integration/maven/project.properties svn_keywords=Author+Date+Id+Revision
 integration/maven/project.xml svn_keywords=Author+Date+Id+Revision
+integration/maven/samples/ejb/.cvsignore svn_keywords=Author+Date+Id+Revision
 integration/maven/samples/ejb/build.properties.sample svn_keywords=Author+Date+Id+Revision
 integration/maven/samples/ejb/project.properties svn_keywords=Author+Date+Id+Revision
 integration/maven/samples/ejb/project.xml svn_keywords=Author+Date+Id+Revision
