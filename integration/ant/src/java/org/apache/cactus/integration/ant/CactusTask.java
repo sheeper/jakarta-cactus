@@ -103,13 +103,6 @@ public class CactusTask extends JUnitTask
      * The archive that contains the web-app that is ready to be tested.
      */
     private File warFile;
-
-    /**
-     * The WAR context where the cactus tests are located. If not specified
-     * this task will try to guess the context from the WAR file name or if
-     * an EAR is used from parsing the <code>application.xml</code> file. 
-     */
-    private String contextName;
     
     /**
      * The factory for creating ant tasks that is passed to the containers.
@@ -272,15 +265,6 @@ public class CactusTask extends JUnitTask
                 "You may only specify one of [earfile] and [warfile]");
         }
         this.warFile = theWarFile;
-    }
-
-    /**
-     * @param theContextName the context name of the webapp where the Cactus
-     *        tests are located
-     */
-    public final void setContext(String theContextName)
-    {
-        this.contextName = theContextName;
     }
 
     // Private Methods ---------------------------------------------------------
