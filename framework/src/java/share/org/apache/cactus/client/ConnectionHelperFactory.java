@@ -78,8 +78,10 @@ public class ConnectionHelperFactory
      *         in Cactus configuration or the default one
      *         (<code>JdkConnectionHelper</code>)
      * @param theUrl the URL to connect to as a String
+     * @param theConfiguration the Cactus configuration
      */
-    public static ConnectionHelper getConnectionHelper(String theUrl)
+    public static ConnectionHelper getConnectionHelper(String theUrl,
+        Configuration theConfiguration)
     {
         // Load the corresponding class
         ConnectionHelper connectionHelper;
@@ -87,7 +89,7 @@ public class ConnectionHelperFactory
         try
         {
             Class connectionHelperClass = 
-                Class.forName(Configuration.getConnectionHelper());
+                Class.forName(theConfiguration.getConnectionHelper());
             Constructor constructor = connectionHelperClass.getConstructor(
                 new Class[] { String.class });
 
@@ -97,7 +99,7 @@ public class ConnectionHelperFactory
         catch (Exception e)
         {
             throw new ChainedRuntimeException("Failed to load the ["
-                + Configuration.getConnectionHelper()
+                + theConfiguration.getConnectionHelper()
                 + "] ConnectionHelper " + "class", e);
         }
 

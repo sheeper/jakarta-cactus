@@ -56,193 +56,30 @@
  */
 package org.apache.cactus.util;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-
-import java.util.Enumeration;
-import java.util.MissingResourceException;
-import java.util.PropertyResourceBundle;
-import java.util.ResourceBundle;
-
-import org.apache.cactus.client.HttpClientConnectionHelper;
-
 /**
- * Provides access to the Cactus configuration parameters that are independent
- * of any redirector. All Cactus configuration are defined as Java System
- * Properties. However, a Cactus configuration can also be used, in which case
- * all properties defined withint it will be exported as Java System Properties.
- *
+ * Contains all configuration information for the Cactus framework.
+ * 
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
  */
-public class Configuration
+public interface Configuration
 {
-    /**
-     * Name of the Cactus configuration file if cactus is to look for it in
-     * the classpath.
-     */
-    private static final String DEFAULT_CONFIG_NAME = "cactus";
-
-    /**
-     * Name of the java property for specifying the location of the cactus
-     * configuration file. This overrides any cactus configuration file that is
-     * put in the classpath.
-     */
-    private static final String CACTUS_CONFIG_PROPERTY = "cactus.config";
-
-    /**
-     * Name of Cactus property that specify the URL up to the webapp context.
-     * This is the base URL to call for the redirectors. It is made up of :
-     * "http://" + serverName + port + "/" + contextName.
-     */
-    public static final String CACTUS_CONTEXT_URL_PROPERTY = 
-        "cactus.contextURL";
-
-    /**
-     * Name of the Cactus property for overriding the default
-     * {@link org.apache.cactus.client.ConnectionHelper}. Defaults to
-     * {@link org.apache.cactus.client.HttpClientConnectionHelper}
-     */
-    private static final String CACTUS_CONNECTION_HELPER_CLASSNAME_PROPERTY = 
-        "cactus.connectionHelper.classname";
-
-    /**
-     * Default {@link org.apache.cactus.client.ConnectionHelper} to use.
-     */
-    public static final String DEFAULT_CACTUS_CONNECTION_HELPER_CLASSNAME = 
-        HttpClientConnectionHelper.class.getName();
-
-    /**
-     * Name of the Cactus property for defining an initializer (i.e. a class
-     * that is executed before the Cactus tests start on the client side).
-     */
-    private static final String CACTUS_INITIALIZER_PROPERTY = 
-        "cactus.initializer";
-
-    /**
-     * True if the Cactus configuration file has already been read.
-     * @see #initialize()
-     */
-    private static boolean isInitialized;
-
-    /**
-     * Read the cactus configuration file from the java property defined
-     * on the command line (named CACTUS_CONFIG_PROPERTY) and if none has been
-     * defined tries to read the DEFAULT_CONFIG_NAME file from the classpath.
-     * All properties found are exported as java system properties.
-     */
-    public static final void initialize()
-    {
-        if (!isInitialized)
-        {
-            ResourceBundle config;
-
-            // Has the user passed the location of the cactus configuration
-            // file as a java property
-            String configOverride = System.getProperty(CACTUS_CONFIG_PROPERTY);
-
-            if (configOverride == null)
-            {
-                // Try to read the default cactus configuration file from the
-                // classpath
-                try
-                {
-                    config = ClassLoaderUtils.loadPropertyResourceBundle(
-                        DEFAULT_CONFIG_NAME, Configuration.class);
-                }
-                catch (MissingResourceException e)
-                {
-                    // Cannot find cactus properties file. Do nothing.
-                    return;
-                }
-            }
-            else
-            {
-                // Try to read from specified properties file
-                try
-                {
-                    config = new PropertyResourceBundle(
-                        new FileInputStream(configOverride));
-                }
-                catch (IOException e)
-                {
-                    throw new ChainedRuntimeException(
-                        "Cannot read cactus configuration file ["
-                        + configOverride + "]", e);
-                }
-            }
-
-            Enumeration keys = config.getKeys();
-
-            while (keys.hasMoreElements())
-            {
-                String key = (String) keys.nextElement();
-
-                // Only set the system property if it does not already exist.
-                // This allows to have a cactus properties file and override
-                // some values on the command line.
-                if (System.getProperty(key) == null)
-                {
-                    System.setProperty(key, config.getString(key));
-                }
-            }
-
-            isInitialized = true;
-        }
-    }
-
     /**
      * @return the context URL under which our application to test runs.
      */
-    public static String getContextURL()
-    {
-        initialize();
-
-        // Try to read it from a System property first and then if it fails
-        // from the Cactus configuration file.
-        String contextURL = System.getProperty(CACTUS_CONTEXT_URL_PROPERTY);
-
-        if (contextURL == null)
-        {
-            throw new ChainedRuntimeException("Missing Cactus property ["
-                + CACTUS_CONTEXT_URL_PROPERTY + "]");
-        }
-
-        return contextURL;
-    }
+    String getContextURL();
 
     /**
      * @return the {@link org.apache.cactus.client.ConnectionHelper} classname
      *         to use for opening the HTTP connection
      */
-    public static String getConnectionHelper()
-    {
-        initialize();
-
-        // Try to read it from a System property first and then if not defined
-        // use the default.
-        String connectionHelperClassname = 
-            System.getProperty(CACTUS_CONNECTION_HELPER_CLASSNAME_PROPERTY);
-
-        if (connectionHelperClassname == null)
-        {
-            connectionHelperClassname = 
-                DEFAULT_CACTUS_CONNECTION_HELPER_CLASSNAME;
-        }
-
-        return connectionHelperClassname;
-    }
+    String getConnectionHelper();
 
     /**
      * @return the initializer class (i.e. a class that is executed before the
      *         Cactus tests start on the client side) or null if none has been
      *         defined
      */
-    public static String getInitializer()
-    {
-        initialize();
-
-        return System.getProperty(CACTUS_INITIALIZER_PROPERTY);
-    }
+    String getInitializer();
 }

@@ -61,6 +61,9 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.cactus.client.ServletHttpClient;
 import org.apache.cactus.server.ServletConfigWrapper;
+import org.apache.cactus.util.Configuration;
+import org.apache.cactus.util.ServletConfiguration;
+import org.apache.cactus.util.WebConfiguration;
 
 /**
  * Test classes that need access to valid Servlet implicit objects (such as the
@@ -130,6 +133,16 @@ public class ServletTestCase extends AbstractWebTestCase
      */
     protected void runTest() throws Throwable
     {
-        runGenericTest(new ServletHttpClient());
+        runGenericTest(new ServletHttpClient(
+            (WebConfiguration) getConfiguration()));
     }
+
+    /**
+     * @see AbstractTestCase#createConfiguration()
+     */
+    protected Configuration createConfiguration()
+    {
+        return new ServletConfiguration();
+    }
+
 }

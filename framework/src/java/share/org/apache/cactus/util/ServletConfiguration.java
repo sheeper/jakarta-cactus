@@ -66,7 +66,8 @@ package org.apache.cactus.util;
  *
  * @see Configuration
  */
-public class ServletConfiguration extends Configuration
+public class ServletConfiguration extends BaseConfiguration 
+    implements WebConfiguration
 {
     /**
      * Name of the cactus property that specifies the name of the Servlet
@@ -82,29 +83,25 @@ public class ServletConfiguration extends Configuration
      *
      * @return the Servlet redirector URL
      */
-    public static String getServletRedirectorURL()
+    public String getRedirectorURL()
     {
-        initialize();
-
-        return getContextURL() + "/" + getServletRedirectorName();
+        return getContextURL() + "/" + getRedirectorName();
     }
 
     /**
      * @return the Servlet redirector name
      */
-    public static String getServletRedirectorName()
+    public String getRedirectorName()
     {
-        initialize();
-
-        String servletRedirectorName = 
+        String redirectorName = 
             System.getProperty(CACTUS_SERVLET_REDIRECTOR_NAME_PROPERTY);
 
-        if (servletRedirectorName == null)
+        if (redirectorName == null)
         {
-            servletRedirectorName = "ServletRedirector";
+            redirectorName = "ServletRedirector";
         }
 
-        return servletRedirectorName;
+        return redirectorName;
     }
     
 }

@@ -61,6 +61,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.cactus.client.FilterHttpClient;
 import org.apache.cactus.server.FilterConfigWrapper;
+import org.apache.cactus.util.Configuration;
+import org.apache.cactus.util.FilterConfiguration;
+import org.apache.cactus.util.WebConfiguration;
 
 /**
  * Test classes that need access to valid Filter implicit objects (such as the
@@ -128,6 +131,15 @@ public class FilterTestCase extends AbstractWebTestCase
      */
     protected void runTest() throws Throwable
     {
-        runGenericTest(new FilterHttpClient());
+        runGenericTest(new FilterHttpClient(
+            (WebConfiguration) getConfiguration()));        
+    }
+
+    /**
+     * @see AbstractTestCase#createConfiguration()
+     */
+    protected Configuration createConfiguration()
+    {
+        return new FilterConfiguration();
     }
 }

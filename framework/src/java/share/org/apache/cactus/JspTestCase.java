@@ -60,6 +60,9 @@ import javax.servlet.jsp.JspWriter;
 
 import org.apache.cactus.client.JspHttpClient;
 import org.apache.cactus.server.PageContextWrapper;
+import org.apache.cactus.util.Configuration;
+import org.apache.cactus.util.JspConfiguration;
+import org.apache.cactus.util.WebConfiguration;
 
 /**
  * Test classes that need access to valid JSP implicit objects (such as the
@@ -110,6 +113,16 @@ public class JspTestCase extends ServletTestCase
      */
     protected void runTest() throws Throwable
     {
-        runGenericTest(new JspHttpClient());
+        runGenericTest(new JspHttpClient(
+            (WebConfiguration) getConfiguration()));        
     }
+
+    /**
+     * @see AbstractTestCase#createConfiguration()
+     */
+    protected Configuration createConfiguration()
+    {
+        return new JspConfiguration();
+    }
+
 }

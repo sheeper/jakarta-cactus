@@ -54,51 +54,28 @@
  * <http://www.apache.org/>.
  *
  */
-package org.apache.cactus.client;
-
-import org.apache.cactus.WebRequest;
-import org.apache.cactus.util.WebConfiguration;
+package org.apache.cactus.util;
 
 /**
- * Manage the logic for calling the JSP redirector for executing a test on
- * the server side.
- *
+ * Extends the generic <code>Configuration<code> interface with methods
+ * provided configuration information related to Web redirectors.
+ * 
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
- * @version $Id$
+ * @version $Id: $
  */
-public class JspHttpClient extends AbstractHttpClient
+public interface WebConfiguration extends Configuration
 {
     /**
-     * @see AbstractHttpClient#AbstractHttpClient(WebConfiguration)
+     * @return the redirector URL for the redirector used by the current
+     *         test case
      */
-    public JspHttpClient(WebConfiguration theConfiguration)
-    {
-        super(theConfiguration);
-    }
+    String getRedirectorURL();
 
     /**
-     * Return the redirector URL to connect to.
-     *
-     * @param theRequest Request data from the user. We need it here as the user
-     *        may have chosen to override the default redirector.
-     * @return the URL to call the redirector
+     * @return the redirector name for the redirector used by the current
+     *         test case. This is the name under which the redirector is
+     *         registered.
      */
-    protected String getRedirectorURL(WebRequest theRequest)
-    {
-        String url;
-
-        // Check if user has overriden the servlet redirector
-        if (theRequest.getRedirectorName() != null)
-        {
-            url = this.configuration.getContextURL() + "/"
-                + theRequest.getRedirectorName();
-        }
-        else
-        {
-            url = this.configuration.getRedirectorURL();
-        }
-
-        return url;
-    }
+    String getRedirectorName();
 }

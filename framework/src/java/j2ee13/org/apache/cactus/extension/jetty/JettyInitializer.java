@@ -60,6 +60,7 @@ import java.net.URL;
 
 import org.apache.cactus.server.FilterTestRedirector;
 import org.apache.cactus.server.ServletTestRedirector;
+import org.apache.cactus.util.BaseConfiguration;
 import org.apache.cactus.util.ClassLoaderUtils;
 import org.apache.cactus.util.Configuration;
 import org.apache.cactus.util.FilterConfiguration;
@@ -107,20 +108,25 @@ public class JettyInitializer implements Initializable
         // in its classpath (using the same mechanism as the Ant project is
         // using to conditionally compile tasks).
 
+        // Create configuration objects
+        BaseConfiguration baseConfig = new BaseConfiguration();
+        ServletConfiguration servletConfig = new ServletConfiguration();
+        FilterConfiguration filterConfig = new FilterConfiguration();
+
         // Create a Jetty Server object and configure a listener
-        Object server = createServer();
+        Object server = createServer(baseConfig);
 
         // Create a Jetty context.
-        Object context = createContext(server);
+        Object context = createContext(server, baseConfig);
         
         // Add the Cactus Servlet redirector
-        addServletRedirector(context);
+        addServletRedirector(context, servletConfig);
 
         // Add the Cactus Jsp redirector
         addJspRedirector(context);
 
         // Add the Cactus Filter redirector
-        addFilterRedirector(context);
+        addFilterRedirector(context, filterConfig);
 
         // Configure Jetty with an XML file if one has been specified on the
         // command line.
@@ -140,18 +146,20 @@ public class JettyInitializer implements Initializable
      * Create a Jetty server object and configures a listener on the
      * port defined in the Cactus context URL property.
      * 
+     * @param theConfiguration the base Cactus configuration
      * @return the Jetty <code>Server</code> object
      * 
      * @exception Exception if an error happens during initialization
      */
-    public Object createServer() throws Exception
+    public Object createServer(Configuration theConfiguration) 
+        throws Exception
     {
         // Create Jetty Server object
         Class serverClass = ClassLoaderUtils.loadClass(
             "org.mortbay.jetty.Server", this.getClass());
         Object server = serverClass.newInstance();
 
-        URL contextURL = new URL(Configuration.getContextURL());
+        URL contextURL = new URL(theConfiguration.getContextURL());
 
         // Add a listener on the port defined in the Cactus configuration
         server.getClass().getMethod("addListener", 
@@ -166,16 +174,18 @@ public class JettyInitializer implements Initializable
      * because we need to use Servlet Filters.
      * 
      * @param theServer the Jetty Server object
+     * @param theConfiguration the base Cactus configuration
      * @return Object the <code>WebApplicationContext</code> object
      * 
      * @exception Exception if an error happens during initialization
      */
-    public Object createContext(Object theServer) throws Exception
+    public Object createContext(Object theServer,
+        Configuration theConfiguration) throws Exception
     {
         // Add a web application. This creates a WebApplicationContext.
         // Note: We do not put any WEB-INF/, lib/ nor classes/ directory
         // in the webapp.
-        URL contextURL = new URL(Configuration.getContextURL());
+        URL contextURL = new URL(theConfiguration.getContextURL());
 
         if (System.getProperty(CACTUS_JETTY_RESOURCE_DIR_PROPERTY) != null)
         {
@@ -199,16 +209,18 @@ public class JettyInitializer implements Initializable
      * Adds the Cactus Servlet redirector configuration.
      * 
      * @param theContext the Jetty context under which to add the configuration
+     * @param theConfiguration the Cactus Servlet configuration
      * 
      * @exception Exception if an error happens during initialization
      */
-    public void addServletRedirector(Object theContext) throws Exception
+    public void addServletRedirector(Object theContext,
+        ServletConfiguration theConfiguration) throws Exception
     {
         theContext.getClass().getMethod("addServlet", 
             new Class[] { String.class, String.class, String.class })
             .invoke(theContext, new Object[] { 
-            ServletConfiguration.getServletRedirectorName(),
-            "/" + ServletConfiguration.getServletRedirectorName(), 
+            theConfiguration.getRedirectorName(),
+            "/" + theConfiguration.getRedirectorName(), 
             ServletTestRedirector.class.getName() });
     }
     
@@ -251,10 +263,12 @@ public class JettyInitializer implements Initializable
      * Adds the Cactus Filter redirector configuration.
      * 
      * @param theContext the Jetty context under which to add the configuration
+     * @param theConfiguration the Cactus Filter configuration
      * 
      * @exception Exception if an error happens during initialization
      */
-    public void addFilterRedirector(Object theContext) throws Exception
+    public void addFilterRedirector(Object theContext,
+        FilterConfiguration theConfiguration) throws Exception
     {
         if (System.getProperty(CACTUS_JETTY_RESOURCE_DIR_PROPERTY) != null)
         {
@@ -267,7 +281,7 @@ public class JettyInitializer implements Initializable
             Object filterHolder = handler.getClass().getMethod("defineFilter",
                 new Class[] { String.class, String.class })
                 .invoke(handler, new Object[] { 
-                FilterConfiguration.getFilterRedirectorName(),
+                theConfiguration.getRedirectorName(),
                 FilterTestRedirector.class.getName() });        
     
             filterHolder.getClass().getMethod("applyTo",
@@ -278,8 +292,8 @@ public class JettyInitializer implements Initializable
             handler.getClass().getMethod("mapPathToFilter", 
                 new Class[] { String.class, String.class })
                 .invoke(handler, new Object[] { 
-                "/" + FilterConfiguration.getFilterRedirectorName(),
-                FilterConfiguration.getFilterRedirectorName() });
+                "/" + theConfiguration.getRedirectorName(),
+                theConfiguration.getRedirectorName() });
         }
     }
 

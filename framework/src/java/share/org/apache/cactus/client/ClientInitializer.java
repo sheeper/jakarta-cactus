@@ -85,14 +85,16 @@ public class ClientInitializer
 
     /**
      * Initialize Cactus client side once.
+     * 
+     * @param theConfiguration the Cactus configuration
      */
-    public static void initialize()
+    public static void initialize(Configuration theConfiguration)
     {
         if (isInitialized == false)
         {
             try
             {
-                String initializerClassName = Configuration.getInitializer();
+                String initializerClassName = theConfiguration.getInitializer();
 
                 if (initializerClassName != null)
                 {

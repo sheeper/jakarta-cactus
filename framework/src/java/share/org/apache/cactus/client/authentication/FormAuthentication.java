@@ -63,8 +63,7 @@ import java.net.URL;
 import org.apache.cactus.WebRequest;
 import org.apache.cactus.client.HttpClientConnectionHelper;
 import org.apache.cactus.util.ChainedRuntimeException;
-import org.apache.cactus.util.Configuration;
-import org.apache.cactus.util.ServletConfiguration;
+import org.apache.cactus.util.WebConfiguration;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -177,17 +176,19 @@ public class FormAuthentication extends AbstractAuthentication
         if (this.securityCheckURL == null)
         {
             // Configure default
+            String stringUrl = 
+                ((WebConfiguration) getConfiguration()).getContextURL()
+                + "/j_security_check";
+
             try
             {
-                this.securityCheckURL = new URL(Configuration.getContextURL() 
-                    + "/j_security_check");
+                this.securityCheckURL = new URL(stringUrl);
             }
             catch (MalformedURLException e)
             {
                 throw new ChainedRuntimeException(
-                    "Unable to create default Security Check URL ["
-                    + Configuration.getConnectionHelper() + "/j_security_check"
-                    + "]");
+                    "Unable to create default Security Check URL [" 
+                    + stringUrl + "]");
             }
         }
 
@@ -208,16 +209,14 @@ public class FormAuthentication extends AbstractAuthentication
         {
             // Create a helper that will connect to a restricted resource.
 
-            // FIXME: Form-based authentication only works when setting up 
-            // security on the Servlet Redirector. We need to make that
-            // work with any redirector.
-            
-            String resource = ServletConfiguration.getServletRedirectorURL();
+            String resource = 
+                ((WebConfiguration) getConfiguration()).getRedirectorURL();
             HttpClientConnectionHelper helper = 
                 new HttpClientConnectionHelper(resource);
 
             // Make the connection using a default web request.
-            HttpURLConnection connection = helper.connect(new WebRequest());
+            HttpURLConnection connection = helper.connect(
+                new WebRequest((WebConfiguration) getConfiguration()));
 
             // Clean any existing session ID.
             sessionId = null;
@@ -260,7 +259,8 @@ public class FormAuthentication extends AbstractAuthentication
                 
             // Configure a web request with the JSESSIONID cookie, 
             // the username and the password.
-            WebRequest request = new WebRequest();
+            WebRequest request = new WebRequest(
+                (WebConfiguration) getConfiguration());
             request.addCookie(sessionIdCookieName, sessionId);
             request.addParameter("j_username", getName(), 
                 WebRequest.POST_METHOD);

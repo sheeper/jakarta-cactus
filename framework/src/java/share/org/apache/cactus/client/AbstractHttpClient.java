@@ -66,6 +66,7 @@ import org.apache.cactus.WebTestResult;
 import org.apache.cactus.client.authentication.AbstractAuthentication;
 import org.apache.cactus.util.ChainedRuntimeException;
 import org.apache.cactus.util.IoUtil;
+import org.apache.cactus.util.WebConfiguration;
 
 /**
  * Abstract class for performing the steps necessary to run a test. It involves
@@ -80,6 +81,11 @@ import org.apache.cactus.util.IoUtil;
 public abstract class AbstractHttpClient
 {
     /**
+     * Cactus configuration.
+     */
+    protected WebConfiguration configuration;
+    
+    /**
      * Return the redirector URL to connect to.
      *
      * @param theRequest Request data from the user. We need it here as the user
@@ -87,6 +93,16 @@ public abstract class AbstractHttpClient
      * @return the URL to call the redirector
      */
     protected abstract String getRedirectorURL(WebRequest theRequest);
+
+    /**
+     * Initialize the Http client.
+     * 
+     * @param theConfiguration the Cactus configuration
+     */
+    public AbstractHttpClient(WebConfiguration theConfiguration)
+    {
+        this.configuration = theConfiguration;
+    }
 
     /**
      * Calls the test method indirectly by calling the Redirector servlet and
@@ -179,7 +195,7 @@ public abstract class AbstractHttpClient
         // Open the first connection to the redirector to execute the test on
         // the server side
         ConnectionHelper helper = ConnectionHelperFactory.getConnectionHelper(
-            getRedirectorURL(theRequest));
+            getRedirectorURL(theRequest), this.configuration);
 
         HttpURLConnection connection = helper.connect(theRequest);
 
@@ -208,18 +224,21 @@ public abstract class AbstractHttpClient
     private WebTestResult callGetResult(
         AbstractAuthentication theAuthentication) throws Throwable
     {
-        WebRequest resultsRequest = new WebRequest();
+        WebRequest resultsRequest = new WebRequest(this.configuration);
 
-
-        // Add authentication details
         resultsRequest.addParameter(HttpServiceDefinition.SERVICE_NAME_PARAM, 
             ServiceEnumeration.GET_RESULTS_SERVICE.toString(), 
             WebRequest.GET_METHOD);
-        resultsRequest.setAuthentication(theAuthentication);
+
+        // Add authentication details
+        if (theAuthentication != null)
+        {
+            resultsRequest.setAuthentication(theAuthentication);
+        }
 
         // Open the second connection to get the test results
         ConnectionHelper helper = ConnectionHelperFactory.getConnectionHelper(
-            getRedirectorURL(resultsRequest));
+            getRedirectorURL(resultsRequest), this.configuration);
 
         HttpURLConnection resultConnection = helper.connect(resultsRequest);
 

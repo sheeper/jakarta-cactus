@@ -66,7 +66,8 @@ package org.apache.cactus.util;
  *
  * @see Configuration
  */
-public class FilterConfiguration extends Configuration
+public class FilterConfiguration extends BaseConfiguration
+    implements WebConfiguration
 {
     /**
      * Name of the cactus property that specifies the name of the JSP
@@ -82,28 +83,24 @@ public class FilterConfiguration extends Configuration
      *
      * @return the Filter redirector URL
      */
-    public static String getFilterRedirectorURL()
+    public String getRedirectorURL()
     {
-        initialize();
-
-        return getContextURL() + "/" + getFilterRedirectorName();
+        return getContextURL() + "/" + getRedirectorName();
     }
 
     /**
      * @return the Filter redirector name
      */
-    public static String getFilterRedirectorName()
+    public String getRedirectorName()
     {
-        initialize();
-
-        String filterRedirectorName = 
+        String redirectorName = 
             System.getProperty(CACTUS_FILTER_REDIRECTOR_NAME_PROPERTY);
 
-        if (filterRedirectorName == null)
+        if (redirectorName == null)
         {
-            filterRedirectorName = "FilterRedirector";
+            redirectorName = "FilterRedirector";
         }
 
-        return filterRedirectorName;
+        return redirectorName;
     }
 }

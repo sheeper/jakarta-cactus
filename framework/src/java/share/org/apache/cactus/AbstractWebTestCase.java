@@ -65,6 +65,7 @@ import java.net.HttpURLConnection;
 import org.apache.cactus.client.AbstractHttpClient;
 import org.apache.cactus.client.ClientException;
 import org.apache.cactus.client.WebResponseObjectFactory;
+import org.apache.cactus.util.WebConfiguration;
 
 /**
  * Abstract class for Web Test Cases (i.e. HTTP connection to the server) that
@@ -248,7 +249,8 @@ public abstract class AbstractWebTestCase extends AbstractTestCase
     protected void runGenericTest(AbstractHttpClient theHttpClient)
         throws Throwable
     {
-        WebRequest request = new WebRequest();
+        WebRequest request = new WebRequest(
+            (WebConfiguration) getConfiguration());
 
         // Call the set up and begin methods to fill the request object
         callClientGlobalBegin(request);

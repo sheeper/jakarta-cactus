@@ -57,6 +57,7 @@
 package org.apache.cactus.client.authentication;
 
 import org.apache.cactus.WebRequest;
+import org.apache.cactus.util.Configuration;
 
 /**
  * This class was designed with the simple assumption that ALL authentication
@@ -89,6 +90,11 @@ public abstract class AbstractAuthentication
     protected String password;
 
     /**
+     * Cactus configuration
+     */
+    private Configuration configuration;
+
+    /**
      * @param theName user name of the Credential
      * @param thePassword user password of the Credential
      */
@@ -97,6 +103,26 @@ public abstract class AbstractAuthentication
         setName(theName);
         setPassword(thePassword);
     }
+
+    /**
+     * Sets the Cactus configuration so that authentication methods
+     * can get access to Cactus configuration properties. For example,
+     * this is needed by the <code>FormAuthentication</code>.
+     * 
+     * @param theConfiguration the Cactus configuration
+     */
+    public void setConfiguration(Configuration theConfiguration)
+    {
+        this.configuration = theConfiguration;
+    }
+
+    /**
+     * @return the Cactus configuration
+     */
+    public Configuration getConfiguration()
+    {
+        return this.configuration;
+    } 
 
     /**
      * Sets the user name.

@@ -65,6 +65,7 @@ import java.util.Vector;
 
 import org.apache.cactus.client.authentication.AbstractAuthentication;
 import org.apache.cactus.util.ChainedRuntimeException;
+import org.apache.cactus.util.WebConfiguration;
 
 /**
  * Contains all HTTP request data for a test case. It is the data that
@@ -159,6 +160,27 @@ public class WebRequest implements Request
     private String redirectorName;
 
     /**
+     * Cactus configuration
+     */
+    private WebConfiguration configuration;
+
+    /**
+     * @param theConfiguration the Cactus configuration
+     */
+    public WebRequest(WebConfiguration theConfiguration)
+    {
+        this.configuration = theConfiguration;
+    }
+
+    /**
+     * @return the Cactus configuration
+     */
+    protected WebConfiguration getConfiguration()
+    {
+        return this.configuration;
+    }
+
+    /**
      * Override the redirector Name defined in <code>cactus.properties</code>.
      * This is useful to define a per test case Name (for example, if some
      * test case need to have authentication turned on and not other tests,
@@ -188,6 +210,11 @@ public class WebRequest implements Request
         AbstractAuthentication theAuthenticationObject)
     {
         this.authentication = theAuthenticationObject;
+        
+        // Sets the Cactus configuration. It is performed here so that
+        // Cactus users do not have to bother with setting it on the
+        // Authenrication object they create.
+        this.authentication.setConfiguration(getConfiguration());
     }
 
     /**

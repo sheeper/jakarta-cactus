@@ -64,6 +64,9 @@ import junit.framework.AssertionFailedError;
 
 import org.apache.cactus.client.ClientException;
 import org.apache.cactus.mock.MockHttpURLConnection;
+import org.apache.cactus.util.Configuration;
+import org.apache.cactus.util.ServletConfiguration;
+import org.apache.cactus.util.WebConfiguration;
 
 /**
  * Test <code>TestCase</code> class that intercepts all exceptions (and assert
@@ -101,6 +104,14 @@ public class TestAbstractTestCaseInterceptorTestCase
     }
 
     /**
+     * @see AbstractTestCase#createConfiguration()
+     */
+    protected Configuration createConfiguration()
+    {
+        return new ServletConfiguration();
+    }
+
+    /**
      * Intercepts running test cases to check for normal exceptions.
      *
      * @exception Throwable any error that occurred when calling the test method
@@ -112,7 +123,8 @@ public class TestAbstractTestCaseInterceptorTestCase
         try
         {
             // Call the begin method
-            WebRequest request = new WebRequest();
+            WebRequest request = new WebRequest(
+                (WebConfiguration) getConfiguration());
 
             callBeginMethod(request);
 
@@ -306,4 +318,5 @@ public class TestAbstractTestCaseInterceptorTestCase
 
         return false;
     }
+
 }

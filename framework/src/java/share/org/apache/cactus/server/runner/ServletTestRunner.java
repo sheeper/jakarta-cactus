@@ -67,7 +67,7 @@ import javax.servlet.http.HttpServletResponse;
 import junit.framework.Test;
 import junit.framework.TestResult;
 
-import org.apache.cactus.util.Configuration;
+import org.apache.cactus.util.BaseConfiguration;
 
 /**
  * Helper servlet to start a JUnit Test Runner in a webapp.
@@ -119,7 +119,7 @@ public class ServletTestRunner extends HttpServlet
 
         // Set up default Cactus System properties so that there is no need
         // to have a cactus.properties file in WEB-INF/classes
-        System.setProperty(Configuration.CACTUS_CONTEXT_URL_PROPERTY, 
+        System.setProperty(BaseConfiguration.CACTUS_CONTEXT_URL_PROPERTY, 
             "http://" + theRequest.getServerName() + ":"
             + theRequest.getServerPort()
             + theRequest.getContextPath());

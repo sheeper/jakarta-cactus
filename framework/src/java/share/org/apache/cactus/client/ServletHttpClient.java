@@ -57,7 +57,7 @@
 package org.apache.cactus.client;
 
 import org.apache.cactus.WebRequest;
-import org.apache.cactus.util.ServletConfiguration;
+import org.apache.cactus.util.WebConfiguration;
 
 /**
  * Manage the logic for calling the Servlet redirector for executing a test on
@@ -69,6 +69,14 @@ import org.apache.cactus.util.ServletConfiguration;
  */
 public class ServletHttpClient extends AbstractHttpClient
 {
+    /**
+     * @see AbstractHttpClient#AbstractHttpClient(WebConfiguration)
+     */
+    public ServletHttpClient(WebConfiguration theConfiguration)
+    {
+        super(theConfiguration);
+    }
+
     /**
      * Return the redirector URL to connect to.
      *
@@ -83,12 +91,12 @@ public class ServletHttpClient extends AbstractHttpClient
         // Check if user has overriden the servlet redirector
         if (theRequest.getRedirectorName() != null)
         {
-            url = ServletConfiguration.getContextURL() + "/"
+            url = this.configuration.getContextURL() + "/"
                 + theRequest.getRedirectorName();
         }
         else
         {
-            url = ServletConfiguration.getServletRedirectorURL();
+            url = this.configuration.getRedirectorURL();
         }
 
         return url;

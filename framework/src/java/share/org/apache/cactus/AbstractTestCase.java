@@ -63,6 +63,7 @@ import java.lang.reflect.Modifier;
 import junit.framework.TestCase;
 
 import org.apache.cactus.client.ClientInitializer;
+import org.apache.cactus.util.Configuration;
 import org.apache.cactus.util.JUnitVersionHelper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -121,6 +122,12 @@ public abstract class AbstractTestCase extends TestCase
     public static final String LOG_CLIENT_CONFIG = "log_client.properties";
 
     /**
+     * Flag used to verify if client initialization has already been performed
+     * for the current test suite or not.
+     */
+    private static boolean isClientInitialized;
+
+    /**
      * The name of the current test method being executed. This name is valid
      * both on the client side and on the server side, meaning you can call it
      * from a <code>testXXX()</code>, <code>setUp()</code> or
@@ -133,6 +140,11 @@ public abstract class AbstractTestCase extends TestCase
      * The logger (only used on the client side).
      */
     private Log logger;
+
+    /**
+     * The Cactus configuration.
+     */
+    private Configuration configuration;
 
     /**
      * Constructs a JUnit test case with the given name.
@@ -154,6 +166,24 @@ public abstract class AbstractTestCase extends TestCase
         return this.logger;
     }
 
+    /**
+     * @return the Cactus configuration
+     */
+    protected Configuration getConfiguration()
+    {
+        return this.configuration;
+    }
+
+    /**
+     * Sets the Cactus configuration.
+     * 
+     * @param theConfiguration the Cactus configuration
+     */
+    protected void setConfiguration(Configuration theConfiguration)
+    {
+        this.configuration = theConfiguration;
+    }
+   
     /**
      * @return the name of the test method to call without the
      *         TEST_METHOD_PREFIX prefix
@@ -210,9 +240,11 @@ public abstract class AbstractTestCase extends TestCase
         // actual class name (that's why the logged instance is not static).
         this.logger = LogFactory.getLog(this.getClass());
 
-        // Call client side initializer (if defined). It will be called only
-        // once.
-        ClientInitializer.initialize();
+        // Initialize client side configuration
+        if (!isClientInitialized)
+        {
+            initializeClientSide();
+        }
 
         // Mark beginning of test on client side
         getLogger().debug("------------- Test: " + this.getCurrentTestMethod());
@@ -229,6 +261,27 @@ public abstract class AbstractTestCase extends TestCase
         }
     }
 
+    /**
+     * Perform client side initialization that need to be performed once
+     * per test suite.
+     */
+    protected void initializeClientSide()
+    {
+        // Call abstract method that initialize Cactus configuration
+        setConfiguration(createConfiguration());
+        
+        // Call client side initializer (if defined). It will be called only
+        // once per test suite
+        ClientInitializer.initialize(getConfiguration());
+    }
+
+    /**
+     * Creates the Cactus configuration object.
+     * 
+     * @return the Cactus configuration
+     */
+    protected abstract Configuration createConfiguration();
+    
     /**
      * Runs a test case. This method is overriden from the JUnit
      * <code>TestCase</code> class in order to seamlessly call the
