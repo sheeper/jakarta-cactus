@@ -56,6 +56,7 @@
  */
 package org.apache.cactus.eclipse.launcher;
 
+import org.apache.cactus.eclipse.ui.CactusPlugin;
 import org.apache.cactus.eclipse.ui.CactusPreferences;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunchConfiguration;
@@ -101,6 +102,7 @@ public class CactusLaunchConfiguration extends JUnitLaunchConfiguration
         ILaunchConfiguration theConfiguration, String theMode, 
         IType[] theTests, int thePort) throws CoreException
     {
+        CactusPlugin.log("creating VMRunnerConfiguration for Cactus");
         VMRunnerConfiguration configuration =
             super.launchTypes(theConfiguration, theMode, theTests, thePort);
 
@@ -109,6 +111,7 @@ public class CactusLaunchConfiguration extends JUnitLaunchConfiguration
         String[] jUnitArgs = configuration.getVMArguments();
         String[] globalArgs = concatenateStringArrays(jUnitArgs, cactusVMArgs);
         configuration.setVMArguments(globalArgs);
+        CactusPlugin.log("Cactus VM arguments : " + cactusVMArgs[0]);
         return configuration;
     }
 

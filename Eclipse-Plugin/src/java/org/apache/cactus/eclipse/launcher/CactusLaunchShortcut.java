@@ -181,6 +181,7 @@ public class CactusLaunchShortcut
                 {
                     try
                     {
+                        CactusPlugin.log("Preparing cactus tests");
                         prepareCactusTests(theJavaProject, thePM);
                     }
                     catch (CoreException e)
@@ -215,6 +216,7 @@ public class CactusLaunchShortcut
                 cancelPreparation();
                 return;
             }
+            CactusPlugin.log("Launching tests");
             super.launchType(theSearch, theMode);
         }
     }
@@ -332,6 +334,7 @@ public class CactusLaunchShortcut
      */
     public void testRunEnded(long theElapsedTime)
     {
+        CactusPlugin.log("Test run ended");
         // For some reason it's impossible to get the active UI shell
         // after the JUnit tests ended.
         // The commented code below should be used when this problem
@@ -339,6 +342,7 @@ public class CactusLaunchShortcut
         // TODO: Address the crashing problem
         try
         {
+            CactusPlugin.log("Tearing down cactus tests");
             teardownCactusTests(null);
         }
         catch (CoreException e)

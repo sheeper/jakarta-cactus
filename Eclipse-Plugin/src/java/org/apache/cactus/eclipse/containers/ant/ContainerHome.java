@@ -101,4 +101,13 @@ public class ContainerHome
     {
         return directory;
     }
+    
+    /**
+     * @return A String representation of the container home
+     */    
+    public String toString()
+    {
+        String representation = getTargetMask() + " : " + getDirectory(); 
+        return representation;
+    }
 }

@@ -140,6 +140,20 @@ public class CactusPlugin extends AbstractUIPlugin
     }
 
     /**
+     * @param theMessage the message to log
+     */
+    public static void log(String theMessage)
+    {
+        log(
+            new Status(
+                IStatus.INFO,
+                getPluginId(),
+                IStatus.OK,
+                theMessage,
+                null));
+    }
+
+    /**
      * @param theThrowable throwable to log
      */
     public static void log(Throwable theThrowable)
@@ -232,6 +246,20 @@ public class CactusPlugin extends AbstractUIPlugin
         String theMessage,
         IStatus theStatus)
     {
+        if (theStatus == null)
+        {
+            log(
+                new Status(
+                    IStatus.ERROR,
+                    getPluginId(),
+                    IStatus.OK,
+                    theMessage,
+                    null));
+        }
+        else
+        {
+            log(theStatus);
+        }
         MessageDialog.openError(
             getActiveWorkbenchShell(),
             theTitle,
