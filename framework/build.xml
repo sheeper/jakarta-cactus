@@ -147,7 +147,7 @@
             <pathelement location="${aspectjrt.jar}"/>
             <pathelement location="${aspectj-tools.jar}"/>
             <pathelement location="${aspectj-ant.jar}"/>
-            <pathelement location="${java.class.path}"/>
+            <pathelement path="${java.class.path}"/>
         </path>
 
         <!-- AspectJ task definition -->
@@ -407,9 +407,13 @@
               <package name="org.apache.cactus"/>
               <package name="org.apache.cactus.client.authentication"/>
               <package name="org.apache.cactus.extension.jsp"/>
+              <package name="org.apache.cactus.server.wrapper"/>
             </group>
             <group title="Internal API">
               <package name="org.apache.cactus.client"/>
+              <package name="org.apache.cactus.client.connector.http"/>
+              <package name="org.apache.cactus.client.initialization"/>
+              <package name="org.apache.cactus.configuration"/>
               <package name="org.apache.cactus.extension.jetty"/>
               <package name="org.apache.cactus.server"/>
               <package name="org.apache.cactus.server.runner"/>
