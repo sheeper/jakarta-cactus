@@ -4,9 +4,8 @@
     <!ENTITY build-share SYSTEM "file:./scripts/build-share.xml">
     <!ENTITY build-tests-tomcat4x SYSTEM "file:./scripts/build-tests-tomcat4x.xml">
     <!ENTITY build-tests-jboss3x SYSTEM "file:./scripts/build-tests-jboss3x.xml">
+    <!ENTITY build-tests-resin2x SYSTEM "file:./scripts/build-tests-resin2x.xml">
 <!--
-    <!ENTITY build-tests-resin-20 SYSTEM "file:./scripts/build-tests-resin-20.xml">
-    <!ENTITY build-tests-resin-13 SYSTEM "file:./scripts/build-tests-resin-13.xml">
     <!ENTITY build-tests-orion-14 SYSTEM "file:./scripts/build-tests-orion-14.xml">
     <!ENTITY build-tests-orion-15 SYSTEM "file:./scripts/build-tests-orion-15.xml">
     <!ENTITY build-tests-orion-16 SYSTEM "file:./scripts/build-tests-orion-16.xml">
@@ -68,9 +67,8 @@
 
     &build-tests-tomcat4x;
     &build-tests-jboss3x;
+    &build-tests-resin2x;
 <!--
-    &build-tests-resin-20;
-    &build-tests-resin-13;
     &build-tests-orion-14;
     &build-tests-orion-15;
     &build-tests-orion-16;
