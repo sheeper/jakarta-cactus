@@ -59,7 +59,6 @@ package org.apache.cactus.eclipse.runner.launcher;
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 
-import org.apache.cactus.eclipse.runner.containers.IContainerManager;
 import org.apache.cactus.eclipse.runner.ui.CactusMessages;
 import org.apache.cactus.eclipse.runner.ui.CactusPlugin;
 import org.eclipse.core.runtime.CoreException;
@@ -72,6 +71,7 @@ import org.eclipse.jdt.internal.junit.ui.JUnitPlugin;
 import org.eclipse.jdt.internal.junit.util.TestSearchEngine;
 import org.eclipse.jdt.junit.ITestRunListener;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
+import org.eclipse.swt.widgets.Display;
 
 /**
  * Launch shortcut used to start the Cactus launch configuration on the
@@ -94,21 +94,6 @@ public class CactusLaunchShortcut
      * Reference to the War file so that we can delete it on tearDown()
      */
     private File war;
-
-    /**
-     * The current search to launch on.
-     */
-    private Object[] search;
-
-    /**
-     * The current mode to launch with.
-     */
-    private String mode;
-
-    /**
-     * The manager that handles container preparation.
-     */
-    private IContainerManager manager;
 
     /**
      * @return the Cactus launch configuration type. This method overrides
@@ -182,32 +167,39 @@ public class CactusLaunchShortcut
             // Register the instance of CactusLaunchShortcut to the JUnitPlugin
             // for TestRunEnd notification.            
             JUnitPlugin.getDefault().addTestRunListener(this);
-            CactusPlugin.getDefault().setCactusLaunchShortcut(this);
-            try
+            final Object[] finalSearch = theSearch;
+            final String finalMode = theMode;
+            final IType finalType = type;
+            new Thread(new Runnable()
             {
-                this.manager = CactusPlugin.getContainerManager();
-                this.search = theSearch;
-                this.mode = theMode;
-                manager.prepare(type.getJavaProject());
-            }
-            catch (CoreException e)
-            {
-                CactusPlugin.displayErrorMessage(
-                    CactusMessages.getString(
-                        "CactusLaunch.message.prepare.error"),
-                    e.getMessage(),
-                    e.getStatus());
-            }
+                public void run()
+                {
+                    try
+                    {
+                        CactusPlugin.getContainerManager().prepare(
+                            finalType.getJavaProject());
+                        Display.getDefault().asyncExec(new Runnable()
+                        {
+                            public void run()
+                            {
+                                CactusLaunchShortcut.super.launchType(
+                                    finalSearch,
+                                    finalMode);
+                            }
+                        });
+                    }
+                    catch (CoreException e)
+                    {
+                        CactusPlugin.displayErrorMessage(
+                            CactusMessages.getString(
+                                "CactusLaunch.message.containerManager.error"),
+                            e.getMessage(),
+                            null);
+                        return;
+                    }
+                }
+            }).start();
         }
-    }
-
-    /**
-     * Launches the Junit tests.
-     */
-    public void launchJunitTests()
-    {
-        CactusPlugin.log("Launching tests");
-        super.launchType(this.search, this.mode);
     }
 
     /**
@@ -230,7 +222,19 @@ public class CactusLaunchShortcut
             return;
         }
         CactusPlugin.log("Test run ended");
-        manager.tearDown();
+        try
+        {
+            CactusPlugin.getContainerManager().tearDown();
+        }
+        catch (CoreException e)
+        {
+            CactusPlugin.displayErrorMessage(
+                CactusMessages.getString(
+                    "CactusLaunch.message.containerManager.error"),
+                e.getMessage(),
+                null);
+            return;
+        }
         this.launchEnded = true;
     }
 
@@ -295,14 +299,6 @@ public class CactusLaunchShortcut
         int theStatus,
         String theTrace)
     {
-    }
-
-    /**
-     * @return the current container manager
-     */
-    public IContainerManager getContainerManager()
-    {
-        return manager;
     }
 
 }

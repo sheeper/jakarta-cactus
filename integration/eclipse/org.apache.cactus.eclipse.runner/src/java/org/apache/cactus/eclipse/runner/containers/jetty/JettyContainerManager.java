@@ -60,7 +60,6 @@ import java.io.File;
 import java.net.URL;
 
 import org.apache.cactus.eclipse.runner.containers.IContainerManager;
-import org.apache.cactus.eclipse.runner.launcher.CactusLaunchShortcut;
 import org.apache.cactus.eclipse.runner.ui.CactusPlugin;
 import org.apache.cactus.eclipse.runner.ui.CactusPreferences;
 import org.apache.cactus.eclipse.webapp.WarBuilder;
@@ -110,9 +109,6 @@ public class JettyContainerManager implements IContainerManager
         try
         {
             cactifyWebapp(theJavaProject);
-            CactusLaunchShortcut launchShortcut =
-                CactusPlugin.getDefault().getCactusLaunchShortcut();
-            launchShortcut.launchJunitTests();
         }
         catch (CoreException e)
         {

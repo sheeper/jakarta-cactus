@@ -56,9 +56,10 @@
  */
 package org.apache.cactus.eclipse.runner.containers.ant;
 
-import org.apache.cactus.eclipse.runner.launcher.CactusLaunchShortcut;
+import org.apache.cactus.eclipse.runner.ui.CactusMessages;
 import org.apache.cactus.eclipse.runner.ui.CactusPlugin;
 import org.apache.tools.ant.Task;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.swt.widgets.Display;
 
 /**
@@ -109,11 +110,21 @@ public class EclipseRunTests extends Task implements Runnable
      */
     public void run()
     {
-        CactusLaunchShortcut launchShortcut =
-            CactusPlugin.getDefault().getCactusLaunchShortcut();
-        AntContainerManager antManager =
-            (AntContainerManager) launchShortcut.getContainerManager();
-        antManager.setEclipseRunner(this);
-        launchShortcut.launchJunitTests();
+        try
+        {
+            AntContainerManager antManager =
+                (AntContainerManager) CactusPlugin.getContainerManager();
+            antManager.setEclipseRunner(this);
+            antManager.preparationDone();
+        }
+        catch (CoreException e)
+        {
+            CactusPlugin.displayErrorMessage(
+                CactusMessages.getString(
+                    "CactusLaunch.message.containerManager.error"),
+                e.getMessage(),
+                null);
+            return;
+        }
     }
 }

@@ -64,7 +64,6 @@ import java.util.Vector;
 import org.apache.cactus.eclipse.runner.containers.IContainerManager;
 import org.apache.cactus.eclipse.runner.containers.ant.AntContainerManager;
 import org.apache.cactus.eclipse.runner.containers.jetty.JettyContainerManager;
-import org.apache.cactus.eclipse.runner.launcher.CactusLaunchShortcut;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPluginDescriptor;
 import org.eclipse.core.runtime.IStatus;
@@ -91,10 +90,6 @@ public class CactusPlugin extends AbstractUIPlugin
      * The single instance of this plug-in runtime class.
      */
     private static CactusPlugin plugin;
-    /**
-     * The current instance of CactusLaunchShortcut.
-     */
-    private CactusLaunchShortcut launchShortcut;
 
     /**
      * Plug-in relative path to the Ant build file.
@@ -110,6 +105,11 @@ public class CactusPlugin extends AbstractUIPlugin
      * Prefix of container build files.
      */
     private static final String CONTAINER_BUILD_FILES_PREFIX = "build-tests-";
+
+    /**
+     * Manager for the container provider.
+     */
+    private static IContainerManager containerManager = null;
 
     /**
      * @see org.eclipse.core.runtime.Plugin#Plugin(IPluginDescriptor)
@@ -228,8 +228,7 @@ public class CactusPlugin extends AbstractUIPlugin
     {
         theStore.setDefault(
             CactusPreferences.CONTEXT_URL_SCHEME,
-            CactusMessages.getString(
-                "CactusPreferencePage.protocol.init"));
+            CactusMessages.getString("CactusPreferencePage.protocol.init"));
         theStore.setDefault(
             CactusPreferences.CONTEXT_URL_HOST,
             CactusMessages.getString("CactusPreferencePage.host.init"));
@@ -238,15 +237,11 @@ public class CactusPlugin extends AbstractUIPlugin
             CactusMessages.getString("CactusPreferencePage.port.init"));
         theStore.setDefault(
             CactusPreferences.CONTEXT_URL_PATH,
-            CactusMessages.getString(
-                "CactusPreferencePage.context.init"));
+            CactusMessages.getString("CactusPreferencePage.context.init"));
         theStore.setDefault(
             CactusPreferences.TEMP_DIR,
             System.getProperty("java.io.tmpdir"));
-        theStore.setDefault(
-            CactusPreferences.JETTY,
-            true
-        );
+        theStore.setDefault(CactusPreferences.JETTY, true);
         theStore.setDefault(
             CactusPreferences.JETTY_XML,
             CactusMessages.getString("ContainersPreferencePage.jettyxml.init"));
@@ -258,18 +253,25 @@ public class CactusPlugin extends AbstractUIPlugin
      *  or null if Jetty is selected as the container.
      * @throws CoreException if the container manager can't be contructed
      */
-    public static IContainerManager getContainerManager()
-        throws CoreException
+    public static IContainerManager getContainerManager() throws CoreException
     {
+        if (containerManager != null)
+        {
+            return containerManager;
+        }
         if (CactusPreferences.getJetty())
         {
-            return new JettyContainerManager();
+            containerManager = new JettyContainerManager();
+            return containerManager;
         }
-        return new AntContainerManager(
-            BUILD_FILE_PATH,
-            CactusPreferences.getContextURLPort(),
-            CactusPreferences.getTempDir(),
-            CactusPreferences.getContainerHomes());
+        containerManager =
+            new AntContainerManager(
+                BUILD_FILE_PATH,
+                CactusPreferences.getContextURLPort(),
+                CactusPreferences.getTempDir(),
+                CactusPreferences.getContainerHomes(),
+                CactusPreferences.getContextURLPath());
+        return containerManager;
     }
 
     /**
@@ -348,24 +350,6 @@ public class CactusPlugin extends AbstractUIPlugin
     }
 
     /**
-     * @return the current CactusLaunchShortcut instance.
-     */
-    public CactusLaunchShortcut getCactusLaunchShortcut()
-    {
-        return launchShortcut;
-    }
-
-    /**
-     * Sets the current CactusLaunchShortcut
-     * @param theCactusLaunchShortcut the instance to set
-     */
-    public void setCactusLaunchShortcut(
-        CactusLaunchShortcut theCactusLaunchShortcut)
-    {
-        this.launchShortcut = theCactusLaunchShortcut;
-    }
-    
-    /**
      * Filter for container script files.
      * i.e. accepts files like 'build-tests-mycontainer3.1.xml'
      * 
@@ -386,7 +370,7 @@ public class CactusPlugin extends AbstractUIPlugin
                     CONTAINER_BUILD_FILES_PREFIX.length()).equals(
                     CONTAINER_BUILD_FILES_PREFIX));
         }
-    } 
+    }
     /**
      * @see IContainerManager#getContainerIds()
      */

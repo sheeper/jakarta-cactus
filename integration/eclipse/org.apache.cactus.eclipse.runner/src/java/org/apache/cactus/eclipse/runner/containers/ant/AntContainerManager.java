@@ -67,7 +67,6 @@ import org.apache.cactus.eclipse.runner.containers.IContainerManager;
 import org.apache.cactus.eclipse.runner.containers.IContainerProvider;
 import org.apache.cactus.eclipse.runner.ui.CactusMessages;
 import org.apache.cactus.eclipse.runner.ui.CactusPlugin;
-import org.apache.cactus.eclipse.runner.ui.CactusPreferences;
 import org.apache.cactus.eclipse.webapp.WarBuilder;
 import org.eclipse.ant.core.AntRunner;
 import org.eclipse.core.boot.BootLoader;
@@ -75,6 +74,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.swt.widgets.Display;
@@ -89,6 +89,21 @@ import org.eclipse.swt.widgets.Shell;
  */
 public class AntContainerManager implements IContainerManager
 {
+    /**
+     * True if the provider has successfully been deployed. 
+     */
+    private boolean stateProviderDeployed = false;
+
+    /**
+     * True if the war has successfully been created. 
+     */
+    private boolean stateWarCreated = false;
+
+    /**
+     * True if the container has been prepared. 
+     */
+    private boolean prepared = false;
+
     /**
      * Provider currently used 
      */
@@ -112,6 +127,10 @@ public class AntContainerManager implements IContainerManager
     private String buildFilePath;
 
     /**
+     * Context path for the container provider
+     */
+    private String contextURLPath;
+    /**
      * Reference to the War file so that we can delete it on tearDown()
      */
     private File war;
@@ -123,16 +142,37 @@ public class AntContainerManager implements IContainerManager
      * @param theTargetDir temporary directory to use for
      *     containers configuration
      * @param theHomes ContainerHome array for container config
-     * @throws CoreException if an argument is invalid
+     * @param theContextURLPath context path of the container provider
+     * @throws CoreException if an argument is invalid 
      */
     public AntContainerManager(
         String theBuildFilePath,
         int thePort,
         String theTargetDir,
-        Hashtable theHomes)
+        Hashtable theHomes,
+        String theContextURLPath)
         throws CoreException
     {
         this.buildFilePath = theBuildFilePath;
+        init(thePort, theTargetDir, theHomes, theContextURLPath);
+    }
+
+    /**
+     * Initializer.
+     * @param thePort the port that will be used when setting up the containers
+     * @param theTargetDir temporary directory to use for
+     *     containers configuration
+     * @param theHomes ContainerHome array for container config
+     * @param theContextURLPath context path of the container provider 
+     * @throws CoreException if an argument is invalid
+     */
+    public void init(
+        int thePort,
+        String theTargetDir,
+        Hashtable theHomes,
+        String theContextURLPath)
+        throws CoreException
+    {
         if (thePort <= 0)
         {
             throw CactusPlugin.createCoreException(
@@ -151,6 +191,13 @@ public class AntContainerManager implements IContainerManager
                 "CactusLaunch.message.invalidproperty.containers",
                 null);
         }
+        if (theContextURLPath.equalsIgnoreCase(""))
+        {
+            throw CactusPlugin.createCoreException(
+                "CactusLaunch.message.invalidproperty.contextpath",
+                null);
+        }
+        this.contextURLPath = theContextURLPath;
         this.containerHomes = theHomes;
         antArguments.add("-Dcactus.port=" + thePort);
         antArguments.add("-Dcactus.target.dir=" + theTargetDir);
@@ -163,7 +210,7 @@ public class AntContainerManager implements IContainerManager
     }
 
     /**
-     * @see IContainerManager#getContainerProvider()
+     * @return an array of provider containers supported by the manager
      */
     private IContainerProvider[] getContainerProviders()
     {
@@ -208,7 +255,7 @@ public class AntContainerManager implements IContainerManager
         File buildFileLocation = new File(buildFileURL.getPath());
         runner.setBuildFileLocation(buildFileLocation.getAbsolutePath());
         runner.setArguments(getAllAntArguments(theProviderArguments));
-        runner.setExecutionTargets(new String[] {theTarget});
+        runner.setExecutionTargets(new String[] { theTarget });
         return runner;
     }
 
@@ -242,6 +289,7 @@ public class AntContainerManager implements IContainerManager
      */
     public void prepare(final IJavaProject theJavaProject)
     {
+        this.prepared = false;
         final IRunnableWithProgress runnable = new IRunnableWithProgress()
         {
             public void run(IProgressMonitor thePM) throws InterruptedException
@@ -289,8 +337,19 @@ public class AntContainerManager implements IContainerManager
                 }
             }
         });
+        while (!prepared)
+        {
+            try
+            {
+                Thread.sleep(100);
+            }
+            catch (InterruptedException e)
+            {
+                CactusPlugin.log(e);
+            }
+        }
     }
-    
+
     /**
      * creates the war file, deploys and launches the container.
      * @param theJavaProject the Java file
@@ -309,17 +368,10 @@ public class AntContainerManager implements IContainerManager
             10);
         try
         {
-            WarBuilder newWar = new WarBuilder(theJavaProject);
-            this.war = newWar.createWar(thePM);
-            URL warURL = war.toURL();
-            String contextURLPath = CactusPreferences.getContextURLPath();
-            if (contextURLPath.equals(""))
-            {
-                throw CactusPlugin.createCoreException(
-                    "CactusLaunch.message.invalidproperty.contextpath",
-                    null);
-            }
-            theProvider.deploy(contextURLPath, warURL, null, thePM);
+            URL warURL = createWar(theJavaProject, thePM);
+            this.stateWarCreated = true;
+            theProvider.deploy(this.contextURLPath, warURL, null, thePM);
+            this.stateProviderDeployed = true;
             theProvider.start(null, thePM);
         }
         catch (MalformedURLException e)
@@ -330,6 +382,22 @@ public class AntContainerManager implements IContainerManager
                 e);
         }
         thePM.done();
+    }
+
+    /**
+     * @param theJavaProject the project to build the war from
+     * @param thePM monitor that tracks the progression
+     * @return the URL to the war file
+     * @throws JavaModelException if we cannot create the war
+     * @throws CoreException if we cannot create the war
+     * @throws MalformedURLException if we cannot create the war
+     */
+    private URL createWar(IJavaProject theJavaProject, IProgressMonitor thePM)
+        throws JavaModelException, CoreException, MalformedURLException
+    {
+        WarBuilder newWar = new WarBuilder(theJavaProject);
+        this.war = newWar.createWar(thePM);
+        return war.toURL();
     }
 
     /**
@@ -444,8 +512,14 @@ public class AntContainerManager implements IContainerManager
             CactusMessages.getString("CactusLaunch.message.teardown"),
             100);
         theProvider.stop(null, thePM);
-        theProvider.undeploy(null, null, thePM);
-        this.war.delete();
+        if (stateProviderDeployed)
+        {
+            theProvider.undeploy(null, null, thePM);
+        }
+        if (stateWarCreated)
+        {
+            this.war.delete();
+        }
         thePM.done();
     }
 
@@ -465,5 +539,13 @@ public class AntContainerManager implements IContainerManager
     {
         provider.setEclipseRunner(theRunner);
     }
-    
+
+    /**
+     * 
+     */
+    public void preparationDone()
+    {
+        this.prepared = true;
+    }
+
 }
