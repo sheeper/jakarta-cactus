@@ -65,6 +65,7 @@ import org.apache.cactus.client.connector.http.ConnectionHelper;
 import org.apache.cactus.client.connector.http.ConnectionHelperFactory;
 import org.apache.cactus.configuration.Configuration;
 import org.apache.cactus.configuration.WebConfiguration;
+import org.apache.cactus.internal.WebRequestImpl;
 import org.apache.cactus.util.ChainedRuntimeException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -116,7 +117,7 @@ public class FormAuthentication extends AbstractAuthentication
      * {@link WebRequest} object that will be used to connect to the
      * security URL. 
      */
-    private WebRequest securityRequest = new WebRequest();
+    private WebRequest securityRequest = new WebRequestImpl();
       
     /**
      * @param theName user name of the Credential
@@ -242,7 +243,7 @@ public class FormAuthentication extends AbstractAuthentication
 
             // Make the connection using a default web request.
             HttpURLConnection connection = helper.connect(
-                new WebRequest((WebConfiguration) theConfiguration), 
+                new WebRequestImpl((WebConfiguration) theConfiguration), 
                 theConfiguration);
 
             // Clean any existing session ID.
@@ -288,7 +289,10 @@ public class FormAuthentication extends AbstractAuthentication
             // Configure a web request with the JSESSIONID cookie, 
             // the username and the password.          
             WebRequest request = getSecurityRequest();
-            request.setConfiguration(theConfiguration);
+
+            // TODO: Change design so that we cannot get a ClassCastException
+            ((WebRequestImpl) request).setConfiguration(theConfiguration);
+
             request.addCookie(sessionIdCookieName, sessionId);
             request.addParameter("j_username", getName(), 
                 WebRequest.POST_METHOD);

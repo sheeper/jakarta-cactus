@@ -64,7 +64,6 @@ import junit.framework.Assert;
 import junit.framework.Test;
 
 import org.apache.cactus.Request;
-import org.apache.cactus.WebRequest;
 import org.apache.cactus.configuration.Configuration;
 import org.apache.cactus.util.JUnitVersionHelper;
 import org.apache.commons.logging.Log;
@@ -341,16 +340,16 @@ public class ClientTestCaseDelegate extends Assert
                 if (parameters.length != 1)
                 {
                     fail("The method [" + methods[i].getName()
-                        + "] must accept a single parameter derived from "
-                        + "class [" + WebRequest.class.getName() + "], "
+                        + "] must accept a single parameter implementing "
+                        + "interface [" + Request.class.getName() + "], "
                         + "but " + parameters.length
                         + " parameters were found");
                 }
-                else if (!theRequest.getClass().isAssignableFrom(parameters[0]))
+                else if (!Request.class.isAssignableFrom(parameters[0]))
                 {
                     fail("The method [" + methods[i].getName()
-                        + "] must accept a single parameter derived from "
-                        + "class [" + theRequest.getClass().getName() + "], "
+                        + "] must accept a single parameter implementing "
+                        + "interface [" + Request.class.getName() + "], "
                         + "but found a [" + parameters[0].getName() + "] "
                         + "parameter instead");
                 }

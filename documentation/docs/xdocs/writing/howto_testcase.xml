@@ -310,7 +310,7 @@ public void beginXXX(WebRequest theRequest)
         <p>
           The full description of all the HTTP related parameters that you can
           set can be found in the javadoc for the <code>WebRequest</code>
-          class. You should also check the examples provided as part of the
+          interface. You should also check the examples provided as part of the
           Cactus distribution.
         </p>
         <p>

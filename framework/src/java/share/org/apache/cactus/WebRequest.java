@@ -56,61 +56,217 @@
  */
 package org.apache.cactus;
 
-import java.net.HttpURLConnection;
-import java.util.StringTokenizer;
+import java.io.InputStream;
+import java.util.Enumeration;
+import java.util.Vector;
 
-import org.apache.cactus.client.ClientException;
-import org.apache.cactus.client.WebResponseObjectFactory;
-import org.apache.cactus.client.connector.http.ConnectionHelper;
-import org.apache.cactus.client.connector.http.ConnectionHelperFactory;
-import org.apache.cactus.configuration.WebConfiguration;
-import org.apache.cactus.util.ChainedRuntimeException;
+import org.apache.cactus.client.authentication.Authentication;
 
 /**
- * Extends {@link BaseWebRequest} to add properties specific to the
- * Cactus Web Redirectors.
- *
+ * Contains HTTP request data for a Cactus test case.
+ * 
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- * @author <a href="mailto:Jason.Robertson@acs-inc.com">Jason Robertson</a>
  *
  * @version $Id$
  */
-public class WebRequest extends BaseWebRequest
+public interface WebRequest extends Request
 {
-    
     /**
-     * The URL to simulate
+     * GET Method identifier.
      */
-    private ServletURL url;
+    String GET_METHOD = "GET";
 
     /**
-     * Automatic session creation flag (default is true).
+     * POST Method identifier.
      */
-    private boolean isAutomaticSession = true;
+    String POST_METHOD = "POST";
 
     /**
-     * Redirector Name. This is to let the user the possibility to override
-     * the default Redirector Name specified in <code>cactus.properties</code>.
+     * Sets the content type that will be set in the http request
+     *
+     * @param theContentType the content type
      */
-    private String redirectorName;
+    void setContentType(String theContentType);
 
     /**
-     * Default constructor that requires that 
-     * {@link #setConfiguration(Configuration)} be called before the methods
-     * requiring a configuration object.
-     * 
+     * @return the content type that will be set in the http request
      */
-    public WebRequest()
-    {
-    }
+    String getContentType();
 
     /**
-     * @param theConfiguration the Cactus configuration
+     * Allow the user to send arbitrary data in the request body
+     *
+     * @param theDataStream the stream on which the data are put by the user
      */
-    public WebRequest(WebConfiguration theConfiguration)
-    {
-        super(theConfiguration);
-    }
+    void setUserData(InputStream theDataStream);
+
+    /**
+     * @return the data stream set up by the user
+     */
+    InputStream getUserData();
+
+    /**
+     * Adds a parameter to the request. It is possible to add several times the
+     * the same parameter name, but with different value (the same as for the
+     * <code>HttpServletRequest</code>).
+     *
+     * @param theName the parameter's name
+     * @param theValue the parameter's value
+     * @param theMethod GET_METHOD or POST_METHOD. If GET_METHOD then the
+     *        parameter will be sent in the query string of the URL. If
+     *        POST_METHOD, it will be sent as a parameter in the request body.
+     */
+    void addParameter(String theName, String theValue, String theMethod);
+
+    /**
+     * Adds a parameter to the request. The parameter is added to the query
+     * string of the URL.
+     *
+     * @param theName  the parameter's name
+     * @param theValue the parameter's value
+     *
+     * @see #addParameter(String, String, String)
+     */
+    void addParameter(String theName, String theValue);
+
+    /**
+     * @return the parameter names that will be passed in the request body
+     *         (POST)
+     */
+    Enumeration getParameterNamesPost();
+
+    /**
+     * @return the parameter names that will be passed in the URL (GET)
+     */
+    Enumeration getParameterNamesGet();
+
+    /**
+     * Returns the first value corresponding to this parameter's name (provided
+     * this parameter is passed in the URL).
+     *
+     * @param theName the parameter's name
+     * @return the first value corresponding to this parameter's name or null
+     *         if not found in the list of parameters to be sent in the URL
+     */
+    String getParameterGet(String theName);
+
+    /**
+     * Returns the first value corresponding to this parameter's name (provided
+     * this parameter is passed in the request body - POST).
+     *
+     * @param theName the parameter's name
+     * @return the first value corresponding to this parameter's name or null
+     *         if not found in the list of parameters to be sent in the request
+     *         body
+     */
+    String getParameterPost(String theName);
+
+    /**
+     * Returns all the values corresponding to this parameter's name (provided
+     * this parameter is passed in the URL).
+     *
+     * @param theName the parameter's name
+     * @return the first value corresponding to this parameter's name or null
+     *         if not found in the list of parameters to be sent in the URL
+     */
+    String[] getParameterValuesGet(String theName);
+
+    /**
+     * Returns all the values corresponding to this parameter's name (provided
+     * this parameter is passed in the request body - POST).
+     *
+     * @param theName the parameter's name
+     * @return the first value corresponding to this parameter's name or null
+     *         if not found in the list of parameters to be sent in the request
+     *         body
+     */
+    String[] getParameterValuesPost(String theName);
+
+    /**
+     * Adds a cookie to the request. The cookie will be created with a
+     * default localhost domain. If you need to specify a domain for the cookie,
+     * use the {@link #addCookie(String, String, String)} method or the method
+     * {@link #addCookie(Cookie)}.
+     *
+     * @param theName the cookie's name
+     * @param theValue the cookie's value
+     */
+    void addCookie(String theName, String theValue);
+
+    /**
+     * Adds a cookie to the request. The cookie will be created with the
+     * domain passed as parameter (i.e. the cookie will get sent only to
+     * requests to that domain).
+     *
+     * Note that the domain must match either the redirector host
+     * (specified in <code>cactus.properties</code>) or the host set
+     * using <code>setURL()</code>.
+     *
+     * @param theDomain the cookie domain
+     * @param theName the cookie name
+     * @param theValue the cookie value
+     */
+    void addCookie(String theDomain, String theName, String theValue);
+
+    /**
+     * Adds a cookie to the request.
+     *
+     * Note that the domain must match either the redirector host
+     * (specified in <code>cactus.properties</code>) or the host set
+     * using <code>setURL()</code>.
+     *
+     * @param theCookie the cookie to add
+     */
+    void addCookie(Cookie theCookie);
+
+    /**
+     * @return the cookies (vector of <code>Cookie</code> objects)
+     */
+    Vector getCookies();
+
+    /**
+     * Adds a header to the request. Supports adding several values for the
+     * same header name.
+     *
+     * @param theName  the header's name
+     * @param theValue the header's value
+     */
+    void addHeader(String theName, String theValue);
+
+    /**
+     * @return the header names
+     */
+    Enumeration getHeaderNames();
+
+    /**
+     * Returns the first value corresponding to this header's name.
+     *
+     * @param  theName the header's name
+     * @return the first value corresponding to this header's name or null if
+     *         not found
+     */
+    String getHeader(String theName);
+
+    /**
+     * Returns all the values associated with this header's name.
+     *
+     * @param  theName the header's name
+     * @return the values corresponding to this header's name or null if not
+     *         found
+     */
+    String[] getHeaderValues(String theName);
+
+    /**
+     * Sets the authentication object that will configure the http request
+     *
+     * @param theAuthentication the authentication object
+     */
+    void setAuthentication(Authentication theAuthentication);
+
+    /**
+     * @return the authentication that will configure the http request
+     */
+    Authentication getAuthentication();
 
     /**
      * Override the redirector Name defined in <code>cactus.properties</code>.
@@ -120,36 +276,24 @@ public class WebRequest extends BaseWebRequest
      *
      * @param theRedirectorName the new redirector Name to use
      */
-    public void setRedirectorName(String theRedirectorName)
-    {
-        this.redirectorName = theRedirectorName;
-    }
+    void setRedirectorName(String theRedirectorName);
 
     /**
      * @return the overriden redirector Name or null if none has been defined
      */
-    public String getRedirectorName()
-    {
-        return this.redirectorName;
-    }
+    String getRedirectorName();
 
     /**
      * @param isAutomaticSession whether the redirector servlet will
      *        automatically create the HTTP session or not. Default is true.
      */
-    public void setAutomaticSession(boolean isAutomaticSession)
-    {
-        this.isAutomaticSession = isAutomaticSession;
-    }
+    void setAutomaticSession(boolean isAutomaticSession);
 
     /**
      * @return true if session will be automatically created for the user or
      *         false otherwise.
      */
-    public boolean getAutomaticSession()
-    {
-        return this.isAutomaticSession;
-    }
+    boolean getAutomaticSession();
 
     /**
      * Sets the simulated URL. A URL is of the form :<br>
@@ -193,79 +337,14 @@ public class WebRequest extends BaseWebRequest
      *                       <code>HttpServletResquest.getQueryString()</code>.
      *                       Can be null.
      */
-    public void setURL(String theServerName, String theContextPath, 
-        String theServletPath, String thePathInfo, String theQueryString)
-    {
-        this.url = new ServletURL(theServerName, theContextPath, 
-            theServletPath, thePathInfo, theQueryString);
-
-        // Now automatically add all HTTP parameters to the list of passed
-        // parameters
-        addQueryStringParameters(theQueryString);
-    }
+    void setURL(String theServerName, String theContextPath, 
+        String theServletPath, String thePathInfo, String theQueryString);
 
     /**
      * @return the simulated URL
      */
-    public ServletURL getURL()
-    {
-        return this.url;
-    }
+    ServletURL getURL();
 
-    /**
-     * @return a string representation of the request
-     */
-    public String toString()
-    {
-        StringBuffer buffer = new StringBuffer();
-
-        buffer.append("simulation URL = [" + getURL() + "], ");
-        buffer.append("automatic session = [" + getAutomaticSession() + "], ");
-
-        buffer.append(super.toString());
-        
-        return buffer.toString();
-    }
-
-    /**
-     * Extract the HTTP parameters that might have been specified on the
-     * query string and add them to the list of parameters to pass to the
-     * servlet redirector.
-     *
-     * @param theQueryString the Query string in the URL to simulate, i.e. this
-     *                       is the string that will be returned by the
-     *                       <code>HttpServletResquest.getQueryString()</code>.
-     *                       Can be null.
-     */
-    private void addQueryStringParameters(String theQueryString)
-    {
-        if (theQueryString == null)
-        {
-            return;
-        }
-
-        String nameValue = null;
-        StringTokenizer tokenizer = new StringTokenizer(theQueryString, "&");
-        int breakParam = -1;
-
-        while (tokenizer.hasMoreTokens())
-        {
-            nameValue = tokenizer.nextToken();
-            breakParam = nameValue.indexOf("=");
-
-            if (breakParam != -1)
-            {
-                addParameter(nameValue.substring(0, breakParam), 
-                    nameValue.substring(breakParam + 1));
-            }
-            else
-            {
-                throw new RuntimeException("Bad QueryString [" + theQueryString
-                    + "] NameValue pair: [" + nameValue + "]");
-            }
-        }
-    }
-    
     /**
      * Gets an HTTP session id by calling the server side and retrieving
      * the jsessionid cookie in the HTTP response. This is achieved by
@@ -273,77 +352,5 @@ public class WebRequest extends BaseWebRequest
      * 
      * @return the HTTP session id as a <code>HttpSessionCookie</code> object
      */
-    public HttpSessionCookie getSessionCookie()
-    {
-        if (getConfiguration() == null)
-        {
-            throw new ChainedRuntimeException("setConfiguration() should have "
-                + "been called prior to calling getSessionCookie()");
-        }
-        
-        ConnectionHelper helper = ConnectionHelperFactory.getConnectionHelper(
-            ((WebConfiguration) getConfiguration()).getRedirectorURL(this), 
-            getConfiguration());
-
-        WebRequest obtainSessionIdRequest = new WebRequest(
-            (WebConfiguration) getConfiguration());
-            
-        
-        //Not sure whether I should be adding the service parameter to
-        //this request (this) or to the obtainSessionIdRequest
-        //seems obvious that it should be the obtainSessionIdRequest
-        RequestDirectives directives = 
-            new RequestDirectives(obtainSessionIdRequest);
-        directives.setService(ServiceEnumeration.CREATE_SESSION_SERVICE);
-
-        HttpURLConnection resultConnection;
-        try
-        {
-            resultConnection =
-                helper.connect(obtainSessionIdRequest, getConfiguration());
-        }
-        catch (Throwable e)
-        {
-            throw new ChainedRuntimeException("Failed to connect to ["
-                + ((WebConfiguration) getConfiguration()).getRedirectorURL(this)
-                + "]", e);
-        }
-
-        WebResponse response;
-        try
-        {
-            response =
-                (WebResponse) new WebResponseObjectFactory().getResponseObject(
-                    WebResponse.class.getName(),
-                    obtainSessionIdRequest,
-                    resultConnection);
-        }
-        catch (ClientException e)
-        {
-            throw new ChainedRuntimeException("Failed to connect to ["
-                + ((WebConfiguration) getConfiguration()).getRedirectorURL(this)
-                + "]", e);
-        }
-
-        Cookie cookie = response.getCookieIgnoreCase("jsessionid");
-
-        // TODO: Add a constructor to the Cookie class that takes a Cookie
-        // as parameter.
-
-        HttpSessionCookie sessionCookie = null;
-
-        if (cookie != null)                
-        {
-            sessionCookie = new HttpSessionCookie(cookie.getDomain(), 
-                cookie.getName(), cookie.getValue());
-            sessionCookie.setComment(cookie.getComment());
-            sessionCookie.setExpiryDate(cookie.getExpiryDate());
-            sessionCookie.setPath(cookie.getPath());
-            sessionCookie.setSecure(cookie.isSecure());
-        }
-                
-        return sessionCookie;
-    }
-
-
+    HttpSessionCookie getSessionCookie();
 }

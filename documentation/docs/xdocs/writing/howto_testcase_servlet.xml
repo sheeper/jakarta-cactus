@@ -89,9 +89,9 @@
         </p>
         <p>
           See the javadoc for the
-          <code>org.apache.cactus.WebRequest</code> and
+          <code>org.apache.cactus.WebRequest</code> interface and the
           <code>org.apache.cactus.server.HttpServletRequestWrapper
-          </code> classes for all details. You should also look at the
+          </code> class for all details. You should also look at the
           samples provided in the Cactus distribution.
         </p>
 

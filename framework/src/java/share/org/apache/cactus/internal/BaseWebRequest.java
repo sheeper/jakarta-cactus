@@ -54,7 +54,7 @@
  * <http://www.apache.org/>.
  *
  */
-package org.apache.cactus;
+package org.apache.cactus.internal;
 
 import java.io.InputStream;
 
@@ -62,6 +62,8 @@ import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Vector;
 
+import org.apache.cactus.Cookie;
+import org.apache.cactus.WebRequest;
 import org.apache.cactus.client.authentication.Authentication;
 import org.apache.cactus.configuration.Configuration;
 import org.apache.cactus.util.ChainedRuntimeException;
@@ -76,18 +78,8 @@ import org.apache.cactus.util.ChainedRuntimeException;
  *
  * @version $Id$
  */
-public class BaseWebRequest implements Request
+public abstract class BaseWebRequest implements WebRequest
 {
-    /**
-     * GET Method identifier.
-     */
-    public static final String GET_METHOD = "GET";
-
-    /**
-     * POST Method identifier.
-     */
-    public static final String POST_METHOD = "POST";
-
     /**
      * Cactus configuration
      */
@@ -164,9 +156,7 @@ public class BaseWebRequest implements Request
     }
 
     /**
-     * Sets the content type that will be set in the http request
-     *
-     * @param theContentType the content type
+     * @see WebRequest#setContentType(String)
      */
     public void setContentType(String theContentType)
     {
@@ -174,7 +164,7 @@ public class BaseWebRequest implements Request
     }
 
     /**
-     * @return the content type that will be set in the http request
+     * @see WebRequest#getContentType()
      */
     public String getContentType()
     {
@@ -182,9 +172,7 @@ public class BaseWebRequest implements Request
     }
 
     /**
-     * Allow the user to send arbitrary data in the request body
-     *
-     * @param theDataStream the stream on which the data are put by the user
+     * @see WebRequest#setUserData(InputStream)
      */
     public void setUserData(InputStream theDataStream)
     {
@@ -192,7 +180,7 @@ public class BaseWebRequest implements Request
     }
 
     /**
-     * @return the data stream set up by the user
+     * @see WebRequest#getUserData()
      */
     public InputStream getUserData()
     {
@@ -200,15 +188,7 @@ public class BaseWebRequest implements Request
     }
 
     /**
-     * Adds a parameter to the request. It is possible to add several times the
-     * the same parameter name, but with different value (the same as for the
-     * <code>HttpServletRequest</code>).
-     *
-     * @param theName the parameter's name
-     * @param theValue the parameter's value
-     * @param theMethod GET_METHOD or POST_METHOD. If GET_METHOD then the
-     *        parameter will be sent in the query string of the URL. If
-     *        POST_METHOD, it will be sent as a parameter in the request body.
+     * @see WebRequest#addParameter(String, String, String)
      */
     public void addParameter(String theName, String theValue, String theMethod)
     {
@@ -248,13 +228,7 @@ public class BaseWebRequest implements Request
     }
 
     /**
-     * Adds a parameter to the request. The parameter is added to the query
-     * string of the URL.
-     *
-     * @param theName  the parameter's name
-     * @param theValue the parameter's value
-     *
-     * @see #addParameter(String, String, String)
+     * @see WebRequest#addParameter(String, String)
      */
     public void addParameter(String theName, String theValue)
     {
@@ -262,8 +236,7 @@ public class BaseWebRequest implements Request
     }
 
     /**
-     * @return the parameter names that will be passed in the request body
-     * (POST)
+     * @see WebRequest#getParameterNamesPost()
      */
     public Enumeration getParameterNamesPost()
     {
@@ -271,7 +244,7 @@ public class BaseWebRequest implements Request
     }
 
     /**
-     * @return the parameter names that will be passed in the URL (GET)
+     * @see WebRequest#getParameterNamesGet()
      */
     public Enumeration getParameterNamesGet()
     {
@@ -290,12 +263,7 @@ public class BaseWebRequest implements Request
     }
 
     /**
-     * Returns the first value corresponding to this parameter's name (provided
-     * this parameter is passed in the URL).
-     *
-     * @param theName the parameter's name
-     * @return the first value corresponding to this parameter's name or null
-     *         if not found in the list of parameters to be sent in the URL
+     * @see WebRequest#getParameterGet(String)
      */
     public String getParameterGet(String theName)
     {
@@ -310,13 +278,7 @@ public class BaseWebRequest implements Request
     }
 
     /**
-     * Returns the first value corresponding to this parameter's name (provided
-     * this parameter is passed in the request body - POST).
-     *
-     * @param theName the parameter's name
-     * @return the first value corresponding to this parameter's name or null
-     *         if not found in the list of parameters to be sent in the request
-     *         body
+     * @see WebRequest#getParameterPost(String)
      */
     public String getParameterPost(String theName)
     {
@@ -331,12 +293,7 @@ public class BaseWebRequest implements Request
     }
 
     /**
-     * Returns all the values corresponding to this parameter's name (provided
-     * this parameter is passed in the URL).
-     *
-     * @param theName the parameter's name
-     * @return the first value corresponding to this parameter's name or null
-     *         if not found in the list of parameters to be sent in the URL
+     * @see WebRequest#getParameterValuesGet(String)
      */
     public String[] getParameterValuesGet(String theName)
     {
@@ -344,13 +301,7 @@ public class BaseWebRequest implements Request
     }
 
     /**
-     * Returns all the values corresponding to this parameter's name (provided
-     * this parameter is passed in the request body - POST).
-     *
-     * @param theName the parameter's name
-     * @return the first value corresponding to this parameter's name or null
-     *         if not found in the list of parameters to be sent in the request
-     *         body
+     * @see WebRequest#getParameterValuesPost(String)
      */
     public String[] getParameterValuesPost(String theName)
     {
@@ -390,13 +341,7 @@ public class BaseWebRequest implements Request
     }
 
     /**
-     * Adds a cookie to the request. The cookie will be created with a
-     * default localhost domain. If you need to specify a domain for the cookie,
-     * use the {@link #addCookie(String, String, String)} method or the method
-     * {@link #addCookie(Cookie)}.
-     *
-     * @param theName the cookie's name
-     * @param theValue the cookie's value
+     * @see WebRequest#addCookie(String, String)
      */
     public void addCookie(String theName, String theValue)
     {
@@ -404,17 +349,7 @@ public class BaseWebRequest implements Request
     }
 
     /**
-     * Adds a cookie to the request. The cookie will be created with the
-     * domain passed as parameter (i.e. the cookie will get sent only to
-     * requests to that domain).
-     *
-     * Note that the domain must match either the redirector host
-     * (specified in <code>cactus.properties</code>) or the host set
-     * using <code>setURL()</code>.
-     *
-     * @param theDomain the cookie domain
-     * @param theName the cookie name
-     * @param theValue the cookie value
+     * @see WebRequest#addCookie(String, String, String)
      */
     public void addCookie(String theDomain, String theName, String theValue)
     {
@@ -422,13 +357,7 @@ public class BaseWebRequest implements Request
     }
 
     /**
-     * Adds a cookie to the request.
-     *
-     * Note that the domain must match either the redirector host
-     * (specified in <code>cactus.properties</code>) or the host set
-     * using <code>setURL()</code>.
-     *
-     * @param theCookie the cookie to add
+     * @see WebRequest#addCookie(Cookie)
      */
     public void addCookie(Cookie theCookie)
     {
@@ -440,7 +369,7 @@ public class BaseWebRequest implements Request
     }
 
     /**
-     * @return the cookies (vector of <code>Cookie</code> objects)
+     * @see WebRequest#getCookies()
      */
     public Vector getCookies()
     {
@@ -448,11 +377,7 @@ public class BaseWebRequest implements Request
     }
 
     /**
-     * Adds a header to the request. Supports adding several values for the
-     * same header name.
-     *
-     * @param theName  the header's name
-     * @param theValue the header's value
+     * @see WebRequest#addHeader(String, String)
      */
     public void addHeader(String theName, String theValue)
     {
@@ -484,7 +409,7 @@ public class BaseWebRequest implements Request
     }
 
     /**
-     * @return the header names
+     * @see WebRequest#getHeaderNames()
      */
     public Enumeration getHeaderNames()
     {
@@ -492,11 +417,7 @@ public class BaseWebRequest implements Request
     }
 
     /**
-     * Returns the first value corresponding to this header's name.
-     *
-     * @param  theName the header's name
-     * @return the first value corresponding to this header's name or null if
-     *         not found
+     * @see WebRequest#getHeader(String)
      */
     public String getHeader(String theName)
     {
@@ -511,11 +432,7 @@ public class BaseWebRequest implements Request
     }
 
     /**
-     * Returns all the values associated with this header's name.
-     *
-     * @param  theName the header's name
-     * @return the values corresponding to this header's name or null if not
-     *         found
+     * @see WebRequest#getHeaderValues(String)
      */
     public String[] getHeaderValues(String theName)
     {
@@ -670,9 +587,7 @@ public class BaseWebRequest implements Request
     }
 
     /**
-     * Sets the authentication object that will configure the http request
-     *
-     * @param theAuthentication the authentication object
+     * @see WebRequest#setAuthentication(Authentication)
      */
     public void setAuthentication(Authentication theAuthentication)
     {
@@ -680,11 +595,10 @@ public class BaseWebRequest implements Request
     }
 
     /**
-     * @return the authentication that will configure the http request
+     * @see WebRequest#getAuthentication()
      */
     public Authentication getAuthentication()
     {
         return this.authentication;
     }
-
 }

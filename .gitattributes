@@ -188,7 +188,6 @@ framework/src/java/j2ee13/org/apache/cactus/server/PageContextWrapper.java svn_k
 framework/src/java/j2ee13/org/apache/cactus/server/ServletConfigWrapper.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/j2ee13/org/apache/cactus/server/ServletContextWrapper.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/AbstractTestSuite.java svn_keywords=Author+Date+Id+Revision
-framework/src/java/share/org/apache/cactus/BaseWebRequest.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/Cookie.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/HttpServiceDefinition.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/JspTestCase.java svn_keywords=Author+Date+Id+Revision
@@ -230,6 +229,8 @@ framework/src/java/share/org/apache/cactus/configuration/ServletConfiguration.ja
 framework/src/java/share/org/apache/cactus/configuration/Version.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/configuration/WebConfiguration.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/configuration/package.html svn_keywords=Author+Date+Id+Revision
+framework/src/java/share/org/apache/cactus/internal/BaseWebRequest.java svn_keywords=Author+Date+Id+Revision
+framework/src/java/share/org/apache/cactus/internal/WebRequestImpl.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/internal/client/ClientTestCaseDelegate.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/internal/client/WebClientTestCaseDelegate.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/internal/server/ServerTestCaseDelegate.java svn_keywords=Author+Date+Id+Revision

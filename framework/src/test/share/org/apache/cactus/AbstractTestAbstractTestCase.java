@@ -66,6 +66,7 @@ import junit.framework.TestCase;
 import org.apache.cactus.client.ClientException;
 import org.apache.cactus.configuration.ServletConfiguration;
 import org.apache.cactus.configuration.WebConfiguration;
+import org.apache.cactus.internal.WebRequestImpl;
 import org.apache.cactus.internal.client.WebClientTestCaseDelegate;
 import org.apache.cactus.mock.MockHttpURLConnection;
 import org.apache.cactus.util.JUnitVersionHelper;
@@ -109,7 +110,7 @@ public abstract class AbstractTestAbstractTestCase extends TestCase
         try
         {
             // Call the begin method
-            WebRequest request = new WebRequest(
+            WebRequest request = new WebRequestImpl(
                 (WebConfiguration) delegator.getConfiguration());
 
             delegator.callBeginMethod(request);
@@ -197,8 +198,8 @@ public abstract class AbstractTestAbstractTestCase extends TestCase
         {
             assertEquals("The method "
                 + "[beginBeginMethodBadParamType] must accept a single "
-                + "parameter derived from class "
-                + "[org.apache.cactus.WebRequest], but "
+                + "parameter implementing interface "
+                + "[org.apache.cactus.Request], but "
                 + "found a [java.lang.String] parameter instead", theMessage);
 
             return true;
@@ -211,8 +212,8 @@ public abstract class AbstractTestAbstractTestCase extends TestCase
         {
             assertEquals("The method "
                 + "[beginBeginMethodBadParamNumber] must accept a single "
-                + "parameter derived from class "
-                + "[org.apache.cactus.WebRequest], but 2 "
+                + "parameter implementing interface "
+                + "[org.apache.cactus.Request], but 2 "
                 + "parameters were found", theMessage);
 
             return true;

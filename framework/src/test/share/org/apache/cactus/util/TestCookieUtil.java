@@ -60,6 +60,7 @@ import java.net.URL;
 
 import org.apache.cactus.Cookie;
 import org.apache.cactus.WebRequest;
+import org.apache.cactus.internal.WebRequestImpl;
 import org.apache.commons.httpclient.HttpState;
 
 import junit.framework.TestCase;
@@ -81,7 +82,7 @@ public class TestCookieUtil extends TestCase
     public void testCreateHttpStateWhenNoCactusCookieDefined()
         throws Exception
     {
-        WebRequest request = new WebRequest();
+        WebRequest request = new WebRequestImpl();
         HttpState state = CookieUtil.createHttpState(request, 
             new URL("http://jakarta.apache.org"));
         assertEquals(0, state.getCookies().length);
@@ -96,7 +97,7 @@ public class TestCookieUtil extends TestCase
     public void testCreateHttpStateWhenSeveralCactusCookieExist()
         throws Exception
     {
-        WebRequest request = new WebRequest();
+        WebRequest request = new WebRequestImpl();
         request.addCookie(new Cookie("domain1", "name1", "value1"));
         request.addCookie(new Cookie("domain2", "name2", "value2"));
         

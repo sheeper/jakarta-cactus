@@ -71,6 +71,7 @@ import org.apache.cactus.client.WebResponseObjectFactory;
 import org.apache.cactus.client.connector.http.DefaultHttpClient;
 import org.apache.cactus.configuration.Configuration;
 import org.apache.cactus.configuration.WebConfiguration;
+import org.apache.cactus.internal.WebRequestImpl;
 
 /**
  * Delegator extension to support test cases using the HTTP protocol. It adds 
@@ -270,7 +271,7 @@ public class WebClientTestCaseDelegate extends ClientTestCaseDelegate
     protected void runGenericTest(DefaultHttpClient theHttpClient)
         throws Throwable
     {
-        WebRequest request = new WebRequest(
+        WebRequest request = new WebRequestImpl(
             (WebConfiguration) getConfiguration());
 
         // Call the set up and begin methods to fill the request object

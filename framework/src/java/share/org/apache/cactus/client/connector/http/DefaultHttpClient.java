@@ -68,6 +68,7 @@ import org.apache.cactus.client.ParsingException;
 import org.apache.cactus.client.ServletExceptionWrapper;
 import org.apache.cactus.client.WebTestResultParser;
 import org.apache.cactus.configuration.WebConfiguration;
+import org.apache.cactus.internal.WebRequestImpl;
 import org.apache.cactus.util.ChainedRuntimeException;
 import org.apache.cactus.util.IoUtil;
 
@@ -222,7 +223,7 @@ public class DefaultHttpClient
     private WebTestResult callGetResult(WebRequest theOriginalRequest) 
         throws Throwable
     {
-        WebRequest resultsRequest = new WebRequest(this.configuration);
+        WebRequest resultsRequest = new WebRequestImpl(this.configuration);
         RequestDirectives directives = new RequestDirectives(resultsRequest);
         directives.setService(ServiceEnumeration.GET_RESULTS_SERVICE);
 

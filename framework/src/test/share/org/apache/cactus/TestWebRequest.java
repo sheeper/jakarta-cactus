@@ -61,6 +61,7 @@ import java.util.Enumeration;
 import junit.framework.TestCase;
 
 import org.apache.cactus.configuration.ServletConfiguration;
+import org.apache.cactus.internal.WebRequestImpl;
 import org.apache.cactus.util.ChainedRuntimeException;
 
 /**
@@ -78,7 +79,7 @@ public class TestWebRequest extends TestCase
      */
     public void testAddParameterInvalidMethod()
     {
-        WebRequest request = new WebRequest(new ServletConfiguration());
+        WebRequest request = new WebRequestImpl(new ServletConfiguration());
 
         try
         {
@@ -98,7 +99,7 @@ public class TestWebRequest extends TestCase
      */
     public void testGetParametersGetOk()
     {
-        WebRequest request = new WebRequest(new ServletConfiguration());
+        WebRequest request = new WebRequestImpl(new ServletConfiguration());
 
         request.addParameter("param1", "value1", WebRequest.GET_METHOD);
         request.addParameter("param1", "value2", WebRequest.GET_METHOD);
@@ -114,7 +115,7 @@ public class TestWebRequest extends TestCase
      */
     public void testGetParameterGetNull()
     {
-        WebRequest request = new WebRequest(new ServletConfiguration());
+        WebRequest request = new WebRequestImpl(new ServletConfiguration());
 
         request.addParameter("param1", "value1", WebRequest.POST_METHOD);
 
@@ -129,7 +130,7 @@ public class TestWebRequest extends TestCase
      */
     public void testGetParametersPostOk()
     {
-        WebRequest request = new WebRequest(new ServletConfiguration());
+        WebRequest request = new WebRequestImpl(new ServletConfiguration());
 
         request.addParameter("param1", "value1", WebRequest.POST_METHOD);
         request.addParameter("param1", "value2", WebRequest.POST_METHOD);
@@ -145,7 +146,7 @@ public class TestWebRequest extends TestCase
      */
     public void testGetParameterPostNull()
     {
-        WebRequest request = new WebRequest(new ServletConfiguration());
+        WebRequest request = new WebRequestImpl(new ServletConfiguration());
 
         request.addParameter("param1", "value1", WebRequest.GET_METHOD);
 
@@ -160,7 +161,7 @@ public class TestWebRequest extends TestCase
      */
     public void testGetHeaderOk()
     {
-        WebRequest request = new WebRequest(new ServletConfiguration());
+        WebRequest request = new WebRequestImpl(new ServletConfiguration());
 
         request.addHeader("header1", "value1");
         request.addHeader("header2", "value2");
@@ -176,7 +177,7 @@ public class TestWebRequest extends TestCase
      */
     public void testGetHeaderNull()
     {
-        WebRequest request = new WebRequest(new ServletConfiguration());
+        WebRequest request = new WebRequestImpl(new ServletConfiguration());
 
         String result = request.getHeader("header1");
 
@@ -189,7 +190,7 @@ public class TestWebRequest extends TestCase
      */
     public void testToString()
     {
-        WebRequest request = new WebRequest(new ServletConfiguration());
+        WebRequest request = new WebRequestImpl(new ServletConfiguration());
 
         request.addHeader("header1", "value1");
         request.addHeader("header1", "value2");
@@ -221,7 +222,7 @@ public class TestWebRequest extends TestCase
      */
     public void testSetURLBadQueryString()
     {
-        WebRequest request = new WebRequest(new ServletConfiguration());
+        WebRequest request = new WebRequestImpl(new ServletConfiguration());
 
         try
         {
@@ -241,7 +242,7 @@ public class TestWebRequest extends TestCase
      */
     public void testGetPostParametersSeveral()
     {
-        WebRequest request = new WebRequest(new ServletConfiguration());
+        WebRequest request = new WebRequestImpl(new ServletConfiguration());
 
         request.addParameter("param1", "value1", WebRequest.POST_METHOD);
         request.addParameter("param2", "value2", WebRequest.POST_METHOD);
