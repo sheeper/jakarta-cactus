@@ -1,0 +1,100 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE project [
+    <!ENTITY build-share SYSTEM "file:./build-share.xml">
+    <!ENTITY build-tests-resin-20 SYSTEM "file:./build-tests-resin-20.xml">
+    <!ENTITY build-tests-resin-12 SYSTEM "file:./build-tests-resin-12.xml">
+    <!ENTITY build-tests-orion-14 SYSTEM "file:./build-tests-orion-14.xml">
+    <!ENTITY build-tests-tomcat-32 SYSTEM "file:./build-tests-tomcat-32.xml">
+    <!ENTITY build-tests-weblogic-51 SYSTEM "file:./build-tests-weblogic-51.xml">
+]>
+
+<!-- 
+  =============================================================================
+    Build file for the Cactus Sample application. This is a sample build
+    file that demonstrates how to integrate Cactus unit testing with Ant in
+    order to automate the running of tests.
+    
+    The following properties need to be set in a ./build.properties,
+    ${user.home}/build.properties, a higher level build file, on the command
+    line, ... :
+
+        servlet.jar           [REQUIRED] The path to the Servlet API jar
+
+        cactus.jar            [REQUIRED] The path to the Cactus jar file
+
+        junit.jar             [REQUIRED] The path to the JUnit jar file
+
+        log4j.jar             [REQUIRED] The path to the Log4j jar file
+
+        cactus.ant.jar        [REQUIRED] The path to the Cactus custom Ant
+                              tasks jar file
+
+    Additionally and depending on the servlet engines whith which you wish to
+    run your tests, you'll need to set the following kind of properties :
+
+        <server name>.home.<version>
+
+    Example: For Resin 2.0, you'll need to have a "resin.home.20" property
+    defined and pointing to the location where Resin 2.0 is installed.
+             
+    This script should be started with the following command line :
+
+        ant <target>
+
+    Run "ant usage" to get a list of available targets. The default target is
+    "war"
+  ============================================================================= 
+-->
+<project name="Cactus Sample" default="war" basedir="..">
+
+    &build-share;
+
+    <!-- 
+       ========================================================================
+         Help on usage. List available targets
+       ========================================================================
+    -->
+    <target name="usage" depends="init">
+
+        <echo message=""/>
+        <echo message="${project.fullname} build file"/>
+        <echo message="------------------------------------------------------"/>
+        <echo message=""/>
+        <echo message=" Available targets are :"/>
+        <echo message=""/>
+        <echo message=" war    --> generates the war file (default)"/>
+        <echo message=" clean  --> cleans up the build directory"/>
+        <echo message=" source --> generates source zip of the project"/>
+        <echo message=" doc    --> generates the docs (javadoc, ...)"/>
+        <echo message=" all    --> do it all at once"/>
+        <echo message="            (clean, war, source, doc)"/>
+        <echo message=""/>
+        <echo message=" Targets for running the tests for Servlet API 2.2 :"/>
+        <echo message=""/>
+        <echo message=" tests_all         --> run tests on all servlet engines"/>
+        <echo message=" tests_resin_20    --> run tests for Resin 2.0"/>
+        <echo message=" tests_resin_12    --> run tests for Resin 1.2"/>
+        <echo message=" tests_tomcat_32   --> run tests for Tomcat 3.2"/>
+        <echo message=" tests_weblogic_51 --> run tests for WebLogic 5.1"/>
+        <echo message=" tests_orion_14    --> run tests for Orion 1.4"/>
+        <echo message=""/>
+
+    </target>
+
+    <!-- 
+       ========================================================================
+         Run all Cactus tests for Servlet API 2.2
+       ========================================================================
+    -->
+    <target name="tests_all"
+        depends="tests_resin_20,tests_resin_12,tests_tomcat_32,tests_orion_14,tests_weblogic_51">
+    </target>
+
+    &build-tests-resin-20;
+    &build-tests-resin-12;
+    &build-tests-orion-14;
+    &build-tests-tomcat-32;
+    &build-tests-weblogic-51;
+
+</project>

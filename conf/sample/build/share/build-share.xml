@@ -1,0 +1,443 @@
+
+    <!-- Give user a chance to override without editing this file 
+         (and without typing -D each time it compiles it) -->
+    <property file="build/build.properties" />
+    <property file="${user.home}/build.properties" />
+
+    <!-- Generic project properties -->
+    <property name="project.fullname" value="Cactus Sample"/>
+    <property name="project.version" value="@version@"/>
+    <property name="project.name" value="commons-cactus-sample"/>
+
+    <!-- Miscellaneous settings -->
+    <property name="year" value="@year@"/>
+    <property name="debug" value="on"/>
+    <property name="optimize" value="off"/>
+    <property name="deprecation" value="off"/>
+
+    <!-- 
+       ========================================================================
+         Set the properties related to the source tree
+       ========================================================================
+    -->
+    <!-- Source locations for the build -->
+    <property name="src.dir" value="src"/>
+    <property name="src.java.dir" value="${src.dir}/share"/>
+    <property name="src.java.servlet.dir" value="${src.dir}/servlet@servlet.api@"/>
+    <property name="build.dir" value="build"/>
+    <property name="etc.dir" value="${build.dir}/etc"/>
+    <property name="lib.dir" value="lib"/>
+    <property name="conf.dir" value="conf"/>
+    <property name="conf.test.dir" value="conf/test"/>
+    <property name="web.dir" value="web"/>
+
+    <!-- 
+       ========================================================================
+         Set the properties related to the build area
+       ========================================================================
+    -->
+    <!-- Destination locations for the build (relative to the basedir as -->
+    <!-- specified in the basedir attribute of the project tag)          -->
+    <property name="out.dir" value="out"/>
+    <property name="out.dist.dir" value="${out.dir}/dist"/>
+    <property name="out.lib.dir" value="${out.dir}/lib"/>
+    <property name="out.test.dir" value="${out.dir}/test"/>
+    <property name="out.src.dir" value="${out.dir}/src"/>
+    <property name="out.classes.dir" value="${out.dir}/classes"/>
+    <property name="out.doc.dir" value="${out.dir}/doc"/>
+    <property name="out.javadoc.dir" value="${out.doc.dir}/javadoc"/>
+    <property name="out.conf.dir" value="${out.dir}/conf"/>
+
+    <!-- Names of deliverables -->
+
+    <!-- The Cactus Sample war file. This is the file that should be
+         used at runtime by end users (it excludes the test classes) -->
+    <property name="final.war.name" value="${out.dir}/${project.name}-@servlet.api@.war"/>
+
+    <!-- The full sources of Cactus Sample in a zip file -->
+    <property name="final.src.name" value="${out.dir}/${project.name}-src-@servlet.api@.zip"/>
+
+    <!-- The Cactus Sample documentation in a zip : javadoc -->
+    <property name="final.doc.name" value="${out.dir}/${project.name}-doc-@servlet.api@.zip"/>
+
+    <!-- 
+       ========================================================================
+         Useful file patterns for targets
+       ========================================================================
+    -->
+    <!-- All source files of the projet. These source files will be copied
+         to the destination source directory in the prepare task -->
+    <patternset id="all.src.files">
+
+        <!-- All java files -->
+        <include name="**/*.java"/>
+
+        <!-- All doc files -->
+        <include name="**/package.html"/>
+        <include name="**/overview.html"/>
+
+        <!-- All conf files (including test files) -->
+        <include name="**/*.txt"/>
+        <include name="**/*.xml"/>
+        <include name="**/*.properties"/>
+
+    </patternset>
+
+    <!-- All non java files in the src directory -->
+    <patternset id="all.nonjava.files">
+
+        <!-- All conf files (including test files) -->
+        <include name="**/*.txt"/>
+        <include name="**/*.xml"/>
+        <include name="**/*.properties"/>
+
+    </patternset>
+
+    <!-- 
+       ========================================================================
+         Initialize the build. Must be called by all targets
+       ========================================================================
+    -->
+    <target name="init">
+
+        <!-- So that we can use the ${TSTAMP}, ${DSTAMP}, ... time stamps
+             in targets, if need be -->
+        <tstamp/>
+
+        <echo message="--------- ${project.fullname} ${project.version} ---------"/>
+        <echo message=""/>
+
+        <echo message="java.class.path = ${java.class.path}"/>
+        <echo message=""/>
+        <echo message="java.home = ${java.home}"/>
+        <echo message="user.home = ${user.home}"/>
+        <echo message=""/>
+        <echo message="basedir = ${basedir}"/>
+        <echo message=""/>
+        <echo message="servlet.jar = ${servlet.jar}"/>
+        <echo message="cactus.jar = ${cactus.jar}"/>
+        <echo message="junit.jar = ${junit.jar}"/>
+        <echo message="log4j.jar = ${log4j.jar}"/>
+        <echo message="cactus.ant.jar = ${cactus.ant.jar}"/>
+
+        <!-- Filters -->
+        <filter token="version" value="${project.version}"/>
+        <filter token="year" value="${year}"/>
+
+        <!-- Initialize custom Ant task needed for running the server tests -->
+        <taskdef name="runservertests" classname="org.apache.commons.cactus.ant.RunServerTestsTask">
+            <classpath>
+                <pathelement location="${cactus.ant.jar}"/>
+                <pathelement path="${java.class.path}"/>
+            </classpath>
+        </taskdef>
+
+    </target>
+
+    <!-- 
+       ========================================================================
+         Prepare the output directory by copying the source files into it
+       ========================================================================
+    -->
+    <target name="prepare" depends="init">
+
+        <mkdir dir="${out.src.dir}"/>
+
+        <!-- Copy all source files to destination dir. Apply the filters in
+             order to replace the tokens for the copyright year and the
+             version -->
+        <copy todir="${out.src.dir}" filtering="on">
+            <fileset dir="${src.java.dir}">
+                <patternset refid="all.src.files"/>
+            </fileset>
+            <fileset dir="${src.java.servlet.dir}">
+                <patternset refid="all.src.files"/>
+            </fileset>
+        </copy>
+
+    </target>
+
+    <!-- 
+       ========================================================================
+         Compiles the source directory
+       ========================================================================
+    -->
+    <!-- Preparation target for the compile target -->
+    <target name="prepare-compile" depends="prepare">
+
+        <mkdir dir="${out.classes.dir}"/>
+
+    </target>
+
+    <!-- Run the java compilation -->
+    <target name="compile" depends="prepare-compile">
+
+        <javac srcdir="${out.src.dir}"
+            destdir="${out.classes.dir}"
+            debug="${debug}"
+            deprecation="${deprecation}"
+            optimize="${optimize}">
+
+            <!-- Exclude all files that are not .java source files -->
+
+            <!-- All doc files -->
+            <exclude name="**/package.html"/>
+            <exclude name="**/overview.html"/>
+
+            <!-- All conf files (including test files) -->
+            <exclude name="**/*.txt"/>
+            <exclude name="**/*.xml"/>
+            <exclude name="**/*.properties"/>
+
+            <classpath>
+                <pathelement path="${java.class.path}"/>
+                <pathelement location="${servlet.jar}"/>
+                <pathelement location="${cactus.jar}"/>
+            </classpath>
+
+        </javac>
+
+        <!-- Copies non java files that need to be in the classes directory -->
+        <copy todir="${out.classes.dir}">
+            <fileset dir="${src.java.dir}">
+                <patternset refid="all.nonjava.files"/>
+            </fileset>
+        </copy>
+
+        <!-- As this classes directory will be used to run the client side
+             of Cactus, we need to copy the cactus.properties -->
+        <copy todir="${out.classes.dir}"
+            file="${conf.test.dir}/cactus.properties"/>
+
+    </target>
+
+    <!-- 
+       ========================================================================
+         Create the runtime war file
+       ========================================================================
+    -->
+    <!-- Preparation target for the war target -->
+    <target name="prepare-war" depends="compile">
+
+        <mkdir dir="${out.conf.dir}"/>
+
+        <!-- Copy the manifest in order to replace the version token filter  -->
+        <copy todir="${out.conf.dir}" filtering="on">
+            <fileset dir="${conf.dir}" >
+                <include name="manifest"/>
+            </fileset>
+        </copy>
+
+    </target>
+
+    <!-- Generate the war file -->
+    <target name="war" depends="prepare-war">
+
+        <war warfile="${final.war.name}"
+             webxml="${conf.dir}/web.xml"
+             manifest="${out.conf.dir}/manifest">
+
+            <classes dir="${out.classes.dir}">
+                <!-- Do not include test files in the runtime jar -->
+                <exclude name="**/Test*.*"/>
+                <exclude name="**/test*.*"/>
+
+                <!-- Also exclude the cactus.properties files -->
+                <exclude name="cactus.properties"/>
+            </classes>
+
+            <fileset dir="${web.dir}">
+                <exclude name="test/**"/>
+            </fileset>
+        </war>
+
+    </target>
+
+    <!-- 
+       ========================================================================
+         Generates source zip of the project
+       ========================================================================
+    -->
+    <target name="source" depends="prepare">
+
+        <zip zipfile="${final.src.name}" basedir=".">
+
+            <exclude name="${out.dir}/**"/>
+            <exclude name="**/*.log"/>
+            <exclude name="**/*.bak"/>
+            <exclude name="**/*.class"/>
+            <exclude name="${build.dir}/build.properties"/>
+
+        </zip>
+
+    </target>
+
+    <!-- 
+       ========================================================================
+         Generate the javadoc
+       ========================================================================
+    -->
+    <!-- Preparation target for the javadoc target -->
+    <target name="prepare-javadoc" depends="prepare">
+
+        <mkdir dir="${out.javadoc.dir}"/>
+
+    </target>
+
+    <!-- Generate the javadoc for the current Servlet API -->
+    <target name="javadoc" depends="prepare-javadoc">
+
+        <javadoc
+            sourcepath="${out.src.dir}"
+            packagenames="org.apache.commons.cactus.sample.*"
+            destdir="${out.javadoc.dir}"
+            author="true"
+            public="true"
+            version="true"
+            use="true"
+            windowtitle="${project.fullname} ${project.version} for Servlet @servlet.api@ API"
+            doctitle="${project.fullname} ${project.version} for Servlet @servlet.api@ API"
+            bottom="Copyright &amp;copy; ${year} Apache Software Foundation. All Rights Reserved.">
+
+            <classpath>
+                <pathelement path="${java.class.path}"/>
+                <pathelement location="${servlet.jar}"/>
+                <pathelement location="${cactus.jar}"/>
+            </classpath>
+
+        </javadoc>
+
+    </target>
+
+    <!-- 
+       ========================================================================
+         Generate the full documentation
+       ========================================================================
+    -->
+    <!-- Preparation target for the doc target -->
+    <target name="prepare-doc" depends="javadoc">
+
+        <mkdir dir="${out.doc.dir}"/>
+
+    </target>
+
+    <!-- Generate the documentation -->
+    <target name="doc" depends="prepare-doc">
+
+        <!-- Create the zipped documentation -->
+        <zip zipfile="${final.doc.name}" basedir="${out.doc.dir}"/>
+
+    </target>
+
+    <!-- 
+       ========================================================================
+         Remove all build generated files
+       ========================================================================
+    -->
+    <target name="clean" depends="init">
+
+        <!-- Deletes all files ending with '~' -->
+        <delete>
+            <fileset dir="." includes="**/*~" defaultexcludes="no"/>
+        </delete>
+
+        <!-- Remove the out directory -->
+        <delete dir="${out.dir}"/>
+
+        <!-- Delete log files -->
+        <delete>
+            <fileset dir=".">
+                <include name="**/*.log"/>
+            </fileset>
+        </delete>
+
+    </target>
+
+    <!-- 
+       ========================================================================
+         Run the client JUnit test cases. This target should not be called
+         directly. It must be called by a test_XXX target (where XXX is the
+         name of the server - see included xml file for different servers)
+       ========================================================================
+    -->
+    <target name="tests">
+
+        <junit printsummary="yes" haltonfailure="yes" haltonerror="yes" fork="yes">
+
+            <classpath>
+                <pathelement path="${java.class.path}"/>
+                <pathelement location="${servlet.jar}"/>
+                <pathelement location="${log4j.jar}"/>
+                <pathelement location="${cactus.jar}"/>
+                <pathelement location="${out.classes.dir}"/>
+            </classpath>
+
+            <formatter type="plain" usefile="false"/>
+
+            <!-- Note: This test need to run first. See the comments in the
+                 test class for more information on why -->
+            <test name="org.apache.commons.cactus.sample.unit.TestServletTestCase_TestResult"/>
+
+            <!-- Functional tests -->
+            <test name="org.apache.commons.cactus.sample.TestSampleServlet"/>
+            <test name="org.apache.commons.cactus.sample.TestSampleServletConfig"/>
+
+            <!-- Cactus unit tests requiring servlet engine -->
+            <test name="org.apache.commons.cactus.sample.unit.TestServletTestCase1"/>
+            <test name="org.apache.commons.cactus.sample.unit.TestServletTestCase2"/>
+            <test name="org.apache.commons.cactus.sample.unit.TestServletTestCase3"/>
+            <test name="org.apache.commons.cactus.sample.unit.TestServletTestCase4"/>
+            <test name="org.apache.commons.cactus.sample.unit.TestServletTestCaseSpecific"/>
+            <test name="org.apache.commons.cactus.sample.unit.TestJspTestCase"/>
+
+        </junit>
+
+    </target>
+
+    <!-- 
+       ========================================================================
+         Create a test war file that includes the sample application unit tests
+       ========================================================================
+    -->
+    <target name="testwar" depends="compile">
+
+        <!-- Gather libraries -->
+        <copy tofile="${out.lib.dir}/junit.jar" file="${junit.jar}"/>
+        <copy tofile="${out.lib.dir}/log4j.jar" file="${log4j.jar}"/>
+        <copy tofile="${out.lib.dir}/cactus-@servlet.api@.jar" file="${cactus.jar}"/>
+
+        <!-- Make sure the directory for the war exist -->
+        <mkdir dir="${out.test.dir}"/>
+
+        <!-- Create the war file -->
+        <war warfile="${out.test.dir}/test.war"
+             webxml="${conf.test.dir}/web.xml">
+
+            <classes dir="${out.classes.dir}">
+                <!-- Exclude the cactus.properties file (client side only) -->
+                <exclude name="cactus.properties"/>
+            </classes>
+
+            <!-- We need to copy the Cactus and JUnit jars in the war. This is
+                 because if we just put these jars in the global classpath for
+                 the Servlet engine, the Cactus jar might not be able to load
+                 the test case class as it loadable only by the war classloader
+                 -->
+            <lib dir="${out.lib.dir}">
+                <include name="junit.jar"/>
+                <include name="log4j.jar"/>
+                <include name="cactus-@servlet.api@.jar"/>
+            </lib>
+
+            <fileset dir="${web.dir}"/>
+ 
+       </war>
+
+    </target>
+
+    <!--
+       ========================================================================
+         Do it all ! (clean, war, source, doc)
+       ========================================================================
+    -->
+    <target name="all" depends="clean,war,source,doc"/>

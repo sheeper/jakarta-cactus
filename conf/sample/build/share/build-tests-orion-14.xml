@@ -1,0 +1,106 @@
+    <!-- 
+       ========================================================================
+         Run Orion 1.4 tests
+       ========================================================================
+    -->
+    <target name="tests_orion_14" depends="prepare_tests_orion_14" if="orion.home.14">
+
+        <!-- Start the servlet engine, wait for it to be started, run the
+             unit tests, stop the servlet engine, wait for it to be stopped.
+             The servlet engine is stopped if the tests fail for any reason -->
+
+        <runservertests testURL="http://localhost:8080/test"
+            startTarget="start_orion_14"
+            stopTarget="stop_orion_14"
+            testTarget="tests"/>
+
+    </target>
+
+    <!-- 
+       ========================================================================
+         Start Orion 1.4
+       ========================================================================
+    -->
+    <target name="start_orion_14">
+
+        <java classname="com.evermind.server.ApplicationServer" fork="yes">
+            <arg value="-config"/>
+            <arg value="${out.orion14.dir}/conf/server.xml"/>
+            <classpath>
+              <fileset dir="${orion.home.14}">
+                  <include name="*.jar"/>
+              </fileset>
+            </classpath>
+        </java>
+
+    </target>
+
+    <!-- 
+       ========================================================================
+         Stop Orion 1.4
+       ========================================================================
+    -->
+    <target name="stop_orion_14">
+
+        <java classname="com.evermind.client.orion.OrionConsoleAdmin" fork="yes">
+            <arg value="ormi://localhost:23791/"/>
+            <arg value="admin"/>
+            <arg value="password"/>
+            <arg value="-shutdown"/>
+            <classpath>
+              <fileset dir="${orion.home.14}">
+                  <include name="*.jar"/>
+              </fileset>
+            </classpath>
+        </java>
+
+    </target>
+
+    <!-- 
+       ========================================================================
+         Display a warning message if the needed servlet engine home property
+         is not set
+       ========================================================================
+    -->
+    <target name="check_tests_orion_14" depends="testwar" unless="orion.home.14">
+
+        <echo message=""/>
+        <echo message="*********************************************************"/>
+        <echo message="WARNING : The 'orion.home.14' property has not been set."/>
+        <echo message="          No test will be run on that servlet engine."/>
+        <echo message="*********************************************************"/>
+        <echo message=""/>
+
+    </target>
+
+    <!-- 
+       ========================================================================
+         Prepare directories and variables for running the tests
+       ========================================================================
+    -->
+    <target name="prepare_tests_orion_14" depends="check_tests_orion_14" if="orion.home.14">
+
+        <echo message="orion.home.14 = ${orion.home.14}"/>
+
+        <property name="out.orion14.dir" value="${out.test.dir}/orion14"/>
+        <property name="conf.orion14.dir" value="${conf.test.dir}/orion14"/>
+
+        <!-- Create work and conf directories and copy configuration files -->
+        <mkdir dir="${out.orion14.dir}"/>
+        <mkdir dir="${out.orion14.dir}/conf"/>
+
+        <copy file="${conf.orion14.dir}/server.xml"
+            tofile="${out.orion14.dir}/conf/server.xml"/>
+        <copy file="${conf.orion14.dir}/application.xml"
+            tofile="${out.orion14.dir}/conf/application.xml"/>
+        <copy file="${conf.orion14.dir}/default-web-site.xml"
+            tofile="${out.orion14.dir}/conf/default-web-site.xml"/>
+        <copy file="${conf.orion14.dir}/principals.xml"
+            tofile="${out.orion14.dir}/conf/principals.xml"/>
+        <copy file="${conf.orion14.dir}/rmi.xml"
+            tofile="${out.orion14.dir}/conf/rmi.xml"/>
+
+        <!-- Copy the war file -->
+        <copy file="${out.test.dir}/test.war" tofile="${out.orion14.dir}/test.war"/>
+
+    </target>

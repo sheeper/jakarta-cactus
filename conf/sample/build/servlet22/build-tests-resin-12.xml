@@ -1,0 +1,107 @@
+    <!-- 
+       ========================================================================
+         Run Resin 1.2 tests
+       ========================================================================
+    -->
+    <target name="tests_resin_12" depends="prepare_tests_resin_12" if="resin.home.12">
+
+        <!-- Start the servlet engine, wait for it to be started, run the
+             unit tests, stop the servlet engine, wait for it to be stopped.
+             The servlet engine is stopped if the tests fail for any reason -->
+
+        <runservertests testURL="http://localhost:8080/test"
+            startTarget="start_resin_12"
+            stopTarget="stop_resin_12"
+            testTarget="tests"/>
+
+    </target>
+
+    <!-- 
+       ========================================================================
+         Start Resin 1.2
+       ========================================================================
+    -->
+    <target name="start_resin_12">
+
+        <java classname="org.apache.commons.cactus.ant.ResinRun" fork="yes">
+
+            <arg value="-start"/>
+
+            <arg value="-conf"/>
+            <arg value="resin.conf"/>
+
+            <!-- Needed so that Resin use the resin.home.12 variable as it's
+                 root directory for resolving file paths -->
+            <jvmarg value="-Dresin.home=${out.resin12.dir}"/>
+
+            <classpath>
+                <pathelement location="${cactus.ant.jar}"/>
+                <fileset dir="${resin.home.12}/lib">
+                    <include name="*.jar"/>
+                </fileset>
+            </classpath>
+
+        </java>
+
+    </target>
+
+    <!-- 
+       ========================================================================
+         Stop Resin 1.2
+       ========================================================================
+    -->
+    <target name="stop_resin_12">
+
+        <java classname="org.apache.commons.cactus.ant.ResinRun" fork="yes">
+
+            <arg value="-stop"/>
+
+            <classpath>
+                <pathelement location="${cactus.ant.jar}"/>
+                <fileset dir="${resin.home.12}/lib">
+                    <include name="*.jar"/>
+                </fileset>
+            </classpath>
+
+        </java>
+
+    </target>
+
+    <!-- 
+       ========================================================================
+         Display a warning message if the needed servlet engine home property
+         is not set
+       ========================================================================
+    -->
+    <target name="check_tests_resin_12" depends="testwar" unless="resin.home.12">
+
+        <echo message=""/>
+        <echo message="*********************************************************"/>
+        <echo message="WARNING : The 'resin.home.12' property has not been set."/>
+        <echo message="          No test will be run on that servlet engine."/>
+        <echo message="*********************************************************"/>
+        <echo message=""/>
+
+    </target>
+
+    <!-- 
+       ========================================================================
+         Prepare directories and variables for running the tests
+       ========================================================================
+    -->
+    <target name="prepare_tests_resin_12" depends="check_tests_resin_12" if="resin.home.12">
+
+        <echo message="resin.home.12 = ${resin.home.12}"/>
+
+        <property name="out.resin12.dir" value="${out.test.dir}/resin12"/>
+        <property name="conf.resin12.dir" value="${conf.test.dir}/resin12"/>
+
+        <mkdir dir="${out.resin12.dir}"/>
+
+        <!-- Copy resin configuration files -->
+        <copy file="${conf.resin12.dir}/resin.conf" tofile="${out.resin12.dir}/resin.conf"/>
+
+        <!-- Create the war file -->
+        <copy file="${out.test.dir}/test.war" tofile="${out.resin12.dir}/test.war"/>
+
+    </target>

@@ -1,0 +1,117 @@
+    <!-- 
+       ========================================================================
+         Run Tomcat 4.0 tests
+       ========================================================================
+    -->
+    <target name="tests_tomcat_40" depends="prepare_tests_tomcat_40" if="tomcat.home.40">
+
+        <!-- Start the servlet engine, wait for it to be started, run the
+             unit tests, stop the servlet engine, wait for it to be stopped.
+             The servlet engine is stopped if the tests fail for any reason -->
+
+        <runservertests testURL="http://localhost:8080/test"
+            startTarget="start_tomcat_40"
+            stopTarget="stop_tomcat_40"
+            testTarget="tests"/>
+
+    </target>
+
+    <!-- 
+       ========================================================================
+         Start Tomcat 4.0
+       ========================================================================
+    -->
+    <target name="start_tomcat_40">
+
+        <java classname="org.apache.catalina.startup.Bootstrap" fork="yes">
+            <jvmarg value="-Dcatalina.home=${tomcat.home.40}"/>
+            <arg value="-config"/>
+            <arg value="${out.tomcat40.full.dir}/conf/server.xml"/>
+            <arg value="start"/>
+            <classpath>
+              <pathelement location="${java.home}/../lib/tools.jar"/>
+              <fileset dir="${tomcat.home.40}">
+                  <include name="bin/bootstrap.jar"/>
+                  <include name="server/catalina.jar"/>
+              </fileset>
+            </classpath>
+        </java>
+
+    </target>
+
+    <!-- 
+       ========================================================================
+         Stop Tomcat 4.0
+       ========================================================================
+    -->
+    <target name="stop_tomcat_40">
+
+        <java classname="org.apache.catalina.startup.Bootstrap" fork="yes">
+            <jvmarg value="-Dcatalina.home=${tomcat.home.40}"/>
+            <arg value="stop"/>
+            <classpath>
+              <fileset dir="${tomcat.home.40}">
+                  <include name="bin/bootstrap.jar"/>
+                  <include name="server/catalina.jar"/>
+              </fileset>
+            </classpath>
+        </java>
+
+    </target>
+
+    <!-- 
+       ========================================================================
+         Display a warning message if the needed servlet engine home property
+         is not set
+       ========================================================================
+    -->
+    <target name="check_tests_tomcat_40" depends="testwar" unless="tomcat.home.40">
+
+        <echo message=""/>
+        <echo message="*********************************************************"/>
+        <echo message="WARNING : The 'tomcat.home.40' property has not been set."/>
+        <echo message="          No test will be run on that servlet engine."/>
+        <echo message="*********************************************************"/>
+        <echo message=""/>
+
+    </target>
+
+    <!-- 
+       ========================================================================
+         Prepare directories and variables for running the tests
+       ========================================================================
+    -->
+    <target name="prepare_tests_tomcat_40" depends="check_tests_tomcat_40" if="tomcat.home.40">
+
+        <echo message="tomcat.home.40 = ${tomcat.home.40}"/>
+
+        <property name="out.tomcat40.dir" value="${out.test.dir}/tomcat40"/>
+        <property name="conf.tomcat40.dir" value="${conf.test.dir}/tomcat40"/>
+        <property name="out.tomcat40.full.dir" value="${basedir}/${out.tomcat40.dir}"/>
+
+        <filter token="out.tomcat40.full.dir" value="${out.tomcat40.full.dir}"/>
+
+        <!-- Create work and conf directories and copy configuration files -->
+        <mkdir dir="${out.tomcat40.dir}/conf"/>
+        <mkdir dir="${out.tomcat40.dir}/work"/>
+        <mkdir dir="${out.tomcat40.dir}/webapps"/>
+
+        <!-- Delete some config file so that they will be copied every time -->
+        <delete file="${out.tomcat40.dir}/conf/server.xml"/>
+
+        <!-- Remove the auto deployed webapp so that it is redeployed every -->
+        <!-- time.                                                          -->
+        <delete dir="${out.tomcat40.dir}/webapps/test"/>
+
+        <!-- Copy the default tomcat web.xml to our test conf/ directory. -->
+        <!-- This is needed otherwise tomcat does not start.              -->
+        <copy file="${tomcat.home.40}/conf/web.xml"
+            tofile="${out.tomcat40.dir}/conf/web.xml"/>
+
+        <copy file="${conf.tomcat40.dir}/server.xml"
+            tofile="${out.tomcat40.dir}/conf/server.xml" filtering="on"/>
+
+        <!-- Copy the war file -->
+        <copy file="${out.test.dir}/test.war" tofile="${out.tomcat40.dir}/webapps/test.war"/>
+
+    </target>
