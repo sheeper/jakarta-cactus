@@ -309,7 +309,8 @@ public class XMLFormatter implements XMLConstants, TestListener
      * @param theBaseString the base string in which to perform replacements
      * @param theChar the char to look for
      * @param theNewString the string with which to replace the char
-     * @return the string with replacements done
+     * @return the string with replacements done or null if the input string
+     *          was null
      */
     public static String replace(String theBaseString, char theChar, 
         String theNewString)
