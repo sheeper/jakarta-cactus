@@ -67,6 +67,8 @@ import org.apache.cactus.Cookie;
 import org.apache.cactus.WebRequest;
 import org.apache.cactus.client.ClientException;
 import org.apache.commons.httpclient.Header;
+import org.apache.commons.httpclient.cookie.CookiePolicy;
+import org.apache.commons.httpclient.cookie.CookieSpec;
 
 /**
  * Common helper methods for implementing <code>ConnectionHelper</code>. These
@@ -243,10 +245,26 @@ public abstract class AbstractConnectionHelper
         org.apache.commons.httpclient.Cookie[] theCookies)
         throws ClientException
     {
-        Header cookieHeader =
-            org.apache.commons.httpclient.Cookie.createCookieHeader(
-            theDomain, thePath, theCookies);
+        Header cookieHeader = null;
+        
+        // separate domain into host and port
+        int port = 80;
+        String host = theDomain;
+        int portIndex = theDomain.indexOf(":");
+        if (portIndex != -1)
+        {
+            host = host.substring(0, portIndex);
+            port = Integer.parseInt(theDomain.substring(portIndex + 1));
+        }
 
+        CookieSpec matcher = CookiePolicy.getDefaultSpec();
+        org.apache.commons.httpclient.Cookie[] cookies =
+            matcher.match(host, port, thePath, false, theCookies);
+        if ((cookies != null) && (cookies.length > 0))
+        {
+            cookieHeader = matcher.formatCookieHeader(cookies);
+        }
+        
         if (cookieHeader == null)
         {
             throw new ClientException("Failed to create Cookie header for ["
