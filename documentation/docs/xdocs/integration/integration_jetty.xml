@@ -32,8 +32,8 @@
       </p>
       
       <p>
-        In order to use the TestSetup, perform the following steps you need
-        to wrap your test suite in <code>JettyTestSetup</code>:
+        In order to use the TestSetup, you need to wrap your test suite in 
+        <code>JettyTestSetup</code>:
       </p>
 <source><![CDATA[
 public class TestJettyAll extends TestCase
