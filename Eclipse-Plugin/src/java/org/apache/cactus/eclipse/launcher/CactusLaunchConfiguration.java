@@ -57,8 +57,6 @@
 package org.apache.cactus.eclipse.launcher;
 
 import org.apache.cactus.eclipse.ui.CactusPreferences;
-import org.apache.cactus.eclipse.ui.CactusPreferences;
-import org.apache.cactus.eclipse.ui.CactusPreferences;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.jdt.core.IType;
