@@ -8,6 +8,7 @@ release
 misc
 .classpath
 .project
+.checkstyle
 ant.bat
 maven.log
 cactus_client.log
