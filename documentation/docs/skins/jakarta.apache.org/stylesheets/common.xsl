@@ -54,7 +54,6 @@
       <xsl:message terminate="yes">
         <xsl:text>Id [</xsl:text>
         <xsl:text>] has no reference in sitemap.xml</xsl:text>
-        (<xsl:value-of select="$sitemap"/>)
       </xsl:message>
     </xsl:if>
     <xsl:value-of select="$sitemap//resource[@id=$id]/@target"/>
