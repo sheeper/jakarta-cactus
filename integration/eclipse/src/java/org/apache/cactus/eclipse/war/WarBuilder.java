@@ -57,20 +57,18 @@
 package org.apache.cactus.eclipse.war;
 
 import java.io.File;
-import java.net.URL;
 import java.util.Vector;
 
 import org.apache.cactus.eclipse.ui.CactusMessages;
-import org.apache.cactus.eclipse.ui.CactusPlugin;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.taskdefs.Copy;
+import org.apache.tools.ant.taskdefs.War;
 import org.apache.tools.ant.types.FileSet;
-import org.eclipse.ant.core.AntRunner;
+import org.apache.tools.ant.types.ZipFileSet;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaModelException;
@@ -91,15 +89,10 @@ public class WarBuilder
      * web.xml file
      */
     private File userWebXML;
-
     /**
      * directory where to find user's web files
      */
     private File userWebFilesDir;
-    /**
-     * location of the Ant build file for creating wars
-     */
-    private File buildFileLocation;
     /**
      * location of generated war file
      */
@@ -112,10 +105,6 @@ public class WarBuilder
      * jar entries to include in the war
      */
     private IClasspathEntry[] jarEntries;
-    /**
-     * Cactus plug-in relative path to the war build file
-     */
-    private static final String BUILD_FILE_PATH = "./ant/build-war.xml";
     /**
      * Cactus plug-in relative path to the web.xml file
      */
@@ -140,28 +129,6 @@ public class WarBuilder
 
     /**
      * Constructor.
-     * @param theBuildFileLocation the build file for war creation
-     * @param theClassFilesDir classes to include in the war file
-     * @param theWebXML web.xml file to include in the war file
-     * @param theJarFilesDir jars to include in the war file
-     * @param theWebFilesDir web files to include in the war file
-     */
-    public WarBuilder(
-        File theBuildFileLocation,
-        File theClassFilesDir,
-        File theWebXML,
-        File theJarFilesDir,
-        File theWebFilesDir)
-    {
-        this.buildFileLocation = theBuildFileLocation;
-        this.userClassFilesDir = theClassFilesDir;
-        this.userWebXML = theWebXML;
-        //        this.userJarFilesDir = theJarFilesDir;
-        this.userWebFilesDir = theWebFilesDir;
-    }
-
-    /**
-     * Constructor.
      * @param theJavaProject the Java project which Java classes will be used
      * @throws JavaModelException if we can't get the ouput location
      */
@@ -180,22 +147,10 @@ public class WarBuilder
         war = new File(webapp.getOutput());
         tempDir = new File(webapp.getTempDir());
         jarEntries = webapp.getClasspath();
-        // User's project relative path to the web directory
+        // path to the web directory relative to the user's project
         String userWebFilesPath = webapp.getDir();
-        // User's project relative path to the web.xml file
+        // path to the web.xml file relative to the user's project
         String userWebXMLPath = userWebFilesPath + "/" + WEBINF + "/" + WEBXML;
-
-        CactusPlugin thePlugin = CactusPlugin.getDefault();
-        URL buildFileURL = thePlugin.find(new Path(BUILD_FILE_PATH));
-        if (buildFileURL == null)
-        {
-            throw new JavaModelException(
-                CactusPlugin.createCoreException(
-                    "CactusLaunch.message.prepare.error.plugin.file",
-                    " : " + BUILD_FILE_PATH,
-                    null));
-        }
-        buildFileLocation = new File(buildFileURL.getPath());
         IPath projectPath = theJavaProject.getProject().getLocation();
         IPath classFilesPath =
             projectPath.removeLastSegments(1).append(
@@ -219,33 +174,35 @@ public class WarBuilder
         IPath tempJarsPath =
             new Path(tempDir.getAbsolutePath()).append(JARS_PATH);
         File tempJarsDir = tempJarsPath.toFile();
+        if (tempJarsDir.exists())
+        {
+            delete(tempJarsDir);
+        }
         tempJarsDir.mkdir();
         copyJars(jarEntries, tempJarsDir);
-        String jarFilesPath = tempDir.getAbsolutePath();
-        arguments.add("-Djars.dir=" + jarFilesPath);
-        if (userWebXML.exists())
-        {
-            String webXMLPath = userWebXML.getAbsolutePath();
-            arguments.add("-Dwebxml.path=" + webXMLPath);
-        }
-        String classFilesPath = userClassFilesDir.getAbsolutePath();
-        arguments.add("-Dclasses.dir=" + classFilesPath);
-
-        String warFilePath = war.getAbsolutePath();
-        arguments.add("-Dwar.path=" + warFilePath);
-
-        if (userWebFilesDir.exists())
-        {
-            String webFilesPath = userWebFilesDir.getAbsolutePath();
-            arguments.add("-Dwebfiles.dir=" + webFilesPath);
-        }
-        String[] antArguments = (String[]) arguments.toArray(new String[0]);
-        AntRunner runner = new AntRunner();
-        runner.setBuildFileLocation(buildFileLocation.getAbsolutePath());
-        runner.setArguments(antArguments);
-        String[] targets = { "testwar" };
-        runner.setExecutionTargets(targets);
-        runner.run(new SubProgressMonitor(thePM, 3));
+        thePM.worked(1);
+        Project antProject = new Project();
+        antProject.init();
+        War warTask = new War();
+        warTask.setProject(antProject);
+        warTask.setDestFile(war);
+        warTask.setWebxml(userWebXML);
+        ZipFileSet classes = new ZipFileSet();
+        classes.setDir(userClassFilesDir);
+        warTask.addClasses(classes);
+        classes = new ZipFileSet();
+        classes.setDir(userClassFilesDir);
+        classes.setIncludes("log4j.properties");
+        warTask.addClasses(classes);
+        ZipFileSet lib = new ZipFileSet();
+        lib.setDir(tempJarsDir);
+        warTask.addLib(lib);
+        FileSet webFiles = new FileSet();
+        webFiles.setDir(userWebFilesDir);
+        webFiles.setExcludes(WEBINF);
+        warTask.addFileset(webFiles);
+        warTask.execute();
+        thePM.worked(2);
         delete(tempJarsDir);
         return war;
     }
