@@ -243,7 +243,7 @@
          Initialize the build. Must be called by all targets
        ========================================================================
     -->
-    <target name="init.common" depends="init.properties,init.display">
+    <target name="init.common" depends="init.display,init.properties">
 
         <tstamp/>
 
@@ -321,7 +321,7 @@
          Clean generated files (including distributables)
        ========================================================================
     -->
-    <target name="clean" depends="init.properties"
+    <target name="clean" depends="init.display,init.properties"
     	description="Clean all generated files">
 
         <delete dir="${target.dir}"/>
