@@ -518,6 +518,41 @@ basedir=${basedir}
             </p>
           </td>
         </tr>
+        <tr>
+          <td>cactus.resources.dirs</td>
+          <td>Yes</td>
+          <td>
+            Comma-separated list of resources labels to be used to include resources in 
+            the classpath (WEB-INF/classes) of the generated Cactus Web Application. 
+            The mechanism to include/exclude files use these labels to define other properties: 
+            cactus.resources.[label].dir, cactus.resources.[label].includes and 
+            cactus.resources.[label].excludes.
+          </td>
+        </tr>
+        <tr>
+          <td>cactus.resources.[label].dir</td>
+          <td>Yes</td>
+          <td>
+            Directory whose resources will be included in the war classpath. The [label] stands for the label name
+            in the cactus.resources.dirs list. 
+          </td>
+        </tr>
+        <tr>
+          <td>cactus.resources.[label].includes</td>
+          <td>Yes</td>
+          <td>
+            Comma-separated list of Which files in the directory defined by cactus.resources.[label].dir should be included in the Cactus war.
+            Default value is <code>**/*</code>, which means all files are included.
+          </td>
+        </tr>
+        <tr>
+          <td>cactus.resources.[label].excludes</td>
+          <td>Yes</td>
+          <td>
+            Comma-separated list of which files in the directory defined by cactus.resources.[label].dir should be included in the Cactus war.
+            Default value is none, which means no files are excluded.
+          </td>
+        </tr>
       </table>
     </section>
 

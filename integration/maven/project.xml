@@ -20,6 +20,12 @@
     <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-cactus/integration/maven/</connection>
     <url>http://cvs.apache.org/viewcvs/jakarta-cactus/integration/maven/</url>
   </repository>
+  <contributors>
+    <contributor>
+      <name>Nicolas Chalumeau</name>
+      <email>nicolas.chalumeau@arsoe-trelaze.com</email>
+    </contributor>
+  </contributors>
   <dependencies>
     <dependency>
       <groupId>cactus</groupId>
