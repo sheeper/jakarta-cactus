@@ -76,6 +76,12 @@ public class ServiceEnumeration
         new ServiceEnumeration("GET_RESULTS");
 
     /**
+     * Get the previous test results Service.
+     */
+    public static final ServiceEnumeration RUN_TEST_SERVICE =
+        new ServiceEnumeration("RUN_TEST");
+
+    /**
      * The service's name
      */
     private String name;
