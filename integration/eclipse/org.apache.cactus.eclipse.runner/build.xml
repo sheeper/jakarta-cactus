@@ -92,6 +92,7 @@
             <property name="eclipse.jface.jar" isfile="true"/>
             <property name="eclipse.swt.jar" isfile="true"/>
             <property name="eclipse.ui.workbench.jar" isfile="true"/>
+            <property name="jetty.jar" isfile="true"/>
 
         </checkProperty>
 
@@ -107,7 +108,7 @@
 
     <!--
        ========================================================================
-         Find out the JUnit Eclipse plug-in version
+         Check the JUnit Eclipse plug-in version
        ========================================================================
     -->
     <target name="init.eclipseversion.check">
@@ -251,9 +252,8 @@
 		    <fileset dir="${base.dir}/icons"/>
 		</copy>
 
-		<copy todir="${dist.bin.integration.dir}/lib">
-		    <fileset dir="${base.dir}/lib"/>
-		</copy>
+		<copy todir="${dist.bin.integration.dir}/lib"
+		    file="${jetty.jar}"/>
 
         <!-- Copy the Ant Integration files -->
         <copy todir="${dist.bin.integration.dir}/ant">
