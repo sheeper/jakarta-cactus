@@ -90,7 +90,7 @@
       </devs>
 
       <release version="1.7dev" date="in CVS">
-        <action dev="VMA" type="update">
+        <action dev="VMA" type="update" fixes-bug="CACTUS-118">
           The <code>JettyTestSetup</code> class now checks if the Jetty server
           is already started and only starts it if it isn't running. It also
           does not stops it if it was running before <code>JettyTestSetup</code>
