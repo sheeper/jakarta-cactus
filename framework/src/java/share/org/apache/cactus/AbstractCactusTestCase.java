@@ -59,9 +59,10 @@ package org.apache.cactus;
 import junit.framework.Test;
 import junit.framework.TestCase;
 
+import org.apache.cactus.client.connector.ProtocolHandler;
 import org.apache.cactus.configuration.ConfigurationInitializer;
-import org.apache.cactus.internal.client.ClientTestCaseDelegate;
-import org.apache.cactus.internal.server.ServerTestCaseDelegate;
+import org.apache.cactus.internal.client.ClientTestCaseCaller;
+import org.apache.cactus.internal.server.ServerTestCaseCaller;
 
 /**
  * Base class for all Cactus test case extensions.
@@ -86,45 +87,33 @@ public abstract class AbstractCactusTestCase extends TestCase
     }
 
     /**
-     * Delegate that provides all client side Cactus related test case logic. 
-     * We are using a delegate in order to hide non public API to the users 
-     * and thus to be able to easily change the implementation.
+     * Provides all client side Cactus calling logic.
+     * Note that we are using a delegate class instead of inheritance in order 
+     * to hide non public API to the users and thus to be able to easily change
+     * the implementation.
      */
-    private ClientTestCaseDelegate clientDelegate;
+    private ClientTestCaseCaller clientCaller;
 
     /**
-     * Delegate that provides all server side Cactus related test case logic. 
-     * We are using a delegate in order to hide non public API to the users 
-     * and thus to be able to easily change the implementation.
+     * Provides all server side Cactus calling logic. 
+     * Note that we are using a delegate class instead of inheritance in order 
+     * to hide non public API to the users and thus to be able to easily change
+     * the implementation.
      */
-    private ServerTestCaseDelegate serverDelegate;
+    private ServerTestCaseCaller serverCaller;
 
-    // ----------------------------------------------------------------------
+    // Abstract methods -----------------------------------------------------
 
     /**
-     * Create a client side test case delegate.
+     * Create a protocol handler instance that will be used to connect to the
+     * server side.
      * 
-     * @param theTest the JUnit test to wrap or null if there is no test to 
-     *        wrap
-     * @return the client side test case delegate to use
+     * @return the protocol handler instance
      */
-    protected abstract ClientTestCaseDelegate createClientTestCaseDelegate(
-            Test theTest);
+    protected abstract ProtocolHandler createProtocolHandler();
     
-    // ----------------------------------------------------------------------
+    // Constructors ---------------------------------------------------------
 
-    /**
-     * Create a server side test case delegate.
-     * 
-     * @param theTest the JUnit test to wrap or null if there is no test to 
-     *        wrap
-     * @return the server side test case delegate to use
-     */
-    private ServerTestCaseDelegate createServerTestCaseDelegate(Test theTest)
-    {
-        return new ServerTestCaseDelegate(this, theTest);
-    }
-    
     /**
      * Default constructor defined in order to allow creating Test Case
      * without needing to define constructor (new feature in JUnit 3.8.1).
@@ -158,50 +147,7 @@ public abstract class AbstractCactusTestCase extends TestCase
         init(theTest);
     }
     
-    // ----------------------------------------------------------------------
-    
-    /**
-     * @param theDelegate the client test case delegate
-     */
-    private void setClientDelegate(ClientTestCaseDelegate theDelegate)
-    {
-        this.clientDelegate = theDelegate;
-    }
-
-    /**
-     * @param theDelegate the client test case delegate
-     */
-    private void setServerDelegate(ServerTestCaseDelegate theDelegate)
-    {
-        this.serverDelegate = theDelegate;
-    }
-
-    /**
-     * @return the client test case delegate
-     */
-    private ClientTestCaseDelegate getClientDelegate()
-    {
-        return this.clientDelegate;
-    }
-
-    /**
-     * @return the server test case delegate
-     */
-    private ServerTestCaseDelegate getServerDelegate()
-    {
-        return this.serverDelegate;
-    }
-    
-    /**
-     * Initializations common to all constructors.
-     *  
-     * @param theTest a pure JUnit Test that Cactus will wrap
-     */
-    private void init(Test theTest)
-    {
-        setClientDelegate(createClientTestCaseDelegate(theTest));
-        setServerDelegate(createServerTestCaseDelegate(theTest));
-    }
+    // Public methods -------------------------------------------------------
 
     /**
      * JUnit method that is used to run the tests. However, we're intercepting
@@ -217,44 +163,91 @@ public abstract class AbstractCactusTestCase extends TestCase
     }
 
     /**
-     * Introduced for symmetry with {@link #runBareServer()}.
-     * 
-     * @see #runBare()
-     */
-    private void runBareClient() throws Throwable
-    {    
-        getClientDelegate().runBareInit();            
-
-        // Catch the exception just to have a chance to log it
-        try
-        {
-            getClientDelegate().runTest();
-        }
-        catch (Throwable t)
-        {
-            getClientDelegate().getLogger().debug("Exception in test", t);
-            throw t;
-        }
-    }   
-
-    /**
      * @see CactusTestCase#runBareServer()
      */
     public void runBareServer() throws Throwable
     {
-        getServerDelegate().runBareInit();            
+        getServerCaller().runBareInit();            
 
         // Note: We cannot delegate this piece of code in the
         // ServerTestCaseDelegate class as it requires to call
         // super.runBare()
 
-        if (getServerDelegate().getWrappedTest() != null)
-           {
-            ((TestCase) getServerDelegate().getWrappedTest()).runBare();
+        if (getServerCaller().getWrappedTest() != null)
+        {
+            ((TestCase) getServerCaller().getWrappedTest()).runBare();
         }
         else
         {
             super.runBare();            
         }
     }
+    
+    // Private methods ------------------------------------------------------
+    
+    /**
+     * @param theCaller the client test case calling class
+     */
+    private void setClientCaller(ClientTestCaseCaller theCaller)
+    {
+        this.clientCaller = theCaller;
+    }
+
+    /**
+     * @param theCaller the server test case calling class
+     */
+    private void setServerCaller(ServerTestCaseCaller theCaller)
+    {
+        this.serverCaller = theCaller;
+    }
+
+    /**
+     * @return the client test case caller
+     */
+    private ClientTestCaseCaller getClientCaller()
+    {
+        return this.clientCaller;
+    }
+
+    /**
+     * @return the server test case caller
+     */
+    private ServerTestCaseCaller getServerCaller()
+    {
+        return this.serverCaller;
+    }
+    
+    /**
+     * Initializations common to all constructors.
+     *  
+     * @param theTest a pure JUnit Test that Cactus will wrap
+     */
+    private void init(Test theTest)
+    {
+        setClientCaller(new ClientTestCaseCaller(this, theTest,
+            createProtocolHandler()));
+        setServerCaller(new ServerTestCaseCaller(this, theTest));
+    }
+
+    /**
+     * Introduced for symmetry with {@link #runBareServer()}.
+     * 
+     * @see #runBare()
+     */
+    private void runBareClient() throws Throwable
+    {    
+        getClientCaller().runBareInit();            
+
+        // Catch the exception just to have a chance to log it
+        try
+        {
+            getClientCaller().runTest();
+        }
+        catch (Throwable t)
+        {
+            // TODO: Move getLogger to this class instead
+            getClientCaller().getLogger().debug("Exception in test", t);
+            throw t;
+        }
+    }   
 }

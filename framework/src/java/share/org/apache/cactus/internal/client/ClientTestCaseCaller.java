@@ -64,34 +64,26 @@ import junit.framework.Assert;
 import junit.framework.Test;
 
 import org.apache.cactus.Request;
-import org.apache.cactus.client.ClientException;
 import org.apache.cactus.client.ResponseObjectFactory;
+import org.apache.cactus.client.connector.ProtocolHandler;
+import org.apache.cactus.client.connector.ProtocolState;
 import org.apache.cactus.configuration.Configuration;
 import org.apache.cactus.util.JUnitVersionHelper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * Delegate class that provides useful methods for the Cactus  
- * <code>XXXTestCase</code> classes. All the methods provided are independent
- * of any communication protocol between client side and server side (HTTP, 
- * JMS, etc). Subclasses will define additional behaviour that depends on the 
- * protocol.
+ * Provides the ability to run common code before and after each test on the 
+ * client side. All the methods provided are independent of any communication 
+ * protocol between client side and server side (HTTP, JMS, etc). Any protocol 
+ * dependent methods must be provided and implemented in the 
+ * {@link ProtocolHandler} implementation class.
  *  
- * It provides the ability to run common code before and after each test on the
- * client side.
- *
- * In addition it provides the ability to execute some one time (per-JVM)
- * initialisation code (a pity this is not provided in JUnit). It can be 
- * useful to start an embedded server for example. Note: In the future this
- * should be refatored and provided using a custom JUnit TestSuite.
- *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
  */
-public abstract class AbstractClientTestCaseDelegate 
-    extends Assert implements ClientTestCaseDelegate
+public class ClientTestCaseCaller extends Assert
 {
     /**
      * The prefix of a test method.
@@ -139,15 +131,23 @@ public abstract class AbstractClientTestCaseDelegate
      * The test we are delegating for.
      */
     private Test delegatedTest;   
+
+    /**
+     * The protocol handler to use to execute the tests on the server side.
+     */
+    private ProtocolHandler protocolHandler;
+
+    // Constructors ---------------------------------------------------------
     
     /**
      * @param theDelegatedTest the test we are delegating for
      * @param theWrappedTest the test being wrapped by this delegate (or null 
      *        if none)
-     * @param theConfiguration the configuration to use 
+     * @param theProtocolHandler the protocol handler to use to execute the 
+     *        tests on the server side 
      */
-    public AbstractClientTestCaseDelegate(Test theDelegatedTest, 
-        Test theWrappedTest, Configuration theConfiguration)
+    public ClientTestCaseCaller(Test theDelegatedTest, 
+        Test theWrappedTest, ProtocolHandler theProtocolHandler)
     {        
         if (theDelegatedTest == null)
         {
@@ -157,13 +157,140 @@ public abstract class AbstractClientTestCaseDelegate
 
         setDelegatedTest(theDelegatedTest); 
         setWrappedTest(theWrappedTest);
-        setConfiguration(theConfiguration);               
+        this.protocolHandler = theProtocolHandler;
+    }
+
+    // Public methods -------------------------------------------------------
+    
+    /**
+     * Execute begin and end methods and calls the different 
+     * {@link ProtocolHandler} lifecycle methods to execute the test
+     * on the server side.
+     * 
+     * Note that this method is overriden from the JUnit 
+     * {@link junit.framework.TestCase} class in order to prevent JUnit from 
+     * calling the {@link junit.framework.TestCase#setUp()} and
+     * {@link junit.framework.TestCase#tearDown()} methods on the client side.
+     * instead we are calling the server redirector proxy and the setup and
+     * teardown methods will be executed on the server side.
+     *
+     * @exception Throwable if any error happens during the execution of
+     *            the test
+     */
+    public void runTest() throws Throwable
+    {
+        Request request = this.protocolHandler.createRequest();
+        
+        // Call the set up and begin methods to fill the request object
+        callGlobalBeginMethod(request);
+        callBeginMethod(request);
+
+        // Run the server test
+        ProtocolState state = this.protocolHandler.runTest(
+            getDelegatedTest(), getWrappedTest(), request);
+        
+        // Call the end method
+        Object response = callEndMethod(request, 
+            this.protocolHandler.createResponseObjectFactory(state));
+
+        // call the tear down method
+        callGlobalEndMethod(request, 
+            this.protocolHandler.createResponseObjectFactory(state), 
+            response);
+
+        this.protocolHandler.afterTest(state);
     }
 
     /**
+     * @return The logger used by the <code>TestCase</code> class and
+     *         subclasses to perform logging.
+     */
+    public final Log getLogger()
+    {
+        return this.logger;
+    }
+
+    /**
+     * Perform client side initializations before each test, such as
+     * re-initializating the logger and printing some logging information.
+     */
+    public void runBareInit()
+    {
+        // We make sure we reinitialize The logger with the name of the
+        // current extending class so that log statements will contain the
+        // actual class name (that's why the logged instance is not static).
+        this.logger = LogFactory.getLog(this.getClass());
+
+        // Mark beginning of test on client side
+        getLogger().debug("------------- Test: " + this.getCurrentTestName());
+    }
+
+    /**
+     * Call the test case begin method.
+     *
+     * @param theRequest the request object to pass to the begin method.
+     * @exception Throwable any error that occurred when calling the begin
+     *            method for the current test case.
+     */
+    public void callBeginMethod(Request theRequest) throws Throwable
+    {
+        callGenericBeginMethod(theRequest, getBeginMethodName());
+    }
+
+    /**
+     * Call the test case end method
+     *
+     * @param theRequest the request data that were used to open the
+     *                   connection.
+     * @param theResponseFactory the factory to use to return response objects.
+     * @return the created Reponse object
+     * @exception Throwable any error that occurred when calling the end method
+     *         for the current test case.
+     */
+    public Object callEndMethod(Request theRequest, 
+        ResponseObjectFactory theResponseFactory) throws Throwable
+    {
+        return callGenericEndMethod(theRequest, theResponseFactory,
+            getEndMethodName(), null);
+    }
+
+    /**
+     * Call the global begin method. This is the method that is called before
+     * each test if it exists. It is called on the client side only.
+     *
+     * @param theRequest the request object which will contain data that will
+     *        be used to connect to the Cactus server side redirectors.
+     * @exception Throwable any error that occurred when calling the method
+     */
+    public void callGlobalBeginMethod(Request theRequest) throws Throwable
+    {
+        callGenericBeginMethod(theRequest, CLIENT_GLOBAL_BEGIN_METHOD);
+    }
+
+    /**
+     * Call the client tear down up method if it exists.
+     *
+     * @param theRequest the request data that were used to open the
+     *                   connection.
+     * @param theResponseFactory the factory to use to return response objects.
+     * @param theResponse the Response object if it exists. Can be null in
+     *        which case it is created from the response object factory
+     * @exception Throwable any error that occurred when calling the method
+     */
+    private void callGlobalEndMethod(Request theRequest, 
+        ResponseObjectFactory theResponseFactory, Object theResponse) 
+        throws Throwable
+    {
+        callGenericEndMethod(theRequest, theResponseFactory,
+            CLIENT_GLOBAL_END_METHOD, theResponse);
+    }
+    
+    // Private methods ------------------------------------------------------
+    
+    /**
      * @param theWrappedTest the pure JUnit test that we need to wrap 
      */
-    public void setWrappedTest(Test theWrappedTest)
+    private void setWrappedTest(Test theWrappedTest)
     {
         this.wrappedTest = theWrappedTest;
     }
@@ -171,7 +298,7 @@ public abstract class AbstractClientTestCaseDelegate
     /**
      * @param theDelegatedTest the test we are delegating for
      */
-    public void setDelegatedTest(Test theDelegatedTest)
+    private void setDelegatedTest(Test theDelegatedTest)
     {
         this.delegatedTest = theDelegatedTest;
     }
@@ -179,7 +306,7 @@ public abstract class AbstractClientTestCaseDelegate
     /**
      * @return the wrapped JUnit test
      */
-    public Test getWrappedTest()
+    private Test getWrappedTest()
     {
         return this.wrappedTest;
     }
@@ -187,7 +314,7 @@ public abstract class AbstractClientTestCaseDelegate
     /**
      * @return the test we are delegating for
      */
-    public Test getDelegatedTest()
+    private Test getDelegatedTest()
     {
         return this.delegatedTest;
     }
@@ -197,7 +324,7 @@ public abstract class AbstractClientTestCaseDelegate
      *         test then the returned test is the wrapped test. Otherwise we
      *         return the delegated test.
      */
-    public Test getTest()
+    private Test getTest()
     {
         Test activeTest;
         if (getWrappedTest() != null)
@@ -211,42 +338,6 @@ public abstract class AbstractClientTestCaseDelegate
         return activeTest;
     }
 
-    
-    /**
-     * @return The logger used by the <code>TestCase</code> class and
-     *         subclasses to perform logging.
-     */
-    public final Log getLogger()
-    {
-        return this.logger;
-    }
-
-    /**
-     * @param theLogger the logger to use 
-     */
-    protected void setLogger(Log theLogger)
-    {
-        this.logger = theLogger;
-    }
-    
-    /**
-     * @return the Cactus configuration
-     */
-    public Configuration getConfiguration()
-    {
-        return this.configuration;
-    }
-
-    /**
-     * Sets the Cactus configuration
-     * 
-     * @param theConfiguration the Cactus configuration
-     */
-    public void setConfiguration(Configuration theConfiguration)
-    {
-        this.configuration = theConfiguration;
-    }
-   
     /**
      * @return the name of the test method to call without the
      *         TEST_METHOD_PREFIX prefix
@@ -271,7 +362,7 @@ public abstract class AbstractClientTestCaseDelegate
      *         test by initializing the <code>WebRequest</code> object
      *         for the test case.
      */
-    protected String getBeginMethodName()
+    private String getBeginMethodName()
     {
         return BEGIN_METHOD_PREFIX + getBaseMethodName();
     }
@@ -281,25 +372,9 @@ public abstract class AbstractClientTestCaseDelegate
      *         run on the server. It can be used to verify returned headers,
      *         cookies, ...
      */
-    protected String getEndMethodName()
+    private String getEndMethodName()
     {
         return END_METHOD_PREFIX + getBaseMethodName();
-    }
-
-    /**
-     * Perform client side initializations before each test, such as
-     * re-initializating the logger and printing some logging information.
-     */
-    public void runBareInit()
-    {
-        // We make sure we reinitialize The logger with the name of the
-        // current extending class so that log statements will contain the
-        // actual class name (that's why the logged instance is not static).
-        this.logger = LogFactory.getLog(this.getClass());
-
-        // Mark beginning of test on client side
-        getLogger().debug("------------- Test: " 
-            + this.getCurrentTestName());        
     }
 
     /**
@@ -374,31 +449,6 @@ public abstract class AbstractClientTestCaseDelegate
                 }
             }
         }
-    }
-    
-    /**
-     * Call the global begin method. This is the method that is called before
-     * each test if it exists. It is called on the client side only.
-     *
-     * @param theRequest the request object which will contain data that will
-     *        be used to connect to the Cactus server side redirectors.
-     * @exception Throwable any error that occurred when calling the method
-     */
-    protected void callGlobalBeginMethod(Request theRequest) throws Throwable
-    {
-        callGenericBeginMethod(theRequest, CLIENT_GLOBAL_BEGIN_METHOD);
-    }
-
-    /**
-     * Call the test case begin method.
-     *
-     * @param theRequest the request object to pass to the begin method.
-     * @exception Throwable any error that occurred when calling the begin
-     *            method for the current test case.
-     */
-    public void callBeginMethod(Request theRequest) throws Throwable
-    {
-        callGenericBeginMethod(theRequest, getBeginMethodName());
     }
 
     /**
@@ -504,47 +554,12 @@ public abstract class AbstractClientTestCaseDelegate
 
         return paramObject;
     }
-
-    /**
-     * Call the client tear down up method if it exists.
-     *
-     * @param theRequest the request data that were used to open the
-     *                   connection.
-     * @param theResponseFactory the factory to use to return response objects.
-     * @param theResponse the Response object if it exists. Can be null in
-     *        which case it is created from the response object factory
-     * @exception Throwable any error that occurred when calling the method
-     */
-    protected void callGlobalEndMethod(Request theRequest, 
-        ResponseObjectFactory theResponseFactory, Object theResponse) 
-        throws Throwable
-    {
-        callGenericEndMethod(theRequest, theResponseFactory,
-            CLIENT_GLOBAL_END_METHOD, theResponse);
-    }
-
-    /**
-     * Call the test case end method
-     *
-     * @param theRequest the request data that were used to open the
-     *                   connection.
-     * @param theResponseFactory the factory to use to return response objects.
-     * @return the created Reponse object
-     * @exception Throwable any error that occurred when calling the end method
-     *         for the current test case.
-     */
-    public Object callEndMethod(Request theRequest, 
-        ResponseObjectFactory theResponseFactory) throws Throwable
-    {
-        return callGenericEndMethod(theRequest, theResponseFactory,
-            getEndMethodName(), null);
-    }
     
     /**
      * @see #getCurrentTestName()
      * @deprecated Use {@link #getCurrentTestName()} instead
      */
-    protected String getCurrentTestMethod()
+    private String getCurrentTestMethod()
     {
         return getCurrentTestName();
     }
@@ -554,7 +569,7 @@ public abstract class AbstractClientTestCaseDelegate
      *         to the name of the test method with the "test" prefix removed.
      *         For example, for "testSomeTestOk" would return "someTestOk".
      */
-    protected String getCurrentTestName()
+    private String getCurrentTestName()
     {
         return JUnitVersionHelper.getTestCaseName(getDelegatedTest());        
     }
@@ -562,7 +577,7 @@ public abstract class AbstractClientTestCaseDelegate
     /**
      * @return The wrapped test name, if any (null otherwise).
      */
-    public String getWrappedTestName()
+    private String getWrappedTestName()
     {
         if (isWrappingATest())
         {
@@ -574,7 +589,7 @@ public abstract class AbstractClientTestCaseDelegate
     /**
      * @return whether this test case wraps another
      */
-    public boolean isWrappingATest()
+    private boolean isWrappingATest()
     {
         return (getWrappedTest() != null);
     }

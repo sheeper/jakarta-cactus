@@ -93,7 +93,8 @@ public class TestAll
         suite.addTestSuite(TestServletUtil.class);
         suite.addTestSuite(TestWebTestResult.class);
         suite.addTestSuite(TestWebRequest.class);
-        suite.addTest(org.apache.cactus.client.TestAll.suite());
+
+        suite.addTest(org.apache.cactus.internal.client.TestAll.suite());
         suite.addTest(org.apache.cactus.util.TestAll.suite());
 
         return suite;

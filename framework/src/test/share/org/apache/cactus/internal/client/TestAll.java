@@ -3,7 +3,7 @@
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2001-2003 The Apache Software Foundation.  All rights
+ * Copyright (c) 2003 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -54,107 +54,33 @@
  * <http://www.apache.org/>.
  *
  */
-package org.apache.cactus.client;
+package org.apache.cactus.internal.client;
 
-import java.io.PrintStream;
-import java.io.PrintWriter;
-
-import junit.framework.AssertionFailedError;
+import junit.framework.Test;
+import junit.framework.TestSuite;
 
 /**
- * Same as <code>ServletExceptionWrapper</code> except that this exception class
- * extends JUnit <code>AssertionFailedError</code> so that JUnit will
- * print a different message in it's runner console.
+ * Run the unit tests of the Cactus client package that do not need a servlet
+ * environment to run.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
+ * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
  *
  * @version $Id$
  */
-public class AssertionFailedErrorWrapper extends AssertionFailedError
+public class TestAll
 {
     /**
-     * The stack trace that was sent back from the servlet redirector as a
-     * string.
+     * @return a test suite (<code>TestSuite</code>) that includes all methods
+     *         starting with "test"
      */
-    private String stackTrace;
-
-    /**
-     * The class name of the exception that was raised on the server side.
-     */
-    private String className;
-
-    /**
-     * Standard throwable constructor.
-     *
-     * @param theMessage the exception message
-     */
-    public AssertionFailedErrorWrapper(String theMessage)
+    public static Test suite()
     {
-        super(theMessage);
-    }
+        TestSuite suite = new TestSuite(
+            "Cactus unit tests for the client package");
 
-    /**
-     * Standard throwable constructor.
-     */
-    public AssertionFailedErrorWrapper()
-    {
-        super();
-    }
+        suite.addTestSuite(TestWebTestResultParser.class);
 
-    /**
-     * The constructor to use to simulate a real exception.
-     *
-     * @param theMessage the server exception message
-     * @param theClassName the server exception class name
-     * @param theStackTrace the server exception stack trace
-     */
-    public AssertionFailedErrorWrapper(String theMessage, String theClassName, 
-        String theStackTrace)
-    {
-        super(theMessage);
-        this.className = theClassName;
-        this.stackTrace = theStackTrace;
-    }
-
-    /**
-     * Simulates a printing of a stack trace by printing the string stack trace
-     *
-     * @param thePs the stream to which to output the stack trace
-     */
-    public void printStackTrace(PrintStream thePs)
-    {
-        if (this.stackTrace == null)
-        {
-            thePs.print(getMessage());
-        }
-        else
-        {
-            thePs.print(this.stackTrace);
-        }
-    }
-
-    /**
-     * Simulates a printing of a stack trace by printing the string stack trace
-     *
-     * @param thePw the writer to which to output the stack trace
-     */
-    public void printStackTrace(PrintWriter thePw)
-    {
-        if (this.stackTrace == null)
-        {
-            thePw.print(getMessage());
-        }
-        else
-        {
-            thePw.print(this.stackTrace);
-        }
-    }
-
-    /**
-     * @return the wrapped class name
-     */
-    public String getWrappedClassName()
-    {
-        return this.className;
+        return suite;
     }
 }

@@ -62,7 +62,7 @@ import java.util.Vector;
 import org.apache.cactus.Cookie;
 import org.apache.cactus.ServletURL;
 import org.apache.cactus.WebRequest;
-import org.apache.cactus.client.ClientException;
+import org.apache.cactus.internal.client.ClientException;
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpState;
 import org.apache.commons.httpclient.cookie.CookiePolicy;

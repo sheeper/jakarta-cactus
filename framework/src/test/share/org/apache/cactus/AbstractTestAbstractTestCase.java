@@ -63,12 +63,12 @@ import java.net.URL;
 import junit.framework.AssertionFailedError;
 import junit.framework.TestCase;
 
-import org.apache.cactus.client.ClientException;
 import org.apache.cactus.client.WebResponseObjectFactory;
+import org.apache.cactus.client.connector.http.HttpProtocolHandler;
 import org.apache.cactus.configuration.ServletConfiguration;
-import org.apache.cactus.configuration.WebConfiguration;
 import org.apache.cactus.internal.WebRequestImpl;
-import org.apache.cactus.internal.client.WebClientTestCaseDelegate;
+import org.apache.cactus.internal.client.ClientException;
+import org.apache.cactus.internal.client.ClientTestCaseCaller;
 import org.apache.cactus.mock.MockHttpURLConnection;
 import org.apache.cactus.util.JUnitVersionHelper;
 
@@ -81,7 +81,7 @@ import org.apache.cactus.util.JUnitVersionHelper;
  *
  * @version $Id$
  */
-public abstract class AbstractTestAbstractTestCase extends TestCase
+public abstract class AbstractTestAbstractTestCase extends TestCase 
 {   
     /**
      * Override default method so that configuration checks are not run during
@@ -105,14 +105,13 @@ public abstract class AbstractTestAbstractTestCase extends TestCase
      */
     protected void runTest() throws Throwable
     {
-        WebClientTestCaseDelegate delegator = new WebClientTestCaseDelegate(
-            this, this, new ServletConfiguration());        
+        ClientTestCaseCaller delegator = new ClientTestCaseCaller(
+            this, this, new HttpProtocolHandler(new ServletConfiguration()));
 
         try
         {
             // Call the begin method
-            WebRequest request = new WebRequestImpl(
-                (WebConfiguration) delegator.getConfiguration());
+            WebRequest request = new WebRequestImpl(new ServletConfiguration());
 
             delegator.callBeginMethod(request);
 

@@ -57,10 +57,11 @@
 package org.apache.cactus.client;
 
 import org.apache.cactus.Request;
+import org.apache.cactus.internal.client.ClientException;
 
 /**
  * Constructs response object that are passed as parameter to
- * <code>endXXX()</code> and global end methods.
+ * <code>endXXX()</code> and global <code>end()</code> methods.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
@@ -75,7 +76,7 @@ public interface ResponseObjectFactory
      * @param theClassName the class name of the object to construct
      * @param theRequest the request that was sent by Cactus to the server side
      * @return the response object that will be passed to <code>endXXX()</code>
-     *         methods and to the global end method
+     *         and <code>end()</code> methods
      * @throws ClientException if it fails to construct the response object
      */
     Object getResponseObject(String theClassName, Request theRequest) 

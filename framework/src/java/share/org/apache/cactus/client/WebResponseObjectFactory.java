@@ -64,10 +64,12 @@ import java.net.URLConnection;
 import org.apache.cactus.Request;
 import org.apache.cactus.WebRequest;
 import org.apache.cactus.WebResponse;
+import org.apache.cactus.internal.client.ClientException;
 
 /**
- * Constructs Web response object that are passed as parameter to
- * <code>endXXX()</code> and global end methods.
+ * Constructs Web response objects. Supports both Cactus
+ * {@link org.apache.cactus.WebResponse} and HttpUnit 
+ * <code>com.meterware.httpunit.WebResponse</code> response object creation.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *

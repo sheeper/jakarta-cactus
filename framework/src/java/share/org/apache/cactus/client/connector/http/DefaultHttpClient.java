@@ -63,12 +63,12 @@ import org.apache.cactus.RequestDirectives;
 import org.apache.cactus.ServiceEnumeration;
 import org.apache.cactus.WebRequest;
 import org.apache.cactus.WebTestResult;
-import org.apache.cactus.client.AssertionFailedErrorWrapper;
-import org.apache.cactus.client.ParsingException;
-import org.apache.cactus.client.ServletExceptionWrapper;
-import org.apache.cactus.client.WebTestResultParser;
 import org.apache.cactus.configuration.WebConfiguration;
 import org.apache.cactus.internal.WebRequestImpl;
+import org.apache.cactus.internal.client.AssertionFailedErrorWrapper;
+import org.apache.cactus.internal.client.ParsingException;
+import org.apache.cactus.internal.client.ServletExceptionWrapper;
+import org.apache.cactus.internal.client.WebTestResultParser;
 import org.apache.cactus.util.ChainedRuntimeException;
 import org.apache.cactus.util.IoUtil;
 

@@ -65,11 +65,11 @@ import org.apache.cactus.RequestDirectives;
 import org.apache.cactus.ServiceEnumeration;
 import org.apache.cactus.ServletURL;
 import org.apache.cactus.WebResponse;
-import org.apache.cactus.client.ClientException;
 import org.apache.cactus.client.WebResponseObjectFactory;
 import org.apache.cactus.client.connector.http.ConnectionHelper;
 import org.apache.cactus.client.connector.http.ConnectionHelperFactory;
 import org.apache.cactus.configuration.WebConfiguration;
+import org.apache.cactus.internal.client.ClientException;
 import org.apache.cactus.util.ChainedRuntimeException;
 
 /**

@@ -59,8 +59,8 @@ package org.apache.cactus.sample.servlet.unit;
 import java.io.Serializable;
 
 import org.apache.cactus.ServletTestCase;
-import org.apache.cactus.client.AssertionFailedErrorWrapper;
-import org.apache.cactus.client.ServletExceptionWrapper;
+import org.apache.cactus.internal.client.AssertionFailedErrorWrapper;
+import org.apache.cactus.internal.client.ServletExceptionWrapper;
 import org.apache.cactus.util.JUnitVersionHelper;
 
 import junit.framework.AssertionFailedError;

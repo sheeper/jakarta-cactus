@@ -54,40 +54,112 @@
  * <http://www.apache.org/>.
  *
  */
-package org.apache.cactus.client;
+package org.apache.cactus.internal.client;
 
-import org.apache.cactus.util.ChainedException;
+import java.io.PrintStream;
+import java.io.PrintWriter;
 
 /**
- * A Cactus client side exception.
+ * Wrapper around a <code>Throwable</code> object. Whenever an exception occurs
+ * in a test case executed on the server side, the text of this exception
+ * along with the stack trace as a String are sent back in the HTTP response.
+ * This is because some exceptions are not serializable and because the stack
+ * trace is implemented as a <code>transient</code> variable by the JDK so it
+ * cannot be transported in the response. However, we need to send a real
+ * exception object to JUnit so that the exception stack trace will be printed
+ * in the JUnit console. This class does this by being a <code>Throwable</code>
+ * and overloading the <code>printStackTrace()</code> methods to print a
+ * text stack trace.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
  */
-public class ClientException extends ChainedException
+public class ServletExceptionWrapper extends Throwable
 {
     /**
-     * @see ChainedException#ChainedException(String)
+     * The stack trace that was sent back from the servlet redirector as a
+     * string.
      */
-    public ClientException(String theMessage)
+    private String stackTrace;
+
+    /**
+     * The class name of the exception that was raised on the server side.
+     */
+    private String className;
+
+    /**
+     * Standard throwable constructor.
+     *
+     * @param theMessage the exception message
+     */
+    public ServletExceptionWrapper(String theMessage)
     {
         super(theMessage);
     }
 
     /**
-     * @see ChainedException#ChainedException(String, Throwable)
+     * Standard throwable constructor.
      */
-    public ClientException(String theMessage, Throwable theException)
+    public ServletExceptionWrapper()
     {
-        super(theMessage, theException);
+        super();
     }
 
     /**
-     * @see ChainedException#ChainedException(Throwable)
+     * The constructor to use to simulate a real exception.
+     *
+     * @param theMessage the server exception message
+     * @param theClassName the server exception class name
+     * @param theStackTrace the server exception stack trace
      */
-    public ClientException(Throwable theException)
+    public ServletExceptionWrapper(String theMessage, String theClassName, 
+        String theStackTrace)
     {
-        super(theException);
+        super(theMessage);
+        this.className = theClassName;
+        this.stackTrace = theStackTrace;
+    }
+
+    /**
+     * Simulates a printing of a stack trace by printing the string stack trace
+     *
+     * @param thePs the stream to which to output the stack trace
+     */
+    public void printStackTrace(PrintStream thePs)
+    {
+        if (this.stackTrace == null)
+        {
+            thePs.print(getMessage());
+        }
+        else
+        {
+            thePs.print(this.stackTrace);
+        }
+    }
+
+    /**
+     * Simulates a printing of a stack trace by printing the string stack trace
+     *
+     * @param thePw the writer to which to output the stack trace
+     */
+    public void printStackTrace(PrintWriter thePw)
+    {
+        if (this.stackTrace == null)
+        {
+            thePw.print(getMessage());
+        }
+        else
+        {
+            thePw.print(this.stackTrace);
+        }
+    }
+
+    /**
+     * @return the wrapped class name
+     */
+    public String getWrappedClassName()
+    {
+        return this.className;
     }
 }

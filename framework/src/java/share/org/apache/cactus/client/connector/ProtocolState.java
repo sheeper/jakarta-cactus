@@ -3,7 +3,7 @@
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2001-2003 The Apache Software Foundation.  All rights
+ * Copyright (c) 2003 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -54,50 +54,24 @@
  * <http://www.apache.org/>.
  *
  */
-package org.apache.cactus.internal.client;
-
-import org.apache.commons.logging.Log;
+package org.apache.cactus.client.connector;
 
 /**
- * Provides useful methods for the Cactus <code>XXXTestCase</code> classes.
- * All the methods provided are independent of any communication protocol 
- * between client side and server side (HTTP, JMS, etc). Subclasses will 
- * define additional behaviour that depends on the protocol.
- *  
- * It provides the ability to run common code before each test on the client 
- * side (note that calling common tear down code is delegated to child classes 
- * as the method signature depends on the protocol used).
- *
- * In addition it provides the ability to execute some one time (per-JVM)
- * initialisation code (a pity this is not provided in JUnit). It can be 
- * useful to start an embedded server for example. Note: In the future this
- * should be refatored and provided using a custom JUnit TestSuite.
+ * Hold protocol-related information that need to be exchanged during the 
+ * lifecycle of the {@link org.apache.cactus.client.connector.ProtocolHandler}.
+ * For example the HTTP protocol handler needs to pass the HTTP connection
+ * around to the different lifecycle methods. However, as this kind of state
+ * information is highly protocol dependent, we needed to abstract out the
+ * state information, hence this tagging interface. The implementation is free
+ * to have any kind of methods. These methods will only be used in the
+ * {@link org.apache.cactus.client.connector.ProtocolHandler} implementation
+ * classes.
  * 
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
+ * @since 1.6 
  */
-public interface ClientTestCaseDelegate
+public interface ProtocolState
 {
-    /**
-     * @return The logger used by the <code>TestCase</code> class and
-     *         subclasses to perform logging.
-     */
-    Log getLogger();
-    
-    /**
-     * Perform client side initializations before each test, such as
-     * re-initializating the logger and printing some logging information.
-     */
-    void runBareInit();
-
-    /**
-     * Runs a test case. This method is overriden from the JUnit
-     * <code>TestCase</code> class in order to seamlessly call the
-     * Cactus redirection servlet.
-     *
-     * @exception Throwable if any error happens during the execution of
-     *            the test
-     */
-    void runTest() throws Throwable;    
 }

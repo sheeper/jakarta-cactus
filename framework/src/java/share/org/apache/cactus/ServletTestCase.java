@@ -61,15 +61,15 @@ import javax.servlet.http.HttpSession;
 
 import junit.framework.Test;
 
+import org.apache.cactus.client.connector.ProtocolHandler;
+import org.apache.cactus.client.connector.http.HttpProtocolHandler;
 import org.apache.cactus.configuration.ServletConfiguration;
-import org.apache.cactus.internal.client.ClientTestCaseDelegate;
-import org.apache.cactus.internal.client.WebClientTestCaseDelegate;
 import org.apache.cactus.server.ServletConfigWrapper;
 
 /**
- * Test classes that need access to valid Servlet implicit objects (such as the
- * the HTTP request, the HTTP response, the servlet config, ...) must subclass
- * this class.
+ * Cactus test case to unit test Servlets. Test classes that need access to 
+ * valid Servlet implicit objects (such as the HTTP request, the HTTP response,
+ * the servlet config, ...) must subclass this class.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
@@ -139,12 +139,10 @@ public class ServletTestCase
     }
 
     /**
-     * @see AbstractCactusTestCase#createClientTestCaseDelegate(Test)
+     * @see AbstractCactusTestCase#createProtocolHandler()
      */
-    protected ClientTestCaseDelegate createClientTestCaseDelegate(
-        Test theTest)
+    protected ProtocolHandler createProtocolHandler()
     {
-        return new WebClientTestCaseDelegate(
-            this, theTest, new ServletConfiguration());
+        return new HttpProtocolHandler(new ServletConfiguration());
     }
 }

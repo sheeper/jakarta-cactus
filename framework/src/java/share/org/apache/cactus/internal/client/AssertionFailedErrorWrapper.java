@@ -54,95 +54,107 @@
  * <http://www.apache.org/>.
  *
  */
-package org.apache.cactus;
+package org.apache.cactus.internal.client;
 
-import javax.servlet.FilterChain;
-import javax.servlet.http.HttpServletResponse;
+import java.io.PrintStream;
+import java.io.PrintWriter;
 
-import junit.framework.Test;
-
-import org.apache.cactus.client.connector.ProtocolHandler;
-import org.apache.cactus.client.connector.http.HttpProtocolHandler;
-import org.apache.cactus.configuration.FilterConfiguration;
-import org.apache.cactus.server.FilterConfigWrapper;
+import junit.framework.AssertionFailedError;
 
 /**
- * Test classes that need access to valid Filter implicit objects (such as the
- * <code>FilterConfig</code> and <code>FilterChain</code> objects) must
- * subclass this class.
- * 
+ * Same as <code>ServletExceptionWrapper</code> except that this exception class
+ * extends JUnit <code>AssertionFailedError</code> so that JUnit will
+ * print a different message in it's runner console.
+ *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
  */
-public class FilterTestCase 
-    extends AbstractCactusTestCase implements CactusTestCase
+public class AssertionFailedErrorWrapper extends AssertionFailedError
 {
     /**
-     * Valid <code>HttpServletRequest</code> object that you can access from
-     * the <code>testXXX()</code>, <code>setUp</code> and
-     * <code>tearDown()</code> methods. If you try to access it from either the
-     * <code>beginXXX()</code> or <code>endXXX()</code> methods it will
-     * have the <code>null</code> value.
+     * The stack trace that was sent back from the servlet redirector as a
+     * string.
      */
-    public org.apache.cactus.server.HttpServletRequestWrapper request;
+    private String stackTrace;
 
     /**
-     * Valid <code>HttpServletResponse</code> object that you can access from
-     * the <code>testXXX()</code>, <code>setUp</code> and
-     * <code>tearDown()</code> methods. If you try to access it from either the
-     * <code>beginXXX()</code> or <code>endXXX()</code> methods it will
-     * have the <code>null</code> value.
+     * The class name of the exception that was raised on the server side.
      */
-    public HttpServletResponse response;
+    private String className;
 
     /**
-     * Valid <code>FilterConfig</code> object that you can access from
-     * the <code>testXXX()</code>, <code>setUp</code> and
-     * <code>tearDown()</code> methods. If you try to access it from either the
-     * <code>beginXXX()</code> or <code>endXXX()</code> methods it will
-     * have the <code>null</code> value.
+     * Standard throwable constructor.
+     *
+     * @param theMessage the exception message
      */
-    public FilterConfigWrapper config;
+    public AssertionFailedErrorWrapper(String theMessage)
+    {
+        super(theMessage);
+    }
 
     /**
-     * Valid <code>FilterChain</code> object that you can access from
-     * the <code>testXXX()</code>, <code>setUp</code> and
-     * <code>tearDown()</code> methods. If you try to access it from either the
-     * <code>beginXXX()</code> or <code>endXXX()</code> methods it will
-     * have the <code>null</code> value.
+     * Standard throwable constructor.
      */
-    public FilterChain filterChain;
-
-    /**
-     * @see AbstractCactusTestCase#AbstractCactusTestCase()
-     */
-    public FilterTestCase()
+    public AssertionFailedErrorWrapper()
     {
         super();
     }
 
     /**
-     * @see AbstractCactusTestCase#AbstractCactusTestCase(String)
+     * The constructor to use to simulate a real exception.
+     *
+     * @param theMessage the server exception message
+     * @param theClassName the server exception class name
+     * @param theStackTrace the server exception stack trace
      */
-    public FilterTestCase(String theName)
+    public AssertionFailedErrorWrapper(String theMessage, String theClassName, 
+        String theStackTrace)
     {
-        super(theName);
+        super(theMessage);
+        this.className = theClassName;
+        this.stackTrace = theStackTrace;
     }
 
     /**
-     * @see AbstractCactusTestCase#AbstractCactusTestCase(String, Test)
+     * Simulates a printing of a stack trace by printing the string stack trace
+     *
+     * @param thePs the stream to which to output the stack trace
      */
-    public FilterTestCase(String theName, Test theTest)
+    public void printStackTrace(PrintStream thePs)
     {
-        super(theName, theTest);
+        if (this.stackTrace == null)
+        {
+            thePs.print(getMessage());
+        }
+        else
+        {
+            thePs.print(this.stackTrace);
+        }
     }
 
     /**
-     * @see AbstractCactusTestCase#createProtocolHandler()
+     * Simulates a printing of a stack trace by printing the string stack trace
+     *
+     * @param thePw the writer to which to output the stack trace
      */
-    protected ProtocolHandler createProtocolHandler()
+    public void printStackTrace(PrintWriter thePw)
     {
-        return new HttpProtocolHandler(new FilterConfiguration());
+        if (this.stackTrace == null)
+        {
+            thePw.print(getMessage());
+        }
+        else
+        {
+            thePw.print(this.stackTrace);
+        }
     }
-   }
+
+    /**
+     * @return the wrapped class name
+     */
+    public String getWrappedClassName()
+    {
+        return this.className;
+    }
+}

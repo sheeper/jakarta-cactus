@@ -3,7 +3,7 @@
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2001-2003 The Apache Software Foundation.  All rights
+ * Copyright (c) 2003 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -54,43 +54,48 @@
  * <http://www.apache.org/>.
  *
  */
-package org.apache.cactus.client;
+package org.apache.cactus.client.connector.http;
 
-import org.apache.cactus.util.ChainedException;
+import java.net.HttpURLConnection;
+
+import org.apache.cactus.client.connector.ProtocolState;
 
 /**
- * Thrown when parsing the Web Test result (XML) and trying to build a
- * <code>WebTestResult</code> object.
- *
- * @see WebTestResultParser
- *
+ * HTTP-specific state information to be passed to the different 
+ * {@link org.apache.cactus.client.connector.ProtocolHandler} lifecycle
+ * methods. More specifically, we need to pass around the HTTP connection
+ * object as it is created in the lifecycle method that runs the test
+ * and the it is required in the lifecycle methods that create the 
+ * response factory instance and that clean up the test (the HTTP connection
+ * is closed if need be).
+ * 
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
  */
-public class ParsingException extends ChainedException
+public class HttpProtocolState implements ProtocolState
 {
     /**
-     * @see ChainedException#ChainedException(String)
+     * HTTP connection that was used to connect to the server side to execute
+     * the test.
      */
-    public ParsingException(String theMessage)
+    private HttpURLConnection connection;
+
+    /**
+     * @param theConnection the HTTP connection that was used to connect to the
+     *        server side to execute the test.
+     */
+    public void setConnection(HttpURLConnection theConnection)
     {
-        super(theMessage);
+        this.connection = theConnection;
     }
 
     /**
-     * @see ChainedException#ChainedException(Throwable)
+     * @return the HTTP connection that was used to connect to the server side
+     *         to execute the test.
      */
-    public ParsingException(Throwable theException)
+    public HttpURLConnection getConnection()
     {
-        super(theException);
-    }
-
-    /**
-     * @see ChainedException#ChainedException(String, Throwable)
-     */
-    public ParsingException(String theMessage, Throwable theException)
-    {
-        super(theMessage, theException);
+        return this.connection;
     }
 }

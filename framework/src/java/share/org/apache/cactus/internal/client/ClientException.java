@@ -3,7 +3,7 @@
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2003 The Apache Software Foundation.  All rights
+ * Copyright (c) 2001-2003 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -54,33 +54,40 @@
  * <http://www.apache.org/>.
  *
  */
-package org.apache.cactus.client;
+package org.apache.cactus.internal.client;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.apache.cactus.util.ChainedException;
 
 /**
- * Run the unit tests of the Cactus client package that do not need a servlet
- * environment to run.
+ * A Cactus client side exception.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
  *
  * @version $Id$
  */
-public class TestAll
+public class ClientException extends ChainedException
 {
     /**
-     * @return a test suite (<code>TestSuite</code>) that includes all methods
-     *         starting with "test"
+     * @see ChainedException#ChainedException(String)
      */
-    public static Test suite()
+    public ClientException(String theMessage)
     {
-        TestSuite suite = new TestSuite(
-            "Cactus unit tests for the client package");
+        super(theMessage);
+    }
 
-        suite.addTestSuite(TestWebTestResultParser.class);
+    /**
+     * @see ChainedException#ChainedException(String, Throwable)
+     */
+    public ClientException(String theMessage, Throwable theException)
+    {
+        super(theMessage, theException);
+    }
 
-        return suite;
+    /**
+     * @see ChainedException#ChainedException(Throwable)
+     */
+    public ClientException(Throwable theException)
+    {
+        super(theException);
     }
 }

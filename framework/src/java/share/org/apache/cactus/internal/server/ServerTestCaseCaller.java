@@ -54,112 +54,120 @@
  * <http://www.apache.org/>.
  *
  */
-package org.apache.cactus.client;
+package org.apache.cactus.internal.server;
 
-import java.io.PrintStream;
-import java.io.PrintWriter;
+import junit.framework.Assert;
+import junit.framework.Test;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
- * Wrapper around a <code>Throwable</code> object. Whenever an exception occurs
- * in a test case executed on the server side, the text of this exception
- * along with the stack trace as a String are sent back in the HTTP response.
- * This is because some exceptions are not serializable and because the stack
- * trace is implemented as a <code>transient</code> variable by the JDK so it
- * cannot be transported in the response. However, we need to send a real
- * exception object to JUnit so that the exception stack trace will be printed
- * in the JUnit console. This class does this by being a <code>Throwable</code>
- * and overloading the <code>printStackTrace()</code> methods to print a
- * text stack trace.
+ * Provide the ability to execute Cactus test case classes on the server side.
+ * It mimics the JUnit behavior by calling <code>setUp()</code>, 
+ * <code>testXXX()</code> and <code>tearDown()</code> methods on the server
+ * side.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
  */
-public class ServletExceptionWrapper extends Throwable
+public class ServerTestCaseCaller extends Assert
 {
     /**
-     * The stack trace that was sent back from the servlet redirector as a
-     * string.
+     * The logger.
      */
-    private String stackTrace;
+    private Log logger;
 
     /**
-     * The class name of the exception that was raised on the server side.
+     * The test we are delegating for.
      */
-    private String className;
+    private Test delegatedTest;   
 
     /**
-     * Standard throwable constructor.
-     *
-     * @param theMessage the exception message
+     * Pure JUnit Test Case that we are wrapping (if any)
      */
-    public ServletExceptionWrapper(String theMessage)
-    {
-        super(theMessage);
-    }
+    private Test wrappedTest;
 
     /**
-     * Standard throwable constructor.
+     * @param theDelegatedTest the test we are delegating for
+     * @param theWrappedTest the test being wrapped by this delegate (or null 
+     *        if none)
      */
-    public ServletExceptionWrapper()
-    {
-        super();
-    }
-
-    /**
-     * The constructor to use to simulate a real exception.
-     *
-     * @param theMessage the server exception message
-     * @param theClassName the server exception class name
-     * @param theStackTrace the server exception stack trace
-     */
-    public ServletExceptionWrapper(String theMessage, String theClassName, 
-        String theStackTrace)
-    {
-        super(theMessage);
-        this.className = theClassName;
-        this.stackTrace = theStackTrace;
-    }
-
-    /**
-     * Simulates a printing of a stack trace by printing the string stack trace
-     *
-     * @param thePs the stream to which to output the stack trace
-     */
-    public void printStackTrace(PrintStream thePs)
-    {
-        if (this.stackTrace == null)
+    public ServerTestCaseCaller(Test theDelegatedTest, Test theWrappedTest) 
+    {        
+        if (theDelegatedTest == null)
         {
-            thePs.print(getMessage());
+            throw new IllegalStateException(
+                "The test object passed must not be null");
         }
-        else
-        {
-            thePs.print(this.stackTrace);
-        }
+
+        setDelegatedTest(theDelegatedTest); 
+        setWrappedTest(theWrappedTest);
     }
 
     /**
-     * Simulates a printing of a stack trace by printing the string stack trace
-     *
-     * @param thePw the writer to which to output the stack trace
+     * @param theWrappedTest the pure JUnit test that we need to wrap 
      */
-    public void printStackTrace(PrintWriter thePw)
+    public void setWrappedTest(Test theWrappedTest)
     {
-        if (this.stackTrace == null)
-        {
-            thePw.print(getMessage());
-        }
-        else
-        {
-            thePw.print(this.stackTrace);
-        }
+        this.wrappedTest = theWrappedTest;
     }
 
     /**
-     * @return the wrapped class name
+     * @return the wrapped JUnit test
      */
-    public String getWrappedClassName()
+    public Test getWrappedTest()
     {
-        return this.className;
+        return this.wrappedTest;
+    }
+
+    /**
+     * @param theDelegatedTest the test we are delegating for
+     */
+    public void setDelegatedTest(Test theDelegatedTest)
+    {
+        this.delegatedTest = theDelegatedTest;
+    }
+
+    /**
+     * @return the test we are delegating for
+     */
+    public Test getDelegatedTest()
+    {
+        return this.delegatedTest;
+    }
+
+    /**
+     * Perform server side initializations before each test, such as
+     * initializating the logger.
+     */
+    public void runBareInit()
+    {
+        // Initialize the logging system. As this class is instanciated both
+        // on the server side and on the client side, we need to differentiate
+        // the logging initialisation. This method is only called on the server
+        // side, so we instanciate the log for server side here.
+        if (getLogger() == null)
+        {
+            setLogger(LogFactory.getLog(getDelegatedTest().getClass()));
+        }        
+    }
+    
+    /**
+     * @return the logger pointing to the wrapped test case that use to perform
+     *         logging on behalf of the wrapped test.
+     */
+    private Log getLogger()
+    {
+        return this.logger;
+    }
+
+    /**
+     * @param theLogger the logger to use 
+     */
+    private void setLogger(Log theLogger)
+    {
+        this.logger = theLogger;
     }
 }

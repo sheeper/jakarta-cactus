@@ -54,119 +54,43 @@
  * <http://www.apache.org/>.
  *
  */
-package org.apache.cactus.internal.server;
+package org.apache.cactus.internal.client;
 
-import junit.framework.Assert;
-import junit.framework.Test;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.cactus.util.ChainedException;
 
 /**
- * Delegate class that allows executing JUnit test on the server side by
- * calling <code>setUp()</code>, <code>testXXX()</code> and 
- * <code>tearDown()</code>.
+ * Thrown when parsing the Web Test result (XML) and trying to build a
+ * <code>WebTestResult</code> object.
+ *
+ * @see WebTestResultParser
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
  */
-public class ServerTestCaseDelegate extends Assert
+public class ParsingException extends ChainedException
 {
     /**
-     * The logger.
+     * @see ChainedException#ChainedException(String)
      */
-    private Log logger;
-
-    /**
-     * The test we are delegating for.
-     */
-    private Test delegatedTest;   
-
-    /**
-     * Pure JUnit Test Case that we are wrapping (if any)
-     */
-    private Test wrappedTest;
-
-    /**
-     * @param theDelegatedTest the test we are delegating for
-     * @param theWrappedTest the test being wrapped by this delegate (or null 
-     *        if none)
-     */
-    public ServerTestCaseDelegate(Test theDelegatedTest, Test theWrappedTest) 
-    {        
-        if (theDelegatedTest == null)
-        {
-            throw new IllegalStateException(
-                "The test object passed must not be null");
-        }
-
-        setDelegatedTest(theDelegatedTest); 
-        setWrappedTest(theWrappedTest);
+    public ParsingException(String theMessage)
+    {
+        super(theMessage);
     }
 
     /**
-     * @param theWrappedTest the pure JUnit test that we need to wrap 
+     * @see ChainedException#ChainedException(Throwable)
      */
-    public void setWrappedTest(Test theWrappedTest)
+    public ParsingException(Throwable theException)
     {
-        this.wrappedTest = theWrappedTest;
+        super(theException);
     }
 
     /**
-     * @return the wrapped JUnit test
+     * @see ChainedException#ChainedException(String, Throwable)
      */
-    public Test getWrappedTest()
+    public ParsingException(String theMessage, Throwable theException)
     {
-        return this.wrappedTest;
-    }
-
-    /**
-     * @param theDelegatedTest the test we are delegating for
-     */
-    public void setDelegatedTest(Test theDelegatedTest)
-    {
-        this.delegatedTest = theDelegatedTest;
-    }
-
-    /**
-     * @return the test we are delegating for
-     */
-    public Test getDelegatedTest()
-    {
-        return this.delegatedTest;
-    }
-
-    /**
-     * Perform server side initializations before each test, such as
-     * initializating the logger.
-     */
-    public void runBareInit()
-    {
-        // Initialize the logging system. As this class is instanciated both
-        // on the server side and on the client side, we need to differentiate
-        // the logging initialisation. This method is only called on the server
-        // side, so we instanciate the log for server side here.
-        if (getLogger() == null)
-        {
-            setLogger(LogFactory.getLog(getDelegatedTest().getClass()));
-        }        
-    }
-    
-    /**
-     * @return the logger pointing to the wrapped test case that use to perform
-     *         logging on behalf of the wrapped test.
-     */
-    private Log getLogger()
-    {
-        return this.logger;
-    }
-
-    /**
-     * @param theLogger the logger to use 
-     */
-    private void setLogger(Log theLogger)
-    {
-        this.logger = theLogger;
+        super(theMessage, theException);
     }
 }

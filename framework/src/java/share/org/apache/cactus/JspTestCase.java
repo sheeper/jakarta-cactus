@@ -60,9 +60,9 @@ import javax.servlet.jsp.JspWriter;
 
 import junit.framework.Test;
 
+import org.apache.cactus.client.connector.ProtocolHandler;
+import org.apache.cactus.client.connector.http.HttpProtocolHandler;
 import org.apache.cactus.configuration.JspConfiguration;
-import org.apache.cactus.internal.client.ClientTestCaseDelegate;
-import org.apache.cactus.internal.client.WebClientTestCaseDelegate;
 import org.apache.cactus.server.PageContextWrapper;
 
 /**
@@ -119,12 +119,10 @@ public class JspTestCase extends ServletTestCase
     }
 
     /**
-     * @see AbstractCactusTestCase#createClientTestCaseDelegate(Test)
+     * @see AbstractCactusTestCase#createProtocolHandler()
      */
-    protected ClientTestCaseDelegate createClientTestCaseDelegate(
-            Test theTest)
+    protected ProtocolHandler createProtocolHandler()
     {
-        return new WebClientTestCaseDelegate(this, theTest, 
-            new JspConfiguration());
+        return new HttpProtocolHandler(new JspConfiguration());
     }
 }
