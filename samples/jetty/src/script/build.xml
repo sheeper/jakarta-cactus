@@ -108,6 +108,7 @@
       location="../../lib/@jetty.jar.name@"/>
   <property name="junit.jar"
       location="../../lib/@junit.jar.name@"/>
+
   <path id="cactus.classpath">
     <path refid="project.classpath"/>
     <pathelement location="${aspectjrt.jar}"/>

@@ -62,4 +62,4 @@ jasper-runtime.jar = ${lib.repo}/tomcat/jars/jasper-runtime-4.1.24.jar
 
 # The port to use for starting the servers during unit testing. If not
 # specified, it defaults to port 8080.
-#test.port = 8081
+#cactus.port = 8081
