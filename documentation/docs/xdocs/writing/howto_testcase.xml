@@ -122,11 +122,6 @@ public class TestSampleFilter extends FilterTestCase
 <source><![CDATA[
 public class TestJUnitTestCaseWrapper extends TestCase
 {
-    public TestJUnitTestCaseWrapper(String theName)
-    {
-        super(theName);
-    }
-
     public static Test suite()
     {
         ServletTestSuite suite = new ServletTestSuite();
