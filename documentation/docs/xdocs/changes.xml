@@ -62,7 +62,7 @@
       </action>
     </release>
 
-    <release version="1.4" date="- in CVS">
+    <release version="1.4" date="25 August 2002">
       <action dev="VMA" type="add">
         Added a <link href="howto_jsp.html">tutorial</link> that explains how
         to test JSPs with Cactus.
