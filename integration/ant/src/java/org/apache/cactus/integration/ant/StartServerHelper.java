@@ -107,6 +107,12 @@ public class StartServerHelper implements Runnable
     private boolean isServerAlreadyStarted = false;
 
     /**
+     * Timeout after which we stop trying to connect to the test URL (in ms).
+     */
+    private long timeout = 180000;
+    
+
+    /**
      * @param theTask the Ant task that is calling this helper
      */
     public StartServerHelper(Task theTask)
@@ -167,9 +173,17 @@ public class StartServerHelper implements Runnable
         // ready to accept connections)
         sleep(1000);
 
-        // Continuously try calling the test URL until it succeeds
+        // Continuously try calling the test URL until it succeeds or
+        // until a timeout is reached (we then throw a build exception).
+        long startTime = System.currentTimeMillis();
         while (true)
         {
+            if (System.currentTimeMillis() - startTime > this.timeout)
+            {
+                throw new BuildException("Failed to start the container after "
+                    + "more than [" + this.timeout + "] ms.");
+            }
+            
             this.task.log("Checking if server is up ...", Project.MSG_DEBUG);
 
             if (!isURLCallable())
@@ -313,6 +327,15 @@ public class StartServerHelper implements Runnable
         }
 
         this.task.log("Test URL = [" + this.testURL + "]", Project.MSG_DEBUG);
+    }
+
+    /**
+     * @param theTimeout the timeout after which we stop trying to call the test
+     * URL
+     */
+    public void setTimeout(long theTimeout)
+    {
+        this.timeout = theTimeout;
     }
 
     /**

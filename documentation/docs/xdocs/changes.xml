@@ -57,6 +57,11 @@
       </devs>
 
       <release version="1.5" date="- in CVS">
+        <action dev="VMA" type="add">
+          Added a timeout for the <code>&lt;runservertests&gt;</code> Ant task
+          so that the verification that the container is started is stopped if
+          this timeout is reached (a build exception is raised).
+        </action>
         <action dev="VMA" type="remove">
           Moved some Ant tasks that were previously in the Cactus Ant tasks;
           they are now in the Ant Integration project. They are the tasks used

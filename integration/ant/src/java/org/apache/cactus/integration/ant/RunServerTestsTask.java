@@ -214,4 +214,14 @@ public class RunServerTestsTask extends Task
     {
         this.testTarget = theTestTarget;
     }
+
+    /**
+     * @param theTimeout the timeout after which we stop trying to call the test
+     * URL.
+     */
+    public void setTimeout(long theTimeout)
+    {
+        this.startHelper.setTimeout(theTimeout);
+    }
+
 }
