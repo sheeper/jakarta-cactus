@@ -15,5 +15,10 @@ In addition, it also shows the following features :
 For documentation on how to use Cactus, Ant integration, ... see the Cactus
 web site at http://jakarta.apache.org/commons/cactus
 
+Note: Before running ant build file, you'll need to create a build.properties
+file in the build/ directory (a sample one, build/build.properties.sample is 
+provided that you can copy) and edit it. Then you can type 'ant usage' to
+get the list of available targets.
+
 Thank you.
-Vincent Massol
+The Cactus Team.
