@@ -121,8 +121,8 @@
       <depend property="httpunit.jar" project="httpunit"/>
       <depend property="aspectjrt.jar" project="aspectj" id="aspectjrt"/>
       <depend property="junit.jar" project="junit"/>
-      <depend property="jstl.jar" project="jakarta-taglibs" id="jstl"/>
-      <depend property="standard.jar" project="jakarta-taglibs" id="standard"/>
+      <!-- depend property="jstl.jar" project="jakarta-taglibs" id="jstl"/ -->
+      <!-- depend property="standard.jar" project="jakarta-taglibs" id="standard"/ -->
       <depend property="cactus.framework.jar" project="jakarta-cactus-framework-12"/>
       <depend property="cactus.ant.jar" project="jakarta-cactus-ant"/>
       <property name="test.port" value="8081"/>
