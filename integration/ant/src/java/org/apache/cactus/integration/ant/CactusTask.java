@@ -221,6 +221,12 @@ public class CactusTask extends JUnitTask
     private ContainerSet containerSet;
 
     /**
+     * The archive that contains the enterprise application that should be
+     * tested.
+     */
+    private File earFile;
+
+    /**
      * The archive that contains the web-app that is ready to be tested.
      */
     private File warFile;
@@ -278,10 +284,10 @@ public class CactusTask extends JUnitTask
      */
     public void execute() throws BuildException
     {
-        if (this.warFile == null)
+        if ((this.warFile == null) && (this.earFile == null))
         {
-            throw new BuildException(
-                "You must specify the [warfile] attribute");
+            throw new BuildException("You must specify either the [warfile] or "
+                + "the [earfile] attribute");
         }
 
         // Open the archive as JAR file and extract the deployment descriptor
@@ -361,6 +367,23 @@ public class CactusTask extends JUnitTask
     }
 
     /**
+     * Sets the enterprise application archive that will be tested. It must
+     * already contain the test-cases and the required libraries as a web
+     * module.
+     * 
+     * @param theEarFile The EAR file to set  
+     */
+    public final void setEarFile(File theEarFile)
+    {
+        if (this.warFile != null)
+        {
+            throw new BuildException(
+                "You may only specify one of [earfile] and [warfile]");
+        }
+        this.earFile = theEarFile;
+    }
+
+    /**
      * Sets the web application archive that will be tested. It must already 
      * contain the test-cases and the required libraries.
      * 
@@ -368,6 +391,11 @@ public class CactusTask extends JUnitTask
      */
     public final void setWarFile(File theWarFile)
     {
+        if (this.earFile != null)
+        {
+            throw new BuildException(
+                "You may only specify one of [earfile] and [warfile]");
+        }
         this.warFile = theWarFile;
     }
 

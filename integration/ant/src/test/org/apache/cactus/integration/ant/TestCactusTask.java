@@ -108,8 +108,8 @@ public final class TestCactusTask extends AntTestCase
         }
         catch (BuildException expected)
         {
-            assertEquals("You must specify the [warfile] attribute",
-                expected.getMessage());
+            assertEquals("You must specify either the [warfile] or the "
+                + "[earfile] attribute", expected.getMessage());
         }
     }
 
@@ -128,8 +128,7 @@ public final class TestCactusTask extends AntTestCase
         }
         catch (BuildException expected)
         {
-            assertEquals("Failed to open WAR",
-                expected.getMessage());
+            assertEquals("Failed to open WAR", expected.getMessage());
         }
     }
 
