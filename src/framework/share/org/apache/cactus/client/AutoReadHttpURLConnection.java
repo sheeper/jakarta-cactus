@@ -119,8 +119,6 @@ final class AutoReadHttpURLConnection extends HttpURLConnection
      */
     public synchronized InputStream getInputStream() throws IOException
     {
-        logger.entry("getInputStream()");
-
         logger.debug("Original connection = " + this.delegate);
 
         if (streamBuffer == null) {
@@ -128,27 +126,21 @@ final class AutoReadHttpURLConnection extends HttpURLConnection
             streamBuffer = bufferInputStream(is);
         }
 
-        logger.exit("getInputStream");
         return streamBuffer;
     }
 
     InputStream bufferInputStream(InputStream is) throws IOException
     {
-        logger.entry("bufferInputStream(...)");
-
         ByteArrayOutputStream os = new ByteArrayOutputStream(this.chunkSize);
         copy(is, os);
         ByteArrayInputStream bais =
                 new ByteArrayInputStream(os.toByteArray());
 
-        logger.exit("bufferInputStream");
         return bais;
     }
 
     void copy(InputStream is, OutputStream os) throws IOException
     {
-        logger.entry("copy(...)");
-
         // Only copy if there are data to copy ... The problem is that not
         // all servers return a content-length header. If there is no header
         // getContentLength() returns -1. It seems to work and it seems
@@ -168,8 +160,6 @@ final class AutoReadHttpURLConnection extends HttpURLConnection
             }
 
         }
-
-        logger.exit("copy");
     }
 
     // Delegated methods
