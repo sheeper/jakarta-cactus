@@ -24,12 +24,6 @@
         property instead of hard-coding the war name to 
         <code>${pom.artifactId}.war</code>.
       </action>
-      <action dev="vmassol" type="fix">
-        Fixed bug 
-        <a href="http://jira.codehaus.org/secure/ViewIssue.jspa?key=MAVEN-977">MAVEN-977</a>.
-        Cactus <code>cactus.src.includes</code> and 
-        <code>cactus.src.excludes</code> properties should now work.
-      </action>
       <action dev="vmassol" type="add">
         Moved the Cactus plugin from the Maven CVS to the Cactus CVS.
       </action>

@@ -122,8 +122,6 @@
             optimize="${pom.getPluginContext('maven-java-plugin').getVariable('maven.compile.optimize')}">
 
           <ant:src path="${cactus.src.dir}"/>
-          <ant:include name="${cactus.src.includes}"/>
-          <ant:exclude name="${cactus.src.excludes}"/>
           
           <ant:classpath>
             <ant:path refid="maven.dependency.classpath"/>
@@ -161,8 +159,6 @@
           <ant:fileset dir="${cactus.src.dir}">
             <ant:exclude name="**/*.java"/>
             <ant:exclude name="**/*.html"/>
-            <ant:include name="${cactus.src.includes}"/>
-            <ant:exclude name="${cactus.src.excludes}"/>
           </ant:fileset>
         </ant:copy>
 
