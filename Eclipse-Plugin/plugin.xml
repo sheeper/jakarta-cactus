@@ -53,4 +53,13 @@
        </shortcut>
    </extension>
 
+   <!-- Registers the Cactus launch configuration image (it is the image that
+        appears in the Launch configuration dialog box) -->
+   <extension point="org.eclipse.debug.ui.launchConfigurationTypeImages">
+       <launchConfigurationTypeImage id="org.apache.cactus.eclipse.launchimage"
+         configTypeID="org.apache.cactus.eclipse.launchconfig"
+         icon="icons/calaunch.gif">
+       </launchConfigurationTypeImage>	
+   </extension>
+
 </plugin>
