@@ -133,7 +133,7 @@ public class FilterTestCaller extends AbstractTestCaller
 
         Field chainField = filterInstance.getClass().getField("filterChain");
         chainField.set(filterInstance,
-            new FilterChainWrapper(filterImplicitObjects.getFilterChain()));
+            filterImplicitObjects.getFilterChain());
 
         logger.exit("setTestCaseFields");
     }

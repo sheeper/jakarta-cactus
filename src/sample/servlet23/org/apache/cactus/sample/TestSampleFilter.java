@@ -190,7 +190,7 @@ public class TestSampleFilter extends FilterTestCase
         config.setInitParameter("footer", "<h1>footer</h1>");
         filter.init(config);
 
-        filterChain.setMockFilterChain(new FilterChain() {
+        FilterChain mockFilterChain = new FilterChain() {
             public void doFilter(ServletRequest theRequest,
                 ServletResponse theResponse) throws IOException, ServletException
             {
@@ -198,9 +198,15 @@ public class TestSampleFilter extends FilterTestCase
                 writer.print("<p>some content</p>");
                 writer.close();
             }
-        });
+            public void init(FilterConfig theConfig)
+            {
+            }
+            public void destroy()
+            {
+            }
+        };
 
-        filter.doFilter(request, response, filterChain);
+        filter.doFilter(request, response, mockFilterChain);
     }
 
     /**

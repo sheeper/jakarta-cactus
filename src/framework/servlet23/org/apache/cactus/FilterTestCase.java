@@ -108,7 +108,7 @@ public class FilterTestCase extends AbstractTestCase
      * <code>beginXXX()</code> or <code>endXXX()</code> methods it will
      * have the <code>null</code> value.
      */
-    public FilterChainWrapper filterChain;
+    public FilterChain filterChain;
 
     /**
      * Constructs a JUnit test case with the given name.
