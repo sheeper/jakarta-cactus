@@ -3,6 +3,17 @@
 	<name>JakartaCactusEclipse</name>
 	<comment></comment>
 	<projects>
+		<project>org.eclipse.core.resources</project>
+		<project>org.eclipse.core.runtime</project>
+		<project>org.eclipse.debug.core</project>
+		<project>org.eclipse.debug.ui</project>
+		<project>org.eclipse.jdt.core</project>
+		<project>org.eclipse.jdt.junit</project>
+		<project>org.eclipse.jdt.launching</project>
+		<project>org.eclipse.jdt.ui</project>
+		<project>org.eclipse.jface</project>
+		<project>org.eclipse.swt</project>
+		<project>org.eclipse.ui</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

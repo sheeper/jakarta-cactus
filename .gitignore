@@ -1,6 +1,5 @@
 /.classpath
 /.project
-Eclipse-Plugin/.classpath
 Eclipse-Plugin/bin
 /ant.bat
 anttasks/ant.bat
