@@ -5,7 +5,8 @@
   <xsl:param name="stylebook.project"/>
   <xsl:param name="copyright"/>
   <xsl:param name="updated"/>
-  <xsl:param name="docfor"/>
+  <xsl:param name="currentversion"/>
+  <xsl:param name="otherversion"/>
   <xsl:param name="docid"/>
   <xsl:param name="target"/>
 
@@ -89,7 +90,21 @@
               </font>
               <br/>
               <font size="-2">
-                Doc for : v<xsl:value-of select="$docfor"/>
+                Doc for : <b>v<xsl:value-of select="$currentversion"/></b>
+                | 
+                <a>
+                  <xsl:attribute name="href">
+                    <xsl:choose>
+                      <xsl:when test="contains($currentversion,'dev')">
+                        ..
+                      </xsl:when>
+                      <xsl:otherwise>
+                        <xsl:value-of select="$otherversion"/>
+                      </xsl:otherwise>
+                    </xsl:choose>
+                  </xsl:attribute>
+                  v<xsl:value-of select="$otherversion"/>
+                </a>
               </font>
 
               <br/>

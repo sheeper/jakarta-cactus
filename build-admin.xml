@@ -26,6 +26,14 @@
     <!-- Global project properties -->
     <property name="project.name.text" value="Cactus Administration"/>
 
+    <!-- The version is used to know where to unpack the website. If the 
+         version contains "dev" in its name, it will be unpacked in 
+         "/www/jakarta.apache.org/cactus/<version name>". If it does not
+         contain "dev", it means we are deploying the documentation for
+         the latest stable release and it will be unpacked in 
+         "/www/jakarta.apache.org/cactus". -->
+    <property name="project.version" value="1.5dev"/>
+
     <!-- Prefix to add to all distributable files -->
     <property name="project.prefix" value="jakarta-"/>
 
@@ -188,21 +196,44 @@
          and 'ssh' commands.
        ========================================================================
     -->
-    <target name="deploy" depends="release"
-        description="Deploy the Cactus web site">
+    <target name="deploy.init">
 
         <property name="cactus.homepage"
             value="/www/jakarta.apache.org/cactus"/>
+
+        <condition property="is.dev.version">
+            <contains string="${project.version}" substring="dev"/>
+        </condition>
 
         <exec dir="." executable="${admin.scp}">
             <arg value="${release.dir}/${cactus.website.name}.tar.gz"/>
             <arg value="${admin.jakarta.username}@jakarta.apache.org:${cactus.homepage}"/>
         </exec>
 
+    </target>
+
+    <target name="deploy.release" unless="is.dev.version">
+
+        <echo>Deploying release version to ${cactus.homepage} ...</echo>
+        
         <exec dir="." executable="${admin.ssh}">
             <arg line="-l ${admin.jakarta.username} jakarta.apache.org 'cd ${cactus.homepage};gunzip ${cactus.website.name}.tar.gz;tar xvf ${cactus.website.name}.tar;rm ${cactus.website.name}.tar'"/>
         </exec>
 
+    </target>
+
+    <target name="deploy.dev" if="is.dev.version">
+
+        <echo>Deploying dev version to ${cactus.homepage}/${project.version} ...</echo>
+
+        <exec dir="." executable="${admin.ssh}">
+            <arg line="-l ${admin.jakarta.username} jakarta.apache.org 'cd ${cactus.homepage};mkdir ${project.version};gunzip ${cactus.website.name}.tar.gz;tar xvf ${cactus.website.name}.tar -C${project.version};rm ${cactus.website.name}.tar'"/>
+        </exec>
+
+    </target>
+
+    <target name="deploy" depends="release,deploy.init,deploy.release,deploy.dev"
+        description="Deploy the Cactus web site">
     </target>
 
    <!--

@@ -4,7 +4,8 @@
       title="Cactus Documentation"
       copyright="@year@ The Apache Software Foundation"
       updated="@today@"
-      docfor="@version@">
+      currentversion="@version@"
+      otherversion="@otherversion@">
 
   <menu label="About">
     <menu-item label="What is Cactus ?" source="index.xml"/>

@@ -9,7 +9,8 @@
 
       <parameter name="copyright" value="{@copyright}"/>
       <parameter name="updated" value="{@updated}"/>
-      <parameter name="docfor" value="{@docfor}"/>
+      <parameter name="currentversion" value="{@currentversion}"/>
+      <parameter name="otherversion" value="{@otherversion}"/>
       <parameter name="software" value="{@software}"/>
 
       <resource source="sbk:/style/resources/logocactus.gif" target="images/logocactus.gif"/>

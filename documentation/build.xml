@@ -37,6 +37,10 @@
     <!-- Global project properties -->
     <property name="project.name.text" value="Cactus Documentation"/>
     <property name="project.version" value="1.5dev"/>
+    
+    <!-- The Cactus web site keeps online the documentation for the previous
+         version. This property is the name of the other version kept -->
+    <property name="project.other.version" value="1.4.1"/>
 
     <!-- Prefix to add to all distributable files -->
     <property name="project.prefix" value="jakarta-"/>
@@ -140,6 +144,7 @@
 
         <!-- Filters -->
         <filter token="version" value="${project.version}"/>
+        <filter token="otherversion" value="${project.other.version}"/>
         <filter token="year" value="${year}"/>
         <filter token="today" value="${TODAY}"/>
 

@@ -49,6 +49,10 @@
     </devs>
 
     <release version="1.5" date="- in CVS">
+      <action dev="VMA" type="add">
+        The Cactus web site now provides online documentation for both the
+        CVS HEAD version and the last released version.
+      </action>
       <action dev="CML" type="fix">
         Enable the <code>ServletTestRunner</code> to run in an environment where
         it is not allowed to set system properties. In such cases, the
