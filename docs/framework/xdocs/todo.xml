@@ -65,9 +65,7 @@
         View in an MVC model). This is done by using mock implementations of
         java beans used in the JSP to unit test, set these java beans in the
         testXXX() method of a cactus test and then assert the result of the
-        JSP executing in the endXXX() method. The assertion will be more
-        effective when we integrate with HttpUnit as we'll have it's powerful
-        assertion facilities. Modify the scope diagram on the
+        JSP executing in the endXXX() method. Modify the scope diagram on the
         <link href="scope.html">scope</link> page to show that Cactus also does
         unit testing of JSPs.
       </action>
@@ -77,7 +75,7 @@
       <p>
         All tasks that are related to building Cactus in general.
       </p>
-      <action>
+      <action assigned-to="Vincent Massol">
         Add support for Orion 1.5 in Ant build files (current support is for
         Orion 1.4 only but may work on 1.5.2 - need to be tested though).
         90% done.
