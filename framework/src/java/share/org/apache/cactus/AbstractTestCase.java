@@ -62,6 +62,7 @@ import java.lang.reflect.Modifier;
 
 import junit.framework.TestCase;
 
+import org.apache.cactus.client.ClientInitializer;
 import org.apache.cactus.util.JUnitVersionHelper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -71,10 +72,15 @@ import org.apache.commons.logging.LogFactory;
  * test cases that are executed on the server side. It also provides the
  * ability to run common code before each test on the client side (note
  * that calling common tear down code is delegated to extending classes as the
- * method signature depends on the protocol used). This class is independent
- * of the protocol used to communicate from the Cactus client side and the
- * Cactus server side; it can be HTTP, JMS, etc. Subclasses will define
- * additional behaviour that depends on the protocol.
+ * method signature depends on the protocol used).
+ *
+ * In addition it provides ability to execute some one time initialisation
+ * code (a pity this is not provided in JUnit). It can be useful to start
+ * an embedded server for example.
+ *
+ * This class is independent of the protocol used to communicate from the
+ * Cactus client side and the Cactus server side; it can be HTTP, JMS, etc.
+ * Subclasses will define additional behaviour that depends on the protocol.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
@@ -204,6 +210,9 @@ public abstract class AbstractTestCase extends TestCase
         // actual class name (that's why the logged instance is not static).
         this.logger = LogFactory.getLog(this.getClass());
 
+        // Call client side initializer (if defined). It will be called only
+        // once.
+        ClientInitializer.initialize();
 
         // Mark beginning of test on client side
         getLogger().debug("------------- Test: " + this.getCurrentTestMethod());
@@ -379,8 +388,8 @@ public abstract class AbstractTestCase extends TestCase
             // methods. getDeclaredMethods returns all
             // methods of this class but excludes the
             // inherited ones.
-            runMethod = getClass().getMethod(
-                this.getCurrentTestMethod(), new Class[0]);
+            runMethod = getClass().getMethod(this.getCurrentTestMethod(), 
+                new Class[0]);
         }
         catch (NoSuchMethodException e)
         {

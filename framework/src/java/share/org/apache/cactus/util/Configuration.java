@@ -114,6 +114,13 @@ public class Configuration
         HttpClientConnectionHelper.class.getName();
 
     /**
+     * Name of the Cactus property for defining an initializer (i.e. a class
+     * that is executed before the Cactus tests start on the client side).
+     */
+    private static final String CACTUS_INITIALIZER_PROPERTY = 
+        "cactus.initializer";
+
+    /**
      * True if the Cactus configuration file has already been read.
      * @see #initialize()
      */
@@ -211,10 +218,12 @@ public class Configuration
      */
     public static String getConnectionHelper()
     {
+        initialize();
+
         // Try to read it from a System property first and then if not defined
         // use the default.
-        String connectionHelperClassname = System.getProperty(
-            CACTUS_CONNECTION_HELPER_CLASSNAME_PROPERTY);
+        String connectionHelperClassname = 
+            System.getProperty(CACTUS_CONNECTION_HELPER_CLASSNAME_PROPERTY);
 
         if (connectionHelperClassname == null)
         {
@@ -223,5 +232,17 @@ public class Configuration
         }
 
         return connectionHelperClassname;
+    }
+
+    /**
+     * @return the initializer class (i.e. a class that is executed before the
+     *         Cactus tests start on the client side) or null if none has been
+     *         defined
+     */
+    public static String getInitializer()
+    {
+        initialize();
+
+        return System.getProperty(CACTUS_INITIALIZER_PROPERTY);
     }
 }
