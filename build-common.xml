@@ -204,7 +204,8 @@
             </available>
         </condition>
 
-        <fail message="Unsupported J2EE version" unless="j2ee.api"/>
+        <fail message="Unsupported J2EE version or invalid J2EE jar [${j2ee.jar}]" 
+            unless="j2ee.api"/>
 
         <echo message="j2ee.api = ${j2ee.api}"/>
 
