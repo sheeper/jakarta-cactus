@@ -55,6 +55,7 @@ package org.apache.cactus.sample.unit;
 
 import org.apache.cactus.ServletTestCase;
 import org.apache.cactus.WebRequest;
+import org.apache.cactus.WebResponse;
 
 /**
  * Tests manipulating HTTP headers.
@@ -160,6 +161,35 @@ public class TestHttpHeaders extends ServletTestCase
     public void testSetContentTypeHeader()
     {
         assertEquals("text/xml", request.getContentType());
+    }
+
+    //-------------------------------------------------------------------------
+
+    /**
+     * Verify that we can set several headers in the response and
+     * assert them in endXXX().
+     */
+    public void testResponseAddHeaders()
+    {
+        response.addHeader("X-Access-Header1", "value1");
+        response.addHeader("X-Access-Header2", "value2");
+    }
+
+    /**
+     * Verify that we can set several headers in the response and
+     * assert them in endXXX().
+     *
+     * @param theResponse the response from the server side.
+     */
+    public void endResponseAddHeaders(WebResponse theResponse) 
+    {
+        String value1 = 
+            theResponse.getConnection().getHeaderField("X-Access-Header1");
+        String value2 = 
+            theResponse.getConnection().getHeaderField("X-Access-Header2");
+
+        assertEquals("value1", value1);
+        assertEquals("value2", value2);
     }
 
 }

@@ -105,4 +105,33 @@ public class TestHttpUnitIntegration extends ServletTestCase
 
         assertEquals("something to return for the test", text);
     }
+
+    //-------------------------------------------------------------------------
+
+    /**
+     * Verify that we can set several headers in the response and
+     * assert them in endXXX().
+     */
+    public void testResponseAddHeadersHttpUnit()
+    {
+        response.addHeader("X-Access-Header1", "value1");
+        response.addHeader("X-Access-Header2", "value2");
+    }
+
+    /**
+     * Verify that we can set several headers in the response and
+     * assert them in endXXX().
+     *
+     * @param theResponse the response from the server side.
+     */
+    public void endResponseAddHeadersHttpUnit(
+    com.meterware.httpunit.WebResponse theResponse)
+    {
+        String value1 = theResponse.getHeaderField("X-Access-Header1");
+        String value2 = theResponse.getHeaderField("X-Access-Header2");
+
+        assertEquals("value1", value1);
+        assertEquals("value2", value2);
+    }
+
 }
