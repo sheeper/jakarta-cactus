@@ -38,6 +38,11 @@
         tests (done for Tomcat 3.3).
       </action>
     </category>
+    <category title="Documentation">
+      <action>
+        Document all new features of Cactus 1.3.
+      </action>
+    </category>
 
   </version>
 
