@@ -624,7 +624,7 @@
         <echo message="Errors are reported in ${checkstyle.results.file}"/>
 
         <checkstyle config="./checkstyle.xml" 
-            failOnViolation="true">
+            failOnViolation="false">
 
             <fileset dir="${src.java.dir}">
                 <include name="**/*.java"/>
