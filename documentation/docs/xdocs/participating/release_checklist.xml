@@ -121,18 +121,36 @@
     <section title="Announcement template">
 
 <source><![CDATA[
-The Cactus project is pleased to announce the release of version <version>.
+The Cactus project is pleased to announce the release of version <v>.
 Cactus is a unit testing framework for testing server side java code.
 
-<Some comment specific to this release>
+Goals
+-----
 
-Please check the Changes page (http://jakarta.apache.org/cactus/changes.html)
-for a full list of the changes in version <version>. Existing users of
-Cactus <version-1> can also check the Migration page
-(http://jakarta.apache.org/cactus/howto_migration.html) which explains how to
-migrate from the previous vesion to this new version.
+[add description of main focus here]
 
-For more information about Cactus, please visit: http://jakarta.apache.org/cactus/.
+Main new features
+-----------------
+
+[add main new features here]
+
+Changes
+-------
+
+Please check the Changes page at
+http://jakarta.apache.org/cactus/changes.html for a full list of the 
+changes in version <v>. 
+
+Known limitations and bugs:
+---------------------------
+
+[add main limitations and known bugs here]
+
+For more information about Cactus, please visit
+http://jakarta.apache.org/cactus/.
+
+Have fun,
+-The Cactus team
 ]]></source>
 
     </section>
