@@ -126,73 +126,96 @@ public class ServletTestRedirector extends HttpServlet
     {
         logger.entry("doPost(...)");
 
-        logger.debug("Default buffer size = " + theResponse.getBufferSize());
+        // If the Cactus user has forgotten to put a needed jar on the server 
+        // classpath (i.e. in WEB-INF/lib), then the servlet engine Webapp 
+        // class loader will throw a NoClassDefFoundError exception. As this
+        // method is the entry point of the webapp, we'll catch all
+        // NoClassDefFoundError exceptions and report a nice error message
+        // for the user so that he knows he has forgotten to put a jar in the
+        // classpath. If we don't do this, the error will be trapped by the
+        // container and may not result in an ... err ... understandable error
+        // message (like in Tomcat) ...
+        try {
 
-        // Call the correct Service method
-        String serviceName = theRequest.getParameter(ServiceDefinition.SERVICE_NAME_PARAM);
-        if (serviceName == null) {
-            throw new ServletException("Missing parameter [" +
-                ServiceDefinition.SERVICE_NAME_PARAM + "] in HTTP request.");
-        }
-
-        logger.debug("Service called = " + serviceName);
-
-        ServletTestCaller caller = new ServletTestCaller();
-        ServletImplicitObjects objects = new ServletImplicitObjects();
-        objects.m_Config = getServletConfig();
-        objects.m_Request = theRequest;
-        objects.m_Response = theResponse;
-
-        // Is it the call test method service ?
-        if (ServiceEnumeration.CALL_TEST_SERVICE.equals(serviceName)) {
-
-            caller.doTest(objects);
-
-            // Ugly hack here : The client side need to read all the data
-            // returned on the servlet output stream. Otherwise the servlet
-            // engine might do an io block, waiting for the client to read
-            // more data. Is this happens, then we are stuck because the client
-            // side is waiting for the test result to be committed but the
-            // latter will only be committed when all the data has been sent
-            // on the servlet output stream. So we need to read the data from
-            // the client side. However, some tests do not return any data and
-            // thus the read would block ... So we always send at the end of
-            // the stream a magic keyword so that the returned stream is never
-            // empty. This magic keyword will be ignored by the client side
-            // ... ugly, no ?
-
-            // This can easily be corrected with the Servlet API 2.3 (by
-            // doing all the read on the server side instead of the client side
-            // ). However it does not work on some 2.2 API servlet engines
-            // (like Tomcat 3.2 ...).
-
-            // Send magic keyword ... well at least try ... Yes, you read it
-            // correctly ! I said 'try' because if the test has done a forward
-            // for example, then the Writer or OutputStream will have already
-            // been used and thus it would lead to an error to try to write to
-            // them ... In that case, we won't write anything back but that
-            // should be fine as a forward is supposed to return something ...
+            // Call the correct Service method
+            String serviceName = theRequest.getParameter(ServiceDefinition.SERVICE_NAME_PARAM);
+            if (serviceName == null) {
+                throw new ServletException("Missing parameter [" +
+                    ServiceDefinition.SERVICE_NAME_PARAM + "] in HTTP request.");
+            }
     
-            // Note: There might still be the case where I get a Writer in my
-            // test case but don't use it ... hum ... To verify ... later ...
-
-            // Try sending the magic keyword ...
-            logger.debug("Sending magic keyword ...");
-            try {
-                theResponse.getOutputStream().print(MAGIC_KEYWORD);
-            } catch (Exception e) {
-                logger.debug("Failed to to send magic keyword (this is normal)", e);
-                // It failed ... Do nothing
+            logger.debug("Service called = " + serviceName);
+    
+            ServletTestCaller caller = new ServletTestCaller();
+            ServletImplicitObjects objects = new ServletImplicitObjects();
+            objects.m_Config = getServletConfig();
+            objects.m_Request = theRequest;
+            objects.m_Response = theResponse;
+    
+            // Is it the call test method service ?
+            if (ServiceEnumeration.CALL_TEST_SERVICE.equals(serviceName)) {
+    
+                caller.doTest(objects);
+    
+                // Ugly hack here : The client side need to read all the data
+                // returned on the servlet output stream. Otherwise the servlet
+                // engine might do an io block, waiting for the client to read
+                // more data. Is this happens, then we are stuck because the client
+                // side is waiting for the test result to be committed but the
+                // latter will only be committed when all the data has been sent
+                // on the servlet output stream. So we need to read the data from
+                // the client side. However, some tests do not return any data and
+                // thus the read would block ... So we always send at the end of
+                // the stream a magic keyword so that the returned stream is never
+                // empty. This magic keyword will be ignored by the client side
+                // ... ugly, no ?
+    
+                // This can easily be corrected with the Servlet API 2.3 (by
+                // doing all the read on the server side instead of the client side
+                // ). However it does not work on some 2.2 API servlet engines
+                // (like Tomcat 3.2 ...).
+    
+                // Send magic keyword ... well at least try ... Yes, you read it
+                // correctly ! I said 'try' because if the test has done a forward
+                // for example, then the Writer or OutputStream will have already
+                // been used and thus it would lead to an error to try to write to
+                // them ... In that case, we won't write anything back but that
+                // should be fine as a forward is supposed to return something ...
+        
+                // Note: There might still be the case where I get a Writer in my
+                // test case but don't use it ... hum ... To verify ... later ...
+    
+                // Try sending the magic keyword ...
+                logger.debug("Sending magic keyword ...");
+                try {
+                    theResponse.getOutputStream().print(MAGIC_KEYWORD);
+                } catch (Exception e) {
+                    logger.debug("Failed to to send magic keyword (this is normal)", e);
+                    // It failed ... Do nothing
+                }
+    
+            // Is it the get test results service ?
+            } else if (ServiceEnumeration.GET_RESULTS_SERVICE.equals(serviceName)) {
+    
+                caller.doGetResults(objects);
+    
+            } else {
+                throw new ServletException("Unknown service [" + serviceName +
+                    "] in HTTP request.");
             }
 
-        // Is it the get test results service ?
-        } else if (ServiceEnumeration.GET_RESULTS_SERVICE.equals(serviceName)) {
+        } catch (NoClassDefFoundError e) {
 
-            caller.doGetResults(objects);
+            // try to display messages as descriptive as possible !
 
-        } else {
-            throw new ServletException("Unknown service [" + serviceName +
-                "] in HTTP request.");
+            if (e.getMessage().startsWith("junit/framework")) {
+                throw new ServletException("You must put the JUnit jar in " +
+                    "your server classpath (in WEB-INF/lib for example)", e);
+            } else {
+                throw new ServletException("You are missing a jar in your " +
+                    "classpath (class [" + e.getMessage() + "] could not " +
+                    "be found", e);
+            }
         }
 
         logger.exit("doPost");
