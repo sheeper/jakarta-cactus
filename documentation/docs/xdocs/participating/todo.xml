@@ -104,7 +104,6 @@
       <action assigned-to="Christopher Lenz">
         Improve the ServletTestRunner: look at ways to make it run without the
         permission to set system properties.
-        Potentially look at replacing it by the JUnitEE test runner.
       </action>
       <action>
         Continue the JMS Redirector/Client to test Message Driven Beans.
@@ -138,15 +137,22 @@
         Servlet/JSP/Filter Redirector, which is fine for certain tests but not
         needed for others.
       </action>
+      <action assigned-to="Christopher Lenz">
+        Explore ways to improve the performance and design of the HTTP
+        transport. Currently, each test invocation involves a new connection
+        to the server. The HTTP/1.1 Keepalive feature could be used to reuse a
+        single connection for all test invocations. Responses to the
+        GET_RESULTS request do not need to include a body if there was no
+        exception on the server-side. Possibly use custom HTTP headers to
+        communicate the Cactus service parameters such as the name of the test
+        class and method, instead of using query string parameters.
+      </action>
     </category>
 
     <category title="Ideas">
       <p>
         Ideas to explore ...
       </p>
-      <action>
-      	Potential bundling of JUnitEE.
-      </action>
       <action>
         Add performance extensions to be able to test each single method in
         performance: response time. Need to add notion of server time in
@@ -170,12 +176,13 @@
       </action>
       <action>
         Help Cactus users test multipart/form-data. At least explain how to do
-        it. Some idea: use cos.jar (from
-        <link href="http://www.servlets.com/cos/index.html">http://www.servlets.com/cos/index.html</link>)
-        to read multipart/form-data on the server side. Now we still need to
-        provide a mechanism to easily send multipart/form-data on the Cactus
-        client side. The best solution would be to use HttpClient but we need
-        to check if it has this feature or if it can be added. Submitted by
+        it. Libraries to help on the server-side include 
+        <link href="http://www.servlets.com/cos/index.html">cos.jar</link>
+        and <link href="http://jakarta.apache.org/commons/fileupload/">Commons FileUpload</link>.
+        Then we still need to provide a mechanism to easily send
+        multipart/form-data on the Cactus client side. The best solution would
+        be to use HttpClient but we are currently not exposing the HttpClient
+        API so that it could be used in a test. Submitted by
         <link href="mailto:Gunnar.Skogen@ergo.no">Gunnar Ole Skogen</link>.
       </action>
       <action>
