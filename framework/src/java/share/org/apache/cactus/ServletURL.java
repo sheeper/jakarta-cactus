@@ -658,4 +658,20 @@ public class ServletURL
         }
     }
 
+    /**
+     * @return true if the simulation URL is not defined or false otherwise. 
+     */
+    public boolean isDefined()
+    {
+        boolean defined = true;
+
+        if ((getHost() == null) && (getPort() == -1) 
+            && (getContextPath() == null) && (getServletPath() == null) 
+            && (getPathInfo() == null) && (getQueryString() == null))
+        {
+            defined = false;
+        }
+        
+        return defined; 
+    }
 }
