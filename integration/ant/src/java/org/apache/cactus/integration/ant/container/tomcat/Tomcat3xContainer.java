@@ -115,6 +115,16 @@ public class Tomcat3xContainer extends AbstractTomcatContainer
         Path classpath = java.createClasspath();
         classpath.createPathElement().setLocation(
             new File(getDir(), "lib/tomcat.jar"));
+
+        // It seems that since Tomcat 3.3.2, the commons-logging jar is 
+        // required in the Tomcat bootstrap classpath...
+        File commonsLoggingJarFile = 
+            new File(getDir(), "lib/common/commons-logging-api.jar");
+        if (commonsLoggingJarFile.exists())
+        {
+            classpath.createPathElement().setLocation(commonsLoggingJarFile);
+        }
+        
         java.setClassname("org.apache.tomcat.startup.Main");
         java.createArg().setValue(theArg);
         java.execute();

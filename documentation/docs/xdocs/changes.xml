@@ -68,6 +68,10 @@
       </devs>
 
       <release version="1.6dev" date="in CVS">
+        <action dev="VMA" type="add">
+          Added support for Tomcat 3.3.2 (note that this required adding the
+          commons-logging jar to the Tomcat bootstrap classpath).
+        </action>
         <action dev="VMA" type="update" due-to="Kazuhito Suguri" due-to-email="suguri.kazuhito@lab.ntt.co.jp">
           In the Form authentication code, changed the response check logic 
           for the pre-authentication step to accept any status code less 
