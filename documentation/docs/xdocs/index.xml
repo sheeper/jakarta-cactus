@@ -11,7 +11,7 @@
 
   <body>
 
-    <section name="Project description">
+    <section title="Project Description">
       <p>
         Cactus is a simple test framework for unit testing server-side java
         code (Servlets, EJBs, Tag Libs, Filters, ...).
@@ -36,13 +36,12 @@
         usefulness of an in-container approach).
       </p>
       <p>
-        <link href="site:how_it_works">
-        <figure src="images/archiani.gif" alt="How it works ..."/></link>
+        <img src="images/archiani.gif" alt="How it works ..."/>
       </p>
     </section>
 
     <anchor id="unittest_types"/>
-    <section name="Different kinds of unit tests">
+    <section title="Different kinds of unit tests">
 
       <p>
         There are several kinds of unit testing frameworks. We categorize them
@@ -88,7 +87,7 @@
 
     </section>
 
-    <section name="Getting Started">
+    <section title="Getting Started">
 
       <p>
         To get started, read the
