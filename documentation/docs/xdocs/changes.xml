@@ -68,6 +68,11 @@
       </devs>
 
       <release version="1.6dev" date="in CVS">
+        <action dev="VMA" type="remove">
+          Removed deprecated classes in the
+          <code>org.apache.cactus.ant</code> packages as they have been
+          deprecated for a long time.
+        </action>
         <action dev="VMA" type="fix">
           Fixed bug in <code>HttpServletRequestWrapper.include()</code> where
           the passed request was not the original request. The problem was 
