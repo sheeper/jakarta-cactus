@@ -103,10 +103,7 @@ public class TestAll extends TestCase
         suite.addTest(org.apache.cactus.sample.TestSampleServletConfig.suite());
         suite.addTest(org.apache.cactus.sample.TestSampleFilter.suite());
         suite.addTest(org.apache.cactus.sample.TestSampleTag.suite());
-
-        // TODO: Will need to be uncommented once the test run fine on
-        // all servlet engined (it is failing on Tomcat 4.x, Orion 1.x)
-        //suite.addTest(org.apache.cactus.sample.TestSampleBodyTag.suite());
+        suite.addTest(org.apache.cactus.sample.TestSampleBodyTag.suite());
 
         // Unit tests requiring a servlet engine
 
