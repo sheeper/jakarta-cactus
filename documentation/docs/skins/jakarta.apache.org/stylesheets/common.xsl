@@ -57,7 +57,7 @@
         (<xsl:value-of select="$sitemap"/>)
       </xsl:message>
     </xsl:if>
-    <xsl:value-of select="$sitemap//resource[@id=$id]/@source"/>
+    <xsl:value-of select="$sitemap//resource[@id=$id]/@target"/>
   </xsl:template>
 
   <xsl:template name="get-source">

@@ -169,10 +169,15 @@
                   <xsl:value-of select="$project.other.version"/>
                 </a>
               </font>
+
+              <!-- ======================================================== -->
+              <!-- Menu -->
+              <!-- ======================================================== -->
               <br/>
               <font face="arial,helvetica,sanserif">
                 <xsl:call-template name="apply-navigation"/>
               </font>
+
             </td>
 
             <!-- ========================================================== -->
@@ -242,13 +247,12 @@
           <xsl:apply-templates/>
         </div>
       </xsl:when>
-      <xsl:when test="$cursite/@source">
+      <xsl:when test="$cursite/@target">
         <div id="menu">
           <a>
             <xsl:attribute name="href">
               <xsl:call-template name="get-base-directory"/>
-              <xsl:value-of select="substring($cursite/@source,0,string-length($cursite/@source)-3)"/>
-              <xsl:text>.html</xsl:text>
+              <xsl:value-of select="$cursite/@target"/>
             </xsl:attribute>
             <font size="-{$level}">
               <!-- Use the label from the sitemap if none has been defined
@@ -302,13 +306,12 @@
   </xsl:template>
 
   <xsl:template match="sitemap/resource">
-    <xsl:if test="@source">
+    <xsl:if test="@target">
       <li id="sitemap">
         <!-- link -->
         <a>
           <xsl:attribute name="href">
-            <xsl:value-of select="substring(@source,0,string-length(@source)-3)"/>
-            <xsl:text>.html</xsl:text>
+            <xsl:value-of select="@target"/>
           </xsl:attribute>
           <xsl:choose>
             <xsl:when test="@name">
