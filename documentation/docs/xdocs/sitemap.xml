@@ -490,6 +490,7 @@
   <!-- ATM, the maven web site is generated separately. -->
   <external id="integration_maven" url="http://jakarta.apache.org/cactus/integration/maven/index.html"/>
   <external id="integration_maven_changes" url="http://jakarta.apache.org/cactus/integration/maven/changes-report.html"/>
+  <external id="integration_maven_installing" url="http://jakarta.apache.org/cactus/integration/maven/installing.html"/>
 
   <external id="jakarta" url="http://jakarta.apache.org/"/>
   <external id="jakarta_roles" url="http://jakarta.apache.org/site/roles.html"/>
@@ -502,6 +503,7 @@
   <external id="log4j" url="http://jakarta.apache.org/log4j/"/>
   <external id="korean" url="http://jakarta.apache-korea.org/cactus/index.html"/>
   <external id="maven" url="http://maven.apache.org"/>
+  <external id="maven_ibiblio_cactus" url="http://www.ibiblio.org/maven/cactus/plugins"/>
   <external id="mockmaker" url="http://mockmaker.sourceforge.net/"/>
   <external id="mockobjects" url="http://www.mockobjects.com"/>
   <external id="mockobjects_endotesting" url="http://www.mockobjects.com/wiki/MocksObjectsPaper?action=AttachFile&amp;do=get&amp;target=mockobjects.pdf"/>
