@@ -143,7 +143,8 @@ public class WarBuilder
         webXML =
             new File(
                 thePlugin.find(new Path("./ant/conf/test/web.xml")).getPath());
-        webFilesDir = new File(thePlugin.find(new Path("./ant/web")).getPath());
+        // copy any web folder situated in the user's project
+        webFilesDir = projectPath.append("web").toFile();
     }
 
     /**
@@ -178,7 +179,11 @@ public class WarBuilder
         arguments.add("-Dwebxml.path=" + webXMLPath);
         arguments.add("-Dclasses.dir=" + classFilesPath);
         arguments.add("-Djars.dir=" + jarFilesPath);
-        arguments.add("-Dwebfiles.dir=" + webFilesPath);
+        // If a web dir is present in the user's project
+        // we add it to the War file
+		if (webFilesDir.exists()) {
+			arguments.add("-Dwebfiles.dir=" + webFilesPath);
+		}
         String[] antArguments = (String[]) arguments.toArray(new String[0]);
         AntRunner runner = new AntRunner();
         runner.setBuildFileLocation(buildFileLocation.getAbsolutePath());
