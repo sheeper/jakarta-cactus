@@ -35,7 +35,7 @@ servlet.jar = ${lib.repo}/servletapi-2.3.jar
 log4j.jar = ${lib.repo}/log4j-1.2.5.jar
 
 # The location of the Commons Httpclient jar
-commons.httpclient.jar = ${lib.repo}/commons-httpclient-2.0alpha1-20020606.jar
+commons.httpclient.jar = ${lib.repo}/commons-httpclient-2.0alpha1-20020720.jar
 
 # The location of the Httpunit jar
 httpunit.jar = ${lib.repo}/httpunit-1.4.jar
