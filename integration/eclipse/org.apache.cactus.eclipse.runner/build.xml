@@ -18,10 +18,10 @@
           relative paths.
   =============================================================================
 -->
-<project name="Cactus Eclipse Plugin" default="dist" basedir="../..">
+<project name="Cactus Eclipse Plugin" default="dist" basedir="../../..">
 
     <!-- Base directory for all file related operations -->
-    <property name="base.dir" value="integration/eclipse"/>
+    <property name="base.dir" value="integration/eclipse/org.apache.cactus.eclipse.runner"/>
 
     <!-- Include properties and targets common to the different subprojects -->
     &common;
