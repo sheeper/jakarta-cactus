@@ -121,7 +121,7 @@
 
     <condition property="properties.ok">
       <and>
-        <available file="${servlet.jar}"/>
+        <available file="${j2ee.jar}"/>
       </and>
     </condition>
     <fail unless="properties.ok">Missing property or property pointing to an invalid file
