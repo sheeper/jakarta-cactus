@@ -22,6 +22,7 @@ package org.apache.cactus.integration.ant.container;
 import java.io.File;
 import java.io.FileNotFoundException;
 
+import org.apache.cactus.integration.ant.util.ResourceUtils;
 import org.apache.tools.ant.taskdefs.Java;
 import org.apache.tools.ant.types.Path;
 import org.apache.tools.ant.types.Environment.Variable;
@@ -98,6 +99,11 @@ public abstract class AbstractJavaContainer extends AbstractContainer
         java.setOutput(this.output);
         java.setAppend(this.append);
 
+        // Add Clover jar to the server classpath if Clover is in the classpath
+        // that started the <cactus> task. This is required when running in 
+        // Clovered mode.
+        addCloverJar(java);
+       
         // Add Cactus properties for the server side
         for (int i = 0; i < getSystemProperties().length; i++)
         {
@@ -109,6 +115,24 @@ public abstract class AbstractJavaContainer extends AbstractContainer
         return java;
     }
 
+    /**
+     * Add Clover jar to the server classpath if Clover is in the classpath
+     * that started the <cactus> task. This is required when running in
+     * Clovered mode.
+     * 
+     * @param theJavaCommand the java command that will start the container
+     */
+    private void addCloverJar(Java theJavaCommand)
+    {
+        Path classpath = theJavaCommand.createClasspath();
+        File file = ResourceUtils.getResourceLocation(
+            "/com/cortexeb/tools/clover/tasks/CloverTask.class");
+        if (file != null)
+        {
+            classpath.createPathElement().setLocation(file);
+        }
+    }
+    
     /**
      * Convenience method to create an Ant environment variable that points to
      * a file.

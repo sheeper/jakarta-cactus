@@ -369,7 +369,7 @@ be resolved. Please check you build.properties file, and run Ant with the
         <include name="LICENSE.cactus"/>
         <include name="NOTICE.cactus"/>
       </metainf>
-      <fileset dir="${target.classes.java.dir}"/>
+      <fileset dir="${target.classes.clover.dir}"/>
     </jar>
 
   </target>
