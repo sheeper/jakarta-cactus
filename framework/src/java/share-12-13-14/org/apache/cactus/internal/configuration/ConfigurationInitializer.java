@@ -173,8 +173,9 @@ public class ConfigurationInitializer
         {
             String key = (String) keys.nextElement();
             // Only set the system property if it does not already exist.
-            // This allows to have a cactus properties file and override
-            // some values on the command line.
+            // This allows system properties defined on the command line
+            // override Cactus properties located in the Cactus configuration
+            // files
             if (System.getProperty(key) == null)
             {
                 System.setProperty(key, theBundle.getString(key));
