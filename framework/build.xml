@@ -364,6 +364,9 @@ be resolved. Please check you build.properties file, and run Ant with the
         <package name="org.apache.cactus.client.authentication"/>
         <package name="org.apache.cactus.extension.jsp"/>
         <package name="org.apache.cactus.server"/>
+        <package name="org.apache.cactus.server.runner"/>
+        <package name="org.apache.cactus.util"/>
+        <package name="org.apache.cactus.extension.jetty"/>
       </group>
       <group title="Public SPI">
         <package name="org.apache.cactus.spi.client"/>
@@ -376,6 +379,8 @@ be resolved. Please check you build.properties file, and run Ant with the
         <package name="org.apache.cactus.internal.client"/>
         <package name="org.apache.cactus.internal.client.connector.http"/>
         <package name="org.apache.cactus.internal.server"/>
+        <package name="org.apache.cactus.internal.server.runner"/>
+        <package name="org.apache.cactus.internal.util"/>
       </group>
       <sourcepath>
         <pathelement location="${src.java.share.dir}"/>
