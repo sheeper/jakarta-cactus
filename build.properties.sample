@@ -91,6 +91,8 @@ eclipse.jface.jar = ${eclipse.home}/plugins/org.eclipse.jface_2.1.0/jface.jar
 eclipse.ant.core.jar = ${eclipse.home}/plugins/org.eclipse.ant.core_2.1.0/antsupport.jar
 eclipse.ui.workbench.jar = ${eclipse.home}/plugins/org.eclipse.ui.workbench_2.1.0/workbench.jar
 
+jetty.jar = D:/dev/jetty/jetty-4.1.4.jar
+
 # -----------------------------------------------------------------------------
 # Optional properties for the main Cactus build
 # -----------------------------------------------------------------------------
