@@ -73,6 +73,15 @@
     </release>
 
     <release version="1.4.1" date="31 August 2002">
+      <action dev="VMA" type="add" due-to="Hirsch Richard" due-to-email="richard.hirsch@siemens.com">
+        Added a sample (and thus a test for Cactus) for HttpUnit integration
+        as part of the Cactus sample.
+      </action>
+      <action dev="VMA" type="fix" due-to="Hirsch Richard" due-to-email="richard.hirsch@siemens.com">
+        Fixed bug in new HttpClient wrapper in Cactus with regards to the 
+        headers returned in the HTTP response (they were offset by one and
+        the status line was not returned as a header).
+      </action>
       <action dev="VMA" type="fix" due-to="Micah Williams" due-to-email="backOffice@thirdmillenniumvisions.com">
         Fixed bug where <code>NullPointerException</code> would be thrown by Cactus
         <code>ServletTestRunner</code> if an exception raised in a test case had not
