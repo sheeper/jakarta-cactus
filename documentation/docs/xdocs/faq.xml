@@ -102,6 +102,9 @@
         <li>
           <jump anchor="faq_https_support">Does Cactus support HTTPS?</jump>
         </li>
+        <li>
+          <jump anchor="faq_init_servlet">Why is my ServletContext and ServletConfig null in the servlet under test?</jump>
+        </li>
       </ul>
     </section>
 
@@ -630,6 +633,20 @@ java.lang.NoSuchMethodError:
         arguments for HTTPS support and a patch, we might change our 
         collective mind :-)
       </p>
+    </section>
+
+    <anchor id="faq_init_servlet"/>
+    <section title="Why is my ServletContext and ServletConfig null in the servlet under test?">
+      <p>
+        You must initialize the servlet with the implicit cactus config 
+        object (see the 
+        <link href="site:howto_testcase_servlet">ServletTestCase
+        principles</link> documentation for more details). For example:
+      </p>
+<source><![CDATA[           
+MyServlet servlet = new MyServlet();
+servlet.init(config);
+]]></source>
     </section>
 
   </body>
