@@ -79,8 +79,9 @@ import org.eclipse.core.runtime.CoreException;
  * </ul>.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
+ * @author <a href="mailto:jruaux@octo.com">Julien Ruaux</a>
  *
- * @version $Id: StartServerHelper.java,v 1.8 2002/09/07 16:51:43 vmassol Exp $
+ * @version $Id: $
  */
 public class StartServerHelper implements Runnable
 {

@@ -61,8 +61,9 @@ import org.eclipse.core.runtime.CoreException;
 /**
  * Interface for container configuration and startup.
  * 
- * @version $Id: $
  * @author <a href="mailto:jruaux@octo.com">Julien Ruaux</a>
+ * 
+ * @version $Id: $
  */
 public interface IContainerProvider
 {

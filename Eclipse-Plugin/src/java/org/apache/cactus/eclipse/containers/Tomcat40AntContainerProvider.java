@@ -7,12 +7,11 @@ import org.eclipse.ant.core.AntRunner;
 import org.eclipse.core.runtime.CoreException;
 
 /**
- * @author Julien Ruaux
+ * Implementation of a container provider for Tomcat 40 with Ant scripts.
  *
- * To change this generated comment edit the template variable "typecomment":
- * Window>Preferences>Java>Templates.
- * To enable and disable the creation of type comments go to
- * Window>Preferences>Java>Code Generation.
+ * @author <a href="mailto:jruaux@octo.com">Julien Ruaux</a>
+ *
+ * @version $Id: $
  */
 public class Tomcat40AntContainerProvider implements IContainerProvider
 {
