@@ -59,6 +59,7 @@ import java.io.*;
 
 import org.apache.cactus.*;
 import org.apache.cactus.util.log.*;
+import org.apache.cactus.util.ChainedRuntimeException;
 
 /**
  * Provides acces to the client side Cactus configuration.
@@ -105,11 +106,18 @@ public class ClientConfiguration
         if (CONFIG == null) {
             // Has the user passed the location of the cactus configuration file
             // as a java property
-            String location = System.getProperty(CONFIG_PROPERTY);
-            if (location == null) {
+            String configOverride = System.getProperty(CONFIG_PROPERTY);
+            if (configOverride == null) {
                 // Try to read the default cactus configuration file from the
                 // classpath
                 CONFIG = PropertyResourceBundle.getBundle(CONFIG_DEFAULT_NAME);
+            } else {
+                try {
+                    CONFIG = new PropertyResourceBundle(new FileInputStream(configOverride));
+                } catch (IOException e) {
+                    throw new ChainedRuntimeException("Cannot read cactus configuration file [" +
+                        configOverride + "]", e);
+                }
             }
         }
         return CONFIG;
