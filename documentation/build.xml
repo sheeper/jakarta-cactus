@@ -161,7 +161,7 @@
         <!-- Generate cvs log -->
         <cvslog users="${doc.xdoc.dir}/cvslog/users.properties"
             work="${doc.xdoc.dir}" output="${doc.xdoc.dir}/cvslog/cvslog.xml"
-            debug="toto.txt" elapsed="15">
+            elapsed="15" executable="${cvs.executable}">
 
             <fileset dir="${doc.xdoc.dir}">
                 <exclude name="book.xml"/>
