@@ -914,6 +914,13 @@
       prereqs="cactus:init,cactus:init-report,cactus:cactifyear"
       description="Run all Cactus tests (packaged in an EAR)">
 
+    <cactus:scanner var="cactusScanner" classpathref="cactus.scanner.classpath">
+      <fileset dir="${cactus.target.classes.dir}">
+        <include name="${cactus.test.includes}"/>
+        <exclude name="${cactus.test.excludes}"/>
+      </fileset>
+    </cactus:scanner>
+
     <cactus earfile="${cactus.ear}" fork="yes" 
         errorproperty="cactustests.error" failureproperty="cactustests.failure"
         printsummary="${maven.cactus.printsummary}">
@@ -1055,11 +1062,9 @@
       <ant:formatter type="plain" usefile="${cactus.junit.usefile}"/>
       <ant:formatter type="xml"/>
 
-      <ant:batchtest>
-        <ant:fileset dir="${cactus.src.dir}"
-            includes="${cactus.test.includes}"
-            excludes="${cactus.test.excludes}"/>
-      </ant:batchtest>
+      <j:forEach var="test" items="${cactusScanner.iterator()}">
+        <test name="${test}"/>
+      </j:forEach>
 
     </cactus>
 

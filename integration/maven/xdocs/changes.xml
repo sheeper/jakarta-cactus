@@ -8,6 +8,11 @@
   <body>
 
     <release version="1.7dev" date="in CVS">
+      <action dev="vmassol" type="fix">
+        Cactus now guess automatically what Java source files are Cactus tests
+        when packaging tests in an EAR (it was already supported when running
+        tests packaged in a WAR).
+      </action>
       <action dev="vmassol" type="add" issue="CACTUS-119">
         Added new <code>cactus.jboss3x.config.dir</code> property which allows
         users to specify the location of a custom JBoss server configuration
