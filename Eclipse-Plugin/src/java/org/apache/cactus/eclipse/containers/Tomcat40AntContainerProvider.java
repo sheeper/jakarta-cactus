@@ -123,7 +123,7 @@ public class Tomcat40AntContainerProvider implements IContainerProvider
 
     /**
      * returns an AntRunner for this provider.
-     * @param theTargets the ant target to be called
+     * @param theTargets the ant target to be called (in that order)
      * @return the AntRunner for the script
      */
     private AntRunner createAntRunner(String[] theTargets)

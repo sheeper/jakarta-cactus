@@ -77,11 +77,13 @@ public interface IContainerProvider
      * @throws CoreException when deployment fails 
      */
     void deploy() throws CoreException;
+ 
     /**
      * UnDeploy a webapp to the container.
      * @throws CoreException when undeployment fails
      */    
     void undeploy() throws CoreException;
+ 
     /**
      * Stops the container.
      * @throws CoreException when stopping fails
