@@ -41,7 +41,7 @@ commons.httpclient.jar = ${lib.repo}/commons-httpclient-2.0alpha1-20020720.jar
 httpunit.jar = ${lib.repo}/httpunit-1.4.1.jar
 
 # The location of the AspectJ runtime jar
-aspectjrt.jar = ${lib.repo}/aspectjrt-1.0.4.jar
+aspectjrt.jar = ${lib.repo}/aspectjrt-1.0.5.jar
 
 # The location of the Junit jar
 junit.jar = ${lib.repo}/junit-3.7.jar
