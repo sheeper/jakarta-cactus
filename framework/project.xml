@@ -73,14 +73,15 @@
     <aspectSourceDirectory>src/java/share</aspectSourceDirectory>
 
     <!-- Unit test cases -->
-    <!-- TODO: Fix this (format is wrong I think). Also the TestAll should
-         be excluded, not included -->
     <unitTest>
       <includes>
-        <include>org/apache/cactus/TestAll.java</include>
+        <include>**/Test*.java</include>
       </includes>
+      <excludes>
+        <exclude>**/Test*All.java</exclude>
+      </excludes>
     </unitTest>
-              
+             
   </build>
 
   <reports>
