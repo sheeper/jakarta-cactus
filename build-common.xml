@@ -191,11 +191,11 @@
 
         <!-- The Cactus Eclipse Runner Integration dist -->
         <property name="cactus.eclipse.runner.bin"
-            location="integration/eclipse/org.apache.cactus.eclipse.runner/dist-${j2ee.api}/bin/cactus-integration-eclipse-runner"/>
+            location="integration/eclipse/org.apache.cactus.eclipse.runner/dist-${j2ee.api}/bin"/>
         
         <!-- The Cactus Eclipse Webapp Integration dist -->
         <property name="cactus.eclipse.webapp.bin"
-            location="integration/eclipse/org.apache.cactus.eclipse.webapp/dist/bin/cactus-integration-eclipse-webapp"/>
+            location="integration/eclipse/org.apache.cactus.eclipse.webapp/dist/bin"/>
         
         <!-- The Sample Servlet dist -->
         <property name="cactus.samples.servlet.bin"
