@@ -30,7 +30,7 @@ import org.apache.cactus.Request;
  * Utilities to check TestCase implementation.
  * @version $Id$
  */
-public abstract class TestCaseImplementChecker
+public final class TestCaseImplementChecker
 {
     /**
      * Default constructor that requires that 
