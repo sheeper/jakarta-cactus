@@ -120,7 +120,7 @@ public abstract class AbstractCactusTestCase extends TestCase
      *        wrap
      * @return the server side test case delegate to use
      */
-    protected ServerTestCaseDelegate createServerTestCaseDelegate(Test theTest)
+    private ServerTestCaseDelegate createServerTestCaseDelegate(Test theTest)
     {
         return new ServerTestCaseDelegate(this, theTest);
     }
@@ -163,7 +163,7 @@ public abstract class AbstractCactusTestCase extends TestCase
     /**
      * @param theDelegate the client test case delegate
      */
-    void setClientDelegate(ClientTestCaseDelegate theDelegate)
+    private void setClientDelegate(ClientTestCaseDelegate theDelegate)
     {
         this.clientDelegate = theDelegate;
     }
@@ -171,7 +171,7 @@ public abstract class AbstractCactusTestCase extends TestCase
     /**
      * @param theDelegate the client test case delegate
      */
-    void setServerDelegate(ServerTestCaseDelegate theDelegate)
+    private void setServerDelegate(ServerTestCaseDelegate theDelegate)
     {
         this.serverDelegate = theDelegate;
     }
@@ -179,7 +179,7 @@ public abstract class AbstractCactusTestCase extends TestCase
     /**
      * @return the client test case delegate
      */
-    ClientTestCaseDelegate getClientDelegate()
+    private ClientTestCaseDelegate getClientDelegate()
     {
         return this.clientDelegate;
     }
@@ -197,7 +197,7 @@ public abstract class AbstractCactusTestCase extends TestCase
      *  
      * @param theTest a pure JUnit Test that Cactus will wrap
      */
-    void init(Test theTest)
+    private void init(Test theTest)
     {
         setClientDelegate(createClientTestCaseDelegate(theTest));
         setServerDelegate(createServerTestCaseDelegate(theTest));

@@ -63,7 +63,6 @@ import junit.framework.Test;
 import org.apache.cactus.configuration.JspConfiguration;
 import org.apache.cactus.internal.client.ClientTestCaseDelegate;
 import org.apache.cactus.internal.client.WebClientTestCaseDelegate;
-import org.apache.cactus.internal.server.ServerTestCaseDelegate;
 import org.apache.cactus.server.PageContextWrapper;
 
 /**
@@ -127,14 +126,5 @@ public class JspTestCase extends ServletTestCase
     {
         return new WebClientTestCaseDelegate(this, theTest, 
             new JspConfiguration());
-    }
-
-    /**
-     * @see AbstractCactusTestCase#createServerTestCaseDelegate(Test)
-     */
-    protected ServerTestCaseDelegate createServerTestCaseDelegate(
-            Test theTest)
-    {
-        return new ServerTestCaseDelegate(this, theTest);
     }
 }
