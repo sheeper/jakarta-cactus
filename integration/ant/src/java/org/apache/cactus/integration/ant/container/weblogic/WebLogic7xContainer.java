@@ -90,7 +90,7 @@ public class WebLogic7xContainer extends AbstractJavaContainer
 
     /**
      * The WebLogic 7.x installation directory. For example:
-     * "c:/bea/weblogic700".
+     * "c:\bea\weblogic700".
      */
     private File dir;
 
@@ -204,13 +204,6 @@ public class WebLogic7xContainer extends AbstractJavaContainer
             
             File serverDir = new File(this.dir, "server");
             
-            Path libraryPath = new Path(getProject());
-            libraryPath.createPathElement().setPath(
-                getProject().getProperty("java.library.path"));
-            libraryPath.createPathElement().setLocation(
-                new File(serverDir, "bin"));
-            java.addSysproperty(
-                createSysProperty("java.library.path", libraryPath));
             java.addSysproperty(
                 createSysProperty("weblogic.Name", "testserver"));
             java.addSysproperty(
