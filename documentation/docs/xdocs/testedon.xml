@@ -165,6 +165,22 @@
               However it seems to be stopped correctly.
             </td>
           </tr>
+          <tr>
+            <td>
+              Orion
+            </td>
+            <td>
+              1.5.4
+            </td>
+            <td>
+              1.2
+            </td>
+            <td>
+              <link href="mailto:vmassol@apache.org">Vincent Massol</link>
+            </td>
+            <td>
+            </td>
+          </tr>
 
         </table>
 
