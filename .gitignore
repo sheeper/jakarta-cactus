@@ -126,6 +126,16 @@ integration/maven/src/plugin-test/testSimpleWar/dist
 integration/maven/src/plugin-test/testSimpleWar/gump.xml
 integration/maven/src/plugin-test/testSimpleWar/target
 integration/maven/src/plugin-test/testSimpleWar/targetdist
+integration/maven/src/plugin-test/testSkipPropertyEar/*.log
+integration/maven/src/plugin-test/testSkipPropertyEar/dist
+integration/maven/src/plugin-test/testSkipPropertyEar/gump.xml
+integration/maven/src/plugin-test/testSkipPropertyEar/target
+integration/maven/src/plugin-test/testSkipPropertyEar/targetdist
+integration/maven/src/plugin-test/testSkipPropertyWar/*.log
+integration/maven/src/plugin-test/testSkipPropertyWar/dist
+integration/maven/src/plugin-test/testSkipPropertyWar/gump.xml
+integration/maven/src/plugin-test/testSkipPropertyWar/target
+integration/maven/src/plugin-test/testSkipPropertyWar/targetdist
 integration/maven/target
 integration/maven/velocity.log
 integration/maven/xdocs/stylesheets
