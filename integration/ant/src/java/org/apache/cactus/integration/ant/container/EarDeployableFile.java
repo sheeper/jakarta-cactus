@@ -125,8 +125,14 @@ public class EarDeployableFile extends AbstractDeployableFile
             throw new BuildException("Could not find the WAR [" + webUri
                 + "] in the EAR");
         }
-        this.contextPath = this.earArchive.getApplicationXml()
+        String context = this.earArchive.getApplicationXml()
             .getWebModuleContextRoot(webUri);
+        if (context == null)
+        {
+            throw new BuildException("Could not find the Cactus context "
+                + "path in the EAR");            
+        }
+        this.contextPath = context;
     }   
 
     /**
