@@ -228,21 +228,21 @@
 
   <xsl:template match="s2">
     <xsl:call-template name="section">
-      <xsl:with-param name="width">95%</xsl:with-param>
+      <xsl:with-param name="width">98%</xsl:with-param>
       <xsl:with-param name="font-size">+0</xsl:with-param>
     </xsl:call-template>
   </xsl:template>
 
   <xsl:template match="s3">
     <xsl:call-template name="section">
-      <xsl:with-param name="width">90%</xsl:with-param>
+      <xsl:with-param name="width">96%</xsl:with-param>
       <xsl:with-param name="font-size">-1</xsl:with-param>
     </xsl:call-template>
   </xsl:template>
 
   <xsl:template match="s4">
     <xsl:call-template name="section">
-      <xsl:with-param name="width">85%</xsl:with-param>
+      <xsl:with-param name="width">94%</xsl:with-param>
       <xsl:with-param name="font-size">-2</xsl:with-param>
     </xsl:call-template>
   </xsl:template>
