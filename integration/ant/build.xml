@@ -365,6 +365,9 @@
             <fileset dir="${src.java.dir}">
                 <include name="**/*.java"/>
             </fileset>
+            <fileset dir="${src.test.dir}">
+                <include name="**/*.java"/>
+            </fileset>
         
             <formatter type="plain"/>
             <formatter type="xml"
