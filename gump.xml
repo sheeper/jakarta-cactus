@@ -105,6 +105,13 @@
   -->
   <project name="jakarta-cactus-sample-servlet-12">
 
+    <!-- Create the directories that are added using the <work> tag below so
+         that JVM do not drop these directories from the CLASSPATH
+         (apparently some do) -->
+    <mkdir dir="sample-servlet/target-12/sample/target/classes/unit"/>
+    <mkdir dir="sample-servlet/target-12/sample/target/classes/sample"/>
+    <mkdir dir="sample-servlet/target-12/sample/target/conf/client"/>
+
     <ant buildfile="sample-servlet/build.xml" target="dist">
 
       <depend property="j2ee.jar" project="jakarta-servletapi"/>
@@ -181,6 +188,13 @@
      ========================================================================
   -->
   <project name="jakarta-cactus-sample-servlet-13">
+
+    <!-- Create the directories that are added using the <work> tag below so
+         that JVM do not drop these directories from the CLASSPATH
+         (apparently some do) -->
+    <mkdir dir="sample-servlet/target-13/sample/target/classes/unit"/>
+    <mkdir dir="sample-servlet/target-13/sample/target/classes/sample"/>
+    <mkdir dir="sample-servlet/target-13/sample/target/conf/client"/>
 
     <ant buildfile="sample-servlet/build.xml" target="dist">
 
