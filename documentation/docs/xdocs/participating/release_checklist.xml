@@ -33,9 +33,10 @@
           the <link href="site:news">News</link> page.
         </li>
         <li>
-          Edit the <code>build.xml</code> file for each Cactus subprojects and
-          modify the <code>project.version</code> Ant property so that it
-          reflects the version number for the release. Commit the changes.
+          Edit <code>build-common.xml</code> and
+          modify the <code>project.*.version</code> Ant properties so that
+          they reflect the version number for the release (no 
+          <code>dev</code> suffix should remain). Commit the changes.
         </li>
         <li>
           CVS Checkout a clean copy of Cactus so that no local files are
