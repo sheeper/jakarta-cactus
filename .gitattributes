@@ -734,6 +734,7 @@ scratchpad/cactus2/framework/src/main/org/apache/cactus/framework/internal/orche
 scratchpad/cactus2/framework/src/main/org/apache/cactus/framework/internal/orchestrator/handlers/SetTestHandler.java svn_keywords=Author+Date+Id+Revision
 scratchpad/cactus2/integration/maven/.cvsignore svn_keywords=Author+Date+Id+Revision
 scratchpad/cactus2/integration/maven/build.properties.sample -text svneol=unset#application/octet-stream
+scratchpad/cactus2/integration/maven/maven.xml svn_keywords=Author+Date+Id+Revision
 scratchpad/cactus2/integration/maven/plugin.jelly svn_keywords=Author+Date+Id+Revision
 scratchpad/cactus2/integration/maven/plugin.properties svn_keywords=Author+Date+Id+Revision
 scratchpad/cactus2/integration/maven/project.properties svn_keywords=Author+Date+Id+Revision
