@@ -56,8 +56,8 @@
  */
 package org.apache.cactus.eclipse.ui;
 
-import org.apache.cactus.eclipse.containers.GenericAntProvider;
 import org.apache.cactus.eclipse.containers.IContainerProvider;
+import org.apache.cactus.eclipse.containers.ant.GenericAntProvider;
 import org.eclipse.core.runtime.IPluginDescriptor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;

@@ -59,7 +59,6 @@ package org.apache.cactus.eclipse.launcher;
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 
-import org.apache.cactus.eclipse.containers.GenericAntProvider;
 import org.apache.cactus.eclipse.containers.IContainerProvider;
 import org.apache.cactus.eclipse.ui.CactusPlugin;
 import org.apache.cactus.eclipse.ui.CactusPreferences;
@@ -116,7 +115,7 @@ public class CactusLaunchShortcut
     /**
      * @see JUnitLaunchShortcut#launchType(Object[], String)
      */
-    protected void launchType(Object[] search, String mode)
+    protected void launchType(Object[] theSearch, String mode)
     {
         IType[] types = null;
         try
@@ -124,7 +123,7 @@ public class CactusLaunchShortcut
             types =
                 TestSearchEngine.findTests(
                     new ProgressMonitorDialog(getShell()),
-                    search);
+                    theSearch);
         }
         catch (InterruptedException e)
         {
