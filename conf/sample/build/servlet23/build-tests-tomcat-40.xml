@@ -130,8 +130,8 @@
              CATALINA_BASE instead of CATALINA_HOME. Thus we need to copy the
              shared/ directory while waiting for a fix. Check bug id 5166 :
              http://nagoya.apache.org/bugzilla/show_bug.cgi?id=5166 -->
-        <copy todir="${out.tomcat40.dir}/shared">
+        <!--copy todir="${out.tomcat40.dir}/shared">
             <fileset dir="${tomcat.home.40}/shared"/>
-        </copy>
+        </copy-->
 
     </target>
