@@ -68,6 +68,7 @@ import junit.framework.TestCase;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -332,17 +333,11 @@ public class TestWebXml extends TestCase
         String xml = "<web-app></web-app>";
         Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
         WebXml webXml = new WebXml(doc);
-        Element filterElement = doc.createElement("filter");
-        Element filterNameElement = doc.createElement("filter-name");
-        filterNameElement.appendChild(doc.createTextNode("f1"));
-        filterElement.appendChild(filterNameElement);
-        Element filterClassElement = doc.createElement("filter-class");
-        filterClassElement.appendChild(doc.createTextNode("f1class"));
-        filterElement.appendChild(filterClassElement);
+        Element filterElement = createFilterElement(doc, "f1", "f1class");
         webXml.addFilter(filterElement);
         assertTrue(webXml.hasFilter("f1"));
     }
-    
+
     public void testAddFilterToDocumentWithAnotherFilter() throws Exception
     {
         String xml = "<web-app>"
@@ -353,13 +348,7 @@ public class TestWebXml extends TestCase
             + "</web-app>";
         Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
         WebXml webXml = new WebXml(doc);
-        Element filterElement = doc.createElement("filter");
-        Element filterNameElement = doc.createElement("filter-name");
-        filterNameElement.appendChild(doc.createTextNode("f2"));
-        filterElement.appendChild(filterNameElement);
-        Element filterClassElement = doc.createElement("filter-class");
-        filterClassElement.appendChild(doc.createTextNode("f2class"));
-        filterElement.appendChild(filterClassElement);
+        Element filterElement = createFilterElement(doc, "f2", "f2class");
         webXml.addFilter(filterElement);
         assertTrue(webXml.hasFilter("f1"));
         assertTrue(webXml.hasFilter("f2"));
@@ -375,13 +364,7 @@ public class TestWebXml extends TestCase
             + "</web-app>";
         Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
         WebXml webXml = new WebXml(doc);
-        Element filterElement = doc.createElement("filter");
-        Element filterNameElement = doc.createElement("filter-name");
-        filterNameElement.appendChild(doc.createTextNode("f1"));
-        filterElement.appendChild(filterNameElement);
-        Element filterClassElement = doc.createElement("filter-class");
-        filterClassElement.appendChild(doc.createTextNode("f1class"));
-        filterElement.appendChild(filterClassElement);
+        Element filterElement = createFilterElement(doc, "f1", "f1class");
         try
         {
             webXml.addFilter(filterElement);
@@ -625,14 +608,7 @@ public class TestWebXml extends TestCase
         String xml = "<web-app></web-app>";
         Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
         WebXml webXml = new WebXml(doc);
-        Element servletElement = doc.createElement("servlet");
-        Element servletNameElement = doc.createElement("servlet-name");
-        servletNameElement.appendChild(doc.createTextNode("s1"));
-        servletElement.appendChild(servletNameElement);
-        Element servletClassElement = doc.createElement("servlet-class");
-        servletClassElement.appendChild(doc.createTextNode("s1class"));
-        servletElement.appendChild(servletClassElement);
-        webXml.addServlet(servletElement);
+        webXml.addServlet(createServletElement(doc, "s1", "s1class"));
         assertTrue(webXml.hasServlet("s1"));
     }
 
@@ -646,14 +622,7 @@ public class TestWebXml extends TestCase
             + "</web-app>";
         Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
         WebXml webXml = new WebXml(doc);
-        Element servletElement = doc.createElement("servlet");
-        Element servletNameElement = doc.createElement("servlet-name");
-        servletNameElement.appendChild(doc.createTextNode("s2"));
-        servletElement.appendChild(servletNameElement);
-        Element servletClassElement = doc.createElement("servlet-class");
-        servletClassElement.appendChild(doc.createTextNode("s2class"));
-        servletElement.appendChild(servletClassElement);
-        webXml.addServlet(servletElement);
+        webXml.addServlet(createServletElement(doc, "s2", "s2class"));
         assertTrue(webXml.hasServlet("s1"));
         assertTrue(webXml.hasServlet("s2"));
     }
@@ -668,16 +637,9 @@ public class TestWebXml extends TestCase
             + "</web-app>";
         Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
         WebXml webXml = new WebXml(doc);
-        Element servletElement = doc.createElement("servlet");
-        Element servletNameElement = doc.createElement("servlet-name");
-        servletNameElement.appendChild(doc.createTextNode("s1"));
-        servletElement.appendChild(servletNameElement);
-        Element servletClassElement = doc.createElement("servlet-class");
-        servletClassElement.appendChild(doc.createTextNode("s1class"));
-        servletElement.appendChild(servletClassElement);
         try
         {
-            webXml.addServlet(servletElement);
+            webXml.addServlet(createServletElement(doc, "s1", "s1class"));
             fail("Expected IllegalStateException");
         }
         catch (IllegalStateException ise)
@@ -895,4 +857,104 @@ public class TestWebXml extends TestCase
         assertTrue(!securityRoles.hasNext());
     }
 
+    public void testElementOrderFilterBeforeServlet() throws Exception
+    {
+        String xml = "<web-app>"
+            + "  <servlet>".trim()
+            + "    <servlet-name>s1</servlet-name>".trim()
+            + "    <servlet-class>s1class</servlet-class>".trim()
+            + "  </servlet>".trim()
+            + "</web-app>";
+        Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
+        WebXml webXml = new WebXml(doc);
+        webXml.addFilter(createFilterElement(doc, "f1", "f1class"));
+        NodeList order = doc.getDocumentElement().getChildNodes();
+        assertEquals("filter", order.item(0).getNodeName());
+        assertEquals("servlet", order.item(1).getNodeName());
+    }
+
+    public void testElementOrderFilterBeforeServletWithComment()
+        throws Exception
+    {
+        String xml = "<web-app>"
+            + "  <!-- My servlets -->".trim()
+            + "  <servlet>".trim()
+            + "    <servlet-name>s1</servlet-name>".trim()
+            + "    <servlet-class>s1class</servlet-class>".trim()
+            + "  </servlet>".trim()
+            + "</web-app>";
+        Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
+        WebXml webXml = new WebXml(doc);
+        webXml.addFilter(createFilterElement(doc, "f1", "f1class"));
+        NodeList order = doc.getDocumentElement().getChildNodes();
+        assertEquals("filter", order.item(0).getNodeName());
+        assertEquals("#comment", order.item(1).getNodeName());
+        assertEquals("servlet", order.item(2).getNodeName());
+    }
+
+    public void testElementOrderServletAfterFilter() throws Exception
+    {
+        String xml = "<web-app>"
+            + "  <filter>".trim()
+            + "    <filter-name>f1</filter-name>".trim()
+            + "    <filter-class>f1class</filter-class>".trim()
+            + "  </filter>".trim()
+            + "</web-app>";
+        Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
+        WebXml webXml = new WebXml(doc);
+        webXml.addServlet(createServletElement(doc, "s1", "s1class"));
+        NodeList order = doc.getDocumentElement().getChildNodes();
+        assertEquals("filter", order.item(0).getNodeName());
+        assertEquals("servlet", order.item(1).getNodeName());
+    }
+
+    public void testElementOrderServletAfterFilterWithComment()
+        throws Exception
+    {
+        String xml = "<web-app>"
+            + "  <!-- My filters -->".trim()
+            + "  <filter>".trim()
+            + "    <filter-name>f1</filter-name>".trim()
+            + "    <filter-class>f1class</filter-class>".trim()
+            + "  </filter>".trim()
+            + "</web-app>";
+        Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
+        WebXml webXml = new WebXml(doc);
+        webXml.addServlet(createServletElement(doc, "s1", "s1class"));
+        NodeList order = doc.getDocumentElement().getChildNodes();
+        assertEquals("#comment", order.item(0).getNodeName());
+        assertEquals("filter", order.item(1).getNodeName());
+        assertEquals("servlet", order.item(2).getNodeName());
+    }
+
+    // Private Methods ---------------------------------------------------------
+
+    public Element createFilterElement(Document theDocument,
+            String theFilterName, String theFilterClass) {
+        Element filterElement = theDocument.createElement("filter");
+        Element filterNameElement = theDocument.createElement("filter-name");
+        filterNameElement.appendChild(
+            theDocument.createTextNode(theFilterName));
+        filterElement.appendChild(filterNameElement);
+        Element filterClassElement = theDocument.createElement("filter-class");
+        filterClassElement.appendChild(
+            theDocument.createTextNode(theFilterClass));
+        filterElement.appendChild(filterClassElement);
+        return filterElement;
+    }
+    
+    public Element createServletElement(Document theDocument,
+            String theServletName, String theServletClass) {
+        Element filterElement = theDocument.createElement("servlet");
+        Element filterNameElement = theDocument.createElement("servlet-name");
+        filterNameElement.appendChild(
+            theDocument.createTextNode(theServletName));
+        filterElement.appendChild(filterNameElement);
+        Element filterClassElement = theDocument.createElement("servlet-class");
+        filterClassElement.appendChild(
+            theDocument.createTextNode(theServletClass));
+        filterElement.appendChild(filterClassElement);
+        return filterElement;
+    }
+    
 }
