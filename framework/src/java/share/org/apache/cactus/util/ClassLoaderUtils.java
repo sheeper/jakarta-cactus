@@ -150,9 +150,22 @@ public class ClassLoaderUtils
 
         try
         {
-            // Then, try to load from the referrer class loader first
-            bundle = PropertyResourceBundle.getBundle(theName, 
-                Locale.getDefault(), theReferrer.getClassLoader());
+            // Try to load from the referrer class loader first
+            
+            // Some JDK implementation will return "null" when calling
+            // getClassLoader(), signalling that the classloader is the
+            // bootstrap class loader. However, getBundle() does not support
+            // passing null for the class loader, hence the following test.
+            if (theReferrer.getClassLoader() == null)
+            {
+                bundle = PropertyResourceBundle.getBundle(theName,
+                    Locale.getDefault());
+            }
+            else
+            {                       
+                bundle = PropertyResourceBundle.getBundle(theName,
+                    Locale.getDefault(), theReferrer.getClassLoader());
+            }
         }
         catch (MissingResourceException e)
         {
