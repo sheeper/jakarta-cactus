@@ -116,6 +116,30 @@
     </devs>
 
     <release version="1.2 in CVS">
+      <action dev="VMA" type="add">
+        Added new end method signature that integrates with HttpUnit. You now
+        have the possibility to use the full assertion power of HttpUnit in
+        your end method. You simply need to define your end methods with the
+        following signature :
+        <code>endXXX(com.meterware.httpunit.WebResponse)</code>. If you don't
+        need that power and only want to do simple asserts you can use the
+        <code>endXXX(org.apache.commons.cactus.WebResponse)</code> signature
+        which will let you do simple assertions (cookies, headers, content as
+        a String, ...).
+      </action>
+      <action dev="VMA" type="update">
+        Deprecated the way to write end methods. The new correct way is
+        <code>endXXX(org.apache.commons.cactus.WebResponse theResponse)</code>
+        (it was <code>endXXX(HttpURLConnection theConnection)</code>
+        previously). All helper methods of <code>AssertUtils</code> have been
+        included in <code>WebResponse</code> and <code>AssertUtils</code> is
+        now deprecated.
+      </action>
+      <action dev="VMA" type="update">
+        Deprecated <code>ServletTestRequest</code>. New correct way of writing
+        a begin method is <code>beginXXX(WebRequest theRequest)</code>. The
+        class methods are the same.
+      </action>
       <action dev="VMA" type="update" due-to="Paul Dillon" due-to-email="paul.dillon@solnet.com.au">
         The Cactus <code>runservertests</code> custom Ant task will now not
         stop the server if it was running before the task was executed. This
