@@ -27,10 +27,33 @@
         <link href="http://sourceforge.net/projects/httpunit">HttpUnit</link>
         for this). Both frameworks are complementary.
       </p>
+      <p>
+        Click <link href="scope.html">here</link> for the detailed scope and
+        status of Cactus.
+      </p>
     </s1>
 
     <s1 title="Latest news">
       <table>
+        <tr>
+          <td>
+            14/04/2001
+          </td>
+          <td>
+            Added 2 new pages to the site : A <link href="goals.html">Cactus
+            goals</link> page describing Cactus goals and a
+            <link href="scope.html">scope and status</link> page describing the
+            scope and status of Cactus as of now.
+          </td>
+        </tr>
+        <tr>
+          <td>
+            10/04/2001
+          </td>
+          <td>
+            Added explanations for the Cactus name on the news page.
+          </td>
+        </tr>
         <tr>
           <td>
             09/04/2001
