@@ -42,6 +42,11 @@
 
     <category title="Documentation">
       <action>
+        Fix problems in changes.xml XSL stylesheet transformation so that
+        HTML elements are not stripped (such as the &lt;p&gt; elements we
+        have there).
+      </action>
+      <action>
         Update the "how it works" section by adding the new global
         <code>begin()</code> and <code>end()</code> methods.
       </action>
