@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<document>
+
+  <properties>
+    <title>Tasks</title>
+    <author email="vmassol@apache.org">Vincent Massol</author>
+  </properties>
+
+  <body>
+    <section name="Tasks">
+      <p>
+      	Lists of todos and ideas for future versions.
+      </p>
+
+      <subsection name="3.1">
+       <p>
+          <ul>
+            <li>
+              Refactor code in goals cactus:test, cactus:single, and cactus:match
+              to share more code.  Currently there is a lot of cut-n-paste code.
+              Should use jelly tags to reuse code.
+            </li>
+          </ul>
+        </p>      
+        <p>
+          <ul>
+            <li>
+              Add support for Jetty (note: This should actually be added in the
+              Cactus/Ant integration module and not in the Maven plugin), for
+              better reuse.
+            </li>
+          </ul>
+        </p>
+      </subsection>
+
+    </section>
+
+  </body>
+</document>

@@ -1,0 +1,779 @@
+<?xml version="1.0"?>
+
+<!--
+  =============================================================================
+    Cactus plugin for Maven. It uses the Cactus/Ant Integration from the 
+    Cactus project.
+  =============================================================================
+-->
+
+<!-- 
+	Note: There is significant refactoring required for the goals cactus:test, 
+	cactus:single, and cactus:match.  The <cactus> tasks in each of those goals
+	are mostly similar.
+-->
+<project 
+  xmlns:j="jelly:core" 
+  xmlns:doc="doc" 
+  xmlns:util="jelly:util"
+  xmlns:ant="jelly:ant"
+  xmlns:define="jelly:define">
+
+  <!--
+     ========================================================================
+       Default goal.
+     ========================================================================
+  -->
+  <goal name="cactus" description="Run all Cactus Test Cases"
+      prereqs="cactus:test"/>
+
+  <!--
+     ========================================================================
+       Initializations.
+     ========================================================================
+  -->
+  <goal name="cactus:init" prereqs="war:war">
+
+    <ant:path id="cactus.classpath">
+      <pathelement location="${plugin.getDependencyPath('cactus:cactus-ant')}"/>
+      <pathelement location="${plugin.getDependencyPath('cactus:cactus')}"/>
+      <pathelement location="${plugin.getDependencyPath('commons-logging:commons-logging')}"/>
+      <pathelement location="${plugin.getDependencyPath('junit:junit')}"/>
+      <pathelement location="${plugin.getDependencyPath('commons-httpclient:commons-httpclient')}"/>
+      <pathelement location="${plugin.getDependencyPath('aspectj:aspectjrt')}"/>
+      <pathelement location="${plugin.getDependencyPath('httpunit:httpunit')}"/>
+      <pathelement location="${plugin.getDependencyPath('nekohtml:nekohtml')}"/>
+      <pathelement location="${plugin.getDependencyPath('xerces:xerces')}"/>
+      <pathelement location="${plugin.getDependencyPath('xml-apis:xml-apis')}"/>
+      <pathelement location="${plugin.getDependencyPath('rhino:js')}"/>
+    </ant:path>
+
+    <ant:taskdef resource="cactus.tasks" classpathref="cactus.classpath"/>
+
+    <ant:taskdef name="junit"
+        classname="org.apache.tools.ant.taskdefs.optional.junit.JUnitTask"/>
+
+    <ant:property name="cactus.target.classes.dir"
+        value="${maven.build.dir}/test-cactus-classes"/>
+
+    <j:set var="warBuildDir"
+        value="${pom.getPluginContext('maven-war-plugin').getVariable('maven.war.build.dir')}"/>
+    <ant:property name="cactus.src.war"
+        value="${warBuildDir}/${pom.artifactId}.war"/>
+
+    <util:available file="${cactus.src.dir}">
+      <j:set var="cactusSourcePresent" value="true"/>
+    </util:available>
+
+  </goal>
+
+  <!--
+     ========================================================================
+       Preparations for executing the JUnit reports
+     ========================================================================
+  -->
+  <goal name="cactus:init-report">
+
+    <!-- Prepare the directories for the JUnit reports -->
+    <ant:mkdir dir="${cactus.reports.dir}"/>
+    
+    <j:if test="${context.getVariable('cactus.home.jboss3x') != null}">
+      <ant:mkdir dir="${cactus.reports.dir}/jboss3x"/>
+    </j:if>
+    <j:if test="${context.getVariable('cactus.home.orion1x') != null}">
+      <ant:mkdir dir="${cactus.reports.dir}/orion1x"/>
+    </j:if>
+    <j:if test="${context.getVariable('cactus.home.orion2x') != null}">
+      <ant:mkdir dir="${cactus.reports.dir}/orion2x"/>
+    </j:if>
+    <j:if test="${context.getVariable('cactus.home.resin2x') != null}">
+      <ant:mkdir dir="${cactus.reports.dir}/resin2x"/>
+    </j:if>
+    <j:if test="${context.getVariable('cactus.home.tomcat4x') != null}">
+      <ant:mkdir dir="${cactus.reports.dir}/tomcat4x"/>
+    </j:if>
+    <j:if test="${context.getVariable('cactus.home.tomcat5x') != null}">
+      <ant:mkdir dir="${cactus.reports.dir}/tomcat5x"/>
+    </j:if>
+    <j:if test="${context.getVariable('cactus.home.weblogic7x') != null}">
+      <ant:mkdir dir="${cactus.reports.dir}/weblogic7x"/>
+    </j:if>
+
+  </goal>
+
+  <!--
+     ========================================================================
+       Compiles the Cactus tests.
+     ========================================================================
+  -->
+  <goal name="cactus:compile" prereqs="cactus:init"
+      description="Compiles the cactus tests">
+
+    <mkdir dir="${cactus.target.classes.dir}"/>
+    
+    <j:choose>
+      <j:when test="${cactusSourcePresent == 'true'}">
+
+      	<ant:javac destdir="${cactus.target.classes.dir}"
+            excludes="**/package.html"
+            debug="${pom.getPluginContext('maven-java-plugin').getVariable('maven.compile.debug')}"
+            deprecation="${pom.getPluginContext('maven-java-plugin').getVariable('maven.compile.deprecation')}"
+            target="${pom.getPluginContext('maven-java-plugin').getVariable('maven.compile.target')}"
+            optimize="${pom.getPluginContext('maven-java-plugin').getVariable('maven.compile.optimize')}">
+
+          <ant:src path="${cactus.src.dir}"/>
+          
+          <ant:classpath>
+            <ant:path refid="maven.dependency.classpath"/>
+            <ant:path refid="cactus.classpath"/>
+            <ant:pathelement path="${maven.build.dest}"/>
+          </ant:classpath>
+
+          <j:if test="${pom.getPluginContext('maven-java-plugin').getVariable('maven.compile.compilerargs')}">
+            <ant:compilerarg line="${pom.getPluginContext('maven-java-plugin').getVariable('maven.compile.compilerargs')}"/>
+          </j:if>
+          
+          <j:if test="${pom.getPluginContext('maven-java-plugin').getVariable('maven.compile.encoding')}">
+            <ant:setProperty name="encoding" value="${pom.getPluginContext('maven-java-plugin').getVariable('maven.compile.encoding')}"/>
+          </j:if>
+          
+          <j:if test="${pom.getPluginContext('maven-java-plugin').getVariable('maven.compile.executable')}">
+            <ant:setProperty name="executable" value="${pom.getPluginContext('maven-java-plugin').getVariable('maven.compile.executable')}"/>
+          </j:if>
+          
+          <j:if test="${pom.getPluginContext('maven-java-plugin').getVariable('maven.compile.fork')}">
+            <ant:setProperty name="fork" value="${pom.getPluginContext('maven-java-plugin').getVariable('maven.compile.fork')}"/>
+          </j:if>
+          
+          <j:if test="${pom.getPluginContext('maven-java-plugin').getVariable('maven.compile.source')}">
+            <ant:setProperty name="source" value="${pom.getPluginContext('maven-java-plugin').getVariable('maven.compile.source')}"/>
+          </j:if>
+          
+          <j:if test="${pom.getPluginContext('maven-java-plugin').getVariable('maven.compile.verbose')}">
+            <ant:setProperty name="verbose" value="${pom.getPluginContext('maven-java-plugin').getVariable('maven.compile.verbose')}"/>
+          </j:if>
+        </ant:javac>
+
+        <!-- Copy non java source files -->
+        <ant:copy todir="${cactus.target.classes.dir}">
+          <ant:fileset dir="${cactus.src.dir}">
+            <ant:exclude name="**/*.java"/>
+            <ant:exclude name="**/*.html"/>
+          </ant:fileset>
+        </ant:copy>
+
+      </j:when>
+      <j:otherwise>
+        <ant:echo>No Cactus source files to compile.</ant:echo>
+      </j:otherwise>      
+    </j:choose>
+    
+  </goal>
+
+  <!--
+     ========================================================================
+       Generate a jar containing Cactus tests classes.
+     ========================================================================
+  -->
+  <goal name="cactus:jar" prereqs="cactus:compile"
+      description="Generate a Cactus jar">
+
+    <ant:jar
+      jarfile="${maven.build.dir}/${pom.artifactId}-cactus-${pom.currentVersion}.jar"
+      basedir="${cactus.target.classes.dir}"> 
+      <ant:manifest>
+        <ant:attribute name="Built-By" value="${user.name}"/>
+        <ant:attribute name="Created-By" value="Apache Jakarta Maven"/>
+        <ant:attribute name="Package" value="${pom.package}"/>
+        <ant:attribute name="Build-Jdk" value="${java.version}"/>
+        <ant:attribute name="Extension-Name" value="${pom.artifactId}"/>
+        <ant:attribute name="Specification-Version" value="${pom.specificationVersion}"/>
+        <ant:attribute name="Specification-Vendor" value="${pom.organization.name}"/>
+        <ant:attribute name="Specification-Title" value="${pom.shortDescription}"/>
+        <ant:attribute name="Implementation-Version" value="${pom.currentVersion}"/>
+        <ant:attribute name="Implementation-Vendor" value="${pom.organization.name}"/>
+        <ant:attribute name="Implementation-Vendor-Id" value="${pom.organization.identifier}"/>
+      </ant:manifest>
+    </ant:jar>
+
+  </goal>
+
+  <!--
+     ========================================================================
+       Cactify an application war.
+     ========================================================================
+  -->
+  <goal name="cactus:cactifywar" prereqs="cactus:compile"
+      description="Cactify the application war">
+
+    <cactifywar srcfile="${cactus.src.war}" 
+        destfile="${maven.build.dir}/${pom.artifactId}-cactus.war">
+
+      <!-- Add the mergewebxml attribute if it has been defined by the
+      	   user -->
+      <j:if test="${context.getVariable('cactus.src.mergewebxml') != null}">
+        <ant:setProperty name="mergewebxml" value="${cactus.src.mergewebxml}"/>
+      </j:if>        
+  
+      <ant:classes dir="${cactus.target.classes.dir}"/>
+
+      <!-- Orion fails on a servlet filter that is not mapped to an actual
+           resource, to trick it -->
+      <filterredirector mapping="/test/filterRedirector.jsp"/>
+
+      <!-- Files needed for JBoss -->
+      <ant:classes dir="${plugin.resources}/jboss3x">
+        <ant:include name="*.properties" if="cactus.home.jboss3x"/>
+      </ant:classes>
+      <ant:webinf dir="${plugin.resources}/jboss3x">
+        <ant:include name="jboss-web.xml" if="cactus.home.jboss3x"/>
+      </ant:webinf>
+
+      <!-- Add all cactus related jars to the WEB-INF/lib dir. By default
+      	   the CactifyWarTask only adds the pure Cactus jars but not
+      	   related jars such as HttpUnit jars -->
+      <lib file="${plugin.getDependencyPath('httpunit:httpunit')}"/>
+
+      <!-- Add all user jars that have been marked to be included in the cactus
+           test. For example, DBUnit would be a jar you would include in a 
+           Cactus test but not in a runtime war -->
+      <j:forEach var="artifact" items="${pom.artifacts}"> 
+        <j:set var="dep" value="${artifact.dependency}"/> 
+        <j:if test="${dep.getProperty('cactus.bundle')=='true'}">
+          <lib file="${artifact.path}"/>
+        </j:if>
+      </j:forEach>
+                     	   
+    </cactifywar>
+
+  </goal>
+
+  <!--
+     ========================================================================
+       Execute the Cactus tests on all containers which have been defined, 
+       i.e. which have a ${cactus.home.[container name]} property
+       defined.
+     ========================================================================
+  -->
+  <goal name="cactus:test" 
+  	  prereqs="cactus:init,cactus:init-report,cactus:cactifywar"
+      description="Run all Cactus Test Cases">
+
+    <cactus warfile="${maven.build.dir}/${pom.artifactId}-cactus.war" 
+        fork="yes" errorproperty="cactustests.error" 
+        failureproperty="cactustests.failure"
+        printsummary="${maven.cactus.printsummary}">
+      <ant:classpath>
+        <ant:pathelement path="${maven.build.dest}"/>
+        <ant:pathelement location="${cactus.target.classes.dir}"/>
+        <ant:path refid="maven.dependency.classpath"/>
+        <ant:path refid="cactus.classpath"/>
+      </ant:classpath>
+      <containerset>
+
+        <!-- TODO: Find how to set the port for JBoss 3x -->
+        <jboss3x if="cactus.home.jboss3x"
+            dir="${cactus.home.jboss3x}"
+            output="${cactus.reports.dir}/jboss3x.out"
+            todir="${cactus.reports.dir}/jboss3x"
+            config="${cactus.jboss3x.config.name}">
+          <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
+            <ant:setProperty name="tmpdir" value="${cactus.tmp.dir}"/>
+          </j:if>    
+        </jboss3x>
+
+        <orion1x if="cactus.home.orion1x"
+            dir="${cactus.home.orion1x}" port="${cactus.port}"
+            output="${cactus.reports.dir}/orion1x.out"
+            todir="${cactus.reports.dir}/orion1x">
+          <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
+            <ant:setProperty name="tmpdir" value="${cactus.tmp.dir}"/>
+          </j:if>    
+        </orion1x>
+
+        <orion2x if="cactus.home.orion2x"
+            dir="${cactus.home.orion2x}" port="${cactus.port}"
+            output="${cactus.reports.dir}/orion2x.out"
+            todir="${cactus.reports.dir}/orion2x">
+          <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
+            <ant:setProperty name="tmpdir" value="${cactus.tmp.dir}"/>
+          </j:if>    
+        </orion2x>
+
+        <resin2x if="cactus.home.resin2x"
+            dir="${cactus.home.resin2x}" port="${cactus.port}"
+            output="${cactus.reports.dir}/resin2x.out"
+            todir="${cactus.reports.dir}/resin2x">
+          <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
+            <ant:setProperty name="tmpdir" value="${cactus.tmp.dir}"/>
+          </j:if>    
+          <j:if test="${context.getVariable('cactus.resin2x.config') != null}">
+            <ant:setProperty name="resinconf" value="${cactus.resin2x.config}"/>
+          </j:if>        
+        </resin2x>
+        
+        <tomcat4x if="cactus.home.tomcat4x"
+            dir="${cactus.home.tomcat4x}" port="${cactus.port}"
+            output="${cactus.reports.dir}/tomcat4x.out"
+            todir="${cactus.reports.dir}/tomcat4x">
+          <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
+            <ant:setProperty name="tmpdir" value="${cactus.tmp.dir}"/>
+          </j:if>    
+          <j:if test="${context.getVariable('cactus.tomcat4x.config') != null}">
+            <ant:setProperty name="serverxml" value="${cactus.tomcat4x.config}"/>
+          </j:if>    
+          <j:if test="${context.getVariable('cactus.tomcat4x.tmpdir') != null}">
+            <ant:setProperty name="tmpdir" value="${cactus.tomcat4x.tmpdir}"/>
+          </j:if>             
+          <j:if test="${context.getVariable('cactus.tomcat4x.conf.dir') != null}">
+            <conf dir="${cactus.tomcat4x.conf.dir}"
+              includes="${cactus.tomcat4x.conf.includes}"
+              excludes="${cactus.tomcat4x.conf.excludes}"/>
+          </j:if>
+        </tomcat4x>
+
+        <tomcat5x if="cactus.home.tomcat5x"
+            dir="${cactus.home.tomcat5x}" port="${cactus.port}"
+            output="${cactus.reports.dir}/tomcat5x.out"
+            todir="${cactus.reports.dir}/tomcat5x">
+          <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
+            <ant:setProperty name="tmpdir" value="${cactus.tmp.dir}"/>
+          </j:if>    
+          <j:if test="${context.getVariable('cactus.tomcat5x.config') != null}">
+            <ant:setProperty name="serverxml" value="${cactus.tomcat5x.config}"/>
+          </j:if> 
+          <j:if test="${context.getVariable('cactus.tomcat5x.tmpdir') != null}">
+            <ant:setProperty name="tmpdir" value="${cactus.tomcat5x.tmpdir}"/>
+          </j:if>             
+          <j:if test="${context.getVariable('cactus.tomcat5x.conf.dir') != null}">
+            <conf dir="${cactus.tomcat5x.conf.dir}"
+              includes="${cactus.tomcat5x.conf.includes}"
+              excludes="${cactus.tomcat5x.conf.excludes}"/>
+          </j:if>            
+        </tomcat5x>
+
+        <weblogic7x if="cactus.home.weblogic7x"
+            dir="${cactus.home.weblogic7x}" port="${cactus.port}"
+            output="${cactus.reports.dir}/weblogic7x.out"
+            todir="${cactus.reports.dir}/weblogic7x">
+          <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
+            <ant:setProperty name="tmpdir" value="${cactus.tmp.dir}"/>
+          </j:if>    
+          <j:if test="${context.getVariable('cactus.weblogic7x.beahome') != null}">
+            <ant:setProperty name="beahome" value="${cactus.weblogic7x.beahome}"/>
+          </j:if> 
+        </weblogic7x>            
+
+      </containerset>
+      <ant:formatter type="plain" usefile="${cactus.junit.usefile}"/>
+      <ant:formatter type="xml"/>
+      <ant:batchtest>
+        <ant:fileset dir="${cactus.src.dir}"
+          includes="${cactus.src.includes}"
+          excludes="${cactus.src.excludes}"/>
+      </ant:batchtest>
+    </cactus>
+
+    <!-- TODO: Change the Cactus stylesheet (cactus.jsl) to handle reports
+    	 for several containers -->
+    	
+    <!-- Consolidate the reports into a single -->
+    <ant:junitreport todir="${cactus.reports.dir}"
+        tofile="TESTS-TestSuites-Cactus.xml">
+
+      <j:if test="${context.getVariable('cactus.home.jboss3x') != null}">
+        <ant:fileset dir="${cactus.reports.dir}/jboss3x">
+          <ant:include name="TEST-*.xml"/>
+        </ant:fileset>
+      </j:if>
+
+      <j:if test="${context.getVariable('cactus.home.orion1x') != null}">
+        <ant:fileset dir="${cactus.reports.dir}/orion1x">
+          <ant:include name="TEST-*.xml"/>
+        </ant:fileset>
+      </j:if>
+
+      <j:if test="${context.getVariable('cactus.home.orion2x') != null}">
+        <ant:fileset dir="${cactus.reports.dir}/orion2x">
+          <ant:include name="TEST-*.xml"/>
+        </ant:fileset>
+      </j:if>
+
+      <j:if test="${context.getVariable('cactus.home.resin2x') != null}">
+        <ant:fileset dir="${cactus.reports.dir}/resin2x">
+          <ant:include name="TEST-*.xml"/>
+        </ant:fileset>
+      </j:if>
+
+      <j:if test="${context.getVariable('cactus.home.tomcat4x') != null}">
+        <ant:fileset dir="${cactus.reports.dir}/tomcat4x">
+          <ant:include name="TEST-*.xml"/>
+        </ant:fileset>
+      </j:if>
+
+      <j:if test="${context.getVariable('cactus.home.tomcat5x') != null}">
+        <ant:fileset dir="${cactus.reports.dir}/tomcat5x">
+          <ant:include name="TEST-*.xml"/>
+        </ant:fileset>
+      </j:if>
+
+      <j:if test="${context.getVariable('cactus.home.weblogic7x') != null}">
+        <ant:fileset dir="${cactus.reports.dir}/weblogic7x">
+          <ant:include name="TEST-*.xml"/>
+        </ant:fileset>
+      </j:if>
+
+    </ant:junitreport>
+    
+    <j:if test="${cactus.halt.on.failure}">
+      <ant:fail if="cactustests.failure">At least one test had a failure!</ant:fail>
+    </j:if>
+    <j:if test="${cactus.halt.on.error}">
+      <ant:fail if="cactustests.error">At least one test had an error!</ant:fail>
+    </j:if>
+        
+  </goal>
+  
+  <!--
+	 ========================================================================
+	   Execute a single Cactus test on all containers which have been defined, 
+	   i.e. which have a ${cactus.home.[container name]} property
+	   defined.  Specify the case with -Dtestcase=my.single.TestCase
+	 ========================================================================
+  -->
+  <goal name="cactus:single" prereqs="cactus:init,cactus:cactifywar"
+      description="Run a single Cactus Test Case">
+
+    <j:choose>
+      <j:when test="${empty(testcase)}">
+	    <echo>
+	      You must define the test case to run via -Dtestcase=classname
+	      Example: maven -Dtestcase=MyTest cactus:single
+	    </echo>
+	  </j:when>
+	    
+    <j:otherwise>    
+     <cactus warfile="${maven.build.dir}/${pom.artifactId}-cactus.war" 
+        fork="yes" errorproperty="cactustests.error" 
+        failureproperty="cactustests.failure"
+        printsummary="${maven.cactus.printsummary}">
+      <ant:classpath>
+        <ant:pathelement path="${maven.build.dest}"/>
+        <ant:pathelement location="${cactus.target.classes.dir}"/>
+        <ant:path refid="maven.dependency.classpath"/>
+        <ant:path refid="cactus.classpath"/>
+      </ant:classpath>
+      <containerset>
+
+        <!-- TODO: Find how to set the port for JBoss 3x -->
+        <jboss3x if="cactus.home.jboss3x"
+            dir="${cactus.home.jboss3x}"
+            output="${cactus.reports.dir}/jboss3x.out"
+            todir="${cactus.reports.dir}/jboss3x"
+            config="${cactus.jboss3x.config.name}">
+          <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
+            <ant:setProperty name="tmpdir" value="${cactus.tmp.dir}"/>
+          </j:if>    
+        </jboss3x>
+
+        <orion1x if="cactus.home.orion1x"
+            dir="${cactus.home.orion1x}" port="${cactus.port}"
+            output="${cactus.reports.dir}/orion1x.out"
+            todir="${cactus.reports.dir}/orion1x">
+          <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
+            <ant:setProperty name="tmpdir" value="${cactus.tmp.dir}"/>
+          </j:if>    
+        </orion1x>
+
+        <orion2x if="cactus.home.orion2x"
+            dir="${cactus.home.orion2x}" port="${cactus.port}"
+            output="${cactus.reports.dir}/orion2x.out"
+            todir="${cactus.reports.dir}/orion2x">
+          <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
+            <ant:setProperty name="tmpdir" value="${cactus.tmp.dir}"/>
+          </j:if>    
+        </orion2x>
+
+        <resin2x if="cactus.home.resin2x"
+            dir="${cactus.home.resin2x}" port="${cactus.port}"
+            output="${cactus.reports.dir}/resin2x.out"
+            todir="${cactus.reports.dir}/resin2x">
+          <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
+            <ant:setProperty name="tmpdir" value="${cactus.tmp.dir}"/>
+          </j:if>    
+          <j:if test="${context.getVariable('cactus.resin2x.config') != null}">
+            <ant:setProperty name="resinconf" value="${cactus.resin2x.config}"/>
+          </j:if>        
+        </resin2x>
+        
+        <tomcat4x if="cactus.home.tomcat4x"
+            dir="${cactus.home.tomcat4x}" port="${cactus.port}"
+            output="${cactus.reports.dir}/tomcat4x.out"
+            todir="${cactus.reports.dir}/tomcat4x">
+          <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
+            <ant:setProperty name="tmpdir" value="${cactus.tmp.dir}"/>
+          </j:if>    
+          <j:if test="${context.getVariable('cactus.tomcat4x.config') != null}">
+            <ant:setProperty name="serverxml" value="${cactus.tomcat4x.config}"/>
+          </j:if>    
+          <j:if test="${context.getVariable('cactus.tomcat4x.tmpdir') != null}">
+            <ant:setProperty name="tmpdir" value="${cactus.tomcat4x.tmpdir}"/>
+          </j:if>             
+          <j:if test="${context.getVariable('cactus.tomcat4x.conf.dir') != null}">
+            <conf dir="${cactus.tomcat4x.conf.dir}"
+              includes="${cactus.tomcat4x.conf.includes}"
+              excludes="${cactus.tomcat4x.conf.excludes}"/>
+          </j:if>
+        </tomcat4x>
+
+        <tomcat5x if="cactus.home.tomcat5x"
+            dir="${cactus.home.tomcat5x}" port="${cactus.port}"
+            output="${cactus.reports.dir}/tomcat5x.out"
+            todir="${cactus.reports.dir}/tomcat5x">
+          <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
+            <ant:setProperty name="tmpdir" value="${cactus.tmp.dir}"/>
+          </j:if>    
+          <j:if test="${context.getVariable('cactus.tomcat5x.config') != null}">
+            <ant:setProperty name="serverxml" value="${cactus.tomcat5x.config}"/>
+          </j:if> 
+          <j:if test="${context.getVariable('cactus.tomcat5x.tmpdir') != null}">
+            <ant:setProperty name="tmpdir" value="${cactus.tomcat5x.tmpdir}"/>
+          </j:if>             
+          <j:if test="${context.getVariable('cactus.tomcat5x.conf.dir') != null}">
+            <conf dir="${cactus.tomcat5x.conf.dir}"
+              includes="${cactus.tomcat5x.conf.includes}"
+              excludes="${cactus.tomcat5x.conf.excludes}"/>
+          </j:if>            
+        </tomcat5x>
+
+        <weblogic7x if="cactus.home.weblogic7x"
+            dir="${cactus.home.weblogic7x}" port="${cactus.port}"
+            output="${cactus.reports.dir}/weblogic7x.out"
+            todir="${cactus.reports.dir}/weblogic7x">
+          <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
+            <ant:setProperty name="tmpdir" value="${cactus.tmp.dir}"/>
+          </j:if>    
+          <j:if test="${context.getVariable('cactus.weblogic7x.beahome') != null}">
+            <ant:setProperty name="beahome" value="${cactus.weblogic7x.beahome}"/>
+          </j:if> 
+        </weblogic7x>            
+
+      </containerset>
+      <ant:formatter type="plain" usefile="${cactus.junit.usefile}"/>
+      <ant:formatter type="xml"/>
+      <!-- Run only a single testcase passed in via -Dtestcase=my.single.TestCase-->
+      <ant:test name="${testcase}"/>
+     </cactus>
+    </j:otherwise>         
+   </j:choose>    
+  </goal>
+
+  <!--
+	 ========================================================================
+	   Execute a Cactus tests on all containers which have been defined, 
+	   i.e. which have a ${cactus.home.[container name]} property
+	   defined.  Specify the matching tests with -Dtestmatch=FooTest
+	 ========================================================================
+  -->
+  <goal name="cactus:match" prereqs="cactus:init,cactus:cactifywar"
+      description="Execute all the Cactus tests matching the given 'testmatch' variable">
+
+    <j:choose>
+      <j:when test="${empty(testmatch)}">
+	    <echo>
+	      You must define the test case to match via -Dtestmatch=classname
+	      Example: maven -Dtestmatch=MyTest cactus:match
+	    </echo>
+	  </j:when>
+	    
+    <j:otherwise>    
+     <cactus warfile="${maven.build.dir}/${pom.artifactId}-cactus.war" 
+        fork="yes" errorproperty="cactustests.error" 
+        failureproperty="cactustests.failure"
+        printsummary="${maven.cactus.printsummary}">
+      <ant:classpath>
+        <ant:pathelement path="${maven.build.dest}"/>
+        <ant:pathelement location="${cactus.target.classes.dir}"/>
+        <ant:path refid="maven.dependency.classpath"/>
+        <ant:path refid="cactus.classpath"/>
+      </ant:classpath>
+      <containerset>
+
+        <!-- TODO: Find how to set the port for JBoss 3x -->
+        <jboss3x if="cactus.home.jboss3x"
+            dir="${cactus.home.jboss3x}"
+            output="${cactus.reports.dir}/jboss3x.out"
+            todir="${cactus.reports.dir}/jboss3x"
+            config="${cactus.jboss3x.config.name}">
+          <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
+            <ant:setProperty name="tmpdir" value="${cactus.tmp.dir}"/>
+          </j:if>    
+        </jboss3x>
+
+        <orion1x if="cactus.home.orion1x"
+            dir="${cactus.home.orion1x}" port="${cactus.port}"
+            output="${cactus.reports.dir}/orion1x.out"
+            todir="${cactus.reports.dir}/orion1x">
+          <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
+            <ant:setProperty name="tmpdir" value="${cactus.tmp.dir}"/>
+          </j:if>    
+        </orion1x>
+
+        <orion2x if="cactus.home.orion2x"
+            dir="${cactus.home.orion2x}" port="${cactus.port}"
+            output="${cactus.reports.dir}/orion2x.out"
+            todir="${cactus.reports.dir}/orion2x">
+          <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
+            <ant:setProperty name="tmpdir" value="${cactus.tmp.dir}"/>
+          </j:if>    
+        </orion2x>
+
+        <resin2x if="cactus.home.resin2x"
+            dir="${cactus.home.resin2x}" port="${cactus.port}"
+            output="${cactus.reports.dir}/resin2x.out"
+            todir="${cactus.reports.dir}/resin2x">
+          <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
+            <ant:setProperty name="tmpdir" value="${cactus.tmp.dir}"/>
+          </j:if>    
+          <j:if test="${context.getVariable('cactus.resin2x.config') != null}">
+            <ant:setProperty name="resinconf" value="${cactus.resin2x.config}"/>
+          </j:if>        
+        </resin2x>
+        
+        <tomcat4x if="cactus.home.tomcat4x"
+            dir="${cactus.home.tomcat4x}" port="${cactus.port}"
+            output="${cactus.reports.dir}/tomcat4x.out"
+            todir="${cactus.reports.dir}/tomcat4x">
+          <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
+            <ant:setProperty name="tmpdir" value="${cactus.tmp.dir}"/>
+          </j:if>    
+          <j:if test="${context.getVariable('cactus.tomcat4x.config') != null}">
+            <ant:setProperty name="serverxml" value="${cactus.tomcat4x.config}"/>
+          </j:if>    
+          <j:if test="${context.getVariable('cactus.tomcat4x.tmpdir') != null}">
+            <ant:setProperty name="tmpdir" value="${cactus.tomcat4x.tmpdir}"/>
+          </j:if>             
+          <j:if test="${context.getVariable('cactus.tomcat4x.conf.dir') != null}">
+            <conf dir="${cactus.tomcat4x.conf.dir}"
+              includes="${cactus.tomcat4x.conf.includes}"
+              excludes="${cactus.tomcat4x.conf.excludes}"/>
+          </j:if>
+        </tomcat4x>
+
+        <tomcat5x if="cactus.home.tomcat5x"
+            dir="${cactus.home.tomcat5x}" port="${cactus.port}"
+            output="${cactus.reports.dir}/tomcat5x.out"
+            todir="${cactus.reports.dir}/tomcat5x">
+          <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
+            <ant:setProperty name="tmpdir" value="${cactus.tmp.dir}"/>
+          </j:if>    
+          <j:if test="${context.getVariable('cactus.tomcat5x.config') != null}">
+            <ant:setProperty name="serverxml" value="${cactus.tomcat5x.config}"/>
+          </j:if> 
+          <j:if test="${context.getVariable('cactus.tomcat5x.tmpdir') != null}">
+            <ant:setProperty name="tmpdir" value="${cactus.tomcat5x.tmpdir}"/>
+          </j:if>             
+          <j:if test="${context.getVariable('cactus.tomcat5x.conf.dir') != null}">
+            <conf dir="${cactus.tomcat5x.conf.dir}"
+              includes="${cactus.tomcat5x.conf.includes}"
+              excludes="${cactus.tomcat5x.conf.excludes}"/>
+          </j:if>            
+        </tomcat5x>
+
+        <weblogic7x if="cactus.home.weblogic7x"
+            dir="${cactus.home.weblogic7x}" port="${cactus.port}"
+            output="${cactus.reports.dir}/weblogic7x.out"
+            todir="${cactus.reports.dir}/weblogic7x">
+          <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
+            <ant:setProperty name="tmpdir" value="${cactus.tmp.dir}"/>
+          </j:if>    
+          <j:if test="${context.getVariable('cactus.weblogic7x.beahome') != null}">
+            <ant:setProperty name="beahome" value="${cactus.weblogic7x.beahome}"/>
+          </j:if> 
+        </weblogic7x>            
+
+      </containerset>
+      <ant:formatter type="plain" usefile="${cactus.junit.usefile}"/>
+      <ant:formatter type="xml"/>
+      <!-- Run all testcases matched via -Dtestmatch=FooTest-->
+      <ant:batchtest>
+        <ant:fileset dir="${cactus.src.dir}">
+          <include name="**/${testmatch}.java"/>
+        </ant:fileset>
+      </ant:batchtest>
+     </cactus>
+    </j:otherwise>         
+   </j:choose>    
+  </goal>
+
+
+  <!--
+     ========================================================================
+       Register a Cactus report.
+     ========================================================================
+  -->
+  <goal name="maven-cactus-plugin:register">
+    <doc:registerReport 
+      name="Cactus Unit Tests"
+      pluginName="cactus"
+      description="Report on the results of the Cactus unit tests."
+      link="cactus-report"/>
+  </goal>
+  
+  <!--
+     ========================================================================
+       Deregister a Cactus report.
+     ========================================================================
+  -->
+  <goal name="maven-cactus-plugin:deregister">
+    <doc:deregisterReport name="Cactus Unit Tests"/>
+  </goal>
+
+  <!--
+     ========================================================================
+       Generate a Cactus report.
+     ========================================================================
+  -->
+  <goal name="cactus:report"
+    description="Generate a report from the test results">
+
+    <doc:jsl
+      input="${cactus.reports.dir}/TESTS-TestSuites-Cactus.xml"
+      output="cactus-report.xml"
+      stylesheet="${plugin.resources}/cactus.jsl"
+      outputMode="xml"
+      prettyPrint="true"/>
+
+  </goal>
+  
+  <define:taglib uri="cactus">
+    <define:tag name="dependency-handle">
+      <!-- XXX Use this tag to allow this plugin to be loaded into another -->
+      <!--<attainGoal name="cactus:init"/>-->
+    </define:tag>
+  </define:taglib>
+
+  <!--
+     ========================================================================
+       Install the Cactus jar in the local repository.
+     ========================================================================
+  -->
+  <goal name="cactus:jar-install" prereqs="cactus:jar"
+    description="Install the Cactus jar in the local repository">
+    
+    <ant:echo>
+    id = '${pom.artifactId}'
+    groupId = '${pom.groupId}'
+    artifactDirectory = '${pom.artifactDirectory}'
+    </ant:echo>
+    
+    <ant:property name="jardir__" value="${maven.repo.local}/${pom.artifactDirectory}/jars"/>
+    <ant:mkdir dir="${jardir__}"/>    
+    <ant:copy 
+      file="${maven.build.dir}/${pom.artifactId}-cactus-${pom.currentVersion}.jar"
+      todir="${jardir__}"
+      overwrite="true"
+    />
+  </goal>
+
+</project>

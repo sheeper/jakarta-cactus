@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="Maven Cactus Plugin">
+
+  <title>Maven Cactus Plugin</title>
+
+  <body>
+    <links>
+      <item name="Maven" href="http://maven.apache.org/"/>
+      <item name="Cactus" href="http://jakarta.apache.org/cactus/"/>
+    </links>
+    <menu name="Overview">
+      <item name="Features" href="/features.html"/>
+      <item name="Quick Start" href="/using.html"/>
+      <item name="Goals" href="/goals.html"/>
+      <item name="Properties" href="/properties.html"/>
+    </menu>
+    <menu name="Downloads">
+      <item name="Cactus Plugin 3.2" href="http://www.ibiblio.org/maven/maven/plugins/maven-cactus-plugin-3.2.jar"/>
+      <item name="Cactus Plugin 3.1" href="http://www.ibiblio.org/maven/maven/plugins/maven-cactus-plugin-3.1.jar"/>
+      <item name="Cactus Plugin 3.0" href="http://www.ibiblio.org/maven/maven/plugins/maven-cactus-plugin-3.0.jar"/>
+      <item name="Cactus Plugin 2.0" href="http://www.ibiblio.org/maven/maven/plugins/maven-cactus-plugin-2.0.jar"/>
+      <item name="Cactus Plugin 1.2" href="http://www.ibiblio.org/maven/maven/plugins/maven-cactus-plugin-1.2.jar"/>
+      <item name="Cactus Plugin 1.1" href="http://www.ibiblio.org/maven/maven/plugins/maven-cactus-plugin-1.1.jar"/>
+      <item name="Cactus Plugin 1.0" href="http://www.ibiblio.org/maven/maven/plugins/maven-cactus-plugin-1.0.jar"/>
+    </menu>
+  </body>
+</project>

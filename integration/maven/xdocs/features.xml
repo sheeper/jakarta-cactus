@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<document>
+
+  <properties>
+    <title>Features of the Cactus plugin</title>
+    <author email="vmassol@apache.org">Vincent Massol</author>
+  </properties>
+
+  <body>
+    <section name="Cactus Plug-in Features">
+      <p>
+       The Cactus plugin for Maven uses the 
+       <a href="http://jakarta.apache.org/cactus">Cactus/Ant 
+       integration</a> module. Thus benefits from all its features.
+      </p>
+      <p>
+        Some jars are used only for testing (for example, DbUnit). These
+        jars can be entered as dependencies in the <code>project.xml</code>
+        and tagged with <code>cactus.bundle</code>. When the Cactus plugin 
+        finds such jars it will automatically add them to the deployed war. 
+        For example:          
+      </p>
+<source><![CDATA[
+    <dependency>
+      <groupId>dbunit</groupId>>
+      <artifactId>dbunit</artifactId>>
+      <version>1.5.5</version>
+      <properties>
+        <cactus.bundle>true</cactus.bundle>
+      </properties>
+    </dependency>
+]]></source>
+      
+    </section>
+ </body>
+</document>

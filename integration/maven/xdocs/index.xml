@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<document>
+
+  <properties>
+    <title>Maven Cactus Plug-in</title>
+    <author email="vmassol@apache.org">Vincent Massol</author>
+  </properties>
+
+  <body>
+    <section name="Maven Cactus Plug-in">
+      <p>
+        This is a plugin for 
+        <a href="http://jakarta.apache.org/cactus">Cactus</a> that 
+        allows to automatically start containers, run Cactus tests and stop
+        the containers.
+      </p>
+      <p>
+        Currently, this plugin only supports the Servlet API 2.3.
+      </p>
+    </section>
+    <section name="News">
+      <table>
+        <tr>
+          <th>Date</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <td>26 Oct 2003</td>
+          <td>
+            Release of version 3.2. Read the
+            <a href="http://cvs.apache.org/viewcvs.cgi/maven-plugins/cactus/announcements/3.2.ann?rev=1.2&amp;content-type=text/vnd.viewcvs-markup">announcement</a>.
+          </td>
+        </tr>
+        <tr>
+          <td>15 Sep 2003</td>
+          <td>
+            Release of version 3.1. Read the
+            <a href="http://cvs.apache.org/viewcvs.cgi/maven-plugins/cactus/announcements/3.1.ann?rev=1.1&amp;content-type=text/vnd.viewcvs-markup">announcement</a>.
+          </td>
+        </tr>
+        <tr>
+          <td>05 Aug 2003</td>
+          <td>
+            Release of version 3.0. Read the
+            <a href="http://cvs.apache.org/viewcvs.cgi/maven-plugins/cactus/announcements/3.0.ann?rev=1.1&amp;content-type=text/vnd.viewcvs-markup">announcement</a>.
+          </td>
+        </tr>
+        <tr>
+          <td>08 Apr 2003</td>
+          <td>
+            Release of version 2.0. Read the
+            <a href="http://cvs.apache.org/viewcvs.cgi/maven-plugins/cactus/announcements/2.0.ann?rev=1.1&amp;content-type=text/vnd.viewcvs-markup">announcement</a>.
+          </td>
+        </tr>
+        <tr>
+          <td>22 Mar 2003</td>
+          <td>
+            Release of version 1.2. Read the
+            <a href="http://cvs.apache.org/viewcvs.cgi/maven-plugins/cactus/announcements/1.2.ann?rev=1.1&amp;content-type=text/vnd.viewcvs-markup">announcement</a>.
+          </td>
+        </tr>
+        <tr>
+          <td>16 Nov 2002</td>
+          <td>
+            Release of version 1.1. Read the
+            <a href="http://cvs.apache.org/viewcvs.cgi/maven-plugins/cactus/announcements/1.1.ann?rev=1.1.1.1&amp;content-type=text/vnd.viewcvs-markup">announcement</a>.
+          </td>
+        </tr>
+        <tr>
+          <td>06 Nov 2002</td>
+          <td>
+            Release of version 1.0. Read the
+            <a href="http://cvs.apache.org/viewcvs.cgi/maven-plugins/cactus/announcements/1.0.ann?rev=1.1.1.1&amp;content-type=text/vnd.viewcvs-markup">announcement</a>.
+          </td>
+        </tr>
+      </table>
+    </section>
+    <section name="Documentation roadmap">
+      <p>
+        Check the <a href="features.html">features</a> page for all features
+        of this plugin.
+      </p>
+      <p>
+        Then, you should read the <a href="using.html">Quick Start</a> page
+        which provides details about how to use the plugin.
+      </p>
+      <p>
+        The latest changes are available <a href="changes-report.html">here</a>.
+      </p>
+    </section>
+
+ </body>
+</document>

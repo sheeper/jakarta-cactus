@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<document>
+  <properties>
+    <title>Maven cactus Plug-in Goals</title>
+    <author email="dion@apache.org">dIon Gillard</author>
+    <author email="vmassol@apache.org">Vincent Massol</author>
+  </properties>
+  <body>
+    <goals>
+      <goal>
+        <name>cactus:compile</name>
+        <description>
+          Compiles the Cactus tests.
+        </description>
+      </goal>
+      <goal>
+        <name>cactus:cactifywar</name>
+        <description>
+          Creates a Cactus-ready war from the application war (depends
+          on <code>war:war</code>).
+        </description>
+      </goal>
+      <goal>
+        <name>cactus:test</name>
+        <description>
+          Run the Cactus tests on the containers for which you have defined
+          a <code>cactus.home.[container name]</code> property.
+        </description>
+      </goal>
+      <goal>
+        <name>cactus:single</name>
+        <description>
+          Run a single Cactus test on the containers for which you have defined
+          a <code>cactus.home.[container name]</code> property.  Pass the name
+          of the testcase in using -Dtestcase=my.single.TestCase.
+        </description>
+      </goal>  
+      <goal>
+        <name>cactus:match</name>
+        <description>
+          Run all Cactus tests that match a property <code>-Dtestmatch=MyTestCase</code> 
+          on the containers for which you have defined
+          a <code>cactus.home.[container name]</code> property.
+        </description>
+      </goal>           
+      <goal>
+        <name>cactus:report</name>
+        <description>
+          Generate an HTML report for the Cactus tests that been run. In order
+          to get this report as part of the generated web site, add the 
+          following to your <code>project.xml</code>:
+<source><![CDATA[
+  <reports>
+    [...]
+    <report>maven-cactus-plugin</report>
+    [...]
+  </reports>
+]]></source>
+        </description>
+      </goal>
+      <goal>
+        <name>cactus:jar</name>
+        <description>
+          Generate a jar containing the Cactus test classes.
+        </description>
+      </goal>
+      <goal>
+        <name>cactus:jar</name>
+        <description>
+          Deploy the Cactus jar to the local Maven repository. This is 
+          useful if you wish to put Cactus test classes in one Maven 
+          project and execute the Cactus tests in another Maven project.
+        </description>
+      </goal>
+    </goals>
+  </body>
+</document>

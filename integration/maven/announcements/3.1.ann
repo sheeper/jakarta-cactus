@@ -1,0 +1,36 @@
+The Maven team is pleased to announce the Cactus plugin 3.1 release!
+
+http://maven.apache.org/reference/plugins/cactus
+
+The Maven Cactus plugin is a plugin for Cactus
+(http://jakarta.apache.org/cactus) that allows to automatically start 
+containers, run Cactus tests and stop the containers.
+
+User-visible changes in this version:
+
+o New cactus:jar-install goal to install the Cactus jar in the local Maven
+  repository. This is useful if you wish to put Cactus test classes in one 
+  Maven project and execute the Cactus tests in another project.
+o New cactus:jar goal to generate a jar containing the Cactus test classes. 
+o Added new cactus.tmp.dir optional property to specify a location where 
+  Cactus will put its temporary files (mostly where it setup containers for 
+  execution). Defaults to [java.io.tmpdir]/[containername].
+o Generate the Cactus test reports in the Cactus reports directory
+  instead of directly in the Maven build directory. This fixes bug MAVEN-669
+o Updated commons-httpclient dependency to 2.0 rc1, httpunit to 1.5.3 and 
+  nekohtml to 0.7.7.
+o Added new optional property cactus.weblogic7x.beahome to configure the 
+  location of BEA HOME for the WebLogic 7.x container. It is only needed if 
+  the BEA HOME location is not the parent directory of cactus.home.weblogic7x.
+o Added back support for WebLogic 7.x (it had somehow been dropped
+  when we moved to the new Cactus/Ant integration in version 3.0).
+o Updated to Cactus 1.6dev-20030830 which has fixes for WebLogic 7.x support.
+
+Note that this plugin has been tested with Maven 1.0 rc1.
+Using it with another version of Maven is at your own risks! :-)
+
+You can download the Cactus Maven plugin here:
+http://www.ibiblio.org/maven/maven/jars/maven-cactus-plugin-3.1.jar
+
+Have fun!
+-Vincent

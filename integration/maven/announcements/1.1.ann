@@ -1,0 +1,34 @@
+The Maven team is pleased to announce the Cactus plugin 1.1 release!
+
+http://jakarta.apache.org/turbine/maven/reference/plugins/cactus
+
+The Maven Cactus plugin is a plugin for Cactus
+(http://jakarta.apache.org/cactus) that allows to automatically start 
+containers, run Cactus tests and stop the containers.
+
+Changes in this version:
+
+o Added support for HttpUnit integration out of the box (i.e. the
+  HttpUnit jars are automatically added by the Cactus plugin).
+o Ability to exclude Cactus tests (for long running tests for example,
+  in debug period).
+o The web.xml elements required for Cactus are now automatically added to the
+  user project web.xml.
+o Added support for running the tests using the JUnit Swing Test Runner.
+  Simply create the following Maven property
+  "maven.cactus.testrunner = swing" to use the Swing Test Runner.
+o Added automatic discovery of Cactus Test Cases and ignore test support
+  classes.
+o Creation of the project war/webapp is now left to the Maven War plugin.
+  Cactus repackages it by adding the Cactus tests, the Cactus
+  configuration files and the Cactus external jars. Thus, the Cactus
+  plugin now supports the "war:webapp" goal.
+o Improved documentation: "news" section on front page and improved
+  "Quick Start" page.
+o Support for WebLogic 7.x.
+
+You can download the Cactus Maven plugin here:
+http://www.ibiblio.org/maven/maven/jars/maven-cactus-plugin-1.1.jar
+
+Have fun!
+-Vincent

@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<document>
+  <properties>
+    <title>Cactus Properties</title>
+    <author email="dion@apache.org">dIon Gillard</author>
+    <author email="vmassol@apache.org">Vincent Massol</author>
+  </properties>
+  <body>
+    <section name="Cactus Settings">
+      <table>
+        <tr>
+          <th>Property</th>
+          <th>Optional?</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <td>cactus.home.[container name]</td>
+          <td>At least one container</td>
+          <td>
+            <p>
+              Home directory of where you have installed the container on
+              which you wish to run the Cactus tests. Valid container
+              names are: <code>tomcat4x</code>, <code>tomcat5x</code>,
+              <code>resin2x</code>, <code>orion1x</code>, 
+              <code>orion2x</code> and <code>jboss3x</code>.
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td>cactus.src.dir</td>
+          <td>Yes</td>
+          <td>
+            <p>
+              Location of the Cactus test cases. Default value is 
+              <code>src/test-cactus</code>.
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td>cactus.port</td>
+          <td>Yes</td>
+          <td>
+            <p>
+              Port on which to start the containers. Default value is 
+              <code>8080</code>.
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td>cactus.src.includes</td>
+          <td>Yes</td>
+          <td>
+            <p>
+              Lists of test classes that will be executed. Default value is
+              <code>**/*Test*.java</code>.
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td>cactus.src.excludes</td>
+          <td>Yes</td>
+          <td>
+            <p>
+              Lists of classes that will be excluded in the tests. Default 
+              value is <code>**/AllTests.java,**/Test*All.java</code>.
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td>cactus.junit.usefile</td>
+          <td>Yes</td>
+          <td>
+            <p>
+              Decides whether the test result will be printed to the console or
+              not. Default value is <code>false</code>, meaning errors will be
+              displayed on the console.
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td>cactus.reports.dir</td>
+          <td>Yes</td>
+          <td>
+            <p>
+              Location of junit test reports for the Cactus tests.
+              Default value is 
+              <code>${cactus.target.dir}/test-cactus-reports</code>.
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td>cactus.halt.on.error</td>
+          <td>Yes</td>
+          <td>
+            <p>
+              Decides whether to stop the build on test errors.
+              Default value is <code>true</code>.
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td>cactus.halt.on.failure</td>
+          <td>Yes</td>
+          <td>
+            <p>
+              Decides whether to stop the build on test failures
+              Default value is <code>true</code>.
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td>cactus.src.mergewebxml</td>
+          <td>Yes</td>
+          <td>
+            <p>
+              Location of a test-specific web.xml file that will be merged with
+              the application web.xml, during the War cactification. Note that 
+              by default the cactification already adds the Cactus redirector 
+              definitions.Decides whether to stop the build on test failures.
+              Example: 
+              <code>cactus.src.mergewebxml = ${basedir}/src/conf/cactus-web.xml</code>.
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td>maven.cactus.printsummary</td>
+          <td>Yes</td>
+          <td>
+            <p>
+              How summary information on test should be printed to the console. This 
+              property has the same meaning as the <code>printsummary</code> attribute
+              of the JUnit Ant task. Default value is
+              <code>maven.cactus.printsummary = withOutAndErr</code>.
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td>maven.tmpdir.dir</td>
+          <td>Yes</td>
+          <td>
+            <p>
+              Location where Cactus will put its temporary files (mostly where
+              it setups containers for execution). Default value is
+              <code>[java.io.tmpdir]/[containername]</code>.
+            </p>
+          </td>
+        </tr>
+<!--
+        <tr>
+          <td>cactus.runner</td>
+          <td>Yes</td>
+          <td>
+            <p>
+              The JUnit Runner to use for executing the tests. Valid values 
+              are "text" and "swing". Default value is <code>text</code>.
+            </p>
+          </td>
+        </tr>
+-->
+      </table>
+    </section>
+
+    <section name="Cactus/JBoss 3.x Settings">
+      <table>
+        <tr>
+          <th>Property</th>
+          <th>Optional?</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <td>cactus.jboss3x.config.name</td>
+          <td>Yes</td>
+          <td>
+            <p>
+              Name of the JBoss server configuration to use.
+              Default value is <code>default</code>.
+            </p>
+          </td>
+        </tr>
+      </table>
+    </section>
+
+    <section name="Cactus/Resin 2.x Settings">
+      <table>
+        <tr>
+          <th>Property</th>
+          <th>Optional?</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <td>cactus.resin2x.config</td>
+          <td>Yes</td>
+          <td>
+            <p>
+              Location of the Resin 2.x configuration file if you don't want 
+              to use the cactus-provided one.
+            </p>
+          </td>
+        </tr>
+      </table>
+    </section>
+    
+    <section name="Cactus/Tomcat 4.x Settings">
+      <table>
+        <tr>
+          <th>Property</th>
+          <th>Optional?</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <td>cactus.tomcat4x.config</td>
+          <td>Yes</td>
+          <td>
+            <p>
+              Location of the Tomcat 4.x configuration file if you don't want 
+              to use the cactus-provided one.
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td>cactus.tomcat4x.conf.dir</td>
+          <td>Yes</td>
+          <td>
+            <p>
+              Location of custom Tomcat 4.x configuration file that will be 
+              copied, overwriting the Cactus-provided configuration files.
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td>cactus.tomcat4x.conf.includes</td>
+          <td>Yes</td>
+          <td>
+            <p>
+              Configuration files located at 
+              <code>${cactus.tomcat4x.conf.dir</code> that should be included
+              in the Tomcat 4.x container set up by Cactus.
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td>cactus.tomcat4x.conf.excludes</td>
+          <td>Yes</td>
+          <td>
+            <p>
+              Configuration files located at 
+              <code>${cactus.tomcat4x.conf.dir</code> that should not be 
+              included in the Tomcat 4.x container set up by Cactus.
+            </p>
+          </td>
+        </tr>
+        <tr>
+	  <td>cactus.tomcat4x.tmpdir</td>
+	  <td>Yes</td>
+	  <td>
+	    <p>
+	      Directory to which the container will be installed for the tests.
+	      By default the system temporary directory is used.
+	    </p>
+	  </td>
+        </tr>
+      </table>
+    </section>
+
+    <section name="Cactus/Tomcat 5.x Settings">
+      <table>
+        <tr>
+          <th>Property</th>
+          <th>Optional?</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <td>cactus.tomcat5x.config</td>
+          <td>Yes</td>
+          <td>
+            <p>
+              Location of the Tomcat 5.x configuration file if you don't want 
+              to use the cactus-provided one.
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td>cactus.tomcat5x.conf.dir</td>
+          <td>Yes</td>
+          <td>
+            <p>
+              Location of custom Tomcat 5.x configuration file that will be 
+              copied, overwriting the Cactus-provided configuration files.
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td>cactus.tomcat5x.conf.includes</td>
+          <td>Yes</td>
+          <td>
+            <p>
+              Configuration files located at 
+              <code>${cactus.tomcat5x.conf.dir</code> that should be included
+              in the Tomcat 5.x container set up by Cactus.
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td>cactus.tomcat5x.conf.excludes</td>
+          <td>Yes</td>
+          <td>
+            <p>
+              Configuration files located at 
+              <code>${cactus.tomcat5x.conf.dir</code> that should not be 
+              included in the Tomcat 5.x container set up by Cactus.
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td>cactus.tomcat5x.tmpdir</td>
+          <td>Yes</td>
+          <td>
+            <p>
+              Directory to which the container will be installed for the tests.
+              By default the system temporary directory is used.
+            </p>
+          </td>
+        </tr>        
+      </table>
+    </section>
+
+    <section name="Cactus/WebLogic 7.x Settings">
+      <table>
+        <tr>
+          <th>Property</th>
+          <th>Optional?</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <td>cactus.weblogic7x.beahome</td>
+          <td>Yes</td>
+          <td>
+            <p>
+              Location of BEA HOME. If not specified it defaults to
+              the parent directory of <code>cactus.home.weblogic7x</code>.
+            </p>
+          </td>
+        </tr>
+      </table>
+    </section>
+
+  </body>
+</document>

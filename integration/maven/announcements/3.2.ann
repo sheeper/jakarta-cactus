@@ -1,0 +1,22 @@
+The Maven team is pleased to announce the Cactus plugin 3.2 release!
+
+http://maven.apache.org/reference/plugins/cactus
+
+The Maven Cactus plugin is a plugin for Cactus
+(http://jakarta.apache.org/cactus) that allows to automatically start 
+containers, run Cactus tests and stop the containers.
+
+User-visible changes in this version:
+
+o Added documentation for cactus.bundle property that can be used in POM 
+  dependency list. This fixes bug MAVEN-901.
+o Updated to use Cactus 1.5-rc1, HttpClient 2.0 rc2 and AspectJ 1.1.1.
+
+Note that this plugin has been tested with Maven 1.0 rc1.
+Using it with another version of Maven is at your own risks! :-)
+
+You can download the Cactus Maven plugin here:
+http://www.ibiblio.org/maven/maven/plugins/maven-cactus-plugin-3.2.jar
+
+Have fun!
+-Vincent

@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<document>
+
+  <properties>
+    <title>Using the Maven Cactus Plug-in</title>
+    <author email="vmassol@apache.org">Vincent Massol</author>
+  </properties>
+
+  <body>
+    <section name="Using the Maven Cactus Plug-in">
+      <ol>
+        <li>
+          Create a <code>src/test-cactus</code> directory in your project and
+          put your Cactus test classes in it (with the normal package directory
+          structure). Note that the location of the Cactus test sources can be
+          configured through the <code>cactus.src.dir</code> property.
+        </li>
+        <li>
+          Create a <code>build.properties</code> file in your project root
+          directory (where <code>project.xml</code> is located) and define in
+          it the location of the container you wish to use for the tests. For
+          example, if you wish to run the Cactus tests on Tomcat 4.1.24 and on
+          Resin 2.6, you will write:
+        </li>
+
+<source><![CDATA[
+cactus.home.tomcat4x = C:/Apps/jakarta-tomcat-4.1.24
+cactus.home.resin2x = C:/Apps/resin-2.1.6
+]]></source>
+
+        <li>
+          Then, simply type <code>maven cactus:test</code> (or 
+          <code>maven cactus</code> for short) to run the Cactus 
+          tests.
+        </li>
+      </ol>
+
+    </section>
+
+ </body>
+</document>

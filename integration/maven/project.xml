@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project>
+  <extend>${basedir}/../../default-project.xml</extend>
+  <id>cactus-maven</id>
+  <name>Maven Cactus plugin</name>
+  <package>org.apache.cactus.integration.maven</package>
+  <description>Maven plugin for Cactus (http://jakarta.apache.org/cactus) that allows to automatically start containers, run Cactus tests and stop the containers.</description>
+  <shortDescription>Maven plugin for Cactus</shortDescription>
+  <url>http://jakarta.apache.org/cactus/integration/maven/</url>
+  <siteAddress>cvs.apache.org</siteAddress>
+  <siteDirectory>/www/jakarta.apache.org/cactus/integration/maven/</siteDirectory>
+  <repository>
+    <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-cactus/integration/maven/</connection>
+    <url>http://cvs.apache.org/viewcvs/jakarta-cactus/integration/maven</url>
+  </repository>
+  <dependencies>
+    <dependency>
+      <groupId>cactus</groupId>
+      <artifactId>cactus</artifactId>
+      <version>13-${pom.currentVersion}</version>
+    </dependency>
+    <dependency>
+      <groupId>cactus</groupId>
+      <artifactId>cactus-ant</artifactId>
+      <version>13-${pom.currentVersion}</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-httpclient</groupId>
+      <artifactId>commons-httpclient</artifactId>
+      <version>2.0-rc2</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-logging</groupId>
+      <artifactId>commons-logging</artifactId>
+      <version>1.0.3</version>
+    </dependency>
+    <dependency>
+      <groupId>aspectj</groupId>
+      <artifactId>aspectjrt</artifactId>
+      <version>1.1.1</version>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+    </dependency>
+
+    <!-- Note: Dependencies below are needed by HttpUnit. Xerces is also
+    	 needed by the XML report used by the junitreport Ant task -->
+    <dependency>
+      <groupId>httpunit</groupId>
+      <artifactId>httpunit</artifactId>
+      <version>1.5.3</version>
+    </dependency>
+    <dependency>
+      <groupId>nekohtml</groupId>
+      <artifactId>nekohtml</artifactId>
+      <version>0.7.7</version>
+    </dependency>
+    <dependency>
+      <groupId>xerces</groupId>
+      <artifactId>xerces</artifactId>
+      <version>2.4.0</version>
+    </dependency>
+    <dependency>
+      <groupId>xml-apis</groupId>
+      <artifactId>xml-apis</artifactId>
+      <version>1.0.b2</version>
+    </dependency>
+    <dependency>
+      <groupId>rhino</groupId>
+      <artifactId>js</artifactId>
+      <version>1.5R4-RC3</version>
+    </dependency>
+  </dependencies>
+  <build>
+    <resources>
+      <resource>
+        <directory>src/plugin-resources</directory>
+        <targetPath>plugin-resources</targetPath>
+      </resource>
+      <resource>
+        <directory>.</directory>
+        <includes>
+          <include>plugin.jelly</include>
+          <include>plugin.properties</include>
+          <include>project.properties</include>
+          <include>project.xml</include>
+        </includes>
+      </resource>
+    </resources>
+  </build>
+  <reports>
+    <report>maven-changes-plugin</report>
+    <report>maven-changelog-plugin</report>
+    <report>maven-file-activity-plugin</report>
+    <report>maven-developer-activity-plugin</report>
+    <report>maven-file-activity-plugin</report>
+    <report>maven-license-plugin</report>
+    <report>maven-linkcheck-plugin</report>
+  </reports>
+</project>

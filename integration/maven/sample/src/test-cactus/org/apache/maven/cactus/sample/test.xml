@@ -1,0 +1,4 @@
+<!-- Do not delete -->
+
+<!-- Some sample resource file to verify that non java source files
+     are correctly copied by the cactus:compile goal -->
