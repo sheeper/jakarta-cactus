@@ -84,7 +84,7 @@
     <depend project="jakarta-ant" inherit="runtime"/>
     <depend project="xml-xerces"/>
     <depend project="aspectj"/>
-    <depend project="checkstyle"/>
+    <option project="checkstyle"/>
 
     <work nested="framework/target-12/classes/java"/>
     <work nested="framework/target-12/classes/test"/>
@@ -168,7 +168,7 @@
     <depend project="jakarta-ant" inherit="runtime"/>
     <depend project="xml-xerces"/>
     <depend project="aspectj"/>
-    <depend project="checkstyle"/>
+    <option project="checkstyle"/>
 
     <work nested="framework/target-13/classes/java"/>
     <work nested="framework/target-13/classes/test"/>
