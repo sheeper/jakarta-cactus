@@ -220,7 +220,7 @@ public class CactifyWarTask extends War
             {
                 if (!theWebXml.hasLoginConfig())
                 {
-                    theWebXml.setLoginConfig("BASIC", "Cactus Test Realm");
+                    theWebXml.setLoginConfig("BASIC", "myrealm");
                 }
                 if (!theWebXml.hasSecurityConstraint(this.mapping))
                 {

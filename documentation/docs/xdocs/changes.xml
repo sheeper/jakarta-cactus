@@ -77,6 +77,16 @@ Note: To be added once we include the Eclipse plugin in a release
         </action>
 -->
       <release version="1.6" date="in CVS">
+        <action dev="VMA" type="update">
+          In the cactifywar Ant task, changed the default realm name
+          that is used when adding Cactus default configuration data.
+          It was previously <code>Cactus test realm</code>. It is now 
+          <code>myrealm</code>. The reason is that the default WebLogic 
+          configuration creates a <code>myrealm</code> realm and thus
+          using this name makes our Cactus configuration for WebLogic 
+          much simpler. It doesn't affect the other containers as they
+          do not seem to check for the realm name.
+        </action>
         <action dev="VMA" type="add" due-to="Florin Vancea" due-to-email="fvancea@maxiq.ro">
           Added the ability to define the JBoss port that will be used 
           in the Ant integration to poll if the JBoss server is up and
