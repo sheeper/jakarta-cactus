@@ -68,6 +68,31 @@
       </devs>
 
       <release version="1.6dev" date="in CVS">
+        <action dev="VMA" type="add" due-to="Kazuhito Suguri" due-to-email="suguri.kazuhito@lab.ntt.co.jp">
+          Added new 
+          <code>FormAuthentication.setExpectedAuthResponse(int)</code>
+          that allows to set the expected HTTP response code for an
+          authentication request which should be successful. If not 
+          specified, it defaults to 
+          <code>HttpURLConnection.HTTP_MOVED_TEMP</code>.
+        </action>
+        <action dev="VMA" type="add" due-to="Kazuhito Suguri" due-to-email="suguri.kazuhito@lab.ntt.co.jp">
+          Added new 
+          <code>FormAuthentication.setExpectedPreAuthResponse(int)</code>
+          that allows to set the expected HTTP response code for a request to 
+          a restricted resource without authenticated principal. If not 
+          specified, it defaults to 
+          <code>HttpURLConnection.HTTP_MOVED_TEMP</code>.
+        </action>
+        <action dev="VMA" type="add" due-to="Kazuhito Suguri" due-to-email="suguri.kazuhito@lab.ntt.co.jp">
+          Added new <code>FormAuthentication.setSessionCookieName(String)</code>
+          that allows to set the security cookie name to a name different than
+          <code>JSESSIONID</code> (the default).
+        </action>
+        <action dev="VMA" type="fix" fixes-bug="17933" due-to="Kazuhito Suguri" due-to-email="suguri.kazuhito@lab.ntt.co.jp">
+          <code>FormAuthentication</code> no longer assumes "localhost" when 
+          adding cookies.
+        </action>
         <action dev="VMA" type="fix" due-to="Paul Green" due-to-email="Paul.Green@ons.gsi.gov.uk">
           Fixed bug in Cactus wrapper implementation of
           <code>request.getPathTranslated()</code> which was failing when there

@@ -1,7 +1,7 @@
 /* 
  * ========================================================================
  * 
- * Copyright 2001-2003 The Apache Software Foundation.
+ * Copyright 2001-2004 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,6 +23,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import org.apache.cactus.Cookie;
 import org.apache.cactus.WebRequest;
 import org.apache.cactus.client.connector.http.ConnectionHelper;
 import org.apache.cactus.client.connector.http.ConnectionHelperFactory;
@@ -44,6 +45,7 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @author <a href="mailto:Jason.Robertson@acs-inc.com">Jason Robertson</a>
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
+ * @author <a href="mailto:suguri.kazuhito@lab.ntt.co.jp">Kazuhito SUGURI</a>
  *
  * @since 1.5
  *
@@ -58,23 +60,31 @@ public class FormAuthentication extends AbstractAuthentication
         LogFactory.getLog(FormAuthentication.class);
 
     /**
+     * The expected HTTP response code for the request to a restricted
+     * resource without authenticated principal.
+     */
+    private int expectedPreAuthResponse = HttpURLConnection.HTTP_MOVED_TEMP;
+
+    /**
+     * The expected HTTP response code when the authentication is succeeded.
+     */
+    private int expectedAuthResponse = HttpURLConnection.HTTP_MOVED_TEMP;
+
+    /**
      * The URL to use when attempting to log in, if for whatever reason 
      * the default URL is incorrect.
      */
-    private URL securityCheckURL = null;
+    private URL securityCheckURL;
 
     /**
-     * We store the session cookie name because of case issues. We need
-     * to be able to send exactly the same one as was sent back by the
-     * server.
+     * The cookie name of the session.
      */
-    private String sessionIdCookieName = null;
+    private String sessionCookieName = "JSESSIONID";
 
     /**
-     * We store the session id cookie so that this instance can
-     * be reused for another test.
+     * We store the session cookie.
      */
-    private String sessionId = null;
+    private Cookie jsessionCookie;
 
     /**
      * {@link WebRequest} object that will be used to connect to the
@@ -114,15 +124,15 @@ public class FormAuthentication extends AbstractAuthentication
         Configuration theConfiguration)
     {
         // Only authenticate the first time this instance is used.
-        if (this.sessionId == null)
+        if (this.jsessionCookie == null)
         {
            authenticate(theRequest, theConfiguration);
         }
 
         // Sets the session id cookie for the next request.
-        if (this.sessionId != null)
+        if (this.jsessionCookie != null)
         {
-            theRequest.addCookie(this.sessionIdCookieName, this.sessionId);
+            theRequest.addCookie(this.jsessionCookie);
         }
     }
 
@@ -144,7 +154,7 @@ public class FormAuthentication extends AbstractAuthentication
      */
     public void setSecurityCheckURL(URL theUrl)
     {
-       this.securityCheckURL = theUrl;
+        this.securityCheckURL = theUrl;
     }
     
     /**
@@ -182,105 +192,211 @@ public class FormAuthentication extends AbstractAuthentication
         return securityCheckURL;
     }
 
+
+    /**
+     * Get the cookie name of the session.
+     * @return the cookie name of the session
+     */
+    private String getSessionCookieName()
+    {
+        return this.sessionCookieName;
+    }
+
+    /**
+     * Set the cookie name of the session to theName.
+     * If theName is null, the change request will be ignored.
+     * The default is &quot;<code>JSESSIONID</code>&quot;.
+     * @param theName the cookie name of the session
+     */
+    public void setSessionCookieName(String theName)
+    {
+        if (theName != null)
+        {
+            this.sessionCookieName = theName;
+        }
+    }
+
+    /**
+     * Get the expected HTTP response code for a request to a restricted
+     * resource without authenticated principal.
+     * @return the expected HTTP response code value
+     */
+    private int getExpectedPreAuthResponse()
+    {
+        return this.expectedPreAuthResponse;
+    }
+
+    /**
+     * Set the expected HTTP response code for a request to a restricted
+     * resource without authenticated principal.
+     * The default is HttpURLConnection.HTTP_MOVED_TEMP.
+     * @param theExpectedCode the expected HTTP response code value
+     */
+    public void setExpectedPreAuthResponse(int theExpectedCode)
+    {
+        this.expectedPreAuthResponse = theExpectedCode;
+    }
+
+    /**
+     * Get the expected HTTP response code for an authentication request
+     * which should be successful.
+     * @return the expected HTTP response code
+     */
+    private int getExpectedAuthResponse()
+    {
+        return this.expectedAuthResponse;
+    }
+
+    /**
+     * Set the expected HTTP response code for an authentication request
+     * which should be successful.
+     * The default is HttpURLConnection.HTTP_MOVED_TEMP.
+     * @param theExpectedCode the expected HTTP response code value
+     */
+    public void setExpectedAuthResponse(int theExpectedCode)
+    {
+        this.expectedAuthResponse = theExpectedCode;
+    }
+
+    /**
+     * Check if the actual response code is that of the expected.
+     * @param theExpected the expected response code
+     * @param theActual the actural response code
+     * @exception Exception the actual response code is not that of the expected
+     */
+    private void checkResponseCodeEquals(int theExpected, int theActual)
+        throws Exception
+    {
+        if (theActual != theExpected)
+        {
+            throw new Exception("Received a [" + theActual + "] response code"
+                + " and was expecting a [" + theExpected + "]");
+        }
+    }
+
+    /**
+     * Get a cookie required to be set by set-cookie header field.
+     * @param theConnection a {@link HttpURLConnection}
+     * @param theTarget the target cookie name
+     * @return the {@link Cookie}
+     */
+    private Cookie getCookie(HttpURLConnection theConnection, String theTarget)
+    {
+        // Check (possible multiple) cookies for a target.
+        int i = 1;
+        String key = theConnection.getHeaderFieldKey(i);
+        while (key != null)
+        {
+            if (key.equalsIgnoreCase("set-cookie"))
+            {
+                // Cookie is in the form:
+                // "NAME=VALUE; expires=DATE; path=PATH;
+                //  domain=DOMAIN_NAME; secure"
+                // The only thing we care about is finding a cookie with
+                // the name "JSESSIONID" and caching the value.
+                String cookiestr = theConnection.getHeaderField(i);
+                String nameValue = cookiestr.substring(0, 
+                    cookiestr.indexOf(";"));
+                int equalsChar = nameValue.indexOf("=");
+                String name = nameValue.substring(0, equalsChar);
+                String value = nameValue.substring(equalsChar + 1);
+                if (name.equalsIgnoreCase(theTarget))
+                {
+                    return new Cookie(theConnection.getURL().getHost(),
+                        name, value);
+                }
+            }
+            key = theConnection.getHeaderFieldKey(++i);
+        }
+        return null;
+    }
+
+    /**
+     * Get login session cookie.
+     * This is the first step to start login session:
+     * <dl>
+     *   <dt> C-&gt;S: </dt>
+     *   <dd> try to connect to a restricted resource </dd>
+     *   <dt> S-&gt;C: </dt>
+     *   <dd> redirect or forward to the login page with set-cookie header </dd>
+     * </ol>
+     * @param theRequest a request to connect to a restricted resource
+     * @param theConfiguration a <code>Configuration</code> value
+     * @return the <code>Cookie</code>
+     */
+    private Cookie getSecureSessionIdCookie(WebRequest theRequest,
+        Configuration theConfiguration)
+    {
+        HttpURLConnection connection;
+        String resource = null;
+
+        try
+        {
+            // Create a helper that will connect to a restricted resource.
+            WebConfiguration webConfig = (WebConfiguration) theConfiguration;
+            resource = webConfig.getRedirectorURL(theRequest);
+            ConnectionHelper helper =
+                ConnectionHelperFactory.getConnectionHelper(resource,
+                theConfiguration);
+            WebRequest request =
+                new WebRequestImpl((WebConfiguration) theConfiguration);
+
+            // Make the connection using a default web request.
+            connection = helper.connect(request, theConfiguration);
+            checkResponseCodeEquals(getExpectedPreAuthResponse(),
+                connection.getResponseCode());
+        }
+        catch (Throwable e)
+        {
+            throw new ChainedRuntimeException(
+                "Failed to connect to the secured redirector: " + resource, e);
+        }
+
+        return getCookie(connection, getSessionCookieName());
+    }
+
     /**
      * Authenticate the principal by calling the security URL.
      * 
      * @param theRequest the web request used to connect to the Redirector
      * @param theConfiguration the Cactus configuration
-     */    
-    public void authenticate(WebRequest theRequest, 
+     */
+    public void authenticate(WebRequest theRequest,
         Configuration theConfiguration)
     {
-        //Note: This method needs refactoring. It is too complex.
-        
+        this.jsessionCookie = getSecureSessionIdCookie(theRequest,
+            theConfiguration);
+    
         try
         {
-            // Create a helper that will connect to a restricted resource.
-
-            String resource = ((WebConfiguration) theConfiguration).
-                getRedirectorURL(theRequest);
-    
-            ConnectionHelper helper = 
-                ConnectionHelperFactory.getConnectionHelper(resource, 
-                theConfiguration);
-
-            // Make the connection using a default web request.
-            HttpURLConnection connection = helper.connect(
-                new WebRequestImpl((WebConfiguration) theConfiguration), 
-                theConfiguration);
-
-            // Clean any existing session ID.
-            sessionId = null;
-            
-            // Check (possible multiple) cookies for a JSESSIONID.
-            int i = 1;
-            String key = connection.getHeaderFieldKey(i);
-            while (key != null)
-            {
-                if (key.equalsIgnoreCase("set-cookie"))
-                {
-                    // Cookie is in the form:
-                    // "NAME=VALUE; expires=DATE; path=PATH;
-                    //  domain=DOMAIN_NAME; secure"
-                    // The only thing we care about is finding a cookie with 
-                    // the name "JSESSIONID" and caching the value.
-                    
-                    String cookiestr = connection.getHeaderField(i);
-                    String nameValue = cookiestr.substring(0, 
-                        cookiestr.indexOf(";"));
-                    int equalsChar = nameValue.indexOf("=");
-                    String name = nameValue.substring(0, equalsChar);
-
-                    if (name.equalsIgnoreCase("JSESSIONID"))
-                    {
-                        // We must set a cookie with the exact same name as the
-                        // one given to us, so to preserve any capitalization
-                        // issues, cache the exact cookie name.
-                        sessionIdCookieName = name;
-                        sessionId = nameValue.substring(equalsChar + 1);
-                        break;
-                    }
-                }
-                key = connection.getHeaderFieldKey(++i);
-            }
-
             // Create a helper that will connect to the security check URL.
-            helper = ConnectionHelperFactory.getConnectionHelper(
-                getSecurityCheckURL(theConfiguration).toString(), 
-                (WebConfiguration) theConfiguration);
-                
-            // Configure a web request with the JSESSIONID cookie, 
-            // the username and the password.          
+            ConnectionHelper helper =
+                ConnectionHelperFactory.getConnectionHelper(
+                getSecurityCheckURL(theConfiguration).toString(),
+               (WebConfiguration) theConfiguration);
+
+            // Configure a web request with the JSESSIONID cookie,
+            // the username and the password.
             WebRequest request = getSecurityRequest();
-
-            // TODO: Change design so that we cannot get a ClassCastException
             ((WebRequestImpl) request).setConfiguration(theConfiguration);
-
-            request.addCookie(sessionIdCookieName, sessionId);
+            request.addCookie(this.jsessionCookie);
             request.addParameter("j_username", getName(), 
                 WebRequest.POST_METHOD);
             request.addParameter("j_password", getPassword(), 
                 WebRequest.POST_METHOD);
-            
+
             // Make the connection using the configured web request.
-            connection = helper.connect(request, theConfiguration);
+            HttpURLConnection connection = helper.connect(request,
+                theConfiguration);
         
-            // If we get back a response code of 302, it means we were 
-            // redirected to the context root after successfully logging in.
-            // If we receive anything else, we didn't log in correctly.
-            if (connection.getResponseCode() != 302)
-            {
-                throw new ChainedRuntimeException("Unable to login, "
-                    + "probably due to bad username/password. Received a ["
-                    + connection.getResponseCode() + "] response code and "
-                    + "was expecting a [302]");
-            }
+            checkResponseCodeEquals(getExpectedAuthResponse(),
+                connection.getResponseCode());
         }
         catch (Throwable e)
         {
-            throw new ChainedRuntimeException("Failed to authenticate "
-                + "the principal", e);
+            this.jsessionCookie = null;
+            throw new ChainedRuntimeException(
+                "Failed to authenticate the principal", e);
         }
     }
-    
 }
