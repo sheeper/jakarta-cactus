@@ -53,17 +53,6 @@
  */
 package org.apache.cactus.server;
 
-import java.io.*;
-import java.lang.reflect.*;
-import java.net.*;
-import java.util.*;
-
-import javax.servlet.*;
-import javax.servlet.http.*;
-
-import org.apache.cactus.*;
-import org.apache.cactus.util.log.*;
-
 /**
  * Servlet Controller that extracts the requested service from the
  * HTTP request and executes the request by calling a
@@ -80,9 +69,9 @@ public class ServletTestController extends AbstractTestController
      * @return the test caller that will be used to execute the test
      */
     protected AbstractTestCaller getTestCaller(
-            WebImplicitObjects theObjects)
+        WebImplicitObjects theObjects)
     {
-        return new ServletTestCaller((ServletImplicitObjects)theObjects);
+        return new ServletTestCaller((ServletImplicitObjects) theObjects);
     }
 
 }

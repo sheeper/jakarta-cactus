@@ -53,16 +53,15 @@
  */
 package org.apache.cactus.server;
 
-import java.io.*;
-import java.lang.reflect.*;
-import java.net.*;
-import java.util.*;
+import java.lang.reflect.Field;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-
-import org.apache.cactus.*;
-import org.apache.cactus.util.log.*;
+import org.apache.cactus.AbstractTestCase;
+import org.apache.cactus.ServletTestCase;
+import org.apache.cactus.ServletURL;
+import org.apache.cactus.util.log.Log;
+import org.apache.cactus.util.log.LogService;
 
 /**
  * Responsible for instanciating the <code>TestCase</code> class on the server
@@ -95,9 +94,9 @@ public class ServletTestCaller extends AbstractTestCaller
     protected void setTestCaseFields(AbstractTestCase theTestInstance)
         throws Exception
     {
-        ServletTestCase servletInstance = (ServletTestCase)theTestInstance;
+        ServletTestCase servletInstance = (ServletTestCase) theTestInstance;
         ServletImplicitObjects servletImplicitObjects =
-            (ServletImplicitObjects)this.webImplicitObjects;
+            (ServletImplicitObjects) this.webImplicitObjects;
 
         // Sets the request field of the test case class
         // ---------------------------------------------

@@ -53,8 +53,6 @@
  */
 package org.apache.cactus.util.log;
 
-import java.util.*;
-
 import org.apache.log4j.Category;
 
 /**
@@ -81,7 +79,7 @@ public class BaseLog implements Log
      */
     public BaseLog(String theCategoryName)
     {
-    	this.category = Category.getInstance(theCategoryName);
+        this.category = Category.getInstance(theCategoryName);
     }
 
     /**

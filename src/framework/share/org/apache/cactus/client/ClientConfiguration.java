@@ -53,13 +53,14 @@
  */
 package org.apache.cactus.client;
 
-import java.util.*;
-import java.net.*;
-import java.io.*;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.PropertyResourceBundle;
+import java.util.ResourceBundle;
 
-import org.apache.cactus.*;
-import org.apache.cactus.util.log.*;
 import org.apache.cactus.util.ChainedRuntimeException;
+import org.apache.cactus.util.log.Log;
+import org.apache.cactus.util.log.LogService;
 
 /**
  * Provides acces to the client side Cactus configuration.
@@ -93,12 +94,12 @@ public class ClientConfiguration
      * Properties file holding configuration data for Cactus.
      */
     private static ResourceBundle CONFIG = null;
-     
+
     /**
      * Tries to read the cactus configuration from the java property defined
-     * on the command line (named CONFIG_PROPERTY) and if none has been defined     
+     * on the command line (named CONFIG_PROPERTY) and if none has been defined
      * tries to read the CONFIG_DEFAULT_NAME file from the classpath.
-     *     
+     *
      * @return the cactus configuration as a <code>ResourceBundle</code>.
      */
     private static final ResourceBundle getConfiguration()

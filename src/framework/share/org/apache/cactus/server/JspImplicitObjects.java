@@ -53,8 +53,8 @@
  */
 package org.apache.cactus.server;
 
-import javax.servlet.jsp.*;
-import javax.servlet.http.*;
+import javax.servlet.jsp.JspWriter;
+import javax.servlet.jsp.PageContext;
 
 /**
  * Holder class that contains the instances of the implicit objects that will

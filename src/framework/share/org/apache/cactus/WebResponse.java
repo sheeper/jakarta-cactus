@@ -53,21 +53,21 @@
  */
 package org.apache.cactus;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.StringReader;
 import java.net.HttpURLConnection;
 import java.util.Vector;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.IOException;
-import java.io.StringReader;
-import java.io.InputStream;
 
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpException;
 
+import org.apache.cactus.client.HttpClientHelper;
+import org.apache.cactus.util.ChainedRuntimeException;
 import org.apache.cactus.util.log.Log;
 import org.apache.cactus.util.log.LogService;
-import org.apache.cactus.util.ChainedRuntimeException;
-import org.apache.cactus.client.HttpClientHelper;
 
 /**
  * Default web response implementation that provides a minimal
@@ -184,14 +184,14 @@ public class WebResponse
             while (null != (str = input.readLine())) {
                 lines.addElement(str);
             }
-            input.close ();
+            input.close();
         } catch (IOException e) {
             throw new ChainedRuntimeException(e);
         }
 
         // Dummy variable to explicitely tell the object type to copy.
         String[] dummy = new String[lines.size()];
-        return (String[])(lines.toArray(dummy));
+        return (String[]) (lines.toArray(dummy));
     }
 
     /**
@@ -257,11 +257,11 @@ public class WebResponse
                 try {
                     cookies = org.apache.commons.httpclient.Cookie.parse(
                         HttpClientHelper.getDomain(getWebRequest(),
-                            getConnection()), 
+                            getConnection()),
                         HttpClientHelper.getPort(getWebRequest(),
-                            getConnection()),     
+                            getConnection()),
                         HttpClientHelper.getPath(getWebRequest(),
-                            getConnection()),                                 
+                            getConnection()),
                         new Header(headerName, headerValue));
                 } catch (HttpException e) {
                     throw new ChainedRuntimeException(

@@ -53,12 +53,10 @@
  */
 package org.apache.cactus.client;
 
-import java.util.*;
-import java.io.*;
+import java.io.InputStream;
 
-import org.apache.cactus.*;
-import org.apache.cactus.util.*;
-import org.apache.cactus.util.log.*;
+import org.apache.cactus.AbstractTestCase;
+import org.apache.cactus.util.ChainedRuntimeException;
 
 /**
  * Helper class that checks configuration parameters (for the client side)
@@ -128,7 +126,7 @@ public class ClientConfigurationChecker
 
         InputStream is = ClientConfigurationChecker.class.getResourceAsStream(
             "/" + AbstractHttpClient.CONFIG_NAME + ".properties");
-        
+
         if (is == null) {
             String msg = "The Cactus '" + AbstractHttpClient.CONFIG_NAME +
                 ".properties' configuration file need to be present in the " +

@@ -256,7 +256,7 @@ public class Cookie implements Serializable
     {
         int ndx = theDomain.indexOf(":");
         if (ndx != -1) {
-          theDomain = theDomain.substring(0, ndx);
+            theDomain = theDomain.substring(0, ndx);
         }
         this.domain = theDomain.toLowerCase();
     }
@@ -312,7 +312,7 @@ public class Cookie implements Serializable
      */
     public boolean isExpired()
     {
-        return (this.getExpiryDate() != null  &&
+        return (this.getExpiryDate() != null &&
             this.getExpiryDate().getTime() <= System.currentTimeMillis());
     }
 
@@ -333,10 +333,10 @@ public class Cookie implements Serializable
     public boolean equals(Object theObject)
     {
         if ((theObject != null) && (theObject instanceof Cookie)) {
-            Cookie other = (Cookie)theObject;
-            return  (this.getName().equals(other.getName())  &&
-                     this.getPath().equals(other.getPath())  &&
-                     this.getDomain().equals(other.getDomain()));
+            Cookie other = (Cookie) theObject;
+            return (this.getName().equals(other.getName()) &&
+                this.getPath().equals(other.getPath()) &&
+                this.getDomain().equals(other.getDomain()));
         }
         return false;
     }

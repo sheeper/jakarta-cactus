@@ -55,9 +55,9 @@ package org.apache.cactus;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.cactus.server.ServletUtil;
 import org.apache.cactus.util.log.Log;
 import org.apache.cactus.util.log.LogService;
-import org.apache.cactus.server.ServletUtil;
 
 /**
  * Simulate an HTTP URL by breaking it into its different parts :<br>
@@ -348,7 +348,7 @@ public class ServletURL
         String queryString = ServletUtil.getQueryStringParameter(qString,
             URL_QUERY_STRING_PARAM);
 
-        ServletURL url = new ServletURL(serverName, contextPath, 
+        ServletURL url = new ServletURL(serverName, contextPath,
             servletPath, pathInfo, queryString);
 
         logger.debug("URL = [" + url + "]");

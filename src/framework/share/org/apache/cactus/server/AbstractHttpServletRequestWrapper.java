@@ -53,14 +53,20 @@
  */
 package org.apache.cactus.server;
 
-import java.util.*;
-import java.io.*;
-import java.security.*;
-import javax.servlet.*;
-import javax.servlet.http.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.security.Principal;
+import java.util.Enumeration;
+import java.util.Locale;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletInputStream;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
-import org.apache.cactus.*;
-import org.apache.cactus.util.log.*;
+import org.apache.cactus.ServletURL;
+import org.apache.cactus.util.log.Log;
+import org.apache.cactus.util.log.LogService;
 
 /**
  * Abstract wrapper around <code>HttpServletRequest</code>. This class provides
@@ -304,14 +310,14 @@ public abstract class AbstractHttpServletRequestWrapper implements HttpServletRe
 
         } else {
 
-    	    String pI = getPathInfo();
-    	    if (pI == null) {
+            String pI = getPathInfo();
+            if (pI == null) {
                 fullPath = catPath(getServletPath(), thePath);
             } else {
-	            fullPath = catPath(getServletPath() + pI, thePath);
+                fullPath = catPath(getServletPath() + pI, thePath);
             }
 
-	        if (fullPath == null) {
+            if (fullPath == null) {
                 return null;
             }
         }
@@ -333,25 +339,25 @@ public abstract class AbstractHttpServletRequestWrapper implements HttpServletRe
      */
     private String catPath(String lookupPath, String path)
     {
-    	// Cut off the last slash and everything beyond
-	    int index = lookupPath.lastIndexOf("/");
-	    lookupPath = lookupPath.substring(0, index);
+        // Cut off the last slash and everything beyond
+        int index = lookupPath.lastIndexOf("/");
+        lookupPath = lookupPath.substring(0, index);
 
-	    // Deal with .. by chopping dirs off the lookup path
-	    while (path.startsWith("../")) {
-	        if (lookupPath.length() > 0) {
-		        index = lookupPath.lastIndexOf("/");
-		        lookupPath = lookupPath.substring(0, index);
-	        } else {
-    		// More ..'s than dirs, return null
-	    	return null;
-	        }
+        // Deal with .. by chopping dirs off the lookup path
+        while (path.startsWith("../")) {
+            if (lookupPath.length() > 0) {
+                index = lookupPath.lastIndexOf("/");
+                lookupPath = lookupPath.substring(0, index);
+            } else {
+                // More ..'s than dirs, return null
+                return null;
+            }
 
-    	    index = path.indexOf("../") + 3;
-	        path = path.substring(index);
-	    }
+            index = path.indexOf("../") + 3;
+            path = path.substring(index);
+        }
 
-	    return lookupPath + "/" + path;
+        return lookupPath + "/" + path;
     }
 
     // Not modified methods --------------------------------------------------

@@ -53,11 +53,11 @@
  */
 package org.apache.cactus.server;
 
-import org.apache.cactus.util.log.*;
-import org.apache.cactus.util.ChainedRuntimeException;
-import org.apache.cactus.*;
+import java.net.URLDecoder;
 
-import java.net.*;
+import org.apache.cactus.util.ChainedRuntimeException;
+import org.apache.cactus.util.log.Log;
+import org.apache.cactus.util.log.LogService;
 
 /**
  * All prupose utility methods for manipulating the Servlet API.
@@ -100,7 +100,7 @@ public class ServletUtil
 
         String value = null;
 
-        int startIndex = theQueryString.indexOf(theParameter + "=" );
+        int startIndex = theQueryString.indexOf(theParameter + "=");
 
         if (startIndex >= 0) {
             // add 1 for '='

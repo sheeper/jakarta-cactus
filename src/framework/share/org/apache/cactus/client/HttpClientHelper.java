@@ -53,24 +53,24 @@
  */
 package org.apache.cactus.client;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.PrintWriter;
-import java.io.IOException;
 import java.util.Enumeration;
 import java.util.Vector;
 
 import org.apache.commons.httpclient.Header;
 
+import org.apache.cactus.ServletURL;
+import org.apache.cactus.WebRequest;
+import org.apache.cactus.client.authentication.AbstractAuthentication;
 import org.apache.cactus.util.log.Log;
 import org.apache.cactus.util.log.LogService;
-import org.apache.cactus.client.authentication.AbstractAuthentication;
-import org.apache.cactus.WebRequest;
-import org.apache.cactus.ServletURL;
 
 /**
  * Helper class to open an HTTP connection to the server redirector and pass
@@ -95,7 +95,8 @@ public class HttpClientHelper
     private String url;
 
     // Static initialisations
-    static {
+    static
+    {
 
         // Do not follow redirects (because we are doing unit tests and
         // we need to be able to assert the returned headers, cookies, ...)
@@ -127,7 +128,7 @@ public class HttpClientHelper
         // Add the parameters that need to be passed as part of the URL
         url = addParametersGet(theRequest, url);
 
-        HttpURLConnection connection = (HttpURLConnection)url.openConnection();
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
         connection.setDoInput(true);
 
@@ -224,7 +225,7 @@ public class HttpClientHelper
         Enumeration keys = theRequest.getParameterNamesGet();
 
         if (keys.hasMoreElements()) {
-            String key = (String)keys.nextElement();
+            String key = (String) keys.nextElement();
             String[] values = theRequest.getParameterValuesGet(key);
             queryString.append(key);
             queryString.append('=');
@@ -238,7 +239,7 @@ public class HttpClientHelper
         }
 
         while (keys.hasMoreElements()) {
-            String key = (String)keys.nextElement();
+            String key = (String) keys.nextElement();
             String[] values = theRequest.getParameterValuesGet(key);
             for (int i = 0; i < values.length; i++) {
                 queryString.append('&');
@@ -285,7 +286,7 @@ public class HttpClientHelper
         Enumeration keys = theRequest.getParameterNamesPost();
 
         if (keys.hasMoreElements()) {
-            String key = (String)keys.nextElement();
+            String key = (String) keys.nextElement();
             String[] values = theRequest.getParameterValuesPost(key);
             queryString.append(key);
             queryString.append('=');
@@ -299,7 +300,7 @@ public class HttpClientHelper
         }
 
         while (keys.hasMoreElements()) {
-            String key = (String)keys.nextElement();
+            String key = (String) keys.nextElement();
             String[] values = theRequest.getParameterValuesPost(key);
             for (int i = 0; i < values.length; i++) {
                 queryString.append('&');
@@ -358,7 +359,7 @@ public class HttpClientHelper
                 new org.apache.commons.httpclient.Cookie[cookies.size()];
             for (int i = 0; i < cookies.size(); i++) {
                 org.apache.cactus.Cookie cactusCookie =
-                    (org.apache.cactus.Cookie)cookies.elementAt(i);
+                    (org.apache.cactus.Cookie) cookies.elementAt(i);
                 httpclientCookies[i] =
                     new org.apache.commons.httpclient.Cookie(
                         cactusCookie.getDomain(), cactusCookie.getName(),
@@ -498,7 +499,7 @@ public class HttpClientHelper
         Enumeration keys = theRequest.getHeaderNames();
 
         while (keys.hasMoreElements()) {
-            String key = (String)keys.nextElement();
+            String key = (String) keys.nextElement();
             String[] values = theRequest.getHeaderValues(key);
 
             // As the URLConnection.setRequestProperty will overwrite any

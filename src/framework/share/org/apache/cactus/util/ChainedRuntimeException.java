@@ -53,7 +53,8 @@
  */
 package org.apache.cactus.util;
 
-import java.io.*;
+import java.io.PrintStream;
+import java.io.PrintWriter;
 
 /**
  * Represent an exception that should stop the running test. It is a runtime
@@ -77,7 +78,8 @@ public class ChainedRuntimeException extends RuntimeException
      *
      * @param theMessage the message of the exception
      */
-    public ChainedRuntimeException(String theMessage) {
+    public ChainedRuntimeException(String theMessage)
+    {
         this(theMessage, null);
     }
 

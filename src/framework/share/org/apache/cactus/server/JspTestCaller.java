@@ -53,17 +53,14 @@
  */
 package org.apache.cactus.server;
 
-import java.io.*;
-import java.lang.reflect.*;
-import java.net.*;
-import java.util.*;
+import java.lang.reflect.Field;
+import javax.servlet.http.HttpServletRequest;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.jsp.*;
-
-import org.apache.cactus.*;
-import org.apache.cactus.util.log.*;
+import org.apache.cactus.AbstractTestCase;
+import org.apache.cactus.JspTestCase;
+import org.apache.cactus.ServletURL;
+import org.apache.cactus.util.log.Log;
+import org.apache.cactus.util.log.LogService;
 
 /**
  * Call the test method on the server side after assigning the JSP implicit
@@ -96,9 +93,9 @@ public class JspTestCaller extends ServletTestCaller
     protected void setTestCaseFields(AbstractTestCase theTestInstance)
         throws Exception
     {
-        JspTestCase jspInstance = (JspTestCase)theTestInstance;
+        JspTestCase jspInstance = (JspTestCase) theTestInstance;
         JspImplicitObjects jspImplicitObjects =
-            (JspImplicitObjects)this.webImplicitObjects;
+            (JspImplicitObjects) this.webImplicitObjects;
 
         // Sets the Servlet-related implicit objects
         // -----------------------------------------

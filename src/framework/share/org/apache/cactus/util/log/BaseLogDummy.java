@@ -53,8 +53,6 @@
  */
 package org.apache.cactus.util.log;
 
-import java.util.*;
-
 /**
  * Dummy class that logs nothing.
  *

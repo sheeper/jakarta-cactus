@@ -53,8 +53,9 @@
  */
 package org.apache.cactus.util;
 
-import java.lang.reflect.*;
-import junit.framework.*;
+import java.lang.reflect.Method;
+
+import junit.framework.TestCase;
 
 /**
  * Work around for some changes to the public JUnit API between
@@ -69,7 +70,8 @@ public class JUnitVersionHelper
 {
     private static Method testCaseName = null;
 
-    static {
+    static
+    {
         try {
             testCaseName = TestCase.class.getMethod("getName", new Class[0]);
         } catch (NoSuchMethodException e) {
@@ -93,7 +95,8 @@ public class JUnitVersionHelper
         if (testCaseName != null) {
             try {
                 return (String) testCaseName.invoke(t, new Object[0]);
-            } catch (Throwable e) {}
+            } catch (Throwable e) {
+            }
         }
         return "unknown";
     }

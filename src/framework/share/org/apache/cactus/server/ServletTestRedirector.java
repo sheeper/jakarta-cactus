@@ -53,16 +53,14 @@
  */
 package org.apache.cactus.server;
 
-import java.io.*;
-import java.lang.reflect.*;
-import java.net.*;
-import java.util.*;
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-
-import org.apache.cactus.*;
-import org.apache.cactus.util.log.*;
+import org.apache.cactus.util.log.Log;
+import org.apache.cactus.util.log.LogService;
 
 /**
  * Generic Servlet redirector that calls a test method on the server side.
@@ -79,7 +77,8 @@ public class ServletTestRedirector extends HttpServlet
      * details from the correct properties file. Initialization is done here
      * as this servlet is the first point of entry to the server code.
      */
-    static {
+    static
+    {
         LogService.getInstance().init("/log_server.properties");
     }
 

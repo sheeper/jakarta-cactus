@@ -53,18 +53,18 @@
  */
 package org.apache.cactus.client;
 
+import java.io.ObjectInputStream;
+import java.net.HttpURLConnection;
 import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
-import java.net.HttpURLConnection;
-import java.io.ObjectInputStream;
 
-import org.apache.cactus.util.log.LogService;
-import org.apache.cactus.util.log.Log;
-import org.apache.cactus.client.authentication.AbstractAuthentication;
-import org.apache.cactus.WebTestResult;
-import org.apache.cactus.WebRequest;
-import org.apache.cactus.ServiceEnumeration;
 import org.apache.cactus.ServiceDefinition;
+import org.apache.cactus.ServiceEnumeration;
+import org.apache.cactus.WebRequest;
+import org.apache.cactus.WebTestResult;
+import org.apache.cactus.client.authentication.AbstractAuthentication;
+import org.apache.cactus.util.log.Log;
+import org.apache.cactus.util.log.LogService;
 
 /**
  * Abstract class for performing the steps necessary to run a test. It involves
@@ -188,7 +188,7 @@ public abstract class AbstractHttpClient
         // Open the first connection to the redirector to execute the test on
         // the server side
         HttpClientHelper helper =
-                new HttpClientHelper(getRedirectorURL(theRequest));
+            new HttpClientHelper(getRedirectorURL(theRequest));
 
         HttpURLConnection connection = helper.connect(theRequest);
 
@@ -226,7 +226,7 @@ public abstract class AbstractHttpClient
 
         // Open the second connection to get the test results
         HttpClientHelper helper =
-                new HttpClientHelper(getRedirectorURL(resultsRequest));
+            new HttpClientHelper(getRedirectorURL(resultsRequest));
 
         HttpURLConnection resultConnection = helper.connect(resultsRequest);
 

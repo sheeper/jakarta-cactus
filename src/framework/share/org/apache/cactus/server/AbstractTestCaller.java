@@ -53,16 +53,17 @@
  */
 package org.apache.cactus.server;
 
-import java.io.*;
-import java.lang.reflect.*;
-import java.net.*;
-import java.util.*;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.lang.reflect.Constructor;
+import javax.servlet.ServletException;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-
-import org.apache.cactus.*;
-import org.apache.cactus.util.log.*;
+import org.apache.cactus.AbstractTestCase;
+import org.apache.cactus.ServiceDefinition;
+import org.apache.cactus.WebTestResult;
+import org.apache.cactus.util.log.Log;
+import org.apache.cactus.util.log.LogService;
 
 /**
  * Responsible for instanciating the <code>TestCase</code> class on the server
@@ -170,8 +171,8 @@ public abstract class AbstractTestCaller
         // request is fully finished and the resukt has been committed ...
 
         WebTestResult result =
-            (WebTestResult)(this.webImplicitObjects.getServletContext().
-                getAttribute(TEST_RESULTS));
+            (WebTestResult) (this.webImplicitObjects.getServletContext().
+            getAttribute(TEST_RESULTS));
 
         logger.debug("Test Result = [" + result + "]");
 
@@ -299,9 +300,9 @@ public abstract class AbstractTestCaller
         AbstractTestCase testInstance = null;
         try {
             Constructor constructor = testClass.getConstructor(
-                new Class[] { String.class });
-            testInstance = (AbstractTestCase)constructor.newInstance(
-                new Object[] { theTestCaseName });
+                new Class[]{String.class});
+            testInstance = (AbstractTestCase) constructor.newInstance(
+                new Object[]{theTestCaseName});
         } catch (Exception e) {
             String message = "Error instantiating class [" + theClassName +
                 "(" + theTestCaseName + ")]";
@@ -333,8 +334,8 @@ public abstract class AbstractTestCaller
             message += "\t- Your webapp may not include your test classes,\r\n";
             message += "\t- The cactus.jar resides in a global location and";
             message += " your test classes reside in a specific webapp,\r\n";
-            message += "\t- Something else ... !";         
-                
+            message += "\t- Something else ... !";
+
             logger.error(message, e);
             throw new ServletException(message, e);
         }

@@ -53,11 +53,11 @@
  */
 package org.apache.cactus;
 
-import java.util.Hashtable;
-import java.util.Vector;
-import java.util.Enumeration;
-import java.util.StringTokenizer;
 import java.io.InputStream;
+import java.util.Enumeration;
+import java.util.Hashtable;
+import java.util.StringTokenizer;
+import java.util.Vector;
 
 import org.apache.cactus.client.authentication.AbstractAuthentication;
 import org.apache.cactus.util.ChainedRuntimeException;
@@ -338,7 +338,7 @@ public class WebRequest
         // hashtable
 
         if (parameters.containsKey(theName)) {
-            Vector v = (Vector)parameters.get(theName);
+            Vector v = (Vector) parameters.get(theName);
             v.addElement(theValue);
         } else {
             Vector v = new Vector();
@@ -450,10 +450,10 @@ public class WebRequest
      *         if not found in the list of parameters to be sent in the request
      *         body
      */
-   public String[] getParameterValuesPost(String theName)
-   {
-       return getParameterValues(theName, this.parametersPost);
-   }
+    public String[] getParameterValuesPost(String theName)
+    {
+        return getParameterValues(theName, this.parametersPost);
+    }
 
     /**
      * Returns all the values corresponding to this parameter's name in the
@@ -468,14 +468,14 @@ public class WebRequest
     {
         if (theParameters.containsKey(theName)) {
 
-            Vector v = (Vector)theParameters.get(theName);
+            Vector v = (Vector) theParameters.get(theName);
 
             Object[] objs = new Object[v.size()];
             v.copyInto(objs);
 
             String[] result = new String[objs.length];
             for (int i = 0; i < objs.length; i++) {
-                result[i] = (String)objs[i];
+                result[i] = (String) objs[i];
             }
 
             return result;
@@ -558,7 +558,7 @@ public class WebRequest
         // hashtable
 
         if (this.headers.containsKey(theName)) {
-            Vector v = (Vector)this.headers.get(theName);
+            Vector v = (Vector) this.headers.get(theName);
             v.addElement(theValue);
         } else {
             Vector v = new Vector();
@@ -604,14 +604,14 @@ public class WebRequest
     {
         if (this.headers.containsKey(theName)) {
 
-            Vector v = (Vector)this.headers.get(theName);
+            Vector v = (Vector) this.headers.get(theName);
 
             Object[] objs = new Object[v.size()];
             v.copyInto(objs);
 
             String[] result = new String[objs.length];
             for (int i = 0; i < objs.length; i++) {
-                result[i] = (String)objs[i];
+                result[i] = (String) objs[i];
             }
 
             return result;
@@ -644,7 +644,7 @@ public class WebRequest
             breakParam = nameValue.indexOf("=");
             if (breakParam != -1) {
                 addParameter(nameValue.substring(0, breakParam),
-                    nameValue.substring(breakParam+1));
+                    nameValue.substring(breakParam + 1));
             } else {
                 throw new RuntimeException("Bad QueryString [" +
                     theQueryString + "] NameValue pair: [" + nameValue + "]");
@@ -692,7 +692,7 @@ public class WebRequest
         Enumeration headers = getHeaderNames();
         while (headers.hasMoreElements()) {
             buffer.append("[");
-            String headerName = (String)headers.nextElement();
+            String headerName = (String) headers.nextElement();
             String[] headerValues = getHeaderValues(headerName);
             buffer.append("[" + headerName + "] = [");
             for (int i = 0; i < headerValues.length - 1; i++) {
@@ -714,7 +714,7 @@ public class WebRequest
 
         Enumeration cookies = getCookies().elements();
         while (cookies.hasMoreElements()) {
-            Cookie cookie = (Cookie)cookies.nextElement();
+            Cookie cookie = (Cookie) cookies.nextElement();
             buffer.append("[" + cookie + "]");
         }
 
@@ -751,7 +751,7 @@ public class WebRequest
         Enumeration parameters = getParameterNames(theParameters);
         while (parameters.hasMoreElements()) {
             buffer.append("[");
-            String parameterName = (String)parameters.nextElement();
+            String parameterName = (String) parameters.nextElement();
             String[] parameterValues = getParameterValues(parameterName,
                 theParameters);
             buffer.append("[" + parameterName + "] = [");

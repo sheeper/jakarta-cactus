@@ -53,12 +53,13 @@
  */
 package org.apache.cactus.util;
 
-import java.net.*;
-import java.util.*;
-import java.io.*;
-import java.text.*;
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.util.Hashtable;
+import java.util.StringTokenizer;
+import java.util.Vector;
 
-import org.apache.cactus.*;
+import org.apache.cactus.WebResponse;
 
 /**
  * Cactus utility classes to help assert returned results from server side
@@ -143,10 +144,10 @@ public class AssertUtils
                 // If so, then add it to the vector of cookies for that name.
 
                 String name =
-                    ((ClientCookie)clientCookies.elementAt(0)).getName();
+                    ((ClientCookie) clientCookies.elementAt(0)).getName();
 
                 if (cookies.containsKey(name)) {
-                    Vector cookieValues = (Vector)cookies.get(name);
+                    Vector cookieValues = (Vector) cookies.get(name);
                     cookieValues.addAll(clientCookies);
                 } else {
                     Vector cookieValues = new Vector();

@@ -53,8 +53,7 @@
  */
 package org.apache.cactus.server;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
+import javax.servlet.ServletConfig;
 
 /**
  * Holder class that contains the instances of the implicit objects that will

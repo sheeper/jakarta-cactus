@@ -53,7 +53,8 @@
  */
 package org.apache.cactus.client;
 
-import java.io.*;
+import java.io.PrintStream;
+import java.io.PrintWriter;
 
 /**
  * Wrapper around a <code>Throwable</code> object. Whenever an exception occurs

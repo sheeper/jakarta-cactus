@@ -53,8 +53,8 @@
  */
 package org.apache.cactus.util.log;
 
-import java.util.*;
-import java.net.*;
+import java.net.URL;
+import java.util.Hashtable;
 
 import org.apache.log4j.PropertyConfigurator;
 
@@ -170,7 +170,7 @@ public class LogService
             throw new RuntimeException("Must call init() first");
         }
 
-        Log log = (Log)this.logCategories.get(theCategoryName);
+        Log log = (Log) this.logCategories.get(theCategoryName);
 
         if (log == null) {
 

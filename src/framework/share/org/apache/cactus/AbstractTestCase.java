@@ -53,21 +53,20 @@
  */
 package org.apache.cactus;
 
-import java.lang.reflect.Modifier;
-import java.lang.reflect.Method;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.net.HttpURLConnection;
 import java.net.URLConnection;
 
 import junit.framework.TestCase;
 
+import org.apache.cactus.client.AbstractHttpClient;
+import org.apache.cactus.client.ClientConfigurationChecker;
+import org.apache.cactus.util.ChainedRuntimeException;
+import org.apache.cactus.util.JUnitVersionHelper;
 import org.apache.cactus.util.log.Log;
 import org.apache.cactus.util.log.LogService;
-import org.apache.cactus.util.JUnitVersionHelper;
-import org.apache.cactus.util.ChainedRuntimeException;
-import org.apache.cactus.client.ClientConfigurationChecker;
-import org.apache.cactus.client.AbstractHttpClient;
-
 
 /**
  * Abstract class that specific test cases (<code>ServletTestCase</code>,
@@ -197,7 +196,7 @@ public abstract class AbstractTestCase extends TestCase
 
                 // Check if method is public
                 if (!Modifier.isPublic(methods[i].getModifiers())) {
-                   fail("Method [" + methods[i].getName() +
+                    fail("Method [" + methods[i].getName() +
                         "] should be declared public");
                 }
 
@@ -222,13 +221,12 @@ public abstract class AbstractTestCase extends TestCase
 
                 try {
 
-                    methods[i].invoke(this, new Object[] { theRequest });
+                    methods[i].invoke(this, new Object[]{theRequest});
 
                 } catch (InvocationTargetException e) {
                     e.fillInStackTrace();
                     throw e.getTargetException();
-                }
-                catch (IllegalAccessException e) {
+                } catch (IllegalAccessException e) {
                     e.fillInStackTrace();
                     throw e;
                 }
@@ -290,19 +288,19 @@ public abstract class AbstractTestCase extends TestCase
 
                     paramObject = createHttpUnitWebResponse(theConnection);
 
-                // Is it a Cactus WebResponse ?
+                    // Is it a Cactus WebResponse ?
                 } else if (parameters[0].getName().
                     equals("org.apache.cactus.WebResponse")) {
 
                     paramObject = new WebResponse(theRequest, theConnection);
 
-                // Is it an old HttpURLConnection (deprecated) ?
+                    // Is it an old HttpURLConnection (deprecated) ?
                 } else if (parameters[0].getName().
                     equals("java.net.HttpURLConnection")) {
 
                     paramObject = theConnection;
 
-                // Else it is an error ...
+                    // Else it is an error ...
                 } else {
                     fail("The end method [" + methods[i].getName() +
                         "] has a bad parameter of type [" +
@@ -313,7 +311,7 @@ public abstract class AbstractTestCase extends TestCase
                 if (methodToCall != null) {
                     fail("There can only be one end method per test case. " +
                         "Test case [" + this.getCurrentTestMethod() +
-                         "] has two at least !");
+                        "] has two at least !");
                 }
 
                 methodToCall = methods[i];
@@ -325,13 +323,12 @@ public abstract class AbstractTestCase extends TestCase
 
             try {
 
-                methodToCall.invoke(this, new Object[] { paramObject });
+                methodToCall.invoke(this, new Object[]{paramObject});
 
             } catch (InvocationTargetException e) {
                 e.fillInStackTrace();
                 throw e.getTargetException();
-            }
-            catch (IllegalAccessException e) {
+            } catch (IllegalAccessException e) {
                 e.fillInStackTrace();
                 throw e;
             }
@@ -358,8 +355,8 @@ public abstract class AbstractTestCase extends TestCase
             Class responseClass =
                 Class.forName("com.meterware.httpunit.WebResponse");
             Method method = responseClass.getMethod("newResponse",
-                new Class[] { URLConnection.class });
-            webResponse = method.invoke(null, new Object[] { theConnection });
+                new Class[]{URLConnection.class});
+            webResponse = method.invoke(null, new Object[]{theConnection});
         } catch (Exception e) {
             throw new ChainedRuntimeException("Error calling " +
                 "[public static com.meterware.httpunit.WebResponse " +
@@ -461,7 +458,7 @@ public abstract class AbstractTestCase extends TestCase
         // Close the input stream (just in the case the user has not done it
         // in it's endXXX method (or if he has no endXXX method) ....
         connection.getInputStream().close();
-     }
+    }
 
     // Methods below are only called by the Cactus redirector on the server
     // side
@@ -487,8 +484,7 @@ public abstract class AbstractTestCase extends TestCase
         setUp();
         try {
             runServerTest();
-        }
-        finally {
+        } finally {
             tearDown();
         }
     }
@@ -522,12 +518,10 @@ public abstract class AbstractTestCase extends TestCase
 
         try {
             runMethod.invoke(this, new Class[0]);
-        }
-        catch (InvocationTargetException e) {
+        } catch (InvocationTargetException e) {
             e.fillInStackTrace();
             throw e.getTargetException();
-        }
-        catch (IllegalAccessException e) {
+        } catch (IllegalAccessException e) {
             e.fillInStackTrace();
             throw e;
         }

@@ -53,14 +53,21 @@
  */
 package org.apache.cactus.server;
 
-import java.io.*;
-import java.util.*;
-import javax.servlet.jsp.*;
-import javax.servlet.jsp.tagext.*;
-import javax.servlet.*;
-import javax.servlet.http.*;
+import java.io.IOException;
+import java.util.Enumeration;
+import javax.servlet.Servlet;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import javax.servlet.jsp.JspWriter;
+import javax.servlet.jsp.PageContext;
+import javax.servlet.jsp.tagext.BodyContent;
 
-import org.apache.cactus.*;
+import org.apache.cactus.ServletURL;
 
 /**
  * Abstract wrapper around <code>PageContext</code>. This class provides
@@ -107,7 +114,7 @@ public abstract class AbstractPageContextWrapper extends PageContext
     {
         // Note: we only manage HttpServletRequest here
         return new HttpServletRequestWrapper(
-            (HttpServletRequest)this.originalPageContext.getRequest(),
+            (HttpServletRequest) this.originalPageContext.getRequest(),
             this.url);
     }
 

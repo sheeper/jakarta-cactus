@@ -53,16 +53,13 @@
  */
 package org.apache.cactus.server;
 
-import java.io.*;
-import java.lang.reflect.*;
-import java.net.*;
-import java.util.*;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-
-import org.apache.cactus.*;
-import org.apache.cactus.util.log.*;
+import org.apache.cactus.ServiceDefinition;
+import org.apache.cactus.ServiceEnumeration;
+import org.apache.cactus.util.log.Log;
+import org.apache.cactus.util.log.LogService;
 
 /**
  * Controller that extracts the requested service from the HTTP request and
@@ -86,7 +83,7 @@ public abstract class AbstractTestController
      * @return the test caller that will be used to execute the test
      */
     protected abstract AbstractTestCaller getTestCaller(
-            WebImplicitObjects theObjects);
+        WebImplicitObjects theObjects);
 
     /**
      * Handles the incoming request by extracting the requested service and
@@ -110,7 +107,7 @@ public abstract class AbstractTestController
         try {
 
             String serviceName =
-                    getServiceName(theObjects.getHttpServletRequest());
+                getServiceName(theObjects.getHttpServletRequest());
 
             AbstractTestCaller caller = getTestCaller(theObjects);
 
@@ -119,15 +116,15 @@ public abstract class AbstractTestController
 
                 caller.doTest();
 
-            // Is it the get test results service ?
+                // Is it the get test results service ?
             } else if (ServiceEnumeration.GET_RESULTS_SERVICE.
                 equals(serviceName)) {
 
                 caller.doGetResults();
 
-            // Is it the test connection service ?
-            // This service is only used to verify that connection between
-            // client and server is working fine
+                // Is it the test connection service ?
+                // This service is only used to verify that connection between
+                // client and server is working fine
             } else if (ServiceEnumeration.RUN_TEST_SERVICE.
                 equals(serviceName)) {
 

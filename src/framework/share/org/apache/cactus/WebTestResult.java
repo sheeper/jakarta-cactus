@@ -53,9 +53,9 @@
  */
 package org.apache.cactus;
 
+import java.io.PrintWriter;
 import java.io.Serializable;
 import java.io.StringWriter;
-import java.io.PrintWriter;
 
 /**
  * Represent the result of the execution of the Test class by the

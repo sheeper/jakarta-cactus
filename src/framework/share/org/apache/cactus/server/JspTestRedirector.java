@@ -53,11 +53,10 @@
  */
 package org.apache.cactus.server;
 
-import java.io.*;
-import javax.servlet.*;
+import javax.servlet.ServletException;
 
-import org.apache.cactus.*;
-import org.apache.cactus.util.log.*;
+import org.apache.cactus.util.log.Log;
+import org.apache.cactus.util.log.LogService;
 
 /**
  * Extension of the <code>jspRedirector.jsp</code> JSP Redirector in the java
@@ -75,7 +74,8 @@ public class JspTestRedirector
      * details from the correct properties file. Initialization is done here
      * as this servlet is the first point of entry to the server code.
      */
-    static {
+    static
+    {
         LogService.getInstance().init("/log_server.properties");
     }
 
