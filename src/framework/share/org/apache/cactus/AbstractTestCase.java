@@ -62,6 +62,7 @@ import junit.framework.*;
 
 import org.apache.commons.cactus.client.*;
 import org.apache.commons.cactus.server.*;
+import org.apache.commons.cactus.util.log.*;
 
 /**
  * Abstract class that specific test cases (<code>ServletTestCase</code>,
@@ -95,6 +96,11 @@ public abstract class AbstractTestCase extends TestCase
      * and <code>endXXX()</code> methods.
      */
     public String currentTestMethod;
+
+    /**
+     * The logger (only used on the client side).
+     */
+    protected static Log logger;
 
     /**
      * Constructs a JUnit test case with the given name.
@@ -263,6 +269,15 @@ public abstract class AbstractTestCase extends TestCase
      */
     public void runBare() throws Throwable
     {
+        // Initialize the client side logging system if need be. The code is
+        // place here because although this class is instanciated on both the
+        // the server side and the client side, this method is only executed
+        // on the client side.
+        if (!LogService.getInstance().isInitialized()) {
+            LogService.getInstance().init("/log_client.properties");
+            logger = LogService.getInstance().getLog(this.getClass().getName());
+        }
+
         runTest();
     }
 
