@@ -30,6 +30,11 @@
 
     <section title="Release Checklist">
 
+      <note>
+        This checklist does not include how to release the Maven plugin
+        for Cactus.
+      </note>
+      
       <p>
         Checklist of tasks to perform for each release:
       </p>
