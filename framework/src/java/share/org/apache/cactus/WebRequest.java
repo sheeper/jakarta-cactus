@@ -382,6 +382,6 @@ public class WebRequest extends BaseWebRequest
      */
     public String getUniqueId()
     {
-        return uniqueId;
+        return this.uniqueId;
     }
 }
