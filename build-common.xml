@@ -339,17 +339,3 @@ Run the init.clover target with the -debug or -verbose for details</fail>
             classpathref="checkstyle.classpath"/>
 
     </target>
-
-    <!--
-       ========================================================================
-         Clean generated files (including distributables)
-       ========================================================================
-    -->
-    <target name="clean" depends="init.display,init.properties"
-    	description="Clean all generated files">
-
-        <delete dir="${target.dir}"/>
-        <delete dir="${dist.dir}"/>
-        <delete dir="${release.dir}"/>
-
-    </target>

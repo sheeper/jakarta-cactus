@@ -411,6 +411,20 @@ generated. Run 'ant dist.javadoc -verbose' to find out what the problem is.</fai
 
     <!--
        ========================================================================
+         Clean generated files (including distributables)
+       ========================================================================
+    -->
+    <target name="clean" depends="init.display,init.properties"
+    	description="Clean all generated files">
+
+        <delete dir="${target.dir}"/>
+        <delete dir="${dist.dir}"/>
+        <delete dir="${release.dir}"/>
+
+    </target>
+
+    <!--
+       ========================================================================
          Upload the documentation to the Cactus web site on Jakarta
        ========================================================================
     -->
