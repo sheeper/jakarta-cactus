@@ -111,14 +111,14 @@ public class TestServletTestCase4 extends ServletTestCase
 
     /**
      * Verify that we can simulate the basic parts of the URL : server name,
-     * default server port of 80, no servlet context, URI.
+     * default server port of 80, root servlet context, URI.
      *
      * @param theRequest the request object that serves to initialize the
      *                   HTTP connection to the server redirector.
      */
     public void beginSimulatedURLBasics(ServletTestRequest theRequest)
     {
-        theRequest.setURL("jakarta.apache.org", null, "/test/test.jsp", null, null);
+        theRequest.setURL("jakarta.apache.org", "", "/test/test.jsp", null, null);
     }
 
     /**

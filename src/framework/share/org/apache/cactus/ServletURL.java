@@ -62,6 +62,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 
 import junit.framework.*;
+import org.apache.commons.cactus.util.log.*;
 
 /**
  * Simulate an HTTP URL by breaking it into its different parts :<br>
@@ -145,10 +146,10 @@ public class ServletURL
     private String m_URL_QueryString;
 
     /**
-     * The full URL (useful later because we can benefit from the all
-     * methods of the <code>URL</code> class.
+     * The logger
      */
-    private URL m_FullURL;
+    private static Log m_Logger =
+        LogService.getInstance().getLog(ServletURL.class.getName());
 
     /**
      * Creates the URL to simulate.
@@ -156,11 +157,15 @@ public class ServletURL
      * @param theServerName the server name (and port) in the URL to simulate,
      *                      i.e. this is the name that will be returned by the
      *                      <code>HttpServletRequest.getServerName()</code> and
-     *                      <code>HttpServletRequest.getServerPort()</code>.
+     *                      <code>HttpServletRequest.getServerPort()</code>. Can
+     *                      be null. If null, then the server name and port from
+     *                      the Servlet Redirector will be returned.
      * @param theContextPath the webapp context path in the URL to simulate,
      *                      i.e. this is the name that will be returned by the
      *                      <code>HttpServletRequest.getContextPath()</code>.
-     *                      Can be null. Format: "/" + name or an empty string
+     *                      Can be null. If null, then the context from the
+     *                      Servlet Redirector will be returned.
+     *                      Format: "/" + name or an empty string
      *                      for the default context.
      * @param theServletPath the servlet path in the URL to simulate,
      *                      i.e. this is the name that will be returned by the
@@ -178,42 +183,11 @@ public class ServletURL
     public ServletURL(String theServerName, String theContextPath, String theServletPath,
         String thePathInfo, String theQueryString)
     {
-        if (theServerName == null) {
-            throw new AssertionFailedError("Bad URL. The server name cannot be null");
-        }
-
         m_URL_ServerName = theServerName;
-        m_URL_ContextPath = (theContextPath  == null) ? "" : theContextPath;
+        m_URL_ContextPath = theContextPath;
         m_URL_ServletPath = theServletPath;
         m_URL_PathInfo = thePathInfo;
         m_URL_QueryString = theQueryString;
-
-        // create a full URL
-        String fullURL = "http://" + m_URL_ServerName;
-        if (m_URL_ContextPath.length() != 0) {
-            fullURL = fullURL + m_URL_ContextPath;
-        }
-        if ((m_URL_ServletPath != null) && (m_URL_ServletPath.length() != 0)) {
-            fullURL = fullURL + m_URL_ServletPath;
-        }
-        if ((m_URL_PathInfo != null) && (m_URL_PathInfo.length() != 0)) {
-            fullURL = fullURL + m_URL_PathInfo;
-        }
-
-        try {
-            m_FullURL = new URL(fullURL);
-        } catch (MalformedURLException e) {
-            throw new AssertionFailedError("Bad URL [" + fullURL + "]");
-        }
-
-    }
-
-    /**
-     * @return the full URL as a <code>URL</code> object.
-     */
-    public URL getURL()
-    {
-        return m_FullURL;
     }
 
     /**
@@ -222,6 +196,41 @@ public class ServletURL
     public String getServerName()
     {
         return m_URL_ServerName;
+    }
+
+    /**
+     * @return the simulated URL server name (excluding the port number)
+     */
+    public String getHost()
+    {
+        int pos = m_URL_ServerName.indexOf(":");
+        if (pos > 0) {
+            return m_URL_ServerName.substring(0, pos + 1);
+        }
+
+        return m_URL_ServerName;
+    }
+
+    /**
+     * @return the port number or -1 if none has been defined or it is a bad
+     *         port
+     */
+    public int getPort()
+    {
+        int pos = m_URL_ServerName.indexOf(":");
+        int result;
+
+        if (pos < 0) {
+            return -1;
+        }
+
+        try {
+            result = Integer.parseInt(m_URL_ServerName.substring(pos + 1));
+        } catch (NumberFormatException e) {
+            return -1;
+        }
+
+        return result;
     }
 
     /**
@@ -288,17 +297,28 @@ public class ServletURL
      */
     public static ServletURL loadFromRequest(HttpServletRequest theRequest)
     {
+        m_Logger.entry("loadFromRequest(...)");
+
         String serverName = theRequest.getParameter(URL_SERVER_NAME_PARAM);
+        m_Logger.debug("serverName = [" + serverName + "]");
+
         String contextPath = theRequest.getParameter(URL_CONTEXT_PATH_PARAM);
+        m_Logger.debug("contextPath = [" + contextPath + "]");
+
         String servletPath = theRequest.getParameter(URL_SERVLET_PATH_PARAM);
+        m_Logger.debug("servletPath = [" + servletPath + "]");
+
         String pathInfo = theRequest.getParameter(URL_PATH_INFO_PARAM);
+        m_Logger.debug("pathInfo = [" + pathInfo + "]");
+
         String queryString = theRequest.getParameter(URL_QUERY_STRING_PARAM);
+        m_Logger.debug("queryString = [" + queryString + "]");
 
-        if (serverName != null) {
-            return new ServletURL(serverName, contextPath, servletPath, pathInfo, queryString);
-        }
+        ServletURL url = new ServletURL(serverName, contextPath, 
+            servletPath, pathInfo, queryString);
 
-        return null;
+        m_Logger.entry("loadFromRequest(...)");
+        return url;
     }
 
 }

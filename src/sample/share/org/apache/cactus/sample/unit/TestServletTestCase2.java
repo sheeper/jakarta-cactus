@@ -395,13 +395,65 @@ public class TestServletTestCase2 extends ServletTestCase
     //-------------------------------------------------------------------------
 
     /**
-     * Verify that request.getRequestDispatcher() works properly and can include
-     * another page.
+     * Verify that request.getRequestDispatcher() works properly with an
+     * absolute path
      */
-    public void testGetRequestDispatcherFromRequest() throws ServletException, IOException
+    public void testGetRequestDispatcherFromRequest1() throws ServletException, IOException
     {
         RequestDispatcher rd = request.getRequestDispatcher("/test/test.jsp");
         rd.include(request, response);
+    }
+
+    /**
+     * Verify that request.getRequestDispatcher() works properly with an
+     * absolute path
+     *
+     * @param theConnection the HTTP connection that was used to call the
+     *                      server redirector. It contains the returned HTTP
+     *                      response.
+     */
+    public void endGetRequestDispatcherFromRequest1(HttpURLConnection theConnection) throws IOException
+    {
+        String result = AssertUtils.getResponseAsString(theConnection);
+        assert("Page not found, got [" + result + "]", result.indexOf("Hello !") > 0);
+    }
+
+    //-------------------------------------------------------------------------
+
+    /**
+     * Verify that request.getRequestDispatcher() works properly with a
+     * relative path.
+     *
+     * @param theRequest the request object that serves to initialize the
+     *                   HTTP connection to the server redirector.
+     */
+    public void beginGetRequestDispatcherFromRequest2(ServletTestRequest theRequest)
+    {
+        theRequest.setURL(null, "/test", "/anything.jsp", null, null);
+    }
+
+    /**
+     * Verify that request.getRequestDispatcher() works properly with a
+     * relative path.
+     */
+    public void testGetRequestDispatcherFromRequest2() throws ServletException, IOException
+    {
+        RequestDispatcher rd = request.getRequestDispatcher("test/test.jsp");
+        rd.include(request, response);
+    }
+
+    /**
+     * Verify that request.getRequestDispatcher() works properly with a
+     * relative path.
+     *
+     * @param theConnection the HTTP connection that was used to call the
+     *                      server redirector. It contains the returned HTTP
+     *                      response.
+     */
+    public void endGetRequestDispatcherFromRequest2(HttpURLConnection theConnection) throws IOException
+    {
+        String result = AssertUtils.getResponseAsString(theConnection);
+        assert("Page not found, got [" + result + "]", result.indexOf("Hello !") > 0);
     }
 
 }

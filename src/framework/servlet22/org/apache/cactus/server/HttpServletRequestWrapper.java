@@ -62,6 +62,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 
 import org.apache.commons.cactus.*;
+import org.apache.commons.cactus.util.log.*;
 
 /**
  * Encapsulation class for the Servlet 2.2 API <code>HttpServletRequest</code>.
@@ -87,6 +88,12 @@ public class HttpServletRequestWrapper implements HttpServletRequest
      * The URL to simulate
      */
     private ServletURL m_URL;
+
+    /**
+     * The logger
+     */
+    private static Log m_Logger =
+        LogService.getInstance().getLog(HttpServletRequestWrapper.class.getName());
 
     /**
      * Construct an <code>HttpServletRequest</code> instance that delegates
@@ -129,10 +136,19 @@ public class HttpServletRequestWrapper implements HttpServletRequest
      */
     public String getContextPath()
     {
+        m_Logger.entry("getContextPath()");
+
+        String result = m_Request.getContextPath();
+
         if (m_URL != null) {
-            return m_URL.getContextPath();
+            if (m_URL.getContextPath() != null) {
+                result = m_URL.getContextPath();
+                m_Logger.debug("Using simulated context : [" + result + "]");
+            }
         }
-        return m_Request.getContextPath();
+
+        m_Logger.exit("getContextPath");
+        return result;
     }
 
     public String getScheme()
@@ -146,10 +162,17 @@ public class HttpServletRequestWrapper implements HttpServletRequest
      */
     public String getPathInfo()
     {
+        m_Logger.entry("getPathInfo()");
+
+        String result = m_Request.getPathInfo();
+
         if (m_URL != null) {
-            return m_URL.getPathInfo();
+            result = m_URL.getPathInfo();
+            m_Logger.debug("Using simulated PathInfo : [" + result + "]");
         }
-        return m_Request.getPathInfo();
+
+        m_Logger.exit("getPathInfo");
+        return result;
     }
 
     public String getAuthType()
@@ -163,10 +186,19 @@ public class HttpServletRequestWrapper implements HttpServletRequest
      */
     public String getServerName()
     {
+        m_Logger.entry("getServerName()");
+
+        String result = m_Request.getServerName();
+
         if (m_URL != null) {
-            return m_URL.getURL().getHost();
+            if (m_URL.getServerName() != null) {
+                result = m_URL.getHost();
+                m_Logger.debug("Using simulated server name : [" + result + "]");
+            }
         }
-        return m_Request.getServerName();
+
+        m_Logger.exit("getServerName");
+        return result;
     }
 
     public String getRealPath(String thePath)
@@ -206,13 +238,17 @@ public class HttpServletRequestWrapper implements HttpServletRequest
      */
     public int getServerPort()
     {
+        m_Logger.entry("getServerPort()");
+
+        int result = m_Request.getServerPort();
+
         if (m_URL != null) {
-            if (m_URL.getURL().getPort() == -1) {
-                return 80;
-            }
-            return m_URL.getURL().getPort();
+            result = (m_URL.getPort() == -1) ? 80 : m_URL.getPort();
+            m_Logger.debug("Using simulated server port : [" + result + "]");
         }
-        return m_Request.getServerPort();
+
+        m_Logger.exit("getServerPort");
+        return result;
     }
 
     public BufferedReader getReader() throws IOException
@@ -231,10 +267,21 @@ public class HttpServletRequestWrapper implements HttpServletRequest
      */
     public String getRequestURI()
     {
+        m_Logger.entry("getRequestURI()");
+
+        String result = m_Request.getRequestURI();
+
         if (m_URL != null) {
-            return m_URL.getURL().getFile();
+
+            result = getContextPath() + 
+                ((getServletPath() == null) ? "" : getServletPath()) + 
+                ((getPathInfo() == null) ? "" : getPathInfo());
+
+            m_Logger.debug("Using simulated request URI : [" + result + "]");
         }
-        return m_Request.getRequestURI();
+
+        m_Logger.exit("getRequestURI");
+        return result;
     }
 
     public String[] getParameterValues(String theName)
@@ -273,10 +320,17 @@ public class HttpServletRequestWrapper implements HttpServletRequest
      */
     public String getServletPath()
     {
+        m_Logger.entry("getServletPath()");
+
+        String result = m_Request.getServletPath();
+
         if (m_URL != null) {
-            return m_URL.getServletPath();
+            result = m_URL.getServletPath();
+            m_Logger.debug("Using simulated servlet path : [" + result + "]");
         }
-        return m_Request.getServletPath();
+
+        m_Logger.exit("getServletPath");
+        return result;
     }
 
     public boolean isRequestedSessionIdFromCookie()
@@ -350,10 +404,17 @@ public class HttpServletRequestWrapper implements HttpServletRequest
      */
     public String getQueryString()
     {
+        m_Logger.entry("getQueryString()");
+
+        String result = m_Request.getQueryString();
+
         if (m_URL != null) {
-            return m_URL.getQueryString();
+            result = m_URL.getQueryString();
+            m_Logger.debug("Using simulated query string : [" + result + "]");
         }
-        return m_Request.getQueryString();
+
+        m_Logger.exit("getQueryString");
+        return result;
     }
 
     public long getDateHeader(String theName)
@@ -395,8 +456,81 @@ public class HttpServletRequestWrapper implements HttpServletRequest
      */
     public RequestDispatcher getRequestDispatcher(String thePath)
     {
-        return new RequestDispatcherWrapper(
-            m_Request.getRequestDispatcher(thePath));
+        m_Logger.entry("getRequestDispatcher([" + thePath + "])");
+
+        // I hate it, but we have to write some logic here ! Ideally we
+        // shouldn't have to do this as it is supposed to be done by the servlet
+        // engine. However as we are simulating the request URL, we have to
+        // provide it ... This is where we can see the limitation of Cactus
+        // (it has to mock some parts of the servlet engine) !
+
+        if (thePath == null) {
+            m_Logger.exit("getRequestDispatcher");
+            return null;
+        }
+
+        RequestDispatcher dispatcher = null;
+        String fullPath;
+
+        // The spec says that the path can be relative, in which case it will
+        // be relative to the request. So for relative paths, we need to take 
+        // into account the simulated URL (ServletURL).
+        if (thePath.startsWith("/")) {
+
+            fullPath = thePath;
+
+        } else {
+
+    	    String pI = getPathInfo();
+    	    if (pI == null) {
+                fullPath = catPath(getServletPath(), thePath);
+            } else {
+	            fullPath = catPath(getServletPath() + pI, thePath);
+            }
+
+	        if (fullPath == null) {
+                m_Logger.exit("getRequestDispatcher");
+                return null;
+            }
+        }
+                
+        m_Logger.debug("Computed full path : [" + fullPath + "]");
+
+        dispatcher = new RequestDispatcherWrapper(
+            m_Request.getRequestDispatcher(fullPath));
+
+        m_Logger.exit("getRequestDispatcher");
+        return dispatcher;
+    }
+
+    /**
+     * Will concatenate 2 paths, dealing with ..
+     * ( /a/b/c + d = /a/b/d, /a/b/c + ../d = /a/d ). Code borrowed from 
+     * Tomcat 3.2.2 !
+     *
+     * @return null if error occurs
+     */
+    private String catPath(String lookupPath, String path)
+    {
+    	// Cut off the last slash and everything beyond
+	    int index = lookupPath.lastIndexOf("/");
+	    lookupPath = lookupPath.substring(0, index);
+	
+	    // Deal with .. by chopping dirs off the lookup path
+	    while (path.startsWith("../")) { 
+	        if (lookupPath.length() > 0) {
+		        index = lookupPath.lastIndexOf("/");
+		        lookupPath = lookupPath.substring(0, index);
+	        } else {
+    		// More ..'s than dirs, return null
+	    	return null;
+	        }
+	    
+    	    index = path.indexOf("../") + 3;
+	        path = path.substring(index);
+	    }
+	
+	    return lookupPath + "/" + path;
     }
 
     public Cookie[] getCookies()
