@@ -63,5 +63,5 @@ log4j.jar = ${lib.repo}/log4j/jars/log4j-1.2.8.jar
 # effect).
 #clover.enable = true
 
-# Clover jar
+# Clover jar. This is required if clover is enabled.
 clover.jar = ${ant.home}/lib/clover.jar

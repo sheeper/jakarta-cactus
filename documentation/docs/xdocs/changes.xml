@@ -71,6 +71,10 @@
       </release>
       
       <release version="1.5-rc1" date="in CVS">
+        <action dev="VMA" type="update">
+          Update the version of Commons HttpClient in the Cactus distribution to 
+          1.0 rc2.
+        </action>
         <action dev="VMA" type="fix">
           Fixed and improved logging. It now works with Log4j, JDK 1.4 logging
           and Commons Simple log. Check the sample servlet application for an

@@ -37,7 +37,7 @@ commons.logging.jar = ${lib.repo}/commons-logging/jars/commons-logging-1.0.3.jar
 log4j.jar = ${lib.repo}/log4j/jars/log4j-1.2.6.jar
 
 # The location of the Commons Httpclient jar
-commons.httpclient.jar = ${lib.repo}/commons-httpclient/jars/commons-httpclient-2.0-rc1.jar
+commons.httpclient.jar = ${lib.repo}/commons-httpclient/jars/commons-httpclient-2.0-rc2.jar
 
 # The location of the Junit jar
 junit.jar = ${lib.repo}/junit/jars/junit-3.8.1.jar
@@ -65,12 +65,3 @@ jasper-runtime.jar = ${lib.repo}/tomcat/jars/jasper-runtime-4.1.24.jar
 # The port to use for starting the servers during unit testing. If not
 # specified, it defaults to port 8080.
 #test.port = 8081
-
-# Should we instrument our code with Clover (test coverage tool) ?
-# For this to work, the clover.jar needs to be in ANTHOME/lib.
-# Comment out to disable Clover (setting the property to false will have no
-# effect).
-#clover.enable = true
-
-# Clover jar
-clover.jar = ${ant.home}/lib/clover.jar
