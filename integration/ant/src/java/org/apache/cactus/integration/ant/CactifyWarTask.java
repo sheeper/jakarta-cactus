@@ -128,9 +128,9 @@ public class CactifyWarTask extends War
     // Inner Classes -----------------------------------------------------------
 
     /**
-     * Class for nested <code>&lt;redirector&gt;</code> elements. 
+     * Abstract base class for nested redirector elements. 
      */
-    public static class Redirector
+    public abstract static class Redirector
     {
 
         // Instance Variables --------------------------------------------------
@@ -138,30 +138,31 @@ public class CactifyWarTask extends War
         /**
          * The name of the redirector.
          */
-        private String name;
+        protected String name;
 
         /**
          * The URL pattern that the redirector will be mapped to. 
          */
-        private String mapping;
+        protected String mapping;
         
         /**
          * Comma-separated list of role names that should be granted access to
          * the redirector.
          */
-        private String roles;
+        protected String roles;
 
-        // Public Methods ------------------------------------------------------
+        // Abstract Methods ----------------------------------------------------
 
         /**
-         * Returns the name of the redirector.
+         * Merges the definition of the redirector into the provided deployment
+         * descriptor.
          * 
-         * @return The name
+         * @param theWebXml The deployment descriptor into which the redirector
+         *        definition should be merged
          */
-        public String getName()
-        {
-            return this.name;
-        }
+        public abstract void mergeInto(WebXml theWebXml);
+
+        // Public Methods ------------------------------------------------------
 
         /**
          * Sets the name of the redirector.
@@ -171,16 +172,6 @@ public class CactifyWarTask extends War
         public void setName(String theName)
         {
             this.name = theName;
-        }
-
-        /**
-         * Returns the URL pattern the redirector will be mapped to.
-         * 
-         * @return The URL pattern
-         */
-        public String getMapping()
-        {
-            return this.mapping;
         }
 
         /**
@@ -194,17 +185,6 @@ public class CactifyWarTask extends War
         }
 
         /**
-         * Returns the comma-separated list of role names that should be granted
-         * access to the redirector.
-         * 
-         * @return The roles in a comma-separated list
-         */
-        public String getRoles()
-        {
-            return this.roles;
-        }
-
-        /**
          * Sets the comma-separated list of role names that should be granted
          * access to the redirector.
          * 
@@ -215,6 +195,120 @@ public class CactifyWarTask extends War
             this.roles = theRoles;
         }
 
+        // Protected Methods ---------------------------------------------------
+
+        /**
+         * Adds the comma-separated list of security roles to a deployment
+         * descriptor.
+         * 
+         * @param theWebXml The deployment descriptor
+         */
+        protected void addRoles(WebXml theWebXml)
+        {
+            StringTokenizer tokenizer = new StringTokenizer(this.roles, ",");
+            while (tokenizer.hasMoreTokens())
+            {
+                String role = tokenizer.nextToken().trim();
+                if (!theWebXml.hasSecurityRole(role))
+                {
+                    theWebXml.addSecurityRole(role);
+                }
+            }
+        }
+
+    }
+
+    /**
+     * Implementation of <code>Redirector</code> for filter test redirectors. 
+     */
+    public static final class FilterRedirector extends Redirector
+    {
+
+        /**
+         * Default constructor.
+         */
+        public FilterRedirector()
+        {
+            this.name = "FilterRedirector";
+            this.mapping = DEFAULT_FILTER_REDIRECTOR_MAPPING;
+        }
+
+        /**
+         * @see CactifyWarTask.Redirector#mergeInto
+         */
+        public void mergeInto(WebXml theWebXml)
+        {
+            if (WebXmlVersion.V2_3.compareTo(theWebXml.getVersion()) <= 0)
+            {
+                theWebXml.addFilter(this.name, FILTER_REDIRECTOR_CLASS);
+                theWebXml.addFilterMapping(this.name, this.mapping);
+                if (this.roles != null)
+                {
+                    addRoles(theWebXml);
+                }
+            }
+        }
+        
+    }
+
+    /**
+     * Implementation of <code>Redirector</code> for JSP test redirectors. 
+     */
+    public static final class JspRedirector extends Redirector
+    {
+
+        /**
+         * Default constructor.
+         */
+        public JspRedirector()
+        {
+            this.name = "JspRedirector";
+            this.mapping = DEFAULT_JSP_REDIRECTOR_MAPPING;
+        }
+
+        /**
+         * @see CactifyWarTask.Redirector#mergeInto
+         */
+        public void mergeInto(WebXml theWebXml)
+        {
+            theWebXml.addJspFile(this.name, "/jspRedirector.jsp");
+            theWebXml.addServletMapping(this.name, this.mapping);
+            if (this.roles != null)
+            {
+                addRoles(theWebXml);
+            }
+        }
+        
+    }
+
+    /**
+     * Implementation of <code>Redirector</code> for servlet test redirectors. 
+     */
+    public static final class ServletRedirector extends Redirector
+    {
+
+        /**
+         * Default constructor.
+         */
+        public ServletRedirector()
+        {
+            this.name = "ServletRedirector";
+            this.mapping = DEFAULT_SERVLET_REDIRECTOR_MAPPING;
+        }
+
+        /**
+         * @see CactifyWarTask.Redirector#mergeInto
+         */
+        public void mergeInto(WebXml theWebXml)
+        {
+            theWebXml.addServlet(this.name, SERVLET_REDIRECTOR_CLASS);
+            theWebXml.addServletMapping(this.name, this.mapping);
+            if (this.roles != null)
+            {
+                addRoles(theWebXml);
+            }
+        }
+        
     }
 
     /**
@@ -247,19 +341,9 @@ public class CactifyWarTask extends War
     private File mergeWebXml;
 
     /**
-     * The Cactus filter redirector.
+     * The Cactus test redirectors.
      */
-    private List filterRedirectors = new ArrayList();
-
-    /**
-     * The Cactus JSP redirector.
-     */
-    private List jspRedirectors = new ArrayList();
-
-    /**
-     * The Cactus servlet redirector.
-     */
-    private List servletRedirectors = new ArrayList();
+    private List redirectors = new ArrayList();
 
     /**
      * For resolving entities such as DTDs.
@@ -336,33 +420,33 @@ public class CactifyWarTask extends War
     }
 
     /**
-     * Adds the Cactus filter test redirector (only one permitted).
+     * Adds a Cactus filter test redirector.
      * 
      * @param theFilterRedirector The redirector to add
      */
-    public void addFilterRedirector(Redirector theFilterRedirector)
+    public void addFilterRedirector(FilterRedirector theFilterRedirector)
     {
-        this.filterRedirectors.add(theFilterRedirector);
+        this.redirectors.add(theFilterRedirector);
     }
 
     /**
-     * Adds the Cactus JSP test redirector (only one permitted).
+     * Adds a Cactus JSP test redirector.
      * 
      * @param theJspRedirector The redirector to add
      */
-    public void addJspRedirector(Redirector theJspRedirector)
+    public void addJspRedirector(JspRedirector theJspRedirector)
     {
-        this.jspRedirectors.add(theJspRedirector);
+        this.redirectors.add(theJspRedirector);
     }
 
     /**
-     * Adds the Cactus servlet test redirector (only one permitted).
+     * Adds a Cactus servlet test redirector.
      * 
      * @param theServletRedirector The redirector to add
      */
-    public void addServletRedirector(Redirector theServletRedirector)
+    public void addServletRedirector(ServletRedirector theServletRedirector)
     {
-        this.servletRedirectors.add(theServletRedirector);
+        this.redirectors.add(theServletRedirector);
     }
 
     /**
@@ -613,106 +697,52 @@ public class CactifyWarTask extends War
         {
             WebXml webXml = WebXmlIo.newWebXml(theWebXml.getVersion());
 
-            if (WebXmlVersion.V2_3.compareTo(webXml.getVersion()) <= 0)
+            boolean filterRedirectorDefined = false;
+            boolean jspRedirectorDefined = false;
+            boolean servletRedirectorDefined = false;
+            
+            // add the user defined redirectors
+            for (Iterator i = this.redirectors.iterator(); i.hasNext();)
             {
-                // Add the filter redirector
-                if (!this.filterRedirectors.isEmpty())
+                Redirector redirector = (Redirector) i.next();
+                if (redirector instanceof FilterRedirector)
                 {
-                    Iterator i = this.filterRedirectors.iterator();
-                    while (i.hasNext())
-                    {
-                        Redirector redirector = (Redirector) i.next();
-                        String name = redirector.getName();
-                        if (name == null)
-                        {
-                            name = "FilterRedirector";
-                        }
-                        String mapping = redirector.getMapping();
-                        if (mapping == null)
-                        {
-                            mapping = DEFAULT_FILTER_REDIRECTOR_MAPPING;
-                        }
-                        webXml.addFilter(name, FILTER_REDIRECTOR_CLASS);
-                        webXml.addFilterMapping(name, mapping);
-                        if (redirector.getRoles() != null)
-                        {
-                            addRoles(webXml, redirector.getRoles());
-                        }
-                    }
+                    filterRedirectorDefined = true;
                 }
-                else
+                else if (redirector instanceof JspRedirector)
                 {
-                    // add the default filter redirector
-                    webXml.addFilter("FilterRedirector",
-                        FILTER_REDIRECTOR_CLASS);
-                    webXml.addFilterMapping("FilterRedirector",
-                        DEFAULT_FILTER_REDIRECTOR_MAPPING);
+                    jspRedirectorDefined = true;
                 }
+                else if (redirector instanceof ServletRedirector)
+                {
+                    servletRedirectorDefined = true;
+                }
+                redirector.mergeInto(webXml);
             }
 
-            // Add the JSP redirector
-            if (!this.jspRedirectors.isEmpty())
+            // now add the default redirectors if they haven't been provided by
+            // the user
+            if (!filterRedirectorDefined
+             && (WebXmlVersion.V2_3.compareTo(webXml.getVersion()) <= 0))
             {
-                Iterator i = this.jspRedirectors.iterator();
-                while (i.hasNext())
-                {
-                    Redirector redirector = (Redirector) i.next();
-                    String name = redirector.getName();
-                    if (name == null)
-                    {
-                        name = "JspRedirector";
-                    }
-                    String mapping = redirector.getMapping();
-                    if (mapping == null)
-                    {
-                        mapping = DEFAULT_JSP_REDIRECTOR_MAPPING;
-                    }
-                    webXml.addJspFile(name, "/jspRedirector.jsp");
-                    webXml.addServletMapping(name, mapping);
-                    if (redirector.getRoles() != null)
-                    {
-                        addRoles(webXml, redirector.getRoles());
-                    }
-                }
+                // add the default filter redirector
+                webXml.addFilter("FilterRedirector",
+                    FILTER_REDIRECTOR_CLASS);
+                webXml.addFilterMapping("FilterRedirector",
+                    DEFAULT_FILTER_REDIRECTOR_MAPPING);
             }
-            else
-            {
-                webXml.addJspFile("JspRedirector", "/jspRedirector.jsp");
-                webXml.addServletMapping("JspRedirector",
-                    DEFAULT_JSP_REDIRECTOR_MAPPING);
-            }
-
-            // Add the servlet redirector
-            if (!this.servletRedirectors.isEmpty())
-            {
-                Iterator i = this.servletRedirectors.iterator();
-                while (i.hasNext())
-                {
-                    Redirector redirector = (Redirector) i.next();
-                    String name = redirector.getName();
-                    if (name == null)
-                    {
-                        name = "ServletRedirector";
-                    }
-                    String mapping = redirector.getMapping();
-                    if (mapping == null)
-                    {
-                        mapping = DEFAULT_SERVLET_REDIRECTOR_MAPPING;
-                    }
-                    webXml.addServlet(name, SERVLET_REDIRECTOR_CLASS);
-                    webXml.addServletMapping(name, mapping);
-                    if (redirector.getRoles() != null)
-                    {
-                        addRoles(webXml, redirector.getRoles());
-                    }
-                }
-            }
-            else
+            if (!servletRedirectorDefined)
             {
                 webXml.addServlet("ServletRedirector",
                     SERVLET_REDIRECTOR_CLASS);
                 webXml.addServletMapping("ServletRedirector",
                     DEFAULT_SERVLET_REDIRECTOR_MAPPING);
+            }
+            if (!jspRedirectorDefined)
+            {
+                webXml.addJspFile("JspRedirector", "/jspRedirector.jsp");
+                webXml.addServletMapping("JspRedirector",
+                    DEFAULT_JSP_REDIRECTOR_MAPPING);
             }
 
             return webXml;
@@ -721,25 +751,6 @@ public class CactifyWarTask extends War
         {
             throw new BuildException(
                 "Could not parse deployment descriptor", e);
-        }
-    }
-
-    /**
-     * Adds a comma-separated list of security roles to a deployment descriptor.
-     * 
-     * @param theWebXml The deployment descriptor
-     * @param theRoles The comma-separated list of role names
-     */
-    private void addRoles(WebXml theWebXml, String theRoles)
-    {
-        StringTokenizer tokenizer = new StringTokenizer(theRoles, ",");
-        while (tokenizer.hasMoreTokens())
-        {
-            String role = tokenizer.nextToken().trim();
-            if (!theWebXml.hasSecurityRole(role))
-            {
-                theWebXml.addSecurityRole(role);
-            }
         }
     }
 
