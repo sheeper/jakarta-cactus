@@ -456,10 +456,12 @@
       <depend property="httpunit.jar" project="httpunit"/>
       <depend property="aspectjrt.jar" project="aspectj" id="aspectjrt"/>
       <depend property="junit.jar" project="junit"/>
-      <depend property="jstl.jar" project="jakarta-taglibs-standard" 
-        id="jstl"/>
-      <depend property="standard.jar" project="jakarta-taglibs-standard"
-        id="standard"/>
+
+      <!-- Note: We cannot use the jstl and standard jars from CVS HEAD as
+           they require Servlet API 2.4 and JSP API 2.0 -->
+      <depend property="jstl.jar" project="jstl-jsp-12" id="jstl"/>
+      <depend property="standard.jar" project="jstl-jsp-12" id="standard"/>
+
       <depend property="nekohtml.jar" project="nekohtml" id="nekohtml"/>
       <depend property="cactus.jar" project="jakarta-cactus-framework-13"/>
       <depend property="cactus.ant.jar"
