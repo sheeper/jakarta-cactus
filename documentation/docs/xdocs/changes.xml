@@ -70,7 +70,7 @@
       <release version="1.6dev" date="in CVS">
         <action dev="VMA" type="add">
           In the Ant integration, added new <code>contextxml</code> attributes
-          to the <code>&lt;tomcat4x&gt</code> and <code>&lt;tomcat5x&gt;</code>
+          to the <code>&lt;tomcat4x&gt;</code> and <code>&lt;tomcat5x&gt;</code>
           nested elements of the <code>&lt;cactus&gt;</code> task. This is to
           support the new context xml configuration file that appeared with
           Tomcat 4.1.x.
