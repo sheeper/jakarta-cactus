@@ -423,18 +423,13 @@
 
     <nag from="Vincent Massol &lt;vmassol@apache.org&gt;"
       to="cactus-dev@jakarta.apache.org"/>
+
+    <!-- Temporary hack to debug Gump builds so that we have a way to look at
+         the generated build files -->
+    <javadoc nested="samples/servlet/target-12/test">
+      <description dir="test-reports">Cactus Servlet Sample (J2EE 1.2) - Gump Debug</description>
+    </javadoc>   	
       
-  </project>
-
-  <!-- Temporary hack to debug Gump builds so that we have a way to look at
-  	   the generated build files -->
-  <project name="jakarta-cactus-sample-servlet-12-gumplogs">
-
-    <!-- Note: We do not depend on jakarta-cactus-sample-servlet-12 because if
-    	 we do and it fails, this project will not get run... Thus we hope
-    	 this project will get run *after* jakarta-cactus-sample-servlet-12 -->
-    <javadoc nested="samples/servlet/target-12/test/test-reports"/>
-
   </project>
 
   <!--
@@ -496,18 +491,13 @@
 
     <nag from="Vincent Massol &lt;vmassol@apache.org&gt;"
       to="cactus-dev@jakarta.apache.org"/>
+
+    <!-- Temporary hack to debug Gump builds so that we have a way to look at
+         the generated build files -->
+    <javadoc nested="samples/servlet/target-13/test">
+      <description dir="test-reports">Cactus Servlet Sample (J2EE 1.3) - Gump Debug</description>
+    </javadoc>   	
       
-  </project>
-
-  <!-- Temporary hack to debug Gump builds so that we have a way to look at
-  	   the generated build files -->
-  <project name="jakarta-cactus-sample-servlet-13-gumplogs">
-
-    <!-- Note: We do not depend on jakarta-cactus-sample-servlet-12 because if
-    	 we do and it fails, this project will not get run... Thus we hope
-    	 this project will get run *after* jakarta-cactus-sample-servlet-12 -->
-    <javadoc nested="samples/servlet/target-13/test/test-reports"/>
-
   </project>
 
   <!--
