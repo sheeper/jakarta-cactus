@@ -43,7 +43,8 @@ public class TestAll
         suite.addTestSuite(TestCookieUtil.class);
         suite.addTestSuite(TestUniqueGenerator.class);
         suite.addTestSuite(TestTestCaseImplementChecker.class);
-
+        suite.addTestSuite(TestIoUtil.class);
+        
         return suite;
     }
 }
