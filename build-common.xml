@@ -18,8 +18,9 @@
     <property file="${user.home}/build.properties" />
     
     <!-- Project version -->
-    <property name="project.version" value="1.5dev"/>
-    <property name="project.doc.version" value="1.5dev"/>
+    <property name="project.version.release" value="1.5"/>
+    <property name="project.version" value="${project.version.release}dev"/>
+    <property name="project.doc.version" value="${project.version}"/>
     <property name="project.doc.version.previous" value="1.4.1"/>
 
     <!-- Prefix to add to all distributable files -->
