@@ -121,11 +121,16 @@ public class LogService
      */
     public void init(String theFileName)
     {
-        URL url = LogService.class.getResource(theFileName);
-
         if (isLog4jInClasspath) {
-            // Initialize Log4j
-            PropertyConfigurator.configure(url);
+
+            URL url = this.getClass().getResource(theFileName);
+            if (url != null) {
+                // Initialize Log4j
+                PropertyConfigurator.configure(url);
+            } else {
+                throw new RuntimeException("Could not find [" + theFileName + "]");
+            }
+
         }
 
         isInitialized = true;
