@@ -151,6 +151,11 @@
 
         <figure src="images/servlettestrunner_xml.jpg" alt="XML output of ServletTestRunner"/>
 
+        <note>
+          If you see a blank page, click on the View source option of your 
+          browser. It means your browser doesn't know how to display XML data.
+        </note>
+        
         <p>
           Ok, that's nice ... But what if I want HTML instead of XML ? Don't
           worry there is a solution. Grab the following
