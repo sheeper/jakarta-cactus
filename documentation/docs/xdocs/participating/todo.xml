@@ -191,6 +191,11 @@
         communicate the Cactus service parameters such as the name of the test
         class and method, instead of using query string parameters.
       </action>
+      <action>
+        Add a <code>OpenEJBTestSetup</code> class for OpenEJB integration
+        (in the same spirit as our current <code>JettyTestSetup</code>
+        class.
+      </action>
     </category>
 
     <category title="Ideas">
