@@ -55,33 +55,26 @@
       </p>
     </section>
 
-    <version title="Cactus 1.6">
-
+    <version title="Cactus 1.7">
+ 
       <category title="Documentation">
         <action assigned-to="Vincent Massol">
           Add documentation for form-based authentication.
         </action>
+        <action>
+          Fix problems in changes.xml XSL stylesheet transformation so that
+          HTML elements are not stripped (such as the &lt;p&gt; elements we
+          have there).
+        </action>
+        <action>
+          Improve the documentation CheckSitemap Ant task to check external URLs
+          (when online).
+        </action>
+        <action>
+          Rewrite "Quick start guide" to take into account the different
+          front ends.
+        </action>
       </category>
-
-    </version>
-
-  <version title="Undefined">
-
-    <category title="Documentation">
-      <action>
-        Fix problems in changes.xml XSL stylesheet transformation so that
-        HTML elements are not stripped (such as the &lt;p&gt; elements we
-        have there).
-      </action>
-      <action>
-        Improve the documentation CheckSitemap Ant task to check external URLs
-        (when online).
-      </action>
-      <action>
-        Rewrite "Quick start guide" to take into account the different
-        front ends.
-      </action>
-    </category>
 
     <category title="Build Process">
       <action>
