@@ -83,7 +83,7 @@ public class TestConverterEJB extends ServletTestCase
     {
         Context ctx = new InitialContext();
         ConverterHome home = (ConverterHome) PortableRemoteObject.narrow(
-            ctx.lookup("java:comp/ejb/Converter"), ConverterHome.class);
+            ctx.lookup("Converter"), ConverterHome.class);
         this.converter = home.create();
     }
 
