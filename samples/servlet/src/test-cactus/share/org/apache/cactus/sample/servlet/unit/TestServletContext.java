@@ -55,11 +55,11 @@ public class TestServletContext extends ServletTestCase
         assertEquals("test value", context.getInitParameter("testparam"));
 
         boolean found = false;
-        Enumeration enum = context.getInitParameterNames();
+        Enumeration en = context.getInitParameterNames();
 
-        while (enum.hasMoreElements())
+        while (en.hasMoreElements())
         {
-            String name = (String) enum.nextElement();
+            String name = (String) en.nextElement();
 
             if (name.equals("testparam"))
             {
@@ -91,12 +91,12 @@ public class TestServletContext extends ServletTestCase
 
         context.setInitParameter("param", "testoverrideparam");
 
-        Enumeration enum = context.getInitParameterNames();
+        Enumeration en = context.getInitParameterNames();
         int count = 0;
         
-        while (enum.hasMoreElements())
+        while (en.hasMoreElements())
         {
-            String name = (String) enum.nextElement();
+            String name = (String) en.nextElement();
 
             if (name.equals("param"))
             {

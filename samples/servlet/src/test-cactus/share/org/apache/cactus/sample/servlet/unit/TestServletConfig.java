@@ -45,11 +45,11 @@ public class TestServletConfig extends ServletTestCase
         assertEquals("test value", config.getInitParameter("testparam"));
 
         boolean found = false;
-        Enumeration enum = config.getInitParameterNames();
+        Enumeration en = config.getInitParameterNames();
 
-        while (enum.hasMoreElements())
+        while (en.hasMoreElements())
         {
-            String name = (String) enum.nextElement();
+            String name = (String) en.nextElement();
 
             if (name.equals("testparam"))
             {
@@ -80,12 +80,12 @@ public class TestServletConfig extends ServletTestCase
 
         config.setInitParameter("param1", "testoverrideparam1");
 
-        Enumeration enum = config.getInitParameterNames();
+        Enumeration en = config.getInitParameterNames();
         int count = 0;
         
-        while (enum.hasMoreElements())
+        while (en.hasMoreElements())
         {
-            String name = (String) enum.nextElement();
+            String name = (String) en.nextElement();
 
             if (name.equals("param1"))
             {

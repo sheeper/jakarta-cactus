@@ -120,21 +120,21 @@ public class FilterConfigWrapper implements FilterConfig
         Vector names = new Vector();
 
         // Add parameters that were added using setInitParameter()
-        Enumeration enum = this.initParameters.keys();
+        Enumeration en = this.initParameters.keys();
 
-        while (enum.hasMoreElements())
+        while (en.hasMoreElements())
         {
-            String value = (String) enum.nextElement();
+            String value = (String) en.nextElement();
 
             names.add(value);
         }
 
         // Add parameters from web.xml
-        enum = this.originalConfig.getInitParameterNames();
+        en = this.originalConfig.getInitParameterNames();
 
-        while (enum.hasMoreElements())
+        while (en.hasMoreElements())
         {
-            String value = (String) enum.nextElement();
+            String value = (String) en.nextElement();
 
             if (!names.contains(value))
             {
