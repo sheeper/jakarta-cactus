@@ -145,7 +145,7 @@
 		<webxmlmerge 
 		  srcfile="${cactus.target.dir}/${cactus.context}/WEB-INF/web.xml"
 		  mergefile="${cactus.conf.dir}/web.xml"
-		  destfile="${cactus.target.dir}/${cactus.context}/WEB-INF/web.xml">
+		  destfile="${cactus.target.dir}/${cactus.context}/WEB-INF/web-temp.xml">
             <xmlcatalog>
                 <dtd
                   publicId="-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
@@ -156,13 +156,9 @@
             </xmlcatalog>
 		</webxmlmerge>
 
-        <!-- Copy the Cactus web.xml -->
-        <copy todir="${cactus.target.dir}/${cactus.context}/WEB-INF" 
-        	overwrite="true">
-            <fileset dir="${cactus.conf.dir}">
-                <include name="web.xml"/>
-            </fileset>
-        </copy>
+        <!-- Rename the merged web.xml -->
+        <move file="${cactus.target.dir}/${cactus.context}/WEB-INF/web-temp.xml"
+            tofile="${cactus.target.dir}/${cactus.context}/WEB-INF/web.xml"/>
 
         <!-- Copy the log4j configuration files -->
         <copy tofile="${cactus.target.dir}/${cactus.context}/WEB-INF/classes/log4j.properties"
