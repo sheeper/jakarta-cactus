@@ -57,7 +57,7 @@ import org.apache.cactus.ServletTestCase;
 import org.apache.cactus.WebRequest;
 import org.apache.cactus.WebResponse;
 import org.apache.cactus.client.DefaultHttpClient;
-import org.apache.cactus.util.WebConfiguration;
+import org.apache.cactus.configuration.WebConfiguration;
 
 /**
  * Test global client side <code>begin()</code> and <code>end()</code> 

@@ -54,7 +54,7 @@
  * <http://www.apache.org/>.
  *
  */
-package org.apache.cactus.util;
+package org.apache.cactus.configuration;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -65,6 +65,8 @@ import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 
 import org.apache.cactus.client.HttpClientConnectionHelper;
+import org.apache.cactus.util.ChainedRuntimeException;
+import org.apache.cactus.util.ClassLoaderUtils;
 
 /**
  * Provides access to the Cactus configuration parameters that are independent
@@ -74,7 +76,7 @@ import org.apache.cactus.client.HttpClientConnectionHelper;
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
- * @version $Id: Configuration.java,v 1.13 2002/09/01 17:02:37 vmassol Exp $
+ * @version $Id$
  */
 public class BaseConfiguration implements Configuration
 {

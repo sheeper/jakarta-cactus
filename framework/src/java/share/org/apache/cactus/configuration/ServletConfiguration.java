@@ -54,80 +54,43 @@
  * <http://www.apache.org/>.
  *
  */
-package org.apache.cactus.client;
+package org.apache.cactus.configuration;
 
-import org.apache.cactus.util.ChainedRuntimeException;
-import org.apache.cactus.util.Configuration;
-import org.apache.cactus.util.Initializable;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.cactus.util.AbstractWebConfiguration;
 
 /**
- * Initialize Cactus client side once (before the first test starts).
+ * Provides access to the Cactus configuration parameters related to the
+ * Servlet Redirector.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
- * @version $Id: AbstractTestCase.java,v 1.11 2002/08/03 18:03:15 vmassol Exp $
+ * @version $Id$
+ *
+ * @see Configuration
  */
-public class ClientInitializer
+public class ServletConfiguration extends AbstractWebConfiguration 
 {
     /**
-     * The logger
+     * Name of the cactus property that specifies the name of the Servlet
+     * redirector.
      */
-    private static final Log LOGGER = 
-        LogFactory.getLog(ClientInitializer.class);
+    public static final String CACTUS_SERVLET_REDIRECTOR_NAME_PROPERTY = 
+        "cactus.servletRedirectorName";
 
     /**
-     * True if initialization has already happened (should only happen once
-     * per JVM).
+     * @see WebConfiguration#getDefaultRedirectorName()
      */
-    private static boolean isInitialized;
-
-    /**
-     * Initialize Cactus client side once.
-     * 
-     * @param theConfiguration the Cactus configuration
-     */
-    public static void initialize(Configuration theConfiguration)
+    public String getDefaultRedirectorName()
     {
-        if (!isInitialized)
-        {
-            try
-            {
-                String initializerClassName = theConfiguration.getInitializer();
+        String redirectorName = 
+            System.getProperty(CACTUS_SERVLET_REDIRECTOR_NAME_PROPERTY);
 
-                if (initializerClassName != null)
-                {
-                    callInitializer(initializerClassName);
-                }
-            }
-            finally
-            {
-                isInitialized = true;
-            }
+        if (redirectorName == null)
+        {
+            redirectorName = "ServletRedirector";
         }
+
+        return redirectorName;
     }
 
-    /**
-     * Call initializer class.
-     *
-     * @param theClassName the initializer class name
-     */
-    private static void callInitializer(String theClassName)
-    {
-        LOGGER.debug("Running initializer [" + theClassName + "]");
-        
-        try
-        {
-            Class clazz = Class.forName(theClassName);
-            Initializable initializer = (Initializable) clazz.newInstance();
-
-            initializer.initialize();
-        }
-        catch (Exception e)
-        {
-            throw new ChainedRuntimeException("Failed to load/execute "
-                + "client side initializer [" + theClassName + "]", e);
-        }
-    }
 }

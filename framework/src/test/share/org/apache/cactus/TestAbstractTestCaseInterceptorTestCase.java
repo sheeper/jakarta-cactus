@@ -63,10 +63,10 @@ import java.net.URL;
 import junit.framework.AssertionFailedError;
 
 import org.apache.cactus.client.ClientException;
+import org.apache.cactus.configuration.Configuration;
+import org.apache.cactus.configuration.ServletConfiguration;
+import org.apache.cactus.configuration.WebConfiguration;
 import org.apache.cactus.mock.MockHttpURLConnection;
-import org.apache.cactus.util.Configuration;
-import org.apache.cactus.util.ServletConfiguration;
-import org.apache.cactus.util.WebConfiguration;
 
 /**
  * Test <code>TestCase</code> class that intercepts all exceptions (and assert

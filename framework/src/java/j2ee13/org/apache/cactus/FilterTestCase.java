@@ -59,8 +59,8 @@ package org.apache.cactus;
 import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.cactus.configuration.Configuration;
 import org.apache.cactus.server.FilterConfigWrapper;
-import org.apache.cactus.util.Configuration;
 import org.apache.cactus.util.FilterConfiguration;
 
 /**

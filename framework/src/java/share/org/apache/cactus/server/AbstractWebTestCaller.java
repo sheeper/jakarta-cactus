@@ -337,8 +337,8 @@ public abstract class AbstractWebTestCaller
      *            test fails to be instanciated (for example if some
      *            information is missing from the HTTP request)
      */
-    protected AbstractWebServerTestCase getTestClassInstance(String theClassName, 
-        String theTestCaseName) throws ServletException
+    protected AbstractWebServerTestCase getTestClassInstance(
+        String theClassName, String theTestCaseName) throws ServletException
     {
         // Get the class to call and build an instance of it.
         Class testClass = getTestClassClass(theClassName);

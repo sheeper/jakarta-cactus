@@ -57,7 +57,7 @@
 package org.apache.cactus.client.authentication;
 
 import org.apache.cactus.WebRequest;
-import org.apache.cactus.util.Configuration;
+import org.apache.cactus.configuration.Configuration;
 
 /**
  * This class was designed with the simple assumption that ALL authentication

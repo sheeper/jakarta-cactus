@@ -62,8 +62,8 @@ import java.lang.reflect.Modifier;
 
 import junit.framework.TestCase;
 
-import org.apache.cactus.client.ClientInitializer;
-import org.apache.cactus.util.Configuration;
+import org.apache.cactus.client.initialization.ClientInitializer;
+import org.apache.cactus.configuration.Configuration;
 import org.apache.cactus.util.JUnitVersionHelper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

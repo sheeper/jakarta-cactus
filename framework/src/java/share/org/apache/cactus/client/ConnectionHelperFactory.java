@@ -58,8 +58,8 @@ package org.apache.cactus.client;
 
 import java.lang.reflect.Constructor;
 
+import org.apache.cactus.configuration.Configuration;
 import org.apache.cactus.util.ChainedRuntimeException;
-import org.apache.cactus.util.Configuration;
 
 /**
  * Factory that returns the <code>ConnectionHelper</code> specified in Cactus

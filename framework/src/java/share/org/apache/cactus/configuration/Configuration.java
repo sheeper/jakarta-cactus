@@ -54,39 +54,32 @@
  * <http://www.apache.org/>.
  *
  */
-package org.apache.cactus.util;
+package org.apache.cactus.configuration;
 
 /**
- * Provides access to the Cactus configuration parameters related to the
- * JSP Redirector.
- *
+ * Contains all configuration information for the Cactus framework.
+ * 
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
  */
-public class JspConfiguration extends AbstractWebConfiguration
+public interface Configuration
 {
     /**
-     * Name of the cactus property that specifies the name of the JSP
-     * redirector.
+     * @return the context URL under which our application to test runs.
      */
-    public static final String CACTUS_JSP_REDIRECTOR_NAME_PROPERTY = 
-        "cactus.jspRedirectorName";
+    String getContextURL();
 
     /**
-     * @see WebConfiguration#getDefaultRedirectorName()
+     * @return the {@link org.apache.cactus.client.ConnectionHelper} classname
+     *         to use for opening the HTTP connection
      */
-    public String getDefaultRedirectorName()
-    {
-        String redirectorName = 
-            System.getProperty(CACTUS_JSP_REDIRECTOR_NAME_PROPERTY);
+    String getConnectionHelper();
 
-        if (redirectorName == null)
-        {
-            redirectorName = "JspRedirector";
-        }
-
-        return redirectorName;
-    }
-
+    /**
+     * @return the initializer class (i.e. a class that is executed before the
+     *         Cactus tests start on the client side) or null if none has been
+     *         defined
+     */
+    String getInitializer();
 }

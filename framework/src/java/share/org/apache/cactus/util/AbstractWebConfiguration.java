@@ -57,6 +57,8 @@
 package org.apache.cactus.util;
 
 import org.apache.cactus.WebRequest;
+import org.apache.cactus.configuration.BaseConfiguration;
+import org.apache.cactus.configuration.WebConfiguration;
 
 /**
  * Common implementation for all <code>WebConfiguration</code> 

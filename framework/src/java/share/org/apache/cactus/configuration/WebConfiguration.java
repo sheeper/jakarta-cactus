@@ -54,22 +54,44 @@
  * <http://www.apache.org/>.
  *
  */
-package org.apache.cactus.util;
+package org.apache.cactus.configuration;
+
+import org.apache.cactus.WebRequest;
 
 /**
- * A class that needs to be run once on the client to initialize the 
- * system must implement this interface.
- *
+ * Extends the generic <code>Configuration<code> interface with methods
+ * provided configuration information related to Web redirectors.
+ * 
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
- * @version $Id: AbstractTestCase.java,v 1.11 2002/08/03 18:03:15 vmassol Exp $
+ * @version $Id$
  */
-public interface Initializable
+public interface WebConfiguration extends Configuration
 {
     /**
-     * Initialize class.
-     *
-     * @exception Exception if an error happens during initialization
+     * @return the redirector URL for the default redirector
      */
-    void initialize() throws Exception;
+    String getDefaultRedirectorURL();
+
+    /**
+     * @return the default redirector name as defined by the Cactus
+     *         configuration
+     */
+    String getDefaultRedirectorName();
+
+    /**
+     * @param theRequest the Web request used to connect to the redirector
+     * @return the redirector URL for the redirector to use. It is either 
+     *         the default redirector name or the redirector defined in 
+     *         the Web
+     */
+    String getRedirectorURL(WebRequest theRequest);
+
+    /**
+     * @param theRequest the Web request used to connect to the redirector
+     * @return the redirector name to use. It is either the default 
+     *         redirector name or the redirector defined in the Web
+     *         Request if it has been overriden
+     */
+    String getRedirectorName(WebRequest theRequest);
 }

@@ -59,9 +59,9 @@ package org.apache.cactus;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.cactus.configuration.Configuration;
+import org.apache.cactus.configuration.ServletConfiguration;
 import org.apache.cactus.server.ServletConfigWrapper;
-import org.apache.cactus.util.Configuration;
-import org.apache.cactus.util.ServletConfiguration;
 
 /**
  * Test classes that need access to valid Servlet implicit objects (such as the

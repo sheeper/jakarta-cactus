@@ -58,14 +58,14 @@ package org.apache.cactus.extension.jetty;
 
 import java.net.URL;
 
+import org.apache.cactus.client.initialization.Initializable;
+import org.apache.cactus.configuration.BaseConfiguration;
+import org.apache.cactus.configuration.Configuration;
+import org.apache.cactus.configuration.ServletConfiguration;
 import org.apache.cactus.server.FilterTestRedirector;
 import org.apache.cactus.server.ServletTestRedirector;
-import org.apache.cactus.util.BaseConfiguration;
 import org.apache.cactus.util.ClassLoaderUtils;
-import org.apache.cactus.util.Configuration;
 import org.apache.cactus.util.FilterConfiguration;
-import org.apache.cactus.util.Initializable;
-import org.apache.cactus.util.ServletConfiguration;
 
 /**
  * Cactus initializer to start an embedded Jetty server. It will be stopped

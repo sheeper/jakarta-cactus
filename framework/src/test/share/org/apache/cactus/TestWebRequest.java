@@ -60,8 +60,8 @@ import java.util.Enumeration;
 
 import junit.framework.TestCase;
 
+import org.apache.cactus.configuration.ServletConfiguration;
 import org.apache.cactus.util.ChainedRuntimeException;
-import org.apache.cactus.util.ServletConfiguration;
 
 /**
  * Unit tests of the <code>WebRequest</code> class.

@@ -62,7 +62,7 @@ import java.lang.reflect.Modifier;
 import java.net.HttpURLConnection;
 
 import org.apache.cactus.client.DefaultHttpClient;
-import org.apache.cactus.util.WebConfiguration;
+import org.apache.cactus.configuration.WebConfiguration;
 import org.apache.commons.logging.LogFactory;
 
 /**
@@ -74,7 +74,8 @@ import org.apache.commons.logging.LogFactory;
  *
  * @version $Id$
  */
-public abstract class AbstractWebServerTestCase extends AbstractWebClientTestCase
+public abstract class AbstractWebServerTestCase 
+    extends AbstractWebClientTestCase
 {
     /**
      * Constructs a JUnit test case with the given name.

@@ -63,8 +63,8 @@ import org.apache.cactus.client.ClientException;
 import org.apache.cactus.client.ConnectionHelper;
 import org.apache.cactus.client.ConnectionHelperFactory;
 import org.apache.cactus.client.WebResponseObjectFactory;
+import org.apache.cactus.configuration.WebConfiguration;
 import org.apache.cactus.util.ChainedRuntimeException;
-import org.apache.cactus.util.WebConfiguration;
 
 /**
  * Extends {@link BaseWebRequest} to add properties specific to the

@@ -63,8 +63,8 @@ import java.net.URL;
 import org.apache.cactus.WebRequest;
 import org.apache.cactus.client.ConnectionHelper;
 import org.apache.cactus.client.ConnectionHelperFactory;
+import org.apache.cactus.configuration.WebConfiguration;
 import org.apache.cactus.util.ChainedRuntimeException;
-import org.apache.cactus.util.WebConfiguration;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

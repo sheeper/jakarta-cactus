@@ -63,9 +63,9 @@ import org.apache.cactus.ServiceEnumeration;
 import org.apache.cactus.WebRequest;
 import org.apache.cactus.WebResponse;
 import org.apache.cactus.WebTestResult;
+import org.apache.cactus.configuration.WebConfiguration;
 import org.apache.cactus.util.ChainedRuntimeException;
 import org.apache.cactus.util.IoUtil;
-import org.apache.cactus.util.WebConfiguration;
 
 /**
  * Performs the steps necessary to run a test. It involves

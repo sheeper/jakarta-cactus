@@ -54,44 +54,79 @@
  * <http://www.apache.org/>.
  *
  */
-package org.apache.cactus.util;
+package org.apache.cactus.client.initialization;
 
-import org.apache.cactus.WebRequest;
+import org.apache.cactus.configuration.Configuration;
+import org.apache.cactus.util.ChainedRuntimeException;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
- * Extends the generic <code>Configuration<code> interface with methods
- * provided configuration information related to Web redirectors.
- * 
+ * Initialize Cactus client side once (before the first test starts).
+ *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
- * @version $Id: $
+ * @version $Id$
  */
-public interface WebConfiguration extends Configuration
+public class ClientInitializer
 {
     /**
-     * @return the redirector URL for the default redirector
+     * The logger
      */
-    String getDefaultRedirectorURL();
+    private static final Log LOGGER = 
+        LogFactory.getLog(ClientInitializer.class);
 
     /**
-     * @return the default redirector name as defined by the Cactus
-     *         configuration
+     * True if initialization has already happened (should only happen once
+     * per JVM).
      */
-    String getDefaultRedirectorName();
+    private static boolean isInitialized;
 
     /**
-     * @param theRequest the Web request used to connect to the redirector
-     * @return the redirector URL for the redirector to use. It is either 
-     *         the default redirector name or the redirector defined in 
-     *         the Web
+     * Initialize Cactus client side once.
+     * 
+     * @param theConfiguration the Cactus configuration
      */
-    String getRedirectorURL(WebRequest theRequest);
+    public static void initialize(Configuration theConfiguration)
+    {
+        if (!isInitialized)
+        {
+            try
+            {
+                String initializerClassName = theConfiguration.getInitializer();
+
+                if (initializerClassName != null)
+                {
+                    callInitializer(initializerClassName);
+                }
+            }
+            finally
+            {
+                isInitialized = true;
+            }
+        }
+    }
 
     /**
-     * @param theRequest the Web request used to connect to the redirector
-     * @return the redirector name to use. It is either the default 
-     *         redirector name or the redirector defined in the Web
-     *         Request if it has been overriden
+     * Call initializer class.
+     *
+     * @param theClassName the initializer class name
      */
-    String getRedirectorName(WebRequest theRequest);
+    private static void callInitializer(String theClassName)
+    {
+        LOGGER.debug("Running initializer [" + theClassName + "]");
+        
+        try
+        {
+            Class clazz = Class.forName(theClassName);
+            Initializable initializer = (Initializable) clazz.newInstance();
+
+            initializer.initialize();
+        }
+        catch (Exception e)
+        {
+            throw new ChainedRuntimeException("Failed to load/execute "
+                + "client side initializer [" + theClassName + "]", e);
+        }
+    }
 }

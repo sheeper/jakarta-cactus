@@ -63,8 +63,8 @@ import java.util.Hashtable;
 import java.util.Vector;
 
 import org.apache.cactus.client.authentication.AbstractAuthentication;
+import org.apache.cactus.configuration.Configuration;
 import org.apache.cactus.util.ChainedRuntimeException;
-import org.apache.cactus.util.Configuration;
 
 /**
  * Contains all HTTP request data for a test case but independently of

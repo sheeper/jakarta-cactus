@@ -54,41 +54,22 @@
  * <http://www.apache.org/>.
  *
  */
-package org.apache.cactus.util;
+package org.apache.cactus.client.initialization;
 
 /**
- * Provides access to the Cactus configuration parameters related to the
- * Servlet Redirector.
+ * A class that needs to be run once on the client to initialize the 
+ * system must implement this interface.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
- *
- * @see Configuration
  */
-public class ServletConfiguration extends AbstractWebConfiguration 
+public interface Initializable
 {
     /**
-     * Name of the cactus property that specifies the name of the Servlet
-     * redirector.
+     * Initialize class.
+     *
+     * @exception Exception if an error happens during initialization
      */
-    public static final String CACTUS_SERVLET_REDIRECTOR_NAME_PROPERTY = 
-        "cactus.servletRedirectorName";
-
-    /**
-     * @see WebConfiguration#getDefaultRedirectorName()
-     */
-    public String getDefaultRedirectorName()
-    {
-        String redirectorName = 
-            System.getProperty(CACTUS_SERVLET_REDIRECTOR_NAME_PROPERTY);
-
-        if (redirectorName == null)
-        {
-            redirectorName = "ServletRedirector";
-        }
-
-        return redirectorName;
-    }
-
+    void initialize() throws Exception;
 }
