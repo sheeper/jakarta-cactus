@@ -1,14 +1,14 @@
 <?xml version="1.0"?>
 
-<!DOCTYPE document SYSTEM "./dtd/document-v10.dtd">
-
 <document>
-  <header>
+
+  <properties>
     <title>JspTestCase Principles</title>
     <authors>
-      <person name="Nicholas Lesiecki" email="ndlesiecki@yahoo.com"/>
+      <author name="Nicholas Lesiecki" email="ndlesiecki@yahoo.com"/>
+      <author name="Vincent Massol" email="vmassol@apache.org"/>
     </authors>
-  </header>
+  </properties>
 
   <body>
 

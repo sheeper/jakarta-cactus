@@ -76,10 +76,6 @@ aspectj-tools.jar = ${lib.repo}/aspectj/jars/aspectj-tools-1.0.6.jar
 # If not specified here, the jar must be present in ANTHOME/lib
 aspectj-ant.jar = ${lib.repo}/aspectj/jars/aspectj-ant-1.0.6.jar
 
-# The location of the Stylebook jar (used to generate the documentation).
-# If not specified here, the jar must be present in ANTHOME/lib
-stylebook.jar = ${lib.repo}/stylebook/jars/stylebook-1.0-b3_xalan-2.jar
-
 # Dependancies for Checkstyle code auditing
 # If not specified here, the JARs must be present in ANTHOME/lib
 antlr.jar = ${lib.repo}/antlr/jars/antlr-2.7.1.jar

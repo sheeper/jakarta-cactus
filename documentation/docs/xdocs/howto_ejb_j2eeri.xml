@@ -1,15 +1,14 @@
 <?xml version="1.0"?>
 
-<!DOCTYPE document SYSTEM "./dtd/document-v10.dtd">
-
 <document>
-  <header>
+
+  <properties>
     <title>EJB Testing with J2EE RI</title>
     <authors>
-      <person name="Hudson Wong" email="hudsoncwwong@yahoo.com"/>
-      <person name="Vincent Massol" email="vmassol@apache.org"/>
+      <author name="Hudson Wong" email="hudsoncwwong@yahoo.com"/>
+      <author name="Vincent Massol" email="vmassol@apache.org"/>
     </authors>
-  </header>
+  </properties>
 
   <body>
 

@@ -1,14 +1,13 @@
 <?xml version="1.0"?>
 
-<!DOCTYPE document SYSTEM "./dtd/document-v10.dtd">
-
 <document>
-  <header>
+
+  <properties>
     <title>Building Cactus from the Source</title>
     <authors>
-      <person name="Vincent Massol" email="vmassol@apache.org"/>
+      <author name="Vincent Massol" email="vmassol@apache.org"/>
     </authors>
-  </header>
+  </properties>
 
   <body>
 
@@ -120,17 +119,6 @@
             <td>
               The AspectJ Ant tasks.
               Availabe <link href="http://aspectj.org/">here</link>.
-            </td>
-          </tr>
-          <tr>
-            <td>stylebook.jar</td>
-            <td>1.0</td>
-            <td>
-              XML Stylebook (only for documentation).
-              Unfortunately, there is no real standalone distribution of the 
-              Stylebook library. It can be found, for example, in the
-              XercesJ tools distributions (available 
-              <link href="http://xml.apache.org/dist/xerces-j/">here</link>).
             </td>
           </tr>
         </table>

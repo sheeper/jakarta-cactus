@@ -6,12 +6,6 @@
     which serves as the Cactus Web Site and as local documentation in the
     Cactus distribution).
 
-    The following Ant tasks need to be available in your ant installation (i.e.
-    the Ant task themselves and their dependent jars need to be put in
-    ANT_HOME/lib) :
-
-        stylebook   [REQUIRED] For builing the documentation from XML
-
     The mandatory and optional Ant properties are defined in
     build.properties.sample. Please read and edit that file.
 
@@ -44,10 +38,6 @@
 
     <!-- Prefix to add to all distributable files -->
     <property name="project.prefix" value="jakarta-"/>
-
-    <!-- Default location for the stylebook jar -->
-    <property name="stylebook.jar"
-        value="${basedir}/lib/stylebook.jar"/>
 
     <!--
        ========================================================================
@@ -197,6 +187,7 @@
         <!-- Copy the images -->
         <copy todir="${target.doc.dir}/images" filtering="off">
             <fileset dir="${doc.xdoc.dir}/images"/>
+            <fileset dir="${doc.skin.dir}/jakarta.apache.org/resources"/>
         </copy>
 
         <!-- Copy the misc doc files needed by the web site -->
@@ -209,19 +200,26 @@
             filtering="on"/>
 
         <!-- Generate the docs -->
-        <stylebook book="${target.xdoc.dir}/book.xml"
-            skinDirectory="${doc.skin.dir}/jakarta.apache.org"
-            targetDirectory="${target.doc.dir}">
+		<style basedir="${target.xdoc.dir}" destdir="${target.doc.dir}"
+          style="${doc.skin.dir}/jakarta.apache.org/stylesheets/document2html.xsl">
 
-            <classpath>
-                <pathelement location="${stylebook.jar}"/>
-                <pathelement path="${java.class.path}"/>
-            </classpath>
+        	<include name="*.xml"/>
+        	<exclude name="book.xml"/>
 
-        </stylebook>
+            <!--Location of the book.xml file relative to where the stylesheet 
+                is located. Note: this path MUST be relative as it is used as a
+                realtive URI from within the stylesheet -->
+            <param name="bookfile" expression="../../../../../${target.xdoc.dir}/book.xml"/>
 
-    </target>
+			<!-- Location of the cvslog.xml file relative to where the 
+			     stylesheet is located. Note: this path MUST be relative as it
+			     is used as a realtive URI from within the stylesheet -->
+            <param name="cvslogfile" expression="../../../../../${target.xdoc.dir}/cvslog/cvslog.xml"/>
+			     
+        </style>
 
+	</target>
+	
     <!--
        ========================================================================
          Generate the documentation (without the generated clover reports that

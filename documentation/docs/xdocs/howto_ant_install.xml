@@ -1,14 +1,13 @@
 <?xml version="1.0"?>
 
-<!DOCTYPE document SYSTEM "./dtd/document-v10.dtd">
-
 <document>
-  <header>
+
+  <properties>
     <title>Installing Ant</title>
     <authors>
-      <person name="Vincent Massol" email="vmassol@apache.org"/>
+      <author name="Vincent Massol" email="vmassol@apache.org"/>
     </authors>
-  </header>
+  </properties>
 
   <body>
 
@@ -35,17 +34,6 @@
         Cactus uses the following optional tasks of Ant :
       </p>
       <ul>
-        <li>
-          The <strong><code>stylebook</code></strong> task : it is used to
-          build the Cactus web site and Cactus documentation. The Stylebook
-          version required by the Cactus build is
-          the Stylebook 1.0b3 for Xalan2 (named
-          <code>stylebook-1.0-b3_xalan-2.jar</code>) which needs the Xalan 2.0
-          jar and the Xerces jar. <em>The stylebook task is not used by
-          the Cactus Sample application build process, so it is only needed
-          if you're building from the Cactus sources</em>. This task is
-          normally found in the <code>optional.jar</code> Ant jar.
-        </li>
         <li>
           The <strong><code>junit</code></strong> task : it is used to run
           the unit tests of Cactus itself and the Cactus unit tests of the
@@ -122,12 +110,6 @@
           all these jars in <code>%ANT_HOME%\lib</code>.
         </li>
       </ol>
-
-      <note>
-        You should ensure that the Ant optional jar that you download contains
-        the &lt;stylebook&gt; and &lt;junit&gt; tasks. Alternatively you can
-        download the prepackaged Ant zip as mentionned above.
-      </note>
 
     </s1>
 

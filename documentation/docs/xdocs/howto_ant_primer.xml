@@ -1,16 +1,13 @@
 <?xml version="1.0"?>
 
-<!--
-<!DOCTYPE document SYSTEM "./dtd/document-v10.dtd">
--->
-
 <document>
-  <header>
+
+  <properties>
     <title>Ant Integration</title>
     <authors>
-      <person name="Vincent Massol" email="vmassol@apache.org"/>
+      <author name="Vincent Massol" email="vmassol@apache.org"/>
     </authors>
-  </header>
+  </properties>
 
   <body>
 
@@ -196,14 +193,6 @@
             </td>
           </tr>
         </table>
-
-        <note>
-          In the sample application provided with Cactus, we don't generate
-          any web site documentation (only javadoc) so we're not using the
-          stylebook-related directories and Ant targets. However we do so in
-          Cactus itself, so if you need to take a look, download the Cactus
-          sources.
-        </note>
 
         <note>
           An <code>out</code> directory will be created by the Ant build. All
@@ -827,11 +816,10 @@
         <p>
           Generate the project's documentation. It includes the javadoc,
           additional README files (if any) and the documentation web site
-          (built using Stylebook for example, as shown in the example below).
         </p>
 
         <p>
-          Example not using Stylebook :
+          Example:
         </p>
 
 <source><![CDATA[
@@ -852,53 +840,6 @@
 
         <!-- Create the zipped documentation -->
         <zip zipfile="${final.doc.name}" basedir="${out.doc.dir}"/>
-
-    </target>
-]]></source>
-
-        <p>
-          Example using Stylebook (from the Cactus build file itself) :
-        </p>
-
-<source><![CDATA[
-    <!--
-       ========================================================================
-         Generate the full documentation for a given Servlet API, i.e.
-         web site + javadoc
-       ========================================================================
-    -->
-    <!-- Preparation target for the doc target -->
-    <target name="prepare-doc" depends="javadoc">
-
-        <mkdir dir="${out.doc.dir}"/>
-        <mkdir dir="${out.doc.dir}/images"/>
-
-        <!-- Copy doc-book.xml to book.xml for defining the documentation web
-             site and replacing token filters (year) -->
-        <delete file="${xdoc.dir}/book.xml"/>
-        <copy file="${xdoc.dir}/doc-book.xml" tofile="${xdoc.dir}/book.xml"
-            filtering="on"/>
-
-        <!-- Copy the images -->
-        <copy todir="${out.site.dir}/images">
-            <fileset dir="${xdoc.dir}/images"/>
-        </copy>
-
-    </target>
-
-    <!-- Generate the documentation -->
-    <target name="doc" depends="prepare-doc">
-
-        <!-- Generate the documentation web site -->
-        <stylebook book="${xdoc.dir}/book.xml"
-            skinDirectory="${skin.dir}/jakarta.apache.org"
-            targetDirectory="${out.doc.dir}">
-
-            <classpath>
-                <pathelement path="${java.class.path}"/>
-            </classpath>
-
-        </stylebook>
 
     </target>
 ]]></source>

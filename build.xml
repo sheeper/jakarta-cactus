@@ -101,7 +101,6 @@
         <echo message=""/>
         <echo message="cvs.executable = ${cvs.executable}"/>
         <echo message=""/>
-        <echo message="stylebook.jar (optional) = ${stylebook.jar}"/>
         <echo message="clover.enable (optional) = ${clover.enable}"/>
         <echo message=""/>
 

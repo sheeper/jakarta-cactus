@@ -1,14 +1,13 @@
 <?xml version="1.0"?>
 
-<!DOCTYPE document SYSTEM "./dtd/document-v10.dtd">
-
 <document>
-  <header>
+
+  <properties>
     <title>Webalizer</title>
     <authors>
-      <person name="Vincent Massol" email="vmassol@apache.org"/>
+      <author name="Vincent Massol" email="vmassol@apache.org"/>
     </authors>
-  </header>
+  </properties>
 
   <body>
 

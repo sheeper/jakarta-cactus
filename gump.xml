@@ -51,7 +51,6 @@
   
     <depend project="jakarta-ant" inherit="runtime"/>
     <depend project="xml-xerces"/>
-    <depend project="xml-stylebook2"/>
     <depend project="xml-xalan2"/>
 
     <javadoc nested="documentation/dist/doc" title="Cactus Documentation"/>
