@@ -61,6 +61,7 @@ import org.apache.cactus.eclipse.containers.ant.GenericAntProvider;
 import org.eclipse.core.runtime.IPluginDescriptor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
@@ -205,5 +206,23 @@ public class CactusPlugin extends AbstractUIPlugin
             CactusPreferences.getContextURLPort(),
             CactusPreferences.getTempDir(),
             CactusPreferences.getContainerHomes());
+    }
+
+    /**
+     * Displays an error dialog.
+     * @param theTitle title of the dialog
+     * @param theMessage message to display in the dialog
+     * @param theStatus status of the error
+     */
+    public static void displayErrorMessage(
+        String theTitle,
+        String theMessage,
+        IStatus theStatus)
+    {
+        ErrorDialog.openError(
+            getActiveWorkbenchShell(),
+            theTitle,
+            theMessage,
+            theStatus);
     }
 }
