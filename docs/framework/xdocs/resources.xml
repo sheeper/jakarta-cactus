@@ -7,6 +7,7 @@
     <title>Resources</title>
     <authors>
       <person name="Vincent Massol" email="vmassol@apache.org"/>
+      <person name="Nicholas Lesiecki" email="ndlesiecki@apache.org"/>
     </authors>
   </header>
 
@@ -55,14 +56,14 @@
       </table>
 
       <p/>
-
+      <anchor id="xp_book"/>
       <table>
         <tr>
           <td>
             Link
           </td>
           <td>
-            <link href="http://www.amazon.com/exec/obidos/ASIN/047120708X/qid=1007292540/sr=8-1/ref=sr_8_3_1/103-5269600-2827061">
+            <link href="http://www.amazon.com/exec/obidos/ASIN/047120708X/">
             Java Tools for Extreme Programming: Mastering Open Source Tools, including Ant,
             JUnit, and Cactus</link>
           </td>
@@ -88,7 +89,15 @@
             Description
           </td>
           <td>
-            Book from Richard Hightower and Nicholas Lesiecki on open source tools.
+            Co-authored by 
+	    <link href="contributors.html#nick_bio">
+	    Nicholas Lesiecki
+	    </link> (a Cactus commiter)
+	    and Richard Hightower, this book covers key open source testing and integration
+	    tools that work well in agile processes such as XP. The book 
+	    features a Cactus API reference, an in-depth tutorial on Cactus use, 
+	    and an example of applying in-container techniques to a real-world 
+	    application.
           </td>
         </tr>
       </table>

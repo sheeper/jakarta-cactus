@@ -51,7 +51,11 @@
           EJBs
         </li>
       </ul>
-
+			<p>
+        All of these are currently enabled in Cactus 1.2,
+				though we'd like to do more work on
+				facilitating EJB and Taglib testing.
+      </p>
     </s1>
 
     <s1 title="Long term goals">
