@@ -54,7 +54,7 @@
  * <http://www.apache.org/>.
  *
  */
-package org.apache.cactus.integration.ant;
+package org.apache.cactus.integration.ant.deployment;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
@@ -96,14 +96,12 @@ public final class TestAll extends TestCase
     public static Test suite()
     {
         TestSuite suite = new TestSuite(
-            "Unit tests for the Ant integration classes");
+            "Unit tests for the deployment support classes");
 
-        suite.addTest(
-            org.apache.cactus.integration.ant.container.TestAll.suite());
-        suite.addTest(org.apache.cactus.integration.ant.deployment.TestAll.suite());
-
-        suite.addTestSuite(TestCactifyWarTask.class);
-        suite.addTestSuite(TestCactusTask.class);
+        suite.addTestSuite(TestApplicationXml.class);
+        suite.addTestSuite(TestWebXml.class);
+        suite.addTestSuite(TestWebXmlMerger.class);
+        suite.addTestSuite(TestWebXmlVersion.class);
 
         return suite;
     }

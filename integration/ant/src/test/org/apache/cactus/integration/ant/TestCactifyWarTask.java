@@ -63,9 +63,9 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.jar.JarInputStream;
 
-import org.apache.cactus.integration.ant.webxml.WebXml;
-import org.apache.cactus.integration.ant.webxml.WebXmlIo;
-import org.apache.cactus.integration.ant.webxml.WebXmlVersion;
+import org.apache.cactus.integration.ant.deployment.WebXml;
+import org.apache.cactus.integration.ant.deployment.WebXmlIo;
+import org.apache.cactus.integration.ant.deployment.WebXmlVersion;
 import org.apache.tools.ant.BuildException;
 import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
