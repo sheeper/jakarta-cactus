@@ -247,10 +247,17 @@ be resolved. Please check you build.properties file, and run Ant with the
             <fileset dir="${basedir}" includes="LICENSE.*"/>
             <fileset dir="${base.dir}">
                 <include name="plugin.properties"/>
-                <include name="plugin.xml"/>
                 <include name="README.txt"/>
                 <include name="icons/*.*"/>
             </fileset>
+        </copy>
+        <!-- Eclipse requires the version specified in the plugin descriptor to
+             be a legal version in the format major.minor.service, so we set it
+             to 0.0.0 and replace that with the actual plugin version here -->
+        <copy todir="${dist.bin.dir}" file="${base.dir}/plugin.xml">
+            <filterset begintoken='"' endtoken='"'>
+                <filter token='0.0.0' value='"${project.version.plugin}"'/>
+            </filterset>
         </copy>
 
         <!-- Copy the configuration files -->

@@ -182,13 +182,12 @@ be resolved. Please check you build.properties file, and run Ant with the
       <fileset file="${base.dir}/plugin.properties"/>
       <fileset file="${basedir}/LICENSE.cactus"/>
     </copy>
-    <copy todir="${dist.bin.dir}"
-        file="${base.dir}/plugin.xml" filtering="on">
-      <filterset begintoken="&lt;!--@" endtoken="@--&gt;">
-        <filter token="cactus.begin" value="&lt;!--"/>
-        <filter token="cactus.end" value="--&gt;"/>
-        <filter token="cactus.replace" 
-            value="&lt;plugin id=&quot;org.apache.cactus.eclipse.webapp&quot; name=&quot;%pluginName&quot; version=&quot;${project.version.plugin}&quot; provider-name=&quot;%providerName&quot; class=&quot;org.apache.cactus.eclipse.webapp.internal.ui.WebappPlugin&quot;&gt;"/>
+    <!-- Eclipse requires the version specified in the plugin descriptor to be
+         a legal version in the format major.minor.service, so we set it to
+         0.0.0 and replace that with the actual plugin version here -->
+    <copy todir="${dist.bin.dir}" file="${base.dir}/plugin.xml">
+      <filterset begintoken='"' endtoken='"'>
+        <filter token='0.0.0' value='"${project.version.plugin}"'/>
       </filterset>
     </copy>
     
