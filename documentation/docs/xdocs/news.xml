@@ -31,9 +31,7 @@
       <table>
 
         <tr>
-          <td>
-            08/04/2003
-          </td>
+          <th>08/04/2003</th>
           <td>
             Release 2.0 of the 
             <link href="ext:maven_cactus">Cactus plugin for Maven</link> is 
@@ -43,9 +41,7 @@
         </tr>
 
         <tr>
-          <td>
-            10/02/2003
-          </td>
+          <th>10/02/2003</th>
           <td>
             <link href="mailto:vmassol@pivolis.com">Vincent Massol</link> will
             be a speaker at the 
@@ -59,9 +55,7 @@
         </tr>
 
         <tr>
-          <td>
-            05/01/2003
-          </td>
+          <th>05/01/2003</th>
           <td>
             <link href="ext:strutstestcase">StrutsTestCase</link> v1.9.5 
             has been released. It improves support for Struts 1.1b3 (including support for 
@@ -71,9 +65,7 @@
         </tr>
 
         <tr>
-          <td>
-            28/12/2002
-          </td>
+          <th>28/12/2002</th>
           <td>
             <link href="http://www.ehatchersolutions.com/JavaDevWithAnt/">
             JavaDevWithAnt</link>. Project demonstrating Ant, XDoclet, Struts, 
@@ -82,9 +74,7 @@
         </tr>
 
         <tr>
-          <td>
-            07/11/2002
-          </td>
+          <th>07/11/2002</th>
           <td>
             Release 1.0 of the 
             <link href="ext:maven_cactus">Cactus plugin for Maven</link> is 
@@ -95,9 +85,7 @@
         </tr>
 
         <tr>
-          <td>
-            28/06/2002
-          </td>
+          <th>28/06/2002</th>
           <td>
             <link href="http://www7b.boulder.ibm.com/wsdd/techjournal/0206_wosnick/wosnick.html">
             Article</link> from <link href="mailto:swosnick@ca.ibm.com">Sheldon Wosnick</link>
@@ -106,9 +94,7 @@
         </tr>
 
         <tr>
-          <td>
-            19/05/2002
-          </td>
+          <th>19/05/2002</th>
           <td>
             New <link href="http://www-106.ibm.com/developerworks/java/library/j-aspectj2/?loc=j">Test
             flexibly with AspectJ and mock objects</link> article by
@@ -120,9 +106,7 @@
         </tr>
 
         <tr>
-          <td>
-            18/05/2002
-          </td>
+          <th>18/05/2002</th>
           <td>
             <link href="mailto:kaarle.kaila@iki.fi">Kaarle Kaila</link> has
             started <link href="http://kacoma.sourceforge.net">KaCoMa</link>:
@@ -134,9 +118,7 @@
         </tr>
 
         <tr>
-          <td>
-            08/04/2002
-          </td>
+          <th>08/04/2002</th>
           <td>
             Cactus BOF at <link href="http://www.ot2002.org">OT2002</link> led
             by <link href="mailto:vmassol@octo.com">Vincent Massol</link> from
@@ -145,9 +127,7 @@
         </tr>
 
         <tr>
-          <td>
-            25/03/2002
-          </td>
+          <th>25/03/2002</th>
           <td>
             Speech on Cactus and the Jakarta Community entitled "Itineraire d'un
             logiciel libre: Jakarta Cactus" at the Luxembourg Free Open Source
@@ -158,9 +138,7 @@
         </tr>
 
         <tr>
-          <td>
-            21/03/2002
-          </td>
+          <th>21/03/2002</th>
           <td>
             Cactus is now integrated in
             <link href="http://www.objecteering.com">Objecteering</link>. Read
@@ -170,9 +148,7 @@
         </tr>
 
         <tr>
-          <td>
-            27/02/2002
-          </td>
+          <th>27/02/2002</th>
           <td>
             <link href="http://www.togethersoft.com">Together Control Center
             6.0</link> now incorporates the concept of Test
@@ -181,9 +157,7 @@
         </tr>
 
         <tr>
-          <td>
-            12/2001
-          </td>
+          <th>12/2001</th>
           <td>
             <link href="ext:strutstestcase">StrutsTestCase for JUnit</link> is 
             a framework for un it testing Struts code. It provides both mock 
@@ -193,9 +167,7 @@
         </tr>
 
         <tr>
-          <td>
-            11/2001
-          </td>
+          <th>11/2001</th>
           <td>
             New book on open source tools for XP, including a big chapter on
             Cactus:
@@ -208,9 +180,7 @@
         </tr>
 
         <tr>
-          <td>
-            12/10/2001
-          </td>
+          <th>12/10/2001</th>
           <td>
             Presentation of Cactus at <link href="http://www.jsig.com">London
             JSIG</link>. Led by <link href="mailto:vmassol@octo.com">Vincent
@@ -219,9 +189,7 @@
         </tr>
 
         <tr>
-          <td>
-            28/06/2001
-          </td>
+          <th>28/06/2001</th>
           <td>
             Article on Cactus from Earthweb:
             <link href="http://softwaredev.earthweb.com/java/article/0,,12082_793701,00.html">Cactus:
@@ -239,9 +207,18 @@
       <table>
 
         <tr>
+          <th>04/05/2003</th>
           <td>
-            01/12/2002
+            Transition to a new web site stylesheet that more heavily relies
+            on CSS. Apart from easier maintenance, it should provide a more
+            consistent look as well as far superior printability. Naturally,
+            the new site will look a bit odd on old browsers like Netscape 4.x,
+            but still should be quite usable.
           </td>
+        </tr>
+
+        <tr>
+          <th>01/12/2002</th>
           <td>
             Added automatic script support for JBoss 3.x. They are delivered
             as part of the Cactus distribution.
@@ -249,9 +226,7 @@
         </tr>
 
         <tr>
-          <td>
-            13/09/2002
-          </td>
+          <th>13/09/2002</th>
           <td>
             New tutorial that explains how to build Cactus from the sources.
             Check the <link href="site:howto_build">Build Howto</link> now !
@@ -259,9 +234,7 @@
         </tr>
 
         <tr>
-          <td>
-            31/08/2002
-          </td>
+          <th>31/08/2002</th>
           <td>
             Cactus 1.4.1 has been released ! It is purely a bug fix release.
             Get it from the
@@ -271,9 +244,7 @@
         </tr>
 
         <tr>
-          <td>
-            25/08/2002
-          </td>
+          <th>25/08/2002</th>
           <td>
             Cactus 1.4 final is released ! Get it from the
             <link href="site:downloads">Download area</link>. Complete change
@@ -282,9 +253,7 @@
         </tr>
 
         <tr>
-          <td>
-            29/07/2002
-          </td>
+          <th>29/07/2002</th>
           <td>
             Cactus 1.4 beta 1 is released ! Get it from the
             <link href="site:downloads">Download area</link>. Complete change
@@ -293,9 +262,7 @@
         </tr>
 
         <tr>
-          <td>
-            22/07/2002
-          </td>
+          <th>22/07/2002</th>
           <td>
             Added automatic script support for Orion 1.6. They are delivered
             as part of the Cactus distribution.
@@ -303,9 +270,7 @@
         </tr>
 
         <tr>
-          <td>
-            19/06/2002
-          </td>
+          <th>19/06/2002</th>
           <td>
             Added automatic script support for WebLogic 7.0. They are delivered
             as part of the Cactus distribution.
@@ -313,9 +278,7 @@
         </tr>
 
         <tr>
-          <td>
-            09/06/2002
-          </td>
+          <th>09/06/2002</th>
           <td>
             Added <link href="site:coverage">Test Coverage Reports</link> that
             shows how good (or how bad !) Cactus self tests are. We have used
@@ -324,9 +287,7 @@
         </tr>
 
         <tr>
-          <td>
-            14/05/2002
-          </td>
+          <th>14/05/2002</th>
           <td>
             New <link href="site:howto_tomcat">Quick start tutorial</link> that
             explains how to run Cactus tests quickly in Tomcat.
@@ -334,9 +295,7 @@
         </tr>
 
         <tr>
-          <td>
-            13/05/2002
-          </td>
+          <th>13/05/2002</th>
           <td>
             New tutorial that explains a new of running Cactus tests: through
             a browser. Check the <link href="site:howto_runner">TestRunner
@@ -345,9 +304,7 @@
         </tr>
 
         <tr>
-          <td>
-            21/04/2002
-          </td>
+          <th>21/04/2002</th>
           <td>
             Cactus 1.3 is released ! Get it from the
             <link href="site:downloads">Download area</link>. Complete change
@@ -356,9 +313,7 @@
         </tr>
 
         <tr>
-          <td>
-            21/04/2002
-          </td>
+          <th>21/04/2002</th>
           <td>
             New <link href="site:testedon">Tested On ...</link> page which
             lists what containers have been tested with Cactus.
@@ -366,27 +321,21 @@
         </tr>
 
         <tr>
-          <td>
-            20/04/2002
-          </td>
+          <th>20/04/2002</th>
           <td>
             New <link href="site:users">Cactus users</link> page.
           </td>
         </tr>
 
         <tr>
-          <td>
-            20/04/2002
-          </td>
+          <th>20/04/2002</th>
           <td>
             New <link href="site:howto_security">Security tutorial</link>.
           </td>
         </tr>
 
         <tr>
-          <td>
-            20/04/2002
-          </td>
+          <th>20/04/2002</th>
           <td>
             New <link href="site:logos">logo proposals</link> by Alessandro
             Ceglia, Dimenzio Design Works and Arthur Jasso.
@@ -394,9 +343,7 @@
         </tr>
 
         <tr>
-          <td>
-            22/02/2002
-          </td>
+          <th>22/02/2002</th>
           <td>
             New <link href="site:logos">logo proposals</link> by Alessandro
             Ceglia !
@@ -404,9 +351,7 @@
         </tr>
 
         <tr>
-          <td>
-            19/01/2002
-          </td>
+          <th>19/01/2002</th>
           <td>
             New <link href="site:howto_ide_jbuilder5">JBuilder 5 tutorial</link>
             for Cactus integration. Thanks Sean !
@@ -414,18 +359,14 @@
         </tr>
 
         <tr>
-          <td>
-            10/02/2002
-          </td>
+          <th>10/02/2002</th>
           <td>
             New <link href="ext:stats">Web site Statistics</link> page.
           </td>
         </tr>
 
         <tr>
-          <td>
-            20/01/2002
-          </td>
+          <th>20/01/2002</th>
           <td>
             Link to Cactus nightly build result added to the left menu in the
             developer section.
