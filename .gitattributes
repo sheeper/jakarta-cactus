@@ -27,6 +27,7 @@ docs/framework/skins/jakarta.apache.org/stylesheets/document2html.xsl svn_keywor
 docs/framework/skins/jakarta.apache.org/stylesheets/todo2document.xsl svn_keywords=Author+Date+Id+Revision
 docs/framework/xdocs/changes.xml svn_keywords=Author+Date+Id+Revision
 docs/framework/xdocs/contributors.xml svn_keywords=Author+Date+Id+Revision
+docs/framework/xdocs/cvslog/users.properties svn_keywords=Author+Date+Id+Revision
 docs/framework/xdocs/doc-book.xml svn_keywords=Author+Date+Id+Revision
 docs/framework/xdocs/downloads.xml svn_keywords=Author+Date+Id+Revision
 docs/framework/xdocs/dtd/changes-v10.dtd svn_keywords=Author+Date+Id+Revision
