@@ -109,6 +109,10 @@ public class GenericAntProvider implements IContainerProvider
     private ContainerHome[] containerHomes;
 
     /**
+     * Plug-in relative path to the Ant build file.
+     */
+    private String buildFilePath = "./ant/build.xml";
+    /**
      * Constructor.
      * @param thePort the port that will be used when setting up the container
      * @param theTargetDir the directory to be used for container configuration
@@ -123,17 +127,17 @@ public class GenericAntProvider implements IContainerProvider
     {
         if (thePort <= 0)
         {
-            CactusPlugin.throwCoreException(
+            throw CactusPlugin.createCoreException(
                 "CactusLaunch.message.invalidproperty.port", null);
         }
         if (theTargetDir.equalsIgnoreCase(""))
         {
-            CactusPlugin.throwCoreException(
+            throw CactusPlugin.createCoreException(
                 "CactusLaunch.message.invalidproperty.tempdir", null);
         }
         if (theHomes.length == 0)
         {
-            CactusPlugin.throwCoreException(
+            throw CactusPlugin.createCoreException(
                 "CactusLaunch.message.invalidproperty.containers", null);
         }
         port = thePort;
@@ -150,12 +154,15 @@ public class GenericAntProvider implements IContainerProvider
                     + currentContainerHome.getDirectory());
         }
         CactusPlugin thePlugin = CactusPlugin.getDefault();
-        //File antFilesLocation =
-        //    new File(thePlugin.find(new Path("./ant")).getPath());
-        buildFileLocation =
-            new File(
-                thePlugin.find(new Path("./ant/build.xml")).getPath());
-        //antArguments.add("-Dbase.dir=" + antFilesLocation.getAbsolutePath());
+        URL buildFileURL = thePlugin.find(new Path(buildFilePath));
+        if (buildFileURL == null)
+        {
+            throw CactusPlugin.createCoreException(
+                "CactusLaunch.message.prepare.error.plugin.file",
+                " : " + buildFilePath,
+                null);
+        }
+        buildFileLocation = new File(buildFileURL.getPath());
         antArguments.add("-Dcactus.target.dir=" + theTargetDir);
         // Avoid Ant console popups on win32 platforms
         if (BootLoader.getOS().equals(BootLoader.OS_WIN32))
@@ -188,7 +195,7 @@ public class GenericAntProvider implements IContainerProvider
         }
         catch (MalformedURLException e)
         {
-            CactusPlugin.throwCoreException(
+            throw CactusPlugin.createCoreException(
                 "CactusLaunch.message.start.error",
                 e);
         }
@@ -200,7 +207,7 @@ public class GenericAntProvider implements IContainerProvider
         }
         catch (BuildException e)
         {
-            CactusPlugin.throwCoreException(
+            throw CactusPlugin.createCoreException(
                 "CactusLaunch.message.start.error",
                 e);
         }

@@ -283,7 +283,7 @@ public class CactusLaunchShortcut
             String contextURLPath = CactusPreferences.getContextURLPath();
             if (contextURLPath.equals(""))
             {
-                CactusPlugin.throwCoreException(
+                throw CactusPlugin.createCoreException(
                     "CactusLaunch.message.invalidproperty.contextpath",
                     null);
             }
@@ -293,7 +293,7 @@ public class CactusLaunchShortcut
         catch (MalformedURLException e)
         {
             CactusPlugin.log(e);
-            CactusPlugin.throwCoreException(
+            throw CactusPlugin.createCoreException(
                 "CactusLaunch.message.war.malformed",
                 e);
         }

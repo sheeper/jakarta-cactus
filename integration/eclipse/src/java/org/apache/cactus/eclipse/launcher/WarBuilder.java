@@ -58,6 +58,7 @@ package org.apache.cactus.eclipse.launcher;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.Vector;
 
 import org.apache.cactus.eclipse.ui.CactusMessages;
@@ -136,7 +137,7 @@ public class WarBuilder
     {
         this.buildFileLocation = theBuildFileLocation;
         this.userClassFilesDir = theClassFilesDir;
-        this.userWebXML = theWebXML;
+        this.userWebXML = theWebXML;        
         this.userJarFilesDir = theJarFilesDir;
         this.userWebFilesDir = theWebFilesDir;
     }
@@ -150,22 +151,36 @@ public class WarBuilder
         throws JavaModelException
     {
         CactusPlugin thePlugin = CactusPlugin.getDefault();
+        URL buildFileURL = thePlugin.find(new Path(buildFilePath));
+        if (buildFileURL == null)
+        {
+            throw new JavaModelException(
+                CactusPlugin.createCoreException(
+                    "CactusLaunch.message.prepare.error.plugin.file",
+                    " : " + buildFilePath,
+                    null));
+        }
         buildFileLocation =
-            new File(thePlugin.find(new Path(buildFilePath)).getPath());
+            new File(buildFileURL.getPath());
         IPath projectPath = theJavaProject.getProject().getLocation();
         IPath classFilesPath =
             projectPath.removeLastSegments(1).append(
                 theJavaProject.getOutputLocation());
         userClassFilesDir = classFilesPath.toFile();
         userWebXML = projectPath.append(userWebXMLPath).toFile();
-
         if (!userWebXML.exists())
         {
-            userWebXML =
-                new File(
-                    thePlugin.find(new Path(webXMLPath)).getPath());
+            URL webXMLURL = thePlugin.find(new Path(webXMLPath));
+            if (webXMLURL == null)
+            {
+                throw new JavaModelException(
+                    CactusPlugin.createCoreException(
+                        "CactusLaunch.message.prepare.error.plugin.file",
+                        " : " + webXMLPath,
+                        null));
+            }
+            userWebXML = new File(webXMLURL.getPath());
         }
-
         userJarFilesDir = projectPath.append(userJarFilesPath).toFile();
         // copy any web folder situated in the user's project
         userWebFilesDir = projectPath.append(userWebFilesPath).toFile();
@@ -187,7 +202,7 @@ public class WarBuilder
         }
         catch (IOException e)
         {
-            CactusPlugin.throwCoreException(
+            throw CactusPlugin.createCoreException(
                 "CactusLaunch.message.war.error",
                 e);
         }

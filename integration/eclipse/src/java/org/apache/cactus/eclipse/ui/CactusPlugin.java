@@ -266,24 +266,40 @@ public class CactusPlugin extends AbstractUIPlugin
             theMessage);
     }
     /**
-     * Helper method for other classes. Throws a CoreException with
-     * the message corresponding to the given message key.
+     * Helper method for other classes. Returns a CoreException with a message
+     * corresponding to the given message key.
      * @param theMessageKey the key of the message to be thrown
      * @param theException a low-level exception, or null if not applicable 
-     * @throws CoreException always thrown
+     * @return the constructed CoreException
      */
-    public static void throwCoreException(
+    public static CoreException createCoreException(
         String theMessageKey,
         Throwable theException)
-        throws CoreException
+    {
+        return createCoreException(theMessageKey, "", theException);
+    }
+    
+    /**
+     * Helper method for other classes. Returns a CoreException with a message
+     * corresponding to the given message key and the additional String.
+     * @param theMessageKey the key of the message to be thrown
+     * @param theString String to be concatenated with the message
+     * @param theException a low-level exception, or null if not applicable 
+     * @return the constructed CoreException
+     */
+    public static CoreException createCoreException(
+        String theMessageKey,
+        String theString,
+        Throwable theException)
     {
         String message = CactusMessages.getString(theMessageKey);
-        throw new CoreException(
+        message += theString;
+        return new CoreException(
             new Status(
                 IStatus.ERROR,
                 CactusPlugin.getPluginId(),
                 IStatus.OK,
                 message,
                 theException));
-    }    
+    }      
 }
