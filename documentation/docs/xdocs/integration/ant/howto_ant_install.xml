@@ -16,8 +16,7 @@
       <note>
         <strong>You need to have a good understanding of Ant before
         reading this tutorial. If you don't, I suggest you read the
-        <link href="http://jakarta.apache.org/ant/manual/index.html">Ant
-        User Manual</link> first</strong>.
+        <link href="ext:ant_manual">Ant User Manual</link> first</strong>.
       </note>
 
       <p>
@@ -48,9 +47,9 @@
         </li>
         <li>
           The <strong><code>checkstyle</code></strong> task: it is used only
-          to buidl Cactus from the sources (i.e. not needed for building the
+          to build Cactus from the sources (i.e. not needed for building the
           Cactus sample application). The version of
-          <link href="http://checkstyle.sf.net">Checkstyle</link> used is 2.2+.
+          <link href="ext:checkstyle">Checkstyle</link> used is 3.0+.
         </li>
       </ul>
 
@@ -72,8 +71,8 @@
         <li>
           Download Jakarta Ant
           (<code>jakarta-ant-&lt;version&gt;-bin.zip</code>) from
-          <link href="http://jakarta.apache.org/ant/index.html">here</link>. I
-          recommend version 1.4.1 or above. Alternatively you can download the
+          <link href="ext:ant">here</link>. We recommend version 1.5.3 or 
+          above. Alternatively you can download the
           prepackaged Ant version, as mentioned above.
         </li>
         <li>
@@ -93,14 +92,14 @@
         <li>
           Download the Ant optional task jar
           (<code>jakarta-ant-&lt;version&gt;-optional.jar</code>) from
-          <link href="http://jakarta.apache.org/ant/index.html">here</link>
+          <link href="ext:ant">here</link>
           and put it in <code>%ANT_HOME%\lib</code>. <em>Note that this step
           is needed only if you haven't downloaded the prepackaged zip</em>,
         </li>
         <li>
           If you haven't downloaded the prepackaged Ant zip, you'll need to
           download the Stylebook 1.0b3 for Xalan 2 jar, the latest
-          <link href="http://xml.apache.org/xalan-j/">Xalan</link>, the latest
+          <link href="ext:xalanj">Xalan</link>, the latest
           <link href="http://xml.apache.org/xerces-j">Xerces</link>, the
           latest <link href="ext:junit">JUnit</link> and the latest
           <link href="ext:checkstyle">Checkstyle</link> jars. You'll
