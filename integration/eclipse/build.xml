@@ -35,7 +35,7 @@
          Initialize source, target and dist properties
        ========================================================================
     -->
-    <target name="properties">
+    <target name="properties" depends="init.junitplugin.find">
 
         <!-- Set the properties related to the source tree -->
         <property name="src.dir" value="${base.dir}/src"/>
@@ -100,16 +100,30 @@
 
     <!--
        ========================================================================
+         Find out the JUnit Eclipse plug-in version
+       ========================================================================
+    -->
+    <target name="init.junitplugin.find">
+
+        <condition property="junitplugin.version" value="m5">
+            <available classname="org.eclipse.jdt.junit">
+                <classpath>
+                   <pathelement location="${eclipse.jdt.junit.jar}"/>
+                </classpath>
+            </available>
+        </condition>
+
+        <fail message="Eclipse version must be higher than M5" 
+            unless="junitplugin.version"/>
+
+    </target>
+
+    <!--
+       ========================================================================
          Compile the plugin
        ========================================================================
     -->
 	<target name="compile" depends="init">
-
-        <echo>
-          ---------------------------------------------------------
-            Currently needs a patched version of the Junit plugin
-          ---------------------------------------------------------
-        </echo>
         		
 		<mkdir dir="${target.classes.dir}"/>
 
