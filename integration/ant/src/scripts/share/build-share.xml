@@ -19,7 +19,19 @@
     
     <!-- Default webapp context -->
     <property name="cactus.context" value="cactustest"/>
-    
+
+    <!-- Decides whether the test result will be printed to the console or
+    	 not. Default is true -->
+    <property name="cactus.junit.usefile" value="false"/>   
+
+    <!-- Location of junit test reports for the Cactus tests -->
+    <property name="cactus.reports.dir" 
+      value="${cactus.target.dir}/test-cactus-reports"/>
+
+    <!-- Decides whether to halt the build on error and/or on failure -->
+    <property name="cactus.halt.on.failure" value="true"/>
+    <property name="cactus.halt.on.error" value="true"/>
+    	
     <!--
        ========================================================================
          Set the properties related to the source tree.
@@ -174,8 +186,11 @@
         <copy tofile="${cactus.target.conf.dir}/log4j.properties"
             file="${cactus.conf.dir}/log_client.properties"/>
 
-        <junit printsummary="yes" haltonfailure="yes" haltonerror="yes"
-            fork="yes">
+        <!-- Create the test report directory before running the tests -->
+        <mkdir dir="${cactus.reports.dir}"/>
+
+        <junit printsummary="yes" failureproperty="cactus.junit.failure" 
+            errorproperty="cactus.junit.error" fork="yes">
 
             <jvmarg value="-Dcactus.contextURL=http://localhost:${cactus.port}/${cactus.context}"/>
 
@@ -198,11 +213,12 @@
                 <path refid="cactus.classpath"/>
             </classpath>
 
-            <formatter type="plain" usefile="false"/>
+            <formatter type="xml"/>
+            <formatter type="plain" usefile="${cactus.junit.usefile}"/>
 
             <!-- TODO: Automatically discover Cactus tests -->
 
-            <batchtest>
+            <batchtest todir="${cactus.reports.dir}">
                 <fileset dir="${cactus.src.dir}" 
                     includes="${cactus.src.includes}" 
                     excludes="${cactus.src.excludes}"/>
@@ -210,14 +226,45 @@
 
         </junit>
 
+        <!-- Decides whether to halt the build if errors or failures have
+        	  occurred -->
+
+        <condition property="cactus.test.error.shouldstop">
+          <and>
+            <isset property="cactus.junit.error"/>
+            <equals arg1="${cactus.halt.on.error}" arg2="true" trim="true"
+              casesensitive="false"/>
+          </and>
+        </condition>
+        <antcall target="cactus.test.check.error"/>
+
+        <condition property="cactus.test.failure.shouldstop">
+          <and>
+            <isset property="cactus.junit.failure"/>
+            <equals arg1="${cactus.halt.on.failure}" arg2="true" trim="true"
+              casesensitive="false"/>
+          </and>
+        </condition>
+        <antcall target="cactus.test.check.failure"/>
+
     </target>
-       
+
+    <target name="cactus.test.check.error" if="cactus.test.error.shouldstop">
+        <fail>There were test errors</fail>
+    </target>
+
+    <target name="cactus.test.check.failure" 
+      if="cactus.test.failure.shouldstop">
+        <fail>There were test failures</fail>
+    </target>
+      
     <!--
        ========================================================================
          Clean generated files (including distributables)
        ========================================================================
     -->
-    <target name="cactus.clean" depends="cactus.init" description="Clean target directory">
+    <target name="cactus.clean" depends="cactus.init" 
+      description="Clean target directory">
         <delete includeEmptyDirs="true">
             <fileset dir="${cactus.target.dir}/${cactus.context}"/>
         </delete>
