@@ -70,7 +70,9 @@ import org.apache.cactus.WebResponse;
  */
 public class TestSampleTag extends JspTestCase
 {
-    //-------------------------------------------------------------------------
+    /**
+     * Our tag instance to unit test
+     */
     private SampleTag tag;
 
     /**
@@ -104,6 +106,9 @@ public class TestSampleTag extends JspTestCase
         return new TestSuite(TestSampleTag.class);
     }
 
+    /**
+     * @see TestCase#setUp()
+     */
     public void setUp()
     {
         this.tag = new SampleTag();
@@ -116,6 +121,8 @@ public class TestSampleTag extends JspTestCase
      * Tests whether doStartTag() will skip the body if the corresponding tag
      * attribute is set. Also tests whether an attribute put into page scope
      * before the tag executes will be output to the response.
+     * 
+     * @exception Exception if the test fails for an unexpected reason
      */
     public void testDoStartTag() throws Exception
     {
@@ -133,6 +140,8 @@ public class TestSampleTag extends JspTestCase
     /**
      * Verifies that the output includes the output from doStartTag (a message
      * from the tag and the attribute set into page scope).
+     * 
+     * @param theResponse the response from the server side.
      */
     public void endDoStartTag(WebResponse theResponse)
     {
@@ -149,6 +158,8 @@ public class TestSampleTag extends JspTestCase
     /**
      * Test whether the tag's body will be shown if the corresponding attribute
      * is set.
+     * 
+     * @exception Exception if the test fails for an unexpected reason
      */
     public void testDoStartTagInclude() throws Exception
     {
@@ -163,6 +174,8 @@ public class TestSampleTag extends JspTestCase
     /**
      * The tag prints a message before the body is included, here we check that
      * the message shows up.
+     * 
+     * @param theResponse the response from the server side.
      */
     public void endDoStartTagInclude(WebResponse theResponse)
     {
@@ -175,6 +188,8 @@ public class TestSampleTag extends JspTestCase
     /**
      * Checks if the tag will continue the page correctly if its stopPage
      * property is set to false.
+     * 
+     * @exception Exception if the test fails for an unexpected reason
      */
     public void testDoEndTagContinue() throws Exception
     {
@@ -189,6 +204,8 @@ public class TestSampleTag extends JspTestCase
     /**
      * Checks whether the tag has printed a message indicating that it has a
      * parent tag.
+     * 
+     * @param theResponse the response from the server side.
      */
     public void endDoEndTagContinue(WebResponse theResponse)
     {
@@ -200,6 +217,8 @@ public class TestSampleTag extends JspTestCase
     /**
      * Checks if the tag will signal that page processing should stop if
      * stopPage is set to "true"
+     * 
+     * @exception Exception if the test fails for an unexpected reason
      */
     public void testDoEndTagStop() throws Exception
     {
@@ -214,20 +233,22 @@ public class TestSampleTag extends JspTestCase
     /**
      * Checks whether the tag has printed a message indicating that it has a
      * parent tag. (In this case it should not.)
+     * 
+     * @param theResponse the response from the server side.
      */
     public void endDoEndTagStop(WebResponse theResponse)
     {
-        String target = theResponse.getText();
-        boolean containsMessage = target.indexOf("This tag has a parent. <BR>") > 0;
-
-        assertTrue(!containsMessage);
+        assertContains(theResponse, "This tag has a parent. <BR>");
     }
 
     //--------------------------------------------------------------------------
 
     /**
      * Convenience function that asserts that a substring can be found in a
-     * target String.
+     * the returned HTTP response body.
+     * 
+     * @param theResponse the response from the server side.
+     * @param theSubstring the substring to look for
      */
     public void assertContains(WebResponse theResponse, String theSubstring)
     {
