@@ -67,22 +67,6 @@
       <packages>org.apache.cactus.client,org.apache.cactus.client.connector.http,org.apache.cactus.client.initialization,org.apache.cactus.configuration,org.apache.cactus.extension.jetty,org.apache.cactus.server.runner,org.apache.cactus.util</packages>
     </packageGroup>
   </packageGroups>  
-  <build>
-    <!-- TODO: Fix this - Aspects need to be moved to a specific source
-         directory -->
-    <aspectSourceDirectory>src/java/share</aspectSourceDirectory>
-
-    <!-- Unit test cases -->
-    <unitTest>
-      <includes>
-        <include>**/Test*.java</include>
-      </includes>
-      <excludes>
-        <exclude>**/Test*All.java</exclude>
-      </excludes>
-    </unitTest>
-             
-  </build>
 
   <reports>
     <!--report>maven-statcvs-plugin</report-->

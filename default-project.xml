@@ -123,7 +123,16 @@
 	     in maven.xml at runtime as Maven only supports a single source
 	     directory -->
     <unitTestSourceDirectory>src/test/share</unitTestSourceDirectory>
+    <unitTest>
+      <includes>
+        <include>**/Test*.java</include>
+      </includes>
+      <excludes>
+        <exclude>**/Test*All.java</exclude>
+      </excludes>
+    </unitTest>            
 
+    <aspectSourceDirectory>src/aspect</aspectSourceDirectory>
   </build>
 
 </project>
