@@ -44,11 +44,18 @@
   -->
   <project name="jakarta-cactus-documentation">
 
+    <!-- Create the directories that are added using the <work> tag below so
+         that JVM do not drop these directories from the CLASSPATH
+         (apparently some do) -->
+    <mkdir dir="documentation/target/classes/java"/>
+
     <ant buildfile="documentation/build.xml" target="dist"/>
 
     <depend project="jakarta-ant" inherit="runtime"/>
     <depend project="xml-xerces"/>
     <depend project="xml-xalan2"/>
+
+    <work nested="documentation/target/classes/java"/>
 
     <javadoc nested="documentation/dist/doc" title="Cactus Documentation"/>
 
