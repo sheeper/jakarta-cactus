@@ -65,8 +65,7 @@ import java.net.HttpURLConnection;
  *
  * @version $Id$
  */
-public class TestAbstractTestCase
-    extends TestAbstractTestCaseInterceptorTestCase
+public class TestAbstractTestCase extends AbstractTestAbstractTestCase
 {
     // Make sure logging is disabled
     static

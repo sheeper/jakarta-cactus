@@ -79,7 +79,7 @@ import org.apache.cactus.util.JUnitVersionHelper;
  *
  * @version $Id$
  */
-public class TestAbstractTestCaseInterceptorTestCase extends TestCase
+public abstract class AbstractTestAbstractTestCase extends TestCase
 {
     /**
      * Override default method so that configuration checks are not run during
