@@ -61,7 +61,9 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.List;
 
 import org.apache.cactus.WebRequest;
 import org.apache.cactus.client.authentication.AbstractAuthentication;
@@ -69,6 +71,7 @@ import org.apache.cactus.configuration.Configuration;
 import org.apache.cactus.util.UrlUtil;
 import org.apache.commons.httpclient.HostConfiguration;
 import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.protocol.Protocol;
@@ -137,7 +140,6 @@ public class HttpClientConnectionHelper extends AbstractConnectionHelper
             this.method = new GetMethod();
         }
 
-        this.method.setUseDisk(false);
         this.method.setFollowRedirects(false);
         this.method.setPath(UrlUtil.getPath(url));
         this.method.setQueryString(UrlUtil.getQuery(url));
@@ -195,16 +197,19 @@ public class HttpClientConnectionHelper extends AbstractConnectionHelper
         }
 
         Enumeration keys = theRequest.getParameterNamesPost();
+        List parameters = new ArrayList();
         while (keys.hasMoreElements())
         {
             String key = (String) keys.nextElement();
             String[] values = theRequest.getParameterValuesPost(key);
-
             for (int i = 0; i < values.length; i++)
             {
-                ((PostMethod) this.method).addParameter(key, values[i]);
+                parameters.add(new NameValuePair(key, values[i]));
             }
         }
+        ((PostMethod) this.method).setRequestBody(
+            (NameValuePair[]) parameters.toArray(
+                new NameValuePair[parameters.size()]));
     }
 
     /**
