@@ -20,13 +20,11 @@
           other type of components.
         </li>
         <li>
-          Try to be the preferred Jakarta unit testing framework. This may
-          mean providing specific extensions to ease writing unit test for
-          Jakarta frameworks (like for Struts, Turbine, ...),
-        </li>
-        <li>
-          To be the framework of reference for in-container unit testing
-          strategy
+          Allow fine-grained continuous testing of all files making up  
+          an application: source code but also meta-data files (such as 
+          deployment descriptors, etc) through an in-container approach. 
+          Integration work is costly and Cactus tries to spread this load
+          by doing it during development in an automated way.
         </li>
       </ul>          
         
@@ -65,7 +63,7 @@
           Decouple the Cactus framework into the core and its "plugins". This 
           means to publish a public API and a public SPI. The SPI would allow
           to support plugin for testing different type of components (Servlet,
-          Entity EJB, Struts Action, etc).
+          Entity EJB, Struts Actions, etc).
         </li>
       </ul>
 
@@ -126,22 +124,18 @@
             (Service Provider Interface) against which a generic unit testing 
             framework could be plugged, thus leaving the implementation details
             to an external framework and only providing maybe a generic
-            and simple implementation. Thus, the goal of Cactus will be
-            to help specify needed container API/SPI for unit testing, 
+            and simple implementation. Thus, one goal of Cactus is to help
+            specify needed container API/SPI for unit testing, 
             i.e. create
             an additional service of the container:  a "unit-testing service"
             (in addition to the existing Security, Transaction, Life Cycle, ...
-            Services). As Cactus and Tomcat projects are both hosted on Jakarta
-            it might be a good test ground for this kind of work. Of course,
-            the first step would be to convince Tomcat developers that unit
-            testing (and testing in general) is indeed a need to be
-            addressed in the container itself. The ultimate
+            Services). The ultimate
             goal will be reached when this new API/SPI is accepted and become
             a de jure standard. It would then be time to think about 
             integrating it into the Servlet Specifications 
             (or other components -like EJBs -
             specifications). Agreed, this far-streched at the current time
-            but it is the Cactus vision !
+            but it is the Cactus vision!
           </li>        
         </ul>
 
@@ -149,7 +143,7 @@
 
     </section>
 
-    <section title="Feedback needed !">
+    <section title="Feedback needed!">
 
       <p>
         Cactus is an open source project where everyone is free to participate

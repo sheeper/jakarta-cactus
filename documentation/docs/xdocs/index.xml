@@ -81,7 +81,7 @@
         </li>
         <li>
           <strong>Type 2: integration unit testing</strong>. Cactus is
-          typically in this category (I'll let you judge if it is the best or
+          typically in this category (we'll let you judge if it is the best or
           not :)). These tests will exercise the interactions with the
           container.
         </li>
@@ -102,12 +102,12 @@
       </p>
       <p>
         Cactus was developed to fit Type 2 but also to be a very good
-        compromise for Type 1 and 3, with the idea that it is much easier to
+        compromise for types 1 and 3, with the idea that it is much easier to
         have to write tests for a single framework than for several ! Moreover,
         you can never fully test your code. We believe Cactus provides a middle
         ground that provides a high confidence that your code will run when
         deployed. However, it is your choice and you can use Cactus only for
-        Type 2 if you wish.
+        type 2 if you wish.
       </p>
 
     </section>
