@@ -53,11 +53,15 @@
  */
 package org.apache.cactus.client;
 
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.ProtocolException;
 import java.io.*;
-import java.net.*;
-import java.security.*;
+import java.security.Permission;
 
-import org.apache.cactus.util.log.*;
+import org.apache.cactus.util.log.LogService;
+import org.apache.cactus.util.log.Log;
+
 
 /**
  * Wrapper class for the real <code>HttpURLConnection</code> to the test servlet
@@ -114,26 +118,46 @@ final class AutoReadHttpURLConnection extends HttpURLConnection
      */
     public synchronized InputStream getInputStream() throws IOException
     {
-        if (this.streamBuffer == null) {
-            logger.debug("Original connection = " + this.delegate);
-            InputStream is = this.delegate.getInputStream();
-            this.streamBuffer = bufferInputStream(is);
+        // Catch IOException to log the content of the error stream
+        try {
+            if (this.streamBuffer == null) {
+                logger.debug("Original connection = " + this.delegate);
+                InputStream is = this.delegate.getInputStream();
+                this.streamBuffer = bufferInputStream(is);
+            }
+        } catch (IOException e) {
+            logErrorStream(this.delegate.getErrorStream());
+            throw e;
         }
 
         return this.streamBuffer;
     }
 
-    private InputStream bufferInputStream(InputStream is) throws IOException
+    private void logErrorStream(InputStream theErrorStream) throws IOException
     {
-        ByteArrayOutputStream os = new ByteArrayOutputStream(DEFAULT_CHUNK_SIZE);
-        copy(is, os);
+        // Log content of error stream
+        BufferedReader errorStream = new BufferedReader(
+            new InputStreamReader(theErrorStream));
+        String buffer;
+        while ((buffer = errorStream.readLine()) != null) {
+            logger.debug("ErrorStream [" + buffer + "]");
+        }
+    }
+
+    private InputStream bufferInputStream(InputStream theInputStream)
+        throws IOException
+    {
+        ByteArrayOutputStream os =
+            new ByteArrayOutputStream(DEFAULT_CHUNK_SIZE);
+        copy(theInputStream, os);
         ByteArrayInputStream bais =
                 new ByteArrayInputStream(os.toByteArray());
 
         return bais;
     }
 
-    private void copy(InputStream is, OutputStream os) throws IOException
+    private void copy(InputStream theInputStream, OutputStream theOutputStream)
+        throws IOException
     {
         // Only copy if there are data to copy ... The problem is that not
         // all servers return a content-length header. If there is no header
@@ -149,11 +173,11 @@ final class AutoReadHttpURLConnection extends HttpURLConnection
             byte[] buf = new byte[DEFAULT_CHUNK_SIZE];
             int count;
 
-            while(-1 != (count = is.read(buf))) {
+            while(-1 != (count = theInputStream.read(buf))) {
 
                 // log read data
                 printReadLogs(count, buf);
-                os.write(buf, 0, count);
+                theOutputStream.write(buf, 0, count);
             }
 
         }
@@ -164,32 +188,32 @@ final class AutoReadHttpURLConnection extends HttpURLConnection
      * asc char 10 by "\r", asc char 13 by "\n" and only print the first
      * 50 characters and the last 50.
      *
-     * @param count the number of bytes read in the buffer
-     * @param buffer the buffer containing the data to print
+     * @param theCount the number of bytes read in the buffer
+     * @param theBuffer the buffer containing the data to print
      */
-    private void printReadLogs(int count, byte[] buffer)
+    private void printReadLogs(int theCount, byte[] theBuffer)
     {
         // Log portion of read data and replace asc 10 by \r and asc
         // 13 by /n
         StringBuffer prefix = new StringBuffer();
-        for (int i = 0; i < count && i < 50; i++) {
-            if (buffer[i] == 10) {
+        for (int i = 0; i < theCount && i < 50; i++) {
+            if (theBuffer[i] == 10) {
                 prefix.append("\\r");
-            } else if (buffer[i] == 13) {
+            } else if (theBuffer[i] == 13) {
                 prefix.append("\\n");
             } else {
-                prefix.append((char)buffer[i]);
+                prefix.append((char)theBuffer[i]);
             }
         }
 
         StringBuffer suffix = new StringBuffer();
-        for (int i = count - 50; i > 0 && i < count; i++) {
-            if (buffer[i] == 10) {
+        for (int i = theCount - 50; i > 0 && i < theCount; i++) {
+            if (theBuffer[i] == 10) {
                 suffix.append("\\r");
-            } else if (buffer[i] == 13) {
+            } else if (theBuffer[i] == 13) {
                 suffix.append("\\n");
             } else {
-                suffix.append((char)buffer[i]);
+                suffix.append((char)theBuffer[i]);
             }
         }
 
@@ -197,7 +221,7 @@ final class AutoReadHttpURLConnection extends HttpURLConnection
             prefix.append(" ...] [... ");
         }
 
-        logger.debug("Read [" + count + "]: [" + prefix + suffix + "]");
+        logger.debug("Read [" + theCount + "]: [" + prefix + suffix + "]");
     }
 
     // Delegated methods
