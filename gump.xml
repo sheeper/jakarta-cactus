@@ -34,7 +34,7 @@
 
     <home nested="anttasks/dist"/>
     <jar name="lib/cactus-anttasks.jar"/>
-    <javadoc nested="anttasks/dist/doc/api" title="Cactus Ant tasks API"/>
+    <javadoc nested="anttasks/dist/doc/api"/>
 
     <deliver fromdir="anttasks/release" tosite="jakarta.apache.org"
       todir="builds/jakarta-cactus/nightly/@@DATE@@/" />
@@ -95,6 +95,7 @@
   <project name="jakarta-cactus-framework-12">
 
     <package>org.apache.cactus</package>
+    <description>Cactus Framework (J2EE 1.2)</description>
 
     <ant buildfile="framework/build.xml" target="release">
 
@@ -121,8 +122,7 @@
 
     <home nested="framework/dist-12"/>
     <jar name="lib/cactus-framework.jar"/>
-    <javadoc nested="framework/dist-12/doc/api"
-      title="Cactus Framework for J2EE 1.2 API"/>
+    <javadoc nested="framework/dist-12/doc/api"/>
 
     <license name="LICENSE.cactus"/>
 
@@ -144,6 +144,7 @@
   <project name="jakarta-cactus-framework-13">
 
     <package>org.apache.cactus</package>
+    <description>Cactus Framework (J2EE 1.3)</description>
 
     <ant buildfile="framework/build.xml" target="release">
 
@@ -170,8 +171,7 @@
 
     <home nested="framework/dist-13"/>
     <jar name="lib/cactus-framework.jar"/>
-    <javadoc nested="framework/dist-13/doc/api"
-      title="Cactus Framework for J2EE 1.3 API"/>
+    <javadoc nested="framework/dist-13/doc/api"/>
 
     <license name="LICENSE.cactus"/>
 
@@ -191,6 +191,9 @@
      ========================================================================
   -->
   <project name="jakarta-cactus-integration-ant-12">
+
+    <package>org.apache.cactus.integration.ant</package>
+    <description>Cactus Ant Integration (J2EE 1.2)</description>
 
     <ant buildfile="integration/ant/build.xml" target="release">
 
@@ -222,6 +225,7 @@
 
     <home nested="integration/ant/dist-12"/>
     <jar name="bin/cactus-integration-ant/lib/client/cactus-integration-ant-@@DATE@@.jar"/>
+    <javadoc nested="integration/ant/dist-12/doc/api"/>
     	
     <license name="LICENSE.cactus"/>
 
@@ -241,6 +245,9 @@
      ========================================================================
   -->
   <project name="jakarta-cactus-integration-ant-13">
+
+    <package>org.apache.cactus.integration.ant</package>
+    <description>Cactus Ant Integration (J2EE 1.3)</description>
 
     <ant buildfile="integration/ant/build.xml" target="release">
 
@@ -272,6 +279,7 @@
 
     <home nested="integration/ant/dist-13"/>
     <jar name="bin/cactus-integration-ant/lib/client/cactus-integration-ant-@@DATE@@.jar"/>
+    <javadoc nested="integration/ant/dist-13/doc/api"/>
 
     <license name="LICENSE.cactus"/>
 
@@ -385,6 +393,8 @@
   -->
   <project name="jakarta-cactus-sample-servlet-12">
 
+    <description>Cactus Servlet Sample (J2EE 1.2)</description>
+
     <!-- Create the directories that are added using the <work> tag below so
          that JVM do not drop these directories from the CLASSPATH
          (apparently some do) -->
@@ -447,6 +457,8 @@
      ========================================================================
   -->
   <project name="jakarta-cactus-sample-servlet-13">
+
+    <description>Cactus Servlet Sample (J2EE 1.3)</description>
 
     <!-- Create the directories that are added using the <work> tag below so
          that JVM do not drop these directories from the CLASSPATH
@@ -512,6 +524,8 @@
   -->
   <project name="jakarta-cactus-documentation">
 
+    <description>Cactus Documentation</description>
+
     <!-- Create the directories that are added using the <work> tag below so
          that JVM do not drop these directories from the CLASSPATH
          (apparently some do) -->
@@ -539,7 +553,7 @@
 
     <work nested="documentation/target/classes/java"/>
 
-    <javadoc nested="documentation/dist/doc" title="Cactus Documentation"/>
+    <javadoc nested="documentation/dist/doc"/>
 
     <deliver fromdir="documentation/release" tosite="jakarta.apache.org"
       todir="builds/jakarta-cactus/nightly/@@DATE@@/" />
