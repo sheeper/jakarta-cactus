@@ -3,7 +3,7 @@
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2001-2003 The Apache Software Foundation.  All rights
+ * Copyright (c) 2004 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -54,89 +54,73 @@
  * <http://www.apache.org/>.
  *
  */
-package org.apache.cactus.integration.ant.container.enhydra;
+package org.apache.cactus.integration.ant.container.resin;
 
-import java.lang.reflect.Method;
+import java.io.File;
+import java.io.IOException;
 
-import org.apache.cactus.integration.ant.container.AbstractServerRun;
+import org.apache.cactus.integration.ant.util.ResourceUtils;
+import org.apache.tools.ant.taskdefs.Java;
+import org.apache.tools.ant.types.FilterChain;
+import org.apache.tools.ant.types.Path;
 
 /**
- * Starts/stop Enhydra by setting up a listener socket.
- *
- * @author <a href="mailto:digital@ix.net.au">Robert Leftwich</a>
+ * Special container support for the Caucho Resin 3.x servlet container.
+ * 
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
+ * 
  * @version $Id$
- * @see AbstractServerRun
  */
-public class EnhydraRun extends AbstractServerRun
+public class Resin3xContainer extends AbstractResinContainer
 {
+    // AbstractContainer Implementation ----------------------------------------
+
     /**
-     * @param theArgs the command line arguments
+     * @see org.apache.cactus.integration.ant.container.Container#getName
      */
-    public EnhydraRun(String[] theArgs)
+    public final String getName()
     {
-        super(theArgs);
+        return "Resin 3.x";
+    }
+    
+    // AbstractResinContainer Implementation -----------------------------------
+
+    /**
+     * @see AbstractResinContainer#getContainerDirName
+     */
+    protected final String getContainerDirName()
+    {
+        return "resin3x";
     }
 
     /**
-     * Entry point to start/stop the Enhydra server.
-     *
-     * @param theArgs the command line arguments
+     * @see AbstractResinContainer#startUpAdditions(Java)
      */
-    public static void main(String[] theArgs)
+    protected void startUpAdditions(Java theJavaContainer, Path theClasspath)
     {
-        EnhydraRun enhydra = new EnhydraRun(theArgs);
+        // It seems Resin 3.x requires the following property to be 
+        // set in order to start...
+        theJavaContainer.addSysproperty(createSysProperty(
+            "java.util.logging.manager", "com.caucho.log.LogManagerImpl"));
 
-        enhydra.doRun();
+        // Add the resin_home/bin directory to the library path so that the 
+        // resin dll/so can be loaded.
+        theJavaContainer.addSysproperty(createSysProperty(
+            "java.library.path", new File(getDir(), "bin")));
+
+        // Add the tools.jar to the classpath. This is not required for
+        // Resin 2.x but it is for Resin 3.x
+        addToolsJarToClasspath(theClasspath);          
     }
 
     /**
-     * Start the Enhydra server. We use reflection so that the Enhydra jars do
-     * not need to be in the classpath to compile this class.
-     * 
-     * @see AbstractServerRun#doStartServer
+     * @see AbstractResinContainer#prepareAdditions(FilterChain)
      */
-    protected final void doStartServer(String[] theArgs)
+    protected void prepareAdditions(FilterChain theFilterChain) 
+        throws IOException
     {
-        try
-        {
-            Class enhydraClass = 
-                Class.forName("com.lutris.multiServer.MultiServer");
-            Method initMethod = enhydraClass.getMethod("main", 
-                new Class[] {theArgs.getClass()});
-
-            initMethod.invoke(null, new Object[] {theArgs});
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-            throw new RuntimeException("Cannot create instance of MultiServer");
-        }
-    }
-
-    /**
-     * Stops the Enhydra server. We use reflection so that the Enhydra jars do
-     * not need to be in the classpath to compile this class.
-     * 
-     * @see AbstractServerRun#doStopServer
-     */
-    protected final void doStopServer(String[] theArgs,
-        Thread theRunningServerThread) throws Exception
-    {
-        try
-        {
-            Class enhydraClass = 
-                Class.forName("com.lutris.multiServer.MultiServer");
-            Method shutDownMethod = enhydraClass.getMethod("shutdown", null);
-
-            shutDownMethod.invoke(null, null);
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-            throw new RuntimeException("Cannot stop running instance of "
-                + "MultiServer");
-        }
+        ResourceUtils.copyResource(getProject(),
+            RESOURCE_PATH + getContainerDirName() + "/app-default.xml",
+            new File(getTmpDir(), "app-default.xml"), theFilterChain);
     }
 }

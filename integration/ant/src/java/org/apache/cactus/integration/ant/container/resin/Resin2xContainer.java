@@ -56,6 +56,10 @@
  */
 package org.apache.cactus.integration.ant.container.resin;
 
+import org.apache.tools.ant.taskdefs.Java;
+import org.apache.tools.ant.types.FilterChain;
+import org.apache.tools.ant.types.Path;
+
 /**
  * Special container support for the Caucho Resin 2.x servlet container.
  * 
@@ -84,5 +88,21 @@ public class Resin2xContainer extends AbstractResinContainer
     protected final String getContainerDirName()
     {
         return "resin2x";
+    }
+
+    /**
+     * @see AbstractResinContainer#startUpAdditions(Java, Path)
+     */
+    protected void startUpAdditions(Java theJavaContainer, Path theClasspath)
+    {
+        // Nothing additional required
+    }
+
+    /**
+     * @see AbstractResinContainer#prepareAdditions(FilterChain)
+     */
+    protected void prepareAdditions(FilterChain theFilterChain)
+    {
+        // Nothing additional required
     }
 }

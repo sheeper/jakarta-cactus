@@ -97,6 +97,11 @@ public abstract class AbstractServerRun extends Thread
     private boolean isStarted = false;
 
     /**
+     * Thread in which the server is running
+     */
+    private Thread runningServerThread;
+    
+    /**
      * @param theArgs the command line arguments
      */
     public AbstractServerRun(String[] theArgs)
@@ -117,9 +122,13 @@ public abstract class AbstractServerRun extends Thread
      * was started.
      *
      * @param theArgs the command line arguments
+     * @param theRunningServerThread the thread in which the server is running.
+     *        This is useful for example if there is no simple way to stop the
+     *        server and thus you need to simply try to stop the running thread.
      * @exception Exception if any error happens when stopping the server
      */
-    protected abstract void doStopServer(String[] theArgs) throws Exception;
+    protected abstract void doStopServer(String[] theArgs,
+        Thread theRunningServerThread) throws Exception;
 
     /**
      * Parse and process the command line to start/stop the server.
@@ -188,11 +197,11 @@ public abstract class AbstractServerRun extends Thread
             throw new RuntimeException("Error starting server");
         }
 
-
         // Server is now started
         this.isStarted = true;
-
-        new Thread(this).start();
+        
+        this.runningServerThread = new Thread(this);
+        this.runningServerThread.start();
     }
 
     /**
@@ -264,7 +273,7 @@ public abstract class AbstractServerRun extends Thread
         // Stop server
         try
         {
-            this.doStopServer(this.args);
+            this.doStopServer(this.args, this.runningServerThread);
         }
         catch (Exception e)
         {

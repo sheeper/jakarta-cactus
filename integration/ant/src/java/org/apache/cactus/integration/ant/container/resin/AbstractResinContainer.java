@@ -3,7 +3,7 @@
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2003 The Apache Software Foundation.  All rights
+ * Copyright (c) 2003-2004 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -80,7 +80,7 @@ public abstract class AbstractResinContainer extends AbstractJavaContainer
     // Instance Variables ------------------------------------------------------
 
     /**
-     * The Resin 2.x installation directory.
+     * The Resin installation directory.
      */
     private File dir;
 
@@ -114,7 +114,6 @@ public abstract class AbstractResinContainer extends AbstractJavaContainer
 
     /**
      * Sets the configuration file to use for the test installation of Resin
-     * 2.x.
      * 
      * @param theResinConf The resin.conf file
      */
@@ -160,9 +159,9 @@ public abstract class AbstractResinContainer extends AbstractJavaContainer
      */
     public final void init()
     {
-        if (!this.dir.isDirectory())
+        if (!getDir().isDirectory())
         {
-            throw new BuildException(this.dir + " is not a directory");
+            throw new BuildException(getDir() + " is not a directory");
         }
     }
 
@@ -181,15 +180,19 @@ public abstract class AbstractResinContainer extends AbstractJavaContainer
             Path classpath = java.createClasspath();
             classpath.createPathElement().setLocation(
                 ResourceUtils.getResourceLocation("/"
-                    + ResinRun.class.getName().replace('.', '/') + ".class"));
+                + ResinRun.class.getName().replace('.', '/') + ".class"));
             FileSet fileSet = new FileSet();
-            fileSet.setDir(this.dir);
+            fileSet.setDir(getDir());
             fileSet.createInclude().setName("lib/*.jar");
             classpath.addFileset(fileSet);
             java.setClassname(ResinRun.class.getName());
             java.createArg().setValue("-start");
             java.createArg().setValue("-conf");
             java.createArg().setFile(new File(tmpDir, "resin.conf"));
+
+            // Add settings specific to a given container version
+            startUpAdditions(java, classpath);
+            
             java.execute();
         }
         catch (IOException ioe)
@@ -213,7 +216,7 @@ public abstract class AbstractResinContainer extends AbstractJavaContainer
             ResourceUtils.getResourceLocation("/"
                 + ResinRun.class.getName().replace('.', '/') + ".class"));
         FileSet fileSet = new FileSet();
-        fileSet.setDir(this.dir);
+        fileSet.setDir(getDir());
         fileSet.createInclude().setName("lib/*.jar");
         classpath.addFileset(fileSet);
         java.setClassname(ResinRun.class.getName());
@@ -221,13 +224,54 @@ public abstract class AbstractResinContainer extends AbstractJavaContainer
         java.execute();
     }
     
-    // Private Methods ---------------------------------------------------------
+    // Protected Methods -------------------------------------------------------
+
+    /**
+     * Allow specific version implementations to add custom settings to the 
+     * Java container that will be started.
+     * 
+     * @param theJavaContainer the Ant Java object that will start the container
+     * @param theClasspath the classpath that will be used to start the 
+     *        container
+     */
+    protected abstract void startUpAdditions(Java theJavaContainer,
+        Path theClasspath);
+
+    /**
+     * Allow specific version implementations to add custom preparation steps
+     * before the container is started.
+     * 
+     * @param theFilterChain the filter chain used to replace Ant tokens in 
+     *        configuration
+     * @exception IOException in case of an error
+     */
+    protected abstract void prepareAdditions(FilterChain theFilterChain)
+        throws IOException;
 
     /**
      * @return the name of the directory where the container will be set up
      */
     protected abstract String getContainerDirName();
     
+    /**
+     * @return the directory where Resin is installed
+     */
+    protected final File getDir()
+    {
+        return this.dir;
+    }
+
+    /**
+     * @return The temporary directory from which the container will be 
+     *         started.
+     */
+    protected final File getTmpDir()
+    {
+        return this.tmpDir;
+    }
+    
+    // Private Methods ---------------------------------------------------------
+
     /**
      * Prepares a temporary installation of the container and deploys the 
      * web-application.
@@ -257,9 +301,15 @@ public abstract class AbstractResinContainer extends AbstractJavaContainer
                 RESOURCE_PATH + getContainerDirName() + "/resin.conf",
                 new File(tmpDir, "resin.conf"), filterChain);
         }
-            
+
+        // deploy the web-app by copying the WAR file into the webapps
+        // directory
+        File webappsDir = createDirectory(tmpDir, "webapps");
         fileUtils.copyFile(getDeployableFile().getFile(),
-            new File(tmpDir, getDeployableFile().getFile().getName()), 
+            new File(webappsDir, getDeployableFile().getFile().getName()), 
             null, true);
+
+        // Add preparation steps specific to a given container version
+        prepareAdditions(filterChain);
     }
 }

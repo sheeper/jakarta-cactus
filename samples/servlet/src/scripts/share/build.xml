@@ -304,6 +304,7 @@
     <mkdir dir="${target.testreports.dir}/orion1x"/>
     <mkdir dir="${target.testreports.dir}/orion2x"/>
     <mkdir dir="${target.testreports.dir}/resin2x"/>
+    <mkdir dir="${target.testreports.dir}/resin3x"/>
     <@j2ee12.begin@mkdir dir="${target.testreports.dir}/tomcat3x"/@j2ee12.end@>
     <mkdir dir="${target.testreports.dir}/tomcat4x"/>
     <mkdir dir="${target.testreports.dir}/tomcat5x"/>
@@ -350,6 +351,10 @@
             dir="${cactus.home.resin2x}" port="${cactus.port}"
             output="${target.testreports.dir}/resin2x.out"
             todir="${target.testreports.dir}/resin2x"/>
+        <resin3x if="cactus.home.resin3x"
+            dir="${cactus.home.resin3x}" port="${cactus.port}"
+            output="${target.testreports.dir}/resin3x.out"
+            todir="${target.testreports.dir}/resin3x"/>
         <@j2ee12.begin@tomcat3x if="cactus.home.tomcat3x"
             dir="${cactus.home.tomcat3x}" port="${cactus.port}"
             output="${target.testreports.dir}/tomcat3x.out"

@@ -138,6 +138,7 @@ be resolved. Please check you build.properties file, and run Ant with the
       <include name="orion1x/**/*.*"/>
       <include name="orion2x/**/*.*"/>
       <include name="resin2x/**/*.*"/>
+      <include name="resin3x/**/*.*"/>
       <include name="tomcat4x/**/*.*"/>
       <include name="tomcat5x/**/*.*"/>
       <include name="weblogic6x/**/*.*"/>

@@ -3,7 +3,7 @@
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2001-2003 The Apache Software Foundation.  All rights
+ * Copyright (c) 2001-2004 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -57,19 +57,20 @@
 package org.apache.cactus.integration.ant.container.resin;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 import org.apache.cactus.integration.ant.container.AbstractServerRun;
 
 /**
- * Starts/stop Resin by setting up a listener socket.
+ * Starts/stop Resin by setting up a listener socket. Supports Resin 2.0.x,
+ * 2.1.x and 3.x.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  * @author <a href="mailto:digital@ix.net.au">Robert Leftwich</a>
  *
  * @version $Id$
- * @see AbstractServerRun
  */
 public class ResinRun extends AbstractServerRun
 {
@@ -110,80 +111,207 @@ public class ResinRun extends AbstractServerRun
     {
         try
         {
-            Class resinClass = 
-                Class.forName("com.caucho.server.http.ResinServer");
-            Constructor constructor = resinClass.getConstructor(
-                new Class[] {theArgs.getClass(), boolean.class});
-
-            this.resinServer = constructor.newInstance(
-                new Object[] {theArgs, Boolean.TRUE});
-
-            // Try Resin 2.0 first
-            try
+            if (isResinVersion("2.0"))
             {
-                startResin20(this.resinServer);
+                startResin20x(theArgs);
             }
-            catch (NoSuchMethodException nsme)
+            else if (isResinVersion("2.1"))
             {
-                // Try Resin 2.1
-                startResin21(this.resinServer);
+                startResin21x(theArgs);
+            }
+            else if (isResinVersion("3"))
+            {
+                startResin3x(theArgs);
+            }
+            else
+            {
+                throw new RuntimeException("Unsupported Resin version ["
+                    + getResinVersion() + "]");
             }
         }
         catch (Exception e)
         {
             e.printStackTrace();
-            throw new RuntimeException("Cannot create instance of ResinServer");
+            throw new RuntimeException("Failed to start Resin server");
         }
     }
 
     /**
      * Starts Resin 2.0.x
      *
-     * @param theResinServer the <code>ResinServer</code> instance
+     * @param theArgs the command line arguments for starting the server
      * @throws Exception if an error happens when starting the server
      */
-    private void startResin20(Object theResinServer) throws Exception
+    private void startResin20x(String[] theArgs) throws Exception
     {
-        Method initMethod = theResinServer.getClass().getMethod("init", 
+        Class resinClass = 
+            Class.forName("com.caucho.server.http.ResinServer");
+        Constructor constructor = resinClass.getConstructor(
+            new Class[] {theArgs.getClass(), boolean.class});
+
+        this.resinServer = constructor.newInstance(
+            new Object[] {theArgs, Boolean.TRUE});
+    
+        Method initMethod = this.resinServer.getClass().getMethod("init", 
             new Class[] {boolean.class});
 
-        initMethod.invoke(theResinServer, new Object[] {Boolean.TRUE});
+        initMethod.invoke(this.resinServer, new Object[] {Boolean.TRUE});
     }
 
     /**
      * Starts Resin 2.1.x
      *
-     * @param theResinServer the <code>ResinServer</code> instance
+     * @param theArgs the command line arguments for starting the server
      * @throws Exception if an error happens when starting the server
      */
-    private void startResin21(Object theResinServer) throws Exception
+    private void startResin21x(String[] theArgs) throws Exception
     {
-        Method initMethod = theResinServer.getClass().getMethod("init",
+        Class resinClass = 
+            Class.forName("com.caucho.server.http.ResinServer");
+        Constructor constructor = resinClass.getConstructor(
+            new Class[] {theArgs.getClass(), boolean.class});
+
+        this.resinServer = constructor.newInstance(
+            new Object[] {theArgs, Boolean.TRUE});
+        
+        Method initMethod = this.resinServer.getClass().getMethod("init",
             new Class[] {ArrayList.class});
 
-        initMethod.invoke(theResinServer, new Object[] {null});
+        initMethod.invoke(this.resinServer, new Object[] {null});
     }
 
+    /**
+     * Starts Resin 3.x
+     *
+     * @param theArgs the command line arguments for starting the server
+     * @throws Exception if an error happens when starting the server
+     */
+    private void startResin3x(final String[] theArgs) throws Exception
+    {
+        // Start the server in another thread so that it doesn't block
+        // the current thread. It seems that Resin 3.x is acting differently
+        // than Resin 2.x which was not blocking and thus which did not need
+        // to be started in a separate thread.
+        Thread startThread = new Thread()
+        {
+            public void run()
+            {
+                try
+                {
+                    Class resinClass = 
+                        Class.forName("com.caucho.server.http.ResinServer");
+                    
+                    Method mainMethod = resinClass.getMethod("main", 
+                        new Class[] {String[].class});
+                                
+                    mainMethod.invoke(null, new Object[] {theArgs});
+                }
+                catch (Exception e)
+                {
+                    throw new RuntimeException(
+                        "Failed to start Resin 3.x. Error = ["
+                        + e.getMessage() + "]");
+                }
+            }
+        };
+        startThread.start();
+    }
+    
     /**
      * Stops the Resin server. We use reflection so that the Resin jars do not
      * need to be in the classpath to compile this class.
      * 
      * @see AbstractServerRun#doStopServer
      */
-    protected final void doStopServer(String[] theArgs)
+    protected final void doStopServer(String[] theArgs, 
+        Thread theRunningServerThread)
     {
         try
         {
-            Method closeMethod = this.resinServer.getClass().getMethod(
-                "close", null);
-
-            closeMethod.invoke(this.resinServer, null);
+            if (isResinVersion("2.0"))
+            {
+                stopResin20x(theArgs);
+            }
+            else if (isResinVersion("2.1"))
+            {
+                stopResin20x(theArgs);
+            }
+            else if (isResinVersion("3"))
+            {
+                stopResin3x(theArgs, theRunningServerThread);
+            }
+            else
+            {
+                throw new RuntimeException("Unsupported Resin version ["
+                    + getResinVersion() + "]");
+            }
         }
         catch (Exception e)
         {
             e.printStackTrace();
-            throw new RuntimeException("Cannot stop running instance of "
-                + "ResinServer");
+            throw new RuntimeException(
+                "Failed to stop the running Resin server");
         }
+    }
+    
+    /**
+     * Stops Resin 2.0.x and 2.1.x versions.
+     *
+     * @param theArgs the command line arguments for starting the server
+     * @throws Exception if an error happens when starting the server
+     */
+    private void stopResin20x(String[] theArgs) throws Exception
+    {
+        Method closeMethod = this.resinServer.getClass().getMethod(
+            "close", null);
+
+        closeMethod.invoke(this.resinServer, null);
+    }
+
+    /**
+     * Stops Resin 3.x.
+     *
+     * @param theArgs the command line arguments for starting the server
+     * @param theRunningServerThread the thread in which the server is running
+     * @throws Exception if an error happens when starting the server
+     */
+    private void stopResin3x(String[] theArgs,
+        Thread theRunningServerThread) throws Exception
+    {
+        // As we don't know how to properly stop a running Resin server,
+        // we simply try to kill the thread in which it is running. 
+        // Not clean...
+        theRunningServerThread.stop();
+    }
+    
+    /**
+     * @return the Resin version
+     */
+    private String getResinVersion()
+    {
+        String version;
+        
+        try
+        {
+            Class versionClass = Class.forName("com.caucho.Version");
+            Field versionField = versionClass.getField("VERSION");
+            version = (String) versionField.get(null);
+        }
+        catch (Exception e)
+        {
+            throw new RuntimeException("Cannot get Resin version. Error = ["
+                + e.getMessage() + "]");
+        }
+
+        return version;
+    }
+
+    /**
+     * @param theVersionPrefix the version prefix to test for
+     * @return true if the Resin version starts with versionPrefix
+     */
+    private boolean isResinVersion(String theVersionPrefix)
+    {
+        return getResinVersion().startsWith(theVersionPrefix);
     }
 }

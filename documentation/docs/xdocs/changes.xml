@@ -69,6 +69,10 @@
 
       <release version="1.6dev" date="in CVS">
         <action dev="VMA" type="add">
+          Added support for Resin 3.x in the Ant integration. Note that
+          Servlet API 2.4/JSP 2.0 are not yet supported by Cactus.
+        </action>          
+        <action dev="VMA" type="add">
           In the Ant integration, added new <code>contextxml</code> attributes
           to the <code>&lt;tomcat4x&gt;</code> nested elements of the 
           <code>&lt;cactus&gt;</code> task. This is to support the context xml 
