@@ -67,13 +67,6 @@ import junit.framework.TestCase;
  */
 public class TestServletURL extends TestCase
 {
-    // Make sure logging is disabled
-    static
-    {
-        System.setProperty("org.apache.commons.logging.Log", 
-            "org.apache.commons.logging.impl.NoOpLog");
-    }
-
     /**
      * Verify that if the context path is not empty or null it must start with
      * a "/" character.

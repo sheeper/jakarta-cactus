@@ -67,13 +67,6 @@ import junit.framework.TestCase;
  */
 public class TestStringUtil extends TestCase
 {
-    // Make sure logging is disabled
-    static
-    {
-        System.setProperty("org.apache.commons.logging.Log", 
-            "org.apache.commons.logging.impl.NoOpLog");
-    }
-
     /**
      * Verify package-based stack-trace filtering.
      */

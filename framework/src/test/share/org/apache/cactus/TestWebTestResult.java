@@ -67,13 +67,6 @@ import junit.framework.TestCase;
  */
 public class TestWebTestResult extends TestCase
 {
-    // Make sure logging is disabled
-    static
-    {
-        System.setProperty("org.apache.commons.logging.Log", 
-            "org.apache.commons.logging.impl.NoOpLog");
-    }
-
     /**
      * Verify the correctness of the XML representation for a test result with
      * no error.

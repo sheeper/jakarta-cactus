@@ -69,13 +69,6 @@ import org.apache.cactus.server.ServletUtil;
  */
 public class TestServletUtil extends TestCase
 {
-    // Make sure logging is disabled
-    static
-    {
-        System.setProperty("org.apache.commons.logging.Log", 
-            "org.apache.commons.logging.impl.NoOpLog");
-    }
-
     /**
      * Verify than <code>getQueryStringParameterEmpty()</code> returns an
      * empty string if the parameter existe but has no value defined.

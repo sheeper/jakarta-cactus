@@ -72,13 +72,6 @@ import org.apache.cactus.util.ChainedRuntimeException;
  */
 public class TestWebRequest extends TestCase
 {
-    // Make sure logging is disabled
-    static
-    {
-        System.setProperty("org.apache.commons.logging.Log", 
-            "org.apache.commons.logging.impl.NoOpLog");
-    }
-
     /**
      * Verify that an exception is thrown when an invalid HTTP METHOD is used
      * when adding an HTTP parameter.

@@ -72,13 +72,6 @@ import junit.framework.TestCase;
  */
 public class TestCookieUtil extends TestCase
 {
-    // Make sure logging is disabled
-    static
-    {
-        System.setProperty("org.apache.commons.logging.Log", 
-            "org.apache.commons.logging.impl.NoOpLog");
-    }
-
     /**
      * Verify that an HttpClient HttpState object can be created when
      * no Cactus cookies have been defined.

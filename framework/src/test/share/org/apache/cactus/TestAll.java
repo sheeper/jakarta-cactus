@@ -56,8 +56,11 @@
  */
 package org.apache.cactus;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.util.Properties;
+
 import junit.framework.Test;
-import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 /**
@@ -70,37 +73,34 @@ import junit.framework.TestSuite;
  *
  * @version $Id$
  */
-public class TestAll extends TestCase
+public class TestAll
 {
-    /**
-     * Defines the testcase name for JUnit.
-     *
-     * @param theName the testcase's name.
-     */
-    public TestAll(String theName)
-    {
-        super(theName);
-    }
-
-    /**
-     * Start the tests.
-     *
-     * @param theArgs the arguments. Not used
-     */
-    public static void main(String[] theArgs)
-    {
-        junit.swingui.TestRunner.main(new String[] {TestAll.class.getName()});
-    }
-
     /**
      * @return a test suite (<code>TestSuite</code>) that includes all methods
      *         starting with "test"
+     * @exception Exception on failure to load the cactus properties file
      */
-    public static Test suite()
+    public static Test suite() throws Exception
     {
         TestSuite suite = new TestSuite(
             "Cactus unit tests not needing servlet engine");
 
+        // Load a Cactus properties file so that we can pass system
+        // properties to the tests. For example, this is useful to
+        // set logging properties. If you are using the JDK 1.4 and
+        // you wish to pass your custom logging file, you'll add the
+        // following line to the Cactus properties file:
+        //
+        // java.util.logging.config.file=logging.properties
+        
+        String propsFile = System.getProperty("cactus.test.propertiesFile");
+        if ((propsFile != null) && (new File(propsFile).exists()))
+        {    
+            Properties props = new Properties();
+            props.load(new FileInputStream(propsFile));
+            System.setProperties(props);
+        }        
+        
         suite.addTestSuite(TestAbstractTestCase.class);
         suite.addTestSuite(TestServletURL.class);
         suite.addTestSuite(TestServletUtil.class);

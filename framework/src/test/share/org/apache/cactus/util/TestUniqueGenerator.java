@@ -76,7 +76,6 @@ import junit.framework.TestCase;
  */
 public class TestUniqueGenerator extends TestCase
 {
-
     /**
      * @see TestCase#setUp
      */

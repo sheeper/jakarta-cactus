@@ -67,13 +67,6 @@ import java.net.HttpURLConnection;
  */
 public class TestAbstractTestCase extends AbstractTestAbstractTestCase
 {
-    // Make sure logging is disabled
-    static
-    {
-        System.setProperty("org.apache.commons.logging.Log", 
-            "org.apache.commons.logging.impl.NoOpLog");
-    }
-
     /**
      * @see #testBeginMethodBadReturnType()
      */
