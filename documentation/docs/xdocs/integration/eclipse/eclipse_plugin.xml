@@ -220,9 +220,6 @@
 	        The user can provide its own web.xml file.
 	        Otherwise the plugin will use the one provided by default.
 	      </li>
-	      <li>
-	        User interface: no shell popups for Ant tasks
-	      </li>
       </ul>
     </section>
 
