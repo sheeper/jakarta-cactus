@@ -22,9 +22,7 @@
 lib.repo = c:/apps/maven/repository
 
 # The location of the J2EE API jar. Depending on the version (1.2 or 1.3) of
-# it, the corresponding Cactus Framework will be built. For example if you use
-# J2EE 1.3 jar, then the Cactus jar will contain the Filter Redirector which is
-# only available for Servlet 2.3 (part of J2EE 1.3).
+# it, the corresponding Cactus Sample will be built.
 j2ee.jar = ${lib.repo}/servletapi/jars/servletapi-2.3.jar
 
 # The location of the JSTL jar
