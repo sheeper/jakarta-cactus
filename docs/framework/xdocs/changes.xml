@@ -10,6 +10,10 @@
   </devs>
 
   <release version="1.0b2 in CVS" date="">
+    <action dev="VMA" type="add" due-to="Hoani Cross" due-to-email="cross@tahiti-surf.com">
+      Add handling of multivalued HTTP headers (same header name with different
+      values) in <code>ServletTestRequest</code>.
+    </action>
     <action dev="VMA" type="update">
       Made the methods <code>setUp()</code> and <code>tearDown()</code>
       protected on the server side so that it is consistent with JUnit.

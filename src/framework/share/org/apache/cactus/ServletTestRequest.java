@@ -319,14 +319,26 @@ public class ServletTestRequest
     }
 
     /**
-     * Adds a header to the request.
+     * Adds a header to the request. Supports adding several values for the
+     * same header name.
      *
      * @param theName  the header's name
      * @param theValue the header's value
      */
     public void addHeader(String theName, String theValue)
     {
-        m_Headers.put(theName, theValue);
+        // If there is already a header of the same name, add the
+        // new header to the Vector. If not, create a Vector an add it to the
+        // hashtable
+
+        if (m_Headers.containsKey(theName)) {
+            Vector v = (Vector)m_Headers.get(theName);
+            v.addElement(theValue);
+        } else {
+            Vector v = new Vector();
+            v.addElement(theValue);
+            m_Headers.put(theName, v);
+        }
     }
 
     /**
@@ -338,13 +350,48 @@ public class ServletTestRequest
     }
 
     /**
+     * Returns the first value corresponding to this header's name.
+     *
      * @param  theName the header's name
-     * @return the value corresponding to this header's name or null if not
+     * @return the first value corresponding to this header's name or null if not
      *         found
      */
-    public String getHeaderValue(String theName)
+    public String getHeader(String theName)
     {
-        return (String)m_Headers.get(theName);
+        String[] values = getHeaderValues(theName);
+
+        if (values != null) {
+            return values[0];
+        }
+
+        return null;
+    }
+
+    /**
+     * Returns all the values associated with this header's name.
+     *
+     * @param  theName the header's name
+     * @return the values corresponding to this header's name or null if not
+     *         found
+     */
+    public String[] getHeaderValues(String theName)
+    {
+        if (m_Headers.containsKey(theName)) {
+
+            Vector v = (Vector)m_Headers.get(theName);
+
+            Object[] objs = new Object[v.size()];
+            v.copyInto(objs);
+
+            String[] result = new String[objs.length];
+            for (int i = 0; i < objs.length; i++) {
+                result[i] = (String)objs[i];
+            }
+
+            return result;
+        }
+
+        return null;
     }
 
 }

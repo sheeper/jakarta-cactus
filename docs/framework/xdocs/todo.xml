@@ -30,9 +30,6 @@
   </actions>
 
   <actions priority="low">
-    <action context="code">
-      Manage multivalued HTTP headers in <code>ServletTestRequest</code>.
-    </action>
     <action context="docs">
       Write a Cactus integration tutorial for JBuilder 4.
     </action>

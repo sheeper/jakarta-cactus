@@ -259,8 +259,21 @@ class HttpClientHelper
 
         while (keys.hasMoreElements()) {
             String key = (String)keys.nextElement();
-            String value = (String)theRequest.getHeaderValue(key);
-            theConnection.setRequestProperty(key, value);
+            String[] values = theRequest.getHeaderValues(key);
+
+            // As the URLConnection.setRequestProperty will overwrite any
+            // property already set we have to regroup the multi valued
+            // headers into a single header name entry.
+            // Question: Is this an implementation bug ? It seems because
+            // on the server side, I cannot use the request.getHeaders() (it
+            // only returns a single header).
+
+            StringBuffer fullHeaderValue = new StringBuffer(values[0]);
+            for (int i = 1; i < values.length; i++) {
+                fullHeaderValue.append("," + values[i]);
+            }
+            theConnection.setRequestProperty(key, fullHeaderValue.toString());
+
         }
     }
 
