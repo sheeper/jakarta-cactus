@@ -605,6 +605,12 @@
               <xsl:call-template name="get-base-directory"/>
               <xsl:value-of select="@src"/>
             </xsl:attribute>
+            <xsl:if test="@usemap">
+              <xsl:attribute name="usemap">
+                <xsl:value-of select="@usemap"/>
+              </xsl:attribute>
+            </xsl:if>
+            <xsl:apply-templates/>
           </img>
         </xsl:when>
         <xsl:otherwise>
@@ -613,12 +619,34 @@
               <xsl:call-template name="get-base-directory"/>
               <xsl:value-of select="@src"/>
             </xsl:attribute>
+            <xsl:if test="@usemap">
+              <xsl:attribute name="usemap">
+                <xsl:value-of select="@usemap"/>
+              </xsl:attribute>
+            </xsl:if>
+            <xsl:apply-templates/>
           </img>
         </xsl:otherwise>
       </xsl:choose>
     </p>
   </xsl:template>
  
+  <xsl:template match="figure/map">
+    <map name="{@name}">
+      <xsl:apply-templates/>
+    </map>
+  </xsl:template>
+
+  <xsl:template match="figure/map/area">
+    <area shape="{@shape}" coords="{@coords}">
+      <xsl:attribute name="href">
+        <xsl:call-template name="compute-link-href">
+          <xsl:with-param name="href" select="@href"/>
+        </xsl:call-template>
+      </xsl:attribute>
+    </area>
+  </xsl:template>
+  
   <xsl:template match="img">
     <img alt="{@alt}" border="0" vspace="4" hspace="4">
       <xsl:attribute name="src">
