@@ -125,6 +125,7 @@ public class TestHttpSession extends ServletTestCase
     public void beginCreateSessionCookie(WebRequest theRequest)
     {
         HttpSessionCookie sessionCookie = theRequest.getSessionCookie();
+        assertNotNull("Session cookie should not be null", sessionCookie);
         theRequest.addCookie(sessionCookie);
     }
 
