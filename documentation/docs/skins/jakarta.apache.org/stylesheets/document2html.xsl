@@ -48,7 +48,7 @@
 
       <head>
 
-		<!-- Add the authors as a meta tag -->
+        <!-- Add the authors as a meta tag -->
         <meta name="author">
           <xsl:attribute name="content">
             <xsl:for-each select="properties/authors/author">
@@ -111,26 +111,26 @@
             <td width="1%" valign="top">
             </td>
             <td width="14%" valign="top" nowrap="1">
-
               <font size="-2">
-                Last update : <xsl:value-of select="$book/@updated"/>
+                Last update: <xsl:value-of select="$book/@updated"/>
               </font>
               <br/>
               <font size="-2">
-                Doc for : <b>v<xsl:value-of select="$book/@currentversion"/></b>
-                | 
+                Doc for: <b>v<xsl:value-of select="$book/@currentversion"/></b>
+                <xsl:text> | </xsl:text>
                 <a>
                   <xsl:attribute name="href">
                     <xsl:choose>
                       <xsl:when test="contains($book/@currentversion,'dev')">
-                        ..
+                        <xsl:text>..</xsl:text>
                       </xsl:when>
                       <xsl:otherwise>
                         <xsl:value-of select="$book/@otherversion"/>
                       </xsl:otherwise>
                     </xsl:choose>
                   </xsl:attribute>
-                  v<xsl:value-of select="$book/@otherversion"/>
+                  <xsl:text>v</xsl:text>
+                  <xsl:value-of select="$book/@otherversion"/>
                 </a>
               </font>
 
@@ -238,7 +238,7 @@
   <xsl:template match="section">
   
     <xsl:variable name="level" select="count(ancestor::section)+1"/>
-	 
+
     <xsl:choose>
       <xsl:when test="$level=1">
         <xsl:call-template name="section">
@@ -270,7 +270,7 @@
       </xsl:otherwise>
     </xsl:choose>
 
-  </xsl:template>  
+  </xsl:template>
 
   <xsl:template match="s1">
     <xsl:call-template name="section">
