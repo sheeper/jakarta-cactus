@@ -90,14 +90,6 @@ public class ServletTestRedirector extends HttpServlet
         LogService.getInstance().getLog(ServletTestRedirector.class.getName());
 
     /**
-     * Some magic keyword that is prepended to the servlet output stream in
-     * order to never have an empty stream returned to the client side. This is
-     * needed because the client side will try to read all the returned data and
-     * if there is none will block ...
-     */
-    static final String MAGIC_KEYWORD = "C*&()C$$";
-
-    /**
      * Handle GET requests.
      *
      * @param theRequest the incoming HTTP client request
@@ -129,135 +121,18 @@ public class ServletTestRedirector extends HttpServlet
     public void doPost(HttpServletRequest theRequest,
         HttpServletResponse theResponse) throws ServletException, IOException
     {
-        // Note: we write star simply because this is the entry point on
-        // the server side and it makes it easier to read the logs to see
-        // what happens for a given test case.
-        this.logger.entry("doPost(...) *****");
+        this.logger.entry("doPost(...)");
 
-        // If the Cactus user has forgotten to put a needed jar on the server 
-        // classpath (i.e. in WEB-INF/lib), then the servlet engine Webapp 
-        // class loader will throw a NoClassDefFoundError exception. As this
-        // method is the entry point of the webapp, we'll catch all
-        // NoClassDefFoundError exceptions and report a nice error message
-        // for the user so that he knows he has forgotten to put a jar in the
-        // classpath. If we don't do this, the error will be trapped by the
-        // container and may not result in an ... err ... understandable error
-        // message (like in Tomcat) ...
-        try {
+        // Create implicit object holder
+        ServletImplicitObjects objects = new ServletImplicitObjects();
+        objects.setHttpServletRequest(theRequest);
+        objects.setHttpServletResponse(theResponse);
+        objects.setServletConfig(getServletConfig());
 
-            String serviceName = getServiceName(theRequest);
-
-            ServletImplicitObjects objects = new ServletImplicitObjects();
-            objects.setHttpServletRequest(theRequest);
-            objects.setHttpServletResponse(theResponse);
-            objects.setServletConfig(getServletConfig());
-
-            ServletTestCaller caller = new ServletTestCaller(objects);
-
-            // Is it the call test method service ?
-            if (ServiceEnumeration.CALL_TEST_SERVICE.equals(serviceName)) {
-    
-                caller.doTest();
-    
-                // Ugly hack here : The client side need to read all the data
-                // returned on the servlet output stream. Otherwise the servlet
-                // engine might do an io block, waiting for the client to read
-                // more data. Is this happens, then we are stuck because the
-                // client side is waiting for the test result to be committed
-                // but the latter will only be committed when all the data has
-                // been sent on the servlet output stream. So we need to read
-                // the data from the client side. However, some tests do not
-                // return any data and thus the read would block ... So we
-                // always send at the end of the stream a magic keyword so that
-                // the returned stream is never empty. This magic keyword will
-                // be ignored by the client side ... ugly, no ?
-    
-                // This can easily be corrected with the Servlet API 2.3 (by
-                // doing all the read on the server side instead of the client
-                // side). However it does not work on some 2.2 API servlet
-                // engines (like Tomcat 3.2 ...).
-    
-                // Send magic keyword ... well at least try ... Yes, you read it
-                // correctly ! I said 'try' because if the test has done a
-                // forward for example, then the Writer or OutputStream will
-                // have already been used and thus it would lead to an error
-                // to try to write to them ... In that case, we won't write
-                // anything back but that should be fine as a forward is
-                // supposed to return something ...
-        
-                // Note: There might still be the case where I get a Writer in
-                // my test case but don't use it ... hum ... To verify ...
-                // later ...
-    
-                // Try sending the magic keyword ...
-                try {
-                    theResponse.getOutputStream().print(MAGIC_KEYWORD);
-                    this.logger.debug("Magic keyword sent");
-                } catch (Exception e) {
-                    this.logger.debug("Magic keyword not sent");
-                    // It failed ... Do nothing
-                }
-    
-            // Is it the get test results service ?
-            } else if (ServiceEnumeration.GET_RESULTS_SERVICE.
-                equals(serviceName)) {
-    
-                caller.doGetResults();
-    
-            } else {
-                String message = "Unknown service [" + serviceName +
-                    "] in HTTP request.";
-                this.logger.error(message);
-                throw new ServletException(message);
-            }
-
-        } catch (NoClassDefFoundError e) {
-
-            // try to display messages as descriptive as possible !
-
-            if (e.getMessage().startsWith("junit/framework")) {
-                String message = "You must put the JUnit jar in " +
-                    "your server classpath (in WEB-INF/lib for example)";
-                this.logger.error(message, e);
-                throw new ServletException(message, e);
-            } else {
-                String message = "You are missing a jar in your " +
-                    "classpath (class [" + e.getMessage() + "] could not " +
-                    "be found";
-                this.logger.error(message, e);
-                throw new ServletException(message, e);
-            }
-        }
+        ServletTestController controller = new ServletTestController();
+        controller.handleRequest(objects);
 
         this.logger.exit("doPost");
-
-    }
-
-    /**
-     * @param theRequest the HTTP request
-     * @return the service name of the service to call (there are 2 services
-     *         "do test" and "get results"), extracted from the HTTP request
-     */
-    private String getServiceName(HttpServletRequest theRequest)
-        throws ServletException
-    {
-        this.logger.entry("getServiceName(...)");
-
-        // Call the correct Service method
-        String serviceName =
-            theRequest.getParameter(ServiceDefinition.SERVICE_NAME_PARAM);
-
-        if (serviceName == null) {
-            String message = "Missing service name parameter [" +
-                ServiceDefinition.SERVICE_NAME_PARAM + "] in HTTP request.";
-            this.logger.debug(message);
-            throw new ServletException(message);
-        }
-
-        this.logger.debug("Service to call = " + serviceName);
-
-        this.logger.exit("getServiceName");
-        return serviceName;
     }
 
 }

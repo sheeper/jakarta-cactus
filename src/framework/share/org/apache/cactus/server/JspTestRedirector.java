@@ -53,6 +53,7 @@
  */
 package org.apache.commons.cactus.server;
 
+import java.io.*;
 import javax.servlet.*;
 
 import org.apache.commons.cactus.*;
@@ -91,15 +92,10 @@ public class JspTestRedirector
      */
     public void doGet(JspImplicitObjects theObjects) throws ServletException
     {
-        // Note: we write star simply because this is the entry point on
-        // the server side and it makes it easier to read the logs to see
-        // what happens for a given test case.
-        this.logger.entry("doPost(...) *****");
+        this.logger.entry("doGet(...)");
 
-        // We only handle the "do test" service here. The "get results" service
-        // is handled by the servlet redirector on behalf of the JSP Redirector
-        JspTestCaller caller = new JspTestCaller(theObjects);
-        caller.doTest();
+        JspTestController controller = new JspTestController();
+        controller.handleRequest(theObjects);
 
         this.logger.exit("doGet");
     }

@@ -226,8 +226,11 @@ class HttpClientHelper
     private void addCookies(ServletTestRequest theRequest,
         URLConnection theConnection)
     {
+        this.logger.entry("addCookies(...)");
+
         // If no Cookies, then exit
         if (!theRequest.getCookieNames().hasMoreElements()) {
+            this.logger.exit("addCookies");
             return;
         }
 
@@ -261,7 +264,11 @@ class HttpClientHelper
             cookieString.append(value);
         }
 
+        this.logger.debug("Cookie string = [" + cookieString + "]");
+
         theConnection.setRequestProperty("Cookie", cookieString.toString());
+
+        this.logger.exit("addCookies");
     }
 
     /**
@@ -316,7 +323,8 @@ class HttpClientHelper
             url = addParametersUsingGet(theRequest, url);
         }
 
-        HttpURLConnection connection = (HttpURLConnection)url.openConnection();
+        HttpURLConnection connection =
+                (HttpURLConnection)url.openConnection();
 
         connection.setDoInput(true);
 

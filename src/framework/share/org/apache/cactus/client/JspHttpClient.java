@@ -53,21 +53,9 @@
  */
 package org.apache.commons.cactus.client;
 
-import java.util.*;
-import java.net.*;
-import java.io.*;
-
-import junit.framework.*;
-
-import org.apache.commons.cactus.*;
-import org.apache.commons.cactus.util.log.*;
-
 /**
- * Manage the logic for calling a test method (which need access to JSP
- * objects) located on the server side. First opens an HTTP connection to
- * the redirector JSP (which in trun calls the test) and get the test results
- * by opening a second HTTP connection but to the Servlet redirector (the tests
- * were saved in the application context scope).
+ * Manage the logic for calling the JSP redirector for executing a test on
+ * the server side.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
@@ -76,96 +64,17 @@ import org.apache.commons.cactus.util.log.*;
 public class JspHttpClient extends AbstractHttpClient
 {
     /**
-     * The logger
-     */
-    private static Log logger =
-        LogService.getInstance().getLog(JspHttpClient.class.getName());
-
-    /**
      * Default URL to call the <code>jspRedirector</code> JSP.
      */
     protected final static String JSP_REDIRECTOR_URL = 
         CONFIG.getString("cactus.jspRedirectorURL");
 
     /**
-     * Default URL to call the <code>servletRedirector</code> servlet.
+     * @return the URL to call the redirector
      */
-    protected final static String SERVLET_REDIRECTOR_URL = 
-        CONFIG.getString("cactus.servletRedirectorURL");
-
-    /**
-     * Calls the test method indirectly by calling the Redirector JSP and
-     * then open a second HTTP connection to the Servlet Redirector to retrieve
-     * the test results.
-     *
-     * @param theRequest the request containing all data to pass to the
-     *                   redirector JSP.
-     *
-     * @return the <code>HttpURLConnection</code> object that contains the HTTP
-     *         response when the test was called.
-     *
-     * @exception Throwable if an error occured in the test method or in the
-     *                      redirector servlet.
-     */
-    public HttpURLConnection doTest(ServletTestRequest theRequest)
-        throws Throwable
+    protected String getRedirectorURL()
     {
-        this.logger.entry("doTest(" + theRequest + ")");
-
-        WebTestResult result = null;
-        HttpURLConnection connection = null;
-
-        // Open the first connection to the redirector JSP
-        HttpClientHelper helper1 = new HttpClientHelper(JSP_REDIRECTOR_URL);
-
-        // Specify the service to call on the redirector side
-        theRequest.addParameter(ServiceDefinition.SERVICE_NAME_PARAM,
-            ServiceEnumeration.CALL_TEST_SERVICE.toString());
-        connection = helper1.connect(theRequest);
-
-        // Wrap the connection to ensure that all servlet output is read
-        // before we ask for results
-        connection = new AutoReadHttpURLConnection(connection);
-
-        // Note: We need to get the input stream here to trigger the actual
-        // call to the servlet ... Don't know why exactly ... :(
-        connection.getInputStream();
-
-        // Open the second connection (to the Servlet redirector) to get the
-        // test results
-        HttpClientHelper helper2 = new HttpClientHelper(SERVLET_REDIRECTOR_URL);
-        ServletTestRequest resultsRequest = new ServletTestRequest();
-        resultsRequest.addParameter(ServiceDefinition.SERVICE_NAME_PARAM,
-            ServiceEnumeration.GET_RESULTS_SERVICE.toString());
-        HttpURLConnection resultConnection = helper2.connect(resultsRequest);
-
-        // Read the results as a serialized object
-        ObjectInputStream ois =
-            new ObjectInputStream(resultConnection.getInputStream());
-        result = (WebTestResult)ois.readObject();
-
-        ois.close();
-
-        // Check if the result object returned from the redirection servlet
-        // contains an error or not. If yes, we need to raise an exception
-        // for the JUnit framework to catch it.
-
-        if (result.hasException()) {
-
-            // Wrap the exception message and stack trace into a fake
-            // class that extends Throwable (i.e.
-            // <code>ServletExceptionWrapper</code>) with an overloaded
-            // <code>printStackTrace()</code> methods so that when JUnit calls
-            // this method it will print the stack trace that was set on the
-            // <code>Throwable</code> is transient and thus cannot be
-            // serialized !
-            throw new ServletExceptionWrapper(
-                result.getExceptionMessage(), result.getExceptionClassName(),
-                result.getExceptionStackTrace());
-        }
-
-        this.logger.exit("doTest");
-        return connection;
+        return JSP_REDIRECTOR_URL;
     }
 
 }

@@ -91,14 +91,6 @@ final class AutoReadHttpURLConnection extends HttpURLConnection
     static final int DEFAULT_CHUNK_SIZE = 16384;
 
     /**
-     * Some magic keyword that is prepended to the servlet output stream in
-     * order to never have an empty stream returned to the client side. This is
-     * needed because this class will try to read all the returned data and
-     * if there is none will block ...
-     */
-    static final byte[] MAGIC_KEYWORD = "C*&()C$$".getBytes();
-
-    /**
      * Size of array for copying data, Allow reset for testing copy loop.
      */
     int chunkSize = DEFAULT_CHUNK_SIZE;
@@ -146,29 +138,8 @@ final class AutoReadHttpURLConnection extends HttpURLConnection
 
         ByteArrayOutputStream os = new ByteArrayOutputStream(this.chunkSize);
         copy(is, os);
-        ByteArrayInputStream bais = null;
-
-        // Remove the magic keyword if it exists. On most cases the magic
-        // keyword will have been prepended. However, in some cases (like
-        // when the test class does a forward()) the redirector servlet will
-        // not have been able to prepend it.
-
-        byte[] buffer = os.toByteArray();
-        boolean foundMagic = true;
-        for (int i = 1; i < MAGIC_KEYWORD.length - 1; i++) {
-            if (buffer[buffer.length - i] !=
-                MAGIC_KEYWORD[MAGIC_KEYWORD.length - i]) {
-
-                foundMagic = false;
-                break;
-            }
-        }
-        if (foundMagic) {
-            bais = new ByteArrayInputStream(buffer, 0,
-                buffer.length - MAGIC_KEYWORD.length);
-        } else {
-            bais = new ByteArrayInputStream(buffer);
-        }
+        ByteArrayInputStream bais =
+                new ByteArrayInputStream(os.toByteArray());
 
         this.logger.exit("bufferInputStream");
         return bais;
@@ -181,7 +152,7 @@ final class AutoReadHttpURLConnection extends HttpURLConnection
         byte[] buf = new byte[this.chunkSize];
         int count;
 
-        while( -1 != (count = is.read(buf)) ) {
+        while(-1 != (count = is.read(buf))) {
             os.write(buf, 0, count);
         }
 

@@ -131,7 +131,6 @@ public class ServletTestCaller
             result = new WebTestResult();
 
         } catch (Throwable e) {
-
             // An error occurred, return an instance of
             // <code>WebTestResult</code> with an exception.
             result = new WebTestResult(e);
@@ -211,7 +210,7 @@ public class ServletTestCaller
 
         this.logger.debug("Class to call = " + className);
 
-        this.logger.entry("getTestClassName");
+        this.logger.exit("getTestClassName");
         return className;
     }
 
@@ -267,8 +266,22 @@ public class ServletTestCaller
     protected ServletTestCase getTestClassInstance(String theClassName,
         String theTestCaseName) throws ServletException
     {
-        this.logger.entry("getTestClassInstance(" + theClassName + ", " +
-            theTestCaseName + ")");
+        this.logger.entry("getTestClassInstance([" + theClassName + "], [" +
+            theTestCaseName + "])");
+
+        // Print info on the classloader used to load this class
+        if (this.logger.isDebugEnabled()) {
+            StringBuffer buffer = new StringBuffer("Classloaders = ");
+            ClassLoader classLoader = this.getClass().getClassLoader();
+            while (classLoader != null) {
+                buffer.append(classLoader.toString());
+                classLoader = classLoader.getParent();
+                if (classLoader != null) {
+                    buffer.append(", ");
+                }
+            }
+            this.logger.debug(buffer.toString());
+        }
 
         // Get the class to call and build an instance of it.
         Class testClass = null;
@@ -298,7 +311,7 @@ public class ServletTestCaller
     protected Class getTestClassClass(String theClassName)
         throws ServletException
     {
-        this.logger.entry("getTestClassClass(" + theClassName + ")");
+        this.logger.entry("getTestClassClass([" + theClassName + "])");
 
         // Get the class to call and build an instance of it.
         Class testClass = null;
@@ -322,7 +335,7 @@ public class ServletTestCaller
     protected void setTestCaseFields(ServletTestCase theTestInstance)
         throws Exception
     {
-        this.logger.entry("setTestCaseFields(" + theTestInstance + ")");
+        this.logger.entry("setTestCaseFields([" + theTestInstance + "])");
 
         // Sets the request field of the test case class
         // ---------------------------------------------

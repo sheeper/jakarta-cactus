@@ -60,68 +60,29 @@ import java.util.*;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
-import javax.servlet.jsp.*;
 
 import org.apache.commons.cactus.*;
 import org.apache.commons.cactus.util.log.*;
 
 /**
- * Call the test method on the server side after assigning the JSP implicit
- * objects using reflection.
+ * JSP Controller that extracts the requested service from the
+ * HTTP request and executes the request by calling a
+ * <code>ServletTestCaller</code>. There are 2 services available : one for
+ * executing the test and one for returning the test result.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
  */
-public class JspTestCaller extends ServletTestCaller
+public class JspTestController extends AbstractTestController
 {
     /**
-     * The logger
+     * @return the test caller that will be used to execute the test
      */
-    protected static Log logger =
-        LogService.getInstance().getLog(JspTestCaller.class.getName());
-
-    /**
-     * @param theObjects the implicit objects coming from the redirector
-     */
-    public JspTestCaller(JspImplicitObjects theObjects)
+    protected ServletTestCaller getTestCaller(
+            ServletImplicitObjects theObjects)
     {
-        super(theObjects);
-        this.servletImplicitObjects = theObjects;
-    }
-
-    /**
-     * Sets the test case fields using the implicit objects (using reflection).
-     * @param theTestInstance the test class instance
-     */
-    protected void setTestCaseFields(ServletTestCase theTestInstance)
-        throws Exception
-    {
-        this.logger.entry("setTestCaseFields([" + theTestInstance + "])");
-
-        JspImplicitObjects jspImplicitObjects =
-            (JspImplicitObjects)this.servletImplicitObjects;
-
-        // Sets the Servlet-related implicit objects
-        // -----------------------------------------
-
-        super.setTestCaseFields(theTestInstance);
-
-        // Set the page context field of the test case class
-        // -------------------------------------------------
-
-        Field pageContextField = theTestInstance.getClass().
-            getField("pageContext");
-        pageContextField.set(theTestInstance,
-            jspImplicitObjects.getPageContext());
-
-        // Set the JSP writer field of the test case class
-        // -----------------------------------------------
-
-        Field outField = theTestInstance.getClass().getField("out");
-        outField.set(theTestInstance, jspImplicitObjects.getJspWriter());
-
-        this.logger.exit("setTestCaseFields");
+        return new JspTestCaller((JspImplicitObjects)theObjects);
     }
 
 }

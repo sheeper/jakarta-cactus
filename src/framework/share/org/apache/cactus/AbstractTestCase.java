@@ -351,17 +351,24 @@ public abstract class AbstractTestCase extends TestCase
      */
     public void runBare() throws Throwable
     {
-        // Initialize the client side logging system if need be. The code is
-        // place here because although this class is instanciated on both the
-        // the server side and the client side, this method is only executed
-        // on the client side.
+        // Initialize the logging system. As this class is instanciated both
+        // on the server side and on the client side, we need to differentiate
+        // the logging initialisation. This method is only called on the client
+        // side, so we instanciate the log for client side here.
         if (!LogService.getInstance().isInitialized()) {
             LogService.getInstance().init("/log_client.properties");
             this.logger =
                 LogService.getInstance().getLog(this.getClass().getName());
         }
 
-        runTest();
+        // Catch the exception just to have a chance to log it
+        try {
+            runTest();
+        } catch (Throwable t) {
+            this.logger.debug("Exception in test", t);
+            throw t;
+        }
+
     }
 
     /**
@@ -428,13 +435,26 @@ public abstract class AbstractTestCase extends TestCase
 	 */
     public void runBareServerTest() throws Throwable
     {
-		setUp();
-		try {
+        // Initialize the logging system. As this class is instanciated both
+        // on the server side and on the client side, we need to differentiate
+        // the logging initialisation. This method is only called on the server
+        // side, so we instanciate the log for server side here.
+        if (this.logger == null) {
+            this.logger =
+                LogService.getInstance().getLog(this.getClass().getName());
+        }
+
+        this.logger.entry("runBareServerTest()");
+
+        setUp();
+        try {
             runServerTest();
-		}
-		finally {
-	        tearDown();
-		}
+        }
+        finally {
+            tearDown();
+        }
+
+        this.logger.exit("runBareServerTest");
 	}
 
 	/**
@@ -442,6 +462,8 @@ public abstract class AbstractTestCase extends TestCase
 	 */
 	protected void runServerTest() throws Throwable
     {
+        this.logger.entry("runServerTest()");
+
 		Method runMethod= null;
 		try {
 			// use getMethod to get all public inherited
@@ -471,6 +493,8 @@ public abstract class AbstractTestCase extends TestCase
 			e.fillInStackTrace();
 			throw e;
 		}
+
+        this.logger.exit("runServerTest");
 	}
 	
 }

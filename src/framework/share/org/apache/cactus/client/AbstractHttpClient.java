@@ -57,15 +57,13 @@ import java.util.*;
 import java.net.*;
 import java.io.*;
 
-import junit.framework.*;
 import org.apache.commons.cactus.*;
+import org.apache.commons.cactus.util.log.*;
 
 /**
- * Abstract class that all HTTP clients to the server redirector must extend.
- * It provides a common abstraction of the <code>doTest</code> method and
- * provides the URL to the server redirector servlet or JSP. It also makes some
- * configuration checks to verify if the runtime configuration is right (see
- * the <code>ClientConfigurationChecker</code> class for details).
+ * Abstract class for performing the steps necessary to run a test. It involves
+ * opening a first HTTP connection to a server redirector, reading the output
+ * stream and then opening a second HTTP connection to retrieve the test result.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
@@ -73,6 +71,12 @@ import org.apache.commons.cactus.*;
  */
 public abstract class AbstractHttpClient
 {
+    /**
+     * The logger
+     */
+    private static Log logger =
+        LogService.getInstance().getLog(AbstractHttpClient.class.getName());
+
     /**
      * Name of the Cactus configuration file
      */
@@ -85,11 +89,16 @@ public abstract class AbstractHttpClient
         PropertyResourceBundle.getBundle(CONFIG_NAME);
 
     /**
-     * Check client configuration parameters.
+     * Check client configuration parameters (verify client classpath)
      */
     static {
         ClientConfigurationChecker.checkConfigProperties();
     }
+
+    /**
+     * @return the URL to call the redirector
+     */
+    protected abstract String getRedirectorURL();
 
     /**
      * Calls the test method indirectly by calling the Redirector servlet and
@@ -104,7 +113,82 @@ public abstract class AbstractHttpClient
      * @exception Throwable if an error occured in the test method or in the
      *                      redirector servlet.
      */
-    public abstract HttpURLConnection doTest(ServletTestRequest theRequest)
-        throws Throwable;
+    public HttpURLConnection doTest(ServletTestRequest theRequest)
+        throws Throwable
+    {
+        this.logger.entry("doTest(" + theRequest + ")");
+
+        // Open the first connection to the redirector to execute the test on
+        // the server side
+        HttpClientHelper helper1 =
+                new HttpClientHelper(getRedirectorURL());
+
+        // Specify the service to call on the redirector side
+        theRequest.addParameter(ServiceDefinition.SERVICE_NAME_PARAM,
+            ServiceEnumeration.CALL_TEST_SERVICE.toString());
+        HttpURLConnection connection = helper1.connect(theRequest);
+
+        // Wrap the connection to ensure that all servlet output is read
+        // before we ask for results
+        connection = new AutoReadHttpURLConnection(connection);
+
+        // Trigger the transfer of data
+        connection.getInputStream();
+
+        // Open the second connection to get the test results
+        HttpClientHelper helper2 =
+                new HttpClientHelper(getRedirectorURL());
+
+        ServletTestRequest resultsRequest = new ServletTestRequest();
+        resultsRequest.addParameter(ServiceDefinition.SERVICE_NAME_PARAM,
+            ServiceEnumeration.GET_RESULTS_SERVICE.toString());
+        HttpURLConnection resultConnection = helper2.connect(resultsRequest);
+
+        // Read the results as a serialized object
+        ObjectInputStream ois =
+            new ObjectInputStream(resultConnection.getInputStream());
+        WebTestResult result = (WebTestResult)ois.readObject();
+
+        ois.close();
+
+        // Check if the returned result object returned contains an error or
+        // not. If yes, we need to raise an exception so that the JUnit
+        // framework can catch it
+
+        if (result.hasException()) {
+
+            // Wrap the exception message and stack trace into a fake
+            // exception class with overloaded <code>printStackTrace()</code>
+            // methods so that when JUnit calls this method it will print the
+            // stack trace that was set on the server side.
+
+            // If the error was an AssertionFailedError then we use an instance
+            // of AssertionFailedErrorWrapper (so that JUnit recognize it is
+            // an AssertionFailedError exception and print it differently in
+            // it's runner console). Otherwise we use an instance of
+            // ServletExceptionWrapper.
+
+            if (result.getExceptionClassName().
+                equals("junit.framework.AssertionFailedError")) {
+
+                throw new AssertionFailedErrorWrapper(
+                    result.getExceptionMessage(),
+                    result.getExceptionClassName(),
+                    result.getExceptionStackTrace());
+
+            } else {
+
+                throw new ServletExceptionWrapper(
+                    result.getExceptionMessage(),
+                    result.getExceptionClassName(),
+                    result.getExceptionStackTrace());
+
+            }
+
+        }
+
+        this.logger.exit("doTest");
+        return connection;
+    }
 
 }
