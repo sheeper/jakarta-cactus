@@ -15,8 +15,12 @@
 		<project>org.eclipse.jdt.launching</project>
 		<project>org.eclipse.jdt.ui</project>
 		<project>org.eclipse.jface</project>
+		<project>org.eclipse.sdk.win32</project>
 		<project>org.eclipse.swt</project>
+		<project>org.eclipse.swt.win32</project>
 		<project>org.eclipse.ui</project>
+		<project>org.eclipse.ui.win32</project>
+		<project>org.eclipse.ui.workbench</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

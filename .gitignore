@@ -2,6 +2,8 @@
 /.project
 Eclipse-Plugin/bin
 Eclipse-Plugin/build.properties
+Eclipse-Plugin/dist
+Eclipse-Plugin/release
 Eclipse-Plugin/target
 /ant.bat
 anttasks/ant.bat
