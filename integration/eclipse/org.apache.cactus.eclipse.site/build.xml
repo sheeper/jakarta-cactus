@@ -96,4 +96,18 @@
         </zip>
     </target>
             
+    <!--
+       ========================================================================
+         Clean generated files (including distributables)
+       ========================================================================
+    -->
+    <target name="clean" depends="init.display,init.properties"
+    	description="Clean all generated files">
+
+        <delete dir="${target.dir}"/>
+        <delete dir="${dist.dir}"/>
+        <delete dir="${release.dir}"/>
+
+    </target>
+
 </project>
