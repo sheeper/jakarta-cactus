@@ -305,7 +305,7 @@ public class FormAuthentication extends AbstractAuthentication
             {
                 throw new ChainedRuntimeException("Unable to login, "
                     + "probably due to bad username/password. Received a ["
-                    + connection.getResponseCode() + "] response code and"
+                    + connection.getResponseCode() + "] response code and "
                     + "was expecting a [302]");
             }
         }
