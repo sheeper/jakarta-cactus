@@ -151,9 +151,9 @@ public class WebXmlMergeTask extends Task
                  || (mergeFile.lastModified() > destFile.lastModified()))
                 {
                     WebXml srcWebXml =
-                        WebXmlIo.parseWebXml(this.srcFile, this.xmlCatalog);
+                        WebXmlIo.parseWebXmlFromFile(this.srcFile, this.xmlCatalog);
                     WebXml mergeWebXml =
-                        WebXmlIo.parseWebXml(this.mergeFile, this.xmlCatalog);
+                        WebXmlIo.parseWebXmlFromFile(this.mergeFile, this.xmlCatalog);
                     WebXmlMerger merger = new WebXmlMerger(srcWebXml);
                     merger.setLog(new AntLog(this));
                     merger.merge(mergeWebXml);

@@ -224,8 +224,8 @@ public class WebXmlIo
      *          configured
      * @throws IOException If an I/O error occurs
      */
-    public static WebXml parseWebXml(File theFile,
-    EntityResolver theEntityResolver)
+    public static WebXml parseWebXmlFromFile(File theFile,
+        EntityResolver theEntityResolver)
         throws SAXException, ParserConfigurationException, IOException
     {
         InputStream in = null;
