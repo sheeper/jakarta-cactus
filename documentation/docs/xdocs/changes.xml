@@ -123,6 +123,11 @@
         <action dev="VMA" type="add">
           Added automated Ant scripts for JBoss/Jetty 3.x.
         </action>
+        <action dev="CML" type="fix">
+          Fixed bug where users using a Locale which does not format numbers
+          with dots (".") had issues with the JUnitReport Ant XSL stylesheet.
+          The Servlet Test Runner code now forces a US Locale.
+        </action>
         <action dev="VMA" type="add" due-to="Christopher Lenz" due-to-email="cmlenz@gmx.de">
           Added new extension class to help unit test JSP Taglibs. See the
           <code>TestJspTagLifecycle</code> test class in the sample-servlet
