@@ -156,11 +156,11 @@
         <mkdir dir="${target.conf.dir}"/>
 
         <!-- Copy the manifest in order to replace the version token filter -->
-        <copy todir="${target.conf.dir}" file="${conf.dir}/manifest-ant"
+        <copy todir="${target.conf.dir}" file="${conf.dir}/manifest"
             filtering="on"/>
 
         <jar jarfile="${target.dir}/${anttasks.jar.name}.jar"
-          manifest="${target.conf.dir}/manifest-ant">
+          manifest="${target.conf.dir}/manifest">
             <fileset dir="${target.classes.dir}"/>
         </jar>
 
