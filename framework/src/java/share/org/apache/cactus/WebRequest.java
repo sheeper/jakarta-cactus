@@ -94,6 +94,16 @@ public class WebRequest extends BaseWebRequest
     private String redirectorName;
 
     /**
+     * Default constructor that requires that 
+     * {@link #setConfiguration(Configuration)} be called before the methods
+     * requiring a configuration object.
+     * 
+     */
+    public WebRequest()
+    {
+    }
+
+    /**
      * @param theConfiguration the Cactus configuration
      */
     public WebRequest(WebConfiguration theConfiguration)
@@ -264,6 +274,12 @@ public class WebRequest extends BaseWebRequest
      */
     public HttpSessionCookie getSessionCookie()
     {
+        if (getConfiguration() == null)
+        {
+            throw new ChainedRuntimeException("setConfiguration() should have "
+                + "been called prior to calling getSessionCookie()");
+        }
+        
         ConnectionHelper helper = ConnectionHelperFactory.getConnectionHelper(
             ((WebConfiguration) getConfiguration()).getRedirectorURL(this), 
             getConfiguration());
@@ -277,7 +293,7 @@ public class WebRequest extends BaseWebRequest
         HttpURLConnection resultConnection;
         try
         {
-            resultConnection = helper.connect(request);
+            resultConnection = helper.connect(request, getConfiguration());
         }
         catch (Throwable e)
         {

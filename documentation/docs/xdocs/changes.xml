@@ -58,6 +58,10 @@
 
       <release version="1.5" date="- in CVS">
         <action dev="VMA" type="add">
+          Added ability to add any additional HTTP parameters to the request 
+          used by Cactus to the Form-based authentication security URL.
+        </action>
+        <action dev="VMA" type="add">
           Added support for running pure JUnit TestCase on the server side
           using Cactus. This is possible by using a new 
           <code>ServletTestSuite</code> Test Suite.

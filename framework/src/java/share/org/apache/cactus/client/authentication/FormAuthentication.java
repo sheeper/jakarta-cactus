@@ -63,6 +63,7 @@ import java.net.URL;
 import org.apache.cactus.WebRequest;
 import org.apache.cactus.client.connector.http.ConnectionHelper;
 import org.apache.cactus.client.connector.http.ConnectionHelperFactory;
+import org.apache.cactus.configuration.Configuration;
 import org.apache.cactus.configuration.WebConfiguration;
 import org.apache.cactus.util.ChainedRuntimeException;
 import org.apache.commons.logging.Log;
@@ -110,7 +111,13 @@ public class FormAuthentication extends AbstractAuthentication
      * be reused for another test.
      */
     private String sessionId = null;
-   
+
+    /**
+     * {@link WebRequest} object that will be used to connect to the
+     * security URL. 
+     */
+    private WebRequest securityRequest = new WebRequest();
+      
     /**
      * @param theName user name of the Credential
      * @param thePassword user password of the Credential
@@ -137,14 +144,15 @@ public class FormAuthentication extends AbstractAuthentication
     }
 
     /**
-     * @see AbstractAuthentication#configure(WebRequest)
+     * @see AbstractAuthentication#configure(WebRequest, Configuration)
      */
-    public void configure(WebRequest theRequest)
+    public void configure(WebRequest theRequest,
+        Configuration theConfiguration)
     {
         // Only authenticate the first time this instance is used.
         if (this.sessionId == null)
         {
-           authenticate(theRequest);
+           authenticate(theRequest, theConfiguration);
         }
 
         // Sets the session id cookie for the next request.
@@ -152,6 +160,16 @@ public class FormAuthentication extends AbstractAuthentication
         {
             theRequest.addCookie(this.sessionIdCookieName, this.sessionId);
         }
+    }
+
+    /**
+     * @return the {@link WebRequest} that will be used to connect to the
+     * security URL. It can be used to add additional HTTP parameters such
+     * as proprietary ones required by some containers.
+     */
+    public WebRequest getSecurityRequest()
+    {
+        return this.securityRequest;
     }
     
     /**
@@ -170,15 +188,16 @@ public class FormAuthentication extends AbstractAuthentication
      * the context URL defined in the Cactus configuration with  
      * "/j_security_check" appended. 
      *
+     * @param theConfiguration the Cactus configuration
      * @return the URL that is being used to attempt to login.
      */
-    public URL getSecurityCheckURL()
+    public URL getSecurityCheckURL(Configuration theConfiguration)
     {
         if (this.securityCheckURL == null)
         {
             // Configure default
             String stringUrl = 
-                ((WebConfiguration) getConfiguration()).getContextURL()
+                ((WebConfiguration) theConfiguration).getContextURL()
                 + "/j_security_check";
 
             try
@@ -203,8 +222,10 @@ public class FormAuthentication extends AbstractAuthentication
      * Authenticate the principal by calling the security URL.
      * 
      * @param theRequest the web request used to connect to the Redirector
+     * @param theConfiguration the Cactus configuration
      */    
-    public void authenticate(WebRequest theRequest)
+    public void authenticate(WebRequest theRequest, 
+        Configuration theConfiguration)
     {
         //Note: This method needs refactoring. It is too complex.
         
@@ -212,16 +233,16 @@ public class FormAuthentication extends AbstractAuthentication
         {
             // Create a helper that will connect to a restricted resource.
 
-            String resource = ((WebConfiguration) getConfiguration())
-                .getRedirectorURL(theRequest);
+            String resource = ((WebConfiguration) theConfiguration).
+                getRedirectorURL(theRequest);
     
             ConnectionHelper helper = 
                 ConnectionHelperFactory.getConnectionHelper(resource, 
-                getConfiguration());
+                theConfiguration);
 
             // Make the connection using a default web request.
-            HttpURLConnection connection = helper.connect(
-                new WebRequest((WebConfiguration) getConfiguration()));
+            HttpURLConnection connection = 
+                helper.connect(this.securityRequest, theConfiguration);
 
             // Clean any existing session ID.
             sessionId = null;
@@ -260,12 +281,13 @@ public class FormAuthentication extends AbstractAuthentication
 
             // Create a helper that will connect to the security check URL.
             helper = ConnectionHelperFactory.getConnectionHelper(
-                getSecurityCheckURL().toString(), getConfiguration());
+                getSecurityCheckURL(theConfiguration).toString(), 
+                (WebConfiguration) theConfiguration);
                 
             // Configure a web request with the JSESSIONID cookie, 
             // the username and the password.
             WebRequest request = new WebRequest(
-                (WebConfiguration) getConfiguration());
+                (WebConfiguration) theConfiguration);
             request.addCookie(sessionIdCookieName, sessionId);
             request.addParameter("j_username", getName(), 
                 WebRequest.POST_METHOD);
@@ -273,7 +295,7 @@ public class FormAuthentication extends AbstractAuthentication
                 WebRequest.POST_METHOD);
             
             // Make the connection using the configured web request.
-            connection = helper.connect(request);
+            connection = helper.connect(request, theConfiguration);
         
             // If we get back a response code of 302, it means we were 
             // redirected to the context root after successfully logging in.

@@ -60,6 +60,7 @@ import java.text.CharacterIterator;
 import java.text.StringCharacterIterator;
 
 import org.apache.cactus.WebRequest;
+import org.apache.cactus.configuration.Configuration;
 
 /**
  * Basic Authentication support.
@@ -209,9 +210,10 @@ public class BasicAuthentication extends AbstractAuthentication
     }
 
     /**
-     * @see AbstractAuthentication#configure(WebRequest)
+     * @see AbstractAuthentication#configure(WebRequest, Configuration)
      */
-    public void configure(WebRequest theRequest)
+    public void configure(WebRequest theRequest,
+        Configuration theConfiguration)
     {
         // According to HTTP 1.0 Spec:
         // basic-credentials = "Basic" SP basic-cookie

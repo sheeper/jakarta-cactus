@@ -65,6 +65,7 @@ import java.util.Enumeration;
 
 import org.apache.cactus.WebRequest;
 import org.apache.cactus.client.authentication.AbstractAuthentication;
+import org.apache.cactus.configuration.Configuration;
 import org.apache.cactus.util.UrlUtil;
 import org.apache.commons.httpclient.HostConfiguration;
 import org.apache.commons.httpclient.HttpClient;
@@ -102,9 +103,10 @@ public class HttpClientConnectionHelper extends AbstractConnectionHelper
     }
 
     /**
-     * @see ConnectionHelper#connect(WebRequest)
+     * @see ConnectionHelper#connect(WebRequest, Configuration)
      */
-    public HttpURLConnection connect(WebRequest theRequest) throws Throwable
+    public HttpURLConnection connect(WebRequest theRequest, 
+        Configuration theConfiguration) throws Throwable
     {
         URL url = new URL(this.url);
 
@@ -115,7 +117,7 @@ public class HttpClientConnectionHelper extends AbstractConnectionHelper
 
         if (authentication != null)
         {
-            authentication.configure(theRequest);
+            authentication.configure(theRequest, theConfiguration);
         }
 
         // Add the parameters that need to be passed as part of the URL

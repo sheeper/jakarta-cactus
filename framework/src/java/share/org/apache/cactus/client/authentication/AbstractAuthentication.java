@@ -90,11 +90,6 @@ public abstract class AbstractAuthentication
     protected String password;
 
     /**
-     * Cactus configuration
-     */
-    private Configuration configuration;
-
-    /**
      * @param theName user name of the Credential
      * @param thePassword user password of the Credential
      */
@@ -103,26 +98,6 @@ public abstract class AbstractAuthentication
         setName(theName);
         setPassword(thePassword);
     }
-
-    /**
-     * Sets the Cactus configuration so that authentication methods
-     * can get access to Cactus configuration properties. For example,
-     * this is needed by the <code>FormAuthentication</code>.
-     * 
-     * @param theConfiguration the Cactus configuration
-     */
-    public void setConfiguration(Configuration theConfiguration)
-    {
-        this.configuration = theConfiguration;
-    }
-
-    /**
-     * @return the Cactus configuration
-     */
-    public Configuration getConfiguration()
-    {
-        return this.configuration;
-    } 
 
     /**
      * Sets the user name.
@@ -176,8 +151,12 @@ public abstract class AbstractAuthentication
      *
      * @param theRequest the request object that will be sent to the Cactus
      *        Redirector over HTTP
+     * @param theConfiguration the Cactus configuration so that 
+     *        authentication methods can get access to Cactus configuration 
+     *        properties
      */
-    public abstract void configure(WebRequest theRequest);
+    public abstract void configure(WebRequest theRequest, 
+        Configuration theConfiguration);
 
     /**
      * @return the user password of the Credential

@@ -193,7 +193,8 @@ public class DefaultHttpClient
             this.configuration.getRedirectorURL(theRequest), 
             this.configuration);
 
-        HttpURLConnection connection = helper.connect(theRequest);
+        HttpURLConnection connection = 
+            helper.connect(theRequest, this.configuration); 
 
         // Wrap the connection to ensure that all servlet output is read
         // before we ask for results
@@ -239,7 +240,8 @@ public class DefaultHttpClient
             this.configuration.getRedirectorURL(resultsRequest),
             this.configuration);
 
-        HttpURLConnection resultConnection = helper.connect(resultsRequest);
+        HttpURLConnection resultConnection = 
+            helper.connect(resultsRequest, this.configuration);
 
         // Read the test result
         WebTestResultParser parser = new WebTestResultParser();

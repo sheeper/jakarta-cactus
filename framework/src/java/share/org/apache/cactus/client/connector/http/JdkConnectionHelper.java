@@ -70,6 +70,7 @@ import java.util.Enumeration;
 
 import org.apache.cactus.WebRequest;
 import org.apache.cactus.client.authentication.AbstractAuthentication;
+import org.apache.cactus.configuration.Configuration;
 import org.apache.cactus.util.ChainedRuntimeException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -113,9 +114,10 @@ public class JdkConnectionHelper extends AbstractConnectionHelper
     }
 
     /**
-     * @see ConnectionHelper#connect(WebRequest)
+     * @see ConnectionHelper#connect(WebRequest, Configuration)
      */
-    public HttpURLConnection connect(WebRequest theRequest) throws Throwable
+    public HttpURLConnection connect(WebRequest theRequest,
+        Configuration theConfiguration) throws Throwable
     {
         URL url = new URL(this.url);
 
@@ -126,7 +128,7 @@ public class JdkConnectionHelper extends AbstractConnectionHelper
 
         if (authentication != null)
         {
-            authentication.configure(theRequest);
+            authentication.configure(theRequest, theConfiguration);
         }
 
 

@@ -129,6 +129,16 @@ public class BaseWebRequest implements Request
     private AbstractAuthentication authentication;
 
     /**
+     * Default constructor that requires that 
+     * {@link #setConfiguration(Configuration)} be called before the methods
+     * requiring a configuration object.
+     * 
+     */
+    public BaseWebRequest()
+    {
+    }
+
+    /**
      * @param theConfiguration the Cactus configuration
      */
     public BaseWebRequest(Configuration theConfiguration)
@@ -142,6 +152,15 @@ public class BaseWebRequest implements Request
     protected Configuration getConfiguration()
     {
         return this.configuration;
+    }
+
+    /**
+     * @param theConfiguration the cactus configuration to assign to this 
+     *        request
+     */
+    public void setConfiguration(Configuration theConfiguration)
+    {
+        this.configuration = theConfiguration;
     }
 
     /**
@@ -661,11 +680,6 @@ public class BaseWebRequest implements Request
         AbstractAuthentication theAuthenticationObject)
     {
         this.authentication = theAuthenticationObject;
-        
-        // Sets the Cactus configuration. It is performed here so that
-        // Cactus users do not have to bother with setting it on the
-        // Authentication object they create.
-        this.authentication.setConfiguration(getConfiguration());
     }
 
     /**
