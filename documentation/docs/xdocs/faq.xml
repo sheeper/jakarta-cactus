@@ -41,6 +41,9 @@
           "<code>not a valid response</code> error message. What does it
           mean ?</jump>
         </li>
+        <li>
+          <jump anchor="faq7">How to send multipart/form-data ?</jump>
+        </li>
       </ul>
     </s1>
 
@@ -203,7 +206,7 @@ web application is built)
           <code>StreamCorruptedException</code> could also result when you are
           using the wrong version of the servlet.jar in some area
           (any version prior to 2.2, or using servlet.jar 2.2 with a
-          Cactus-2.3 installation).
+          Cactus-1.3 installation).
         </p>
       </s2>
 
@@ -307,6 +310,49 @@ org.apache.cactus.client.WebTestResultParser.readRootElement(
         </p>
       </s2>
 
+    </s1>
+
+    <anchor id="faq7"/>
+    <s1 title="How to send multipart/form-data ?">
+
+        <s2 title="Question">
+          <p>
+           How to send multipart/form-data to my servlet under test ?
+          </p>
+        </s2>
+        <s2 title="Solution">
+          <p>
+            One solution is to use the
+            <link href="http://www.innovation.ch/java/HTTPClient/">HTTPClient</link>
+            classes from Ronald Tschalar, as demonstrated in the following
+            example :
+          </p>
+
+<source><![CDATA[
+import HTTPClient.Codecs;
+import HTTPClient.NVPair;
+.
+.
+.
+NVPair[] hdrs = new NVPair[1];
+
+public void beginUpload(WebRequest theRequest)
+{
+  NVPair[] opts = { new NVPair("option", "myoption") };
+  NVPair[] file = { new NVPair("comment", "/home/alan/src.zip") };
+  try {
+    byte[] data = Codecs.mpFormDataEncode(opts, file, hdrs);
+    InputStream i = new ByteArrayInputStream(data);
+    theRequest.setUserData(i);
+    theRequest.setContentType(hdrs[0].getValue());
+    i.close();
+  } catch (IOException e) {
+    System.out.println("Error Building Multipart");
+  }
+}
+]]></source>
+
+      </s2>
     </s1>
 
   </body>
