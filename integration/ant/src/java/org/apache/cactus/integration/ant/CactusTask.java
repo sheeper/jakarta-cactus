@@ -3,7 +3,7 @@
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2003 The Apache Software Foundation.  All rights
+ * Copyright (c) 2003-2004 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -355,7 +355,7 @@ public class CactusTask extends JUnitTask
      */
     private void addCactusServerProperty(Variable theProperty)
     {
-        log("Adding Cactus server system property [cactus." 
+        log("Adding Cactus server system property [" 
             + theProperty.getKey() + "] with value [" 
             + theProperty.getValue() + "]", Project.MSG_VERBOSE);
         this.systemProperties.add(theProperty);
