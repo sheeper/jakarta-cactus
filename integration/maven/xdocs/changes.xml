@@ -8,6 +8,11 @@
   <body>
 
     <release version="1.6dev" date="in CVS">
+      <action dev="vmassol" type="fix" due-to="Nicolas Chalumeau" due-to-email="Nicolas.CHALUMEAU@arsoe-trelaze.com">
+        The <code>cactus:test-ear</code> goal was not properly using the
+        <code>cactus.test.includes</code>/<code>cactus.test.excludes</code> thus
+        leading to tests not being included/excluded.
+      </action>
       <action dev="VMA" type="update">
         Updated the version of Commons HttpClient in the Cactus distribution 
         to 2.0 final.

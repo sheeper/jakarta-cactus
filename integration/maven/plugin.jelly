@@ -1088,8 +1088,8 @@
 
       <ant:batchtest>
         <ant:fileset dir="${cactus.src.dir}"
-            includes="${cactus.src.includes}"
-            excludes="${cactus.src.excludes}"/>
+            includes="${cactus.test.includes}"
+            excludes="${cactus.test.excludes}"/>
       </ant:batchtest>
 
     </cactus>
