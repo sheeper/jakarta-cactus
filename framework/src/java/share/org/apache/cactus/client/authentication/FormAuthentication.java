@@ -45,7 +45,7 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @since 1.5
  *
- * @version $Id: $
+ * @version $Id$
  */
 public class FormAuthentication extends AbstractAuthentication
 {
@@ -56,13 +56,8 @@ public class FormAuthentication extends AbstractAuthentication
         LogFactory.getLog(FormAuthentication.class);
 
     /**
-     * The expected HTTP response code for the request to a restricted
-     * resource without authenticated principal.
-     */
-    private int expectedPreAuthResponse = HttpURLConnection.HTTP_MOVED_TEMP;
-
-    /**
-     * The expected HTTP response code when the authentication is succeeded.
+     * The expected HTTP response status code when the authentication
+     * is succeeded.
      */
     private int expectedAuthResponse = HttpURLConnection.HTTP_MOVED_TEMP;
 
@@ -212,63 +207,28 @@ public class FormAuthentication extends AbstractAuthentication
         }
     }
 
-    /**
-     * Get the expected HTTP response code for a request to a restricted
-     * resource without authenticated principal.
-     * @return the expected HTTP response code value
-     */
-    private int getExpectedPreAuthResponse()
-    {
-        return this.expectedPreAuthResponse;
-    }
 
     /**
-     * Set the expected HTTP response code for a request to a restricted
-     * resource without authenticated principal.
-     * The default is HttpURLConnection.HTTP_MOVED_TEMP.
-     * @param theExpectedCode the expected HTTP response code value
-     */
-    public void setExpectedPreAuthResponse(int theExpectedCode)
-    {
-        this.expectedPreAuthResponse = theExpectedCode;
-    }
-
-    /**
-     * Get the expected HTTP response code for an authentication request
+     * Get the expected HTTP response status code for an authentication request
      * which should be successful.
-     * @return the expected HTTP response code
+     * @return the expected HTTP response status code
      */
-    private int getExpectedAuthResponse()
+    protected int getExpectedAuthResponse()
     {
         return this.expectedAuthResponse;
     }
 
     /**
-     * Set the expected HTTP response code for an authentication request
+     * Set the expected HTTP response status code for an authentication request
      * which should be successful.
      * The default is HttpURLConnection.HTTP_MOVED_TEMP.
-     * @param theExpectedCode the expected HTTP response code value
+     * @param theExpectedCode the expected HTTP response status code value
      */
     public void setExpectedAuthResponse(int theExpectedCode)
     {
         this.expectedAuthResponse = theExpectedCode;
     }
 
-    /**
-     * Check if the actual response code is that of the expected.
-     * @param theExpected the expected response code
-     * @param theActual the actural response code
-     * @exception Exception the actual response code is not that of the expected
-     */
-    private void checkResponseCodeEquals(int theExpected, int theActual)
-        throws Exception
-    {
-        if (theActual != theExpected)
-        {
-            throw new Exception("Received a [" + theActual + "] response code"
-                + " and was expecting a [" + theExpected + "]");
-        }
-    }
 
     /**
      * Get a cookie required to be set by set-cookie header field.
@@ -307,6 +267,28 @@ public class FormAuthentication extends AbstractAuthentication
         return null;
     }
 
+
+    /**
+     * Check if the pre-auth step can be considered as succeeded or not.
+     * As default, the step considered as succeeded
+     * if the response status code of <code>theConnection</code>
+     * is less than 400.
+     *
+     * @param theConnection a <code>HttpURLConnection</code> value
+     * @exception Exception if the pre-auth step should be considered as failed
+     */
+    protected void checkPreAuthResponse(HttpURLConnection theConnection)
+        throws Exception
+    {
+        if (theConnection.getResponseCode() >= 400)
+        {
+            throw new Exception("Received a status code ["
+                + theConnection.getResponseCode()
+                + "] and was expecting less than 400");
+        }
+    }
+
+
     /**
      * Get login session cookie.
      * This is the first step to start login session:
@@ -339,8 +321,8 @@ public class FormAuthentication extends AbstractAuthentication
 
             // Make the connection using a default web request.
             connection = helper.connect(request, theConfiguration);
-            checkResponseCodeEquals(getExpectedPreAuthResponse(),
-                connection.getResponseCode());
+
+            checkPreAuthResponse(connection);
         }
         catch (Throwable e)
         {
@@ -350,6 +332,29 @@ public class FormAuthentication extends AbstractAuthentication
 
         return getCookie(connection, getSessionCookieName());
     }
+
+
+    /**
+     * Check if the auth step can be considered as succeeded or not.
+     * As default, the step considered as succeeded
+     * if the response status code of <code>theConnection</code>
+     * equals <code>getExpectedAuthResponse()</code>.
+     *
+     * @param theConnection a <code>HttpURLConnection</code> value
+     * @exception Exception if the auth step should be considered as failed
+     */
+    protected void checkAuthResponse(HttpURLConnection theConnection)
+        throws Exception
+    {
+        if (theConnection.getResponseCode() != getExpectedAuthResponse())
+        {
+            throw new Exception("Received a status code ["
+                + theConnection.getResponseCode()
+                + "] and was expecting a ["
+                + getExpectedAuthResponse() + "]");
+        }
+    }
+
 
     /**
      * Authenticate the principal by calling the security URL.
@@ -384,9 +389,8 @@ public class FormAuthentication extends AbstractAuthentication
             // Make the connection using the configured web request.
             HttpURLConnection connection = helper.connect(request,
                 theConfiguration);
-        
-            checkResponseCodeEquals(getExpectedAuthResponse(),
-                connection.getResponseCode());
+
+            checkAuthResponse(connection);        
         }
         catch (Throwable e)
         {

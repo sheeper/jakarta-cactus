@@ -68,6 +68,11 @@
       </devs>
 
       <release version="1.6dev" date="in CVS">
+        <action dev="VMA" type="update" due-to="Kazuhito Suguri" due-to-email="suguri.kazuhito@lab.ntt.co.jp">
+          In the Form authentication code, changed the response check logic 
+          for the pre-authentication step to accept any status code less 
+          than 400. It was previously only accepting a 302 code but different
+          servers are implementing it differently.
         <action dev="VMA" type="add">
           Added new <code>ServletContextWrapper.setInitParameters()</code>
           which allows to programatically define Context init parameters (as
@@ -87,14 +92,6 @@
           <code>FormAuthentication.setExpectedAuthResponse(int)</code>
           that allows to set the expected HTTP response code for an
           authentication request which should be successful. If not 
-          specified, it defaults to 
-          <code>HttpURLConnection.HTTP_MOVED_TEMP</code>.
-        </action>
-        <action dev="VMA" type="add" due-to="Kazuhito Suguri" due-to-email="suguri.kazuhito@lab.ntt.co.jp">
-          Added new 
-          <code>FormAuthentication.setExpectedPreAuthResponse(int)</code>
-          that allows to set the expected HTTP response code for a request to 
-          a restricted resource without authenticated principal. If not 
           specified, it defaults to 
           <code>HttpURLConnection.HTTP_MOVED_TEMP</code>.
         </action>
