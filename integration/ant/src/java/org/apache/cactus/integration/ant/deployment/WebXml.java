@@ -835,10 +835,10 @@ public class WebXml
     }
 
     /**
+     * Sets the login configuration.
      * 
-     * 
-     * @param theRealmName
-     * @param theAuthMethod
+     * @param theAuthMethod The authentication method (for example, BASIC)
+     * @param theRealmName The name of the realm
      */
     public void setLoginConfig(String theAuthMethod, String theRealmName)
     {

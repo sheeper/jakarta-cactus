@@ -259,13 +259,13 @@ public final class WebXmlTag
     /**
      * Element name 'auth-method'.
      */
-    public static WebXmlTag AUTH_METHOD =
+    public static final WebXmlTag AUTH_METHOD =
         new WebXmlTag("auth-method");
 
     /**
      * Element name 'realm-name'.
      */
-    public static WebXmlTag REALM_NAME =
+    public static final WebXmlTag REALM_NAME =
         new WebXmlTag("realm-name");
 
     /**
