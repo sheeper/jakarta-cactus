@@ -63,6 +63,7 @@ import org.w3c.dom.DocumentType;
  * 
  * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
  *
+ * @since Cactus 1.5
  * @version $Id$
  */
 public class WebXmlVersion implements Comparable
