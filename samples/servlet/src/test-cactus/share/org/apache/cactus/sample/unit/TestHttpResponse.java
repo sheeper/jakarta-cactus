@@ -244,7 +244,12 @@ public class TestHttpResponse extends ServletTestCase
      */
     public void testSetContentType() throws Exception
     {
-        response.setContentType("text/xml");
+        // Note: We also specify the charset so that we are sure to known the
+        // full content type string that will be returned on the client side.
+        // Indeed, some containers will specify a charset even if we don't
+        // specify one in the call to setContentType. This is normal and in
+        // accordance with RFC2616, section 3.4.1.
+        response.setContentType("text/xml;charset=ISO-8859-1");
 
         // Although we don't assert the written content, this is needed to make
         // the test succeed on some versions of Orion. If the content is left 
@@ -261,7 +266,7 @@ public class TestHttpResponse extends ServletTestCase
      */
     public void endSetContentType(WebResponse theResponse)
     {
-        assertEquals("text/xml", 
+        assertEquals("text/xml;charset=ISO-8859-1", 
             theResponse.getConnection().getContentType());
     }
     
