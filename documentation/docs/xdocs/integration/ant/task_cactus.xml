@@ -496,6 +496,17 @@
             nested elements:
           </p>
 
+          <section title="conf">
+
+            <p>
+              A fileset that can be used to specify the set of files that
+              should be placed into the <code>conf</code> directory of the
+              installation directory. This fileset should not include the
+              <code>serverxml</code> file.
+            </p>
+
+          </section>
+
         </section>
 
       </section>
@@ -562,6 +573,17 @@
             The <strong>tomcat4x</strong> container supports the following
             nested elements:
           </p>
+
+          <section title="conf">
+
+            <p>
+              A fileset that can be used to specify the set of files that
+              should be placed into the <code>conf</code> directory of the
+              installation directory. This fileset should not include the
+              <code>serverxml</code> file.
+            </p>
+
+          </section>
 
         </section>
 
