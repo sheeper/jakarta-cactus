@@ -346,7 +346,7 @@ generated. Run 'ant dist.javadoc -verbose' to find out what the problem is.</fai
         <clover-setup initstring="${clover.initstring.13}"/>
 
         <clover-report>
-            <current title="Cactus ${project.version} for J2EE API 1.2"
+            <current title="Cactus ${project.version} for J2EE API 1.3"
                 outfile="${dist.doc.dir}/clover-13">
                 <format type="html"/>
             </current>
