@@ -68,6 +68,8 @@ import java.util.jar.JarInputStream;
 
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.apache.cactus.integration.ant.applicationxml.ApplicationXml;
+import org.apache.cactus.integration.ant.applicationxml.ApplicationXmlIo;
 import org.apache.cactus.integration.ant.container.Container;
 import org.apache.cactus.integration.ant.container.ContainerFactory;
 import org.apache.cactus.integration.ant.container.ContainerRunner;
@@ -296,7 +298,14 @@ public class CactusTask extends JUnitTask
         WebXml webXml = null;
         try
         {
-            war = new JarInputStream(new FileInputStream(this.warFile));
+            if (this.warFile != null)
+            {
+                war = new JarInputStream(new FileInputStream(this.warFile));
+            }
+            else
+            {
+                war = getTestWar(this.earFile);
+            }
             webXml = WebXmlIo.parseWebXmlFromWar(war, null);
 
             addRedirectorNameProperties(war, webXml);
@@ -624,6 +633,61 @@ public class CactusTask extends JUnitTask
             if (mappings.hasNext())
             {
                 return (String) mappings.next();
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Finds the web module in the enterprise application archive that contains
+     * the servlet test redirector.
+     * 
+     * @param theEarFile The enterprise application archive
+     * @return The input stream for the WAR containing the tests
+     */
+    private JarInputStream getTestWar(File theEarFile)
+    {
+        JarInputStream ear = null;
+        try {
+            ear = new JarInputStream(new FileInputStream(theEarFile));
+            ApplicationXml applicationXml =
+                ApplicationXmlIo.parseApplicationXmlFromEar(ear, null);
+            for (Iterator i = applicationXml.getWebModuleUris(); i.hasNext();)
+            {
+                JarInputStream jar = new JarInputStream(
+                    ResourceUtils.getResource(ear, (String) i.next()));
+                WebXml webXml = WebXmlIo.parseWebXml(jar, null);
+                if (getServletRedirectorMapping(jar, webXml) != null)
+                {
+                    return jar;
+                }
+            }
+        }
+        catch (SAXException e)
+        {
+            throw new BuildException(
+                "Parsing of deployment descriptor failed", e);
+        }
+        catch (IOException e)
+        {
+            throw new BuildException("Failed to open WAR", e);
+        }
+        catch (ParserConfigurationException e)
+        {
+            throw new BuildException("XML parser configuration error", e);
+        }
+        finally
+        {
+            if (ear != null)
+            {
+                try
+                {
+                    ear.close();
+                }
+                catch (IOException ioe)
+                {
+                    // pass the original exception, if any
+                }
             }
         }
         return null;
