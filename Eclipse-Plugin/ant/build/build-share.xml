@@ -183,9 +183,11 @@
        ========================================================================
     -->
     <target name="clean" depends="init" description="Clean all generated files">
-
-        <delete dir="${target.dir}"/>
-
+  <delete includeEmptyDirs="true">
+    <fileset dir="${target.dir}">
+    </fileset>
+  </delete>
+  <mkdir dir="${target.dir}"/>
     </target>
 
     <target name="prepare.test" depends="init">
