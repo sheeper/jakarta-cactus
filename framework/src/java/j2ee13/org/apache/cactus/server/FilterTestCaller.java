@@ -56,9 +56,11 @@
  */
 package org.apache.cactus.server;
 
-import java.lang.reflect.Field;
-import java.io.Writer;
 import java.io.IOException;
+import java.io.Writer;
+
+import java.lang.reflect.Field;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.cactus.AbstractTestCase;
@@ -87,45 +89,44 @@ public class FilterTestCaller extends AbstractWebTestCaller
      * @see AbstractWebTestCaller#setTestCaseFields(AbstractTestCase)
      */
     protected void setTestCaseFields(AbstractTestCase theTestInstance)
-        throws Exception
+                              throws Exception
     {
         FilterTestCase filterInstance = (FilterTestCase) theTestInstance;
-        FilterImplicitObjects filterImplicitObjects =
+        FilterImplicitObjects filterImplicitObjects = 
             (FilterImplicitObjects) this.webImplicitObjects;
 
         // Sets the request field of the test case class
         // ---------------------------------------------
-
         // Extract from the HTTP request the URL to simulate (if any)
-        HttpServletRequest request =
+        HttpServletRequest request = 
             filterImplicitObjects.getHttpServletRequest();
 
         ServletURL url = ServletURL.loadFromRequest(request);
 
         Field requestField = filterInstance.getClass().getField("request");
-        requestField.set(filterInstance,
+
+        requestField.set(filterInstance, 
             new HttpServletRequestWrapper(request, url));
 
         // Set the response field of the test case class
         // ---------------------------------------------
-
         Field responseField = filterInstance.getClass().getField("response");
-        responseField.set(filterInstance,
+
+        responseField.set(filterInstance, 
             filterImplicitObjects.getHttpServletResponse());
 
         // Set the config field of the test case class
         // -------------------------------------------
-
         Field configField = filterInstance.getClass().getField("config");
-        configField.set(filterInstance,
+
+        configField.set(filterInstance, 
             new FilterConfigWrapper(filterImplicitObjects.getFilterConfig()));
 
         // Set the filter chain of the test case class
         // -------------------------------------------
-
         Field chainField = filterInstance.getClass().getField("filterChain");
-        chainField.set(filterInstance,
-            filterImplicitObjects.getFilterChain());
+
+        chainField.set(filterInstance, filterImplicitObjects.getFilterChain());
     }
 
     /**

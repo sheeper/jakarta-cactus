@@ -56,10 +56,8 @@
  */
 package org.apache.cactus.server;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import java.io.IOException;
+
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -68,6 +66,9 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * Generic Filter redirector that calls a test method on the server side.
@@ -82,7 +83,7 @@ public class FilterTestRedirector implements Filter
     /**
      * The logger
      */
-    private static final Log LOGGER =
+    private static final Log LOGGER = 
         LogFactory.getLog(FilterTestRedirector.class);
 
     /**
@@ -103,8 +104,8 @@ public class FilterTestRedirector implements Filter
      * @exception ServletException if an error occurred during test on server
      *            side
      */
-    public void doFilter(ServletRequest theRequest,
-        ServletResponse theResponse, FilterChain theFilterChain)
+    public void doFilter(ServletRequest theRequest, 
+        ServletResponse theResponse, FilterChain theFilterChain) 
         throws IOException, ServletException
     {
         // Mark beginning of test on server side
@@ -112,6 +113,7 @@ public class FilterTestRedirector implements Filter
 
         // Create implicit object holder
         FilterImplicitObjects objects = new FilterImplicitObjects();
+
         objects.setHttpServletRequest((HttpServletRequest) theRequest);
         objects.setHttpServletResponse((HttpServletResponse) theResponse);
         objects.setFilterConfig(this.config);
@@ -119,6 +121,7 @@ public class FilterTestRedirector implements Filter
         objects.setFilterChain(theFilterChain);
 
         FilterTestController controller = new FilterTestController();
+
         controller.handleRequest(objects);
     }
 
@@ -162,5 +165,4 @@ public class FilterTestRedirector implements Filter
     public void destroy()
     {
     }
-
 }

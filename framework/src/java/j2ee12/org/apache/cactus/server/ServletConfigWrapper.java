@@ -59,6 +59,7 @@ package org.apache.cactus.server;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Vector;
+
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 
@@ -120,7 +121,7 @@ public class ServletConfigWrapper implements ServletConfig
         this.servletName = theServletName;
     }
 
-    //--Overridden methods -----------------------------------------------------
+    //--Overridden methods ----------------------------------------------------
 
     /**
      * @return our own wrapped servlet context object
@@ -142,7 +143,9 @@ public class ServletConfigWrapper implements ServletConfig
         // Look first in the list of parameters set using the
         // setInitParameter() method.
         String value = (String) this.initParameters.get(theName);
-        if (value == null) {
+
+        if (value == null)
+        {
             value = this.originalConfig.getInitParameter(theName);
         }
 
@@ -159,14 +162,20 @@ public class ServletConfigWrapper implements ServletConfig
         Vector names = new Vector();
 
         Enumeration enum = this.initParameters.keys();
-        while (enum.hasMoreElements()) {
+
+        while (enum.hasMoreElements())
+        {
             String value = (String) enum.nextElement();
+
             names.add(value);
         }
 
         enum = this.originalConfig.getInitParameterNames();
-        while (enum.hasMoreElements()) {
+
+        while (enum.hasMoreElements())
+        {
             String value = (String) enum.nextElement();
+
             names.add(value);
         }
 
@@ -179,11 +188,11 @@ public class ServletConfigWrapper implements ServletConfig
      */
     public String getServletName()
     {
-        if (this.servletName != null) {
+        if (this.servletName != null)
+        {
             return this.servletName;
         }
 
         return this.originalConfig.getServletName();
     }
-
 }

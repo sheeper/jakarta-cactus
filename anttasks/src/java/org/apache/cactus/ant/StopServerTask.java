@@ -114,5 +114,4 @@ public class StopServerTask extends Task
     {
         this.helper.setStopTarget(theStopTarget);
     }
-
 }

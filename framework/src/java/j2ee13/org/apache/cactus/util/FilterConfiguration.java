@@ -72,8 +72,7 @@ public class FilterConfiguration extends Configuration
      * Name of the cactus property that specifies the name of the JSP
      * redirector.
      */
-    public static final String CACTUS_FILTER_REDIRECTOR_NAME_PROPERTY =
-        "cactus.filterRedirectorName";
+    public static final String CACTUS_FILTER_REDIRECTOR_NAME_PROPERTY = "cactus.filterRedirectorName";
 
     /**
      * Read the Filter redirector name from a System property first and then
@@ -86,11 +85,14 @@ public class FilterConfiguration extends Configuration
     {
         // Try to read it from a System property first and then if it fails
         // from the Cactus configuration file.
-        String filterRedirectorName =
+        String filterRedirectorName = 
             System.getProperty(CACTUS_FILTER_REDIRECTOR_NAME_PROPERTY);
-        if (filterRedirectorName == null) {
+
+        if (filterRedirectorName == null)
+        {
             filterRedirectorName = "FilterRedirector";
         }
+
         return getContextURL() + "/" + filterRedirectorName;
     }
 }

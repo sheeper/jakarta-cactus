@@ -124,13 +124,17 @@ public class RunServerTestsTask extends Task
      */
     public void execute() throws BuildException
     {
-        try {
+        try
+        {
             callStart();
             callTests();
-        } finally {
+        }
+        finally
+        {
             // Make sure we stop the server but only if it were not already
             // started before the execution of this task.
-            if (!this.startHelper.isServerAlreadyStarted()) {
+            if (!this.startHelper.isServerAlreadyStarted())
+            {
                 callStop();
             }
         }
@@ -158,6 +162,7 @@ public class RunServerTestsTask extends Task
     private void callTests()
     {
         CallTarget callee;
+
         callee = (CallTarget) project.createTask("antcall");
         callee.setOwningTarget(target);
         callee.setTaskName(getTaskName());
@@ -208,5 +213,4 @@ public class RunServerTestsTask extends Task
     {
         this.testTarget = theTestTarget;
     }
-
 }

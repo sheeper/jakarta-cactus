@@ -57,7 +57,9 @@
 package org.apache.cactus.server;
 
 import java.io.UnsupportedEncodingException;
+
 import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.cactus.ServletURL;
@@ -76,7 +78,8 @@ import org.apache.cactus.ServletURL;
  *
  * @version $Id$
  */
-public class HttpServletRequestWrapper extends AbstractHttpServletRequestWrapper
+public class HttpServletRequestWrapper 
+    extends AbstractHttpServletRequestWrapper
 {
     /**
      * Construct an <code>HttpServletRequest</code> instance that delegates
@@ -87,7 +90,7 @@ public class HttpServletRequestWrapper extends AbstractHttpServletRequestWrapper
      * @param theRequest the real HTTP request
      * @param theURL the URL to simulate or <code>null</code> if none
      */
-    public HttpServletRequestWrapper(HttpServletRequest theRequest,
+    public HttpServletRequestWrapper(HttpServletRequest theRequest, 
         ServletURL theURL)
     {
         super(theRequest, theURL);
@@ -104,13 +107,14 @@ public class HttpServletRequestWrapper extends AbstractHttpServletRequestWrapper
     {
         StringBuffer result;
 
-        if (this.url != null) {
-
+        if (this.url != null)
+        {
             result = new StringBuffer(this.url.getProtocol() + "://"
-                + getServerName() + ":" + getServerPort() + getContextPath()
+                + getServerName() + ":" + getServerPort() + getContextPath() 
                 + getServletPath() + getPathInfo());
-
-        } else {
+        }
+        else
+        {
             result = this.request.getRequestURL();
         }
 
@@ -133,5 +137,4 @@ public class HttpServletRequestWrapper extends AbstractHttpServletRequestWrapper
     {
         return this.request.getParameterMap();
     }
-
 }

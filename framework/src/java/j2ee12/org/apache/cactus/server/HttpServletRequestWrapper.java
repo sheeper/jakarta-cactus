@@ -75,7 +75,8 @@ import org.apache.cactus.ServletURL;
  *
  * @version $Id$
  */
-public class HttpServletRequestWrapper extends AbstractHttpServletRequestWrapper
+public class HttpServletRequestWrapper
+    extends AbstractHttpServletRequestWrapper
 {
     /**
      * Construct an <code>HttpServletRequest</code> instance that delegates
@@ -86,10 +87,9 @@ public class HttpServletRequestWrapper extends AbstractHttpServletRequestWrapper
      * @param theRequest the real HTTP request
      * @param theURL the URL to simulate or <code>null</code> if none
      */
-    public HttpServletRequestWrapper(HttpServletRequest theRequest,
+    public HttpServletRequestWrapper(HttpServletRequest theRequest, 
         ServletURL theURL)
     {
         super(theRequest, theURL);
     }
-
 }

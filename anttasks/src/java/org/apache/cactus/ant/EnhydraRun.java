@@ -70,17 +70,6 @@ import java.lang.reflect.Method;
 public class EnhydraRun extends AbstractServerRun
 {
     /**
-     * Entry point to start/stop the Enhydra server.
-     *
-     * @param theArgs the command line arguments
-     */
-    public static void main(String[] theArgs)
-    {
-        EnhydraRun enhydra = new EnhydraRun(theArgs);
-        enhydra.doRun();
-    }
-
-    /**
      * @param theArgs the command line arguments
      */
     public EnhydraRun(String[] theArgs)
@@ -89,18 +78,34 @@ public class EnhydraRun extends AbstractServerRun
     }
 
     /**
+     * Entry point to start/stop the Enhydra server.
+     *
+     * @param theArgs the command line arguments
+     */
+    public static void main(String[] theArgs)
+    {
+        EnhydraRun enhydra = new EnhydraRun(theArgs);
+
+        enhydra.doRun();
+    }
+
+    /**
      * Start the Enhydra server. We use reflection so that the Enhydra jars do
      * not need to be in the classpath to compile this class.
      */
     protected void doStartServer()
     {
-        try {
-            Class enhydraClass =
+        try
+        {
+            Class enhydraClass = 
                 Class.forName("com.lutris.multiServer.MultiServer");
-            Method initMethod = enhydraClass.getMethod("main",
-                new Class[]{this.args.getClass()});
-            initMethod.invoke(null, new Object[]{this.args});
-        } catch (Exception e) {
+            Method initMethod = enhydraClass.getMethod("main", 
+                new Class[] { this.args.getClass() });
+
+            initMethod.invoke(null, new Object[] { this.args });
+        }
+        catch (Exception e)
+        {
             e.printStackTrace();
             throw new RuntimeException("Cannot create instance of MultiServer");
         }
@@ -112,16 +117,19 @@ public class EnhydraRun extends AbstractServerRun
      */
     protected void doStopServer()
     {
-        try {
-            Class enhydraClass =
+        try
+        {
+            Class enhydraClass = 
                 Class.forName("com.lutris.multiServer.MultiServer");
             Method shutDownMethod = enhydraClass.getMethod("shutdown", null);
+
             shutDownMethod.invoke(null, null);
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             e.printStackTrace();
             throw new RuntimeException("Cannot stop running instance of "
                 + "MultiServer");
         }
     }
-
 }

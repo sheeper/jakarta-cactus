@@ -56,18 +56,19 @@
  */
 package org.apache.cactus.ant;
 
-import java.io.InputStream;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintWriter;
+
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
 import org.apache.tools.ant.BuildException;
+import org.apache.tools.ant.Project;
 import org.apache.tools.ant.Task;
 import org.apache.tools.ant.taskdefs.CallTarget;
-import org.apache.tools.ant.Project;
 
 /**
  * A helper class for an Ant Task that does the following :
@@ -106,14 +107,6 @@ public class StartServerHelper implements Runnable
     private boolean isServerAlreadyStarted = false;
 
     /**
-     * @return true if the server has already been started.
-     */
-    public boolean isServerAlreadyStarted()
-    {
-        return this.isServerAlreadyStarted;
-    }
-
-    /**
      * @param theTask the Ant task that is calling this helper
      */
     public StartServerHelper(Task theTask)
@@ -122,30 +115,44 @@ public class StartServerHelper implements Runnable
     }
 
     /**
+     * @return true if the server has already been started.
+     */
+    public boolean isServerAlreadyStarted()
+    {
+        return this.isServerAlreadyStarted;
+    }
+
+    /**
      * @see Task#execute()
      */
     public void execute() throws BuildException
     {
         // Verify that a test URL has been specified
-        if (this.testURL == null) {
+        if (this.testURL == null)
+        {
             throw new BuildException("A testURL attribute must be specified");
         }
 
         // Verify that a start target has been specified
-        if (this.startTarget == null) {
+        if (this.startTarget == null)
+        {
             throw new BuildException("A startTarget Ant target name must "
                 + "be specified");
         }
 
         // Try connecting in case the server is already running. If so, does
         // nothing
-        if (isURLCallable()) {
+        if (isURLCallable())
+        {
             // Server is already running. Record this information so that we
             // don't stop it afterwards.
             this.isServerAlreadyStarted = true;
             this.task.log("Server is already running", Project.MSG_DEBUG);
+
             return;
-        } else {
+        }
+        else
+        {
             this.task.log("Server is not running", Project.MSG_DEBUG);
         }
 
@@ -155,17 +162,20 @@ public class StartServerHelper implements Runnable
 
         thread.start();
 
+
         // Wait a few ms more (just to make sure the servlet engine is
         // ready to accept connections)
         sleep(1000);
 
         // Continuously try calling the test URL until it succeeds
-        while (true) {
-
+        while (true)
+        {
             this.task.log("Checking if server is up ...", Project.MSG_DEBUG);
 
-            if (!isURLCallable()) {
+            if (!isURLCallable())
+            {
                 sleep(500);
+
                 continue;
             }
 
@@ -173,6 +183,7 @@ public class StartServerHelper implements Runnable
 
             break;
         }
+
 
         // Wait a few ms more (just to be sure !)
         sleep(500);
@@ -190,9 +201,12 @@ public class StartServerHelper implements Runnable
      */
     private void sleep(int theMs) throws BuildException
     {
-        try {
+        try
+        {
             Thread.sleep(theMs);
-        } catch (InterruptedException e) {
+        }
+        catch (InterruptedException e)
+        {
             throw new BuildException("Interruption during sleep", e);
         }
     }
@@ -205,19 +219,23 @@ public class StartServerHelper implements Runnable
     {
         boolean isURLCallable = false;
 
-        try {
-            HttpURLConnection connection =
+        try
+        {
+            HttpURLConnection connection = 
                 (HttpURLConnection) this.testURL.openConnection();
+
             connection.connect();
             readFully(connection);
             connection.disconnect();
             isURLCallable = true;
-        } catch (IOException e) {
+        }
+        catch (IOException e)
+        {
             // Log an information in debug mode
-
             // Get stacktrace text
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             PrintWriter writer = new PrintWriter(baos);
+
             e.printStackTrace(writer);
             writer.close();
 
@@ -236,20 +254,21 @@ public class StartServerHelper implements Runnable
      * @exception IOException if an error happens during the read
      */
     static void readFully(HttpURLConnection theConnection)
-        throws IOException
+                   throws IOException
     {
         // Only read if there is data to read ... The problem is that not
         // all servers return a content-length header. If there is no header
         // getContentLength() returns -1. It seems to work and it seems
         // that all servers that return no content-length header also do
         // not block on read() operations !
-
-        if (theConnection.getContentLength() != 0) {
-
+        if (theConnection.getContentLength() != 0)
+        {
             byte[] buf = new byte[256];
 
             InputStream is = theConnection.getInputStream();
-            while (-1 != is.read(buf)) {
+
+            while (-1 != is.read(buf))
+            {
             }
         }
     }
@@ -262,6 +281,7 @@ public class StartServerHelper implements Runnable
     {
         // Call the Ant target using the "antcall" task.
         CallTarget callee;
+
         callee = (CallTarget) (this.task.getProject().createTask("antcall"));
         callee.setOwningTarget(this.task.getOwningTarget());
         callee.setTaskName(this.task.getTaskName());
@@ -282,9 +302,12 @@ public class StartServerHelper implements Runnable
      */
     public void setTestURL(String theTestURL)
     {
-        try {
+        try
+        {
             this.testURL = new URL(theTestURL);
-        } catch (MalformedURLException e) {
+        }
+        catch (MalformedURLException e)
+        {
             throw new BuildException("Bad URL [" + theTestURL + "]", e);
         }
 
@@ -298,5 +321,4 @@ public class StartServerHelper implements Runnable
     {
         this.startTarget = theStartTarget;
     }
-
 }

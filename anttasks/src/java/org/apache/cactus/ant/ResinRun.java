@@ -58,6 +58,7 @@ package org.apache.cactus.ant;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
+
 import java.util.ArrayList;
 
 /**
@@ -79,17 +80,6 @@ public class ResinRun extends AbstractServerRun
     private Object resinServer;
 
     /**
-     * Entry point to start/stop the Resin server.
-     *
-     * @param theArgs the command line arguments
-     */
-    public static void main(String[] theArgs)
-    {
-        ResinRun resin = new ResinRun(theArgs);
-        resin.doRun();
-    }
-
-    /**
      * @param theArgs the command line arguments
      */
     public ResinRun(String[] theArgs)
@@ -98,28 +88,46 @@ public class ResinRun extends AbstractServerRun
     }
 
     /**
+     * Entry point to start/stop the Resin server.
+     *
+     * @param theArgs the command line arguments
+     */
+    public static void main(String[] theArgs)
+    {
+        ResinRun resin = new ResinRun(theArgs);
+
+        resin.doRun();
+    }
+
+    /**
      * Start the Resin server. We use reflection so that the Resin jars do not
      * need to be in the classpath to compile this class.
      */
     protected void doStartServer()
     {
-        try {
-            Class resinClass =
+        try
+        {
+            Class resinClass = 
                 Class.forName("com.caucho.server.http.ResinServer");
             Constructor constructor = resinClass.getConstructor(
-                new Class[]{this.args.getClass(), boolean.class});
+                new Class[] { this.args.getClass(), boolean.class });
+
             this.resinServer = constructor.newInstance(
-                new Object[]{this.args, new Boolean(true)});
+                new Object[] { this.args, new Boolean(true) });
 
             // Try Resin 2.0 first
-            try {
+            try
+            {
                 startResin20(this.resinServer);
-            } catch (NoSuchMethodException nsme) {
+            }
+            catch (NoSuchMethodException nsme)
+            {
                 // Try Resin 2.1
                 startResin21(this.resinServer);
             }
-
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             e.printStackTrace();
             throw new RuntimeException("Cannot create instance of ResinServer");
         }
@@ -133,10 +141,10 @@ public class ResinRun extends AbstractServerRun
      */
     private void startResin20(Object theResinServer) throws Exception
     {
-        Method initMethod = theResinServer.getClass().getMethod("init",
-            new Class[]{boolean.class});
-        initMethod.invoke(theResinServer, new Object[]{
-            new Boolean(true)});
+        Method initMethod = theResinServer.getClass().getMethod("init", 
+            new Class[] { boolean.class });
+
+        initMethod.invoke(theResinServer, new Object[] { new Boolean(true) });
     }
 
     /**
@@ -145,12 +153,12 @@ public class ResinRun extends AbstractServerRun
      * @param theResinServer the <code>ResinServer</code> instance
      * @throws Exception if an error happens when starting the server
      */
-    private void startResin21(Object theResinServer)
-        throws Exception
+    private void startResin21(Object theResinServer) throws Exception
     {
         Method initMethod = theResinServer.getClass().getMethod("init",
-            new Class[]{ArrayList.class});
-        initMethod.invoke(theResinServer, new Object[]{ null });
+            new Class[] { ArrayList.class });
+
+        initMethod.invoke(theResinServer, new Object[] { null });
     }
 
     /**
@@ -159,15 +167,18 @@ public class ResinRun extends AbstractServerRun
      */
     protected void doStopServer()
     {
-        try {
-            Method closeMethod =
-                this.resinServer.getClass().getMethod("close", null);
+        try
+        {
+            Method closeMethod = this.resinServer.getClass().getMethod(
+                "close", null);
+
             closeMethod.invoke(this.resinServer, null);
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             e.printStackTrace();
             throw new RuntimeException("Cannot stop running instance of "
                 + "ResinServer");
         }
     }
-
 }

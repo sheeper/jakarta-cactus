@@ -57,6 +57,7 @@
 package org.apache.cactus.server;
 
 import java.io.IOException;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
@@ -99,9 +100,10 @@ public class RequestDispatcherWrapper implements RequestDispatcher
     public void forward(ServletRequest theRequest, ServletResponse theResponse)
         throws IOException, ServletException
     {
-        HttpServletRequestWrapper request =
-            (HttpServletRequestWrapper) theRequest;
-        this.originalDispatcher.forward(request.getOriginalRequest(),
+        HttpServletRequestWrapper request = 
+                (HttpServletRequestWrapper) theRequest;
+
+        this.originalDispatcher.forward(request.getOriginalRequest(), 
             theResponse);
     }
 
@@ -118,10 +120,10 @@ public class RequestDispatcherWrapper implements RequestDispatcher
     public void include(ServletRequest theRequest, ServletResponse theResponse)
         throws IOException, ServletException
     {
-        HttpServletRequestWrapper request =
-            (HttpServletRequestWrapper) theRequest;
-        this.originalDispatcher.include(request.getOriginalRequest(),
+        HttpServletRequestWrapper request = 
+                (HttpServletRequestWrapper) theRequest;
+
+        this.originalDispatcher.include(request.getOriginalRequest(), 
             theResponse);
     }
-
 }

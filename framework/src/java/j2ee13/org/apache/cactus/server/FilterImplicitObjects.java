@@ -111,5 +111,4 @@ public class FilterImplicitObjects extends AbstractWebImplicitObjects
     {
         this.filterChain = theFilterChain;
     }
-
 }

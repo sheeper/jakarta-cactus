@@ -57,7 +57,9 @@
 package org.apache.cactus.server;
 
 import java.lang.reflect.Method;
+
 import java.util.Set;
+
 import javax.servlet.ServletContext;
 
 /**
@@ -97,18 +99,24 @@ public class ServletContextWrapper extends AbstractServletContextWrapper
 
         // Use reflection because newest Servlet API 2.3 changes removed this
         // method
-        try {
-            Method method = this.originalContext.getClass().
-                getMethod("getResourcePaths", null);
+        try
+        {
+            Method method = this.originalContext.getClass().getMethod(
+                "getResourcePaths", null);
 
-            if (method != null) {
+            if (method != null)
+            {
                 returnSet = (Set) method.invoke(this.originalContext, null);
-            } else {
+            }
+            else
+            {
                 throw new RuntimeException("Method ServletContext."
                     + "getResourcePaths() no longer supported by your servlet "
                     + "engine !");
             }
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             e.printStackTrace();
             throw new RuntimeException("Error getting/calling method "
                 + "getResourcePaths()");
@@ -131,19 +139,25 @@ public class ServletContextWrapper extends AbstractServletContextWrapper
 
         // Check if the method exist (for servlet engines that do not have
         // upgraded yet)
-        try {
-            Method method = this.originalContext.getClass().
-                getMethod("getResourcePaths", new Class[]{String.class});
+        try
+        {
+            Method method = this.originalContext.getClass().getMethod(
+                "getResourcePaths", new Class[] { String.class });
 
-            if (method != null) {
-                returnSet = (Set) method.invoke(this.originalContext,
-                    new Object[]{thePath});
-            } else {
+            if (method != null)
+            {
+                returnSet = (Set) method.invoke(this.originalContext, 
+                    new Object[] { thePath });
+            }
+            else
+            {
                 throw new RuntimeException("Method ServletContext."
                     + "getResourcePaths(String path) not supported yet by your "
                     + "servlet engine !");
             }
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             e.printStackTrace();
             throw new RuntimeException("Error getting/calling method "
                 + "getResourcePaths(String path)");
@@ -151,5 +165,4 @@ public class ServletContextWrapper extends AbstractServletContextWrapper
 
         return returnSet;
     }
-
 }

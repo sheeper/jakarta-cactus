@@ -56,16 +56,17 @@
  */
 package org.apache.cactus.ant;
 
+import java.io.File;
+
 import java.util.Enumeration;
 import java.util.Vector;
-import java.io.File;
 
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
 
 /**
- * Check the existence of a list of properties, display their values and stop Ant if a property
- * does not exist.
+ * Check the existence of a list of properties, display their values and stop 
+ * Ant if a property does not exist.
  *
  * Example :<br>
  * <pre><code>
@@ -107,38 +108,46 @@ public class CheckPropertiesTask extends Task
     public void execute() throws BuildException
     {
         Enumeration properties = this.properties.elements();
-        while (properties.hasMoreElements()) {
 
-            CheckPropertyItem property =
-                    (CheckPropertyItem) properties.nextElement();
+        while (properties.hasMoreElements())
+        {
+            CheckPropertyItem property = 
+                (CheckPropertyItem) properties.nextElement();
 
             String value = getProject().getProperty(property.getName());
-            if (value == null) {
+
+            if (value == null)
+            {
                 // The property does not exist
-                throw new BuildException("The property ["
-                        + property.getName() + "] is not defined");
+                throw new BuildException("The property [" + property.getName()
+                    + "] is not defined");
             }
+
 
             // Print the property name/value
             log(property.getName() + " = [" + value + "]");
 
             // Check if the file/dir exist
-            if (property.isFile()) {
+            if (property.isFile())
+            {
                 File file = project.resolveFile(value);
-                if (!file.exists()) {
-                    if (file.isDirectory()) {
-                        throw new BuildException("The directory ["
-                            + value + "] pointed by ["
-                            + property.getName() + "] does not exist");
-                    } else {
-                        throw new BuildException("The file ["
-                            + value + "] pointed by ["
-                            + property.getName() + "] does not exist");
+
+                if (!file.exists())
+                {
+                    if (file.isDirectory())
+                    {
+                        throw new BuildException("The directory [" + value
+                            + "] pointed by [" + property.getName() 
+                            + "] does not exist");
+                    }
+                    else
+                    {
+                        throw new BuildException("The file [" + value
+                            + "] pointed by [" + property.getName()
+                            + "] does not exist");
                     }
                 }
             }
         }
-
     }
-
 }

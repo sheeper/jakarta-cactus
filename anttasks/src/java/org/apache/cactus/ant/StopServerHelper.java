@@ -57,6 +57,7 @@
 package org.apache.cactus.ant;
 
 import java.io.IOException;
+
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -106,64 +107,83 @@ public class StopServerHelper implements Runnable
     public void execute() throws BuildException
     {
         // Verify that a test URL has been specified
-        if (this.testURL == null) {
+        if (this.testURL == null)
+        {
             throw new BuildException("A testURL attribute must be specified");
         }
 
         // Verify that a stop target has been specified
-        if (this.stopTarget == null) {
+        if (this.stopTarget == null)
+        {
             throw new BuildException("A stopTarget Ant target name must be "
                 + "specified");
         }
 
         // Try connecting in case the server is already stopped.
-        try {
-            HttpURLConnection connection =
+        try
+        {
+            HttpURLConnection connection = 
                 (HttpURLConnection) this.testURL.openConnection();
+
             connection.connect();
             StartServerHelper.readFully(connection);
             connection.disconnect();
-        } catch (IOException e) {
+        }
+        catch (IOException e)
+        {
             // Server is not running. Make this task a no-op.
             return;
         }
 
         // Call the target that stops the server, in another thread.
         Thread thread = new Thread(this);
+
         thread.start();
 
         // Wait a few ms more (just to make sure)
-        try {
+        try
+        {
             Thread.sleep(500);
-        } catch (InterruptedException e) {
+        }
+        catch (InterruptedException e)
+        {
             throw new BuildException("Interruption during sleep", e);
         }
 
         // Continuously try calling the test URL until it fails
-        while (true) {
-
-            try {
-                HttpURLConnection connection =
+        while (true)
+        {
+            try
+            {
+                HttpURLConnection connection = 
                     (HttpURLConnection) this.testURL.openConnection();
+
                 connection.connect();
                 StartServerHelper.readFully(connection);
                 connection.disconnect();
-            } catch (IOException e) {
+            }
+            catch (IOException e)
+            {
                 break;
             }
 
-            try {
+            try
+            {
                 Thread.sleep(500);
-            } catch (InterruptedException ee) {
+            }
+            catch (InterruptedException ee)
+            {
                 throw new BuildException("Interruption during sleep", ee);
             }
-
         }
 
         // Wait a few ms more (just to be sure !)
-        try {
+        try
+        {
             Thread.sleep(500);
-        } catch (InterruptedException e) {
+        }
+        catch (InterruptedException e)
+        {
             throw new BuildException("Interruption during sleep", e);
         }
 
@@ -180,6 +200,7 @@ public class StopServerHelper implements Runnable
     {
         // Call the Ant target using the "antcall" task.
         CallTarget callee;
+
         callee = (CallTarget) (this.task.getProject().createTask("antcall"));
         callee.setOwningTarget(this.task.getOwningTarget());
         callee.setTaskName(this.task.getTaskName());
@@ -197,9 +218,12 @@ public class StopServerHelper implements Runnable
      */
     public void setTestURL(String theTestURL)
     {
-        try {
+        try
+        {
             this.testURL = new URL(theTestURL);
-        } catch (MalformedURLException e) {
+        }
+        catch (MalformedURLException e)
+        {
             throw new BuildException("Bad URL [" + theTestURL + "]", e);
         }
     }
@@ -211,5 +235,4 @@ public class StopServerHelper implements Runnable
     {
         this.stopTarget = theStopTarget;
     }
-
 }
