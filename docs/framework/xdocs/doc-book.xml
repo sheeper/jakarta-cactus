@@ -59,7 +59,6 @@
 
   <menu label="Misc.">
     <menu-item label="Why the name ?" source="cactusname.xml"/>
-    <menu-item label="Mock vs Container" source="mockobjects.xml"/>
     <menu-item label="Resources" source="resources.xml"/>
   </menu>
 
