@@ -85,7 +85,7 @@ final class AutoReadHttpURLConnection extends HttpURLConnection
     /**
      * The logger
      */
-    private final static Log logger =
+    private static final Log logger =
         LogService.getInstance().
         getLog(AutoReadHttpURLConnection.class.getName());
 

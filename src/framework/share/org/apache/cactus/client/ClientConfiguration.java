@@ -73,21 +73,21 @@ public class ClientConfiguration
     /**
      * The logger
      */
-    private final static Log logger =
+    private static final Log logger =
         LogService.getInstance().getLog(ClientConfiguration.class.getName());
 
     /**
      * Name of the Cactus configuration file if cactus is to look for it in
      * the classpath.
      */
-    private final static String CONFIG_DEFAULT_NAME = "cactus";
+    private static final String CONFIG_DEFAULT_NAME = "cactus";
 
     /**
      * Name of the java property for specifying the location of the cactus
      * configuration file. This overrides any cactus configuration that is
      * put in the classpath.
      */
-    private final static String CONFIG_PROPERTY = "cactus.config";
+    private static final String CONFIG_PROPERTY = "cactus.config";
 
     /**
      * Properties file holding configuration data for Cactus.
@@ -101,7 +101,7 @@ public class ClientConfiguration
      *     
      * @return the cactus configuration as a <code>ResourceBundle</code>.
      */
-    private final static ResourceBundle getConfiguration()
+    private static final ResourceBundle getConfiguration()
     {
         if (CONFIG == null) {
             // Has the user passed the location of the cactus configuration file

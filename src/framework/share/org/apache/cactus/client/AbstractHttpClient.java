@@ -87,12 +87,12 @@ public abstract class AbstractHttpClient
     /**
      * Name of the Cactus configuration file
      */
-    public final static String CONFIG_NAME = "cactus";
+    public static final String CONFIG_NAME = "cactus";
 
     /**
      * Properties file holding configuration data for Cactus.
      */
-    public final static ResourceBundle CONFIG =
+    public static final ResourceBundle CONFIG =
         PropertyResourceBundle.getBundle(CONFIG_NAME);
 
     /**
