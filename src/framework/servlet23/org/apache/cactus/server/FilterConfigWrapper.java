@@ -144,24 +144,31 @@ public class FilterConfigWrapper implements FilterConfig
     }
 
     /**
-     * @return the union of the parameters defined in the Redirector
-     *         <code>web.xml</code> file and the one set using the
-     *         <code>setInitParameter()</code> method.
+     * Return the union of the parameters defined in the Redirector
+     * <code>web.xml</code> file and the one set using the
+     * <code>setInitParameter()</code> method. The parameters with the same
+     * name (and same case) are only returned once.
+     *
+     * @return the init parameters
      */
     public Enumeration getInitParameterNames()
     {
         Vector names = new Vector();
 
+        // Add parameters that were added using setInitParameter()
         Enumeration enum = this.initParameters.keys();
         while (enum.hasMoreElements()) {
             String value = (String)enum.nextElement();
             names.add(value);
         }
 
+        // Add parameters from web.xml
         enum = this.originalConfig.getInitParameterNames();
         while (enum.hasMoreElements()) {
             String value = (String)enum.nextElement();
-            names.add(value);
+            if (!names.contains(value)) {
+                names.add(value);
+            }
         }
 
         return names.elements();
