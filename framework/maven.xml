@@ -4,8 +4,7 @@
   xmlns:u="jelly:util"
   xmlns:maven="jelly:maven">
 
-  <preGoal name="java:compile">
-
+  <goal name="cactus-framework:init">
     <!-- Add the J2EE specific source directory to the list of source 
          directories, as Maven only supports defining a single source
          directory in project.xml -->
@@ -13,7 +12,14 @@
         location="${pom.build.sourceDirectory}/../j2ee${cactus.j2ee.version}"/>
     <maven:addPath id="maven.compile.src.set" 
         refid="maven.j2ee.compile.src.set"/>
-
+  </goal>
+  
+  <preGoal name="java:compile">
+    <attainGoal name="cactus-framework:init"/>
   </preGoal>
 
+  <preGoal name="aspectj:compile">
+    <attainGoal name="cactus-framework:init"/>
+  </preGoal>
+  
 </project>
