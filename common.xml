@@ -29,16 +29,19 @@
                     classname="antlr.Parser"
                     classpathref="checkstyle.classpath"/>
                 <available
-                    classname="org.apache.commons.beanutils.BeanUtils"
-                    classpathref="checkstyle.classpath"/>
-                <available
                     classname="org.apache.commons.collections.CollectionUtils"
                     classpathref="checkstyle.classpath"/>
                 <available
                     classname="org.apache.commons.logging.Log"
                     classpathref="checkstyle.classpath"/>
                 <available
+                    classname="org.apache.commons.beanutils.BeanUtils"
+                    classpathref="checkstyle.classpath"/>
+                <available
                     classname="org.apache.regexp.RE"
+                    classpathref="checkstyle.classpath"/>
+                <available
+                    classname="com.puppycrawl.tools.checkstyle.CheckStyleTask"
                     classpathref="checkstyle.classpath"/>
             </and>
         </condition>
