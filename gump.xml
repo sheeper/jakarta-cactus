@@ -13,7 +13,11 @@
 
   <cvs repository="jakarta"/>
 
-  <!-- Build the Cactus Ant Custom Tasks -->
+  <!--
+     ========================================================================
+       Build the Cactus Ant Custom Tasks
+     ========================================================================
+  -->
   <project name="jakarta-cactus-ant">
 
     <package>org.apache.cactus.ant</package>
@@ -32,7 +36,11 @@
          to="cactus-dev@jakarta.apache.org"/>
   </project>
 
-  <!-- Build the Cactus Documentation -->
+  <!--
+     ========================================================================
+       Build the Cactus Documentation
+     ========================================================================
+  -->
   <project name="jakarta-cactus-documentation">
 
     <ant buildfile="documentation/build.xml" target="dist">
@@ -50,7 +58,11 @@
          to="cactus-dev@jakarta.apache.org"/>
   </project>
 
-  <!-- Build the Cactus Framework for J2EE 1.2 -->
+  <!--
+     ========================================================================
+       Build the Cactus Framework for J2EE 1.2
+     ========================================================================
+  -->
   <project name="jakarta-cactus-framework-12">
 
     <package>org.apache.cactus</package>
@@ -85,7 +97,11 @@
          to="cactus-dev@jakarta.apache.org"/>
   </project>
 
-  <!-- Build the Cactus Servlet Sample for J2EE 1.2 -->
+  <!--
+     ========================================================================
+       Build the Cactus Servlet Sample for J2EE 1.2
+     ========================================================================
+  -->
   <project name="jakarta-cactus-sample-servlet-12">
 
     <ant buildfile="sample-servlet/build.xml" target="dist">
@@ -116,7 +132,11 @@
          to="cactus-dev@jakarta.apache.org"/>
   </project>
 
-  <!-- Build the Cactus Framework for J2EE 1.3 -->
+  <!--
+     ========================================================================
+       Build the Cactus Framework for J2EE 1.3
+     ========================================================================
+  -->
   <project name="jakarta-cactus-framework-13">
 
     <package>org.apache.cactus</package>
@@ -151,7 +171,11 @@
          to="cactus-dev@jakarta.apache.org"/>
   </project>
 
-  <!-- Build the Cactus Servlet Sample for J2EE 1.3 -->
+  <!--
+     ========================================================================
+       Build the Cactus Servlet Sample for J2EE 1.3
+     ========================================================================
+  -->
   <project name="jakarta-cactus-sample-servlet-13">
 
     <ant buildfile="sample-servlet/build.xml" target="dist">
@@ -182,7 +206,11 @@
          to="cactus-dev@jakarta.apache.org"/>
   </project>
 
-  <!-- Build the Cactus distribution for J2EE 1.2 -->
+  <!--
+     ========================================================================
+       Build the Cactus distribution for J2EE 1.2
+     ========================================================================
+  -->
   <project name="jakarta-cactus-distribution-12">
 
     <ant buildfile="build.xml" target="gump">
@@ -195,6 +223,7 @@
       <depend property="junit.jar" project="junit"/>
       <property name="dist.dir" value="dist-12"/>
       <property name="target.dir" value="target-12"/>
+      <property name="release.dir" value="release-12"/>
 
     </ant>
 
@@ -206,14 +235,18 @@
     <depend project="jakarta-cactus-framework-12"/>
     <depend project="jakarta-cactus-sample-servlet-12"/>
 
-    <deliver fromdir="dist-12" tosite="jakarta.apache.org"
+    <deliver fromdir="release-12" tosite="jakarta.apache.org"
              todir="builds/jakarta-cactus/nightly/@@DATE@@/" />
 
     <nag from="Vincent Massol &lt;vmassol@apache.org&gt;"
          to="cactus-dev@jakarta.apache.org"/>
   </project>
 
-  <!-- Build the Cactus distribution for J2EE 1.3 -->
+  <!--
+     ========================================================================
+       Build the Cactus distribution for J2EE 1.3
+     ========================================================================
+  -->
   <project name="jakarta-cactus-distribution-13">
 
     <ant buildfile="build.xml" target="gump">
@@ -226,6 +259,7 @@
       <depend property="junit.jar" project="junit"/>
       <property name="dist.dir" value="dist-13"/>
       <property name="target.dir" value="target-13"/>
+      <property name="release.dir" value="release-13"/>
 
     </ant>
 
@@ -237,7 +271,35 @@
     <depend project="jakarta-cactus-framework-13"/>
     <depend project="jakarta-cactus-sample-servlet-13"/>
 
-    <deliver fromdir="dist-13" tosite="jakarta.apache.org"
+    <deliver fromdir="release-13" tosite="jakarta.apache.org"
+             todir="builds/jakarta-cactus/nightly/@@DATE@@/" />
+
+    <nag from="Vincent Massol &lt;vmassol@apache.org&gt;"
+         to="cactus-dev@jakarta.apache.org"/>
+  </project>
+
+  <!--
+     ========================================================================
+       Build the Cactus source distribution
+     ========================================================================
+  -->
+  <project name="jakarta-cactus-distribution-src">
+
+    <ant buildfile="build.xml" target="gump.src">
+
+      <depend property="j2ee.jar" project="jakarta-servletapi-4"/>
+      <depend property="log4j.jar" project="jakarta-log4j"/>
+      <depend property="commons.httpclient.jar" project="commons-httpclient"/>
+      <depend property="httpunit.jar" project="httpunit"/>
+      <depend property="aspectjrt.jar" project="aspectj" id="aspectjrt"/>
+      <depend property="junit.jar" project="junit"/>
+
+    </ant>
+
+    <depend project="jakarta-ant"/>
+    <depend project="xml-xerces"/>
+
+    <deliver fromdir="release" tosite="jakarta.apache.org"
              todir="builds/jakarta-cactus/nightly/@@DATE@@/" />
 
     <nag from="Vincent Massol &lt;vmassol@apache.org&gt;"
