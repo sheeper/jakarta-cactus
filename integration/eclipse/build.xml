@@ -105,7 +105,7 @@
     -->
     <target name="init.junitplugin.find">
 
-        <condition property="junitplugin.version" value="m5">
+        <condition property="junitplugin.version" value="ok">
             <available classname="org.eclipse.jdt.junit.ITestRunListener">
                 <classpath>
                    <pathelement location="${eclipse.jdt.junit.jar}"/>
@@ -113,7 +113,7 @@
             </available>
         </condition>
 
-        <fail message="Eclipse version must be higher than M5" 
+        <fail message="Eclipse version must be higher than 2.1 M5" 
             unless="junitplugin.version"/>
 
     </target>
