@@ -244,12 +244,12 @@
          "cactus.home.[container name]" has been defined.
        ========================================================================
     -->
-    <target name="test" depends="war, compile.cactus"
-        description="Run the tests on the defined containers">
-
+    <target name="test.prepare" depends="war, compile.cactus">
+    
         <!-- Cactify the web-app archive -->
         <cactifywar srcfile="${target.dir}/${project.name.file}.war"
-            destfile="${target.dir}/test.war">
+            destfile="${target.dir}/test.war"
+            mergewebxml="${src.webapp.dir}/WEB-INF/cactus-web.xml">
 
             <classes dir="${target.classes.cactus.dir}"/>
             <lib file="${httpunit.jar}"/>
@@ -281,6 +281,11 @@
         <mkdir dir="${target.testreports.dir}/tomcat4x"/>
         <mkdir dir="${target.testreports.dir}/tomcat5x"/>
         <mkdir dir="${target.testreports.dir}/weblogic7x"/>
+
+    </target>
+
+    <target name="test" depends="test.prepare"
+        description="Run the tests on the defined containers">
 
         <!-- Run the tests -->
         <cactus warfile="${target.dir}/test.war" fork="yes"
