@@ -665,4 +665,25 @@ public class TestServletTestCase2 extends ServletTestCase
         assertEquals("text/xml", request.getContentType());
     }
 
+    //-------------------------------------------------------------------------
+
+    /**
+     * Verify we can set the content type by setting an HTTP header.
+     *
+     * @param theRequest the request object that serves to initialize the
+     *                   HTTP connection to the server redirector.
+     */
+    public void beginSetContentTypeHeader(WebRequest theRequest)
+    {
+        theRequest.addHeader("Content-type", "text/xml");
+    }
+
+    /**
+     * Verify we can set the content type by setting an HTTP header.
+     */
+    public void testSetContentTypeHeader()
+    {
+        assertEquals("text/xml", request.getContentType());
+    }
+
 }
