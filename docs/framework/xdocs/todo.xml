@@ -32,10 +32,10 @@
   <version title="Version 1.3">
 
     <category title="Design/Code">
-      <action assigned-to="Peter Wong, Vincent Massol">
-        Support unit testing of Servlet code that uses Security APIs, such as
-        <code>isUserInRole()</code>, ... Review and Commit the code submitted by
-        Peter Wong on the mailing-list.
+      <action assigned-to="Peter Wong, Jason Robertson, Vincent Massol">
+        Add support for Form-based authentication + configure all supported
+        containers with authentication so that they pass the Cactus unit
+        tests (done for Tomcat 3.3).
       </action>
     </category>
 

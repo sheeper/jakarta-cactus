@@ -57,6 +57,7 @@ import java.util.*;
 import java.io.*;
 
 import org.apache.cactus.util.*;
+import org.apache.cactus.client.authentication.AbstractAuthentication;
 
 /**
  * Contains all HTTP request data for a test case. It is the data that
@@ -78,9 +79,12 @@ import org.apache.cactus.util.*;
  *       session for you or not,</li>
  *   <li>Whether you want the HTTP connection to the server redirector to
  *       use a POST or GET method. Default is POST</li>
+ *   <li>Authentication to use (optional)</li>
+ *   <li>Content type (optional)</li>
  * </ul>
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
+ * @author <a href="mailto:Jason.Robertson@acs-inc.com">Jason Robertson</a>
  *
  * @version $Id$
  */
@@ -135,6 +139,56 @@ public class WebRequest
      * The content type to set in the http request
      */
     private String contentType = "application/x-www-form-urlencoded";
+
+    /**
+     * The Authentication Object that will configure the http request
+     */
+    private AbstractAuthentication authentication;
+
+    /**
+     * Redirector Name. This is to let the user the possibility to override
+     * the default Redirector Name specified in <code>cactus.properties</code>.
+     */
+    private String redirectorName;
+
+    /**
+     * Override the redirector Name defined in <code>cactus.properties</code>.
+     * This is useful to define a per test case Name (for example, if some
+     * test case need to have authentication turned on and not other tests,
+     * etc).
+     *
+     * @param theRedirectorName the new redirector Name to use
+     */
+    public void setRedirectorName(String theRedirectorName)
+    {
+        this.redirectorName = theRedirectorName;
+    }
+
+    /**
+     * @return the overriden redirector Name or null if none has been defined
+     */
+    public String getRedirectorName()
+    {
+        return this.redirectorName;
+    }
+
+    /**
+     * Sets the authentication object that will configure the http request
+     *
+     * @param theAuthenticationObject the authentication object
+     */
+    public void setAuthentication(AbstractAuthentication theAuthenticationObject)
+    {
+        this.authentication = theAuthenticationObject;
+    }
+
+    /**
+     * @return the authentication object that will configure the http request
+     */
+    public AbstractAuthentication getAuthentication()
+    {
+        return this.authentication;
+    }
 
     /**
      * Sets the content type that will be set in the http request

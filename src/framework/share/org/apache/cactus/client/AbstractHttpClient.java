@@ -53,12 +53,18 @@
  */
 package org.apache.cactus.client;
 
-import java.util.*;
-import java.net.*;
-import java.io.*;
+import java.util.PropertyResourceBundle;
+import java.util.ResourceBundle;
+import java.net.HttpURLConnection;
+import java.io.ObjectInputStream;
 
-import org.apache.cactus.*;
-import org.apache.cactus.util.log.*;
+import org.apache.cactus.util.log.LogService;
+import org.apache.cactus.util.log.Log;
+import org.apache.cactus.client.authentication.AbstractAuthentication;
+import org.apache.cactus.WebTestResult;
+import org.apache.cactus.WebRequest;
+import org.apache.cactus.ServiceEnumeration;
+import org.apache.cactus.ServiceDefinition;
 
 /**
  * Abstract class for performing the steps necessary to run a test. It involves
@@ -66,6 +72,7 @@ import org.apache.cactus.util.log.*;
  * stream and then opening a second HTTP connection to retrieve the test result.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
+ * @author <a href="mailto:Jason.Robertson@acs-inc.com">Jason Robertson</a>
  *
  * @version $Id$
  */
@@ -89,9 +96,13 @@ public abstract class AbstractHttpClient
         PropertyResourceBundle.getBundle(CONFIG_NAME);
 
     /**
+     * Return the redirector URL to connect to.
+     *
+     * @param theRequest Request data from the user. We need it here as the user
+     *        may have chosen to override the default redirector.
      * @return the URL to call the redirector
      */
-    protected abstract String getRedirectorURL();
+    protected abstract String getRedirectorURL(WebRequest theRequest);
 
     /**
      * Calls the test method indirectly by calling the Redirector servlet and
@@ -114,7 +125,7 @@ public abstract class AbstractHttpClient
         HttpURLConnection connection = callRunTest(theRequest);
 
         // Open the second connection to get the test results
-        WebTestResult result = callGetResult();
+        WebTestResult result = callGetResult(theRequest.getAuthentication());
 
         // Check if the returned result object returned contains an error or
         // not. If yes, we need to raise an exception so that the JUnit
@@ -168,15 +179,16 @@ public abstract class AbstractHttpClient
      */
     private HttpURLConnection callRunTest(WebRequest theRequest) throws Throwable
     {
-        // Open the first connection to the redirector to execute the test on
-        // the server side
-        HttpClientHelper helper =
-                new HttpClientHelper(getRedirectorURL());
-
         // Specify the service to call on the redirector side
         theRequest.addParameter(ServiceDefinition.SERVICE_NAME_PARAM,
             ServiceEnumeration.CALL_TEST_SERVICE.toString(),
             WebRequest.GET_METHOD);
+
+        // Open the first connection to the redirector to execute the test on
+        // the server side
+        HttpClientHelper helper =
+                new HttpClientHelper(getRedirectorURL(theRequest));
+
         HttpURLConnection connection = helper.connect(theRequest);
 
         // Wrap the connection to ensure that all servlet output is read
@@ -192,21 +204,29 @@ public abstract class AbstractHttpClient
     /**
      * Get the test result from the redirector.
      *
+     * @param theAuthentication Authentication object used to authenticate
+     *        the user when securing Redirectors for testing security /
+     *        authentication code. Can be null if security is not enabled for
+     *        the redirector.
      * @return the result that was returned by the redirector.
      *
      * @exception Throwable if an error occured in the test method or in the
      *                      redirector servlet.
      */
-    private WebTestResult callGetResult() throws Throwable
+    private WebTestResult callGetResult(
+        AbstractAuthentication theAuthentication) throws Throwable
     {
-        // Open the second connection to get the test results
-        HttpClientHelper helper =
-                new HttpClientHelper(getRedirectorURL());
-
+        // Add authentication details
         WebRequest resultsRequest = new WebRequest();
         resultsRequest.addParameter(ServiceDefinition.SERVICE_NAME_PARAM,
             ServiceEnumeration.GET_RESULTS_SERVICE.toString(),
             WebRequest.GET_METHOD);
+        resultsRequest.setAuthentication(theAuthentication);
+
+        // Open the second connection to get the test results
+        HttpClientHelper helper =
+                new HttpClientHelper(getRedirectorURL(resultsRequest));
+
         HttpURLConnection resultConnection = helper.connect(resultsRequest);
 
         // Read the results as a serialized object

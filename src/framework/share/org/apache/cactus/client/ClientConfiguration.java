@@ -122,7 +122,17 @@ public class ClientConfiguration
         }
         return CONFIG;
     }
-                                        
+
+    /**
+     * @return the context URL under which our application to test runs.
+     * @throw MissingResourceException if the property defining the context
+     *        is missing.
+     */
+    public static String getContextURL()
+    {
+        return getConfiguration().getString("cactus.contextURL");
+    }
+
     /**
      * @return the Servlet redirector
      * @throw MissingResourceException if the property defining the servlet
@@ -130,7 +140,8 @@ public class ClientConfiguration
      */
     public static String getServletRedirectorURL()
     {
-        return getConfiguration().getString("cactus.servletRedirectorURL");
+        return getContextURL() + "/" +
+            getConfiguration().getString("cactus.servletRedirectorName");
     }
 
     /**
@@ -140,7 +151,8 @@ public class ClientConfiguration
      */
     public static String getJspRedirectorURL()
     {
-        return getConfiguration().getString("cactus.jspRedirectorURL");
+        return getContextURL() + "/" +
+            getConfiguration().getString("cactus.jspRedirectorName");
     }
 
     /**
@@ -150,7 +162,8 @@ public class ClientConfiguration
      */
     public static String getFilterRedirectorURL()
     {
-        return getConfiguration().getString("cactus.filterRedirectorURL");
+        return getContextURL() + "/" +
+            getConfiguration().getString("cactus.filterRedirectorName");
     }
 
 }

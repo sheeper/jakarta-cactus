@@ -116,12 +116,9 @@
              time -->
         <delete dir="${out.tomcat40.dir}/webapps/test"/>
 
-        <!-- Copy the default tomcat web.xml to our test conf/ directory. -->
-        <copy file="${conf.tomcat40.dir}/web.xml"
-            todir="${out.tomcat40.dir}/conf"/>
-
-        <copy file="${conf.tomcat40.dir}/server.xml"
-            todir="${out.tomcat40.dir}/conf" filtering="on"/>
+        <copy todir="${out.tomcat40.dir}/conf" filtering="on">
+            <fileset dir="${conf.tomcat40.dir}"/>
+        </copy>
 
         <!-- Copy the war file -->
         <copy file="${out.test.dir}/test.war" tofile="${out.tomcat40.dir}/webapps/test.war"/>

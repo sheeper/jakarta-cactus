@@ -63,10 +63,11 @@
 
         <CredentialsInterceptor />
 
+        <SimpleRealm filename="conf/tomcat-users.xml" />
+
         <LoadOnStartupInterceptor />
 
         <Servlet22Interceptor />
-
 
         <!-- Request processing -->
 

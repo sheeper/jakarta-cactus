@@ -51,76 +51,70 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
-package org.apache.cactus;
+package org.apache.cactus.client.authentication;
 
-import junit.framework.*;
+import java.net.HttpURLConnection;
 
 /**
- * Run all the sample tests of Cactus for Servlet API 2.3 that do need a
- * servlet environment to run.
+ * This class was designed with the simple assumption that ALL authentication
+ * implementations will have a String <code>UserId</code> and a string
+ * <code>Password</code>. Two abstract functions <code>validateUserId</code> and
+ * <code>validatePassword</code> provide for concrete implementations to
+ * perform character validation. All the work is then done in the
+ * <code>configure</code> abstract function. In the
+ * <code>BasicAuthentication</code> class, for example, the configuring is done
+ * by adding the request property "Authorization" with a value
+ * "Basic <base64encode of 'userid:password'>".
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
+ * @author <a href="mailto:Jason.Robertson@acs-inc.com">Jason Robertson</a>
  *
  * @version $Id$
  */
-public class TestAll extends TestCase
+public abstract class AbstractAuthentication
 {
     /**
-     * Defines the testcase name for JUnit.
-     *
-     * @param theName the testcase's name.
+     * User id part of the Credential
      */
-    public TestAll(String theName)
-    {
-        super(theName);
-    }
+    protected String userid;
 
     /**
-     * Start the tests.
-     *
-     * @param theArgs the arguments. Not used
+     * Password part of the Credential
      */
-    public static void main(String[] theArgs)
+    protected String password;
+    
+    public AbstractAuthentication(String theUserid, String thePassword)
     {
-        junit.ui.TestRunner.main(new String[] {TestAll.class.getName()});
+        setUserId(theUserid);
+        setPassword(thePassword);
     }
+    
+    public void setUserId(String theUserid)
+    {
+        validateUserId(theUserid);
+        this.userid = theUserid;
+    }
+
+    public String getUserId()
+    {
+        return this.userid;
+    }
+    
+    public void setPassword(String thePassword)
+    {
+        validatePassword(thePassword);
+        this.password = thePassword;
+    }
+    
+    /**
+     * @exception IllegalArgumentException if invalid
+     */
+    protected abstract void validateUserId(String theUserid);
 
     /**
-     * @return a test suite (<code>TestSuite</code>) that includes all methods
-     *         starting with "test"
+     * @exception IllegalArgumentException if invalid
      */
-    public static Test suite()
-    {
-        TestSuite suite =
-            new TestSuite("Cactus tests needing a servlet engine");
+    protected abstract void validatePassword(String thePassword);
 
-        // Note: This test need to run first. See the comments in the
-        // test class for more information on why
-        suite.addTest(org.apache.cactus.sample.unit.TestServletTestCase_TestResult.suite());
-
-        // Functional tests
-        suite.addTest(org.apache.cactus.sample.TestSampleServlet.suite());
-        suite.addTest(org.apache.cactus.sample.TestSampleServletConfig.suite());
-        suite.addTest(org.apache.cactus.sample.TestSampleFilter.suite());
-        suite.addTest(org.apache.cactus.sample.TestSampleTag.suite());
-        suite.addTest(org.apache.cactus.sample.TestSampleBodyTag.suite());
-
-        // Unit tests requiring a servlet engine
-
-        // ServletTestCase tests
-        suite.addTest(org.apache.cactus.sample.unit.TestServletTestCase1.suite());
-        suite.addTest(org.apache.cactus.sample.unit.TestServletTestCase2.suite());
-        suite.addTest(org.apache.cactus.sample.unit.TestServletTestCase3.suite());
-        suite.addTest(org.apache.cactus.sample.unit.TestServletTestCase4.suite());
-        suite.addTest(org.apache.cactus.sample.unit.TestServletTestCase5.suite());
-        suite.addTest(org.apache.cactus.sample.unit.TestServletTestCaseSpecific.suite());
-        suite.addTest(org.apache.cactus.sample.unit.TestServletTestCase_OverrideRedirector.suite());
-        suite.addTest(org.apache.cactus.sample.unit.TestServletTestCase_Authentication.suite());
-
-        // JspTestCase tests
-        suite.addTest(org.apache.cactus.sample.unit.TestJspTestCase.suite());
-
-        return suite;
-    }
-
+    public abstract void configure(HttpURLConnection theConnection);
 }

@@ -114,6 +114,8 @@ public class TestAll extends TestCase
         suite.addTest(org.apache.cactus.sample.unit.TestServletTestCase4.suite());
         suite.addTest(org.apache.cactus.sample.unit.TestServletTestCase5.suite());
         suite.addTest(org.apache.cactus.sample.unit.TestServletTestCaseSpecific.suite());
+        suite.addTest(org.apache.cactus.sample.unit.TestServletTestCase_OverrideRedirector.suite());
+        suite.addTest(org.apache.cactus.sample.unit.TestServletTestCase_Authentication.suite());
 //        suite.addTest(org.apache.cactus.sample.unit.TestServletTestCase_HttpUnit.suite());
 
         // JspTestCase tests

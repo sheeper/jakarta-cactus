@@ -127,6 +127,30 @@
     </devs>
 
     <release version="1.3 in CVS">
+      <action dev="VMA" type="add">
+        Added support for BASCI authentication. Thanks to
+        <link href="mailto:Jason.Robertson@acs-inc.com">Jason Robertson</link>
+        and
+        <link href="mailto:pwong@sct.com">Peter Wong</link>. See class
+        <code>TestServletTestCase_Authentication</code> in the sample unit
+        tests for an example on how to use it.
+      </action>
+      <action dev="VMA" type="add">
+        Added <code>WebRequest.setRedirectorName(String redirectorName)</code>
+        to override default <code>cactus.servletRedirectorName</code> parameter
+        that you define in <code>cactus.properties</code>. This lets you
+        define a redirector per test case if you wish. It is useful when you
+        want to test some servlet methods that are secured and others that are
+        not, for example.
+      </action>
+      <action dev="VMA" type="update">
+        Modified <code>cactus.properties</code> configuration parameters. For
+        example, where you previously were writing
+        <code>cactus.servletRedirectorURL = http://localhost:8080/test/ServletRedirector</code>
+        you would now have 2 parameters :
+        <code>cactus.contextURL = http://localhost:8080/test</code> and
+        <code>cactus.servletRedirectorName = ServletRedirector</code>.
+      </action>
       <action dev="VMA" type="fix" due-to="Balki Nakshatrala" due-to-email="Balki@Yodlee.com">
         Cactus is now working again with JDK 1.2. However, be aware that most
         versions of new Servlet containers need JDK 1.3 and above.

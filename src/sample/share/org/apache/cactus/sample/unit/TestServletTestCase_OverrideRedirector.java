@@ -51,26 +51,44 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
-package org.apache.cactus;
+package org.apache.cactus.sample.unit;
+
+import java.util.*;
+import java.text.*;
+import javax.servlet.*;
+import javax.servlet.http.*;
+import java.net.*;
+import java.io.*;
 
 import junit.framework.*;
 
+import org.apache.cactus.*;
+import org.apache.cactus.client.ClientConfiguration;
+
 /**
- * Run all the sample tests of Cactus for Servlet API 2.3 that do need a
- * servlet environment to run.
+ * Cactus unit tests for testing that it is possible to override a servlet
+ * redirector as defined in <code>cactus.properties</code> on a per test case
+ * basis.
+ *
+ * These tests should not really be part of the sample application functional
+ * tests as they are unit tests for Cactus. However, they are unit tests that
+ * need a servlet environment running for their execution, so they have been
+ * package here for convenience. They can also be read by end-users to
+ * understand how Cactus work.
+ * <br><br>
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
  */
-public class TestAll extends TestCase
+public class TestServletTestCase_OverrideRedirector extends ServletTestCase
 {
     /**
      * Defines the testcase name for JUnit.
      *
      * @param theName the testcase's name.
      */
-    public TestAll(String theName)
+    public TestServletTestCase_OverrideRedirector(String theName)
     {
         super(theName);
     }
@@ -82,7 +100,8 @@ public class TestAll extends TestCase
      */
     public static void main(String[] theArgs)
     {
-        junit.ui.TestRunner.main(new String[] {TestAll.class.getName()});
+        junit.ui.TestRunner.main(new String[] {
+            TestServletTestCase_OverrideRedirector.class.getName()});
     }
 
     /**
@@ -91,36 +110,38 @@ public class TestAll extends TestCase
      */
     public static Test suite()
     {
-        TestSuite suite =
-            new TestSuite("Cactus tests needing a servlet engine");
-
-        // Note: This test need to run first. See the comments in the
-        // test class for more information on why
-        suite.addTest(org.apache.cactus.sample.unit.TestServletTestCase_TestResult.suite());
-
-        // Functional tests
-        suite.addTest(org.apache.cactus.sample.TestSampleServlet.suite());
-        suite.addTest(org.apache.cactus.sample.TestSampleServletConfig.suite());
-        suite.addTest(org.apache.cactus.sample.TestSampleFilter.suite());
-        suite.addTest(org.apache.cactus.sample.TestSampleTag.suite());
-        suite.addTest(org.apache.cactus.sample.TestSampleBodyTag.suite());
-
-        // Unit tests requiring a servlet engine
-
-        // ServletTestCase tests
-        suite.addTest(org.apache.cactus.sample.unit.TestServletTestCase1.suite());
-        suite.addTest(org.apache.cactus.sample.unit.TestServletTestCase2.suite());
-        suite.addTest(org.apache.cactus.sample.unit.TestServletTestCase3.suite());
-        suite.addTest(org.apache.cactus.sample.unit.TestServletTestCase4.suite());
-        suite.addTest(org.apache.cactus.sample.unit.TestServletTestCase5.suite());
-        suite.addTest(org.apache.cactus.sample.unit.TestServletTestCaseSpecific.suite());
-        suite.addTest(org.apache.cactus.sample.unit.TestServletTestCase_OverrideRedirector.suite());
-        suite.addTest(org.apache.cactus.sample.unit.TestServletTestCase_Authentication.suite());
-
-        // JspTestCase tests
-        suite.addTest(org.apache.cactus.sample.unit.TestJspTestCase.suite());
-
-        return suite;
+        // All methods starting with "test" will be executed in the test suite.
+        return new TestSuite(TestServletTestCase_OverrideRedirector.class);
     }
 
+    //-------------------------------------------------------------------------
+
+    public void beginRedirectorOverride1(WebRequest theRequest)
+    {
+        theRequest.setRedirectorName("ServletRedirectorOverride");
+    }
+
+    public void testRedirectorOverride1()
+    {
+        assertEquals("value2 used for testing", config.getInitParameter("param2"));
+    }
+
+    //-------------------------------------------------------------------------
+
+    public void beginRedirectorOverride2(WebRequest theRequest)
+    {
+        theRequest.setRedirectorName("ServletRedirector");
+    }
+
+    public void testRedirectorOverride2()
+    {
+        assertEquals("value1 used for testing", config.getInitParameter("param1"));
+    }
+
+    //-------------------------------------------------------------------------
+
+    public void testRedirectorOverride3()
+    {
+        assertEquals("value1 used for testing", config.getInitParameter("param1"));
+    }
 }

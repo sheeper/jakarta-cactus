@@ -53,22 +53,31 @@
  */
 package org.apache.cactus.client;
 
-import java.util.*;
-import java.net.*;
-import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLEncoder;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.io.IOException;
+import java.util.Enumeration;
+import java.util.Vector;
 
-import junit.framework.*;
-import org.apache.commons.httpclient.*;
+import org.apache.commons.httpclient.Header;
 
-import org.apache.cactus.*;
-import org.apache.cactus.util.log.*;
-import org.apache.cactus.util.*;
+import org.apache.cactus.util.log.Log;
+import org.apache.cactus.util.log.LogService;
+import org.apache.cactus.client.authentication.AbstractAuthentication;
+import org.apache.cactus.WebRequest;
+import org.apache.cactus.ServletURL;
 
 /**
  * Helper class to open an HTTP connection to the server redirector and pass
  * to it HTTP parameters, Cookies and HTTP headers.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
+ * @author <a href="mailto:Jason.Robertson@acs-inc.com">Jason Robertson</a>
  *
  * @version $Id$
  */
@@ -139,6 +148,12 @@ public class HttpClientHelper
         // Sets the content type
         connection.setRequestProperty("Content-type",
             theRequest.getContentType());
+
+        // Add Authentication headers, if necessary
+        AbstractAuthentication authentication = theRequest.getAuthentication();
+        if (authentication != null) {
+            authentication.configure(connection);
+        }
 
         // Add the other header fields
         addHeaders(theRequest, connection);

@@ -95,11 +95,9 @@
         <mkdir dir="${out.tomcat33.dir}/work"/>
         <mkdir dir="${out.tomcat33.dir}/webapps"/>
 
-        <copy file="${conf.tomcat33.dir}/server.xml"
-            todir="${out.tomcat33.dir}/conf" filtering="on"/>
-
-        <copy file="${conf.tomcat33.dir}/modules.xml"
-            todir="${out.tomcat33.dir}/conf"/>
+        <copy todir="${out.tomcat33.dir}/conf" filtering="on">
+            <fileset dir="${conf.tomcat33.dir}"/>
+        </copy>
 
         <!-- Copy the war file -->
         <copy file="${out.test.dir}/test.war" tofile="${out.tomcat33.dir}/webapps/test.war"/>

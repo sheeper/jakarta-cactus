@@ -51,26 +51,36 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
-package org.apache.cactus;
+package org.apache.cactus.sample.unit;
 
-import junit.framework.*;
+import junit.framework.Test;
+import junit.framework.TestSuite;
+
+import org.apache.cactus.ServletTestCase;
+import org.apache.cactus.WebRequest;
+import org.apache.cactus.client.authentication.BasicAuthentication;
 
 /**
- * Run all the sample tests of Cactus for Servlet API 2.3 that do need a
- * servlet environment to run.
+ * Some Cactus unit tests for testing Authentication support.
+ *
+ * These tests should not really be part of the sample application functional
+ * tests as they are unit tests for Cactus. However, they are unit tests that
+ * need a servlet environment running for their execution, so they have been
+ * package here for convenience. They can also be read by end-users to
+ * understand how Cactus work.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
  */
-public class TestAll extends TestCase
+public class TestServletTestCase_Authentication extends ServletTestCase
 {
     /**
      * Defines the testcase name for JUnit.
      *
      * @param theName the testcase's name.
      */
-    public TestAll(String theName)
+    public TestServletTestCase_Authentication(String theName)
     {
         super(theName);
     }
@@ -82,7 +92,8 @@ public class TestAll extends TestCase
      */
     public static void main(String[] theArgs)
     {
-        junit.ui.TestRunner.main(new String[] {TestAll.class.getName()});
+        junit.ui.TestRunner.main(new String[] {
+            TestServletTestCase_Authentication.class.getName()});
     }
 
     /**
@@ -91,36 +102,30 @@ public class TestAll extends TestCase
      */
     public static Test suite()
     {
-        TestSuite suite =
-            new TestSuite("Cactus tests needing a servlet engine");
+        // All methods starting with "test" will be executed in the test suite.
+        return new TestSuite(TestServletTestCase_Authentication.class);
+    }
 
-        // Note: This test need to run first. See the comments in the
-        // test class for more information on why
-        suite.addTest(org.apache.cactus.sample.unit.TestServletTestCase_TestResult.suite());
+    //-------------------------------------------------------------------------
 
-        // Functional tests
-        suite.addTest(org.apache.cactus.sample.TestSampleServlet.suite());
-        suite.addTest(org.apache.cactus.sample.TestSampleServletConfig.suite());
-        suite.addTest(org.apache.cactus.sample.TestSampleFilter.suite());
-        suite.addTest(org.apache.cactus.sample.TestSampleTag.suite());
-        suite.addTest(org.apache.cactus.sample.TestSampleBodyTag.suite());
+    /**
+     * Verify basic authentication.
+     */
+    public void beginBasicAuthentication(WebRequest theRequest)
+    {
+        theRequest.setRedirectorName("ServletRedirectorSecure");
+        theRequest.setAuthentication(
+            new BasicAuthentication("testuser", "testpwd"));
+    }
 
-        // Unit tests requiring a servlet engine
-
-        // ServletTestCase tests
-        suite.addTest(org.apache.cactus.sample.unit.TestServletTestCase1.suite());
-        suite.addTest(org.apache.cactus.sample.unit.TestServletTestCase2.suite());
-        suite.addTest(org.apache.cactus.sample.unit.TestServletTestCase3.suite());
-        suite.addTest(org.apache.cactus.sample.unit.TestServletTestCase4.suite());
-        suite.addTest(org.apache.cactus.sample.unit.TestServletTestCase5.suite());
-        suite.addTest(org.apache.cactus.sample.unit.TestServletTestCaseSpecific.suite());
-        suite.addTest(org.apache.cactus.sample.unit.TestServletTestCase_OverrideRedirector.suite());
-        suite.addTest(org.apache.cactus.sample.unit.TestServletTestCase_Authentication.suite());
-
-        // JspTestCase tests
-        suite.addTest(org.apache.cactus.sample.unit.TestJspTestCase.suite());
-
-        return suite;
+    /**
+     * Verify basic authentication.
+     */
+    public void testBasicAuthentication()
+    {
+        assertEquals("testuser", request.getUserPrincipal().getName());
+        assertEquals("testuser", request.getRemoteUser());
+        assert("User not in 'test' role", request.isUserInRole("test"));
     }
 
 }

@@ -53,6 +53,8 @@
  */
 package org.apache.cactus.client;
 
+import org.apache.cactus.WebRequest;
+
 /**
  * Manage the logic for calling the Servlet redirector for executing a test on
  * the server side.
@@ -64,11 +66,25 @@ package org.apache.cactus.client;
 public class ServletHttpClient extends AbstractHttpClient
 {
     /**
+     * Return the redirector URL to connect to.
+     *
+     * @param theRequest Request data from the user. We need it here as the user
+     *        may have chosen to override the default redirector.
      * @return the URL to call the redirector
      */
-    protected String getRedirectorURL()
+    protected String getRedirectorURL(WebRequest theRequest)
     {
-        return ClientConfiguration.getServletRedirectorURL();
+        String url;
+
+        // Check if user has overriden the servlet redirector
+        if (theRequest.getRedirectorName() != null) {
+            url = ClientConfiguration.getContextURL() + "/" +
+                theRequest.getRedirectorName();
+        } else {
+            url = ClientConfiguration.getServletRedirectorURL();
+        }
+
+        return url;
     }
 
 }
