@@ -22,6 +22,7 @@
 
     <items>
       <rdf:Seq>
+        <rdf:li rdf:resource="http://jakarta.apache.org/cactus/news.html#news16"/>
         <rdf:li rdf:resource="http://jakarta.apache.org/cactus/news.html#news15"/>
         <rdf:li rdf:resource="http://jakarta.apache.org/cactus/news.html#news14"/>
         <rdf:li rdf:resource="http://jakarta.apache.org/cactus/news.html#news13"/>
@@ -41,6 +42,20 @@
     </items>
 
   </channel>
+
+  <item rdf:about="http://jakarta.apache.org/cactus/news.html#news16">
+    <title>Cactus website translated in French</title>
+    <link>http://jakarta.apache.org/cactus/news.html#news16</link>
+    <description>
+<![CDATA[Jean-François El Fouly has translated the
+<a href="">Cactus web site in French</a>. It is a first version and not
+everything is translated but it's a very good start. Thanks Jean-Francois!
+]]>
+    </description>
+    <dc:subject></dc:subject>
+    <dc:creator>vmassol</dc:creator>
+    <dc:date>2003-11-13T00:00:00+00:00</dc:date>
+  </item>
 
   <item rdf:about="http://jakarta.apache.org/cactus/news.html#news15">
     <title>Cactus plugin for Maven has moved</title>

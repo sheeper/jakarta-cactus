@@ -418,6 +418,7 @@
   <external id="easymock" url="http://easymock.org"/>
   <external id="eclipse" url="http://www.eclipse.org"/>
   <external id="eblox" url="http://www.eblox.com"/>
+  <external id="french" url="http://www.ressources-java.net/cactus"/>
   <external id="gump" url="http://jakarta.apache.org/gump/"/>
   <external id="gump_cactus_doc" url="http://cvs.apache.org/builds/gump/latest/jakarta-cactus-documentation.html"/>
   <external id="gump_cactus_framework_12" url="http://cvs.apache.org/builds/gump/latest/jakarta-cactus-framework-12.html"/>

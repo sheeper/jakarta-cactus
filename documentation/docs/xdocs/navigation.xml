@@ -37,6 +37,7 @@
   </menu>
 
   <menu label="Translations">
+    <item label="French" id="french"/>
     <item label="Korean" id="korean"/>
     <item label="Japanese" id="japanese"/>
   </menu>
