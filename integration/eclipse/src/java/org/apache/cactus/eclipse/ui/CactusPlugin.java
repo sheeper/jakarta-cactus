@@ -242,8 +242,8 @@ public class CactusPlugin extends AbstractUIPlugin
      * @param theStatus status of the error
      */
     public static void displayErrorMessage(
-        String theTitle,
-        String theMessage,
+        final String theTitle,
+        final String theMessage,
         IStatus theStatus)
     {
         if (theStatus == null)
@@ -260,10 +260,16 @@ public class CactusPlugin extends AbstractUIPlugin
         {
             log(theStatus);
         }
-        MessageDialog.openError(
-            getActiveWorkbenchShell(),
-            theTitle,
-            theMessage);
+        Display.getDefault().asyncExec(new Runnable()
+        {
+            public void run()
+            {
+                MessageDialog.openError(
+                    getActiveWorkbenchShell(),
+                    theTitle,
+                    theMessage);
+            }
+        });
     }
     /**
      * Helper method for other classes. Returns a CoreException with a message

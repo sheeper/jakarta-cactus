@@ -73,11 +73,12 @@ import org.eclipse.debug.core.ILaunchManager;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.internal.junit.launcher.JUnitLaunchShortcut;
-import org.eclipse.jdt.internal.junit.runner.ITestRunListener;
 import org.eclipse.jdt.internal.junit.ui.JUnitPlugin;
 import org.eclipse.jdt.internal.junit.util.TestSearchEngine;
+import org.eclipse.jdt.junit.ITestRunListener;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
+import org.eclipse.swt.widgets.Display;
 
 /**
  * Launch shortcut used to start the Cactus launch configuration on the
@@ -172,9 +173,7 @@ public class CactusLaunchShortcut
             // for TestRun end notification.
             JUnitPlugin.getDefault().addTestRunListener(this);
             final IJavaProject theJavaProject = type.getJavaProject();
-            ProgressMonitorDialog dialog =
-                new ProgressMonitorDialog(getShell());
-            IRunnableWithProgress runnable = new IRunnableWithProgress()
+            final IRunnableWithProgress runnable = new IRunnableWithProgress()
             {
                 public void run(IProgressMonitor thePM)
                     throws InterruptedException
@@ -190,32 +189,38 @@ public class CactusLaunchShortcut
                     }
                 }
             };
-            try
+            Display.getDefault().asyncExec(new Runnable()
             {
-                dialog.run(true, true, runnable);
-            }
-            catch (InvocationTargetException e)
-            {
-                dialog.close();
-                CactusPlugin.displayErrorMessage(
-                    CactusMessages.getString(
-                        "CactusLaunch.message.prepare.error"),
-                    e.getTargetException().getMessage(),
-                    null);
-                cancelPreparation();
-                return;
-            }
-            catch (InterruptedException e)
-            {
-                dialog.close();
-                CactusPlugin.displayErrorMessage(
-                    CactusMessages.getString(
-                        "CactusLaunch.message.prepare.error"),
-                    e.getMessage(),
-                    null);
-                cancelPreparation();
-                return;
-            }
+                public void run()
+                {
+                    try
+                    {
+                        ProgressMonitorDialog dialog =
+                            new ProgressMonitorDialog(getShell());
+                        dialog.run(true, true, runnable);
+                    }
+                    catch (InvocationTargetException e)
+                    {
+                        CactusPlugin.displayErrorMessage(
+                            CactusMessages.getString(
+                                "CactusLaunch.message.prepare.error"),
+                            e.getTargetException().getMessage(),
+                            null);
+                        cancelPreparation();
+                        return;
+                    }
+                    catch (InterruptedException e)
+                    {
+                        CactusPlugin.displayErrorMessage(
+                            CactusMessages.getString(
+                                "CactusLaunch.message.prepare.error"),
+                            e.getMessage(),
+                            null);
+                        cancelPreparation();
+                        return;
+                    }
+                }
+            });
             CactusPlugin.log("Launching tests");
             super.launchType(theSearch, theMode);
         }
@@ -309,17 +314,16 @@ public class CactusLaunchShortcut
     private void teardownCactusTests(IProgressMonitor thePM)
         throws CoreException
     {
-        // The commented code is linked to the crashing VM problem
-//        thePM.beginTask(
-//            CactusMessages.getString("CactusLaunch.message.teardown"),
-//            10);
+        thePM.beginTask(
+            CactusMessages.getString("CactusLaunch.message.teardown"),
+            10);
         if (provider != null)
         {
             provider.stop(null, thePM);
             provider.undeploy(null, null, thePM);
             war.delete();
         }
-//        thePM.done();
+        thePM.done();
     }
     /**
      * @see org.eclipse.jdt.internal.junit.runner.ITestRunListener#testRunStarted(int)
@@ -335,45 +339,54 @@ public class CactusLaunchShortcut
     public void testRunEnded(long theElapsedTime)
     {
         CactusPlugin.log("Test run ended");
-        // For some reason it's impossible to get the active UI shell
-        // after the JUnit tests ended.
-        // The commented code below should be used when this problem
-        // has been addressed.
-        // TODO: Address the crashing problem
-        try
+        final IRunnableWithProgress runnable = new IRunnableWithProgress()
         {
-            CactusPlugin.log("Tearing down cactus tests");
-            teardownCactusTests(null);
-        }
-        catch (CoreException e)
+            public void run(IProgressMonitor thePM) throws InterruptedException
+            {
+                CactusPlugin.log("Tearing down cactus tests");
+                try
+                {
+                    teardownCactusTests(thePM);
+                }
+                catch (CoreException e)
+                {
+                    throw new InterruptedException(e.getMessage());
+                }
+            }
+        };
+        Display.getDefault().asyncExec(new Runnable()
         {
-            CactusPlugin.displayErrorMessage(
-                CactusMessages.getString("CactusLaunch.message.teardown.error"),
-                e.getMessage(),
-                null);
-        }
-//        ProgressMonitorDialog dialog =
-//            new ProgressMonitorDialog(getShell());
-//        try
-//        {
-//            IRunnableWithProgress runnable = new IRunnableWithProgress()
-//            {
-//                public void run(IProgressMonitor thePM)
-//                    throws InterruptedException
-//                {
-//                    teardownCactusTests(thePM);
-//                }
-//            };
-//            dialog.run(true, true, runnable);
-//        }
-//        catch (InvocationTargetException e)
-//        {
-//            // TODO: handle exception
-//        }
-//        catch (InterruptedException e)
-//        {
-//            // TODO: handle exception (cancel button ?)
-//        }
+            public void run()
+            {
+                try
+                {
+                    ProgressMonitorDialog dialog =
+                        new ProgressMonitorDialog(getShell());
+                    dialog.run(true, true, runnable);
+                }
+                catch (InvocationTargetException e)
+                {
+                    CactusPlugin.displayErrorMessage(
+                        CactusMessages.getString(
+                            "CactusLaunch.message.teardown.error"),
+                        e.getTargetException().getMessage(),
+                        null);
+                    cancelPreparation();
+                    return;
+                }
+                catch (InterruptedException e)
+                {
+                    CactusPlugin.displayErrorMessage(
+                        CactusMessages.getString(
+                            "CactusLaunch.message.teardown.error"),
+                        e.getMessage(),
+                        null);
+                    cancelPreparation();
+                    return;
+                }
+            }
+
+        });
     }
 
     /**
