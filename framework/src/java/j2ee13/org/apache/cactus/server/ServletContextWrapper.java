@@ -131,7 +131,7 @@ public class ServletContextWrapper extends AbstractServletContextWrapper
      * the method without parameters for servlet engines that do not have
      * upgraded yet to the new signature.
      *
-     * @see ServletContext#getResourcePaths(String
+     * @see ServletContext#getResourcePaths(String)
      */
     public Set getResourcePaths(String thePath)
     {

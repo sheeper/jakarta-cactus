@@ -65,7 +65,7 @@ package org.apache.cactus;
 public class HttpSessionCookie extends Cookie
 {
     /**
-     * @see Cookie#Cookie()
+     * @see Cookie#Cookie(String, String, String)
      */
     public HttpSessionCookie(String theDomain, String theName, String theValue)
     {
