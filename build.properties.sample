@@ -49,6 +49,12 @@ aspectjrt.jar = ${lib.repo}/aspectj/jars/aspectjrt-1.0.6.jar
 # The location of the Junit jar
 junit.jar = ${lib.repo}/junit/jars/junit-3.8.1.jar
 
+# The location of the JSTL jar
+jstl.jar = ${lib.repo}/jstl/jars/jstl-1.0.2.jar
+ 
+# The location of the JSTL jar
+standard.jar = ${lib.repo}/taglibs/jars/standard-1.0.2.jar
+
 # CVS executable to use for documentation generation (used to automatically
 # generate web site changelog).
 cvs.executable = cvs

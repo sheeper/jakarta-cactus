@@ -44,6 +44,12 @@ junit.jar = ../lib/junit-3.8.1.jar
 # The location of the Httpunit jar
 httpunit.jar = ../lib/httpunit-1.4.5.jar
 
+# The location of the JSTL jar
+jstl.jar = ../lib/jstl-1.0.2.jar
+ 
+# The location of the JSTL jar
+standard.jar = ../lib/standard-1.0.2.jar
+
 # -----------------------------------------------------------------------------
 # Optional properties
 # -----------------------------------------------------------------------------

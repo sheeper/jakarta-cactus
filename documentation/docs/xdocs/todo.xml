@@ -48,6 +48,9 @@
         executed on the server. Overall coverage is reported as 45% whereas
         it is more thaqn 60% in reality ...
       </action>
+      <action>
+        Add doc for new <code>JspTagLifecycle</code> class.
+      </action>
     </category>
 
     <category title="Build Process">

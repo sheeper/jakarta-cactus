@@ -202,6 +202,8 @@
             <property name="commons.httpclient.jar" isfile="true"/>
             <property name="junit.jar" isfile="true"/>
             <property name="httpunit.jar" isfile="true"/>
+            <property name="jstl.jar" isfile="true"/>
+            <property name="standard.jar" isFile="true"/>
         </checkProperty>
 
     </target>
@@ -377,6 +379,8 @@
             <arg value="-Dcommons.httpclient.jar=${commons.httpclient.jar}"/>
             <arg value="-Daspectjrt.jar=${aspectjrt.jar}"/>
             <arg value="-Dhttpunit.jar=${httpunit.jar}"/>
+            <arg value="-Djstl.jar=${jstl.jar}"/>
+            <arg value="-Dstandard.jar=${standard.jar}"/>
 
             <arg value="-Dbase.dir=${target.sample.dir}"/>
             <arg value="-Dbasedir=${basedir}"/>

@@ -179,6 +179,7 @@ framework/src/java/j2ee12/org/apache/cactus/server/ServletConfigWrapper.java svn
 framework/src/java/j2ee12/org/apache/cactus/server/ServletContextWrapper.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/j2ee13/org/apache/cactus/FilterTestCase.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/j2ee13/org/apache/cactus/extension/jetty/JettyInitializer.java svn_keywords=Author+Date+Id+Revision
+framework/src/java/j2ee13/org/apache/cactus/extension/jsp/JspTagLifecycle.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/j2ee13/org/apache/cactus/server/FilterConfigWrapper.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/j2ee13/org/apache/cactus/server/FilterImplicitObjects.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/j2ee13/org/apache/cactus/server/FilterTestCaller.java svn_keywords=Author+Date+Id+Revision
@@ -364,6 +365,7 @@ sample-servlet/src/sample/share/org/apache/cactus/sample/TestSampleTag.java svn_
 sample-servlet/src/unit/j2ee12/org/apache/cactus/unit/TestAll.java svn_keywords=Author+Date+Id+Revision
 sample-servlet/src/unit/j2ee12/org/apache/cactus/unit/TestServletTestCaseSpecific.java svn_keywords=Author+Date+Id+Revision
 sample-servlet/src/unit/j2ee13/org/apache/cactus/unit/TestAll.java svn_keywords=Author+Date+Id+Revision
+sample-servlet/src/unit/j2ee13/org/apache/cactus/unit/TestJspTagLifecycle.java svn_keywords=Author+Date+Id+Revision
 sample-servlet/src/unit/j2ee13/org/apache/cactus/unit/TestServletTestCaseSpecific.java svn_keywords=Author+Date+Id+Revision
 sample-servlet/src/unit/share/org/apache/cactus/unit/TestAbstractWebTestCase.java svn_keywords=Author+Date+Id+Revision
 sample-servlet/src/unit/share/org/apache/cactus/unit/TestJspTestCase.java svn_keywords=Author+Date+Id+Revision

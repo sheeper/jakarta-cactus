@@ -48,6 +48,11 @@
     </devs>
 
     <release version="1.5" date="- in CVS">
+      <action dev="VMA" type="add" due-to="Christopher Lenz" due-to-email="cmlenz@gmx.de">
+        Added new extension class to help unit test JSP Taglibs. See the
+        <code>TestJspTagLifecycle</code> test class in the sample-servlet
+        application for help on using it.
+      </action>
       <action dev="VMA" type="update">
         Improved error handling when dealing with invalid Cookies.
       </action>

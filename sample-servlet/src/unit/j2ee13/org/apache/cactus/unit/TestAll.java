@@ -58,7 +58,7 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 /**
- * Run all the Cactus unit tests related to Servlet API 2.3.
+ * Run all the Cactus unit tests related to J2EE API 1.3.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
@@ -93,7 +93,7 @@ public class TestAll extends TestCase
     public static Test suite()
     {
         TestSuite suite = new TestSuite(
-            "Cactus unit tests for Servlet API 2.3");
+            "Cactus unit tests for J2EE 1.3");
 
         // Note: This test need to run first. See the comments in the
         // test class for more information on why
@@ -118,9 +118,10 @@ public class TestAll extends TestCase
         suite.addTest(
             org.apache.cactus.unit.TestServletTestCase_HttpUnit.suite());
 
-        // Test cases specific to Servlet API 2.3 only
+        // Test cases specific to J2EE 1.3 only
         suite.addTest(
             org.apache.cactus.unit.TestServletTestCaseSpecific.suite());
+        suite.addTest(org.apache.cactus.unit.TestJspTagLifecycle.suite());
 
         // JspTestCase related tests
         suite.addTest(org.apache.cactus.unit.TestJspTestCase.suite());
