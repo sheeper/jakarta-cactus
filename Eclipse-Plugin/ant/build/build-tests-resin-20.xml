@@ -106,8 +106,8 @@
             tofile="${target.resin20.dir}/resin.conf" filtering="on"/>
 
         <!-- Create the war file -->
-        <copy file="${target.test.dir}/test.war"
-            tofile="${target.resin20.dir}/test.war"/>
+        <copy file="${war.path}"
+            tofile="${target.resin20.dir}/${context.path}.war"/>
 
     </target>
 
