@@ -45,15 +45,19 @@
     <p>
       Currently the following containers are supported out of the box:
       <ul>
-        <li>Apache Tomcat 3.x</li>
-        <li>Apache Tomcat 4.x</li>
-        <li>Apache Tomcat 5.x</li>
-        <li>JBoss Application Server 3.x</li>
-        <li>Orion Application Server 1.x</li>
-        <li>Orion Application Server 2.x</li>
-        <li>Resin Server 2.x</li>
-        <li>WebLogic 7.x</li>
+        <li><jump anchor="tomcat3x">Apache Tomcat 3.x</jump></li>
+        <li><jump anchor="tomcat4x">Apache Tomcat 4.x</jump></li>
+        <li><jump anchor="tomcat5x">Apache Tomcat 5.x</jump></li>
+        <li><jump anchor="jboss3x">JBoss Application Server 3.x</jump></li>
+        <li><jump anchor="orion1x">Orion Application Server 1.x</jump></li>
+        <li><jump anchor="orion2x">Orion Application Server 2.x</jump></li>
+        <li><jump anchor="resin2x">Resin Server 2.x</jump></li>
+        <li><jump anchor="weblogic7x">WebLogic 7.x</jump></li>
       </ul>
+    </p>
+    <p>
+      In addition if your favorite container is not in the above list, you
+      can use the <jump anchor="generic">Generic</jump> container.
     </p>
 
     <section title="Parameters">
@@ -166,6 +170,7 @@
         as appropriate.
       </p>
 
+      <anchor id="generic"/>
       <section title="generic">
 
         <p>
@@ -173,7 +178,12 @@
           allowing you to specify targets to be called, or tasks to executed,
           in order to start up and shut down the container.
         </p>
-
+        <p>
+          Note that the attributes of the <code>&lt;cactus&gt;</code> and
+          <code>&lt;containerset&gt;</code> elements are currently not used 
+          by the <code>&lt;generic&gt;</code> element.
+        </p>
+ 
         <section title="Parameters">
 
           <table>
@@ -284,6 +294,7 @@
 
       </section>
 
+      <anchor id="jboss3x"/>
       <section title="jboss3x">
 
         <p>
@@ -381,6 +392,7 @@
 
       </section>
 
+      <anchor id="orion1x"/>
       <section title="orion1x">
 
         <p>
@@ -475,6 +487,7 @@
 
       </section>
 
+      <anchor id="orion2x"/>
       <section title="orion2x">
 
         <p>
@@ -569,6 +582,7 @@
 
       </section>
 
+      <anchor id="resin2x"/>
       <section title="resin2x">
 
         <p>
@@ -670,6 +684,7 @@
 
       </section>
 
+      <anchor id="tomcat3x"/>
       <section title="tomcat3x">
 
         <p>
@@ -784,6 +799,7 @@
 
       </section>
 
+      <anchor id="tomcat4x"/>
       <section title="tomcat4x">
 
         <p>
@@ -907,6 +923,7 @@
 
       </section>
 
+      <anchor id="tomcat5x"/>
       <section title="tomcat5x">
 
         <p>
@@ -1031,6 +1048,7 @@
 
       </section>
 
+      <anchor id="weblogic7x"/>
       <section title="weblogic7x">
 
         <p>
