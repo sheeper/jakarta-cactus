@@ -278,6 +278,23 @@
 
         <mkdir dir="${target.classes.clover.dir}"/>
 
+        <ajc destdir="${target.classes.clover.dir}" preprocess="true"
+          deprecation="${deprecation}" optimize="${optimize}"
+          workingdir="${target.dir}/ajworkingdir">
+
+            <src path="${src.java.share.dir}"/>
+            <src path="${src.java.specific.dir}"/>
+
+            <exclude name="**/package.html"/>
+            <exclude name="**/overview.html"/>
+
+            <!-- We exclude the Loggin Aspect as it adds 2 new methods for each method to log
+                 and thus leads to flawed test coverage statistics -->
+            <exclude name="**/LogAspect.java"/>
+
+            <classpath refid="project.class.path"/>
+        </ajc>
+
         <javac destdir="${target.classes.clover.dir}"
             deprecation="${deprecation}" optimize="${optimize}"
             compiler="org.apache.tools.ant.taskdefs.CloverCompilerAdapter">
@@ -314,9 +331,8 @@
 
         <mkdir dir="${target.classes.java.dir}"/>
 
-        <ajc destdir="${target.classes.java.dir}" preprocess="true"
-          deprecation="${deprecation}" optimize="${optimize}"
-          workingdir="${target.dir}/ajworkingdir">
+        <ajc destdir="${target.classes.java.dir}"
+          deprecation="${deprecation}" optimize="${optimize}">
 
             <src path="${src.java.share.dir}"/>
             <src path="${src.java.specific.dir}"/>
@@ -326,17 +342,6 @@
 
             <classpath refid="project.class.path"/>
         </ajc>
-
-        <javac destdir="${target.classes.java.dir}"
-          deprecation="${deprecation}" optimize="${optimize}">
-
-            <src path="${target.dir}/ajworkingdir"/>
-
-            <exclude name="**/package.html"/>
-            <exclude name="**/overview.html"/>
-
-            <classpath refid="project.class.path"/>
-        </javac>
 
     </target>
 
