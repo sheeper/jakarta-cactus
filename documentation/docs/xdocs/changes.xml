@@ -76,8 +76,10 @@ Note: To be added once we include the Eclipse plugin in a release
           documentation</link> for more information.
         </action>
 -->
-	
-      <release version="1.5" date="- in CVS">
+      <release version="1.6" date="in CVS">
+      </release>
+      	
+      <release version="1.5" date="14 July 2003">
         <action dev="VMA" type="update">
           Support for WebLogic 7.x has not been tested with Cactus 1.5 and
           may not work.

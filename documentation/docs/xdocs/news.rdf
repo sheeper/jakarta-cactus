@@ -22,6 +22,7 @@
 
     <items>
       <rdf:Seq>
+        <rdf:li rdf:resource="http://jakarta.apache.org/cactus/news.html#news12"/>
         <rdf:li rdf:resource="http://jakarta.apache.org/cactus/news.html#news11"/>
         <rdf:li rdf:resource="http://jakarta.apache.org/cactus/news.html#news10"/>
         <rdf:li rdf:resource="http://jakarta.apache.org/cactus/news.html#news9"/>
@@ -37,6 +38,20 @@
     </items>
 
   </channel>
+
+  <item rdf:about="http://jakarta.apache.org/cactus/news.html#news12">
+    <title>Cactus 1.5-beta1 released</title>
+    <link>http://jakarta.apache.org/cactus/news.html#news12</link>
+    <description>
+<![CDATA[Cactus 1.5-beta1 has been released. Full details can be found
+in the <a href="http://jakarta.apache.org/cactus/1.5-beta1/ANNOUNCEMENT.txt">
+release announcement</a>.
+]]>
+    </description>
+    <dc:subject></dc:subject>
+    <dc:creator>vmassol</dc:creator>
+    <dc:date>2003-07-14T00:00:00+00:00</dc:date>
+  </item>
 
   <item rdf:about="http://jakarta.apache.org/cactus/news.html#news11">
     <title>Unit Test Java Web Apps with Cactus</title>
