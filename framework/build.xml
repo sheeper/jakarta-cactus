@@ -151,6 +151,7 @@
     <path id="project.class.path">
 
         <pathelement location="${j2ee.jar}"/>
+        <pathelement location="${aspectjrt.jar}"/>
         <pathelement location="${log4j.jar}"/>
         <pathelement location="${commons.logging.jar}"/>
         <pathelement location="${commons.httpclient.jar}"/>
@@ -257,17 +258,35 @@
 
     <!--
        ========================================================================
+         Initialize AspectJ
+       ========================================================================
+    -->
+    <target name="init.aspectj">
+
+        <path id="aspectj.classpath">
+            <pathelement location="${aspectjrt.jar}"/>
+            <pathelement location="${aspectj-tools.jar}"/>
+            <pathelement location="${aspectj-ant.jar}"/>
+            <pathelement location="${java.class.path}"/>
+        </path>
+
+        <!-- AspectJ task definition -->
+        <taskdef name="ajc" classname="org.aspectj.tools.ant.taskdefs.Ajc">
+            <classpath refid="aspectj.classpath"/>
+        </taskdef>
+
+    </target>
+
+    <!--
+       ========================================================================
          Initialize the build. Must be called by all targets
        ========================================================================
     -->
     <target name="init"
-        depends="display.properties,check.properties,load.properties,init.clover">
+        depends="display.properties, check.properties, load.properties,
+                 init.clover, init.aspectj">
 
         <tstamp/>
-
-        <!-- AspectJ task definition -->
-        <taskdef name="ajc" classname="org.aspectj.tools.ant.taskdefs.Ajc"/>
-        <taskdef name="ajdoc" classname="org.aspectj.tools.ant.taskdefs.Ajdoc"/>
 
     </target>
 
