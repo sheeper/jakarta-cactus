@@ -117,18 +117,33 @@ public class LogService
      * Initialize the logging system. Need to be called once before calling
      * <code>getLog()</code>.
      *
-     * @param theFileName the file name (Ex: "/log_client.properties")
+     * @param theFileName the file name (Ex: "/log_client.properties") or null
+     *        to initialize a dummy logging system, meaning that all log calls
+     *        will have no effect. This is useful for unit testing for
+     *        instance where the goal is not to verify that logs are printed.
      */
     public void init(String theFileName)
     {
-        if (isLog4jInClasspath) {
+        // If logging system already initialized, do nothing
+        if (isInitialized()) {
+            return;
+        }
 
-            URL url = this.getClass().getResource(theFileName);
-            if (url != null) {
-                // Initialize Log4j
-                PropertyConfigurator.configure(url);
-            } else {
-                throw new RuntimeException("Could not find [" + theFileName + "]");
+        if (theFileName != null) {
+
+            if (isLog4jInClasspath) {
+
+                URL url = this.getClass().getResource(theFileName);
+                if (url != null) {
+                    // Initialize Log4j
+                    PropertyConfigurator.configure(url);
+                } else {
+                    // Failed to configure logging system, simply print
+                    // a warning on stderr
+                    System.err.println("Failed to configure logging " +
+                        "system : Could not find file [" + theFileName + "]");
+                }
+
             }
 
         }
