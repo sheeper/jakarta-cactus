@@ -192,6 +192,10 @@
               tests).
               <img src="images/new.jpg" alt="New in Cactus 1.5"/>           
             </li>
+<!--
+Note: Uncomment once we releasee the Eclipse plugin. ATM it is still very
+experimental and needs some work
+
             <li>
               <em>Eclipse Plugin</em>: An Eclipse Plugin that integrates
               Cactus in the Eclipse IDE (start and stop containers 
@@ -199,6 +203,7 @@
               tests).
               <img src="images/new.jpg" alt="New in Cactus 1.5"/>           
             </li>
+-->
             <li>
               <em>Browser Integration</em>: It is possible to run Cactus tests
               from a Browser. Results can be displayed either in XML or in
@@ -213,8 +218,7 @@
           </ul>
         </li>
         <li>
-          The Ant Integration Module and the Eclipse Plugin support the
-          following containers:
+          The Ant Integration Module supports the following containers:
           <ul>
             <li>
               Tomcat 3.x (Servlet API 2.2)
