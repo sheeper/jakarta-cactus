@@ -81,6 +81,11 @@
             <td width="1%" valign="top">
             </td>
             <td width="14%" valign="top" nowrap="1">
+
+            <font size="-2">
+              Last update : <xsl:value-of select="$updated"/>
+            </font>
+
               <br/>
               <font face="arial,helvetica,sanserif">
                 <xsl:apply-templates select="document($stylebook.project)"/>
