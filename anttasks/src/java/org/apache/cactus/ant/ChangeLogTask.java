@@ -59,7 +59,6 @@ package org.apache.cactus.ant;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -67,12 +66,14 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
+
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.Hashtable;
@@ -101,6 +102,50 @@ import org.apache.tools.ant.types.FileSet;
  */
 public class ChangeLogTask extends Task implements ExecuteStreamHandler
 {
+    /**
+     * State machine state: looking for file in cvs log output
+     */
+    private static final int GET_FILE = 1;
+
+    /**
+     * State machine state: looking for date in cvs log output
+     */
+    private static final int GET_DATE = 2;
+
+    /**
+     * State machine state: looking for comment in cvs log output
+     */
+    private static final int GET_COMMENT = 3;
+
+    /**
+     * State machine state: looking for revision in cvs log output
+     */
+    private static final int GET_REVISION = 4;
+
+    /**
+     * Input format for dates read in from cvs log
+     */
+    private static final SimpleDateFormat INPUT_DATE = 
+        new SimpleDateFormat("yyyy/MM/dd");
+
+    /**
+     * Input format for dates read in from cvs log
+     */
+    private static final SimpleDateFormat FULL_INPUT_DATE = 
+        new SimpleDateFormat("yyyy/MM/dd HH:mm");
+
+    /**
+     * Output format for dates written to the XML file
+     */
+    private static final SimpleDateFormat OUTPUT_DATE = 
+        new SimpleDateFormat("yyyy-MM-dd");
+
+    /**
+     * Output format for times written to the XML file
+     */
+    private static final SimpleDateFormat OUTPUT_TIME = 
+        new SimpleDateFormat("HH:mm");
+
     /**
      * Name of properties file containing the user list. This list is used to
      * match a user id retrieved from the '<code>cvs log</code>' command with a
@@ -168,39 +213,6 @@ public class ChangeLogTask extends Task implements ExecuteStreamHandler
      */
     private PrintWriter debug;
 
-    // state machine states
-    private static final int GET_FILE = 1;
-
-    private static final int GET_DATE = 2;
-
-    private static final int GET_COMMENT = 3;
-
-    private static final int GET_REVISION = 4;
-
-    /**
-     * Input format for dates read in from cvs log
-     */
-    private static final SimpleDateFormat INPUT_DATE =
-        new SimpleDateFormat("yyyy/MM/dd");
-
-    /**
-     * Input format for dates read in from cvs log
-     */
-    private static final SimpleDateFormat FULL_INPUT_DATE =
-        new SimpleDateFormat("yyyy/MM/dd HH:mm");
-
-    /**
-     * Output format for dates written to the XML file
-     */
-    private static final SimpleDateFormat OUTPUT_DATE =
-        new SimpleDateFormat("yyyy-MM-dd");
-
-    /**
-     * Output format for times written to the XML file
-     */
-    private static final SimpleDateFormat OUTPUT_TIME =
-        new SimpleDateFormat("HH:mm");
-
     /**
      * Set the properties file name containing the matching list of (user id,
      * user display name). This method is automatically called by the Ant
@@ -264,11 +276,14 @@ public class ChangeLogTask extends Task implements ExecuteStreamHandler
      */
     public void setDate(String theThresholdDate)
     {
-        try {
+        try
+        {
             this.thresholdDate = INPUT_DATE.parse(theThresholdDate);
-        } catch (ParseException e) {
-            throw new BuildException("Bad date format ["
-                + theThresholdDate + "].");
+        }
+        catch (ParseException e)
+        {
+            throw new BuildException("Bad date format [" + theThresholdDate
+                + "].");
         }
     }
 
@@ -285,8 +300,9 @@ public class ChangeLogTask extends Task implements ExecuteStreamHandler
     public void setElapsed(Long theElapsedDays)
     {
         long now = System.currentTimeMillis();
-        this.thresholdDate = new Date(
-            now - theElapsedDays.longValue() * 24 * 60 * 60 * 1000);
+
+        this.thresholdDate = 
+            new Date(now - (theElapsedDays.longValue() * 24 * 60 * 60 * 1000));
     }
 
     /**
@@ -323,11 +339,9 @@ public class ChangeLogTask extends Task implements ExecuteStreamHandler
      *
      * @param theDebugFile the name of the debug file to use.
      *
-     * @exception IOException for backward compatibility with JDK 1.2.2 (not
-     *            needed for JDK 1.3+)
+     * @exception IOException on failure to create the debug file
      */
-    public void setDebug(File theDebugFile)
-        throws FileNotFoundException, UnsupportedEncodingException, IOException
+    public void setDebug(File theDebugFile) throws IOException
     {
         this.debug = new PrintWriter(new OutputStreamWriter(
             new FileOutputStream(theDebugFile), "UTF-8"), true);
@@ -339,15 +353,21 @@ public class ChangeLogTask extends Task implements ExecuteStreamHandler
      */
     private void readUserList()
     {
-        if (this.userConfigFile != null) {
-            if (!this.userConfigFile.exists()) {
+        if (this.userConfigFile != null)
+        {
+            if (!this.userConfigFile.exists())
+            {
                 throw new BuildException("User list configuration file ["
                     + this.userConfigFile.getAbsolutePath()
                     + "] was not found. Please check location.");
             }
-            try {
+
+            try
+            {
                 this.userList.load(new FileInputStream(this.userConfigFile));
-            } catch (IOException e) {
+            }
+            catch (IOException e)
+            {
                 throw new BuildException(e);
             }
         }
@@ -359,36 +379,45 @@ public class ChangeLogTask extends Task implements ExecuteStreamHandler
      * empty one.
      *
      * @return true if internet access is on of false otherwise
+     * @exception BuildException if the test URL is invalid or if we fail to
+     *             write an empty changelog file if internet access is off
      */
     private boolean testInternetAccess() throws BuildException
     {
-        try {
+        try
+        {
             URL url = new URL(this.testURL);
-            HttpURLConnection connection =
+            HttpURLConnection connection = 
                 (HttpURLConnection) url.openConnection();
+
             connection.connect();
             connection.disconnect();
-        } catch (MalformedURLException e) {
+        }
+        catch (MalformedURLException e)
+        {
             throw new BuildException("Bad URL [" + this.testURL + "]");
-        } catch (IOException e) {
-
+        }
+        catch (IOException e)
+        {
             // Cannot contact server, we assume internet access is off. In
             // that case, we do nothing, meaning that if the output XML file
             // exist we don't touch it and if it does not exist we create an
             // empty one.
-            if (!this.outputFile.exists()) {
-
-                try {
+            if (!this.outputFile.exists())
+            {
+                try
+                {
                     this.output = new PrintWriter(new OutputStreamWriter(
                         new FileOutputStream(this.outputFile), "UTF-8"));
                     this.output.println("<changelog>");
                     this.output.println("</changelog>");
                     this.output.flush();
                     this.output.close();
-                } catch (IOException ee) {
+                }
+                catch (IOException ee)
+                {
                     throw new BuildException(ee);
                 }
-
             }
 
             return false;
@@ -398,20 +427,23 @@ public class ChangeLogTask extends Task implements ExecuteStreamHandler
     }
 
     /**
-     * Execute task
+     * @see Task#execute()
      */
     public void execute() throws BuildException
     {
-        if (this.cvsWorkingDirectory == null) {
+        if (this.cvsWorkingDirectory == null)
+        {
             throw new BuildException("The [workDir] attribute must be set");
         }
 
-        if (!this.cvsWorkingDirectory.exists()) {
+        if (!this.cvsWorkingDirectory.exists())
+        {
             throw new BuildException("Cannot find CVS working directory ["
                 + this.cvsWorkingDirectory.getAbsolutePath() + "]");
         }
 
-        if (this.outputFile == null) {
+        if (this.outputFile == null)
+        {
             throw new BuildException("The [output] attribute must be set");
         }
 
@@ -419,7 +451,8 @@ public class ChangeLogTask extends Task implements ExecuteStreamHandler
 
         // Verify if the computer has internet access by trying to connect to
         // a URL
-        if (!testInternetAccess()) {
+        if (!testInternetAccess())
+        {
             // If no internet access, do nothing.
             return;
         }
@@ -430,32 +463,42 @@ public class ChangeLogTask extends Task implements ExecuteStreamHandler
         toExecute.createArgument().setValue("log");
 
         // Check if a threshold date has been specified
-        if (this.thresholdDate != null) {
+        if (this.thresholdDate != null)
+        {
             toExecute.createArgument().setValue("-d\">="
                 + OUTPUT_DATE.format(this.thresholdDate) + "\"");
         }
 
         // Check if list of files to check has been specified
-        if (!this.filesets.isEmpty()) {
-
+        if (!this.filesets.isEmpty())
+        {
             Enumeration e = this.filesets.elements();
-            while (e.hasMoreElements()) {
+
+            while (e.hasMoreElements())
+            {
                 FileSet fs = (FileSet) e.nextElement();
                 DirectoryScanner ds = fs.getDirectoryScanner(project);
                 String[] srcFiles = ds.getIncludedFiles();
-                for (int i = 0; i < srcFiles.length; i++) {
+
+                for (int i = 0; i < srcFiles.length; i++)
+                {
                     toExecute.createArgument().setValue(srcFiles[i]);
                 }
             }
         }
 
         Execute exe = new Execute(this);
+
         exe.setCommandline(toExecute.getCommandline());
         exe.setAntRun(project);
         exe.setWorkingDirectory(this.cvsWorkingDirectory);
-        try {
+
+        try
+        {
             exe.execute();
-        } catch (IOException e) {
+        }
+        catch (IOException e)
+        {
             throw new BuildException(e);
         }
     }
@@ -467,7 +510,7 @@ public class ChangeLogTask extends Task implements ExecuteStreamHandler
      * @param theOs the output stream to write to the standard input stream of
      *              the subprocess (i.e. the CVS process)
      */
-    public void setProcessInputStream(OutputStream theOs) throws IOException
+    public void setProcessInputStream(OutputStream theOs)
     {
     }
 
@@ -477,6 +520,8 @@ public class ChangeLogTask extends Task implements ExecuteStreamHandler
      *
      * @param theIs the input stream to read from the error stream from the
      *              subprocess (i.e. the CVS process)
+     * @exception IOException on failure to create an input stream reader to
+     *             read the error stream from CVS
      */
     public void setProcessErrorStream(InputStream theIs) throws IOException
     {
@@ -488,6 +533,8 @@ public class ChangeLogTask extends Task implements ExecuteStreamHandler
      *
      * @param theIs the input stream to read from the output stream of the
      *              subprocess (i.e. the CVS process)
+     * @exception IOException on failure to create an input stream reader to
+     *             read the output stream from CVS
      */
     public void setProcessOutputStream(InputStream theIs) throws IOException
     {
@@ -503,6 +550,9 @@ public class ChangeLogTask extends Task implements ExecuteStreamHandler
 
     /**
      * Start reading from the cvs log stream.
+     * 
+     * @exception IOException on failure to write changelog information
+     *             to our XML output file
      */
     public void start() throws IOException
     {
@@ -518,99 +568,122 @@ public class ChangeLogTask extends Task implements ExecuteStreamHandler
 
         // Current state in the state machine used to parse the CVS log stream
         int status = GET_FILE;
+
         debug("State = GET_FILE");
 
         // RCS entries
         Hashtable entries = new Hashtable();
 
-        while ((line = this.input.readLine()) != null) {
-
+        while ((line = this.input.readLine()) != null)
+        {
             // Log to debug file if debug mode is on
             debug("Text: [" + line);
 
-            switch (status) {
+            switch (status)
+            {
+            case GET_FILE:
 
-                case GET_FILE:
-                    if (line.startsWith("Working file:")) {
-                        file = line.substring(14, line.length());
-                        status = GET_REVISION;
-                        debug("Next state = GET_REVISION");
+                if (line.startsWith("Working file:"))
+                {
+                    file = line.substring(14, line.length());
+                    status = GET_REVISION;
+                    debug("Next state = GET_REVISION");
+                }
+
+                break;
+
+            case GET_REVISION:
+
+                if (line.startsWith("revision"))
+                {
+                    revision = line.substring(9);
+                    status = GET_DATE;
+                    debug("Next state = GET_DATE");
+                }
+
+                // If we encounter a "=====" line, it means there is no
+                // more entries for the current file.
+                else if (line.startsWith("======"))
+                {
+                    status = GET_FILE;
+                    debug("Next state = GET_FILE");
+                }
+
+                break;
+
+            case GET_DATE:
+
+                if (line.startsWith("date:"))
+                {
+                    date = line.substring(6, 22);
+                    line = line.substring(line.indexOf(";") + 1);
+                    author = line.substring(10, line.indexOf(";"));
+
+                    if ((this.userList != null)
+                        && this.userList.containsKey(author))
+                    {
+                        author = "<![CDATA[" 
+                            + this.userList.getProperty(author) + "]]>";
                     }
-                    break;
 
-                case GET_REVISION:
-                    if (line.startsWith("revision")) {
-                        revision = line.substring(9);
-                        status = GET_DATE;
-                        debug("Next state = GET_DATE");
-                    }
+                    status = GET_COMMENT;
+                    debug("Next state = GET_COMMENT");
+                }
 
-                    // If we encounter a "=====" line, it means there is no
-                    // more entries for the current file.
-                    else if (line.startsWith("======")) {
-                        status = GET_FILE;
-                        debug("Next state = GET_FILE");
-                    }
-                    break;
+                break;
 
-                case GET_DATE:
-                    if (line.startsWith("date:")) {
-                        date = line.substring(6, 22);
-                        line = line.substring(line.indexOf(";") + 1);
-                        author = line.substring(10, line.indexOf(";"));
+            case GET_COMMENT:
+                comment = "";
 
-                        if ((this.userList != null) &&
-                            this.userList.containsKey(author)) {
+                while ((line != null) && !line.startsWith("======")
+                    && !line.startsWith("------"))
+                {
+                    comment += (line + "\n");
+                    line = this.input.readLine();
 
-                            author = "<![CDATA["
-                                + this.userList.getProperty(author) + "]]>";
-                        }
+                    debug("Text: [" + line);
+                }
 
-                        status = GET_COMMENT;
-                        debug("Next state = GET_COMMENT");
-                    }
-                    break;
+                comment = "<![CDATA["
+                          + comment.substring(0, comment.length() - 1) + "]]>";
 
-                case GET_COMMENT:
-                    comment = "";
-                    while (line != null && !line.startsWith("======") &&
-                        !line.startsWith("------")) {
+                // Add the entry to the list of entries
+                Entry entry;
 
-                        comment += line + "\n";
-                        line = this.input.readLine();
+                if (!entries.containsKey(date + author + comment))
+                {
+                    entry = new Entry(date, author, comment);
+                    entries.put(date + author + comment, entry);
+                }
+                else
+                {
+                    entry = (Entry) entries.get(date + author + comment);
+                }
 
-                        debug("Text: [" + line);
-                    }
-                    comment = "<![CDATA["
-                        + comment.substring(0, comment.length() - 1) + "]]>";
+                entry.addFile(file, revision);
 
-                    // Add the entry to the list of entries
-                    Entry entry;
-                    if (!entries.containsKey(date + author + comment)) {
-                        entry = new Entry(date, author, comment);
-                        entries.put(date + author + comment, entry);
-                    } else {
-                        entry = (Entry) entries.get(date + author + comment);
-                    }
-                    entry.addFile(file, revision);
+                // Continue reading the other revisions or skip to next file
+                if (line.startsWith("======"))
+                {
+                    status = GET_FILE;
+                    debug("Next state = GET_FILE");
+                }
+                else
+                {
+                    status = GET_REVISION;
+                    debug("Next state = GET_REVISION");
+                }
 
-                    // Continue reading the other revisions or skip to next file
-                    if (line.startsWith("======")) {
-                        status = GET_FILE;
-                        debug("Next state = GET_FILE");
-                    } else {
-                        status = GET_REVISION;
-                        debug("Next state = GET_REVISION");
-                    }
-                    break;
-
+                break;
             }
 
             // Read the error stream so that it does not block !
             // We cannot use a BufferedReader as the ready() method is bugged!
             // (see Bug 4329985, which is supposed to be fixed in JDK 1.4 :
-            // http://developer.java.sun.com/developer/bugParade/bugs/4329985.html)
-            while (this.errorInput.ready()) {
+            // http://developer.java.sun.com/developer/bugParade/bugs/
+            // 4329985.html)
+            while (this.errorInput.ready())
+            {
                 this.errorInput.read();
             }
         }
@@ -618,10 +691,14 @@ public class ChangeLogTask extends Task implements ExecuteStreamHandler
         debug("Preparing to write changelog file");
 
         this.output.println("<changelog>");
+
         Enumeration en = entries.elements();
-        while (en.hasMoreElements()) {
+
+        while (en.hasMoreElements())
+        {
             ((Entry) en.nextElement()).print();
         }
+
         this.output.println("</changelog>");
         this.output.flush();
         this.output.close();
@@ -634,7 +711,8 @@ public class ChangeLogTask extends Task implements ExecuteStreamHandler
      */
     private void debug(String theMessage)
     {
-        if (this.debug != null) {
+        if (this.debug != null)
+        {
             this.debug.println(theMessage);
         }
     }
@@ -673,11 +751,15 @@ public class ChangeLogTask extends Task implements ExecuteStreamHandler
          */
         public Entry(String theDate, String theAuthor, String theComment)
         {
-            try {
+            try
+            {
                 this.date = FULL_INPUT_DATE.parse(theDate);
-            } catch (ParseException e) {
+            }
+            catch (ParseException e)
+            {
                 log("Bad date format [" + theDate + "].");
             }
+
             this.author = theAuthor;
             this.comment = theComment;
         }
@@ -690,7 +772,7 @@ public class ChangeLogTask extends Task implements ExecuteStreamHandler
         public String toString()
         {
             return this.author + "\n" + this.date + "\n" + this.files + "\n"
-                + this.comment;
+                   + this.comment;
         }
 
         public void print()
@@ -703,14 +785,18 @@ public class ChangeLogTask extends Task implements ExecuteStreamHandler
             output.println("\t\t<author>" + this.author + "</author>");
 
             Enumeration e = this.files.elements();
-            while (e.hasMoreElements()) {
+
+            while (e.hasMoreElements())
+            {
                 RCSFile file = (RCSFile) e.nextElement();
+
                 output.println("\t\t<file>");
                 output.println("\t\t\t<name>" + file.getName() + "</name>");
                 output.println("\t\t\t<revision>" + file.getRevision()
                     + "</revision>");
                 output.println("\t\t</file>");
             }
+
             output.println("\t\t<msg>" + this.comment + "</msg>");
             output.println("\t</entry>");
         }
@@ -718,7 +804,6 @@ public class ChangeLogTask extends Task implements ExecuteStreamHandler
         private class RCSFile
         {
             private String name;
-
             private String revision;
 
             private RCSFile(String theName, String theRevision)
@@ -738,5 +823,4 @@ public class ChangeLogTask extends Task implements ExecuteStreamHandler
             }
         }
     }
-
 }
