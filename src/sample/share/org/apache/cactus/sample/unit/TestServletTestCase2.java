@@ -482,4 +482,40 @@ public class TestServletTestCase2 extends ServletTestCase
             logs.contains("some test log"));
     }
 
+    //-------------------------------------------------------------------------
+
+    /**
+     * Verify that we can assert HTTP status code when it is an error
+     * status code (> 400).
+     *
+     * Note: HttpURLConnection will return a FileNotFoundException if the
+     * status code is > 400 and the request does not end with a "/" ! In
+     * order to prevent, this ensure the Servlet Redirector URL in
+     * cactus.properties does end with a "/" and modify the servlet mapping
+     * in web.xml to include the trailing slash.
+     */
+    public void testStatusCode()
+    {
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+    }
+
+    /**
+     * Verify that we can assert HTTP status code when it is an error
+     * status code (> 400).
+     *
+     * Note: HttpURLConnection will return a FileNotFoundException if the
+     * status code is > 400 and the request does not end with a "/" ! In
+     * order to prevent, this ensure the Servlet Redirector URL in
+     * cactus.properties does end with a "/" and modify the servlet mapping
+     * in web.xml to include the trailing slash.
+     *
+     * @param theResponse the response from the server side.
+     */
+    public void endStatusCode(WebResponse theResponse)
+        throws IOException
+    {
+        assertEquals(HttpServletResponse.SC_UNAUTHORIZED,
+            theResponse.getConnection().getResponseCode());
+    }
+
 }
