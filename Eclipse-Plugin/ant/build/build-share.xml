@@ -66,10 +66,9 @@
     -->
     <target name="clean" depends="init" description="Clean target directory">
 	    <delete includeEmptyDirs="true">
-		    <fileset dir="${target.dir}">
+		    <fileset dir="${target.test.dir}">
 		    </fileset>
 	    </delete>
-	    <mkdir dir="${target.dir}"/>
     </target>
 
 	<target name="checkwindows">
