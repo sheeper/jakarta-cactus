@@ -234,22 +234,22 @@
   <xsl:template match="menu//item">
 
     <xsl:variable name="curid" select="@id"/>
-    <xsl:variable name="cursite" select="$sitemap//resource[@id=$curid]"/>
+    <xsl:variable name="cursite" select="$sitemap//*[@id=$curid]"/>
 
     <xsl:variable name="level" select="count(ancestor::item)+1"/>
 
     <xsl:choose>
-      <xsl:when test="$cursite/@href">
+      <xsl:when test="name($cursite) = 'external'">
         <div id="menu">
           <font size="-{$level}">
-            <a href="{$cursite/@href}" target="{@id}">
+            <a href="{$cursite/@url}" target="{@id}">
               <xsl:value-of select="@label"/>
             </a>
           </font>
           <xsl:apply-templates/>
         </div>
       </xsl:when>
-      <xsl:when test="$cursite/@target">
+      <xsl:when test="name($cursite) = 'resource'">
         <div id="menu">
           <a>
             <xsl:attribute name="href">
