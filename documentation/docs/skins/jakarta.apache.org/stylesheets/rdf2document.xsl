@@ -45,6 +45,10 @@
         <section title="Archives">
           <ul>
             <li>
+              <link href="site:news_archives_2003">2003 news 
+                archives</link>
+            </li>
+            <li>
               <link href="site:news_archives_2002">2002 news 
                 archives</link>
             </li>

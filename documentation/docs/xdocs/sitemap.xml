@@ -347,6 +347,11 @@
     Past Cactus news that happened in 2002.
   </resource>
 
+  <resource id="news_archives_2003" target="news-2003.html" 
+      name="2003 news archives">
+    Past Cactus news that happened in 2003.
+  </resource>
+
   <resource id="news_rdf" target="news.rdf" name="RSS News">
     All the recent Cactus news as a RDF feed so that you always
     keep up to date!
