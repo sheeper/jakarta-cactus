@@ -48,6 +48,47 @@
 
   <!--
      ========================================================================
+       Build the Cactus Eclipse Webapp Integration
+     ========================================================================
+  -->
+  <project name="jakarta-cactus-integration-eclipse-webapp">
+
+    <ant buildfile="integration/eclipse/org.apache.cactus.eclipse.webapp/build.xml" 
+      target="release">
+
+      <property name="project.version" value="@@DATE@@"/>
+
+      <depend property="cactus.anttasks.jar" project="jakarta-cactus-anttasks"/>
+      <depend property="eclipse.core.boot.jar" project="eclipse" id="boot"/>
+      <depend property="eclipse.core.resources.jar" project="eclipse" id="resources"/>
+      <depend property="eclipse.core.runtime.jar" project="eclipse" id="runtime"/>
+      <depend property="eclipse.jdt.core.jar" project="eclipse" id="jdtcore"/>
+      <depend property="eclipse.jdt.ui.jar" project="eclipse" id="jdtui"/>
+      <depend property="eclipse.swt.jar" project="eclipse" id="swt"/>
+      <depend property="eclipse.jface.jar" project="eclipse" id="jface"/>
+      <depend property="eclipse.ui.workbench.jar" project="eclipse" id="workbench"/>
+      
+    </ant>
+  
+    <depend project="ant" inherit="runtime"/>
+    <depend project="xml-xerces"/>
+
+    <home nested="integration/eclipse/org.apache.cactus.eclipse.webapp/dist"/>
+    <jar name="bin/cactus-integration-eclipse-webapp/webapp.jar"/>
+
+    <deliver fromdir="integration/eclipse/org.apache.cactus.eclipse.webapp/release" 
+      tosite="jakarta.apache.org"
+      todir="builds/jakarta-cactus/nightly/@@DATE@@/" />
+
+    <license name="LICENSE.cactus"/>
+
+    <nag from="Vincent Massol &lt;vmassol@apache.org&gt;"
+      to="cactus-dev@jakarta.apache.org"/>
+
+  </project>  
+
+  <!--
+     ========================================================================
        Build the Cactus Framework for J2EE 1.2
      ========================================================================
   -->
@@ -230,55 +271,18 @@
 
   </project>
 
-
-  <!--
-     ========================================================================
-       Build the Cactus Eclipse Webapp Integration
-     ========================================================================
-  -->
-
-  <project name="jakarta-cactus-integration-eclipse-webapp">
-
-    <ant buildfile="integration/eclipse/org.apache.cactus.eclipse.webapp/build.xml" target="release">
-
-      <property name="project.version" value="@@DATE@@"/>
-
-      <depend property="cactus.anttasks.jar" project="jakarta-cactus-anttasks"/>
-      <depend property="eclipse.core.boot.jar" project="eclipse" id="boot"/>
-      <depend property="eclipse.core.resources.jar" project="eclipse" id="resources"/>
-      <depend property="eclipse.core.runtime.jar" project="eclipse" id="runtime"/>
-      <depend property="eclipse.jdt.core.jar" project="eclipse" id="jdtcore"/>
-      <depend property="eclipse.jdt.ui.jar" project="eclipse" id="jdtui"/>
-      <depend property="eclipse.swt.jar" project="eclipse" id="swt"/>
-      <depend property="eclipse.jface.jar" project="eclipse" id="jface"/>
-      <depend property="eclipse.ui.workbench.jar" project="eclipse" id="workbench"/>
-      
-    </ant>
-  
-    <depend project="ant" inherit="runtime"/>
-    <depend project="xml-xerces"/>
-
-    <home nested="integration/eclipse/org.apache.cactus.eclipse.webapp/dist"/>
-    <jar name="bin/cactus-integration-eclipse-webapp/webapp.jar"/>
-
-    <license name="LICENSE.cactus"/>
-
-    <nag from="Vincent Massol &lt;vmassol@apache.org&gt;"
-      to="cactus-dev@jakarta.apache.org"/>
-
-  </project>  
-
   <!--
      ========================================================================
        Build the Cactus Eclipse Runner Integration for J2EE 1.2
      ========================================================================
   -->
-
   <project name="jakarta-cactus-integration-eclipse-runner-12">
 
-    <ant buildfile="integration/eclipse/org.apache.cactus.eclipse.runner/build.xml" target="release">
+    <ant buildfile="integration/eclipse/org.apache.cactus.eclipse.runner/build.xml" 
+      target="release">
 
       <property name="project.version" value="@@DATE@@"/>
+
       <depend property="cactus.anttasks.jar" project="jakarta-cactus-anttasks"/>
       <depend property="j2ee.jar" project="jakarta-servletapi"/>
       <depend property="eclipse.ant.core.jar" project="eclipse" id="antsupport"/>
@@ -302,7 +306,6 @@
     <depend project="jakarta-cactus-integration-ant-12"/>
     <depend project="jakarta-cactus-integration-eclipse-webapp"/>
     
-
     <home nested="integration/eclipse/org.apache.cactus.eclipse.runner/dist-12"/>
     <jar name="bin/cactus-integration-eclipse-runner/cactussupport.jar"/>
 
@@ -318,10 +321,10 @@
        Build the Cactus Eclipse Runner Integration for J2EE 1.3
      ========================================================================
   -->
-
   <project name="jakarta-cactus-integration-eclipse-runner-13">
 
-    <ant buildfile="integration/eclipse/org.apache.cactus.eclipse.runner/build.xml" target="release">
+    <ant buildfile="integration/eclipse/org.apache.cactus.eclipse.runner/build.xml" 
+      target="release">
 
       <property name="project.version" value="@@DATE@@"/>
 
@@ -544,7 +547,6 @@
     <depend project="jakarta-cactus-sample-servlet-12"/>
     <depend project="jakarta-cactus-integration-ant-12"/>
     <depend project="jakarta-cactus-integration-eclipse-runner-12"/>
-    <depend project="jakarta-cactus-integration-eclipse-webapp"/>
 
     <deliver fromdir="framework/release-12" tosite="jakarta.apache.org"
       todir="builds/jakarta-cactus/nightly/@@DATE@@/" />
@@ -553,10 +555,6 @@
       todir="builds/jakarta-cactus/nightly/@@DATE@@/" />
 
     <deliver fromdir="integration/eclipse/org.apache.cactus.eclipse.runner/release-12" 
-      tosite="jakarta.apache.org" 
-      todir="builds/jakarta-cactus/nightly/@@DATE@@/" />
-
-    <deliver fromdir="integration/eclipse/org.apache.cactus.eclipse.webapp/release-12" 
       tosite="jakarta.apache.org" 
       todir="builds/jakarta-cactus/nightly/@@DATE@@/" />
 
@@ -577,7 +575,6 @@
     <depend project="jakarta-cactus-sample-servlet-13"/>
     <depend project="jakarta-cactus-integration-ant-13"/>
     <depend project="jakarta-cactus-integration-eclipse-runner-13"/>
-    <depend project="jakarta-cactus-integration-eclipse-webapp"/>
     
     <deliver fromdir="framework/release-13" tosite="jakarta.apache.org"
       todir="builds/jakarta-cactus/nightly/@@DATE@@/" />
@@ -586,10 +583,6 @@
       todir="builds/jakarta-cactus/nightly/@@DATE@@/" />
 
     <deliver fromdir="integration/eclipse/org.apache.cactus.eclipse.runner/release-13" 
-      tosite="jakarta.apache.org" 
-      todir="builds/jakarta-cactus/nightly/@@DATE@@/" />
-
-    <deliver fromdir="integration/eclipse/org.apache.cactus.eclipse.webapp/release-13" 
       tosite="jakarta.apache.org" 
       todir="builds/jakarta-cactus/nightly/@@DATE@@/" />
 
