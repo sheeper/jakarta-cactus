@@ -49,6 +49,20 @@
                extension="class">
          </fileExtension>
       </launchConfigurationType>
+      <launchConfigurationType
+            name="%Launch.jetty.label"
+            delegate="org.apache.cactus.eclipse.runner.launcher.JettyCactusLaunchConfiguration"
+            modes="run, debug"
+            id="org.apache.cactus.eclipse.runner.launchconfig.jetty">
+         <fileExtension
+               default="false"
+               extension="java">
+         </fileExtension>
+         <fileExtension
+               default="false"
+               extension="class">
+         </fileExtension>
+      </launchConfigurationType>
    </extension>
 <!-- Registers the Cactus launch shortcut (runs a launch configuration
     on a selected class in the workbench) -->
@@ -83,6 +97,11 @@
             configTypeID="org.apache.cactus.eclipse.runner.launchconfig"
             id="org.apache.cactus.eclipse.runner.launchimage">
       </launchConfigurationTypeImage>
+      <launchConfigurationTypeImage
+            icon="icons/calaunch.gif"
+            configTypeID="org.apache.cactus.eclipse.runner.launchconfig.jetty"
+            id="org.apache.cactus.eclipse.runner.launchimage.jetty">
+      </launchConfigurationTypeImage>
    </extension>
 <!-- Registers the JUnit Tab groups for the Cactus plugin (in the future
     Cactus will have its own TabGroup) -->
@@ -90,6 +109,11 @@
          point="org.eclipse.debug.ui.launchConfigurationTabGroups">
       <launchConfigurationTabGroup
             type="org.apache.cactus.eclipse.runner.launchconfig"
+            class="org.eclipse.jdt.internal.junit.launcher.JUnitTabGroup"
+            id="org.apache.cactus.eclipse.runner.launchConfigurationTabGroup.junit">
+      </launchConfigurationTabGroup>
+      <launchConfigurationTabGroup
+            type="org.apache.cactus.eclipse.runner.launchconfig.jetty"
             class="org.eclipse.jdt.internal.junit.launcher.JUnitTabGroup"
             id="org.apache.cactus.eclipse.runner.launchConfigurationTabGroup.junit">
       </launchConfigurationTabGroup>
