@@ -8,6 +8,11 @@
   <body>
 
     <release version="1.6dev" date="in CVS">
+      <action dev="vmassol" type="update" due-to="Peter Bright" due-to-email="Peter.Bright@orbian.com">
+        Removed explicit dependencies on EAR and WAR plugins so that users are
+        free to install the versions they want to work with. As it was, we were
+        forcing them to use a specific version, which is bad.
+      </action>
       <action dev="vmassol" type="add">
         The <code>cactus:test</code> can now also be used to run tests packaged
         in an EAR. However the <code>cactus.is.ear</code> property needs
