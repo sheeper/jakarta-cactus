@@ -38,9 +38,8 @@
     &common;
 
     <!-- Global project properties -->
-    <property name="project.name.text" value="Cactus Eclipse Integration"/>
-    <property name="project.name.file"
-        value="cactus-integration-eclipse-runner"/>
+    <property name="project.name.text" value="Cactus Eclipse Runner Plug-in"/>
+    <property name="project.name.file" value="cactus-eclipse-runner"/>
 
     <!--
        ========================================================================
@@ -239,8 +238,8 @@ be resolved. Please check you build.properties file, and run Ant with the
     <target name="dist" depends="checkstyle,jar"
       description="Generate the distributable files">
 
-        <mkdir dir="${dist.dir}"/>
-        <copy todir="${dist.dir}">
+        <mkdir dir="${dist.bin.dir}"/>
+        <copy todir="${dist.bin.dir}">
             <fileset dir="${target.dir}">
                 <include name="${cactus.eclipse.runner.jar.name}"/>
                 <include name="${cactus.eclipse.runner.src.zip.name}"/>
@@ -255,15 +254,15 @@ be resolved. Please check you build.properties file, and run Ant with the
         </copy>
 
         <!-- Copy the configuration files -->
-        <mkdir dir="${dist.dir}/conf"/>
-		<copy todir="${dist.dir}/conf">
+        <mkdir dir="${dist.bin.dir}/conf"/>
+		<copy todir="${dist.bin.dir}/conf">
 			<fileset dir="${src.conf.dir}/share"/>
 			<fileset dir="${src.conf.dir}/j2ee${j2ee.api}"/>
             <fileset file="${cactus.framework.web}/jspRedirector.jsp"/>
 		</copy>
 
 		<!-- Copy the Ant build files -->
-        <mkdir dir="${dist.dir}/script"/>
+        <mkdir dir="${dist.bin.dir}/script"/>
         <filter token="cactus.jar.name" value="${cactus.jar.name}.jar"/>
         <filter token="cactus.ant.jar.name" value="${cactus.ant.jar.name}.jar"/>
 		<basename property="log4j.jar.name" file="${log4j.jar}"/>
@@ -288,23 +287,23 @@ be resolved. Please check you build.properties file, and run Ant with the
         <filter token="xerces.jar.name" value="${xerces.jar.name}"/>
 		<basename property="xmlapis.jar.name" file="${xmlapis.jar}"/>
         <filter token="xmlapis.jar.name" value="${xmlapis.jar.name}"/>
-		<copy todir="${dist.dir}/script" filtering="on">
+		<copy todir="${dist.bin.dir}/script" filtering="on">
 			<fileset dir="${src.script.dir}/share"/>
 			<fileset dir="${src.script.dir}/j2ee${j2ee.api}"/>
 		</copy>
 
         <!-- Copy the required libraries -->
-        <mkdir dir="${dist.dir}/lib"/>
-        <copy todir="${dist.dir}/lib" file="${jetty.jar}"/>
-        <mkdir dir="${dist.dir}/lib/client"/>
-        <copy todir="${dist.dir}/lib/client">
+        <mkdir dir="${dist.bin.dir}/lib"/>
+        <copy todir="${dist.bin.dir}/lib" file="${jetty.jar}"/>
+        <mkdir dir="${dist.bin.dir}/lib/client"/>
+        <copy todir="${dist.bin.dir}/lib/client">
             <fileset file="${cactus.ant.jar}"/>
             <fileset file="${commons.httpclient.jar}"/>
             <fileset file="${j2ee.jar}"/>
             <fileset file="${nekohtml.jar}"/>
         </copy>
-        <mkdir dir="${dist.dir}/lib/common"/>
-        <copy todir="${dist.dir}/lib/common">
+        <mkdir dir="${dist.bin.dir}/lib/common"/>
+        <copy todir="${dist.bin.dir}/lib/common">
             <fileset file="${aspectjrt.jar}"/>
             <fileset file="${cactus.jar}"/>
             <fileset file="${commons.logging.jar}"/>
@@ -312,10 +311,10 @@ be resolved. Please check you build.properties file, and run Ant with the
             <fileset file="${httpunit.jar}"/>
             <fileset file="${junit.jar}"/>
         </copy>
-        <mkdir dir="${dist.dir}/lib/server"/>
+        <mkdir dir="${dist.bin.dir}/lib/server"/>
 		<!-- The directory needs a file because it is otherwise pruned by the 
 		     Eclipse update feature -->
-		<touch file="${dist.dir}/lib/server/KEEPIT"/>
+		<touch file="${dist.bin.dir}/lib/server/KEEPIT"/>
 
     </target>
 
@@ -358,7 +357,7 @@ be resolved. Please check you build.properties file, and run Ant with the
         <mkdir dir="${release.dir}"/>
 
         <zip destfile="${release.dir}/${main.release.name}.zip">
-            <zipfileset dir="${dist.dir}"
+            <zipfileset dir="${dist.bin.dir}"
                 prefix="org.apache.cactus.eclipse.runner_${project.version}">
             </zipfileset>
         </zip>
