@@ -171,11 +171,6 @@ public abstract class AbstractTestCase extends TestCase
     }
 
     /**
-     * Check client side configuration.
-     */
-    protected abstract void checkConfiguration();
-
-    /**
      * Runs the bare test sequence. This method is overridden from the
      * JUnit <code>TestCase</code> class in order to prevent the latter
      * to call the <code>setUp()</code> and <code>tearDown()</code> methods
@@ -187,9 +182,6 @@ public abstract class AbstractTestCase extends TestCase
      */
     public void runBare() throws Throwable
     {
-        // Run some configuration checks
-        checkConfiguration();
-
         // We make sure we reinitialize The logger with the name of the
         // current class (that's why the logged instance is not static).
         this.logger =

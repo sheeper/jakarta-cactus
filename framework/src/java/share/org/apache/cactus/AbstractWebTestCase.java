@@ -63,7 +63,6 @@ import java.net.HttpURLConnection;
 import java.net.URLConnection;
 
 import org.apache.cactus.client.AbstractHttpClient;
-import org.apache.cactus.client.ClientConfigurationChecker;
 import org.apache.cactus.util.ChainedRuntimeException;
 
 /**
@@ -217,16 +216,6 @@ public abstract class AbstractWebTestCase extends AbstractTestCase
         }
 
         return webResponse;
-    }
-
-    /**
-     * @see AbstractTestCase#checkConfiguration()
-     */
-    protected void checkConfiguration()
-    {
-        ClientConfigurationChecker.getInstance().checkCactusProperties();
-        ClientConfigurationChecker.getInstance().checkHttpClient();
-        ClientConfigurationChecker.getInstance().checkLog4j();
     }
 
     /**
