@@ -259,7 +259,8 @@ public class JBoss3xContainer extends AbstractJavaContainer
         
         if (this.version.startsWith("3.2"))
         {
-        	java.createArg().setValue("--server=localhost:" + this.getJndiPort());
+            java.createArg().setValue("--server=localhost:" 
+                + this.getJndiPort());
             java.createArg().setValue("--shutdown");
         }
         else
