@@ -4,4 +4,25 @@
   "file:../../dtds/navigation-v10.dtd">
 
 <navigation title="Writing Tests" index="howto_testcase">
+
+  <menu label="Writing Tests">
+    <item id="howto_testcase" label="General Principles"/>
+    <item id="howto_testcase_servlet" label="Testing Servlets"/>
+    <item id="howto_testcase_filter" label="Testing Filters"/>
+    <item id="howto_jsp" label="Testing JSP Pages"/>
+    <item id="howto_testcase_jsp" label="Testing Taglibs"/>
+    <item id="howto_ejb" label="Testing EJBs"/>
+  </menu>
+
+  <menu label="Advanced Topics">
+    <item id="howto_httpunit" label="Integrating HttpUnit"/>
+    <item id="howto_security" label="Using Authentication"/>
+    <item id="howto_initializer" label="Using Initializers"/>
+  </menu>
+
+  <menu label="Reference">
+    <item id="javadoc_framework_12" label="Javadocs (J2EE 1.2)"/>
+    <item id="javadoc_framework_13" label="Javadocs (J2EE 1.3)"/>
+  </menu>
+
 </navigation>
