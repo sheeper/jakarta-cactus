@@ -53,6 +53,8 @@
 	    <property name="target.classes.dir" value="${target.dir}/classes"/>
 	    <property name="target.classes.java.dir"
 	        value="${target.classes.dir}/java"/>
+        <property name="target.classes.clover.dir"
+            value="${target.classes.dir}/clover"/>
 	    <property name="target.classes.test.dir"
 	        value="${target.classes.dir}/test"/>
 	    <property name="target.doc.dir" value="${target.dir}/doc"/>
@@ -107,6 +109,11 @@
             <property name="tidy.jar" isfile="true"/>
         </checkProperty>
 
+        <path id="project.classpath">
+            <pathelement location="${commons.logging.jar}"/>
+            <pathelement path="${java.class.path}"/>
+        </path>
+
     </target>
 
     <!--
@@ -115,7 +122,10 @@
        ========================================================================
     -->
     <target name="init"
-        depends="init.common,properties,check.properties">
+        depends="init.common,properties,check.properties,init.clover">
+
+        <echo>clover.enable (optional) = ${clover.enable}</echo>
+
     </target>
 
     <!--
@@ -144,12 +154,10 @@
         </copy>
 
         <javac srcdir="${src.java.dir}" destdir="${target.classes.java.dir}"
-          deprecation="${deprecation}" optimize="${optimize}" 
-          debug="${debug}">
+            deprecation="${deprecation}" optimize="${optimize}" 
+            debug="${debug}">
 
-          <classpath>
-            <pathelement location="${commons.logging.jar}"/>
-          </classpath>
+            <classpath refid="project.classpath"/>
 
         </javac>
 
@@ -164,15 +172,41 @@
           debug="${debug}">
 
             <classpath>
-                <path path="${target.classes.java.dir}"/>
-                <pathelement location="${commons.logging.jar}"/>
+                <path refid="project.classpath"/>
+                <pathelement location="${target.classes.java.dir}"/>
             </classpath>
 
         </javac>
 
     </target>
 
-    <target name="compile" depends="compile.main, compile.test"
+    <target name="compile.clover"
+        depends="init, init.clover"
+        if="clover.enable">
+
+        <clover-setup initstring="${clover.initstring}" enabled="yes">
+            <files>
+                <exclude name="**/Test*.*"/>
+                <exclude name="**/Mock*.*"/>
+            </files>
+        </clover-setup>
+
+        <mkdir dir="${target.classes.clover.dir}"/>
+
+        <javac destdir="${target.classes.clover.dir}"
+            deprecation="${deprecation}" optimize="${optimize}">
+            <src path="${src.java.dir}"/>
+            <exclude name="**/package.html"/>
+            <exclude name="**/overview.html"/>
+            <classpath refid="project.classpath"/>
+        </javac>
+
+        <!-- Disable Clover for subsequent compilations -->
+        <clover-setup initstring="${clover.initstring}" enabled="no"/>
+
+    </target>
+
+    <target name="compile" depends="compile.main, compile.test, compile.clover"
         description="Compile the sources"/>
 
     <!--
@@ -180,7 +214,30 @@
          Runs the unit tests
        ========================================================================
     -->
-    <target name="test" depends="compile.test"
+    <target name="test.clover.prepare" depends="compile.test, compile.clover"
+        if="clover.enable">
+
+        <path id="test.classpath">
+            <path refid="project.classpath"/>
+            <pathelement path="${clover.jar}"/>
+            <pathelement path="${target.classes.clover.dir}"/>
+            <pathelement path="${target.classes.test.dir}"/>
+        </path>
+
+    </target>
+
+    <target name="test.main.prepare" depends="compile.test" 
+        unless="clover.enable">
+
+        <path id="test.classpath">
+            <path refid="project.classpath"/>
+            <pathelement path="${target.classes.java.dir}"/>
+            <pathelement path="${target.classes.test.dir}"/>
+        </path>
+
+    </target>
+
+    <target name="test" depends="test.clover.prepare, test.main.prepare"
         description="Runs the unit tests">
 
         <mkdir dir="${target.testinput.dir}"/>
@@ -194,11 +251,7 @@
 
             <sysproperty key="testinput.dir" file="${target.testinput.dir}"/>
 
-            <classpath>
-                <pathelement path="${commons.logging.jar}"/>
-                <pathelement path="${target.classes.java.dir}"/>
-                <pathelement path="${target.classes.test.dir}"/>
-            </classpath>
+            <classpath refid="test.classpath"/>
 
             <formatter type="brief" usefile="false"/>
 

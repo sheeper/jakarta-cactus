@@ -73,3 +73,9 @@ checkstyle.jar = ${lib.repo}/checkstyle/jars/checkstyle-3.0.jar
 commons.beanutils.jar = ${lib.repo}/commons-beanutils/jars/commons-beanutils-1.6.1.jar
 commons.collections.jar = ${lib.repo}/commons-collections/jars/commons-collections-2.1.jar
 regexp.jar = ${lib.repo}/regexp/jars/regexp-1.2.jar
+
+# Should we instrument our code with Clover (test coverage tool) ?
+# For this to work, the clover.jar needs to be in ANTHOME/lib.
+# Comment out to disable Clover (setting the property to false will have no
+# effect).
+#clover.enable = true
