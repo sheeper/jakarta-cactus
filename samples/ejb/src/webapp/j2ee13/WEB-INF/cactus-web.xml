@@ -11,11 +11,4 @@
          to edit this file if you want to change these defaults or 
          add other definitions required for Cactus testing. -->
 
-    <ejb-ref>
-        <ejb-ref-name>ejb/Converter</ejb-ref-name>
-        <ejb-ref-type>Session</ejb-ref-type>
-        <home>org.apache.cactus.sample.ejb.ConverterHome</home>
-        <remote>org.apache.cactus.sample.ejb.Converter</remote>
-    </ejb-ref>
-
 </web-app>
