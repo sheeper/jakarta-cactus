@@ -47,109 +47,88 @@
 
     </section>
 
-    <section title="Source code contributors">
+    <section title="Contributors">
 
+      <p>By alphabetical order on the last name:</p>
       <ul>
-        <li>
-          <link href="mailto:vmassol@apache.org">Vincent
-          Massol</link>
-        </li>
         <li>
           <link href="mailto:paston@bea.com">Philip Aston</link>
-        </li>
-        <li>
-          <link href="mailto:Bob.Davison@reuters.com">Bob Davison</link>
-        </li>
-        <li>
-          <link href="mailto:digital@ix.net.au">Robert Leftwich</link>
-        </li>
-        <li>
-          <link href="mailto:jariw@hyperlink-interactive.co.uk">Jari
-          Worsley</link>
-        </li>
-        <li>
-          <link href="mailto:ndlesiecki@apache.org">Nicholas Lesiecki</link>
-        </li>
-        <li>
-          <link href="mailto:hudsoncwwong@yahoo.com">Hudson Wong</link>
-        </li>
-        <li>
-          <link href="mailto:Jason.Robertson@acs-inc.com">Jason Robertson</link>
-        </li>
-        <li>
-          <link href="mailto:pwong@sct.com">Peter Wong</link>
-        </li>
-        <li>
-          <link href="mailto:cmlenz@gmx.de">Christopher Lenz</link>
-        </li>
-        <li>
-          <link href="mailto:jruaux@octo.com">Julien Ruaux</link>
-        </li>
-        <li>
-          <link href="mailto:ahasegawa@borland.com">Atsushi Hasegawa</link>
-        </li>
-        <li>
-          <link href="mailto:jgrelier@octo.com">Jerome Grelier</link>
-        </li>
-        <li>
-          <link href="mailto:julien@julien-dubois.com">Julien Dubois</link>
-        </li>
-        <li>
-          <link href="mailto:suguri.kazuhito@lab.ntt.co.jp">Kazuhito Suguri</link>
-        </li>
-        <li>
-          <link href="mailto:felipeal@apache.org">Felipe Leme</link>
-        </li>
-      </ul>
-
-    </section>
-
-    <section title="Documentation contributors">
-
-      <ul>
-        <li>
-          <link href="mailto:vmassol@apache.org">Vincent
-          Massol</link>
         </li>
         <li>
           <link href="mailto:cchabanois@ifrance.com">Cedric Chabanois</link>
         </li>
         <li>
+          <link href="mailto:nicolas.chalumeau@gmail.com">Nicolas Chalumeau</link>
+        </li>
+        <li>
+          <link href="mailto:Bob.Davison@reuters.com">Bob Davison</link>
+        </li>
+        <li>
+          <link href="mailto:julien@julien-dubois.com">Julien Dubois</link>
+        </li>
+        <li>
           <link href="mailto:andrew.forman@wcom.com">Andrew B Forman</link>
+        </li>
+        <li>
+          <link href="mailto:jgrelier@octo.com">Jerome Grelier</link>
+        </li>
+        <li>
+          <link href="mailto:magnus.grimsell@idainfront.se">Magnus Grimsell</link>
+        </li>
+        <li>
+          <link href="mailto:ahasegawa@borland.com">Atsushi Hasegawa</link>
         </li>
         <li>
           <link href="mailto:Todd_Idler@jdedwards.com">Todd Idler</link>
         </li>
         <li>
-          <link href="mailto:Kunal_Vaishnav@jdedwards.com">Kunal
-          Vaishnav</link>
-        </li>
-        <li>
-          <link href="mailto:ndlesiecki@yahoo.com">Nicholas Lesiecki</link>
-        </li>
-        <li>
-          <link href="mailto:hudsoncwwong@yahoo.com">Hudson Wong</link>
-        </li>
-        <li>
           <link href="mailto:kaarle.kaila@iki.fi">Kaarle Kaila</link>
         </li>
         <li>
-          <link href="mailto:sean.zhang@verizon.com">Sean Zhang</link>
+          <link href="mailto:digital@ix.net.au">Robert Leftwich</link>
         </li>
         <li>
-          Matt Sullivan
-        </li>
-        <li>
-          <link href="mailto:alan@digitalmonkey.co.uk">Alan Perfect</link>
-        </li>
-        <li>
-          <link href="mailto:jruaux@octo.com">Julien Ruaux</link>
+          <link href="mailto:felipeal@apache.org">Felipe Leme</link>
         </li>
         <li>
           <link href="mailto:cmlenz@gmx.de">Christopher Lenz</link>
         </li>
         <li>
-          <link href="mailto:felipeal@apache.org">Felipe Leme</link>
+          <link href="mailto:ndlesiecki@apache.org">Nicholas Lesiecki</link>
+        </li>
+        <li>
+          <link href="mailto:vmassol@apache.org">Vincent Massol</link>
+        </li>
+        <li>
+          <link href="mailto:alan@digitalmonkey.co.uk">Alan Perfect</link>
+        </li>
+        <li>
+          <link href="mailto:Jason.Robertson@acs-inc.com">Jason Robertson</link>
+        </li>
+        <li>
+          <link href="mailto:jruaux@octo.com">Julien Ruaux</link>
+        </li>
+        <li>
+          <!-- No email. Request by Matt -->
+          Matt Sullivan
+        </li>
+        <li>
+          <link href="mailto:suguri.kazuhito@lab.ntt.co.jp">Kazuhito Suguri</link>
+        </li>
+        <li>
+          <link href="mailto:Kunal_Vaishnav@jdedwards.com">Kunal Vaishnav</link>
+        </li>
+        <li>
+          <link href="mailto:hudsoncwwong@yahoo.com">Hudson Wong</link>
+        </li>
+        <li>
+          <link href="mailto:pwong@sct.com">Peter Wong</link>
+        </li>
+        <li>
+          <link href="mailto:jariw@hyperlink-interactive.co.uk">Jari Worsley</link>
+        </li>
+        <li>
+          <link href="mailto:sean.zhang@verizon.com">Sean Zhang</link>
         </li>
       </ul>
 
@@ -160,12 +139,10 @@
 
       <ul>
         <li>
-          <link href="mailto:vmassol@octo.com">Vincent
-          Massol</link>
+          <link href="mailto:vmassol@octo.com">Vincent Massol</link>
         </li>
         <li>
-          <link href="mailto:jariw@hyperlink-interactive.co.uk">Jari
-          Worsley</link>
+          <link href="mailto:jariw@hyperlink-interactive.co.uk">Jari Worsley</link>
         </li>
         <li>
           <link href="mailto:ndlesiecki@yahoo.com">Nicholas Lesiecki</link>
