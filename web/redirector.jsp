@@ -20,6 +20,7 @@
     objects.setHttpServletRequest(request);
     objects.setHttpServletResponse(response);
     objects.setServletConfig(config);
+    objects.setServletContext(application);
     objects.setJspWriter(out);
     objects.setPageContext(pageContext);
 
