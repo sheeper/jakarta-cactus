@@ -180,7 +180,7 @@ public class LogService
             if (this.isLog4jInClasspath) {
                 log = new BaseLog(theCategoryName);
             } else {
-                log = new BaseLogDummy(theCategoryName);
+                log = new BaseLogDummy();
             }
 
             this.logCategories.put(theCategoryName, log);

@@ -66,14 +66,6 @@ package org.apache.cactus.util.log;
 public class BaseLogDummy implements Log
 {
     /**
-     * @param theCategoryName the category's name. Usually, it is the full
-     *        name of the class being logged, including the package name
-     */
-    public BaseLogDummy(String theCategoryName)
-    {
-    }
-
-    /**
      * Log a DEBUG level message.
      *
      * @param theMessage the message to log
