@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <Server>
 
-    <ContextManager home="@out.tomcat33.dir@" debug="0" workDir="work" showDebugInfo="true">
+    <ContextManager workDir="work">
 
       <!-- ==================== Global modules ==================== -->
 
-        <LogSetter name="tc_log" timestamps="true"
-		   verbosityLevel="DEBUG"  />
+        <LogSetter name="tc_log" timestamps="true" path="tomcat.log"
+                verbosityLevel="INFORMATION"  />
 
         <LogEvents enabled="false" />
         
         <AutoDeploy source="webapps" target="webapps" />
         <AutoWebApp dir="webapps" host="DEFAULT" />
 
-        <SimpleMapper1 debug="0" />
+        <SimpleMapper1 />
 
         <SessionExpirer checkInterval="60" />
         <SessionIdGenerator randomClass="java.util.Random" 
@@ -83,7 +83,7 @@
                secure - use SSL ( https )
                keystore, keypass - certs for SSL
                port -->
-        <Http10Interceptor port="@test.port@" 
+        <Http10Connector port="@test.port@" 
 			   secure="false"
 			   maxThreads="100"
 			   maxSpareThreads="50"
@@ -91,10 +91,7 @@
 
         <!-- Note: we use a port different from the standard one (8007) not
              to interfere with an other running tomcat -->
-        <RequestInterceptor 
-         className="org.apache.tomcat.modules.server.Ajp12Interceptor"
-         tomcatAuthentication="false" 
-         port="8777" />
+        <Ajp12Connector port="8777" />
 
     </ContextManager>
 </Server>

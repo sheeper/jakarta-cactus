@@ -28,6 +28,7 @@ conf/sample/conf/test/servlet22/cactus.properties svn_keywords=Author+Date+Id+Re
 conf/sample/conf/test/servlet22/enhydra31/multiserver.conf svn_keywords=Author+Date+Id+Revision
 conf/sample/conf/test/servlet22/resin12/resin.conf svn_keywords=Author+Date+Id+Revision
 conf/sample/conf/test/servlet22/tomcat32/server.xml svn_keywords=Author+Date+Id+Revision
+conf/sample/conf/test/servlet22/tomcat33/modules.xml svn_keywords=Author+Date+Id+Revision
 conf/sample/conf/test/servlet22/tomcat33/server.xml svn_keywords=Author+Date+Id+Revision
 conf/sample/conf/test/servlet22/web.xml svn_keywords=Author+Date+Id+Revision
 conf/sample/conf/test/servlet22/weblogic51/weblogic.policy svn_keywords=Author+Date+Id+Revision

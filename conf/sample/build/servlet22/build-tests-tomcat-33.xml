@@ -1,4 +1,4 @@
-    <!-- 
+    <!--
        ========================================================================
          Run Tomcat 3.3 tests
        ========================================================================
@@ -16,7 +16,7 @@
 
     </target>
 
-    <!-- 
+    <!--
        ========================================================================
          Start Tomcat 3.3
        ========================================================================
@@ -24,11 +24,10 @@
     <target name="start_tomcat_33">
 
         <java classname="org.apache.tomcat.startup.Main" fork="yes">
-            <jvmarg value="-Dtomcat.home=${tomcat.home.33}"/>
-            <arg value="-config"/>
-            <arg value="${out.tomcat33.full.dir}/conf/server.xml"/>
-            <classpath>            
-                <pathelement location="${java.home}/../lib/tools.jar"/>
+            <jvmarg value="-Dtomcat.home=${out.tomcat33.full.dir}"/>
+            <jvmarg value="-Dtomcat.install=${tomcat.home.33}"/>
+            <arg value="start"/>
+            <classpath>
                 <fileset dir="${tomcat.home.33}/lib">
                     <include name="tomcat.jar"/>
                 </fileset>
@@ -37,28 +36,27 @@
 
     </target>
 
-    <!-- 
+    <!--
        ========================================================================
          Stop Tomcat 3.3
        ========================================================================
     -->
     <target name="stop_tomcat_33">
 
-        <java classname="org.apache.tomcat.startup.StopTomcat" fork="yes">
-            <jvmarg value="-Dtomcat.home=${tomcat.home.33}"/>
-            <arg value="-ajpid"/>
-            <arg value="${out.tomcat33.full.dir}/conf/ajp12.id"/>
-            <classpath>            
-                <pathelement location="${java.home}/../lib/tools.jar"/>
+        <java classname="org.apache.tomcat.startup.Main" fork="yes">
+            <jvmarg value="-Dtomcat.home=${out.tomcat33.full.dir}"/>
+            <jvmarg value="-Dtomcat.install=${tomcat.home.33}"/>
+            <arg value="stop"/>
+            <classpath>
                 <fileset dir="${tomcat.home.33}/lib">
-                    <include name="stop-tomcat.jar"/>
+                    <include name="tomcat.jar"/>
                 </fileset>
             </classpath>
         </java>
 
     </target>
 
-    <!-- 
+    <!--
        ========================================================================
          Display a warning message if the needed servlet engine home property
          is not set
@@ -75,7 +73,7 @@
 
     </target>
 
-    <!-- 
+    <!--
        ========================================================================
          Prepare directories and variables for running the tests
        ========================================================================
@@ -89,16 +87,19 @@
         <property name="out.tomcat33.full.dir" value="${basedir}/${out.tomcat33.dir}"/>
         <filter token="out.tomcat33.dir" value="${out.tomcat33.dir}"/>
 
+        <!-- Delete everything -->
+        <delete dir="${out.tomcat33.dir}/webapps"/>
+
         <!-- Create work and conf directories and copy configuration files -->
         <mkdir dir="${out.tomcat33.dir}/conf"/>
         <mkdir dir="${out.tomcat33.dir}/work"/>
         <mkdir dir="${out.tomcat33.dir}/webapps"/>
 
-        <!-- Delete some config file so that they will be copied every time -->
-        <delete file="${out.tomcat33.dir}/conf/testserver.xml"/>
-
         <copy file="${conf.tomcat33.dir}/server.xml"
             todir="${out.tomcat33.dir}/conf" filtering="on"/>
+
+        <copy file="${conf.tomcat33.dir}/modules.xml"
+            todir="${out.tomcat33.dir}/conf"/>
 
         <!-- Copy the war file -->
         <copy file="${out.test.dir}/test.war" tofile="${out.tomcat33.dir}/webapps/test.war"/>
