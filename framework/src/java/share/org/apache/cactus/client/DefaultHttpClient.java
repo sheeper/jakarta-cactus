@@ -63,22 +63,22 @@ import org.apache.cactus.ServiceEnumeration;
 import org.apache.cactus.WebRequest;
 import org.apache.cactus.WebResponse;
 import org.apache.cactus.WebTestResult;
-import org.apache.cactus.client.authentication.AbstractAuthentication;
 import org.apache.cactus.util.ChainedRuntimeException;
 import org.apache.cactus.util.IoUtil;
 import org.apache.cactus.util.WebConfiguration;
 
 /**
- * Abstract class for performing the steps necessary to run a test. It involves
+ * Performs the steps necessary to run a test. It involves
  * opening a first HTTP connection to a server redirector, reading the output
- * stream and then opening a second HTTP connection to retrieve the test result.
+ * stream and then opening a second HTTP connection to retrieve the test 
+ * result.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  * @author <a href="mailto:Jason.Robertson@acs-inc.com">Jason Robertson</a>
  *
- * @version $Id$
+ * @version $Id: AbstractHttpClient.java,v 1.12 2002/09/26 16:43:32 vmassol Exp $
  */
-public abstract class AbstractHttpClient
+public class DefaultHttpClient
 {
     /**
      * Cactus configuration.
@@ -86,20 +86,11 @@ public abstract class AbstractHttpClient
     protected WebConfiguration configuration;
     
     /**
-     * Return the redirector URL to connect to.
-     *
-     * @param theRequest Request data from the user. We need it here as the user
-     *        may have chosen to override the default redirector.
-     * @return the URL to call the redirector
-     */
-    protected abstract String getRedirectorURL(WebRequest theRequest);
-
-    /**
      * Initialize the Http client.
      * 
      * @param theConfiguration the Cactus configuration
      */
-    public AbstractHttpClient(WebConfiguration theConfiguration)
+    public DefaultHttpClient(WebConfiguration theConfiguration)
     {
         this.configuration = theConfiguration;
     }
@@ -128,7 +119,7 @@ public abstract class AbstractHttpClient
 
         try
         {
-            result = callGetResult(theRequest.getAuthentication());
+            result = callGetResult(theRequest);
         }
         catch (ParsingException e)
         {
@@ -195,7 +186,8 @@ public abstract class AbstractHttpClient
         // Open the first connection to the redirector to execute the test on
         // the server side
         ConnectionHelper helper = ConnectionHelperFactory.getConnectionHelper(
-            getRedirectorURL(theRequest), this.configuration);
+            this.configuration.getRedirectorURL(theRequest), 
+            this.configuration);
 
         HttpURLConnection connection = helper.connect(theRequest);
 
@@ -212,17 +204,14 @@ public abstract class AbstractHttpClient
     /**
      * Get the test result from the redirector.
      *
-     * @param theAuthentication Authentication object used to authenticate
-     *        the user when securing Redirectors for testing security /
-     *        authentication code. Can be null if security is not enabled for
-     *        the redirector.
+     * @param theOriginalRequest the request that was used to run the test
      * @return the result that was returned by the redirector.
      *
      * @exception Throwable if an error occured in the test method or in the
      *            redirector servlet.
      */
-    private WebTestResult callGetResult(
-        AbstractAuthentication theAuthentication) throws Throwable
+    private WebTestResult callGetResult(WebRequest theOriginalRequest) 
+        throws Throwable
     {
         WebRequest resultsRequest = new WebRequest(this.configuration);
 
@@ -230,15 +219,21 @@ public abstract class AbstractHttpClient
             ServiceEnumeration.GET_RESULTS_SERVICE.toString(), 
             WebRequest.GET_METHOD);
 
+        // Use the same redirector as was used by the original request
+        resultsRequest.setRedirectorName(
+            theOriginalRequest.getRedirectorName());
+         
         // Add authentication details
-        if (theAuthentication != null)
+        if (theOriginalRequest.getAuthentication() != null)
         {
-            resultsRequest.setAuthentication(theAuthentication);
+            resultsRequest.setAuthentication(
+                theOriginalRequest.getAuthentication());
         }
 
         // Open the second connection to get the test results
         ConnectionHelper helper = ConnectionHelperFactory.getConnectionHelper(
-            getRedirectorURL(resultsRequest), this.configuration);
+            this.configuration.getRedirectorURL(resultsRequest),
+            this.configuration);
 
         HttpURLConnection resultConnection = helper.connect(resultsRequest);
 

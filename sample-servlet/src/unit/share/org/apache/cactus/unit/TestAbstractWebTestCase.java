@@ -56,7 +56,7 @@ package org.apache.cactus.unit;
 import org.apache.cactus.ServletTestCase;
 import org.apache.cactus.WebRequest;
 import org.apache.cactus.WebResponse;
-import org.apache.cactus.client.ServletHttpClient;
+import org.apache.cactus.client.DefaultHttpClient;
 import org.apache.cactus.util.WebConfiguration;
 
 /**
@@ -109,7 +109,7 @@ public class TestAbstractWebTestCase extends ServletTestCase
      */
     protected void runTest() throws Throwable
     {
-        runGenericTest(new ServletHttpClient(
+        runGenericTest(new DefaultHttpClient(
             (WebConfiguration) getConfiguration()));
 
         if (!this.isClientGlobalEndCalled)

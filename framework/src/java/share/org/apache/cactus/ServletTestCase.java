@@ -59,11 +59,9 @@ package org.apache.cactus;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.cactus.client.ServletHttpClient;
 import org.apache.cactus.server.ServletConfigWrapper;
 import org.apache.cactus.util.Configuration;
 import org.apache.cactus.util.ServletConfiguration;
-import org.apache.cactus.util.WebConfiguration;
 
 /**
  * Test classes that need access to valid Servlet implicit objects (such as the
@@ -120,21 +118,6 @@ public class ServletTestCase extends AbstractWebTestCase
     public ServletTestCase(String theName)
     {
         super(theName);
-    }
-
-    /**
-     * Runs a test case. This method is overriden from the JUnit
-     * <code>TestCase</code> class in order to seamlessly call the
-     * Cactus redirection servlet.
-     *
-     * @exception Throwable if an error happens during the test case
-     *            execution. All errors are thrown to the JUnit Test
-     *            Runner which will report them
-     */
-    protected void runTest() throws Throwable
-    {
-        runGenericTest(new ServletHttpClient(
-            (WebConfiguration) getConfiguration()));
     }
 
     /**

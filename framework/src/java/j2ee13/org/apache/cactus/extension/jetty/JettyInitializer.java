@@ -219,8 +219,8 @@ public class JettyInitializer implements Initializable
         theContext.getClass().getMethod("addServlet", 
             new Class[] { String.class, String.class, String.class })
             .invoke(theContext, new Object[] { 
-            theConfiguration.getRedirectorName(),
-            "/" + theConfiguration.getRedirectorName(), 
+            theConfiguration.getDefaultRedirectorName(),
+            "/" + theConfiguration.getDefaultRedirectorName(), 
             ServletTestRedirector.class.getName() });
     }
     
@@ -281,7 +281,7 @@ public class JettyInitializer implements Initializable
             Object filterHolder = handler.getClass().getMethod("defineFilter",
                 new Class[] { String.class, String.class })
                 .invoke(handler, new Object[] { 
-                theConfiguration.getRedirectorName(),
+                theConfiguration.getDefaultRedirectorName(),
                 FilterTestRedirector.class.getName() });        
     
             filterHolder.getClass().getMethod("applyTo",
@@ -292,8 +292,8 @@ public class JettyInitializer implements Initializable
             handler.getClass().getMethod("mapPathToFilter", 
                 new Class[] { String.class, String.class })
                 .invoke(handler, new Object[] { 
-                "/" + theConfiguration.getRedirectorName(),
-                theConfiguration.getRedirectorName() });
+                "/" + theConfiguration.getDefaultRedirectorName(),
+                theConfiguration.getDefaultRedirectorName() });
         }
     }
 

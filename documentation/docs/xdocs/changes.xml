@@ -48,6 +48,12 @@
     </devs>
 
     <release version="1.5" date="- in CVS">
+      <action dev="VMA" type="fix" due-to="Pranab Dhar" due-to-email="Pranab.Dhar@dfa.state.ny.us">
+        Fixed bug where a redirector overriden by calling 
+        <code>WebRequest.setRedirectorName()</code> was not used to fetch the
+        Cactus test result (the default redirector specified in the Cactus
+        configuration was used instead).
+      </action>
       <action dev="VMA" type="fix" due-to="Stephan Merker" due-to-email="Stephan.Merker@cegedim.fr">
         Fixed bug where Cactus was using the deprecated HttpClient 
         <code>PostMethod.setRequestBody(String)</code> which had some bug 

@@ -59,11 +59,9 @@ package org.apache.cactus;
 import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.cactus.client.FilterHttpClient;
 import org.apache.cactus.server.FilterConfigWrapper;
 import org.apache.cactus.util.Configuration;
 import org.apache.cactus.util.FilterConfiguration;
-import org.apache.cactus.util.WebConfiguration;
 
 /**
  * Test classes that need access to valid Filter implicit objects (such as the
@@ -120,19 +118,6 @@ public class FilterTestCase extends AbstractWebTestCase
     public FilterTestCase(String theName)
     {
         super(theName);
-    }
-
-    /**
-     * Runs a test case. This method is overriden from the JUnit
-     * <code>TestCase</code> class in order to seamlessly call the
-     * Cactus redirection servlet.
-     *
-     * @exception Throwable if the test fails for any reason
-     */
-    protected void runTest() throws Throwable
-    {
-        runGenericTest(new FilterHttpClient(
-            (WebConfiguration) getConfiguration()));        
     }
 
     /**

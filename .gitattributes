@@ -178,7 +178,6 @@ framework/src/java/j2ee12/org/apache/cactus/server/RequestDispatcherWrapper.java
 framework/src/java/j2ee12/org/apache/cactus/server/ServletConfigWrapper.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/j2ee12/org/apache/cactus/server/ServletContextWrapper.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/j2ee13/org/apache/cactus/FilterTestCase.java svn_keywords=Author+Date+Id+Revision
-framework/src/java/j2ee13/org/apache/cactus/client/FilterHttpClient.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/j2ee13/org/apache/cactus/extension/jetty/JettyInitializer.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/j2ee13/org/apache/cactus/server/FilterConfigWrapper.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/j2ee13/org/apache/cactus/server/FilterImplicitObjects.java svn_keywords=Author+Date+Id+Revision
@@ -204,7 +203,6 @@ framework/src/java/share/org/apache/cactus/WebRequest.java svn_keywords=Author+D
 framework/src/java/share/org/apache/cactus/WebResponse.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/WebTestResult.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/client/AbstractConnectionHelper.java svn_keywords=Author+Date+Id+Revision
-framework/src/java/share/org/apache/cactus/client/AbstractHttpClient.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/client/AssertionFailedErrorWrapper.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/client/AutoReadHttpURLConnection.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/client/ClientException.java svn_keywords=Author+Date+Id+Revision
@@ -212,11 +210,9 @@ framework/src/java/share/org/apache/cactus/client/ConnectionHelper.java svn_keyw
 framework/src/java/share/org/apache/cactus/client/ConnectionHelperFactory.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/client/HttpClientConnectionHelper.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/client/JdkConnectionHelper.java svn_keywords=Author+Date+Id+Revision
-framework/src/java/share/org/apache/cactus/client/JspHttpClient.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/client/ParsingException.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/client/ResponseObjectFactory.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/client/ServletExceptionWrapper.java svn_keywords=Author+Date+Id+Revision
-framework/src/java/share/org/apache/cactus/client/ServletHttpClient.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/client/WebResponseObjectFactory.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/client/WebTestResultParser.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/client/authentication/AbstractAuthentication.java svn_keywords=Author+Date+Id+Revision

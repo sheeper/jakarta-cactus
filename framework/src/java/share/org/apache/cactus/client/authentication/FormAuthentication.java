@@ -144,7 +144,7 @@ public class FormAuthentication extends AbstractAuthentication
         // Only authenticate the first time this instance is used.
         if (this.sessionId == null)
         {
-           authenticate();
+           authenticate(theRequest);
         }
 
         // Sets the session id cookie for the next request.
@@ -201,8 +201,10 @@ public class FormAuthentication extends AbstractAuthentication
 
     /**
      * Authenticate the principal by calling the security URL.
+     * 
+     * @param theRequest the web request used to connect to the Redirector
      */    
-    public void authenticate()
+    public void authenticate(WebRequest theRequest)
     {
         //Note: This method needs refactoring. It is too complex.
         
@@ -210,8 +212,9 @@ public class FormAuthentication extends AbstractAuthentication
         {
             // Create a helper that will connect to a restricted resource.
 
-            String resource = 
-                ((WebConfiguration) getConfiguration()).getRedirectorURL();
+            String resource = ((WebConfiguration) getConfiguration())
+                .getRedirectorURL(theRequest);
+    
             ConnectionHelper helper = 
                 ConnectionHelperFactory.getConnectionHelper(resource, 
                 getConfiguration());

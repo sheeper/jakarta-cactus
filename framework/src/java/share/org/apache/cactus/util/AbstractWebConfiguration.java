@@ -54,51 +54,54 @@
  * <http://www.apache.org/>.
  *
  */
-package org.apache.cactus.client;
+package org.apache.cactus.util;
 
 import org.apache.cactus.WebRequest;
-import org.apache.cactus.util.WebConfiguration;
 
 /**
- * Manage the logic for calling the JSP redirector for executing a test on
- * the server side.
+ * Common implementation for all <code>WebConfiguration</code> 
+ * implementations.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
- * @version $Id$
+ * @version $Id: ServletConfiguration.java,v 1.6 2002/09/26 16:43:32 vmassol Exp $
  */
-public class JspHttpClient extends AbstractHttpClient
+public abstract class AbstractWebConfiguration extends BaseConfiguration 
+    implements WebConfiguration
 {
     /**
-     * @see AbstractHttpClient#AbstractHttpClient(WebConfiguration)
+     * @see WebConfiguration#getDefaultRedirectorURL()
      */
-    public JspHttpClient(WebConfiguration theConfiguration)
+    public String getDefaultRedirectorURL()
     {
-        super(theConfiguration);
+        return getContextURL() + "/" + getDefaultRedirectorName();
     }
 
     /**
-     * Return the redirector URL to connect to.
-     *
-     * @param theRequest Request data from the user. We need it here as the user
-     *        may have chosen to override the default redirector.
-     * @return the URL to call the redirector
+     * @see WebConfiguration#getRedirectorURL()
      */
-    protected String getRedirectorURL(WebRequest theRequest)
+    public String getRedirectorURL(WebRequest theRequest)
     {
-        String url;
+        return getContextURL() + "/" + getRedirectorName(theRequest);
+    }
 
-        // Check if user has overriden the servlet redirector
+    /**
+     * @see WebConfiguration#getRedirectorName()
+     */
+    public String getRedirectorName(WebRequest theRequest)
+    {
+        String redirectorName;
+        
         if (theRequest.getRedirectorName() != null)
         {
-            url = this.configuration.getContextURL() + "/"
-                + theRequest.getRedirectorName();
+            redirectorName = theRequest.getRedirectorName();
         }
         else
         {
-            url = this.configuration.getRedirectorURL();
+            redirectorName = getDefaultRedirectorName();
         }
 
-        return url;
+        return redirectorName;
     }
+
 }

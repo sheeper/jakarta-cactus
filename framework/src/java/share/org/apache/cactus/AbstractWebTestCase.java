@@ -62,7 +62,7 @@ import java.lang.reflect.Modifier;
 
 import java.net.HttpURLConnection;
 
-import org.apache.cactus.client.AbstractHttpClient;
+import org.apache.cactus.client.DefaultHttpClient;
 import org.apache.cactus.client.ClientException;
 import org.apache.cactus.client.WebResponseObjectFactory;
 import org.apache.cactus.util.WebConfiguration;
@@ -246,7 +246,7 @@ public abstract class AbstractWebTestCase extends AbstractTestCase
      * @exception Throwable any error that occurred when calling the test method
      *            for the current test case.
      */
-    protected void runGenericTest(AbstractHttpClient theHttpClient)
+    protected void runGenericTest(DefaultHttpClient theHttpClient)
         throws Throwable
     {
         WebRequest request = new WebRequest(
@@ -283,7 +283,7 @@ public abstract class AbstractWebTestCase extends AbstractTestCase
      *            for the current test case.
      */
     private HttpURLConnection runWebTest(WebRequest theRequest, 
-        AbstractHttpClient theHttpClient) throws Throwable
+        DefaultHttpClient theHttpClient) throws Throwable
     {
         // Add the class name, the method name, the URL to simulate and
         // automatic session creation flag to the request
@@ -311,4 +311,19 @@ public abstract class AbstractWebTestCase extends AbstractTestCase
 
         return connection;
     }
+
+    /**
+     * Runs a test case. This method is overriden from the JUnit
+     * <code>TestCase</code> class in order to seamlessly call the
+     * Cactus redirection servlet.
+     *
+     * @exception Throwable if any error happens during the execution of
+     *            the test
+     */
+    protected void runTest() throws Throwable
+    {
+        runGenericTest(new DefaultHttpClient(
+            (WebConfiguration) getConfiguration()));        
+    }
+
 }

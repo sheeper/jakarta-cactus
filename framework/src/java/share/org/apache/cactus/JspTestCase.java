@@ -58,11 +58,9 @@ package org.apache.cactus;
 
 import javax.servlet.jsp.JspWriter;
 
-import org.apache.cactus.client.JspHttpClient;
 import org.apache.cactus.server.PageContextWrapper;
 import org.apache.cactus.util.Configuration;
 import org.apache.cactus.util.JspConfiguration;
-import org.apache.cactus.util.WebConfiguration;
 
 /**
  * Test classes that need access to valid JSP implicit objects (such as the
@@ -101,20 +99,6 @@ public class JspTestCase extends ServletTestCase
     public JspTestCase(String theName)
     {
         super(theName);
-    }
-
-    /**
-     * Runs a test case. This method is overriden from the JUnit
-     * <code>TestCase</code> class in order to seamlessly call the
-     * Cactus redirection servlet.
-     *
-     * @exception Throwable if any error happens during the execution of
-     *            the test
-     */
-    protected void runTest() throws Throwable
-    {
-        runGenericTest(new JspHttpClient(
-            (WebConfiguration) getConfiguration()));        
     }
 
     /**

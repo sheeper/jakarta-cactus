@@ -869,7 +869,7 @@ public class WebRequest implements Request
     public HttpSessionCookie getSessionCookie()
     {
         ConnectionHelper helper = ConnectionHelperFactory.getConnectionHelper(
-            ((WebConfiguration) getConfiguration()).getRedirectorURL(), 
+            ((WebConfiguration) getConfiguration()).getRedirectorURL(this), 
             getConfiguration());
 
         WebRequest request = new WebRequest(getConfiguration());
@@ -885,7 +885,7 @@ public class WebRequest implements Request
         catch (Throwable e)
         {
             throw new ChainedRuntimeException("Failed to connect to ["
-                + ((WebConfiguration) getConfiguration()).getRedirectorURL()
+                + ((WebConfiguration) getConfiguration()).getRedirectorURL(this)
                 + "]", e);
         }
 
@@ -899,7 +899,7 @@ public class WebRequest implements Request
         catch (ClientException e)
         {
             throw new ChainedRuntimeException("Failed to connect to ["
-                + ((WebConfiguration) getConfiguration()).getRedirectorURL()
+                + ((WebConfiguration) getConfiguration()).getRedirectorURL(this)
                 + "]", e);
         }
 

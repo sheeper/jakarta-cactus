@@ -63,11 +63,8 @@ package org.apache.cactus.util;
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
- *
- * @see Configuration
  */
-public class JspConfiguration extends BaseConfiguration
-    implements WebConfiguration
+public class JspConfiguration extends AbstractWebConfiguration
 {
     /**
      * Name of the cactus property that specifies the name of the JSP
@@ -77,21 +74,9 @@ public class JspConfiguration extends BaseConfiguration
         "cactus.jspRedirectorName";
 
     /**
-     * Read the JSP redirector name from a System property first and then
-     * if it fails from the Cactus configuration file and then use the default
-     * "JspRedirector" name if it fails.
-     *
-     * @return the JSP redirector URL
+     * @see WebConfiguration#getDefaultRedirectorName()
      */
-    public String getRedirectorURL()
-    {
-        return getContextURL() + "/" + getRedirectorName();
-    }
-
-    /**
-     * @return the Servlet redirector name
-     */
-    public String getRedirectorName()
+    public String getDefaultRedirectorName()
     {
         String redirectorName = 
             System.getProperty(CACTUS_JSP_REDIRECTOR_NAME_PROPERTY);

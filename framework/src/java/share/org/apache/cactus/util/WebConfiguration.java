@@ -56,6 +56,8 @@
  */
 package org.apache.cactus.util;
 
+import org.apache.cactus.WebRequest;
+
 /**
  * Extends the generic <code>Configuration<code> interface with methods
  * provided configuration information related to Web redirectors.
@@ -67,15 +69,29 @@ package org.apache.cactus.util;
 public interface WebConfiguration extends Configuration
 {
     /**
-     * @return the redirector URL for the redirector used by the current
-     *         test case
+     * @return the redirector URL for the default redirector
      */
-    String getRedirectorURL();
+    String getDefaultRedirectorURL();
 
     /**
-     * @return the redirector name for the redirector used by the current
-     *         test case. This is the name under which the redirector is
-     *         registered.
+     * @return the default redirector name as defined by the Cactus
+     *         configuration
      */
-    String getRedirectorName();
+    String getDefaultRedirectorName();
+
+    /**
+     * @param theRequest the Web request used to connect to the redirector
+     * @return the redirector URL for the redirector to use. It is either 
+     *         the default redirector name or the redirector defined in 
+     *         the Web
+     */
+    String getRedirectorURL(WebRequest theRequest);
+
+    /**
+     * @param theRequest the Web request used to connect to the redirector
+     * @return the redirector name to use. It is either the default 
+     *         redirector name or the redirector defined in the Web
+     *         Request if it has been overriden
+     */
+    String getRedirectorName(WebRequest theRequest);
 }
