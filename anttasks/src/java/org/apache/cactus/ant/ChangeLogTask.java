@@ -764,17 +764,29 @@ public class ChangeLogTask extends Task implements ExecuteStreamHandler
             this.comment = theComment;
         }
 
+        /**
+         * Add a file to the list of files in that entry.
+         * 
+         * @param theFile the file name
+         * @param theRevision the file revision
+         */
         public void addFile(String theFile, String theRevision)
         {
             this.files.addElement(new RCSFile(theFile, theRevision));
         }
 
+        /**
+         * @return a string representation of this entry
+         */
         public String toString()
         {
             return this.author + "\n" + this.date + "\n" + this.files + "\n"
                    + this.comment;
         }
 
+        /**
+         * Renders the entry in XML to the output stream.
+         */
         public void print()
         {
             output.println("\t<entry>");
@@ -801,22 +813,42 @@ public class ChangeLogTask extends Task implements ExecuteStreamHandler
             output.println("\t</entry>");
         }
 
+        /**
+         * Contains RCS file content
+         */
         private class RCSFile
         {
+            /**
+             * Name of file
+             */
             private String name;
+        
+            /**
+             * File revision
+             */
             private String revision;
 
+            /**
+             * @param theName the file name
+             * @param theRevision the file revision
+             */
             private RCSFile(String theName, String theRevision)
             {
                 this.name = theName;
                 this.revision = theRevision;
             }
 
+            /**
+             * @return the file name
+             */
             public String getName()
             {
                 return this.name;
             }
 
+            /**
+             * @return the file revision
+             */
             public String getRevision()
             {
                 return this.revision;
