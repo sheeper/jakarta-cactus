@@ -1,0 +1,149 @@
+
+	<!-- Global properties -->
+    <property name="conf.jboss3x.dir" value="${conf.dir}/jboss3x"/>
+    <property name="cactus.target.jboss3x" value="${cactus.target.dir}/jboss3x"/>
+
+    <!-- 
+       ========================================================================
+         Run JBoss 3.x tests
+       ========================================================================
+    -->
+    <target name="cactus.run.jboss3x"
+    	depends="cactus.init,cactus.setup.jboss3x,cactus.war,cactus.deploy.jboss3x"
+        if="cactus.home.jboss3x" description="Run tests on JBoss 3.x">
+
+        <!-- Start the container, wait for it to be started, run the
+             unit tests, stop the container, wait for it to be stopped.
+             The container is stopped if the tests fail for any reason -->
+
+        <runservertests
+            testURL="http://localhost:${cactus.port}/test/ServletRedirector?Cactus_Service=RUN_TEST"
+            startTarget="cactus.start.jboss3x"
+            stopTarget="cactus.stop.jboss3x"
+            testTarget="cactus.test"/>
+
+    </target>
+
+    <!-- 
+       ========================================================================
+         Start JBoss 3.x
+       ========================================================================
+    -->
+    <target name="cactus.start.jboss3x" description="Start JBoss 3.x"
+        depends="cactus.check.jboss3x" if="cactus.home.jboss3x">
+
+		<dirname property="antfile.dir" file="${ant.file}"/>
+
+        <java classname="org.jboss.Main" fork="yes">
+
+            <jvmarg value="-Dprogram.name=${cactus.home.jboss3x}/bin/run.bat"/>
+            <jvmarg value="-Djboss.server.home.dir=${cactus.target.jboss3x}/server/cactus"/>
+            <jvmarg value="-Djboss.server.home.url=file:/${cactus.target.jboss3x}/server/cactus"/>
+            
+            <arg line="-c cactus"/>
+            
+            <classpath>
+                <pathelement location="${cactus.home.jboss3x}/bin/run.jar"/>
+				<pathelement path="${java.home}/../lib/tools.jar"/>
+            </classpath>
+
+        </java>
+
+    </target>
+
+    <!-- 
+       ========================================================================
+         Stop JBoss 3.x
+       ========================================================================
+    -->
+    <target name="cactus.stop.jboss3x" description="Stop JBoss 3.x"
+        depends="cactus.check.jboss3x" if="cactus.home.jboss3x">
+
+        <java classname="org.jboss.Shutdown" fork="yes">
+
+            <arg value="localhost"/>
+            <arg value="${cactus.port}"/>
+            
+            <classpath>
+                <pathelement location="${cactus.home.jboss3x}/bin/shutdown.jar"/>
+            </classpath>
+
+        </java>
+
+    </target>
+
+    <!-- 
+       ========================================================================
+         Display a warning message if the needed container home property
+         is not set
+       ========================================================================
+    -->
+    <target name="cactus.check.jboss3x" unless="cactus.home.jboss3x">
+
+        <echo message=""/>
+        <echo message="******************************************************"/>
+        <echo message="WARNING : The 'cactus.home.jboss3x' property has not"/>
+        <echo message="been set. No test will be run on that container."/>
+        <echo message="******************************************************"/>
+        <echo message=""/>
+
+    </target>
+
+    <!--
+       ========================================================================
+         Deploy the cactified webapp
+       ========================================================================
+    -->
+    <target name="cactus.deploy.jboss3x" 
+    	description="Deploy the webapp on JBoss 3.x">
+
+		<!-- Note: It seems JBoss requires a war file in its deploy directory. 
+		     It fails to deploy an expanded webapp (something may need to be
+		     configured to allow this?). -->
+		    
+        <!-- Copy the webapp -->
+		<mkdir dir="${cactus.target.jboss3x}/tmp/test"/>
+		<copy todir="${cactus.target.jboss3x}/tmp/test">
+			<fileset dir="${cactus.target.dir}/test"/>
+		</copy>
+
+        <!-- Add the JBoss specific configuration files -->
+		<copy todir="${cactus.target.jboss3x}/tmp/test/WEB-INF/classes">
+            <fileset dir="${conf.jboss3x.dir}">
+                <include name="*.properties"/>
+            </fileset>
+        </copy>
+
+		<jar destfile="${cactus.target.jboss3x}/server/cactus/deploy/test.war">
+			<fileset dir="${cactus.target.jboss3x}/tmp/test"/>
+		</jar>
+
+	</target>
+
+    <!--
+       ========================================================================
+         Set up a valid JBoss 3.x directory structure in the
+         cactus.target.jboss3x directory.
+       ========================================================================
+    -->
+    <target name="cactus.setup.jboss3x"
+        depends="cactus.check.jboss3x" if="cactus.home.jboss3x"
+        description="Set up a JBoss 3.x directory structure">
+
+        <!-- Create a server configuration using the minimal JBoss 
+             configuration and adding the JBossWeb Service -->
+        <copy todir="${cactus.target.jboss3x}/server/cactus">
+            <fileset dir="${cactus.home.jboss3x}/server/minimal"/>
+        </copy>
+
+        <copy todir="${cactus.target.jboss3x}/server/cactus/deploy/jbossweb.sar">
+            <fileset dir="${cactus.home.jboss3x}/server/default/deploy/jbossweb.sar"/>
+        </copy>
+        <copy todir="${cactus.target.jboss3x}/server/cactus/lib">
+            <fileset dir="${cactus.home.jboss3x}/server/default/lib">
+                <include name="javax.servlet.jar"/>
+                <include name="jboss.jar"/>
+            </fileset>
+        </copy>
+
+    </target>

@@ -2,7 +2,8 @@
 
 <!DOCTYPE project [
     <!ENTITY build-share SYSTEM "file:./scripts/build-share.xml">
-    <!ENTITY build-tests-tomcat-40 SYSTEM "file:./scripts/build-tests-tomcat-40.xml">
+    <!ENTITY build-tests-tomcat4x SYSTEM "file:./scripts/build-tests-tomcat4x.xml">
+    <!ENTITY build-tests-jboss3x SYSTEM "file:./scripts/build-tests-jboss3x.xml">
 <!--
     <!ENTITY build-tests-resin-20 SYSTEM "file:./scripts/build-tests-resin-20.xml">
     <!ENTITY build-tests-resin-13 SYSTEM "file:./scripts/build-tests-resin-13.xml">
@@ -11,7 +12,6 @@
     <!ENTITY build-tests-orion-16 SYSTEM "file:./scripts/build-tests-orion-16.xml">
     <!ENTITY build-tests-weblogic-61 SYSTEM "file:./scripts/build-tests-weblogic-61.xml">
     <!ENTITY build-tests-weblogic-70 SYSTEM "file:./scripts/build-tests-weblogic-70.xml">
-    <!ENTITY build-tests-jboss-3x SYSTEM "file:./scripts/build-tests-jboss-3x.xml">
 -->
 ]>
 
@@ -55,7 +55,8 @@
 
     &build-share;
 
-    &build-tests-tomcat-40;
+    &build-tests-tomcat4x;
+    &build-tests-jboss3x;
 <!--
     &build-tests-resin-20;
     &build-tests-resin-13;
@@ -64,6 +65,5 @@
     &build-tests-orion-16;
     &build-tests-weblogic-61;
     &build-tests-weblogic-70;
-    &build-tests-jboss-3x;
 -->
 </project>
