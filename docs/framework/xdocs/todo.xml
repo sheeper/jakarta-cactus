@@ -47,7 +47,7 @@
         Write a tutorial that explains how to unit test Tag libraries (only
         taglets that extend TagSupport for the moment).
       </action>
-      <action assigned-to="Cédric Chabanois, Kunal Vaishnav">
+      <action assigned-to="Cedric Chabanois, Kunal Vaishnav">
         Write a Cactus integration tutorial for JBuilder 4/5 that explains how
         to run Cactus tests within JBuilder4/5.
       </action>
