@@ -56,7 +56,6 @@
  */
 package org.apache.cactus.configuration;
 
-import org.apache.cactus.client.connector.http.HttpClientConnectionHelper;
 import org.apache.cactus.util.ChainedRuntimeException;
 
 /**
@@ -87,11 +86,16 @@ public class BaseConfiguration implements Configuration
         "cactus.connectionHelper.classname";
 
     /**
-     * Default {@link org.apache.cactus.client.connector.http.ConnectionHelper}
-     * to use.
+     * Default HTTP connection class to use.
+     * 
+     * Note: We are using a string to point to the class to use. The reason is
+     * that this class is only needed on the client side. Using an explicit
+     * <code>HttpClientConnectionHelper.class.getName()</code> would require 
+     * the implementation library (e.g commons-httpclient) to be also present 
+     * on the server side classpath.
      */
     public static final String DEFAULT_CACTUS_CONNECTION_HELPER_CLASSNAME = 
-        HttpClientConnectionHelper.class.getName();
+        "org.apache.cactus.client.connector.http.HttpClientConnectionHelper";
 
     /**
      * Name of the Cactus property for defining an initializer (i.e. a class
