@@ -1,3 +1,21 @@
+# ========================================================================
+# 
+# Copyright 2001-2004 The Apache Software Foundation.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# 
+#   http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# 
+# ========================================================================
+
 # -----------------------------------------------------------------------------
 # Properties for nightly builds of Cactus executing on Vincent Massol's
 # server at home.
@@ -29,6 +47,10 @@ lib.repo = c:/Apps/maven/repository
 j2ee.jar = ${lib.repo}/jboss/jars/jboss-j2ee-3.2.3.jar
 #j2ee.jar = ${lib.repo}/j2ee/jars/j2ee-1.2.jar
 
+# Location of the Servlet API jar.
+servlet.jar = ${lib.repo}/servletapi/jars/servletapi-2.3.jar
+#servlet.jar = ${lib.repo}/servletapi/jars/servletapi-2.2.jar
+
 # The location of the Commons Logging jar
 commons.logging.jar = ${lib.repo}/commons-logging/jars/commons-logging-1.0.3.jar
 
@@ -54,7 +76,7 @@ jstl.jar = ${lib.repo}/jstl/jars/jstl-1.0.2.jar
 standard.jar = ${lib.repo}/taglibs/jars/standard-1.0.2.jar
 
 # The location of the Httpunit jar
-httpunit.jar = ${lib.repo}/httpunit/jars/httpunit-1.5.3.jar
+httpunit.jar = ${lib.repo}/httpunit/jars/httpunit-1.5.4.jar
 
 # Neko HTML (required by HttpUnit)
 nekohtml.jar = ${lib.repo}/nekohtml/jars/nekohtml-0.7.4.jar
@@ -67,14 +89,6 @@ xmlapis.jar = ${lib.repo}/xerces/jars/xmlParserAPIs-2.2.1.jar
 
 # The location of the Jetty jar
 jetty.jar = ${lib.repo}/jetty/jars/org.mortbay.jetty-4.2.11.jar
-
-# -----------------------------------------------------------------------------
-# Mandatory properties for the Sample Servlet project.
-# -----------------------------------------------------------------------------
-
-# Location of the Servlet API jar.
-servlet.jar = ${lib.repo}/servletapi/jars/servletapi-2.3.jar
-#servlet.jar = ${lib.repo}/servletapi/jars/servletapi-2.2.jar
 
 # -----------------------------------------------------------------------------
 # Mandatory properties for the Jetty Sample
