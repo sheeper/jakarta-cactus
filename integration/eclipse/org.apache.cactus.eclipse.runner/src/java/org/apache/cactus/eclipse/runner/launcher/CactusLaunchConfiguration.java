@@ -107,7 +107,7 @@ public class CactusLaunchConfiguration extends JUnitLaunchConfiguration
             super.launchTypes(theConfiguration, theMode, theTests, thePort);
 
         String[] cactusVMArgs =
-            { "-Dcactus.contextURL=" + CactusPreferences.getContextURL() };
+            {"-Dcactus.contextURL=" + CactusPreferences.getContextURL()};
         String[] jUnitArgs = configuration.getVMArguments();
         String[] globalArgs = concatenateStringArrays(jUnitArgs, cactusVMArgs);
         configuration.setVMArguments(globalArgs);

@@ -99,7 +99,7 @@ public class CactusMessages
     public static String getFormattedString(String theKey, Object theArg)
     {
         return MessageFormat.format(getString(theKey), 
-            new Object[] { theArg });
+            new Object[] {theArg});
     }
 
     /**
