@@ -76,6 +76,11 @@ import org.apache.cactus.client.ServletHttpClient;
 public class TestAbstractWebTestCase extends ServletTestCase
 {
     /**
+     * true if <code>end()</code> has been called.
+     */
+    private boolean isClientGlobalEndCalled;
+
+    /**
      * Defines the testcase name for JUnit.
      *
      * @param theName the testcase's name.
@@ -92,25 +97,21 @@ public class TestAbstractWebTestCase extends ServletTestCase
      */
     public static void main(String[] theArgs)
     {
-        junit.swingui.TestRunner.main(new String[]{
-            TestAbstractWebTestCase.class.getName()});
+        junit.swingui.TestRunner.main(
+            new String[] { TestAbstractWebTestCase.class.getName() });
     }
-
-    //-------------------------------------------------------------------------
-
-    /**
-     * true if <code>end()</code> has been called.
-     */
-    private boolean isClientGlobalEndCalled;
 
     /**
      * Verifies that <code>end()</code> has been called correctly.
+     * 
+     * @exception Throwable on test failure
      */
     protected void runTest() throws Throwable
     {
         runGenericTest(new ServletHttpClient());
 
-        if (!this.isClientGlobalEndCalled) {
+        if (!this.isClientGlobalEndCalled)
+        {
             fail("end() has not been called");
         }
     }
@@ -145,6 +146,8 @@ public class TestAbstractWebTestCase extends ServletTestCase
      * Verify that it is possible to modify the <code>WebRequest</code> in
      * the common <code>begin()()</code> method. It also verifies that
      * <code>begin()()</code> is called at all.
+     * 
+     * @exception Exception on test failure
      */
     public void testGlobalBeginEnd() throws Exception
     {
@@ -176,5 +179,4 @@ public class TestAbstractWebTestCase extends ServletTestCase
         assertEquals("Hello there!", theResponse.getText());
         this.isClientGlobalEndCalled = true;
     }
-
 }

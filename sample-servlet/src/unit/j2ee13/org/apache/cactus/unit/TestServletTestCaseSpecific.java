@@ -91,8 +91,8 @@ public class TestServletTestCaseSpecific extends ServletTestCase
      */
     public static void main(String[] theArgs)
     {
-        junit.swingui.TestRunner.main(new String[]{
-            TestServletTestCaseSpecific.class.getName()});
+        junit.swingui.TestRunner.main(
+            new String[] { TestServletTestCaseSpecific.class.getName() });
     }
 
     /**
@@ -106,5 +106,4 @@ public class TestServletTestCaseSpecific extends ServletTestCase
     }
 
     // No specific tests for Servlet API 2.3 for the moment !
-
 }

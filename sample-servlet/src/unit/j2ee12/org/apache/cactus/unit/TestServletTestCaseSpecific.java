@@ -91,8 +91,8 @@ public class TestServletTestCaseSpecific extends ServletTestCase
      */
     public static void main(String[] theArgs)
     {
-        junit.swingui.TestRunner.main(new String[]{
-            TestServletTestCaseSpecific.class.getName()});
+        junit.swingui.TestRunner.main(
+            new String[] { TestServletTestCaseSpecific.class.getName() });
     }
 
     /**

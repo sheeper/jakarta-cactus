@@ -83,7 +83,7 @@ public class TestAll extends TestCase
      */
     public static void main(String[] theArgs)
     {
-        junit.swingui.TestRunner.main(new String[]{TestAll.class.getName()});
+        junit.swingui.TestRunner.main(new String[] { TestAll.class.getName() });
     }
 
     /**
@@ -92,15 +92,17 @@ public class TestAll extends TestCase
      */
     public static Test suite()
     {
-        TestSuite suite =
-            new TestSuite("Cactus unit tests for Servlet API 2.2");
+        TestSuite suite = new TestSuite(
+            "Cactus unit tests for Servlet API 2.2");
 
         // Note: This test need to run first. See the comments in the
         // test class for more information on why
-        suite.addTest(org.apache.cactus.unit.TestServletTestCase_TestResult.suite());
+        suite.addTest(
+            org.apache.cactus.unit.TestServletTestCase_TestResult.suite());
 
         // AbstractTestCase related tests
-        suite.addTestSuite(org.apache.cactus.unit.TestAbstractWebTestCase.class);
+        suite.addTestSuite(
+            org.apache.cactus.unit.TestAbstractWebTestCase.class);
 
         // ServletTestCase related tests
         suite.addTest(org.apache.cactus.unit.TestServletTestCase1.suite());
@@ -108,16 +110,19 @@ public class TestAll extends TestCase
         suite.addTest(org.apache.cactus.unit.TestServletTestCase3.suite());
         suite.addTest(org.apache.cactus.unit.TestServletTestCase4.suite());
         suite.addTest(org.apache.cactus.unit.TestServletTestCase5.suite());
-        suite.addTest(org.apache.cactus.unit.TestServletTestCase_OverrideRedirector.suite());
-        suite.addTest(org.apache.cactus.unit.TestServletTestCase_Authentication.suite());
+        suite.addTest(
+            org.apache.cactus.unit.TestServletTestCase_OverrideRedirector
+            .suite());
+        suite.addTest(
+            org.apache.cactus.unit.TestServletTestCase_Authentication.suite());
 
         // Test cases specific to Servlet API 2.2 only
-        suite.addTest(org.apache.cactus.unit.TestServletTestCaseSpecific.suite());
+        suite.addTest(
+            org.apache.cactus.unit.TestServletTestCaseSpecific.suite());
 
         // JspTestCase related tests
         suite.addTest(org.apache.cactus.unit.TestJspTestCase.suite());
 
         return suite;
     }
-
 }

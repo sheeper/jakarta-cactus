@@ -95,8 +95,8 @@ public class TestJspTestCase extends JspTestCase
      */
     public static void main(String[] theArgs)
     {
-        junit.swingui.TestRunner.main(new String[]{
-            TestJspTestCase.class.getName()});
+        junit.swingui.TestRunner.main(
+            new String[] { TestJspTestCase.class.getName() });
     }
 
     /**
@@ -113,6 +113,8 @@ public class TestJspTestCase extends JspTestCase
 
     /**
      * Verify that we can write some text to the output Jsp writer.
+     * 
+     * @exception IOException on test failure
      */
     public void testOut() throws IOException
     {
@@ -123,6 +125,8 @@ public class TestJspTestCase extends JspTestCase
      * Verify that we can write some text to the output Jsp writer.
      *
      * @param theResponse the response from the server side.
+     * 
+     * @exception IOException on test failure
      */
     public void endOut(WebResponse theResponse) throws IOException
     {
@@ -130,12 +134,14 @@ public class TestJspTestCase extends JspTestCase
         BufferedReader input = new BufferedReader(new InputStreamReader(
             theResponse.getConnection().getInputStream()));
         String str;
-        while (null != ((str = input.readLine()))) {
+
+        while (null != (str = input.readLine()))
+        {
             sb.append(str);
         }
+
         input.close();
 
         assertEquals("some text sent back using out", sb.toString());
     }
-
 }
