@@ -58,6 +58,8 @@ package org.apache.cactus.eclipse.launcher;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.MessageFormat;
@@ -112,8 +114,11 @@ public class CactusLaunchConfiguration extends JUnitLaunchConfiguration
                 IJavaLaunchConfigurationConstants.ERR_NOT_A_JAVA_PROJECT);
         }
 
-//        IType testType = getTestType(theConfiguration, javaProject);
-        IType testType = (getTestTypes(theConfiguration, javaProject, thePm))[0];
+        // Get the first Cactus/JUnit test to run.
+        // TODO: Add support for several tests to be run at once (needs 
+        // Eclipse 2.1).
+        IType testType = getFirstTestType(theConfiguration, javaProject, 
+            thePm);
 
         IVMInstallType type = getVMInstallType(theConfiguration);
         IVMInstall install = getVMInstall(theConfiguration);
@@ -240,4 +245,67 @@ public class CactusLaunchConfiguration extends JUnitLaunchConfiguration
         }
         return classPath;
     }
+
+    /**
+     * Helper method to make our class work both in Eclipse 2.0 and 2.1. Indeed,
+     * in Eclipse 2.1, the JUnit plugin has changed and the 
+     * <code>getTestType()</code> method has been removed in favor of a 
+     * <code>getTestTypes()</code> to support running several tests at once.
+     * 
+     * @param theConfiguration the configuration to launch
+     * @param theJavaProject reference to the current active java project
+     * @param thePm the progress monitor, or <code>null</code>
+     * @return the test to run. In Eclipse 2.1 returns the first test selected
+     */
+    private IType getFirstTestType(ILaunchConfiguration theConfiguration,
+        IJavaProject theJavaProject, IProgressMonitor thePm)
+    {                
+        IType testType;
+        
+        try
+        {
+            // Test if the getTestType() method exist. It does for Eclipse 2.0
+            // but not for Eclipse 2.1
+            Method getTestTypeMethod = this.getClass().getMethod("getTestType", 
+                new Class[] { ILaunchConfiguration.class, 
+                IJavaProject.class });
+            try
+            {
+                testType = (IType) getTestTypeMethod.invoke(this, 
+                    new Object[] { theConfiguration, theJavaProject });
+            }
+            catch (Exception e)
+            {
+                JUnitPlugin.log(e); // TO DO abort run and inform user
+            }
+        }
+        catch (NoSuchMethodException e)
+        {
+            try
+            {
+                // Ok, this means we should be in Eclipse 2.1
+                Method getTestTypeMethod = this.getClass().getMethod(
+                    "getTestTypes", new Class[] { ILaunchConfiguration.class, 
+                    IJavaProject.class, IProgressMonitor.class });
+                try
+                {
+                    testType = ((IType[]) getTestTypeMethod.invoke(this, 
+                        new Object[] { theConfiguration, theJavaProject, 
+                        thePm }))[0];
+                }
+                catch (Exception ee)
+                {
+                    JUnitPlugin.log(ee); // TO DO abort run and inform user
+                }
+            }
+            catch (NoSuchMethodException ee)
+            {
+                JUnitPlugin.log(ee); // TO DO abort run and inform user
+            }
+ 
+        }
+
+        return testType;
+    }
+    
 }
