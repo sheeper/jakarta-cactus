@@ -217,7 +217,7 @@ public class ServletTestRunner extends HttpServlet
                 PrintWriter out = theResponse.getWriter();
                 Method transformMethod =
                     transformer.getClass().getMethod(
-                        "transform", new Class[] {Reader.class,Writer.class});
+                        "transform", new Class[] {Reader.class, Writer.class});
                 transformMethod.invoke(transformer,
                     new Object[] {new StringReader(xml), out});
             }
