@@ -68,7 +68,6 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
-import java.io.BufferedInputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -135,8 +134,7 @@ public class ChangeLogTask extends Task implements ExecuteStreamHandler
     /**
      * Input stream read in from CVS log command
      */
-    private BufferedInputStream input;
-//    private InputStream input;
+    private BufferedReader input;
 
     /**
      * Error Input stream read in from CVS log command
@@ -418,9 +416,8 @@ public class ChangeLogTask extends Task implements ExecuteStreamHandler
 
         // Check if a threshold date has been specified
         if (this.thresholdDate != null) {
-
-            toExecute.createArgument().setValue("-d >=" +
-                OUTPUT_DATE.format(this.thresholdDate));
+            toExecute.createArgument().setValue("-d\">=" +
+                OUTPUT_DATE.format(this.thresholdDate) + "\"");
         }
 
         // Check if list of files to check has been specified
@@ -479,61 +476,14 @@ public class ChangeLogTask extends Task implements ExecuteStreamHandler
      */
     public void setProcessOutputStream(InputStream theIs) throws IOException
     {
-        this.input = new BufferedInputStream(theIs);
-//        this.input = theIs;
+        this.input = new BufferedReader(new InputStreamReader(theIs));
     }
 
     /**
-     * Stop handling of the streams (ie the cvs process).
+     * Stop handling of the streams (i.e. the cvs process).
      */
     public void stop()
     {
-    }
-
-    private String readLine(InputStream stream) throws IOException
-    {
-        debug("ReadLine: begin");
-
-        String returnValue = null;
-        int c;
-        StringBuffer line = new StringBuffer();
-
-        while ((c = stream.read()) != -1) {
-            debug("ReadLine: available = " + stream.available());
-            debug("ReadLine: char: [" + c + "]");
-            if (c == 13) {
-                c = stream.read();
-                debug("ReadLine: available = " + stream.available());
-                debug("ReadLine: char special: [" + c + "]");
-                if (c == 10) {
-                    debug("ReadLine: eol");
-                    break;
-                } else {
-                    line.append((char)c);
-//                    if (stream.available() == 0) {
-//                        debug("ReadLine: no more chars");
-//                        break;
-//                    }
-                    continue;
-                }
-            }
-            line.append((char)c);
-//            if (stream.available() == 0) {
-//                debug("ReadLine: no more chars");
-//                break;
-//            }
-        }
-
-        if (c != -1) {
-//        if (stream.available() != 0) {
-            returnValue = line.toString();
-        } else {
-            debug("ReadLine: assuming end of file");
-            returnValue = null;
-        }
-
-        debug("ReadLine: end");
-        return returnValue;
     }
 
     /**
@@ -558,10 +508,10 @@ public class ChangeLogTask extends Task implements ExecuteStreamHandler
         // RCS entries
         Hashtable entries = new Hashtable();
 
-        while ((line = readLine(this.input)) != null) {
+        while ((line = this.input.readLine()) != null) {
 
             // Log to debug file if debug mode is on
-            debug("Text: [" + line + "]");
+            debug("Text: [" + line);
 
             switch (status) {
 
@@ -612,7 +562,7 @@ public class ChangeLogTask extends Task implements ExecuteStreamHandler
                         !line.startsWith("------")) {
 
                         comment += line + "\n";
-                        line = readLine(this.input);
+                        line = this.input.readLine();
 
                         debug("Text: [" + line);
                     }
@@ -645,15 +595,9 @@ public class ChangeLogTask extends Task implements ExecuteStreamHandler
             // We cannot use a BufferedReader as the ready() method is bugged!
             // (see Bug 4329985, which is supposed to be fixed in JDK 1.4 :
             // http://developer.java.sun.com/developer/bugParade/bugs/4329985.html)
-
-            debug("begin reading bytes");
-
             while (this.errorInput.ready()) {
-                debug("reading bytes");
                 this.errorInput.read();
             }
-
-            debug("end of loop");
         }
 
         debug("Preparing to write changelog file");
@@ -666,8 +610,6 @@ public class ChangeLogTask extends Task implements ExecuteStreamHandler
         this.output.println("</changelog>");
         this.output.flush();
         this.output.close();
-
-        debug("End of preparing to write changelog file");
     }
 
     /**
