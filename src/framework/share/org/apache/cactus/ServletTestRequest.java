@@ -203,6 +203,10 @@ public class ServletTestRequest
     {
         m_URL = new ServletURL(theServerName, theContextPath,
             theServletPath, thePathInfo, theQueryString);
+
+        // Now automatically add all HTTP parameters to the list of passed
+        // parameters
+        addQueryStringParameters(theQueryString);
     }
 
     /**
@@ -392,6 +396,38 @@ public class ServletTestRequest
         }
 
         return null;
+    }
+
+    /**
+     * Extract the HTTP parameters that might have been specified on the
+     * query string and add them to the list of parameters to pass to the
+     * servlet redirector.
+     *
+     * @param theQueryString the Query string in the URL to simulate, i.e. this
+     *                       is the string that will be returned by the
+     *                       <code>HttpServletResquest.getQueryString()</code>.
+     *                       Can be null.
+     */
+    private void addQueryStringParameters(String theQueryString)
+    {
+        if (theQueryString == null) {
+            return;
+        }
+
+        String nameValue = null;
+        StringTokenizer tokenizer = new StringTokenizer(theQueryString, "&");
+        int breakParam = -1;
+        while (tokenizer.hasMoreTokens()) {
+            nameValue = tokenizer.nextToken();
+            breakParam = nameValue.indexOf("=");
+            if (breakParam != -1) {
+                addParameter(nameValue.substring(0, breakParam),
+                    nameValue.substring(breakParam+1));
+            } else {
+                throw new RuntimeException("Bad QueryString [" + 
+                    theQueryString + "] NameValue pair: [" + nameValue + "]");
+            }
+        }
     }
 
 }

@@ -144,7 +144,6 @@ public class TestServletTestCase4 extends ServletTestCase
 
     /**
      * Verify that we can simulate different parts of the URL.
-     * Set 1 of test values (taken from Sun's Servlet API spec)
      *
      * @param theRequest the request object that serves to initialize the
      *                   HTTP connection to the server redirector.
@@ -156,7 +155,6 @@ public class TestServletTestCase4 extends ServletTestCase
 
     /**
      * Verify that we can simulate different parts of the URL.
-     * Set 1 of test values (taken from Sun's Servlet API spec)
      */
     public void testSimulatedURL1()
     {
@@ -170,7 +168,6 @@ public class TestServletTestCase4 extends ServletTestCase
 
     /**
      * Verify that we can simulate different parts of the URL.
-     * Set 2 of test values (taken from Sun's Servlet API spec)
      *
      * @param theRequest the request object that serves to initialize the
      *                   HTTP connection to the server redirector.
@@ -182,7 +179,6 @@ public class TestServletTestCase4 extends ServletTestCase
 
     /**
      * Verify that we can simulate different parts of the URL.
-     * Set 2 of test values (taken from Sun's Servlet API spec)
      */
     public void testSimulatedURL2()
     {
@@ -198,7 +194,6 @@ public class TestServletTestCase4 extends ServletTestCase
 
     /**
      * Verify that we can simulate different parts of the URL.
-     * Set 3 of test values (taken from Sun's Servlet API spec)
      *
      * @param theRequest the request object that serves to initialize the
      *                   HTTP connection to the server redirector.
@@ -210,7 +205,6 @@ public class TestServletTestCase4 extends ServletTestCase
 
     /**
      * Verify that we can simulate different parts of the URL.
-     * Set 3 of test values (taken from Sun's Servlet API spec)
      */
     public void testSimulatedURL3()
     {
@@ -226,7 +220,6 @@ public class TestServletTestCase4 extends ServletTestCase
 
     /**
      * Verify that we can simulate different parts of the URL.
-     * Set 4 of test values (taken from Sun's Servlet API spec)
      *
      * @param theRequest the request object that serves to initialize the
      *                   HTTP connection to the server redirector.
@@ -238,7 +231,6 @@ public class TestServletTestCase4 extends ServletTestCase
 
     /**
      * Verify that we can simulate different parts of the URL.
-     * Set 4 of test values (taken from Sun's Servlet API spec)
      */
     public void testSimulatedURL4()
     {
@@ -253,20 +245,23 @@ public class TestServletTestCase4 extends ServletTestCase
     //-------------------------------------------------------------------------
 
     /**
-     * Verify that we can simulate different parts of the URL.
-     * Set 5 of test values (taken from Sun's Servlet API spec)
+     * Verify that we can simulate different parts of the URL. Also verify 
+     * that HTTP parameters put in the simulation URL will be
+     * available on the server side as real HTTP parameters.
      *
      * @param theRequest the request object that serves to initialize the
      *                   HTTP connection to the server redirector.
      */
     public void beginSimulatedURL5(ServletTestRequest theRequest)
     {
-        theRequest.setURL("jakarta.apache.org", "/catalog", "/help/feedback.jsp", null, "PARAM1=param1&PARAM2=param2");
+        theRequest.setURL("jakarta.apache.org", "/catalog", 
+            "/help/feedback.jsp", null, "PARAM1=param1&PARAM2=&PARAM3=param3");
     }
 
     /**
-     * Verify that we can simulate different parts of the URL.
-     * Set 5 of test values (taken from Sun's Servlet API spec)
+     * Verify that we can simulate different parts of the URL. Also verify 
+     * that HTTP parameters put in the simulation URL will be
+     * available on the server side as real HTTP parameters.
      */
     public void testSimulatedURL5()
     {
@@ -276,7 +271,10 @@ public class TestServletTestCase4 extends ServletTestCase
         assertEquals("/catalog", request.getContextPath());
         assertEquals("/help/feedback.jsp", request.getServletPath());
         assert(request.getPathInfo() == null);
-        assertEquals("PARAM1=param1&PARAM2=param2", request.getQueryString());
+        assertEquals("PARAM1=param1&PARAM2=&PARAM3=param3", request.getQueryString());
+        assertEquals(request.getParameter("PARAM1"), "param1");
+        assertEquals(request.getParameter("PARAM2"), "");
+        assertEquals(request.getParameter("PARAM3"), "param3");
     }
 
 }

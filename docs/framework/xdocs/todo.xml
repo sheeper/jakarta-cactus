@@ -72,13 +72,6 @@
       custommonkey).
     </action>
     <action context="code">
-      Automatically add the query string parameters defined when using the
-      <code>ServletTestRequest.setURL()</code> API to the list of parameters
-      passed to the server redirector, so that it won't be necessary to call
-      <code>ServletTestRequest.addParameter()</code> for each of these
-      parameters.
-    </action>
-    <action context="code">
       Check why zipped distributable files have a mode of 644 on unix systems
       (it should rather be 755). Thanks to Jason Crickmer.
     </action>

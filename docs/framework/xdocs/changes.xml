@@ -23,9 +23,17 @@
     </devs>
 
     <release version="1.2 in CVS">
+      <action dev="VMA" type="add" due-to="Jari Worsley" due-to-email="jariw@hyperlink-interactive.co.uk">
+        Now all HTTP parameters specified in the URL when using the
+        <code>ServletTestRequest.setURL()</code> method are automatically
+        passed as real HTTP parameters to the server side, meaning you don't
+        have to manually call <code>addParameters()</code>.
+      </action>
       <action dev="VMA" type="fix" due-to="Kunal Vaishnav" due-to-email="Kunal_Vaishnav@jdedwards.com">
         Fixed bug : URL encoding was applied to cookies so that when passing
         a special in a cookie it would get encoded when trying to retrieve it.
+        Thanks to <link href="mailto:jariw@hyperlink-interactive.co.uk">
+        Jari Worsley</link> for fixing it.
       </action>
     </release>
 
