@@ -288,7 +288,7 @@ public class JettyInitializer implements Initializable
                 new Object[] {theConfiguration.getDefaultRedirectorName(),
                 FilterTestRedirector.class.getName()});        
     
-            filterHolder.getClass().getMethod("applyTo",
+            filterHolder.getClass().getMethod("addAppliesTo",
                 new Class[] {String.class})
                 .invoke(filterHolder, new Object[] {"REQUEST"});        
     
