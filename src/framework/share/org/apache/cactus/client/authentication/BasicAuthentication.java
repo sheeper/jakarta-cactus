@@ -64,7 +64,10 @@ public class BasicAuthentication extends AbstractAuthentication
         super(userid, password);
     }
 
-    protected void validateUserId(String userid)
+    /**
+     * @see AbstractAuthentication.validateName(String)
+     */
+    protected void validateName(String userid)
     {
         // According to HTTP 1.0 Spec:
         // userid   = [ token ]
@@ -103,6 +106,9 @@ public class BasicAuthentication extends AbstractAuthentication
         }
     }
 
+    /**
+     * @see AbstractAuthentication.validatePassword(String)
+     */
     protected void validatePassword(String password)
     {
         // According to HTTP 1.0 Spec:
@@ -143,6 +149,9 @@ public class BasicAuthentication extends AbstractAuthentication
         }
     }
 
+    /**
+     * @see AbstractAuthentication.configure(HttpURLConnection)
+     */
     public void configure(HttpURLConnection connection)
     {
         // According to HTTP 1.0 Spec:
@@ -151,9 +160,9 @@ public class BasicAuthentication extends AbstractAuthentication
         //                     except not limited to 76 char/line>
         // userid-password   = [ token ] ":" *TEXT
         //
-        // see setUserId and setPassword for details of token and TEXT
+        // see setName and setPassword for details of token and TEXT
 
-        String basicCookie = getUserId() + ":" + getPassword();
+        String basicCookie = getName() + ":" + getPassword();
         String basicCredentials = "Basic " +
             new String(base64Encode(basicCookie.getBytes()));
 
@@ -225,10 +234,10 @@ public class BasicAuthentication extends AbstractAuthentication
                 quad = true;
             }
 
-            out[index + 3] = alphabet[(quad ? (val & 0x3F): 64)];
+            out[index + 3] = alphabet[(quad ? (val & 0x3F) : 64)];
             val >>= 6;
 
-            out[index + 2] = alphabet[(trip ? (val & 0x3F): 64)];
+            out[index + 2] = alphabet[(trip ? (val & 0x3F) : 64)];
             val >>= 6;
 
             out[index + 1] = alphabet[val & 0x3F];

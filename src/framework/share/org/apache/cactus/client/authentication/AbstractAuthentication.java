@@ -57,14 +57,14 @@ import java.net.HttpURLConnection;
 
 /**
  * This class was designed with the simple assumption that ALL authentication
- * implementations will have a String <code>UserId</code> and a string
- * <code>Password</code>. Two abstract functions <code>validateUserId</code> and
+ * implementations will have a String <code>Name</code> and a String
+ * <code>Password</code>. Two abstract functions <code>validateName</code> and
  * <code>validatePassword</code> provide for concrete implementations to
  * perform character validation. All the work is then done in the
  * <code>configure</code> abstract function. In the
  * <code>BasicAuthentication</code> class, for example, the configuring is done
  * by adding the request property "Authorization" with a value
- * "Basic <base64encode of 'userid:password'>".
+ * "Basic &lt;base64encode of 'userid:password'&gt;".
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  * @author <a href="mailto:Jason.Robertson@acs-inc.com">Jason Robertson</a>
@@ -74,44 +74,82 @@ import java.net.HttpURLConnection;
 public abstract class AbstractAuthentication
 {
     /**
-     * User id part of the Credential
+     * User name part of the Credential
      */
-    private String userId;
+    private String name;
 
     /**
      * Password part of the Credential
      */
     private String password;
 
-    public AbstractAuthentication(String theUserId, String thePassword)
+    /**
+     * @param theName user name of the Credential
+     * @param thePassword user password of the Credential
+     */
+    public AbstractAuthentication(String theName, String thePassword)
     {
-        setUserId(theUserId);
+        setName(theName);
         setPassword(thePassword);
     }
 
-    public void setUserId(String theUserId)
+    /**
+     * Sets the user name.
+     *
+     * @param theName user name of the Credential
+     */
+    public void setName(String theName)
     {
-        validateUserId(theUserId);
-        this.userId = theUserId;
+        validateName(theName);
+        this.name = theName;
     }
 
-    public String getUserId()
+    /**
+     * @return the user name of the Credential
+     */
+    public String getName()
     {
-        return this.userId;
+        return this.name;
     }
 
+    /**
+     * Sets the user password of the Credential.
+     *
+     * @param thePassword the user password of the Credential
+     */
     public void setPassword(String thePassword)
     {
         validatePassword(thePassword);
         this.password = thePassword;
     }
 
-    protected abstract void validateUserId(String theUserId);
+    /**
+     * Verify that the user name passed as parameter is a valid user name
+     * for the current authentication scheme.
+     *
+     * @param theName the user name to validate
+     */
+    protected abstract void validateName(String theName);
 
+    /**
+     * Verify that the user password passed as parameter is a valid user
+     * password for the current authentication scheme.
+     *
+     * @param thePassword the user password to validate
+     */
     protected abstract void validatePassword(String thePassword);
 
+    /**
+     * Modify the <code>HttpURLConnection</code> passed as parameter so
+     * that it will carry authentication information.
+     *
+     * @param theConnection the HTTP connection to the server URL
+     */
     public abstract void configure(HttpURLConnection theConnection);
 
+    /**
+     * @return the user password of the Credential
+     */
     protected String getPassword()
     {
         return this.password;
