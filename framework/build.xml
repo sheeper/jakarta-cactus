@@ -114,7 +114,6 @@
         value="${target.classes.dir}/java"/>
     <property name="target.classes.test.dir"
         value="${target.classes.dir}/test"/>
-    <property name="target.conf.dir" value="${target.dir}/conf"/>
     <property name="target.doc.dir" value="${target.dir}/doc"/>
     <property name="target.doc.api.dir" value="${target.doc.dir}/api"/>
 
@@ -236,10 +235,6 @@
 
         <tstamp/>
 
-        <filter token="version" value="${project.version}"/>
-        <filter token="project.name.text" value="${project.name.text}"/>
-        <filter token="project.name.file" value="${project.name.file}"/>
-
         <!-- AspectJ task definition -->
         <taskdef name="ajc" classname="org.aspectj.tools.ant.taskdefs.Ajc"/>
         <taskdef name="ajdoc" classname="org.aspectj.tools.ant.taskdefs.Ajdoc"/>
@@ -289,14 +284,25 @@
     -->
     <target name="jar" depends="compile" description="Generate the library jar">
 
-        <mkdir dir="${target.conf.dir}"/>
+        <jar jarfile="${target.dir}/${framework.jar.name}.jar">
 
-        <!-- Copy the manifest in order to replace the version token filter -->
-        <copy todir="${target.conf.dir}" file="${conf.dir}/manifest"
-            filtering="on"/>
+            <manifest>
+                <section name="org/apache/cactus/">
+                    <attribute name="Specification-Title"
+                        value="${project.name.text}"/>
+                    <attribute name="Specification-Version"
+                        value="${project.version}"/>
+                    <attribute name="Specification-Vendor"
+                        value="Apache Software Foundation"/>
+                    <attribute name="Implementation-Title"
+                        value="${project.name.file}"/>
+                    <attribute name="Implementation-Version"
+                        value="${project.version} ${TODAY}"/>
+                    <attribute name="Implementation-Vendor"
+                        value="Apache Software Foundation"/>
+                </section>
+            </manifest>
 
-        <jar jarfile="${target.dir}/${framework.jar.name}.jar"
-          manifest="${target.conf.dir}/manifest">
             <metainf dir=".">
                 <include name="LICENSE.cactus"/>
             </metainf>
