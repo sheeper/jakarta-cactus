@@ -115,7 +115,7 @@ public class TestServletTestCase3 extends ServletTestCase
      * Put a value in the session to verify that this method is called prior
      * to the test, and that it can access servlet implicit objects.
      */
-    public void setUp()
+    protected void setUp()
     {
         session.putValue("setUpFlag", "a setUp test flag");
     }
@@ -135,7 +135,7 @@ public class TestServletTestCase3 extends ServletTestCase
      * Set an HTTP response header to verify that this method is called after
      * the test, and that it can access servlet implicit objects.
      */
-    public void tearDown()
+    protected void tearDown()
     {
         response.setHeader("teardownheader", "tear down header");
     }

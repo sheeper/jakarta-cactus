@@ -31,11 +31,6 @@
 
   <actions priority="low">
     <action context="code">
-      Make the methods <code>setUp()</code> and <code>tearDown()</code>
-      protected on the server side so that it is consistent with JUnit (for the
-      moment they need to be public to work).
-    </action>
-    <action context="code">
       Manage multivalued HTTP headers in <code>ServletTestRequest</code>.
     </action>
     <action context="docs">

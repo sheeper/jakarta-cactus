@@ -10,6 +10,10 @@
   </devs>
 
   <release version="1.0b2 in CVS" date="">
+    <action dev="VMA" type="update">
+      Made the methods <code>setUp()</code> and <code>tearDown()</code>
+      protected on the server side so that it is consistent with JUnit.
+    </action>
     <action dev="VMA" type="update" due-to="Philip Aston" due-to-email="paston@bea.com">
       Modified the Ant <code>runservertest</code> task so that it also works
       when a servlet engine is already up and running and when a server is

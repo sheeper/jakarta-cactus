@@ -144,29 +144,8 @@ public class JspTestCaller
 
         }
 
-        // Call the setUp() method
-        CallerHelper.callSetUpMethod(testInstance);
-
-        // Get the method to call
-        Method method;
-        try {
-            method = testClass.getMethod(theMethod, new Class[0]);
-        } catch (Exception e) {
-            throw new ServletException("Method " + theMethod + "() does not exist for class [" + theClassName + "].", e);
-        }
-
         // Call the test method
-        try {
-            method.invoke(testInstance, null);
-        } catch (IllegalAccessException e) {
-            throw new ServletException("Illegal access", e);
-        } catch (InvocationTargetException e) {
-            throw e.getTargetException();
-        }
-
-        // Call the tearDown() method
-        CallerHelper.callTearDownMethod(testInstance);
-
+        testInstance.runBareServerTest();
     }
 
     /**

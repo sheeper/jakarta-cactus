@@ -340,4 +340,53 @@ public class ServletTestCase extends TestCase
         //connection.disconnect();
      }
 
+	/**
+	 * Run the test that was specified in the constructor on the server side,
+     * calling <code>setUp()</code> and <code>tearDown()</code>.
+	 */
+    public void runBareServerTest() throws Throwable
+    {
+		setUp();
+		try {
+            runServerTest();
+		}
+		finally {
+	        tearDown();
+		}
+	}
+
+	/**
+	 * Run the test that was specified in the constructor on the server side,
+	 */
+	protected void runServerTest() throws Throwable
+    {
+		Method runMethod= null;
+		try {
+			// use getMethod to get all public inherited
+			// methods. getDeclaredMethods returns all
+			// methods of this class but excludes the
+			// inherited ones.
+			runMethod = getClass().getMethod(currentTestMethod, new Class[0]);
+		} catch (NoSuchMethodException e) {
+            fail("Method [" + currentTestMethod +
+                "()] does not exist for class [" + 
+                this.getClass().getName() + "].");
+		}
+		if (runMethod != null && !Modifier.isPublic(runMethod.getModifiers())) {
+			fail("Method [" + currentTestMethod + "()] should be public");
+		}
+
+		try {
+			runMethod.invoke(this, new Class[0]);
+		}
+		catch (InvocationTargetException e) {
+			e.fillInStackTrace();
+			throw e.getTargetException();
+		}
+		catch (IllegalAccessException e) {
+			e.fillInStackTrace();
+			throw e;
+		}
+	}
+	
 }
