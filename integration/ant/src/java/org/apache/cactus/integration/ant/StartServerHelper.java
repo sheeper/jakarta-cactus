@@ -123,7 +123,7 @@ public class StartServerHelper implements Runnable
     /**
      * @return true if the server has already been started.
      */
-    public boolean isServerAlreadyStarted()
+    public final boolean isServerAlreadyStarted()
     {
         return this.isServerAlreadyStarted;
     }
@@ -315,7 +315,7 @@ public class StartServerHelper implements Runnable
     /**
      * @param theTestURL the test URL to ping
      */
-    public void setTestURL(String theTestURL)
+    public final void setTestURL(String theTestURL)
     {
         try
         {
@@ -333,7 +333,7 @@ public class StartServerHelper implements Runnable
      * @param theTimeout the timeout after which we stop trying to call the test
      * URL
      */
-    public void setTimeout(long theTimeout)
+    public final void setTimeout(long theTimeout)
     {
         this.timeout = theTimeout;
     }
@@ -341,7 +341,7 @@ public class StartServerHelper implements Runnable
     /**
      * @param theStartTarget the Ant target to call
      */
-    public void setStartTarget(String theStartTarget)
+    public final void setStartTarget(String theStartTarget)
     {
         this.startTarget = theStartTarget;
     }

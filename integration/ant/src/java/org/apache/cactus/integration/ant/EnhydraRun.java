@@ -93,7 +93,7 @@ public class EnhydraRun extends AbstractServerRun
      * Start the Enhydra server. We use reflection so that the Enhydra jars do
      * not need to be in the classpath to compile this class.
      */
-    protected void doStartServer()
+    protected final void doStartServer()
     {
         try
         {
@@ -115,7 +115,7 @@ public class EnhydraRun extends AbstractServerRun
      * Stops the Enhydra server. We use reflection so that the Enhydra jars do
      * not need to be in the classpath to compile this class.
      */
-    protected void doStopServer()
+    protected final void doStopServer()
     {
         try
         {

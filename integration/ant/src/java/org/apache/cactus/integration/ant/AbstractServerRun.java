@@ -124,7 +124,7 @@ public abstract class AbstractServerRun extends Thread
     /**
      * Parse and process the command line to start/stop the server.
      */
-    protected void doRun()
+    protected final void doRun()
     {
         // Look for a -start or -stop flag
         boolean isStart = true;

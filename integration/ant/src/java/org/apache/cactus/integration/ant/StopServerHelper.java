@@ -216,7 +216,7 @@ public class StopServerHelper implements Runnable
     /**
      * @param theTestURL the test URL to ping
      */
-    public void setTestURL(String theTestURL)
+    public final void setTestURL(String theTestURL)
     {
         try
         {
@@ -231,7 +231,7 @@ public class StopServerHelper implements Runnable
     /**
      * @param theStopTarget the Ant target to call
      */
-    public void setStopTarget(String theStopTarget)
+    public final void setStopTarget(String theStopTarget)
     {
         this.stopTarget = theStopTarget;
     }
