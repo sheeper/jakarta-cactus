@@ -43,15 +43,11 @@
           included in the distribution and to verify it really works.
         </li>
         <li>
-          Make sure you turn Clover on (enable it in
-          <code>build.properties</code>). Otherwise, test coverage reports will
-          not be generated on the Cactus web site.
-        </li>
-        <li>
           Build the Cactus release for all Servlet APIs (<code>ant
-          release</code>). <em>Note: Make sure you are connected to the internet
-          when building the releases as the documentation subproject needs the
-          CVS logs for the changes page.</em>
+          release</code> at the top level). <em>Note: Make sure you are 
+          connected to the internet when building the releases as the 
+          documentation subproject needs the CVS logs for the changes 
+          page.</em>
         </li>
         <li>
           Build the source release (<code>ant release.src</code>).
