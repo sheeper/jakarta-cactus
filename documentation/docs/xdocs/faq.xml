@@ -68,6 +68,9 @@
         <li>
           <jump anchor="faq14">Does Cactus supports asserting HTML pages with Javascript?</jump>
         </li>
+        <li>
+          <jump anchor="faq15">I have problems using StrutsTestCase...</jump>
+        </li>
       </ul>
     </section>
 
@@ -546,6 +549,15 @@ java.lang.NoSuchMethodError:
         does not support this use case (There's a 
         <a href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=24876">bug</a> 
         opened for adding this support).
+      </p>
+    </section>
+
+    <anchor id="faq15"/>
+    <section title="I have problems using StrutsTestCase...">
+      <p>
+        <a href="ext:strutstestcase">StrutsTestCase</a> is a project separate 
+        from Cactus. It has its own mailing list/forum. Please post your 
+        questions there.
       </p>
     </section>
 
