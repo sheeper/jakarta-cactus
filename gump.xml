@@ -28,7 +28,7 @@
       <property name="project.version" value="@@DATE@@"/>
     </ant>
   
-    <depend project="jakarta-ant" inherit="runtime"/>
+    <depend project="ant" inherit="runtime"/>
     <depend project="xml-xerces"/>
     <option project="checkstyle" inherit="runtime"/>
 
@@ -70,7 +70,7 @@
 
     </ant>
   
-    <depend project="jakarta-ant" inherit="runtime"/>
+    <depend project="ant" inherit="runtime"/>
     <depend project="xml-xerces"/>
     <depend project="aspectj"/>
     <option project="checkstyle" inherit="runtime"/>
@@ -114,7 +114,7 @@
 
     </ant>
   
-    <depend project="jakarta-ant" inherit="runtime"/>
+    <depend project="ant" inherit="runtime"/>
     <depend project="xml-xerces"/>
     <depend project="aspectj"/>
     <option project="checkstyle" inherit="runtime"/>
@@ -158,7 +158,7 @@
 
     </ant>
   
-    <depend project="jakarta-ant" inherit="runtime"/>
+    <depend project="ant" inherit="runtime"/>
     <depend project="xml-xerces"/>
     <depend project="aspectj"/>
 
@@ -196,7 +196,7 @@
 
     </ant>
   
-    <depend project="jakarta-ant" inherit="runtime"/>
+    <depend project="ant" inherit="runtime"/>
     <depend project="xml-xerces"/>
     <depend project="aspectj"/>
 
@@ -242,7 +242,7 @@
 
     </ant>
   
-    <depend project="jakarta-ant" inherit="runtime"/>
+    <depend project="ant" inherit="runtime"/>
     <depend project="xml-xerces"/>
     <depend project="jakarta-cactus-integration-ant-12"/>
 
@@ -285,7 +285,7 @@
 
     </ant>
     
-    <depend project="jakarta-ant" inherit="runtime"/>
+    <depend project="ant" inherit="runtime"/>
     <depend project="xml-xerces"/>
     <depend project="jakarta-cactus-integration-ant-13"/>
 
@@ -337,7 +337,7 @@
 
     </ant>
   
-    <depend project="jakarta-ant" inherit="runtime"/>
+    <depend project="ant" inherit="runtime"/>
     <depend project="xml-xerces"/>
     <depend project="jakarta-tomcat" inherit="runtime"/>
     <depend project="aspectj"/>
@@ -398,7 +398,7 @@
 
     </ant>
   
-    <depend project="jakarta-ant" inherit="runtime"/>
+    <depend project="ant" inherit="runtime"/>
     <depend project="xml-xerces"/>
     <depend project="jakarta-tomcat-4.0" inherit="runtime"/>
     <depend project="aspectj"/>
@@ -434,7 +434,7 @@
       <property name="javadoc.include" value="true"/>
     </ant>
 
-    <depend project="jakarta-ant" inherit="runtime"/>
+    <depend project="ant" inherit="runtime"/>
     <depend project="xml-xerces"/>
     <depend project="xml-xalan2"/>
 
