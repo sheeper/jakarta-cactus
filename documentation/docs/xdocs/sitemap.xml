@@ -338,11 +338,20 @@
     Information about the Cactus Web Application plugin for Eclipse.
   </resource>
 
-  <resource id="news_rdf" target="news.rdf" name="RSS News"/>
+  <resource id="news_rdf" target="news.rdf" name="RSS News">
+    All the recent Cactus news as a RDF feed so that you always
+    keep up to date!
+  </resource>
+
   <resource id="news_archives_2002" target="news-2002.html" 
-      name="2002 news archives"/>
+      name="2002 news archives">
+    Past Cactus news that happened in 2002.
+  </resource>
+      
   <resource id="news_archives_2001" target="news-2001.html" 
-      name="2001 news archives"/>
+      name="2001 news archives">
+    Past Cactus news that happened in 2001.
+  </resource>
 
   <resource id="code_sample_servlet" target="misc/SampleServlet.class"/>
   <resource id="code_test_sample_servlet" target="misc/TestSampleServlet.class"/>
