@@ -21,14 +21,20 @@
           <th>Description</th>
         </tr>
         <tr>
-          <td>05 May 2004</td>
+          <td>14 May 2004</td>
           <td>
-            Maven plugin 1.6 for Cactus is available. See the
+            Maven plugin 1.6.1 for Cactus is available. See the
             <a href="changes-report.html">changes report</a> for the detailed 
             list of changes. To install it, run:<br/>
-            <code>maven plugin:download -DartifactId=cactus-maven -DgroupId=cactus -Dversion=1.6</code>
+            <code>maven plugin:download -DartifactId=cactus-maven -DgroupId=cactus -Dversion=1.6.1</code>
             <br/>Read the <a href="using.html">using guide</a> for more details
             on installation and usage.
+          </td>
+        </tr>
+        <tr>
+          <td>05 May 2004</td>
+          <td>
+            Maven plugin 1.6 for Cactus is available.
           </td>
         </tr>
       </table>
