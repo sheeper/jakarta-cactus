@@ -63,8 +63,9 @@ import org.apache.commons.cactus.*;
  * like if the CLASSPATH contains the jar for the Servlet API, if the
  * <code>cactus.properties</code> file is in the CLASSPATH, ...
  *
- * @version @version@
- * @author Vincent Massol <a href="mailto:vmassol@users.sourceforge.net">vmassol@users.sourceforge.net</a> 
+ * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
+ *
+ * @version $Id$
  */
 public class ClientConfigurationChecker
 {
@@ -80,9 +81,10 @@ public class ClientConfigurationChecker
             "/" + AbstractHttpClient.CONFIG_NAME + ".properties");
         
         if (is == null) {
-            String msg = "The Cactus '" + AbstractHttpClient.CONFIG_NAME + ".properties' ";
-            msg += "configuration file need to be present in the java CLASSPATH";
-            msg += "(i.e. the directory that contains it need to be added to the CLASSPATH).";
+            String msg = "The Cactus '" + AbstractHttpClient.CONFIG_NAME +
+                ".properties' configuration file need to be present in the " +
+                "java CLASSPATH (i.e. the directory that contains it need " +
+                "to be added to the CLASSPATH).";
             throw new RuntimeException(msg);
         }
 

@@ -57,6 +57,8 @@ import java.io.*;
 import java.net.*;
 import java.security.*;
 
+import org.apache.commons.cactus.util.log.*;
+
 /**
  * Wrapper class for the real <code>HttpURLConnection</code> to the test servlet
  * that reads the complete input stream into an internal buffer on
@@ -69,10 +71,20 @@ import java.security.*;
  * This class is final so we don't have to provide access to protected instance
  * variables and methods of the wrapped connection.
  *
- * @version @version@
+ * @author <a href="mailto:Bob.Davison@reuters.com">Bob Davison</a>
+ * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
+ *
+ * @version $Id$
  */
 final class AutoReadHttpURLConnection extends HttpURLConnection
 {
+    /**
+     * The logger
+     */
+    private static Log logger =
+        LogService.getInstance().
+        getLog(AutoReadHttpURLConnection.class.getName());
+
     /**
      * Default size of array for copying data, not sure what a good size is.
      */
@@ -101,10 +113,10 @@ final class AutoReadHttpURLConnection extends HttpURLConnection
      */
     InputStream streamBuffer;
 
-    AutoReadHttpURLConnection(HttpURLConnection conn)
+    AutoReadHttpURLConnection(HttpURLConnection theConnection)
     {
         super(null);
-        delegate = conn;
+        this.delegate = theConnection;
     }
 
     /**
@@ -115,15 +127,24 @@ final class AutoReadHttpURLConnection extends HttpURLConnection
      */
     public synchronized InputStream getInputStream() throws IOException
     {
+        this.logger.entry("getInputStream()");
+
+        this.logger.debug("Original connection = " + this.delegate);
+
         if (streamBuffer == null) {
-            streamBuffer = bufferInputStream(delegate.getInputStream());
+            InputStream is = this.delegate.getInputStream();
+            streamBuffer = bufferInputStream(is);
         }
+
+        this.logger.exit("getInputStream");
         return streamBuffer;
     }
 
     InputStream bufferInputStream(InputStream is) throws IOException
     {
-        ByteArrayOutputStream os = new ByteArrayOutputStream(chunkSize);
+        this.logger.entry("bufferInputStream(...)");
+
+        ByteArrayOutputStream os = new ByteArrayOutputStream(this.chunkSize);
         copy(is, os);
         ByteArrayInputStream bais = null;
 
@@ -135,220 +156,228 @@ final class AutoReadHttpURLConnection extends HttpURLConnection
         byte[] buffer = os.toByteArray();
         boolean foundMagic = true;
         for (int i = 1; i < MAGIC_KEYWORD.length - 1; i++) {
-            if (buffer[buffer.length - i] != MAGIC_KEYWORD[MAGIC_KEYWORD.length - i]) {
+            if (buffer[buffer.length - i] !=
+                MAGIC_KEYWORD[MAGIC_KEYWORD.length - i]) {
+
                 foundMagic = false;
                 break;
             }
         }
         if (foundMagic) {
-            bais = new ByteArrayInputStream(buffer, 0, buffer.length - MAGIC_KEYWORD.length);
+            bais = new ByteArrayInputStream(buffer, 0,
+                buffer.length - MAGIC_KEYWORD.length);
         } else {
             bais = new ByteArrayInputStream(buffer);
         }
 
-        return bais;        
+        this.logger.exit("bufferInputStream");
+        return bais;
     }
 
     void copy(InputStream is, OutputStream os) throws IOException
     {
-        byte[] buf = new byte[chunkSize];
+        this.logger.entry("copy(...)");
+
+        byte[] buf = new byte[this.chunkSize];
         int count;
 
         while( -1 != (count = is.read(buf)) ) {
             os.write(buf, 0, count);
         }
+
+        this.logger.exit("copy");
     }
 
     // Delegated methods
 
     public void connect() throws IOException
     {
-        delegate.connect();
+        this.delegate.connect();
     }
 
     public boolean getAllowUserInteraction()
     {
-        return delegate.getAllowUserInteraction();
+        return this.delegate.getAllowUserInteraction();
     }
 
     public Object getContent() throws IOException 
     {
-        return delegate.getContent();
+        return this.delegate.getContent();
     }
 
     public String getContentEncoding()
     {
-        return delegate.getContentEncoding();
+        return this.delegate.getContentEncoding();
     }
 
     public int getContentLength()
     {
-        return delegate.getContentLength();
+        return this.delegate.getContentLength();
     }
 
     public String getContentType()
     {
-        return delegate.getContentType();
+        return this.delegate.getContentType();
     }
 
     public long getDate()
     {
-        return delegate.getDate();
+        return this.delegate.getDate();
     }
 
     public boolean getDefaultUseCaches()
     {
-      return delegate.getDefaultUseCaches();
+      return this.delegate.getDefaultUseCaches();
     }
 
     public boolean getDoInput()
     {
-        return delegate.getDoInput();
+        return this.delegate.getDoInput();
     }
 
     public boolean getDoOutput()
     {
-        return delegate.getDoOutput();
+        return this.delegate.getDoOutput();
     }
 
     public long getExpiration()
     {
-        return delegate.getExpiration();
+        return this.delegate.getExpiration();
     }
 
     public String getHeaderField(int a0)
     {
-        return delegate.getHeaderField(a0);
+        return this.delegate.getHeaderField(a0);
     }
 
     public String getHeaderField(String a0)
     {
-        return delegate.getHeaderField(a0);
+        return this.delegate.getHeaderField(a0);
     }
 
     public long getHeaderFieldDate(String a0, long a1)
     {
-        return delegate.getHeaderFieldDate(a0, a1);
+        return this.delegate.getHeaderFieldDate(a0, a1);
     }
 
     public int getHeaderFieldInt(String a0, int a1)
     {
-        return delegate.getHeaderFieldInt(a0, a1);
+        return this.delegate.getHeaderFieldInt(a0, a1);
     }
 
     public String getHeaderFieldKey(int a0)
     {
-        return delegate.getHeaderFieldKey(a0);
+        return this.delegate.getHeaderFieldKey(a0);
     }
 
     public long getIfModifiedSince()
     {
-        return delegate.getIfModifiedSince();
+        return this.delegate.getIfModifiedSince();
     }
 
     public long getLastModified()
     {
-        return delegate.getLastModified();
+        return this.delegate.getLastModified();
     }
 
     public OutputStream getOutputStream() throws IOException
     {
-        return delegate.getOutputStream();
+        return this.delegate.getOutputStream();
     }
 
     public Permission getPermission() throws IOException
     {
-        return delegate.getPermission();
+        return this.delegate.getPermission();
     }
 
     public String getRequestProperty(String a0)
     {
-        return delegate.getRequestProperty(a0);
+        return this.delegate.getRequestProperty(a0);
     }
 
     public URL getURL()
     {
-        return delegate.getURL();
+        return this.delegate.getURL();
     }
 
     public boolean getUseCaches()
     {
-        return delegate.getUseCaches();
+        return this.delegate.getUseCaches();
     }
 
     public void setAllowUserInteraction(boolean a0)
     {
-        delegate.setAllowUserInteraction(a0);
+        this.delegate.setAllowUserInteraction(a0);
     }
 
     public void setDefaultUseCaches(boolean a0)
     {
-        delegate.setDefaultUseCaches(a0);
+        this.delegate.setDefaultUseCaches(a0);
     }
 
     public void setDoInput(boolean a0)
     {
-        delegate.setDoInput(a0);
+        this.delegate.setDoInput(a0);
     }
 
     public void setDoOutput(boolean a0)
     {
-        delegate.setDoOutput(a0);
+        this.delegate.setDoOutput(a0);
     }
 
     public void setIfModifiedSince(long a0)
     {
-        delegate.setIfModifiedSince(a0);
+        this.delegate.setIfModifiedSince(a0);
     }
 
     public void setRequestProperty(String a0, String a1)
     {
-        delegate.setRequestProperty(a0, a1);
+        this.delegate.setRequestProperty(a0, a1);
     }
 
     public void setUseCaches(boolean a0)
     {
-        delegate.setUseCaches(a0);
+        this.delegate.setUseCaches(a0);
     }
 
     public String toString()
     {
-        return delegate.toString();
+        return this.delegate.toString();
     }
 
     public void disconnect()
     {
-        delegate.disconnect();
+        this.delegate.disconnect();
     }
 
     public InputStream getErrorStream()
     {
-        return delegate.getErrorStream();
+        return this.delegate.getErrorStream();
     }
 
     public String getRequestMethod()
     {
-        return delegate.getRequestMethod();
+        return this.delegate.getRequestMethod();
     }
 
     public int getResponseCode() throws IOException
     {
-        return delegate.getResponseCode();
+        return this.delegate.getResponseCode();
     }
 
     public String getResponseMessage() throws IOException
     {
-        return delegate.getResponseMessage();
+        return this.delegate.getResponseMessage();
     }
 
     public void setRequestMethod(String a0) throws ProtocolException
     {
-        delegate.setRequestMethod(a0);
+        this.delegate.setRequestMethod(a0);
     }
 
     public boolean usingProxy()
     {
-        return delegate.usingProxy();
+        return this.delegate.usingProxy();
     }
 
 }

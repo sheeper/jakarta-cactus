@@ -67,7 +67,9 @@ import java.io.*;
  * and overloading the <code>printStackTrace()</code> methods to print a
  * text stack trace.
  *
- * @version @version@
+ * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
+ *
+ * @version $Id$
  */
 public class ServletExceptionWrapper extends Throwable
 {
@@ -75,12 +77,12 @@ public class ServletExceptionWrapper extends Throwable
      * The stack trace that was sent back from the servlet redirector as a
      * string.
      */
-    private String m_StackTrace;
+    private String stackTrace;
 
     /**
      * The class name of the exception that was raised on the server side.
      */
-    private String m_ClassName;
+    private String className;
 
     /**
      * Standard throwable constructor.
@@ -107,11 +109,12 @@ public class ServletExceptionWrapper extends Throwable
      * @param theClassName the server exception class name
      * @param theStackTrace the server exception stack trace
      */
-    public ServletExceptionWrapper(String theMessage, String theClassName, String theStackTrace)
+    public ServletExceptionWrapper(String theMessage, String theClassName,
+        String theStackTrace)
     {
         super(theMessage);
-        m_ClassName = theClassName;
-        m_StackTrace = theStackTrace;
+        this.className = theClassName;
+        this.stackTrace = theStackTrace;
     }
 
     /**
@@ -121,10 +124,10 @@ public class ServletExceptionWrapper extends Throwable
      */
     public void printStackTrace(PrintStream thePs)
     {
-        if (m_StackTrace == null) {
+        if (this.stackTrace == null) {
             thePs.print(getMessage());
         } else {
-            thePs.print(m_StackTrace);
+            thePs.print(this.stackTrace);
         }
     }
 
@@ -135,10 +138,10 @@ public class ServletExceptionWrapper extends Throwable
      */
     public void printStackTrace(PrintWriter thePw)
     {
-        if (m_StackTrace == null) {
+        if (this.stackTrace == null) {
             thePw.print(getMessage());
         } else {
-            thePw.print(m_StackTrace);
+            thePw.print(this.stackTrace);
         }
     }
 
@@ -151,11 +154,11 @@ public class ServletExceptionWrapper extends Throwable
      */
     public boolean instanceOf(Class theClass)
     {
-        if (m_ClassName == null) {
+        if (this.className == null) {
             return false;
         }
 
-        return theClass.getName().equals(m_ClassName);
+        return theClass.getName().equals(this.className);
     }
 
 }

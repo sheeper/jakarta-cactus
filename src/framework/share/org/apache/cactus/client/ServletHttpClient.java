@@ -60,6 +60,7 @@ import java.io.*;
 import junit.framework.*;
 
 import org.apache.commons.cactus.*;
+import org.apache.commons.cactus.util.log.*;
 
 /**
  * Manage the logic for calling a test method (which need access to Servlet
@@ -68,10 +69,18 @@ import org.apache.commons.cactus.*;
  * by opening a second HTTP connection but to the redirector servlet (the tests
  * were saved in the application context scope).
  *
- * @version @version@
+ * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
+ *
+ * @version $Id$
  */
 public class ServletHttpClient extends AbstractHttpClient
 {
+    /**
+     * The logger
+     */
+    private static Log logger =
+        LogService.getInstance().getLog(ServletHttpClient.class.getName());
+
     /**
      * Default URL to call the <code>ServletRedirector</code> servlet.
      */
@@ -91,9 +100,12 @@ public class ServletHttpClient extends AbstractHttpClient
      * @exception Throwable if an error occured in the test method or in the
      *                      redirector servlet.
      */
-    public HttpURLConnection doTest(ServletTestRequest theRequest) throws Throwable
+    public HttpURLConnection doTest(ServletTestRequest theRequest)
+        throws Throwable
     {
-        ServletTestResult result = null;
+        this.logger.entry("doTest(" + theRequest + ")");
+
+        WebTestResult result = null;
         HttpURLConnection connection = null;
         
         // Open the first connection to the redirector servlet
@@ -120,8 +132,9 @@ public class ServletHttpClient extends AbstractHttpClient
         HttpURLConnection resultConnection = helper2.connect(resultsRequest);
 
         // Read the results as a serialized object
-        ObjectInputStream ois = new ObjectInputStream(resultConnection.getInputStream());
-        result = (ServletTestResult)ois.readObject();
+        ObjectInputStream ois =
+            new ObjectInputStream(resultConnection.getInputStream());
+        result = (WebTestResult)ois.readObject();
 
         ois.close();
 
@@ -142,22 +155,26 @@ public class ServletHttpClient extends AbstractHttpClient
             // it's runner console). Otherwise we use an instance of
             // ServletExceptionWrapper.
 
-            if (result.getExceptionClassName().equals("junit.framework.AssertionFailedError")) {
+            if (result.getExceptionClassName().
+                equals("junit.framework.AssertionFailedError")) {
 
                 throw new AssertionFailedErrorWrapper(
-                    result.getExceptionMessage(), result.getExceptionClassName(),
+                    result.getExceptionMessage(),
+                    result.getExceptionClassName(),
                     result.getExceptionStackTrace());
 
             } else {
 
                 throw new ServletExceptionWrapper(
-                    result.getExceptionMessage(), result.getExceptionClassName(),
+                    result.getExceptionMessage(),
+                    result.getExceptionClassName(),
                     result.getExceptionStackTrace());
 
             }
 
         }
 
+        this.logger.exit("doTest");
         return connection;
     }
 

@@ -60,6 +60,7 @@ import java.io.*;
 import junit.framework.*;
 
 import org.apache.commons.cactus.*;
+import org.apache.commons.cactus.util.log.*;
 
 /**
  * Manage the logic for calling a test method (which need access to JSP
@@ -68,10 +69,18 @@ import org.apache.commons.cactus.*;
  * by opening a second HTTP connection but to the Servlet redirector (the tests
  * were saved in the application context scope).
  *
- * @version @version@
+ * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
+ *
+ * @version $Id$
  */
 public class JspHttpClient extends AbstractHttpClient
 {
+    /**
+     * The logger
+     */
+    private static Log logger =
+        LogService.getInstance().getLog(JspHttpClient.class.getName());
+
     /**
      * Default URL to call the <code>jspRedirector</code> JSP.
      */
@@ -98,9 +107,12 @@ public class JspHttpClient extends AbstractHttpClient
      * @exception Throwable if an error occured in the test method or in the
      *                      redirector servlet.
      */
-    public HttpURLConnection doTest(ServletTestRequest theRequest) throws Throwable
+    public HttpURLConnection doTest(ServletTestRequest theRequest)
+        throws Throwable
     {
-        ServletTestResult result = null;
+        this.logger.entry("doTest(" + theRequest + ")");
+
+        WebTestResult result = null;
         HttpURLConnection connection = null;
 
         // Open the first connection to the redirector JSP
@@ -110,6 +122,10 @@ public class JspHttpClient extends AbstractHttpClient
         theRequest.addParameter(ServiceDefinition.SERVICE_NAME_PARAM,
             ServiceEnumeration.CALL_TEST_SERVICE.toString());
         connection = helper1.connect(theRequest);
+
+        // Wrap the connection to ensure that all servlet output is read
+        // before we ask for results
+        connection = new AutoReadHttpURLConnection(connection);
 
         // Note: We need to get the input stream here to trigger the actual
         // call to the servlet ... Don't know why exactly ... :(
@@ -124,8 +140,9 @@ public class JspHttpClient extends AbstractHttpClient
         HttpURLConnection resultConnection = helper2.connect(resultsRequest);
 
         // Read the results as a serialized object
-        ObjectInputStream ois = new ObjectInputStream(resultConnection.getInputStream());
-        result = (ServletTestResult)ois.readObject();
+        ObjectInputStream ois =
+            new ObjectInputStream(resultConnection.getInputStream());
+        result = (WebTestResult)ois.readObject();
 
         ois.close();
 
@@ -147,6 +164,7 @@ public class JspHttpClient extends AbstractHttpClient
                 result.getExceptionStackTrace());
         }
 
+        this.logger.exit("doTest");
         return connection;
     }
 

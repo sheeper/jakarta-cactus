@@ -67,7 +67,9 @@ import org.apache.commons.cactus.*;
  * configuration checks to verify if the runtime configuration is right (see
  * the <code>ClientConfigurationChecker</code> class for details).
  *
- * @version @version@
+ * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
+ *
+ * @version $Id$
  */
 public abstract class AbstractHttpClient
 {
@@ -102,6 +104,7 @@ public abstract class AbstractHttpClient
      * @exception Throwable if an error occured in the test method or in the
      *                      redirector servlet.
      */
-    public abstract HttpURLConnection doTest(ServletTestRequest theRequest) throws Throwable;
+    public abstract HttpURLConnection doTest(ServletTestRequest theRequest)
+        throws Throwable;
 
 }

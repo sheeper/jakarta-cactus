@@ -60,26 +60,39 @@ import java.io.*;
 import junit.framework.*;
 
 import org.apache.commons.cactus.*;
+import org.apache.commons.cactus.util.log.*;
 
 /**
  * Helper class to open an HTTP connection to the server redirector and pass
  * to it HTTP parameters, Cookies and HTTP headers.
  *
- * @version @version@
+ * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
+ *
+ * @version $Id$
  */
 class HttpClientHelper
 {
     /**
+     * The logger
+     */
+    private static Log logger =
+        LogService.getInstance().getLog(HttpClientHelper.class.getName());
+
+    /**
      * The URL that will be used for the HTTP connection.
      */
-    private String m_URL;
+    private String url;
 
     /**
      * @param theURL the URL that will be used for the HTTP connection.
      */
     public HttpClientHelper(String theURL)
     {
-        m_URL = theURL;
+        this.logger.entry("HttpClientHelper([" + theURL + "])");
+
+        this.url = theURL;
+
+        this.logger.exit("HttpClientHelper");
     }
 
     /**
@@ -90,7 +103,8 @@ class HttpClientHelper
      * @param theURL the URL used to connect to the server redirector.
      * @return the new URL
      */
-    private URL addParametersUsingGet(ServletTestRequest theRequest, URL theURL) throws Throwable
+    private URL addParametersUsingGet(ServletTestRequest theRequest, URL theURL)
+        throws Throwable
     {
         // If no parameters, then exit
         if (!theRequest.getParameterNames().hasMoreElements()) {
@@ -144,7 +158,8 @@ class HttpClientHelper
      *                   redirector.
      * @param theConnection the HTTP connection
      */
-    private void addParametersUsingPost(ServletTestRequest theRequest, URLConnection theConnection) throws Throwable
+    private void addParametersUsingPost(ServletTestRequest theRequest,
+        URLConnection theConnection) throws Throwable
     {
         // If no parameters, then exit
         if (!theRequest.getParameterNames().hasMoreElements()) {
@@ -157,10 +172,12 @@ class HttpClientHelper
         } catch (ConnectException e) {
 
             // Cannot connect to server, try to explain why ...
-            String reason = "Cannot connect to URL [" + theConnection.getURL() + "]. Reason : [" + e.getMessage() + "]\r\n";
+            String reason = "Cannot connect to URL [" + theConnection.getURL() +
+                "]. Reason : [" + e.getMessage() + "]\r\n";
             reason += "Possible reasons :\r\n";
             reason += "\t- The server is not running,\r\n";
-            reason += "\t- The server redirector is not correctly mapped in web.xml,\r\n";
+            reason += "\t- The server redirector is not correctly mapped in " +
+                "web.xml,\r\n";
             reason += "\t- Something else ... !";
 
             throw new Exception(reason);
@@ -206,7 +223,8 @@ class HttpClientHelper
      *                   redirector.
      * @param theConnection the HTTP connection
      */
-    private void addCookies(ServletTestRequest theRequest, URLConnection theConnection)
+    private void addCookies(ServletTestRequest theRequest,
+        URLConnection theConnection)
     {
         // If no Cookies, then exit
         if (!theRequest.getCookieNames().hasMoreElements()) {
@@ -253,7 +271,8 @@ class HttpClientHelper
      *                   redirector.
      * @param theConnection the HTTP connection
      */
-    private void addHeaders(ServletTestRequest theRequest, URLConnection theConnection)
+    private void addHeaders(ServletTestRequest theRequest,
+        URLConnection theConnection)
     {
         Enumeration keys = theRequest.getHeaderNames();
 
@@ -285,9 +304,12 @@ class HttpClientHelper
      *
      * @exception Throwable if an unexpected error occured
      */
-    public HttpURLConnection connect(ServletTestRequest theRequest) throws Throwable
+    public HttpURLConnection connect(ServletTestRequest theRequest)
+        throws Throwable
     {
-        URL url = new URL(m_URL);
+        this.logger.entry("connect(" + theRequest + ")");
+
+        URL url = new URL(this.url);
 
         // If the method is GET, add the parameters to the URL
         if (theRequest.getMethod().equals(theRequest.GET_METHOD)) {
@@ -321,6 +343,7 @@ class HttpClientHelper
         // Open the connection and get the result
         connection.connect();
 
+        this.logger.exit("connect");
         return connection;
     }
 

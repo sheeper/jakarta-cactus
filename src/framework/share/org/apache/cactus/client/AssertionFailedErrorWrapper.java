@@ -62,7 +62,9 @@ import junit.framework.*;
  * extends JUnit <code>AssertionFailedError</code> so that JUnit will
  * print a different message in it's runner console.
  *
- * @version @version@
+ * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
+ *
+ * @version $Id$
  */
 public class AssertionFailedErrorWrapper extends AssertionFailedError
 {
@@ -70,12 +72,12 @@ public class AssertionFailedErrorWrapper extends AssertionFailedError
      * The stack trace that was sent back from the servlet redirector as a
      * string.
      */
-    private String m_StackTrace;
+    private String stackTrace;
 
     /**
      * The class name of the exception that was raised on the server side.
      */
-    private String m_ClassName;
+    private String className;
 
     /**
      * Standard throwable constructor.
@@ -102,11 +104,12 @@ public class AssertionFailedErrorWrapper extends AssertionFailedError
      * @param theClassName the server exception class name
      * @param theStackTrace the server exception stack trace
      */
-    public AssertionFailedErrorWrapper(String theMessage, String theClassName, String theStackTrace)
+    public AssertionFailedErrorWrapper(String theMessage, String theClassName,
+        String theStackTrace)
     {
         super(theMessage);
-        m_ClassName = theClassName;
-        m_StackTrace = theStackTrace;
+        this.className = theClassName;
+        this.stackTrace = theStackTrace;
     }
 
     /**
@@ -116,10 +119,10 @@ public class AssertionFailedErrorWrapper extends AssertionFailedError
      */
     public void printStackTrace(PrintStream thePs)
     {
-        if (m_StackTrace == null) {
+        if (this.stackTrace == null) {
             thePs.print(getMessage());
         } else {
-            thePs.print(m_StackTrace);
+            thePs.print(this.stackTrace);
         }
     }
 
@@ -130,10 +133,10 @@ public class AssertionFailedErrorWrapper extends AssertionFailedError
      */
     public void printStackTrace(PrintWriter thePw)
     {
-        if (m_StackTrace == null) {
+        if (this.stackTrace == null) {
             thePw.print(getMessage());
         } else {
-            thePw.print(m_StackTrace);
+            thePw.print(this.stackTrace);
         }
     }
 
@@ -146,11 +149,11 @@ public class AssertionFailedErrorWrapper extends AssertionFailedError
      */
     public boolean instanceOf(Class theClass)
     {
-        if (m_ClassName == null) {
+        if (this.className == null) {
             return false;
         }
 
-        return theClass.getName().equals(m_ClassName);
+        return theClass.getName().equals(this.className);
     }
 
 }
