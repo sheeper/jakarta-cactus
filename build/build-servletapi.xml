@@ -208,6 +208,11 @@
                 <pathelement path="${java.class.path}"/>
             </classpath>
         </taskdef>
+        <taskdef name="ajdoc" classname="org.aspectj.tools.ant.taskdefs.Ajdoc" >
+            <classpath>
+                <pathelement path="${java.class.path}"/>
+            </classpath>
+        </taskdef>
 
     </target>
 
@@ -374,7 +379,7 @@
     <!-- Generate the javadoc for the current Servlet API -->
     <target name="javadoc" depends="prepare-javadoc">
 
-        <javadoc
+        <ajdoc
             sourcepath="${out.src.dir}"
             packagenames="org.apache.cactus.*"
             destdir="${out.javadoc.dir}"
@@ -396,7 +401,7 @@
                 <pathelement path="${java.class.path}"/>
             </classpath>
 
-        </javadoc>
+        </ajdoc>
 
         <!-- Create a gzip file of the javadoc. This is for putting to the
              Cactus web site. It needs to be unzipped in the root document
