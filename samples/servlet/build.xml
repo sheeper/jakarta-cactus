@@ -25,8 +25,17 @@
 -->
 <project name="Cactus Servlet Sample" default="dist" basedir="../..">
 
+    <description>
+ Build file for the Cactus Servlet Sample, which shows how to use Cactus for
+ unit testing the Servlet API (Servlets, Fitlers, Tag Libraries).
+    </description>
+
     <!-- Base directory for all file related operations -->
-    <property name="base.dir" value="samples/servlet"/>
+    <property name="base.dir" location="${basedir}/samples/servlet"/>
+
+    <!-- Indicate that this subproject is dependant on the version of the J2EE
+         API available -->
+    <property name="j2ee.dependant" value="true"/>
 
     <!-- Include properties and targets common to the different subprojects -->
     &common;
@@ -43,26 +52,26 @@
     <target name="properties">
 
         <!-- Set the properties related to the source tree -->
-        <property name="src.dir" value="${base.dir}/src"/>
-        <property name="src.java.dir" value="${src.dir}/java"/>
-        <property name="src.cactus.dir" value="${src.dir}/test-cactus"/>
-        <property name="src.script.dir" value="${src.dir}/scripts"/>
-        <property name="src.webapp.dir" value="${src.dir}/webapp"/>
+        <property name="src.dir" location="${base.dir}/src"/>
+        <property name="src.java.dir" location="${src.dir}/java"/>
+        <property name="src.cactus.dir" location="${src.dir}/test-cactus"/>
+        <property name="src.script.dir" location="${src.dir}/scripts"/>
+        <property name="src.webapp.dir" location="${src.dir}/webapp"/>
 
         <!-- Set the properties related to the target area -->
-        <property name="target.sample.dir" value="${target.dir}/sample"/>
-        <property name="target.sample.build.dir" value="${target.sample.dir}/build"/>
-        <property name="target.sample.build.integration.dir" 
-            value="${target.sample.build.dir}/cactus-integration-ant"/>
-        <property name="target.sample.src.dir" value="${target.sample.dir}/src"/>
+        <property name="target.sample.dir" location="${target.dir}/sample"/>
+        <property name="target.sample.src.dir"
+            location="${target.sample.dir}/src"/>
         <property name="target.sample.src.java.dir"
-            value="${target.sample.src.dir}/java"/>
+            location="${target.sample.src.dir}/java"/>
         <property name="target.sample.src.cactus.dir"
-            value="${target.sample.src.dir}/test-cactus"/>
+            location="${target.sample.src.dir}/test-cactus"/>
         <property name="target.sample.src.webapp.dir" 
-            value="${target.sample.src.dir}/webapp"/>
+            location="${target.sample.src.dir}/webapp"/>
         <property name="target.sample.lib.dir" 
-            value="${target.sample.dir}/lib"/>
+            location="${target.sample.dir}/lib"/>
+        <property name="target.test.dir" 
+            location="${target.dir}/test"/>
 
     </target>
 
@@ -72,12 +81,7 @@
        ========================================================================
     -->
     <path id="project.class.path">
-
         <pathelement location="${j2ee.jar}"/>
-
-        <!-- Includes system classpath for jars that are in ANT_HOME/lib such
-             as aspectrt.jar, etc -->
-        <pathelement path="${java.class.path}"/>
     </path>
 
     <!--
@@ -104,24 +108,78 @@
 
     <!--
        ========================================================================
+         Initialize filters used in copy operations
+       ========================================================================
+    -->
+    <target name="init.filters.12" depends="init.common"
+        unless="j2ee13.available">
+
+      <filterset id="container.enablement">
+          <filter token="j2ee12.begin" value=""/>
+          <filter token="j2ee12.end" value=""/>
+          <filter token="j2ee13.begin" value="!-- "/>
+          <filter token="j2ee13.end" value=" --"/>
+      </filterset>
+
+    </target>
+
+    <target name="init.filters.13" depends="init.common"
+        if="j2ee13.available">
+
+      <filterset id="container.enablement">
+          <filter token="j2ee12.begin" value="!-- "/>
+          <filter token="j2ee12.end" value=" --"/>
+          <filter token="j2ee13.begin" value=""/>
+          <filter token="j2ee13.end" value=""/>
+      </filterset>
+
+    </target>
+
+    <target name="init.filters" depends="init.filters.12, init.filters.13">
+
+        <!-- Copy scripts -->
+		<basename property="jstl.jar.name" file="${jstl.jar}"/>
+		<basename property="standard.jar.name" file="${standard.jar}"/>
+		<basename property="servlet.jar.name" file="${j2ee.jar}"/>
+		<basename property="aspectjrt.jar.name" file="${aspectjrt.jar}"/>
+		<basename property="commons.httpclient.jar.name"
+		    file="${commons.httpclient.jar}"/>
+		<basename property="commons.logging.jar.name"
+		    file="${commons.logging.jar}"/>
+		<basename property="httpunit.jar.name" file="${httpunit.jar}"/>
+		<basename property="junit.jar.name" file="${junit.jar}"/>
+		<basename property="nekohtml.jar.name" file="${nekohtml.jar}"/>
+
+        <filterset id="jar.locations">
+            <filter token="jstl.jar.name" value="${jstl.jar.name}"/>
+            <filter token="standard.jar.name" value="${standard.jar.name}"/>
+            <filter token="servlet.jar.name" value="${servlet.jar.name}"/>
+            <filter token="aspectjrt.jar.name" value="${aspectjrt.jar.name}"/>
+            <filter token="cactus.ant.jar.name"
+                value="${cactus.antintegration.jar.name}.jar"/>
+            <filter token="cactus.framework.jar.name"
+                value="${cactus.framework.jar.name}.jar"/>
+            <filter token="commons.httpclient.jar.name"
+                value="${commons.httpclient.jar.name}"/>
+            <filter token="commons.logging.jar.name"
+                value="${commons.logging.jar.name}"/>
+            <filter token="httpunit.jar.name" value="${httpunit.jar.name}"/>
+            <filter token="junit.jar.name" value="${junit.jar.name}"/>
+            <filter token="nekohtml.jar.name" value="${nekohtml.jar.name}"/>
+        </filterset>
+
+    </target>
+
+    <!--
+       ========================================================================
          Initialize the build. Must be called by all targets
        ========================================================================
     -->
     <target name="init" 
-        depends="init.common,properties,check.properties">
+        depends="init.common, init.filters, properties, check.properties">
 
         <echo>cactus.port (optional) = ${cactus.port}</echo>
         <echo>clover.enable (optional) = ${clover.enable}</echo>
-
-        <!-- Custom Ant task definition used in the test targets below.
-             It is used for computing the "-D" parameter list
-             for home directories of defined servlet engines. If a given
-             property is not defined, it won't be added to the list -->
-        <taskdef name="argsList" classname="org.apache.cactus.ant.ArgListTask">
-            <classpath>
-                <pathelement location="${cactus.anttasks.jar}"/>
-            </classpath>
-        </taskdef>
 
     </target>
 
@@ -130,78 +188,15 @@
           Generate the sample application
         ========================================================================
      -->
-    <target name="sample.replace.12">
-
-        <replace file="${target.sample.dir}/build.xml"
-            token="@containers.specific@">
-
-            <replacevalue><![CDATA[
-        <ant dir="${build.integration.dir}" target="cactus.run.tomcat3x">
-            <reference refid="cactus.classpath"/>
-        </ant>]]></replacevalue>
-
-        </replace>
-
-    </target>
-
-    <target name="sample.replace.13">
-
-        <replace file="${target.sample.dir}/build.xml"
-            token="@containers.specific@">
-
-            <replacevalue><![CDATA[
-        <ant dir="${build.integration.dir}" target="cactus.run.jboss3x">
-            <reference refid="cactus.classpath"/>
-        </ant>]]></replacevalue>
-
-        </replace>
-
-    </target>
-
-    <target name="sample.replace">
-
-        <replace file="${target.sample.dir}/build.xml"
-            token="@containers.share@">
-
-            <replacevalue><![CDATA[
-        <ant dir="${build.integration.dir}" target="cactus.run.tomcat4x">
-            <reference refid="cactus.classpath"/>
-        </ant>
-        <ant dir="${build.integration.dir}" target="cactus.run.resin2x">
-		    <reference refid="cactus.classpath"/>
-		</ant>
-		<ant dir="${build.integration.dir}" target="cactus.run.orion1x">
-		    <reference refid="cactus.classpath"/>
-		</ant>
-		<ant dir="${build.integration.dir}" target="cactus.run.weblogic6x">
-		    <reference refid="cactus.classpath"/>
-		</ant>
-		<ant dir="${build.integration.dir}" target="cactus.run.weblogic7x">
-		    <reference refid="cactus.classpath"/>
-		</ant>]]></replacevalue>
-
-        </replace>
-
-        <antcall target="sample.replace.${j2ee.api}"/>
-        
-    </target>
-        
-    <target name="sample.main">
+    <target name="sample.main" depends="init">
 
         <!-- Create output directory structure and copy sample files in it -->
         <mkdir dir="${target.sample.dir}"/>
         <mkdir dir="${target.sample.lib.dir}"/>
-        <mkdir dir="${target.sample.build.dir}"/>
         <mkdir dir="${target.sample.src.java.dir}"/>
         <mkdir dir="${target.sample.src.cactus.dir}"/>
         <mkdir dir="${target.sample.src.webapp.dir}"/>
-        <mkdir dir="${target.sample.build.integration.dir}"/>
         
-        <!-- Copy the Ant Integration files -->
-        <copy todir="${target.sample.build.integration.dir}">
-            <fileset dir="${cactus.antintegration.bin}"/>
-         </copy>
-                     
         <!-- Copy src files -->
         <copy todir="${target.sample.src.java.dir}">
             <fileset dir="${src.java.dir}/share"/>
@@ -213,16 +208,11 @@
         </copy>
 
         <!-- Copy scripts -->
-		<basename property="jstl.jar.name" file="${jstl.jar}"/>
-        <filter token="jstl.jar.name" value="${jstl.jar.name}"/>
-		<basename property="standard.jar.name" file="${standard.jar}"/>
-        <filter token="standard.jar.name" value="${standard.jar.name}"/>
-		<basename property="servlet.jar.name" file="${j2ee.jar}"/>
-        <filter token="servlet.jar.name" value="${servlet.jar.name}"/>
-
         <copy todir="${target.sample.dir}" filtering="on">
             <fileset dir="${src.script.dir}/share"/>
             <fileset dir="${src.script.dir}/j2ee${j2ee.api}"/>
+            <filterset refid="container.enablement"/>
+            <filterset refid="jar.locations"/>
         </copy>
 
         <!-- Copy webapp files -->
@@ -235,17 +225,23 @@
         <copy todir="${target.sample.lib.dir}" file="${jstl.jar}"/>
         <copy todir="${target.sample.lib.dir}" file="${standard.jar}"/>
         <copy todir="${target.sample.lib.dir}" file="${j2ee.jar}"/>
+        <copy todir="${target.sample.lib.dir}" file="${aspectjrt.jar}"/>
+        <copy todir="${target.sample.lib.dir}"
+            file="${cactus.antintegration.jar}"/>
+        <copy todir="${target.sample.lib.dir}" file="${cactus.framework.jar}"/>
+        <copy todir="${target.sample.lib.dir}"
+            file="${commons.httpclient.jar}"/>
+        <copy todir="${target.sample.lib.dir}" file="${commons.logging.jar}"/>
+        <copy todir="${target.sample.lib.dir}" file="${httpunit.jar}"/>
+        <copy todir="${target.sample.lib.dir}" file="${junit.jar}"/>
+        <copy todir="${target.sample.lib.dir}" file="${nekohtml.jar}"/>
         
         <!-- Copy README file -->
         <copy todir="${target.sample.dir}" file="${base.dir}/README"/>
 
-        <!-- Dynamically create the list of containers on which to run
-             the tests -->
-        <antcall target="sample.replace"/>
-
     </target>
     
-    <target name="sample.clover" if="clover.enable">
+    <target name="sample.clover" depends="sample.main" if="clover.enable">
 
         <copy todir="${target.sample.lib.dir}" file="${clover.jar}"/>
 
@@ -258,7 +254,7 @@
 
     </target>
 
-    <target name="sample.noclover" unless="clover.enable">
+    <target name="sample.noclover" depends="sample.main" unless="clover.enable">
 
         <replace file="${target.sample.dir}/build.xml"
             token="@cactus.clover.pathelement@">
@@ -267,7 +263,7 @@
 
     </target>
     
-    <target name="sample" depends="init,sample.main,sample.clover,sample.noclover"
+    <target name="sample" depends="sample.clover, sample.noclover"
         description="Generate the sample application">
     </target>
 
@@ -288,52 +284,102 @@
         <property name="clover.system.parameter" value=""/>
 
     </target>
+
+    <target name="test.prepare"
+        depends="test.prepare.clover, test.prepare.noclover">
+
+        <mkdir dir="${target.test.dir}"/>
+
+    </target>
     
+    <target name="test.jboss3x" 
+        depends="prepare.dist, test.prepare"
+        if="cactus.home.jboss3x">
+
+       <ant dir="${dist.bin.dir}/${project.name.file}" target="test"
+           inheritAll="false">
+         <property name="cactus.home.jboss3x" value="${cactus.home.jboss3x}"/>
+         <property name="target.dir" location="${target.test.dir}"/>
+       </ant>
+
+    </target>
+
+    <target name="test.orion1x"
+        depends="prepare.dist, test.prepare"
+        if="cactus.home.orion1x">
+
+       <ant dir="${dist.bin.dir}/${project.name.file}" target="test"
+           inheritAll="false">
+         <property name="cactus.home.orion1x" value="${cactus.home.orion1x}"/>
+         <property name="target.dir" location="${target.test.dir}"/>
+       </ant>
+
+    </target>
+
+    <target name="test.orion2x"
+        depends="prepare.dist, test.prepare"
+        if="cactus.home.orion2x">
+
+       <ant dir="${dist.bin.dir}/${project.name.file}" target="test"
+           inheritAll="false">
+         <property name="cactus.home.orion2x" value="${cactus.home.orion2x}"/>
+         <property name="target.dir" location="${target.test.dir}"/>
+       </ant>
+
+    </target>
+
+    <target name="test.resin2x" 
+        depends="prepare.dist, test.prepare"
+        if="cactus.home.resin2x">
+
+       <ant dir="${dist.bin.dir}/${project.name.file}" target="test"
+           inheritAll="false">
+         <property name="cactus.home.resin2x" value="${cactus.home.resin2x}"/>
+         <property name="target.dir" location="${target.test.dir}"/>
+       </ant>
+
+    </target>
+
+    <target name="test.tomcat3x" 
+        depends="prepare.dist, test.prepare"
+        if="cactus.home.tomcat3x">
+
+       <ant dir="${dist.bin.dir}/${project.name.file}" target="test"
+           inheritAll="false">
+         <property name="cactus.home.tomcat3x" value="${cactus.home.tomcat3x}"/>
+         <property name="target.dir" location="${target.test.dir}"/>
+       </ant>
+
+    </target>
+
+    <target name="test.tomcat4x" 
+        depends="prepare.dist, test.prepare"
+        if="cactus.home.tomcat4x">
+
+       <ant dir="${dist.bin.dir}/${project.name.file}" target="test"
+           inheritAll="false">
+         <property name="cactus.home.tomcat4x" value="${cactus.home.tomcat4x}"/>
+         <property name="target.dir" location="${target.test.dir}"/>
+       </ant>
+
+    </target>
+
+    <target name="test.tomcat5x" 
+        depends="prepare.dist, test.prepare"
+        if="cactus.home.tomcat5x">
+
+       <ant dir="${dist.bin.dir}/${project.name.file}" target="test"
+           inheritAll="false">
+         <property name="cactus.home.tomcat5x" value="${cactus.home.tomcat5x}"/>
+         <property name="target.dir" location="${target.test.dir}"/>
+       </ant>
+
+    </target>
+
     <target name="test" 
-        depends="sample,test.prepare.clover,test.prepare.noclover"
-        description="Run the tests on all defined servers">
-
-        <argsList property="test.args.list">
-
-            <!-- Inherit the classpath behaviour from the main script for
-                 Gump builds to work -->
-            <property name="build.sysclasspath"/>
-
-            <property name="cactus.home.resin2x"/>
-            <property name="cactus.home.tomcat3x"/>
-            <property name="cactus.home.tomcat4x"/>
-            <property name="cactus.home.orion1x"/>
-            <property name="cactus.home.weblogic6x"/>
-            <property name="cactus.home.weblogic7x"/>
-            <property name="cactus.home.jboss3x"/>
-            <property name="cactus.port"/>            
-        </argsList>
-
-        <java classname="org.apache.tools.ant.Main" fork="yes"
-            failonerror="yes">
-
-            <!-- Pass all required properties -->
-            <arg value="-Dservlet.jar=${j2ee.jar}"/>
-            <arg value="-Djstl.jar=${jstl.jar}"/>
-            <arg value="-Dstandard.jar=${standard.jar}"/>
-
-            <arg value="-Dbase.dir=${target.sample.dir}"/>
-            <arg value="-Dbasedir=${basedir}"/>
-            
-            <!-- Override default cactus jar defined in the called script
-                 by the clovered one if clover is enabled -->
-            <arg line="${clover.system.parameter}"/>
-
-            <!-- Pass all servlet engine properties -->
-            <arg line="${test.args.list}"/>
-            <arg line="-buildfile ${target.sample.dir}/build.xml"/>
-            <arg value="test"/>
-
-            <classpath>
-                <pathelement path="${java.class.path}"/>
-            </classpath>
-
-        </java>
+        description="Run the tests on all defined servers"
+        depends="test.jboss3x, test.orion1x, test.orion2x, test.resin2x,
+                 test.tomcat3x, test.tomcat4x, test.tomcat5x">
 
     </target>
 
@@ -352,10 +398,10 @@
         <copy todir="${dist.bin.dir}/${project.name.file}">
             <fileset dir="${target.sample.dir}"/>
         </copy>
-        
+
     </target>
 
-    <target name="dist" depends="checkstyle,prepare.dist,test"
+    <target name="dist" depends="checkstyle, prepare.dist, test"
         description="Generate the distributable files">
     </target>
 

@@ -11,23 +11,8 @@
 
         junit                  [REQUIRED] JUnit Ant task
 
-    The following properties need to be set in a build properties file located
-    either in the project directory or the user directory:
-
-        cactus.port            [OPTIONAL] The port that should be used for
-                               starting the servers during unit testing. This
-                               should be used not to interfere with other
-                               running servers. The default is 8080. This
-                               property is used when running the 'test' target.
-
-    Additionally and depending on the containers with which you wish to run
-    your tests, you'll need to set the following kind of properties
-    (see build.properties.sample):
-
-        cactus.home.<container name>
-
-    Example: For Resin 2.x, you'll need to have a "cactus.home.resin2x" 
-    property defined and pointing to the location where Resin 2.x is installed.
+    Check the build.properties file to find out what properties need to be set
+    in order to successfully run this script.
 
     This script should be started with the following command line:
 
@@ -57,26 +42,19 @@
     <property name="optimize" value="off"/>
     <property name="deprecation" value="off"/>
 
-    <!--
-       ========================================================================
-         Base directory for all file related operations
-       ========================================================================
-    -->
-    <property name="base.dir" value="."/>
+    <!-- Properties for the Cactus tests -->
+    <property name="cactus.port" value="8080"/>
 
     <!--
        ========================================================================
          Set the properties related to the source tree.
        ========================================================================
     -->
-    <property name="lib.dir" value="${base.dir}/lib"/>
-    <property name="src.dir" value="${base.dir}/src"/>
-    <property name="src.java.dir" value="${src.dir}/java"/>
-    <property name="src.cactus.dir" value="${src.dir}/test-cactus"/>
-    <property name="src.webapp.dir" value="${src.dir}/webapp"/>
-    <property name="build.dir" value="${base.dir}/build"/>
-    <property name="build.integration.dir"
-        value="${build.dir}/cactus-integration-ant"/>
+    <property name="lib.dir" location="${basedir}/lib"/>
+    <property name="src.dir" location="${basedir}/src"/>
+    <property name="src.java.dir" location="${src.dir}/java"/>
+    <property name="src.cactus.dir" location="${src.dir}/test-cactus"/>
+    <property name="src.webapp.dir" location="${src.dir}/webapp"/>
 
     <!--
        ========================================================================
@@ -84,90 +62,76 @@
        ========================================================================
     -->
     <!-- Destination locations for the build -->
-    <property name="target.dir" value="${base.dir}/target"/>
-    <property name="target.classes.dir" value="${target.dir}/classes"/>
+    <property name="target.dir" location="${basedir}/target"/>
+    <property name="target.classes.dir" location="${target.dir}/classes"/>
     <property name="target.classes.java.dir"
-        value="${target.classes.dir}/java"/>
+        location="${target.classes.dir}/java"/>
     <property name="target.classes.cactus.dir"
-        value="${target.classes.dir}/cactus"/>
-    <property name="target.doc.dir" value="${target.dir}/doc"/>
-    <property name="target.doc.api.dir" value="${target.doc.dir}/api"/>
+        location="${target.classes.dir}/cactus"/>
+    <property name="target.testreports.dir"
+        location="${target.dir}/test-reports"/>
 
     <!-- Distribution directory, i.e. where the expanded distibutable files
          are located -->
-    <property name="dist.dir" value="${base.dir}/dist"/>
-    <property name="dist.bin.dir" value="${dist.dir}/bin"/>
-    <property name="dist.doc.dir" value="${dist.dir}/doc"/>
-    <property name="dist.doc.api.dir" value="${dist.doc.dir}/api"/>
+    <property name="dist.dir" location="${basedir}/dist"/>
 
     <!--
        ========================================================================
-        Names of deliverables
+         Set the properties related to the required libraries
        ========================================================================
     -->
-    <!-- The Sample war -->
-    <property name="sample.war.name" value="${project.name.file}"/>
 
-    <!--
-       ========================================================================
-         Set the properties related to the Ant integration
-       ========================================================================
-    -->
-    <property name="cactus.war" value="${basedir}/${target.dir}/${sample.war.name}.war"/>
-    <property name="cactus.target.dir" value="${basedir}/${target.dir}/cactus"/>
-    <property name="cactus.src.dir" value="${basedir}/${src.cactus.dir}"/>
+    <property name="lib.dir" location="${basedir}/lib"/>
 
-    <!--
-       ========================================================================
-         Useful patterns for targets
-       ========================================================================
-    -->
+    <!-- Libraries required for the sample project -->
+    <property name="servlet.jar"
+        location="${lib.dir}/@servlet.jar.name@"/>
+    <property name="jstl.jar"
+        location="${lib.dir}/@jstl.jar.name@"/>
+    <property name="standard.jar"
+        location="${lib.dir}/@standard.jar.name@"/>
     <path id="project.classpath">
         <pathelement location="${servlet.jar}"/>
         <pathelement location="${jstl.jar}"/>
         <pathelement location="${standard.jar}"/>
-
-        <!-- Add java classpath for Gump only -->
-        <path location="${java.class.path}"/>       
     </path>
 
+    <!-- Libraries required for the Cactus tests -->
+    <property name="aspectjrt.jar"
+        location="${lib.dir}/@aspectjrt.jar.name@"/>
+    <property name="cactus.ant.jar"
+        location="${lib.dir}/@cactus.ant.jar.name@"/>
+    <property name="cactus.framework.jar"
+        location="${lib.dir}/@cactus.framework.jar.name@"/>
+    <property name="commons.httpclient.jar"
+        location="${lib.dir}/@commons.httpclient.jar.name@"/>
+    <property name="commons.logging.jar"
+        location="${lib.dir}/@commons.logging.jar.name@"/>
+    <property name="httpunit.jar"
+        location="${lib.dir}/@httpunit.jar.name@"/>
+    <property name="junit.jar"
+        location="${lib.dir}/@junit.jar.name@"/>
+    <property name="nekohtml.jar"
+        location="${lib.dir}/@nekohtml.jar.name@"/>
     <path id="cactus.classpath">
-        <pathelement location="${target.classes.java.dir}"/>
-        @cactus.clover.pathelement@
         <path refid="project.classpath"/>
+        <pathelement location="${aspectjrt.jar}"/>
+        <pathelement location="${cactus.ant.jar}"/>
+        <pathelement location="${cactus.framework.jar}"/>
+        <pathelement location="${commons.httpclient.jar}"/>
+        <pathelement location="${commons.logging.jar}"/>
+        <pathelement location="${httpunit.jar}"/>
+        <pathelement location="${junit.jar}"/>
+        <pathelement location="${nekohtml.jar}"/>
+        @cactus.clover.pathelement@
     </path>
 
     <!--
        ========================================================================
-         Display configurable properties values
+         Initialize the build. Must be called by all targets
        ========================================================================
     -->
-    <target name="display.properties">
-
-        <echo message="----- ${project.name.text} ${project.version} -----"/>
-        <echo message=""/>
-        <echo message="java.class.path = ${java.class.path}"/>
-        <echo message=""/>
-        <echo message="java.home = ${java.home}"/>
-        <echo message="user.home = ${user.home}"/>
-        <echo message="ant.home = ${ant.home}"/>
-        <echo message=""/>
-        <echo message="servlet.jar = ${servlet.jar}"/>
-        <echo message="jstl.jar = ${jstl.jar}"/>
-        <echo message="standard.jar = ${standard.jar}"/>
-        <echo message=""/>
-        <echo message="cactus.port (optional) = ${cactus.port}"/>
-        <echo message=""/>
-
-    </target>
-
-    <!--
-       ========================================================================
-         Verify that all mandatory properties have been set
-       ========================================================================
-    -->
-    <target name="check.properties"
-        depends="display.properties">
+    <target name="init">
 
         <condition property="properties.ok">
             <and>
@@ -176,19 +140,11 @@
                 <available file="${standard.jar}"/>
            </and>
         </condition>
-
         <fail message="Missing property or property pointing to an invalid file
                        (check your build.properties file)"
              unless="properties.ok"/>
 
-    </target>
-
-    <!--
-       ========================================================================
-         Initialize the build. Must be called by all targets
-       ========================================================================
-    -->
-    <target name="init" depends="check.properties">
+        <taskdef resource="cactus.tasks" classpathref="cactus.classpath"/>
 
         <tstamp/>
 
@@ -218,13 +174,21 @@
     <!-- Compiles the Cactus test sources -->
     <target name="compile.cactus" depends="compile.java">
 
-        <ant dir="${build.integration.dir}" target="cactus.compile">
-            <reference refid="cactus.classpath"/>
-        </ant>
+        <mkdir dir="${target.classes.cactus.dir}"/>
+
+        <javac destdir="${target.classes.cactus.dir}"
+          deprecation="${deprecation}" optimize="${optimize}">
+
+            <src path="${src.cactus.dir}"/>
+            <classpath>
+                <path refid="cactus.classpath"/>
+                <pathelement location="${target.classes.java.dir}"/>
+            </classpath>
+        </javac>
 
     </target>
 
-    <target name="compile" depends="compile.java,compile.cactus"
+    <target name="compile" depends="compile.java, compile.cactus"
         description="Compile the sources">
     </target>
 
@@ -233,52 +197,23 @@
          Create the runtime war file
        ========================================================================
     -->
-    <target name="war" depends="compile" description="Generate the runtime war">
+    <target name="war" depends="compile.java"
+        description="Generate the runtime war">
 
-        <war warfile="${target.dir}/${sample.war.name}.war"
+        <war warfile="${target.dir}/${project.name.file}.war"
              webxml="${src.webapp.dir}/WEB-INF/web.xml">
 
             <fileset dir="${src.webapp.dir}">
                 <exclude name="cactus-report.xsl"/>
-                <exclude name="**/web.xml"/>
+                <exclude name="WEB-INF/web.xml"/>
             </fileset>
-            
+
             <classes dir="${target.classes.java.dir}"/>
 
-            <lib dir="${lib.dir}">
-                <include name="*.jar"/>
-            </lib>
+            <lib file="${jstl.jar}"/>
+            <lib file="${standard.jar}"/>
+
         </war>
-
-    </target>
-
-    <!--
-       ========================================================================
-         Generate the documentation (javadoc)
-       ========================================================================
-    -->
-    <target name="doc" depends="init" description="Generate the documentation">
-
-        <mkdir dir="${target.doc.api.dir}"/>
-
-        <javadoc
-            packagenames="org.apache.cactus.sample.*"
-            destdir="${target.doc.api.dir}"
-            author="true"
-            public="true"
-            version="true"
-            use="true"
-            windowtitle="${project.name.text} ${project.version}"
-            doctitle="${project.name.text} ${project.version}"
-            bottom="Copyright &amp;copy; ${year} Apache Software Foundation. All Rights Reserved.">
-
-            <sourcepath>
-                <pathelement location="${src.java.dir}"/>
-            </sourcepath>
-
-            <classpath refid="project.classpath"/>
-
-        </javadoc>
 
     </target>
 
@@ -287,17 +222,11 @@
          Generate the distributable files
        ========================================================================
     -->
-    <target name="dist" depends="clean,war,doc"
+    <target name="dist" depends="clean, war, test"
         description="Generate the distributable files">
 
-        <mkdir dir="${dist.bin.dir}"/>
-        <mkdir dir="${dist.doc.api.dir}"/>
-
-        <copy todir="${dist.bin.dir}"
+        <copy todir="${dist.dir}"
             file="${target.dir}/${sample.war.name}.war"/>
-        <copy todir="${dist.doc.api.dir}">
-            <fileset dir="${target.doc.api.dir}"/>
-        </copy>
 
     </target>
 
@@ -319,18 +248,149 @@
          "cactus.home.[container name]" has been defined.
        ========================================================================
     -->
-    <target name="test" depends="war"
+    <target name="test" depends="war, compile.cactus"
         description="Run the tests on the defined containers">
-        
-        <!-- Defines includes and exclude cactus classes in order to only
-             include the Test*All so that tests can be ordered. Note: if you
-             don't need ordering in your test, you needn't define the following
-             2 properties -->
-        <property name="cactus.src.includes" value="**/sample/TestAll.java"/>
-        <property name="cactus.src.excludes" value=""/>
-        
-        @containers.share@
-        @containers.specific@
+
+        <!-- Cactify the web-app archive -->
+        <cactify srcfile="${target.dir}/${project.name.file}.war"
+            destfile="${target.dir}/test.war">
+          <classes dir="${target.classes.cactus.dir}"/>
+          <!-- Orion fails on a servlet filter that is not mapped to an actual
+               resource, to trick it -->
+          <filterredirector mapping="/test/filterRedirector.jsp"/>
+        </cactify>
+
+        <!-- Prepare the directories for the JUnit reports -->
+        <mkdir dir="${target.testreports.dir}"/>
+        <@j2ee13.begin@mkdir dir="${target.testreports.dir}/jboss3x"/@j2ee13.end@>
+        <mkdir dir="${target.testreports.dir}/orion1x"/>
+        <mkdir dir="${target.testreports.dir}/orion2x"/>
+        <mkdir dir="${target.testreports.dir}/resin2x"/>
+        <@j2ee12.begin@mkdir dir="${target.testreports.dir}/tomcat3x"/@j2ee12.end@>
+        <mkdir dir="${target.testreports.dir}/tomcat4x"/>
+        <mkdir dir="${target.testreports.dir}/tomcat5x"/>
+        <mkdir dir="${target.testreports.dir}/weblogic7x"/>
+
+        <!-- Run the tests -->
+        <cactus warfile="${target.dir}/test.war" fork="yes"
+            printsummary="yes" failureproperty="tests.failed">
+          <classpath>
+            <path refid="project.classpath"/>
+            <pathelement location="${target.classes.java.dir}"/>
+            <pathelement location="${target.classes.cactus.dir}"/>
+          </classpath>
+          <containerset>
+            <@j2ee13.begin@jboss3x if="cactus.home.jboss3x"
+                dir="${cactus.home.jboss3x}"
+                output="${target.testreports.dir}/jboss3x.out"
+                todir="${target.testreports.dir}/jboss3x"/@j2ee13.end@>
+            <orion1x if="cactus.home.orion1x"
+                dir="${cactus.home.orion1x}" port="${cactus.port}"
+                output="${target.testreports.dir}/orion1x.out"
+                todir="${target.testreports.dir}/orion1x"/>
+            <orion2x if="cactus.home.orion2x"
+                dir="${cactus.home.orion2x}" port="${cactus.port}"
+                output="${target.testreports.dir}/orion2x.out"
+                todir="${target.testreports.dir}/orion2x"/>
+            <resin2x if="cactus.home.resin2x"
+                dir="${cactus.home.resin2x}" port="${cactus.port}"
+                output="${target.testreports.dir}/resin2x.out"
+                todir="${target.testreports.dir}/resin2x"/>
+            <@j2ee12.begin@tomcat3x if="cactus.home.tomcat3x"
+                dir="${cactus.home.tomcat3x}" port="${cactus.port}"
+                output="${target.testreports.dir}/tomcat3x.out"
+                todir="${target.testreports.dir}/tomcat3x"/@j2ee12.end@>
+            <tomcat4x if="cactus.home.tomcat4x"
+                dir="${cactus.home.tomcat4x}" port="${cactus.port}"
+                output="${target.testreports.dir}/tomcat4x.out"
+                todir="${target.testreports.dir}/tomcat4x"/>
+            <tomcat5x if="cactus.home.tomcat5x"
+                dir="${cactus.home.tomcat5x}" port="${cactus.port}"
+                output="${target.testreports.dir}/tomcat5x.out"
+                todir="${target.testreports.dir}/tomcat5x"/>
+            <weblogic7x if="cactus.home.weblogic7x"
+                dir="${cactus.home.weblogic7x}" port="${cactus.port}"
+                output="${target.testreports.dir}/weblogic7x.out"
+                todir="${target.testreports.dir}/weblogic7x"/>
+          </containerset>
+          <formatter type="brief" usefile="false"/>
+          <formatter type="xml"/>
+          <batchtest>
+            <fileset dir="${src.cactus.dir}">
+              <!-- This JUnit test need to be the first one to be run.
+                   Otherwise, the test result might be that of the previous
+                   test and not the current test one, thus proving nothing -->
+              <include name="**/TestClientServerSynchronization.java"/>
+            </fileset>
+          </batchtest>
+          <batchtest>
+            <fileset dir="${src.cactus.dir}">
+              <!-- Due to some Cactus synchronization bug, the 'unit' tests need
+                   to run before the 'sample' tests -->
+              <include name="**/unit/Test*.java"/>
+              <exclude name="**/unit/Test*All.java"/>
+              <exclude name="**/unit/TestClientServerSynchronization.java"/>
+            </fileset>
+          </batchtest>
+          <batchtest>
+            <fileset dir="${src.cactus.dir}">
+              <include name="**/sample/Test*.java"/>
+              <exclude name="**/sample/Test*All.java"/>
+            </fileset>
+          </batchtest>
+        </cactus>
+
+        <!-- Generate the JUnit reports -->
+        <@j2ee13.begin@junitreport todir="${target.testreports.dir}/jboss3x">
+          <fileset dir="${target.testreports.dir}/jboss3x"
+              includes="TEST-*.xml"/>
+          <report todir="${target.testreports.dir}/jboss3x"
+              format="frames"/>
+        </junitreport@j2ee13.end@>
+        <junitreport todir="${target.testreports.dir}/orion1x">
+          <fileset dir="${target.testreports.dir}/orion1x"
+              includes="TEST-*.xml"/>
+          <report todir="${target.testreports.dir}/orion1x"
+              format="frames"/>
+        </junitreport>
+        <junitreport todir="${target.testreports.dir}/orion2x">
+          <fileset dir="${target.testreports.dir}/orion2x"
+              includes="TEST-*.xml"/>
+          <report todir="${target.testreports.dir}/orion2x"
+              format="frames"/>
+        </junitreport>
+        <junitreport todir="${target.testreports.dir}/resin2x">
+          <fileset dir="${target.testreports.dir}/resin2x"
+              includes="TEST-*.xml"/>
+          <report todir="${target.testreports.dir}/resin2x"
+              format="frames"/>
+        </junitreport>
+        <@j2ee12.begin@junitreport todir="${target.testreports.dir}/tomcat3x">
+          <fileset dir="${target.testreports.dir}/tomcat3x"
+              includes="TEST-*.xml"/>
+          <report todir="${target.testreports.dir}/tomcat3x"
+              format="frames"/>
+        </junitreport@j2ee12.end@>
+        <junitreport todir="${target.testreports.dir}/tomcat4x">
+          <fileset dir="${target.testreports.dir}/tomcat4x"
+              includes="TEST-*.xml"/>
+          <report todir="${target.testreports.dir}/tomcat4x"
+              format="frames"/>
+        </junitreport>
+        <junitreport todir="${target.testreports.dir}/tomcat5x">
+          <fileset dir="${target.testreports.dir}/tomcat5x"
+              includes="TEST-*.xml"/>
+          <report todir="${target.testreports.dir}/tomcat5x"
+              format="frames"/>
+        </junitreport>
+        <junitreport todir="${target.testreports.dir}/weblogic7x">
+          <fileset dir="${target.testreports.dir}/weblogic7x"
+              includes="TEST-*.xml"/>
+          <report todir="${target.testreports.dir}/weblogic7x"
+              format="frames"/>
+        </junitreport>
+
+        <fail if="tests.failed">At least one test failed!</fail>
 
     </target>
 
