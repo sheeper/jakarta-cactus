@@ -59,22 +59,16 @@ package org.apache.cactus;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.net.HttpURLConnection;
-import java.net.URLConnection;
 
 import junit.framework.TestCase;
 
-import org.apache.cactus.client.AbstractHttpClient;
-import org.apache.cactus.client.ClientConfigurationChecker;
-import org.apache.cactus.util.ChainedRuntimeException;
 import org.apache.cactus.util.JUnitVersionHelper;
 import org.apache.cactus.util.log.Log;
 import org.apache.cactus.util.log.LogService;
 
 /**
- * Abstract class that specific test cases (<code>ServletTestCase</code>,
- * <code>FilterTestCase</code>, ...) must extend. Provides generally useful
- * methods fro writing a specific test case.
+ * Abstract class that is a thin layer on top of JUnit and that knows about
+ * test cases that are executed on the server side.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
@@ -174,201 +168,9 @@ public abstract class AbstractTestCase extends TestCase
     }
 
     /**
-     * Call the test case begin method
-     *
-     * @param theRequest the <code>WebRequest</code> object to
-     *                   pass to the begin method.
-     * @exception Throwable any error that occurred when calling the begin
-     *            method for the current test case.
+     * Check client side configuration.
      */
-    protected void callBeginMethod(WebRequest theRequest)
-        throws Throwable
-    {
-        // First, verify if a begin method exist. If one is found, verify if
-        // it has the correct signature. If not, send a warning.
-        Method[] methods = getClass().getMethods();
-        for (int i = 0; i < methods.length; i++) {
-            if (methods[i].getName().equals(getBeginMethodName())) {
-
-                // Check return type
-                if (!methods[i].getReturnType().getName().equals("void")) {
-                    fail("The begin method [" + methods[i].getName() +
-                        "] should return void and not [" +
-                        methods[i].getReturnType().getName() + "]");
-                }
-
-                // Check if method is public
-                if (!Modifier.isPublic(methods[i].getModifiers())) {
-                    fail("Method [" + methods[i].getName() +
-                        "] should be declared public");
-                }
-
-                // Check parameters
-                Class[] parameters = methods[i].getParameterTypes();
-                if (parameters.length != 1) {
-
-                    fail("The begin method [" + methods[i].getName() +
-                        "] must accept a single parameter derived from " +
-                        "class [" + WebRequest.class.getName() + "], " +
-                        "but " + parameters.length + " parameters were found");
-
-                } else if (
-                    !WebRequest.class.isAssignableFrom(parameters[0])) {
-
-                    fail("The begin method [" + methods[i].getName() +
-                        "] must accept a single parameter derived from " +
-                        "class [" + WebRequest.class.getName() + "], " +
-                        "but found a [" + parameters[0].getName() + "] " +
-                        "parameter instead");
-                }
-
-                try {
-
-                    methods[i].invoke(this, new Object[]{theRequest});
-
-                } catch (InvocationTargetException e) {
-                    e.fillInStackTrace();
-                    throw e.getTargetException();
-                } catch (IllegalAccessException e) {
-                    e.fillInStackTrace();
-                    throw e;
-                }
-
-            }
-        }
-    }
-
-    /**
-     * Call the test case end method
-     *
-     * @param theRequest the request data that were used to open the
-     *                   connection.
-     * @param theConnection the <code>HttpURLConnection</code> that was used
-     *        to open the connection to the redirection servlet. The response
-     *        codes, headers, cookies can be checked using the get methods of
-     *        this object.
-     * @exception Throwable any error that occurred when calling the end method
-     *         for the current test case.
-     */
-    protected void callEndMethod(WebRequest theRequest,
-        HttpURLConnection theConnection) throws Throwable
-    {
-        // First, verify if an end method exist. If one is found, verify if
-        // it has the correct signature. If not, send a warning. Also
-        // verify that only one end method is defined for a given test.
-        Method methodToCall = null;
-        Object paramObject = null;
-
-        Method[] methods = getClass().getMethods();
-        for (int i = 0; i < methods.length; i++) {
-            if (methods[i].getName().equals(getEndMethodName())) {
-
-                // Check return type
-                if (!methods[i].getReturnType().getName().equals("void")) {
-                    fail("The end method [" + methods[i].getName() +
-                        "] should return void and not [" +
-                        methods[i].getReturnType().getName() + "]");
-                }
-
-                // Check if method is public
-                if (!Modifier.isPublic(methods[i].getModifiers())) {
-                    fail("Method [" + methods[i].getName() +
-                        "] should be declared public");
-                }
-
-                // Check parameters
-                Class[] parameters = methods[i].getParameterTypes();
-
-                // Verify only one parameter is defined
-                if (parameters.length != 1) {
-                    fail("The end method [" + methods[i].getName() +
-                        "] must only have a single parameter");
-                }
-
-                // Is it a Http Unit WebResponse ?
-                if (parameters[0].getName().
-                    equals("com.meterware.httpunit.WebResponse")) {
-
-                    paramObject = createHttpUnitWebResponse(theConnection);
-
-                    // Is it a Cactus WebResponse ?
-                } else if (parameters[0].getName().
-                    equals("org.apache.cactus.WebResponse")) {
-
-                    paramObject = new WebResponse(theRequest, theConnection);
-
-                    // Is it an old HttpURLConnection (deprecated) ?
-                } else if (parameters[0].getName().
-                    equals("java.net.HttpURLConnection")) {
-
-                    paramObject = theConnection;
-
-                    // Else it is an error ...
-                } else {
-                    fail("The end method [" + methods[i].getName() +
-                        "] has a bad parameter of type [" +
-                        parameters[0].getName() + "]");
-                }
-
-                // Has a method to call already been found ?
-                if (methodToCall != null) {
-                    fail("There can only be one end method per test case. " +
-                        "Test case [" + this.getCurrentTestMethod() +
-                        "] has two at least !");
-                }
-
-                methodToCall = methods[i];
-
-            }
-        }
-
-        if (methodToCall != null) {
-
-            try {
-
-                methodToCall.invoke(this, new Object[]{paramObject});
-
-            } catch (InvocationTargetException e) {
-                e.fillInStackTrace();
-                throw e.getTargetException();
-            } catch (IllegalAccessException e) {
-                e.fillInStackTrace();
-                throw e;
-            }
-        }
-
-    }
-
-    /**
-     * Create a HttpUnit <code>WebResponse</code> object by reflection (so
-     * that we don't need the HttpUnit jar for users who are not using
-     * the HttpUnit endXXX() signature).
-     *
-     * @param theConnection the HTTP connection that was used when connecting
-     *        to the server side and which now contains the returned HTTP
-     *        response that we will pass to HttpUnit so that it can construt
-     *        a <code>com.meterware.httpunit.WebResponse</code> object.
-     * @return a HttpUnit <code>WebResponse</code> object
-     */
-    private Object createHttpUnitWebResponse(HttpURLConnection theConnection)
-    {
-        Object webResponse;
-
-        try {
-            Class responseClass =
-                Class.forName("com.meterware.httpunit.WebResponse");
-            Method method = responseClass.getMethod("newResponse",
-                new Class[]{URLConnection.class});
-            webResponse = method.invoke(null, new Object[]{theConnection});
-        } catch (Exception e) {
-            throw new ChainedRuntimeException("Error calling " +
-                "[public static com.meterware.httpunit.WebResponse " +
-                "com.meterware.httpunit.WebResponse.newResponse(" +
-                "java.net.URLConnection) throws java.io.IOException]", e);
-        }
-
-        return webResponse;
-    }
+    protected abstract void checkConfiguration();
 
     /**
      * Runs the bare test sequence. This method is overridden from the
@@ -383,9 +185,7 @@ public abstract class AbstractTestCase extends TestCase
     public void runBare() throws Throwable
     {
         // Run some configuration checks
-        ClientConfigurationChecker.getInstance().checkCactusProperties();
-        ClientConfigurationChecker.getInstance().checkHttpClient();
-        ClientConfigurationChecker.getInstance().checkLog4j();
+        checkConfiguration();
 
         // We make sure we reinitialize The logger with the name of the
         // current class (that's why the logged instance is not static).
@@ -414,55 +214,6 @@ public abstract class AbstractTestCase extends TestCase
      *            for the current test case.
      */
     protected abstract void runTest() throws Throwable;
-
-    /**
-     * Execute the test case begin method, then connect to the server proxy
-     * redirector (where the test case test method is executed) and then
-     * executes the test case end method.
-     *
-     * @param theHttpClient the HTTP client class to use to connect to the
-     *                      proxy redirector.
-     * @exception Throwable any error that occurred when calling the test method
-     *         for the current test case.
-     */
-    protected void runGenericTest(AbstractHttpClient theHttpClient)
-        throws Throwable
-    {
-        // Call the begin method to fill the request object
-        WebRequest request = new WebRequest();
-        callBeginMethod(request);
-
-        // Add the class name, the method name, the URL to simulate and
-        // automatic session creation flag to the request
-
-        // Note: All these pareameters are passed in the URL. This is to allow
-        // the user to send whatever he wants in the request body. For example
-        // a file, ...
-        request.addParameter(ServiceDefinition.CLASS_NAME_PARAM,
-            this.getClass().getName(), WebRequest.GET_METHOD);
-        request.addParameter(ServiceDefinition.METHOD_NAME_PARAM,
-            this.getCurrentTestMethod(), WebRequest.GET_METHOD);
-        request.addParameter(ServiceDefinition.AUTOSESSION_NAME_PARAM,
-            new Boolean(request.getAutomaticSession()).toString(),
-            WebRequest.GET_METHOD);
-
-        // Add the simulated URL (if one has been defined)
-        if (request.getURL() != null) {
-            request.getURL().saveToRequest(request);
-        }
-
-        // Open the HTTP connection to the servlet redirector
-        // and manage errors that could be returned in the
-        // HTTP response.
-        HttpURLConnection connection = theHttpClient.doTest(request);
-
-        // Call the end method
-        callEndMethod(request, connection);
-
-        // Close the input stream (just in the case the user has not done it
-        // in it's endXXX method (or if he has no endXXX method) ....
-        connection.getInputStream().close();
-    }
 
     // Methods below are only called by the Cactus redirector on the server
     // side

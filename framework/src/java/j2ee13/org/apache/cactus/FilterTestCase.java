@@ -71,7 +71,7 @@ import org.apache.cactus.server.FilterConfigWrapper;
  *
  * @version $Id$
  */
-public class FilterTestCase extends AbstractTestCase
+public class FilterTestCase extends AbstractWebTestCase
 {
     /**
      * Valid <code>HttpServletRequest</code> object that you can access from

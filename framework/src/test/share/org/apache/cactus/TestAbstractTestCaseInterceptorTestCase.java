@@ -73,7 +73,7 @@ import org.apache.cactus.mock.MockHttpURLConnection;
  * @version $Id$
  */
 public class TestAbstractTestCaseInterceptorTestCase
-    extends AbstractTestCase
+    extends AbstractWebTestCase
 {
     /**
      * Constructs a test case with the given name.

@@ -71,7 +71,7 @@ import org.apache.cactus.server.ServletConfigWrapper;
  *
  * @version $Id$
  */
-public class ServletTestCase extends AbstractTestCase
+public class ServletTestCase extends AbstractWebTestCase
 {
     /**
      * Valid <code>HttpServletRequest</code> object that you can access from
