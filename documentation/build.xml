@@ -184,7 +184,7 @@
             <fileset dir="${doc.xdoc.dir}">
                 <exclude name="**/navigation.xml"/>
                 <exclude name="sitemap.xml"/>
-                <exclude name="todo.xml"/>
+                <exclude name="participating/todo.xml"/>
                 <exclude name="changes.xml"/>
                 <exclude name="**/cvslog.xml"/>
                 <include name="**/*.xml"/>
