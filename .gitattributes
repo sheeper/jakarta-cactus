@@ -451,7 +451,6 @@ integration/eclipse/org.apache.cactus.eclipse.runner/.classpath svn_keywords=Aut
 integration/eclipse/org.apache.cactus.eclipse.runner/.classpath.sample svn_keywords=Author+Date+Id+Revision
 integration/eclipse/org.apache.cactus.eclipse.runner/.cvsignore svn_keywords=Author+Date+Id+Revision
 integration/eclipse/org.apache.cactus.eclipse.runner/.project svn_keywords=Author+Date+Id+Revision
-integration/eclipse/org.apache.cactus.eclipse.runner/DEV-README.txt svn_keywords=Author+Date+Id+Revision
 integration/eclipse/org.apache.cactus.eclipse.runner/README.txt svn_keywords=Author+Date+Id+Revision
 integration/eclipse/org.apache.cactus.eclipse.runner/build-eclipse.properties svn_keywords=Author+Date+Id+Revision
 integration/eclipse/org.apache.cactus.eclipse.runner/build.properties.sample svn_keywords=Author+Date+Id+Revision
