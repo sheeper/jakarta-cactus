@@ -200,26 +200,35 @@
             filtering="on"/>
 
         <!-- Generate the docs -->
-		<style basedir="${target.xdoc.dir}" destdir="${target.doc.dir}"
+        <style basedir="${target.xdoc.dir}" destdir="${target.doc.dir}"
           style="${doc.skin.dir}/jakarta.apache.org/stylesheets/document2html.xsl">
 
-        	<include name="*.xml"/>
-        	<exclude name="book.xml"/>
+            <include name="*.xml"/>
+            <exclude name="book.xml"/>
 
             <!--Location of the book.xml file relative to where the stylesheet 
                 is located. Note: this path MUST be relative as it is used as a
                 realtive URI from within the stylesheet -->
-            <param name="bookfile" expression="../../../../../${target.xdoc.dir}/book.xml"/>
+            <param name="bookfile"
+                expression="../../../../../${target.xdoc.dir}/book.xml"/>
 
-			<!-- Location of the cvslog.xml file relative to where the 
-			     stylesheet is located. Note: this path MUST be relative as it
-			     is used as a realtive URI from within the stylesheet -->
-            <param name="cvslogfile" expression="../../../../../${target.xdoc.dir}/cvslog/cvslog.xml"/>
-			     
+            <!-- Location of the cvslog.xml file relative to where the 
+                 stylesheet is located. Note: this path MUST be relative as it
+                 is used as a realtive URI from within the stylesheet -->
+            <param name="cvslogfile"
+                expression="../../../../../${target.xdoc.dir}/cvslog/cvslog.xml"/>
+
+            <param name="project.version"
+                expression="${project.version}"/>
+            <param name="project.other.version"
+                expression="${project.other.version}"/>
+            <param name="last.updated.date"
+                expression="${TODAY}"/>
+
         </style>
 
-	</target>
-	
+    </target>
+
     <!--
        ========================================================================
          Generate the documentation (without the generated clover reports that

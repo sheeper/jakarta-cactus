@@ -2,10 +2,7 @@
 
 <book software="Cactus"
       title="Cactus Documentation"
-      copyright="@year@ The Apache Software Foundation"
-      updated="@today@"
-      currentversion="@version@"
-      otherversion="@otherversion@">
+      copyright="@year@ The Apache Software Foundation">
 
   <menu label="About">
     <menu-item label="What is Cactus ?" source="index.xml"/>

@@ -23,6 +23,19 @@
        items for the last 15 days web site changes -->
   <xsl:param name="cvslogfile" select="''"/>
   
+  <!-- Date of the last update, to be passed in from the build -->
+  <xsl:param name="last.updated.date"/>
+  
+  <!-- Version of the current documentation (for switching between the 
+       documentation for the current development version and the latest stable 
+       release), to be passed in from the build -->
+  <xsl:param name="project.version"/>
+  
+  <!-- Version of the "other" documentation (for switching between the 
+       documentation for the current development version and the latest stable 
+       release), to be passed in from the build -->
+  <xsl:param name="project.other.version"/>
+  
   <!-- Output method -->
   <xsl:output method="html" indent="no"/>
 
@@ -75,7 +88,7 @@
 
             <!-- Display left logo (the Jakarta logo) -->
             <td valign="top" align="left">
-              <a href="http://jakarta.apache.org/index.html">
+              <a href="http://jakarta.apache.org/">
                 <img hspace="0" vspace="0" border="0">
                   <xsl:attribute name="src">images/jakarta-logo.gif</xsl:attribute>
                 </img>
@@ -83,12 +96,14 @@
             </td>
 
             <td width="100%" valign="middle" align="left" bgcolor="#ffffff">
-              <img hspace="0" vspace="0" border="0" align="right">
-                <xsl:attribute name="alt">
-                  <xsl:call-template name="get-title"/>
-                </xsl:attribute>
-                <xsl:attribute name="src">images/logocactus.gif</xsl:attribute>
-              </img>
+              <a href="http://jakarta.apache.org/cactus/">
+                <img hspace="0" vspace="0" border="0" align="right">
+                  <xsl:attribute name="alt">
+                    <xsl:call-template name="get-title"/>
+                  </xsl:attribute>
+                  <xsl:attribute name="src">images/logocactus.gif</xsl:attribute>
+                </img>
+              </a>
             </td>
           </tr>
           
@@ -112,25 +127,25 @@
             </td>
             <td width="14%" valign="top" nowrap="1">
               <font size="-2">
-                Last update: <xsl:value-of select="$book/@updated"/>
+                Last update: <xsl:value-of select="$last.updated.date"/>
               </font>
               <br/>
               <font size="-2">
-                Doc for: <b>v<xsl:value-of select="$book/@currentversion"/></b>
+                Docs for: <b>v<xsl:value-of select="$project.version"/></b>
                 <xsl:text> | </xsl:text>
                 <a>
                   <xsl:attribute name="href">
                     <xsl:choose>
-                      <xsl:when test="contains($book/@currentversion,'dev')">
+                      <xsl:when test="contains($project.version,'dev')">
                         <xsl:text>..</xsl:text>
                       </xsl:when>
                       <xsl:otherwise>
-                        <xsl:value-of select="$book/@otherversion"/>
+                        <xsl:value-of select="$project.other.version"/>
                       </xsl:otherwise>
                     </xsl:choose>
                   </xsl:attribute>
                   <xsl:text>v</xsl:text>
-                  <xsl:value-of select="$book/@otherversion"/>
+                  <xsl:value-of select="$project.other.version"/>
                 </a>
               </font>
 
