@@ -26,23 +26,23 @@ cactus.ant.jar = ../lib/cactus-ant-@version@.jar
 servlet.jar = ../lib/servletapi-2.3.jar
 
 # The location of the AspectJ runtime jar
-aspectjrt.jar = ../lib/aspectjrt-1.0.5.jar
+aspectjrt.jar = ../lib/aspectjrt-1.0.6.jar
 
 # The location of the Commons Logging jar
-commons.logging.jar = ../lib/commons-logging-1.0.jar
+commons.logging.jar = ../lib/commons-logging-1.0.1jar
 
 # The location of the log4j jar (optional). Only needed if you want Cactus to
 # generate logs
-log4j.jar = ../lib/log4j-1.2.5.jar
+log4j.jar = ../lib/log4j-1.2.6.jar
 
 # The location of the Commons Httpclient jar
-commons.httpclient.jar = ../lib/commons-httpclient-2.0alpha1-20020720.jar
+commons.httpclient.jar = ../lib/commons-httpclient-2.0alpha1-20020829.jar
 
 # The location of the Junit jar
 junit.jar = ../lib/junit-3.7.jar
 
 # The location of the Httpunit jar
-httpunit.jar = ../lib/httpunit-1.4.1.jar
+httpunit.jar = ../lib/httpunit-1.4.5.jar
 
 # -----------------------------------------------------------------------------
 # Optional properties
@@ -58,7 +58,7 @@ httpunit.jar = ../lib/httpunit-1.4.1.jar
 #       comment it's home property. For example, if you don't want to run the
 #       tests on the Resin 1.2, comment the "resin.home.12" property.
 
-#resin.home.20 = c:/Apps/resin-2.1.2
+#resin.home.20 = c:/Apps/resin-2.1.4
 #resin.home.13 = xxx
 #tomcat.home.40 = c:/Apps/jakarta-tomcat-4.0.4
 #orion.home.15 = c:/Apps/orion-1.5.4
