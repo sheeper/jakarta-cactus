@@ -66,7 +66,6 @@ import org.apache.cactus.eclipse.ui.CactusPlugin;
 import org.apache.cactus.eclipse.ui.CactusPreferences;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.DebugPlugin;
-import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationType;
 import org.eclipse.debug.core.ILaunchManager;
 import org.eclipse.jdt.core.IType;
