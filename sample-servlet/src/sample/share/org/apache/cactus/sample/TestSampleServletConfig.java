@@ -90,7 +90,7 @@ public class TestSampleServletConfig extends ServletTestCase
      */
     public static void main(String[] theArgs)
     {
-        junit.ui.TestRunner.main(new String[]{
+        junit.swingui.TestRunner.main(new String[]{
             TestSampleServletConfig.class.getName()});
     }
 
