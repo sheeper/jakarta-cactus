@@ -17,8 +17,60 @@
       </li>
     </ul>
   </s1>
-
-  <!-- ================================================================= -->
+  
+  <anchor id="eclipse-plugin_changes" />
+  <releases title="Eclipse plugin changes">
+  	<devs>
+  		<person name="Vincent Massol" email="vmassol@apache.org" id="VMA" />
+  		<person name="Julien Ruaux" email="jruaux@octo.com" id="JRU" />
+  	</devs>
+  	<release version="Milestone 1" date="- in CVS">
+  		<action dev="JRU" type="add">
+  		  a minimalistic launch configuration
+  		</action>
+  		<action dev="JRU" type="add">
+  		  a minimalistic launch shortcut
+  		</action>
+  		<action dev="JRU" type="add">
+  		  a minimalistic launch configuration tab group
+  		</action>
+  	</release>
+  	<release version="Milestone 2" date="- in CVS">
+  		<action dev="JRU" type="add">
+  			Validate calling Ant script before and after running the
+  			tests to package and deploy the application to the container and
+  			start it.
+  		</action>
+  		<action dev="JRU" type="add">
+  			Execute the Cactus Ant script for Tomcat before starting
+  			the JUnit Test Runner (and after). This Ant script needs to be
+  			part of the Cactus plugin and does the following: creates a WAR
+  			from the application sources and start Tomcat. After the test is
+  			finished a second script is run to stop Tomcat.
+  		</action>
+  	</release>
+  	<release version="Milestone 3" date="- in CVS">
+  		<action dev="JRU" type="add">
+  		  Added a Cactus preference page (see below for content)
+  		</action>
+  		<action dev="JRU" type="add">
+  		  Support for several containers
+  		</action>
+  		<action dev="JRU" type="add">
+  			On preference page and on Cactus TabGroup page: ability to
+  			choose the port on which the container is started.
+  		</action>
+  		<action dev="JRU" type="add">
+  			On preference page, ability to specify the working directory
+  			where the Cactus plugin will create all its files (packaged war,
+  			app server config files, etc)
+  		</action>
+  		<action dev="JRU" type="add">
+  		  Minimal plugin documentation
+  		</action>
+  	</release>
+  </releases>
+  	<!-- ================================================================= -->
   <!-- Last 15 days web site changes -->
   <!-- ================================================================= -->
 
