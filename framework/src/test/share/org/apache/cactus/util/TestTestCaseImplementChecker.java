@@ -25,6 +25,8 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import org.apache.cactus.Request;
 import org.apache.cactus.WebResponse;
+import org.apache.cactus.internal.util.TestCaseImplementChecker;
+import org.apache.cactus.internal.util.TestCaseImplementError;
 
 /**
  * Unit tests for the {@link TestCaseImplementChecker} class.

@@ -1,7 +1,7 @@
 /* 
  * ========================================================================
  * 
- * Copyright 2001-2003 The Apache Software Foundation.
+ * Copyright 2001-2004 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,11 +17,11 @@
  * 
  * ========================================================================
  */
-package org.apache.cactus.server.runner;
+package org.apache.cactus.internal.server.runner;
 
 import junit.runner.TestSuiteLoader;
 
-import org.apache.cactus.util.ClassLoaderUtils;
+import org.apache.cactus.internal.util.ClassLoaderUtils;
 
 /**
  * Dynamic class loader to load classes from the webapp classpath.

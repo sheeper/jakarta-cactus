@@ -32,8 +32,8 @@ import org.apache.cactus.internal.client.ClientTestCaseCaller;
 import org.apache.cactus.internal.client.WebResponseObjectFactory;
 import org.apache.cactus.internal.client.connector.http.HttpProtocolHandler;
 import org.apache.cactus.internal.configuration.ServletConfiguration;
+import org.apache.cactus.internal.util.JUnitVersionHelper;
 import org.apache.cactus.mock.MockHttpURLConnection;
-import org.apache.cactus.util.JUnitVersionHelper;
 
 /**
  * Test <code>TestCase</code> class that intercepts all exceptions (and assert

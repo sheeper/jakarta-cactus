@@ -17,7 +17,7 @@
  * 
  * ========================================================================
  */
-package org.apache.cactus.util;
+package org.apache.cactus.internal.util;
 
 import java.io.BufferedReader;
 import java.io.IOException;

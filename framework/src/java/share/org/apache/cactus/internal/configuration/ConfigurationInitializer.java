@@ -27,8 +27,8 @@ import java.util.MissingResourceException;
 import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 
+import org.apache.cactus.internal.util.ClassLoaderUtils;
 import org.apache.cactus.util.ChainedRuntimeException;
-import org.apache.cactus.util.ClassLoaderUtils;
 
 /**
  * Read Cactus configuration files and set the properties found as

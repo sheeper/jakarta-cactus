@@ -1,7 +1,7 @@
 /* 
  * ========================================================================
  * 
- * Copyright 2001-2003 The Apache Software Foundation.
+ * Copyright 2001-2004 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +23,7 @@ import java.io.Serializable;
 
 import java.util.Date;
 
-import org.apache.cactus.util.CookieUtil;
+import org.apache.cactus.internal.util.CookieUtil;
 
 /**
  * Client cookie. Used for manipulating client cookies either in

@@ -38,6 +38,8 @@ import junit.framework.Test;
 import junit.framework.TestResult;
 
 import org.apache.cactus.internal.configuration.BaseConfiguration;
+import org.apache.cactus.internal.server.runner.WebappTestRunner;
+import org.apache.cactus.internal.server.runner.XMLFormatter;
 
 /**
  * Helper servlet to start a JUnit Test Runner in a webapp.
@@ -45,7 +47,8 @@ import org.apache.cactus.internal.configuration.BaseConfiguration;
  * <p>
  *   This class currently does a couple of reflection tricks to avoid a direct 
  *   dependancy on the TraX API (<code>javax.xml.transform.*</code>),
- *   encapsulated in the {@link XMLTransformer} class.
+ *   encapsulated in the 
+ *   {@link org.apache.cactus.internal.server.runner.XMLTransformer} class.
  * </p>
  * 
  * @version $Id$

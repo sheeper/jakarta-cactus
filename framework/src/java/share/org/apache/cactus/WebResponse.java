@@ -1,7 +1,7 @@
 /* 
  * ========================================================================
  * 
- * Copyright 2001-2003 The Apache Software Foundation.
+ * Copyright 2001-2004 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,9 +28,9 @@ import java.net.HttpURLConnection;
 
 import java.util.Vector;
 
+import org.apache.cactus.internal.util.CookieUtil;
+import org.apache.cactus.internal.util.IoUtil;
 import org.apache.cactus.util.ChainedRuntimeException;
-import org.apache.cactus.util.CookieUtil;
-import org.apache.cactus.util.IoUtil;
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.cookie.CookiePolicy;

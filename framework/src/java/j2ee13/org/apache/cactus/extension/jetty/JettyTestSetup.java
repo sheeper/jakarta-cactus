@@ -31,9 +31,9 @@ import org.apache.cactus.internal.configuration.BaseConfiguration;
 import org.apache.cactus.internal.configuration.Configuration;
 import org.apache.cactus.internal.configuration.FilterConfiguration;
 import org.apache.cactus.internal.configuration.ServletConfiguration;
+import org.apache.cactus.internal.util.ClassLoaderUtils;
 import org.apache.cactus.server.FilterTestRedirector;
 import org.apache.cactus.server.ServletTestRedirector;
-import org.apache.cactus.util.ClassLoaderUtils;
 
 /**
  * Custom JUnit test setup to use to automatically start Jetty. Example:<br/>

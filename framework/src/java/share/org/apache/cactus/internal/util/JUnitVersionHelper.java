@@ -17,9 +17,11 @@
  * 
  * ========================================================================
  */
-package org.apache.cactus.util;
+package org.apache.cactus.internal.util;
 
 import java.lang.reflect.Method;
+
+import org.apache.cactus.util.ChainedRuntimeException;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

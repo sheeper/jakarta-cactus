@@ -32,8 +32,8 @@ import org.apache.cactus.internal.client.ParsingException;
 import org.apache.cactus.internal.client.ServletExceptionWrapper;
 import org.apache.cactus.internal.client.WebTestResultParser;
 import org.apache.cactus.internal.configuration.WebConfiguration;
+import org.apache.cactus.internal.util.IoUtil;
 import org.apache.cactus.util.ChainedRuntimeException;
-import org.apache.cactus.util.IoUtil;
 
 /**
  * Performs the steps necessary to run a test. It involves

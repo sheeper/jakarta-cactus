@@ -17,7 +17,7 @@
  * 
  * ========================================================================
  */
-package org.apache.cactus.util;
+package org.apache.cactus.internal.util;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -112,7 +112,7 @@ public class StringUtil
      * @return boolean Whether the specified line should be filtered from the
      *         stack trace
      */
-    static boolean filterLine(String theLine, String[] theFilterPatterns)
+    public static boolean filterLine(String theLine, String[] theFilterPatterns)
     {
         for (int i = 0; i < theFilterPatterns.length; i++)
         {

@@ -34,7 +34,7 @@ import org.apache.cactus.internal.HttpServiceDefinition;
 import org.apache.cactus.internal.ServiceEnumeration;
 import org.apache.cactus.internal.WebTestResult;
 import org.apache.cactus.internal.configuration.Version;
-import org.apache.cactus.util.ClassLoaderUtils;
+import org.apache.cactus.internal.util.ClassLoaderUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

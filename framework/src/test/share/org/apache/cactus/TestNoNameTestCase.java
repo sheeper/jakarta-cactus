@@ -24,8 +24,8 @@ import org.apache.cactus.internal.AbstractCactusTestCase;
 import org.apache.cactus.internal.client.connector.http.HttpProtocolHandler;
 import org.apache.cactus.internal.configuration.BaseConfiguration;
 import org.apache.cactus.internal.configuration.ServletConfiguration;
+import org.apache.cactus.internal.util.TestCaseImplementError;
 import org.apache.cactus.spi.client.connector.ProtocolHandler;
-import org.apache.cactus.util.TestCaseImplementError;
 
 /**
  * Unit tests of the <code>AbstractTestCase</code> class and its subclasses.

@@ -30,10 +30,10 @@ import org.apache.cactus.internal.RequestDirectives;
 import org.apache.cactus.internal.WebRequestImpl;
 import org.apache.cactus.internal.client.WebResponseObjectFactory;
 import org.apache.cactus.internal.configuration.WebConfiguration;
+import org.apache.cactus.internal.util.JUnitVersionHelper;
 import org.apache.cactus.spi.client.ResponseObjectFactory;
 import org.apache.cactus.spi.client.connector.ProtocolHandler;
 import org.apache.cactus.spi.client.connector.ProtocolState;
-import org.apache.cactus.util.JUnitVersionHelper;
 
 /**
  * Implementation for the HTTP protocol. It connects to the redirector proxy

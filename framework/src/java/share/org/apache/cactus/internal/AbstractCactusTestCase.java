@@ -25,8 +25,8 @@ import junit.framework.TestCase;
 import org.apache.cactus.internal.client.ClientTestCaseCaller;
 import org.apache.cactus.internal.configuration.ConfigurationInitializer;
 import org.apache.cactus.internal.server.ServerTestCaseCaller;
+import org.apache.cactus.internal.util.TestCaseImplementChecker;
 import org.apache.cactus.spi.client.connector.ProtocolHandler;
-import org.apache.cactus.util.TestCaseImplementChecker;
 
 /**
  * Base class for all Cactus test case extensions.

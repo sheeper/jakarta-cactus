@@ -22,6 +22,8 @@ package org.apache.cactus.util;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
+import org.apache.cactus.internal.util.IoUtil;
+
 import junit.framework.TestCase;
 
 /**

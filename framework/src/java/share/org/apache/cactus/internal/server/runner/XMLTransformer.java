@@ -1,7 +1,7 @@
 /* 
  * ========================================================================
  * 
- * Copyright 2001-2003 The Apache Software Foundation.
+ * Copyright 2001-2004 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@
  * 
  * ========================================================================
  */
-package org.apache.cactus.server.runner;
+package org.apache.cactus.internal.server.runner;
 
 import java.io.InputStream;
 import java.io.Reader;
