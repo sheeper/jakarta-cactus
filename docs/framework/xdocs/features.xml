@@ -86,7 +86,7 @@
         <li>
           Provides a <code>FilterTestCase</code> class that your test case
           must extends for unit testing Filters or any java classes that
-          make use of Filter API objects (<strong>Cactus 1.2 only</strong>).
+          make use of Filter API objects.
         </li>
         <li>
           Extends JUnit by defining two additional (and optional) methods
@@ -155,12 +155,12 @@
         </li>
         <li>
           Transparent Log4j logging (if you don't have Log4j in your classpath
-          no logging is done) for helping debugging problems.
+          no logging is done) to help debug problems.
         </li>
         <li>
           HttpUnit integration. See the
           <link href="howto_httpunit.html">HttpUnit Howto</link>) tutorial
-          for details (<strong>for Cactus 1.2 only</strong>). This enables
+          for details. This enables
           Cactus to provide strong and integrated functional
           testing features.
         </li>

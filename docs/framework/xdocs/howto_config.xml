@@ -152,7 +152,7 @@
                 needed only if your test classes are extending
                 <code>FilterTestCase</code> (see the
                 <link href="howto_testcase.html">TestCase Howto</link>
-                tutorial). <strong>Cactus 1.2 only</strong>.
+                tutorial).
               </td>
             </tr>
             <tr>
