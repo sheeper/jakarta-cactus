@@ -9,12 +9,18 @@
     <!ENTITY build-tests-tomcat-40 SYSTEM "file:./build-tests-tomcat-40.xml">
 ]>
 
-<!-- 
+<!--
   =============================================================================
     Build file for the Cactus Sample application. This is a sample build
     file that demonstrates how to integrate Cactus unit testing with Ant in
     order to automate the running of tests.
-    
+
+    The following Ant tasks must be available in your ant installation
+    (i.e. the Ant task themselves and their dependent jars need to be put
+    in ANT_HOME/lib) :
+
+        junit                 [REQUIRED] For running the unit tests.
+
     The following properties need to be set in a ./build.properties,
     ${user.home}/build.properties, a higher level build file, on the command
     line, ... :
@@ -25,14 +31,17 @@
 
         junit.jar             [REQUIRED] The path to the JUnit jar file
 
-        log4j.jar             [REQUIRED] The path to the Log4j jar file
+        log4j.jar             [OPTIONAL] The path to the Log4j jar file.
+                              Only needed if we want logs to be generated.
+
+        httpclient.jar        [REQUIRED] The Commons HttpClient jar file
 
         cactus.ant.jar        [REQUIRED] The path to the Cactus custom Ant
                               tasks jar file
 
         test.port             [OPTIONAL] The port that should be used for
-                              starting the servers during unit testing. This 
-                              should be used not to interfere with other 
+                              starting the servers during unit testing. This
+                              should be used not to interfere with other
                               running servers. The default is 8080.
 
     Additionally and depending on the servlet engines whith which you wish to
@@ -42,20 +51,20 @@
 
     Example: For Resin 2.0, you'll need to have a "resin.home.20" property
     defined and pointing to the location where Resin 2.0 is installed.
-             
+
     This script should be started with the following command line :
 
         ant <target>
 
     Run "ant usage" to get a list of available targets. The default target is
     "war"
-  ============================================================================= 
+  =============================================================================
 -->
 <project name="Cactus Sample" default="war" basedir="..">
 
     &build-share;
 
-    <!-- 
+    <!--
        ========================================================================
          Help on usage. List available targets
        ========================================================================
@@ -87,7 +96,7 @@
 
     </target>
 
-    <!-- 
+    <!--
        ========================================================================
          Run all Cactus tests for Servlet API 2.3
        ========================================================================
