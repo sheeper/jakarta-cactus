@@ -226,7 +226,8 @@ public class JettyInitializer implements Initializable
     
     /**
      * Adds the Cactus Jsp redirector configuration. We only add it if the
-     * CACTUS_JETTY_RESOURCE_DIR_PROPERTY has been provided by the user.
+     * CACTUS_JETTY_RESOURCE_DIR_PROPERTY has been provided by the user. This
+     * is because JSPs need to be attached to a WebApplicationHandler in Jetty.
      * 
      * @param theContext the Jetty context under which to add the configuration
      * 
@@ -260,7 +261,10 @@ public class JettyInitializer implements Initializable
     }
 
     /**
-     * Adds the Cactus Filter redirector configuration.
+     * Adds the Cactus Filter redirector configuration. We only add it if the
+     * CACTUS_JETTY_RESOURCE_DIR_PROPERTY has been provided by the user. This
+     * is because Filters need to be attached to a WebApplicationHandler in 
+     * Jetty.
      * 
      * @param theContext the Jetty context under which to add the configuration
      * @param theConfiguration the Cactus Filter configuration
