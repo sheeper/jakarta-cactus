@@ -3,6 +3,7 @@
 <project>
   <extend>${basedir}/../../default-project.xml</extend>
   <id>cactus-maven</id>
+  <currentVersion>1.6dev</currentVersion>
   <name>Maven Cactus plugin</name>
   <package>org.apache.cactus.integration.maven</package>
   <description>Maven plugin for Cactus (http://jakarta.apache.org/cactus) that allows to automatically start containers, run Cactus tests and stop the containers.</description>

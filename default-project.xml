@@ -8,12 +8,17 @@
   <organization>
     <name>Apache Software Foundation</name>
     <url>http://jakarta.apache.org/</url>
-    <!-- TODO: Missing jakarta logo. How can we make that work without
+    <!-- TODO: Missing Jakarta logo. How can we make that work without
          duplicating the logo in all subprojects? -->
+    <logo>http://jakarta.apache.org/cactus/images/jakarta-logo.gif</logo>
   </organization>
   <inceptionYear>2001</inceptionYear>
   <package>org.apache.cactus</package>
 
+  <!-- TODO: Missing Cactus logo. How can we make that work without
+       duplicating the logo in all subprojects? -->
+  <logo>http://jakarta.apache.org/cactus/images/logocactus.gif</logo>
+  
   <!-- Note: This description should be on one line without end of lines as it 
        is in various place such as in jar manifests and a single line is 
        rendered better -->
@@ -102,7 +107,12 @@
       <organization></organization>
     </developer>
   </developers>
-  <contributors/>
+  <contributors>
+    <contributor>
+      <name>Eric Pugh</name>
+      <email>EPugh@upstate.com</email>
+    </contributor>
+  </contributors>
 
   <dependencies>
     <dependency>
