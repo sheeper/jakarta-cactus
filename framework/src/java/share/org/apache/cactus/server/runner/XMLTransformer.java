@@ -109,11 +109,6 @@ public class XMLTransformer
     private static final String XML_MIME_TYPE = "text/xml";
 
     /**
-     * XSLT output method for XML content.
-     */
-    private static final String XML_OUTPUT_METHOD = "xml";
-
-    /**
      * Name of the XSLT output method property.
      */
     private static final String XSL_OUTPUT_PROPERTY_METHOD = "method";

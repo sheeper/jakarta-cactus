@@ -547,12 +547,7 @@ public final class JspTagLifecycle
      * The JSP tag handler.
      */
     private Tag tag;
-    
-    /**
-     * The enclosing tag.
-     */
-    private Tag parent;
-    
+        
     /**
      * The interceptor chain.
      */

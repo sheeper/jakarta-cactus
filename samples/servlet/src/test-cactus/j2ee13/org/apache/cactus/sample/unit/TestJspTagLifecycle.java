@@ -109,7 +109,7 @@ public class TestJspTagLifecycle extends JspTestCase
     {
         try
         {
-            JspTagLifecycle lifecycle = new JspTagLifecycle(null, new OutTag());
+            new JspTagLifecycle(null, new OutTag());
             fail("Expected NullPointerException");
         }
         catch (NullPointerException npe)
@@ -126,7 +126,7 @@ public class TestJspTagLifecycle extends JspTestCase
     {
         try
         {
-            JspTagLifecycle lifecycle = new JspTagLifecycle(pageContext, null);
+            new JspTagLifecycle(pageContext, null);
             fail("Expected NullPointerException");
         }
         catch (NullPointerException npe)
