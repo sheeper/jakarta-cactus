@@ -57,6 +57,12 @@
       </devs>
 
       <release version="1.5" date="- in CVS">
+        <action dev="CML" type="update">
+          Update of jars bundled in the Cactus distribution: Commons Logging
+          1.0.2, Log4j 1.2.7, HttpClient 2.0alpha3, HttpUnit 1.5 and 
+          JUnit 3.8.1. In addition the some of the jars needed to build Cactus
+          were also updated: Checkstyle 3.0 and BeanUtils 1.6.1.
+        </action>
         <action dev="VMA" type="add">
           Added ability to add any additional HTTP parameters to the request 
           used by Cactus to the Form-based authentication security URL.
@@ -237,11 +243,6 @@
           the property name is <code>cactus.initializer</code>). It will be run
           once per JVM only. The initializer class must implement the
           <code>org.apache.cactus.util.Initializable</code> interface.
-        </action>
-        <action dev="VMA" type="update">
-          Update of jars bundled in the Cactus distribution: Commons Logging
-          1.0.1, Log4j 1.2.6, HttpClient 2.0alpha2 built on 25/01/2003,
-          HttpUnit 1.4.5 and JUnit 3.8.1.
         </action>
         <action dev="VMA" type="add">
           Added support for client side <code>begin(...)</code>
