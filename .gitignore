@@ -53,12 +53,6 @@ petals/eclipse/target-12
 petals/eclipse/target-13
 petals/eclipse/web
 /release
-sample-servlet/ant.bat
-sample-servlet/build.properties
-sample-servlet/dist-12
-sample-servlet/dist-13
-sample-servlet/target-12
-sample-servlet/target-13
 samples/jetty/ant.bat
 samples/jetty/build.properties
 samples/jetty/dist-12
