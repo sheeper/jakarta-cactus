@@ -100,6 +100,17 @@ public class RequestDispatcherWrapper implements RequestDispatcher
     public void forward(ServletRequest theRequest, ServletResponse theResponse)
         throws IOException, ServletException
     {
+        // If the request is not our request wrapper, then someone is doing
+        // something wrong!
+        if (!HttpServletRequestWrapper.class.isAssignableFrom(
+            theRequest.getClass()))
+        {
+             throw new ServletException("The request object passed to "
+                + "forward() must be the request object you got from your "
+                + "Cactus test case (i.e. a Cactus request wrapper object). "
+                + "Instead we got [" + theRequest.getClass().getName() + "]");
+        }       
+
         HttpServletRequestWrapper request = 
             (HttpServletRequestWrapper) theRequest;
 
@@ -120,6 +131,17 @@ public class RequestDispatcherWrapper implements RequestDispatcher
     public void include(ServletRequest theRequest, ServletResponse theResponse)
         throws IOException, ServletException
     {
+        // If the request is not our request wrapper, then someone is doing
+        // something wrong!
+        if (!HttpServletRequestWrapper.class.isAssignableFrom(
+            theRequest.getClass()))
+        {
+             throw new ServletException("The request object passed to "
+                + "include() must be the request object you got from your "
+                + "Cactus test case (i.e. a Cactus request wrapper object). "
+                + "Instead we got [" + theRequest.getClass().getName() + "]");
+        }       
+
         HttpServletRequestWrapper request = 
             (HttpServletRequestWrapper) theRequest;
 
