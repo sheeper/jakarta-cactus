@@ -118,6 +118,7 @@
     <property name="out.classes.ant.dir" value="${out.root.dir}/classes"/>
     <property name="out.src.ant.dir" value="${out.root.dir}/src"/>
     <property name="out.conf.ant.dir" value="${out.root.dir}/conf"/>
+    <property name="out.xdoc.site.dir" value="${out.root.dir}/xdocs"/>
 
     <!-- 
        ========================================================================
@@ -360,16 +361,43 @@
          Generate the web site
        ========================================================================
     -->
-    <target name="prepare-site" depends="init">
+    <target name="prepare-site" depends="jar">
 
+        <mkdir dir="${out.xdoc.site.dir}"/>
         <mkdir dir="${out.site.dir}"/>
         <mkdir dir="${out.site.dir}/images"/>
 
+        <!-- Custom Ant task definitions -->
+        <taskdef name="cvslog" classname="org.apache.commons.cactus.ant.ChangeLogNewsTask">
+            <classpath>
+                <pathelement location="${final.jar.ant.name}"/>
+                <pathelement path="${java.class.path}"/>
+            </classpath>
+        </taskdef>
+
+        <!-- Generate cvs log -->
+        <delete file="${xdoc.dir}/cvslog/cvslog.xml"/>
+        <cvslog users="${xdoc.dir}/cvslog/users.properties" work="${xdoc.dir}"
+            output="${xdoc.dir}/cvslog/cvslog.xml" elapsed="15">
+
+            <fileset dir="${xdoc.dir}" excludes="book.xml,cvslog.xml,doc-book.xml,site-book.xml">
+                <include name="**/*.xml"/>
+            </fileset>
+
+        </cvslog>
+
         <!-- Copy site-book.xml to book.xml for defining the web site content
              and replacing token filters (year) -->
-        <delete file="${xdoc.dir}/book.xml"/>
-        <copy file="${xdoc.dir}/site-book.xml" tofile="${xdoc.dir}/book.xml"
+        <copy file="${xdoc.dir}/site-book.xml" tofile="${out.xdoc.site.dir}/book.xml"
             filtering="on"/>
+
+        <!-- Copy all remaining files from ${xdoc.dir} to ${out.xdoc.site.dir} -->
+        <copy todir="${out.xdoc.site.dir}" filtering="on">
+            <fileset dir="${xdoc.dir}">
+                <exclude name="*-book.xml"/>
+                <exclude name="misc/**"/>
+            </fileset>
+        </copy>
 
         <!-- Copy the version.txt file -->
         <copy file="${conf.dir}/version.txt"
@@ -391,7 +419,7 @@
     <!-- Generate the web site -->
     <target name="site" depends="prepare-site">
 
-        <stylebook book="${xdoc.dir}/book.xml"
+        <stylebook book="${out.xdoc.site.dir}/book.xml"
             skinDirectory="${skin.dir}/jakarta.apache.org"
             targetDirectory="${out.site.dir}">
 
@@ -445,7 +473,7 @@
         <delete>
             <fileset dir=".">
                 <include name="**/*.bak"/>
-                <include name="${xdoc.dir}/book.xml"/>
+                <include name="${xdoc.dir}/cvslog/cvslog.xml"/>
             </fileset>
         </delete>
 
@@ -461,7 +489,6 @@
         <delete>
             <fileset dir=".">
                 <include name="**/*.log"/>
-                <include name="version.txt"/>
             </fileset>
         </delete>
 

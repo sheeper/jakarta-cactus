@@ -66,6 +66,7 @@
     <property name="out.doc.dir" value="${out.dist.dir}/doc"/>
     <property name="out.javadoc.dir" value="${out.doc.dir}/javadoc"/>
     <property name="out.conf.dir" value="${out.dir}/conf"/>
+    <property name="out.xdoc.doc.dir" value="${out.dir}/xdocs"/>
 
     <!-- Destination locations for the Cactus sample application
          (also used as functional tests for Cactus) -->
@@ -370,17 +371,44 @@
     <!-- Preparation target for the doc target -->
     <target name="prepare-doc" depends="javadoc">
 
+        <mkdir dir="${out.xdoc.doc.dir}"/>
         <mkdir dir="${out.doc.dir}"/>
         <mkdir dir="${out.doc.dir}/images"/>
 
+        <!-- Custom Ant task definitions -->
+        <taskdef name="cvslog" classname="org.apache.commons.cactus.ant.ChangeLogNewsTask">
+            <classpath>
+                <pathelement location="${final.jar.ant.name}"/>
+                <pathelement path="${java.class.path}"/>
+            </classpath>
+        </taskdef>
+
+        <!-- Generate cvs log -->
+        <delete file="${xdoc.dir}/cvslog/cvslog.xml"/>
+        <cvslog users="${xdoc.dir}/cvslog/users.properties" work="${xdoc.dir}"
+            output="${xdoc.dir}/cvslog/cvslog.xml" elapsed="15">
+
+            <fileset dir="${xdoc.dir}" excludes="book.xml,cvslog.xml,doc-book.xml,site-book.xml">
+                <include name="**/*.xml"/>
+            </fileset>
+
+        </cvslog>
+
         <!-- Copy doc-book.xml to book.xml for defining the documentation web
-             site and replacing token filters (year) -->
-        <delete file="${xdoc.dir}/book.xml"/>
-        <copy file="${xdoc.dir}/doc-book.xml" tofile="${xdoc.dir}/book.xml"
+             site and replacing token filters (year, ...) -->
+        <copy file="${xdoc.dir}/doc-book.xml" tofile="${out.xdoc.doc.dir}/book.xml"
             filtering="on"/>
 
+        <!-- Copy all remaining files from ${xdoc.dir} to ${out.xdoc.doc.dir} -->
+        <copy todir="${out.xdoc.doc.dir}" filtering="on">
+            <fileset dir="${xdoc.dir}">
+                <exclude name="*-book.xml"/>
+                <exclude name="misc/**"/>
+            </fileset>
+        </copy>
+
         <!-- Copy the images -->
-        <copy todir="${out.site.dir}/images">
+        <copy todir="${out.doc.dir}/images">
             <fileset dir="${xdoc.dir}/images"/>
         </copy>
 
@@ -390,7 +418,7 @@
     <target name="doc" depends="prepare-doc">
 
         <!-- Generate the documentation web site -->
-        <stylebook book="${xdoc.dir}/book.xml"
+        <stylebook book="${out.xdoc.doc.dir}/book.xml"
             skinDirectory="${skin.dir}/jakarta.apache.org"
             targetDirectory="${out.doc.dir}">
 
