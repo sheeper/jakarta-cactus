@@ -36,6 +36,13 @@
         Modify the configuration page to reflect the fact that all cactus
         properties are now java system properties.
       </action>
+    </category>
+
+  </version>
+
+  <version title="Version 1.5">
+
+    <category title="Documentation">
       <action assigned-to="Vincent Massol">
         Move all documentation to docbook and cocoon2 and generate PDF
         containing full Cactus documentation. Note: I still need to find out
@@ -88,12 +95,6 @@
     <category title="Design/Code">
       <action assigned-to="Peter Wong, Jason Robertson, Vincent Massol">
         Add support for Form-based authentication.
-      </action>
-      <action>
-        Refactor/redesign the Cactus client side so that it can accept several
-        kinds of protocol injectors (it now only supports HTTP). The idea is to
-        be able to add first JMS so that Message-Driven Beans or simply JMS
-        listeners can be unit tested.
       </action>
       <action>
         Add methods that are called before and after each test, but on the
