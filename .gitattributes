@@ -330,9 +330,6 @@ integration/ant/src/java/org/apache/cactus/integration/ant/container/Tomcat3xCon
 integration/ant/src/java/org/apache/cactus/integration/ant/container/Tomcat4xContainer.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/java/org/apache/cactus/integration/ant/container/WebLogic7xContainer.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/java/org/apache/cactus/integration/ant/container/default.properties svn_keywords=Author+Date+Id+Revision
-integration/ant/src/java/org/apache/cactus/integration/ant/util/AntLog.java svn_keywords=Author+Date+Id+Revision
-integration/ant/src/java/org/apache/cactus/integration/ant/util/AntTaskFactory.java svn_keywords=Author+Date+Id+Revision
-integration/ant/src/java/org/apache/cactus/integration/ant/util/ResourceUtils.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/java/org/apache/cactus/integration/ant/webxml/WebXml.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/java/org/apache/cactus/integration/ant/webxml/WebXmlMerger.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/java/org/apache/cactus/integration/ant/webxml/WebXmlTag.java svn_keywords=Author+Date+Id+Revision
