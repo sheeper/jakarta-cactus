@@ -395,15 +395,15 @@
   <external id="bug_database" url="http://jakarta.apache.org/site/bugs.html"/>
   <external id="bug_database_cactus_open" url="http://issues.apache.org/bugzilla/buglist.cgi?bug_status=NEW&amp;bug_status=ASSIGNED&amp;bug_status=REOPENED&amp;product=Cactus"/>
   <external id="c2_mock_object" url="http://c2.com/cgi/wiki?MockObject"/>
-  <external id="c2_who_uses_cactus" url="http://c2.com/cgi/wiki?WhoUsesCactus"/>
   <external id="cactus_dutronc_lyrics" url="http://www.muriset.com/paroles/les_cactus.htm"/>
   <external id="cactus_dutronc_midi" url="http://www.muriset.com/musique/les_cactus.mid"/>
   <external id="cactus_nightly" url="http://cvs.apache.org/builds/jakarta-cactus/nightly"/>
   <external id="cactus_release_bin" url="http://jakarta.apache.org/site/binindex.cgi"/>
   <external id="cactus_release_src" url="http://jakarta.apache.org/site/sourceindex.cgi"/>
   <external id="cactus_release_old" url="http://jakarta.apache.org/builds/jakarta-cactus/release"/>
-  <external id="cactus_testedon" url="http://nagoya.apache.org/wiki/apachewiki.cgi?CactusProjectPages/TestedOn"/>
+  <external id="cactus_testedon" url="http://wiki.apache.org/jakarta-cactus/TestedOn"/>
   <external id="cactus_viewcvs" url="http://cvs.apache.org/viewcvs/jakarta-cactus/"/>
+  <external id="cactus_who_uses_it" url="http://wiki.apache.org/jakarta-cactus/WhoUsesCactus"/>
   <external id="cactus_wiki" url="http://wiki.apache.org/jakarta-cactus"/>
   <external id="checkstyle" url="http://checkstyle.sf.net"/>
   <external id="clover" url="http://www.thecortex.net/clover/index.html"/>
