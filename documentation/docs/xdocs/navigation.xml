@@ -26,7 +26,7 @@
   <menu label="Documentation">
     <item label="How it works?" id="how_it_works"/>
     <item label="Getting Started" id="getting_started"/>
-    <item label="Mock vs Container" id="mockobjects"/>
+    <item label="Mock vs Container" id="mock_vs_cactus"/>
     <item label="Javadocs" id="javadoc"/>
     <item label="FAQ" id="faq"/>
   </menu>
