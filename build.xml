@@ -91,7 +91,7 @@
         <echo message="commons.httpclient.jar = ${commons.httpclient.jar}"/>
         <echo message="httpunit.jar = ${httpunit.jar}"/>
         <echo message="junit.jar = ${junit.jar}"/>
-        <echo message="aspecjrt.jar = ${aspectjrt.jar}"/>
+        <echo message="aspectjrt.jar = ${aspectjrt.jar}"/>
         <echo message="log4j.jar = ${log4j.jar}"/>
         <echo message=""/>
         <echo message="j2ee.jar = ${j2ee.jar}"/>
