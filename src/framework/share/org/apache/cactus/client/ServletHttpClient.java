@@ -75,8 +75,8 @@ public class ServletHttpClient extends AbstractHttpClient
     /**
      * Default URL to call the <code>ServletRedirector</code> servlet.
      */
-    protected final static String m_ServletRedirectorURL = 
-        PropertyResourceBundle.getBundle("cactus").getString("cactus.servletRedirectorURL");
+    protected final static String SERVLET_REDIRECTOR_URL = 
+        CONFIG.getString("cactus.servletRedirectorURL");
 
     /**
      * Calls the test method indirectly by calling the Redirector servlet and
@@ -97,7 +97,7 @@ public class ServletHttpClient extends AbstractHttpClient
         HttpURLConnection connection = null;
 
         // Open the first connection to the redirector servlet
-        HttpClientHelper helper1 = new HttpClientHelper(m_ServletRedirectorURL);
+        HttpClientHelper helper1 = new HttpClientHelper(SERVLET_REDIRECTOR_URL);
 
         // Specify the service to call on the redirector side
         theRequest.addParameter(ServiceDefinition.SERVICE_NAME_PARAM,
@@ -109,7 +109,7 @@ public class ServletHttpClient extends AbstractHttpClient
         connection.getInputStream();
 
         // Open the second connection to get the test results
-        HttpClientHelper helper2 = new HttpClientHelper(m_ServletRedirectorURL);
+        HttpClientHelper helper2 = new HttpClientHelper(SERVLET_REDIRECTOR_URL);
         ServletTestRequest resultsRequest = new ServletTestRequest();
         resultsRequest.addParameter(ServiceDefinition.SERVICE_NAME_PARAM,
             ServiceEnumeration.GET_RESULTS_SERVICE.toString());

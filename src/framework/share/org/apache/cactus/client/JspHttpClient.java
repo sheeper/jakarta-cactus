@@ -75,14 +75,14 @@ public class JspHttpClient extends AbstractHttpClient
     /**
      * Default URL to call the <code>jspRedirector</code> JSP.
      */
-    protected final static String m_JspRedirectorURL = 
-        PropertyResourceBundle.getBundle("cactus").getString("cactus.jspRedirectorURL");
+    protected final static String JSP_REDIRECTOR_URL = 
+        CONFIG.getString("cactus.jspRedirectorURL");
 
     /**
-     * Default URL to call the <code>ServletRedirector</code> servlet.
+     * Default URL to call the <code>servletRedirector</code> servlet.
      */
-    protected final static String m_ServletRedirectorURL = 
-        PropertyResourceBundle.getBundle("cactus").getString("cactus.servletRedirectorURL");
+    protected final static String SERVLET_REDIRECTOR_URL = 
+        CONFIG.getString("cactus.servletRedirectorURL");
 
     /**
      * Calls the test method indirectly by calling the Redirector JSP and
@@ -104,7 +104,7 @@ public class JspHttpClient extends AbstractHttpClient
         HttpURLConnection connection = null;
 
         // Open the first connection to the redirector JSP
-        HttpClientHelper helper1 = new HttpClientHelper(m_JspRedirectorURL);
+        HttpClientHelper helper1 = new HttpClientHelper(JSP_REDIRECTOR_URL);
 
         // Specify the service to call on the redirector side
         theRequest.addParameter(ServiceDefinition.SERVICE_NAME_PARAM,
@@ -117,7 +117,7 @@ public class JspHttpClient extends AbstractHttpClient
 
         // Open the second connection (to the Servlet redirector) to get the
         // test results
-        HttpClientHelper helper2 = new HttpClientHelper(m_ServletRedirectorURL);
+        HttpClientHelper helper2 = new HttpClientHelper(SERVLET_REDIRECTOR_URL);
         ServletTestRequest resultsRequest = new ServletTestRequest();
         resultsRequest.addParameter(ServiceDefinition.SERVICE_NAME_PARAM,
             ServiceEnumeration.GET_RESULTS_SERVICE.toString());
