@@ -111,6 +111,28 @@
          Initialize filters used in copy operations
        ========================================================================
     -->
+    <target name="init.filters.clover"
+        depends="init.common"
+        if="clover.enable">
+
+      <filterset id="clover.enablement">
+          <filter token="clover.begin" value=""/>
+          <filter token="clover.end" value=""/>
+      </filterset>
+
+    </target>
+
+    <target name="init.filters.noclover"
+        depends="init.common"
+        unless="clover.enable">
+
+      <filterset id="clover.enablement">
+          <filter token="clover.begin" value="!-- "/>
+          <filter token="clover.end" value=" --"/>
+      </filterset>
+
+    </target>
+
     <target name="init.filters.12" depends="init.common"
         unless="j2ee13.available">
 
@@ -135,7 +157,9 @@
 
     </target>
 
-    <target name="init.filters" depends="init.filters.12, init.filters.13">
+    <target name="init.filters"
+        depends="init.filters.clover, init.filters.noclover,
+                 init.filters.12, init.filters.13">
 
         <!-- Copy scripts -->
 		<basename property="jstl.jar.name" file="${jstl.jar}"/>
@@ -211,6 +235,7 @@
         <copy todir="${target.sample.dir}" filtering="on">
             <fileset dir="${src.script.dir}/share"/>
             <fileset dir="${src.script.dir}/j2ee${j2ee.api}"/>
+            <filterset refid="clover.enablement"/>
             <filterset refid="container.enablement"/>
             <filterset refid="jar.locations"/>
         </copy>
@@ -245,25 +270,9 @@
 
         <copy todir="${target.sample.lib.dir}" file="${clover.jar}"/>
 
-        <replace file="${target.sample.dir}/build.xml"
-            token="@cactus.clover.pathelement@">
-            <replacevalue><![CDATA[
-              <pathelement location="${clover.jar}"/>
-            ]]></replacevalue>
-        </replace>        
-
     </target>
 
-    <target name="sample.noclover" depends="sample.main" unless="clover.enable">
-
-        <replace file="${target.sample.dir}/build.xml"
-            token="@cactus.clover.pathelement@">
-            <replacevalue><![CDATA[]]></replacevalue>
-        </replace>        
-
-    </target>
-    
-    <target name="sample" depends="sample.clover, sample.noclover"
+    <target name="sample" depends="sample.clover"
         description="Generate the sample application">
     </target>
 
@@ -272,21 +281,20 @@
          Run the full suite of tests on all defined containers.
        ========================================================================
     -->
-    <target name="test.prepare.clover" if="clover.enable">
-    
-        <property name="clover.system.parameter"
-            value="-Dcactus.framework.jar=${basedir}/${cactus.framework.clover.jar}"/>
-    
-    </target>
+    <target name="test.prepare">
 
-    <target name="test.prepare.noclover" unless="clover.enable">
-
-        <property name="clover.system.parameter" value=""/>
-
-    </target>
-
-    <target name="test.prepare"
-        depends="test.prepare.clover, test.prepare.noclover">
+        <condition property="test.cactus.framework.jar"
+            value="${cactus.framework.clover.jar}">
+            <isset property="clover.enable"/>
+        </condition>
+        <property name="test.cactus.framework.jar"
+            value="${cactus.framework.jar}"/>
+        <condition property="test.cactus.antintegration.jar"
+            value="${cactus.antintegration.clover.jar}">
+            <isset property="clover.enable"/>
+        </condition>
+        <property name="test.cactus.antintegration.jar"
+            value="${cactus.antintegration.jar}"/>
 
         <mkdir dir="${target.test.dir}"/>
 
@@ -300,6 +308,11 @@
            inheritAll="false">
          <property name="cactus.home.jboss3x" value="${cactus.home.jboss3x}"/>
          <property name="target.dir" location="${target.test.dir}"/>
+         <property name="cactus.framework.jar"
+             location="${test.cactus.framework.jar}"/>
+         <property name="cactus.ant.jar"
+             location="${test.cactus.antintegration.jar}"/>
+         <property name="clover.jar" value="${clover.jar}"/>
        </ant>
 
     </target>
@@ -312,6 +325,11 @@
            inheritAll="false">
          <property name="cactus.home.orion1x" value="${cactus.home.orion1x}"/>
          <property name="target.dir" location="${target.test.dir}"/>
+         <property name="cactus.framework.jar"
+             location="${test.cactus.framework.jar}"/>
+         <property name="cactus.ant.jar"
+             location="${test.cactus.antintegration.jar}"/>
+         <property name="clover.jar" value="${clover.jar}"/>
        </ant>
 
     </target>
@@ -324,6 +342,11 @@
            inheritAll="false">
          <property name="cactus.home.orion2x" value="${cactus.home.orion2x}"/>
          <property name="target.dir" location="${target.test.dir}"/>
+         <property name="cactus.framework.jar"
+             location="${test.cactus.framework.jar}"/>
+         <property name="cactus.ant.jar"
+             location="${test.cactus.antintegration.jar}"/>
+         <property name="clover.jar" value="${clover.jar}"/>
        </ant>
 
     </target>
@@ -336,6 +359,11 @@
            inheritAll="false">
          <property name="cactus.home.resin2x" value="${cactus.home.resin2x}"/>
          <property name="target.dir" location="${target.test.dir}"/>
+         <property name="cactus.framework.jar"
+             location="${test.cactus.framework.jar}"/>
+         <property name="cactus.ant.jar"
+             location="${test.cactus.antintegration.jar}"/>
+         <property name="clover.jar" value="${clover.jar}"/>
        </ant>
 
     </target>
@@ -348,6 +376,11 @@
            inheritAll="false">
          <property name="cactus.home.tomcat3x" value="${cactus.home.tomcat3x}"/>
          <property name="target.dir" location="${target.test.dir}"/>
+         <property name="cactus.framework.jar"
+             location="${test.cactus.framework.jar}"/>
+         <property name="cactus.ant.jar"
+             location="${test.cactus.antintegration.jar}"/>
+         <property name="clover.jar" value="${clover.jar}"/>
        </ant>
 
     </target>
@@ -360,6 +393,11 @@
            inheritAll="false">
          <property name="cactus.home.tomcat4x" value="${cactus.home.tomcat4x}"/>
          <property name="target.dir" location="${target.test.dir}"/>
+         <property name="cactus.framework.jar"
+             location="${test.cactus.framework.jar}"/>
+         <property name="cactus.ant.jar"
+             location="${test.cactus.antintegration.jar}"/>
+         <property name="clover.jar" value="${clover.jar}"/>
        </ant>
 
     </target>
@@ -372,6 +410,11 @@
            inheritAll="false">
          <property name="cactus.home.tomcat5x" value="${cactus.home.tomcat5x}"/>
          <property name="target.dir" location="${target.test.dir}"/>
+         <property name="cactus.framework.jar"
+             location="${test.cactus.framework.jar}"/>
+         <property name="cactus.ant.jar"
+             location="${test.cactus.antintegration.jar}"/>
+         <property name="clover.jar" value="${clover.jar}"/>
        </ant>
 
     </target>
