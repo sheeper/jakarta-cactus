@@ -21,7 +21,7 @@
     xmlns:ant="jelly:ant"
     xmlns:util="jelly:util">
 
-  <goal name="testPlugin">
+  <goal name="testPlugin" prereqs="clean">
     <echo>Set maven.compile.target as ${maven.compile.target}</echo>
     <attainGoal name="cactus:test"/>
   </goal>
