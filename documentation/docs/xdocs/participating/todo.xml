@@ -62,33 +62,8 @@
           Update the "how it works" section by adding the new global
           <code>begin()</code> and <code>end()</code> methods.
         </action>
-        <action assigned-to="Jason Robertson, Vincent Massol">
+        <action assigned-to="Vincent Massol">
           Add documentation for form-based authentication.
-        </action>
-        <action>
-          Rewrite "Quick start guide" to take into account the different
-          front ends.
-        </action>
-      </category>
-
-      <category title="Design/Code">
-        <action>
-          Run JDiff before releasing to mark new classes/methods/members with
-          <code>@since Cactus 1.6</code>.
-        </action>
-        <action>
-          Modify the Eclipse plugin to use the new Ant integration.
-        </action>
-        <action>
-          Add EJB Redirectors so that unit testing of code that require an EJB
-          is facilitated. For example, let's imagine you need to test that an
-          object that has been put in the JNDI tree by a servlet can be retrieved
-          by an EJB. These are not unit tests per see but rather integration
-          tests, which is Cactus favorite domain. Also these redirectors could be
-          used to directly unit tests EJB whithout requiring a servlet
-          environment (at the current time, you need to call your EJB from a
-          Servlet/JSP/Filter Redirector, which is fine for certain tests but not
-          needed for others.
         </action>
       </category>
 
@@ -105,6 +80,10 @@
       <action>
         Improve the documentation CheckSitemap Ant task to check external URLs
         (when online).
+      </action>
+      <action>
+        Rewrite "Quick start guide" to take into account the different
+        front ends.
       </action>
     </category>
 
@@ -141,6 +120,24 @@
     </category>
     
     <category title="Design/Code">
+      <action>
+        Run JDiff before releasing to mark new classes/methods/members with
+        <code>@since Cactus 1.6</code>.
+      </action>
+      <action>
+        Modify the Eclipse plugin to use the new Ant integration.
+      </action>
+      <action>
+        Add EJB Redirectors so that unit testing of code that require an EJB
+        is facilitated. For example, let's imagine you need to test that an
+        object that has been put in the JNDI tree by a servlet can be retrieved
+        by an EJB. These are not unit tests per see but rather integration
+        tests, which is Cactus favorite domain. Also these redirectors could be
+        used to directly unit tests EJB whithout requiring a servlet
+        environment (at the current time, you need to call your EJB from a
+        Servlet/JSP/Filter Redirector, which is fine for certain tests but not
+        needed for others.
+      </action>
       <action>
         Enhance the <code>runservertests</code> task to accept nested
         <code>&lt;containerset&gt;</code> elements.
