@@ -75,7 +75,7 @@
         zips). Same as what is on 
         http://dev.eclipse.org/viewcvs/indextech.cgi/~checkout~/org.eclipse.ajdt/download.html.
       </action>
-      <action assigned-to="Jason Van Zyl">
+      <action assigned-to="Julien Dubois, Vincent Massol">
         Move Cactus to Maven.
       </action>
       <action>
