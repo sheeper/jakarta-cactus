@@ -82,19 +82,15 @@ public class WarBuilder
     /**
      * the directory where to find classes
      */
-    private File classFilesDir;
+    private File userClassFilesDir;
     /**
      * the web.xml file
      */
-    private File webXML;
+    private File userWebXML;
     /**
      * directory where to find jars for the webapp
      */
-    private File jarFilesDir;
-    /**
-     * directory where to find Cactus framework web files
-     */
-    private File webFilesDir;
+    private File userJarFilesDir;
     /**
      * directory where to find user's web files
      */
@@ -120,10 +116,10 @@ public class WarBuilder
         File theWebFilesDir)
     {
         this.buildFileLocation = theBuildFileLocation;
-        this.classFilesDir = theClassFilesDir;
-        this.webXML = theWebXML;
-        this.jarFilesDir = theJarFilesDir;
-        this.webFilesDir = theWebFilesDir;
+        this.userClassFilesDir = theClassFilesDir;
+        this.userWebXML = theWebXML;
+        this.userJarFilesDir = theJarFilesDir;
+        this.userWebFilesDir = theWebFilesDir;
     }
 
     /**
@@ -134,27 +130,16 @@ public class WarBuilder
     public WarBuilder(IJavaProject theJavaProject)
         throws JavaModelException
     {
+        CactusPlugin thePlugin = CactusPlugin.getDefault();
+        buildFileLocation =
+            new File(thePlugin.find(new Path("./ant/build-war.xml")).getPath());
         IPath projectPath = theJavaProject.getProject().getLocation();
         IPath classFilesPath =
             projectPath.removeLastSegments(1).append(
                 theJavaProject.getOutputLocation());
-        classFilesDir = classFilesPath.toFile();
-        CactusPlugin thePlugin = CactusPlugin.getDefault();
-        buildFileLocation =
-            new File(thePlugin.find(new Path("./ant/build-war.xml")).getPath());
-        webXML = projectPath.append("web.xml").toFile();
-        if (!webXML.exists())
-        {
-            webXML =
-                new File(
-                    thePlugin
-                        .find(new Path("./ant/conf/test/web.xml"))
-                        .getPath());
-        }
-        jarFilesDir =
-            new File(thePlugin.find(new Path("./lib/share/")).getPath());
-        webFilesDir =
-                    new File(thePlugin.find(new Path("./web/")).getPath());
+        userClassFilesDir = classFilesPath.toFile();
+        userWebXML = projectPath.append("web.xml").toFile();
+        userJarFilesDir = projectPath.append("lib").toFile();
         // copy any web folder situated in the user's project
         userWebFilesDir = projectPath.append("web").toFile();
     }
@@ -180,21 +165,26 @@ public class WarBuilder
                 e);
         }
         Vector arguments = new Vector();
-        String jarFilesPath = jarFilesDir.getAbsolutePath();
+        
+        String jarFilesPath = userJarFilesDir.getAbsolutePath();
         arguments.add("-Djars.dir=" + jarFilesPath);
-        String webXMLPath = webXML.getAbsolutePath();
+        
+        String webXMLPath = userWebXML.getAbsolutePath();
         arguments.add("-Dwebxml.path=" + webXMLPath);
-        String classFilesPath = classFilesDir.getAbsolutePath();
+        
+        String classFilesPath = userClassFilesDir.getAbsolutePath();
         arguments.add("-Dclasses.dir=" + classFilesPath);
+        
         String warFilePath = testWar.getAbsolutePath();
         arguments.add("-Dwar.path=" + warFilePath);
-        String webFilesPath = webFilesDir.getAbsolutePath();
-        arguments.add("-Dwebfiles.dir=" + webFilesPath);
+        
+        //String webFilesPath = webFilesDir.getAbsolutePath();
+        //arguments.add("-Dwebfiles.dir=" + webFilesPath);
 
         if (userWebFilesDir.exists())
         {
-            String userWebFilesPath = userWebFilesDir.getAbsolutePath();
-            arguments.add("-Duser.webfiles.dir=" + userWebFilesPath);
+            String webFilesPath = userWebFilesDir.getAbsolutePath();
+            arguments.add("-Dwebfiles.dir=" + webFilesPath);
         }
         String[] antArguments = (String[]) arguments.toArray(new String[0]);
         AntRunner runner = new AntRunner();
