@@ -6,9 +6,9 @@
     <!ENTITY build-tests-jboss3x SYSTEM "file:./scripts/build-tests-jboss3x.xml">
     <!ENTITY build-tests-resin2x SYSTEM "file:./scripts/build-tests-resin2x.xml">
     <!ENTITY build-tests-orion1x SYSTEM "file:./scripts/build-tests-orion1x.xml">
+    <!ENTITY build-tests-weblogic7x SYSTEM "file:./scripts/build-tests-weblogic7x.xml">
 <!--
     <!ENTITY build-tests-weblogic-61 SYSTEM "file:./scripts/build-tests-weblogic-61.xml">
-    <!ENTITY build-tests-weblogic-70 SYSTEM "file:./scripts/build-tests-weblogic-70.xml">
 -->
 ]>
 
@@ -67,8 +67,8 @@
     &build-tests-jboss3x;
     &build-tests-resin2x;
     &build-tests-orion1x;
+    &build-tests-weblogic7x;
 <!--
     &build-tests-weblogic-61;
-    &build-tests-weblogic-70;
 -->
 </project>

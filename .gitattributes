@@ -310,17 +310,17 @@ petals/ant/src/confs/share/weblogic61/SerializedSystemIni.dat -text svneol=unset
 petals/ant/src/confs/share/weblogic61/config.xml svn_keywords=Author+Date+Id+Revision
 petals/ant/src/confs/share/weblogic61/fileRealm.properties svn_keywords=Author+Date+Id+Revision
 petals/ant/src/confs/share/weblogic61/weblogic.xml svn_keywords=Author+Date+Id+Revision
-petals/ant/src/confs/share/weblogic70/DefaultAuthenticatorInit.ldift -text svneol=unset#application/octet-stream
-petals/ant/src/confs/share/weblogic70/SerializedSystemIni.dat -text svneol=unset#application/octet-stream
-petals/ant/src/confs/share/weblogic70/config.xml svn_keywords=Author+Date+Id+Revision
-petals/ant/src/confs/share/weblogic70/fileRealm.properties svn_keywords=Author+Date+Id+Revision
-petals/ant/src/confs/share/weblogic70/testserver/ldap/ldapfiles/EmbeddedLDAP.data -text
-petals/ant/src/confs/share/weblogic70/testserver/ldap/ldapfiles/EmbeddedLDAP.delete -text
-petals/ant/src/confs/share/weblogic70/testserver/ldap/ldapfiles/EmbeddedLDAP.index -text
-petals/ant/src/confs/share/weblogic70/testserver/ldap/ldapfiles/EmbeddedLDAP.tran -text
-petals/ant/src/confs/share/weblogic70/testserver/ldap/ldapfiles/EmbeddedLDAP.trpos -text
-petals/ant/src/confs/share/weblogic70/testserver/ldap/ldapfiles/EmbeddedLDAP.twpos -text
-petals/ant/src/confs/share/weblogic70/weblogic.xml svn_keywords=Author+Date+Id+Revision
+petals/ant/src/confs/share/weblogic7x/DefaultAuthenticatorInit.ldift -text svneol=unset#application/octet-stream
+petals/ant/src/confs/share/weblogic7x/SerializedSystemIni.dat -text svneol=unset#application/octet-stream
+petals/ant/src/confs/share/weblogic7x/config.xml svn_keywords=Author+Date+Id+Revision
+petals/ant/src/confs/share/weblogic7x/fileRealm.properties svn_keywords=Author+Date+Id+Revision
+petals/ant/src/confs/share/weblogic7x/testserver/ldap/ldapfiles/EmbeddedLDAP.data -text
+petals/ant/src/confs/share/weblogic7x/testserver/ldap/ldapfiles/EmbeddedLDAP.delete -text
+petals/ant/src/confs/share/weblogic7x/testserver/ldap/ldapfiles/EmbeddedLDAP.index -text
+petals/ant/src/confs/share/weblogic7x/testserver/ldap/ldapfiles/EmbeddedLDAP.tran -text
+petals/ant/src/confs/share/weblogic7x/testserver/ldap/ldapfiles/EmbeddedLDAP.trpos -text
+petals/ant/src/confs/share/weblogic7x/testserver/ldap/ldapfiles/EmbeddedLDAP.twpos -text
+petals/ant/src/confs/share/weblogic7x/weblogic.xml svn_keywords=Author+Date+Id+Revision
 petals/ant/src/java/org/apache/cactus/petal/ant/AbstractServerRun.java svn_keywords=Author+Date+Id+Revision
 petals/ant/src/java/org/apache/cactus/petal/ant/EnhydraRun.java svn_keywords=Author+Date+Id+Revision
 petals/ant/src/java/org/apache/cactus/petal/ant/ResinRun.java svn_keywords=Author+Date+Id+Revision
@@ -333,6 +333,7 @@ petals/ant/src/scripts/share/build-share.xml svn_keywords=Author+Date+Id+Revisio
 petals/ant/src/scripts/share/build-tests-orion1x.xml svn_keywords=Author+Date+Id+Revision
 petals/ant/src/scripts/share/build-tests-resin2x.xml svn_keywords=Author+Date+Id+Revision
 petals/ant/src/scripts/share/build-tests-tomcat4x.xml svn_keywords=Author+Date+Id+Revision
+petals/ant/src/scripts/share/build-tests-weblogic7x.xml svn_keywords=Author+Date+Id+Revision
 sample-jetty/build.properties.sample -text svneol=unset#application/octet-stream
 sample-jetty/conf/sample/build/build.properties.sample -text svneol=unset#application/octet-stream
 sample-jetty/conf/sample/conf/manifest -text svneol=unset#application/octet-stream
