@@ -341,8 +341,8 @@
       </section>
       <section title="Contributing">
         <p>
-          Read the DEV-README.txt file for indications on how to set up your
-          Eclipse environment.
+          Read the <a href="site:integration_eclipse_dev">Eclipse 
+          development evironment setup</a> tutorial.
         </p>
       </section>
     </section>
