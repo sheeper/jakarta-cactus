@@ -90,6 +90,7 @@ import org.eclipse.jface.operation.IRunnableWithProgress;
 public class CactusLaunchShortcut
     extends JUnitLaunchShortcut
     implements ITestRunListener
+
 {
 
     /**
@@ -182,7 +183,6 @@ public class CactusLaunchShortcut
             };
             try
             {
-                dialog.setCancelable(true);
                 dialog.run(true, true, runnable);
             }
             catch (InvocationTargetException e)
@@ -218,8 +218,7 @@ public class CactusLaunchShortcut
         {
             WarBuilder newWar =
                 new WarBuilder(
-                    theJavaProject,
-                    new File(CactusPreferences.getJarsDir()));
+                    theJavaProject);
             war = newWar.createWar(thePM);
             provider.deploy(
                 CactusPreferences.getContextURLPath(),

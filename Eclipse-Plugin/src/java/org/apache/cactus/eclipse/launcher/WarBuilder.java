@@ -68,6 +68,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaModelException;
 
@@ -92,9 +93,13 @@ public class WarBuilder
      */
     private File jarFilesDir;
     /**
-     * directory where to find web files
+     * directory where to find Cactus framework web files
      */
     private File webFilesDir;
+    /**
+     * directory where to find user's web files
+     */
+    private File userWebFilesDir;
     /**
      * the location of the Ant build file for creating wars
      */
@@ -125,15 +130,12 @@ public class WarBuilder
     /**
      * Constructor.
      * @param theJavaProject the Java project which Java classes will be used
-     * @param theJarFilesDir the directory where the Jars are located
      * @throws JavaModelException if we can't get the ouput location
      */
-    public WarBuilder(IJavaProject theJavaProject, File theJarFilesDir)
+    public WarBuilder(IJavaProject theJavaProject)
         throws JavaModelException
     {
-        jarFilesDir = theJarFilesDir;
         IPath projectPath = theJavaProject.getProject().getLocation();
-
         IPath classFilesPath =
             projectPath.removeLastSegments(1).append(
                 theJavaProject.getOutputLocation());
@@ -150,8 +152,12 @@ public class WarBuilder
                         .find(new Path("./ant/conf/test/web.xml"))
                         .getPath());
         }
+        jarFilesDir =
+            new File(thePlugin.find(new Path("./lib/share/")).getPath());
+        webFilesDir =
+                    new File(thePlugin.find(new Path("./web/")).getPath());
         // copy any web folder situated in the user's project
-        webFilesDir = projectPath.append("web").toFile();
+        userWebFilesDir = projectPath.append("web").toFile();
     }
 
     /**
@@ -187,34 +193,21 @@ public class WarBuilder
         arguments.add("-Dclasses.dir=" + classFilesPath);
         String warFilePath = testWar.getAbsolutePath();
         arguments.add("-Dwar.path=" + warFilePath);
-        // If a web dir is present in the user's project
-        // we use it for the War file, otherwise we use a blank one
-        boolean userWebExists = webFilesDir.exists();
-        if (!userWebExists)
-        {
-            String tempPath = System.getProperty("java.io.tmpdir");
-            webFilesDir = new File(tempPath, "web");
-            webFilesDir.mkdir();
-        }
-        
         String webFilesPath = webFilesDir.getAbsolutePath();
         arguments.add("-Dwebfiles.dir=" + webFilesPath);
+
+        if (userWebFilesDir.exists())
+        {
+            String userWebFilesPath = userWebFilesDir.getAbsolutePath();
+            arguments.add("-Duser.webfiles.dir=" + userWebFilesPath);
+        }
         String[] antArguments = (String[]) arguments.toArray(new String[0]);
         AntRunner runner = new AntRunner();
         runner.setBuildFileLocation(buildFileLocation.getAbsolutePath());
         runner.setArguments(antArguments);
         String[] targets = { "testwar" };
         runner.setExecutionTargets(targets);
-        runner.run(thePM);
-        // Delete the created Web dir, if any.
-        // Could not use deleteOnExit on this dir because the VM launched by
-        // Ant seems to be crashing when shut down by the 'stop' task
-        // TODO: resolve the crashing VM problem
-        if (!userWebExists)
-        {
-            webFilesDir.delete();
-        }
-        thePM.done();
+        runner.run(new SubProgressMonitor(thePM, 3));
         return testWar;
     }
 }
