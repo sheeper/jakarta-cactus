@@ -39,6 +39,8 @@
   <goal name="cactus:init">
 
     <!-- Not sure why but this is needed, otherwise the taskdefs below fail -->
+    <!-- DEPRECATION: Should now use <maven:get>/<maven:set> instead. Once 
+         everyone has moved to Maven 1.0 final, we should make the change -->
     <test:dependency-handle/>
     
     <ant:path id="cactus.classpath">
@@ -1275,6 +1277,9 @@
   <define:taglib uri="cactus">
 
     <!-- Use this tag to allow this plugin to be loaded into another -->
+    <!-- DEPRECATION: No longer required. Dependent plugins should now use 
+         <maven:get>/<maven:set> instead. Once everyone has moved to Maven 
+         1.0 final, we should make the change -->
     <define:tag name="dependency-handle">
     </define:tag>
 
@@ -1339,7 +1344,5 @@
     </define:tag>
 
   </define:taglib>
-
-
 
 </project>
