@@ -8,11 +8,17 @@
   <channel rdf:about="http://jakarta.apache.org/cactus/">
     <title>Jakarta Cactus News</title>
     <link>http://jakarta.apache.org/cactus/news.html</link>
-    <description>Latest Cactus news.</description>
+    <description>Latest Cactus news</description>
     <dc:language>en-us</dc:language>
     <dc:creator></dc:creator>
     <dc:date>2003-05-15T00:00:00+00:00</dc:date>
     <admin:generatorAgent rdf:resource="http://jakarta.apache.org/cactus"/>
+    <image>
+      <title>Jakarta Cactus News</title>
+      <url>http://jakarta.apache.org/cactus/images/logocactus.gif</url>
+      <link>http://jakarta.apache.org/cactus</link>
+      <description>Latest Cactus news</description>
+    </image>
 
     <items>
       <rdf:Seq>
