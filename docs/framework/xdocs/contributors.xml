@@ -12,116 +12,93 @@
 
   <body>
 
-    <s1 title="Cactus contributors">
+    <s1 title="Meritocracy">
 
       <p>
-        The people listed below have made significant contributions to Cactus
-        by working long and hard to make quality software for the rest of the
-        world to use. Contributors to the Cactus project should be extremely
-        proud of themselves. 
+        All work on Cactus is contributed by volunteers whose only motivation
+        is to help make Cactus work even better, both for themselves and for
+        rest of the community.
       </p>
       <p>
-        If you would like to become a contributor, please see the 
-        <link href="todo.html">Todo</link> document and read the
-        <link href="contributing.html">Contributor's guide</link> to find areas 
-        where you can contribute effectively.
-      </p>
-      <p>
-        The table is listed in alphabetic order.
+        All contributions are welcome (see the
+        <link href="contributing.html">Contributing</link> page).
+        The final decision of what becomes part of the official distribution
+        is made by a group of <jump anchor="committers">Committers</jump>.
+        For more about Meritocracy, see the
+        <link href="http://jakarta.apache.org/site/roles.html">Management
+        page</link> on the Apache Jakarta Website.
       </p>
 
-      <table>
-        <tr>
-          <td>
-            <link href="mailto:paston@bea.com">
-            Philip Aston</link>
-          </td>
-          <td>
-            Bugfix and patches
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <link href="mailto:cchabanois@ifrance.com">
-            Cedric Chabanois</link>
-          </td>
-          <td>
-            JBuilder4 tutorial
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <link href="mailto:Bob.Davison@reuters.com">
-            Bob Davison</link>
-          </td>
-          <td>
-            Bugfix and patches
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <link href="mailto:andrew.forman@wcom.com">
-            Andrew B Forman</link>
-          </td>
-          <td>
-            Tutorial for VisualAge for Java integration
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <link href="mailto:Todd_Idler@jdedwards.com">
-            Todd Idler</link>
-          </td>
-          <td>
-            Tutorial for VisualAge for Java integration
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <link href="mailto:digital@ix.net.au">
-            Robert Leftwich</link>
-          </td>
-          <td>
-            Added Ant scripts for Enhydra 3.1
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <link href="mailto:vmassol@users.sourceforge.net">
-            Vincent Massol</link>
-          </td>
-          <td>
-            Original developer of Cactus, current project maintainer
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <link href="mailto:lthouvenot@octo.com">Lyonel Thouvenot</link>
-          </td>
-          <td>
-            Cactus logo (and web site design and graphisms when Cactus was not
-            using Stylebook)
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <link href="mailto:Kunal_Vaishnav@jdedwards.com">
-            Kunal Vaishnav</link>
-          </td>
-          <td>
-            JBuilder4 tutorial
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <link href="mailto:jariw@hyperlink-interactive.co.uk">
-            Jari Worsley</link>
-          </td>
-          <td>
-            Bugfix, patches, ideas, answers on mailing list
-          </td>
-        </tr>
-      </table>
+    </s1>
+
+    <s1 title="Source code contributors">
+
+      <ul>
+        <li>
+          <link href="mailto:vmassol@users.sourceforge.net">Vincent
+          Massol</link>
+        </li>
+        <li>
+          <link href="mailto:paston@bea.com">Philip Aston</link>
+        </li>
+        <li>
+          <link href="mailto:Bob.Davison@reuters.com">Bob Davison</link>
+        </li>
+        <li>
+          <link href="mailto:digital@ix.net.au">Robert Leftwich</link>
+        </li>
+        <li>
+          <link href="mailto:jariw@hyperlink-interactive.co.uk">Jari
+          Worsley</link>
+        </li>
+        <li>
+          <link href="mailto:ndlesiecki@yahoo.com">Nicholas Lesiecki</link>
+        </li>
+      </ul>
+
+    </s1>
+
+    <s1 title="Documentation contributors">
+
+      <ul>
+        <li>
+          <link href="mailto:vmassol@users.sourceforge.net">Vincent
+          Massol</link>
+        </li>
+        <li>
+          <link href="mailto:cchabanois@ifrance.com">Cedric Chabanois</link>
+        </li>
+        <li>
+          <link href="mailto:andrew.forman@wcom.com">Andrew B Forman</link>
+        </li>
+        <li>
+          <link href="mailto:Todd_Idler@jdedwards.com">Todd Idler</link>
+        </li>
+        <li>
+          <link href="mailto:Kunal_Vaishnav@jdedwards.com">Kunal
+          Vaishnav</link>
+        </li>
+      </ul>
+
+    </s1>
+
+    <anchor id="committers"/>
+    <s1 title="Active Committers">
+
+      <ul>
+        <li>
+          <link href="mailto:vmassol@users.sourceforge.net">Vincent
+          Massol</link>
+        </li>
+        <li>
+          <link href="mailto:jariw@hyperlink-interactive.co.uk">Jari
+          Worsley</link>
+        </li>
+      </ul>
+
+    </s1>
+
+    <s1 title="Special thanks">
 
       <p>
         Thanks to all that have reported bugs or suggested ideas for Cactus.
@@ -131,7 +108,7 @@
         <link href="http://junit.org">JUnit web site</link>.
       </p>
       <p>
-        Thanks to all that are participating to the 
+        Thanks to all that are participating to the
         <link href="logos.html">Cactus Logo competition</link>.
       </p>
       <p>
@@ -147,21 +124,100 @@
 
     </s1>
 
-    <s1 title="Sponsors">
+    <s1 title="More about us">
 
-      <table>
-        <tr>
-          <td>
-            <link href="http://www.octo.com">OCTO Technology</link>
-          </td>
-          <td>
-            Octo is the company for which I work. It is an
-            IS consulting company on the cutting edge of new technologies,
-            providing expert Architects in the fields of applications servers
-            (J2EE, Microsoft DNA &amp; .NET, ...), EAI and IRM.
-          </td>
-        </tr>
-      </table>
+      <p>
+        <strong>Vincent Massol -- Committer</strong>
+      </p>
+      <p>
+        I started designing internet applications in 1998, when I joined
+        <link href="http://www.octo.com">OCTO Technology</link>, an
+        Information System Architecture Consulting company, providing
+        expert IT Solutions and Application Architects in the field of new
+        technologies (Application Servers, EAI, Internet Relationship
+        Management). Very soon,
+        when working on customer projects, I introduced the concept of unit
+        testing (using JUnit) as a good way
+        of writing reliable code. Although it worked very well for unit
+        testing "standard" java classes, it was much more difficult for
+        classes that used container objects. Thus, I began developing a small
+        generic framework to help unit test servlets. I improved the
+        framework as I moved on, from customer to customer.
+      </p>
+      <p>
+        Until it
+        was time to open source it ! There were several drivers for that
+        decision. As I spread the word about this framework within Octo,
+        several octomen (and octowoman !) began using it and making
+        modifications, and we
+        ended up with several versions of it, making it difficult to
+        synchronize them (although it was good for the evolutionary and
+        darwinian side of it :) ). Another good reason was that I wanted to
+        have feedback from the open source community and wanted to get help
+        to improve it. Also, it was good to be able to provide to our
+        customers a framework that would continue to evolve and be maintained
+        even after we left the project. The last reason, maybe the strongest,
+        is that I have always been fond of
+        the open source concept and as Octo is providing consulting services,
+        it did not clash with our business model !
+      </p>
+      <p>
+        Thus, I moved the project to SourceForge and called it J2EEUnit. It
+        did well and more and more persons were downloading, participating
+        and using it.
+      </p>
+      <p>
+        Now, most Applications Servers, EAI solutions or IRM ones are
+        providing an infrastructure on which to build applications. But once
+        you've bought the server, you're far from being finished ... There is
+        the business logic code to write but there is also a lot of "glue" to
+        implement. These are technical frameworks like a Controller of the
+        MVC model, a logging framework, an XML-Java mapping one,
+        application configuration, localization, templating, ... And usually
+        these frameworks are not provided in the software package you buy.
+        And even if they are (logging for example), they are not best of
+        breed ones. For these frameworks, I have always been using open
+        source solutions so far (Struts, Log4j, Ant, ...). Thus, I was
+        lurking on Jakarta mailing-lists when I heard about a new project
+        starting, called "Commons" which was to be a place where common
+        components useful for several Jakarta projects would be found. I
+        thought the idea of having a server-side java unit testing framework
+        for Jakarta project (which are server side projects) was a good idea.
+        I proposed to donate J2EEUnit to the Apache Software Foundation ...
+        and I was lucky enough it was accepted ! :-)
+      </p>
+      <p>
+        However, the J2EEUnit name was infringing on the Sun trademark on
+        J2EE so we had to change the name. It was changed to Cactus (see the
+        <link href="cactusname.html">Why the name ?</link> page for why this
+        name). I found that in the move from SourceForge to Jakarta, I had
+        found a new home for Cactus but, more importantly, I had found a
+        family ! The sense of Community is very strong on Jakarta. You can
+        feel right away the atmosphere and see it is different from other
+        places.
+      </p>
+      <p>
+        I am now busy improving Cactus and looking for help. The first step
+        was to get Cactus up and running and demonstrate it worked and is
+        useful. This step has been achieved (I hope :) ). The second step is
+        now to
+        build a community around Cactus and find persons who are willing
+        to actively participate in the future of it. Unit testing has
+        still not reached the mainstream of development practices but is in
+        the process of doing so with increasing interest in lightweight
+        (also called "Agile") methodologies like Extreme Programming (XP).
+        On the other hand, java server side programming is becoming stronger
+        every day. This is to say that there is a bright future ahead for
+        Cactus and there is still everything to invent.
+      </p>
+      <p>
+        Although the project started as a one-man project, my goal is to
+        relinquish as much as possible my hold on Cactus and make it
+        a community-wide project. This is a work in progess and I am proud
+        to say that I am no longer the only committer on the project and
+        several persons have jumped aboard and are already helping shape
+        Cactus future. Come and help us ! :)
+      </p>
 
     </s1>
 
