@@ -635,7 +635,7 @@
   </xsl:template>
  
   <xsl:template match="img">
-    <img alt="{@alt}" border="0" vspace="4" hspace="4" align="right">
+    <img alt="{@alt}" border="0" vspace="4" hspace="4">
       <xsl:attribute name="src">
         <xsl:call-template name="get-base-directory"/>
         <xsl:value-of select="@src"/>
