@@ -183,6 +183,7 @@
             debug="${pom.getPluginContext('maven-java-plugin').getVariable('maven.compile.debug')}"
             deprecation="${pom.getPluginContext('maven-java-plugin').getVariable('maven.compile.deprecation')}"
             target="${pom.getPluginContext('maven-java-plugin').getVariable('maven.compile.target')}"
+            source="${pom.getPluginContext('maven-java-plugin').getVariable('maven.compile.source')}"
             optimize="${pom.getPluginContext('maven-java-plugin').getVariable('maven.compile.optimize')}">
 
           <ant:src path="${cactus.src.dir}"/>
