@@ -551,6 +551,11 @@
       tosite="jakarta.apache.org" 
       todir="builds/jakarta-cactus/nightly/@@DATE@@/" />
 
+    <license name="LICENSE.cactus"/>
+
+    <nag from="Vincent Massol &lt;vmassol@apache.org&gt;"
+      to="cactus-dev@jakarta.apache.org"/>
+
   </project>
 
   <!--
@@ -578,6 +583,11 @@
     <deliver fromdir="integration/eclipse/org.apache.cactus.eclipse.runner/release-13" 
       tosite="jakarta.apache.org" 
       todir="builds/jakarta-cactus/nightly/@@DATE@@/" />
+
+    <license name="LICENSE.cactus"/>
+
+    <nag from="Vincent Massol &lt;vmassol@apache.org&gt;"
+      to="cactus-dev@jakarta.apache.org"/>
 
   </project>
 
