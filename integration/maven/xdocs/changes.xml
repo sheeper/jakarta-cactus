@@ -12,6 +12,12 @@
 
     <release version="1.6dev" date="development build of 2004-01-15">
       <action dev="vmassol" type="add">
+        Added 2 new properties to support debugging Cactus tests:
+        <code>cactus.logging.config.client</code> and
+        <code>cactus.logging.config.server</code>. They point to logging
+        config properties file.
+      </action>
+      <action dev="vmassol" type="add">
         Added new optional <code>cactus.src.war</code> and
         <code>cactus.src.ejb</code> properties to specify where to find the
         artifacts to test using Cactus.

@@ -292,12 +292,23 @@
         failureproperty="cactustests.failure"
         printsummary="${cactus.printsummary}">
 
+      <!-- Configure the cactus task for logging -->
+      <j:if test="${context.getVariable('cactus.logging.config.client') != null}">
+        <cactusproperty server="false"
+            propertiesFile="${cactus.logging.config.client}"/>
+      </j:if>            
+      <j:if test="${context.getVariable('cactus.logging.config.server') != null}">
+        <cactusproperty server="true"
+            propertiesFile="${cactus.logging.config.server}"/>
+      </j:if>            
+
       <ant:classpath>
         <ant:pathelement path="${maven.build.dest}"/>
         <ant:pathelement location="${cactus.target.classes.dir}"/>
         <ant:path refid="maven.dependency.classpath"/>
         <ant:path refid="cactus.classpath"/>
       </ant:classpath>
+
       <containerset>
 
         <!-- TODO: Find how to set the port for JBoss 3x -->
@@ -486,17 +497,30 @@
 	  </j:when>
 	    
     <j:otherwise>    
+
       <cactus warfile="${cactus.war}" fork="yes" 
           errorproperty="cactustests.error" 
           failureproperty="cactustests.failure"
           printsummary="${cactus.printsummary}">
-      <ant:classpath>
-        <ant:pathelement path="${maven.build.dest}"/>
-        <ant:pathelement location="${cactus.target.classes.dir}"/>
-        <ant:path refid="maven.dependency.classpath"/>
-        <ant:path refid="cactus.classpath"/>
-      </ant:classpath>
-      <containerset>
+
+        <!-- Configure the cactus task for logging -->
+        <j:if test="${context.getVariable('cactus.logging.config.client') != null}">
+          <cactusproperty server="false"
+              propertiesFile="${cactus.logging.config.client}"/>
+        </j:if>            
+        <j:if test="${context.getVariable('cactus.logging.config.server') != null}">
+          <cactusproperty server="true"
+              propertiesFile="${cactus.logging.config.server}"/>
+        </j:if>            
+
+        <ant:classpath>
+          <ant:pathelement path="${maven.build.dest}"/>
+          <ant:pathelement location="${cactus.target.classes.dir}"/>
+          <ant:path refid="maven.dependency.classpath"/>
+          <ant:path refid="cactus.classpath"/>
+        </ant:classpath>
+
+        <containerset>
 
         <!-- TODO: Find how to set the port for JBoss 3x -->
         <jboss3x if="cactus.home.jboss3x"
@@ -595,11 +619,15 @@
         </weblogic7x>            
 
       </containerset>
+
       <ant:formatter type="plain" usefile="${cactus.junit.usefile}"/>
       <ant:formatter type="xml"/>
+
       <!-- Run only a single testcase passed in via -Dtestcase=my.single.TestCase-->
       <ant:test name="${testcase}"/>
+
      </cactus>
+
     </j:otherwise>         
    </j:choose>    
   </goal>
@@ -623,17 +651,30 @@
 	  </j:when>
 	    
     <j:otherwise>    
+
       <cactus warfile="${cactus.war}" fork="yes" 
           errorproperty="cactustests.error" 
           failureproperty="cactustests.failure"
           printsummary="${cactus.printsummary}">
-      <ant:classpath>
-        <ant:pathelement path="${maven.build.dest}"/>
-        <ant:pathelement location="${cactus.target.classes.dir}"/>
-        <ant:path refid="maven.dependency.classpath"/>
-        <ant:path refid="cactus.classpath"/>
-      </ant:classpath>
-      <containerset>
+
+        <!-- Configure the cactus task for logging -->
+        <j:if test="${context.getVariable('cactus.logging.config.client') != null}">
+          <cactusproperty server="false"
+              propertiesFile="${cactus.logging.config.client}"/>
+        </j:if>            
+        <j:if test="${context.getVariable('cactus.logging.config.server') != null}">
+          <cactusproperty server="true"
+              propertiesFile="${cactus.logging.config.server}"/>
+        </j:if>            
+
+        <ant:classpath>
+          <ant:pathelement path="${maven.build.dest}"/>
+          <ant:pathelement location="${cactus.target.classes.dir}"/>
+          <ant:path refid="maven.dependency.classpath"/>
+          <ant:path refid="cactus.classpath"/>
+        </ant:classpath>
+
+        <containerset>
 
         <!-- TODO: Find how to set the port for JBoss 3x -->
         <jboss3x if="cactus.home.jboss3x"
@@ -732,15 +773,19 @@
         </weblogic7x>            
 
       </containerset>
+
       <ant:formatter type="plain" usefile="${cactus.junit.usefile}"/>
       <ant:formatter type="xml"/>
+
       <!-- Run all testcases matched via -Dtestmatch=FooTest-->
       <ant:batchtest>
         <ant:fileset dir="${cactus.src.dir}">
           <include name="**/${testmatch}.java"/>
         </ant:fileset>
       </ant:batchtest>
+
      </cactus>
+
     </j:otherwise>         
    </j:choose>    
   </goal>
@@ -814,12 +859,24 @@
     <cactus earfile="${cactus.ear}" fork="yes" 
         errorproperty="cactustests.error" failureproperty="cactustests.failure"
         printsummary="${maven.cactus.printsummary}">
+
+      <!-- Configure the cactus task for logging -->
+      <j:if test="${context.getVariable('cactus.logging.config.client') != null}">
+        <cactusproperty server="false"
+            propertiesFile="${cactus.logging.config.client}"/>
+      </j:if>            
+      <j:if test="${context.getVariable('cactus.logging.config.server') != null}">
+        <cactusproperty server="true"
+            propertiesFile="${cactus.logging.config.server}"/>
+      </j:if>            
+
       <ant:classpath>
         <ant:pathelement path="${maven.build.dest}"/>
         <ant:pathelement location="${cactus.target.classes.dir}"/>
         <ant:path refid="maven.dependency.classpath"/>
         <ant:path refid="cactus.classpath"/>
       </ant:classpath>
+
       <containerset>
 
         <!-- TODO: Find how to set the port for JBoss 3x -->
@@ -922,11 +979,13 @@
 
       <ant:formatter type="plain" usefile="${cactus.junit.usefile}"/>
       <ant:formatter type="xml"/>
+
       <ant:batchtest>
         <ant:fileset dir="${cactus.src.dir}"
             includes="${cactus.src.includes}"
             excludes="${cactus.src.excludes}"/>
       </ant:batchtest>
+
     </cactus>
 
     <!-- TODO: Change the Cactus stylesheet (cactus.jsl) to handle reports

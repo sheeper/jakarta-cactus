@@ -221,6 +221,26 @@
             </p>
           </td>
         </tr>
+        <tr>
+          <td>cactus.logging.config.client</td>
+          <td>Yes</td>
+          <td>
+            <p>
+              Location of client logging properties file to debug Cactus tests.
+              For example <code>cactus.logging.config.client = ${basedir}/logging_client.properties</code>.
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td>cactus.logging.config.server</td>
+          <td>Yes</td>
+          <td>
+            <p>
+              Location of server logging properties file to debug Cactus tests.
+              For example <code>cactus.logging.config.server = ${basedir}/logging_server.properties</code>.
+            </p>
+          </td>
+        </tr>
       </table>
     </section>
 

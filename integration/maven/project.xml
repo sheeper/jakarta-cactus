@@ -7,7 +7,7 @@
   <!-- Note: Although we inherit from default-project.xml, we still cannot 
   	   remove the <currentVersion> tag as this project.xml is parsed at 
   	   runtime whenever our plugin is called. -->
-  <currentVersion>1.6dev</currentVersion>
+  <currentVersion>1.6dev-20040115</currentVersion>
 
   <name>Maven Cactus plugin</name>
   <package>org.apache.cactus.integration.maven</package>
@@ -101,6 +101,21 @@
       <artifactId>commons-beanutils</artifactId>>
       <version>1.6.1</version>
     </dependency>
+
+    <!-- Make sure the correct dependent plugins are used in their versions -->
+    <dependency>
+      <groupId>maven</groupId>
+      <artifactId>maven-ear-plugin</artifactId>
+      <version>1.3</version>
+      <type>plugin</type>
+    </dependency>
+    <dependency>
+      <groupId>maven</groupId>
+      <artifactId>maven-ejb-plugin</artifactId>
+      <version>1.2</version>
+      <type>plugin</type>
+    </dependency>
+
   </dependencies>
   <build>
     <sourceDirectory>src/main</sourceDirectory>
