@@ -71,19 +71,38 @@ import java.io.InputStreamReader;
 public class IoUtil
 {
     /**
-     * Read all data in an Inpout stream and return them as a
-     * <code>String</code> object.
-     *
-     * @param theStream the input stream from which to read the data
-     * @return the string representation of the data
-     * @throws IOException if an error occurs during the read of data
+     * @see #getText(InputStream, String)
      */
     public static String getText(InputStream theStream) throws IOException
     {
+        return getText(theStream, null);
+    }
+
+    /**
+     * Read all data in an Input stream and return them as a 
+     * <code>String</code> object.
+     *
+     * @param theStream the input stream from which to read the data
+     * @param theCharsetName the charset name with which to read the data
+     * @return the string representation of the data
+     * @throws IOException if an error occurs during the read of data
+     */
+    public static String getText(InputStream theStream, String theCharsetName) 
+        throws IOException
+    {
         StringBuffer sb = new StringBuffer();
 
-        BufferedReader input = new BufferedReader(
-            new InputStreamReader(theStream));
+        BufferedReader input;
+        if (theCharsetName == null)
+        {
+            input = new BufferedReader(new InputStreamReader(theStream));
+        }
+        else
+        {
+            input = new BufferedReader(
+               new InputStreamReader(theStream, theCharsetName));
+        }
+        
         char[] buffer = new char[2048];
         int nb;
 

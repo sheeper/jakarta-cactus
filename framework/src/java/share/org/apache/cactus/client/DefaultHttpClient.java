@@ -240,7 +240,7 @@ public class DefaultHttpClient
         // Read the test result
         WebTestResultParser parser = new WebTestResultParser();
         WebTestResult result = parser.parse(
-            IoUtil.getText(resultConnection.getInputStream()));
+            IoUtil.getText(resultConnection.getInputStream(), "UTF-8"));
 
         return result;
     }

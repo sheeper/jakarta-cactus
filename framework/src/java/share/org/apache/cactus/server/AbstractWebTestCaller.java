@@ -182,16 +182,21 @@ public abstract class AbstractWebTestCaller
         // One could think there is a potential risk that the client side of
         // Cactus will request the result before it has been written to the
         // context scope as the HTTP request will not block in some containers.
-        // However this will not happend because on the client side, once the
+        // However this will not happen because on the client side, once the
         // first request is done to execute the test, all the result is read
         // by the AutoReadHttpURLConnection class, thus ensuring that the
-        // request is fully finished and the resukt has been committed ...
+        // request is fully finished and the result has been committed ...
         WebTestResult result = (WebTestResult) (this.webImplicitObjects
             .getServletContext().getAttribute(TEST_RESULTS));
 
         LOGGER.debug("Test Result = [" + result + "]");
 
         // Write back the results to the outgoing stream as an XML string.
+
+        // Use UTF-8 to transfer the result back
+        webImplicitObjects.getHttpServletResponse().setContentType(
+            "text/xml; charset=UTF-8");
+
         try
         {
             Writer writer = getResponseWriter();
