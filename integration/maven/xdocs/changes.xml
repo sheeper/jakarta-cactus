@@ -8,6 +8,10 @@
   <body>
 
     <release version="1.7dev" date="in CVS">
+      <action dev="felipeal" type="fix" due-to="Brett Porter" issue="CACTUS-161">
+        Proper use of <code>maven.compile.target</code> and
+        <code>maven.compile.source</code> properties.
+      </action>
       <action dev="felipeal" type="add" issue="CACTUS-158">
         Added <code>jvmArgs</code> property to the containers tasks.
       </action>

@@ -182,8 +182,6 @@
             excludes="**/package.html"
             debug="${pom.getPluginContext('maven-java-plugin').getVariable('maven.compile.debug')}"
             deprecation="${pom.getPluginContext('maven-java-plugin').getVariable('maven.compile.deprecation')}"
-            target="${pom.getPluginContext('maven-java-plugin').getVariable('maven.compile.target')}"
-            source="${pom.getPluginContext('maven-java-plugin').getVariable('maven.compile.source')}"
             optimize="${pom.getPluginContext('maven-java-plugin').getVariable('maven.compile.optimize')}">
 
           <ant:src path="${cactus.src.dir}"/>
@@ -212,6 +210,10 @@
           
           <j:if test="${pom.getPluginContext('maven-java-plugin').getVariable('maven.compile.source')}">
             <ant:setProperty name="source" value="${pom.getPluginContext('maven-java-plugin').getVariable('maven.compile.source')}"/>
+          </j:if>
+          
+          <j:if test="${pom.getPluginContext('maven-java-plugin').getVariable('maven.compile.target')}">
+            <ant:setProperty name="target" value="${pom.getPluginContext('maven-java-plugin').getVariable('maven.compile.target')}"/>
           </j:if>
           
           <j:if test="${pom.getPluginContext('maven-java-plugin').getVariable('maven.compile.verbose')}">
