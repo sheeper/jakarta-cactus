@@ -76,7 +76,7 @@
     <extension point="org.eclipse.ui.preferencePages">
       <page id="org.apache.cactus.eclipse.preferencePage"
         name="%PreferencePage.label"
-        category="org.eclipse.jdt.ui.preferences.JavaBasePreferencePage"
+        category="org.apache.cactus.eclipse.cactuspreference"
         class="org.apache.cactus.eclipse.ui.CactusPreferencePage">
       </page>
    </extension>
