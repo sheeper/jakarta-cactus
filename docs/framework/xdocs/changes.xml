@@ -23,6 +23,9 @@
     </devs>
 
     <release version="1.2 in CVS">
+      <action dev="VMA" type="add">
+        Added automatic Ant script support for Tomcat 3.3.
+      </action>
       <action dev="VMA" type="add" due-to="Jari Worsley" due-to-email="jariw@hyperlink-interactive.co.uk">
         Now all HTTP parameters specified in the URL when using the
         <code>ServletTestRequest.setURL()</code> method are automatically

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<Server>
+
+    <ContextManager home="@out.tomcat33.dir@" debug="0" workDir="work" showDebugInfo="true">
+
+      <!-- ==================== Global modules ==================== -->
+
+        <LogSetter name="tc_log" timestamps="true"
+		   verbosityLevel="DEBUG"  />
+
+        <LogEvents enabled="false" />
+        
+        <AutoDeploy source="webapps" target="webapps" />
+        <AutoWebApp dir="webapps" host="DEFAULT" />
+
+        <SimpleMapper1 debug="0" />
+
+        <SessionExpirer checkInterval="60" />
+        <SessionIdGenerator randomClass="java.util.Random" 
+                            randomFile="/dev/urandom" />
+
+
+        <!-- ========== context processing modules ========== -->
+
+        <!-- This will be the "default" profile 
+             ( all except the "global" modules can be set per context )
+          -->
+        <LogSetter name="servlet_log" 
+		   timestamps="true"
+		   verbosityLevel = "INFORMATION"
+		   path="servlet-${yyyyMMdd}.log" 
+		   />
+
+        <LogSetter  name="JASPER_LOG"
+		   timestamps="true" 
+		   path="jasper-${yyyyMMdd}.log" 
+		   verbosityLevel = "INFORMATION"  />
+
+        <LoaderInterceptor11  useApplicationLoader="true" />
+
+        <WebXmlReader validate="true" />
+
+        <ErrorHandler showDebugInfo="true" />
+
+        <WorkDirSetup cleanWorkDir="false" />
+
+        <Jdk12Interceptor /> 
+
+        <!-- Non-standard invoker, for backward compat. ( /servlet/* ) -->
+        <InvokerInterceptor /> 
+
+        <!-- you can add javaCompiler="jikes" -->
+        <JspInterceptor keepGenerated="true"
+			largeFile="false"
+			sendErrToClient="true"
+			useJspServlet="false"
+			/>
+        
+        <StaticInterceptor  debug="0" listings="true" />
+        
+        <ReloadInterceptor fullReload="true" />
+
+        <SimpleSessionStore maxActiveSessions="-1" />
+
+        <AccessInterceptor />
+
+        <CredentialsInterceptor />
+
+        <LoadOnStartupInterceptor />
+
+        <Servlet22Interceptor />
+
+
+        <!-- Request processing -->
+
+        <DecodeInterceptor debug="0" /> 
+
+        <SessionId cookiesFirst="true" noCookies="false" /> 
+
+      <!-- ==================== Connectors ==================== -->
+
+       <!-- new http adapter. Attributes:
+               secure - use SSL ( https )
+               keystore, keypass - certs for SSL
+               port -->
+        <Http10Interceptor port="8080" 
+			   secure="false"
+			   maxThreads="100"
+			   maxSpareThreads="50"
+			   minSpareThreads="10" />
+
+        <RequestInterceptor 
+         className="org.apache.tomcat.modules.server.Ajp12Interceptor"
+         tomcatAuthentication="false" 
+         port="8007" />
+
+    </ContextManager>
+</Server>
