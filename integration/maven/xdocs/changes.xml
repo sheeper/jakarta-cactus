@@ -8,6 +8,9 @@
   <body>
 
     <release version="1.6dev" date="in CVS">
+      <action dev="vmassol" type="add">
+        When running reports, make sure Cactus tests do not fail the build.
+      </action>
       <action dev="vmassol" type="fix">
         Fixed bug
         <a href="http://jira.codehaus.org/secure/ViewIssue.jspa?key=MAVEN-1000">MAVEN-1000</a>.
