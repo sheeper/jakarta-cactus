@@ -69,6 +69,12 @@
             <xsl:text>css/apache.css</xsl:text>
           </xsl:attribute>
         </link>
+        <link rel="stylesheet" type="text/css" media="print">
+          <xsl:attribute name="href">
+            <xsl:value-of select="$basedir"/>
+            <xsl:text>css/print.css</xsl:text>
+          </xsl:attribute>
+        </link>
 
         <!-- Add the authors as a meta tag -->
         <meta name="author">
@@ -139,7 +145,7 @@
 
             <td width="1%" valign="top">
             </td>
-            <td width="14%" valign="top" nowrap="1">
+            <td id="sidebar" width="14%" valign="top" nowrap="1">
               <font size="-2">
                 Last update: <xsl:value-of select="$last.updated.date"/>
               </font>
@@ -163,16 +169,10 @@
                   <xsl:value-of select="$project.other.version"/>
                 </a>
               </font>
-
-              <!-- ======================================================== -->
-              <!-- Menu -->
-              <!-- ======================================================== -->
-
               <br/>
               <font face="arial,helvetica,sanserif">
                 <xsl:call-template name="apply-navigation"/>
               </font>
-
             </td>
 
             <!-- ========================================================== -->
