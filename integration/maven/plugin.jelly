@@ -560,6 +560,13 @@
           failureproperty="cactustests.failure"
           printsummary="${cactus.printsummary}">
 
+        <!-- Pass any user-defined system properties -->
+        <util:tokenize var="listOfProperties" delim=" ">${cactus.sysproperties}</util:tokenize>
+        <j:forEach var="someProperty" items="${listOfProperties}">
+          <ant:sysproperty key="${someProperty}" 
+            value="${context.getVariable(someProperty)}"/>
+        </j:forEach>
+
         <!-- Configure the cactus task for logging -->
         <j:if test="${context.getVariable('cactus.logging.config.client') != null}">
           <cactusproperty server="false"
@@ -730,6 +737,13 @@
           errorproperty="cactustests.error" 
           failureproperty="cactustests.failure"
           printsummary="${cactus.printsummary}">
+
+        <!-- Pass any user-defined system properties -->
+        <util:tokenize var="listOfProperties" delim=" ">${cactus.sysproperties}</util:tokenize>
+        <j:forEach var="someProperty" items="${listOfProperties}">
+          <ant:sysproperty key="${someProperty}" 
+            value="${context.getVariable(someProperty)}"/>
+        </j:forEach>
 
         <!-- Configure the cactus task for logging -->
         <j:if test="${context.getVariable('cactus.logging.config.client') != null}">
