@@ -72,4 +72,13 @@
         </launchConfigurationTabGroup>
     </extension>
 
+    <!-- Registers the Cactus preferences page -->
+    <extension point="org.eclipse.ui.preferencePages">
+      <page id="org.apache.cactus.eclipse.preferencePage"
+        name="%PreferencePage.label"
+        category="org.eclipse.jdt.ui.preferences.JavaBasePreferencePage"
+        class="org.apache.cactus.eclipse.ui.CactusPreferencePage">
+      </page>
+   </extension>
+
 </plugin>
