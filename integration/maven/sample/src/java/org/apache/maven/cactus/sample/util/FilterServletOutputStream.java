@@ -119,6 +119,6 @@ public class FilterServletOutputStream extends ServletOutputStream
     public void write(byte[] theByte, int theOffset, int theLength) 
         throws IOException
     {
-        stream.write(b, off, len);
+        stream.write(theByte, theOffset, theLength);
     }
 }

@@ -92,6 +92,6 @@ public class SampleServlet extends HttpServlet
         String authenticationAttribute =
             (String) session.getAttribute("authenticated");
 
-        return Boolean.valueOf(authenticationAttribute);
+        return Boolean.valueOf(authenticationAttribute).booleanValue();
     }
 }
