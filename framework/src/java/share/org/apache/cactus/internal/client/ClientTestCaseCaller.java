@@ -29,7 +29,6 @@ import org.apache.cactus.Request;
 import org.apache.cactus.client.ResponseObjectFactory;
 import org.apache.cactus.client.connector.ProtocolHandler;
 import org.apache.cactus.client.connector.ProtocolState;
-import org.apache.cactus.configuration.Configuration;
 import org.apache.cactus.util.JUnitVersionHelper;
 import org.apache.cactus.util.TestCaseImplementChecker;
 import org.apache.commons.logging.Log;
@@ -77,11 +76,6 @@ public class ClientTestCaseCaller extends Assert
      * The logger (only used on the client side).
      */
     private Log logger;
-
-    /**
-     * The Cactus configuration.
-     */
-    private Configuration configuration;
 
     /**
      * Pure JUnit Test Case that we are wrapping (if any)
@@ -462,15 +456,6 @@ public class ClientTestCaseCaller extends Assert
     }
     
     /**
-     * @see #getCurrentTestName()
-     * @deprecated Use {@link #getCurrentTestName()} instead
-     */
-    private String getCurrentTestMethod()
-    {
-        return getCurrentTestName();
-    }
-
-    /**
      * @return the name of the current test case being executed (it corresponds
      *         to the name of the test method with the "test" prefix removed.
      *         For example, for "testSomeTestOk" would return "someTestOk".
@@ -478,25 +463,5 @@ public class ClientTestCaseCaller extends Assert
     private String getCurrentTestName()
     {
         return JUnitVersionHelper.getTestCaseName(getDelegatedTest());        
-    }
-
-    /**
-     * @return The wrapped test name, if any (null otherwise).
-     */
-    private String getWrappedTestName()
-    {
-        if (isWrappingATest())
-        {
-            return getWrappedTest().getClass().getName();
-        }
-        return null;
-    }
-
-    /**
-     * @return whether this test case wraps another
-     */
-    private boolean isWrappingATest()
-    {
-        return (getWrappedTest() != null);
     }
 }

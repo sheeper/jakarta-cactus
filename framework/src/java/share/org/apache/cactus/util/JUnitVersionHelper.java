@@ -69,7 +69,7 @@ public class JUnitVersionHelper
      */
     public static String getTestCaseName(Test theTest)
     {
-        String name = "unknown";
+        String name;
         
         if (theTest instanceof TestCase && (testCaseName != null))
         {
@@ -79,8 +79,12 @@ public class JUnitVersionHelper
             }
             catch (Throwable e)
             {
-                // We return "unknown"
+                name = "unknown";
             }
+        }
+        else
+        {
+            name = "unknown";
         }
 
         return name;

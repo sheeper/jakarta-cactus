@@ -277,16 +277,16 @@ public abstract class AbstractTestSuite implements Test
     public static Constructor getTestConstructor(Class theClass) 
         throws NoSuchMethodException
     {
-        Class[] args = {String.class};
+        Constructor result;
         try
         {
-            return theClass.getConstructor(args);   
+            result = theClass.getConstructor(new Class[] {String.class});
         }
         catch (NoSuchMethodException e)
         {
-            // fall through
+            result = theClass.getConstructor(new Class[0]);
         }
-        return theClass.getConstructor(new Class[0]);
+        return result; 
     }
 
     /**
