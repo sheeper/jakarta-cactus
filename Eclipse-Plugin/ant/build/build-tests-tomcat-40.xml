@@ -30,8 +30,8 @@
 
             <jvmarg value="-Dcatalina.home=${tomcat.home.40}"/>
             <jvmarg value="-Dcatalina.base=${target.tomcat40.dir}"/>
-
             <arg value="start"/>
+            
             <classpath>
 
               <!-- These are ignored if -Dbuild.sysclasspath=only is used -->
@@ -101,7 +101,7 @@
        ========================================================================
     -->
     <target name="prepare.test.tomcat.40"
-        depends="check.test.tomcat.40,testwar" if="tomcat.home.40">
+        depends="check.test.tomcat.40" if="tomcat.home.40">
 
         <echo message="tomcat.home.40 = ${tomcat.home.40}"/>
 
@@ -119,7 +119,7 @@
 
         <!-- Remove the auto deployed webapp so that it is redeployed every
              time -->
-        <delete dir="${target.tomcat40.dir}/webapps/test"/>
+        <delete dir="${target.tomcat40.dir}/webapps/${context.path}"/>
 
         <copy todir="${target.tomcat40.dir}/conf" filtering="on">
             <fileset dir="${conf.tomcat40.dir}"/>
@@ -132,7 +132,7 @@
             todir="${target.tomcat40.dir}/conf"/>
 
         <!-- Copy the war file -->
-        <copy file="${target.test.dir}/test.war"
-            tofile="${target.tomcat40.dir}/webapps/test.war"/>
+        <copy file="${war.path}"
+            tofile="${target.tomcat40.dir}/webapps/${context.path}.war"/>
 
     </target>

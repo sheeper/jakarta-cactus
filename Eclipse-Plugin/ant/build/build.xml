@@ -85,7 +85,22 @@
         depends="test.resin.20,test.resin.13,test.tomcat.40,test.orion.14,test.orion.15,test.orion.16,test.weblogic.61,test.weblogic.70"
         description="Run tests on all defined containers">
     </target>
+    
+    <target name="prepare.all"
+        depends="init, prepare.test.tomcat.40"
+        description="Prepare tests on all defined containers">
+    </target>
 
+    <target name="start.all"
+        depends="start.tomcat.40"
+        description="Start all defined containers">
+    </target>
+
+    <target name="stop.all"
+        depends="stop.tomcat.40"
+        description="Start all defined containers">
+    </target>
+    
     &build-tests-resin-20;
     &build-tests-resin-13;
     &build-tests-orion-14;

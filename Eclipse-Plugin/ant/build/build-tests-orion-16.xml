@@ -82,7 +82,7 @@
        ========================================================================
     -->
     <target name="prepare.test.orion.16"
-        depends="check.test.orion.16,testwar" if="orion.home.16">
+        depends="check.test.orion.16" if="orion.home.16">
 
         <echo message="orion.home.16 = ${orion.home.16}"/>
 

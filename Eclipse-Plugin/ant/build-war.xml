@@ -1,8 +1,6 @@
-
-    <!-- Give user a chance to override without editing this file
-         (and without typing -D each time it compiles it) -->
-    <property file="build/build.properties" />
-    <property file="${user.home}/build.properties" />
+<?xml version="1.0"?>
+<project name="Cactus War builder" default="dist"
+    basedir="..">
 
     <!-- Global project properties -->
     <property name="project.name.text" value="Cactus Servlet Sample"/>
@@ -99,102 +97,37 @@
 
     <!--
        ========================================================================
-         Display configurable properties values
+         Create a Cactus test war file for the sample application.
        ========================================================================
     -->
-    <target name="display.properties">
 
-        <echo message="----- ${project.name.text} ${project.version} -----"/>
-        <echo message=""/>
-        <echo message="java.class.path = ${java.class.path}"/>
-        <echo message=""/>
-        <echo message="java.home = ${java.home}"/>
-        <echo message="user.home = ${user.home}"/>
-        <echo message="ant.home = ${ant.home}"/>
-        <echo message=""/>
-        <echo message="cactus.framework.jar = ${cactus.framework.jar}"/>
-        <echo message="cactus.ant.jar = ${cactus.ant.jar}"/>
-        <echo message="servlet.jar = ${servlet.jar}"/>
-        <echo message="aspectjrt.jar = ${aspectjrt.jar}"/>
-        <echo message="commons.logging.jar = ${commons.logging.jar}"/>
-        <echo message="commons.httpclient.jar = ${commons.httpclient.jar}"/>
-        <echo message="httpunit.jar = ${httpunit.jar}"/>
-        <echo message="junit.jar = ${junit.jar}"/>
-        <echo message=""/>
-        <echo message="log4j.jar (optional) = ${log4j.jar}"/>
-        <echo message="clover.jar (optional) = ${clover.jar}"/>
-        <echo message=""/>
-        <echo message="test.port = ${test.port}"/>
-        <echo message=""/>
+    <target name="testwar">
 
-    </target>
+        <!-- Make sure the directory for the war exist -->
+        <mkdir dir="${target.test.dir}"/>
 
-    <!--
-       ========================================================================
-         Verify that all mandatory properties have been set
-       ========================================================================
-    -->
-    <target name="check.properties"
-        depends="display.properties,check.properties.test,check.properties.warn"/>
+        <!-- Create the war file -->
+        <war warfile="${war.path}"
+             webxml="${webxml.path}">
 
-    <target name="check.properties.test">
+            <classes dir="${classes.dir}"/>
 
-        <condition property="properties.ok">
-            <and>
-                <available file="${cactus.framework.jar}"/>
-                <available file="${cactus.ant.jar}"/>
-                <available file="${servlet.jar}"/>
-                <available file="${aspectjrt.jar}"/>
-                <available file="${commons.logging.jar}"/>
-                <available file="${commons.httpclient.jar}"/>
-                <available file="${httpunit.jar}"/>
-                <available file="${junit.jar}"/>
-           </and>
-        </condition>
+            <!-- log_server.properties need to be in the server classpath -->
+            <classes dir="${classes.dir}">
+                <include name="log4j.properties"/>
+            </classes>
+
+            <!-- We need to copy all dependent jar in the war. This is
+                 because if we just put these jars in the global classpath for
+                 the Servlet engine, the Cactus jar might not be able to load
+                 the test case class as it may be loadable only by the war
+                 classloader -->
+            <lib dir="${jars.dir}"/>
+
+            <fileset dir="${webfiles.dir}"/>
+
+       </war>
 
     </target>
 
-    <target name="check.properties.warn" unless="properties.ok">
-
-        <fail message="Missing property or property pointing to an invalid file (check your build.properties file)"/>
-
-    </target>
-    <!--
-       ========================================================================
-         Initialize the build. Must be called by all targets
-       ========================================================================
-    -->
-    <target name="init">
-
-        <tstamp/>
-
-        <!-- Filters -->
-        <filter token="version" value="${project.version}"/>
-        <filter token="project.name.text" value="${project.name.text}"/>
-        <filter token="project.name.file" value="${project.name.file}"/>
-        <filter token="year" value="${year}"/>
-        <filter token="test.port" value="${test.port}"/>
-
-    </target>
-
-    <!--
-       ========================================================================
-         Clean generated files (including distributables)
-       ========================================================================
-    -->
-    <target name="clean" depends="init" description="Clean all generated files">
-
-        <delete dir="${target.dir}"/>
-
-    </target>
-
-    <target name="prepare.test" depends="init">
-
-        <!-- Copy cactus.properties to replace the token filters -->
-        <copy todir="${target.conf.client.dir}"
-            file="${conf.test.dir}/cactus.properties" filtering="on"/>
-        <!-- Copy log_client.properties so that it is in the classpath -->
-        <copy tofile="${target.conf.client.dir}/log4j.properties"
-            file="${conf.test.dir}/log_client.properties"/>
-
-    </target>
+</project>

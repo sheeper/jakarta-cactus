@@ -92,7 +92,7 @@
        ========================================================================
     -->
     <target name="prepare.test.resin.13"
-        depends="check.test.resin.13,testwar" if="resin.home.13">
+        depends="check.test.resin.13" if="resin.home.13">
 
         <echo message="resin.home.13 = ${resin.home.13}"/>
 
