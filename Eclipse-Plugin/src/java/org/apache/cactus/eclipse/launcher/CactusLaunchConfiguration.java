@@ -111,7 +111,7 @@ public class CactusLaunchConfiguration extends JUnitLaunchConfiguration
         String[] jUnitArgs = configuration.getVMArguments();
         String[] globalArgs = concatenateStringArrays(jUnitArgs, cactusVMArgs);
         configuration.setVMArguments(globalArgs);
-        CactusPlugin.log("Cactus VM arguments : " + cactusVMArgs[0]);
+        CactusPlugin.log("Cactus VM arguments : [" + cactusVMArgs[0] + "]");
         return configuration;
     }
 

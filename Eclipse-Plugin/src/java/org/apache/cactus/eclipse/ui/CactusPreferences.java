@@ -135,7 +135,7 @@ public class CactusPreferences
                 .append("/")
                 .append(store.getString(CONTEXT_URL_PATH));
         String result = buf.toString();
-        CactusPlugin.log("Cactus preference : ContextURL = " + result);        
+        CactusPlugin.log("Cactus preference : ContextURL = [" + result + "]");
         return result;
     }
 
@@ -149,7 +149,8 @@ public class CactusPreferences
     {
         IPreferenceStore store = CactusPlugin.getDefault().getPreferenceStore();
         int result = store.getInt(CONTEXT_URL_PORT);
-        CactusPlugin.log("Cactus preference : ContextURLPort = " + result);
+        CactusPlugin.log(
+            "Cactus preference : ContextURLPort = [" + result + "]");
         return result;
     }
 
@@ -163,7 +164,8 @@ public class CactusPreferences
     {
         IPreferenceStore store = CactusPlugin.getDefault().getPreferenceStore();
         String result = store.getString(CONTEXT_URL_PATH);
-        CactusPlugin.log("Cactus preference : ContextURLPath = " + result);
+        CactusPlugin.log(
+            "Cactus preference : ContextURLPath = [" + result + "]");
         return result;
     }
 
@@ -177,7 +179,7 @@ public class CactusPreferences
     {
         IPreferenceStore store = CactusPlugin.getDefault().getPreferenceStore();
         String result = store.getString(JARS_DIR);
-        CactusPlugin.log("Cactus preference : JarsDir = " + result);
+        CactusPlugin.log("Cactus preference : JarsDir = [" + result + "]");
         return result;
     }
 
@@ -191,7 +193,7 @@ public class CactusPreferences
     {
         IPreferenceStore store = CactusPlugin.getDefault().getPreferenceStore();
         String result = store.getString(TEMP_DIR);
-        CactusPlugin.log("Cactus preference : TempDir = " + result);
+        CactusPlugin.log("Cactus preference : TempDir = [" + result + "]");
         return result;
     }
     /**
@@ -202,7 +204,7 @@ public class CactusPreferences
     {
         IPreferenceStore store = CactusPlugin.getDefault().getPreferenceStore();
         String result = store.getString(TOMCAT40_DIR);
-        CactusPlugin.log("Cactus preference : Tomcat40Dir = " + result);
+        CactusPlugin.log("Cactus preference : Tomcat40Dir = [" + result + "]");
         return result;
     }
 
@@ -214,7 +216,7 @@ public class CactusPreferences
     {
         IPreferenceStore store = CactusPlugin.getDefault().getPreferenceStore();
         String result = store.getString(RESIN20_DIR);
-        CactusPlugin.log("Cactus preference : Resin20Dir = " + result);
+        CactusPlugin.log("Cactus preference : Resin20Dir = [" + result + "]");
         return result;
     }
 
@@ -226,7 +228,8 @@ public class CactusPreferences
     {
         IPreferenceStore store = CactusPlugin.getDefault().getPreferenceStore();
         String result = store.getString(WEBLOGIC70_DIR);
-        CactusPlugin.log("Cactus preference : Weblogic70Dir = " + result);
+        CactusPlugin.log(
+            "Cactus preference : Weblogic70Dir = [" + result + "]");
         return result;
     }
     
@@ -254,7 +257,8 @@ public class CactusPreferences
         }
         ContainerHome[] result =
             (ContainerHome[]) containerHomes.toArray(new ContainerHome[0]);
-        CactusPlugin.log("Cactus preference : ContainerHomes = " + result);
+        CactusPlugin.log(
+            "Cactus preference : ContainerHomes = [" + result + "]");
         return result;
     }
 }
