@@ -149,15 +149,13 @@ public class ServletTestRunner extends HttpServlet
             {
                 try
                 {
-                    Class transformerClass =
-                        Class.forName(
-                            "org.apache.cactus.server.runner.XMLTransformer");
-                    Constructor transformerCtor =
+                    Class transformerClass = Class.forName(
+                        "org.apache.cactus.server.runner.XMLTransformer");
+                    Constructor transformerCtor = 
                         transformerClass.getConstructor(
-                            new Class[] {InputStream.class});
-                    transformer =
-                        transformerCtor.newInstance(
-                            new Object[] {xslStylesheet});
+                        new Class[] {InputStream.class});
+                    transformer = transformerCtor.newInstance(
+                        new Object[] {xslStylesheet});
                 }
                 catch (Throwable t)
                 {
@@ -193,24 +191,7 @@ public class ServletTestRunner extends HttpServlet
 
         // Set up default Cactus System properties so that there is no need
         // to have a cactus.properties file in WEB-INF/classes
-        if (canSetSystemProperty)
-        {
-            try
-            {
-                System.setProperty(
-                    BaseConfiguration.CACTUS_CONTEXT_URL_PROPERTY, 
-                    "http://" + theRequest.getServerName() + ":"
-                    + theRequest.getServerPort()
-                    + theRequest.getContextPath());
-            }
-            catch (SecurityException se)
-            {
-                log("Could not set the Cactus context URL as system property, "
-                    + "you will have to include a Cactus properties file in "
-                    + "the class path of the web application", se);
-                canSetSystemProperty = false;
-            }
-        }
+        setSystemProperties(theRequest);
 
         if (suiteClassName == null)
         {
@@ -260,6 +241,38 @@ public class ServletTestRunner extends HttpServlet
         }
     }
 
+    /**
+     * Set up default Cactus System properties so that there is no need
+     * to have a cactus.properties file in WEB-INF/classes.
+     * 
+     * Note: If the JVM security policy prevents setting System properties
+     * you will still need to provide a cactus.properties file.
+     * 
+     * @param theRequest the HTTP request coming from the browser (used
+     *        to extract information about the server name, port, etc) 
+     */
+    private void setSystemProperties(HttpServletRequest theRequest)
+    {
+        if (this.canSetSystemProperty)
+        {
+            try
+            {
+                System.setProperty(
+                    BaseConfiguration.CACTUS_CONTEXT_URL_PROPERTY,
+                    "http://" + theRequest.getServerName() + ":"
+                    + theRequest.getServerPort()
+                    + theRequest.getContextPath());
+            }
+            catch (SecurityException se)
+            {
+                log("Could not set the Cactus context URL as system property, "
+                    + "you will have to include a Cactus properties file in "
+                    + "the class path of the web application", se);
+                this.canSetSystemProperty = false;
+            }
+        }
+    }
+    
     /**
      * Run the suite tests and return the result.
      *
