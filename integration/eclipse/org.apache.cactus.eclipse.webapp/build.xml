@@ -1,0 +1,271 @@
+<?xml version="1.0"?>
+<!DOCTYPE project [
+    <!ENTITY common SYSTEM "file:../../build-common.xml">
+]>
+
+<!--
+  =============================================================================
+    Build file for the Webapp Eclipse Integration.
+
+    This script should be started with the following command line :
+
+        ant <target>
+
+    Run "ant -projecthelp" to get a list of available targets.
+
+    Note: basedir points to the main Cactus directory in order to have the same
+          base dir for all Cactus subprojects and thus be able to share
+          relative paths.
+  =============================================================================
+-->
+<project name="Cactus Eclipse Webapp Plugin" default="dist" basedir="../../..">
+
+    <!-- Base directory for all file related operations -->
+    <property name="base.dir" value="integration/eclipse/org.apache.cactus.eclipse.webapp"/>
+
+    <!-- Include properties and targets common to the different subprojects -->
+    &common;
+
+    <!-- Global project properties -->
+    <property name="project.name.text" value="Cactus Eclipse Webapp Integration"/>
+    <property name="project.name.file" value="cactus-integration-eclipse-webapp"/>
+
+    <!--
+       ========================================================================
+         Initialize source, target and dist properties
+       ========================================================================
+    -->
+    <target name="properties" depends="init.eclipseversion.check">
+
+        <!-- Set the properties related to the source tree -->
+        <property name="src.dir" value="${base.dir}/src"/>
+        <property name="src.java.dir" value="${src.dir}/java"/>
+        <property name="src.scripts.dir" value="${src.dir}/scripts"/>
+
+        <!-- Set the properties related to the target area -->
+        <property name="target.classes.dir" value="${target.dir}/classes"/>
+
+        <!-- Set the properties related to the dist area -->
+        <property name="dist.bin.integration.dir" 
+            value="${dist.bin.dir}/${project.name.file}"/>
+
+        <!-- Set the properties related to the jar names -->
+        <property name="cactus.webappintegration.jar.name" 
+            value="webapp.jar"/>
+
+        <property name="cactus.webappintegration.src.jar.name" 
+            value="webappsrc.jar"/>
+
+    </target>
+
+    <!--
+       ========================================================================
+         Verify that all mandatory properties have been set
+       ========================================================================
+    -->
+    <target name="check.properties">
+
+        <taskdef name="checkProperty" 
+            classname="org.apache.cactus.ant.CheckPropertiesTask">
+            <classpath>
+                <pathelement location="${cactus.anttasks.jar}"/>
+            </classpath>
+        </taskdef>
+
+        <checkProperty>
+            <property name="eclipse.junit.jar" isfile="true"/>
+            <property name="eclipse.core.boot.jar" isfile="true"/>
+            <property name="eclipse.core.resources.jar" isfile="true"/>
+            <property name="eclipse.core.runtime.jar" isfile="true"/>
+            <property name="eclipse.debug.core.jar" isfile="true"/>
+            <property name="eclipse.debug.ui.jar" isfile="true"/>
+            <property name="eclipse.jdt.core.jar" isfile="true"/>
+            <property name="eclipse.jdt.junit.jar" isfile="true"/>
+            <property name="eclipse.jdt.launching.jar" isfile="true"/>
+            <property name="eclipse.jdt.ui.jar" isfile="true"/>
+            <property name="eclipse.swt.jar" isfile="true"/>
+            <property name="eclipse.jface.jar" isfile="true"/>
+            <property name="eclipse.ant.core.jar" isfile="true"/>
+            <property name="eclipse.ui.workbench.jar" isfile="true"/>
+        </checkProperty>
+
+    </target>
+
+    <!--
+       ========================================================================
+         Initialize the build. Must be called by all targets
+       ========================================================================
+    -->
+    <target name="init" depends="init.common,properties,check.properties">
+    </target>
+
+    <!--
+       ========================================================================
+         Find out the JUnit Eclipse plug-in version
+       ========================================================================
+    -->
+    <target name="init.eclipseversion.check">
+        <echo>***** Needs Eclipse 2.1 RC2 or later *****</echo>
+    </target>
+
+    <!--
+       ========================================================================
+         Compile the plugin
+       ========================================================================
+    -->
+	<target name="compile" depends="init">
+        		
+		<mkdir dir="${target.classes.dir}"/>
+
+		<javac destdir="${target.classes.dir}" deprecation="${deprecation}" 
+		  optimize="${optimize}" debug="${debug}">
+		
+			<src path="${src.java.dir}"/>
+			<classpath>
+				<pathelement location="${eclipse.junit.jar}"/>
+				<pathelement location="${eclipse.core.boot.jar}"/>
+				<pathelement location="${eclipse.core.resources.jar}"/>
+				<pathelement location="${eclipse.core.runtime.jar}"/>
+				<pathelement location="${eclipse.debug.core.jar}"/>
+				<pathelement location="${eclipse.debug.ui.jar}"/>
+				<pathelement location="${eclipse.jdt.core.jar}"/>
+				<pathelement location="${eclipse.jdt.junit.jar}"/>
+				<pathelement location="${eclipse.jdt.launching.jar}"/>
+				<pathelement location="${eclipse.jdt.ui.jar}"/>				
+				<pathelement location="${eclipse.swt.jar}"/>
+				<pathelement location="${eclipse.jface.jar}"/>
+				<pathelement location="${eclipse.ant.core.jar}"/>
+				<pathelement location="${eclipse.ui.workbench.jar}"/>
+
+                <!-- Needed for Gump -->
+                <pathelement location="${java.class.path}"/>
+
+			</classpath>
+		</javac>
+		
+		<copy todir="${target.classes.dir}">
+		    <fileset dir="${src.java.dir}">
+		        <exclude name="**/*.java"/>
+		    </fileset>
+		</copy>
+		
+	</target>
+
+    <!--
+       ========================================================================
+         Generate the jars
+       ========================================================================
+    -->
+    <target name="jar" depends="compile"
+        description="Generates the jars">
+        
+		<mkdir dir="${target.dir}"/>
+
+		<jar jarfile="${target.dir}/cactussupport.jar">
+            <manifest>
+                <section name="org/apache/cactus/eclipse/webapp/">
+                    <attribute name="Specification-Title"
+                        value="${project.name.text}"/>
+                    <attribute name="Specification-Version"
+                        value="${project.version}"/>
+                    <attribute name="Specification-Vendor"
+                        value="Apache Software Foundation"/>
+                    <attribute name="Implementation-Title"
+                        value="${project.name.file}"/>
+                    <attribute name="Implementation-Version"
+                        value="${project.version} ${TODAY}"/>
+                    <attribute name="Implementation-Vendor"
+                        value="Apache Software Foundation"/>
+                </section>
+            </manifest>
+            <metainf dir=".">
+                <include name="LICENSE.cactus"/>
+            </metainf>
+            <fileset dir="${target.classes.dir}"/>
+        </jar>
+				
+		<jar jarfile="${target.dir}/cactussupportsrc.jar">
+            <manifest>
+                <section name="org/apache/cactus/eclipse/webapp/">
+                    <attribute name="Specification-Title"
+                        value="${project.name.text}"/>
+                    <attribute name="Specification-Version"
+                        value="${project.version}"/>
+                    <attribute name="Specification-Vendor"
+                        value="Apache Software Foundation"/>
+                    <attribute name="Implementation-Title"
+                        value="${project.name.file}"/>
+                    <attribute name="Implementation-Version"
+                        value="${project.version} ${TODAY}"/>
+                    <attribute name="Implementation-Vendor"
+                        value="Apache Software Foundation"/>
+                </section>
+            </manifest>
+            <metainf dir=".">
+                <include name="LICENSE.cactus"/>
+            </metainf>
+            <fileset dir="${src.java.dir}"/>
+		</jar>		
+
+    </target>
+
+    <!--
+       ========================================================================
+         Generate the distributables for this project, i.e the unzipped
+         plugin structure.
+       ========================================================================
+    -->
+	<target name="dist" depends="jar"
+	  description="Generate the distributable files">
+	  
+		<mkdir dir="${dist.bin.integration.dir}"/>
+
+        <copy todir="${dist.bin.integration.dir}"
+            file="${target.dir}/${cactus.webappintegration.jar.name}"/>
+        <copy todir="${dist.bin.integration.dir}"
+            file="${target.dir}/${cactus.webappintegration.src.jar.name}"/>
+	
+		<copy todir="${dist.bin.integration.dir}" file="${base.dir}/plugin.xml"/>
+		<copy todir="${dist.bin.integration.dir}" 
+		    file="${base.dir}/plugin.properties"/>
+		<copy todir="${dist.bin.integration.dir}" file="${base.dir}/README.txt"/>
+		<copy todir="${dist.bin.integration.dir}/icons">
+		    <fileset dir="${base.dir}/icons"/>
+		</copy>
+
+        <!-- Copy the Ant Integration files -->
+        <copy todir="${dist.bin.integration.dir}/ant">
+            <fileset dir="${cactus.antintegration.bin}"/>
+         </copy>
+
+        <copy todir="${dist.bin.integration.dir}/ant">
+            <fileset dir="${src.scripts.dir}"/>
+        </copy>
+
+        <copy todir="${dist.bin.integration.dir}">
+            <fileset dir=".">
+                <include name="LICENSE.*"/>
+            </fileset>
+        </copy>
+
+    </target>
+
+    <!--
+       ========================================================================
+         Generate the release
+       ========================================================================
+    -->
+    <target name="release" depends="clean,dist"
+        description="Generate the release files">
+
+        <mkdir dir="${release.dir}"/>
+
+        <zip destfile="${release.dir}/${main.release.name}.zip">
+            <zipfileset dir="${dist.bin.integration.dir}"
+                prefix="org.apache.cactus.integration.eclipse.webapp_${project.version}">
+            </zipfileset>
+        </zip>
+        
+    </target>
+            
+</project>
