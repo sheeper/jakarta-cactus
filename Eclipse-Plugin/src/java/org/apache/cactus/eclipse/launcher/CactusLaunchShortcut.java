@@ -59,6 +59,7 @@ package org.apache.cactus.eclipse.launcher;
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
+import java.net.URL;
 
 import org.apache.cactus.eclipse.containers.IContainerProvider;
 import org.apache.cactus.eclipse.ui.CactusMessages;
@@ -66,6 +67,8 @@ import org.apache.cactus.eclipse.ui.CactusPlugin;
 import org.apache.cactus.eclipse.ui.CactusPreferences;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.debug.core.DebugPlugin;
 import org.eclipse.debug.core.ILaunchConfigurationType;
 import org.eclipse.debug.core.ILaunchManager;
@@ -75,7 +78,6 @@ import org.eclipse.jdt.internal.junit.launcher.JUnitLaunchShortcut;
 import org.eclipse.jdt.internal.junit.runner.ITestRunListener;
 import org.eclipse.jdt.internal.junit.ui.JUnitPlugin;
 import org.eclipse.jdt.internal.junit.util.TestSearchEngine;
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 
@@ -101,7 +103,7 @@ public class CactusLaunchShortcut
      * The provider to use for container setup.
      */
     private IContainerProvider provider;
-
+    
     /**
      * @return the Cactus launch configuration type. This method overrides
      *         the one in {@link JUnitLaunchShortcut} so that we can return
@@ -138,7 +140,7 @@ public class CactusLaunchShortcut
         catch (InterruptedException e)
         {
             CactusPlugin.displayErrorMessage(
-                "Error when launching tests",
+                CactusMessages.getString("LaunchTestAction.message.error"),
                 e.getMessage(),
                 null);
             return;
@@ -146,7 +148,7 @@ public class CactusLaunchShortcut
         catch (InvocationTargetException e)
         {
             CactusPlugin.displayErrorMessage(
-                "Error when launching tests",
+                CactusMessages.getString("LaunchTestAction.message.error"),
                 e.getMessage(),
                 null);
             return;
@@ -154,10 +156,10 @@ public class CactusLaunchShortcut
         IType type = null;
         if (types.length == 0)
         {
-            MessageDialog.openInformation(
-                getShell(),
+            CactusPlugin.displayErrorMessage(
                 CactusMessages.getString("LaunchTestAction.dialog.title"),
-                CactusMessages.getString("LaunchTestAction.message.notests"));
+                CactusMessages.getString("LaunchTestAction.message.notests"),
+                null);
         }
         else if (types.length > 1)
         {
@@ -169,6 +171,8 @@ public class CactusLaunchShortcut
         }
         if (type != null)
         {
+            // Register the instance of CactusLaunchShortcut to the JUnitPlugin
+            // for TestRun end notification.
             JUnitPlugin.getDefault().addTestRunListener(this);
             final IJavaProject theJavaProject = type.getJavaProject();
             ProgressMonitorDialog dialog =
@@ -178,7 +182,14 @@ public class CactusLaunchShortcut
                 public void run(IProgressMonitor thePM)
                     throws InterruptedException
                 {
-                    prepareCactusTests(theJavaProject, thePM);
+                    try
+                    {
+                        prepareCactusTests(theJavaProject, thePM);
+                    }
+                    catch (CoreException e)
+                    {
+                        throw new InterruptedException(e.getMessage());
+                    }
                 }
             };
             try
@@ -187,59 +198,85 @@ public class CactusLaunchShortcut
             }
             catch (InvocationTargetException e)
             {
-                // TODO: handle exception
+                dialog.close();
+                cancelPreparation();
+                return;
             }
             catch (InterruptedException e)
             {
-                // TODO: handle exception (cancel button ?)
+                dialog.close();
+                cancelPreparation();
+                return;
             }
             super.launchType(theSearch, theMode);
         }
     }
-
     /**
-    
-     * @param theType test or test suite to launch
-     * @param theMode mode for launch configuration
+     * Launches a new progress dialog for preparation cancellation.
      */
-
+    private void cancelPreparation()
+    {
+        ProgressMonitorDialog dialog = new ProgressMonitorDialog(getShell());
+        IRunnableWithProgress tearDownRunnable = new IRunnableWithProgress()
+        {
+            public void run(IProgressMonitor thePM) throws InterruptedException
+            {
+                teardownCactusTests(thePM);
+            }
+        };
+        try
+        {
+            dialog.run(true, true, tearDownRunnable);
+        }
+        catch (InvocationTargetException tearDownE)
+        {
+            CactusPlugin.displayErrorMessage(
+                CactusMessages.getString("TearDownCactusTests.message.failed"),
+                tearDownE.getTargetException().getMessage(),
+                null);
+        }
+        catch (InterruptedException tearDownE)
+        {
+            // Do nothing
+        }
+    }
+    
     /**
      * creates the war file, deploys and launches the container.
      * @param theJavaProject the Java file
-     * @param thePM sdfsdf
+     * @param thePM the progress monitor to report to
+     * @throws CoreException if anything goes wrong during preparation
      */
     private void prepareCactusTests(
         IJavaProject theJavaProject,
         IProgressMonitor thePM)
+        throws CoreException
     {
         thePM.beginTask("Preparing for Cactus tests", 10);
         provider = CactusPlugin.getContainerProvider();
         try
         {
-            WarBuilder newWar =
-                new WarBuilder(
-                    theJavaProject);
+            WarBuilder newWar = new WarBuilder(theJavaProject);
             war = newWar.createWar(thePM);
+
+            URL warURL = war.toURL();
             provider.deploy(
                 CactusPreferences.getContextURLPath(),
-                war.toURL(),
+                warURL,
                 null,
                 thePM);
             provider.start(null, thePM);
         }
-        catch (CoreException e)
-        {
-            CactusPlugin.displayErrorMessage(
-                "Error when preparing tests",
-                e.getMessage(),
-                e.getStatus());
-        }
         catch (MalformedURLException e)
         {
-            CactusPlugin.displayErrorMessage(
-                "Error when preparing tests",
-                e.getMessage(),
-                null);
+            CactusPlugin.log(e);
+            throw new CoreException(
+                new Status(
+                    IStatus.ERROR,
+                    CactusPlugin.getPluginId(),
+                    IStatus.OK,
+                    "The WAR file's URL is malformed",
+                    e));
         }
         thePM.done();
     }

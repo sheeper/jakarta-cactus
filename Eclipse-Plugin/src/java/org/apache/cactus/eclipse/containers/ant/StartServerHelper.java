@@ -63,6 +63,7 @@ import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import org.apache.cactus.eclipse.ui.CactusMessages;
 import org.apache.tools.ant.BuildException;
 import org.eclipse.ant.core.AntRunner;
 import org.eclipse.core.runtime.CoreException;
@@ -168,7 +169,11 @@ public class StartServerHelper implements Runnable
                 pm.worked(1);
                 continue;
             }
-
+            if (pm.isCanceled())
+            {
+                throw new BuildException(
+                    CactusMessages.getString("ContainerStart.message.failed"));
+            }
             break;
         }
 
@@ -268,7 +273,8 @@ public class StartServerHelper implements Runnable
         }
         catch (CoreException e)
         {
-            throw new BuildException(e);
+            // An error or cancelation has occured during the start build
+            pm.setCanceled(true);
         }
         // Since the target is blocking this point will be reached
         // when the server is stopped.

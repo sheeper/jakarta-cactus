@@ -65,6 +65,7 @@ import org.apache.cactus.eclipse.containers.ContainerInfo;
 import org.apache.cactus.eclipse.containers.Credential;
 import org.apache.cactus.eclipse.containers.IContainerProvider;
 import org.apache.cactus.eclipse.ui.CactusPlugin;
+import org.apache.tools.ant.BuildException;
 import org.eclipse.ant.core.AntRunner;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -174,7 +175,20 @@ public class GenericAntProvider implements IContainerProvider
         }
         startHelper.setTestURL(testURL);
         startHelper.setProgressMonitor(new SubProgressMonitor(thePM, 4));
-        startHelper.execute();
+        try
+        {
+            startHelper.execute();
+        }
+        catch (BuildException e)
+        {
+            throw new CoreException(
+                new Status(
+                    IStatus.ERROR,
+                    CactusPlugin.getPluginId(),
+                    IStatus.OK,
+                    e.getMessage(),
+                    e));
+        }
     }
 
     /**
