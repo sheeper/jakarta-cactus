@@ -38,45 +38,39 @@
 
     <!--
        ========================================================================
-         Set the properties related to the source tree
+         Set the properties related to the target tree
+         Note: These properties are defined in a target as some need the
+               j2ee.api property to be set
        ========================================================================
     -->
-    <!-- Source locations for the build -->
-    <property name="anttasks.dir" value="anttasks"/>
-    <property name="framework.dir" value="framework"/>
-    <property name="documentation.dir" value="documentation"/>
-    <property name="sample-servlet.dir" value="sample-servlet"/>
+    <target name="properties.target">
+
+        <property name="target.dir" value="target-${j2ee.api}"/>
+        <property name="target.lib.dir" value="${target.dir}/lib"/>
+
+    </target>
 
     <!--
        ========================================================================
-         Set the properties related to the target area
+         Set the properties related to the distribution tree
+         Note: These properties are defined in a target as some need the
+               j2ee.api property to be set
        ========================================================================
     -->
-    <!-- Destination locations for the build -->
-    <property name="target.dir" value="target"/>
-    <property name="target.lib.dir" value="${target.dir}/lib"/>
+    <target name="properties.distribution">
 
-    <!-- Distribution directory, i.e. where the expanded distibutable files
-         are located -->
-    <property name="dist.dir" value="dist"/>
-    <property name="dist.lib.dir" value="${dist.dir}/lib"/>
-    <property name="dist.doc.dir" value="${dist.dir}/doc"/>
-    <property name="dist.doc.api.dir" value="${dist.doc.dir}/api"/>
-    <property name="dist.web.dir" value="${dist.dir}/web"/>
+        <property name="dist.dir" value="dist-${j2ee.api}"/>
+        <property name="dist.lib.dir" value="${dist.dir}/lib"/>
+        <property name="dist.doc.dir" value="${dist.dir}/doc"/>
+        <property name="dist.doc.api.dir" value="${dist.doc.dir}/api"/>
+        <property name="dist.web.dir" value="${dist.dir}/web"/>
+        <property name="dist.sample.servlet.dir"
+            value="${dist.dir}/sample-servlet"/>
+
+    </target>
 
     <!-- Release directory, i.e. where the zipped distribution is located -->
     <property name="release.dir" value="release"/>
-
-    <!-- Name of Cactus distributables needed by Cactus subprojects
-         themselves -->
-
-    <property name="anttasks.jar.name" value="cactus-ant"/>
-    <property name="anttasks.jar"
-        value="${anttasks.dir}/${dist.lib.dir}/${anttasks.jar.name}.jar"/>
-
-    <property name="framework.jar.name" value="cactus"/>
-    <property name="framework.jar"
-        value="${framework.dir}/${dist.lib.dir}/${framework.jar.name}.jar"/>
 
     <!--
        ========================================================================
@@ -93,15 +87,18 @@
         <echo message="user.home = ${user.home}"/>
         <echo message="ant.home = ${ant.home}"/>
         <echo message=""/>
-        <echo message="j2ee.jar = ${j2ee.jar}"/>
-        <echo message="servlet.jar = ${servlet.jar}"/>
         <echo message="commons.httpclient.jar = ${commons.httpclient.jar}"/>
         <echo message="httpunit.jar = ${httpunit.jar}"/>
         <echo message="junit.jar = ${junit.jar}"/>
         <echo message="aspecjrt.jar = ${aspectjrt.jar}"/>
         <echo message="log4j.jar = ${log4j.jar}"/>
         <echo message=""/>
+        <echo message="j2ee.jar = ${j2ee.jar}"/>
+        <echo message="servlet.jar = ${servlet.jar}"/>
+        <echo message=""/>
         <echo message="cvs.executable = ${cvs.executable}"/>
+        <echo message=""/>
+        <echo message="clover.enable (optional) = ${clover.enable}"/>
         <echo message=""/>
 
     </target>
@@ -111,7 +108,7 @@
          Verify that all mandatory properties have been set
        ========================================================================
     -->
-    <target name="check.properties" depends="display.properties">
+    <target name="check.properties">
 
         <condition property="properties.ok">
             <and>
@@ -133,33 +130,42 @@
 
     <!--
        ========================================================================
-          Find out the J2EE API version
+         Find out the J2EE API version
        ========================================================================
-     -->
-     <target name="check.j2ee.version">
+    -->
+    <target name="check.j2ee.version">
 
-         <condition property="j2ee.api" value="13">
-             <available classname="javax.servlet.Filter"
-                 classpath="${j2ee.jar}"/>
-         </condition>
+        <condition property="j2ee.api" value="13">
+            <available classname="javax.servlet.Filter"
+                classpath="${j2ee.jar}"/>
+        </condition>
 
-         <condition property="j2ee.api" value="12">
-             <available classname="javax.servlet.Servlet"
-                 classpath="${j2ee.jar}"/>
-         </condition>
+        <condition property="j2ee.api" value="12">
+            <available classname="javax.servlet.Servlet"
+                classpath="${j2ee.jar}"/>
+        </condition>
 
-         <fail message="Unsupported J2EE version" unless="j2ee.api"/>
+        <fail message="Unsupported J2EE version" unless="j2ee.api"/>
 
-         <echo message="j2ee.api = ${j2ee.api}"/>
+        <echo message="j2ee.api = ${j2ee.api}"/>
 
-     </target>
+    </target>
+
+    <!--
+       ========================================================================
+         Load all dynamic properties
+       ========================================================================
+    -->
+    <target name="load.properties"
+        depends="check.j2ee.version,properties.target,properties.distribution"/>
 
     <!--
        ========================================================================
          Initialize the build. Must be called by all targets
        ========================================================================
     -->
-    <target name="init" depends="check.properties,check.j2ee.version">
+    <target name="init"
+        depends="display.properties,check.properties,load.properties">
 
         <tstamp/>
 
@@ -174,23 +180,12 @@
     <!-- Run Cactus Ant tasks dist target -->
     <target name="run.anttasks" depends="init">
 
-        <ant target="dist" antfile="${anttasks.dir}/build.xml"
-            inheritAll="true">
+        <ant target="dist" antfile="anttasks/build.xml"
+            inheritAll="false">
 
             <property file="build.properties" />
             <property file="${user.home}/build.properties" />
 
-            <property name="base.dir" value="${anttasks.dir}"/>
-            <property name="project.name.text" value="Cactus Ant tasks"/>
-            <property name="project.name.file" value="cactus-ant"/>
-            <property name="target.dir" value="${anttasks.dir}/target"/>
-            <property name="dist.dir" value="${anttasks.dir}/dist"/>
-            <property name="dist.lib.dir"
-                value="${anttasks.dir}/dist/lib"/>
-            <property name="dist.doc.dir"
-                value="${anttasks.dir}/dist/doc"/>
-            <property name="dist.doc.api.dir"
-                value="${anttasks.dir}/dist/doc/api"/>
         </ant>
 
     </target>
@@ -198,56 +193,25 @@
     <!-- Run Cactus Framework dist target -->
     <target name="run.framework" depends="init">
 
-        <ant target="dist" antfile="${framework.dir}/build.xml"
-            inheritAll="true">
+        <ant target="dist" antfile="framework/build.xml"
+            inheritAll="false">
 
             <property file="build.properties" />
             <property file="${user.home}/build.properties" />
 
-            <property name="base.dir" value="${framework.dir}"/>
-            <property name="project.name.text" value="Cactus Framework"/>
-            <property name="project.name.file" value="cactus"/>
-            <property name="target.dir" value="${framework.dir}/target"/>
-            <property name="dist.dir" value="${framework.dir}/${dist.dir}"/>
-            <property name="dist.lib.dir"
-                value="${framework.dir}/${dist.lib.dir}"/>
-            <property name="dist.doc.dir"
-                value="${framework.dir}/${dist.doc.dir}"/>
-            <property name="dist.doc.api.dir"
-                value="${framework.dir}/${dist.doc.api.dir}"/>
-            <property name="dist.web.dir"
-                value="${framework.dir}/${dist.web.dir}"/>
         </ant>
 
     </target>
 
     <!-- Run Cactus Servlet Sample dist target -->
-    <target name="run.sample-servlet" depends="init">
+    <target name="run.sample-servlet" depends="run.anttasks,run.framework">
 
-         <ant target="dist" antfile="${sample-servlet.dir}/build.xml"
-            inheritAll="true">
+         <ant target="dist" antfile="sample-servlet/build.xml"
+            inheritAll="false">
 
             <property file="build.properties" />
             <property file="${user.home}/build.properties" />
 
-            <property name="base.dir" value="${sample-servlet.dir}"/>
-            <property name="project.name.text" value="Cactus Documentation"/>
-            <property name="project.name.text" value="Cactus Servlet Sample"/>
-            <property name="project.name.file" value="sample-servlet"/>
-            <property name="target.dir" value="${sample-servlet.dir}/target"/>
-            <property name="dist.dir"
-                value="${sample-servlet.dir}/${dist.dir}"/>
-            <property name="dist.bin.dir"
-                value="${sample-servlet.dir}/${dist.dir}/bin"/>
-            <property name="dist.doc.dir"
-                value="${sample-servlet.dir}/${dist.doc.dir}"/>
-            <property name="dist.doc.api.dir"
-                value="${sample-servlet.dir}/${dist.doc.api.dir}"/>
-            <property name="sample.zip.name" value="sample-servlet"/>
-            <property name="cactus.ant.jar" value="${anttasks.jar}"/>
-            <property name="cactus.framework.jar" value="${framework.jar}"/>
-            <property name="cactus.framework.web"
-                value="${framework.dir}/${dist.web.dir}"/>
         </ant>
 
     </target>
@@ -255,26 +219,39 @@
     <!-- Run Documentation dist target -->
     <target name="run.documentation" depends="run.anttasks">
 
-        <ant target="dist" antfile="${documentation.dir}/build.xml"
-            inheritAll="true">
+        <ant target="dist" antfile="$documentation/build.xml"
+            inheritAll="false">
 
             <property file="build.properties" />
             <property file="${user.home}/build.properties" />
 
-            <property name="base.dir" value="${documentation.dir}"/>
-            <property name="target.dir" value="${documentation.dir}/target"/>
-            <property name="dist.dir"
-                value="${documentation.dir}/dist"/>
-            <property name="dist.doc.dir"
-                value="${documentation.dir}/dist/doc"/>
-            <property name="cactus.ant.jar" value="${anttasks.jar}"/>
         </ant>
+
+    </target>
+
+    <!-- Generate clover report -->
+    <target name="run.clover" depends="run.framework,run.sample-servlet"
+        if="clover.enable">
+
+        <!-- Clover will read this file to generate the report -->
+        <property name="clover.initstring"
+            value="${target.dir}/clover-coverage.db"/>
+        <echo message="clover.initstring = ${clover.initstring}"/>
+
+        <java classname="com.cortexeb.tools.clover.reporters.html.HtmlReporter">
+
+            <arg line="--outputdir ${dist.doc.dir}/clover-${j2ee.api}"/>
+            <arg line="--showSrc"/>
+            <arg line="--initstring ${clover.initstring}"/>
+            <arg line="--title 'Cactus ${project.version} for J2EE API ${j2ee.api}'"/>
+
+        </java>
 
     </target>
 
     <!-- Run the dist target of all dependent projects -->
     <target name="run"
-        depends="run.anttasks,run.framework,run.sample-servlet,run.documentation">
+        depends="run.anttasks,run.framework,run.sample-servlet,run.documentation,run.clover">
     </target>
 
     <!--
@@ -286,46 +263,69 @@
     <target name="package.anttasks" depends="init">
 
         <!-- Rename the jars to suffix them with the version number -->
+        <mkdir dir="${dist.lib.dir}"/>
         <copy tofile="${dist.lib.dir}/cactus-ant-${project.version}.jar"
-            file="${anttasks.dir}/dist/lib/cactus-ant.jar"/>
-
-        <!-- Copy javadoc in correct directory -->
-        <copy todir="${dist.doc.api.dir}/anttasks">
-            <fileset dir="${anttasks.dir}/dist/doc/api"/>
-        </copy>
+            file="anttasks/dist/lib/cactus-ant.jar"/>
 
     </target>
 
     <target name="package.framework" depends="init">
 
         <!-- Rename the jars to suffix them with the version number -->
+        <mkdir dir="${dist.lib.dir}"/>
         <copy tofile="${dist.lib.dir}/cactus-${project.version}.jar"
-            file="${framework.dir}/${dist.lib.dir}/cactus.jar"/>
+            file="framework/dist-${j2ee.api}/lib/cactus.jar"/>
 
+        <mkdir dir="${dist.web.dir}"/>
         <copy todir="${dist.web.dir}">
-            <fileset dir="${framework.dir}/${dist.web.dir}"/>
-        </copy>
-
-        <!-- Copy javadoc in correct directory -->
-        <copy todir="${dist.doc.api.dir}/framework/j2ee${j2ee.api}">
-            <fileset dir="${framework.dir}/${dist.doc.api.dir}"/>
+            <fileset dir="framework/dist-${j2ee.api}/web"/>
         </copy>
 
     </target>
 
     <target name="package.sample-servlet" depends="init">
 
-        <mkdir dir="${dist.dir}/sample-servlet"/>
-        <unzip src="${sample-servlet.dir}/${dist.dir}/bin/sample-servlet.zip"
-            dest="${dist.dir}/sample-servlet"/>
+        <mkdir dir="${dist.sample.servlet.dir}"/>
+        <unzip src="sample-servlet/dist-${j2ee.api}/bin/sample-servlet.zip"
+            dest="${dist.sample.servlet.dir}"/>
 
     </target>
 
-    <target name="package.documentation" depends="init">
+    <target name="package.documentation.clover.yes" if="clover.enable">
 
-        <!-- Copy doc in correct directory -->
+        <mkdir dir="${dist.doc.dir}"/>
+        <copy tofile="${dist.doc.dir}/coverage.html"
+            file="documentation/dist/doc/coverage_${j2ee.api}.html"/>
+
+    </target>
+
+    <target name="package.documentation.clover.no" unless="clover.enable">
+
+        <mkdir dir="${dist.doc.dir}"/>
+        <copy tofile="${dist.doc.dir}/coverage.html"
+            file="documentation/dist/doc/coverage_empty.html"/>
+
+    </target>
+
+    <target name="package.documentation"
+        depends="init,package.documentation.clover.yes,package.documentation.clover.no">
+
+        <mkdir dir="${dist.doc.dir}"/>
         <copy todir="${dist.doc.dir}">
-            <fileset dir="${documentation.dir}/dist/doc"/>
+            <fileset dir="documentation/dist/doc">
+                <exclude name="**/javadoc*.html"/>
+                <exclude name="**/coverage*.html"/>
+            </fileset>
+        </copy>
+        <copy tofile="${dist.doc.dir}/javadoc.html"
+            file="documentation/dist/doc/javadoc_${j2ee.api}.html"/>
+
+        <!-- copy javadoc -->
+        <copy todir="${dist.doc.api.dir}/anttasks">
+            <fileset dir="anttasks/dist/doc/api"/>
+        </copy>
+        <copy todir="${dist.doc.api.dir}/framework-${j2ee.api}">
+            <fileset dir="framework/dist-${j2ee.api}/doc/api"/>
         </copy>
 
     </target>
@@ -349,42 +349,48 @@
     -->
     <target name="clean.anttasks" depends="init">
 
-        <ant target="clean" antfile="${anttasks.dir}/build.xml"
+        <ant target="clean" antfile="anttasks/build.xml"
             inheritAll="false">
 
-            <property name="dist.dir" value="${anttasks.dir}/${dist.dir}"/>
+            <property file="build.properties" />
+            <property file="${user.home}/build.properties" />
+
         </ant>
 
     </target>
 
     <target name="clean.framework" depends="init">
 
-        <ant target="clean" antfile="${framework.dir}/build.xml"
+        <ant target="clean" antfile="framework/build.xml"
             inheritAll="false">
 
-            <property name="dist.dir" value="${framework.dir}/${dist.dir}"/>
+            <property file="build.properties" />
+            <property file="${user.home}/build.properties" />
+
         </ant>
 
     </target>
 
-    <target name="clean.sample-servlet" depends="init">
+    <target name="clean.sample-servlet" depends="clean.anttasks,clean.framework">
 
-        <ant target="clean" antfile="${sample-servlet.dir}/build.xml"
+        <ant target="clean" antfile="sample-servlet/build.xml"
             inheritAll="false">
 
-            <property name="dist.dir"
-                value="${sample-servlet.dir}/${dist.dir}"/>
+            <property file="build.properties" />
+            <property file="${user.home}/build.properties" />
+
         </ant>
 
     </target>
 
-    <target name="clean.documentation" depends="init">
+    <target name="clean.documentation" depends="clean.anttasks">
 
-        <ant target="clean" antfile="${documentation.dir}/build.xml"
+        <ant target="clean" antfile="documentation/build.xml"
             inheritAll="false">
 
-            <property name="dist.dir"
-                value="${documentation.dir}/${dist.dir}"/>
+            <property file="build.properties" />
+            <property file="${user.home}/build.properties" />
+
         </ant>
 
     </target>
@@ -393,13 +399,30 @@
 
         <delete dir="${target.dir}"/>
         <delete dir="${dist.dir}"/>
-        <delete dir="${release.dir}"/>
 
     </target>
 
     <target name="clean"
         depends="clean.cactus,clean.anttasks,clean.framework,clean.sample-servlet,clean.documentation"
         description="Clean all generated files">
+    </target>
+
+    <!--
+       ========================================================================
+         Clean all, for all J2EE APIs
+       ========================================================================
+    -->
+    <target name="clean.all"
+        description="Clean all generated files (for all J2EE APIs)">
+
+        <ant target="clean" inheritAll="false">
+            <property name="j2ee.jar" value="${j2ee.12.jar}"/>
+        </ant>
+
+        <ant target="clean" inheritAll="false">
+            <property name="j2ee.jar" value="${j2ee.13.jar}"/>
+        </ant>
+
     </target>
 
     <!--

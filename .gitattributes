@@ -51,6 +51,10 @@ documentation/docs/xdocs/changes.xml svn_keywords=Author+Date+Id+Revision
 documentation/docs/xdocs/coding_conventions.xml svn_keywords=Author+Date+Id+Revision
 documentation/docs/xdocs/contributing.xml svn_keywords=Author+Date+Id+Revision
 documentation/docs/xdocs/contributors.xml svn_keywords=Author+Date+Id+Revision
+documentation/docs/xdocs/coverage.xml svn_keywords=Author+Date+Id+Revision
+documentation/docs/xdocs/coverage_12.xml svn_keywords=Author+Date+Id+Revision
+documentation/docs/xdocs/coverage_13.xml svn_keywords=Author+Date+Id+Revision
+documentation/docs/xdocs/coverage_empty.xml svn_keywords=Author+Date+Id+Revision
 documentation/docs/xdocs/cvslog/users.properties svn_keywords=Author+Date+Id+Revision
 documentation/docs/xdocs/downloads.xml svn_keywords=Author+Date+Id+Revision
 documentation/docs/xdocs/dtd/changes-v10.dtd svn_keywords=Author+Date+Id+Revision
@@ -117,6 +121,8 @@ documentation/docs/xdocs/images/tomcat_xml.jpg -text
 documentation/docs/xdocs/images/update.jpg -text
 documentation/docs/xdocs/index.xml svn_keywords=Author+Date+Id+Revision
 documentation/docs/xdocs/javadoc.xml svn_keywords=Author+Date+Id+Revision
+documentation/docs/xdocs/javadoc_12.xml svn_keywords=Author+Date+Id+Revision
+documentation/docs/xdocs/javadoc_13.xml svn_keywords=Author+Date+Id+Revision
 documentation/docs/xdocs/license.xml svn_keywords=Author+Date+Id+Revision
 documentation/docs/xdocs/logos.xml svn_keywords=Author+Date+Id+Revision
 documentation/docs/xdocs/mailinglist.xml svn_keywords=Author+Date+Id+Revision

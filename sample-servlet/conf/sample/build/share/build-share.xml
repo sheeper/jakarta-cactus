@@ -124,6 +124,7 @@
         <echo message="junit.jar = ${junit.jar}"/>
         <echo message=""/>
         <echo message="log4j.jar (optional) = ${log4j.jar}"/>
+        <echo message="clover.jar (optional) = ${clover.jar}"/>
         <echo message=""/>
         <echo message="test.port = ${test.port}"/>
         <echo message=""/>
@@ -383,7 +384,14 @@
 
     </target>
 
-    <target name="testwar" depends="compile,prepare.testwar.log4j,prepare.test">
+    <target name="prepare.testwar.clover" if="clover.jar">
+
+        <copy todir="${target.lib.dir}" file="${clover.jar}"/>
+
+    </target>
+
+    <target name="testwar"
+        depends="compile,prepare.testwar.log4j,prepare.testwar.clover,prepare.test">
 
         <!-- Gather libraries in a place where they can be copied in the
              war -->

@@ -16,9 +16,6 @@
 # Mandatory properties
 # -----------------------------------------------------------------------------
 
-# Location of the Cactus Ant jar
-cactus.ant.jar = ./anttasks/dist/lib/cactus-ant.jar
-
 # CVS executable to use for documentation generation (used to automatically
 # generate web site changelog).
 cvs.executable = cvs

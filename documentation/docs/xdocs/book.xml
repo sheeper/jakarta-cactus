@@ -29,7 +29,9 @@
     <menu-item type="hidden" source="how_it_works_uml.xml"/>
     <menu-item label="Getting Started" source="getting_started.xml"/>
     <menu-item label="Mock vs Container" source="mockobjects.xml"/>
-    <menu-item type="external" label="Javadocs" href="api"/>
+    <menu-item label="Javadocs" source="javadoc.xml"/>
+    <menu-item type="hidden" source="javadoc_12.xml"/>
+    <menu-item type="hidden" source="javadoc_13.xml"/>
     <menu-item label="FAQ" source="faq.xml"/>
   </menu>
 
@@ -83,6 +85,10 @@
     <menu-item label="Why the name ?" source="cactusname.xml"/>
     <menu-item label="Logo Challenge" source="logos.xml"/>
     <menu-item label="Resources" source="resources.xml"/>
+    <menu-item label="Test Coverage" source="coverage.xml"/>
+    <menu-item type="hidden" source="coverage_12.xml"/>
+    <menu-item type="hidden" source="coverage_13.xml"/>
+    <menu-item type="hidden" source="coverage_empty.xml"/>
     <menu-item type="external" label="Stats"
         href="http://jakarta.apache.org/cactus/stats/index.html"/>
     <menu-item type="hidden" source="webalizer.xml"/>

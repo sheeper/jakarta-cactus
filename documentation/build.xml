@@ -10,12 +10,10 @@
     the Ant task themselves and their dependent jars need to be put in
     ANT_HOME/lib) :
 
-        stylebook             [REQUIRED] For builing the documentation from XML
+        stylebook   [REQUIRED] For builing the documentation from XML
 
-    The following properties need to be set in either a ./build.properties or
-    a ${user.home}/build.properties one or in a calling Ant script :
-
-        cactus.ant.jar        [REQUIRED] The path to the Cactus Ant jar.
+    The mandatory and optional Ant properties are defined in
+    build.properties.sample. Please read and edit that file.
 
     This script should be started with the following command line :
 
@@ -79,12 +77,16 @@
     <property name="target.dir" value="${base.dir}/target"/>
     <property name="target.doc.dir" value="${target.dir}/doc"/>
     <property name="target.xdoc.dir" value="${target.dir}/xdocs"/>
-    <property name="target.doc.api.dir" value="${target.doc.dir}/api"/>
 
     <!-- Distribution directory, i.e. where the expanded distibutable files
          are located -->
     <property name="dist.dir" value="${base.dir}/dist"/>
     <property name="dist.doc.dir" value="${dist.dir}/doc"/>
+    <property name="dist.doc.api.dir" value="${dist.doc.dir}/api"/>
+
+    <!-- The location of the Cactus custom Ant tasks jar -->
+    <property name="cactus.ant.jar"
+        value="anttasks/dist/lib/cactus-ant.jar"/>
 
     <!--
        ========================================================================
@@ -144,7 +146,7 @@
 
     <!--
        ========================================================================
-         Generate the documentation (javadoc)
+         Generate the documentation
        ========================================================================
     -->
     <target name="doc" depends="init">
@@ -217,13 +219,16 @@
 
     <!--
        ========================================================================
-         Generate the documentation
+         Generate the documentation (without the generated clover reports that
+         are in sample-servlet and without the generated javadocs that are
+         in anttasks and framework).
        ========================================================================
     -->
     <target name="dist" depends="doc" description="Generate the documentation">
 
         <mkdir dir="${dist.doc.dir}"/>
 
+        <!-- Copy generated web site docs -->
         <copy todir="${dist.doc.dir}">
             <fileset dir="${target.doc.dir}"/>
         </copy>

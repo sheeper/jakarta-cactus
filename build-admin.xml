@@ -5,21 +5,8 @@
     Build file for Cactus related administrative tasks (build and upload the
     Cactus web site, upload a distribution, etc).
 
-    The following properties need to be set in either a ./build.properties or
-    a ${user.home}/build.properties one or in a calling Ant script :
-
-        admin.jakarta.username [OPTIONAL] Needed for the deploy.website target.
-                               It is the username to use when connecting to
-                               jakarta.apache.org.
-
-        admin.scp              [OPTIONAL] Needed for the deploy.website target.
-                               Name of executable to call to perform remote
-                               copy.
-
-        admin.ssh              [OPTIONAL] Needed for the deploy.website target.
-                               Name of executable to call to perform remote
-                               login to Jakarta web site. Needs to have a
-                               private key on jakarta.apache.org.
+    See build.properties.sample for details of mandatory and optional
+    properties to set.
 
     This script should be started with the following command line :
 
@@ -29,7 +16,7 @@
     target is "dist"
   =============================================================================
 -->
-<project name="Cactus Administration" default="website" basedir=".">
+<project name="Cactus Administration" default="release" basedir=".">
 
     <!-- Give user a chance to override without editing this file
          (and without typing -D each time it compiles it) -->
@@ -52,23 +39,146 @@
     <!-- Distribution directory, i.e. where the expanded distibutable files
          are located -->
     <property name="dist.dir" value="dist"/>
+    <property name="dist.doc.dir" value="${dist.dir}/doc"/>
+    <property name="dist.doc.api.dir" value="${dist.doc.dir}/api"/>
 
     <!-- Release directory, i.e. where the zipped distribution is located -->
     <property name="release.dir" value="release"/>
 
     <!--
        ========================================================================
-         Initialize the build. Must be called by all targets
+         Display configurable properties values
        ========================================================================
     -->
-    <target name="init">
+    <target name="display.properties">
 
-        <tstamp/>
-
-        <echo message="----- ${project.name.text} -----"/>
+        <echo message="----- ${project.name.text} ${project.version} -----"/>
         <echo message=""/>
         <echo message="java.class.path = ${java.class.path}"/>
         <echo message=""/>
+        <echo message="java.home = ${java.home}"/>
+        <echo message="user.home = ${user.home}"/>
+        <echo message="ant.home = ${ant.home}"/>
+        <echo message=""/>
+        <echo message="j2ee.12.jar = ${j2ee.12.jar}"/>
+        <echo message="j2ee.13.jar = ${j2ee.13.jar}"/>
+        <echo message=""/>
+        <echo message="admin.jakarta.username = ${admin.jakarta.username}"/>
+        <echo message="admin.scp = ${admin.scp}"/>
+        <echo message="admin.ssh = ${admin.ssh}"/>
+        <echo message=""/>
+        <echo message="clover.enable = ${clover.enable}"/>
+        <echo message="clover.jar = ${clover.jar}"/>
+        <echo message=""/>
+
+    </target>
+
+    <!--
+       ========================================================================
+         Verify that all mandatory properties have been set
+       ========================================================================
+    -->
+    <target name="check.properties">
+
+        <condition property="properties.ok">
+            <and>
+                <available file="${j2ee.12.jar}"/>
+                <available file="${j2ee.13.jar}"/>
+                <isset property="admin.jakarta.username"/>
+                <isset property="admin.scp"/>
+                <isset property="admin.ssh"/>
+                <isset property="clover.enable"/>
+                <available file="${clover.jar}"/>
+           </and>
+        </condition>
+
+        <fail message="Missing property or property pointing to an invalid file (check your build.properties file)"
+            unless="properties.ok"/>
+
+    </target>
+
+    <!--
+       ========================================================================
+         Initialize the build. Must be called by all targets
+       ========================================================================
+    -->
+    <target name="init" depends="display.properties,check.properties">
+
+        <tstamp/>
+
+    </target>
+
+    <!--
+       ========================================================================
+         Generate the web site.
+       ========================================================================
+    -->
+    <target name="dist" depends="clean">
+
+        <!-- Generate the website first -->
+        <ant target="clean.all" inheritAll="false"/>
+        <ant target="run.clover" inheritAll="false">
+            <property name="j2ee.jar" value="${j2ee.12.jar}"/>
+        </ant>
+        <ant target="run.clover" inheritAll="false">
+            <property name="j2ee.jar" value="${j2ee.13.jar}"/>
+        </ant>
+        <ant target="run.documentation" inheritAll="false"/>
+
+        <!-- Package the web site -->
+        <mkdir dir="${dist.doc.dir}"/>
+
+        <copy todir="${dist.doc.dir}">
+            <fileset dir="documentation/dist/doc">
+                <exclude name="**/javadoc*.html"/>
+                <exclude name="**/coverage*.html"/>
+            </fileset>
+        </copy>
+        <copy tofile="${dist.doc.dir}/javadoc.html"
+            file="documentation/dist/doc/javadoc.html"/>
+        <copy tofile="${dist.doc.dir}/coverage.html"
+            file="documentation/dist/doc/coverage.html"/>
+
+        <!-- copy javadoc -->
+        <copy todir="${dist.doc.api.dir}/anttasks">
+            <fileset dir="anttasks/dist/doc/api"/>
+        </copy>
+        <copy todir="${dist.doc.api.dir}/framework-12">
+            <fileset dir="framework/dist-12/doc/api"/>
+        </copy>
+        <copy todir="${dist.doc.api.dir}/framework-13">
+            <fileset dir="framework/dist-13/doc/api"/>
+        </copy>
+
+        <!-- Copy Clover reports -->
+        <copy todir="${dist.doc.dir}/clover-12">
+            <fileset dir="dist-12/doc/clover-12"/>
+        </copy>
+        <copy todir="${dist.doc.dir}/clover-13">
+            <fileset dir="dist-13/doc/clover-13"/>
+        </copy>
+
+    </target>
+
+    <!--
+       ========================================================================
+         Package the generated web site
+       ========================================================================
+    -->
+    <target name="release" depends="dist"
+        description="Generate the Cactus web site">
+
+        <mkdir dir="${release.dir}"/>
+
+        <property name="cactus.website.name"
+            value="${project.prefix}cactus-website-${DSTAMP}"/>
+
+        <tar tarfile="${release.dir}/${cactus.website.name}.tar">
+            <tarfileset dir="${dist.dir}/doc"/>
+        </tar>
+        <gzip zipfile="${release.dir}/${cactus.website.name}.tar.gz"
+            src="${release.dir}/${cactus.website.name}.tar"/>
+        <delete file="${release.dir}/${cactus.website.name}.tar"/>
 
     </target>
 
@@ -76,32 +186,10 @@
        ========================================================================
          Deploy the web site to the Jakarta server, using the 'scp'
          and 'ssh' commands.
-
-         Note : This target does not deploy the javadoc
        ========================================================================
     -->
-    <target name="deploy.website" depends="clean" if="admin.jakarta.username"
+    <target name="deploy" depends="release"
         description="Deploy the Cactus web site">
-
-        <mkdir dir="${release.dir}"/>
-
-        <!-- Generate the website first -->
-        <ant target="clean.documentation" inheritAll="false"/>
-        <ant target="run.documentation" inheritAll="false"/>
-        <ant target="package.documentation" inheritAll="false"/>
-
-        <!-- Zip it up -->
-        <property name="cactus.website.name"
-            value="${project.prefix}cactus-website-${DSTAMP}"/>
-
-        <tar tarfile="${release.dir}/${cactus.website.name}.tar">
-            <tarfileset dir="${dist.dir}/doc">
-                <exclude name="api/**"/>
-            </tarfileset>
-        </tar>
-        <gzip zipfile="${release.dir}/${cactus.website.name}.tar.gz"
-            src="${release.dir}/${cactus.website.name}.tar"/>
-        <delete file="${release.dir}/${cactus.website.name}.tar"/>
 
         <property name="cactus.homepage"
             value="/www/jakarta.apache.org/cactus"/>
@@ -125,7 +213,6 @@
     <target name="clean" depends="init" description="Clean all generated files">
 
         <delete dir="${dist.dir}"/>
-        <delete dir="${release.dir}"/>
 
     </target>
 
