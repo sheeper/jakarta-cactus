@@ -94,6 +94,11 @@ import org.eclipse.swt.widgets.Shell;
 public class WebAppConfigurationBlock
 {
     /**
+     * Number of chars visible in the output war location field 
+     */
+    private static final int NB_VISIBLE_CHARS = 25;
+
+    /**
      * Field for the output war location. 
      */
     private StringButtonDialogField outputField;
@@ -132,12 +137,9 @@ public class WebAppConfigurationBlock
      * @param theDir initial webapp directory value
      * @param theEntries initial list of entries
      */
-    public WebAppConfigurationBlock(
-        Shell theShell,
-        IJavaProject theJavaProject,
-        String theOutput,
-        String theDir,
-        IClasspathEntry[] theEntries)
+    public WebAppConfigurationBlock(final Shell theShell,
+        final IJavaProject theJavaProject, final String theOutput,
+        final String theDir, final IClasspathEntry[] theEntries)
     {
         shell = theShell;
         javaProject = theJavaProject;
@@ -177,7 +179,7 @@ public class WebAppConfigurationBlock
          *     IStringButtonAdapter#changeControlPressed(
          *     org.eclipse.jdt.internal.ui.wizards.dialogfields.DialogField)
          */
-        public void changeControlPressed(DialogField theField)
+        public final void changeControlPressed(final DialogField theField)
         {
             webappChangeControlPressed(theField);
         }
@@ -187,7 +189,7 @@ public class WebAppConfigurationBlock
          *     IDialogFieldListener#dialogFieldChanged(
          *     org.eclipse.jdt.internal.ui.wizards.dialogfields.DialogField)
          */
-        public void dialogFieldChanged(DialogField theField)
+        public final void dialogFieldChanged(final DialogField theField)
         {
             webappDialogFieldChanged(theField);
         }
@@ -198,7 +200,7 @@ public class WebAppConfigurationBlock
      * Possible use : validation of an entry in a dialog field.
      * @param theField field that triggered an event.
      */
-    private void webappDialogFieldChanged(DialogField theField)
+    private final void webappDialogFieldChanged(final DialogField theField)
     {
         // TODO: validate entries in dialogs
         // Do nothing.
@@ -208,7 +210,7 @@ public class WebAppConfigurationBlock
      * Adapter that dispatches events from StringButtonDialog fields.
      * @param theField field that triggered an event.
      */
-    private void webappChangeControlPressed(DialogField theField)
+    private final void webappChangeControlPressed(final DialogField theField)
     {
             if (theField == outputField)
             {
@@ -268,7 +270,7 @@ public class WebAppConfigurationBlock
      * @param theParent the parent control.
      * @return Control the created control
      */
-    public Control createContents(Composite theParent)
+    public final Control createContents(final Composite theParent)
     {
         Composite topComp = new Composite(theParent, SWT.NONE);
 
@@ -284,7 +286,7 @@ public class WebAppConfigurationBlock
         PixelConverter converter = new PixelConverter(topComp);
         LayoutUtil.setWidthHint(
             outputField.getTextControl(null),
-            converter.convertWidthInCharsToPixels(25));
+            converter.convertWidthInCharsToPixels(NB_VISIBLE_CHARS));
         LayoutUtil.setHorizontalGrabbing(outputField.getTextControl(null));
 
         Control libraryPageControl = libraryPage.getControl(topComp);
@@ -299,7 +301,7 @@ public class WebAppConfigurationBlock
      * Returns the text entered in the output field.
      * @return String the text entered
      */
-    public String getOutput()
+    public final String getOutput()
     {
         return outputField.getText();
     }
@@ -308,7 +310,7 @@ public class WebAppConfigurationBlock
      * Returns the text entered in the webapp field.
      * @return String the text entered
      */
-    public String getWebappDir()
+    public final String getWebappDir()
     {
         return webappDirField.getText();
     }
@@ -317,7 +319,7 @@ public class WebAppConfigurationBlock
      * Returns the array of jar entries selected in the libraryPage.
      * @return IClasspathEntry[] the array of jar entries selected
      */
-    public IClasspathEntry[] getWebappClasspath()
+    public final IClasspathEntry[] getWebappClasspath()
     {
         Vector result = new Vector();
         List cplist = classPathList.getElements();
@@ -338,7 +340,8 @@ public class WebAppConfigurationBlock
      * @param theClasspathEntries array of classpath entries 
      * @return ArrayList list containing the jar entries
      */
-    private ArrayList getExistingEntries(IClasspathEntry[] theClasspathEntries)
+    private ArrayList getExistingEntries(
+        final IClasspathEntry[] theClasspathEntries)
     {
         ArrayList newClassPath = new ArrayList();
         for (int i = 0; i < theClasspathEntries.length; i++)
@@ -369,10 +372,8 @@ public class WebAppConfigurationBlock
      * @param theDir webapp directory
      * @param theEntries jar entries for the webapp
      */
-    public void update(
-        String theOutput,
-        String theDir,
-        IClasspathEntry[] theEntries)
+    public final void update(final String theOutput,
+        final String theDir, final IClasspathEntry[] theEntries)
     {
         outputField.setText(theOutput);
         webappDirField.setText(theDir);
@@ -382,7 +383,7 @@ public class WebAppConfigurationBlock
     /**
      * Refreshes the control.
      */
-    public void refresh()
+    public final void refresh()
     {
         libraryPage.init(javaProject);
     }

@@ -96,7 +96,8 @@ public final class WebappMessages
      * @param theArg the object to use when constructing the message
      * @return the formatted string
      */
-    public static String getFormattedString(String theKey, Object theArg)
+    public static String getFormattedString(final String theKey, 
+        final Object theArg)
     {
         return MessageFormat.format(getString(theKey), 
             new Object[] {theArg});
@@ -109,7 +110,8 @@ public final class WebappMessages
      * @param theArgs the objects to use when constructing the message
      * @return the formatted string
      */
-    public static String getFormattedString(String theKey, Object[] theArgs)
+    public static String getFormattedString(final String theKey, 
+        final Object[] theArgs)
     {
         return MessageFormat.format(getString(theKey), theArgs);
     }
@@ -121,7 +123,7 @@ public final class WebappMessages
      * @return the string from the resource bundle or "![key name]!" if the key
      *         does not exist in the resource bundle
      */
-    public static String getString(String theKey)
+    public static String getString(final String theKey)
     {
         try
         {

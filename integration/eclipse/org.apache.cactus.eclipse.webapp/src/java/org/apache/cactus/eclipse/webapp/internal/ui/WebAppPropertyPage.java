@@ -89,15 +89,18 @@ public class WebAppPropertyPage extends PropertyPage
      * @see org.eclipse.jface.preference.PreferencePage#createContents(
      *     org.eclipse.swt.widgets.Composite)
      */
-    protected Control createContents(Composite theParent)
+    protected final Control createContents(final Composite theParent)
     {
         IJavaProject javaProject = JavaCore.create(getProject());
         webapp = new Webapp(javaProject);
-        boolean loadedDefaults = webapp.init();
-        if (loadedDefaults)
-        {
-            // Status line indicating we loaded the defaults 
-        }
+        webapp.init();
+
+        // TODO: Status line indicating we loaded the defaults 
+//        boolean loadedDefaults = webapp.init();
+//        if (loadedDefaults)
+//        {
+//        }
+
         webAppConfigurationBlock =
             new WebAppConfigurationBlock(
                 getShell(),
@@ -111,7 +114,7 @@ public class WebAppPropertyPage extends PropertyPage
     /**
      * @see org.eclipse.jface.preference.PreferencePage#performOk()
      */
-    public boolean performOk()
+    public final boolean performOk()
     {
         webapp.setOutput(webAppConfigurationBlock.getOutput());
         webapp.setDir(webAppConfigurationBlock.getWebappDir());
@@ -131,7 +134,7 @@ public class WebAppPropertyPage extends PropertyPage
     /**
      * @see org.eclipse.jface.preference.PreferencePage#performDefaults()
      */
-    public void performDefaults()
+    public final void performDefaults()
     {
         super.performDefaults();
         webapp.loadDefaultValues();

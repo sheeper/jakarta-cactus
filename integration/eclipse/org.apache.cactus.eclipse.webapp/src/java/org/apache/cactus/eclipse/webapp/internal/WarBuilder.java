@@ -63,7 +63,6 @@ import java.util.Vector;
 import org.apache.cactus.eclipse.webapp.internal.ui.WebappMessages;
 import org.apache.cactus.eclipse.webapp.internal.ui.WebappPlugin;
 import org.apache.tools.ant.Project;
-import org.apache.tools.ant.taskdefs.Copy;
 import org.apache.tools.ant.taskdefs.War;
 import org.apache.tools.ant.taskdefs.Zip;
 import org.apache.tools.ant.types.FileSet;
@@ -122,7 +121,8 @@ public class WarBuilder
      *        created
      * @throws JavaModelException if we can't get the output location
      */
-    public WarBuilder(IJavaProject theJavaProject) throws JavaModelException
+    public WarBuilder(final IJavaProject theJavaProject) 
+        throws JavaModelException
     {
         this.javaProject = theJavaProject;
         this.webapp = new Webapp(theJavaProject);
@@ -133,7 +133,7 @@ public class WarBuilder
      * @return the web.xml file in the given webapp directory,
      *  or null if none
      */
-    public File getWebXML(File theWebFilesDir)
+    public static File getWebXML(final File theWebFilesDir)
     {
         if (theWebFilesDir == null)
         {
@@ -155,7 +155,8 @@ public class WarBuilder
      * @param theEntries array of IClasspathEntry to render asbolute
      * @return an array of absolute IClasspathEntries
      */
-    private IClasspathEntry[] getAbsoluteEntries(IClasspathEntry[] theEntries)
+    private static IClasspathEntry[] getAbsoluteEntries(
+        final IClasspathEntry[] theEntries)
     {
         if (theEntries == null)
         {
@@ -203,8 +204,8 @@ public class WarBuilder
      * @throws JavaModelException if we fail to get the project relative 
      *         output location
      */
-    private File getAbsoluteOutputLocation(IJavaProject theJavaProject)
-        throws JavaModelException
+    private static final File getAbsoluteOutputLocation(
+        final IJavaProject theJavaProject) throws JavaModelException
     {
         IPath projectPath = theJavaProject.getProject().getLocation();
         IPath outputLocation = theJavaProject.getOutputLocation();
@@ -220,10 +221,15 @@ public class WarBuilder
      * @return File the location where the war file was created
      * @throws CoreException if we can't create the file
      */
-    public File createWar(IProgressMonitor thePM) throws CoreException
+    public final File createWar(final IProgressMonitor thePM) 
+        throws CoreException
     {
-        IProgressMonitor progressMonitor =
-            (thePM != null) ? thePM : new NullProgressMonitor();
+        IProgressMonitor progressMonitor = thePM;
+        if (progressMonitor == null)
+        {
+            progressMonitor = new NullProgressMonitor();
+        }
+        
         progressMonitor.subTask(
             WebappMessages.getString("WarBuilder.message.createwar.monitor"));
         this.webapp.loadValues();
@@ -299,7 +305,8 @@ public class WarBuilder
      * @param theJarEntries the jars to build ZipFileSets from
      * @return an array of ZipFileSet corresponding to the given jars
      */
-    private ZipFileSet[] getZipFileSets(IClasspathEntry[] theJarEntries)
+    private static final ZipFileSet[] getZipFileSets(
+        final IClasspathEntry[] theJarEntries)
     {
         Vector result = new Vector();
         for (int i = 0; i < theJarEntries.length; i++)
@@ -323,7 +330,7 @@ public class WarBuilder
     private File getUserWebFilesDir()
     {
         // path to the web directory relative to the user's project
-        String userWebFilesPath = webapp.getDir();
+        String userWebFilesPath = this.webapp.getDir();
         if (userWebFilesPath == null || userWebFilesPath.equals(""))
         {
             return null;
@@ -342,7 +349,7 @@ public class WarBuilder
      */
     private IClasspathEntry[] getJarEntries()
     {
-        return getAbsoluteEntries(webapp.getClasspath());
+        return getAbsoluteEntries(this.webapp.getClasspath());
     }
 
     /**
@@ -350,44 +357,14 @@ public class WarBuilder
      */
     private File getOutputWar()
     {
-        return new File(webapp.getOutput());
-    }
-
-    /**
-     * Copies a set of Jar files to the destination directory.
-     * @param theEntries set of Jars
-     * @param theDestination the destination directory 
-     */
-    private void copyJars(IClasspathEntry[] theEntries, File theDestination)
-    {
-        if (!theDestination.isDirectory())
-        {
-            return;
-        }
-        Project antProject = new Project();
-        antProject.init();
-        Copy jarCopy = new Copy();
-        jarCopy.setProject(antProject);
-        jarCopy.setTodir(theDestination);
-        for (int i = 0; i < theEntries.length; i++)
-        {
-            IClasspathEntry currentEntry = theEntries[i];
-            if (currentEntry.getEntryKind() == IClasspathEntry.CPE_LIBRARY)
-            {
-                File currentJar = currentEntry.getPath().toFile();
-                FileSet fileSet = new FileSet();
-                fileSet.setFile(currentJar);
-                jarCopy.addFileset(fileSet);
-            }
-        }
-        jarCopy.execute();
+        return new File(this.webapp.getOutput());
     }
 
     /**
      * Removes the specified file or directory, and all subdirectories
      * @param theFile the file or directory to delete
      */
-    public static void delete(File theFile)
+    public static final void delete(final File theFile)
     {
         if (theFile.isDirectory())
         {
@@ -410,7 +387,8 @@ public class WarBuilder
      * @param theZipFile the zip file to create
      * @param theExistingFile the file to include in the zip
      */
-    private void createZipFile(File theZipFile, File theExistingFile)
+    private void createZipFile(final File theZipFile, 
+        final File theExistingFile)
     {
         Project antProject = new Project();
         antProject.init();

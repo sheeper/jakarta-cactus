@@ -87,7 +87,7 @@ public class WebappPlugin extends AbstractUIPlugin
      * The constructor.
      * @param theDescriptor the descriptor for this plugin
      */
-    public WebappPlugin(IPluginDescriptor theDescriptor)
+    public WebappPlugin(final IPluginDescriptor theDescriptor)
     {
         super(theDescriptor);
         plugin = this;
@@ -126,7 +126,7 @@ public class WebappPlugin extends AbstractUIPlugin
      * @param theKey the key of the resource to return
      * @return the string
      */
-    public static String getResourceString(String theKey)
+    public static String getResourceString(final String theKey)
     {
         ResourceBundle bundle = WebappPlugin.getDefault().getResourceBundle();
         try
@@ -143,7 +143,7 @@ public class WebappPlugin extends AbstractUIPlugin
      * Returns the plugin's resource bundle
      * @return the resource bundle
      */
-    public ResourceBundle getResourceBundle()
+    public final ResourceBundle getResourceBundle()
     {
         return resourceBundle;
     }
@@ -160,7 +160,7 @@ public class WebappPlugin extends AbstractUIPlugin
      * @param theJavaProject the Java project to get the webapp from
      * @return the webapp associated to the given Java project
      */
-    public static Webapp getWebapp(IJavaProject theJavaProject)
+    public static Webapp getWebapp(final IJavaProject theJavaProject)
     {
         return new Webapp(theJavaProject);
     }

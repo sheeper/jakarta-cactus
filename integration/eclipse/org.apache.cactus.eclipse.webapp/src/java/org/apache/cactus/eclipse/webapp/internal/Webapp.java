@@ -144,7 +144,7 @@ public class Webapp
     /**
      * @param theJavaProject the project this webapp is linked to
      */
-    public Webapp(IJavaProject theJavaProject)
+    public Webapp(final IJavaProject theJavaProject)
     {
         this.javaProject = theJavaProject;
     }
@@ -154,7 +154,7 @@ public class Webapp
      * if they exist. 
      * @return boolean true if we loaded the default values
      */
-    public boolean init()
+    public final boolean init()
     {
         return loadValues();
     }
@@ -167,7 +167,7 @@ public class Webapp
      * @return true if the default values were loaded or false if the 
      *         persistent ones were loaded
      */
-    public boolean loadValues()
+    public final boolean loadValues()
     {
         boolean isDefaultValues;
 
@@ -197,7 +197,7 @@ public class Webapp
      * Loads the persistent properties for this webapp.
      * @throws CoreException if we fail to load a persistent property
      */
-    public void loadPersistentValues() throws CoreException
+    public final void loadPersistentValues() throws CoreException
     {
         IProject theProject = javaProject.getProject();
 
@@ -210,7 +210,7 @@ public class Webapp
     /**
      *  Loads the default values of a webapp.
      */
-    public void loadDefaultValues()
+    public final void loadDefaultValues()
     {
         this.output = DEFAULT_OUTPUT;
         this.dir = DEFAULT_DIR;
@@ -229,7 +229,7 @@ public class Webapp
      * Saves this webapp in the project's properties
      * @throws CoreException if an error occurs while saving 
      */
-    public void persist() throws CoreException
+    public final void persist() throws CoreException
     {
         IProject project = javaProject.getProject();
         project.setPersistentProperty(OUTPUT_QN, output);
@@ -244,7 +244,7 @@ public class Webapp
      * @return an array of library entries
      */
     private IClasspathEntry[] toClasspathEntryArray(
-        String theClasspathEntriesString)
+        final String theClasspathEntriesString)
     {
         if (theClasspathEntriesString == null)
         {
@@ -281,7 +281,7 @@ public class Webapp
      * @param theClasspathEntries an array of library entries
      * @return String string of delimiter-separated classpaths
      */
-    private String toString(IClasspathEntry[] theClasspathEntries)
+    private String toString(final IClasspathEntry[] theClasspathEntries)
     {
         StringBuffer result = new StringBuffer();
         for (int i = 0; i < theClasspathEntries.length; i++)
@@ -297,7 +297,7 @@ public class Webapp
      * Sets the classpath.
      * @param theClasspath The classpath to set
      */
-    public void setClasspath(IClasspathEntry[] theClasspath)
+    public final void setClasspath(final IClasspathEntry[] theClasspath)
     {
         this.classpath = theClasspath;
     }
@@ -306,7 +306,7 @@ public class Webapp
      * Sets the dir.
      * @param theDir The dir to set
      */
-    public void setDir(String theDir)
+    public final void setDir(final String theDir)
     {
         this.dir = theDir;
     }
@@ -315,7 +315,7 @@ public class Webapp
      * Sets the output.
      * @param theOutput The output to set
      */
-    public void setOutput(String theOutput)
+    public final void setOutput(final String theOutput)
     {
         this.output = theOutput;
     }
@@ -323,7 +323,7 @@ public class Webapp
     /**
      * @return IClasspathEntry[] the array of jar entries for this webapp
      */
-    public IClasspathEntry[] getClasspath()
+    public final IClasspathEntry[] getClasspath()
     {
         return this.classpath;
     }
@@ -332,7 +332,7 @@ public class Webapp
      * @return String directory of this webapp source files
      * relative to the project path 
      */
-    public String getDir()
+    public final String getDir()
     {
         return this.dir;
     }
@@ -340,7 +340,7 @@ public class Webapp
     /**
      * @return the absolute directory to this webapp source files
      */
-    public File getAbsoluteDir()
+    public final File getAbsoluteDir()
     {
         File result = null;
 
@@ -355,7 +355,7 @@ public class Webapp
     /**
      * @return String location of the generated war
      */
-    public String getOutput()
+    public final String getOutput()
     {
         return this.output;
     }
