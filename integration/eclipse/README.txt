@@ -3,7 +3,7 @@ Eclipse Plug-in for Cactus
 
 * Prerequisites
 
-The Cactus plugin requires versions of the Eclipse platform higher than M5.
+The Cactus plugin requires versions of the Eclipse platform higher than 2.1 M5.
 
 
 * Installation
