@@ -1,4 +1,6 @@
 /*
+ * ====================================================================
+ *
  * The Apache Software License, Version 1.1
  *
  * Copyright (c) 2001-2003 The Apache Software Foundation.  All rights
@@ -23,10 +25,10 @@
  *    Alternately, this acknowlegement may appear in the software itself,
  *    if and wherever such third-party acknowlegements normally appear.
  *
- * 4. The names "The Jakarta Project", "Cactus", and "Apache Software
- *    Foundation" must not be used to endorse or promote products derived
- *    from this software without prior written permission. For written
- *    permission, please contact apache@apache.org.
+ * 4. The names "The Jakarta Project", "Cactus" and "Apache Software
+ *    Foundation" must not be used to endorse or promote products
+ *    derived from this software without prior written permission. For
+ *    written permission, please contact apache@apache.org.
  *
  * 5. Products derived from this software may not be called "Apache"
  *    nor may "Apache" appear in their names without prior written
@@ -50,13 +52,11 @@
  * individuals on behalf of the Apache Software Foundation.  For more
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
+ *
  */
 package org.apache.cactus.sample;
 
 import javax.servlet.ServletException;
-
-import junit.framework.Test;
-import junit.framework.TestSuite;
 
 import org.apache.cactus.ServletTestCase;
 
@@ -81,27 +81,6 @@ public class TestSampleServletConfig extends ServletTestCase
     public TestSampleServletConfig(String theName)
     {
         super(theName);
-    }
-
-    /**
-     * Start the tests.
-     *
-     * @param theArgs the arguments. Not used
-     */
-    public static void main(String[] theArgs)
-    {
-        junit.swingui.TestRunner.main(
-            new String[] { TestSampleServletConfig.class.getName() });
-    }
-
-    /**
-     * @return a test suite (<code>TestSuite</code>) that includes all methods
-     *         starting with "test"
-     */
-    public static Test suite()
-    {
-        // All methods starting with "test" will be executed in the test suite.
-        return new TestSuite(TestSampleServletConfig.class);
     }
 
     /**
