@@ -520,8 +520,22 @@
             use="true"
             windowtitle="${project.name.text} ${project.version}"
             doctitle="${project.name.text} ${project.version}"
+            overview="${src.java.share.dir}/overview.html"
             bottom="Copyright &amp;copy; ${year} Apache Software Foundation.
                     All Rights Reserved.">
+
+            <group title="Public API">
+              <package name="org.apache.cactus"/>
+              <package name="org.apache.cactus.client.authentication"/>
+              <package name="org.apache.cactus.extension.jsp"/>
+            </group>
+            <group title="Internal API">
+              <package name="org.apache.cactus.client"/>
+              <package name="org.apache.cactus.extension.jetty"/>
+              <package name="org.apache.cactus.server"/>
+              <package name="org.apache.cactus.server.runner"/>
+              <package name="org.apache.cactus.util"/>
+            </group>
 
             <sourcepath>
                 <pathelement location="${src.java.share.dir}"/>
