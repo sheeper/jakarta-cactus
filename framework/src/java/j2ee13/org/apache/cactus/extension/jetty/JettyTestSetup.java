@@ -56,6 +56,7 @@
  */
 package org.apache.cactus.extension.jetty;
 
+import java.io.File;
 import java.net.URL;
 
 import junit.extensions.TestSetup;
@@ -98,6 +99,16 @@ public class JettyTestSetup extends TestSetup
      */
     private static final String CACTUS_JETTY_RESOURCE_DIR_PROPERTY = 
         "cactus.jetty.resourceDir";
+
+    /**
+     * The configuration file to be used for initializing Jetty.
+     */
+    private File configFile;
+
+    /**
+     * The directory containing the resources of the web-application.
+     */
+    private File resourceDir;
 
     /**
      * @param theTest the test we are decorating (usually a test suite)
@@ -146,16 +157,72 @@ public class JettyTestSetup extends TestSetup
 
         // Configure Jetty with an XML file if one has been specified on the
         // command line.
-        if (System.getProperty(CACTUS_JETTY_CONFIG_PROPERTY) != null)
+        if (getConfigFile() != null)
         {
             server.getClass().getMethod("configure", 
                 new Class[] {String.class})
-                .invoke(server, new Object[] {System.getProperty(
-                    CACTUS_JETTY_CONFIG_PROPERTY)});
+                .invoke(server, new Object[] {getConfigFile().toString()});
         }
 
         // Start the Jetty server
         server.getClass().getMethod("start", null).invoke(server, null);
+    }
+
+    /**
+     * Sets the configuration file to use for initializing Jetty.
+     * 
+     * @param theConfigFile The configuration file to set
+     */
+    public final void setConfigFile(File theConfigFile)
+    {
+        this.configFile = theConfigFile;
+    }
+
+    /**
+     * Sets the directory in which Jetty will look for the web-application
+     * resources.
+     * 
+     * @param theResourceDir The resource directory to set
+     */
+    public final void setResourceDir(File theResourceDir)
+    {
+        this.resourceDir = theResourceDir;
+    }
+
+    /**
+     * @return The resource directory, or <code>null</code> if it has not been
+     *         set
+     */
+    protected final File getConfigFile()
+    {
+        if (this.configFile == null)
+        {
+            String configFileProperty = System.getProperty(
+                CACTUS_JETTY_CONFIG_PROPERTY);
+            if (configFileProperty != null)
+            {
+                this.configFile = new File(configFileProperty);
+            }
+        }
+        return this.configFile;
+    }
+
+    /**
+     * @return The resource directory, or <code>null</code> if it has not been
+     *         set
+     */
+    protected final File getResourceDir()
+    {
+        if (this.resourceDir == null)
+        {
+            String resourceDirProperty = System.getProperty(
+                CACTUS_JETTY_RESOURCE_DIR_PROPERTY);
+            if (resourceDirProperty != null)
+            {
+                this.resourceDir = new File(resourceDirProperty);
+            }
+        }
+        return this.resourceDir;
     }
 
     /**
@@ -203,12 +270,12 @@ public class JettyTestSetup extends TestSetup
         // in the webapp.
         URL contextURL = new URL(theConfiguration.getContextURL());
 
-        if (System.getProperty(CACTUS_JETTY_RESOURCE_DIR_PROPERTY) != null)
+        if (getResourceDir() != null)
         {
             theServer.getClass().getMethod("addWebApplication", 
                 new Class[] {String.class, String.class})
                 .invoke(theServer, new Object[] {contextURL.getPath(), 
-                System.getProperty(CACTUS_JETTY_RESOURCE_DIR_PROPERTY)});
+                    getResourceDir().toString()});
         }
         
         // Retrieves the WebApplication context created by the
@@ -251,7 +318,7 @@ public class JettyTestSetup extends TestSetup
      */
     private void addJspRedirector(Object theContext) throws Exception
     {
-        if (System.getProperty(CACTUS_JETTY_RESOURCE_DIR_PROPERTY) != null)
+        if (getResourceDir() != null)
         {
             theContext.getClass().getMethod("addServlet", 
                 new Class[] {String.class, String.class})
@@ -269,10 +336,11 @@ public class JettyTestSetup extends TestSetup
                 new Class[] {String.class, String.class, String.class, 
                     String.class})
                 .invoke(handler, 
-                new Object[] {"JspRedirector",
-                "/JspRedirector",
-                "org.apache.jasper.servlet.JspServlet",
-                "/jspRedirector.jsp"});
+                new Object[] {
+                    "JspRedirector",
+                    "/JspRedirector",
+                    "org.apache.jasper.servlet.JspServlet",
+                    "/jspRedirector.jsp"});
         }
     }
 
@@ -290,7 +358,7 @@ public class JettyTestSetup extends TestSetup
     private void addFilterRedirector(Object theContext,
         FilterConfiguration theConfiguration) throws Exception
     {
-        if (System.getProperty(CACTUS_JETTY_RESOURCE_DIR_PROPERTY) != null)
+        if (getResourceDir() != null)
         {
             // Get the WebApplicationHandler object in order to be able to add
             // the Cactus Filter redirector
