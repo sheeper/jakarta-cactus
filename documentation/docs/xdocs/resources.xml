@@ -21,8 +21,8 @@
             Link
           </td>
           <td>
-            <link href="http://sourceforge.net/projects/cactuswizard">Cactus Wizard
-            for JBuilder</link>
+            <link href="http://sourceforge.net/projects/cactuswizard">Cactus
+            Wizard for JBuilder</link>
           </td>
         </tr>
         <tr>
@@ -46,9 +46,10 @@
             Description
           </td>
           <td>
-            CactusWizard offers a JBuilder Wizard to generate Unit-Tests for the Java Programming
-            Language. It is possible to create JUnit-TestCases, -TestSuites and Cactus-TestCases
-            like ServletTestCase or JSPTestCase
+            CactusWizard offers a JBuilder Wizard to generate Unit-Tests for
+            the Java Programming Language. It is possible to create
+            JUnit-TestCases, -TestSuites and Cactus-TestCases like
+            ServletTestCase or JSPTestCase
           </td>
         </tr>
       </table>
@@ -177,6 +178,7 @@
       </table>
 
       <p/>
+
       <anchor id="xp_book"/>
       <table>
         <tr>
