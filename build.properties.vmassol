@@ -182,6 +182,6 @@ cactus.home.orion2x = c:/Apps/orion-2.0.2
 #javadoc.include = true
 
 # Properties needed to upload the documentation to the Cactus web site
-#jakarta.username = vmassol
-#scp = pscp
-#ssh = tortoisePlink
+jakarta.username = vmassol
+scp = pscp
+ssh = tortoisePlink
