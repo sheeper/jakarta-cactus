@@ -183,6 +183,7 @@
     <echo/>
     <echo>Options:</echo>
     <echo>  clover.enable = ${clover.enable}</echo>
+    <echo>  clover.jar = [${clover.jar}]</echo>
     <echo>  cactus.port = ${cactus.port}</echo>
 
     <condition property="properties.ok">
@@ -217,10 +218,21 @@
              needing to define the xerces.jar property -->
         <available classname="org.apache.xml.serialize.XMLSerializer"
             classpath="${xerces.jar}"/>
+        <!-- Check that clover.jar points to a valid file if clover is 
+             enabled -->
+        <or>
+          <and>        
+            <isset property="clover.enable"/>
+            <available file="${clover.jar}"/>
+          </and>
+          <not>
+            <isset property="clover.enable"/>
+          </not>
+        </or>            
       </and>
     </condition>
 
-    <fail unless="properties.ok">One or more required dependancies could not
+    <fail unless="properties.ok">One or more required dependencies could not
 be resolved. Please check you build.properties file, and run Ant with the 
 -verbose option for more details</fail>
 

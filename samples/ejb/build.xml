@@ -171,6 +171,7 @@
     <echo/>
     <echo>Options:</echo>
     <echo>  clover.enable = ${clover.enable}</echo>
+    <echo>  clover.jar = [${clover.jar}]</echo>
     <echo>  cactus.port = ${cactus.port}</echo>
 
     <condition property="properties.ok">
@@ -183,10 +184,20 @@
         <available file="${j2ee.jar}"/>
         <available file="${junit.jar}"/>
         <available file="${log4j.jar}"/>
-
         <!-- Verify that j2ee.jar contains ejb related classes -->
         <available classname="javax.ejb.EJBObject"
             classpath="${j2ee.jar}"/>
+        <!-- Check that clover.jar points to a valid file if clover is 
+             enabled -->
+        <or>
+          <and>        
+            <isset property="clover.enable"/>
+            <available file="${clover.jar}"/>
+          </and>
+          <not>
+            <isset property="clover.enable"/>
+          </not>
+        </or>            
       </and>
     </condition>
 

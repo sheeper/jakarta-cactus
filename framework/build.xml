@@ -103,6 +103,7 @@
     <echo/>
     <echo>Options:</echo>
     <echo>  clover.enable = ${clover.enable}</echo>
+    <echo>  clover.jar = [${clover.jar}]</echo>
 
     <path id="project.classpath">
       <pathelement location="${aspectjrt.jar}"/>
@@ -128,10 +129,21 @@
              xmlapis.jar property -->
         <available classname="javax.xml.transform.Transformer"
             classpathref="project.classpath"/>
+        <!-- Check that clover.jar points to a valid file if clover is 
+             enabled -->
+        <or>
+          <and>        
+            <isset property="clover.enable"/>
+            <available file="${clover.jar}"/>
+          </and>
+          <not>
+            <isset property="clover.enable"/>
+          </not>
+        </or>            
       </and>
     </condition>
 
-    <fail unless="properties.ok">One or more required dependancies could not
+    <fail unless="properties.ok">One or more required dependencies could not
 be resolved. Please check you build.properties file, and run Ant with the 
 -verbose option for more details</fail>
 
@@ -384,10 +396,6 @@ be resolved. Please check you build.properties file, and run Ant with the
       <pathelement location="${clover.jar}"/>
       <pathelement location="${log4j.jar}"/>
       <path refid="project.classpath"/>
-      <!-- Also add the Ant classpath so that if some jars (such as clover)
-           are located in Ant's lib/ directory, it will still work. Note that
-           this is because the clover.jar property is optional -->
-      <pathelement path="${java.class.path}"/>
     </path>
 
   </target>
