@@ -93,7 +93,7 @@
       <release version="1.7dev" date="in CVS">
         <action dev="VMA" type="update">
           Tested with Orion 1.6.0b, Orion 2.0.4, Tomcat 4.1.31, Tomcat 5.0.29,
-          Resin 2.1.14, Resin 3.0.9, JBoss 3.2.3.
+          Resin 2.1.14, Resin 3.0.9, JBoss 3.2.6.
         </action>
         <action dev="VMA" type="update">
           Added support for Resin 3.0.9 and above.

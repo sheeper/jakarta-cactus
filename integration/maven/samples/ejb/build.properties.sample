@@ -9,5 +9,5 @@
 
 # Paths to containers on which you wish to run the Cactus tests
 
-cactus.home.jboss3x = C:/Apps/jboss-3.2.3
+cactus.home.jboss3x = C:/Apps/jboss-3.2.6
 cactus.home.weblogic7x = C:/bea/weblogic700
