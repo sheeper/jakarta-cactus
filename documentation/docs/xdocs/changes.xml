@@ -90,7 +90,7 @@
       </devs>
 
       <release version="1.6dev" date="in CVS">
-        <action dev="VMA" type="delete">
+        <action dev="VMA" type="remove">
           Removed <code>org.apache.cactus.util.HttpURLConnection</code> class.
           It was a Commons HttpClient wrapper on top of the 
           <code>java.net.HttpURLConnection</code> class. However, this class is
