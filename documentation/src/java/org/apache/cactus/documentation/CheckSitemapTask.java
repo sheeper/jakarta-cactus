@@ -76,7 +76,8 @@ import org.xml.sax.SAXException;
  * Checks the sitemap for invalid resource links (currently only local).
  *
  * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
- *
+ * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
+ * 
  * @version $Id$
  */
 public class CheckSitemapTask extends Task
@@ -233,17 +234,40 @@ public class CheckSitemapTask extends Task
      */
     private boolean checkSitemapResource(Element theElement)
     {
-        String id = theElement.getAttribute("id");
-        String source = theElement.getAttribute("source");
-        if ((source == null) || (source.length() == 0))
+        if (isResourceToBeChecked(theElement))
         {
-            log("Skipping remote resource [" + id + "]", Project.MSG_VERBOSE);
-        }
-        else
-        {
-            checkLocalSitemapResource(id, source);
+            String id = theElement.getAttribute("id");
+            String source = theElement.getAttribute("source");
+                         
+    
+            if ((source == null) || (source.length() == 0))
+            {
+                log("Skipping remote resource [" + id + "]", 
+                    Project.MSG_VERBOSE);
+            }
+            else
+            {
+                checkLocalSitemapResource(id, source);
+            }
         }
         return true;
+    }
+
+    /**
+     * @param theElement the resource for which to verify if it is to be checked
+     * for existence
+     * @return true if the resource must be checked or false otherwise
+     */
+    private boolean isResourceToBeChecked(Element theElement)
+    {
+        // Checks are enabled by default 
+        boolean isToBeChecked = true;
+        if (theElement.getAttribute("check") != null)
+        {
+            isToBeChecked = 
+                (new Boolean(theElement.getAttribute("check"))).booleanValue();
+        }
+        return isToBeChecked;            
     }
     
     /**

@@ -26,6 +26,7 @@ TYPICAL INVOCATION:
     id ID #REQUIRED
     source CDATA #IMPLIED
     name CDATA #IMPLIED
+    check CDATA #IMPLIED
 >
 
 <!ELEMENT external (#PCDATA)>
