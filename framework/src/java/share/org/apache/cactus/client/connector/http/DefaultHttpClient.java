@@ -154,10 +154,10 @@ public class DefaultHttpClient
 
         // Open the first connection to the redirector to execute the test on
         // the server side
-        ConnectionHelper helper = ConnectionHelperFactory.getConnectionHelper(
-            this.configuration.getRedirectorURL(theRequest), 
-            this.configuration);
-
+        HttpClientConnectionHelper helper = 
+            new HttpClientConnectionHelper(
+                this.configuration.getRedirectorURL(theRequest));
+        
         HttpURLConnection connection = 
             helper.connect(theRequest, this.configuration); 
 
@@ -199,12 +199,13 @@ public class DefaultHttpClient
         }
 
         // Open the second connection to get the test results
-        ConnectionHelper helper = ConnectionHelperFactory.getConnectionHelper(
-            this.configuration.getRedirectorURL(resultsRequest),
-            this.configuration);
+        HttpClientConnectionHelper helper = 
+            new HttpClientConnectionHelper(
+                this.configuration.getRedirectorURL(resultsRequest));
 
         HttpURLConnection resultConnection = 
             helper.connect(resultsRequest, this.configuration);
+
         if (resultConnection.getResponseCode() != 200)
         {
             throw new ParsingException("Not a valid response ["

@@ -32,13 +32,6 @@ public interface Configuration
     String getContextURL();
 
     /**
-     * @return the 
-     * {@link org.apache.cactus.client.connector.http.ConnectionHelper} 
-     * classname to use for opening the HTTP connection
-     */
-    String getConnectionHelper();
-
-    /**
      * @return the initializer class (i.e. a class that is executed before the
      *         Cactus tests start on the client side) or null if none has been
      *         defined

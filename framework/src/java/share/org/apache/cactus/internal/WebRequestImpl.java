@@ -29,8 +29,7 @@ import org.apache.cactus.ServiceEnumeration;
 import org.apache.cactus.ServletURL;
 import org.apache.cactus.WebResponse;
 import org.apache.cactus.client.WebResponseObjectFactory;
-import org.apache.cactus.client.connector.http.ConnectionHelper;
-import org.apache.cactus.client.connector.http.ConnectionHelperFactory;
+import org.apache.cactus.client.connector.http.HttpClientConnectionHelper;
 import org.apache.cactus.configuration.WebConfiguration;
 import org.apache.cactus.internal.client.ClientException;
 import org.apache.cactus.util.ChainedRuntimeException;
@@ -196,9 +195,9 @@ public class WebRequestImpl extends BaseWebRequest
                 + "been called prior to calling getSessionCookie()");
         }
         
-        ConnectionHelper helper = ConnectionHelperFactory.getConnectionHelper(
-            ((WebConfiguration) getConfiguration()).getRedirectorURL(this), 
-            getConfiguration());
+        HttpClientConnectionHelper helper = 
+            new HttpClientConnectionHelper(
+                ((WebConfiguration) getConfiguration()).getRedirectorURL(this));
 
         WebRequestImpl obtainSessionIdRequest = new WebRequestImpl(
             (WebConfiguration) getConfiguration());

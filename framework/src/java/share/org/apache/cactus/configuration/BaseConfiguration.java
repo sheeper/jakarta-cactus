@@ -39,26 +39,6 @@ public class BaseConfiguration implements Configuration
         "cactus.contextURL";
 
     /**
-     * Name of the Cactus property for overriding the default
-     * {@link org.apache.cactus.client.ConnectionHelper}. Defaults to
-     * {@link org.apache.cactus.client.HttpClientConnectionHelper}
-     */
-    private static final String CACTUS_CONNECTION_HELPER_CLASSNAME_PROPERTY = 
-        "cactus.connectionHelper.classname";
-
-    /**
-     * Default HTTP connection class to use.
-     * 
-     * Note: We are using a string to point to the class to use. The reason is
-     * that this class is only needed on the client side. Using an explicit
-     * <code>HttpClientConnectionHelper.class.getName()</code> would require 
-     * the implementation library (e.g commons-httpclient) to be also present 
-     * on the server side classpath.
-     */
-    public static final String DEFAULT_CACTUS_CONNECTION_HELPER_CLASSNAME = 
-        "org.apache.cactus.client.connector.http.HttpClientConnectionHelper";
-
-    /**
      * Name of the Cactus property for defining an initializer (i.e. a class
      * that is executed before the Cactus tests start on the client side).
      */
@@ -81,27 +61,6 @@ public class BaseConfiguration implements Configuration
         }
 
         return contextURL;
-    }
-
-    /**
-     * @return the 
-     * {@link org.apache.cactus.client.connector.http.ConnectionHelper} 
-     * classname to use for opening the HTTP connection
-     */
-    public String getConnectionHelper()
-    {
-        // Try to read it from a System property first and then if not defined
-        // use the default.
-        String connectionHelperClassname = 
-            System.getProperty(CACTUS_CONNECTION_HELPER_CLASSNAME_PROPERTY);
-
-        if (connectionHelperClassname == null)
-        {
-            connectionHelperClassname = 
-                DEFAULT_CACTUS_CONNECTION_HELPER_CLASSNAME;
-        }
-
-        return connectionHelperClassname;
     }
 
     /**

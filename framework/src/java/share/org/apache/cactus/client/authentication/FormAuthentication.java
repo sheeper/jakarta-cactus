@@ -25,8 +25,7 @@ import java.net.URL;
 
 import org.apache.cactus.Cookie;
 import org.apache.cactus.WebRequest;
-import org.apache.cactus.client.connector.http.ConnectionHelper;
-import org.apache.cactus.client.connector.http.ConnectionHelperFactory;
+import org.apache.cactus.client.connector.http.HttpClientConnectionHelper;
 import org.apache.cactus.configuration.Configuration;
 import org.apache.cactus.configuration.WebConfiguration;
 import org.apache.cactus.internal.WebRequestImpl;
@@ -313,9 +312,10 @@ public class FormAuthentication extends AbstractAuthentication
             // Create a helper that will connect to a restricted resource.
             WebConfiguration webConfig = (WebConfiguration) theConfiguration;
             resource = webConfig.getRedirectorURL(theRequest);
-            ConnectionHelper helper =
-                ConnectionHelperFactory.getConnectionHelper(resource,
-                theConfiguration);
+
+            HttpClientConnectionHelper helper = 
+                new HttpClientConnectionHelper(resource);
+
             WebRequest request =
                 new WebRequestImpl((WebConfiguration) theConfiguration);
 
@@ -371,10 +371,9 @@ public class FormAuthentication extends AbstractAuthentication
         try
         {
             // Create a helper that will connect to the security check URL.
-            ConnectionHelper helper =
-                ConnectionHelperFactory.getConnectionHelper(
-                getSecurityCheckURL(theConfiguration).toString(),
-               (WebConfiguration) theConfiguration);
+            HttpClientConnectionHelper helper = 
+                new HttpClientConnectionHelper(
+                    getSecurityCheckURL(theConfiguration).toString());
 
             // Configure a web request with the JSESSIONID cookie,
             // the username and the password.

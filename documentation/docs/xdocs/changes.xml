@@ -91,6 +91,12 @@
 
       <release version="1.6dev" date="in CVS">
         <action dev="VMA" type="remove">
+          Removed ability to choose different HTTP connection helpers. The only
+          one supported now is the Commons HttpClient one provided internally
+          by Cactus. Thus the <code>cactus.connectionHelper.classname</code>
+          property is now removed.
+        </action>
+        <action dev="VMA" type="remove">
           Removed deprecated classes in the
           <code>org.apache.cactus.ant</code> packages as they have been
           deprecated for a long time.
