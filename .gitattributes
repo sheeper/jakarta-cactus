@@ -388,8 +388,6 @@ integration/ant/src/test-input/org/apache/cactus/integration/ant/notcactified.ea
 integration/ant/src/test-input/org/apache/cactus/integration/ant/test-cactifywar.xml svn_keywords=Author+Date+Id+Revision
 integration/ant/src/test-input/org/apache/cactus/integration/ant/test-cactus.xml svn_keywords=Author+Date+Id+Revision
 integration/ant/src/test-input/org/apache/cactus/integration/ant/test-runservertests.xml svn_keywords=Author+Date+Id+Revision
-integration/ant/src/test-input/org/apache/cactus/integration/ant/web-app_2_2.dtd svn_keywords=Author+Date+Id+Revision
-integration/ant/src/test-input/org/apache/cactus/integration/ant/web-app_2_3.dtd svn_keywords=Author+Date+Id+Revision
 integration/ant/src/test/org/apache/cactus/integration/ant/AntTestCase.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/test/org/apache/cactus/integration/ant/TestAll.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/test/org/apache/cactus/integration/ant/TestCactifyWarTask.java svn_keywords=Author+Date+Id+Revision

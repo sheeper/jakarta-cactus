@@ -6,12 +6,6 @@
 
   <target name="setUp">
     <mkdir dir="${work.dir}"/>
-    <xmlcatalog id="j2ee.dtds">
-      <dtd publicId="-//Sun Microsystems, Inc.//DTD Web Application 2.2//EN"
-          location="${basedir}/web-app_2_2.dtd"/>
-      <dtd publicId="-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
-          location="${basedir}/web-app_2_3.dtd"/>
-    </xmlcatalog>
   </target>
 
   <target name="testNeitherSrcFileNorVersionSet">
@@ -29,16 +23,12 @@
 
   <target name="testDefaultRedirectors22Doctype">
     <cactifywar srcfile="empty-2_2.war"
-        destfile="${work.dir}/destfile.war">
-      <xmlcatalog refid="j2ee.dtds"/>
-    </cactifywar>
+        destfile="${work.dir}/destfile.war"/>
   </target>
 
   <target name="testDefaultRedirectors23Doctype">
     <cactifywar srcfile="empty-2_3.war"
-        destfile="${work.dir}/destfile.war">
-      <xmlcatalog refid="j2ee.dtds"/>
-    </cactifywar>
+        destfile="${work.dir}/destfile.war"/>
   </target>
 
   <target name="testDefaultRedirectorsNewWar22">
