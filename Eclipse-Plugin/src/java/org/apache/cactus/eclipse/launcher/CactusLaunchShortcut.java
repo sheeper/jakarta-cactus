@@ -251,6 +251,7 @@ public class CactusLaunchShortcut
      */
     private void teardownCactusTests(IProgressMonitor thePM)
     {
+        //thePM.beginTask("Tearing down Cactus tests", 10);
         try
         {
             provider.stop(null, thePM);
