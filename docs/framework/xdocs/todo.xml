@@ -10,6 +10,9 @@
   </devs>
 
   <actions priority="high">
+    <action context="build">
+      Set up nightly builds (it is high time !).
+    </action>
     <action context="docs">
       Update web site documentation to explain new dependency with Log4j
     </action>
