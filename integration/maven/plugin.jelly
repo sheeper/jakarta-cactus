@@ -921,7 +921,7 @@
       <!-- include marked dependencies -->
       <j:forEach var="lib" items="${pom.artifacts}">
         <j:set var="dep" value="${lib.dependency}"/>      
-        <j:if test="${dep.getProperty('ear.bundle')=='true'}">
+        <j:if test="${dep.getProperty('ear.bundle')=='true' || dep.getProperty('ear.module')=='true'}">
           <ant:fileset dir="${lib.file.parent}">
             <ant:include name="${lib.file.name}"/>
           </ant:fileset>
@@ -1205,33 +1205,40 @@
 
         <j:forEach var="lib" items="${pom.artifacts}">
           <j:set var="dep" value="${lib.dependency}"/>
-          <j:if test="${dep.getProperty('ejb.manifest.classpath')=='true'}">
+          <j:if test="${dep.getProperty('ear.bundle')=='true' || dep.getProperty('ear.module')=='true'}">
             <j:choose>
               <j:when test="${dep.type=='war'}">
                 <x:element name="module">
                   <x:element name="web">
                     <x:element name="web-uri">${dep.getArtifact()}</x:element>
                     <x:element name="context-root">${dep.getProperty('ear.appxml.war.context-root')}</x:element>
-                  </x:element>
+                 </x:element>                
                 </x:element>
               </j:when>
               <j:when test="${dep.type=='ejb'}">
                 <x:element name="module">
-                  <x:element name="ejb">${dep.getArtifact()}</x:element>
+                  <x:element name="ejb">${dep.getArtifact()}</x:element>                 
                 </x:element>
-              </j:when>
+              </j:when>       
               <j:when test="${dep.type=='jar'}">
-                <x:element name="module">
-                  <x:element name="java">${dep.getArtifact()}</x:element>
-                </x:element>
+                <j:if test="${dep.getProperty('ear.module')=='true'}">
+                  <x:element name="module">  
+                    <x:element name="java">${dep.getArtifact()}</x:element>                 
+                  </x:element>
+                </j:if>
               </j:when>
               <j:when test="${dep.type=='rar'}">
+                <x:element name="module">  
+                  <x:element name="connector">${dep.getArtifact()}</x:element>                 
+                </x:element>
+              </j:when>
+              <j:when test="${dep.type=='sar'}">
                 <x:element name="module">
                   <x:element name="connector">${dep.getArtifact()}</x:element>
                 </x:element>
               </j:when>
-            </j:choose>
-          </j:if>
+            </j:choose> 
+          </j:if>        
         </j:forEach>
 
       </x:element>
