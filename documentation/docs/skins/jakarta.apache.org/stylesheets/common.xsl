@@ -53,6 +53,7 @@
     <xsl:if test="not($sitemap/resource[@id=$id])">
       <xsl:message terminate="yes">
         <xsl:text>Id [</xsl:text>
+        <xsl:value-of select="$id"/>
         <xsl:text>] has no reference in sitemap.xml</xsl:text>
       </xsl:message>
     </xsl:if>
