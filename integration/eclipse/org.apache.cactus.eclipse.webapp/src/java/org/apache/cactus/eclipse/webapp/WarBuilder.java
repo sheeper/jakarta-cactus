@@ -157,7 +157,7 @@ public class WarBuilder
 
         // path to the web directory relative to the user's project
         String userWebFilesPath = webapp.getDir();
-        if (userWebFilesPath.equals("") || userWebFilesPath == null)
+        if (userWebFilesPath == null || userWebFilesPath.equals(""))
         {
             this.userWebFilesDir = null;
             this.userWebXML = null;
@@ -204,22 +204,22 @@ public class WarBuilder
     {
         thePM.subTask(
             WebappMessages.getString("WarBuilder.message.createwar.monitor"));
-        outputWar.delete();
+        this.outputWar.delete();
         War warTask = new War();
         IPath tempJarsPath =
-            new Path(tempDir.getAbsolutePath()).append(JARS_PATH);
+            new Path(this.tempDir.getAbsolutePath()).append(JARS_PATH);
         File tempJarsDir = tempJarsPath.toFile();
         if (tempJarsDir.exists())
         {
             delete(tempJarsDir);
         }
         tempJarsDir.mkdir();
-        copyJars(jarEntries, tempJarsDir);
+        copyJars(this.jarEntries, tempJarsDir);
         thePM.worked(1);
         Project antProject = new Project();
         antProject.init();
         warTask.setProject(antProject);
-        warTask.setDestFile(outputWar);
+        warTask.setDestFile(this.outputWar);
         ZipFileSet classes = new ZipFileSet();
         classes.setDir(userClassFilesDir);
         warTask.addClasses(classes);
@@ -227,16 +227,16 @@ public class WarBuilder
         classes.setDir(userClassFilesDir);
         classes.setIncludes("log4j.properties");
         warTask.addClasses(classes);
-        if (userWebFilesDir != null && userWebFilesDir.exists())
+        if (this.userWebFilesDir != null && this.userWebFilesDir.exists())
         {
             FileSet webFiles = new FileSet();
-            webFiles.setDir(userWebFilesDir);
+            webFiles.setDir(this.userWebFilesDir);
             webFiles.setExcludes(WEBINF);
             warTask.addFileset(webFiles);
         }
-        if (userWebXML != null && userWebXML.exists())
+        if (this.userWebXML != null && this.userWebXML.exists())
         {
-            warTask.setWebxml(userWebXML);
+            warTask.setWebxml(this.userWebXML);
         }
         else
         {
@@ -247,7 +247,7 @@ public class WarBuilder
             {
                 // A file is needed for war creation
                 File voidFile = File.createTempFile("void", null);
-                createZipFile(outputWar, voidFile);
+                createZipFile(this.outputWar, voidFile);
                 voidFile.delete();
             }
             catch (IOException e)
@@ -270,7 +270,7 @@ public class WarBuilder
         warTask.execute();
         delete(tempJarsDir);
         thePM.worked(2);
-        return outputWar;
+        return this.outputWar;
     }
 
     /**
