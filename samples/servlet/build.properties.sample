@@ -31,6 +31,9 @@ jstl.jar = ${lib.repo}/jstl/jars/jstl-1.0.2.jar
 # The location of the JSTL jar
 standard.jar = ${lib.repo}/taglibs/jars/standard-1.0.2.jar
 
+# The location of the log4j jar
+log4j.jar = ${lib.repo}/log4j/jars/log4j-1.2.8.jar
+
 # -----------------------------------------------------------------------------
 # Optional properties
 # -----------------------------------------------------------------------------

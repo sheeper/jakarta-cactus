@@ -114,6 +114,8 @@ samples/servlet/ant.bat
 samples/servlet/build.properties
 samples/servlet/dist-12
 samples/servlet/dist-13
+samples/servlet/logging_client.properties
+samples/servlet/logging_server.properties
 samples/servlet/release-12
 samples/servlet/release-13
 samples/servlet/target-12

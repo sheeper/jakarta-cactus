@@ -136,6 +136,7 @@
     <basename property="httpunit.jar.name" file="${httpunit.jar}"/>
     <basename property="junit.jar.name" file="${junit.jar}"/>
     <basename property="nekohtml.jar.name" file="${nekohtml.jar}"/>
+    <basename property="log4j.jar.name" file="${log4j.jar}"/>
 
     <filterset id="jar.names">
       <filter token="jstl.jar.name" value="${jstl.jar.name}"/>
@@ -151,6 +152,7 @@
       <filter token="httpunit.jar.name" value="${httpunit.jar.name}"/>
       <filter token="junit.jar.name" value="${junit.jar.name}"/>
       <filter token="nekohtml.jar.name" value="${nekohtml.jar.name}"/>
+      <filter token="log4j.jar.name" value="${log4j.jar.name}"/>
     </filterset>
 
   </target>
@@ -192,6 +194,7 @@
         <available file="${commons.logging.jar}"/>
         <available file="${httpunit.jar}"/>
         <available file="${j2ee.jar}"/>
+        <available file="${log4j.jar}"/>
         <or>
           <not>
             <isset property="j2ee13.available"/>
@@ -268,6 +271,13 @@ be resolved. Please check you build.properties file, and run Ant with the
     <!-- Copy README file -->
     <copy todir="${target.sample.dir}" file="${base.dir}/README"/>
 
+    <!-- Copy sample logging properties file -->
+    <copy todir="${target.sample.dir}">
+      <fileset dir="${base.dir}">
+        <include name="logging_*.properties.sample"/>
+      </fileset>
+    </copy>
+    
   </target>
 
   <target name="sample.clover" depends="sample.main" if="clover.enable">
