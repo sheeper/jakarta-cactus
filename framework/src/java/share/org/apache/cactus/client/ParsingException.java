@@ -54,96 +54,43 @@
  * <http://www.apache.org/>.
  *
  */
-package org.apache.cactus.util;
+package org.apache.cactus.client;
 
-import java.io.PrintStream;
-import java.io.PrintWriter;
+import org.apache.cactus.util.ChainedException;
 
 /**
- * Represent an exception that should stop the running test. It is a runtime
- * exception but it will be caught by JUnit so the application will not stop.
- * The test will be reported as failed. It implements chaining.
+ * Thrown when parsing the Web Test result (XML) and trying to build a
+ * <code>WebTestResult</code> object.
+ *
+ * @see WebTestResultParser
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
  */
-public class ChainedRuntimeException extends RuntimeException
+public class ParsingException extends ChainedException
 {
     /**
-     * Original exception which caused this exception.
+     * @see ChainedException#ChainedException(String)
      */
-    protected Throwable originalException;
-
-    /**
-     * Create a <code>ChainedRuntimeException</code> and set the exception
-     * error message.
-     *
-     * @param theMessage the message of the exception
-     */
-    public ChainedRuntimeException(String theMessage)
-    {
-        this(theMessage, null);
-    }
-
-    /**
-     * Create a <code>ChainedRuntimeException</code>, set the exception error
-     * message along with the exception object that caused this exception.
-     *
-     * @param theMessage the detail of the error message
-     * @param theException the original exception
-     */
-    public ChainedRuntimeException(String theMessage, Throwable theException)
+    public ParsingException(String theMessage)
     {
         super(theMessage);
-        this.originalException = theException;
     }
 
     /**
-     * Create a <code>ChainedRuntimeException</code>, and set exception object
-     * that caused this exception. The message is set by default to be the one
-     * from the original exception.
-     *
-     * @param theException the original exception
+     * @see ChainedException#ChainedException(Throwable)
      */
-    public ChainedRuntimeException(Throwable theException)
+    public ParsingException(Throwable theException)
     {
-        super(theException.getMessage());
-        this.originalException = theException;
+        super(theException);
     }
 
     /**
-     * Print the full stack trace, including the original exception.
+     * @see ChainedException#ChainedException(String, Throwable)
      */
-    public void printStackTrace()
+    public ParsingException(String theMessage, Throwable theException)
     {
-        printStackTrace(System.err);
+        super(theMessage, theException);
     }
-
-    /**
-     * Print the full stack trace, including the original exception.
-     *
-     * @param thePs the byte stream in which to print the stack trace
-     */
-    public void printStackTrace(PrintStream thePs)
-    {
-        super.printStackTrace(thePs);
-        if (this.originalException != null) {
-            this.originalException.printStackTrace(thePs);
-        }
-    }
-
-    /**
-     * Print the full stack trace, including the original exception.
-     *
-     * @param thePw the character stream in which to print the stack trace
-     */
-    public void printStackTrace(PrintWriter thePw)
-    {
-        super.printStackTrace(thePw);
-        if (this.originalException != null) {
-            this.originalException.printStackTrace(thePw);
-        }
-    }
-
 }

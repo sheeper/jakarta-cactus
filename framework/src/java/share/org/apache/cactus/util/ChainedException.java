@@ -60,15 +60,13 @@ import java.io.PrintStream;
 import java.io.PrintWriter;
 
 /**
- * Represent an exception that should stop the running test. It is a runtime
- * exception but it will be caught by JUnit so the application will not stop.
- * The test will be reported as failed. It implements chaining.
+ * A checked chained exception.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
  */
-public class ChainedRuntimeException extends RuntimeException
+public class ChainedException extends Exception
 {
     /**
      * Original exception which caused this exception.
@@ -76,37 +74,37 @@ public class ChainedRuntimeException extends RuntimeException
     protected Throwable originalException;
 
     /**
-     * Create a <code>ChainedRuntimeException</code> and set the exception
-     * error message.
+     * Create a <code>ChainedException</code> and set the exception error
+     * message.
      *
      * @param theMessage the message of the exception
      */
-    public ChainedRuntimeException(String theMessage)
+    public ChainedException(String theMessage)
     {
         this(theMessage, null);
     }
 
     /**
-     * Create a <code>ChainedRuntimeException</code>, set the exception error
+     * Create a <code>ChainedException</code>, set the exception error
      * message along with the exception object that caused this exception.
      *
      * @param theMessage the detail of the error message
      * @param theException the original exception
      */
-    public ChainedRuntimeException(String theMessage, Throwable theException)
+    public ChainedException(String theMessage, Throwable theException)
     {
         super(theMessage);
         this.originalException = theException;
     }
 
     /**
-     * Create a <code>ChainedRuntimeException</code>, and set exception object
+     * Create a <code>ChaineException</code>, and set exception object
      * that caused this exception. The message is set by default to be the one
      * from the original exception.
      *
      * @param theException the original exception
      */
-    public ChainedRuntimeException(Throwable theException)
+    public ChainedException(Throwable theException)
     {
         super(theException.getMessage());
         this.originalException = theException;

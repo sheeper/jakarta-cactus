@@ -112,8 +112,10 @@ public class TestWebTestResultParser extends TestCase
 
     /**
      * Verify parsing when the test result contains no exception.
+     *
+     * @exception ParsingException if error
      */
-    public void testParseNoException()
+    public void testParseNoException() throws ParsingException
     {
         WebTestResult initialResult = new WebTestResult();
         WebTestResultParser parser = new WebTestResultParser();
@@ -128,8 +130,10 @@ public class TestWebTestResultParser extends TestCase
 
     /**
      * Verify parsing when the test result contains an exception.
+     *
+     * @exception ParsingException if error
      */
-    public void testParseWithException()
+    public void testParseWithException() throws ParsingException
     {
         Exception e = new Exception("test exception");
         WebTestResult initialResult = new WebTestResult(e);
@@ -148,8 +152,10 @@ public class TestWebTestResultParser extends TestCase
     /**
      * Verify the correct parsing behaviour to extract the ROOT element when
      * there is no exception returned in the test result.
+     *
+     * @exception ParsingException if error
      */
-    public void testReadRootElementEmpty()
+    public void testReadRootElementEmpty() throws ParsingException
     {
         WebTestResult initialResult = new WebTestResult();
         WebTestResultParser parser = new WebTestResultParser();
@@ -161,8 +167,10 @@ public class TestWebTestResultParser extends TestCase
     /**
      * Verify the correct parsing behaviour to extract the ROOT element when
      * there is an exception returned in the test result.
+     *
+     * @exception ParsingException if error
      */
-    public void testReadRootElementFull()
+    public void testReadRootElementFull() throws ParsingException
     {
         String expectedStart = "<exception classname=\"" +
             "java.lang.Exception\"><message><![CDATA[test exception]]>" +
@@ -182,8 +190,10 @@ public class TestWebTestResultParser extends TestCase
 
     /**
      * Verify the correct parsing behaviour to extract the exception classname.
+     *
+     * @exception ParsingException if error
      */
-    public void testReadExceptionClassName()
+    public void testReadExceptionClassName() throws ParsingException
     {
         String expectedStart = "<message><![CDATA[test exception]]>" +
             "</message><stacktrace><![CDATA[";
@@ -204,8 +214,10 @@ public class TestWebTestResultParser extends TestCase
 
     /**
      * Verify the correct parsing behaviour to extract the exception message.
+     *
+     * @exception ParsingException if error
      */
-    public void testReadExceptionMessage()
+    public void testReadExceptionMessage() throws ParsingException
     {
         String expectedStart = "<stacktrace><![CDATA[";
         String expectedEnd = "]]></stacktrace>";

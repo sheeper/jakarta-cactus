@@ -64,7 +64,9 @@ import org.apache.cactus.ServiceDefinition;
 import org.apache.cactus.ServiceEnumeration;
 import org.apache.cactus.WebRequest;
 import org.apache.cactus.WebTestResult;
+import org.apache.cactus.WebResponse;
 import org.apache.cactus.util.IoUtil;
+import org.apache.cactus.util.ChainedRuntimeException;
 import org.apache.cactus.client.authentication.AbstractAuthentication;
 
 /**
@@ -120,7 +122,16 @@ public abstract class AbstractHttpClient
         HttpURLConnection connection = callRunTest(theRequest);
 
         // Open the second connection to get the test results
-        WebTestResult result = callGetResult(theRequest.getAuthentication());
+        WebTestResult result = null;
+        try {
+            result = callGetResult(theRequest.getAuthentication());
+        } catch (ParsingException e) {
+            throw new ChainedRuntimeException("Failed to get the test " +
+                "results. This is probably due to an error that happened on " +
+                "the server side when trying to execute the tests. Here is " +
+                "what was returned by the server : [" +
+                new WebResponse(theRequest, connection).getText() + "]", e);
+        }
 
         // Check if the returned result object returned contains an error or
         // not. If yes, we need to raise an exception so that the JUnit

@@ -57,7 +57,6 @@
 package org.apache.cactus.client;
 
 import org.apache.cactus.WebTestResult;
-import org.apache.cactus.util.ChainedRuntimeException;
 
 /**
  * Parse a string representing a Test result and transform it into a
@@ -92,8 +91,9 @@ public class WebTestResultParser
      * @param theData the string to parse
      * @return the <code>WebTestResult</code> object corresponding to the data
      *         string
+     * @exception ParsingException if an error happens during parsing
      */
-    public WebTestResult parse(String theData)
+    public WebTestResult parse(String theData) throws ParsingException
     {
         String buffer;
         WebTestResult result;
@@ -118,8 +118,9 @@ public class WebTestResultParser
      *
      * @param theData the string buffer to parse
      * @return the string buffer minus what has been read
+     * @exception ParsingException if an error happens during parsing
      */
-    protected String readRootElement(String theData)
+    protected String readRootElement(String theData) throws ParsingException
     {
         String startRootString = "<" + WebTestResult.XML_ROOT_ELEMENT + ">";
         String endRootString = "</" + WebTestResult.XML_ROOT_ELEMENT + ">";
@@ -131,7 +132,7 @@ public class WebTestResultParser
             buffer = theData.substring(startRootString.length(),
                 theData.length() - endRootString.length());
         } else {
-            throw new ChainedRuntimeException("Not a valid response");
+            throw new ParsingException("Not a valid response");
         }
 
         return buffer;
@@ -143,8 +144,10 @@ public class WebTestResultParser
      *
      * @param theData the string buffer to parse
      * @return the string buffer minus what has been read
+     * @exception ParsingException if an error happens during parsing
      */
     protected String readExceptionClassname(String theData)
+        throws ParsingException
     {
         String startString = "<" + WebTestResult.XML_EXCEPTION_ELEMENT +
             " " + WebTestResult.XML_EXCEPTION_CLASSNAME_ATTRIBUTE + "=\"";
@@ -159,7 +162,7 @@ public class WebTestResultParser
                 this.exceptionClassname.length() + 2,
                 theData.length() - endString.length());
         } else {
-            throw new ChainedRuntimeException("Not a valid response");
+            throw new ParsingException("Not a valid response");
         }
 
         return buffer;
@@ -171,8 +174,10 @@ public class WebTestResultParser
      *
      * @param theData the string buffer to parse
      * @return the string buffer minus what has been read
+     * @exception ParsingException if an error happens during parsing
      */
     protected String readExceptionMessage(String theData)
+        throws ParsingException
     {
         String startString = "<" + WebTestResult.XML_EXCEPTION_MESSAGE_ELEMENT +
             "><![CDATA[";
@@ -186,7 +191,7 @@ public class WebTestResultParser
                 pos);
             buffer = theData.substring(pos + endString.length());
         } else {
-            throw new ChainedRuntimeException("Not a valid response");
+            throw new ParsingException("Not a valid response");
         }
 
         return buffer;
@@ -198,8 +203,10 @@ public class WebTestResultParser
      *
      * @param theData the string buffer to parse
      * @return the string buffer minus what has been read
+     * @exception ParsingException if an error happens during parsing
      */
     protected String readExceptionStacktrace(String theData)
+        throws ParsingException
     {
         String startString = "<" +
             WebTestResult.XML_EXCEPTION_STACKTRACE_ELEMENT + "><![CDATA[";
@@ -213,7 +220,7 @@ public class WebTestResultParser
                 pos);
             buffer = theData.substring(pos + endString.length());
         } else {
-            throw new ChainedRuntimeException("Not a valid response");
+            throw new ParsingException("Not a valid response");
         }
 
         return buffer;
