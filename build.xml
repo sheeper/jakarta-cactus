@@ -520,4 +520,71 @@
         description="Generate a nightly gump release">
     </target>
 
+    <!--
+       ========================================================================
+         Common target for both "release.src" and "gump.src".
+       ========================================================================
+    -->
+    <target name="release.src.common" depends="init">
+
+        <mkdir dir="${release.dir}"/>
+
+        <zip zipfile="${release.dir}/${cactus.release.src.name}.zip">
+
+            <zipfileset dir="." prefix="${cactus.release.src.name}">
+                <exclude name="**/target/**"/>
+                <exclude name="**/dist/**"/>
+                <exclude name="**/release/**"/>
+                <exclude name="**/misc/**"/>
+                <exclude name="**/*.log"/>
+                <exclude name="**/build.properties"/>
+            </zipfileset>
+
+        </zip>
+
+    </target>
+
+    <!--
+       ========================================================================
+         Generate the source distributable.
+       ========================================================================
+    -->
+    <target name="release.src.prepare" depends="init">
+
+        <!-- For a release, the suffix is the version -->
+        <property name="project.suffix" value="-${project.version}"/>
+
+        <!-- Name of full src release -->
+        <property name="cactus.release.src.name"
+            value="${project.prefix}${project.name.file}-src${project.suffix}"/>
+
+    </target>
+
+    <target name="release.src" depends="release.src.prepare,release.src.common"
+        description="Generate release sources">
+    </target>
+
+    <!--
+       ========================================================================
+         Generate the source nightly build distributable.
+       ========================================================================
+    -->
+    <target name="gump.src.prepare" depends="init">
+
+        <!-- Sets the date for the release prefix : YYYYMMDD -->
+        <tstamp/>
+
+        <!-- Suffix to add to all distributable files -->
+        <property name="project.suffix" value="-${DSTAMP}"/>
+
+        <!-- Name of nightly src release -->
+        <property name="cactus.release.src.name"
+            value="${project.prefix}${project.name.file}-src${project.suffix}"/>
+
+    </target>
+
+    <target name="gump.src" depends="gump.src.prepare,release.src.common"
+        description="Generate nightly gump sources">
+    </target>
+
 </project>
