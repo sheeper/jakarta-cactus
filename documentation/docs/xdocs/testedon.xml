@@ -111,8 +111,9 @@
             <td>1.6.0b, 2.0.1, 2.0.2</td>
             <td>1.2, 1.3</td>
             <td>
-              Does <strong>not</strong> work under JDK version 1.4 or later
-              but works with JDK 1.3.1.
+              Make sure you put the <code>tools.jar</code> corresponding to
+              the JDK you are using in <code>ORION_HOME</code> (i.e the place
+              where you installed Orion).
             </td>
           </tr>
           <tr>
