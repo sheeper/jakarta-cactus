@@ -49,6 +49,22 @@
 
     <release version="1.3 in CVS">
       <action dev="VMA" type="add">
+        Added a <link href="testedon.html">Tested On ...</link> page that gives
+        the list of Servers/Versions on which Cactus has been tested. Please
+        contribute if you have a working configuration not listed there.
+      </action>
+      <action dev="VMA" type="add">
+        Added a <link href="users.html">"Cactus users"</link> page so that
+        Cactus users can describe what they are doing with Cactus and share
+        that with others.
+      </action>
+      <action dev="VMA" type="add">
+        Added support for Resin 2.1.0. The <code>ResinRun</code> Cactus Ant
+        task that is used to start/stop Resin has been modified to support
+        both Resin 2.0 and Resin 2.1 (Resin 2.1 has changed its API to start
+        it).
+      </action>
+      <action dev="VMA" type="add">
         Added a Security Howto tutorial to explain how to unit test secure
         Servlet code.
       </action>
