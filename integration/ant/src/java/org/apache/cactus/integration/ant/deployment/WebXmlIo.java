@@ -93,9 +93,7 @@ public class WebXmlIo
 
     /**
      * Implementation of the SAX EntityResolver interface that looks up the
-     * web-app DTDs from the JAR. This resolver can also wrap around an existing
-     * entity resolver, delegating to it when it couldn't resolve an entity
-     * itself.
+     * web-app DTDs from the JAR.
      */
     private static class WebXmlEntityResolver implements EntityResolver
     {
@@ -112,7 +110,7 @@ public class WebXmlIo
                 String fileName = version.getSystemId().substring(
                     version.getSystemId().lastIndexOf('/'));
                 InputStream in = this.getClass().getResourceAsStream(
-                    "/org/apache/cactus/integration/ant/webxml/resources"
+                    "/org/apache/cactus/integration/ant/deployment/resources"
                     + fileName);
                 if (in != null)
                 {
