@@ -9,3 +9,5 @@ misc
 .project
 ant.bat
 maven.log
+cactus_client.log
+cactus_server.log

@@ -6,6 +6,8 @@ anttasks/build.properties
 anttasks/dist
 anttasks/target
 /build.properties
+/cactus_client.log
+/cactus_server.log
 /dist-12
 /dist-13
 documentation/ant.bat
