@@ -70,7 +70,8 @@ public aspect LogAspect
      * perform the logging and thus at execution time we would enter an infinite recursive loop.
      */
     pointcut logObjectCalls() :
-        execution(public * org.apache.cactus.util.log..*(..));
+        execution(public * org.apache.cactus.util.log..*(..)) ||
+        execution(public * org.apache.cactus.util.ClassLoaderUtils.loadPropertyResourceBundle(..));
 
     /**
      * All public static methods that have parameters.

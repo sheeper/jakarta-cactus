@@ -56,6 +56,11 @@
  */
 package org.apache.cactus.util;
 
+import java.util.ResourceBundle;
+import java.util.PropertyResourceBundle;
+import java.util.MissingResourceException;
+import java.util.Locale;
+
 /**
  * Utiliy methods related to class loading in a webapp environment.
  *
@@ -84,13 +89,13 @@ public class ClassLoaderUtils
         Class clazz = null;
 
         try {
-            // Try first from Context class loader so that we can put the
-            // Cactus jar as an external library.
-            clazz = loadClassFromContextClassLoader(theClassName);
-        } catch (Exception internalException) {
-            // It failed... Try from the webapp classloader.
+            // try loading from webapp classloader first
             clazz = loadClassFromWebappClassLoader(theClassName,
                 theReferrer);
+        } catch (Exception internalException) {
+            // Then try first from Context class loader so that we can put the
+            // Cactus jar as an external library.
+            clazz = loadClassFromContextClassLoader(theClassName);
         }
 
         return clazz;
@@ -126,4 +131,34 @@ public class ClassLoaderUtils
     {
         return Class.forName(theClassName, true, theReferrer.getClassLoader());
     }
+
+
+    /**
+     * Try loading a resource bundle from either the context class loader or
+     * the
+     *
+     * @param theName the resource bundle name
+     * @param theReferrer the resource bundle will be loaded using the
+     *        classloader which has loaded this referrer class
+     * @return the loaded resource bundle
+     */
+    public static ResourceBundle loadPropertyResourceBundle(
+        String theName, Class theReferrer)
+    {
+        ResourceBundle bundle;
+
+        try {
+            // Then, try to load from the referrer class loader first
+            bundle = PropertyResourceBundle.getBundle(theName,
+                Locale.getDefault(), theReferrer.getClassLoader());
+        } catch (MissingResourceException e) {
+            // Then, try to load from context classloader
+            bundle = PropertyResourceBundle.getBundle(theName,
+                Locale.getDefault(),
+                Thread.currentThread().getContextClassLoader());
+        }
+
+        return bundle;
+    }
+
 }

@@ -111,7 +111,8 @@ public class Configuration
             if (configOverride == null) {
                 // Try to read the default cactus configuration file from the
                 // classpath
-                config = PropertyResourceBundle.getBundle(CONFIG_DEFAULT_NAME);
+                config = ClassLoaderUtils.loadPropertyResourceBundle(
+                    CONFIG_DEFAULT_NAME, Configuration.class);
             } else {
                 try {
                     config = new PropertyResourceBundle(
