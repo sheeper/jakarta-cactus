@@ -115,11 +115,10 @@ public class WebResponseObjectFactory implements ResponseObjectFactory
         else if (theClassName.equals("java.net.HttpURLConnection"))
         {
             responseObject = this.connection;
-
-            // Else it is an error ...
         }
         else
         {
+            // Else it is an error ...
             throw new ClientException("Invalid parameter type [" + theClassName
                 + "]");
         }
