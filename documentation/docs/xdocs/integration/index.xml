@@ -20,11 +20,12 @@
       <ul>
         <li>
           <jump anchor="from_ant">From Ant</jump>, by using the
-          <code>&lt;junit&gt;</code> task
+          <code>&lt;cactifywar&gt;</code> and <code>&lt;cactus&gt;</code> 
+          custom Ant tasks.
         </li>
         <li>
           <jump anchor="from_command_line">From the java command line</jump>,
-          calling the <code>main()</code> method of a Test Runner.
+          calling the <code>main()</code> method of a JUnit Test Runner.
         </li>
         <li>
           <jump anchor="from_ide">From an IDE</jump> or any tool providing a
