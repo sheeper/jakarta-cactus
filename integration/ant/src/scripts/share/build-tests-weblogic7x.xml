@@ -24,6 +24,24 @@
              unit tests, stop the servlet engine, wait for it to be stopped.
              The servlet engine is stopped if the tests fail for any reason -->
 
+        <antcall target="cactus.runservertests.weblogic7x" inheritRefs="true"/>
+
+    </target>
+
+    <target name="cactus.runservertests.weblogic7x" depends="cactus.runservertests.task.weblogic7x, cactus.runservertests.target.weblogic7x"/>
+
+    <target name="cactus.runservertests.task.weblogic7x" if ="cactus.test.task">
+
+        <runservertests
+            testURL="http://localhost:${cactus.port}/${cactus.context}/ServletRedirector?Cactus_Service=RUN_TEST"
+            startTarget="cactus.start.weblogic7x"
+            stopTarget="cactus.stop.weblogic7x"
+            testTask="${cactus.test.task}"/>
+
+    </target>
+
+    <target name="cactus.runservertests.target.weblogic7x" unless="cactus.test.task">
+
         <runservertests
             testURL="http://localhost:${cactus.port}/${cactus.context}/ServletRedirector?Cactus_Service=RUN_TEST"
             startTarget="cactus.start.weblogic7x"
@@ -31,6 +49,7 @@
             testTarget="cactus.test"/>
 
     </target>
+
 
     <!--
        ========================================================================

@@ -15,6 +15,23 @@
         <!-- Start the servlet engine, wait for it to be started, run the
              unit tests, stop the servlet engine, wait for it to be stopped.
              The servlet engine is stopped if the tests fail for any reason -->
+        <antcall target="cactus.runservertests.tomcat4x" inheritRefs="true"/>
+
+    </target>
+
+    <target name="cactus.runservertests.tomcat4x" depends="cactus.runservertests.task.tomcat4x, cactus.runservertests.target.tomcat4x"/>
+
+    <target name="cactus.runservertests.task.tomcat4x" if ="cactus.test.task">
+
+        <runservertests
+            testURL="http://localhost:${cactus.port}/${cactus.context}/ServletRedirector?Cactus_Service=RUN_TEST"
+            startTarget="cactus.start.tomcat4x"
+            stopTarget="cactus.stop.tomcat4x"
+            testTask="${cactus.test.task}"/>
+
+    </target>
+
+    <target name="cactus.runservertests.target.tomcat4x" unless="cactus.test.task">
 
         <runservertests
             testURL="http://localhost:${cactus.port}/${cactus.context}/ServletRedirector?Cactus_Service=RUN_TEST"

@@ -56,7 +56,12 @@
  */
 package org.apache.cactus.integration.ant;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
 import org.apache.tools.ant.BuildException;
+import org.apache.tools.ant.Project;
+import org.apache.tools.ant.ProjectComponent;
 import org.apache.tools.ant.Task;
 import org.apache.tools.ant.taskdefs.CallTarget;
 
@@ -95,6 +100,11 @@ public class RunServerTestsTask extends Task
     private String testTarget;
 
     /**
+     * the fully qualified name of the test task.
+     */
+    private String testTask;
+
+    /**
      * The helper object used to start the server. We use a helper so that it
      * can also be reused in the <code>StartServerTask</code> task. Indeed,
      * with Ant 1.3 and before there are classloaders issues with calling a
@@ -127,7 +137,7 @@ public class RunServerTestsTask extends Task
         try
         {
             callStart();
-            callTests();
+            callTestTaskOrTarget();
         }
         finally
         {
@@ -138,6 +148,26 @@ public class RunServerTestsTask extends Task
                 callStop();
             }
         }
+    }
+
+    /**
+     * Call the test task or test target.
+     */
+    private void callTestTaskOrTarget() throws BuildException
+    {
+        if (testTarget != null)
+        {
+            callTestTarget();
+        }
+        else
+            if (testTask != null)
+            {
+                callTestTask();
+            }
+            else
+            {
+                throw new BuildException("Missing required attribute, one of testTarget or testTask");
+            }
     }
 
     /**
@@ -159,7 +189,7 @@ public class RunServerTestsTask extends Task
     /**
      * Call the run tests target
      */
-    private void callTests()
+    private void callTestTarget()
     {
         CallTarget callee;
 
@@ -172,6 +202,52 @@ public class RunServerTestsTask extends Task
         callee.init();
         callee.setTarget(this.testTarget);
         callee.execute();
+    }
+
+    /**
+     * Call the run tests target
+     */
+    private void callTestTask() throws BuildException
+    {
+        // Create task object
+        try
+        {
+
+            Class taskClass = Class.forName(testTask);
+            Object task = taskClass.newInstance();
+            Method[] methods = task.getClass().getMethods();
+			for (int i = 0; i < methods.length; i++)
+			{
+				if (methods[i].getName().equals("setProject")) {
+					Class[] parameters = methods[i].getParameterTypes();
+					Object[] arg = new Object[parameters.length];
+					for (int j=0;j<parameters.length;j++) {
+						arg[j] = parameters[j].newInstance();
+					}
+					arg[0] = project;
+					methods[i].invoke(task, arg);
+				}
+			}
+			taskClass.getMethod("execute", null).invoke(task, null);
+        }
+        catch (ClassNotFoundException e)
+        {
+            throw new BuildException(e);
+        }
+        catch (InstantiationException e)
+        {
+            throw new BuildException(e);
+        }
+        catch (IllegalAccessException e)
+        {
+            throw new BuildException(e);
+        }
+        catch (InvocationTargetException e) {
+        	throw new BuildException(e);
+        }
+		catch (NoSuchMethodException e) {
+			throw new BuildException(e);
+		}        
     }
 
     /**
@@ -213,6 +289,16 @@ public class RunServerTestsTask extends Task
     public void setTestTarget(String theTestTarget)
     {
         this.testTarget = theTestTarget;
+    }
+
+    /**
+     * Sets the target to call to run the tests.
+     *
+     * @param theTestTarget the Ant target to call
+     */
+    public void setTestTask(String theTestTask)
+    {
+        this.testTask = theTestTask;
     }
 
     /**

@@ -26,6 +26,24 @@
              unit tests, stop the container, wait for it to be stopped.
              The container is stopped if the tests fail for any reason -->
 
+        <antcall target="cactus.runservertests.jboss3x" inheritRefs="true"/>
+
+    </target>
+
+    <target name="cactus.runservertests.jboss3x" depends="cactus.runservertests.task.jboss3x, cactus.runservertests.target.jboss3x"/>
+
+    <target name="cactus.runservertests.task.jboss3x" if ="cactus.test.task">
+
+        <runservertests
+            testURL="http://localhost:${cactus.port}/${cactus.context}/ServletRedirector?Cactus_Service=RUN_TEST"
+            startTarget="cactus.start.jboss3x"
+            stopTarget="cactus.stop.jboss3x"
+            testTask="${cactus.test.task}"/>
+
+    </target>
+
+    <target name="cactus.runservertests.target.jboss3x" unless="cactus.test.task">
+
         <runservertests
             testURL="http://localhost:${cactus.port}/${cactus.context}/ServletRedirector?Cactus_Service=RUN_TEST"
             startTarget="cactus.start.jboss3x"

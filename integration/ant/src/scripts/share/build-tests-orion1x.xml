@@ -16,6 +16,24 @@
              unit tests, stop the servlet engine, wait for it to be stopped.
              The servlet engine is stopped if the tests fail for any reason -->
 
+        <antcall target="cactus.runservertests.orion1x" inheritRefs="true"/>
+
+    </target>
+
+    <target name="cactus.runservertests.orion1x" depends="cactus.runservertests.task.orion1x, cactus.runservertests.target.orion1x"/>
+
+    <target name="cactus.runservertests.task.orion1x" if ="cactus.test.task">
+
+        <runservertests
+            testURL="http://localhost:${cactus.port}/${cactus.context}/ServletRedirector?Cactus_Service=RUN_TEST"
+            startTarget="cactus.start.orion1x"
+            stopTarget="cactus.stop.orion1x"
+            testTask="${cactus.test.task}"/>
+
+    </target>
+
+    <target name="cactus.runservertests.target.orion1x" unless="cactus.test.task">
+
         <runservertests
             testURL="http://localhost:${cactus.port}/${cactus.context}/ServletRedirector?Cactus_Service=RUN_TEST"
             startTarget="cactus.start.orion1x"
