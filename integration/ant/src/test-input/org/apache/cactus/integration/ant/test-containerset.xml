@@ -26,4 +26,17 @@
     </containerset>
   </target>
 
+  <target name="testGenericContainerWithTasks">
+    <containerset id="test" proxyport="8088">
+      <generic port="8080">
+        <startup>
+          <property name="startup.executed" value="true"/>
+        </startup>
+        <shutdown>
+          <property name="shutdown.executed" value="true"/>
+        </shutdown>
+      </generic>
+    </containerset>
+  </target>
+
 </project>

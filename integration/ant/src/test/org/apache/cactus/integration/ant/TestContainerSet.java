@@ -173,4 +173,35 @@ public final class TestContainerSet extends AntTestCase
         assertEquals(8088, container.getPort());
     }
 
+    /**
+     * Verifies that the startup and shutdown hooks of a generic container
+     * nested in a container set definition are not invoked when defined, but
+     * when explicitly calling the container lifecycle methods.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
+    public void testGenericContainerWithTasks() throws Exception
+    {
+        executeTestTarget();
+        ContainerSet set = (ContainerSet) getProject().getReference("test");
+        Container[] containers = set.getContainers();
+
+        // Make sure that neither the startup nor the shutdown hook have been
+        // called yet
+        assertNull("The startup hook should not have been executed",
+            getProject().getProperty("startup.executed"));
+        assertNull("The shutdown hook should not have been executed",
+            getProject().getProperty("shutdown.executed"));
+
+        // Call the startup and shutdown hooks and assert that they have been
+        // executed
+        Container container = containers[0];
+        container.startUp();
+        assertEquals("The startup hook should have been executed, ",
+            "true", getProject().getProperty("startup.executed"));
+        container.shutDown();
+        assertEquals("The shutdown hook should have been executed, ",
+            "true", getProject().getProperty("shutdown.executed"));
+    }
+
 }
