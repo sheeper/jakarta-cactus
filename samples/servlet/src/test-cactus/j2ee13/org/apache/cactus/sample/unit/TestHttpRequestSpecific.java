@@ -104,4 +104,18 @@ public class TestHttpRequestSpecific extends ServletTestCase
         assertEquals("value 2", values[1]);        
     }
 
+    //-------------------------------------------------------------------------
+
+    /**
+     * Verifies that the wrapped HTTP request is a simple pass through when no
+     * simulation URL is defined.
+     */
+    public void testRequestURL()
+    {
+        StringBuffer realURL = request.getOriginalRequest().getRequestURL();
+        StringBuffer wrappedURL = request.getRequestURL();
+
+        assertEquals(realURL.toString(), wrappedURL.toString());
+    }
+
 }
