@@ -96,10 +96,6 @@
           <code>ANNOUNCEMENT.txt</code> as the email content):
           <ul>
             <li>
-              Jakarta WebSite: Modify the Jakarta Website to contain the
-              announcement.
-            </li>
-            <li>
               Cactus user mailing list: Send the announcement there with a
               subject of <code>[ANN] Cactus &lt;version&gt; has been
               released</code>.
