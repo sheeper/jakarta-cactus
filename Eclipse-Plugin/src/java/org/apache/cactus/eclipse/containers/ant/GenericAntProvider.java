@@ -54,13 +54,16 @@
  * <http://www.apache.org/>.
  *
  */
-package org.apache.cactus.eclipse.containers;
+package org.apache.cactus.eclipse.containers.ant;
 
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Vector;
 
+import org.apache.cactus.eclipse.containers.ContainerInfo;
+import org.apache.cactus.eclipse.containers.Credential;
+import org.apache.cactus.eclipse.containers.IContainerProvider;
 import org.apache.cactus.eclipse.ui.CactusPlugin;
 import org.eclipse.ant.core.AntRunner;
 import org.eclipse.core.runtime.CoreException;

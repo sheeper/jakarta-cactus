@@ -54,7 +54,7 @@
  * <http://www.apache.org/>.
  *
  */
-package org.apache.cactus.eclipse.containers;
+package org.apache.cactus.eclipse.containers.ant;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

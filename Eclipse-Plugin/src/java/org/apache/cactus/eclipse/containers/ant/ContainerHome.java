@@ -54,7 +54,7 @@
  * <http://www.apache.org/>.
  *
  */
-package org.apache.cactus.eclipse.containers;
+package org.apache.cactus.eclipse.containers.ant;
 
 /**
  * Class representing a target/directory couple.
