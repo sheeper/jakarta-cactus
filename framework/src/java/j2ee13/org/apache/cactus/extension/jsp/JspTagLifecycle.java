@@ -111,8 +111,8 @@ import org.apache.commons.logging.LogFactory;
  *       Instantiation of the tag under test
  *     </li>
  *     <li>
- *       Instantiation of the lifecycle helper, passing in the page context,
- *       the tag instance and optionally the parent tag
+ *       Instantiation of the lifecycle helper, passing in the page context and
+ *       the tag instance
  *     </li>
  *     <li>
  *       Set the tag's attributes
@@ -127,7 +127,7 @@ import org.apache.commons.logging.LogFactory;
  *   </ol>
  * </p>
  * 
- * <h4>Adding Special Assertions to the Lifecycle</h4>
+ * <h4>Adding Assertions to the Lifecycle</h4>
  * <p>
  *   <code>JspTagLifecycle</code> features a couple of methods that let you 
  *   easily add JUnit assertions about the tag's lifecycle to the test. For
@@ -152,9 +152,45 @@ import org.apache.commons.logging.LogFactory;
   JspTagLifecycle lifecycle = new JspTagLifecycle(pageContext, tag);
   tag.setVar("item");
   tag.setItems("One,Two,Three");
-  lifecycle.assertBodyEvaluated();
+  lifecycle.assertBodyEvaluated(3);
   lifecycle.assertScopedVariableExposed(
       "item", new Object[] {"One", "Two", "Three"});
+  lifecycle.invoke();</pre>
+ * </p>
+ * 
+ * <h4>Custom Assertions</h4>
+ * <p>
+ *   In some cases, using the assertions offered by <code>JspTagLifecycle</code>
+ *   does not suffice. In such cases, you need to use custom assertions.
+ *   You can add custom assertions by creating a concrete subclass of the 
+ *   {@link JspTagLifecycle.Interceptor Interceptor} class, and adding it to the
+ *   list of the tag lifecycles interceptors through 
+ *   {@link JspTagLifecycle#addInterceptor addInterceptor()}:
+ *   <pre>
+  ForEachTag tag = new ForEachTag();
+  JspTagLifecycle lifecycle = new JspTagLifecycle(pageContext, tag);
+  tag.setVarStatus("status");
+  tag.setBegin("0");
+  tag.setEnd("2");
+  lifecycle.addInterceptor(new JspTagLifecycle.Interceptor() {
+      public void evalBody(int theIteration, BodyContent theBody) {
+          LoopTagStatus status = (LoopTagStatus)
+              pageContext.findAttribute("status");
+          assertNotNull(status);
+          if (theIteration == 0) {
+              assertTrue(status.isFirst());
+              assertFalse(status.isLast());
+          }
+          else if (theIteration == 1) {
+              assertFalse(status.isFirst());
+              assertFalse(status.isLast());
+          }
+          else if (theIteration == 2) {
+              assertFalse(status.isFirst());
+              assertTrue(status.isLast());
+          }
+      }
+  });
   lifecycle.invoke();</pre>
  * </p>
  * 
@@ -162,7 +198,60 @@ import org.apache.commons.logging.LogFactory;
  * <p>
  *   <code>JspTagLifecycle</code> let's you add nested tempate text as well as 
  *   nested tags to the tag under test. The most important use of this feature 
- *   is testing of collaboration between tags.
+ *   is testing of collaboration between tags, but it also allows you to easily
+ *   check whether a tag correctly handles its body content.
+ * </p>
+ * <p>
+ *   The following example demonstrates how to add nested template text to the 
+ *   tag, and how to assert that the body was written to the HTTP response on
+ *   the client side:
+ *   <pre>
+  public void testOutTagDefaultBody() throws JspException, IOException {
+      OutTag tag = new OutTag();
+      JspTagLifecycle lifecycle = new JspTagLifecycle(pageContext, tag);
+      tag.setValue(null);
+      lifecycle.addNestedText("Default");
+      lifecycle.assertBodyEvaluated();
+      lifecycle.invoke();
+  }
+  public void endOutTagDefaultBody(WebResponse theResponse) {
+      String output = theResponse.getText();
+      assertEquals("Default", output);
+  }</pre>
+ * </p>
+ * <p>
+ *   In sophisticated tag libraries, there will be many cases where tags need 
+ *   to collaborate with each other in some way. This is usually done by nesting
+ *   such tags within eachother. <code>JspTagLifecycle</code> supports such 
+ *   scenarios by allowing you to add nested tags to an existing tag lifecycle.
+ *   The nested tags can than be decorated with assertions themselves, as you
+ *   can see in the following example:
+ *   <pre>
+  ChooseTag chooseTag = new ChooseTag();
+  JspTagLifecycle chooseLifecycle =
+      new JspTagLifecycle(pageContext, chooseTag);
+  WhenTag whenTag = new WhenTag();
+  JspTagLifecycle whenLifecycle =
+      chooseLifecycle.addNestedTag(whenTag);
+  whenTag.setTest("false");
+  whenLifecycle.assertBodySkipped();
+  OtherwiseTag otherwiseTag = new OtherwiseTag();
+  JspTagLifecycle otherwiseLifecycle =
+      chooseLifecycle.addNestedTag(otherwiseTag);
+  otherwiseLifecycle.assertBodyEvaluated();
+  chooseLifecycle.invoke();</pre>
+ *   The code above creates a constellation of tags equivalent to the following
+ *   JSP fragment:
+ *   <pre>
+&lt;c:choose&gt;
+  &lt;c:when test='false'&gt;
+    &lt;%-- body content not significant for the test --%&gt;
+  &lt;/c:when&gt;
+  &lt;c:otherwise&gt;
+    &lt;%-- body content not significant for the test --%&gt;
+  &lt;/c:otherwise&gt;
+&lt;/c:choose&gt;
+</pre>
  * </p>
  * 
  * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
