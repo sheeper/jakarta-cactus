@@ -113,7 +113,7 @@ public class WebClientTestCaseDelegate extends AbstractClientTestCaseDelegate
      * @exception Throwable any error that occurred when calling the test method
      *            for the current test case.
      */
-    protected void runGenericTest(DefaultHttpClient theHttpClient)
+    private void runGenericTest(DefaultHttpClient theHttpClient)
         throws Throwable
     {
         WebRequest request = new WebRequestImpl(
@@ -135,7 +135,7 @@ public class WebClientTestCaseDelegate extends AbstractClientTestCaseDelegate
             response);
 
         // Close the input stream (just in the case the user has not done it
-        // in it's endXXX method (or if he has no endXXX method) ....
+        // in it's endXXX method (or if it has no endXXX method) ....
         connection.getInputStream().close();
     }
 
@@ -167,6 +167,7 @@ public class WebClientTestCaseDelegate extends AbstractClientTestCaseDelegate
         {
               directives.setWrappedTestName(getWrappedTestName());
         }
+
         // Add the simulated URL (if one has been defined)
         if (theRequest.getURL() != null)
         {
