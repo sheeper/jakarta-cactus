@@ -23,6 +23,12 @@
     </devs>
 
     <release version="1.2 in CVS">
+      <action dev="VMA" type="docs">
+        New tutorial for integration within VisualAge for Java. Thanks to
+        <link href="mailto:Todd_Idler@jdedwards.com">
+        Todd Idler</link> and <link href="mailto:andrew.forman@wcom.com">
+        Andrew B Forman</link> for providing the information for this tutorial.
+      </action>
       <action dev="VMA" type="add">
         Added automatic Ant script support for Tomcat 3.3.
       </action>
