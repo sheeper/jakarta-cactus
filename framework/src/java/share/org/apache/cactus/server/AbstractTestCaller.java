@@ -288,20 +288,6 @@ public abstract class AbstractTestCaller
     protected AbstractTestCase getTestClassInstance(String theClassName,
         String theTestCaseName) throws ServletException
     {
-        // Print info on the classloader used to load this class
-        if (LOGGER.isDebugEnabled()) {
-            StringBuffer buffer = new StringBuffer("Classloaders = ");
-            ClassLoader classLoader = getAppropriateClassLoader();
-            while (classLoader != null) {
-                buffer.append(classLoader.toString());
-                classLoader = classLoader.getParent();
-                if (classLoader != null) {
-                    buffer.append(", ");
-                }
-            }
-            LOGGER.debug(buffer.toString());
-        }
-
         // Get the class to call and build an instance of it.
         Class testClass = getTestClassClass(theClassName);
         AbstractTestCase testInstance = null;
@@ -333,18 +319,25 @@ public abstract class AbstractTestCaller
         // Get the class to call and build an instance of it.
         Class testClass = null;
         try {
-            testClass = Class.forName(theClassName, true,
-                getAppropriateClassLoader());
+
+            try {
+                // Try first from Context class loader so that we can put the
+                // Cactus jar as an external library.
+                testClass = getTestClassFromContextClassLoader(theClassName);
+            } catch (Exception internalException) {
+                // It failed... Try from the webapp classloader.
+                testClass = getTestClassFromWebappClassLoader(theClassName);
+            }
+
         } catch (Exception e) {
             String message = "Error finding class [" + theClassName +
-                "] in classpath. ";
-            message += "If you are getting this message Cactus may ";
-            message += "not be able to see your test cases.\r\n ";
-            message += "Possible causes include:\r\n";
-            message += "\t- Your webapp may not include your test classes,\r\n";
-            message += "\t- The cactus.jar resides in a global location and";
-            message += " your test classes reside in a specific webapp,\r\n";
-            message += "\t- Something else ... !";
+                "] using both the Context classloader and the webapp " +
+                "classloader. Possible causes include:\r\n";
+            message += "\t- Your webapp does not include your test " +
+                "classes,\r\n";
+            message += "\t- The cactus.jar is not located in your " +
+                "WEB-INF/lib directory and your Container has not set the " +
+                "Context classloader to point to the webapp one";
 
             LOGGER.error(message, e);
             throw new ServletException(message, e);
@@ -354,20 +347,33 @@ public abstract class AbstractTestCaller
     }
 
     /**
-     * Enable the Cactus jar to be put in the system classpath and still be
-     * able to load classes that must be loaded by the webapp classloader by
-     * using the Context class loader (if set) to load these classes.
+     * Try loading test class using the Context class loader.
      *
-     * @return either the Context class loader or the class loader that was
-     *         used to load the current class.
+     * @param theClassName the test class to load
+     * @return the <code>Class</code> object for the class to load
+     * @exception ClassNotFoundException if the class cannot be loaded through
+     *            this class loader
      */
-    private ClassLoader getAppropriateClassLoader()
+    private Class getTestClassFromContextClassLoader(String theClassName)
+        throws ClassNotFoundException
     {
-        ClassLoader loader = Thread.currentThread().getContextClassLoader();
-        if (loader == null) {
-            loader = this.getClass().getClassLoader();
-        }
-        return loader;
+        return Class.forName(theClassName, true,
+            Thread.currentThread().getContextClassLoader());
+    }
+
+    /**
+     * Try loading test class using the Webapp class loader.
+     *
+     * @param theClassName the test class to load
+     * @return the <code>Class</code> object for the class to load
+     * @exception ClassNotFoundException if the class cannot be loaded through
+     *            this class loader
+     */
+    private Class getTestClassFromWebappClassLoader(String theClassName)
+        throws ClassNotFoundException
+    {
+        return Class.forName(theClassName, true,
+            this.getClass().getClassLoader());
     }
 
 }

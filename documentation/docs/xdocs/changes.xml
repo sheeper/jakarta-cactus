@@ -48,6 +48,16 @@
     </devs>
 
     <release version="1.3 in CVS">
+      <action dev="VMA" type="update">
+        Improved classloader support on the server side : Cactus first tries
+        to load the Class to test using the Context class loader (thus, if you
+        container has set the context class loader to point to the webapp
+        classloader you'll be able to use Cactus as an extension and share it
+        between projects). If the class cannot be loaded through the context
+        class loader, Cactus then tries to load it using the Webapp classloader
+        (in that case you'll need to have <code>cactus.jar</code> in your
+        <code>WEB-INF/lib</code> directory).
+      </action>
       <action dev="VMA" type="fix" due-to="Kjeld" due-to-email="kfr@eos.dk">
        (<link href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=6093">
         Bug #6093</link>). Modified the mechanism to get test result from the
