@@ -29,6 +29,7 @@
   <menu label="Design">
     <menu-item label="Architecture" source="architecture.xml"/>
     <menu-item label="Mock vs Container" source="mockobjects.xml"/>
+    <menu-item label="Cactus v2 proposal" source="cactusv2.xml"/>
   </menu>
 
   <menu label="User Guides">
