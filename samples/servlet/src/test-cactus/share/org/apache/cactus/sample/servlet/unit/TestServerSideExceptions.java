@@ -125,11 +125,11 @@ public class TestServerSideExceptions extends ServletTestCase
      * 
      * @exception Throwable on test failure
      */
-    protected void runCactusTest() throws Throwable
+    public void runBare() throws Throwable
     {
         try
         {
-            super.runCactusTest();
+            super.runBare();
         }
         catch (AssertionFailedErrorWrapper e)
         {
