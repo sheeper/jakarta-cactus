@@ -40,8 +40,7 @@
 
         <tr>
           <td>
-            <link href="http://jakarta.apache.org/turbine/maven/reference/plugins/cactus/">Maven
-            Cactus Plugin</link>
+            <link href="ext:maven_cactus">Maven Cactus Plugin</link>
           </td>
 		  <td>
 		    Software
