@@ -42,7 +42,7 @@
     <item id="howto_build"/>
     <item id="coverage"/>
     <item id="release_checklist"/>
-    <item id="open_issues" label="Open Issues"/>
+    <item id="bug_database_cactus_open" label="Open Issues"/>
   </menu>
 
   <menu label="Miscellaneous">
