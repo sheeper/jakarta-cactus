@@ -59,6 +59,6 @@ public class OrchestratorClientTest extends TestCase
     public void testPrepareTestWhenOrchestratorStarted() throws Throwable
     {
         client.setTest("testXXX");
-        assertEquals("test", client.getTest());
+        assertEquals("testXXX", client.getTest());
     }
 }
