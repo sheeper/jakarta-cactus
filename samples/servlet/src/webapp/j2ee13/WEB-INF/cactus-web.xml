@@ -5,6 +5,11 @@
 
 <web-app>
 
+    <context-param>
+      <param-name>param</param-name>
+      <param-value>value used for testing</param-value>
+    </context-param>
+    
     <servlet>
         <servlet-name>ServletRedirector</servlet-name>
         <servlet-class>org.apache.cactus.server.ServletTestRedirector</servlet-class>

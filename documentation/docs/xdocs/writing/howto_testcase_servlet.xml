@@ -258,6 +258,11 @@
               by calls to <code>ServletContext.log()</code> methods. This is
               a helper method that makes it easy to assert what is logged.
             </li>
+            <li>
+              <code>setInitParameter()</code>: sets an initialisation
+              parameter (as if it has been defined in the <code>web.xml</code>
+              file, using the <code>&lt;context-param&gt;</code> element).
+            </li>
           </ul>
 
         </section>

@@ -1,7 +1,7 @@
 /* 
  * ========================================================================
  * 
- * Copyright 2003 The Apache Software Foundation.
+ * Copyright 2003-2004 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,6 +37,7 @@ import org.w3c.dom.Element;
  * TODO: we need more tests for the security sections and the various references
  * 
  * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
+ * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
  */
@@ -91,6 +92,32 @@ public final class TestWebXmlMerger extends TestCase
     }
 
     /**
+     * Tests whether a single context param is correctly merged into an empty
+     * descriptor.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
+    public void testMergeOneContextParamIntoEmptyDocument() throws Exception
+    {
+        String srcXml = "<web-app></web-app>";
+        Document srcDoc =
+            builder.parse(new ByteArrayInputStream(srcXml.getBytes()));
+        WebXml srcWebXml = new WebXml(srcDoc);
+        String mergeXml = "<web-app>"
+            + "  <context-param>"
+            + "    <param-name>param</param-name>"
+            + "    <param-value>value</param-value>"
+            + "  </context-param>"
+            + "</web-app>";
+        Document mergeDoc =
+            builder.parse(new ByteArrayInputStream(mergeXml.getBytes()));
+        WebXml mergeWebXml = new WebXml(mergeDoc);
+        WebXmlMerger merger = new WebXmlMerger(srcWebXml);
+        merger.mergeContextParams(mergeWebXml);
+        assertTrue(srcWebXml.hasContextParam("param"));
+    }
+    
+    /**
      * Tests whether a single filter is correctly merged into a descriptor that
      * already contains another filter.
      * 
@@ -124,6 +151,39 @@ public final class TestWebXmlMerger extends TestCase
     }
 
     /**
+     * Tests whether a single context param is correctly merged into a 
+     * descriptor that already contains another context param.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
+    public void testMergeOneContextParamIntoDocumentWithAnotherContextParam()
+        throws Exception
+    {
+        String srcXml = "<web-app>"
+            + "  <context-param>"
+            + "    <param-name>param1</param-name>"
+            + "    <param-value>value1</param-value>"
+            + "  </context-param>"
+            + "</web-app>";
+        Document srcDoc =
+            builder.parse(new ByteArrayInputStream(srcXml.getBytes()));
+        WebXml srcWebXml = new WebXml(srcDoc);
+        String mergeXml = "<web-app>"
+            + "  <context-param>"
+            + "    <param-name>param2</param-name>"
+            + "    <param-value>value2</param-value>"
+            + "  </context-param>"
+            + "</web-app>";
+        Document mergeDoc =
+            builder.parse(new ByteArrayInputStream(mergeXml.getBytes()));
+        WebXml mergeWebXml = new WebXml(mergeDoc);
+        WebXmlMerger merger = new WebXmlMerger(srcWebXml);
+        merger.mergeContextParams(mergeWebXml);
+        assertTrue(srcWebXml.hasContextParam("param1"));
+        assertTrue(srcWebXml.hasContextParam("param2"));
+    }
+
+    /**
      * Tests whether a single filter in the merge descriptor is ignored because
      * a filter with the same name already exists in the source descriptor. 
      * 
@@ -141,12 +201,7 @@ public final class TestWebXmlMerger extends TestCase
         Document srcDoc =
             builder.parse(new ByteArrayInputStream(srcXml.getBytes()));
         WebXml srcWebXml = new WebXml(srcDoc);
-        String mergeXml = "<web-app>"
-            + "  <filter>"
-            + "    <filter-name>f1</filter-name>"
-            + "    <filter-class>fclass1</filter-class>"
-            + "  </filter>"
-            + "</web-app>";
+        String mergeXml = srcXml;
         Document mergeDoc =
             builder.parse(new ByteArrayInputStream(mergeXml.getBytes()));
         WebXml mergeWebXml = new WebXml(mergeDoc);
@@ -155,6 +210,34 @@ public final class TestWebXmlMerger extends TestCase
         assertTrue(srcWebXml.hasFilter("f1"));
     }
 
+    /**
+     * Tests whether a single context param in the merge descriptor is ignored 
+     * because a context param with the same name already exists in the source 
+     * descriptor. 
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
+    public void testMergeOneContextParamIntoDocumentWithSameContextParam()
+        throws Exception
+    {
+        String srcXml = "<web-app>"
+            + "  <context-param>"
+            + "    <param-name>param</param-name>"
+            + "    <param-value>value</param-value>"
+            + "  </context-param>"
+            + "</web-app>";
+        Document srcDoc =
+            builder.parse(new ByteArrayInputStream(srcXml.getBytes()));
+        WebXml srcWebXml = new WebXml(srcDoc);
+        String mergeXml = srcXml;
+        Document mergeDoc =
+            builder.parse(new ByteArrayInputStream(mergeXml.getBytes()));
+        WebXml mergeWebXml = new WebXml(mergeDoc);
+        WebXmlMerger merger = new WebXmlMerger(srcWebXml);
+        merger.mergeContextParams(mergeWebXml);
+        assertTrue(srcWebXml.hasContextParam("param"));
+    }
+    
     /**
      * Tests whether a filter initialization parameter is merged into the
      * descriptor.

@@ -68,6 +68,16 @@
       </devs>
 
       <release version="1.6dev" date="in CVS">
+        <action dev="VMA" type="add">
+          Added new <code>ServletContextWrapper.setInitParameters()</code>
+          which allows to programatically define Context init parameters (as
+          if they had been entered in <code>web.xml</code> using the
+          <code>&lt;context-param&gt;</code> element.
+        </action>
+        <action dev="VMA" type="add">
+          Added support in the Ant integration <code>webxmlmerge</code> task 
+          for merging <code>&lt;context-param&gt;</code> elements.
+        </action>
         <action dev="VMA" type="update">
           Updated the version of Commons HttpClient in the Cactus distribution 
           to 2.0 final.
@@ -161,7 +171,7 @@
         </action>
         <action dev="VMA" type="fix" due-to="Joe Germuska" due-to-email="Joe@Germuska.com">
           Make the <code>&lt;cactus&gt;</code> task work on Mac OSX by not 
-          including the <code>tools.jar</code> file (on Max OSX all classes
+          including the <code>tools.jar</code> file (on Mac OSX all classes
           are found in <code>classes.jar</code>).
         </action>
         <action dev="VMA" type="fix" due-to="Kazuhito Suguri" due-to-email="suguri.kazuhito@lab.ntt.co.jp">

@@ -1,7 +1,7 @@
 /* 
  * ========================================================================
  * 
- * Copyright 2001-2003 The Apache Software Foundation.
+ * Copyright 2001-2004 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,6 +25,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import java.util.Enumeration;
+import java.util.Hashtable;
 import java.util.Vector;
 
 import javax.servlet.RequestDispatcher;
@@ -54,11 +55,16 @@ public abstract class AbstractServletContextWrapper implements ServletContext
     protected ServletContext originalContext;
 
     /**
+     * List of parameters set using the <code>setInitParameter()</code> method.
+     */
+    protected Hashtable initParameters;
+    
+    /**
      * The logs resulting from calling the <code>log()</code> methods
      */
     private Vector logs = new Vector();
 
-    // Interface methods ---------------------------------------------------
+    // Constructors  -------------------------------------------------------
 
     /**
      * @param theOriginalContext the original servlet context object
@@ -66,10 +72,32 @@ public abstract class AbstractServletContextWrapper implements ServletContext
     public AbstractServletContextWrapper(ServletContext theOriginalContext)
     {
         this.originalContext = theOriginalContext;
+        this.initParameters = new Hashtable();
     }
 
     // New methods ---------------------------------------------------------
 
+    /**
+     * @return the original unmodified config object
+     * @since 1.6
+     */
+    public ServletContext getOriginalContext()
+    {
+        return this.originalContext;
+    }
+    
+    /**
+     * Sets a parameter as if it were set in the <code>web.xml</code> file
+     * (using the &lt;context-param&gt; element).
+     *
+     * @param theName the parameter's name
+     * @param theValue the parameter's value
+     */
+    public void setInitParameter(String theName, String theValue)
+    {
+        this.initParameters.put(theName, theValue);
+    }
+    
     /**
      * Returns all the text logs that have been generated using the
      * <code>log()</code> methods so that it is possible to easily assert the
@@ -83,6 +111,8 @@ public abstract class AbstractServletContextWrapper implements ServletContext
     {
         return this.logs;
     }
+    
+    // Overridden methods --------------------------------------------------
 
     /**
      * @see ServletContext#setAttribute(String, Object)
@@ -295,21 +325,62 @@ public abstract class AbstractServletContextWrapper implements ServletContext
     }
 
     /**
-     * @see ServletContext#getInitParameterNames()
+     * @return the union of the parameters defined in the Redirector
+     *         <code>web.xml</code> file and the one set using the
+     *         <code>setInitParameter()</code> method.
      */
     public Enumeration getInitParameterNames()
     {
-        return this.originalContext.getInitParameterNames();
+        Vector names = new Vector();
+
+        // Add parameters that were added using setInitParameter()
+        Enumeration enum = this.initParameters.keys();
+
+        while (enum.hasMoreElements())
+        {
+            String value = (String) enum.nextElement();
+
+            names.add(value);
+        }
+
+        // Add parameters from web.xml
+        enum = this.originalContext.getInitParameterNames();
+
+        while (enum.hasMoreElements())
+        {
+            String value = (String) enum.nextElement();
+
+            // Do not add parameters that have been overriden by calling
+            // the setInitParameter() method.
+            if (!names.contains(value))
+            {
+                names.add(value);
+            }
+        }
+
+        return names.elements();
     }
 
     /**
-     * @see ServletContext#getInitParameter(String)
+     * @param theName the name of the parameter's value to return
+     * @return the value of the parameter, looking for it first in the list of
+     *         parameters set using the <code>setInitParameter()</code> method
+     *         and then in those set in <code>web.xml</code>.
      */
     public String getInitParameter(String theName)
     {
-        return this.originalContext.getInitParameter(theName);
-    }
+        // Look first in the list of parameters set using the
+        // setInitParameter() method.
+        String value = (String) this.initParameters.get(theName);
 
+        if (value == null)
+        {
+            value = this.originalContext.getInitParameter(theName);
+        }
+
+        return value;
+    }
+    
     /**
      * @param theUripath a String specifying the context path of another web
      *        application in the container

@@ -1,7 +1,7 @@
 /* 
  * ========================================================================
  * 
- * Copyright 2003 The Apache Software Foundation.
+ * Copyright 2003-2004 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -43,6 +43,7 @@ import org.xml.sax.SAXException;
  * Unit tests for {@link WebXml}.
  *
  * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
+ * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
  */
@@ -422,6 +423,23 @@ public final class TestWebXml extends TestCase
         assertEquals("/f1mapping", filterMappings.next());
         assertTrue(!filterMappings.hasNext());
     }
+
+    /**
+     * Tests whether a single context-param is correctly inserted into an empty
+     * descriptor.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
+    public void testAddContextParamToEmptyDocument() throws Exception
+    {
+        String xml = "<web-app></web-app>";
+        Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
+        WebXml webXml = new WebXml(doc);
+        Element contextParamElement = 
+            createContextParamElement(doc, "param", "value");
+        webXml.addContextParam(contextParamElement);
+        assertTrue(webXml.hasContextParam("param"));
+    }
     
     /**
      * Tests whether a single filter is correctly inserted into an empty
@@ -439,6 +457,30 @@ public final class TestWebXml extends TestCase
         assertTrue(webXml.hasFilter("f1"));
     }
 
+    /**
+     * Tests whether a single context param is correctly inserted into a 
+     * descriptor that already contains an other context param definition.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
+    public void testAddContextParamToDocumentWithAnotherContextParam() 
+        throws Exception
+    {
+        String xml = "<web-app>"
+            + "  <context-param>"
+            + "    <param-name>param1</param-name>"
+            + "    <param-value>value1</param-value>"
+            + "  </context-param>"
+            + "</web-app>";
+        Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
+        WebXml webXml = new WebXml(doc);
+        Element contextParamElement = 
+            createContextParamElement(doc, "param2", "value2");
+        webXml.addContextParam(contextParamElement);
+        assertTrue(webXml.hasContextParam("param1"));
+        assertTrue(webXml.hasContextParam("param2"));
+    }
+    
     /**
      * Tests whether a single filter is correctly inserted into a descriptor 
      * that already contains an other filter definition.
@@ -459,6 +501,37 @@ public final class TestWebXml extends TestCase
         webXml.addFilter(filterElement);
         assertTrue(webXml.hasFilter("f1"));
         assertTrue(webXml.hasFilter("f2"));
+    }
+
+    /**
+     * Tests whether trying to add a context param to a descriptor that already
+     * contains a context param definition with the same name results in an
+     * exception.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
+    public void testAddContextParamToDocumentWithTheSameContextParam() 
+        throws Exception
+    {
+        String xml = "<web-app>"
+            + "  <context-param>"
+            + "    <param-name>param</param-name>"
+            + "    <param-value>value</param-value>"
+            + "  </context-param>"
+            + "</web-app>";
+        Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
+        WebXml webXml = new WebXml(doc);
+        Element contextParamElement = 
+            createContextParamElement(doc, "param", "value");
+        try
+        {
+            webXml.addContextParam(contextParamElement);
+            fail("Expected IllegalStateException");
+        }
+        catch (IllegalStateException ise)
+        {
+            // expected
+        }
     }
 
     /**
@@ -488,7 +561,7 @@ public final class TestWebXml extends TestCase
             // expected
         }
     }
-
+    
     /**
      * Tests whether a single initialization parameter can be added to a filter
      * definition.
@@ -1434,6 +1507,30 @@ public final class TestWebXml extends TestCase
 
     // Private Methods ---------------------------------------------------------
 
+    /**
+     * Create a <code>context-param</code> element containing the specified 
+     * text in the child elements.
+     * 
+     * @param theDocument The DOM document
+     * @param theParamName The parameter name
+     * @param theParamValue The parameter value
+     * @return The created element
+     */
+    public Element createContextParamElement(Document theDocument,
+        String theParamName, String theParamValue)
+    {
+        Element contextParamElement = 
+            theDocument.createElement("context-param");
+        Element paramNameElement = theDocument.createElement("param-name");
+        paramNameElement.appendChild(theDocument.createTextNode(theParamName));
+        contextParamElement.appendChild(paramNameElement);
+        Element paramValueElement = theDocument.createElement("param-value");
+        paramValueElement.appendChild(
+            theDocument.createTextNode(theParamValue));
+        contextParamElement.appendChild(paramValueElement);
+        return contextParamElement;
+    }
+    
     /**
      * Create a <code>filter</code> element containing the specified text in 
      * the child elements.

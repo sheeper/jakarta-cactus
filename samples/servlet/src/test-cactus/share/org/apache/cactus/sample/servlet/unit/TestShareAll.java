@@ -64,6 +64,7 @@ public abstract class TestShareAll
         suite.addTestSuite(TestHttpHeaders.class);
         suite.addTestSuite(TestHttpRequest.class);
         suite.addTestSuite(TestServletConfig.class);
+        suite.addTestSuite(TestServletContext.class);
         suite.addTest(TestJUnitTestCaseWrapper.suite());
         
         // JspTestCase related tests

@@ -6,6 +6,7 @@
     <title>WebXmlMerge Ant Task</title>
     <authors>
       <author name="Christopher Lenz" email="cmlenz@apache.org"/>
+      <author name="Vincent Massol" email="vmassol@apache.org"/>
     </authors>
   </properties>
 
@@ -25,6 +26,10 @@
       This task currently merges only a subset of the definitions in a 
       descriptor, based on the most common usage scenarios:
       <ul>
+        <li>
+          <emphasis>Context parameters</emphasis>: Any &lt;context-param&gt;
+          element get inserted into the resulting descriptor verbatim.
+        </li>
         <li>
           <emphasis>Servlets and Filters</emphasis>: Both the actual definition
           of the servlet/filter as well as the mappings to URL patterns are

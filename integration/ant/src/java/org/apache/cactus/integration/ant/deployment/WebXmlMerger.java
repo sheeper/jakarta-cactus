@@ -1,7 +1,7 @@
 /* 
  * ========================================================================
  * 
- * Copyright 2003 The Apache Software Foundation.
+ * Copyright 2003-2004 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,6 +29,7 @@ import org.w3c.dom.Element;
  * Helper class that can merge two web deployment descriptors.
  *
  * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
+ * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @since Cactus 1.5
  * @version $Id$
@@ -70,6 +71,7 @@ public class WebXmlMerger
     public final void merge(WebXml theMergeWebXml)
     {
         checkServletVersions(theMergeWebXml);
+        mergeContextParams(theMergeWebXml);
         if (WebXmlVersion.V2_3.compareTo(this.webXml.getVersion()) <= 0)
         {
             mergeFilters(theMergeWebXml);
@@ -123,6 +125,31 @@ public class WebXmlMerger
         }
     }
 
+    /**
+     * Merges the context-param definitions from the specified descriptor into 
+     * the original descriptor.
+     * 
+     * @param theWebXml The descriptor that contains the context-params 
+     *        definitions that are to be merged into the original descriptor
+     */
+    protected final void mergeContextParams(WebXml theWebXml)
+    {
+        Iterator contextParams = theWebXml.getElements(WebXmlTag.CONTEXT_PARAM);
+        int count = 0;
+        while (contextParams.hasNext())
+        {
+            String paramName = theWebXml.getContextParamName(
+                (Element) contextParams.next());
+            if (!webXml.hasContextParam(paramName))
+            {
+                webXml.addContextParam(theWebXml.getContextParam(paramName));
+            }
+            count++;            
+        }
+        this.log.trace("Merged " + count + " context-param definition"
+            + (count != 1 ? "s " : " ") + "into the descriptor");
+    }
+    
     /**
      * Merges the servlet definitions from the specified descriptor into the 
      * original descriptor.

@@ -1,7 +1,7 @@
 /* 
  * ========================================================================
  * 
- * Copyright 2003 The Apache Software Foundation.
+ * Copyright 2003-2004 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -153,6 +153,40 @@ public class WebXml
             createNestedText(WebXmlTag.FILTER_CLASS, theFilterClass));
         addElement(WebXmlTag.FILTER, filterElement);
     }
+
+    /**
+     * Adds a new context-param element to the descriptor.
+     * 
+     * @param theContextParam The element representing the context-param 
+     *        definition
+     */
+    public final void addContextParam(Element theContextParam)
+    {
+        checkElement(theContextParam, WebXmlTag.CONTEXT_PARAM);
+
+        String paramName = 
+            getNestedText(theContextParam, WebXmlTag.PARAM_NAME);
+        if (paramName == null)
+        {
+            throw new IllegalArgumentException(
+                "Not a valid context-param name element");
+        }
+
+        String paramValue = 
+            getNestedText(theContextParam, WebXmlTag.PARAM_VALUE);
+        if (paramValue == null)
+        {
+            throw new IllegalArgumentException(
+                "Not a valid context-param value element");
+        }
+
+        if (hasContextParam(paramName))
+        {
+            throw new IllegalStateException("Context param '" + paramName
+                + "' already defined");
+        }
+        addElement(WebXmlTag.CONTEXT_PARAM, theContextParam);
+    }
     
     /**
      * Adds a new servlet filter to the descriptor.
@@ -242,6 +276,43 @@ public class WebXml
             }
         }
         return null;
+    }
+
+    /**
+     * Returns the element that contains the definition of a specific context
+     * param, or <code>null</code> if a context param of the specified name 
+     * is not defined in the descriptor.
+     * 
+     * @param theParamName The context param name
+     * @return The DOM element representing the context param definition
+     */
+    public final Element getContextParam(String theParamName)
+    {
+        if (theParamName == null)
+        {
+            throw new NullPointerException();
+        }
+        Iterator contextParamElements = getElements(WebXmlTag.CONTEXT_PARAM);
+        while (contextParamElements.hasNext())
+        {
+            Element contextParamElement = (Element) contextParamElements.next();
+            if (theParamName.equals(getNestedText(
+                    contextParamElement, WebXmlTag.PARAM_NAME)))
+            {
+                return contextParamElement;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * @param theContextParam the context param element from which to extract 
+     *        the name
+     * @return the name of the passed context param element
+     */
+    public final String getContextParamName(Element theContextParam)
+    {
+        return getNestedText(theContextParam, WebXmlTag.PARAM_NAME);
     }
     
     /**
@@ -354,6 +425,19 @@ public class WebXml
             }
         }
         return filterNames.iterator();
+    }
+
+    /**
+     * Returns whether a context param by the specified name is defined in the 
+     * deployment descriptor.
+     * 
+     * @param theParamName The name of the context param
+     * @return <code>true</code> if the context param is defined,
+     *         <code>false</code> otherwise
+     */
+    public final boolean hasContextParam(String theParamName)
+    {
+        return (getContextParam(theParamName) != null);
     }
     
     /**
