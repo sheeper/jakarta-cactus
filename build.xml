@@ -334,4 +334,59 @@
 
   </target>
 
+  <!--
+     ========================================================================
+       Gathers all dependent jars and package them in a single zip. Useful 
+       if you need to gather all required jars easily to run Cactus on 
+       another machine for example.
+     ========================================================================
+  -->
+  <target name="zip.jars">
+
+    <antcall target="zip.jars.generic" inheritall="no">
+      <param name="zip.name" value="cactus-jars-12.zip"/>
+      <param name="servlet.jar" location="${servlet.22.jar}"/>
+      <param name="j2ee.jar" location="${j2ee.12.jar}"/>
+    </antcall>
+
+    <antcall target="zip.jars.generic" inheritall="no">
+      <param name="zip.name" value="cactus-jars-13.zip"/>
+      <param name="servlet.jar" location="${servlet.23.jar}"/>
+      <param name="j2ee.jar" location="${j2ee.13.jar}"/>
+    </antcall>
+
+  </target>
+
+  <target name="zip.jars.generic" depends="init.properties">
+
+    <mkdir dir="${release.dir}"/>
+
+    <zip destfile="${release.dir}/${zip.name}">
+      <zipfileset file="${j2ee.jar}" prefix="j2ee/jars"/>
+      <zipfileset file="${servlet.jar}" prefix="servletapi/jars"/>
+      <zipfileset file="${commons.logging.jar}" prefix="commons-logging/jars"/>
+      <zipfileset file="${log4j.jar}" prefix="log4j/jars"/>
+      <zipfileset file="${commons.httpclient.jar}" prefix="commons-httpclient/jars"/>
+      <zipfileset file="${aspectjrt.jar}" prefix="aspectj/jars"/>
+      <zipfileset file="${junit.jar}" prefix="junit/jars"/>
+      <zipfileset file="${mockobjects.jar}" prefix="mockobjects/jars"/>
+      <zipfileset file="${jstl.jar}" prefix="jstl/jars"/>
+      <zipfileset file="${standard.jar}" prefix="taglibs/jars"/>
+      <zipfileset file="${httpunit.jar}" prefix="httpunit/jars"/>
+      <zipfileset file="${nekohtml.jar}" prefix="nekohtml/jars"/>
+      <zipfileset file="${xerces.jar}" prefix="xerces/jars"/>
+      <zipfileset file="${xmlapis.jar}" prefix="xerces/jars"/>
+      <zipfileset file="${jetty.jar}" prefix="jetty/jars"/>
+      <zipfileset file="${jasper-compiler.jar}" prefix="tomcat/jars"/>
+      <zipfileset file="${jasper-runtime.jar}" prefix="tomcat/jars"/>
+      <zipfileset file="${aspectj-tools.jar}" prefix="aspectj/jars"/>
+      <zipfileset file="${antlr.jar}" prefix="antlr/jars"/>
+      <zipfileset file="${checkstyle.jar}" prefix="checkstyle/jars"/>
+      <zipfileset file="${commons.beanutils.jar}" prefix="commons-beanutils/jars"/>
+      <zipfileset file="${commons.collections.jar}" prefix="commons-collections/jars"/>
+      <zipfileset file="${regexp.jar}" prefix="regexp/jars"/>
+    </zip>
+
+  </target>
+
 </project>
