@@ -132,6 +132,33 @@ public class TestServletURL extends TestCase
     }
 
     /**
+     * Verify that if the servlet path is not empty or null it must start with
+     * a "/" character.
+     */
+    public void testSetServletPathFirstCharacterNotForwardSlash()
+    {
+        try 
+        {
+            new ServletURL(null, null, "invalidservletpath", null, null);
+            fail("The servlet path must start with a \"/\" character");
+        }
+        catch (IllegalArgumentException expected)
+        {
+            assertEquals("The Servlet Path must start with a \"/\" character.", 
+                expected.getMessage());
+        }       
+    }
+
+    /**
+     * Verify that the servlet path can be an empty string.
+     */
+    public void testSetServletPathEmptyString()
+    {
+        ServletURL servletURL = new ServletURL(null, null, "", null, null);
+        assertEquals("", servletURL.getServletPath());
+    }
+
+    /**
      * Verify that the <code>getHost()</code> method is returning the correct
      * host when a port is specified and that the <code>getPort()</code>
      * method returns the specified port.

@@ -223,13 +223,15 @@ public class ServletURL
      *                      i.e. this is the name that will be returned by the
      *                      <code>HttpServletRequest.getContextPath()</code>.
      *                      Can be null. If null, then the context from the
-     *                      Servlet Redirector will be returned.
+     *                      Servlet Redirector will be used.
      *                      Format: "/" + name or an empty string for the 
      *                      default context. Must not end with a "/" character.
      * @param theServletPath the servlet path in the URL to simulate,
      *                      i.e. this is the name that will be returned by the
      *                      <code>HttpServletRequest.getServletPath()</code>.
-     *                      Can be null. Format : "/" + name.
+     *                      Can be null. If null, then the servlet path from 
+     *                      the Servlet Redirector will be used.
+     *                      Format : "/" + name or an empty string.
      * @param thePathInfo   the path info in the URL to simulate, i.e. this is
      *                      the name that will be returned by the
      *                      <code>HttpServletRequest.getPathInfo()</code>. Can
@@ -264,13 +266,15 @@ public class ServletURL
      *                      i.e. this is the name that will be returned by the
      *                      <code>HttpServletRequest.getContextPath()</code>.
      *                      Can be null. If null, then the context from the
-     *                      Servlet Redirector will be returned.
+     *                      Servlet Redirector will be used.
      *                      Format: "/" + name or an empty string for the 
      *                      default context. Must not end with a "/" character.
      * @param theServletPath the servlet path in the URL to simulate,
      *                      i.e. this is the name that will be returned by the
      *                      <code>HttpServletRequest.getServletPath()</code>.
-     *                      Can be null. Format : "/" + name.
+     *                      Can be null. If null, then the servlet path from 
+     *                      the Servlet Redirector will be used.
+     *                      Format : "/" + name or an empty string.
      * @param thePathInfo   the path info in the URL to simulate, i.e. this is
      *                      the name that will be returned by the
      *                      <code>HttpServletRequest.getPathInfo()</code>. Can
@@ -469,12 +473,21 @@ public class ServletURL
      * Sets the servlet path in the URL to simulate, ie this is the name that
      * will be returned by the <code>HttpServletRequest.getServletPath()</code>.
      * If not set, the servlet path from the Servlet Redirector will be
-     * returned. Format : "/" + name.
+     * returned. Format : "/" + name or an empty string.
      *
      * @param theServletPath the servlet path to simulate
      */
     public void setServletPath(String theServletPath)
     {
+        if ((theServletPath != null) && (theServletPath.length() > 0))
+        {
+            if (!theServletPath.startsWith("/"))
+            {
+                throw new IllegalArgumentException("The Servlet Path must"
+                    + " start with a \"/\" character.");
+            }            
+        }
+
         this.servletPath = theServletPath;
     }
 

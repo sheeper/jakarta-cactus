@@ -167,8 +167,8 @@ public abstract class AbstractHttpServletRequestWrapper
     /**
      * @return the context path from the simulated URL or the real context path
      *         if a simulation URL has not been defined. The real context path
-     *         will be returned if the simulated URL as defined a null value
-     *         for the context path.
+     *         will be returned if the context path defined in the simulated 
+     *         URL has a null value.
      */
     public String getContextPath()
     {
@@ -273,20 +273,18 @@ public abstract class AbstractHttpServletRequestWrapper
 
     /**
      * @return the servlet path from the simulated URL or the real servlet path
-     *         if a simulation URL has not been defined.
+     *         if a simulation URL has not been defined. The real servlet path
+     *         will be returned if the servlet path defined in the simulated 
+     *         URL has a null value.
      */
     public String getServletPath()
     {
-        String result;
+        String result = this.request.getServletPath();
 
-        if (this.url != null)
+        if ((this.url != null) && (this.url.getServletPath() != null))
         {
             result = this.url.getServletPath();
             LOGGER.debug("Using simulated servlet path : [" + result + "]");
-        }
-        else
-        {
-            result = this.request.getServletPath();
         }
 
         return result;
