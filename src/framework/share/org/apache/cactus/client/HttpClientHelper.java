@@ -85,6 +85,15 @@ public class HttpClientHelper
      */
     private String url;
 
+    // Static initialisations
+    static {
+
+        // Do not follow redirects (because we are doing unit tests and
+        // we need to be able to assert the returned headers, cookies, ...)
+        HttpURLConnection.setFollowRedirects(false);
+
+    }
+
     /**
      * @param theURL the URL that will be used for the HTTP connection.
      */

@@ -87,6 +87,13 @@
     </devs>
 
     <release version="1.2 in CVS">
+      <action dev="VMA" type="fix" due-to="Tony Payne" due-to-email="anthonyp@petsmart.com">
+        (<link href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=3427">
+        Bug #3427</link>).
+        The Cactus HTTP client was following redirects.
+        This is wrong for unit tests as we should be able to assert returned
+        headers, cookies, ... even for a redirect response.
+      </action>
       <action dev="VMA" type="add">
         New <code>WebRequest.addCookie(String theDomain, String
         theName, String theValue)</code> and
