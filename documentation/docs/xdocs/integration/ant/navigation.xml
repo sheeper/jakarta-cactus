@@ -9,9 +9,6 @@
 
   <menu label="Ant Integration">
     <item id="integration_ant" label="Overview"/>
-    <item id="howto_ant_install" label="Ant Installation"/>
-    <item id="howto_ant_primer" label="Ant Primer"/>
-    <item id="howto_ant_cactus" label="Using Cactus with Ant"/>
   </menu>
 
   <menu label="Ant Tasks">
