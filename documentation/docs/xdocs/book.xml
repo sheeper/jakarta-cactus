@@ -46,8 +46,8 @@
     <menu-item type="hidden" source="howto_testcase_jsp.xml"/>
     <menu-item type="hidden" source="howto_testcase_filter.xml"/>
 
+    <menu-item label="Jsp Howto" source="howto_jsp.xml"/>
     <menu-item label="Runner Howto" source="howto_runner.xml"/>
-
     <menu-item label="Security Howto" source="howto_security.xml"/>
 
     <!-- Ant tutorial -->

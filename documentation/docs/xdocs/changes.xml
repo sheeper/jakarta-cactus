@@ -47,7 +47,7 @@
       <person name="Nicholas Lesiecki" email="ndlesiecki@yahoo.com" id="NDL"/>
     </devs>
 
-    <release version="1.5 in CVS">
+    <release version="1.5" date="- in CVS">
       <action dev="VMA" type="add">
         Added support for client side <code>begin(...)</code>
         and <code>end(...)</code> methods. They are called on the
@@ -62,7 +62,23 @@
       </action>
     </release>
 
-    <release version="1.4" date="July 29 2002">
+    <release version="1.4" date="- in CVS">
+      <action dev="VMA" type="add">
+        Added a <link href="howto_jsp.html">tutorial</link> that explains how
+        to test JSPs with Cactus.
+      </action>
+      <action dev="VMA" type="fix" due-to="David George" due-to-email="david.off@voila.fr">
+        Fixed JDK 1.2 compatibility (broken in 1.4b1).
+      </action>
+      <action dev="VMA" type="fix" due-to="Felipe Hoffa" due-to-email="felipehoffa@yahoo.com">
+		According to the XML definitions (at least the definitions Mozilla 1.0
+		got implemented), the &lt;?xml version...&gt; tag should go before the 
+		&lt;?xml-stylesheet...&gt; tag. Using them in the wrong order produces 
+		an error when Mozilla tries to render it.
+	  </action>
+    </release>
+
+    <release version="1.4b1" date="July 31 2002">
       <action dev="VMA" type="add">
         It is now possible to assert response codes in
         <code>endXXX()</code>. For example, you can verify that you servlet

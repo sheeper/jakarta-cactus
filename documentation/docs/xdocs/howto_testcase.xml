@@ -280,6 +280,7 @@ public void beginXXX(WebRequest theRequest)
 
       </s2>
 
+      <anchor id="endxxx"/>
       <s2 title="Step 7 (optional) : endXXX() methods">
 
         <p>
