@@ -818,8 +818,8 @@ public final class JspTagLifecycle
                         body = pageContext.pushBody();
                         if (log.isDebugEnabled())
                         {
-                            log.debug("Pushed body content '"
-                                + body.getString() + "'");
+                            log.debug("Pushed body content ["
+                                + body.getString() + "]");
                         }
                         bodyTag.setBodyContent(body);
                         bodyTag.doInitBody();
@@ -830,8 +830,8 @@ public final class JspTagLifecycle
                         fireEvalBody(iteration, body);
                         if (log.isDebugEnabled())
                         {
-                            log.debug("Body evaluated for the "
-                                + iteration + " time");
+                            log.debug("Body evaluated for the ["
+                                + iteration + "] time");
                         }
                         status = iterationTag.doAfterBody();
                         iteration++;
@@ -848,8 +848,8 @@ public final class JspTagLifecycle
                     {
                         if (log.isDebugEnabled())
                         {
-                            log.debug("Popping body content '"
-                                + body.getString() + "'");
+                            log.debug("Popping body content ["
+                                + body.getString() + "]");
                         }
                         pageContext.popBody();
                         body = null;
