@@ -241,7 +241,7 @@ public class GenericAntProvider implements IContainerProvider
                 try
                 {
                     Thread.sleep(300);
-                    thePM.worked(1);
+                    thePM.worked(7);
                 }
                 catch (InterruptedException e)
                 {
