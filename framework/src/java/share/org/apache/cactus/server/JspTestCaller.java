@@ -92,6 +92,11 @@ public class JspTestCaller extends ServletTestCaller
     protected void setTestCaseFields(TestCase theTestInstance)
         throws Exception
     {
+        if (!(theTestInstance instanceof JspTestCase))
+        {
+            return; 
+        }
+
         JspTestCase jspInstance = (JspTestCase) theTestInstance;
         JspImplicitObjects jspImplicitObjects = 
             (JspImplicitObjects) this.webImplicitObjects;

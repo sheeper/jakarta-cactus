@@ -93,6 +93,11 @@ public class ServletTestCaller extends AbstractWebTestCaller
     protected void setTestCaseFields(TestCase theTestInstance)
         throws Exception
     {
+        if (!(theTestInstance instanceof ServletTestCase))
+        {
+            return; 
+        }
+        
         ServletTestCase servletInstance = (ServletTestCase) theTestInstance;
         ServletImplicitObjects servletImplicitObjects = 
             (ServletImplicitObjects) this.webImplicitObjects;

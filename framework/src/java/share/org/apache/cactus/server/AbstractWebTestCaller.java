@@ -63,7 +63,6 @@ import java.lang.reflect.Constructor;
 
 import javax.servlet.ServletException;
 
-import junit.framework.Test;
 import junit.framework.TestCase;
 
 import org.apache.cactus.HttpServiceDefinition;
@@ -433,25 +432,19 @@ public abstract class AbstractWebTestCaller
                 Constructor wrappedConstructor =
                     getTestClassConstructor(wrappedTestClass);
 
-                Test wrappedTestInstance;
                 if (wrappedConstructor.getParameterTypes().length == 0)
                 {
-                    wrappedTestInstance = 
-                        (Test) wrappedConstructor.newInstance(
-                        new Object[0]);                     
+                    testInstance = 
+                        (TestCase) wrappedConstructor.newInstance(
+                        new Object[0]);
+                    testInstance.setName(theTestCaseName);                     
                 }
                 else
                 {
-                    wrappedTestInstance = 
-                        (Test) wrappedConstructor.newInstance(
+                    testInstance = 
+                        (TestCase) wrappedConstructor.newInstance(
                         new Object[] {theTestCaseName});
-                }
-                                   
-                constructor = testClass.getConstructor(
-                    new Class[] {String.class, Test.class});
-
-                testInstance = (TestCase) constructor.newInstance(
-                    new Object[] {theTestCaseName, wrappedTestInstance});
+                }                                  
             }
         }
         catch (Exception e)

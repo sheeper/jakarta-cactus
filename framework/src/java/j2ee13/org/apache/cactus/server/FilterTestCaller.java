@@ -92,6 +92,11 @@ public class FilterTestCaller extends AbstractWebTestCaller
     protected void setTestCaseFields(TestCase theTestInstance)
         throws Exception
     {
+        if (!(theTestInstance instanceof FilterTestCase))
+        {
+            return; 
+        }
+
         FilterTestCase filterInstance = (FilterTestCase) theTestInstance;
         FilterImplicitObjects filterImplicitObjects = 
             (FilterImplicitObjects) this.webImplicitObjects;
