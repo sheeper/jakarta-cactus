@@ -126,6 +126,8 @@
     <depend project="aspectj"/>
     <depend project="jakarta-tomcat" inherit="runtime"/>
 
+    <work nested="sample-servlet/target-12/sample/target/classes"/>
+
     <jar name="sample-servlet/dist-12/bin/sample-servlet.zip"/>
 
     <nag from="Vincent Massol &lt;vmassol@apache.org&gt;"
@@ -198,6 +200,8 @@
     <depend project="xml-xerces"/>
     <depend project="jakarta-tomcat-4.0" inherit="runtime"/>
     <depend project="aspectj"/>
+
+    <work nested="sample-servlet/target-13/sample/target/classes"/>
 
     <jar name="sample-servlet/dist-13/bin/sample-servlet.zip"/>
 
