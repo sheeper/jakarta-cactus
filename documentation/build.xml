@@ -60,6 +60,8 @@
        ========================================================================
     -->
     <!-- Source locations for the build -->
+    <property name="src.dir" location="${base.dir}/src"/>
+    <property name="src.java.dir" location="${src.dir}/java"/>
     <property name="doc.dir" value="${base.dir}/docs"/>
     <property name="doc.dtd.dir" value="${doc.dir}/dtds"/>
     <property name="doc.skin.dir" value="${doc.dir}/skins"/>
@@ -74,6 +76,9 @@
     -->
     <!-- Destination locations for the build -->
     <property name="target.dir" value="${base.dir}/target"/>
+    <property name="target.classes.dir" location="${target.dir}/classes"/>
+    <property name="target.classes.java.dir"
+        location="${target.classes.dir}/java"/>
     <property name="target.doc.dir" value="${target.dir}/doc"/>
     <property name="target.xdoc.dir" value="${target.dir}/xdocs"/>
 
@@ -82,10 +87,6 @@
     <property name="dist.dir" value="${base.dir}/dist"/>
     <property name="dist.doc.dir" value="${dist.dir}/doc"/>
     <property name="dist.doc.api.dir" value="${dist.doc.dir}/api"/>
-
-    <!-- The location of the Cactus custom Ant tasks jar -->
-    <property name="cactus.ant.jar"
-        location="anttasks/dist/lib/cactus-ant.jar"/>
 
     <!--
        ========================================================================
@@ -142,6 +143,21 @@
           <dtd publicId="-//Apache Software Foundation//DTD Cactus Sitemap V1.0//EN"
               location="${doc.dtd.dir}/sitemap-v10.dtd"/>
         </xmlcatalog>
+
+    </target>
+
+    <!--
+       ========================================================================
+         Compile utility Java code
+       ========================================================================
+    -->
+    <target name="compile"
+        depends="init"
+        description="Compile utility Java code">
+
+        <mkdir dir="${target.classes.java.dir}"/>
+
+        <javac srcdir="${src.java.dir}" destdir="${target.classes.java.dir}"/>
 
     </target>
 
@@ -225,12 +241,12 @@
     </target>
 
     <target name="doc.checksitemap"
-        depends="doc.validate">
+        depends="compile, doc.validate">
 
         <taskdef name="checksitemap"
-            classname="org.apache.cactus.ant.CheckSitemapTask">
+            classname="org.apache.cactus.documentation.CheckSitemapTask">
           <classpath>
-              <pathelement location="${cactus.ant.jar}"/>
+              <pathelement location="${target.classes.java.dir}"/>
           </classpath>
         </taskdef>
 
