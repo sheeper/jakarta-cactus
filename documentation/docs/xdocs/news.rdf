@@ -42,6 +42,7 @@
 
     <items>
       <rdf:Seq>
+        <rdf:li rdf:resource="http://jakarta.apache.org/cactus/news.html#news28"/>
         <rdf:li rdf:resource="http://jakarta.apache.org/cactus/news.html#news27"/>
         <rdf:li rdf:resource="http://jakarta.apache.org/cactus/news.html#news26"/>
         <rdf:li rdf:resource="http://jakarta.apache.org/cactus/news.html#news25"/>
@@ -73,6 +74,20 @@
     </items>
 
   </channel>
+
+  <item rdf:about="http://jakarta.apache.org/cactus/news.html#news28">
+    <title>Cactus 1.7 released</title>
+    <link>http://jakarta.apache.org/cactus/news.html#news28</link>
+    <description>
+<![CDATA[Cactus 1.7 has been released. Full details can be found
+in the <a href="http://jakarta.apache.org/cactus/1.7/ANNOUNCEMENT.txt">
+release announcement</a>.
+]]>
+    </description>
+    <dc:subject></dc:subject>
+    <dc:creator>vmassol</dc:creator>
+    <dc:date>2005-01-28T00:00:00+00:00</dc:date>
+  </item>
 
   <item rdf:about="http://jakarta.apache.org/cactus/news.html#news27">
     <title>AppServerUnit testing framework</title>
