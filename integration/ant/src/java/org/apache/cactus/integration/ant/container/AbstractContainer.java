@@ -83,7 +83,6 @@ import org.apache.tools.ant.types.selectors.SelectorUtils;
 public abstract class AbstractContainer extends ProjectComponent
     implements Container
 {
-
     // Constants ---------------------------------------------------------------
 
     /**
@@ -95,9 +94,9 @@ public abstract class AbstractContainer extends ProjectComponent
     // Instance Variables ------------------------------------------------------
 
     /**
-     * The web or application archive that should be deployed to the container.
+     * The WAR or EAR that should be deployed to the container.
      */
-    private File deployableFile;
+    private DeployableFile deployableFile;
 
     /**
      * A pattern set which lists patterns for names of test cases that are to be
@@ -253,7 +252,7 @@ public abstract class AbstractContainer extends ProjectComponent
     /**
      * @see Container#setDeployableFile
      */
-    public final void setDeployableFile(File theDeployableFile)
+    public final void setDeployableFile(DeployableFile theDeployableFile)
     {
         this.deployableFile = theDeployableFile;
     }
@@ -331,9 +330,7 @@ public abstract class AbstractContainer extends ProjectComponent
         ReplaceTokens replaceContext = new ReplaceTokens();
         token = new ReplaceTokens.Token();
         token.setKey("cactus.context");
-        String contextPath = getDeployableFile().getName();
-        contextPath = contextPath.substring(0, contextPath.length() - 4); 
-        token.setValue(contextPath);
+        token.setValue(getDeployableFile().getTestContext());
         replaceContext.addConfiguredToken(token);
         filterChain.addReplaceTokens(replaceContext);
 
@@ -393,32 +390,9 @@ public abstract class AbstractContainer extends ProjectComponent
      * 
      * @return The WAR file  
      */
-    protected final File getDeployableFile()
+    protected final DeployableFile getDeployableFile()
     {
         return this.deployableFile;
-    }
-
-    /**
-     * Returns whether the deployable file is an enterprise application archive
-     * (EAR).
-     * 
-     * @param theDeployableFile The deployable file to check
-     * @return <code>true</code> if the deployable file is a EAR
-     */
-    protected final boolean isEar(File theDeployableFile)
-    {
-        return theDeployableFile.getName().toLowerCase().endsWith(".ear");
-    }
-
-    /**
-     * Returns whether the deployable file is a web-app archive (WAR).
-     * 
-     * @param theDeployableFile The deployable file to check
-     * @return <code>true</code> if the deployable file is a WAR
-     */
-    protected final boolean isWar(File theDeployableFile)
-    {
-        return theDeployableFile.getName().toLowerCase().endsWith(".war");
     }
 
     // Private Methods ---------------------------------------------------------

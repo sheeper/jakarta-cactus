@@ -58,104 +58,73 @@ package org.apache.cactus.integration.ant.container;
 
 import java.io.File;
 
-import org.apache.cactus.integration.ant.util.AntTaskFactory;
-import org.apache.commons.logging.Log;
+import org.apache.cactus.integration.ant.deployment.WarArchive;
 
 /**
- * Interface for classes that can be used as nested elements in the
- * <code>&lt;containers&gt;</code> element of the <code>&lt;cactus&gt;</code>
- * task.
+ * Represents a component to deploy in a container. It can either be
+ * a WAR or an EAR file. 
  * 
- * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
+ * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
  */
-public interface Container
+public interface DeployableFile
 {
-
-    // Public Methods ----------------------------------------------------------
+    /**
+     * @return the file to deploy in a container (either WAR or EAR)
+     */
+    File getFile();
 
     /**
-     * Returns a displayable name of the container for logging purposes.
+     * Returns whether the deployable file is a web-app archive (WAR).
      * 
-     * @return The container name
+     * @return <code>true</code> if the deployable file is a WAR
      */
-    String getName();
+    boolean isWar();
 
     /**
-     * Returns the port to which the container should listen.
+     * Returns whether the deployable file is an enterprise application archive
+     * (EAR).
      * 
-     * @return The port
+     * @return <code>true</code> if the deployable file is a EAR
      */
-    int getPort();
+    boolean isEar();
 
     /**
-     * Returns the value of the 'todir' attribute.
+     * @return the WAR deployment descriptor object for the WAR containing
+     *         the Cactus Servlet redirector
+     */
+    WarArchive getWarArchive();
+    
+    /**
+     * @return the webapp context which holds the Cactus tests
+     */
+    String getTestContext();
+
+    /**
+     * Returns the first URL-pattern to which the Cactus servlet redirector is 
+     * mapped in the deployment descriptor.
      * 
-     * @return The output directory
+     * @return The mapping, or <code>null</code> if the servlet redirector is
+     *         not defined or mapped in the descriptor
      */
-    File getToDir();
+    String getServletRedirectorMapping();
 
     /**
-     * Subclasses should implement this method to perform any initialization
-     * that may be necessary. This method is called before any of the accessors
-     * or the methods {@link AbstractContainer#startUp} and
-     * {@link AbstractContainer#shutDown} are called, but after all attributes
-     * have been set.
-     */
-    void init();
-
-    /**
-     * Returns whether the container element is enabled, which is determined by
-     * the evaluation of the if- and unless conditions
+     * Returns the first URL-pattern to which the Cactus filter redirector is 
+     * mapped in the deployment descriptor.
      * 
-     * @return <code>true</code> if the container is enabled
+     * @return The mapping, or <code>null</code> if the filter redirector is
+     *         not defined or mapped in the descriptor
      */
-    boolean isEnabled();
+    String getFilterRedirectorMapping();
 
     /**
-     * Returns whether a specific test case is to be excluded from being run in
-     * the container.
+     * Returns the first URL-pattern to which the Cactus JSP redirector is 
+     * mapped in the deployment descriptor.
      * 
-     * @param theTestName The fully qualified name of the test fixture class
-     * @return <code>true</code> if the test should be excluded, otherwise
-     *         <code>false</code>
+     * @return The mapping, or <code>null</code> if the JSP redirector is
+     *         not defined or mapped in the descriptor
      */
-    boolean isExcluded(String theTestName);
-
-    /**
-     * Sets the factory to use for creating Ant tasks.
-     * 
-     * @param theFactory The factory to use for creating Ant tasks
-     */
-    void setAntTaskFactory(AntTaskFactory theFactory);
-
-    /**
-     * Sets the log which the implementation should use.
-     *  
-     * @param theLog The log to set
-     */
-    void setLog(Log theLog);
-
-    /**
-     * Sets the file that should be deployed to the container. This can be
-     * either a WAR or an EAR file, depending on the capabilities of the
-     * container.
-     * 
-     * @param theDeployableFile The file to deploy
-     */
-    void setDeployableFile(DeployableFile theDeployableFile);
-
-    /**
-     * Subclasses must implement this method to perform the actual task of 
-     * starting up the container.
-     */
-    void startUp();
-
-    /**
-     * Subclasses must implement this method to perform the actual task of 
-     * shutting down the container.
-     */
-    void shutDown();
-
+    String getJspRedirectorMapping();
 }

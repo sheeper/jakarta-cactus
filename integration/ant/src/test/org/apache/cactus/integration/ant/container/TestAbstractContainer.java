@@ -115,8 +115,20 @@ public class TestAbstractContainer extends TestCase
      */
     public void testCreateFilterChainOk() throws Exception
     {
-        File earFile = new File("test.ear");
-        this.container.setDeployableFile(earFile);
+        String testInputDirProperty = System.getProperty("testinput.dir");
+        assertTrue("The system property 'testinput.dir' must be set",
+            testInputDirProperty != null);
+        File testInputDir = new File(testInputDirProperty);
+        assertTrue("The system property 'testinput.dir' must point to an "
+            + "existing directory", testInputDir.isDirectory());
+        String fileName = 
+            "org/apache/cactus/integration/ant/cactified.ear";
+        File earFile = new File(testInputDir, fileName);
+        assertTrue("The test input " + fileName + " does not exist",
+            earFile.exists());
+
+        this.container.setDeployableFile(
+            new EarDeployableFile(earFile));
 
         // Note that we needed to add a last character to the string
         // after the @cactus.context@ token as otherwise the Ant code 
@@ -131,6 +143,6 @@ public class TestAbstractContainer extends TestCase
         helper.setFilterChains(chains);
         helper.setPrimaryReader(new StringReader(buffer));
         Reader reader = helper.getAssembledReader();       
-        assertEquals("8080:test:", helper.readFully(reader)); 
+        assertEquals("8080:/empty:", helper.readFully(reader)); 
     }
 }

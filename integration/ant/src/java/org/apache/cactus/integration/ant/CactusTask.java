@@ -57,28 +57,23 @@
 package org.apache.cactus.integration.ant;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Enumeration;
-import java.util.Iterator;
-
-import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.cactus.integration.ant.container.Container;
 import org.apache.cactus.integration.ant.container.ContainerRunner;
+import org.apache.cactus.integration.ant.container.DeployableFile;
+import org.apache.cactus.integration.ant.container.EarDeployableFile;
+import org.apache.cactus.integration.ant.container.WarDeployableFile;
 import org.apache.cactus.integration.ant.util.AntLog;
 import org.apache.cactus.integration.ant.util.AntTaskFactory;
-import org.apache.cactus.integration.ant.deployment.ApplicationXml;
-import org.apache.cactus.integration.ant.deployment.EarArchive;
-import org.apache.cactus.integration.ant.deployment.WarArchive;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.Task;
 import org.apache.tools.ant.taskdefs.optional.junit.JUnitTask;
 import org.apache.tools.ant.taskdefs.optional.junit.JUnitTest;
 import org.apache.tools.ant.types.Environment.Variable;
-import org.xml.sax.SAXException;
 
 /**
  * An Ant task that extends the optional JUnit task to provide support for
@@ -110,6 +105,13 @@ public class CactusTask extends JUnitTask
     private File warFile;
 
     /**
+     * The WAR context where the cactus tests are located. If not specified
+     * this task will try to guess the context from the WAR file name or if
+     * an EAR is used from parsing the <code>application.xml</code> file. 
+     */
+    private String contextName;
+    
+    /**
      * The factory for creating ant tasks that is passed to the containers.
      */
     private AntTaskFactory antTaskFactory = new AntTaskFactory()
@@ -136,6 +138,8 @@ public class CactusTask extends JUnitTask
      */
     public CactusTask() throws Exception
     {
+        // TODO: Fix comment for this constructor as it doesn't seem quite 
+        // right. Explain why we don't call the super constructor?
     }
 
     // Public Methods ----------------------------------------------------------
@@ -166,54 +170,24 @@ public class CactusTask extends JUnitTask
                 + "the [earfile] attribute");
         }
 
-        // Open the archive as JAR file and extract the deployment descriptor
-        WarArchive war = null;
-        String contextPath = null;
-        try
+        if ((this.warFile != null) && (this.earFile != null))
         {
-            if (this.warFile != null)
-            {
-                war = new WarArchive(this.warFile);
-                contextPath = this.warFile.getName();
-                int warIndex = contextPath.toLowerCase().lastIndexOf(".war");
-                if (warIndex >= 0)
-                {
-                    contextPath = contextPath.substring(0, warIndex);
-                }
-            }
-            else
-            {
-                EarArchive ear = new EarArchive(this.earFile);
-                String webUri = getUriOfCactifiedWebModule(ear);
-                if (webUri == null)
-                {
-                    throw new BuildException("Could not find cactified web "
-                        + "module in the EAR");
-                }
-                war = ear.getWebModule(webUri);
-                if (war == null)
-                {
-                    throw new BuildException("Could not find the WAR " + webUri
-                        + " in the EAR");
-                }
-                contextPath =
-                    ear.getApplicationXml().getWebModuleContextRoot(webUri);
-            }
-            addRedirectorNameProperties(war);
+            throw new BuildException("You must specify either the [warfile] or "
+                + "the [earfile] attribute but not both");
         }
-        catch (SAXException e)
+
+        // Parse deployment descriptors for WAR or EAR files
+        DeployableFile deployableFile;
+        if (this.warFile != null)
         {
-            throw new BuildException(
-                "Parsing of deployment descriptor failed", e);
+            deployableFile = new WarDeployableFile(this.warFile);
         }
-        catch (IOException e)
+        else 
         {
-            throw new BuildException("Failed to open WAR", e);
-        }
-        catch (ParserConfigurationException e)
-        {
-            throw new BuildException("XML parser configuration error", e);
-        }
+            deployableFile = new EarDeployableFile(this.earFile);
+        } 
+
+        addRedirectorNameProperties(deployableFile);
 
         if (this.containerSet == null)
         {
@@ -231,8 +205,7 @@ public class CactusTask extends JUnitTask
             {
                 containers[i].setAntTaskFactory(this.antTaskFactory);
                 containers[i].setLog(new AntLog(this));
-                containers[i].setDeployableFile(
-                    this.earFile != null ? this.earFile : this.warFile);
+                containers[i].setDeployableFile(deployableFile);
                 if (containers[i].isEnabled())
                 {
                     containers[i].init();
@@ -246,8 +219,8 @@ public class CactusTask extends JUnitTask
                         Project.MSG_INFO);
                     contextUrl.setValue(
                         "http://localhost:" + containers[i].getPort() + "/"
-                        + contextPath);
-                    executeInContainer(containers[i], war, contextPath);
+                        + deployableFile.getTestContext());
+                    executeInContainer(containers[i], deployableFile); 
                 }
             }
         }
@@ -301,6 +274,15 @@ public class CactusTask extends JUnitTask
         this.warFile = theWarFile;
     }
 
+    /**
+     * @param theContextName the context name of the webapp where the Cactus
+     *        tests are located
+     */
+    public final void setContext(String theContextName)
+    {
+        this.contextName = theContextName;
+    }
+
     // Private Methods ---------------------------------------------------------
 
     /**
@@ -323,18 +305,12 @@ public class CactusTask extends JUnitTask
      * Extracts the redirector mappings from the deployment descriptor and sets 
      * the corresponding system properties.
      * 
-     * @param theWar The web-app archive
-     * @throws IOException If there was a problem reading the  deployment
-     *         descriptor in the WAR
-     * @throws SAXException If the deployment descriptor of the WAR could not
-     *         be parsed
-     * @throws ParserConfigurationException If there is an XML parser
-     *         configration problem
+     * @param theFile The file to deploy in the container
      */
-    private void addRedirectorNameProperties(WarArchive theWar)
-        throws SAXException, IOException, ParserConfigurationException
+    private void addRedirectorNameProperties(DeployableFile theFile)
     {
-        String filterRedirectorMapping = getFilterRedirectorMapping(theWar);
+        String filterRedirectorMapping = 
+            theFile.getFilterRedirectorMapping();
         if (filterRedirectorMapping != null)
         {
             addCactusProperty("filterRedirectorName",
@@ -345,7 +321,9 @@ public class CactusTask extends JUnitTask
             log("No mapping of the filter redirector found",
                 Project.MSG_VERBOSE);
         }
-        String jspRedirectorMapping = getJspRedirectorMapping(theWar);
+
+        String jspRedirectorMapping = 
+            theFile.getJspRedirectorMapping();
         if (jspRedirectorMapping != null)
         {
             addCactusProperty("jspRedirectorName",
@@ -356,7 +334,9 @@ public class CactusTask extends JUnitTask
             log("No mapping of the JSP redirector found",
                 Project.MSG_VERBOSE);
         }
-        String servletRedirectorMapping = getServletRedirectorMapping(theWar);
+
+        String servletRedirectorMapping = 
+            theFile.getServletRedirectorMapping();
         if (servletRedirectorMapping != null)
         {
             addCactusProperty("servletRedirectorName",
@@ -372,12 +352,10 @@ public class CactusTask extends JUnitTask
      * Executes the unit tests in the given container.
      * 
      * @param theContainer The container to run the tests against
-     * @param theWar The web-app archive
-     * @param theContextPath The context path to which the test web-app will be
-     *        deployed
+     * @param theFile the file to deploy in the container
      */
-    private void executeInContainer(Container theContainer, WarArchive theWar,
-        String theContextPath)
+    private void executeInContainer(Container theContainer, 
+        DeployableFile theFile)
     {
         log("Starting up container", Project.MSG_VERBOSE);
         ContainerRunner runner = new ContainerRunner(theContainer);
@@ -386,7 +364,8 @@ public class CactusTask extends JUnitTask
         {
             URL url =
                 new URL("http", "localhost", theContainer.getPort(), "/"
-                + theContextPath + getServletRedirectorMapping(theWar)
+                + theFile.getTestContext() 
+                + theFile.getServletRedirectorMapping()
                 + "?Cactus_Service=RUN_TEST");
             runner.setUrl(url);
             if (this.containerSet.getTimeout() > 0)
@@ -424,165 +403,5 @@ public class CactusTask extends JUnitTask
         {
             throw new BuildException("Malformed test URL", mue);
         }
-        catch (SAXException saxe)
-        {
-            throw new BuildException("Error parsing a deployment descriptor",
-                saxe);
-        }
-        catch (IOException ioe)
-        {
-            throw new BuildException(ioe);
-        }
-        catch (ParserConfigurationException pce)
-        {
-            throw new BuildException(pce);
-        }
     }
-
-    /**
-     * Returns the first URL-pattern to which the Cactus filter redirector is 
-     * mapped in the deployment descriptor.
-     * 
-     * @param theWar The web-application archive
-     * @return The mapping, or <code>null</code> if the filter redirector is not
-     *         defined or mapped in the descriptor
-     * @throws IOException If there was a problem reading the  deployment
-     *         descriptor in the WAR
-     * @throws SAXException If the deployment descriptor of the WAR could not
-     *         be parsed
-     * @throws ParserConfigurationException If there is an XML parser
-     *         configration problem
-     */
-    private String getFilterRedirectorMapping(WarArchive theWar)
-        throws IOException, SAXException, ParserConfigurationException
-    {
-        Iterator filterNames = theWar.getWebXml().getFilterNamesForClass(
-            "org.apache.cactus.server.FilterTestRedirector");
-        if (filterNames.hasNext())
-        {
-            // we only care about the first definition and the first mapping
-            String name = (String) filterNames.next(); 
-            Iterator mappings = theWar.getWebXml().getFilterMappings(name);
-            if (mappings.hasNext())
-            {
-                return (String) mappings.next();
-            }
-        }
-        return null;
-    }
-
-    /**
-     * Returns the first URL-pattern to which the Cactus JSP redirector is 
-     * mapped in the deployment descriptor.
-     * 
-     * @param theWar The web-application archive
-     * @return The mapping, or <code>null</code> if the JSP redirector is not
-     *         defined or mapped in the descriptor
-     * @throws IOException If there was a problem reading the  deployment
-     *         descriptor in the WAR
-     * @throws SAXException If the deployment descriptor of the WAR could not
-     *         be parsed
-     * @throws ParserConfigurationException If there is an XML parser
-     *         configration problem
-     */
-    private String getJspRedirectorMapping(WarArchive theWar)
-        throws IOException, SAXException, ParserConfigurationException
-    {
-        // To get the JSP redirector mapping, we must first get the full path to
-        // the corresponding JSP file in the WAR
-        String jspRedirectorPath = theWar.findResource("jspRedirector.jsp");
-        if (jspRedirectorPath != null)
-        {
-            jspRedirectorPath = "/" + jspRedirectorPath;
-            Iterator jspNames = theWar.getWebXml().getServletNamesForJspFile(
-                jspRedirectorPath);
-            if (jspNames.hasNext())
-            {
-                // we only care about the first definition and the first
-                // mapping
-                String name = (String) jspNames.next(); 
-                Iterator mappings = theWar.getWebXml().getServletMappings(name);
-                if (mappings.hasNext())
-                {
-                    return (String) mappings.next();
-                }
-            }
-        }
-        return null;
-    }
-
-    /**
-     * Returns the first URL-pattern to which the Cactus servlet redirector is 
-     * mapped in the deployment descriptor.
-     * 
-     * @param theWar The web-application archive
-     * @return The mapping, or <code>null</code> if the servlet redirector is
-     *         not defined or mapped in the descriptor
-     * @throws IOException If there was a problem reading the  deployment
-     *         descriptor in the WAR
-     * @throws SAXException If the deployment descriptor of the WAR could not
-     *         be parsed
-     * @throws ParserConfigurationException If there is an XML parser
-     *         configration problem
-     */
-    private String getServletRedirectorMapping(WarArchive theWar)
-        throws SAXException, IOException, ParserConfigurationException
-    {
-        Iterator servletNames = theWar.getWebXml().getServletNamesForClass(
-            "org.apache.cactus.server.ServletTestRedirector");
-        if (servletNames.hasNext())
-        {
-            // we only care about the first definition and the first mapping
-            String name = (String) servletNames.next(); 
-            Iterator mappings = theWar.getWebXml().getServletMappings(name);
-            if (mappings.hasNext())
-            {
-                return (String) mappings.next();
-            }
-        }
-        return null;
-    }
-
-    /**
-     * Finds the web module in the enterprise application archive that contains
-     * the servlet test redirector, and returns the web-uri of the module found.
-     * 
-     * <em>A web-app is considered cactified when it contains at least a mapping
-     * for the Cactus servlet test redirector</em>
-     * 
-     * @param theEar The enterprise application archive
-     * @return The URI of the cactified web-module, or <code>null</code> if no
-     *         cactified web-app could be found
-     */
-    private String getUriOfCactifiedWebModule(EarArchive theEar)
-    {
-        try
-        {
-            ApplicationXml applicationXml = theEar.getApplicationXml();
-            for (Iterator i = applicationXml.getWebModuleUris(); i.hasNext();)
-            {
-                String webUri = (String) i.next();
-                WarArchive war = theEar.getWebModule(webUri);
-                if ((war != null) && (getServletRedirectorMapping(war) != null))
-                {
-                    return webUri;
-                }
-            }
-        }
-        catch (SAXException e)
-        {
-            throw new BuildException(
-                "Parsing of deployment descriptor failed", e);
-        }
-        catch (IOException e)
-        {
-            throw new BuildException("Failed to open WAR", e);
-        }
-        catch (ParserConfigurationException e)
-        {
-            throw new BuildException("XML parser configuration error", e);
-        }
-        return null;
-    }
-
 }

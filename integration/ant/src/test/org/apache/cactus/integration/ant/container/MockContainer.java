@@ -187,7 +187,7 @@ public final class MockContainer implements Container
     /**
      * @see Container#setDeployableFile
      */
-    public void setDeployableFile(File theWarFile)
+    public void setDeployableFile(DeployableFile theWarFile)
     {
     }
 

@@ -287,8 +287,9 @@ public class JBoss3xContainer extends AbstractJavaContainer
         // directory
         File configDir = new File(this.dir, "server");
         File deployDir = new File(configDir, this.config + "/deploy");
-        fileUtils.copyFile(getDeployableFile(),
-            new File(deployDir, getDeployableFile().getName()), null, true);
+        fileUtils.copyFile(getDeployableFile().getFile(),
+            new File(deployDir, getDeployableFile().getFile().getName()), 
+            null, true);
     }
 
     /**

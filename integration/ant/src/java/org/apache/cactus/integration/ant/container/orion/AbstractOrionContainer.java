@@ -249,8 +249,9 @@ public abstract class AbstractOrionContainer extends AbstractJavaContainer
         // throws an error
         createDirectory(tmpDir, "persistence");
         
-        fileUtils.copyFile(getDeployableFile(),
-            new File(tmpDir, getDeployableFile().getName()), null, true);
+        fileUtils.copyFile(getDeployableFile().getFile(),
+            new File(tmpDir, getDeployableFile().getFile().getName()), 
+            null, true);
     }
 
 }

@@ -127,7 +127,7 @@ public final class TestCactusTask extends AntTestCase
         }
         catch (BuildException expected)
         {
-            assertEquals("Failed to open WAR", expected.getMessage());
+            assertEquals("Failed to open archive", expected.getMessage());
         }
     }
 

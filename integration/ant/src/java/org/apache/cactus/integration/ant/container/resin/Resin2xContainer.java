@@ -262,8 +262,9 @@ public class Resin2xContainer extends AbstractJavaContainer
                 new File(tmpDir, "resin.conf"), filterChain);
         }
             
-        fileUtils.copyFile(getDeployableFile(),
-            new File(tmpDir, getDeployableFile().getName()), null, true);
+        fileUtils.copyFile(getDeployableFile().getFile(),
+            new File(tmpDir, getDeployableFile().getFile().getName()), 
+            null, true);
     }
 
 }

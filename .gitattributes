@@ -338,13 +338,17 @@ integration/ant/src/java/org/apache/cactus/integration/ant/ContainerSet.java svn
 integration/ant/src/java/org/apache/cactus/integration/ant/RunServerTestsTask.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/java/org/apache/cactus/integration/ant/WebXmlMergeTask.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/java/org/apache/cactus/integration/ant/container/AbstractContainer.java svn_keywords=Author+Date+Id+Revision
+integration/ant/src/java/org/apache/cactus/integration/ant/container/AbstractDeployableFile.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/java/org/apache/cactus/integration/ant/container/AbstractJavaContainer.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/java/org/apache/cactus/integration/ant/container/AbstractServerRun.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/java/org/apache/cactus/integration/ant/container/Container.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/java/org/apache/cactus/integration/ant/container/ContainerFactory.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/java/org/apache/cactus/integration/ant/container/ContainerRunner.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/java/org/apache/cactus/integration/ant/container/ContainerWrapper.java svn_keywords=Author+Date+Id+Revision
+integration/ant/src/java/org/apache/cactus/integration/ant/container/DeployableFile.java svn_keywords=Author+Date+Id+Revision
+integration/ant/src/java/org/apache/cactus/integration/ant/container/EarDeployableFile.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/java/org/apache/cactus/integration/ant/container/GenericContainer.java svn_keywords=Author+Date+Id+Revision
+integration/ant/src/java/org/apache/cactus/integration/ant/container/WarDeployableFile.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/java/org/apache/cactus/integration/ant/container/default.properties svn_keywords=Author+Date+Id+Revision
 integration/ant/src/java/org/apache/cactus/integration/ant/container/enhydra/EnhydraRun.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/java/org/apache/cactus/integration/ant/container/enhydra/package.html svn_keywords=Author+Date+Id+Revision

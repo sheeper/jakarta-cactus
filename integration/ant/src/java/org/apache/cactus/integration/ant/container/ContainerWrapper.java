@@ -180,7 +180,7 @@ public class ContainerWrapper implements Container
     /**
      * @see Container#setDeployableFile
      */
-    public void setDeployableFile(File theWarFile)
+    public void setDeployableFile(DeployableFile theWarFile)
     {
         this.container.setDeployableFile(theWarFile);
     }

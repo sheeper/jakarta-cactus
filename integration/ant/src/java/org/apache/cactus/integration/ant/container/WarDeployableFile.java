@@ -57,105 +57,56 @@
 package org.apache.cactus.integration.ant.container;
 
 import java.io.File;
+import java.io.IOException;
 
-import org.apache.cactus.integration.ant.util.AntTaskFactory;
-import org.apache.commons.logging.Log;
+import org.apache.cactus.integration.ant.deployment.WarArchive;
+import org.apache.tools.ant.BuildException;
 
 /**
- * Interface for classes that can be used as nested elements in the
- * <code>&lt;containers&gt;</code> element of the <code>&lt;cactus&gt;</code>
- * task.
+ * Represents a WAR file to deploy in a container. 
  * 
- * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
+ * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
  */
-public interface Container
+public class WarDeployableFile extends AbstractDeployableFile
 {
-
-    // Public Methods ----------------------------------------------------------
+    /**
+     * @see AbstractDeployableFile#AbstractDeployableFile(File)
+     */
+    public WarDeployableFile(File theDeployableFile) throws BuildException
+    {
+        super(theDeployableFile);    
+    }
 
     /**
-     * Returns a displayable name of the container for logging purposes.
-     * 
-     * @return The container name
+     * @see DeployableFile#isWar()
      */
-    String getName();
+    public final boolean isWar()
+    {
+        return true;
+    }
+    
+    /**
+     * @see DeployableFile#isEar()
+     */
+    public final boolean isEar()
+    {
+        return false;
+    }
 
     /**
-     * Returns the port to which the container should listen.
-     * 
-     * @return The port
+     * @see AbstractDeployableFile#parse()
      */
-    int getPort();
-
-    /**
-     * Returns the value of the 'todir' attribute.
-     * 
-     * @return The output directory
-     */
-    File getToDir();
-
-    /**
-     * Subclasses should implement this method to perform any initialization
-     * that may be necessary. This method is called before any of the accessors
-     * or the methods {@link AbstractContainer#startUp} and
-     * {@link AbstractContainer#shutDown} are called, but after all attributes
-     * have been set.
-     */
-    void init();
-
-    /**
-     * Returns whether the container element is enabled, which is determined by
-     * the evaluation of the if- and unless conditions
-     * 
-     * @return <code>true</code> if the container is enabled
-     */
-    boolean isEnabled();
-
-    /**
-     * Returns whether a specific test case is to be excluded from being run in
-     * the container.
-     * 
-     * @param theTestName The fully qualified name of the test fixture class
-     * @return <code>true</code> if the test should be excluded, otherwise
-     *         <code>false</code>
-     */
-    boolean isExcluded(String theTestName);
-
-    /**
-     * Sets the factory to use for creating Ant tasks.
-     * 
-     * @param theFactory The factory to use for creating Ant tasks
-     */
-    void setAntTaskFactory(AntTaskFactory theFactory);
-
-    /**
-     * Sets the log which the implementation should use.
-     *  
-     * @param theLog The log to set
-     */
-    void setLog(Log theLog);
-
-    /**
-     * Sets the file that should be deployed to the container. This can be
-     * either a WAR or an EAR file, depending on the capabilities of the
-     * container.
-     * 
-     * @param theDeployableFile The file to deploy
-     */
-    void setDeployableFile(DeployableFile theDeployableFile);
-
-    /**
-     * Subclasses must implement this method to perform the actual task of 
-     * starting up the container.
-     */
-    void startUp();
-
-    /**
-     * Subclasses must implement this method to perform the actual task of 
-     * shutting down the container.
-     */
-    void shutDown();
-
+    protected void parse() throws IOException
+    {
+        this.warArchive = new WarArchive(getFile());
+        String context = getFile().getName();
+        int warIndex = context.toLowerCase().lastIndexOf(".war");
+        if (warIndex >= 0)
+        {
+            context = context.substring(0, warIndex);
+        }
+        this.contextPath = context;
+    }   
 }

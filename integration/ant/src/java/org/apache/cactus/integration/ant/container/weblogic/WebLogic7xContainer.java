@@ -302,9 +302,9 @@ public class WebLogic7xContainer extends AbstractJavaContainer
             createDirectory(testDomainDir, "applications");
         Jar jar = (Jar) createAntTask("jar");
         jar.setDestFile(new File(applicationsDir,
-            getDeployableFile().getName()));
+            getDeployableFile().getFile().getName()));
         ZipFileSet zip = new ZipFileSet();
-        zip.setSrc(getDeployableFile());
+        zip.setSrc(getDeployableFile().getFile());
         jar.addZipfileset(zip);
         ZipFileSet fileSet = new ZipFileSet();
         fileSet.setDir(this.tmpDir);
