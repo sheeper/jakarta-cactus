@@ -68,16 +68,19 @@
       </devs>
 
       <release version="1.6dev" date="in CVS">
+        <action dev="VMA" type="add">
+          Added the Maven plugin. It was formerly hosted in the Maven project's
+          own CVS. It is now in the Cactus CVS and is part of the Cactus
+          distribution.
+        </action>
+      </release>
+
+      <release version="1.5" date="23 November 2003">
         <action dev="VMA" type="fix">
           In the Cactus/Ant integration, user-defined <code>tomcat-users</code>
           and <code>web.xml</code> are now correctly replacing the default 
           version provided by Cactus. This is for the Tomcat 4.x and 5.x
           containers.
-        </action>
-        <action dev="VMA" type="add">
-          Added the Maven plugin. It was formerly hosted in the Maven project's
-          own CVS. It is now in the Cactus CVS and is part of the Cactus
-          distribution.
         </action>
         <action dev="VMA" type="fix" fixes-bug="24072" due-to="James Stangler" due-to-email="jastangler@yahoo.com">
           The Jetty Test Setup was not shutting Jetty down if an error ocurred

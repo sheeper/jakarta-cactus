@@ -22,6 +22,7 @@
 
     <items>
       <rdf:Seq>
+        <rdf:li rdf:resource="http://jakarta.apache.org/cactus/news.html#news17"/>
         <rdf:li rdf:resource="http://jakarta.apache.org/cactus/news.html#news16"/>
         <rdf:li rdf:resource="http://jakarta.apache.org/cactus/news.html#news15"/>
         <rdf:li rdf:resource="http://jakarta.apache.org/cactus/news.html#news14"/>
@@ -42,6 +43,20 @@
     </items>
 
   </channel>
+
+  <item rdf:about="http://jakarta.apache.org/cactus/news.html#news17">
+    <title>Cactus 1.5 released</title>
+    <link>http://jakarta.apache.org/cactus/news.html#news17</link>
+    <description>
+<![CDATA[Cactus 1.5 has been released. Full details can be found
+in the <a href="http://jakarta.apache.org/cactus/1.5/ANNOUNCEMENT.txt">
+release announcement</a>.
+]]>
+    </description>
+    <dc:subject></dc:subject>
+    <dc:creator>vmassol</dc:creator>
+    <dc:date>2003-11-23T00:00:00+00:00</dc:date>
+  </item>
 
   <item rdf:about="http://jakarta.apache.org/cactus/news.html#news16">
     <title>Cactus website translated in French</title>
