@@ -75,21 +75,6 @@
 	    <property name="target.testinput.dir"
 	        location="${target.dir}/testinput"/>
 
-        <property name="target.integration.dir"
-            location="${target.dir}/integration"/>
-        <property name="target.integration.lib.dir" 
-            location="${target.integration.dir}/lib"/>
-	    <property name="target.integration.lib.client.dir" 
-	        location="${target.integration.lib.dir}/client"/>
-	    <property name="target.integration.lib.server.dir"
-	        location="${target.integration.lib.dir}/server"/>
-	    <property name="target.integration.lib.common.dir"
-	        location="${target.integration.lib.dir}/common"/>
-	    <property name="target.integration.script.dir" 
-	        location="${target.integration.dir}/scripts"/>
-	    <property name="target.integration.conf.dir" 
-	        location="${target.integration.dir}/confs"/>
-
     </target>
 
     <!--
@@ -101,15 +86,8 @@
         depends="init.common, properties, init.clover">
 
         <echo>Dependencies:</echo>
-        <echo>  aspectjrt.jar = [${aspectjrt.jar}]</echo>
-        <echo>  cactus.jar = [${cactus.jar}]</echo>
-        <echo>  commons.httpclient.jar = [${commons.httpclient.jar}]</echo>
         <echo>  commons.logging.jar = [${commons.logging.jar}]</echo>
-        <echo>  httpunit.jar = [${httpunit.jar}]</echo>
-        <echo>  j2ee.jar = [${j2ee.jar}]</echo>
         <echo>  junit.jar = [${junit.jar}]</echo>
-        <echo>  log4j.jar = [${log4j.jar}]</echo>
-        <echo>  nekohtml.jar = [${nekohtml.jar}]</echo>
         <echo>  xerces.jar (optional) = [${xerces.jar}]</echo>
         <echo>  xmlapis.jar (optional) = [${xmlapis.jar}]</echo>
         <echo/>
@@ -124,15 +102,8 @@
 
         <condition property="properties.ok">
           <and>
-            <available file="${aspectjrt.jar}"/>
-            <available file="${cactus.jar}"/>
-            <available file="${commons.httpclient.jar}"/>
             <available file="${commons.logging.jar}"/>
-            <available file="${httpunit.jar}"/>
-            <available file="${j2ee.jar}"/>
             <available file="${junit.jar}"/>
-            <available file="${log4j.jar}"/>
-            <available file="${nekohtml.jar}"/>
             <!-- Check for a JAXP class instead of the xmlapis.jar file so that
                  the build works on JDK 1.4 without needing to define the
                  xmlapis.jar property -->
@@ -492,78 +463,6 @@ be resolved. Please check you build.properties file, and run Ant with the
     -->
     <target name="dist.prepare" depends="jar,doc,test,checkstyle">
 
-        <mkdir dir="${target.integration.dir}"/>
-        <mkdir dir="${target.integration.lib.client.dir}"/>
-        <mkdir dir="${target.integration.lib.server.dir}"/>
-        <mkdir dir="${target.integration.lib.common.dir}"/>
-        <mkdir dir="${target.integration.script.dir}"/>
-        <mkdir dir="${target.integration.conf.dir}"/>
-
-		<!-- Gather all server side Cactus jars -->
-		<!-- The directory needs a file because it is otherwise pruned by the Eclipse update feature -->
-		<touch file="${target.integration.lib.server.dir}/KEEPIT"/>
-        
-		<!-- Gather all client side Cactus jars -->
-        <copy todir="${target.integration.lib.client.dir}"
-            file="${target.dir}/${cactus.ant.jar.name}.jar"/>
-        <copy todir="${target.integration.lib.client.dir}" file="${nekohtml.jar}"/>
-        <copy todir="${target.integration.lib.client.dir}" file="${xerces.jar}"/>
-        <copy todir="${target.integration.lib.client.dir}" file="${xmlapis.jar}"/>
-        <copy todir="${target.integration.lib.client.dir}" file="${j2ee.jar}"/>
-        <copy todir="${target.integration.lib.client.dir}" file="${commons.httpclient.jar}"/>
-
-		<!-- Gather all shared (client and server) Cactus jars -->
-        <copy todir="${target.integration.lib.common.dir}" file="${cactus.jar}"/>
-        <copy todir="${target.integration.lib.common.dir}" file="${commons.logging.jar}"/>
-        <copy todir="${target.integration.lib.common.dir}" file="${log4j.jar}"/>
-        <copy todir="${target.integration.lib.common.dir}" file="${aspectjrt.jar}"/>
-        <copy todir="${target.integration.lib.common.dir}" file="${junit.jar}"/>
-        <copy todir="${target.integration.lib.common.dir}" file="${httpunit.jar}"/>
-
-		<!-- Copy the scripts for the current J2EE API -->
-
-        <filter token="cactus.jar.name" value="${cactus.jar.name}.jar"/>
-        <filter token="cactus.ant.jar.name" value="${cactus.ant.jar.name}.jar"/>
-
-		<basename property="log4j.jar.name" file="${log4j.jar}"/>
-        <filter token="log4j.jar.name" value="${log4j.jar.name}"/>
-		<basename property="aspectjrt.jar.name" file="${aspectjrt.jar}"/>
-        <filter token="aspectjrt.jar.name" value="${aspectjrt.jar.name}"/>
-		<basename property="commons.logging.jar.name" file="${commons.logging.jar}"/>
-        <filter token="commons.logging.jar.name" value="${commons.logging.jar.name}"/>
-		<basename property="junit.jar.name" file="${junit.jar}"/>
-        <filter token="junit.jar.name" value="${junit.jar.name}"/>
-		<basename property="commons.httpclient.jar.name" file="${commons.httpclient.jar}"/>
-        <filter token="commons.httpclient.jar.name" value="${commons.httpclient.jar.name}"/>
-		<basename property="httpunit.jar.name" file="${httpunit.jar}"/>
-        <filter token="httpunit.jar.name" value="${httpunit.jar.name}"/>
-		<basename property="nekohtml.jar.name" file="${nekohtml.jar}"/>
-        <filter token="nekohtml.jar.name" value="${nekohtml.jar.name}"/>
-		<basename property="xerces.jar.name" file="${xerces.jar}"/>
-        <filter token="xerces.jar.name" value="${xerces.jar.name}"/>
-		<basename property="xmlapis.jar.name" file="${xmlapis.jar}"/>
-        <filter token="xmlapis.jar.name" value="${xmlapis.jar.name}"/>
-
-		<copy todir="${target.integration.script.dir}" filtering="on">
-			<fileset dir="${src.script.dir}/share"/>
-			<fileset dir="${src.script.dir}/j2ee${j2ee.api}">
-				<exclude name="build.xml"/>
-			</fileset>
-		</copy>
-		<copy todir="${target.integration.dir}"
-			file="${src.script.dir}/j2ee${j2ee.api}/build.xml"/>
-
-		<!-- Copy the confs for the current J2EE API -->
-		<copy todir="${target.integration.conf.dir}">
-			<fileset dir="${src.conf.dir}/share"/>
-			<fileset dir="${src.conf.dir}/j2ee${j2ee.api}"/>
-		</copy>
-
-		<!-- Copy the JSP Redirector -->
-		<copy todir="${target.integration.conf.dir}" 
-			file="${cactus.framework.web}/jspRedirector.jsp"/>
-
-        <mkdir dir="${dist.bin.dir}"/>
         <mkdir dir="${dist.lib.dir}"/>
         <mkdir dir="${dist.doc.api.dir}"/>
         
@@ -584,11 +483,6 @@ be resolved. Please check you build.properties file, and run Ant with the
         <copy todir="${dist.lib.dir}"
             file="${target.dir}/${cactus.ant.jar.name}.jar"/>
 
-        <!-- Copy the Integration -->
-        <copy todir="${dist.bin.dir}/${project.name.file}">
-            <fileset dir="${target.integration.dir}"/>
-        </copy>
-        
         <!-- Copy the generated documentation -->
         <copy todir="${dist.doc.api.dir}">
             <fileset dir="${target.doc.api.dir}"/>
