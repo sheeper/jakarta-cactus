@@ -65,6 +65,12 @@
       </devs>
 
       <release version="1.5" date="- in CVS">
+        <action dev="CML" type="add">
+          Added a <code>HttpServletRequestWrapper.setRemoteUser()</code> method
+          to simulate a remote user. Thus, there is now 2 methods to get a 
+          remote user: by simulating it as above or by using real BASIC or 
+          Form-based authentication.
+        </action>
         <action dev="CML" type="update">
           Refactored the authentication support by introducing the interface
           <code>Authentication</code>, which the class
