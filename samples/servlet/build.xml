@@ -364,7 +364,7 @@
 
         <mkdir dir="${target.dir}"/>
 
-        <checkstyle config="./checkstyle.xml" failOnViolation="false">
+        <checkstyle config="./checkstyle.xml" failOnViolation="true">
 
             <fileset dir="${src.java.dir}">
                 <include name="**/*.java"/>
