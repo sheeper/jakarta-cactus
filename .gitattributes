@@ -326,6 +326,7 @@ integration/ant/src/scripts/share/build-tests-tomcat4x.xml svn_keywords=Author+D
 integration/ant/src/scripts/share/build-tests-weblogic6x.xml svn_keywords=Author+Date+Id+Revision
 integration/ant/src/scripts/share/build-tests-weblogic7x.xml svn_keywords=Author+Date+Id+Revision
 integration/ant/src/test/org/apache/cactus/integration/ant/TestWebMerge.java svn_keywords=Author+Date+Id+Revision
+integration/ant/src/test/org/apache/cactus/integration/ant/webxml/TestAll.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/test/org/apache/cactus/integration/ant/webxml/TestWebXml.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/test/org/apache/cactus/integration/ant/webxml/TestWebXmlMerger.java svn_keywords=Author+Date+Id+Revision
 integration/eclipse/org.apache.cactus.eclipse.runner/.classpath svn_keywords=Author+Date+Id+Revision
