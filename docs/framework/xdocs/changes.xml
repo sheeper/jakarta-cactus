@@ -142,31 +142,36 @@
         Add a tutorial for setting up Cactus in VAJava with Tomcat environment.
       </action>
       <action dev="VMA" type="fix" due-to="Piyush Asthana" due-to-email="piyush.asthana@patni.com">
-        Compatibility with JDK 1.2 was broken by using the <code>URL.getPath()</code> in
-        <code>HttpClientHelper</code>. It is now fixed and should work both for JDK 1.2 and 1.3.
+        Compatibility with JDK 1.2 was broken by using the
+        <code>URL.getPath()</code> in <code>HttpClientHelper</code>. It is now
+        fixed and should work both for JDK 1.2 and 1.3.
       </action>
       <action dev="VMA" type="add">
-        Added a <code>AbstractTestCase.getLogger()</code> method that lets any test case class get
-        access to a logger to perform its own logging. Logs will go into the Cactus log files.
+        Added a <code>AbstractTestCase.getLogger()</code> method that lets any
+        test case class get access to a logger to perform its own logging. Logs
+        will go into the Cactus log files.
       </action>
       <action dev="VMA" type="update">
-        By default, the Cactus log4j configuration file defines a root category that logs to the
-        Cactus log file with a DEBUG Priority. There is another category for the Cactus classes
-        with a Priority of WARN so that no debug logs will be printed by default.
+        By default, the Cactus log4j configuration file defines a root category
+        that logs to the Cactus log file with a DEBUG Priority. There is another
+        category for the Cactus classes with a Priority of WARN so that no
+        debug logs will be printed by default.
       </action>
       <action dev="VMA" type="add">
-        Cactus is now using AspectJ under the hood to provide automatic logging of entries and
-        exits of methods (for debugging purpose) and to automatically initialise the logging
-        subsystem. The next step is to add automatic configuration checking using AspectJ. The
-        consequence for end users if that they now need to include the <code>aspectjrt.jar</code>
-        jar in their classpaths (both client side and server side). It is a small jar (25ko) that
-        is packaged in the cactus distribution.
+        Cactus is now using AspectJ under the hood to provide automatic logging
+        of entries and exits of methods (for debugging purpose) and to
+        automatically initialise the logging subsystem. The next step is to add
+        automatic configuration checking using AspectJ. The consequence for end
+        users if that they now need to include the <code>aspectjrt.jar</code>
+        jar in their classpaths (both client side and server side). It is a
+        small jar (25ko) that is packaged in the cactus distribution.
       </action>
       <action dev="VMA" type="add">
-        Added new java property "<code>cactus.config</code>" to specify location of cactus
-        properties file (you pass it on the command line, ex:
-        "<code>java -Dcactus.property=conf/mycactus.properties</code>"). If not specified,
-        Cactus will look for a "<code>cactus.properties</code>" file in the classpath.
+        Added new java property "<code>cactus.config</code>" to specify location
+        of cactus properties file (you pass it on the command line, ex:
+        "<code>java -Dcactus.config=conf/mycactus.properties</code>"). If not
+        specified, Cactus will look for a "<code>cactus.properties</code>" file
+        in the classpath.
       </action>
       <action dev="VMA" type="add" due-to="Kaarle Kaila" due-to-email="kaarle.kaila@iki.fi">
         New howto that explains how to use JUnitEE as a Test Runner for
@@ -174,26 +179,28 @@
         and server sides live in the same JVM in the container).
       </action>
       <action dev="VMA" type="fix">
-        Fixed bug in <code>MockHttpURLConnection</code> that was triggered by some modification
-        in HttpUnit. It means that some Cactus 1.2 unit tests will fail if run with HttpUnit
-        1.2.8 (still in CVS on the 12/11/01).
+        Fixed bug in <code>MockHttpURLConnection</code> that was triggered by
+        some modification in HttpUnit. It means that some Cactus 1.2 unit tests
+        will fail if run with HttpUnit 1.2.8 (still in CVS on the 12/11/01).
       </action>
       <action dev="VMA" type="update">
-        Moved the Jyve FAQ to an internal FAQ - because Jyve was not always up and also so that
-        we can have our FAQ in CVS along with the rest of the documentation.
+        Moved the Jyve FAQ to an internal FAQ - because Jyve was not always up
+        and also so that we can have our FAQ in CVS along with the rest of the
+        documentation.
       </action>
       <action dev="VMA" type="fix" due-to="Chris Hazen" due-to-email="cjkchazen@earthlink.net">
         (<link href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=4563">
         Bug #4563</link>).
-        The getHost method of the ServletURL class returns the ":" signifing the start
-        of the port number of the host. This has side effects in Cactus in that passing
-        in the host name and port into the WebRequest method as "127.0.0.1:7001" will
-        cause Cactus to use this url "http://127.0.0.1::7001".
+        The <code>getHost()</code> method of the <code>ServletURL</code> class
+        returns the ":" signifing the start of the port number of the host.
+        This has side effects in Cactus in that passing
+        in the host name and port into the WebRequest method as "127.0.0.1:7001"
+        will cause Cactus to use this url "http://127.0.0.1::7001".
       </action>
       <action dev="VMA" type="update">
-        Added support for JUnit 3.8 (which has replaced the <code>name()</code> method by a
-        <code>getName()</code> one). Note that Cactus is still supporting earlier versions of
-        JUnit.
+        Added support for JUnit 3.8 (which has replaced the <code>name()</code>
+        method by a <code>getName()</code> one). Note that Cactus is still
+        supporting earlier versions of JUnit.
       </action>
       <action dev="VMA" type="add">
         Added a new method : <code>WebRequest.setContentType(String)</code>
@@ -243,8 +250,9 @@
         <link href="mailto:alvins@dsl.ab.ca">Alvin</link> for providing a fix.
       </action>
       <action dev="VMA" type="remove">
-        Removed <code>ServletTestRequest</code>. It was deprecated in version 1.2 and is now
-        removed in 1.3. You should use <code>WebRequest</code> instead.
+        Removed <code>ServletTestRequest</code>. It was deprecated in version
+        1.2 and is now removed in 1.3. You should use <code>WebRequest</code>
+        instead.
       </action>
     </release>
 
