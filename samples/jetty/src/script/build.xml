@@ -135,8 +135,6 @@
     <fail unless="properties.ok">Missing property or property pointing to an invalid file
 (check your build.properties file)</fail>
 
-    <taskdef resource="cactus.tasks" classpathref="cactus.classpath"/>
-
     <tstamp/>
 
   </target>

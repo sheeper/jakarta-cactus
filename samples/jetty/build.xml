@@ -80,7 +80,6 @@
     <echo>Dependencies:</echo>
     <echo>  aspectjrt.jar = [${aspectjrt.jar}]</echo>
     <echo>  cactus.jar = [${cactus.jar}]</echo>
-    <echo>  cactus.ant.jar = [${cactus.ant.jar}]</echo>
     <echo>  commons.httpclient.jar = [${commons.httpclient.jar}]</echo>
     <echo>  commons.logging.jar = [${commons.logging.jar}]</echo>
     <echo>  httpunit.jar = [${httpunit.jar}]</echo>
@@ -100,7 +99,6 @@
       <and>
         <available file="${aspectjrt.jar}"/>
         <available file="${cactus.jar}"/>
-        <available file="${cactus.ant.jar}"/>
         <available file="${commons.httpclient.jar}"/>
         <available file="${commons.logging.jar}"/>
         <available file="${httpunit.jar}"/>
