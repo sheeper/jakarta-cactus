@@ -58,6 +58,7 @@ package org.apache.cactus.integration.ant;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -517,30 +518,46 @@ public class CactusTask extends JUnitTask
             runner.startUpContainer();
             log("Container responding to HTTP requests as "
                 + runner.getServerName(), Project.MSG_VERBOSE);
-            Enumeration tests = getIndividualTests();
-            while (tests.hasMoreElements())
+            try
             {
-                JUnitTest test = (JUnitTest) tests.nextElement();
-                if (test.shouldRun(getProject())
-                 && !theContainer.isExcluded(test.getName()))
+                Enumeration tests = getIndividualTests();
+                while (tests.hasMoreElements())
                 {
-                    if (theContainer.getToDir() != null)
+                    JUnitTest test = (JUnitTest) tests.nextElement();
+                    if (test.shouldRun(getProject())
+                     && !theContainer.isExcluded(test.getName()))
                     {
-                        test.setTodir(theContainer.getToDir());
+                        if (theContainer.getToDir() != null)
+                        {
+                            test.setTodir(theContainer.getToDir());
+                        }
+                        execute(test);
                     }
-                    execute(test);
                 }
             }
+            finally
+            {
+                log("Shutting down container", Project.MSG_VERBOSE);
+                runner.shutDownContainer();
+                log("Container shut down", Project.MSG_VERBOSE);
+            }
         }
-        catch (Exception e)
+        catch (MalformedURLException mue)
         {
-            throw new BuildException(e);
+            throw new BuildException("Malformed test URL", mue);
         }
-        finally
+        catch (SAXException saxe)
         {
-            log("Shutting down container", Project.MSG_VERBOSE);
-            runner.shutDownContainer();
-            log("Container shut down", Project.MSG_VERBOSE);
+            throw new BuildException("Error parsing a deployment descriptor",
+                saxe);
+        }
+        catch (IOException ioe)
+        {
+            throw new BuildException(ioe);
+        }
+        catch (ParserConfigurationException pce)
+        {
+            throw new BuildException(pce);
         }
     }
 
