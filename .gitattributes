@@ -312,6 +312,7 @@ sample-servlet/conf/sample/conf/test/share/weblogic70/DefaultAuthenticatorInit.l
 sample-servlet/conf/sample/conf/test/share/weblogic70/SerializedSystemIni.dat -text svneol=unset#application/octet-stream
 sample-servlet/conf/sample/conf/test/share/weblogic70/config.xml svn_keywords=Author+Date+Id+Revision
 sample-servlet/conf/sample/conf/test/share/weblogic70/fileRealm.properties svn_keywords=Author+Date+Id+Revision
+sample-servlet/conf/sample/conf/test/share/weblogic70/weblogic.xml svn_keywords=Author+Date+Id+Revision
 sample-servlet/conf/sample/conf/web.xml svn_keywords=Author+Date+Id+Revision
 sample-servlet/src/sample/j2ee12/org/apache/cactus/sample/TestAll.java svn_keywords=Author+Date+Id+Revision
 sample-servlet/src/sample/j2ee13/org/apache/cactus/sample/SampleFilter.java svn_keywords=Author+Date+Id+Revision
