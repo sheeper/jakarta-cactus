@@ -87,6 +87,51 @@ public class TestServletURL extends TestCase
     //-------------------------------------------------------------------------
 
     /**
+     * Verify that if the context path is not empty or null it must start with
+     * a "/" character.
+     */
+    public void testSetContextPathFirstCharacterNotForwardSlash()
+    {
+        try 
+        {
+            new ServletURL(null, "invalidcontextpath", null, null, null);
+            fail("The context path must start with a \"/\" character");
+        }
+        catch (IllegalArgumentException expected)
+        {
+            assertEquals("The Context Path must start with a \"/\" character.", 
+                expected.getMessage());
+        }       
+    }
+
+    /**
+     * Verify that if the context path is not empty or null it must not end 
+     * with the "/" character. 
+     */
+    public void testSetContextPathLastCharacterNotForwardSlash()
+    {
+        try 
+        {
+            new ServletURL(null, "/invalidcontextpath/", null, null, null);
+            fail("The context path must not end with a \"/\" character");
+        }
+        catch (IllegalArgumentException expected)
+        {
+            assertEquals("The Context Path must not end with a \"/\""
+                + " character.", expected.getMessage());
+        }       
+    }
+
+    /**
+     * Verify that the context path can be an empty string.
+     */
+    public void testSetContextPathEmptyString()
+    {
+        ServletURL servletURL = new ServletURL(null, "", null, null, null);
+        assertEquals("", servletURL.getContextPath());
+    }
+
+    /**
      * Verify that the <code>getHost()</code> method is returning the correct
      * host when a port is specified and that the <code>getPort()</code>
      * method returns the specified port.

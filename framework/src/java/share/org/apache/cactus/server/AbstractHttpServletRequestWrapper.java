@@ -166,20 +166,18 @@ public abstract class AbstractHttpServletRequestWrapper
 
     /**
      * @return the context path from the simulated URL or the real context path
-     *         if a simulation URL has not been defined.
+     *         if a simulation URL has not been defined. The real context path
+     *         will be returned if the simulated URL as defined a null value
+     *         for the context path.
      */
     public String getContextPath()
     {
-        String result;
+        String result = this.request.getContextPath();
 
-        if (this.url != null)
+        if ((this.url != null) && (this.url.getContextPath() != null))
         {
             result = this.url.getContextPath();
             LOGGER.debug("Using simulated context : [" + result + "]");
-        }
-        else
-        {
-            result = this.request.getContextPath();
         }
 
         return result;

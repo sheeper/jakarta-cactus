@@ -72,13 +72,26 @@ import org.apache.commons.logging.LogFactory;
  * <code><pre><ul><li><b>Context Path</b>: The path prefix associated with the
  *   ServletContext that this servlet is a part of. If this context is the
  *   default context rooted at the base of the web server's URL namespace, this
- *   path will be an empty string. Otherwise, this path starts with a character
- *   but does not end with a character.</li>
- *   <li><b>Servlet Path</b>: The path section that directly corresponds to the
- *   mapping which activated this request. This path starts with a
+ *   path will be an empty string. Otherwise, this path starts with a "/"
+ *   character but does not end with a "/" character.</li>
+ * <li><b>Servlet Path</b>: The path section that directly corresponds to the
+ *   mapping which activated this request. This path starts with a "/"
  *   character.</li>
- *   <li><b>PathInfo</b>: The part of the request path that is not part of the
+ * <li><b>PathInfo</b>: The part of the request path that is not part of the
  *   Context Path or the Servlet Path.</li></ul></pre></code>
+ * From the Servlet 2.3 specification :<br>
+ * <code><pre><ul><li><b>Context Path</b>: The path prefix associated with the
+ *   ServletContext that this servlet is a part of. If this context is the
+ *   default context rooted at the base of the web server's URL namespace, this
+ *   path will be an empty string. Otherwise, this path starts with a "/"
+ *   character but does not end with a "/" character.</li>
+ * <li><b>Servlet Path</b>: The path section that directly corresponds to the
+ *   mapping which activated this request. This path starts with a "/"
+ *   character <b>except in the case where the request is matched with the 
+ *   "/*" pattern, in which case it is the empty string</b>.</li>
+ * <li><b>PathInfo</b>: The part of the request path that is not part of the
+ *   Context Path or the Servlet Path. <b>It is either null if there is no 
+ *   extra path, or is a string with a leading "/"</b>.</li></ul></pre></code>
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
@@ -211,8 +224,8 @@ public class ServletURL
      *                      <code>HttpServletRequest.getContextPath()</code>.
      *                      Can be null. If null, then the context from the
      *                      Servlet Redirector will be returned.
-     *                      Format: "/" + name or an empty string
-     *                      for the default context.
+     *                      Format: "/" + name or an empty string for the 
+     *                      default context. Must not end with a "/" character.
      * @param theServletPath the servlet path in the URL to simulate,
      *                      i.e. this is the name that will be returned by the
      *                      <code>HttpServletRequest.getServletPath()</code>.
@@ -252,8 +265,8 @@ public class ServletURL
      *                      <code>HttpServletRequest.getContextPath()</code>.
      *                      Can be null. If null, then the context from the
      *                      Servlet Redirector will be returned.
-     *                      Format: "/" + name or an empty string
-     *                      for the default context.
+     *                      Format: "/" + name or an empty string for the 
+     *                      default context. Must not end with a "/" character.
      * @param theServletPath the servlet path in the URL to simulate,
      *                      i.e. this is the name that will be returned by the
      *                      <code>HttpServletRequest.getServletPath()</code>.
@@ -420,12 +433,27 @@ public class ServletURL
      * name that will be returned by the
      * <code>HttpServletRequest.getContextPath()</code>. If not set, the
      * context from the Servlet Redirector will be returned. Format: "/" +
-     * name or an empty string for the default context.
+     * name or an empty string for the default context. If not an empty
+     * string the last character must not be "/".
      *
      * @param theContextPath the context path to simulate
      */
     public void setContextPath(String theContextPath)
     {
+        if ((theContextPath != null) && (theContextPath.length() > 0))
+        {
+            if (!theContextPath.startsWith("/"))
+            {
+                throw new IllegalArgumentException("The Context Path must"
+                    + " start with a \"/\" character.");
+            }
+            if (theContextPath.endsWith("/"))
+            {
+                throw new IllegalArgumentException("The Context Path must not"
+                    + " end with a \"/\" character.");                
+            }
+        }
+
         this.contextPath = theContextPath;
     }
 

@@ -241,4 +241,27 @@ public class TestSetURL extends ServletTestCase
         assertEquals(request.getParameter("PARAM2"), "");
         assertEquals(request.getParameter("PARAM3"), "param3");
     }
+
+    //-------------------------------------------------------------------------
+
+    /**
+     * Verify that if the context path is null in <code>setURL()</code> the
+     * real context path will be used.
+     *
+     * @param theRequest the request object that serves to initialize the
+     *                   HTTP connection to the server redirector.
+     */
+    public void beginSimulatedURLNullContextPath(WebRequest theRequest)
+    {
+        theRequest.setURL(null, null, null, null, null);
+    }
+
+    /**
+     * Verify that if the context path is null in <code>setURL()</code> the
+     * real context path will be used.
+     */
+    public void testSimulatedURLNullContextPath()
+    {
+        assertNotNull(request.getContextPath());       
+    }
 }
