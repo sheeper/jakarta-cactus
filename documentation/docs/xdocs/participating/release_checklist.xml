@@ -115,23 +115,6 @@
           <code>CACTUS_14_RELEASE</code>).
         </li>
         <li>
-          Announce the release on the following locations (using the
-          <code>ANNOUNCEMENT.txt</code> as the email content):
-          <ul>
-            <li>
-              Cactus user mailing list: Send the announcement there with a
-              subject of <code>[ANN] Cactus &lt;version&gt; has been
-              released</code>.
-            </li>
-            <li>
-             Jakarta Announcement mailing list
-             (<code>announcements@jakarta.apache.org</code>): Send the
-             announcement there with a subject of <code>[ANN] Cactus
-             &lt;version&gt; has been released</code>.
-            </li>
-          </ul>
-        </li>
-        <li>
           Checkout the <code>jakarta-site2</code> CVS module. Modify the 
           following files and then run <code>ant</code>. Commit the modified
           files. Then log on <code>cvs.apache.org</code>, go to 
@@ -162,6 +145,23 @@
           <code>project.*.version</code> properties with the new development 
           version (for example after releasing 1.5, the new development 
           version is 1.6dev).
+        </li>
+        <li>
+          Announce the release on the following locations (using the
+          <code>ANNOUNCEMENT.txt</code> as the email content):
+          <ul>
+            <li>
+              Cactus user mailing list: Send the announcement there with a
+              subject of <code>[ANN] Cactus &lt;version&gt; has been
+              released</code>.
+            </li>
+            <li>
+             Jakarta Announcement mailing list
+             (<code>announcements@jakarta.apache.org</code>): Send the
+             announcement there with a subject of <code>[ANN] Cactus
+             &lt;version&gt; has been released</code>.
+            </li>
+          </ul>
         </li>
       </ol>
 
