@@ -62,8 +62,7 @@
       <s2 title="1. Brackets">
 
         <p>
-          For class and method declaration, brackets should begin and end on a
-          <strong>new</strong> line. Example :
+          All brackets should begin and end on a <strong>new</strong> line. Example:
         </p>
 
 <source><![CDATA[
@@ -71,26 +70,9 @@ public class SomeClass
 {
     public void someMethod()
     {
-    }
-}
-]]></source>
-
-        <p>
-          Brackets for blocks of code inside methods should begin and end
-          on the <strong>same</strong> line (this applies to <code>if</code>,
-          <code>for</code>, <code>while</code>, <code>try/catch</code>, ...).
-          Example :
-        </p>
-
-<source><![CDATA[
-public void someMethod()
-{
-    if (expression) {
-    } else if (other_expression) {
-    }
-
-    try {
-    } catch (Exception e) {
+        if (...)
+        {
+        }
     }
 }
 ]]></source>
@@ -106,7 +88,8 @@ if (expression)
     // some code
 
 // Correct
-if (expression) {
+if (expression)
+{
     // some code
 }
 ]]></source>
@@ -121,7 +104,8 @@ if (expression) {
         </p>
 
 <source><![CDATA[
-while (true) {
+while (true)
+{
     // some code
 }
 ]]></source>
@@ -135,7 +119,8 @@ while (true) {
 a += c + d;
 a = (a + b) / (c * d);
 
-while (d++ = s++) {
+while (d++ = s++)
+{
     n++;
 }
 
@@ -274,7 +259,7 @@ public void someMethod()
 
         <note>
           As of Cactus 1.3, LogAspect autmatically logs all method entries and
-					exits.
+          exits.
         </note>
       </s2>
 
@@ -315,10 +300,13 @@ public void someMethod()
 <source><![CDATA[
 public void getTestClass()
 {
-    try {
+    try
+    {
         Class responseClass =
             Class.forName("some.package.MyClass");
-    } catch (ClassNotFoundException cnfe) {
+    } 
+    catch (ClassNotFoundException cnfe)
+    {
         String message = "Cannot instantiate test class";
         logger.error(message);
         throw new ChainedRuntimeException(message, e);
