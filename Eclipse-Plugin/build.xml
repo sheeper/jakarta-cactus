@@ -7,12 +7,21 @@
     <property file="build.properties" />
     <property file="${user.home}/build.properties" />
 
+
+    <property name="project.prefix" value="jakarta-"/>
+    <property name="project.name.file" value="cactus-eclipse-plugin"/>    
+
 	<property name="src.dir" value="src"/>
 	<property name="src.java.dir" value="${src.dir}/java"/>
 
 	<property name="target.dir" value="target"/>
 	<property name="target.classes.dir" value="${target.dir}/classes"/>
 
+	<property name="dist.dir" value="dist"/>
+
+    <!-- Release directory, i.e. where the zipped distribution is located -->
+    <property name="release.dir" value="release"/>
+    
     <!--
        ========================================================================
          Initialize the build and display mandatory properties.
@@ -62,6 +71,80 @@
 
 	</target>
 
+	<target name="package" depends="compile">
+		<mkdir dir="${dist.dir}" />
+		
+		<jar 
+			jarfile="${dist.dir}/cactussupport.jar"
+			basedir="${target.classes.dir}"
+		/>
+				
+		<jar 		
+			jarfile="${dist.dir}/cactussupportsrc.jar"
+			basedir="src/java"
+		/>
+		
+		<copy file="plugin.xml" todir="${dist.dir}"/>
+		<copy file="plugin.properties" todir="${dist.dir}"/>
+		<copy todir="${dist.dir}/icons">
+			<fileset dir="icons" />
+		</copy>
+		<copy todir="${dist.dir}/ant">
+			<fileset dir="ant" />
+		</copy>
+	</target>
+
+
+    <!--
+       ========================================================================
+         Script for both "gump" target. Must only be
+         called by "gump" target as it needs the following
+         properties defined before calling it :
+
+             cactus.release.name
+
+       ========================================================================
+    -->
+    <target name="release">
+
+        <mkdir dir="${release.dir}"/>
+
+        <zip zipfile="${release.dir}/${cactus.release.name}.zip">
+
+            <zipfileset dir="${dist.dir}" prefix="${cactus.release.name}"/>
+
+            <!-- Add the licenses -->
+            <zipfileset dir="." prefix="${cactus.release.name}">
+                <include name="LICENSE.*"/>
+            </zipfileset>
+        </zip>
+
+    </target>
+    	
+    <!--
+       ========================================================================
+         Generate a nightly gump release (i.e. the zipped release file).
+       ========================================================================
+    -->
+    <target name="gump.prepare">
+
+        <!-- Sets the date for the release prefix : YYYYMMDD -->
+        <tstamp/>
+
+        <!-- Suffix to add to all distributable files -->
+        <property name="project.suffix" value="-${DSTAMP}"/>
+
+        <!-- Name of nightly release -->
+        <property name="cactus.release.name"
+            value="${project.prefix}${project.name.file}-${project.suffix}"/>
+
+    </target>
+
+    <target name="gump" depends="clean,gump.prepare,package,release"
+        description="Generate a nightly gump release">
+    </target>
+
+
     <!--
        ========================================================================
          Clean up build-generated files and directories
@@ -70,6 +153,7 @@
 	<target name="clean">
 	
 		<delete dir="${target.dir}"/>
+		<delete dir="${dist.dir}"/>
 		
 	</target>
 	
