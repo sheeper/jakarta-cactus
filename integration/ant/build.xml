@@ -365,8 +365,8 @@
             <fileset dir="${target.classes.java.dir}"/>
 
             <zipfileset dir="${src.conf.dir}"
-                prefix="org/apache/cactus/integration/ant/webxml/resources">
-              <include name="web-app_*.*"/>
+                prefix="org/apache/cactus/integration/ant/deployment/resources">
+              <include name="*.dtd"/>
             </zipfileset>
 
             <zipfileset dir="${src.conf.dir}/share"
