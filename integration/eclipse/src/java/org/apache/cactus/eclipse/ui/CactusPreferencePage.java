@@ -116,9 +116,9 @@ public class CactusPreferencePage
                         "CactusPreferencePage.label.protocol1"),
                     "http" },
                 {
-                    CactusMessages.getString(
-                        "CactusPreferencePage.label.protocol2"),
-                        "https" }
+                CactusMessages.getString(
+                    "CactusPreferencePage.label.protocol2"),
+                    "https" }
         }, getFieldEditorParent()));
         addField(
             new StringFieldEditor(
@@ -137,15 +137,20 @@ public class CactusPreferencePage
                 getFieldEditorParent()));
         // Jars needed by Cactus are now provided with the plugin
         // Left for future user-override capability
-//        addField(
-//            new DirectoryFieldEditor(
-//                CactusPreferences.JARS_DIR,
-//                "Jars directory:",
-//                getFieldEditorParent()));
+        //        addField(
+        //            new DirectoryFieldEditor(
+        //                CactusPreferences.JARS_DIR,
+        //                "Jars directory:",
+        //                getFieldEditorParent()));
         addField(
             new DirectoryFieldEditor(
                 CactusPreferences.TEMP_DIR,
                 CactusMessages.getString("CactusPreferencePage.label.temp"),
+                getFieldEditorParent()));
+        addField(
+            new StringFieldEditor(
+                CactusPreferences.WEBAPP_DIR,
+                CactusMessages.getString("CactusPreferencePage.label.webapp"),
                 getFieldEditorParent()));
     }
 

@@ -224,6 +224,10 @@ public class CactusPlugin extends AbstractUIPlugin
         theStore.setDefault(
             CactusPreferences.TEMP_DIR,
             System.getProperty("java.io.tmpdir"));
+        theStore.setDefault(
+            CactusPreferences.WEBAPP_DIR,
+            CactusMessages.getString("CactusPreferencePage.label.webapp.init"));
+
     }
 
     /**

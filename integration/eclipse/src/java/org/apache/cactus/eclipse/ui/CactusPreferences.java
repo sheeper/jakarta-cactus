@@ -102,6 +102,11 @@ public class CactusPreferences
     public static final String TEMP_DIR = "temp_Dir";
 
     /**
+     * The directory where the plugin can find the web application.
+     */
+    public static final String WEBAPP_DIR = "webapp_Dir";
+
+    /**
      * Home directory of Tomcat 4.x.
      */
     public static final String TOMCAT4X_DIR = "tomcat4x";
@@ -110,10 +115,10 @@ public class CactusPreferences
      * Home directory of Resin 2.0.
      */
     public static final String RESIN20_DIR = "resin.20";
- 
+
     /**
      * Home directory of Weblogic 7.0.
-     */   
+     */
     public static final String WEBLOGIC70_DIR = "weblogic.70";
 
     /**
@@ -196,6 +201,21 @@ public class CactusPreferences
         CactusPlugin.log("Cactus preference : TempDir = [" + result + "]");
         return result;
     }
+
+    /**
+     * Returns the Webapp directory used by cactus, as 
+     * configured in the plug-in preferences.
+     * 
+     * @return the context path
+     */
+    public static String getWebappDir()
+    {
+        IPreferenceStore store = CactusPlugin.getDefault().getPreferenceStore();
+        String result = store.getString(WEBAPP_DIR);
+        CactusPlugin.log("Cactus preference : WebappDir = [" + result + "]");
+        return result;
+    }
+
     /**
      * Returns the TOMCAT4X_DIR.
      * @return String
@@ -232,7 +252,7 @@ public class CactusPreferences
             "Cactus preference : Weblogic70Dir = [" + result + "]");
         return result;
     }
-    
+
     /**
      * Returns the ContainerHome array.
      * @return String
