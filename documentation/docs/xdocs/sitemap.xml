@@ -340,6 +340,7 @@
   <!-- External links (sorted alphabetically by id) -->
   
   <external id="ant" url="http://ant.apache.org/"/>
+  <external id="ant_manual" url="http://ant.apache.org/manual/index.html"/>
   <external id="antlr" url="http://antlr.org/"/>
   <external id="apache" url="http://www.apache.org/"/>
   <external id="aspectj" url="http://www.eclipse.org/aspectj/"/>
