@@ -172,9 +172,7 @@ from Maven core. There is a new mechanism to easily install external plugins.
     <title>Cactus 1.5-rc1 released</title>
     <link>http://jakarta.apache.org/cactus/news.html#news14</link>
     <description>
-<![CDATA[Cactus 1.5-rc1 has been released. Full details can be found
-in the <a href="http://jakarta.apache.org/cactus/1.5-rc1/ANNOUNCEMENT.txt">
-release announcement</a>.
+<![CDATA[Cactus 1.5-rc1 has been released.
 ]]>
     </description>
     <dc:subject></dc:subject>
