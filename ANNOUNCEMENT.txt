@@ -1,10 +1,10 @@
-The Cactus project is pleased to announce the release of version 1.5.
+The Cactus project is pleased to announce the release of version 1.5-beta1
 Cactus is a unit testing framework for testing server side java code.
 
 Goals
 -----
 
-The main focus for version 1.5 was on usability. We had several user
+The main focus for version 1.5-beta1 was on usability. We had several user
 requests to make Cactus easier to get started with. The web site has
 been overhauled to provide better doc navigation and contains several
 new tutorials. In addition, several new front
@@ -12,10 +12,10 @@ ends for Cactus have been added: Ant integration, Maven integration
 Jetty integration, and an experimental Eclipse plugin.
 
 It should be noted that the Eclipse plugin for Cactus is not part of
-Cactus 1.5 as it is still experimental. It is available in Cactus nightly
-build area (http://jakarta.apache.org/cactus/downloads.html). Your feedback
-is important to make it production ready. If you're an Eclipse user, make
-sure you try it (it is documented on 
+Cactus 1.5-beta1 as it is still experimental. It is available in Cactus 
+nightly build area (http://jakarta.apache.org/cactus/downloads.html). 
+Your feedback is important to make it production ready. If you're an 
+Eclipse user, make sure you try it (it is documented on 
 http://jakarta.apache.org/cactus/integration/eclipse/index.html).
 
 Main new features
@@ -43,7 +43,7 @@ Changes
 
 Please check the Changes page at
 http://jakarta.apache.org/cactus/changes.html for a full list of the 
-changes in version 1.5. 
+changes in version 1.5-beta1. 
 
 Known limitations and bugs:
 ---------------------------
@@ -64,8 +64,8 @@ Known limitations and bugs:
   from JUnit TestCase. Thus all non-public API are now not visible from 
   users (as they should be). If you had some framework compiled with 
   Cactus 1.4.1 and using some methods from AbstractWebTestCase or 
-  AbstractTestCase, you'll need to recompile it with Cactus 1.5 or you 
-  might get a NoClassDefFoundError exception. We'll be more careful in the
+  AbstractTestCase, you'll need to recompile it with Cactus 1.5-beta1 or 
+  you might get a NoClassDefFoundError exception. We'll be more careful in the
   future.
 
 For more information about Cactus, please visit
