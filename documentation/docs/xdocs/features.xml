@@ -234,7 +234,9 @@ experimental and needs some work
               Resin 2.x (Servlet API 2.2 and 2.3)
             </li>
             <li>
-              WebLogic 7.x (Servlet API 2.2 and 2.3)
+              WebLogic 7.x (Servlet API 2.2 and 2.3). <em>Support for
+              WebLogic 7.x has not been tested with Cactus 1.5</em>
+              <img src="images/new.jpg" alt="New in Cactus 1.5"/>
             </li>
             <li>
               Orion 1.x (Servlet API 2.2 and 2.3)

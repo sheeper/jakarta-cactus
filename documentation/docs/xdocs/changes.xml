@@ -79,6 +79,10 @@ Note: To be added once we include the Eclipse plugin in a release
 	
       <release version="1.5" date="- in CVS">
         <action dev="VMA" type="update">
+          Support for WebLogic 7.x has not been tested with Cactus 1.5 and
+          may not work.
+        </action>
+        <action dev="VMA" type="update">
           Support for WebLogic 6.x is still available in the Ant integration.
           However, it has not been tested as it is no longer possible to
           download WebLogic 6.x from the BEA web site. It is thus completely
