@@ -46,21 +46,30 @@ public class TestHttpSession extends ServletTestCase
      */
     private TestHttpSession dependentTest;
 
-    public TestHttpSession(String name)
+    /**
+     * @see ServletTestCase#ServletTestCase(String)
+     */
+    public TestHttpSession(String theName)
     {
-        super(name);
+        super(theName);
     }
 
-    public TestHttpSession(String name, TestHttpSession test)
+    /**
+     * @param theName test name
+     * @param theDependentest a dependent test to link to this test
+     */
+    public TestHttpSession(String theName, TestHttpSession theDependentest)
     {
-        super(name);
-        this.dependentTest = test;
+        super(theName);
+        this.dependentTest = theDependentest;
     }
 
     /**
      * We order the tests so that we are sure that testDependentTestUsingSession
      * is run before testDependentTestUsingSession2. This is because we wish to
      * verify it is possible to share session data between 2 tests.
+     * 
+     * @return the ordered suite to execute 
      */
     public static Test suite()
     {
@@ -69,9 +78,11 @@ public class TestHttpSession extends ServletTestCase
         suite.addTest(new TestHttpSession("testVerifyJsessionid"));
         suite.addTest(new TestHttpSession("testCreateSessionCookie"));
 
-        TestHttpSession test = new TestHttpSession("testDependentTestUsingSession");
+        TestHttpSession test = 
+            new TestHttpSession("testDependentTestUsingSession");
         suite.addTest(test);
-        suite.addTest(new TestHttpSession("testDependentTestUsingSession2", test));
+        suite.addTest(
+            new TestHttpSession("testDependentTestUsingSession2", test));
         
         return suite;
     }
@@ -192,6 +203,7 @@ public class TestHttpSession extends ServletTestCase
      */
     public void testDependentTestUsingSession2()
     {
-        assertEquals("dependentTestValue", session.getAttribute("dependentTestId"));
+        assertEquals("dependentTestValue", 
+            session.getAttribute("dependentTestId"));
     }
 }
