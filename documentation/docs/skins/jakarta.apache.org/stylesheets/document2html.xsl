@@ -7,13 +7,10 @@
 
 <!-- TODOS:
      - remove all color references and expose them as variables
-     - try to have a single XSL that calls other XSL for dealing with
-       the different page types as defined in book.xml
      - remove stylesheet images (add, update, fix, remove) from
        xdocs/images
      - handle xdocs located in sub-directories (issue is with the 
        relative path to the images)
-     - migrate the xdocs to the new <properties> instead of <head>
 -->
 
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
