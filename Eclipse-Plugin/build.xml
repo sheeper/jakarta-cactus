@@ -13,7 +13,25 @@
 	<property name="target.dir" value="target"/>
 	<property name="target.classes.dir" value="${target.dir}/classes"/>
 
-	<target name="compile">
+    <!--
+       ========================================================================
+         Initialize the build and display mandatory properties.
+       ========================================================================
+    -->
+	<target name="init">
+
+		<echo>eclipse.junit.jar = ${eclipse.junit.jar}</echo>
+		<echo>eclipse.core.boot.jar = ${eclipse.core.boot.jar}</echo>
+		<echo>eclipse.jdt.junit.jar = ${eclipse.jdt.junit.jar}</echo>
+
+	</target>
+	
+    <!--
+       ========================================================================
+         Compile the plugin
+       ========================================================================
+    -->
+	<target name="compile" depends="init">
 
         <echo>
           ----------------------------------------------
@@ -44,4 +62,15 @@
 
 	</target>
 
+    <!--
+       ========================================================================
+         Clean up build-generated files and directories
+       ========================================================================
+    -->
+	<target name="clean">
+	
+		<delete dir="${target.dir}"/>
+		
+	</target>
+	
 </project>
