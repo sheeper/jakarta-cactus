@@ -14,6 +14,9 @@
 
         junit                 [REQUIRED] For running the unit tests.
 
+        checkstyle            [REQUIRED] For checking coding and naming
+                              conventions.
+
     The following properties need to be set in a ./build.properties or
     or ${user.home}/build.properties file :
 
@@ -696,7 +699,9 @@
 
         <echo message="Errors are reported in ${out.root.dir}/checkstyle_share.xml"/>
 
-        <checkstyle failOnViolation="false" paramPattern="^the[A-Z][a-zA-Z0-9]*$">
+        <checkstyle paramPattern="^(the|is|has)[A-Z][a-zA-Z0-9]*$"
+            allowProtected="true" headerFile="LICENSE">
+
             <fileset dir="${src.java.share.dir}">
                 <include name="**/*.java"/>
                 <exclude name="**/*Aspect.java"/>
