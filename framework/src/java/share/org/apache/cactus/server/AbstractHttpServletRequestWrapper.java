@@ -94,11 +94,25 @@ public abstract class AbstractHttpServletRequestWrapper
     protected ServletURL url;
 
     /**
+     * Remote IP address to simulate (if any)
+     * @see #setRemoteIPAddress(String)
+     */
+    protected String remoteIPAddress;
+
+    /**
+     * Remote Host name to simulate (if any)
+     * @see #setRemoteHostName(String)
+     */
+    protected String remoteHostName;
+
+    /**
      * The logger
      */
     private static final Log LOGGER =
         LogService.getInstance().
         getLog(AbstractHttpServletRequestWrapper.class.getName());
+
+    // New methods not in the interface --------------------------------------
 
     /**
      * Construct an <code>HttpServletRequest</code> instance that delegates
@@ -122,6 +136,28 @@ public abstract class AbstractHttpServletRequestWrapper
     public HttpServletRequest getOriginalRequest()
     {
         return this.request;
+    }
+
+    /**
+     * Simulates the remote IP address (i.e. the client IP address).
+     *
+     * @param theRemoteIPAddress the simulated IP address in string format.
+     *        Exemple : "127.0.0.1"
+     */
+    public void setRemoteIPAddress(String theRemoteIPAddress)
+    {
+        this.remoteIPAddress = theRemoteIPAddress;
+    }
+
+    /**
+     * Simulates the remote host name(i.e. the client host name).
+     *
+     * @param theRemoteHostName the simulated host name in string format.
+     *        Exemple : "atlantis"
+     */
+    public void setRemoteHostName(String theRemoteHostName)
+    {
+        this.remoteHostName = theRemoteHostName;
     }
 
     // Modified methods ------------------------------------------------------
@@ -381,6 +417,38 @@ public abstract class AbstractHttpServletRequestWrapper
         return theLookupPath + "/" + thePath;
     }
 
+    /**
+     * @return the simulated remote IP address if any or the real one.
+     *
+     * @see HttpServletRequest#getRemoteAddr()
+     */
+    public String getRemoteAddr()
+    {
+        String remoteIPAddress;
+        if (this.remoteIPAddress != null) {
+            remoteIPAddress = this.remoteIPAddress;
+        } else {
+            remoteIPAddress = this.request.getRemoteAddr();
+        }
+        return remoteIPAddress;
+    }
+
+    /**
+     * @return the simulated remote host name if any or the real one.
+     *
+     * @see HttpServletRequest#getRemoteHost()
+     */
+    public String getRemoteHost()
+    {
+        String remoteHostName;
+        if (this.remoteHostName != null) {
+            remoteHostName = this.remoteHostName;
+        } else {
+            remoteHostName = this.request.getRemoteHost();
+        }
+        return remoteHostName;
+    }
+
     // Not modified methods --------------------------------------------------
 
     /**
@@ -496,14 +564,6 @@ public abstract class AbstractHttpServletRequestWrapper
     }
 
     /**
-     * @see HttpServletRequest#getRemoteHost()
-     */
-    public String getRemoteHost()
-    {
-        return this.request.getRemoteHost();
-    }
-
-    /**
      * @see HttpServletRequest#getReader()
      */
     public BufferedReader getReader() throws IOException
@@ -581,14 +641,6 @@ public abstract class AbstractHttpServletRequestWrapper
     public boolean isSecure()
     {
         return this.request.isSecure();
-    }
-
-    /**
-     * @see HttpServletRequest#getRemoteAddr()
-     */
-    public String getRemoteAddr()
-    {
-        return this.request.getRemoteAddr();
     }
 
     /**

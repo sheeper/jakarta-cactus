@@ -58,6 +58,7 @@ package org.apache.cactus;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.io.Serializable;
 
 /**
  * Represent the result of the execution of the Test class by the
@@ -68,7 +69,7 @@ import java.io.StringWriter;
  *
  * @version $Id$
  */
-public class WebTestResult
+public class WebTestResult implements Serializable
 {
     /**
      * Name of the exception class if an error occurred

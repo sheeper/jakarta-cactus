@@ -48,6 +48,17 @@
     </devs>
 
     <release version="1.4 in CVS">
+      <action dev="VMA" type="fix" due-to="Patrick Lightbody" due-to-email="plightbo@hotmail.com">
+        Fixed bug where the Test Result object which is put in the Servlet
+        Context was not serializable. This might cause some trouble with some
+        containers.
+      </action>
+      <action dev="VMA" type="add" due-to="Marc Brette" due-to-email="Marc.Brette@mkms.xerox.com">
+        Added simulation of Remote IP address and Remote Host Name, i.e. you
+        can now control what <code>request.getRemoteAddr()</code> and
+        <code>request.getRemoteHost()</code> will return. That is useful if
+        your code depends on these values.
+      </action>
       <action dev="VMA" type="update">
         It is now possible to specify the Cactus properties as System
         properties (the property names are the same as the ones in

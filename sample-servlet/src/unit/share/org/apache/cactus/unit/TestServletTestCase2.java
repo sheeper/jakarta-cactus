@@ -735,4 +735,19 @@ public class TestServletTestCase2 extends ServletTestCase
         assertEquals("text/xml", request.getContentType());
     }
 
+    //-------------------------------------------------------------------------
+
+    /**
+     * Verify that we can simulate the client remote IP address and the client
+     * remote host name.
+     */
+    public void testRemoteClientCheck()
+    {
+        request.setRemoteIPAddress("192.168.0.1");
+        request.setRemoteHostName("atlantis");
+
+        assertEquals("192.168.0.2", request.getRemoteAddr());
+        assertEquals("xxx", request.getRemoteHost());
+    }
+
 }
