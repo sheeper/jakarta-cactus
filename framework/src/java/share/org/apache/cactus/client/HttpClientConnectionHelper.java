@@ -56,9 +56,7 @@
  */
 package org.apache.cactus.client;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -244,17 +242,6 @@ public class HttpClientConnectionHelper extends AbstractConnectionHelper
             return;
         }
 
-        InputStream stream = theRequest.getUserData();
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-
-        byte[] buffer = new byte[2048];
-        int length;
-
-        while ((length = stream.read(buffer)) != -1)
-        {
-            baos.write(buffer, 0, length);
-        }
-
-        ((PostMethod) this.method).setRequestBody(baos.toString());
+        ((PostMethod) this.method).setRequestBody(theRequest.getUserData());
     }
 }
