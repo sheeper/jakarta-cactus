@@ -446,7 +446,23 @@ public class HttpClientHelper
         if ((url != null) && (url.getPath() != null)) {
             path = url.getPath();
         } else {
-            path = theConnection.getURL().getPath();
+
+            // We do not use the URL.getPath() API as it was only introduced in JDK 1.3 and we
+            // want to retain compatibility with JDK 1.2. Using JDK 1.3, we would have written :
+            //      path = theConnection.getURL().getPath();
+
+            String file = theConnection.getURL().getFile();
+            if (file != null) {
+                int q = file.lastIndexOf('?');
+                if (q != -1) {
+                    path = file.substring(0, q);
+                } else {
+                    path = file;
+                }
+            } else {
+                path = null;
+            }
+
         }
 
         logger.debug("Cookie validation pah = [" + path + "]");

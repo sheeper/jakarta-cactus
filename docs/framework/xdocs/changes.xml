@@ -127,6 +127,10 @@
     </devs>
 
     <release version="1.3 in CVS">
+      <action dev="VMA" type="fix" due-to="Piyush Asthana" due-to-email="piyush.asthana@patni.com">
+        Compatibility with JDK 1.2 was broken by using the <code>URL.getPath()</code> in
+        <code>HttpClientHelper</code>. It is now fixed and should work both for JDK 1.2 and 1.3.
+      </action>
       <action dev="VMA" type="add">
         Added a <code>AbstractTestCase.getLogger()</code> method that lets any test case class get
         access to a logger to perform its own logging. Logs will go into the Cactus log files.
