@@ -242,7 +242,8 @@ be resolved. Please check you build.properties file, and run Ant with the
          to 0.0.0 and replace that with the actual plugin version here -->
     <copy todir="${dist.bin.dir}" file="${base.dir}/plugin.xml">
       <filterset begintoken='"' endtoken='"'>
-        <filter token='0.0.0' value='"${project.version.plugin}"'/>
+        <filter token='0.0.0' 
+            value='"${project.version.major}.${project.version.minor}.${DSTAMP}"'/>
       </filterset>
     </copy>
 
