@@ -44,11 +44,13 @@ import org.apache.tools.ant.types.Reference;
  * task for example, in order to find out the list of tests to
  * execute.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  * @version $Id$
  */
 public class CactusScannerTag extends TagSupport implements TaskSource
 {
+    /**
+     * Log instance.
+     */
     private Log log = LogFactory.getLog(CactusScannerTag.class);
 
     /**
@@ -87,6 +89,9 @@ public class CactusScannerTag extends TagSupport implements TaskSource
      */
     private String var;
 
+    /**
+     * Initializations.
+     */
     public CactusScannerTag()
     {
         this.cactusScanner = new CactusScanner();
@@ -95,13 +100,13 @@ public class CactusScannerTag extends TagSupport implements TaskSource
     /**
      * @see TagSupport#doTag(XMLOutput)
      */
-    public void doTag(XMLOutput xmlOutput) throws JellyTagException
+    public void doTag(XMLOutput theXmlOutput) throws JellyTagException
     {
         this.cactusScanner.setProject(AntTagLibrary.getProject(context));
         this.cactusScanner.clear();
 
         // run the body first to configure the task via nested tags
-        invokeBody(xmlOutput);
+        invokeBody(theXmlOutput);
 
         // Process the fileset to extract Cactus test cases. We need to pass
         // the project dependency classpath as the CactusScanner will need
@@ -139,12 +144,12 @@ public class CactusScannerTag extends TagSupport implements TaskSource
     /**
      * @see TaskSource#setTaskProperty(String, Object)
      */
-    public void setTaskProperty(String name, Object value) 
+    public void setTaskProperty(String theName, Object theValue) 
         throws JellyTagException
     {
         try
         {
-            BeanUtils.setProperty(this, name, value);
+            BeanUtils.setProperty(this, theName, theValue);
         }
         catch (IllegalAccessException anException)
         {
@@ -160,13 +165,18 @@ public class CactusScannerTag extends TagSupport implements TaskSource
     /**
      * Adds a set of files (nested fileset attribute). This method is called
      * dynamically by {@link #setTaskProperty}.
+     * 
+     * @param theSet the Ant fileset to add
      */
-    public void addFileset(FileSet set)
+    public void addFileset(FileSet theSet)
     {
-        log.debug("Adding fileset [" + set + "]");
-        this.fileset = set;
+        log.debug("Adding fileset [" + theSet + "]");
+        this.fileset = theSet;
     }
 
+    /**
+     * @return a newly created and empty {@link Path} object
+     */
     public Path createClasspath()
     {
         log.debug("Creating classpath");
@@ -177,27 +187,40 @@ public class CactusScannerTag extends TagSupport implements TaskSource
         return this.classpath.createPath();
     }
 
+    /**
+     * @return the classpath in which we will look for Cactus test cases.
+     */
     public Path getClasspath()
     {
         return this.classpath;
     }
 
-    public void setClasspath(Path classpath)
+    /**
+     * Sets the classapth in which we will look for Cactus test cases.
+     * @param theClasspath the classapth to set
+     */
+    public void setClasspath(Path theClasspath)
     {
-        log.debug("Setting classpath [" + classpath + "]");
+        log.debug("Setting classpath [" + theClasspath + "]");
         if (this.classpath == null)
         {
-            this.classpath = classpath;
+            this.classpath = theClasspath;
         } 
         else
         {
-            this.classpath.append(classpath);
+            this.classpath.append(theClasspath);
         }
     }
 
-    public void setClasspathRef(Reference r)
+    /**
+     * Sets the classpath in which we will look for Cactus test cases, using
+     * a reference.
+     *   
+     * @param theReference the classpath reference
+     */
+    public void setClasspathRef(Reference theReference)
     {
-        createClasspath().setRefid(r);
+        createClasspath().setRefid(theReference);
     }
 
     /**
@@ -209,15 +232,22 @@ public class CactusScannerTag extends TagSupport implements TaskSource
     }
 
     /**
-     * Sets the name of the variable exported by this tag
+     * Sets the name of the variable exported by this tag.
+     * @param theVar the variable that will be exported by this tag and which 
+     *        will contain the list of Cactus test cases
      */
-    public void setVar(String var)
+    public void setVar(String theVar)
     {
-        this.var = var;
+        this.var = theVar;
     }
 
-    public void setClasspathref(String classpathref)
+    /**
+     * Sets the classpath in which we will look for Cactus test cases, using
+     * a String reference. 
+     * @param theClasspathref the classpath reference
+     */
+    public void setClasspathref(String theClasspathref)
     {
-        this.classpathref = classpathref;
+        this.classpathref = theClasspathref;
     }
 }

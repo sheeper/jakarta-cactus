@@ -28,9 +28,6 @@ import javax.servlet.http.HttpSession;
  * to provide some functional tests for Cactus and examples for Cactus users.
  * This servlet simply checks is a user is authenticated
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- * @author <a href="mailto:epugh@upstate.com">Eric Pugh</a>
- *
  * @version $Id$
  */
 public class SampleServlet extends HttpServlet

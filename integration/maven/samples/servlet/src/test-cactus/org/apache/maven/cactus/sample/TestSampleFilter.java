@@ -38,8 +38,6 @@ import org.apache.cactus.WebResponse;
 /**
  * Tests of the <code>SampleFilter</code> filter class.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class TestSampleFilter extends FilterTestCase

@@ -27,8 +27,6 @@ import javax.ejb.EJBHome;
 /**
  * Sample EJB home interface
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- * 
  * @version $Id$
  */
 public interface ConverterHome extends EJBHome

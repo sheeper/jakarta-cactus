@@ -28,8 +28,6 @@ import org.apache.cactus.ServletTestCase;
 /**
  * Sample Cactus test for a session bean.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- * 
  * @version $Id$
  */
 public class TestConverterEJB extends ServletTestCase

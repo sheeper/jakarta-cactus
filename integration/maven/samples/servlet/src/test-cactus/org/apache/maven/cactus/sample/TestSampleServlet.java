@@ -25,8 +25,6 @@ import org.apache.cactus.WebRequest;
 /**
  * Tests of the <code>SampleServlet</code> Servlet class.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class TestSampleServlet extends ServletTestCase

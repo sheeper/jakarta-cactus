@@ -24,7 +24,6 @@ import org.apache.commons.jelly.TagLibrary;
 /**
  * Maven tag library for use in Jelly scripts.
  *
- * @author <a href="vmassol@apache.org">Vincent Massol</a>
  * @version $Id$
  */
 public class CactusTagLibrary extends TagLibrary

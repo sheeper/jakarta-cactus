@@ -52,11 +52,13 @@ import junit.framework.TestCase;
  *   takes no parameters</li>
  * </ul>
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  * @version $Id$
  */
 public class CactusScanner
 {
+    /**
+     * Log instance.
+     */
     private Log log = LogFactory.getLog(CactusScanner.class);
 
     /**
@@ -69,11 +71,17 @@ public class CactusScanner
      */
     private List cactusTests = new ArrayList();
 
-    public void setProject(Project project)
+    /**
+     * @param theProject the Ant project that is currently executing
+     */
+    public void setProject(Project theProject)
     {
-        this.project = project;
+        this.project = theProject;
     }
 
+    /**
+     * Remove all Cactus class names that were found in the {@link Fileset}
+     */
     public void clear()
     {
         this.cactusTests.clear();
@@ -90,12 +98,12 @@ public class CactusScanner
     /**
      * Finds the Cactus test cases from a list of files.
      *
-     * @param fs the list of files in which to look for Cactus tests
-     * @param classpath the classpaths needed to load the test classes
+     * @param theFileset the list of files in which to look for Cactus tests
+     * @param theClasspath the classpaths needed to load the test classes
      */
-    public void processFileSet(FileSet fs, Path classpath)
+    public void processFileSet(FileSet theFileset, Path theClasspath)
     {
-        DirectoryScanner ds = fs.getDirectoryScanner(this.project);
+        DirectoryScanner ds = theFileset.getDirectoryScanner(this.project);
         ds.scan();
         String[] files = ds.getIncludedFiles();
 
@@ -116,7 +124,7 @@ public class CactusScanner
                 log.debug("Found candidate class: [" + fqn + "]");
 
                 // Is it a Cactus test case?
-                if (isJUnitTestCase(fqn, classpath))
+                if (isJUnitTestCase(fqn, theClasspath))
                 {
                     log.debug("Found Cactus test case: [" + fqn + "]");
                     this.cactusTests.add(fqn);
@@ -126,13 +134,13 @@ public class CactusScanner
     }
 
     /**
-     * @param className the fully qualified name of the class to check
-     * @param classpath the classpaths needed to load the test classes
+     * @param theClassName the fully qualified name of the class to check
+     * @param theClasspath the classpaths needed to load the test classes
      * @return true if the class is a JUnit test case
      */
-    private boolean isJUnitTestCase(String className, Path classpath)
+    private boolean isJUnitTestCase(String theClassName, Path theClasspath)
     {
-        Class clazz = loadClass(className, classpath);
+        Class clazz = loadClass(theClassName, theClasspath);
         if (clazz == null)
         {
             return false;
@@ -152,7 +160,7 @@ public class CactusScanner
 
         if (!testCaseClass.isAssignableFrom(clazz))
         {
-            log.debug("Not a JUnit test as class [" + className + "] does "
+            log.debug("Not a JUnit test as class [" + theClassName + "] does "
                 + "not inherit from [" + TestCase.class.getName()
                 + "]");
             return false;
@@ -161,7 +169,7 @@ public class CactusScanner
         // the class must not be abstract
         if (Modifier.isAbstract(clazz.getModifiers()))
         {
-            log.debug("Not a JUnit test as class [" + className + "] is "
+            log.debug("Not a JUnit test as class [" + theClassName + "] is "
                 + "abstract");
             return false;
         }
@@ -183,7 +191,7 @@ public class CactusScanner
 
         if (!hasTestMethod)
         {
-            log.debug("Not a JUnit test as class [" + className + "] has "
+            log.debug("Not a JUnit test as class [" + theClassName + "] has "
                 + "no method that start with \"test\", returns void and has "
                 + "no parameters");
             return false;
@@ -193,41 +201,41 @@ public class CactusScanner
     }
 
     /**
-     * @param className the fully qualified name of the class to check
-     * @param classpath the classpaths needed to load the test classes
+     * @param theClassName the fully qualified name of the class to check
+     * @param theClasspath the classpaths needed to load the test classes
      * @return the class object loaded by reflection from its string name
      */
-    private Class loadClass(String className, Path classpath)
+    private Class loadClass(String theClassName, Path theClasspath)
     {
         Class clazz = null;
         try
         {
-            clazz = createClassLoader(classpath).loadClass(className);
+            clazz = createClassLoader(theClasspath).loadClass(theClassName);
         }
         catch (ClassNotFoundException e)
         {
-            log.error("Failed to load class [" + className + "]", e);
+            log.error("Failed to load class [" + theClassName + "]", e);
         }
         return clazz;
     }
 
     /**
-     * @param classpath the classpaths needed to load the test classes
+     * @param theClasspath the classpaths needed to load the test classes
      * @return a ClassLoader that has all the needed classpaths for loading
      *         the Cactus tests classes
      */
-    private ClassLoader createClassLoader(Path classpath)
+    private ClassLoader createClassLoader(Path theClasspath)
     {
-        URL[] urls = new URL[classpath.size()];
+        URL[] urls = new URL[theClasspath.size()];
 
         try
         {
-            for (int i = 0; i < classpath.size(); i++)
+            for (int i = 0; i < theClasspath.size(); i++)
             {
                 log.debug("Adding ["
-                    + new File(classpath.list()[i]).toURL() + "] "
+                    + new File(theClasspath.list()[i]).toURL() + "] "
                     + "to class loader classpath");
-                urls[i] = new File(classpath.list()[i]).toURL();
+                urls[i] = new File(theClasspath.list()[i]).toURL();
             }
         }
         catch (MalformedURLException e)

@@ -27,8 +27,6 @@ import org.apache.cactus.ServletTestCase;
 /**
  * Test the HtppUnit integration.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class TestHttpUnitIntegration extends ServletTestCase
