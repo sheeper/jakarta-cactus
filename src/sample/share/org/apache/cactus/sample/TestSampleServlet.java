@@ -131,8 +131,20 @@ public class TestSampleServlet extends ServletTestCase
 
     /**
      * Verify that we can simulate a POST request to a servlet. Note that
-     * the POST method is the default method so we don't need to initialize
-     * any parameter in <code>beginPostMethod()</code>.
+     * we send a parameter to force a POST.
+     *
+     * @param theRequest the request object that serves to initialize the
+     *                   HTTP connection to the server redirector.
+     */
+    public void beginPostMethod(WebRequest theRequest)
+    {
+        theRequest.addParameter("param", "value", WebRequest.POST_METHOD);
+    }
+
+    /**
+     * Verify that we can simulate a POST request to a servlet. Note that
+     * we send a parameter to force a POST. Otherwise Cactus will do a GET
+     * by default.
      */
     public void testPostMethod()
     {
@@ -143,18 +155,8 @@ public class TestSampleServlet extends ServletTestCase
     //-------------------------------------------------------------------------
 
     /**
-     * Verify that we can simulate a GET request to a servlet.
-     *
-     * @param theRequest the request object that serves to initialize the
-     *                   HTTP connection to the server redirector.
-     */
-    public void beginGetMethod(WebRequest theRequest)
-    {
-        theRequest.setMethod(WebRequest.GET_METHOD);
-    }
-
-    /**
-     * Verify that we can simulate a GET request to a servlet
+     * Verify that we can simulate a GET request to a servlet. Note: Cactus
+     * does a GET by default.
      */
     public void testGetMethod()
     {

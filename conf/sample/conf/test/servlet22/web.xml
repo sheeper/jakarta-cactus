@@ -26,12 +26,12 @@
 
     <servlet-mapping>
         <servlet-name>ServletRedirector</servlet-name>
-        <url-pattern>/ServletRedirector/</url-pattern>
+        <url-pattern>/ServletRedirector</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
         <servlet-name>JspRedirector</servlet-name>
-        <url-pattern>/JspRedirector/</url-pattern>
+        <url-pattern>/JspRedirector</url-pattern>
     </servlet-mapping>
 
 </web-app>

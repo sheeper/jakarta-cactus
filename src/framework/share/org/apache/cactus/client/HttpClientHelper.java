@@ -107,28 +107,78 @@ public class HttpClientHelper
     }
 
     /**
-     * Add the parameters to the request using a GET method.
+     * Calls the Servlet Redirector.
+     *
+     * @param theRequest the request containing all data to pass to the
+     *                   server redirector.
+     *
+     * @exception Throwable if an unexpected error occured
+     */
+    public HttpURLConnection connect(WebRequest theRequest)
+        throws Throwable
+    {
+        logger.entry("connect(" + theRequest + ")");
+
+        URL url = new URL(this.url);
+
+        // Add the parameters that need to be passed as part of the URL
+        url = addParametersGet(theRequest, url);
+
+        HttpURLConnection connection = (HttpURLConnection)url.openConnection();
+
+        connection.setDoInput(true);
+
+        // Choose the method that we will use to post data :
+        // - If at least one parameter is to be sent in the request body, then
+        //   we are doing a POST.
+        if (theRequest.getParameterNamesPost().hasMoreElements()) {
+            connection.setDoOutput(true);
+        } else {
+            connection.setDoOutput(false);
+        }
+
+        connection.setUseCaches(false);
+
+        // Add the other header fields
+        addHeaders(theRequest, connection);
+
+        // Add the cookies
+        addCookies(theRequest, connection);
+
+        // Add the POST parameters
+        addParametersPost(theRequest, connection);
+
+        // Open the connection and get the result
+        connection.connect();
+
+        logger.exit("connect");
+        return connection;
+    }
+
+    /**
+     * Add the HTTP parameters that need to be passed in the query string of
+     * the URL.
      *
      * @param theRequest the request containing all data to pass to the server
      *        redirector.
      * @param theURL the URL used to connect to the server redirector.
      * @return the new URL
      */
-    private URL addParametersUsingGet(WebRequest theRequest, URL theURL)
+    private URL addParametersGet(WebRequest theRequest, URL theURL)
         throws Throwable
     {
         // If no parameters, then exit
-        if (!theRequest.getParameterNames().hasMoreElements()) {
+        if (!theRequest.getParameterNamesGet().hasMoreElements()) {
             return theURL;
         }
 
         StringBuffer queryString = new StringBuffer();
 
-        Enumeration keys = theRequest.getParameterNames();
+        Enumeration keys = theRequest.getParameterNamesGet();
 
         if (keys.hasMoreElements()) {
             String key = (String)keys.nextElement();
-            String[] values = theRequest.getParameterValues(key);
+            String[] values = theRequest.getParameterValuesGet(key);
             queryString.append(key);
             queryString.append('=');
             queryString.append(URLEncoder.encode(values[0]));
@@ -142,7 +192,7 @@ public class HttpClientHelper
 
         while (keys.hasMoreElements()) {
             String key = (String)keys.nextElement();
-            String[] values = theRequest.getParameterValues(key);
+            String[] values = theRequest.getParameterValuesGet(key);
             for (int i = 0; i < values.length; i++) {
                 queryString.append('&');
                 queryString.append(key);
@@ -151,11 +201,17 @@ public class HttpClientHelper
             }
         }
 
-        String file;
+        String file = theURL.getFile();
+
+        // Remove the trailing "/" if there is one
+        if (file.endsWith("/")) {
+            file = file.substring(0, file.length() - 1);
+        }
+
         if (theURL.toString().indexOf("?") > 0) {
-            file = theURL.getFile() + "&" + queryString.toString();
+            file = file + "&" + queryString.toString();
         } else {
-            file = theURL.getFile() + "?" + queryString.toString();
+            file = file + "?" + queryString.toString();
         }
 
         return new URL(theURL.getProtocol(), theURL.getHost(),
@@ -163,17 +219,17 @@ public class HttpClientHelper
     }
 
     /**
-     * Add the parameters to the request using a POST method.
+     * Add the HTTP parameters that need to be passed in the request body.
      *
      * @param theRequest the request containing all data to pass to the server
      *        redirector.
      * @param theConnection the HTTP connection
      */
-    private void addParametersUsingPost(WebRequest theRequest,
+    private void addParametersPost(WebRequest theRequest,
         URLConnection theConnection) throws Throwable
     {
         // If no parameters, then exit
-        if (!theRequest.getParameterNames().hasMoreElements()) {
+        if (!theRequest.getParameterNamesPost().hasMoreElements()) {
             return;
         }
 
@@ -196,11 +252,11 @@ public class HttpClientHelper
 
         StringBuffer queryString = new StringBuffer();
 
-        Enumeration keys = theRequest.getParameterNames();
+        Enumeration keys = theRequest.getParameterNamesPost();
 
         if (keys.hasMoreElements()) {
             String key = (String)keys.nextElement();
-            String[] values = theRequest.getParameterValues(key);
+            String[] values = theRequest.getParameterValuesPost(key);
             queryString.append(key);
             queryString.append('=');
             queryString.append(URLEncoder.encode(values[0]));
@@ -214,7 +270,7 @@ public class HttpClientHelper
 
         while (keys.hasMoreElements()) {
             String key = (String)keys.nextElement();
-            String[] values = theRequest.getParameterValues(key);
+            String[] values = theRequest.getParameterValuesPost(key);
             for (int i = 0; i < values.length; i++) {
                 queryString.append('&');
                 queryString.append(key);
@@ -244,7 +300,7 @@ public class HttpClientHelper
         if (!cookies.isEmpty()) {
 
             // transform the Cactus cookies into HttpClient cookies
-            org.apache.commons.httpclient.Cookie[] httpclientCookies = 
+            org.apache.commons.httpclient.Cookie[] httpclientCookies =
                 new org.apache.commons.httpclient.Cookie[cookies.size()];
             for (int i = 0; i < cookies.size(); i++) {
                 org.apache.cactus.Cookie cactusCookie =
@@ -400,57 +456,6 @@ public class HttpClientHelper
             theConnection.setRequestProperty(key, fullHeaderValue.toString());
 
         }
-    }
-
-    /**
-     * Calls the Servlet Redirector.
-     *
-     * @param theRequest the request containing all data to pass to the
-     *                   server redirector.
-     *
-     * @exception Throwable if an unexpected error occured
-     */
-    public HttpURLConnection connect(WebRequest theRequest)
-        throws Throwable
-    {
-        logger.entry("connect(" + theRequest + ")");
-
-        URL url = new URL(this.url);
-
-        // If the method is GET, add the parameters to the URL
-        if (theRequest.getMethod().equals(theRequest.GET_METHOD)) {
-            url = addParametersUsingGet(theRequest, url);
-        }
-
-        HttpURLConnection connection = (HttpURLConnection)url.openConnection();
-
-        connection.setDoInput(true);
-
-        // Choose the method that we will use to post data
-        if (theRequest.getMethod().equals(theRequest.POST_METHOD)) {
-            connection.setDoOutput(true);
-        } else {
-            connection.setDoOutput(false);
-        }
-
-        connection.setUseCaches(false);
-
-        // Add the other header fields
-        addHeaders(theRequest, connection);
-
-        // Add the cookies
-        addCookies(theRequest, connection);
-
-        // Add the POST parameters
-        if (theRequest.getMethod().equals(theRequest.POST_METHOD)) {
-            addParametersUsingPost(theRequest, connection);
-        }
-
-        // Open the connection and get the result
-        connection.connect();
-
-        logger.exit("connect");
-        return connection;
     }
 
 }

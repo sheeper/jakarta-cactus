@@ -405,11 +405,17 @@ public abstract class AbstractTestCase extends TestCase
 
         // Add the class name, the method name, the URL to simulate and
         // automatic session creation flag to the request
+
+        // Note: All these pareameters are passed in the URL. This is to allow
+        // the user to send whatever he wants in the request body. For example
+        // a file, ...
         request.addParameter(ServiceDefinition.CLASS_NAME_PARAM,
-            this.getClass().getName());
-        request.addParameter(ServiceDefinition.METHOD_NAME_PARAM, name());
+            this.getClass().getName(), WebRequest.GET_METHOD);
+        request.addParameter(ServiceDefinition.METHOD_NAME_PARAM, name(),
+            WebRequest.GET_METHOD);
         request.addParameter(ServiceDefinition.AUTOSESSION_NAME_PARAM,
-            new Boolean(request.getAutomaticSession()).toString());
+            new Boolean(request.getAutomaticSession()).toString(),
+            WebRequest.GET_METHOD);
 
         // Add the simulated URL (if one has been defined)
         if (request.getURL() != null) {

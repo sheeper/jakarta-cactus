@@ -306,20 +306,29 @@ public class ServletURL
      */
     public void saveToRequest(WebRequest theRequest)
     {
+        // Note: All these pareameters are passed in the URL. This is to allow
+        // the user to send whatever he wants in the request body. For example
+        // a file, ...
+
         if (getServerName() != null) {
-            theRequest.addParameter(URL_SERVER_NAME_PARAM, getServerName());
+            theRequest.addParameter(URL_SERVER_NAME_PARAM, getServerName(),
+                WebRequest.GET_METHOD);
         }
         if (getContextPath() != null) {
-            theRequest.addParameter(URL_CONTEXT_PATH_PARAM, getContextPath());
+            theRequest.addParameter(URL_CONTEXT_PATH_PARAM, getContextPath(),
+                WebRequest.GET_METHOD);
         }
         if (getServletPath() != null) {
-            theRequest.addParameter(URL_SERVLET_PATH_PARAM, getServletPath());
+            theRequest.addParameter(URL_SERVLET_PATH_PARAM, getServletPath(),
+                WebRequest.GET_METHOD);
         }
         if (getPathInfo() != null) {
-            theRequest.addParameter(URL_PATH_INFO_PARAM, getPathInfo());
+            theRequest.addParameter(URL_PATH_INFO_PARAM, getPathInfo(),
+                WebRequest.GET_METHOD);
         }
         if (getQueryString() != null) {
-            theRequest.addParameter(URL_QUERY_STRING_PARAM, getQueryString());
+            theRequest.addParameter(URL_QUERY_STRING_PARAM, getQueryString(),
+                WebRequest.GET_METHOD);
         }
     }
 

@@ -55,6 +55,8 @@ package org.apache.cactus;
 
 import java.util.*;
 
+import org.apache.cactus.util.*;
+
 /**
  * Contains all HTTP request data for a test case. It is the data that
  * will be sent to the server redirector and that will be available to the test
@@ -84,9 +86,14 @@ import java.util.*;
 public class WebRequest
 {
     /**
-     * The request parameters.
+     * The request parameters that need to be sent in the body (POST)
      */
-    private Hashtable parameters = new Hashtable();
+    private Hashtable parametersPost = new Hashtable();
+
+    /**
+     * The request parameters that need to be sent in the URL (GET)
+     */
+    private Hashtable parametersGet = new Hashtable();
 
     /**
      * GET Method identifier.
@@ -117,31 +124,6 @@ public class WebRequest
      * Automatic session creation flag (default is true).
      */
     private boolean isAutomaticSession = true;
-
-    /**
-     * The chosen method for posting data (GET or POST)
-     */
-    private String method = POST_METHOD;
-
-    /**
-     * @param theMethod the method to use to post data (GET or POST)
-     */
-    public void setMethod(String theMethod)
-    {
-        if (theMethod.equalsIgnoreCase(GET_METHOD)) {
-            this.method = GET_METHOD;
-        } else if (theMethod.equalsIgnoreCase(POST_METHOD)) {
-            this.method = POST_METHOD;
-        }
-    }
-
-    /**
-     * @return the method to use for posting data to the server redirector.
-     */
-    public String getMethod()
-    {
-        return this.method;
-    }
 
     /**
      * @param isAutomaticSession whether the redirector servlet will
@@ -224,46 +206,96 @@ public class WebRequest
 
     /**
      * Adds a parameter to the request. It is possible to add several times the
-     * the same parameter name (the same as for the
+     * the same parameter name, but with different value (the same as for the
      * <code>HttpServletRequest</code>).
      *
-     * @param theName  the parameter's name
+     * @param theName the parameter's name
      * @param theValue the parameter's value
+     * @param theMethod GET_METHOD or POST_METHOD. If GET_METHOD then the
+     *        parameter will be sent in the query string of the URL. If
+     *        POST_METHOD, it will be sent as a parameter in the request body.
      */
-    public void addParameter(String theName, String theValue)
+    public void addParameter(String theName, String theValue, String theMethod)
     {
+        Hashtable parameters;
+
+        // Decide if the parameter is to be sent using in the url or not
+        if (theMethod.equalsIgnoreCase(WebRequest.POST_METHOD)) {
+            parameters = this.parametersPost;
+        } else if (theMethod.equalsIgnoreCase(WebRequest.GET_METHOD)) {
+            parameters = this.parametersGet;
+        } else {
+            throw new ChainedRuntimeException("The method need to be either " +
+                "\"POST\" or \"GET\"");
+        }
+
         // If there is already a parameter of the same name, add the
         // new value to the Vector. If not, create a Vector an add it to the
         // hashtable
 
-        if (this.parameters.containsKey(theName)) {
-            Vector v = (Vector)this.parameters.get(theName);
+        if (parameters.containsKey(theName)) {
+            Vector v = (Vector)parameters.get(theName);
             v.addElement(theValue);
         } else {
             Vector v = new Vector();
             v.addElement(theValue);
-            this.parameters.put(theName, v);
+            parameters.put(theName, v);
         }
     }
 
     /**
-     * @return the parameter names
+     * Adds a parameter to the request. The parameter is added to the query
+     * string of the URL.
+     *
+     * @param theName  the parameter's name
+     * @param theValue the parameter's value
+     *
+     * @see WebRequest.addParameter(String, String, String)
      */
-    public Enumeration getParameterNames()
+    public void addParameter(String theName, String theValue)
     {
-        return this.parameters.keys();
+        addParameter(theName, theValue, WebRequest.GET_METHOD);
     }
 
     /**
-     * Returns the first value corresponding to this parameter's name.
-     *
-     * @param  theName the parameter's name
-     * @return the first value corresponding to this parameter's name or null
-     *         if not found
+     * @return the parameter names that will be passed in the request body
+     * (POST)
      */
-    public String getParameter(String theName)
+    public Enumeration getParameterNamesPost()
     {
-        String[] values = getParameterValues(theName);
+        return getParameterNames(this.parametersPost);
+    }
+
+    /**
+     * @return the parameter names that will be passed in the URL (GET)
+     */
+    public Enumeration getParameterNamesGet()
+    {
+        return getParameterNames(this.parametersGet);
+    }
+
+    /**
+     * Returns all the values in the passed hashtable of parameters.
+     *
+     * @param theParameters the hashtable of parameters
+     * @return the parameter names
+     */
+    private Enumeration getParameterNames(Hashtable theParameters)
+    {
+        return theParameters.keys();
+    }
+
+    /**
+     * Returns the first value corresponding to this parameter's name (provided
+     * this parameter is passed in the URL).
+     *
+     * @param theName the parameter's name
+     * @return the first value corresponding to this parameter's name or null
+     *         if not found in the list of parameters to be sent in the URL
+     */
+    public String getParameterGet(String theName)
+    {
+        String[] values = getParameterValuesGet(theName);
 
         if (values != null) {
             return values[0];
@@ -273,17 +305,66 @@ public class WebRequest
     }
 
     /**
-     * Returns all the values associated with this parameter's name.
+     * Returns the first value corresponding to this parameter's name (provided
+     * this parameter is passed in the request body - POST).
      *
-     * @param  theName the parameter's name
-     * @return the values corresponding to this parameter's name or null if not
-     *         found
+     * @param theName the parameter's name
+     * @return the first value corresponding to this parameter's name or null
+     *         if not found in the list of parameters to be sent in the request
+     *         body
      */
-    public String[] getParameterValues(String theName)
+    public String getParameterPost(String theName)
     {
-        if (this.parameters.containsKey(theName)) {
+        String[] values = getParameterValuesPost(theName);
 
-            Vector v = (Vector)this.parameters.get(theName);
+        if (values != null) {
+            return values[0];
+        }
+
+        return null;
+    }
+
+    /**
+     * Returns all the values corresponding to this parameter's name (provided
+     * this parameter is passed in the URL).
+     *
+     * @param theName the parameter's name
+     * @return the first value corresponding to this parameter's name or null
+     *         if not found in the list of parameters to be sent in the URL
+     */
+    public String[] getParameterValuesGet(String theName)
+    {
+        return getParameterValues(theName, this.parametersGet);
+    }
+
+    /**
+     * Returns all the values corresponding to this parameter's name (provided
+     * this parameter is passed in the request body - POST).
+     *
+     * @param theName the parameter's name
+     * @return the first value corresponding to this parameter's name or null
+     *         if not found in the list of parameters to be sent in the request
+     *         body
+     */
+   public String[] getParameterValuesPost(String theName)
+   {
+       return getParameterValues(theName, this.parametersPost);
+   }
+
+    /**
+     * Returns all the values corresponding to this parameter's name in the
+     * provided hashtable.
+     *
+     * @param theName the parameter's name
+     * @param theParameters the hashtable containing the parameters
+     * @return the first value corresponding to this parameter's name or null
+     *         if not found in the passed hashtable
+     */
+    private String[] getParameterValues(String theName, Hashtable theParameters)
+    {
+        if (theParameters.containsKey(theName)) {
+
+            Vector v = (Vector)theParameters.get(theName);
 
             Object[] objs = new Object[v.size()];
             v.copyInto(objs);
@@ -478,15 +559,32 @@ public class WebRequest
 
         // Append cookies
         buffer.append("cookies = [");
-        Enumeration cookies = getCookies().elements();
-        while (cookies.hasMoreElements()) {
-            Cookie cookie = (Cookie)cookies.nextElement();
-            buffer.append("[" + cookie + "]");
-        }
+        buffer.append(toStringAppendCookies());
         buffer.append("], ");
 
         // Append headers
         buffer.append("headers = [");
+        buffer.append(toStringAppendHeaders());
+        buffer.append("], ");
+
+        // Append parameters
+        buffer.append("GET parameters = [");
+        buffer.append(toStringAppendParametersGet());
+        buffer.append("], ");
+        buffer.append("POST parameters = [");
+        buffer.append(toStringAppendParametersPost());
+        buffer.append("]");
+
+        return buffer.toString();
+    }
+
+    /**
+     * @return a string representation of the headers
+     */
+    private String toStringAppendHeaders()
+    {
+        StringBuffer buffer = new StringBuffer();
+
         Enumeration headers = getHeaderNames();
         while (headers.hasMoreElements()) {
             buffer.append("[");
@@ -499,18 +597,59 @@ public class WebRequest
             buffer.append("[" + headerValues[headerValues.length - 1] + "]]");
             buffer.append("]");
         }
-        buffer.append("], ");
 
-        buffer.append("method = [" + getMethod() + "], ");
+        return buffer.toString();
+    }
 
+    /**
+     * @return a string representation of the cookies
+     */
+    private String toStringAppendCookies()
+    {
+        StringBuffer buffer = new StringBuffer();
 
-        // Append parameters
-        buffer.append("parameters = [");
-        Enumeration parameters = getParameterNames();
+        Enumeration cookies = getCookies().elements();
+        while (cookies.hasMoreElements()) {
+            Cookie cookie = (Cookie)cookies.nextElement();
+            buffer.append("[" + cookie + "]");
+        }
+
+        return buffer.toString();
+    }
+
+    /**
+     * @return a string representation of the parameters to be added in the
+     *         request body
+     */
+    private String toStringAppendParametersPost()
+    {
+        return toStringAppendParameters(this.parametersPost);
+    }
+
+    /**
+     * @return a string representation of the parameters to be added in the
+     *         URL
+     */
+    private String toStringAppendParametersGet()
+    {
+        return toStringAppendParameters(this.parametersGet);
+    }
+
+    /**
+     * @param theParameters the HTTP parameters
+     * @return a string representation of the HTTP parameters passed as
+     *         parameters
+     */
+    private String toStringAppendParameters(Hashtable theParameters)
+    {
+        StringBuffer buffer = new StringBuffer();
+
+        Enumeration parameters = getParameterNames(theParameters);
         while (parameters.hasMoreElements()) {
             buffer.append("[");
             String parameterName = (String)parameters.nextElement();
-            String[] parameterValues = getParameterValues(parameterName);
+            String[] parameterValues = getParameterValues(parameterName,
+                theParameters);
             buffer.append("[" + parameterName + "] = [");
             for (int i = 0; i < parameterValues.length - 1; i++) {
                 buffer.append("[" + parameterValues[i] + "], ");
@@ -519,7 +658,6 @@ public class WebRequest
                 "]]");
             buffer.append("]");
         }
-        buffer.append("]");
 
         return buffer.toString();
     }
