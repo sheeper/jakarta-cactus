@@ -518,4 +518,28 @@ public class TestServletTestCase2 extends ServletTestCase
             theResponse.getConnection().getResponseCode());
     }
 
+    //-------------------------------------------------------------------------
+
+    /**
+     * Verify that we can assert HTTP status code when it is a redirect and
+     * that the client side of Cactus does not follow the redirect.
+     */
+    public void testRedirect() throws IOException
+    {
+        response.sendRedirect("http://jakarta.apache.org");
+    }
+
+    /**
+     * Verify that we can assert HTTP status code when it is a redirect and
+     * that the client side of Cactus does not follow the redirect.
+     *
+     * @param theResponse the response from the server side.
+     */
+    public void endRedirect(WebResponse theResponse)
+        throws IOException
+    {
+        assertEquals(HttpServletResponse.SC_MOVED_TEMPORARILY,
+            theResponse.getConnection().getResponseCode());
+    }
+
 }
