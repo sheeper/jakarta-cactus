@@ -132,14 +132,8 @@
 
       <depend property="j2ee.jar" project="jakarta-servletapi"/>
       <depend property="servlet.jar" project="jakarta-servletapi"/>
-      <depend property="log4j.jar" project="jakarta-log4j" id="log4j"/>
       <depend property="commons.logging.jar" project="commons-logging" id="all"/>
-      <depend property="commons.httpclient.jar" project="commons-httpclient"/>
-      <depend property="aspectjrt.jar" project="aspectj" id="aspectjrt"/>
       <depend property="junit.jar" project="junit"/>
-      <depend property="cactus.jar" project="jakarta-cactus-framework-12"/>
-      <depend property="httpunit.jar" project="httpunit"/>
-      <depend property="nekohtml.jar" project="nekohtml" id="nekohtml"/>
       <depend property="xerces.jar" project="xml-xerces" id="parser"/>
       <depend property="xmlapis.jar" project="xml-xerces" id="apis"/>
 
@@ -147,7 +141,6 @@
   
     <depend project="ant" inherit="runtime"/>
     <depend project="xml-xerces"/>
-    <depend project="aspectj"/>
     <option project="checkstyle" inherit="runtime"/>
 
     <work nested="integration/ant/target-12/classes/java"/>
@@ -186,14 +179,8 @@
 
       <depend property="j2ee.jar" project="jakarta-servletapi-4"/>
       <depend property="servlet.jar" project="jakarta-servletapi-4"/>
-      <depend property="log4j.jar" project="jakarta-log4j" id="log4j"/>
       <depend property="commons.logging.jar" project="commons-logging" id="all"/>
-      <depend property="commons.httpclient.jar" project="commons-httpclient"/>
-      <depend property="aspectjrt.jar" project="aspectj" id="aspectjrt"/>
       <depend property="junit.jar" project="junit"/>
-      <depend property="cactus.jar" project="jakarta-cactus-framework-13"/>
-      <depend property="httpunit.jar" project="httpunit"/>
-      <depend property="nekohtml.jar" project="nekohtml" id="nekohtml"/>
       <depend property="xerces.jar" project="xml-xerces" id="parser"/>
       <depend property="xmlapis.jar" project="xml-xerces" id="apis"/>
 
@@ -201,7 +188,6 @@
   
     <depend project="ant" inherit="runtime"/>
     <depend project="xml-xerces"/>
-    <depend project="aspectj"/>
     <option project="checkstyle" inherit="runtime"/>
 
     <work nested="integration/ant/target-13/classes/java"/>
@@ -277,8 +263,10 @@
 
       <property name="project.version" value="@@DATE@@"/>
 
-      <depend property="j2ee.jar" project="jakarta-servletapi"/>
-      <depend property="jetty.jar" project="jetty"/>
+      <depend property="aspectjrt.jar" project="aspectj" id="aspectjrt"/>
+      <depend property="cactus.jar" project="jakarta-cactus-framework-12"/>
+      <depend property="commons.httpclient.jar" project="commons-httpclient"/>
+      <depend property="commons.logging.jar" project="commons-logging" id="all"/>
       <depend property="eclipse.ant.core.jar" project="eclipse" id="antsupport"/>
       <depend property="eclipse.core.boot.jar" project="eclipse" id="boot"/>
       <depend property="eclipse.core.resources.jar" project="eclipse" id="resources"/>
@@ -293,10 +281,16 @@
       <depend property="eclipse.swt.jar" project="eclipse" id="swt"/>
       <depend property="eclipse.ui.workbench.jar" project="eclipse" id="workbench"/>
       <depend property="eclipse.ui.externaltools.jar" project="eclipse" id="externaltools"/>
+      <depend property="httpunit.jar" project="httpunit"/>
+      <depend property="j2ee.jar" project="jakarta-servletapi"/>
+      <depend property="jetty.jar" project="jetty"/>
+      <depend property="log4j.jar" project="jakarta-log4j" id="log4j"/>
+      <depend property="nekohtml.jar" project="nekohtml" id="nekohtml"/>
       
     </ant>
   
     <depend project="ant" inherit="runtime"/>
+    <depend project="aspectj"/>
     <depend project="xml-xerces"/>
     <option project="checkstyle" inherit="runtime"/>
     <depend project="jakarta-cactus-integration-ant-12"/>
@@ -328,8 +322,10 @@
 
       <property name="project.version" value="@@DATE@@"/>
 
-      <depend property="j2ee.jar" project="jakarta-servletapi-4"/>
-      <depend property="jetty.jar" project="jetty"/>
+      <depend property="aspectjrt.jar" project="aspectj" id="aspectjrt"/>
+      <depend property="cactus.jar" project="jakarta-cactus-framework-12"/>
+      <depend property="commons.httpclient.jar" project="commons-httpclient"/>
+      <depend property="commons.logging.jar" project="commons-logging" id="all"/>
       <depend property="eclipse.ant.core.jar" project="eclipse" id="antsupport"/>
       <depend property="eclipse.core.boot.jar" project="eclipse" id="boot"/>
       <depend property="eclipse.core.resources.jar" project="eclipse" id="resources"/>
@@ -344,10 +340,16 @@
       <depend property="eclipse.swt.jar" project="eclipse" id="swt"/>
       <depend property="eclipse.ui.workbench.jar" project="eclipse" id="workbench"/>
       <depend property="eclipse.ui.externaltools.jar" project="eclipse" id="externaltools"/>
+      <depend property="httpunit.jar" project="httpunit"/>
+      <depend property="j2ee.jar" project="jakarta-servletapi-4"/>
+      <depend property="jetty.jar" project="jetty"/>
+      <depend property="log4j.jar" project="jakarta-log4j" id="log4j"/>
+      <depend property="nekohtml.jar" project="nekohtml" id="nekohtml"/>
 
     </ant>
     
     <depend project="ant" inherit="runtime"/>
+    <depend project="aspectj"/>
     <depend project="xml-xerces"/>
     <option project="checkstyle" inherit="runtime"/>
     <depend project="jakarta-cactus-integration-ant-13"/>
