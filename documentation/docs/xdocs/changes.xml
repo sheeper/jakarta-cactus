@@ -71,6 +71,12 @@
       </release>
       
       <release version="1.5-rc1" date="in CVS">
+        <action dev="VMA" type="fix" fixes-bug="22794" due-to="Jonathan Kovacs" due-to-email="jdk@jdk.ca">
+          In the Ant integration, the <code>cactus.context</code> filter token 
+          was not correctly defined for EAR files. However, it is needed. For 
+          example the default Orion's <code>application.xml</code> config file 
+          provided by Cactus needs it.
+        </action>
         <action dev="VMA" type="fix" fixes-bug="22249" due-to="James Stangler" due-to-email="jastangler@yahoo.com">
           Fixed the <code>JettyTestSetup</code> class so that it stops the
           running Jetty server at the end of the test suite execution.
@@ -93,7 +99,7 @@
           In the cactifywar Ant task, changed the default realm name
           that is used when adding Cactus default configuration data.
           It was previously <code>Cactus test realm</code>. It is now 
-          <code>myrealm</code>. The reason is that the default WebLogic 
+          <code>myrealm</code>. The reas on is that the default WebLogic 
           configuration creates a <code>myrealm</code> realm and thus
           using this name makes our Cactus configuration for WebLogic 
           much simpler. It doesn't affect the other containers as they

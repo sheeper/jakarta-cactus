@@ -56,32 +56,76 @@
  */
 package org.apache.cactus.integration.ant.container;
 
-import junit.framework.Test;
+import java.io.File;
+import java.io.StringReader;
+import java.util.Vector;
+
+import org.apache.tools.ant.filters.util.ChainReaderHelper;
+import org.apache.tools.ant.types.FilterChain;
+
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
 
 /**
- * Run all the unit tests for the container support classes.
- *
- * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
+ * Unit tests for {@link AbstractContainer}.
+ *  
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
  */
-public final class TestAll extends TestCase
+public class TestAbstractContainer extends TestCase
 {
     /**
-     * @return a test suite (<code>TestSuite</code>) that includes all methods
-     *         starting with "test"
+     * The instance to test
      */
-    public static Test suite()
+    private AbstractContainer container;
+
+    /**
+     * @see TestCase#setUp()
+     */    
+    protected void setUp()
     {
-        TestSuite suite = new TestSuite(
-            "Unit tests for the container support classes");
+        this.container = new AbstractContainer()
+        {
+            public String getName()
+            {
+                return "test container";
+            }
 
-        suite.addTestSuite(TestContainerRunner.class);
-        suite.addTestSuite(TestAbstractContainer.class);
+            public int getPort()
+            {
+                return 8080;
+            }
 
-        return suite;
+            public void startUp()
+            {
+            }
+            
+            public void shutDown()
+            {                
+            }
+        };
+    }
+
+    /**
+     * Verify that the Ant filter chain is correctly configured to 
+     * replace the "cactus.port" and "cactus.context" tokens.
+     *  
+     * @throws Exception if an error happens during the test
+     */
+    public void testCreateFilterChainOk() throws Exception
+    {
+        File earFile = new File("test.ear");
+        this.container.setDeployableFile(earFile);
+        String buffer = "@cactus.port@:@cactus.context@";
+                        
+        FilterChain chain = this.container.createFilterChain();        
+
+        ChainReaderHelper helper = new ChainReaderHelper();
+        Vector chains = new Vector();
+        chains.addElement(chain);
+        helper.setFilterChains(chains);
+        helper.setPrimaryReader(new StringReader(buffer));
+        assertEquals("8080:test", 
+            helper.readFully(helper.getAssembledReader()));
     }
 }

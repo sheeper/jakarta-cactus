@@ -318,23 +318,25 @@ public abstract class AbstractContainer extends ProjectComponent
     {
         ReplaceTokens.Token token = null;
         FilterChain filterChain = new FilterChain();
+
+        // Token for the cactus port
         ReplaceTokens replacePort = new ReplaceTokens();
         token = new ReplaceTokens.Token();
         token.setKey("cactus.port");
         token.setValue(String.valueOf(getPort()));
         replacePort.addConfiguredToken(token);
         filterChain.addReplaceTokens(replacePort);
-        if (isWar(getDeployableFile()))
-        {
-            ReplaceTokens replaceContext = new ReplaceTokens();
-            token = new ReplaceTokens.Token();
-            token.setKey("cactus.context");
-            String contextPath = getDeployableFile().getName();
-            contextPath = contextPath.substring(0, contextPath.length() - 4); 
-            token.setValue(contextPath);
-            replaceContext.addConfiguredToken(token);
-            filterChain.addReplaceTokens(replaceContext);
-        }
+
+        // Token for the cactus webapp context 
+        ReplaceTokens replaceContext = new ReplaceTokens();
+        token = new ReplaceTokens.Token();
+        token.setKey("cactus.context");
+        String contextPath = getDeployableFile().getName();
+        contextPath = contextPath.substring(0, contextPath.length() - 4); 
+        token.setValue(contextPath);
+        replaceContext.addConfiguredToken(token);
+        filterChain.addReplaceTokens(replaceContext);
+
         return filterChain;
     }
 
