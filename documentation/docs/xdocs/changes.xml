@@ -57,8 +57,36 @@
       </devs>
 
       <release version="1.5" date="- in CVS">
+        <action dev="VMA" type="remove">
+          Moved some Ant tasks that were previously in the Cactus Ant tasks;
+          they are now in the Ant Petal project. They are the tasks used
+          to start/stop the containers and the <code>runservertests</code>
+          task. It is now recommended to use the Ant Petal.
+        </action>
+        <action dev="VMA" type="update">
+          Due to the new addition of 2 new Cactus subprojects: The Ant Petal
+          and the Eclipse Petal, the Cactus project is now delivering 
+          several zips instead of one. Namely they are:
+          <code>jakarta-cactus-petal-ant-[J2EE API]-[version].zip</code>,
+          <code>jakarta-cactus-petal-eclipse-[J2EE API]-[version].zip</code>,
+          <code>jakarta-cactus-sample-servlet-[J2EE API]-[version].zip</code>
+          and
+          <code>jakarta-cactus-documentation-[J2EE API]-[version].zip</code>.
+        </action>
+        <action dev="VMA" type="update">
+          Improved (and normalized) build system. This change should not 
+          be affect nor be visible by Cactus end-users.
+        </action>
         <action dev="VMA" type="update">
           Improved test classe names in the Servlet Sample application.
+        </action>
+        <action dev="VMA" type="update">
+          The Servlet Sample build is now using the Cactus Ant Petal.
+        </action>
+        <action dev="VMA" type="add">
+          New Cactus front end: The Cactus Ant Petal. It provides a generic
+          and directly reusable Ant directory structure for easily running
+          Cactus tests from one's own Ant build.
         </action>
         <action dev="VMA" type="update">
           Modified the build process to generate the Cactus web site by 

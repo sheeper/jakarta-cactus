@@ -20,8 +20,14 @@
 # Optional properties
 # -----------------------------------------------------------------------------
 
-# Dependancies for Checkstyle code auditing
-# If not specified here, the JARs must be present in ANTHOME/lib
+# Dependencies for Checkstyle code auditing. If not specified here, the JARs 
+# must be present in ANTHOME/lib.
+
+# Location of all jars. Note: This is not a mandatory property. It is only
+# used here so that it can be reused when defining the location of all the jars
+# below. You do not have to put all the external jars in a single location.
+lib.repo = c:/apps/maven/repository
+
 antlr.jar = ${lib.repo}/antlr/jars/antlr-2.7.1.jar
 checkstyle.jar = ${lib.repo}/checkstyle/jars/checkstyle-2.4.jar
 commons-beanutils.jar = ${lib.repo}/commons-beanutils/jars/commons-beanutils-1.5.jar

@@ -43,11 +43,6 @@ httpunit.jar = ${lib.repo}/httpunit/jars/httpunit-1.4.5.jar
 # Optional properties
 # -----------------------------------------------------------------------------
 
-# Locations J2EE APIs for the "all" target (which builds the Cactus framework
-# for both APIs)
-j2ee.12.jar = ${lib.repo}/j2ee/jars/j2ee-1.2.jar
-j2ee.13.jar = ${lib.repo}/j2ee/jars/j2ee-1.3.jar
-
 # The location of the AspectJ runtime jar
 # If not specified here, the jar must be present in ANTHOME/lib
 aspectjrt.jar = ${lib.repo}/aspectj/jars/aspectjrt-1.0.6.jar

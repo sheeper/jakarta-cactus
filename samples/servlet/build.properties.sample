@@ -1,0 +1,62 @@
+# -----------------------------------------------------------------------------
+# build.properties.sample
+#
+# This is an example "build.properties" file, used to customize building the
+# Cactus Servlet Sample for your local environment.  Make any changes you need,
+# and rename this file to "build.properties" in the same directory that
+# contains the "build.xml" file.
+#
+# $Id$
+# -----------------------------------------------------------------------------
+
+# WARNING:  The relative paths below are relative to the directory where the
+# build.xml file is located.
+
+# -----------------------------------------------------------------------------
+# Mandatory properties
+# -----------------------------------------------------------------------------
+
+# Location of all jars. Note: This is not a mandatory property. It is only
+# used here so that it can be reused when defining the location of all the jars
+# below. You do not have to put all the external jars in a single location.
+lib.repo = c:/apps/maven/repository
+
+# The location of the J2EE API jar. Depending on the version (1.2 or 1.3) of
+# it, the corresponding Cactus Framework will be built. For example if you use
+# J2EE 1.3 jar, then the Cactus jar will contain the Filter Redirector which is
+# only available for Servlet 2.3 (part of J2EE 1.3).
+j2ee.jar = ${lib.repo}/servletapi/jars/servletapi-2.3.jar
+
+# The location of the JSTL jar
+jstl.jar = ${lib.repo}/jstl/jars/jstl-1.0.2.jar
+ 
+# The location of the JSTL jar
+standard.jar = ${lib.repo}/taglibs/jars/standard-1.0.2.jar
+
+# -----------------------------------------------------------------------------
+# Optional properties
+# -----------------------------------------------------------------------------
+
+# The port to use for starting the servers during unit testing. If not
+# specified, it defaults to port 8080.
+#cactus.port = 8081
+
+# Servlet engine locations for the tests
+
+# Note: If you don't want to run the test on a given servlet engine, just
+#       comment it's home property. For example, if you don't want to run the
+#       tests on the Resin 2.x, comment the "cactus.home.resin2x" property.
+
+#cactus.home.resin2x = c:/Apps/resin-2.1.6
+#cactus.home.tomcat3x = c:/Apps/jakarta-tomcat-3.3.1a
+#cactus.home.tomcat4x = c:/Apps/jakarta-tomcat-4.1.18
+#cactus.home.orion1x = c:/Apps/orion-1.6.0
+#cactus.home.jboss3x = c:/Apps/jboss-3.0.4
+
+# Note: cactus.home.weblogic6x is the location of BEA Home and NOT the 
+# location of wlserver6.x, inside the bea home directory.
+#cactus.home.weblogic6x = c:/Apps/bea
+
+# Note: cactus.home.weblogic7x is the location of BEA Home and NOT the 
+# location of weblogic7xx, inside the bea home directory.
+#cactus.home.weblogic7x = c:/bea

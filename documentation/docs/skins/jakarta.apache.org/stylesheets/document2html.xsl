@@ -36,7 +36,7 @@
   <!-- Version of the "other" documentation (for switching between the 
        documentation for the current development version and the latest stable 
        release), to be passed in from the build -->
-  <xsl:param name="project.other.version"/>
+  <xsl:param name="project.version.previous"/>
 
   <!-- ==================================================================== -->
   <!-- Global variables -->
@@ -163,12 +163,12 @@
                         <xsl:text>..</xsl:text>
                       </xsl:when>
                       <xsl:otherwise>
-                        <xsl:value-of select="$project.other.version"/>
+                        <xsl:value-of select="$project.version.previous"/>
                       </xsl:otherwise>
                     </xsl:choose>
                   </xsl:attribute>
                   <xsl:text>v</xsl:text>
-                  <xsl:value-of select="$project.other.version"/>
+                  <xsl:value-of select="$project.version.previous"/>
                 </a>
               </font>
 

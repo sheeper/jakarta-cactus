@@ -6,6 +6,9 @@
 # and rename this file to "build.properties" in the same directory that
 # contains the "build.xml" file.
 #
+# This file contains the aggregated list of properties needed by the different
+# Cactus subprojects.
+#
 # $Id$
 # -----------------------------------------------------------------------------
 
@@ -13,7 +16,7 @@
 # build.xml file is located.
 
 # -----------------------------------------------------------------------------
-# Mandatory properties
+# Mandatory properties shared by several subprojects
 # -----------------------------------------------------------------------------
 
 # Location of all jars. Note: This is not a mandatory property. It is only
@@ -56,13 +59,40 @@ jstl.jar = ${lib.repo}/jstl/jars/jstl-1.0.2.jar
 standard.jar = ${lib.repo}/taglibs/jars/standard-1.0.2.jar
 
 # -----------------------------------------------------------------------------
-# Optional properties
+# Mandatory properties for the Eclipse plugin only
 # -----------------------------------------------------------------------------
 
-# Locations J2EE APIs for the "all" target (which builds the Cactus framework
-# for both APIs)
+# Location of Eclipse.
+eclipse.home = D:/dev/eclipse-M4
+
+# Locations of Eclipse dependent plugin jars
+
+# Example for Eclipse 2.1 M4 - Windows platform
+eclipse.junit.jar = ${eclipse.home}/plugins/org.junit/junit.jar
+eclipse.core.boot.jar = ${eclipse.home}/plugins/org.eclipse.core.boot_2.1.0/boot.jar
+eclipse.core.resources.jar = ${eclipse.home}/plugins/org.eclipse.core.resources_2.1.0/resources.jar
+eclipse.core.runtime.jar = ${eclipse.home}/plugins/org.eclipse.core.runtime_2.1.0/runtime.jar
+eclipse.debug.core.jar = ${eclipse.home}/plugins/org.eclipse.debug.core_2.1.0/dtcore.jar
+eclipse.debug.ui.jar = ${eclipse.home}/plugins/org.eclipse.debug.ui_2.1.0/dtui.jar
+eclipse.jdt.core.jar = ${eclipse.home}/plugins/org.eclipse.jdt.core_2.1.0/jdtcore.jar
+eclipse.jdt.junit.jar = ${eclipse.home}/plugins/org.eclipse.jdt.junit_2.1.0/junitsupport.jar
+eclipse.jdt.launching.jar = ${eclipse.home}/plugins/org.eclipse.jdt.launching_2.1.0/launching.jar
+eclipse.swt.jar = ${eclipse.home}/plugins/org.eclipse.swt.win32_2.1.0/ws/win32/swt.jar
+eclipse.jface.jar = ${eclipse.home}/plugins/org.eclipse.jface_2.1.0/jface.jar
+eclipse.ant.core.jar = ${eclipse.home}/plugins/org.eclipse.ant.core_2.1.0/antsupport.jar
+eclipse.ui.workbench.jar = ${eclipse.home}/plugins/org.eclipse.ui.workbench_2.1.0/workbench.jar
+
+# -----------------------------------------------------------------------------
+# Optional properties for the main Cactus build
+# -----------------------------------------------------------------------------
+
+# Locations J2EE APIs for the "*.all" targets
 j2ee.12.jar = ${lib.repo}/j2ee/jars/j2ee-1.2.jar
 j2ee.13.jar = ${lib.repo}/j2ee/jars/j2ee-1.3.jar
+
+# -----------------------------------------------------------------------------
+# Optional properties share by several subprojects
+# -----------------------------------------------------------------------------
 
 # The location of the AspectJ tools jar
 # If not specified here, the jar must be present in ANTHOME/lib
@@ -80,44 +110,6 @@ commons-beanutils.jar = ${lib.repo}/commons-beanutils/jars/commons-beanutils-1.5
 commons-collections.jar = ${lib.repo}/commons-collections/jars/commons-collections-2.1.jar
 regexp.jar = ${lib.repo}/regexp/jars/regexp-1.2.jar
 
-# The port to use for starting the servers during unit testing. If not
-# sepcified, it defaults to port 8080.
-#test.port = 8081
-
-# Servlet engine locations for the tests
-
-# Note: If you don't want to run the test on a given servlet engine, just
-#       comment it's home property. For example, if you don't want to run the
-#       tests on the Resin 1.2, comment the "resin.home.12" property.
-
-#resin.home.12 = xxx
-#tomcat.home.32 = c:/Apps/jakarta-tomcat-3.2.4
-#weblogic.home.51 = xxx
-#orion.home.15 = c:/Apps/orion-1.5.4
-#orion.home.16 = c:/Apps/orion-1.6.0
-#resin.home.20 = c:/Apps/resin-2.1.4
-#tomcat.home.40 = c:/Apps/jakarta-tomcat-4.0.4
-#resin.home.13 = xxx
-#tomcat.home.33 = c:/Apps/jakarta-tomcat-3.3.1
-#jboss.home.3x = c:/Apps/jboss-3.0.4
-
-# Note: Enhydra 3.3.1 does not seem to support BASIC authentication as defined
-# in the Servlet spec. and thus the tests which involve security are failing.
-# All other tests work fine. This is a limitation of Enhydra.
-#enhydra.home.31 = c:/Apps/enhydra3.1.1b1
-
-# Note: weblogic.home.61 is the location of BEA Home and NOT the location of
-# wlserver6.1, inside the bea home directory.
-#weblogic.home.61 = c:/Apps/bea
-
-# Note: weblogic.home.70 is the location of BEA Home and NOT the location of
-# wlserver7.0, inside the bea home directory.
-#weblogic.home.70 = c:/bea
-
-# Note: There seems to be a bug in Orion 1.4 preventing it to run correctly
-#       the testSendUserData() test. It runs fine in Orion 1.5 though.
-#orion.home.14 = xxx
-
 # Should we instrument our code with Clover (test coverage tool) ?
 # Comment out to disable Clover (setting the property to false will have no
 # effect).
@@ -127,17 +119,44 @@ regexp.jar = ${lib.repo}/regexp/jars/regexp-1.2.jar
 clover.jar = ${lib.repo}/clover/jars/clover-0.6b.jar
 
 # -----------------------------------------------------------------------------
-# Optional properties used by the build-admin.xml Ant build script only
+# Optional properties for the Servlet Sample subproject
 # -----------------------------------------------------------------------------
 
-# j2ee.12.jar and j2ee.13.jar must be defined when running build-admin.xml
-# (they should be defined above in the optional section).
+# The port to use for starting the servers during unit testing. If not
+# specified, it defaults to port 8080.
+#cactus.port = 8081
 
-# Username to use when connection to jakarta.apache.org
-admin.jakarta.username=vmassol
+# Servlet engine locations for the tests
 
-# Executable to perform remote copy of files
-admin.scp = scp
+# Note: If you don't want to run the test on a given servlet engine, just
+#       comment it's home property. For example, if you don't want to run the
+#       tests on the Resin 2.x, comment the "cactus.home.resin2x" property.
 
-# Executable to perform remote login to Jakarta web site
-admin.ssh = ssh
+#cactus.home.resin2x = c:/Apps/resin-2.1.6
+#cactus.home.tomcat3x = c:/Apps/jakarta-tomcat-3.3.1a
+cactus.home.tomcat4x = c:/Apps/jakarta-tomcat-4.1.18
+#cactus.home.orion1x = c:/Apps/orion-1.6.0
+#cactus.home.jboss3x = c:/Apps/jboss-3.0.4
+
+# Note: cactus.home.weblogic6x is the location of BEA Home and NOT the 
+# location of wlserver6.x, inside the bea home directory.
+#cactus.home.weblogic6x = c:/Apps/bea
+
+# Note: cactus.home.weblogic7x is the location of BEA Home and NOT the 
+# location of weblogic7xx, inside the bea home directory.
+#cactus.home.weblogic7x = c:/Apps/bea
+
+# -----------------------------------------------------------------------------
+# Optional properties for the Servlet Documentation subproject
+# -----------------------------------------------------------------------------
+
+# Decide whether or not to include the javadoc from the other subprojects in
+# the web site. This is an option useful for reducing web site build time as
+# javadoc do not need to be always updated. Uncomment to activate inclusion
+# of javadoc.
+#javadoc.include = true
+
+# Properties needed to upload the documentation to the Cactus web site
+#jakarta.username = vmassol
+#scp = pscp
+#ssh = tortoisePlink

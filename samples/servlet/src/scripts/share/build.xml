@@ -1,0 +1,327 @@
+<?xml version="1.0"?>
+
+<!--
+  =============================================================================
+    Build file for the Cactus Servlet Sample subproject (it shows how to use
+    Cactus for unit testing the Servlet API : Servlets, Fitlers, Taglibs).
+
+    The following Ant tasks need to be available in your ant installation (i.e.
+    the Ant task themselves and their dependent jars need to be put in
+    ANT_HOME/lib) :
+
+        junit                  [REQUIRED] JUnit Ant task
+
+    The following properties need to be set in either a ./build.properties or
+    a ${user.home}/build.properties one or in a calling Ant script :
+
+        cactus.port            [OPTIONAL] The port that should be used for
+                               starting the servers during unit testing. This
+                               should be used not to interfere with other
+                               running servers. The default is 8080. This
+                               property is used when running the test target
+
+    Additionally and depending on the servlet engines whith which you wish to
+    run your tests, you'll need to set the following kind of properties
+    (see build.properties.sample) :
+
+        cactus.home.<container name>
+
+    Example: For Resin 2.x, you'll need to have a "cactus.home.resin2x" 
+    property defined and pointing to the location where Resin 2.x is installed.
+
+    This script should be started with the following command line :
+
+        ant <target>
+
+    Run "ant -projecthelp" to get a list of available targets.
+  =============================================================================
+-->
+<project name="Cactus Servlet Sample" default="dist" basedir=".">
+
+    <!-- Give user a chance to override without editing this file
+         (and without typing -D each time it compiles it) -->
+    <property file="build.properties" />
+    <property file="${user.home}/build.properties" />
+
+    <!-- Global project properties -->
+    <property name="project.name.text" value="Cactus Servlet Sample"/>
+    <property name="project.name.file" value="sample-servlet"/>
+    <property name="project.version" value="@version@"/>
+
+    <!-- Prefix to add to all distributable files -->
+    <property name="project.prefix" value="jakarta-"/>
+
+    <!-- Generic properties -->
+    <property name="year" value="@year@"/>
+    <property name="debug" value="on"/>
+    <property name="optimize" value="off"/>
+    <property name="deprecation" value="off"/>
+
+    <!--
+       ========================================================================
+         Base directory for all file related operations
+       ========================================================================
+    -->
+    <property name="base.dir" value="."/>
+
+    <!--
+       ========================================================================
+         Set the properties related to the source tree.
+       ========================================================================
+    -->
+    <property name="lib.dir" value="${base.dir}/lib"/>
+    <property name="src.dir" value="${base.dir}/src"/>
+    <property name="src.java.dir" value="${src.dir}/java"/>
+    <property name="src.cactus.dir" value="${src.dir}/test-cactus"/>
+    <property name="src.webapp.dir" value="${src.dir}/webapp"/>
+    <property name="build.dir" value="${base.dir}/build"/>
+    <property name="build.petal.dir" value="${build.dir}/cactus-petal-ant"/>
+
+    <!--
+       ========================================================================
+         Set the properties related to the target area
+       ========================================================================
+    -->
+    <!-- Destination locations for the build -->
+    <property name="target.dir" value="${base.dir}/target"/>
+    <property name="target.classes.dir" value="${target.dir}/classes"/>
+    <property name="target.classes.java.dir"
+        value="${target.classes.dir}/java"/>
+    <property name="target.classes.cactus.dir"
+        value="${target.classes.dir}/cactus"/>
+    <property name="target.doc.dir" value="${target.dir}/doc"/>
+    <property name="target.doc.api.dir" value="${target.doc.dir}/api"/>
+
+    <!-- Distribution directory, i.e. where the expanded distibutable files
+         are located -->
+    <property name="dist.dir" value="${base.dir}/dist"/>
+    <property name="dist.bin.dir" value="${dist.dir}/bin"/>
+    <property name="dist.doc.dir" value="${dist.dir}/doc"/>
+    <property name="dist.doc.api.dir" value="${dist.doc.dir}/api"/>
+
+    <!--
+       ========================================================================
+        Names of deliverables
+       ========================================================================
+    -->
+    <!-- The Sample war -->
+    <property name="sample.war.name" value="${project.name.file}"/>
+
+    <!--
+       ========================================================================
+         Set the properties related to the Ant Petal
+       ========================================================================
+    -->
+    <property name="cactus.war" value="${basedir}/${target.dir}/${sample.war.name}.war"/>
+    <property name="cactus.target.dir" value="${basedir}/${target.dir}/cactus"/>
+    <property name="cactus.src.dir" value="${basedir}/${src.cactus.dir}"/>
+
+    <!--
+       ========================================================================
+         Useful patterns for targets
+       ========================================================================
+    -->
+    <path id="project.classpath">
+        <pathelement location="${servlet.jar}"/>
+        <pathelement location="${jstl.jar}"/>
+        <pathelement location="${standard.jar}"/>
+    </path>
+
+    <path id="cactus.classpath">
+        <pathelement location="${target.classes.java.dir}"/>
+        <path refid="project.classpath"/>
+    </path>
+
+    <!--
+       ========================================================================
+         Display configurable properties values
+       ========================================================================
+    -->
+    <target name="display.properties">
+
+        <echo message="----- ${project.name.text} ${project.version} -----"/>
+        <echo message=""/>
+        <echo message="java.class.path = ${java.class.path}"/>
+        <echo message=""/>
+        <echo message="java.home = ${java.home}"/>
+        <echo message="user.home = ${user.home}"/>
+        <echo message="ant.home = ${ant.home}"/>
+        <echo message=""/>
+        <echo message="servlet.jar = ${servlet.jar}"/>
+        <echo message="jstl.jar = ${jstl.jar}"/>
+        <echo message="standard.jar = ${standard.jar}"/>
+        <echo message=""/>
+        <echo message="cactus.port (optional) = ${cactus.port}"/>
+        <echo message=""/>
+
+    </target>
+
+    <!--
+       ========================================================================
+         Verify that all mandatory properties have been set
+       ========================================================================
+    -->
+    <target name="check.properties"
+        depends="display.properties,check.properties.test,check.properties.warn"/>
+
+    <target name="check.properties.test">
+
+        <condition property="properties.ok">
+            <and>
+                <available file="${servlet.jar}"/>
+                <available file="${jstl.jar}"/>
+                <available file="${standard.jar}"/>
+           </and>
+        </condition>
+
+    </target>
+
+    <target name="check.properties.warn" unless="properties.ok">
+
+        <fail message="Missing property or property pointing to an invalid file (check your build.properties file)"/>
+
+    </target>
+    <!--
+       ========================================================================
+         Initialize the build. Must be called by all targets
+       ========================================================================
+    -->
+    <target name="init" depends="check.properties">
+
+        <tstamp/>
+
+    </target>
+
+    <!--
+       ========================================================================
+         Compiles the sources
+       ========================================================================
+    -->
+    <!-- Compiles the java sources -->
+    <target name="compile.java" depends="init">
+
+        <mkdir dir="${target.classes.java.dir}"/>
+
+        <javac destdir="${target.classes.java.dir}"
+          deprecation="${deprecation}" optimize="${optimize}">
+
+            <src path="${src.java.dir}"/>
+            <classpath>
+                <path refid="project.classpath"/>
+            </classpath>
+        </javac>
+
+    </target>
+
+    <!-- Compiles the Cactus test sources -->
+    <target name="compile.cactus" depends="compile.java">
+
+        <ant dir="${build.petal.dir}" target="cactus.compile">
+            <reference refid="cactus.classpath"/>
+        </ant>
+
+    </target>
+
+    <target name="compile" depends="compile.java,compile.cactus"
+        description="Compile the sources">
+    </target>
+
+    <!--
+       ========================================================================
+         Create the runtime war file
+       ========================================================================
+    -->
+    <target name="war" depends="compile" description="Generate the runtime war">
+
+        <war warfile="${target.dir}/${sample.war.name}.war"
+             webxml="${src.webapp.dir}/WEB-INF/web.xml">
+
+            <fileset dir="${src.webapp.dir}">
+                <exclude name="cactus-report.xsl"/>
+                <exclude name="**/web.xml"/>
+            </fileset>
+            
+            <classes dir="${target.classes.java.dir}"/>
+
+            <lib dir="${lib.dir}">
+                <include name="*.jar"/>
+            </lib>
+        </war>
+
+    </target>
+
+    <!--
+       ========================================================================
+         Generate the documentation (javadoc)
+       ========================================================================
+    -->
+    <target name="doc" depends="init" description="Generate the documentation">
+
+        <mkdir dir="${target.doc.api.dir}"/>
+
+        <javadoc
+            packagenames="org.apache.cactus.sample.*"
+            destdir="${target.doc.api.dir}"
+            author="true"
+            public="true"
+            version="true"
+            use="true"
+            windowtitle="${project.name.text} ${project.version}"
+            doctitle="${project.name.text} ${project.version}"
+            bottom="Copyright &amp;copy; ${year} Apache Software Foundation. All Rights Reserved.">
+
+            <sourcepath>
+                <pathelement location="${src.java.dir}"/>
+            </sourcepath>
+
+            <classpath refid="project.classpath"/>
+
+        </javadoc>
+
+    </target>
+
+    <!--
+       ========================================================================
+         Generate the distributable files
+       ========================================================================
+    -->
+    <target name="dist" depends="clean,war,doc"
+        description="Generate the distributable files">
+
+        <mkdir dir="${dist.bin.dir}"/>
+        <mkdir dir="${dist.doc.api.dir}"/>
+
+        <copy todir="${dist.bin.dir}"
+            file="${target.dir}/${sample.war.name}.war"/>
+        <copy todir="${dist.doc.api.dir}">
+            <fileset dir="${target.doc.api.dir}"/>
+        </copy>
+
+    </target>
+
+    <!--
+       ========================================================================
+         Clean generated files (including distributables)
+       ========================================================================
+    -->
+    <target name="clean" depends="init" description="Clean all generated files">
+
+        <delete dir="${target.dir}"/>
+        <delete dir="${dist.dir}"/>
+
+    </target>
+
+    <!--
+       ========================================================================
+         Run the tests on the containers for which the Ant property
+         "cactus.home.[container name]" has been defined.
+       ========================================================================
+    -->
+    <target name="test" depends="war"
+        description="Run the tests on the defined containers">
+        @containers.share@
+        @containers.specific@
+
+    </target>
+
+</project>

@@ -1,139 +1,65 @@
 <?xml version="1.0"?>
 <!DOCTYPE project [
-    <!ENTITY common SYSTEM "file:../common.xml">
+    <!ENTITY common SYSTEM "file:../build-common.xml">
 ]>
 
 <!--
   =============================================================================
-    Build file for the Cactus custom Ant tasks.
+    Build file for the Cactus Ant tasks.
 
-    The following Ant tasks need to be available in your ant installation (i.e.
-    the Ant task themselves and their dependent jars need to be put in
-    ANT_HOME/lib) :
-
-        checkstyle            [OPTIONAL] Only needed for the "checkstyle" target
-                                         which is used to check coding and
-                                         naming conventions.
+    See build.properties.sample for mandatory and optional Ant properties that
+    need to be set prior to calling this build script.
 
     This script should be started with the following command line :
 
         ant <target>
 
-    Run "ant -projecthelp" to get a list of available targets. The default
-    target is "dist"
+    Run "ant -projecthelp" to get a list of available targets.
 
     Note: basedir points to the main Cactus directory in order to have the same
           base dir for all Cactus subprojects and thus be able to share
           relative paths.
   =============================================================================
 -->
-<project name="Cactus Ant custom tasks" default="dist" basedir="..">
+<project name="Cactus Ant Tasks" default="dist" basedir="..">
 
-    <!-- Give user a chance to override without editing this file
-         (and without typing -D each time it compiles it) -->
-    <property file="${basedir}/anttasks/build.properties" />
-    <property file="${basedir}/build.properties" />
-    <property file="${user.home}/build.properties" />
+    <!-- Base directory for all file related operations -->
+    <property name="base.dir" value="anttasks"/>
+
+    <!-- Include properties and targets common to the different subprojects -->
+    &common;
 
     <!-- Global project properties -->
     <property name="project.name.text" value="Cactus Ant tasks"/>
-    <property name="project.name.file" value="cactus-ant"/>
-    <property name="project.version" value="1.5dev"/>
-
-    <!-- Prefix to add to all distributable files -->
-    <property name="project.prefix" value="jakarta-"/>
+    <property name="project.name.file" value="cactus-anttasks"/>
 
     <!--
        ========================================================================
-         Default values for properties not defined in build.properties or in
-         a higher level calling Ant script
+         Initialize source, target and dist properties
        ========================================================================
     -->
-    <property name="year" value="2000-2003"/>
-    <property name="debug" value="on"/>
-    <property name="optimize" value="off"/>
-    <property name="deprecation" value="off"/>
+    <target name="properties">
 
-    <!--
-       ========================================================================
-         Base directory for all file related operations
-       ========================================================================
-    -->
-    <property name="base.dir" location="anttasks"/>
+        <!-- Set the properties related to the source tree -->
+        <property name="src.dir" value="${base.dir}/src"/>
+        <property name="src.java.dir" value="${src.dir}/java"/>
+        <property name="build.dir" value="${base.dir}/."/>
 
-    <!--
-       ========================================================================
-         Set the properties related to the source tree
-       ========================================================================
-    -->
-    <!-- Source locations for the build -->
-    <property name="src.dir" location="${base.dir}/src"/>
-    <property name="src.java.dir" location="${src.dir}/java"/>
-    <property name="build.dir" location="${base.dir}/."/>
-
-    <!--
-       ========================================================================
-         Set the properties related to the target area
-       ========================================================================
-    -->
-    <!-- Destination locations for the build -->
-    <property name="target.dir" location="${base.dir}/target"/>
-    <property name="target.classes.dir" location="${target.dir}/classes"/>
-    <property name="target.classes.java.dir"
-        location="${target.classes.dir}/java"/>
-    <property name="target.doc.dir" location="${target.dir}/doc"/>
-    <property name="target.doc.api.dir" location="${target.doc.dir}/api"/>
-
-    <!-- Distribution directory, i.e. where the expanded distibutable files
-         are located -->
-    <property name="dist.dir" location="${base.dir}/dist"/>
-    <property name="dist.lib.dir" location="${dist.dir}/lib"/>
-    <property name="dist.doc.dir" location="${dist.dir}/doc"/>
-    <property name="dist.doc.api.dir" location="${dist.doc.dir}/api"/>
-
-    <!--
-       ========================================================================
-        Names of deliverables
-       ========================================================================
-    -->
-
-    <!-- The custom task jar and helper classes -->
-    <property name="anttasks.jar.name" value="${project.name.file}"/>
-
-    <!--
-       ========================================================================
-         Include common targets and properties
-       ========================================================================
-    -->
-    &common;
-
-    <!--
-       ========================================================================
-         Display configurable properties values
-       ========================================================================
-    -->
-    <target name="display.properties">
-
-        <echo>----- ${project.name.text} ${project.version} -----</echo>
-        <echo></echo>
-        <echo>java.class.path = ${java.class.path}"</echo>
-        <echo></echo>
-        <echo>java.home = ${java.home}</echo>
-        <echo>user.home = ${user.home}</echo>
-        <echo>ant.home = ${ant.home}</echo>
-        <echo></echo>
+        <!-- Set the properties related to the target area -->
+        <property name="target.classes.dir" value="${target.dir}/classes"/>
+        <property name="target.classes.java.dir"
+            value="${target.classes.dir}/java"/>
+        <property name="target.doc.dir" value="${target.dir}/doc"/>
+        <property name="target.doc.api.dir" value="${target.doc.dir}/api"/>
 
     </target>
-
+        
     <!--
        ========================================================================
          Initialize the build. Must be called by all targets
        ========================================================================
     -->
-    <target name="init" depends="display.properties">
-
-        <tstamp/>
-
+    <target name="init" depends="init.common,properties">
     </target>
 
     <!--
@@ -146,7 +72,8 @@
         <mkdir dir="${target.classes.java.dir}"/>
 
         <javac srcdir="${src.java.dir}" destdir="${target.classes.java.dir}"
-          deprecation="${deprecation}" optimize="${optimize}"/>
+          deprecation="${deprecation}" optimize="${optimize}" 
+          debug="${debug}"/>
 
     </target>
 
@@ -157,7 +84,7 @@
     -->
     <target name="jar" depends="compile" description="Generate the library jar">
 
-        <jar jarfile="${target.dir}/${anttasks.jar.name}.jar">
+        <jar jarfile="${target.dir}/${cactus.anttasks.jar.name}.jar">
 
             <manifest>
                 <section name="org/apache/cactus/ant/">
@@ -200,9 +127,7 @@
 
     </target>
 
-    <target name="doc"
-        depends="doc.check"
-        unless="doc.uptodate"
+    <target name="doc" depends="doc.check" unless="doc.uptodate"
         description="Generates the API documentation">
 
         <mkdir dir="${target.doc.api.dir}"/>
@@ -219,24 +144,23 @@
             doctitle="${project.name.text} ${project.version}"
             bottom="Copyright &amp;copy; ${year} Apache Software Foundation.
                     All Rights Reserved.">
-
         </javadoc>
 
     </target>
 
     <!--
        ========================================================================
-         Generate the distributable files
+         Generate the artifacts
        ========================================================================
     -->
     <target name="dist" depends="jar,doc,checkstyle"
-        description="Generate the distributable files">
+        description="Generate the project artifacts">
 
         <mkdir dir="${dist.lib.dir}"/>
         <mkdir dir="${dist.doc.api.dir}"/>
 
         <copy todir="${dist.lib.dir}"
-            file="${target.dir}/${anttasks.jar.name}.jar"/>
+            file="${target.dir}/${cactus.anttasks.jar.name}.jar"/>
         <copy todir="${dist.doc.api.dir}">
             <fileset dir="${target.doc.api.dir}"/>
         </copy>
@@ -245,23 +169,10 @@
 
     <!--
        ========================================================================
-         Clean generated files (including distributables)
-       ========================================================================
-    -->
-    <target name="clean" description="Clean all generated files">
-
-        <delete dir="${target.dir}"/>
-        <delete dir="${dist.dir}"/>
-
-    </target>
-
-    <!--
-       ========================================================================
          Perform a code audit using CheckStyle.
        ========================================================================
     -->
-    <target name="checkstyle"
-        depends="init, init.checkstyle"
+    <target name="checkstyle" depends="init,init.checkstyle" 
         if="checkstyle.available"
         description="Perform a code audit using Checkstyle">
 
@@ -281,6 +192,22 @@
             <property key="checkstyle.header.file" file="./LICENSE.cactus"/>
         </checkstyle>
 
+    </target>
+
+    <!--
+       ========================================================================
+         Generate the release
+       ========================================================================
+    -->
+    <target name="release" depends="clean,dist"
+        description="Generate the release files">
+
+        <mkdir dir="${release.dir}"/>
+
+        <zip destfile="${release.dir}/${main.release.name}.zip">
+            <zipfileset dir="${dist.dir}" prefix="${main.release.name}"/>
+        </zip>
+        
     </target>
 
 </project>

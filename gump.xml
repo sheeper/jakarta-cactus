@@ -8,59 +8,41 @@
   <url href="http://jakarta.apache.org/cactus/"/>
 
   <description>
-      Unit test framework for server-side java code
+    Unit test framework for server-side java code
   </description>
 
   <cvs repository="jakarta"/>
 
+  <!-- Note: The order of the projects is important as they depend upon
+  	   each other -->
+  	   
   <!--
      ========================================================================
-       Build the Cactus Ant Custom Tasks
+       Build the Cactus Ant Tasks
      ========================================================================
   -->
-  <project name="jakarta-cactus-ant">
+  <project name="jakarta-cactus-anttasks">
 
     <package>org.apache.cactus.ant</package>
 
-    <ant buildfile="anttasks/build.xml" target="dist"/>
+    <ant buildfile="anttasks/build.xml" target="release">
+      <property name="project.version" value="@@DATE@@"/>
+    </ant>
   
     <depend project="jakarta-ant" inherit="runtime"/>
     <depend project="xml-xerces"/>
     <option project="checkstyle" inherit="runtime"/>
 
     <home nested="anttasks/dist"/>
-    <jar name="lib/cactus-ant.jar"/>
-    <javadoc nested="anttasks/dist/doc/api"
-        title="Cactus Custom Ant tasks API"/>
+    <jar name="lib/cactus-anttasks.jar"/>
+    <javadoc nested="anttasks/dist/doc/api" title="Cactus Ant tasks API"/>
+
+    <deliver fromdir="anttasks/release" tosite="jakarta.apache.org"
+      todir="builds/jakarta-cactus/nightly/@@DATE@@/" />
 
     <nag from="Vincent Massol &lt;vmassol@apache.org&gt;"
-         to="cactus-dev@jakarta.apache.org"/>
-  </project>
+      to="cactus-dev@jakarta.apache.org"/>
 
-  <!--
-     ========================================================================
-       Build the Cactus Documentation
-     ========================================================================
-  -->
-  <project name="jakarta-cactus-documentation">
-
-    <!-- Create the directories that are added using the <work> tag below so
-         that JVM do not drop these directories from the CLASSPATH
-         (apparently some do) -->
-    <mkdir dir="documentation/target/classes/java"/>
-
-    <ant buildfile="documentation/build.xml" target="dist"/>
-
-    <depend project="jakarta-ant" inherit="runtime"/>
-    <depend project="xml-xerces"/>
-    <depend project="xml-xalan2"/>
-
-    <work nested="documentation/target/classes/java"/>
-
-    <javadoc nested="documentation/dist/doc" title="Cactus Documentation"/>
-
-    <nag from="Vincent Massol &lt;vmassol@apache.org&gt;"
-         to="cactus-dev@jakarta.apache.org"/>
   </project>
 
   <!--
@@ -72,9 +54,11 @@
 
     <package>org.apache.cactus</package>
 
-    <ant buildfile="framework/build.xml" target="dist">
+    <ant buildfile="framework/build.xml" target="release">
 
-      <depend property="cactus.ant.jar" project="jakarta-cactus-ant"/>
+      <property name="project.version" value="@@DATE@@"/>
+
+      <depend property="cactus.anttasks.jar" project="jakarta-cactus-anttasks"/>
       <depend property="j2ee.jar" project="jakarta-servletapi"/>
       <depend property="log4j.jar" project="jakarta-log4j"/>
       <depend property="commons.logging.jar" project="commons-logging" id="all"/>
@@ -94,60 +78,13 @@
     <work nested="framework/target-12/classes/test"/>
 
     <home nested="framework/dist-12"/>
-    <jar name="lib/cactus.jar"/>
+    <jar name="lib/cactus-framework.jar"/>
     <javadoc nested="framework/dist-12/doc/api"
-             title="Cactus Framework for J2EE 1.2 API"/>
+      title="Cactus Framework for J2EE 1.2 API"/>
 
     <nag from="Vincent Massol &lt;vmassol@apache.org&gt;"
-         to="cactus-dev@jakarta.apache.org"/>
-  </project>
+      to="cactus-dev@jakarta.apache.org"/>
 
-  <!--
-     ========================================================================
-       Build the Cactus Servlet Sample for J2EE 1.2
-     ========================================================================
-  -->
-  <project name="jakarta-cactus-sample-servlet-12">
-
-    <!-- Create the directories that are added using the <work> tag below so
-         that JVM do not drop these directories from the CLASSPATH
-         (apparently some do) -->
-    <mkdir dir="sample-servlet/target-12/sample/target/classes/java"/>
-    <mkdir dir="sample-servlet/target-12/sample/target/classes/cactus"/>
-    <mkdir dir="sample-servlet/target-12/sample/target/conf/client"/>
-
-    <ant buildfile="sample-servlet/build.xml" target="dist">
-
-      <depend property="j2ee.jar" project="jakarta-servletapi"/>
-      <depend property="log4j.jar" project="jakarta-log4j"/>
-      <depend property="commons.logging.jar" project="commons-logging" id="all"/>
-      <depend property="commons.httpclient.jar" project="commons-httpclient"/>
-      <depend property="httpunit.jar" project="httpunit"/>
-      <depend property="aspectjrt.jar" project="aspectj" id="aspectjrt"/>
-      <depend property="junit.jar" project="junit"/>
-      <depend property="jstl.jar" project="jakarta-taglibs-standard" id="jstl"/>
-      <depend property="standard.jar" project="jakarta-taglibs-standard"
-        id="standard"/>
-      <depend property="cactus.framework.jar" project="jakarta-cactus-framework-12"/>
-      <depend property="cactus.ant.jar" project="jakarta-cactus-ant"/>
-      <property name="test.port" value="8082"/>
-      <property name="tomcat.home.33" reference="home" project="jakarta-tomcat"/>
-
-    </ant>
-  
-    <depend project="jakarta-ant" inherit="runtime"/>
-    <depend project="xml-xerces"/>
-    <depend project="aspectj"/>
-    <depend project="jakarta-tomcat" inherit="runtime"/>
-
-    <work nested="sample-servlet/target-12/sample/target/classes/java"/>
-    <work nested="sample-servlet/target-12/sample/target/classes/cactus"/>
-    <work nested="sample-servlet/target-12/sample/target/conf/client"/>
-
-    <jar name="sample-servlet/dist-12/bin/sample-servlet.zip"/>
-
-    <nag from="Vincent Massol &lt;vmassol@apache.org&gt;"
-         to="cactus-dev@jakarta.apache.org"/>
   </project>
 
   <!--
@@ -159,9 +96,11 @@
 
     <package>org.apache.cactus</package>
 
-    <ant buildfile="framework/build.xml" target="dist">
+    <ant buildfile="framework/build.xml" target="release">
 
-      <depend property="cactus.ant.jar" project="jakarta-cactus-ant"/>
+      <property name="project.version" value="@@DATE@@"/>
+
+      <depend property="cactus.anttasks.jar" project="jakarta-cactus-anttasks"/>
       <depend property="j2ee.jar" project="jakarta-servletapi-4"/>
       <depend property="log4j.jar" project="jakarta-log4j"/>
       <depend property="commons.logging.jar" project="commons-logging" id="all"/>
@@ -181,32 +120,36 @@
     <work nested="framework/target-13/classes/test"/>
 
     <home nested="framework/dist-13"/>
-    <jar name="lib/cactus.jar"/>
+    <jar name="lib/cactus-framework.jar"/>
     <javadoc nested="framework/dist-13/doc/api"
-             title="Cactus Framework for J2EE 1.3 API"/>
+      title="Cactus Framework for J2EE 1.3 API"/>
 
     <nag from="Vincent Massol &lt;vmassol@apache.org&gt;"
-         to="cactus-dev@jakarta.apache.org"/>
+      to="cactus-dev@jakarta.apache.org"/>
+        
   </project>
 
   <!--
      ========================================================================
-       Build the Cactus Ant Petal for J2EE 1.3
+       Build the Cactus Ant Petal for J2EE 1.2
      ========================================================================
   -->
-  <project name="jakarta-cactus-petal-ant-13">
+  <project name="jakarta-cactus-petal-ant-12">
 
-    <ant buildfile="petals/ant/build.xml" target="dist">
+    <ant buildfile="petals/ant/build.xml" target="release">
 
-      <depend property="j2ee.jar" project="jakarta-servletapi-4"/>
+      <property name="project.version" value="@@DATE@@"/>
+
+      <depend property="j2ee.jar" project="jakarta-servletapi"/>
+      <depend property="servlet.jar" project="jakarta-servletapi"/>
       <depend property="log4j.jar" project="jakarta-log4j"/>
       <depend property="commons.logging.jar" project="commons-logging" id="all"/>
       <depend property="commons.httpclient.jar" project="commons-httpclient"/>
       <depend property="httpunit.jar" project="httpunit"/>
       <depend property="aspectjrt.jar" project="aspectj" id="aspectjrt"/>
       <depend property="junit.jar" project="junit"/>
-      <depend property="cactus.framework.jar" project="jakarta-cactus-framework-13"/>
-      <depend property="cactus.ant.jar" project="jakarta-cactus-ant"/>
+      <depend property="cactus.framework.jar" project="jakarta-cactus-framework-12"/>
+      <depend property="cactus.anttasks.jar" project="jakarta-cactus-anttasks"/>
 
     </ant>
   
@@ -215,7 +158,112 @@
     <depend project="aspectj"/>
 
     <nag from="Vincent Massol &lt;vmassol@apache.org&gt;"
-         to="cactus-dev@jakarta.apache.org"/>
+      to="cactus-dev@jakarta.apache.org"/>
+
+  </project>
+  
+  <!--
+     ========================================================================
+       Build the Cactus Ant Petal for J2EE 1.3
+     ========================================================================
+  -->
+  <project name="jakarta-cactus-petal-ant-13">
+
+    <ant buildfile="petals/ant/build.xml" target="release">
+
+      <property name="project.version" value="@@DATE@@"/>
+
+      <depend property="j2ee.jar" project="jakarta-servletapi-4"/>
+      <depend property="servlet.jar" project="jakarta-servletapi-4"/>
+      <depend property="log4j.jar" project="jakarta-log4j"/>
+      <depend property="commons.logging.jar" project="commons-logging" id="all"/>
+      <depend property="commons.httpclient.jar" project="commons-httpclient"/>
+      <depend property="httpunit.jar" project="httpunit"/>
+      <depend property="aspectjrt.jar" project="aspectj" id="aspectjrt"/>
+      <depend property="junit.jar" project="junit"/>
+      <depend property="cactus.framework.jar" project="jakarta-cactus-framework-13"/>
+      <depend property="cactus.anttasks.jar" project="jakarta-cactus-anttasks"/>
+
+    </ant>
+  
+    <depend project="jakarta-ant" inherit="runtime"/>
+    <depend project="xml-xerces"/>
+    <depend project="aspectj"/>
+
+    <nag from="Vincent Massol &lt;vmassol@apache.org&gt;"
+      to="cactus-dev@jakarta.apache.org"/>
+
+  </project>
+
+  <!--
+     ========================================================================
+       Build the Cactus Eclipse Petal for J2EE 1.2
+     ========================================================================
+  -->
+
+  <!-- Not ready yet. Need to find out how to get the Eclipse jars in Gump -->
+  
+  <!--
+     ========================================================================
+       Build the Cactus Eclipse Petal for J2EE 1.3
+     ========================================================================
+  -->
+
+  <!-- Not ready yet. Need to find out how to get the Eclipse jars in Gump -->
+
+  <!--
+     ========================================================================
+       Build the Cactus Servlet Sample for J2EE 1.2
+     ========================================================================
+  -->
+  <project name="jakarta-cactus-sample-servlet-12">
+
+    <!-- Create the directories that are added using the <work> tag below so
+         that JVM do not drop these directories from the CLASSPATH
+         (apparently some do) -->
+    <mkdir dir="samples/servlet/target-12/sample/target/classes/java"/>
+    <mkdir dir="samples/servlet/target-12/sample/target/classes/cactus"/>
+    <mkdir dir="samples/servlet/target-12/sample/target/conf/client"/>
+
+    <ant buildfile="sample-servlet/build.xml" target="release">
+
+      <property name="project.version" value="@@DATE@@"/>
+
+      <depend property="j2ee.jar" project="jakarta-servletapi"/>
+      <depend property="log4j.jar" project="jakarta-log4j"/>
+      <depend property="commons.logging.jar" project="commons-logging" 
+        id="all"/>
+      <depend property="commons.httpclient.jar" project="commons-httpclient"/>
+      <depend property="httpunit.jar" project="httpunit"/>
+      <depend property="aspectjrt.jar" project="aspectj" id="aspectjrt"/>
+      <depend property="junit.jar" project="junit"/>
+      <depend property="jstl.jar" project="jakarta-taglibs-standard" 
+        id="jstl"/>
+      <depend property="standard.jar" project="jakarta-taglibs-standard"
+        id="standard"/>
+      <depend property="cactus.framework.jar" 
+        project="jakarta-cactus-framework-12"/>
+      <depend property="cactus.anttasks.jar" 
+        project="jakarta-cactus-anttasks"/>
+      <property name="cactus.port" value="8082"/>
+      <property name="cactus.home.tomcat3x" reference="home" project="jakarta-tomcat"/>
+
+    </ant>
+  
+    <depend project="jakarta-ant" inherit="runtime"/>
+    <depend project="xml-xerces"/>
+    <depend project="jakarta-tomcat" inherit="runtime"/>
+    <depend project="aspectj"/>
+
+    <work nested="samples/servlet/target-13/sample/target/classes/java"/>
+    <work nested="samples/servlet/target-13/sample/target/classes/cactus"/>
+    <work nested="samples/servlet/target-13/sample/target/conf/client"/>
+
+    <jar name="samples/servlet/dist-13/bin/cactus-sample-servlet"/>
+
+    <nag from="Vincent Massol &lt;vmassol@apache.org&gt;"
+      to="cactus-dev@jakarta.apache.org"/>
+      
   </project>
 
   <!--
@@ -228,26 +276,33 @@
     <!-- Create the directories that are added using the <work> tag below so
          that JVM do not drop these directories from the CLASSPATH
          (apparently some do) -->
-    <mkdir dir="sample-servlet/target-13/sample/target/classes/java"/>
-    <mkdir dir="sample-servlet/target-13/sample/target/classes/cactus"/>
-    <mkdir dir="sample-servlet/target-13/sample/target/conf/client"/>
+    <mkdir dir="samples/servlet/target-13/sample/target/classes/java"/>
+    <mkdir dir="samples/servlet/target-13/sample/target/classes/cactus"/>
+    <mkdir dir="samples/servlet/target-13/sample/target/conf/client"/>
 
-    <ant buildfile="sample-servlet/build.xml" target="dist">
+    <ant buildfile="sample-servlet/build.xml" target="release">
+
+      <property name="project.version" value="@@DATE@@"/>
 
       <depend property="j2ee.jar" project="jakarta-servletapi-4"/>
       <depend property="log4j.jar" project="jakarta-log4j"/>
-      <depend property="commons.logging.jar" project="commons-logging" id="all"/>
+      <depend property="commons.logging.jar" project="commons-logging" 
+        id="all"/>
       <depend property="commons.httpclient.jar" project="commons-httpclient"/>
       <depend property="httpunit.jar" project="httpunit"/>
       <depend property="aspectjrt.jar" project="aspectj" id="aspectjrt"/>
       <depend property="junit.jar" project="junit"/>
-      <depend property="jstl.jar" project="jakarta-taglibs-standard" id="jstl"/>
+      <depend property="jstl.jar" project="jakarta-taglibs-standard" 
+        id="jstl"/>
       <depend property="standard.jar" project="jakarta-taglibs-standard"
         id="standard"/>
-      <depend property="cactus.framework.jar" project="jakarta-cactus-framework-13"/>
-      <depend property="cactus.ant.jar" project="jakarta-cactus-ant"/>
-      <property name="test.port" value="8082"/>
-      <property name="tomcat.home.40" reference="home" project="jakarta-tomcat-4.0"/>
+      <depend property="cactus.framework.jar" 
+        project="jakarta-cactus-framework-13"/>
+      <depend property="cactus.anttasks.jar" 
+        project="jakarta-cactus-anttasks"/>
+      <property name="cactus.port" value="8082"/>
+      <property name="cactus.home.tomcat4x" project="jakarta-tomcat-4.0"
+        reference="home"/>
 
     </ant>
   
@@ -256,125 +311,89 @@
     <depend project="jakarta-tomcat-4.0" inherit="runtime"/>
     <depend project="aspectj"/>
 
-    <work nested="sample-servlet/target-13/sample/target/classes/java"/>
-    <work nested="sample-servlet/target-13/sample/target/classes/cactus"/>
-    <work nested="sample-servlet/target-13/sample/target/conf/client"/>
+    <work nested="samples/servlet/target-13/sample/target/classes/java"/>
+    <work nested="samples/servlet/target-13/sample/target/classes/cactus"/>
+    <work nested="samples/servlet/target-13/sample/target/conf/client"/>
 
-    <jar name="sample-servlet/dist-13/bin/sample-servlet.zip"/>
+    <jar name="samples/servlet/dist-13/bin/cactus-sample-servlet"/>
 
     <nag from="Vincent Massol &lt;vmassol@apache.org&gt;"
-         to="cactus-dev@jakarta.apache.org"/>
+      to="cactus-dev@jakarta.apache.org"/>
+      
   </project>
 
   <!--
      ========================================================================
-       Build the Cactus distribution for J2EE 1.2
+       Build the Cactus Documentation
      ========================================================================
   -->
-  <project name="jakarta-cactus-distribution-12">
+  <project name="jakarta-cactus-documentation">
 
-    <ant buildfile="build.xml" target="gump">
+    <!-- Create the directories that are added using the <work> tag below so
+         that JVM do not drop these directories from the CLASSPATH
+         (apparently some do) -->
+    <mkdir dir="documentation/target/classes/java"/>
 
-      <depend property="j2ee.jar" project="jakarta-servletapi"/>
-      <depend property="servlet.jar" project="jakarta-servletapi"/>
-      <depend property="log4j.jar" project="jakarta-log4j"/>
-      <depend property="commons.logging.jar" project="commons-logging" id="all"/>
-      <depend property="commons.httpclient.jar" project="commons-httpclient"/>
-      <depend property="httpunit.jar" project="httpunit"/>
-      <depend property="aspectjrt.jar" project="aspectj" id="aspectjrt"/>
-      <depend property="junit.jar" project="junit"/>
-      <depend property="jstl.jar" project="jakarta-taglibs-standard" id="jstl"/>
-      <depend property="standard.jar" project="jakarta-taglibs-standard"
-        id="standard"/>
-      <property name="release.dir" value="release-12"/>
-
+    <ant buildfile="documentation/build.xml" target="release">
+      <property name="project.version" value="@@DATE@@"/>
     </ant>
 
     <depend project="jakarta-ant" inherit="runtime"/>
     <depend project="xml-xerces"/>
+    <depend project="xml-xalan2"/>
 
-    <depend project="jakarta-cactus-ant"/>
-    <depend project="jakarta-cactus-documentation"/>
-    <depend project="jakarta-cactus-framework-12"/>
-    <depend project="jakarta-cactus-sample-servlet-12"/>
+    <work nested="documentation/target/classes/java"/>
 
-    <deliver fromdir="release-12" tosite="jakarta.apache.org"
-             todir="builds/jakarta-cactus/nightly/@@DATE@@/" />
+    <javadoc nested="documentation/dist/doc" title="Cactus Documentation"/>
+
+    <deliver fromdir="documentation/release" tosite="jakarta.apache.org"
+      todir="builds/jakarta-cactus/nightly/@@DATE@@/" />
 
     <nag from="Vincent Massol &lt;vmassol@apache.org&gt;"
-         to="cactus-dev@jakarta.apache.org"/>
+      to="cactus-dev@jakarta.apache.org"/>
+
   </project>
 
   <!--
      ========================================================================
-       Build the Cactus distribution for J2EE 1.3
+       Cactus Releases for J2EE API 1.2. Only release if the Cactus Sample 
+       Servlet project has succeeded.
      ========================================================================
   -->
-  <project name="jakarta-cactus-distribution-13">
+  <project name="jakarta-cactus-release-12">
 
-    <ant buildfile="build.xml" target="gump">
+    <jar name="samples/servlet/release-12/jakarta-cactus-sample-servlet-@@DATE@@.zip"/>
 
-      <depend property="j2ee.jar" project="jakarta-servletapi-4"/>
-      <depend property="servlet.jar" project="jakarta-servletapi-4"/>
-      <depend property="log4j.jar" project="jakarta-log4j"/>
-      <depend property="commons.logging.jar" project="commons-logging" id="all"/>
-      <depend property="commons.httpclient.jar" project="commons-httpclient"/>
-      <depend property="httpunit.jar" project="httpunit"/>
-      <depend property="aspectjrt.jar" project="aspectj" id="aspectjrt"/>
-      <depend property="junit.jar" project="junit"/>
-      <depend property="jstl.jar" project="jakarta-taglibs-standard" id="jstl"/>
-      <depend property="standard.jar" project="jakarta-taglibs-standard"
-        id="standard"/>
-      <property name="release.dir" value="release-13"/>
+    <deliver fromdir="framework/release-12" tosite="jakarta.apache.org"
+      todir="builds/jakarta-cactus/nightly/@@DATE@@/" />
 
-    </ant>
+    <deliver fromdir="petals/ant/release-12" tosite="jakarta.apache.org"
+      todir="builds/jakarta-cactus/nightly/@@DATE@@/" />
 
-    <depend project="jakarta-ant" inherit="runtime"/>
-    <depend project="xml-xerces"/>
+    <deliver fromdir="samples/servlet/release-12" tosite="jakarta.apache.org"
+      todir="builds/jakarta-cactus/nightly/@@DATE@@/" />
 
-    <depend project="jakarta-cactus-ant"/>
-    <depend project="jakarta-cactus-documentation"/>
-    <depend project="jakarta-cactus-framework-13"/>
-    <depend project="jakarta-cactus-sample-servlet-13"/>
-
-    <deliver fromdir="release-13" tosite="jakarta.apache.org"
-             todir="builds/jakarta-cactus/nightly/@@DATE@@/" />
-
-    <nag from="Vincent Massol &lt;vmassol@apache.org&gt;"
-         to="cactus-dev@jakarta.apache.org"/>
   </project>
 
   <!--
      ========================================================================
-       Build the Cactus source distribution
+       Cactus Releases for J2EE API 1.3. Only release if the Cactus Sample 
+       Servlet project has succeeded.
      ========================================================================
   -->
-  <project name="jakarta-cactus-distribution-src">
+  <project name="jakarta-cactus-release-13">
 
-    <ant buildfile="build.xml" target="gump.src">
+    <jar name="samples/servlet/release-13/jakarta-cactus-sample-servlet-@@DATE@@.zip"/>
 
-      <depend property="j2ee.jar" project="jakarta-servletapi-4"/>
-      <depend property="servlet.jar" project="jakarta-servletapi-4"/>
-      <depend property="log4j.jar" project="jakarta-log4j"/>
-      <depend property="commons.logging.jar" project="commons-logging" id="all"/>
-      <depend property="commons.httpclient.jar" project="commons-httpclient"/>
-      <depend property="httpunit.jar" project="httpunit"/>
-      <depend property="aspectjrt.jar" project="aspectj" id="aspectjrt"/>
-      <depend property="junit.jar" project="junit"/>
-      <depend property="jstl.jar" project="jakarta-taglibs-standard" id="jstl"/>
-      <depend property="standard.jar" project="jakarta-taglibs-standard"
-        id="standard"/>
+    <deliver fromdir="framework/release-13" tosite="jakarta.apache.org"
+      todir="builds/jakarta-cactus/nightly/@@DATE@@/" />
 
-    </ant>
+    <deliver fromdir="petals/ant/release-13" tosite="jakarta.apache.org"
+      todir="builds/jakarta-cactus/nightly/@@DATE@@/" />
 
-    <depend project="jakarta-ant" inherit="runtime"/>
-    <depend project="xml-xerces"/>
+    <deliver fromdir="samples/servlet/release-13" tosite="jakarta.apache.org"
+      todir="builds/jakarta-cactus/nightly/@@DATE@@/" />
 
-    <deliver fromdir="release" tosite="jakarta.apache.org"
-             todir="builds/jakarta-cactus/nightly/@@DATE@@/" />
-
-    <nag from="Vincent Massol &lt;vmassol@apache.org&gt;"
-         to="cactus-dev@jakarta.apache.org"/>
   </project>
 
 </module>

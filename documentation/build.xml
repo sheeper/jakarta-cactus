@@ -1,20 +1,27 @@
 <?xml version="1.0"?>
+<!DOCTYPE project [
+    <!ENTITY common SYSTEM "file:../build-common.xml">
+]>
 
 <!--
   =============================================================================
     Build file for the Cactus Documentation (it builds the Cactus web pages
-    which serves as the Cactus Web Site and as local documentation in the
-    Cactus distribution).
+    which serves both as the Cactus Web Site and as local documentation).
 
-    The mandatory and optional Ant properties are defined in
-    build.properties.sample. Please read and edit that file.
+    The following Ant tasks need to be available in your ant installation (i.e.
+    the Ant task themselves and their dependent jars need to be put in
+    ANT_HOME/lib) :
+
+        xalan task (used by the <style> task)
+
+    See build.properties.sample for mandatory and optional Ant properties that
+    need to be set prior to calling this build script.
 
     This script should be started with the following command line :
 
         ant <target>
 
-    Run "ant -projecthelp" to get a list of available targets. The default
-    target is "dist"
+    Run "ant -projecthelp" to get a list of available targets.
 
     Note: basedir points to the main Cactus directory in order to have the same
           base dir for all Cactus subprojects and thus be able to share
@@ -23,94 +30,47 @@
 -->
 <project name="Cactus Documentation" default="dist" basedir="..">
 
-    <!-- Give user a chance to override without editing this file
-         (and without typing -D each time it compiles it) -->
-    <property file="documentation/build.properties" />
-    <property file="${user.home}/build.properties" />
+    <!-- Base directory for all file related operations -->
+    <property name="base.dir" value="documentation"/>
+
+    <!-- Include properties and targets common to the different subprojects -->
+    &common;
 
     <!-- Global project properties -->
     <property name="project.name.text" value="Cactus Documentation"/>
-    <property name="project.version" value="1.5dev"/>
-    
-    <!-- The Cactus web site keeps online the documentation for the previous
-         version. This property is the name of the other version kept -->
-    <property name="project.other.version" value="1.4.1"/>
-
-    <!-- Prefix to add to all distributable files -->
-    <property name="project.prefix" value="jakarta-"/>
+    <property name="project.name.file" value="cactus-doc"/>
 
     <!--
        ========================================================================
-         Default values for properties not defined in build.properties or in
-         a higher level calling Ant script
+         Initialize source, target and dist properties
        ========================================================================
     -->
-    <property name="year" value="2000-2003"/>
+    <target name="properties">
 
-    <!--
-       ========================================================================
-         Base directory for all file related operations
-       ========================================================================
-    -->
-    <property name="base.dir" value="documentation"/>
+        <!-- Set the properties related to the source tree -->
+        <property name="src.dir" value="${base.dir}/src"/>
+        <property name="src.java.dir" value="${src.dir}/java"/>
+        <property name="doc.dir" value="${base.dir}/docs"/>
+        <property name="doc.dtd.dir" value="${doc.dir}/dtds"/>
+        <property name="doc.skin.dir" value="${doc.dir}/skins"/>
+        <property name="doc.xdoc.dir" value="${doc.dir}/xdocs"/>
+        <property name="build.dir" value="${base.dir}/."/>
+        <property name="conf.dir" value="${base.dir}/conf"/>
 
-    <!--
-       ========================================================================
-         Set the properties related to the source tree
-       ========================================================================
-    -->
-    <!-- Source locations for the build -->
-    <property name="src.dir" location="${base.dir}/src"/>
-    <property name="src.java.dir" location="${src.dir}/java"/>
-    <property name="doc.dir" value="${base.dir}/docs"/>
-    <property name="doc.dtd.dir" value="${doc.dir}/dtds"/>
-    <property name="doc.skin.dir" value="${doc.dir}/skins"/>
-    <property name="doc.xdoc.dir" value="${doc.dir}/xdocs"/>
-    <property name="build.dir" value="${base.dir}/."/>
-    <property name="conf.dir" value="${base.dir}/conf"/>
+        <!-- Locations of javadocs that need to be included if javadoc.include
+             is defined -->
+        <property name="dist.framework.javadoc.12" 
+            value="framework/dist-12/doc/api"/>
+        <property name="dist.framework.javadoc.13" 
+            value="framework/dist-13/doc/api"/>
+        <property name="dist.anttasks.javadoc" value="anttasks/dist/doc/api"/>             
 
-    <!--
-       ========================================================================
-         Set the properties related to the target area
-       ========================================================================
-    -->
-    <!-- Destination locations for the build -->
-    <property name="target.dir" value="${base.dir}/target"/>
-    <property name="target.classes.dir" location="${target.dir}/classes"/>
-    <property name="target.classes.java.dir"
-        location="${target.classes.dir}/java"/>
-    <property name="target.doc.dir" value="${target.dir}/doc"/>
-    <property name="target.xdoc.dir" value="${target.dir}/xdocs"/>
-
-    <!-- Distribution directory, i.e. where the expanded distibutable files
-         are located -->
-    <property name="dist.dir" value="${base.dir}/dist"/>
-    <property name="dist.doc.dir" value="${dist.dir}/doc"/>
-    <property name="dist.doc.api.dir" value="${dist.doc.dir}/api"/>
-
-    <!--
-       ========================================================================
-         Display configurable properties values
-       ========================================================================
-    -->
-    <target name="display.properties">
-
-        <echo message="----- ${project.name.text} ${project.version} -----"/>
-        <echo message=""/>
-        <echo message="java.class.path = ${java.class.path}"/>
-        <echo message=""/>
-        <echo message="java.home = ${java.home}"/>
-        <echo message="user.home = ${user.home}"/>
-        <echo message="ant.home = ${ant.home}"/>
-
-    </target>
-
-    <!--
-       ========================================================================
-         Verify that all mandatory properties have been set
-       ========================================================================
-    -->
-    <target name="check.properties" depends="display.properties">
+        <!-- Set the properties related to the target area -->
+        <property name="target.classes.dir" value="${target.dir}/classes"/>
+        <property name="target.classes.java.dir"
+            value="${target.classes.dir}/java"/>
+        <property name="target.doc.dir" value="${target.dir}/doc"/>
+        <property name="target.xdoc.dir" value="${target.dir}/xdocs"/>
 
     </target>
 
@@ -119,23 +79,7 @@
          Initialize the build. Must be called by all targets
        ========================================================================
     -->
-    <target name="init" depends="check.properties">
-
-        <tstamp/>
-
-        <condition property="offline">
-          <or>
-            <isset property="offline"/>
-            <not>
-              <http url="http://www.apache.org/"/>
-            </not>
-          </or>
-        </condition>
-
-        <!-- Filters -->
-        <filter token="version" value="${project.version}"/>
-        <filter token="year" value="${year}"/>
-        <filter token="today" value="${TODAY}"/>
+    <target name="init" depends="init.common,properties">
 
         <xmlcatalog id="documentation.dtds">
           <dtd publicId="-//Apache Software Foundation//DTD Cactus Navigation V1.0//EN"
@@ -156,7 +100,9 @@
 
         <mkdir dir="${target.classes.java.dir}"/>
 
-        <javac srcdir="${src.java.dir}" destdir="${target.classes.java.dir}"/>
+        <javac srcdir="${src.java.dir}" destdir="${target.classes.java.dir}"
+          deprecation="${deprecation}" optimize="${optimize}" 
+          debug="${debug}"/>
 
     </target>
 
@@ -253,8 +199,8 @@
             <param name="copyright"
                 expression="${year} The Apache Software Foundation"/>
             <param name="project.version" expression="${project.version}"/>
-            <param name="project.other.version"
-                expression="${project.other.version}"/>
+            <param name="project.version.previous"
+                expression="${project.version.previous}"/>
             <param name="last.updated.date" expression="${TODAY}"/>
 
             <!-- Location of the xdoc directory relative to where the
@@ -294,12 +240,46 @@
 
     <!--
        ========================================================================
-         Generate the documentation (without the generated clover reports that
-         are in sample-servlet and without the generated javadocs that are
-         in anttasks and framework).
+         Copy the javadoc from other subprojects if javadoc.include is defined
        ========================================================================
     -->
-    <target name="dist" depends="doc" description="Generate the documentation">
+    <target name="dist.javadoc.check" depends="init" if="javadoc.include">
+
+        <condition property="javadoc.include.ok" value="true">
+            <and>
+                <available file="${dist.framework.javadoc.12}/index.html"/>
+                <available file="${dist.framework.javadoc.13}/index.html"/>
+                <available file="${dist.anttasks.javadoc}/index.html"/>
+            </and>
+        </condition>
+
+        <fail unless="javadoc.include.ok">One of the javadoc has not been 
+generated. Run 'ant dist.javadoc -verbose' to know what the problem is.</fail>
+        
+    </target>
+
+    <target name="dist.javadoc" depends="dist.javadoc.check" 
+        if="javadoc.include.ok">
+
+        <copy todir="${dist.doc.api.dir}/anttasks">
+            <fileset dir="${dist.anttasks.javadoc}"/>
+        </copy>
+        <copy todir="${dist.doc.api.dir}/framework-12">
+            <fileset dir="${dist.framework.javadoc.12}"/>
+        </copy>
+        <copy todir="${dist.doc.api.dir}/framework-13">
+            <fileset dir="${dist.framework.javadoc.13}"/>
+        </copy>
+        
+    </target>
+
+    <!--
+       ========================================================================
+         Generate the artifacts.
+       ========================================================================
+    -->
+    <target name="dist" depends="doc,dist.javadoc" 
+        description="Generate the documentation">
 
         <mkdir dir="${dist.doc.dir}"/>
 
@@ -310,16 +290,98 @@
 
     </target>
 
-   <!--
+    <!--
        ========================================================================
-         Clean generated files (including distributables)
+         Generate the release
        ========================================================================
     -->
-    <target name="clean" description="Clean all generated files">
+    <target name="release" depends="clean,dist"
+        description="Generate the release files">
 
-        <delete dir="${target.dir}"/>
-        <delete dir="${dist.dir}"/>
+        <mkdir dir="${release.dir}"/>
+
+        <zip destfile="${release.dir}/${main.release.name}.zip">
+            <zipfileset dir="${dist.doc.dir}" 
+                prefix="${main.release.name}"/>
+        </zip>
+        
+    </target>
+
+    <!--
+       ========================================================================
+         Upload the documentation to the Cactus web site on Jakarta
+       ========================================================================
+    -->
+    <target name="upload.check" depends="init">
+
+        <!-- Check that the zip is ready -->
+        <available file="${release.dir}/${main.release.name}.zip" 
+            property="upload.zip.ok"/>
+        
+        <fail message="You need to run 'ant release' first." 
+            unless="upload.zip.ok"/>
+
+        <!-- Check if we are online -->
+        <fail message="You need to be online." if="offline"/>
+        
+        <!-- Check that needed properties have been set -->
+
+        <echo>jakarta.username = ${jakarta.username}</echo>
+        <echo>scp = ${scp}</echo>
+        <echo>ssh = ${ssh}</echo>
+
+        <condition property="upload.ok" value="true">
+            <and>
+                <isset property="jakarta.username"/>
+                <isset property="scp"/>
+                <isset property="ssh"/>
+           </and>
+        </condition>
+
+        <fail unless="upload.ok">One of the needed property is not set. Run 
+'ant upload -verbose' to know what the problem is.</fail>
 
     </target>
+
+    <target name="upload.init" depends="upload.check">
+
+        <property name="cactus.homepage"
+            value="/www/jakarta.apache.org/cactus"/>
+
+        <condition property="is.dev.version">
+            <contains string="${project.version}" substring="dev"/>
+        </condition>
+
+        <exec dir="." executable="${scp}">
+            <arg value="${release.dir}/${main.release.name}.zip"/>
+            <arg value="${jakarta.username}@jakarta.apache.org:/tmp"/>
+        </exec>
+
+    </target>
+    
+    <target name="upload.release" depends="upload.init" 
+        unless="is.dev.version">
+
+        <echo>Deploying release version to ${cactus.homepage} ...</echo>
+        
+        <exec dir="." executable="${ssh}">
+            <arg line="-l ${jakarta.username} jakarta.apache.org 'cd /tmp;rm -Rf ${main.release.name};unzip ${main.release.name}.zip;cp -Rfv ${main.release.name}/* ${cactus.homepage};rm -Rf ${main.release.name}.zip;rm -Rf ${main.release.name}'"/>
+        </exec>
+
+    </target>
+
+    <target name="upload.dev" depends="upload.init" 
+        if="is.dev.version">
+
+        <echo>Deploying dev version to ${cactus.homepage}/${project.version} ...</echo>
+
+        <exec dir="." executable="${ssh}">
+            <arg line="-l ${jakarta.username} jakarta.apache.org 'cd /tmp;rm -Rf ${main.release.name};unzip ${main.release.name}.zip;cp -Rfv ${main.release.name}/* ${cactus.homepage}/${project.version};rm -Rf ${main.release.name}.zip;rm -Rf ${main.release.name}'"/>
+        </exec>
+
+    </target>
+
+    <target name="upload" depends="upload.release,upload.dev"
+        description="Upload the Cactus web site"/>
 
 </project>

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!DOCTYPE project [
-    <!ENTITY common SYSTEM "file:../common.xml">
+    <!ENTITY common SYSTEM "file:../build-common.xml">
 ]>
 
 <!--
@@ -20,15 +20,14 @@
 
         clover       [OPTIONAL] Clover jar (only for test coverage)
 
-    The mandatory and optional Ant properties are defined in
-    build.properties.sample. Please read and edit that file.
+    See build.properties.sample for mandatory and optional Ant properties that
+    need to be set prior to calling this build script.
 
     This script should be started with the following command line :
 
         ant <target>
 
-    Run "ant -projecthelp" to get a list of available targets. The default
-    target is "dist"
+    Run "ant -projecthelp" to get a list of available targets.
 
     Note: basedir points to the main Cactus directory in order to have the same
           base dir for all Cactus subprojects and thus be able to share
@@ -37,122 +36,47 @@
 -->
 <project name="Cactus Framework" default="dist" basedir="..">
 
-    <!-- Give user a chance to override without editing this file
-         (and without typing -D each time it compiles it) -->
-    <property file="${basedir}/framework/build.properties" />
-    <property file="${basedir}/build.properties" />
-    <property file="${user.home}/build.properties" />
+    <!-- Base directory for all file related operations -->
+    <property name="base.dir" value="framework"/>
+
+    <!-- Include properties and targets common to the different subprojects -->
+    &common;
 
     <!-- Global project properties -->
     <property name="project.name.text" value="Cactus Framework"/>
-    <property name="project.name.file" value="cactus"/>
-    <property name="project.version" value="1.5dev"/>
-
-    <!-- Prefix to add to all distributable files -->
-    <property name="project.prefix" value="jakarta-"/>
+    <property name="project.name.file" value="cactus-framework"/>
 
     <!--
        ========================================================================
-         Default values for properties not defined in build.properties or in
-         a higher level calling Ant script
+         Initialize source, target and dist properties
        ========================================================================
     -->
-    <property name="year" value="2000-2003"/>
-    <property name="debug" value="on"/>
-    <property name="optimize" value="off"/>
-    <property name="deprecation" value="off"/>
+    <target name="properties">
 
-    <!--
-       ========================================================================
-         Base directory for all file related operations
-       ========================================================================
-    -->
-    <property name="base.dir" location="framework"/>
-
-    <!--
-       ========================================================================
-         Include common targets and properties
-       ========================================================================
-    -->
-    &common;
-
-    <!--
-       ========================================================================
-         Set the properties related to the source tree.
-         Note: These properties are defined in a target as some need the
-               j2ee.api property to be set
-       ========================================================================
-    -->
-    <target name="properties.source">
-
-        <property name="src.dir" location="${base.dir}/src"/>
-        <property name="src.java.dir" location="${src.dir}/java"/>
-        <property name="src.java.share.dir" location="${src.java.dir}/share"/>
+        <!-- Set the properties related to the source tree -->
+        <property name="src.dir" value="${base.dir}/src"/>
+        <property name="src.java.dir" value="${src.dir}/java"/>
+        <property name="src.java.share.dir" value="${src.java.dir}/share"/>
         <property name="src.java.specific.dir"
-            location="${src.java.dir}/j2ee${j2ee.api}"/>
-        <property name="src.test.dir" location="${src.dir}/test"/>
-        <property name="src.test.share.dir" location="${src.test.dir}/share"/>
-        <property name="build.dir" location="${base.dir}/."/>
-        <property name="conf.dir" location="${base.dir}/conf"/>
-        <property name="web.dir" location="${base.dir}/web"/>
+            value="${src.java.dir}/j2ee${j2ee.api}"/>
+        <property name="src.test.dir" value="${src.dir}/test"/>
+        <property name="src.test.share.dir" value="${src.test.dir}/share"/>
+        <property name="build.dir" value="${base.dir}/."/>
+        <property name="conf.dir" value="${base.dir}/conf"/>
+        <property name="web.dir" value="${base.dir}/web"/>
 
-    </target>
-
-    <!--
-       ========================================================================
-         Set the properties related to the target tree
-         Note: These properties are defined in a target as some need the
-               j2ee.api property to be set
-       ========================================================================
-    -->
-    <target name="properties.target">
-
-        <property name="target.dir" location="${base.dir}/target-${j2ee.api}"/>
-        <property name="target.classes.dir" location="${target.dir}/classes"/>
+        <!-- Set the properties related to the target area -->
+        <property name="target.classes.dir" value="${target.dir}/classes"/>
         <property name="target.classes.java.dir"
-            location="${target.classes.dir}/java"/>
+            value="${target.classes.dir}/java"/>
         <property name="target.classes.clover.dir"
-            location="${target.classes.dir}/clover"/>
+            value="${target.classes.dir}/clover"/>
         <property name="target.classes.test.dir"
-            location="${target.classes.dir}/test"/>
-        <property name="target.doc.dir" location="${target.dir}/doc"/>
-        <property name="target.doc.api.dir" location="${target.doc.dir}/api"/>
+            value="${target.classes.dir}/test"/>
+        <property name="target.doc.dir" value="${target.dir}/doc"/>
+        <property name="target.doc.api.dir" value="${target.doc.dir}/api"/>
 
     </target>
-
-    <!-- The location of the Cactus custom Ant tasks jar -->
-    <property name="cactus.ant.jar"
-        location="anttasks/dist/lib/cactus-ant.jar"/>
-
-    <!--
-       ========================================================================
-         Set the properties related to the distribution tree
-         Note: These properties are defined in a target as some need the
-               j2ee.api property to be set
-       ========================================================================
-    -->
-    <target name="properties.distribution">
-
-        <property name="dist.dir" location="${base.dir}/dist-${j2ee.api}"/>
-        <property name="dist.lib.dir" location="${dist.dir}/lib"/>
-        <property name="dist.doc.dir" location="${dist.dir}/doc"/>
-        <property name="dist.doc.api.dir" location="${dist.doc.dir}/api"/>
-        <property name="dist.web.dir" location="${dist.dir}/web"/>
-
-    </target>
-
-    <!--
-       ========================================================================
-        Names of deliverables
-       ========================================================================
-    -->
-    <!-- The Cactus framework jar -->
-    <property name="framework.jar.name" value="${project.name.file}"/>
-
-    <!-- The Clover(ed) Cactus framework jar. Only generated if
-         clover.enable = true -->
-    <property name="framework.clover.jar.name"
-        value="${project.name.file}-clover"/>
 
     <!--
        ========================================================================
@@ -175,34 +99,15 @@
 
     <!--
        ========================================================================
-         Display configurable properties values
-       ========================================================================
-    -->
-    <target name="display.properties">
-
-        <echo>----- ${project.name.text} ${project.version} -----</echo>
-        <echo></echo>
-        <echo>java.class.path = ${java.class.path}"</echo>
-        <echo></echo>
-        <echo>java.home = ${java.home}</echo>
-        <echo>user.home = ${user.home}</echo>
-        <echo>ant.home = ${ant.home}</echo>
-        <echo></echo>
-        <echo>clover.enable (optional) = ${clover.enable}</echo>
-        <echo></echo>
-
-    </target>
-
-    <!--
-       ========================================================================
          Verify that all mandatory properties have been set
        ========================================================================
     -->
     <target name="check.properties">
 
-        <taskdef name="checkProperty" classname="org.apache.cactus.ant.CheckPropertiesTask">
+        <taskdef name="checkProperty" 
+            classname="org.apache.cactus.ant.CheckPropertiesTask">
             <classpath>
-                <pathelement location="${cactus.ant.jar}"/>
+                <pathelement location="${cactus.anttasks.jar}"/>
             </classpath>
         </taskdef>
 
@@ -218,47 +123,14 @@
 
     <!--
        ========================================================================
-         Find out the J2EE API version
-       ========================================================================
-    -->
-    <target name="check.j2ee.version">
-
-        <condition property="j2ee.api" value="13">
-            <available classname="javax.servlet.Filter"
-                classpathref="project.class.path"/>
-        </condition>
-
-        <condition property="j2ee.api" value="12">
-            <available classname="javax.servlet.Servlet"
-                classpathref="project.class.path"/>
-        </condition>
-
-        <fail message="Unsupported J2EE version" unless="j2ee.api"/>
-
-        <echo message="j2ee.api = ${j2ee.api}"/>
-
-    </target>
-
-    <!--
-       ========================================================================
-         Load all dynamic properties
-       ========================================================================
-    -->
-    <target name="load.properties"
-        depends="check.j2ee.version,properties.source,properties.target,properties.distribution"/>
-
-    <!--
-       ========================================================================
          Initialize Clover related properties (for test coverage reports).
        ========================================================================
     -->
-    <target name="init.clover"
-        depends="check.j2ee.version"
-        if="clover.enable">
+    <target name="init.clover" depends="init.common" if="clover.enable">
 
         <!-- Clover write data at compile time *and* at runtime in this file -->
         <property name="clover.initstring"
-            location="${basedir}/target-${j2ee.api}/clover-coverage.db"/>
+            value="${basedir}/target-${j2ee.api}/clover-coverage.db"/>
 
         <dirname property="clover.db.dir" file="${clover.initstring}"/>
         <mkdir dir="${clover.db.dir}"/>
@@ -293,11 +165,10 @@
          Initialize the build. Must be called by all targets
        ========================================================================
     -->
-    <target name="init"
-        depends="display.properties, check.properties, load.properties,
-                 init.clover, init.aspectj">
+    <target name="init" 
+        depends="init.common,properties,check.properties,init.clover,init.aspectj">
 
-        <tstamp/>
+        <echo>clover.enable (optional) = ${clover.enable}</echo>
 
     </target>
 
@@ -312,7 +183,7 @@
              the clover jar was created -->
         <condition property="compile.clover.required">
             <not>
-                <uptodate targetfile="${target.dir}/${framework.clover.jar.name}.jar">
+                <uptodate targetfile="${target.dir}/${cactus.framework.clover.jar.name}.jar">
                     <srcfiles dir="${src.java.share.dir}"/>
                     <srcfiles dir="${src.java.specific.dir}"/>
                 </uptodate>
@@ -383,7 +254,7 @@
              the main jar was created -->
         <condition property="compile.main.required">
             <not>
-                <uptodate targetfile="${target.dir}/${framework.jar.name}.jar">
+                <uptodate targetfile="${target.dir}/${cactus.framework.jar.name}.jar">
                     <srcfiles dir="${src.java.share.dir}"/>
                     <srcfiles dir="${src.java.specific.dir}"/>
                 </uptodate>
@@ -419,11 +290,9 @@
          Create the runtime jar file
        ========================================================================
     -->
-    <target name="jar.clover"
-        depends="compile.clover"
-        if="clover.enable">
+    <target name="jar.clover" depends="compile.clover" if="clover.enable">
 
-        <jar jarfile="${target.dir}/${framework.clover.jar.name}.jar">
+        <jar jarfile="${target.dir}/${cactus.framework.clover.jar.name}.jar">
 
             <manifest>
                 <section name="org/apache/cactus/">
@@ -453,7 +322,7 @@
     <target name="jar.main"
         depends="compile.main">
 
-        <jar jarfile="${target.dir}/${framework.jar.name}.jar">
+        <jar jarfile="${target.dir}/${cactus.framework.jar.name}.jar">
 
             <manifest>
                 <section name="org/apache/cactus/">
@@ -488,8 +357,7 @@
          Generate the documentation (javadoc)
        ========================================================================
     -->
-    <target name="doc.check"
-        depends="init">
+    <target name="doc.check" depends="init">
 
       <uptodate property="doc.uptodate"
           targetfile="${target.doc.api.dir}/index.html">
@@ -501,9 +369,7 @@
 
     </target>
 
-    <target name="doc"
-        depends="doc.check"
-        unless="doc.uptodate"
+    <target name="doc" depends="doc.check" unless="doc.uptodate"
         description="Generates the API documentation">
 
         <mkdir dir="${target.doc.api.dir}"/>
@@ -553,8 +419,7 @@
          Run the full suite of unit tests.
        ========================================================================
     -->
-    <target name="test.clover.prepare"
-        depends="compile.test, compile.clover"
+    <target name="test.clover.prepare" depends="compile.test,compile.clover"
         if="clover.enable">
 
         <path id="test.class.path">
@@ -565,8 +430,7 @@
 
     </target>
 
-    <target name="test.main.prepare"
-        depends="compile.test"
+    <target name="test.main.prepare" depends="compile.test" 
         unless="clover.enable">
 
         <path id="test.class.path">
@@ -599,17 +463,14 @@
          Generate the distributable files
        ========================================================================
     -->
-    <target name="dist.clover"
-        depends="jar.clover"
-        if="clover.enable">
+    <target name="dist.clover" depends="jar.clover" if="clover.enable">
 
         <copy todir="${dist.lib.dir}"
-            file="${target.dir}/${framework.clover.jar.name}.jar"/>
+            file="${target.dir}/${cactus.framework.clover.jar.name}.jar"/>
 
     </target>
 
-    <target name="dist"
-        depends="checkstyle, test, doc, jar.main, dist.clover"
+    <target name="dist" depends="checkstyle,test,doc,jar.main,dist.clover"
         description="Generate the distributable files">
 
         <mkdir dir="${dist.lib.dir}"/>
@@ -617,7 +478,7 @@
         <mkdir dir="${dist.web.dir}"/>
 
         <copy todir="${dist.lib.dir}"
-            file="${target.dir}/${framework.jar.name}.jar"/>
+            file="${target.dir}/${cactus.framework.jar.name}.jar"/>
         <copy todir="${dist.doc.api.dir}">
             <fileset dir="${target.doc.api.dir}"/>
         </copy>
@@ -629,17 +490,20 @@
 
     <!--
        ========================================================================
-         Clean generated files (including distributables).
-         Note: We don't depend on "init" as the only mandatory property that
-         we need is "j2ee.jar".
+         Generate the release
        ========================================================================
     -->
-    <target name="clean" depends="load.properties"
-        description="Clean all generated files">
+    <target name="release" depends="clean,dist"
+        description="Generate the release files">
 
-        <delete dir="${target.dir}"/>
-        <delete dir="${dist.dir}"/>
+        <mkdir dir="${release.dir}"/>
 
+        <zip destfile="${release.dir}/${main.release.name}.zip">
+            <zipfileset dir="${dist.dir}" prefix="${main.release.name}">
+                <exclude name="**/${cactus.framework.clover.jar.name}.jar"/>
+            </zipfileset>
+        </zip>
+        
     </target>
 
     <!--
@@ -648,8 +512,7 @@
          the checkstyle jar is in the Ant classpasth.
        ========================================================================
     -->
-    <target name="checkstyle"
-        depends="init, init.checkstyle"
+    <target name="checkstyle" depends="init,init.checkstyle" 
         if="checkstyle.available"
         description="Perform a code audit using Checkstyle">
 
@@ -673,42 +536,6 @@
             <property key="checkstyle.header.file" file="./LICENSE.cactus"/>
 
         </checkstyle>
-
-    </target>
-
-    <!--
-       ========================================================================
-         Build all : builds the distribution for both J2EE API 1.2 and 1.3
-       ========================================================================
-    -->
-    <target name="dist.all"
-        description="Generate the distributable files (for all J2EE APIs)">
-
-        <ant antfile="framework/build.xml" target="dist" inheritAll="false">
-            <property name="j2ee.jar" value="${j2ee.12.jar}"/>
-        </ant>
-
-        <ant antfile="framework/build.xml" target="dist" inheritAll="false">
-            <property name="j2ee.jar" value="${j2ee.13.jar}"/>
-        </ant>
-
-    </target>
-
-    <!--
-       ========================================================================
-         Clean all, for all J2EE APIs
-       ========================================================================
-    -->
-    <target name="clean.all"
-        description="Clean all generated files (for all J2EE APIs)">
-
-        <ant antfile="framework/build.xml" target="clean" inheritAll="false">
-            <property name="j2ee.jar" value="${j2ee.12.jar}"/>
-        </ant>
-
-        <ant antfile="framework/build.xml" target="clean" inheritAll="false">
-            <property name="j2ee.jar" value="${j2ee.13.jar}"/>
-        </ant>
 
     </target>
 

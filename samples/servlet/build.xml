@@ -1,0 +1,333 @@
+<?xml version="1.0"?>
+<!DOCTYPE project [
+    <!ENTITY common SYSTEM "file:../../build-common.xml">
+]>
+
+<!--
+  =============================================================================
+    Build file for the Cactus Servlet Sample subproject (it shows how to use
+    Cactus for unit testing the Servlet API : Servlets, Fitlers, Taglibs).
+
+    The mandatory and optional Ant properties are defined in
+    build.properties.sample. Please read and edit that file.
+
+    This script should be started with the following command line :
+
+        ant <target>
+
+    Run "ant -projecthelp" to get a list of available targets. The default
+    target is "dist"
+
+    Note: basedir points to the main Cactus directory in order to have the same
+          base dir for all Cactus subprojects and thus be able to share
+          relative paths.
+  =============================================================================
+-->
+<project name="Cactus Servlet Sample" default="dist" basedir="../..">
+
+    <!-- Base directory for all file related operations -->
+    <property name="base.dir" value="samples/servlet"/>
+
+    <!-- Include properties and targets common to the different subprojects -->
+    &common;
+
+    <!-- Global project properties -->
+    <property name="project.name.text" value="Cactus Servlet Sample"/>
+    <property name="project.name.file" value="cactus-sample-servlet"/>
+
+    <!--
+       ========================================================================
+         Initialize source, target and dist properties
+       ========================================================================
+    -->
+    <target name="properties">
+
+        <!-- Set the properties related to the source tree -->
+        <property name="src.dir" value="${base.dir}/src"/>
+        <property name="src.java.dir" value="${src.dir}/java"/>
+        <property name="src.cactus.dir" value="${src.dir}/test-cactus"/>
+        <property name="src.script.dir" value="${src.dir}/scripts"/>
+        <property name="src.webapp.dir" value="${src.dir}/webapp"/>
+
+        <!-- Set the properties related to the target area -->
+        <property name="target.sample.dir" value="${target.dir}/sample"/>
+        <property name="target.sample.build.dir" value="${target.sample.dir}/build"/>
+        <property name="target.sample.build.petal.dir" 
+            value="${target.sample.build.dir}/cactus-petal-ant"/>
+        <property name="target.sample.src.dir" value="${target.sample.dir}/src"/>
+        <property name="target.sample.src.java.dir"
+            value="${target.sample.src.dir}/java"/>
+        <property name="target.sample.src.cactus.dir"
+            value="${target.sample.src.dir}/test-cactus"/>
+        <property name="target.sample.src.webapp.dir" 
+            value="${target.sample.src.dir}/webapp"/>
+        <property name="target.sample.lib.dir" 
+            value="${target.sample.dir}/lib"/>
+
+    </target>
+
+    <!--
+       ========================================================================
+         Useful patterns for targets
+       ========================================================================
+    -->
+    <path id="project.class.path">
+
+        <pathelement location="${j2ee.jar}"/>
+
+        <!-- Includes system classpath for jars that are in ANT_HOME/lib such
+             as aspectrt.jar, etc -->
+        <pathelement path="${java.class.path}"/>
+    </path>
+
+    <!--
+       ========================================================================
+         Verify that all mandatory properties have been set
+       ========================================================================
+    -->
+    <target name="check.properties">
+
+        <taskdef name="checkProperty" 
+            classname="org.apache.cactus.ant.CheckPropertiesTask">
+            <classpath>
+                <pathelement location="${cactus.anttasks.jar}"/>
+            </classpath>
+        </taskdef>
+
+        <checkProperty>
+            <property name="j2ee.jar" isfile="true"/>
+            <property name="jstl.jar" isfile="true"/>
+            <property name="standard.jar" isfile="true"/>
+        </checkProperty>
+
+    </target>
+
+    <!--
+       ========================================================================
+         Initialize the build. Must be called by all targets
+       ========================================================================
+    -->
+    <target name="init" 
+        depends="init.common,properties,check.properties">
+
+        <echo>cactus.port (optional) = ${cactus.port}</echo>
+
+        <!-- Custom Ant task definition used in the test targets below.
+             It is used for computing the "-D" parameter list
+             for home directories of defined servlet engines. If a given
+             property is not defined, it won't be added to the list -->
+        <taskdef name="argsList" classname="org.apache.cactus.ant.ArgListTask">
+            <classpath>
+                <pathelement location="${cactus.anttasks.jar}"/>
+            </classpath>
+        </taskdef>
+
+    </target>
+
+    <!--
+        ========================================================================
+          Generate the sample application
+        ========================================================================
+     -->
+    <target name="sample.replace.12">
+
+        <replace file="${target.sample.dir}/build.xml"
+            token="@containers.specific@">
+
+            <replacevalue><![CDATA[
+        <ant dir="${build.petal.dir}" target="cactus.run.tomcat3x">
+            <reference refid="cactus.classpath"/>
+        </ant>]]></replacevalue>
+
+        </replace>
+
+    </target>
+
+    <target name="sample.replace.13">
+
+        <replace file="${target.sample.dir}/build.xml"
+            token="@containers.specific@">
+
+            <replacevalue><![CDATA[
+        <ant dir="${build.petal.dir}" target="cactus.run.jboss3x">
+            <reference refid="cactus.classpath"/>
+        </ant>]]></replacevalue>
+
+        </replace>
+
+    </target>
+
+    <target name="sample.replace">
+
+        <replace file="${target.sample.dir}/build.xml"
+            token="@containers.share@">
+
+            <replacevalue><![CDATA[
+        <ant dir="${build.petal.dir}" target="cactus.run.tomcat4x">
+            <reference refid="cactus.classpath"/>
+        </ant>
+        <ant dir="${build.petal.dir}" target="cactus.run.resin2x">
+		    <reference refid="cactus.classpath"/>
+		</ant>
+		<ant dir="${build.petal.dir}" target="cactus.run.orion1x">
+		    <reference refid="cactus.classpath"/>
+		</ant>
+		<ant dir="${build.petal.dir}" target="cactus.run.weblogic6x">
+		    <reference refid="cactus.classpath"/>
+		</ant>
+		<ant dir="${build.petal.dir}" target="cactus.run.weblogic7x">
+		    <reference refid="cactus.classpath"/>
+		</ant>]]></replacevalue>
+
+        </replace>
+
+        <antcall target="sample.replace.${j2ee.api}"/>
+        
+    </target>
+    
+    <target name="sample" depends="init"
+        description="Generate the sample application">
+
+        <!-- Create output directory structure and copy sample files in it -->
+        <mkdir dir="${target.sample.dir}"/>
+        <mkdir dir="${target.sample.lib.dir}"/>
+        <mkdir dir="${target.sample.build.dir}"/>
+        <mkdir dir="${target.sample.src.java.dir}"/>
+        <mkdir dir="${target.sample.src.cactus.dir}"/>
+        <mkdir dir="${target.sample.src.webapp.dir}"/>
+        <mkdir dir="${target.sample.build.petal.dir}"/>
+        
+        <!-- Copy the Ant Petal files -->
+        <copy todir="${target.sample.build.petal.dir}">
+            <fileset dir="${cactus.antpetal.bin}"/>
+         </copy>
+                     
+        <!-- Copy src files -->
+        <copy todir="${target.sample.src.java.dir}">
+            <fileset dir="${src.java.dir}/share"/>
+            <fileset dir="${src.java.dir}/j2ee${j2ee.api}"/>
+        </copy>
+        <copy todir="${target.sample.src.cactus.dir}">
+            <fileset dir="${src.cactus.dir}/share"/>
+            <fileset dir="${src.cactus.dir}/j2ee${j2ee.api}"/>
+        </copy>
+
+        <!-- Copy scripts -->
+		<basename property="jstl.jar.name" file="${jstl.jar}"/>
+        <filter token="jstl.jar.name" value="${jstl.jar.name}"/>
+		<basename property="standard.jar.name" file="${standard.jar}"/>
+        <filter token="standard.jar.name" value="${standard.jar.name}"/>
+		<basename property="servlet.jar.name" file="${j2ee.jar}"/>
+        <filter token="servlet.jar.name" value="${servlet.jar.name}"/>
+
+        <copy todir="${target.sample.dir}" filtering="on">
+            <fileset dir="${src.script.dir}/share"/>
+            <fileset dir="${src.script.dir}/j2ee${j2ee.api}"/>
+        </copy>
+
+        <!-- Copy webapp files -->
+        <copy todir="${target.sample.src.webapp.dir}">
+            <fileset dir="${src.webapp.dir}"/>
+        </copy>
+
+        <!-- Copy application jars -->
+        <copy todir="${target.sample.lib.dir}" file="${jstl.jar}"/>
+        <copy todir="${target.sample.lib.dir}" file="${standard.jar}"/>
+        <copy todir="${target.sample.lib.dir}" file="${j2ee.jar}"/>
+        
+        <!-- Copy README file -->
+        <copy todir="${target.sample.dir}" file="${base.dir}/README"/>
+
+        <!-- Dynamically create the list of containers on which to run
+             the tests -->
+        <antcall target="sample.replace"/>
+
+    </target>
+
+    <!--
+       ========================================================================
+         Run the full suite of tests on all defined containers.
+       ========================================================================
+    -->
+    <target name="test" depends="sample"
+        description="Run the tests on all defined servers">
+
+        <argsList property="test.args.list">
+
+            <!-- Inherit the classpath behaviour from the main script for
+                 Gump builds to work -->
+            <property name="build.sysclasspath"/>
+
+            <property name="cactus.home.resin2x"/>
+            <property name="cactus.home.tomcat4x"/>
+            <property name="cactus.home.orion1x"/>
+            <property name="cactus.home.weblogic6x"/>
+            <property name="cactus.home.weblogic7x"/>
+            <property name="cactus.home.jboss3x"/>
+            <property name="cactus.port"/>
+        </argsList>
+
+        <java classname="org.apache.tools.ant.Main" fork="yes"
+            failonerror="yes">
+
+            <!-- Pass all required properties -->
+            <arg value="-Dservlet.jar=${j2ee.jar}"/>
+            <arg value="-Djstl.jar=${jstl.jar}"/>
+            <arg value="-Dstandard.jar=${standard.jar}"/>
+
+            <arg value="-Dbase.dir=${target.sample.dir}"/>
+            <arg value="-Dbasedir=${basedir}"/>
+
+            <!-- Pass all servlet engine properties -->
+            <arg line="${test.args.list}"/>
+            <arg line="-buildfile ${target.sample.dir}/build.xml"/>
+            <arg value="test"/>
+
+            <classpath>
+                <pathelement path="${java.class.path}"/>
+            </classpath>
+
+        </java>
+
+    </target>
+
+    <!--
+       ========================================================================
+         Generate the distributable files
+       ========================================================================
+    -->
+    <!-- This target is there simply so that we can zip the sample application
+         before it is run, as this will generate temporary files that we do
+         not want in the zip -->
+    <target name="prepare.dist" depends="sample">
+
+        <mkdir dir="${dist.bin.dir}"/>
+
+        <copy todir="${dist.bin.dir}/${project.name.file}">
+            <fileset dir="${target.sample.dir}"/>
+        </copy>
+        
+    </target>
+
+    <target name="dist" depends="prepare.dist,test"
+        description="Generate the distributable files">
+    </target>
+
+    <!--
+       ========================================================================
+         Generate the release
+       ========================================================================
+    -->
+    <target name="release" depends="clean,dist"
+        description="Generate the release files">
+
+        <mkdir dir="${release.dir}"/>
+
+        <zip destfile="${release.dir}/${main.release.name}.zip">
+            <zipfileset dir="${dist.bin.dir}/${project.name.file}" 
+                prefix="${main.release.name}"/>
+        </zip>
+        
+    </target>
+
+</project>

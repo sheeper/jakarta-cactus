@@ -1,16 +1,9 @@
 Instructions for building/using Cactus
 --------------------------------------
 
-All documentation is located in the doc/ directory (file index.html). Make 
-sure you read the Getting Started guide first.
-
-You can also check the online web site 
-(http://jakarta.apache.org/cactus) which contains the most up to date 
-information.
-
-If you are building Cactus from sources, detailed instructions can be found
-at http://jakarta.apache.org/cactus/howto_build.html
+All documentation is available online at http://jakarta.apache.org/cactus. You 
+can also download packaged documentation (zip file) on 
+http://jakarta.apache.org/cactus/downloads.html
 
 Thank you.
-
 The Cactus Team
