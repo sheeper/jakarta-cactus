@@ -83,6 +83,11 @@
       <action>
         Add Ant scripts to support WebLogic 6.0.
       </action>
+      <action>
+        In the Ant task that stops a servlet engine, do not stop it if the
+        server was running before the start task was called. In other words, if
+        the server was running before running the Ant tests, leave it running.
+      </action>
     </category>
 
     <category title="Design/Code">
@@ -110,6 +115,10 @@
         Check why zipped distributable files have a mode of 644 on unix systems
         (it should rather be 755). Reported by Jason Crickmer. Need to verify
         first that the problem still exist.
+      </action>
+      <action>
+        Support unit testing of Servlet code that uses Security APIs, such as
+        <code>isUserInRole()</code>, ...
       </action>
     </category>
 
