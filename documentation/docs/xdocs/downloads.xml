@@ -116,6 +116,11 @@
         Click <link href="ext:cactus_release">here</link> for Cactus releases.
       </p>
 
+      <note>
+        For older Cactus releases (&lt;= 1.4.1), click 
+        <link href="ext:cactus_release_old">here</link>.
+      </note>
+
     </section>
 
     <section title="Nightly builds">
