@@ -142,7 +142,16 @@
 		<webxmlmerge 
 		  srcFile="${cactus.target.dir}/${cactus.context}/WEB-INF/web.xml"
 		  mergeFile="${cactus.conf.dir}/web.xml"
-		  destFile="${cactus.target.dir}/${cactus.context}/WEB-INF/web.xml"/>
+		  destFile="${cactus.target.dir}/${cactus.context}/WEB-INF/web.xml">
+            <xmlcatalog>
+                <entity 
+                  publicId="-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+                  location="${cactus.conf.dir}/web-app.dtd"/>
+                <entity 
+                  publicId="-//Sun Microsystems, Inc.//DTD Web Application 2.2//EN"
+                  location="${cactus.conf.dir}/web-app.dtd"/>
+            </xmlcatalog>
+		</webxmlmerge>
 
         <!-- Copy the Cactus web.xml -->
         <copy todir="${cactus.target.dir}/${cactus.context}/WEB-INF" 
