@@ -211,8 +211,21 @@
 
     </target>
 
-    <target name="doc.checksitemap"
+    <target name="doc.validate"
         depends="doc.cvschangelog">
+
+        <xmlvalidate warn="yes">
+            <xmlcatalog refid="documentation.dtds"/>
+            <fileset dir="${target.xdoc.dir}">
+                <include name="sitemap.xml"/>
+                <include name="**/navigation.xml"/>
+            </fileset>
+        </xmlvalidate>
+
+    </target>
+
+    <target name="doc.checksitemap"
+        depends="doc.validate">
 
         <taskdef name="checksitemap"
             classname="org.apache.cactus.ant.CheckSitemapTask">
