@@ -746,8 +746,8 @@ public class TestServletTestCase2 extends ServletTestCase
         request.setRemoteIPAddress("192.168.0.1");
         request.setRemoteHostName("atlantis");
 
-        assertEquals("192.168.0.2", request.getRemoteAddr());
-        assertEquals("xxx", request.getRemoteHost());
+        assertEquals("192.168.0.1", request.getRemoteAddr());
+        assertEquals("atlantis", request.getRemoteHost());
     }
 
 }
