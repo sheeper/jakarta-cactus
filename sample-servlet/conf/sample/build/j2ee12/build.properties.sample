@@ -28,6 +28,9 @@ servlet.jar = ../lib/servletapi-2.2.jar
 # The location of the AspectJ runtime jar
 aspectjrt.jar = ../lib/aspectjrt-1.0.5.jar
 
+# The location of the Commons Logging jar
+commons.logging.jar = ../lib/commons-logging-1.0.jar
+
 # The location of the log4j jar (optional). Only needed if you want Cactus to
 # generate logs
 log4j.jar = ../lib/log4j-1.2.5.jar
@@ -55,14 +58,14 @@ httpunit.jar = ../lib/httpunit-1.4.1.jar
 #       comment it's home property. For example, if you don't want to run the
 #       tests on the Resin 1.2, comment the "resin.home.12" property.
 
-#resin.home.20 = c:/Apps/resin-2.1.0
+#resin.home.20 = c:/Apps/resin-2.1.2
 #resin.home.12 = xxx
 #tomcat.home.32 = c:/Apps/jakarta-tomcat-3.2.4
 #tomcat.home.33 = c:/Apps/jakarta-tomcat-3.3.1
 #orion.home.15 = c:/Apps/orion-1.5.4
 #orion.home.16 = c:/Apps/orion-1.6.0
 #weblogic.home.51 = xxx
-#tomcat.home.40 = c:/Apps/jakarta-tomcat-4.0.3
+#tomcat.home.40 = c:/Apps/jakarta-tomcat-4.0.4
 
 # Note: weblogic.home.61 is the location of BEA Home and NOT the location of
 # wlserver6.1, inside the bea home directory.

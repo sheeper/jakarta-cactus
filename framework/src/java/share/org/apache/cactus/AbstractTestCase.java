@@ -63,8 +63,8 @@ import java.lang.reflect.Modifier;
 import junit.framework.TestCase;
 
 import org.apache.cactus.util.JUnitVersionHelper;
-import org.apache.cactus.util.log.Log;
-import org.apache.cactus.util.log.LogService;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * Abstract class that is a thin layer on top of JUnit and that knows about
@@ -183,9 +183,9 @@ public abstract class AbstractTestCase extends TestCase
     public void runBare() throws Throwable
     {
         // We make sure we reinitialize The logger with the name of the
-        // current class (that's why the logged instance is not static).
-        this.logger =
-            LogService.getInstance().getLog(this.getClass().getName());
+        // current extending class so that log statements will contain the
+        // actual class name (that's why the logged instance is not static).
+        this.logger = LogFactory.getLog(this.getClass());
 
         // Mark beginning of test on client side
         getLogger().debug("------------- Test: " + this.getCurrentTestMethod());
@@ -227,8 +227,7 @@ public abstract class AbstractTestCase extends TestCase
         // the logging initialisation. This method is only called on the server
         // side, so we instanciate the log for server side here.
         if (getLogger() == null) {
-            this.logger =
-                LogService.getInstance().getLog(this.getClass().getName());
+            this.logger = LogFactory.getLog(this.getClass());
         }
 
         setUp();

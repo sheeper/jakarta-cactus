@@ -36,6 +36,12 @@
         Modify the configuration page to reflect the fact that all cactus
         properties are now java system properties.
       </action>
+      <action assigned-to="Vincent Massol">
+        Explain how to configure logging using Commons Logging.
+      </action>
+      <action assigned-to="Vincent Massol">
+        Modify documentation for new jar : Commons Logging
+      </action>
     </category>
 
   </version>
@@ -125,10 +131,6 @@
         environment (at the current time, you need to call your EJB from a
         Servlet/JSP/Filter Redirector, which is fine for certain tests but not
         needed for others.
-      </action>
-      <action>
-        Consider using Commons Logging Wrapper as it provides seamless support
-        for No Log, Log4J, LogKit and JDK 1.4 logging.
       </action>
       <action assigned-to="Hudson Wong, Vincent Massol">
         Add an EJB sample application to demonstrate how to perform EJB

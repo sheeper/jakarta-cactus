@@ -48,6 +48,17 @@
     </devs>
 
     <release version="1.4 in CVS">
+      <action dev="VMA" type="add">
+        Cactus now requires the Commons Logging library
+        (<code>commons-logging.jar</code>). It is needed as Commons HttpClient
+        is now using Commons Logging for logging and Cactus depends on
+        HttpClient. As a side-effect, Cactus is also now using Commons
+        HttpClient for all its internal logs. This lets us use any underlying
+        logging implementation : Log4j, LogKit, JDK 1.4 Logging, No Logging
+        or SimpleLog (provided with Commons Logging - logs to the console).
+        Check the <link href="howto_config.html">Config Howto</link> for how
+        to configure logging in Cactus.
+      </action>
       <action dev="VMA" type="remove">
         Removed deprecated <code>org.apache.cactus.ServletTestRequest</code>
         class (was deprecated in Cactus 1.2).

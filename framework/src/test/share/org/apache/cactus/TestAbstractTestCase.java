@@ -58,8 +58,6 @@ package org.apache.cactus;
 
 import java.net.HttpURLConnection;
 
-import org.apache.cactus.util.log.LogService;
-
 /**
  * Unit tests of the <code>AbstractTestCase</code> class.
  *
@@ -70,9 +68,10 @@ import org.apache.cactus.util.log.LogService;
 public class TestAbstractTestCase extends
     TestAbstractTestCaseInterceptorTestCase
 {
-    // Initialize logging system first
+    // Make sure logging is disabled
     static {
-        LogService.getInstance().init(null);
+        System.setProperty("org.apache.commons.logging.Log",
+            "org.apache.commons.logging.impl.NoOpLog");
     }
 
     /**

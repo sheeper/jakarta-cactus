@@ -72,6 +72,7 @@
 
       <depend property="j2ee.jar" project="jakarta-servletapi"/>
       <depend property="log4j.jar" project="jakarta-log4j"/>
+      <depend property="commons.logging.jar" project="commons-logging"/>
       <depend property="commons.httpclient.jar" project="commons-httpclient"/>
       <depend property="httpunit.jar" project="httpunit"/>
       <depend property="aspectjrt.jar" project="aspectj" id="aspectjrt"/>
@@ -107,6 +108,7 @@
 
       <depend property="j2ee.jar" project="jakarta-servletapi"/>
       <depend property="log4j.jar" project="jakarta-log4j"/>
+      <depend property="commons.logging.jar" project="commons-logging"/>
       <depend property="commons.httpclient.jar" project="commons-httpclient"/>
       <depend property="httpunit.jar" project="httpunit"/>
       <depend property="aspectjrt.jar" project="aspectj" id="aspectjrt"/>
@@ -142,6 +144,7 @@
 
       <depend property="j2ee.jar" project="jakarta-servletapi-4"/>
       <depend property="log4j.jar" project="jakarta-log4j"/>
+      <depend property="commons.logging.jar" project="commons-logging"/>
       <depend property="commons.httpclient.jar" project="commons-httpclient"/>
       <depend property="httpunit.jar" project="httpunit"/>
       <depend property="aspectjrt.jar" project="aspectj" id="aspectjrt"/>
@@ -177,6 +180,7 @@
 
       <depend property="j2ee.jar" project="jakarta-servletapi-4"/>
       <depend property="log4j.jar" project="jakarta-log4j"/>
+      <depend property="commons.logging.jar" project="commons-logging"/>
       <depend property="commons.httpclient.jar" project="commons-httpclient"/>
       <depend property="httpunit.jar" project="httpunit"/>
       <depend property="aspectjrt.jar" project="aspectj" id="aspectjrt"/>
@@ -211,6 +215,7 @@
       <depend property="j2ee.jar" project="jakarta-servletapi"/>
       <depend property="servlet.jar" project="jakarta-servletapi"/>
       <depend property="log4j.jar" project="jakarta-log4j"/>
+      <depend property="commons.logging.jar" project="commons-logging"/>
       <depend property="commons.httpclient.jar" project="commons-httpclient"/>
       <depend property="httpunit.jar" project="httpunit"/>
       <depend property="aspectjrt.jar" project="aspectj" id="aspectjrt"/>
@@ -247,6 +252,7 @@
       <depend property="j2ee.jar" project="jakarta-servletapi-4"/>
       <depend property="servlet.jar" project="jakarta-servletapi-4"/>
       <depend property="log4j.jar" project="jakarta-log4j"/>
+      <depend property="commons.logging.jar" project="commons-logging"/>
       <depend property="commons.httpclient.jar" project="commons-httpclient"/>
       <depend property="httpunit.jar" project="httpunit"/>
       <depend property="aspectjrt.jar" project="aspectj" id="aspectjrt"/>
@@ -283,6 +289,7 @@
       <depend property="j2ee.jar" project="jakarta-servletapi-4"/>
       <depend property="servlet.jar" project="jakarta-servletapi-4"/>
       <depend property="log4j.jar" project="jakarta-log4j"/>
+      <depend property="commons.logging.jar" project="commons-logging"/>
       <depend property="commons.httpclient.jar" project="commons-httpclient"/>
       <depend property="httpunit.jar" project="httpunit"/>
       <depend property="aspectjrt.jar" project="aspectj" id="aspectjrt"/>

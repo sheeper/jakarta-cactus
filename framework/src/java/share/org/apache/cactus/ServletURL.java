@@ -59,8 +59,8 @@ package org.apache.cactus;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.cactus.server.ServletUtil;
-import org.apache.cactus.util.log.Log;
-import org.apache.cactus.util.log.LogService;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * Simulate an HTTP URL by breaking it into its different parts :<br>
@@ -177,8 +177,7 @@ public class ServletURL
     /**
      * The logger
      */
-    private static final Log LOGGER =
-        LogService.getInstance().getLog(ServletURL.class.getName());
+    private static final Log LOGGER = LogFactory.getLog(ServletURL.class);
 
     /**
      * Default constructor. Need to call the different setters to make this

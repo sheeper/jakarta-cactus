@@ -69,8 +69,8 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.Cookie;
 
 import org.apache.cactus.ServletURL;
-import org.apache.cactus.util.log.Log;
-import org.apache.cactus.util.log.LogService;
+import org.apache.commons.logging.LogFactory;
+import org.apache.commons.logging.Log;
 
 /**
  * Abstract wrapper around <code>HttpServletRequest</code>. This class provides
@@ -109,8 +109,7 @@ public abstract class AbstractHttpServletRequestWrapper
      * The logger
      */
     private static final Log LOGGER =
-        LogService.getInstance().
-        getLog(AbstractHttpServletRequestWrapper.class.getName());
+        LogFactory.getLog(AbstractHttpServletRequestWrapper.class);
 
     // New methods not in the interface --------------------------------------
 

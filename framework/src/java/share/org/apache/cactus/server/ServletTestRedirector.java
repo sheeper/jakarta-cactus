@@ -56,13 +56,13 @@
  */
 package org.apache.cactus.server;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.apache.cactus.util.log.Log;
-import org.apache.cactus.util.log.LogService;
 
 /**
  * Generic Servlet redirector that calls a test method on the server side.
@@ -75,19 +75,10 @@ import org.apache.cactus.util.log.LogService;
 public class ServletTestRedirector extends HttpServlet
 {
     /**
-     * Initialize the logging subsystem so that it can get it's configuration
-     * details from the correct properties file. Initialization is done here
-     * as this servlet is the first point of entry to the server code.
-     */
-    static {
-        LogService.getInstance().init("/log_server.properties");
-    }
-
-    /**
      * The logger
      */
     private static final Log LOGGER =
-        LogService.getInstance().getLog(ServletTestRedirector.class.getName());
+        LogFactory.getLog(ServletTestRedirector.class);
 
     /**
      * Handle GET requests.

@@ -61,8 +61,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.cactus.HttpServiceDefinition;
 import org.apache.cactus.ServiceEnumeration;
-import org.apache.cactus.util.log.Log;
-import org.apache.cactus.util.log.LogService;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * Controller that extracts the requested service from the HTTP request and
@@ -80,8 +80,7 @@ public abstract class AbstractWebTestController implements TestController
      * The logger
      */
     private static final Log LOGGER =
-        LogService.getInstance().getLog(
-            AbstractWebTestController.class.getName());
+        LogFactory.getLog(AbstractWebTestController.class);
 
     /**
      * @param theObjects the implicit objects coming from the redirector

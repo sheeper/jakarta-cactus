@@ -26,6 +26,10 @@
     <target name="start.tomcat.33">
 
         <java classname="org.apache.tomcat.startup.Main" fork="yes">
+
+            <!-- When using Log4j for logging -->
+            <jvmarg value="-Dlog4j.configuration=log_server.properties"/>
+
             <jvmarg value="-Dtomcat.home=${target.tomcat33.full.dir}"/>
             <jvmarg value="-Dtomcat.install=${tomcat.home.33}"/>
             <arg value="start"/>

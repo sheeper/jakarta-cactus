@@ -58,8 +58,6 @@ package org.apache.cactus;
 
 import junit.framework.TestCase;
 
-import org.apache.cactus.util.log.LogService;
-
 /**
  * Unit tests of the <code>WebTestResult</code> class.
  *
@@ -69,9 +67,10 @@ import org.apache.cactus.util.log.LogService;
  */
 public class TestWebTestResult extends TestCase
 {
-    // Initialize logging system first
+    // Make sure logging is disabled
     static {
-        LogService.getInstance().init(null);
+        System.setProperty("org.apache.commons.logging.Log",
+            "org.apache.commons.logging.impl.NoOpLog");
     }
 
     /**

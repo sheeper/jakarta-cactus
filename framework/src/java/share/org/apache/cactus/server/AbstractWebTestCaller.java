@@ -64,9 +64,9 @@ import javax.servlet.ServletException;
 import org.apache.cactus.AbstractTestCase;
 import org.apache.cactus.HttpServiceDefinition;
 import org.apache.cactus.WebTestResult;
-import org.apache.cactus.util.log.Log;
-import org.apache.cactus.util.log.LogService;
 import org.apache.cactus.util.ClassLoaderUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * Responsible for instanciating the <code>TestCase</code> class on the server
@@ -91,7 +91,7 @@ public abstract class AbstractWebTestCaller
      * The logger.
      */
     private static final Log LOGGER =
-        LogService.getInstance().getLog(AbstractWebTestCaller.class.getName());
+        LogFactory.getLog(AbstractWebTestCaller.class);
 
     /**
      * The implicit objects (which will be used to set the test case fields

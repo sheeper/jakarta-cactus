@@ -148,6 +148,7 @@
 
         <pathelement location="${j2ee.jar}"/>
         <pathelement location="${log4j.jar}"/>
+        <pathelement location="${commons.logging.jar}"/>
         <pathelement location="${commons.httpclient.jar}"/>
         <pathelement location="${httpunit.jar}"/>
 
@@ -173,6 +174,7 @@
         <echo message=""/>
         <echo message="j2ee.jar = ${j2ee.jar}"/>
         <echo message="log4j.jar = ${log4j.jar}"/>
+        <echo message="commons.logging.jar = ${commons.logging.jar}"/>
         <echo message="commons.httpclient.jar = ${commons.httpclient.jar}"/>
         <echo message="httpunit.jar = ${httpunit.jar}"/>
         <echo message=""/>
@@ -192,6 +194,7 @@
             <and>
                 <available file="${j2ee.jar}"/>
                 <available file="${log4j.jar}"/>
+                <available file="${commons.logging.jar}"/>
                 <available file="${commons.httpclient.jar}"/>
                 <available file="${httpunit.jar}"/>
            </and>

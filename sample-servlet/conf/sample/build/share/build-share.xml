@@ -90,6 +90,7 @@
         <pathelement location="${cactus.ant.jar}"/>
         <pathelement location="${servlet.jar}"/>
         <pathelement location="${log4j.jar}"/>
+        <pathelement location="${commons.logging.jar}"/>
         <pathelement location="${commons.httpclient.jar}"/>
         <pathelement location="${httpunit.jar}"/>
         <pathelement location="${junit.jar}"/>
@@ -119,6 +120,7 @@
         <echo message="cactus.ant.jar = ${cactus.ant.jar}"/>
         <echo message="servlet.jar = ${servlet.jar}"/>
         <echo message="aspectjrt.jar = ${aspectjrt.jar}"/>
+        <echo message="commons.logging.jar = ${commons.logging.jar}"/>
         <echo message="commons.httpclient.jar = ${commons.httpclient.jar}"/>
         <echo message="httpunit.jar = ${httpunit.jar}"/>
         <echo message="junit.jar = ${junit.jar}"/>
@@ -147,6 +149,7 @@
                 <available file="${cactus.ant.jar}"/>
                 <available file="${servlet.jar}"/>
                 <available file="${aspectjrt.jar}"/>
+                <available file="${commons.logging.jar}"/>
                 <available file="${commons.httpclient.jar}"/>
                 <available file="${httpunit.jar}"/>
                 <available file="${junit.jar}"/>
@@ -349,6 +352,9 @@
         <junit printsummary="yes" haltonfailure="yes" haltonerror="yes"
             fork="yes">
 
+            <!-- When using Log4j for logging -->
+            <jvmarg value="-Dlog4j.configuration=log_client.properties"/>
+
             <classpath>
                 <!-- Cactus.propertie and log_client.properties need to be in
                      the classpath -->
@@ -398,6 +404,7 @@
         <copy todir="${target.lib.dir}" file="${junit.jar}"/>
         <copy todir="${target.lib.dir}" file="${cactus.framework.jar}"/>
         <copy todir="${target.lib.dir}" file="${aspectjrt.jar}"/>
+        <copy todir="${target.lib.dir}" file="${commons.logging.jar}"/>
 
         <!-- Make sure the directory for the war exist -->
         <mkdir dir="${target.test.dir}"/>

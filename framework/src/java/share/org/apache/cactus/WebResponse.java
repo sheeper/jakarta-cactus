@@ -65,12 +65,12 @@ import java.util.Vector;
 
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpException;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import org.apache.cactus.client.HttpClientHelper;
 import org.apache.cactus.util.ChainedRuntimeException;
 import org.apache.cactus.util.IoUtil;
-import org.apache.cactus.util.log.Log;
-import org.apache.cactus.util.log.LogService;
 
 /**
  * Default web response implementation that provides a minimal
@@ -87,8 +87,7 @@ public class WebResponse
     /**
      * The logger
      */
-    private static final Log LOGGER =
-        LogService.getInstance().getLog(WebResponse.class.getName());
+    private static final Log LOGGER = LogFactory.getLog(WebResponse.class);
 
     /**
      * The connection object that was used to call the URL

@@ -63,7 +63,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.ServletException;
 
-import org.apache.cactus.util.log.LogService;
 import org.apache.cactus.util.Configuration;
 import junit.framework.TestResult;
 import junit.framework.Test;
@@ -77,15 +76,6 @@ import junit.framework.Test;
  */
 public class ServletTestRunner extends HttpServlet
 {
-    /**
-     * Initialize the logging subsystem so that it can get it's configuration
-     * details from the correct properties file. Initialization is done here
-     * as this servlet is the first point of entry to the server code.
-     */
-    static {
-        LogService.getInstance().init("/log_server.properties");
-    }
-
     /**
      * HTTP parameter containing name of test suite to execute
      */

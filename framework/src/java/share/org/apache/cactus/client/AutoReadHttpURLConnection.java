@@ -56,6 +56,9 @@
  */
 package org.apache.cactus.client;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -67,9 +70,6 @@ import java.net.HttpURLConnection;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.security.Permission;
-
-import org.apache.cactus.util.log.Log;
-import org.apache.cactus.util.log.LogService;
 
 /**
  * Wrapper class for the real <code>HttpURLConnection</code> to the test servlet
@@ -94,8 +94,7 @@ final class AutoReadHttpURLConnection extends HttpURLConnection
      * The logger
      */
     private static final Log LOGGER =
-        LogService.getInstance().
-        getLog(AutoReadHttpURLConnection.class.getName());
+        LogFactory.getLog(AutoReadHttpURLConnection.class);
 
     /**
      * Default size of array for copying data.

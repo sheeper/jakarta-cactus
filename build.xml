@@ -87,6 +87,7 @@
         <echo message="user.home = ${user.home}"/>
         <echo message="ant.home = ${ant.home}"/>
         <echo message=""/>
+        <echo message="commons.logging.jar = ${commons.logging.jar}"/>
         <echo message="commons.httpclient.jar = ${commons.httpclient.jar}"/>
         <echo message="httpunit.jar = ${httpunit.jar}"/>
         <echo message="junit.jar = ${junit.jar}"/>
@@ -115,6 +116,7 @@
                 <available file="${servlet.jar}"/>
                 <available file="${j2ee.jar}"/>
                 <available file="${log4j.jar}"/>
+                <available file="${commons.logging.jar}"/>
                 <available file="${commons.httpclient.jar}"/>
                 <available file="${httpunit.jar}"/>
                 <available file="${junit.jar}"/>
@@ -443,6 +445,7 @@
         <!-- Copy external libraries in a tmp directory for them to be included
              in the distribution -->
         <copy todir="${target.lib.dir}" file="${log4j.jar}"/>
+        <copy todir="${target.lib.dir}" file="${commons.logging.jar}"/>
         <copy todir="${target.lib.dir}" file="${commons.httpclient.jar}"/>
         <copy todir="${target.lib.dir}" file="${httpunit.jar}"/>
         <copy todir="${target.lib.dir}" file="${junit.jar}"/>

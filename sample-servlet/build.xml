@@ -178,6 +178,7 @@
         <echo message="ant.home = ${ant.home}"/>
         <echo message=""/>
         <echo message="j2ee.jar = ${j2ee.jar}"/>
+        <echo message="commons.logging.jar = ${commons.logging.jar}"/>
         <echo message="commons.httpclient.jar = ${commons.httpclient.jar}"/>
         <echo message="aspectjrt.jar = ${aspectjrt.jar}"/>
         <echo message="junit.jar = ${junit.jar}"/>
@@ -202,6 +203,7 @@
             <and>
                 <available file="${j2ee.jar}"/>
                 <available file="${aspectjrt.jar}"/>
+                <available file="${commons.logging.jar}"/>
                 <available file="${commons.httpclient.jar}"/>
                 <available file="${junit.jar}"/>
                 <available file="${httpunit.jar}"/>
@@ -375,6 +377,7 @@
             <arg value="-Dcactus.framework.jar=${cactus.framework.elected.jar}"/>
             <arg value="-Dcactus.ant.jar=${cactus.ant.jar}"/>
             <arg value="-Djunit.jar=${junit.jar}"/>
+            <arg value="-Dcommons.logging.jar=${commons.logging.jar}"/>
             <arg value="-Dcommons.httpclient.jar=${commons.httpclient.jar}"/>
             <arg value="-Daspectjrt.jar=${aspectjrt.jar}"/>
             <arg value="-Dhttpunit.jar=${httpunit.jar}"/>

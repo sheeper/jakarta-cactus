@@ -55,6 +55,8 @@ package org.apache.cactus.util.log;
 
 import org.aspectj.lang.reflect.*;
 import org.aspectj.lang.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * Log every entry and exit of methods.
@@ -66,54 +68,57 @@ import org.aspectj.lang.*;
 public aspect LogAspect
 {
     /**
-     * All objects in the log package. We don't want to log these as they are the object that
-     * perform the logging and thus at execution time we would enter an infinite recursive loop.
+     * All objects in the log package. We don't want to log these as they are
+     * the object that perform the logging and thus at execution time we would
+     * enter an infinite recursive loop.
      */
     pointcut logObjectCalls() :
-        execution(public * org.apache.cactus.util.log..*(..)) ||
-        execution(public * org.apache.cactus.util.ClassLoaderUtils.loadPropertyResourceBundle(..));
+        execution(public * org.apache.cactus.util.log..*(..))
+        || execution(public * org.apache.cactus.util.ClassLoaderUtils.loadPropertyResourceBundle(..));
 
     /**
      * All public static methods that have parameters.
      */
     pointcut publicStaticMethodsWithParameterCalls() :
-        !execution(public static * org.apache.cactus..*()) &&
-        execution(public static * org.apache.cactus..*(..));
+        !execution(public static * org.apache.cactus..*())
+        && execution(public static * org.apache.cactus..*(..));
 
     /**
      * All public methods that have parameters.
      */
     pointcut publicMethodsWithParameterCalls() :
-        !execution(public * org.apache.cactus..*()) &&
-        execution(public * org.apache.cactus..*(..));
+        !execution(public * org.apache.cactus..*())
+        && execution(public * org.apache.cactus..*(..));
 
     /**
      * All public methods that return values
      */
     pointcut publicMethodsWithReturnValueCalls() :
-        !execution(public void org.apache.cactus..*(..)) &&
-        execution(public * org.apache.cactus..*(..));
+        !execution(public void org.apache.cactus..*(..))
+        && execution(public * org.apache.cactus..*(..));
 
     /**
      * Log all entries and exits of static methods that have no return values.
      */
     Object around() :
-        !logObjectCalls() && publicMethodsWithParameterCalls() &&
-        publicStaticMethodsWithParameterCalls() && !publicMethodsWithReturnValueCalls()
+        !logObjectCalls()
+        && publicMethodsWithParameterCalls()
+        && publicStaticMethodsWithParameterCalls()
+        && !publicMethodsWithReturnValueCalls()
     {
         // Get The logger to perform logging
-        Log logger = LogService.getInstance().getLog(
-            thisJoinPoint.getSignature().getDeclaringType().getName());
+        Log logger =
+            LogFactory.getLog(thisJoinPoint.getSignature().getDeclaringType());
 
         if (logger.isDebugEnabled()) {
             // Log the entry
-            logger.entry(getFullSignature(thisJoinPoint));
+            logger.debug('<' + getFullSignature(thisJoinPoint));
 
             // Execute the method
             final Object result = proceed();
 
             // Log the exit
-            logger.exit(thisJoinPoint.getSignature().getName());
+            logger.debug('>' + thisJoinPoint.getSignature().getName());
             return result;
         }
 
@@ -121,27 +126,30 @@ public aspect LogAspect
     }
 
     /**
-     * Log all entries and exits of non-static methods that have no return values.
+     * Log all entries and exits of non-static methods that have no return
+     * values.
      */
     Object around() :
-        !logObjectCalls() && publicMethodsWithParameterCalls() &&
-        !publicStaticMethodsWithParameterCalls() && !publicMethodsWithReturnValueCalls()
+        !logObjectCalls()
+        && publicMethodsWithParameterCalls()
+        && !publicStaticMethodsWithParameterCalls()
+        && !publicMethodsWithReturnValueCalls()
     {
-        // The class name that uses the method that has been called
-        final String targetName = thisJoinPoint.getTarget().getClass().getName();
+        // The class that uses the method that has been called
+        final Class target = thisJoinPoint.getTarget().getClass();
 
         // Get The logger to perform logging
-        Log logger = LogService.getInstance().getLog(targetName);
+        Log logger = LogFactory.getLog(target);
 
         if (logger.isDebugEnabled()) {
             // Log the entry
-            logger.entry(getFullSignature(thisJoinPoint));
+            logger.debug('<' + getFullSignature(thisJoinPoint));
 
             // Execute the method
             final Object result = proceed();
 
             // Log the exit
-            logger.exit(thisJoinPoint.getSignature().getName());
+            logger.debug('>' + thisJoinPoint.getSignature().getName());
             return result;
         }
 
@@ -152,22 +160,25 @@ public aspect LogAspect
      * Log all entries and exits of static methods that have return values.
      */
     Object around() :
-        !logObjectCalls() && publicMethodsWithParameterCalls() &&
-        publicMethodsWithReturnValueCalls() && publicStaticMethodsWithParameterCalls()
+        !logObjectCalls()
+        && publicMethodsWithParameterCalls()
+        && publicMethodsWithReturnValueCalls()
+        && publicStaticMethodsWithParameterCalls()
     {
         // Get The logger to perform logging
-        Log logger = LogService.getInstance().getLog(
-            thisJoinPoint.getSignature().getDeclaringType().getName());
+        Log logger =
+            LogFactory.getLog(thisJoinPoint.getSignature().getDeclaringType());
 
         if (logger.isDebugEnabled()) {
             // Log the entry
-            logger.entry(getFullSignature(thisJoinPoint));
+            logger.debug('<' + getFullSignature(thisJoinPoint));
 
             // Execute the method
             final Object result = proceed();
 
             // Compute the exit string to print
-            final StringBuffer exitString = new StringBuffer(thisJoinPoint.getSignature().getName());
+            final StringBuffer exitString =
+                new StringBuffer(thisJoinPoint.getSignature().getName());
 
             exitString.append(' ');
             exitString.append('=');
@@ -177,7 +188,7 @@ public aspect LogAspect
             exitString.append(']');
 
             // Log the exit
-            logger.exit(exitString.toString());
+            logger.debug('>' + exitString.toString());
             return result;
         }
 
@@ -188,24 +199,27 @@ public aspect LogAspect
      * Log all entries and exits of non-static methods that have return values.
      */
     Object around() :
-        !logObjectCalls() && publicMethodsWithParameterCalls() &&
-        publicMethodsWithReturnValueCalls() && !publicStaticMethodsWithParameterCalls()
+        !logObjectCalls()
+        && publicMethodsWithParameterCalls()
+        && publicMethodsWithReturnValueCalls()
+        && !publicStaticMethodsWithParameterCalls()
     {
-        // The class name that uses the method that has been called
-        final String targetName = thisJoinPoint.getTarget().getClass().getName();
+        // The class that uses the method that has been called
+        final Class target = thisJoinPoint.getTarget().getClass();
 
         // Get The logger to perform logging
-        Log logger = LogService.getInstance().getLog(targetName);
+        Log logger = LogFactory.getLog(target);
 
         if (logger.isDebugEnabled()) {
             // Log the entry
-            logger.entry(getFullSignature(thisJoinPoint));
+            logger.debug('<' + getFullSignature(thisJoinPoint));
 
             // Execute the method
             final Object result = proceed();
 
             // Compute the exit string to print
-            final StringBuffer exitString = new StringBuffer(thisJoinPoint.getSignature().getName());
+            final StringBuffer exitString =
+                new StringBuffer(thisJoinPoint.getSignature().getName());
 
             exitString.append(' ');
             exitString.append('=');
@@ -215,7 +229,7 @@ public aspect LogAspect
             exitString.append(']');
 
             // Log the exit
-            logger.exit(exitString.toString());
+            logger.debug('>' + exitString.toString());
             return result;
         }
 

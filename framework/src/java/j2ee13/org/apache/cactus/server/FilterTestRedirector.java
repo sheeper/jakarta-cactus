@@ -56,6 +56,9 @@
  */
 package org.apache.cactus.server;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import java.io.IOException;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -65,9 +68,6 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.apache.cactus.util.log.Log;
-import org.apache.cactus.util.log.LogService;
 
 /**
  * Generic Filter redirector that calls a test method on the server side.
@@ -80,19 +80,10 @@ import org.apache.cactus.util.log.LogService;
 public class FilterTestRedirector implements Filter
 {
     /**
-     * Initialize the logging subsystem so that it can get it's configuration
-     * details from the correct properties file. Initialization is done here
-     * as this servlet is the first point of entry to the server code.
-     */
-    static {
-        LogService.getInstance().init("/log_server.properties");
-    }
-
-    /**
      * The logger
      */
     private static final Log LOGGER =
-        LogService.getInstance().getLog(FilterTestRedirector.class.getName());
+        LogFactory.getLog(FilterTestRedirector.class);
 
     /**
      * The filter configuration object passed by the container when it calls

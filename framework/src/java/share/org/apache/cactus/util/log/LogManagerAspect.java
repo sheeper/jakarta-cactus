@@ -62,20 +62,4 @@ package org.apache.cactus.util.log;
  */
 public aspect LogManagerAspect dominates LogAspect
 {
-    /**
-     * Name of properties file to initialize logging subsystem on the client
-     * side.
-     */
-    public final static String LOG_CLIENT_CONFIG = "log_client.properties";
-
-    /**
-     * Initialise logging subsystem for the client side (client JVM)
-     */
-    before() :
-        initialization(org.apache.cactus.AbstractTestCase.new(..))
-    {
-        if (!LogService.getInstance().isInitialized()) {
-            LogService.getInstance().init("/" + LogManagerAspect.LOG_CLIENT_CONFIG);
-        }
-    }
 }

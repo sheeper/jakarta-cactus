@@ -69,12 +69,12 @@ import java.util.Enumeration;
 import java.util.Vector;
 
 import org.apache.commons.httpclient.Header;
+import org.apache.commons.logging.LogFactory;
+import org.apache.commons.logging.Log;
 
 import org.apache.cactus.ServletURL;
 import org.apache.cactus.WebRequest;
 import org.apache.cactus.client.authentication.AbstractAuthentication;
-import org.apache.cactus.util.log.Log;
-import org.apache.cactus.util.log.LogService;
 import org.apache.cactus.util.ChainedRuntimeException;
 
 /**
@@ -91,8 +91,7 @@ public class HttpClientHelper
     /**
      * The logger
      */
-    private static final Log LOGGER =
-        LogService.getInstance().getLog(HttpClientHelper.class.getName());
+    private static final Log LOGGER = LogFactory.getLog(HttpClientHelper.class);
 
     /**
      * The URL that will be used for the HTTP connection.
