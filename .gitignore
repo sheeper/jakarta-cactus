@@ -2,6 +2,7 @@
 /.project
 Eclipse-Plugin/bin
 Eclipse-Plugin/build.properties
+Eclipse-Plugin/target
 /ant.bat
 anttasks/ant.bat
 anttasks/build.properties
