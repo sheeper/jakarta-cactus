@@ -13,7 +13,7 @@
     <section title="Overview">
       <p>
         The
-        <link href="site:eclipse">Eclipse</link>
+        <link href="ext:eclipse">Eclipse</link>
         plug-in for Cactus is a runner for server-side unit tests. It is
         intended to hide the complexity of setting up an environment for
         running Cactus tests. It supports a variety of commercial and
