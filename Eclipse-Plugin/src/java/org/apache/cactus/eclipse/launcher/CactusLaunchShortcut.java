@@ -56,9 +56,13 @@
  */
 package org.apache.cactus.eclipse.launcher;
 
+import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 
-import org.apache.cactus.eclipse.containers.Tomcat40AntContainerProvider;
+import org.apache.cactus.eclipse.containers.GenericAntProvider;
+import org.apache.cactus.eclipse.containers.IContainerProvider;
+import org.apache.cactus.eclipse.ui.CactusPlugin;
+import org.apache.cactus.eclipse.ui.CactusPreferences;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.DebugPlugin;
 import org.eclipse.debug.core.ILaunchConfiguration;
@@ -88,12 +92,15 @@ public class CactusLaunchShortcut
     extends JUnitLaunchShortcut
     implements ITestRunListener
 {
+
+    /**
+     * Reference to the War file so that we can delete it on tearDown()
+     */
+    private File war;
     /**
      * The provider to use for container setup.
      */
-    private Tomcat40AntContainerProvider tomcat =
-        new Tomcat40AntContainerProvider();
-
+    private IContainerProvider provider;
     /**
      * @return the Cactus launch configuration type. This method overrides
      *         the one in {@link JUnitLaunchShortcut} so that we can return
@@ -133,9 +140,9 @@ public class CactusLaunchShortcut
         if (types.length == 0)
         {
             MessageDialog.openInformation(
-            getShell(),
-            JUnitMessages.getString("LaunchTestAction.dialog.title"),
-            JUnitMessages.getString("LaunchTestAction.message.notests"));
+                getShell(),
+                JUnitMessages.getString("LaunchTestAction.dialog.title"),
+                JUnitMessages.getString("LaunchTestAction.message.notests"));
         }
         else if (types.length > 1)
         {
@@ -156,23 +163,8 @@ public class CactusLaunchShortcut
      */
     private void launch(IType type, String mode)
     {
+        prepareCactusTests(type);
         ILaunchConfiguration config = findLaunchConfiguration(type, mode);
-        try
-        {
-            tomcat.deploy();
-        }
-        catch (CoreException e)
-        {
-            e.printStackTrace();
-        }
-        try
-        {
-            tomcat.start();
-        }
-        catch (CoreException e)
-        {
-            e.printStackTrace();
-        }
         launchConfiguration(mode, config);
         IWorkbenchPage wbPage = JUnitPlugin.getDefault().getActivePage();
         JUnitViewFinder finder = new JUnitViewFinder(wbPage, this);
@@ -195,13 +187,57 @@ public class CactusLaunchShortcut
         }
         catch (CoreException e)
         {
-            ErrorDialog.openError(getShell(),
-            JUnitMessages.getString("LaunchTestAction.message.launchFailed"),
-            e.getMessage(),
-            e.getStatus());
+            ErrorDialog.openError(
+                getShell(),
+                JUnitMessages.getString(
+                    "LaunchTestAction.message.launchFailed"),
+                e.getMessage(),
+                e.getStatus());
         }
     }
 
+    /**
+     * creates the war file, deploys and launches the container.
+     * @param theType the Java file     
+     */
+    private void prepareCactusTests(IType theType)
+    {
+        try
+        {
+            provider = CactusPlugin.getContainerProvider();
+            WarBuilder newWar =
+                new WarBuilder(
+                    theType.getJavaProject(),
+                    new File(CactusPreferences.getJarsDir()));
+            war = newWar.createWar();
+            provider.deploy(
+                CactusPreferences.getContextURLPath(),
+                war.toURL(),
+                null);
+            provider.start(null);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Stops the container and undeploys (cleans) it.
+     */
+    private void teardownCactusTests()
+    {
+        try
+        {
+            provider.stop(null);
+            provider.undeploy(null, null);
+            war.delete();
+        }
+        catch (CoreException e)
+        {
+            e.printStackTrace();
+        }
+    }
     /**
      * @see org.eclipse.jdt.internal.junit.runner.ITestRunListener#testRunStarted(int)
      */
@@ -214,22 +250,7 @@ public class CactusLaunchShortcut
      */
     public void testRunEnded(long elapsedTime)
     {
-        try
-        {
-            tomcat.stop();
-        }
-        catch (CoreException e)
-        {
-            e.printStackTrace();
-        }
-        try
-        {
-            tomcat.undeploy();
-        }
-        catch (CoreException e)
-        {
-            e.printStackTrace();
-        }
+        teardownCactusTests();
     }
 
     /**
