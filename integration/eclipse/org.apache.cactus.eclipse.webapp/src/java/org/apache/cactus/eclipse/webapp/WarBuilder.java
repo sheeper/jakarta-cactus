@@ -118,12 +118,6 @@ public class WarBuilder
     public static final String WEBXML = "web.xml";
 
     /**
-     * Name of the temporary directory for jar copy 
-     */
-    private static final String JARS_PATH =
-        "org.apache.cactus.eclipse.webapp.jars.temp";
-
-    /**
      * @param theJavaProject the Java project for which the webapp will be 
      *        created
      * @throws JavaModelException if we can't get the output location
@@ -220,7 +214,7 @@ public class WarBuilder
     }
 
     /**
-     * Creates the war file in the Java temp directory.
+     * Creates the war file.
      * @param thePM a monitor that reflects the overall progress,
      *  or null if none is to be used.
      * @return File the location where the war file was created
@@ -234,7 +228,6 @@ public class WarBuilder
             WebappMessages.getString("WarBuilder.message.createwar.monitor"));
         this.webapp.loadValues();
         File outputWar = getOutputWar();
-        File tempDir = getTempDir();
         File userWebFilesDir = getUserWebFilesDir();
         File userWebXML = getWebXML(userWebFilesDir);
         IClasspathEntry[] jarEntries = getJarEntries();
@@ -242,15 +235,6 @@ public class WarBuilder
         
         outputWar.delete();
         War warTask = new War();
-        IPath tempJarsPath =
-            new Path(tempDir.getAbsolutePath()).append(JARS_PATH);
-        File tempJarsDir = tempJarsPath.toFile();
-        if (tempJarsDir.exists())
-        {
-            delete(tempJarsDir);
-        }
-        tempJarsDir.mkdir();
-        copyJars(jarEntries, tempJarsDir);
         progressMonitor.worked(1);
         Project antProject = new Project();
         antProject.init();
@@ -300,13 +284,37 @@ public class WarBuilder
 
             warTask.setUpdate(true);
         }
-        ZipFileSet lib = new ZipFileSet();
-        lib.setDir(tempJarsDir);
-        warTask.addLib(lib);
+
+        ZipFileSet[] jarFS = getZipFileSets(jarEntries);
+        for (int i = 0; i < jarFS.length; i++)
+        {
+            warTask.addLib(jarFS[i]);
+        }
         warTask.execute();
-        delete(tempJarsDir);
         progressMonitor.worked(2);
         return outputWar;
+    }
+
+    /**
+     * @param theJarEntries the jars to build ZipFileSets from
+     * @return an array of ZipFileSet corresponding to the given jars
+     */
+    private ZipFileSet[] getZipFileSets(IClasspathEntry[] theJarEntries)
+    {
+        Vector result = new Vector();
+        for (int i = 0; i < theJarEntries.length; i++)
+        {
+
+            IClasspathEntry currentEntry = theJarEntries[i];
+            if (currentEntry.getEntryKind() == IClasspathEntry.CPE_LIBRARY)
+            {
+                File currentJar = currentEntry.getPath().toFile();
+                ZipFileSet zipFS = new ZipFileSet();
+                zipFS.setFile(currentJar);
+                result.add(zipFS);
+            }
+        }
+        return (ZipFileSet[]) result.toArray(new ZipFileSet[result.size()]);
     }
 
     /**
@@ -335,14 +343,6 @@ public class WarBuilder
     private IClasspathEntry[] getJarEntries()
     {
         return getAbsoluteEntries(webapp.getClasspath());
-    }
-
-    /**
-     * @return the temporary directory
-     */
-    private File getTempDir()
-    {
-        return new File(webapp.getTempDir());
     }
 
     /**

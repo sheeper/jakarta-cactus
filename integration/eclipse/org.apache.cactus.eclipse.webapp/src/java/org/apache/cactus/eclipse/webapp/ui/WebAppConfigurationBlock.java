@@ -82,7 +82,6 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.DirectoryDialog;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Shell;
 
@@ -103,11 +102,6 @@ public class WebAppConfigurationBlock
      * Field for the webapp location. 
      */
     private StringDialogField webappDirField;
-
-    /**
-     * Field for the temporary folder location. 
-     */
-    private StringButtonDialogField tempDirField;
 
     /**
      * UI block that shows a list of jar entries. 
@@ -136,7 +130,6 @@ public class WebAppConfigurationBlock
      * @param theJavaProject Java project needed for libraryPage initialization
      * @param theOutput initial output field value
      * @param theDir initial webapp directory value
-     * @param theTempDir initial temporary location value
      * @param theEntries initial list of entries
      */
     public WebAppConfigurationBlock(
@@ -144,7 +137,6 @@ public class WebAppConfigurationBlock
         IJavaProject theJavaProject,
         String theOutput,
         String theDir,
-        String theTempDir,
         IClasspathEntry[] theEntries)
     {
         shell = theShell;
@@ -170,17 +162,7 @@ public class WebAppConfigurationBlock
         webappDirField.setLabelText(
             WebappMessages.getString(
                 "WebAppConfigurationBlock.webappdirfield.label"));
-
-        tempDirField = new StringButtonDialogField(adapter);
-        tempDirField.setDialogFieldListener(adapter);
-        tempDirField.setLabelText(
-            WebappMessages.getString(
-                "WebAppConfigurationBlock.tempdirfield.label"));
-        tempDirField.setButtonLabel(
-            WebappMessages.getString(
-                "WebAppConfigurationBlock.tempdirfield.button.label"));
-
-        update(theOutput, theDir, theTempDir, theEntries);
+        update(theOutput, theDir, theEntries);
     }
 
     /**
@@ -228,16 +210,6 @@ public class WebAppConfigurationBlock
      */
     private void webappChangeControlPressed(DialogField theField)
     {
-        if (theField == tempDirField)
-        {
-            File tempDir = chooseTempDir();
-            if (tempDir != null)
-            {
-                tempDirField.setText(tempDir.getAbsolutePath());
-            }
-        }
-        else
-        {
             if (theField == outputField)
             {
                 File output = chooseOutput();
@@ -246,7 +218,6 @@ public class WebAppConfigurationBlock
                     outputField.setText(output.getAbsolutePath());
                 }
             }
-        }
     }
 
     /**
@@ -291,33 +262,6 @@ public class WebAppConfigurationBlock
         return null;
     }
 
-    /**
-     * Displays a directory chooser dialog and returns the chosen directory.
-     * @return File the chosen directory
-     */
-    private File chooseTempDir()
-    {
-        File tempDir = new File(tempDirField.getText());
-        String initPath = "";
-        if (tempDir != null)
-        {
-            initPath = tempDir.getPath();
-        }
-        DirectoryDialog dialog = new DirectoryDialog(shell);
-        dialog.setText(
-            WebappMessages.getString(
-                "WebAppConfigurationBlock.tempdirchooser.label"));
-        dialog.setMessage(
-            WebappMessages.getString(
-                "WebAppConfigurationBlock.tempdirchooser.title.label"));
-        dialog.setFilterPath(initPath);
-        String res = dialog.open();
-        if (res != null)
-        {
-            return (new File(res));
-        }
-        return null;
-    }
 
     /**
      * Returns the UI control for this block.
@@ -336,7 +280,6 @@ public class WebAppConfigurationBlock
 
         outputField.doFillIntoGrid(topComp, 3);
         webappDirField.doFillIntoGrid(topComp, 3);
-        tempDirField.doFillIntoGrid(topComp, 3);
 
         PixelConverter converter = new PixelConverter(topComp);
         LayoutUtil.setWidthHint(
@@ -368,15 +311,6 @@ public class WebAppConfigurationBlock
     public String getWebappDir()
     {
         return webappDirField.getText();
-    }
-
-    /**
-     * Returns the text entered in the tempDir field.
-     * @return String the text entered
-     */
-    public String getTempDir()
-    {
-        return tempDirField.getText();
     }
 
     /**
@@ -433,18 +367,15 @@ public class WebAppConfigurationBlock
      * Refreshes the control with the given values.
      * @param theOutput webapp output war location 
      * @param theDir webapp directory
-     * @param theTempDir temporary directory
      * @param theEntries jar entries for the webapp
      */
     public void update(
         String theOutput,
         String theDir,
-        String theTempDir,
         IClasspathEntry[] theEntries)
     {
         outputField.setText(theOutput);
         webappDirField.setText(theDir);
-        tempDirField.setText(theTempDir);
         classPathList.setElements(getExistingEntries(theEntries));
     }
 

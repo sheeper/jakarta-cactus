@@ -104,7 +104,6 @@ public class WebAppPropertyPage extends PropertyPage
                 javaProject,
                 webapp.getOutput(),
                 webapp.getDir(),
-                webapp.getTempDir(),
                 webapp.getClasspath());
         return webAppConfigurationBlock.createContents(theParent);
     }
@@ -116,7 +115,6 @@ public class WebAppPropertyPage extends PropertyPage
     {
         webapp.setOutput(webAppConfigurationBlock.getOutput());
         webapp.setDir(webAppConfigurationBlock.getWebappDir());
-        webapp.setTempDir(webAppConfigurationBlock.getTempDir());
         webapp.setClasspath(webAppConfigurationBlock.getWebappClasspath());
         try
         {
@@ -140,7 +138,6 @@ public class WebAppPropertyPage extends PropertyPage
         webAppConfigurationBlock.update(
             webapp.getOutput(),
             webapp.getDir(),
-            webapp.getTempDir(),
             webapp.getClasspath());
         webAppConfigurationBlock.refresh();
     }
