@@ -136,6 +136,16 @@
 </servlet-mapping>
 ]]></source>
 
+      <note>
+        <strong>Warning</strong>: Be careful when you modify the global 
+        Tomcat <code>web.xml</code> file. If later on you wish to use
+        the Cactus Ant integration and more specifically if you use the
+        <code>&lt;cactifywar&gt;</code> Ant task, you may run into problems.
+        The <code>&lt;cactifywar&gt;</code> task automatically adds the
+        needed Cactus redirectors (thus they'll be added twice leading to
+        an error.
+      </note>
+      
     </section>
 
     <section title="Step 4: Creating a sample applicaton to test">
