@@ -65,7 +65,7 @@
     -->
     <target name="init" depends="init.common, properties">
 
-        <echo>***** Needs Eclipse 2.1 RC2 or later *****</echo>
+        <echo>***** Needs Eclipse 2.1 or later *****</echo>
         <echo/>
         <echo>Dependencies:</echo>
         <echo>  eclipse.core.boot.jar = [${eclipse.core.boot.jar}]</echo>
