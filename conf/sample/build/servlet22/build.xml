@@ -5,6 +5,7 @@
     <!ENTITY build-tests-resin-20 SYSTEM "file:./build-tests-resin-20.xml">
     <!ENTITY build-tests-resin-12 SYSTEM "file:./build-tests-resin-12.xml">
     <!ENTITY build-tests-orion-14 SYSTEM "file:./build-tests-orion-14.xml">
+    <!ENTITY build-tests-orion-15 SYSTEM "file:./build-tests-orion-15.xml">
     <!ENTITY build-tests-tomcat-32 SYSTEM "file:./build-tests-tomcat-32.xml">
     <!ENTITY build-tests-tomcat-33 SYSTEM "file:./build-tests-tomcat-33.xml">
     <!ENTITY build-tests-weblogic-51 SYSTEM "file:./build-tests-weblogic-51.xml">
@@ -86,6 +87,7 @@
         <echo message=" tests_tomcat_33   --> run tests for Tomcat 3.3"/>
         <echo message=" tests_weblogic_51 --> run tests for WebLogic 5.1"/>
         <echo message=" tests_orion_14    --> run tests for Orion 1.4"/>
+        <echo message=" tests_orion_15    --> run tests for Orion 1.5"/>
         <echo message=" tests_enhydra_31  --> run tests for Enhydra 3.1"/>
         <echo message=""/>
 
@@ -97,12 +99,13 @@
        ========================================================================
     -->
     <target name="tests_all"
-        depends="tests_resin_20,tests_resin_12,tests_tomcat_32,tests_tomcat_33,tests_orion_14,tests_weblogic_51,tests_enhydra_31">
+        depends="tests_resin_20,tests_resin_12,tests_tomcat_32,tests_tomcat_33,tests_orion_14,tests_orion_15,tests_weblogic_51,tests_enhydra_31">
     </target>
 
     &build-tests-resin-20;
     &build-tests-resin-12;
     &build-tests-orion-14;
+    &build-tests-orion-15;
     &build-tests-tomcat-32;
     &build-tests-tomcat-33;
     &build-tests-weblogic-51;

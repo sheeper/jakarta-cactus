@@ -34,5 +34,6 @@ resin.home.12 = f:/applis/resin-1.2.5
 tomcat.home.32 = f:/applis/jakarta-tomcat-3.2.2
 tomcat.home.33 = f:/applis/jakarta-tomcat-3.3-m4
 orion.home.14 = f:/applis/orion-1.4.5
+orion.home.15 = f:/applis/orion-1.5.2
 weblogic.home.51 = e:/weblogic
 #enhydra.home.31 =

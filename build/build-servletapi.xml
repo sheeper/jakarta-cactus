@@ -558,6 +558,7 @@
             <property name="tomcat.home.32"/>
             <property name="tomcat.home.33"/>
             <property name="orion.home.14"/>
+            <property name="orion.home.15"/>
             <property name="weblogic.home.51"/>
             <property name="enhydra.home.31"/>
             <property name="test.port"/>
@@ -592,6 +593,7 @@
             <property name="resin.home.20"/>
             <property name="tomcat.home.40"/>
             <property name="orion.home.14"/>
+            <property name="orion.home.15"/>
             <property name="test.port"/>
         </argsList>
 
@@ -655,7 +657,7 @@
 
                 <exclude name="**/build.properties"/>
                 <exclude name="**/*.log"/>
-                <exclude name="**/out"/>
+                <exclude name="**/${out.root.dir}"/>
             </zipfileset>
         </zip>
 

@@ -5,6 +5,7 @@
     <!ENTITY build-tests-resin-20 SYSTEM "file:./build-tests-resin-20.xml">
     <!ENTITY build-tests-resin-13 SYSTEM "file:./build-tests-resin-13.xml">
     <!ENTITY build-tests-orion-14 SYSTEM "file:./build-tests-orion-14.xml">
+    <!ENTITY build-tests-orion-15 SYSTEM "file:./build-tests-orion-15.xml">
     <!ENTITY build-tests-tomcat-40 SYSTEM "file:./build-tests-tomcat-40.xml">
 ]>
 
@@ -81,6 +82,7 @@
         <echo message=" tests_resin_13    --> run tests for Resin 1.3"/>
         <echo message=" tests_tomcat_40   --> run tests for Tomcat 4.0"/>
         <echo message=" tests_orion_14    --> run tests for Orion 1.4"/>
+        <echo message=" tests_orion_15    --> run tests for Orion 1.5"/>
         <echo message=""/>
 
     </target>
@@ -91,12 +93,13 @@
        ========================================================================
     -->
     <target name="tests_all"
-        depends="tests_resin_20,tests_resin_13,tests_tomcat_40,tests_orion_14">
+        depends="tests_resin_20,tests_resin_13,tests_tomcat_40,tests_orion_14,tests_orion_15">
     </target>
 
     &build-tests-resin-20;
     &build-tests-resin-13;
     &build-tests-orion-14;
+    &build-tests-orion-15;
     &build-tests-tomcat-40;
 
 </project>
