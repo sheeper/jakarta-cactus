@@ -75,18 +75,6 @@ public class TestWebTestResult extends TestCase
     }
 
     /**
-     * Defines the testcase name for JUnit.
-     *
-     * @param theName the testcase's name.
-     */
-    public TestWebTestResult(String theName)
-    {
-        super(theName);
-    }
-
-    //-------------------------------------------------------------------------
-
-    /**
      * Verify the correctness of the XML representation for a test result with
      * no error.
      */

@@ -76,18 +76,6 @@ public class TestAbstractTestCase
     }
 
     /**
-     * Defines the testcase name for JUnit.
-     *
-     * @param theName the testcase's name.
-     */
-    public TestAbstractTestCase(String theName)
-    {
-        super(theName);
-    }
-
-    //-------------------------------------------------------------------------
-
-    /**
      * @see #testBeginMethodBadReturnType()
      */
     public String beginBeginMethodBadReturnType(WebRequest theRequest)

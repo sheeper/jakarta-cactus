@@ -77,18 +77,6 @@ public class TestWebTestResultParser extends TestCase
     }
 
     /**
-     * Defines the testcase name for JUnit.
-     *
-     * @param theName the testcase's name.
-     */
-    public TestWebTestResultParser(String theName)
-    {
-        super(theName);
-    }
-
-    //-------------------------------------------------------------------------
-
-    /**
      * Verify parsing when the test result contains no exception.
      *
      * @exception ParsingException if error

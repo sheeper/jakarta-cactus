@@ -75,18 +75,6 @@ public class TestServletURL extends TestCase
     }
 
     /**
-     * Defines the testcase name for JUnit.
-     *
-     * @param theName the testcase's name.
-     */
-    public TestServletURL(String theName)
-    {
-        super(theName);
-    }
-
-    //-------------------------------------------------------------------------
-
-    /**
      * Verify that if the context path is not empty or null it must start with
      * a "/" character.
      */

@@ -80,18 +80,6 @@ public class TestWebRequest extends TestCase
     }
 
     /**
-     * Defines the testcase name for JUnit.
-     *
-     * @param theName the testcase's name.
-     */
-    public TestWebRequest(String theName)
-    {
-        super(theName);
-    }
-
-    //-------------------------------------------------------------------------
-
-    /**
      * Verify that an exception is thrown when an invalid HTTP METHOD is used
      * when adding an HTTP parameter.
      */

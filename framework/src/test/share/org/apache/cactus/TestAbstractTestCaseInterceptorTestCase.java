@@ -81,16 +81,6 @@ public class TestAbstractTestCaseInterceptorTestCase
     extends AbstractWebServerTestCase
 {
     /**
-     * Constructs a test case with the given name.
-     *
-     * @param theName the name of the test case
-     */
-    public TestAbstractTestCaseInterceptorTestCase(String theName)
-    {
-        super(theName);
-    }
-
-    /**
      * Override default method so that configuration checks are not run during
      * these unit tests.
      *

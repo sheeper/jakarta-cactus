@@ -77,18 +77,6 @@ public class TestServletUtil extends TestCase
     }
 
     /**
-     * Defines the testcase name for JUnit.
-     *
-     * @param theName the testcase's name.
-     */
-    public TestServletUtil(String theName)
-    {
-        super(theName);
-    }
-
-    //-------------------------------------------------------------------------
-
-    /**
      * Verify than <code>getQueryStringParameterEmpty()</code> returns an
      * empty string if the parameter existe but has no value defined.
      */
