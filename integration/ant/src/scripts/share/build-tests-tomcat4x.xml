@@ -23,12 +23,12 @@
 
     <target name="cactus.runservertests.task.tomcat4x" if ="cactus.test.task">
 
+        <taskdef name="cactus.testTask" classname="${cactus.test.task}"/>
         <runservertests
             testURL="http://localhost:${cactus.port}/${cactus.context}/ServletRedirector?Cactus_Service=RUN_TEST"
             startTarget="cactus.start.tomcat4x"
             stopTarget="cactus.stop.tomcat4x">
           <test>
-          	<taskdef name="cactus.testTask" classname="${cactus.test.task}"/>
           	<cactus.testTask/>
           </test>
         </runservertests>

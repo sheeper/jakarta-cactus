@@ -34,12 +34,12 @@
 
     <target name="cactus.runservertests.task.jboss3x" if ="cactus.test.task">
 
+        <taskdef name="cactus.testTask" classname="${cactus.test.task}"/>
         <runservertests
             testURL="http://localhost:${cactus.port}/${cactus.context}/ServletRedirector?Cactus_Service=RUN_TEST"
             startTarget="cactus.start.jboss3x"
             stopTarget="cactus.stop.jboss3x">
           <test>
-          	<taskdef name="cactus.testTask" classname="${cactus.test.task}"/>
           	<cactus.testTask/>
           </test>
         </runservertests>

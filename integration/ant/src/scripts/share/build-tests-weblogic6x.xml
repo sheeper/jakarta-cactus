@@ -32,12 +32,12 @@
 
     <target name="cactus.runservertests.task.weblogic6x" if ="cactus.test.task">
 
+        <taskdef name="cactus.testTask" classname="${cactus.test.task}"/>
         <runservertests
             testURL="http://localhost:${cactus.port}/${cactus.context}/ServletRedirector?Cactus_Service=RUN_TEST"
             startTarget="cactus.start.weblogic6x"
             stopTarget="cactus.stop.weblogic6x">
           <test>
-          	<taskdef name="cactus.testTask" classname="${cactus.test.task}"/>
           	<cactus.testTask/>
           </test>
         </runservertests>
