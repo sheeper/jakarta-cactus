@@ -12,6 +12,9 @@
 # WARNING:  The relative paths below are relative to the parent directory
 # of this file
 
+# Note: Most of the libraries defined below can be automatically downloaded by
+# typing "ant -f download.xml".
+
 # -----------------------------------------------------------------------------
 # Mandatory properties
 # -----------------------------------------------------------------------------
@@ -26,16 +29,47 @@ lib.repo = ${user.home}/.maven/repository
 # the Cactus jar will contain the Filter Redirector which is only available for
 # Servlet 2.3+ (part of J2EE 1.3+).
 #
-# Note: In the future we'll work towards using the JSR jars provided by 
-# the Geronimo project.
-# - For J2EE 1.3: http://java.sun.com/j2ee/sdk_1.3/
-# - For J2EE 1.2: http://java.sun.com/j2ee/sdk_1.2.1/
-j2ee.jar = ${lib.repo}/jboss/jars/jboss-j2ee-3.2.3.jar
-#j2ee.jar = ${lib.repo}/j2ee/jars/j2ee-1.2.jar
+# Note: If you're using J2EE 1.2, you won't be able to automatically download
+# the jar file as it's only available through the Sun website and is not
+# redistributable. You can download it manually here:
+#   http://java.sun.com/j2ee/sdk_1.2.1/
 
-# Location of the Servlet API jar.
-servlet.jar = ${lib.repo}/servletapi/jars/servletapi-2.3.jar
-#servlet.jar = ${lib.repo}/servletapi/jars/servletapi-2.2.jar
+# List all available J2EE API versions. Note that it is required to list all
+# versions if you wish to call "ant release" in jakarta-cactus. If you only
+# wish to build a single Cactus project you only need to list the version you
+# wish to use.
+j2ee.12.jar = ${lib.repo}/j2ee/jars/j2ee-1.2.jar
+j2ee.13.jar = ${lib.repo}/jboss/jars/jboss-j2ee-3.2.3.jar
+j2ee.14.jar = ${lib.repo}/jboss/jars/jboss-j2ee-4.0.0DR4.jar
+
+# The J2EE API version to use
+j2ee.jar = ${j2ee.13.jar}
+
+# Location of the Servlet API jars.
+
+# List all available Servlet versions. Note that it is required to list all
+# versions if you wish to call "ant release" in jakarta-cactus. If you only
+# wish to build a single Cactus project you only need to list the version you
+# wish to use.
+servlet.22.jar = ${lib.repo}/servletapi/jars/servletapi-2.2.jar
+servlet.23.jar = ${lib.repo}/servletapi/jars/servletapi-2.3.jar
+servlet.24.jar = ${lib.repo}/servletapi/jars/servlet-api-2.4-20040521.jar
+
+# The Servlet API version to use
+servlet.jar = ${servlet.23.jar}
+
+# Location of the JSP API jars.
+
+# List all available JSP versions. Note that it is required to list all
+# versions if you wish to call "ant release" in jakarta-cactus. If you only
+# wish to build a single Cactus project you only need to list the version you
+# wish to use.
+jsp.11.jar = ${servlet.22.jar}
+jsp.12.jar = ${servlet.23.jar}
+jsp.20.jar = ${lib.repo}/jspapi/jars/jsp-api-2.0-20040521.jar
+
+# The Servlet API version to use
+jsp.jar = ${jsp.12.jar}
 
 # The location of the Commons Logging jar
 commons.logging.jar = ${lib.repo}/commons-logging/jars/commons-logging-1.0.3.jar

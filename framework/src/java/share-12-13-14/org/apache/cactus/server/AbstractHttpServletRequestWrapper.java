@@ -1,7 +1,7 @@
 /* 
  * ========================================================================
  * 
- * Copyright 2001-2003 The Apache Software Foundation.
+ * Copyright 2001-2004 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,8 +39,16 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * Abstract wrapper around <code>HttpServletRequest</code>. This class provides
- * a common implementation of the wrapper for the different servlet API.
+ * Abstract wrapper around {@link HttpServletRequest}. This class provides
+ * a common implementation of the wrapper for the different Servlet APIs.
+ * This is an implementation that delegates all the call to the
+ * {@link HttpServletRequest} object passed in the constructor except for
+ * some overidden methods which are use to simulate a URL. This is to be able 
+ * to simulate any URL that would have been used to call the test method : if 
+ * this was not done, the URL that would be returned (by calling the
+ * {@link HttpServletRequest#getRequestURI()} method or others alike) would be 
+ * the URL of the Cactus redirector servlet and not a URL that the test case 
+ * want to simulate.
  *
  * @version $Id$
  */

@@ -90,6 +90,9 @@
       </devs>
 
       <release version="1.7dev" date="in CVS">
+        <action dev="VMA" type="change">
+          Building Cactus from the sources now requires Ant 1.6.1+.
+        </action>
         <action dev="VMA" type="update" issue="CACTUS-120">
           Ensure faster shutdown times with WebLogic 7.x by using the 
           <code>FORCESHUTDOWN</code> WebLogic command instead of the graceful

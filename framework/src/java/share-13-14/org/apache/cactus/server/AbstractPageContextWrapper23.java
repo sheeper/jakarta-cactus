@@ -1,7 +1,7 @@
 /* 
  * ========================================================================
  * 
- * Copyright 2001-2003 The Apache Software Foundation.
+ * Copyright 2004 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,16 +27,17 @@ import javax.servlet.jsp.PageContext;
 import org.apache.cactus.ServletURL;
 
 /**
- * Wrapper around <code>PageContext</code> so that get methods that would
- * normally return implicit objects will now return Cactus wrapper of
- * implicit objects instead.
+ * Extends {@link AbstractPageContextWrapper} by adding the new methods 
+ * of the Servlet 2.3 API specifications.
  *
+ * @see AbstractPageContextWrapper
  * @version $Id$
  */
-public class PageContextWrapper extends AbstractPageContextWrapper
+public abstract class AbstractPageContextWrapper23 
+    extends AbstractPageContextWrapper
 {
     /**
-     * Construct an <code>PageContext</code> instance that delegates
+     * Construct a {@link PageContext} instance that delegates
      * it's method calls to the page context object passed as parameter and
      * that uses the URL passed as parameter to simulate a URL from which
      * the request would come from.
@@ -44,7 +45,7 @@ public class PageContextWrapper extends AbstractPageContextWrapper
      * @param theOriginalPageContext the real page context
      * @param theURL the URL to simulate or <code>null</code> if none
      */
-    public PageContextWrapper(PageContext theOriginalPageContext, 
+    public AbstractPageContextWrapper23(PageContext theOriginalPageContext, 
         ServletURL theURL)
     {
         super(theOriginalPageContext, theURL);

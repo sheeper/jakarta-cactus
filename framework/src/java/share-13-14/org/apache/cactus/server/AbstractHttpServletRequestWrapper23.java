@@ -1,7 +1,7 @@
 /* 
  * ========================================================================
  * 
- * Copyright 2001-2003 The Apache Software Foundation.
+ * Copyright 2004 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,36 +28,31 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.cactus.ServletURL;
 
 /**
- * Encapsulation class for the Servlet 2.3 API <code>HttpServletRequest</code>.
- * This is an implementation that delegates all the call to the
- * <code>HttpServletRequest</code> object passed in the constructor except for
- * some overiden methods which are use to simulate a URL. This is to be able to
- * simulate any URL that would have been used to call the test method : if this
- * was not done, the URL that would be returned (by calling the
- * <code>getRequestURI()</code> method or others alike) would be the URL of the
- * Cactus redirector servlet and not a URL that the test case want to simulate.
+ * Extends {@link AbstractHttpServletRequestWrapper} by adding the new methods 
+ * of the Servlet 2.3 API specifications.
  *
+ * @see AbstractHttpServletRequestWrapper
  * @version $Id$
  */
-public class HttpServletRequestWrapper 
+public abstract class AbstractHttpServletRequestWrapper23 
     extends AbstractHttpServletRequestWrapper
 {
     /**
-     * Construct an <code>HttpServletRequest</code> instance that delegates
+     * Construct a {@link HttpServletRequest} instance that delegates
      * it's method calls to the request object passed as parameter and that
-     * uses the URL passed as parameter to simulate a URL from which the request
-     * would come from.
+     * uses the URL passed as parameter to simulate a URL from which the 
+     * request would come from.
      *
      * @param theRequest the real HTTP request
      * @param theURL the URL to simulate or <code>null</code> if none
      */
-    public HttpServletRequestWrapper(HttpServletRequest theRequest, 
+    public AbstractHttpServletRequestWrapper23(HttpServletRequest theRequest, 
         ServletURL theURL)
     {
         super(theRequest, theURL);
     }
 
-    // Not modified methods --------------------------------------------------
+    // Unmodified methods --------------------------------------------------
 
     /**
      * @return the URL from the simulated URL or the real URL
