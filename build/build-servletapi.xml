@@ -649,6 +649,10 @@
 
         <mkdir dir="${dist.dir}"/>
 
+        <!-- Make sure we have a clean directory before copying the files -->
+        <delete dir="${dist.dir}/${full.name}"/>
+        <mkdir dir="${dist.dir}/${full.name}"/>
+
         <!-- Copy the custom Ant tasks jar to the servlet API dist directory
         -->
         <copy file="${final.jar.ant.name}" todir="${out.lib.dir}"/>
@@ -673,14 +677,19 @@
         <copy todir="${out.lib.dir}" file="${junit.jar}"/>
         <copy todir="${out.lib.dir}" file="${httpclient.jar}"/>
 
-        <zip zipfile="${dist.full.name}.zip">
-            <zipfileset dir="${out.dist.dir}"
-                prefix="${project.name}-${servlet.api}-${DSTAMP}">
-
+        <!-- Copy the dist directory for the current Servlet API to the
+             dist.dir directory -->
+        <copy todir="${dist.dir}/${full.name}">
+            <fileset dir="${out.dist.dir}">
                 <exclude name="**/build.properties"/>
                 <exclude name="**/*.log"/>
                 <exclude name="${out.dir}"/>
-            </zipfileset>
+            </fileset>
+        </copy>
+
+        <zip zipfile="${dist.full.name}.zip">
+            <zipfileset dir="${dist.dir}/${full.name}"
+                prefix="${full.name}-${DSTAMP}"/>
         </zip>
 
     </target>
