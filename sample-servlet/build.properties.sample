@@ -70,7 +70,7 @@ httpunit.jar = ../httpunit/lib/httpunit.jar
 #resin.home.20 = c:/Apps/resin-2.1.0
 #tomcat.home.40 = c:/Apps/jakarta-tomcat-4.0.2
 #resin.home.13 = f:/applis/resin-1.3.s010125
-#tomcat.home.33 = c:/Apps/jakarta-tomcat-3.3.1-dev
+#tomcat.home.33 = c:/Apps/jakarta-tomcat-3.3.1
 #enhydra.home.31 = xxx
 
 # Note: weblogic.home.61 is the location of BEA Home and NOT the location of
