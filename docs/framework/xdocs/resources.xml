@@ -12,47 +12,276 @@
 
   <body>
 
+    <s1 title="Resources related to Cactus">
+
+      <table>
+        <tr>
+          <td>
+            Link
+          </td>
+          <td>
+            <link href="http://strutstestcase.sourceforge.net/">
+            StrutsTestCase for JUnit</link>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Type
+          </td>
+          <td>
+            Add-on for Cactus
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Date
+          </td>
+          <td>
+            Submitted on December 2001
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Description
+          </td>
+          <td>
+            StrutsTestCase for JUnit is an extension of the standard JUnit TestCase class that
+            provides facilities for testing code based on the Struts framework. StrutsTestCase
+            provides both a Mock Object approach and a Cactus approach to actually run the Struts
+            ActionServlet, allowing you to test your Struts code with or without a running servlet
+            engine.
+          </td>
+        </tr>
+      </table>
+
+      <p/>
+
+      <table>
+        <tr>
+          <td>
+            Link
+          </td>
+          <td>
+            <link href="http://www.amazon.com/exec/obidos/ASIN/047120708X/qid=1007292540/sr=8-1/ref=sr_8_3_1/103-5269600-2827061">
+            Java Tools for Extreme Programming: Mastering Open Source Tools, including Ant,
+            JUnit, and Cactus</link>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Type
+          </td>
+          <td>
+            Book
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Date
+          </td>
+          <td>
+            Submitted on November 2001
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Description
+          </td>
+          <td>
+            Book from Richard Hightower and Nicholas Lesiecki on open source tools.
+          </td>
+        </tr>
+      </table>
+
+      <p/>
+
+      <table>
+        <tr>
+          <td>
+            Link
+          </td>
+          <td>
+            <link href="http://softwaredev.earthweb.com/java/article/0,,12082_793701,00.html">
+            Views from Abroad: Cactus -- No Pity for Bugs</link>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Type
+          </td>
+          <td>
+            Article
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Date
+          </td>
+          <td>
+            Submitted on June 2001
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Description
+          </td>
+          <td>
+            Interview of Vincent Massol from Benoit Marchal.
+          </td>
+        </tr>
+      </table>
+
+    </s1>
+
     <s1 title="Resources related to testing">
 
-      <s2 title="In-Container unit test approach">
+      <table>
+        <tr>
+          <td>
+            Link
+          </td>
+          <td>
+            <link href="http://www.javaworld.com/javaworld/jw-05-2000/jw-0526-testinfect-2.html">
+            Test infect your Enterprise JavaBeans, Javaworld May 2000</link>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Type
+          </td>
+          <td>
+            Article
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Date
+          </td>
+          <td>
+            Submitted on May 2000
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Description
+          </td>
+          <td>
+            Explains the advantage of an in-container testing approach.
+          </td>
+        </tr>
+      </table>
 
-        <p>
-          <em>Link :</em>
-          <link href="http://www.javaworld.com/javaworld/jw-05-2000/jw-0526-testinfect-2.html">
-          Test infect your Enterprise JavaBeans, Javaworld May 2000</link><br/>
-          Article that explains the interest of an in-container testing
-          approach.
-        </p>
+      <p/>
 
-      </s2>
+      <table>
+        <tr>
+          <td>
+            Link
+          </td>
+          <td>
+            <link href="mockobjects.html#mo_resources">resources</link>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Type
+          </td>
+          <td>
+            Link to other resources
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Date
+          </td>
+          <td>
+            N/A
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Description
+          </td>
+          <td>
+            List of resources on Mock Objects.
+          </td>
+        </tr>
+      </table>
 
-      <s2 title="Mock objects unit test approach">
-   
-        <p>
-          See the <link href="mockobjects.html#mo_resources">resources</link>
-          section of the <link href="mockobjects.html">Mock Objects vs
-          In-Container</link> article.
-        </p>
+      <p/>
 
-      </s2>
+      <table>
+        <tr>
+          <td>
+            Link
+          </td>
+          <td>
+            <link href="http://www.junit.org">JUnit</link>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Type
+          </td>
+          <td>
+            Framework
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Date
+          </td>
+          <td>
+            N/A
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Description
+          </td>
+          <td>
+            The unit testing framework that Cactus extends.
+          </td>
+        </tr>
+      </table>
 
-      <s2 title="Others">
+      <p/>
 
-        <p>
-          <em>Link :</em>
-          <link href="http://www.junit.org">JUnit</link>
-          The unit testing framework that Cactus extends.
-        </p>
-
-        <p>
-          <em>Link :</em>
-          <link href="http://sourceforge.net/projects/httpunit">HttpUnit</link>
-          <em>project on SourceForge</em>.<br/>
-          A Java library for the automatic stimulation and testing of web
-          applications.
-        </p>
-
-      </s2>
+      <table>
+        <tr>
+          <td>
+            Link
+          </td>
+          <td>
+            <link href="http://sourceforge.net/projects/httpunit">HttpUnit</link>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Type
+          </td>
+          <td>
+            Framework
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Date
+          </td>
+          <td>
+            N/A
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Description
+          </td>
+          <td>
+            A Java library for the automatic stimulation and testing of web
+            applications.
+          </td>
+        </tr>
+      </table>
 
     </s1>
 
