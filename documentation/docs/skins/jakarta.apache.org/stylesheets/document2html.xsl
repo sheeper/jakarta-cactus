@@ -162,6 +162,12 @@
 
               <td valign="top">
                 <div id="sidebar">
+                  <div style="margin: 0.5em 0">
+                  	<a href="http://apachecon.com/2003/US/index.html">
+                      <img alt="ApacheCON US 2003" width="150" height="86"
+                          src="http://jakarta.apache.org/images/logos/ac2003-150.gif"/>
+                    </a>
+                  </div>
                   <div id="navigation">
                     <xsl:call-template name="apply-navigation"/>
                   </div>
