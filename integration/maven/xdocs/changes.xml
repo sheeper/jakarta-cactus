@@ -8,6 +8,11 @@
   <body>
 
     <release version="1.6dev" date="in CVS">
+      <action dev="vmassol" type="add" issue="CACTUS-102" due-to="Nicolas De Loof">
+        When calling <code>cactus:test</code>, only run the tests if there are
+        Cactus tests present in the filesystem (i.e. if the Cactus source
+        directory exists).
+      </action>
       <action dev="vmassol" type="fix">
         Added dependency on <code>commons-jelly-tags-xml</code>. It seems
         this is required for some configurations of Maven.

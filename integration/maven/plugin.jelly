@@ -287,15 +287,20 @@
        defined.
      ========================================================================
   -->
-  <goal name="cactus:test" description="Run all Cactus tests">
-    <j:choose>
-      <j:when test="${context.getVariable('cactus.is.ear') == 'true'}">
-        <attainGoal name="cactus:test-ear"/>
-      </j:when>
-      <j:otherwise>
-        <attainGoal name="cactus:test-war"/>
-      </j:otherwise>
-    </j:choose>
+  <goal name="cactus:test" description="Run all Cactus tests" 
+      prereqs="cactus:init">
+
+    <j:if test="${cactusSourcePresent}">  
+      <j:choose>
+        <j:when test="${context.getVariable('cactus.is.ear') == 'true'}">
+          <attainGoal name="cactus:test-ear"/>
+        </j:when>
+        <j:otherwise>
+          <attainGoal name="cactus:test-war"/>
+        </j:otherwise>
+      </j:choose>
+    </j:if>
+
   </goal>
 
   <!--
