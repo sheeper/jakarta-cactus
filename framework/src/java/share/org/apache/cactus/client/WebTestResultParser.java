@@ -126,11 +126,15 @@ public class WebTestResultParser
         String endRootString = "</" + WebTestResult.XML_ROOT_ELEMENT + ">";
         String buffer;
 
-        if (theData.startsWith(startRootString) &&
-            theData.endsWith(endRootString)) {
+        // It is possible that some end of line character are inserted at the end of the
+        // string. This is valid, which is why we trim teh string before perfoming the checks.
+        String trimmedData = theData.trim();
 
-            buffer = theData.substring(startRootString.length(),
-                theData.length() - endRootString.length());
+        if (trimmedData.startsWith(startRootString) &&
+            trimmedData.endsWith(endRootString)) {
+
+            buffer = trimmedData.substring(startRootString.length(),
+                trimmedData.length() - endRootString.length());
         } else {
             throw new ParsingException("Not a valid response");
         }
