@@ -1,7 +1,7 @@
 # -----------------------------------------------------------------------------
 # build.properties.sample
 #
-# Customize Ant build for the Cactus Eclipse plugin.
+# Customize Ant build for the Cactus Eclipse Webapp plugin.
 #
 # $Id$
 # -----------------------------------------------------------------------------
