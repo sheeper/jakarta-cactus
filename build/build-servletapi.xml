@@ -15,8 +15,6 @@
 
         junit.jar             [REQUIRED] The path to the JUnit jar file
 
-        junit.jar             [REQUIRED] The path to the JUnit jar file
-
         dist.dir              [REQUIRED] The directories where distributable
                               files will be copied with version number
                               postfixed.
@@ -150,11 +148,6 @@
         <!-- Filters -->
         <filter token="version" value="${project.version}"/>
         <filter token="year" value="${year}"/>
-        <filter token="jar.name" value="${jar.name}"/>
-        <filter token="jar.ant.name" value="${jar.ant.name}"/>
-        <filter token="servlet.jar" value="${servlet.jar}"/>
-        <filter token="junit.jar" value="${junit.jar}"/>
-        <filter token="log4j.jar" value="${log4j.jar}"/>
         <filter token="servlet.api" value="${servlet.api}"/>
         <filter token="today" value="${TODAY}"/>
 
@@ -552,6 +545,12 @@
     <target name="tests-functional22-tomcat32-else" unless="tomcat.home.32">
         <property name="tomcat.flag.32" value=""/>
     </target>
+    <target name="tests-functional22-tomcat33-if" if="tomcat.home.33">
+        <property name="tomcat.flag.33" value="-Dtomcat.home.33=${tomcat.home.33}"/>
+    </target>
+    <target name="tests-functional22-tomcat33-else" unless="tomcat.home.33">
+        <property name="tomcat.flag.33" value=""/>
+    </target>
     <target name="tests-functional22-orion14-if" if="orion.home.14">
         <property name="orion.flag.14" value="-Dorion.home.14=${orion.home.14}"/>
     </target>
@@ -578,6 +577,8 @@
                  tests-functional22-resin20-else,
                  tests-functional22-tomcat32-if,
                  tests-functional22-tomcat32-else,
+                 tests-functional22-tomcat33-if,
+                 tests-functional22-tomcat33-else,
                  tests-functional22-orion14-if,
                  tests-functional22-orion14-else,
                  tests-functional22-weblogic51-if,
@@ -588,15 +589,21 @@
 
     <target name="tests-functional22" depends="sample,tests-functional22-checks">
 
-        <copy tofile="${out.sample.build.dir}/build.properties"
-            file="${build.dir}/build.properties.tests" filtering="on"/>
-
         <java classname="org.apache.tools.ant.Main"
             dir="${out.sample.build.dir}" fork="yes" failonerror="yes">
 
+            <!-- Pass all required properties -->
+            <arg value="-Dservlet.jar=${servlet.jar}"/>
+            <arg value="-Dcactus.jar=../lib/${jar.name}.jar"/>
+            <arg value="-Dcactus.ant.jar=../../../${jar.ant.name}.jar"/>
+            <arg value="-Djunit.jar=${junit.jar}"/>
+            <arg value="-Dlog4j.jar=${log4j.jar}"/>
+
+            <!-- Pass all servlet engine properties -->
             <arg value="${resin.flag.12}"/>
             <arg value="${resin.flag.20}"/>
             <arg value="${tomcat.flag.32}"/>
+            <arg value="${tomcat.flag.33}"/>
             <arg value="${orion.flag.14}"/>
             <arg value="${weblogic.flag.51}"/>
             <arg value="${enhydra.flag.31}"/>
@@ -648,12 +655,17 @@
 
     <target name="tests-functional23" depends="sample,tests-functional23-checks">
 
-        <copy tofile="${out.sample.build.dir}/build.properties"
-            file="${build.dir}/build.properties.tests" filtering="on"/>
-
         <java classname="org.apache.tools.ant.Main"
             dir="${out.sample.build.dir}" fork="yes" failonerror="yes">
 
+            <!-- Pass all required properties -->
+            <arg value="-Dservlet.jar=${servlet.jar}"/>
+            <arg value="-Dcactus.jar=../lib/${jar.name}.jar"/>
+            <arg value="-Dcactus.ant.jar=../../../${jar.ant.name}.jar"/>
+            <arg value="-Djunit.jar=${junit.jar}"/>
+            <arg value="-Dlog4j.jar=${log4j.jar}"/>
+
+            <!-- Pass all servlet engine properties -->
             <arg value="${resin.flag.13}"/>
             <arg value="${resin.flag.20}"/>
             <arg value="${orion.flag.14}"/>
