@@ -63,7 +63,6 @@ import org.apache.cactus.client.ClientException;
 import org.apache.cactus.client.ConnectionHelper;
 import org.apache.cactus.client.ConnectionHelperFactory;
 import org.apache.cactus.client.WebResponseObjectFactory;
-import org.apache.cactus.client.authentication.AbstractAuthentication;
 import org.apache.cactus.util.ChainedRuntimeException;
 import org.apache.cactus.util.WebConfiguration;
 
@@ -89,36 +88,17 @@ public class WebRequest extends BaseWebRequest
     private boolean isAutomaticSession = true;
 
     /**
-     * The Authentication Object that will configure the http request
-     */
-    private AbstractAuthentication authentication;
-
-    /**
      * Redirector Name. This is to let the user the possibility to override
      * the default Redirector Name specified in <code>cactus.properties</code>.
      */
     private String redirectorName;
 
     /**
-     * Cactus configuration
-     */
-    private WebConfiguration configuration;
-
-    /**
      * @param theConfiguration the Cactus configuration
      */
     public WebRequest(WebConfiguration theConfiguration)
     {
-        super();
-        this.configuration = theConfiguration;
-    }
-
-    /**
-     * @return the Cactus configuration
-     */
-    protected WebConfiguration getConfiguration()
-    {
-        return this.configuration;
+        super(theConfiguration);
     }
 
     /**
@@ -140,30 +120,6 @@ public class WebRequest extends BaseWebRequest
     public String getRedirectorName()
     {
         return this.redirectorName;
-    }
-
-    /**
-     * Sets the authentication object that will configure the http request
-     *
-     * @param theAuthenticationObject the authentication object
-     */
-    public void setAuthentication(
-        AbstractAuthentication theAuthenticationObject)
-    {
-        this.authentication = theAuthenticationObject;
-        
-        // Sets the Cactus configuration. It is performed here so that
-        // Cactus users do not have to bother with setting it on the
-        // Authentication object they create.
-        this.authentication.setConfiguration(getConfiguration());
-    }
-
-    /**
-     * @return the authentication object that will configure the http request
-     */
-    public AbstractAuthentication getAuthentication()
-    {
-        return this.authentication;
     }
 
     /**
@@ -312,7 +268,8 @@ public class WebRequest extends BaseWebRequest
             ((WebConfiguration) getConfiguration()).getRedirectorURL(this), 
             getConfiguration());
 
-        WebRequest request = new WebRequest(getConfiguration());
+        WebRequest request = new WebRequest(
+            (WebConfiguration) getConfiguration());
         request.addParameter(HttpServiceDefinition.SERVICE_NAME_PARAM, 
             ServiceEnumeration.CREATE_SESSION_SERVICE.toString(), 
             WebRequest.GET_METHOD);

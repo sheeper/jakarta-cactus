@@ -62,7 +62,9 @@ import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Vector;
 
+import org.apache.cactus.client.authentication.AbstractAuthentication;
 import org.apache.cactus.util.ChainedRuntimeException;
+import org.apache.cactus.util.Configuration;
 
 /**
  * Contains all HTTP request data for a test case but independently of
@@ -85,6 +87,11 @@ public class BaseWebRequest implements Request
      * POST Method identifier.
      */
     public static final String POST_METHOD = "POST";
+
+    /**
+     * Cactus configuration
+     */
+    private Configuration configuration;
 
     /**
      * The request parameters that need to be sent in the body (POST)
@@ -115,6 +122,27 @@ public class BaseWebRequest implements Request
      * The content type to set in the http request
      */
     private String contentType = "application/x-www-form-urlencoded";
+
+    /**
+     * The Authentication Object that will configure the http request
+     */
+    private AbstractAuthentication authentication;
+
+    /**
+     * @param theConfiguration the Cactus configuration
+     */
+    public BaseWebRequest(Configuration theConfiguration)
+    {
+        this.configuration = theConfiguration;
+    }
+
+    /**
+     * @return the Cactus configuration
+     */
+    protected Configuration getConfiguration()
+    {
+        return this.configuration;
+    }
 
     /**
      * Sets the content type that will be set in the http request
@@ -622,6 +650,30 @@ public class BaseWebRequest implements Request
         }
 
         return buffer.toString();
+    }
+
+    /**
+     * Sets the authentication object that will configure the http request
+     *
+     * @param theAuthenticationObject the authentication object
+     */
+    public void setAuthentication(
+        AbstractAuthentication theAuthenticationObject)
+    {
+        this.authentication = theAuthenticationObject;
+        
+        // Sets the Cactus configuration. It is performed here so that
+        // Cactus users do not have to bother with setting it on the
+        // Authentication object they create.
+        this.authentication.setConfiguration(getConfiguration());
+    }
+
+    /**
+     * @return the authentication object that will configure the http request
+     */
+    public AbstractAuthentication getAuthentication()
+    {
+        return this.authentication;
     }
 
 }
