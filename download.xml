@@ -65,7 +65,7 @@
       description="Downloads all required JARs from the remote repository">
     <download jar="antlr"/>
     <download jar="aspectjrt"/>
-    <download jar="aspectjtools"/>
+    <download jar="aspectj-tools"/>
     <download jar="checkstyle"/>
     <download jar="commons.beanutils"/>
     <download jar="commons.collections"/>

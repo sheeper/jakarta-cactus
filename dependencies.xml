@@ -7,7 +7,7 @@
       artifact="antlr" version="2.7.2"/>
   <aspectjrt project="aspectj"
       artifact="aspectjrt" version="1.1.1"/>
-  <aspectjtools project="aspectj"
+  <aspectj-tools project="aspectj"
       artifact="aspectjtools" version="1.1.1"/>
   <checkstyle project="checkstyle"
       artifact="checkstyle" version="3.3"/>
