@@ -57,8 +57,9 @@
 package org.apache.cactus.integration.ant;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.jar.JarFile;
+import java.util.jar.JarInputStream;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -496,12 +497,12 @@ public class CactifyWarTask extends War
     private WebXml getOriginalWebXml() throws BuildException
     {
         // Open the archive as JAR file and extract the deployment descriptor
-        JarFile war = null;
+        JarInputStream war = null;
         WebXml webXml = null;
         try
         {
-            war = new JarFile(this.srcFile);
-            webXml = WebXmlIo.parseWebXml(war, this.xmlCatalog);
+            war = new JarInputStream(new FileInputStream(this.srcFile));
+            webXml = WebXmlIo.parseWebXmlFromWar(war, this.xmlCatalog);
         }
         catch (SAXException e)
         {

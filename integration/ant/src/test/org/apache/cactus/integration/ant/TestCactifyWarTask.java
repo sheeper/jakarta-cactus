@@ -58,9 +58,10 @@ package org.apache.cactus.integration.ant;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Iterator;
-import java.util.jar.JarFile;
+import java.util.jar.JarInputStream;
 
 import org.apache.cactus.integration.ant.webxml.WebXml;
 import org.apache.cactus.integration.ant.webxml.WebXmlIo;
@@ -183,10 +184,11 @@ public final class TestCactifyWarTask extends AntTestCase
         executeTestTarget();
 
         File destFile = getProject().resolveFile("work/destfile.war");
-        JarFile destWar = new JarFile(destFile);
+        JarInputStream destWar =
+            new JarInputStream(new FileInputStream(destFile));
         try
         {
-            WebXml webXml = WebXmlIo.parseWebXml(destWar,
+            WebXml webXml = WebXmlIo.parseWebXmlFromWar(destWar,
                 new NullEntityResolver());
             assertNull("The web.xml should not have a version specified",
                 webXml.getVersion());
@@ -218,10 +220,11 @@ public final class TestCactifyWarTask extends AntTestCase
         executeTestTarget();
 
         File destFile = getProject().resolveFile("work/destfile.war");
-        JarFile destWar = new JarFile(destFile);
+        JarInputStream destWar =
+            new JarInputStream(new FileInputStream(destFile));
         try
         {
-            WebXml webXml = WebXmlIo.parseWebXml(destWar,
+            WebXml webXml = WebXmlIo.parseWebXmlFromWar(destWar,
                 new NullEntityResolver());
             assertEquals(WebXmlVersion.V2_2, webXml.getVersion());
             assertServletMapping(webXml,
@@ -248,10 +251,11 @@ public final class TestCactifyWarTask extends AntTestCase
         executeTestTarget();
 
         File destFile = getProject().resolveFile("work/destfile.war");
-        JarFile destWar = new JarFile(destFile);
+        JarInputStream destWar =
+            new JarInputStream(new FileInputStream(destFile));
         try
         {
-            WebXml webXml = WebXmlIo.parseWebXml(destWar,
+            WebXml webXml = WebXmlIo.parseWebXmlFromWar(destWar,
                 new NullEntityResolver());
             assertEquals(WebXmlVersion.V2_3, webXml.getVersion());
             assertServletMapping(webXml,
@@ -280,10 +284,11 @@ public final class TestCactifyWarTask extends AntTestCase
         executeTestTarget();
 
         File destFile = getProject().resolveFile("work/destfile.war");
-        JarFile destWar = new JarFile(destFile);
+        JarInputStream destWar =
+            new JarInputStream(new FileInputStream(destFile));
         try
         {
-            WebXml webXml = WebXmlIo.parseWebXml(destWar,
+            WebXml webXml = WebXmlIo.parseWebXmlFromWar(destWar,
                 new NullEntityResolver());
             assertEquals(WebXmlVersion.V2_2, webXml.getVersion());
             assertServletMapping(webXml,
@@ -311,10 +316,11 @@ public final class TestCactifyWarTask extends AntTestCase
         executeTestTarget();
 
         File destFile = getProject().resolveFile("work/destfile.war");
-        JarFile destWar = new JarFile(destFile);
+        JarInputStream destWar =
+            new JarInputStream(new FileInputStream(destFile));
         try
         {
-            WebXml webXml = WebXmlIo.parseWebXml(destWar,
+            WebXml webXml = WebXmlIo.parseWebXmlFromWar(destWar,
                 new NullEntityResolver());
             assertEquals(WebXmlVersion.V2_3, webXml.getVersion());
             assertServletMapping(webXml,

@@ -57,13 +57,14 @@
 package org.apache.cactus.integration.ant;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
-import java.util.jar.JarFile;
+import java.util.jar.JarInputStream;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -291,12 +292,14 @@ public class CactusTask extends JUnitTask
         }
 
         // Open the archive as JAR file and extract the deployment descriptor
-        JarFile war = null;
+        JarInputStream war = null;
         WebXml webXml = null;
         try
         {
-            war = new JarFile(this.warFile);
-            webXml = WebXmlIo.parseWebXml(war, null);
+            war = new JarInputStream(new FileInputStream(this.warFile));
+            webXml = WebXmlIo.parseWebXmlFromWar(war, null);
+
+            addRedirectorNameProperties(war, webXml);
         }
         catch (SAXException e)
         {
@@ -311,8 +314,6 @@ public class CactusTask extends JUnitTask
         {
             throw new BuildException("XML parser configuration error", e);
         }
-
-        addRedirectorNameProperties(war, webXml);
 
         Container[] containers = this.containerSet.getContainers();
         if (containers.length == 0)
@@ -423,8 +424,11 @@ public class CactusTask extends JUnitTask
      * 
      * @param theWar The web-app archive
      * @param theWebXml The parsed deployment descriptor
+     * @throws IOException If an I/O error occurred reading the WAR file
      */
-    private void addRedirectorNameProperties(JarFile theWar, WebXml theWebXml)
+    private void addRedirectorNameProperties(JarInputStream theWar,
+        WebXml theWebXml)
+        throws IOException
     {
         String filterRedirectorMapping =
             getFilterRedirectorMapping(theWar, theWebXml);
@@ -471,8 +475,8 @@ public class CactusTask extends JUnitTask
      * @param theWar The web-app archive
      * @param theWebXml The parsed deployment descriptor
      */
-    private void executeInContainer(Container theContainer, JarFile theWar,
-        WebXml theWebXml)
+    private void executeInContainer(Container theContainer,
+        JarInputStream theWar, WebXml theWebXml)
     {
         log("Starting up container", Project.MSG_VERBOSE);
         ContainerRunner runner = new ContainerRunner(theContainer);
@@ -528,7 +532,8 @@ public class CactusTask extends JUnitTask
      * @return The mapping, or <code>null</code> if the filter redirector is not
      *         defined or mapped in the descriptor
      */
-    private String getFilterRedirectorMapping(JarFile theWar, WebXml theWebXml)
+    private String getFilterRedirectorMapping(JarInputStream theWar,
+        WebXml theWebXml)
     {
         Iterator filterNames = theWebXml.getFilterNamesForClass(
             "org.apache.cactus.server.FilterTestRedirector");
@@ -553,8 +558,11 @@ public class CactusTask extends JUnitTask
      * @param theWebXml The deployment descriptor
      * @return The mapping, or <code>null</code> if the JSP redirector is not
      *         defined or mapped in the descriptor
+     * @throws IOException If an I/O error occurred reading the WAR file
      */
-    private String getJspRedirectorMapping(JarFile theWar, WebXml theWebXml)
+    private String getJspRedirectorMapping(JarInputStream theWar,
+        WebXml theWebXml)
+        throws IOException
     {
         // To get the JSP redirector mapping, we must first get the full path to
         // the corresponding JSP file in the WAR
@@ -589,7 +597,8 @@ public class CactusTask extends JUnitTask
      * @return The mapping, or <code>null</code> if the servlet redirector is
      *         not defined or mapped in the descriptor
      */
-    private String getServletRedirectorMapping(JarFile theWar, WebXml theWebXml)
+    private String getServletRedirectorMapping(JarInputStream theWar,
+        WebXml theWebXml)
     {
         Iterator servletNames = theWebXml.getServletNamesForClass(
             "org.apache.cactus.server.ServletTestRedirector");

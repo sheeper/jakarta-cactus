@@ -66,10 +66,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.URL;
-import java.util.Enumeration;
 import java.util.Vector;
+import java.util.jar.JarInputStream;
 import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
 
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.filters.util.ChainReaderHelper;
@@ -248,17 +247,18 @@ public final class ResourceUtils
     /**
      * Returns the full path of a named resource in the web-application archive.
      * 
-     * @param theZipFile The zip file to search for the resource
+     * @param theJar The JAR file to search for the resource
      * @param theResourceName The name of the resource
      * @return The full path to the resource inside the JAR file
+     * @throws IOException If an I/O error occurred reading the JAR file
      */
-    public static String getResourcePath(ZipFile theZipFile,
+    public static String getResourcePath(JarInputStream theJar,
         String theResourceName)
+        throws IOException
     {
-        Enumeration entries = theZipFile.entries();
-        while (entries.hasMoreElements())
+        ZipEntry entry = null;
+        while ((entry = theJar.getNextEntry()) != null)
         {
-            ZipEntry entry = (ZipEntry) entries.nextElement();
             String entryName = entry.getName();
             int lastSlashIndex = entryName.lastIndexOf('/');
             if (lastSlashIndex >= 0)

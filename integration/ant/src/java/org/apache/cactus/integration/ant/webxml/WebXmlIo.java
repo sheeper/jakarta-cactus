@@ -56,13 +56,15 @@
  */
 package org.apache.cactus.integration.ant.webxml;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.jar.JarFile;
+import java.util.jar.JarInputStream;
 import java.util.zip.ZipEntry;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -161,22 +163,37 @@ public class WebXmlIo
      * @param theWar The web-app archive
      * @param theEntityResolver A SAX entity resolver, or <code>null</code> to
      *        use the default
-     * @return The parsed descriptor
+     * @return The parsed descriptor, or <code>null</code> if no descriptor was
+     *         found in the WAR
      * @throws SAXException If the descriptor could not be parsed
      * @throws ParserConfigurationException If the XML parser was not correctly
      *          configured
      * @throws IOException If an I/O error occurs
      */
-    public static WebXml parseWebXml(JarFile theWar,
-    EntityResolver theEntityResolver)
+    public static WebXml parseWebXmlFromWar(JarInputStream theWar,
+        EntityResolver theEntityResolver)
         throws SAXException, ParserConfigurationException, IOException
     {
         InputStream in = null;
         try
         {
-            ZipEntry webXmlEntry = theWar.getEntry("WEB-INF/web.xml");
-            in = theWar.getInputStream(webXmlEntry);
-            return parseWebXml(in, theEntityResolver);
+            ZipEntry zipEntry = null;
+            while ((zipEntry = theWar.getNextEntry()) != null)
+            {
+                if ("WEB-INF/web.xml".equals(zipEntry.getName()))
+                {
+                    ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+                    byte bytes[] = new byte[2048];
+                    int bytesRead = -1;
+                    while ((bytesRead = theWar.read(bytes)) != -1)
+                    {
+                        buffer.write(bytes, 0, bytesRead);
+                    }
+                    in = new ByteArrayInputStream(buffer.toByteArray());
+                    return parseWebXml(in, theEntityResolver);
+                }
+            }
+            return null;
         }
         finally
         {
