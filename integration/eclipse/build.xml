@@ -96,8 +96,6 @@
        ========================================================================
     -->
     <target name="init" depends="init.common,properties,check.properties">
-        <!-- Filters -->
-        <filter token="cactus.eclipseintegration.jar.name" value="${cactus.eclipseintegration.jar.name}"/>
     </target>
 
     <!--
@@ -235,7 +233,7 @@
             <fileset dir="${cactus.antintegration.bin}"/>
          </copy>
 
-        <copy todir="${dist.bin.integration.dir}/ant" filtering="on">
+        <copy todir="${dist.bin.integration.dir}/ant">
             <fileset dir="${src.scripts.dir}"/>
         </copy>
 
@@ -244,7 +242,7 @@
                 <include name="LICENSE.*"/>
             </fileset>
         </copy>
-        
+
     </target>
 
     <!--
