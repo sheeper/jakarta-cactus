@@ -68,12 +68,12 @@ import org.apache.tools.ant.types.Environment.Variable;
  * task.
  * 
  * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
+ * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
  */
 public interface Container
 {
-
     // Public Methods ----------------------------------------------------------
 
     /**
@@ -178,5 +178,4 @@ public interface Container
      * shutting down the container.
      */
     void shutDown();
-
 }
