@@ -59,6 +59,7 @@ import java.util.*;
 
 import org.apache.commons.cactus.*;
 import org.apache.commons.cactus.util.*;
+import org.apache.commons.cactus.util.log.*;
 
 /**
  * Default web response implementation that provides a minimal
@@ -72,6 +73,12 @@ import org.apache.commons.cactus.util.*;
  */
 public class WebResponse
 {
+    /**
+     * The logger
+     */
+    private static Log logger =
+        LogService.getInstance().getLog(WebResponse.class.getName());
+
     /**
      * The connection object that was used to call the URL
      */
@@ -162,6 +169,8 @@ public class WebResponse
      */
     public Hashtable getCookies()
     {
+        this.logger.entry("getCookies()");
+
         // We conform to the RFC 2109 :
         //
         //   The syntax for the Set-Cookie response header is
@@ -185,6 +194,9 @@ public class WebResponse
         String headerName = this.connection.getHeaderFieldKey(0);
         String headerValue = this.connection.getHeaderField(0);
         for (int i = 1; (headerName != null) || (headerValue != null); i++) {
+
+            this.logger.debug("Header name  = [" + headerName + "]");
+            this.logger.debug("Header value = [" + headerValue + "]");
 
             if ((headerName != null) && headerName.equals("Set-Cookie")) {
 
@@ -216,6 +228,7 @@ public class WebResponse
 
         }
 
+        this.logger.exit("getCookies");
         return cookies;
     }
 
@@ -225,8 +238,10 @@ public class WebResponse
      * @return a vector og <code>ClientCookie</code> objects containing the
      *         parsed values from the "Set-Cookie" header.
      */
-    private Vector parseSetCookieHeader(String theHeaderValue)
+    protected Vector parseSetCookieHeader(String theHeaderValue)
     {
+        this.logger.entry("parseSetCookieHeader([" + theHeaderValue + "])");
+
         String name;
         String value;
         String comment = null;
@@ -255,7 +270,7 @@ public class WebResponse
 
             int pos = param.indexOf("=");
             if (pos < 0) {
-                System.err.println("Bad 'Set-Cookie' syntax, missing '=' [" +
+                this.logger.warn("Bad 'Set-Cookie' syntax, missing '=' [" +
                     param + "], ignoring it !");
                 continue;
             }
@@ -294,7 +309,7 @@ public class WebResponse
                 } else if (left.equalsIgnoreCase("version")) {
                     version = Float.parseFloat(right);
                 } else {
-                    System.err.println("Bad 'Set-Cookie' syntax, bad name [" +
+                    this.logger.warn("Bad 'Set-Cookie' syntax, bad name [" +
                         param + "], ignoring it !");
                     continue;
                 }
@@ -308,6 +323,7 @@ public class WebResponse
             cookies.add(cookie);
         }
 
+        this.logger.exit("parseSetCookieHeader");
         return cookies;
     }
 
