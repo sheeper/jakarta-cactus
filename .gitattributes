@@ -357,7 +357,6 @@ sample-servlet/src/unit/share/org/apache/cactus/unit/TestServletTestCase3.java s
 sample-servlet/src/unit/share/org/apache/cactus/unit/TestServletTestCase4.java svn_keywords=Author+Date+Id+Revision
 sample-servlet/src/unit/share/org/apache/cactus/unit/TestServletTestCase5.java svn_keywords=Author+Date+Id+Revision
 sample-servlet/src/unit/share/org/apache/cactus/unit/TestServletTestCase5_InterceptorServletTestCase.java svn_keywords=Author+Date+Id+Revision
-sample-servlet/src/unit/share/org/apache/cactus/unit/TestServletTestCase_Authentication.java svn_keywords=Author+Date+Id+Revision
 sample-servlet/src/unit/share/org/apache/cactus/unit/TestServletTestCase_OverrideRedirector.java svn_keywords=Author+Date+Id+Revision
 sample-servlet/src/unit/share/org/apache/cactus/unit/TestServletTestCase_TestResult.java svn_keywords=Author+Date+Id+Revision
 sample-servlet/web/sample/test/test.jsp svn_keywords=Author+Date+Id+Revision

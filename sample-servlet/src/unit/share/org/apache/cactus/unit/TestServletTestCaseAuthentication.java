@@ -71,16 +71,16 @@ import org.apache.cactus.client.authentication.BasicAuthentication;
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
- * @version $Id$
+ * @version $Id: TestServletTestCase_Authentication.java,v 1.3 2002/07/21 10:52:41 vmassol Exp $
  */
-public class TestServletTestCase_Authentication extends ServletTestCase
+public class TestServletTestCaseAuthentication extends ServletTestCase
 {
     /**
      * Defines the testcase name for JUnit.
      *
      * @param theName the testcase's name.
      */
-    public TestServletTestCase_Authentication(String theName)
+    public TestServletTestCaseAuthentication(String theName)
     {
         super(theName);
     }
@@ -92,8 +92,8 @@ public class TestServletTestCase_Authentication extends ServletTestCase
      */
     public static void main(String[] theArgs)
     {
-        junit.swingui.TestRunner.main(new String[]{
-            TestServletTestCase_Authentication.class.getName()});
+        junit.swingui.TestRunner.main(new String[] { 
+            TestServletTestCaseAuthentication.class.getName() });
     }
 
     /**
@@ -103,13 +103,16 @@ public class TestServletTestCase_Authentication extends ServletTestCase
     public static Test suite()
     {
         // All methods starting with "test" will be executed in the test suite.
-        return new TestSuite(TestServletTestCase_Authentication.class);
+        return new TestSuite(TestServletTestCaseAuthentication.class);
     }
 
     //-------------------------------------------------------------------------
 
     /**
      * Verify basic authentication.
+     * 
+     * @param theRequest the request object that serves to initialize the
+     *                   HTTP connection to the server redirector.
      */
     public void beginBasicAuthentication(WebRequest theRequest)
     {
@@ -127,5 +130,4 @@ public class TestServletTestCase_Authentication extends ServletTestCase
         assertEquals("testuser", request.getRemoteUser());
         assertTrue("User not in 'test' role", request.isUserInRole("test"));
     }
-
 }

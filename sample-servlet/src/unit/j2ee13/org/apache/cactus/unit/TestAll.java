@@ -114,7 +114,7 @@ public class TestAll extends TestCase
             org.apache.cactus.unit.TestServletTestCase_OverrideRedirector
             .suite());
         suite.addTest(
-            org.apache.cactus.unit.TestServletTestCase_Authentication.suite());
+            org.apache.cactus.unit.TestServletTestCaseAuthentication.suite());
 
         // Test cases specific to Servlet API 2.3 only
         suite.addTest(
