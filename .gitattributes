@@ -465,6 +465,7 @@ integration/eclipse/org.apache.cactus.eclipse.runner/src/java/org/apache/cactus/
 integration/eclipse/org.apache.cactus.eclipse.site/.cvsignore svn_keywords=Author+Date+Id+Revision
 integration/eclipse/org.apache.cactus.eclipse.site/build.xml svn_keywords=Author+Date+Id+Revision
 integration/eclipse/org.apache.cactus.eclipse.site/site.xml svn_keywords=Author+Date+Id+Revision
+integration/eclipse/org.apache.cactus.eclipse.webapp/.checkstyle -text svneol=unset#application/octet-stream
 integration/eclipse/org.apache.cactus.eclipse.webapp/.classpath svn_keywords=Author+Date+Id+Revision
 integration/eclipse/org.apache.cactus.eclipse.webapp/.classpath.sample svn_keywords=Author+Date+Id+Revision
 integration/eclipse/org.apache.cactus.eclipse.webapp/.cvsignore svn_keywords=Author+Date+Id+Revision
