@@ -179,6 +179,16 @@
 
         <tr>
           <td>
+            01/12/2002
+          </td>
+          <td>
+            Added automatic script support for JBoss 3.x. They are delivered
+            as part of the Cactus distribution.
+          </td>
+        </tr>
+
+        <tr>
+          <td>
             07/11/2002
           </td>
           <td>
