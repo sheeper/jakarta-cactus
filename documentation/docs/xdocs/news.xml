@@ -34,6 +34,20 @@
 
         <tr>
           <td>
+            19/05/2002
+          </td>
+          <td>
+            New <link href="http://www-106.ibm.com/developerworks/java/library/j-aspectj2/?loc=j">Test
+            flexibly with AspectJ and mock objects</link> article by
+            <link href="mailto:ndlesiecki@apache.org">Nick Lesiecki</link> :
+            It demonstrates how to use AspectJ in association with Mock Objects
+            to provide greater test flexibility. It also shows how AspectJ can
+            complement Cactus tests.
+          </td>
+        </tr>
+
+        <tr>
+          <td>
             18/05/2002
           </td>
           <td>

@@ -21,6 +21,46 @@
             Link
           </td>
           <td>
+            <link href="http://www-106.ibm.com/developerworks/java/library/j-aspectj2/?loc=j">Test
+            flexibly with AspectJ and mock objects</link>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Type
+          </td>
+          <td>
+            Article
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Date
+          </td>
+          <td>
+            Submitted on May 2002
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Description
+          </td>
+          <td>
+            This article demonstrates how to use AspectJ in association
+            with Mock Objects to provide greater test flexibility. It also
+            demonstrates how AspectJ can complement Cactus tests.
+          </td>
+        </tr>
+      </table>
+
+      <p/>
+
+      <table>
+        <tr>
+          <td>
+            Link
+          </td>
+          <td>
             <link href="http://kacoma.sourceforge.net">KaCoMa</link>
           </td>
         </tr>
@@ -54,6 +94,7 @@
       </table>
 
       <p/>
+>>>>>>> 1.1.2.2
 
       <table>
         <tr>

@@ -276,10 +276,14 @@ cactus.filterRedirectorName = FilterRedirector
         <s3 title="log_client.properties">
 
           <p>
-            A default <code>log_client.properties</code> is already provided
-            in the <code>cactus.jar</code> jar. It is used for
-            configuring Log4j, which is the logging framework used by Cactus
-            to log debug information.
+            This file is used for configuring Log4j, which is the logging
+            framework used by Cactus to log debug information. A sample
+            <code>log_client.properties</code> is provided in the Cactus sample
+            application.
+          </p>
+          <p>
+            You should put this file in your client side classpath if you wish
+            to enable logging.
           </p>
           <p>
             If the Log4j jar is not present on the client side classpath,
@@ -300,7 +304,7 @@ cactus.filterRedirectorName = FilterRedirector
             </li>
           </ul>
           <p>
-            The default <code>log_client.properties</code> is :
+            The sample <code>log_client.properties</code> is :
           </p>
 
 <source><![CDATA[
@@ -326,14 +330,6 @@ log4j.additivity.org.apache.cactus=false
           <p>
             If you want to understand how to configure Log4j, go to the
             <link href="http://jakarta.apache.org/log4j">Log4j web site</link>.
-          </p>
-
-          <p>
-            If you wish to define another file name and location or other
-            logging parameter, just provide your own
-            <code>log_client.properties</code> file (it has to be named this
-            way) and put in the client side classpath <strong>before</strong>
-            the <code>cactus.jar</code> file.
           </p>
 
         </s3>
@@ -603,7 +599,7 @@ log4j.additivity.org.apache.cactus=false
             <jump anchor="client_log_client_properties">client side</jump>.
           </p>
           <p>
-            The default <code>log_server.properties</code> is :
+            The sample <code>log_server.properties</code> is :
           </p>
 
 <source><![CDATA[
@@ -625,19 +621,6 @@ log4j.rootCategory=DEBUG, cactus
 log4j.category.org.apache.cactus = WARN, cactus
 log4j.additivity.org.apache.cactus=false
 ]]></source>
-
-          <p>
-            If you wish to define another file name and location or other
-            logging parameter, just provide your own
-            <code>log_server.properties</code> file (it has to be named this
-            way) and put in the <code>WEB-INF/classes</code> directory of
-            your webapp (and hope that the webapp classloader of your server
-            picks up the files in <code>WEB-INF/classes</code> before the ones
-            in <code>WEB-INF/lib</code>, where <code>cactus.jar</code>
-            is located ... :) I don't know if this is part of the
-            specification). Alternatively, edit the file in
-            <code>cactus.jar</code> !
-          </p>
 
         </s3>
 

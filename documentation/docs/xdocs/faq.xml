@@ -36,6 +36,11 @@
           <jump anchor="faq5">The Ant runservertests task hangs when my server
           is started</jump>
         </li>
+        <li>
+          <jump anchor="faq6">I'm getting a
+          "<code>not a valid response</code> error message. What does it
+          mean ?</jump>
+        </li>
       </ul>
     </s1>
 
@@ -264,6 +269,41 @@ web application is built)
           <code>http://localhost:8080/webapp/ServletRedirector?Cactus_Service=RUN_TEST</code>.
           Of course replace <code>webapp</code> by your webapp context and
           replace the port by the one you're using.
+        </p>
+      </s2>
+
+    </s1>
+
+    <anchor id="faq6"/>
+    <s1 title="I'm getting a 'not a valid response' error message. What does it mean ?">
+
+      <s2 title="Question">
+        <p>
+         When I run my Cactus test, I'm getting the following :
+        </p>
+
+<source><![CDATA[
+testRequestDispatcherInclude(org.apache.cactus.sample.TestSampleServlet)
+  org.apache.cactus.util.ChainedRuntimeException:
+
+Not a valid response
+  at
+org.apache.cactus.client.WebTestResultParser.readRootElement(
+  WebTestResultParser.java;org/apache/cactus/util/log/LogAspect.java(1k):134)
+]]></source>
+
+      </s2>
+      <s2 title="Solution">
+        <p>
+          It means that Cactus could not connect to the server side properly.
+          There could several reasons for this : a valid Redirector URL but
+          not pointing to the Redirector, a secured resource, etc.
+        </p>
+        <p>
+          To easiest way to diagnosis the problem is to enable Cactus logging
+          (see the <link href="howto_config.html">Configuration Howto</link>
+          for how to do this). The cactus client log
+          (<code>cactus_client.log</code> will clearly give the error).
         </p>
       </s2>
 
