@@ -83,16 +83,6 @@ public class TestSampleBodyTag extends JspTestCase
     private BodyContent tagContent;
 
     /**
-     * Defines the testcase name for JUnit.
-     *
-     * @param theName the testcase's name.
-     */
-    public TestSampleBodyTag(String theName)
-    {
-        super(theName);
-    }
-
-    /**
      * In addition to creating the tag instance and adding the pageContext to
      * it, this method creates a BodyContent object and passes it to the tag.
      */

@@ -71,18 +71,6 @@ import org.apache.cactus.WebRequest;
 public class TestHttpRequestSpecific extends ServletTestCase
 {
     /**
-     * Defines the testcase name for JUnit.
-     *
-     * @param theName the testcase's name.
-     */
-    public TestHttpRequestSpecific(String theName)
-    {
-        super(theName);
-    }
-
-    //-------------------------------------------------------------------------
-
-    /**
      * Verify that <code>HttpServletRequest.getParameterMap()</code> works.
      *
      * @param theRequest the request object that serves to initialize the

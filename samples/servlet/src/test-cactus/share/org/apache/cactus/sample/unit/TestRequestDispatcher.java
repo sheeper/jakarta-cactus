@@ -75,18 +75,6 @@ import org.apache.cactus.WebResponse;
 public class TestRequestDispatcher extends ServletTestCase
 {
     /**
-     * Defines the testcase name for JUnit.
-     *
-     * @param theName the testcase's name.
-     */
-    public TestRequestDispatcher(String theName)
-    {
-        super(theName);
-    }
-
-    //-------------------------------------------------------------------------
-
-    /**
      * Verify that getNamedDispatcher() can be used to get a dispatcher.
      * 
      * @exception IOException on test failure

@@ -76,16 +76,6 @@ public class TestSampleTag extends JspTestCase
     private SampleTag tag;
 
     /**
-     * Defines the testcase name for JUnit.
-     *
-     * @param theName the testcase's name.
-     */
-    public TestSampleTag(String theName)
-    {
-        super(theName);
-    }
-
-    /**
      * @see TestCase#setUp()
      */
     public void setUp()

@@ -74,16 +74,6 @@ import org.apache.cactus.ServletTestCase;
 public class TestSampleServletConfig extends ServletTestCase
 {
     /**
-     * Defines the testcase name for JUnit.
-     *
-     * @param theName the testcase's name.
-     */
-    public TestSampleServletConfig(String theName)
-    {
-        super(theName);
-    }
-
-    /**
      * Verify that we can unit test a servlet that makes calls to
      * <code>getServletConfig()</code>, <code>getServletContext()</code>,
      * <code>log()</code>, ... (i.e. methods inherited from

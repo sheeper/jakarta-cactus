@@ -71,18 +71,6 @@ import org.apache.cactus.ServletTestCase;
 public class TestHttpUnitIntegration extends ServletTestCase
 {
     /**
-     * Defines the testcase name for JUnit.
-     *
-     * @param theName the testcase's name.
-     */
-    public TestHttpUnitIntegration(String theName)
-    {
-        super(theName);
-    }
-
-    //-------------------------------------------------------------------------
-
-    /**
      * Verify that the HttpUnit integration works.
      * 
      * @exception IOException on test failure

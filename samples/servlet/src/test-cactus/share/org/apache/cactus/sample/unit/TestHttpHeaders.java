@@ -70,18 +70,6 @@ import org.apache.cactus.WebResponse;
 public class TestHttpHeaders extends ServletTestCase
 {
     /**
-     * Defines the testcase name for JUnit.
-     *
-     * @param theName the testcase's name.
-     */
-    public TestHttpHeaders(String theName)
-    {
-        super(theName);
-    }
-
-    //-------------------------------------------------------------------------
-
-    /**
      * Verify that we can simulate several HTTP header values with the same
      * header name.
      *

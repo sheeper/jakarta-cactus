@@ -74,18 +74,6 @@ import org.apache.cactus.ServletTestCase;
 public class TestClientServerSynchronization extends ServletTestCase
 {
     /**
-     * Defines the testcase name for JUnit.
-     *
-     * @param theName the testcase's name.
-     */
-    public TestClientServerSynchronization(String theName)
-    {
-        super(theName);
-    }
-
-    //-------------------------------------------------------------------------
-
-    /**
      * Verify that the test result can be returned correctly even when the
      * logic in the method to test takes a long time and thus it verifies that
      * the test result is only returned after it has been written in the

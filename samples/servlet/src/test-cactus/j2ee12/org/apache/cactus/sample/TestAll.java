@@ -70,16 +70,6 @@ import junit.framework.TestSuite;
 public class TestAll extends TestCase
 {
     /**
-     * Defines the testcase name for JUnit.
-     *
-     * @param theName the testcase's name.
-     */
-    public TestAll(String theName)
-    {
-        super(theName);
-    }
-
-    /**
      * @return a test suite (<code>TestSuite</code>) that includes all methods
      *         starting with "test"
      */

@@ -78,16 +78,6 @@ public class TestGlobalBeginEnd extends ServletTestCase
     private boolean isClientGlobalEndCalled;
 
     /**
-     * Defines the testcase name for JUnit.
-     *
-     * @param theName the testcase's name.
-     */
-    public TestGlobalBeginEnd(String theName)
-    {
-        super(theName);
-    }
-
-    /**
      * Verifies that <code>end()</code> has been called correctly.
      * 
      * @exception Throwable on test failure

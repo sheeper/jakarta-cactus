@@ -74,18 +74,6 @@ import org.apache.cactus.server.wrapper.ServletContextWrapper;
 public class TestServletConfig extends ServletTestCase
 {
     /**
-     * Defines the testcase name for JUnit.
-     *
-     * @param theName the testcase's name.
-     */
-    public TestServletConfig(String theName)
-    {
-        super(theName);
-    }
-
-    //-------------------------------------------------------------------------
-
-    /**
      * Verify that we can add parameters to the config list of parameters
      * programatically, without having to define them in <code>web.xml</code>.
      */

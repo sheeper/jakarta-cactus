@@ -69,18 +69,6 @@ import org.apache.cactus.WebRequest;
 public class TestHttpParameters extends ServletTestCase
 {
     /**
-     * Defines the testcase name for JUnit.
-     *
-     * @param theName the testcase's name.
-     */
-    public TestHttpParameters(String theName)
-    {
-        super(theName);
-    }
-
-    //-------------------------------------------------------------------------
-
-    /**
      * Verify that multi value parameters can be sent in the
      * <code>beingXXX()</code> method to the server redirector.
      *

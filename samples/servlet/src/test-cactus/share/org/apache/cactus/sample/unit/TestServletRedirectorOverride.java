@@ -70,18 +70,6 @@ import org.apache.cactus.WebRequest;
 public class TestServletRedirectorOverride extends ServletTestCase
 {
     /**
-     * Defines the testcase name for JUnit.
-     *
-     * @param theName the testcase's name.
-     */
-    public TestServletRedirectorOverride(String theName)
-    {
-        super(theName);
-    }
-
-    //-------------------------------------------------------------------------
-
-    /**
      * Verify that it is possible to override the default redirector.
      *
      * @param theRequest the request object that serves to initialize the

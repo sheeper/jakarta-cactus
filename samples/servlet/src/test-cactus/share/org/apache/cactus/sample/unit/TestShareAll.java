@@ -71,16 +71,6 @@ import junit.framework.TestSuite;
 public abstract class TestShareAll extends TestCase
 {
     /**
-     * Defines the testcase name for JUnit.
-     *
-     * @param theName the testcase's name.
-     */
-    public TestShareAll(String theName)
-    {
-        super(theName);
-    }
-
-    /**
      * @return a test suite (<code>TestSuite</code>) that includes all shared
      *          tests
      */

@@ -71,16 +71,6 @@ import junit.framework.AssertionFailedError;
 public class TestTearDownException extends ServletTestCase
 {
     /**
-     * Defines the testcase name for JUnit.
-     *
-     * @param theName the testcase's name.
-     */
-    public TestTearDownException(String theName)
-    {
-        super(theName);
-    }
-
-    /**
      * Intercepts running test cases to check for normal exceptions.
      */
     protected void runTest()

@@ -71,18 +71,6 @@ import org.apache.cactus.WebResponse;
 public class TestHttpSession extends ServletTestCase
 {
     /**
-     * Defines the testcase name for JUnit.
-     *
-     * @param theName the testcase's name.
-     */
-    public TestHttpSession(String theName)
-    {
-        super(theName);
-    }
-
-    //-------------------------------------------------------------------------
-
-    /**
      * Verify that it is possible to ask for no automatic session creation in
      * the <code>beginXXX()</code> method.
      *

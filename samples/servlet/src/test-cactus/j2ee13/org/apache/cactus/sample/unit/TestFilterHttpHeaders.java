@@ -70,18 +70,6 @@ import com.meterware.httpunit.WebResponse;
 public class TestFilterHttpHeaders extends FilterTestCase
 {
     /**
-     * Constructor.
-     * 
-     * @param theName The name of the test case
-     */
-    public TestFilterHttpHeaders(String theName)
-    {
-        super(theName);
-    }
-    
-    //-------------------------------------------------------------------------
-   
-    /**
      * Verify headers can be set in a Filter test case and retrieved using
      * HttpUnit.
      */

@@ -69,18 +69,6 @@ import org.apache.cactus.WebRequest;
 public class TestCookie extends ServletTestCase
 {
     /**
-     * Defines the testcase name for JUnit.
-     *
-     * @param theName the testcase's name.
-     */
-    public TestCookie(String theName)
-    {
-        super(theName);
-    }
-
-    //-------------------------------------------------------------------------
-
-    /**
      * Verify that special characters in cookies are not URL encoded
      *
      * @param theRequest the request object that serves to initialize the

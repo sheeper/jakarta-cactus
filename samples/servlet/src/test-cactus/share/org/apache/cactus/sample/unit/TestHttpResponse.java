@@ -79,18 +79,6 @@ import org.apache.cactus.WebResponse;
 public class TestHttpResponse extends ServletTestCase
 {
     /**
-     * Defines the testcase name for JUnit.
-     *
-     * @param theName the testcase's name.
-     */
-    public TestHttpResponse(String theName)
-    {
-        super(theName);
-    }
-
-    //-------------------------------------------------------------------------
-
-    /**
      * Verify that it is possible to write to the servlet output stream.
      * 
      * @exception IOException on test failure

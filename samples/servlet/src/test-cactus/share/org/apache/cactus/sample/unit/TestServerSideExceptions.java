@@ -79,16 +79,6 @@ import junit.framework.AssertionFailedError;
 public class TestServerSideExceptions extends ServletTestCase
 {
     /**
-     * Defines the testcase name for JUnit.
-     *
-     * @param theName the testcase's name.
-     */
-    public TestServerSideExceptions(String theName)
-    {
-        super(theName);
-    }
-
-    /**
      * Not serializable exception.
      */
     public class NotSerializableException extends Exception

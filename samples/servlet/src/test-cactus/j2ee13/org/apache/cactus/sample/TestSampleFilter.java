@@ -79,18 +79,6 @@ import org.apache.cactus.WebResponse;
 public class TestSampleFilter extends FilterTestCase
 {
     /**
-     * Defines the testcase name for JUnit.
-     *
-     * @param theName the testcase's name.
-     */
-    public TestSampleFilter(String theName)
-    {
-        super(theName);
-    }
-
-    //-------------------------------------------------------------------------
-
-    /**
      * Test that adding a header to the output stream is working fine when
      * a header parameter is defined.
      * 

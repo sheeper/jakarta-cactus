@@ -69,18 +69,6 @@ import org.apache.cactus.WebRequest;
 public class TestSetURL extends ServletTestCase
 {
     /**
-     * Defines the testcase name for JUnit.
-     *
-     * @param theName the testcase's name.
-     */
-    public TestSetURL(String theName)
-    {
-        super(theName);
-    }
-
-    //-------------------------------------------------------------------------
-
-    /**
      * Verify that we can simulate the basic parts of the URL : server name,
      * default server port of 80, root servlet context, URI.
      *

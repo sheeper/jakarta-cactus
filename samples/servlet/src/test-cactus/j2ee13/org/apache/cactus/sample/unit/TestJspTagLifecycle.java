@@ -90,18 +90,6 @@ import org.apache.taglibs.standard.tag.el.core.WhenTag;
  */
 public class TestJspTagLifecycle extends JspTestCase
 {   
-    // Constructors ------------------------------------------------------------
-    
-    /**
-     * Constructor.
-     * 
-     * @param theName The name of the test case
-     */
-    public TestJspTagLifecycle(String theName)
-    {
-        super(theName);
-    }
-    
     // Test Methods ------------------------------------------------------------
     
     /**

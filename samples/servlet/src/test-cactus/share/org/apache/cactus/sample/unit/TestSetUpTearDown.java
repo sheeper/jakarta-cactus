@@ -70,18 +70,6 @@ import org.apache.cactus.WebResponse;
 public class TestSetUpTearDown extends ServletTestCase
 {
     /**
-     * Defines the testcase name for JUnit.
-     *
-     * @param theName the testcase's name.
-     */
-    public TestSetUpTearDown(String theName)
-    {
-        super(theName);
-    }
-
-    //-------------------------------------------------------------------------
-
-    /**
      * Put a value in the session to verify that this method is called prior
      * to the test, and that it can access servlet implicit objects.
      */

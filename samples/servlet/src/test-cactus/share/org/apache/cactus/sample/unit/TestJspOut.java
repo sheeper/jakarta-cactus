@@ -72,18 +72,6 @@ import org.apache.cactus.WebResponse;
 public class TestJspOut extends JspTestCase
 {
     /**
-     * Defines the testcase name for JUnit.
-     *
-     * @param theName the testcase's name.
-     */
-    public TestJspOut(String theName)
-    {
-        super(theName);
-    }
-
-    //-------------------------------------------------------------------------
-
-    /**
      * Verify that we can write some text to the output Jsp writer.
      * 
      * @exception IOException on test failure

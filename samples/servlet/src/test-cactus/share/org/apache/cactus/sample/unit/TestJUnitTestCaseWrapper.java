@@ -72,16 +72,6 @@ import junit.framework.TestCase;
 public class TestJUnitTestCaseWrapper extends TestCase
 {
     /**
-     * Defines the testcase name for JUnit.
-     *
-     * @param theName the testcase's name.
-     */
-    public TestJUnitTestCaseWrapper(String theName)
-    {
-        super(theName);
-    }
-
-    /**
      * Runs this pure JUnit Test Case with Cactus, wrapping it in
      * a Servlet Test Case.
      * 

@@ -73,18 +73,6 @@ import org.apache.cactus.WebRequest;
 public class TestHttpRequest extends ServletTestCase
 {
     /**
-     * Defines the testcase name for JUnit.
-     *
-     * @param theName the testcase's name.
-     */
-    public TestHttpRequest(String theName)
-    {
-        super(theName);
-    }
-
-    //-------------------------------------------------------------------------
-
-    /**
      * Verify that <code>HttpServletRequestWrapper.getPathTranslated()</code>
      * takes into account the simulated URL (if any).
      *

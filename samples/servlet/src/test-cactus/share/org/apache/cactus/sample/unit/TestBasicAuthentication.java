@@ -70,18 +70,6 @@ import org.apache.cactus.client.authentication.BasicAuthentication;
 public class TestBasicAuthentication extends ServletTestCase
 {
     /**
-     * Defines the testcase name for JUnit.
-     *
-     * @param theName the testcase's name.
-     */
-    public TestBasicAuthentication(String theName)
-    {
-        super(theName);
-    }
-
-    //-------------------------------------------------------------------------
-
-    /**
      * Verify basic authentication.
      * 
      * @param theRequest the request object that serves to initialize the
