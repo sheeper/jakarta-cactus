@@ -16,15 +16,13 @@
      * JspWriter).
      */
 
-    JspTestCaller caller = new JspTestCaller();
-
     JspImplicitObjects objects = new JspImplicitObjects();
-    objects.m_Config = config;
-    objects.m_Request = request;
-    objects.m_Response = response;
-    objects.m_PageContext = pageContext;
-    objects.m_JspWriter = out;
+    objects.setHttpServletRequest(request);
+    objects.setHttpServletResponse(response);
+    objects.setServletConfig(config);
+    objects.setJspWriter(out);
+    objects.setPageContext(pageContext);
 
-    caller.doTest(objects);
-
+    JspTestRedirector redirector = new JspTestRedirector();
+    redirector.doGet(objects);
 %>
