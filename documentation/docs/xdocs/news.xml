@@ -32,6 +32,29 @@
 
         <tr>
           <td>
+            05/01/2003
+          </td>
+          <td>
+            <link href="http://strutstestcase.sourceforge.net">StrutsTestCase</link> v1.9.5 
+            has been released. It improves support for Struts 1.1b3 (including support for 
+            testing Tiles and sub-applications), provides several requested enhancements, 
+            and fixes many reported defects.
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            28/12/2002
+          </td>
+          <td>
+            <link href="http://www.ehatchersolutions.com/JavaDevWithAnt/">
+            JavaDevWithAnt</link>. Project demonstrating Ant, XDoclet, Struts, 
+            JUnit, Cactus, and Lucene.
+          </td>
+        </tr>
+
+        <tr>
+          <td>
             28/06/2002
           </td>
           <td>
