@@ -60,6 +60,7 @@ import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 
 import org.apache.cactus.eclipse.containers.IContainerProvider;
+import org.apache.cactus.eclipse.ui.CactusMessages;
 import org.apache.cactus.eclipse.ui.CactusPlugin;
 import org.apache.cactus.eclipse.ui.CactusPreferences;
 import org.eclipse.core.runtime.CoreException;
@@ -113,9 +114,14 @@ public class CactusLaunchShortcut
     }
 
     /**
-     * @see JUnitLaunchShortcut#launchType(Object[], String)
+     * launches a Java type from the Object array.
+     * If many test items exist in the array, we call chooseType
+     * to select the type to launch.
+     * Otherwise we launch the type to test.
+     * @param theSearch array of possible types to launch
+     * @param theMode mode for the configuration
      */
-    protected void launchType(Object[] theSearch, String mode)
+    protected void launchType(Object[] theSearch, String theMode)
     {
         IType[] types = null;
         try
@@ -127,12 +133,10 @@ public class CactusLaunchShortcut
         }
         catch (InterruptedException e)
         {
-            JUnitPlugin.log(e);
             return;
         }
         catch (InvocationTargetException e)
         {
-            JUnitPlugin.log(e);
             return;
         }
         IType type = null;
@@ -140,12 +144,12 @@ public class CactusLaunchShortcut
         {
             MessageDialog.openInformation(
                 getShell(),
-                JUnitMessages.getString("LaunchTestAction.dialog.title"),
-                JUnitMessages.getString("LaunchTestAction.message.notests"));
+                CactusMessages.getString("LaunchTestAction.dialog.title"),
+                CactusMessages.getString("LaunchTestAction.message.notests"));
         }
         else if (types.length > 1)
         {
-            type = chooseType(types, mode);
+            type = chooseType(types, theMode);
         }
         else
         {
@@ -153,46 +157,43 @@ public class CactusLaunchShortcut
         }
         if (type != null)
         {
-            launch(type, mode);
+            launch(type, theMode);
         }
     }
 
     /**
-     * @see JUnitLaunchShortcut#launch(IType, String)
+     * Launches the Cactus tests for the given type and mode.
+     * We prepare for testing (war creation, container setup)
+     * Then we launch the JUnit testing
+     * Finally we launch the JUnitViewFinder which adds the current
+     * CactusLaunchShortcut instance as a listener to test ending.
+     * @param theType test or test suite to launch
+     * @param theMode mode for launch configuration
      */
-    private void launch(IType type, String mode)
+    private void launch(IType theType, String theMode)
     {
-        prepareCactusTests(type);
-        ILaunchConfiguration config = findLaunchConfiguration(type, mode);
-        launchConfiguration(mode, config);
+        prepareCactusTests(theType);
+        ILaunchConfiguration config = findLaunchConfiguration(theType, theMode);
+        if (config != null)
+        {
+            try
+            {
+                config.launch(theMode, null);
+            }
+            catch (CoreException e)
+            {
+                ErrorDialog.openError(
+                    getShell(),
+                    CactusMessages.getString(
+                        "LaunchTestAction.message.launchFailed"),
+                    e.getMessage(),
+                    e.getStatus());
+            }
+        }
         IWorkbenchPage wbPage = JUnitPlugin.getDefault().getActivePage();
         JUnitViewFinder finder = new JUnitViewFinder(wbPage, this);
         Thread theThread = new Thread(finder);
         theThread.start();
-    }
-
-    /**
-     * @see JUnitLaunchShortcut#launchConfiguration(String, ILaunchConfiguration)
-     */
-    private void launchConfiguration(String mode, ILaunchConfiguration config)
-    {
-        try
-        {
-            if (config != null)
-            {
-                DebugUITools.saveAndBuildBeforeLaunch();
-                config.launch(mode, null);
-            }
-        }
-        catch (CoreException e)
-        {
-            ErrorDialog.openError(
-                getShell(),
-                JUnitMessages.getString(
-                    "LaunchTestAction.message.launchFailed"),
-                e.getMessage(),
-                e.getStatus());
-        }
     }
 
     /**
@@ -240,22 +241,25 @@ public class CactusLaunchShortcut
     /**
      * @see org.eclipse.jdt.internal.junit.runner.ITestRunListener#testRunStarted(int)
      */
-    public void testRunStarted(int testCount)
+    public void testRunStarted(int theTestCount)
     {
     }
 
     /**
-     * @see org.eclipse.jdt.internal.junit.runner.ITestRunListener#testRunEnded(long)
+     * Test run has ended so we tear down the container setup.
+     * @param theElapsedTime not used here
      */
-    public void testRunEnded(long elapsedTime)
+    public void testRunEnded(long theElapsedTime)
     {
         teardownCactusTests();
     }
 
     /**
-     * @see org.eclipse.jdt.internal.junit.runner.ITestRunListener#testRunStopped(long)
+     * If test run has stopped we have to do the same thing
+     * as if the test run had ended normally.
+     * @param theElapsedTime not used here
      */
-    public void testRunStopped(long elapsedTime)
+    public void testRunStopped(long theElapsedTime)
     {
         testRunEnded(0);
     }
@@ -263,33 +267,34 @@ public class CactusLaunchShortcut
     /**
      * @see org.eclipse.jdt.internal.junit.runner.ITestRunListener#testStarted(java.lang.String)
      */
-    public void testStarted(String testName)
+    public void testStarted(String theTestName)
     {
     }
 
     /**
      * @see org.eclipse.jdt.internal.junit.runner.ITestRunListener#testEnded(java.lang.String)
      */
-    public void testEnded(String testName)
+    public void testEnded(String theTestName)
     {
     }
 
     /**
      * @see org.eclipse.jdt.internal.junit.runner.ITestRunListener#testFailed(int, java.lang.String, java.lang.String)
      */
-    public void testFailed(int status, String testName, String trace)
+    public void testFailed(int theStatus, String theTestName, String theTrace)
     {
     }
 
     /**
      * @see org.eclipse.jdt.internal.junit.runner.ITestRunListener#testTreeEntry(java.lang.String)
      */
-    public void testTreeEntry(String entry)
+    public void testTreeEntry(String theEntry)
     {
     }
 
     /**
-     * @see org.eclipse.jdt.internal.junit.runner.ITestRunListener#testRunTerminated()
+     * If test run has been terminated we have to do the same thing
+     * as if the test run had ended normally.
      */
     public void testRunTerminated()
     {
@@ -300,10 +305,10 @@ public class CactusLaunchShortcut
      * @see org.eclipse.jdt.internal.junit.runner.ITestRunListener#testReran(java.lang.String, java.lang.String, int, java.lang.String)
      */
     public void testReran(
-        String testClass,
-        String testName,
-        int status,
-        String trace)
+        String theTestClass,
+        String theTestName,
+        int theStatus,
+        String theTrace)
     {
     }
 
