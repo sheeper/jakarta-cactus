@@ -34,14 +34,18 @@
 
         <java jvm="${cactus.jvm}" classname="org.apache.tomcat.startup.Main" 
             fork="yes">
-            <jvmarg value="-Dtomcat.home=${cactus.target.tomcat3x}"/>
-            <jvmarg value="-Dtomcat.install=${cactus.home.tomcat3x}"/>
-            <arg value="start"/>
+
+            <sysproperty key="tomcat.home" file="${cactus.target.tomcat3x}"/>
+            <sysproperty key="tomcat.install" file="${cactus.home.tomcat3x}"/>
+
             <classpath>
                 <fileset dir="${cactus.home.tomcat3x}/lib">
                     <include name="tomcat.jar"/>
                 </fileset>
             </classpath>
+
+            <arg value="start"/>
+
         </java>
 
     </target>
@@ -56,14 +60,18 @@
 
         <java jvm="${cactus.jvm}" classname="org.apache.tomcat.startup.Main" 
             fork="yes">
-            <jvmarg value="-Dtomcat.home=${cactus.target.tomcat3x}"/>
-            <jvmarg value="-Dtomcat.install=${cactus.home.tomcat3x}"/>
-            <arg value="stop"/>
+
+            <sysproperty key="tomcat.home" file="${cactus.target.tomcat3x}"/>
+            <sysproperty key="tomcat.install" file="${cactus.home.tomcat3x}"/>
+
             <classpath>
                 <fileset dir="${cactus.home.tomcat3x}/lib">
                     <include name="tomcat.jar"/>
                 </fileset>
             </classpath>
+
+            <arg value="stop"/>
+
         </java>
 
     </target>
@@ -76,12 +84,12 @@
     -->
     <target name="cactus.check.tomcat3x" unless="cactus.home.tomcat3x">
 
-        <echo message=""/>
-        <echo message="******************************************************"/>
-        <echo message="WARNING : The 'cactus.home.tomcat3x' property has not"/>
-        <echo message="been set. No test will be run on that servlet engine."/>
-        <echo message="******************************************************"/>
-        <echo message=""/>
+        <echo></echo>
+        <echo>******************************************************</echo>
+        <echo>WARNING : The 'cactus.home.tomcat3x' property has not</echo>
+        <echo>been set. No test will be run on that servlet engine.</echo>
+        <echo>******************************************************</echo>
+        <echo></echo>
 
     </target>
 

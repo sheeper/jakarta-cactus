@@ -51,22 +51,22 @@ WL 7.x under JDK 1.4+. Please submit a patch!</fail>
         <java jvm="${cactus.jvm}" classname="weblogic.Server" fork="yes"
             dir="${cactus.target.weblogic7x}/testdomain">
 
+            <jvmarg value="-hotspot"/>
+            <jvmarg value="-ms64m"/>
+            <jvmarg value="-mx64m"/>
+
+            <sysproperty key="java.library.path" path="${cactus.weblogic7x.java.library.path}"/>
+            <sysproperty key="weblogic.Name" value="testserver"/>
+            <sysproperty key="bea.home" file="${cactus.home.weblogic7x}"/>
+            <sysproperty key="weblogic.management.username" value="system"/>
+            <sysproperty key="weblogic.management.password" value="password"/>
+            <sysproperty key="java.security.policy" value="=./server/lib/weblogic.policy"/>
+
             <classpath>
                 <pathelement location="${cactus.weblogic7x.server}/lib/weblogic_sp.jar"/>
                 <pathelement location="${cactus.weblogic7x.server}/lib/weblogic.jar"/>
             </classpath>
             
-            <jvmarg value="-hotspot"/>
-            <jvmarg value="-ms64m"/>
-            <jvmarg value="-mx64m"/>
-
-            <jvmarg value="-Djava.library.path=${cactus.weblogic7x.java.library.path}"/>
-            <jvmarg value="-Dweblogic.Name=testserver"/>
-            <jvmarg value="-Dbea.home=${cactus.home.weblogic7x}"/>
-            <jvmarg value="-Dweblogic.management.username=system"/>
-            <jvmarg value="-Dweblogic.management.password=password"/>
-            <jvmarg value="-Djava.security.policy==./server/lib/weblogic.policy"/>
-
         </java>
 
     </target>
@@ -103,12 +103,12 @@ WL 7.x under JDK 1.4+. Please submit a patch!</fail>
     -->
     <target name="cactus.check.weblogic7x" unless="cactus.home.weblogic7x">
 
-        <echo message=""/>
-        <echo message="******************************************************"/>
-        <echo message="WARNING : The 'cactus.home.weblogic7x' property has not"/>
-        <echo message="been set. No test will be run on that servlet engine."/>
-        <echo message="******************************************************"/>
-        <echo message=""/>
+        <echo></echo>
+        <echo>******************************************************</echo>
+        <echo>WARNING : The 'cactus.home.weblogic7x' property has not</echo>
+        <echo>been set. No test will be run on that servlet engine.</echo>
+        <echo>******************************************************</echo>
+        <echo></echo>
 
     </target>
 

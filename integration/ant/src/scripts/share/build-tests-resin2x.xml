@@ -32,7 +32,8 @@
     <target name="cactus.start.resin2x" description="Start Resin 2.x"
         depends="cactus.check.resin2x" if="cactus.home.resin2x">
 
-        <java jvm="${cactus.jvm}" classname="org.apache.cactus.integration.ant.ResinRun" 
+        <java jvm="${cactus.jvm}"
+            classname="org.apache.cactus.integration.ant.ResinRun"
             fork="yes">
 
             <arg value="-start"/>
@@ -42,7 +43,7 @@
 
             <!-- Needed so that Resin use the cactus.home.resin2x variable as 
                  it's root directory for resolving file paths -->
-            <jvmarg value="-Dresin.home=${cactus.target.resin2x}"/>
+            <sysproperty key="resin.home" file="${cactus.target.resin2x}"/>
 
             <classpath>
                 <pathelement location="${cactus.antintegration.jar}"/>
@@ -87,12 +88,12 @@
     -->
     <target name="cactus.check.resin2x" unless="cactus.home.resin2x">
 
-        <echo message=""/>
-        <echo message="******************************************************"/>
-        <echo message="WARNING : The 'cactus.home.resin2x' property has not"/>
-        <echo message="been set. No test will be run on that servlet engine."/>
-        <echo message="******************************************************"/>
-        <echo message=""/>
+        <echo></echo>
+        <echo>******************************************************</echo>
+        <echo>WARNING : The 'cactus.home.resin2x' property has not</echo>
+        <echo>been set. No test will be run on that servlet engine.</echo>
+        <echo>******************************************************</echo>
+        <echo></echo>
 
     </target>
 
@@ -133,7 +134,8 @@
          Clean generated files (including distributables)
        ========================================================================
     -->
-    <target name="cactus.clean.resin2x" depends="cactus.init, cactus.clean" description="Clean target directory">
+    <target name="cactus.clean.resin2x" depends="cactus.init, cactus.clean"
+        description="Clean target directory">
         <delete includeEmptyDirs="true">
             <fileset dir="${cactus.target.resin2x}"/>
         </delete>

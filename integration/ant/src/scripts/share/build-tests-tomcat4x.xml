@@ -34,19 +34,18 @@
 
         <java jvm="${cactus.jvm}" classname="org.apache.catalina.startup.Bootstrap" fork="yes">
 
-            <jvmarg value="-Dcatalina.home=${cactus.home.tomcat4x}"/>
-            <jvmarg value="-Dcatalina.base=${cactus.target.tomcat4x}"/>
-
+            <sysproperty key="catalina.home" file="${cactus.home.tomcat4x}"/>
+            <sysproperty key="catalina.base" file="${cactus.target.tomcat4x}"/>
             <arg value="start"/>
-            <classpath>
 
+            <classpath>
               <!-- These are ignored if -Dbuild.sysclasspath=only is used -->
               <pathelement path="${java.home}/../lib/tools.jar"/>
               <fileset dir="${cactus.home.tomcat4x}">
                   <include name="bin/bootstrap.jar"/>
               </fileset>
-
             </classpath>
+
         </java>
 
     </target>
@@ -60,8 +59,9 @@
         depends="cactus.check.tomcat4x" if="cactus.home.tomcat4x">
 
         <java jvm="${cactus.jvm}" classname="org.apache.catalina.startup.Bootstrap" fork="yes">
-            <jvmarg value="-Dcatalina.home=${cactus.home.tomcat4x}"/>
-            <jvmarg value="-Dcatalina.base=${cactus.target.tomcat4x}"/>
+
+            <sysproperty key="catalina.home" file="${cactus.home.tomcat4x}"/>
+            <sysproperty key="catalina.base" file="${cactus.target.tomcat4x}"/>
             <arg value="stop"/>
 
             <classpath>
@@ -71,6 +71,7 @@
                   <include name="bin/bootstrap.jar"/>
               </fileset>
             </classpath>
+
         </java>
 
     </target>
@@ -83,12 +84,12 @@
     -->
     <target name="cactus.check.tomcat4x" unless="cactus.home.tomcat4x">
 
-        <echo message=""/>
-        <echo message="******************************************************"/>
-        <echo message="WARNING : The 'cactus.home.tomcat4x' property has not"/>
-        <echo message="been set. No test will be run on that servlet engine."/>
-        <echo message="******************************************************"/>
-        <echo message=""/>
+        <echo></echo>
+        <echo>******************************************************</echo>
+        <echo>WARNING : The 'cactus.home.tomcat4x' property has not</echo>
+        <echo>been set. No test will be run on that servlet engine.</echo>
+        <echo>******************************************************</echo>
+        <echo></echo>
 
     </target>
 

@@ -32,16 +32,19 @@
     <target name="cactus.start.orion1x" description="Start Orion 1.x"
         depends="cactus.check.orion1x" if="cactus.home.orion1x">
 
-        <java jvm="${cactus.jvm}" classname="com.evermind.server.ApplicationServer" 
+        <java jvm="${cactus.jvm}"
+            classname="com.evermind.server.ApplicationServer" 
             fork="yes">
             
             <arg value="-config"/>
-            <arg value="${cactus.target.orion1x}/conf/server.xml"/>
+            <arg file="${cactus.target.orion1x}/conf/server.xml"/>
+
             <classpath>
               <fileset dir="${cactus.home.orion1x}">
                   <include name="*.jar"/>
               </fileset>
             </classpath>
+
         </java>
 
     </target>
@@ -54,13 +57,15 @@
     <target name="cactus.stop.orion1x" description="Stop Orion 1.x"
         depends="cactus.check.orion1x" if="cactus.home.orion1x">
 
-        <java jvm="${cactus.jvm}" classname="com.evermind.client.orion.OrionConsoleAdmin"
+        <java jvm="${cactus.jvm}"
+            classname="com.evermind.client.orion.OrionConsoleAdmin"
             fork="yes">
 
             <arg value="ormi://localhost:23791/"/>
             <arg value="admin"/>
             <arg value="password"/>
             <arg value="-shutdown"/>
+
             <classpath>
               <fileset dir="${cactus.home.orion1x}">
                   <include name="*.jar"/>
@@ -78,12 +83,12 @@
     -->
     <target name="cactus.check.orion1x" unless="cactus.home.orion1x">
 
-        <echo message=""/>
-        <echo message="******************************************************"/>
-        <echo message="WARNING : The 'cactus.home.orion1x' property has not"/>
-        <echo message="been set. No test will be run on that servlet engine."/>
-        <echo message="******************************************************"/>
-        <echo message=""/>
+        <echo></echo>
+        <echo>******************************************************</echo>
+        <echo>WARNING : The 'cactus.home.orion1x' property has not</echo>
+        <echo>been set. No test will be run on that servlet engine.</echo>
+        <echo>******************************************************</echo>
+        <echo></echo>
 
     </target>
 
@@ -130,7 +135,8 @@
          Clean generated files (including distributables)
        ========================================================================
     -->
-    <target name="cactus.clean.orion1x" depends="cactus.init, cactus.clean" description="Clean target directory">
+    <target name="cactus.clean.orion1x" depends="cactus.init, cactus.clean"
+        description="Clean target directory">
         <delete includeEmptyDirs="true">
             <fileset dir="${cactus.target.orion1x}"/>
         </delete>

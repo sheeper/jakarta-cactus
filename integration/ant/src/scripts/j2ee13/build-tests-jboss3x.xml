@@ -44,9 +44,12 @@
         <java jvm="${cactus.jvm}" classname="org.jboss.Main" fork="yes"
           dir="${cactus.home.jboss3x}/bin">
 
-            <jvmarg value="-Dprogram.name=${cactus.home.jboss3x}/bin/run.bat"/>
-            <jvmarg value="-Djboss.server.home.dir=${cactus.jboss3x.config.dir}/${cactus.jboss3x.config.name}"/>
-            <jvmarg value="-Djboss.server.home.url=file:/${cactus.jboss3x.config.dir}/${cactus.jboss3x.config.name}"/>
+            <sysproperty key="program.name"
+                file="${cactus.home.jboss3x}/bin/run.bat"/>
+            <sysproperty key="jboss.server.home.dir"
+                file="${cactus.jboss3x.config.dir}/${cactus.jboss3x.config.name}"/>
+            <sysproperty key="jboss.server.home.url"
+                value="file:/${cactus.jboss3x.config.dir}/${cactus.jboss3x.config.name}"/>
              
             <arg line="-c ${cactus.jboss3x.config.name}"/>
             
@@ -88,12 +91,12 @@
     -->
     <target name="cactus.check.jboss3x" unless="cactus.home.jboss3x">
 
-        <echo message=""/>
-        <echo message="******************************************************"/>
-        <echo message="WARNING : The 'cactus.home.jboss3x' property has not"/>
-        <echo message="been set. No test will be run on that container."/>
-        <echo message="******************************************************"/>
-        <echo message=""/>
+        <echo></echo>
+        <echo>******************************************************</echo>
+        <echo>WARNING : The 'cactus.home.jboss3x' property has not</echo>
+        <echo>been set. No test will be run on that servlet engine.</echo>
+        <echo>******************************************************</echo>
+        <echo></echo>
 
     </target>
 
@@ -148,7 +151,8 @@
          Clean generated files (including distributables)
        ========================================================================
     -->
-    <target name="cactus.clean.jboss3x" depends="cactus.init, cactus.clean" description="Clean target directory">
+    <target name="cactus.clean.jboss3x" depends="cactus.init, cactus.clean"
+        description="Clean target directory">
         <delete includeEmptyDirs="true">
             <fileset dir="${cactus.target.jboss3x}"/>
         </delete>

@@ -46,27 +46,27 @@
 WL 6.x under JDK 1.4+. Please submit a patch!</fail>
 
         <property name="cactus.weblogic6x.java.library.path"
-            location="${java.library.path};${cactus.weblogic6x.libpath};${cactus.weblogic6x.server}/bin"/>
+            location="${java.library.path}:${cactus.weblogic6x.libpath}:${cactus.weblogic6x.server}/bin"/>
 
         <java jvm="${cactus.jvm}" classname="weblogic.Server" fork="yes"
             dir="${cactus.target.weblogic6x}">
-
-            <classpath>
-                <pathelement location="${cactus.weblogic6x.server}/lib/weblogic_sp.jar"/>
-                <pathelement location="${cactus.weblogic6x.server}/lib/weblogic.jar"/>
-            </classpath>
 
             <jvmarg value="-hotspot"/>
             <jvmarg value="-ms64m"/>
             <jvmarg value="-mx64m"/>
 
-            <jvmarg value="-Djava.library.path=${cactus.weblogic6x.java.library.path}"/>
-            <jvmarg value="-Dweblogic.RootDirectory=."/>
-            <jvmarg value="-Dweblogic.Domain=testdomain"/>
-            <jvmarg value="-Dweblogic.Name=testserver"/>
-            <jvmarg value="-Dbea.home=${cactus.home.weblogic6x}"/>
-            <jvmarg value="-Dweblogic.management.password=password"/>
-            <jvmarg value="-Djava.security.policy==./lib/weblogic.policy"/>
+            <sysproperty key="java.library.path" path="${cactus.weblogic6x.java.library.path}"/>
+            <sysproperty key="weblogic.RootDirectory" value="."/>
+            <sysproperty key="weblogic.Domain" value="testdomain"/>
+            <sysproperty key="weblogic.Name" value="testserver"/>
+            <sysproperty key="bea.home" file="${cactus.home.weblogic6x}"/>
+            <sysproperty key="weblogic.management.password" value="password"/>
+            <sysproperty key="java.security.policy" value="=./lib/weblogic.policy"/>
+
+            <classpath>
+                <pathelement location="${cactus.weblogic6x.server}/lib/weblogic_sp.jar"/>
+                <pathelement location="${cactus.weblogic6x.server}/lib/weblogic.jar"/>
+            </classpath>
 
         </java>
 
@@ -104,12 +104,12 @@ WL 6.x under JDK 1.4+. Please submit a patch!</fail>
     -->
     <target name="cactus.check.weblogic6x" unless="cactus.home.weblogic6x">
 
-        <echo message=""/>
-        <echo message="******************************************************"/>
-        <echo message="WARNING : The 'cactus.home.weblogic6x' property has not"/>
-        <echo message="been set. No test will be run on that servlet engine."/>
-        <echo message="******************************************************"/>
-        <echo message=""/>
+        <echo></echo>
+        <echo>******************************************************</echo>
+        <echo>WARNING : The 'cactus.home.weblogic6x' property has not</echo>
+        <echo>been set. No test will be run on that servlet engine.</echo>
+        <echo>******************************************************</echo>
+        <echo></echo>
 
     </target>
 
@@ -167,7 +167,8 @@ WL 6.x under JDK 1.4+. Please submit a patch!</fail>
          Clean generated files (including distributables)
        ========================================================================
     -->
-    <target name="cactus.clean.weblogic6x" depends="cactus.init, cactus.clean" description="Clean target directory">
+    <target name="cactus.clean.weblogic6x" depends="cactus.init, cactus.clean"
+        description="Clean target directory">
         <delete includeEmptyDirs="true">
             <fileset dir="${cactus.target.weblogic6x}"/>
         </delete>
