@@ -39,6 +39,7 @@
     
     <!-- Code formatting -->
     <module name="EmptyBlock">
+      <property name="tokens" value="LITERAL_CATCH"/>
       <property name="option" value="text"/>
     </module>
     <module name="NeedBraces"/>
@@ -67,7 +68,9 @@
     
     <!-- Coding style -->
     <module name="EqualsHashCode"/>
-    <module name="IllegalInstantiation"/>
+    <module name="IllegalInstantiation">
+      <property name="classes" value="java.lang.Boolean, java.lang.String"/>
+    </module>
     <module name="InnerAssignment"/>
     <module name="MethodLength"/>
     <module name="ModifierOrder"/>
@@ -81,7 +84,13 @@
       <property name="protectedAllowed" value="true"/>
       <property name="publicMemberPattern" value="^[a-z][a-zA-Z0-9]*$"/>
     </module>
-    
+    <module name="GenericIllegalRegexp">
+      <!-- Avoid finalizers
+      	  (this will not find violations that contain linebreaks) -->
+      <property name="format"
+                value="((public)|(protected))\s+void\s+finalize\(\s*\)"/>
+    </module>
+        
     <!-- Javadoc related checks -->
     <module name="JavadocType">
       <property name="scope" value="private"/>
