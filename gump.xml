@@ -307,7 +307,6 @@
          that JVM do not drop these directories from the CLASSPATH
          (apparently some do) -->
     <mkdir dir="samples/servlet/target-12/sample/target/classes/java"/>
-    <mkdir dir="samples/servlet/target-12/sample/target/classes/cactus"/>
     <mkdir dir="samples/servlet/target-12/sample/target/conf/client"/>
 
     <ant buildfile="samples/servlet/build.xml" target="release.gump">
@@ -331,7 +330,7 @@
       <depend property="cactus.anttasks.jar" 
         project="jakarta-cactus-anttasks"/>
       <depend propery="cactus.antintegration.jar"
-      	project="jakarta-cactus-integration-ant-13"/>
+      	project="jakarta-cactus-integration-ant-12"/>
       <property name="cactus.port" value="8082"/>
       <property name="cactus.home.tomcat3x" reference="home" project="jakarta-tomcat"/>
 
@@ -343,11 +342,10 @@
     <depend project="aspectj"/>
     <depend project="jakarta-cactus-integration-ant-12"/>
 
-    <work nested="samples/servlet/target-13/sample/target/classes/java"/>
-    <work nested="samples/servlet/target-13/sample/target/classes/cactus"/>
-    <work nested="samples/servlet/target-13/sample/target/conf/client"/>
+    <work nested="samples/servlet/target-12/sample/target/classes/java"/>
+    <work nested="samples/servlet/target-12/sample/target/conf/client"/>
 
-    <jar name="samples/servlet/dist-13/bin/cactus-sample-servlet"/>
+    <jar name="samples/servlet/dist-12/bin/cactus-sample-servlet"/>
 
     <license name="LICENSE.cactus"/>
 
@@ -367,7 +365,6 @@
          that JVM do not drop these directories from the CLASSPATH
          (apparently some do) -->
     <mkdir dir="samples/servlet/target-13/sample/target/classes/java"/>
-    <mkdir dir="samples/servlet/target-13/sample/target/classes/cactus"/>
     <mkdir dir="samples/servlet/target-13/sample/target/conf/client"/>
 
     <ant buildfile="samples/servlet/build.xml" target="release.gump">
@@ -405,7 +402,6 @@
     <depend project="jakarta-cactus-integration-ant-13"/>
 
     <work nested="samples/servlet/target-13/sample/target/classes/java"/>
-    <work nested="samples/servlet/target-13/sample/target/classes/cactus"/>
     <work nested="samples/servlet/target-13/sample/target/conf/client"/>
 
     <jar name="samples/servlet/dist-13/bin/cactus-sample-servlet"/>
