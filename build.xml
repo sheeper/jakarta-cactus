@@ -23,10 +23,17 @@
   <!-- Base directory for all file related operations -->
   <property name="base.dir" location="."/>
 
+  <!-- Environment name, used to decide which properties file to load.
+       Defaults to build.properties. This is used to save configuration
+       files in CVS for different environments. To use a specific
+       environment, start ant like this: "ant -Denv=.sample release".
+       Please note the leading "." which is mandatory. -->
+  <property name="env" value=""/>
+
   <!-- Give user a chance to override without editing this file
        (and without typing -D each time it compiles it) -->
-  <property file="${basedir}/build.properties" />
-  <property file="${user.home}/build.properties" />
+  <property file="${basedir}/build.properties${env}"/>
+  <property file="${user.home}/build.properties${env}"/>
 
   <!-- Include properties and targets common to the different subprojects -->
   &common;
@@ -48,66 +55,78 @@
       <property name="j2ee.jar" value="${j2ee.12.jar}"/>
       <property name="servlet.jar" value=""/>
       <property name="clover.enable" value="true"/>
+      <property name="env" value="${env}"/>
     </ant>
     <ant antfile="framework/build.xml" inheritAll="false" 
         target="dist">
       <property name="j2ee.jar" value="${j2ee.13.jar}"/>
       <property name="servlet.jar" value=""/>
       <property name="clover.enable" value="true"/>
+      <property name="env" value="${env}"/>
     </ant>
     <ant antfile="integration/ant/build.xml" inheritAll="false" 
         target="dist">
       <property name="j2ee.jar" value="${j2ee.12.jar}"/>
       <property name="servlet.jar" value=""/>
       <property name="clover.enable" value="true"/>
+      <property name="env" value="${env}"/>
     </ant>
     <ant antfile="integration/ant/build.xml" inheritAll="false" 
         target="dist">
       <property name="j2ee.jar" value="${j2ee.13.jar}"/>
       <property name="servlet.jar" value=""/>
       <property name="clover.enable" value="true"/>
+      <property name="env" value="${env}"/>
     </ant>
     <ant antfile="integration/eclipse/org.apache.cactus.eclipse.webapp/build.xml" 
         inheritAll="false" target="dist">
+      <property name="env" value="${env}"/>
     </ant>
     <ant antfile="integration/eclipse/org.apache.cactus.eclipse.runner/build.xml" 
         inheritAll="false" target="dist">
       <property name="j2ee.jar" value="${j2ee.12.jar}"/>
       <property name="servlet.jar" value=""/>
+      <property name="env" value="${env}"/>
     </ant>
     <ant antfile="integration/eclipse/org.apache.cactus.eclipse.runner/build.xml" 
         inheritAll="false" target="dist">
       <property name="j2ee.jar" value="${j2ee.13.jar}"/>
       <property name="servlet.jar" value=""/>
+      <property name="env" value="${env}"/>
     </ant>
     <ant antfile="samples/servlet/build.xml" inheritAll="false" 
         target="dist">
       <property name="servlet.jar" value="${servlet.22.jar}"/>
       <property name="j2ee.jar" value=""/>
       <property name="clover.enable" value="true"/>
+      <property name="env" value="${env}"/>
     </ant>
     <ant antfile="samples/servlet/build.xml" inheritAll="false" 
         target="dist">
       <property name="servlet.jar" value="${servlet.23.jar}"/>
       <property name="j2ee.jar" value=""/>
       <property name="clover.enable" value="true"/>
+      <property name="env" value="${env}"/>
     </ant>
     <ant antfile="samples/jetty/build.xml" inheritAll="false" 
         target="dist">
       <property name="servlet.jar" value="${servlet.23.jar}"/>
       <property name="j2ee.jar" value=""/>
       <property name="clover.enable" value="true"/>
+      <property name="env" value="${env}"/>
     </ant>
     <ant antfile="samples/ejb/build.xml" inheritAll="false" 
         target="dist">
       <property name="j2ee.jar" value="${j2ee.13.jar}"/>
       <property name="servlet.jar" value=""/>
       <property name="clover.enable" value="true"/>
+      <property name="env" value="${env}"/>
     </ant>
     <ant antfile="documentation/build.xml" inheritAll="false" 
         target="dist">
       <property name="javadoc.include" value="true"/>
       <property name="clover.enable" value="true"/>
+      <property name="env" value="${env}"/>
     </ant>
 
   </target>

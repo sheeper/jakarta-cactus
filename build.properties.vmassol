@@ -1,0 +1,187 @@
+# -----------------------------------------------------------------------------
+# Properties for nightly builds of Cactus executing on Vincent Massol's
+# server at home.
+#
+# $Id$
+# -----------------------------------------------------------------------------
+
+# WARNING:  The relative paths below are relative to the directory where the
+# build.xml file is located.
+
+# -----------------------------------------------------------------------------
+# Mandatory properties shared by several subprojects
+# -----------------------------------------------------------------------------
+
+# Location of all jars. Note: This is not a mandatory property. It is only
+# used here so that it can be reused when defining the location of all the jars
+# below. You do not have to put all the external jars in a single location.
+lib.repo = c:/Apps/maven/repository
+
+# The location of the J2EE API jar. Depending on the version (1.2 or 1.3) of
+# it, the corresponding Cactus Framework will be built. For example if you use
+# J2EE 1.3 jar, then the Cactus jar will contain the Filter Redirector which is
+# only available for Servlet 2.3 (part of J2EE 1.3).
+j2ee.jar = ${lib.repo}/j2ee/jars/j2ee-1.3.jar
+
+# The location of the Commons Logging jar
+commons.logging.jar = ${lib.repo}/commons-logging/jars/commons-logging-1.0.3.jar
+
+# The location of the log4j jar
+log4j.jar = ${lib.repo}/log4j/jars/log4j-1.2.8.jar
+
+# The location of the Commons Httpclient jar
+commons.httpclient.jar = ${lib.repo}/commons-httpclient/jars/commons-httpclient-2.0-rc2.jar
+
+# The location of the AspectJ runtime jar
+aspectjrt.jar = ${lib.repo}/aspectj/jars/aspectjrt-1.1.1.jar
+
+# The location of the Junit jar
+junit.jar = ${lib.repo}/junit/jars/junit-3.8.1.jar
+
+# The location of the MockObjects jar (needed for our unit tests)
+mockobjects.jar = ${lib.repo}/mockobjects/jars/mockobjects-core-0.09.jar
+
+# The location of the JSTL jar
+jstl.jar = ${lib.repo}/jstl/jars/jstl-1.0.2.jar
+ 
+# The location of the JSTL jar
+standard.jar = ${lib.repo}/taglibs/jars/standard-1.0.2.jar
+
+# The location of the Httpunit jar
+httpunit.jar = ${lib.repo}/httpunit/jars/httpunit-1.5.3.jar
+
+# Neko HTML (required by HttpUnit)
+nekohtml.jar = ${lib.repo}/nekohtml/jars/nekohtml-0.7.4.jar
+
+# Xerces (required by HttpUnit)
+xerces.jar = ${lib.repo}/xerces/jars/xercesImpl-2.3.0.jar
+
+# XML Parsers API (required by HttpUnit)
+xmlapis.jar = ${lib.repo}/xerces/jars/xmlParserAPIs-2.2.1.jar
+
+# -----------------------------------------------------------------------------
+# Mandatory properties for the Sample Servlet project.
+# -----------------------------------------------------------------------------
+
+# Location of the Servlet API jar.
+servlet.jar = ${lib.repo}/servletapi/jars/servletapi-2.3.jar
+#servlet.jar = ${lib.repo}/servletapi/jars/servletapi-2.2.jar
+
+# -----------------------------------------------------------------------------
+# Mandatory properties for the Eclipse plugin ant the Jetty Sample
+# -----------------------------------------------------------------------------
+# The Jetty container is packaged in the Eclipse plugin and is used as the 
+# default container in which to run the Cactus tests
+
+# The location of the Jetty jar
+jetty.jar = ${lib.repo}/jetty/jars/org.mortbay.jetty-4.2.11.jar
+
+# -----------------------------------------------------------------------------
+# Mandatory properties for the Jetty Sample
+# -----------------------------------------------------------------------------
+
+# The location of the Jasper compiler jar (provided with Tomcat)
+jasper-compiler.jar = ${lib.repo}/tomcat/jars/jasper-compiler-4.1.24.jar
+
+# The location of the Jasper runtime jar (provided with Tomcat)
+jasper-runtime.jar = ${lib.repo}/tomcat/jars/jasper-runtime-4.1.24.jar
+
+# -----------------------------------------------------------------------------
+# Mandatory properties for the Eclipse plugin only
+# -----------------------------------------------------------------------------
+
+# Location of Eclipse.
+eclipse.home = C:/Apps/eclipse2.1
+
+# Locations of Eclipse dependent plugin jars
+
+# Example for Eclipse 2.1 - Windows platform
+eclipse.ant.core.jar = ${eclipse.home}/plugins/org.eclipse.ant.core_2.1.0/antsupport.jar
+eclipse.core.boot.jar = ${eclipse.home}/plugins/org.eclipse.core.boot_2.1.0/boot.jar
+eclipse.core.resources.jar = ${eclipse.home}/plugins/org.eclipse.core.resources_2.1.0/resources.jar
+eclipse.core.runtime.jar = ${eclipse.home}/plugins/org.eclipse.core.runtime_2.1.0/runtime.jar
+eclipse.debug.core.jar = ${eclipse.home}/plugins/org.eclipse.debug.core_2.1.0/dtcore.jar
+eclipse.debug.ui.jar = ${eclipse.home}/plugins/org.eclipse.debug.ui_2.1.0/dtui.jar
+eclipse.jdt.core.jar = ${eclipse.home}/plugins/org.eclipse.jdt.core_2.1.0/jdtcore.jar
+eclipse.jdt.junit.jar = ${eclipse.home}/plugins/org.eclipse.jdt.junit_2.1.0/junitsupport.jar
+eclipse.jdt.launching.jar = ${eclipse.home}/plugins/org.eclipse.jdt.launching_2.1.0/launching.jar
+eclipse.jdt.ui.jar = ${eclipse.home}/plugins/org.eclipse.jdt.ui_2.1.0/jdt.jar
+eclipse.jface.jar = ${eclipse.home}/plugins/org.eclipse.jface_2.1.0/jface.jar
+eclipse.swt.jar = ${eclipse.home}/plugins/org.eclipse.swt.win32_2.1.0/ws/win32/swt.jar
+eclipse.ui.workbench.jar = ${eclipse.home}/plugins/org.eclipse.ui.workbench_2.1.0/workbench.jar
+eclipse.ui.externaltools.jar = ${eclipse.home}/plugins/org.eclipse.ui.externaltools_2.1.0/externaltools.jar
+
+# -----------------------------------------------------------------------------
+# Optional properties for the main Cactus build
+# -----------------------------------------------------------------------------
+
+# Location of J2EE API jars for the "*.all" targets
+j2ee.12.jar = ${lib.repo}/j2ee/jars/j2ee-1.2.jar
+j2ee.13.jar = ${lib.repo}/j2ee/jars/j2ee-1.3.jar
+
+# Location of Servlet API jars for the "*.all" targets
+servlet.22.jar = ${lib.repo}/servletapi/jars/servletapi-2.2.jar
+servlet.23.jar = ${lib.repo}/servletapi/jars/servletapi-2.3.jar
+
+# -----------------------------------------------------------------------------
+# Optional properties share by several subprojects
+# -----------------------------------------------------------------------------
+
+# The location of the AspectJ tools jar
+# If not specified here, the jar must be present in ANTHOME/lib
+aspectj-tools.jar = ${lib.repo}/aspectj/jars/aspectjtools-1.1.1.jar
+
+# Dependencies for Checkstyle code auditing
+# If not specified here, the JARs must be present in ANTHOME/lib
+antlr.jar = ${lib.repo}/antlr/jars/antlr-2.7.2.jar
+checkstyle.jar = ${lib.repo}/checkstyle/jars/checkstyle-3.1.jar
+commons.beanutils.jar = ${lib.repo}/commons-beanutils/jars/commons-beanutils-1.6.1.jar
+commons.collections.jar = ${lib.repo}/commons-collections/jars/commons-collections-2.1.jar
+regexp.jar = ${lib.repo}/regexp/jars/regexp-1.2.jar
+
+# Should we instrument our code with Clover (test coverage tool) ?
+# For this to work, the clover.jar needs to be in ANTHOME/lib.
+# Comment out to disable Clover (setting the property to false will have no
+# effect).
+#clover.enable = true
+
+# Clover jar. This is required if clover is enabled.
+clover.jar = ${ant.home}/lib/clover.jar
+
+# -----------------------------------------------------------------------------
+# Optional properties for the Servlet Sample subproject
+# -----------------------------------------------------------------------------
+
+# The port to use for starting the servers during unit testing. If not
+# specified, it defaults to port 8080.
+#cactus.port = 8081
+
+# Servlet engine locations for the tests
+
+# Note: If you don't want to run the test on a given servlet engine, just
+#       comment it's home property. For example, if you don't want to run the
+#       tests on Resin 2.x, comment the "cactus.home.resin2x" property.
+
+cactus.home.resin2x = c:/Apps/resin-2.1.11
+#cactus.home.tomcat3x = c:/Apps/jakarta-tomcat-3.3.1a
+cactus.home.tomcat4x = c:/Apps/jakarta-tomcat-4.1.27
+#cactus.home.tomcat5x = c:/Apps/jakarta-tomcat-5.0.12
+#cactus.home.orion1x = c:/Apps/orion-1.6.0
+cactus.home.orion2x = c:/Apps/orion-2.0.2
+cactus.home.jboss3x = c:/Apps/jboss-3.2.1
+#cactus.home.weblogic7x = c:/bea/weblogic700
+
+# -----------------------------------------------------------------------------
+# Optional properties for the Servlet Documentation subproject
+# -----------------------------------------------------------------------------
+
+# Decide whether or not to include the javadoc from the other subprojects in
+# the web site. This is an option useful for reducing web site build time as
+# javadoc do not need to be always updated. Uncomment to activate inclusion
+# of javadoc.
+#javadoc.include = true
+
+# Properties needed to upload the documentation to the Cactus web site
+#jakarta.username = vmassol
+#scp = pscp
+#ssh = tortoisePlink

@@ -7,11 +7,18 @@
   =============================================================================
 -->
 
+  <!-- Environment name, used to decide which properties file to load.
+       Defaults to build.properties. This is used to save configuration
+       files in CVS for different environments. To use a specific
+       environment, start ant like this: "ant -Denv=.sample release".
+       Please note the leading "." which is mandatory. -->
+  <property name="env" value=""/>
+
   <!-- Give user a chance to override without editing this file
        (and without typing -D each time it compiles it) -->
-  <property file="${base.dir}/build.properties" />
-  <property file="build.properties" />
-  <property file="${user.home}/build.properties" />
+  <property file="${base.dir}/build.properties${env}"/>
+  <property file="build.properties${env}"/>
+  <property file="${user.home}/build.properties${env}"/>
   
   <!-- Project version -->
   <!-- Note: The *.major and *.minor properties are needed by the Eclipse 
