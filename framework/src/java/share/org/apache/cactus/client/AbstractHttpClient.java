@@ -210,12 +210,17 @@ public abstract class AbstractHttpClient
     private WebTestResult callGetResult(
         AbstractAuthentication theAuthentication) throws Throwable
     {
-        // Add authentication details
         WebRequest resultsRequest = new WebRequest();
+
+        // Add authentication details
         resultsRequest.addParameter(ServiceDefinition.SERVICE_NAME_PARAM,
             ServiceEnumeration.GET_RESULTS_SERVICE.toString(),
             WebRequest.GET_METHOD);
         resultsRequest.setAuthentication(theAuthentication);
+
+        // Do not create an HTTP session as it is not needed to retrieve the
+        // results
+        resultsRequest.setAutomaticSession(false);
 
         // Open the second connection to get the test results
         HttpClientHelper helper =
