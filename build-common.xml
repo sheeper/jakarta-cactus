@@ -55,7 +55,16 @@
         <property name="target.dir" value="${base.dir}/target"/>
     </target>
     <target name="init.properties.target"
-    	depends="init.properties.target.j2ee,init.properties.target.noj2ee"/>
+    	depends="init.properties.target.j2ee,init.properties.target.noj2ee">
+    	
+        <!-- Needed for the documentation project which needs to get the
+        	 clover data for all the J2EE APIs -->
+        <property name="clover.initstring.12"
+            value="${basedir}/target-12/clover-coverage.db"/>
+        <property name="clover.initstring.13"
+            value="${basedir}/target-13/clover-coverage.db"/>
+
+    </target>
 
     <!--
        ========================================================================
