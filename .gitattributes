@@ -40,12 +40,14 @@ docs/framework/xdocs/images/archi_jsp.jpg -text
 docs/framework/xdocs/images/archi_servlet.jpg -text
 docs/framework/xdocs/images/fix.jpg -text
 docs/framework/xdocs/images/remove.jpg -text
+docs/framework/xdocs/images/scope.jpg -text
 docs/framework/xdocs/images/update.jpg -text
 docs/framework/xdocs/index.xml svn_keywords=Author+Date+Id+Revision
 docs/framework/xdocs/javadoc.xml svn_keywords=Author+Date+Id+Revision
 docs/framework/xdocs/misc/archi.ppt -text
 docs/framework/xdocs/misc/archi_jsp.ppt -text
 docs/framework/xdocs/misc/archi_servlet.ppt -text
+docs/framework/xdocs/misc/scope.ppt -text
 docs/framework/xdocs/site-book.xml svn_keywords=Author+Date+Id+Revision
 docs/framework/xdocs/todo.xml svn_keywords=Author+Date+Id+Revision
 docs/sample/README svn_keywords=Author+Date+Id+Revision
