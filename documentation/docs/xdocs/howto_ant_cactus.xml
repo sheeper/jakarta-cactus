@@ -413,9 +413,10 @@
         <jvmarg value="-Dcatalina.base=${target.tomcat40.dir}"/>
         <arg value="start"/>
         <classpath>
-          <fileset dir="${tomcat.home.40}">
-              <include name="bin/bootstrap.jar"/>
-          </fileset>
+            <pathelement path="${java.home}/../lib/tools.jar"/>
+            <fileset dir="${tomcat.home.40}">
+                <include name="bin/bootstrap.jar"/>
+            </fileset>
         </classpath>
     </java>
 
