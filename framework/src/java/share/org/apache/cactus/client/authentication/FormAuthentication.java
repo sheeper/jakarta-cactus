@@ -81,7 +81,7 @@ import org.apache.commons.logging.LogFactory;
  * @author <a href="mailto:Jason.Robertson@acs-inc.com">Jason Robertson</a>
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
- * @since 1.3
+ * @since 1.5
  *
  * @version $Id: $
  */
