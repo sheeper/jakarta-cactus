@@ -59,7 +59,7 @@ package org.apache.cactus.util;
 import junit.framework.TestCase;
 
 /**
- * Unit tests for the <code>StringUtil</code> class.
+ * Unit tests for the {@link StringUtil} class.
  *
  * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
  *
