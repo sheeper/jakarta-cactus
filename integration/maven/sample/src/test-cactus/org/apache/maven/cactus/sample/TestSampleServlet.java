@@ -1,9 +1,9 @@
-package org.apache.maven.cactus.sample;
-
-/* ====================================================================
+/*
+ * ====================================================================
+ *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2002-2003 The Apache Software Foundation.  All rights
+ * Copyright (c) 2001-2003 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -18,21 +18,21 @@ package org.apache.maven.cactus.sample;
  *    the documentation and/or other materials provided with the
  *    distribution.
  *
- * 3. The end-user documentation included with the redistribution,
- *    if any, must include the following acknowledgment:
+ * 3. The end-user documentation included with the redistribution, if
+ *    any, must include the following acknowlegement:
  *       "This product includes software developed by the
  *        Apache Software Foundation (http://www.apache.org/)."
- *    Alternately, this acknowledgment may appear in the software itself,
- *    if and wherever such third-party acknowledgments normally appear.
+ *    Alternately, this acknowlegement may appear in the software itself,
+ *    if and wherever such third-party acknowlegements normally appear.
  *
- * 4. The names "Apache" and "Apache Software Foundation" and
- *    "Apache Maven" must not be used to endorse or promote products
+ * 4. The names "The Jakarta Project", "Cactus" and "Apache Software
+ *    Foundation" must not be used to endorse or promote products
  *    derived from this software without prior written permission. For
  *    written permission, please contact apache@apache.org.
  *
- * 5. Products derived from this software may not be called "Apache",
- *    "Apache Maven", nor may "Apache" appear in their name, without
- *    prior written permission of the Apache Software Foundation.
+ * 5. Products derived from this software may not be called "Apache"
+ *    nor may "Apache" appear in their names without prior written
+ *    permission of the Apache Group.
  *
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
@@ -53,19 +53,25 @@ package org.apache.maven.cactus.sample;
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * ====================================================================
  */
+package org.apache.maven.cactus.sample;
 
 import org.apache.cactus.ServletTestCase;
 import org.apache.cactus.WebRequest;
 
+/**
+ * Tests of the <code>SampleServlet</code> Servlet class.
+ *
+ * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
+ *
+ * @version $Id$
+ */
 public class TestSampleServlet extends ServletTestCase
 {
-    public TestSampleServlet(String testName)
-    {
-        super(testName);
-    }
-
+    /**
+     * Verify that <code>isAuthenticated</code> works when the user is
+     * authenticated.
+     */
     public void testIsAuthenticatedAuthenticated()
     {
         SampleServlet servlet = new SampleServlet();
@@ -75,6 +81,10 @@ public class TestSampleServlet extends ServletTestCase
         assertTrue(servlet.isAuthenticated(request));
     }
 
+    /**
+     * Verify that <code>isAuthenticated</code> works when the user is
+     * not authenticated.
+     */
     public void testIsAuthenticatedNotAuthenticated()
     {
         SampleServlet servlet = new SampleServlet();
@@ -82,16 +92,25 @@ public class TestSampleServlet extends ServletTestCase
         assertTrue(!servlet.isAuthenticated(request));
     }
 
-    public void beginIsAuthenticatedNoSession(WebRequest request)
+    /**
+     * Verify that <code>isAuthenticated</code> works when there is no
+     * HTTP Session.
+     * 
+     * @param theRequest the Cactus request object
+     */
+    public void beginIsAuthenticatedNoSession(WebRequest theRequest)
     {
-        request.setAutomaticSession(false);
+        theRequest.setAutomaticSession(false);
     }
     
+    /**
+     * Verify that <code>isAuthenticated</code> works when there is no
+     * HTTP Session.
+     */
     public void testIsAuthenticatedNoSession()
     {
         SampleServlet servlet = new SampleServlet();
 
         assertTrue(!servlet.isAuthenticated(request));
     }
-
 }
