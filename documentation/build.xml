@@ -277,10 +277,72 @@ generated. Run 'ant dist.javadoc -verbose' to know what the problem is.</fail>
 
     <!--
        ========================================================================
+         Copy clover files and generate the Clover report.
+       ========================================================================
+    -->
+    <target name="dist.clover.check.12" depends="init" if="clover.enable">
+
+        <condition property="clover.enable.ok.12" value="true">
+            <and>
+                <available file="${clover.initstring.12}"/>
+            </and>
+        </condition>
+
+    </target>
+
+    <target name="dist.clover.12" depends="dist.clover.check.12" 
+        if="clover.enable.ok.12">
+        
+        <java classname="com.cortexeb.tools.clover.reporters.html.HtmlReporter">
+
+            <arg value="--outputdir"/>
+            <arg path="${dist.doc.dir}/clover-12"/>
+            <arg value="--showSrc"/>
+            <arg value="--initstring"/>
+            <arg path="${clover.initstring.12}"/>
+            <arg value="--title"/>
+            <arg value="'Cactus ${project.version} for J2EE API 12'"/>
+
+        </java>
+
+    </target>
+
+    <target name="dist.clover.check.13" depends="init" if="clover.enable">
+
+        <condition property="clover.enable.ok.13" value="true">
+            <and>
+                <available file="${clover.initstring.13}"/>
+            </and>
+        </condition>
+
+    </target>
+
+    <target name="dist.clover.13" depends="dist.clover.check.13" 
+        if="clover.enable.ok.13">
+        
+        <java classname="com.cortexeb.tools.clover.reporters.html.HtmlReporter">
+
+            <arg value="--outputdir"/>
+            <arg path="${dist.doc.dir}/clover-13"/>
+            <arg value="--showSrc"/>
+            <arg value="--initstring"/>
+            <arg path="${clover.initstring.13}"/>
+            <arg value="--title"/>
+            <arg value="'Cactus ${project.version} for J2EE API 13'"/>
+
+        </java>
+
+    </target>
+
+    <target name="dist.clover" depends="dist.clover.12,dist.clover.13">
+    </target>
+
+    <!--
+       ========================================================================
          Generate the artifacts.
        ========================================================================
     -->
-    <target name="dist" depends="doc,dist.javadoc" 
+    <target name="dist" depends="doc,dist.javadoc,dist.clover" 
         description="Generate the documentation">
 
         <mkdir dir="${dist.doc.dir}"/>
