@@ -265,12 +265,13 @@ public abstract class AbstractServletContextWrapper implements ServletContext
     {
         RequestDispatcher wrappedDispatcher = null;
 
-        RequestDispatcher originalDispatcher = this.originalContext.getRequestDispatcher(
-            thePath);
+        RequestDispatcher originalDispatcher = 
+            this.originalContext.getRequestDispatcher(thePath);
 
         if (originalDispatcher != null)
         {
-            wrappedDispatcher = new RequestDispatcherWrapper(originalDispatcher);
+            wrappedDispatcher = 
+                new RequestDispatcherWrapper(originalDispatcher);
         }
 
         return wrappedDispatcher;
@@ -286,12 +287,13 @@ public abstract class AbstractServletContextWrapper implements ServletContext
     {
         RequestDispatcher wrappedDispatcher = null;
 
-        RequestDispatcher originalDispatcher = this.originalContext.getNamedDispatcher(
-            theName);
+        RequestDispatcher originalDispatcher = 
+            this.originalContext.getNamedDispatcher(theName);
 
         if (originalDispatcher != null)
         {
-            wrappedDispatcher = new RequestDispatcherWrapper(originalDispatcher);
+            wrappedDispatcher = 
+                new RequestDispatcherWrapper(originalDispatcher);
         }
 
         return wrappedDispatcher;
