@@ -84,6 +84,8 @@ import org.apache.taglibs.standard.tag.el.core.WhenTag;
  * </p>
  * 
  * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
+ * 
+ * @version $Id$
  */
 public class TestJspTagLifecycle
     extends JspTestCase
