@@ -11,7 +11,7 @@
              The servlet engine is stopped if the tests fail for any reason -->
 
         <runservertests
-            testURL="http://localhost:${test.port}/test/ServletRedirector?Cactus.Service=RUN.TEST"
+            testURL="http://localhost:${test.port}/test/ServletRedirector?Cactus_Service=RUN_TEST"
             startTarget="start.tomcat.40"
             stopTarget="stop.tomcat.40"
             testTarget="test"/>
