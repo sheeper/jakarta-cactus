@@ -227,9 +227,6 @@
       <action>
         Automate tests on the plugin
       </action>
-      <action>
-        Add support for the embedded Jetty container
-      </action>
     </category>
 
   </version>
