@@ -24,7 +24,7 @@
 
     <package>org.apache.cactus.ant</package>
 
-    <ant buildfile="anttasks/build.xml" target="release">
+    <ant buildfile="anttasks/build.xml" target="dist">
       <property name="project.version" value="@@DATE@@"/>
     </ant>
   
@@ -42,47 +42,6 @@
       to="cactus-dev@jakarta.apache.org"/>
 
   </project>
-
-  <!--
-     ========================================================================
-       Build the Cactus Eclipse Webapp Integration
-     ========================================================================
-  -->
-  <project name="jakarta-cactus-integration-eclipse-webapp">
-
-    <ant buildfile="integration/eclipse/org.apache.cactus.eclipse.webapp/build.xml" 
-      target="release">
-
-      <property name="project.version" value="@@DATE@@"/>
-
-      <depend property="cactus.anttasks.jar" project="jakarta-cactus-anttasks"/>
-      <depend property="eclipse.core.boot.jar" project="eclipse" id="boot"/>
-      <depend property="eclipse.core.resources.jar" project="eclipse" id="resources"/>
-      <depend property="eclipse.core.runtime.jar" project="eclipse" id="runtime"/>
-      <depend property="eclipse.jdt.core.jar" project="eclipse" id="jdtcore"/>
-      <depend property="eclipse.jdt.ui.jar" project="eclipse" id="jdtui"/>
-      <depend property="eclipse.swt.jar" project="eclipse" id="swt"/>
-      <depend property="eclipse.jface.jar" project="eclipse" id="jface"/>
-      <depend property="eclipse.ui.workbench.jar" project="eclipse" id="workbench"/>
-      
-    </ant>
-  
-    <depend project="ant" inherit="runtime"/>
-    <depend project="xml-xerces"/>
-
-    <home nested="integration/eclipse/org.apache.cactus.eclipse.webapp/dist"/>
-    <jar name="bin/cactus-integration-eclipse-webapp/webapp.jar"/>
-
-    <deliver fromdir="integration/eclipse/org.apache.cactus.eclipse.webapp/release" 
-      tosite="jakarta.apache.org"
-      todir="builds/jakarta-cactus/nightly/@@DATE@@/" />
-
-    <license name="LICENSE.cactus"/>
-
-    <nag from="Vincent Massol &lt;vmassol@apache.org&gt;"
-      to="cactus-dev@jakarta.apache.org"/>
-
-  </project>  
 
   <!--
      ========================================================================
@@ -287,6 +246,47 @@
       to="cactus-dev@jakarta.apache.org"/>
 
   </project>
+
+  <!--
+     ========================================================================
+       Build the Cactus Eclipse Webapp Integration
+     ========================================================================
+  -->
+  <project name="jakarta-cactus-integration-eclipse-webapp">
+
+    <ant buildfile="integration/eclipse/org.apache.cactus.eclipse.webapp/build.xml" 
+      target="release">
+
+      <property name="project.version" value="@@DATE@@"/>
+
+      <depend property="cactus.anttasks.jar" project="jakarta-cactus-anttasks"/>
+      <depend property="eclipse.core.boot.jar" project="eclipse" id="boot"/>
+      <depend property="eclipse.core.resources.jar" project="eclipse" id="resources"/>
+      <depend property="eclipse.core.runtime.jar" project="eclipse" id="runtime"/>
+      <depend property="eclipse.jdt.core.jar" project="eclipse" id="jdtcore"/>
+      <depend property="eclipse.jdt.ui.jar" project="eclipse" id="jdtui"/>
+      <depend property="eclipse.swt.jar" project="eclipse" id="swt"/>
+      <depend property="eclipse.jface.jar" project="eclipse" id="jface"/>
+      <depend property="eclipse.ui.workbench.jar" project="eclipse" id="workbench"/>
+      
+    </ant>
+  
+    <depend project="ant" inherit="runtime"/>
+    <depend project="xml-xerces"/>
+
+    <home nested="integration/eclipse/org.apache.cactus.eclipse.webapp/dist"/>
+    <jar name="bin/cactus-integration-eclipse-webapp/webapp.jar"/>
+
+    <deliver fromdir="integration/eclipse/org.apache.cactus.eclipse.webapp/release" 
+      tosite="jakarta.apache.org"
+      todir="builds/jakarta-cactus/nightly/@@DATE@@/" />
+
+    <license name="LICENSE.cactus"/>
+
+    <nag from="Vincent Massol &lt;vmassol@apache.org&gt;"
+      to="cactus-dev@jakarta.apache.org"/>
+
+  </project>  
 
   <!--
      ========================================================================
