@@ -71,7 +71,7 @@ import org.apache.cactus.util.log.LogService;
  * @version $Id$
  */
 public class TestAbstractTestCase extends
-    TestAbstractTestCase_InterceptorTestCase
+    TestAbstractTestCaseInterceptorTestCase
 {
     // Initialize logging system first
     static {
@@ -125,7 +125,7 @@ public class TestAbstractTestCase extends
      * return type (i.e. void), a <code>AssertionFailedError</code> exception
      * is returned.
      * Note: the assert is done in the
-     * <code>TestAbstractTestCase_InterceptorTestCase</code> class.
+     * <code>TestAbstractTestCaseInterceptorTestCase</code> class.
      */
     public void testBeginMethodBadReturnType()
     {
@@ -149,7 +149,7 @@ public class TestAbstractTestCase extends
      * Test that when a begin method for a given test is not declared public
      * a <code>AssertionFailedError</code> exception is returned.
      * Note: the assert is done in the
-     * <code>TestAbstractTestCase_InterceptorTestCase</code> class.
+     * <code>TestAbstractTestCaseInterceptorTestCase</code> class.
      */
     public void testBeginMethodNotPublic()
     {
@@ -173,7 +173,7 @@ public class TestAbstractTestCase extends
      * Test that when a begin method for a given test has the wrong type of
      * parameters, a <code>AssertionFailedError</code> exception is returned.
      * Note: the assert is done in the
-     * <code>TestAbstractTestCase_InterceptorTestCase</code> class.
+     * <code>TestAbstractTestCaseInterceptorTestCase</code> class.
      */
     public void testBeginMethodBadParamType()
     {
@@ -198,7 +198,7 @@ public class TestAbstractTestCase extends
      * Test that when a begin method for a given test has the wrong number of
      * parameters, a <code>AssertionFailedError</code> exception is returned.
      * Note: the assert is done in the
-     * <code>TestAbstractTestCase_InterceptorTestCase</code> class.
+     * <code>TestAbstractTestCaseInterceptorTestCase</code> class.
      */
     public void testBeginMethodBadParamNumber()
     {
@@ -218,7 +218,7 @@ public class TestAbstractTestCase extends
     {
         // We send an exception just to verify that this code has been reached
         // The exception is intercepted in
-        // TestAbstractTestCase_InterceptorTestCase
+        // TestAbstractTestCaseInterceptorTestCase
         fail("beginBeginMethodOK");
     }
 
@@ -237,7 +237,7 @@ public class TestAbstractTestCase extends
      * return type (i.e. void), a <code>AssertionFailedError</code> exception
      * is returned.
      * Note: the assert is done in the
-     * <code>TestAbstractTestCase_InterceptorTestCase</code> class.
+     * <code>TestAbstractTestCaseInterceptorTestCase</code> class.
      */
     public void testEndMethodBadReturnType()
     {
@@ -260,7 +260,7 @@ public class TestAbstractTestCase extends
      * Test that when an end method for a given test is not declared public
      * a <code>AssertionFailedError</code> exception is returned.
      * Note: the assert is done in the
-     * <code>TestAbstractTestCase_InterceptorTestCase</code> class.
+     * <code>TestAbstractTestCaseInterceptorTestCase</code> class.
      */
     public void testEndMethodNotPublic()
     {
@@ -279,7 +279,7 @@ public class TestAbstractTestCase extends
      * Test that when an end method for a given test has the wrong type of
      * parameters, a <code>AssertionFailedError</code> exception is returned.
      * Note: the assert is done in the
-     * <code>TestAbstractTestCase_InterceptorTestCase</code> class.
+     * <code>TestAbstractTestCaseInterceptorTestCase</code> class.
      */
     public void testEndMethodBadParamType()
     {
@@ -298,7 +298,7 @@ public class TestAbstractTestCase extends
      * Test that when an end method for a given test has the wrong number of
      * parameters, a <code>AssertionFailedError</code> exception is returned.
      * Note: the assert is done in the
-     * <code>TestAbstractTestCase_InterceptorTestCase</code> class.
+     * <code>TestAbstractTestCaseInterceptorTestCase</code> class.
      */
     public void testEndMethodBadParamNumber()
     {
@@ -329,7 +329,7 @@ public class TestAbstractTestCase extends
     {
         // We send an exception just to verify that this code has been reached
         // The exception is intercepted in
-        // TestAbstractTestCase_InterceptorTestCase
+        // TestAbstractTestCaseInterceptorTestCase
         fail("endEndMethodOK1");
     }
 
@@ -353,7 +353,7 @@ public class TestAbstractTestCase extends
     {
         // We send an exception just to verify that this code has been reached
         // The exception is intercepted in
-        // TestAbstractTestCase_InterceptorTestCase
+        // TestAbstractTestCaseInterceptorTestCase
         fail("endEndMethodOK2");
     }
 
@@ -374,7 +374,7 @@ public class TestAbstractTestCase extends
     {
         // We send an exception just to verify that this code has been reached
         // The exception is intercepted in
-        // TestAbstractTestCase_InterceptorTestCase
+        // TestAbstractTestCaseInterceptorTestCase
         fail("endEndMethodOK3");
     }
 

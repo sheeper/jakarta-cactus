@@ -72,7 +72,7 @@ import org.apache.cactus.mock.MockHttpURLConnection;
  *
  * @version $Id$
  */
-public class TestAbstractTestCase_InterceptorTestCase
+public class TestAbstractTestCaseInterceptorTestCase
     extends AbstractTestCase
 {
     /**
@@ -80,7 +80,7 @@ public class TestAbstractTestCase_InterceptorTestCase
      *
      * @param theName the name of the test case
      */
-    public TestAbstractTestCase_InterceptorTestCase(String theName)
+    public TestAbstractTestCaseInterceptorTestCase(String theName)
     {
         super(theName);
     }
