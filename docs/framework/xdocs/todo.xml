@@ -24,6 +24,10 @@
     <action context="design" assigned-to="VMA">
       Add support for testing Servlet API 2.3 Filters.
     </action>
+    <action context="design" assigned-to="BNA">
+      Provide a mechanism for easier testing of EJBs. The mechanism is to be
+      defined (requested by notyy).
+    </action>
   </actions>
 
   <actions priority="low">
@@ -94,10 +98,6 @@
   <actions priority="wish">
     <action context="code">
       Integration for Netbeans by integration with the Netbeans XTest module.
-    </action>
-    <action context="design" assigned-to="BNA">
-      Provide a mechanism for easier testing of EJBs. The mechanism is to be
-      defined (requested by notyy).
     </action>
   </actions>
 
