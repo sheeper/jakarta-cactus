@@ -40,12 +40,12 @@ log4j.jar = f:/applis/apache-dev/jakarta-log4j/dist/lib/log4j-core.jar
 #       tests on the Resin 1.2, comment the "resin.home.12" property.
 
 #resin.home.12 = f:/applis/resin-1.2.8
-#tomcat.home.32 = f:/applis/jakarta-tomcat-3.2.2
+#tomcat.home.32 = f:/applis/jakarta-tomcat-3.2.3
 #weblogic.home.51 = e:/weblogic
 #orion.home.14 = f:/applis/orion-1.4.5
 #orion.home.15 = f:/applis/orion-1.5.2
 #resin.home.20 = f:/applis/resin-2.0.s010820
-#tomcat.home.40 = f:/applis/jakarta-tomcat-4.0
+#tomcat.home.40 = f:/applis/jakarta-tomcat-4.0-b7
 #resin.home.13 = f:/applis/resin-1.3.s010125
-#tomcat.home.33 = f:/applis/jakarta-tomcat-3.3-nightly
+#tomcat.home.33 = f:/applis/jakarta-tomcat-3.3-b2
 #enhydra.home.31 = xxx
