@@ -63,7 +63,7 @@ import java.io.*;
  *
  * @version @version@
  * @deprecated As of Cactus 1.2, replaced by WebResponse
- * @see WebResponse
+ * @see org.apache.commons.cactus.WebResponse
  */
 public class AssertUtils
 {
