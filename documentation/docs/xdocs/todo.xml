@@ -32,21 +32,21 @@
   <version title="Version 1.5">
 
     <category title="Documentation">
-      <action>
+      <action assigned-to="Vincent Massol">
         Update web site for new <code>begin()</code> and <code>end()</code>
         methods.
       </action>
-      <action>
+      <action assigned-to="Vincent Massol">
         Add documentation for the new Initializer feature.
       </action>
-      <action>
+      <action assigned-to="Vincent Massol">
         Add documentation for a new way to start Cactus tests by using the
         Jetty Initializer.
       </action>
       <action>
         Add a tutorial for building Cactus from the source distribution.
       </action>
-      <action>
+      <action assigned-to="Vincent Massol">
         Fix Clover reports as they seem broken. They do not count any tests
         executed on the server. Overall coverage is reported as 45% whereas
         it is more thaqn 60% in reality ...
@@ -57,55 +57,29 @@
       <p>
         All tasks that are related to building Cactus in general.
       </p>
-      <action assigned-to="Bob Tanner">
-        Finalize support for Enhydra 3.1.1. There are some errors upon
-        starting the enhydra server and the <code>testOut()</code> method
-        is failing. Need help from Enhydra experts to go forward.
+      <action>
+        Add support for Enhydra 5.
       </action>
       <action>
-        Add the Ant scripts for JBoss 2.x w/Tomcat provided by Jeffrey Madynski
-        (jmadynski@food.com) on the jakarta-commons mailing list (Subject
-        "[cactus] Using Cactus with JBoss-2.2.1 with Embedded Tomcat"). The
-        scripts need to be reworked so that the deployed test war is deployed
-        within the <code>target</code> output directory and not to where
-        JBoss/Tomcat is installed.
-      </action>
-      <action>
-      	Move Cactus to Maven.
+        Add Ant scripts for JBoss/Tomcat and JBoss/Jetty.
       </action>
     </category>
 
     <category title="Design/Code">
-      <action>
-        Add support for Servlet API 2.4 (and test with Tomcat 5). 
-      </action>
-      <action>
-        Potentially replace access to instance variables of redirectors by 
-        method calls. For example, replace "request.xxx()" by 
-        "getHttpServletRequest().xxx()". Deprecate the direct access. Needs
-        to be discussed on cactus-dev.
-      </action>
-      <action>
+      <action assigned-to="Vincent Massol">
       	Remove HttpURLConnection and replace it by the one we have submitted
       	to the HttpClient project.
       </action>
       <action>
         Improve the ServletTestRunner. Move stylesheet definition to web.xml
-        and provide support for XSLT performed inside ServletTestRunner.
+        and provide support for XSLT performed inside ServletTestRunner. 
+        Potentially look at replacing it by the JUnitEE test runner.
       </action>
       <action>
         Continue the JMS Redirector/Client to test Message Driven Beans.
       </action>
       <action assigned-to="Peter Wong, Jason Robertson, Vincent Massol">
         Add support for Form-based authentication.
-      </action>
-      <action>
-        Provide support for generating Session cookies and URL Sessions
-        (URL rewriting). A description of the mechanism has been
-        posted in thread "How does cactus simulate a session" on the
-        Cactus user mailing list. Thanks to
-        <link href="mailto:kyle.w.willkomm@accenture.com">Kyle W.
-        Willkomm</link>.
       </action>
       <action>
         Add EJB Redirectors so that unit testing of code that require an EJB
@@ -128,6 +102,32 @@
 
   <version title="Undefined">
 
+    <category title="Build Process">
+      <action assigned-to="Jason Van Zyl">
+      	Move Cactus to Maven.
+      </action>
+    </category>
+    
+    <category title="Design/Code">
+      <action>
+        Add support for Servlet API 2.4/JSP 1.4 (by using Tomcat 5).
+      </action>
+      <action>
+        Potentially replace access to instance variables of redirectors by 
+        method calls. For example, replace "request.xxx()" by 
+        "getHttpServletRequest().xxx()". Deprecate the direct access. Needs
+        to be discussed on cactus-dev.
+      </action>
+      <action>
+        Provide support for generating Session cookies and URL Sessions
+        (URL rewriting). A description of the mechanism has been
+        posted in thread "How does cactus simulate a session" on the
+        Cactus user mailing list. Thanks to
+        <link href="mailto:kyle.w.willkomm@accenture.com">Kyle W.
+        Willkomm</link>.
+      </action>
+    </category>
+
     <category title="Ideas">
       <p>
         Ideas to explore ...
@@ -136,15 +136,11 @@
       	Bundling of JUnitEE.
       </action>
       <action>
-        Potentially create a Cactus extension
-        that runs a bunch of test at the same time,
-        thus spawing several threads in the container in order to discover
-        bugs [Note: We would have to correct the name under which Cactus test
-        results are stored in the application context so that it is unique
-        per test case]. We would need to create a
-        <code>org.apache.cactus.extensions.ParallelServletTestCase</code>.
-        The constructor would take some parameters, such as the number of
-        parallel threads to spawn, ... Idea suggested by
+        Add performance extensions to be able to test each single method in
+        performance: response time. Need to add notion of server time in
+        cactus XML response. And need extensions (probably TestSuite 
+        extensions to repeat each test or start several threads). Idea 
+        initially suggested by
         <link href="mailto:rimovm@centercomp.com">Michael Rimov</link>.
       </action>
       <action>
@@ -153,11 +149,12 @@
         used to automatically generate <code>web.xml</code> files,
         automatically generating test cases from methods to test, ...
       </action>
-      <action>
-        Integration to Eclipse.
-      </action>
-      <action assigned-to="Vincent Massol">
-        Evaluate the use of AspectJ for writing Cactus test cases.
+      <action assigned-to="Nicholas Lesiecki, Vincent Massol">
+        Add tutorial on AspectJ testing (using AspectJ with Cactus testing
+        in order to easily intercept method calls and relace them by the
+        needed behavior for the test). Research adding a Cactus Aspect 
+        extension to allow writing test cases as Aspects (this would allow to
+        remove the need for Cactus redirectors in most cases).
       </action>
       <action>
         Help Cactus users test multipart/form-data. At least explain how to do
@@ -168,6 +165,25 @@
         client side. The best solution would be to use HttpClient but we need
         to check if it has this feature or if it can be added. Submitted by
         <link href="mailto:Gunnar.Skogen@ergo.no">Gunnar Ole Skogen</link>.
+      </action>
+      <action>
+        Provide a full servlet container test suite a la Watchdog using Cactus
+      </action>
+      <action>
+        Improve Cactus usability by providing different Cactus front ends 
+        that does all the packaging of the application by simply specifying 
+        source location, resource location and web.xml. These front ends would
+        already contains all the logic to create the war and deploy it 
+        for a given application server. Possibilies are: Cactus standalone 
+        application which uses the JUnit Swing TestRunner, Cactus Ant tasks,
+        Generic Cactus plugin for IDEs, Special Cactus plugin for Eclipse.
+      </action>
+      <action>
+        Ability to write Cactus tests by extending normal JUnit TestCase 
+        instead of Cactus extensions (by using special Cactus TestSuite 
+        objects). This will allow to easily execute the same test outside and 
+        inside of the container (for test not depending on container objects).
+        Idea suggested by <link href="loney@spiritedsw.com">Fred Loney</link>.
       </action>
     </category>
 
