@@ -94,11 +94,12 @@ jasperr.jar = ${lib.repo}/jetty/jars/jasper-runtime-4.0.4.jar
 # -----------------------------------------------------------------------------
 
 # Location of Eclipse.
-eclipse.home = D:/dev/eclipse-2.1RC2
+eclipse.home = D:/dev/eclipse-2.1
 
 # Locations of Eclipse dependent plugin jars
 
-# Example for Eclipse 2.1 RC2 - Windows platform
+# Example for Eclipse 2.1 - Windows platform
+eclipse.ant.core.jar = ${eclipse.home}/plugins/org.eclipse.ant.core_2.1.0/antsupport.jar
 eclipse.core.boot.jar = ${eclipse.home}/plugins/org.eclipse.core.boot_2.1.0/boot.jar
 eclipse.core.resources.jar = ${eclipse.home}/plugins/org.eclipse.core.resources_2.1.0/resources.jar
 eclipse.core.runtime.jar = ${eclipse.home}/plugins/org.eclipse.core.runtime_2.1.0/runtime.jar
@@ -108,10 +109,10 @@ eclipse.jdt.core.jar = ${eclipse.home}/plugins/org.eclipse.jdt.core_2.1.0/jdtcor
 eclipse.jdt.junit.jar = ${eclipse.home}/plugins/org.eclipse.jdt.junit_2.1.0/junitsupport.jar
 eclipse.jdt.launching.jar = ${eclipse.home}/plugins/org.eclipse.jdt.launching_2.1.0/launching.jar
 eclipse.jdt.ui.jar = ${eclipse.home}/plugins/org.eclipse.jdt.ui_2.1.0/jdt.jar
-eclipse.swt.jar = ${eclipse.home}/plugins/org.eclipse.swt.win32_2.1.0/ws/win32/swt.jar
 eclipse.jface.jar = ${eclipse.home}/plugins/org.eclipse.jface_2.1.0/jface.jar
-eclipse.ant.core.jar = ${eclipse.home}/plugins/org.eclipse.ant.core_2.1.0/antsupport.jar
+eclipse.swt.jar = ${eclipse.home}/plugins/org.eclipse.swt.win32_2.1.0/ws/win32/swt.jar
 eclipse.ui.workbench.jar = ${eclipse.home}/plugins/org.eclipse.ui.workbench_2.1.0/workbench.jar
+eclipse.ui.externaltools.jar = ${eclipse.home}/plugins/org.eclipse.ui.externaltools_2.1.0/externaltools.jar
 
 # -----------------------------------------------------------------------------
 # Optional properties for the main Cactus build
