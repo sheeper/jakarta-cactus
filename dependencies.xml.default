@@ -6,9 +6,9 @@
   <antlr project="antlr"
       artifact="antlr" version="2.7.2"/>
   <aspectjrt project="aspectj"
-      artifact="aspectjrt" version="1.1.1"/>
+      artifact="aspectjrt" version="1.2.1rc1"/>
   <aspectj-tools project="aspectj"
-      artifact="aspectjtools" version="1.1.1"/>
+      artifact="aspectjtools" version="1.2.1rc1"/>
   <checkstyle project="checkstyle"
       artifact="checkstyle" version="3.4"/>
   <clover project="clover"
