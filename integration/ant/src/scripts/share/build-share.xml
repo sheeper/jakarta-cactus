@@ -206,6 +206,10 @@
         <!-- Call the correct test runner -->
         <antcall target="cactus.test.${cactus.runner}" inheritRefs="true"/>
         
+    </target>
+
+    <target name="cactus.test.check.result">
+
         <!-- Decides whether to halt the build if errors or failures have
         	  occurred -->
 
@@ -283,6 +287,8 @@
 
         </junit>
 
+        <antcall target="cactus.test.check.result"/>
+
     </target>
 
     <!--
@@ -321,6 +327,8 @@
             <arg value="-noloading"/>
 
         </java>
+
+        <antcall target="cactus.test.check.result"/>
 
     </target>
           
