@@ -22,7 +22,7 @@
       <person name="Philip Aston" email="paston@bea.com" id="PAS"/>
     </devs>
 
-    <release version="1.0 in CVS" date="">
+    <release version="1.0 in CVS">
       <action dev="VMA" type="add">
         Modified the Changes page so that users can see at a glance the list of
         pages that have been modified recently on the Cactus web site.
