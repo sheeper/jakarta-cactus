@@ -45,7 +45,7 @@
         MO is a strategy to unit test java classes in general. As such
         it is also applicable to unit test server side code like Servlets,
         Filters, Taglibs, EJBs, ... See the original article
-        <link href="http://www.sidewize.com/company/mockobjects.pdf">
+        <link href="http://mockobjects.sourceforge.net/endotesting.html">
         "Endo-Testing : Unit Testing with Mock Objects"</link> for full details
         on MO. As such it is a challenger to Cactus but we'll see
         in the rest of this article that it is in fact complementary rather than
@@ -416,7 +416,7 @@ public void testXXX()
       <p>
         <ul>
           <li>
-            <link href="http://www.sidewize.com/company/mockobjects.pdf">
+            <link href="http://mockobjects.sourceforge.net/endotesting.html">
             "Endo-Testing : Unit Testing with Mock Objects"</link> (PDF). 
             Describes the vision behind MO.
           </li>
@@ -425,7 +425,7 @@ public void testXXX()
             Mock Object discussions on Wiki</link>.
           </li>
           <li>
-            <link href="http://sourceforge.net/projects/mockobjects">Mock Object
+            <link href="http://mockobjects.sourceforge.net">Mock Object
             project</link> on SourceForge. MO framework and some mock
             implementations.
           </li>
