@@ -68,6 +68,11 @@
       </devs>
 
       <release version="1.6dev" date="in CVS">
+        <action dev="VMA" type="add" fixes-bug="23016">
+          In the Ant integration module, added new <code>configXml</code> 
+          attribute to the <code>&lt;weblogic7x&gt;</code> container 
+          element of the <code>&lt;cactus&gt;</code> task.
+        </action>
         <action dev="VMA" type="fix" due-to="Joe Germuska" due-to-email="Joe@Germuska.com">
           Make the <code>&lt;cactus&gt;</code> task work on Mac OSX by not 
           including the <code>tools.jar</code> file (on Max OSX all classes

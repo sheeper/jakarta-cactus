@@ -22,6 +22,27 @@
     </p>
 
     <p>
+      Here are the different steps peformed automatically by the 
+      <code>cactus</code> task:
+    </p>
+    <ol>
+      <li>
+        Deploy the cactified WAR/EAR into the target container,
+      </li>
+      <li>
+        If the container is not already started, start it. Otherwise, leave
+        it running,
+      </li>
+      <li>
+        Run the Cactus tests,
+      </li>
+      <li>
+        If the container was started by the <code>cactus</code> task the
+        stop it. Otherwise, leave it running.
+      </li>
+    </ol>
+
+    <p>
       Currently the following containers are supported out of the box:
       <ul>
         <li>Apache Tomcat 3.x</li>
@@ -1025,6 +1046,14 @@
                 you have put your bea home directory somewhere else.
               </td>
               <td>No, defaults to the parent directory of dir</td>
+            </tr>
+            <tr>
+              <td>configXml</td>
+              <td>
+                The Weblogic <code>config.xml</code> configuration file to use 
+                instead of the default one.
+              </td>
+              <td>No</td>
             </tr>
             <tr>
               <td>port</td>

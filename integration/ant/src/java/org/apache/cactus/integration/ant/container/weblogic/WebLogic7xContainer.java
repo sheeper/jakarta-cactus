@@ -67,6 +67,7 @@ import org.apache.tools.ant.taskdefs.Java;
 import org.apache.tools.ant.types.FilterChain;
 import org.apache.tools.ant.types.Path;
 import org.apache.tools.ant.types.ZipFileSet;
+import org.apache.tools.ant.util.FileUtils;
 
 /**
  * Special container support for the Bea WebLogic 7.x application server.
@@ -99,6 +100,13 @@ public class WebLogic7xContainer extends AbstractJavaContainer
      */
     private int port = 8080;
 
+    /**
+     * A user-specific <code>config.xml</code> WebLogic configuration file. 
+     * If this variable is not set, the default configuration file from the 
+     * JAR resources will be used.
+     */
+    private File configXml;
+    
     /**
      * The temporary directory from which the container will be started.
      */
@@ -136,6 +144,17 @@ public class WebLogic7xContainer extends AbstractJavaContainer
         this.port = thePort;
     }
 
+    /**
+     * Sets the configuration file to use for the test installation of 
+     * WebLogic.
+     * 
+     * @param theConfigXml The custom <code>config.xml</code> file
+     */
+    public final void setConfigXml(File theConfigXml)
+    {
+        this.configXml = theConfigXml;
+    }
+    
     /**
      * Sets the temporary installation directory.
      * 
@@ -212,6 +231,13 @@ public class WebLogic7xContainer extends AbstractJavaContainer
                 createSysProperty("weblogic.management.username", "weblogic"));
             java.addSysproperty(
                 createSysProperty("weblogic.management.password", "weblogic"));
+
+            // Note: The "=" in the call below is on purpose. It is left so that
+            // we end up with: 
+            //   -Djava.security.policy==./server/lib/weblogic.policy
+            // (otherwise, we would end up with:
+            //   -Djava.security.policy=./server/lib/weblogic.policy, which
+            //  will not add to the security policy but instead replace it).
             java.addSysproperty(
                 createSysProperty("java.security.policy",
                     "=./server/lib/weblogic.policy"));
@@ -270,6 +296,7 @@ public class WebLogic7xContainer extends AbstractJavaContainer
      */
     private void prepare(String theDirName) throws IOException
     {
+        FileUtils fileUtils = FileUtils.newFileUtils();
         FilterChain filterChain = createFilterChain();
         
         if (this.tmpDir == null)
@@ -278,10 +305,20 @@ public class WebLogic7xContainer extends AbstractJavaContainer
         }
 
         File testDomainDir = createDirectory(this.tmpDir, "testdomain");
-        ResourceUtils.copyResource(getProject(),
-            RESOURCE_PATH + "weblogic7x/config.xml",
-            new File(testDomainDir, "config.xml"),
-            filterChain);
+
+        if (this.configXml != null)
+        {
+            fileUtils.copyFile(this.configXml,
+                new File(testDomainDir, "config.xml"));
+        }
+        else
+        {
+            ResourceUtils.copyResource(getProject(),
+                RESOURCE_PATH + "weblogic7x/config.xml",
+                new File(testDomainDir, "config.xml"),
+                filterChain);
+        }
+        
         ResourceUtils.copyResource(getProject(),
             RESOURCE_PATH + "weblogic7x/DefaultAuthenticatorInit.ldift",
             new File(testDomainDir, "DefaultAuthenticatorInit.ldift"),
