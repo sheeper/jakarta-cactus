@@ -157,7 +157,7 @@ public class ServletTestRunner extends HttpServlet
         if (suite == null) {
             throw new ServletException("Failed to load test suite [" +
                 theSuiteClassName + "], Reason is [" +
-                testRunner.getErrorMessage()) + "]";
+                testRunner.getErrorMessage() + "]");
         }
 
         // Run the tests
