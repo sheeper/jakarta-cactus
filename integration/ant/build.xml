@@ -352,8 +352,7 @@ be resolved. Please check you build.properties file, and run Ant with the
           <report format="frames" todir="${target.doc.testreports.dir}"/>
         </junitreport>
 
-        <!-- Don't fail the build until the tests have somewhat stabilized>
-        <fail if="tests.failed">At least one unit test failed!</fail -->
+        <fail if="tests.failed">At least one unit test failed!</fail>
 
     </target>
 
