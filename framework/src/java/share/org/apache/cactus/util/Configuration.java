@@ -140,7 +140,7 @@ public class Configuration
      */
     public static boolean isLoggingEnabled()
     {
-        return (new Boolean(getConfiguration().
-            getString(ENABLE_LOGGING_PROPERTY)).booleanValue());
+        return Boolean.valueOf(getConfiguration().
+            getString(ENABLE_LOGGING_PROPERTY)).booleanValue();
     }
 }

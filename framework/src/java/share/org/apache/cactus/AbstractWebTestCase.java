@@ -246,7 +246,7 @@ public abstract class AbstractWebTestCase extends AbstractTestCase
         request.addParameter(ServiceDefinition.METHOD_NAME_PARAM,
             this.getCurrentTestMethod(), WebRequest.GET_METHOD);
         request.addParameter(ServiceDefinition.AUTOSESSION_NAME_PARAM,
-            new Boolean(request.getAutomaticSession()).toString(),
+            request.getAutomaticSession() ? "true" : "false",
             WebRequest.GET_METHOD);
 
         // Add the simulated URL (if one has been defined)
