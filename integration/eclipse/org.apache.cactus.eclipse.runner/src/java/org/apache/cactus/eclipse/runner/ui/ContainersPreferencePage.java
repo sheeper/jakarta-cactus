@@ -59,6 +59,7 @@ package org.apache.cactus.eclipse.runner.ui;
 import org.eclipse.jface.preference.BooleanFieldEditor;
 import org.eclipse.jface.preference.DirectoryFieldEditor;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
+import org.eclipse.jface.preference.FileFieldEditor;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 
@@ -119,7 +120,13 @@ public class ContainersPreferencePage
                 "Jetty",
                 BooleanFieldEditor.SEPARATE_LABEL,
                 getFieldEditorParent()));
-
+        FileFieldEditor jettyXML =
+            new FileFieldEditor(
+                CactusPreferences.JETTY_XML,
+                CactusMessages.getString(
+                    "ContainersPreferencePage.label.jettyxml"),
+                getFieldEditorParent());
+        addField(jettyXML);
     }
 
     /**

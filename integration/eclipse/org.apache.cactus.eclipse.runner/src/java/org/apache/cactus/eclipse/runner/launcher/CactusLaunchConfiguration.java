@@ -237,6 +237,8 @@ public class CactusLaunchConfiguration extends JUnitLaunchConfiguration
                         + CactusLaunchShortcut.getJettyWebappPath();
                 cactusVMArgs.add(
                     "-Dcactus.jetty.resourceDir=" + jettyResourcePath);
+                cactusVMArgs.add(
+                    "-Dcactus.jetty.config=" + CactusPreferences.getJettyXML());
             }
             cactusVMArgs.add(
                 "-Dcactus.initializer="

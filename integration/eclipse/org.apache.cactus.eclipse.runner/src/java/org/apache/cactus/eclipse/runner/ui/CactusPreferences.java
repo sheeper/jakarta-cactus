@@ -91,19 +91,9 @@ public class CactusPreferences
     public static final String CONTEXT_URL_PATH = "contextURL_Path";
 
     /**
-     * The directory of the jars needed by Cactus.
-     */
-    public static final String JARS_DIR = "jars_Dir";
-
-    /**
      * The temp directory used by the plugin to set up containers.
      */
     public static final String TEMP_DIR = "temp_Dir";
-
-    /**
-     * The directory where the plugin can find the web application.
-     */
-    public static final String WEBAPP_DIR = "webapp_Dir";
 
     /**
      * id for the Jetty container selection preference.
@@ -111,10 +101,13 @@ public class CactusPreferences
     public static final String JETTY = "jetty";
 
     /**
-     * Returns the context URL that should be used by the client, as 
+     * id for the jetty.xml location preference.
+     */
+    public static final String JETTY_XML = "jetty_xml";
+
+    /**
+     * @return the context URL that should be used by the client, as 
      * configured in the plug-in preferences.
-     * 
-     * @return the context URL
      */
     public static String getContextURL()
     {
@@ -134,10 +127,8 @@ public class CactusPreferences
     }
 
     /**
-     * Returns the context URL port that should be used by the client, as 
+     * @return the context URL port that should be used by the client, as 
      * configured in the plug-in preferences.
-     * 
-     * @return the context port
      */
     public static int getContextURLPort()
     {
@@ -149,10 +140,8 @@ public class CactusPreferences
     }
 
     /**
-     * Returns the context URL path that should be used by the client, as 
+     * @return the context URL path that should be used by the client, as 
      * configured in the plug-in preferences.
-     * 
-     * @return the context path
      */
     public static String getContextURLPath()
     {
@@ -164,24 +153,8 @@ public class CactusPreferences
     }
 
     /**
-     * Returns the directory containing the jars needed by cactus, as 
+     * @return the temp directory used by cactus, as 
      * configured in the plug-in preferences.
-     * 
-     * @return the context path
-     */
-    public static String getJarsDir()
-    {
-        IPreferenceStore store = CactusPlugin.getDefault().getPreferenceStore();
-        String result = store.getString(JARS_DIR);
-        CactusPlugin.log("Cactus preference : JarsDir = [" + result + "]");
-        return result;
-    }
-
-    /**
-     * Returns the temp directory used by cactus, as 
-     * configured in the plug-in preferences.
-     * 
-     * @return the context path
      */
     public static String getTempDir()
     {
@@ -192,23 +165,8 @@ public class CactusPreferences
     }
 
     /**
-     * Returns the Webapp directory used by cactus, as 
-     * configured in the plug-in preferences.
-     * 
-     * @return the context path
-     */
-    public static String getWebappDir()
-    {
-        IPreferenceStore store = CactusPlugin.getDefault().getPreferenceStore();
-        String result = store.getString(WEBAPP_DIR);
-        CactusPlugin.log("Cactus preference : WebappDir = [" + result + "]");
-        return result;
-    }
-
-    /**
-     * Returns the home directory for the given container id.
      * @param theContainerId container id
-     * @return String
+     * @return the home directory for the given container id.
      */
     public static String getContainerDir(String theContainerId)
     {
@@ -220,7 +178,6 @@ public class CactusPreferences
     }
 
     /**
-     * Returns true if Jetty is selected.
      * @return true if Jetty is selected
      */
     public static boolean getJetty()
@@ -232,8 +189,18 @@ public class CactusPreferences
     }
 
     /**
-     * Returns the ContainerHome array.
-     * @return String
+     * @return the jetty.xml location
+     */
+    public static String getJettyXML()
+    {
+        IPreferenceStore store = CactusPlugin.getDefault().getPreferenceStore();
+        String result = store.getString(JETTY_XML);
+        CactusPlugin.log("Cactus preference : jetty.xml = [" + result + "]");
+        return result;
+    }
+
+    /**
+     * @return the ContainerHome array
      */
     public static Hashtable getContainerHomes()
     {

@@ -228,30 +228,27 @@ public class CactusPlugin extends AbstractUIPlugin
         theStore.setDefault(
             CactusPreferences.CONTEXT_URL_SCHEME,
             CactusMessages.getString(
-                "CactusPreferencePage.label.protocol.init"));
+                "CactusPreferencePage.protocol.init"));
         theStore.setDefault(
             CactusPreferences.CONTEXT_URL_HOST,
-            CactusMessages.getString("CactusPreferencePage.label.host.init"));
+            CactusMessages.getString("CactusPreferencePage.host.init"));
         theStore.setDefault(
             CactusPreferences.CONTEXT_URL_PORT,
-            CactusMessages.getString("CactusPreferencePage.label.port.init"));
+            CactusMessages.getString("CactusPreferencePage.port.init"));
         theStore.setDefault(
             CactusPreferences.CONTEXT_URL_PATH,
             CactusMessages.getString(
-                "CactusPreferencePage.label.context.init"));
-        theStore.setDefault(
-            CactusPreferences.JARS_DIR,
-            CactusMessages.getString("CactusPreferencePage.label.jars.init"));
+                "CactusPreferencePage.context.init"));
         theStore.setDefault(
             CactusPreferences.TEMP_DIR,
             System.getProperty("java.io.tmpdir"));
         theStore.setDefault(
-            CactusPreferences.WEBAPP_DIR,
-            CactusMessages.getString("CactusPreferencePage.label.webapp.init"));
-        theStore.setDefault(
             CactusPreferences.JETTY,
             true
         );
+        theStore.setDefault(
+            CactusPreferences.JETTY_XML,
+            CactusMessages.getString("ContainersPreferencePage.jettyxml.init"));
     }
 
     /**
