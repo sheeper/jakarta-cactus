@@ -53,6 +53,7 @@
     <property name="lib.dir" location="${basedir}/lib"/>
     <property name="src.dir" location="${basedir}/src"/>
     <property name="src.java.dir" location="${src.dir}/java"/>
+    <property name="src.conf.dir" location="${src.dir}/conf"/>
     <property name="src.cactus.dir" location="${src.dir}/test-cactus"/>
     <property name="src.webapp.dir" location="${src.dir}/webapp"/>
 
@@ -253,12 +254,25 @@
         <!-- Cactify the web-app archive -->
         <cactifywar srcfile="${target.dir}/${project.name.file}.war"
             destfile="${target.dir}/test.war">
-          <classes dir="${target.classes.cactus.dir}"/>
-          <lib file="${httpunit.jar}"/>
-          <@clover.begin@lib file="${clover.jar}"/@clover.end@>
-          <!-- Orion fails on a servlet filter that is not mapped to an actual
-               resource, to trick it -->
-          <filterredirector mapping="/test/filterRedirector.jsp"/>
+
+            <classes dir="${target.classes.cactus.dir}"/>
+            <lib file="${httpunit.jar}"/>
+
+            <!-- Orion fails on a servlet filter that is not mapped to an actual
+                 resource, to trick it -->
+            <filterredirector mapping="/test/filterRedirector.jsp"/>
+
+            <!-- Files needed for JBoss -->
+            <classes dir="${src.conf.dir}/jboss3x">
+              <include name="*.properties" if="cactus.home.jboss3x"/>
+            </classes>
+            <webinf dir="${src.conf.dir}/jboss3x">
+              <include name="jboss-web.xml" if="cactus.home.jboss3x"/>
+            </webinf>
+
+            <!-- Needed for Clover coverage reports -->
+            <@clover.begin@lib file="${clover.jar}"/@clover.end@>
+
         </cactifywar>
 
         <!-- Prepare the directories for the JUnit reports -->
@@ -321,19 +335,10 @@
           <formatter type="xml"/>
           <batchtest>
             <fileset dir="${src.cactus.dir}">
-              <!-- This JUnit test need to be the first one to be run.
-                   Otherwise, the test result might be that of the previous
-                   test and not the current test one, thus proving nothing -->
-              <include name="**/TestClientServerSynchronization.java"/>
-            </fileset>
-          </batchtest>
-          <batchtest>
-            <fileset dir="${src.cactus.dir}">
               <!-- Due to some Cactus synchronization bug, the 'unit' tests need
                    to run before the 'sample' tests -->
               <include name="**/unit/Test*.java"/>
               <exclude name="**/unit/Test*All.java"/>
-              <exclude name="**/unit/TestClientServerSynchronization.java"/>
             </fileset>
           </batchtest>
           <batchtest>

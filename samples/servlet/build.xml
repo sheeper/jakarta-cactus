@@ -54,6 +54,7 @@
         <!-- Set the properties related to the source tree -->
         <property name="src.dir" location="${base.dir}/src"/>
         <property name="src.java.dir" location="${src.dir}/java"/>
+        <property name="src.conf.dir" location="${src.dir}/conf"/>
         <property name="src.cactus.dir" location="${src.dir}/test-cactus"/>
         <property name="src.script.dir" location="${src.dir}/scripts"/>
         <property name="src.webapp.dir" location="${src.dir}/webapp"/>
@@ -64,6 +65,8 @@
             location="${target.sample.dir}/src"/>
         <property name="target.sample.src.java.dir"
             location="${target.sample.src.dir}/java"/>
+        <property name="target.sample.src.conf.dir"
+            location="${target.sample.src.dir}/conf"/>
         <property name="target.sample.src.cactus.dir"
             location="${target.sample.src.dir}/test-cactus"/>
         <property name="target.sample.src.webapp.dir" 
@@ -225,6 +228,7 @@
         <mkdir dir="${target.sample.dir}"/>
         <mkdir dir="${target.sample.lib.dir}"/>
         <mkdir dir="${target.sample.src.java.dir}"/>
+        <mkdir dir="${target.sample.src.conf.dir}"/>
         <mkdir dir="${target.sample.src.cactus.dir}"/>
         <mkdir dir="${target.sample.src.webapp.dir}"/>
         
@@ -236,6 +240,9 @@
         <copy todir="${target.sample.src.cactus.dir}">
             <fileset dir="${src.cactus.dir}/share"/>
             <fileset dir="${src.cactus.dir}/j2ee${j2ee.api}"/>
+        </copy>
+        <copy todir="${target.sample.src.conf.dir}">
+            <fileset dir="${src.conf.dir}"/>
         </copy>
 
         <!-- Copy scripts -->
