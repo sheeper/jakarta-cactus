@@ -92,14 +92,11 @@
       <section title="Installing the Cactus Ant Tasks">
 
         <p>
-          The Ant tasks provided by Cactus are distributed in a separate
-          package called which you can get from the
+          The Ant tasks provided by Cactus are distributed together with the
+          main distribution of Cactus, which you can get from the
           <link href="site:downloads">download</link> area. After downloading
           and expanding the archive, you'll find several JAR files in the
-          <code>lib</code> directory. This is includes all JARs that come with
-          the plain framework distribution, but also the library
-          <code>cactus-integration-ant.jar</code>, which provides the actual
-          integration with Ant. See the
+          <code>lib</code> directory. See the
           <link href="site:howto_classpath">Classpath Guide</link> for
           information about which of the JARs you need for what.
         </p>
@@ -113,8 +110,8 @@
     |- doc
     |  ...
     |- lib
-    |   |- cactus-framework.jar
-    |   |- cactus-integration-ant.jar
+    |   |- cactus.jar
+    |   |- cactus-ant.jar
     |   |- commons-httpclient.jar
     |   |- commons-logging.jar
     |   |- junit.jar
@@ -142,8 +139,8 @@
 <!-- Define the Cactus tasks -->
 <taskdef resource="cactus.tasks">
   <classpath>
-    <pathelement location="lib/cactus-framework.jar"/>
-    <pathelement location="lib/cactus-integration-ant.jar"/>
+    <pathelement location="lib/cactus.jar"/>
+    <pathelement location="lib/cactus-ant.jar"/>
     <pathelement location="lib/commons-httpclient.jar"/>
     <pathelement location="lib/commons-logging.jar"/>
   </classpath>
