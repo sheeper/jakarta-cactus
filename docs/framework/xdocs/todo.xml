@@ -78,10 +78,6 @@
       Check why zipped distributable files have a mode of 644 on unix systems
       (it should rather be 755). Thanks to Jason Crickmer.
     </action>
-    <action context="build">
-      Add a "assigned to" description for items assigned to someone on the
-      todo page (modify the XSL stylesheet)
-    </action>
     <action context="docs">
       Add a FAQ entry for explaining unit testing of persistent sessions.
     </action>
