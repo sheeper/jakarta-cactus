@@ -253,6 +253,25 @@
             </p>
           </td>
         </tr>
+        <tr>
+          <td>cactus.sysproperties</td>
+          <td>Yes</td>
+          <td>
+            Use this property elements to specify system properties required
+            by the test class. These properties will be made available to the 
+            Cactus client side and server side JVMs during the execution of 
+            the test. You can specify several system properties by listing 
+            their names, separating them with spaces. Each property value is
+            defined as a separate Maven property.
+            For example:
+<source><![CDATA[
+cactus.sysproperties=prop1 basedir
+prop1=your value
+basedir=${basedir}
+]]>
+            </source>
+          </td>
+        </tr>
       </table>
     </section>
 

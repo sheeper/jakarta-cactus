@@ -7,6 +7,14 @@
 
   <body>
 
+    <release version="1.7dev" date="in CVS">
+      <action dev="vmassol" type="add">
+        Added new <code>cactus.sysproperties</code> property to the 
+        Maven plugin for Cactus to allow passing system properties to
+        the client and server side Cactus JVMs.
+      </action>
+    </release>
+    
     <release version="1.6" date="2004-05-08">
       <action dev="vmassol" type="add" issue="CACTUS-102" due-to="Nicolas De Loof">
         When calling <code>cactus:test</code>, only run the tests if there are
