@@ -61,7 +61,7 @@
 
     <!--
        ========================================================================
-         Stop WebLogic 7.0
+         Stop WebLogic 7.x
        ========================================================================
     -->
     <target name="cactus.stop.weblogic7x" description="Stop WebLogic 7.x"
@@ -140,7 +140,7 @@
         <mkdir dir="${cactus.target.weblogic7x}/testdomain/applications"/>
         <mkdir dir="${cactus.target.weblogic7x}/testdomain/testserver"/>
 
-        <!-- Copy WL 7.0 configuration files -->
+        <!-- Copy WL 7.x configuration files -->
         <copy file="${cactus.conf.weblogic7x}/config.xml"
             todir="${cactus.target.weblogic7x}/testdomain" filtering="on"/>
         <copy file="${cactus.conf.weblogic7x}/fileRealm.properties"
