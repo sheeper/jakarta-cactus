@@ -81,23 +81,21 @@ import org.eclipse.ui.IWorkbenchPreferencePage;
  * 
  * @version $Id:$
  * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
+ * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  */
-public class CactusPreferencePage
-    extends FieldEditorPreferencePage
+public class CactusPreferencePage extends FieldEditorPreferencePage
     implements IWorkbenchPreferencePage
 {
-
     /**
-     * Constructor.
+     * Sets default plugin preferences.
      */
     public CactusPreferencePage()
     {
         super(GRID);
         setPreferenceStore(CactusPlugin.getDefault().getPreferenceStore());
         // TODO: externalize
-        setDescription(
-            "Preferences of the Apache Cactus plug-in "
-                + "for in-container unit testing");
+        setDescription("Preferences of the Apache Cactus plug-in "
+            + "for in-container unit testing");
         initializeDefaults();
     }
 
@@ -123,33 +121,24 @@ public class CactusPreferencePage
     {
         // TODO: externalize labels
         addField(new RadioGroupFieldEditor(
-            CactusPreferences.CONTEXT_URL_SCHEME,
-            "Protocol:",
-            1,
-            new String[][] { { "HTTP", "http" }, {
-                "HTTP over SSL", "https" }
-        }, getFieldEditorParent()));
-        addField(
-            new StringFieldEditor(
-                CactusPreferences.CONTEXT_URL_HOST,
-                "Host:",
-                getFieldEditorParent()));
-        addField(
-            new IntegerFieldEditor(
-                CactusPreferences.CONTEXT_URL_PORT,
-                "Port:",
-                getFieldEditorParent()));
-        addField(
-            new StringFieldEditor(
-                CactusPreferences.CONTEXT_URL_PATH,
-                "Context:",
-                getFieldEditorParent()));
+            CactusPreferences.CONTEXT_URL_SCHEME, "Protocol:", 1,
+            new String[][] { { "HTTP", "http" }, { "HTTP over SSL", "https" } },
+            getFieldEditorParent()));
+        addField(new StringFieldEditor(
+            CactusPreferences.CONTEXT_URL_HOST, "Host:",
+            getFieldEditorParent()));
+        addField(new IntegerFieldEditor(
+            CactusPreferences.CONTEXT_URL_PORT, "Port:",
+            getFieldEditorParent()));
+        addField(new StringFieldEditor(
+            CactusPreferences.CONTEXT_URL_PATH, "Context:",
+            getFieldEditorParent()));
     }
 
     /**
      * @see org.eclipse.ui.IWorkbenchPreferencePage#init(IWorkbench)
-    */
-    public void init(IWorkbench workbench)
+     */
+    public void init(IWorkbench theWorkbench)
     {
         // nothing to do (yet)
     }
