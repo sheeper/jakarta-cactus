@@ -53,13 +53,7 @@
  */
 package org.apache.cactus.server;
 
-import java.util.*;
-import java.io.*;
-import java.security.*;
-import java.net.*;
-
-import javax.servlet.*;
-import javax.servlet.http.*;
+import javax.servlet.ServletContext;
 
 /**
  * Wrapper around Servlet 2.2 <code>ServletContext</code>. This wrapper

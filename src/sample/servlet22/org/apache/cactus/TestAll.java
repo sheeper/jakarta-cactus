@@ -53,7 +53,9 @@
  */
 package org.apache.cactus;
 
-import junit.framework.*;
+import junit.framework.Test;
+import junit.framework.TestCase;
+import junit.framework.TestSuite;
 
 /**
  * Run all the sample tests of Cactus for Servlet API 2.2 that do need a
@@ -82,7 +84,7 @@ public class TestAll extends TestCase
      */
     public static void main(String[] theArgs)
     {
-        junit.ui.TestRunner.main(new String[] {TestAll.class.getName()});
+        junit.ui.TestRunner.main(new String[]{TestAll.class.getName()});
     }
 
     /**

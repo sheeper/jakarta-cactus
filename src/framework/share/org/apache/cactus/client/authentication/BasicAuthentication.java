@@ -57,6 +57,17 @@ import java.net.HttpURLConnection;
 import java.text.CharacterIterator;
 import java.text.StringCharacterIterator;
 
+/**
+ * Basic Authentication support.
+ *
+ * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
+ * @author <a href="mailto:Jason.Robertson@acs-inc.com">Jason Robertson</a>
+ *
+ * @since 1.3
+ * @see AbstractAuthentication
+ *
+ * @version $Id$
+ */
 public class BasicAuthentication extends AbstractAuthentication
 {
     public BasicAuthentication(String userid, String password)

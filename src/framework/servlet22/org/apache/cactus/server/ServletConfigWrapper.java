@@ -53,13 +53,11 @@
  */
 package org.apache.cactus.server;
 
-import java.util.*;
-import java.io.*;
-import java.security.*;
-import java.net.*;
-
-import javax.servlet.*;
-import javax.servlet.http.*;
+import java.util.Enumeration;
+import java.util.Hashtable;
+import java.util.Vector;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 
 /**
  * Wrapper around <code>ServletConfig</code> which overrides the
@@ -140,7 +138,7 @@ public class ServletConfigWrapper implements ServletConfig
     {
         // Look first in the list of parameters set using the
         // setInitParameter() method.
-        String value = (String)this.initParameters.get(theName);
+        String value = (String) this.initParameters.get(theName);
         if (value == null) {
             value = this.originalConfig.getInitParameter(theName);
         }
@@ -159,13 +157,13 @@ public class ServletConfigWrapper implements ServletConfig
 
         Enumeration enum = this.initParameters.keys();
         while (enum.hasMoreElements()) {
-            String value = (String)enum.nextElement();
+            String value = (String) enum.nextElement();
             names.add(value);
         }
 
         enum = this.originalConfig.getInitParameterNames();
         while (enum.hasMoreElements()) {
-            String value = (String)enum.nextElement();
+            String value = (String) enum.nextElement();
             names.add(value);
         }
 

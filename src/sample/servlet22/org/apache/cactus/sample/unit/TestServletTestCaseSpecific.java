@@ -53,16 +53,10 @@
  */
 package org.apache.cactus.sample.unit;
 
-import java.util.*;
-import java.text.*;
-import javax.servlet.*;
-import javax.servlet.http.*;
-import java.net.*;
-import java.io.*;
+import junit.framework.Test;
+import junit.framework.TestSuite;
 
-import junit.framework.*;
-
-import org.apache.cactus.*;
+import org.apache.cactus.ServletTestCase;
 
 /**
  * Cactus unit tests for testing <code>ServletTestCase</code>. These tests
@@ -97,7 +91,7 @@ public class TestServletTestCaseSpecific extends ServletTestCase
      */
     public static void main(String[] theArgs)
     {
-        junit.ui.TestRunner.main(new String[] {
+        junit.ui.TestRunner.main(new String[]{
             TestServletTestCaseSpecific.class.getName()});
     }
 

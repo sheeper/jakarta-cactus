@@ -69,6 +69,8 @@ import java.net.HttpURLConnection;
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  * @author <a href="mailto:Jason.Robertson@acs-inc.com">Jason Robertson</a>
  *
+ * @since 1.3
+ *
  * @version $Id$
  */
 public abstract class AbstractAuthentication

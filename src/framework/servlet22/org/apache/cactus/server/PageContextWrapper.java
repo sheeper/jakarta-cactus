@@ -53,9 +53,9 @@
  */
 package org.apache.cactus.server;
 
-import javax.servlet.jsp.*;
+import javax.servlet.jsp.PageContext;
 
-import org.apache.cactus.*;
+import org.apache.cactus.ServletURL;
 
 /**
  * Wrapper around <code>PageContext</code> so that get methods that would
