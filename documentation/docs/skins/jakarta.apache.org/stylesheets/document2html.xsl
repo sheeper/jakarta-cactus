@@ -93,7 +93,8 @@
 
       </head>
 
-      <body>
+      <body text="{$body-fg}" link="#525D76" vlink="{$body-link}" 
+        alink="{$body-link}">
 
         <!-- ============================================================== -->
         <!-- Top level header -->
