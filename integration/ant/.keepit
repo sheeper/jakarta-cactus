@@ -1,0 +1,3 @@
+This file is used to prevent pruning.
+Here are all the directories that use it :
+ant/lib/server : built in the distributed ant integration, needs this file because it is otherwise pruned by the Eclipse update feature.
