@@ -102,6 +102,13 @@
             <property name="j2ee.jar" isfile="true"/>
             <property name="jstl.jar" isfile="true"/>
             <property name="standard.jar" isfile="true"/>
+            <property name="aspectjrt.jar" isfile="true"/>
+            <property name="commons.logging.jar" isfile="true"/>
+            <property name="commons.httpclient.jar" isfile="true"/>
+            <property name="junit.jar" isfile="true"/>
+            <property name="log4j.jar" isfile="true"/>
+            <property name="httpunit.jar" isfile="true"/>
+            <property name="nekohtml.jar" isfile="true"/>
         </checkProperty>
 
     </target>
