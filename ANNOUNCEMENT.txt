@@ -11,6 +11,11 @@ Known limitations or not fixed bugs:
 * [Bug 21237] CactifyWarTask duplicates init-param lines in existing web.xml 
   servlet tag  
 * [Bug 17933] FormAuthentication assumes "localhost" when adding cookies  
+* [Bug 17077] Code page problems under WebSphere z/OS  
+* [Bug 17653] result is null in AbstractWebTestCaller's doGetResults() method
+  Note that this bug is probably due to a race condition problem that happens
+  very unfrequently and which is not yet resolved. It will be solved in an
+  upcoming point release.
 * Some binary incompatiblity was introduced by the refactoring of the
   XXXTestCase class hierarchy. Whereas it was previously inheriting from 
   AbstractWebTestCase and AbstractTestCase, it is now simply inheriting
