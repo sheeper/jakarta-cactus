@@ -247,33 +247,6 @@ be resolved. Please check you build.properties file, and run Ant with the
     <target name="dist" depends="checkstyle,jar"
       description="Generate the distributable files">
 
-        <filter token="cactus.ant.jar.name"
-            value="${cactus.ant.jar.name}.jar"/>
-        <filter token="cactus.jar.name" value="${cactus.jar.name}.jar"/>
-
-        <basename property="log4j.jar.name" file="${log4j.jar}"/>
-        <filter token="log4j.jar.name" value="${log4j.jar.name}"/>
-        <basename property="aspectjrt.jar.name" file="${aspectjrt.jar}"/>
-        <filter token="aspectjrt.jar.name" value="${aspectjrt.jar.name}"/>
-        <basename property="commons.logging.jar.name"
-            file="${commons.logging.jar}"/>
-        <filter token="commons.logging.jar.name"
-            value="${commons.logging.jar.name}"/>
-        <basename property="junit.jar.name" file="${junit.jar}"/>
-        <filter token="junit.jar.name" value="${junit.jar.name}"/>
-        <basename property="commons.httpclient.jar.name"
-            file="${commons.httpclient.jar}"/>
-        <filter token="commons.httpclient.jar.name"
-            value="${commons.httpclient.jar.name}"/>
-        <basename property="httpunit.jar.name" file="${httpunit.jar}"/>
-        <filter token="httpunit.jar.name" value="${httpunit.jar.name}"/>
-        <basename property="nekohtml.jar.name" file="${nekohtml.jar}"/>
-        <filter token="nekohtml.jar.name" value="${nekohtml.jar.name}"/>
-        <basename property="xerces.jar.name" file="${xerces.jar}"/>
-        <filter token="xerces.jar.name" value="${xerces.jar.name}"/>
-        <basename property="xmlapis.jar.name" file="${xmlapis.jar}"/>
-        <filter token="xmlapis.jar.name" value="${xmlapis.jar.name}"/>
-
         <mkdir dir="${dist.bin.integration.dir}"/>
 
         <copy todir="${dist.bin.integration.dir}"
@@ -297,7 +270,7 @@ be resolved. Please check you build.properties file, and run Ant with the
         <!-- Copy the Ant Integration files -->
         <copy todir="${dist.bin.integration.dir}/ant">
             <fileset dir="${cactus.ant.bin}"/>
-         </copy>
+        </copy>
 
         <copy todir="${dist.bin.integration.dir}">
             <fileset dir=".">
