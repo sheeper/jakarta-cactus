@@ -564,6 +564,12 @@
     <target name="tests-functional22-weblogic51-else" unless="weblogic.home.51">
         <property name="weblogic.flag.51" value=""/>
     </target>
+    <target name="tests-functional22-enhydra31-if" if="enhydra.home.31">
+        <property name="enhydra.flag.31" value="-Denhydra.home.31=${enhydra.home.31}"/>
+    </target>
+    <target name="tests-functional22-enhydra31-else" unless="enhydra.home.31">
+        <property name="enhydra.flag.31" value=""/>
+    </target>
 
     <target name="tests-functional22-checks"
         depends="tests-functional22-resin12-if,
@@ -575,7 +581,9 @@
                  tests-functional22-orion14-if,
                  tests-functional22-orion14-else,
                  tests-functional22-weblogic51-if,
-                 tests-functional22-weblogic51-else">
+                 tests-functional22-weblogic51-else,
+                 tests-functional22-enhydra31-if,
+                 tests-functional22-enhydra31-else">
     </target>
 
     <target name="tests-functional22" depends="sample,tests-functional22-checks">
@@ -591,6 +599,7 @@
             <arg value="${tomcat.flag.32}"/>
             <arg value="${orion.flag.14}"/>
             <arg value="${weblogic.flag.51}"/>
+            <arg value="${enhydra.flag.31}"/>
             <arg value="tests_all"/>
 
             <classpath>            

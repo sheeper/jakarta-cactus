@@ -1,0 +1,121 @@
+    <!--
+       ========================================================================
+         Run Enhydra 3.1 tests
+       ========================================================================
+    -->
+    <target name="tests_enhydra_31" depends="prepare_tests_enhydra_31" if="enhydra.home.31">
+
+        <!-- Start the servlet engine, wait for it to be started, run the
+             unit tests, stop the servlet engine, wait for it to be stopped.
+             The servlet engine is stopped if the tests fail for any reason -->
+
+        <runservertests testURL="http://localhost:8080/test"
+            startTarget="start_enhydra_31"
+            stopTarget="stop_enhydra_31"
+            testTarget="tests"/>
+
+    </target>
+
+    <!--
+       ========================================================================
+         Start Enhydra 3.1
+       ========================================================================
+    -->
+    <target name="start_enhydra_31">
+
+        <java classname="org.apache.commons.cactus.ant.EnhydraRun" fork="yes">
+            <arg value="-start"/>
+            <arg value="${out.enhydra31.dir}/conf/multiserver.conf"/>
+            <classpath>
+                <fileset dir="${enhydra.home.31}/lib">
+                    <include name="enhydra.jar"/>
+                    <include name="admin.jar"/>
+                </fileset>
+                <pathelement location="${cactus.ant.jar}"/>
+                <pathelement location="${java.home}/../lib/tools.jar"/>
+            </classpath>
+        </java>
+
+    </target>
+
+    <!--
+       ========================================================================
+         Stop Enhydra 3.1
+       ========================================================================
+    -->
+    <target name="stop_enhydra_31">
+
+        <java classname="org.apache.commons.cactus.ant.EnhydraRun" fork="yes">
+            <arg value="-stop"/>
+            <classpath>
+                <fileset dir="${enhydra.home.31}/lib">
+                    <include name="enhydra.jar"/>
+                    <include name="admin.jar"/>
+                </fileset>
+                <pathelement location="${cactus.ant.jar}"/>
+                <pathelement location="${java.home}/../lib/tools.jar"/>
+            </classpath>
+        </java>
+
+    </target>
+
+    <!--
+       ========================================================================
+         Display a warning message if the needed servlet engine home property
+         is not set
+       ========================================================================
+    -->
+    <target name="check_tests_enhydra_31" depends="testwar" unless="enhydra.home.31">
+
+        <echo message=""/>
+        <echo message="*********************************************************"/>
+        <echo message="WARNING : The 'enhydra.home.31' property has not been set."/>
+        <echo message="          No test will be run on that servlet engine."/>
+        <echo message="*********************************************************"/>
+        <echo message=""/>
+
+    </target>
+
+    <!--
+       ========================================================================
+         Prepare directories and variables for running the tests
+       ========================================================================
+    -->
+    <target name="prepare_tests_enhydra_31" depends="check_tests_enhydra_31" if="enhydra.home.31">
+
+        <taskdef name="pathconvert" classname="org.apache.commons.cactus.ant.PathConvert">
+            <classpath>
+                <pathelement location="${cactus.ant.jar}"/>
+            </classpath>
+        </taskdef>
+
+        <echo message="enhydra.home.31 = ${enhydra.home.31}"/>
+
+        <property name="out.enhydra31.dir" value="${out.test.dir}/enhydra31"/>
+        <property name="conf.enhydra31.dir" value="${conf.test.dir}/enhydra31"/>
+
+        <pathconvert targetos="unix" property="full.out.enhydra31.dir" >
+            <path>
+                <pathelement location="${basedir}/${out.enhydra31.dir}"/>
+            </path>
+        </pathconvert>
+
+        <echo message="full.out.enhydra31.dir = ${full.out.enhydra31.dir}"/>
+        <filter token="out.enhydra31.dir" value="${out.enhydra31.dir}"/>
+        <filter token="full.out.enhydra31.dir" value="${full.out.enhydra31.dir}"/>
+
+        <!-- Create work and conf directories and copy configuration files -->
+        <mkdir dir="${out.enhydra31.dir}/conf"/>
+        <mkdir dir="${out.enhydra31.dir}/work"/>
+        <mkdir dir="${out.enhydra31.dir}/webapps"/>
+
+        <!-- Copy the configuration file -->
+        <copy file="${conf.enhydra31.dir}/multiserver.conf"
+            tofile="${out.enhydra31.dir}/conf/multiserver.conf" filtering="on"/>
+
+        <!-- This is needed here because Enhydra 3.1 does not support
+             automatic war deployment  -->
+        <unwar src="${out.test.dir}/test.war"
+            dest="${out.enhydra31.dir}/webapps/"/>
+
+    </target>
