@@ -37,6 +37,8 @@
       </launchConfigurationType>
    </extension>
 
+   <!-- Registers the Cactus launch shortcut (runs a launch configuration
+        on a selected class in the workbench) -->
    <extension point="org.eclipse.debug.ui.launchShortcuts">
        <shortcut label="%CactusShortcut.label"
          icon="icons/calaunch.gif"
