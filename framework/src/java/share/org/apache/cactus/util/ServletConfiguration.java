@@ -72,7 +72,7 @@ public class ServletConfiguration extends Configuration
      * Name of the cactus property that specifies the name of the Servlet
      * redirector.
      */
-    public static final String CACTUS_SERVLET_REDIRECTOR_NAME_PROPERTY =
+    public static final String CACTUS_SERVLET_REDIRECTOR_NAME_PROPERTY = 
         "cactus.servletRedirectorName";
 
     /**
@@ -86,11 +86,14 @@ public class ServletConfiguration extends Configuration
     {
         initialize();
 
-        String servletRedirectorName =
+        String servletRedirectorName = 
             System.getProperty(CACTUS_SERVLET_REDIRECTOR_NAME_PROPERTY);
-        if (servletRedirectorName == null) {
+
+        if (servletRedirectorName == null)
+        {
             servletRedirectorName = "ServletRedirector";
         }
+
         return getContextURL() + "/" + servletRedirectorName;
     }
 }
