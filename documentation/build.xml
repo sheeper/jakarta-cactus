@@ -159,23 +159,6 @@
         </taskdef>
 
         <!-- Generate cvs log -->
-<!--
-        <cvschangelog dir="${doc.xdoc.dir}"
-            destfile="${doc.xdoc.dir}/cvslog/cvslog.xml"
-            usersfile="${doc.xdoc.dir}/cvslog/users.properties"
-            daysinpast="15">
-
-            <fileset dir="${doc.xdoc.dir}">
-
-                <exclude name="book.xml"/>
-                <exclude name="todo.xml"/>
-                <exclude name="changes.xml"/>
-                <exclude name="**/cvslog.xml"/>
-                <include name="**/*.xml"/>
-            </fileset>
-
-        </cvschangelog>
--->
         <cvslog users="${doc.xdoc.dir}/cvslog/users.properties"
             work="${doc.xdoc.dir}" output="${doc.xdoc.dir}/cvslog/cvslog.xml"
             debug="toto.txt" elapsed="15">
@@ -189,7 +172,6 @@
             </fileset>
 
         </cvslog>
-
 
         <!-- Copy book.xml to replace the token filters (year) -->
         <copy file="${doc.xdoc.dir}/book.xml"
