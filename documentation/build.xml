@@ -234,9 +234,9 @@
            stylesheet is located. Note: this path MUST be relative as it 
            is used as a relative URI from within the stylesheet -->
       <param name="xdocdir" expression="../../../${xdoc.dir.name}"/>
-      <!-- Location of the sitemap.xml file relative to xdocdir -->
+      <!-- Location of the sitemap.xml file -->
       <param name="sitemapFile" expression="${sitemap.file}"/>
-      <!-- Location of the cvslog.xml file relative to xdocdir -->
+      <!-- Location of the cvslog.xml file -->
       <param name="cvslogfile" expression="${cvslog.file}"/>
     </style>
 

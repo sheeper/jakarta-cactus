@@ -763,12 +763,11 @@
   </xsl:template>
 
   <!-- ==================================================================== -->
-  <!-- Changelog: "cvslogs/changelog/entry" elements -->
+  <!-- Changelog: "changelog/entry" elements -->
   <!-- ==================================================================== -->
 
   <xsl:template match="cvschangelog">
-    <xsl:variable name="changelog" 
-      select="document($cvslogfile)/changelog"/>
+    <xsl:variable name="changelog" select="document($cvslogfile)/changelog"/>
     <xsl:choose>
       <xsl:when test="$changelog/entry">
         <div class="tabular">
