@@ -8,6 +8,15 @@
   <body>
 
     <release version="1.6dev" date="in CVS">
+      <action dev="vmassol" type="add">
+        Added new optional <code>cactus.war</code> property. It specified the
+        location where to generate the cactified WAR. Note that this is 
+        also the name of the test context that will be used (except if 
+        the context is specified by other means such as in 
+        <code>application.xml</code> if the WAR is packaged in an EAR, 
+        etc). It defaults to
+        <code>${maven.build.dir}/${pom.artifactId}-cactus.war</code>.
+      </action>
       <action dev="vmassol" type="add" due-to="Tony Czupryna" due-to-email="tczupryna@orbitz.com">
         Added support for the new <code>configxml</code> attribute used in the
         <code>&lt;weblogic7x&gt;</code> element of the 

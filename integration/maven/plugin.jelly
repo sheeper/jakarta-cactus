@@ -76,8 +76,11 @@
       <ant:path refid="cactus.classpath"/>
     </ant:path>
 
-    <j:set var="cactus.war" value="${pom.artifactId}-cactus.war"/>
-    <j:set var="cactus.ear" value="${pom.artifactId}-cactus.ear"/>
+    <ant:dirname property="cactus.war.dir" file="${cactus.war}"/>
+    <ant:basename property="cactus.war.name" file="${cactus.war}"/>
+      
+    <j:set var="cactus.ear" 
+        value="${maven.build.dir}/${pom.artifactId}-cactus.ear"/>
 
   </goal>
 
@@ -220,8 +223,7 @@
   <goal name="cactus:cactifywar" prereqs="cactus:compile"
       description="Cactify the application war">
 
-    <cactifywar srcfile="${cactus.src.war}" 
-        destfile="${maven.build.dir}/${cactus.war}">
+    <cactifywar srcfile="${cactus.src.war}" destfile="${cactus.war}">
 
       <!-- Add the mergewebxml attribute if it has been defined by the
       	   user -->
@@ -280,8 +282,8 @@
       </fileset>
     </cactus:scanner>
 
-    <cactus warfile="${maven.build.dir}/${cactus.war}" 
-        fork="yes" errorproperty="cactustests.error" 
+    <cactus warfile="${cactus.war}" fork="yes" 
+        errorproperty="cactustests.error"
         failureproperty="cactustests.failure"
         printsummary="${cactus.printsummary}">
 
@@ -479,10 +481,10 @@
 	  </j:when>
 	    
     <j:otherwise>    
-     <cactus warfile="${maven.build.dir}/${cactus.war}" 
-        fork="yes" errorproperty="cactustests.error" 
-        failureproperty="cactustests.failure"
-        printsummary="${cactus.printsummary}">
+      <cactus warfile="${cactus.war}" fork="yes" 
+          errorproperty="cactustests.error" 
+          failureproperty="cactustests.failure"
+          printsummary="${cactus.printsummary}">
       <ant:classpath>
         <ant:pathelement path="${maven.build.dest}"/>
         <ant:pathelement location="${cactus.target.classes.dir}"/>
@@ -616,10 +618,10 @@
 	  </j:when>
 	    
     <j:otherwise>    
-     <cactus warfile="${maven.build.dir}/${cactus.war}" 
-        fork="yes" errorproperty="cactustests.error" 
-        failureproperty="cactustests.failure"
-        printsummary="${cactus.printsummary}">
+      <cactus warfile="${cactus.war}" fork="yes" 
+          errorproperty="cactustests.error" 
+          failureproperty="cactustests.failure"
+          printsummary="${cactus.printsummary}">
       <ant:classpath>
         <ant:pathelement path="${maven.build.dest}"/>
         <ant:pathelement location="${cactus.target.classes.dir}"/>
@@ -749,13 +751,15 @@
 
     <ant:mkdir dir="${maven.build.dir}"/>
 
-    <ant:ear destfile="${maven.build.dir}/${cactus.ear}"
+    <ant:ear destfile="${cactus.ear}" 
         appxml="${maven.build.dir}/application.xml">
 
       <!-- include cactus generated archives -->
-      <ant:fileset dir="${maven.build.dir}">
-        <ant:include name="${cactus.war}"/>
-        <ant:include name="${cactus.ejb}"/>
+      <ant:fileset dir="${cactus.war.dir}">
+        <ant:include name="${cactus.war.name}"/>
+      </ant:fileset>
+      <ant:fileset dir="${cactus.ejb.dir}">
+        <ant:include name="${cactus.ejb.name}"/>
       </ant:fileset>
 
       <!-- include marked dependencies -->
@@ -799,7 +803,7 @@
       prereqs="cactus:init,cactus:init-report,cactus:cactifyear"
       description="Run all Cactus Test Cases (packaged in an EAR)">
 
-    <cactus earfile="${maven.build.dir}/${cactus.ear}" fork="yes" 
+    <cactus earfile="${cactus.ear}" fork="yes" 
         errorproperty="cactustests.error" failureproperty="cactustests.failure"
         printsummary="${maven.cactus.printsummary}">
       <ant:classpath>
@@ -984,7 +988,8 @@
   -->
   <goal name="cactus:generate-ear-descriptor" prereqs="cactus:init">
 
-    <j:set var="cactus.ejb" value="${maven.final.name}.jar"/>
+    <j:set var="cactus.ejb.dir" value="${maven.build.dir}"/>
+    <j:set var="cactus.ejb.name" value="${maven.final.name}.jar"/>
 
     <mkdir dir="${maven.build.dir}"/>
 
@@ -1012,14 +1017,14 @@
         <!-- cactus war file -->
         <x:element name="module">
           <x:element name="web">
-            <x:element name="web-uri">${cactus.war}</x:element>
+            <x:element name="web-uri">${cactus.war.name}</x:element>
             <x:element name="context-root">${pom.artifactId}</x:element>
           </x:element>
         </x:element>
 
         <!-- ejb module under test -->
         <x:element name="module">
-          <x:element name="ejb">${cactus.ejb}</x:element>
+          <x:element name="ejb">${cactus.ejb.name}</x:element>
         </x:element>
 
         <j:forEach var="lib" items="${pom.artifacts}">
