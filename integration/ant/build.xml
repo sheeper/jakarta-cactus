@@ -32,7 +32,8 @@
     <!-- Global project properties -->
     <property name="project.name.text" value="Cactus Ant Integration"/>
     <property name="project.name.file" value="cactus-integration-ant"/>
-
+    <property name="server.keepit" value="${base.dir}/.keepit"/>
+    
     <!--
        ========================================================================
          Initialize source, target and dist properties
@@ -268,6 +269,7 @@
         <mkdir dir="${target.integration.conf.dir}"/>
 
 		<!-- Gather all server side Cactus jars -->
+        <copy todir="${target.integration.lib.server.dir}" file="${server.keepit}"/>
         <!-- (None at the moment) -->
         
 		<!-- Gather all client side Cactus jars -->
