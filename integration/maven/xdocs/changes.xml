@@ -8,6 +8,10 @@
   <body>
 
     <release version="1.6dev" date="in CVS">
+      <action dev="vmassol" type="fix">
+        Added dependency on <code>commons-jelly-tags-xml</code>. It seems
+        this is required for some configurations of Maven.
+      </action>
       <action dev="vmassol" type="update" due-to="Peter Bright" due-to-email="Peter.Bright@orbian.com">
         Removed explicit dependencies on EAR and WAR plugins so that users are
         free to install the versions they want to work with. As it was, we were

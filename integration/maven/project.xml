@@ -102,6 +102,14 @@
       <version>1.6.1</version>
     </dependency>
 
+    <!-- VMA: I don't know why but this dependency is required for some
+         persons -->
+    <dependency>
+      <groupId>commons-jelly</groupId>
+      <artifactId>commons-jelly-tags-xml</artifactId>
+      <version>20030211.142705</version>
+    </dependency>
+
   </dependencies>
   <build>
     <sourceDirectory>src/main</sourceDirectory>
