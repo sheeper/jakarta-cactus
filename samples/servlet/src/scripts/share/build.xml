@@ -81,15 +81,13 @@
        ========================================================================
     -->
 
-    <property name="lib.dir" location="../../lib"/>
-
     <!-- Libraries required for the sample project -->
     <property name="servlet.jar"
-        location="${lib.dir}/@servlet.jar.name@"/>
+        location="../../lib/@servlet.jar.name@"/>
     <@j2ee13.begin@property name="jstl.jar"
-        location="${lib.dir}/@jstl.jar.name@"/@j2ee13.end@>
+        location="lib/@jstl.jar.name@"/@j2ee13.end@>
     <@j2ee13.begin@property name="standard.jar"
-        location="${lib.dir}/@standard.jar.name@"/@j2ee13.end@>
+        location="lib/@standard.jar.name@"/@j2ee13.end@>
     <path id="project.classpath">
         <pathelement location="${servlet.jar}"/>
         <@j2ee13.begin@pathelement location="${jstl.jar}"/@j2ee13.end@>
@@ -98,21 +96,21 @@
 
     <!-- Libraries required for the Cactus tests -->
     <property name="aspectjrt.jar"
-        location="${lib.dir}/@aspectjrt.jar.name@"/>
+        location="../../lib/@aspectjrt.jar.name@"/>
     <property name="cactus.ant.jar"
-        location="${lib.dir}/@cactus.ant.jar.name@"/>
+        location="../../lib/@cactus.ant.jar.name@"/>
     <property name="cactus.framework.jar"
-        location="${lib.dir}/@cactus.framework.jar.name@"/>
+        location="../../lib/@cactus.framework.jar.name@"/>
     <property name="commons.httpclient.jar"
-        location="${lib.dir}/@commons.httpclient.jar.name@"/>
+        location="../../lib/@commons.httpclient.jar.name@"/>
     <property name="commons.logging.jar"
-        location="${lib.dir}/@commons.logging.jar.name@"/>
+        location="../../lib/@commons.logging.jar.name@"/>
     <property name="httpunit.jar"
-        location="${lib.dir}/@httpunit.jar.name@"/>
+        location="../../lib/@httpunit.jar.name@"/>
     <property name="junit.jar"
-        location="${lib.dir}/@junit.jar.name@"/>
+        location="../../lib/@junit.jar.name@"/>
     <property name="nekohtml.jar"
-        location="${lib.dir}/@nekohtml.jar.name@"/>
+        location="../../lib/@nekohtml.jar.name@"/>
     <path id="cactus.classpath">
         <path refid="project.classpath"/>
         <pathelement location="${aspectjrt.jar}"/>

@@ -115,7 +115,7 @@
     <path id="project.classpath">
 
         <pathelement location="${cactus.framework.jar}"/>
-        <pathelement location="${servlet.jar}"/>
+        <pathelement location="${j2ee.jar}"/>
         <pathelement location="${log4j.jar}"/>
         <pathelement location="${commons.logging.jar}"/>
         <pathelement location="${commons.httpclient.jar}"/>
@@ -157,7 +157,7 @@
         <echo message="ant.home = ${ant.home}"/>
         <echo message=""/>
         <echo message="cactus.framework.jar = ${cactus.framework.jar}"/>
-        <echo message="servlet.jar = ${servlet.jar}"/>
+        <echo message="j2ee.jar = ${j2ee.jar}"/>
         <echo message="aspectjrt.jar = ${aspectjrt.jar}"/>
         <echo message="commons.logging.jar = ${commons.logging.jar}"/>
         <echo message="commons.httpclient.jar = ${commons.httpclient.jar}"/>
@@ -190,7 +190,7 @@
         <condition property="properties.ok">
             <and>
                 <available file="${cactus.framework.jar}"/>
-                <available file="${servlet.jar}"/>
+                <available file="${j2ee.jar}"/>
                 <available file="${aspectjrt.jar}"/>
                 <available file="${commons.logging.jar}"/>
                 <available file="${commons.httpclient.jar}"/>

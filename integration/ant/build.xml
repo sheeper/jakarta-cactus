@@ -478,12 +478,7 @@
         <copy todir="${target.integration.lib.client.dir}" file="${nekohtml.jar}"/>
         <copy todir="${target.integration.lib.client.dir}" file="${xerces.jar}"/>
         <copy todir="${target.integration.lib.client.dir}" file="${xmlapis.jar}"/>
-
-        <!-- Note: ATM we copy the servlet jar (and not the J2EE one). The 
-             reasons are that ATM we only need the servlet API and that the
-             J2EE jar is not redistributable -->
-        <copy todir="${target.integration.lib.client.dir}" file="${servlet.jar}"/>
-
+        <copy todir="${target.integration.lib.client.dir}" file="${j2ee.jar}"/>
         <copy todir="${target.integration.lib.client.dir}" file="${commons.httpclient.jar}"/>
 
 		<!-- Gather all shared (client and server) Cactus jars -->

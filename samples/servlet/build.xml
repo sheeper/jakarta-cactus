@@ -325,6 +325,7 @@
                 location="${test.cactus.framework.jar}"/>
             <property name="cactus.ant.jar"
                 location="${test.cactus.antintegration.jar}"/>
+            <property name="servlet.jar" value="${j2ee.jar}"/>
             <property name="clover.jar" value="${clover.jar}"/>
         </ant>
 
