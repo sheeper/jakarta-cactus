@@ -4,7 +4,7 @@
   <name>Jakarta Cactus</name>
   <groupId>cactus</groupId>
   <id>jakarta-cactus</id>
-  <currentVersion>1.6dev</currentVersion>
+  <currentVersion>1.6</currentVersion>
   <organization>
     <name>Apache Software Foundation</name>
     <url>http://jakarta.apache.org/</url>
@@ -59,9 +59,9 @@
       <tag>CACTUS_15_RELEASE</tag>
     </version>
     <version>
-      <id>1.6dev</id>
-      <name>1.6dev</name>
-      <tag>HEAD</tag>
+      <id>1.6</id>
+      <name>1.6</name>
+      <tag>CACTUS_15_RELEASE</tag>
     </version>
   </versions>
 

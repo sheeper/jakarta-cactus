@@ -7,7 +7,7 @@
   <!-- Note: Although we inherit from default-project.xml, we still cannot 
   	   remove the <currentVersion> tag as this project.xml is parsed at 
   	   runtime whenever our plugin is called. -->
-  <currentVersion>1.6dev</currentVersion>
+  <currentVersion>1.6</currentVersion>
 
   <name>Maven Cactus plugin</name>
   <package>org.apache.cactus.integration.maven</package>

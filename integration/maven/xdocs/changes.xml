@@ -7,7 +7,7 @@
 
   <body>
 
-    <release version="1.6dev" date="in CVS">
+    <release version="1.6" date="2004-05-08">
       <action dev="vmassol" type="add" issue="CACTUS-102" due-to="Nicolas De Loof">
         When calling <code>cactus:test</code>, only run the tests if there are
         Cactus tests present in the filesystem (i.e. if the Cactus source
@@ -44,9 +44,6 @@
         Updated the version of Commons HttpClient in the Cactus distribution 
         to 2.0 final.
       </action>
-    </release>
-    
-    <release version="1.6dev" date="development build of 2004-02-26">
       <action dev="vmassol" type="fix">
         Aligned the EAR-ing behavior in the Cactus plugin (when using the
         <code>cactus:test-ear</code> goal) with the behavior from the EAR Maven
@@ -78,9 +75,6 @@
         will only work with custom JBoss configs. The default config used by
         Cactus uses port 8080 (that's the default JBoss config).
       </action>
-    </release>
-
-    <release version="1.6dev" date="development build of 2004-01-15">
       <action dev="vmassol" type="add">
         Added 2 new properties to support debugging Cactus tests:
         <code>cactus.logging.config.client</code> and
@@ -145,9 +139,6 @@
         property instead of hard-coding the war name to 
         <code>${pom.artifactId}.war</code>.
       </action>
-    </release>
-
-    <release version="1.6dev" date="development build of 2003-10-31">
       <action dev="vmassol" type="add">
         Moved the Cactus plugin from the Maven CVS to the Cactus CVS.
       </action>
