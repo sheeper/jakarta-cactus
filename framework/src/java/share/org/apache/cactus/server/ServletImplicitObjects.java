@@ -60,7 +60,7 @@ import javax.servlet.ServletConfig;
 
 /**
  * Holder class that contains the instances of the implicit objects that will
- * be accessible in the test classes (i.e. subclasses of
+ * be accessible in the test classes (ie subclasses of
  * <code>ServletTestCase</code>).
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>

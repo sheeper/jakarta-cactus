@@ -61,7 +61,7 @@ import javax.servlet.FilterConfig;
 
 /**
  * Holder class that contains the instances of the implicit objects that will
- * be accessible in the test classes (i.e. subclasses of
+ * be accessible in the test classes (ie subclasses of
  * <code>FilterTestCase</code>).
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
