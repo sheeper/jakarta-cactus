@@ -111,6 +111,11 @@ public class ChangeLogTask extends Task implements ExecuteStreamHandler
     private BufferedReader m_Input;
 
     /**
+     * Error Input stream read in from CVS log command
+     */
+    private InputStreamReader m_ErrorInput;
+
+    /**
      * Output file stream where results will be written to
      */
     private PrintWriter m_Output;
@@ -426,6 +431,7 @@ public class ChangeLogTask extends Task implements ExecuteStreamHandler
      */
     public void setProcessErrorStream(InputStream theIs) throws IOException
     {
+        m_ErrorInput = new InputStreamReader(theIs);
     }
 
     /**
@@ -458,7 +464,7 @@ public class ChangeLogTask extends Task implements ExecuteStreamHandler
         PrintWriter debug = null;
         if (m_DebugFile != null) {
             debug = new PrintWriter(new OutputStreamWriter(
-                new FileOutputStream(m_DebugFile),"UTF-8"));
+                new FileOutputStream(m_DebugFile),"UTF-8"), true);
         }
 
         String file = null;
@@ -470,24 +476,23 @@ public class ChangeLogTask extends Task implements ExecuteStreamHandler
 
         // Current state in the state machine used to parse the CVS log stream
         int status = GET_FILE;
+        if (debug != null) debug.println("State = GET_FILE");
 
         // RCS entries
         Hashtable entries = new Hashtable();
 
         while ((line = m_Input.readLine()) != null) {
 
-            // Log to debug file if debug mode is on
-            if (debug != null) {
-                debug.println(line);
-                log(line);
-            }
-    
+             // Log to debug file if debug mode is on
+            if (debug != null) debug.println("Text: [" + line);
+
             switch(status){
 
                 case GET_FILE:
                     if (line.startsWith("Working file:")) {
                         file = line.substring(14, line.length());
                         status = GET_REVISION;
+                        if (debug != null) debug.println("Next state = GET_REVISION");
                     }
                     break;
 
@@ -495,12 +500,14 @@ public class ChangeLogTask extends Task implements ExecuteStreamHandler
                     if (line.startsWith("revision")) {
                         revision = line.substring(9);
                         status = GET_DATE;
+                        if (debug != null) debug.println("Next state = GET_DATE");
                     }
 
                     // If we encounter a "=====" line, it means there is no
                     // more entries for the current file.
                     else if (line.startsWith("======")) {
                         status = GET_FILE;
+                        if (debug != null) debug.println("Next state = GET_FILE");
                     }
                     break;
 
@@ -515,6 +522,7 @@ public class ChangeLogTask extends Task implements ExecuteStreamHandler
                         }
 
                         status = GET_COMMENT;
+                        if (debug != null) debug.println("Next state = GET_COMMENT");
                     }
                     break;
 
@@ -526,10 +534,7 @@ public class ChangeLogTask extends Task implements ExecuteStreamHandler
                         comment += line + "\n";
                         line = m_Input.readLine();
 
-                        if (debug != null) {
-                            debug.println(line);
-                            log(line);
-                        }
+                        if (debug != null) debug.println("Text: [" + line);
 
                     }
                     comment = "<![CDATA[" + 
@@ -548,14 +553,25 @@ public class ChangeLogTask extends Task implements ExecuteStreamHandler
                     // Continue reading the other revisions or skip to next file
                     if (line.startsWith("======")) {
                         status = GET_FILE;
+                        if (debug != null) debug.println("Next state = GET_FILE");
                     } else {
                         status = GET_REVISION;
+                        if (debug != null) debug.println("Next state = GET_REVISION");
                     }
                     break;
 
             }
-            
+
+            // Read the error stream so that it does not block !
+            // We cannot use a BufferedReader as the ready() method is bugged!
+            // (see Bug 4329985, which is supposed to be fixed in JDK 1.4 :
+            // http://developer.java.sun.com/developer/bugParade/bugs/4329985.html)
+            while (m_ErrorInput.ready()) {
+                m_ErrorInput.read();
+            }
         }
+
+        if (debug != null) debug.println("Preparing to write changelog file");
 
         m_Output.println("<changelog>");
         Enumeration en = entries.elements();
@@ -566,10 +582,7 @@ public class ChangeLogTask extends Task implements ExecuteStreamHandler
         m_Output.flush();
         m_Output.close();
 
-        if (debug != null) {
-            debug.flush();
-            debug.close();
-        }
+        if (debug != null) debug.close();
 
     }
 
