@@ -129,7 +129,7 @@ public class SampleFilter implements Filter
      * from a filter initialisation parameter (defined in
      * <code>web.xml</code>). Don't write anything if no parameter is defined.
      *
-     * @param theOutput the output stream
+     * @param theOutputStream the output stream
      */
     protected void addHeader(OutputStream theOutputStream)
         throws IOException
@@ -146,7 +146,7 @@ public class SampleFilter implements Filter
      * from a filter initialisation parameter (defined in
      * <code>web.xml</code>). Don't write anything if no parameter is defined.
      *
-     * @param theOutput the output stream
+     * @param theOutputStream the output stream
      */
     protected void addFooter(OutputStream theOutputStream)
         throws IOException
