@@ -418,19 +418,22 @@
             failonerror="yes">
 
             <!-- Pass all required properties -->
-            <arg value="-Dservlet.jar=${j2ee.jar}"/>
-            <arg value="-Dcactus.framework.jar=${cactus.framework.jar}"/>
-            <arg value="-Djunit.jar=${junit.jar}"/>
-            <arg value="-Dcommons.logging.jar=${commons.logging.jar}"/>
-            <arg value="-Dcommons.httpclient.jar=${commons.httpclient.jar}"/>
-            <arg value="-Daspectjrt.jar=${aspectjrt.jar}"/>
-            <arg value="-Dhttpunit.jar=${httpunit.jar}"/>
-            <arg value="-Djetty.jar=${jetty.jar}"/>
-            <arg value="-Djasperr.jar=${jasperr.jar}"/>
-            <arg value="-Djasperc.jar=${jasperc.jar}"/>
+            <sysproperty key="servlet.jar" file="${j2ee.jar}"/>
+            <sysproperty key="cactus.framework.jar"
+                file="${cactus.framework.jar}"/>
+            <sysproperty key="junit.jar" file="${junit.jar}"/>
+            <sysproperty key="commons.logging.jar"
+                file="${commons.logging.jar}"/>
+            <sysproperty key="commons.httpclient.jar"
+                file="${commons.httpclient.jar}"/>
+            <sysproperty key="aspectjrt.jar" file="${aspectjrt.jar}"/>
+            <sysproperty key="httpunit.jar" file="${httpunit.jar}"/>
+            <sysproperty key="jetty.jar" file="${jetty.jar}"/>
+            <sysproperty key="jasperr.jar" file="${jasperr.jar}"/>
+            <sysproperty key="jasperc.jar" file="${jasperc.jar}"/>
 
-            <arg value="-Dbase.dir=${target.sample.dir}"/>
-            <arg value="-Dbasedir=${basedir}"/>
+            <sysproperty key="base.dir" file="${target.sample.dir}"/>
+            <sysproperty key="basedir" file="${basedir}"/>
             
             <!-- Override default cactus jar defined in the called script
                  by the clovered one if clover is enabled -->
@@ -438,7 +441,8 @@
 
             <!-- Pass all optional properties -->
             <arg line="${test.args.list}"/>
-            <arg line="-buildfile ${target.sample.dir}/build.xml"/>
+            <arg value="-buildfile"/>
+            <arg file="${target.sample.dir}/build.xml"/>
             <arg value="test"/>
 
             <classpath>
