@@ -179,32 +179,29 @@
 
         </cvslog>
 
-        <!-- Copy book.xml to replace the token filters (year) -->
-        <copy file="${doc.xdoc.dir}/book.xml"
-            todir="${target.xdoc.dir}" filtering="on"/>
-
-        <!-- Copy all remaining files -->
+        <!-- Copy all files that may contain token filters or that are not 
+             binary files -->
         <copy todir="${target.xdoc.dir}" filtering="on">
             <fileset dir="${doc.xdoc.dir}">
-                <exclude name="book.xml"/>
                 <exclude name="original/**"/>
                 <exclude name="misc/**"/>
+                <exclude name="images/**"/>
             </fileset>
+        </copy>
+
+        <!-- Copy the images -->
+        <copy todir="${target.doc.dir}/images" filtering="off">
+            <fileset dir="${doc.xdoc.dir}/images"/>
+        </copy>
+
+        <!-- Copy the misc doc files needed by the web site -->
+        <copy todir="${target.doc.dir}/misc" filtering="off">
+            <fileset dir="${doc.xdoc.dir}/misc"/>
         </copy>
 
         <!-- Copy the version.txt file -->
         <copy file="${conf.dir}/version.txt" todir="${target.doc.dir}"
             filtering="on"/>
-
-        <!-- Copy the images -->
-        <copy todir="${target.doc.dir}/images">
-            <fileset dir="${doc.xdoc.dir}/images"/>
-        </copy>
-
-        <!-- Copy the misc doc files needed by the web site -->
-        <copy todir="${target.doc.dir}/misc">
-            <fileset dir="${doc.xdoc.dir}/misc"/>
-        </copy>
 
         <!-- Generate the docs -->
         <stylebook book="${target.xdoc.dir}/book.xml"
