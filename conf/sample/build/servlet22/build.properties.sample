@@ -13,7 +13,10 @@ junit.jar = f:/applis/jakarta-ant-1.4alpha/lib/junit.jar
 # a "log4j.jar" property and not provide the log4j jar. In that case nothing
 # will be logged but everything will still run.
 
-#log4j.jar = ../lib/log4j-core.jar
+# Note: The provided build file need log4j to be present as it is copied in
+#       the test war. If you don't want to use log4j you'll have to remove
+#       the task that copies it in the "testwar" target.
+log4j.jar = ../lib/log4j-core.jar
 
 # Servlet engine locations for the tests
 
