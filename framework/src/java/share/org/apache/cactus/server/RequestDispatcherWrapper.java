@@ -100,19 +100,19 @@ public class RequestDispatcherWrapper implements RequestDispatcher
     public void forward(ServletRequest theRequest, ServletResponse theResponse)
         throws IOException, ServletException
     {
-        // Always pass the original request to the forward() call.        
+        // Always pass the original request to the forward() call.
         if (HttpServletRequestWrapper.class.isAssignableFrom(
             theRequest.getClass()))
         {
             HttpServletRequestWrapper request = 
                 (HttpServletRequestWrapper) theRequest;
 
-            this.originalDispatcher.forward(request.getOriginalRequest(), 
+            this.originalDispatcher.forward(request.getOriginalRequest(),
                 theResponse);
         }
         else
         {
-            this.originalDispatcher.forward(theRequest, theResponse);           
+            this.originalDispatcher.forward(theRequest, theResponse);
         }
     }
 
@@ -129,7 +129,7 @@ public class RequestDispatcherWrapper implements RequestDispatcher
     public void include(ServletRequest theRequest, ServletResponse theResponse)
         throws IOException, ServletException
     {
-        // Always pass the original request to the forward() call.        
+        // Always pass the original request to the forward() call.
         if (!HttpServletRequestWrapper.class.isAssignableFrom(
             theRequest.getClass()))
         {
@@ -141,7 +141,7 @@ public class RequestDispatcherWrapper implements RequestDispatcher
         }
         else
         {
-            this.originalDispatcher.include(theRequest, theResponse);            
+            this.originalDispatcher.include(theRequest, theResponse);
         }
     }
 }
