@@ -201,6 +201,7 @@
 
             <fileset dir="${src.webapp.dir}">
                 <exclude name="cactus-report.xsl"/>
+                <exclude name="WEB-INF/cactus-web.xml"/>
                 <exclude name="WEB-INF/web.xml"/>
             </fileset>
 
