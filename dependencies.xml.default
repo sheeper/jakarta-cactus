@@ -14,13 +14,13 @@
   <clover project="clover"
       artifact="clover" version="1.2.3"/>
   <commons.beanutils project="commons-beanutils"
-      artifact="commons-beanutils" version="1.6.1"/>
+      artifact="commons-beanutils" version="1.7.0"/>
   <commons.collections project="commons-collections"
-      artifact="commons-collections" version="2.1"/>
+      artifact="commons-collections" version="3.1"/>
   <commons.httpclient project="commons-httpclient"
-      artifact="commons-httpclient" version="2.0"/>
+      artifact="commons-httpclient" version="2.0.2"/>
   <commons.logging project="commons-logging"
-      artifact="commons-logging" version="1.0.3"/>
+      artifact="commons-logging" version="1.0.4"/>
   <httpunit project="httpunit"
       artifact="httpunit" version="1.6"/>
   <j2ee.13 project="jboss"

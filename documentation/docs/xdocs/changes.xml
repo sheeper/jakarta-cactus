@@ -91,6 +91,11 @@
       </devs>
 
       <release version="1.7dev" date="in CVS">
+        <action dev="VMA" type="update">
+          Upgraded following dependencies: Commons BeanUtils to 1.7.0, Commons
+          Collections to 3.1, Commons HttpClient to 2.0.2 and Commons Logging
+          to 1.0.4.
+        </action>
         <action dev="FAL" type="add" issue="CACTUS-158" due-to="Matheus Bianconi">
           Add attribute <code>jvmArgs</code> in the container tasks.
         </action>
