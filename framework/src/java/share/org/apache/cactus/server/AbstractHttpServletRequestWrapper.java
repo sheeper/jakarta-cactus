@@ -114,6 +114,12 @@ public abstract class AbstractHttpServletRequestWrapper
      */
     protected String remoteHostName;
 
+    /**
+     * Remote user to simulate (if any)
+     * @see #setRemoteUser(String)
+     */
+    protected String remoteUser;
+
     // New methods not in the interface --------------------------------------
 
     /**
@@ -160,6 +166,16 @@ public abstract class AbstractHttpServletRequestWrapper
     public void setRemoteHostName(String theRemoteHostName)
     {
         this.remoteHostName = theRemoteHostName;
+    }
+
+    /**
+     * Sets the remote user name to simulate.
+     *
+     * @param theRemoteUser the simulated remote user name
+     */
+    public void setRemoteUser(String theRemoteUser)
+    {
+        this.remoteUser = theRemoteUser;
     }
 
     // Modified methods ------------------------------------------------------
@@ -490,6 +506,27 @@ public abstract class AbstractHttpServletRequestWrapper
         return remoteHostName;
     }
 
+    /**
+     * @return the simulated remote user name if any or the real one.
+     *
+     * @see HttpServletRequest#getRemoteUser()
+     */
+    public String getRemoteUser()
+    {
+        String remoteUser;
+
+        if (this.remoteUser != null)
+        {
+            remoteUser = this.remoteUser;
+        }
+        else
+        {
+            remoteUser = this.request.getRemoteUser();
+        }
+
+        return remoteUser;
+    }
+
     // Not modified methods --------------------------------------------------
 
     /**
@@ -746,14 +783,6 @@ public abstract class AbstractHttpServletRequestWrapper
     public Enumeration getAttributeNames()
     {
         return this.request.getAttributeNames();
-    }
-
-    /**
-     * @see HttpServletRequest#getRemoteUser()
-     */
-    public String getRemoteUser()
-    {
-        return this.request.getRemoteUser();
     }
 
     /**
