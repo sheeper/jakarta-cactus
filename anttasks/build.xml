@@ -143,7 +143,7 @@
         <copy todir="${target.conf.dir}" file="${conf.dir}/manifest"
             filtering="on"/>
 
-        <jar destfile="${target.dir}/${anttasks.jar.name}.jar"
+        <jar jarfile="${target.dir}/${anttasks.jar.name}.jar"
           manifest="${target.conf.dir}/manifest">
             <fileset dir="${target.classes.java.dir}"/>
         </jar>
