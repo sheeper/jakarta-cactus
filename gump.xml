@@ -44,9 +44,9 @@
   -->
   <project name="jakarta-cactus-documentation">
 
-    <ant buildfile="documentation/build.xml" target="dist">
-    </ant>
+    <ant buildfile="documentation/build.xml" target="dist"/>
   
+    <depend project="jakarta-ant" inherit="runtime"/>
     <depend project="xml-xerces"/>
     <depend project="xml-xalan2"/>
 
