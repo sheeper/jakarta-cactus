@@ -271,7 +271,8 @@ public class TestSampleServlet extends ServletTestCase
         SampleServlet servlet = new SampleServlet();
         Hashtable cookies = servlet.getRequestCookies(request);
 
-        assert(cookies.get("testcookie") != null);
+        assert("Cannot find [testcookie] cookie in request",
+                cookies.get("testcookie") != null);
         assertEquals("thisisacookie", cookies.get("testcookie"));
     }
 
