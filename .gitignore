@@ -1,4 +1,16 @@
+anttasks/build.properties
+anttasks/dist
+anttasks/target
 /build.properties
 /dist
+documentation/build.properties
+documentation/dist
+documentation/target
+framework/build.properties
+framework/dist
+framework/target
 /release
+sample-servlet/build.properties
+sample-servlet/dist
+sample-servlet/target
 /target
