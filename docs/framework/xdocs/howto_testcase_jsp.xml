@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE document SYSTEM "./dtd/document-v10.dtd">
+
+<document>
+  <header>
+    <title>JspTestCase Principles</title>
+    <authors>
+      <person name="Vincent Massol" email="vmassol@users.sourceforge.net"/>
+    </authors>
+  </header>
+
+  <body>
+
+    <s1 title="When to use ?">
+
+      <p>
+        Your test case class should extend <code>JspTestCase</code>
+        whenever you are unit testing :
+      </p>
+      <ul>
+        <li>
+          Tag libraries,
+        </li>
+        <li>
+          Any java code that uses JSP API objects
+          (<code>PageContext</code>, ...)
+        </li>
+      </ul>
+
+    </s1>
+
+    <s1 title="Provided Implicit Objects">
+
+      <p>
+        <strong>This tutorial is still being written and should be
+        available shortly. We apologise for the inconvenience.</strong>
+      </p>
+
+    </s1>
+
+  </body>
+</document>

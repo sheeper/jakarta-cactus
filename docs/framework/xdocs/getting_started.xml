@@ -68,7 +68,7 @@
           Ant is only needed if you are working from the command line or if you
           wish to automate the execution of tests. If you wish to use Ant,
           make sure that you read the
-          <link href="howto_ant.html">Ant Howto</link>(TODO) after you finish
+          <link href="howto_ant.html">Ant Howto</link> after you finish
           reading this introductory guide.
         </li>
       </ul>
@@ -98,7 +98,7 @@
           This is only needed if you wish to use Ant for automating the
           execution of Cactus tests. For more information on how to integrate
           Cactus with Ant, see the
-          <link href="howto_ant.html">Ant Howto</link>(TODO) tutorial. You also
+          <link href="howto_ant.html">Ant Howto</link> tutorial. You also
           find this jar in <code>[cactus root]/lib</code>.
         </li>
       </ul>
@@ -197,7 +197,7 @@
           need to put the <strong><code>cactus.properties</code></strong>
           configuration file in your classpath (because it is a java properties
           file). This file is described in the
-          <link href="howto_config">Config Howto</link> tutorial).
+          <link href="howto_config.html">Config Howto</link> tutorial).
         </p>
 
         <note>
@@ -261,11 +261,11 @@
       <p>
         You should now read the <link href="howto_config.html">Configuration
         Howto</link> tutorial. Then, read the
-        <link href="howto_testcase.html">TestCase Howto</link>(TODO), which
+        <link href="howto_testcase.html">TestCase Howto</link>, which
         explains how to write a Cactus Test Case.
         Then, you could try to install the Cactus
         Sample by following the <link href="howto_samples.html">Samples
-        Howto</link>(TODO) tutorial.
+        Howto</link> tutorial.
       </p>
 
     </s1>

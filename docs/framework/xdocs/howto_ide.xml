@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE document SYSTEM "./dtd/document-v10.dtd">
+
+<document>
+  <header>
+    <title>IDE Howto</title>
+    <authors>
+      <person name="Vincent Massol" email="vmassol@users.sourceforge.net"/>
+    </authors>
+  </header>
+
+  <body>
+
+    <s1 title="IDE integration">
+
+      <p>
+        In order to simplify Cactus integration within your IDE (i.e. running
+        the Cactus tests from your IDE), we have
+        provided several tutorial detailing the involved steps for several
+        IDEs :
+      </p>
+      <ul>
+        <li>
+          <link href="howto_ide_jbuilder.html">JBuilder Integration</link>,
+        </li>
+        <li>
+          <link href="howto_ide_vajava.html">VisualAge for Java
+          Integration</link>
+        </li>
+      </ul>
+
+      <p>
+        If your favorite IDE is not listed there, don't despair ! It is
+        actually very simple to integrate Cactus within your
+        environment. You simply need to know how to start your servlet engine
+        from your IDE (possibly in debug mode if you wish to debug your
+        test case) and set up correctly the class path (see the
+        <link href="getting_started.html">Getting Started</link> tutorial
+        for understanding the classpath).
+      </p>
+
+    </s1>
+
+  </body>
+</document>

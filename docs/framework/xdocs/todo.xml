@@ -117,8 +117,8 @@
         java beans used in the JSP to unit test, set these java beans in the
         testXXX() method of a cactus test and then assert the result of the
         JSP executing in the endXXX() method. Modify the scope diagram on the
-        <link href="scope.html">scope</link> page to show that Cactus also does
-        unit testing of JSPs.
+        <link href="features.html">features</link> page to show that Cactus
+        also does unit testing of JSPs.
       </action>
     </category>
 

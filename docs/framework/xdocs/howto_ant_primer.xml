@@ -80,7 +80,7 @@
     </s1>
 
     <s1 title="Writing an Ant build script tutorial">
-    
+
       <p>
         The sample Ant build file described below is taken from the
         <link href="downloads.html">Cactus Sample for Servlet API 2.2
@@ -94,9 +94,9 @@
         configuration that has been working for me on several project. Of course,
         you are free to adapt/modify it to suit your needs.
       </note>
-      
+
       <s2 title="Project directory structure">
-      
+
         <p>
           Create the following directories :
         </p>
@@ -170,7 +170,7 @@
               <code>src</code>
             </td>
             <td>
-              The project sources : java files + java test files + 
+              The project sources : java files + java test files +
               properties files + test properties files + other files for
               runtime or test (XML files, ...). Note that all test files
               should begin by 'Test' or 'test' in order to easily separate them
@@ -213,24 +213,24 @@
           (you'll end up with tens of the same jars otherwise), more version
           control and integration checks (if your project uses 2 external
           libraries that need another third library but not in the same version
-          you are in trouble !), ... 
+          you are in trouble !), ...
         </note>
-              
+
       </s2>
-      
+
       <s2 title="Ant Target List">
 
         <p>
           Define the following targets in your <code>build.xml</code>.
         </p>
-        
+
         <note>
           The <em>Type</em> column specify whether the target is an external
           target that can be called by the user of the build file or if it is
           an internal target, intended to be called internally by another
           target inside the build script.
         </note>
-        
+
         <table>
           <tr>
             <th>
@@ -300,7 +300,7 @@
             <td>
               Generate a zipped file containing the full sources of the project
               (i.e. the whole directory structure, excluding any build
-              generated files).              
+              generated files).
             </td>
             <td>
               External
@@ -372,13 +372,13 @@
             </td>
           </tr>
         </table>
-        
+
       </s2>
 
       <anchor id="basedir"/>
-      
+
       <s2 title="Step 1 : The Ant project basedir">
-        
+
         <p>
           You <code>build.xml</code> file being in located in
           <code>build/</code> you should set the <code>project</code> tag
@@ -397,7 +397,7 @@
 [...]
 <project name="Cactus Sample" default="war" basedir="..">
 ]]></source>
-                
+
       </s2>
 
       <s2 title="Step 2 : initialization of project properties">
@@ -419,7 +419,7 @@
         </p>
 
 <source><![CDATA[
-    <!-- Give user a chance to override without editing this file 
+    <!-- Give user a chance to override without editing this file
          (and without typing -D each time it compiles it) -->
     <property file="build/build.properties" />
     <property file="${user.home}/build.properties" />
@@ -432,7 +432,7 @@
 <source><![CDATA[
 <project name="Cactus Sample" default="war" basedir="..">
 
-    <!-- Give user a chance to override without editing this file 
+    <!-- Give user a chance to override without editing this file
          (and without typing -D each time it compiles it) -->
     <property file="build/build.properties" />
     <property file="${user.home}/build.properties" />
@@ -448,7 +448,7 @@
     <property name="optimize" value="off"/>
     <property name="deprecation" value="off"/>
 
-    <!-- 
+    <!--
        ========================================================================
          Set the properties related to the source tree
        ========================================================================
@@ -464,7 +464,7 @@
     <property name="conf.test.dir" value="conf/test"/>
     <property name="web.dir" value="web"/>
 
-    <!-- 
+    <!--
        ========================================================================
          Set the properties related to the build area
        ========================================================================
@@ -493,7 +493,7 @@
     <!-- The Cactus Sample documentation in a zip : javadoc -->
     <property name="final.doc.name" value="${out.dir}/${project.name}-doc-@servlet.api@.zip"/>
 
-    <!-- 
+    <!--
        ========================================================================
          Useful file patterns for targets
        ========================================================================
@@ -528,7 +528,7 @@
 ]]></source>
 
       </s2>
-    
+
       <anchor id="init"/>
 
       <s2 title="Step 3 : 'init' target">
@@ -538,9 +538,9 @@
           token filters, printing some information messages, registering
           custom Ant tasks, ...
         </p>
-        
+
 <source><![CDATA[
-    <!-- 
+    <!--
        ========================================================================
          Initialize the build. Must be called by all targets
        ========================================================================
@@ -582,7 +582,7 @@
 ]]></source>
 
       </s2>
-    
+
       <anchor id="usage"/>
 
       <s2 title="Step 4 : 'usage' targets">
@@ -590,9 +590,9 @@
         <p>
           Display a usage message.
         </p>
-        
+
 <source><![CDATA[
-    <!-- 
+    <!--
        ========================================================================
          Help on usage. List available targets
        ========================================================================
@@ -636,9 +636,9 @@
           code (replacing the <code>@version@</code> by the version number
           for example).
         </p>
-               
+
 <source><![CDATA[
-    <!-- 
+    <!--
        ========================================================================
          Prepare the output directory by copying the source files into it
        ========================================================================
@@ -674,9 +674,9 @@
           in <code>src/</code> to the directory where the class file have been
           generated.
         </p>
-                
+
 <source><![CDATA[
-    <!-- 
+    <!--
        ========================================================================
          Compiles the source directory
        ========================================================================
@@ -738,9 +738,9 @@
         <p>
           Zip up the sources for distribution.
         </p>
-                
+
 <source><![CDATA[
-    <!-- 
+    <!--
        ========================================================================
          Generates source zip of the project
        ========================================================================
@@ -769,9 +769,9 @@
         <p>
           Generate the project's javadoc.
         </p>
-                
+
 <source><![CDATA[
-    <!-- 
+    <!--
        ========================================================================
          Generate the javadoc
        ========================================================================
@@ -820,13 +820,13 @@
           additional README files (if any) and the documentation web site
           (built using Stylebook for example, as shown in the example below).
         </p>
-        
+
         <p>
           Example not using Stylebook :
         </p>
-        
+
 <source><![CDATA[
-    <!-- 
+    <!--
        ========================================================================
          Generate the full documentation
        ========================================================================
@@ -852,7 +852,7 @@
         </p>
 
 <source><![CDATA[
-    <!-- 
+    <!--
        ========================================================================
          Generate the full documentation for a given Servlet API, i.e.
          web site + javadoc
@@ -890,7 +890,7 @@
             </classpath>
 
         </stylebook>
-    
+
     </target>
 ]]></source>
 
@@ -903,9 +903,9 @@
         <p>
           Removes all build generated files.
         </p>
-                
+
 <source><![CDATA[
-    <!-- 
+    <!--
        ========================================================================
          Remove all build generated files
        ========================================================================
@@ -937,7 +937,7 @@
         <anchor id="jar"/>
 
         <s3 title="'jar' target">
-        
+
           <p>
             This target is useful if your project is a framework for example and
             you need to deliver a jar file. We also include a manifest file
@@ -945,13 +945,13 @@
             output directory in order to replace the <code>@version@</code>
             token with it's value.
           </p>
-        
+
           <p>
             Example (from the Cactus build file) :
           </p>
-        
+
 <source><![CDATA[
-    <!-- 
+    <!--
        ========================================================================
          Create the runtime jar file
        ========================================================================
@@ -991,20 +991,20 @@
         <anchor id="war"/>
 
         <s3 title="'war' target">
-        
+
           <p>
             This target is useful if you're building a web application.
             We also include a manifest file in the war, with version
             information. We copy the manifest to the output directory in order
             to replace the <code>@version@</code> token with it's value.
           </p>
-        
+
           <p>
             Example (from the Cactus sample) :
           </p>
-        
+
 <source><![CDATA[
-    <!-- 
+    <!--
        ========================================================================
          Create the runtime war file
        ========================================================================
@@ -1048,7 +1048,7 @@
 ]]></source>
 
         </s3>
-        
+
       </s2>
 
       <anchor id="tests"/>
@@ -1056,21 +1056,20 @@
       <s2 title="Step 12 : 'tests_XXX' target">
 
         <p>
-          The <code>tests_XXX</code> target is in charge of running the 
-          Cactus unit tests. It must prepare the test environment for a 
-          given servlet engine and package the tests, start that servlet 
-          engine, run the tests by starting the JUnit runner and stop the 
+          The <code>tests_XXX</code> target is in charge of running the
+          Cactus unit tests. It must prepare the test environment for a
+          given servlet engine and package the tests, start that servlet
+          engine, run the tests by starting the JUnit runner and stop the
           servlet engine.
-        </p>        
+        </p>
 
         <p>
-          See the <link href="servlets.html">tutorial for running tests in
-          a servlet engine</link> for a detailed tutorial on how to do
-          this.
+          See the <link href="howto_ant_cactus.html">Using Cactus with
+          Ant<link> tutorial for details on to do this.
         </p>
 
       </s2>
-      
+
     </s1>
 
   </body>

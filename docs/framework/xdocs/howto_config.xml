@@ -16,7 +16,7 @@
 
       <note>
         You should read the <link href="getting_started.html">Getting
-        Started</link> guide first if you have not already done so.
+        Started</link> guide first.
       </note>
 
       <p>
@@ -52,15 +52,15 @@
           </note>
 
           <p>
-            The <code>cactus.properties</code> file is used to tell the client
-            side part of Cactus what is the URL to connect to the Cactus
-            Redirector set up on the server side (see
+            The <code>cactus.properties</code> file contains several
+            configuration properties. At the current time it is only used to
+            tell the client side part of Cactus what is the URL to connect to
+            the different Cactus Redirectors set up on the server side (see
             <link href="how_it_works.html">How it works</link> if you don't
             know what a Cactus Redirector is).
           </p>
-
           <p>
-            You need to set the following properties in
+            Here are the properties that you can set in
             <code>cactus.properties</code> :
           </p>
 
@@ -78,7 +78,11 @@
                 <strong>Description</strong>
               </td>
               <td>
-                URL to which the Redirector Servlet is mapped to
+                URL to which the Servlet Redirector is mapped to. This is
+                needed only if your test classes are extending
+                <code>ServletTestCase</code> (see the
+                <link href="howto_testcase.html">TestCase Howto</link>
+                tutorial).
               </td>
             </tr>
             <tr>
@@ -109,7 +113,11 @@
                 <strong>Description</strong>
               </td>
               <td>
-                URL to which the Redirector JSP is mapped to
+                URL to which the JSP Redirector is mapped to. This is
+                needed only if your test classes are extending
+                <code>JspTestCase</code> (see the
+                <link href="howto_testcase.html">TestCase Howto</link>
+                tutorial).
               </td>
             </tr>
             <tr>
@@ -118,6 +126,41 @@
               </td>
               <td>
                 <code>http://localhost:8080/test/JspRedirector/</code>
+              </td>
+            </tr>
+          </table>
+
+          <p>
+            <br/>
+          </p>
+
+          <table>
+            <tr>
+              <td>
+                <strong>Property Name</strong>
+              </td>
+              <td>
+                <code>cactus.filterRedirectorURL</code>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <strong>Description</strong>
+              </td>
+              <td>
+                URL to which the Filter Redirector is mapped to. This is
+                needed only if your test classes are extending
+                <code>FilterTestCase</code> (see the
+                <link href="howto_testcase.html">TestCase Howto</link>
+                tutorial). <strong>Cactus 1.2 only</strong>.
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <strong>Example</strong>
+              </td>
+              <td>
+                <code>http://localhost:8080/test/FilterRedirector/</code>
               </td>
             </tr>
           </table>
@@ -140,6 +183,7 @@
 
 cactus.servletRedirectorURL = http://localhost:8080/test/ServletRedirector/
 cactus.jspRedirectorURL = http://localhost:8080/test/JspRedirector/
+cactus.filterRedirectorURL = http://localhost:8080/test/FilterRedirector/
 ]]></source>
 
           <note>
@@ -217,30 +261,13 @@ log4j.category.org.apache.commons.cactus = DEBUG, cactus
             If your servlet engine does not support web applications, it
             won't support a <code>web.xml</code> file. You'll need to edit
             your servlet engine proprietary configuration file and find out
-            how to map a URL to a Servlet.
+            out to map a Servlet, JSP or Filter to a URL.
           </note>
           <p>
             You need to register the Cactus Redirectors that you use (see
             <link href="how_it_works.html">How it works</link> if you don't
-            know what a Cactus Redirector is). In the <code>web.xml</code>
-            file, you'll define :
+            know what a Cactus Redirector is).
           </p>
-          <ul>
-            <li>
-              the name of the Redirector Servlet class,
-            </li>
-            <li>
-              the URI that will be used to call the Redirector Servlet. This
-              needs to match the URL specified in the
-              <code>cactus.properties</code> configuration file above.
-            </li>
-            <li>
-              optionally some configuration data that can be retrieved
-              in your test by using the <code>config</code> implicit object
-              (of type <code>ServletConfig</code>).
-            </li>
-          </ul>
-
           <p>
             For example, in order to match the sample
             <code>cactus.properties</code> file defined above, we'll need to
@@ -257,21 +284,37 @@ log4j.category.org.apache.commons.cactus = DEBUG, cactus
 
 <web-app>
 
+    <!-- Filter Redirector definition -->
+    <filter>
+        <filter-name>FilterRedirector</filter-name>
+        <filter-class>org.apache.commons.cactus.server.FilterTestRedirector</filter-class>
+    </filter>
+
+    <!-- Filter Redirector URL mapping -->
+    <filter-mapping>
+        <filter-name>FilterRedirector</filter-name>
+        <url-pattern>/FilterRedirector/</url-pattern>
+    </filter-mapping>
+
+    <!-- Servlet Redirector configuration -->
     <servlet>
         <servlet-name>ServletRedirector</servlet-name>
         <servlet-class>org.apache.commons.cactus.server.ServletTestRedirector</servlet-class>
     </servlet>
 
+    <!-- JSP Redirector URL configuration -->
     <servlet>
         <servlet-name>JspRedirector</servlet-name>
         <jsp-file>/somewhere/redirector.jsp</jsp-file>
     </servlet>
 
+    <!-- Servlet Redirector URL mapping -->
     <servlet-mapping>
         <servlet-name>ServletRedirector</servlet-name>
         <url-pattern>/ServletRedirector/</url-pattern>
     </servlet-mapping>
 
+    <!-- JSP Redirector URL mapping -->
     <servlet-mapping>
         <servlet-name>JspRedirector</servlet-name>
         <url-pattern>/JspRedirector/</url-pattern>
@@ -314,7 +357,11 @@ log4j.category.org.apache.commons.cactus = DEBUG, cactus
             If you want to provide some initialisation parameters that will
             be available to the <code>config</code> implicit object available
             to you in your test case, simply use the standard <code>
-            &lt;init-param&gt;</code> tag, as in :
+            &lt;init-param&gt;</code> tag.
+          </p>
+          <p>
+            For example, for the Servlet Redirector (same principle applies
+            to all other redirectors) :
           </p>
 
 <source><![CDATA[

@@ -57,144 +57,37 @@
       <p><br/></p>
       <ul>
         <li>
-          Integrates seamlessly with the JUnit testing framework.
-          <ul>
-            <li>
-              Your testing class just has to extend one of Cactus
-              <code>org.apache.commons.cactus.&lt;XXX&gt;TestCase</code> classes
-              (which themselves extends <code>junit.framework.TestCase</code>)
-              instead of extending <code>junit.framework.TestCase</code>
-              directly.
-            </li>
-            <li>
-              Any tool that works with JUnit will work with Cactus because
-              a Cactus test is a JUnit test !
-            </li>
-          </ul>
+          Integrates seamlessly with the JUnit testing framework. Any tool
+          that works with JUnit will work with Cactus because a Cactus test
+          is a JUnit test ! See
+          <link href="howto_testcase.html">TestCase Howto</link>
+          tutorial for details.
         </li>
         <li>
-          Provides different <code>&lt;XXX&gt;TestCase</code> classes which
-          have class variables that are container objects (called implicit
-          objects thereafter). You will be able to use
-          these objects in you test code to call your methods to unit test.
-          <ul>
-            <li>
-              <code>ServletTestCase</code> : provides all Servlet API objects
-              <ul>
-                <li>
-                  <code>request</code> (of type
-                  <code>HttpServletRequest</code>),
-                </li>
-                <li>
-                  <code>response</code> (of type
-                  <code>HttpServletResponse</code>),
-                </li>
-                <li>
-                  <code>session</code> (of type
-                  <code>HttpSession</code>),
-                </li>
-                <li>
-                  <code>config</code> (of type
-                  <code>ServletConfig</code>).
-                </li>
-              </ul>
-            </li>
-            <li>
-              <code>JspTestCase</code> : provides all JSP objects
-              <ul>
-                <li>
-                  <code>pageContext</code> (of type <code>PageContext</code>),
-                </li>
-                <li>
-                  <code>out</code> (of type <code>JspWriter</code>).
-                </li>
-              </ul>
-            </li>
-          </ul>
+          Provides a <code>ServletTestCase</code> class that your test case
+          must extends for unit testing Servlets or any java classes that
+          make use of Servlet API objects.
         </li>
         <li>
-          Definition of an optional  <code>beginXXX()</code> method for each
-          <code>testXXX()</code> test method. This is for having a chance to
-          initialize the following data that will be available in the
-          <code>HttpServletRequest</code> object in your test method :
-          <ul>
-            <li>
-              HTTP parameters,
-            </li>
-            <li>
-              HTTP headers,
-            </li>
-            <li>
-              HTTP cookies,
-            </li>
-            <li>
-              Simulated URL. You can simulate all the parts of a URL : server
-              name, port, context path, servlet path, path info and the query
-              string. The following methods, when used later in your code under
-              test, will then return the simulated parts :
-              <ul>
-                <li>
-                  <code>HttpServletRequest.getServerName()</code>,
-                </li>
-                <li>
-                  <code>HttpServletRequest.getServerPort()</code>,
-                </li>
-                <li>
-                  <code>HttpServletRequest.getRequestURI()</code>,
-                </li>
-                <li>
-                  <code>HttpServletRequest.getContextPath()</code>,
-                </li>
-                <li>
-                  <code>HttpServletRequest.getServletPath()</code>,
-                </li>
-                <li>
-                  <code>HttpServletRequest.getQueryString()</code>,
-                </li>
-                <li>
-                  <code>HttpServletRequest.getPathInfo()</code>
-                </li>
-              </ul>
-            </li>
-          </ul>
+          Provides a <code>JspTestCase</code> class that your test case
+          must extends for unit testing Taglibs or any java classes that
+          make use of JSP API objects.
         </li>
         <li>
-          Definition of an optional <code>endXXX()</code> method for each
-          <code>testXXX()</code> test method. This is for having a chance to
-          check the following data from the returned HTTP response :
-          <ul>
-            <li>
-              HTTP headers,
-            </li>
-            <li>
-              HTTP cookies. In order to simplify the assertion of received
-              cookies, the following methods are provided :
-              <ul>
-                <li>
-                  <code>AssertUtils.getCookies()</code> : returns the list of
-                  received cookies
-                </li>
-              </ul>
-            </li>
-            <li>
-              Servlet output stream. In order to simplify the assertion of
-              received stream, the following methods are provided :
-              <ul>
-                <li>
-                  <code>AssertUtils.getResponseAsString()</code> : returns the
-                  servlet output stream as a string,
-                </li>
-                <li>
-                  <code>AssertUtils.getResponseAsStringArray()</code> : returns
-                  the servlet output stream as an array of strings (each line
-                  is a string)
-                </li>
-              </ul>
-            </li>
-          </ul>
+          Provides a <code>FilterTestCase</code> class that your test case
+          must extends for unit testing Filters or any java classes that
+          make use of Filter API objects (<strong>Cactus 1.2 only</strong>).
         </li>
         <li>
-          Predefined Ant build scripts that show how to automate Cactus
+          Extends JUnit by defining two additional (and optional) methods
+          that can be implemented for each test case (i.e. for each
+          <code>testXXX()</code> method) : <code>beginXXX()</code> and
+          <code>endXXX()</code>. See the
+          <link href="howto_testcase.html">TestCase Howto</link> tutorial
+          for details.
+        </li>
+        <li>
+          Predefined Ant build scripts that demonstrate how to automate Cactus
           unit tests (automatically starting your servlet engine, running the
           tests and stopping your server). There are scripts provided for the
           following Servlet engines (but it is easy to add new engines) :
@@ -229,58 +122,35 @@
           </ul>
         </li>
         <li>
-          Possibility to specify whether an <code>HttpSession</code> object
-          will be automatically created or not for your test methods
-        </li>
-        <li>
-          Handles <code>setUp()</code> and <code>tearDown()</code> methods which
-          work the same as for JUnit except that they are run on the server side
-          before and after calling each <code>testXXX()</code> method
+          Handles <code>setUp()</code> and <code>tearDown()</code> methods
+          which work the same as for JUnit except that they are run on the
+          server side before and after calling each <code>testXXX()</code>
+          method
         </li>
         <li>
           Tested with all versions of JUnit up to 3.7 included
         </li>
         <li>
           Support for Servlet API 2.2 and 2.3 (Support for Servlet API 2.1 is
-          not provided)
+          no longer provided)
         </li>
         <li>
           Works with JDK 1.2 or 1.3 (not tested with 1.4 yet)
         </li>
         <li>
-          Provides some additional methods in the implicit objects that are
-          not part of the standard APIs to help you unit test your code :
-          <ul>
-            <li>
-              In the <code>config</code> implicit object :
-              <ul>
-                <li>
-                  <code>setInitParameter(String, String)</code> : sets a
-                  parameter as if it were set in the <code>web.xml</code> file
-                  using an <code>init-param</code> tag,
-                </li>
-                <li>
-                  <code>setServletName(String)</code> : sets the servlet name.
-                  This is the value that is returned by a call to
-                  <code>getServletName()</code>
-                </li>
-              </ul>
-            </li>
-          </ul>
-        </li>
-        <li>
-          Support for unit testing simple Tag libraries that do not use the
-          <code>bodyContent</code> object (this is a current limitation that
-          will be removed in the next version)
+          Wraps some of the standard API objects in order to provide
+          additional methods to help write unit tests.
+          See the <link href="howto_testcase.html">TestCase
+          Howto</link> tutorial for details.
         </li>
         <li>
           Transparent Log4j logging (if you don't have Log4j in your classpath
           no logging is done) for helping debugging problems.
         </li>
         <li>
-          HttpUnit integration (see
-          <link href="howto_httpunit.html">HttpUnit Howto</link>) for Cactus
-          v1.2 and above only.
+          HttpUnit integration. See the
+          <link href="howto_httpunit.html">HttpUnit Howto</link>) tutorial
+          for details (<strong>for Cactus 1.2 only</strong>).
         </li>
       </ul>
     </s1>
