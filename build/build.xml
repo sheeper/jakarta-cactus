@@ -539,7 +539,7 @@
          Run both the unit and functional tests
        ========================================================================
     -->
-    <target name="tests" depends="tests-unit,tests-functional">
+    <target name="tests" depends="jar.ant,tests-unit,tests-functional">
     </target>
 
     <!-- 
