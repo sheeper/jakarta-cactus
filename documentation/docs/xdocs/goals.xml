@@ -35,27 +35,75 @@
     <s1 title="Short terms goals">
 
       <p>
-        The short term goals for Cactus are to provide unit-testing for :
+        The short term goals for Cactus are to continue providing and improving
+        support for J2EE unit testing. More specifically the following areas
+        are being considered and researched:
       </p>
+        
       <ul>
         <li>
-          Servlets,
+          Add support for Servlet API 2.4/JSP 1.4 (by using Tomcat 5),
         </li>
         <li>
-          Servlet 2.3 Filters,
+          Pre-packaged Cactus with leading containers so that it is ultra-easy 
+          to test a user application. Some already implemented ideas:
+          <ul>
+          	<li>
+              See the <link href="howto_tomcat.html">Tomcat Howto</link> for 
+              an example of Tomcat integration. However, it could be made even 
+              easier by providing a packaged Tomcat.
+            </li>
+            <li>
+              Jetty integration is mostly finished and provides an 
+              unpredecented ease of use.
+            </li>
+          </ul>
         </li>
         <li>
-          Tag libraries,
+          Provide a full servlet container test suite a la Watchdog using Cactus.,
         </li>
         <li>
-          EJBs
+          Performance unit testing: Add performance extensions to be able to 
+          test each single method in performance.
+        </li>
+        <li>
+          More tutorial on AspectJ testing. Potentially add a Cactus Aspect 
+          extension to allow writing test cases as Aspects (this would allow to
+          remove the need for Cactus redirectors in most cases).
+        </li>
+        <li>
+          Improve Cactus usability by providing different Cactus front ends 
+          that does all the packaging of the application by simply specifying 
+          source location, resource location and web.xml. These front ends would
+          already contains all the logic to create the war and deploy it 
+          for a given application server. Possibilies are:
+          <ul>
+            <li>
+          	  Cactus standalone application which uses the JUnit Swing TestRunner
+          	</li>
+          	<li>
+          	  Cactus Ant tasks
+          	</li>
+          	<li>
+          	  Generic Cactus plugin for IDEs
+          	</li>
+          	<li>
+          	  Special Cactus plugin for Eclipse
+          	</li>
+          </ul>
+        </li>
+        <li>
+          Add EJB Redirectors to be able to unit test Session Beans, Entity Beans
+          and MessageDriven Beans          
+        </li>
+        <li>
+          Ability to write Cactus tests by extending normal JUnit TestCase instead
+          of Cactus extensions (by using special Cactus TestSuite objects). This
+          will allow to easily execute the same test outside and inside of the 
+          container (for test not depending on container objects).
         </li>
       </ul>
-      <p>
-        All of these are currently enabled in Cactus 1.2 and greater, though
-        we'd like to do more work on facilitating EJB and Taglib testing (like
-        unit testing MDB EJBs easily, etc).
-      </p>
+
     </s1>
 
     <s1 title="Long term goals">
