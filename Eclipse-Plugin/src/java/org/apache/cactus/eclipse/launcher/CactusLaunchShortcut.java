@@ -90,7 +90,6 @@ import org.eclipse.jface.operation.IRunnableWithProgress;
 public class CactusLaunchShortcut
     extends JUnitLaunchShortcut
     implements ITestRunListener
-
 {
 
     /**
@@ -101,7 +100,7 @@ public class CactusLaunchShortcut
      * The provider to use for container setup.
      */
     private IContainerProvider provider;
-    
+
     /**
      * @return the Cactus launch configuration type. This method overrides
      *         the one in {@link JUnitLaunchShortcut} so that we can return
@@ -245,24 +244,20 @@ public class CactusLaunchShortcut
         }
         catch (InvocationTargetException tearDownE)
         {
-            CactusPlugin
-                .displayErrorMessage(
-                    CactusMessages.getString(
-                        "CactusLaunch.message.teardown.error"),
-                    tearDownE.getTargetException().getMessage(),
+            CactusPlugin.displayErrorMessage(
+                CactusMessages.getString("CactusLaunch.message.teardown.error"),
+                tearDownE.getTargetException().getMessage(),
                 null);
         }
         catch (InterruptedException tearDownE)
         {
-            CactusPlugin
-                .displayErrorMessage(
-                    CactusMessages.getString(
-                        "CactusLaunch.message.teardown.error"),
-                    tearDownE.getMessage(),
+            CactusPlugin.displayErrorMessage(
+                CactusMessages.getString("CactusLaunch.message.teardown.error"),
+                tearDownE.getMessage(),
                 null);
         }
     }
-    
+
     /**
      * creates the war file, deploys and launches the container.
      * @param theJavaProject the Java file
@@ -287,13 +282,10 @@ public class CactusLaunchShortcut
             if (contextURLPath.equals(""))
             {
                 CactusPlugin.throwCoreException(
-                    "CactusLaunch.message.invalidproperty.contextpath", null);
+                    "CactusLaunch.message.invalidproperty.contextpath",
+                    null);
             }
-            provider.deploy(
-                contextURLPath,
-                warURL,
-                null,
-                thePM);
+            provider.deploy(contextURLPath, warURL, null, thePM);
             provider.start(null, thePM);
         }
         catch (MalformedURLException e)
@@ -316,11 +308,16 @@ public class CactusLaunchShortcut
         throws CoreException
     {
         // The commented code is linked to the crashing VM problem
-        //thePM.beginTask("Tearing down Cactus tests", 10);
-        provider.stop(null, thePM);
-        provider.undeploy(null, null, thePM);
-        war.delete();
-        //thePM.done();
+//        thePM.beginTask(
+//            CactusMessages.getString("CactusLaunch.message.teardown"),
+//            10);
+        if (provider != null)
+        {
+            provider.stop(null, thePM);
+            provider.undeploy(null, null, thePM);
+            war.delete();
+        }
+//        thePM.done();
     }
     /**
      * @see org.eclipse.jdt.internal.junit.runner.ITestRunListener#testRunStarted(int)
@@ -329,7 +326,6 @@ public class CactusLaunchShortcut
     {
     }
 
-    
     /**
      * Test run has ended so we tear down the container setup.
      * @param theElapsedTime not used here
@@ -351,7 +347,7 @@ public class CactusLaunchShortcut
                 CactusMessages.getString("CactusLaunch.message.teardown.error"),
                 e.getMessage(),
                 null);
-            }
+        }
 //        ProgressMonitorDialog dialog =
 //            new ProgressMonitorDialog(getShell());
 //        try
