@@ -41,24 +41,13 @@
        ========================================================================
     -->
     <target name="init.properties.target.j2ee" if="j2ee.api">
-
         <property name="target.dir" value="${base.dir}/target-${j2ee.api}"/>
-
     </target>
     <target name="init.properties.target.noj2ee" unless="j2ee.api">
         <property name="target.dir" value="${base.dir}/target"/>
     </target>
     <target name="init.properties.target"
-    	depends="init.properties.target.j2ee,init.properties.target.noj2ee">
-    	
-        <!-- Needed for the documentation project which needs to get the
-        	 clover data for all the J2EE APIs -->
-        <property name="clover.initstring.12"
-            value="${basedir}/target-12/clover-coverage.db"/>
-        <property name="clover.initstring.13"
-            value="${basedir}/target-13/clover-coverage.db"/>
-
-    </target>
+    	depends="init.properties.target.j2ee,init.properties.target.noj2ee"/>
 
     <!--
        ========================================================================
@@ -275,9 +264,8 @@
          Initialize Clover.
        ========================================================================
     -->
-    <target name="init.clover"
-        depends="init.j2ee"
-        if="clover.enable">
+    <target name="init.clover.check" 
+    	depends="init.j2ee" if="clover.enable">
 
         <path id="clover.classpath">
             <pathelement location="${clover.jar}"/>
@@ -299,17 +287,40 @@ Run the init.clover target with the -debug or -verbose for details</fail>
 
         <taskdef resource="clovertasks" classpathref="clover.classpath"/>
 
-        <property name="clover.db.dir"
-            location="${basedir}/target-${j2ee.api}"/>
-        <!-- Clover write data at compile time *and* at runtime in this file.
-        	 Note: This property is required by Clover and represents the
-        	 location of the Clover database. -->
-        <property name="clover.initstring"
-            location="${clover.db.dir}/clover-coverage.db"/>
-
-        <mkdir dir="${clover.db.dir}"/>
+        <condition property="clover.and.j2ee">
+            <isset property="j2ee.api"/>
+        </condition>
+        <condition property="clover.and.noj2ee">
+            <not>
+	            <isset property="j2ee.api"/>
+	        </not>
+        </condition>	
 
     </target>
+
+    <target name="init.clover.j2ee" 
+        depends="init.clover.check" if="clover.and.j2ee">
+
+        <property name="clover.initstring"
+            value="${basedir}/target-${j2ee.api}/clover-coverage.db"/>
+		<mkdir dir="${basedir}/target-${j2ee.api}"/>
+
+    </target>
+
+    <target name="init.clover.noj2ee"
+
+        depends="init.clover.check" if="clover.and.noj2ee">    	
+        <!-- Needed for the documentation project which needs to get the
+        	 clover data for all the J2EE APIs -->
+        <property name="clover.initstring.12"
+            value="${basedir}/target-12/clover-coverage.db"/>
+        <property name="clover.initstring.13"
+            value="${basedir}/target-13/clover-coverage.db"/>
+
+    </target>
+
+    <target name="init.clover"
+        depends="init.clover.j2ee,init.clover.noj2ee"/>
 
     <!--
        ========================================================================
