@@ -38,6 +38,7 @@
             <area shape="circle" href="ext:junitee" coords="320,305,35"/>
             <area shape="circle" href="ext:jenerator" coords="375,135,35"/>
             <area shape="circle" href="site:integration_ant" coords="140,225,35"/>
+            <area shape="circle" href="site:integration_jetty" coords="280,145,35"/>
           </map>            	
          
         </figure>
