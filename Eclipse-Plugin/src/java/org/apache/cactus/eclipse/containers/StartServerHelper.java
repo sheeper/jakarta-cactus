@@ -261,6 +261,7 @@ public class StartServerHelper implements Runnable
         }
         catch (CoreException e)
         {
+            e.printStackTrace();
             throw new BuildException("Error while running the Ant task");
         }
 

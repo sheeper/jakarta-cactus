@@ -58,48 +58,44 @@ package org.apache.cactus.eclipse.containers;
 
 import java.net.URL;
 
-import org.eclipse.core.runtime.CoreException;
-
 /**
- * Interface for container configuration and startup.
+ * Container configuration information.
  * 
  * @author <a href="mailto:jruaux@octo.com">Julien Ruaux</a>
  * 
  * @version $Id: $
  */
-public interface IContainerProvider
+public class ContainerInfo
 {
     /**
-     * Starts the container.
-     * @param theContainerInfo detail of the container configuration
-     * @throws CoreException when starting fails
+     *
      */
-    void start(ContainerInfo theContainerInfo) throws CoreException;
+    private URL contextURL;
 
     /**
-     * Deploy a webapp to the container.
-     * @param theContextPath path to the webapp (for example "test")
-     * @param theDeployableObject war file to be deployed
-     * @param theCredentials credentials for deployment (user:pwd)
-     * @throws CoreException when deployment fails 
+     * Constructor.
+     * @param theURL the URL related to this container info
      */
-    void deploy(String theContextPath,
-                 URL theDeployableObject,
-                 Credential theCredentials) throws CoreException;
- 
+    ContainerInfo(URL theURL)
+    {
+        contextURL = theURL;
+    }
+
     /**
-     * UnDeploy a webapp to the container.
-     * @param theContextPath path to the webapp
-     * @param theCredentials credentials for undeployment (user:pwd) 
-     * @throws CoreException when undeployment fails
-     */    
-    void undeploy(String theContextPath,
-                  Credential theCredentials) throws CoreException;
- 
+     * Returns the contextURL.
+     * @return URL
+     */
+    public URL getContextURL()
+    {
+        return contextURL;
+    }
+    
     /**
-     * Stops the container.
-     * @param theContainerInfo detail of the container configuration
-     * @throws CoreException when stopping fails
-     */    
-    void stop(ContainerInfo theContainerInfo) throws CoreException;
+     * sets the contextURL.
+     * @param theURL the context URL to set
+     */
+    public void setContextURL(URL theURL)
+    {
+        contextURL = theURL;
+    }
 }

@@ -56,50 +56,14 @@
  */
 package org.apache.cactus.eclipse.containers;
 
-import java.net.URL;
-
-import org.eclipse.core.runtime.CoreException;
-
 /**
- * Interface for container configuration and startup.
+ * Class representing credentials for container setup.
  * 
  * @author <a href="mailto:jruaux@octo.com">Julien Ruaux</a>
  * 
  * @version $Id: $
  */
-public interface IContainerProvider
+public class Credential
 {
-    /**
-     * Starts the container.
-     * @param theContainerInfo detail of the container configuration
-     * @throws CoreException when starting fails
-     */
-    void start(ContainerInfo theContainerInfo) throws CoreException;
 
-    /**
-     * Deploy a webapp to the container.
-     * @param theContextPath path to the webapp (for example "test")
-     * @param theDeployableObject war file to be deployed
-     * @param theCredentials credentials for deployment (user:pwd)
-     * @throws CoreException when deployment fails 
-     */
-    void deploy(String theContextPath,
-                 URL theDeployableObject,
-                 Credential theCredentials) throws CoreException;
- 
-    /**
-     * UnDeploy a webapp to the container.
-     * @param theContextPath path to the webapp
-     * @param theCredentials credentials for undeployment (user:pwd) 
-     * @throws CoreException when undeployment fails
-     */    
-    void undeploy(String theContextPath,
-                  Credential theCredentials) throws CoreException;
- 
-    /**
-     * Stops the container.
-     * @param theContainerInfo detail of the container configuration
-     * @throws CoreException when stopping fails
-     */    
-    void stop(ContainerInfo theContainerInfo) throws CoreException;
 }

@@ -56,50 +56,51 @@
  */
 package org.apache.cactus.eclipse.containers;
 
-import java.net.URL;
-
-import org.eclipse.core.runtime.CoreException;
-
 /**
- * Interface for container configuration and startup.
+ * Class representing a target/directory couple.
  * 
  * @author <a href="mailto:jruaux@octo.com">Julien Ruaux</a>
  * 
  * @version $Id: $
  */
-public interface IContainerProvider
+public class ContainerHome
 {
     /**
-     * Starts the container.
-     * @param theContainerInfo detail of the container configuration
-     * @throws CoreException when starting fails
+     * the target in the ant build (e.g. "tomcat.home.40") 
      */
-    void start(ContainerInfo theContainerInfo) throws CoreException;
+    private String target;
+    /**
+     * path to the container home (e.g. "c:/jakarta/tomcat40")
+     */
+    private String directory;
 
     /**
-     * Deploy a webapp to the container.
-     * @param theContextPath path to the webapp (for example "test")
-     * @param theDeployableObject war file to be deployed
-     * @param theCredentials credentials for deployment (user:pwd)
-     * @throws CoreException when deployment fails 
+     * Constructor.
+     * @param theTarget the target in the ant build (e.g. "tomcat.home.40")
+     * @param theDirectory path to the container home
+     *                      (e.g. "c:/jakarta/tomcat40")
      */
-    void deploy(String theContextPath,
-                 URL theDeployableObject,
-                 Credential theCredentials) throws CoreException;
- 
+    public ContainerHome(String theTarget, String theDirectory)
+    {
+        target = theTarget;
+        directory = theDirectory;
+    }
+
     /**
-     * UnDeploy a webapp to the container.
-     * @param theContextPath path to the webapp
-     * @param theCredentials credentials for undeployment (user:pwd) 
-     * @throws CoreException when undeployment fails
-     */    
-    void undeploy(String theContextPath,
-                  Credential theCredentials) throws CoreException;
- 
+     * Returns the target.
+     * @return String the target
+     */
+    public String getTarget()
+    {
+        return target;
+    }
+
     /**
-     * Stops the container.
-     * @param theContainerInfo detail of the container configuration
-     * @throws CoreException when stopping fails
-     */    
-    void stop(ContainerInfo theContainerInfo) throws CoreException;
+     * Returns the directory.
+     * @return String the directory
+     */
+    public String getDirectory()
+    {
+        return directory;
+    }
 }
