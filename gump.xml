@@ -537,6 +537,8 @@
       <depend property="j2ee.jar" project="jakarta-servletapi"/>
     </ant>
 
+    <depend project="ant" inherit="runtime"/>
+
     <!-- Only release if the projects have built successfully -->
     <depend project="jakarta-cactus-framework-12"/>
     <depend project="jakarta-cactus-integration-ant-12"/>
@@ -562,6 +564,8 @@
       <property name="project.version" value="@@DATE@@"/>
       <depend property="j2ee.jar" project="jakarta-servletapi-4"/>
     </ant>
+
+    <depend project="ant" inherit="runtime"/>
 
     <!-- Only release if the projects have built successfully -->
     <depend project="jakarta-cactus-framework-13"/>
