@@ -27,6 +27,19 @@
 
         <tr>
           <td>
+            <link href="http://www.ehatchersolutions.com/JavaDevWithAnt/">
+            JavaDevWithAnt</link>.
+          </td>
+		  <td>
+		    Software
+		  </td>
+		  <td>
+            Project demonstrating Ant, XDoclet, Struts, JUnit, Cactus, and Lucene.
+		  </td>
+        </tr>
+
+        <tr>
+          <td>
             <link href="http://jakarta.apache.org/turbine/maven/reference/plugins/cactus/">Maven
             Cactus Plugin</link>
           </td>
@@ -106,6 +119,20 @@
             the Java Programming Language. It is possible to create
             JUnit-TestCases, -TestSuites and Cactus-TestCases like
             ServletTestCase or JSPTestCase
+		  </td>
+        </tr>
+
+        <tr>
+          <td>
+            <link href="http://developer.novell.com/research/extendarchive/2002/may/cactus.htm">
+            Novell exteNd May 2002</link>.
+          </td>
+		  <td>
+		    Article
+		  </td>
+		  <td>
+            This article describes how to use Jakarta’s Cactus test framework 
+            in conjunction with the SilverStream eXtend™ Workbench.
 		  </td>
         </tr>
 
