@@ -911,8 +911,8 @@ public class TestServletTestCase2 extends ServletTestCase
      */
     public void testCreateSessionCookie()
     {
-        assertFalse("A session should have been created prior to "
-            + "this request", session.isNew());
+        assertTrue("A session should have been created prior to "
+            + "this request", !session.isNew());
     }
 
 }
