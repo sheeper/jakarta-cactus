@@ -23,6 +23,16 @@
     </devs>
 
     <release version="1.0 in CVS">
+      <action dev="VMA" type="add">
+        Added a new target called <code>deploy-site</code> that automatically
+        deploy the generated web site to it's home page on the Jakarta server.
+        This will be very useful when integrated with GUMP nightly builds so
+        that the web site is always up to date.
+      </action>
+      <action dev="VMA" type="update">
+        Added a "assigned to" description for items assigned to someone on the
+        todo page + lists all the developers already assigned to tasks.
+      </action>
       <action dev="VMA" type="update">
         Make the <code>ChangeLogTask</code> work even when not connected to the
         Internet (i.e. use previous <code>cvslog.xml</code> file or genreate
