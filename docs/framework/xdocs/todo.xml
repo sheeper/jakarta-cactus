@@ -59,6 +59,19 @@
         are expected to be set in the HTTP Session, application scope, ...
         before running the test.
       </action>
+      <action>
+        Write a tutorial that explains how to use Cactus to do unit testing of 
+        JSP, i.e. only test
+        the JSP itself and not the controller part and the model (only test the
+        View in an MVC model). This is done by using mock implementations of
+        java beans used in the JSP to unit test, set these java beans in the
+        testXXX() method of a cactus test and then assert the result of the
+        JSP executing in the endXXX() method. The assertion will be more
+        effective when we integrate with HttpUnit as we'll have it's powerful
+        assertion facilities. Modify the scope diagram on the
+        <link href="scope.html">scope</link> page to show that Cactus also does
+        unit testing of JSPs.
+      </action>
     </category>
 
     <category title="Build Process">
@@ -87,6 +100,9 @@
         In the Ant task that stops a servlet engine, do not stop it if the
         server was running before the start task was called. In other words, if
         the server was running before running the Ant tests, leave it running.
+      </action>
+      <action>
+        Finalize support for Enhydra 3.1.1. Verify it works and correct if not.
       </action>
     </category>
 
