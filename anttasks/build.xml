@@ -70,7 +70,6 @@
     <property name="src.dir" location="${base.dir}/src"/>
     <property name="src.java.dir" location="${src.dir}/java"/>
     <property name="build.dir" location="${base.dir}/."/>
-    <property name="conf.dir" location="${base.dir}/conf"/>
 
     <!--
        ========================================================================
