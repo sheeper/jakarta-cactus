@@ -204,23 +204,24 @@
 
       <property name="project.version" value="@@DATE@@"/>
       <depend property="j2ee.jar" project="jakarta-servletapi"/>
-      <depend property="eclipse.junit.jar" id="junit"/>
-      <depend property="eclipse.core.boot.jar" id="boot"/>
-      <depend property="eclipse.core.resources.jar" id="resources"/>
-      <depend property="eclipse.core.runtime.jar" id="runtime"/>
-      <depend property="eclipse.debug.core.jar" id="dtcore"/>
-      <depend property="eclipse.debug.ui.jar" id="dtui"/>
-      <depend property="eclipse.jdt.core.jar" id="jdtcore"/>
-      <depend property="eclipse.jdt.launching.jar" id="launching"/>
-      <depend property="eclipse.swt.jar" id="swt"/>
-      <depend property="eclipse.jface.jar" id="jface"/>
-      <depend property="eclipse.ant.core.jar" id="antsupport"/>
-      <depend property="eclipse.ui.workbench.jar" id="workbench"/>
+      <depend property="eclipse.junit.jar" project="eclipse" id="junit"/>
+      <depend property="eclipse.core.boot.jar" project="eclipse" id="boot"/>
+      <depend property="eclipse.core.resources.jar" project="eclipse" id="resources"/>
+      <depend property="eclipse.core.runtime.jar" project="eclipse" id="runtime"/>
+      <depend property="eclipse.debug.core.jar" project="eclipse" id="dtcore"/>
+      <depend property="eclipse.debug.ui.jar" project="eclipse" id="dtui"/>
+      <depend property="eclipse.jdt.core.jar" project="eclipse" id="jdtcore"/>
+      <depend property="eclipse.jdt.launching.jar" project="eclipse" id="launching"/>
+      <depend property="eclipse.swt.jar" project="eclipse" id="swt"/>
+      <depend property="eclipse.jface.jar" project="eclipse" id="jface"/>
+      <depend property="eclipse.ant.core.jar" project="eclipse" id="antsupport"/>
+      <depend property="eclipse.ui.workbench.jar" project="eclipse" id="workbench"/>
 
     </ant>
   
     <depend project="jakarta-ant" inherit="runtime"/>
     <depend project="xml-xerces"/>
+    <depend project="jakarta-cactus-integration-ant-12"/>
 
     <nag from="Vincent Massol &lt;vmassol@apache.org&gt;"
       to="cactus-dev@jakarta.apache.org"/>
@@ -239,23 +240,24 @@
 
       <property name="project.version" value="@@DATE@@"/>
       <depend property="j2ee.jar" project="jakarta-servletapi-4"/>
-      <depend property="eclipse.junit.jar" id="junit"/>
-      <depend property="eclipse.core.boot.jar" id="boot"/>
-      <depend property="eclipse.core.resources.jar" id="resources"/>
-      <depend property="eclipse.core.runtime.jar" id="runtime"/>
-      <depend property="eclipse.debug.core.jar" id="dtcore"/>
-      <depend property="eclipse.debug.ui.jar" id="dtui"/>
-      <depend property="eclipse.jdt.core.jar" id="jdtcore"/>
-      <depend property="eclipse.jdt.launching.jar" id="launching"/>
-      <depend property="eclipse.swt.jar" id="swt"/>
-      <depend property="eclipse.jface.jar" id="jface"/>
-      <depend property="eclipse.ant.core.jar" id="antsupport"/>
-      <depend property="eclipse.ui.workbench.jar" id="workbench"/>
+      <depend property="eclipse.junit.jar" project="eclipse" id="junit"/>
+      <depend property="eclipse.core.boot.jar" project="eclipse" id="boot"/>
+      <depend property="eclipse.core.resources.jar" project="eclipse" id="resources"/>
+      <depend property="eclipse.core.runtime.jar" project="eclipse" id="runtime"/>
+      <depend property="eclipse.debug.core.jar" project="eclipse" id="dtcore"/>
+      <depend property="eclipse.debug.ui.jar" project="eclipse" id="dtui"/>
+      <depend property="eclipse.jdt.core.jar" project="eclipse" id="jdtcore"/>
+      <depend property="eclipse.jdt.launching.jar" project="eclipse" id="launching"/>
+      <depend property="eclipse.swt.jar" project="eclipse" id="swt"/>
+      <depend property="eclipse.jface.jar" project="eclipse" id="jface"/>
+      <depend property="eclipse.ant.core.jar" project="eclipse" id="antsupport"/>
+      <depend property="eclipse.ui.workbench.jar" project="eclipse" id="workbench"/>
 
     </ant>
-  
+    
     <depend project="jakarta-ant" inherit="runtime"/>
     <depend project="xml-xerces"/>
+    <depend project="jakarta-cactus-integration-ant-13"/>
 
     <nag from="Vincent Massol &lt;vmassol@apache.org&gt;"
       to="cactus-dev@jakarta.apache.org"/>
