@@ -6,7 +6,11 @@
   <xsl:template match="book">
 
     <project>
+
       <parameter name="copyright" value="{@copyright}"/>
+      <parameter name="updated" value="{@updated}"/>
+      <parameter name="software" value="{@software}"/>
+
       <resource source="sbk:/style/resources/logocactus.gif" target="images/logocactus.gif"/>
       <resource source="sbk:/style/resources/jakarta-logo.gif" target="images/jakarta-logo.gif"/>
       <resource source="sbk:/style/resources/update.jpg" target="images/update.jpg"/>
