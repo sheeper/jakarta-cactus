@@ -77,7 +77,7 @@ public class LibraryHelper
     /**
      * Path to the plugin's library directory
      */
-    private static final String CACTUS_LIBRARY_PATH = "./ant/lib/";
+    private static final String CACTUS_LIBRARY_PATH = "./lib/";
 
     /**
      * Name of the common libraries folder

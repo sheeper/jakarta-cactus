@@ -84,22 +84,27 @@ public class CactifyActionDelegate implements IObjectActionDelegate
      * The project selected by the user
      */
     private IJavaProject selectedProject;
+
     /**
      * The active part
      */
     private IWorkbenchPart part;
+
     /**
      * Path to the plugin's library directory
      */
-    private static final String CACTUS_LIBRARY_PATH = "./ant/lib/";
+    private static final String CACTUS_LIBRARY_PATH = "./lib/";
+
     /**
      * Name of the common libraries folder
      */
     private static final String CACTUS_COMMON_LIBRARY_PATH = "common";
+
     /**
      * Name of the client libraries folder
      */
     private static final String CACTUS_CLIENT_LIBRARY_PATH = "client";
+
     /**
      * @see IObjectActionDelegate#setActivePart(IAction, IWorkbenchPart)
      */

@@ -47,26 +47,22 @@
          Initialize source, target and dist properties
        ========================================================================
     -->
-    <target name="properties">
+    <target name="properties" depends="init.common">
 
         <!-- Set the properties related to the source tree -->
         <property name="src.dir" location="${base.dir}/src"/>
+        <property name="src.conf.dir" location="${src.dir}/conf"/>
         <property name="src.java.dir" location="${src.dir}/java"/>
-        <property name="src.scripts.dir" location="${src.dir}/scripts"/>
+        <property name="src.script.dir" location="${src.dir}/script"/>
 
         <!-- Set the properties related to the target area -->
         <property name="target.classes.dir" location="${target.dir}/classes"/>
 
-        <!-- Set the properties related to the dist area -->
-        <property name="dist.bin.integration.dir"
-            location="${dist.bin.dir}/${project.name.file}"/>
-
         <!-- Set the properties related to the jar names -->
-        <property name="cactus.eclipseintegration.jar.name" 
+        <property name="cactus.eclipse.runner.jar.name" 
             value="cactussupport.jar"/>
-
-        <property name="cactus.eclipseintegration.src.jar.name" 
-            value="cactussupportsrc.jar"/>
+        <property name="cactus.eclipse.runner.src.zip.name" 
+            value="cactussupportsrc.zip"/>
 
     </target>
 
@@ -75,13 +71,17 @@
          Initialize the build. Must be called by all targets
        ========================================================================
     -->
-    <target name="init" depends="init.common, properties">
+    <target name="init" depends="properties">
 
         <echo>***** Needs Eclipse 2.1 RC2 or later *****</echo>
         <echo/>
         <echo>Dependencies:</echo>
+        <echo>  aspectjrt.jar = [${aspectjrt.jar}]</echo>
         <echo>  cactus.jar = [${cactus.jar}]</echo>
         <echo>  cactus.ant.jar = [${cactus.ant.jar}]</echo>
+        <echo>  cactus.eclipse.webapp.jar = [${cactus.eclipse.webapp.jar}]</echo>
+        <echo>  commons.httpclient.jar = [${commons.httpclient.jar}]</echo>
+        <echo>  commons.logging.jar = [${commons.logging.jar}]</echo>
         <echo>  eclipse.ant.core.jar = [${eclipse.ant.core.jar}]</echo>
         <echo>  eclipse.core.boot.jar = [${eclipse.core.boot.jar}]</echo>
         <echo>  eclipse.core.resources.jar = [${eclipse.core.resources.jar}]</echo>
@@ -96,13 +96,21 @@
         <echo>  eclipse.swt.jar = [${eclipse.swt.jar}]</echo>
         <echo>  eclipse.ui.workbench.jar = [${eclipse.ui.workbench.jar}]</echo>
         <echo>  eclipse.ui.externaltools.jar = [${eclipse.ui.externaltools.jar}]</echo>
+        <echo>  httpunit.jar = [${httpunit.jar}]</echo>
+        <echo>  j2ee.jar = [${j2ee.jar}]</echo>
         <echo>  jetty.jar = [${jetty.jar}]</echo>
-        <echo>  cactus.eclipse.webapp.jar = [${cactus.eclipse.webapp.jar}]</echo>
+        <echo>  junit.jar = [${junit.jar}]</echo>
+        <echo>  log4j.jar = [${log4j.jar}]</echo>
+        <echo>  nekohtml.jar = [${nekohtml.jar}]</echo>
 
         <condition property="properties.ok">
           <and>
+            <available file="${aspectjrt.jar}"/>
             <available file="${cactus.jar}"/>
             <available file="${cactus.ant.jar}"/>
+            <available file="${cactus.eclipse.webapp.jar}"/>
+            <available file="${commons.httpclient.jar}"/>
+            <available file="${commons.logging.jar}"/>
             <available file="${eclipse.ant.core.jar}"/>
             <available file="${eclipse.core.boot.jar}"/>
             <available file="${eclipse.core.resources.jar}"/>
@@ -117,8 +125,12 @@
             <available file="${eclipse.swt.jar}"/>
             <available file="${eclipse.ui.workbench.jar}"/>
             <available file="${eclipse.ui.externaltools.jar}"/>
+            <available file="${httpunit.jar}"/>
+            <available file="${j2ee.jar}"/>
             <available file="${jetty.jar}"/>
-            <available file="${cactus.eclipse.webapp.jar}"/>
+            <available file="${junit.jar}"/>
+            <available file="${log4j.jar}"/>
+            <available file="${nekohtml.jar}"/>
           </and>
         </condition>
 
@@ -189,7 +201,7 @@ be resolved. Please check you build.properties file, and run Ant with the
         
         <mkdir dir="${target.dir}"/>
 
-        <jar jarfile="${target.dir}/${cactus.eclipseintegration.jar.name}">
+        <jar jarfile="${target.dir}/${cactus.eclipse.runner.jar.name}">
             <manifest>
                 <section name="org/apache/cactus/eclipse/runner/">
                     <attribute name="Specification-Title"
@@ -212,29 +224,9 @@ be resolved. Please check you build.properties file, and run Ant with the
             <fileset dir="${target.classes.dir}"/>
         </jar>
 
-        <!-- TODO: produce a ZIP instead, without a manifest -->
-        <jar jarfile="${target.dir}/${cactus.eclipseintegration.src.jar.name}">
-            <manifest>
-                <section name="org/apache/cactus/eclipse/runner/">
-                    <attribute name="Specification-Title"
-                        value="${project.name.text}"/>
-                    <attribute name="Specification-Version"
-                        value="${project.version}"/>
-                    <attribute name="Specification-Vendor"
-                        value="Apache Software Foundation"/>
-                    <attribute name="Implementation-Title"
-                        value="${project.name.file}"/>
-                    <attribute name="Implementation-Version"
-                        value="${project.version} ${TODAY}"/>
-                    <attribute name="Implementation-Vendor"
-                        value="Apache Software Foundation"/>
-                </section>
-            </manifest>
-            <metainf dir=".">
-                <include name="LICENSE.cactus"/>
-            </metainf>
+        <zip zipfile="${target.dir}/${cactus.eclipse.runner.src.zip.name}">
             <fileset dir="${src.java.dir}"/>
-        </jar>      
+        </zip>
 
     </target>
 
@@ -247,36 +239,83 @@ be resolved. Please check you build.properties file, and run Ant with the
     <target name="dist" depends="checkstyle,jar"
       description="Generate the distributable files">
 
-        <mkdir dir="${dist.bin.integration.dir}"/>
-
-        <copy todir="${dist.bin.integration.dir}"
-            file="${target.dir}/${cactus.eclipseintegration.jar.name}"/>
-        <copy todir="${dist.bin.integration.dir}"
-            file="${target.dir}/${cactus.eclipseintegration.src.jar.name}"/>
-    
-        <copy todir="${dist.bin.integration.dir}"
-            file="${base.dir}/plugin.xml"/>
-        <copy todir="${dist.bin.integration.dir}" 
-            file="${base.dir}/plugin.properties"/>
-        <copy todir="${dist.bin.integration.dir}"
-            file="${base.dir}/README.txt"/>
-        <copy todir="${dist.bin.integration.dir}/icons">
-            <fileset dir="${base.dir}/icons"/>
-        </copy>
-
-        <copy todir="${dist.bin.integration.dir}/lib"
-            file="${jetty.jar}"/>
-
-        <!-- Copy the Ant Integration files -->
-        <copy todir="${dist.bin.integration.dir}/ant">
-            <fileset dir="${cactus.ant.bin}"/>
-        </copy>
-
-        <copy todir="${dist.bin.integration.dir}">
-            <fileset dir=".">
-                <include name="LICENSE.*"/>
+        <mkdir dir="${dist.dir}"/>
+        <copy todir="${dist.dir}">
+            <fileset dir="${target.dir}">
+                <include name="${cactus.eclipse.runner.jar.name}"/>
+                <include name="${cactus.eclipse.runner.src.zip.name}"/>
+            </fileset>
+            <fileset dir="${basedir}" includes="LICENSE.*"/>
+            <fileset dir="${base.dir}">
+                <include name="plugin.properties"/>
+                <include name="plugin.xml"/>
+                <include name="README.txt"/>
+                <include name="icons/*.*"/>
             </fileset>
         </copy>
+
+        <!-- Copy the configuration files -->
+        <mkdir dir="${dist.dir}/conf"/>
+		<copy todir="${dist.dir}/conf">
+			<fileset dir="${src.conf.dir}/share"/>
+			<fileset dir="${src.conf.dir}/j2ee${j2ee.api}"/>
+            <fileset file="${cactus.framework.web}/jspRedirector.jsp"/>
+		</copy>
+
+		<!-- Copy the Ant build files -->
+        <mkdir dir="${dist.dir}/script"/>
+        <filter token="cactus.jar.name" value="${cactus.jar.name}.jar"/>
+        <filter token="cactus.ant.jar.name" value="${cactus.ant.jar.name}.jar"/>
+		<basename property="log4j.jar.name" file="${log4j.jar}"/>
+        <filter token="log4j.jar.name" value="${log4j.jar.name}"/>
+		<basename property="aspectjrt.jar.name" file="${aspectjrt.jar}"/>
+        <filter token="aspectjrt.jar.name" value="${aspectjrt.jar.name}"/>
+		<basename property="commons.logging.jar.name"
+		    file="${commons.logging.jar}"/>
+        <filter token="commons.logging.jar.name"
+            value="${commons.logging.jar.name}"/>
+		<basename property="junit.jar.name" file="${junit.jar}"/>
+        <filter token="junit.jar.name" value="${junit.jar.name}"/>
+		<basename property="commons.httpclient.jar.name"
+		    file="${commons.httpclient.jar}"/>
+        <filter token="commons.httpclient.jar.name"
+            value="${commons.httpclient.jar.name}"/>
+		<basename property="httpunit.jar.name" file="${httpunit.jar}"/>
+        <filter token="httpunit.jar.name" value="${httpunit.jar.name}"/>
+		<basename property="nekohtml.jar.name" file="${nekohtml.jar}"/>
+        <filter token="nekohtml.jar.name" value="${nekohtml.jar.name}"/>
+		<basename property="xerces.jar.name" file="${xerces.jar}"/>
+        <filter token="xerces.jar.name" value="${xerces.jar.name}"/>
+		<basename property="xmlapis.jar.name" file="${xmlapis.jar}"/>
+        <filter token="xmlapis.jar.name" value="${xmlapis.jar.name}"/>
+		<copy todir="${dist.dir}/script" filtering="on">
+			<fileset dir="${src.script.dir}/share"/>
+			<fileset dir="${src.script.dir}/j2ee${j2ee.api}"/>
+		</copy>
+
+        <!-- Copy the required libraries -->
+        <mkdir dir="${dist.dir}/lib"/>
+        <copy todir="${dist.dir}/lib" file="${jetty.jar}"/>
+        <mkdir dir="${dist.dir}/lib/client"/>
+        <copy todir="${dist.dir}/lib/client">
+            <fileset file="${cactus.ant.jar}"/>
+            <fileset file="${commons.httpclient.jar}"/>
+            <fileset file="${j2ee.jar}"/>
+            <fileset file="${nekohtml.jar}"/>
+        </copy>
+        <mkdir dir="${dist.dir}/lib/common"/>
+        <copy todir="${dist.dir}/lib/common">
+            <fileset file="${aspectjrt.jar}"/>
+            <fileset file="${cactus.jar}"/>
+            <fileset file="${commons.logging.jar}"/>
+            <fileset file="${log4j.jar}"/>
+            <fileset file="${httpunit.jar}"/>
+            <fileset file="${junit.jar}"/>
+        </copy>
+        <mkdir dir="${dist.dir}/lib/server"/>
+		<!-- The directory needs a file because it is otherwise pruned by the 
+		     Eclipse update feature -->
+		<touch file="${dist.dir}/lib/server/KEEPIT"/>
 
     </target>
 
@@ -319,19 +358,19 @@ be resolved. Please check you build.properties file, and run Ant with the
         <mkdir dir="${release.dir}"/>
 
         <zip destfile="${release.dir}/${main.release.name}.zip">
-            <zipfileset dir="${dist.bin.integration.dir}"
-                prefix="org.apache.cactus.integration.eclipse.runner_${project.version}">
+            <zipfileset dir="${dist.dir}"
+                prefix="org.apache.cactus.eclipse.runner_${project.version}">
             </zipfileset>
         </zip>
         
     </target>
-            
+
     <!--
        ========================================================================
          Clean generated files (including distributables)
        ========================================================================
     -->
-    <target name="clean" depends="init.display,init.properties"
+    <target name="clean" depends="init.display, init.properties"
         description="Clean all generated files">
 
         <delete dir="${target.dir}"/>

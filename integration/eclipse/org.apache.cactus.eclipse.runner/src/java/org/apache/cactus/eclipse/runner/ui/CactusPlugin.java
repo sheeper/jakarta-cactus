@@ -94,12 +94,12 @@ public class CactusPlugin extends AbstractUIPlugin
     /**
      * Plug-in relative path to the Ant build file.
      */
-    private static final String BUILD_FILE_PATH = "./ant/build.xml";
+    private static final String BUILD_FILE_PATH = "./script/build.xml";
 
     /**
      * Plug-in relative path to the Ant container build files.
      */
-    private static final String CONTAINER_BUILD_FILES_PATH = "./ant/scripts";
+    private static final String CONTAINER_BUILD_FILES_PATH = "./script";
 
     /**
      * Prefix of container build files.
@@ -368,11 +368,7 @@ public class CactusPlugin extends AbstractUIPlugin
          */
         public boolean accept(File theDir, String theFilename)
         {
-            return (
-                theFilename.substring(
-                    0,
-                    CONTAINER_BUILD_FILES_PREFIX.length()).equals(
-                    CONTAINER_BUILD_FILES_PREFIX));
+            return theFilename.startsWith(CONTAINER_BUILD_FILES_PREFIX);
         }
     }
     /**
@@ -395,11 +391,14 @@ public class CactusPlugin extends AbstractUIPlugin
         for (int i = 0; i < containerFiles.length; i++)
         {
             String currentFileName = containerFiles[i];
-            String currentId =
-                currentFileName.substring(
-                    CONTAINER_BUILD_FILES_PREFIX.length(),
-                    currentFileName.lastIndexOf("."));
-            containers.add(currentId);
+            if (currentFileName.startsWith(CONTAINER_BUILD_FILES_PREFIX))
+            {
+                String currentId =
+                    currentFileName.substring(
+                        CONTAINER_BUILD_FILES_PREFIX.length(),
+                        currentFileName.lastIndexOf("."));
+                containers.add(currentId);
+            }
         }
         return (String[]) containers.toArray(new String[containers.size()]);
     }
