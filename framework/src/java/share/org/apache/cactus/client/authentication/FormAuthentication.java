@@ -64,6 +64,7 @@ import org.apache.cactus.WebRequest;
 import org.apache.cactus.client.HttpClientConnectionHelper;
 import org.apache.cactus.util.ChainedRuntimeException;
 import org.apache.cactus.util.Configuration;
+import org.apache.cactus.util.ServletConfiguration;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -205,20 +206,19 @@ public class FormAuthentication extends AbstractAuthentication
         
         try
         {
-            // Create a helper that will connect to the security check URL.
-            HttpClientConnectionHelper helper = new HttpClientConnectionHelper(
-                getSecurityCheckURL().toString());
-                
-            // Configure a web request with the username and password.
-            WebRequest request = new WebRequest();
-            request.addParameter("j_username", getName(), 
-                WebRequest.POST_METHOD);
-            request.addParameter("j_password", getPassword(), 
-                WebRequest.POST_METHOD);
+            // Create a helper that will connect to a restricted resource.
+
+            // FIXME: Form-based authentication only works when setting up 
+            // security on the Servlet Redirector. We need to make that
+            // work with any redirector.
             
-            // Make the connection using the configured web request.
-            HttpURLConnection connection = helper.connect(request);
-        
+            String resource = ServletConfiguration.getServletRedirectorURL();
+            HttpClientConnectionHelper helper = 
+                new HttpClientConnectionHelper(resource);
+
+            // Make the connection using a default web request.
+            HttpURLConnection connection = helper.connect(new WebRequest());
+
             // Clean any existing session ID.
             sessionId = null;
             
@@ -254,6 +254,22 @@ public class FormAuthentication extends AbstractAuthentication
                 key = connection.getHeaderFieldKey(++i);
             }
 
+            // Create a helper that will connect to the security check URL.
+            helper = new HttpClientConnectionHelper(
+                getSecurityCheckURL().toString());
+                
+            // Configure a web request with the JSESSIONID cookie, 
+            // the username and the password.
+            WebRequest request = new WebRequest();
+            request.addCookie(sessionIdCookieName, sessionId);
+            request.addParameter("j_username", getName(), 
+                WebRequest.POST_METHOD);
+            request.addParameter("j_password", getPassword(), 
+                WebRequest.POST_METHOD);
+            
+            // Make the connection using the configured web request.
+            connection = helper.connect(request);
+        
             // If we get back a response code of 302, it means we were 
             // redirected to the context root after successfully logging in.
             // If we receive anything else, we didn't log in correctly.
@@ -263,36 +279,6 @@ public class FormAuthentication extends AbstractAuthentication
                     + "probably due to bad username/password. Received a ["
                     + connection.getResponseCode() + "] response code and"
                     + "was expecting a [302]");
-            }
-            else
-            {
-                // Verify we're redirected properly
-                String location = connection.getHeaderField("Location");
-                if (location != null)
-                {
-                    // WebLogic, at least, appends JSESSIONID after a semicolon 
-                    // at the end of theURL. Remove it.
-                    int semicolonIndex = location.indexOf(";");
-                    if (semicolonIndex != -1)
-                    {
-                        location = location.substring(0, semicolonIndex);
-                    }
-                    
-                    // We should get redirected to the context url
-                    if (!location.equals(Configuration.getContextURL()))
-                    {
-                        throw new ChainedRuntimeException("Unable to login, "
-                            + "probably due to bad username/password. "
-                            + "Received a [" + location + "] Location header "
-                            + "and was expecting [" 
-                            + Configuration.getContextURL() + "]");
-                    }
-                }
-                else
-                {
-                    // Failed to receive location header. Is that allowed?
-                    LOGGER.debug("Failed to receive a \"Location\" header.");
-                }
             }
         }
         catch (Throwable e)
