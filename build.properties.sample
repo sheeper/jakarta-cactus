@@ -143,7 +143,7 @@ clover.jar = ${lib.repo}/clover/jars/clover-0.6b.jar
 
 #cactus.home.resin2x = c:/Apps/resin-2.1.6
 #cactus.home.tomcat3x = c:/Apps/jakarta-tomcat-3.3.1a
-cactus.home.tomcat4x = c:/Apps/jakarta-tomcat-4.1.18
+cactus.home.tomcat4x = c:/Apps/jakarta-tomcat-4.1.24
 #cactus.home.orion1x = c:/Apps/orion-1.6.0
 #cactus.home.jboss3x = c:/Apps/jboss-3.0.4
 
