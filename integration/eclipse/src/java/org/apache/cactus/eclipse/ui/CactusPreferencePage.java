@@ -135,22 +135,10 @@ public class CactusPreferencePage
                 CactusPreferences.CONTEXT_URL_PATH,
                 CactusMessages.getString("CactusPreferencePage.label.context"),
                 getFieldEditorParent()));
-        // Jars needed by Cactus are now provided with the plugin
-        // Left for future user-override capability
-        //        addField(
-        //            new DirectoryFieldEditor(
-        //                CactusPreferences.JARS_DIR,
-        //                "Jars directory:",
-        //                getFieldEditorParent()));
         addField(
             new DirectoryFieldEditor(
                 CactusPreferences.TEMP_DIR,
                 CactusMessages.getString("CactusPreferencePage.label.temp"),
-                getFieldEditorParent()));
-        addField(
-            new StringFieldEditor(
-                CactusPreferences.WEBAPP_DIR,
-                CactusMessages.getString("CactusPreferencePage.label.webapp"),
                 getFieldEditorParent()));
     }
 
