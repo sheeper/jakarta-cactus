@@ -58,6 +58,9 @@
 
       <release version="1.5" date="- in CVS">
         <action dev="VMA" type="update">
+          Improved test classe names in the Servlet Sample application.
+        </action>
+        <action dev="VMA" type="update">
           Modified the build process to generate the Cactus web site by 
           removing the use of Stylebook and replacing it with an XSL
           stylesheet. In addition, added several new features: support for
