@@ -239,12 +239,21 @@ public class TestHttpResponse extends ServletTestCase
 
     /**
      * Verify we can set and retrieve the content type.
+     * 
+     * @throws Exception If an unexpected error occurs
      */
-    public void testSetContentType()
+    public void testSetContentType() throws Exception
     {
         response.setContentType("text/xml");
+
+        // Although we don't assert the written content, this is needed to make
+        // the test succeed on some versions of Orion. If the content is left 
+        // empty, Orion will somehow reset the content-type to text/html. Sigh.
+        PrintWriter pw = response.getWriter();
+        pw.println("<?xml version=\"1.0\"?>");
+        pw.println("<test></test>");
     }
-    
+
     /**
      * Verify we can set and retrieve the content type.
      * 
