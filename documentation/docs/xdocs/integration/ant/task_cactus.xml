@@ -739,10 +739,12 @@
           <section title="conf">
 
             <p>
-              A fileset that can be used to specify the set of files that
+              An Ant Fileset that can be used to specify the set of files that
               should be placed into the <strong>conf</strong> directory of the
               installation directory. This fileset should not include the
-              <code>serverxml</code> file.
+              <code>server.xml</code> file (it will be excluded if you add it)
+              as you must use the <code>serverxml</code> attribute to specify a
+              custom version of it.
             </p>
 
           </section>
@@ -851,10 +853,12 @@
           <section title="conf">
 
             <p>
-              A fileset that can be used to specify the set of files that
+              An Ant Fileset that can be used to specify the set of files that
               should be placed into the <strong>conf</strong> directory of the
               installation directory. This fileset should not include the
-              <code>serverxml</code> file.
+              <code>server.xml</code> file (it will be excluded if you add it)
+              as you must use the <code>serverxml</code> attribute to specify a
+              custom version of it.
             </p>
 
           </section>
@@ -963,10 +967,12 @@
           <section title="conf">
 
             <p>
-              A fileset that can be used to specify the set of files that
+              An Ant Fileset that can be used to specify the set of files that
               should be placed into the <strong>conf</strong> directory of the
               installation directory. This fileset should not include the
-              <code>serverxml</code> file.
+              <code>server.xml</code> file (it will be excluded if you add it)
+              as you must use the <code>serverxml</code> attribute to specify a
+              custom version of it.
             </p>
 
           </section>
