@@ -10,41 +10,32 @@
        CSS features that are standard across browsers (it is possible?). VMA
 -->
 
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:stylesheet version="1.0"
+  xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
-  <xsl:param name="software" select="''"/>
-  <xsl:param name="title" select="''"/>
-  <xsl:param name="copyright" select="''"/>
-  
-  <!-- Location of the xdoc directory relative to where this stylesheet is 
-       located. Note: this path MUST be relative as it is used as a relative 
-       URI from within this stylesheet -->
-  <xsl:param name="xdocdir" select="''"/>
+  <!-- Import common templates and parameters -->
+  <xsl:import href="common.xsl"/>
 
-  <!-- Location of the sitemap.xml file, which describes the web site 
-       resources -->
-  <xsl:param name="sitefile" select="''"/>
+  <xsl:output method="html" indent="no"/>
+
+  <!-- ==================================================================== -->
+  <!-- Parameters -->
+  <!-- ==================================================================== -->
 
   <!-- Location of the cvslog.xml file which contains the CVS changelog
        items for the last 15 days web site changes -->
   <xsl:param name="cvslogfile" select="''"/>
-  
-  <!-- Date of the last update, to be passed in from the build -->
-  <xsl:param name="last.updated.date"/>
-  
+
   <!-- Version of the current documentation (for switching between the 
        documentation for the current development version and the latest stable 
        release), to be passed in from the build -->
   <xsl:param name="project.version"/>
-  
+
   <!-- Version of the "other" documentation (for switching between the 
        documentation for the current development version and the latest stable 
        release), to be passed in from the build -->
   <xsl:param name="project.other.version"/>
-  
-  <!-- Output method -->
-  <xsl:output method="html" indent="no"/>
-  
+
   <!-- ==================================================================== -->
   <!-- Global variables -->
   <!-- ==================================================================== -->
@@ -54,17 +45,6 @@
   <xsl:variable name="body-link"  select="'#023264'"/>
   <xsl:variable name="banner-bg"  select="'#023264'"/>
   <xsl:variable name="banner-fg"  select="'#ffffff'"/>
-
-  <!-- Read the resource definitions. They are located in a file named 
-       sitemap.xml placed at the same level as the xdoc files. 
-       The path we specify is relative to where this stylesheet is located -->
-  <xsl:variable name="sitemap" 
-    select="document(concat($xdocdir,'/',$sitefile))/document/body/sitemap"/>
-
-  <!-- The current document being processed. Note: This is needed for the
-       "get-base-directory" template as it can be called with another
-       document context (the $navigation one) -->
-  <xsl:variable name="document" select="/document"/>
 
   <!-- ==================================================================== -->
   <!-- Document section -->
@@ -77,7 +57,7 @@
     <xsl:variable name="basedir">
       <xsl:call-template name="get-base-directory"/>
     </xsl:variable>
-       
+    
     <html>
 
       <head>
@@ -701,8 +681,9 @@
     <xsl:param name="href"/>     
     <xsl:choose>
       <xsl:when test="starts-with(@href,'site:')">
-        <xsl:call-template name="get-html-file">
+        <xsl:call-template name="get-target-file">
           <xsl:with-param name="id" select="substring-after(@href,'site:')"/>
+          <xsl:with-param name="extension" select="'html'"/>
         </xsl:call-template>
       </xsl:when>
       <xsl:when test="starts-with(@href,'ext:')">
@@ -1007,96 +988,6 @@
       <xsl:otherwise>
         <xsl:value-of select="$title"/>
       </xsl:otherwise>
-    </xsl:choose>
-  </xsl:template>
-
-  <!-- ==================================================================== -->
-  <!-- Extract directory -->
-  <!-- ==================================================================== -->
- 
-  <xsl:template name="get-directory">
-    <xsl:param name="file"/>     
-    <xsl:choose>
-      <xsl:when test="contains( $file, '/' )">
-        <xsl:variable name="dir" select="substring-before($file, '/')" />
-        <xsl:variable name="remainder" select="substring-after($file, '/')" />
-        <xsl:variable name="path">
-          <xsl:call-template name="get-directory">
-            <xsl:with-param name="file" select="$remainder"/>
-          </xsl:call-template>
-        </xsl:variable>
-        <xsl:value-of select="concat($dir,$path)"/>
-      </xsl:when>
-      <xsl:otherwise/>
-    </xsl:choose>
-  </xsl:template>
-
-  <!-- ==================================================================== -->
-  <!-- Get current processed file source path -->
-  <!-- ==================================================================== -->
-
-  <xsl:template name="get-source-from-id">
-    <xsl:param name="id"/>     
-
-    <!-- Issue a warning if the id is invalid -->
-    <xsl:if test="not($sitemap//resource[@id=$id])">
-      <xsl:message>
-        <xsl:text>Id [</xsl:text>
-        <xsl:value-of select="$id"/>
-        <xsl:text>] has no reference in sitemap.xml</xsl:text>
-      </xsl:message>   
-    </xsl:if>
-    
-    <xsl:value-of select="$sitemap//resource[@id=$id]/@source"/>
-  </xsl:template>
-
-  <xsl:template name="get-source">
-    <xsl:call-template name="get-source-from-id">
-      <xsl:with-param name="id" select="$document/@id"/>
-    </xsl:call-template>
-  </xsl:template>
-
-  <!-- ==================================================================== -->
-  <!-- Compute html file from xml source file -->
-  <!-- ==================================================================== -->
-
-  <xsl:template name="get-html-file">
-    <xsl:param name="id"/>     
-    <xsl:variable name="source">
-      <xsl:call-template name="get-source-from-id">
-        <xsl:with-param name="id" select="$id"/>
-      </xsl:call-template>
-    </xsl:variable>
-    <xsl:call-template name="get-base-directory"/>
-    <xsl:value-of select="substring($source,0,string-length($source)-3)"/>
-    <xsl:text>.html</xsl:text>
-  </xsl:template>
-  
-  <!-- ==================================================================== -->
-  <!-- Compute base directory -->
-  <!-- ==================================================================== -->
-
-  <xsl:template name="get-base-directory">  
-    <xsl:call-template name="get-base-directory-internal">
-      <xsl:with-param name="file">
-        <xsl:call-template name="get-source"/>
-      </xsl:with-param>
-    </xsl:call-template>
-  </xsl:template>
-  
-  <xsl:template name="get-base-directory-internal">
-    <xsl:param name="file"/>     
-    <xsl:choose>
-      <xsl:when test="contains( $file, '/' )">
-        <xsl:variable name="remainder" select="substring-after($file, '/')" />
-        <xsl:variable name="path">
-          <xsl:call-template name="get-base-directory-internal">
-            <xsl:with-param name="file" select="$remainder"/>
-          </xsl:call-template>
-        </xsl:variable>
-        <xsl:value-of select="concat('../',$path)"/>
-      </xsl:when>
-      <xsl:otherwise>./</xsl:otherwise>
     </xsl:choose>
   </xsl:template>
 
