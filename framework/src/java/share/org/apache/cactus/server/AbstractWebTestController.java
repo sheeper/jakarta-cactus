@@ -59,7 +59,7 @@ package org.apache.cactus.server;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.cactus.ServiceDefinition;
+import org.apache.cactus.HttpServiceDefinition;
 import org.apache.cactus.ServiceEnumeration;
 import org.apache.cactus.util.log.Log;
 import org.apache.cactus.util.log.LogService;
@@ -178,11 +178,11 @@ public abstract class AbstractWebTestController implements TestController
         // Call the correct Service method
         String queryString = theRequest.getQueryString();
         String serviceName = ServletUtil.getQueryStringParameter(queryString,
-            ServiceDefinition.SERVICE_NAME_PARAM);
+            HttpServiceDefinition.SERVICE_NAME_PARAM);
 
         if (serviceName == null) {
             String message = "Missing service name parameter [" +
-                ServiceDefinition.SERVICE_NAME_PARAM + "] in HTTP request. " +
+                HttpServiceDefinition.SERVICE_NAME_PARAM + "] in HTTP request. " +
                 "Received query string is [" + queryString + "].";
             LOGGER.debug(message);
             throw new ServletException(message);

@@ -64,7 +64,7 @@ package org.apache.cactus;
  *
  * @version $Id$
  */
-public class ServiceDefinition
+public interface HttpServiceDefinition
 {
     /**
      * Name of the parameter in the HTTP request that represents the name of the
@@ -99,5 +99,4 @@ public class ServiceDefinition
      */
     public static final String SERVICE_NAME_PARAM =
         "Cactus_Service";
-
 }

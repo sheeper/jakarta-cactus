@@ -241,11 +241,11 @@ public abstract class AbstractWebTestCase extends AbstractTestCase
         // Note: All these pareameters are passed in the URL. This is to allow
         // the user to send whatever he wants in the request body. For example
         // a file, ...
-        request.addParameter(ServiceDefinition.CLASS_NAME_PARAM,
+        request.addParameter(HttpServiceDefinition.CLASS_NAME_PARAM,
             this.getClass().getName(), WebRequest.GET_METHOD);
-        request.addParameter(ServiceDefinition.METHOD_NAME_PARAM,
+        request.addParameter(HttpServiceDefinition.METHOD_NAME_PARAM,
             this.getCurrentTestMethod(), WebRequest.GET_METHOD);
-        request.addParameter(ServiceDefinition.AUTOSESSION_NAME_PARAM,
+        request.addParameter(HttpServiceDefinition.AUTOSESSION_NAME_PARAM,
             request.getAutomaticSession() ? "true" : "false",
             WebRequest.GET_METHOD);
 

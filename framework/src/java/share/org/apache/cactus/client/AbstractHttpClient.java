@@ -58,7 +58,7 @@ package org.apache.cactus.client;
 
 import java.net.HttpURLConnection;
 
-import org.apache.cactus.ServiceDefinition;
+import org.apache.cactus.HttpServiceDefinition;
 import org.apache.cactus.ServiceEnumeration;
 import org.apache.cactus.WebRequest;
 import org.apache.cactus.WebTestResult;
@@ -174,7 +174,7 @@ public abstract class AbstractHttpClient
         throws Throwable
     {
         // Specify the service to call on the redirector side
-        theRequest.addParameter(ServiceDefinition.SERVICE_NAME_PARAM,
+        theRequest.addParameter(HttpServiceDefinition.SERVICE_NAME_PARAM,
             ServiceEnumeration.CALL_TEST_SERVICE.toString(),
             WebRequest.GET_METHOD);
 
@@ -213,7 +213,7 @@ public abstract class AbstractHttpClient
         WebRequest resultsRequest = new WebRequest();
 
         // Add authentication details
-        resultsRequest.addParameter(ServiceDefinition.SERVICE_NAME_PARAM,
+        resultsRequest.addParameter(HttpServiceDefinition.SERVICE_NAME_PARAM,
             ServiceEnumeration.GET_RESULTS_SERVICE.toString(),
             WebRequest.GET_METHOD);
         resultsRequest.setAuthentication(theAuthentication);

@@ -169,9 +169,9 @@ framework/src/java/j2ee13/org/apache/cactus/util/FilterConfiguration.java svn_ke
 framework/src/java/share/org/apache/cactus/AbstractTestCase.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/AbstractWebTestCase.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/Cookie.java svn_keywords=Author+Date+Id+Revision
+framework/src/java/share/org/apache/cactus/HttpServiceDefinition.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/JspTestCase.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/Request.java svn_keywords=Author+Date+Id+Revision
-framework/src/java/share/org/apache/cactus/ServiceDefinition.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/ServiceEnumeration.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/ServletTestCase.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/ServletTestRequest.java svn_keywords=Author+Date+Id+Revision

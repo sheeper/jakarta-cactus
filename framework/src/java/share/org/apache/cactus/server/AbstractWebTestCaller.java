@@ -62,7 +62,7 @@ import java.lang.reflect.Constructor;
 import javax.servlet.ServletException;
 
 import org.apache.cactus.AbstractTestCase;
-import org.apache.cactus.ServiceDefinition;
+import org.apache.cactus.HttpServiceDefinition;
 import org.apache.cactus.WebTestResult;
 import org.apache.cactus.util.log.Log;
 import org.apache.cactus.util.log.LogService;
@@ -227,11 +227,11 @@ public abstract class AbstractWebTestCaller
         String queryString =
             this.webImplicitObjects.getHttpServletRequest().getQueryString();
         String className = ServletUtil.getQueryStringParameter(queryString,
-            ServiceDefinition.CLASS_NAME_PARAM);
+            HttpServiceDefinition.CLASS_NAME_PARAM);
 
         if (className == null) {
             String message = "Missing class name parameter [" +
-                ServiceDefinition.CLASS_NAME_PARAM + "] in HTTP request.";
+                HttpServiceDefinition.CLASS_NAME_PARAM + "] in HTTP request.";
             LOGGER.error(message);
             throw new ServletException(message);
         }
@@ -252,11 +252,11 @@ public abstract class AbstractWebTestCaller
         String queryString =
             this.webImplicitObjects.getHttpServletRequest().getQueryString();
         String methodName = ServletUtil.getQueryStringParameter(queryString,
-            ServiceDefinition.METHOD_NAME_PARAM);
+            HttpServiceDefinition.METHOD_NAME_PARAM);
 
         if (methodName == null) {
             String message = "Missing method name parameter [" +
-                ServiceDefinition.METHOD_NAME_PARAM + "] in HTTP request.";
+                HttpServiceDefinition.METHOD_NAME_PARAM + "] in HTTP request.";
             LOGGER.error(message);
             throw new ServletException(message);
         }
@@ -275,7 +275,7 @@ public abstract class AbstractWebTestCaller
         String queryString =
             this.webImplicitObjects.getHttpServletRequest().getQueryString();
         String autoSession = ServletUtil.getQueryStringParameter(queryString,
-            ServiceDefinition.AUTOSESSION_NAME_PARAM);
+            HttpServiceDefinition.AUTOSESSION_NAME_PARAM);
 
         boolean isAutomaticSession = Boolean.valueOf(
             autoSession).booleanValue();
