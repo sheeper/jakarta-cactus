@@ -25,6 +25,25 @@
 
     <release version="1.1 in CVS">
       <action dev="VMA" type="add">
+        Added automatic script support for Resin 2.0
+      </action>
+      <action dev="VMA" type="add">
+        Added logging facility to Cactus, using the Log4j logging framework.
+        Note that according to the result of the message I posted on
+        <code>jakarta-commons</code>, this function may be deleted or
+        implemented differently in the 1.2 version of Cactus.
+      </action>
+      <action dev="VMA" type="fix" due-to="Bob Davison" due-to-email="bob.davison@reuters.com">
+        (<link href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=1612">
+        Bug #1612</link>). With some servlet engines (like Tomcat) there is a
+        risk that the test result will not be committed to the servlet
+        application scope *before* the client requests the test result, thus
+        getting a no result exception or, worse, getting the result from the
+        previous test. Also, if the returned result is bigger than the default 
+        buffer the server would block until the client side reads the data, 
+        thus resulting in a deadlock with the above-mentionned bug.
+      </action>
+      <action dev="VMA" type="add">
         Added a new mehod <code>AssertUtils.getResponseAsStringArray()</code>
         that returns the servlet output stream as an array of string (each
         line terminated by a end of line is a string) in the
