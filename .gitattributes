@@ -2,6 +2,23 @@
 /.checkstyle -text svneol=unset#application/octet-stream
 /.cvsignore svn_keywords=Author+Date+Id+Revision
 Eclipse-Plugin/.classpath.sample svn_keywords=Author+Date+Id+Revision
+Eclipse-Plugin/ant/conf/manifest -text svneol=unset#application/octet-stream
+Eclipse-Plugin/ant/conf/test/orion14/mime.types -text svneol=unset#application/octet-stream
+Eclipse-Plugin/ant/conf/test/orion15/mime.types -text svneol=unset#application/octet-stream
+Eclipse-Plugin/ant/conf/test/orion16/mime.types -text svneol=unset#application/octet-stream
+Eclipse-Plugin/ant/conf/test/resin13/resin.conf -text svneol=unset#application/octet-stream
+Eclipse-Plugin/ant/conf/test/resin20/resin.conf -text svneol=unset#application/octet-stream
+Eclipse-Plugin/ant/conf/test/weblogic61/SerializedSystemIni.dat -text svneol=unset#application/octet-stream
+Eclipse-Plugin/ant/conf/test/weblogic70/DefaultAuthenticatorInit.ldift -text svneol=unset#application/octet-stream
+Eclipse-Plugin/ant/conf/test/weblogic70/SerializedSystemIni.dat -text svneol=unset#application/octet-stream
+Eclipse-Plugin/ant/conf/test/weblogic70/testserver/ldap/ldapfiles/EmbeddedLDAP.data -text
+Eclipse-Plugin/ant/conf/test/weblogic70/testserver/ldap/ldapfiles/EmbeddedLDAP.delete -text
+Eclipse-Plugin/ant/conf/test/weblogic70/testserver/ldap/ldapfiles/EmbeddedLDAP.index -text
+Eclipse-Plugin/ant/conf/test/weblogic70/testserver/ldap/ldapfiles/EmbeddedLDAP.tran -text
+Eclipse-Plugin/ant/conf/test/weblogic70/testserver/ldap/ldapfiles/EmbeddedLDAP.trpos -text
+Eclipse-Plugin/ant/conf/test/weblogic70/testserver/ldap/ldapfiles/EmbeddedLDAP.twpos -text
+Eclipse-Plugin/ant/web/jspRedirector.jsp -text svneol=unset#application/octet-stream
+Eclipse-Plugin/ant/web/test/test.jsp -text svneol=unset#application/octet-stream
 Eclipse-Plugin/icons/calaunch.gif -text
 /LICENSE.aspectj.html svn_keywords=Author+Date+Id+Revision
 /LICENSE.cactus svn_keywords=Author+Date+Id+Revision
