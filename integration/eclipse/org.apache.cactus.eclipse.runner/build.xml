@@ -172,7 +172,7 @@
         
 		<mkdir dir="${target.dir}"/>
 
-		<jar jarfile="${target.dir}/cactussupport.jar">
+		<jar jarfile="${target.dir}/${cactus.eclipseintegration.jar.name}">
             <manifest>
                 <section name="org/apache/cactus/eclipse/runner/">
                     <attribute name="Specification-Title"
@@ -195,7 +195,7 @@
             <fileset dir="${target.classes.dir}"/>
         </jar>
 				
-		<jar jarfile="${target.dir}/cactussupportsrc.jar">
+		<jar jarfile="${target.dir}/${cactus.eclipseintegration.src.jar.name}">
             <manifest>
                 <section name="org/apache/cactus/eclipse/runner/">
                     <attribute name="Specification-Title"
