@@ -8,6 +8,9 @@ You can also check the online web site
 (http://jakarta.apache.org/cactus) which contains the most up to date 
 information.
 
+If you are building Cactus from sources, detailed instructions can be found
+at http://jakarta.apache.org/cactus/howto_build.html
+
 Thank you.
 
 The Cactus Team
