@@ -245,8 +245,15 @@ public class GenericAntProvider implements IContainerProvider
         IProgressMonitor thePM)
         throws CoreException
     {
+        thePM.subTask(
+            CactusMessages.getString("CactusLaunch.message.undeploy"));
         String[] targets = getMasked("cactus.clean.");
-        createAntRunner(targets).run(/*thePM*/);
+        SubProgressMonitor spm = new SubProgressMonitor(thePM, 5);
+        spm.beginTask("",10);
+        createAntRunner(targets).run(spm);
+        spm.worked(10);
+        spm.done();
+
     }
 
     /**
@@ -255,8 +262,13 @@ public class GenericAntProvider implements IContainerProvider
     public void stop(ContainerInfo theContainerInfo, IProgressMonitor thePM)
         throws CoreException
     {
+        thePM.subTask(CactusMessages.getString("CactusLaunch.message.stop"));
         String[] targets = getMasked("cactus.stop.");
-        createAntRunner(targets).run(/*thePM*/);
+        SubProgressMonitor spm = new SubProgressMonitor(thePM, 5);
+        spm.beginTask("",10);
+        createAntRunner(targets).run(spm);
+        spm.worked(10);
+        spm.done();
     }
 
     /**
