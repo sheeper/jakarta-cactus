@@ -56,7 +56,7 @@
  */
 package org.apache.cactus.client.authentication;
 
-import java.net.HttpURLConnection;
+import org.apache.cactus.WebRequest;
 
 /**
  * This class was designed with the simple assumption that ALL authentication
@@ -145,12 +145,13 @@ public abstract class AbstractAuthentication
     protected abstract void validatePassword(String thePassword);
 
     /**
-     * Modify the <code>HttpURLConnection</code> passed as parameter so
+     * Modify the <code>WebRequest</code> passed as parameter so
      * that it will carry authentication information.
      *
-     * @param theConnection the HTTP connection to the server URL
+     * @param theRequest the request object that will be sent to the Cactus
+     *        Redirector over HTTP
      */
-    public abstract void configure(HttpURLConnection theConnection);
+    public abstract void configure(WebRequest theRequest);
 
     /**
      * @return the user password of the Credential

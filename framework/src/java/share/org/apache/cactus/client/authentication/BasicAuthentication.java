@@ -56,7 +56,8 @@
  */
 package org.apache.cactus.client.authentication;
 
-import java.net.HttpURLConnection;
+import org.apache.cactus.WebRequest;
+
 import java.text.CharacterIterator;
 import java.text.StringCharacterIterator;
 
@@ -202,9 +203,9 @@ public class BasicAuthentication extends AbstractAuthentication
     }
 
     /**
-     * @see AbstractAuthentication#configure(HttpURLConnection)
+     * @see AbstractAuthentication#configure(WebRequest)
      */
-    public void configure(HttpURLConnection theConnection)
+    public void configure(WebRequest theRequest)
     {
         // According to HTTP 1.0 Spec:
         // basic-credentials = "Basic" SP basic-cookie
@@ -218,7 +219,7 @@ public class BasicAuthentication extends AbstractAuthentication
         String basicCredentials = "Basic "
             + new String(base64Encode(basicCookie.getBytes()));
 
-        theConnection.setRequestProperty("Authorization", basicCredentials);
+        theRequest.addHeader("Authorization", basicCredentials);
     }
 
     /**

@@ -64,16 +64,12 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
-import java.net.MalformedURLException;
 import java.util.Enumeration;
-import java.util.Vector;
 
-import org.apache.commons.httpclient.Header;
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.logging.Log;
 
 import org.apache.cactus.WebRequest;
-import org.apache.cactus.Cookie;
 import org.apache.cactus.client.authentication.AbstractAuthentication;
 import org.apache.cactus.util.ChainedRuntimeException;
 
@@ -86,7 +82,7 @@ import org.apache.cactus.util.ChainedRuntimeException;
  *
  * @version $Id$
  */
-public class JdkConnectionHelper implements ConnectionHelper
+public class JdkConnectionHelper extends AbstractConnectionHelper
 {
     /**
      * The logger
@@ -122,6 +118,14 @@ public class JdkConnectionHelper implements ConnectionHelper
     {
         URL url = new URL(this.url);
 
+        // Add Authentication headers, if necessary. This is the first
+        // step to allow authentication to add extra headers, HTTP parameters,
+        // etc.
+        AbstractAuthentication authentication = theRequest.getAuthentication();
+        if (authentication != null) {
+            authentication.configure(theRequest);
+        }
+
         // Add the parameters that need to be passed as part of the URL
         url = addParametersGet(theRequest, url);
 
@@ -147,17 +151,14 @@ public class JdkConnectionHelper implements ConnectionHelper
         connection.setRequestProperty("Content-type",
             theRequest.getContentType());
 
-        // Add Authentication headers, if necessary
-        AbstractAuthentication authentication = theRequest.getAuthentication();
-        if (authentication != null) {
-            authentication.configure(connection);
-        }
-
         // Add the other header fields
         addHeaders(theRequest, connection);
 
         // Add the cookies
-        addCookies(theRequest, connection);
+        String cookieString = getCookieString(theRequest, url);
+        if (cookieString != null) {
+            connection.setRequestProperty("Cookie", cookieString);
+        }
 
         // Add the POST parameters if no user data has been specified (user data
         // overried post parameters)
@@ -202,70 +203,6 @@ public class JdkConnectionHelper implements ConnectionHelper
         }
 
         out.close();
-    }
-
-    /**
-     * Add the HTTP parameters that need to be passed in the query string of
-     * the URL.
-     *
-     * @param theRequest the request containing all data to pass to the server
-     *        redirector.
-     * @param theURL the URL used to connect to the server redirector.
-     * @return the new URL
-     * @exception MalformedURLException if the URL is malformed
-     */
-    private URL addParametersGet(WebRequest theRequest, URL theURL)
-        throws MalformedURLException
-    {
-        // If no parameters, then exit
-        if (!theRequest.getParameterNamesGet().hasMoreElements()) {
-            return theURL;
-        }
-
-        StringBuffer queryString = new StringBuffer();
-
-        Enumeration keys = theRequest.getParameterNamesGet();
-
-        if (keys.hasMoreElements()) {
-            String key = (String) keys.nextElement();
-            String[] values = theRequest.getParameterValuesGet(key);
-            queryString.append(key);
-            queryString.append('=');
-            queryString.append(URLEncoder.encode(values[0]));
-            for (int i = 1; i < values.length; i++) {
-                queryString.append('&');
-                queryString.append(key);
-                queryString.append('=');
-                queryString.append(URLEncoder.encode(values[i]));
-            }
-        }
-
-        while (keys.hasMoreElements()) {
-            String key = (String) keys.nextElement();
-            String[] values = theRequest.getParameterValuesGet(key);
-            for (int i = 0; i < values.length; i++) {
-                queryString.append('&');
-                queryString.append(key);
-                queryString.append('=');
-                queryString.append(URLEncoder.encode(values[i]));
-            }
-        }
-
-        String file = theURL.getFile();
-
-        // Remove the trailing "/" if there is one
-        if (file.endsWith("/")) {
-            file = file.substring(0, file.length() - 1);
-        }
-
-        if (theURL.toString().indexOf("?") > 0) {
-            file = file + "&" + queryString.toString();
-        } else {
-            file = file + "?" + queryString.toString();
-        }
-
-        return new URL(theURL.getProtocol(), theURL.getHost(),
-            theURL.getPort(), file);
     }
 
     /**
@@ -339,74 +276,6 @@ public class JdkConnectionHelper implements ConnectionHelper
         }
 
         return out;
-    }
-
-    /**
-     * Add the Cookies to the request.
-     *
-     * @param theRequest the request containing all data to pass to the server
-     *        redirector.
-     * @param theConnection the HTTP connection
-     */
-    private void addCookies(WebRequest theRequest,
-        URLConnection theConnection)
-    {
-        // If no Cookies, then exit
-        Vector cookies = theRequest.getCookies();
-        if (!cookies.isEmpty()) {
-
-            // transform the Cactus cookies into HttpClient cookies
-            org.apache.commons.httpclient.Cookie[] httpclientCookies =
-                new org.apache.commons.httpclient.Cookie[cookies.size()];
-            for (int i = 0; i < cookies.size(); i++) {
-                org.apache.cactus.Cookie cactusCookie =
-                    (org.apache.cactus.Cookie) cookies.elementAt(i);
-
-                // If no domain has been specified, use a default one
-                String domain;
-                if (cactusCookie.getDomain() == null) {
-                    domain = Cookie.getCookieDomain(theRequest,
-                        theConnection.getURL().getHost());
-                } else {
-                    domain = cactusCookie.getDomain();
-                }
-
-                // If not path has been specified , use a default one
-                String path;
-                if (cactusCookie.getPath() == null) {
-                    path = Cookie.getCookiePath(theRequest,
-                        theConnection.getURL().getFile());
-                } else {
-                    path = cactusCookie.getPath();
-                }
-
-                httpclientCookies[i] =
-                    new org.apache.commons.httpclient.Cookie(
-                        domain, cactusCookie.getName(),
-                        cactusCookie.getValue());
-
-                httpclientCookies[i].setComment(cactusCookie.getComment());
-                httpclientCookies[i].setExpiryDate(
-                        cactusCookie.getExpiryDate());
-                httpclientCookies[i].setPath(path);
-                httpclientCookies[i].setSecure(cactusCookie.isSecure());
-            }
-
-            // and create the cookie header to send
-            Header cookieHeader =
-                org.apache.commons.httpclient.Cookie.createCookieHeader(
-                    Cookie.getCookieDomain(theRequest,
-                        theConnection.getURL().getHost()),
-                    Cookie.getCookiePath(theRequest,
-                        theConnection.getURL().getFile()),
-                    httpclientCookies);
-
-            LOGGER.debug("Cookie string = [" + cookieHeader.getValue()
-                + "]");
-
-            theConnection.setRequestProperty("Cookie",
-                cookieHeader.getValue());
-        }
     }
 
     /**
