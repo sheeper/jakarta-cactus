@@ -657,7 +657,7 @@ integration/maven/src/plugin-test/testIncludeResources/src/conf/properties/testK
 integration/maven/src/plugin-test/testIncludeResources/src/conf/properties/testbad.properties svn_keywords=Author+Date+Id+Revision
 integration/maven/src/plugin-test/testIncludeResources/src/conf/xml/recursiveResources/test-recursive-default.xml svn_keywords=Author+Date+Id+Revision
 integration/maven/src/plugin-test/testIncludeResources/src/conf/xml/test.xml svn_keywords=Author+Date+Id+Revision
-integration/maven/src/plugin-test/testIncludeResources/src/test-cactus/org/apache/integration/maven/test/ResourcesTest.java svn_keywords=Author+Date+Id+Revision
+integration/maven/src/plugin-test/testIncludeResources/src/test-cactus/org/apache/integration/maven/test/TestResources.java svn_keywords=Author+Date+Id+Revision
 integration/maven/src/plugin-test/testIncludeResources/src/webapp/WEB-INF/web.xml svn_keywords=Author+Date+Id+Revision
 integration/maven/src/plugin-test/testSimpleWar/.cvsignore svn_keywords=Author+Date+Id+Revision
 integration/maven/src/plugin-test/testSimpleWar/maven.xml svn_keywords=Author+Date+Id+Revision
