@@ -37,11 +37,10 @@
         version of Cactus.
       </action>
       <action assigned-to="Nicholas Lesiecki">
-        Write a tutorial that explains how to unit test Tag libraries (only
-        taglets that extend TagSupport for the moment).
+        Write a tutorial that explains how to unit test Tag libraries.
       </action>
-      <action>
-        Add a tutorial/FAQ entry for explaining unit testing of persistent
+      <action assigned-to="Vincent Massol">
+        Add a FAQ entry for explaining unit testing of persistent
         sessions, i.e. to explain that each unit test is *independent* of
         another and that each test need to set up it's own preconditions
         (HTTP paramteres, cookies, HTTP headers, ...) but *also* values that
@@ -71,10 +70,9 @@
     </category>
 
     <category title="Design/Code">
-      <action assigned-to="Jari Worsley">
-        Continue support for JSP Taglib to fully support all types of taglets
-        (even the one with body content which extend TagBodySupport). At the
-        current time only taglib that extend TagSupport are supported.
+      <action assigned-to="Jari Worsley, Nicholas Lesiecki">
+        Continue support for JSP Taglib. Possibly add some heper classes to
+        help implement unit test for taglibs.
       </action>
       <action>
         Handle <code>getRealPath()</code>, <code>getPathTranslated()</code> in
@@ -109,9 +107,7 @@
         View in an MVC model). This is done by using mock implementations of
         java beans used in the JSP to unit test, set these java beans in the
         testXXX() method of a cactus test and then assert the result of the
-        JSP executing in the endXXX() method. Modify the scope diagram on the
-        <link href="features.html">features</link> page to show that Cactus
-        also does unit testing of JSPs.
+        JSP executing in the endXXX() method.
       </action>
     </category>
 
