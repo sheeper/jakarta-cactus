@@ -21,6 +21,84 @@
             Link
           </td>
           <td>
+            <link href="http://www.kimble.co.uk/papers/cactus-wl51.htm">Stress 
+            Testing with The Grinder and Cactus</link>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Type
+          </td>
+          <td>
+            Article
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Date
+          </td>
+          <td>
+            Submitted on October 2002
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Description
+          </td>
+          <td>
+            Return of experience on how to use Cactus and The Grinder to 
+            perform Stress Unit Tests.
+          </td>
+        </tr>
+      </table>
+
+      <p/>
+
+      <table>
+        <tr>
+          <td>
+            Link
+          </td>
+          <td>
+            <link href="http://www.kimble.co.uk/papers/cactus-wl51.htm">Unit 
+            Testing Servlets with Weblogic and Cactus</link>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Type
+          </td>
+          <td>
+            Article
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Date
+          </td>
+          <td>
+            Submitted on October 2002
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Description
+          </td>
+          <td>
+            Return of experience on how to use Cactus, WebLogic and Test 
+            Driven development.
+          </td>
+        </tr>
+      </table>
+
+      <p/>
+
+      <table>
+        <tr>
+          <td>
+            Link
+          </td>
+          <td>
             <link href="http://ejbmonitor.webcabcomponents.com/~ejbmonitor/">EJB 
             Monitor</link>
           </td>
