@@ -74,9 +74,9 @@ import org.apache.cactus.util.log.LogService;
 public abstract class AbstractTestController
 {
     /**
-     * The LOGGER
+     * The logger
      */
-    private static Log logger =
+    private static final Log LOGGER =
         LogService.getInstance().getLog(AbstractTestController.class.getName());
 
     /**
@@ -133,7 +133,7 @@ public abstract class AbstractTestController
             } else {
                 String message = "Unknown service [" + serviceName +
                     "] in HTTP request.";
-                logger.error(message);
+                LOGGER.error(message);
                 throw new ServletException(message);
             }
 
@@ -144,13 +144,13 @@ public abstract class AbstractTestController
             if (e.getMessage().startsWith("junit/framework")) {
                 String message = "You must put the JUnit jar in " +
                     "your server classpath (in WEB-INF/lib for example)";
-                logger.error(message, e);
+                LOGGER.error(message, e);
                 throw new ServletException(message, e);
             } else {
                 String message = "You are missing a jar in your " +
                     "classpath (class [" + e.getMessage() + "] could not " +
                     "be found";
-                logger.error(message, e);
+                LOGGER.error(message, e);
                 throw new ServletException(message, e);
             }
         }
@@ -172,11 +172,11 @@ public abstract class AbstractTestController
         if (serviceName == null) {
             String message = "Missing service name parameter [" +
                 ServiceDefinition.SERVICE_NAME_PARAM + "] in HTTP request.";
-            logger.debug(message);
+            LOGGER.debug(message);
             throw new ServletException(message);
         }
 
-        logger.debug("Service to call = " + serviceName);
+        LOGGER.debug("Service to call = " + serviceName);
 
         return serviceName;
     }

@@ -73,12 +73,6 @@ import org.apache.cactus.util.log.LogService;
 public class FilterTestCaller extends AbstractTestCaller
 {
     /**
-     * The LOGGER
-     */
-    protected static Log logger =
-        LogService.getInstance().getLog(FilterTestCaller.class.getName());
-
-    /**
      * @param theObjects the implicit objects coming from the redirector
      */
     public FilterTestCaller(FilterImplicitObjects theObjects)

@@ -83,9 +83,9 @@ public class ServletTestRedirector extends HttpServlet
     }
 
     /**
-     * The LOGGER
+     * The logger
      */
-    private static Log logger =
+    private static final Log LOGGER =
         LogService.getInstance().getLog(ServletTestRedirector.class.getName());
 
     /**
@@ -117,7 +117,7 @@ public class ServletTestRedirector extends HttpServlet
         HttpServletResponse theResponse) throws ServletException, IOException
     {
         // Mark beginning of test on server side
-        logger.debug("------------- Start Servlet service");
+        LOGGER.debug("------------- Start Servlet service");
 
         // Create implicit object holder
         ServletImplicitObjects objects = new ServletImplicitObjects();

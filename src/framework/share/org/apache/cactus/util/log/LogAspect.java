@@ -100,7 +100,7 @@ public aspect LogAspect
         !logObjectCalls() && publicMethodsWithParameterCalls() &&
         publicStaticMethodsWithParameterCalls() && !publicMethodsWithReturnValueCalls()
     {
-// Get the LOGGER to perform logging
+        // Get The logger to perform logging
         Log logger = LogService.getInstance().getLog(
             thisJoinPoint.getSignature().getDeclaringType().getName());
 
@@ -129,7 +129,7 @@ public aspect LogAspect
         // The class name that uses the method that has been called
         final String targetName = thisJoinPoint.getTarget().getClass().getName();
 
-// Get the LOGGER to perform logging
+        // Get The logger to perform logging
         Log logger = LogService.getInstance().getLog(targetName);
 
         if (logger.isDebugEnabled()) {
@@ -154,7 +154,7 @@ public aspect LogAspect
         !logObjectCalls() && publicMethodsWithParameterCalls() &&
         publicMethodsWithReturnValueCalls() && publicStaticMethodsWithParameterCalls()
     {
-// Get the LOGGER to perform logging
+        // Get The logger to perform logging
         Log logger = LogService.getInstance().getLog(
             thisJoinPoint.getSignature().getDeclaringType().getName());
 
@@ -193,7 +193,7 @@ public aspect LogAspect
         // The class name that uses the method that has been called
         final String targetName = thisJoinPoint.getTarget().getClass().getName();
 
-// Get the LOGGER to perform logging
+        // Get The logger to perform logging
         Log logger = LogService.getInstance().getLog(targetName);
 
         if (logger.isDebugEnabled()) {

@@ -82,12 +82,6 @@ import org.apache.cactus.util.log.LogService;
 public abstract class AbstractHttpClient
 {
     /**
-     * The LOGGER
-     */
-    private static Log logger =
-        LogService.getInstance().getLog(AbstractHttpClient.class.getName());
-
-    /**
      * Name of the Cactus configuration file
      */
     public static final String CONFIG_NAME = "cactus";

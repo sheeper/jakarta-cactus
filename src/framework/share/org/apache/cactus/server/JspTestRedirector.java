@@ -80,9 +80,9 @@ public class JspTestRedirector
     }
 
     /**
-     * The LOGGER
+     * The logger
      */
-    private static Log logger =
+    private static final Log LOGGER =
         LogService.getInstance().getLog(JspTestRedirector.class.getName());
 
     /**
@@ -93,7 +93,7 @@ public class JspTestRedirector
     public void doGet(JspImplicitObjects theObjects) throws ServletException
     {
         // Mark beginning of test on server side
-        logger.debug("------------- Start JSP service");
+        LOGGER.debug("------------- Start JSP service");
 
         JspTestController controller = new JspTestController();
         controller.handleRequest(theObjects);

@@ -85,9 +85,9 @@ import org.apache.cactus.util.log.LogService;
 public class WebResponse
 {
     /**
-     * The LOGGER
+     * The logger
      */
-    private static Log logger =
+    private static final Log LOGGER =
         LogService.getInstance().getLog(WebResponse.class.getName());
 
     /**
@@ -248,8 +248,8 @@ public class WebResponse
 
         for (int i = 1; (headerName != null) || (headerValue != null); i++) {
 
-            logger.debug("Header name  = [" + headerName + "]");
-            logger.debug("Header value = [" + headerValue + "]");
+            LOGGER.debug("Header name  = [" + headerName + "]");
+            LOGGER.debug("Header value = [" + headerValue + "]");
 
             if ((headerName != null) &&
                 (headerName.toLowerCase().equals("set-cookie") ||

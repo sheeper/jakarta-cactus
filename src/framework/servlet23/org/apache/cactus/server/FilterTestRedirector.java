@@ -87,9 +87,9 @@ public class FilterTestRedirector implements Filter
     }
 
     /**
-     * The LOGGER
+     * The logger
      */
-    private static Log logger =
+    private static final Log LOGGER =
         LogService.getInstance().getLog(FilterTestRedirector.class.getName());
 
     /**
@@ -112,7 +112,7 @@ public class FilterTestRedirector implements Filter
         throws IOException, ServletException
     {
         // Mark beginning of test on server side
-        logger.debug("------------- Start Filter service");
+        LOGGER.debug("------------- Start Filter service");
 
         // Create implicit object holder
         FilterImplicitObjects objects = new FilterImplicitObjects();

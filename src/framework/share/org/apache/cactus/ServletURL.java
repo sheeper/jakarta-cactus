@@ -148,9 +148,9 @@ public class ServletURL
     private String queryString;
 
     /**
-     * The LOGGER
+     * The logger
      */
-    private static Log logger =
+    private static final Log LOGGER =
         LogService.getInstance().getLog(ServletURL.class.getName());
 
     /**
@@ -351,7 +351,7 @@ public class ServletURL
         ServletURL url = new ServletURL(serverName, contextPath,
             servletPath, pathInfo, queryString);
 
-        logger.debug("URL = [" + url + "]");
+        LOGGER.debug("URL = [" + url + "]");
 
         return url;
     }

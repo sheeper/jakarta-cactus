@@ -69,12 +69,6 @@ import org.apache.cactus.util.log.LogService;
 public class ServletUtil
 {
     /**
-     * The LOGGER
-     */
-    private static Log logger =
-        LogService.getInstance().getLog(ServletUtil.class.getName());
-
-    /**
      * A substitute method for <code>HttpServletRequest.getParameter()</code>.
      * Contrary to <code>getParameter()</code>, this method does not
      * access the request input stream (only the query string of the url).

@@ -94,9 +94,9 @@ public abstract class AbstractHttpServletRequestWrapper
     protected ServletURL url;
 
     /**
-     * The LOGGER
+     * The logger
      */
-    private static Log logger =
+    private static final Log LOGGER =
         LogService.getInstance().
         getLog(AbstractHttpServletRequestWrapper.class.getName());
 
@@ -137,7 +137,7 @@ public abstract class AbstractHttpServletRequestWrapper
         if (this.url != null) {
             if (this.url.getContextPath() != null) {
                 result = this.url.getContextPath();
-                logger.debug("Using simulated context : [" + result + "]");
+                LOGGER.debug("Using simulated context : [" + result + "]");
             }
         }
 
@@ -154,7 +154,7 @@ public abstract class AbstractHttpServletRequestWrapper
 
         if (this.url != null) {
             result = this.url.getPathInfo();
-            logger.debug("Using simulated PathInfo : [" + result + "]");
+            LOGGER.debug("Using simulated PathInfo : [" + result + "]");
         }
         return result;
     }
@@ -170,7 +170,7 @@ public abstract class AbstractHttpServletRequestWrapper
         if (this.url != null) {
             if (this.url.getServerName() != null) {
                 result = this.url.getHost();
-                logger.debug("Using simulated server name : [" + result +
+                LOGGER.debug("Using simulated server name : [" + result +
                     "]");
             }
         }
@@ -188,7 +188,7 @@ public abstract class AbstractHttpServletRequestWrapper
 
         if (this.url != null) {
             result = (this.url.getPort() == -1) ? 80 : this.url.getPort();
-            logger.debug("Using simulated server port : [" + result + "]");
+            LOGGER.debug("Using simulated server port : [" + result + "]");
         }
 
         return result;
@@ -208,7 +208,7 @@ public abstract class AbstractHttpServletRequestWrapper
                 ((getServletPath() == null) ? "" : getServletPath()) +
                 ((getPathInfo() == null) ? "" : getPathInfo());
 
-            logger.debug("Using simulated request URI : [" + result + "]");
+            LOGGER.debug("Using simulated request URI : [" + result + "]");
         }
 
         return result;
@@ -224,7 +224,7 @@ public abstract class AbstractHttpServletRequestWrapper
 
         if (this.url != null) {
             result = this.url.getServletPath();
-            logger.debug("Using simulated servlet path : [" + result +
+            LOGGER.debug("Using simulated servlet path : [" + result +
                 "]");
         }
 
@@ -278,7 +278,7 @@ public abstract class AbstractHttpServletRequestWrapper
 
         if (this.url != null) {
             result = this.url.getQueryString();
-            logger.debug("Using simulated query string : [" + result +
+            LOGGER.debug("Using simulated query string : [" + result +
                 "]");
         }
         return result;
@@ -329,7 +329,7 @@ public abstract class AbstractHttpServletRequestWrapper
             }
         }
 
-        logger.debug("Computed full path : [" + fullPath + "]");
+        LOGGER.debug("Computed full path : [" + fullPath + "]");
 
         dispatcher = new RequestDispatcherWrapper(
             this.request.getRequestDispatcher(fullPath));
