@@ -101,6 +101,7 @@
 
     <login-config>
     	<auth-method>BASIC</auth-method>
+        <realm-name>Sample Cactus Servlet Application</realm-name>
    	</login-config>
 
 	<security-role>

@@ -48,6 +48,9 @@
     </devs>
 
     <release version="1.5" date="- in CVS">
+      <action dev="VMA" type="add">
+        Added automated Ant scripts for JBoss/Jetty 3.x.
+      </action>
       <action dev="VMA" type="add" due-to="Christopher Lenz" due-to-email="cmlenz@gmx.de">
         Added new extension class to help unit test JSP Taglibs. See the
         <code>TestJspTagLifecycle</code> test class in the sample-servlet

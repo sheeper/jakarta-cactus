@@ -362,6 +362,7 @@
             <property name="weblogic.home.61"/>
             <property name="weblogic.home.70"/>
             <property name="enhydra.home.31"/>
+            <property name="jboss.home.3x"/>
             <property name="test.port"/>
             <property name="log4j.jar"/>
             <property name="clover.jar"/>
