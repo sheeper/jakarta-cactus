@@ -15,32 +15,9 @@
 
   <cvs repository="jakarta"/>
      
-  <!--
-     ========================================================================
-       Build the Cactus Ant Tasks
-     ========================================================================
-  -->
+  <!-- Dummy for projects that depend on the obsolete 'anttasks' project -->
   <project name="jakarta-cactus-anttasks">
-
-    <package>org.apache.cactus.ant</package>
-
-    <ant buildfile="anttasks/build.xml" target="dist">
-      <property name="project.version" value="@@DATE@@"/>
-    </ant>
-  
-    <depend project="ant" inherit="runtime"/>
-    <depend project="xml-xerces"/>
-    <option project="checkstyle" inherit="runtime"/>
-
-    <home nested="anttasks/dist"/>
-    <jar name="lib/cactus-anttasks.jar"/>
-    <javadoc nested="anttasks/dist/doc/api"/>
-
-    <license name="LICENSE.cactus"/>
-
-    <nag from="Vincent Massol &lt;vmassol@apache.org&gt;"
-      to="cactus-dev@jakarta.apache.org"/>
-
+    <depend project="jakarta-cactus-integration-ant-13" inherit="jars"/>
   </project>
 
   <!--
@@ -531,7 +508,6 @@
        created in the Sample Servlet 1.2 and 1.3 projects). -->
     <depend project="jakarta-cactus-framework-12"/>
     <depend project="jakarta-cactus-framework-13"/>
-    <depend project="jakarta-cactus-anttasks"/>
     <depend project="jakarta-cactus-sample-servlet-13"/>
     <depend project="jakarta-cactus-sample-servlet-12"/>
 
