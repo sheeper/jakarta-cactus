@@ -24,11 +24,6 @@
     <action context="design" assigned-to="VMA">
       Add support for testing Servlet API 2.3 Filters.
     </action>
-    <action context="docs" assigned-to="VMA">
-      Write a short "Testing strategy" tutorial that explains the different
-      kind of tests and what tool to use for each kind. Speak about facade,
-      MCV model.
-    </action>
   </actions>
 
   <actions priority="low">
