@@ -60,6 +60,7 @@ import java.io.File;
 
 import org.apache.cactus.integration.ant.util.AntTaskFactory;
 import org.apache.commons.logging.Log;
+import org.apache.tools.ant.types.Environment.Variable;
 
 /**
  * Interface for classes that can be used as nested elements in the
@@ -96,6 +97,12 @@ public interface Container
      */
     File getToDir();
 
+    /**
+     * @return the list of system properties that will be set in the container 
+     *         JVM
+     */
+    Variable[] getSystemProperties();
+    
     /**
      * Subclasses should implement this method to perform any initialization
      * that may be necessary. This method is called before any of the accessors
@@ -145,6 +152,15 @@ public interface Container
      * @param theDeployableFile The file to deploy
      */
     void setDeployableFile(DeployableFile theDeployableFile);
+
+    /**
+     * Sets the system properties that will be passed to the JVM in which the
+     * server will execute.
+     * 
+     * @param theProperties the list of system properties to set in the 
+     *        container JVM
+     */
+    void setSystemProperties(Variable[] theProperties);
 
     /**
      * Subclasses must implement this method to perform the actual task of 

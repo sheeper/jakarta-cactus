@@ -62,6 +62,7 @@ import javax.servlet.http.HttpSession;
 import junit.framework.Test;
 import junit.framework.TestCase;
 
+import org.apache.cactus.configuration.ConfigurationInitializer;
 import org.apache.cactus.configuration.ServletConfiguration;
 import org.apache.cactus.internal.client.WebClientTestCaseDelegate;
 import org.apache.cactus.internal.server.ServerTestCaseDelegate;
@@ -78,6 +79,18 @@ import org.apache.cactus.server.ServletConfigWrapper;
  */
 public class ServletTestCase extends TestCase
 {
+    /**
+     * As this class is the first one loaded on the client side, we ensure
+     * that the Cactus configuration has been initialized. In the future,
+     * this block will be removed as all initialization will be done in Cactus
+     * test suites. However, as we still support using Cactus TestCase classes
+     * we don't a proper initialization hook and thus we need this hack.
+     */
+    static
+    {
+        ConfigurationInitializer.initialize();
+    }
+
     /**
      * Valid <code>HttpServletRequest</code> object that you can access from
      * the <code>testXXX()</code>, <code>setUp</code> and

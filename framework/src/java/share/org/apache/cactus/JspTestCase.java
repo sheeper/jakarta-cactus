@@ -60,6 +60,7 @@ import javax.servlet.jsp.JspWriter;
 
 import junit.framework.Test;
 
+import org.apache.cactus.configuration.ConfigurationInitializer;
 import org.apache.cactus.configuration.JspConfiguration;
 import org.apache.cactus.internal.client.WebClientTestCaseDelegate;
 import org.apache.cactus.internal.server.ServerTestCaseDelegate;
@@ -76,6 +77,18 @@ import org.apache.cactus.server.PageContextWrapper;
  */
 public class JspTestCase extends ServletTestCase
 {
+    /**
+     * As this class is the first one loaded on the client side, we ensure
+     * that the Cactus configuration has been initialized. In the future,
+     * this block will be removed as all initialization will be done in Cactus
+     * test suites. However, as we still support using Cactus TestCase classes
+     * we don't a proper initialization hook and thus we need this hack.
+     */
+    static
+    {
+        ConfigurationInitializer.initialize();
+    }
+
     /**
      * Valid <code>PageContext</code> object that you can access from
      * the <code>testXXX()</code>, <code>setUp</code> and

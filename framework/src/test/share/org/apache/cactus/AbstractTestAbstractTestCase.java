@@ -80,7 +80,7 @@ import org.apache.cactus.util.JUnitVersionHelper;
  * @version $Id$
  */
 public abstract class AbstractTestAbstractTestCase extends TestCase
-{
+{   
     /**
      * Override default method so that configuration checks are not run during
      * these unit tests.

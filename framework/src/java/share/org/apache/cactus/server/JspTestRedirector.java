@@ -58,12 +58,13 @@ package org.apache.cactus.server;
 
 import javax.servlet.ServletException;
 
+import org.apache.cactus.configuration.ConfigurationInitializer;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
  * Extension of the <code>jspRedirector.jsp</code> JSP Redirector in the java
- * realmn in order to provide a symmetry with the <code>ServletRedirector</code>
+ * realm in order to provide a symmetry with the <code>ServletRedirector</code>
  * and minimize the amount of java code in <code>jspRedirector.jsp</code>.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
@@ -72,6 +73,18 @@ import org.apache.commons.logging.LogFactory;
  */
 public class JspTestRedirector
 {
+    /**
+     * As this class is the first one loaded on the server side, we ensure
+     * that the Cactus configuration has been initialized. A better 
+     * implementation might be to perform this initialization in the 
+     * init() method. However, that requires removing the static LOGGER
+     * object.
+     */
+    static
+    {
+        ConfigurationInitializer.initialize();
+    }
+
     /**
      * The logger
      */

@@ -62,6 +62,7 @@ import junit.framework.Assert;
 
 import org.apache.cactus.integration.ant.util.AntTaskFactory;
 import org.apache.commons.logging.Log;
+import org.apache.tools.ant.types.Environment.Variable;
 
 /**
  * Mock implementation of the {@link Container} interface.
@@ -259,4 +260,19 @@ public final class MockContainer implements Container
         }
     }
 
+    /** 
+     * @see Container#setSystemProperties(Variable[])
+     */
+    public void setSystemProperties(Variable[] theProperties)
+    {
+        // do nothing
+    }
+
+    /**
+     * @see Container#getSystemProperties()
+     */
+    public Variable[] getSystemProperties()
+    {
+        throw new RuntimeException("not implemented");
+    }
 }

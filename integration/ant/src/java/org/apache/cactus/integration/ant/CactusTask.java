@@ -59,7 +59,10 @@ package org.apache.cactus.integration.ant;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.List;
+import java.util.ResourceBundle;
 
 import org.apache.cactus.integration.ant.container.Container;
 import org.apache.cactus.integration.ant.container.ContainerRunner;
@@ -68,11 +71,13 @@ import org.apache.cactus.integration.ant.container.EarDeployableFile;
 import org.apache.cactus.integration.ant.container.WarDeployableFile;
 import org.apache.cactus.integration.ant.util.AntLog;
 import org.apache.cactus.integration.ant.util.AntTaskFactory;
+import org.apache.cactus.integration.ant.util.PropertySet;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.Task;
 import org.apache.tools.ant.taskdefs.optional.junit.JUnitTask;
 import org.apache.tools.ant.taskdefs.optional.junit.JUnitTest;
+import org.apache.tools.ant.types.Environment;
 import org.apache.tools.ant.types.Environment.Variable;
 
 /**
@@ -80,12 +85,12 @@ import org.apache.tools.ant.types.Environment.Variable;
  * in-container testing.
  * 
  * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
+ * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
  */
 public class CactusTask extends JUnitTask
 {
-
     // Instance Variables ------------------------------------------------------
 
     /**
@@ -103,6 +108,11 @@ public class CactusTask extends JUnitTask
      * The archive that contains the web-app that is ready to be tested.
      */
     private File warFile;
+
+    /**
+     * System properties that will be set in the container JVM.
+     */
+    private List systemProperties = new ArrayList();
     
     /**
      * The factory for creating ant tasks that is passed to the containers.
@@ -181,7 +191,7 @@ public class CactusTask extends JUnitTask
         } 
 
         addRedirectorNameProperties(deployableFile);
-
+        
         if (this.containerSet == null)
         {
             log("No containers specified, tests will run locally",
@@ -199,6 +209,9 @@ public class CactusTask extends JUnitTask
                 containers[i].setAntTaskFactory(this.antTaskFactory);
                 containers[i].setLog(new AntLog(this));
                 containers[i].setDeployableFile(deployableFile);
+                containers[i].setSystemProperties(
+                    (Variable[]) this.systemProperties.toArray(
+                        new Variable[0]));
                 if (containers[i].isEnabled())
                 {
                     containers[i].init();
@@ -267,24 +280,101 @@ public class CactusTask extends JUnitTask
         this.warFile = theWarFile;
     }
 
+    /**
+     * Adds a system property. Note that we can't reuse the JUnitTask
+     * sysproperty element as there is no getter to get them.
+     * 
+     * @see JUnitTask#addSysproperty(Environment.Variable) 
+     */
+    public void addSysproperty(Environment.Variable theProperty)
+    {
+        addCactusServerProperty(theProperty);
+        super.addSysproperty(theProperty);
+    }
+
+    /**
+     * Called by Ant when the Variable object has been properly initialized.
+     * 
+     * @param theProperty the system property to set 
+     */
+    public void addConfiguredSysproperty(Environment.Variable theProperty)
+    {
+        addSysproperty(theProperty);
+    }
+
+    /**
+     * Adds a set of properties that will be used as system properties
+     * either on the client side or on the server side.
+     *
+     * @param thePropertySet the set of properties to be added
+     */
+    public void addConfiguredCactusproperty(PropertySet thePropertySet)
+    {
+        // Add all properties from the properties file
+        ResourceBundle bundle = thePropertySet.readProperties();
+        Enumeration keys = bundle.getKeys();
+        while (keys.hasMoreElements())
+        {
+            String key = (String) keys.nextElement();
+            Variable var = new Variable();
+            var.setKey(key);
+            var.setValue(bundle.getString(key));
+            if (thePropertySet.isServer())
+            {
+                addCactusServerProperty(var);
+            }
+            else
+            {
+                super.addSysproperty(var);
+            }
+        }
+    }
+    
     // Private Methods ---------------------------------------------------------
 
     /**
-     * Adds a Cactus system property.
+     * Adds a Cactus system property for the client side JVM.
      * 
-     * @param theKey The property name (not including the 'cactus.' prefix)
+     * @param theKey The property name
      * @param theValue The property value
      */
-    private void addCactusProperty(String theKey, String theValue)
+    private void addCactusClientProperty(String theKey, String theValue)
     {
-        log("Adding Cactus system property 'cactus." + theKey + "' with value '"
-            + theValue + "'", Project.MSG_VERBOSE);
+        log("Adding Cactus client system property [" + theKey 
+            + "] with value [" + theValue + "]", Project.MSG_VERBOSE);
         Variable sysProperty = new Variable();
-        sysProperty.setKey("cactus." + theKey);
+        sysProperty.setKey(theKey);
         sysProperty.setValue(theValue);
-        addSysproperty(sysProperty);
+        super.addSysproperty(sysProperty);
     }
 
+    /**
+     * Adds a Cactus system property for the server side JVM.
+     * 
+     * @param theProperty The system property to set in the container JVM
+     */
+    private void addCactusServerProperty(Variable theProperty)
+    {
+        log("Adding Cactus server system property [cactus." 
+            + theProperty.getKey() + "] with value [" 
+            + theProperty.getValue() + "]", Project.MSG_VERBOSE);
+        this.systemProperties.add(theProperty);
+    }
+
+    /**
+     * Adds a Cactus system property for the server side JVM.
+     * 
+     * @param theKey The property name
+     * @param theValue The property value
+     */
+    private void addCactusServerProperty(String theKey, String theValue)
+    {
+        Variable property = new Variable();
+        property.setKey(theKey);
+        property.setValue(theValue);
+        addCactusServerProperty(property);
+    }
+    
     /**
      * Extracts the redirector mappings from the deployment descriptor and sets 
      * the corresponding system properties.
@@ -297,7 +387,7 @@ public class CactusTask extends JUnitTask
             theFile.getFilterRedirectorMapping();
         if (filterRedirectorMapping != null)
         {
-            addCactusProperty("filterRedirectorName",
+            addCactusClientProperty("cactus.filterRedirectorName",
                 filterRedirectorMapping.substring(1));
         }
         else
@@ -310,7 +400,7 @@ public class CactusTask extends JUnitTask
             theFile.getJspRedirectorMapping();
         if (jspRedirectorMapping != null)
         {
-            addCactusProperty("jspRedirectorName",
+            addCactusClientProperty("cactus.jspRedirectorName",
                 jspRedirectorMapping.substring(1));
         }
         else
@@ -323,7 +413,7 @@ public class CactusTask extends JUnitTask
             theFile.getServletRedirectorMapping();
         if (servletRedirectorMapping != null)
         {
-            addCactusProperty("servletRedirectorName",
+            addCactusClientProperty("cactus.servletRedirectorName",
                 servletRedirectorMapping.substring(1));
         }
         else

@@ -98,6 +98,7 @@
     <echo>  httpunit.jar = [${httpunit.jar}]</echo>
     <echo>  j2ee.jar = [${j2ee.jar}]</echo>
     <echo>  junit.jar = [${junit.jar}]</echo>
+    <echo>  log4j.jar = [${log4j.jar}]</echo>
     <echo>  xmlapis.jar (optional) = [${xmlapis.jar}]</echo>
     <echo/>
     <echo>Options:</echo>
@@ -121,6 +122,7 @@
         <available file="${httpunit.jar}"/>
         <available file="${j2ee.jar}"/>
         <available file="${junit.jar}"/>
+        <available file="${log4j.jar}"/>
         <!-- Check for a TraX class instead of the xmlapis.jar file so that
              the build works on JDK 1.4 without needing to define the
              xmlapis.jar property -->
@@ -380,6 +382,7 @@ be resolved. Please check you build.properties file, and run Ant with the
       <pathelement path="${target.classes.clover.dir}"/>
       <pathelement path="${target.classes.test.dir}"/>
       <pathelement location="${clover.jar}"/>
+      <pathelement location="${log4j.jar}"/>
       <path refid="project.classpath"/>
     </path>
 
@@ -391,6 +394,7 @@ be resolved. Please check you build.properties file, and run Ant with the
     <path id="test.class.path">
       <pathelement path="${target.classes.java.dir}"/>
       <pathelement path="${target.classes.test.dir}"/>
+      <pathelement location="${log4j.jar}"/>
       <path refid="project.classpath"/>
     </path>
 
@@ -418,7 +422,7 @@ be resolved. Please check you build.properties file, and run Ant with the
 
     <junit printsummary="yes" haltonfailure="yes" fork="yes">
       <sysproperty key="cactus.logging.config" 
-          file="${target.dir}/logging.properties"/>
+          value="${target.dir.normalized}/logging.properties"/>
       <classpath>
         <path refid="test.class.path"/>
       </classpath>

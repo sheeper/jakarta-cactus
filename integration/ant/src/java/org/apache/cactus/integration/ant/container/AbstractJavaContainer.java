@@ -73,7 +73,6 @@ import org.apache.tools.ant.types.Environment.Variable;
  */
 public abstract class AbstractJavaContainer extends AbstractContainer
 {
-
     // Instance Variables ------------------------------------------------------
 
     /**
@@ -137,6 +136,15 @@ public abstract class AbstractJavaContainer extends AbstractContainer
         java.setFork(true);
         java.setOutput(this.output);
         java.setAppend(this.append);
+
+        // Add Cactus properties for the server side
+        for (int i = 0; i < getSystemProperties().length; i++)
+        {
+            java.addSysproperty(
+                createSysProperty(getSystemProperties()[i].getKey(),
+                    getSystemProperties()[i].getValue()));
+        }
+
         return java;
     }
 
@@ -198,12 +206,13 @@ public abstract class AbstractJavaContainer extends AbstractContainer
         throws FileNotFoundException
     {
         String javaHome = System.getProperty("java.home"); 
+        // TODO: Fix this as it fails on Max OSX (which doesn't have a 
+        // tools.jar file).
         File toolsJar = new File(javaHome + "/../lib/tools.jar");
         if (!toolsJar.isFile())
         {
             throw new FileNotFoundException(toolsJar.getAbsolutePath());
         }
         return toolsJar;
-    }
-
+    }   
 }

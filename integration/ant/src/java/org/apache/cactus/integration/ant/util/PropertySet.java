@@ -3,7 +3,7 @@
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2001-2003 The Apache Software Foundation.  All rights
+ * Copyright (c) 2003 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -54,48 +54,83 @@
  * <http://www.apache.org/>.
  *
  */
-package org.apache.cactus;
+package org.apache.cactus.integration.ant.util;
 
-import org.apache.cactus.configuration.ConfigurationInitializer;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.PropertyResourceBundle;
+import java.util.ResourceBundle;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.apache.tools.ant.BuildException;
 
 /**
- * Run all the unit tests of Cactus that do not need a servlet
- * environment to run. These other tests will be exercised in the sample
- * application.
- *
+ * Ant element used to tell the Cactus task to load a properties file
+ * and passed its properties to the client side or server side JVMs. 
+ * 
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
  *
  * @version $Id$
  */
-public class TestAll
+public class PropertySet
 {
     /**
-     * @return a test suite (<code>TestSuite</code>) that includes all methods
-     *         starting with "test"
-     * @exception Exception on failure to load the cactus properties file
+     * Properties file to load.
      */
-    public static Test suite() throws Exception
+    private File propertiesFile;
+
+    /**
+     * Are the properties for the Cactus server side JVM?
+     */
+    private boolean isServer;
+    
+    /**
+     * @param thePropertiesFile the properties file to load
+     */
+    public void setPropertiesFile(File thePropertiesFile)
     {
-        TestSuite suite = new TestSuite(
-            "Cactus unit tests not needing servlet engine");
+        this.propertiesFile = thePropertiesFile;
+    }
 
-        // Make sure logging configuration properties are initialized so
-        // that it is possible to control logging from the outside of the
-        // tests.
-        ConfigurationInitializer.initialize();
+    /**
+     * @param isServer if true the properties will be passed to the
+     *        Cactus server side JVM
+     */
+    public void setServer(boolean isServer)
+    {
+        this.isServer = isServer;
+    }
+
+    /**
+     * @return true if the properties are to be passed to the Cactus
+     *         server side JVM, false otherwise
+     */
+    public boolean isServer()
+    {
+        return this.isServer;
+    }
+
+    /**
+     * @return the properties loaded from the proeprties file
+     */
+    public ResourceBundle readProperties()
+    {
+        if (this.propertiesFile == null)
+        {
+            throw new BuildException("Missing 'propertiesFiles' attribute");
+        }
         
-        suite.addTestSuite(TestAbstractTestCase.class);
-        suite.addTestSuite(TestServletURL.class);
-        suite.addTestSuite(TestServletUtil.class);
-        suite.addTestSuite(TestWebTestResult.class);
-        suite.addTestSuite(TestWebRequest.class);
-        suite.addTest(org.apache.cactus.client.TestAll.suite());
-        suite.addTest(org.apache.cactus.util.TestAll.suite());
-
-        return suite;
+        ResourceBundle bundle;
+        try
+        {
+            bundle = new PropertyResourceBundle(
+                new FileInputStream(this.propertiesFile));
+        } 
+        catch (IOException e)
+        {
+            throw new BuildException("Failed to load properties "
+                + "file [" + this.propertiesFile + "]");
+        }
+        return bundle;
     }
 }

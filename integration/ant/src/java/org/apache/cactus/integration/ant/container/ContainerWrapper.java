@@ -60,6 +60,7 @@ import java.io.File;
 
 import org.apache.cactus.integration.ant.util.AntTaskFactory;
 import org.apache.commons.logging.Log;
+import org.apache.tools.ant.types.Environment.Variable;
 
 /**
  * Class that wraps around an implementation of the <code>Container</code>
@@ -121,6 +122,14 @@ public class ContainerWrapper implements Container
         return this.container.getToDir();
     }
 
+    /**
+     * @see Container#getSystemProperties
+     */
+    public Variable[] getSystemProperties()
+    {
+        return this.container.getSystemProperties();
+    }
+    
     /**
      * @see Container#init
      */
@@ -185,4 +194,11 @@ public class ContainerWrapper implements Container
         this.container.setDeployableFile(theWarFile);
     }
 
+    /**
+     * @see Container#setSystemProperties
+     */
+    public void setSystemProperties(Variable[] theProperties)
+    {
+        this.container.setSystemProperties(theProperties);
+    }
 }

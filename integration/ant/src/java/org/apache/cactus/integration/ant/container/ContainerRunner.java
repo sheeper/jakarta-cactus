@@ -75,7 +75,6 @@ import org.apache.tools.ant.BuildException;
  */
 public final class ContainerRunner
 {
-
     // Instance Variables ------------------------------------------------------
 
     /**
@@ -168,7 +167,7 @@ public final class ContainerRunner
 
         // Try connecting in case the server is already running. If so, does
         // nothing
-        this.alreadyRunning = isAvailable(this.url);
+        this.alreadyRunning = isAvailable(testConnectivity(this.url));
         if (this.alreadyRunning)
         {
             // Server is already running. Record this information so that we
@@ -190,16 +189,21 @@ public final class ContainerRunner
         // Continuously try calling the test URL until it succeeds or
         // until a timeout is reached (we then throw a build exception).
         long startTime = System.currentTimeMillis();
+        int responseCode = -1;
         do
         {
             if ((System.currentTimeMillis() - startTime) > this.timeout)
             {
                 throw new BuildException("Failed to start the container after "
-                    + "more than [" + this.timeout + "] ms.");
+                    + "more than [" + this.timeout + "] ms. Trying to connect "
+                    + "to the [" + this.url + "] test URL yielded a ["
+                    + responseCode + "] error code. Please run in debug mode "
+                    + "for more details about the error.");
             }
             sleep(this.checkInterval);
             this.log.debug("Checking if server is up ...");
-        } while (!isAvailable(this.url));
+            responseCode = testConnectivity(this.url);
+        } while (!isAvailable(responseCode));
 
         // Wait a few ms more (just to be sure !)
         sleep(this.startUpWait);
@@ -229,7 +233,7 @@ public final class ContainerRunner
             return;
         }
         
-        if (!isAvailable(this.url))
+        if (!isAvailable(testConnectivity(this.url)))
         {
             this.log.debug("Server isn't running!");
             return;
@@ -250,7 +254,7 @@ public final class ContainerRunner
         do 
         {
             sleep(this.checkInterval);
-        } while (isAvailable(this.url));
+        } while (isAvailable(testConnectivity(this.url)));
 
         // sleep a bit longer to be sure the container has terminated
         sleep(this.shutDownWait);
@@ -335,16 +339,15 @@ public final class ContainerRunner
 
     /**
      * Tests whether we are able to connect to the HTTP server identified by the
-     * specified URL, and whether it responds with a HTTP status code indicating
-     * success (200 up to but excluding 300) for the requested resource.
+     * specified URL.
      * 
      * @param theUrl The URL to check
-     * @return <code>true</code> if the test URL could be called without error,
-     *         <code>false</code> otherwise
+     * @return the HTTP response code or -1 if no connection could be 
+     *         established
      */
-    private boolean isAvailable(URL theUrl)
+    private int testConnectivity(URL theUrl)
     {
-        boolean retVal = false;
+        int code;
         try
         {
             HttpURLConnection connection = 
@@ -353,17 +356,37 @@ public final class ContainerRunner
             connection.connect();
             readFully(connection);
             connection.disconnect();
-            if ((connection.getResponseCode() != -1)
-             && (connection.getResponseCode() < 300)) 
-            {
-                retVal = true;
-            }
+            code = connection.getResponseCode();
         }
         catch (IOException e)
         {
             this.log.debug("Failed to connect to " + theUrl, e);
+            code = -1;
         }
-        return retVal;
+        return code;
+    }
+
+
+    /**
+     * Tests whether an HTTP return code corresponds to a valid connection
+     * to the test URL or not. Success is 200 up to but excluding 300.
+     * 
+     * @param theCode the HTTP response code to verify
+     * @return <code>true</code> if the test URL could be called without error,
+     *         <code>false</code> otherwise
+     */
+    private boolean isAvailable(int theCode)
+    {
+        boolean result;
+        if ((theCode != -1) && (theCode < 300)) 
+        {
+            result = true;            
+        }
+        else
+        {
+            result = false;
+        }
+        return result;
     }
 
     /**

@@ -70,6 +70,7 @@ import org.apache.tools.ant.taskdefs.Delete;
 import org.apache.tools.ant.types.FileSet;
 import org.apache.tools.ant.types.FilterChain;
 import org.apache.tools.ant.types.PatternSet;
+import org.apache.tools.ant.types.Environment.Variable;
 import org.apache.tools.ant.types.selectors.SelectorUtils;
 
 /**
@@ -131,6 +132,11 @@ public abstract class AbstractContainer extends ProjectComponent
      */
     private Log log = AntLog.NULL;
 
+    /**
+     * List of system properties to set in the container JVM. 
+     */
+    private Variable[] systemProperties;
+    
     // Public Methods ----------------------------------------------------------
 
     /**
@@ -265,6 +271,22 @@ public abstract class AbstractContainer extends ProjectComponent
         this.log = theLog;
     }
 
+    /**
+     * @see Container#setSystemProperties
+     */
+    public void setSystemProperties(Variable[] theProperties)
+    {
+        this.systemProperties = theProperties;
+    }
+
+    /**
+     * @see Container#getSystemProperties
+     */
+    public Variable[] getSystemProperties()
+    {
+        return this.systemProperties;
+    }
+    
     // Protected Methods -------------------------------------------------------
 
     /**

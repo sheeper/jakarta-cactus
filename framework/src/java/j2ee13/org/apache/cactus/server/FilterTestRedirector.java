@@ -67,6 +67,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.cactus.configuration.ConfigurationInitializer;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -80,6 +81,18 @@ import org.apache.commons.logging.LogFactory;
  */
 public class FilterTestRedirector implements Filter
 {
+    /**
+     * As this class is the first one loaded on the server side, we ensure
+     * that the Cactus configuration has been initialized. A better 
+     * implementation might be to perform this initialization in the 
+     * init() method. However, that requires removing the static LOGGER
+     * object.
+     */
+    static
+    {
+        ConfigurationInitializer.initialize();
+    }
+
     /**
      * The logger
      */

@@ -56,23 +56,13 @@
  */
 package org.apache.cactus.configuration;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-
-import java.util.Enumeration;
-import java.util.MissingResourceException;
-import java.util.PropertyResourceBundle;
-import java.util.ResourceBundle;
-
 import org.apache.cactus.client.connector.http.HttpClientConnectionHelper;
 import org.apache.cactus.util.ChainedRuntimeException;
-import org.apache.cactus.util.ClassLoaderUtils;
 
 /**
  * Provides access to the Cactus configuration parameters that are independent
  * of any redirector. All Cactus configuration are defined as Java System
- * Properties. However, a Cactus configuration can also be used, in which case
- * all properties defined withint it will be exported as Java System Properties.
+ * Properties.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
@@ -80,19 +70,6 @@ import org.apache.cactus.util.ClassLoaderUtils;
  */
 public class BaseConfiguration implements Configuration
 {
-    /**
-     * Name of the Cactus configuration file if cactus is to look for it in
-     * the classpath.
-     */
-    private static final String DEFAULT_CONFIG_NAME = "cactus";
-
-    /**
-     * Name of the java property for specifying the location of the cactus
-     * configuration file. This overrides any cactus configuration file that is
-     * put in the classpath.
-     */
-    private static final String CACTUS_CONFIG_PROPERTY = "cactus.config";
-
     /**
      * Name of Cactus property that specify the URL up to the webapp context.
      * This is the base URL to call for the redirectors. It is made up of :
@@ -124,133 +101,10 @@ public class BaseConfiguration implements Configuration
         "cactus.initializer";
 
     /**
-     * Name of the Cactus property that points to a properties file
-     * containing logging configuration.
-     */
-    private static final String CACTUS_LOGGING_CONFIG_PROPERTY = 
-        "cactus.logging.config";
-
-    /**
-     * Initialize all Cactus configuration properties.
-     */
-    public BaseConfiguration()
-    {
-        initialize();
-    }
-
-    /**
-     * Initialize all configurations properties. 
-     */
-    private void initialize()
-    {
-        initializeConfig();
-        initializeLoggingConfig();
-    }
-
-    /**
-     * Initialize general cactus configuration. Read the cactus configuration 
-     * file from the java property defined on the command line 
-     * (named CACTUS_CONFIG_PROPERTY) and if none has been defined tries to 
-     * read the DEFAULT_CONFIG_NAME file from the classpath. All properties 
-     * found are exported as java system properties.
-     */
-    public void initializeConfig()
-    {
-        ResourceBundle config;
-
-        // Has the user passed the location of the cactus configuration
-        // file as a java property
-        String configOverride = System.getProperty(CACTUS_CONFIG_PROPERTY);
-
-        if (configOverride == null)
-        {
-            // Try to read the default cactus configuration file from the
-            // classpath
-            try
-            {
-                config = ClassLoaderUtils.loadPropertyResourceBundle(
-                    DEFAULT_CONFIG_NAME, BaseConfiguration.class);
-            }
-            catch (MissingResourceException e)
-            {
-                // Cannot find cactus properties file. Do nothing.
-                return;
-            }
-        }
-        else
-        {
-            // Try to read from specified properties file
-            try
-            {
-                config = new PropertyResourceBundle(
-                    new FileInputStream(configOverride));
-            }
-            catch (IOException e)
-            {
-                throw new ChainedRuntimeException(
-                    "Cannot read cactus configuration file ["
-                    + configOverride + "]", e);
-            }
-        }
-
-        addSystemProperties(config);
-    }
-
-    /**
-     * Initialize logging configuration.
-     */
-    public void initializeLoggingConfig()
-    {
-        String logConfig = System.getProperty(CACTUS_LOGGING_CONFIG_PROPERTY);
-        if (logConfig != null)
-        {
-            ResourceBundle bundle;
-            try
-            {
-                bundle = new PropertyResourceBundle(
-                    new FileInputStream(logConfig));
-            } 
-            catch (IOException e)
-            {
-                throw new ChainedRuntimeException("Failed to load logging "
-                    + "configuration file [" + logConfig + "]");
-            }
-            addSystemProperties(bundle);
-        }
-    }
-
-    /**
-     * Add all properties found in the resource bundle as system
-     * properties.
-     *
-     * @param theBundle the resource bundle containing the properties to
-     *        set as system properties
-     */
-    private void addSystemProperties(ResourceBundle theBundle)
-    {
-        Enumeration keys = theBundle.getKeys();
-
-        while (keys.hasMoreElements())
-        {
-            String key = (String) keys.nextElement();
-
-            // Only set the system property if it does not already exist.
-            // This allows to have a cactus properties file and override
-            // some values on the command line.
-            if (System.getProperty(key) == null)
-            {
-                System.setProperty(key, theBundle.getString(key));
-            }
-        }
-    }
-    
-    /**
      * @return the context URL under which our application to test runs.
      */
     public String getContextURL()
     {
-        initialize();
-
         // Try to read it from a System property first and then if it fails
         // from the Cactus configuration file.
         String contextURL = System.getProperty(CACTUS_CONTEXT_URL_PROPERTY);
@@ -271,8 +125,6 @@ public class BaseConfiguration implements Configuration
      */
     public String getConnectionHelper()
     {
-        initialize();
-
         // Try to read it from a System property first and then if not defined
         // use the default.
         String connectionHelperClassname = 
@@ -294,8 +146,6 @@ public class BaseConfiguration implements Configuration
      */
     public String getInitializer()
     {
-        initialize();
-
         return System.getProperty(CACTUS_INITIALIZER_PROPERTY);
     }
 }

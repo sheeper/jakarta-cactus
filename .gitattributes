@@ -225,6 +225,7 @@ framework/src/java/share/org/apache/cactus/client/package.html svn_keywords=Auth
 framework/src/java/share/org/apache/cactus/configuration/AbstractWebConfiguration.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/configuration/BaseConfiguration.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/configuration/Configuration.java svn_keywords=Author+Date+Id+Revision
+framework/src/java/share/org/apache/cactus/configuration/ConfigurationInitializer.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/configuration/JspConfiguration.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/configuration/ServletConfiguration.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/configuration/Version.java svn_keywords=Author+Date+Id+Revision
@@ -399,6 +400,7 @@ integration/ant/src/java/org/apache/cactus/integration/ant/deployment/package.ht
 integration/ant/src/java/org/apache/cactus/integration/ant/package.html svn_keywords=Author+Date+Id+Revision
 integration/ant/src/java/org/apache/cactus/integration/ant/util/AntLog.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/java/org/apache/cactus/integration/ant/util/AntTaskFactory.java svn_keywords=Author+Date+Id+Revision
+integration/ant/src/java/org/apache/cactus/integration/ant/util/PropertySet.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/java/org/apache/cactus/integration/ant/util/ResourceUtils.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/java/org/apache/cactus/integration/ant/util/package.html svn_keywords=Author+Date+Id+Revision
 integration/ant/src/scripts/j2ee12/build-tests-tomcat3x.xml svn_keywords=Author+Date+Id+Revision

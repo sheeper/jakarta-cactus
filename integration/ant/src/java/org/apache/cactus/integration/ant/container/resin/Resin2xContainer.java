@@ -185,7 +185,7 @@ public class Resin2xContainer extends AbstractJavaContainer
             prepare("cactus/resin2x");
             
             // invoke the main class
-            Java java = createJavaForStartUp();
+            Java java = createJavaForStartUp();           
             java.addSysproperty(createSysProperty("resin.home", this.tmpDir));
             Path classpath = java.createClasspath();
             classpath.createPathElement().setLocation(
