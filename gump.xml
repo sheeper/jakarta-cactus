@@ -238,7 +238,7 @@
     <option project="checkstyle" inherit="runtime"/>
 
     <home nested="integration/eclipse/org.apache.cactus.eclipse.webapp/dist"/>
-    <jar name="bin/cactus-integration-eclipse-webapp/webapp.jar"/>
+    <jar name="bin/webapp.jar"/>
 
     <deliver fromdir="integration/eclipse/org.apache.cactus.eclipse.webapp/release" 
       tosite="jakarta.apache.org"
@@ -297,7 +297,7 @@
     <depend project="jakarta-cactus-integration-eclipse-webapp"/>
     
     <home nested="integration/eclipse/org.apache.cactus.eclipse.runner/dist-12"/>
-    <jar name="bin/cactus-integration-eclipse-runner/cactussupport.jar"/>
+    <jar name="bin/cactussupport.jar"/>
 
     <deliver fromdir="integration/eclipse/org.apache.cactus.eclipse.runner/release-12" 
       tosite="jakarta.apache.org" 
@@ -356,7 +356,7 @@
     <depend project="jakarta-cactus-integration-eclipse-webapp"/>
 
     <home nested="integration/eclipse/org.apache.cactus.eclipse.runner/dist-13"/>
-    <jar name="bin/cactus-integration-eclipse-runner/cactussupport.jar"/>
+    <jar name="bin/cactussupport.jar"/>
     
     <deliver fromdir="integration/eclipse/org.apache.cactus.eclipse.runner/release-13" 
       tosite="jakarta.apache.org" 
@@ -419,7 +419,7 @@
     <!-- Note: The servlet-sample does not deliver a jar. However, we
          need to put a <jar> entry so that dependent project will get a 
          PREREQ failure if this build was not successful -->
-    <jar name="samples/servlet/dist-12/bin/cactus-sample-servlet"/>
+    <jar name="samples/servlet/dist-12/bin"/>
 
     <license name="LICENSE.cactus"/>
 
@@ -481,7 +481,7 @@
     <!-- Note: The servlet-sample does not deliver a jar. However, we
          need to put a <jar> entry so that dependent project will get a 
          PREREQ failure if this build was not successful -->
-    <jar name="samples/servlet/dist-13/bin/cactus-sample-servlet"/>
+    <jar name="samples/servlet/dist-13/bin"/>
 
     <license name="LICENSE.cactus"/>
 
