@@ -86,7 +86,7 @@
                 <strong>Example</strong>
               </td>
               <td>
-                <code>http://localhost:8080/test/ServletRedirector</code>
+                <code>http://localhost:8080/test/ServletRedirector/</code>
               </td>
             </tr>
           </table>
@@ -117,7 +117,7 @@
                 <strong>Example</strong>
               </td>
               <td>
-                <code>http://localhost:8080/test/JspRedirector</code>
+                <code>http://localhost:8080/test/JspRedirector/</code>
               </td>
             </tr>
           </table>
@@ -138,9 +138,18 @@
 # that you use for your application. In the example below, the context is
 # "test".
 
-cactus.servletRedirectorURL = http://localhost:8080/test/ServletRedirector
-cactus.jspRedirectorURL = http://localhost:8080/test/JspRedirector
+cactus.servletRedirectorURL = http://localhost:8080/test/ServletRedirector/
+cactus.jspRedirectorURL = http://localhost:8080/test/JspRedirector/
 ]]></source>
+
+          <note>
+            Notice the trailing slash ("/") to Redirector URLs. This is
+            because Cactus uses the JDK <code>HttpURLConnection</code> class
+            to connect to these URLs and if your code on the server side
+            returns an HTTP status code greater than 400,
+            <code>HttpURLConnection</code> will return an exception. It does
+            not if the URL ends with a forward slash ("/") !
+          </note>
 
         </s3>
 
@@ -260,16 +269,25 @@ log4j.category.org.apache.commons.cactus = DEBUG, cactus
 
     <servlet-mapping>
         <servlet-name>ServletRedirector</servlet-name>
-        <url-pattern>/ServletRedirector</url-pattern>
+        <url-pattern>/ServletRedirector/</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
         <servlet-name>JspRedirector</servlet-name>
-        <url-pattern>/JspRedirector</url-pattern>
+        <url-pattern>/JspRedirector/</url-pattern>
     </servlet-mapping>
 
 </web-app>
 ]]></source>
+
+          <note>
+            Notice the trailing slash ("/") to Redirector mappings. This is
+            because Cactus uses the JDK <code>HttpURLConnection</code> class
+            to connect to these URLs and if your code on the server side
+            returns an HTTP status code greater than 400,
+            <code>HttpURLConnection</code> will return an exception. It does
+            not if the URL ends with a forward slash ("/") !
+          </note>
 
           <note>
             If you are using the JSP Redirector (i.e. you have test classes
