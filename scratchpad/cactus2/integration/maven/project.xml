@@ -7,7 +7,7 @@
 
 <project>
   <pomVersion>3</pomVersion>
-  <name>Maven Cactus2 plugin</name>
+  <name>Cactus2 plugin for Maven</name>
   <groupId>cactus</groupId>
   <id>cactus2-maven</id>
   <currentVersion>2.0-SNAPSHOT</currentVersion>
