@@ -127,13 +127,13 @@ import org.apache.commons.logging.LogFactory;
  *   </ol>
  * </p>
  * 
- * <h4>Adding Assertions to the Lifecycle</h4>
+ * <h4>Adding Expectations to the Lifecycle</h4>
  * <p>
  *   <code>JspTagLifecycle</code> features a couple of methods that let you 
- *   easily add JUnit assertions about the tag's lifecycle to the test. For
- *   example, the method {@link #assertBodySkipped assertBodySkipped()} can be 
- *   used to assert that tag's body is not evaluated under the conditions set up
- *   by the test:
+ *   easily add expectations about the tag's lifecycle to the test. For example,
+ *   the method {@link #expectBodySkipped expectBodySkipped()} can be used to 
+ *   verify that tag's body is not evaluated under the conditions set up by the
+ *   test:
  *   <pre>
   IfTag tag = new IfTag();
   JspTagLifecycle lifecycle = new JspTagLifecycle(pageContext, tag);
@@ -142,8 +142,8 @@ import org.apache.commons.logging.LogFactory;
   lifecycle.invoke();</pre>
  * </p>
  * <p>
- *   An example of a more sophisticated assertion is the
- *   {@link #assertScopedVariableExposed(String, Object[])}
+ *   An example of a more sophisticated expectationion is the
+ *   {@link #expectScopedVariableExposed(String, Object[])}
  *   method, which can verify that a specific scoped variable gets exposed in
  *   the body of the tag, and that the exposed variable has a specific value in
  *   each iteration step:
@@ -158,13 +158,13 @@ import org.apache.commons.logging.LogFactory;
   lifecycle.invoke();</pre>
  * </p>
  * 
- * <h4>Custom Assertions</h4>
+ * <h4>Custom Expectations</h4>
  * <p>
- *   In some cases, using the assertions offered by <code>JspTagLifecycle</code>
- *   does not suffice. In such cases, you need to use custom assertions.
- *   You can add custom assertions by creating a concrete subclass of the 
- *   {@link JspTagLifecycle.Interceptor Interceptor} class, and adding it to the
- *   list of the tag lifecycles interceptors through 
+ *   In some cases, using the expectations offered by 
+ *   <code>JspTagLifecycle</code> does not suffice. In such cases, you need to 
+ *   use custom expectations. You can add custom expectations by creating a 
+ *   concrete subclass of the {@link JspTagLifecycle.Interceptor Interceptor}
+ *   class, and adding it to the list of the tag lifecycles interceptors through 
  *   {@link JspTagLifecycle#addInterceptor addInterceptor()}:
  *   <pre>
   ForEachTag tag = new ForEachTag();
@@ -224,7 +224,7 @@ import org.apache.commons.logging.LogFactory;
  *   to collaborate with each other in some way. This is usually done by nesting
  *   such tags within eachother. <code>JspTagLifecycle</code> supports such 
  *   scenarios by allowing you to add nested tags to an existing tag lifecycle.
- *   The nested tags can than be decorated with assertions themselves, as you
+ *   The nested tags can than be decorated with expectations themselves, as you
  *   can see in the following example:
  *   <pre>
   ChooseTag chooseTag = new ChooseTag();
@@ -266,8 +266,8 @@ public final class JspTagLifecycle
     
     /**
      * Abstract class for intercepting the tag lifecycle. You can override any
-     * of the methods to insert assertions that verify the tag's behaviour while
-     * it is being executed.
+     * of the methods to insert expectations about the tag's behaviour while it
+     * is being executed.
      * 
      * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
      * @since Cactus 1.5
@@ -317,7 +317,7 @@ public final class JspTagLifecycle
     }
     
     /**
-     * A specialized interceptor that asserts that the tag's body is evaluated
+     * A specialized interceptor that verifies that the tag's body is evaluated
      * at least once.
      * 
      * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
@@ -603,7 +603,7 @@ public final class JspTagLifecycle
      * enclosing tag is evaluated.
      * 
      * @return The lifecycle wrapper for the nested tag, can be used to add 
-     *         assertions to the nested tag
+     *         expectations for the nested tag
      * @param theNestedTag The tag to be nested
      */
     public JspTagLifecycle addNestedTag(Tag theNestedTag)
@@ -657,7 +657,7 @@ public final class JspTagLifecycle
     
     /**
      * Adds the expectation that the tag body must be skipped. Essentially, this
-     * assertion verifies that the tag returns <code>SKIP_BODY</code> from
+     * expectation verifies that the tag returns <code>SKIP_BODY</code> from
      * <code>doStartTag()</code>.
      */
     public void expectBodySkipped()
