@@ -1,10 +1,10 @@
     <!--
        ========================================================================
-         Run WebLogic 6.1 tests
+         Run WebLogic 7.0 tests
        ========================================================================
     -->
-    <target name="test.weblogic.61" depends="prepare.test.weblogic.61"
-        if="weblogic.home.61" description="Run tests on WebLogic 6.1">
+    <target name="test.weblogic.70" depends="prepare.test.weblogic.70"
+        if="weblogic.home.70" description="Run tests on WebLogic 7.0">
 
         <!-- Start the servlet engine, wait for it to be started, run the
              unit tests, stop the servlet engine, wait for it to be stopped.
@@ -12,25 +12,25 @@
 
         <runservertests 
             testURL="http://localhost:${test.port}/test/ServletRedirector?Cactus_Service=RUN_TEST"
-            startTarget="start.weblogic.61"
-            stopTarget="stop.weblogic.61"
+            startTarget="start.weblogic.70"
+            stopTarget="stop.weblogic.70"
             testTarget="test"/>
 
     </target>
 
     <!--
        ========================================================================
-         Start WebLogic 6.1
+         Start WebLogic 7.0
        ========================================================================
     -->
-    <target name="start.weblogic.61">
+    <target name="start.weblogic.70">
 
         <java classname="weblogic.Server" fork="yes"
-            dir="${target.weblogic61.dir}">
+            dir="${target.weblogic70.dir}/testdomain">
 
             <classpath>
-                <pathelement location="${weblogic.home.61}/wlserver6.1/lib/weblogic.sp.jar"/>
-                <pathelement location="${weblogic.home.61}/wlserver6.1/lib/weblogic.jar"/>
+                <pathelement location="${weblogic.home.70}/weblogic700/server/lib/weblogic.sp.jar"/>
+                <pathelement location="${weblogic.home.70}/weblogic700/server/lib/weblogic.jar"/>
 
                 <!-- Some hack: I still don't understand why I need these jars
                      to make the cactus clovered jar work. It needs to be
@@ -45,13 +45,12 @@
             <jvmarg value="-hotspot"/>
             <jvmarg value="-ms64m"/>
             <jvmarg value="-mx64m"/>
-            <jvmarg value="-Djava.library.path=${java.library.path};${weblogic.home.61}/wlserver6.1/bin"/>
-            <jvmarg value="-Dweblogic.RootDirectory=."/>
-            <jvmarg value="-Dweblogic.Domain=testdomain"/>
+            <jvmarg value="-Djava.library.path=${java.library.path};${weblogic.home.70}/weblogic700/server/bin"/>
             <jvmarg value="-Dweblogic.Name=testserver"/>
-            <jvmarg value="-Dbea.home=${weblogic.home.61}"/>
+            <jvmarg value="-Dbea.home=${weblogic.home.70}"/>
+            <jvmarg value="-Dweblogic.management.username=system"/>
             <jvmarg value="-Dweblogic.management.password=password"/>
-            <jvmarg value="-Djava.security.policy==./lib/weblogic.policy"/>
+            <jvmarg value="-Djava.security.policy==./server/lib/weblogic.policy"/>
 
         </java>
 
@@ -59,16 +58,16 @@
 
     <!--
        ========================================================================
-         Stop WebLogic 6.1
+         Stop WebLogic 7.0
        ========================================================================
     -->
-    <target name="stop.weblogic.61">
+    <target name="stop.weblogic.70">
 
         <java classname="weblogic.Admin" fork="yes">
 
             <classpath>
-                <pathelement location="${weblogic.home.61}/wlserver6.1/lib/weblogic.sp.jar"/>
-                <pathelement location="${weblogic.home.61}/wlserver6.1/lib/weblogic.jar"/>
+                <pathelement location="${weblogic.home.70}/weblogic700/server/lib/weblogic.sp.jar"/>
+                <pathelement location="${weblogic.home.70}/weblogic700/server/lib/weblogic.jar"/>
             </classpath>
 
             <arg line="-url t3://localhost:${test.port}"/>
@@ -86,11 +85,11 @@
          is not set
        ========================================================================
     -->
-    <target name="check.test.weblogic.61" unless="weblogic.home.61">
+    <target name="check.test.weblogic.70" unless="weblogic.home.70">
 
         <echo message=""/>
         <echo message="******************************************************"/>
-        <echo message="WARNING : The 'weblogic.home.61' property has not been"/>
+        <echo message="WARNING : The 'weblogic.home.70' property has not been"/>
         <echo message="set. No test will be run on that servlet engine."/>
         <echo message="******************************************************"/>
         <echo message=""/>
@@ -102,28 +101,30 @@
          Prepare directories and variables for running the tests
        ========================================================================
     -->
-    <target name="prepare.test.weblogic.61"
-        depends="check.test.weblogic.61,testwar" if="weblogic.home.61">
+    <target name="prepare.test.weblogic.70"
+        depends="check.test.weblogic.70,testwar" if="weblogic.home.70">
 
-        <echo message="weblogic.home.61 = ${weblogic.home.61}"/>
+        <echo message="weblogic.home.70 = ${weblogic.home.70}"/>
 
-        <property name="target.weblogic61.dir"
-            value="${target.test.dir}/weblogic61"/>
-        <property name="conf.weblogic61.dir"
-            value="${conf.test.dir}/weblogic61"/>
+        <property name="target.weblogic70.dir"
+            value="${target.test.dir}/weblogic70"/>
+        <property name="conf.weblogic70.dir"
+            value="${conf.test.dir}/weblogic70"/>
 
-        <mkdir dir="${target.weblogic61.dir}/config/testdomain/applications"/>
+        <mkdir dir="${target.weblogic70.dir}/testdomain/applications"/>
 
-        <!-- Copy WL 6.1 configuration files -->
-        <copy file="${conf.weblogic61.dir}/config.xml"
-            todir="${target.weblogic61.dir}/config/testdomain" filtering="on"/>
-        <copy file="${conf.weblogic61.dir}/fileRealm.properties"
-            todir="${target.weblogic61.dir}/config/testdomain"/>
-        <copy file="${conf.weblogic61.dir}/SerializedSystemIni.dat"
-            todir="${target.weblogic61.dir}/config/testdomain"/>
+        <!-- Copy WL 7.0 configuration files -->
+        <copy file="${conf.weblogic70.dir}/config.xml"
+            todir="${target.weblogic70.dir}/testdomain" filtering="on"/>
+        <copy file="${conf.weblogic70.dir}/fileRealm.properties"
+            todir="${target.weblogic70.dir}/testdomain"/>
+        <copy file="${conf.weblogic70.dir}/SerializedSystemIni.dat"
+            todir="${target.weblogic70.dir}/testdomain"/>
+        <copy file="${conf.weblogic70.dir}/DefaultAuthenticatorInit.ldift"
+            todir="${target.weblogic70.dir}/testdomain"/>
 
         <!-- Copy the war file -->
         <copy file="${target.test.dir}/test.war"
-            todir="${target.weblogic61.dir}/config/testdomain/applications"/>
+            todir="${target.weblogic70.dir}/testdomain/applications"/>
 
     </target>

@@ -359,6 +359,7 @@
             <property name="orion.home.15"/>
             <property name="weblogic.home.51"/>
             <property name="weblogic.home.61"/>
+            <property name="weblogic.home.70"/>
             <property name="enhydra.home.31"/>
             <property name="test.port"/>
             <property name="log4j.jar"/>

@@ -67,6 +67,10 @@ httpunit.jar = ../lib/httpunit-1.4.jar
 # wlserver6.1, inside the bea home directory.
 #weblogic.home.61 = c:/Apps/bea
 
+# Note: weblogic.home.70 is the location of BEA Home and NOT the location of
+# wlserver7.0, inside the bea home directory.
+#weblogic.home.70 = c:/Apps/bea
+
 # Note: Enhydra 3.3.1 does not seem to support BASIC authentication as defined
 # in the Servlet spec. and thus the tests which involve security are failing.
 # All other tests work fine. This is a limitation of Enhydra.
