@@ -8,6 +8,9 @@
     <property name="cactus.weblogic7x.server" 
         value="${cactus.home.weblogic7x}/weblogic700/server"/>
 
+	<!-- Allow additional libraries to be added -->
+	<property name="cactus.weblogic6x.libpath" value=""/>
+
     <!--
        ========================================================================
          Run WebLogic 7.x tests
@@ -48,7 +51,10 @@
             <jvmarg value="-hotspot"/>
             <jvmarg value="-ms64m"/>
             <jvmarg value="-mx64m"/>
-            <jvmarg value="-Djava.library.path=${java.library.path};${cactus.weblogic7x.server}/server/bin"/>
+
+			<!-- TODO: Add support for Unix -->
+            <jvmarg value="-Djava.library.path=${java.library.path};${cactus.weblogic7x.server}/bin;${cactus.weblogic7x.libpath}"/>
+
             <jvmarg value="-Dweblogic.Name=testserver"/>
             <jvmarg value="-Dbea.home=${cactus.home.weblogic7x}"/>
             <jvmarg value="-Dweblogic.management.username=system"/>

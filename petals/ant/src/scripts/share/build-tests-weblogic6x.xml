@@ -8,6 +8,9 @@
     <property name="cactus.weblogic6x.server" 
         value="${cactus.home.weblogic6x}/wlserver6.x"/>
 
+	<!-- Allow additional libraries to be added -->
+	<property name="cactus.weblogic6x.libpath" value=""/>
+	
     <!--
        ========================================================================
          Run WebLogic 6.x tests
@@ -48,7 +51,10 @@
             <jvmarg value="-hotspot"/>
             <jvmarg value="-ms64m"/>
             <jvmarg value="-mx64m"/>
-            <jvmarg value="-Djava.library.path=${java.library.path};${cactus.weblogic6x.server}/bin"/>
+
+			<!-- TODO: Add support for Unix -->
+            <jvmarg value="-Djava.library.path=${java.library.path};${cactus.weblogic6x.server}/bin;${cactus.weblogic6x.libpath}"/>
+
             <jvmarg value="-Dweblogic.RootDirectory=."/>
             <jvmarg value="-Dweblogic.Domain=testdomain"/>
             <jvmarg value="-Dweblogic.Name=testserver"/>
