@@ -56,6 +56,7 @@
  */
 package org.apache.cactus.eclipse.webapp;
 
+import java.io.File;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
@@ -167,8 +168,8 @@ public class Webapp
     public boolean loadValues()
     {
         boolean isDefaultValues;
-        
-        try 
+
+        try
         {
             loadPersistentValues();
             isDefaultValues = false;
@@ -188,7 +189,7 @@ public class Webapp
             isDefaultValues = true;
         }
 
-        return isDefaultValues;        
+        return isDefaultValues;
     }
 
     /**
@@ -203,7 +204,7 @@ public class Webapp
         this.dir = theProject.getPersistentProperty(dirQN);
         this.tempDir = theProject.getPersistentProperty(tempDirQN);
         this.classpath = toClasspathEntryArray(
-            theProject.getPersistentProperty(classpathQN));       
+            theProject.getPersistentProperty(classpathQN));
     }
 
     /**
@@ -211,8 +212,8 @@ public class Webapp
      */
     public void loadDefaultValues()
     {
-        this.output = "c:/temp/webapp.war";
-        this.dir = "src/webapp";
+        this.output = System.getProperty("java.io.tmpdir") + "webapp.war";
+        this.dir = "src" + File.separator + "webapp";
         this.tempDir = System.getProperty("java.io.tmpdir");
 
         try
