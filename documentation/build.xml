@@ -159,8 +159,9 @@
         </taskdef>
 
         <!-- Generate cvs log -->
+        <mkdir dir="${target.xdoc.dir}/cvslog"/>
         <cvslog users="${doc.xdoc.dir}/cvslog/users.properties"
-            work="${doc.xdoc.dir}" output="${doc.xdoc.dir}/cvslog/cvslog.xml"
+            work="${doc.xdoc.dir}" output="${target.xdoc.dir}/cvslog/cvslog.xml"
             elapsed="15" executable="${cvs.executable}">
 
             <fileset dir="${doc.xdoc.dir}">
