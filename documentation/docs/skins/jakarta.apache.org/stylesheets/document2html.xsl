@@ -707,8 +707,18 @@
         <xsl:variable name="id" select="substring-after(@href,'ext:')"/>
         <xsl:value-of select="$sitemap//resource[@id=$id]/@href"/>
       </xsl:when>
-      <xsl:otherwise>
+      <xsl:when test="starts-with(@href,'http:')">
         <xsl:value-of select="@href"/>
+      </xsl:when>
+      <xsl:when test="starts-with(@href,'mailto:')">
+        <xsl:value-of select="@href"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:message>
+          <xsl:text>Bad site id: [</xsl:text>
+          <xsl:value-of select="@href"/>
+          <xsl:text>]</xsl:text>
+        </xsl:message>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
