@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 
-<!-- 
+<!--
   =============================================================================
     Build file for the Cactus project, for a given Servlet API. All targets
     that depend upon the Servlet API are found here.
-    
+
     The following properties need to be set prior to calling this build file :
 
         servlet.api           [REQUIRED] The Servlet API against which Cactus
@@ -13,16 +13,21 @@
         servlet.jar           [REQUIRED] The path to the Servlet API jar for
                               the chosen Servlet API
 
-        junit.jar             [REQUIRED] The path to the JUnit jar file
+        junit.jar             [REQUIRED] The path to the JUnit jar file.
+                              Required for running the sample application
+                              unit tests.
+
+        httpunit.jar          [REQUIRED] The path to the HttpUnit jar file.
+                              Required for the unit tests.
 
         dist.dir              [REQUIRED] The directories where distributable
                               files will be copied with version number
                               postfixed.
 
         test.port             [OPTIONAL] The port that should be used for
-                              starting the servers during unit testing. This 
-                              should be used not to interfere with other 
-                              running servers. The default is 8080. This 
+                              starting the servers during unit testing. This
+                              should be used not to interfere with other
+                              running servers. The default is 8080. This
                               property is used when running the functional tests
 
     Additionally and depending on the servlet engines whith which you wish to
@@ -37,18 +42,18 @@
     This script must not be called directly. It must be called by the build.xml
     script in the same directory. It will inherit numerous properties from that
     build file.
-  ============================================================================= 
+  =============================================================================
 -->
 <project name="Cactus build for a Servlet API" default="jar" basedir="..">
 
-    <!-- 
+    <!--
        ========================================================================
          Set the properties related to the source tree
        ========================================================================
     -->
     <property name="src.java.servlet.dir" value="${src.dir}/framework/servlet${servlet.api}"/>
 
-    <!-- 
+    <!--
        ========================================================================
          Set the properties related to the build area
        ========================================================================
@@ -75,7 +80,7 @@
     <property name="out.sample.src.dir" value="${out.sample.dir}/src"/>
     <property name="out.sample.web.dir" value="${out.sample.dir}/web"/>
 
-    <!-- 
+    <!--
        ========================================================================
         Short names of deliverables
        ========================================================================
@@ -93,7 +98,7 @@
          only needed to put the javadoc online to the Cactus web site. -->
     <property name="javadoc.name" value="${project.name}-javadoc-${servlet.api}"/>
 
-    <!-- 
+    <!--
        ========================================================================
          Full names of deliverables
        ========================================================================
@@ -106,7 +111,7 @@
          runtime by end users -->
     <property name="final.jar.name" value="${out.lib.dir}/${jar.name}.jar"/>
 
-    <!-- 
+    <!--
        ========================================================================
          Useful file patterns for targets
        ========================================================================
@@ -139,7 +144,7 @@
 
     </patternset>
 
-    <!-- 
+    <!--
        ========================================================================
          Initialize the build. Must be called by all targets
        ========================================================================
@@ -179,10 +184,10 @@
                 <pathelement path="${java.class.path}"/>
             </classpath>
         </taskdef>
-              
+
     </target>
 
-    <!-- 
+    <!--
        ========================================================================
          Help on usage. List available targets
        ========================================================================
@@ -205,7 +210,7 @@
 
     </target>
 
-    <!-- 
+    <!--
        ========================================================================
          Prepare the output directory by copying the source files into it
        ========================================================================
@@ -231,7 +236,7 @@
 
     </target>
 
-    <!-- 
+    <!--
        ========================================================================
          Compiles the source directory
        ========================================================================
@@ -266,7 +271,7 @@
             <classpath>
                 <pathelement path="${java.class.path}"/>
                 <pathelement location="${servlet.jar}"/>
-                <pathelement location="${junit.jar}"/>
+                <pathelement location="${httpunit.jar}"/>
                 <pathelement location="${log4j.jar}"/>
             </classpath>
 
@@ -284,7 +289,7 @@
 
     </target>
 
-    <!-- 
+    <!--
        ========================================================================
          Create the runtime jar file
        ========================================================================
@@ -323,7 +328,7 @@
 
     </target>
 
-    <!-- 
+    <!--
        ========================================================================
          Generate the javadoc
        ========================================================================
@@ -354,7 +359,6 @@
             <classpath>
                 <pathelement path="${java.class.path}"/>
                 <pathelement location="${servlet.jar}"/>
-                <pathelement location="${junit.jar}"/>
                 <pathelement location="${log4j.jar}"/>
             </classpath>
 
@@ -373,7 +377,7 @@
 
     </target>
 
-    <!-- 
+    <!--
        ========================================================================
          Generate the full documentation for a given Servlet API, i.e.
          web site + javadoc
@@ -444,10 +448,10 @@
             </classpath>
 
         </stylebook>
-    
+
     </target>
 
-    <!-- 
+    <!--
        ========================================================================
          Generate the sample application directory structure and zip file.
          This sample application will be used to exercise Cactus functional
@@ -489,7 +493,7 @@
                 <include name="manifest"/>
             </fileset>
         </copy>
-    
+
         <!-- Copy web files -->
         <copy file="${web.dir}/redirector.jsp" tofile="${out.sample.web.dir}/test/redirector.jsp"/>
         <copy todir="${out.sample.web.dir}">
@@ -513,7 +517,7 @@
     <target name="sample" depends="prepare-sample">
     </target>
 
-    <!-- 
+    <!--
        ========================================================================
          Run the unit tests. Only run the tests that do not need a servlet
          engine. For the other tests needing a servlet engine, they are part
@@ -527,19 +531,20 @@
             <classpath>
                 <pathelement path="${java.class.path}"/>
                 <pathelement location="${servlet.jar}"/>
+                <pathelement location="${httpunit.jar}"/>
                 <pathelement location="${out.classes.dir}"/>
             </classpath>
 
             <formatter type="plain" usefile="false"/>
 
             <test name="org.apache.commons.cactus.util.TestAssertUtils"/>
-            <!--test name="org.apache.commons.cactus.client.TestAutoReadHttpURLConnection"/-->
+            <test name="org.apache.commons.cactus.TestAbstractTestCase"/>
 
         </junit>
 
     </target>
 
-    <!-- 
+    <!--
        ========================================================================
          Run the functional tests
        ========================================================================
@@ -571,12 +576,12 @@
             <arg line="${test22.args.list}"/>
             <arg value="tests_all"/>
 
-            <classpath>            
+            <classpath>
                 <pathelement path="${java.class.path}"/>
             </classpath>
 
         </java>
-        
+
     </target>
 
     <target name="tests-functional23" depends="sample">
@@ -603,7 +608,7 @@
             <arg line="${test23.args.list}"/>
             <arg value="tests_all"/>
 
-            <classpath>            
+            <classpath>
                 <pathelement path="${java.class.path}"/>
                 <pathelement location="${stylebook.jar}"/>
             </classpath>
@@ -612,7 +617,7 @@
 
     </target>
 
-    <!-- 
+    <!--
        ========================================================================
          Build all distributables and copies them to the dist.dir directory
        ========================================================================
@@ -620,7 +625,7 @@
     <target name="prepare-dist" depends="jar,doc,sample">
 
         <mkdir dir="${dist.dir}"/>
-        
+
         <!-- Copy the custom Ant tasks jar to the servlet API dist directory
         -->
         <copy file="${final.jar.ant.name}" todir="${out.lib.dir}"/>
@@ -642,11 +647,11 @@
         <!-- Copy the log4j jar in the lib directory so that it is bundled
              with the distribution -->
         <copy todir="${out.lib.dir}" file="${log4j.jar}"/>
-    
+
         <zip zipfile="${dist.full.name}.zip">
             <zipfileset dir="${out.dist.dir}"
                 prefix="${project.name}-${servlet.api}-${DSTAMP}">
-                
+
                 <exclude name="**/build.properties"/>
                 <exclude name="**/*.log"/>
                 <exclude name="**/out"/>

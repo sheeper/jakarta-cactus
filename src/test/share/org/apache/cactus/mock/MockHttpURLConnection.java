@@ -51,36 +51,86 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
-package org.apache.commons.cactus;
+package org.apache.commons.cactus.mock;
 
+import java.net.*;
+import java.io.*;
 import java.util.*;
 
 /**
- * Contains all HTTP request data for a test case. It is the data that
- * will be sent to the server redirector and that will be available to the test
- * methods through the <code>HttpServletRequest</code> object.
- * <br><br>
- * Namely, it is :
- * <ul>
- *   <li>Request parameters that the test case can retrieve using
- *       <code>HttpServletRequest.getParameters()</code>,</li>
- *   <li>Cookies that the test case can retrieve using
- *       <code>HttpServletRequest.getCookies()</code>,</li>
- *   <li>HTTP headers that the test case can retrieve using the
- *       <code>HttpServletRequest.getHeader(), getHeaders(),
- *       ...</code> APIs,</li>
- *   <li>URL data the the test case can retrieve using
- *       <code>HttpServletRequest.getRequestURI(), ...</code></li>
- *   <li>Whether you want the server redirector to automatically create a
- *       session for you or not,</li>
- *   <li>Whether you want the HTTP connection to the server redirector to
- *       use a POST or GET method. Default is POST</li>
- * </ul>
+ * Mock implementation of <code>HttpURLConnection</code>.
  *
  * @version @version@
- * @deprecated As of Cactus 1.2, replaced by WebRequest
- * @see WebRequest
  */
-public class ServletTestRequest extends WebRequest
+public class MockHttpURLConnection extends HttpURLConnection
 {
+    private Vector m_GetHeaderFieldValues = new Vector();
+    private Vector m_GetInputStreamValues = new Vector();
+
+    // -----------------------------------------------------------------------
+    // Methods added on top of those found in HttpURLConnection
+    // -----------------------------------------------------------------------
+
+    public void addGetHeaderFieldValue(String theValue)
+    {
+        m_GetHeaderFieldValues.addElement(theValue);
+    }
+
+    public void addGetInputStream(InputStream theValue)
+    {
+        m_GetInputStreamValues.addElement(theValue);
+    }
+
+    // -----------------------------------------------------------------------
+    // Methods overriding those from HttpURLConnection
+    // -----------------------------------------------------------------------
+
+    public MockHttpURLConnection(URL theURL)
+    {
+        super(theURL);
+    }
+
+    public String getHeaderField(int fieldNumber)
+    {
+        if (m_GetHeaderFieldValues.isEmpty()) {
+            throw new RuntimeException("Must call addGetHeaderFieldValue() " +
+                "first !");
+        }
+        String result = (String)m_GetHeaderFieldValues.elementAt(
+            m_GetHeaderFieldValues.size() - 1);
+        m_GetHeaderFieldValues.removeElementAt(
+            m_GetHeaderFieldValues.size() - 1);
+        return result;
+    }
+
+    public InputStream getInputStream()
+    {
+        if (m_GetInputStreamValues.isEmpty()) {
+            throw new RuntimeException("Must call addGetInputStream() " +
+                "first !");
+        }
+        InputStream result = (InputStream)m_GetInputStreamValues.elementAt(
+            m_GetInputStreamValues.size() - 1);
+        m_GetInputStreamValues.removeElementAt(
+            m_GetInputStreamValues.size() - 1);
+        return result;
+    }
+
+    // -----------------------------------------------------------------------
+    // Methods needed because HttpURLConnection is an abstract class
+    // -----------------------------------------------------------------------
+
+    public boolean usingProxy()
+    {
+        return false;
+    }
+
+    public void disconnect()
+    {
+    }
+
+    public void connect()
+    {
+    }
+
 }

@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 
-<!-- 
+<!--
   =============================================================================
     Build file for the Cactus project. This build file will call the
     build-servletapi.xml build file for several Servlet API (2.2 and 2.3).
-    
+
     The following properties need to be set in a ./build.properties or
     or ${user.home}/build.properties file :
 
@@ -16,14 +16,19 @@
                               Required only if you want to build against this
                               API
 
-        junit.jar             [REQUIRED] The path to the JUnit jar file
+        junit.jar             [REQUIRED] The path to the JUnit jar file.
+                              Required for running the sample application
+                              unit tests.
+
+        httpunit.jar          [REQUIRED] The path to the HttpUnit jar file.
+                              Required for the unit tests.
 
         log4j.jar             [REQUIRED] The path to the Log4j jar file
 
         stylebook.jar         [REQUIRED] The path to the Stylebook jar file.
 
         xerces.jar            [REQUIRED] The path to the Xerces jar file.
-           
+
         xalan.jar             [REQUIRED] The path to the Xalan jar file.
 
         crimson.jar           [REQUIRED] The path to the Crimson jar file.
@@ -34,11 +39,11 @@
                               Default is <root>/dist
 
         test.port             [OPTIONAL] The port that should be used for
-                              starting the servers during unit testing. This 
-                              should be used not to interfere with other 
-                              running servers. The default is 8080. This 
+                              starting the servers during unit testing. This
+                              should be used not to interfere with other
+                              running servers. The default is 8080. This
                               property is used when running the functional tests
-             
+
     Additionally and depending on the servlet engines whith which you wish to
     run your tests, you'll need to set the following kind of properties :
 
@@ -53,11 +58,11 @@
 
     Run "ant usage" to get a list of available targets. The default target is
     "jar"
-  ============================================================================= 
+  =============================================================================
 -->
 <project name="Cactus" default="jar" basedir="..">
 
-    <!-- Give user a chance to override without editing this file 
+    <!-- Give user a chance to override without editing this file
          (and without typing -D each time it compiles it) -->
     <property file="build/build.properties" />
     <property file="${user.home}/build.properties" />
@@ -73,7 +78,7 @@
     <property name="optimize" value="off"/>
     <property name="deprecation" value="off"/>
 
-    <!-- 
+    <!--
        ========================================================================
          Set the properties related to the source tree
        ========================================================================
@@ -98,7 +103,7 @@
     <property name="sample.web.dir" value="${web.dir}/sample"/>
     <property name="sample.doc.dir" value="${doc.root.dir}/sample"/>
 
-    <!-- 
+    <!--
        ========================================================================
          Set the properties related to the build area
        ========================================================================
@@ -112,14 +117,14 @@
     <property name="out.conf.ant.dir" value="${out.root.dir}/conf"/>
     <property name="out.xdoc.site.dir" value="${out.root.dir}/xdocs"/>
 
-    <!-- 
+    <!--
        ========================================================================
          Default values for properties not defined in build.properties
        ========================================================================
     -->
     <property name="dist.dir" value="dist"/>
 
-    <!-- 
+    <!--
        ========================================================================
         Short names of deliverables
        ========================================================================
@@ -135,7 +140,7 @@
          with a link pointing to javadoc : <htdocs>/servletXX/index.html -->
     <property name="site.name" value="${project.name}-website"/>
 
-    <!-- 
+    <!--
        ========================================================================
          Full names of deliverables
        ========================================================================
@@ -148,7 +153,7 @@
          with a link pointing to javadoc : <htdocs>/servletXX/index.html -->
     <property name="final.site.name" value="${out.root.dir}/${site.name}"/>
 
-    <!-- 
+    <!--
        ========================================================================
          Useful file patterns for targets
        ========================================================================
@@ -171,7 +176,7 @@
 
     </patternset>
 
-    <!-- 
+    <!--
        ========================================================================
          Initialize the build. Must be called by all targets
        ========================================================================
@@ -215,15 +220,15 @@
         <!-- Full names of distributables. They are defined here because the
              properties need to have a valid ${DSTAMP} property set and the
              tstamp task need to be located in a target -->
-    
+
         <!-- The Cactus jar containing custom Ant tasks and helper classes -->
         <property name="dist.jar.ant.name"
             value="${dist.dir}/${jar.ant.name}-${DSTAMP}.jar"/>
-    
+
         <!-- The full sources of Cactus in a zip file -->
         <property name="dist.src.name"
             value="${dist.dir}/${src.name}-${DSTAMP}.zip"/>
-    
+
         <!-- The Cactus web site in a gzip file (without the Javadoc but
              with a link pointing to javadoc : <htdocs>/servletXX/index.html -->
         <property name="dist.site.name" value="${dist.dir}/${site.name}"/>
@@ -243,7 +248,7 @@
 
     </target>
 
-    <!-- 
+    <!--
        ========================================================================
          Help on usage. List available targets
        ========================================================================
@@ -274,7 +279,7 @@
 
     </target>
 
-    <!-- 
+    <!--
        ========================================================================
          Create the runtime jar file
        ========================================================================
@@ -283,14 +288,14 @@
         <ant antfile="build/build-servletapi.xml" target="jar">
             <property name="servlet.api" value="22"/>
             <property name="servlet.jar" value="${servlet22.jar}"/>
-        </ant>        
+        </ant>
     </target>
 
     <target name="jar.23" depends="init" if="servlet23.jar.present">
         <ant antfile="build/build-servletapi.xml" target="jar">
             <property name="servlet.api" value="23"/>
             <property name="servlet.jar" value="${servlet23.jar}"/>
-        </ant>        
+        </ant>
     </target>
 
     <target name="jar.ant" depends="init">
@@ -330,7 +335,7 @@
     <target name="jar" depends="jar.ant,jar.22,jar.23">
     </target>
 
-    <!-- 
+    <!--
        ========================================================================
          Generate the full documentation for a given Servlet API, i.e.
          web site + javadoc + README
@@ -340,20 +345,20 @@
         <ant antfile="build/build-servletapi.xml" target="doc">
             <property name="servlet.api" value="22"/>
             <property name="servlet.jar" value="${servlet22.jar}"/>
-        </ant>        
+        </ant>
     </target>
 
     <target name="doc.23" depends="init" if="servlet23.jar.present">
         <ant antfile="build/build-servletapi.xml" target="doc">
             <property name="servlet.api" value="23"/>
             <property name="servlet.jar" value="${servlet23.jar}"/>
-        </ant>        
+        </ant>
     </target>
 
     <target name="doc" depends="jar,doc.22,doc.23">
     </target>
 
-    <!-- 
+    <!--
        ========================================================================
          Generate the web site
        ========================================================================
@@ -439,7 +444,7 @@
 
     </target>
 
-    <!-- 
+    <!--
        ========================================================================
          Generate the sample application directory structure and zip file.
          This sample application will be used to exercise Cactus functional
@@ -450,20 +455,20 @@
         <ant antfile="build/build-servletapi.xml" target="sample">
             <property name="servlet.api" value="22"/>
             <property name="servlet.jar" value="${servlet22.jar}"/>
-        </ant>        
+        </ant>
     </target>
 
     <target name="sample.23" depends="init" if="servlet23.jar.present">
         <ant antfile="build/build-servletapi.xml" target="sample">
             <property name="servlet.api" value="23"/>
             <property name="servlet.jar" value="${servlet23.jar}"/>
-        </ant>        
+        </ant>
     </target>
 
     <target name="sample" depends="jar,sample.22,sample.23">
     </target>
 
-    <!-- 
+    <!--
        ========================================================================
          Remove all build generated files
        ========================================================================
@@ -494,7 +499,7 @@
 
     </target>
 
-    <!-- 
+    <!--
        ========================================================================
          Run the unit tests. Only run the tests that do not need a servlet
          engine. For the other tests needing a servlet engine, they are part
@@ -505,20 +510,20 @@
         <ant antfile="build/build-servletapi.xml" target="tests-unit">
             <property name="servlet.api" value="22"/>
             <property name="servlet.jar" value="${servlet22.jar}"/>
-        </ant>        
+        </ant>
     </target>
 
     <target name="tests-unit.23" depends="init" if="servlet23.jar.present">
         <ant antfile="build/build-servletapi.xml" target="tests-unit">
             <property name="servlet.api" value="23"/>
             <property name="servlet.jar" value="${servlet23.jar}"/>
-        </ant>        
+        </ant>
     </target>
 
     <target name="tests-unit" depends="tests-unit.22,tests-unit.23">
     </target>
 
-    <!-- 
+    <!--
        ========================================================================
          Run the functional tests
        ========================================================================
@@ -527,20 +532,20 @@
         <ant antfile="build/build-servletapi.xml" target="tests-functional22">
             <property name="servlet.api" value="22"/>
             <property name="servlet.jar" value="${servlet22.jar}"/>
-        </ant>        
+        </ant>
     </target>
 
     <target name="tests-functional.23" depends="init" if="servlet23.jar.present">
         <ant antfile="build/build-servletapi.xml" target="tests-functional23">
             <property name="servlet.api" value="23"/>
             <property name="servlet.jar" value="${servlet23.jar}"/>
-        </ant>        
+        </ant>
     </target>
 
     <target name="tests-functional" depends="sample,tests-functional.22,tests-functional.23">
     </target>
 
-    <!-- 
+    <!--
        ========================================================================
          Run both the unit and functional tests
        ========================================================================
@@ -548,7 +553,7 @@
     <target name="tests" depends="jar.ant,tests-unit,tests-functional">
     </target>
 
-    <!-- 
+    <!--
        ========================================================================
          Build all distributables and copies them to the dist.dir directory
        ========================================================================
@@ -558,7 +563,7 @@
         <ant antfile="build/build-servletapi.xml" target="dist">
             <property name="servlet.api" value="22"/>
             <property name="servlet.jar" value="${servlet22.jar}"/>
-        </ant>        
+        </ant>
 
     </target>
 
@@ -567,7 +572,7 @@
         <ant antfile="build/build-servletapi.xml" target="dist">
             <property name="servlet.api" value="23"/>
             <property name="servlet.jar" value="${servlet23.jar}"/>
-        </ant>        
+        </ant>
 
     </target>
     <target name="dist" depends="clean,jar,sample,doc,site,dist.22,dist.23">
@@ -589,7 +594,7 @@
 
     </target>
 
-    <!-- 
+    <!--
        ========================================================================
          Do it all
        ========================================================================
@@ -597,13 +602,13 @@
     <target name="all" depends="clean,jar,sample,doc,site,tests,dist">
     </target>
 
-    <!-- 
+    <!--
        ========================================================================
          Deploy the web site to the Jakarta Commons server, using the 'scp'
          and 'ssh' commands. The variable "username" need to be passed to Ant
          when calling this target.
 
-         Ex: ant -Dusername=vmassol deploy-site 
+         Ex: ant -Dusername=vmassol deploy-site
 
        ========================================================================
     -->

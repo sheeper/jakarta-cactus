@@ -51,36 +51,92 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
-package org.apache.commons.cactus;
+package org.apache.commons.cactus.util;
 
-import java.util.*;
+import java.io.*;
 
 /**
- * Contains all HTTP request data for a test case. It is the data that
- * will be sent to the server redirector and that will be available to the test
- * methods through the <code>HttpServletRequest</code> object.
- * <br><br>
- * Namely, it is :
- * <ul>
- *   <li>Request parameters that the test case can retrieve using
- *       <code>HttpServletRequest.getParameters()</code>,</li>
- *   <li>Cookies that the test case can retrieve using
- *       <code>HttpServletRequest.getCookies()</code>,</li>
- *   <li>HTTP headers that the test case can retrieve using the
- *       <code>HttpServletRequest.getHeader(), getHeaders(),
- *       ...</code> APIs,</li>
- *   <li>URL data the the test case can retrieve using
- *       <code>HttpServletRequest.getRequestURI(), ...</code></li>
- *   <li>Whether you want the server redirector to automatically create a
- *       session for you or not,</li>
- *   <li>Whether you want the HTTP connection to the server redirector to
- *       use a POST or GET method. Default is POST</li>
- * </ul>
+ * Represent an exception that should stop the running test. It is a runtime
+ * exception but it will be caught by JUnit so the application will not stop.
+ * The test will be reported as failed. It implements chaining.
  *
  * @version @version@
- * @deprecated As of Cactus 1.2, replaced by WebRequest
- * @see WebRequest
  */
-public class ServletTestRequest extends WebRequest
+public class ChainedRuntimeException extends RuntimeException
 {
+    /**
+     * Original exception which caused this exception.
+     */
+    protected Throwable m_OriginalException;
+
+    /**
+     * Create a <code>TestException</code> and set the exception error
+     * message.
+     *
+     * @param theMessage the message of the exception
+     */
+    public ChainedRuntimeException(String theMessage) {
+        this(theMessage, null);
+    }
+
+    /**
+     * Create a <code>ChainedRuntimeException</code>, set the exception error
+     * message along with the exception object that caused this exception.
+     *
+     * @param theMessage the detail of the error message
+     * @param theException the original exception
+     */
+    public ChainedRuntimeException(String theMessage, Throwable theException)
+    {
+        super(theMessage);
+        m_OriginalException = theException;
+    }
+
+    /**
+     * Create a <code>ChainedRuntimeException</code>, and set exception object
+     * that caused this exception. The message is set by default to be the one
+     * from the original exception.
+     *
+     * @param theException the original exception
+     */
+    public ChainedRuntimeException(Throwable theException)
+    {
+        super(theException.getMessage());
+        m_OriginalException = theException;
+    }
+
+    /**
+     * Print the full stack trace, including the original exception.
+     */
+    public void printStackTrace()
+    {
+        printStackTrace(System.err);
+    }
+
+    /**
+     * Print the full stack trace, including the original exception.
+     *
+     * @param thePs the byte stream in which to print the stack trace
+     */
+    public void printStackTrace(PrintStream thePs)
+    {
+        super.printStackTrace(thePs);
+        if (m_OriginalException != null) {
+            m_OriginalException.printStackTrace(thePs);
+        }
+    }
+
+    /**
+     * Print the full stack trace, including the original exception.
+     *
+     * @param thePw the character stream in which to print the stack trace
+     */
+    public void printStackTrace(PrintWriter thePw)
+    {
+        super.printStackTrace(thePw);
+        if (m_OriginalException != null) {
+            m_OriginalException.printStackTrace(thePw);
+        }
+    }
+
 }

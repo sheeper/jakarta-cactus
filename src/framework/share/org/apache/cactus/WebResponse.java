@@ -51,71 +51,88 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
-package org.apache.commons.cactus.util;
+package org.apache.commons.cactus;
 
 import java.net.*;
-import java.util.*;
 import java.io.*;
+import java.util.*;
+
+import org.apache.commons.cactus.*;
+import org.apache.commons.cactus.util.*;
 
 /**
- * Cactus utility classes to help assert returned results from server side
- * code.
+ * Default web response implementation that provides a minimal
+ * API for asserting returned output stream from the server side. For more
+ * complex assertions, use an <code>com.meterware.httpunit.WebResponse</code>
+ * instead as parameter of your <code>endXXX()</code> methods.
  *
  * @version @version@
- * @deprecated As of Cactus 1.2, replaced by WebResponse
- * @see WebResponse
  */
-public class AssertUtils
+public class WebResponse
 {
     /**
-     * @param theConnection the connection object used to connect to the server
-     *                      redirector.
-     * @return the servlet output stream bytes as a string.
+     * The connection object that was used to call the URL
      */
-    public static String getResponseAsString(HttpURLConnection theConnection) throws IOException
+    private HttpURLConnection m_Connection;
+
+    /**
+     * @param theConnection the original <code>HttpURLConnection</code> used
+     *        to call the URL
+     */
+    public WebResponse(HttpURLConnection theConnection)
+    {
+        m_Connection = theConnection;
+    }
+
+    /**
+     * @return the original <code>HttpURLConnection</code> used to call the
+     *         URL
+     */
+    public HttpURLConnection getConnection()
+    {
+        return m_Connection;
+    }
+
+    /**
+     * @return the text of the response (excluding headers) as a string.
+     */
+    public String getText()
     {
         StringBuffer sb = new StringBuffer();
-        BufferedReader input = new BufferedReader(new InputStreamReader(theConnection.getInputStream()));
-        char[] buffer = new char[2048];
-        int nb;
-        while (-1 != (nb = input.read(buffer, 0, 2048))) {
-            sb.append(buffer, 0, nb);
+
+        try {
+            BufferedReader input = new BufferedReader(
+                new InputStreamReader(m_Connection.getInputStream()));
+            char[] buffer = new char[2048];
+            int nb;
+            while (-1 != (nb = input.read(buffer, 0, 2048))) {
+                sb.append(buffer, 0, nb);
+            }
+            input.close();
+        } catch (IOException e) {
+            throw new ChainedRuntimeException(e);
         }
-        input.close ();
 
         return sb.toString();
     }
 
     /**
-     * @param theConnection the connection object used to connect to the server
-     *                      redirector.
-     * @return the servlet output stream bytes as an array of string (each
-     *         string is a separate line from the output stream).
-     */
-    public static String[] getResponseAsStringArray(HttpURLConnection theConnection) throws IOException
+     * @return a buffered input stream for reading the response data.
+     **/
+    public InputStream getInputStream()
     {
-        BufferedReader input = new BufferedReader(new InputStreamReader(theConnection.getInputStream()));
-        Vector lines = new Vector();
-        String str;
-        while (null != (str = input.readLine())) {
-            lines.addElement(str);
+        try {
+            return m_Connection.getInputStream();
+        } catch (IOException e) {
+            throw new ChainedRuntimeException(e);
         }
-        input.close ();
-
-        // Fixme: I don't know why but if I don't use this dummy stuff I get a
-        // ClassCastException !
-        String[] dummy = new String[lines.size()];
-        return (String[])(lines.toArray(dummy));
     }
 
     /**
-     * Extract the cookies from a HTTP connection.
-     *
-     * @param theConnection the HTTP connection from which to extract server
-     *                      returned cookies.
-     * @return a hashtable of <code>ClientCookie</code> objects.
+     * @return the returned cookies as a hashtable of <code>ClientCookie</code>
+     *         objects indexed on the cookie name
      */
-    public static Hashtable getCookies(HttpURLConnection theConnection)
+    public Hashtable getCookies()
     {
         // We conform to the RFC 2109 :
         //
@@ -137,8 +154,8 @@ public class AssertUtils
 
         // There can be several headers named "Set-Cookie", so loop through all
         // the headers, looking for cookies
-        String headerName = theConnection.getHeaderFieldKey(0);
-        String headerValue = theConnection.getHeaderField(0);
+        String headerName = m_Connection.getHeaderFieldKey(0);
+        String headerValue = m_Connection.getHeaderField(0);
         for (int i = 1; (headerName != null) || (headerValue != null); i++) {
 
             if ((headerName != null) && headerName.equals("Set-Cookie")) {
@@ -165,8 +182,8 @@ public class AssertUtils
                 }
             }
 
-            headerName = theConnection.getHeaderFieldKey(i);
-            headerValue = theConnection.getHeaderField(i);
+            headerName = m_Connection.getHeaderFieldKey(i);
+            headerValue = m_Connection.getHeaderField(i);
 
         }
 
@@ -179,7 +196,7 @@ public class AssertUtils
      * @return a vector og <code>ClientCookie</code> objects containing the
      *         parsed values from the "Set-Cookie" header.
      */
-    protected static Vector parseSetCookieHeader(String theHeaderValue)
+    private Vector parseSetCookieHeader(String theHeaderValue)
     {
         String name;
         String value;
@@ -209,7 +226,8 @@ public class AssertUtils
 
             int pos = param.indexOf("=");
             if (pos < 0) {
-                System.err.println("Bad 'Set-Cookie' syntax, missing '=' [" + param + "]");
+                System.err.println("Bad 'Set-Cookie' syntax, missing '=' [" +
+                    param + "], ignoring it !");
                 continue;
             }
 
@@ -247,7 +265,8 @@ public class AssertUtils
                 } else if (left.equalsIgnoreCase("version")) {
                     version = Float.parseFloat(right);
                 } else {
-                    System.err.println("Bad 'Set-Cookie' syntax, bad name [" + param + "]");
+                    System.err.println("Bad 'Set-Cookie' syntax, bad name [" +
+                        param + "], ignoring it !");
                     continue;
                 }
 
@@ -262,5 +281,6 @@ public class AssertUtils
 
         return cookies;
     }
+
 
 }

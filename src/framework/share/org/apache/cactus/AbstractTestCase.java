@@ -63,6 +63,7 @@ import junit.framework.*;
 import org.apache.commons.cactus.client.*;
 import org.apache.commons.cactus.server.*;
 import org.apache.commons.cactus.util.log.*;
+import org.apache.commons.cactus.util.*;
 
 /**
  * Abstract class that specific test cases (<code>ServletTestCase</code>,
@@ -158,7 +159,7 @@ public abstract class AbstractTestCase extends TestCase
     {
         // First, verify if a begin method exist. If one is found, verify if
         // it has the correct signature. If not, send a warning.
-        Method[] methods = getClass().getMethods();
+        Method[] methods = getClass().getDeclaredMethods();
         for (int i = 0; i < methods.length; i++) {
             if (methods[i].getName().equals(getBeginMethodName())) {
 
@@ -177,12 +178,21 @@ public abstract class AbstractTestCase extends TestCase
 
                 // Check parameters
                 Class[] parameters = methods[i].getParameterTypes();
-                if ((parameters.length != 1) || 
-                    (!parameters[0].equals(ServletTestRequest.class))) {
+                if (parameters.length != 1) {
 
                     fail("The begin method [" + methods[i].getName() +
-                        "] must accept a single parameter of type [" +
-                        ServletTestRequest.class.getName() + "]");
+                        "] must accept a single parameter derived from " +
+                        "class [" + WebRequest.class.getName() + "], " +
+                        "but " + parameters.length + " parameters were found");
+
+                } else if (
+                    !WebRequest.class.isAssignableFrom(parameters[0])) {
+
+                    fail("The begin method [" + methods[i].getName() +
+                        "] must accept a single parameter derived from " +
+                        "class [" + WebRequest.class.getName() + "], " +
+                        "but found a [" + parameters[0].getName() + "] " +
+                        "parameter instead");
                 }
 
                 try {
@@ -210,11 +220,16 @@ public abstract class AbstractTestCase extends TestCase
      *        codes, headers, cookies can be checked using the get methods of
      *        this object.
      */
-    protected void callEndMethod(HttpURLConnection theConnection) throws Throwable
+    protected void callEndMethod(HttpURLConnection theConnection)
+        throws Throwable
     {
         // First, verify if an end method exist. If one is found, verify if
-        // it has the correct signature. If not, send a warning.
-        Method[] methods = getClass().getMethods();
+        // it has the correct signature. If not, send a warning. Also
+        // verify that only one end method is defined for a given test.
+        Method methodToCall = null;
+        Object paramObject = null;
+
+        Method[] methods = getClass().getDeclaredMethods();
         for (int i = 0; i < methods.length; i++) {
             if (methods[i].getName().equals(getEndMethodName())) {
 
@@ -227,35 +242,99 @@ public abstract class AbstractTestCase extends TestCase
 
                 // Check if method is public
                 if (!Modifier.isPublic(methods[i].getModifiers())) {
-                    fail("Method [" + methods[i].getName() + 
+                    fail("Method [" + methods[i].getName() +
                         "] should be declared public");
                 }
 
                 // Check parameters
                 Class[] parameters = methods[i].getParameterTypes();
-                if ((parameters.length != 1) || 
-                    (!parameters[0].equals(HttpURLConnection.class))) {
 
+                // Verify only one parameter is defined
+                if (parameters.length != 1) {
                     fail("The end method [" + methods[i].getName() +
-                        "] must accept a single parameter of type [" +
-                        HttpURLConnection.class.getName() + "]");
+                        "] must only have a single parameter");
                 }
 
-                try {
+                // Is it a Http Unit WebResponse ?
+                if (parameters[0].getName().
+                    equals("com.meterware.httpunit.WebResponse")) {
 
-                    methods[i].invoke(this, new Object[] { theConnection });
+                    paramObject = createHttpUnitWebResponse(theConnection);
 
-                } catch (InvocationTargetException e) {
-                    e.fillInStackTrace();
-                    throw e.getTargetException();
+                // Is it a Cactus WebResponse ?
+                } else if (parameters[0].getName().
+                    equals("org.apache.commons.cactus.WebResponse")) {
+
+                    paramObject = new WebResponse(theConnection);
+
+                // Is it an old HttpURLConnection (deprecated) ?
+                } else if (parameters[0].getName().
+                    equals("java.net.HttpURLConnection")) {
+
+                    paramObject = theConnection;
+
+                // Else it is an error ...
+                } else {
+                    fail("The end method [" + methods[i].getName() +
+                        "] has a bad parameter of type [" +
+                        parameters[0].getName() + "]");
                 }
-                catch (IllegalAccessException e) {
-                    e.fillInStackTrace();
-                    throw e;
+
+                // Has a method to call already been found ?
+                if (methodToCall != null) {
+                    fail("There can only be one end method per test case. " +
+                        "Test case [" + currentTestMethod +
+                         "] has two at least !");
                 }
+
+                methodToCall = methods[i];
 
             }
         }
+
+        if (methodToCall != null) {
+
+            try {
+
+                methodToCall.invoke(this, new Object[] { paramObject });
+
+            } catch (InvocationTargetException e) {
+                e.fillInStackTrace();
+                throw e.getTargetException();
+            }
+            catch (IllegalAccessException e) {
+                e.fillInStackTrace();
+                throw e;
+            }
+        }
+
+    }
+
+    /**
+     * Create a HttpUnit <code>WebResponse</code> object by reflection (so
+     * that we don't need the HttpUnit jar for users who are not using
+     * the HttpUnit endXXX() signature).
+     *
+     * @return a HttpUnit <code>WebResponse</code> object
+     */
+    private Object createHttpUnitWebResponse(HttpURLConnection theConnection)
+    {
+        Object webResponse;
+
+        try {
+            Class responseClass =
+                Class.forName("com.meterware.httpunit.WebResponse");
+            Method method = responseClass.getMethod("newResponse",
+                new Class[] { URLConnection.class });
+            webResponse = method.invoke(null, new Object[] { theConnection });
+        } catch (Exception e) {
+            throw new ChainedRuntimeException("Error calling " +
+                "[public static com.meterware.httpunit.WebResponse " +
+                "com.meterware.httpunit.WebResponse.newResponse(" +
+                "java.net.URLConnection) throws java.io.IOException]", e);
+        }
+
+        return webResponse;
     }
 
     /**

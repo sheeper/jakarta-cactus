@@ -67,7 +67,8 @@ import org.apache.commons.cactus.*;
  * @version @version@
  * @see TestServletTestCase1
  */
-public class TestServletTestCase1_InterceptorServletTestCase extends ServletTestCase
+public class TestServletTestCase1_InterceptorServletTestCase 
+    extends ServletTestCase
 {
     /**
      * Constructs a test case with the given name.
@@ -100,13 +101,15 @@ public class TestServletTestCase1_InterceptorServletTestCase extends ServletTest
 
         } catch (ServletExceptionWrapper e) {
 
-            // If the test case is "testExceptionNotSerializable" and the exception
-            // is of type TestServletTestCaseHelper1_ExceptionNotSerializable
+            // If the test case is "testExceptionNotSerializable" and the
+            // exception is of type
+            // TestServletTestCaseHelper1_ExceptionNotSerializable
             // and contains the text "test non serializable exception", then
             // the test is ok.
             if (name().equals("testExceptionNotSerializable")) {
                 if (e.instanceOf(TestServletTestCase1_ExceptionNotSerializable.class)) {
-                    assertEquals("test non serializable exception", e.getMessage());
+                    assertEquals("test non serializable exception", 
+                        e.getMessage());
                     return;
                 }
             }
@@ -123,79 +126,6 @@ public class TestServletTestCase1_InterceptorServletTestCase extends ServletTest
 
             throw e;
 
-        } catch (Throwable e) {
-
-            // Test that when a begin method for a given test does not have the correct
-            // return type (i.e. void), a <code>AssertionFailedError</code> exception
-            // is returned.
-            if (name().equals("testBeginMethodBadReturnType")) {
-                if (e instanceof AssertionFailedError) {
-                    assertEquals("The begin method [beginBeginMethodBadReturnType] should return void and not [java.lang.String]",
-                        e.getMessage());
-                    return;
-                }
-            }
-
-            // Test that when a begin method for a given test is not declared public
-            // a <code>AssertionFailedError</code> exception is returned.
-            // Note: the assert is done in the
-            // <code>TestServletTestCase_InterceptorServletTestCase</code> class.
-            if (name().equals("testBeginMethodNotPublic")) {
-                if (e instanceof AssertionFailedError) {
-                    assertEquals("Method [beginBeginMethodNotPublic] should be declared public",
-                        e.getMessage());
-                    return;
-                }
-            }
-
-            // Test that when a begin method for a given test has the wrong
-            // type of parameters, a <code>AssertionFailedError</code> exception
-            // is returned.
-            if (name().equals("testBeginMethodBadParams")) {
-                if (e instanceof AssertionFailedError) {
-                    assertEquals("The begin method [beginBeginMethodBadParams] must accept a single parameter of type [org.apache.commons.cactus.ServletTestRequest]",
-                        e.getMessage());
-                    return;
-                }
-            }
-
-            // Test that when an end method for a given test does not have the correct
-            // return type (i.e. void), a <code>AssertionFailedError</code> exception
-            // is returned.
-            if (name().equals("testEndMethodBadReturnType")) {
-                if (e instanceof AssertionFailedError) {
-                    assertEquals("The end method [endEndMethodBadReturnType] should return void and not [java.lang.String]",
-                        e.getMessage());
-                    return;
-                }
-            }
-
-            // Test that when an end method for a given test is not declared public
-            // a <code>AssertionFailedError</code> exception is returned.
-            // Note: the assert is done in the
-            // <code>TestServletTestCase_InterceptorServletTestCase</code> class.
-            if (name().equals("testEndMethodNotPublic")) {
-                if (e instanceof AssertionFailedError) {
-                    assertEquals("Method [endEndMethodNotPublic] should be declared public",
-                        e.getMessage());
-                    return;
-                }
-            }
-
-            // Test that when an end method for a given test has the wrong
-            // type of parameters, a <code>AssertionFailedError</code> exception
-            // is returned.
-            if (name().equals("testEndMethodBadParams")) {
-                if (e instanceof AssertionFailedError) {
-                    assertEquals("The end method [endEndMethodBadParams] must accept a single parameter of type [java.net.HttpURLConnection]",
-                        e.getMessage());
-                    return;
-                }
-            }
-
-            throw e;
-
         }
-
      }
 }
