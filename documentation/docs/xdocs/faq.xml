@@ -58,6 +58,10 @@
           <jump anchor="faq11">What version of Eclipse do I need for the 
           Eclipse plugin?</jump>
         </li>
+        <li>
+          <jump anchor="faq12">Why do I get an HttpClient NoSuchMethodError when 
+          running Cactus tests with JBoss 3.x?</jump>
+        </li>
       </ul>
     </section>
 
@@ -491,6 +495,28 @@ public void MyTest extends ServletTestCase
         It has not yet been tested with Eclipse 3.0.
       </p>      	
 
+	</section>
+
+    <anchor id="faq12"/>
+    <section title="Why do I get an HttpClient NoSuchMethodError when running Cactus tests with JBoss 3.x?">
+
+      <section title="Question">
+        <p>
+          When running my Cactus tests with JBoss 3.x, I get:
+        </p>
+<source><![CDATA[           
+java.lang.NoSuchMethodError: 
+  org.apache.commons.httpclient.methods.GetMethod.setRequestHeader(
+  Ljava/lang/String;Ljava/lang/String;)V at [...]
+]]></source>
+      </section>
+      <section title="Solution">
+        <p>
+          JBoss 3.x bundles an old version of HttpClient and Cactus requires a
+          newer version. Just replace the HttpClient version in JBoss by the
+          one provided by Cactus.
+        </p>
+      </section>
 	</section>
 
   </body>
