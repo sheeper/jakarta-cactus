@@ -16,8 +16,9 @@
  Cactus Servlet Sample
  ---------------------------------------------------------
  Sample web-application that demonstrates how Cactus can
- be used for unit testing classes that use the servlet API
- (such as servlets, filters and tag libraries).
+ be used using the Ant integration for unit testing classes 
+ that use the servlet API (such as servlets, filters and 
+ tag libraries).
   </description>
 
   <!-- Base directory for all file related operations -->

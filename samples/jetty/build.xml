@@ -12,8 +12,17 @@
 -->
 <project name="Cactus Jetty Sample" default="dist" basedir="../..">
 
+  <description>
+ Cactus Jetty Sample
+ ---------------------------------------------------------
+ Sample web-application that demonstrates how Cactus can
+ be used using the Jetty integration for unit testing 
+ classes that use the servlet API (such as servlets, 
+ filters and tag libraries).
+  </description>
+
    <!-- Base directory for all file related operations -->
-  <property name="base.dir" value="samples/jetty"/>
+  <property name="base.dir" location="${basedir}/samples/jetty"/>
 
   <!-- Indicate that this subproject is dependent on the version of the J2EE
        API available -->
