@@ -77,7 +77,9 @@ import java.util.*;
  *       use a POST or GET method. Default is POST</li>
  * </ul>
  *
- * @version @version@
+ * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
+ *
+ * @version $Id$
  * @deprecated As of Cactus 1.2, replaced by WebRequest
  * @see WebRequest
  */

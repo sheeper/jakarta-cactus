@@ -54,37 +54,46 @@
 package org.apache.commons.cactus;
 
 /**
- * List of valid services that the <code>ServletTestRedirector</code> can perform.
+ * List of valid services that the <code>ServletTestRedirector</code> can
+ * perform.
+ *
+ * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
+ *
+ * @version $Id$
  */
 public class ServiceEnumeration
 {
     /**
      * Call test method Service.
      */
-    public static final ServiceEnumeration CALL_TEST_SERVICE = new ServiceEnumeration("CALL_TEST");
+    public static final ServiceEnumeration CALL_TEST_SERVICE =
+        new ServiceEnumeration("CALL_TEST");
 
     /**
      * Get the previous test results Service.
      */
-    public static final ServiceEnumeration GET_RESULTS_SERVICE = new ServiceEnumeration("GET_RESULTS");
+    public static final ServiceEnumeration GET_RESULTS_SERVICE =
+        new ServiceEnumeration("GET_RESULTS");
 
     /**
      * The service's name
      */
-    private String m_Name;
+    private String name;
 
     public ServiceEnumeration(String theServiceName)
     {
-        m_Name = theServiceName;
+        this.name = theServiceName;
     }
 
     /**
-     * Compares a string representing the name of the service with the Service enumerated type.
+     * Compares a string representing the name of the service with the Service
+     * enumerated type.
+     *
      * @return true if the string corresponds to the current Service
      */
     public boolean equals(String theString)
     {
-        return theString.equals(m_Name);
+        return theString.equals(this.name);
     }
 
     /**
@@ -92,7 +101,7 @@ public class ServiceEnumeration
      */
     public String toString()
     {
-        return m_Name;
+        return this.name;
     }
 
 }

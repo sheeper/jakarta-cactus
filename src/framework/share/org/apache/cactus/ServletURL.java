@@ -81,7 +81,9 @@ import org.apache.commons.cactus.util.log.*;
  *   <li><b>PathInfo</b>: The part of the request path that is not part of the
  *   Context Path or the Servlet Path.</li></ul></pre></code>
  *
- * @version @version@
+ * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
+ *
+ * @version $Id$
  */
 public class ServletURL
 {
@@ -90,65 +92,70 @@ public class ServletURL
      * in the URL to simulate. The name is voluntarily long so that it will not
      * clash with a user-defined parameter.
      */
-    public final static String URL_SERVER_NAME_PARAM = "ServletTestCase_URL_Server";
+    public final static String URL_SERVER_NAME_PARAM =
+        "ServletTestCase_URL_Server";
 
     /**
-     * Name of the parameter in the HTTP request that represents the context path
-     * in the URL to simulate. The name is voluntarily long so that it will not
-     * clash with a user-defined parameter.
+     * Name of the parameter in the HTTP request that represents the context
+     * path in the URL to simulate. The name is voluntarily long so that it
+     * will not clash with a user-defined parameter.
      */
-    public final static String URL_CONTEXT_PATH_PARAM = "ServletTestCase_URL_ContextPath";
+    public final static String URL_CONTEXT_PATH_PARAM =
+        "ServletTestCase_URL_ContextPath";
 
     /**
      * Name of the parameter in the HTTP request that represents the Servlet
-     * Path in the URL to simulate. The name is voluntarily long so that it will not
-     * clash with a user-defined parameter.
+     * Path in the URL to simulate. The name is voluntarily long so that it
+     * will not clash with a user-defined parameter.
      */
-    public final static String URL_SERVLET_PATH_PARAM = "ServletTestCase_URL_ServletPath";
+    public final static String URL_SERVLET_PATH_PARAM =
+        "ServletTestCase_URL_ServletPath";
 
     /**
      * Name of the parameter in the HTTP request that represents the Path Info
      * in the URL to simulate. The name is voluntarily long so that it will not
      * clash with a user-defined parameter.
      */
-    public final static String URL_PATH_INFO_PARAM = "ServletTestCase_URL_PathInfo";
+    public final static String URL_PATH_INFO_PARAM =
+        "ServletTestCase_URL_PathInfo";
 
     /**
-     * Name of the parameter in the HTTP request that represents the Query String
-     * in the URL to simulate. The name is voluntarily long so that it will not
-     * clash with a user-defined parameter.
+     * Name of the parameter in the HTTP request that represents the Query
+     * String in the URL to simulate. The name is voluntarily long so that it
+     * will not clash with a user-defined parameter.
      */
-    public final static String URL_QUERY_STRING_PARAM = "ServletTestCase_URL_QueryString";
+    public final static String URL_QUERY_STRING_PARAM =
+        "ServletTestCase_URL_QueryString";
 
     /**
      * The server name to simulate (including port number)
      */
-    private String m_URL_ServerName;
+    private String serverName;
 
     /**
      * The context path to simulate
      */
-    private String m_URL_ContextPath;
+    private String contextPath;
 
     /**
      * The servlet path to simulate
      */
-    private String m_URL_ServletPath;
+    private String servletPath;
 
     /**
      * The Path Info to simulate
      */
-    private String m_URL_PathInfo;
+    private String pathInfo;
 
     /**
      * The Query string
      */
-    private String m_URL_QueryString;
+    private String queryString;
 
     /**
      * The logger
      */
-    private static Log m_Logger =
+    private static Log logger =
         LogService.getInstance().getLog(ServletURL.class.getName());
 
     /**
@@ -180,14 +187,14 @@ public class ServletURL
      *                       <code>HttpServletResquest.getQueryString()</code>.
      *                       Can be null.
      */
-    public ServletURL(String theServerName, String theContextPath, String theServletPath,
-        String thePathInfo, String theQueryString)
+    public ServletURL(String theServerName, String theContextPath,
+        String theServletPath, String thePathInfo, String theQueryString)
     {
-        m_URL_ServerName = theServerName;
-        m_URL_ContextPath = theContextPath;
-        m_URL_ServletPath = theServletPath;
-        m_URL_PathInfo = thePathInfo;
-        m_URL_QueryString = theQueryString;
+        this.serverName = theServerName;
+        this.contextPath = theContextPath;
+        this.servletPath = theServletPath;
+        this.pathInfo = thePathInfo;
+        this.queryString = theQueryString;
     }
 
     /**
@@ -195,7 +202,7 @@ public class ServletURL
      */
     public String getServerName()
     {
-        return m_URL_ServerName;
+        return this.serverName;
     }
 
     /**
@@ -203,12 +210,16 @@ public class ServletURL
      */
     public String getHost()
     {
-        int pos = m_URL_ServerName.indexOf(":");
-        if (pos > 0) {
-            return m_URL_ServerName.substring(0, pos + 1);
+        String host = this.serverName;
+
+        if (this.serverName != null) {
+            int pos = this.serverName.indexOf(":");
+            if (pos > 0) {
+                host = this.serverName.substring(0, pos + 1);
+            }
         }
 
-        return m_URL_ServerName;
+        return host;
     }
 
     /**
@@ -217,20 +228,24 @@ public class ServletURL
      */
     public int getPort()
     {
-        int pos = m_URL_ServerName.indexOf(":");
-        int result;
+        int port = -1;
 
-        if (pos < 0) {
-            return -1;
+        if (this.serverName != null) {
+
+            int pos = this.serverName.indexOf(":");
+
+            if (pos < 0) {
+                return -1;
+            }
+
+            try {
+                port = Integer.parseInt(this.serverName.substring(pos + 1));
+            } catch (NumberFormatException e) {
+                port = -1;
+            }
         }
 
-        try {
-            result = Integer.parseInt(m_URL_ServerName.substring(pos + 1));
-        } catch (NumberFormatException e) {
-            return -1;
-        }
-
-        return result;
+        return port;
     }
 
     /**
@@ -238,7 +253,7 @@ public class ServletURL
      */
     public String getContextPath()
     {
-        return m_URL_ContextPath;
+        return this.contextPath;
     }
 
     /**
@@ -246,7 +261,7 @@ public class ServletURL
      */
     public String getServletPath()
     {
-        return m_URL_ServletPath;
+        return this.servletPath;
     }
 
     /**
@@ -254,7 +269,7 @@ public class ServletURL
      */
     public String getPathInfo()
     {
-        return m_URL_PathInfo;
+        return this.pathInfo;
     }
 
     /**
@@ -262,7 +277,7 @@ public class ServletURL
      */
     public String getQueryString()
     {
-        return m_URL_QueryString;
+        return this.queryString;
     }
 
     /**
@@ -272,19 +287,19 @@ public class ServletURL
      */
     public void saveToRequest(ServletTestRequest theRequest)
     {
-        if (m_URL_ServerName != null) {
+        if (getServerName() != null) {
             theRequest.addParameter(URL_SERVER_NAME_PARAM, getServerName());
         }
-        if (m_URL_ContextPath != null) {
+        if (getContextPath() != null) {
             theRequest.addParameter(URL_CONTEXT_PATH_PARAM, getContextPath());
         }
-        if (m_URL_ServletPath != null) {
+        if (getServletPath() != null) {
             theRequest.addParameter(URL_SERVLET_PATH_PARAM, getServletPath());
         }
-        if (m_URL_PathInfo != null) {
+        if (getPathInfo() != null) {
             theRequest.addParameter(URL_PATH_INFO_PARAM, getPathInfo());
         }
-        if (m_URL_QueryString != null) {
+        if (getQueryString() != null) {
             theRequest.addParameter(URL_QUERY_STRING_PARAM, getQueryString());
         }
     }
@@ -297,28 +312,37 @@ public class ServletURL
      */
     public static ServletURL loadFromRequest(HttpServletRequest theRequest)
     {
-        m_Logger.entry("loadFromRequest(...)");
+        logger.entry("loadFromRequest(...)");
 
         String serverName = theRequest.getParameter(URL_SERVER_NAME_PARAM);
-        m_Logger.debug("serverName = [" + serverName + "]");
-
         String contextPath = theRequest.getParameter(URL_CONTEXT_PATH_PARAM);
-        m_Logger.debug("contextPath = [" + contextPath + "]");
-
         String servletPath = theRequest.getParameter(URL_SERVLET_PATH_PARAM);
-        m_Logger.debug("servletPath = [" + servletPath + "]");
-
         String pathInfo = theRequest.getParameter(URL_PATH_INFO_PARAM);
-        m_Logger.debug("pathInfo = [" + pathInfo + "]");
-
         String queryString = theRequest.getParameter(URL_QUERY_STRING_PARAM);
-        m_Logger.debug("queryString = [" + queryString + "]");
 
         ServletURL url = new ServletURL(serverName, contextPath, 
             servletPath, pathInfo, queryString);
 
-        m_Logger.entry("loadFromRequest(...)");
+        logger.debug("URL = [" + url + "]");
+
+        logger.entry("loadFromRequest(...)");
         return url;
+    }
+
+    /**
+     * @return a string representation
+     */
+    public String toString()
+    {
+        StringBuffer buffer = new StringBuffer();
+        buffer.append("host name = [" + getHost() + "], ");
+        buffer.append("port = [" + getPort() + "], ");
+        buffer.append("context path = [" + getContextPath() + "], ");
+        buffer.append("servlet path = [" + getServletPath() + "], ");
+        buffer.append("path info = [" + getPathInfo() + "], ");
+        buffer.append("query string = [" + getQueryString() + "]");
+
+        return buffer.toString();
     }
 
 }

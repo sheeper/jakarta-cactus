@@ -70,7 +70,9 @@ import org.apache.commons.cactus.util.*;
  * <code>FilterTestCase</code>, ...) must extend. Provides generally useful
  * methods fro writing a specific test case.
  *
- * @version @version@
+ * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
+ *
+ * @version $Id$
  */
 public abstract class AbstractTestCase extends TestCase
 {
@@ -111,7 +113,7 @@ public abstract class AbstractTestCase extends TestCase
     public AbstractTestCase(String theName)
     {
         super(theName);
-        currentTestMethod = name();
+        this.currentTestMethod = name();
     }
 
     /**
@@ -155,7 +157,8 @@ public abstract class AbstractTestCase extends TestCase
      * @param theRequest the <code>ServletTestRequest</code> object to
      *                   pass to the begin method.
      */
-    protected void callBeginMethod(ServletTestRequest theRequest) throws Throwable
+    protected void callBeginMethod(ServletTestRequest theRequest)
+        throws Throwable
     {
         // First, verify if a begin method exist. If one is found, verify if
         // it has the correct signature. If not, send a warning.
@@ -283,7 +286,7 @@ public abstract class AbstractTestCase extends TestCase
                 // Has a method to call already been found ?
                 if (methodToCall != null) {
                     fail("There can only be one end method per test case. " +
-                        "Test case [" + currentTestMethod +
+                        "Test case [" + this.currentTestMethod +
                          "] has two at least !");
                 }
 
@@ -354,7 +357,8 @@ public abstract class AbstractTestCase extends TestCase
         // on the client side.
         if (!LogService.getInstance().isInitialized()) {
             LogService.getInstance().init("/log_client.properties");
-            logger = LogService.getInstance().getLog(this.getClass().getName());
+            this.logger =
+                LogService.getInstance().getLog(this.getClass().getName());
         }
 
         runTest();
@@ -393,14 +397,16 @@ public abstract class AbstractTestCase extends TestCase
 			// methods. getDeclaredMethods returns all
 			// methods of this class but excludes the
 			// inherited ones.
-			runMethod = getClass().getMethod(currentTestMethod, new Class[0]);
+			runMethod = getClass().getMethod(this.currentTestMethod,
+                new Class[0]);
+
 		} catch (NoSuchMethodException e) {
-            fail("Method [" + currentTestMethod +
+            fail("Method [" + this.currentTestMethod +
                 "()] does not exist for class [" + 
                 this.getClass().getName() + "].");
 		}
 		if (runMethod != null && !Modifier.isPublic(runMethod.getModifiers())) {
-			fail("Method [" + currentTestMethod + "()] should be public");
+			fail("Method [" + this.currentTestMethod + "()] should be public");
 		}
 
 		try {

@@ -56,28 +56,35 @@ package org.apache.commons.cactus;
 /**
  * Constants that define HTTP parameters required for defining a service that
  * is performed by the <code>ServletTestRedirector</code> servlet.
+ *
+ * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
+ *
+ * @version $Id$
  */
 public class ServiceDefinition
 {
     /**
      * Name of the parameter in the HTTP request that represents the name of the
-     * Test class to call. The name is voluntarily long so that it will not clash
-     * with a user-defined parameter.
+     * Test class to call. The name is voluntarily long so that it will not
+     * clash with a user-defined parameter.
      */
-    public final static String CLASS_NAME_PARAM = "ServletTestRedirector_TestClass";
+    public final static String CLASS_NAME_PARAM =
+        "ServletTestRedirector_TestClass";
 
     /**
      * Name of the parameter in the HTTP request that represents the name of the
-     * Test method to call. The name is voluntarily long so that it will not clash
-     * with a user-defined parameter.
+     * Test method to call. The name is voluntarily long so that it will not
+     * clash with a user-defined parameter.
      */
-    public final static String METHOD_NAME_PARAM = "ServletTestRedirector_TestMethod";
+    public final static String METHOD_NAME_PARAM =
+        "ServletTestRedirector_TestMethod";
 
     /**
      * Name of the parameter in the HTTP request that specify if a session
      * should be automatically created for the user or not.
      */
-    public final static String AUTOSESSION_NAME_PARAM = "ServletTestRedirector_AutomaticSession";
+    public final static String AUTOSESSION_NAME_PARAM =
+        "ServletTestRedirector_AutomaticSession";
 
     /**
      * Name of the parameter in the HTTP request that specify the service asked
@@ -87,6 +94,7 @@ public class ServiceDefinition
      *
      * @see ServiceEnumeration
      */
-    public final static String SERVICE_NAME_PARAM = "ServletTestRedirector_Service";
+    public final static String SERVICE_NAME_PARAM =
+        "ServletTestRedirector_Service";
 
 }

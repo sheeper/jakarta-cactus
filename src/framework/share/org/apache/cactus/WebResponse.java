@@ -66,14 +66,16 @@ import org.apache.commons.cactus.util.*;
  * complex assertions, use an <code>com.meterware.httpunit.WebResponse</code>
  * instead as parameter of your <code>endXXX()</code> methods.
  *
- * @version @version@
+ * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
+ *
+ * @version $Id$
  */
 public class WebResponse
 {
     /**
      * The connection object that was used to call the URL
      */
-    private HttpURLConnection m_Connection;
+    private HttpURLConnection connection;
 
     /**
      * @param theConnection the original <code>HttpURLConnection</code> used
@@ -81,7 +83,7 @@ public class WebResponse
      */
     public WebResponse(HttpURLConnection theConnection)
     {
-        m_Connection = theConnection;
+        this.connection = theConnection;
     }
 
     /**
@@ -90,7 +92,7 @@ public class WebResponse
      */
     public HttpURLConnection getConnection()
     {
-        return m_Connection;
+        return this.connection;
     }
 
     /**
@@ -102,7 +104,7 @@ public class WebResponse
 
         try {
             BufferedReader input = new BufferedReader(
-                new InputStreamReader(m_Connection.getInputStream()));
+                new InputStreamReader(this.connection.getInputStream()));
             char[] buffer = new char[2048];
             int nb;
             while (-1 != (nb = input.read(buffer, 0, 2048))) {
@@ -126,7 +128,7 @@ public class WebResponse
 
         try {
             BufferedReader input = new BufferedReader(
-                new InputStreamReader(m_Connection.getInputStream()));
+                new InputStreamReader(this.connection.getInputStream()));
             String str;
             while (null != (str = input.readLine())) {
                 lines.addElement(str);
@@ -148,7 +150,7 @@ public class WebResponse
     public InputStream getInputStream()
     {
         try {
-            return m_Connection.getInputStream();
+            return this.connection.getInputStream();
         } catch (IOException e) {
             throw new ChainedRuntimeException(e);
         }
@@ -180,8 +182,8 @@ public class WebResponse
 
         // There can be several headers named "Set-Cookie", so loop through all
         // the headers, looking for cookies
-        String headerName = m_Connection.getHeaderFieldKey(0);
-        String headerValue = m_Connection.getHeaderField(0);
+        String headerName = this.connection.getHeaderFieldKey(0);
+        String headerValue = this.connection.getHeaderField(0);
         for (int i = 1; (headerName != null) || (headerValue != null); i++) {
 
             if ((headerName != null) && headerName.equals("Set-Cookie")) {
@@ -196,7 +198,8 @@ public class WebResponse
                 // Check if the cookie name already exist in the hashtable.
                 // If so, then add it to the vector of cookies for that name.
 
-                String name = ((ClientCookie)clientCookies.elementAt(0)).getName();
+                String name =
+                    ((ClientCookie)clientCookies.elementAt(0)).getName();
 
                 if (cookies.containsKey(name)) {
                     Vector cookieValues = (Vector)cookies.get(name);
@@ -208,8 +211,8 @@ public class WebResponse
                 }
             }
 
-            headerName = m_Connection.getHeaderFieldKey(i);
-            headerValue = m_Connection.getHeaderField(i);
+            headerName = this.connection.getHeaderFieldKey(i);
+            headerValue = this.connection.getHeaderField(i);
 
         }
 
@@ -307,6 +310,5 @@ public class WebResponse
 
         return cookies;
     }
-
 
 }

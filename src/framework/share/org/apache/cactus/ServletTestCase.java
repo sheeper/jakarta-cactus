@@ -68,14 +68,16 @@ import org.apache.commons.cactus.server.*;
  * the HTTP request, the HTTP response, the servlet config, ...) must subclass
  * this class.
  *
- * @version @version@
+ * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
+ *
+ * @version $Id$
  */
 public class ServletTestCase extends AbstractTestCase
 {
     /**
      * Valid <code>HttpServletRequest</code> object that you can access from
-     * the <code>testXXX()</code>, <code>setUp</code> and <code>tearDown()</code>
-     * methods. If you try to access it from either the
+     * the <code>testXXX()</code>, <code>setUp</code> and
+     * <code>tearDown()</code> methods. If you try to access it from either the
      * <code>beginXXX()</code> or <code>endXXX()</code> methods it will
      * have the <code>null</code> value.
      */
@@ -83,8 +85,8 @@ public class ServletTestCase extends AbstractTestCase
 
     /**
      * Valid <code>HttpServletResponse</code> object that you can access from
-     * the <code>testXXX()</code>, <code>setUp</code> and <code>tearDown()</code>
-     * methods. If you try to access it from either the
+     * the <code>testXXX()</code>, <code>setUp</code> and
+     * <code>tearDown()</code> methods. If you try to access it from either the
      * <code>beginXXX()</code> or <code>endXXX()</code> methods it will
      * have the <code>null</code> value.
      */
@@ -92,8 +94,8 @@ public class ServletTestCase extends AbstractTestCase
 
     /**
      * Valid <code>HttpSession</code> object that you can access from
-     * the <code>testXXX()</code>, <code>setUp</code> and <code>tearDown()</code>
-     * methods. If you try to access it from either the
+     * the <code>testXXX()</code>, <code>setUp</code> and
+     * <code>tearDown()</code> methods. If you try to access it from either the
      * <code>beginXXX()</code> or <code>endXXX()</code> methods it will
      * have the <code>null</code> value.
      */
@@ -101,8 +103,8 @@ public class ServletTestCase extends AbstractTestCase
 
     /**
      * Valid <code>ServletConfig</code> object that you can access from
-     * the <code>testXXX()</code>, <code>setUp</code> and <code>tearDown()</code>
-     * methods. If you try to access it from either the
+     * the <code>testXXX()</code>, <code>setUp</code> and
+     * <code>tearDown()</code> methods. If you try to access it from either the
      * <code>beginXXX()</code> or <code>endXXX()</code> methods it will
      * have the <code>null</code> value.
      */
@@ -128,12 +130,21 @@ public class ServletTestCase extends AbstractTestCase
         runGenericTest(new ServletHttpClient());
     }
 
-    protected void runGenericTest(AbstractHttpClient theHttpClient) throws Throwable
+    /**
+     * Execute the test case begin method, then connect to the server proxy
+     * redirector (where the test case test method is executed) and then
+     * executes the test case end method.
+     *
+     * @param theHttpClient the HTTP client class to use to connect to the
+     *                      proxy redirector.
+     */
+    protected void runGenericTest(AbstractHttpClient theHttpClient)
+        throws Throwable
     {
-        logger.entry("runGenericTest(...)");
+        this.logger.entry("runGenericTest(...)");
 
         // Log the test name
-        logger.debug("Test case = " + currentTestMethod);
+        this.logger.debug("Test case = " + currentTestMethod);
 
         // Call the begin method to fill the request object
         ServletTestRequest request = new ServletTestRequest();
@@ -165,7 +176,7 @@ public class ServletTestCase extends AbstractTestCase
         connection.getInputStream().close();
         //connection.disconnect();
 
-        logger.exit("runGenericTest");
+        this.logger.exit("runGenericTest");
      }
 	
 }

@@ -77,14 +77,16 @@ import java.util.*;
  *       use a POST or GET method. Default is POST</li>
  * </ul>
  *
- * @version @version@
+ * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
+ *
+ * @version $Id$
  */
 public class WebRequest
 {
     /**
      * The request parameters.
      */
-    private Hashtable m_Parameters = new Hashtable();
+    private Hashtable parameters = new Hashtable();
 
     /**
      * GET Method identifier.
@@ -99,27 +101,27 @@ public class WebRequest
     /**
      * The Cookies
      */
-    private Hashtable m_Cookies = new Hashtable();
+    private Hashtable cookies = new Hashtable();
 
     /**
      * HTTP Headers.
      */
-    private Hashtable m_Headers = new Hashtable();
+    private Hashtable headers = new Hashtable();
 
     /**
      * The URL to simulate
      */
-    private ServletURL m_URL;
+    private ServletURL url;
 
     /**
      * Automatic session creation flag (default is true).
      */
-    private boolean m_isAutomaticSession = true;
+    private boolean isAutomaticSession = true;
 
     /**
      * The chosen method for posting data (GET or POST)
      */
-    private String m_Method = POST_METHOD;
+    private String method = POST_METHOD;
 
     /**
      * @param theMethod the method to use to post data (GET or POST)
@@ -127,9 +129,9 @@ public class WebRequest
     public void setMethod(String theMethod)
     {
         if (theMethod.equalsIgnoreCase(GET_METHOD)) {
-            m_Method = GET_METHOD;
+            this.method = GET_METHOD;
         } else if (theMethod.equalsIgnoreCase(POST_METHOD)) {
-            m_Method = POST_METHOD;
+            this.method = POST_METHOD;
         }
     }
 
@@ -138,16 +140,16 @@ public class WebRequest
      */
     public String getMethod()
     {
-        return m_Method;
+        return this.method;
     }
 
     /**
-     * @param isAutomaticSession whether the redirector servlet will automatically
-     *        create the HTTP session or not. Default is true.
+     * @param isAutomaticSession whether the redirector servlet will
+     *        automatically create the HTTP session or not. Default is true.
      */
     public void setAutomaticSession(boolean isAutomaticSession)
     {
-        m_isAutomaticSession = isAutomaticSession;
+        this.isAutomaticSession = isAutomaticSession;
     }
 
     /**
@@ -156,7 +158,7 @@ public class WebRequest
      */
     public boolean getAutomaticSession()
     {
-        return m_isAutomaticSession;
+        return this.isAutomaticSession;
     }
 
     /**
@@ -166,15 +168,18 @@ public class WebRequest
      * requestURI = contextPath + servletPath + pathInfo
      * </b></pre></code>
      * From the Servlet 2.2 specification :<br>
-     * <code><pre><ul><li><b>Context Path</b>: The path prefix associated with the
+     * <code><pre><ul>
+     * <li><b>Context Path</b>: The path prefix associated with the
      *   ServletContext that this servlet is a part of. If this context is the
-     *   default context rooted at the base of the web server's URL namespace, this
-     *   path will be an empty string. Otherwise, this path starts with a character
-     *   but does not end with a character.</li>
-     *   <li><b>Servlet Path</b>: The path section that directly corresponds to the
-     *   mapping which activated this request. This path starts with a character.</li>
-     *   <li><b>PathInfo</b>: The part of the request path that is not part of the
-     *   Context Path or the Servlet Path.</li></ul></pre></code>
+     *   default context rooted at the base of the web server's URL namespace,
+     *   this path will be an empty string. Otherwise, this path starts with a
+     *   character but does not end with a character.</li>
+     * <li><b>Servlet Path</b>: The path section that directly corresponds to
+     *   the mapping which activated this request. This path starts with a
+     *   character.</li>
+     * <li><b>PathInfo</b>: The part of the request path that is not part of the
+     *   Context Path or the Servlet Path.</li>
+     * </ul></pre></code>
      *
      * @param theServerName the server name (and port) in the URL to simulate,
      *                      i.e. this is the name that will be returned by the
@@ -201,7 +206,7 @@ public class WebRequest
     public void setURL(String theServerName, String theContextPath,
         String theServletPath, String thePathInfo, String theQueryString)
     {
-        m_URL = new ServletURL(theServerName, theContextPath,
+        this.url = new ServletURL(theServerName, theContextPath,
             theServletPath, thePathInfo, theQueryString);
 
         // Now automatically add all HTTP parameters to the list of passed
@@ -214,12 +219,13 @@ public class WebRequest
      */
     public ServletURL getURL()
     {
-        return m_URL;
+        return this.url;
     }
 
     /**
      * Adds a parameter to the request. It is possible to add several times the
-     * the same parameter name (the same as for the <code>HttpServletRequest</code>).
+     * the same parameter name (the same as for the
+     * <code>HttpServletRequest</code>).
      *
      * @param theName  the parameter's name
      * @param theValue the parameter's value
@@ -230,13 +236,13 @@ public class WebRequest
         // new value to the Vector. If not, create a Vector an add it to the
         // hashtable
 
-        if (m_Parameters.containsKey(theName)) {
-            Vector v = (Vector)m_Parameters.get(theName);
+        if (this.parameters.containsKey(theName)) {
+            Vector v = (Vector)this.parameters.get(theName);
             v.addElement(theValue);
         } else {
             Vector v = new Vector();
             v.addElement(theValue);
-            m_Parameters.put(theName, v);
+            this.parameters.put(theName, v);
         }
     }
 
@@ -245,15 +251,15 @@ public class WebRequest
      */
     public Enumeration getParameterNames()
     {
-        return m_Parameters.keys();
+        return this.parameters.keys();
     }
 
     /**
      * Returns the first value corresponding to this parameter's name.
      *
      * @param  theName the parameter's name
-     * @return the first value corresponding to this parameter's name or null if not
-     *         found
+     * @return the first value corresponding to this parameter's name or null
+     *         if not found
      */
     public String getParameter(String theName)
     {
@@ -275,9 +281,9 @@ public class WebRequest
      */
     public String[] getParameterValues(String theName)
     {
-        if (m_Parameters.containsKey(theName)) {
+        if (this.parameters.containsKey(theName)) {
 
-            Vector v = (Vector)m_Parameters.get(theName);
+            Vector v = (Vector)this.parameters.get(theName);
 
             Object[] objs = new Object[v.size()];
             v.copyInto(objs);
@@ -301,7 +307,7 @@ public class WebRequest
      */
     public void addCookie(String theName, String theValue)
     {
-        m_Cookies.put(theName, theValue);
+        this.cookies.put(theName, theValue);
     }
 
     /**
@@ -309,7 +315,7 @@ public class WebRequest
      */
     public Enumeration getCookieNames()
     {
-        return m_Cookies.keys();
+        return this.cookies.keys();
     }
 
     /**
@@ -319,7 +325,7 @@ public class WebRequest
      */
     public String getCookieValue(String theName)
     {
-        return (String)m_Cookies.get(theName);
+        return (String)this.cookies.get(theName);
     }
 
     /**
@@ -335,13 +341,13 @@ public class WebRequest
         // new header to the Vector. If not, create a Vector an add it to the
         // hashtable
 
-        if (m_Headers.containsKey(theName)) {
-            Vector v = (Vector)m_Headers.get(theName);
+        if (this.headers.containsKey(theName)) {
+            Vector v = (Vector)this.headers.get(theName);
             v.addElement(theValue);
         } else {
             Vector v = new Vector();
             v.addElement(theValue);
-            m_Headers.put(theName, v);
+            this.headers.put(theName, v);
         }
     }
 
@@ -350,15 +356,15 @@ public class WebRequest
      */
     public Enumeration getHeaderNames()
     {
-        return m_Headers.keys();
+        return this.headers.keys();
     }
 
     /**
      * Returns the first value corresponding to this header's name.
      *
      * @param  theName the header's name
-     * @return the first value corresponding to this header's name or null if not
-     *         found
+     * @return the first value corresponding to this header's name or null if
+     *         not found
      */
     public String getHeader(String theName)
     {
@@ -380,9 +386,9 @@ public class WebRequest
      */
     public String[] getHeaderValues(String theName)
     {
-        if (m_Headers.containsKey(theName)) {
+        if (this.headers.containsKey(theName)) {
 
-            Vector v = (Vector)m_Headers.get(theName);
+            Vector v = (Vector)this.headers.get(theName);
 
             Object[] objs = new Object[v.size()];
             v.copyInto(objs);
@@ -428,6 +434,66 @@ public class WebRequest
                     theQueryString + "] NameValue pair: [" + nameValue + "]");
             }
         }
+    }
+
+    /**
+     * @return a string representation of the request
+     */
+    public String toString()
+    {
+        StringBuffer buffer = new StringBuffer();
+        buffer.append("simulation URL = [" + getURL() + "], ");
+        buffer.append("automatic session = [" + getAutomaticSession() + "], ");
+
+        // Append cookies
+        buffer.append("cookies = [");
+        Enumeration cookies = getCookieNames();
+        while (cookies.hasMoreElements()) {
+            buffer.append("[");
+            String cookieName = (String)cookies.nextElement();
+            String cookieValue = getCookieValue(cookieName);
+            buffer.append("[" + cookieName + "] = [" + cookieValue + "]");
+            buffer.append("]");
+        }
+        buffer.append("], ");
+
+        // Append headers
+        buffer.append("headers = [");
+        Enumeration headers = getHeaderNames();
+        while (headers.hasMoreElements()) {
+            buffer.append("[");
+            String headerName = (String)headers.nextElement();
+            String[] headerValues = getHeaderValues(headerName);
+            buffer.append("[" + headerName + "] = [");
+            for (int i = 0; i < headerValues.length - 1; i++) {
+                buffer.append("[" + headerValues[i] + "], ");
+            }
+            buffer.append("[" + headerValues[headerValues.length - 1] + "]]");
+            buffer.append("]");
+        }
+        buffer.append("], ");
+
+        buffer.append("method = [" + getMethod() + "], ");
+
+
+        // Append parameters
+        buffer.append("parameters = [");
+        Enumeration parameters = getParameterNames();
+        while (parameters.hasMoreElements()) {
+            buffer.append("[");
+            String parameterName = (String)parameters.nextElement();
+            String[] parameterValues = getParameterValues(parameterName);
+            buffer.append("[" + parameterName + "] = [");
+            for (int i = 0; i < parameterValues.length - 1; i++) {
+                buffer.append("[" + parameterValues[i] + "], ");
+            }
+            buffer.append("[" + parameterValues[parameterValues.length - 1] +
+                "]]");
+            buffer.append("]");
+        }
+        buffer.append("]");
+
+        return buffer.toString();
     }
 
 }

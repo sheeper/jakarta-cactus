@@ -62,14 +62,16 @@ import org.apache.commons.cactus.client.*;
  * page context, the output jsp writer, the HTTP request, ...) must subclass
  * this class.
  *
- * @version @version@
+ * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
+ *
+ * @version $Id$
  */
 public class JspTestCase extends ServletTestCase
 {
     /**
      * Valid <code>PageContext</code> object that you can access from
-     * the <code>testXXX()</code>, <code>setUp</code> and <code>tearDown()</code>
-     * methods. If you try to access it from either the
+     * the <code>testXXX()</code>, <code>setUp</code> and
+     * <code>tearDown()</code> methods. If you try to access it from either the
      * <code>beginXXX()</code> or <code>endXXX()</code> methods it will
      * have the <code>null</code> value.
      */
@@ -77,8 +79,8 @@ public class JspTestCase extends ServletTestCase
 
     /**
      * Valid <code>JspWriter</code> object that you can access from
-     * the <code>testXXX()</code>, <code>setUp</code> and <code>tearDown()</code>
-     * methods. If you try to access it from either the
+     * the <code>testXXX()</code>, <code>setUp</code> and
+     * <code>tearDown()</code> methods. If you try to access it from either the
      * <code>beginXXX()</code> or <code>endXXX()</code> methods it will
      * have the <code>null</code> value.
      */
