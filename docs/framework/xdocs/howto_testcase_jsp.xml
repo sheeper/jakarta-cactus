@@ -235,6 +235,14 @@
           See <jump anchor="using_body_content">Body Tags</jump> 
           for more information.
         </p>
+            <note>
+                It's important to balance 
+                calls to <code>pushBody()</code> with calls to 
+                <code>popBody()</code>--otherwise many servlet engines will not
+                output the tag's body. The easiest way to accomplish this is to
+                call pushBody in <code>setUp()</code> and <code>popBody()</code>
+                in <code>tearDown()</code>.
+            </note>
         
       </s2>
     </s1>
@@ -306,7 +314,10 @@ someTag.setBar("11");
             <p>
                 If your tag processes its body, call 
                 <code>pageContext.pushBody()</code> 
-                to obtain a <code>BodyContent</code>. See the 
+                to obtain a <code>BodyContent</code>. If you employ this step,
+                be sure to also include a call to 
+                <code>pageContext.popBody()</code> after the tag finishes 
+                execution. See the 
                 <jump anchor="using_body_content">Body Tags</jump> section
                 for more details.
             </p>
@@ -454,7 +465,9 @@ assertEquals(9, count);
                 response writing that goes on in the body of the tag. After the 
                 tag's body has been evaluated, the tag itself has a chance to 
                 do something with the result of the evaluation in it's 
-                <code>doAfterBody()</code> method.
+                <code>doAfterBody()</code> method. After the tag has completed 
+                its execution, the container restores the old out object with
+                a call to <code>pageContext.popBody()</code>.
             </p>
             <p>
                 To test body tags, your test must replicate this somewhat   
@@ -470,8 +483,9 @@ tag.doStartTag();
 //obtain the bodyContent object--presumably doStartTag has returned 
 //EVAL_BODY_TAG or EVAL_BODY_BUFFERED.
 BodyContent bodyContent = this.pageContext.pushBody();
-tag.setBodyContent(bodyContent);
-tag.doInitBody();
+this.tag.setBodyContent(bodyContent);
+this.tag.doInitBody();
+
 
 //write some "output" into the bodyContent so that endXXX can test for it.
 bodyContent.println("Some content");
@@ -482,6 +496,10 @@ tag.doAfterBody();
 
 //after the body processing completes
 tag.doEndTag();
+
+//finally call popBody
+this.pageContext.popBody();
+
 ]]></source>
             <p>
                 This sample does not fully replicate the container's handling of
@@ -489,14 +507,7 @@ tag.doEndTag();
                 <code>bodyContent</code> object if the result of 
                 <code>doStartTag</code> indicated that it should do so). 
                 However, in a test environment, you can make assumptions if 
-                doing so simplifies the workings of the test. (You happen to 
-                know that in this case <code>doStartTag</code> will always return 
-                <code>EVAL_BODY_BUFFERED</code>). Similarly, this example omits what
-                for the container would be an obligatory call to 
-                <code>pageContext.popBody()</code>. The container calls this 
-                method so that other tags do not reuse the <code>bodyContent</code>
-                object used for this tag. If your test uses only a single tag, 
-                you can skip this step.
+                doing so simplifies the workings of the test.
             </p>
             <note>
                 Again, you can check that the body of the tag was handled
