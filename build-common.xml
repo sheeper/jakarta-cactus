@@ -158,11 +158,6 @@
     -->
     <target name="init.properties.artifact">
 
-        <!-- The location of the Cactus Ant tasks jar -->
-        <property name="cactus.anttasks.jar.name" value="cactus-anttasks"/>
-        <property name="cactus.anttasks.jar"
-            location="anttasks/dist/lib/${cactus.anttasks.jar.name}.jar"/>
-
 	    <!-- The location of the Cactus framework jar -->
         <property name="cactus.jar.name"
             value="cactus-${project.version}"/>

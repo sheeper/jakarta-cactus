@@ -43,9 +43,6 @@
     -->
     <target name="dist">
 
-        <ant antfile="anttasks/build.xml" inheritAll="false" 
-            target="dist"/>
-
         <ant antfile="framework/build.xml" inheritAll="false" 
             target="dist">
             <property name="j2ee.jar" value="${j2ee.12.jar}"/> 
@@ -96,11 +93,11 @@
             <property name="clover.enable" value="true"/> 
         </ant>
         
-        <ant antfile="samples/jetty/build.xml" inheritAll="false" 
+        <!-- ant antfile="samples/jetty/build.xml" inheritAll="false" 
             target="dist">
             <property name="j2ee.jar" value="${j2ee.13.jar}"/> 
             <property name="clover.enable" value="true"/> 
-        </ant>
+        </ant -->
         
         <ant antfile="documentation/build.xml" inheritAll="false" 
             target="dist">
