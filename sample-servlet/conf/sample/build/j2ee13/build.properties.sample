@@ -29,7 +29,7 @@ servlet.jar = ../lib/servletapi-2.3.jar
 aspectjrt.jar = ../lib/aspectjrt-1.0.6.jar
 
 # The location of the Commons Logging jar
-commons.logging.jar = ../lib/commons-logging-1.0.1jar
+commons.logging.jar = ../lib/commons-logging-1.0.1.jar
 
 # The location of the log4j jar (optional). Only needed if you want Cactus to
 # generate logs
