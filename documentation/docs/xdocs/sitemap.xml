@@ -78,9 +78,6 @@
   <resource id="logos_img_vgritsenko2" target="images/logos/vgritsenko2.jpg"/>
   <resource id="resources" target="resources.html"/>
   <resource id="coverage" target="participating/coverage.html"/>
-  <resource id="coverage_12" target="participating/coverage_12.html"/>
-  <resource id="coverage_13" target="participating/coverage_13.html"/>
-  <resource id="coverage_empty" target="participating/coverage_empty.html"/>
   <resource id="webalizer" target="webalizer.html"/>
   <resource id="coding_conventions" target="participating/coding_conventions.html"/>
   <resource id="build_result" target="build_result.html"/>
