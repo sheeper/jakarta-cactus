@@ -30,7 +30,7 @@ aspectjrt.jar = ../lib/aspectjrt-1.0.4.jar
 
 # The location of the log4j jar (optional). Only needed if you want Cactus to
 # generate logs
-log4j.jar = ../lib/log4j-1.2.3.jar
+log4j.jar = ../lib/log4j-1.2.5.jar
 
 # The location of the Commons Httpclient jar
 commons.httpclient.jar = ../lib/commons-httpclient-2.0alpha1-20020606.jar
