@@ -249,6 +249,7 @@
   
     <depend project="ant" inherit="runtime"/>
     <depend project="xml-xerces"/>
+    <option project="checkstyle" inherit="runtime"/>
 
     <home nested="integration/eclipse/org.apache.cactus.eclipse.webapp/dist"/>
     <jar name="bin/cactus-integration-eclipse-webapp/webapp.jar"/>
@@ -297,6 +298,7 @@
   
     <depend project="ant" inherit="runtime"/>
     <depend project="xml-xerces"/>
+    <option project="checkstyle" inherit="runtime"/>
     <depend project="jakarta-cactus-integration-ant-12"/>
     <depend project="jakarta-cactus-integration-eclipse-webapp"/>
     
@@ -347,6 +349,7 @@
     
     <depend project="ant" inherit="runtime"/>
     <depend project="xml-xerces"/>
+    <option project="checkstyle" inherit="runtime"/>
     <depend project="jakarta-cactus-integration-ant-13"/>
     <depend project="jakarta-cactus-integration-eclipse-webapp"/>
 
