@@ -23,9 +23,10 @@
         page, for a description of the different kinds of unit tests).
       </note>
       <note>
-        EJB unit testing is done by calling the EJB to unit test as you
-        would if you were writing code to call an EJB from a servlet (See
+        EJB unit testing is currently done by calling the EJB to unit test as 
+        you would if you were writing code to call an EJB from a servlet (See
         the <link href="site:howto_ejb">EJB Howto</link> page for more details).
+        We are working on providing an EJB Redirector.
       </note>
 
     </section>
