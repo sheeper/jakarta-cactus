@@ -87,7 +87,7 @@
     <property name="project.name.prefix" value="jakarta-"/>
 
     <!-- Miscellaneous settings -->
-    <property name="year" value="2000-2001"/>
+    <property name="year" value="2001-2002"/>
     <property name="debug" value="on"/>
     <property name="optimize" value="off"/>
     <property name="deprecation" value="off"/>
