@@ -36,15 +36,11 @@
         Add a tutorial that explains how to unit test EJBs in the current
         version of Cactus.
       </action>
-      <action assigned-to="Nicholas Lesiecki">
-        Write a tutorial that explains how to unit test Tag libraries.
-      </action>
     </category>
 
     <category title="Design/Code">
-      <action assigned-to="Jari Worsley, Nicholas Lesiecki">
-        Continue support for JSP Taglib. Possibly add some heper classes to
-        help implement unit test for taglibs.
+      <action assigned-to="Nicholas Lesiecki">
+        Provide some sample taglib tests.
       </action>
     </category>
 
@@ -132,6 +128,13 @@
         Cactus reconfigure Log4j at init and thus will invalidate the
         configuration of a Cactus user or that user will have to add
         the Log4j configuration for Cactus in its own config file.
+      </action>
+      <action assigned-to="Hudson Wong, Vincent Massol">
+        Add an EJB sample application to demonstrate how to perform EJB
+        unit testing (the tutorial that explains the process will be part
+        of Cactus 1.2 but the inclusion of the sample will be delivered
+        in a subsequent release as it involves some changes in the build
+        process).
       </action>
     </category>
 
