@@ -204,13 +204,10 @@ public abstract class AbstractCactusTestCase extends TestCase
     }
 
     /**
-     * Runs the bare test (either on the client side or on the server side). 
-     * This method is overridden from the JUnit 
-     * {@link TestCase} class in order to prevent the latter to immediatly
-     * call the <code>setUp()</code> and <code>tearDown()</code> methods 
-     * which, in our case, need to be executed on the server side.
+     * JUnit method that is used to run the tests. However, we're intercepting
+     * it so that we can call the server side of Cactus where the tests will
+     * be run (instead of on the client side).
      *
-     * @todo change the comment
      * @exception Throwable if any exception is thrown during the test. Any
      *            exception will be displayed by the JUnit Test Runner
      */
@@ -218,7 +215,12 @@ public abstract class AbstractCactusTestCase extends TestCase
     {
         runBareClient();
     }
-    
+
+    /**
+     * Introduced for symmetry with {@link #runBareServer()}.
+     * 
+     * @see #runBare()
+     */
     private void runBareClient() throws Throwable
     {    
         getClientDelegate().runBareInit();            
