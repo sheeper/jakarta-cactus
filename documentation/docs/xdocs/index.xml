@@ -36,6 +36,7 @@
             <area shape="circle" href="ext:maven_cactus" coords="390,200,35"/>
             <area shape="circle" href="ext:strutstestcase" coords="375,260,35"/>
             <area shape="circle" href="ext:junitee" coords="320,305,35"/>
+            <area shape="circle" href="ext:jenerator" coords="370,140,35"/>
           </map>            	
          
         </figure>
