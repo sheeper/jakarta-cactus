@@ -13,33 +13,12 @@
 
     <section title="What containers has Cactus been tested on?">
 
-      <ul>
-        <li>
-          <jump anchor="tested_on">Tested on ...</jump>
-        </li>
-        <li>
-          <jump anchor="fails_on">Fails on ...</jump>
-        </li>
-      </ul>
-
-    </section>
-
-    <anchor id="tested_on"/>
-    <section title="Tested on ...">
-
       <note>
         Cactus is supposed to work on any J2EE 1.2 and 1.3 compliant servers.
         However, we have found in the past that some containers were displaying
-        some weird behaviours (and that there were also bugs in Cactus that
-        were making it non 100% spec-compliant - we have corrected all of these
-        and are not aware of any problem at this time).
+        some weird behaviours. Hence this page...
       </note>
 
-      <p>
-        This page shows the different versions of servers that have been
-        reported to work fine with Cactus. By working we mean that the Cactus
-        sample application ran fine.
-      </p>
       <p>
         If you have tested Cactus on a configuration that is not listed
         below, please send an email to the
@@ -57,14 +36,8 @@
           </tr>
           <tr>
             <td>Resin</td>
-            <td>2.1.4, 2.1.8, 2.1.9</td>
+            <td>2.1.4, 2.1.6, 2.1.8, 2.1.9, 2.1.10</td>
             <td>1.2, 1.3</td>
-            <td/>
-          </tr>
-          <tr>
-            <td>Resin</td>
-            <td>2.1.6, 2.1.10</td>
-            <td>1.3</td>
             <td/>
           </tr>
           <tr>
@@ -75,22 +48,17 @@
           </tr>
           <tr>
             <td>Tomcat</td>
-            <td>4.0.6, 4.1.18, 4.1.24</td>
+            <td>4.0.6, 4.1.18, 4.1.24, 4.1.27</td>
             <td>1.2, 1.3</td>
             <td/>
           </tr>
           <tr>
             <td>Tomcat</td>
-            <td>5.0.2-alpha</td>
-            <td>1.2, 1.3</td>
-            <td/>
-          </tr>
-          <tr>
-            <td>Tomcat</td>
-            <td>5.0.3-alpha</td>
+            <td>5.0.2-alpha, 5.0.3-alpha 5.0.12</td>
             <td>1.2, 1.3</td>
             <td>
-              One test from the Cactus test suite is failing: 
+              With Tomcat 5.0.3-alpha, one test from the Cactus test suite is 
+              failing: 
               <code>testGetRequestDispatcherFromNamedDispatcherOK</code>.
             </td>
           </tr>
@@ -118,7 +86,7 @@
           </tr>
           <tr>
             <td>Weblogic</td>
-            <td>7.0 SP2</td>
+            <td>7.0 SP2, 7.0 SP4</td>
             <td>1.2, 1.3</td>
             <td/>
           </tr>
@@ -189,6 +157,18 @@
             <td>1.2, 1.3</td>
             <td/>
           </tr>
+          <tr>
+            <td>Enhydra</td>
+            <td>3.3.1 b1</td>
+            <td>1.2</td>
+            <td>
+              Enhydra does not seem to support BASIC authentication as defined
+              by the Servlet specifications and thus the Sample tests which use
+              security fail. All other tests run fine and thus if you don't 
+              need to test secure code, you should be fine with 
+              Enhydra 3.3.1 b1.
+            </td>
+          </tr>
         </table>
       </section>
 
@@ -236,38 +216,20 @@
             <td>1.2, 1.3</td>
             <td/>
           </tr>
+          <tr>
+            <td>Enhydra</td>
+            <td>3.3.1 b1</td>
+            <td>1.2</td>
+            <td>
+              Enhydra does not seem to support BASIC authentication as defined
+              by the Servlet specifications and thus the Sample tests which use
+              security fail. All other tests run fine and thus if you don't 
+              need to test secure code, you should be fine with 
+              Enhydra 3.3.1 b1.
+            </td>
+          </tr>
         </table>
       </section>
-
-    </section>
-
-    <anchor id="fails_on"/>
-    <section title="Fails on ...">
-
-      <p>
-        Some containers have some issues which prevent them from running the
-        Cactus sample application tests.
-      </p>
-
-      <table>
-        <tr>
-          <th>Server</th>
-          <th>Versions</th>
-          <th>J2EE APIs</th>
-          <th>Reason</th>
-        </tr>
-        <tr>
-          <td>Enhydra</td>
-          <td>3.3.1 b1</td>
-          <td>1.2</td>
-          <td>
-            Enhydra does not seem to support BASIC authentication as defined
-            by the Servlet specifications and thus the Sample tests which use
-            security fail. All other tests run fine and thus if you don't need
-            to test secure code, you should be fine with Enhydra 3.3.1 b1.
-          </td>
-        </tr>
-      </table>
 
     </section>
 
