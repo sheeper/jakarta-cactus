@@ -1,0 +1,189 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE document SYSTEM "./dtd/document-v10.dtd">
+
+<document>
+  <header>
+    <title>Cactus Architecture</title>
+    <authors>
+      <person name="Vincent Massol" email="vmassol@users.sourceforge.net"/>
+    </authors>
+  </header>
+
+  <body>
+
+    <s1 title="How it works">
+
+      <figure src="images/archi.jpg" alt="Cactus Architecture"/>
+
+      <note>
+        Cactus provides several <code>TestCase</code> classes that extends the
+        JUnit <code>Testcase</code> and it also provides several kind of 
+        redirectors (Servlet Redirector, JSP Redirector, ...). The diagram
+        above is a generic diagram which serves to explain the principles.
+        You'll find details for a specific redirector proxy in the next
+        section.
+      </note>
+      <p>
+        Let's go through the different steps to understand how it works. Here
+        is what happens for each <code>testXXX()</code> method in your
+        test case class (derived from <code>YYYTestCase</code>) :
+      </p>
+      <ol>
+        <li>
+          The JUnit Test Runner calls a <code>YYYTestCase.runTest()</code> 
+          method. This method looks for a 
+          <code>beginXXX(ServletTestRequest)</code> method and executes it if
+          one is found. This is executed on the client side (i.e. not in a 
+          server engine). The <code>ServletTestRequest</code>
+          parameter passed to the <code>beginXXX()</code> method is used
+          to set the HTTP headers, the HTTP parameters, ... that will be
+          sent in step 2 to the Redirector proxy.
+        </li>
+        <li>
+          The <code>YYYTestCase.runTest()</code> method then opens an HTTP
+          connection to the Redirector proxy. All the parameters set up
+          in the <code>beginXXX()</code> method are sent in the HTTP request
+          (HTTP headers, HTTP parameters, ...)
+        </li>
+        <li>
+          The Redirector proxy acts as a proxy on the server side for your 
+          test case class. It means that your test case class is instantiated 
+          twice : once on the client side (by the JUnit Test Runner) and once 
+          on the server side (by the Redirector proxy). The client side 
+          instance is used for executing the
+          <code>beginXXX()</code> and <code>endXXX()</code> methods (see
+          steps 1 and 8) and the server side instance is used for executing
+          the <code>testXXX()</code> methods (see step 4). The Redirector
+          proxy does the following :
+          <ul>
+            <li>
+              creates an instance of your test class using reflection. It
+              then sets specific implicit objects (which are class
+              variables of <code>YYYTestCase</code>). These implicit objects
+              depend on the redirector proxy (see next section).
+            </li>
+            <li>
+              creates instances of Cactus wrappers for some server objects
+              (<code>HttpServletRequest</code>, <code>ServletConfig</code>,
+              <code>ServletContext</code>, ...). This is to be able to
+              to override some methods in order to return simulated values.
+              For example, the Cactus framework can simulate an URI (i.e.
+              act as if this URI was called instead of the Redirector proxy
+              URI). Thus, the <code>getServerName()</code>, 
+              <code>getServerPort()</code>,
+              <code>getRequestURI()</code>, ... methods return values based
+              on the simulated URI (if there is any defined by the user).
+            </li>
+            <li>
+              creates an HTTP Session if the user has expressed the wish
+              (using the 
+              <code>ServletTestRequest.setAutomaticSession(boolean)</code>
+              code in the <code>beginXXX()</code> method. By default a session
+              is always created) and the redirector fills by reflection the
+              <code>session</code> implicit object.
+            </li>
+          </ul>
+        </li>
+        <li>
+          The <code>setUp()</code>, <code>testXXX()</code> 
+          and <code>tearDown()</code> methods of your test class are executed 
+          (in that order). They are called by the Redirector proxy using 
+          reflection. Of course, <code>setUp()</code> and 
+          <code>tearDown()</code> are optional (same as in JUnit).
+        </li>
+        <li>
+          Your <code>testXXX()</code> method calls your server
+          side code to test, executing the test and using the JUnit assert API
+          to assert the result (<code>assert()</code>, 
+          <code>assertEquals()</code>, <code>fail()</code>, ...)
+        </li>
+        <li>
+          If the test fails, your <code>testXXX()</code> methods
+          throws exceptions which are caught by the Redirector proxy.
+        </li>
+        <li>
+          If an exception has been raised, the Redirector proxy returns the
+          information about the exception (it's name, class, stack trace) back
+          to the client side. Information about the exception will then be
+          printed by JUnit in it's Test Runner console.
+        </li>
+        <li>
+          If no exception occurred, the <code>YYYTestCase.runTest()</code>
+          method looks for an <code>endXXX(HttpURLConnection)</code> method
+          and executes it if found. At this stage, you have the opportunity
+          to check returned HTTP headers, Cookies and the servlet output
+          stream in the <code>endXXX()</code> method, again using JUnit asserts
+          and helper utility classes provided by Cactus.
+        </li>
+      </ol>
+
+      <s2 title="Redirector Proxies">
+
+        <p>
+          Cactus provides 2 implementation for the Redirector Proxy :
+        </p>
+        <ul>
+          <li>
+            <em>A Servlet Redirector</em>. This redirector is a servlet that
+            should be used for unit testing servlet methods or any java class
+            that uses servlet objects. It provides the
+            following implicit objects : <code>request</code>,
+            <code>response</code>, <code>session</code> and <code>config</code>.
+          </li>
+          <li>
+            <em>A JSP Redirector</em>. This redirector is a JSP page that
+            should be used for unit testing server code that need access to
+            the following objects : <code>pageContext</code> and
+            <code>out</code>. These objects are provided in addition to all the
+            objects provided by the Servlet Redirector. The JSP Redirector
+            should be used to unit test custom Tag libraries.
+          </li>
+        </ul>    
+        
+        <note>
+          Testing custom JSP Tag libraries is not finalized yet and only 
+          tag libraries that do not use the <code>bodyContent</code> can
+          currently be tested.
+        </note> 
+
+        <s3 title="Servlet Redirector Proxy">
+  
+          <figure src="images/archi_servlet.jpg" 
+            alt="Servlet Redirector Architecture"/>
+
+          <p>
+            The client side opens 2 HTTP connections to the Servlet redirector.
+            Once to execute the tests and retrieve the servlet output stream and
+            a second time to get the test result. This is to be able to get
+            the exception data (message, stack trace, ...) if the test failed.
+            The test results are stored in a variable which is put in the 
+            <code>ServletContext</code> and then retrieved on the second HTTP 
+            connection.
+          </p>
+
+        </s3>
+
+        <s3 title="JSP Redirector Proxy">
+
+          <figure src="images/archi_jsp.jpg" alt="JSP Redirector Architecture"/>
+
+          <p>
+            The client side opens 2 HTTP connections. Once to the Redirector
+            JSP to execute the tests and retrieve the  JSP output stream and
+            a second time to the Servlet Redirector to get the test result.
+            This is to be able to get the exception data (message,
+            stack trace, ...) if the test failed.
+            The test results are stored in a variable which is put in the 
+            <code>ServletContext</code> and then retrieved on the second HTTP 
+            connection.
+          </p>
+
+        </s3>
+
+      </s2>
+
+    </s1>
+
+  </body>
+</document>

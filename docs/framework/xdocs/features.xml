@@ -9,7 +9,7 @@
       <person name="Vincent Massol" email="vmassol@users.sourceforge.net"/>
     </authors>
    </header>
- 
+
   <body>
 
     <s1 title="Current scope and status of Cactus">
@@ -24,7 +24,7 @@
         <li>
           Cactus gives you a very good confidence that your code is going
           to run fine on the server it will be deployed to (thanks to Cactus
-          in-container approach that executes the test <em>inside</em> the 
+          in-container approach that executes the test <em>inside</em> the
           container),
         </li>
         <li>
@@ -42,11 +42,11 @@
         </li>
         <li>
           Cactus provides a good middle ground in term of test graininess :
-          too fine-grained tests are hard to write (like mock objects tests 
+          too fine-grained tests are hard to write (like mock objects tests
           that completely simulates the domain objects and focus exclusively
           on unit testing your logic code) and need complementary tests. Too
           coarse-grained tests (like functional tests) are not enough to
-          easily uncover bugs and work in a iterative development process 
+          easily uncover bugs and work in a iterative development process
           where tests are run very often to ensure everything is working
         </li>
       </ul>
@@ -58,12 +58,12 @@
       <ul>
         <li>
           Integrates seamlessly with the JUnit testing framework.
-          <ul>        
+          <ul>
             <li>
               Your testing class just has to extend one of Cactus
               <code>org.apache.commons.cactus.&lt;XXX&gt;TestCase</code> classes
-              (which themselves extends <code>junit.framework.TestCase</code>) 
-              instead of extending <code>junit.framework.TestCase</code> 
+              (which themselves extends <code>junit.framework.TestCase</code>)
+              instead of extending <code>junit.framework.TestCase</code>
               directly.
             </li>
             <li>
@@ -75,14 +75,14 @@
         <li>
           Provides different <code>&lt;XXX&gt;TestCase</code> classes which
           have class variables that are container objects (called implicit
-          objects thereafter). You will be able to use 
+          objects thereafter). You will be able to use
           these objects in you test code to call your methods to unit test.
           <ul>
             <li>
               <code>ServletTestCase</code> : provides all Servlet API objects
               <ul>
                 <li>
-                  <code>request</code> (of type 
+                  <code>request</code> (of type
                   <code>HttpServletRequest</code>),
                 </li>
                 <li>
@@ -113,9 +113,9 @@
           </ul>
         </li>
         <li>
-          Definition of an optional  <code>beginXXX()</code> method for each 
-          <code>testXXX()</code> test method. This is for having a chance to 
-          initialize the following data that will be available in the 
+          Definition of an optional  <code>beginXXX()</code> method for each
+          <code>testXXX()</code> test method. This is for having a chance to
+          initialize the following data that will be available in the
           <code>HttpServletRequest</code> object in your test method :
           <ul>
             <li>
@@ -128,10 +128,10 @@
               HTTP cookies,
             </li>
             <li>
-              Simulated URL. You can simulate all the parts of a URL : server 
-              name, port, context path, servlet path, path info and the query 
+              Simulated URL. You can simulate all the parts of a URL : server
+              name, port, context path, servlet path, path info and the query
               string. The following methods, when used later in your code under
-              test, will then return the simulated parts : 
+              test, will then return the simulated parts :
               <ul>
                 <li>
                   <code>HttpServletRequest.getServerName()</code>,
@@ -157,10 +157,10 @@
               </ul>
             </li>
           </ul>
-        </li>  
+        </li>
         <li>
-          Definition of an optional <code>endXXX()</code> method for each 
-          <code>testXXX()</code> test method. This is for having a chance to 
+          Definition of an optional <code>endXXX()</code> method for each
+          <code>testXXX()</code> test method. This is for having a chance to
           check the following data from the returned HTTP response :
           <ul>
             <li>
@@ -194,9 +194,9 @@
           </ul>
         </li>
         <li>
-          Predefined Ant build scripts that show how to automate Cactus 
+          Predefined Ant build scripts that show how to automate Cactus
           unit tests (automatically starting your servlet engine, running the
-          tests and stopping your server). There are scripts provided for the 
+          tests and stopping your server). There are scripts provided for the
           following Servlet engines (but it is easy to add new engines) :
           <ul>
             <li>
@@ -226,12 +226,12 @@
           </ul>
         </li>
         <li>
-          Possibility to specify whether an <code>HttpSession</code> object 
+          Possibility to specify whether an <code>HttpSession</code> object
           will be automatically created or not for your test methods
         </li>
         <li>
-          Handles <code>setUp()</code> and <code>tearDown()</code> methods which 
-          work the same as for JUnit except that they are run on the server side 
+          Handles <code>setUp()</code> and <code>tearDown()</code> methods which
+          work the same as for JUnit except that they are run on the server side
           before and after calling each <code>testXXX()</code> method
         </li>
         <li>
@@ -245,7 +245,7 @@
           Works with JDK 1.2 or 1.3 (not tested with 1.4 yet)
         </li>
         <li>
-          Provides some additional methods in the implicit objects that are 
+          Provides some additional methods in the implicit objects that are
           not part of the standard APIs to help you unit test your code :
           <ul>
             <li>
@@ -270,8 +270,17 @@
           <code>bodyContent</code> object (this is a current limitation that
           will be removed in the next version)
         </li>
+        <li>
+          Transparent Log4j logging (if you don't have Log4j in your classpath
+          no logging is done) for helping debugging problems.
+        </li>
+        <li>
+          HttpUnit integration (see
+          <link href="howto_httpunit.html">HttpUnit Howto</link>) for Cactus
+          v1.2 and above only.
+        </li>
       </ul>
     </s1>
- 
+
   </body>
 </document>

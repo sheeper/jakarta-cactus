@@ -28,6 +28,17 @@
     <table>
       <tr>
         <td>
+          16/08/2001
+        </td>
+        <td>
+          More documentation updates (<link href="getting_started.html">Getting
+          Started</link> Guide, rewritten
+          <link href="howto_config.html">Configuration Howto</link>, new
+          <link href="howto_httpunit.html">HttpUnit Howto</link>).
+        </td>
+      </tr>
+      <tr>
+        <td>
           05/08/2001
         </td>
         <td>
@@ -41,46 +52,6 @@
         <td>
           New <link href="ide_jbuilder.html">tutorial</link> for setting up
           Cactus inside JBuilder.
-        </td>
-      </tr>
-      <tr>
-        <td>
-          05/07/2001
-        </td>
-        <td>
-          Cactus now has its dedicated mailing list ! Thanks to its growing
-          community, that is thanks to us ! :-). New directions can be found
-          <link href="mailinglist.html">here</link>.
-        </td>
-      </tr>
-      <tr>
-        <td>
-          01/07/2001
-        </td>
-        <td>
-          New <link href="todo.html">Roadmap/Todo</link> page that lists
-          the actions that need to be performed before releasing the next
-          version of Cactus. Come help !
-        </td>
-      </tr>
-      <tr>
-        <td>
-          01/07/2001
-        </td>
-        <td>
-          New <link href="ide_vajava.html">tutorial</link> for installing
-          Cactus inside VisualAge for Java.
-        </td>
-      </tr>
-      <tr>
-        <td>
-          18/06/2001
-        </td>
-        <td>
-          Cactus v1.1 is available for <link href="downloads.html">
-          download</link>. It is a bug fix release with
-          a few new features. Check the <link href="changes.html">changes
-          </link> page for a list of changes.
         </td>
       </tr>
     </table>
@@ -151,7 +122,7 @@
         understand what Cactus is, how it works and how to use it.
       </action>
       <action dev="VMA" type="add">
-        The port used to start the servlet engines when running the sample 
+        The port used to start the servlet engines when running the sample
         tests (using the provided Ant scripts) is now configurable. This allows
         for not interfering with other servers running on the same port.
       </action>

@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 
-<book software="Cactus" 
-      title="Local Cactus Documentation" 
+<book software="Cactus"
+      title="Local Cactus Documentation"
       copyright="@year@ The Apache Software Foundation"
       updated="@today@">
 
   <menu label="Home">
-    <menu-item label="Jakarta Commons" href="http://jakarta.apache.org/commons" type="external"/>  
+    <menu-item label="Jakarta Commons" href="http://jakarta.apache.org/commons" type="external"/>
   </menu>
 
   <menu label="About">
@@ -26,18 +26,28 @@
     <menu-item label="Downloads" source="downloads.xml"/>
   </menu>
 
-  <menu label="User Guides">
-    <menu-item label="Installation" source="installation.xml"/>
+  <menu label="Documentation">
+    <menu-item label="How it works ?" source="how_it_works.xml"/>
+    <menu-item label="Getting Started" source="getting_started.xml"/>
+    <menu-item label="Mock vs Container" source="mockobjects.xml"/>
+    <!-- To be added : Testing Strategies (explains the different kind of
+         tests and how Cactus is positioned -->
+    <menu-item type="external" label="API Reference" href="javadoc/index.html"/>
+  </menu>
+
+  <menu label="Howto Guides">
+    <menu-item label="Config Howto" source="howto_config.xml"/>
+    <!--menu-item label="Ant Howto" source="howto_ant.xml"/-->
+    <menu-item label="HttpUnit Howto" source="howto_httpunit.xml"/>
     <menu-item label="Installing Ant" source="installation_ant.xml"/>
     <menu-item label="Installing Sample" source="installation_sample.xml"/>
-    <menu-item label="Configuration" source="configuration.xml"/>
     <menu-item label="Writing Test Case" source="using.xml"/>
+    <!--menu-item label="Reference Manual" source="reference_manual.xml"/-->
     <menu-item label="Servlet Sample" source="sample_servlet.xml"/>
     <menu-item label="Ant integration" source="ant.xml"/>
     <menu-item label="Servlet Engines" source="servlets.xml"/>
     <menu-item label="VAJava Config" source="ide_vajava.xml"/>
     <menu-item label="JBuilder4 Config" source="ide_jbuilder.xml"/>
-    <menu-item type="external" label="API Reference" href="javadoc/index.html"/>
   </menu>
 
   <menu label="Support">
