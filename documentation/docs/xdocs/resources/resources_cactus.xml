@@ -43,6 +43,20 @@
 
         <tr>
           <td>
+            <link href="http://www.oracle.com/technology/pub/articles/server_side_unit_tests.html">
+            In-Container Testing with JUnit</link>.
+          </td>
+	        <td>
+            Article
+          </td>
+          <td>
+            Julien Dubois explains how to use Cactus to perform in-container testing of a Struts
+            based application running in OC4J.
+          </td>
+        </tr>
+
+        <tr>
+          <td>
             <link href="http://www.javagen.com/jam.jsp">JAM</link>
           </td>
 	        <td>

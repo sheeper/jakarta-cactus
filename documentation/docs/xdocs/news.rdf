@@ -42,6 +42,8 @@
 
     <items>
       <rdf:Seq>
+        <rdf:li rdf:resource="http://jakarta.apache.org/cactus/news.html#news25"/>
+        <rdf:li rdf:resource="http://jakarta.apache.org/cactus/news.html#news24"/>
         <rdf:li rdf:resource="http://jakarta.apache.org/cactus/news.html#news23"/>
         <rdf:li rdf:resource="http://jakarta.apache.org/cactus/news.html#news22"/>
         <rdf:li rdf:resource="http://jakarta.apache.org/cactus/news.html#news21"/>
@@ -69,6 +71,33 @@
     </items>
 
   </channel>
+
+  <item rdf:about="http://jakarta.apache.org/cactus/news.html#news25">
+    <title>Cargo project</title>
+    <link>http://jakarta.apache.org/cactus/news.html#news25</link>
+    <description>
+<![CDATA[The <a href="http://cargo.codehaus.org">Cargo</a> project has just started. 
+The goal is to extract the code to start/stop/configure containers from the Cactus Ant 
+integration and make it a standalone project.</a>.
+]]>
+    </description>
+    <dc:subject></dc:subject>
+    <dc:creator>vmassol</dc:creator>
+    <dc:date>2004-08-26T00:00:00+00:00</dc:date>
+  </item>
+
+  <item rdf:about="http://jakarta.apache.org/cactus/news.html#news24">
+    <title>Testing Struts applications with Cactus in OC4J</title>
+    <link>http://jakarta.apache.org/cactus/news.html#news24</link>
+    <description>
+<![CDATA[Julien explains <a href="http://www.oracle.com/technology/pub/articles/server_side_unit_tests.html">how 
+to test struts application with Cactus</a>.
+]]>
+    </description>
+    <dc:subject></dc:subject>
+    <dc:creator>vmassol</dc:creator>
+    <dc:date>2004-08-26T00:00:00+00:00</dc:date>
+  </item>
 
   <item rdf:about="http://jakarta.apache.org/cactus/news.html#news23">
     <title>JAM: J2EE build tool - Supports Cactus</title>
