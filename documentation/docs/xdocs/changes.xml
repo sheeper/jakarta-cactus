@@ -71,6 +71,10 @@
       </release>
       
       <release version="1.5-rc1" date="in CVS">
+        <action dev="VMA" type="fix" fixes-bug="22249" due-to="James Stangler" due-to-email="jastangler@yahoo.com">
+          Fixed the <code>JettyTestSetup</code> class so that it stops the
+          running Jetty server at the end of the test suite execution.
+        </action>
         <action dev="VMA" type="update">
           The Cactus distribution now packages commons-httpclient 2.0 RC1
           (we were previously including version 2.0 beta2).

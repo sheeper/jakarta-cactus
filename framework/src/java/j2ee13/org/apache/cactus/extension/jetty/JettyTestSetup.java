@@ -111,6 +111,12 @@ public class JettyTestSetup extends TestSetup
     private File resourceDir;
 
     /**
+     * The Jetty server object representing the running instance. It is
+     * used to stop Jetty in {@link #tearDown()}.
+     */
+    private Object server; 
+
+    /**
      * @param theTest the test we are decorating (usually a test suite)
      */
     public JettyTestSetup(Test theTest)
@@ -126,7 +132,7 @@ public class JettyTestSetup extends TestSetup
      *
      * @exception Exception if an error happens during initialization
      */
-    public void setUp() throws Exception
+    protected void setUp() throws Exception
     {
         // Note: We are currently using reflection in order not to need Jetty
         // to compile Cactus. If the code becomes more complex or we need to 
@@ -141,10 +147,10 @@ public class JettyTestSetup extends TestSetup
         FilterConfiguration filterConfig = new FilterConfiguration();
 
         // Create a Jetty Server object and configure a listener
-        Object server = createServer(baseConfig);
+        this.server = createServer(baseConfig);
 
         // Create a Jetty context.
-        Object context = createContext(server, baseConfig);
+        Object context = createContext(this.server, baseConfig);
         
         // Add the Cactus Servlet redirector
         addServletRedirector(context, servletConfig);
@@ -159,13 +165,29 @@ public class JettyTestSetup extends TestSetup
         // command line.
         if (getConfigFile() != null)
         {
-            server.getClass().getMethod("configure", 
-                new Class[] {String.class})
-                .invoke(server, new Object[] {getConfigFile().toString()});
+            this.server.getClass().getMethod("configure", 
+                new Class[] {String.class}).invoke(
+                    this.server, new Object[] {getConfigFile().toString()});
         }
 
         // Start the Jetty server
-        server.getClass().getMethod("start", null).invoke(server, null);
+        this.server.getClass().getMethod("start", null).invoke(
+            this.server, null);
+    }
+
+    /**
+     * Stop the running Jetty server.
+     * 
+     * @exception Exception if an error happens during the shutdown
+     */
+    protected void tearDown() throws Exception
+    { 
+        if (this.server != null)
+        { 
+            // Stop the Jetty server
+            this.server.getClass().getMethod("stop", null).invoke(
+                this.server, null); 
+        } 
     }
 
     /**
