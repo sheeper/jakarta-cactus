@@ -1,4 +1,7 @@
 <?xml version="1.0"?>
+<!DOCTYPE project [
+    <!ENTITY common SYSTEM "file:./build-common.xml">
+]>
 
 <!--
   =============================================================================
@@ -18,83 +21,163 @@
 -->
 <project name="Master Cactus Build" default="release" basedir=".">
 
+    <!-- Base directory for all file related operations -->
+    <property name="base.dir" location="."/>
+
     <!-- Give user a chance to override without editing this file
          (and without typing -D each time it compiles it) -->
     <property file="${basedir}/build.properties" />
     <property file="${user.home}/build.properties" />
+
+    <!-- Include properties and targets common to the different subprojects -->
+    &common;
+
+    <!-- Global project properties -->
+    <property name="project.name.text" value="Cactus"/>
+    <property name="project.name.file" value="cactus"/>
 
     <!--
        ========================================================================
          Generate the release files for all the Cactus subprojects
        ========================================================================
     -->
-    <target name="release" depends="clean">
+    <target name="dist">
 
         <ant antfile="anttasks/build.xml" inheritAll="false" 
-            target="release"/>
+            target="dist"/>
 
         <ant antfile="framework/build.xml" inheritAll="false" 
-            target="release">
+            target="dist">
             <property name="j2ee.jar" value="${j2ee.12.jar}"/> 
             <property name="clover.enable" value="true"/> 
         </ant>
 
         <ant antfile="framework/build.xml" inheritAll="false" 
-            target="release">
+            target="dist">
             <property name="j2ee.jar" value="${j2ee.13.jar}"/> 
             <property name="clover.enable" value="true"/> 
         </ant>
 
         <ant antfile="integration/ant/build.xml" inheritAll="false" 
-            target="release">
+            target="dist">
             <property name="j2ee.jar" value="${j2ee.12.jar}"/> 
             <property name="clover.enable" value="true"/> 
         </ant>
 
         <ant antfile="integration/ant/build.xml" inheritAll="false" 
-            target="release">
+            target="dist">
             <property name="j2ee.jar" value="${j2ee.13.jar}"/> 
             <property name="clover.enable" value="true"/> 
         </ant>
 
         <ant antfile="integration/eclipse/org.apache.cactus.eclipse.webapp/build.xml" 
-            inheritAll="false" target="release">
+            inheritAll="false" target="dist">
         </ant>
             
         <ant antfile="integration/eclipse/org.apache.cactus.eclipse.runner/build.xml" 
-            inheritAll="false" target="release">
+            inheritAll="false" target="dist">
             <property name="j2ee.jar" value="${j2ee.12.jar}"/> 
         </ant>
 
         <ant antfile="integration/eclipse/org.apache.cactus.eclipse.runner/build.xml" 
-            inheritAll="false" target="release">
+            inheritAll="false" target="dist">
             <property name="j2ee.jar" value="${j2ee.13.jar}"/> 
         </ant>
 
         <ant antfile="samples/servlet/build.xml" inheritAll="false" 
-            target="release">
+            target="dist">
             <property name="j2ee.jar" value="${j2ee.12.jar}"/> 
             <property name="clover.enable" value="true"/> 
         </ant>
 
         <ant antfile="samples/servlet/build.xml" inheritAll="false" 
-            target="release">
+            target="dist">
             <property name="j2ee.jar" value="${j2ee.13.jar}"/> 
             <property name="clover.enable" value="true"/> 
         </ant>
         
         <ant antfile="samples/jetty/build.xml" inheritAll="false" 
-            target="release">
+            target="dist">
             <property name="j2ee.jar" value="${j2ee.13.jar}"/> 
             <property name="clover.enable" value="true"/> 
         </ant>
         
         <ant antfile="documentation/build.xml" inheritAll="false" 
-            target="release">
+            target="dist">
             <property name="javadoc.include" value="true"/>
             <property name="clover.enable" value="true"/> 
         </ant>
 
+    </target>
+
+    <!--
+       ========================================================================
+         Generate the release files for all the Cactus subprojects
+       ========================================================================
+    -->
+    <target name="release"
+        depends="clean, dist">
+        <antcall target="release.bin">
+            <param name="j2ee.dependant" value="true"/>
+            <param name="j2ee.jar" location="${j2ee.12.jar}"/>
+        </antcall>
+        <antcall target="release.bin">
+            <param name="j2ee.dependant" value="true"/>
+            <param name="j2ee.jar" location="${j2ee.13.jar}"/>
+        </antcall>
+        <antcall target="release.src"/>
+    </target>
+
+    <target name="release.prepare"
+        depends="init.properties">
+        <mkdir dir="${release.dir}"/>
+    </target>
+
+    <target name="release.bin"
+        depends="init.properties, release.prepare">
+        <zip destfile="release/${main.release.name}.zip">
+            <zipfileset dir="documentation/dist/doc"
+                prefix="${main.release.name}/doc"/>
+            <zipfileset file="${aspectjrt.jar}"
+                prefix="${main.release.name}/lib"/>
+            <zipfileset file="${cactus.antintegration.jar}"
+                prefix="${main.release.name}/lib"/>
+            <zipfileset file="${cactus.framework.jar}"
+                prefix="${main.release.name}/lib"/>
+            <zipfileset file="${commons.logging.jar}"
+                prefix="${main.release.name}/lib"/>
+            <zipfileset file="${commons.httpclient.jar}"
+                prefix="${main.release.name}/lib"/>
+            <zipfileset file="${httpunit.jar}"
+                prefix="${main.release.name}/lib"/>
+            <zipfileset file="${junit.jar}"
+                prefix="${main.release.name}/lib"/>
+            <zipfileset file="${nekohtml.jar}"
+                prefix="${main.release.name}/lib"/>
+            <zipfileset dir="samples/servlet/target-${j2ee.api}/sample"
+                prefix="${main.release.name}/samples/servlet"/>
+            <zipfileset dir="framework/web"
+                prefix="${main.release.name}/web"/>
+            <zipfileset dir="." prefix="${main.release.name}"
+                includes="LICENSE.*"/>
+        </zip>
+    </target>
+
+    <target name="release.src"
+        depends="init.properties">
+        <zip zipfile="release/${main.release.name}-src.zip">
+            <zipfileset dir="." prefix="${main.release.name}-src">
+                <exclude name="**/target*/**"/>
+                <exclude name="**/dist*/**"/>
+                <exclude name="**/release/**"/>
+                <exclude name="**/*.log"/>
+                <exclude name="**/build.properties"/>
+                <exclude name="**/.*/**"/>
+                <exclude name="integration/eclipse/**"/>
+                <exclude name="**/*.jar"/>
+                <exclude name="**/*.zip"/>
+            </zipfileset>
+        </zip>
     </target>
 
     <!--
@@ -109,7 +192,7 @@
         <delete>
             <fileset dir="." includes="**/*.log"/>
         </delete>
- 
+
         <ant antfile="anttasks/build.xml" inheritAll="false" 
             target="clean"/>
 
