@@ -164,7 +164,7 @@ import org.apache.commons.logging.LogFactory;
  *   <code>JspTagLifecycle</code> does not suffice. In such cases, you need to 
  *   use custom expectations. You can add custom expectations by creating a 
  *   concrete subclass of the {@link JspTagLifecycle.Interceptor Interceptor}
- *   class, and adding it to the list of the tag lifecycles interceptors through 
+ *   class, and adding it to the list of the tag lifecycles interceptors through
  *   {@link JspTagLifecycle#addInterceptor addInterceptor()}:
  *   <pre>
  * ForEachTag tag = new ForEachTag();
