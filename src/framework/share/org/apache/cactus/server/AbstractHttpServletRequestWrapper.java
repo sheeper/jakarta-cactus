@@ -231,15 +231,24 @@ public abstract class AbstractHttpServletRequestWrapper implements HttpServletRe
 
         String pathInfo = this.url.getPathInfo();
         if (pathInfo != null) {
-            String newPathInfo = (pathInfo.startsWith("/") ?
-                pathInfo.substring(1) : pathInfo);
-            if (this.request.getRealPath("/").endsWith("/")) {
-                pathTranslated = this.request.getRealPath("/") +
-                    newPathInfo.replace('/', File.separatorChar);
+
+            // If getRealPath returns null then getPathTranslated should also
+            // return null (see section SRV.4.5 of the Servlet 2.3 spec).
+            if (this.request.getRealPath("/") == null) {
+                pathTranslated = null;
             } else {
-                pathTranslated = this.request.getRealPath("/") +
-                    File.separatorChar + newPathInfo.replace('/',
-                        File.separatorChar);
+
+                // Compute the translated path using the root real path
+                String newPathInfo = (pathInfo.startsWith("/") ?
+                    pathInfo.substring(1) : pathInfo);
+                if (this.request.getRealPath("/").endsWith("/")) {
+                    pathTranslated = this.request.getRealPath("/") +
+                        newPathInfo.replace('/', File.separatorChar);
+                } else {
+                    pathTranslated = this.request.getRealPath("/") +
+                        File.separatorChar + newPathInfo.replace('/',
+                            File.separatorChar);
+                }
             }
         } else {
             pathTranslated = this.request.getPathTranslated();

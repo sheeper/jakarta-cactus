@@ -127,6 +127,14 @@
     </devs>
 
     <release version="1.3 in CVS">
+      <action dev="VMA" type="fix">
+        Corrected bug in
+        <code>AbstractHttpServletRequestWrapper.getPathTranslated()</code> which
+        was not returning <code>null</code> when <code>getRealPath("/")</code>
+        was returning <code>null</code>. It is allowed by the spec. to return
+        <code>null</code> upon certain conditions (see section SRV.4.5 of the
+        Servlet 2.3 spec.).
+      </action>
       <action dev="VMA" type="add" due-to="Jim Young" due-to-email="Jim.Young@cibc.com">
         Add a tutorial for setting up Cactus in VAJava with Tomcat environment.
       </action>

@@ -571,7 +571,11 @@ public class TestServletTestCase2 extends ServletTestCase
 
     /**
      * Verify that <code>HttpServletRequestWrapper.getPathTranslated()</code>
-     * takes into account the simulated URL (if any).
+     * takes into account the simulated URL (if any) or null in situations
+     * where the servlet container cannot determine a valid file path for
+     * these methods, such as when the web application is executed from an
+     * archive, on a remote file system not accessible locally, or in a
+     * database (see section SRV.4.5 of the Servlet 2.3 spec).
      */
     public void testGetPathTranslated()
     {
@@ -580,10 +584,15 @@ public class TestServletTestCase2 extends ServletTestCase
 
         String pathTranslated = request.getPathTranslated();
 
-        assertNotNull("Should not be null", pathTranslated);
-        assert("Should end with [" + nativePathInfo + "] but got [" +
-            pathTranslated + "] instead",
-            pathTranslated.endsWith(nativePathInfo));
+        // Should be null if getRealPath("/") is null
+        if (request.getRealPath("/") == null) {
+            assertNull("Should have been null", pathTranslated);
+        } else {
+            assertNotNull("Should not be null", pathTranslated);
+            assert("Should end with [" + nativePathInfo + "] but got [" +
+                pathTranslated + "] instead",
+                pathTranslated.endsWith(nativePathInfo));
+        }
     }
 
     //-------------------------------------------------------------------------
