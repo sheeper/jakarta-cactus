@@ -264,6 +264,18 @@
           </td>
         </tr>
         <tr>
+          <td>cactus.test.skip</td>
+          <td>Yes</td>
+          <td>
+            <p>
+              If set to <code>true</code>, goal <code>cactus:test</code> will 
+              skip tests (it does not affects other goals though, like 
+              <code>cactus:test-war</code> and <code>cactus:test-ear</code>).
+              Default value is <code>${maven.test.skip}</code>.
+            </p>
+          </td>
+        </tr>
+        <tr>
           <td>cactus.sysproperties</td>
           <td>Yes</td>
           <td>
@@ -688,24 +700,6 @@ basedir=${basedir}
       </table>
     </section>
 
-    <section name="Related Settings">
-      <table>
-        <tr>
-          <th>Property</th>
-          <th>Optional?</th>
-          <th>Description</th>
-        </tr>
-        <tr>
-          <td>maven.test.skip</td>
-          <td>Yes</td>
-          <td>
-            <p>
-              If set to <code>true</code>, goal <code>cactus:test</code> will skip tests (it does not affects other goals though, like <code>cactus:test-war</code> and <code>cactus:test-ear</code>).
-            </p>
-          </td>
-        </tr>
-      </table>
-    </section>
 
   </body>
 </document>

@@ -8,6 +8,10 @@
   <body>
 
     <release version="1.8dev" date="in CVS">
+      <action dev="felipeal" type="add" issue="CACTUS-201">
+        Goal <code>cactus:test</code> is not executed if property
+        <code>cactus.test.skip</code> (and not <code>maven.test.skip</code> anymore) is set.
+      </action>
       <action dev="felipeal" type="fix" issue="CACTUS-202">
         Property <code>cactus.ear</code> is now defined at 
         the <code>plugin.properties</code> file.
