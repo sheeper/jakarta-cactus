@@ -5,4 +5,7 @@ Wish list for JUnit modifications to allow other plugins to extend it:
   
 - API to expose:
   - createVMRunner() to let extensions customize the VM configuration
-  
+
+- Ability to know when tests are finished by letting external code 
+  registers against the internal test runner 
+ 
