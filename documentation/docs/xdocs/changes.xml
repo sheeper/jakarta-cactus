@@ -53,9 +53,15 @@
         <person name="Vincent Massol" email="vmassol@apache.org" id="VMA"/>
         <person name="Nicholas Lesiecki" email="ndlesiecki@yahoo.com" id="NDL"/>
         <person name="Christopher Lenz" email="cmlenz@gmx.de" id="CML"/>
+        <person name="Julien Ruaux" email="jruaux@apache.org" id="JRU"/>
       </devs>
 
       <release version="1.5" date="- in CVS">
+        <action dev="JRU" type="add">
+          First release of the Eclipse plugin. See the
+          <link href="eclipse_plugin.html">Eclipse Plugin documentation</link>
+          for more information.
+        </action>
         <action dev="CML" type="update">
           Added stack trace filtering to the ServletTestRunner. Stack frames
           in the JUnit framework classes as well as in the Cactus base test 
