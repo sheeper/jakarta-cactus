@@ -77,11 +77,6 @@
       <p>
         All tasks that are related to building Cactus in general.
       </p>
-      <action assigned-to="Vincent Massol">
-        Set up nightly builds (it is high time !). Almost done (works for
-        Cactus for Servlet API 2.3 and soon for Cactus for Servlet API 2.2) !
-        90% done.
-      </action>
       <action>
         Add support for Orion 1.5 in Ant build files (current support is for
         Orion 1.4 only but may work on 1.5.2 - need to be tested though).
