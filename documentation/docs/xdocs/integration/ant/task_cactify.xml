@@ -40,13 +40,10 @@
 
         <p>
           As this task is an extension of the <strong>war</strong> task, it
-          also supports all attributes that the <strong>war</strong> task
-          supports. In addition, you can specify the URL-patterns to map the 
-          Cactus test redirectors to which the nested elements
-          <strong>filterredirector</strong>, <strong>jspredirector</strong> and
-          <strong>servletredirector</strong>. If you don't specify those
-          elements, the test redirectors will be mapped to the default
-          URL-pattern.
+          also supports all the attributes supported by the
+          <strong>war</strong> task. The only exception is the
+          <em>warfile</em> attribute, which has been renamed to
+          <em>destfile</em> for the <strong>cactify</strong> task.
         </p>
 
         <table>
@@ -58,7 +55,7 @@
           <tr>
             <td><strong>destfile</strong></td>
             <td>
-              The location of the cactified web-application archive
+              The location of the cactified web-application archive to create.
             </td>
             <td>Yes</td>
           </tr>
@@ -100,11 +97,16 @@
 
       <section title="Nested Elements">
 
-        <note>
+        <p>
           As this task is an extension of the <strong>war</strong> task, it
-          also supports all the nested elements supported by the
-          <strong>war</strong> task.
-        </note>
+          also supports all attributes that the <strong>war</strong> task
+          supports. In addition, you can specify the URL-patterns to map the 
+          Cactus test redirectors to which the nested elements
+          <strong>filterredirector</strong>, <strong>jspredirector</strong> and
+          <strong>servletredirector</strong>. If you don't specify those
+          elements, the test redirectors will be mapped to the default
+          URL-pattern.
+        </p>
 
         <section title="filterredirector">
 
