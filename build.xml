@@ -46,7 +46,7 @@
      ========================================================================
        Generate the release files for all the Cactus subprojects
      ========================================================================
-  -->
+  -->  
   <target name="dist"
       description="Invokes the 'dist' target of every sub-module">
 
@@ -78,22 +78,7 @@
       <property name="clover.enable" value="true"/>
       <property name="env" value="${env}"/>
     </ant>
-    <ant antfile="integration/eclipse/org.apache.cactus.eclipse.webapp/build.xml" 
-        inheritAll="false" target="dist">
-      <property name="env" value="${env}"/>
-    </ant>
-    <ant antfile="integration/eclipse/org.apache.cactus.eclipse.runner/build.xml" 
-        inheritAll="false" target="dist">
-      <property name="j2ee.jar" value="${j2ee.12.jar}"/>
-      <property name="servlet.jar" value=""/>
-      <property name="env" value="${env}"/>
-    </ant>
-    <ant antfile="integration/eclipse/org.apache.cactus.eclipse.runner/build.xml" 
-        inheritAll="false" target="dist">
-      <property name="j2ee.jar" value="${j2ee.13.jar}"/>
-      <property name="servlet.jar" value=""/>
-      <property name="env" value="${env}"/>
-    </ant>
+    <antcall target="dist-eclipse"/>
     <ant antfile="samples/servlet/build.xml" inheritAll="false" 
         target="dist">
       <property name="servlet.jar" value="${servlet.22.jar}"/>
@@ -131,6 +116,25 @@
 
   </target>
 
+  <target name="dist-eclipse" if="eclipse.build">
+    <ant antfile="integration/eclipse/org.apache.cactus.eclipse.webapp/build.xml" 
+        inheritAll="false" target="dist">
+      <property name="env" value="${env}"/>
+    </ant>
+    <ant antfile="integration/eclipse/org.apache.cactus.eclipse.runner/build.xml" 
+        inheritAll="false" target="dist">
+      <property name="j2ee.jar" value="${j2ee.12.jar}"/>
+      <property name="servlet.jar" value=""/>
+      <property name="env" value="${env}"/>
+    </ant>
+    <ant antfile="integration/eclipse/org.apache.cactus.eclipse.runner/build.xml" 
+        inheritAll="false" target="dist">
+      <property name="j2ee.jar" value="${j2ee.13.jar}"/>
+      <property name="servlet.jar" value=""/>
+      <property name="env" value="${env}"/>
+    </ant>
+  </target>
+  
   <!--
      ========================================================================
        Generate the release files for all the Cactus subprojects
@@ -296,19 +300,7 @@
       <property name="j2ee.jar" value="${j2ee.13.jar}"/>
       <property name="servlet.jar" value=""/>
     </ant>
-    <ant antfile="integration/eclipse/org.apache.cactus.eclipse.webapp/build.xml" 
-        inheritAll="false" target="clean">
-    </ant>
-    <ant antfile="integration/eclipse/org.apache.cactus.eclipse.runner/build.xml" 
-        inheritAll="false" target="clean">
-      <property name="j2ee.jar" value="${j2ee.12.jar}"/>
-      <property name="servlet.jar" value=""/>
-    </ant>
-    <ant antfile="integration/eclipse/org.apache.cactus.eclipse.runner/build.xml" 
-        inheritAll="false" target="clean">
-      <property name="j2ee.jar" value="${j2ee.13.jar}"/>
-      <property name="servlet.jar" value=""/>
-    </ant>
+    <antcall target="clean-eclipse"/>
     <ant antfile="samples/servlet/build.xml" inheritAll="false" 
         target="clean">
       <property name="servlet.jar" value="${servlet.22.jar}"/>
@@ -334,6 +326,22 @@
 
   </target>
 
+  <target name="clean-eclipse" if="eclipse.build">
+    <ant antfile="integration/eclipse/org.apache.cactus.eclipse.webapp/build.xml" 
+        inheritAll="false" target="clean">
+    </ant>
+    <ant antfile="integration/eclipse/org.apache.cactus.eclipse.runner/build.xml" 
+        inheritAll="false" target="clean">
+      <property name="j2ee.jar" value="${j2ee.12.jar}"/>
+      <property name="servlet.jar" value=""/>
+    </ant>
+    <ant antfile="integration/eclipse/org.apache.cactus.eclipse.runner/build.xml" 
+        inheritAll="false" target="clean">
+      <property name="j2ee.jar" value="${j2ee.13.jar}"/>
+      <property name="servlet.jar" value=""/>
+    </ant>
+  </target>
+  
   <!--
      ========================================================================
        Gathers all dependent jars and package them in a single zip. Useful 
