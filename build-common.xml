@@ -117,6 +117,12 @@
         <property name="cactus.antintegration.bin" 
             location="integration/ant/dist-${j2ee.api}/bin/${cactus.antintegration.jar.name}"/>
 
+        <!-- The location of the Clover(ed) Ant integration jar -->
+        <property name="cactus.antintegration.clover.jar.name"
+            value="${cactus.antintegration.jar.name}-clover"/>
+        <property name="cactus.antintegration.clover.jar"
+            location="integration/ant/dist-${j2ee.api}/lib/${cactus.antintegration.clover.jar.name}.jar"/>
+
         <!-- The Cactus Eclipse Runner Integration dist -->
         <property name="cactus.eclipse.runner.bin" value="integration/eclipse/org.apache.cactus.eclipse.runner/dist-${j2ee.api}/bin/cactus-integration-eclipse-runner"/>
         
