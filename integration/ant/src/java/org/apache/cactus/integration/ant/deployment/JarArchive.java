@@ -89,7 +89,7 @@ public abstract class JarArchive
     /**
      * Constructor.
      * 
-     * @param theFile The web application archive
+     * @param theFile The archive file
      * @throws IOException If there was a problem reading the WAR
      */
     public JarArchive(File theFile)
@@ -101,20 +101,31 @@ public abstract class JarArchive
     /**
      * Constructor.
      * 
-     * @param theInputStream The input stream for the web application archive
+     * @param theInputStream The input stream for the archive (it will be closed
+     *        after the constructor returns)
      * @throws IOException If there was a problem reading the WAR
      */
     public JarArchive(InputStream theInputStream)
         throws IOException
     {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        byte[] buffer = new byte[2048];
-        int bytesRead = -1;
-        while ((bytesRead = theInputStream.read(buffer)) != -1)
+        try
         {
-            baos.write(buffer, 0, bytesRead);
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            byte[] buffer = new byte[2048];
+            int bytesRead = -1;
+            while ((bytesRead = theInputStream.read(buffer)) != -1)
+            {
+                baos.write(buffer, 0, bytesRead);
+            }
+            this.content = new ByteArrayInputStream(baos.toByteArray());
         }
-        this.content = new ByteArrayInputStream(baos.toByteArray());
+        finally
+        {
+            if (theInputStream != null)
+            {
+                theInputStream.close();
+            }
+        }
     }
 
     // Public Methods ----------------------------------------------------------
@@ -145,6 +156,47 @@ public abstract class JarArchive
                 if (entryName.equals(theName))
                 {
                     return entry.getName();
+                }
+            }
+        }
+        finally
+        {
+            if (in != null)
+            {
+                in.close();
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Returns a resource from the archive as input stream.
+     * 
+     * @param thePath The path to the resource in the archive
+     * @return An input stream containing the specified resource, or
+     *         <code>null</code> if the resource was not found in the JAR
+     * @throws IOException If an I/O error occurs
+     */
+    public InputStream getResource(String thePath)
+        throws IOException
+    {
+        JarInputStream in = null;
+        try
+        {
+            in = getContentAsStream();
+            ZipEntry zipEntry = null;
+            while ((zipEntry = in.getNextEntry()) != null)
+            {
+                if (thePath.equals(zipEntry.getName()))
+                {
+                    ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+                    byte bytes[] = new byte[2048];
+                    int bytesRead = -1;
+                    while ((bytesRead = in.read(bytes)) != -1)
+                    {
+                        buffer.write(bytes, 0, bytesRead);
+                    }
+                    return new ByteArrayInputStream(buffer.toByteArray());
                 }
             }
         }
