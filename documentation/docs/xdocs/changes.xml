@@ -96,6 +96,17 @@
     </devs>
 
     <release version="1.3 in CVS">
+      <action dev="VMA" type="fix" due-to="Steven L. Youtsey" due-to-email="syoutsey@unwiredexpress.com">
+        (<link href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=4563">
+        Bug #4563</link>).
+        <code>HttpServletContextWrapper.getRequestDispatcher()</code> now throws
+        <code>null</code> when the wrapped servlet context returns 
+        <code>null</code> when asked for a request dispatcher.
+      </action>
+      <action dev="VMA" type="fix" due-to="Kim Madsen" due-to-email="kim.madsen@inceptor.com">
+        Wrapped <code>HttpServletRequest.getRequestURL()</code> (Servlet API
+        2.3 only) to take into account the simulated URL (if any).
+      </action>
       <action dev="VMA" type="update">
         Completely reworked the internal Cactus build scripts and directory
         structure to make it more flexible and to prepare for the upcoming
