@@ -60,23 +60,28 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
+import org.apache.cactus.util.log.LogService;
+
 /**
- * Run all the unit tests of Cactus that do not need a servlet
- * environment to run. These other tests will be exercised in the sample
- * application.
+ * Unit tests of the <code>WebTestResult</code> class.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
  */
-public class TestAll extends TestCase
+public class TestWebTestResult extends TestCase
 {
+    // Initialize logging system first
+    static {
+        LogService.getInstance().init(null);
+    }
+
     /**
      * Defines the testcase name for JUnit.
      *
      * @param theName the testcase's name.
      */
-    public TestAll(String theName)
+    public TestWebTestResult(String theName)
     {
         super(theName);
     }
@@ -88,7 +93,8 @@ public class TestAll extends TestCase
      */
     public static void main(String[] theArgs)
     {
-        junit.swingui.TestRunner.main(new String[]{TestAll.class.getName()});
+        junit.swingui.TestRunner.main(
+            new String[]{TestWebTestResult.class.getName()});
     }
 
     /**
@@ -97,16 +103,38 @@ public class TestAll extends TestCase
      */
     public static Test suite()
     {
-        TestSuite suite =
-            new TestSuite("Cactus unit tests not needing servlet engine");
-
-        suite.addTest(org.apache.cactus.TestAbstractTestCase.suite());
-        suite.addTest(org.apache.cactus.TestServletURL.suite());
-        suite.addTest(org.apache.cactus.TestServletUtil.suite());
-        suite.addTest(org.apache.cactus.TestWebTestResult.suite());
-        suite.addTest(org.apache.cactus.client.TestWebTestResultParser.suite());
-
-        return suite;
+        // All methods starting with "test" will be executed in the test suite.
+        return new TestSuite(TestWebTestResult.class);
     }
 
+    //-------------------------------------------------------------------------
+
+    /**
+     * Verify the correctness of the XML representation for a test result with
+     * no error.
+     */
+    public void testToXmlNoException()
+    {
+        WebTestResult result = new WebTestResult();
+        assertEquals("<webresult></webresult>", result.toXml());
+    }
+
+    /**
+     * Verify the correctness of the XML representation for a test result with
+     * an exception.
+     */
+    public void testToXmlWithException()
+    {
+        String expectedStart = "<webresult><exception classname=\"" +
+            "java.lang.Exception\"><message><![CDATA[test exception]]>" +
+            "</message><stacktrace><![CDATA[";
+        String expectedEnd = "]]></stacktrace></exception></webresult>";
+
+        Exception e = new Exception("test exception");
+        WebTestResult result = new WebTestResult(e);
+        assertTrue("Should have started with [" + expectedStart + "]",
+            result.toXml().startsWith(expectedStart));
+        assertTrue("Should have ended with [" + expectedEnd + "]",
+            result.toXml().endsWith(expectedEnd));
+    }
 }

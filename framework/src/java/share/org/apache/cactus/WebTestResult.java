@@ -57,7 +57,6 @@
 package org.apache.cactus;
 
 import java.io.PrintWriter;
-import java.io.Serializable;
 import java.io.StringWriter;
 
 /**
@@ -69,7 +68,7 @@ import java.io.StringWriter;
  *
  * @version $Id$
  */
-public class WebTestResult implements Serializable
+public class WebTestResult
 {
     /**
      * Name of the exception class if an error occurred
@@ -87,6 +86,32 @@ public class WebTestResult implements Serializable
      * The exception message if an error occurred
      */
     private String exceptionMessage;
+
+    /**
+     * Name of Root XML tag (see {@link #toXml()}).
+     */
+    public static final String XML_ROOT_ELEMENT = "webresult";
+
+    /**
+     * Name of Exception XML tag (see {@link #toXml()}).
+     */
+    public static final String XML_EXCEPTION_ELEMENT = "exception";
+
+    /**
+     * Name of Exception XML attribute that contains the exception classname
+     * (see {@link #toXml()}).
+     */
+    public static final String XML_EXCEPTION_CLASSNAME_ATTRIBUTE = "classname";
+
+    /**
+     * Name of Exception Message XML tag (see {@link #toXml()}).
+     */
+    public static final String XML_EXCEPTION_MESSAGE_ELEMENT = "message";
+
+    /**
+     * Name of Exception Stacktrace XML tag (see {@link #toXml()}).
+     */
+    public static final String XML_EXCEPTION_STACKTRACE_ELEMENT = "stacktrace";
 
     /**
      * Constructor to call when the test was ok and no error was raised.
@@ -110,6 +135,24 @@ public class WebTestResult implements Serializable
         PrintWriter pw = new PrintWriter(sw);
         theException.printStackTrace(pw);
         this.exceptionStackTrace = sw.toString();
+    }
+
+    /**
+     * Constructor used to reconstruct a WebTestResult object from its String
+     * representation.
+     *
+     * @param theClassName the class name of the exception thrown on the server
+     *        side
+     * @param theMessage the message of the exception thrown on the server side
+     * @param theStackTrace the stack trace of the exception thrown on the
+     *        server side
+     */
+    public WebTestResult(String theClassName, String theMessage,
+        String theStackTrace)
+    {
+        this.exceptionClassName = theClassName;
+        this.exceptionMessage = theMessage;
+        this.exceptionStackTrace = theStackTrace;
     }
 
     /**
@@ -163,4 +206,32 @@ public class WebTestResult implements Serializable
         return buffer.toString();
     }
 
+    /**
+     * @return an XML representation of the test result to be sent in the
+     *         HTTP response to the Cactus client.
+     */
+    public String toXml()
+    {
+        StringBuffer xmlText = new StringBuffer();
+        xmlText.append("<" + XML_ROOT_ELEMENT + ">");
+
+        if (hasException()) {
+            xmlText.append("<" + XML_EXCEPTION_ELEMENT + " " +
+                XML_EXCEPTION_CLASSNAME_ATTRIBUTE + "=\"");
+            xmlText.append(this.exceptionClassName);
+            xmlText.append("\">");
+            xmlText.append("<" + XML_EXCEPTION_MESSAGE_ELEMENT + "><![CDATA[");
+            xmlText.append(this.exceptionMessage);
+            xmlText.append("]]></" + XML_EXCEPTION_MESSAGE_ELEMENT + ">");
+            xmlText.append("<" + XML_EXCEPTION_STACKTRACE_ELEMENT +
+                "><![CDATA[");
+            xmlText.append(this.exceptionStackTrace);
+            xmlText.append("]]></" + XML_EXCEPTION_STACKTRACE_ELEMENT + ">");
+            xmlText.append("</" + XML_EXCEPTION_ELEMENT + ">");
+        }
+
+        xmlText.append("</" + XML_ROOT_ELEMENT + ">");
+
+        return xmlText.toString();
+    }
 }

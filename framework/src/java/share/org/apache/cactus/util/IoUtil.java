@@ -54,59 +54,44 @@
  * <http://www.apache.org/>.
  *
  */
-package org.apache.cactus;
+package org.apache.cactus.util;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
- * Run all the unit tests of Cactus that do not need a servlet
- * environment to run. These other tests will be exercised in the sample
- * application.
+ * Various utility methods for manipulating IO streams.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
  */
-public class TestAll extends TestCase
+public class IoUtil
 {
     /**
-     * Defines the testcase name for JUnit.
+     * Read all data in an Inpout stream and return them as a
+     * <code>String</code> object.
      *
-     * @param theName the testcase's name.
+     * @param theStream the input stream from which to read the data
+     * @return the string representation of the data
+     * @throws IOException if an error occurs during the read of data
      */
-    public TestAll(String theName)
+    public static String getText(InputStream theStream)
+        throws IOException
     {
-        super(theName);
+        StringBuffer sb = new StringBuffer();
+
+        BufferedReader input = new BufferedReader(
+            new InputStreamReader(theStream));
+        char[] buffer = new char[2048];
+        int nb;
+        while (-1 != (nb = input.read(buffer, 0, 2048))) {
+            sb.append(buffer, 0, nb);
+        }
+        input.close();
+
+        return sb.toString();
     }
-
-    /**
-     * Start the tests.
-     *
-     * @param theArgs the arguments. Not used
-     */
-    public static void main(String[] theArgs)
-    {
-        junit.swingui.TestRunner.main(new String[]{TestAll.class.getName()});
-    }
-
-    /**
-     * @return a test suite (<code>TestSuite</code>) that includes all methods
-     *         starting with "test"
-     */
-    public static Test suite()
-    {
-        TestSuite suite =
-            new TestSuite("Cactus unit tests not needing servlet engine");
-
-        suite.addTest(org.apache.cactus.TestAbstractTestCase.suite());
-        suite.addTest(org.apache.cactus.TestServletURL.suite());
-        suite.addTest(org.apache.cactus.TestServletUtil.suite());
-        suite.addTest(org.apache.cactus.TestWebTestResult.suite());
-        suite.addTest(org.apache.cactus.client.TestWebTestResultParser.suite());
-
-        return suite;
-    }
-
 }

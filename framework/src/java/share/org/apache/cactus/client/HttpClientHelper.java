@@ -173,7 +173,7 @@ public class HttpClientHelper
         }
 
         // Log content length
-        LOGGER.debug("ContentLength = [" + connection.getContentLength());
+        LOGGER.debug("ContentLength = [" + connection.getContentLength() + "]");
 
         // Open the connection and get the result
         connection.connect();

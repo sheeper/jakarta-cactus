@@ -57,8 +57,7 @@
 package org.apache.cactus.server;
 
 import java.io.IOException;
-import java.io.OutputStream;
-import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 import java.lang.reflect.Constructor;
 import javax.servlet.ServletException;
 
@@ -84,7 +83,7 @@ public abstract class AbstractTestCaller
      * Name of the attribute in the <code>application</code> scope that will
      * hold the results of the test.
      */
-    private static final String TEST_RESULTS =
+    protected static final String TEST_RESULTS =
         "ServletTestRedirector_TestResults";
 
     /**
@@ -162,7 +161,7 @@ public abstract class AbstractTestCaller
     }
 
     /**
-     * Return the last test results as a serialized object in the HTTP response.
+     * Return the last test results in the HTTP response.
      *
      * @exception ServletException if an unexpected error occurred
      */
@@ -182,17 +181,13 @@ public abstract class AbstractTestCaller
 
         LOGGER.debug("Test Result = [" + result + "]");
 
-        // Write back the results as a serialized object to the outgoing stream.
+        // Write back the results to the outgoing stream as an XML string.
         try {
 
-            OutputStream os = this.webImplicitObjects.getHttpServletResponse().
-                getOutputStream();
-
-            // Write back the result object as a serialized object
-            ObjectOutputStream oos = new ObjectOutputStream(os);
-            oos.writeObject(result);
-            oos.flush();
-            oos.close();
+            PrintWriter pw =
+                this.webImplicitObjects.getHttpServletResponse().getWriter();
+            pw.print(result.toXml());
+            pw.close();
 
         } catch (IOException e) {
             String message = "Error writing WebTestResult instance to output " +

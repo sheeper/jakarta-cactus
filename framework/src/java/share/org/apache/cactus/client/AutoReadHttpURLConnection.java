@@ -226,8 +226,7 @@ final class AutoReadHttpURLConnection extends HttpURLConnection
 
     /**
      * Format log data read from socket for pretty printing (replaces
-     * asc char 10 by "\r", asc char 13 by "\n" and only print the first
-     * 50 characters and the last 50.
+     * asc char 10 by "\r", asc char 13 by "\n").
      *
      * @param theCount the number of bytes read in the buffer
      * @param theBuffer the buffer containing the data to print
@@ -237,7 +236,7 @@ final class AutoReadHttpURLConnection extends HttpURLConnection
         // Log portion of read data and replace asc 10 by \r and asc
         // 13 by /n
         StringBuffer prefix = new StringBuffer();
-        for (int i = 0; i < theCount && i < 50; i++) {
+        for (int i = 0; i < theCount; i++) {
             if (theBuffer[i] == 10) {
                 prefix.append("\\r");
             } else if (theBuffer[i] == 13) {
@@ -247,22 +246,7 @@ final class AutoReadHttpURLConnection extends HttpURLConnection
             }
         }
 
-        StringBuffer suffix = new StringBuffer();
-        for (int i = theCount - 50; i > 0 && i < theCount; i++) {
-            if (theBuffer[i] == 10) {
-                suffix.append("\\r");
-            } else if (theBuffer[i] == 13) {
-                suffix.append("\\n");
-            } else {
-                suffix.append((char) theBuffer[i]);
-            }
-        }
-
-        if (suffix.length() > 0) {
-            prefix.append(" ...] [... ");
-        }
-
-        LOGGER.debug("Read [" + theCount + "]: [" + prefix + suffix + "]");
+        LOGGER.debug("Read [" + theCount + "]: [" + prefix + "]");
     }
 
     // Delegated methods

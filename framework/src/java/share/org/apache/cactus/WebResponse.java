@@ -59,7 +59,6 @@ package org.apache.cactus;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.net.HttpURLConnection;
 import java.util.Vector;
@@ -69,6 +68,7 @@ import org.apache.commons.httpclient.HttpException;
 
 import org.apache.cactus.client.HttpClientHelper;
 import org.apache.cactus.util.ChainedRuntimeException;
+import org.apache.cactus.util.IoUtil;
 import org.apache.cactus.util.log.Log;
 import org.apache.cactus.util.log.LogService;
 
@@ -144,23 +144,11 @@ public class WebResponse
         // read.
         if (this.content == null) {
 
-            StringBuffer sb = new StringBuffer();
-
             try {
-                BufferedReader input = new BufferedReader(
-                    new InputStreamReader(this.connection.getInputStream()));
-                char[] buffer = new char[2048];
-                int nb;
-                while (-1 != (nb = input.read(buffer, 0, 2048))) {
-                    sb.append(buffer, 0, nb);
-                }
-                input.close();
+                this.content = IoUtil.getText(this.connection.getInputStream());
             } catch (IOException e) {
                 throw new ChainedRuntimeException(e);
             }
-
-            this.content = sb.toString();
-
         }
 
         return this.content;

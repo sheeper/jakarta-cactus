@@ -56,7 +56,6 @@
  */
 package org.apache.cactus.client;
 
-import java.io.ObjectInputStream;
 import java.net.HttpURLConnection;
 import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
@@ -65,6 +64,7 @@ import org.apache.cactus.ServiceDefinition;
 import org.apache.cactus.ServiceEnumeration;
 import org.apache.cactus.WebRequest;
 import org.apache.cactus.WebTestResult;
+import org.apache.cactus.util.IoUtil;
 import org.apache.cactus.client.authentication.AbstractAuthentication;
 
 /**
@@ -225,12 +225,10 @@ public abstract class AbstractHttpClient
 
         HttpURLConnection resultConnection = helper.connect(resultsRequest);
 
-        // Read the results as a serialized object
-        ObjectInputStream ois =
-            new ObjectInputStream(resultConnection.getInputStream());
-        WebTestResult result = (WebTestResult) ois.readObject();
-
-        ois.close();
+        // Read the test result
+        WebTestResultParser parser = new WebTestResultParser();
+        WebTestResult result = parser.parse(
+            IoUtil.getText(resultConnection.getInputStream()));
 
         return result;
     }
