@@ -199,6 +199,11 @@
     <depend project="jakarta-ant"/>
     <depend project="xml-xerces"/>
 
+    <depend project="jakarta-cactus-ant"/>
+    <depend project="jakarta-cactus-documentation"/>
+    <depend project="jakarta-cactus-framework-12"/>
+    <depend project="jakarta-cactus-sample-servlet-12"/>
+
     <deliver fromdir="dist-12" tosite="jakarta.apache.org"
              todir="builds/jakarta-cactus/nightly/@@DATE@@/" />
 
@@ -224,6 +229,11 @@
 
     <depend project="jakarta-ant"/>
     <depend project="xml-xerces"/>
+
+    <depend project="jakarta-cactus-ant"/>
+    <depend project="jakarta-cactus-documentation"/>
+    <depend project="jakarta-cactus-framework-12"/>
+    <depend project="jakarta-cactus-sample-servlet-12"/>
 
     <deliver fromdir="dist-13" tosite="jakarta.apache.org"
              todir="builds/jakarta-cactus/nightly/@@DATE@@/" />
