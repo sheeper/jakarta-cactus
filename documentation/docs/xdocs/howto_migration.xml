@@ -78,33 +78,44 @@
       <p>
         Follow these steps:
       </p>
-      <ul>
-        <li>
-          <strong>Step 1</strong>: Put <code>aspectjrt.jar</code> (found in
+      
+      <section title="Step 1">
+
+        <p>
+          Put <code>aspectjrt.jar</code> (found in
           <code>CACTUS_HOME/lib</code>) in both your client side and server
           side classpaths.
-        </li>
-        <li>
-          <strong>Step 2</strong>: Modify your <code>cactus.properties</code>
-          to the new format. For example:
-        </li>
+        </p>
+
+      </section>
+
+      <section title="Step 2">
+
+        <p>
+          Modify your <code>cactus.properties</code> to the new format. For
+          example:
+        </p>
 <source><![CDATA[
 cactus.contextURL = http://localhost:8000/cactus
 cactus.servletRedirectorName = ServletRedirector
 ]]></source>
-        <li>
-          <strong>Step 3</strong>: Ensure that
-          <code>cactus.servletRedirectorName</code> does
-          not end with a "/" and that the mapping in <code>web.xml</code>
-          matches it:
-        </li>
+
+      </section>
+
+      <section title="Step 3">
+
+        <p>
+          Ensure that <code>cactus.servletRedirectorName</code> does not end
+          with a "/" and that the mapping in <code>web.xml</code> matches it:
+        </p>
 <source><![CDATA[
     <servlet-mapping>
         <servlet-name>ServletRedirector</servlet-name>
         <url-pattern>/ServletRedirector</url-pattern>
     </servlet-mapping>
 ]]></source>
-      </ul>
+
+      </section>
 
       <p>
         The Cactus sample is supposed to work with Ant 1.4. However, we
