@@ -60,11 +60,9 @@
       <action>
         Modify the Eclipse plugin to use the new Ant integration.
       </action>
-      <action assigned-to="Christopher Lenz">
-        Resolve remaining backwards compatibility problems. One is the move of
-        classes from the <code>o.a.c.server</code> package to the
-        <code>o.a.c.server.wrapper</code>, which seems to break
-        <link href="ext:strutstestcase">StrutsTestCase</link>.
+      <action>
+        Enhance the <code>runservertests</code> task to accept nested
+        <code>&lt;containerset&gt;</code> elements.
       </action>
     </category>
     
