@@ -15,6 +15,7 @@
     <item id="bug_database" label="Bug Database"/>
     <item id="mailinglist"/>
     <item id="faq" label="FAQ"/>
+    <item id="cactus_wiki" label="Wiki"/>
     <item id="license"/>
   </menu>
 

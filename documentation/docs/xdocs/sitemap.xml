@@ -404,6 +404,7 @@
   <external id="cactus_release_old" url="http://jakarta.apache.org/builds/jakarta-cactus/release"/>
   <external id="cactus_testedon" url="http://nagoya.apache.org/wiki/apachewiki.cgi?CactusProjectPages/TestedOn"/>
   <external id="cactus_viewcvs" url="http://cvs.apache.org/viewcvs/jakarta-cactus/"/>
+  <external id="cactus_wiki" url="http://nagoya.apache.org/wiki/apachewiki.cgi?CactusProjectPages"/>
   <external id="checkstyle" url="http://checkstyle.sf.net"/>
   <external id="clover" url="http://www.thecortex.net/clover/index.html"/>
   <external id="commons_beanutils" url="http://jakarta.apache.org/commons/beanutils.html"/>
