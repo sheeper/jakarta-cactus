@@ -404,7 +404,8 @@
   <external id="cactus_dutronc_lyrics" url="http://www.muriset.com/paroles/les_cactus.htm"/>
   <external id="cactus_dutronc_midi" url="http://www.muriset.com/musique/les_cactus.mid"/>
   <external id="cactus_nightly" url="http://cvs.apache.org/builds/jakarta-cactus/nightly"/>
-  <external id="cactus_release" url="http://www.apache.org/dist/jakarta/cactus"/>
+  <external id="cactus_release_bin" url="http://jakarta.apache.org/site/binindex.cgi"/>
+  <external id="cactus_release_src" url="http://jakarta.apache.org/site/sourceindex.cgi"/>
   <external id="cactus_release_old" url="http://jakarta.apache.org/builds/jakarta-cactus/release"/>
   <external id="cactus_viewcvs" url="http://cvs.apache.org/viewcvs/jakarta-cactus/"/>
   <external id="checkstyle" url="http://checkstyle.sf.net"/>

@@ -112,10 +112,14 @@
 
     <section title="Releases">
 
-      <p>
-        Click <link href="ext:cactus_release">here</link> for Cactus releases.
-      </p>
-
+      <ul>
+        <li>
+          <link href="ext:cactus_release_bin">Cactus binary releases</link>.
+        </li>
+        <li>
+          <link href="ext:cactus_release_src">Cactus source releases</link>.
+        </li>
+      </ul>
       <note>
         For older Cactus releases (&lt;= 1.4.1), click 
         <link href="ext:cactus_release_old">here</link>.
