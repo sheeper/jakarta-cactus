@@ -3,5 +3,24 @@
   PUBLIC "-//Apache Software Foundation//DTD Cactus Navigation V1.0//EN"
   "file:../../dtds/navigation-v10.dtd">
 
-<navigation title="Participating" index="contributing">
+<navigation title="Participating" index="participating">
+
+  <menu label="Participating">
+    <item id="participating" label="Introduction"/>
+    <item id="contributors"/>
+    <item id="users"/>
+  </menu>
+
+  <menu label="Developers">
+    <item id="coding_conventions"/>
+    <item id="coverage"/>
+    <item id="howto_build"/>
+    <item id="todo"/>
+    <item id="release_checklist"/>
+  </menu>
+
+  <menu label="Miscellaneous">
+    <item id="logos"/>
+  </menu>
+
 </navigation>

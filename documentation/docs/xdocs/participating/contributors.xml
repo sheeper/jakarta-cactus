@@ -21,7 +21,7 @@
       </p>
       <p>
         All contributions are welcome (see the
-        <link href="site:contributing">Contributing</link> page).
+        <link href="site:participating">Participating</link> page).
         The final decision of what becomes part of the official distribution
         is made by a group of <jump anchor="committers">Committers</jump>.
         For more about Meritocracy, see the
@@ -119,6 +119,9 @@
         </li>
         <li>
           <link href="mailto:jruaux@octo.com">Julien Ruaux</link>
+        </li>
+        <li>
+          <link href="mailto:cmlenz@gmx.de">Christopher Lenz</link>
         </li>
       </ul>
 
