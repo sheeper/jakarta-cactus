@@ -20,8 +20,8 @@
         <li>
           Ensure that all
           <link href="ext:bug_database_cactus_open">open bugs</link> have 
-          been either fixed, marked as INVALID or WONTFIX  or marked as 
-          LATER (indicating that they will be resolved after this release).
+          been either fixed, or added in the announcement file. Note that 
+          improvements do not need to be added to the announcement file.
         </li>
         <li>
           Ensure that the Cactus tests have been run on several application
