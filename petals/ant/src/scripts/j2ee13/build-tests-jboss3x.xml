@@ -127,7 +127,7 @@
        ========================================================================
     -->
     <target name="cactus.setup.jboss3x"
-        depends="cactus.check.jboss3x" if="cactus.home.jboss3x"
+        depends="cactus.init, cactus.check.jboss3x" if="cactus.home.jboss3x"
         description="Set up a JBoss 3.x directory structure">
 
         <!-- TODO: Find how to create a valid default server configuration.
