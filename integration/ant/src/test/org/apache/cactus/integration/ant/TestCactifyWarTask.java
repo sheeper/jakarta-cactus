@@ -188,12 +188,12 @@ public final class TestCactifyWarTask extends AntTestCase
         {
             WebXml webXml = WebXmlIo.parseWebXml(destWar,
                 new NullEntityResolver());
-    
+            assertNull("The web.xml should not have a version specified",
+                webXml.getVersion());
             assertServletMapping(webXml,
                 "org.apache.cactus.server.ServletTestRedirector",
                 "/ServletRedirector");
             assertJspMapping(webXml, "/jspRedirector.jsp", "/JspRedirector");
-    
             // As the deployment descriptor in the source WAR doesn't contain a 
             // DOCTYPE, it is assumed to be a version 2.2 descriptor. Thus it 
             // should not contain a definition of the filter test redirector.
@@ -223,7 +223,7 @@ public final class TestCactifyWarTask extends AntTestCase
         {
             WebXml webXml = WebXmlIo.parseWebXml(destWar,
                 new NullEntityResolver());
-
+            assertEquals(WebXmlVersion.V2_2, webXml.getVersion());
             assertServletMapping(webXml,
                 "org.apache.cactus.server.ServletTestRedirector",
                 "/ServletRedirector");
@@ -253,7 +253,7 @@ public final class TestCactifyWarTask extends AntTestCase
         {
             WebXml webXml = WebXmlIo.parseWebXml(destWar,
                 new NullEntityResolver());
-            
+            assertEquals(WebXmlVersion.V2_3, webXml.getVersion());
             assertServletMapping(webXml,
                 "org.apache.cactus.server.ServletTestRedirector",
                 "/ServletRedirector");
