@@ -22,14 +22,14 @@
 
   <!-- Base directory for all file related operations -->
   <property name="base.dir" 
-      value="integration/eclipse/org.apache.cactus.eclipse.webapp"/>
+      location="integration/eclipse/org.apache.cactus.eclipse.webapp"/>
 
   <!-- Include properties and targets common to the different subprojects -->
   &common;
 
   <!-- Global project properties -->
-  <property name="project.name.text" value="Cactus Eclipse Webapp plugin"/>
-  <property name="project.name.file" value="cactus-integration-eclipse-webapp"/>
+  <property name="project.name.text" value="Cactus Eclipse Webapp Plug-in"/>
+  <property name="project.name.file" value="cactus-eclipse-webapp"/>
 
   <!--
      ========================================================================
@@ -43,21 +43,15 @@
         value="${project.version.release}.${DSTAMP}"/>
 
     <!-- Set the properties related to the source tree -->
-    <property name="src.dir" value="${base.dir}/src"/>
-    <property name="src.java.dir" value="${src.dir}/java"/>
+    <property name="src.dir" location="${base.dir}/src"/>
+    <property name="src.java.dir" location="${src.dir}/java"/>
 
     <!-- Set the properties related to the target area -->
-    <property name="target.classes.dir" value="${target.dir}/classes"/>
-
-    <!-- Set the properties related to the dist area -->
-    <property name="dist.bin.integration.dir" 
-        value="${dist.bin.dir}/${project.name.file}"/>
+    <property name="target.classes.dir" location="${target.dir}/classes"/>
 
     <!-- Set the properties related to the jar names -->
-    <property name="cactus.webappintegration.jar.name" value="webapp.jar"/>
-
-    <property name="cactus.webappintegration.src.jar.name" 
-        value="webappsrc.jar"/>
+    <property name="cactus.eclipse.webapp.jar.name" value="webapp.jar"/>
+    <property name="cactus.eclipse.webapp.src.zip.name" value="webappsrc.zip"/>
 
   </target>
 
@@ -110,7 +104,6 @@ be resolved. Please check you build.properties file, and run Ant with the
 
     <javac destdir="${target.classes.dir}" deprecation="${deprecation}" 
         optimize="${optimize}" debug="${debug}">
-		
       <src path="${src.java.dir}"/>
       <classpath>
         <pathelement location="${eclipse.core.boot.jar}"/>
@@ -121,10 +114,6 @@ be resolved. Please check you build.properties file, and run Ant with the
         <pathelement location="${eclipse.swt.jar}"/>
         <pathelement location="${eclipse.jface.jar}"/>
         <pathelement location="${eclipse.ui.workbench.jar}"/>
-
-        <!-- Needed for Gump -->
-        <pathelement location="${java.class.path}"/>
-
       </classpath>
     </javac>
 		
@@ -146,7 +135,7 @@ be resolved. Please check you build.properties file, and run Ant with the
         
     <mkdir dir="${target.dir}"/>
 
-    <jar jarfile="${target.dir}/${cactus.webappintegration.jar.name}">
+    <jar jarfile="${target.dir}/${cactus.eclipse.webapp.jar.name}">
       <manifest>
         <section name="org/apache/cactus/eclipse/webapp/">
           <attribute name="Specification-Title"
@@ -169,28 +158,9 @@ be resolved. Please check you build.properties file, and run Ant with the
       <fileset dir="${target.classes.dir}"/>
     </jar>
 				
-    <jar jarfile="${target.dir}/${cactus.webappintegration.src.jar.name}">
-      <manifest>
-        <section name="org/apache/cactus/eclipse/webapp/">
-          <attribute name="Specification-Title" 
-              value="${project.name.text}"/>
-          <attribute name="Specification-Version"
-              value="${project.version}"/>
-          <attribute name="Specification-Vendor"
-              value="Apache Software Foundation"/>
-          <attribute name="Implementation-Title"
-              value="${project.name.file}"/>
-          <attribute name="Implementation-Version"
-              value="${project.version} ${TODAY}"/>
-          <attribute name="Implementation-Vendor"
-              value="Apache Software Foundation"/>
-        </section>
-      </manifest>
-      <metainf dir=".">
-        <include name="LICENSE.cactus"/>
-      </metainf>
+    <zip zipfile="${target.dir}/${cactus.eclipse.webapp.src.zip.name}">
       <fileset dir="${src.java.dir}"/>
-    </jar>		
+    </zip>
 
   </target>
 
@@ -203,14 +173,16 @@ be resolved. Please check you build.properties file, and run Ant with the
   <target name="dist" depends="checkstyle,jar"
       description="Generate the distributable files">
 	  
-    <mkdir dir="${dist.bin.integration.dir}"/>
-
-    <copy todir="${dist.bin.integration.dir}"
-        file="${target.dir}/${cactus.webappintegration.jar.name}"/>
-    <copy todir="${dist.bin.integration.dir}"
-        file="${target.dir}/${cactus.webappintegration.src.jar.name}"/>
-	
-    <copy todir="${dist.bin.integration.dir}" 
+    <mkdir dir="${dist.bin.dir}"/>
+    <copy todir="${dist.bin.dir}">
+      <fileset dir="${target.dir}">
+        <include name="${cactus.eclipse.webapp.jar.name}"/>
+        <include name="${cactus.eclipse.webapp.src.zip.name}"/>
+      </fileset>
+      <fileset file="${base.dir}/plugin.properties"/>
+      <fileset file="${basedir}/LICENSE.cactus"/>
+    </copy>
+    <copy todir="${dist.bin.dir}"
         file="${base.dir}/plugin.xml" filtering="on">
       <filterset begintoken="&lt;!--@" endtoken="@--&gt;">
         <filter token="cactus.begin" value="&lt;!--"/>
@@ -220,11 +192,6 @@ be resolved. Please check you build.properties file, and run Ant with the
       </filterset>
     </copy>
     
-    <copy todir="${dist.bin.integration.dir}" 
-        file="${base.dir}/plugin.properties"/>
-
-    <copy todir="${dist.bin.integration.dir}" file="LICENSE.cactus"/>
-
   </target>
 
   <!--
@@ -238,7 +205,6 @@ be resolved. Please check you build.properties file, and run Ant with the
       description="Perform a code audit using Checkstyle">
 
     <mkdir dir="${target.dir}"/>
-
     <checkstyle config="./checkstyle.xml" failOnViolation="true">
       <fileset dir="${src.java.dir}">
         <include name="**/*.java"/>
@@ -259,10 +225,9 @@ be resolved. Please check you build.properties file, and run Ant with the
       description="Generate the release files">
 
     <mkdir dir="${release.dir}"/>
-
     <zip destfile="${release.dir}/${main.release.name}.zip">
-      <zipfileset dir="${dist.bin.integration.dir}"
-        prefix="org.apache.cactus.integration.eclipse.webapp_${project.version}">
+      <zipfileset dir="${dist.bin.dir}"
+        prefix="org.apache.cactus.eclipse.webapp_${project.version}">
       </zipfileset>
     </zip>
         
