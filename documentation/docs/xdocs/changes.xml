@@ -90,6 +90,23 @@
       </devs>
 
       <release version="1.6dev" date="in CVS">
+        <action dev="VMA" type="update">
+          Due to some internal package restructuration (all non public API were
+          moved to <code>internal</code> packages), the 
+          <code>jspredirector.jsp</code> file was modified. If you have 
+          installed this file manually somewhere, you'll need to remember to 
+          update it.
+        </action>
+        <action dev="VMA" type="update">
+          Big internal restructuration: we have moved all the non public API 
+          classes to java packages with the name <code>internal</code>. For
+          example the package <code>org.apache.cactus.internal</code> is a 
+          package containing some internal implementation. You should not use
+          any internal class in your own development as these classes may 
+          change at any time in the future. If you find you need access to some
+          internal class, please send an email to the Cactus mailing class
+          explaining the reason and we may open up some API/SPI.
+        </action>
         <action dev="VMA" type="remove">
           Removed <code>org.apache.cactus.util.HttpURLConnection</code> class.
           It was a Commons HttpClient wrapper on top of the 
