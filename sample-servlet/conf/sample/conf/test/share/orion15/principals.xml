@@ -24,5 +24,8 @@
 			<group-membership group="guests" />
 			<group-membership group="users" />
 		</user>
+        <user username="testuser" password="testpwd" deactivated="false">
+            <description>Cactus Test User</description>
+        </user>
 	</users>
 </principals>

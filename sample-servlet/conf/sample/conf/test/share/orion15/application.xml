@@ -5,6 +5,10 @@
 
     <web-module id="test" path="../test.war"/>
 
+    <security-role-mapping name="test">
+        <user name="testuser"/>
+    </security-role-mapping>
+
 	<namespace-access>
 		<read-access>
 			<namespace-resource root="">
