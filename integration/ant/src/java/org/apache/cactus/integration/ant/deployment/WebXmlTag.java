@@ -173,6 +173,12 @@ public final class WebXmlTag
         new WebXmlTag("servlet-class");
     
     /**
+     * Element name 'load-on-startup'.
+     */
+    public static final WebXmlTag LOAD_ON_STARTUP =
+        new WebXmlTag("load-on-startup");
+    
+    /**
      * Element name 'servlet-mapping'.
      */
     public static final WebXmlTag SERVLET_MAPPING =

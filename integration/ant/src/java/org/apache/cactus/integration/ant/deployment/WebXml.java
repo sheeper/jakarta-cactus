@@ -1015,7 +1015,17 @@ public class WebXml
             createNestedText(WebXmlTag.PARAM_NAME, theParamName));
         initParamElement.appendChild(
             createNestedText(WebXmlTag.PARAM_VALUE, theParamValue));
-        theElement.appendChild(initParamElement);
+        Iterator loadOnStartupElements = getNestedElements(theElement,
+            WebXmlTag.LOAD_ON_STARTUP);
+        if (loadOnStartupElements.hasNext())
+        {
+            theElement.insertBefore(initParamElement,
+                (Element) loadOnStartupElements.next());
+        }
+        else
+        {
+            theElement.appendChild(initParamElement);
+        }
     }
     
     /**

@@ -66,6 +66,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import junit.framework.TestCase;
 
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 /**
  * Unit tests for {@link WebXmlMerger}.
@@ -567,6 +568,45 @@ public final class TestWebXmlMerger extends TestCase
         assertEquals("s3", servletNames.next());
         assertEquals("s4", servletNames.next());
         assertTrue(!servletNames.hasNext());
+    }
+
+    /**
+     * Verifies that servlet init parameters are added after the load-on-startup
+     * element of an already existing servlet definition.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
+    public void testMergingServletWithInitParamsThatIsAlreadyDefined()
+        throws Exception
+    {
+        String srcXml = "<web-app>".trim()
+            + "  <servlet>".trim()
+            + "    <servlet-name>s1</servlet-name>".trim()
+            + "    <servlet-class>sclass1</servlet-class>".trim()
+            + "    <load-on-startup>1</load-on-startup>".trim()
+            + "  </servlet>".trim()
+            + "</web-app>";
+        Document srcDoc =
+            builder.parse(new ByteArrayInputStream(srcXml.getBytes()));
+        WebXml srcWebXml = new WebXml(srcDoc);
+        String mergeXml = "<web-app>"
+            + "  <servlet>".trim()
+            + "    <servlet-name>s1</servlet-name>".trim()
+            + "    <servlet-class>sclass1</servlet-class>".trim()
+            + "    <init-param>".trim()
+            + "      <param-name>s1param1</param-name>".trim()
+            + "      <param-value>s1param1value</param-value>".trim()
+            + "    </init-param>".trim()
+            + "  </servlet>".trim()
+            + "</web-app>";
+        Document mergeDoc =
+            builder.parse(new ByteArrayInputStream(mergeXml.getBytes()));
+        WebXml mergeWebXml = new WebXml(mergeDoc);
+        WebXmlMerger merger = new WebXmlMerger(srcWebXml);
+        merger.mergeServlets(mergeWebXml);
+        Element servletElement = srcWebXml.getServlet("s1");
+        assertEquals("load-on-startup",
+            ((Element) servletElement.getLastChild()).getTagName());
     }
 
     /**
