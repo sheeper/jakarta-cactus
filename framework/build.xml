@@ -115,9 +115,20 @@
         <echo>  httpunit.jar = [${httpunit.jar}]</echo>
         <echo>  j2ee.jar = [${j2ee.jar}]</echo>
         <echo>  junit.jar = [${junit.jar}]</echo>
+        <echo>  xmlapis.jar = [${xmlapis.jar}]</echo>
         <echo/>
         <echo>Options:</echo>
         <echo>  clover.enable (optional) = ${clover.enable}</echo>
+
+        <path id="project.classpath">
+            <pathelement location="${aspectjrt.jar}"/>
+            <pathelement location="${commons.logging.jar}"/>
+            <pathelement location="${commons.httpclient.jar}"/>
+            <pathelement location="${httpunit.jar}"/>
+            <pathelement location="${j2ee.jar}"/>
+            <pathelement location="${junit.jar}"/>
+            <pathelement location="${xmlapis.jar}"/>
+        </path>
 
         <condition property="properties.ok">
           <and>
@@ -127,21 +138,17 @@
             <available file="${httpunit.jar}"/>
             <available file="${j2ee.jar}"/>
             <available file="${junit.jar}"/>
+            <!-- Check for a TraX class instead of the xmlapis.jar file so that
+                 the build works on JDK 1.4 without needing to define the
+                 xmlapis.jar property -->
+            <available classname="javax.xml.transform.Transformer"
+                classpathref="project.classpath"/>
           </and>
         </condition>
 
         <fail unless="properties.ok">One or more required dependancies could not
 be resolved. Please check you build.properties file, and run Ant with the 
 -verbose option for more details</fail>
-
-        <path id="project.classpath">
-            <pathelement location="${aspectjrt.jar}"/>
-            <pathelement location="${commons.logging.jar}"/>
-            <pathelement location="${commons.httpclient.jar}"/>
-            <pathelement location="${httpunit.jar}"/>
-            <pathelement location="${j2ee.jar}"/>
-            <pathelement location="${junit.jar}"/>
-        </path>
 
     </target>
 
