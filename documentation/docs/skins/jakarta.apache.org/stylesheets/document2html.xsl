@@ -241,12 +241,21 @@
     <xsl:choose>
       <xsl:when test="name($cursite) = 'external'">
         <div id="menu">
-          <font size="-{$level}">
-            <a href="{$cursite/@url}" target="{@id}">
-              <xsl:value-of select="@label"/>
-            </a>
-          </font>
-          <xsl:apply-templates/>
+          <a href="{$cursite/@url}" target="{@id}">
+            <font size="-{$level}">
+              <!-- Use the label from the sitemap if none has been defined
+                   in the navigation file -->
+              <xsl:choose>
+                <xsl:when test="@label">
+                  <xsl:value-of select="@label"/>
+                </xsl:when>
+                <xsl:otherwise>
+                  <xsl:value-of select="$cursite/@name"/>
+                </xsl:otherwise>
+              </xsl:choose>
+            </font>
+            <xsl:apply-templates/>
+          </a>
         </div>
       </xsl:when>
       <xsl:when test="name($cursite) = 'resource'">
