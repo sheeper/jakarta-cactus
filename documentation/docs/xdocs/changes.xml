@@ -68,6 +68,10 @@
       </devs>
 
       <release version="1.6dev" date="in CVS">
+        <action dev="VMA" type="update" fixes-bug="25034" due-to="Daniel Rabe" due-to-email="drabe@opentext.com">
+          The <code>&lt;cactus&gt;</code> task now also cleans custom tmp
+          directories (passed using the <code>tmpdir</code> attribute).
+        </action>
         <action dev="VMA" type="fix" fixes-bug="25968" due-to="James Carpenter" due-to-email="jacarpenter@ercot.com">
           Added support for specifying which JNDI port to use when shutting 
           down JBoss 3.x in the Cactus Ant integration. 

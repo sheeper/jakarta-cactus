@@ -207,10 +207,7 @@ public abstract class AbstractOrionContainer extends AbstractJavaContainer
         FileUtils fileUtils = FileUtils.newFileUtils();
         FilterChain filterChain = createFilterChain();
 
-        if (this.tmpDir == null)
-        {
-            this.tmpDir = createTempDirectory(theDirName);
-        }
+        this.tmpDir = prepareTempDirectory(this.tmpDir, theDirName);
 
         // Copy configuration files into the temporary container directory
 
