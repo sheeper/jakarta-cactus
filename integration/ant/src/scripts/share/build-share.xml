@@ -138,7 +138,11 @@
         <unwar src="${cactus.war}" 
             dest="${cactus.target.dir}/${cactus.context}"/>
 
-        <!-- TODO: Perform a web.xml merge -->
+        <!-- Perform a web.xml merge -->
+		<webxmlmerge 
+		  srcFile="${cactus.target.dir}/${cactus.context}/WEB-INF/web.xml"
+		  mergeFile="${cactus.conf.dir}/web.xml"
+		  destFile="${cactus.target.dir}/${cactus.context}/WEB-INF/web.xml"/>
 
         <!-- Copy the Cactus web.xml -->
         <copy todir="${cactus.target.dir}/${cactus.context}/WEB-INF" 
