@@ -3,7 +3,19 @@
 
 <orion-application>
 
-    <web-module id="test" path="../@cactus.context@.war"/>
+    <web-module id="defaultWebApp" path="../default-web-app"/>
+    <web-module id="test" path="../applications/@cactus.context@.war"/>
+
+	<persistence path="../persistence"/>
+	
+	<principals path="./principals.xml"/>
+
+	<log>
+		<file path="../log/global-application.log"/>
+	</log>
+
+    <!-- TODO: Remove security stuff from the default configuration. This must
+         be provided by the Sample Servlet project -->
 
     <security-role-mapping name="test">
         <user name="testuser"/>
@@ -25,7 +37,5 @@
 			</namespace-resource>
 		</write-access>
 	</namespace-access>
-
-	<principals path="./principals.xml" />
 
 </orion-application>

@@ -4,8 +4,11 @@
 <web-site host="[ALL]" port="@cactus.port@" display-name="Default Orion WebSite">
 
     <!-- The default web-app for this site, bound to the root -->
-    <default-web-app application="default" name="test"/>
+    <default-web-app application="default" name="defaultWebApp"/>
 
+    <!-- The Cactus test webapp -->
     <web-app application="default" name="test" root="/@cactus.context@"/>
 
+    <access-log path="../log/default-web-access.log"/>
+    
 </web-site>
