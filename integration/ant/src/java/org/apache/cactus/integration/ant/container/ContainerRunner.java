@@ -348,6 +348,7 @@ public final class ContainerRunner
         {
             HttpURLConnection connection = 
                 (HttpURLConnection) theUrl.openConnection();
+            connection.setRequestProperty("Connection", "close");
             connection.connect();
             readFully(connection);
             connection.disconnect();
