@@ -93,6 +93,11 @@
           make use of Filter API objects.
         </li>
         <li>
+          Ability to unit test EJBs (including local interfaces) by calling
+          them from a <code>ServletTestCase</code> class (see the
+          <link href="howto_ejb.html">EJB Howto</link>).
+        </li>
+        <li>
           Extends JUnit by defining two additional (and optional) methods
           that can be implemented for each test case (i.e. for each
           <code>testXXX()</code> method) : <code>beginXXX()</code> and
@@ -110,7 +115,7 @@
               HTTP parameters (GET and POST),
             </li>
             <li>
-              HTTP Headers
+              HTTP Headers,
             </li>
             <li>
               Whether an HTTP Session will be created or not on the server side,
@@ -127,13 +132,16 @@
           It is possible to verify the following in <code>beginXXX()</code> :
           <ul>
             <li>
-              Returned data (as String or using <code>HttpUnit</code>,
+              Returned data (as String or using <code>HttpUnit</code>),
             </li>
             <li>
               Returned cookies,
             </li>
             <li>
-              Returned HTTP headers
+              Returned HTTP headers,
+            </li>
+            <li>
+              Returned response code
             </li>
           </ul>
         </li>
@@ -218,8 +226,14 @@
           unit testing features.
         </li>
         <li>
+          Uses Jakarta Commons
+          <link href="http://jakarta.apache.org/commons/httpclient">HttpClient
+          </link> for HTTP connections.
+        </li>
+        <li>
           Support for BASIC authentication. You can test code that uses the
-          Servlet security API.
+          Servlet security API (see the
+          <link href="howto_security.html">Security Howto</link>).
         </li>
         <li>
           Ability to specify, per test case, what redirector to use. Useful,
