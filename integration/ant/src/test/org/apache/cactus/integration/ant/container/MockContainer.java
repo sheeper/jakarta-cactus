@@ -124,7 +124,7 @@ public class MockContainer implements Container
     // Container Implementation ------------------------------------------------
 
     /**
-     * @see org.apache.cactus.integration.ant.container.Container#getName()
+     * @see Container#getName()
      */
     public String getName()
     {
@@ -132,7 +132,7 @@ public class MockContainer implements Container
     }
 
     /**
-     * @see org.apache.cactus.integration.ant.container.Container#getPort()
+     * @see Container#getPort()
      */
     public int getPort()
     {
@@ -140,7 +140,7 @@ public class MockContainer implements Container
     }
 
     /**
-     * @see org.apache.cactus.integration.ant.container.Container#getToDir()
+     * @see Container#getToDir()
      */
     public File getToDir()
     {
@@ -148,14 +148,14 @@ public class MockContainer implements Container
     }
 
     /**
-     * @see org.apache.cactus.integration.ant.container.Container#init()
+     * @see Container#init()
      */
     public void init()
     {
     }
 
     /**
-     * @see org.apache.cactus.integration.ant.container.Container#isEnabled()
+     * @see Container#isEnabled()
      */
     public boolean isEnabled()
     {
@@ -163,7 +163,7 @@ public class MockContainer implements Container
     }
 
     /**
-     * @see org.apache.cactus.integration.ant.container.Container#isExcluded(java.lang.String)
+     * @see Container#isExcluded(java.lang.String)
      */
     public boolean isExcluded(String theTestName)
     {
@@ -171,28 +171,28 @@ public class MockContainer implements Container
     }
 
     /**
-     * @see org.apache.cactus.integration.ant.container.Container#setAntTaskFactory(org.apache.cactus.integration.ant.util.AntTaskFactory)
+     * @see Container#setAntTaskFactory(AntTaskFactory)
      */
     public void setAntTaskFactory(AntTaskFactory theFactory)
     {
     }
 
     /**
-     * @see org.apache.cactus.integration.ant.container.Container#setLog(org.apache.commons.logging.Log)
+     * @see Container#setLog(Log)
      */
     public void setLog(Log theLog)
     {
     }
 
     /**
-     * @see org.apache.cactus.integration.ant.container.Container#setDeployableFile
+     * @see Container#setDeployableFile
      */
     public void setDeployableFile(File theWarFile)
     {
     }
 
     /**
-     * @see org.apache.cactus.integration.ant.container.Container#startUp()
+     * @see Container#startUp()
      */
     public void startUp()
     {
@@ -205,7 +205,7 @@ public class MockContainer implements Container
     }
 
     /**
-     * @see org.apache.cactus.integration.ant.container.Container#shutDown()
+     * @see Container#shutDown()
      */
     public void shutDown()
     {

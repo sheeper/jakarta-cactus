@@ -189,7 +189,7 @@ public abstract class AbstractContainer extends ProjectComponent
     // Container Implementation ------------------------------------------------
 
     /**
-     * @see org.apache.cactus.integration.ant.container.Container#getToDir
+     * @see Container#getToDir
      */
     public final File getToDir()
     {
@@ -199,7 +199,7 @@ public abstract class AbstractContainer extends ProjectComponent
     /**
      * The default implementation does nothing.
      * 
-     * @see org.apache.cactus.integration.ant.container.Container#init
+     * @see Container#init
      */
     public void init()
     {
@@ -207,7 +207,7 @@ public abstract class AbstractContainer extends ProjectComponent
     }
 
     /**
-     * @see org.apache.cactus.integration.ant.container.Container#isEnabled
+     * @see Container#isEnabled
      */
     public final boolean isEnabled()
     {
@@ -215,7 +215,7 @@ public abstract class AbstractContainer extends ProjectComponent
     }
 
     /**
-     * @see org.apache.cactus.integration.ant.container.Container#isExcluded
+     * @see Container#isExcluded
      */
     public final boolean isExcluded(String theTestName)
     {
@@ -243,7 +243,7 @@ public abstract class AbstractContainer extends ProjectComponent
     }
 
     /**
-     * @see org.apache.cactus.integration.ant.container.Container#setAntTaskFactory
+     * @see Container#setAntTaskFactory
      */
     public void setAntTaskFactory(AntTaskFactory theFactory)
     {
@@ -251,7 +251,7 @@ public abstract class AbstractContainer extends ProjectComponent
     }
 
     /**
-     * @see org.apache.cactus.integration.ant.container.Container#setDeployableFile
+     * @see Container#setDeployableFile
      */
     public final void setDeployableFile(File theDeployableFile)
     {
@@ -259,7 +259,7 @@ public abstract class AbstractContainer extends ProjectComponent
     }
 
     /**
-     * @see org.apache.cactus.integration.ant.container.Container#setLog
+     * @see Container#setLog
      */
     public void setLog(Log theLog)
     {
@@ -275,7 +275,7 @@ public abstract class AbstractContainer extends ProjectComponent
      * 
      * @param theName The logical name of the task to create
      * @return A new isntance of the task
-     * @see org.apache.cactus.integration.ant.util.AntTaskFactory#createTask
+     * @see AntTaskFactory#createTask
      */
     protected final Task createAntTask(String theName)
     {

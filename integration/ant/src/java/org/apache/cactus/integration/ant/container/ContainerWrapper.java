@@ -98,7 +98,7 @@ public class ContainerWrapper implements Container
     // AbstractContainer Implementation ----------------------------------------
 
     /**
-     * @see org.apache.cactus.integration.ant.container.Container#getName
+     * @see Container#getName
      */
     public String getName()
     {
@@ -106,7 +106,7 @@ public class ContainerWrapper implements Container
     }
 
     /**
-     * @see org.apache.cactus.integration.ant.container.Container#getPort
+     * @see Container#getPort
      */
     public int getPort()
     {
@@ -114,7 +114,7 @@ public class ContainerWrapper implements Container
     }
 
     /**
-     * @see org.apache.cactus.integration.ant.container.Container#getToDir
+     * @see Container#getToDir
      */
     public File getToDir()
     {
@@ -122,7 +122,7 @@ public class ContainerWrapper implements Container
     }
 
     /**
-     * @see org.apache.cactus.integration.ant.container.Container#init
+     * @see Container#init
      */
     public void init()
     {
@@ -130,7 +130,7 @@ public class ContainerWrapper implements Container
     }
 
     /**
-     * @see org.apache.cactus.integration.ant.container.Container#isEnabled
+     * @see Container#isEnabled
      */
     public boolean isEnabled()
     {
@@ -138,7 +138,7 @@ public class ContainerWrapper implements Container
     }
 
     /**
-     * @see org.apache.cactus.integration.ant.container.Container#isExcluded
+     * @see Container#isExcluded
      */
     public boolean isExcluded(String theTestName)
     {
@@ -146,7 +146,7 @@ public class ContainerWrapper implements Container
     }
 
     /**
-     * @see org.apache.cactus.integration.ant.container.Container#startUp
+     * @see Container#startUp
      */
     public void startUp()
     {
@@ -154,7 +154,7 @@ public class ContainerWrapper implements Container
     }
 
     /**
-     * @see org.apache.cactus.integration.ant.container.Container#shutDown
+     * @see Container#shutDown
      */
     public void shutDown()
     {
@@ -162,7 +162,7 @@ public class ContainerWrapper implements Container
     }
     
     /**
-     * @see org.apache.cactus.integration.ant.container.Container#setAntTaskFactory
+     * @see Container#setAntTaskFactory
      */
     public void setAntTaskFactory(AntTaskFactory theFactory)
     {
@@ -170,7 +170,7 @@ public class ContainerWrapper implements Container
     }
 
     /**
-     * @see org.apache.cactus.integration.ant.container.Container#setLog
+     * @see Container#setLog
      */
     public void setLog(Log theLog)
     {
@@ -178,7 +178,7 @@ public class ContainerWrapper implements Container
     }
 
     /**
-     * @see org.apache.cactus.integration.ant.container.Container#setDeployableFile
+     * @see Container#setDeployableFile
      */
     public void setDeployableFile(File theWarFile)
     {

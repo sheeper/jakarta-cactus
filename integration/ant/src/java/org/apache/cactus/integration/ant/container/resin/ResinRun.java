@@ -104,7 +104,7 @@ public class ResinRun extends AbstractServerRun
      * Start the Resin server. We use reflection so that the Resin jars do not
      * need to be in the classpath to compile this class.
      * 
-     * @see org.apache.cactus.integration.ant.container.AbstractServerRun#doStartServer
+     * @see AbstractServerRun#doStartServer
      */
     protected final void doStartServer(String[] theArgs)
     {
@@ -168,7 +168,7 @@ public class ResinRun extends AbstractServerRun
      * Stops the Resin server. We use reflection so that the Resin jars do not
      * need to be in the classpath to compile this class.
      * 
-     * @see org.apache.cactus.integration.ant.container.AbstractServerRun#doStopServer
+     * @see AbstractServerRun#doStopServer
      */
     protected final void doStopServer(String[] theArgs)
     {
