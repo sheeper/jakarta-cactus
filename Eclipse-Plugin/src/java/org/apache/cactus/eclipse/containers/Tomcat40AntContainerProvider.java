@@ -40,31 +40,36 @@ public class Tomcat40AntContainerProvider implements IContainerProvider
         // - target.dir (dir where the build will be done
         //         (e.g. the war file) (sort of temp dir))
         // - base.dir (dir where the build (ant scripts) and conf dirs are)
-        // - src.dir (java cactus test files)    	
+        // - src.dir (java cactus test files)
         Vector arguments = new Vector();
+        
+        String baseDirectory = "D:/dev/cactus/jakarta-cactus-13-1.4b1/lib/";
+        
         arguments.add("-Dtarget.dir=D:/temp/antTemp");
         arguments.add("-Dtest.port=8081");
         arguments.add("-Dbase.dir=D:/dev/eclipse/workspace/Eclipse-Plugin/ant");
         arguments.add("-Dsrc.dir=D:/dev/eclipse/runtime-workspace/cactus-test");
         arguments.add("-Dtomcat.home.40=D:/dev/jakarta-tomcat-4.1.12");
-        arguments.add(
-            "-Dcactus.framework.jar=D:/dev/cactus/jakarta-cactus-13-1.4b1/lib/cactus-1.4b1.jar");
-        arguments.add(
-            "-Dcactus.ant.jar=D:/dev/cactus/jakarta-cactus-13-1.4b1/lib/cactus-ant-1.4b1.jar");
-        arguments.add(
-            "-Dservlet.jar=D:/dev/cactus/jakarta-cactus-13-1.4b1/lib/servletapi-2.3.jar");
-        arguments.add(
-            "-Daspectjrt.jar=D:/dev/cactus/jakarta-cactus-13-1.4b1/lib/aspectjrt-1.0.5.jar");
-        arguments.add(
-            "-Dcommons.logging.jar=D:/dev/cactus/jakarta-cactus-13-1.4b1/lib/commons-logging-1.0.jar");
-        arguments.add(
-            "-Dlog4j.jar=D:/dev/cactus/jakarta-cactus-13-1.4b1/lib/log4j-1.2.5.jar");
-        arguments.add(
-            "-Dcommons.httpclient.jar=D:/dev/cactus/jakarta-cactus-13-1.4b1/lib/commons-httpclient-2.0alpha1-20020720.jar");
-        arguments.add(
-            "-Djunit.jar=D:/dev/cactus/jakarta-cactus-13-1.4b1/lib/junit-3.7.jar");
-        arguments.add(
-            "-Dhttpunit.jar=D:/dev/cactus/jakarta-cactus-13-1.4b1/lib/httpunit-1.4.1.jar");
+
+        arguments.add("-Dcactus.framework.jar=" + baseDirectory 
+            + "cactus-1.4b1.jar");
+        arguments.add("-Dcactus.ant.jar=" + baseDirectory
+            + "cactus-ant-1.4b1.jar");
+        arguments.add("-Dservlet.jar=" + baseDirectory    
+            + "servletapi-2.3.jar");
+        arguments.add("-Daspectjrt.jar=" + baseDirectory
+            + "aspectjrt-1.0.5.jar");
+        arguments.add("-Dcommons.logging.jar=" + baseDirectory
+            + "commons-logging-1.0.jar");
+        arguments.add("-Dlog4j.jar=" + baseDirectory 
+            + "log4j-1.2.5.jar");
+        arguments.add("-Dcommons.httpclient.jar=" + baseDirectory
+            + "commons-httpclient-2.0alpha1-20020720.jar");
+        arguments.add("-Djunit.jar=" + baseDirectory
+            + "junit-3.7.jar");
+        arguments.add("-Dhttpunit.jar=" + baseDirectory
+            + "httpunit-1.4.1.jar");
+
         antArguments = (String[]) arguments.toArray(new String[0]);
     }
 
@@ -88,11 +93,12 @@ public class Tomcat40AntContainerProvider implements IContainerProvider
         URL testURL = null;
         try
         {
-            testURL =
-                new URL("http://localhost:8081/test/ServletRedirector?Cactus_Service=RUN_TEST");
+            testURL = new URL("http://localhost:8081/test/ServletRedirector"
+                + "?Cactus_Service=RUN_TEST");
         }
         catch (MalformedURLException e)
         {
+            //TODO: Handle exception
         }
         startHelper.setTestURL(testURL);
         startHelper.execute();
@@ -117,15 +123,15 @@ public class Tomcat40AntContainerProvider implements IContainerProvider
 
     /**
      * returns an AntRunner for this provider.
-     * @param targets the ant target to be called
-     * @return AntRunner the AntRunner for the script
+     * @param theTargets the ant target to be called
+     * @return the AntRunner for the script
      */
-    private AntRunner createAntRunner(String[] targets)
+    private AntRunner createAntRunner(String[] theTargets)
     {
         AntRunner runner = new AntRunner();
         runner.setBuildFileLocation(buildFileLocation);
         runner.setArguments(antArguments);
-        runner.setExecutionTargets(targets);
+        runner.setExecutionTargets(theTargets);
         return runner;
     }
 
