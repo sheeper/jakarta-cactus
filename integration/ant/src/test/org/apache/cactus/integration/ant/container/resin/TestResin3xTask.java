@@ -69,6 +69,15 @@ public final class TestResin3xTask extends AntTestCase
         // for testing. Useful if a server is already started on that port.
         getProject().setProperty("cactus.port", 
             System.getProperty("cactus.port", "8080"));
+
+        // Pass clover setting
+        String cloverEnabled = System.getProperty("clover.enable");
+        if (cloverEnabled != null)
+        {
+            getProject().setProperty("clover.enable", cloverEnabled);
+            getProject().setProperty("clover.jar",
+                System.getProperty("clover.jar"));
+        }
     }
 
     // Test Methods ------------------------------------------------------------

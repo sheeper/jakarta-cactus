@@ -3,25 +3,45 @@
 <project name="test-resin3x" basedir="." default="setup">
 
   <target name="testExecuteWhenNoDirSpecified">
-    <resin3x/>
+    <resin3x>
+      <containerclasspath>
+        <pathelement location="${clover.jar}"/>
+      </containerclasspath>     
+    </resin3x>
   </target>
 
   <target name="testExecuteWhenNoActionSpecified">
-    <resin3x dir="${cactus.home.resin3x}"/>
+    <resin3x dir="${cactus.home.resin3x}">
+      <containerclasspath>
+        <pathelement location="${clover.jar}"/>
+      </containerclasspath>
+    </resin3x>
   </target>
 
   <target name="testExecuteWhenWrongActionSpecified">
-    <resin3x dir="${cactus.home.resin3x}" action="invalid"/>
+    <resin3x dir="${cactus.home.resin3x}" action="invalid">
+      <containerclasspath>
+        <pathelement location="${clover.jar}"/>
+      </containerclasspath>
+    </resin3x>
   </target>
 
   <target name="testExecuteStartWithNoDeployableAndNoTestURL">
     <parallel>
-      <resin3x dir="${cactus.home.resin3x}" action="start"/>
+      <resin3x dir="${cactus.home.resin3x}" action="start">
+        <containerclasspath>
+          <pathelement location="${clover.jar}"/>
+        </containerclasspath>
+      </resin3x>
       <sequential>
       	<waitfor>
           <http url="http://localhost:${cactus.port}"/>
         </waitfor>
-        <resin3x dir="${cactus.home.resin3x}" action="stop"/>
+        <resin3x dir="${cactus.home.resin3x}" action="stop">
+          <containerclasspath>
+            <pathelement location="${clover.jar}"/>
+          </containerclasspath>
+        </resin3x>
       	<waitfor>
       	  <not>
             <http url="http://localhost:${cactus.port}"/>
@@ -34,12 +54,20 @@
   <target name="testExecuteStartWithWarDeployableAndNoTestURL">
     <parallel>
       <resin3x dir="${cactus.home.resin3x}" warfile="../../empty.war" 
-          action="start"/>
+          action="start">
+        <containerclasspath>
+          <pathelement location="${clover.jar}"/>
+        </containerclasspath>
+      </resin3x>
       <sequential>
       	<waitfor>
           <http url="http://localhost:${cactus.port}/empty"/>
         </waitfor>
-        <resin3x dir="${cactus.home.resin3x}" action="stop"/>
+        <resin3x dir="${cactus.home.resin3x}" action="stop">
+          <containerclasspath>
+            <pathelement location="${clover.jar}"/>
+          </containerclasspath>
+        </resin3x>
       	<waitfor>
       	  <not>
             <http url="http://localhost:${cactus.port}/empty"/>
@@ -51,9 +79,17 @@
 
   <target name="testExecuteStartWithNoDeployableAndWithTestURL">
     <resin3x dir="${cactus.home.resin3x}" action="start"
-        testurl="http://localhost:${cactus.port}"/>
+        testurl="http://localhost:${cactus.port}">
+      <containerclasspath>
+        <pathelement location="${clover.jar}"/>
+      </containerclasspath>
+    </resin3x>
     <resin3x dir="${cactus.home.resin3x}" action="stop"
-        testurl="http://localhost:${cactus.port}"/>
+        testurl="http://localhost:${cactus.port}">
+      <containerclasspath>
+        <pathelement location="${clover.jar}"/>
+      </containerclasspath>
+    </resin3x>
   </target>
 
 </project>

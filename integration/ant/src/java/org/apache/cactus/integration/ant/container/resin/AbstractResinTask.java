@@ -28,10 +28,12 @@ import org.apache.cactus.integration.ant.deployment.WarParser;
 import org.apache.cactus.integration.ant.util.DefaultAntTaskFactory;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
+import org.apache.tools.ant.types.Path;
 
 /**
  * Task to start/stop a Resin instance.
  * 
+ * @since Cactus 1.7
  * @version $Id$
  */
 public abstract class AbstractResinTask extends Task
@@ -89,7 +91,13 @@ public abstract class AbstractResinTask extends Task
      * or the existing file should be truncated.
      */
     private boolean append;
-    
+
+    /**
+     * Additional classpath entries for the classpath that will be used to 
+     * start the containers.
+     */
+    private Path containerClasspath;
+
     /**
      * Sets the Resin installation directory.
      * 
@@ -257,7 +265,10 @@ public abstract class AbstractResinTask extends Task
         container.setAntTaskFactory(new DefaultAntTaskFactory(
             getProject(), getTaskName(), getLocation(), getOwningTarget()));
         container.setPort(getPort());
-
+        
+        // Add specific additional user-defined classpath
+        container.setContainerClasspath(this.containerClasspath);
+        
         if (getResinConf() != null)
         {
             container.setResinConf(getResinConf());
@@ -400,4 +411,20 @@ public abstract class AbstractResinTask extends Task
     {
         return this.append;
     }
+
+    /**
+     * Adds container classpath to the classpath that will be used for starting
+     * the container. 
+     *
+     * @return reference to the classpath
+     */
+    public Path createContainerClasspath()
+    {
+        if (this.containerClasspath == null)
+        {
+            this.containerClasspath = new Path(this.project);            
+        }
+        
+        return this.containerClasspath.createPath();
+    }    
 }

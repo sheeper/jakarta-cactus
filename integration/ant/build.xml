@@ -334,7 +334,13 @@ be resolved. Please check you build.properties file, and run Ant with the
       <!-- Allow using a port different than the default (8080) for
            the integration tests         -->
       <sysproperty key="cactus.port" value="${cactus.port}"/>
-                            
+
+      <!-- We pass all clover.* properties so that we can add the clover
+           jar to the resin3x tas execution when clover is enabled -->
+      <syspropertyset>
+        <propertyref prefix="clover."/>
+      </syspropertyset>
+              
       <classpath refid="test.classpath"/>
       <test name="${testcase}" if="testcase"/>
       <batchtest todir="${target.doc.testreports.dir}" unless="testcase">
