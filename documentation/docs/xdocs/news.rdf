@@ -22,6 +22,7 @@
 
     <items>
       <rdf:Seq>
+        <rdf:li rdf:resource="http://jakarta.apache.org/cactus/news.html#news15"/>
         <rdf:li rdf:resource="http://jakarta.apache.org/cactus/news.html#news14"/>
         <rdf:li rdf:resource="http://jakarta.apache.org/cactus/news.html#news13"/>
         <rdf:li rdf:resource="http://jakarta.apache.org/cactus/news.html#news12"/>
@@ -40,6 +41,22 @@
     </items>
 
   </channel>
+
+  <item rdf:about="http://jakarta.apache.org/cactus/news.html#news15">
+    <title>Cactus plugin for Maven has moved</title>
+    <link>http://jakarta.apache.org/cactus/news.html#news15</link>
+    <description>
+<![CDATA[The Cactus plugin for Maven, which was previously hosted in Maven
+CVS itself, has now moved to the Cactus CVS. It will no longer be bundled 
+in the next Maven release. This is part of an effort to decouple Maven plugins
+from Maven core. There is a new mechanism to easily install external plugins.
+(see maven plugin:download).
+]]>
+    </description>
+    <dc:subject></dc:subject>
+    <dc:creator>vmassol</dc:creator>
+    <dc:date>2003-10-30T00:00:00+00:00</dc:date>
+  </item>
 
   <item rdf:about="http://jakarta.apache.org/cactus/news.html#news14">
     <title>Cactus 1.5-rc1 released</title>
