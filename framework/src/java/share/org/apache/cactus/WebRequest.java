@@ -218,7 +218,7 @@ public class WebRequest implements Request
         
         // Sets the Cactus configuration. It is performed here so that
         // Cactus users do not have to bother with setting it on the
-        // Authenrication object they create.
+        // Authentication object they create.
         this.authentication.setConfiguration(getConfiguration());
     }
 
