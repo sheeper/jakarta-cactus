@@ -99,11 +99,7 @@ public class HttpClientHelper
      */
     public HttpClientHelper(String theURL)
     {
-        logger.entry("HttpClientHelper([" + theURL + "])");
-
         this.url = theURL;
-
-        logger.exit("HttpClientHelper");
     }
 
     /**
@@ -117,8 +113,6 @@ public class HttpClientHelper
     public HttpURLConnection connect(WebRequest theRequest)
         throws Throwable
     {
-        logger.entry("connect(" + theRequest + ")");
-
         URL url = new URL(this.url);
 
         // Add the parameters that need to be passed as part of the URL
@@ -163,7 +157,6 @@ public class HttpClientHelper
         // Open the connection and get the result
         connection.connect();
 
-        logger.exit("connect");
         return connection;
     }
 
@@ -341,8 +334,6 @@ public class HttpClientHelper
     private void addCookies(WebRequest theRequest,
         URLConnection theConnection)
     {
-        logger.entry("addCookies(...)");
-
         // If no Cookies, then exit
         Vector cookies = theRequest.getCookies();
         if (!cookies.isEmpty()) {
@@ -376,8 +367,6 @@ public class HttpClientHelper
             theConnection.setRequestProperty("Cookie",
                 cookieHeader.getValue());
         }
-
-        logger.exit("addCookies");
     }
 
     /**
@@ -393,8 +382,6 @@ public class HttpClientHelper
     public static String getDomain(WebRequest theRequest,
         URLConnection theConnection)
     {
-        logger.entry("getDomain(...)");
-
         String domain;
         ServletURL url = theRequest.getURL();
 
@@ -406,7 +393,6 @@ public class HttpClientHelper
 
         logger.debug("Cookie validation domain = [" + domain + "]");
 
-        logger.exit("getDomain");
         return domain;
     }
 
@@ -423,8 +409,6 @@ public class HttpClientHelper
     public static int getPort(WebRequest theRequest,
         URLConnection theConnection)
     {
-        logger.entry("getPort(...)");
-
         int port;
         ServletURL url = theRequest.getURL();
 
@@ -436,7 +420,6 @@ public class HttpClientHelper
 
         logger.debug("Cookie validation port = [" + port + "]");
 
-        logger.exit("getPort");
         return port;
     }
 
@@ -457,8 +440,6 @@ public class HttpClientHelper
      */
     public static String getPath(WebRequest theRequest, URLConnection theConnection)
     {
-        logger.entry("getPath(...)");
-
         String path;
         ServletURL url = theRequest.getURL();
 
@@ -470,7 +451,6 @@ public class HttpClientHelper
 
         logger.debug("Cookie validation pah = [" + path + "]");
 
-        logger.exit("getPath");
         return path;
     }
 
