@@ -222,11 +222,7 @@ public class GenericAntProvider implements IContainerProvider
         thePM.subTask(
             CactusMessages.getString("CactusLaunch.message.undeploy"));
         String[] targets = getMasked("cactus.clean.");
-        SubProgressMonitor spm = new SubProgressMonitor(thePM, 5);
-        spm.beginTask("", 10);
-        createAntRunner(targets).run(spm);
-        spm.worked(10);
-        spm.done();
+        createAntRunner(targets).run(new SubProgressMonitor(thePM, 50));
     }
 
     /**
@@ -239,11 +235,13 @@ public class GenericAntProvider implements IContainerProvider
         if (eclipseRunner != null)
         {
             eclipseRunner.finish();
+            thePM.worked(10);
             while (!serverStopped)
             {
                 try
                 {
-                    Thread.sleep(50);
+                    Thread.sleep(100);
+                    thePM.worked(1);
                 }
                 catch (InterruptedException e)
                 {

@@ -346,7 +346,7 @@ public class CactusLaunchShortcut
     {
         thePM.beginTask(
             CactusMessages.getString("CactusLaunch.message.teardown"),
-            10);
+            100);
         if (provider != null)
         {
             provider.stop(null, thePM);
