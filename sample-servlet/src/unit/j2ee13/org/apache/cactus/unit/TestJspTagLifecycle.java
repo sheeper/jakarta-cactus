@@ -222,7 +222,7 @@ public class TestJspTagLifecycle
         {
             JspTagLifecycle lifecycle =
                 new JspTagLifecycle(pageContext, new OutTag());
-            lifecycle.assertScopedVariableExposed(null, new Object[] {"value"});
+            lifecycle.expectScopedVariableExposed(null, new Object[] {"value"});
             fail("Expected NullPointerException");
         }
         catch (NullPointerException npe)
@@ -242,7 +242,7 @@ public class TestJspTagLifecycle
         {
             JspTagLifecycle lifecycle =
                 new JspTagLifecycle(pageContext, new OutTag());
-            lifecycle.assertScopedVariableExposed("name", null);
+            lifecycle.expectScopedVariableExposed("name", null);
             fail("Expected NullPointerException");
         }
         catch (NullPointerException npe)
@@ -262,7 +262,7 @@ public class TestJspTagLifecycle
         {
             JspTagLifecycle lifecycle =
                 new JspTagLifecycle(pageContext, new OutTag());
-            lifecycle.assertScopedVariableExposed("name", new Object[0]);
+            lifecycle.expectScopedVariableExposed("name", new Object[0]);
             fail("Expected IllegalArgumentException");
         }
         catch (IllegalArgumentException iae)
@@ -282,7 +282,7 @@ public class TestJspTagLifecycle
         {
             JspTagLifecycle lifecycle =
                 new JspTagLifecycle(pageContext, new OutTag());
-            lifecycle.assertScopedVariableExposed(
+            lifecycle.expectScopedVariableExposed(
                 "name", new Object[]{"value"}, 0);
             fail("Expected IllegalArgumentException");
         }
@@ -305,7 +305,7 @@ public class TestJspTagLifecycle
         OutTag tag = new OutTag();
         JspTagLifecycle lifecycle = new JspTagLifecycle(pageContext, tag);
         tag.setValue("Value");
-        lifecycle.assertBodySkipped();
+        lifecycle.expectBodySkipped();
         lifecycle.invoke();
     }
     
@@ -335,7 +335,7 @@ public class TestJspTagLifecycle
         OutTag tag = new OutTag();
         JspTagLifecycle lifecycle = new JspTagLifecycle(pageContext, tag);
         tag.setValue("<value/>");
-        lifecycle.assertBodySkipped();
+        lifecycle.expectBodySkipped();
         lifecycle.invoke();
     }
     
@@ -366,7 +366,7 @@ public class TestJspTagLifecycle
         tag.setEscapeXml("false");
         JspTagLifecycle lifecycle = new JspTagLifecycle(pageContext, tag);
         tag.setValue("<value/>");
-        lifecycle.assertBodySkipped();
+        lifecycle.expectBodySkipped();
         lifecycle.invoke();
     }
     
@@ -397,7 +397,7 @@ public class TestJspTagLifecycle
         JspTagLifecycle lifecycle = new JspTagLifecycle(pageContext, tag);
         tag.setValue(null);
         tag.setDefault("Default");
-        lifecycle.assertBodySkipped();
+        lifecycle.expectBodySkipped();
         lifecycle.invoke();
     }
     
@@ -430,7 +430,7 @@ public class TestJspTagLifecycle
         JspTagLifecycle lifecycle = new JspTagLifecycle(pageContext, tag);
         tag.setValue("Value");
         tag.setDefault("Default");
-        lifecycle.assertBodySkipped();
+        lifecycle.expectBodySkipped();
         lifecycle.invoke();
     }
     
@@ -460,7 +460,7 @@ public class TestJspTagLifecycle
         JspTagLifecycle lifecycle = new JspTagLifecycle(pageContext, tag);
         tag.setValue(null);
         lifecycle.addNestedText("Default");
-        lifecycle.assertBodyEvaluated();
+        lifecycle.expectBodyEvaluated();
         lifecycle.invoke();
     }
     
@@ -492,7 +492,7 @@ public class TestJspTagLifecycle
         JspTagLifecycle lifecycle = new JspTagLifecycle(pageContext, tag);
         tag.setValue("Value");
         lifecycle.addNestedText("Default");
-        lifecycle.assertBodySkipped();
+        lifecycle.expectBodySkipped();
         lifecycle.invoke();
     }
     
@@ -542,8 +542,8 @@ public class TestJspTagLifecycle
         JspTagLifecycle lifecycle = new JspTagLifecycle(pageContext, tag);
         tag.setVar("Item");
         tag.setItems("One,Two,Three");
-        lifecycle.assertBodyEvaluated(3);
-        lifecycle.assertScopedVariableExposed(
+        lifecycle.expectBodyEvaluated(3);
+        lifecycle.expectScopedVariableExposed(
             "Item", new Object[] {"One", "Two", "Three"});
         lifecycle.invoke();
     }
@@ -564,7 +564,7 @@ public class TestJspTagLifecycle
         tag.setVarStatus("status");
         tag.setBegin("0");
         tag.setEnd("2");
-        lifecycle.assertBodyEvaluated(3);
+        lifecycle.expectBodyEvaluated(3);
         lifecycle.addInterceptor(new JspTagLifecycle.Interceptor()
         {
             public void evalBody(int theIteration, BodyContent theBody)
@@ -614,7 +614,7 @@ public class TestJspTagLifecycle
         JspTagLifecycle lifecycle = new JspTagLifecycle(pageContext, tag);
         tag.setTest("true");
         lifecycle.addNestedText("Value");
-        lifecycle.assertBodyEvaluated();
+        lifecycle.expectBodyEvaluated();
         lifecycle.invoke();
     }
     
@@ -646,7 +646,7 @@ public class TestJspTagLifecycle
         JspTagLifecycle lifecycle = new JspTagLifecycle(pageContext, tag);
         tag.setTest("false");
         lifecycle.addNestedText("Value");
-        lifecycle.assertBodySkipped();
+        lifecycle.expectBodySkipped();
         lifecycle.invoke();
     }
     
@@ -683,7 +683,7 @@ public class TestJspTagLifecycle
         JspTagLifecycle whenLifecycle =
             chooseLifecycle.addNestedTag(whenTag);
         whenTag.setTest("true");
-        whenLifecycle.assertBodyEvaluated();
+        whenLifecycle.expectBodyEvaluated();
         
         chooseLifecycle.invoke();
     }
@@ -710,12 +710,12 @@ public class TestJspTagLifecycle
         JspTagLifecycle whenLifecycle =
             chooseLifecycle.addNestedTag(whenTag);
         whenTag.setTest("false");
-        whenLifecycle.assertBodySkipped();
+        whenLifecycle.expectBodySkipped();
         
         OtherwiseTag otherwiseTag = new OtherwiseTag();
         JspTagLifecycle otherwiseLifecycle =
             chooseLifecycle.addNestedTag(otherwiseTag);
-        otherwiseLifecycle.assertBodyEvaluated();
+        otherwiseLifecycle.expectBodyEvaluated();
         
         chooseLifecycle.invoke();
     }

@@ -138,7 +138,7 @@ import org.apache.commons.logging.LogFactory;
   IfTag tag = new IfTag();
   JspTagLifecycle lifecycle = new JspTagLifecycle(pageContext, tag);
   tag.setTest("false");
-  lifecycle.assertBodySkipped();
+  lifecycle.expectBodySkipped();
   lifecycle.invoke();</pre>
  * </p>
  * <p>
@@ -152,8 +152,8 @@ import org.apache.commons.logging.LogFactory;
   JspTagLifecycle lifecycle = new JspTagLifecycle(pageContext, tag);
   tag.setVar("item");
   tag.setItems("One,Two,Three");
-  lifecycle.assertBodyEvaluated(3);
-  lifecycle.assertScopedVariableExposed(
+  lifecycle.expectBodyEvaluated(3);
+  lifecycle.expectScopedVariableExposed(
       "item", new Object[] {"One", "Two", "Three"});
   lifecycle.invoke();</pre>
  * </p>
@@ -211,7 +211,7 @@ import org.apache.commons.logging.LogFactory;
       JspTagLifecycle lifecycle = new JspTagLifecycle(pageContext, tag);
       tag.setValue(null);
       lifecycle.addNestedText("Default");
-      lifecycle.assertBodyEvaluated();
+      lifecycle.expectBodyEvaluated();
       lifecycle.invoke();
   }
   public void endOutTagDefaultBody(WebResponse theResponse) {
@@ -234,11 +234,11 @@ import org.apache.commons.logging.LogFactory;
   JspTagLifecycle whenLifecycle =
       chooseLifecycle.addNestedTag(whenTag);
   whenTag.setTest("false");
-  whenLifecycle.assertBodySkipped();
+  whenLifecycle.expectBodySkipped();
   OtherwiseTag otherwiseTag = new OtherwiseTag();
   JspTagLifecycle otherwiseLifecycle =
       chooseLifecycle.addNestedTag(otherwiseTag);
-  otherwiseLifecycle.assertBodyEvaluated();
+  otherwiseLifecycle.expectBodyEvaluated();
   chooseLifecycle.invoke();</pre>
  *   The code above creates a constellation of tags equivalent to the following
  *   JSP fragment:
@@ -323,7 +323,7 @@ public final class JspTagLifecycle
      * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
      * @since Cactus 1.5
      */
-    private static class AssertBodyEvaluatedInterceptor
+    private static class ExpectBodyEvaluatedInterceptor
         extends Interceptor
     {
         /**
@@ -341,7 +341,7 @@ public final class JspTagLifecycle
          * 
          * @param theNumIterations The number of iterations expected
          */
-        public AssertBodyEvaluatedInterceptor(int theNumIterations)
+        public ExpectBodyEvaluatedInterceptor(int theNumIterations)
         {
             this.expectedNumIterations = theNumIterations;
         }
@@ -382,7 +382,7 @@ public final class JspTagLifecycle
      * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
      * @since Cactus 1.5
      */
-    private static class AssertBodySkippedInterceptor
+    private static class ExpectBodySkippedInterceptor
         extends Interceptor
     {
         /**
@@ -403,7 +403,7 @@ public final class JspTagLifecycle
      * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
      * @since Cactus 1.5
      */
-    private class AssertScopedVariableExposedInterceptor
+    private class ExpectScopedVariableExposedInterceptor
         extends Interceptor
     {
         /**
@@ -429,7 +429,7 @@ public final class JspTagLifecycle
          *        one item for every iteration step
          * @param theScope The scope to search for the scoped variable
          */
-        public AssertScopedVariableExposedInterceptor(String theName,
+        public ExpectScopedVariableExposedInterceptor(String theName,
             Object[] theExpectedValues, int theScope)
         {
             this.name = theName;
@@ -635,38 +635,38 @@ public final class JspTagLifecycle
     }
     
     /**
-     * Adds the assertion that the tag body must be evaluated once in the course
-     * of the tags lifecycle.
+     * Adds the expectation that the tag body must be evaluated once in the 
+     * course of the tags lifecycle.
      */
-    public void assertBodyEvaluated()
+    public void expectBodyEvaluated()
     {
-        addInterceptor(new AssertBodyEvaluatedInterceptor(1));
+        addInterceptor(new ExpectBodyEvaluatedInterceptor(1));
     }
     
     /**
-     * Adds the assertion that the tag body must be evaluated a specific number
-     * of times in the course of the tags lifecycle.
+     * Adds the expectation that the tag body must be evaluated a specific
+     * number of times in the course of the tags lifecycle.
      * 
      * @param theNumIterations The number of times the body is expected to get 
      *        evaluated
      */
-    public void assertBodyEvaluated(int theNumIterations)
+    public void expectBodyEvaluated(int theNumIterations)
     {
-        addInterceptor(new AssertBodyEvaluatedInterceptor(theNumIterations));
+        addInterceptor(new ExpectBodyEvaluatedInterceptor(theNumIterations));
     }
     
     /**
-     * Adds the assertion that the tag body must be skipped. Essentially, this
+     * Adds the expectation that the tag body must be skipped. Essentially, this
      * assertion verifies that the tag returns <code>SKIP_BODY</code> from
      * <code>doStartTag()</code>.
      */
-    public void assertBodySkipped()
+    public void expectBodySkipped()
     {
-        addInterceptor(new AssertBodySkippedInterceptor());
+        addInterceptor(new ExpectBodySkippedInterceptor());
     }
     
     /**
-     * Adds a special assertion that verifies that a specific scoped variable
+     * Adds a special expectation that verifies that a specific scoped variable
      * is exposed in the body of the tag.
      * 
      * @param theName The name of the variable
@@ -674,15 +674,15 @@ public final class JspTagLifecycle
      *        values of the scoped variable, one for each expected iteration
      *        step
      */
-    public void assertScopedVariableExposed(String theName,
+    public void expectScopedVariableExposed(String theName,
                                             Object[] theExpectedValues)
     {
-        assertScopedVariableExposed(theName, theExpectedValues,
+        expectScopedVariableExposed(theName, theExpectedValues,
             PageContext.PAGE_SCOPE);
     }
     
     /**
-     * Adds a special assertion that verifies that a specific scoped variable
+     * Adds a special expectation that verifies that a specific scoped variable
      * is exposed in the body of the tag.
      * 
      * @param theName The name of the variable
@@ -691,7 +691,7 @@ public final class JspTagLifecycle
      *        step
      * @param theScope The scope under which the variable is stored
      */
-    public void assertScopedVariableExposed(String theName,
+    public void expectScopedVariableExposed(String theName,
                                             Object[] theExpectedValues,
                                             int theScope)
     {
@@ -711,7 +711,7 @@ public final class JspTagLifecycle
             throw new IllegalArgumentException();
         }
         addInterceptor(
-            new AssertScopedVariableExposedInterceptor(theName,
+            new ExpectScopedVariableExposedInterceptor(theName,
                 theExpectedValues, theScope));
     }
     
