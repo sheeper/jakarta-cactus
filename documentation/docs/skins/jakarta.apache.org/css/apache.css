@@ -202,7 +202,7 @@ img {
     padding-left: 4px;
     padding-top: 2px;
   }
-  #content h2, #content h3 {
+  #content h2, #content h3, #content h4, #content h5 {
     background: #828DA6 url("../images/corner.gif") top left no-repeat;
     padding-left: 4px;
     padding-top: 2px;
@@ -211,13 +211,12 @@ img {
     font-style: italic;
   }
   #content h4 {
-    background: white none;
-    color: #023264;
-    border-bottom: solid thin #023264;
+    font-style: italic;
+    font-size: 95%;
   }
   #content h5 {
-    background: white none;
-    color: #023264;
+    font-style: italic;
+    font-size: 95%;
   }
   #content .note {
     background: url("../images/note.gif") center left no-repeat;
