@@ -300,11 +300,11 @@ public class ServletURL
     }
 
     /**
-     * Saves the current URL to a <code>ServletTestRequest</code> object.
+     * Saves the current URL to a <code>WebRequest</code> object.
      *
      * @param theRequest the object to which the current URL should be saved to
      */
-    public void saveToRequest(ServletTestRequest theRequest)
+    public void saveToRequest(WebRequest theRequest)
     {
         if (getServerName() != null) {
             theRequest.addParameter(URL_SERVER_NAME_PARAM, getServerName());
