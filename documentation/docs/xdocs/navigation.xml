@@ -7,82 +7,32 @@
 
   <menu label="About">
     <item id="index"/>
+    <item id="goals"/>
+    <item id="features"/>
     <item id="news"/>
     <item id="changes"/>
-    <item id="features"/>
-    <item id="goals"/>
-    <item id="todo"/>
-    <item label="Contributors" id="contributors"/>
-    <item label="Contributing" id="contributing"/>
-    <item label="Cactus Users" id="users"/>
-    <item label="Tested on ..." id="testedon"/>
-    <item label="License" id="license"/>
-  </menu>
-
-  <menu label="Downloads">
-    <item label="Downloads" id="downloads"/>
+    <item id="downloads"/>
+    <item id="bug_database" label="Bug Database"/>
+    <item id="mailinglist"/>
+    <item id="faq" label="FAQ"/>
+    <item id="license"/>
   </menu>
 
   <menu label="Documentation">
-    <item label="How it works?" id="how_it_works"/>
-    <item label="Getting Started" id="getting_started"/>
-    <item label="Mock vs Container" id="mock_vs_cactus"/>
-    <item label="Javadocs" id="javadoc"/>
-    <item label="FAQ" id="faq"/>
+    <item id="getting_started"/>
+    <item id="how_it_works"/>
+    <item id="howto_testcase" label="Writing Tests"/>
+    <item id="howto_runner" label="Running Tests"/>
+    <item id="participating"/>
   </menu>
 
-  <menu label="Howto Guides">
-    <item label="Classpath Howto" id="howto_classpath"/>
-    <item label="Config Howto" id="howto_config"/>
-    <item label="Migration Howto" id="howto_migration"/>
-
-    <!-- TestCase tutorials -->
-    <item label="TestCase Howto" id="howto_testcase"/>
-
-    <item label="Jsp Howto" id="howto_jsp"/>
-    <item label="Runner Howto" id="howto_runner"/>
-    <item label="Security Howto" id="howto_security"/>
-
-    <item label="Initializer Howto" id="howto_initializer"/>
-    <item label="HttpUnit Howto" id="howto_httpunit"/>
-    <item label="Sample Howto" id="howto_sample"/>
-
-    <!-- EJB tutorial -->
-    <item label="EJB Howto" id="howto_ejb"/>
-
-    <!-- IDE tutorials -->
-    <item label="IDE Howto" id="howto_ide"/>
-
-    <item label="Tomcat Howto" id="howto_tomcat"/>
-
-    <item label="JUnitEE Howto" id="howto_junitee"/>
-  </menu>
-
-  <menu label="Integration">
-    <item label="Ant" id="integration_ant"/>
-    <item label="Eclipse" id="integration_eclipse"/>
-    <item label="Jetty" id="integration_jetty"/>
-  </menu>
-
-  <menu label="Support">
-    <item label="Bug database" id="bug_database"/>
-    <item label="Mailing list" id="mailinglist"/>
-  </menu>
-
-  <menu label="Misc.">
-    <item label="Why the name?" id="cactusname"/>
-    <item label="Logo Challenge" id="logos"/>
-    <item label="Resources" id="resources"/>
-    <item label="Test Coverage" id="coverage"/>
-    <item label="Stats" id="stats"/>
-  </menu>
-
-  <menu label="Developers">
-    <item label="CVS" id="cvs"/>
-    <item label="Coding Conventions" id="coding_conventions"/>
-    <item label="Build results" id="build_result"/>
-    <item label="Release Checklist" id="release_checklist"/>
-    <item label="Build from sources" id="howto_build"/>
+  <menu label="Miscellaneous">
+    <item id="cactusname"/>
+    <item id="mock_vs_cactus" label="Mock vs Container"/>
+    <item id="testedon" label="Tested On..."/>
+    <item id="resources" label="Resources"/>
+    <item id="stats" label="Statistics"/>
+    <item id="sitemap"/>
   </menu>
 
   <menu label="Translations">

@@ -12,10 +12,12 @@
   </menu>
 
   <menu label="Developers">
-    <item id="coding_conventions"/>
-    <item id="coverage"/>
-    <item id="howto_build"/>
     <item id="todo"/>
+    <item id="build_result"/>
+    <item id="coding_conventions"/>
+    <item id="cvs" label="CVS"/>
+    <item id="howto_build"/>
+    <item id="coverage"/>
     <item id="release_checklist"/>
   </menu>
 

@@ -3,5 +3,20 @@
   PUBLIC "-//Apache Software Foundation//DTD Cactus Navigation V1.0//EN"
   "file:../../dtds/navigation-v10.dtd">
 
-<navigation title="Integration" index="howto_runner">
+<navigation title="Running Tests" index="howto_runner">
+
+  <menu label="Running Tests">
+    <item id="howto_runner" label="Overview"/>
+    <item id="howto_config" label="Configuration Guide"/>
+    <item id="howto_classpath" label="Classpath Setup"/>
+  </menu>
+
+  <menu label="Tool Integration">
+    <item id="integration_ant" label="Ant"/>
+    <item id="integration_eclipse" label="Eclipse"/>
+    <item id="howto_junitee" label="JUnitEE"/>
+    <item id="maven_cactus" label="Maven"/>
+    <item id="howto_ide" label="Various IDEs"/>
+  </menu>
+
 </navigation>
