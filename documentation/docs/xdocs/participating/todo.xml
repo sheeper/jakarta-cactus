@@ -57,6 +57,9 @@
         Improve the documentation CheckSitemap Ant task to check external URLs
         (when online).
       </action>
+      <action>
+        Document the new features for Cactus logging.
+      </action>
     </category>
 
     <category title="Build Process">
@@ -64,6 +67,10 @@
         Fix the nightly Gump build so that the changes page get generated
         with the CVS changelog information. ATM, it's always empty which
         negates this nice feature...
+      </action>
+      <action>
+        Add an automated Maven build (using codehaus). See
+        http://wiki.codehaus.org/general/CodehausBuildmeister.
       </action>
       <action>
         Prevent the sample jetty project from building if the J2EE API
@@ -112,7 +119,8 @@
         Potentially replace access to instance variables of redirectors by 
         method calls. For example, replace "request.xxx()" by 
         "getHttpServletRequest().xxx()". Deprecate the direct access. Needs
-        to be discussed on cactus-dev.
+        to be discussed on cactus-dev. Also, deprecate XXXTestCase in favor
+        of test suites.
       </action>
       <action>
         Add support for multi-concurrent Cactus tests. This involves storing
