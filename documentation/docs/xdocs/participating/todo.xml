@@ -100,6 +100,9 @@
     
     <category title="Design/Code">
       <action>
+        Migrate tests cases to use JMock 1.0 instead of MockObjects 0.09.
+      </action>
+      <action>
         Run JDiff before releasing to mark new classes/methods/members with
         <code>@since Cactus 1.6</code>.
       </action>
