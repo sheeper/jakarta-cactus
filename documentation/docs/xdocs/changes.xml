@@ -92,6 +92,15 @@
       <release version="1.7dev" date="in CVS">
       </release>
 
+      <release version="1.6.1" date="in CVS">
+        <action dev="VMA" type="fix" fixes-bug="CACTUS-107">
+          An error was introduced in the Servlet Test Runner during the 
+          internal package refactoring that happened in Cactus 1.6. The
+          <code>XMLTransformer</code> could not be loaded and it resulted
+          in a <code>ClassNotFoundException</code> exception.
+        </action>
+      </release>
+
       <release version="1.6" date="08 May 2004">
         <action dev="VMA" type="update">
           The <code>ServletTestRunner</code> now looks for am optional 
