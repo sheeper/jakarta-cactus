@@ -37,6 +37,8 @@
     <deliver fromdir="anttasks/release" tosite="jakarta.apache.org"
       todir="builds/jakarta-cactus/nightly/@@DATE@@/" />
 
+    <license name="LICENSE.cactus"/>
+
     <nag from="Vincent Massol &lt;vmassol@apache.org&gt;"
       to="cactus-dev@jakarta.apache.org"/>
 
@@ -78,6 +80,8 @@
     <jar name="lib/cactus-framework.jar"/>
     <javadoc nested="framework/dist-12/doc/api"
       title="Cactus Framework for J2EE 1.2 API"/>
+
+    <license name="LICENSE.cactus"/>
 
     <nag from="Vincent Massol &lt;vmassol@apache.org&gt;"
       to="cactus-dev@jakarta.apache.org"/>
@@ -121,6 +125,8 @@
     <javadoc nested="framework/dist-13/doc/api"
       title="Cactus Framework for J2EE 1.3 API"/>
 
+    <license name="LICENSE.cactus"/>
+
     <nag from="Vincent Massol &lt;vmassol@apache.org&gt;"
       to="cactus-dev@jakarta.apache.org"/>
         
@@ -154,6 +160,8 @@
     <depend project="xml-xerces"/>
     <depend project="aspectj"/>
 
+    <license name="LICENSE.cactus"/>
+
     <nag from="Vincent Massol &lt;vmassol@apache.org&gt;"
       to="cactus-dev@jakarta.apache.org"/>
 
@@ -186,6 +194,8 @@
     <depend project="jakarta-ant" inherit="runtime"/>
     <depend project="xml-xerces"/>
     <depend project="aspectj"/>
+
+    <license name="LICENSE.cactus"/>
 
     <nag from="Vincent Massol &lt;vmassol@apache.org&gt;"
       to="cactus-dev@jakarta.apache.org"/>
@@ -225,6 +235,8 @@
     <depend project="xml-xerces"/>
     <depend project="jakarta-cactus-integration-ant-12"/>
 
+    <license name="LICENSE.cactus"/>
+
     <nag from="Vincent Massol &lt;vmassol@apache.org&gt;"
       to="cactus-dev@jakarta.apache.org"/>
 
@@ -262,6 +274,8 @@
     <depend project="jakarta-ant" inherit="runtime"/>
     <depend project="xml-xerces"/>
     <depend project="jakarta-cactus-integration-ant-13"/>
+
+    <license name="LICENSE.cactus"/>
 
     <nag from="Vincent Massol &lt;vmassol@apache.org&gt;"
       to="cactus-dev@jakarta.apache.org"/>
@@ -318,6 +332,8 @@
     <work nested="samples/servlet/target-13/sample/target/conf/client"/>
 
     <jar name="samples/servlet/dist-13/bin/cactus-sample-servlet"/>
+
+    <license name="LICENSE.cactus"/>
 
     <nag from="Vincent Massol &lt;vmassol@apache.org&gt;"
       to="cactus-dev@jakarta.apache.org"/>
@@ -376,6 +392,8 @@
 
     <jar name="samples/servlet/dist-13/bin/cactus-sample-servlet"/>
 
+    <license name="LICENSE.cactus"/>
+
     <nag from="Vincent Massol &lt;vmassol@apache.org&gt;"
       to="cactus-dev@jakarta.apache.org"/>
       
@@ -416,6 +434,8 @@
 
     <deliver fromdir="documentation/release" tosite="jakarta.apache.org"
       todir="builds/jakarta-cactus/nightly/@@DATE@@/" />
+
+    <license name="LICENSE.cactus"/>
 
     <nag from="Vincent Massol &lt;vmassol@apache.org&gt;"
       to="cactus-dev@jakarta.apache.org"/>
