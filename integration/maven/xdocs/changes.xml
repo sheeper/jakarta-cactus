@@ -23,7 +23,7 @@
         to be set to <code>true</code> (it is <code>false</code> by default
         thus packaging tests in a WAR).
       </action>
-      <action dev="vmassol" type="fix" issue="27351">
+      <action dev="vmassol" type="fix" issue="CACTUS-98">
         Aligning the EAR-ing behavior in the Cactus plugin for 
         Maven with the behavior from the EAR Maven plugin. More specifically,
         supports the new <code>&lt;ear.module&gt;</code> property tagging +
@@ -50,7 +50,7 @@
         <code>maven.ear.src</code> property and the 
         <code>maven.ear.manifest</code> property.
       </action>
-      <action dev="vmassol" type="fix" issue="26811" due-to="Archimedes Trajano" due-to-email="trajano@yahoo.com">
+      <action dev="vmassol" type="fix" issue="CACTUS-91" due-to="Archimedes Trajano" due-to-email="trajano@yahoo.com">
         Added support for running tests packaged as an EAR when the Cactus 
         plugin is triggered by defining the Cactus report in 
         <code>project.xml</code>.
@@ -68,7 +68,7 @@
       <action dev="vmassol" type="add">
         Added support for Resin 3.x (above version 3.0.5).
       </action>
-      <action dev="vmassol" type="add" issue="25983" due-to="Stephane Nicoll" due-to-email="snicoll@kiala.com">
+      <action dev="vmassol" type="add" issue="CACTUS-86" due-to="Stephane Nicoll" due-to-email="snicoll@kiala.com">
         Added support for custom ports when using JBoss. Please note that this
         will only work with custom JBoss configs. The default config used by
         Cactus uses port 8080 (that's the default JBoss config).
@@ -87,7 +87,7 @@
         <code>cactus.src.ejb</code> properties to specify where to find the
         artifacts to test using Cactus.
       </action>
-      <action dev="vmassol" type="add" issue="24754" due-to="Sean Timm" due-to-email="stimm@proclarity.com">
+      <action dev="vmassol" type="add" issue="CACTUS-72" due-to="Sean Timm" due-to-email="stimm@proclarity.com">
         Added 2 properties (<code>cactus.build.goal.war</code> and
         <code>cactus.build.goal.ejb</code>) for defining which goal is called 
         by Cactus to generate the war and ejb artifacts. They default to
@@ -107,7 +107,7 @@
         <code>&lt;weblogic7x&gt;</code> element of the 
         <code>&lt;cactus&gt;</code> task.
       </action>
-      <action dev="vmassol" type="add" issue="24754" due-to="Michael Gaffney" due-to-email="michael.gaffney@panacya.com">
+      <action dev="vmassol" type="add" issue="CACTUS-72" due-to="Michael Gaffney" due-to-email="michael.gaffney@panacya.com">
         Added support for EJB testing with Cactus. Calling 
         <code>cactus:test-ear</code> packages the whole thing in an EAR and
         executes the Cactus tests.
@@ -135,7 +135,7 @@
         Cactus tests are now automatically started by default when the site is 
         generated. This feature can be turned off.
       </action>
-      <action dev="vmassol" type="fix" issue="24447">
+      <action dev="vmassol" type="fix" issue="CACTUS-64">
         The plugin now correctly uses the <code>${maven.war.final.name}</code>
         property instead of hard-coding the war name to 
         <code>${pom.artifactId}.war</code>.
