@@ -56,6 +56,7 @@ package org.apache.commons.cactus;
 import javax.servlet.jsp.*;
 
 import org.apache.commons.cactus.client.*;
+import org.apache.commons.cactus.server.*;
 
 /**
  * Test classes that need access to valid JSP implicit objects (such as the
@@ -75,7 +76,7 @@ public class JspTestCase extends ServletTestCase
      * <code>beginXXX()</code> or <code>endXXX()</code> methods it will
      * have the <code>null</code> value.
      */
-    public PageContext pageContext;
+    public PageContextWrapper pageContext;
 
     /**
      * Valid <code>JspWriter</code> object that you can access from

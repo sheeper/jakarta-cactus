@@ -87,6 +87,13 @@
     </devs>
 
     <release version="1.2 in CVS">
+      <action dev="VMA" type="fix" due-to="Nicholas Lesiecki" due-to-email="nick@eblox.com">
+        Bug fix: <code>getRequest()</code>, <code>getServletContext()</code>
+        and <code>getServletConfig()</code> methods on the
+        <code>pageContext</code> implicit object (available in
+        <code>JspTestCase</code>) now returns the Cactus wrapped versions of
+        these objects, thus taking into account the simulated URL.
+      </action>
       <action dev="VMA" type="add">
         Added support for unit testing Servlet Filters (Servlet API 2.3 only)
         by providing a new <code>FilterTestCase</code> test case class. Also

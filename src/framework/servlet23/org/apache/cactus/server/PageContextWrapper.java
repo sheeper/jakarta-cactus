@@ -54,80 +54,43 @@
 package org.apache.commons.cactus.server;
 
 import java.io.*;
-import java.lang.reflect.*;
-import java.net.*;
-import java.util.*;
-
-import javax.servlet.*;
-import javax.servlet.http.*;
 import javax.servlet.jsp.*;
+import javax.servlet.*;
 
 import org.apache.commons.cactus.*;
-import org.apache.commons.cactus.util.log.*;
 
 /**
- * Call the test method on the server side after assigning the JSP implicit
- * objects using reflection.
+ * Wrapper around <code>PageContext</code> so that get methods that would
+ * normally return implicit objects will now return Cactus wrapper of
+ * implicit objects instead.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
  */
-public class JspTestCaller extends ServletTestCaller
+public class PageContextWrapper extends AbstractPageContextWrapper
 {
     /**
-     * The logger
+     * Construct an <code>PageContext</code> instance that delegates
+     * it's method calls to the page context object passed as parameter and
+     * that uses the URL passed as parameter to simulate a URL from which
+     * the request would come from.
+     *
+     * @param theOriginalPageContext the real page context
+     * @param theURL the URL to simulate or <code>null</code> if none
      */
-    protected static Log logger =
-        LogService.getInstance().getLog(JspTestCaller.class.getName());
-
-    /**
-     * @param theObjects the implicit objects coming from the redirector
-     */
-    public JspTestCaller(JspImplicitObjects theObjects)
+    public PageContextWrapper(PageContext theOriginalPageContext,
+        ServletURL theURL)
     {
-        super(theObjects);
+        super(theOriginalPageContext, theURL);
     }
 
-    /**
-     * Sets the test case fields using the implicit objects (using reflection).
-     * @param theTestInstance the test class instance
-     */
-    protected void setTestCaseFields(AbstractTestCase theTestInstance)
-        throws Exception
+    // Unmodified overridden methods -----------------------------------------
+
+    public void handlePageException(Throwable theThrowable)
+        throws ServletException, IOException
     {
-        logger.entry("setTestCaseFields([" + theTestInstance + "])");
-
-        JspTestCase jspInstance = (JspTestCase)theTestInstance;
-        JspImplicitObjects jspImplicitObjects =
-            (JspImplicitObjects)this.webImplicitObjects;
-
-        // Sets the Servlet-related implicit objects
-        // -----------------------------------------
-
-        super.setTestCaseFields(jspInstance);
-
-        // Set the page context field of the test case class
-        // -------------------------------------------------
-
-        // Extract from the HTTP request the URL to simulate (if any)
-        HttpServletRequest request =
-            jspImplicitObjects.getHttpServletRequest();
-
-        ServletURL url = ServletURL.loadFromRequest(request);
-
-        Field pageContextField = jspInstance.getClass().
-            getField("pageContext");
-        pageContextField.set(jspInstance,
-            new PageContextWrapper(jspImplicitObjects.getPageContext(), url));
-
-        // Set the JSP writer field of the test case class
-        // -----------------------------------------------
-
-        Field outField = jspInstance.getClass().getField("out");
-        outField.set(jspInstance, jspImplicitObjects.getJspWriter());
-
-        logger.exit("setTestCaseFields");
+        this.originalPageContext.handlePageException(theThrowable);
     }
 
 }
