@@ -30,5 +30,6 @@ sample-servlet/dist-12
 sample-servlet/dist-13
 sample-servlet/target-12
 sample-servlet/target-13
+/target
 /target-12
 /target-13
