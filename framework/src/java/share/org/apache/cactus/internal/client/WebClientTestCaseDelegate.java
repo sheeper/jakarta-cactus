@@ -82,7 +82,7 @@ import org.apache.cactus.internal.WebRequestImpl;
  *
  * @version $Id$
  */
-public class WebClientTestCaseDelegate extends ClientTestCaseDelegate
+public class WebClientTestCaseDelegate extends AbstractClientTestCaseDelegate
 {
     /**
      * @param theDelegatedTest the test we are delegating for

@@ -60,10 +60,9 @@ import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletResponse;
 
 import junit.framework.Test;
-import junit.framework.TestCase;
 
-import org.apache.cactus.configuration.ConfigurationInitializer;
 import org.apache.cactus.configuration.FilterConfiguration;
+import org.apache.cactus.internal.client.ClientTestCaseDelegate;
 import org.apache.cactus.internal.client.WebClientTestCaseDelegate;
 import org.apache.cactus.internal.server.ServerTestCaseDelegate;
 import org.apache.cactus.server.FilterConfigWrapper;
@@ -77,22 +76,8 @@ import org.apache.cactus.server.FilterConfigWrapper;
  *
  * @version $Id$
  */
-public class FilterTestCase extends TestCase
+public class FilterTestCase extends AbstractCactusTestCase
 {
-    /**
-     * As this class is the first one loaded on the client side, we ensure
-     * that the Cactus configuration has been initialized. In the future,
-     * this block will be removed as all initialization will be done in Cactus
-     * test suites. However, as we still support using Cactus TestCase classes
-     * we don't a proper initialization hook and thus we need this hack.
-     */
-    static
-    {
-        ConfigurationInitializer.initialize();
-    }
-
-    // TODO: Find a way to factorize FilterTestCase and ServletTestCase
-
     /**
      * Valid <code>HttpServletRequest</code> object that you can access from
      * the <code>testXXX()</code>, <code>setUp</code> and
@@ -130,104 +115,52 @@ public class FilterTestCase extends TestCase
     public FilterChain filterChain;
 
     /**
-     * Delegate that provides all client side Cactus related test case logic. 
-     * We are using a delegate in order to hide non public API to the users 
-     * and thus to be able to easily change the implementation.
-     */
-    private WebClientTestCaseDelegate clientDelegate;
-
-    /**
-     * Delegate that provides all server side Cactus related test case logic. 
-     * We are using a delegate in order to hide non public API to the users 
-     * and thus to be able to easily change the implementation.
-     */
-    private ServerTestCaseDelegate serverDelegate;
-
-    /**
-     * Default constructor defined in order to allow creating Test Case
-     * without needing to define constructor (new feature in JUnit 3.8.1).
-     * Should only be used with JUnit 3.8.1 or greater. 
-     * 
-     * @since 1.5 
+     * @see AbstractCactusTestCase#AbstractCactusTestCase()
      */
     public FilterTestCase()
     {
-        init(null);
+        super();
     }
 
     /**
-     * Constructs a JUnit test case with the given name.
-     *
-     * @param theName the name of the test case
+     * @see AbstractCactusTestCase#AbstractCactusTestCase(String)
      */
     public FilterTestCase(String theName)
     {
         super(theName);
-        init(null);
     }
 
     /**
-     * Wraps a pure JUnit Test Case in a Cactus Test Case.
-     *  
-     * @param theName the name of the test
-     * @param theTest the Test Case class to wrap
-     * @since 1.5
+     * @see AbstractCactusTestCase#AbstractCactusTestCase(String, Test)
      */
     public FilterTestCase(String theName, Test theTest)
     {
-        super(theName);
-        init(theTest);
+        super(theName, theTest);
     }
 
     /**
-     * Initializations common to all constructors.
-     *  
-     * @param theTest a pure JUnit Test that Cactus will wrap
+     * @see AbstractCactusTestCase#createClientTestCaseDelegate(Test)
      */
-    void init(Test theTest)
+    protected ClientTestCaseDelegate createClientTestCaseDelegate(
+            Test theTest)
     {
-        setClientDelegate(new WebClientTestCaseDelegate(
-            this, theTest, new FilterConfiguration()));        
-        setServerDelegate(new ServerTestCaseDelegate(this, theTest));
+        return new WebClientTestCaseDelegate(this, theTest, 
+            new FilterConfiguration());
     }
 
     /**
-     * @param theDelegate the client test case delegate
+     * @see AbstractCactusTestCase#createServerTestCaseDelegate(Test)
      */
-    void setClientDelegate(WebClientTestCaseDelegate theDelegate)
+    protected ServerTestCaseDelegate createServerTestCaseDelegate(
+            Test theTest)
     {
-        this.clientDelegate = theDelegate;
+        return new ServerTestCaseDelegate(this, theTest);
     }
 
     /**
-     * @param theDelegate the client test case delegate
+     * @see AbstractCactusTestCase#isServerSide()
      */
-    void setServerDelegate(ServerTestCaseDelegate theDelegate)
-    {
-        this.serverDelegate = theDelegate;
-    }
-
-    /**
-     * @return the client test case delegate
-     */
-    WebClientTestCaseDelegate getClientDelegate()
-    {
-        return this.clientDelegate;
-    }
-
-    /**
-     * @return the server test case delegate
-     */
-    private ServerTestCaseDelegate getServerDelegate()
-    {
-        return this.serverDelegate;
-    }
-
-    /**
-     * @return true if this test class has been instanciated on the server
-     *         side or false otherwise 
-     */
-    private boolean isServerSide()
+    protected boolean isServerSide()
     {
         boolean result = false;
         
@@ -236,70 +169,5 @@ public class FilterTestCase extends TestCase
             result = true;                    
         }
         return result;
-    }
-
-    /**
-     * Runs the bare test (either on the client side or on the server side). 
-     * This method is overridden from the JUnit 
-     * {@link TestCase} class in order to prevent the latter to immediatly
-     * call the <code>setUp()</code> and <code>tearDown()</code> methods 
-     * which, in our case, need to be executed on the server side.
-     *
-     * @exception Throwable if any exception is thrown during the test. Any
-     *            exception will be displayed by the JUnit Test Runner
-     */
-    public void runBare() throws Throwable
-    {
-        if (isServerSide())
-        {
-            getServerDelegate().runBareInit();            
-        }
-        else
-        {
-            getClientDelegate().runBareInit();            
-        }
-
-        // Catch the exception just to have a chance to log it
-        try
-        {
-            runCactusTest();
-        }
-        catch (Throwable t)
-        {
-            if (!isServerSide())
-            {
-                getClientDelegate().getLogger().debug("Exception in test", t);
-            }
-            throw t;
-        }
-    }   
-
-    /**
-     * Runs a Cactus test case.
-     *
-     * @exception Throwable if any error happens during the execution of
-     *            the test
-     */
-    protected void runCactusTest() throws Throwable
-    {
-        if (isServerSide())
-        {
-            // Note: We cannot delegate this piece of code in the
-            // ServerTestCaseDelegate class as it requires to call
-            // super.runBare()
-
-            if (getServerDelegate().getWrappedTest() != null)
-            {
-                ((TestCase) getServerDelegate().getWrappedTest()).runBare();
-            }
-            else
-            {
-                super.runBare();            
-            }
-        }
-        else
-        {
-            getClientDelegate().runTest();
-        }
     }
 }

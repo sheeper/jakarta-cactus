@@ -60,8 +60,8 @@ import javax.servlet.jsp.JspWriter;
 
 import junit.framework.Test;
 
-import org.apache.cactus.configuration.ConfigurationInitializer;
 import org.apache.cactus.configuration.JspConfiguration;
+import org.apache.cactus.internal.client.ClientTestCaseDelegate;
 import org.apache.cactus.internal.client.WebClientTestCaseDelegate;
 import org.apache.cactus.internal.server.ServerTestCaseDelegate;
 import org.apache.cactus.server.PageContextWrapper;
@@ -77,18 +77,6 @@ import org.apache.cactus.server.PageContextWrapper;
  */
 public class JspTestCase extends ServletTestCase
 {
-    /**
-     * As this class is the first one loaded on the client side, we ensure
-     * that the Cactus configuration has been initialized. In the future,
-     * this block will be removed as all initialization will be done in Cactus
-     * test suites. However, as we still support using Cactus TestCase classes
-     * we don't a proper initialization hook and thus we need this hack.
-     */
-    static
-    {
-        ConfigurationInitializer.initialize();
-    }
-
     /**
      * Valid <code>PageContext</code> object that you can access from
      * the <code>testXXX()</code>, <code>setUp</code> and
@@ -108,23 +96,7 @@ public class JspTestCase extends ServletTestCase
     public JspWriter out;
 
     /**
-     * Initializations common to all constructors.
-     *  
-     * @param theTest a pure JUnit Test that Cactus will wrap
-     */
-    void init(Test theTest)
-    {
-        setClientDelegate(new WebClientTestCaseDelegate(
-            this, theTest, new JspConfiguration()));        
-        setServerDelegate(new ServerTestCaseDelegate(this, theTest));        
-    }
-
-    /**
-     * Default constructor defined in order to allow creating Test Case
-     * without needing to define constructor (new feature in JUnit 3.8.1).
-     * Should only be used with JUnit 3.8.1 or greater. 
-     * 
-     * @since 1.5 
+     * @see AbstractCactusTestCase#AbstractCactusTestCase()
      */
     public JspTestCase()
     {
@@ -132,9 +104,7 @@ public class JspTestCase extends ServletTestCase
     }
 
     /**
-     * Constructs a JUnit test case with the given name.
-     *
-     * @param theName the name of the test case
+     * @see AbstractCactusTestCase#AbstractCactusTestCase(String)
      */
     public JspTestCase(String theName)
     {
@@ -142,15 +112,29 @@ public class JspTestCase extends ServletTestCase
     }
 
     /**
-     * Wraps a pure JUnit Test Case in a Cactus Test Case.
-     *  
-     * @param theName the name of the test
-     * @param theTest the Test Case class to wrap
-     * @since 1.5
+     * @see AbstractCactusTestCase#AbstractCactusTestCase(String, Test)
      */
     public JspTestCase(String theName, Test theTest)
     {
         super(theName, theTest);
     }
 
+    /**
+     * @see AbstractCactusTestCase#createClientTestCaseDelegate(Test)
+     */
+    protected ClientTestCaseDelegate createClientTestCaseDelegate(
+            Test theTest)
+    {
+        return new WebClientTestCaseDelegate(this, theTest, 
+            new JspConfiguration());
+    }
+
+    /**
+     * @see AbstractCactusTestCase#createServerTestCaseDelegate(Test)
+     */
+    protected ServerTestCaseDelegate createServerTestCaseDelegate(
+            Test theTest)
+    {
+        return new ServerTestCaseDelegate(this, theTest);
+    }
 }
