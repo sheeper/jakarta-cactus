@@ -121,8 +121,6 @@ public abstract class AbstractHttpServletRequestWrapper implements HttpServletRe
      */
     public String getContextPath()
     {
-        logger.entry("getContextPath()");
-
         String result = this.request.getContextPath();
 
         if (this.url != null) {
@@ -132,7 +130,6 @@ public abstract class AbstractHttpServletRequestWrapper implements HttpServletRe
             }
         }
 
-        logger.exit("getContextPath");
         return result;
     }
 
@@ -142,16 +139,12 @@ public abstract class AbstractHttpServletRequestWrapper implements HttpServletRe
      */
     public String getPathInfo()
     {
-        logger.entry("getPathInfo()");
-
         String result = this.request.getPathInfo();
 
         if (this.url != null) {
             result = this.url.getPathInfo();
             logger.debug("Using simulated PathInfo : [" + result + "]");
         }
-
-        logger.exit("getPathInfo");
         return result;
     }
 
@@ -161,8 +154,6 @@ public abstract class AbstractHttpServletRequestWrapper implements HttpServletRe
      */
     public String getServerName()
     {
-        logger.entry("getServerName()");
-
         String result = this.request.getServerName();
 
         if (this.url != null) {
@@ -172,8 +163,6 @@ public abstract class AbstractHttpServletRequestWrapper implements HttpServletRe
                     "]");
             }
         }
-
-        logger.exit("getServerName");
         return result;
     }
 
@@ -184,8 +173,6 @@ public abstract class AbstractHttpServletRequestWrapper implements HttpServletRe
      */
     public int getServerPort()
     {
-        logger.entry("getServerPort()");
-
         int result = this.request.getServerPort();
 
         if (this.url != null) {
@@ -193,7 +180,6 @@ public abstract class AbstractHttpServletRequestWrapper implements HttpServletRe
             logger.debug("Using simulated server port : [" + result + "]");
         }
 
-        logger.exit("getServerPort");
         return result;
     }
 
@@ -203,8 +189,6 @@ public abstract class AbstractHttpServletRequestWrapper implements HttpServletRe
      */
     public String getRequestURI()
     {
-        logger.entry("getRequestURI()");
-
         String result = this.request.getRequestURI();
 
         if (this.url != null) {
@@ -216,7 +200,6 @@ public abstract class AbstractHttpServletRequestWrapper implements HttpServletRe
             logger.debug("Using simulated request URI : [" + result + "]");
         }
 
-        logger.exit("getRequestURI");
         return result;
     }
 
@@ -226,8 +209,6 @@ public abstract class AbstractHttpServletRequestWrapper implements HttpServletRe
      */
     public String getServletPath()
     {
-        logger.entry("getServletPath()");
-
         String result = this.request.getServletPath();
 
         if (this.url != null) {
@@ -236,7 +217,6 @@ public abstract class AbstractHttpServletRequestWrapper implements HttpServletRe
                 "]");
         }
 
-        logger.exit("getServletPath");
         return result;
     }
 
@@ -274,8 +254,6 @@ public abstract class AbstractHttpServletRequestWrapper implements HttpServletRe
      */
     public String getQueryString()
     {
-        logger.entry("getQueryString()");
-
         String result = this.request.getQueryString();
 
         if (this.url != null) {
@@ -283,8 +261,6 @@ public abstract class AbstractHttpServletRequestWrapper implements HttpServletRe
             logger.debug("Using simulated query string : [" + result +
                 "]");
         }
-
-        logger.exit("getQueryString");
         return result;
     }
 
@@ -297,8 +273,6 @@ public abstract class AbstractHttpServletRequestWrapper implements HttpServletRe
      */
     public RequestDispatcher getRequestDispatcher(String thePath)
     {
-        logger.entry("getRequestDispatcher([" + thePath + "])");
-
         // I hate it, but we have to write some logic here ! Ideally we
         // shouldn't have to do this as it is supposed to be done by the servlet
         // engine. However as we are simulating the request URL, we have to
@@ -306,7 +280,6 @@ public abstract class AbstractHttpServletRequestWrapper implements HttpServletRe
         // (it has to mock some parts of the servlet engine) !
 
         if (thePath == null) {
-            logger.exit("getRequestDispatcher");
             return null;
         }
 
@@ -330,7 +303,6 @@ public abstract class AbstractHttpServletRequestWrapper implements HttpServletRe
             }
 
 	        if (fullPath == null) {
-                logger.exit("getRequestDispatcher");
                 return null;
             }
         }
@@ -340,7 +312,6 @@ public abstract class AbstractHttpServletRequestWrapper implements HttpServletRe
         dispatcher = new RequestDispatcherWrapper(
             this.request.getRequestDispatcher(fullPath));
 
-        logger.exit("getRequestDispatcher");
         return dispatcher;
     }
 

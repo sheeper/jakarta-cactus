@@ -105,8 +105,6 @@ public class FilterTestRedirector implements Filter
         ServletResponse theResponse, FilterChain theFilterChain)
         throws IOException, ServletException
     {
-        this.logger.entry("doFilter(...)");
-
         // Create implicit object holder
         FilterImplicitObjects objects = new FilterImplicitObjects();
         objects.setHttpServletRequest((HttpServletRequest)theRequest);
@@ -117,8 +115,6 @@ public class FilterTestRedirector implements Filter
 
         FilterTestController controller = new FilterTestController();
         controller.handleRequest(objects);
-
-        this.logger.exit("doFilter");
     }
 
     /**

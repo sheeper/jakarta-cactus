@@ -120,8 +120,6 @@ public abstract class AbstractTestCaller
      */
     public void doTest() throws ServletException
     {
-        logger.entry("doTest()");
-
         WebTestResult result = null;
 
         try {
@@ -154,8 +152,6 @@ public abstract class AbstractTestCaller
             result);
 
         logger.debug("Result saved in context scope");
-
-        logger.exit("doTest");
     }
 
     /**
@@ -165,8 +161,6 @@ public abstract class AbstractTestCaller
      */
     public void doGetResults() throws ServletException
     {
-        logger.entry("doGetResults()");
-
         // One could think there is a potential risk that the client side of
         // Cactus will request the result before it has been written to the
         // context scope as the HTTP request will not block in some containers.
@@ -200,8 +194,19 @@ public abstract class AbstractTestCaller
             logger.error(message, e);
             throw new ServletException(message, e);
         }
+    }
 
-        logger.exit("doGetResults");
+    /**
+     * Run the connection test between client and server. This is just to
+     * ensure that configuration is set up correctly.
+     *
+     * @exception ServletException if an unexpected error occurred
+     */
+    public void doRunTest() throws ServletException
+    {
+        // Do not return any http response (not needed). It is enough to
+        // know this point has been reached ... it means the connection has
+        // been established !
     }
 
     /**
@@ -209,8 +214,6 @@ public abstract class AbstractTestCaller
      */
     protected String getTestClassName() throws ServletException
     {
-        logger.entry("getTestClassName()");
-
         String queryString =
             this.webImplicitObjects.getHttpServletRequest().getQueryString();
         String className = ServletUtil.getQueryStringParameter(queryString,
@@ -225,7 +228,6 @@ public abstract class AbstractTestCaller
 
         logger.debug("Class to call = " + className);
 
-        logger.exit("getTestClassName");
         return className;
     }
 
@@ -235,8 +237,6 @@ public abstract class AbstractTestCaller
      */
     protected String getTestMethodName() throws ServletException
     {
-        logger.entry("getTestMethodName()");
-
         String queryString =
             this.webImplicitObjects.getHttpServletRequest().getQueryString();
         String methodName = ServletUtil.getQueryStringParameter(queryString,
@@ -251,7 +251,6 @@ public abstract class AbstractTestCaller
 
         logger.debug("Method to call = " + methodName);
 
-        logger.exit("getTestMethodName");
         return methodName;
     }
 
@@ -261,8 +260,6 @@ public abstract class AbstractTestCaller
      */
     protected boolean isAutoSession()
     {
-        logger.entry("isAutoSession()");
-
         String queryString =
             this.webImplicitObjects.getHttpServletRequest().getQueryString();
         String autoSession = ServletUtil.getQueryStringParameter(queryString,
@@ -272,7 +269,6 @@ public abstract class AbstractTestCaller
 
         logger.debug("Auto session is " + isAutomaticSession);
 
-        logger.exit("isAutoSession");
         return isAutomaticSession;
     }
 
@@ -284,9 +280,6 @@ public abstract class AbstractTestCaller
     protected AbstractTestCase getTestClassInstance(String theClassName,
         String theTestCaseName) throws ServletException
     {
-        logger.entry("getTestClassInstance([" + theClassName + "], [" +
-            theTestCaseName + "])");
-
         // Print info on the classloader used to load this class
         if (logger.isDebugEnabled()) {
             StringBuffer buffer = new StringBuffer("Classloaders = ");
@@ -316,7 +309,6 @@ public abstract class AbstractTestCaller
             throw new ServletException(message, e);
         }
 
-        logger.exit("getTestClassInstance");
         return testInstance;
     }
 
@@ -328,8 +320,6 @@ public abstract class AbstractTestCaller
     protected Class getTestClassClass(String theClassName)
         throws ServletException
     {
-        logger.entry("getTestClassClass([" + theClassName + "])");
-
         // Get the class to call and build an instance of it.
         Class testClass = null;
         try {
@@ -349,7 +339,6 @@ public abstract class AbstractTestCaller
             throw new ServletException(message, e);
         }
 
-        logger.exit("getTestClassClass");
         return testClass;
     }
 

@@ -95,8 +95,6 @@ public class ServletTestCaller extends AbstractTestCaller
     protected void setTestCaseFields(AbstractTestCase theTestInstance)
         throws Exception
     {
-        logger.entry("setTestCaseFields([" + theTestInstance + "])");
-
         ServletTestCase servletInstance = (ServletTestCase)theTestInstance;
         ServletImplicitObjects servletImplicitObjects =
             (ServletImplicitObjects)this.webImplicitObjects;
@@ -142,8 +140,6 @@ public class ServletTestCaller extends AbstractTestCaller
             sessionField.set(servletInstance, session);
 
         }
-
-        logger.exit("setTestCaseFields");
     }
 
 }
