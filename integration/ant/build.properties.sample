@@ -31,7 +31,7 @@ j2ee.jar = ${lib.repo}/servletapi/jars/servletapi-2.3.jar
 commons.logging.jar = ${lib.repo}/commons-logging/jars/commons-logging-1.0.3.jar
 
 # The location of the log4j jar
-log4j.jar = ${lib.repo}/log4j/jars/log4j-1.2.7.jar
+log4j.jar = ${lib.repo}/log4j/jars/log4j-1.2.8.jar
 
 # The location of the Commons Httpclient jar
 commons.httpclient.jar = ${lib.repo}/commons-httpclient/jars/commons-httpclient-2.0-alpha3.jar
