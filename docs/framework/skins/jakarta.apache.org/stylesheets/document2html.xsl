@@ -382,7 +382,7 @@
   </xsl:template>
 
   <xsl:template match="td">
-    <td bgcolor="#a0ddf0" colspan="{@colspan}" rowspan="{@rowspan}" valign="top" align="left">
+    <td bgcolor="#a0ddf0" colspan="{@colspan}" rowspan="{@rowspan}" nowrap="{@nowrap}" valign="top" align="left">
       <font color="#000000" size="-1" face="arial,helvetica,sanserif">
         <xsl:apply-templates/>&#160;
       </font>
