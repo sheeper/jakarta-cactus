@@ -365,38 +365,97 @@
         <p>
           Cactus is completely agnostic with regards to the logging framework
           configuration, so you will have to learn how to configure your
-          favorite logging yourself. However, here are some tips on how to
-          easily configure Log4j.
+          favorite logging yourself. However here are some tips to help set up
+          a Cactus logging configuration.
         </p>
 
-        <section title="Log4J configuration">
+        <section title="'cactus.logging.config' property">
 
           <p>
-            Create a <code>log4j.properties</code> file and drop it in both
-            your client side and server side classpaths. Log4j automatically
-            looks for such a file in the classpath so it should find it easily.
-          </p>
-          <p>
-            Now you need to add the categories that you want to log to that
-            file. If you wish to see Cactus logs, you will need to add the
-            "<code>org.apache.cactus.*</code>" category and set the logging
-            level to <code>DEBUG</code> as Cactus only outputs logs in that
-            level.
+            Cactus provides an optional <code>cactus.logging.config</code>
+            configuration property. If set, Cactus will load the properties 
+            file pointed by this property and will set each property as a 
+            system property. This allowsw putting all logging-related 
+            properties into a single place, as demonstrated below.
           </p>
 
+          <note>
+            If you're using the Ant <code>&lt;cactus&gt;</code> task, please
+            refer to the <a href="site:task_cactus">documentation for that 
+            task</a> to set up Cactus logging.
+          </note>          
+          
+        </section>   
+
+        <section title="Sample logging configuration files">
+
           <p>
-            Here is a sample <code>log4j.properties</code> file for Cactus
-            client side. You can use the same one for the Server side but we
-            recommend to change the name of the output file in order not to
-            mix the logs.
+            As Cactus is running in 2 JVMs (client side and server side), 
+            you'll need to provide 2 logging configuration if you wish to
+            enable logging for both sides. Here are some sample configuration
+            files.
           </p>
 
+          <section title="Client side configuration sample">
+
+            <note>
+              Notice that for JDK 1.4 logging and for Log4J logging you have
+              to specify that path to this file as these 2 logging systems also
+              use a configuration file to configure themselves. Alternatively
+              you can put configuration data in other files. However, it's
+              convenient to group everything in a single file.
+            </note>
+          
 <source><![CDATA[
-# Properties for configuring Log4j
-# This is the configuring for logging on the JUnit side (i.e. the client side)
+# -----------------------------------------------------------------------------
+# Logging properties
+# -----------------------------------------------------------------------------
+
+# Disable logging by default when running the tests. If you wish to use a 
+# logging subsystem, uncomment the line below. That will let Commons logging
+# decide automatically of a suitable logging system for you. You can also force
+# commons-logging to use a specific logging system. For more info, see
+# http://jakarta.apache.org/commons/logging/api/org/apache/commons/logging/package-summary.html#package_description
+
+# Disable logging
+#org.apache.commons.logging.Log = org.apache.commons.logging.impl.NoOpLog
+
+# Force to use JDK 1.4 logging
+#org.apache.commons.logging.Log = org.apache.commons.logging.impl.Jdk14Logger
+
+# Force to use Log4J logging
+#org.apache.commons.logging.Log = org.apache.commons.logging.impl.Log4JLogger
+
+# Force to use Simple logging
+#org.apache.commons.logging.Log = org.apache.commons.logging.impl.SimpleLog
+
+# ---- JDK 1.4 logging properties
+
+# Following properties are useful if you're using the JDK 1.4 logging subsystem
+# and wish to output logs to a file. Make sure to comment out the NoOpLog line 
+# above.
+java.util.logging.config.file = @target.dir@/logging_client.properties
+handlers = java.util.logging.FileHandler
+java.util.logging.FileHandler.pattern = @target.dir@/test_client.log
+java.util.logging.FileHandler.formatter = java.util.logging.SimpleFormatter
+
+# If you want to provide finer grained logging, restrict the level for the 
+# specific package name. 
+# For example: 
+# org.apache.cactus.server.level = ALL
+# org.apache.commons.httpclient.level = ALL
+# .level = ALL
+org.apache.cactus.level = ALL
+
+# ---- Log4J logging properties
+
+# Following properties are useful if you're using the Log4J logging subsystem
+# and wish to output logs to a file. Make sure to comment out the NoOpLog line 
+# above.
+log4j.configuration = file:/@target.dir@/logging_client.properties
 
 log4j.appender.cactus = org.apache.log4j.FileAppender
-log4j.appender.cactus.File = cactus_client.log
+log4j.appender.cactus.File = @target.dir@/test_client.log
 log4j.appender.cactus.Append = false
 log4j.appender.cactus.layout = org.apache.log4j.PatternLayout
 log4j.appender.cactus.layout.ConversionPattern = %d{ABSOLUTE} [%t] %-5p %-30.30c{2} %x - %m %n
@@ -404,29 +463,122 @@ log4j.appender.cactus.layout.ConversionPattern = %d{ABSOLUTE} [%t] %-5p %-30.30c
 # Any application log which uses Log4J will be logged to the Cactus log file
 log4j.rootCategory=DEBUG, cactus
 
-# By default we don't log at the DEBUG level for Cactus log, in order not to generate too
-# many logs. However, should a problem arise and logs need to be sent to the Cactus dev team,
-# then we will ask you to change this to DEBUG.
-log4j.category.org.apache.cactus = WARN, cactus
-log4j.additivity.org.apache.cactus=false
+# Debug logs for Cactus
+log4j.category.org.apache.cactus = DEBUG, cactus
+log4j.additivity.org.apache.cactus = false
 
-# Don't show debug logs for HttpClient
-log4j.category.org.apache.commons.httpclient = WARN, cactus
-log4j.additivity.org.apache.commons.httpclient=false
+# Debug logs for HttpClient
+log4j.category.org.apache.commons.httpclient = DEBUG, cactus
+log4j.additivity.org.apache.commons.httpclient = false
 log4j.category.httpclient = WARN, cactus
-log4j.additivity.httpclient=false
+log4j.additivity.httpclient = false
+
+# ---- SimpleLog logging properties
+
+org.apache.commons.logging.simplelog.showlogname = true
+org.apache.commons.logging.simplelog.log.org.apache.cactus = trace
+org.apache.commons.logging.simplelog.log.org.apache.commons.httpclient = trace
 ]]></source>
 
-          <note>
+          </section>
+          
+          <section title="Server side configuration sample">
+
+            <note>
+              Notice that for JDK 1.4 logging and for Log4J logging you have
+              to specify that path to this file as these 2 logging systems also
+              use a configuration file to configure themselves. Alternatively
+              you can put configuration data in other files. However, it's
+              convenient to group everything in a single file.
+            </note>
+
+<source><![CDATA[
+# -----------------------------------------------------------------------------
+# Logging properties
+# -----------------------------------------------------------------------------
+
+# Disable logging by default when running the tests. If you wish to use a 
+# logging subsystem, uncomment the line below. That will let Commons logging
+# decide automatically of a suitable logging system for you. You can also force
+# commons-logging to use a specific logging system. For more info, see
+# http://jakarta.apache.org/commons/logging/api/org/apache/commons/logging/package-summary.html#package_description
+
+# Disable logging
+#org.apache.commons.logging.Log = org.apache.commons.logging.impl.NoOpLog
+
+# Force to use JDK 1.4 logging
+#org.apache.commons.logging.Log = org.apache.commons.logging.impl.Jdk14Logger
+
+# Force to use Log4J logging
+#org.apache.commons.logging.Log = org.apache.commons.logging.impl.Log4JLogger
+
+# Force to use Simple logging
+#org.apache.commons.logging.Log = org.apache.commons.logging.impl.SimpleLog
+
+# ---- JDK 1.4 logging properties
+
+# Following properties are useful if you're using the JDK 1.4 logging subsystem
+# and wish to output logs to a file. Make sure to comment out the NoOpLog line 
+# above.
+java.util.logging.config.file = @target.dir@/logging_server.properties
+handlers = java.util.logging.FileHandler
+java.util.logging.FileHandler.pattern = @target.dir@/test_server.log
+java.util.logging.FileHandler.formatter = java.util.logging.SimpleFormatter
+
+# If you want to provide finer grained logging, restrict the level for the 
+# specific package name. 
+# For example: org.apache.cactus.server.level = ALL
+org.apache.cactus.level = ALL
+
+# ---- Log4J logging properties
+
+# Following properties are useful if you're using the Log4J logging subsystem
+# and wish to output logs to a file. Make sure to comment out the NoOpLog line 
+# above.
+log4j.configuration = file:/@target.dir@/logging_server.properties
+
+log4j.appender.cactus = org.apache.log4j.FileAppender
+log4j.appender.cactus.File = @target.dir@/test_server.log
+log4j.appender.cactus.Append = false
+log4j.appender.cactus.layout = org.apache.log4j.PatternLayout
+log4j.appender.cactus.layout.ConversionPattern = %d{ABSOLUTE} [%t] %-5p %-30.30c{2} %x - %m %n
+
+# Any application log which uses Log4J will be logged to the Cactus log file
+log4j.rootCategory=DEBUG, cactus
+
+# Debug logs for Cactus
+log4j.category.org.apache.cactus = DEBUG, cactus
+log4j.additivity.org.apache.cactus = false
+
+# Debug logs for HttpClient
+log4j.category.org.apache.commons.httpclient = DEBUG, cactus
+log4j.additivity.org.apache.commons.httpclient = false
+log4j.category.httpclient = WARN, cactus
+log4j.additivity.httpclient = false
+
+# ---- SimpleLog logging properties
+
+org.apache.commons.logging.simplelog.showlogname = true
+org.apache.commons.logging.simplelog.log.org.apache.cactus = trace
+org.apache.commons.logging.simplelog.log.org.apache.commons.httpclient = trace
+]]></source>
+
+          </section>
+          
+        </section>
+        
+        <section title="Tips">
+
+          <p>
             JUnit uses a different classloader to load each test of a TestCase
-            class. Thus, Log4j will reinitialise for each test, thus
-            overwriting the <code>cactus_client.log</code> file each time (this
-            is because we have set <code>log4j.appender.cactus.Append</code> to
-            <code>false</code>. You can set it to <code>true</code> if you
+            class. Thus, Log4j will reinitialise for each test, which may lead
+            to overwriting the <code>test_client.log</code> file each time
+            (this is because we have set <code>log4j.appender.cactus.Append</code>
+            to <code>false</code>. You can set it to <code>true</code> if you
             wish to keep all the logs but the file size will grow quickly. In
             addition logs are really only useful when there is a failure and
             thus not appending is usually a good choice.
-          </note>
+          </p>
 
         </section>
 

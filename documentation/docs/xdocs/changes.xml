@@ -91,6 +91,9 @@
 
       <release version="1.6dev" date="in CVS">
         <action dev="VMA" type="update">
+          Updated web site documentation for enabling Cactus logging.
+        </action>
+        <action dev="VMA" type="update">
           Due to some internal package restructuration (all non public API were
           moved to <code>internal</code> packages), the 
           <code>jspredirector.jsp</code> file was modified. If you have 

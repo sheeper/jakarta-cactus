@@ -123,6 +123,54 @@
         elements are supported:
       </p>
 
+      <section title="cactusproperty">
+      
+        <p>
+          The <strong>cactusproperty</strong> element lets you specify the
+          name of a property file. All the properties specified in this file
+          will be read and set as System properties.
+        </p>
+
+        <section title="Parameters">
+
+          <note>
+            The <strong>cactusproperty</strong> element supports the following
+            parameters:
+          </note>
+
+          <table>
+            <tr>
+              <th>Name</th>
+              <th>Description</th>
+              <th>Required</th>
+            </tr>
+            <tr>
+              <td>server</td>
+              <td>
+                Specifies whether the properties should be added in the Cactus
+                server side JVM ("<code>true</code>") or the Cactus client side 
+                JVM ("<code>false</code>").
+              </td>
+              <td>Yes</td>
+            </tr>
+          </table>
+
+          <p>
+            Example (used for enabling Cactus logging):
+          </p>      
+
+<source><![CDATA[
+<!-- Configure the cactus task for logging -->
+<cactusproperty server="false"
+    propertiesFile="${target.dir}/logging_client.properties"/>
+<cactusproperty server="true"
+    propertiesFile="${target.dir}/logging_server.properties"/>
+]]></source>
+              
+        </section>
+        
+      </section>
+
       <section title="containerset">
 
         <p>

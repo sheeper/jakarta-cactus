@@ -66,9 +66,6 @@
           Add documentation for form-based authentication.
         </action>
         <action>
-          Document the new features for Cactus logging.
-        </action>
-        <action>
           Rewrite "Quick start guide" to take into account the different
           front ends.
         </action>
