@@ -135,7 +135,7 @@
 
     <target name="release.bin"
         depends="init.properties, release.prepare">
-        <zip destfile="release/${main.release.name}.zip">
+        <zip destfile="${release.dir}/${main.release.name}.zip">
             <zipfileset dir="documentation/dist/doc"
                 prefix="${main.release.name}/doc"/>
             <zipfileset file="${aspectjrt.jar}"
@@ -165,7 +165,7 @@
 
     <target name="release.src"
         depends="init.properties">
-        <zip zipfile="release/${main.release.name}-src.zip">
+        <zip zipfile="${release.dir}/${main.release.name}-src.zip">
             <zipfileset dir="." prefix="${main.release.name}-src">
                 <exclude name="**/target*/**"/>
                 <exclude name="**/dist*/**"/>
@@ -185,8 +185,10 @@
          Clean all generated files by all Cactus subprojects.
        ========================================================================
     -->
-    <target name="clean">
+    <target name="clean"
+        depends="init.properties">
 
+        <delete dir="${release.dir}"/>
         <delete dir="target-12"/>
         <delete dir="target-13"/>
         <delete>
