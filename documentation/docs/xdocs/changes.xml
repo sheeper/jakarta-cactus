@@ -48,6 +48,11 @@
     </devs>
 
     <release version="1.5" date="- in CVS">
+      <action dev="VMA" type="add">
+        New <code>WebResponse.getCookieIgnoreCase(cookieName)</code> to get
+        the first cookie matching <code>cookieName</code> whatever the case
+        (case-insensitive).
+      </action>
       <action dev="VMA" type="add" due-to="Jason Robertson" due-to-email="Jason.Robertson@acs-inc.com">
         Added Form-based authentication support (Submitted by Jason Robertson).
       </action>

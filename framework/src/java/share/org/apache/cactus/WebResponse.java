@@ -236,6 +236,32 @@ public class WebResponse
     }
 
     /**
+     * Return the first cookie found that has the specified name or null
+     * if not found. The name is case-insensitive.
+     *
+     * @param theName the cookie name to find (case-insensitive)
+     * @return the cookie or null if not found
+     */
+    public Cookie getCookieIgnoreCase(String theName)
+    {
+        Cookie result = null;
+
+        Cookie[] cookies = getCookies();
+
+        for (int i = 0; i < cookies.length; i++)
+        {
+            if (cookies[i].getName().equalsIgnoreCase(theName))
+            {
+                result = cookies[i];
+
+                break;
+            }
+        }
+
+        return result;
+    }
+
+    /**
      * @return the cookies returned by the server
      */
     public Cookie[] getCookies()
