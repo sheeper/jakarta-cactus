@@ -260,7 +260,10 @@ public class CactusLaunchConfiguration extends JUnitLaunchConfiguration
     private IType getFirstTestType(ILaunchConfiguration theConfiguration,
         IJavaProject theJavaProject, IProgressMonitor thePm)
     {                
-        IType testType;
+        // TODO: Upon exception, stop the launch so that this method should
+        // never have to return null.
+                
+        IType testType = null;
         
         try
         {
