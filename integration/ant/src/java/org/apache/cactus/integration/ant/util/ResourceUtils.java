@@ -220,6 +220,7 @@ public final class ResourceUtils
      * @param theResourceName The name of the resource
      * @return An input stream containing the specified resource, or
      *         <code>null</code> if the resource was not found in the JAR
+     * @throws IOException If an I/O error occurs
      */
     public static InputStream getResource(JarInputStream theJar,
         String theResourceName)

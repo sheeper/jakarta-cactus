@@ -100,7 +100,8 @@ public final class TestAll extends TestCase
 
         suite.addTest(
             org.apache.cactus.integration.ant.container.TestAll.suite());
-        suite.addTest(org.apache.cactus.integration.ant.deployment.TestAll.suite());
+        suite.addTest(
+            org.apache.cactus.integration.ant.deployment.TestAll.suite());
 
         suite.addTestSuite(TestCactifyWarTask.class);
         suite.addTestSuite(TestCactusTask.class);

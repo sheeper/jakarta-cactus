@@ -153,7 +153,7 @@ public class WebXml
     /**
      * Returns the servlet API version.
      * 
-     * @return The version.
+     * @return The version
      */
     public final WebXmlVersion getVersion()
     {

@@ -650,7 +650,8 @@ public class CactusTask extends JUnitTask
     private JarInputStream getTestWar(File theEarFile)
     {
         JarInputStream ear = null;
-        try {
+        try
+        {
             ear = new JarInputStream(new FileInputStream(theEarFile));
             ApplicationXml applicationXml =
                 ApplicationXmlIo.parseApplicationXmlFromEar(ear, null);
