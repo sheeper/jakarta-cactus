@@ -16,6 +16,7 @@
     <menu-item type="changes" label="Changes" source="changes.xml"/>
     <menu-item type="todo" label="Todo" source="todo.xml"/>
     <menu-item label="Contributors" source="contributors.xml"/>
+    <menu-item label="License" source="license.xml"/>
     <menu-item type="hidden" source="scope.xml" />
   </menu>
 
@@ -24,16 +25,13 @@
   </menu>
 
   <menu label="User Guides">
+    <menu-item label="Architecture" source="architecture.xml"/>
     <menu-item label="Installation" source="installation.xml"/>
     <menu-item label="Installing Ant" source="installation_ant.xml"/>
     <menu-item label="Installing Sample" source="installation_sample.xml"/>
     <menu-item label="Configuration" source="configuration.xml"/>
     <menu-item label="Writing Test Case" source="using.xml"/>
     <menu-item label="Servlet Sample" source="sample_servlet.xml"/>
-  </menu>
-
-  <menu label="For Developers">
-    <menu-item label="Architecture" source="architecture.xml"/>
     <menu-item label="Ant integration" source="ant.xml"/>
     <menu-item label="Servlet Engines" source="servlets.xml"/>
     <menu-item label="API Reference" source="javadoc.xml"/>
