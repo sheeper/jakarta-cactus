@@ -266,15 +266,15 @@ public class TestServletTestCase2 extends ServletTestCase
         // [...]
         // Multiple message-header fields with the same field-name MAY be
         // present in a message if and only if the entire field-value for that
-        // header field is defined as a comma-separated list [i.e., #(values)]. 
-        // It MUST be possible to combine the multiple header fields into one 
-        // "field-name: field-value" pair, without changing the semantics of 
-        // the message, by appending each subsequent field-value to the first, 
-        // each separated by a comma. The order in which header fields with the 
-        // same field-name are received is therefore significant to the 
-        // interpretation of the combined field value, and thus a proxy MUST 
-        // NOT change the order of these field values when a message is 
-        // forwarded. 
+        // header field is defined as a comma-separated list [i.e., #(values)].
+        // It MUST be possible to combine the multiple header fields into one
+        // "field-name: field-value" pair, without changing the semantics of
+        // the message, by appending each subsequent field-value to the first,
+        // each separated by a comma. The order in which header fields with the
+        // same field-name are received is therefore significant to the
+        // interpretation of the combined field value, and thus a proxy MUST
+        // NOT change the order of these field values when a message is
+        // forwarded.
 
         // ... so it should be ok ...
 
@@ -550,6 +550,38 @@ public class TestServletTestCase2 extends ServletTestCase
     {
         assertEquals(HttpServletResponse.SC_MOVED_TEMPORARILY,
             theResponse.getConnection().getResponseCode());
+    }
+
+    //-------------------------------------------------------------------------
+
+    /**
+     * Verify that <code>HttpServletRequestWrapper.getPathTranslated()</code>
+     * takes into account the simulated URL (if any).
+     *
+     * @param theRequest the request object that serves to initialize the
+     *                   HTTP connection to the server redirector.
+     */
+    public void beginGetPathTranslated(WebRequest theRequest)
+    {
+        theRequest.setURL("jakarta.apache.org", "/mywebapp", "/myservlet",
+            "/test1/test2", "PARAM1=value1");
+    }
+
+    /**
+     * Verify that <code>HttpServletRequestWrapper.getPathTranslated()</code>
+     * takes into account the simulated URL (if any).
+     */
+    public void testGetPathTranslated()
+    {
+        String nativePathInfo = File.separator + "test1" + File.separator +
+            "test2";
+
+        String pathTranslated = request.getPathTranslated();
+
+        assertNotNull("Should not be null", pathTranslated);
+        assert("Should end with [" + nativePathInfo + "] but got [" +
+            pathTranslated + "] instead",
+            pathTranslated.endsWith(nativePathInfo));
     }
 
 }

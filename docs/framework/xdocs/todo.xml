@@ -50,7 +50,7 @@
         (jmadynski@food.com) on the jakarta-commons mailing list (Subject
         "[cactus] Using Cactus with JBoss-2.2.1 with Embedded Tomcat"). The
         scripts need to be reworked so that the deployed test war is deployed
-        within the <code>out</code> output directory and not to where
+        within the <code>target</code> output directory and not to where
         JBoss/Tomcat is installed.
       </action>
       <action assigned-to="Vincent Massol">
@@ -65,12 +65,6 @@
       <action assigned-to="Jari Worsley, Nicholas Lesiecki">
         Continue support for JSP Taglib. Possibly add some heper classes to
         help implement unit test for taglibs.
-      </action>
-      <action>
-        Handle <code>getRealPath()</code>, <code>getPathTranslated()</code> in
-        the <code>ServletRedirectorRequest</code> class. With the current
-        version if you use these API, it will return the native path for the
-        Servlet Redirector and not for your servlet being tested
       </action>
     </category>
 

@@ -108,6 +108,10 @@
     </devs>
 
     <release version="1.2 in CVS">
+      <action dev="VMA" type="add">
+        <code>HttpServletRequestWrapper.getPathTranslated()</code> now takes
+        into account any path info set up in <code>WebRequest.setURL()</code>.
+      </action>
       <action dev="VMA" type="fix">
         Transform the <code>WebResponse.getText()</code> and
         <code>WebResponse.getTestAsArray()</code> so that they can be called
