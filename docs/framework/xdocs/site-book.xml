@@ -57,6 +57,8 @@
     <menu-item label="IDE Howto" source="howto_ide.xml"/>
     <menu-item type="hidden" source="howto_ide_vajava.xml"/>
     <menu-item type="hidden" source="howto_ide_jbuilder.xml"/>
+
+    <menu-item label="JUnitEE Howto" source="howto_junitee.xml"/>
   </menu>
 
   <menu label="Support">
