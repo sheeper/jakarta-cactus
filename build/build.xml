@@ -397,6 +397,9 @@
 
             <classpath>
                 <pathelement path="${java.class.path}"/>
+                <pathelement location="${stylebook.jar}"/>
+                <pathelement location="${xerces.jar}"/>
+                <pathelement location="${xalan.jar}"/>
             </classpath>
 
         </stylebook>

@@ -261,6 +261,7 @@
             <classpath>
                 <pathelement path="${java.class.path}"/>
                 <pathelement location="${servlet.jar}"/>
+                <pathelement location="${junit.jar}"/>
             </classpath>
 
         </javac>
@@ -342,6 +343,7 @@
             <classpath>
                 <pathelement path="${java.class.path}"/>
                 <pathelement location="${servlet.jar}"/>
+                <pathelement location="${junit.jar}"/>
             </classpath>
 
         </javadoc>
@@ -394,6 +396,9 @@
 
             <classpath>
                 <pathelement path="${java.class.path}"/>
+                <pathelement location="${stylebook.jar}"/>
+                <pathelement location="${xerces.jar}"/>
+                <pathelement location="${xalan.jar}"/>
             </classpath>
 
         </stylebook>
@@ -607,6 +612,7 @@
 
             <classpath>            
                 <pathelement path="${java.class.path}"/>
+                <pathelement location="${stylebook.jar}"/>
             </classpath>
 
         </java>
