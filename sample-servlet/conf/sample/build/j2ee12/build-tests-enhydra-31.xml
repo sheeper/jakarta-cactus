@@ -86,13 +86,6 @@
     <target name="prepare.test.enhydra.31"
         depends="check.test.enhydra.31,prepare.test" if="enhydra.home.31">
 
-        <taskdef name="pathconvert"
-            classname="org.apache.cactus.ant.PathConvert">
-            <classpath>
-                <pathelement location="${cactus.ant.jar}"/>
-            </classpath>
-        </taskdef>
-
         <echo message="enhydra.home.31 = ${enhydra.home.31}"/>
 
         <property name="target.enhydra31.dir"
