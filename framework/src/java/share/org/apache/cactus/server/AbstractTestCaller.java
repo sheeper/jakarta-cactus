@@ -74,6 +74,7 @@ import org.apache.cactus.util.log.LogService;
  * provides a common abstraction for all test web requests.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
+ * @author <a href="mailto:ndlesiecki@apache.org">Nicholas Lesiecki</a>
  *
  * @version $Id$
  */
@@ -295,7 +296,7 @@ public abstract class AbstractTestCaller
         // Print info on the classloader used to load this class
         if (LOGGER.isDebugEnabled()) {
             StringBuffer buffer = new StringBuffer("Classloaders = ");
-            ClassLoader classLoader = this.getClass().getClassLoader();
+            ClassLoader classLoader = getAppropriateClassLoader();
             while (classLoader != null) {
                 buffer.append(classLoader.toString());
                 classLoader = classLoader.getParent();
@@ -337,7 +338,8 @@ public abstract class AbstractTestCaller
         // Get the class to call and build an instance of it.
         Class testClass = null;
         try {
-            testClass = Class.forName(theClassName);
+            testClass = Class.forName(theClassName, true,
+                getAppropriateClassLoader());
         } catch (Exception e) {
             String message = "Error finding class [" + theClassName +
                 "] in classpath. ";
@@ -354,6 +356,23 @@ public abstract class AbstractTestCaller
         }
 
         return testClass;
+    }
+
+    /**
+     * Enable the Cactus jar to be put in the system classpath and still be
+     * able to load classes that must be loaded by the webapp classloader by
+     * using the Context class loader (if set) to load these classes.
+     *
+     * @return either the Context class loader or the class loader that was
+     *         used to load the current class.
+     */
+    private ClassLoader getAppropriateClassLoader()
+    {
+        ClassLoader loader = Thread.currentThread().getContextClassLoader();
+        if(loader == null) {
+            loader = this.getClass().getClassLoader();
+        }
+        return loader;
     }
 
 }
