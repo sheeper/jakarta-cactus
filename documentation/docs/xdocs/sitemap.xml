@@ -461,6 +461,7 @@
 
   <!-- ATM, the maven web site is generated separately. -->
   <external id="integration_maven" url="http://jakarta.apache.org/cactus/integration/maven/index.html"/>
+  <external id="integration_maven_changes" url="http://jakarta.apache.org/cactus/integration/maven/changes-report.html"/>
 
   <external id="jakarta" url="http://jakarta.apache.org/"/>
   <external id="jakarta_roles" url="http://jakarta.apache.org/site/roles.html"/>

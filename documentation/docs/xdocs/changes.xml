@@ -76,6 +76,11 @@
       <p>
       	Older release changes are <a href="site:changes_archive">archived</a>.
       </p>
+      <p>
+      	Changes to the Maven Cactus plugin can be found on the
+      	<a href="ext:integration_maven_changes">Maven integration release 
+      	changes page</a>.
+      </p>
 
       <devs>
         <person name="Vincent Massol" email="vmassol@apache.org" id="VMA"/>
