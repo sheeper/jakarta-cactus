@@ -43,9 +43,6 @@
         Add documentation for a new way to start Cactus tests by using the
         Jetty Initializer.
       </action>
-      <action assigned-to="Christopher Lenz">
-        Add doc for new <code>JspTagLifecycle</code> class.
-      </action>
     </category>
 
     <category title="Build Process">
@@ -65,12 +62,8 @@
 
     <category title="Design/Code">
       <action assigned-to="Christopher Lenz">
-        Improve the ServletTestRunner. Move stylesheet definition to web.xml
-        and provide support for XSLT performed inside ServletTestRunner. 
-        Bundle an XSLT stylesheet with the sample-servlet.
-        Maybe add stack trace filtering.
-        Look at ways to make it run without the permission to set system
-        properties.
+        Improve the ServletTestRunner: look at ways to make it run without the
+        permission to set system properties.
         Potentially look at replacing it by the JUnitEE test runner.
       </action>
       <action>
