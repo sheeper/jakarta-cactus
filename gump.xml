@@ -496,7 +496,7 @@
        Build the Cactus Jetty Sample for J2EE 1.3
      ========================================================================
   -->
-  <project name="jakarta-cactus-sample-jetty-12">
+  <project name="jakarta-cactus-sample-jetty-13">
 
     <description>Cactus Jetty Sample (J2EE 1.3)</description>
 
