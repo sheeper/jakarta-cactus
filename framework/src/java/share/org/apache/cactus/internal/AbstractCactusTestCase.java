@@ -17,7 +17,7 @@
  * 
  * ========================================================================
  */
-package org.apache.cactus;
+package org.apache.cactus.internal;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
@@ -30,6 +30,11 @@ import org.apache.cactus.util.TestCaseImplementChecker;
 
 /**
  * Base class for all Cactus test case extensions.
+ * 
+ * Note: We must not add any method that can be called by the end user to this
+ * class as users will those methods and it will create a runtime dependency to 
+ * this class. We will then have to break binary compatibility if we wish to
+ * move this class around or change its implementation.
  * 
  * @version $Id$
  * @since 1.6 

@@ -27,6 +27,8 @@ import junit.framework.Test;
 import org.apache.cactus.client.connector.ProtocolHandler;
 import org.apache.cactus.client.connector.http.HttpProtocolHandler;
 import org.apache.cactus.configuration.FilterConfiguration;
+import org.apache.cactus.internal.AbstractCactusTestCase;
+import org.apache.cactus.internal.CactusTestCase;
 import org.apache.cactus.server.FilterConfigWrapper;
 
 /**

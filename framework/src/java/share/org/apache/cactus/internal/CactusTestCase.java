@@ -17,7 +17,7 @@
  * 
  * ========================================================================
  */
-package org.apache.cactus;
+package org.apache.cactus.internal;
 
 /**
  * Common interface that must be implemented by all Cactus test cases.
