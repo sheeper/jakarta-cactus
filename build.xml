@@ -156,8 +156,16 @@
                 prefix="${main.release.name}/lib"/>
             <zipfileset file="${nekohtml.jar}"
                 prefix="${main.release.name}/lib"/>
+            <zipfileset file="${j2ee.jar}"
+                prefix="${main.release.name}/lib"/>
             <zipfileset dir="samples/servlet/target-${j2ee.api}/sample"
-                prefix="${main.release.name}/samples/servlet"/>
+                prefix="${main.release.name}/samples/servlet">
+                <exclude name="lib/**"/>
+            </zipfileset>
+            <zipfileset file="${jstl.jar}"
+                prefix="${main.release.name}/samples/servlet/lib"/>
+            <zipfileset file="${standard.jar}"
+                prefix="${main.release.name}/samples/servlet/lib"/>
             <zipfileset dir="framework/web"
                 prefix="${main.release.name}/web"/>
             <zipfileset dir="." prefix="${main.release.name}"

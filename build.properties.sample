@@ -30,10 +30,6 @@ lib.repo = c:/apps/maven/repository
 # only available for Servlet 2.3 (part of J2EE 1.3).
 j2ee.jar = ${lib.repo}/j2ee/jars/j2ee-1.3.jar
 
-# Location of the Servlet API jar (it is needed because we want to copy it
-# in the Cactus distribution).
-servlet.jar = ${lib.repo}/servletapi/jars/servletapi-2.3.jar
-
 # The location of the Commons Logging jar
 commons.logging.jar = ${lib.repo}/commons-logging/jars/commons-logging-1.0.2.jar
 
