@@ -26,7 +26,7 @@ cactus.ant.jar = ../lib/cactus-ant-@version@.jar
 servlet.jar = ../lib/servletapi-2.3.jar
 
 # The location of the AspectJ runtime jar
-aspectjrt.jar = ../lib/aspectjrt-1.0.4.jar
+aspectjrt.jar = ../lib/aspectjrt-1.0.5.jar
 
 # The location of the log4j jar (optional). Only needed if you want Cactus to
 # generate logs
