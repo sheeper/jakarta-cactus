@@ -59,7 +59,6 @@ package org.apache.cactus.eclipse.ui;
 import java.util.Vector;
 
 import org.apache.cactus.eclipse.containers.ant.ContainerHome;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.preference.IPreferenceStore;
 
 /**

@@ -56,8 +56,6 @@
  */
 package org.apache.cactus.eclipse.ui;
 
-import org.apache.cactus.eclipse.containers.IContainerProvider;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.preference.DirectoryFieldEditor;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.ui.IWorkbench;

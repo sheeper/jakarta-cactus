@@ -339,7 +339,8 @@ public class CactusPlugin extends AbstractUIPlugin
      * Sets the current CactusLaunchShortcut
      * @param theCactusLaunchShortcut the instance to set
      */
-    public void addCactusLaunchShortcut(CactusLaunchShortcut theCactusLaunchShortcut)
+    public void addCactusLaunchShortcut(
+        CactusLaunchShortcut theCactusLaunchShortcut)
     {
         this.launchShortcut = theCactusLaunchShortcut;
     }
