@@ -374,6 +374,17 @@ integration/ant/src/scripts/share/build-tests-resin2x.xml svn_keywords=Author+Da
 integration/ant/src/scripts/share/build-tests-tomcat4x.xml svn_keywords=Author+Date+Id+Revision
 integration/ant/src/scripts/share/build-tests-weblogic6x.xml svn_keywords=Author+Date+Id+Revision
 integration/ant/src/scripts/share/build-tests-weblogic7x.xml svn_keywords=Author+Date+Id+Revision
+integration/ant/src/test-input/org/apache/cactus/integration/ant/empty-2_2.war -text
+integration/ant/src/test-input/org/apache/cactus/integration/ant/empty-2_3.war -text
+integration/ant/src/test-input/org/apache/cactus/integration/ant/empty.war -text
+integration/ant/src/test-input/org/apache/cactus/integration/ant/test-cactify.xml svn_keywords=Author+Date+Id+Revision
+integration/ant/src/test-input/org/apache/cactus/integration/ant/test-cactus.xml svn_keywords=Author+Date+Id+Revision
+integration/ant/src/test-input/org/apache/cactus/integration/ant/web-app_2_2.dtd svn_keywords=Author+Date+Id+Revision
+integration/ant/src/test-input/org/apache/cactus/integration/ant/web-app_2_3.dtd svn_keywords=Author+Date+Id+Revision
+integration/ant/src/test/org/apache/cactus/integration/ant/AntTestCase.java svn_keywords=Author+Date+Id+Revision
+integration/ant/src/test/org/apache/cactus/integration/ant/TestAll.java svn_keywords=Author+Date+Id+Revision
+integration/ant/src/test/org/apache/cactus/integration/ant/TestCactifyTask.java svn_keywords=Author+Date+Id+Revision
+integration/ant/src/test/org/apache/cactus/integration/ant/TestCactusTask.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/test/org/apache/cactus/integration/ant/container/MockContainer.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/test/org/apache/cactus/integration/ant/container/MockHttpServer.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/test/org/apache/cactus/integration/ant/container/TestAll.java svn_keywords=Author+Date+Id+Revision

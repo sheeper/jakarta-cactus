@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+
+<project name="cactify-test" basedir="." default="help">
+
+  <property name="work.dir" location="${basedir}/work"/>
+
+  <target name="setUp">
+    <mkdir dir="${work.dir}"/>
+    <xmlcatalog id="j2ee.dtds">
+      <dtd publicId="-//Sun Microsystems, Inc.//DTD Web Application 2.2//EN"
+          location="${basedir}/web-app_2_2.dtd"/>
+      <dtd publicId="-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+          location="${basedir}/web-app_2_3.dtd"/>
+    </xmlcatalog>
+  </target>
+
+  <target name="testSrcFileNotSet">
+    <cactify destfile="destfile.war"/>
+  </target>
+
+  <target name="testDestFileNotSet">
+    <cactify srcfile="empty.war"/>
+  </target>
+
+  <target name="testDefaultRedirectorsNoDoctype">
+    <cactify srcfile="empty.war"
+        destfile="${work.dir}/destfile.war"/>
+  </target>
+
+  <target name="testDefaultRedirectors22Doctype">
+    <cactify srcfile="empty-2_2.war"
+        destfile="${work.dir}/destfile.war">
+      <xmlcatalog refid="j2ee.dtds"/>
+    </cactify>
+  </target>
+
+  <target name="testDefaultRedirectors23Doctype">
+    <cactify srcfile="empty-2_3.war"
+        destfile="${work.dir}/destfile.war">
+      <xmlcatalog refid="j2ee.dtds"/>
+    </cactify>
+  </target>
+
+  <target name="tearDown">
+    <delete dir="${work.dir}"/>
+  </target>
+
+</project>

@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+
+<project name="test-cactus" basedir="." default="setup">
+
+  <target name="testWarFileNotSet">
+    <cactus/>
+  </target>
+
+  <target name="testWarFileNotExisting">
+    <cactus warfile="idontexist.war"/>
+  </target>
+
+</project>
