@@ -68,6 +68,12 @@
       </devs>
 
       <release version="1.6dev" date="in CVS">
+        <action dev="VMA" type="fix">
+          Fixed the bug where a ServletException occurs, stating:
+          <code>The request object passed to forward() must be the request 
+          object you got from your Cactus test case (i.e. a Cactus request 
+          wrapper object). Instead we got [...]</code>.
+        </action>
         <action dev="VMA" type="add" fixes-bug="23016">
           In the Ant integration module, added new <code>configXml</code> 
           attribute to the <code>&lt;weblogic7x&gt;</code> container 
