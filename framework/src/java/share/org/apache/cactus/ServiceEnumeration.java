@@ -71,7 +71,7 @@ package org.apache.cactus;
  *
  * @version $Id$
  */
-public class ServiceEnumeration
+public final class ServiceEnumeration
 {
     /**
      * Call test method Service.
