@@ -3,7 +3,7 @@
   PUBLIC "-//Apache Software Foundation//DTD Cactus Navigation V1.0//EN"
   "file:../../../dtds/navigation-v10.dtd">
 
-<navigation>
+<navigation title="Ant" index="integration_ant">
 
   <menu label="Ant Integration">
     <item id="integration_ant" label="Overview"/>

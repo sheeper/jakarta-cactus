@@ -21,6 +21,10 @@ TYPICAL INVOCATION:
 <!-- =============================================================== -->
 
 <!ELEMENT navigation (menu*)>
+<!ATTLIST navigation
+    title CDATA #REQUIRED
+    index CDATA #REQUIRED
+>
 
 <!ELEMENT menu (item*)>
 <!ATTLIST menu

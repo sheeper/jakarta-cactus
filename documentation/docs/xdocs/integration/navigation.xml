@@ -3,5 +3,5 @@
   PUBLIC "-//Apache Software Foundation//DTD Cactus Navigation V1.0//EN"
   "file:../../dtds/navigation-v10.dtd">
 
-<navigation>
+<navigation title="Integration" index="howto_runner">
 </navigation>

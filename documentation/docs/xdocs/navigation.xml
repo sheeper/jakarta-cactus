@@ -3,7 +3,7 @@
   "-//Apache Software Foundation//DTD Cactus Navigation V1.0//EN"
   "file:../dtds/navigation-v10.dtd">
 
-<navigation>
+<navigation title="Cactus" index="index">
 
   <menu label="About">
     <item id="index"/>

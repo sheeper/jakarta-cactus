@@ -3,5 +3,5 @@
   PUBLIC "-//Apache Software Foundation//DTD Cactus Navigation V1.0//EN"
   "file:../../dtds/navigation-v10.dtd">
 
-<navigation>
+<navigation title="Writing Tests" index="howto_testcase">
 </navigation>
