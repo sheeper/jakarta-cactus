@@ -16,6 +16,16 @@
 
       <figure src="images/scope.jpg" alt="Scope and Status"/>
 
+      <note>
+        Support for testing the View layer is done through integration
+        with <link href="http://httpunit.sourceforge.net">HttpUnit</link>.
+        This is functional testing and not unit testing.
+      </note>
+      <note>
+        EJB unit testing is done by calling the EJB to unit test as you
+        would if you were writing code to call an EJB from a servlet.
+      </note>
+
     </s1>
 
     <s1 title="General design features">
@@ -150,7 +160,9 @@
         <li>
           HttpUnit integration. See the
           <link href="howto_httpunit.html">HttpUnit Howto</link>) tutorial
-          for details (<strong>for Cactus 1.2 only</strong>).
+          for details (<strong>for Cactus 1.2 only</strong>). This enables
+          Cactus to provide strong and integrated functional
+          testing features.
         </li>
       </ul>
     </s1>
