@@ -23,6 +23,12 @@
           page accordingly.
         </li>
         <li>
+          Ensure that Cactus works with the latest released versions of the
+          frameworks it uses (Commons-logging, HttpClient, HttpUnit, etc)
+          and update the <code>build.properties.sample</code> files to use
+          these latest versions.
+        </li>
+        <li>
           Ensure that the Todo page has no more items for the current version.
         </li>
         <li>
