@@ -168,6 +168,7 @@ framework/build.xml svn_keywords=Author+Date+Id+Revision
 framework/maven.xml svn_keywords=Author+Date+Id+Revision
 framework/project.properties svn_keywords=Author+Date+Id+Revision
 framework/project.xml svn_keywords=Author+Date+Id+Revision
+framework/src/aspect/org/apache/cactus/util/log/LogAspect.aj svn_keywords=Author+Date+Id+Revision
 framework/src/java/j2ee12/org/apache/cactus/server/HttpServletRequestWrapper.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/j2ee12/org/apache/cactus/server/PageContextWrapper.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/j2ee12/org/apache/cactus/server/ServletConfigWrapper.java svn_keywords=Author+Date+Id+Revision
@@ -270,7 +271,6 @@ framework/src/java/share/org/apache/cactus/util/JUnitVersionHelper.java svn_keyw
 framework/src/java/share/org/apache/cactus/util/StringUtil.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/util/UniqueGenerator.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/util/UrlUtil.java svn_keywords=Author+Date+Id+Revision
-framework/src/java/share/org/apache/cactus/util/log/LogAspect.aj -text svneol=unset#application/octet-stream
 framework/src/java/share/org/apache/cactus/util/package.html svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/overview.html svn_keywords=Author+Date+Id+Revision
 framework/src/test/share/org/apache/cactus/AbstractTestAbstractTestCase.java svn_keywords=Author+Date+Id+Revision

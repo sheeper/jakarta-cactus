@@ -48,6 +48,7 @@
         location="${src.java.dir}/j2ee${j2ee.api}"/>
     <property name="src.test.dir" location="${src.dir}/test"/>
     <property name="src.test.share.dir" location="${src.test.dir}/share"/>
+    <property name="src.aspect.dir" location="${src.dir}/aspect"/>
     <property name="build.dir" location="${base.dir}/."/>
     <property name="conf.dir" location="${base.dir}/conf"/>
     <property name="web.dir" location="${base.dir}/web"/>
@@ -172,6 +173,7 @@ be resolved. Please check you build.properties file, and run Ant with the
         optimize="${optimize}">
       <src path="${target.src.dir}"/>
       <src path="${src.java.specific.dir}"/>
+      <src path="${src.aspect.dir}"/>
       <exclude name="**/package.html"/>
       <exclude name="**/overview.html"/>
       <classpath refid="project.classpath"/>
@@ -210,6 +212,7 @@ be resolved. Please check you build.properties file, and run Ant with the
         <uptodate targetfile="${target.dir}/${cactus.jar.name}.jar">
           <srcfiles dir="${target.src.dir}"/>
           <srcfiles dir="${src.java.specific.dir}"/>
+          <srcfiles dir="${src.aspect.dir}"/>
         </uptodate>
       </not>
     </condition>
@@ -226,6 +229,7 @@ be resolved. Please check you build.properties file, and run Ant with the
         optimize="${optimize}">
       <src path="${target.src.dir}"/>
       <src path="${src.java.specific.dir}"/>
+      <src path="${src.aspect.dir}"/>
       <exclude name="**/package.html"/>
       <exclude name="**/overview.html"/>
       <classpath refid="project.classpath"/>
