@@ -753,7 +753,7 @@
       <xsl:if test="@fixes-bug">
         <xsl:text> Fixes </xsl:text>
          <!-- link -->
-         <a href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id={@fixes-bug}">
+         <a href="http://nagoya.apache.org/jira/secure/ViewIssue.jspa?key={@fixes-bug}">
            <xsl:text>bug </xsl:text><xsl:value-of select="@fixes-bug"/>
         </a>
         <xsl:text>.</xsl:text>
