@@ -50,8 +50,8 @@ public class TestJettyAll extends TestCase
 ]]></source>
       
       <p>
-        You also need to define some System properties to control the Jetty
-        Test Setup behavior:
+        You can also define some System properties (they are optional) to 
+        control the Jetty TestSetup behavior:
       </p>      
       <ul>
         <li>
