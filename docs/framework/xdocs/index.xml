@@ -37,6 +37,17 @@
       <table>
         <tr>
           <td>
+            12/05/2001
+          </td>
+          <td>
+            New page on
+            <link href="mockobjects.html">Mock Objects vs In-container</link>
+            unit testing strategies. Explains principles and details pros and
+            cons of each.
+          </td>
+        </tr>
+        <tr>
+          <td>
             02/05/2001
           </td>
           <td>

@@ -25,8 +25,12 @@
     <menu-item label="Downloads" source="downloads.xml"/>
   </menu>
 
-  <menu label="User Guides">
+  <menu label="Design">
     <menu-item label="Architecture" source="architecture.xml"/>
+    <menu-item label="Mock vs Container" source="mockobjects.xml"/>
+  </menu>
+
+  <menu label="User Guides">
     <menu-item label="Installation" source="installation.xml"/>
     <menu-item label="Installing Ant" source="installation_ant.xml"/>
     <menu-item label="Installing Sample" source="installation_sample.xml"/>
