@@ -44,7 +44,7 @@
         now Cactus sends back XML data.
       </action>
       <action dev="VMA" type="add">
-        Added a <link href="site:testedon">Tested On ...</link> page that gives
+        Added a <link href="ext:cactus_testedon">Tested On ...</link> page that gives
         the list of Servers/Versions on which Cactus has been tested. Please
         contribute if you have a working configuration not listed there.
       </action>

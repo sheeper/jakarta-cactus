@@ -25,7 +25,7 @@
         </li>
         <li>
           Ensure that the Cactus tests have been run on several application
-          servers and update the <link href="site:testedon">Tested On</link>
+          servers and update the <link href="ext:cactus_testedon">Tested On</link>
           page accordingly.
         </li>
         <li>

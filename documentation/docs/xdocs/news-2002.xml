@@ -162,8 +162,8 @@
         <tr>
           <th>21/04/2002</th>
           <td>
-            New <link href="site:testedon">Tested On ...</link> page which
-            lists what containers have been tested with Cactus.
+            New <link href="ext:cactus_testedon">Tested On ...</link> page 
+            which lists what containers have been tested with Cactus.
           </td>
         </tr>
 

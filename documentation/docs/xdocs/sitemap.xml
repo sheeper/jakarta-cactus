@@ -56,12 +56,7 @@
       name="Who Uses Cactus?">
     Informal list about who is using Cactus.
   </resource>
-  
-  <resource id="testedon" target="testedon.html"
-      name="Tested On">
-    A list of containers that Cactus was tested on for each release.
-  </resource>
-  
+
   <resource id="license" target="license.html"
       name="License">
     The Cactus License.
@@ -407,6 +402,7 @@
   <external id="cactus_release_bin" url="http://jakarta.apache.org/site/binindex.cgi"/>
   <external id="cactus_release_src" url="http://jakarta.apache.org/site/sourceindex.cgi"/>
   <external id="cactus_release_old" url="http://jakarta.apache.org/builds/jakarta-cactus/release"/>
+  <external id="cactus_testedon" url="http://nagoya.apache.org/wiki/apachewiki.cgi?CactusProjectPages/TestedOn"/>
   <external id="cactus_viewcvs" url="http://cvs.apache.org/viewcvs/jakarta-cactus/"/>
   <external id="checkstyle" url="http://checkstyle.sf.net"/>
   <external id="clover" url="http://www.thecortex.net/clover/index.html"/>
