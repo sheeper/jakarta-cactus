@@ -337,6 +337,11 @@
                 location="${target.test.dir}/classes/cactus"/>
             <property name="target.testreports.dir"
                 location="${target.test.dir}/test-reports"/>
+            <property name="cactus.framework.jar"
+                location="${test.cactus.framework.jar}"/>
+            <property name="cactus.ant.jar"
+                location="${test.cactus.antintegration.jar}"/>
+            <property name="clover.jar" value="${clover.jar}"/>
        </ant>
 
     </target>
