@@ -21,6 +21,45 @@
             Link
           </td>
           <td>
+            <link href="http://ejbmonitor.webcabcomponents.com/~ejbmonitor/">EJB 
+            Monitor</link>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Type
+          </td>
+          <td>
+            Monitoring Framework
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Date
+          </td>
+          <td>
+            Submitted on October 2002
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Description
+          </td>
+          <td>
+            GUI Monitoring console for WebLogic 6.1 that allows you to easily 
+            run Cactus tests.
+          </td>
+        </tr>
+      </table>
+
+      <p/>
+
+      <table>
+        <tr>
+          <td>
+            Link
+          </td>
+          <td>
             <link href="http://sourceforge.net/projects/cactuswizard">Cactus
             Wizard for JBuilder</link>
           </td>
