@@ -45,6 +45,9 @@
   <!-- Properties for the Cactus tests -->
   <property name="cactus.port" value="8080"/>
 
+  <!-- Location where the logging properties files are located -->
+  <property name="base.dir" location="."/>
+
   <!--
      ========================================================================
        Set the properties related to the source tree.
