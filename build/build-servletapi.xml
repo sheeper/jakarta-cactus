@@ -647,7 +647,7 @@
             <!-- Pass all required properties -->
             <arg value="-Dservlet.jar=${servlet.jar}"/>
             <arg value="-Dcactus.jar=../lib/${jar.name}.jar"/>
-            <arg value="-Dcactus.ant.jar=${basedir}/${cactus.ant.jar}"/>
+            <arg value="-Dcactus.ant.jar=${cactus.ant.jar}"/>
             <arg value="-Djunit.jar=${junit.jar}"/>
             <arg value="-Dlog4j.jar=${log4j.jar}"/>
             <arg value="-Dhttpclient.jar=${httpclient.jar}"/>
