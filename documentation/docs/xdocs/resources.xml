@@ -41,6 +41,19 @@
 
         <tr>
           <td>
+            <link href="http://www.visioncodified.com">Jenerator</link>
+          </td>
+		  <td>
+		    Software
+		  </td>
+		  <td>
+            A Code Generator that produces, among lots of other things, Unit 
+            Tests for all types of EJB for JUnit and Cactus.
+		  </td>
+        </tr>
+
+        <tr>
+          <td>
             <link href="http://www.kimble.co.uk/papers/cactus-wl51.htm">Stress 
             Testing with The Grinder and Cactus</link>
           </td>
