@@ -25,7 +25,7 @@ j2ee.jar = ../jakarta-servletapi-4/dist/lib/servlet.jar
 #j2ee.jar = ../jakarta-servletapi/dist/lib/servlet.jar
 
 # The location of the log4j jar
-log4j.jar = ../jakarta-log4j/dist/lib/log4j-1.2beta4.jar
+log4j.jar = ../jakarta-log4j/dist/lib/log4j-1.2rc1.jar
 
 # The location of the Commons Httpclient jar
 commons.httpclient.jar = ../jakarta-commons/httpclient/dist/commons-httpclient.jar
