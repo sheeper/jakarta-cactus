@@ -379,7 +379,6 @@
   <external id="apache" url="http://www.apache.org/"/>
   <external id="aspectj" url="http://www.eclipse.org/aspectj/"/>
   <external id="australian_slang" url="http://www.koalanet.com.au/australian-slang.html#C"/>
-  <external id="beanutils" url="http://jakarta.apache.org/commons/beanutils.html"/>
   <external id="book_javatools" url="http://www.amazon.com/exec/obidos/ASIN/047120708X/"/>
   <external id="bug_database" url="http://jakarta.apache.org/site/bugs.html"/>
   <external id="c2_vma" url="http://c2.com/cgi/wiki?VincentMassol"/>
@@ -391,7 +390,10 @@
   <external id="cactus_viewcvs" url="http://cvs.apache.org/viewcvs/jakarta-cactus/"/>
   <external id="checkstyle" url="http://checkstyle.sf.net"/>
   <external id="clover" url="http://www.thecortex.net/clover/index.html"/>
-  <external id="collections" url="http://jakarta.apache.org/commons/collections.html"/>
+  <external id="commons_beanutils" url="http://jakarta.apache.org/commons/beanutils.html"/>
+  <external id="commons_collections" url="http://jakarta.apache.org/commons/collections.html"/>
+  <external id="commons_httpclient" url="http://jakarta.apache.org/commons/httpclient/"/>
+  <external id="commons_logging" url="http://jakarta.apache.org/commons/logging.html"/>
   <external id="cruisecontrol" url="http://cruisecontrol.sourceforge.net/"/>
   <external id="cvs" url="http://jakarta.apache.org/site/cvsindex.html"/>
   <external id="eclipse" url="http://www.eclipse.org"/>  
@@ -406,6 +408,7 @@
   <external id="gump_cactus_integration_ant_13" url="http://cvs.apache.org/builds/gump/latest/jakarta-cactus-integration-ant-13.html"/>
   <external id="gump_cactus_integration_eclipse_12" url="http://cvs.apache.org/builds/gump/latest/jakarta-cactus-integration-eclipse-12.html"/>
   <external id="gump_cactus_integration_eclipse_13" url="http://cvs.apache.org/builds/gump/latest/jakarta-cactus-integration-eclipse-13.html"/>
+  <external id="gump_jars" url="http://gump.covalent.net/jars/latest/"/>
   <external id="gump_results" url="http://cvs.apache.org/builds/gump/latest"/>
   <external id="httpclient" url="http://jakarta.apache.org/commons/httpclient"/>
   <external id="httpclient_other" url="http://www.innovation.ch/java/HTTPClient/"/>

@@ -63,7 +63,7 @@
     <section title="Prerequisites">
       <p>
         To build Cactus from source, you'll need to have
-        <link href="ext:ant">Ant</link> 1.5 (or later)
+        <link href="ext:ant">Ant</link> 1.5.1 (or later)
         installed. Please make sure that the distribution also includes the JAR
         containing the optional tasks (<code>optional.jar</code>). In addition,
         please add an XSLT processor (like
@@ -87,41 +87,67 @@
             <th>Description</th>
           </tr>
           <tr>
-            <td>junit.jar</td>
-            <td>3.7 or later</td>
-            <td>
-              The JUnit framework.
-              Availabe <link href="ext:junit">here</link>.
-              This JAR file must be placed in the <code>lib</code> directory of
-              your Ant installation, or Ant will not be able to load the 
-              required classes.
-            </td>
-          </tr>
-          <tr>
-            <td>aspectjrt.jar</td>
+            <td><link href="ext:commons_logging">aspectjrt.jar</link></td>
             <td>1.0.6 or later</td>
             <td>
               The AspectJ runtime.
-              Availabe <link href="ext:aspectj">here</link>.
             </td>
           </tr>
           <tr>
-            <td>aspectjtools.jar</td>
+            <td><link href="ext:aspectj">aspectjtools.jar</link></td>
             <td>1.0.6 or later</td>
             <td>
               The AspectJ compiler and other tools.
-              Availabe <link href="ext:aspectj">here</link>.
             </td>
           </tr>
           <tr>
-            <td>aspectj-ant.jar</td>
+            <td><link href="ext:aspectj">aspectj-ant.jar</link></td>
             <td>1.0.6 or later</td>
             <td>
-              The AspectJ Ant tasks.
-              Availabe <link href="ext:aspectj">here</link>.
+              The AspectJ Ant tasks.<br/>
+              <em>Since version 1.1 of AspectJ, the Ant tasks are included
+              in <code>aspectjtools.jar</code>.</em>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <link href="ext:commons_httpclient">commons-httpclient.jar</link>
+            </td>
+            <td>2.0 beta 1 or later</td>
+            <td>
+              Jakarta Commons HttpClient.
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <link href="ext:commons_logging">commons-logging.jar</link>
+            </td>
+            <td>1.0 or later</td>
+            <td>
+              Jakarta Commons Logging.
+            </td>
+          </tr>
+          <tr>
+            <td><link href="ext:junit">junit.jar</link></td>
+            <td>3.7 or later</td>
+            <td>
+              The JUnit framework.<br/>
+              <em>This JAR file must be placed in the <code>lib</code>
+              directory of your Ant installation, or Ant will not be able
+              to load the required classes.</em>
+            </td>
+          </tr>
+          <tr>
+            <td>servlet.jar</td>
+            <td>2.2 or 2.3</td>
+            <td>
+              The Servlet/JSP API.<br/>
+              <em>This JAR file comes with your servlet container or
+              application server.</em>
             </td>
           </tr>
         </table>
+
       </section>
 
       <section title="Optional Libraries">
@@ -132,83 +158,76 @@
             <th>Description</th>
           </tr>
           <tr>
-            <td>checkstyle.jar</td>
+            <td><link href="ext:checkstyle">checkstyle.jar</link></td>
             <td>3.0-dev</td>
             <td>
               The Checkstyle code auditing tool.
-              Availabe <link href="ext:checkstyle">here</link>.
             </td>
           </tr>
           <tr>
-            <td>antlr.jar</td>
+            <td><link href="ext:antlr">antlr.jar</link></td>
             <td>2.7.1</td>
             <td>
-              The ANTLR translator generator (required by Checkstyle).
-              Availabe <link href="ext:antlr">here</link>.
+              The ANTLR translator generator (required by Checkstyle).<br/>
+              <em>If you use the <code>checkstyle-all-[version].jar</code>
+              distribution of Checkstyle, the classes in the JAR are already
+              included.</em>
             </td>
           </tr>
           <tr>
-            <td>commons-beanutils.jar</td>
+            <td><link href="ext:commons_beanutils">commons-beanutils.jar</link></td>
             <td>1.5</td>
             <td>
-              Jakarta Commons BeanUtils (required by Checkstyle).
-              Available <link href="ext:beanutils">here</link>.
+              Jakarta Commons BeanUtils (required by Checkstyle).<br/>
+              <em>If you use the <code>checkstyle-all-[version].jar</code>
+              distribution of Checkstyle, the classes in the JAR are already
+              included.</em>
             </td>
           </tr>
           <tr>
-            <td>commons-collections.jar</td>
+            <td><link href="ext:commons_collections">commons-collections.jar</link></td>
             <td>2.1</td>
             <td>
-              Jakarta Commons Collections (required by Checkstyle).
-              Available <link href="ext:collections">here</link>.
+              Jakarta Commons Collections (required by Checkstyle).<br/>
+              <em>If you use the <code>checkstyle-all-[version].jar</code>
+              distribution of Checkstyle, the classes in the JAR are already
+              included.</em>
             </td>
           </tr>
           <tr>
-            <td>regexp.jar</td>
+            <td><link href="ext:regexp">regexp.jar</link></td>
             <td>1.2</td>
             <td>
-              Jakarta RegExp (required by Checkstyle).
-              Available <link href="ext:regexp">here</link>.
+              Jakarta RegExp (required by Checkstyle).<br/>
+              <em>If you use the <code>checkstyle-all-[version].jar</code>
+              distribution of Checkstyle, the classes in the JAR are already
+              included.</em>
             </td>
           </tr>
           <tr>
-            <td>clover.jar</td>
+            <td><link href="ext:clover">clover.jar</link></td>
             <td>1.1</td>
             <td>
-              Clover code coverage tool.
-              Available <link href="ext:clover">here</link>.
-              This JAR file must be placed in the <code>lib</code> directory of
-              your Ant installation, or Ant will not be able to load the 
-              required classes.
-            </td>
-          </tr>
-          <tr>
-            <td>velocity.jar</td>
-            <td>1.3</td>
-            <td>
-              Velocity template engine (required by Clover).
-              Available <link href="ext:velocity">here</link>,
-              but also included with the Clover download.
-              This JAR file must be placed in the <code>lib</code> directory of
-              your Ant installation, or Ant will not be able to load the 
-              required classes.
+              Clover code coverage tool.<br/>
+              <em>This JAR file must be placed in the <code>lib</code>
+              directory of your Ant installation, or Ant will not be able
+              to load the required classes.</em>
             </td>
           </tr>
         </table>
       </section>
 
       <note>
-        <strong>If you don't want to have problems with versions, you need 
+        <strong>If you don't want to experience version conflicts, you need 
         to get the versions corresponding to Cactus releases. For example,
         If you're building Cactus 1.4.1 from its sources, you'll need to get 
-        the jars found in the corresponding Cactus prepackaged 
-        jar for Ant. IF you are building from CVS, you can get the latest
-        jars from the <link href="ext:gump_jars">Gump nightly builds</link>
-        </strong>.
+        the jars found in the corresponding Cactus distribution. If you are
+        building from CVS, you can get the latest jars from the
+        <link href="ext:gump_jars">Gump nightly builds</link></strong>.
       </note>
 
       <note>
-        In the future we will make this process easier by moving our build
+        In the future we might make this process easier by moving our build
         system to Maven.
       </note>
 
@@ -224,28 +243,56 @@
         The Cactus project is divided into several subprojects, each having 
         its own build. Examples of subprojects are:
       </p>
-      <ul>
-        <li>
-          <strong>framework</strong>: The main Cactus framework
-        </li>
-        <li>
-          <strong>sample-servlet</strong>: Sample application using Cactus.
-          Currently also acts as functional and acceptance testing for the
-          Cactus framework.
-        </li>
-        <li>
-          <strong>documentation</strong>: Cactus documentation
-        </li>
-      </ul>
+      <dl>
+      	<dt>documentation</dt>
+      	<dd>
+      	  The Cactus documentation
+      	</dd>
+        <dt>framework</dt>
+        <dd>
+          The main Cactus framework
+        </dd>
+        <dt>integration</dt>
+        <dd>
+          Various tool integration modules.
+          <dl>
+            <dt>ant</dt>
+            <dd>
+              Ant tasks and support classes provided by Cactus.
+            </dd>
+            <dt>eclipse</dt>
+            <dd>
+              Plugins for integration with the open-source IDE
+              <link href="ext:eclipse">Eclipse</link>.
+            </dd>
+          </dl>
+        </dd>
+        <dt>samples</dt>
+        <dd>
+          Sample applications using Cactus.
+          <dl>
+            <dt>jetty</dt>
+            <dd>
+              Sample application that demonstrates the use of the 
+              <link href="site:integration_jetty">Jetty integration</link>.
+            </dd>
+            <dt>servlet</dt>
+            <dd>
+              Sample web-application using Cactus. It currently also acts as
+              functional and acceptance testing for the Cactus framework.
+            </dd>
+          </dl>
+        </dd>
+      </dl>
       <p>
       	Then, there is a special project, which is the top level project,
-      	which is simply a wrapper on all the other projects and allow to
-      	easily build them all.
+      	which is simply a wrapper of all the other projects and allows to
+      	easily build them all in a go.
       </p>
       <p>
-        All projects follow the same directory structure and they all use
+        All projects follow a similar directory structure and they all use
         Ant as the build tool.
-      </p>        
+      </p>
     </section>
 
     <section title="Building a Cactus project">
@@ -269,9 +316,8 @@
       	<code>ant dist</code> (or simply <code>ant jar</code> if you simply
       	want to build the jar).
       </p>
-
       <note>
-        Some projects depends on others and thus you may need to run the build
+        Some projects depend on others and thus you may need to run the build
         for those projects before. The order is as follows: framework (or 
         documentation), then integration projects.
       </note>
@@ -283,6 +329,6 @@
         and type <code>ant release</code>.
       </p>
     </section>
-        
+
   </body>
 </document>
