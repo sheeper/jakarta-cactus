@@ -57,6 +57,7 @@
 package org.apache.cactus.ant;
 
 import org.apache.tools.ant.BuildException;
+import org.apache.tools.ant.Project;
 
 /**
  * Task to automate running in-container unit test. It has the following
@@ -86,8 +87,8 @@ import org.apache.tools.ant.BuildException;
  *
  * @version $Id$
  * 
- * @deprecated The implementation of this task has moved to 
- *              {@link org.apache.cactus.integration.ant}.
+ * @deprecated The implementation of this task has moved to the
+ *              {@link org.apache.cactus.integration.ant} package.
  */
 public class RunServerTestsTask
     extends org.apache.cactus.integration.ant.RunServerTestsTask
@@ -99,7 +100,8 @@ public class RunServerTestsTask
     {
         log("The task 'org.apache.cactus.ant.RunServerTestsTask' is "
             + "deprecated. Use "
-            + "'org.apache.cactus.integration.ant.RunServerTestsTask' instead");
+            + "'org.apache.cactus.integration.ant.RunServerTestsTask' instead",
+            Project.MSG_WARN);
         super.execute();
     }
 
