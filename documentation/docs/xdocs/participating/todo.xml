@@ -211,6 +211,10 @@
       <action>
         Automate tests on the plugin
       </action>
+      <action>
+        "cactify" should check if the jars it adds are already in the project
+        build path before adding them
+      </action>
     </category>
 
   </version>
