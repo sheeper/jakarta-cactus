@@ -74,6 +74,36 @@
     </cactifywar>
   </target>
 
+  <target name="testMultipleNamedServletRedirectors">
+    <cactifywar srcfile="empty-2_3.war"
+        destfile="${work.dir}/destfile.war">
+      <servletredirector name="ServletRedirector"
+          mapping="/test/ServletRedirector"/>
+      <servletredirector name="ServletRedirectorSecure"
+          mapping="/test/ServletRedirectorSecure"/>
+    </cactifywar>
+  </target>
+
+  <target name="testMultipleNamedJspRedirectors">
+    <cactifywar srcfile="empty-2_3.war"
+        destfile="${work.dir}/destfile.war">
+      <jspredirector name="JspRedirector"
+          mapping="/test/JspRedirector"/>
+      <jspredirector name="JspRedirectorSecure"
+          mapping="/test/JspRedirectorSecure"/>
+    </cactifywar>
+  </target>
+
+  <target name="testMultipleNamedFilterRedirectors">
+    <cactifywar srcfile="empty-2_3.war"
+        destfile="${work.dir}/destfile.war">
+      <filterredirector name="FilterRedirector"
+          mapping="/test/FilterRedirector"/>
+      <filterredirector name="FilterRedirectorSecure"
+          mapping="/test/FilterRedirectorSecure"/>
+    </cactifywar>
+  </target>
+
   <target name="testNoDuplicateJars">
     <cactifywar srcfile="containscactusjars.war"
         destfile="${work.dir}/destfile.war"/>

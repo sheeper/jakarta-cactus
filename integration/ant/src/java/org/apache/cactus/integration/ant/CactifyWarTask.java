@@ -58,6 +58,9 @@ package org.apache.cactus.integration.ant;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -132,11 +135,42 @@ public class CactifyWarTask extends War
         // Instance Variables --------------------------------------------------
 
         /**
+         * The name of the redirector.
+         */
+        private String name;
+
+        /**
          * The URL pattern that the redirector will be mapped to. 
          */
         private String mapping;
         
+        /**
+         * Comma-separated list of role names that should be granted access to
+         * the redirector.
+         */
+        private String roles;
+
         // Public Methods ------------------------------------------------------
+
+        /**
+         * Returns the name of the redirector.
+         * 
+         * @return The name
+         */
+        public String getName()
+        {
+            return this.name;
+        }
+
+        /**
+         * Sets the name of the redirector.
+         * 
+         * @param theName The name to set
+         */
+        public void setName(String theName)
+        {
+            this.name = theName;
+        }
 
         /**
          * Returns the URL pattern the redirector will be mapped to.
@@ -156,6 +190,28 @@ public class CactifyWarTask extends War
         public void setMapping(String theMapping)
         {
             this.mapping = theMapping;
+        }
+
+        /**
+         * Returns the comma-separated list of role names that should be granted
+         * access to the redirector.
+         * 
+         * @return The roles in a comma-separated list
+         */
+        public String getRoles()
+        {
+            return this.roles;
+        }
+
+        /**
+         * Sets the comma-separated list of role names that should be granted
+         * access to the redirector.
+         * 
+         * @param theRoles The roles to set
+         */
+        public void setRoles(String theRoles)
+        {
+            this.roles = theRoles;
         }
 
     }
@@ -192,17 +248,17 @@ public class CactifyWarTask extends War
     /**
      * The Cactus filter redirector.
      */
-    private Redirector filterRedirector;
+    private List filterRedirectors = new ArrayList();
 
     /**
      * The Cactus JSP redirector.
      */
-    private Redirector jspRedirector;
+    private List jspRedirectors = new ArrayList();
 
     /**
      * The Cactus servlet redirector.
      */
-    private Redirector servletRedirector;
+    private List servletRedirectors = new ArrayList();
 
     /**
      * For resolving entities such as DTDs.
@@ -285,7 +341,7 @@ public class CactifyWarTask extends War
      */
     public void addFilterRedirector(Redirector theFilterRedirector)
     {
-        this.filterRedirector = theFilterRedirector;
+        this.filterRedirectors.add(theFilterRedirector);
     }
 
     /**
@@ -295,7 +351,7 @@ public class CactifyWarTask extends War
      */
     public void addJspRedirector(Redirector theJspRedirector)
     {
-        this.jspRedirector = theJspRedirector;
+        this.jspRedirectors.add(theJspRedirector);
     }
 
     /**
@@ -305,7 +361,7 @@ public class CactifyWarTask extends War
      */
     public void addServletRedirector(Redirector theServletRedirector)
     {
-        this.servletRedirector = theServletRedirector;
+        this.servletRedirectors.add(theServletRedirector);
     }
 
     /**
@@ -556,41 +612,92 @@ public class CactifyWarTask extends War
         {
             WebXml webXml = WebXmlIo.newWebXml(theWebXml.getVersion());
 
-            // Add the filter redirector
-            webXml.addFilter("FilterRedirector", FILTER_REDIRECTOR_CLASS);
-            if (this.filterRedirector != null)
+            if (WebXmlVersion.V2_3.compareTo(webXml.getVersion()) <= 0)
             {
-                webXml.addFilterMapping("FilterRedirector",
-                    this.filterRedirector.getMapping());
-            }
-            else
-            {
-                webXml.addFilterMapping("FilterRedirector",
-                    DEFAULT_FILTER_REDIRECTOR_MAPPING);
+                // Add the filter redirector
+                if (!this.filterRedirectors.isEmpty())
+                {
+                    Iterator i = this.filterRedirectors.iterator();
+                    while (i.hasNext())
+                    {
+                        Redirector redirector = (Redirector) i.next();
+                        String name = redirector.getName();
+                        if (name == null)
+                        {
+                            name = "FilterRedirector";
+                        }
+                        String mapping = redirector.getMapping();
+                        if (mapping == null)
+                        {
+                            mapping = DEFAULT_FILTER_REDIRECTOR_MAPPING;
+                        }
+                        webXml.addFilter(name, FILTER_REDIRECTOR_CLASS);
+                        webXml.addFilterMapping(name, mapping);
+                    }
+                }
+                else
+                {
+                    // add the default filter redirector
+                    webXml.addFilter("FilterRedirector",
+                        FILTER_REDIRECTOR_CLASS);
+                    webXml.addFilterMapping("FilterRedirector",
+                        DEFAULT_FILTER_REDIRECTOR_MAPPING);
+                }
             }
 
             // Add the JSP redirector
-            webXml.addJspFile("JspRedirector", "/jspRedirector.jsp");
-            if (this.jspRedirector != null)
+            if (!this.jspRedirectors.isEmpty())
             {
-                webXml.addServletMapping("JspRedirector",
-                    this.jspRedirector.getMapping());
+                Iterator i = this.jspRedirectors.iterator();
+                while (i.hasNext())
+                {
+                    Redirector redirector = (Redirector) i.next();
+                    String name = redirector.getName();
+                    if (name == null)
+                    {
+                        name = "JspRedirector";
+                    }
+                    String mapping = redirector.getMapping();
+                    if (mapping == null)
+                    {
+                        mapping = DEFAULT_JSP_REDIRECTOR_MAPPING;
+                    }
+                    webXml.addJspFile(name, "/jspRedirector.jsp");
+                    webXml.addServletMapping(name, mapping);
+                }
             }
             else
             {
+                webXml.addJspFile("JspRedirector", "/jspRedirector.jsp");
                 webXml.addServletMapping("JspRedirector",
                     DEFAULT_JSP_REDIRECTOR_MAPPING);
             }
 
             // Add the servlet redirector
-            webXml.addServlet("ServletRedirector", SERVLET_REDIRECTOR_CLASS);
-            if (this.servletRedirector != null)
+            if (!this.servletRedirectors.isEmpty())
             {
-                webXml.addServletMapping("ServletRedirector",
-                    this.servletRedirector.getMapping());
+                Iterator i = this.servletRedirectors.iterator();
+                while (i.hasNext())
+                {
+                    Redirector redirector = (Redirector) i.next();
+                    String name = redirector.getName();
+                    if (name == null)
+                    {
+                        name = "ServletRedirector";
+                    }
+                    String mapping = redirector.getMapping();
+                    if (mapping == null)
+                    {
+                        mapping = DEFAULT_SERVLET_REDIRECTOR_MAPPING;
+                    }
+                    webXml.addServlet(name, SERVLET_REDIRECTOR_CLASS);
+                    webXml.addServletMapping(name, mapping);
+                }
             }
             else
             {
+                webXml.addServlet("ServletRedirector",
+                    SERVLET_REDIRECTOR_CLASS);
                 webXml.addServletMapping("ServletRedirector",
                     DEFAULT_SERVLET_REDIRECTOR_MAPPING);
             }

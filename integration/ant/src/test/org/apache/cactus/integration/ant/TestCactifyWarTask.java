@@ -70,8 +70,6 @@ import org.apache.tools.ant.Project;
  * 
  * TODO: test whether all files contained by the source WAR are also added to
  *       the cactified WAR
- * TODO: test whether the nested redirector definitions get inserted into the
- *       cactified web.xml correctly
  * TODO: test whether the mergewebxml is actually merged into the cactified 
  *       web.xml  
  * 
@@ -357,7 +355,71 @@ public final class TestCactifyWarTask extends AntTestCase
     }
 
     /**
-     * TODO
+     * Verifies that two servlet redirectors with different names and mappings
+     * are added as expected.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
+    public void testMultipleNamedServletRedirectors() throws Exception
+    {
+        executeTestTarget();
+
+        File destFile = getProject().resolveFile("work/destfile.war");
+        WarArchive destWar = new WarArchive(destFile);
+        WebXml webXml = destWar.getWebXml();
+        assertTrue(webXml.hasServlet("ServletRedirector"));
+        assertEquals("/test/ServletRedirector",
+            webXml.getServletMappings("ServletRedirector").next());
+        assertTrue(webXml.hasServlet("ServletRedirectorSecure"));
+        assertEquals("/test/ServletRedirectorSecure",
+            webXml.getServletMappings("ServletRedirectorSecure").next());
+    }
+
+    /**
+     * Verifies that two JSP redirectors with different names and mappings
+     * are added as expected.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
+    public void testMultipleNamedJspRedirectors() throws Exception
+    {
+        executeTestTarget();
+
+        File destFile = getProject().resolveFile("work/destfile.war");
+        WarArchive destWar = new WarArchive(destFile);
+        WebXml webXml = destWar.getWebXml();
+        assertTrue(webXml.hasServlet("JspRedirector"));
+        assertEquals("/test/JspRedirector",
+            webXml.getServletMappings("JspRedirector").next());
+        assertTrue(webXml.hasServlet("JspRedirectorSecure"));
+        assertEquals("/test/JspRedirectorSecure",
+            webXml.getServletMappings("JspRedirectorSecure").next());
+    }
+
+    /**
+     * Verifies that two filter redirectors with different names and mappings
+     * are added as expected.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
+    public void testMultipleNamedFilterRedirectors() throws Exception
+    {
+        executeTestTarget();
+
+        File destFile = getProject().resolveFile("work/destfile.war");
+        WarArchive destWar = new WarArchive(destFile);
+        WebXml webXml = destWar.getWebXml();
+        assertTrue(webXml.hasFilter("FilterRedirector"));
+        assertEquals("/test/FilterRedirector",
+            webXml.getFilterMappings("FilterRedirector").next());
+        assertTrue(webXml.hasFilter("FilterRedirectorSecure"));
+        assertEquals("/test/FilterRedirectorSecure",
+            webXml.getFilterMappings("FilterRedirectorSecure").next());
+    }
+
+    /**
+     * Verifies that JARs already contained by the source archive are not added
+     * again.
      * 
      * @throws Exception If an unexpected error occurs
      */

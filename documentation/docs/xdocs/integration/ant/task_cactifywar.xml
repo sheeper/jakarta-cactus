@@ -125,12 +125,31 @@
                 <th>Required</th>
               </tr>
               <tr>
+                <td>name</td>
+                <td>
+                  The name of the filter redirector. Only needed if you want to
+                  add multiple filter redirectors to the deployment descriptor.
+                </td>
+                <td>No, the default is <em>FilterRedirector</em></td>
+              </tr>
+              <tr>
                 <td>mapping</td>
                 <td>
                   The URL-pattern to which the redirector should be mapped.
                   Must start with a forward slash (&quot;/&quot;).
                 </td>
                 <td>No, the default is <em>/FilterRedirector</em></td>
+              </tr>
+              <tr>
+                <td>roles</td>
+                <td>
+                  A comma-separated list of role names which will be granted
+                  access to the redirector. If this attribute is ommitted,
+                  access to the redirector will not be constrained. Unless the
+                  roles are already defined in the deployment descriptor, they
+                  will be added automatically.
+                </td>
+                <td>No</td>
               </tr>
             </table>
 
@@ -159,12 +178,31 @@
                 <th>Required</th>
               </tr>
               <tr>
+                <td>name</td>
+                <td>
+                  The name of the JSP redirector. Only needed if you want to
+                  add multiple JSP redirectors to the deployment descriptor.
+                </td>
+                <td>No, the default is <em>JspRedirector</em></td>
+              </tr>
+              <tr>
                 <td>mapping</td>
                 <td>
                   The URL-pattern to which the redirector should be mapped.
                   Must start with a forward slash (&quot;/&quot;).
                 </td>
                 <td>No, the default is <em>/JspRedirector</em></td>
+              </tr>
+              <tr>
+                <td>roles</td>
+                <td>
+                  A comma-separated list of role names which will be granted
+                  access to the redirector. If this attribute is ommitted,
+                  access to the redirector will not be constrained. Unless the
+                  roles are already defined in the deployment descriptor, they
+                  will be added automatically.
+                </td>
+                <td>No</td>
               </tr>
             </table>
 
@@ -189,12 +227,32 @@
                 <th>Required</th>
               </tr>
               <tr>
+                <td>name</td>
+                <td>
+                  The name of the servlet redirector. Only needed if you want
+                  to add multiple servlet redirectors to the deployment
+                  descriptor.
+                </td>
+                <td>No, the default is <em>ServletRedirector</em></td>
+              </tr>
+              <tr>
                 <td>mapping</td>
                 <td>
                   The URL-pattern to which the redirector should be mapped.
                   Must start with a forward slash (&quot;/&quot;).
                 </td>
                 <td>No, the default is <em>/ServletRedirector</em></td>
+              </tr>
+              <tr>
+                <td>roles</td>
+                <td>
+                  A comma-separated list of role names which will be granted
+                  access to the redirector. If this attribute is ommitted,
+                  access to the redirector will not be constrained. Unless the
+                  roles are already defined in the deployment descriptor, they
+                  will be added automatically.
+                </td>
+                <td>No</td>
               </tr>
             </table>
 
@@ -259,6 +317,24 @@
 <cactifywar srcfile="${build.dir}/my.war" destfile="${build.dir}/test.war">
   <classes dir="${build.dir}/classes/test" includes="**/*.class"/>
   <lib file="${httpunit.jar}"/>
+</cactifywar>
+]]></source>
+
+        <p>
+          In the next example, we add a security-constrained instance of the
+          servlet redirector to be able to run tests using authentication
+          (see <link href="site:howto_security">Using Authentication</link>
+          for details). Note that you need to provide an empty servlet
+          redirector element, so that the default redirector is included
+          along side the secured redirector (it would just be overridden
+          otherwise).
+        </p>
+
+        <source><![CDATA[
+<cactifywar srcfile="${build.dir}/my.war" destfile="${build.dir}/test.war">
+  <servletredirector/>
+  <servletredirector name="ServletRedirectorSecure"
+      mapping="/ServletRedirectorSecure" roles="test"/>
 </cactifywar>
 ]]></source>
 
