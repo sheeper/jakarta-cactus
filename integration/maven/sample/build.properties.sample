@@ -1,4 +1,16 @@
-# Please specify your path to your container
-cactus.home.tomcat4x = C:/Apps/jakarta-tomcat-4.1.24
-cactus.home.resin2x = C:/Apps/resin-2.1.6
+# -----------------------------------------------------------------------------
+# Container-related properties that depends on your environment (i.e. on 
+# where you have installed the containers). Create a copy of this file and
+# name if build.properties. Then edit the file and tune it to match your
+# environment.
+#
+# $Id$
+# -----------------------------------------------------------------------------
+
+# Paths to containers on which you wish to run the Cactus tests
+
+cactus.home.tomcat4x = C:/Apps/jakarta-tomcat-4.1.27
+cactus.home.resin2x = C:/Apps/resin-2.1.11
+cactus.home.jboss3x = C:/Apps/jboss-3.2.1
+cactus.home.weblogic7x = C:/bea/weblogic700
 

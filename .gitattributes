@@ -568,6 +568,7 @@ integration/maven/project.properties svn_keywords=Author+Date+Id+Revision
 integration/maven/project.xml svn_keywords=Author+Date+Id+Revision
 integration/maven/sample/.cvsignore svn_keywords=Author+Date+Id+Revision
 integration/maven/sample/build.properties.sample svn_keywords=Author+Date+Id+Revision
+integration/maven/sample/project.properties svn_keywords=Author+Date+Id+Revision
 integration/maven/sample/project.xml svn_keywords=Author+Date+Id+Revision
 integration/maven/sample/src/java/org/apache/maven/cactus/sample/SampleBodyTag.java svn_keywords=Author+Date+Id+Revision
 integration/maven/sample/src/java/org/apache/maven/cactus/sample/SampleFilter.java svn_keywords=Author+Date+Id+Revision
