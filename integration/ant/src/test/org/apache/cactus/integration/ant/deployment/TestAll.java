@@ -99,6 +99,7 @@ public final class TestAll extends TestCase
             "Unit tests for the deployment support classes");
 
         suite.addTestSuite(TestApplicationXml.class);
+        suite.addTestSuite(TestApplicationXmlVersion.class);
         suite.addTestSuite(TestWebXml.class);
         suite.addTestSuite(TestWebXmlMerger.class);
         suite.addTestSuite(TestWebXmlVersion.class);

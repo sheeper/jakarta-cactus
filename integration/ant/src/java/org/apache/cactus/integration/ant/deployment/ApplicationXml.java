@@ -61,6 +61,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.w3c.dom.Document;
+import org.w3c.dom.DocumentType;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -115,6 +116,21 @@ public class ApplicationXml
     public final Document getDocument()
     {
         return this.document;
+    }
+
+    /**
+     * Returns the J2EE API version.
+     * 
+     * @return The version
+     */
+    public final ApplicationXmlVersion getVersion()
+    {
+        DocumentType docType = this.document.getDoctype();
+        if (docType != null)
+        {
+            return ApplicationXmlVersion.valueOf(docType);
+        }
+        return null;
     }
 
     /**
