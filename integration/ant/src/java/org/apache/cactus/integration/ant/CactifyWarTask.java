@@ -502,7 +502,13 @@ public class CactifyWarTask extends War
         try
         {
             war = new WarArchive(this.srcFile);
-            return war.getWebXml();
+            WebXml webXml = war.getWebXml();
+            if (webXml == null)
+            {
+                throw new BuildException(
+                    "The source file does not contain a deployment descriptor");
+            }
+            return webXml;
         }
         catch (SAXException e)
         {

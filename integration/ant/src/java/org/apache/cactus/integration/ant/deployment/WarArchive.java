@@ -130,7 +130,10 @@ public class WarArchive extends JarArchive
             try
             {
                 in = getResource("WEB-INF/web.xml");
-                this.webXml = WebXmlIo.parseWebXml(in, null);
+                if (in != null)
+                {
+                    this.webXml = WebXmlIo.parseWebXml(in, null);
+                }
             }
             finally
             {
