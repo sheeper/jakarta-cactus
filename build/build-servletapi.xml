@@ -269,6 +269,7 @@
 
         <!-- Only run the ajc task if at least one of the source file has been
              modified. -->
+<!-- Fixme: not working: no recompile when file changed -->
         <uptodate property="ajc.notrequired" targetfile="${final.jar.name}">
             <srcfiles dir="${out.src.dir}">
                 <patternset refid="all.src.files"/>
@@ -624,6 +625,7 @@
             <property name="tomcat.home.40"/>
             <property name="orion.home.14"/>
             <property name="orion.home.15"/>
+            <property name="weblogic.home.61"/>
             <property name="test.port"/>
         </argsList>
 

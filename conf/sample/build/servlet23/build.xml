@@ -7,6 +7,7 @@
     <!ENTITY build-tests-orion-14 SYSTEM "file:./build-tests-orion-14.xml">
     <!ENTITY build-tests-orion-15 SYSTEM "file:./build-tests-orion-15.xml">
     <!ENTITY build-tests-tomcat-40 SYSTEM "file:./build-tests-tomcat-40.xml">
+    <!ENTITY build-tests-weblogic-61 SYSTEM "file:./build-tests-weblogic-61.xml">
 ]>
 
 <!--
@@ -99,6 +100,7 @@
         <echo message=" tests_tomcat_40   --> run tests for Tomcat 4.0"/>
         <echo message=" tests_orion_14    --> run tests for Orion 1.4"/>
         <echo message=" tests_orion_15    --> run tests for Orion 1.5"/>
+        <echo message=" tests_weblogic_61 --> run tests for WebLogic 6.1"/>
         <echo message=""/>
 
     </target>
@@ -109,7 +111,7 @@
        ========================================================================
     -->
     <target name="tests_all"
-        depends="tests_resin_20,tests_resin_13,tests_tomcat_40,tests_orion_14,tests_orion_15">
+        depends="tests_resin_20,tests_resin_13,tests_tomcat_40,tests_orion_14,tests_orion_15,tests_weblogic_61">
     </target>
 
     &build-tests-resin-20;
@@ -117,5 +119,6 @@
     &build-tests-orion-14;
     &build-tests-orion-15;
     &build-tests-tomcat-40;
+    &build-tests-weblogic-61;
 
 </project>

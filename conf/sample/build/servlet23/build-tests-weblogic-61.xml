@@ -1,0 +1,115 @@
+    <!--
+       ========================================================================
+         Run WebLogic 6.1 tests
+       ========================================================================
+    -->
+    <target name="tests_weblogic_61" depends="prepare_tests_weblogic_61" if="weblogic.home.61">
+
+        <!-- Start the servlet engine, wait for it to be started, run the
+             unit tests, stop the servlet engine, wait for it to be stopped.
+             The servlet engine is stopped if the tests fail for any reason -->
+
+        <runservertests testURL="http://localhost:${test.port}/test/test/test.jsp"
+            startTarget="start_weblogic_61"
+            stopTarget="stop_weblogic_61"
+            testTarget="tests"/>
+
+    </target>
+
+    <!--
+       ========================================================================
+         Start WebLogic 6.1
+       ========================================================================
+    -->
+    <target name="start_weblogic_61">
+
+        <java classname="weblogic.Server" fork="yes" dir="${out.weblogic61.dir}">
+
+            <classpath>
+                <pathelement location="${weblogic.home.61}/wlserver6.1/lib/weblogic_sp.jar"/>
+                <pathelement location="${weblogic.home.61}/wlserver6.1/lib/weblogic.jar"/>
+            </classpath>
+
+            <jvmarg value="-hotspot"/>
+            <jvmarg value="-ms64m"/>
+            <jvmarg value="-mx64m"/>
+            <jvmarg value="-Djava.library.path=${java.library.path};${weblogic.home.61}/wlserver6.1/bin"/>
+            <jvmarg value="-Dweblogic.RootDirectory=."/>
+            <jvmarg value="-Dweblogic.Domain=testdomain"/>
+            <jvmarg value="-Dweblogic.Name=testserver"/>
+            <jvmarg value="-Dbea.home=${weblogic.home.61}"/>
+            <jvmarg value="-Dweblogic.management.password=password"/>
+            <jvmarg value="-Djava.security.policy==./lib/weblogic.policy"/>
+
+        </java>
+
+    </target>
+
+    <!--
+       ========================================================================
+         Stop WebLogic 6.1
+       ========================================================================
+    -->
+    <target name="stop_weblogic_61">
+
+        <java classname="weblogic.Admin" fork="yes">
+
+            <classpath>
+                <pathelement location="${weblogic.home.61}/wlserver6.1/lib/weblogic_sp.jar"/>
+                <pathelement location="${weblogic.home.61}/wlserver6.1/lib/weblogic.jar"/>
+            </classpath>
+
+            <arg line="-url t3://localhost:${test.port}"/>
+            <arg line="-username system"/>
+            <arg line="-password password"/>
+            <arg value="SHUTDOWN"/>
+
+        </java>
+
+    </target>
+
+    <!--
+       ========================================================================
+         Display a warning message if the needed servlet engine home property
+         is not set
+       ========================================================================
+    -->
+    <target name="check_tests_weblogic_61" depends="testwar" unless="weblogic.home.61">
+
+        <echo message=""/>
+        <echo message="***********************************************************"/>
+        <echo message="WARNING : The 'weblogic.home.61' property has not been set."/>
+        <echo message="          No test will be run on that servlet engine."/>
+        <echo message="***********************************************************"/>
+        <echo message=""/>
+
+    </target>
+
+    <!--
+       ========================================================================
+         Prepare directories and variables for running the tests
+       ========================================================================
+    -->
+    <target name="prepare_tests_weblogic_61" depends="check_tests_weblogic_61"
+        if="weblogic.home.61">
+
+        <echo message="weblogic.home.61 = ${weblogic.home.61}"/>
+
+        <property name="out.weblogic61.dir" value="${out.test.dir}/weblogic61"/>
+        <property name="conf.weblogic61.dir" value="${conf.test.dir}/weblogic61"/>
+
+        <mkdir dir="${out.weblogic61.dir}/config/testdomain/applications"/>
+
+        <!-- Copy WL 6.1 configuration files -->
+        <copy file="${conf.weblogic61.dir}/config.xml"
+            todir="${out.weblogic61.dir}/config/testdomain" filtering="on"/>
+        <copy file="${conf.weblogic61.dir}/fileRealm.properties"
+            todir="${out.weblogic61.dir}/config/testdomain"/>
+        <copy file="${conf.weblogic61.dir}/SerializedSystemIni.dat"
+            todir="${out.weblogic61.dir}/config/testdomain"/>
+
+        <!-- Copy the war file -->
+        <copy file="${out.test.dir}/test.war"
+            todir="${out.weblogic61.dir}/config/testdomain/applications"/>
+
+    </target>
