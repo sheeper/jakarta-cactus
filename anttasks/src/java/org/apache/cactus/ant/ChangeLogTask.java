@@ -169,13 +169,13 @@ public class ChangeLogTask extends Task implements ExecuteStreamHandler
     private PrintWriter debug;
 
     // state machine states
-    private final static int GET_FILE = 1;
+    private static final int GET_FILE = 1;
 
-    private final static int GET_DATE = 2;
+    private static final int GET_DATE = 2;
 
-    private final static int GET_COMMENT = 3;
+    private static final int GET_COMMENT = 3;
 
-    private final static int GET_REVISION = 4;
+    private static final int GET_REVISION = 4;
 
     /**
      * Input format for dates read in from cvs log
