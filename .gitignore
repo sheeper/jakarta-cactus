@@ -33,6 +33,8 @@ petals/ant/ant.bat
 petals/ant/build.properties
 petals/ant/dist-12
 petals/ant/dist-13
+petals/ant/release-12
+petals/ant/release-13
 petals/ant/target-12
 petals/ant/target-13
 petals/eclipse/ant
@@ -40,9 +42,15 @@ petals/eclipse/bin
 petals/eclipse/build-local.xml
 petals/eclipse/build.properties
 petals/eclipse/dist
+petals/eclipse/dist-12
+petals/eclipse/dist-13
 petals/eclipse/lib
 petals/eclipse/release
+petals/eclipse/release-12
+petals/eclipse/release-13
 petals/eclipse/target
+petals/eclipse/target-12
+petals/eclipse/target-13
 petals/eclipse/web
 /release
 sample-servlet/ant.bat

@@ -204,6 +204,9 @@ public class WarBuilder
         
         String warFilePath = testWar.getAbsolutePath();
         arguments.add("-Dwar.path=" + warFilePath);
+        
+        //String webFilesPath = webFilesDir.getAbsolutePath();
+        //arguments.add("-Dwebfiles.dir=" + webFilesPath);
 
         if (userWebFilesDir.exists())
         {

@@ -1,152 +1,94 @@
 <?xml version="1.0"?>
+<!DOCTYPE project [
+    <!ENTITY common SYSTEM "file:../../build-common.xml">
+]>
 
 <!--
   =============================================================================
-    Build file for the Cactus Eclipse Plugin.
+    Build file for the Cactus Eclipse Petal.
 
     This script should be started with the following command line :
 
         ant <target>
 
-    Run "ant -projecthelp" to get a list of available targets. The default
-    target is "dist"
+    Run "ant -projecthelp" to get a list of available targets.
 
     Note: basedir points to the main Cactus directory in order to have the same
           base dir for all Cactus subprojects and thus be able to share
           relative paths.
   =============================================================================
 -->
-<project name="Cactus Eclipse Plugin" basedir=".." default="dist">
+<project name="Cactus Eclipse Plugin" default="dist" basedir="../..">
 
-    <!-- Give user a chance to override without editing this file
-         (and without typing -D each time it compiles it) -->
-    <property file="${basedir}/petals/eclipse/build.properties" />
-    <property file="${basedir}/build.properties" />
-    <property file="${user.home}/build.properties" />
+    <!-- Base directory for all file related operations -->
+    <property name="base.dir" value="petals/eclipse"/>
+
+    <!-- Include properties and targets common to the different subprojects -->
+    &common;
 
     <!-- Global project properties -->
-    <property name="project.name.text" value="Cactus Eclipse Plugin"/>
-    <property name="project.name.file" value="cactus-eclipse"/>
-    <property name="project.version" value="1.5dev"/>
-
-    <!-- Prefix to add to all distributable files -->
-    <property name="project.prefix" value="jakarta-"/>
+    <property name="project.name.text" value="Cactus Eclipse Petal"/>
+    <property name="project.name.file" value="cactus-petal-eclipse"/>
 
     <!--
        ========================================================================
-         Default values for properties not defined in build.properties or in
-         a higher level calling Ant script
+         Initialize source, target and dist properties
        ========================================================================
     -->
-    <property name="year" value="2000-2003"/>
-    <property name="debug" value="on"/>
-    <property name="optimize" value="off"/>
-    <property name="deprecation" value="off"/>
+    <target name="properties">
 
-    <!--
-       ========================================================================
-         Base directory for all file related operations
-       ========================================================================
-    -->
-    <property name="base.dir" location="petals/eclipse"/>
-    <property name="framework.dir" location="framework"/>
-    <property name="petals.dir" location="petals"/>
-    <property name="petals.ant.dir" location="${petals.dir}/ant"/>
+        <!-- Set the properties related to the source tree -->
+        <property name="src.dir" value="${base.dir}/src"/>
+        <property name="src.java.dir" value="${src.dir}/java"/>
+        <property name="src.scripts.dir" value="${src.dir}/scripts"/>
 
-    <!--
-       ========================================================================
-         Set the properties related to the source tree
-       ========================================================================
-    -->
-	<property name="src.dir" value="${base.dir}/src"/>
-	<property name="src.java.dir" value="${src.dir}/java"/>
-	<property name="src.scripts.dir" value="${src.dir}/scripts"/>
-	
-    <!--
-       ========================================================================
-         Set the properties related to the target area
-       ========================================================================
-    -->
-	<property name="target.dir" value="${base.dir}/target"/>
-	<property name="target.classes.dir" value="${target.dir}/classes"/>
+        <!-- Set the properties related to the target area -->
+        <property name="target.classes.dir" value="${target.dir}/classes"/>
 
-    <!--
-       ========================================================================
-         Find out the J2EE API version
-       ========================================================================
-    -->
-    <target name="check.j2ee.version">
-
-        <condition property="j2ee.api" value="13">
-            <available classname="javax.servlet.Filter"
-                classpath="${j2ee.jar}"/>
-        </condition>
-
-        <condition property="j2ee.api" value="12">
-            <available classname="javax.servlet.Servlet"
-                classpath="${j2ee.jar}"/>
-        </condition>
-
-        <fail message="Unsupported J2EE version" unless="j2ee.api"/>
-
-        <echo message="j2ee.api = ${j2ee.api}"/>
+        <!-- Set the properties related to the dist area -->
+        <property name="dist.bin.petal.dir" 
+            value="${dist.bin.dir}/${project.name.file}"/>
 
     </target>
 
     <!--
        ========================================================================
-         Set the properties related to the distribution tree
-         Note: These properties are defined in a target as some need the
-               j2ee.api property to be set
+         Verify that all mandatory properties have been set
        ========================================================================
     -->
-    <target name="properties.distribution">
+    <target name="check.properties">
 
-        <property name="dist.dir" value="${base.dir}/dist-${j2ee.api}"/>
-        <property name="release.dir" value="${base.dir}/release-${j2ee.api}"/>
+        <taskdef name="checkProperty" 
+            classname="org.apache.cactus.ant.CheckPropertiesTask">
+            <classpath>
+                <pathelement location="${cactus.anttasks.jar}"/>
+            </classpath>
+        </taskdef>
+
+        <checkProperty>
+            <property name="eclipse.junit.jar" isfile="true"/>
+            <property name="eclipse.core.boot.jar" isfile="true"/>
+            <property name="eclipse.core.resources.jar" isfile="true"/>
+            <property name="eclipse.core.runtime.jar" isfile="true"/>
+            <property name="eclipse.debug.core.jar" isfile="true"/>
+            <property name="eclipse.debug.ui.jar" isfile="true"/>
+            <property name="eclipse.jdt.core.jar" isfile="true"/>
+            <property name="eclipse.jdt.junit.jar" isfile="true"/>
+            <property name="eclipse.jdt.launching.jar" isfile="true"/>
+            <property name="eclipse.swt.jar" isfile="true"/>
+            <property name="eclipse.jface.jar" isfile="true"/>
+            <property name="eclipse.ant.core.jar" isfile="true"/>
+            <property name="eclipse.ui.workbench.jar" isfile="true"/>
+        </checkProperty>
 
     </target>
-        
-    <!--
-       ========================================================================
-         Display configurable properties values
-       ========================================================================
-    -->
-    <target name="display.properties">
-
-        <echo>----- ${project.name.text} ${project.version} -----</echo>
-        <echo></echo>
-        <echo>java.class.path = ${java.class.path}"</echo>
-        <echo></echo>
-        <echo>java.home = ${java.home}</echo>
-        <echo>user.home = ${user.home}</echo>
-        <echo>ant.home = ${ant.home}</echo>
-        <echo></echo>
-		<echo>eclipse.junit.jar = ${eclipse.junit.jar}</echo>
-		<echo>eclipse.core.boot.jar = ${eclipse.core.boot.jar}</echo>
-		<echo>eclipse.jdt.junit.jar = ${eclipse.jdt.junit.jar}</echo>
-        <echo></echo>
-
-    </target>
-
-    <!--
-       ========================================================================
-         Load all dynamic properties
-       ========================================================================
-    -->
-    <target name="load.properties"
-        depends="check.j2ee.version,properties.distribution"/>
 
     <!--
        ========================================================================
          Initialize the build. Must be called by all targets
        ========================================================================
     -->
-    
-    <target name="init" depends="load.properties, display.properties">
-
-        <tstamp/>
-
+    <target name="init" depends="init.common,properties,check.properties">
     </target>
 
     <!--
@@ -157,9 +99,9 @@
 	<target name="compile" depends="init">
 
         <echo>
-          ----------------------------------------------
-            Needs a patched version of the Junit plugin
-          ----------------------------------------------
+          ---------------------------------------------------------
+            Currently needs a patched version of the Junit plugin
+          ---------------------------------------------------------
         </echo>
         		
 		<mkdir dir="${target.classes.dir}"/>
@@ -195,16 +137,15 @@
 
     <!--
        ========================================================================
-         Generate the distributables for this project, i.e the unzipped
-         plugin structure.
+         Generate the jars
        ========================================================================
     -->
-	<target name="dist" depends="compile"
-	  description="Generate the distributable files">
-	  
-		<mkdir dir="${dist.dir}"/>
-		
-		<jar jarfile="${dist.dir}/cactussupport.jar">
+    <target name="jar" depends="compile"
+        description="Generates the jars">
+        
+		<mkdir dir="${target.dir}"/>
+
+		<jar jarfile="${target.dir}/cactussupport.jar">
             <manifest>
                 <section name="org/apache/cactus/eclipse/">
                     <attribute name="Specification-Title"
@@ -227,7 +168,7 @@
             <fileset dir="${target.classes.dir}"/>
         </jar>
 				
-		<jar jarfile="${dist.dir}/cactussupportsrc.jar">
+		<jar jarfile="${target.dir}/cactussupportsrc.jar">
             <manifest>
                 <section name="org/apache/cactus/eclipse/">
                     <attribute name="Specification-Title"
@@ -249,114 +190,66 @@
             </metainf>
             <fileset dir="${src.java.dir}"/>
 		</jar>		
-		
-		<copy file="${base.dir}/plugin.xml" todir="${dist.dir}"/>
-		<copy file="${base.dir}/plugin.properties" todir="${dist.dir}"/>
-		<copy file="${base.dir}/README.txt" todir="${dist.dir}"/>		
-		<copy todir="${dist.dir}/icons">
+
+    </target>
+
+    <!--
+       ========================================================================
+         Generate the distributables for this project, i.e the unzipped
+         plugin structure.
+       ========================================================================
+    -->
+	<target name="dist" depends="jar"
+	  description="Generate the distributable files">
+	  
+		<mkdir dir="${dist.bin.petal.dir}"/>
+
+        <copy todir="${dist.bin.petal.dir}"
+            file="${target.dir}/cactussupport.jar"/>
+        <copy todir="${dist.bin.petal.dir}"
+            file="${target.dir}/cactussupportsrc.jar"/>
+	
+		<copy todir="${dist.bin.petal.dir}" file="${base.dir}/plugin.xml"/>
+		<copy todir="${dist.bin.petal.dir}" 
+		    file="${base.dir}/plugin.properties"/>
+		<copy todir="${dist.bin.petal.dir}" file="${base.dir}/README.txt"/>
+		<copy todir="${dist.bin.petal.dir}/icons">
 		    <fileset dir="${base.dir}/icons"/>
 		</copy>
-        <copy todir="${dist.dir}/ant">
-            <fileset dir="${petals.ant.dir}/dist-${j2ee.api}/"/>
-        </copy>
-        <copy todir="${dist.dir}/ant">
+
+        <!-- Copy the Ant Petal files -->
+        <copy todir="${dist.bin.petal.dir}/ant">
+            <fileset dir="${cactus.antpetal.bin}"/>
+         </copy>
+
+        <copy todir="${dist.bin.petal.dir}/ant">
             <fileset dir="${src.scripts.dir}"/>
         </copy>
-        <copy todir="${dist.dir}/web">
-            <fileset dir="${framework.dir}/dist-${j2ee.api}/web"/>
+
+        <copy todir="${dist.bin.petal.dir}">
+            <fileset dir=".">
+                <include name="LICENSE.*"/>
+            </fileset>
         </copy>
+        
     </target>
 
     <!--
        ========================================================================
-         Generate the zipped plugin.
+         Generate the release
        ========================================================================
     -->
-    <target name="release" depends="dist"
-      description="Generate the installable zipped plugin">
+    <target name="release" depends="clean,dist"
+        description="Generate the release files">
 
         <mkdir dir="${release.dir}"/>
-        <property name="cactus.release.name"
-            value="${project.prefix}${project.name.file}-${project.version}"/>
 
-        <zip zipfile="${release.dir}/${cactus.release.name}.zip">
-
-            <zipfileset dir="${dist.dir}" prefix="${cactus.release.name}"/>
-
-            <!-- Add the licenses -->
-            <zipfileset dir="." prefix="${cactus.release.name}">
-                <include name="LICENSE.*"/>
+        <zip destfile="${release.dir}/${main.release.name}.zip">
+            <zipfileset dir="${dist.bin.petal.dir}"
+                prefix="org.apache.cactus.petal.eclipse_${project.version}">
             </zipfileset>
         </zip>
-
-    </target>
-        
-    <!--
-       ========================================================================
-         Clean up build-generated files and directories
-       ========================================================================
-    -->
-    <target name="clean">
-    
-        <delete dir="${target.dir}"/>
-        <delete dir="${dist.dir}"/>
         
     </target>
-
-
-    <!--
-       ========================================================================
-         Build all : builds the distribution for both J2EE API 1.2 and 1.3
-       ========================================================================
-    -->
-    <target name="dist.all"
-        description="Generate the distributable files (for all J2EE APIs)">
-
-        <ant antfile="eclipse/build.xml" target="dist" inheritAll="false">
-            <property name="j2ee.jar" value="${j2ee.12.jar}"/>
-        </ant>
-
-        <ant antfile="eclipse/build.xml" target="dist" inheritAll="false">
-            <property name="j2ee.jar" value="${j2ee.13.jar}"/>
-        </ant>
-
-    </target>
-
-    <!--
-       ========================================================================
-         Release all : generate the zipped plugin for J2EE API 1.2 and 1.3
-       ========================================================================
-    -->
-    <target name="release.all"
-        description="Generate the zipped plugin (for all J2EE APIs)">
-
-        <ant antfile="eclipse/build.xml" target="release" inheritAll="false">
-            <property name="j2ee.jar" value="${j2ee.12.jar}"/>
-        </ant>
-
-        <ant antfile="eclipse/build.xml" target="release" inheritAll="false">
-            <property name="j2ee.jar" value="${j2ee.13.jar}"/>
-        </ant>
-
-    </target>
-
-    <!--
-       ========================================================================
-         Clean all, for all J2EE APIs
-       ========================================================================
-    -->
-    <target name="clean.all"
-        description="Clean all generated files (for all J2EE APIs)">
-
-        <ant antfile="eclipse/build.xml" target="clean" inheritAll="false">
-            <property name="j2ee.jar" value="${j2ee.12.jar}"/>
-        </ant>
-
-        <ant antfile="eclipse/build.xml" target="clean" inheritAll="false">
-            <property name="j2ee.jar" value="${j2ee.13.jar}"/>
-        </ant>
-
-    </target>
-    
-    
+            
 </project>

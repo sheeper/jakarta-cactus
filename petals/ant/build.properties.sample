@@ -27,6 +27,11 @@ lib.repo = c:/apps/maven/repository
 # only available for Servlet 2.3 (part of J2EE 1.3).
 j2ee.jar = ${lib.repo}/servletapi/jars/servletapi-2.3.jar
 
+# Note: ATM we copy the servlet jar (and not the J2EE one). The reasons are 
+# that ATM we only need the servlet API and that the J2EE jar is not 
+# redistributable.
+servlet.jar = ${lib.repo}/servletapi/jars/servletapi-2.3.jar
+
 # The location of the Commons Logging jar
 commons.logging.jar = ${lib.repo}/commons-logging/jars/commons-logging-1.0.1.jar
 
