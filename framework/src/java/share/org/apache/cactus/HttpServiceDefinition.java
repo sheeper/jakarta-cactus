@@ -83,7 +83,7 @@ public interface HttpServiceDefinition
      * of the test case (to ensure that the client-side test gets the correct
      * results).
      */
-    String TEST_ID = COMMAND_PREFIX + "UniqueId";
+    String TEST_ID_PARAM = COMMAND_PREFIX + "UniqueId";
 
     /**
      * Name of the parameter in the HTTP request that represents the name of the

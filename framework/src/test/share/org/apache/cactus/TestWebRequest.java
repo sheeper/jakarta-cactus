@@ -295,7 +295,7 @@ public class TestWebRequest extends TestCase
         request.setUniqueId(testId);
         assertEquals(testId, request.getUniqueId());
         assertEquals(testId, 
-            request.getParameterGet(HttpServiceDefinition.TEST_ID));
+            request.getParameterGet(HttpServiceDefinition.TEST_ID_PARAM));
     }
 
     /**

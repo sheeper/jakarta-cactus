@@ -374,7 +374,7 @@ public class WebRequest extends BaseWebRequest
             throw new IllegalStateException("uniqueId already set!");
         }
         this.uniqueId = theUniqueId;
-        addCactusCommand(HttpServiceDefinition.TEST_ID, theUniqueId);
+        addCactusCommand(HttpServiceDefinition.TEST_ID_PARAM, theUniqueId);
     }
 
     /**
