@@ -367,6 +367,7 @@ public class CactifyWarTask extends War
         addJarWithClass("org.apache.commons.httpclient.HttpClient",
             "Commons-HttpClient");
         addJarWithClass("junit.framework.TestCase", "JUnit");
+        addJarWithClass("com.meterware.httpunit.WebResponse", "HttpUnit");
     }
 
     /**
