@@ -108,6 +108,9 @@
     <j:if test="${context.getVariable('cactus.home.resin2x') != null}">
       <ant:mkdir dir="${cactus.reports.dir}/resin2x"/>
     </j:if>
+    <j:if test="${context.getVariable('cactus.home.resin3x') != null}">
+      <ant:mkdir dir="${cactus.reports.dir}/resin3x"/>
+    </j:if>
     <j:if test="${context.getVariable('cactus.home.tomcat4x') != null}">
       <ant:mkdir dir="${cactus.reports.dir}/tomcat4x"/>
     </j:if>
@@ -351,6 +354,18 @@
             <ant:setProperty name="resinconf" value="${cactus.resin2x.config}"/>
           </j:if>        
         </resin2x>
+
+        <resin3x if="cactus.home.resin3x"
+            dir="${cactus.home.resin3x}" port="${cactus.port}"
+            output="${cactus.reports.dir}/resin3x.out"
+            todir="${cactus.reports.dir}/resin3x">
+          <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
+            <ant:setProperty name="tmpdir" value="${cactus.tmp.dir}"/>
+          </j:if>    
+          <j:if test="${context.getVariable('cactus.resin3x.config') != null}">
+            <ant:setProperty name="resinconf" value="${cactus.resin3x.config}"/>
+          </j:if>        
+        </resin3x>
         
         <tomcat4x if="cactus.home.tomcat4x"
             dir="${cactus.home.tomcat4x}" port="${cactus.port}"
@@ -445,6 +460,12 @@
 
       <j:if test="${context.getVariable('cactus.home.resin2x') != null}">
         <ant:fileset dir="${cactus.reports.dir}/resin2x">
+          <ant:include name="TEST-*.xml"/>
+        </ant:fileset>
+      </j:if>
+
+      <j:if test="${context.getVariable('cactus.home.resin3x') != null}">
+        <ant:fileset dir="${cactus.reports.dir}/resin3x">
           <ant:include name="TEST-*.xml"/>
         </ant:fileset>
       </j:if>
@@ -562,6 +583,18 @@
             <ant:setProperty name="resinconf" value="${cactus.resin2x.config}"/>
           </j:if>        
         </resin2x>
+
+        <resin3x if="cactus.home.resin3x"
+            dir="${cactus.home.resin3x}" port="${cactus.port}"
+            output="${cactus.reports.dir}/resin3x.out"
+            todir="${cactus.reports.dir}/resin3x">
+          <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
+            <ant:setProperty name="tmpdir" value="${cactus.tmp.dir}"/>
+          </j:if>    
+          <j:if test="${context.getVariable('cactus.resin3x.config') != null}">
+            <ant:setProperty name="resinconf" value="${cactus.resin3x.config}"/>
+          </j:if>        
+        </resin3x>
         
         <tomcat4x if="cactus.home.tomcat4x"
             dir="${cactus.home.tomcat4x}" port="${cactus.port}"
@@ -716,6 +749,18 @@
             <ant:setProperty name="resinconf" value="${cactus.resin2x.config}"/>
           </j:if>        
         </resin2x>
+
+        <resin3x if="cactus.home.resin3x"
+            dir="${cactus.home.resin3x}" port="${cactus.port}"
+            output="${cactus.reports.dir}/resin3x.out"
+            todir="${cactus.reports.dir}/resin3x">
+          <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
+            <ant:setProperty name="tmpdir" value="${cactus.tmp.dir}"/>
+          </j:if>    
+          <j:if test="${context.getVariable('cactus.resin3x.config') != null}">
+            <ant:setProperty name="resinconf" value="${cactus.resin3x.config}"/>
+          </j:if>        
+        </resin3x>
         
         <tomcat4x if="cactus.home.tomcat4x"
             dir="${cactus.home.tomcat4x}" port="${cactus.port}"
@@ -920,6 +965,18 @@
           </j:if>
         </resin2x>
 
+        <resin3x if="cactus.home.resin3x"
+            dir="${cactus.home.resin3x}" port="${cactus.port}"
+            output="${cactus.reports.dir}/resin3x.out"
+            todir="${cactus.reports.dir}/resin3x">
+          <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
+            <ant:setProperty name="tmpdir" value="${cactus.tmp.dir}"/>
+          </j:if>
+          <j:if test="${context.getVariable('cactus.resin3x.config') != null}">
+            <ant:setProperty name="resinconf" value="${cactus.resin3x.config}"/>
+          </j:if>
+        </resin3x>
+
         <tomcat4x if="cactus.home.tomcat4x"
             dir="${cactus.home.tomcat4x}" port="${cactus.port}"
             output="${cactus.reports.dir}/tomcat4x.out"
@@ -1015,6 +1072,12 @@
 
       <j:if test="${context.getVariable('cactus.home.resin2x') != null}">
         <ant:fileset dir="${cactus.reports.dir}/resin2x">
+          <ant:include name="TEST-*.xml"/>
+        </ant:fileset>
+      </j:if>
+
+      <j:if test="${context.getVariable('cactus.home.resin3x') != null}">
+        <ant:fileset dir="${cactus.reports.dir}/resin3x">
           <ant:include name="TEST-*.xml"/>
         </ant:fileset>
       </j:if>

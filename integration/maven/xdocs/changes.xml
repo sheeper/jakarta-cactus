@@ -8,6 +8,9 @@
   <body>
 
     <release version="1.6dev" date="in CVS">
+      <action dev="vmassol" type="add">
+        Added support for Resin 3.x (above version 3.0.5).
+      </action>
     </release>
 
     <release version="1.6dev" date="development build of 2004-01-15">

@@ -21,8 +21,9 @@
               Home directory of where you have installed the container on
               which you wish to run the Cactus tests. Valid container
               names are: <code>tomcat4x</code>, <code>tomcat5x</code>,
-              <code>resin2x</code>, <code>orion1x</code>, 
-              <code>orion2x</code> and <code>jboss3x</code>.
+              <code>resin2x</code>, <code>resin3x</code>, 
+              <code>orion1x</code>, <code>orion2x</code>, <code>jboss3x</code>
+              and <code>weblogic7x</code>.
             </p>
           </td>
         </tr>
@@ -277,6 +278,26 @@
           <td>
             <p>
               Location of the Resin 2.x configuration file if you don't want 
+              to use the cactus-provided one.
+            </p>
+          </td>
+        </tr>
+      </table>
+    </section>
+
+    <section name="Cactus/Resin 3.x Settings">
+      <table>
+        <tr>
+          <th>Property</th>
+          <th>Optional?</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <td>cactus.resin3x.config</td>
+          <td>Yes</td>
+          <td>
+            <p>
+              Location of the Resin 3.x configuration file if you don't want 
               to use the cactus-provided one.
             </p>
           </td>
