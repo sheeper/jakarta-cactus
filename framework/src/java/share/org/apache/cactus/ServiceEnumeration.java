@@ -79,7 +79,7 @@ public class ServiceEnumeration
         new ServiceEnumeration("GET_RESULTS");
 
     /**
-     * Get the previous test results Service.
+     * Noop service for testing.
      */
     public static final ServiceEnumeration RUN_TEST_SERVICE = 
         new ServiceEnumeration("RUN_TEST");
