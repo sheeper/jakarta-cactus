@@ -178,7 +178,7 @@ public abstract class AntTestCase extends TestCase implements BuildListener
             buffer = new StringBuffer();
             log.put(new Integer(theEvent.getPriority()), buffer);
         }
-        buffer.append(theEvent.getMessage());
+        buffer.append(theEvent.getMessage()).append("\n");
     }
 
     // TestCase Implementation -------------------------------------------------
