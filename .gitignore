@@ -1,6 +1,7 @@
 /.classpath
 /.project
 Eclipse-Plugin/bin
+Eclipse-Plugin/build.properties
 /ant.bat
 anttasks/ant.bat
 anttasks/build.properties

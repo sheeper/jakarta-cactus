@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+
+<project name="Cactus Eclipse Plugin" basedir="." default="compile">
+
+    <!-- Give user a chance to override without editing this file
+         (and without typing -D each time it compiles it) -->
+    <property file="build.properties" />
+    <property file="${user.home}/build.properties" />
+
+	<property name="src.dir" value="src"/>
+	<property name="src.java.dir" value="${src.dir}/java"/>
+
+	<property name="target.dir" value="target"/>
+	<property name="target.classes.dir" value="${target.dir}/classes"/>
+
+	<target name="compile">
+
+        <echo>
+          ----------------------------------------------
+            Needs a patched version of the Junit plugin
+          ----------------------------------------------
+        </echo>
+        		
+		<mkdir dir="${target.classes.dir}"/>
+
+		<javac destdir="${target.classes.dir}">
+			<src path="${src.java.dir}"/>
+			<classpath>
+				<pathelement location="${eclipse.junit.jar}"/>
+				<pathelement location="${eclipse.core.boot.jar}"/>
+				<pathelement location="${eclipse.core.resources.jar}"/>
+				<pathelement location="${eclipse.core.runtime.jar}"/>
+				<pathelement location="${eclipse.debug.core.jar}"/>
+				<pathelement location="${eclipse.debug.ui.jar}"/>
+				<pathelement location="${eclipse.jdt.core.jar}"/>
+				<pathelement location="${eclipse.jdt.junit.jar}"/>
+				<pathelement location="${eclipse.jdt.launching.jar}"/>
+				<pathelement location="${eclipse.swt.jar}"/>
+				<pathelement location="${eclipse.jface.jar}"/>
+				<pathelement location="${eclipse.ant.core.jar}"/>
+				<pathelement location="${eclipse.ui.workbench.jar}"/>
+			</classpath>
+		</javac>
+
+	</target>
+
+</project>
