@@ -42,26 +42,33 @@
         Cactus implements an in-container strategy (See
         <link href="site:how_it_works">How it works</link>).
       </p>
-      <p>
-        <figure src="images/ecosystem.jpg" alt="The Cactus Ecosystem" 
-          usemap="#ecosystem">
-
-          <map name="ecosystem">
-            <area shape="circle" href="site:index" coords="225,200,35"/>
-            <area shape="circle" href="site:integration_eclipse" coords="165,145,35"/>
-            <area shape="circle" href="site:integration_browser" coords="305,220,35"/>
-            <area shape="circle" href="ext:maven_cactus" coords="390,175,35"/>
-            <area shape="circle" href="ext:strutstestcase" coords="375,235,35"/>
-            <area shape="circle" href="ext:junitee" coords="345,295,35"/>
-            <area shape="circle" href="ext:jenerator" coords="355,115,35"/>
-            <area shape="circle" href="site:integration_ant" coords="140,225,35"/>
-            <area shape="circle" href="site:integration_jetty" coords="280,145,35"/>
-            <area shape="circle" href="site:howto_sample" coords="55,200,35"/>
-            <area shape="circle" href="site:howto_config" coords="225,270,35"/>
-          </map>            	
-         
-        </figure>
-      </p>
+      <figure src="images/ecosystem.jpg" alt="The Cactus Ecosystem"
+        usemap="#ecosystem">
+        <map name="ecosystem">
+          <area shape="circle" href="site:index"
+              alt="Cactus Framework" coords="225,200,35"/>
+          <area shape="circle" href="site:integration_eclipse"
+              alt="Eclipse Plugin" coords="165,145,35"/>
+          <area shape="circle" href="site:integration_browser"
+              alt="Browser Integration" coords="305,220,35"/>
+          <area shape="circle" href="ext:maven_cactus"
+              alt="Maven Plugin" coords="390,175,35"/>
+          <area shape="circle" href="ext:strutstestcase"
+              alt="StrutsTestCase" coords="375,235,35"/>
+          <area shape="circle" href="ext:junitee"
+              alt="JUnitEE Runner" coords="345,295,35"/>
+          <area shape="circle" href="ext:jenerator"
+              alt="Jenerator" coords="355,115,35"/>
+          <area shape="circle" href="site:integration_ant"
+              alt="Ant Integration" coords="140,225,35"/>
+          <area shape="circle" href="site:integration_jetty"
+              alt="Jetty Integration" coords="280,145,35"/>
+          <area shape="circle" href="site:howto_sample"
+              alt="Servlet Sample" coords="55,200,35"/>
+          <area shape="circle" href="site:howto_config"
+              alt="Manual Configuration" coords="225,270,35"/>
+        </map>
+      </figure>
       <p>
         The Cactus Ecosystem is made of several components:
       </p>
