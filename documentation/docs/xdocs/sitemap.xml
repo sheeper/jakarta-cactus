@@ -99,13 +99,13 @@
   </resource>
   
   <resource id="howto_classpath"
-      target="integration/manual/howto_classpath.html"
+      target="integration/howto_classpath.html"
       name="Classpath Howto">
     Information on how to set up the classpath for running Cactus tests.
   </resource>
   
   <resource id="howto_config"
-      target="integration/manual/howto_config.html"
+      target="integration/howto_config.html"
       name="Configuration Howto">
     Information on how to configure Cactus when running tests manually.
   </resource>
@@ -147,7 +147,7 @@
     How to write unit tests for JSP pages using Cactus.
   </resource>
   
-  <resource id="howto_runner" target="integration/howto_runner.html"
+  <resource id="howto_runner" target="integration/index.html"
       name="Using the Cactus ServletTestRunner">
     Information on using the Cactus ServletTestRunner to run tests from a
     Web-browser.
@@ -211,33 +211,33 @@
     implementation.
   </resource>
   
-  <resource id="howto_ide" target="integration/manual/howto_ide.html"
+  <resource id="howto_ide" target="integration/howto_ide.html"
       name="IDE Howto">
     Information on integrating Cactus with some IDEs
   </resource>
   
   <resource id="howto_ide_vajava_wte"
-      target="integration/manual/howto_ide_vajava_wte.html"
+      target="integration/howto_ide_vajava_wte.html"
       name="IDE Howto: Visual Age for Java with WebSphere">
     Information on using Cactus from the Visual Age for Java IDE with the
     WebSphere Test Environment.
   </resource>
   
   <resource id="howto_ide_vajava_tomcat"
-      target="integration/manual/howto_ide_vajava_tomcat.html"
+      target="integration/howto_ide_vajava_tomcat.html"
       name="IDE Howto: Visual Age for Java with Tomcat">
     Information on using Cactus from the Visual Age for Java IDE with the
     Tomcat Test Environment.
   </resource>
   
   <resource id="howto_ide_jbuilder4"
-      target="integration/manual/howto_ide_jbuilder4.html"
+      target="integration/howto_ide_jbuilder4.html"
       name="IDE Howto: JBuilder 4">
     Information on using Cactus from the Borland JBuiler 4 IDE.
   </resource>
   
   <resource id="howto_ide_jbuilder5"
-      target="integration/manual/howto_ide_jbuilder5.html"
+      target="integration/howto_ide_jbuilder5.html"
       name="IDE Howto: JBuilder 5">
     Information on using Cactus from the Builder JBuilder 5 IDE.
   </resource>
@@ -248,12 +248,12 @@
     servlet container.
   </resource>
   
-  <resource id="howto_tomcat" target="integration/browser/howto_tomcat.html"
+  <resource id="howto_tomcat" target="integration/howto_tomcat.html"
       name="Tomcat Howto">
     Quickstart guide for getting Cactus tests running on Tomcat 4.x.
   </resource>
   
-  <resource id="howto_junitee" target="integration/browser/howto_junitee.html"
+  <resource id="howto_junitee" target="integration/howto_junitee.html"
       name="JUnitEE Howto">
     Explains how to integrate Cactus tests with JUnitEE.
   </resource>
@@ -295,7 +295,7 @@
     The coding conventions used for the development of Cactus itself.
   </resource>
   
-  <resource id="build_result" target="build_result.html"
+  <resource id="build_result" target="participating/build_result.html"
       name="Nightly Build Results">
     Aggregated links to the results of the nightly builds.
   </resource>
