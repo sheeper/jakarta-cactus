@@ -193,6 +193,20 @@ public abstract class AbstractWebTestCaller
         WebTestResult result = (WebTestResult) (this.webImplicitObjects
             .getServletContext().getAttribute(TEST_RESULTS));
 
+        // It can happen that the result has not been written in the Servlet
+        // context. This could happen for example when using a load-balancer
+        // which would direct the second Cactus HTTP connection to another
+        // instance. In that case, we throw an error.
+        if (result == null)
+        {
+            String message = "Error getting test result. This could happen "
+                + "for example if you're using a load-balancer. Please disable "
+                + "it before running Cactus tests.";
+
+            LOGGER.error(message);
+            throw new ServletException(message);
+        }       
+
         LOGGER.debug("Test Result = [" + result + "]");
 
         // Write back the results to the outgoing stream as an XML string.
