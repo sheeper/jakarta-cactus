@@ -108,10 +108,11 @@
           </tr>
           <tr>
             <td>Orion</td>
-            <td>1.6.0b, 2.0.1</td>
+            <td>1.6.0b, 2.0.1, 2.0.2</td>
             <td>1.2, 1.3</td>
             <td>
               Does <strong>not</strong> work under JDK version 1.4 or later
+              but works with JDK 1.3.1.
             </td>
           </tr>
           <tr>
