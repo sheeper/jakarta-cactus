@@ -51,6 +51,7 @@
   -->
   <target name="dist"
       description="Invokes the 'dist' target of every sub-module">
+
     <ant antfile="framework/build.xml" inheritAll="false" 
         target="dist">
       <property name="j2ee.jar" value="${j2ee.12.jar}"/>
@@ -104,6 +105,7 @@
       <property name="javadoc.include" value="true"/>
       <property name="clover.enable" value="true"/>
     </ant>
+
   </target>
 
   <!--
@@ -114,6 +116,7 @@
   <target name="release"
       depends="clean, dist"
       description="Generates the release archives">
+
     <antcall target="release.bin" inheritall="no">
       <param name="j2ee.dependant" value="true"/>
       <param name="j2ee.jar" location="${j2ee.12.jar}"/>
@@ -125,15 +128,19 @@
       <param name="release.dir" location="release"/>
     </antcall>
     <antcall target="release.src"/>
+
   </target>
 
   <target name="release.prepare"
       depends="init.properties">
+
     <mkdir dir="${release.dir}"/>
+
   </target>
 
   <target name="release.bin"
       depends="init.properties, release.prepare">
+
     <zip destfile="${release.dir}/${main.release.name}.zip">
       <zipfileset dir="documentation/dist/doc"
           prefix="${main.release.name}/doc"/>
@@ -168,10 +175,12 @@
       <zipfileset dir="." prefix="${main.release.name}"
           includes="LICENSE.*"/>
     </zip>
+
   </target>
 
   <target name="release.src"
       depends="init.properties">
+
     <zip zipfile="${release.dir}/${main.release.name}-src.zip">
       <zipfileset dir="." prefix="${main.release.name}-src">
         <exclude name="**/target*/**"/>
@@ -185,6 +194,7 @@
         <exclude name="**/*.zip"/>
       </zipfileset>
     </zip>
+
   </target>
 
   <!--
@@ -195,12 +205,14 @@
   <target name="clean"
       depends="init.properties"
       description="Invokes the 'clean' target of every sub-module">
+
     <delete dir="${release.dir}"/>
     <delete dir="target-12"/>
     <delete dir="target-13"/>
     <delete>
       <fileset dir="." includes="**/*.log"/>
     </delete>
+
     <ant antfile="framework/build.xml" inheritAll="false" 
         target="clean">
       <property name="j2ee.jar" value="${j2ee.12.jar}"/>
@@ -242,6 +254,7 @@
     </ant -->
     <ant antfile="documentation/build.xml" inheritAll="false" 
         target="clean"/>
+
   </target>
 
 </project>
