@@ -168,12 +168,14 @@ public class MockHttpServer implements Runnable
         try
         {
             ServerSocket serverSocket = new ServerSocket(port);
-            while (!stopFlag)
+            while (!this.stopFlag)
             {
                 Socket socket = serverSocket.accept();
                 try
                 {
-                    processRequest(socket);
+                    if (!this.stopFlag) {
+                        processRequest(socket);
+                    }
                 }
                 catch (IOException ioe)
                 {
@@ -259,6 +261,7 @@ public class MockHttpServer implements Runnable
      */
     public void stop()
     {
+        this.stopFlag = true;
         try
         {
             Socket sock = new Socket("localhost", this.port);
@@ -374,17 +377,9 @@ public class MockHttpServer implements Runnable
 
         String statusLine = reader.readLine();
         StringTokenizer tokenizer = new StringTokenizer(statusLine);
-        String method = tokenizer.nextToken();
-        if ("SHUTDOWN".equals(method))
-        {
-            this.stopFlag = true;
-        }
-        else
-        {
-            this.actualRequestCount++;
-            this.actualMethod = method;
-            this.actualUri = tokenizer.nextToken();
-        }
+        this.actualRequestCount++;
+        this.actualMethod = tokenizer.nextToken();
+        this.actualUri = tokenizer.nextToken();
     }
 
     /**
