@@ -53,7 +53,7 @@
         <li>
           Ensure that Cactus works with the latest released versions of the
           external libraries it uses (Commons-logging, HttpClient, HttpUnit, 
-          etc) and update the <code>build.properties.sample</code> files to 
+          etc) and update the <code>dependencies.xml.default</code> file to 
           use these latest versions.
         </li>
         <li>

@@ -141,7 +141,7 @@
           <li>
             Rename (or copy) the
             <em><code>sampleroot</code></em>
-            <code>/build/build.properties.sample</code> file
+            <code>/build/build.properties.default</code> file
             to <code>build.properties</code>. This file defines the dependencies
             between the Cactus Sample build process and your environment
             (location of external jars, home directory for installed servlet

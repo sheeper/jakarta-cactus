@@ -91,7 +91,10 @@
 
       <release version="1.7dev" date="in CVS">
         <action dev="VMA" type="update">
-          Building Cactus from the sources now requires Ant 1.6.1+.
+          Building Cactus from the sources now requires Ant 1.6.1+. The 
+          Cactus build also been simplified a lot and external libraries
+          are automatically downloaded from ibiblio.org if not present
+          on the file system.
         </action>
         <action dev="VMA" type="update" issue="CACTUS-120">
           Ensure faster shutdown times with WebLogic 7.x by using the 

@@ -10,23 +10,29 @@
   <aspectj-tools project="aspectj"
       artifact="aspectjtools" version="1.1.1"/>
   <checkstyle project="checkstyle"
-      artifact="checkstyle" version="3.3"/>
+      artifact="checkstyle" version="3.4"/>
   <commons.beanutils project="commons-beanutils"
-      artifact="commons-beanutils" version="1.6"/>
+      artifact="commons-beanutils" version="1.6.1"/>
   <commons.collections project="commons-collections"
       artifact="commons-collections" version="2.1"/>
   <commons.httpclient project="commons-httpclient"
-      artifact="commons-httpclient" version="2.0-rc2"/>
+      artifact="commons-httpclient" version="2.0"/>
   <commons.logging project="commons-logging"
       artifact="commons-logging" version="1.0.3"/>
   <httpunit project="httpunit"
       artifact="httpunit" version="1.5.4"/>
+  <j2ee.13 project="jboss"
+     artifact="jboss-j2ee" version="3.2.3"/>
+  <j2ee.14 project="jboss"
+     artifact="jboss-j2ee" version="4.0.0DR4"/>
   <jasper-compiler project="tomcat"
-      artifact="jasper-compiler" version="4.0.4"/>
+      artifact="jasper-compiler" version="4.1.30"/>
   <jasper-runtime project="tomcat"
-      artifact="jasper-runtime" version="4.0.4"/>
+      artifact="jasper-runtime" version="4.1.30"/>
   <jetty project="jetty"
-      artifact="org.mortbay.jetty" version="4.2.14"/>
+      artifact="org.mortbay.jetty" version="4.2.17"/>
+  <jsp.20 project="jspapi"
+     artifact="jsp-api" version="2.0-20040521"/>
   <jstl project="jstl"
       artifact="jstl" version="1.0.2"/>
   <junit project="junit"
@@ -43,8 +49,8 @@
      artifact="servletapi" version="2.2"/>
   <servlet.23 project="servletapi"
      artifact="servletapi" version="2.3"/>
-  <j2ee.13 project="jboss"
-     artifact="jboss-j2ee" version="3.2.3"/>
+  <servlet.24 project="servletapi"
+     artifact="servlet-api" version="2.4-20040521"/>
   <standard project="taglibs"
      artifact="standard" version="1.0.2"/>
   <xerces project="xerces"

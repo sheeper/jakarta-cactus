@@ -14,11 +14,31 @@
        Please note the leading "." which is mandatory. -->
   <property name="env" value=""/>
 
+  <!-- The dependencies.xml file lists all JAR files that we can possibly
+       download from a Maven-style repository. The following task converts
+       the information into properties so it can be accessed by this script.
+       We allow the user to override the file. -->
+  <xmlproperty file="${basedir}/dependencies.xml${env}" keeproot="no"
+      collapseattributes="yes" semanticattributes="yes"/>
+  <xmlproperty file="${user.home}/dependencies.xml${env}" keeproot="no"
+      collapseattributes="yes" semanticattributes="yes"/>
+
+  <!-- Fall back to the default configuration if the user has not specified
+       anything. This allows building Cactus right away without any
+       modification from the user. -->
+  <xmlproperty file="${basedir}/dependencies.xml.default" keeproot="no"
+      collapseattributes="yes" semanticattributes="yes"/>
+
   <!-- Give user a chance to override without editing this file
        (and without typing -D each time it compiles it) -->
   <property file="${base.dir}/build.properties${env}"/>
-  <property file="build.properties${env}"/>
+  <property file="${basedir}/build.properties${env}"/>
   <property file="${user.home}/build.properties${env}"/>
+
+  <!-- Fall back to the default configuration if the user has not specified
+       anything. This allows building Cactus right away without any
+       modification from the user. -->
+  <property file="${basedir}/build.properties.default"/>
   
   <!-- Project version -->
   <!-- Note: The *.major and *.minor properties are needed by the Eclipse 

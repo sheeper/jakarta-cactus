@@ -492,6 +492,8 @@
   <external id="jakarta" url="http://jakarta.apache.org/"/>
   <external id="jakarta_roles" url="http://jakarta.apache.org/site/roles.html"/>
   <external id="japanese" url="http://www.ingrid.org/jajakarta/cactus/"/>
+  <external id="jasper-compiler" url="http://www.ibiblio.org/maven/tomcat/jars"/>
+  <external id="jasper-runtime" url="http://www.ibiblio.org/maven/tomcat/jars"/>
   <external id="jetty" url="http://mortbay.org/jetty/"/>  
   <external id="jenerator" url="http://www.visioncodified.com/"/>
   <external id="junit" url="http://junit.org"/>

@@ -13,11 +13,10 @@
  Cactus Dependencies Download
  ---------------------------------------------------------
  This build file simply downloads (most of) the JARs 
- required to build Cactus. Make sure you have set the 'lib.repo' property
- in your build.properties file to a path that makes sense.
+ required to build Cactus.
 
  By default, the JARs are downloaded from http://www.ibiblio.org/maven/.
- You can use a different repository by passing
+ You can use a different repository by passing the following
 
    -Drepo.url=http://www.example.com/repository/
 
@@ -31,31 +30,66 @@
        Please note the leading "." which is mandatory. -->
   <property name="env" value=""/>
 
+  <!-- The dependencies.xml file lists all JAR files that we can possibly
+       download from a Maven-style repository. The following task converts
+       the information into properties so it can be accessed by this script.
+       We allow the user to override the file. -->
+  <xmlproperty file="${basedir}/dependencies.xml${env}" keeproot="no"
+      collapseattributes="yes" semanticattributes="yes"/>
+  <xmlproperty file="${user.home}/dependencies.xml${env}" keeproot="no"
+      collapseattributes="yes" semanticattributes="yes"/>
+
+  <!-- Fall back to the default configuration if the user has not specified
+       anything. This allows building Cactus right away without any
+       modification from the user. -->
+  <xmlproperty file="${basedir}/dependencies.xml.default" keeproot="no"
+      collapseattributes="yes" semanticattributes="yes"/>
+
   <!-- Give user a chance to override without editing this file
        (and without typing -D each time it compiles it) -->
   <property file="${basedir}/build.properties${env}"/>
   <property file="${user.home}/build.properties${env}"/>
 
+  <!-- Fall back to the default configuration if the user has not specified
+       anything. This allows building Cactus right away without any
+       modification from the user. -->
+  <property file="${basedir}/build.properties.default"/>
+
+  <!-- Default configuration -->
   <property name="repo.url" value="http://www.ibiblio.org/maven"/>
 
-  <!-- The dependencies.xml file lists all JAR files that we can possibly
-       download from a Maven-style repository. The following task converts
-       the information into properties so it can be accessed by this script -->
-  <xmlproperty file="dependencies.xml" keeproot="no"
-      collapseattributes="yes" semanticattributes="yes"/>
-
-  <!-- This macro will be used to download the individual JARs without
-       having to duplicate too much of the code. It's sorta ugly, but
-       works okay-->
+  <!-- This macro will download a single jar from ${repo.url} only if it is not
+       present on the local filesystem -->
   <macrodef name="download">
+    <attribute name="jar"/>
+    <sequential>
+      <antcall inheritall="false" target="download.jar">
+        <param name="jar" value="@{jar}"/>
+      </antcall>
+    </sequential>
+  </macrodef>
+
+  <!-- This macro will download a single jar from ${repo.url} -->
+  <macrodef name="download.jar">
     <attribute name="jar"/>
     <sequential>
       <property name="@{jar}.name"
           value="${@{jar}.artifact}-${@{jar}.version}.jar"/>
       <dirname property="@{jar}.dir" file="${@{jar}.jar}"/>
       <mkdir dir="${@{jar}.dir}"/>
+      <echo message="Updating [${@{jar}.jar}]"/>
       <get src="${repo.url}/${@{jar}.project}/jars/${@{jar}.name}"
           dest="${@{jar}.jar}" usetimestamp="yes" ignoreerrors="yes"/>
+      <echo message=""/>
+    </sequential>
+  </macrodef>
+
+  <!-- Defines the property jar.present if the jar passed as parameter is 
+       available on the local filesystem -->
+  <macrodef name="verify">
+    <attribute name="jar"/>
+    <sequential>
+      <available file="${@{jar}.jar}" property="jar.present"/>
     </sequential>
   </macrodef>
 
@@ -63,6 +97,14 @@
        every required JAR -->
   <target name="download"
       description="Downloads all required JARs from the remote repository">
+
+   <!-- Sets proxying for those behind a firewall -->
+   <setproxy
+     proxyhost = "${proxyhost}"
+     proxyuser = "${proxyuser}"
+     proxypassword = "${proxypassword}"
+     proxyport = "${proxyport}"/>
+
     <download jar="antlr"/>
     <download jar="aspectjrt"/>
     <download jar="aspectj-tools"/>
@@ -83,10 +125,32 @@
     <download jar="regexp"/>
     <download jar="servlet.22"/>
     <download jar="servlet.23"/>
+    <download jar="servlet.24"/>
     <download jar="j2ee.13"/>
+    <download jar="j2ee.14"/>
     <download jar="standard"/>
     <download jar="xerces"/>
     <download jar="xmlapis"/>
+
+    <!-- TODO: Add download of xalan for users who are building on 
+         JDK < 1.4+ -->
+
   </target>
+
+  <!-- Targets to decide whether to download the jar. It verifies first if it 
+       is present on the local filesystem. The download.jar target has to be
+       called using antcall and inheritAll set to false because we're reusing
+       the same jar.present property across calls -->
+  <target name="verify.jar">
+    <verify jar="${jar}"/>
+  </target>
+  <target name="download.jar.present" if="jar.present">
+    <echo>[${jar}] jar is already available</echo>
+  </target>    
+  <target name="download.jar.notpresent" unless="jar.present">
+    <download.jar jar="${jar}"/>
+  </target>    
+  <target name="download.jar" 
+      depends="verify.jar,download.jar.present,download.jar.notpresent"/>
 
 </project>

@@ -54,7 +54,7 @@
           to have a CVS client installed.
         </p>
         <p>
-          Detailled instructions about accessing the Apache CVS repository can
+          Detailed instructions about accessing the Apache CVS repository can
           be found
           <link href="ext:cvs">here</link>. The module name for Cactus is 
           <code>jakarta-cactus</code>.
@@ -78,30 +78,95 @@
     </section>
 
     <section title="Prerequisites">
+
       <p>
-        To build Cactus from source, you'll need to have
-        <link href="ext:ant">Ant</link> 1.5.3 (or later)
-        installed. Please make sure that the distribution also includes the JAR
-        containing the optional tasks (<code>optional.jar</code>). In addition,
-        please add an XSLT processor (like
-        <link href="ext:xalanj">Xalan</link> to the 
-        <code>lib</code> directory of your Ant installation.
-      </p>
-      <p>
-        In addition, Cactus depends on a number of additional external
-        libraries at build time. When not otherwise mentioned, these libraries
-        can be used by either placing them in the <code>lib</code> directory of
-        your Ant installation, or by explicitly specifying their location in a 
-        <code>build.properties</code> file at the root of the Cactus 
-        source distribution.
+        The following sections list java libraries that you need to have
+        present in your local filesystem for the build. 
+        <strong>Do not worry!</strong> We won't ask you to fish around to 
+        get these libraries :-)
+        We have created an Ant script that does this automatically. The
+        next section on <jump anchor="build">Performing Builds</jump>
+        explains how to use it.
       </p>
 
+      <section title="Ant">
+
+        <p>
+          To build Cactus from source, you'll need to have
+          <link href="ext:ant">Ant</link> 1.6.1 (or later) installed.
+        </p>
+
+        <p>
+          You'll need to have the following libraries put in your 
+          <code>[ANT_HOME]/lib/</code> directory.
+        </p>
+        
+        <table>
+          <tr>
+            <th>Name</th>
+            <th>Optional?</th>
+            <th>Version</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td nowrap="true">
+              <link href="ext:junit">junit.jar</link>
+            </td>
+            <td>
+              No
+            </td>
+            <td nowrap="true">
+              3.8.1 or later
+            </td>
+            <td>
+              The JUnit unit testing framework.
+            </td>
+          </tr>
+          <tr>
+            <td nowrap="true">
+              <link href="ext:xalanj">xalan.jar</link>
+            </td>
+            <td>
+              Yes. Required only if you're building with a JDK version lower 
+              than 1.4. You should also be able to use a different XSLT 
+              processor.
+            </td>
+            <td nowrap="true">
+              (not sure - we need to find the version)
+            </td>
+            <td>
+              A XSLT processor.
+            </td>
+          </tr>
+          <tr>
+            <td nowrap="true">
+              <link href="ext:clover">clover.jar</link>
+            </td>
+            <td>
+              Yes. Required only to run the release build of Cactus or if you 
+              have turned on "clovering" (<code>clover.enable = true</code>).
+            </td>
+            <td nowrap="true">1.1</td>
+            <td>
+              Clover code coverage tool.
+            </td>
+          </tr>
+        </table>
+
+      </section>
+      
       <section title="Required Libraries">
-      	<p>
-      	  The following libraries are required to compile the Cactus framework.
-      	  The integration modules and samples have additional dependancies that
-      	  are listed as optional libraries below.
-      	</p>
+
+        <p>
+          In addition, Cactus depends on a number of additional external
+          libraries at build time. The locations of these libraries on 
+          your file system should be specified in your
+          <code>build.properties</code> file at the root of the Cactus 
+          source distribution. The next section on 
+          <jump anchor="build">Performing Builds</jump> explains how to
+          automatically download these libraries.
+        </p>
+
         <table>
           <tr>
             <th>Name</th>
@@ -112,7 +177,7 @@
             <td nowrap="true">
               <link href="ext:aspectj">aspectjrt.jar</link>
             </td>
-            <td nowrap="true">1.1.1 or later</td>
+            <td nowrap="true">1.1.1</td>
             <td>
               The AspectJ runtime.
             </td>
@@ -121,7 +186,7 @@
             <td nowrap="true">
               <link href="ext:aspectj">aspectjtools.jar</link>
             </td>
-            <td nowrap="true">1.1.1 or later</td>
+            <td nowrap="true">1.1.1</td>
             <td>
               The AspectJ compiler and other tools.
             </td>
@@ -130,7 +195,7 @@
             <td nowrap="true">
               <link href="ext:commons_httpclient">commons-httpclient.jar</link>
             </td>
-            <td nowrap="true">2.0 rc1 or later</td>
+            <td nowrap="true">2.0</td>
             <td>
               Jakarta Commons HttpClient.
             </td>
@@ -139,7 +204,7 @@
             <td nowrap="true">
               <link href="ext:commons_logging">commons-logging.jar</link>
             </td>
-            <td nowrap="true">1.0.3 or later</td>
+            <td nowrap="true">1.0.3</td>
             <td>
               Jakarta Commons Logging.
             </td>
@@ -148,7 +213,7 @@
             <td nowrap="true">
               <link href="ext:junit">junit.jar</link>
             </td>
-            <td nowrap="true">3.8.1 or later</td>
+            <td nowrap="true">3.8.1</td>
             <td>
               The JUnit framework.<br/>
               <em>This JAR file must be placed in the <code>lib</code>
@@ -160,31 +225,20 @@
             <td nowrap="true">
               servlet.jar
             </td>
-            <td nowrap="true">2.2 or 2.3</td>
+            <td nowrap="true">2.2, 2.3 or 2.4</td>
             <td>
               The Servlet/JSP API.<br/>
               <em>This JAR file comes with your servlet container or
               application server. To perform a complete build of Cactus, you'll
-              need to have JARs for both version 2.2 and 2.3 of the servlet
+              need to have JARs for versions 2.2, 2.3 and 2.4 of the servlet
               API.</em>
             </td>
-          </tr>
-        </table>
-
-      </section>
-
-      <section title="Optional Libraries">
-        <table>
-          <tr>
-            <th>Name</th>
-            <th>Version</th>
-            <th>Description</th>
           </tr>
           <tr>
             <td nowrap="true">
               <link href="ext:checkstyle">checkstyle.jar</link>
             </td>
-            <td nowrap="true">3.1 or later</td>
+            <td nowrap="true">3.4</td>
             <td>
               The Checkstyle code auditing tool.
             </td>
@@ -193,67 +247,43 @@
             <td nowrap="true">
               <link href="ext:antlr">antlr.jar</link>
             </td>
-            <td nowrap="true">2.7.2 or later</td>
+            <td nowrap="true">2.7.2</td>
             <td>
-              The ANTLR translator generator (required by Checkstyle).<br/>
-              <em>If you use the <code>checkstyle-all-[version].jar</code>
-              distribution of Checkstyle, the classes from this JAR are already
-              included.</em>
+              The ANTLR translator generator (required by Checkstyle).
             </td>
           </tr>
           <tr>
             <td nowrap="true">
               <link href="ext:commons_beanutils">commons-beanutils.jar</link>
             </td>
-            <td nowrap="true">1.5 or later</td>
+            <td nowrap="true">1.6.1</td>
             <td>
-              Jakarta Commons BeanUtils (required by Checkstyle).<br/>
-              <em>If you use the <code>checkstyle-all-[version].jar</code>
-              distribution of Checkstyle, the classes from this JAR are already
-              included.</em>
+              Jakarta Commons BeanUtils (required by Checkstyle).
             </td>
           </tr>
           <tr>
             <td nowrap="true">
               <link href="ext:commons_collections">commons-collections.jar</link>
             </td>
-            <td nowrap="true">2.1 or later</td>
+            <td nowrap="true">2.1</td>
             <td>
-              Jakarta Commons Collections (required by Checkstyle).<br/>
-              <em>If you use the <code>checkstyle-all-[version].jar</code>
-              distribution of Checkstyle, the classes from this JAR are already
-              included.</em>
+              Jakarta Commons Collections (required by Checkstyle).
             </td>
           </tr>
           <tr>
             <td nowrap="true">
               <link href="ext:regexp">regexp.jar</link>
             </td>
-            <td nowrap="true">1.2 or later</td>
+            <td nowrap="true">1.3</td>
             <td>
-              Jakarta RegExp (required by Checkstyle).<br/>
-              <em>If you use the <code>checkstyle-all-[version].jar</code>
-              distribution of Checkstyle, the classes from this JAR are already
-              included.</em>
-            </td>
-          </tr>
-          <tr>
-            <td nowrap="true">
-              <link href="ext:clover">clover.jar</link>
-            </td>
-            <td nowrap="true">1.1 or later</td>
-            <td>
-              Clover code coverage tool.<br/>
-              <em>This JAR file must be placed in the <code>lib</code>
-              directory of your Ant installation, or Ant will not be able
-              to load the required classes.</em>
+              Jakarta RegExp (required by Checkstyle).
             </td>
           </tr>
           <tr>
             <td>
               <link href="ext:httpunit">httpunit.jar</link>
             </td>
-            <td nowrap="true">1.5 or later</td>
+            <td nowrap="true">1.5.4</td>
             <td>
               HttpUnit. Required for testing the
               <link href="site:howto_httpunit">HttpUnit</link> integration.
@@ -263,7 +293,7 @@
             <td nowrap="true">
               <link href="ext:nekohtml">nekohtml.jar</link>
             </td>
-            <td nowrap="true">0.7 or later</td>
+            <td nowrap="true">0.8.1</td>
             <td>
               The Cyberneko HTML parser (required by HttpUnit).
             </td>
@@ -272,7 +302,7 @@
             <td nowrap="true">
               <link href="ext:log4j">log4j.jar</link>
             </td>
-            <td nowrap="true">1.2 or later</td>
+            <td nowrap="true">1.2.8</td>
             <td>
               Jakarta Log4j. Required for packaging the Cactus distribution.
             </td>
@@ -281,7 +311,7 @@
             <td nowrap="true">
               <link href="ext:taglibs_standard">jstl.jar</link>
             </td>
-            <td nowrap="true">1.0</td>
+            <td nowrap="true">1.0.2</td>
             <td>
               JSP Standard Tag Library. Required for compiling and running the
               servlet sample test suite on J2EE 1.3.
@@ -291,33 +321,53 @@
             <td nowrap="true">
               <link href="ext:taglibs_standard">standard.jar</link>
             </td>
-            <td nowrap="true">1.0</td>
+            <td nowrap="true">1.0.2</td>
             <td>
               Jakarta Standard Taglib. Required for compiling and running the
               servlet sample test suite on J2EE 1.3.
             </td>
           </tr>
+          <tr>
+            <td nowrap="true">
+              <link href="ext:jetty">jetty.jar</link>
+            </td>
+            <td nowrap="true">4.2.17</td>
+            <td>
+              Jetty Servlet container. Required to build and run the Jetty 
+              sample project.
+            </td>
+          </tr>
+          <tr>
+            <td nowrap="true">
+              <link href="ext:jasper-compiler">jasper-compiler.jar</link>
+            </td>
+            <td nowrap="true">4.1.30</td>
+            <td>
+              JSP engine required by Jetty to process JSPs. Required to build
+              and run the Jetty sample project.
+            </td>
+          </tr>
+          <tr>
+            <td nowrap="true">
+              <link href="ext:jasper-runtime">jasper-runtime.jar</link>
+            </td>
+            <td nowrap="true">4.1.30</td>
+            <td>
+              JSP engine required by Jetty to process JSPs. Required to build
+              and run the Jetty sample project.
+            </td>
+          </tr>
+          <tr>
+            <td nowrap="true">
+              <link href="ext:mockobjects">mockobjects-core.jar</link>
+            </td>
+            <td nowrap="true">0.09</td>
+            <td>
+              Mock object library used by several unit tests.
+            </td>
+          </tr>
         </table>
       </section>
-
-      <note>
-        <strong>If you don't want to experience version conflicts, you need 
-        to get the versions corresponding to Cactus releases. For example,
-        If you're building Cactus 1.4.1 from its sources, you'll need to get 
-        the jars found in the corresponding Cactus distribution. If you are
-        building from CVS, you can get the latest jars from the
-        <link href="ext:gump_jars">Gump nightly builds</link></strong>.
-      </note>
-
-      <note>
-        In the future we might make this process easier by moving our build
-        system to Maven.
-      </note>
-
-      <note>
-        Make sure you have only one XML parser. If you had the Crimson jar
-        you will need to remove it.
-      </note>
 
     </section>
 
@@ -365,6 +415,11 @@
               Sample web-application using Cactus. It currently also acts as
               functional and regression test suite for the Cactus framework.
             </dd>
+            <dt>ejb</dt>
+            <dd>
+              Sample EJB using Cactus. It currently also acts as
+              functional and regression test suite for the Cactus framework.
+            </dd>
           </dl>
         </dd>
       </dl>
@@ -375,24 +430,62 @@
     </section>
 
     <section title="Performing Builds">
+
       <p>
-        First, you need to create a <code>build.properties</code> file
-        in the directory of the module you wish to build. You will find 
-        existing <code>build.properties.sample</code> files in module
-        directories. Simply copy them to <code>build.properties</code> and 
-        edit the file. Mostly, it asks for locations of jars that you will 
-        need to have put somewhere on your local filesystem.
+        Good news: it should be extremely easy to build Cactus from the 
+        sources! :-) After ensuring that you connected to internet, type the 
+        following 2 commands one after another:
       </p>
-      <note>
-        Alternatively you can provide a <code>build.properties</code> file
-        in the top-level directory. This file will be used by all modules.
-      </note>
+      <ul>
+        <li>
+          <strong><code>ant -f download.xml</code></strong>: This will 
+          automatically download all the required libraries. It takes about
+          5 minutes on a 512 kbps internet connection the first time. If you're
+          behind a firewall, you'll need to read below how to customize the
+          Cactus build as you'll need to edit your <code>build.properties</code>
+          file and supply proxy information.
+        </li>
+        <li>
+          <strong><code>ant</code></strong> 
+          or <strong><code>ant dist</code></strong>: This will build
+          the different Cactus modules for the default J2EE API (at the 
+          time of this writing the default is J2EE 1.3).
+        </li>
+      </ul>
       <p>
-        Then, open a shell, change into the module directory and execute
+        The build result will be located in the <code>dist-*</code> directories
+        of the different Cactud subprojects.
+      </p>
+
+      <p>
+        Now, there are 2 files that you may wish to copy and edit if you wish
+        to customize the Cactus build:
+      </p>
+      <ul>
+        <li>
+          <strong><code>build.properties.default</code></strong>: This file 
+          contains the default Cactus build configuration properties. You should
+          not edit it. Rather you should copy it to a file named 
+          <code>build.properties</code> which you can then edit. The file is
+          self-documented.
+        </li>
+        <li>
+          <strong><code>dependencies.xml.default</code></strong>: This file
+          contains the list of Cactus library dependencies along with their 
+          versions. You should not edit this file. Rather, if you wish to use 
+          other versions, you should copy this file to a file named
+          <code>dependencies.xml</code> which you can then edit.
+        </li>
+      </ul>
+
+      <p>
+        To get help about the Ant targets available to build a given subproject,
+        open a shell, change into the module directory and execute
         <code>ant -projecthelp</code>. That will give you the list of 
         available Ant targets:
       </p>
-      <source><![CDATA[
+
+<source><![CDATA[
 $ cd framework
 $ ant -projecthelp
 Buildfile: build.xml
@@ -413,29 +506,28 @@ Main targets:
  test        Run the unit tests
 
 Default target: dist]]>
-      </source>
+</source>
+        
       <p>
-      	Simply execute the target you need. To build the framework, you 
+        Then, simply execute the target you need. To build the framework, you
       	can invoke <code>ant dist</code> or just <code>ant</code> (because
       	<em>dist</em> is the default target). If you just want to build the
       	framework JAR or the API documentation, invoke <code>ant jar</code>
       	or <code>ant doc</code>, respectively.
       </p>
-      <source><![CDATA[
+<source><![CDATA[
 $ cd framework
 $ ant dist]]>
-      </source>
+</source>
       <note>
         Some projects depend on others and thus you may need to run the build
         for those projects first. For example, the servlet sample depends on
         the framework and the Ant integration, so these will need to be built
-        before the servlet sample is built.
+        before the servlet sample is built. To avoid these problems you can
+        simply type <code>ant dist</code> at the top level as it builds the
+        different projects in the correct order.
       </note>
-      <p>
-      	The top-level directory contains a master build file that can be used
-      	to build all modules in the correct order (<code>ant dist</code>) and
-      	package release archives (<code>ant release</code>).
-      </p>
+
       <p>
         Before creating a patch, and especially before committing changes, be
         sure to run both the <em>checkstyle</em> and <em>test</em> targets of
