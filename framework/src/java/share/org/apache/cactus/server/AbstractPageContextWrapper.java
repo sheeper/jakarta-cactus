@@ -252,7 +252,7 @@ public abstract class AbstractPageContextWrapper extends PageContext
     }
 
     /**
-     * @see PageContext#initialize(Servlet, ServletRequest, ServletResponse, String, boolean, int, boolean)
+     * @see PageContext#initialize
      */
     public void initialize(Servlet theServlet, ServletRequest theRequest, 
         ServletResponse theResponse, String theErrorPageURL, 
