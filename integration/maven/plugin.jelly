@@ -656,7 +656,8 @@
             output="${cactus.reports.dir}/jboss3x.out"
             todir="${cactus.reports.dir}/jboss3x"
             config="${cactus.jboss3x.config.name}"
-            tmpdir="${cactus.jboss3x.tmp.dir}">
+            tmpdir="${cactus.jboss3x.tmp.dir}"
+            jvmArgs="${cactus.jboss3x.jvmArgs}">
           <j:if test="${context.getVariable('cactus.jboss3x.config.dir') != null}">
             <ant:setProperty name="configdir" value="${cactus.jboss3x.config.dir}"/>
           </j:if>    
@@ -668,7 +669,8 @@
         <orion1x if="cactus.home.orion1x" port="${cactus.port}"
             dir="${cactus.home.orion1x}"
             output="${cactus.reports.dir}/orion1x.out"
-            todir="${cactus.reports.dir}/orion1x">
+            todir="${cactus.reports.dir}/orion1x"
+            jvmArgs="${cactus.orion1x.jvmArgs}">
           <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
             <ant:setProperty name="tmpdir" value="${cactus.tmp.dir}"/>
           </j:if>    
@@ -677,7 +679,8 @@
         <orion2x if="cactus.home.orion2x" port="${cactus.port}"
             dir="${cactus.home.orion2x}"
             output="${cactus.reports.dir}/orion2x.out"
-            todir="${cactus.reports.dir}/orion2x">
+            todir="${cactus.reports.dir}/orion2x"
+            jvmArgs="${cactus.orion2x.jvmArgs}">
           <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
             <ant:setProperty name="tmpdir" value="${cactus.tmp.dir}"/>
           </j:if>    
@@ -686,7 +689,8 @@
         <resin2x if="cactus.home.resin2x" port="${cactus.port}"
             dir="${cactus.home.resin2x}"
             output="${cactus.reports.dir}/resin2x.out"
-            todir="${cactus.reports.dir}/resin2x">
+            todir="${cactus.reports.dir}/resin2x"
+            jvmArgs="${cactus.resin2x.jvmArgs}">
           <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
             <ant:setProperty name="tmpdir" value="${cactus.tmp.dir}"/>
           </j:if>    
@@ -698,7 +702,8 @@
         <resin3x if="cactus.home.resin3x" port="${cactus.port}"
             dir="${cactus.home.resin3x}"
             output="${cactus.reports.dir}/resin3x.out"
-            todir="${cactus.reports.dir}/resin3x">
+            todir="${cactus.reports.dir}/resin3x"
+            jvmArgs="${cactus.resin3x.jvmArgs}">
           <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
             <ant:setProperty name="tmpdir" value="${cactus.tmp.dir}"/>
           </j:if>    
@@ -710,7 +715,8 @@
         <tomcat4x if="cactus.home.tomcat4x" port="${cactus.port}"
             dir="${cactus.home.tomcat4x}"
             output="${cactus.reports.dir}/tomcat4x.out"
-            todir="${cactus.reports.dir}/tomcat4x">
+            todir="${cactus.reports.dir}/tomcat4x"
+            jvmArgs="${cactus.tomcat4x.jvmArgs}">
           <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
             <ant:setProperty name="tmpdir" value="${cactus.tmp.dir}"/>
           </j:if>    
@@ -730,7 +736,8 @@
         <tomcat5x if="cactus.home.tomcat5x" port="${cactus.port}"
             dir="${cactus.home.tomcat5x}"
             output="${cactus.reports.dir}/tomcat5x.out"
-            todir="${cactus.reports.dir}/tomcat5x">
+            todir="${cactus.reports.dir}/tomcat5x"
+            jvmArgs="${cactus.tomcat5x.jvmArgs}">
           <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
             <ant:setProperty name="tmpdir" value="${cactus.tmp.dir}"/>
           </j:if>    
@@ -834,7 +841,8 @@
             output="${cactus.reports.dir}/jboss3x.out"
             todir="${cactus.reports.dir}/jboss3x"
             config="${cactus.jboss3x.config.name}"
-            tmpdir="${cactus.jboss3x.tmp.dir}">
+            tmpdir="${cactus.jboss3x.tmp.dir}"
+            jvmArgs="${cactus.jboss3x.jvmArgs}">
           <j:if test="${context.getVariable('cactus.jboss3x.config.dir') != null}">
             <ant:setProperty name="configdir" value="${cactus.jboss3x.config.dir}"/>
           </j:if>    
@@ -846,7 +854,8 @@
         <orion1x if="cactus.home.orion1x" port="${cactus.port}"
             dir="${cactus.home.orion1x}"
             output="${cactus.reports.dir}/orion1x.out"
-            todir="${cactus.reports.dir}/orion1x">
+            todir="${cactus.reports.dir}/orion1x"
+            jvmArgs="${cactus.orion1x.jvmArgs}">
           <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
             <ant:setProperty name="tmpdir" value="${cactus.tmp.dir}"/>
           </j:if>    
@@ -855,7 +864,8 @@
         <orion2x if="cactus.home.orion2x" port="${cactus.port}"
             dir="${cactus.home.orion2x}"
             output="${cactus.reports.dir}/orion2x.out"
-            todir="${cactus.reports.dir}/orion2x">
+            todir="${cactus.reports.dir}/orion2x"
+            jvmArgs="${cactus.orion2x.jvmArgs}">
           <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
             <ant:setProperty name="tmpdir" value="${cactus.tmp.dir}"/>
           </j:if>    
@@ -864,7 +874,8 @@
         <resin2x if="cactus.home.resin2x" port="${cactus.port}"
             dir="${cactus.home.resin2x}"
             output="${cactus.reports.dir}/resin2x.out"
-            todir="${cactus.reports.dir}/resin2x">
+            todir="${cactus.reports.dir}/resin2x"
+            jvmArgs="${cactus.resin2x.jvmArgs}">
           <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
             <ant:setProperty name="tmpdir" value="${cactus.tmp.dir}"/>
           </j:if>    
@@ -876,7 +887,8 @@
         <resin3x if="cactus.home.resin3x" port="${cactus.port}"
             dir="${cactus.home.resin3x}"
             output="${cactus.reports.dir}/resin3x.out"
-            todir="${cactus.reports.dir}/resin3x">
+            todir="${cactus.reports.dir}/resin3x"
+            jvmArgs="${cactus.resin3x.jvmArgs}">
           <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
             <ant:setProperty name="tmpdir" value="${cactus.tmp.dir}"/>
           </j:if>    
@@ -888,7 +900,8 @@
         <tomcat4x if="cactus.home.tomcat4x" port="${cactus.port}"
             dir="${cactus.home.tomcat4x}"
             output="${cactus.reports.dir}/tomcat4x.out"
-            todir="${cactus.reports.dir}/tomcat4x">
+            todir="${cactus.reports.dir}/tomcat4x"
+            jvmArgs="${cactus.tomcat4x.jvmArgs}">
           <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
             <ant:setProperty name="tmpdir" value="${cactus.tmp.dir}"/>
           </j:if>    
@@ -908,7 +921,8 @@
         <tomcat5x if="cactus.home.tomcat5x" port="${cactus.port}"
             dir="${cactus.home.tomcat5x}"
             output="${cactus.reports.dir}/tomcat5x.out"
-            todir="${cactus.reports.dir}/tomcat5x">
+            todir="${cactus.reports.dir}/tomcat5x"
+            jvmArgs="${cactus.tomcat5x.jvmArgs}">
           <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
             <ant:setProperty name="tmpdir" value="${cactus.tmp.dir}"/>
           </j:if>    
@@ -1072,7 +1086,8 @@
             output="${cactus.reports.dir}/jboss3x.out"
             todir="${cactus.reports.dir}/jboss3x"
             config="${cactus.jboss3x.config.name}"
-            tmpdir="${cactus.jboss3x.tmp.dir}">
+            tmpdir="${cactus.jboss3x.tmp.dir}"
+            jvmArgs="${cactus.jboss3x.jvmArgs}">
           <j:if test="${context.getVariable('cactus.jboss3x.config.dir') != null}">
             <ant:setProperty name="configdir" value="${cactus.jboss3x.config.dir}"/>
           </j:if>    
@@ -1084,7 +1099,8 @@
         <orion1x if="cactus.home.orion1x" port="${cactus.port}"
             dir="${cactus.home.orion1x}"
             output="${cactus.reports.dir}/orion1x.out"
-            todir="${cactus.reports.dir}/orion1x">
+            todir="${cactus.reports.dir}/orion1x"
+            jvmArgs="${cactus.orion1x.jvmArgs}">
           <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
             <ant:setProperty name="tmpdir" value="${cactus.tmp.dir}"/>
           </j:if>
@@ -1093,7 +1109,8 @@
         <orion2x if="cactus.home.orion2x" port="${cactus.port}"
             dir="${cactus.home.orion2x}"
             output="${cactus.reports.dir}/orion2x.out"
-            todir="${cactus.reports.dir}/orion2x">
+            todir="${cactus.reports.dir}/orion2x"
+            jvmArgs="${cactus.orion2x.jvmArgs}">
           <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
             <ant:setProperty name="tmpdir" value="${cactus.tmp.dir}"/>
           </j:if>
@@ -1102,7 +1119,8 @@
         <resin2x if="cactus.home.resin2x" port="${cactus.port}"
             dir="${cactus.home.resin2x}"
             output="${cactus.reports.dir}/resin2x.out"
-            todir="${cactus.reports.dir}/resin2x">
+            todir="${cactus.reports.dir}/resin2x"
+            jvmArgs="${cactus.resin2x.jvmArgs}">
           <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
             <ant:setProperty name="tmpdir" value="${cactus.tmp.dir}"/>
           </j:if>
@@ -1114,7 +1132,8 @@
         <resin3x if="cactus.home.resin3x" port="${cactus.port}"
             dir="${cactus.home.resin3x}"
             output="${cactus.reports.dir}/resin3x.out"
-            todir="${cactus.reports.dir}/resin3x">
+            todir="${cactus.reports.dir}/resin3x"
+            jvmArgs="${cactus.resin3x.jvmArgs}">
           <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
             <ant:setProperty name="tmpdir" value="${cactus.tmp.dir}"/>
           </j:if>
@@ -1126,7 +1145,8 @@
         <tomcat4x if="cactus.home.tomcat4x" port="${cactus.port}"
             dir="${cactus.home.tomcat4x}"
             output="${cactus.reports.dir}/tomcat4x.out"
-            todir="${cactus.reports.dir}/tomcat4x">
+            todir="${cactus.reports.dir}/tomcat4x"
+            jvmArgs="${cactus.tomcat4x.jvmArgs}">
           <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
             <ant:setProperty name="tmpdir" value="${cactus.tmp.dir}"/>
           </j:if>
@@ -1146,7 +1166,8 @@
         <tomcat5x if="cactus.home.tomcat5x" port="${cactus.port}"
             dir="${cactus.home.tomcat5x}"
             output="${cactus.reports.dir}/tomcat5x.out"
-            todir="${cactus.reports.dir}/tomcat5x">
+            todir="${cactus.reports.dir}/tomcat5x"
+            jvmArgs="${cactus.tomcat5x.jvmArgs}">
           <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
             <ant:setProperty name="tmpdir" value="${cactus.tmp.dir}"/>
           </j:if>
