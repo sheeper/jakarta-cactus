@@ -124,15 +124,15 @@ public abstract class AbstractWebTestController implements TestController
             {
                 caller.doTest();
 
-                // Is it the get test results service ?
+            // Is it the get test results service ?
             }
             else if (ServiceEnumeration.GET_RESULTS_SERVICE.equals(serviceName))
             {
                 caller.doGetResults();
 
-                // Is it the test connection service ?
-                // This service is only used to verify that connection between
-                // client and server is working fine
+            // Is it the test connection service ?
+            // This service is only used to verify that connection between
+            // client and server is working fine
             }
             else if (ServiceEnumeration.RUN_TEST_SERVICE.equals(serviceName))
             {
