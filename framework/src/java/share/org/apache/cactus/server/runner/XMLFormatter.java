@@ -57,6 +57,7 @@
 package org.apache.cactus.server.runner;
 
 import java.text.NumberFormat;
+import java.util.Locale;
 
 import junit.framework.AssertionFailedError;
 import junit.framework.Test;
@@ -97,6 +98,13 @@ public class XMLFormatter implements XMLConstants, TestListener
      * Time current test was started
      */
     private long currentTestStartTime;
+
+    /**
+     * The number format used to convert durations into strings. Don't use the
+     * default locale for that, because the resulting string needs to use 
+     * dotted decimal notation for an XSLT transformation to work correctly.
+     */
+    private NumberFormat durationFormat = NumberFormat.getInstance(Locale.US);
 
     /**
      * XML string containing executed test case results
@@ -154,7 +162,7 @@ public class XMLFormatter implements XMLConstants, TestListener
      */
     private String getDurationAsString(long theDuration)
     {
-        return NumberFormat.getInstance().format((double) theDuration / 1000);
+        return durationFormat.format((double) theDuration / 1000);
     }
 
     /**
