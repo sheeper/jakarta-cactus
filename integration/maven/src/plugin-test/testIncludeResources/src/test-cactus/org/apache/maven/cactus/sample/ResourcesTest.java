@@ -23,18 +23,16 @@ package org.apache.maven.cactus.sample;
 import org.apache.cactus.ServletTestCase;
 import java.io.InputStream;
 
+/**
+ * Verify that resources included with the
+ * <code>cactus.resources.dirs</code> properties are found in the resulting
+ * cactified WAR. Note that we're testing this by executing this code inside
+ * the container.
+ *
+ * @version $Id$
+ */
 public class ResourcesTest extends ServletTestCase
 {
-    public ResourcesTest()
-    {
-        super();
-    }
-
-    public ResourcesTest(String name)
-    {
-        super(name);
-    }
-
     private void includesTest( String resource )
     {
         Thread currentThread = Thread.currentThread();
