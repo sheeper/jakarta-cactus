@@ -455,7 +455,7 @@
             ignoreWhitespace="false"
             ignoreCastWhitespace="false"
             ignoreBraces="false"
-            allowEmptyCatch="true"
+            catchBlock="text"
             failOnViolation="true"
             cacheFile="${target.dir}/checkstyle.cache">
 
