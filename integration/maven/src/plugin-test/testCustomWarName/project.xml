@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- 
 /*
- * Copyright 2001-2004 The Apache Software Foundation.
+ * Copyright 2004 The Apache Software Foundation.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,8 +20,9 @@
 
 <project>
   <pomVersion>3</pomVersion>
-  <id>test-cactus-maven-plugin-02</id>
-  <name>Simple project with different war name</name>
-  <description>Creates a simple cactus-war and tests it, but uses a custom war name (defined by maven.war.final.name</description>
   <extend>../project.xml</extend>
+  <artifactId>testCustomWarName</artifactId>
+  <name>testCustomWarName</name>
+  <shortDescription>Simple project with different war name</shortDescription>
+  <description>Creates a simple cactus-war and tests it, but uses a custom war name (defined by maven.war.final.name</description>
 </project>

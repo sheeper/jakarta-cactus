@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- 
 /*
- * Copyright 2001-2004 The Apache Software Foundation.
+ * Copyright >2004 The Apache Software Foundation.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,8 +20,9 @@
 
 <project>
   <pomVersion>3</pomVersion>
-  <id>test-cactus-maven-plugin-05</id>
-  <name>Simple project</name>
-  <description>Test for cactus.sysproperties</description>
   <extend>../project.xml</extend>
+  <artifactId>testCactusSysProperties</artifactId>
+  <name>testCactusSysProperties</name>
+  <shortDescription>Test for cactus.sysproperties</shortDescription>
+  <description>Test if cactus uses cactus.sysproperties</description>
 </project>

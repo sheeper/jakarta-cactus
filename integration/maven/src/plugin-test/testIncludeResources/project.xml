@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <!-- 
 /*
  * Copyright 2004 The Apache Software Foundation.
@@ -19,8 +20,9 @@
 
 <project>
   <pomVersion>3</pomVersion>
-  <id>test-cactus-maven-plugin-06</id>
-  <name>Simple project</name>
-  <description>Test for CACTUS-132</description>
   <extend>../project.xml</extend>
+  <artifactId>testIncludeResources</artifactId>
+  <name>testIncludeResources</name>
+  <shortDescription>Tests if cactus is including resources on the cactus-war</shortDescription>
+  <description>Test case for the new feature of resources inclusions (issue CACTUS-132)</description>
 </project>

@@ -35,51 +35,49 @@ public class ResourcesTest extends ServletTestCase
         super(name);
     }
 
-    public void testConfigProperties()
+    private void includesTest( String resource )
     {
         Thread currentThread = Thread.currentThread();
         ClassLoader classLoader = currentThread.getContextClassLoader();
-        InputStream input = classLoader.getResourceAsStream("test.properties");
-        assertNotNull(input);
+        InputStream input = classLoader.getResourceAsStream(resource);
+        assertNotNull("could not open resource " + resource, input);
+    }
+
+    private void excludesTest( String resource )
+    {
+        Thread currentThread = Thread.currentThread();
+        ClassLoader classLoader = currentThread.getContextClassLoader();
+        InputStream input = classLoader.getResourceAsStream(resource);
+        assertNull("should not have opened resource " + resource, input);
+    }
+
+    public void testConfigProperties()
+    {
+        includesTest( "test.properties" );
     }
   
     public void testConfigXml()
     {
-        Thread currentThread = Thread.currentThread();
-        ClassLoader classLoader = currentThread.getContextClassLoader();
-        InputStream input = classLoader.getResourceAsStream("test.xml");
-        assertNotNull(input);
+        includesTest( "test.xml" );
     }
     
     public void testIncludes()
     {
-        Thread currentThread = Thread.currentThread();
-        ClassLoader classLoader = currentThread.getContextClassLoader();
-        InputStream input = classLoader.getResourceAsStream("testKO.xml");
-        assertNull(input);
+        includesTest( "testKO.properties" );
     }
     
     public void testExcludes()
     {
-        Thread currentThread = Thread.currentThread();
-        ClassLoader classLoader = currentThread.getContextClassLoader();
-        InputStream input = classLoader.getResourceAsStream("testbad.properties");
-        assertNull(input);
+        excludesTest( "testbad.properties" );
     }
 
     public void testRecursive()
     {
-        Thread currentThread = Thread.currentThread();
-        ClassLoader classLoader = currentThread.getContextClassLoader();
-        InputStream input = classLoader.getResourceAsStream("recursiveResources/test-recursive.properties");
-        assertNotNull(input);
+        includesTest( "recursiveResources/test-recursive.properties" );
     }
     
     public void testRecursiveDefault()
     {
-        Thread currentThread = Thread.currentThread();
-        ClassLoader classLoader = currentThread.getContextClassLoader();
-        InputStream input = classLoader.getResourceAsStream("recursiveResources/test-recursive-default.xml");
-        assertNotNull(input);
+        includesTest( "recursiveResources/test-recursive-default.xml");
     }
 }
