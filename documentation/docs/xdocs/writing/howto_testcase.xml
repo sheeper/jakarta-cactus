@@ -78,10 +78,10 @@ import junit.framework.*;
               <code>ServletConfig</code>, <code>ServletContext</code>, ...),
               like Servlets or any java classes which have methods that
               manipulates Servlet API objects. For example:<br/><br/>
-  <source><![CDATA[
-  public class TestSampleServlet extends ServletTestCase
-  {
-  ]]></source>
+<source><![CDATA[
+public class TestSampleServlet extends ServletTestCase
+{
+]]></source>
               <br/>
             </li>
             <li>
@@ -90,10 +90,10 @@ import junit.framework.*;
               (<code>PageContext</code>, <code>JspWriter</code>, ...), like
               Taglibs or any java classes which have methods that manipulates
               JSP API objects. For example:<br/><br/>
-  <source><![CDATA[
-  public class TestSampleTag extends JspTestCase
-  {
-  ]]></source>
+<source><![CDATA[
+public class TestSampleTag extends JspTestCase
+{
+]]></source>
               <br/>
             </li>
             <li>
@@ -103,10 +103,10 @@ import junit.framework.*;
               <code>HttpServletRequest</code>, <code>HttpServletResponse</code>,
               ...), like Filters or any java classes which have methods that
               manipulates Filter API objects. For example:<br/><br/>
-  <source><![CDATA[
-  public class TestSampleFilter extends FilterTestCase
-  {
-  ]]></source>
+<source><![CDATA[
+public class TestSampleFilter extends FilterTestCase
+{
+]]></source>
               <br/>
             </li>
           </ul>
@@ -119,26 +119,26 @@ import junit.framework.*;
             Cactus is able to run pure JUnit TestCase on the server side.
             This is done by using the <code>ServletTestSuite</code> Test Suite
             that wraps your existing Test Cases. For example:<br/><br/>
-  <source><![CDATA[
-  public class TestJUnitTestCaseWrapper extends TestCase
-  {
-      public TestJUnitTestCaseWrapper(String theName)
-      {
-          super(theName);
-      }
-  
-      public static Test suite()
-      {
-          ServletTestSuite suite = new ServletTestSuite();
-          suite.addTestSuite(TestJUnitTestCaseWrapper.class);
-          return suite;
-      }
-  
-      public void testXXX()
-      {
-      }
-  }
-  ]]></source>
+<source><![CDATA[
+public class TestJUnitTestCaseWrapper extends TestCase
+{
+    public TestJUnitTestCaseWrapper(String theName)
+    {
+        super(theName);
+    }
+
+    public static Test suite()
+    {
+        ServletTestSuite suite = new ServletTestSuite();
+        suite.addTestSuite(TestJUnitTestCaseWrapper.class);
+        return suite;
+    }
+
+    public void testXXX()
+    {
+    }
+}
+]]></source>
           </p>
         </section>
   
