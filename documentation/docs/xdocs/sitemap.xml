@@ -458,7 +458,7 @@
   <external id="cactus_wiki" url="http://wiki.apache.org/jakarta-cactus"/>
   <external id="cactus_wiki_faq" url="http://wiki.apache.org/jakarta-cactus/FrequentlyAskedQuestions"/>
   <external id="checkstyle" url="http://checkstyle.sf.net"/>
-  <external id="clover" url="http://www.thecortex.net/clover/index.html"/>
+  <external id="clover" url="http://www.cenqua.com/clover/"/>
   <external id="commons_beanutils" url="http://jakarta.apache.org/commons/beanutils/"/>
   <external id="commons_collections" url="http://jakarta.apache.org/commons/collections/"/>
   <external id="commons_httpclient" url="http://jakarta.apache.org/commons/httpclient/"/>
