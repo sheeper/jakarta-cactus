@@ -52,6 +52,11 @@
       </p>
       <ul>
         <li>
+          If you are using local interfaces (EJB 2.0), then your beans cannot be called remotely
+          (i.e. the caller need to be in the same jvm). However, as all Cactus redirectors run on
+          the server side, you can unit test your local interfaces with Cactus.
+        </li>
+        <li>
           Very often the production code that will call the EJBs is server
           side code (Servlets, JSPs, Tag libs or Filters). This means that if
           you run the tests from a standard JUnit test case, your tests will
