@@ -31,6 +31,18 @@
       <table>
 
         <tr>
+          <th>09/05/2003</th>
+          <td>
+            <link href="mailto:vmassol@pivolis.com">Vincent Massol</link> and
+            <link href="mailto:ted@husted.com">Ted Husted</link> are writing 
+            "JUnit In Action", a book on unit testing java applications. 
+            Amongst other things, it covers extensively Cactus 1.5 (about 7 
+            chapters covering Cactus). The book will soon be available in 
+            bookstores.
+          </td>
+        </tr>
+
+        <tr>
           <th>08/04/2003</th>
           <td>
             Release 2.0 of the 
