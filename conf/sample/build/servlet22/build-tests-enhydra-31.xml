@@ -107,7 +107,7 @@
         <!-- Create work and conf directories and copy configuration files -->
         <mkdir dir="${out.enhydra31.dir}/conf"/>
         <mkdir dir="${out.enhydra31.dir}/work"/>
-        <mkdir dir="${out.enhydra31.dir}/webapps"/>
+        <mkdir dir="${out.enhydra31.dir}/webapps/test"/>
 
         <!-- Copy the configuration file -->
         <copy file="${conf.enhydra31.dir}/multiserver.conf"
@@ -116,6 +116,6 @@
         <!-- This is needed here because Enhydra 3.1 does not support
              automatic war deployment  -->
         <unwar src="${out.test.dir}/test.war"
-            dest="${out.enhydra31.dir}/webapps/"/>
+            dest="${out.enhydra31.dir}/webapps/test"/>
 
     </target>
