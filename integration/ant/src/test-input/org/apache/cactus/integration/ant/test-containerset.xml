@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+
+<project name="test-containerset" basedir="." default="testEmpty">
+
+  <target name="testEmpty">
+    <containerset id="test"/>
+  </target>
+
+  <target name="testEmptyWithProxyPort">
+    <containerset id="test" proxyport="8088"/>
+  </target>
+
+  <target name="testEmptyWithTimeout">
+    <containerset id="test" timeout="60000"/>
+  </target>
+
+  <target name="testGenericContainer">
+    <containerset id="test">
+      <generic port="8080"/>
+    </containerset>
+  </target>
+
+  <target name="testGenericContainerWithProxyPort">
+    <containerset id="test" proxyport="8088">
+      <generic port="8080"/>
+    </containerset>
+  </target>
+
+</project>
