@@ -651,6 +651,7 @@
                 prefix="${project.name}-${servlet.api}-${DSTAMP}">
                 
                 <exclude name="**/build.properties"/>
+                <exclude name="**/out"/>
             </zipfileset>
         </zip>
 
