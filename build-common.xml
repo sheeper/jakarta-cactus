@@ -199,7 +199,7 @@
         
         <!-- The Sample Servlet dist -->
         <property name="cactus.samples.servlet.bin"
-            location="samples/servlet/dist-${j2ee.api}/bin/cactus-sample-servlet"/>
+            location="samples/servlet/dist-${j2ee.api}/bin"/>
 
     </target>
 
