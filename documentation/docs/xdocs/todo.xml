@@ -37,6 +37,13 @@
         methods.
       </action>
       <action>
+        Add documentation for the new Initializer feature.
+      </action>
+      <action>
+        Add documentation for a new way to start Cactus tests by using the
+        Jetty Initializer.
+      </action>
+      <action>
         Add a tutorial for building Cactus from the source distribution.
       </action>
       <action>
@@ -73,9 +80,10 @@
         Add support for Servlet API 2.4 (and test with Tomcat 5). 
       </action>
       <action>
-        Replace access to instance variables of redirectors by method calls.
-        For example, replace "request.xxx()" by 
-        "getHttpServletRequest().xxx()". Deprecate the direct access.
+        Potentially replace access to instance variables of redirectors by 
+        method calls. For example, replace "request.xxx()" by 
+        "getHttpServletRequest().xxx()". Deprecate the direct access. Needs
+        to be discussed on cactus-dev.
       </action>
       <action>
       	Remove HttpURLConnection and replace it by the one we have submitted
@@ -86,7 +94,7 @@
         and provide support for XSLT performed inside ServletTestRunner.
       </action>
       <action>
-        Write a JMS Redirector/Client to test Message Driven Beans.
+        Continue the JMS Redirector/Client to test Message Driven Beans.
       </action>
       <action assigned-to="Peter Wong, Jason Robertson, Vincent Massol">
         Add support for Form-based authentication.
@@ -112,10 +120,7 @@
       </action>
       <action assigned-to="Hudson Wong, Vincent Massol">
         Add an EJB sample application to demonstrate how to perform EJB
-        unit testing (the tutorial that explains the process will be part
-        of Cactus 1.2 but the inclusion of the sample will be delivered
-        in a subsequent release as it involves some changes in the build
-        process).
+        unit testing.
       </action>
     </category>
 
@@ -131,16 +136,8 @@
       	Bundling of JUnitEE.
       </action>
       <action>
-      	Notion of initializer in <code>XXXTestCase</code> that allows some
-      	one time setup to happen for the tests running in a given JVM. This
-      	will allow for example a servlet engine like Jetty be automatically
-      	configured and started before the test simply using a normal JUnit
-      	TestRunner.
-      </action>
-      <action>
-        Create a new package <code>org.apache.cactus.extensions</code> for
-        putting extensions to Cactus Test Cases. The first extension
-        would be an extension that runs a bunch of test at the same time,
+        Potentially create a Cactus extension
+        that runs a bunch of test at the same time,
         thus spawing several threads in the container in order to discover
         bugs [Note: We would have to correct the name under which Cactus test
         results are stored in the application context so that it is unique
