@@ -41,6 +41,7 @@ import org.apache.tools.ant.Task;
 import org.apache.tools.ant.taskdefs.optional.junit.JUnitTask;
 import org.apache.tools.ant.taskdefs.optional.junit.JUnitTest;
 import org.apache.tools.ant.types.Environment;
+import org.apache.tools.ant.types.Path;
 import org.apache.tools.ant.types.Environment.Variable;
 
 /**
@@ -73,6 +74,12 @@ public class CactusTask extends JUnitTask
      * System properties that will be set in the container JVM.
      */
     private List systemProperties = new ArrayList();
+
+    /**
+     * Additional classpath entries for the classpath that will be used to 
+     * start the containers.
+     */
+    private Path containerClasspath;
     
     /**
      * The factory for creating ant tasks that is passed to the containers.
@@ -196,6 +203,10 @@ public class CactusTask extends JUnitTask
                 containers[i].setSystemProperties(
                     (Variable[]) this.systemProperties.toArray(
                         new Variable[0]));
+
+                // Add extra classpath entries
+                containers[i].setContainerClasspath(this.containerClasspath);
+                
                 if (containers[i].isEnabled())
                 {
                     containers[i].init();
@@ -314,6 +325,23 @@ public class CactusTask extends JUnitTask
         }
     }
 
+    /**
+     * Adds container classpath to the classpath that will be used for starting
+     * the container. 
+     *
+     * @return reference to the classpath
+     * @since Cactus 1.6
+     */
+    public Path createContainerClasspath()
+    {
+        if (this.containerClasspath == null)
+        {
+            this.containerClasspath = new Path(this.project);            
+        }
+        
+        return this.containerClasspath.createPath();
+    }    
+    
     // Private Methods ---------------------------------------------------------
 
     /**

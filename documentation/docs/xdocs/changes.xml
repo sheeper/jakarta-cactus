@@ -90,6 +90,12 @@
       </devs>
 
       <release version="1.6dev" date="in CVS">
+        <action dev="VMA" type="add">
+          Added new optional nested <code>&lt;containerclasspath&gt;</code> 
+          element for the <code>&lt;cactus&gt;</code> task. It allows 
+          specifying additional jars that will be put in the classpath used to 
+          start/stop the specified containers.
+        </action>
         <action dev="VMA" type="remove">
           Removed ability to choose different HTTP connection helpers. The only
           one supported now is the Commons HttpClient one provided internally

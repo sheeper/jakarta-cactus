@@ -23,6 +23,7 @@ import java.io.File;
 
 import org.apache.cactus.integration.ant.util.AntTaskFactory;
 import org.apache.commons.logging.Log;
+import org.apache.tools.ant.types.Path;
 import org.apache.tools.ant.types.Environment.Variable;
 
 /**
@@ -177,5 +178,23 @@ public class ContainerWrapper implements Container
     public void setSystemProperties(Variable[] theProperties)
     {
         this.container.setSystemProperties(theProperties);
+    }
+
+    /**
+     * @see Container#setContainerClasspath(Path)
+     * @since Cactus 1.6
+     */
+    public void setContainerClasspath(Path theClasspath)
+    {
+        this.container.setContainerClasspath(theClasspath);
+    }
+
+    /**
+     * @see Container#getContainerClasspath()
+     * @since Cactus 1.6
+     */
+    public Path getContainerClasspath()
+    {
+        return this.container.getContainerClasspath();
     }
 }

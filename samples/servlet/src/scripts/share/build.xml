@@ -325,6 +325,13 @@
       <cactusproperty server="true"
           propertiesFile="${target.dir.normalized}/logging_server.properties"/>
 
+      <!-- Additional jars that will be added to the classpath used to start the
+           container (in addition to the container jars themseleves which are
+           automatically added by the <cactus> task -->
+      <containerclasspath>
+        <@clover.begin@pathelement location="${clover.jar}"/@clover.end@>
+      </containerclasspath>
+
       <classpath>
         <path refid="project.classpath"/>
         <@clover.begin@pathelement location="${clover.jar}"/@clover.end@>
@@ -334,6 +341,7 @@
         <pathelement location="${target.classes.cactus.dir}"/>
         <pathelement location="${log4j.jar}"/>
       </classpath>
+
       <containerset>
         <@j2ee13.begin@jboss3x if="cactus.home.jboss3x"
             dir="${cactus.home.jboss3x}"
@@ -372,8 +380,10 @@
             output="${target.testreports.dir}/weblogic7x.out"
             todir="${target.testreports.dir}/weblogic7x"/>
       </containerset>
+
       <formatter type="brief" usefile="false"/>
       <formatter type="xml"/>
+
       <batchtest>
         <fileset dir="${src.cactus.dir}">
           <!-- Due to some Cactus synchronization bug, the 'unit' tests need
@@ -388,6 +398,7 @@
           <exclude name="**/servlet/Test*All.java"/>
         </fileset>
       </batchtest>
+
     </cactus>
 
     <!-- Generate the JUnit reports -->

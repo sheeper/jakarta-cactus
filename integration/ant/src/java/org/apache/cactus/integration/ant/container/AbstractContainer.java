@@ -32,6 +32,7 @@ import org.apache.tools.ant.filters.ReplaceTokens;
 import org.apache.tools.ant.taskdefs.Delete;
 import org.apache.tools.ant.types.FileSet;
 import org.apache.tools.ant.types.FilterChain;
+import org.apache.tools.ant.types.Path;
 import org.apache.tools.ant.types.PatternSet;
 import org.apache.tools.ant.types.Environment.Variable;
 import org.apache.tools.ant.types.selectors.SelectorUtils;
@@ -103,6 +104,12 @@ public abstract class AbstractContainer extends ProjectComponent
      */
     private long startUpWait = 1000;
 
+    /**
+     * Additional classpath entries for the classpath that will be used to 
+     * start the containers.
+     */
+    private Path containerClasspath;    
+    
     // Public Methods ----------------------------------------------------------
 
     /**
@@ -285,6 +292,24 @@ public abstract class AbstractContainer extends ProjectComponent
     public Variable[] getSystemProperties()
     {
         return this.systemProperties;
+    }
+
+    /**
+     * @see Container#setContainerClasspath(Path)
+     * @since Cactus 1.6
+     */
+    public void setContainerClasspath(Path theClasspath)
+    {
+        this.containerClasspath = theClasspath;
+    }    
+
+    /**
+     * @see Container#getContainerClasspath()
+     * @since Cactus 1.6
+     */
+    public Path getContainerClasspath()
+    {
+        return this.containerClasspath;
     }
     
     // Protected Methods -------------------------------------------------------

@@ -23,6 +23,7 @@ import java.io.File;
 
 import org.apache.cactus.integration.ant.util.AntTaskFactory;
 import org.apache.commons.logging.Log;
+import org.apache.tools.ant.types.Path;
 import org.apache.tools.ant.types.Environment.Variable;
 
 /**
@@ -133,6 +134,21 @@ public interface Container
      */
     void setSystemProperties(Variable[] theProperties);
 
+    /**
+     * Sets additional classpath entries that will be added to the container
+     * classpath used to start the containers.
+     * 
+     * @param theClasspath the container classpath entries to add
+     * @since Cactus 1.6
+     */
+    void setContainerClasspath(Path theClasspath);
+
+    /**
+     * @return additional container classpath entries
+     * @since Cactus 1.6
+     */
+    Path getContainerClasspath();
+    
     /**
      * Subclasses must implement this method to perform the actual task of 
      * starting up the container.

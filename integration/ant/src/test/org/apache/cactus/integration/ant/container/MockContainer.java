@@ -25,6 +25,7 @@ import junit.framework.Assert;
 
 import org.apache.cactus.integration.ant.util.AntTaskFactory;
 import org.apache.commons.logging.Log;
+import org.apache.tools.ant.types.Path;
 import org.apache.tools.ant.types.Environment.Variable;
 
 /**
@@ -248,6 +249,22 @@ public final class MockContainer implements Container
      * @see Container#getSystemProperties()
      */
     public Variable[] getSystemProperties()
+    {
+        throw new RuntimeException("not implemented");
+    }
+
+    /**
+     * @see Container#setContainerClasspath(Path)
+     */
+    public void setContainerClasspath(Path theClasspath)
+    {
+        // do nothing
+    }
+
+    /**
+     * @see Container#getContainerClasspath()
+     */
+    public Path getContainerClasspath()
     {
         throw new RuntimeException("not implemented");
     }

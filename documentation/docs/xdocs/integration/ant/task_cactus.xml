@@ -173,6 +173,18 @@
 
       </section>
 
+      <section title="containerclasspath">
+        <p>
+          The optional <strong>containerclasspath</strong> element lets you 
+          specify additional jars that will be added to the container 
+          classpaths that are used to start/stop the containers. This is in 
+          addition to the container jars which are automatically added by the
+          <code>&lt;cactus&gt;</code> task. The <code>containerclasspath</code>
+          element behaves exactly the same as the Ant <code>classpath</code>
+          element. In most cases you will not need to use this element.
+        </p>
+      </section>
+
     </section>
 
     <section title="Supported Containers">
