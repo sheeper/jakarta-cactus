@@ -6,9 +6,16 @@
 
   <devs>
     <person name="Vincent Massol" email="vmassol@users.sourceforge.net" id="VMA"/>
+    <person name="Philip Aston" email="paston@bea.com" id="PAS"/>
   </devs>
 
   <release version="1.0b2 in CVS" date="">
+    <action dev="VMA" type="update" due-to="Philip Aston" due-to-email="paston@bea.com">
+      Modified the Ant <code>runservertest</code> task so that it also works
+      when a servlet engine is already up and running and when a server is
+      already stopped prior. This is to support intensive debugging mode when
+      we don't want to start/stop the server all the time.
+    </action>
     <action dev="VMA" type="add">
       Added a
       <link href="scope.html">"Cactus scope and status"</link> page on the web

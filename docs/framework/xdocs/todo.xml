@@ -6,7 +6,6 @@
 
   <devs>
     <person name="Vincent Massol" email="vmassol@users.sourceforge.net" id="VMA"/>
-    <person name="Philip Aston" email="paston@bea.com" id="PAS"/>
     <person name="P. Babu Naidu" email="pbn@bea.com" id="BNA"/>
   </devs>
 
@@ -31,11 +30,6 @@
   </actions>
 
   <actions priority="low">
-    <action context="code" assigned-to="PAS">
-      Modify the Ant <code>runservertest</code> task so that it also works when
-      a servlet engine is already up and running (thanks to Philip Aston who
-      requested and provided the code for this feature)
-    </action>
     <action context="code">
       Make the methods <code>setUp()</code> and <code>tearDown()</code>
       protected on the server side so that it is consistent with JUnit (for the
