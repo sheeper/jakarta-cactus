@@ -228,7 +228,7 @@ public final class ResourceUtils
         ZipEntry zipEntry = null;
         while ((zipEntry = theJar.getNextEntry()) != null)
         {
-            if ("WEB-INF/web.xml".equals(zipEntry.getName()))
+            if (theResourceName.equals(zipEntry.getName()))
             {
                 ByteArrayOutputStream buffer = new ByteArrayOutputStream();
                 byte bytes[] = new byte[2048];
