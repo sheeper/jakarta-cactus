@@ -161,6 +161,15 @@ public class JspTestCaller
     {
         ServletTestResult result = null;
 
+        // Reset TEST_RESULTS to a new results holder to prevent premature
+        // requests for results from seeing either no results or old results
+        ResultHolder holder = new ResultHolder();
+        theObjects.m_Config.getServletContext().setAttribute(TEST_RESULTS, holder);
+
+        // From this point forward, any thread trying to access the result
+        // stored in the holder, itself stored in the application scope, will
+        // block and wait until a result is set.
+
         try {
 
             // Extract from the HTTP request the test class name and method to call.
@@ -195,8 +204,8 @@ public class JspTestCaller
 
         }
 
-        // Save the test result.
-        theObjects.m_Config.getServletContext().setAttribute(TEST_RESULTS, result);
+        // Set the test result.
+        holder.setResult(result);
 
     }
 

@@ -95,7 +95,7 @@ public class ServletHttpClient extends AbstractHttpClient
     {
         ServletTestResult result = null;
         HttpURLConnection connection = null;
-
+        
         // Open the first connection to the redirector servlet
         HttpClientHelper helper1 = new HttpClientHelper(SERVLET_REDIRECTOR_URL);
 
@@ -103,6 +103,10 @@ public class ServletHttpClient extends AbstractHttpClient
         theRequest.addParameter(ServiceDefinition.SERVICE_NAME_PARAM,
             ServiceEnumeration.CALL_TEST_SERVICE.toString());
         connection = helper1.connect(theRequest);
+
+        // Wrap the connection to ensure that all servlet output is read
+        // before we ask for results
+        connection = new AutoReadHttpURLConnection(connection);
 
         // Note: We need to get the input stream here to trigger the actual
         // call to the servlet ... Don't know why exactly ... :(
