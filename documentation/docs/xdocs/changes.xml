@@ -48,6 +48,9 @@
     </devs>
 
     <release version="1.4 in CVS">
+      <action dev="VMA" type="add">
+        Added Test Coverage Reports as part of the Web Site generation.
+      </action>
       <action dev="VMA" type="update">
         Renamed all external jars used in Cactus by suffixing them with their
         versions. This is so that Cactus users will know exactly what jars

@@ -20,7 +20,7 @@
           <jump anchor="who_talks_news">Who talks about Cactus ?</jump>
         </li>
         <li>
-          <jump anchor="internal_news">Internal web site news big
+          <jump anchor="internal_news">Internal web site news (big
           headlines)</jump>
         </li>
       </ul>
@@ -165,6 +165,18 @@
     <s1 title="Internal Web site News (big headlines)">
 
       <table>
+
+        <tr>
+          <td>
+            09/06/2002
+          </td>
+          <td>
+            Added <link href="coverage.html">Test Coverage Reports</link> that
+            shows how good (or how bad !) Cactus self tests are. We have used
+            <link href="http://www.thecortex.net/clover/">Clover</link> to
+            generate these reports.
+          </td>
+        </tr>
 
         <tr>
           <td>
