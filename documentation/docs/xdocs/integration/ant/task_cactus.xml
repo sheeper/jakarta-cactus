@@ -248,6 +248,15 @@
         as appropriate.
       </p>
 
+      <note>
+        The &lt;cactus&gt; task assumes that the container that it starts will 
+        accept requests from localhost. If you have specified a custom 
+        container configuration, make sure you have configured your 
+        container to listen to localhost. Otherwise, the &lt;cactus&gt; task
+        will fail to notice your container is running as it checks for that
+        on localhost.
+      </note>
+
       <anchor id="generic"/>
       <section title="generic">
 
