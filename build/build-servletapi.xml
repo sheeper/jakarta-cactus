@@ -558,7 +558,7 @@
 
             <formatter type="plain" usefile="false"/>
 
-            <test name="org.apache.commons.cactus.util.TestAssertUtils"/>
+            <test name="org.apache.commons.cactus.TestWebResponse"/>
             <test name="org.apache.commons.cactus.TestAbstractTestCase"/>
 
         </junit>
