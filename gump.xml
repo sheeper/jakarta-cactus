@@ -542,6 +542,8 @@
 
     <ant buildfile="build.xml" target="release.bin">
       <property name="project.version" value="@@DATE@@"/>
+      <property name="release.dir" value="release"/>
+      <property name="j2ee.dependant" project="true"/>
       <depend property="j2ee.jar" project="jakarta-servletapi"/>
     </ant>
 
@@ -571,6 +573,8 @@
 
     <ant buildfile="build.xml" target="release.bin">
       <property name="project.version" value="@@DATE@@"/>
+      <property name="release.dir" value="release"/>
+      <property name="j2ee.dependant" project="true"/>
       <depend property="j2ee.jar" project="jakarta-servletapi-4"/>
     </ant>
 
