@@ -91,10 +91,11 @@ public class TestAll extends TestCase
         suite.addTest(org.apache.cactus.sample.unit.TestAll.suite());        
         
         // Functional tests
-        suite.addTest(org.apache.cactus.sample.TestSampleServlet.suite());
-        suite.addTest(org.apache.cactus.sample.TestSampleServletConfig.suite());
-        suite.addTest(org.apache.cactus.sample.TestSampleTag.suite());
-        suite.addTest(org.apache.cactus.sample.TestSampleBodyTag.suite());
+        suite.addTestSuite(org.apache.cactus.sample.TestSampleServlet.class);
+        suite.addTestSuite(
+            org.apache.cactus.sample.TestSampleServletConfig.class);
+        suite.addTestSuite(org.apache.cactus.sample.TestSampleTag.class);
+        suite.addTestSuite(org.apache.cactus.sample.TestSampleBodyTag.class);
 
         return suite;
     }
