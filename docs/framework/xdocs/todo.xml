@@ -6,7 +6,6 @@
 
   <devs>
     <person name="Vincent Massol" email="vmassol@users.sourceforge.net" id="VMA"/>
-    <person name="Kelvin Tan" email="kelvin@myangel.com" id="KTA"/>
   </devs>
 
   <actions priority="high">
@@ -36,9 +35,9 @@
     <action context="design" assigned-to="VMA">
       Add support for testing Servlet API 2.3 Filters.
     </action>
-    <action context="code" assigned-to="KTA">
+    <action context="code">
       Provide support for easier testing of EJBs. The mechanism is yet to be
-      defined (requested by notyy).
+      defined (requested by notyy and others!).
     </action>
   </actions>
 
