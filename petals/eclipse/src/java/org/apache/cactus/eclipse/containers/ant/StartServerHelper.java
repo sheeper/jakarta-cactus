@@ -62,7 +62,6 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
-
 import org.apache.cactus.eclipse.ui.CactusMessages;
 import org.apache.tools.ant.BuildException;
 import org.eclipse.ant.core.AntRunner;
@@ -107,6 +106,11 @@ public class StartServerHelper implements Runnable
      */
     private boolean isServerAlreadyStarted = false;
 
+    /**
+     * Duration in which the container has to start.
+     */
+    private long timeOut = 20000;
+    
     /**
      * @param theRunner the Ant runner that this helper is calling
      */
@@ -154,7 +158,9 @@ public class StartServerHelper implements Runnable
         // target must be blocking.
         Thread thread = new Thread(this);
 
+        long startTime = System.currentTimeMillis();
         thread.start();
+        
         // Wait a few ms more (just to make sure the servlet engine is
         // ready to accept connections)
         sleep(1000);
@@ -164,6 +170,15 @@ public class StartServerHelper implements Runnable
         // Continuously try calling the test URL until it succeeds
         while (true)
         {
+            // If startup timed out we throw an exception to cancel the launch
+            boolean timeOver =
+                (System.currentTimeMillis() - startTime) > timeOut;
+            if (timeOver)
+            {
+                throw new BuildException(
+                    CactusMessages.getString(
+                        "CactusLaunch.message.start.timeout"));
+            }
             // If the user cancelled the start
             if (pm.isCanceled())
             {
@@ -179,7 +194,8 @@ public class StartServerHelper implements Runnable
             }
             break;
         }
-
+        
+        
         // Wait a few ms more (just to be sure !)
         sleep(500);
 
