@@ -54,9 +54,8 @@
  * <http://www.apache.org/>.
  *
  */
-package org.apache.cactus.eclipse.ant;
+package org.apache.cactus.eclipse.containers.ant;
 
-import org.apache.cactus.eclipse.containers.ant.GenericAntProvider;
 import org.apache.cactus.eclipse.launcher.CactusLaunchShortcut;
 import org.apache.cactus.eclipse.ui.CactusPlugin;
 import org.apache.tools.ant.Task;
