@@ -64,7 +64,6 @@ import java.util.Vector;
 import org.apache.cactus.eclipse.runner.containers.IContainerManager;
 import org.apache.cactus.eclipse.runner.containers.IContainerProvider;
 import org.apache.cactus.eclipse.runner.ui.CactusPlugin;
-import org.apache.tools.ant.BuildLogger;
 import org.eclipse.ant.core.AntRunner;
 import org.eclipse.core.boot.BootLoader;
 import org.eclipse.core.runtime.CoreException;
@@ -188,7 +187,6 @@ public class AntContainerManager implements IContainerManager
         runner.setBuildFileLocation(buildFileLocation.getAbsolutePath());
         runner.setArguments(getAllAntArguments(theProviderArguments));
         runner.setExecutionTargets(new String[] {theTarget});
-        runner.addBuildLogger(BuildLogger.class.getName());
         return runner;
     }
 
