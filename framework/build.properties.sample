@@ -28,7 +28,7 @@ lib.repo = c:/apps/maven/repository
 j2ee.jar = ${lib.repo}/j2ee/jars/j2ee-1.3.jar
 
 # The location of the Commons Logging jar
-commons.logging.jar = ${lib.repo}/commons-logging/jars/commons-logging-1.0.2.jar
+commons.logging.jar = ${lib.repo}/commons-logging/jars/commons-logging-1.0.3.jar
 
 # The location of the log4j jar
 log4j.jar = ${lib.repo}/log4j/jars/log4j-1.2.7.jar

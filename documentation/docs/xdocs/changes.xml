@@ -160,7 +160,7 @@ Note: To be added once we include the Eclipse plugin in a release
         </action>
         <action dev="CML" type="update">
           Update of jars bundled in the Cactus distribution: Commons Logging
-          1.0.2, Log4j 1.2.7, HttpClient 2.0alpha3, HttpUnit 1.5 and 
+          1.0.3, Log4j 1.2.7, HttpClient 2.0alpha3, HttpUnit 1.5 and 
           JUnit 3.8.1. In addition the requirements for the jars needed to 
           build Cactus were also updated: Checkstyle 3.1 (and the dependent
           jars: BeanUtils 1.6.1, Collections 2.1, Regexp 1.2 and Antlr 2.7.2).
