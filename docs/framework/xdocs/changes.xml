@@ -28,6 +28,16 @@
     <table>
       <tr>
         <td>
+          25/09/2001
+        </td>
+        <td>
+          Cactus 1.2 is now available for
+          <link href="downloads.html">download</link> ! Check the
+          <link href="changes.html#release_changes">Release Notes</link>.
+        </td>
+      </tr>
+      <tr>
+        <td>
           22/09/2001
         </td>
         <td>
@@ -107,7 +117,10 @@
       <person name="Nicholas Lesiecki" email="ndlesiecki@yahoo.com" id="NDL"/>
     </devs>
 
-    <release version="1.2 in CVS">
+    <release version="1.2" date="September 25 2001">
+      <action dev="NDL" type="add">
+        Added code sample for unit testing tag libs.
+      </action>
       <action dev="VMA" type="add">
         Tutorial for unit testing EJBs. Thanks to
         <link href="mailto:hudsoncwwong@yahoo.com">Hudson Wong</link>.

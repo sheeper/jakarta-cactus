@@ -77,7 +77,7 @@
 
     <!-- Generic project properties -->
 
-    <property name="project.version" value="1.2dev"/>
+    <property name="project.version" value="1.2"/>
     <property name="project.name.text" value="Cactus"/>
     <property name="project.name.short" value="cactus"/>
     <property name="project.name.prefix" value="jakarta-"/>
