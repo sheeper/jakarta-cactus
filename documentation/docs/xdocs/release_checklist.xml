@@ -1,0 +1,119 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE document SYSTEM "./dtd/document-v10.dtd">
+
+<document>
+  <header>
+    <title>Release Checklist</title>
+    <authors>
+      <person name="Vincent Massol" email="vmassol@apache.org"/>
+    </authors>
+  </header>
+
+  <body>
+
+    <s1 title="Release Checklist">
+
+      <p>
+        Checklist of tasks to perform for each release:
+      </p>
+      <ol>
+        <li>
+          Ensure that the Cactus tests have been run on several application
+          servers and update the <link href="testedon.html">Tested On</link>
+          page accordingly.
+        </li>
+        <li>
+          Ensure that the Todo page has no more items for the current version.
+        </li>
+        <li>
+          Ensure that the Cactus web site is up to date with the new release.
+        </li>
+        <li>
+          Edit the <code>build.xml</code> file for each Cactus subprojects and
+          modify the <code>project.version</code> Ant property so that it
+          reflects the version number for the release. Commit the changes.
+        </li>
+        <li>
+          CVS Checkout a clean copy of Cactus so that no local files are
+          included in the distribution and to verify it really works.
+        </li>
+        <li>
+          Build the Cactus release for all Servlet APIs (<code>ant
+          release</code>). <em>Note: Make sure you are connected to the internet
+          when building the releases as the documentation subproject needs the
+          CVS logs for the changes page.</em>
+        </li>
+        <li>
+          Install each delivered release on your local computer and try running
+          the Sample application tests for one application server.
+        </li>
+        <li>
+          (optional) Create a zipped packaged version of Ant containing all the
+          jars needed to build Cactus in its <code>lib/</code> directory. Name
+          it <code>jakarta-cactus-ant-&lt;version of
+          Ant&gt;-&lt;date&gt;.zip</code>.
+        </li>
+        <li>
+          Upload the Cactus releases (for all Servlet APIs) and the zipped Ant
+          distribution to <code>jakarta.apache.org</code>, putting them in a
+          <code>/www/jakarta.apache.org/builds/jakarta-cactus/release/&lt;version&gt;</code>
+          directory.
+        </li>
+        <li>
+          Upload the Cactus website by running <code>ant -f
+          build-admin.xml deploy.website</code> in the Cactus directory.
+        </li>
+        <li>
+          Announce the release on the following locations (see below for the
+          announcement template):
+          <ul>
+            <li>
+              Jakarta WebSite: Modify the Jakarta Website to contain the
+              announcement.
+            </li>
+            <li>
+              Cactus user mailing list: Send the announcement there with a
+              subject of <code>[Announce] Cactus &lt;version&gt; has been
+              released</code>.
+            </li>
+            <li>
+             Jakarta Announcement mailing list
+             (<code>announcements@jakarta.apache.org</code>): Send the
+             announcement there with a subject of <code>[Announce] Cactus
+             &lt;version&gt; has been released</code>.
+            </li>
+          </ul>
+        </li>
+        <li>
+          Prepare the next version by editing again the different Cactus
+          <code>build.xml</code> files and modifying the
+          <code>project.version</code> with the new development version
+          (for example after releasing 1.4, the new development version is
+          1.5dev).
+        </li>
+      </ol>
+
+    </s1>
+
+    <s1 title="Announcement template">
+
+<source><![CDATA[
+The Cactus project is pleased to announce the release of Version <version>
+Cactus is a unit testing framework for testing server side java code.
+
+<Some comment specific to this release>
+
+Please check the Changes page (http://jakarta.apache.org/cactus/changes.html)
+for a full list of the changes in version <version>. Existing users of
+Cactus <version-1> can also check the Migration page
+(http://jakarta.apache.org/cactus/howto_migration.html) which explains how to
+migrate from the previous vesion to this new version.
+
+For more information about Cactus, please visit: http://jakarta.apache.org/cactus/.
+]]></source>
+
+    </s1>
+
+  </body>
+</document>
