@@ -59,7 +59,8 @@ package org.apache.cactus.eclipse.containers;
 import java.net.URL;
 
 /**
- * Container configuration information.
+ * Configuration information for containers. It contains all information needed
+ * for container start and stop actions.
  * 
  * @author <a href="mailto:jruaux@octo.com">Julien Ruaux</a>
  * 
@@ -92,7 +93,7 @@ public class ContainerInfo
     }
     
     /**
-     * sets the contextURL.
+     * Sets the contextURL.
      * @param theURL the context URL to set
      */
     public void setContextURL(URL theURL)
