@@ -14,3 +14,5 @@ cactus_client.log
 cactus_server.log
 target
 bin
+default.ajsym
+default.lst
