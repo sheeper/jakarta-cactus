@@ -59,6 +59,7 @@ package org.apache.cactus.client.connector.http;
 import java.net.HttpURLConnection;
 
 import org.apache.cactus.HttpServiceDefinition;
+import org.apache.cactus.RequestDirectives;
 import org.apache.cactus.ServiceEnumeration;
 import org.apache.cactus.WebRequest;
 import org.apache.cactus.WebTestResult;
@@ -222,17 +223,18 @@ public class DefaultHttpClient
         throws Throwable
     {
         WebRequest resultsRequest = new WebRequest(this.configuration);
-
-        resultsRequest.addCactusCommand(
-            HttpServiceDefinition.SERVICE_NAME_PARAM,
-            ServiceEnumeration.GET_RESULTS_SERVICE.toString());
+        RequestDirectives directives = new RequestDirectives(resultsRequest);
+        directives.setService(ServiceEnumeration.GET_RESULTS_SERVICE);
+//        resultsRequest.addCactusCommand(
+//            HttpServiceDefinition.SERVICE_NAME_PARAM,
+//            ServiceEnumeration.GET_RESULTS_SERVICE.toString());
 
         // Use the same redirector as was used by the original request
         resultsRequest.setRedirectorName(
             theOriginalRequest.getRedirectorName());
         
         //also copy the unique id to get the correct test results
-        resultsRequest.setUniqueId(theOriginalRequest.getUniqueId());
+        directives.setId(new RequestDirectives(theOriginalRequest).getId());
          
         // Add authentication details
         if (theOriginalRequest.getAuthentication() != null)

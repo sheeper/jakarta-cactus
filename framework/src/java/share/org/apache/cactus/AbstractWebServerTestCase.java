@@ -65,7 +65,7 @@ import junit.framework.Test;
 
 import org.apache.cactus.client.connector.http.DefaultHttpClient;
 import org.apache.cactus.configuration.WebConfiguration;
-import org.apache.cactus.util.NetUtil;
+import org.apache.cactus.util.UniqueGenerator;
 import org.apache.commons.logging.LogFactory;
 
 /**
@@ -245,28 +245,19 @@ public abstract class AbstractWebServerTestCase
     {
         // Add the class name, the method name, to the request to simulate and
         // automatic session creation flag to the request
-        addCactusCommand(
-            HttpServiceDefinition.CLASS_NAME_PARAM,
-            this.getClass().getName(),
-            theRequest);
-        addCactusCommand(
-            HttpServiceDefinition.METHOD_NAME_PARAM,
-            this.getCurrentTestMethod(),
-            theRequest);
-        addCactusCommand(
-            HttpServiceDefinition.AUTOSESSION_NAME_PARAM,
-            theRequest.getAutomaticSession() ? "true" : "false",
-            theRequest);
+        RequestDirectives directives = new RequestDirectives(theRequest);
+        directives.setClassName(this.getClass().getName());
+        directives.setMethodName(this.getCurrentTestMethod());
+        directives.setAutoSession(
+            theRequest.getAutomaticSession() ? "true" : "false");
 
-        theRequest.setUniqueId(generateUniqueId());
+
+        directives.setId(UniqueGenerator.generate(this));
 
         // Add the wrapped test if it is not equal to our current instance
-        if (wrappingATest())
+        if (isWrappingATest())
         {
-            addCactusCommand(
-                HttpServiceDefinition.WRAPPED_CLASS_NAME_PARAM,
-                wrappedTestName(),
-                theRequest);
+              directives.setWrappedTestName(getWrappedTestName());
         }
         // Add the simulated URL (if one has been defined)
         if (theRequest.getURL() != null)
@@ -283,47 +274,26 @@ public abstract class AbstractWebServerTestCase
     }
 
     /**
-     * Shortcut to the wrappedTest's name.
+     * @return The wrappedTest's name, if any.
      */
-    private String wrappedTestName()
+    public String getWrappedTestName()
     {
-        return getWrappedTest().getClass().getName();
+        if (isWrappingATest())
+        {
+            return getWrappedTest().getClass().getName();
+        }
+        return null;
     }
 
     /**
-     * Shortcut to determine wrapping of status.
+     * @return whether this test case wraps another
      */
-    private boolean wrappingATest()
+    public boolean isWrappingATest()
     {
         return getWrappedTest() != this;
     }
 
-    /**
-     * Generates a (possibly) unique id for this testcase.
-     */
-    private String generateUniqueId()
-    {
-        String id = "testCase:" + this.getClass().getName() + "_";
-        id += "testMethod:" + this.getCurrentTestMethod() + "_";
-        if (wrappingATest())
-        {
-            id += "wrapping:" + wrappedTestName() + "_";
-        }
-        id += "thread:" + Thread.currentThread().toString() + "_";
-        id += "runtime_hash:" + Runtime.getRuntime().hashCode() + "_";
-        id += "client_ip:" + NetUtil.getIp() + "_";
-        id += "time:" + System.currentTimeMillis() + "_";
-        return id;
-    }
 
-    /**
-     * Shortcut to {@link WebRequest#addCactusCommand}.
-     */
-    private void addCactusCommand(String theCommandName, 
-        String theCommandValue, WebRequest theRequest)
-    {
-        theRequest.addCactusCommand(theCommandName, theCommandValue);
-    }
 
     /**
      * Runs a test case. This method is overriden from the JUnit

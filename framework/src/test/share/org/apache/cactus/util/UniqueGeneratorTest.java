@@ -56,32 +56,67 @@
  */
 package org.apache.cactus.util;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import org.apache.cactus.ServletTestCase;
+
+import junit.framework.TestCase;
 
 /**
- * Various network related utility methods.
+ * Smoke test for the unique id generator.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
+ * @author <a href="mailto:ndlesiecki@apache.org>Nicholas Lesiecki</a>
+ *
  * @version $Id$
- * @since 1.5
  */
-public class NetUtil
+public class UniqueGeneratorTest extends TestCase
 {
+
     /**
-     * @return the client machine's IP.
+     * Simulates several simultaneous id generations using threads.
+     * Verifies that there are no duplicates among the generated ids.
      */
-    public static final String getIp()
+    public void testThatSimultaneouslyGeneratedIdsAreUnique()
     {
-        InetAddress ip;
+        final ServletTestCase aTestCase = new ServletTestCase("foo");
+        Thread[] threads = new Thread[10];
+        final List results = Collections.synchronizedList(new ArrayList());
+        for (int i = 0; i < threads.length; i++)
+        {
+            threads[i] = new Thread()
+            {
+                public void run()
+                {
+                    results.add(UniqueGenerator.generate(aTestCase));
+                }
+            };
+        }
+
+        //loops seperate to make their beginning as simultaneous
+        //as possible
+        for (int i = 0; i < threads.length; i++)
+        {
+            threads[i].run();
+        }
+
         try
         {
-            ip = InetAddress.getLocalHost();
+            //in case the threads need time to finish
+            Thread.sleep(200);
         }
-        catch (UnknownHostException e)
+        catch (InterruptedException e)
         {
             throw new ChainedRuntimeException(e);
         }
-        return ip.getHostAddress();
+
+        Set resultSet = new HashSet(results);
+        assertEquals(
+            "Results contained duplicate ids.",
+            results.size(),
+            resultSet.size());
     }
 }
