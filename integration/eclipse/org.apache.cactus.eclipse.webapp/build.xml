@@ -32,7 +32,7 @@
 
     <!-- Version by which the plugin will be identified -->
     <property name="project.version.plugin" 
-        value="${project.version.release}.${DSTAMP}"/>
+        value="${project.version.major}.${project.version.minor}.${DSTAMP}"/>
 
     <!-- Set the properties related to the source tree -->
     <property name="src.dir" location="${base.dir}/src"/>
