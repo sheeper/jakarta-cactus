@@ -30,6 +30,12 @@
 	     class="org.apache.cactus.eclipse.webapp.ui.WebAppPropertyPage">
 	     <filter name="nature" value="org.eclipse.jdt.core.javanature"/>
 	  </page>
+      <page name="%webAppPageName"
+         id="org.apache.cactus.eclipse.WebAppPropertyPage"
+	     objectClass="org.eclipse.core.resources.IProject"
+	     class="org.apache.cactus.eclipse.webapp.ui.WebAppPropertyPage">
+	     <filter name="nature" value="org.eclipse.jdt.core.javanature"/>
+	  </page>
    </extension>
 
 </plugin>
