@@ -50,10 +50,6 @@
       Add the Ant scripts for JBoss 2.x w/Tomcat provided by Jeffrey Madynski
       (jmadynski@food.com)
     </action>
-    <action context="build">
-      Add the Ant scripts for Enhydra 3.1 provided by Robert Leftwich
-      (digital@ix.net.au)
-    </action>
     <action context="docs">
       Write a Cactus integration tutorial for JBuilder 4.
     </action>
