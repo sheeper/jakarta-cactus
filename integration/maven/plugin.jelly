@@ -231,7 +231,15 @@
     <!-- Generate the war artifact -->
     <attainGoal name="${cactus.build.goal.war}"/>
 
-    <cactifywar srcfile="${cactus.src.war}" destfile="${cactus.war}">
+    <cactifywar version="2.3" destfile="${cactus.war}">
+
+      <!-- Only specify a source war to cactify if we are not testing EJBs.
+           The reason is to prevent adding EJB sources to the cactified war,
+           which can lead to problems on some containers as the EJB classes
+           will be present both in the cactified war and in the ejb-jar. -->
+      <j:if test="${!isEjbProject}">
+        <ant:setProperty name="srcfile" value="${cactus.src.war}"/>
+      </j:if>
 
       <!-- Add the mergewebxml attribute if it has been defined by the
       	   user -->
@@ -849,11 +857,20 @@
 
   <!--
      ========================================================================
+       Initialization before cactifying the EAR
+     ========================================================================
+  -->
+  <goal name="cactus:cactifyear-init">
+    <j:set var="isEjbProject" value="true"/>
+  </goal>
+
+  <!--
+     ========================================================================
        Generate a Cactified EAR
      ========================================================================
   -->
   <goal name="cactus:cactifyear" 
-      prereqs="cactus:cactifywar,cactus:generate-ear-descriptor"
+      prereqs="cactus:cactifyear-init,cactus:cactifywar,cactus:generate-ear-descriptor"
       description="Create and cactify an EAR">
 
     <!-- Generate the ejb artifact -->

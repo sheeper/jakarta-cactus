@@ -8,6 +8,11 @@
   <body>
 
     <release version="1.6dev" date="in CVS">
+      <action dev="vmassol" type="fix">
+        When running Cactus tests on an EJB project, through 
+        <code>cactus:test-ear</code>, do not include the EJB sources in 
+        the cactified WAR inside the EAR we deploy.
+      </action>
       <action dev="vmassol" type="add">
         Added new <code>cactus.jboss3x.jndiport</code> property to specify
         which JNDI port to use when shutting down JBoss. Defaults to 1099
