@@ -142,12 +142,12 @@ public class ServletContextWrapper extends AbstractServletContextWrapper
         try
         {
             Method method = this.originalContext.getClass().getMethod(
-                "getResourcePaths", new Class[] { String.class });
+                "getResourcePaths", new Class[] {String.class});
 
             if (method != null)
             {
                 returnSet = (Set) method.invoke(this.originalContext, 
-                    new Object[] { thePath });
+                    new Object[] {thePath});
             }
             else
             {

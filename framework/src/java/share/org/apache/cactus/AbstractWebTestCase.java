@@ -179,7 +179,7 @@ public abstract class AbstractWebTestCase extends AbstractTestCase
         {
             try
             {
-                methodToCall.invoke(this, new Object[] { paramObject });
+                methodToCall.invoke(this, new Object[] {paramObject});
             }
             catch (InvocationTargetException e)
             {

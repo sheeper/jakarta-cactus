@@ -135,9 +135,9 @@ public class WebResponseObjectFactory implements ResponseObjectFactory
             Class responseClass = 
                 Class.forName("com.meterware.httpunit.WebResponse");
             Method method = responseClass.getMethod("newResponse", 
-                new Class[] { URLConnection.class });
+                new Class[] {URLConnection.class});
 
-            webResponse = method.invoke(null, new Object[] { theConnection });
+            webResponse = method.invoke(null, new Object[] {theConnection});
         }
         catch (Exception e)
         {

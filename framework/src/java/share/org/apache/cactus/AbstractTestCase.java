@@ -382,7 +382,7 @@ public abstract class AbstractTestCase extends TestCase
 
                 try
                 {
-                    methods[i].invoke(this, new Object[] { theRequest });
+                    methods[i].invoke(this, new Object[] {theRequest});
 
                     break;
                 }

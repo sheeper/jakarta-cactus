@@ -90,7 +90,7 @@ public class ClientInitializer
      */
     public static void initialize(Configuration theConfiguration)
     {
-        if (isInitialized == false)
+        if (!isInitialized)
         {
             try
             {

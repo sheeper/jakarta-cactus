@@ -91,10 +91,10 @@ public class ConnectionHelperFactory
             Class connectionHelperClass = 
                 Class.forName(theConfiguration.getConnectionHelper());
             Constructor constructor = connectionHelperClass.getConstructor(
-                new Class[] { String.class });
+                new Class[] {String.class});
 
             connectionHelper = (ConnectionHelper) constructor.newInstance(
-                new Object[] { theUrl });
+                new Object[] {theUrl});
         }
         catch (Exception e)
         {

@@ -347,10 +347,10 @@ public abstract class AbstractWebTestCaller
         try
         {
             Constructor constructor = testClass.getConstructor(
-                new Class[] { String.class });
+                new Class[] {String.class});
 
             testInstance = (AbstractTestCase) constructor.newInstance(
-                new Object[] { theTestCaseName });
+                new Object[] {theTestCaseName});
         }
         catch (Exception e)
         {

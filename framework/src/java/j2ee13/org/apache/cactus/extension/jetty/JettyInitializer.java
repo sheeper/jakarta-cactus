@@ -133,9 +133,9 @@ public class JettyInitializer implements Initializable
         if (System.getProperty(CACTUS_JETTY_CONFIG_PROPERTY) != null)
         {
             server.getClass().getMethod("configure", 
-                new Class[] { String.class })
-                .invoke(server, new Object[] {
-                System.getProperty(CACTUS_JETTY_CONFIG_PROPERTY) });
+                new Class[] {String.class})
+                .invoke(server, new Object[] {System.getProperty(
+                    CACTUS_JETTY_CONFIG_PROPERTY)});
         }
 
         // Start the Jetty server
@@ -163,8 +163,8 @@ public class JettyInitializer implements Initializable
 
         // Add a listener on the port defined in the Cactus configuration
         server.getClass().getMethod("addListener", 
-            new Class[] { String.class })
-            .invoke(server, new Object[] { "" + contextURL.getPort() });
+            new Class[] {String.class})
+            .invoke(server, new Object[] {"" + contextURL.getPort()});
 
         return server;
     }
@@ -190,17 +190,17 @@ public class JettyInitializer implements Initializable
         if (System.getProperty(CACTUS_JETTY_RESOURCE_DIR_PROPERTY) != null)
         {
             theServer.getClass().getMethod("addWebApplication", 
-                new Class[] { String.class, String.class })
-                .invoke(theServer, new Object[] { contextURL.getPath(), 
-                System.getProperty(CACTUS_JETTY_RESOURCE_DIR_PROPERTY) });
+                new Class[] {String.class, String.class})
+                .invoke(theServer, new Object[] {contextURL.getPath(), 
+                System.getProperty(CACTUS_JETTY_RESOURCE_DIR_PROPERTY)});
         }
         
         // Retrieves the WebApplication context created by the
         // "addWebApplication". We need it to be able to manually configure
         // other items in the context.
         Object context = theServer.getClass().getMethod(
-            "getContext", new Class[] { String.class })
-            .invoke(theServer, new Object[] { contextURL.getPath() });
+            "getContext", new Class[] {String.class})
+            .invoke(theServer, new Object[] {contextURL.getPath()});
 
         return context;
     }
@@ -217,11 +217,11 @@ public class JettyInitializer implements Initializable
         ServletConfiguration theConfiguration) throws Exception
     {
         theContext.getClass().getMethod("addServlet", 
-            new Class[] { String.class, String.class, String.class })
-            .invoke(theContext, new Object[] { 
-            theConfiguration.getDefaultRedirectorName(),
+            new Class[] {String.class, String.class, String.class})
+            .invoke(theContext, 
+            new Object[] {theConfiguration.getDefaultRedirectorName(),
             "/" + theConfiguration.getDefaultRedirectorName(), 
-            ServletTestRedirector.class.getName() });
+            ServletTestRedirector.class.getName()});
     }
     
     /**
@@ -237,25 +237,25 @@ public class JettyInitializer implements Initializable
         if (System.getProperty(CACTUS_JETTY_RESOURCE_DIR_PROPERTY) != null)
         {
             theContext.getClass().getMethod("addServlet", 
-                new Class[] { String.class, String.class })
-                .invoke(theContext, new Object[] { 
-                "*.jsp",
-                "org.apache.jasper.servlet.JspServlet" });
+                new Class[] {String.class, String.class})
+                .invoke(theContext, 
+                new Object[] {"*.jsp", 
+                "org.apache.jasper.servlet.JspServlet"});
 
             // Get the WebApplicationHandler object in order to be able to 
             // call the addServlet() method that accpets a forced path.
             Object handler = theContext.getClass().getMethod(
                 "getWebApplicationHandler", 
-                new Class[] {  }).invoke(theContext, new Object[] { });
+                new Class[] {}).invoke(theContext, new Object[] {});
 
             handler.getClass().getMethod("addServlet", 
-                new Class[] { String.class, String.class, String.class, 
-                    String.class })
-                .invoke(handler, new Object[] { 
-                "JspRedirector",
+                new Class[] {String.class, String.class, String.class, 
+                    String.class})
+                .invoke(handler, 
+                new Object[] {"JspRedirector",
                 "/JspRedirector",
                 "org.apache.jasper.servlet.JspServlet",
-                "/jspRedirector.jsp" });
+                "/jspRedirector.jsp"});
         }
     }
 
@@ -276,24 +276,25 @@ public class JettyInitializer implements Initializable
             // the Cactus Filter redirector
             Object handler = theContext.getClass().getMethod(
                 "getWebApplicationHandler", 
-                new Class[] {  }).invoke(theContext, new Object[] { });
+                new Class[] {}).invoke(theContext, new Object[] {});
     
             Object filterHolder = handler.getClass().getMethod("defineFilter",
-                new Class[] { String.class, String.class })
-                .invoke(handler, new Object[] { 
-                theConfiguration.getDefaultRedirectorName(),
-                FilterTestRedirector.class.getName() });        
+                new Class[] {String.class, String.class})
+                .invoke(handler, 
+                new Object[] {theConfiguration.getDefaultRedirectorName(),
+                FilterTestRedirector.class.getName()});        
     
             filterHolder.getClass().getMethod("applyTo",
-                new Class[] { String.class })
-                .invoke(filterHolder, new Object[] { "REQUEST" });        
+                new Class[] {String.class})
+                .invoke(filterHolder, new Object[] {"REQUEST"});        
     
             // Map the Cactus Filter redirector to a path
             handler.getClass().getMethod("mapPathToFilter", 
-                new Class[] { String.class, String.class })
-                .invoke(handler, new Object[] { 
-                "/" + theConfiguration.getDefaultRedirectorName(),
-                theConfiguration.getDefaultRedirectorName() });
+                new Class[] {String.class, String.class})
+                .invoke(handler, 
+                new Object[] {"/" 
+                + theConfiguration.getDefaultRedirectorName(),
+                theConfiguration.getDefaultRedirectorName()});
         }
     }
 
