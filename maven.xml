@@ -1,0 +1,57 @@
+<project
+  default="cactus-build:jar"
+  xmlns:j="jelly:core"
+  xmlns:maven="jelly:maven">
+  
+  <!--
+     ========================================================================
+       Package all Cactus modules.
+     ========================================================================
+  -->
+  <goal name="cactus-build:jar">
+    
+    <maven:reactor
+      basedir="${basedir}"
+      includes="*/project.xml,samples/*/project.xml"
+      goals="jar:jar"
+      banner="Building"
+      ignoreFailures="false"
+    />
+
+  </goal>
+
+  <!--
+     ========================================================================
+       Clean all Cactus modules.
+     ========================================================================
+  -->
+  <goal name="cactus-build:clean">
+
+    <maven:reactor
+      basedir="${basedir}"
+      includes="*/project.xml,samples/*/project.xml"
+      goals="clean"
+      banner="Cleaning"
+      ignoreFailures="false"
+    />
+
+  </goal>
+
+  <!--
+     ========================================================================
+       Create the web site.
+     ========================================================================
+  -->
+  <goal name="cactus-build:site">
+
+    <maven:reactor
+      basedir="${basedir}"
+      includes="*/project.xml,samples/*/project.xml"
+      goals="site"
+      banner="Generating site"
+      ignoreFailures="false"
+    />
+
+  </goal>
+  
+</project>

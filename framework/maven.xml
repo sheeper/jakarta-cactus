@@ -1,0 +1,19 @@
+<project
+  default="jar"
+  xmlns:j="jelly:core"
+  xmlns:u="jelly:util"
+  xmlns:maven="jelly:maven">
+
+  <preGoal name="java:compile">
+    <path id="maven.j2ee.compile.src.set"
+        location="${pom.build.sourceDirectory}/../j2ee${cactus.j2ee.version}"/>
+    <maven:addPath id="maven.compile.src.set" 
+        refid="maven.j2ee.compile.src.set"/>
+  </preGoal>
+
+  <preGoal name="jar:jar">
+    <j:set var="maven.final.name" 
+        value="${maven.final.name}-j2ee${cactus.j2ee.version}"/>
+  </preGoal>
+
+</project>
