@@ -1,25 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
     <classpathentry kind="src" path="src/java"/>
-    <classpathentry kind="src" path="src/test"/>
-    <classpathentry kind="var" path="JRE_LIB" rootpath="JRE_SRCROOT" sourcepath="JRE_SRC"/>
-    <classpathentry kind="var"
-        path="ECLIPSE_HOME/plugins/org.eclipse.core.resources_2.1.0/resources.jar" sourcepath="_ORG_ECLIPSE_PLATFORM_SOURCE/org.eclipse.core.resources_2.1.0/resourcessrc.zip"/>
-    <classpathentry kind="var"
-        path="ECLIPSE_HOME/plugins/org.eclipse.core.runtime_2.1.0/runtime.jar" sourcepath="_ORG_ECLIPSE_PLATFORM_SOURCE/org.eclipse.core.runtime_2.1.0/runtimesrc.zip"/>
-    <classpathentry kind="var"
-        path="ECLIPSE_HOME/plugins/org.eclipse.debug.core_2.1.0/dtcore.jar" sourcepath="_ORG_ECLIPSE_PLATFORM_SOURCE/org.eclipse.debug.core_2.1.0/dtcoresrc.zip"/>
-    <classpathentry kind="var" path="ECLIPSE_HOME/plugins/org.eclipse.jdt.core_2.1.0/jdtcore.jar"/>
-    <classpathentry kind="var" path="ECLIPSE_HOME/plugins/org.eclipse.jdt.junit_2.1.0/junitsupport.jar"/>
-    <classpathentry kind="var" path="ECLIPSE_HOME/plugins/org.eclipse.jdt.launching_2.1.0/launching.jar"/>
-    <classpathentry kind="var"
-        path="ECLIPSE_HOME/plugins/org.eclipse.debug.ui_2.1.0/dtui.jar" sourcepath="_ORG_ECLIPSE_PLATFORM_SOURCE/org.eclipse.debug.ui_2.1.0/dtuisrc.zip"/>
-    <classpathentry kind="var" path="ECLIPSE_HOME/plugins/org.eclipse.swt.win32_2.1.0/ws/win32/swt.jar"/>
-    <classpathentry kind="var"
-        path="ECLIPSE_HOME/plugins/org.eclipse.jface_2.1.0/jface.jar" sourcepath="_ORG_ECLIPSE_PLATFORM_SOURCE/org.eclipse.jface_2.1.0/jfacesrc.zip"/>
-    <classpathentry kind="var"
-        path="ECLIPSE_HOME/plugins/org.eclipse.ui_2.1.0/ui.jar" sourcepath="_ORG_ECLIPSE_PLATFORM_SOURCE/org.eclipse.ui_2.1.0/uisrc.zip"/>
-    <classpathentry kind="var"
-        path="ECLIPSE_HOME/plugins/org.eclipse.ui.workbench_2.1.0/workbench.jar" sourcepath="_ORG_ECLIPSE_PLATFORM_SOURCE/org.eclipse.ui.workbench_2.1.0/workbenchsrc.zip"/>
+    <classpathentry kind="src" path="/org.apache.ant"/>
+    <classpathentry kind="src" path="/org.apache.cactus.eclipse.webapp"/>
+    <classpathentry kind="src" path="/org.eclipse.ant.core"/>
+    <classpathentry kind="src" path="/org.eclipse.core.boot"/>
+    <classpathentry kind="src" path="/org.eclipse.core.resources"/>
+    <classpathentry kind="src" path="/org.eclipse.core.runtime"/>
+    <classpathentry kind="src" path="/org.eclipse.debug.core"/>
+    <classpathentry kind="src" path="/org.eclipse.debug.ui"/>
+    <classpathentry kind="src" path="/org.eclipse.jdt.core"/>
+    <classpathentry kind="src" path="/org.eclipse.jdt.debug"/>
+    <classpathentry kind="src" path="/org.eclipse.jdt.junit"/>
+    <classpathentry kind="src" path="/org.eclipse.jdt.launching"/>
+    <classpathentry kind="src" path="/org.eclipse.jdt.ui"/>
+    <classpathentry kind="src" path="/org.eclipse.swt"/>
+    <classpathentry kind="src" path="/org.eclipse.ui"/>
+    <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
     <classpathentry kind="output" path="bin"/>
 </classpath>
