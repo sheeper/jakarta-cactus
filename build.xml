@@ -70,12 +70,10 @@
         inheritAll="false" target="dist">
       <property name="j2ee.jar" value="${j2ee.12.jar}"/>
     </ant>
-
     <ant antfile="integration/eclipse/org.apache.cactus.eclipse.runner/build.xml" 
         inheritAll="false" target="dist">
       <property name="j2ee.jar" value="${j2ee.13.jar}"/>
     </ant>
-
     <ant antfile="samples/servlet/build.xml" inheritAll="false" 
         target="dist">
       <property name="j2ee.jar" value="${j2ee.12.jar}"/>
@@ -134,7 +132,11 @@
 
     <zip destfile="${release.dir}/tmp.zip">
       <zipfileset dir="documentation/dist/doc"
-          prefix="${main.release.name}/doc"/>
+          prefix="${main.release.name}/doc">
+        <!-- Remove the Clover reports from the release as they are too big.
+             Just leave the front page report but remove the class details -->
+        <exclude name="clover-*/org/**"/>
+      </zipfileset>
       <zipfileset file="${aspectjrt.jar}"
           prefix="${main.release.name}/lib"/>
       <zipfileset file="${cactus.ant.jar}"
