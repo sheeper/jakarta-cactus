@@ -42,6 +42,7 @@
 
     <items>
       <rdf:Seq>
+        <rdf:li rdf:resource="http://jakarta.apache.org/cactus/news.html#news23"/>
         <rdf:li rdf:resource="http://jakarta.apache.org/cactus/news.html#news22"/>
         <rdf:li rdf:resource="http://jakarta.apache.org/cactus/news.html#news21"/>
         <rdf:li rdf:resource="http://jakarta.apache.org/cactus/news.html#news20"/>
@@ -68,6 +69,25 @@
     </items>
 
   </channel>
+
+  <item rdf:about="http://jakarta.apache.org/cactus/news.html#news23">
+    <title>JAM: J2EE build tool - Supports Cactus</title>
+    <link>http://jakarta.apache.org/cactus/news.html#news23</link>
+    <description>
+<![CDATA[<a href="http://www.javagen.com/jam.jsp">JAM</a> is a modular Ant 
+toolkit for developing and testing Java/J2EE applications. JAM supports EJB 
+and Servlet/JSP development using XDoclet, JUnit, Cactus, Maven, Castor and 
+MDA/UML code generation on various J2EE servers including JBoss. There is
+a tutorial showing <a href="http://www.javagen.com/autopkTutorial.jsp">how 
+to test EJBs with Cactus</a>. For more information see also the 
+<a href="http://www.theserverside.com/news/thread.tss?thread_id=26054">release 
+information</a>.
+]]>
+    </description>
+    <dc:subject></dc:subject>
+    <dc:creator>vmassol</dc:creator>
+    <dc:date>2004-05-21T00:00:00+00:00</dc:date>
+  </item>
 
   <item rdf:about="http://jakarta.apache.org/cactus/news.html#news22">
     <title>Cactus 1.6.1 released</title>

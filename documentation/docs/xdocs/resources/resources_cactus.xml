@@ -43,13 +43,28 @@
 
         <tr>
           <td>
+            <link href="http://www.javagen.com/jam.jsp">JAM</link>
+          </td>
+	        <td>
+             Build tool
+          </td>
+          <td>
+            JAM is a modular Ant toolkit for developing and testing Java/J2EE
+            applications. JAM supports EJB and Servlet/JSP development using 
+            XDoclet, JUnit, Cactus, Maven, Castor and MDA/UML code generation 
+            on various J2EE servers including JBoss.
+          </td>
+        </tr>
+
+        <tr>
+          <td>
             <link href="http://www.freeroller.net/page/tradem/20030722">
             Testing FileUploads with Cactus</link>.
           </td>
-		  <td>
-		    Article
-		  </td>
-		  <td>
+	        <td>
+            Article
+          </td>
+          <td>
             Shows how to perform file uploads with Cactus, Java NIO and
             Commons-httpclient.
           </td>
