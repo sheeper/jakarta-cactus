@@ -165,8 +165,7 @@ public class WebResponse
             throw new ChainedRuntimeException(e);
         }
 
-        // Fixme: I don't know why but if I don't use this dummy stuff I get a
-        // ClassCastException !
+        // Dummy variable to explicitely tell the object type to copy.
         String[] dummy = new String[lines.size()];
         return (String[])(lines.toArray(dummy));
     }
