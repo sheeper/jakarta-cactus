@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<project name="Cactus War builder" default="dist"
+<project name="Cactus War builder" default="testwar"
     basedir="..">
 
     <!-- Global project properties -->
