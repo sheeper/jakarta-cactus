@@ -107,6 +107,16 @@ public class StopServerHelper implements Runnable
             throw new BuildException("A stopTarget Ant target name must be specified");
         }
 
+        // Try connecting in case the server is already stopped.
+        try {
+            HttpURLConnection connection = (HttpURLConnection)m_TestURL.openConnection();
+            connection.connect();
+            connection.disconnect();
+        } catch (IOException e) {
+            // Server is not running. Make this task a no-op.
+            return;
+        }
+
         // Call the target that stops the server, in another thread.
         Thread thread = new Thread(this);
         thread.start();
