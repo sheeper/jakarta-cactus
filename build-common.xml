@@ -27,7 +27,7 @@
 
   <property name="project.version.major" value="1"/>
   <property name="project.version.minor" value="6"/>
-  <property name="project.version.suffix" value="dev"/>
+  <property name="project.version.suffix" value=""/>
   <property name="project.version.suffix.timestamp" value=""/>
 
   <property name="project.version"
