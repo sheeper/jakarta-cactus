@@ -43,7 +43,7 @@
           <link href="ext:anthill">AntHill</link>.
         </p>
         <p>
-          Ant is written in Java and priovides a wide variety of tasks that
+          Ant is written in Java and provides a wide variety of tasks that
           support the development of Java applications (though it is in no way
           restricted to development). In addition, many third-party tasks are
           available, and it is quite easy to extend Ant with custom tasks.
