@@ -133,16 +133,22 @@ public class WarBuilder
         jarFilesDir = theJarFilesDir;
         IPath projectPath = theJavaProject.getProject().getLocation();
 
-        IPath thePath =
+        IPath classFilesPath =
             projectPath.removeLastSegments(1).append(
                 theJavaProject.getOutputLocation());
-        classFilesDir = thePath.toFile();
+        classFilesDir = classFilesPath.toFile();
         CactusPlugin thePlugin = CactusPlugin.getDefault();
         buildFileLocation =
             new File(thePlugin.find(new Path("./ant/build-war.xml")).getPath());
-        webXML =
-            new File(
-                thePlugin.find(new Path("./ant/conf/test/web.xml")).getPath());
+        webXML = projectPath.append("web.xml").toFile();
+        if (!webXML.exists())
+        {
+            webXML =
+                new File(
+                    thePlugin
+                        .find(new Path("./ant/conf/test/web.xml"))
+                        .getPath());
+        }
         // copy any web folder situated in the user's project
         webFilesDir = projectPath.append("web").toFile();
     }
@@ -187,6 +193,7 @@ public class WarBuilder
             webFilesDir = new File(tempPath, "web");
             webFilesDir.mkdir();
         }
+        
         String webFilesPath = webFilesDir.getAbsolutePath();
         arguments.add("-Dwebfiles.dir=" + webFilesPath);
         String[] antArguments = (String[]) arguments.toArray(new String[0]);
@@ -199,7 +206,7 @@ public class WarBuilder
         // Delete the created Web dir, if any.
         // Could not use deleteOnExit on this dir because the VM launched by
         // Ant seems to be crashing when shut down by the 'stop' task
-        //  
+        // TODO: resolve the crashing VM problem
         if (!userWebExists)
         {
             webFilesDir.delete();
