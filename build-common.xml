@@ -124,10 +124,10 @@
             value="integration/ant/dist-${j2ee.api}/bin/${cactus.antintegration.jar.name}"/>
 
         <!-- The Cactus Eclipse Runner Integration dist -->
-        <property name="cactus.eclipse.runner.dir" value="integration/eclipse/org.apache.cactus.eclipse.runner/dist-${j2ee.api}/bin/cactus-integration-eclipse-runner"/>
+        <property name="cactus.eclipse.runner.bin" value="integration/eclipse/org.apache.cactus.eclipse.runner/dist-${j2ee.api}/bin/cactus-integration-eclipse-runner"/>
         
         <!-- The Cactus Eclipse Webapp Integration dist -->
-        <property name="cactus.eclipse.webapp.dir" value="integration/eclipse/org.apache.cactus.eclipse.webapp/dist/bin/cactus-integration-eclipse-webapp"/>
+        <property name="cactus.eclipse.webapp.bin" value="integration/eclipse/org.apache.cactus.eclipse.webapp/dist/bin/cactus-integration-eclipse-webapp"/>
 
 
     </target>

@@ -85,10 +85,10 @@
              basedir="${org.apache.cactus.eclipse.feature.dir}"
              includes="feature.xml, logocactus.gif"/>
         <zip destfile="${plugins.dir}/org.apache.cactus.eclipse.runner${site.suffix}.jar">
-            <zipfileset dir="${cactus.eclipse.runner.dir}"/>
+            <zipfileset dir="${cactus.eclipse.runner.bin}"/>
         </zip>
         <zip destfile="${plugins.dir}/org.apache.cactus.eclipse.webapp${site.suffix}.jar">
-            <zipfileset dir="${cactus.eclipse.webapp.dir}"/>
+            <zipfileset dir="${cactus.eclipse.webapp.bin}"/>
         </zip>
     </target>
             
