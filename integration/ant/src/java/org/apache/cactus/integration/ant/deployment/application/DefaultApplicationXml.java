@@ -1,7 +1,7 @@
 /* 
  * ========================================================================
  * 
- * Copyright 2003 The Apache Software Foundation.
+ * Copyright 2003-2005 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -50,6 +50,18 @@ public class DefaultApplicationXml implements ApplicationXml
      * The root element of the descriptor.
      */
     private final Element rootElement;
+    
+    /**
+     * Specifies the order in which the top-level elements must appear in the
+     * descriptor, according to the DTD.
+     */
+    private static final ApplicationXmlTag[] ELEMENT_ORDER = {
+        ApplicationXmlTag.ICON,
+        ApplicationXmlTag.DISPLAY_NAME,
+        ApplicationXmlTag.DESCRIPTION,
+        ApplicationXmlTag.MODULE,
+        ApplicationXmlTag.SECURITY_ROLE
+    };
     
     // Constructors ------------------------------------------------------------
     
@@ -171,6 +183,23 @@ public class DefaultApplicationXml implements ApplicationXml
         return elements.iterator();
     }
     
+    /**
+     * @see ApplicationXml#addWebModule(String, String)
+     */
+    public void addWebModule(String theUri, String theContext)
+    {
+        Element moduleElement =
+            this.document.createElement(ApplicationXmlTag.MODULE.getTagName());
+        Element webElement = 
+            this.document.createElement(ApplicationXmlTag.WEB.getTagName());
+        webElement.appendChild(
+            createNestedText(ApplicationXmlTag.WEB_URI, theUri));
+        webElement.appendChild(
+            createNestedText(ApplicationXmlTag.CONTEXT_ROOT, theContext));
+        moduleElement.appendChild(webElement);
+        addElement(ApplicationXmlTag.MODULE, moduleElement);
+    }
+    
     // Private Methods ---------------------------------------------------------
 
     /**
@@ -220,4 +249,69 @@ public class DefaultApplicationXml implements ApplicationXml
         return null;
     }
     
+    /**
+     * Creates an element that contains nested text.
+     * 
+     * @param theTag The tag to create an instance of
+     * @param theText The text that should be nested in the element
+     * @return The created DOM element
+     */
+    private Element createNestedText(ApplicationXmlTag theTag, String theText)
+    {
+        Element element = this.document.createElement(theTag.getTagName());
+        element.appendChild(this.document.createTextNode(theText));
+        return element;
+    }
+    
+    /**
+     * Adds an element of the specified tag to the descriptor.
+     * 
+     * @param theTag The descriptor tag
+     * @param theElement The element to add
+     */
+    public final void addElement(ApplicationXmlTag theTag, Element theElement)
+    {
+        Node importedNode = this.document.importNode(theElement, true);
+        Node refNode = getInsertionPointFor(theTag);
+        this.rootElement.insertBefore(importedNode, refNode);
+    }
+
+    /**
+     * Returns the node before which the specified tag should be inserted, or
+     * <code>null</code> if the node should be inserted at the end of the 
+     * descriptor.
+     * 
+     * @param theTag The tag that should be inserted
+     * @return The node before which the tag can be inserted
+     */
+    private Node getInsertionPointFor(ApplicationXmlTag theTag)
+    {
+        for (int i = 0; i < ELEMENT_ORDER.length; i++)
+        {
+            if (ELEMENT_ORDER[i] == theTag)
+            {
+                for (int j = i + 1; j < ELEMENT_ORDER.length; j++)
+                {
+                    NodeList elements =
+                        this.rootElement.getElementsByTagName(
+                            ELEMENT_ORDER[j].getTagName());
+                    if (elements.getLength() > 0)
+                    {
+                        Node result = elements.item(0);
+                        Node previous = result.getPreviousSibling();
+                        while ((previous != null)
+                            && ((previous.getNodeType() == Node.COMMENT_NODE)
+                             || (previous.getNodeType() == Node.TEXT_NODE)))
+                        {
+                            result = previous;
+                            previous = result.getPreviousSibling();
+                        }
+                        return result;
+                    }
+                }
+                break;
+            }
+        }
+        return null;
+    }
 }

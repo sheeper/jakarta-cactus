@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+    
+<project name="test-cactifyear" basedir="." default="help">
+  <property name="work.dir" location="${basedir}/work"/>
+
+  <target name="setUp">
+    <mkdir dir="${work.dir}"/>
+  </target>
+
+  <target name="testCanAddCactifiedWar">
+    <cactifyear srcfile="empty.ear" destfile="${work.dir}/cactified.ear"/>
+  </target>
+
+  <target name="testCustomCactusWarContext">
+    <cactifyear srcfile="empty.ear" destfile="${work.dir}/cactified.ear">
+        <cactuswar context="/myTestFramework" version="2.3"/>
+    </cactifyear>
+  </target>
+  
+  <target name="tearDown">
+    <delete dir="${work.dir}"/>
+  </target>
+    
+</project>

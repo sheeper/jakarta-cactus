@@ -1,7 +1,7 @@
 /* 
  * ========================================================================
  * 
- * Copyright 2003 The Apache Software Foundation.
+ * Copyright 2003-2005 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,13 +21,17 @@ package org.apache.cactus.integration.ant.deployment.application;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.apache.xml.serialize.OutputFormat;
+import org.apache.xml.serialize.XMLSerializer;
 import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -146,6 +150,100 @@ public class ApplicationXmlIo
             builder.setEntityResolver(new ApplicationXmlEntityResolver());
         }
         return new DefaultApplicationXml(builder.parse(theInput));
+    }
+
+    /**
+     * Writes the specified document to a file.
+     * 
+     * @param theAppXml The descriptor to serialize
+     * @param theFile The file to write to
+     * @throws IOException If an I/O error occurs
+     */
+    public static void writeApplicationXml(ApplicationXml theAppXml, 
+                                           File theFile)
+        throws IOException
+    {
+        writeApplicationXml(theAppXml, theFile, null, false);
+    }
+
+    /**
+     * Writes the specified document to a file.
+     * 
+     * @param theAppXml The descriptor to serialize
+     * @param theFile The file to write to
+     * @param theEncoding The character encoding to use
+     * @throws IOException If an I/O error occurs
+     */
+    public static void writeApplicationXml(ApplicationXml theAppXml, 
+                                           File theFile,
+                                           String theEncoding)
+        throws IOException
+    {
+        writeApplicationXml(theAppXml, theFile, theEncoding, false);
+    }
+
+    /**
+     * Writes the specified document to a file.
+     * 
+     * @param theAppXml The descriptor to serialize
+     * @param theFile The file to write to
+     * @param theEncoding The character encoding to use
+     * @param isIndent Whether the written XML should be indented
+     * @throws IOException If an I/O error occurs
+     */
+    public static void writeApplicationXml(ApplicationXml theAppXml, 
+                                           File theFile,
+                                           String theEncoding, 
+                                           boolean isIndent)
+        throws IOException
+    {
+        OutputStream out = null;
+        try
+        {
+            out = new FileOutputStream(theFile);
+            writeApplicationXml(theAppXml, out, theEncoding, isIndent);
+        }
+        finally
+        {
+            if (out != null)
+            {
+                try
+                {
+                    out.close();
+                }
+                catch (IOException ioe)
+                {
+                    // we'll pass on the original IO error, so ignore this one
+                }
+            }
+        }
+    }
+
+    /**
+     * Writes the specified document to an output stream.
+     * 
+     * @param theAppXml The descriptor to serialize
+     * @param theOutput The output stream to write to
+     * @param theEncoding The character encoding to use
+     * @param isIndent Whether the written XML should be indented
+     * @throws IOException If an I/O error occurs
+     */
+    public static void writeApplicationXml(ApplicationXml theAppXml, 
+                                           OutputStream theOutput,
+                                           String theEncoding, 
+                                           boolean isIndent)
+        throws IOException
+    {
+        OutputFormat outputFormat =
+            new OutputFormat(theAppXml.getDocument());
+        if (theEncoding != null)
+        {
+            outputFormat.setEncoding(theEncoding);
+        }
+        outputFormat.setIndenting(isIndent);
+        outputFormat.setPreserveSpace(false);
+        XMLSerializer serializer = new XMLSerializer(theOutput, outputFormat);
+        serializer.serialize(theAppXml.getDocument());
     }
 
 }

@@ -167,6 +167,8 @@ be resolved. Please check you build.properties file, and run Ant with the
         comment="Cactus Tasks for Ant">
       <entry key="cactifywar"
           value="org.apache.cactus.integration.ant.CactifyWarTask"/>
+      <entry key="cactifyear"
+      	  value="org.apache.cactus.integration.ant.CactifyEarTask"/>
       <entry key="cactus"
           value="org.apache.cactus.integration.ant.CactusTask"/>
       <entry key="runservertests"

@@ -1,7 +1,7 @@
 /* 
  * ========================================================================
  * 
- * Copyright 2003 The Apache Software Foundation.
+ * Copyright 2003-2005 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -84,4 +84,12 @@ public interface ApplicationXml
      *         they occur in the descriptor
      */
     Iterator getElements(ApplicationXmlTag theTag);
+    
+    /**
+     * Adds a web module to the deployment descriptor
+     * 
+     * @param theUri the uri of the new module
+     * @param theContext the context of the new module
+     */
+    void addWebModule(String theUri, String theContext);
 }
