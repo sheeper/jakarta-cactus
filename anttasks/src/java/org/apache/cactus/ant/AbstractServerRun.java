@@ -57,8 +57,10 @@
 package org.apache.cactus.ant;
 
 import java.io.IOException;
+
 import java.net.ServerSocket;
 import java.net.Socket;
+
 import java.util.Vector;
 
 /**
@@ -88,7 +90,7 @@ public abstract class AbstractServerRun extends Thread
     /**
      * The command line arguments
      */
-    protected String[] args;
+    private String[] args;
 
     /**
      * Flag that specifies if the server is already started to prevent
@@ -128,15 +130,23 @@ public abstract class AbstractServerRun extends Thread
         boolean isStart = true;
         Vector newArgs = new Vector();
 
-        for (int i = 0; i < this.args.length; i++) {
-            if (this.args[i].equalsIgnoreCase("-start")) {
+        for (int i = 0; i < this.args.length; i++)
+        {
+            if (this.args[i].equalsIgnoreCase("-start"))
+            {
                 isStart = true;
-            } else if (this.args[i].equalsIgnoreCase("-stop")) {
+            }
+            else if (this.args[i].equalsIgnoreCase("-stop"))
+            {
                 isStart = false;
-            } else if (this.args[i].equalsIgnoreCase("-port")) {
+            }
+            else if (this.args[i].equalsIgnoreCase("-port"))
+            {
                 this.port = Integer.parseInt(this.args[i + 1]);
                 i++;
-            } else {
+            }
+            else
+            {
                 newArgs.add(this.args[i]);
             }
         }
@@ -144,14 +154,17 @@ public abstract class AbstractServerRun extends Thread
         // Remove the command line arguments that should not be part of the
         // server command line (i.e. our own arguments).
         String[] strArgs = new String[0];
+
         this.args = (String[]) newArgs.toArray(strArgs);
 
-        if (isStart) {
+        if (isStart)
+        {
             startServer();
-        } else {
+        }
+        else
+        {
             stopServer();
         }
-
     }
 
     /**
@@ -160,21 +173,25 @@ public abstract class AbstractServerRun extends Thread
     private void startServer()
     {
         // If the server is already started, do nothing
-        if (this.isStarted) {
+        if (this.isStarted)
+        {
             return;
         }
 
-        try {
+        try
+        {
             doStartServer();
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             e.printStackTrace();
             throw new RuntimeException("Error starting server");
         }
 
+
         // Server is now started
         this.isStarted = true;
 
-        // Set up listener socket for listening to request to stop server
         new Thread(this).start();
     }
 
@@ -186,18 +203,27 @@ public abstract class AbstractServerRun extends Thread
         // Open socket connection
         Socket clientSocket = null;
 
-        try {
+        try
+        {
             clientSocket = new Socket(this.host, this.port);
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             e.printStackTrace();
             throw new RuntimeException("Error opening socket to " + this.host
                 + ":" + this.port + "]");
-        } finally {
-            try {
-                if (clientSocket != null) {
+        }
+        finally
+        {
+            try
+            {
+                if (clientSocket != null)
+                {
                     clientSocket.close();
                 }
-            } catch (IOException e) {
+            }
+            catch (IOException e)
+            {
                 throw new RuntimeException("Cannot close client socket");
             }
         }
@@ -212,33 +238,47 @@ public abstract class AbstractServerRun extends Thread
         ServerSocket serverSocket = setUpListenerSocket();
 
         // Accept a client socket connection
-        try {
+        try
+        {
             serverSocket.accept();
-        } catch (IOException e) {
+        }
+        catch (IOException e)
+        {
             throw new RuntimeException("Error accepting connection for "
                 + "server socket [" + serverSocket + "]");
-        } finally {
+        }
+        finally
+        {
             // Stop server socket
-            try {
+            try
+            {
                 serverSocket.close();
-            } catch (IOException e) {
+            }
+            catch (IOException e)
+            {
                 throw new RuntimeException("Cannot close server socket ["
                     + serverSocket + "]");
             }
         }
 
         // Stop server
-        try {
+        try
+        {
             this.doStopServer();
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             e.printStackTrace();
             throw new RuntimeException("Cannot stop server");
         }
 
         // Stop server socket
-        try {
+        try
+        {
             serverSocket.close();
-        } catch (IOException e) {
+        }
+        catch (IOException e)
+        {
             throw new RuntimeException("Cannot close server socket ["
                 + serverSocket + "]");
         }
@@ -253,9 +293,12 @@ public abstract class AbstractServerRun extends Thread
     {
         ServerSocket serverSocket = null;
 
-        try {
+        try
+        {
             serverSocket = new ServerSocket(this.port);
-        } catch (IOException e) {
+        }
+        catch (IOException e)
+        {
             e.printStackTrace();
             throw new RuntimeException("Error setting up the server "
                 + "listener socket");
@@ -263,5 +306,4 @@ public abstract class AbstractServerRun extends Thread
 
         return serverSocket;
     }
-
 }

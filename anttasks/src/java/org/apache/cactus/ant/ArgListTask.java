@@ -132,28 +132,33 @@ public class ArgListTask extends Task
 
         // Build the arg list ("-D" separated string).
         Enumeration args = this.properties.elements();
-        while (args.hasMoreElements()) {
 
-            String propertyName =
-                ((PropertyName) args.nextElement()).getName();
+        while (args.hasMoreElements())
+        {
+            String propertyName = ((PropertyName) args.nextElement()).getName();
 
             // Check if this property is defined
             String value = getProject().getProperty(propertyName);
-            if (value == null) {
+
+            if (value == null)
+            {
                 continue;
             }
 
             // Yes, add the property the list of args
-            if (isEmpty) {
+            if (isEmpty)
+            {
                 argBuffer.append("-D" + propertyName + "=" + value);
                 isEmpty = false;
-            } else {
+            }
+            else
+            {
                 argBuffer.append(" -D" + propertyName + "=" + value);
             }
         }
 
+
         // Set the new property
         getProject().setProperty(this.newProperty, argBuffer.toString());
     }
-
 }
