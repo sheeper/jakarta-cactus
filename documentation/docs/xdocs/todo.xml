@@ -64,9 +64,6 @@
       <action>
         Add Ant scripts for JBoss/Tomcat.
       </action>
-      <action assigned-to="IAS">
-        Migrate from Stylebook to Velocity-Anakia.
-      </action>
     </category>
 
     <category title="Design/Code">
