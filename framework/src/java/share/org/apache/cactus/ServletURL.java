@@ -87,9 +87,17 @@ import org.apache.cactus.util.log.LogService;
 public class ServletURL
 {
     /**
+     * Name of the parameter in the HTTP request that represents the protocol
+     * (HTTP, HTTPS, etc) in the URL to simulate. The name is voluntarily long
+     * so that it will not clash with a user-defined parameter.
+     */
+    public final static String URL_PROTOCOL_PARAM =
+        "Cactus_URL_Protocol";
+
+    /**
      * Name of the parameter in the HTTP request that represents the Server
-     * name in the URL to simulate. The name is voluntarily long so that it
-     * will not clash with a user-defined parameter.
+     * name (+ port) in the URL to simulate. The name is voluntarily long so
+     * that it will not clash with a user-defined parameter.
      */
     public final static String URL_SERVER_NAME_PARAM =
         "Cactus_URL_Server";
@@ -127,6 +135,16 @@ public class ServletURL
         "Cactus_URL_QueryString";
 
     /**
+     * Http protocol.
+     */
+    public final static String PROTOCOL_HTTP = "http";
+
+    /**
+     * Https protocol.
+     */
+    public final static String PROTOCOL_HTTPS = "https";
+
+    /**
      * The server name to simulate (including port number)
      */
     private String serverName;
@@ -152,6 +170,11 @@ public class ServletURL
     private String queryString;
 
     /**
+     * The protocol to use.
+     */
+    private String protocol;
+
+    /**
      * The logger
      */
     private static final Log LOGGER =
@@ -159,6 +182,50 @@ public class ServletURL
 
     /**
      * Creates the URL to simulate.
+     *
+     * @param theProtocol   the protocol to simulate (either
+     *                      <code>ServletURL.PROTOCOL_HTTP</code> or
+     *                      <code>ServletUEL.PROTOCOL_HTTPS</code>.
+     * @param theServerName the server name (and port) in the URL to simulate,
+     *                      i.e. this is the name that will be returned by the
+     *                      <code>HttpServletRequest.getServerName()</code> and
+     *                      <code>HttpServletRequest.getServerPort()</code>. Can
+     *                      be null. If null, then the server name and port from
+     *                      the Servlet Redirector will be returned.
+     * @param theContextPath the webapp context path in the URL to simulate,
+     *                      i.e. this is the name that will be returned by the
+     *                      <code>HttpServletRequest.getContextPath()</code>.
+     *                      Can be null. If null, then the context from the
+     *                      Servlet Redirector will be returned.
+     *                      Format: "/" + name or an empty string
+     *                      for the default context.
+     * @param theServletPath the servlet path in the URL to simulate,
+     *                      i.e. this is the name that will be returned by the
+     *                      <code>HttpServletRequest.getServletPath()</code>.
+     *                      Can be null. Format : "/" + name.
+     * @param thePathInfo   the path info in the URL to simulate, i.e. this is
+     *                      the name that will be returned by the
+     *                      <code>HttpServletRequest.getPathInfo()</code>. Can
+     *                      be null. Format : "/" + name.
+     * @param theQueryString the Query string in the URL to simulate, i.e. this
+     *                       is the string that will be returned by the
+     *                       <code>HttpServletResquest.getQueryString()</code>.
+     *                       Can be null.
+     */
+    public ServletURL(String theProtocol, String theServerName,
+        String theContextPath, String theServletPath, String thePathInfo,
+        String theQueryString)
+    {
+        this.protocol = theProtocol;
+        this.serverName = theServerName;
+        this.contextPath = theContextPath;
+        this.servletPath = theServletPath;
+        this.pathInfo = thePathInfo;
+        this.queryString = theQueryString;
+    }
+
+    /**
+     * Creates the URL to simulate, using the default HTTP protocol.
      *
      * @param theServerName the server name (and port) in the URL to simulate,
      *                      i.e. this is the name that will be returned by the
@@ -189,11 +256,16 @@ public class ServletURL
     public ServletURL(String theServerName, String theContextPath,
         String theServletPath, String thePathInfo, String theQueryString)
     {
-        this.serverName = theServerName;
-        this.contextPath = theContextPath;
-        this.servletPath = theServletPath;
-        this.pathInfo = thePathInfo;
-        this.queryString = theQueryString;
+        this(PROTOCOL_HTTP, theServerName, theContextPath, theServletPath,
+            thePathInfo, theQueryString);
+    }
+
+    /**
+     * @return the protocol used to connect to the URL (HTTP, HTTPS, etc).
+     */
+    public String getProtocol()
+    {
+        return this.protocol;
     }
 
     /**
@@ -309,6 +381,10 @@ public class ServletURL
         // the user to send whatever he wants in the request body. For example
         // a file, ...
 
+        if (getProtocol() != null) {
+            theRequest.addParameter(URL_PROTOCOL_PARAM, getProtocol(),
+                WebRequest.GET_METHOD);
+        }
         if (getServerName() != null) {
             theRequest.addParameter(URL_SERVER_NAME_PARAM, getServerName(),
                 WebRequest.GET_METHOD);
@@ -343,6 +419,8 @@ public class ServletURL
     {
         String qString = theRequest.getQueryString();
 
+        String protocol = ServletUtil.getQueryStringParameter(qString,
+            URL_PROTOCOL_PARAM);
         String serverName = ServletUtil.getQueryStringParameter(qString,
             URL_SERVER_NAME_PARAM);
         String contextPath = ServletUtil.getQueryStringParameter(qString,
@@ -354,7 +432,7 @@ public class ServletURL
         String queryString = ServletUtil.getQueryStringParameter(qString,
             URL_QUERY_STRING_PARAM);
 
-        ServletURL url = new ServletURL(serverName, contextPath,
+        ServletURL url = new ServletURL(protocol, serverName, contextPath,
             servletPath, pathInfo, queryString);
 
         LOGGER.debug("URL = [" + url + "]");
@@ -368,6 +446,7 @@ public class ServletURL
     public String toString()
     {
         StringBuffer buffer = new StringBuffer();
+        buffer.append("protocol = [" + getProtocol() + "], ");
         buffer.append("host name = [" + getHost() + "], ");
         buffer.append("port = [" + getPort() + "], ");
         buffer.append("context path = [" + getContextPath() + "], ");
