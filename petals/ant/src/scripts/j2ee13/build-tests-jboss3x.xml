@@ -134,3 +134,14 @@
              Copying the server/ directory does not seem to be enough -->
              
     </target>
+    
+    <!--
+       ========================================================================
+         Clean generated files (including distributables)
+       ========================================================================
+    -->
+    <target name="cactus.clean.jboss3x" depends="cactus.init, cactus.clean" description="Clean target directory">
+        <delete includeEmptyDirs="true">
+            <fileset dir="${cactus.target.jboss3x}"/>
+        </delete>
+    </target>
