@@ -3,7 +3,7 @@
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2003 The Apache Software Foundation.  All rights
+ * Copyright (c) 2003-2004 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -139,10 +139,7 @@ public abstract class AbstractTomcatContainer extends AbstractJavaContainer
     }
 
     /**
-     * Sets the server configuration file to use for the test installation of
-     * Tomcat.
-     * 
-     * @return The server.xml file, if set
+     * @return The server.xml file, if set or null otherwise
      */
     public final File getServerXml()
     {
@@ -203,7 +200,7 @@ public abstract class AbstractTomcatContainer extends AbstractJavaContainer
 
     /**
      * Copies the configuration files specified by nested &lt;conf&gt; filesets
-     * to the conf directory.
+     * to the conf/ directory.
      * 
      * @param theConfDir The Tomcat configuration directory
      */

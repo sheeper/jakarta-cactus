@@ -466,6 +466,8 @@
   <external id="sun_j2ee_downloads" url="http://java.sun.com/j2ee/download.html"/>
   <external id="sun_servlet_downloads" url="http://java.sun.com/products/servlet/download.html"/>
   <external id="taglibs_standard" url="http://jakarta.apache.org/taglibs/doc/standard-doc/intro.html"/>
+  <external id="tomcat4_context_xml" url="http://jakarta.apache.org/tomcat/tomcat-4.1-doc/config/context.html"/>
+  <external id="tomcat5_context_xml" url="http://jakarta.apache.org/tomcat/tomcat-5.0-doc/config/context.html"/>
   <external id="velocity" url="http://jakarta.apache.org/velocity/"/>
   <external id="xalanj" url="http://xml.apache.org/xalan-j/"/>
 

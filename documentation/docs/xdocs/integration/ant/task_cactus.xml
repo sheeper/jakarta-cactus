@@ -814,6 +814,15 @@
               <td>No</td>
             </tr>
             <tr>
+              <td>contextxml</td>
+              <td>
+                An optional <a href="ext:tomcat4_context_xml">context xml</a> 
+                file to use. This feature is only supported by Tomcat versions 
+                4.1.x and above.
+              </td>
+              <td>No</td>
+            </tr>
+            <tr>
               <td>port</td>
               <td>
                 The TCP port that the container should listen to
@@ -924,6 +933,14 @@
               <td>serverxml</td>
               <td>
                 The server configuration file to use instead of the default one
+              </td>
+              <td>No</td>
+            </tr>
+            <tr>
+              <td>contextxml</td>
+              <td>
+                An optional <a href="ext:tomcat5_context_xml">context xml</a> 
+                file to use.
               </td>
               <td>No</td>
             </tr>

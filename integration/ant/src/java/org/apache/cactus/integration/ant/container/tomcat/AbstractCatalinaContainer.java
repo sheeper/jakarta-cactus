@@ -3,7 +3,7 @@
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2003 The Apache Software Foundation.  All rights
+ * Copyright (c) 2003-2004 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -91,6 +91,11 @@ public abstract class AbstractCatalinaContainer extends AbstractTomcatContainer
      */
     private String version;
 
+    /**
+     * A user-specific context xml configuration file.
+     */
+    private File contextXml;
+    
     // Public Methods ----------------------------------------------------------
 
     /**
@@ -103,6 +108,25 @@ public abstract class AbstractCatalinaContainer extends AbstractTomcatContainer
         this.tmpDir = theTmpDir;
     }
 
+    /**
+     * @return The context xml file, if set or null otherwise
+     */
+    public final File getContextXml()
+    {
+        return this.contextXml;
+    }
+
+    /**
+     * Sets a user-custom context xml configuration file to use for the test
+     * installation of Tomcat.
+     * 
+     * @param theContextXml the custom context xml file to use
+     */
+    public final void setContextXml(File theContextXml)
+    {
+        this.contextXml = theContextXml;
+    }
+    
     // AbstractContainer Implementation ----------------------------------------
 
     /**
@@ -243,18 +267,26 @@ public abstract class AbstractCatalinaContainer extends AbstractTomcatContainer
             new File(confDir, "tomcat-users.xml"));
         fileUtils.copyFile(new File(getDir(), "conf/web.xml"),
             new File(confDir, "web.xml"));
-        
-        // Copy user-provided configuration files into the temporary container 
-        // directory
 
-        copyConfFiles(confDir);
-           
         // deploy the web-app by copying the WAR file into the webapps
         // directory
         File webappsDir = createDirectory(tmpDir, "webapps");
         fileUtils.copyFile(getDeployableFile().getFile(),
             new File(webappsDir, getDeployableFile().getFile().getName()), 
             null, true);
+        
+        // Copy user-provided configuration files into the temporary conf/ 
+        // container directory.
+        copyConfFiles(confDir);
+
+        // Copy user-provided context xml file into the temporary webapp/
+        // container directory
+        if (getContextXml() != null)
+        {
+            fileUtils.copyFile(getContextXml(), 
+                new File(webappsDir, getContextXml().getName()));
+        }
+        
     }
 
 }
