@@ -111,6 +111,20 @@ public class StartServerHelper implements Runnable
             throw new BuildException("A startTarget Ant target name must be specified");
         }
 
+        // Try connecting in case the server is already running. If so, does
+        // nothing
+        try {
+            HttpURLConnection connection = (HttpURLConnection)m_TestURL.openConnection();
+            connection.connect();
+            connection.disconnect();
+
+            // Server is already running. Make this task a no-op.
+            return;
+        } catch (IOException e) {
+            // An error occurred. It just measn the server is not running. Do
+            // nothing        
+        }
+
         // Call the target that starts the server, in another thread. The called
         // target must be blocking.
         Thread thread = new Thread(this);
