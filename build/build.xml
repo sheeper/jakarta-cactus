@@ -612,7 +612,7 @@
 
        ========================================================================
     -->
-    <target name="deploy-site" depends="site" if="username">
+    <target name="deploy-site" depends="clean,site" if="username">
 
         <property name="homepage" value="/www/jakarta.apache.org/commons/cactus"/>
 
