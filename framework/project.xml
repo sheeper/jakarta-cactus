@@ -76,10 +76,14 @@
   <reports>
     <!--report>maven-statcvs-plugin</report-->
     <report>maven-license-plugin</report>
+    <report>maven-jdepend-plugin</report>
     <report>maven-checkstyle-plugin</report>
     <report>maven-pmd-plugin</report>
-    <report>maven-linkcheck-plugin</report>
     <report>maven-simian-plugin</report>
+    <report>maven-javadoc-plugin</report>
+    <report>maven-jxr-plugin</report>
+    <report>maven-junit-report-plugin</report>
+    <report>maven-linkcheck-plugin</report>
   </reports>
   
 </project>
