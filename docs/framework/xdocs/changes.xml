@@ -87,6 +87,16 @@
     </devs>
 
     <release version="1.3 in CVS">
+      <action dev="VMA" type="update">
+        Updated coding conventions and added target to Ant build file for
+        automatic checking of conventions using
+        <link href="checkstyle.sf.net">Checkstyle</link>.
+      </action>
+      <action dev="VMA" type="update">
+        Reformatted all sources to be compliant with our coding conventions
+        (checked using
+        <link href="http://sf.net/projects/checkstyle">Checkstyle</link>).
+      </action>
       <action dev="VMA" type="add" due-to="Sean Zhang" due-to-email="sean.zhang@verizon.com">
         New <link href="howto_ide_jbuilder5.html">JBuilder5 integration
         tutorial</link>.

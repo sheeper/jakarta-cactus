@@ -18,8 +18,8 @@
       <p>
         This document describes a list of coding conventions that are
         required for code submissions to the project. By default, the coding
-        conventions for most Open Source Projects should follow the existing coding
-        conventions in the code that you are working on. For example,
+        conventions for most Open Source Projects should follow the existing
+        coding conventions in the code that you are working on. For example,
         if the bracket is on the same line as the if statement, then you
         should write all your code to have that convention.
       </p>
@@ -34,6 +34,25 @@
          official <link
          href="http://java.sun.com/docs/codeconv/html/CodeConvTOC.doc.html">Sun
          Java Coding Conventions</link>.
+      </p>
+
+    </s1>
+
+    <s1 title="How to apply ?">
+
+      <p>
+        Having coding conventions is nice but having a way to ensure they are
+        applied is even better ... :-)
+      </p>
+      <p>
+        The Cactus Ant build file has a <code>checkstyle</code> target which
+        performs coding conventions using the
+        <link href="http://checkstyle.sf.net">Checkstyle</link> tool. Drop the
+        Checkstyle jars in your <code>ANT_HOME/lib</code>, go in the
+        <code>build/</code> directory and type <code>ant checkstyle</code>.
+      </p>
+      <p>
+        Please run this target before committing any code.
       </p>
 
     </s1>
@@ -306,6 +325,30 @@ public void getTestClass()
     }
 }
 ]]></source>
+
+      </s2>
+
+      <s2 title="13. Qualified imports">
+
+        <p>
+          All <code>import</code> statements should containing the full class
+          name of classes to import and should not use the <code>"*"</code>
+          notation :
+        </p>
+        <p>
+          An example :
+        </p>
+
+<source><![CDATA[
+// Correct
+import java.util.Date;
+import java.net.HttpURLConnection;
+
+// Not correct
+import java.util.*;
+import java.net.*;
+]]></source>
+
 
       </s2>
 

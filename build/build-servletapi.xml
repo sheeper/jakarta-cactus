@@ -718,4 +718,29 @@
 
     </target>
 
+    <!--
+       ========================================================================
+         Perform a code audit using CheckStyle.
+       ========================================================================
+    -->
+    <target name="checkstyle" depends="init">
+
+        <taskdef name="checkstyle"
+            classname="com.puppycrawl.tools.checkstyle.CheckStyleTask"/>
+
+        <echo message="Errors are reported in ${out.root.dir}/checkstyle_servlet${servlet.api}.xml"/>
+
+        <checkstyle failOnViolation="false">
+            <fileset dir="${src.java.servlet.dir}">
+                <include name="**/*.java"/>
+            </fileset>
+            <fileset dir="${sample.build.dir}/servlet${servlet.api}">
+                <include name="**/*.java"/>
+            </fileset>
+            <formatter type="xml"
+                toFile="${out.root.dir}/checkstyle_servlet${servlet.api}.xml"/>
+        </checkstyle>
+
+    </target>
+
 </project>

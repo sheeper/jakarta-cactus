@@ -664,4 +664,57 @@
     <target name="gump" depends="jar,sample,doc,site,tests,dist.gump">
     </target>
 
+    <!--
+       ========================================================================
+         Perform a code audit using CheckStyle.
+       ========================================================================
+    -->
+    <target name="checkstyle.22" depends="init" if="servlet22.jar.present">
+
+        <ant antfile="build/build-servletapi.xml" target="checkstyle">
+            <property name="servlet.api" value="22"/>
+            <property name="servlet.jar" value="${servlet22.jar}"/>
+        </ant>
+
+    </target>
+
+    <target name="checkstyle.23" depends="init" if="servlet23.jar.present">
+
+        <ant antfile="build/build-servletapi.xml" target="checkstyle">
+            <property name="servlet.api" value="23"/>
+            <property name="servlet.jar" value="${servlet23.jar}"/>
+        </ant>
+
+    </target>
+
+    <target name="checkstyle.share" depends="init">
+
+        <taskdef name="checkstyle"
+            classname="com.puppycrawl.tools.checkstyle.CheckStyleTask"/>
+
+        <mkdir dir="${out.root.dir}"/>
+
+        <echo message="Errors are reported in ${out.root.dir}/checkstyle_share.xml"/>
+
+        <checkstyle failOnViolation="false">
+            <fileset dir="${src.java.share.dir}">
+                <include name="**/*.java"/>
+                <exclude name="**/*Aspect.java"/>
+            </fileset>
+            <fileset dir="${src.java.test.share.dir}">
+                <include name="**/*.java"/>
+            </fileset>
+            <fileset dir="${src.java.ant.dir}">
+                <include name="**/*.java"/>
+            </fileset>
+            <fileset dir="${sample.build.dir}/share">
+                <include name="**/*.java"/>
+            </fileset>
+            <formatter type="xml" toFile="${out.root.dir}/checkstyle_share.xml"/>
+        </checkstyle>
+
+    </target>
+
+    <target name="checkstyle" depends="checkstyle.share,checkstyle.22,checkstyle.23"/>
+
 </project>
