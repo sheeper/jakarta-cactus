@@ -106,7 +106,7 @@
     <target name="init.junitplugin.find">
 
         <condition property="junitplugin.version" value="m5">
-            <available classname="org.eclipse.jdt.junit">
+            <available classname="org.eclipse.jdt.junit.ITestRunListener">
                 <classpath>
                    <pathelement location="${eclipse.jdt.junit.jar}"/>
                 </classpath>
