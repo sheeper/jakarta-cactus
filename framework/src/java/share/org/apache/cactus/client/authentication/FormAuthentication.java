@@ -288,6 +288,7 @@ public class FormAuthentication extends AbstractAuthentication
             // Configure a web request with the JSESSIONID cookie, 
             // the username and the password.          
             WebRequest request = getSecurityRequest();
+            request.setConfiguration(theConfiguration);
             request.addCookie(sessionIdCookieName, sessionId);
             request.addParameter("j_username", getName(), 
                 WebRequest.POST_METHOD);
