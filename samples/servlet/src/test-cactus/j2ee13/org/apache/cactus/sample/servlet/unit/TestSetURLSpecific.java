@@ -3,7 +3,7 @@
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2001-2004 The Apache Software Foundation.  All rights
+ * Copyright (c) 2004 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -56,36 +56,69 @@
  */
 package org.apache.cactus.sample.servlet.unit;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.apache.cactus.ServletTestCase;
+import org.apache.cactus.WebRequest;
 
 /**
- * Run all the Cactus unit tests related to J2EE API 1.3.
+ * Test the J2EE 1.3 specifics of the {@link WebRequest#setURL} method
+ * (specifically verify calls to <code>getRequestURL</code>).
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
  */
-public class TestAll
+public class TestSetURLSpecific extends ServletTestCase
 {
     /**
-     * @return a test suite (<code>TestSuite</code>) that includes all methods
-     *         starting with "test"
+     * Verify that when <code>setURL()</code> is called with a null
+     * pathinfo parameter, the call to <code>getRequestURL</code> works
+     * properly.
+     *
+     * @param theRequest the request object that serves to initialize the
+     *                   HTTP connection to the server redirector.
      */
-    public static Test suite()
+    public void beginSimulatedURLGetRequestURLWhenNull(WebRequest theRequest)
     {
-        TestSuite suite = new TestSuite(
-            "Cactus unit tests for J2EE 1.3");
+        theRequest.setURL("jakarta.apache.org", "", "/test/test.jsp", null, 
+            null);
+    }
 
-        // Add shared tests
-        suite.addTest(TestShareAll.suite());
+    /**
+     * Verify that when <code>setURL()</code> is called with a null
+     * pathinfo parameter, the call to <code>getRequestURL</code> works
+     * properly.
+     */
+    public void testSimulatedURLGetRequestURLWhenNull()
+    {
+        assertEquals("http://jakarta.apache.org:80/test/test.jsp", 
+            request.getRequestURL().toString());
+    }
 
-        // Test cases specific to J2EE 1.3 only
-        suite.addTestSuite(TestHttpRequestSpecific.class);
-        suite.addTestSuite(TestJspTagLifecycle.class);
-        suite.addTestSuite(TestFilterHttpHeaders.class);
-        suite.addTestSuite(TestSetURLSpecific.class);
+    //-------------------------------------------------------------------------
 
-        return suite;
+    /**
+     * Verify that when <code>setURL()</code> is called with a not null
+     * pathinfo parameter, the call to <code>getRequestURL</code> works
+     * properly.
+     *
+     * @param theRequest the request object that serves to initialize the
+     *                   HTTP connection to the server redirector.
+     */
+    public void beginSimulatedURLGetRequestURLWhenNotNull(
+        WebRequest theRequest)
+    {
+        theRequest.setURL("jakarta.apache.org", "/catalog", "/lawn", 
+                "/index.html", null);
+    }
+
+    /**
+     * Verify that when <code>setURL()</code> is called with a not null
+     * pathinfo parameter, the call to <code>getRequestURL</code> works
+     * properly.
+     */
+    public void testSimulatedURLGetRequestURLWhenNotNull()
+    {
+        assertEquals("http://jakarta.apache.org:80/catalog/lawn/index.html", 
+            request.getRequestURL().toString());
     }
 }
