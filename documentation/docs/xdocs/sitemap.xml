@@ -133,13 +133,13 @@
   </resource>
 
   <resource id="howto_classpath"
-      target="integration/howto_classpath.html"
+      target="integration/manual/howto_classpath.html"
       name="Classpath Howto">
     Information on how to set up the classpath for running Cactus tests.
   </resource>
   
   <resource id="howto_config"
-      target="integration/howto_config.html"
+      target="integration/manual/howto_config.html"
       name="Configuration Howto">
     Information on how to configure Cactus when running tests manually.
   </resource>

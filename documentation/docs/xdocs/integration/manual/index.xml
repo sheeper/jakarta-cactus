@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+
+<!--
+ * ========================================================================
+ * 
+ * Copyright 2001-2004 The Apache Software Foundation.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * 
+ * ========================================================================
+-->
+
+<document id="integration_manual">
+
+  <properties>
+    <title>Manual Cactus integration</title>
+  </properties>
+
+  <body>
+    <section title="Manual Cactus configuration">
+
+      <p>
+        These pages are only useful if you wish to manually configure Cactus.
+        Most of the time this is not required. Rather you should choose a 
+        Cactus integration (Ant, Maven, Browser, etc) and follow the 
+        instructions there.
+      </p>
+      
+      <p>
+        If you still wish to configure cactus manually you need to understand:
+      </p>
+      <ul>
+        <li>
+          <a href="site:howto_config">How to configure Cactus</a>          
+        </li>
+        <li>
+          <a href="site:howto_classpath">How to set up the Cactus classpath</a>
+        </li>
+      </ul>
+
+    </section>
+
+  </body>
+</document>

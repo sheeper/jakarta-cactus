@@ -9,11 +9,10 @@
 
   <menu label="Running Tests">
     <item id="howto_runner" label="Overview"/>
-    <item id="howto_config" label="Configuration Guide"/>
-    <item id="howto_classpath" label="Classpath Setup"/>
   </menu>
 
   <menu label="Integrations">
+    <item id="integration_manual" label="Manual"/>
     <item id="integration_ant" label="Ant"/>
     <item id="integration_eclipse" label="Eclipse"/>
     <item id="integration_jetty" label="Jetty"/>
