@@ -43,7 +43,7 @@
          Initialize source, target and dist properties
        ========================================================================
     -->
-    <target name="properties" depends="init.eclipseversion.check">
+    <target name="properties">
 
         <!-- Set the properties related to the source tree -->
         <property name="src.dir" value="${base.dir}/src"/>
@@ -68,55 +68,54 @@
 
     <!--
        ========================================================================
-         Verify that all mandatory properties have been set
-       ========================================================================
-    -->
-    <target name="check.properties">
-
-        <taskdef name="checkProperty" 
-            classname="org.apache.cactus.ant.CheckPropertiesTask">
-            <classpath>
-                <pathelement location="${cactus.anttasks.jar}"/>
-            </classpath>
-        </taskdef>
-
-        <checkProperty>
-            <property name="org.apache.cactus.eclipse.webapp.jar" isfile="true"/>
-
-            <property name="eclipse.ant.core.jar" isfile="true"/>
-            <property name="eclipse.core.boot.jar" isfile="true"/>
-            <property name="eclipse.core.resources.jar" isfile="true"/>
-            <property name="eclipse.core.runtime.jar" isfile="true"/>
-            <property name="eclipse.debug.core.jar" isfile="true"/>
-            <property name="eclipse.debug.ui.jar" isfile="true"/>
-            <property name="eclipse.jdt.core.jar" isfile="true"/>
-            <property name="eclipse.jdt.junit.jar" isfile="true"/>
-            <property name="eclipse.jdt.launching.jar" isfile="true"/>
-            <property name="eclipse.jdt.ui.jar" isfile="true"/>
-            <property name="eclipse.jface.jar" isfile="true"/>
-            <property name="eclipse.swt.jar" isfile="true"/>
-            <property name="eclipse.ui.workbench.jar" isfile="true"/>
-            <property name="eclipse.ui.externaltools.jar" isfile="true"/>
-            <property name="jetty.jar" isfile="true"/>
-
-        </checkProperty>
-
-    </target>
-
-    <!--
-       ========================================================================
          Initialize the build. Must be called by all targets
        ========================================================================
     -->
-    <target name="init" depends="init.common,properties,check.properties">
-    </target>
+    <target name="init" depends="init.common, properties">
 
-    <!--
-       ========================================================================
-         Check the JUnit Eclipse plug-in version
-       ========================================================================
-    -->
-    <target name="init.eclipseversion.check">
+        <echo>Dependancies:</echo>
+        <echo>  org.apache.cactus.eclipse.webapp.jar = [${org.apache.cactus.eclipse.webapp.jar}]</echo>
+        <echo>  eclipse.ant.core.jar = [${eclipse.ant.core.jar}]</echo>
+        <echo>  eclipse.core.boot.jar = [${eclipse.core.boot.jar}]</echo>
+        <echo>  eclipse.core.resources.jar = [${eclipse.core.resources.jar}]</echo>
+        <echo>  eclipse.core.runtime.jar = [${eclipse.core.runtime.jar}]</echo>
+        <echo>  eclipse.debug.core.jar = [${eclipse.debug.core.jar}]</echo>
+        <echo>  eclipse.debug.ui.jar = [${eclipse.debug.ui.jar}]</echo>
+        <echo>  eclipse.jdt.core.jar = [${eclipse.jdt.core.jar}]</echo>
+        <echo>  eclipse.jdt.junit.jar = [${eclipse.jdt.junit.jar}]</echo>
+        <echo>  eclipse.jdt.launching.jar = [${eclipse.jdt.launching.jar}]</echo>
+        <echo>  eclipse.jdt.ui.jar = [${eclipse.jdt.ui.jar}]</echo>
+        <echo>  eclipse.jface.jar = [${eclipse.jface.jar}]</echo>
+        <echo>  eclipse.swt.jar = [${eclipse.swt.jar}]</echo>
+        <echo>  eclipse.ui.workbench.jar = [${eclipse.ui.workbench.jar}]</echo>
+        <echo>  eclipse.ui.externaltools.jar = [${eclipse.ui.externaltools.jar}]</echo>
+        <echo>  jetty.jar = [${jetty.jar}]</echo>
+
+        <condition property="properties.ok">
+          <and>
+            <available file="${org.apache.cactus.eclipse.webapp.jar}"/>
+            <available file="${eclipse.ant.core.jar}"/>
+            <available file="${eclipse.core.boot.jar}"/>
+            <available file="${eclipse.core.resources.jar}"/>
+            <available file="${eclipse.core.runtime.jar}"/>
+            <available file="${eclipse.debug.core.jar}"/>
+            <available file="${eclipse.debug.ui.jar}"/>
+            <available file="${eclipse.jdt.core.jar}"/>
+            <available file="${eclipse.jdt.junit.jar}"/>
+            <available file="${eclipse.jdt.launching.jar}"/>
+            <available file="${eclipse.jdt.ui.jar}"/>
+            <available file="${eclipse.jface.jar}"/>
+            <available file="${eclipse.swt.jar}"/>
+            <available file="${eclipse.ui.workbench.jar}"/>
+            <available file="${eclipse.ui.externaltools.jar}"/>
+            <available file="${jetty.jar}"/>
+          </and>
+        </condition>
+
+        <fail unless="properties.ok">One or more required dependancies could not
+be resolved. Please check you build.properties file, and run Ant with the 
+-verbose option for more details</fail>
+
         <echo>***** Needs Eclipse 2.1 RC2 or later *****</echo>
         <condition property="eclipse.version" value="ok">
             <available classname="org.eclipse.jdt.junit.ITestRunListener">

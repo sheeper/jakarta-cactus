@@ -43,24 +43,9 @@
        ========================================================================
     -->
     <target name="properties">
-    <property name="features.dir" value="${release.dir}/features"/>
-    <property name="plugins.dir" value="${release.dir}/plugins"/>
 
-    </target>
-
-    <!--
-       ========================================================================
-         Verify that all mandatory properties have been set
-       ========================================================================
-    -->
-    <target name="check.properties">
-
-        <taskdef name="checkProperty" 
-            classname="org.apache.cactus.ant.CheckPropertiesTask">
-            <classpath>
-                <pathelement location="${cactus.anttasks.jar}"/>
-            </classpath>
-        </taskdef>
+        <property name="features.dir" value="${release.dir}/features"/>
+        <property name="plugins.dir" value="${release.dir}/plugins"/>
 
     </target>
 
@@ -69,7 +54,7 @@
          Initialize the build. Must be called by all targets
        ========================================================================
     -->
-    <target name="init" depends="init.common,properties,check.properties">
+    <target name="init" depends="init.common, properties">
     </target>
 
     <!--
