@@ -32,21 +32,59 @@
 
         <ant antfile="anttasks/build.xml" inheritAll="false" 
             target="release"/>
+
         <ant antfile="framework/build.xml" inheritAll="false" 
-            target="release"/>
+            target="release">
+            <property name="j2ee.jar" value="${j2ee.12.jar}"/> 
+            <property name="clover.enable" value="true"/> 
+        </ant>
+
+        <ant antfile="framework/build.xml" inheritAll="false" 
+            target="release">
+            <property name="j2ee.jar" value="${j2ee.13.jar}"/> 
+            <property name="clover.enable" value="true"/> 
+        </ant>
+
         <ant antfile="integration/ant/build.xml" inheritAll="false" 
-            target="release"/>
+            target="release">
+            <property name="j2ee.jar" value="${j2ee.12.jar}"/> 
+        </ant>
+
+        <ant antfile="integration/ant/build.xml" inheritAll="false" 
+            target="release">
+            <property name="j2ee.jar" value="${j2ee.13.jar}"/> 
+        </ant>
+            
         <ant antfile="integration/eclipse/build.xml" inheritAll="false" 
-            target="release"/>
+            target="release">
+            <property name="j2ee.jar" value="${j2ee.12.jar}"/> 
+        </ant>
+
+        <ant antfile="integration/eclipse/build.xml" inheritAll="false" 
+            target="release">
+            <property name="j2ee.jar" value="${j2ee.13.jar}"/> 
+        </ant>
+        
         <ant antfile="samples/servlet/build.xml" inheritAll="false" 
-            target="release"/>
+            target="release">
+            <property name="j2ee.jar" value="${j2ee.12.jar}"/> 
+            <property name="clover.enable" value="true"/> 
+        </ant>
+
+        <ant antfile="samples/servlet/build.xml" inheritAll="false" 
+            target="release">
+            <property name="j2ee.jar" value="${j2ee.13.jar}"/> 
+            <property name="clover.enable" value="true"/> 
+        </ant>
+        
         <ant antfile="documentation/build.xml" inheritAll="false" 
             target="release">
             <property name="javadoc.include" value="true"/>
+            <property name="clover.enable" value="true"/> 
         </ant>
 
     </target>
-   
+
     <!--
        ========================================================================
          Clean all generated files by all Cactus subprojects.
@@ -54,55 +92,58 @@
     -->
     <target name="clean">
 
+        <delete dir="target-12"/>
+        <delete dir="target-13"/>
+        <delete>
+            <fileset dir="." includes="**/*.log"/>
+        </delete>
+ 
         <ant antfile="anttasks/build.xml" inheritAll="false" 
             target="clean"/>
+
         <ant antfile="framework/build.xml" inheritAll="false" 
-            target="clean"/>
+            target="clean">
+            <property name="j2ee.jar" value="${j2ee.12.jar}"/> 
+        </ant>
+
+        <ant antfile="framework/build.xml" inheritAll="false" 
+            target="clean">
+            <property name="j2ee.jar" value="${j2ee.13.jar}"/> 
+        </ant>
+
         <ant antfile="integration/ant/build.xml" inheritAll="false" 
-            target="clean"/>
+            target="clean">
+            <property name="j2ee.jar" value="${j2ee.12.jar}"/> 
+        </ant>
+
+        <ant antfile="integration/ant/build.xml" inheritAll="false" 
+            target="clean">
+            <property name="j2ee.jar" value="${j2ee.13.jar}"/> 
+        </ant>
+        
         <ant antfile="integration/eclipse/build.xml" inheritAll="false" 
-            target="clean"/>
+            target="clean">
+            <property name="j2ee.jar" value="${j2ee.12.jar}"/> 
+        </ant>
+
+        <ant antfile="integration/eclipse/build.xml" inheritAll="false" 
+            target="clean">
+            <property name="j2ee.jar" value="${j2ee.13.jar}"/> 
+        </ant>
+        
         <ant antfile="samples/servlet/build.xml" inheritAll="false" 
-            target="clean"/>
+            target="clean">
+            <property name="j2ee.jar" value="${j2ee.12.jar}"/> 
+        </ant>
+
+        <ant antfile="samples/servlet/build.xml" inheritAll="false" 
+            target="clean">
+            <property name="j2ee.jar" value="${j2ee.13.jar}"/> 
+        </ant>
+        
         <ant antfile="documentation/build.xml" inheritAll="false" 
             target="clean"/>
 
-    </target>
-
-    <!--
-       ========================================================================
-         Generate the release files for all the Cactus subprojects and for 
-         all supported J2EE APIs.
-       ========================================================================
-    -->
-    <target name="release.all">
-
-        <ant inheritAll="false" target="release">
-            <property name="j2ee.jar" value="${j2ee.12.jar}"/>
-        </ant>
-
-        <ant inheritAll="false" target="release">
-            <property name="j2ee.jar" value="${j2ee.13.jar}"/>
-        </ant>
-
-    </target>
-
-    <!--
-       ========================================================================
-         Clean all generated files by all Cactus subprojects and for all
-         supported J2EE APIs.
-       ========================================================================
-    -->
-    <target name="clean.all">
-
-        <ant inheritAll="false" target="clean">
-            <property name="j2ee.jar" value="${j2ee.12.jar}"/>
-        </ant>
-
-        <ant inheritAll="false" target="clean">
-            <property name="j2ee.jar" value="${j2ee.13.jar}"/>
-        </ant>
-        
     </target>
 
 </project>
