@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin
-   id="org.apache.cactus.eclipseplugin"
+   id="org.apache.cactus.eclipse"
    name="%pluginName"
    version="0.1"
    provider-name="%providerName"
-   class="org.apache.cactus.eclipseplugin.CactusPlugin">
+   class="org.apache.cactus.eclipse.CactusPlugin">
 
    <runtime>
    </runtime>
@@ -30,8 +30,8 @@
             label="%CactusShortcut.label"
             icon="icons/calaunch.gif"
             modes="run, debug"
-            class="org.apache.cactus.eclipseplugin.launcher.CactusLaunchShortcut"
-            id="org.apache.cactus.eclipseplugin.cactusShortcut">
+            class="org.apache.cactus.eclipse.launcher.CactusLaunchShortcut"
+            id="org.apache.cactus.eclipse.cactusShortcut">
          <perspective
                id="org.eclipse.jdt.ui.JavaPerspective">
          </perspective>
