@@ -70,7 +70,7 @@
 
     <!-- Generic project properties -->
     <property name="project.fullname" value="Cactus"/>
-    <property name="project.version" value="1.0"/>
+    <property name="project.version" value="1.1"/>
     <property name="project.name" value="commons-cactus"/>
 
     <!-- Miscellaneous settings -->
