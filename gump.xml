@@ -464,8 +464,8 @@
     <!-- Create the directories that are added using the <work> tag below so
          that JVM do not drop these directories from the CLASSPATH
          (apparently some do) -->
-    <mkdir dir="samples/servlet/target-12/test/classes/java"/>
-    <mkdir dir="samples/servlet/target-12/test/classes/cactus"/>
+    <mkdir dir="samples/servlet/target-13/test/classes/java"/>
+    <mkdir dir="samples/servlet/target-13/test/classes/cactus"/>
 
     <ant buildfile="samples/servlet/build.xml" target="release.gump">
 
@@ -502,8 +502,8 @@
     <depend project="aspectj"/>
     <depend project="jakarta-cactus-integration-ant-13"/>
 
-    <work nested="samples/servlet/target-12/test/classes/java"/>
-    <work nested="samples/servlet/target-12/test/classes/cactus"/>
+    <work nested="samples/servlet/target-13/test/classes/java"/>
+    <work nested="samples/servlet/target-13/test/classes/cactus"/>
 
     <!-- Note: The sample project delivers a zip, not a jar. However, we
     	need to put a <jar> entry so that dependent project will get a 
