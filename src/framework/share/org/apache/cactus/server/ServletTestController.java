@@ -79,10 +79,10 @@ public class ServletTestController extends AbstractTestController
     /**
      * @return the test caller that will be used to execute the test
      */
-    protected ServletTestCaller getTestCaller(
-            ServletImplicitObjects theObjects)
+    protected AbstractTestCaller getTestCaller(
+            WebImplicitObjects theObjects)
     {
-        return new ServletTestCaller(theObjects);
+        return new ServletTestCaller((ServletImplicitObjects)theObjects);
     }
 
 }

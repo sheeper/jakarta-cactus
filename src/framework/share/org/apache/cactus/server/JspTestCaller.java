@@ -87,39 +87,39 @@ public class JspTestCaller extends ServletTestCaller
     public JspTestCaller(JspImplicitObjects theObjects)
     {
         super(theObjects);
-        this.servletImplicitObjects = theObjects;
     }
 
     /**
      * Sets the test case fields using the implicit objects (using reflection).
      * @param theTestInstance the test class instance
      */
-    protected void setTestCaseFields(ServletTestCase theTestInstance)
+    protected void setTestCaseFields(AbstractTestCase theTestInstance)
         throws Exception
     {
         logger.entry("setTestCaseFields([" + theTestInstance + "])");
 
+        JspTestCase jspInstance = (JspTestCase)theTestInstance;
         JspImplicitObjects jspImplicitObjects =
-            (JspImplicitObjects)this.servletImplicitObjects;
+            (JspImplicitObjects)this.webImplicitObjects;
 
         // Sets the Servlet-related implicit objects
         // -----------------------------------------
 
-        super.setTestCaseFields(theTestInstance);
+        super.setTestCaseFields(jspInstance);
 
         // Set the page context field of the test case class
         // -------------------------------------------------
 
-        Field pageContextField = theTestInstance.getClass().
+        Field pageContextField = jspInstance.getClass().
             getField("pageContext");
-        pageContextField.set(theTestInstance,
+        pageContextField.set(jspInstance,
             jspImplicitObjects.getPageContext());
 
         // Set the JSP writer field of the test case class
         // -----------------------------------------------
 
-        Field outField = theTestInstance.getClass().getField("out");
-        outField.set(theTestInstance, jspImplicitObjects.getJspWriter());
+        Field outField = jspInstance.getClass().getField("out");
+        outField.set(jspInstance, jspImplicitObjects.getJspWriter());
 
         logger.exit("setTestCaseFields");
     }

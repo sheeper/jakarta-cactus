@@ -67,7 +67,7 @@ import org.apache.commons.cactus.util.log.*;
 /**
  * JSP Controller that extracts the requested service from the
  * HTTP request and executes the request by calling a
- * <code>ServletTestCaller</code>. There are 2 services available : one for
+ * <code>JspTestCaller</code>. There are 2 services available : one for
  * executing the test and one for returning the test result.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
@@ -79,8 +79,8 @@ public class JspTestController extends AbstractTestController
     /**
      * @return the test caller that will be used to execute the test
      */
-    protected ServletTestCaller getTestCaller(
-            ServletImplicitObjects theObjects)
+    protected AbstractTestCaller getTestCaller(
+            WebImplicitObjects theObjects)
     {
         return new JspTestCaller((JspImplicitObjects)theObjects);
     }

@@ -53,97 +53,81 @@
  */
 package org.apache.commons.cactus.server;
 
-import java.io.*;
-import java.lang.reflect.*;
-import java.net.*;
-import java.util.*;
-
 import javax.servlet.*;
 import javax.servlet.http.*;
 
-import org.apache.commons.cactus.*;
-import org.apache.commons.cactus.util.log.*;
-
 /**
- * Responsible for instanciating the <code>TestCase</code> class on the server
- * side, set up the implicit objects and call the test method.
+ * Holder class that contains the instances of the implicit objects that exist
+ * for all web requests. Namely they are <code>HttpServletRequest</code>,
+ * <code>HttpServletResponse</code> and <code>ServletContext</code>.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
  */
-public class ServletTestCaller extends AbstractTestCaller
+public class WebImplicitObjects
 {
     /**
-     * The logger
+     * The HTTP request object.
      */
-    protected static Log logger =
-        LogService.getInstance().getLog(ServletTestCaller.class.getName());
+    protected HttpServletRequest request;
 
     /**
-     * @param theObjects the implicit objects coming from the redirector
+     * The HTTP response object.
      */
-    public ServletTestCaller(ServletImplicitObjects theObjects)
+    protected HttpServletResponse response;
+
+    /**
+     * The Context object.
+     */
+    protected ServletContext context;
+
+    /**
+     * @return the <code>ServletContext</code> implicit object
+     */
+    public ServletContext getServletContext()
     {
-        super(theObjects);
+        return this.context;
     }
 
     /**
-     * Sets the test case fields using the implicit objects (using reflection).
-     * @param theTestInstance the test class instance
+     * @param theContext the <code>ServletContext</code> implicit object
      */
-    protected void setTestCaseFields(AbstractTestCase theTestInstance)
-        throws Exception
+    public void setServletContext(ServletContext theContext)
     {
-        logger.entry("setTestCaseFields([" + theTestInstance + "])");
+        this.context = theContext;
+    }
 
-        ServletTestCase servletInstance = (ServletTestCase)theTestInstance;
-        ServletImplicitObjects servletImplicitObjects =
-            (ServletImplicitObjects)this.webImplicitObjects;
+    /**
+     * @return the <code>HttpServletResponse</code> implicit object
+     */
+    public HttpServletResponse getHttpServletResponse()
+    {
+        return this.response;
+    }
 
-        // Sets the request field of the test case class
-        // ---------------------------------------------
+    /**
+     * @param theResponse the <code>HttpServletResponse</code> implicit object
+     */
+    public void setHttpServletResponse(HttpServletResponse theResponse)
+    {
+        this.response = theResponse;
+    }
 
-        // Extract from the HTTP request the URL to simulate (if any)
-        HttpServletRequest request =
-            servletImplicitObjects.getHttpServletRequest();
+    /**
+     * @return the <code>HttpServletRequest</code> implicit object
+     */
+    public HttpServletRequest getHttpServletRequest()
+    {
+        return this.request;
+    }
 
-        ServletURL url = ServletURL.loadFromRequest(request);
-
-        Field requestField = servletInstance.getClass().getField("request");
-        requestField.set(servletInstance,
-            new HttpServletRequestWrapper(request, url));
-
-        // Set the response field of the test case class
-        // ---------------------------------------------
-
-        Field responseField = servletInstance.getClass().getField("response");
-        responseField.set(servletInstance,
-            servletImplicitObjects.getHttpServletResponse());
-
-        // Set the config field of the test case class
-        // -------------------------------------------
-
-        Field configField = servletInstance.getClass().getField("config");
-        configField.set(servletInstance,
-            new ServletConfigWrapper(
-                servletImplicitObjects.getServletConfig()));
-
-        // Set the session field of the test case class
-        // --------------------------------------------
-
-        // Create a Session object if the auto session flag is on
-        if (isAutoSession()) {
-
-            HttpSession session =
-                servletImplicitObjects.getHttpServletRequest().getSession(true);
-
-            Field sessionField = servletInstance.getClass().getField("session");
-            sessionField.set(servletInstance, session);
-
-        }
-
-        logger.exit("setTestCaseFields");
+    /**
+     * @param theRequest the <code>HttpServletRequest</code> implicit object
+     */
+    public void setHttpServletRequest(HttpServletRequest theRequest)
+    {
+        this.request = theRequest;
     }
 
 }

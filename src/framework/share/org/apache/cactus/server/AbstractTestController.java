@@ -66,7 +66,7 @@ import org.apache.commons.cactus.util.log.*;
 
 /**
  * Controller that extracts the requested service from the HTTP request and
- * executes the request by calling a <code>ServletTestCaller</code>. There
+ * executes the request by calling a <code>WebTestCaller</code>. There
  * are 2 services available : one for executing the test and one for returning
  * the test result.
  *
@@ -85,17 +85,17 @@ public abstract class AbstractTestController
     /**
      * @return the test caller that will be used to execute the test
      */
-    protected abstract ServletTestCaller getTestCaller(
-            ServletImplicitObjects theObjects);
+    protected abstract AbstractTestCaller getTestCaller(
+            WebImplicitObjects theObjects);
 
     /**
      * Handles the incoming request by extracting the requested service and
-     * calling the correct method on a <code>ServletTestCaller</code>.
+     * calling the correct method on a <code>WebTestCaller</code>.
      *
      * @param theObjects the implicit objects (they are different for the
      *                   different redirectors)
      */
-    public void handleRequest(ServletImplicitObjects theObjects)
+    public void handleRequest(WebImplicitObjects theObjects)
         throws ServletException
     {
         logger.entry("handleRequest(...)");
@@ -114,7 +114,7 @@ public abstract class AbstractTestController
             String serviceName =
                     getServiceName(theObjects.getHttpServletRequest());
 
-            ServletTestCaller caller = getTestCaller(theObjects);
+            AbstractTestCaller caller = getTestCaller(theObjects);
 
             // Is it the call test method service ?
             if (ServiceEnumeration.CALL_TEST_SERVICE.equals(serviceName)) {

@@ -65,18 +65,8 @@ import javax.servlet.http.*;
  *
  * @version $Id$
  */
-public class ServletImplicitObjects
+public class ServletImplicitObjects extends WebImplicitObjects
 {
-    /**
-     * The HTTP request object.
-     */
-    protected HttpServletRequest request;
-
-    /**
-     * The HTTP response object.
-     */
-    protected HttpServletResponse response;
-
     /**
      * The Servlet configuration object.
      */
@@ -97,37 +87,4 @@ public class ServletImplicitObjects
     {
         this.config = theConfig;
     }
-
-    /**
-     * @return the <code>HttpServletResponse</code> implicit object
-     */
-    public HttpServletResponse getHttpServletResponse()
-    {
-        return this.response;
-    }
-
-    /**
-     * @param theResponse the <code>HttpServletResponse</code> implicit object
-     */
-    public void setHttpServletResponse(HttpServletResponse theResponse)
-    {
-        this.response = theResponse;
-    }
-
-    /**
-     * @return the <code>HttpServletRequest</code> implicit object
-     */
-    public HttpServletRequest getHttpServletRequest()
-    {
-        return this.request;
-    }
-
-    /**
-     * @param theRequest the <code>HttpServletRequest</code> implicit object
-     */
-    public void setHttpServletRequest(HttpServletRequest theRequest)
-    {
-        this.request = theRequest;
-    }
-
 }

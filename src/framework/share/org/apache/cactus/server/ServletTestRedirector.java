@@ -127,6 +127,7 @@ public class ServletTestRedirector extends HttpServlet
         ServletImplicitObjects objects = new ServletImplicitObjects();
         objects.setHttpServletRequest(theRequest);
         objects.setHttpServletResponse(theResponse);
+        objects.setServletContext(getServletContext());
         objects.setServletConfig(getServletConfig());
 
         ServletTestController controller = new ServletTestController();
