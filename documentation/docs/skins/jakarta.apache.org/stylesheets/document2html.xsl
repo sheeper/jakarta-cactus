@@ -5,6 +5,7 @@
   <xsl:param name="stylebook.project"/>
   <xsl:param name="copyright"/>
   <xsl:param name="updated"/>
+  <xsl:param name="docfor"/>
   <xsl:param name="docid"/>
   <xsl:param name="target"/>
 
@@ -85,6 +86,10 @@
 
             <font size="-2">
               Last update : <xsl:value-of select="$updated"/>
+            </font>
+            <br/>
+            <font size="-2">
+              Doc for : v<xsl:value-of select="$docfor"/>
             </font>
 
               <br/>
