@@ -275,6 +275,7 @@
             ignoreWhitespace="false"
             ignoreCastWhitespace="false"
             ignoreBraces="false"
+            allowEmptyCatch="true"
             failOnViolation="false"
             cacheFile="${target.dir}/checkstyle.cache">
 
