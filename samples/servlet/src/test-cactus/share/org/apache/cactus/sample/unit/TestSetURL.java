@@ -87,16 +87,9 @@ public class TestSetURL extends ServletTestCase
      */
     public void testSimulatedURLBasics()
     {
-        // Verify URI
         assertEquals("/test/test.jsp", request.getRequestURI());
-
-        // Verify server name
         assertEquals("jakarta.apache.org", request.getServerName());
-
-        // Returns 80 when no port is specified
         assertEquals(80, request.getServerPort());
-
-        // Return "" when no context path is defined
         assertEquals("", request.getContextPath());
     }
 
@@ -203,7 +196,6 @@ public class TestSetURL extends ServletTestCase
         assertEquals(80, request.getServerPort());
         assertEquals("/catalog", request.getContextPath());
         assertEquals("/help/feedback.jsp", request.getServletPath());
-        assertNull(request.getPathInfo());
     }
 
     //-------------------------------------------------------------------------
@@ -234,7 +226,6 @@ public class TestSetURL extends ServletTestCase
         assertEquals(80, request.getServerPort());
         assertEquals("/catalog", request.getContextPath());
         assertEquals("/help/feedback.jsp", request.getServletPath());
-        assertNull(request.getPathInfo());
         assertEquals("PARAM1=param1&PARAM2=&PARAM3=param3", 
             request.getQueryString());
         assertEquals(request.getParameter("PARAM1"), "param1");
@@ -245,27 +236,25 @@ public class TestSetURL extends ServletTestCase
     //-------------------------------------------------------------------------
 
     /**
-     * Verify that if the context path and the servlet paths are null in 
-     * <code>setURL()</code> the real values coming from the Servlet
-     * Redirector will be used instead.
+     * Verify values used by the framework when all values defined in 
+     * <code>setURL()</code> are null.
      *
      * @param theRequest the request object that serves to initialize the
      *                   HTTP connection to the server redirector.
      */
-    public void beginSimulatedURLNullContextAndServletPaths(
-        WebRequest theRequest)
+    public void beginSimulatedURLNullValues(WebRequest theRequest)
     {
         theRequest.setURL(null, null, null, null, null);
     }
 
     /**
-     * Verify that if the context path and the servlet paths are null in 
-     * <code>setURL()</code> the real values coming from the Servlet
-     * Redirector will be used instead.
+     * Verify values used by the framework when all values defined in 
+     * <code>setURL()</code> are null.
      */
-    public void testSimulatedURLNullContextAndServletPaths()
+    public void testSimulatedURLNullValues()
     {
         assertNotNull(request.getContextPath());       
         assertNotNull(request.getServletPath());       
+        assertEquals("", request.getPathInfo());       
     }
 }

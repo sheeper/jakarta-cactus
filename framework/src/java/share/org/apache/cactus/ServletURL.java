@@ -235,7 +235,8 @@ public class ServletURL
      * @param thePathInfo   the path info in the URL to simulate, i.e. this is
      *                      the name that will be returned by the
      *                      <code>HttpServletRequest.getPathInfo()</code>. Can
-     *                      be null. Format : "/" + name.
+     *                      be null. If null, then no extra path will be set.
+     *                      Format : "/" + name.
      * @param theQueryString the Query string in the URL to simulate, i.e. this
      *                       is the string that will be returned by the
      *                       <code>HttpServletResquest.getQueryString()</code>.
@@ -278,7 +279,8 @@ public class ServletURL
      * @param thePathInfo   the path info in the URL to simulate, i.e. this is
      *                      the name that will be returned by the
      *                      <code>HttpServletRequest.getPathInfo()</code>. Can
-     *                      be null. Format : "/" + name.
+     *                      be null. If null, then no extra path will be set.
+     *                      Format : "/" + name.
      * @param theQueryString the Query string in the URL to simulate, i.e. this
      *                       is the string that will be returned by the
      *                       <code>HttpServletResquest.getQueryString()</code>.
@@ -472,7 +474,7 @@ public class ServletURL
     /**
      * Sets the servlet path in the URL to simulate, ie this is the name that
      * will be returned by the <code>HttpServletRequest.getServletPath()</code>.
-     * If not set, the servlet path from the Servlet Redirector will be
+     * If null then the servlet path from the Servlet Redirector will be
      * returned. Format : "/" + name or an empty string.
      *
      * @param theServletPath the servlet path to simulate
@@ -501,14 +503,30 @@ public class ServletURL
 
     /**
      * Sets the path info in the URL to simulate, ie this is the name that will
-     * be returned by the <code>HttpServletRequest.getPathInfo()</code>. If not
-     * set, the path info from the Servlet Redirector will be returned.
+     * be returned by the <code>HttpServletRequest.getPathInfo()</code>. 
+     * If null then no path info will be set (and the Path Info from the 
+     * Servlet Redirector will <b>not</b> be used). 
      * Format : "/" + name.
      *
      * @param thePathInfo the path info to simulate
      */
     public void setPathInfo(String thePathInfo)
     {
+        if ((thePathInfo != null) && (thePathInfo.length() == 0))
+        { 
+            throw new IllegalArgumentException("The Path Info must"
+                + " not be an empty string. Use null if you don't"
+                + " want to have a path info.");
+        }
+        else if (thePathInfo != null)
+        {
+            if (!thePathInfo.startsWith("/"))
+            {
+                throw new IllegalArgumentException("The Path Info must"
+                    + " start with a \"/\" character.");
+            }            
+        }
+
         this.pathInfo = thePathInfo;
     }
 

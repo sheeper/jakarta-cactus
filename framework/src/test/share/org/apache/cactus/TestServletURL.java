@@ -159,6 +159,42 @@ public class TestServletURL extends TestCase
     }
 
     /**
+     * Verify that if the path info is not null it must start with
+     * a "/" character.
+     */
+    public void testSetPathInfoFirstCharacterNotForwardSlash()
+    {
+        try 
+        {
+            new ServletURL(null, null, null, "invalidpathinfo", null);
+            fail("The path info must start with a \"/\" character");
+        }
+        catch (IllegalArgumentException expected)
+        {
+            assertEquals("The Path Info must start with a \"/\" character.", 
+                expected.getMessage());
+        }       
+    }
+
+    /**
+     * Verify that the path info cannot be an empty string.
+     */
+    public void testSetPathInfoEmptyNotAllowed()
+    {
+        try 
+        {
+            new ServletURL(null, null, null, "", null);
+            fail("The path info must not be an empty string");
+        }
+        catch (IllegalArgumentException expected)
+        {
+            assertEquals("The Path Info must not be an empty string. Use "
+                + "null if you don't want to have a path info.", 
+                expected.getMessage());
+        }               
+    }
+
+    /**
      * Verify that the <code>getHost()</code> method is returning the correct
      * host when a port is specified and that the <code>getPort()</code>
      * method returns the specified port.
