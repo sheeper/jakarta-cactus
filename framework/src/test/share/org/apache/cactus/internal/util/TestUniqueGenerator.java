@@ -17,7 +17,7 @@
  * 
  * ========================================================================
  */
-package org.apache.cactus.util;
+package org.apache.cactus.internal.util;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.cactus.ServletTestCase;
-import org.apache.cactus.internal.util.UniqueGenerator;
+import org.apache.cactus.util.ChainedRuntimeException;
 
 import junit.framework.TestCase;
 

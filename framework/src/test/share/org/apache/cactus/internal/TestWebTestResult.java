@@ -17,9 +17,7 @@
  * 
  * ========================================================================
  */
-package org.apache.cactus;
-
-import org.apache.cactus.internal.WebTestResult;
+package org.apache.cactus.internal;
 
 import junit.framework.TestCase;
 

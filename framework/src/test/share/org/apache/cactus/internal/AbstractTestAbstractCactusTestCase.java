@@ -17,7 +17,7 @@
  * 
  * ========================================================================
  */
-package org.apache.cactus;
+package org.apache.cactus.internal;
 
 import java.io.ByteArrayInputStream;
 
@@ -26,7 +26,7 @@ import java.net.URL;
 import junit.framework.AssertionFailedError;
 import junit.framework.TestCase;
 
-import org.apache.cactus.internal.WebRequestImpl;
+import org.apache.cactus.WebRequest;
 import org.apache.cactus.internal.client.ClientException;
 import org.apache.cactus.internal.client.ClientTestCaseCaller;
 import org.apache.cactus.internal.client.WebResponseObjectFactory;
@@ -36,13 +36,13 @@ import org.apache.cactus.internal.util.JUnitVersionHelper;
 import org.apache.cactus.mock.MockHttpURLConnection;
 
 /**
- * Test <code>TestCase</code> class that intercepts all exceptions (and assert
- * them) coming from test case classes that inherits from it. This class is
- * used to unit test the <code>TestAbstractTestCase</code> class.
+ * Test class that intercepts all exceptions (and assert them) coming from 
+ * test case classes that inherits from it. This class is used to unit test 
+ * the {@link AbstractCactusTestCase} class.
  *
  * @version $Id$
  */
-public abstract class AbstractTestAbstractTestCase extends TestCase 
+public abstract class AbstractTestAbstractCactusTestCase extends TestCase 
 {   
     /**
      * Override default method so that configuration checks are not run during

@@ -17,9 +17,7 @@
  * 
  * ========================================================================
  */
-package org.apache.cactus.server.runner;
-
-import org.apache.cactus.internal.server.runner.XMLFormatter;
+package org.apache.cactus.internal.server.runner;
 
 import junit.framework.TestCase;
 import junit.framework.TestResult;

@@ -1,7 +1,7 @@
 /* 
  * ========================================================================
  * 
- * Copyright 2001-2003 The Apache Software Foundation.
+ * Copyright 2001-2004 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,16 +17,20 @@
  * 
  * ========================================================================
  */
-package org.apache.cactus;
+package org.apache.cactus.internal;
 
 import java.net.HttpURLConnection;
 
+import org.apache.cactus.WebRequest;
+import org.apache.cactus.WebResponse;
+
 /**
- * Unit tests of the <code>AbstractTestCase</code> class.
+ * Unit tests of the {@link AbstractCactusTestCase} class.
  *
  * @version $Id$
  */
-public class TestAbstractTestCase extends AbstractTestAbstractTestCase
+public class TestAbstractCactusTestCase 
+    extends AbstractTestAbstractCactusTestCase
 {
     /**
      * @see #testBeginMethodBadReturnType()

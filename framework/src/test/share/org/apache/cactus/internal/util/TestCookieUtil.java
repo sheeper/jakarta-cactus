@@ -17,14 +17,13 @@
  * 
  * ========================================================================
  */
-package org.apache.cactus.util;
+package org.apache.cactus.internal.util;
 
 import java.net.URL;
 
 import org.apache.cactus.Cookie;
 import org.apache.cactus.WebRequest;
 import org.apache.cactus.internal.WebRequestImpl;
-import org.apache.cactus.internal.util.CookieUtil;
 import org.apache.commons.httpclient.HttpState;
 
 import junit.framework.TestCase;

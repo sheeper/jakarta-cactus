@@ -17,9 +17,7 @@
  * 
  * ========================================================================
  */
-package org.apache.cactus.util;
-
-import org.apache.cactus.internal.util.StringUtil;
+package org.apache.cactus.internal.util;
 
 import junit.framework.TestCase;
 

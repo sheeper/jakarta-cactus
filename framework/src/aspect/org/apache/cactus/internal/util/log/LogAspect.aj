@@ -1,7 +1,7 @@
 /* 
  * ========================================================================
  * 
- * Copyright 2001-2003 The Apache Software Foundation.
+ * Copyright 2001-2004 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,8 +39,8 @@ public aspect LogAspect
      * enter an infinite recursive loop.
      */
     pointcut logObjectCalls() :
-        execution(public * org.apache.cactus.util.log..*(..))
-        || execution(public * org.apache.cactus.util.ClassLoaderUtils.loadPropertyResourceBundle(..));
+        execution(public * org.apache.cactus.internal.util.log..*(..))
+        || execution(public * org.apache.cactus.internal.util.ClassLoaderUtils.loadPropertyResourceBundle(..));
 
     /**
      * All public static methods that have parameters.

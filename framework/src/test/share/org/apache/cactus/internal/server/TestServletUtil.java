@@ -1,7 +1,7 @@
 /* 
  * ========================================================================
  * 
- * Copyright 2003 The Apache Software Foundation.
+ * Copyright 2001-2004 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,30 +17,27 @@
  * 
  * ========================================================================
  */
-package org.apache.cactus.internal.client;
+package org.apache.cactus.internal.server;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import junit.framework.TestCase;
 
 /**
- * Run the unit tests of the Cactus client package that do not need a servlet
- * environment to run.
+ * Unit tests of the {@link ServletUtil} class.
  *
  * @version $Id$
  */
-public class TestAll
+public class TestServletUtil extends TestCase
 {
     /**
-     * @return a test suite (<code>TestSuite</code>) that includes all methods
-     *         starting with "test"
+     * Verify than <code>getQueryStringParameterEmpty()</code> returns an
+     * empty string if the parameter existe but has no value defined.
      */
-    public static Test suite()
+    public void testGetQueryStringParameterEmpty()
     {
-        TestSuite suite = new TestSuite(
-            "Cactus unit tests for the client package");
+        String queryString = "param1=&param2=value2";
+        String result = ServletUtil.getQueryStringParameter(queryString, 
+            "param1");
 
-        suite.addTestSuite(TestWebTestResultParser.class);
-
-        return suite;
+        assertEquals("", result);
     }
 }

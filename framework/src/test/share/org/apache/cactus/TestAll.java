@@ -19,8 +19,17 @@
  */
 package org.apache.cactus;
 
+import org.apache.cactus.internal.TestAbstractCactusTestCase;
+import org.apache.cactus.internal.TestWebTestResult;
+import org.apache.cactus.internal.client.TestWebTestResultParser;
 import org.apache.cactus.internal.configuration.ConfigurationInitializer;
-import org.apache.cactus.server.runner.TestXMLFormatter;
+import org.apache.cactus.internal.server.TestServletUtil;
+import org.apache.cactus.internal.server.runner.TestXMLFormatter;
+import org.apache.cactus.internal.util.TestCookieUtil;
+import org.apache.cactus.internal.util.TestIoUtil;
+import org.apache.cactus.internal.util.TestStringUtil;
+import org.apache.cactus.internal.util.TestTestCaseImplementChecker;
+import org.apache.cactus.internal.util.TestUniqueGenerator;
 
 import junit.framework.Test;
 import junit.framework.TestSuite;
@@ -49,17 +58,24 @@ public class TestAll
         // tests.
         ConfigurationInitializer.initialize();
         
-        suite.addTestSuite(TestAbstractTestCase.class);
         suite.addTestSuite(TestNoNameTestCase.class);
         suite.addTestSuite(TestServletURL.class);
-        suite.addTestSuite(TestServletUtil.class);
-        suite.addTestSuite(TestWebTestResult.class);
         suite.addTestSuite(TestWebRequest.class);
 
-        suite.addTest(org.apache.cactus.internal.client.TestAll.suite());
-        suite.addTest(org.apache.cactus.util.TestAll.suite());
+        suite.addTestSuite(TestAbstractCactusTestCase.class);
+        suite.addTestSuite(TestWebTestResult.class);
+
+        suite.addTestSuite(TestWebTestResultParser.class);
+                
+        suite.addTestSuite(TestServletUtil.class);
 
         suite.addTestSuite(TestXMLFormatter.class);
+
+        suite.addTestSuite(TestCookieUtil.class);
+        suite.addTestSuite(TestIoUtil.class);
+        suite.addTestSuite(TestStringUtil.class);
+        suite.addTestSuite(TestTestCaseImplementChecker.class);
+        suite.addTestSuite(TestUniqueGenerator.class);
         
         return suite;
     }

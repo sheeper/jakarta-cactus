@@ -17,12 +17,10 @@
  * 
  * ========================================================================
  */
-package org.apache.cactus.util;
+package org.apache.cactus.internal.util;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-
-import org.apache.cactus.internal.util.IoUtil;
 
 import junit.framework.TestCase;
 

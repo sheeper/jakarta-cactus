@@ -17,7 +17,7 @@
  * 
  * ========================================================================
  */
-package org.apache.cactus.util;
+package org.apache.cactus.internal.util;
 
 import java.lang.reflect.Method;
 import junit.framework.AssertionFailedError;
@@ -25,8 +25,6 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import org.apache.cactus.Request;
 import org.apache.cactus.WebResponse;
-import org.apache.cactus.internal.util.TestCaseImplementChecker;
-import org.apache.cactus.internal.util.TestCaseImplementError;
 
 /**
  * Unit tests for the {@link TestCaseImplementChecker} class.
@@ -238,8 +236,7 @@ public class TestTestCaseImplementChecker extends TestCase
         catch (TestCaseImplementError e)
         {
             assertEquals("No test name found. The test ["
-                + "org.apache.cactus.util"
-                + ".TestTestCaseImplementChecker$NoNameTest"
+                + TestTestCaseImplementChecker.NoNameTest.class.getName() 
                 + "] is not properly implemented.", e.getMessage());
         }
         catch (Throwable t)
