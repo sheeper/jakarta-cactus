@@ -42,7 +42,30 @@
       	<Arg>value2 used for testing</Arg>
       </Call>
     </Call>
-
+    
+    <Call name="addServlet">
+      <Arg>/ServletRedirectorSecure</Arg>
+      <Arg>org.apache.cactus.server.ServletTestRedirector</Arg>
+    </Call>
+  
+    <Call name="setRealm">
+      <Arg>
+        <New class="org.mortbay.http.HashUserRealm"/>
+      </Arg>
+    </Call>
+    
+    <Call name="getRealm">
+      <Call name="put">
+        <Arg>testuser</Arg>
+        <Arg>testpassword</Arg>
+      </Call>
+      <Call name="addUserToRole">
+        <Arg>testuser</Arg>
+        <Arg>test</Arg>
+      </Call>
+    </Call>
   </Call>
-
 </Configure>
+ 
+  
+  

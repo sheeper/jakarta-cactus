@@ -93,6 +93,7 @@ samples/jetty/ant.bat
 samples/jetty/build.properties
 samples/jetty/dist-12
 samples/jetty/dist-13
+samples/jetty/release-13
 samples/jetty/target-12
 samples/jetty/target-13
 samples/servlet/ant.bat

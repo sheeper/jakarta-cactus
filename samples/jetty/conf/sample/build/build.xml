@@ -23,11 +23,11 @@
     target is "dist"
   =============================================================================
 -->
-<project name="Cactus Jetty Sample" default="dist" basedir="..">
+<project name="Cactus Jetty Sample" default="test" basedir=".">
 
     <!-- Give user a chance to override without editing this file
          (and without typing -D each time it compiles it) -->
-    <property file="build/build.properties" />
+    <property file="build.properties"/>
     <property file="${user.home}/build.properties" />
 
     <!-- Global project properties -->
@@ -57,13 +57,15 @@
        ========================================================================
     -->
     <property name="src.dir" value="${base.dir}/src"/>
-    <property name="src.sample.dir" value="${src.dir}/sample"/>
-    <property name="src.unit.dir" value="${src.dir}/unit"/>
+    <property name="src.java.dir" value="${src.dir}/java"/>
+    <property name="src.cactus.dir" value="${src.dir}/test-cactus"/>
+    <property name="src.webapp.dir" value="${src.dir}/webapp"/>
+    
     <property name="build.dir" value="${base.dir}/build"/>
+    <property name="web.dir" value="${base.dir}/web"/>
     <property name="conf.dir" value="${base.dir}/conf"/>
     <property name="conf.test.dir" value="${conf.dir}/test"/>
-    <property name="web.dir" value="${base.dir}/web"/>
-
+    
     <!--
        ========================================================================
          Set the properties related to the target area
@@ -72,10 +74,8 @@
     <!-- Destination locations for the build -->
     <property name="target.dir" value="${base.dir}/target"/>
     <property name="target.classes.dir" value="${target.dir}/classes"/>
-    <property name="target.classes.sample.dir"
-        value="${target.classes.dir}/sample"/>
-    <property name="target.classes.unit.dir"
-        value="${target.classes.dir}/unit"/>
+    <property name="target.classes.java.dir" value="${target.classes.dir}/java"/>
+    <property name="target.classes.unit.dir" value="${target.dir}/cactus"/>
     <property name="target.conf.dir" value="${target.dir}/conf"/>
     <property name="target.conf.client.dir" value="${target.conf.dir}/client"/>
     <property name="target.conf.server.dir" value="${target.conf.dir}/server"/>
@@ -112,7 +112,7 @@
          Useful patterns for targets
        ========================================================================
     -->
-    <path id="project.class.path">
+    <path id="project.classpath">
 
         <pathelement location="${cactus.framework.jar}"/>
         <pathelement location="${servlet.jar}"/>
@@ -123,11 +123,22 @@
         <pathelement location="${junit.jar}"/>
         <pathelement location="${aspectjrt.jar}"/>
         <pathelement location="${jetty.jar}"/>
-        <pathelement location="${jasper.jar}"/>
+        <pathelement location="${jasperc.jar}"/>
+        <pathelement location="${jasperr.jar}"/>
+        <pathelement location="${jstl.jar}"/>
+        <pathelement location="${standard.jar}"/>
 
         <!-- Includes system classpath for jars that are in ANT_HOME/lib such
              as aspectrt.jar, etc -->
         <pathelement path="${java.class.path}"/>
+    </path>
+    
+    <path id="cactus.classpath">
+        <pathelement location="${target.classes.java.dir}"/>
+        
+        @cactus.clover.pathelement@
+            
+        <path refid="project.classpath"/>
     </path>
 
     <!--
@@ -153,7 +164,10 @@
         <echo message="httpunit.jar = ${httpunit.jar}"/>
         <echo message="junit.jar = ${junit.jar}"/>
         <echo message="jetty.jar = ${jetty.jar}"/>
-        <echo message="jasper.jar = ${jasper.jar}"/>
+        <echo message="jasperr.jar = ${jasperr.jar}"/>
+        <echo message="jasperc.jar = ${jasperc.jar}"/>
+        <echo message="jstl.jar = ${jstl.jar}"/>
+        <echo message="standard.jar = ${standard.jar}"/>
         <echo message=""/>
         <echo message="log4j.jar (optional) = ${log4j.jar}"/>
         <echo message="clover.jar (optional) = ${clover.jar}"/>
@@ -183,7 +197,8 @@
                 <available file="${httpunit.jar}"/>
                 <available file="${junit.jar}"/>
                 <available file="${jetty.jar}"/>
-                <available file="${jasper.jar}"/>
+                <available file="${jasperc.jar}"/>
+                <available file="${jasperr.jar}"/>
            </and>
         </condition>
 
@@ -220,15 +235,15 @@
     <!-- Compiles the sample sources -->
     <target name="compile.sample" depends="init">
 
-        <mkdir dir="${target.classes.sample.dir}"/>
+        <mkdir dir="${target.classes.java.dir}"/>
 
-        <javac destdir="${target.classes.sample.dir}"
+        <javac destdir="${target.classes.java.dir}"
           deprecation="${deprecation}" optimize="${optimize}">
 
-            <src path="${src.sample.dir}"/>
+            <src path="${src.java.dir}"/>
 
             <classpath>
-                <path refid="project.class.path"/>
+                <path refid="project.classpath"/>
             </classpath>
 
         </javac>
@@ -243,10 +258,10 @@
         <javac destdir="${target.classes.unit.dir}"
           deprecation="${deprecation}" optimize="${optimize}">
 
-            <src path="${src.unit.dir}"/>
+            <src path="${src.cactus.dir}"/>
 
             <classpath>
-                <path refid="project.class.path"/>
+                <path refid="cactus.classpath"/>
             </classpath>
 
         </javac>
@@ -277,7 +292,7 @@
              webxml="${conf.dir}/web.xml"
              manifest="${target.conf.client.dir}/manifest">
 
-            <classes dir="${target.classes.sample.dir}">
+            <classes dir="${target.classes.java.dir}">
                 <!-- Do not include test files in the runtime war -->
                 <exclude name="**/Test*.*"/>
             </classes>
@@ -314,7 +329,7 @@
                 <pathelement location="${src.unit.dir}"/>
             </sourcepath>
 
-            <classpath refid="project.class.path"/>
+            <classpath refid="project.classpath"/>
 
         </javadoc>
 
@@ -359,8 +374,8 @@
     <target name="prepare.test" depends="init">
 
         <!-- Copy log_client.properties so that it is in the classpath -->
-        <copy tofile="${target.conf.client.dir}/log4j.properties"
-            file="${conf.test.dir}/log_client.properties"/>
+        <!--copy tofile="${target.conf.client.dir}/log4j.properties"
+            file="${conf.test.dir}/log_client.properties"/-->
 
     </target>
 
@@ -370,24 +385,24 @@
             fork="yes">
 
             <jvmarg value="-Dcactus.contextURL=http://localhost:${test.port}/test"/>
+            <jvmarg value="-Dcactus.jetty.resourceDir=${src.webapp.dir}"/>
             <jvmarg value="-Dcactus.initializer=org.apache.cactus.extension.jetty.JettyInitializer"/>
-            <jvmarg value="-Dcactus.jetty.config=${conf.test.dir}/jetty.xml"/>
-            <jvmarg value="-Dcactus.jetty.resourceDir=${web.dir}"/>
+            <jvmarg value="-Dcactus.jetty.config=${src.webapp.dir}/test/jetty.xml"/>
             
             <classpath>
                 <!-- Cactus.propertie and log_client.properties need to be in
                      the classpath -->
                 <pathelement location="${target.conf.client.dir}"/>
-                <pathelement location="${target.classes.sample.dir}"/>
                 <pathelement location="${target.classes.unit.dir}"/>
-                <path refid="project.class.path"/>
+                <pathelement location="${target.classes.java.dir}"/>
+                <path refid="project.classpath"/>
             </classpath>
 
             <formatter type="plain" usefile="false"/>
 
             <!-- Note: The unit tests must be run first. See
                  org.apache.cactus.unit.TestAll for details -->
-            <test name="org.apache.cactus.unit.TestAll"/>
+            <!--test name="org.apache.cactus.sample.unit.TestAll"/-->
             <test name="org.apache.cactus.sample.TestAll"/>
 
         </junit>

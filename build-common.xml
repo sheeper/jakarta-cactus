@@ -128,6 +128,9 @@
         
         <!-- The Cactus Eclipse Webapp Integration dist -->
         <property name="cactus.eclipse.webapp.bin" value="integration/eclipse/org.apache.cactus.eclipse.webapp/dist/bin/cactus-integration-eclipse-webapp"/>
+        
+         <!-- The Sample Servlet dist -->
+        <property name="cactus.samples.servlet.bin" value="samples/servlet/dist-${j2ee.api}/bin/cactus-sample-servlet"/>
 
 
     </target>

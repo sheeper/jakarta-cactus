@@ -71,6 +71,25 @@ xmlapis.jar = ${lib.repo}/xerces/jars/xmlParserAPIs-2.2.1.jar
 tidy.jar = ${lib.repo}/jtidy/jars/jtidy-4aug2000r7-dev.jar
 
 # -----------------------------------------------------------------------------
+# Mandatory property for the Eclipse plugin ant the sample jetty
+# -----------------------------------------------------------------------------
+# The Jetty container is packaged in the Eclipse plugin and is used as the 
+# default container in which to run the Cactus tests.
+
+# The location of the Jetty jar
+jetty.jar = ${lib.repo}/jetty/jars/org.mortbay.jetty-4.2.9.jar
+
+# -----------------------------------------------------------------------------
+# Mandatory property for the sample jetty
+# -----------------------------------------------------------------------------
+
+# The location of the Jasper compiler jar
+jasperc.jar = ${lib.repo}/jetty/jars/jasper-compiler-4.0.4.jar
+
+# The location of the Jasper runtime jar
+jasperr.jar = ${lib.repo}/jetty/jars/jasper-runtime-4.0.4.jar
+
+# -----------------------------------------------------------------------------
 # Mandatory properties for the Eclipse plugin only
 # -----------------------------------------------------------------------------
 
@@ -93,10 +112,6 @@ eclipse.swt.jar = ${eclipse.home}/plugins/org.eclipse.swt.win32_2.1.0/ws/win32/s
 eclipse.jface.jar = ${eclipse.home}/plugins/org.eclipse.jface_2.1.0/jface.jar
 eclipse.ant.core.jar = ${eclipse.home}/plugins/org.eclipse.ant.core_2.1.0/antsupport.jar
 eclipse.ui.workbench.jar = ${eclipse.home}/plugins/org.eclipse.ui.workbench_2.1.0/workbench.jar
-
-# The Jetty container is packaged in the Eclipse plugin and is used as the 
-# default container in which to run the Cactus tests.
-jetty.jar = ${lib.repo}/jetty/jars/org.mortbay.jetty-4.2.9.jar
 
 # -----------------------------------------------------------------------------
 # Optional properties for the main Cactus build
