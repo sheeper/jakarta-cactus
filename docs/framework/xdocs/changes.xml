@@ -24,6 +24,9 @@
     </devs>
 
     <release version="1.1 in CVS">
+      <action dev="VMA" type="add" due-to="Robert Leftwich" due-to-email="digital@ix.net.au">
+        Added automatic script support for Enhydra 3.1
+      </action>
       <action dev="VMA" type="update">
         Tested with JUnit 3.7.
       </action>
