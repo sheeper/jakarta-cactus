@@ -399,11 +399,14 @@
         depends="compile,prepare.testwar.log4j,prepare.testwar.clover,prepare.test">
 
         <!-- Gather libraries in a place where they can be copied in the
-             war -->
-        <copy todir="${target.lib.dir}" file="${junit.jar}"/>
-        <copy todir="${target.lib.dir}" file="${cactus.framework.jar}"/>
-        <copy todir="${target.lib.dir}" file="${aspectjrt.jar}"/>
-        <copy todir="${target.lib.dir}" file="${commons.logging.jar}"/>
+             war. Note: We don't copy the version information in the jar as
+             it has some "." in the name (ex: clover-0.6b.jar) and WebLogic
+             7.0 has a bug and ignore jars with dots in the name! Will be fixed
+             in a upcoming patch as it has been fixed in WL 6.1 SP3 -->
+        <copy tofile="${target.lib.dir}/junit.jar" file="${junit.jar}"/>
+        <copy tofile="${target.lib.dir}/cactus.jar" file="${cactus.framework.jar}"/>
+        <copy tofile="${target.lib.dir}/aspectjrt.jar" file="${aspectjrt.jar}"/>
+        <copy tofile="${target.lib.dir}/commons-logging.jar" file="${commons.logging.jar}"/>
 
         <!-- Copy the log4j server configuration file in order to change its
              name to log4j.properties (the default name for Log4j) -->
