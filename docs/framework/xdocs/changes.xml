@@ -118,6 +118,10 @@
     </devs>
 
     <release version="1.3 in CVS">
+      <action dev="VMA" type="add">
+        Added support for testing code which uses
+        <code>HttpServletRequest.getReader()</code>.
+      </action>
       <action dev="VMA" type="remove">
         The <code>WebRequest.setMethod()</code> has been removed as deprecating
         it would have led to potential error difficult to locate (as Cactus
