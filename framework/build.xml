@@ -455,7 +455,7 @@
         <junit printsummary="yes" haltonfailure="yes" fork="yes">
 
             <classpath>
-                <path path="${target.classes.java.dir}"/>
+                <path path="${target.classes.clover.dir}"/>
                 <path path="${target.classes.test.dir}"/>
                 <path refid="project.class.path"/>
             </classpath>
@@ -597,6 +597,23 @@
         <ant antfile="framework/build.xml" target="clean" inheritAll="false">
             <property name="j2ee.jar" value="${j2ee.13.jar}"/>
         </ant>
+
+    </target>
+
+    <!--
+       ========================================================================
+         Run the Clover Swing report
+       ========================================================================
+    -->
+    <target name="clover.swing" depends="init" if="clover.enable">
+
+        <java classname="com.cortexeb.tools.clover.reporters.jfc.Viewer"
+            fork="yes">
+            <arg line="${clover.initstring}"/>
+            <classpath>
+                <pathelement path="${java.class.path}"/>
+            </classpath>
+        </java>
 
     </target>
 
