@@ -60,36 +60,78 @@ import java.lang.reflect.*;
 
 /**
  * Starts/stop Resin by setting up a listener socket.
+ *
+ * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
+ * @author <a href="mailto:digital@ix.net.au">Robert Leftwich</a>
+ *
+ * @version $Id$
+ * @see AbstractServerRun
  */
 public class ResinRun extends AbstractServerRun
 {
-    private Object m_Server;
+    /**
+     * The started Resin server class. We use <code>Object</code> instead of
+     * the Resin class so that we don't need the Resin jars in the classpath
+     * to compile this class.
+     */
+    private Object resinServer;
 
-	public static void main(String[] args)
+    /**
+     * Entry point to start/stop the Resin server.
+     *
+     * @param theArgs the command line arguments
+     */
+	public static void main(String[] theArgs)
 	{
-	    AbstractServerRun.doRun(new ResinRun(), args);
+        ResinRun resin = new ResinRun(theArgs);
+        resin.doRun();
 	}
 
-	// function to actually start a Resin server
-	protected void doStartServer(String[] args) throws Exception
+    /**
+     * @param theArgs the command line arguments
+     */
+    public ResinRun(String[] theArgs)
     {
-	    if (m_Server == null) {
-			Class resinClass = Class.forName("com.caucho.server.http.ResinServer");
-			Constructor constructor = resinClass.getConstructor(new Class[] { args.getClass(), boolean.class});
-			m_Server = constructor.newInstance(new Object[] { args, new Boolean(true)});
-			Method initMethod = resinClass.getMethod("init", new Class[] { boolean.class});
-			initMethod.invoke(m_Server, new Object[] { new Boolean(true)} );
-		}
-	}
+        super(theArgs);
+    }
 
-	// function to actually stop a Resin server
-	protected void doStopServer() throws Exception
+    /**
+     * Start the Resin server. We use reflection so that the Resin jars do not
+     * need to be in the classpath to compile this class.
+     */
+	protected void doStartServer()
     {
-		// Stop Resin server
-		if (m_Server != null) {
-			Method closeMethod = m_Server.getClass().getMethod("close", null);
-			closeMethod.invoke(m_Server, null);
-		}
-	}
+        try {
+            Class resinClass =
+                Class.forName("com.caucho.server.http.ResinServer");
+            Constructor constructor = resinClass.getConstructor(
+                new Class[] {this.args.getClass(), boolean.class});
+            this.resinServer = constructor.newInstance(
+                new Object[] {this.args, new Boolean(true)});
+            Method initMethod = resinClass.getMethod("init",
+                new Class[] {boolean.class});
+            initMethod.invoke(this.resinServer, new Object[] {new Boolean(true)});
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Cannot create instance of ResinServer");
+        }
+    }
+
+    /**
+     * Stops the Resin server. We use reflection so that the Resin jars do not
+     * need to be in the classpath to compile this class.
+     */
+	protected void doStopServer()
+    {
+        try {
+            Method closeMethod =
+                this.resinServer.getClass().getMethod("close", null);
+            closeMethod.invoke(this.resinServer, null);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Cannot stop running instance of " +
+                "ResinServer");
+        }
+    }
 
 }
