@@ -75,7 +75,8 @@
       </p>
       <action assigned-to="Peter Wong, Jason Robertson, Vincent Massol">
         Configure all supported containers with authentication so that they
-        pass the Cactus unit tests (done for Tomcat 3.x + Tomcat 4.x).
+        pass the Cactus unit tests (done for Tomcat 3.x + Tomcat 4.x +
+        Resin 2.x)
       </action>
       <action assigned-to="Bob Tanner">
         Finalize support for Enhydra 3.1.1. There are some errors upon
@@ -93,6 +94,9 @@
     </category>
 
     <category title="Design/Code">
+      <action>
+        Write a JMS Redirector/Client to test Message Driven Beans.
+      </action>
       <action assigned-to="Peter Wong, Jason Robertson, Vincent Massol">
         Add support for Form-based authentication.
       </action>
