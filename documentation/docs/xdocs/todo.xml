@@ -116,14 +116,6 @@
         "getHttpServletRequest().xxx()". Deprecate the direct access. Needs
         to be discussed on cactus-dev.
       </action>
-      <action>
-        Provide support for generating Session cookies and URL Sessions
-        (URL rewriting). A description of the mechanism has been
-        posted in thread "How does cactus simulate a session" on the
-        Cactus user mailing list. Thanks to
-        <link href="mailto:kyle.w.willkomm@accenture.com">Kyle W.
-        Willkomm</link>.
-      </action>
     </category>
 
     <category title="Ideas">

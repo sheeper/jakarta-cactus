@@ -49,6 +49,15 @@
 
     <release version="1.5" date="- in CVS">
       <action dev="VMA" type="add">
+        Ability to get a real HTTP Session cookie before the start of the 
+        test. This is achieved by calling the new
+        <code>WebRequest.getSessionCookie()</code> method which returns
+        a <code>HttpSessionCookie</code> object that you then add to the
+        HTTP request. Initially suggested by
+        <link href="mailto:kyle.w.willkomm@accenture.com">Kyle W.
+        Willkomm</link>.
+      </action>
+      <action dev="VMA" type="add">
         New <code>WebResponse.getCookieIgnoreCase(cookieName)</code> to get
         the first cookie matching <code>cookieName</code> whatever the case
         (case-insensitive).

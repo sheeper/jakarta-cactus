@@ -57,12 +57,17 @@
 package org.apache.cactus;
 
 import java.io.InputStream;
+import java.net.HttpURLConnection;
 
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
+import org.apache.cactus.client.ClientException;
+import org.apache.cactus.client.ConnectionHelper;
+import org.apache.cactus.client.ConnectionHelperFactory;
+import org.apache.cactus.client.WebResponseObjectFactory;
 import org.apache.cactus.client.authentication.AbstractAuthentication;
 import org.apache.cactus.util.ChainedRuntimeException;
 import org.apache.cactus.util.WebConfiguration;
@@ -853,4 +858,69 @@ public class WebRequest implements Request
 
         return buffer.toString();
     }
+
+    /**
+     * Gets an HTTP session id by calling the server side and retrieving
+     * the jsessionid cookie in the HTTP response. This is achieved by
+     * calling the Cactus redirector used by the current test case.
+     * 
+     * @return the HTTP session id as a <code>HttpSessionCookie</code> object
+     */
+    public HttpSessionCookie getSessionCookie()
+    {
+        ConnectionHelper helper = ConnectionHelperFactory.getConnectionHelper(
+            ((WebConfiguration) getConfiguration()).getRedirectorURL(), 
+            getConfiguration());
+
+        WebRequest request = new WebRequest(getConfiguration());
+        request.addParameter(HttpServiceDefinition.SERVICE_NAME_PARAM, 
+            ServiceEnumeration.CREATE_SESSION_SERVICE.toString(), 
+            WebRequest.GET_METHOD);
+
+        HttpURLConnection resultConnection;
+        try
+        {
+            resultConnection = helper.connect(request);
+        }
+        catch (Throwable e)
+        {
+            throw new ChainedRuntimeException("Failed to connect to ["
+                + ((WebConfiguration) getConfiguration()).getRedirectorURL()
+                + "]", e);
+        }
+
+        WebResponse response;
+        try
+        {
+            response = (WebResponse) new WebResponseObjectFactory().
+                getResponseObject(WebResponse.class.getName(), request, 
+                resultConnection);
+        }
+        catch (ClientException e)
+        {
+            throw new ChainedRuntimeException("Failed to connect to ["
+                + ((WebConfiguration) getConfiguration()).getRedirectorURL()
+                + "]", e);
+        }
+
+        Cookie cookie = response.getCookieIgnoreCase("jsessionid");
+
+        // FIXME: Add a constructor to the Cookie class that takes a Cookie
+        // as parameter.
+
+        HttpSessionCookie sessionCookie = null;
+
+        if (cookie != null)                
+        {
+            sessionCookie = new HttpSessionCookie(cookie.getDomain(), 
+                cookie.getName(), cookie.getValue());
+            sessionCookie.setComment(cookie.getComment());
+            sessionCookie.setExpiryDate(cookie.getExpiryDate());
+            sessionCookie.setPath(cookie.getPath());
+            sessionCookie.setSecure(cookie.isSecure());
+        }
+                
+        return sessionCookie;
+    }
+
 }

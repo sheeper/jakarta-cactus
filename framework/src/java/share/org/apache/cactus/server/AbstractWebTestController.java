@@ -119,6 +119,8 @@ public abstract class AbstractWebTestController implements TestController
 
             AbstractWebTestCaller caller = getTestCaller(webImplicitObjects);
 
+            // FIXME: will need a factory here real soon...
+            
             // Is it the call test method service ?
             if (ServiceEnumeration.CALL_TEST_SERVICE.equals(serviceName))
             {
@@ -137,6 +139,13 @@ public abstract class AbstractWebTestController implements TestController
             else if (ServiceEnumeration.RUN_TEST_SERVICE.equals(serviceName))
             {
                 caller.doRunTest();
+            }
+
+            // Is it the service to create an HTTP session?
+            else if (ServiceEnumeration.CREATE_SESSION_SERVICE.equals(
+                serviceName))
+            {
+                caller.doCreateSession();                
             }
             else
             {

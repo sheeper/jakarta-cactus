@@ -72,6 +72,7 @@ import javax.servlet.http.HttpServletResponse;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
+import org.apache.cactus.HttpSessionCookie;
 import org.apache.cactus.ServletTestCase;
 import org.apache.cactus.WebRequest;
 import org.apache.cactus.WebResponse;
@@ -889,6 +890,29 @@ public class TestServletTestCase2 extends ServletTestCase
     public void endVerifyJsessionid(WebResponse theResponse)
     {
         assertNotNull(theResponse.getCookieIgnoreCase("jsessionid"));
+    }
+
+    //-------------------------------------------------------------------------
+
+    /**
+     * Verify that Cactus can provide us with a real HTTP session cookie.
+     *
+     * @param theRequest the request object that serves to initialize the
+     *                   HTTP connection to the server redirector.
+     */
+    public void beginCreateSessionCookie(WebRequest theRequest)
+    {
+        HttpSessionCookie sessionCookie = theRequest.getSessionCookie();
+        theRequest.addCookie(sessionCookie);
+    }
+
+    /**
+     * Verify that Cactus can provide us with a real HTTP session cookie.
+     */
+    public void testCreateSessionCookie()
+    {
+        assertFalse("A session should have been created prior to "
+            + "this request", session.isNew());
     }
 
 }

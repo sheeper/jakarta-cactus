@@ -57,72 +57,18 @@
 package org.apache.cactus;
 
 /**
- * List of valid services that the <code>ServletTestRedirector</code> can
- * perform.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
- * @version $Id$
+ * @version $Id: $
  */
-public class ServiceEnumeration
+public class HttpSessionCookie extends Cookie
 {
     /**
-     * Call test method Service.
+     * @see Cookie#Cookie()
      */
-    public static final ServiceEnumeration CALL_TEST_SERVICE = 
-        new ServiceEnumeration("CALL_TEST");
-
-    /**
-     * Get the previous test results Service.
-     */
-    public static final ServiceEnumeration GET_RESULTS_SERVICE = 
-        new ServiceEnumeration("GET_RESULTS");
-
-    /**
-     * Noop service for testing.
-     */
-    public static final ServiceEnumeration RUN_TEST_SERVICE = 
-        new ServiceEnumeration("RUN_TEST");
-
-    /**
-     * Service used to create an HTTP session so that it is returned
-     * in a cookie.
-     */
-    public static final ServiceEnumeration CREATE_SESSION_SERVICE = 
-        new ServiceEnumeration("CREATE_SESSION");
-
-    /**
-     * The service's name
-     */
-    private String name;
-
-    /**
-     * Private constructor so that only allowed enumeration can be created.
-     *
-     * @param theServiceName the name of the service
-     */
-    private ServiceEnumeration(String theServiceName)
+    public HttpSessionCookie(String theDomain, String theName, String theValue)
     {
-        this.name = theServiceName;
-    }
-
-    /**
-     * Compares a string representing the name of the service with the Service
-     * enumerated type.
-     *
-     * @param theString the string to compare with this Service name
-     * @return true if the string corresponds to the current Service
-     */
-    public boolean equals(String theString)
-    {
-        return theString.equals(this.name);
-    }
-
-    /**
-     * @return the Service's name
-     */
-    public String toString()
-    {
-        return this.name;
+        super(theDomain, theName, theValue);
     }
 }

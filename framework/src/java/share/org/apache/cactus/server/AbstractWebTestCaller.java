@@ -65,6 +65,7 @@ import javax.servlet.ServletException;
 
 import org.apache.cactus.AbstractTestCase;
 import org.apache.cactus.HttpServiceDefinition;
+import org.apache.cactus.ServiceEnumeration;
 import org.apache.cactus.WebTestResult;
 import org.apache.cactus.util.ClassLoaderUtils;
 import org.apache.commons.logging.Log;
@@ -219,6 +220,34 @@ public abstract class AbstractWebTestCaller
         // Do not return any http response (not needed). It is enough to
         // know this point has been reached ... it means the connection has
         // been established !
+    }
+
+    /**
+     * Create an HTTP Session and returns the response that contains the
+     * HTTP session as a cookie (unless URL rewriting is used in which
+     * case the jsesssionid cookie is not returned).
+     * 
+     * @exception ServletException if an unexpected error occurred
+     */
+    public void doCreateSession() throws ServletException
+    {
+        // Create an HTTP session
+        this.webImplicitObjects.getHttpServletRequest().getSession(true);
+
+        try
+        {
+            Writer writer = getResponseWriter();
+            writer.close();
+        }
+        catch (IOException e)
+        {
+            String message = "Error writing HTTP response back to client "
+                + "for service [" + ServiceEnumeration.CREATE_SESSION_SERVICE
+                + "]";
+
+            LOGGER.error(message, e);
+            throw new ServletException(message, e);
+        }
     }
 
     /**
