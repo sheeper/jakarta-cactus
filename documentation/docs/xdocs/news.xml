@@ -32,6 +32,22 @@
 
         <tr>
           <td>
+            10/02/2003
+          </td>
+          <td>
+            <link href="mailto:vmassol@pivolis.com">Vincent Massol</link> will
+            be a speaker at the 
+            <link href="ext:tss_symposium">TheServerSide Symposium</link> where
+            he will present 
+            <link href="ext:tss_symposium_vma1">Unit Testing J2EE 
+            Applications</link>, which talks about Cactus, 
+            <link href="ext:mockobjects">Mock Objects</link> and
+            <link href="ext:aspectj">AspectJ</link> (AOP).
+          </td>
+        </tr>
+
+        <tr>
+          <td>
             05/01/2003
           </td>
           <td>
