@@ -141,7 +141,7 @@ public class AntContainerManager implements IContainerManager
     }
 
     /**
-     * @see org.apache.cactus.eclipse.runner.containers.IContainerManager#getContainerProvider()
+     * @see IContainerManager#getContainerProvider()
      */
     public IContainerProvider[] getContainerProviders()
     {

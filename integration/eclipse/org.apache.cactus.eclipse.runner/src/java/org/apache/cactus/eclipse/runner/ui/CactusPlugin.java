@@ -382,7 +382,7 @@ public class CactusPlugin extends AbstractUIPlugin
         }
     } 
     /**
-     * @see org.apache.cactus.eclipse.runner.containers.IContainerManager#getContainerIds()
+     * @see IContainerManager#getContainerIds()
      */
     public static String[] getContainerIds()
     {
