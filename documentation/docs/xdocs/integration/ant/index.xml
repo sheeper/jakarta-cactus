@@ -139,25 +139,13 @@
           from within Ant: you'll need to introduce the Cactus tasks to Ant.
           This is done with a <code>&lt;taskdef&gt;</code>:
 <source><![CDATA[
-<!-- Use properties to allow overriding of the library locations -->
-<property name="cactus-framework.jar"
-    location="lib/cactus-framework.jar"/>
-<property name="cactus-integration-ant.jar"
-    location="lib/cactus-integration-ant.jar"/>
-<property name="commons-httpclient.jar"
-    location="lib/commons-httpclient.jar"/>
-<property name="commons-logging.jar"
-    location="lib/commons-logging.jar"/>
-<property name="junit.jar"
-    location="lib/junit.jar"/>
-
 <!-- Define the Cactus tasks -->
 <taskdef resource="cactus.tasks">
   <classpath>
-    <pathelement location="${cactus-framework.jar}"/>
-    <pathelement location="${cactus-integration-ant.jar}"/>
-    <pathelement location="${commons-httpclient.jar}"/>
-    <pathelement location="${commons-logging.jar}"/>
+    <pathelement location="lib/cactus-framework.jar"/>
+    <pathelement location="lib/cactus-integration-ant.jar"/>
+    <pathelement location="lib/commons-httpclient.jar"/>
+    <pathelement location="lib/commons-logging.jar"/>
   </classpath>
 </taskdef>
 ]]></source>
