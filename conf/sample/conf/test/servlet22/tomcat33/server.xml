@@ -81,7 +81,10 @@
                secure - use SSL ( https )
                keystore, keypass - certs for SSL
                port -->
-        <Http10Connector port="@test.port@" delaySocketClose="true"
+
+        <!-- Http10Connector port="@test.port@" delaySocketClose="true" -->
+
+        <Http10Connector port="@test.port@"
 			   secure="false"
 			   maxThreads="100"
 			   maxSpareThreads="50"
