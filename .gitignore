@@ -32,6 +32,7 @@ framework/release-13
 framework/target
 framework/target-12
 framework/target-13
+framework/velocity.log
 integration/ant/ant.bat
 integration/ant/build.properties
 integration/ant/dist-12
