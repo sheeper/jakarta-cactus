@@ -70,6 +70,14 @@
 
     <category title="Design/Code">
       <action>
+        Add support for Servlet API 2.4 (and test with Tomcat 5). 
+      </action>
+      <action>
+        Replace access to instance variables of redirectors by method calls.
+        For example, replace "request.xxx()" by 
+        "getHttpServletRequest().xxx()". Deprecate the direct access.
+      </action>
+      <action>
       	Remove HttpURLConnection and replace it by the one we have submitted
       	to the HttpClient project.
       </action>
