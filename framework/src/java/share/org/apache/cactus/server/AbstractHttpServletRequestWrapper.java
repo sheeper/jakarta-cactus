@@ -132,13 +132,13 @@ public abstract class AbstractHttpServletRequestWrapper
      */
     public String getContextPath()
     {
-        String result = this.request.getContextPath();
+        String result;
 
-        if (this.url != null) {
-            if (this.url.getContextPath() != null) {
-                result = this.url.getContextPath();
-                LOGGER.debug("Using simulated context : [" + result + "]");
-            }
+        if ((this.url != null) && (this.url.getContextPath() != null)) {
+            result = this.url.getContextPath();
+            LOGGER.debug("Using simulated context : [" + result + "]");
+        } else {
+            result = this.request.getContextPath();
         }
 
         return result;
@@ -150,11 +150,13 @@ public abstract class AbstractHttpServletRequestWrapper
      */
     public String getPathInfo()
     {
-        String result = this.request.getPathInfo();
+        String result;
 
         if (this.url != null) {
             result = this.url.getPathInfo();
             LOGGER.debug("Using simulated PathInfo : [" + result + "]");
+        } else {
+            result = this.request.getPathInfo();
         }
         return result;
     }
@@ -165,15 +167,16 @@ public abstract class AbstractHttpServletRequestWrapper
      */
     public String getServerName()
     {
-        String result = this.request.getServerName();
+        String result;
 
-        if (this.url != null) {
-            if (this.url.getServerName() != null) {
-                result = this.url.getHost();
-                LOGGER.debug("Using simulated server name : [" + result +
-                    "]");
-            }
+        if ((this.url != null) && (this.url.getServerName() != null)) {
+            result = this.url.getHost();
+            LOGGER.debug("Using simulated server name : [" + result +
+                "]");
+        } else {
+            result = this.request.getServerName();
         }
+
         return result;
     }
 
@@ -184,11 +187,13 @@ public abstract class AbstractHttpServletRequestWrapper
      */
     public int getServerPort()
     {
-        int result = this.request.getServerPort();
+        int result;
 
         if (this.url != null) {
             result = (this.url.getPort() == -1) ? 80 : this.url.getPort();
             LOGGER.debug("Using simulated server port : [" + result + "]");
+        } else {
+            result = this.request.getServerPort();
         }
 
         return result;
@@ -200,7 +205,7 @@ public abstract class AbstractHttpServletRequestWrapper
      */
     public String getRequestURI()
     {
-        String result = this.request.getRequestURI();
+        String result;
 
         if (this.url != null) {
 
@@ -209,6 +214,8 @@ public abstract class AbstractHttpServletRequestWrapper
                 ((getPathInfo() == null) ? "" : getPathInfo());
 
             LOGGER.debug("Using simulated request URI : [" + result + "]");
+        } else {
+            result = this.request.getRequestURI();
         }
 
         return result;
@@ -220,12 +227,14 @@ public abstract class AbstractHttpServletRequestWrapper
      */
     public String getServletPath()
     {
-        String result = this.request.getServletPath();
+        String result;
 
         if (this.url != null) {
             result = this.url.getServletPath();
             LOGGER.debug("Using simulated servlet path : [" + result +
                 "]");
+        } else {
+            result = this.request.getServletPath();
         }
 
         return result;
@@ -274,13 +283,16 @@ public abstract class AbstractHttpServletRequestWrapper
      */
     public String getQueryString()
     {
-        String result = this.request.getQueryString();
+        String result;
 
         if (this.url != null) {
             result = this.url.getQueryString();
             LOGGER.debug("Using simulated query string : [" + result +
                 "]");
+        } else {
+            result = this.request.getQueryString();
         }
+
         return result;
     }
 
@@ -652,14 +664,6 @@ public abstract class AbstractHttpServletRequestWrapper
     }
 
     /**
-     * @see HttpServletRequest#getProtocol()
-     */
-    public String getProtocol()
-    {
-        return this.request.getProtocol();
-    }
-
-    /**
      * @see HttpServletRequest#getRequestedSessionId()
      */
     public String getRequestedSessionId()
@@ -674,4 +678,13 @@ public abstract class AbstractHttpServletRequestWrapper
     {
         return this.request.getCookies();
     }
+
+    /**
+     * @see HttpServletRequest#getProtocol()
+     */
+    public String getProtocol()
+    {
+        return this.request.getProtocol();
+    }
+
 }
