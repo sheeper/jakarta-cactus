@@ -99,7 +99,26 @@ public class WarBuilder
      * the location of the Ant build file for creating wars
      */
     private File buildFileLocation;
-
+    /**
+     * Cactus plug-in relative path to the war build file
+     */
+    private String buildFilePath = "./ant/build-war.xml";
+    /**
+     * Cactus plug-in relative path to the web.xml file
+     */    
+    private String webXMLPath = "./ant/confs/web.xml";
+    /**
+     * User's project relative path to the web directory
+     */    
+    private String userWebFilesPath = "web";
+    /**
+     * User's project relative path to the web.xml file
+     */    
+    private String userWebXMLPath = userWebFilesPath + "/WEB-INF/web.xml";
+    /**
+     * User's project relative path to the lib directory
+     */    
+    private String userJarFilesPath = userWebFilesPath + "/WEB-INF/lib";
     /**
      * Constructor.
      * @param theBuildFileLocation the build file for war creation
@@ -132,16 +151,24 @@ public class WarBuilder
     {
         CactusPlugin thePlugin = CactusPlugin.getDefault();
         buildFileLocation =
-            new File(thePlugin.find(new Path("./ant/build-war.xml")).getPath());
+            new File(thePlugin.find(new Path(buildFilePath)).getPath());
         IPath projectPath = theJavaProject.getProject().getLocation();
         IPath classFilesPath =
             projectPath.removeLastSegments(1).append(
                 theJavaProject.getOutputLocation());
         userClassFilesDir = classFilesPath.toFile();
-        userWebXML = projectPath.append("web.xml").toFile();
-        userJarFilesDir = projectPath.append("lib").toFile();
+        userWebXML = projectPath.append(userWebXMLPath).toFile();
+
+        if (!userWebXML.exists())
+        {
+            userWebXML =
+                new File(
+                    thePlugin.find(new Path(webXMLPath)).getPath());
+        }
+
+        userJarFilesDir = projectPath.append(userJarFilesPath).toFile();
         // copy any web folder situated in the user's project
-        userWebFilesDir = projectPath.append("web").toFile();
+        userWebFilesDir = projectPath.append(userWebFilesPath).toFile();
     }
 
     /**
@@ -168,7 +195,7 @@ public class WarBuilder
         
         String jarFilesPath = userJarFilesDir.getAbsolutePath();
         arguments.add("-Djars.dir=" + jarFilesPath);
-        
+
         String webXMLPath = userWebXML.getAbsolutePath();
         arguments.add("-Dwebxml.path=" + webXMLPath);
         
