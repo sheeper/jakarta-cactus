@@ -56,57 +56,41 @@
  */
 package org.apache.cactus.sample.unit;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import java.io.IOException;
+
+import org.apache.cactus.JspTestCase;
+import org.apache.cactus.server.HttpServletRequestWrapper;
+import org.apache.cactus.server.ServletConfigWrapper;
 
 /**
- * Test suite containing all test cases that should be run on all J2EE 
- * APIs.
+ * Test the usage of the <code>pageContext</code> implicit object when using
+ * <code>JspTestCase</code>.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
  */
-public abstract class TestShareAll
+public class TestJspPageContext extends JspTestCase
 {
     /**
-     * @return a test suite (<code>TestSuite</code>) that includes all shared
-     *          tests
+     * Verify that the page context is not null and that we can use it.
+     * 
+     * @exception IOException on test failure
      */
-    public static Test suite()
-    {
-        TestSuite suite = new TestSuite(
-            "Cactus unit tests for all J2EE APIs");
+    public void testPageContext() throws IOException
+    {        
+        assertNotNull("Page context should not be null", pageContext);
 
-        // Note: This test needs to run first. See the comments in the
-        // test class for more information on why
-        suite.addTestSuite(TestClientServerSynchronization.class);
+        HttpServletRequestWrapper wrappedRequest =
+            (HttpServletRequestWrapper) pageContext.getRequest();           
+        assertSame(request.getOriginalRequest(), 
+            wrappedRequest.getOriginalRequest()); 
 
-        // Lifecycle tests
-        suite.addTestSuite(TestGlobalBeginEnd.class);
+        assertSame(response, pageContext.getResponse());
 
-        // ServletTestCase related tests
-        suite.addTestSuite(TestServerSideExceptions.class);
-        suite.addTestSuite(TestSetUpTearDown.class);
-        suite.addTestSuite(TestSetURL.class);
-        suite.addTestSuite(TestTearDownException.class);
-        suite.addTestSuite(TestBasicAuthentication.class);
-        suite.addTestSuite(TestHttpUnitIntegration.class);
-        suite.addTestSuite(TestServletRedirectorOverride.class);
-        suite.addTestSuite(TestHttpParameters.class);
-        suite.addTestSuite(TestHttpSession.class);
-        suite.addTestSuite(TestHttpResponse.class);
-        suite.addTestSuite(TestCookie.class);
-        suite.addTestSuite(TestRequestDispatcher.class);
-        suite.addTestSuite(TestHttpHeaders.class);
-        suite.addTestSuite(TestHttpRequest.class);
-        suite.addTestSuite(TestServletConfig.class);
-        suite.addTest(TestJUnitTestCaseWrapper.suite());
-        
-        // JspTestCase related tests
-        suite.addTestSuite(TestJspOut.class);
-        suite.addTestSuite(TestJspPageContext.class);
-
-        return suite;
+        ServletConfigWrapper wrappedConfig =
+            (ServletConfigWrapper) pageContext.getServletConfig();           
+        assertSame(config.getOriginalConfig(), 
+            wrappedConfig.getOriginalConfig());        
     }
 }

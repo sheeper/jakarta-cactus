@@ -583,6 +583,7 @@ samples/servlet/src/test-cactus/share/org/apache/cactus/sample/unit/TestHttpSess
 samples/servlet/src/test-cactus/share/org/apache/cactus/sample/unit/TestHttpUnitIntegration.java svn_keywords=Author+Date+Id+Revision
 samples/servlet/src/test-cactus/share/org/apache/cactus/sample/unit/TestJUnitTestCaseWrapper.java svn_keywords=Author+Date+Id+Revision
 samples/servlet/src/test-cactus/share/org/apache/cactus/sample/unit/TestJspOut.java svn_keywords=Author+Date+Id+Revision
+samples/servlet/src/test-cactus/share/org/apache/cactus/sample/unit/TestJspPageContext.java svn_keywords=Author+Date+Id+Revision
 samples/servlet/src/test-cactus/share/org/apache/cactus/sample/unit/TestRequestDispatcher.java svn_keywords=Author+Date+Id+Revision
 samples/servlet/src/test-cactus/share/org/apache/cactus/sample/unit/TestServerSideExceptions.java svn_keywords=Author+Date+Id+Revision
 samples/servlet/src/test-cactus/share/org/apache/cactus/sample/unit/TestServletConfig.java svn_keywords=Author+Date+Id+Revision
