@@ -60,10 +60,11 @@
         <!-- Locations of javadocs that need to be included if javadoc.include
              is defined -->
         <property name="dist.framework.javadoc.12" 
-            value="framework/dist-12/doc/api"/>
+            location="framework/dist-12/doc/api"/>
         <property name="dist.framework.javadoc.13" 
-            value="framework/dist-13/doc/api"/>
-        <property name="dist.anttasks.javadoc" value="anttasks/dist/doc/api"/>             
+            location="framework/dist-13/doc/api"/>
+        <property name="dist.integration.ant.javadoc"
+        	location="integration/ant/dist-13/doc/api"/>             
 
         <!-- Set the properties related to the target area -->
         <property name="target.classes.dir" value="${target.dir}/classes"/>
@@ -251,26 +252,26 @@
             <and>
                 <available file="${dist.framework.javadoc.12}/index.html"/>
                 <available file="${dist.framework.javadoc.13}/index.html"/>
-                <available file="${dist.anttasks.javadoc}/index.html"/>
+                <available file="${dist.integration.ant.javadoc}/index.html"/>
             </and>
         </condition>
 
         <fail unless="javadoc.include.ok">One of the javadoc has not been 
-generated. Run 'ant dist.javadoc -verbose' to know what the problem is.</fail>
+generated. Run 'ant dist.javadoc -verbose' to find out what the problem is.</fail>
         
     </target>
 
     <target name="dist.javadoc" depends="dist.javadoc.check" 
         if="javadoc.include.ok">
 
-        <copy todir="${dist.doc.api.dir}/anttasks">
-            <fileset dir="${dist.anttasks.javadoc}"/>
-        </copy>
         <copy todir="${dist.doc.api.dir}/framework-12">
             <fileset dir="${dist.framework.javadoc.12}"/>
         </copy>
         <copy todir="${dist.doc.api.dir}/framework-13">
             <fileset dir="${dist.framework.javadoc.13}"/>
+        </copy>
+        <copy todir="${dist.doc.api.dir}/integration/ant">
+            <fileset dir="${dist.integration.ant.javadoc}"/>
         </copy>
         
     </target>

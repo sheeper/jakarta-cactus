@@ -90,7 +90,7 @@
   <resource id="code_test_sample_servlet" target="misc/TestSampleServlet.class"/>
   <resource id="code_junit_noframes" target="misc/junit-noframes.xsl"/>
 
-  <resource id="javadoc_anttasks" check="false" target="api/anttasks/index.html"/>
+  <resource id="javadoc_integration_ant" check="false" target="api/integration/ant/index.html"/>
   <resource id="javadoc_framework_12" check="false" target="api/framework-12/index.html"/>
   <resource id="javadoc_framework_13" check="false" target="api/framework-13/index.html"/>
   <resource id="javadoc_framework_jsptaglifecycle" check="false" target="api/framework-13/org/apache/cactus/extension/jsp/JspTagLifecycle.html"/>

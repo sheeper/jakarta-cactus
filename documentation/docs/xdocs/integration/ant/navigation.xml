@@ -17,4 +17,8 @@
     <item id="task_webxmlmerge" label="WebXmlMerge"/>
   </menu>
 
+  <menu label="Development">
+    <item id="javadoc_integration_ant" label="API Documentation"/>
+  </menu>
+
 </navigation>
