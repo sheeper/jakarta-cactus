@@ -2,6 +2,7 @@
 <project>
   <pomVersion>3</pomVersion>
   <name>Jakarta Cactus</name>
+  <groupId>cactus</groupId>
   <id>jakarta-cactus</id>
   <currentVersion>1.6dev</currentVersion>
   <organization>
