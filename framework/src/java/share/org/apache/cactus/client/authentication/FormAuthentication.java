@@ -241,8 +241,9 @@ public class FormAuthentication extends AbstractAuthentication
                 theConfiguration);
 
             // Make the connection using a default web request.
-            HttpURLConnection connection = 
-                helper.connect(this.securityRequest, theConfiguration);
+            HttpURLConnection connection = helper.connect(
+                new WebRequest((WebConfiguration) theConfiguration), 
+                theConfiguration);
 
             // Clean any existing session ID.
             sessionId = null;
@@ -285,9 +286,8 @@ public class FormAuthentication extends AbstractAuthentication
                 (WebConfiguration) theConfiguration);
                 
             // Configure a web request with the JSESSIONID cookie, 
-            // the username and the password.
-            WebRequest request = new WebRequest(
-                (WebConfiguration) theConfiguration);
+            // the username and the password.          
+            WebRequest request = getSecurityRequest();
             request.addCookie(sessionIdCookieName, sessionId);
             request.addParameter("j_username", getName(), 
                 WebRequest.POST_METHOD);
