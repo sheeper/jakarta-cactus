@@ -323,15 +323,7 @@ integration/ant/src/confs/share/weblogic6x/config.xml svn_keywords=Author+Date+I
 integration/ant/src/confs/share/weblogic6x/fileRealm.properties svn_keywords=Author+Date+Id+Revision
 integration/ant/src/confs/share/weblogic6x/weblogic.xml svn_keywords=Author+Date+Id+Revision
 integration/ant/src/confs/share/weblogic7x/DefaultAuthenticatorInit.ldift -text svneol=unset#application/octet-stream
-integration/ant/src/confs/share/weblogic7x/SerializedSystemIni.dat -text svneol=unset#application/octet-stream
 integration/ant/src/confs/share/weblogic7x/config.xml svn_keywords=Author+Date+Id+Revision
-integration/ant/src/confs/share/weblogic7x/fileRealm.properties svn_keywords=Author+Date+Id+Revision
-integration/ant/src/confs/share/weblogic7x/testserver/ldap/ldapfiles/EmbeddedLDAP.data -text
-integration/ant/src/confs/share/weblogic7x/testserver/ldap/ldapfiles/EmbeddedLDAP.delete -text
-integration/ant/src/confs/share/weblogic7x/testserver/ldap/ldapfiles/EmbeddedLDAP.index -text
-integration/ant/src/confs/share/weblogic7x/testserver/ldap/ldapfiles/EmbeddedLDAP.tran -text
-integration/ant/src/confs/share/weblogic7x/testserver/ldap/ldapfiles/EmbeddedLDAP.trpos -text
-integration/ant/src/confs/share/weblogic7x/testserver/ldap/ldapfiles/EmbeddedLDAP.twpos -text
 integration/ant/src/confs/share/weblogic7x/weblogic.xml svn_keywords=Author+Date+Id+Revision
 integration/ant/src/confs/web-app_2_2.dtd svn_keywords=Author+Date+Id+Revision
 integration/ant/src/confs/web-app_2_3.dtd svn_keywords=Author+Date+Id+Revision
