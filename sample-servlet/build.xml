@@ -357,6 +357,7 @@
             <property name="tomcat.home.40"/>
             <property name="orion.home.14"/>
             <property name="orion.home.15"/>
+            <property name="orion.home.16"/>
             <property name="weblogic.home.51"/>
             <property name="weblogic.home.61"/>
             <property name="weblogic.home.70"/>

@@ -48,6 +48,9 @@
     </devs>
 
     <release version="1.4 in CVS">
+      <action dev="VMA" type="add">
+        Added automatic script support for Orion 1.6.
+      </action>
       <action dev="VMA" type="fix">
         Ant scripts for Resin and Orion now correctly configures them for
         Cactus BASIC authentication tests.

@@ -59,6 +59,7 @@ httpunit.jar = ../lib/httpunit-1.4.1.jar
 #resin.home.13 = xxx
 #tomcat.home.40 = c:/Apps/jakarta-tomcat-4.0.3
 #orion.home.15 = c:/Apps/orion-1.5.4
+#orion.home.16 = c:/Apps/orion-1.6.0
 
 # Note: weblogic.home.61 is the location of BEA Home and NOT the location of
 # wlserver6.1, inside the bea home directory.

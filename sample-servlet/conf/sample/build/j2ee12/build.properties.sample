@@ -60,6 +60,7 @@ httpunit.jar = ../lib/httpunit-1.4.1.jar
 #tomcat.home.32 = c:/Apps/jakarta-tomcat-3.2.4
 #tomcat.home.33 = c:/Apps/jakarta-tomcat-3.3.1
 #orion.home.15 = c:/Apps/orion-1.5.4
+#orion.home.16 = c:/Apps/orion-1.6.0
 #weblogic.home.51 = xxx
 #tomcat.home.40 = c:/Apps/jakarta-tomcat-4.0.3
 

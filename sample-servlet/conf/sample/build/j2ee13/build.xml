@@ -6,6 +6,7 @@
     <!ENTITY build-tests-resin-13 SYSTEM "file:./build-tests-resin-13.xml">
     <!ENTITY build-tests-orion-14 SYSTEM "file:./build-tests-orion-14.xml">
     <!ENTITY build-tests-orion-15 SYSTEM "file:./build-tests-orion-15.xml">
+    <!ENTITY build-tests-orion-16 SYSTEM "file:./build-tests-orion-16.xml">
     <!ENTITY build-tests-tomcat-40 SYSTEM "file:./build-tests-tomcat-40.xml">
     <!ENTITY build-tests-weblogic-61 SYSTEM "file:./build-tests-weblogic-61.xml">
     <!ENTITY build-tests-weblogic-70 SYSTEM "file:./build-tests-weblogic-70.xml">
@@ -81,7 +82,7 @@
        ========================================================================
     -->
     <target name="test.all"
-        depends="test.resin.20,test.resin.13,test.tomcat.40,test.orion.14,test.orion.15,test.weblogic.61,test.weblogic.70"
+        depends="test.resin.20,test.resin.13,test.tomcat.40,test.orion.14,test.orion.15,test.orion.16,test.weblogic.61,test.weblogic.70"
         description="Run tests on all defined containers">
     </target>
 
@@ -89,6 +90,7 @@
     &build-tests-resin-13;
     &build-tests-orion-14;
     &build-tests-orion-15;
+    &build-tests-orion-16;
     &build-tests-tomcat-40;
     &build-tests-weblogic-61;
     &build-tests-weblogic-70;
