@@ -163,6 +163,9 @@
         <copy file="${conf.dir}/version.txt" todir="${target.doc.dir}"
             filtering="on"/>
 
+       <!-- Copy the RDF file for RSS syndicators -->
+       <copy todir="${target.doc.dir}" file="${doc.xdoc.dir}/news.rdf"/>
+
     </target>
 
     <target name="doc.cvschangelog" 
@@ -203,9 +206,14 @@
             style="${doc.skin.dir}/jakarta.apache.org/stylesheets/sitemap2document.xsl">
 
             <xmlcatalog refid="documentation.dtds"/>
-
        </style>
 
+       <!-- Transform RDF news -->
+       <style in="${doc.xdoc.dir}/news.rdf"
+            out="${target.xdoc.dir}/news.xml"
+            style="${doc.skin.dir}/jakarta.apache.org/stylesheets/rdf2document.xsl">
+       </style>
+       
        <!-- Generate the docs -->
         <style basedir="${target.xdoc.dir}" destdir="${target.doc.dir}"
             style="${doc.skin.dir}/jakarta.apache.org/stylesheets/document2html.xsl">

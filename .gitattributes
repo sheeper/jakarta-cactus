@@ -36,9 +36,11 @@ documentation/docs/skins/jakarta.apache.org/images/jakarta-logo.gif -text
 documentation/docs/skins/jakarta.apache.org/images/logocactus.gif -text
 documentation/docs/skins/jakarta.apache.org/images/note.gif -text
 documentation/docs/skins/jakarta.apache.org/images/remove.jpg -text
+documentation/docs/skins/jakarta.apache.org/images/rss.png -text
 documentation/docs/skins/jakarta.apache.org/images/update.jpg -text
 documentation/docs/skins/jakarta.apache.org/stylesheets/common.xsl svn_keywords=Author+Date+Id+Revision
 documentation/docs/skins/jakarta.apache.org/stylesheets/document2html.xsl svn_keywords=Author+Date+Id+Revision
+documentation/docs/skins/jakarta.apache.org/stylesheets/rdf2document.xsl svn_keywords=Author+Date+Id+Revision
 documentation/docs/skins/jakarta.apache.org/stylesheets/sitemap2document.xsl svn_keywords=Author+Date+Id+Revision
 documentation/docs/xdocs/cactusname.xml svn_keywords=Author+Date+Id+Revision
 documentation/docs/xdocs/changes.xml svn_keywords=Author+Date+Id+Revision
@@ -121,7 +123,9 @@ documentation/docs/xdocs/misc/TestSampleServlet.class -text
 documentation/docs/xdocs/misc/junit-noframes.xsl svn_keywords=Author+Date+Id+Revision
 documentation/docs/xdocs/mock_vs_cactus.xml svn_keywords=Author+Date+Id+Revision
 documentation/docs/xdocs/navigation.xml svn_keywords=Author+Date+Id+Revision
-documentation/docs/xdocs/news.xml svn_keywords=Author+Date+Id+Revision
+documentation/docs/xdocs/news-2001.xml svn_keywords=Author+Date+Id+Revision
+documentation/docs/xdocs/news-2002.xml svn_keywords=Author+Date+Id+Revision
+documentation/docs/xdocs/news.rdf svn_keywords=Author+Date+Id+Revision
 documentation/docs/xdocs/original/Sequence.dfSequence svn_keywords=Author+Date+Id+Revision
 documentation/docs/xdocs/original/archi.ppt -text
 documentation/docs/xdocs/original/archi_classpath.ppt -text

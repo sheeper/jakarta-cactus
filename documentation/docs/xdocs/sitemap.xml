@@ -338,6 +338,12 @@
     Information about the Cactus Web Application plugin for Eclipse.
   </resource>
 
+  <resource id="news_rdf" target="news.rdf" name="RSS News"/>
+  <resource id="news_archives_2002" target="news-2002.html" 
+      name="2002 news archives"/>
+  <resource id="news_archives_2001" target="news-2001.html" 
+      name="2001 news archives"/>
+
   <resource id="code_sample_servlet" target="misc/SampleServlet.class"/>
   <resource id="code_test_sample_servlet" target="misc/TestSampleServlet.class"/>
   <resource id="code_junit_noframes" target="misc/junit-noframes.xsl"/>
@@ -411,8 +417,6 @@
   <external id="sun_coding_conventions" url="http://java.sun.com/docs/codeconv/html/CodeConvTOC.doc.html"/>
   <external id="sun_j2ee_downloads" url="http://java.sun.com/j2ee/download.html"/>
   <external id="sun_servlet_downloads" url="http://java.sun.com/products/servlet/download.html"/>
-  <external id="tss_symposium" url="http://www.theserverside.com/symposium"/>
-  <external id="tss_symposium_vma1" url="http://www.theserverside.com/symposium/sessionAbstracts.html#MassolAbstract1"/>
   <external id="velocity" url="http://jakarta.apache.org/velocity/"/>
   <external id="xalanj" url="http://xml.apache.org/xalan-j/"/>
 

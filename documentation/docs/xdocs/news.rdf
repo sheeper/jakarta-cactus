@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<rdf:RDF
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xmlns:admin="http://webns.net/mvcb/">
+
+  <channel rdf:about="http://jakarta.apache.org/cactus/">
+    <title>Jakarta Cactus News</title>
+    <link>http://jakarta.apache.org/cactus/news.html</link>
+    <description>Latest Cactus news.</description>
+    <dc:language>en-us</dc:language>
+    <dc:creator></dc:creator>
+    <dc:date>2003-05-15T00:00:00+00:00</dc:date>
+    <admin:generatorAgent rdf:resource="http://jakarta.apache.org/cactus"/>
+
+    <items>
+      <rdf:Seq>
+        <rdf:li rdf:resource="http://jakarta.apache.org/cactus/news.html#news7"/>
+        <rdf:li rdf:resource="http://jakarta.apache.org/cactus/news.html#news6"/>
+        <rdf:li rdf:resource="http://jakarta.apache.org/cactus/news.html#news5"/>
+        <rdf:li rdf:resource="http://jakarta.apache.org/cactus/news.html#news4"/>
+        <rdf:li rdf:resource="http://jakarta.apache.org/cactus/news.html#news3"/>
+        <rdf:li rdf:resource="http://jakarta.apache.org/cactus/news.html#news2"/>
+        <rdf:li rdf:resource="http://jakarta.apache.org/cactus/news.html#news1"/>
+      </rdf:Seq>
+    </items>
+
+  </channel>
+
+  <item rdf:about="http://jakarta.apache.org/cactus/news.html#news7">
+    <title>RSS feeds for Cactus news</title>
+    <link>http://jakarta.apache.org/cactus/news.html#news7</link>
+    <description>
+<![CDATA[Cactus news are nos available as RSS feeds! Point your RSS feed
+reader to <a href="http://jakarta.apache.org/cactus/news.rdf">here</a>.]]>
+    </description>
+    <dc:subject></dc:subject>
+    <dc:creator>vmassol</dc:creator>
+    <dc:date>2003-05-15T00:00:00+00:00</dc:date>
+  </item>
+
+  <item rdf:about="http://jakarta.apache.org/cactus/news.html#news6">
+    <title>JUnit in Action book</title>
+    <link>http://jakarta.apache.org/cactus/news.html#news6</link>
+    <description>
+<![CDATA[<a href="mailto:vmassol@pivolis.com">Vincent Massol</a> and 
+<a href="mailto:ted@husted.com">Ted Husted</a> are writing "JUnit In Action", 
+a book on unit testing java applications. Amongst other things, it covers 
+extensively Cactus 1.5 (about 7 chapters covering Cactus). The book will soon 
+be available in bookstores.]]>
+    </description>
+    <dc:subject></dc:subject>
+    <dc:creator>vmassol</dc:creator>
+    <dc:date>2003-05-15T00:00:00+00:00</dc:date>
+  </item>
+
+  <item rdf:about="http://jakarta.apache.org/cactus/news.html#news5">
+    <title>StrutsTestCase v2.0</title>
+    <link>http://jakarta.apache.org/cactus/news.html#news5</link>
+    <description>
+<![CDATA[<a href="http://strutstestcase.sourceforge.net">StrutsTestCase</a>
+v2.0 has been released. It improves support for Struts 1.1 (including better 
+support for testing Tiles and sub-applications), provides several requested 
+enhancements, and fixes many reported defects.]]>
+    </description>
+    <dc:subject></dc:subject>
+    <dc:creator>vmassol</dc:creator>
+    <dc:date>2003-05-08T00:00:00+00:00</dc:date>
+  </item>
+
+  <item rdf:about="http://jakarta.apache.org/cactus/news.html#news4">
+    <title>Improved Cactus web site</title>
+    <link>http://jakarta.apache.org/cactus/news.html#news4</link>
+    <description>
+<![CDATA[Transition to a new web site stylesheet that more heavily relies
+on CSS. Apart from easier maintenance, it should provide a more consistent 
+look as well as far superior printability. Naturally, the new site will 
+look a bit odd on old browsers like Netscape 4.x, but still should be quite 
+usable.]]>
+    </description>
+    <dc:subject></dc:subject>
+    <dc:creator>vmassol</dc:creator>
+    <dc:date>2003-05-04T00:00:00+00:00</dc:date>
+  </item>
+
+  <item rdf:about="http://jakarta.apache.org/cactus/news.html#news3">
+    <title>Cactus Maven Plugin 2.0</title>
+    <link>http://jakarta.apache.org/cactus/news.html#news3</link>
+    <description>
+<![CDATA[Release 2.0 of the 
+<a href="http://maven.apache.org/reference/plugins/cactus">Cactus plugin for 
+Maven</a> is out. It is now a pure wrapper around the new Cactus/Ant 
+Integration.]]>
+    </description>
+    <dc:subject></dc:subject>
+    <dc:creator>vmassol</dc:creator>
+    <dc:date>2003-04-08T00:00:00+00:00</dc:date>
+  </item>
+
+  <item rdf:about="http://jakarta.apache.org/cactus/news.html#news2">
+    <title>TSS Symposium</title>
+    <link>http://jakarta.apache.org/cactus/news.html#news2</link>
+    <description>
+<![CDATA[<a href="mailto:vmassol@pivolis.com">Vincent Massol</a> will
+be a speaker at the 
+<a href="http://www.theserverside.com/symposium">TheServerSide Symposium</a> 
+where he will present 
+<a href="http://www.theserverside.com/symposium/sessionAbstracts.html#MassolAbstract1">Unit 
+Testing J2EE Applications</a>, which talks about Cactus, 
+<a href="http://www.mockobjects.com">Mock Objects</a> and
+<a href="http://www.eclipse.org/aspectj/">AspectJ</a> (AOP).
+]]>
+    </description>
+    <dc:subject></dc:subject>
+    <dc:creator>vmassol</dc:creator>
+    <dc:date>2003-02-10T00:00:00+00:00</dc:date>
+  </item>
+
+  <item rdf:about="http://jakarta.apache.org/cactus/news.html#news1">
+    <title>StrutsTestCase v1.9.5</title>
+    <link>http://jakarta.apache.org/cactus/news.html#news1</link>
+    <description>
+<![CDATA[<a href="http://strutstestcase.sourceforge.net">StrutsTestCase</a>
+v1.9.5 has been released. It improves support for Struts 1.1b3 (including 
+support for testing Tiles and sub-applications), provides several requested 
+enhancements, and fixes many reported defects.]]>
+    </description>
+    <dc:subject></dc:subject>
+    <dc:creator>vmassol</dc:creator>
+    <dc:date>2003-01-05T00:00:00+00:00</dc:date>
+  </item>
+
+</rdf:RDF>

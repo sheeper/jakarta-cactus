@@ -568,6 +568,29 @@
   <!-- "a/link/jump/fork/anchor" elements -->
   <!-- ==================================================================== -->
 
+  <!-- VMA: Temporary hack. This is used by the RDF to Document 
+  	   transformation to support <a href> tags in the <description> field
+  	   of the RSS feed. A better solution is to transform this stylesheet
+  	   to let unknown elements go through, but I don't know how to do that! -->
+  <xsl:template match="a">
+    <a>
+      <xsl:attribute name="href">
+        <xsl:call-template name="get-link-href">
+          <xsl:with-param name="href" select="@href"/>
+        </xsl:call-template>
+      </xsl:attribute>
+      <xsl:attribute name="title">
+      	<xsl:variable name="title">
+          <xsl:call-template name="get-link-title">
+            <xsl:with-param name="href" select="@href"/>
+          </xsl:call-template>
+        </xsl:variable>
+        <xsl:value-of select="normalize-space($title)"/>
+      </xsl:attribute>
+      <xsl:apply-templates/>
+    </a>
+  </xsl:template>
+  
   <xsl:template match="link">
     <a>
       <xsl:attribute name="href">
@@ -914,5 +937,5 @@
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
-
+  
 </xsl:stylesheet>
