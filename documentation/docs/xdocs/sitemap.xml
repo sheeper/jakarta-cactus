@@ -455,6 +455,7 @@
   <external id="mockobjects_endotesting" url="http://www.mockobjects.com/wiki/MocksObjectsPaper?action=AttachFile&amp;do=get&amp;target=mockobjects.pdf"/>
   <external id="nekohtml" url="http://www.apache.org/~andyc/neko/doc/html/"/>
   <external id="octo" url="http://www.octo.com"/>
+  <external id="open_issues" url="http://issues.apache.org/bugzilla/buglist.cgi?bug_status=NEW&amp;bug_status=ASSIGNED&amp;bug_status=REOPENED&amp;email1=&amp;emailtype1=substring&amp;emailassigned_to1=1&amp;email2=&amp;emailtype2=substring&amp;emailreporter2=1&amp;bugidtype=include&amp;bug_id=&amp;changedin=&amp;votes=&amp;chfieldfrom=&amp;chfieldto=Now&amp;chfieldvalue=&amp;product=Cactus&amp;short_desc=&amp;short_desc_type=allwordssubstr&amp;long_desc=&amp;long_desc_type=allwordssubstr&amp;bug_file_loc=&amp;bug_file_loc_type=allwordssubstr&amp;keywords=&amp;keywords_type=anywords&amp;field0-0-0=noop&amp;type0-0-0=noop&amp;value0-0-0=&amp;cmdtype=doit&amp;order=%27Importance%27"/>
   <external id="opensource" url="http://www.opensource.org/"/>
   <external id="regexp" url="http://jakarta.apache.org/regexp/"/>
   <external id="servletapi_2_2" url="http://jakarta.apache.org/builds/jakarta-servletapi/"/>
