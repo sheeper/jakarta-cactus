@@ -95,10 +95,6 @@
         Enhance the <code>runservertests</code> task to accept nested
         <code>&lt;containerset&gt;</code> elements.
       </action>
-      <action assigned-to="Hudson Wong, Vincent Massol">
-        Add an EJB sample application to demonstrate how to perform EJB
-        unit testing.
-      </action>
       <action assigned-to="Jason Robertson, Vincent Massol">
         Add test case for form-based authentication.
       </action>

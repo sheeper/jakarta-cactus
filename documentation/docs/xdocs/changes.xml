@@ -68,6 +68,11 @@
       </devs>
 
       <release version="1.6dev" date="in CVS">
+        <action dev="VMA" type="add">
+          Added an EJB sample application to demonstrate how to perform EJB
+          unit testing with Cactus and how to automate it with the 
+          Cactus/Ant integration.
+        </action>
       </release>
       
       <release version="1.5-rc1" date="in CVS">
