@@ -132,8 +132,7 @@ public final class TestRunServerTestsTask extends AntTestCase
             assertEquals("Failed to start the container after more than [0] "
                 + "ms.", expected.getMessage());
         }
-        assertTrue("The [starttarget] was not run",
-            getProject().resolveFile("work/startDummy.tmp").isFile());
+        assertTargetExecuted("startDummy");
     }
 
     /**

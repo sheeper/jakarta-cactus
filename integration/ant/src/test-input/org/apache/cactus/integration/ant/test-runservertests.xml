@@ -46,15 +46,12 @@
   <!-- Utility Targets -->
 
   <target name="startDummy">
-    <touch file="${work.dir}/startDummy.tmp"/>
   </target>
 
   <target name="stopDummy">
-    <touch file="${work.dir}/stopDummy.tmp"/>
   </target>
 
   <target name="testDummy">
-    <touch file="${work.dir}/testDummy.tmp"/>
   </target>
 
 </project>
