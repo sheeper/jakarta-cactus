@@ -359,6 +359,7 @@
             <classpath>
                 <pathelement path="${java.class.path}"/>
                 <pathelement location="${servlet.jar}"/>
+                <pathelement location="${httpunit.jar}"/>
                 <pathelement location="${log4j.jar}"/>
             </classpath>
 
