@@ -104,7 +104,7 @@
              that the build also works on JDKs that bundle Xerces without
              needing to define the xerces.jar property -->
         <available classname="org.apache.xml.serialize.XMLSerializer"
-            classpathref="project.classpath"/>
+            classpathref="project.classpath" ignoresystemclasses="yes"/>
         <!-- Check that clover.jar points to a valid file if clover is 
              enabled -->
         <or>
