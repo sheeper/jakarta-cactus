@@ -3,8 +3,8 @@
          Run Orion 1.5 tests
        ========================================================================
     -->
-    <target name="test.orion.15" depends="prepare.test.orion.15"
-        if="orion.home.15" description="Run tests on Orion 1.5">
+    <target name="test.orion.15" depends="prepare.orion.15"
+        if="home.orion.15" description="Run tests on Orion 1.5">
 
         <!-- Start the servlet engine, wait for it to be started, run the
              unit tests, stop the servlet engine, wait for it to be stopped.
@@ -29,7 +29,7 @@
             <arg value="-config"/>
             <arg value="${target.orion15.dir}/conf/server.xml"/>
             <classpath>
-              <fileset dir="${orion.home.15}">
+              <fileset dir="${home.orion.15}">
                   <include name="*.jar"/>
               </fileset>
             </classpath>
@@ -51,7 +51,7 @@
             <arg value="password"/>
             <arg value="-shutdown"/>
             <classpath>
-              <fileset dir="${orion.home.15}">
+              <fileset dir="${home.orion.15}">
                   <include name="*.jar"/>
               </fileset>
             </classpath>
@@ -65,11 +65,11 @@
          is not set
        ========================================================================
     -->
-    <target name="check.test.orion.15" unless="orion.home.15">
+    <target name="check.test.orion.15" unless="home.orion.15">
 
         <echo message=""/>
         <echo message="******************************************************"/>
-        <echo message="WARNING : The 'orion.home.15' property has not been"/>
+        <echo message="WARNING : The 'home.orion.15' property has not been"/>
         <echo message="set. No test will be run on that servlet engine."/>
         <echo message="******************************************************"/>
         <echo message=""/>
@@ -81,10 +81,10 @@
          Prepare directories and variables for running the tests
        ========================================================================
     -->
-    <target name="prepare.test.orion.15"
-        depends="check.test.orion.15" if="orion.home.15">
+    <target name="prepare.orion.15"
+        depends="check.test.orion.15,init" if="home.orion.15">
 
-        <echo message="orion.home.15 = ${orion.home.15}"/>
+        <echo message="home.orion.15 = ${home.orion.15}"/>
 
         <property name="target.orion15.dir" value="${target.test.dir}/orion15"/>
         <property name="conf.orion15.dir" value="${conf.test.dir}/orion15"/>

@@ -3,8 +3,8 @@
          Run Tomcat 4.0 tests
        ========================================================================
     -->
-    <target name="test.tomcat.40" depends="prepare.test.tomcat.40"
-        if="tomcat.home.40" description="Run tests on Tomcat 4.0">
+    <target name="test.tomcat.40" depends="prepare.tomcat.40"
+        if="home.tomcat.40" description="Run tests on Tomcat 4.0">
 
         <!-- Start the servlet engine, wait for it to be started, run the
              unit tests, stop the servlet engine, wait for it to be stopped.
@@ -28,7 +28,7 @@
             value="${target.test.dir}/tomcat40"/>
         <java classname="org.apache.catalina.startup.Bootstrap" fork="yes">
 
-            <jvmarg value="-Dcatalina.home=${tomcat.home.40}"/>
+            <jvmarg value="-Dcatalina.home=${home.tomcat.40}"/>
             <jvmarg value="-Dcatalina.base=${target.tomcat40.dir}"/>
             <arg value="start"/>
             
@@ -36,7 +36,7 @@
 
               <!-- These are ignored if -Dbuild.sysclasspath=only is used -->
               <pathelement path="${java.home}/../lib/tools.jar"/>
-              <fileset dir="${tomcat.home.40}">
+              <fileset dir="${home.tomcat.40}">
                   <include name="bin/bootstrap.jar"/>
               </fileset>
 
@@ -59,7 +59,7 @@
         <property name="target.tomcat40.dir"
             value="${target.test.dir}/tomcat40"/>
         <java classname="org.apache.catalina.startup.Bootstrap" fork="yes">
-            <jvmarg value="-Dcatalina.home=${tomcat.home.40}"/>
+            <jvmarg value="-Dcatalina.home=${home.tomcat.40}"/>
             <jvmarg value="-Dcatalina.base=${target.tomcat40.dir}"/>
             <arg value="stop"/>
             <classpath>
@@ -70,7 +70,7 @@
               <pathelement path="${java.class.path}"/>
 
               <!-- These are ignored if -Dbuild.sysclasspath=only is used -->
-              <fileset dir="${tomcat.home.40}">
+              <fileset dir="${home.tomcat.40}">
                   <include name="bin/bootstrap.jar"/>
               </fileset>
             </classpath>
@@ -84,11 +84,11 @@
          is not set
        ========================================================================
     -->
-    <target name="check.test.tomcat.40" unless="tomcat.home.40">
+    <target name="check.test.tomcat.40" unless="home.tomcat.40">
 
         <echo message=""/>
         <echo message="******************************************************"/>
-        <echo message="WARNING : The 'tomcat.home.40' property has not been"/>
+        <echo message="WARNING : The 'home.tomcat.40' property has not been"/>
         <echo message="set. No test will be run on that servlet engine."/>
         <echo message="******************************************************"/>
         <echo message=""/>
@@ -100,10 +100,10 @@
          Prepare directories and variables for running the tests
        ========================================================================
     -->
-    <target name="prepare.test.tomcat.40"
-        depends="check.test.tomcat.40" if="tomcat.home.40">
+    <target name="prepare.tomcat.40"
+        depends="check.test.tomcat.40,init" if="home.tomcat.40">
 
-        <echo message="tomcat.home.40 = ${tomcat.home.40}"/>
+        <echo message="home.tomcat.40 = ${home.tomcat.40}"/>
 
         <property name="target.tomcat40.dir"
             value="${target.test.dir}/tomcat40"/>
@@ -128,7 +128,7 @@
         <!-- Copy the Tomcat web.xml - We need to copy this file as it has
              changed between Tomcat 4.x versions and one version of it doesn't
              work with another version of Tomcat 4 -->
-        <copy file="${tomcat.home.40}/conf/web.xml"
+        <copy file="${home.tomcat.40}/conf/web.xml"
             todir="${target.tomcat40.dir}/conf"/>
 
         <!-- Copy the war file -->

@@ -3,8 +3,8 @@
          Run WebLogic 6.1 tests
        ========================================================================
     -->
-    <target name="test.weblogic.61" depends="prepare.test.weblogic.61"
-        if="weblogic.home.61" description="Run tests on WebLogic 6.1">
+    <target name="test.weblogic.61" depends="prepare.weblogic.61"
+        if="home.weblogic.61" description="Run tests on WebLogic 6.1">
 
         <!-- Start the servlet engine, wait for it to be started, run the
              unit tests, stop the servlet engine, wait for it to be stopped.
@@ -29,8 +29,8 @@
             dir="${target.weblogic61.dir}">
 
             <classpath>
-                <pathelement location="${weblogic.home.61}/wlserver6.1/lib/weblogic.sp.jar"/>
-                <pathelement location="${weblogic.home.61}/wlserver6.1/lib/weblogic.jar"/>
+                <pathelement location="${home.weblogic.61}/wlserver6.1/lib/weblogic.sp.jar"/>
+                <pathelement location="${home.weblogic.61}/wlserver6.1/lib/weblogic.jar"/>
 
                 <!-- Some hack: I still don't understand why I need these jars
                      to make the cactus clovered jar work. It needs to be
@@ -45,11 +45,11 @@
             <jvmarg value="-hotspot"/>
             <jvmarg value="-ms64m"/>
             <jvmarg value="-mx64m"/>
-            <jvmarg value="-Djava.library.path=${java.library.path};${weblogic.home.61}/wlserver6.1/bin"/>
+            <jvmarg value="-Djava.library.path=${java.library.path};${home.weblogic.61}/wlserver6.1/bin"/>
             <jvmarg value="-Dweblogic.RootDirectory=."/>
             <jvmarg value="-Dweblogic.Domain=testdomain"/>
             <jvmarg value="-Dweblogic.Name=testserver"/>
-            <jvmarg value="-Dbea.home=${weblogic.home.61}"/>
+            <jvmarg value="-Dbea.home=${home.weblogic.61}"/>
             <jvmarg value="-Dweblogic.management.password=password"/>
             <jvmarg value="-Djava.security.policy==./lib/weblogic.policy"/>
 
@@ -67,8 +67,8 @@
         <java classname="weblogic.Admin" fork="yes">
 
             <classpath>
-                <pathelement location="${weblogic.home.61}/wlserver6.1/lib/weblogic.sp.jar"/>
-                <pathelement location="${weblogic.home.61}/wlserver6.1/lib/weblogic.jar"/>
+                <pathelement location="${home.weblogic.61}/wlserver6.1/lib/weblogic.sp.jar"/>
+                <pathelement location="${home.weblogic.61}/wlserver6.1/lib/weblogic.jar"/>
             </classpath>
 
             <arg line="-url t3://localhost:${test.port}"/>
@@ -86,11 +86,11 @@
          is not set
        ========================================================================
     -->
-    <target name="check.test.weblogic.61" unless="weblogic.home.61">
+    <target name="check.test.weblogic.61" unless="home.weblogic.61">
 
         <echo message=""/>
         <echo message="******************************************************"/>
-        <echo message="WARNING : The 'weblogic.home.61' property has not been"/>
+        <echo message="WARNING : The 'home.weblogic.61' property has not been"/>
         <echo message="set. No test will be run on that servlet engine."/>
         <echo message="******************************************************"/>
         <echo message=""/>
@@ -102,10 +102,10 @@
          Prepare directories and variables for running the tests
        ========================================================================
     -->
-    <target name="prepare.test.weblogic.61"
-        depends="check.test.weblogic.61" if="weblogic.home.61">
+    <target name="prepare.weblogic.61"
+        depends="check.test.weblogic.61,init" if="home.weblogic.61">
 
-        <echo message="weblogic.home.61 = ${weblogic.home.61}"/>
+        <echo message="home.weblogic.61 = ${home.weblogic.61}"/>
 
         <property name="target.weblogic61.dir"
             value="${target.test.dir}/weblogic61"/>

@@ -3,8 +3,8 @@
          Run Resin 2.0 tests
        ========================================================================
     -->
-    <target name="test.resin.20" depends="prepare.test.resin.20"
-        if="resin.home.20" description="Run tests on Resin 2.0">
+    <target name="test.resin.20" depends="prepare.resin.20"
+        if="home.resin.20" description="Run tests on Resin 2.0">
 
         <!-- Start the servlet engine, wait for it to be started, run the
              unit tests, stop the servlet engine, wait for it to be stopped.
@@ -32,13 +32,13 @@
             <arg value="-conf"/>
             <arg value="resin.conf"/>
 
-            <!-- Needed so that Resin use the resin.home.20 variable as it's
+            <!-- Needed so that Resin use the home.resin.20 variable as it's
                  root directory for resolving file paths -->
             <jvmarg value="-Dresin.home=${target.resin20.dir}"/>
 
             <classpath>
                 <pathelement location="${cactus.ant.jar}"/>
-                <fileset dir="${resin.home.20}/lib">
+                <fileset dir="${home.resin.20}/lib">
                     <include name="*.jar"/>
                 </fileset>
             </classpath>
@@ -60,7 +60,7 @@
 
             <classpath>
                 <pathelement location="${cactus.ant.jar}"/>
-                <fileset dir="${resin.home.20}/lib">
+                <fileset dir="${home.resin.20}/lib">
                     <include name="*.jar"/>
                 </fileset>
             </classpath>
@@ -75,11 +75,11 @@
          is not set
        ========================================================================
     -->
-    <target name="check.test.resin.20" unless="resin.home.20">
+    <target name="check.test.resin.20" unless="home.resin.20">
 
         <echo message=""/>
         <echo message="******************************************************"/>
-        <echo message="WARNING : The 'resin.home.20' property has not been"/>
+        <echo message="WARNING : The 'home.resin.20' property has not been"/>
         <echo message="set. No test will be run on that servlet engine."/>
         <echo message="******************************************************"/>
         <echo message=""/>
@@ -91,10 +91,10 @@
          Prepare directories and variables for running the tests
        ========================================================================
     -->
-    <target name="prepare.test.resin.20"
-        depends="check.test.resin.20" if="resin.home.20">
+    <target name="prepare.resin.20"
+        depends="check.test.resin.20,init" if="home.resin.20">
 
-        <echo message="resin.home.20 = ${resin.home.20}"/>
+        <echo message="home.resin.20 = ${home.resin.20}"/>
 
         <property name="target.resin20.dir" value="${target.test.dir}/resin20"/>
         <property name="conf.resin20.dir" value="${conf.test.dir}/resin20"/>

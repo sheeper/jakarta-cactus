@@ -71,7 +71,7 @@
     target is "dist"
   =============================================================================
 -->
-<project name="Cactus Servlet Sample for Servlet API 2.3" default="dist"
+<project name="Cactus Servlet Sample for Servlet API 2.3" default="init"
     basedir="..">
 
     &build-share;
@@ -87,7 +87,7 @@
     </target>
     
     <target name="prepare.all"
-        depends="init, prepare.test.tomcat.40"
+        depends="init, prepare.tomcat.40"
         description="Prepare tests on all defined containers">
     </target>
 
