@@ -13,6 +13,9 @@ httpunit.jar=f:/applis/httpunit/lib/httpunit.jar
 # cookies, ...)
 httpclient.jar=f:/applis/apache-dev/jakarta-commons/httpclient/dist/httpclient.jar
 
+# AspectJ runtime jar (used by Cactus for logging, configuration checking, ...)
+aspectjrt.jar=f:/applis/aspectj1.0/lib/aspectjrt.jar
+
 # Note: If you want to build only for a given servlet API, just comment the
 #       properties for the servlet jar that you don't want to build for. For
 #       example if you don't want to build the Servlet 2.2 API, comment
