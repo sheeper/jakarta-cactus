@@ -70,7 +70,10 @@
         Specifying/analysing/designing new features for Cactus (If you wish to
         get involved with this, please join the <link href="mailinglist.html">
         Cactus mailing list</link>,
-        install and try out Cactus and read some of the mailing list archives.        
+        install and try out Cactus and read some of the mailing list archives.
+        In addition, please have a look at the 
+        <link href="goals.html">Goals</link> page which gives a vision of 
+        where Cactus is heading and provide some high level todos.
       </li>
       <li>
         Providing automated Ant scripts for new servlet engines/application
