@@ -67,6 +67,9 @@ xerces.jar = ${lib.repo}/xerces/jars/xercesImpl-2.3.0.jar
 # XML Parsers API (required by HttpUnit)
 xmlapis.jar = ${lib.repo}/xerces/jars/xmlParserAPIs-2.2.1.jar
 
+# JTidy (required by HttpUnit)
+tidy.jar = ${lib.repo}/httpunit/jars/Tidy-04aug2000r7.jar
+
 # -----------------------------------------------------------------------------
 # Mandatory properties for the Eclipse plugin only
 # -----------------------------------------------------------------------------
