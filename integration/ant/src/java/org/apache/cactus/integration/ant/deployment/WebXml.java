@@ -706,6 +706,98 @@ public class WebXml
     }
     
     /**
+     * Creates and adds a security-constraint to the descriptor.
+     * 
+     * @param theWebResourceName The name of the web resource collection to
+     *        protect
+     * @param theUrlPattern The URL pattern to apply the constraint to
+     * @param theRoles The list of authorized roles
+     */
+    public final void addSecurityConstraint(String theWebResourceName,
+        String theUrlPattern, List theRoles)
+    {
+        if ((theWebResourceName == null) || (theUrlPattern == null)
+         || (theRoles == null))
+        {
+            throw new NullPointerException();
+        }
+        if (hasSecurityConstraint(theUrlPattern))
+        {
+            throw new IllegalStateException("Security constraint for URL "
+                + "pattern " + theUrlPattern + " already defined");
+        }
+        Element securityConstraintElement =
+            this.document.createElement(
+                WebXmlTag.SECURITY_CONSTRAINT.getTagName());
+        Element webResourceCollectionElement =
+            this.document.createElement(
+                WebXmlTag.WEB_RESOURCE_COLLECTION.getTagName());
+        webResourceCollectionElement.appendChild(
+            createNestedText(WebXmlTag.WEB_RESOURCE_NAME, theWebResourceName));
+        webResourceCollectionElement.appendChild(
+            createNestedText(WebXmlTag.URL_PATTERN, theUrlPattern));
+        securityConstraintElement.appendChild(webResourceCollectionElement);
+        Element authConstraintElement =
+            this.document.createElement(WebXmlTag.AUTH_CONSTRAINT.getTagName());
+        for (Iterator i = theRoles.iterator(); i.hasNext();)
+        {
+            authConstraintElement.appendChild(
+                createNestedText(WebXmlTag.ROLE_NAME, (String) i.next()));
+        }
+        securityConstraintElement.appendChild(authConstraintElement);
+        addElement(WebXmlTag.SECURITY_CONSTRAINT, securityConstraintElement);
+    }
+
+    /**
+     * Returns the element that contains the security constraint defined for the
+     * specified URL pattern.
+     * 
+     * @param therUrlPattern The URL pattern
+     * @return The DOM element representing the security constraint
+     */
+    public final Element getSecurityConstraint(String theUrlPattern)
+    {
+        if (theUrlPattern == null)
+        {
+            throw new NullPointerException();
+        }
+        Iterator securityConstraintElements =
+            getElements(WebXmlTag.SECURITY_CONSTRAINT);
+        while (securityConstraintElements.hasNext())
+        {
+            Element securityConstraintElement = (Element)
+                securityConstraintElements.next();
+            Iterator webResourceCollectionElements = 
+                getNestedElements(securityConstraintElement,
+                    WebXmlTag.WEB_RESOURCE_COLLECTION);
+            if (webResourceCollectionElements.hasNext())
+            {
+                Element webResourceCollectionElement = (Element)
+                    webResourceCollectionElements.next();
+                if (theUrlPattern.equals(getNestedText(
+                    webResourceCollectionElement, WebXmlTag.URL_PATTERN)))
+                {
+                    return securityConstraintElement;
+                }
+            }
+        }
+        return null;
+    }
+    
+    /**
+     * Returns whether a security constraint has been mapped to the specified
+     * URL pattern.
+     * 
+     * @param theUrlPattern The URL patterm
+     * @return <code>true</code> if a security constraint is defined,
+     *         <code>false</code> otherwise
+     */
+    public final boolean hasSecurityConstraint(String theUrlPattern)
+    {
+        return (getSecurityConstraint(theUrlPattern) != null);
+    }
+    
+    /**
      * Adds a new security role to the descriptor.
      * 
      * @param theRoleName The name of the role to add
@@ -779,7 +871,7 @@ public class WebXml
     }
     
     /**
-     * Returns whether a specific security role has been defined
+     * Returns whether a specific security role has been defined.
      * 
      * @param theRoleName The name of the role
      * @return <code>true</code> if the security role is defined,
@@ -885,6 +977,29 @@ public class WebXml
         }
     }
     
+    /**
+     * Returns an iterator over the child elements of the specified element that
+     * match the specified tag.
+     *  
+     * @param theParent The element of which the nested elements should be
+     *        retrieved
+     * @param theTag The descriptor tag of which the elements should be
+     *        returned
+     * @return An iterator over the elements matching the tag, in the order 
+     *         they occur in the descriptor
+     */
+    private Iterator getNestedElements(Element theParent,
+        WebXmlTag theTag)
+    {
+        List elements = new ArrayList();
+        NodeList nodeList = theParent.getElementsByTagName(theTag.getTagName());
+        for (int i = 0; i < nodeList.getLength(); i++)
+        {
+            elements.add(nodeList.item(i));
+        }
+        return elements.iterator();
+    }
+
     /**
      * Creates an element that contains nested text.
      * 

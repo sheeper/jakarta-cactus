@@ -233,6 +233,24 @@ public final class WebXmlTag
         new WebXmlTag("security-constraint");
     
     /**
+     * Element name 'web-resource-collection',
+     */
+    public static final WebXmlTag WEB_RESOURCE_COLLECTION =
+        new WebXmlTag("web-resource-collection");
+    
+    /**
+     * Element name 'web-resource-name',
+     */
+    public static final WebXmlTag WEB_RESOURCE_NAME =
+        new WebXmlTag("web-resource-name");
+    
+    /**
+     * Element name 'auth-constraint',
+     */
+    public static final WebXmlTag AUTH_CONSTRAINT =
+        new WebXmlTag("auth-constraint");
+    
+    /**
      * Element name 'login-config',
      */
     public static final WebXmlTag LOGIN_CONFIG =

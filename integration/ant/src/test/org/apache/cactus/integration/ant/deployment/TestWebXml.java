@@ -58,7 +58,10 @@ package org.apache.cactus.integration.ant.deployment;
 
 import java.io.ByteArrayInputStream;
 import java.io.StringReader;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -1023,20 +1026,65 @@ public final class TestWebXml extends TestCase
     }
 
     /**
-     * Tests whether retrieving security-constraint elements from an empty
-     * descriptor results in an empty iterator.
+     * TODO
      * 
      * @throws Exception If an unexpected error occurs
      */
-    public void testGetSecurityConstraintEmpty()
+    public void testAddSecurityConstraint()
         throws Exception
     {
         String xml = "<web-app></web-app>";
         Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
         WebXml webXml = new WebXml(doc);
-        Iterator securityConstraints =
-            webXml.getElements(WebXmlTag.SECURITY_CONSTRAINT);
-        assertTrue(!securityConstraints.hasNext());
+        webXml.addSecurityConstraint("wrn", "/url", Collections.EMPTY_LIST);
+        assertTrue(webXml.hasSecurityConstraint("/url"));
+    }
+
+    /**
+     * TODO
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
+    public void testAddSecurityConstraintWithRoles()
+        throws Exception
+    {
+        String xml = "<web-app></web-app>";
+        Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
+        WebXml webXml = new WebXml(doc);
+        List roles = new ArrayList();
+        roles.add("role1");
+        roles.add("role2");
+        webXml.addSecurityConstraint("wrn", "/url", roles);
+        assertTrue(webXml.hasSecurityConstraint("/url"));
+        Element securityConstraintElement =
+            webXml.getSecurityConstraint("/url");
+        assertNotNull(securityConstraintElement);
+        Element authConstraintElement = (Element)
+            securityConstraintElement.getElementsByTagName(
+                "auth-constraint").item(0);
+        assertNotNull(authConstraintElement);
+        NodeList roleNameElements =
+            authConstraintElement.getElementsByTagName("role-name");
+        assertEquals(2, roleNameElements.getLength());
+        assertEquals("role1",
+            roleNameElements.item(0).getChildNodes().item(0).getNodeValue());
+        assertEquals("role2",
+            roleNameElements.item(1).getChildNodes().item(0).getNodeValue());
+    }
+
+    /**
+     * Tests whether checking an empty descriptor for some security constraint
+     * results in <code>false</code>.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
+    public void testHasSecurityConstraintEmpty()
+        throws Exception
+    {
+        String xml = "<web-app></web-app>";
+        Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
+        WebXml webXml = new WebXml(doc);
+        assertTrue(!webXml.hasSecurityConstraint("/TestUrl"));
     }
 
     /**
@@ -1052,15 +1100,16 @@ public final class TestWebXml extends TestCase
             + "  <security-constraint>"
             + "    <web-resource-collection>"
             + "      <web-resource-name>wr1</web-resource-name>"
+            + "      <url-pattern>/url1</url-pattern>"
             + "    </web-resource-collection>"
             + "  </security-constraint>"
             + "</web-app>";
         Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
         WebXml webXml = new WebXml(doc);
-        Iterator securityConstraints =
-            webXml.getElements(WebXmlTag.SECURITY_CONSTRAINT);
-        assertNotNull(securityConstraints.next());
-        assertTrue(!securityConstraints.hasNext());
+        assertTrue(webXml.hasSecurityConstraint("/url1"));
+        Element securityConstraintElement =
+            webXml.getSecurityConstraint("/url1");
+        assertNotNull(securityConstraintElement);
     }
 
     /**
@@ -1076,21 +1125,27 @@ public final class TestWebXml extends TestCase
             + "  <security-constraint>"
             + "    <web-resource-collection>"
             + "      <web-resource-name>wr1</web-resource-name>"
+            + "      <url-pattern>/url1</url-pattern>"
             + "    </web-resource-collection>"
             + "  </security-constraint>"
             + "  <security-constraint>"
             + "    <web-resource-collection>"
             + "      <web-resource-name>wr2</web-resource-name>"
+            + "      <url-pattern>/url2</url-pattern>"
             + "    </web-resource-collection>"
             + "  </security-constraint>"
             + "  <security-constraint>"
             + "    <web-resource-collection>"
             + "      <web-resource-name>wr3</web-resource-name>"
+            + "      <url-pattern>/url3</url-pattern>"
             + "    </web-resource-collection>"
             + "  </security-constraint>"
             + "</web-app>";
         Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
         WebXml webXml = new WebXml(doc);
+        assertTrue(webXml.hasSecurityConstraint("/url1"));
+        assertTrue(webXml.hasSecurityConstraint("/url2"));
+        assertTrue(webXml.hasSecurityConstraint("/url3"));
         Iterator securityConstraints =
             webXml.getElements(WebXmlTag.SECURITY_CONSTRAINT);
         assertNotNull(securityConstraints.next());
