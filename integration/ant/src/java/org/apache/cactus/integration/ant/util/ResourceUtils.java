@@ -66,6 +66,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.URL;
+import java.net.URLDecoder;
 import java.util.Vector;
 
 import org.apache.tools.ant.Project;
@@ -230,13 +231,13 @@ public final class ResourceUtils
             {
                 int pling = urlString.indexOf("!");
                 String jar = urlString.substring(9, pling);
-                file = new File(jar);
+                file = new File(URLDecoder.decode(jar));
             }
             else if (urlString.startsWith("file:"))
             {
                 int tail = urlString.indexOf(theResourceName);
                 String dir = urlString.substring(5, tail);
-                file = new File(dir);
+                file = new File(URLDecoder.decode(dir));
             }
         }
         return file;
