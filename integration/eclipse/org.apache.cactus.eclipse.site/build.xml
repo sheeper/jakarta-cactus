@@ -1,0 +1,95 @@
+<?xml version="1.0"?>
+<!DOCTYPE project [
+    <!ENTITY common SYSTEM "file:../../../build-common.xml">
+]>
+
+<!--
+  =============================================================================
+    Build file for the Cactus Eclipse Integration.
+
+    This script should be started with the following command line :
+
+        ant <target>
+
+    Run "ant -projecthelp" to get a list of available targets.
+
+    Note: basedir points to the main Cactus directory in order to have the same
+          base dir for all Cactus subprojects and thus be able to share
+          relative paths.
+  =============================================================================
+-->
+<project name="Cactus Eclipse Update Site" default="dist" basedir="../../..">
+
+    <property name="site.version" value="1.5.0"/>
+    <property name="site.suffix" value="_${site.version}"/>
+    <!-- Base directory for all file related operations -->
+    <property name="base.dir" value="integration/eclipse/org.apache.cactus.eclipse.site"/>
+
+    <property name="org.apache.cactus.eclipse.feature.dir" value="integration/eclipse/org.apache.cactus.eclipse.feature"/>
+
+    <!-- Include properties and targets common to the different subprojects -->
+    &common;
+
+    <!-- Global project properties -->
+    <property name="project.name.text" value="Cactus Eclipse Update Site"/>
+
+    <!--
+       ========================================================================
+         Initialize source, target and dist properties
+       ========================================================================
+    -->
+    <target name="properties">
+    <property name="features.dir" value="${release.dir}/features"/>
+    <property name="plugins.dir" value="${release.dir}/plugins"/>
+
+    </target>
+
+    <!--
+       ========================================================================
+         Verify that all mandatory properties have been set
+       ========================================================================
+    -->
+    <target name="check.properties">
+
+        <taskdef name="checkProperty" 
+            classname="org.apache.cactus.ant.CheckPropertiesTask">
+            <classpath>
+                <pathelement location="${cactus.anttasks.jar}"/>
+            </classpath>
+        </taskdef>
+
+    </target>
+
+    <!--
+       ========================================================================
+         Initialize the build. Must be called by all targets
+       ========================================================================
+    -->
+    <target name="init" depends="init.common,properties,check.properties">
+    </target>
+
+    <!--
+       ========================================================================
+         Generate the release
+       ========================================================================
+    -->
+    <target name="release" depends="init, clean"
+        description="Generate the release files">
+        <echo> ********************* </echo>
+        <echo> ${j2ee.api} </echo>
+        <mkdir dir="${plugins.dir}"/>
+        <mkdir dir="${features.dir}"/>
+        <copy file="${base.dir}/site.xml" todir="${release.dir}"/>
+        
+        <jar jarfile="${features.dir}/org.apache.cactus.eclipse.feature${site.suffix}.jar"
+             basedir="${org.apache.cactus.eclipse.feature.dir}"
+             includes="feature.xml, logocactus.gif"/>
+        <zip destfile="${plugins.dir}/org.apache.cactus.eclipse.runner${site.suffix}.jar">
+            <zipfileset dir="${cactus.eclipse.runner.dir}"/>
+        </zip>
+        <zip destfile="${plugins.dir}/org.apache.cactus.eclipse.webapp${site.suffix}.jar">
+            <zipfileset dir="${cactus.eclipse.webapp.dir}"/>
+        </zip>
+    </target>
+            
+</project>
