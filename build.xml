@@ -226,9 +226,8 @@
       </zipfileset>
       <zipfileset dir="framework/web"
           prefix="${main.release.name}/web"/>
+      <zipfileset dir="documentation/licenses" prefix="${main.release.name}/licenses"/>
       <zipfileset dir="." prefix="${main.release.name}">
-        <include name="LICENSE.*"/>
-        <include name="NOTICE.*"/>
         <include name="ANNOUNCEMENT.txt"/>
       </zipfileset>
     </zip>
@@ -262,6 +261,10 @@
           prefix="${main.release.name}/samples/ejb">
         <exclude name="lib/**"/>
       </zipfileset>
+      <zipfileset file="${j2ee.13.jar}" prefix="${main.release.name}/lib"/>
+      <zipfileset file="${jetty.jar}" prefix="${main.release.name}/lib"/>
+      <zipfileset file="${jasper-runtime.jar}" prefix="${main.release.name}/lib"/>
+      <zipfileset file="${jasper-compiler.jar}" prefix="${main.release.name}/lib"/>
     </zip>
     <delete file="${release.dir}/tmp.zip"/>
 

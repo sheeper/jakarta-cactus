@@ -101,9 +101,9 @@
   <property name="commons.logging.jar"
       location="../../lib/@commons.logging.jar.name@"/>
   <property name="jasper-compiler.jar"
-      location="lib/@jetty.jar.name@"/>
+      location="../../lib/@jasper-compiler.jar.name@"/>
   <property name="jasper-runtime.jar"
-      location="lib/@jetty.jar.name@"/>
+      location="../../lib/@jasper-runtime.jar.name@"/>
   <property name="jetty.jar"
       location="../../lib/@jetty.jar.name@"/>
   <property name="junit.jar"
