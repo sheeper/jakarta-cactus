@@ -191,8 +191,10 @@ framework/src/java/share/org/apache/cactus/client/HttpClientConnectionHelper.jav
 framework/src/java/share/org/apache/cactus/client/JdkConnectionHelper.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/client/JspHttpClient.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/client/ParsingException.java svn_keywords=Author+Date+Id+Revision
+framework/src/java/share/org/apache/cactus/client/ResponseObjectFactory.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/client/ServletExceptionWrapper.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/client/ServletHttpClient.java svn_keywords=Author+Date+Id+Revision
+framework/src/java/share/org/apache/cactus/client/WebResponseObjectFactory.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/client/WebTestResultParser.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/client/authentication/AbstractAuthentication.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/client/authentication/BasicAuthentication.java svn_keywords=Author+Date+Id+Revision
