@@ -208,7 +208,7 @@ public abstract class AbstractJavaContainer extends AbstractContainer
         String javaHome = System.getProperty("java.home"); 
         // TODO: Fix this as it fails on Max OSX (which doesn't have a 
         // tools.jar file).
-        File toolsJar = new File(javaHome + "../lib/tools.jar");
+        File toolsJar = new File(javaHome, "../lib/tools.jar");
         if (!toolsJar.isFile())
         {
             throw new FileNotFoundException(toolsJar.getAbsolutePath());
