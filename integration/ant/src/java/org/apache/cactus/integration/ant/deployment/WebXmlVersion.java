@@ -203,6 +203,7 @@ public class WebXmlVersion implements Comparable
      * @throws NullPointerException If the document type is <code>null</code>
      */
     public static WebXmlVersion valueOf(DocumentType theDocType)
+        throws NullPointerException
     {
         return valueOf(theDocType.getPublicId());
     }

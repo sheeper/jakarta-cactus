@@ -206,6 +206,7 @@ public class ApplicationXmlVersion implements Comparable
      * @throws NullPointerException If the document type is <code>null</code>
      */
     public static ApplicationXmlVersion valueOf(DocumentType theDocType)
+        throws NullPointerException
     {
         return valueOf(theDocType.getPublicId());
     }
