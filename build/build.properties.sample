@@ -3,7 +3,7 @@
 # line when starting Ant with the -D switch or from a higher level build file
 
 # JUnit jar (needed by Cactus as it is an extension of JUnit)
-junit.jar=f:/applis/jakarta-ant-1.4/lib/junit.jar
+junit.jar=f:/applis/jakarta-ant-1.4.1/lib/junit.jar
 
 # HttpUnit jar (needed for compiling and running the unit tests)
 httpunit.jar=f:/applis/httpunit/lib/httpunit.jar
