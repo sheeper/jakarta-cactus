@@ -133,9 +133,18 @@
           configuration, etc).
         </li>
         <li>
-          <strong><code>log4j.jar</code>(optional)</strong> : Cactus uses
-          Log4j for performing all internal logging. This jar is optional and if
-          you don't put in the classpaths, no logs will be generated.
+          <strong><code>commons-logging.jar</code></strong> : Cactus uses
+          the Jakarta Commons Logging facade framework to provide seamless
+          Cactus logging using any existing Logging framework (Log4j,
+          LogKit, JDK 1.4 Logging, etc). It is also needed for Commons
+          HttpClient.
+        </li>
+        <li>
+          <strong><code>logging framework</code>(optional)</strong> : The
+          logging framework to use (Log4j jar, LogKit jar, etc). It is optional
+          as it is only needed for internal Cactus logging and in addition, the
+          Commons Logging framework provides a simple logger that logs on the
+          console.
         </li>
       </ul>
       <p>
