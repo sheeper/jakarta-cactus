@@ -31,12 +31,6 @@
 
   <version title="Version 1.3">
 
-    <category title="Documentation">
-      <action assigned-to="Vincent Massol">
-        Move old FAQ entries from Jyve to our plain text file.
-      </action>
-    </category>
-
     <category title="Build Process">
       <p>
         All tasks that are related to building Cactus in general.

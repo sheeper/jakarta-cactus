@@ -14,12 +14,17 @@
 
     <s1 title="FAQ Content">
       <ul>
+
         <li>
-          <jump anchor="faq1">How can I have a web.xml that is valid both for
+          <jump anchor="faq1">"Can't find resource for cactus" error
+          message</jump>
+        </li>
+        <li>
+          <jump anchor="faq2">How can I have a web.xml that is valid both for
           testing and for production ?</jump>
         </li>
         <li>
-          <jump anchor="faq2">I'm getting a
+          <jump anchor="faq3">I'm getting a
           <code>java.io.StreamCorruptedException: InputStream does not contain a
           serialized object</code> error. What does it mean ?</jump>
         </li>
@@ -27,6 +32,30 @@
     </s1>
 
     <anchor id="faq1"/>
+    <s1 title="Can't find resource for cactus error message">
+
+      <p>
+        If you get the following stack trace :
+      </p>
+
+<source><![CDATA[
+java.lang.ExceptionInInitializerError: java.util.MissingResourceException: Can't find bundle for base name cactus, locale en_GB
+at java.util.ResourceBundle.throwMissingResourceException(ResourceBundle.java:707)
+at java.util.ResourceBundle.getBundleImpl(ResourceBundle.java:679)
+at java.util.ResourceBundle.getBundle(ResourceBundle.java:546)
+]]></source>
+
+      <p>
+        it simply means that you have not put the cactus.properties file in
+        your CLASSPATH (i.e. the directory which contains this file should
+        be in the CLASSPATH). This file is the Cactus configuration file and
+        is required. Check the Cactus
+        <link href="howto_config.html">Configuration Howto</link> page for
+        more information.
+      </p>
+    </s1>
+
+    <anchor id="faq2"/>
     <s1 title="How can I have a web.xml that is valid both for testing and for production ?">
 
       <p>
@@ -99,7 +128,7 @@ web application is built)
 
     </s1>
 
-    <anchor id="faq2"/>
+    <anchor id="faq3"/>
     <s1 title="I'm getting a java.io.StreamCorruptedException error. What does it mean ?">
 
       <p>
