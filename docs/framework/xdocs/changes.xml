@@ -23,6 +23,11 @@
     </devs>
 
     <release version="1.0 in CVS">
+      <action dev="VMA" type="update">
+        Make the <code>ChangeLogTask</code> work even when not connected to the
+        Internet (i.e. use previous <code>cvslog.xml</code> file or genreate
+        an empty one if non already exists).
+      </action>
       <action dev="VMA" type="add">
         Modified the Changes page so that users can see at a glance the list of
         pages that have been modified recently on the Cactus web site.
