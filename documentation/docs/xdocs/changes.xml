@@ -67,6 +67,16 @@
         <person name="Julien Ruaux" email="jruaux@apache.org" id="JRU"/>
       </devs>
 
+<!--
+Note: To be added once we include the Eclipse plugin in a release
+
+        <action dev="JRU" type="add">
+          First release of the Eclipse plugin. See the
+          <link href="site:integration_eclipse">Eclipse integration 
+          documentation</link> for more information.
+        </action>
+-->
+	
       <release version="1.5" date="- in CVS">
         <action dev="VMA" type="add">
           Added a <a href="site:resources_books">Cactus books</a> section
@@ -151,8 +161,9 @@
         <action dev="CML" type="update">
           Update of jars bundled in the Cactus distribution: Commons Logging
           1.0.2, Log4j 1.2.7, HttpClient 2.0alpha3, HttpUnit 1.5 and 
-          JUnit 3.8.1. In addition the some of the jars needed to build Cactus
-          were also updated: Checkstyle 3.0 and BeanUtils 1.6.1.
+          JUnit 3.8.1. In addition the requirements for the jars needed to 
+          build Cactus were also updated: Checkstyle 3.1 (and the dependent
+          jars: BeanUtils 1.6.1, Collections 2.1, Regexp 1.2 and Antlr 2.7.2).
         </action>
         <action dev="VMA" type="add">
           Added ability to add any additional HTTP parameters to the request 
@@ -181,7 +192,8 @@
         </action>
         <action dev="VMA" type="update">
           Improved (and normalized) build system. This change should not 
-          affect nor be visible by Cactus end-users.
+          affect nor be visible by Cactus end-users. However, Cactus power
+          users building Cactus from sources will appreciate.
         </action>
         <action dev="VMA" type="update">
           Improved test classe names in the Servlet Sample application.
@@ -189,10 +201,12 @@
         <action dev="VMA" type="update">
           The Servlet Sample build is now using the Cactus Ant Integration.
         </action>
-        <action dev="VMA" type="add">
-          New Cactus front end: The Cactus Ant Integration. It provides a 
-          generic and directly reusable Ant directory structure for easily 
-          running Cactus tests from one's own Ant build.
+        <action dev="CML" type="add">
+          New Cactus Ant Integration. It provides new custom Ant tasks
+          such as 
+          <code>&lt;cactifywar&gt;</code>, <code>&lt;cactus&gt;</code>
+          which makes executing Cactus tests from an Ant build script
+          extremely easy.
         </action>
         <action dev="VMA" type="update">
           Modified the build process to generate the Cactus web site by 
@@ -207,11 +221,6 @@
           targets you defined for starting the container, stopping it and 
           runnning the Cactus tests. Previously, it was only propagating
           the Ant properties.
-        </action>
-        <action dev="JRU" type="add">
-          First release of the Eclipse plugin. See the
-          <link href="site:integration_eclipse">Eclipse integration 
-          documentation</link> for more information.
         </action>
         <action dev="CML" type="update">
           Added stack trace filtering to the ServletTestRunner. Stack frames
@@ -258,11 +267,8 @@
           <code>NoClassDefFoundError</code> had been raised, Cactus would 
           not have searched in the Context ClassLoader.
         </action>
-        <action dev="VMA" type="update">
-          Updated to the latest <code>junit-noframes.xsl</code> from Ant.
-        </action>
         <action dev="VMA" type="add" due-to="Atsushi Hasegawa" due-to-email="ahasegawa@borland.com">
-          Added support for internationalisation (double byte characters) for 
+          Added support for internationalization (double byte characters) for 
           sending back test results. This allows Cactus to be used with any
           character set.
         </action>
@@ -306,6 +312,10 @@
           Added a Jetty Sample application to demonstrate how to use the new
           Jetty initializer.
         </action>
+        <action dev="JRU" type="add">
+          Added a <link href="site:integration_jetty">Jetty integration 
+          tutorial</link>.
+        </action>
         <action dev="VMA" type="add">
           Added a Jetty initializer. This is the first implementation of the 
           new initializer feature. This initializer starts Jetty before Cactus 
@@ -317,6 +327,10 @@
           order of magnitude as pure JUnit tests in term of speed ... :-). Of 
           course, this is only for Servlet tests ... I am still waiting for an
           embeddable EJB container that starts in less than 1 second ...
+        </action>
+        <action dev="JRU" type="add">
+          Added a <link href="site:howto_initializer">tutorial</link> that explains 
+          how to use the initializer feature.
         </action>
         <action dev="VMA" type="add">
           Added notion of Initializer. This is an optional class that you can 
@@ -332,18 +346,6 @@
           JUnit <code>setUp()</code> and <code>tearDown()</code> are called
           before and after each test, but on the server side. <em>Note: web 
           site documentation is not yet up to date</em>.
-        </action>
-        <action dev="VMA" type="add">
-          Added a new <code>CheckPropertiesTask</code> Ant task to check
-          properties in build files.
-        </action>
-        <action dev="JRU" type="add">
-          Added a <link href="site:howto_initializer">tutorial</link> that explains 
-          how to use the initializer feature.
-        </action>
-        <action dev="JRU" type="add">
-          Added a <link href="site:integration_jetty">Jetty integration 
-          tutorial</link>.
         </action>
       </release>
 
