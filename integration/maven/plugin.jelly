@@ -314,9 +314,10 @@
 
       <containerset>
 
-        <!-- TODO: Find how to set the port for JBoss 3x -->
-        <jboss3x if="cactus.home.jboss3x"
-            dir="${cactus.home.jboss3x}"
+        <!-- Note: The port attribute for JBoss is only used for custom 
+             configs -->
+        <jboss3x if="cactus.home.jboss3x" port="${cactus.port}"
+            dir="${cactus.home.jboss3x}" 
             output="${cactus.reports.dir}/jboss3x.out"
             todir="${cactus.reports.dir}/jboss3x"
             config="${cactus.jboss3x.config.name}">
@@ -325,8 +326,8 @@
           </j:if>    
         </jboss3x>
 
-        <orion1x if="cactus.home.orion1x"
-            dir="${cactus.home.orion1x}" port="${cactus.port}"
+        <orion1x if="cactus.home.orion1x" port="${cactus.port}"
+            dir="${cactus.home.orion1x}"
             output="${cactus.reports.dir}/orion1x.out"
             todir="${cactus.reports.dir}/orion1x">
           <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
@@ -334,8 +335,8 @@
           </j:if>    
         </orion1x>
 
-        <orion2x if="cactus.home.orion2x"
-            dir="${cactus.home.orion2x}" port="${cactus.port}"
+        <orion2x if="cactus.home.orion2x" port="${cactus.port}"
+            dir="${cactus.home.orion2x}"
             output="${cactus.reports.dir}/orion2x.out"
             todir="${cactus.reports.dir}/orion2x">
           <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
@@ -343,8 +344,8 @@
           </j:if>    
         </orion2x>
 
-        <resin2x if="cactus.home.resin2x"
-            dir="${cactus.home.resin2x}" port="${cactus.port}"
+        <resin2x if="cactus.home.resin2x" port="${cactus.port}"
+            dir="${cactus.home.resin2x}"
             output="${cactus.reports.dir}/resin2x.out"
             todir="${cactus.reports.dir}/resin2x">
           <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
@@ -355,8 +356,8 @@
           </j:if>        
         </resin2x>
 
-        <resin3x if="cactus.home.resin3x"
-            dir="${cactus.home.resin3x}" port="${cactus.port}"
+        <resin3x if="cactus.home.resin3x" port="${cactus.port}"
+            dir="${cactus.home.resin3x}"
             output="${cactus.reports.dir}/resin3x.out"
             todir="${cactus.reports.dir}/resin3x">
           <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
@@ -367,8 +368,8 @@
           </j:if>        
         </resin3x>
         
-        <tomcat4x if="cactus.home.tomcat4x"
-            dir="${cactus.home.tomcat4x}" port="${cactus.port}"
+        <tomcat4x if="cactus.home.tomcat4x" port="${cactus.port}"
+            dir="${cactus.home.tomcat4x}"
             output="${cactus.reports.dir}/tomcat4x.out"
             todir="${cactus.reports.dir}/tomcat4x">
           <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
@@ -387,8 +388,8 @@
           </j:if>
         </tomcat4x>
 
-        <tomcat5x if="cactus.home.tomcat5x"
-            dir="${cactus.home.tomcat5x}" port="${cactus.port}"
+        <tomcat5x if="cactus.home.tomcat5x" port="${cactus.port}"
+            dir="${cactus.home.tomcat5x}"
             output="${cactus.reports.dir}/tomcat5x.out"
             todir="${cactus.reports.dir}/tomcat5x">
           <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
@@ -407,8 +408,8 @@
           </j:if>            
         </tomcat5x>
 
-        <weblogic7x if="cactus.home.weblogic7x"
-            dir="${cactus.home.weblogic7x}" port="${cactus.port}"
+        <weblogic7x if="cactus.home.weblogic7x" port="${cactus.port}"
+            dir="${cactus.home.weblogic7x}"
             output="${cactus.reports.dir}/weblogic7x.out"
             todir="${cactus.reports.dir}/weblogic7x">
           <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
@@ -543,8 +544,9 @@
 
         <containerset>
 
-        <!-- TODO: Find how to set the port for JBoss 3x -->
-        <jboss3x if="cactus.home.jboss3x"
+        <!-- Note: The port attribute for JBoss is only used for custom 
+             configs -->
+        <jboss3x if="cactus.home.jboss3x" port="${cactus.port}"
             dir="${cactus.home.jboss3x}"
             output="${cactus.reports.dir}/jboss3x.out"
             todir="${cactus.reports.dir}/jboss3x"
@@ -554,8 +556,8 @@
           </j:if>    
         </jboss3x>
 
-        <orion1x if="cactus.home.orion1x"
-            dir="${cactus.home.orion1x}" port="${cactus.port}"
+        <orion1x if="cactus.home.orion1x" port="${cactus.port}"
+            dir="${cactus.home.orion1x}"
             output="${cactus.reports.dir}/orion1x.out"
             todir="${cactus.reports.dir}/orion1x">
           <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
@@ -563,8 +565,8 @@
           </j:if>    
         </orion1x>
 
-        <orion2x if="cactus.home.orion2x"
-            dir="${cactus.home.orion2x}" port="${cactus.port}"
+        <orion2x if="cactus.home.orion2x" port="${cactus.port}"
+            dir="${cactus.home.orion2x}"
             output="${cactus.reports.dir}/orion2x.out"
             todir="${cactus.reports.dir}/orion2x">
           <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
@@ -572,8 +574,8 @@
           </j:if>    
         </orion2x>
 
-        <resin2x if="cactus.home.resin2x"
-            dir="${cactus.home.resin2x}" port="${cactus.port}"
+        <resin2x if="cactus.home.resin2x" port="${cactus.port}"
+            dir="${cactus.home.resin2x}"
             output="${cactus.reports.dir}/resin2x.out"
             todir="${cactus.reports.dir}/resin2x">
           <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
@@ -584,8 +586,8 @@
           </j:if>        
         </resin2x>
 
-        <resin3x if="cactus.home.resin3x"
-            dir="${cactus.home.resin3x}" port="${cactus.port}"
+        <resin3x if="cactus.home.resin3x" port="${cactus.port}"
+            dir="${cactus.home.resin3x}"
             output="${cactus.reports.dir}/resin3x.out"
             todir="${cactus.reports.dir}/resin3x">
           <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
@@ -596,8 +598,8 @@
           </j:if>        
         </resin3x>
         
-        <tomcat4x if="cactus.home.tomcat4x"
-            dir="${cactus.home.tomcat4x}" port="${cactus.port}"
+        <tomcat4x if="cactus.home.tomcat4x" port="${cactus.port}"
+            dir="${cactus.home.tomcat4x}"
             output="${cactus.reports.dir}/tomcat4x.out"
             todir="${cactus.reports.dir}/tomcat4x">
           <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
@@ -616,8 +618,8 @@
           </j:if>
         </tomcat4x>
 
-        <tomcat5x if="cactus.home.tomcat5x"
-            dir="${cactus.home.tomcat5x}" port="${cactus.port}"
+        <tomcat5x if="cactus.home.tomcat5x" port="${cactus.port}"
+            dir="${cactus.home.tomcat5x}"
             output="${cactus.reports.dir}/tomcat5x.out"
             todir="${cactus.reports.dir}/tomcat5x">
           <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
@@ -636,8 +638,8 @@
           </j:if>            
         </tomcat5x>
 
-        <weblogic7x if="cactus.home.weblogic7x"
-            dir="${cactus.home.weblogic7x}" port="${cactus.port}"
+        <weblogic7x if="cactus.home.weblogic7x" port="${cactus.port}"
+            dir="${cactus.home.weblogic7x}"
             output="${cactus.reports.dir}/weblogic7x.out"
             todir="${cactus.reports.dir}/weblogic7x">
           <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
@@ -709,8 +711,9 @@
 
         <containerset>
 
-        <!-- TODO: Find how to set the port for JBoss 3x -->
-        <jboss3x if="cactus.home.jboss3x"
+        <!-- Note: The port attribute for JBoss is only used for custom 
+             configs -->
+        <jboss3x if="cactus.home.jboss3x" port="${cactus.port}"
             dir="${cactus.home.jboss3x}"
             output="${cactus.reports.dir}/jboss3x.out"
             todir="${cactus.reports.dir}/jboss3x"
@@ -720,8 +723,8 @@
           </j:if>    
         </jboss3x>
 
-        <orion1x if="cactus.home.orion1x"
-            dir="${cactus.home.orion1x}" port="${cactus.port}"
+        <orion1x if="cactus.home.orion1x" port="${cactus.port}"
+            dir="${cactus.home.orion1x}"
             output="${cactus.reports.dir}/orion1x.out"
             todir="${cactus.reports.dir}/orion1x">
           <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
@@ -729,8 +732,8 @@
           </j:if>    
         </orion1x>
 
-        <orion2x if="cactus.home.orion2x"
-            dir="${cactus.home.orion2x}" port="${cactus.port}"
+        <orion2x if="cactus.home.orion2x" port="${cactus.port}"
+            dir="${cactus.home.orion2x}"
             output="${cactus.reports.dir}/orion2x.out"
             todir="${cactus.reports.dir}/orion2x">
           <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
@@ -738,8 +741,8 @@
           </j:if>    
         </orion2x>
 
-        <resin2x if="cactus.home.resin2x"
-            dir="${cactus.home.resin2x}" port="${cactus.port}"
+        <resin2x if="cactus.home.resin2x" port="${cactus.port}"
+            dir="${cactus.home.resin2x}"
             output="${cactus.reports.dir}/resin2x.out"
             todir="${cactus.reports.dir}/resin2x">
           <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
@@ -750,8 +753,8 @@
           </j:if>        
         </resin2x>
 
-        <resin3x if="cactus.home.resin3x"
-            dir="${cactus.home.resin3x}" port="${cactus.port}"
+        <resin3x if="cactus.home.resin3x" port="${cactus.port}"
+            dir="${cactus.home.resin3x}"
             output="${cactus.reports.dir}/resin3x.out"
             todir="${cactus.reports.dir}/resin3x">
           <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
@@ -762,8 +765,8 @@
           </j:if>        
         </resin3x>
         
-        <tomcat4x if="cactus.home.tomcat4x"
-            dir="${cactus.home.tomcat4x}" port="${cactus.port}"
+        <tomcat4x if="cactus.home.tomcat4x" port="${cactus.port}"
+            dir="${cactus.home.tomcat4x}"
             output="${cactus.reports.dir}/tomcat4x.out"
             todir="${cactus.reports.dir}/tomcat4x">
           <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
@@ -782,8 +785,8 @@
           </j:if>
         </tomcat4x>
 
-        <tomcat5x if="cactus.home.tomcat5x"
-            dir="${cactus.home.tomcat5x}" port="${cactus.port}"
+        <tomcat5x if="cactus.home.tomcat5x" port="${cactus.port}"
+            dir="${cactus.home.tomcat5x}"
             output="${cactus.reports.dir}/tomcat5x.out"
             todir="${cactus.reports.dir}/tomcat5x">
           <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
@@ -802,8 +805,8 @@
           </j:if>            
         </tomcat5x>
 
-        <weblogic7x if="cactus.home.weblogic7x"
-            dir="${cactus.home.weblogic7x}" port="${cactus.port}"
+        <weblogic7x if="cactus.home.weblogic7x" port="${cactus.port}"
+            dir="${cactus.home.weblogic7x}"
             output="${cactus.reports.dir}/weblogic7x.out"
             todir="${cactus.reports.dir}/weblogic7x">
           <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
@@ -924,8 +927,9 @@
 
       <containerset>
 
-        <!-- TODO: Find how to set the port for JBoss 3x -->
-        <jboss3x if="cactus.home.jboss3x"
+        <!-- Note: The port attribute for JBoss is only used for custom 
+             configs -->
+        <jboss3x if="cactus.home.jboss3x" port="${cactus.port}"
             dir="${cactus.home.jboss3x}"
             output="${cactus.reports.dir}/jboss3x.out"
             todir="${cactus.reports.dir}/jboss3x"
@@ -935,8 +939,8 @@
           </j:if>
         </jboss3x>
 
-        <orion1x if="cactus.home.orion1x"
-            dir="${cactus.home.orion1x}" port="${cactus.port}"
+        <orion1x if="cactus.home.orion1x" port="${cactus.port}"
+            dir="${cactus.home.orion1x}"
             output="${cactus.reports.dir}/orion1x.out"
             todir="${cactus.reports.dir}/orion1x">
           <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
@@ -944,8 +948,8 @@
           </j:if>
         </orion1x>
 
-        <orion2x if="cactus.home.orion2x"
-            dir="${cactus.home.orion2x}" port="${cactus.port}"
+        <orion2x if="cactus.home.orion2x" port="${cactus.port}"
+            dir="${cactus.home.orion2x}"
             output="${cactus.reports.dir}/orion2x.out"
             todir="${cactus.reports.dir}/orion2x">
           <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
@@ -953,8 +957,8 @@
           </j:if>
         </orion2x>
 
-        <resin2x if="cactus.home.resin2x"
-            dir="${cactus.home.resin2x}" port="${cactus.port}"
+        <resin2x if="cactus.home.resin2x" port="${cactus.port}"
+            dir="${cactus.home.resin2x}"
             output="${cactus.reports.dir}/resin2x.out"
             todir="${cactus.reports.dir}/resin2x">
           <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
@@ -965,8 +969,8 @@
           </j:if>
         </resin2x>
 
-        <resin3x if="cactus.home.resin3x"
-            dir="${cactus.home.resin3x}" port="${cactus.port}"
+        <resin3x if="cactus.home.resin3x" port="${cactus.port}"
+            dir="${cactus.home.resin3x}"
             output="${cactus.reports.dir}/resin3x.out"
             todir="${cactus.reports.dir}/resin3x">
           <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
@@ -977,8 +981,8 @@
           </j:if>
         </resin3x>
 
-        <tomcat4x if="cactus.home.tomcat4x"
-            dir="${cactus.home.tomcat4x}" port="${cactus.port}"
+        <tomcat4x if="cactus.home.tomcat4x" port="${cactus.port}"
+            dir="${cactus.home.tomcat4x}"
             output="${cactus.reports.dir}/tomcat4x.out"
             todir="${cactus.reports.dir}/tomcat4x">
           <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
@@ -997,8 +1001,8 @@
           </j:if>
         </tomcat4x>
 
-        <tomcat5x if="cactus.home.tomcat5x"
-            dir="${cactus.home.tomcat5x}" port="${cactus.port}"
+        <tomcat5x if="cactus.home.tomcat5x" port="${cactus.port}"
+            dir="${cactus.home.tomcat5x}"
             output="${cactus.reports.dir}/tomcat5x.out"
             todir="${cactus.reports.dir}/tomcat5x">
           <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
@@ -1017,8 +1021,8 @@
           </j:if>
         </tomcat5x>
 
-        <weblogic7x if="cactus.home.weblogic7x"
-            dir="${cactus.home.weblogic7x}" port="${cactus.port}"
+        <weblogic7x if="cactus.home.weblogic7x" port="${cactus.port}"
+            dir="${cactus.home.weblogic7x}"
             output="${cactus.reports.dir}/weblogic7x.out"
             todir="${cactus.reports.dir}/weblogic7x">
           <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
