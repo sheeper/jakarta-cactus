@@ -77,10 +77,6 @@ import org.apache.cactus.util.ChainedRuntimeException;
  */
 public class WebRequest extends BaseWebRequest
 {
-    /**
-     * The unique identifier for this test case.
-     */
-    private String uniqueId;
     
     /**
      * The URL to simulate
