@@ -32,7 +32,8 @@
         Provides an Ant primer that explains how to best organize a project
         around an Ant build process (directory structure, Ant targets, ...).
         At the same time it described the principles that have been followed
-        for Cactus's own build process.
+        for Cactus's own build process (it is no longer in sync with current
+        Cactus build).
       </li>
     </ul>
 
