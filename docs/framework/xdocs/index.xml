@@ -16,7 +16,7 @@
     <s1 title="Project description">
       <p>
         Cactus is a simple test framework for unit testing server-side java
-        code. It is based on <link href="http://junit.org">JUnit</link>.
+        code. It uses <link href="http://junit.org">JUnit</link> and extends it.
         It's primary goal is to be able to unit test server side java methods
         which use Servlet objects such as <code>HttpServletRequest</code>,
         <code>HttpServletResponse</code>, <code>HttpSession</code>, ... (see
