@@ -28,6 +28,7 @@ Eclipse-Plugin/ant/conf/test/weblogic70/testserver/ldap/ldapfiles/EmbeddedLDAP.t
 Eclipse-Plugin/build.properties.sample -text svneol=unset#application/octet-stream
 Eclipse-Plugin/build.xml svn_keywords=Author+Date+Id+Revision
 Eclipse-Plugin/icons/calaunch.gif -text
+Eclipse-Plugin/src/scripts/build-war.xml svn_keywords=Author+Date+Id+Revision
 /LICENSE.aspectj.html svn_keywords=Author+Date+Id+Revision
 /LICENSE.cactus svn_keywords=Author+Date+Id+Revision
 /LICENSE.httpclient svn_keywords=Author+Date+Id+Revision
