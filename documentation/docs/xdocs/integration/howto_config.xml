@@ -13,13 +13,15 @@
 
     <section title="Cactus Configuration">
 
-      <note>
-        You should read the <link href="site:getting_started">Getting
-        Started</link> guide first.
-      </note>
+      <note><strong>
+        This tutorial is only useful if you wish to manually configure Cactus.
+        Most of the time this is not required. Rather you should choose a 
+        Cactus integration (Ant, Maven, Browser, etc) and follow the 
+        instructions there.
+      </strong></note>
 
       <p>
-        Here are the configuration files used by Cactus:
+        Here are the configuration files used to configure Cactus manually:
       </p>
 
       <figure src="images/config.jpg" alt="Configuration files"/>
