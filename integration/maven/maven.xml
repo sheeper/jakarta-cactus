@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- 
 /*
- * Copyright 2001-2004 The Apache Software Foundation.
+ * Copyright 2004 The Apache Software Foundation.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,11 +24,15 @@
 >
 
    <postGoal name="plugin:install">
+      <attainGoal name="install-cactus-dist"/>
+   </postGoal>
+
+   <goal name="install-cactus-dist">
       <j:set var="jarsDir" value="${maven.repo.local}/${pom.groupId}/jars"/>
       <ant:echo>Copying Cactus jars to ${jarsDir}</ant:echo>
       <ant:mkdir dir="${jarsDir}"/>
       <ant:copy tofile="${jarsDir}/cactus-13-${pom.currentVersion}.jar" file="${maven.jar.cactus}"/>
       <ant:copy tofile="${jarsDir}/cactus-ant-13-${pom.currentVersion}.jar" file="${maven.jar.cactus.ant}"/>
-   </postGoal>
+   </goal>
 
 </project>
