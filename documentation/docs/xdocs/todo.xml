@@ -70,10 +70,10 @@
 
     <category title="Design/Code">
       <action assigned-to="Vincent Massol">
-      	Remove HttpURLConnection and replace it by the one we have submitted
-      	to the HttpClient project.
+        Remove HttpURLConnection and replace it by the one we have submitted
+        to the HttpClient project.
       </action>
-      <action>
+      <action assigned-to="Christopher Lenz">
         Improve the ServletTestRunner. Move stylesheet definition to web.xml
         and provide support for XSLT performed inside ServletTestRunner. 
         Potentially look at replacing it by the JUnitEE test runner.
@@ -108,13 +108,13 @@
 
     <category title="Build Process">
       <action assigned-to="Jason Van Zyl">
-      	Move Cactus to Maven.
+        Move Cactus to Maven.
       </action>
     </category>
     
     <category title="Design/Code">
       <action>
-        Add support for Servlet API 2.4/JSP 1.4 (by using Tomcat 5).
+        Add support for Servlet API 2.4/JSP 2.0 (by using Tomcat 5).
       </action>
       <action>
         Potentially replace access to instance variables of redirectors by 
