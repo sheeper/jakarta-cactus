@@ -475,7 +475,7 @@ assertEquals(9, count);
                 this object (the old out object is saved) to capture all of the 
                 response writing that goes on in the body of the tag. After the 
                 tag's body has been evaluated, the tag itself has a chance to 
-                do something with the result of the evaluation in it's 
+                do something with the result of the evaluation in its 
                 <code>doAfterBody()</code> method. After the tag has completed 
                 its execution, the container restores the old out object with
                 a call to <code>pageContext.popBody()</code>.

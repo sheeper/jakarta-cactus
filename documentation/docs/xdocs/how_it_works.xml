@@ -116,9 +116,9 @@
         </li>
         <li>
           If an exception has been raised, the Redirector proxy returns the
-          information about the exception (it's name, class, stack trace) back
+          information about the exception (its name, class, stack trace) back
           to the client side. Information about the exception will then be
-          printed by JUnit in it's Test Runner console.
+          printed by JUnit in its Test Runner console.
         </li>
         <li>
           If no exception occurred, the <code>YYYTestCase.runTest()</code>

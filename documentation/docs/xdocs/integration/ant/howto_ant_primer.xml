@@ -893,7 +893,7 @@
             you need to deliver a jar file. We also include a manifest file
             in the jar, with version information. We copy the manifest to the
             output directory in order to replace the <code>@version@</code>
-            token with it's value.
+            token with its value.
           </p>
 
           <p>

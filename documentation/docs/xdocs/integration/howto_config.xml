@@ -288,7 +288,7 @@
           copy the <code>jspRedirector.jsp</code> file (found in the
           <code>sample/web</code> directory where you unpacked your
           Cactus distribution) in a directory in your webapp and you need to
-          put it's relative path in the mapping defined above (here we
+          put its relative path in the mapping defined above (here we
           have put it in the webapp root.
         </note>
 

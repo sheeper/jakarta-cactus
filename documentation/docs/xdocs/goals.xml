@@ -96,7 +96,7 @@
             ensuring that the code behaves ok. Indeed, as the components will
             rely more and more on the container's services, the confidence that
             the tests will run well when deployed will decrease and the need
-            for a solution that ensures the code will run correctly in it's
+            for a solution that ensures the code will run correctly in its
             environment will increase,
           </li>
           <li>

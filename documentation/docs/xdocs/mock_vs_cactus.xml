@@ -52,7 +52,7 @@
         The main goal of MO is to unit test a method in isolation of other
         domain objects. Thus, the MO approach is to fake domain objects
         by using simulated copies instead of the real objects (be careful
-        MO does not implement any logic in it's fake objects, that would be
+        MO does not implement any logic in its fake objects, that would be
         "stubbing". All behaviours of mock objects are controlled by the unit
         test itself). This enables to
         finely unit test the method with no environment

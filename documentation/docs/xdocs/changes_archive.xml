@@ -525,7 +525,7 @@
       </action>
       <action dev="VMA" type="add">
         Added a new target called <code>deploy-site</code> that automatically
-        deploy the generated web site to it's home page on the Jakarta server.
+        deploy the generated web site to its home page on the Jakarta server.
         This will be very useful when integrated with GUMP nightly builds so
         that the web site is always up to date.
       </action>
