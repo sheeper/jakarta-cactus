@@ -5,6 +5,12 @@
 
 <!--
   =============================================================================
+
+   WARNING: THIS BUILD NEEDS SOME SERIOUS REWORK AND IS CURRENTLY BROKEN
+
+
+
+
     Build file for the Cactus Jetty Sample subproject (it shows how to use
     Cactus and Jetty in an integrated way for unit testing the Servlet API : 
     Servlets, Fitlers, Taglibs).
