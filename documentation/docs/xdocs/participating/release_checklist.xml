@@ -63,12 +63,6 @@
           the Sample application tests for one application server.
         </li>
         <li>
-          (optional) Create a zipped packaged version of Ant containing all the
-          jars needed to build Cactus in its <code>lib/</code> directory. Name
-          it <code>jakarta-cactus-ant-&lt;version of
-          Ant&gt;-&lt;date&gt;.zip</code>.
-        </li>
-        <li>
           Upload the Cactus releases (for all Servlet APIs and the source one)
           and the zipped Ant distribution to <code>jakarta.apache.org</code>,
           putting them in a
