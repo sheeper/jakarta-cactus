@@ -92,6 +92,7 @@ public class Orion2xContainer extends AbstractOrionContainer
         }
         catch (IOException ioe)
         {
+            getLog().error("Failed to startup the container", ioe);
             throw new BuildException(ioe);
         }
     }

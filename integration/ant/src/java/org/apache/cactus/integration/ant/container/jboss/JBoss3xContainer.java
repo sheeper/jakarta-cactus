@@ -216,6 +216,7 @@ public class JBoss3xContainer extends AbstractJavaContainer
         }
         catch (IOException ioe)
         {
+            getLog().error("Failed to startup the container", ioe);
             throw new BuildException(ioe);
         }
     }

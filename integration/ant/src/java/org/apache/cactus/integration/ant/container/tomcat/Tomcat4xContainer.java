@@ -99,6 +99,7 @@ public class Tomcat4xContainer extends AbstractCatalinaContainer
         }
         catch (IOException ioe)
         {
+            getLog().error("Failed to startup the container", ioe);
             throw new BuildException(ioe);
         }
     }

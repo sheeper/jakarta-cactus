@@ -203,6 +203,7 @@ public class Resin2xContainer extends AbstractJavaContainer
         }
         catch (IOException ioe)
         {
+            getLog().error("Failed to startup the container", ioe);
             throw new BuildException(ioe);
         }
     }
