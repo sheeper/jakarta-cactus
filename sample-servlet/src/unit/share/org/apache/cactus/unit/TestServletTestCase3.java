@@ -115,7 +115,7 @@ public class TestServletTestCase3 extends ServletTestCase
      */
     protected void setUp()
     {
-        session.putValue("setUpFlag", "a setUp test flag");
+        session.setAttribute("setUpFlag", "a setUp test flag");
     }
 
     /**
@@ -124,7 +124,7 @@ public class TestServletTestCase3 extends ServletTestCase
      */
     public void testSetUp()
     {
-        assertEquals("a setUp test flag", session.getValue("setUpFlag"));
+        assertEquals("a setUp test flag", session.getAttribute("setUpFlag"));
     }
 
     //-------------------------------------------------------------------------
