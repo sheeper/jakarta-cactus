@@ -16,9 +16,11 @@
     <s1 title="JUnitEE, a TestRunner inside the Container">
 
 	  <p>
-		You can use the JUnitEE user interface to run your all your tests inside
-		the Container. JUnitEE is a JUnit TestRunner that has been written as a
-        servlet with the user interface in HTML format.
+		You can use the
+        <link href="http://junitee.sourceforge.net">JUnitEE</link> user
+        interface to run your all your tests inside the Container. JUnitEE is
+        a JUnit TestRunner that has been written as a servlet with the user
+        interface in HTML format.
 	  </p>
 
 	  <p>
@@ -75,7 +77,8 @@
 		Download the <link href="http://junitee.sourceforge.net">JUnitEE</link>
 		zip-file. Add a reference to junitee.jar to your Container classpath.
         Add also references to <code>junit.jar</code>, <code>httpunit.jar</code>
-        and <code>cactus.jar</code> if you have not already done that.
+        <code>cactus.jar</code> and <code>aspectjrt.jar</code> if you have not
+        already done that.
 	  </p>
 
 	  <note>
@@ -120,12 +123,9 @@
 
          <p>
 		   The <code>cactus.properties</code> file must be located so that your
-           container can find it e.g. in your containers classpath. The file
-           contains an url to the cactus redirector.jsp file such as :
+           container can find it e.g. in your containers classpath.
          </p>
-<source>
-cactus.jspRedirectorURL = http://localhost:7001/test/JspRedirector/
-</source>
+
       </s1>
 
   </body>

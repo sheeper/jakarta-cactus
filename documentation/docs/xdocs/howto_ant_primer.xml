@@ -16,6 +16,15 @@
 
     <s1 title="Continuous integration">
 
+      <note>
+        <strong>This tutorial was written when I wrote Cactus 1.2. Since then
+        I have improved my command of Ant. However this tutorial has not yet
+        been updated. I believe it still provides some very good
+        methodology on how to use Ant, although not the latest. If you wish to
+        keep track of the latest change, have a look at the Cactus build files,
+        found in the source distribution.</strong>
+      </note>
+
       <p>
         A strong principle of eXtreme Programming (XP) is the continuous
         integration aspect (see the

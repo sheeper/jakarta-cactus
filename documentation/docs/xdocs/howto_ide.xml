@@ -30,9 +30,6 @@
           Tutorial</link> (more focused on JBuilder 5),
         </li>
         <li>
-          <link href="howto_ide_jbuilder.html">JBuilder 4 Integration</link>,
-        </li>
-        <li>
           VisualAge for Java Integration :
           <ul>
             <li>
@@ -52,7 +49,7 @@
         environment. You simply need to know how to start your servlet engine
         from your IDE (possibly in debug mode if you wish to debug your
         test case) and set up correctly the class path (see the
-        <link href="getting_started.html">Getting Started</link> tutorial
+        <link href="howto_classpath.html">Classpath Howto</link> tutorial
         for understanding the classpath). Look at the tutorials for other IDEs
         and do the same for yours.
       </p>

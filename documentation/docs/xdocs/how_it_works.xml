@@ -123,11 +123,13 @@
         </li>
         <li>
           If no exception occurred, the <code>YYYTestCase.runTest()</code>
-          method looks for an <code>endXXX(HttpURLConnection)</code> method
-          and executes it if found. At this stage, you have the opportunity
-          to check returned HTTP headers, Cookies and the servlet output
-          stream in the <code>endXXX()</code> method, again using JUnit asserts
-          and helper utility classes provided by Cactus.
+          method looks for an <code>endXXX(org.apache.cactus.WebResponse)</code>
+          or <code>endXXX(com.meterware.httpunit.WebResponse)</code> (this
+          signature is used for <link href="howto_httpunit.html">HttpUnit
+          integration</link>) method and executes it if found. At this stage,
+          you have the opportunity to check returned HTTP headers, Cookies and
+          the servlet output stream in the <code>endXXX()</code> method, again
+          using JUnit asserts and helper utility classes provided by Cactus.
         </li>
       </ol>
 

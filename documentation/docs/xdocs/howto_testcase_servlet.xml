@@ -265,7 +265,7 @@ public void testXXX()
       </p>
 
       <note>
-        This example is for Cactus 1.2 as it uses the new
+        This example is for Cactus 1.2 and above as it uses the new
         <code>WebRequest</code> and <code>WebResponse</code> objects.
       </note>
 

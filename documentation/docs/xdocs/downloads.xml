@@ -19,8 +19,9 @@
       </p>
       <ul>
         <li>
-          <strong><code>jakarta-cactus-&lt;servletapi&gt;-&lt;version&gt;.zip</code>
-          </strong> : the Cactus distribution. It contains :
+          <strong><code>jakarta-cactus-&lt;j2eeapi&gt;-&lt;version&gt;.zip</code>
+          </strong> : the Cactus distribution for J2EE &lt;j2eeapi&gt; (where
+          &lt;j2eeapi&gt; = { 1.2 , 1.3 }. It contains :
           <ul>
             <li>
               <strong><code>cactus.jar</code></strong> : the Cactus
@@ -35,9 +36,17 @@
               it is finished,
             </li>
             <li>
+              Dependent libraries that you need to put in your classpath along
+              with the Cactus jars. See
+              <link href="getting_started.html">Getting Started</link> for
+              details.
+            </li>
+            <li>
               A Cactus Sample application that shows how to write
-              Cactus tests and how to run and deploy them in a servlet engine
-              using Ant,
+              Cactus tests for Servlets, Taglibs and Filters (only if you use
+              the J2EE 1.3 API). It also demonstrates how to automate and deploy
+              them in a servlet engine using Ant (scripts for several servlet
+              engines are provided).
             </li>
             <li>
               The Cactus documentation (includes the javadoc + a local copy of
@@ -58,11 +67,6 @@
           delivered for releases (and not for nightly builds).
         </li>
       </ul>
-
-      <note>
-        <code>&lt;servletapi&gt;</code> represents the Servlet API
-        specifications for which you want to write Cactus unit tests for.
-      </note>
 
       <note>
         <code>&lt;version&gt;</code> represents the version number for releases

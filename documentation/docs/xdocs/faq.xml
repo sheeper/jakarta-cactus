@@ -63,11 +63,6 @@ at java.util.ResourceBundle.getBundle(ResourceBundle.java:546)
     <anchor id="faq2"/>
     <s1 title="How can I have a web.xml that is valid both for testing and for production ?">
 
-      <p>
-        <em>submitted by
-        <link href="mailto:lists@ehatchersolutions.com">Erik Hatcher</link></em>
-      </p>
-
       <s2 title="Question">
         <p>
           Cactus needs to have a few entries set in the <code>web.xml</code>
@@ -136,11 +131,6 @@ web application is built)
     <anchor id="faq3"/>
     <s1 title="I'm getting a java.io.StreamCorruptedException error. What does it mean ?">
 
-      <p>
-        <em>submitted by
-        <link href="mailto:ndlesiecki@yahoo.com">Nicholas Lesiecki</link></em>
-      </p>
-
       <s2 title="Solution">
         <p>
           This exception results when client-side Cactus code attempts to talk
@@ -179,26 +169,26 @@ web application is built)
           A good way to check whether your requests are reaching a
           Cactus redirector is to manually enter in the URLs for all
           of the redirectors you use into the navigation bar of your
-          web-browser. If the URL yields a 500 error and you get a
-          stack trace (in the log or along with your error page that)
-          says <code><![CDATA[Missing service name
-          parameter [] in HTTP request.]]></code>
-          then that particular URL is probably pointing to a valid
-          server-side Cactus install.
+          web-browser. Actually the Cactus redirectors provide a URL just for
+          that : <code>http://localhost/webapp/ServletRedirector?Cactus_Service=RUN_TEST</code>
+          (this also works for the other redirectors).
         </p>
+        <note>
+          If you call <code>http://localhost/webapp/ServletRedirector</code>
+          directly, you'll get a 500 error and get a stack trace (in the log or
+          along with your error page) that says <code><![CDATA[Missing service
+          name parameter [] in HTTP request.]]></code>. This is because the
+          Cactus redirector expects HTTP parameter from the Cactus client side.
+        </note>
         <p>
           Another likely error is that your server-side classpath
           does not contain a copy of the cactus.jar. (Cactus is
           effectively not present on the server.) According to
           e-mails on the Cactus user list, the
-          StreamCorruptedException could also result when you are
+          <code>StreamCorruptedException</code> could also result when you are
           using the wrong version of the servlet.jar in some area
           (any version prior to 2.2, or using servlet.jar 2.2 with a
           Cactus-2.3 installation).
-        </p>
-        <p>
-          Cactus 1.3 should trap or avoid this exception and provide
-          a clearer message about the likely causes.
         </p>
       </s2>
 

@@ -56,7 +56,7 @@
         domain objects. Thus, the MO approach is to fake domain objects
         by using simulated copies instead of the real objects (be careful
         MO does not implement any logic in it's fake objects, that would be
-        "stubbing". All behaviours of mock objects are described by the unit
+        "stubbing". All behaviours of mock objects are controlled by the unit
         test itself). This enables to
         finely unit test the method with no environment
         "noise" and to concentrate on unit testing its logic.
@@ -158,7 +158,7 @@ public void testXXX()
         This table is not meant to be comprehensive in
         term of benefits/inconvenients of using MO. It is more focused on
         pros and cons of MO when used for unit testing server side code (i.e.
-        what Cactus is focused on).
+        what Cactus is focusing on).
       </note>
       <note>
         A '+' indicates a positive point.For example
@@ -198,8 +198,8 @@ public void testXXX()
             Servlet unit testing, JDBC unit testing, Struts unit testing, ...
             Cactus only addresses server-side testing, meaning that if in your
             Servlet code you have JDBC connections and you want to unit test
-            the methods that does database access you still need to have a
-            MO-like strategy, thus you need to understand and learn 2
+            in isolation the methods that does database access you still need
+            to have a MO-like strategy, thus you need to understand and learn 2
             strategies.
           </td>
           <td>
@@ -210,10 +210,10 @@ public void testXXX()
         <tr>
           <td>
             Running MO tests is very fast as it does not rely on having to run
-            a container. Thus tests can be run very often. IC testing need to
+            a container. Thus tests can be run very often. IC testing needs to
             start the container, run the tests, stop the container. However,
             this can be alleviated by using Ant and by using a reloadable
-            container (the majority of servlet engines do dynamic reloading).
+            container (the majority of containers implement dynamic reloading).
           </td>
           <td>
             +
@@ -227,12 +227,15 @@ public void testXXX()
             that a Mock implementation can be implemented. There are other
             more subtle refactoring involved like smart handler passing instead
             of more fine grained data (thus leading to better encapsulation). It
-            follows XP refactoring rules.
+            follows XP refactoring rules. Note that if you need to implement
+            tests for existing code it can easily become a nightmare ...
           </td>
           <td>
             +
           </td>
-          <td/>
+          <td>
+            +
+          </td>
         </tr>
         <tr>
           <td>

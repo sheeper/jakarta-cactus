@@ -117,18 +117,22 @@
 
 <source><![CDATA[
 <!--
-   ======================================================================
+   ========================================================================
      Run Tomcat 4.0 tests
-   ======================================================================
+   ========================================================================
 -->
-<target name="tests_tomcat"
-    depends="init,deploy_config,create_test_war" if="tomcat.home">
+<target name="test.tomcat.40" depends="prepare.test.tomcat.40"
+    if="tomcat.home.40" description="Run tests on Tomcat 4.0">
 
-    <!-- We suppose our webapp is named "test" -->
-    <runservertests testURL="http://localhost:8080/test"
-        startTarget="start_tomcat"
-        stopTarget="stop_tomcat"
-        testTarget="run_tests"/>
+    <!-- Start the servlet engine, wait for it to be started, run the
+         unit tests, stop the servlet engine, wait for it to be stopped.
+         The servlet engine is stopped if the tests fail for any reason -->
+
+    <runservertests
+        testURL="http://localhost:${test.port}/test/ServletRedirector?Cactus_Service=RUN_TEST"
+        startTarget="start.tomcat.40"
+        stopTarget="stop.tomcat.40"
+        testTarget="test"/>
 
 </target>
 ]]></source>
@@ -136,7 +140,7 @@
        <p>
          Before you can execute the <code>runservertests</code> task, you
          need to define it for Ant as it is not a standard Ant task. A
-         good place to do this is in the <code>init</code> target.
+         good place to do this is in an <code>init</code> target.
        </p>
        <p>
          Example :
@@ -153,7 +157,6 @@
     <taskdef name="runservertests" classname="org.apache.cactus.ant.RunServerTestsTask">
         <classpath>
             <pathelement location="${cactus.ant.jar}"/>
-            <pathelement path="${java.class.path}"/>
         </classpath>
     </taskdef>
     [...]
@@ -168,17 +171,12 @@
        </p>
 
        <note>
-         The <code>deploy_config</code> target is described in
+         The <code>prepare.test.tomcat.40</code> target is described in
          Step 0 below.
        </note>
 
        <note>
-         The <code>create_test_war</code> target is described in
-         Step 1 below.
-       </note>
-
-       <note>
-         The <code>tomcat.home</code> is simply an Ant property that
+         The <code>tomcat.home.40</code> is simply an Ant property that
          points to the directory where Tomcat 4.0 has been installed. If this
          property is not defined we don't run the tests.
        </note>
@@ -268,36 +266,48 @@
 
 <source><![CDATA[
 <!--
-   ======================================================================
-     Deploy container configuration files
-   ======================================================================
+   ========================================================================
+     Prepare directories and variables for running the tests
+   ========================================================================
 -->
-<target name="deploy_config" if="tomcat.home">
+<target name="prepare.test.tomcat.40"
+    depends="check.test.tomcat.40,testwar" if="tomcat.home.40">
 
-    <!-- This filter is needed to set the absolute path to the webapps
-         directory in the Tomcat server.xml configuration file -->
-    <filter token="out.server.webapp.dir" value="${basedir}/${out.server.dir}/webapps"/>
+    <echo message="tomcat.home.40 = ${tomcat.home.40}"/>
 
-    <!-- Delete the deployed file to ensure that they are reread at every
-         deployment by Tomcat -->
-    <delete dir="${out.server.dir}/conf"/>
-    <delete dir="${out.server.dir}/webapps"/>
+    <property name="target.tomcat40.dir"
+        value="${target.test.dir}/tomcat40"/>
+    <property name="conf.tomcat40.dir" value="${conf.test.dir}/tomcat40"/>
 
     <!-- Create work and conf directories and copy configuration files -->
-    <mkdir dir="${out.server.dir}/conf"/>
-    <mkdir dir="${out.server.dir}/work"/>
-    <mkdir dir="${out.server.dir}/webapps"/>
+    <mkdir dir="${target.tomcat40.dir}/conf"/>
+    <mkdir dir="${target.tomcat40.dir}/work"/>
+    <mkdir dir="${target.tomcat40.dir}/webapps"/>
 
-    <!-- Copy the Tomcat configuration files to our conf directory -->
-    <copy file="${conf.server.dir}/web.xml" todir="${out.server.dir}/conf"/>
-    <copy file="${conf.server.dir}/server.xml"
-        todir="${out.server.dir}/conf" filtering="on"/>
+    <!-- Delete some config file so that they will be copied every time -->
+    <delete file="${target.tomcat40.dir}/conf/server.xml"/>
+
+    <!-- Remove the auto deployed webapp so that it is redeployed every
+         time -->
+    <delete dir="${target.tomcat40.dir}/webapps/test"/>
+
+    <copy todir="${target.tomcat40.dir}/conf" filtering="on">
+        <fileset dir="${conf.tomcat40.dir}"/>
+    </copy>
+
+    <!-- Copy the Tomcat web.xml -->
+    <copy file="${tomcat.home.40}/conf/web.xml"
+        todir="${target.tomcat40.dir}/conf"/>
+
+    <!-- Copy the war file -->
+    <copy file="${target.test.dir}/test.war"
+        tofile="${target.tomcat40.dir}/webapps/test.war"/>
 
 </target>
 ]]></source>
 
        <note>
-         The <code>${out.server.dir}</code> Ant property needs to be
+         The <code>${target.test.dir}</code> Ant property needs to be
          defined prior to calling this target and needs to be set to the
          location where the tests will be deployed. It should be set to any
          subdirectory of your output directory. This property will also be
@@ -305,7 +315,7 @@
        </note>
 
        <note>
-         The <code>${conf.server.dir}</code> Ant property also needs to be
+         The <code>${conf.test.dir}</code> Ant property also needs to be
          defined prior to calling this target and represent the location of
          server configuration files (in the current example of Tomcat 4.0,
          these are the global <code>web.xml</code> and
@@ -328,18 +338,26 @@
 
 <source><![CDATA[
 <!--
-   ======================================================================
-     Create a test war file that includes the sample application unit
-     tests and deploy it to the webapps directory
-   ======================================================================
+   ========================================================================
+     Create a Cactus test war file for the sample application.
+   ========================================================================
 -->
-<target name="create_test_war" depends="compile">
+<target name="testwar" depends="compile">
 
-    <war warfile="${out.server.dir}/webapps/test.war"
+    <!-- Create the war file -->
+    <war warfile="${target.test.dir}/test.war"
          webxml="${conf.test.dir}/web.xml">
 
-        <classes dir="${out.classes.dir}"/>
-        <lib dir="${lib.dir}"/>
+        <classes dir="${target.classes.sample.dir}"/>
+        <classes dir="${target.classes.unit.dir}"/>
+
+        <!-- log_server.properties need to be in the server classpath -->
+        <classes dir="${conf.test.dir}">
+            <include name="log_server.properties"/>
+            <include name="cactus.properties"/>
+        </classes>
+
+        <lib dir="${target.lib.dir}"/>
         <fileset dir="${web.dir}"/>
    </war>
 
@@ -352,15 +370,15 @@
        <ul>
          <li>
            <code>${conf.test.dir}</code> : directory containing configuration
-           files for the test. Namely <code>web.xml</code>,
+           files for the test,
          </li>
          <li>
-           <code>${out.classes.dir}</code> : directory where the java classes
-           have been compiled. These are the classes under test + the test
-           classes,
+           <code>${target.classes.*.dir}</code> : directory where the java
+           classes have been compiled. These are the classes under test + the
+           test classes,
          </li>
          <li>
-           <code>${lib.dir}</code> : directory containing the needed jars
+           <code>${target.lib.dir}</code> : directory containing the needed jars
            (<code>junit.jar</code>, <code>cactus.jar</code>, ...).
          </li>
          <li>
@@ -371,7 +389,7 @@
 
        <note>
          The <code>compile</code> target is used to compile all java classes
-         into the <code>${out.classes.dir}</code> directory.
+         into the <code>${target.classes.*.dir}</code> directory.
        </note>
 
      </s1>
@@ -384,27 +402,21 @@
 
 <source><![CDATA[
 <!--
-   ======================================================================
+   ========================================================================
      Start Tomcat 4.0
-   ======================================================================
+   ========================================================================
 -->
-<target name="start_tomcat">
+<target name="start.tomcat.40">
 
     <java classname="org.apache.catalina.startup.Bootstrap" fork="yes">
-
-        <jvmarg value="-Dcatalina.home=${tomcat.home}"/>
-
-        <arg value="-config"/>
-        <arg value="${basedir}/${out.server.dir}/conf/server.xml"/>
+        <jvmarg value="-Dcatalina.home=${tomcat.home.40}"/>
+        <jvmarg value="-Dcatalina.base=${target.tomcat40.dir}"/>
         <arg value="start"/>
-
         <classpath>
-          <fileset dir="${tomcat.home}">
+          <fileset dir="${tomcat.home.40}">
               <include name="bin/bootstrap.jar"/>
-              <include name="server/catalina.jar"/>
           </fileset>
         </classpath>
-
     </java>
 
 </target>
@@ -421,41 +433,27 @@
 
 <source><![CDATA[
 <!--
-   ======================================================================
-     Run the Cactus test cases by starting a JUnit test runner.
-   ======================================================================
+   ========================================================================
+     Run the client JUnit test cases.
+   ========================================================================
 -->
-<target name="run_tests">
+<target name="test">
 
-    <junit printsummary="yes" haltonfailure="yes" haltonerror="yes" fork="yes">
+    <junit printsummary="yes" haltonfailure="yes" haltonerror="yes"
+        fork="yes">
 
         <classpath>
-            <!-- The Servlet API jar -->
-            <pathelement location="${servlet.jar}"/>
-
-            <!-- (optional) Will be ignore if log4j.jar is not defined -->
-            <pathelement location="${log4j.jar}"/>
-
-            <pathelement location="${cactus.jar}"/>
-            <pathelement location="${junit.jar}"/>
-
-            <!-- for Cactus 1.2 and above only -->
-            <pathelement location="${httpclient.jar}"/>
-
-            <!-- The test classes and classes to test -->
-            <pathelement location="${out.classes.dir}"/>
+            <!-- Cactus.propertie and log_client.properties need to be in
+                 the classpath -->
+            <pathelement location="${target.conf.dir}"/>
+            <pathelement location="${target.classes.sample.dir}"/>
+            <pathelement location="${target.classes.unit.dir}"/>
+            <path refid="project.class.path"/>
         </classpath>
 
         <formatter type="plain" usefile="false"/>
-
-        <test name="your.package.YourTestCaseClass1"/>
-        [...]
-        <test name="your.package.YourTestCaseClassN"/>
-
-        <!-- Or you can gather all the tests in a TestAll class that start
-             them all -->
-
-        <!-- Or you can use the junit task batchtest nested element -->
+        <test name="org.apache.cactus.unit.TestAll"/>
+        <test name="org.apache.cactus.sample.TestAll"/>
 
     </junit>
 
@@ -464,8 +462,8 @@
 
        <note>
          The list of jars to include in your classpath is explained and
-         detailed in the <link href="getting_started.html">Getting
-         Started</link> guide.
+         detailed in the <link href="howot_classpath.html">Classpath
+         Howto</link> guide.
        </note>
 
      </s1>
@@ -478,24 +476,21 @@
 
 <source><![CDATA[
 <!--
-   ======================================================================
+   ========================================================================
      Stop Tomcat 4.0
-   ======================================================================
+   ========================================================================
 -->
-<target name="stop_tomcat">
+<target name="stop.tomcat.40">
 
     <java classname="org.apache.catalina.startup.Bootstrap" fork="yes">
-
-        <jvmarg value="-Dcatalina.home=${tomcat.home}"/>
+        <jvmarg value="-Dcatalina.home=${tomcat.home.40}"/>
+        <jvmarg value="-Dcatalina.base=${target.tomcat40.dir}"/>
         <arg value="stop"/>
-
         <classpath>
-          <fileset dir="${tomcat.home}">
+          <fileset dir="${tomcat.home.40}">
               <include name="bin/bootstrap.jar"/>
-              <include name="server/catalina.jar"/>
           </fileset>
         </classpath>
-
     </java>
 
 </target>

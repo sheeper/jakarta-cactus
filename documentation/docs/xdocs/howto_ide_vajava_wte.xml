@@ -14,6 +14,11 @@
 
     <s1 title="Forewords and Requirements">
 
+      <note>
+        <strong>This tutorial is written for Cactus 1.2 only. It will need
+        to adapted if you're using Cactus 1.3</strong>
+      </note>
+
       <p>
         This tutorial explains how to run Cactus tests within VisualAge for
         Java WebSphere Test Environment.

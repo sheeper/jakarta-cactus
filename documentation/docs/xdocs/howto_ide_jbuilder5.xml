@@ -18,12 +18,12 @@
       <p>
         This document describes steps to setup Cactus to unit test Server side
         code (i.e. EJBs, Servlets, etc) deployed to Weblogic 6.1 within
-        Jbuilder5 IDE.
+        JBuilder5 IDE.
       </p>
 
       <p>
-        The steps described below apply to current release (Cactus 1.2 as of
-        this writing) and assuming that Cactus has been installed correctly
+        The steps described below apply to current release (Cactus 1.3 as of
+        this writing) and assume that Cactus has been installed correctly
         (which means that you can run sample successfully).
       </p>
 
@@ -33,11 +33,8 @@
 
       <p>
         Create cactus.properties file : Add entry to identify the URL of the
-        redirector. For example:
-        <code>cactus.servletRedirectorURL =
-        http://localhost:7001/test/ServletRedirector </code>. Modify this to
-        reflect the actual redirector used and the actual URL of the
-        redirector.
+        redirector (see the <link href="howto_config.html">Configuration
+        Howto</link> for details).
       </p>
 
     </s1>
@@ -83,11 +80,11 @@
         </li>
         <li>
           Follow steps 2 - 6 to add <code>junit.jar</code>,
-          <code>httpclient.jar</code> which are all in
-          <code>[cactus home]/lib</code> directory
+          <code>httpclient.jar</code> and <code>aspectjrt.jar</code> which are
+          all in <code>[cactus home]/lib</code> directory
         </li>
         <li>
-          Optionally, add <code>log4j-core.jar</code> in
+          Optionally, add <code>log4j.jar</code> in
           <code>[cactus home]/lib</code> directory to enable cactus logging
         </li>
         <li>
@@ -117,7 +114,8 @@
         </li>
         <li>
           Copy <code>cactus.jar</code>, <code>junit.jar</code>,
-          <code>log4j-core.jar</code>(optional) to <code>WEB-INF/lib</code>
+          <code>aspectjrt.jar</code> and
+          <code>log4j.jar</code>(optional) to <code>WEB-INF/lib</code>
           directory of the web application
         </li>
         <li>
