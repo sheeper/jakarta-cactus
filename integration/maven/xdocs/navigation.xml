@@ -10,6 +10,7 @@
     </links>
     <menu name="Overview">
       <item name="Features" href="/features.html"/>
+      <item name="Installing" href="/installing.html"/>
       <item name="Using" href="/using.html"/>
       <item name="Goals" href="/goals.html"/>
       <item name="Properties" href="/properties.html"/>

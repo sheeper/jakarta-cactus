@@ -5,10 +5,10 @@
   <pomVersion>3</pomVersion>
   
   <!-- a unique name for this project -->
-  <id>maven-cactus-sample</id>
+  <id>maven-cactus-sample-servlet</id>
   
   <!-- a short but descriptive name for the project -->
-  <name>Cactus Sample</name>
+  <name>Cactus Servlet Sample</name>
   
   <!-- The version of the project under development, e.g.
        1.1, 1.2, 2.0-dev -->

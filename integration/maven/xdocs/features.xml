@@ -18,7 +18,10 @@
           Ant integration</a>.
         </li>
         <li>
-          Create cactified war of your web application.
+          Create cactified WAR of your web application.
+        </li>
+        <li>
+          Supports generating cactified EAR for deploying Cactus EJB tests.
         </li>
         <li>
           Start/stop containers automatically.

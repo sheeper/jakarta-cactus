@@ -18,6 +18,7 @@
   xmlns:util="jelly:util"
   xmlns:ant="jelly:ant"
   xmlns:define="jelly:define"
+  xmlns:x="jelly:xml"
   xmlns:cactus="jelly:org.apache.cactus.integration.maven.CactusTagLibrary">
 
   <!--
@@ -74,6 +75,9 @@
       <ant:path refid="maven.dependency.classpath"/>
       <ant:path refid="cactus.classpath"/>
     </ant:path>
+
+    <j:set var="cactus.war" value="${pom.artifactId}-cactus.war"/>
+    <j:set var="cactus.ear" value="${pom.artifactId}-cactus.ear"/>
 
   </goal>
 
@@ -217,7 +221,7 @@
       description="Cactify the application war">
 
     <cactifywar srcfile="${cactus.src.war}" 
-        destfile="${maven.build.dir}/${pom.artifactId}-cactus.war">
+        destfile="${maven.build.dir}/${cactus.war}">
 
       <!-- Add the mergewebxml attribute if it has been defined by the
       	   user -->
@@ -267,7 +271,7 @@
   -->
   <goal name="cactus:test" 
   	  prereqs="cactus:init,cactus:init-report,cactus:cactifywar"
-      description="Run all Cactus Test Cases">
+      description="Run all Cactus Test Cases (packaged in a WAR)">
 
     <cactus:scanner var="cactusScanner" classpathref="cactus.scanner.classpath">
       <fileset dir="${cactus.target.classes.dir}">
@@ -276,7 +280,7 @@
       </fileset>
     </cactus:scanner>
 
-    <cactus warfile="${maven.build.dir}/${pom.artifactId}-cactus.war" 
+    <cactus warfile="${maven.build.dir}/${cactus.war}" 
         fork="yes" errorproperty="cactustests.error" 
         failureproperty="cactustests.failure"
         printsummary="${cactus.printsummary}">
@@ -472,7 +476,7 @@
 	  </j:when>
 	    
     <j:otherwise>    
-     <cactus warfile="${maven.build.dir}/${pom.artifactId}-cactus.war" 
+     <cactus warfile="${maven.build.dir}/${cactus.war}" 
         fork="yes" errorproperty="cactustests.error" 
         failureproperty="cactustests.failure"
         printsummary="${cactus.printsummary}">
@@ -606,7 +610,7 @@
 	  </j:when>
 	    
     <j:otherwise>    
-     <cactus warfile="${maven.build.dir}/${pom.artifactId}-cactus.war" 
+     <cactus warfile="${maven.build.dir}/${cactus.war}" 
         fork="yes" errorproperty="cactustests.error" 
         failureproperty="cactustests.failure"
         printsummary="${cactus.printsummary}">
@@ -725,6 +729,322 @@
    </j:choose>    
   </goal>
 
+  <!--
+     ========================================================================
+       Generate a Cactified EAR
+     ========================================================================
+  -->
+  <goal name="cactus:cactifyear" 
+      prereqs="ejb:ejb,cactus:cactifywar,cactus:generate-ear-descriptor"
+      description="Create and cactify an EAR">
+
+    <ant:mkdir dir="${maven.build.dir}"/>
+
+    <ant:ear destfile="${maven.build.dir}/${cactus.ear}"
+        appxml="${maven.build.dir}/application.xml">
+
+      <!-- include cactus generated archives -->
+      <ant:fileset dir="${maven.build.dir}">
+        <ant:include name="${cactus.war}"/>
+        <ant:include name="${cactus.ejb}"/>
+      </ant:fileset>
+
+      <!-- include marked dependencies -->
+      <j:forEach var="lib" items="${pom.artifacts}">
+        <j:set var="dep" value="${lib.dependency}"/>
+        <j:if test="${dep.getProperty('ejb.manifest.classpath')=='true'}">
+
+          <j:set var="bundle" value="false"/>
+          <j:if test="${dep.type == 'jar'}">
+            <j:set var="bundle" value="true"/>
+          </j:if>
+          <j:if test="${dep.type == 'war'}">
+            <j:set var="bundle" value="true"/>
+          </j:if>
+          <j:if test="${dep.type == 'ejb'}">
+            <j:set var="bundle" value="true"/>
+          </j:if>
+          <j:if test="${dep.type == 'rar'}">
+            <j:set var="bundle" value="true"/>
+          </j:if>
+
+          <j:if test="${bundle}">
+            <ant:fileset dir="${lib.file.parent}">
+              <ant:include name="${lib.file.name}"/>
+            </ant:fileset>
+          </j:if>
+
+        </j:if>
+      </j:forEach>
+
+    </ant:ear>
+
+  </goal>
+
+  <!--
+     ========================================================================
+       Execute the Cactus tests, packaging them in an EAR.
+     ========================================================================
+  -->
+  <goal name="cactus:test-ear"
+      prereqs="cactus:init,cactus:init-report,cactus:cactifyear"
+      description="Run all Cactus Test Cases (packaged in an EAR)">
+
+    <cactus earfile="${maven.build.dir}/${cactus.ear}" fork="yes" 
+        errorproperty="cactustests.error" failureproperty="cactustests.failure"
+        printsummary="${maven.cactus.printsummary}">
+      <ant:classpath>
+        <ant:pathelement path="${maven.build.dest}"/>
+        <ant:pathelement location="${cactus.target.classes.dir}"/>
+        <ant:path refid="maven.dependency.classpath"/>
+        <ant:path refid="cactus.classpath"/>
+      </ant:classpath>
+      <containerset>
+
+        <!-- TODO: Find how to set the port for JBoss 3x -->
+        <jboss3x if="cactus.home.jboss3x"
+            dir="${cactus.home.jboss3x}"
+            output="${cactus.reports.dir}/jboss3x.out"
+            todir="${cactus.reports.dir}/jboss3x"
+            config="${cactus.jboss3x.config.name}">
+          <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
+            <ant:setProperty name="tmpdir" value="${cactus.tmp.dir}"/>
+          </j:if>
+        </jboss3x>
+
+        <orion1x if="cactus.home.orion1x"
+            dir="${cactus.home.orion1x}" port="${cactus.port}"
+            output="${cactus.reports.dir}/orion1x.out"
+            todir="${cactus.reports.dir}/orion1x">
+          <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
+            <ant:setProperty name="tmpdir" value="${cactus.tmp.dir}"/>
+          </j:if>
+        </orion1x>
+
+        <orion2x if="cactus.home.orion2x"
+            dir="${cactus.home.orion2x}" port="${cactus.port}"
+            output="${cactus.reports.dir}/orion2x.out"
+            todir="${cactus.reports.dir}/orion2x">
+          <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
+            <ant:setProperty name="tmpdir" value="${cactus.tmp.dir}"/>
+          </j:if>
+        </orion2x>
+
+        <resin2x if="cactus.home.resin2x"
+            dir="${cactus.home.resin2x}" port="${cactus.port}"
+            output="${cactus.reports.dir}/resin2x.out"
+            todir="${cactus.reports.dir}/resin2x">
+          <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
+            <ant:setProperty name="tmpdir" value="${cactus.tmp.dir}"/>
+          </j:if>
+          <j:if test="${context.getVariable('cactus.resin2x.config') != null}">
+            <ant:setProperty name="resinconf" value="${cactus.resin2x.config}"/>
+          </j:if>
+        </resin2x>
+
+        <tomcat4x if="cactus.home.tomcat4x"
+            dir="${cactus.home.tomcat4x}" port="${cactus.port}"
+            output="${cactus.reports.dir}/tomcat4x.out"
+            todir="${cactus.reports.dir}/tomcat4x">
+          <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
+            <ant:setProperty name="tmpdir" value="${cactus.tmp.dir}"/>
+          </j:if>
+          <j:if test="${context.getVariable('cactus.tomcat4x.config') != null}">
+            <ant:setProperty name="serverxml" value="${cactus.tomcat4x.config}"/>
+          </j:if>
+          <j:if test="${context.getVariable('cactus.tomcat4x.tmpdir') != null}">
+            <ant:setProperty name="tmpdir" value="${cactus.tomcat4x.tmpdir}"/>
+          </j:if>
+          <j:if test="${context.getVariable('cactus.tomcat4x.conf.dir') != null}">
+            <conf dir="${cactus.tomcat4x.conf.dir}"
+                includes="${cactus.tomcat4x.conf.includes}"
+                excludes="${cactus.tomcat4x.conf.excludes}"/>
+          </j:if>
+        </tomcat4x>
+
+        <tomcat5x if="cactus.home.tomcat5x"
+            dir="${cactus.home.tomcat5x}" port="${cactus.port}"
+            output="${cactus.reports.dir}/tomcat5x.out"
+            todir="${cactus.reports.dir}/tomcat5x">
+          <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
+            <ant:setProperty name="tmpdir" value="${cactus.tmp.dir}"/>
+          </j:if>
+          <j:if test="${context.getVariable('cactus.tomcat5x.config') != null}">
+            <ant:setProperty name="serverxml" value="${cactus.tomcat5x.config}"/>
+          </j:if>
+          <j:if test="${context.getVariable('cactus.tomcat5x.tmpdir') != null}">
+            <ant:setProperty name="tmpdir" value="${cactus.tomcat5x.tmpdir}"/>
+          </j:if>
+          <j:if test="${context.getVariable('cactus.tomcat5x.conf.dir') != null}">
+           <conf dir="${cactus.tomcat5x.conf.dir}"
+               includes="${cactus.tomcat5x.conf.includes}"
+               excludes="${cactus.tomcat5x.conf.excludes}"/>
+          </j:if>
+        </tomcat5x>
+
+        <weblogic7x if="cactus.home.weblogic7x"
+            dir="${cactus.home.weblogic7x}" port="${cactus.port}"
+            output="${cactus.reports.dir}/weblogic7x.out"
+            todir="${cactus.reports.dir}/weblogic7x">
+          <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
+            <ant:setProperty name="tmpdir" value="${cactus.tmp.dir}"/>
+          </j:if>
+          <j:if test="${context.getVariable('cactus.weblogic7x.beahome') != null}">
+            <ant:setProperty name="beahome" value="${cactus.weblogic7x.beahome}"/>
+          </j:if>
+        </weblogic7x>
+
+      </containerset>
+
+      <ant:formatter type="plain" usefile="${cactus.junit.usefile}"/>
+      <ant:formatter type="xml"/>
+      <ant:batchtest>
+        <ant:fileset dir="${cactus.src.dir}"
+            includes="${cactus.src.includes}"
+            excludes="${cactus.src.excludes}"/>
+      </ant:batchtest>
+    </cactus>
+
+    <!-- TODO: Change the Cactus stylesheet (cactus.jsl) to handle reports
+    	 for several containers -->
+    	
+    <!-- Consolidate the reports into a single -->
+    <ant:junitreport todir="${cactus.reports.dir}"
+        tofile="TESTS-TestSuites-Cactus.xml">
+
+      <j:if test="${context.getVariable('cactus.home.jboss3x') != null}">
+        <ant:fileset dir="${cactus.reports.dir}/jboss3x">
+          <ant:include name="TEST-*.xml"/>
+        </ant:fileset>
+      </j:if>
+
+      <j:if test="${context.getVariable('cactus.home.orion1x') != null}">
+        <ant:fileset dir="${cactus.reports.dir}/orion1x">
+          <ant:include name="TEST-*.xml"/>
+        </ant:fileset>
+      </j:if>
+
+      <j:if test="${context.getVariable('cactus.home.orion2x') != null}">
+        <ant:fileset dir="${cactus.reports.dir}/orion2x">
+          <ant:include name="TEST-*.xml"/>
+        </ant:fileset>
+      </j:if>
+
+      <j:if test="${context.getVariable('cactus.home.resin2x') != null}">
+        <ant:fileset dir="${cactus.reports.dir}/resin2x">
+          <ant:include name="TEST-*.xml"/>
+        </ant:fileset>
+      </j:if>
+
+      <j:if test="${context.getVariable('cactus.home.tomcat4x') != null}">
+        <ant:fileset dir="${cactus.reports.dir}/tomcat4x">
+          <ant:include name="TEST-*.xml"/>
+        </ant:fileset>
+      </j:if>
+
+      <j:if test="${context.getVariable('cactus.home.tomcat5x') != null}">
+        <ant:fileset dir="${cactus.reports.dir}/tomcat5x">
+          <ant:include name="TEST-*.xml"/>
+        </ant:fileset>
+      </j:if>
+
+      <j:if test="${context.getVariable('cactus.home.weblogic7x') != null}">
+        <ant:fileset dir="${cactus.reports.dir}/weblogic7x">
+          <ant:include name="TEST-*.xml"/>
+        </ant:fileset>
+      </j:if>
+
+    </ant:junitreport>
+    
+    <j:if test="${cactus.halt.on.failure}">
+      <ant:fail if="cactustests.failure">At least one test had a failure!</ant:fail>
+    </j:if>
+    <j:if test="${cactus.halt.on.error}">
+      <ant:fail if="cactustests.error">At least one test had an error!</ant:fail>
+    </j:if>
+
+  </goal>
+
+  <!--
+     ========================================================================
+       Creates ear descriptor - application.xml file
+     ========================================================================
+  -->
+  <goal name="cactus:generate-ear-descriptor" prereqs="cactus:init">
+
+    <j:set var="cactus.ejb" value="${maven.final.name}.jar"/>
+
+    <mkdir dir="${maven.build.dir}"/>
+
+    <ant:echo>Generating appxml file:[${maven.build.dir}/application.xml] version ${cactus.j2ee.version}</ant:echo>
+
+    <j:file name="${maven.build.dir}/application.xml" outputMode="xml"
+        prettyPrint="true" encoding="UTF-8">
+
+      <j:switch on="${cactus.j2ee.version}">
+        <j:case value="1.3">
+          <x:doctype name="application" 
+              publicId="-//Sun Microsystems, Inc.//DTD J2EE Application 1.3//EN" 
+              systemId="http://java.sun.com/dtd/application_1_3.dtd"/>
+        </j:case>
+        <j:default>
+          <x:doctype name="application" 
+              publicId="-//Sun Microsystems, Inc.//DTD J2EE Application 1.2//EN"
+              systemId="http://java.sun.com/j2ee/dtds/application_1_2.dtd"/>
+        </j:default>
+      </j:switch>
+
+      <x:element name="application">
+        <x:element name="display-name">${pom.name} for Cactus</x:element>
+  
+        <!-- cactus war file -->
+        <x:element name="module">
+          <x:element name="web">
+            <x:element name="web-uri">${cactus.war}</x:element>
+            <x:element name="context-root">${pom.artifactId}</x:element>
+          </x:element>
+        </x:element>
+
+        <!-- ejb module under test -->
+        <x:element name="module">
+          <x:element name="ejb">${cactus.ejb}</x:element>
+        </x:element>
+
+        <j:forEach var="lib" items="${pom.artifacts}">
+          <j:set var="dep" value="${lib.dependency}"/>
+          <j:if test="${dep.getProperty('ejb.manifest.classpath')=='true'}">
+            <j:choose>
+              <j:when test="${dep.type=='war'}">
+                <x:element name="module">
+                  <x:element name="web">
+                    <x:element name="web-uri">${dep.getArtifact()}</x:element>
+                    <x:element name="context-root">${dep.getProperty('ear.appxml.war.context-root')}</x:element>
+                  </x:element>
+                </x:element>
+              </j:when>
+              <j:when test="${dep.type=='ejb'}">
+                <x:element name="module">
+                  <x:element name="ejb">${dep.getArtifact()}</x:element>
+                </x:element>
+              </j:when>
+              <j:when test="${dep.type=='jar'}">
+                <x:element name="module">
+                  <x:element name="java">${dep.getArtifact()}</x:element>
+                </x:element>
+              </j:when>
+              <j:when test="${dep.type=='rar'}">
+                <x:element name="module">
+                  <x:element name="connector">${dep.getArtifact()}</x:element>
+                </x:element>
+              </j:when>
+            </j:choose>
+          </j:if>
+        </j:forEach>
+
+      </x:element>
+    </j:file>
+
+  </goal>
 
   <!--
      ========================================================================

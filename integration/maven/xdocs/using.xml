@@ -7,43 +7,6 @@
   </properties>
 
   <body>
-    <section name="Installing the Cactus plugin">
-      <p>
-        There are 2 options to install the Cactus plugin in an existing Maven
-        installation:
-      </p>
-      <ul>
-        <li>
-          <strong>Automatic install</strong>: Call 
-          <code>maven plugin:download -DgroupId=cactus -DartifactId=cactus-maven -Dversion={version}</code>
-          where <code>{version}</code> is the version to use. Maven will 
-          automatically download the plugin and install it, uninstalling any
-          other version you may already have.
-        </li>
-        <li>
-          <strong>Manual install</strong>: 
-          <a href="http://www.ibiblio.org/maven/cactus/plugins/">Download</a>
-          the Cactus plugin jar and copy it in 
-          <code>{MAVEN_HOME}/plugins</code> where <code>{MAVEN_HOME}</code> is
-          the location where you have installed Maven. Make sure you also
-          remove any previous Cactus plugin from 
-          <code>{MAVEN_HOME}/plugins</code> and delete your 
-          <code>{USER_HOME}/.maven/plugins</code> directory.
-        </li>
-      </ul>
-      <note>
-        It is probable that your version of Maven already includes the Cactus
-        plugin (it was bundled with Maven not long ago). If this is the case
-        and if you want to install the new plugin, you need to remove the 
-        <code>maven-cactus-plugin</code> plugin from
-        <code>{MAVEN_HOME}/plugins</code> and delete your 
-        <code>{USER_HOME}/.maven/plugins</code> directory.
-      </note>
-      <note>
-        Older versions of the Cactus plugin can still be found
-        <a href="http://www.ibiblio.org/maven/maven/plugins/">here</a>.
-      </note>
-    </section>
     <section name="Using the Cactus plugin">
       <ol>
         <li>
@@ -63,12 +26,25 @@
 cactus.home.tomcat4x = C:/Apps/jakarta-tomcat-4.1.24
 cactus.home.resin2x = C:/Apps/resin-2.1.6
 ]]></source>
-        <li>
-          Then, simply type <code>maven cactus:test</code> (or 
-          <code>maven cactus</code> for short) to run the Cactus 
-          tests.
-        </li>
       </ol>
+      <subsection name="Running tests packaged in a WAR">
+        <p>
+          If you're testing Servlets, Filters, JSPs or Taglibs, simply type
+          <code>maven cactus:test</code> (or <code>maven cactus</code> for 
+          short) to run the Cactus tests.
+        </p>
+      </subsection>
+      <subsection name="Running tests packaged in an EAR">
+        <p>
+          Make sure you have created a <code>src/webapp/WEB-INF/web.xml</code>
+          file. You can put inside the <code>&lt;ejb-ref&gt;</code> entries 
+          required to call your EJBs from your Cactus test case classes.
+        </p>
+        <p>
+          To start your EJB unit tests, simply type 
+          <code>maven cactus:test-ear</code>.
+        </p>
+      </subsection>
       <subsection name="Custom test jars">
         <p>
           Some jars are used only for testing (for example, DbUnit). These

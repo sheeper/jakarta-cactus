@@ -13,9 +13,9 @@
       </p>
       <ul>
         <li>
-          Refactor code in goals cactus:test, cactus:single, and cactus:match
-          to share more code.  Currently there is a lot of cut-n-paste code.
-          Should use jelly tags to reuse code.
+          Refactor code in goals cactus:test, cactus:single, cactus:match
+          and cactus:test-ear to share more code. Currently there is a lot 
+          of cut-n-paste code. Should use jelly tags to reuse code.
         </li>
         <li>
           Add support for Jetty (note: This should actually be added in the

@@ -16,33 +16,50 @@
       <goal>
         <name>cactus:cactifywar</name>
         <description>
-          Creates a Cactus-ready war from the application war (depends
-          on <code>war:war</code>).
+          Creates a Cactus-ready WAR from the application WAR. To be used
+          in WAR projects.
+        </description>
+      </goal>
+      <goal>
+        <name>cactus:cactifyear</name>
+        <description>
+          Creates a Cactus-ready EAR to unit test EJBs. To be used in EJB
+          projects.
         </description>
       </goal>
       <goal>
         <name>cactus:test</name>
         <description>
-          Run the Cactus tests on the containers for which you have defined
-          a <code>cactus.home.[container name]</code> property.
+          Run the Cactus tests (packaged in a WAR) on the containers for which
+          you have defined a <code>cactus.home.[container name]</code> 
+          property.
         </description>
       </goal>
       <goal>
         <name>cactus:single</name>
         <description>
-          Run a single Cactus test on the containers for which you have defined
-          a <code>cactus.home.[container name]</code> property.  Pass the name
-          of the testcase in using -Dtestcase=my.single.TestCase.
+          Run a single Cactus test (packaged in a WAR) on the containers for 
+          which you have defined a <code>cactus.home.[container name]</code> 
+          property.  Pass the name of the testcase in using 
+          <code>-Dtestcase=my.single.TestCase</code>.
         </description>
       </goal>  
       <goal>
         <name>cactus:match</name>
         <description>
-          Run all Cactus tests that match a property <code>-Dtestmatch=MyTestCase</code> 
-          on the containers for which you have defined
-          a <code>cactus.home.[container name]</code> property.
+          Run all Cactus tests (packaged in a WAR) that match a property 
+          <code>-Dtestmatch=MyTestCase</code> on the containers for which you
+          have defined a <code>cactus.home.[container name]</code> property.
         </description>
       </goal>           
+      <goal>
+        <name>cactus:test-ear</name>
+        <description>
+          Run the Cactus tests (packaged in an EAR) on the containers for which
+          you have defined a <code>cactus.home.[container name]</code> 
+          property.
+        </description>
+      </goal>
       <goal>
         <name>cactus:report</name>
         <description>
