@@ -102,8 +102,8 @@
         <echo>  junit.jar = [${junit.jar}]</echo>
         <echo>  log4j.jar = [${log4j.jar}]</echo>
         <echo>  nekohtml.jar = [${nekohtml.jar}]</echo>
-        <echo>  xerces.jar = [${xerces.jar}"]</echo>
-        <echo>  xmlapis.jar = [${xmlapis.jar}"]</echo>
+        <echo>  xerces.jar (optional) = [${xerces.jar}]</echo>
+        <echo>  xmlapis.jar (optional) = [${xmlapis.jar}]</echo>
         <echo/>
         <echo>Options:</echo>
         <echo>  clover.enable (optional) = ${clover.enable}</echo>

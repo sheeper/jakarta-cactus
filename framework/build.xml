@@ -115,7 +115,7 @@
         <echo>  httpunit.jar = [${httpunit.jar}]</echo>
         <echo>  j2ee.jar = [${j2ee.jar}]</echo>
         <echo>  junit.jar = [${junit.jar}]</echo>
-        <echo>  xmlapis.jar = [${xmlapis.jar}]</echo>
+        <echo>  xmlapis.jar (optional) = [${xmlapis.jar}]</echo>
         <echo/>
         <echo>Options:</echo>
         <echo>  clover.enable (optional) = ${clover.enable}</echo>
