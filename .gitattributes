@@ -69,6 +69,7 @@ documentation/docs/xdocs/images/eclipse/webapp/propertypage.png -text
 documentation/docs/xdocs/images/ecosystem.jpg -text
 documentation/docs/xdocs/images/jb_libraries.gif -text
 documentation/docs/xdocs/images/jb_paths.gif -text
+documentation/docs/xdocs/images/jetty_eclipse.png -text
 documentation/docs/xdocs/images/logos/aceglia1.jpg -text
 documentation/docs/xdocs/images/logos/aceglia2.jpg -text
 documentation/docs/xdocs/images/logos/aceglia3.jpg -text
@@ -102,6 +103,7 @@ documentation/docs/xdocs/integration/browser/navigation.xml svn_keywords=Author+
 documentation/docs/xdocs/integration/eclipse/index.xml svn_keywords=Author+Date+Id+Revision
 documentation/docs/xdocs/integration/eclipse/navigation.xml svn_keywords=Author+Date+Id+Revision
 documentation/docs/xdocs/integration/howto_runner.xml svn_keywords=Author+Date+Id+Revision
+documentation/docs/xdocs/integration/integration_jetty.xml svn_keywords=Author+Date+Id+Revision
 documentation/docs/xdocs/integration/manual/howto_classpath.xml svn_keywords=Author+Date+Id+Revision
 documentation/docs/xdocs/integration/manual/howto_config.xml svn_keywords=Author+Date+Id+Revision
 documentation/docs/xdocs/integration/manual/howto_ide.xml svn_keywords=Author+Date+Id+Revision
@@ -146,6 +148,7 @@ documentation/docs/xdocs/webalizer.xml svn_keywords=Author+Date+Id+Revision
 documentation/docs/xdocs/writing/howto_ejb.xml svn_keywords=Author+Date+Id+Revision
 documentation/docs/xdocs/writing/howto_ejb_j2eeri.xml svn_keywords=Author+Date+Id+Revision
 documentation/docs/xdocs/writing/howto_httpunit.xml svn_keywords=Author+Date+Id+Revision
+documentation/docs/xdocs/writing/howto_initializer.xml svn_keywords=Author+Date+Id+Revision
 documentation/docs/xdocs/writing/howto_jsp.xml svn_keywords=Author+Date+Id+Revision
 documentation/docs/xdocs/writing/howto_security.xml svn_keywords=Author+Date+Id+Revision
 documentation/docs/xdocs/writing/howto_testcase.xml svn_keywords=Author+Date+Id+Revision

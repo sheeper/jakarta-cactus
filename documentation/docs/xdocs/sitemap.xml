@@ -49,6 +49,7 @@
   <resource id="howto_config" target="integration/manual/howto_config.html"/>
   <resource id="howto_migration" target="howto_migration.html"/>
   <resource id="howto_testcase" target="writing/howto_testcase.html"/>
+  <resource id="howto_initializer" target="writing/howto_initializer.html"/>
   <resource id="howto_testcase_servlet" target="writing/howto_testcase_servlet.html"/>
   <resource id="howto_testcase_jsp" target="writing/howto_testcase_jsp.html"/>
   <resource id="howto_testcase_filter" target="writing/howto_testcase_filter.html"/>
@@ -70,6 +71,7 @@
   <resource id="howto_ide_vajava_tomcat" target="integration/manual/howto_ide_vajava_tomcat.html"/>
   <resource id="howto_ide_jbuilder4" target="integration/manual/howto_ide_jbuilder4.html"/>
   <resource id="howto_ide_jbuilder5" target="integration/manual/howto_ide_jbuilder5.html"/>
+  <resource id="integration_jetty" target="integration/integration_jetty.html"/>  
   <resource id="howto_tomcat" target="integration/browser/howto_tomcat.html"/>
   <resource id="howto_junitee" target="integration/browser/howto_junitee.html"/>
   <resource id="mailinglist" target="mailinglist.html"/>
@@ -140,6 +142,7 @@
   <external id="jakarta" url="http://jakarta.apache.org"/>
   <external id="jakarta_roles" url="http://jakarta.apache.org/site/roles.html"/>
   <external id="japanese" url="http://www.ingrid.org/jajakarta/cactus/"/>
+  <external id="jetty" url="http://mortbay.org/jetty/"/>  
   <external id="jenerator" url="http://www.visioncodified.com/"/>
   <external id="junit" url="http://junit.org"/>
   <external id="junitee" url="http://www.junitee.org/"/>

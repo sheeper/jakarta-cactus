@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+
+<document id="howto_initializer">
+
+  <properties>
+    <title>Using the Cactus Initializer</title>
+    <authors>
+      <author name="Julien Ruaux" email="jruaux@octo.com"/>
+    </authors>
+  </properties>
+
+  <body>
+
+    <section title="What is it ?">
+
+      <p>
+        An initializer in Cactus consists in a class that will be run once on
+        the client to initialize the system.
+      </p>
+
+    </section>
+
+    <section title="Creating an initializer">
+      
+      <section title="Step 1: implement Initializable"> 
+        <p>
+          We first need an initializer class that implements the interface
+          <code>Initializable</code>. For example:<br/><br/>
+<source><![CDATA[
+public class MyInitializer implements Initializable
+{
+    public void initialize() throws Exception
+    {
+        // Here is where we initialize our class.
+    }
+}
+]]></source>          
+        </p>
+        
+      </section>
+
+      <section title="Step 2: add the system property"> 
+        <p>
+          Once we have an initializer class, we need to tell Cactus to use it.
+          This is done via the <code>cactus.initializer</code> system property.
+          For example using the previous class we would add the VM argument :
+          <code>"-Dcactus.initializer=MyInitializer"</code>.
+        </p>
+      </section>
+
+    </section>
+    
+    <section title="Use case">
+
+      <p>
+        For a hint on how and when to use this feature, take a look at the 
+        <link href="site:integration_jetty">JettyInitializer</link>.
+      </p>
+
+    </section>
+
+  </body>
+</document>

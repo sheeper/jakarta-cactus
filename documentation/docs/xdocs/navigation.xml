@@ -43,7 +43,7 @@
     <item label="Runner Howto" id="howto_runner"/>
     <item label="Security Howto" id="howto_security"/>
 
-
+    <item label="Initializer Howto" id="howto_initializer"/>
     <item label="HttpUnit Howto" id="howto_httpunit"/>
     <item label="Sample Howto" id="howto_sample"/>
 
@@ -61,6 +61,7 @@
   <menu label="Integration">
     <item label="Ant" id="integration_ant"/>
     <item label="Eclipse" id="integration_eclipse"/>
+    <item label="Jetty" id="integration_jetty"/>
   </menu>
 
   <menu label="Support">
