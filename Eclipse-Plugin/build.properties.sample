@@ -14,7 +14,7 @@
 # -----------------------------------------------------------------------------
 
 # Location of Eclipse.
-eclipse.home = c:/apps/eclipse2.1M4
+eclipse.home = D:/dev/eclipse-M4
 
 # Locations of Eclipse dependent plugin jars
 
@@ -33,3 +33,32 @@ eclipse.jface.jar = ${eclipse.home}/plugins/org.eclipse.jface_2.1.0/jface.jar
 eclipse.ant.core.jar = ${eclipse.home}/plugins/org.eclipse.ant.core_2.1.0/antsupport.jar
 eclipse.ui.workbench.jar = ${eclipse.home}/plugins/org.eclipse.ui.workbench_2.1.0/workbench.jar
 
+# Location of all jars. Note: This is not a mandatory property. It is only
+# used here so that it can be reused when defining the location of all the jars
+# below. You do not have to put all the external jars in a single location.
+lib.repo = D:/dev/cactus/jakarta-cactus-13-1.4b1/lib
+
+# Location of the Servlet API jar (it is needed because we want to copy it
+# in the Cactus distribution).
+servlet.jar = ${lib.repo}/servletapi-2.3.jar
+# Location of the Servlet API jar (it is needed because we want to copy it
+# in the Cactus distribution).
+servlet.jar = ${lib.repo}/servletapi-2.3.jar
+
+# The location of the Commons Logging jar
+commons.logging.jar = ${lib.repo}/commons-logging-1.0.jar
+
+# The location of the log4j jar
+log4j.jar = ${lib.repo}/log4j-1.2.5.jar
+
+# The location of the Commons Httpclient jar
+commons.httpclient.jar = ${lib.repo}/commons-httpclient.jar
+
+# The location of the Httpunit jar
+httpunit.jar = ${lib.repo}/httpunit-1.4.1.jar
+
+# The location of the AspectJ runtime jar
+aspectjrt.jar = ${lib.repo}/aspectjrt-1.0.5.jar
+
+# The location of the Junit jar
+junit.jar = D:/dev/cactus/jars/junit-3.7.jar
