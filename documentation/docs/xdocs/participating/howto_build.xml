@@ -272,8 +272,8 @@
 
       <note>
         Some projects depends on others and thus you may need to run the build
-        for those projects before. The order is as follows: anttasks, then
-        framework (or documentation), then sample projects.
+        for those projects before. The order is as follows: framework (or 
+        documentation), then integration projects.
       </note>
     </section>
 
