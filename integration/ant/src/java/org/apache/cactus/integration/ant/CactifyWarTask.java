@@ -517,6 +517,20 @@ public class CactifyWarTask extends War
         {
             throw new BuildException("XML parser configuration error", e);
         }
+        finally
+        {
+            if (war != null)
+            {
+                try
+                {
+                    war.close();
+                }
+                catch (IOException ioe)
+                {
+                    // pass the original exception
+                }
+            }
+        }
         return webXml;
     }
 

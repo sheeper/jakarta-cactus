@@ -314,6 +314,20 @@ public class CactusTask extends JUnitTask
         {
             throw new BuildException("XML parser configuration error", e);
         }
+        finally
+        {
+            if (war != null)
+            {
+                try
+                {
+                    war.close();
+                }
+                catch (IOException ioe)
+                {
+                    // pass the original exception
+                }
+            }
+        }
 
         Container[] containers = this.containerSet.getContainers();
         if (containers.length == 0)
