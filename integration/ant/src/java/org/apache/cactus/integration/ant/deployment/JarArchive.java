@@ -82,7 +82,7 @@ public abstract class JarArchive
     /**
      * The content of the archive as an input stream.
      */
-    private InputStream content;
+    private byte content[];
 
     // Constructors ------------------------------------------------------------
     
@@ -117,7 +117,7 @@ public abstract class JarArchive
             {
                 baos.write(buffer, 0, bytesRead);
             }
-            this.content = new ByteArrayInputStream(baos.toByteArray());
+            this.content = baos.toByteArray();
         }
         finally
         {
@@ -143,7 +143,7 @@ public abstract class JarArchive
         JarInputStream in = null;
         try
         {
-            in = new JarInputStream(this.content);
+            in = new JarInputStream(getContentAsStream());
             ZipEntry entry = null;
             while ((entry = in.getNextEntry()) != null)
             {
@@ -221,7 +221,7 @@ public abstract class JarArchive
     protected final JarInputStream getContentAsStream()
         throws IOException
     {
-        return new JarInputStream(this.content);
+        return new JarInputStream(new ByteArrayInputStream(this.content));
     }
 
 }
