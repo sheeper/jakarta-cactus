@@ -14,12 +14,20 @@
     <cactus warfile="empty.war"/>
   </target>
 
+  <target name="testWarFileCactified">
+    <cactus warfile="cactified.war"/>
+  </target>
+
   <target name="testEarFileEmpty">
     <cactus earfile="empty.ear"/>
   </target>
 
   <target name="testEarFileNotCactified">
     <cactus earfile="notcactified.ear"/>
+  </target>
+
+  <target name="testEarFileCactified">
+    <cactus earfile="cactified.ear"/>
   </target>
 
 </project>

@@ -153,6 +153,17 @@ public final class TestCactusTask extends AntTestCase
     }
 
     /**
+     * Verifies that the task does nothing if it is given a cactified web
+     * application, but neither tests nor containers.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
+    public void testWarFileCactified() throws Exception
+    {
+        executeTestTarget();
+    }
+
+    /**
      * Verifies that the task throws an exception when the earfile attribute 
      * is set to an empty enterprise application archive.
      * 
@@ -191,6 +202,17 @@ public final class TestCactusTask extends AntTestCase
             assertEquals("Could not find cactified web module in the EAR",
                 expected.getMessage());
         }
+    }
+
+    /**
+     * Verifies that the task does nothing if it is given a cactified enterprise
+     * application, but neither tests nor containers.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
+    public void testEarFileCactified() throws Exception
+    {
+        executeTestTarget();
     }
 
 }
