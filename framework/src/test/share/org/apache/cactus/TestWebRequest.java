@@ -103,4 +103,120 @@ public class TestWebRequest extends TestCase
                 e.getMessage());
         }
     }
+
+    /**
+     * Verify that <code>getParameterGet</code> returns the first parameter
+     * that was added to the request.
+     */
+    public void testGetParametersGetOk()
+    {
+        WebRequest request = new WebRequest();
+        request.addParameter("param1", "value1", WebRequest.GET_METHOD);
+        request.addParameter("param1", "value2", WebRequest.GET_METHOD);
+
+        String result = request.getParameterGet("param1");
+
+        assertEquals("value1", result);
+    }
+
+    /**
+     * Verify that <code>getParameterGet</code> returns null if no parameter
+     * of a given name was added to the request.
+     */
+    public void testGetParameterGetNull()
+    {
+        WebRequest request = new WebRequest();
+        request.addParameter("param1", "value1", WebRequest.POST_METHOD);
+
+        String result = request.getParameterGet("param1");
+
+        assertNull(result);
+    }
+
+    /**
+     * Verify that <code>getParameterPost</code> returns the first parameter
+     * that was added to the request.
+     */
+    public void testGetParametersPostOk()
+    {
+        WebRequest request = new WebRequest();
+        request.addParameter("param1", "value1", WebRequest.POST_METHOD);
+        request.addParameter("param1", "value2", WebRequest.POST_METHOD);
+
+        String result = request.getParameterPost("param1");
+
+        assertEquals("value1", result);
+    }
+
+    /**
+     * Verify that <code>getParameterPost</code> returns null if no parameter
+     * of a given name was added to the request.
+     */
+    public void testGetParameterPostNull()
+    {
+        WebRequest request = new WebRequest();
+        request.addParameter("param1", "value1", WebRequest.GET_METHOD);
+
+        String result = request.getParameterPost("param1");
+
+        assertNull(result);
+    }
+
+    /**
+     * Verify that <code>getHeader</code> returns the first header
+     * that was added to the request.
+     */
+    public void testGetHeaderOk()
+    {
+        WebRequest request = new WebRequest();
+        request.addHeader("header1", "value1");
+        request.addHeader("header2", "value2");
+
+        String result = request.getHeader("header1");
+
+        assertEquals("value1", result);
+    }
+
+    /**
+     * Verify that <code>getHeader</code> returns null if no header
+     * of a given name was added to the request.
+     */
+    public void testGetHeaderNull()
+    {
+        WebRequest request = new WebRequest();
+
+        String result = request.getHeader("header1");
+
+        assertNull(result);
+    }
+
+    /**
+     * Verify that <Code>toString()</code> returns a nice string representation
+     * of the <code>WebRequest</code>.
+     */
+    public void testToString()
+    {
+        WebRequest request = new WebRequest();
+        request.addHeader("header1", "value1");
+        request.addParameter("param1", "value1", WebRequest.GET_METHOD);
+        request.addParameter("param1", "value1", WebRequest.POST_METHOD);
+        request.addCookie("cookie1", "value1");
+        request.setAutomaticSession(false);
+        request.setURL("jakarta.apache.org:80", "/catalog", "/garden",
+            "/implements/", "param1=value1&param2=&param3=value3");
+
+        String result = request.toString();
+
+        assertEquals("simulation URL = [protocol = [http], host name = "
+            + "[jakarta.apache.org], port = [80], context path = [/catalog], "
+            + "servlet path = [/garden], path info = [/implements/], query "
+            + "string = [param1=value1&param2=&param3=value3]], automatic "
+            + "session = [false], cookies = [[name = [cookie1], value = "
+            + "[value1], domain = [localhost], path = [null], isSecure = "
+            + "[false], comment = [null], expiryDate = [null]]], headers = "
+            + "[[[header1] = [[value1]]]], GET parameters = [[[param3] = "
+            + "[[value3]]][[param2] = [[]]][[param1] = [[value1], [value1]]]], "
+            + "POST parameters = [[[param1] = [[value1]]]]", result);
+    }
+
 }
