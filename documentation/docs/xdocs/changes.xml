@@ -65,6 +65,9 @@
       </devs>
 
       <release version="1.5" date="- in CVS">
+        <action dev="VMA" type="add">
+          Added a <link href="site:news_rdf">RSS feed</link> for Cactus news.
+        </action>
         <action dev="CML" type="add">
           The Cactus web site has a new style that is heavily based on CSS.
           It should provide better printing capabilities and a more consistent
