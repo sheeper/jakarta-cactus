@@ -105,7 +105,6 @@ table, th, td { border: none; }
 
 /* Styles for the main content area */
 #content {
-  /*margin: 0 6px 0 6px;*/
   vertical-align: top;
 }
 #content .figure {
