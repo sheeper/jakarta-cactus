@@ -124,7 +124,7 @@ public abstract class AbstractJavaContainer extends AbstractContainer
         {
             getLog().trace(
                 "Passing arguments to the container JVM: " + this.jvmArgs);
-            java.setJvmargs(this.jvmArgs);
+            java.createJvmarg().setLine(this.jvmArgs);
         }
 
         // Add extra container classpath entries specified by the user.
