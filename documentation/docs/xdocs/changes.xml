@@ -149,7 +149,7 @@
           that allows to set the security cookie name to a name different than
           <code>JSESSIONID</code> (the default).
         </action>
-        <action dev="VMA" type="fix" fixes-bug="17933" due-to="Kazuhito Suguri" due-to-email="suguri.kazuhito@lab.ntt.co.jp">
+        <action dev="VMA" type="fix" fixes-bug="CACTUS-37" due-to="Kazuhito Suguri" due-to-email="suguri.kazuhito@lab.ntt.co.jp">
           <code>FormAuthentication</code> no longer assumes "localhost" when 
           adding cookies.
         </action>
@@ -739,11 +739,7 @@
         broken by a line introduced in Cactus 1.3 that would only work with
         Ant 1.5. However, this line can easily be commented out).
       </action>
-      <action dev="VMA" type="fix" fixes-bug="8640" due-to="Marc Brette" due-to-email="Marc.Brette@mkms.xerox.com">
-         (It also solves bug
-         <link href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=8640">
-         Bug #4167</link> reported by
-         <link href="mailto:eqwalker@yahoo.com">Eric Walker</link>).
+      <action dev="VMA" type="fix" fixes-bug="CACTUS-21" due-to="Marc Brette" due-to-email="Marc.Brette@mkms.xerox.com">
          Modified the <code>jspRedirector.jsp</code> so that
          it initializes an HTTP Session (<code>session="true"</code>). There
          is no way I know to make this parameter dynamic so we set it to true
