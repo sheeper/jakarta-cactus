@@ -430,6 +430,7 @@ integration/ant/src/test/org/apache/cactus/integration/ant/deployment/TestWebXml
 integration/ant/src/test/org/apache/cactus/integration/ant/deployment/TestWebXmlVersion.java svn_keywords=Author+Date+Id+Revision
 integration/eclipse/org.apache.cactus.eclipse.feature/feature.xml svn_keywords=Author+Date+Id+Revision
 integration/eclipse/org.apache.cactus.eclipse.feature/logocactus.gif -text
+integration/eclipse/org.apache.cactus.eclipse.runner/.checkstyle -text svneol=unset#application/octet-stream
 integration/eclipse/org.apache.cactus.eclipse.runner/.classpath svn_keywords=Author+Date+Id+Revision
 integration/eclipse/org.apache.cactus.eclipse.runner/.classpath.sample svn_keywords=Author+Date+Id+Revision
 integration/eclipse/org.apache.cactus.eclipse.runner/.cvsignore svn_keywords=Author+Date+Id+Revision
