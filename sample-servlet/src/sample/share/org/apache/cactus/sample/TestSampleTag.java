@@ -238,7 +238,10 @@ public class TestSampleTag extends JspTestCase
      */
     public void endDoEndTagStop(WebResponse theResponse)
     {
-        assertContains(theResponse, "This tag has a parent. <BR>");
+        String target = theResponse.getText();
+        boolean containsMessage = 
+            target.indexOf("This tag has a parent. <BR>") > 0;
+        assertTrue(!containsMessage);
     }
 
     //--------------------------------------------------------------------------
