@@ -101,7 +101,7 @@
         Add client jars in the user's project classpath (popup menu to Cactify the project)
       </action>
       <action>
-        Add a log view à la Ant plugin
+        Add a log view a la Ant plugin
       </action>
       <action>
         Add a few screenshots of the plugin to the user's doc
@@ -111,6 +111,13 @@
   </version>
 
   <version title="Undefined">
+
+    <category title="Documentation">
+      <action>
+        Improve the documentation CheckSitemap Ant task to check external URLs
+        (when online).
+      </action>
+    </category>
 
     <category title="Build Process">
       <action assigned-to="Jason Van Zyl">
@@ -153,6 +160,7 @@
         extensions to repeat each test or start several threads). Idea 
         initially suggested by
         <link href="mailto:rimovm@centercomp.com">Michael Rimov</link>.
+        Integrate JUnitPerf.
       </action>
       <action>
         Use <link href="http://xdoclet.sourceforge.net/docs/">XDoclet</link>
