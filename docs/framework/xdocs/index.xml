@@ -67,7 +67,10 @@
           will let you test the returned values from your server code. This is
           for example
           <link href="http://sourceforge.net/projects/httpunit">HttpUnit
-          </link>.
+          </link> (Note that HttpUnit also performs standard functional testing
+          - as opposed to functional unit testing -, which let you test full
+          use cases - a login use case for example, which is comprised of
+          several requests/responses).
         </li>
       </ol>
       <p>
