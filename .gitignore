@@ -1,5 +1,6 @@
 /.classpath
 /.project
+Eclipse-Plugin/ant
 Eclipse-Plugin/bin
 Eclipse-Plugin/build-local.xml
 Eclipse-Plugin/build.properties
