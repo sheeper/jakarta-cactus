@@ -122,17 +122,7 @@
 
       </s2>
 
-      <s2 title="Step 3 : cactus.properties">
-
-        <p>
-          Lastly, you need to ensure you have put your
-          <code>cactus.properties</code> file in your webapp
-          <code>WEB-INF/classes</code> directory.
-        </p>
-
-      </s2>
-
-      <s2 title="Step 4 : Executing the tests">
+      <s2 title="Step 3 : Executing the tests">
 
         <p>
           Open a browser and type <code>http://server:port/mywebapp/ServletTestRunner?suite=mytestcase</code>

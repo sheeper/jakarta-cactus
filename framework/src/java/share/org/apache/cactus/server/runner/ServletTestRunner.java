@@ -64,6 +64,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.ServletException;
 
 import org.apache.cactus.util.log.LogService;
+import org.apache.cactus.util.Configuration;
 import junit.framework.TestResult;
 import junit.framework.Test;
 
@@ -119,6 +120,12 @@ public class ServletTestRunner extends HttpServlet
 
         // Get the XSL stylesheet parameter if any
         String xslParam = theRequest.getParameter(HTTP_XSL_PARAM);
+
+        // Set up default Cactus System properties so that there is no need
+        // to have a cactus.properties file in WEB-INF/classes
+        System.setProperty(Configuration.CACTUS_CONTEXT_URL_PROPERTY,
+            "http://" + theRequest.getServerName() + ":" +
+            theRequest.getServerPort() + theRequest.getContextPath());
 
         // Run the tests
         String xml = run(suiteClassName, xslParam);

@@ -56,6 +56,8 @@
  */
 package org.apache.cactus.util;
 
+import java.util.MissingResourceException;
+
 /**
  * Provides acces to JSP specific configuration parameters.
  *
@@ -66,11 +68,33 @@ package org.apache.cactus.util;
 public class JspConfiguration extends Configuration
 {
     /**
-     * @return the JSP redirector
+     * Name of the cactus property that specifies the name of the JSP
+     * redirector.
+     */
+    public static final String CACTUS_JSP_REDIRECTOR_NAME_PROPERTY =
+        "cactus.jspRedirectorName";
+
+    /**
+     * Read the JSP redirector name from a System property first and then
+     * if it fails from the Cactus configuration file and then use the default
+     * "JspRedirector" name if it fails.
+     *
+     * @return the JSP redirector URL
      */
     public static String getJspRedirectorURL()
     {
-        return getContextURL() + "/" +
-            getConfiguration().getString("cactus.jspRedirectorName");
+        // Try to read it from a System property first and then if it fails
+        // from the Cactus configuration file.
+        String jspRedirectorName =
+            System.getProperty(CACTUS_JSP_REDIRECTOR_NAME_PROPERTY);
+        if (jspRedirectorName == null) {
+            try {
+                jspRedirectorName = getConfiguration().getString(
+                    CACTUS_JSP_REDIRECTOR_NAME_PROPERTY);
+            } catch (MissingResourceException e) {
+                jspRedirectorName = "JspRedirector";
+            }
+        }
+        return getContextURL() + "/" + jspRedirectorName;
     }
 }

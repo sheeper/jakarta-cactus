@@ -21,7 +21,7 @@
 
       <p>
         This document is a step by step tutorial that explains how to set up
-        Cactus and run Cactus tests in Tomcat in less than 20 minutes !
+        Cactus and run Cactus tests in Tomcat in less than 10 minutes !
         (discounting download time of course :-)).
       </p>
       <p>
@@ -222,32 +222,7 @@ public class TestSampleServlet extends ServletTestCase
 
     </s1>
 
-    <s1 title="Step 5 : Configure Cactus">
-
-      <p>
-        This is the last step. Create a file named
-        <code>cactus.properties</code> with the following content and copy
-        it to <code>[tomcat root]/webapps/test/WEB-INF/classes</code>.
-      </p>
-
-<source><![CDATA[
-# Configuration file for Cactus.
-
-# Web app Context under which our application to test runs
-cactus.contextURL = http://localhost:8080/test
-
-# Default Servlet Redirector Name. Used by ServletTestCase test cases.
-cactus.servletRedirectorName = ServletRedirector
-]]></source>
-
-      <note>
-        This assumes Tomcat is running on port 8080. Modify with your port if
-        you're using a different one (default is 8080).
-      </note>
-
-    </s1>
-
-    <s1 title="Step 6 : Run the test">
+    <s1 title="Step 5 : Run the test">
 
       <p>
         Time to enjoy our hard work ! Start Tomcat by running
@@ -264,7 +239,7 @@ cactus.servletRedirectorName = ServletRedirector
 
     </s1>
 
-    <s1 title="Step 7 : Even more fun !">
+    <s1 title="Step 6 : Even more fun !">
       <p>
         Ok, that's nice ... But what if I want HTML instead of XML ? Don't
         worry there is a solution. Grab the following

@@ -56,6 +56,8 @@
  */
 package org.apache.cactus.util;
 
+import java.util.MissingResourceException;
+
 /**
  * Provides acces to Servlet specific configuration parameters.
  *
@@ -66,11 +68,31 @@ package org.apache.cactus.util;
 public class ServletConfiguration extends Configuration
 {
     /**
-     * @return the Servlet redirector
+     * Name of the cactus property that specifies the name of the Servlet
+     * redirector.
+     */
+    public static final String CACTUS_SERVLET_REDIRECTOR_NAME_PROPERTY =
+        "cactus.servletRedirectorName";
+
+    /**
+     * Read the Servlet redirector name from a System property first and then
+     * if it fails from the Cactus configuration file and then use the default
+     * "ServletRedirector" name if it fails.
+     *
+     * @return the Servlet redirector URL
      */
     public static String getServletRedirectorURL()
     {
-        return getContextURL() + "/" +
-            getConfiguration().getString("cactus.servletRedirectorName");
+        String servletRedirectorName =
+            System.getProperty(CACTUS_SERVLET_REDIRECTOR_NAME_PROPERTY);
+        if (servletRedirectorName == null) {
+            try {
+                servletRedirectorName = getConfiguration().getString(
+                    CACTUS_SERVLET_REDIRECTOR_NAME_PROPERTY);
+            } catch (MissingResourceException e) {
+                servletRedirectorName = "ServletRedirector";
+            }
+        }
+        return getContextURL() + "/" + servletRedirectorName;
     }
 }

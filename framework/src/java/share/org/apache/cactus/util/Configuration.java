@@ -60,6 +60,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
+import java.util.MissingResourceException;
 
 /**
  * Provides acces to the Cactus configuration.
@@ -87,8 +88,16 @@ public class Configuration
      * Name of property in Cactus configuration file that enables Cactus
      * logging.
      */
-    private static final String ENABLE_LOGGING_PROPERTY =
+    public static final String CACTUS_ENABLE_LOGGING_PROPERTY =
         "cactus.enableLogging";
+
+    /**
+     * Name of Cactus property that specify the URL up to the webapp context.
+     * This is the base URL to call for the redirectors. It is made up of :
+     * "http://" + serverName + port + "/" + contextName.
+     */
+    public static final String CACTUS_CONTEXT_URL_PROPERTY =
+        "cactus.contextURL";
 
     /**
      * Properties file holding configuration data for Cactus.
@@ -132,7 +141,14 @@ public class Configuration
      */
     public static String getContextURL()
     {
-        return getConfiguration().getString("cactus.contextURL");
+        // Try to read it from a System property first and then if it fails
+        // from the Cactus configuration file.
+        String contextURL = System.getProperty(CACTUS_CONTEXT_URL_PROPERTY);
+        if (contextURL == null) {
+            contextURL =
+                getConfiguration().getString(CACTUS_CONTEXT_URL_PROPERTY);
+        }
+        return contextURL;
     }
 
     /**
@@ -140,7 +156,15 @@ public class Configuration
      */
     public static boolean isLoggingEnabled()
     {
-        return Boolean.valueOf(getConfiguration().
-            getString(ENABLE_LOGGING_PROPERTY)).booleanValue();
+        boolean isLoggingEnabled = false;
+
+        try {
+            isLoggingEnabled = Boolean.valueOf(getConfiguration().
+                getString(CACTUS_ENABLE_LOGGING_PROPERTY)).booleanValue();
+        } catch (MissingResourceException e) {
+            // logging property not found, we disable logging by default
+            isLoggingEnabled = false;
+        }
+        return isLoggingEnabled;
     }
 }

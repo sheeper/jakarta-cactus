@@ -48,6 +48,13 @@
     </devs>
 
     <release version="1.4 in CVS">
+      <action dev="VMA" type="update">
+        It is now possible to specify the Cactus properties as System
+        properties (the property names are the same as the ones in
+        <code>cactus.properties</code>). Also if not specified, redirector
+        names are set by default to "ServletRedirector", "JspRedirector" and
+        "FilterRedirector".
+      </action>
       <action dev="VMA" type="add">
         New <link href="howto_tomcat.html">Quick start tutorial</link> that
         explains how to run Cactus tests quickly in Tomcat.
