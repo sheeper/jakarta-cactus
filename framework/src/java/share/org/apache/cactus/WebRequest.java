@@ -351,13 +351,11 @@ public class WebRequest extends BaseWebRequest
      */
     public void addCactusCommand(String theCommandName, String theCommandValue)
     {
-        if (!theCommandName.startsWith(HttpServiceDefinition.COMMAND))
+        if (!theCommandName.startsWith(HttpServiceDefinition.COMMAND_PREFIX))
         {
-            throw new IllegalArgumentException(
-                "Cactus commands must begin with "
-                    + HttpServiceDefinition.COMMAND
-                    + " offending command was "
-                    + theCommandName);
+            throw new IllegalArgumentException("Cactus commands must begin"
+                + " with" + HttpServiceDefinition.COMMAND_PREFIX + ". The"
+                + " offending command was [" + theCommandName + "]");
         }
         addParameter(theCommandName, theCommandValue, GET_METHOD);
     }
@@ -386,5 +384,4 @@ public class WebRequest extends BaseWebRequest
     {
         return uniqueId;
     }
-
 }
