@@ -124,6 +124,10 @@
 				<pathelement location="${eclipse.jface.jar}"/>
 				<pathelement location="${eclipse.ant.core.jar}"/>
 				<pathelement location="${eclipse.ui.workbench.jar}"/>
+
+                <!-- Needed for Gump -->
+                <pathelement location="${java.class.path}"/>
+
 			</classpath>
 		</javac>
 		
