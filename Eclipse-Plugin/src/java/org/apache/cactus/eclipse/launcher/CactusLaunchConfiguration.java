@@ -56,7 +56,6 @@
  */
 package org.apache.cactus.eclipse.launcher;
 
-import java.io.File;
 import java.net.URL;
 import java.util.Vector;
 
@@ -67,7 +66,6 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.internal.junit.launcher.JUnitLaunchConfiguration;
-import org.eclipse.jdt.launching.ExecutionArguments;
 import org.eclipse.jdt.launching.IJavaLaunchConfigurationConstants;
 import org.eclipse.jdt.launching.VMRunnerConfiguration;
 
@@ -111,96 +109,17 @@ public class CactusLaunchConfiguration extends JUnitLaunchConfiguration
         int thePort)
         throws CoreException
     {
-        File workingDir = verifyWorkingDirectory(theConfiguration);
-        String workingDirName = null;
-        if (workingDir != null)
-        {
-            workingDirName = workingDir.getAbsolutePath();
-        }
 
-        // Program & VM args
-        String vmArgs = getVMArguments(theConfiguration);
-        ExecutionArguments execArgs = new ExecutionArguments(vmArgs, "");
-
-        VMRunnerConfiguration runConfig =
-            createVMRunner(theConfiguration, theTests, thePort, theMode);
-        String[] cactusVMArgs = runConfig.getVMArguments();
-        String[] globalArgs =
-            concatenateStringArrays(
-                execArgs.getVMArgumentsArray(),
-                cactusVMArgs);
-        runConfig.setVMArguments(globalArgs);
-        runConfig.setWorkingDirectory(workingDirName);
-
-        String[] bootpath = getBootpath(theConfiguration);
-        runConfig.setBootClassPath(bootpath);
-        return runConfig;
-    }
-
-    /**
-     * Create a VM configuration which will be used to run the Cactus tests.
-     * The only difference between the Cactus plugin and JUnit plugin in term
-     * of launch configuration is the VM configuration. Cactus needs more
-     * jars in the classpath and need to pass additional VM arguments (the
-     * Cactus configuration).
-     *
-     * Note: This method is called by the
-     * {@link JUnitBaseLaunchConfiguration#launch()} method. That 
-     * <code>launch()</code> method is the entry point of this extension point
-     * and is called by Eclipse when the user press the run button.
-     * 
-     * @param theConfiguration the launch configuration
-     * @param theTestTypes the JUnit tests that will be run
-     * @param thePort the JUnit remote port
-     * @param theRunMode the run mode (debug, run)
-     * @return the configuration for the VM in which to run the tests 
-     * 
-     * @exception CoreException on critical failures
-     */
-    protected VMRunnerConfiguration createVMRunner(
-        ILaunchConfiguration theConfiguration,
-        IType[] theTestTypes,
-        int thePort,
-        String theRunMode)
-        throws CoreException
-    {
-        // Get the VM used by the JUnit plugin
-        VMRunnerConfiguration junitVmConfig =
-            super.createVMRunner(
-                theConfiguration,
-                theTestTypes,
-                thePort,
-                theRunMode);
-
-        // Compute new classpath : JUnit CP + Cactus CP        
-        //        String[] cactusClasspath = getCactusClientJars();     
-        //        String[] classpath = concatenateStringArrays(
-        //            junitVmConfig.getClassPath(), cactusClasspath);
-
-        String[] classpath = junitVmConfig.getClassPath();
+        VMRunnerConfiguration jUnitConf =
+            super.launchTypes(theConfiguration, theMode, theTests, thePort);
         // Compute new VM arguments : JUnit VM argument + Cactus VM arguments
         // TODO: Get this from the plugin preference page.
-        String[] cactusVmArgs =
+        String[] cactusVMArgs =
             { "-Dcactus.contextURL=http://localhost:8081/test" };
-        String[] vmArgs =
-            concatenateStringArrays(
-                junitVmConfig.getVMArguments(),
-                cactusVmArgs);
-
-        // Create a new VM that includes both JUnit parameters and the new
-        // Cactus parameters.
-        VMRunnerConfiguration cactusVmConfig =
-            new VMRunnerConfiguration(
-                junitVmConfig.getClassToLaunch(),
-                classpath);
-        cactusVmConfig.setBootClassPath(junitVmConfig.getBootClassPath());
-        cactusVmConfig.setProgramArguments(junitVmConfig.getProgramArguments());
-        cactusVmConfig.setVMArguments(vmArgs);
-        cactusVmConfig.setVMSpecificAttributesMap(
-            junitVmConfig.getVMSpecificAttributesMap());
-        cactusVmConfig.setWorkingDirectory(junitVmConfig.getWorkingDirectory());
-
-        return cactusVmConfig;
+        String[] jUnitArgs = jUnitConf.getVMArguments();
+        String[] globalArgs = concatenateStringArrays(jUnitArgs, cactusVMArgs);
+        jUnitConf.setVMArguments(globalArgs);
+        return jUnitConf;
     }
 
     /**
