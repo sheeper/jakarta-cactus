@@ -8,9 +8,18 @@
     The following properties need to be set in either a ./build.properties or
     a ${user.home}/build.properties one or in a calling Ant script :
 
-        jakarta.username       [OPTIONAL] Needed for the deploy.website target.
+        admin.jakarta.username [OPTIONAL] Needed for the deploy.website target.
                                It is the username to use when connecting to
                                jakarta.apache.org.
+
+        admin.scp              [OPTIONAL] Needed for the deploy.website target.
+                               Name of executable to call to perform remote
+                               copy.
+
+        admin.ssh              [OPTIONAL] Needed for the deploy.website target.
+                               Name of executable to call to perform remote
+                               login to Jakarta web site. Needs to have a
+                               private key on jakarta.apache.org.
 
     This script should be started with the following command line :
 
@@ -68,18 +77,18 @@
          Deploy the web site to the Jakarta server, using the 'scp'
          and 'ssh' commands.
 
-         Note 1 : This target does not deploy the javadoc
-         Note 2 : The property "jakarta.username" need to be passed
-         to Ant when calling this target.
+         Note : This target does not deploy the javadoc
        ========================================================================
     -->
-    <target name="deploy.website" depends="clean" if="jakarta.username"
+    <target name="deploy.website" depends="clean" if="admin.jakarta.username"
         description="Deploy the Cactus web site">
 
         <mkdir dir="${release.dir}"/>
 
         <!-- Generate the website first -->
-        <ant target="dist.documentation" inheritAll="false"/>
+        <ant target="clean.documentation" inheritAll="false"/>
+        <ant target="run.documentation" inheritAll="false"/>
+        <ant target="package.documentation" inheritAll="false"/>
 
         <!-- Zip it up -->
         <property name="cactus.website.name"
@@ -97,13 +106,13 @@
         <property name="cactus.homepage"
             value="/www/jakarta.apache.org/cactus"/>
 
-        <exec dir="." executable="scp">
+        <exec dir="." executable="${admin.scp}">
             <arg value="${release.dir}/${cactus.website.name}.tar.gz"/>
-            <arg value="${jakarta.username}@jakarta.apache.org:${cactus.homepage}"/>
+            <arg value="${admin.jakarta.username}@jakarta.apache.org:${cactus.homepage}"/>
         </exec>
 
-        <exec dir="." executable="ssh">
-            <arg line="-l ${jakarta.username} jakarta.apache.org 'cd ${cactus.homepage};gunzip ${cactus.website.name}.tar.gz;tar xvf ${cactus.website.name}.tar;rm ${cactus.website.name}.tar'"/>
+        <exec dir="." executable="${admin.ssh}">
+            <arg line="-l ${admin.jakarta.username} jakarta.apache.org 'cd ${cactus.homepage};gunzip ${cactus.website.name}.tar.gz;tar xvf ${cactus.website.name}.tar;rm ${cactus.website.name}.tar'"/>
         </exec>
 
     </target>
