@@ -2,35 +2,37 @@
 <document>
 
   <properties>
-    <title>Features of the Cactus plugin</title>
+    <title>Cactus plugin features</title>
     <author email="vmassol@apache.org">Vincent Massol</author>
   </properties>
 
   <body>
-    <section name="Cactus Plug-in Features">
+    <section name="Cactus plugin features">
       <p>
-       The Cactus plugin for Maven uses the 
-       <a href="http://jakarta.apache.org/cactus">Cactus/Ant 
-       integration</a> module. Thus benefits from all its features.
+        The following features are provided:
       </p>
-      <p>
-        Some jars are used only for testing (for example, DbUnit). These
-        jars can be entered as dependencies in the <code>project.xml</code>
-        and tagged with <code>cactus.bundle</code>. When the Cactus plugin 
-        finds such jars it will automatically add them to the deployed war. 
-        For example:          
-      </p>
-<source><![CDATA[
-    <dependency>
-      <groupId>dbunit</groupId>>
-      <artifactId>dbunit</artifactId>>
-      <version>1.5.5</version>
-      <properties>
-        <cactus.bundle>true</cactus.bundle>
-      </properties>
-    </dependency>
-]]></source>
-      
+      <ul>
+        <li>
+          Uses the
+          <a href="http://jakarta.apache.org/cactus/integration/ant/">Cactus 
+          Ant integration</a>.
+        </li>
+        <li>
+          Create cactified war of your web application.
+        </li>
+        <li>
+          Start/stop containers automatically.
+        </li>
+        <li>
+          Deploy your web application automatically in the target containers.
+        </li>
+        <li>
+          Supports adding custom testing jars to the Cactus classpaths.
+        </li>
+        <li>
+          Supports Servlet API 2.3 only.
+        </li>
+      </ul>
     </section>
  </body>
 </document>

@@ -2,12 +2,37 @@
 <document>
 
   <properties>
-    <title>Using the Maven Cactus Plug-in</title>
+    <title>Using the Maven Cactus plugin</title>
     <author email="vmassol@apache.org">Vincent Massol</author>
   </properties>
 
   <body>
-    <section name="Using the Maven Cactus Plug-in">
+    <section name="Installing the Cactus plugin">
+      <p>
+        There are 2 options to install the Cactus plugin in an existing Maven
+        installation:
+      </p>
+      <ul>
+        <li>
+          <strong>Automatic install</strong>: Call 
+          <code>maven plugin:download -DgroupId=cactus -DartifactId=cactus-maven -Dversion={version}</code>
+          where <code>{version}</code> is the version to use. Maven will 
+          automatically download the plugin and install it, uninstalling any
+          other version you may already have.
+        </li>
+        <li>
+          <strong>Manual install</strong>: 
+          <a href="http://www.ibiblio.org/maven/cactus/plugins/">Download</a>
+          the Cactus plugin jar and copy it in 
+          <code>{MAVEN_HOME}/plugins</code> where <code>{MAVEN_HOME}</code> is
+          the location where you have installed Maven. Make sure you also
+          remove any previous Cactus plugin from 
+          <code>{MAVEN_HOME}/plugins</code> and delete your 
+          <code>{USER_HOME}/.maven/plugins</code> directory.
+        </li>
+      </ul>
+    </section>
+    <section name="Using the Cactus plugin">
       <ol>
         <li>
           Create a <code>src/test-cactus</code> directory in your project and
@@ -22,19 +47,35 @@
           example, if you wish to run the Cactus tests on Tomcat 4.1.24 and on
           Resin 2.6, you will write:
         </li>
-
 <source><![CDATA[
 cactus.home.tomcat4x = C:/Apps/jakarta-tomcat-4.1.24
 cactus.home.resin2x = C:/Apps/resin-2.1.6
 ]]></source>
-
         <li>
           Then, simply type <code>maven cactus:test</code> (or 
           <code>maven cactus</code> for short) to run the Cactus 
           tests.
         </li>
       </ol>
-
+      <subsection name="Custom test jars">
+        <p>
+          Some jars are used only for testing (for example, DbUnit). These
+          jars can be entered as dependencies in the <code>project.xml</code>
+          and tagged with <code>cactus.bundle</code>. When the Cactus plugin 
+          finds such jars it will automatically add them to the deployed war. 
+          For example:          
+        </p>
+<source><![CDATA[
+    <dependency>
+      <groupId>dbunit</groupId>>
+      <artifactId>dbunit</artifactId>>
+      <version>1.5.5</version>
+      <properties>
+        <cactus.bundle>true</cactus.bundle>
+      </properties>
+    </dependency>
+]]></source>
+      </subsection>
     </section>
 
  </body>

@@ -2,8 +2,7 @@
 
 <document>
   <properties>
-    <title>Cactus Properties</title>
-    <author email="dion@apache.org">dIon Gillard</author>
+    <title>Maven Cactus roperties</title>
     <author email="vmassol@apache.org">Vincent Massol</author>
   </properties>
   <body>

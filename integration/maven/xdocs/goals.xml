@@ -2,8 +2,7 @@
 
 <document>
   <properties>
-    <title>Maven cactus Plug-in Goals</title>
-    <author email="dion@apache.org">dIon Gillard</author>
+    <title>Maven Cactus plugin goals</title>
     <author email="vmassol@apache.org">Vincent Massol</author>
   </properties>
   <body>
