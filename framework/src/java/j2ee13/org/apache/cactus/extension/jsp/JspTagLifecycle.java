@@ -569,7 +569,7 @@ public final class JspTagLifecycle
         }
         this.tag = theTag;
         this.pageContext = thePageContext;
-        tag.setPageContext(pageContext);
+        this.tag.setPageContext(this.pageContext);
     }
     
     // Public Methods ----------------------------------------------------------
@@ -585,11 +585,11 @@ public final class JspTagLifecycle
         {
             throw new NullPointerException();
         }
-        if (interceptors == null)
+        if (this.interceptors == null)
         {
-            interceptors = new ArrayList();
+            this.interceptors = new ArrayList();
         }
-        interceptors.add(theInterceptor);
+        this.interceptors.add(theInterceptor);
     }
     
     /**
@@ -607,8 +607,8 @@ public final class JspTagLifecycle
             throw new NullPointerException();
         }
         JspTagLifecycle lifecycle =
-            new JspTagLifecycle(pageContext, theNestedTag);
-        theNestedTag.setParent(tag);
+            new JspTagLifecycle(this.pageContext, theNestedTag);
+        theNestedTag.setParent(this.tag);
         addInterceptor(new NestedTagInterceptor(lifecycle));
         return lifecycle;
     }
@@ -669,7 +669,7 @@ public final class JspTagLifecycle
      *        step
      */
     public void expectScopedVariableExposed(String theName,
-                                            Object[] theExpectedValues)
+        Object[] theExpectedValues)
     {
         expectScopedVariableExposed(theName, theExpectedValues,
             PageContext.PAGE_SCOPE);
@@ -686,8 +686,7 @@ public final class JspTagLifecycle
      * @param theScope The scope under which the variable is stored
      */
     public void expectScopedVariableExposed(String theName,
-                                            Object[] theExpectedValues,
-                                            int theScope)
+        Object[] theExpectedValues, int theScope)
     {
         if ((theName == null) || (theExpectedValues == null))
         {
@@ -718,12 +717,11 @@ public final class JspTagLifecycle
      * @throws IOException If an error occurs when reading or writing the body
      *         content
      */
-    public void invoke()
-        throws JspException, IOException
+    public void invoke() throws JspException, IOException
     {
-        if (tag instanceof TryCatchFinally)
+        if (this.tag instanceof TryCatchFinally)
         {
-            TryCatchFinally tryCatchFinally = (TryCatchFinally) tag;
+            TryCatchFinally tryCatchFinally = (TryCatchFinally) this.tag;
             try
             {
                 invokeInternal();
@@ -764,9 +762,9 @@ public final class JspTagLifecycle
     private void fireEvalBody(int theIteration, BodyContent theBody)
         throws JspException, IOException
     {
-        if (interceptors != null)
+        if (this.interceptors != null)
         {
-            for (Iterator i = interceptors.iterator(); i.hasNext();)
+            for (Iterator i = this.interceptors.iterator(); i.hasNext();)
             {
                 ((Interceptor) i.next()).evalBody(theIteration, theBody);
             }
@@ -778,9 +776,9 @@ public final class JspTagLifecycle
      */
     private void fireSkipBody()
     {
-        if (interceptors != null)
+        if (this.interceptors != null)
         {
-            for (Iterator i = interceptors.iterator(); i.hasNext();)
+            for (Iterator i = this.interceptors.iterator(); i.hasNext();)
             {
                 ((Interceptor) i.next()).skipBody();
             }
@@ -797,19 +795,19 @@ public final class JspTagLifecycle
     private void invokeInternal()
         throws JspException, IOException
     {
-        int status = tag.doStartTag();
-        if (tag instanceof IterationTag)
+        int status = this.tag.doStartTag();
+        if (this.tag instanceof IterationTag)
         {
             if (status != Tag.SKIP_BODY)
             {
                 BodyContent body = null;
                 try
                 {
-                    IterationTag iterationTag = (IterationTag) tag;
+                    IterationTag iterationTag = (IterationTag) this.tag;
                     if ((status == BodyTag.EVAL_BODY_BUFFERED)
-                        && (tag instanceof BodyTag))
+                        && (this.tag instanceof BodyTag))
                     {
-                        BodyTag bodyTag = (BodyTag) tag;
+                        BodyTag bodyTag = (BodyTag) this.tag;
                         body = pageContext.pushBody();
                         if (log.isDebugEnabled())
                         {
