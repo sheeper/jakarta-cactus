@@ -212,9 +212,8 @@ public abstract class AbstractServerRun extends Thread
         ServerSocket serverSocket = setUpListenerSocket();
 
         // Accept a client socket connection
-        Socket clientSocket = null;
         try {
-            clientSocket = serverSocket.accept();
+            serverSocket.accept();
         } catch (IOException e) {
             throw new RuntimeException("Error accepting connection for " +
                 "server socket [" + serverSocket + "]");

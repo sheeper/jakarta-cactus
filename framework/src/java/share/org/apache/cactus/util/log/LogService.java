@@ -103,8 +103,7 @@ public class LogService
         // classpath !
         this.isLog4jInClasspath = true;
         try {
-            Class aClass =
-                Class.forName("org.apache.log4j.PropertyConfigurator");
+            Class.forName("org.apache.log4j.PropertyConfigurator");
         } catch (ClassNotFoundException e) {
             this.isLog4jInClasspath = false;
         }

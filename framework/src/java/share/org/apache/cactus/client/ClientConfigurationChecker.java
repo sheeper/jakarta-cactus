@@ -149,8 +149,7 @@ public class ClientConfigurationChecker
         }
 
         try {
-            Class httpclientClass =
-                Class.forName("org.apache.commons.httpclient.HttpClient");
+            Class.forName("org.apache.commons.httpclient.HttpClient");
         } catch (ClassNotFoundException e) {
             String msg = "The Commons HttpClient jar file need to be " +
                 "present in the client side CLASSPATH (This is the " +
