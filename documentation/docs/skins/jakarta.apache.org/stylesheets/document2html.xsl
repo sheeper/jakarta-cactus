@@ -360,28 +360,28 @@
         <xsl:call-template name="section">
           <xsl:with-param name="width">100%</xsl:with-param>
           <xsl:with-param name="font-size">+1</xsl:with-param>
-          <xsl:with-param name="name"><xsl:value-of select="@name"/></xsl:with-param>
+          <xsl:with-param name="name"><xsl:value-of select="@title"/></xsl:with-param>
         </xsl:call-template>
       </xsl:when>
       <xsl:when test="$level=2">
         <xsl:call-template name="section">
           <xsl:with-param name="width">98%</xsl:with-param>
           <xsl:with-param name="font-size">+0</xsl:with-param>
-          <xsl:with-param name="name"><xsl:value-of select="@name"/></xsl:with-param>
+          <xsl:with-param name="name"><xsl:value-of select="@title"/></xsl:with-param>
         </xsl:call-template>
       </xsl:when>
       <xsl:when test="$level=3">
         <xsl:call-template name="section">
           <xsl:with-param name="width">96%</xsl:with-param>
           <xsl:with-param name="font-size">-1</xsl:with-param>
-          <xsl:with-param name="name"><xsl:value-of select="@name"/></xsl:with-param>
+          <xsl:with-param name="name"><xsl:value-of select="@title"/></xsl:with-param>
         </xsl:call-template>
       </xsl:when>
       <xsl:otherwise>
         <xsl:call-template name="section">
           <xsl:with-param name="width">94%</xsl:with-param>
           <xsl:with-param name="font-size">-2</xsl:with-param>
-          <xsl:with-param name="name"><xsl:value-of select="@name"/></xsl:with-param>
+          <xsl:with-param name="name"><xsl:value-of select="@title"/></xsl:with-param>
         </xsl:call-template>
       </xsl:otherwise>
     </xsl:choose>
