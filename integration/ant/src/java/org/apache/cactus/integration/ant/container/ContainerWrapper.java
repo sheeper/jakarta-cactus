@@ -3,7 +3,7 @@
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2003 The Apache Software Foundation.  All rights
+ * Copyright (c) 2003-2004 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -99,13 +99,21 @@ public class ContainerWrapper implements Container
     // AbstractContainer Implementation ----------------------------------------
 
     /**
-     * @see Container#getName
+     * @see Container#getName()
      */
     public String getName()
     {
         return container.getName();
     }
-
+    
+    /**
+     * @see Container#getTestContext()
+     */
+    public String getTestContext()
+    {
+        return this.container.getTestContext();
+    }    
+    
     /**
      * @see Container#getStartUpWait()
      */
@@ -115,7 +123,7 @@ public class ContainerWrapper implements Container
     }
     
     /**
-     * @see Container#getPort
+     * @see Container#getPort()
      */
     public int getPort()
     {
@@ -123,7 +131,7 @@ public class ContainerWrapper implements Container
     }
 
     /**
-     * @see Container#getToDir
+     * @see Container#getToDir()
      */
     public File getToDir()
     {
@@ -131,7 +139,7 @@ public class ContainerWrapper implements Container
     }
 
     /**
-     * @see Container#getSystemProperties
+     * @see Container#getSystemProperties()
      */
     public Variable[] getSystemProperties()
     {
@@ -139,7 +147,7 @@ public class ContainerWrapper implements Container
     }
     
     /**
-     * @see Container#init
+     * @see Container#init()
      */
     public void init()
     {
@@ -147,7 +155,7 @@ public class ContainerWrapper implements Container
     }
 
     /**
-     * @see Container#isEnabled
+     * @see Container#isEnabled()
      */
     public boolean isEnabled()
     {
@@ -155,7 +163,7 @@ public class ContainerWrapper implements Container
     }
 
     /**
-     * @see Container#isExcluded
+     * @see Container#isExcluded()
      */
     public boolean isExcluded(String theTestName)
     {
@@ -163,7 +171,7 @@ public class ContainerWrapper implements Container
     }
 
     /**
-     * @see Container#startUp
+     * @see Container#startUp()
      */
     public void startUp()
     {
@@ -171,7 +179,7 @@ public class ContainerWrapper implements Container
     }
 
     /**
-     * @see Container#shutDown
+     * @see Container#shutDown()
      */
     public void shutDown()
     {
@@ -179,7 +187,7 @@ public class ContainerWrapper implements Container
     }
     
     /**
-     * @see Container#setAntTaskFactory
+     * @see Container#setAntTaskFactory()
      */
     public void setAntTaskFactory(AntTaskFactory theFactory)
     {
@@ -187,7 +195,7 @@ public class ContainerWrapper implements Container
     }
 
     /**
-     * @see Container#setLog
+     * @see Container#setLog()
      */
     public void setLog(Log theLog)
     {
@@ -195,7 +203,7 @@ public class ContainerWrapper implements Container
     }
 
     /**
-     * @see Container#setDeployableFile
+     * @see Container#setDeployableFile()
      */
     public void setDeployableFile(DeployableFile theWarFile)
     {
@@ -203,7 +211,7 @@ public class ContainerWrapper implements Container
     }
 
     /**
-     * @see Container#setSystemProperties
+     * @see Container#setSystemProperties()
      */
     public void setSystemProperties(Variable[] theProperties)
     {

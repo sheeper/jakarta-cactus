@@ -3,7 +3,7 @@
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2003 The Apache Software Foundation.  All rights
+ * Copyright (c) 2003-2004 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -144,6 +144,14 @@ public abstract class AbstractContainer extends ProjectComponent
 
     // Public Methods ----------------------------------------------------------
 
+    /**
+     * @see Container#getTestContext()
+     */
+    public String getTestContext()
+    {
+        return null;
+    }
+    
     /**
      * Sets the time to wait after the container has been started up.
      * 

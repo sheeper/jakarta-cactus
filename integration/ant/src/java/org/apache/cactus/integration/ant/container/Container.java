@@ -3,7 +3,7 @@
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2003 The Apache Software Foundation.  All rights
+ * Copyright (c) 2003-2004 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -90,6 +90,12 @@ public interface Container
      */
     int getPort();
 
+    /**
+     * @return the context that the webapp will load on, null if the client
+     * should determine on it's own
+     */
+    String getTestContext();
+    
     /**
      * @return the time to wait after the container has been started up. 
      */

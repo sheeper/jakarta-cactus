@@ -3,7 +3,7 @@
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2003 The Apache Software Foundation.  All rights
+ * Copyright (c) 2003-2004 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -69,7 +69,8 @@ import org.apache.cactus.integration.ant.deployment.WarArchive;
  * @since Cactus 1.5
  * @version $Id$
  */
-public abstract class AbstractDeployableFile implements DeployableFile
+public abstract class AbstractDeployableFile 
+    implements DeployableFile, Cloneable
 {
     /**
      * The WAR or EAR file to deploy.
@@ -130,8 +131,7 @@ public abstract class AbstractDeployableFile implements DeployableFile
     }
 
     /**
-     * @param theTestContext the test context that will be used to test if the
-     *        container is started or not
+     * @see DeployableFile#setTestContext(String)
      */
     public final void setTestContext(String theTestContext)
     {
@@ -193,7 +193,22 @@ public abstract class AbstractDeployableFile implements DeployableFile
     {
         return this.warArchive;
     }
-  
+
+    /**
+     * @see DeployableFile#clone()
+     */
+    public Object clone() throws CloneNotSupportedException
+    {
+        AbstractDeployableFile file = (AbstractDeployableFile) super.clone();
+        file.deployableFile = this.deployableFile;
+        file.warArchive = this.warArchive;
+        file.testContext = this.testContext;
+        file.servletRedirectorMapping = this.servletRedirectorMapping;
+        file.filterRedirectorMapping = this.filterRedirectorMapping;
+        file.jspRedirectorMapping = this.jspRedirectorMapping;
+        return file;
+    }
+    
     /**
      * @param theWarArchive the WAR archive object
      */
@@ -201,4 +216,5 @@ public abstract class AbstractDeployableFile implements DeployableFile
     {
         this.warArchive = theWarArchive;
     }
+
 }

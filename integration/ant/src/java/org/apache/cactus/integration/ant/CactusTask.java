@@ -208,7 +208,31 @@ public class CactusTask extends JUnitTask
             {
                 containers[i].setAntTaskFactory(this.antTaskFactory);
                 containers[i].setLog(new AntLog(this));
-                containers[i].setDeployableFile(deployableFile);
+
+                // Clone the DeployableFile instance as each container can
+                // override default deployment properties (e.g. port, context
+                // root, etc).
+                DeployableFile thisDeployable = null;
+                try
+                {
+                    thisDeployable = (DeployableFile) deployableFile.clone();
+                }
+                catch (CloneNotSupportedException e)
+                {
+                    throw new BuildException(e);
+                }
+                containers[i].setDeployableFile(thisDeployable);
+
+                // Allow the container to override the default test context. 
+                // This is to support container extensions to the web.xml file.
+                // Most containers allow defining the root context in these
+                // extensions.
+                if (containers[i].getTestContext() != null)
+                {
+                    thisDeployable.setTestContext(
+                        containers[i].getTestContext());
+                }               
+                
                 containers[i].setSystemProperties(
                     (Variable[]) this.systemProperties.toArray(
                         new Variable[0]));
@@ -225,8 +249,8 @@ public class CactusTask extends JUnitTask
                         Project.MSG_INFO);
                     contextUrl.setValue(
                         "http://localhost:" + containers[i].getPort() + "/"
-                        + deployableFile.getTestContext());
-                    executeInContainer(containers[i], deployableFile); 
+                        + thisDeployable.getTestContext());
+                    executeInContainer(containers[i], thisDeployable); 
                 }
             }
         }

@@ -68,6 +68,10 @@
       </devs>
 
       <release version="1.6dev" date="in CVS">
+        <action dev="VMA" type="fix" fixes-bug="25859" due-to="Brian Topping" due-to-email="topping@digidemic.com">
+          In the Ant integration, added support for web contexts defined in
+          JBoss's <code>jboss-web.xml</code>.
+        </action>
         <action dev="VMA" type="fix">
           Fixed the bug where a ServletException occurs, stating:
           <code>The request object passed to forward() must be the request 

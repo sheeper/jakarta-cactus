@@ -3,7 +3,7 @@
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2003 The Apache Software Foundation.  All rights
+ * Copyright (c) 2003-2004 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -102,6 +102,12 @@ public interface DeployableFile
     String getTestContext();
 
     /**
+     * @param theTestContext the test context that will be used to test if the
+     *        container is started or not
+     */
+    void setTestContext(String theTestContext);
+    
+    /**
      * Returns the first URL-pattern to which the Cactus servlet redirector is 
      * mapped in the deployment descriptor.
      * 
@@ -127,4 +133,11 @@ public interface DeployableFile
      *         not defined or mapped in the descriptor
      */
     String getJspRedirectorMapping();
+
+    /**
+     * Clone the object.
+     * @return the object clone
+     * @throws CloneNotSupportedException If clone is not supported (duh)
+     */
+    Object clone() throws CloneNotSupportedException;
 }

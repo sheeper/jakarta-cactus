@@ -3,7 +3,7 @@
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2003 The Apache Software Foundation.  All rights
+ * Copyright (c) 2003-2004 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -65,6 +65,7 @@ package org.apache.cactus.integration.ant.container;
  * @version $Id$
  */
 public class EarDeployableFile extends AbstractDeployableFile
+    implements Cloneable
 {
     /**
      * @see DeployableFile#isWar()

@@ -3,7 +3,7 @@
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2003 The Apache Software Foundation.  All rights
+ * Copyright (c) 2003-2004 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -58,15 +58,27 @@ package org.apache.cactus.integration.ant.container.jboss;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.StringReader;
 import java.util.jar.Attributes;
 import java.util.jar.JarFile;
 import java.util.jar.Manifest;
+import java.util.zip.ZipEntry;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.cactus.integration.ant.container.AbstractJavaContainer;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.taskdefs.Java;
 import org.apache.tools.ant.types.Path;
 import org.apache.tools.ant.util.FileUtils;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.xml.sax.EntityResolver;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
 /**
  * Special container support for the JBoss application server.
@@ -100,6 +112,11 @@ public class JBoss3xContainer extends AbstractJavaContainer
      */
     private transient String version;
 
+    /**
+     * The context root of the tested application.
+     */
+    private String testContextRoot;
+    
     // Public Methods ----------------------------------------------------------
 
     /**
@@ -146,7 +163,15 @@ public class JBoss3xContainer extends AbstractJavaContainer
     // Container Implementation ------------------------------------------------
 
     /**
-     * @see org.apache.cactus.integration.ant.container.Container#getName
+     * @see AbstractContainer#getTestContext()
+     */
+    public String getTestContext()
+    {
+        return this.testContextRoot;
+    }
+    
+    /**
+     * @see AbstractContainer#getName()
      */
     public final String getName()
     {
@@ -154,9 +179,7 @@ public class JBoss3xContainer extends AbstractJavaContainer
     }
 
     /**
-     * Returns the port to which the container should listen.
-     * 
-     * @return The port
+     * @see AbstractContainer#getPort() 
      */
     public final int getPort()
     {
@@ -164,7 +187,7 @@ public class JBoss3xContainer extends AbstractJavaContainer
     }
     
     /**
-     * @see org.apache.cactus.integration.ant.container.Container#init
+     * @see AbstractContainer#init()
      */
     public final void init()
     {
@@ -182,13 +205,17 @@ public class JBoss3xContainer extends AbstractJavaContainer
                 + " of JBoss");
         }
 
+        // Try to infer the test root context from the JBoss specific
+        // <code>jboss-web.xml</code> file.
+        this.testContextRoot = getTestContextFromJBossWebXml();
+        
         // TODO: as long as we don't have a way to set the port on the JBoss 
         // instance, we'll at least need to extract the port from a config file
         // in the installation directory
     }
 
     /**
-     * @see org.apache.cactus.integration.ant.container.Container#startUp
+     * @see AbstractContainer#startUp()
      */
     public final void startUp()
     {
@@ -229,7 +256,7 @@ public class JBoss3xContainer extends AbstractJavaContainer
     }
 
     /**
-     * @see org.apache.cactus.integration.ant.container.Container#shutDown
+     * @see AbstractContainer#shutDown()
      */
     public final void shutDown()
     {
@@ -257,6 +284,29 @@ public class JBoss3xContainer extends AbstractJavaContainer
 
     // Private Methods ---------------------------------------------------------
 
+    /**
+     * @return the test context from JBoss's <code>jboss-web.xml</code> or null
+     *         if none has been defined or if the file doesn't exist
+     */
+    private String getTestContextFromJBossWebXml()
+    {
+        String testContext = null;
+        
+        try
+        {
+            Document doc = getJBossWebXML();
+            Element root = doc.getDocumentElement();
+            Node context = root.getElementsByTagName("context-root").item(0);
+            testContext = context.getFirstChild().getNodeValue();
+        }
+        catch (Exception e)
+        {
+            // no worries if we can't find what we are looking for (for now).
+        }
+
+        return testContext;
+    }
+    
     /**
      * Prepares a temporary installation of the container and deploys the 
      * web-application.
@@ -313,4 +363,45 @@ public class JBoss3xContainer extends AbstractJavaContainer
         return retVal;
     }
 
+    /**
+     * Get a Document object for the <code>jboss-web.xml</code> file.
+     * 
+     * @return The parsed XML Document object or null if not found
+     * @throws IOException If there is a problem reading files
+     * @throws ParserConfigurationException If there is a problem w/ parser
+     * @throws SAXException If there is a problem with parsing
+     */
+    private Document getJBossWebXML() throws
+        IOException, ParserConfigurationException, SAXException
+    {
+        Document doc = null;
+        File configDir = new File(this.dir, "server");
+        File deployDir = new File(configDir, this.config + "/deploy");
+        File warFile = new File(deployDir,
+            getDeployableFile().getFile().getName());
+ 
+        JarFile war = new JarFile(warFile);
+        ZipEntry entry = war.getEntry("WEB-INF/jboss-web.xml");
+        if (entry != null)
+        {
+            DocumentBuilderFactory factory =
+                DocumentBuilderFactory.newInstance();
+            factory.setValidating(false);
+            factory.setNamespaceAware(false);
+            
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            builder.setEntityResolver(new EntityResolver()
+            {
+                public InputSource resolveEntity(String thePublicId, 
+                    String theSystemId) throws SAXException
+                {
+                    return new InputSource(new StringReader(""));
+                }
+            });
+            doc = builder.parse(war.getInputStream(entry));
+        }
+        war.close();
+        return doc;
+    }
+    
 }
