@@ -64,7 +64,6 @@ import junit.framework.Test;
 import org.apache.cactus.configuration.ServletConfiguration;
 import org.apache.cactus.internal.client.ClientTestCaseDelegate;
 import org.apache.cactus.internal.client.WebClientTestCaseDelegate;
-import org.apache.cactus.internal.server.ServerTestCaseDelegate;
 import org.apache.cactus.server.ServletConfigWrapper;
 
 /**
@@ -76,7 +75,8 @@ import org.apache.cactus.server.ServletConfigWrapper;
  *
  * @version $Id$
  */
-public class ServletTestCase extends AbstractCactusTestCase
+public class ServletTestCase 
+    extends AbstractCactusTestCase implements CactusTestCase
 {
     /**
      * Valid <code>HttpServletRequest</code> object that you can access from
@@ -147,28 +147,4 @@ public class ServletTestCase extends AbstractCactusTestCase
         return new WebClientTestCaseDelegate(
             this, theTest, new ServletConfiguration());
     }
-
-    /**
-     * @see AbstractCactusTestCase#createServerTestCaseDelegate(Test)
-     */
-    protected ServerTestCaseDelegate createServerTestCaseDelegate(
-        Test theTest)
-    {
-        return new ServerTestCaseDelegate(this, theTest);
-    }
-
-    /**
-     * @see AbstractCactusTestCase#isServerSide()
-     */
-    protected boolean isServerSide()
-    {
-        boolean result = false;
-        
-        if (this.request != null)
-        {
-            result = true;                    
-        }
-        return result;
-    }
-
 }

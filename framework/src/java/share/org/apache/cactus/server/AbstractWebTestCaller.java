@@ -66,6 +66,7 @@ import javax.servlet.ServletException;
 import junit.framework.Test;
 import junit.framework.TestCase;
 
+import org.apache.cactus.CactusTestCase;
 import org.apache.cactus.HttpServiceDefinition;
 import org.apache.cactus.ServiceEnumeration;
 import org.apache.cactus.WebTestResult;
@@ -153,7 +154,15 @@ public abstract class AbstractWebTestCaller
             setTestCaseFields(testInstance);
 
             // Call it's method corresponding to the current test case
-            testInstance.runBare();
+            if (testInstance instanceof CactusTestCase)
+            {
+                ((CactusTestCase) testInstance).runBareServer();                
+                
+            }
+            else
+            {
+                testInstance.runBare();                
+            }
 
             // Return an instance of <code>WebTestResult</code> with a
             // positive result.

@@ -64,7 +64,6 @@ import junit.framework.Test;
 import org.apache.cactus.configuration.FilterConfiguration;
 import org.apache.cactus.internal.client.ClientTestCaseDelegate;
 import org.apache.cactus.internal.client.WebClientTestCaseDelegate;
-import org.apache.cactus.internal.server.ServerTestCaseDelegate;
 import org.apache.cactus.server.FilterConfigWrapper;
 
 /**
@@ -76,7 +75,8 @@ import org.apache.cactus.server.FilterConfigWrapper;
  *
  * @version $Id$
  */
-public class FilterTestCase extends AbstractCactusTestCase
+public class FilterTestCase 
+    extends AbstractCactusTestCase implements CactusTestCase
 {
     /**
      * Valid <code>HttpServletRequest</code> object that you can access from
@@ -146,28 +146,5 @@ public class FilterTestCase extends AbstractCactusTestCase
     {
         return new WebClientTestCaseDelegate(this, theTest, 
             new FilterConfiguration());
-    }
-
-    /**
-     * @see AbstractCactusTestCase#createServerTestCaseDelegate(Test)
-     */
-    protected ServerTestCaseDelegate createServerTestCaseDelegate(
-            Test theTest)
-    {
-        return new ServerTestCaseDelegate(this, theTest);
-    }
-
-    /**
-     * @see AbstractCactusTestCase#isServerSide()
-     */
-    protected boolean isServerSide()
-    {
-        boolean result = false;
-        
-        if (this.request != null)
-        {
-            result = true;                    
-        }
-        return result;
     }
 }

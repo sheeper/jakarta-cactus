@@ -99,6 +99,32 @@ public abstract class AbstractCactusTestCase extends TestCase
      */
     private ServerTestCaseDelegate serverDelegate;
 
+    // ----------------------------------------------------------------------
+
+    /**
+     * Create a client side test case delegate.
+     * 
+     * @param theTest the JUnit test to wrap or null if there is no test to 
+     *        wrap
+     * @return the client side test case delegate to use
+     */
+    protected abstract ClientTestCaseDelegate createClientTestCaseDelegate(
+            Test theTest);
+    
+    // ----------------------------------------------------------------------
+
+    /**
+     * Create a server side test case delegate.
+     * 
+     * @param theTest the JUnit test to wrap or null if there is no test to 
+     *        wrap
+     * @return the server side test case delegate to use
+     */
+    protected ServerTestCaseDelegate createServerTestCaseDelegate(Test theTest)
+    {
+        return new ServerTestCaseDelegate(this, theTest);
+    }
+    
     /**
      * Default constructor defined in order to allow creating Test Case
      * without needing to define constructor (new feature in JUnit 3.8.1).
@@ -131,26 +157,8 @@ public abstract class AbstractCactusTestCase extends TestCase
         super(theName);
         init(theTest);
     }
-
-    /**
-     * Create a client side test case delegate.
-     * 
-     * @param theTest the JUnit test to wrap or null if there is no test to 
-     *        wrap
-     * @return the client side test case delegate to use
-     */
-    protected abstract ClientTestCaseDelegate createClientTestCaseDelegate(
-        Test theTest);
-
-    /**
-     * Create a server side test case delegate.
-     * 
-     * @param theTest the JUnit test to wrap or null if there is no test to 
-     *        wrap
-     * @return the server side test case delegate to use
-     */
-    protected abstract ServerTestCaseDelegate createServerTestCaseDelegate(
-        Test theTest);
+    
+    // ----------------------------------------------------------------------
     
     /**
      * @param theDelegate the client test case delegate
@@ -196,73 +204,55 @@ public abstract class AbstractCactusTestCase extends TestCase
     }
 
     /**
-     * @return true if this test class has been instanciated on the server
-     *         side or false otherwise 
-     */
-    protected abstract boolean isServerSide();
-
-    /**
      * Runs the bare test (either on the client side or on the server side). 
      * This method is overridden from the JUnit 
      * {@link TestCase} class in order to prevent the latter to immediatly
      * call the <code>setUp()</code> and <code>tearDown()</code> methods 
      * which, in our case, need to be executed on the server side.
      *
+     * @todo change the comment
      * @exception Throwable if any exception is thrown during the test. Any
      *            exception will be displayed by the JUnit Test Runner
      */
     public void runBare() throws Throwable
     {
-        if (isServerSide())
-        {
-            getServerDelegate().runBareInit();            
-        }
-        else
-        {
-            getClientDelegate().runBareInit();            
-        }
+        runBareClient();
+    }
+    
+    private void runBareClient() throws Throwable
+    {    
+        getClientDelegate().runBareInit();            
 
         // Catch the exception just to have a chance to log it
         try
         {
-            runCactusTest();
+            getClientDelegate().runTest();
         }
         catch (Throwable t)
         {
-            if (!isServerSide())
-            {
-                getClientDelegate().getLogger().debug("Exception in test", t);
-            }
+            getClientDelegate().getLogger().debug("Exception in test", t);
             throw t;
         }
     }   
 
     /**
-     * Runs a Cactus test case.
-     *
-     * @exception Throwable if any error happens during the execution of
-     *            the test
+     * @see CactusTestCase#runBareServer()
      */
-    protected void runCactusTest() throws Throwable
+    public void runBareServer() throws Throwable
     {
-        if (isServerSide())
-        {
-            // Note: We cannot delegate this piece of code in the
-            // ServerTestCaseDelegate class as it requires to call
-            // super.runBare()
+        getServerDelegate().runBareInit();            
 
-            if (getServerDelegate().getWrappedTest() != null)
-            {
-                ((TestCase) getServerDelegate().getWrappedTest()).runBare();
-            }
-            else
-            {
-                super.runBare();            
-            }
+        // Note: We cannot delegate this piece of code in the
+        // ServerTestCaseDelegate class as it requires to call
+        // super.runBare()
+
+        if (getServerDelegate().getWrappedTest() != null)
+           {
+            ((TestCase) getServerDelegate().getWrappedTest()).runBare();
         }
         else
         {
-            getClientDelegate().runTest();
+            super.runBare();            
         }
     }
 }
