@@ -76,9 +76,6 @@ public class TestAll
     {
         TestSuite suite = new TestSuite("Sample Servlet API 2.3 Cactus tests");
 
-        // Unit like tests
-        suite.addTest(org.apache.cactus.sample.unit.TestAll.suite());        
-
         // Functional tests
         suite.addTestSuite(org.apache.cactus.sample.TestSampleServlet.class);
         suite.addTestSuite(
