@@ -375,7 +375,7 @@ be resolved. Please check you build.properties file, and run Ant with the
        Run the full suite of unit tests.
      ========================================================================
   -->
-  <target name="test.clover.prepare" depends="compile.test,compile.clover"
+  <target name="test.clover.prepare" depends="compile.test, compile.clover"
       if="clover.enable">
 
     <path id="test.class.path">
@@ -398,6 +398,10 @@ be resolved. Please check you build.properties file, and run Ant with the
       <path refid="project.classpath"/>
     </path>
 
+  </target>
+
+  <target name="test.prepare" depends="test.clover.prepare, test.main.prepare">
+
 	<!-- Convert the path to logging.properties to use forward slashes
 	     so that it works when loaded as a String in Java (backslashes
 	     won't work. -->
@@ -417,7 +421,7 @@ be resolved. Please check you build.properties file, and run Ant with the
 
   </target>
 
-  <target name="test" depends="test.clover.prepare,test.main.prepare"
+  <target name="test" depends="test.prepare"
       description="Run the unit tests">
 
     <junit printsummary="yes" haltonfailure="yes" fork="yes">
