@@ -175,7 +175,7 @@ public abstract class AbstractTestCase extends TestCase
     }
 
     /**
-     * Sets the Cactus configuration.
+     * Sets the Cactus configuration
      * 
      * @param theConfiguration the Cactus configuration
      */
@@ -276,7 +276,7 @@ public abstract class AbstractTestCase extends TestCase
     }
 
     /**
-     * Creates the Cactus configuration object.
+     * Creates the Cactus configuration object
      * 
      * @return the Cactus configuration
      */
