@@ -288,6 +288,7 @@ public class CactusLaunchShortcut
      */
     private void teardownCactusTests(IProgressMonitor thePM)
     {
+        // The commented code is linked to the crashing VM problem
         //thePM.beginTask("Tearing down Cactus tests", 10);
         try
         {
