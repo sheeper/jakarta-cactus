@@ -129,7 +129,7 @@
         <!-- Copy the log4j configuration files -->
         <copy tofile="${cactus.target.dir}/${cactus.context}/WEB-INF/classes/log4j.properties"
         	file="${cactus.conf.dir}/log_server.properties"/>
-        	
+
         <!-- Copy the Cactus test classes -->
         <copy todir="${cactus.target.dir}/${cactus.context}/WEB-INF/classes">
             <fileset dir="${cactus.target.classes.dir}"/>
@@ -140,7 +140,6 @@
         	 be possible to override the locations of jars and they should not
         	 be expected to be in ${cactus.lib.*.dir}. For example this feature
         	 is used by the Maven plugin for Cactus. -->
-
         <copy todir="${cactus.target.dir}/${cactus.context}/WEB-INF/lib"
           file="${cactus.framework.jar}"/>
         <copy todir="${cactus.target.dir}/${cactus.context}/WEB-INF/lib"
@@ -172,7 +171,6 @@
 
         <!-- Copy the log4j client side configuration file in a location that
         	we put in the classpath of the JUnit Test Runner -->
-        <mkdir dir="cactus.target.conf.dir"/>
         <copy tofile="${cactus.target.conf.dir}/log4j.properties"
             file="${cactus.conf.dir}/log_client.properties"/>
 
