@@ -52,7 +52,7 @@
     -->
     <target name="display.properties">
 
-        <echo message="----- ${project.name.text} ${project.version} -----"/>
+        <echo message="----- ${project.name.text} -----"/>
         <echo message=""/>
         <echo message="java.class.path = ${java.class.path}"/>
         <echo message=""/>
