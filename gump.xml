@@ -191,6 +191,34 @@
 
   <!--
      ========================================================================
+       Build the Cactus Ant Petal for J2EE 1.3
+     ========================================================================
+  -->
+  <project name="jakarta-cactus-petal-ant-13">
+
+    <ant buildfile="petals/ant/build.xml" target="dist">
+
+      <depend property="servlet.jar" project="jakarta-servletapi-4"/>
+      <depend property="log4j.jar" project="jakarta-log4j"/>
+      <depend property="commons.logging.jar" project="commons-logging" id="all"/>
+      <depend property="commons.httpclient.jar" project="commons-httpclient"/>
+      <depend property="httpunit.jar" project="httpunit"/>
+      <depend property="aspectjrt.jar" project="aspectj" id="aspectjrt"/>
+      <depend property="junit.jar" project="junit"/>
+      <depend property="cactus.framework.jar" project="jakarta-cactus-framework-13"/>
+
+    </ant>
+  
+    <depend project="jakarta-ant" inherit="runtime"/>
+    <depend project="xml-xerces"/>
+    <depend project="aspectj"/>
+
+    <nag from="Vincent Massol &lt;vmassol@apache.org&gt;"
+         to="cactus-dev@jakarta.apache.org"/>
+  </project>
+
+  <!--
+     ========================================================================
        Build the Cactus Servlet Sample for J2EE 1.3
      ========================================================================
   -->

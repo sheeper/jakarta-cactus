@@ -209,6 +209,19 @@
 
     </target>
 
+    <!-- Run Ant Petal dist target -->
+    <target name="run.petal.ant" depends="init, run.framework">
+
+        <ant target="dist" antfile="petals/ant/build.xml"
+            inheritAll="false">
+
+            <property file="build.properties"/>
+            <property file="${user.home}/build.properties"/>
+
+        </ant>
+
+    </target>
+
     <!-- Run Cactus Servlet Sample dist target -->
     <target name="run.sample-servlet" depends="run.anttasks,run.framework">
 
@@ -263,7 +276,7 @@
 
     <!-- Run the dist target of all dependent projects -->
     <target name="run"
-        depends="run.anttasks,run.framework,run.sample-servlet,run.documentation,run.clover">
+        depends="run.anttasks,run.framework,run.petal.ant,run.sample-servlet,run.documentation,run.clover">
     </target>
 
     <!--
@@ -386,6 +399,18 @@
 
     </target>
 
+    <target name="clean.petal.ant" depends="clean.anttasks,clean.framework">
+
+        <ant target="clean" antfile="petals/ant/build.xml"
+            inheritAll="false">
+
+            <property file="build.properties" />
+            <property file="${user.home}/build.properties" />
+
+        </ant>
+
+    </target>
+
     <target name="clean.sample-servlet" depends="clean.anttasks,clean.framework">
 
         <ant target="clean" antfile="sample-servlet/build.xml"
@@ -421,7 +446,7 @@
     </target>
 
     <target name="clean"
-        depends="clean.cactus,clean.anttasks,clean.framework,clean.sample-servlet,clean.documentation"
+        depends="clean.cactus,clean.anttasks,clean.framework,clean.petal.ant,clean.sample-servlet,clean.documentation"
         description="Clean all generated files">
     </target>
 
