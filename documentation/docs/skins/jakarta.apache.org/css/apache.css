@@ -234,8 +234,8 @@ img {
   #content .tabular th {
     background: #039acc url("../images/corner.gif") top left no-repeat;
     color: white;
-    text-align: center;
-    vertical-align: top;
+    text-align: left;
+    vertical-align: middle;
   }
   #content .tabular td {
     background-color: #a0ddf0;
