@@ -157,7 +157,7 @@
           before and after calling each <code>testXXX()</code> method
         </li>
         <li>
-          Tested with all versions of JUnit up to 3.6 included.
+          Tested with all versions of JUnit up to 3.7 included.
         </li>
         <li>
           Support for Servlet API 2.2 and 2.3 (Support for Servlet API 2.1 is
