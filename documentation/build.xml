@@ -82,6 +82,10 @@
     <property name="dist.doc.dir" value="${dist.dir}/doc"/>
     <property name="dist.doc.api.dir" value="${dist.doc.dir}/api"/>
 
+    <!-- The location of the Cactus custom Ant tasks jar -->
+    <property name="cactus.ant.jar"
+        location="anttasks/dist/lib/cactus-ant.jar"/>
+
     <!--
        ========================================================================
          Display configurable properties values
@@ -145,33 +149,6 @@
         <mkdir dir="${target.doc.dir}"/>
         <mkdir dir="${target.doc.dir}/images"/>
 
-    </target>
-
-    <target name="doc.cvschangelog"
-        depends="doc.prepare"
-        unless="offline">
-
-        <!-- Generate CVS log -->
-        <mkdir dir="${target.xdoc.dir}/cvslog"/>
-        <cvschangelog dir="${doc.xdoc.dir}"
-            usersfile="${doc.xdoc.dir}/cvslog/users.properties"
-            destfile="${target.xdoc.dir}/cvslog/cvslog.xml"
-            daysinpast="15">
-            <fileset dir="${doc.xdoc.dir}">
-                <exclude name="**/navigation.xml"/>
-                <exclude name="sitemap.xml"/>
-                <exclude name="todo.xml"/>
-                <exclude name="changes.xml"/>
-                <exclude name="**/cvslog.xml"/>
-                <include name="**/*.xml"/>
-            </fileset>
-        </cvschangelog>
-
-    </target>
-
-    <target name="doc"
-        depends="doc.cvschangelog">
-
         <!-- Copy all files that may contain token filters or that are not 
              binary files -->
         <copy todir="${target.xdoc.dir}" filtering="on">
@@ -201,6 +178,48 @@
         <!-- Copy the version.txt file -->
         <copy file="${conf.dir}/version.txt" todir="${target.doc.dir}"
             filtering="on"/>
+
+    </target>
+
+    <target name="doc.cvschangelog"
+        depends="doc.prepare"
+        unless="offline">
+
+        <!-- Generate CVS log -->
+        <mkdir dir="${target.xdoc.dir}/cvslog"/>
+        <cvschangelog dir="${doc.xdoc.dir}"
+            usersfile="${doc.xdoc.dir}/cvslog/users.properties"
+            destfile="${target.xdoc.dir}/cvslog/cvslog.xml"
+            daysinpast="15">
+            <fileset dir="${doc.xdoc.dir}">
+                <exclude name="**/navigation.xml"/>
+                <exclude name="sitemap.xml"/>
+                <exclude name="todo.xml"/>
+                <exclude name="changes.xml"/>
+                <exclude name="**/cvslog.xml"/>
+                <include name="**/*.xml"/>
+            </fileset>
+        </cvschangelog>
+
+    </target>
+
+    <target name="doc.checksitemap"
+        depends="doc.cvschangelog">
+
+        <taskdef name="checksitemap"
+            classname="org.apache.cactus.ant.CheckSitemapTask">
+          <classpath>
+              <pathelement location="${cactus.ant.jar}"/>
+          </classpath>
+        </taskdef>
+
+        <!-- Check the sitemap for invalid links -->
+        <checksitemap sitemap="${target.xdoc.dir}/sitemap.xml"/>
+
+    </target>
+
+    <target name="doc"
+        depends="doc.checksitemap">
 
         <!-- Generate the docs -->
         <style basedir="${target.xdoc.dir}" destdir="${target.doc.dir}"
