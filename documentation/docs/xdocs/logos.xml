@@ -94,7 +94,7 @@
           .
         </p>
 
-        <figure src="images/logos/aceglia.jpg" alt="Proposition 4: [unnamed]"/>
+        <figure src="images/logos/aceglia1.jpg" alt="Proposition 4"/>
 
       </s2>
 
@@ -114,10 +114,34 @@
 
         <p>
           This is a proposition from
+          <link href="mailto:alessandro.ceglia@rcn.com">Alessandro Ceglia</link>
+          .
+        </p>
+
+        <figure src="images/logos/aceglia2.jpg" alt="Proposition 6"/>
+
+      </s2>
+
+      <s2 title="Proposition 7">
+
+        <p>
+          This is a proposition from
+          <link href="mailto:alessandro.ceglia@rcn.com">Alessandro Ceglia</link>
+          .
+        </p>
+
+        <figure src="images/logos/aceglia3.jpg" alt="Proposition 7"/>
+
+      </s2>
+
+      <s2 title="Proposition 8">
+
+        <p>
+          This is a proposition from
           <link href="mailto:Arthur.Jasso@acuity.com">Arthur Jasso</link>.
         </p>
 
-        <figure src="images/logos/ajasso.gif" alt="Proposition 6"/>
+        <figure src="images/logos/ajasso.gif" alt="Proposition 8"/>
 
       </s2>
 
