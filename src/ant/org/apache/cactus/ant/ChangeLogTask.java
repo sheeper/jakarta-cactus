@@ -127,19 +127,29 @@ public class ChangeLogTask extends Task implements ExecuteStreamHandler
      */
     private String m_TestURL = "http://jakarta.apache.org";
 
+    /**
+     * Debug file to write to when in debug mode.
+     */
+    private File m_DebugFile;
+
     // state machine states
     private final static int GET_ENTRY = 0;
     private final static int GET_FILE = 1;
     private final static int GET_DATE = 2;
     private final static int GET_COMMENT = 3;
     private final static int GET_REVISION = 4;
-    private final static int GET_PREVIOUS_REV = 5;
 
     /**
      * Input format for dates read in from cvs log
      */
     private static final SimpleDateFormat INPUT_DATE = 
         new SimpleDateFormat("yyyy/MM/dd");
+
+    /**
+     * Input format for dates read in from cvs log
+     */
+    private static final SimpleDateFormat FULL_INPUT_DATE = 
+        new SimpleDateFormat("yyyy/MM/dd HH:mm");
 
     /**
      * Output format for dates written to the XML file
@@ -151,7 +161,7 @@ public class ChangeLogTask extends Task implements ExecuteStreamHandler
      * Output format for times written to the XML file
      */
     private static final SimpleDateFormat OUTPUT_TIME =
-        new SimpleDateFormat("hh:mm");
+        new SimpleDateFormat("HH:mm");
 
     /**
      * Set the properties file name containing the matching list of (user id,
@@ -199,7 +209,7 @@ public class ChangeLogTask extends Task implements ExecuteStreamHandler
      * Set the threshold cvs log date. This method is automatically called by 
      * the Ant runtime engine when the <code>date</code> attribute is
      * encountered in the Ant XML build file. This attribute is optional. The
-     * format is "yyyy/MM/dd hh:mm".
+     * format is "yyyy/MM/dd".
      *
      * @param theThresholdDate the threshold date before which cvs log are
      *                         ignored.
@@ -256,6 +266,18 @@ public class ChangeLogTask extends Task implements ExecuteStreamHandler
     public void setTestURL(String theURLString)
     {
         m_TestURL = theURLString;
+    }
+
+    /**
+     * Set the debug file. This is optional and debug will be turned on only 
+     * when this attribute is set. All output from the cvs log command will be
+     * dumped to this debug file.
+     *
+     * @param theDebugFile the name of the debug file to use.
+     */
+    public void setDebug(File theDebugFile)
+    {
+        m_DebugFile = theDebugFile;
     }
 
     /**
@@ -432,13 +454,19 @@ public class ChangeLogTask extends Task implements ExecuteStreamHandler
         m_Output = new PrintWriter(new OutputStreamWriter(
             new FileOutputStream(m_OutputFile),"UTF-8"));
 
+        // Prepare debug file if need be
+        PrintWriter debug = null;
+        if (m_DebugFile != null) {
+            debug = new PrintWriter(new OutputStreamWriter(
+                new FileOutputStream(m_DebugFile),"UTF-8"));
+        }
+
         String file = null;
         String line = null;
         String date = null;
         String author = null;
         String comment = null;
         String revision = null;
-        String previousRev = null;
 
         // Current state in the state machine used to parse the CVS log stream
         int status = GET_FILE;
@@ -448,6 +476,12 @@ public class ChangeLogTask extends Task implements ExecuteStreamHandler
 
         while ((line = m_Input.readLine()) != null) {
 
+            // Log to debug file if debug mode is on
+            if (debug != null) {
+                debug.println(line);
+                log(line);
+            }
+    
             switch(status){
 
                 case GET_FILE:
@@ -463,8 +497,8 @@ public class ChangeLogTask extends Task implements ExecuteStreamHandler
                         status = GET_DATE;
                     }
 
-                    // If we encounter a "=====" line, it means there was no
-                    // description and thus the entry must be forgotten
+                    // If we encounter a "=====" line, it means there is no
+                    // more entries for the current file.
                     else if (line.startsWith("======")) {
                         status = GET_FILE;
                     }
@@ -472,7 +506,7 @@ public class ChangeLogTask extends Task implements ExecuteStreamHandler
 
                 case GET_DATE:
                     if (line.startsWith("date:")) {
-                        date = line.substring(6, 16);
+                        date = line.substring(6, 22);
                         line = line.substring(line.indexOf(";") + 1);
                         author = line.substring(10, line.indexOf(";"));
 
@@ -491,42 +525,35 @@ public class ChangeLogTask extends Task implements ExecuteStreamHandler
 
                         comment += line + "\n";
                         line = m_Input.readLine();
+
+                        if (debug != null) {
+                            debug.println(line);
+                            log(line);
+                        }
+
                     }
                     comment = "<![CDATA[" + 
                         comment.substring(0,comment.length() - 1) + "]]>";
 
-                    status = GET_PREVIOUS_REV;
+                    // Add the entry to the list of entries
+                    Entry entry;
+                    if (!entries.containsKey(date + author + comment)) {
+                        entry = new Entry(date, author, comment);
+                        entries.put(date + author + comment, entry);
+                    } else {
+                        entry = (Entry)entries.get(date + author + comment);
+                    }
+                    entry.addFile(file, revision);
+
+                    // Continue reading the other revisions
+
+                    status = GET_REVISION;
                     break;
-
-                case GET_PREVIOUS_REV:
-                    if (line.startsWith("revision")) {
-                        previousRev = line.substring(9);
-                        status = GET_FILE;
-
-                        Entry entry;
-                        if (!entries.containsKey(date + author + comment)) {
-                            entry = new Entry(date, author, comment);
-                            entries.put(date + author + comment, entry);
-                        } else {
-                            entry = (Entry)entries.get(date + author + comment);
-                        }
-                        entry.addFile(file, revision, previousRev);
-                    }
-                    if (line.startsWith("======")) {
-                        status = GET_FILE;
-                        Entry entry;
-                        if (!entries.containsKey(date + author + comment)) {
-                            entry = new Entry(date, author, comment);
-                            entries.put(date + author + comment, entry);
-                        }else {
-                            entry = (Entry)entries.get(date + author + comment);
-                        }
-                        entry.addFile(file, revision);
-                    }
 
             }
             
         }
+
         m_Output.println("<changelog>");
         Enumeration en = entries.elements();
         while (en.hasMoreElements()) {
@@ -535,6 +562,12 @@ public class ChangeLogTask extends Task implements ExecuteStreamHandler
         m_Output.println("</changelog>");
         m_Output.flush();
         m_Output.close();
+
+        if (debug != null) {
+            debug.flush();
+            debug.close();
+        }
+
     }
 
     /**
@@ -572,7 +605,7 @@ public class ChangeLogTask extends Task implements ExecuteStreamHandler
         public Entry(String theDate, String theAuthor, String theComment)
         {
             try {
-                m_Date = INPUT_DATE.parse(theDate);
+                m_Date = FULL_INPUT_DATE.parse(theDate);
             } catch(ParseException e) {
                 log("Bad date format [" + theDate + "].");
             }
@@ -585,11 +618,6 @@ public class ChangeLogTask extends Task implements ExecuteStreamHandler
             m_Files.addElement(new RCSFile(theFile, theRevision));
         }
 
-        public void addFile(String theFile, String theRevision, String thePreviousRev)
-        {
-            m_Files.addElement(new RCSFile(theFile, theRevision, thePreviousRev));
-        }
-
         public String toString()
         {
             return m_Author + "\n" + m_Date + "\n" + m_Files + "\n" + m_Comment;
@@ -599,7 +627,7 @@ public class ChangeLogTask extends Task implements ExecuteStreamHandler
         {
             m_Output.println("\t<entry>");
             m_Output.println("\t\t<date>" + OUTPUT_DATE.format(m_Date) + "</date>");
-            m_Output.println("\t\t<time>" +OUTPUT_TIME.format(m_Date) + "</time>");
+            m_Output.println("\t\t<time>" + OUTPUT_TIME.format(m_Date) + "</time>");
             m_Output.println("\t\t<author>" + m_Author + "</author>");
 
             Enumeration e = m_Files.elements();
@@ -608,10 +636,6 @@ public class ChangeLogTask extends Task implements ExecuteStreamHandler
                 m_Output.println("\t\t<file>");
                 m_Output.println("\t\t\t<name>" + file.getName() + "</name>");
                 m_Output.println("\t\t\t<revision>" + file.getRevision() + "</revision>");
-                if (file.getPreviousRev() != null) {
-                    m_Output.println("\t\t\t<prevrevision>" + file.getPreviousRev()
-                        + "</prevrevision>");
-                }
                 m_Output.println("\t\t</file>");
             }
             m_Output.println("\t\t<msg>" + m_Comment + "</msg>");
@@ -622,20 +646,11 @@ public class ChangeLogTask extends Task implements ExecuteStreamHandler
         {
             private String m_Name;
             private String m_Rev;
-            private String m_PreviousRev;
 
             private RCSFile(String theName, String theRev)
             {
-                this(theName, theRev, null);
-            }
-
-            private RCSFile(String theName, String theRev, String thePreviousRev)
-            {
                 m_Name = theName;
                 m_Rev = theRev;
-                if (!m_Rev.equals(m_PreviousRev)) {
-                    m_PreviousRev = thePreviousRev;
-                }
             }
 
             public String getName()
@@ -646,10 +661,6 @@ public class ChangeLogTask extends Task implements ExecuteStreamHandler
             public String getRevision()
             {
                 return m_Rev;
-            }
-            public String getPreviousRev()
-            {
-                return m_PreviousRev;
             }
         }
     }
