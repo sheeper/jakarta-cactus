@@ -391,15 +391,9 @@ public class BaseWebRequest implements Request
 
     /**
      * Adds a cookie to the request. The cookie will be created with a
-     * default localhost domain. Use the
-     * <code>addCookie(String theDomain, String theName,
-     * String theValue)</code> method or the
-     * <code>addCookie(Cookie theCookie)</code> if you wish to specify a
-     * domain.
-     *
-     * Note that the domain must match either the redirector host
-     * (specified in <code>cactus.properties</code>) or the host set
-     * using <code>setURL()</code>.
+     * default localhost domain. If you need to specify a domain for the cookie,
+     * use the {@link #addCookie(String, String, String)} method or the method
+     * {@link #addCookie(Cookie)}.
      *
      * @param theName the cookie's name
      * @param theValue the cookie's value
@@ -440,8 +434,7 @@ public class BaseWebRequest implements Request
     {
         if (theCookie == null)
         {
-            throw new IllegalStateException(
-                "The cookie cannot be null");           
+            throw new IllegalStateException("The cookie cannot be null");           
         }
         this.cookies.addElement(theCookie);
     }
