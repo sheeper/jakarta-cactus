@@ -20,10 +20,9 @@
 
     <devs>
       <person name="Vincent Massol" email="vmassol@users.sourceforge.net" id="VMA"/>
-      <person name="Philip Aston" email="paston@bea.com" id="PAS"/>
     </devs>
 
-    <release version="1.1 in CVS">
+    <release version="1.1" date="June 18 2001">
       <action dev="VMA" type="add" due-to="Robert Leftwich" due-to-email="digital@ix.net.au">
         Added automatic script support for Enhydra 3.1
       </action>

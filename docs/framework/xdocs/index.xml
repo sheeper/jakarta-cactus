@@ -47,6 +47,17 @@
       <table>
         <tr>
           <td>
+            18/06/2001
+          </td>
+          <td>
+            Cactus v1.1 is available for <link href="downloads.html">
+            download</link>. It is a bug fix release with
+            a few new features. Check the <link href="changes.html">changes
+            </link> page for a list of changes.
+          </td>
+        </tr>
+        <tr>
+          <td>
             14/06/2001
           </td>
           <td>
@@ -81,16 +92,6 @@
             <link href="mockobjects.html">Mock Objects vs In-container</link>
             unit testing strategies. Explains principles and details pros and
             cons of each.
-          </td>
-        </tr>
-        <tr>
-          <td>
-            02/05/2001
-          </td>
-          <td>
-            Cactus 1.0 is available for
-            <link href="downloads.html">download</link>. Check the updated
-            <link href="changes.html">changes</link> for the details.
           </td>
         </tr>
       </table>
