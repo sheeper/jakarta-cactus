@@ -159,6 +159,11 @@ public class ChangeLogTask extends Task implements ExecuteStreamHandler
     private String testURL = "http://jakarta.apache.org";
 
     /**
+     * The CVS executable to use (CVS client).
+     */
+    private String executable = "cvs";
+
+    /**
      * Debug writer to print debug information when in debug mode
      */
     private PrintWriter debug;
@@ -236,6 +241,16 @@ public class ChangeLogTask extends Task implements ExecuteStreamHandler
     public void setOutput(File theOutputFile)
     {
         this.outputFile = theOutputFile;
+    }
+
+    /**
+     * Sets the CVS client executable to use to perform "cvs log".
+     *
+     * @param theExecutable the executable to use
+     */
+    public void setExecutable(String theExecutable)
+    {
+        this.executable = theExecutable;
     }
 
     /**
@@ -411,7 +426,7 @@ public class ChangeLogTask extends Task implements ExecuteStreamHandler
 
         Commandline toExecute = new Commandline();
 
-        toExecute.setExecutable("cvs");
+        toExecute.setExecutable(this.executable);
         toExecute.createArgument().setValue("log");
 
         // Check if a threshold date has been specified
