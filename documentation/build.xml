@@ -379,7 +379,7 @@ generated. Run 'ant dist.javadoc -verbose' to find out what the problem is.</fai
        ========================================================================
          Generate the artifacts.
        ========================================================================
-    -->
+    -->  
     <target name="dist" depends="doc,dist.javadoc,dist.clover" 
         description="Generate the documentation">
 
@@ -397,17 +397,18 @@ generated. Run 'ant dist.javadoc -verbose' to find out what the problem is.</fai
          Generate the release
        ========================================================================
     -->
-    <target name="release" depends="clean,dist"
-        description="Generate the release files">
+    <target name="zip" depends="init">
 
         <mkdir dir="${release.dir}"/>
-
         <zip destfile="${release.dir}/${main.release.name}.zip">
             <zipfileset dir="${dist.doc.dir}" 
                 prefix="${main.release.name}"/>
         </zip>
-        
+
     </target>
+
+    <target name="release" depends="clean,dist,zip"
+        description="Generate the release files"/>
 
     <!--
        ========================================================================
@@ -497,7 +498,7 @@ generated. Run 'ant dist.javadoc -verbose' to find out what the problem is.</fai
 
     </target>
 
-    <target name="upload" depends="upload.release,upload.dev"
+    <target name="upload" depends="zip,upload.release,upload.dev"
         description="Upload the Cactus web site"/>
 
 </project>
