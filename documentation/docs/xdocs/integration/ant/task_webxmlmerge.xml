@@ -14,12 +14,40 @@
   <section title="WebXmlMerge Task">
 
     <p>
-      The task <strong>&lt;webxmlmerge&gt;</strong> provides a convenient way 
+      The task <strong>webxmlmerge</strong> provides a convenient way 
       to inject external definitions into a web deployment descriptor
       (<code>web.xml</code>) from an Ant build. It's primary intended use is to
       include the definition of the Cactus redirectors into the application's
       descriptor to enable testing the application with Cactus.
     </p>
+
+    <note>
+      This task currently merges only a subset of the definitions in a 
+      descriptor, based on the most common usage scenarios:
+      <ul>
+        <li>
+          <emphasis>Servlets and Filters</emphasis>: Both the actual definition
+          of the servlet/filter as well as the mappings to URL patterns are
+          merged. If the servlet or filter to inject is already present in the
+          source descriptor, the initialization parameters are merged.
+        </li>
+        <li>
+          <emphasis>Security Constraints</emphasis>: Any
+          &lt;security-constraint&gt; elements get inserted into the resulting
+          descriptor verbatim.
+        </li>
+        <li>
+          <emphasis>Login Configuration</emphasis>: If a &lt;login-config&gt;
+          element is present, it will replace the corresponding element in the
+          source descriptor.
+        </li>
+        <li>
+          <emphasis>Security Roles</emphasis>: Any
+          &lt;security-role&gt; elements get inserted into the resulting
+          descriptor verbatim.
+        </li>
+      </ul>
+    </note>
 
     <section title="Parameters">
 
@@ -62,10 +90,10 @@
         <tr>
           <td>force</td>
           <td>
-            By default the task checks the modification times of the files before
-            performing the merge. Set this attribute to <em>false</em> to perform
-            the merge regardless of whether the destination file seems to be up
-            to date.
+            By default the task checks the modification times of the files
+            before performing the merge. Set this attribute to
+            <code>false</code> to perform the merge regardless of whether the
+            destination file seems to be up to date.
           </td>
           <td>No</td>
         </tr>
@@ -75,7 +103,7 @@
             Whether the resulting XML should be indented when written to the
             destination file.
           </td>
-          <td>No, the default is <em>false</em></td>
+          <td>No, the default is <code>false</code></td>
         </tr>
       </table>
 
@@ -86,9 +114,9 @@
       <section title="xmlcatalog">
 
         <p>
-          The <em>xmlcatalog</em> element can be used to perform Entity and URI
-          resolution. This is a built-in Ant type. See the Ant documentation for
-          details.
+          The <code>xmlcatalog</code> element can be used to perform Entity and
+          URI resolution. This is a built-in Ant type. See the
+          <link href="ext:ant">Ant documentation</link> for details.
         </p>
 
       </section>
@@ -111,7 +139,7 @@
       <p>
         To improve speed of the parsing process and enable offline operation,
         you should specify local paths to the web-app DTDs using a nested
-        <em>xmlcatalog</em> element:
+        <code>xmlcatalog</code> element:
       </p>
 
       <source><![CDATA[
@@ -128,11 +156,11 @@
 ]]></source>
 
       <p>
-        The following example demonstrates using an <em>xmlcatalog</em>
+        The following example demonstrates using an <code>xmlcatalog</code>
         by reference, so that it can also be used in other tasks (for 
         example to validate the descriptors). In addition, the
-        <em>indent</em> attribute is set to <em>yes</em> to achieve better
-        readability of the resulting descriptor.
+        <code>indent</code> attribute is set to <code>yes</code> to achieve
+        better readability of the resulting descriptor.
       </p>
 
       <source><![CDATA[
