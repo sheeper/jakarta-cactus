@@ -558,7 +558,7 @@
 
             <formatter type="plain" usefile="false"/>
 
-            <test name="org.apache.commons.cactus.TestAbstractTestCase"/>
+            <test name="org.apache.commons.cactus.TestAll"/>
 
         </junit>
 

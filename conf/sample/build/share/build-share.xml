@@ -390,22 +390,7 @@
 
             <formatter type="plain" usefile="false"/>
 
-            <!-- Note: This test need to run first. See the comments in the
-                 test class for more information on why -->
-            <test name="org.apache.commons.cactus.sample.unit.TestServletTestCase_TestResult"/>
-
-            <!-- Functional tests -->
-            <test name="org.apache.commons.cactus.sample.TestSampleServlet"/>
-            <test name="org.apache.commons.cactus.sample.TestSampleServletConfig"/>
-
-            <!-- Cactus unit tests requiring servlet engine -->
-            <test name="org.apache.commons.cactus.sample.unit.TestServletTestCase1"/>
-            <test name="org.apache.commons.cactus.sample.unit.TestServletTestCase2"/>
-            <test name="org.apache.commons.cactus.sample.unit.TestServletTestCase3"/>
-            <test name="org.apache.commons.cactus.sample.unit.TestServletTestCase4"/>
-            <test name="org.apache.commons.cactus.sample.unit.TestServletTestCase5"/>
-            <test name="org.apache.commons.cactus.sample.unit.TestServletTestCaseSpecific"/>
-            <test name="org.apache.commons.cactus.sample.unit.TestJspTestCase"/>
+            <test name="org.apache.commons.cactus.TestAll"/>
 
         </junit>
 
