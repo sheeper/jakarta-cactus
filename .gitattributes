@@ -31,6 +31,7 @@ documentation/docs/dtds/sitemap-v10.dtd svn_keywords=Author+Date+Id+Revision
 documentation/docs/skins/jakarta.apache.org/css/apache.css svn_keywords=Author+Date+Id+Revision
 documentation/docs/skins/jakarta.apache.org/css/print.css svn_keywords=Author+Date+Id+Revision
 documentation/docs/skins/jakarta.apache.org/images/add.jpg -text
+documentation/docs/skins/jakarta.apache.org/images/corner.gif -text
 documentation/docs/skins/jakarta.apache.org/images/fix.jpg -text
 documentation/docs/skins/jakarta.apache.org/images/jakarta-logo.gif -text
 documentation/docs/skins/jakarta.apache.org/images/logocactus.gif -text
