@@ -45,9 +45,6 @@
         Modify the web site presentation: start by introducing the Cactus
         Ecosystem: framework + front ends.
       </action>
-      <action assigned-to="Christopher Lenz">
-        Add a web site sitemap.
-      </action>
       <action assigned-to="Jason Robertson, Vincent Massol">
         Add documentation for form-based authentication.
       </action>
