@@ -37,6 +37,8 @@
         log4j.jar             [OPTIONAL] The path to the Log4j jar file.
                               Only needed if we want logs to be generated.
 
+        httpclient.jar        [REQUIRED] The Commons HttpClient jar file
+
         cactus.ant.jar        [REQUIRED] The path to the Cactus custom Ant
                               tasks jar file
 

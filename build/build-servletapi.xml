@@ -29,6 +29,11 @@
                               Required for compiling and running the unit
                               tests.
 
+        httpclient.jar        [REQUIRED] The path to the Commons HttpClient
+                              jar file. Required for performing all Cactus
+                              HTTP requests. It is also required for
+                              bundling it in the the distribution.
+
         log4j.jar             [REQUIRED] The path to the Log4j jar file.
                               Required for bundling it in the distribution.
 
@@ -284,6 +289,7 @@
                 <pathelement location="${servlet.jar}"/>
                 <pathelement location="${httpunit.jar}"/>
                 <pathelement location="${log4j.jar}"/>
+                <pathelement location="${httpclient.jar}"/>
                 <pathelement location="${junit.jar}"/>
                 <pathelement path="${java.class.path}"/>
             </classpath>
@@ -373,6 +379,7 @@
                 <pathelement location="${servlet.jar}"/>
                 <pathelement location="${httpunit.jar}"/>
                 <pathelement location="${log4j.jar}"/>
+                <pathelement location="${httpclient.jar}"/>
                 <pathelement location="${junit.jar}"/>
                 <pathelement path="${java.class.path}"/>
             </classpath>
@@ -543,6 +550,7 @@
             <classpath>
                 <pathelement location="${servlet.jar}"/>
                 <pathelement location="${httpunit.jar}"/>
+                <pathelement location="${httpclient.jar}"/>
                 <pathelement location="${out.classes.dir}"/>
                 <pathelement path="${junit.jar}"/>
                 <pathelement path="${java.class.path}"/>
@@ -550,7 +558,6 @@
 
             <formatter type="plain" usefile="false"/>
 
-            <test name="org.apache.commons.cactus.TestWebResponse"/>
             <test name="org.apache.commons.cactus.TestAbstractTestCase"/>
 
         </junit>
@@ -585,6 +592,7 @@
             <arg value="-Dcactus.ant.jar=../../../${jar.ant.name}.jar"/>
             <arg value="-Djunit.jar=${junit.jar}"/>
             <arg value="-Dlog4j.jar=${log4j.jar}"/>
+            <arg value="-Dhttpclient.jar=${httpclient.jar}"/>
 
             <!-- Pass all servlet engine properties -->
             <arg line="${test22.args.list}"/>
@@ -618,6 +626,7 @@
             <arg value="-Dcactus.ant.jar=../../../${jar.ant.name}.jar"/>
             <arg value="-Djunit.jar=${junit.jar}"/>
             <arg value="-Dlog4j.jar=${log4j.jar}"/>
+            <arg value="-Dhttpclient.jar=${httpclient.jar}"/>
 
             <!-- Pass all servlet engine properties -->
             <arg line="${test23.args.list}"/>
@@ -662,6 +671,7 @@
              the ${out.lib.dir} directory -->
         <copy todir="${out.lib.dir}" file="${log4j.jar}"/>
         <copy todir="${out.lib.dir}" file="${junit.jar}"/>
+        <copy todir="${out.lib.dir}" file="${httpclient.jar}"/>
 
         <zip zipfile="${dist.full.name}.zip">
             <zipfileset dir="${out.dist.dir}"
