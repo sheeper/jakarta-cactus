@@ -395,6 +395,8 @@ integration/ant/src/test-input/org/apache/cactus/integration/ant/cactified.war -
 integration/ant/src/test-input/org/apache/cactus/integration/ant/deployment/containsclass.jar -text
 integration/ant/src/test-input/org/apache/cactus/integration/ant/deployment/containsclass.war -text
 integration/ant/src/test-input/org/apache/cactus/integration/ant/deployment/containsclasslib.war -text
+integration/ant/src/test-input/org/apache/cactus/integration/ant/deployment/empty.jar -text
+integration/ant/src/test-input/org/apache/cactus/integration/ant/deployment/empty.war -text
 integration/ant/src/test-input/org/apache/cactus/integration/ant/deployment/randomaccess.jar -text
 integration/ant/src/test-input/org/apache/cactus/integration/ant/empty-2_2.war -text
 integration/ant/src/test-input/org/apache/cactus/integration/ant/empty-2_3.war -text
