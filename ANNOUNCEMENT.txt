@@ -1,27 +1,48 @@
-The Cactus project is pleased to announce the release of version <v>.
+The Cactus project is pleased to announce the release of version 1.6.
 Cactus is a unit testing framework for testing server side java code.
 
 Goals
 -----
 
-[add description of main focus here]
+Primarily a bug fix release. Several usability enhancements and the 
+addition of the Maven plugin as part of the Cactus distribution. Move
+to the Apache 2.0 license.
 
 Main new features
 -----------------
 
-[add main new features here]
+* Added the Maven plugin. It was formerly hosted in the Maven project's
+  own CVS. It is now in the Cactus CVS and is part of the Cactus 
+  distribution.
+* The <cactus> Ant task now supports Mac OSX.
+* Added support for Resin 3.x in the <cactus> Ant task (<resin3x> element).
+* Better configurability of the <cactus> container elements:
+    - new configXml attribute for the <weblogic7x> element
+    - added support for JBoss jboss-web.xml in the <jboss3x> element
+    - new contextxml attribute for the <tomcat4x> element
+    - new jndiport attribute for the <jboss3x> element
+* Added new ServletContextWrapper.setInitParameters() method which allows 
+  to programatically define Context init parameters.
 
 Changes
 -------
 
 Please check the Changes page at
 http://jakarta.apache.org/cactus/changes.html for a full list of the 
-changes in version <v>. 
+changes in version 1.6.
 
 Known limitations and bugs:
 ---------------------------
 
-[add main limitations and known bugs here]
+* Possible binary compatibility problem: We've had a big internal 
+  restructuration: we have moved all the non public API classes to java 
+  packages with the name "internal". As a result of this change you may 
+  need in some cases to rebuild your code with the new cactus jar in the 
+  classpath.
+* Due to the internal package restructuration, the jspredirector.jsp file 
+  was modified. If you have installed this file manually somewhere, you'll 
+  need to remember to update it with the new version.
+* List of known bugs are available on http://tinyurl.com/3edgv
 
 For more information about Cactus, please visit
 http://jakarta.apache.org/cactus/.
