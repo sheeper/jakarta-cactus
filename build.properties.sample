@@ -68,7 +68,6 @@ eclipse.home = D:/dev/eclipse-2.1RC2
 # Locations of Eclipse dependent plugin jars
 
 # Example for Eclipse 2.1 RC2 - Windows platform
-eclipse.junit.jar = ${eclipse.home}/plugins/org.junit_3.8.1/junit.jar
 eclipse.core.boot.jar = ${eclipse.home}/plugins/org.eclipse.core.boot_2.1.0/boot.jar
 eclipse.core.resources.jar = ${eclipse.home}/plugins/org.eclipse.core.resources_2.1.0/resources.jar
 eclipse.core.runtime.jar = ${eclipse.home}/plugins/org.eclipse.core.runtime_2.1.0/runtime.jar
