@@ -33,6 +33,10 @@
 
     <category title="Documentation">
       <action assigned-to="Vincent Massol">
+        Modify the configuration page to reflect the fact that all cactus
+        properties are now java system properties.
+      </action>
+      <action assigned-to="Vincent Massol">
         Move all documentation to docbook and cocoon2 and generate PDF
         containing full Cactus documentation. Note: I still need to find out
         how to make Cocoon2 generate errors during generation of doc. so that
