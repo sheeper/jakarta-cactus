@@ -121,8 +121,9 @@
       <depend property="httpunit.jar" project="httpunit"/>
       <depend property="aspectjrt.jar" project="aspectj" id="aspectjrt"/>
       <depend property="junit.jar" project="junit"/>
-      <!-- depend property="jstl.jar" project="jakarta-taglibs" id="jstl"/ -->
-      <!-- depend property="standard.jar" project="jakarta-taglibs" id="standard"/ -->
+      <depend property="jstl.jar" project="jakarta-taglibs-standard" id="jstl"/>
+      <depend property="standard.jar" project="jakarta-taglibs-standard"
+        id="standard"/>
       <depend property="cactus.framework.jar" project="jakarta-cactus-framework-12"/>
       <depend property="cactus.ant.jar" project="jakarta-cactus-ant"/>
       <property name="test.port" value="8081"/>
@@ -207,8 +208,9 @@
       <depend property="httpunit.jar" project="httpunit"/>
       <depend property="aspectjrt.jar" project="aspectj" id="aspectjrt"/>
       <depend property="junit.jar" project="junit"/>
-      <!-- depend property="jstl.jar" project="jakarta-taglibs" id="jstl"/ -->
-      <!-- depend property="standard.jar" project="jakarta-taglibs" id="standard"/ -->
+      <depend property="jstl.jar" project="jakarta-taglibs-standard" id="jstl"/>
+      <depend property="standard.jar" project="jakarta-taglibs-standard"
+        id="standard"/>
       <depend property="cactus.framework.jar" project="jakarta-cactus-framework-13"/>
       <depend property="cactus.ant.jar" project="jakarta-cactus-ant"/>
       <property name="test.port" value="8082"/>
@@ -248,8 +250,9 @@
       <depend property="httpunit.jar" project="httpunit"/>
       <depend property="aspectjrt.jar" project="aspectj" id="aspectjrt"/>
       <depend property="junit.jar" project="junit"/>
-      <!-- depend property="jstl.jar" project="jakarta-taglibs" id="jstl"/ -->
-      <!-- depend property="standard.jar" project="jakarta-taglibs" id="standard"/ -->
+      <depend property="jstl.jar" project="jakarta-taglibs-standard" id="jstl"/>
+      <depend property="standard.jar" project="jakarta-taglibs-standard"
+        id="standard"/>
       <property name="release.dir" value="release-12"/>
       <property name="cvs.executable" value="cvs"/>
 
@@ -287,8 +290,9 @@
       <depend property="httpunit.jar" project="httpunit"/>
       <depend property="aspectjrt.jar" project="aspectj" id="aspectjrt"/>
       <depend property="junit.jar" project="junit"/>
-      <!-- depend property="jstl.jar" project="jakarta-taglibs" id="jstl"/ -->
-      <!-- depend property="standard.jar" project="jakarta-taglibs" id="standard"/ -->
+      <depend property="jstl.jar" project="jakarta-taglibs-standard" id="jstl"/>
+      <depend property="standard.jar" project="jakarta-taglibs-standard"
+        id="standard"/>
       <property name="release.dir" value="release-13"/>
       <property name="cvs.executable" value="cvs"/>
 
@@ -326,8 +330,9 @@
       <depend property="httpunit.jar" project="httpunit"/>
       <depend property="aspectjrt.jar" project="aspectj" id="aspectjrt"/>
       <depend property="junit.jar" project="junit"/>
-      <!-- depend property="jstl.jar" project="jakarta-taglibs" id="jstl"/ -->
-      <!-- depend property="standard.jar" project="jakarta-taglibs" id="standard"/ -->
+      <depend property="jstl.jar" project="jakarta-taglibs-standard" id="jstl"/>
+      <depend property="standard.jar" project="jakarta-taglibs-standard"
+        id="standard"/>
       <property name="cvs.executable" value="cvs"/>
 
     </ant>
