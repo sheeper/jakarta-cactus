@@ -118,7 +118,7 @@
         </note>
 
         <p>
-          In addition to the above mentionned jars and classes, you may have
+          In addition to the above mentioned jars and classes, you may have
           to put the <strong><code>cactus.properties</code></strong>
           configuration file in your classpath (Only if you are using it to
           configure Cactus of course). Details are described in the
@@ -128,7 +128,8 @@
         <note>
           If you are using Log4J as the logging framework, you will also
           need to put a <code>log4j.properties</code> Log4j configuration
-          file in your client side classpath.
+          file in your client side classpath (See the
+          <link href="howto_config.html">Config Howto</link> tutorial).
         </note>
 
       </s2>
