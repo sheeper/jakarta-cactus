@@ -364,6 +364,11 @@
             failonerror="yes">
 
             <!-- Pass all required properties -->
+
+            <!-- Inherit the classpath behaviour from the main script for
+                 Gump builds to work -->
+            <arg value="-Dbuild.sysclasspath=${build.sysclasspath}"/>
+
             <arg value="-Dservlet.jar=${j2ee.jar}"/>
             <arg value="-Dcactus.framework.jar=${cactus.framework.elected.jar}"/>
             <arg value="-Dcactus.ant.jar=${cactus.ant.jar}"/>

@@ -39,11 +39,6 @@
                   <include name="bin/bootstrap.jar"/>
               </fileset>
 
-              <!-- This is to allow the use of -Dbuild.sysclasspath=only when
-                   starting Ant - Meaning that all jars need to be on the
-                   initial classpath. -->
-              <pathelement path="${java.class.path}"/>
-
             </classpath>
         </java>
 
@@ -60,14 +55,10 @@
             <jvmarg value="-Dcatalina.home=${tomcat.home.40}"/>
             <jvmarg value="-Dcatalina.base=${target.tomcat40.dir}"/>
             <arg value="stop"/>
+
             <classpath>
-
-              <!-- This is to allow the use of -Dbuild.sysclasspath=only when
-                   starting Ant - Meaning that all jars need to be on the
-                   initial classpath -->
-              <pathelement path="${java.class.path}"/>
-
-              <!-- These are ignored if -Dbuild.sysclasspath=only is used -->
+              <!-- These are ignored if -Dbuild.sysclasspath=only is used
+                   (this is the case for Gump builds) -->
               <fileset dir="${tomcat.home.40}">
                   <include name="bin/bootstrap.jar"/>
               </fileset>
