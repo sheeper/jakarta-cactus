@@ -293,8 +293,6 @@ public abstract class AbstractWebServerTestCase
         return getWrappedTest() != this;
     }
 
-
-
     /**
      * Runs a test case. This method is overriden from the JUnit
      * <code>TestCase</code> class in order to seamlessly call the
