@@ -65,7 +65,7 @@
           routines, and provides many convenient shortcut methods to test
           tag handlers. For detailled documentation, check out the
           corresponding
-          <link href="api/framework-13/org/apache/cactus/extension/jsp/JspTagLifecycle.html">API documentation</link>.
+          <link href="site:javadoc_framework_jsptaglifecycle">API documentation</link>.
           Currently, <code>JspTagLifecycle</code> is only available for
           JSP 1.2.
         </note>

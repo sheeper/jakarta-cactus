@@ -47,35 +47,37 @@
   <resource id="javadoc_12" target="javadoc_12.html"/>
   <resource id="javadoc_13" target="javadoc_13.html"/>
   <resource id="faq" target="faq.html"/>
-  <resource id="eclipse_plugin" target="spines/eclipse/eclipse_plugin.html"/>
-  <resource id="howto_classpath" target="spines/manual/howto_classpath.html"/>
-  <resource id="howto_config" target="spines/manual/howto_config.html"/>
+  <resource id="eclipse_plugin" target="petals/eclipse/eclipse_plugin.html"/>
+  <resource id="howto_classpath" target="petals/manual/howto_classpath.html"/>
+  <resource id="howto_config" target="petals/manual/howto_config.html"/>
   <resource id="howto_migration" target="howto_migration.html"/>
   <resource id="howto_testcase" target="writing/howto_testcase.html"/>
   <resource id="howto_testcase_servlet" target="writing/howto_testcase_servlet.html"/>
   <resource id="howto_testcase_jsp" target="writing/howto_testcase_jsp.html"/>
   <resource id="howto_testcase_filter" target="writing/howto_testcase_filter.html"/>
   <resource id="howto_jsp" target="writing/howto_jsp.html"/>
-  <resource id="howto_runner" target="spines/howto_runner.html"/>
+  <resource id="howto_runner" target="petals/howto_runner.html"/>
   <resource id="howto_security" target="writing/howto_security.html"/>
-  <resource id="howto_ant" target="spines/ant/howto_ant.html"/>
-  <resource id="howto_ant_cactus" target="spines/ant/howto_ant_cactus.html"/>
-  <resource id="howto_ant_install" target="spines/ant/howto_ant_install.html"/>
-  <resource id="howto_ant_primer" target="spines/ant/howto_ant_primer.html"/>
+  <resource id="howto_ant" target="petals/ant/howto_ant.html"/>
+  <resource id="howto_ant_cactus" target="petals/ant/howto_ant_cactus.html"/>
+  <resource id="howto_ant_install" target="petals/ant/howto_ant_install.html"/>
+  <resource id="howto_ant_primer" target="petals/ant/howto_ant_primer.html"/>
   <resource id="howto_httpunit" target="writing/howto_httpunit.html"/>
   <resource id="howto_sample" target="howto_sample.html"/>
   <resource id="howto_ejb" target="writing/howto_ejb.html"/>
   <resource id="howto_ejb_j2eeri" target="writing/howto_ejb_j2eeri.html"/>
-  <resource id="howto_ide" target="spines/manual/howto_ide.html"/>
-  <resource id="howto_ide_vajava_wte" target="spines/manual/howto_ide_vajava_wte.html"/>
-  <resource id="howto_ide_vajava_tomcat" target="spines/manual/howto_ide_vajava_tomcat.html"/>
-  <resource id="howto_ide_jbuilder4" target="spines/manual/howto_ide_jbuilder4.html"/>
-  <resource id="howto_ide_jbuilder5" target="spines/manual/howto_ide_jbuilder5.html"/>
-  <resource id="howto_tomcat" target="spines/browser/howto_tomcat.html"/>
-  <resource id="howto_junitee" target="spines/browser/howto_junitee.html"/>
+  <resource id="howto_ide" target="petals/manual/howto_ide.html"/>
+  <resource id="howto_ide_vajava_wte" target="petals/manual/howto_ide_vajava_wte.html"/>
+  <resource id="howto_ide_vajava_tomcat" target="petals/manual/howto_ide_vajava_tomcat.html"/>
+  <resource id="howto_ide_jbuilder4" target="petals/manual/howto_ide_jbuilder4.html"/>
+  <resource id="howto_ide_jbuilder5" target="petals/manual/howto_ide_jbuilder5.html"/>
+  <resource id="howto_tomcat" target="petals/browser/howto_tomcat.html"/>
+  <resource id="howto_junitee" target="petals/browser/howto_junitee.html"/>
   <resource id="mailinglist" target="mailinglist.html"/>
   <resource id="cactusname" target="cactusname.html"/>
   <resource id="logos" target="participating/logos.html"/>
+  <resource id="logos_img_vgritsenko" target="images/logos/vgritsenko.jpg"/>
+  <resource id="logos_img_vgritsenko2" target="images/logos/vgritsenko2.jpg"/>
   <resource id="resources" target="resources.html"/>
   <resource id="coverage" target="participating/coverage.html"/>
   <resource id="coverage_12" target="participating/coverage_12.html"/>
@@ -87,9 +89,14 @@
   <resource id="release_checklist" target="participating/release_checklist.html"/>
   <resource id="howto_build" target="participating/howto_build.html"/>
 
-  <resource id="javadoc_anttasks_api" check="false" target="api/anttasks/index.html"/>
-  <resource id="javadoc_framework_12_api" check="false" target="api/framework-12/index.html"/>
-  <resource id="javadoc_framework_13_api" check="false" target="api/framework-13/index.html"/>
+  <resource id="code_sample_servlet" target="misc/SampleServlet.class"/>
+  <resource id="code_test_sample_servlet" target="misc/TestSampleServlet.class"/>
+  <resource id="code_junit_noframes" target="misc/junit-noframes.xsl"/>
+
+  <resource id="javadoc_anttasks" check="false" target="api/anttasks/index.html"/>
+  <resource id="javadoc_framework_12" check="false" target="api/framework-12/index.html"/>
+  <resource id="javadoc_framework_13" check="false" target="api/framework-13/index.html"/>
+  <resource id="javadoc_framework_jsptaglifecycle" check="false" target="api/framework-13/org/apache/cactus/extension/jsp/JspTagLifecycle.html"/>
   <resource id="coverage_clover_12_report" check="false" target="clover-12/index.html"/>
   <resource id="coverage_clover_13_report" check="false" target="clover-13/index.html"/>
   

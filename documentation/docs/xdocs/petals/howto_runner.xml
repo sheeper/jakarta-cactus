@@ -160,7 +160,7 @@
         <p>
           Ok, that's nice ... But what if I want HTML instead of XML? Don't
           worry there is a solution. Grab the following
-          <link href="misc/junit-noframes.xsl">stylesheet</link>
+          <link href="site:code_junit_noframes">stylesheet</link>
           used to format JUnitReport Ant task results and drop it in your
           webapp and name it <code>junit-noframes.xsl</code> (in the root
           directory for example). Then, open a browser and type

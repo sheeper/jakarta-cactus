@@ -52,8 +52,10 @@
           .
         </p>
 
-        <link href="images/logos/vgritsenko.jpg"><figure src="images/logos/vgritsenko.jpg" height="185" width="119"
-        alt="Proposition 2: Tomahawk"/></link>
+        <link href="site:logos_img_vgritsenko">
+          <figure src="images/logos/vgritsenko.jpg" height="185" width="119"
+            alt="Proposition 2: Tomahawk"/>
+        </link>
 
       </section>
 
@@ -77,9 +79,10 @@
           .
         </p>
 
-        <link href="images/logos/vgritsenko2.jpg">
-        <figure src="images/logos/vgritsenko2.jpg" alt="Proposition 3: Severe testing"
-        height="64" width="311"/></link>
+        <link href="site:logos_img_vgritsenko2">
+          <figure src="images/logos/vgritsenko2.jpg" alt="Proposition 3: Severe testing"
+            height="64" width="311"/>
+        </link>
 
       </section>
 

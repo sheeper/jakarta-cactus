@@ -155,7 +155,7 @@
         file, compile it and copy the resulting .class file in
         <code>[tomcat root]/webapps/test/WEB-INF/classes</code>. Note that
         you can download the pre-compiled class file
-        <link href="misc/SampleServlet.class">here</link>.
+        <link href="site:code_sample_servlet">here</link>.
       </p>
 
 <source><![CDATA[
@@ -185,7 +185,7 @@ public class SampleServlet extends HttpServlet
         it and copy the resulting .class file in
         <code>[tomcat root]/webapps/test/WEB-INF/classes</code>. Note that
         you can download the pre-compiled class file
-        <link href="misc/TestSampleServlet.class">here</link>.
+        <link href="site:code_test_sample_servlet">here</link>.
       </p>
 
 <source><![CDATA[
@@ -244,7 +244,7 @@ public class TestSampleServlet extends ServletTestCase
       <p>
         Ok, that's nice ... But what if I want HTML instead of XML? Don't
         worry there is a solution. Grab the following
-        <link href="misc/junit-noframes.xsl">junit-noframes.xsl</link>
+        <link href="site:code_junit_noframes">junit-noframes.xsl</link>
         stylesheet used to format JUnitReport Ant task results and drop it in
         <code>[tomcat root]/webapps/test</code>. Then, open a browser and type
         <code>http://localhost:8080/test/ServletTestRunner?suite=TestSampleServlet&amp;xsl=junit-noframes.xsl</code>.
