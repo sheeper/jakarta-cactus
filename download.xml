@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+
+<!--
+  =============================================================================
+    Build file for automatically downloading Cactus dependencies. 
+
+    $Id$
+  =============================================================================
+-->
+<project name="Cactus Dependencies Download" default="download" basedir=".">
+
+  <description>
+ Cactus Dependencies Download
+ ---------------------------------------------------------
+ This build file simply downloads (most of) the JARs 
+ required to build Cactus. Make sure you have set the 'lib.repo' property
+ in your build.properties file to a path that makes sense.
+
+ By default, the JARs are downloaded from http://www.ibiblio.org/maven/.
+ You can use a different repository by passing
+
+   -Drepo.url=http://www.example.com/repository/
+
+ at the command line.
+  </description>
+
+  <!-- Environment name, used to decide which properties file to load.
+       Defaults to build.properties. This is used to save configuration
+       files in CVS for different environments. To use a specific
+       environment, start ant like this: "ant -Denv=.sample release".
+       Please note the leading "." which is mandatory. -->
+  <property name="env" value=""/>
+
+  <!-- Give user a chance to override without editing this file
+       (and without typing -D each time it compiles it) -->
+  <property file="${basedir}/build.properties${env}"/>
+  <property file="${user.home}/build.properties${env}"/>
+
+  <property name="repo.url" value="http://www.ibiblio.org/maven"/>
+
+  <!-- The dependences.xml file lists all JAR files that we can possibly
+       download from a Maven-style repository. The following task converts
+       the information into properties so it can be accessed by this script-->
+  <xmlproperty file="dependencies.xml" keeproot="no"
+      collapseattributes="yes" semanticattributes="yes"/>
+
+  <!-- This macro will be used to download the individual JARs without
+       having to duplicate too much of the code. It's sorta ugly, but
+       works okay-->
+  <macrodef name="download">
+    <attribute name="jar"/>
+    <sequential>
+      <property name="@{jar}.name"
+          value="${@{jar}.artifact}-${@{jar}.version}.jar"/>
+      <dirname property="@{jar}.dir" file="${@{jar}.jar}"/>
+      <mkdir dir="${@{jar}.dir}"/>
+      <get src="${repo.url}/${@{jar}.project}/jars/${@{jar}.name}"
+          dest="${@{jar}.jar}" usetimestamp="yes" ignoreerrors="yes"/>
+    </sequential>
+  </macrodef>
+
+  <!-- This target simply calls the 'download' macro defined above for
+       every required JAR -->
+  <target name="download"
+      description="Downloads all required JARs from the remote repository">
+    <download jar="antlr"/>
+    <download jar="aspectjrt"/>
+    <download jar="aspectjtools"/>
+    <download jar="checkstyle"/>
+    <download jar="commons.beanutils"/>
+    <download jar="commons.collections"/>
+    <download jar="commons.httpclient"/>
+    <download jar="commons.logging"/>
+    <download jar="httpunit"/>
+    <download jar="jasper-compiler"/>
+    <download jar="jasper-runtime"/>
+    <download jar="jetty"/>
+    <download jar="jstl"/>
+    <download jar="junit"/>
+    <download jar="log4j"/>
+    <download jar="mockobjects"/>
+    <download jar="nekohtml"/>
+    <download jar="regexp"/>
+    <download jar="servlet.22"/>
+    <download jar="servlet.23"/>
+    <download jar="standard"/>
+    <download jar="xerces"/>
+    <download jar="xmlapis"/>
+  </target>
+
+</project>

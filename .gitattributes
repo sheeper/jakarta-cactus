@@ -14,6 +14,7 @@
 /build.properties.vmassol svn_keywords=Author+Date+Id+Revision
 /build.xml svn_keywords=Author+Date+Id+Revision
 /default-project.xml svn_keywords=Author+Date+Id+Revision
+/dependencies.xml svn_keywords=Author+Date+Id+Revision
 documentation/.cvsignore svn_keywords=Author+Date+Id+Revision
 documentation/README svn_keywords=Author+Date+Id+Revision
 documentation/build.properties.sample svn_keywords=Author+Date+Id+Revision
@@ -161,6 +162,7 @@ documentation/docs/xdocs/writing/howto_testcase_jsp.xml svn_keywords=Author+Date
 documentation/docs/xdocs/writing/howto_testcase_servlet.xml svn_keywords=Author+Date+Id+Revision
 documentation/docs/xdocs/writing/navigation.xml svn_keywords=Author+Date+Id+Revision
 documentation/src/java/org/apache/cactus/build/documentation/CheckSitemapTask.java svn_keywords=Author+Date+Id+Revision
+/download.xml svn_keywords=Author+Date+Id+Revision
 framework/.cvsignore svn_keywords=Author+Date+Id+Revision
 framework/README svn_keywords=Author+Date+Id+Revision
 framework/build.properties.sample svn_keywords=Author+Date+Id+Revision
