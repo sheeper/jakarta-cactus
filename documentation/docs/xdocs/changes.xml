@@ -49,6 +49,10 @@
 
     <release version="1.5" date="- in CVS">
       <action dev="VMA" type="add">
+        Added a <link href="howto_build.html">tutorial</link> that explains how
+        to build Cactus from the sources.
+      </action>
+      <action dev="VMA" type="add">
         Added a Jetty Sample application to demonstrate how to use the new
         Jetty initializer.
       </action>

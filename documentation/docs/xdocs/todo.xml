@@ -43,9 +43,6 @@
         Add documentation for a new way to start Cactus tests by using the
         Jetty Initializer.
       </action>
-      <action>
-        Add a tutorial for building Cactus from the source distribution.
-      </action>
       <action assigned-to="Vincent Massol">
         Fix Clover reports as they seem broken. They do not count any tests
         executed on the server. Overall coverage is reported as 45% whereas

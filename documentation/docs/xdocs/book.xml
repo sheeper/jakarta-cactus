@@ -100,6 +100,7 @@
     <menu-item label="Coding Conventions" source="coding_conventions.xml"/>
     <menu-item label="Build results" source="build_result.xml"/>
     <menu-item label="Release Checklist" source="release_checklist.xml"/>
+    <menu-item label="Build from sources" source="howto_build.xml"/>
   </menu>
 
 </book>

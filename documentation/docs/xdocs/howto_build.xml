@@ -1,0 +1,163 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE document SYSTEM "./dtd/document-v10.dtd">
+
+<document>
+  <header>
+    <title>Building Cactus from the source</title>
+    <authors>
+      <person name="Vincent Massol" email="vmassol@apache.org"/>
+    </authors>
+  </header>
+
+  <body>
+
+    <s1 title="Forewords">
+      <p>
+        This tutorial explains how to build Cactus from CVS or from the
+        Cactus source download 
+        (<code>jakarta-cactus-src-&lt;version&gt;.zip</code>).
+      </p>
+      <note>
+        If you are purely a Cactus users, it may be easier to simply
+        download a nightly build. Indeed Cactus is built every night and
+        the result can be found on the 
+        <link href="downloads.html">download</link> page.
+      </note>
+    </s1>
+
+    <s1 title="Prerequisites">
+      <p>
+        You need to have Ant 1.5 or greater installed and containing the 
+        required Ant tasks and dependent jars. The easiest (and recommended 
+        way) is to download the prepackaged Cactus distribution for Ant, which
+        is available in the 
+        <link href="downloads.html">download</link> area (click on
+        "release", then select the latest release. You'll find the file
+        there).
+      </p>
+      <p>
+        Namely, the jars that you need to have in your <code>anthome/lib</code>
+        directory are:
+      </p>
+      <ul>
+        <li>
+          <strong>Ant optional jar</strong>: <code>optional.jar</code>.
+        </li>
+        <li>
+          <strong>AspectJ jars</strong>: <code>aspectj-ant.jar</code>, 
+          <code>aspectj-tools.jar</code> and <code>aspectj-rt.jar</code>.
+        </li>
+        <li>
+          <strong>JUnit jar</strong>: <code>junit.jar</code>.
+        </li>
+        <li>
+          <strong>Checkstyle related jars</strong>: <code>antlr.jar</code>
+          <code>checkstyle.jar</code> and <code>jakarta-regexp.jar</code>.
+        </li>
+        <li>
+          <strong>Xerces related jars</strong>: <code>xercesImpl.jar</code>
+          and <code>xml-apis.jar</code>.
+        </li>
+        <li>
+          <strong>Stylebook related jars</strong>:
+          <code>stylebook.jar</code>, <code>xalan.jar</code>.
+        </li>
+        <li>
+          <strong>Clover related jars (optional)</strong>: 
+          <code>clover.jar</code>, <code>velocity.jar</code> and
+          <code>commons-collection.jar</code>.
+        </li>
+      </ul>
+
+      <note>
+        <strong>If you don't want to have problems with versions, you need 
+        to get the versions corresponding to Cactus releases. For example,
+        If you're building Cactus 1.3 from its sources, you'll need to get 
+        the jars found in the corresponding Cactus prepackaged 
+        jar for Ant. IF you are building from CVS, you can get the latest
+        jars from the <link href="http://gump.covalent.net/jars/latest/">Gump
+        nightly builds</link></strong>.
+      </note>
+
+      <note>
+        In the future we will make this process easier by moving our build
+        system to Maven.
+      </note>
+
+      <note>
+        Make sure you have only one XML parser. If you had the Crimson jar
+        you will need to remove it.
+      </note>
+
+    </s1>
+
+    <s1 title="Understanding the directory structure">
+      <p>
+        The Cactus project is divided into several subprojects, each having 
+        its own build. Examples of subprojects are:
+      </p>
+      <ul>
+        <li>
+          anttasks: Some Ant tasks useful for Cactus
+        </li>
+        <li>
+          framework: The main Cactus framework
+        </li>
+        <li>
+          sample-servlet: Sample application using Cactus. Also acts as
+          functional and acceptance testing for the Cactus framework.
+        </li>
+        <li>
+          documentation: Cactus documentation
+        </li>
+      </ul>
+      <p>
+      	Then, there is a special project, which is the top level project,
+      	which is simply a wrapper on all the other projects and allow to
+      	easily build them all.
+      </p>
+      <p>
+        All projects follow the same directory structure and they all use
+        Ant as the build tool.
+      </p>        
+    </s1>
+
+    <s1 title="Building a Cactus project">
+      <p>
+        First, you need to create a <code>build.properties</code> file
+        in the directory for the project you wish to build. You will find 
+        existing <code>build.properties.sample</code> files in project 
+        directories. Simply copy them to <code>build.properties</code> and 
+        edit the file. Mostly, it asks for locations of jars that you will 
+        need to have put somewhere on your local filesystem.
+      </p>
+      <p>
+        Then, open a shell, chdir to the project directory and type
+        <code>ant -projecthelp</code>. That will give you the list of 
+        available Ant targets. Typical targets are: <code>clean</code>, 
+        <code>dist</code>, <code>test</code>, etc.
+      </p>
+      <p>
+      	Then, execute the target you want. For example if you wish to build
+      	the Cactus framework, cd to <code>framework/</code> and type
+      	<code>ant dist</code> (or simply <code>ant jar</code> if you simply
+      	want to build the jar).
+      </p>
+
+      <note>
+        Some projects depends on others and thus you may need to run the build
+        for those projects before. The order is as follows: anttasks, then
+        framework (or documentation), then sample projects.
+      </note>
+    </s1>
+
+    <s1 title="Building the full Cactus distribution">
+      <p>
+        Go to the top level directory, create a <code>build.properties</code>
+        and type <code>ant release</code>.
+      </p>
+    </s1>
+        
+  </body>
+</document>
