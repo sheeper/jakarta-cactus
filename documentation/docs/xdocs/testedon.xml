@@ -12,7 +12,29 @@
 
   <body>
 
+    <s1 title="What containers has Cactus been tested on ?">
+
+      <ul>
+        <li>
+          <jump anchor="tested_on">Tested on ...</jump>
+        </li>
+        <li>
+          <jump anchor="fails_on">Fails on ...</jump>
+        </li>
+      </ul>
+
+    </s1>
+
+    <anchor id="tested_on"/>
     <s1 title="Tested on ...">
+
+      <note>
+        Cactus is supposed to work on any J2EE 1.2 and 1.3 compliant servers.
+        However, we have found in the past that some containers were displaying
+        some weird behaviours (and that there were also bugs in Cactus that
+        were making it non 100% spec-compliant - we have corrected all of these
+        and are not aware of any problem at this time).
+      </note>
 
       <p>
         This page shows the different versions of servers that have been
@@ -268,10 +290,89 @@
               <link href="mailto:vmassol@apache.org">Vincent Massol</link>
             </td>
           </tr>
+          <tr>
+            <td>
+              Orion
+            </td>
+            <td>
+              1.5.2
+            </td>
+            <td>
+              1.2
+            </td>
+            <td>
+              <link href="mailto:vmassol@apache.org">Vincent Massol</link>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Orion
+            </td>
+            <td>
+              1.5.2
+            </td>
+            <td>
+              1.3
+            </td>
+            <td>
+              <link href="mailto:vmassol@apache.org">Vincent Massol</link>
+            </td>
+          </tr>
 
         </table>
 
       </s2>
+
+    </s1>
+
+    <anchor id="fails_on"/>
+    <s1 title="Fails on ...">
+
+      <p>
+        Some containers have some issues which prevent them from running the
+        Cactus sample application tests.
+      </p>
+
+      <table>
+        <tr>
+          <th>
+            Server
+          </th>
+          <th>
+            Version
+          </th>
+          <th>
+            J2EE API
+          </th>
+          <th>
+            Reason
+          </th>
+          <th>
+            Submitted by
+          </th>
+        </tr>
+        <tr>
+          <td>
+            Enhydra
+          </td>
+          <td>
+            3.3.1 b1
+          </td>
+          <td>
+            1.2
+          </td>
+          <td>
+            Enhydra does not seem to support BASIC authentication as defined
+            by the Servlet specifications and thus the Sample tests which use
+            security fail. All other tests run fine and thus if you don't need
+            to test secure code, you should be fine with Enhydra 3.3.1 b1.
+          </td>
+          <td>
+            <link href="mailto:vmassol@apache.org">Vincent Massol</link>
+          </td>
+        </tr>
+
+      </table>
 
     </s1>
 
