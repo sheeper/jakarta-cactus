@@ -106,6 +106,13 @@ cactus.servletRedirectorName = ServletRedirector
 ]]></source>
       </ul>
 
+      <p>
+        The Cactus sample is supposed to work with Ant 1.4. However, we
+        introduced an incompatibility at the last moment (i.e. a feature only
+        supported by Ant 1.5). If you're using Ant 1.4, simply remove the
+        failing line (it is an optional line).
+      </p>
+
     </s1>
 
   </body>
