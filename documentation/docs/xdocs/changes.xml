@@ -91,6 +91,12 @@
 
       <release version="1.6dev" date="in CVS">
         <action dev="VMA" type="update">
+          The <code>ServletTestRunner</code> now looks for am optional 
+          <code>cactus.properties</code> file and reads its properties. If
+          not defined it sets default values for the context URL of the
+          Cactus redirectors and for their mappings.
+        </action>
+        <action dev="VMA" type="update">
           Updated web site documentation for enabling Cactus logging.
         </action>
         <action dev="VMA" type="update">

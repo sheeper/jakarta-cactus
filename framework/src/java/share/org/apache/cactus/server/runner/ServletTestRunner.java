@@ -38,6 +38,7 @@ import junit.framework.Test;
 import junit.framework.TestResult;
 
 import org.apache.cactus.internal.configuration.BaseConfiguration;
+import org.apache.cactus.internal.configuration.ConfigurationInitializer;
 import org.apache.cactus.internal.server.runner.WebappTestRunner;
 import org.apache.cactus.internal.server.runner.XMLFormatter;
 
@@ -55,6 +56,18 @@ import org.apache.cactus.internal.server.runner.XMLFormatter;
  */
 public class ServletTestRunner extends HttpServlet
 {
+    /**
+     * As this class is the first one loaded on the server side, we ensure
+     * that the Cactus configuration has been initialized. A better 
+     * implementation might be to perform this initialization in the 
+     * init() method. However, that requires removing the static LOGGER
+     * object.
+     */
+    static
+    {
+        ConfigurationInitializer.initialize();
+    }
+
     /**
      * HTTP parameter containing name of test suite to execute
      */
@@ -214,7 +227,9 @@ public class ServletTestRunner extends HttpServlet
 
     /**
      * Set up default Cactus System properties so that there is no need
-     * to have a cactus.properties file in WEB-INF/classes.
+     * to have a <code>cactus.properties</code> file in WEB-INF/classes. 
+     * However, if a <code>cactus.properties</code> file is found, the 
+     * properties are read from it.
      * 
      * Note: If the JVM security policy prevents setting System properties
      * you will still need to provide a cactus.properties file.
@@ -224,22 +239,34 @@ public class ServletTestRunner extends HttpServlet
      */
     private void setSystemProperties(HttpServletRequest theRequest)
     {
-        if (this.canSetSystemProperty)
+        // TODO: We cannot call BaseConfiguration.getContextURL() as it
+        // throws an exception if the context URL property is not defined.
+        // It would be good to change that behavior for a better reuse
+        String contextURL = System.getProperty(
+            BaseConfiguration.CACTUS_CONTEXT_URL_PROPERTY);
+
+        // If the context URL propety has not been set, we set a default
+        // value based on the ServletTestRunner mapping in the web app.
+        if (contextURL == null)
         {
-            try
+            if (this.canSetSystemProperty)
             {
-                System.setProperty(
-                    BaseConfiguration.CACTUS_CONTEXT_URL_PROPERTY,
-                    "http://" + theRequest.getServerName() + ":"
-                    + theRequest.getServerPort()
-                    + theRequest.getContextPath());
-            }
-            catch (SecurityException se)
-            {
-                log("Could not set the Cactus context URL as system property, "
-                    + "you will have to include a Cactus properties file in "
-                    + "the class path of the web application", se);
-                this.canSetSystemProperty = false;
+                try
+                {
+                    System.setProperty(
+                        BaseConfiguration.CACTUS_CONTEXT_URL_PROPERTY,
+                        "http://" + theRequest.getServerName() + ":"
+                        + theRequest.getServerPort()
+                        + theRequest.getContextPath());
+                }
+                catch (SecurityException se)
+                {
+                    log("Could not set the Cactus context URL as system "
+                        + "property, you will have to include a Cactus "
+                        + "properties file in the class path of the web "
+                        + "application", se);
+                    this.canSetSystemProperty = false;
+                }
             }
         }
     }
