@@ -63,6 +63,8 @@ import java.lang.reflect.Constructor;
 
 import javax.servlet.ServletException;
 
+import junit.framework.Test;
+
 import org.apache.cactus.AbstractWebServerTestCase;
 import org.apache.cactus.HttpServiceDefinition;
 import org.apache.cactus.ServiceEnumeration;
@@ -143,7 +145,8 @@ public abstract class AbstractWebTestCaller
         {
             // Create an instance of the test class
             AbstractWebServerTestCase testInstance = getTestClassInstance(
-                getTestClassName(), getTestMethodName());
+                getTestClassName(), getWrappedTestClassName(), 
+                getTestMethodName());
 
             // Set its fields (implicit objects)
             setTestCaseFields(testInstance);
@@ -277,7 +280,32 @@ public abstract class AbstractWebTestCaller
             throw new ServletException(message);
         }
 
-        LOGGER.debug("Class to call = " + className);
+        LOGGER.debug("Class to call = [" + className + "]");
+
+        return className;
+    }
+
+    /**
+     * @return the optional test class that is wrapped by a Cactus test case, 
+     *         extracted from the HTTP request
+     * @exception ServletException if the wrapped class name is missing from 
+     *            the HTTP request
+     */
+    protected String getWrappedTestClassName() throws ServletException
+    {
+        String queryString = this.webImplicitObjects.getHttpServletRequest()
+            .getQueryString();
+        String className = ServletUtil.getQueryStringParameter(queryString, 
+            HttpServiceDefinition.WRAPPED_CLASS_NAME_PARAM);
+
+        if (className == null)
+        {
+            LOGGER.debug("No wrapped test class");
+        } 
+        else
+        { 
+            LOGGER.debug("Wrapped test class = [" + className + "]");
+        }
 
         return className;
     }
@@ -331,6 +359,8 @@ public abstract class AbstractWebTestCaller
 
     /**
      * @param theClassName the name of the test class
+     * @param theWrappedClassName the name of the wrapped test class. Can be
+     *        null if there is none
      * @param theTestCaseName the name of the current test case
      * @return an instance of the test class to call
      * @exception ServletException if the test case instance for the current
@@ -338,24 +368,48 @@ public abstract class AbstractWebTestCaller
      *            information is missing from the HTTP request)
      */
     protected AbstractWebServerTestCase getTestClassInstance(
-        String theClassName, String theTestCaseName) throws ServletException
+        String theClassName, String theWrappedClassName, 
+        String theTestCaseName) throws ServletException
     {
         // Get the class to call and build an instance of it.
         Class testClass = getTestClassClass(theClassName);
         AbstractWebServerTestCase testInstance = null;
-
+        Constructor constructor;
+        
         try
         {
-            Constructor constructor = testClass.getConstructor(
-                new Class[] {String.class});
+            if (theWrappedClassName == null)
+            {
+                constructor = testClass.getConstructor(
+                    new Class[] {String.class});
 
-            testInstance = (AbstractWebServerTestCase) constructor.newInstance(
-                new Object[] {theTestCaseName});
+                testInstance = 
+                    (AbstractWebServerTestCase) constructor.newInstance(
+                    new Object[] {theTestCaseName});                
+            }
+            else
+            {
+                Class wrappedTestClass = 
+                    getWrappedTestClassClass(theWrappedClassName);
+                Constructor wrappedConstructor =
+                    wrappedTestClass.getConstructor(
+                    new Class[] {String.class});
+                Test wrappedTestInstance = 
+                    (Test) wrappedConstructor.newInstance(
+                    new Object[] {theTestCaseName});
+                    
+                constructor = testClass.getConstructor(
+                    new Class[] {String.class, Test.class});
+
+                testInstance = 
+                    (AbstractWebServerTestCase) constructor.newInstance(
+                    new Object[] {theTestCaseName, wrappedTestInstance});
+            }
         }
         catch (Exception e)
         {
-            String message = "Error instantiating class [" + theClassName + "("
-                + theTestCaseName + ")]";
+            String message = "Error instantiating class [" + theClassName + "(["
+                + theTestCaseName + "], [" + theWrappedClassName + "])]";
 
             LOGGER.error(message, e);
             throw new ServletException(message, e);
@@ -400,4 +454,42 @@ public abstract class AbstractWebTestCaller
 
         return testClass;
     }
+
+    /**
+     * @param theWrappedClassName the name of the wrapped test class
+     * @return the class object to wrapped test class
+     * @exception ServletException if the class of the wrapped test case
+     *            cannot be loaded in memory (i.e. it is not in the
+     *            classpath)
+     */
+    protected Class getWrappedTestClassClass(String theWrappedClassName)
+        throws ServletException
+    {
+        // Get the class to call and build an instance of it.
+        Class testClass = null;
+
+        try
+        {
+            testClass = ClassLoaderUtils.loadClass(theWrappedClassName, 
+                this.getClass());
+        }
+        catch (Exception e)
+        {
+            String message = "Error finding class [" + theWrappedClassName
+                + "] using both the Context classloader and the webapp "
+                + "classloader. Possible causes include:\r\n";
+
+            message += ("\t- Your webapp does not include your test " 
+                + "classes,\r\n");
+            message += ("\t- The cactus.jar is not located in your " 
+                + "WEB-INF/lib directory and your Container has not set the " 
+                + "Context classloader to point to the webapp one");
+
+            LOGGER.error(message, e);
+            throw new ServletException(message, e);
+        }
+
+        return testClass;
+    }
+
 }

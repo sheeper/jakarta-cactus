@@ -53,67 +53,71 @@
  */
 package org.apache.cactus.sample.unit;
 
+import org.apache.cactus.ServletTestSuite;
+
 import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
 
 /**
- * Test suite containing all test cases that should be run on all J2EE 
- * APIs.
+ * Pure JUnit Test Case that we run on the server side using Cactus, by
+ * using a {@link ServletTestSuite}.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
  */
-public abstract class TestShareAll extends TestCase
+public class TestJUnitTestCaseWrapper extends TestCase
 {
     /**
      * Defines the testcase name for JUnit.
      *
      * @param theName the testcase's name.
      */
-    public TestShareAll(String theName)
+    public TestJUnitTestCaseWrapper(String theName)
     {
         super(theName);
     }
 
     /**
-     * @return a test suite (<code>TestSuite</code>) that includes all shared
-     *          tests
+     * Runs this pure JUnit Test Case with Cactus, wrapping it in
+     * a Servlet Test Case.
+     * 
+     * @return the test suite containing all tests to run
      */
     public static Test suite()
     {
-        TestSuite suite = new TestSuite(
-            "Cactus unit tests for all J2EE APIs");
-
-        // Note: This test needs to run first. See the comments in the
-        // test class for more information on why
-        suite.addTestSuite(TestClientServerSynchronization.class);
-
-        // Lifecycle tests
-        suite.addTestSuite(TestGlobalBeginEnd.class);
-
-        // ServletTestCase related tests
-        suite.addTestSuite(TestServerSideExceptions.class);
-        suite.addTestSuite(TestSetUpTearDown.class);
-        suite.addTestSuite(TestSetURL.class);
-        suite.addTestSuite(TestTearDownException.class);
-        suite.addTestSuite(TestBasicAuthentication.class);
-        suite.addTestSuite(TestHttpUnitIntegration.class);
-        suite.addTestSuite(TestServletRedirectorOverride.class);
-        suite.addTestSuite(TestHttpParameters.class);
-        suite.addTestSuite(TestHttpSession.class);
-        suite.addTestSuite(TestHttpResponse.class);
-        suite.addTestSuite(TestCookie.class);
-        suite.addTestSuite(TestRequestDispatcher.class);
-        suite.addTestSuite(TestHttpHeaders.class);
-        suite.addTestSuite(TestHttpRequest.class);
-        suite.addTestSuite(TestServletConfig.class);
-        suite.addTest(TestJUnitTestCaseWrapper.suite());
-        
-        // JspTestCase related tests
-        suite.addTestSuite(TestJspOut.class);
-
+        ServletTestSuite suite = new ServletTestSuite();
+        suite.addTestSuite(TestJUnitTestCaseWrapper.class);
         return suite;
     }
+
+    //-------------------------------------------------------------------------
+
+    /**
+     * No-op test just to verify that pure JUnit tests can be executed on the 
+     * server side using Cactus. 
+     */
+    public void setUp()
+    {
+        // This test is executed on the server side.
+    }
+    
+    /**
+     * No-op test just to verify that pure JUnit tests can be executed on the 
+     * server side using Cactus. 
+     */
+    public void testXXX()
+    {
+        // This test is executed on the server side.
+    }
+
+    /**
+     * No-op test just to verify that pure JUnit tests can be executed on the 
+     * server side using Cactus. 
+     */
+    public void tearDown()
+    {
+        // This test is executed on the server side.
+    }
+
 }

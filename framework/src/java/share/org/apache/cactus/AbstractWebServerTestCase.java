@@ -61,6 +61,8 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.net.HttpURLConnection;
 
+import junit.framework.Test;
+
 import org.apache.cactus.client.connector.http.DefaultHttpClient;
 import org.apache.cactus.configuration.WebConfiguration;
 import org.apache.commons.logging.LogFactory;
@@ -88,6 +90,18 @@ public abstract class AbstractWebServerTestCase
     }
 
     /**
+     * Wraps a standard JUnit Test Case in a Cactus Test Case.
+     *  
+     * @param theName the name of the test
+     * @param theTest the Test Case class to wrap
+     * @since 1.5
+     */
+    public AbstractWebServerTestCase(String theName, Test theTest)
+    {
+        super(theName, theTest);
+    }
+
+    /**
      * Run the test that was specified in the constructor on the server side,
      * calling <code>setUp()</code> and <code>tearDown()</code>.
      *
@@ -102,7 +116,7 @@ public abstract class AbstractWebServerTestCase
         // side, so we instanciate the log for server side here.
         if (getLogger() == null)
         {
-            setLogger(LogFactory.getLog(this.getClass()));
+            setLogger(LogFactory.getLog(getWrappedTest().getClass()));
         }
 
         setUp();
@@ -133,14 +147,14 @@ public abstract class AbstractWebServerTestCase
             // methods. getDeclaredMethods returns all
             // methods of this class but excludes the
             // inherited ones.
-            runMethod = getClass().getMethod(this.getCurrentTestMethod(), 
-                new Class[0]);
+            runMethod = getWrappedTest().getClass().getMethod(
+                this.getCurrentTestMethod(), new Class[0]);
         }
         catch (NoSuchMethodException e)
         {
             fail("Method [" + this.getCurrentTestMethod()
-                + "()] does not exist for class [" + this.getClass().getName()
-                + "].");
+                + "()] does not exist for class [" 
+                + getWrappedTest().getClass().getName() + "].");
         }
 
         if ((runMethod != null) && !Modifier.isPublic(runMethod.getModifiers()))
@@ -151,7 +165,7 @@ public abstract class AbstractWebServerTestCase
 
         try
         {
-            runMethod.invoke(this, new Class[0]);
+            runMethod.invoke(getWrappedTest(), new Class[0]);
         }
         catch (InvocationTargetException e)
         {
@@ -227,6 +241,14 @@ public abstract class AbstractWebServerTestCase
             theRequest.getAutomaticSession() ? "true" : "false", 
             WebRequest.GET_METHOD);
 
+        // Add the wrapped test if it is not equal to our current instance
+        if (getWrappedTest() != this)
+        {
+            theRequest.addParameter(
+                HttpServiceDefinition.WRAPPED_CLASS_NAME_PARAM, 
+                getWrappedTest().getClass().getName(), WebRequest.GET_METHOD);
+        }
+        
         // Add the simulated URL (if one has been defined)
         if (theRequest.getURL() != null)
         {

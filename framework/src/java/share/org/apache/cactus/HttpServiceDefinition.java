@@ -81,6 +81,12 @@ public interface HttpServiceDefinition
     static String CLASS_NAME_PARAM = "Cactus_TestClass";
 
     /**
+     * Name of the parameter in the HTTP request that represents an optional
+     * Test being wrapped by the class represented by CLASS_NAME_PARAM.
+     */
+    static String WRAPPED_CLASS_NAME_PARAM = "Cactus_WrappedTestClass";
+
+    /**
      * Name of the parameter in the HTTP request that represents the name of the
      * Test method to call. The name is voluntarily long so that it will not
      * clash with a user-defined parameter.

@@ -62,6 +62,8 @@ import java.lang.reflect.Modifier;
 
 import java.net.HttpURLConnection;
 
+import junit.framework.Test;
+
 import org.apache.cactus.client.ClientException;
 import org.apache.cactus.client.WebResponseObjectFactory;
 
@@ -84,6 +86,18 @@ public abstract class AbstractWebClientTestCase extends AbstractClientTestCase
     public AbstractWebClientTestCase(String theName)
     {
         super(theName);
+    }
+
+    /**
+     * Wraps a standard JUnit Test Case in a Cactus Test Case.
+     *  
+     * @param theName the name of the test
+     * @param theTest the Test Case class to wrap
+     * @since 1.5
+     */
+    public AbstractWebClientTestCase(String theName, Test theTest)
+    {
+        super(theName, theTest);
     }
 
     /**
@@ -110,7 +124,7 @@ public abstract class AbstractWebClientTestCase extends AbstractClientTestCase
         Method methodToCall = null;
         Object paramObject = null;
 
-        Method[] methods = getClass().getMethods();
+        Method[] methods = getWrappedTest().getClass().getMethods();
 
         for (int i = 0; i < methods.length; i++)
         {
@@ -177,7 +191,8 @@ public abstract class AbstractWebClientTestCase extends AbstractClientTestCase
         {
             try
             {
-                methodToCall.invoke(this, new Object[] {paramObject});
+                methodToCall.invoke(getWrappedTest(), 
+                    new Object[] {paramObject});
             }
             catch (InvocationTargetException e)
             {

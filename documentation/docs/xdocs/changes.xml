@@ -57,6 +57,11 @@
       </devs>
 
       <release version="1.5" date="- in CVS">
+        <action dev="VMA" type="add">
+          Added support for running pure JUnit TestCase on the server side
+          using Cactus. This is possible by using a new 
+          <code>ServletTestSuite</code> Test Suite.
+        </action>
         <action dev="VMA" type="fix" due-to="Helen Rehn" due-to-email="hrehn@us.ibm.com">
           Fixed bug where a simulation URL would be used even when none has 
           been defined (Reminder: a simulation URL is defined by calling

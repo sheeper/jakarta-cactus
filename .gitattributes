@@ -168,6 +168,7 @@ framework/src/java/j2ee13/org/apache/cactus/server/wrapper/ServletConfigWrapper.
 framework/src/java/j2ee13/org/apache/cactus/server/wrapper/ServletContextWrapper.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/j2ee13/org/apache/cactus/util/FilterConfiguration.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/AbstractClientTestCase.java svn_keywords=Author+Date+Id+Revision
+framework/src/java/share/org/apache/cactus/AbstractTestSuite.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/AbstractWebClientTestCase.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/AbstractWebServerTestCase.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/BaseWebRequest.java svn_keywords=Author+Date+Id+Revision
@@ -177,6 +178,7 @@ framework/src/java/share/org/apache/cactus/JspTestCase.java svn_keywords=Author+
 framework/src/java/share/org/apache/cactus/Request.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/ServiceEnumeration.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/ServletTestCase.java svn_keywords=Author+Date+Id+Revision
+framework/src/java/share/org/apache/cactus/ServletTestSuite.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/ServletURL.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/WebRequest.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/WebResponse.java svn_keywords=Author+Date+Id+Revision
@@ -389,6 +391,7 @@ samples/servlet/src/test-cactus/share/org/apache/cactus/sample/unit/TestHttpRequ
 samples/servlet/src/test-cactus/share/org/apache/cactus/sample/unit/TestHttpResponse.java svn_keywords=Author+Date+Id+Revision
 samples/servlet/src/test-cactus/share/org/apache/cactus/sample/unit/TestHttpSession.java svn_keywords=Author+Date+Id+Revision
 samples/servlet/src/test-cactus/share/org/apache/cactus/sample/unit/TestHttpUnitIntegration.java svn_keywords=Author+Date+Id+Revision
+samples/servlet/src/test-cactus/share/org/apache/cactus/sample/unit/TestJUnitTestCaseWrapper.java svn_keywords=Author+Date+Id+Revision
 samples/servlet/src/test-cactus/share/org/apache/cactus/sample/unit/TestJspOut.java svn_keywords=Author+Date+Id+Revision
 samples/servlet/src/test-cactus/share/org/apache/cactus/sample/unit/TestRequestDispatcher.java svn_keywords=Author+Date+Id+Revision
 samples/servlet/src/test-cactus/share/org/apache/cactus/sample/unit/TestServerSideExceptions.java svn_keywords=Author+Date+Id+Revision

@@ -60,6 +60,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
+import junit.framework.Test;
 import junit.framework.TestCase;
 
 import org.apache.cactus.client.initialization.ClientInitializer;
@@ -141,14 +142,42 @@ public abstract class AbstractClientTestCase extends TestCase
     private Configuration configuration;
 
     /**
+     * JUnit Test Case to wrap. This is needed to support running pure
+     * JUnit Test Case using Cactus.
+     */
+    private Test wrappedTest;
+    
+    /**
      * Constructs a JUnit test case with the given name.
      *
-     * @param theName the name of the test case
+     * @param theName the name of the test
      */
     public AbstractClientTestCase(String theName)
     {
         super(theName);
         this.setCurrentTestMethod(JUnitVersionHelper.getTestCaseName(this));
+        this.wrappedTest = this;
+    }
+
+    /**
+     * Wraps a standard JUnit Test Case in a Cactus Test Case.
+     *  
+     * @param theName the name of the test
+     * @param theTest the Test Case class to wrap
+     * @since 1.5
+     */
+    public AbstractClientTestCase(String theName, Test theTest)
+    {
+        this(theName);
+        this.wrappedTest = theTest;
+    }
+
+    /**
+     * @return the wrapped Test Case
+     */
+    protected Test getWrappedTest()
+    {
+        return this.wrappedTest;
     }
 
     /**
@@ -297,7 +326,7 @@ public abstract class AbstractClientTestCase extends TestCase
     {
         // First, verify if a begin method exist. If one is found, verify if
         // it has the correct signature. If not, send a warning.
-        Method[] methods = getClass().getMethods();
+        Method[] methods = getWrappedTest().getClass().getMethods();
 
         for (int i = 0; i < methods.length; i++)
         {
@@ -340,7 +369,8 @@ public abstract class AbstractClientTestCase extends TestCase
 
                 try
                 {
-                    methods[i].invoke(this, new Object[] {theRequest});
+                    methods[i].invoke(getWrappedTest(), 
+                        new Object[] {theRequest});
 
                     break;
                 }

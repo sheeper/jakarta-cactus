@@ -59,6 +59,8 @@ package org.apache.cactus;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import junit.framework.Test;
+
 import org.apache.cactus.configuration.Configuration;
 import org.apache.cactus.configuration.ServletConfiguration;
 import org.apache.cactus.server.wrapper.ServletConfigWrapper;
@@ -120,6 +122,18 @@ public class ServletTestCase extends AbstractWebServerTestCase
         super(theName);
     }
 
+    /**
+     * Wraps a standard JUnit Test Case in a Cactus Test Case.
+     *  
+     * @param theName the name of the test
+     * @param theTest the Test Case class to wrap
+     * @since 1.5
+     */
+    public ServletTestCase(String theName, Test theTest)
+    {
+        super(theName, theTest);
+    }
+    
     /**
      * @see AbstractClientTestCase#createConfiguration()
      */
