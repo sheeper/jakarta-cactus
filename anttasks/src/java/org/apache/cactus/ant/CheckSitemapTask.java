@@ -263,8 +263,8 @@ public class CheckSitemapTask extends Task
             Project.MSG_DEBUG);
         if (!sourceFile.exists())
         {
-            log("Sitemap resource '" + theId + "' not found under '" +
-                theSource + "'", Project.MSG_ERR);
+            log("Sitemap resource '" + theId + "' not found under '" 
+                + theSource + "'", Project.MSG_ERR);
             return false;
         }
         return true;
