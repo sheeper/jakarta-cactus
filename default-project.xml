@@ -20,9 +20,10 @@
   <logo>http://jakarta.apache.org/cactus/images/logocactus.gif</logo>
   
   <!-- Note: This description should be on one line without end of lines as it 
-       is in various place such as in jar manifests and a single line is 
-       rendered better -->
-  <shortDescription>Cactus is a simple test framework for unit testing server-side java code.</shortDescription>
+       is used in various place such as in jar manifests and a single line is 
+       rendered better. It should also be less than 49 characters which is
+       a jar manifest limitation. -->
+  <shortDescription>Cactus for J2EE ${cactus.j2ee.version.full}</shortDescription>
 
   <!-- Gump integration -->
   <gumpRepositoryId>jakarta</gumpRepositoryId>
