@@ -63,6 +63,7 @@ import java.io.IOException;
 import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 import java.util.Enumeration;
+import java.util.MissingResourceException;
 
 /**
  * Provides access to the Cactus configuration parameters that are independent
@@ -135,8 +136,13 @@ public class Configuration
             if (configOverride == null) {
                 // Try to read the default cactus configuration file from the
                 // classpath
-                config = ClassLoaderUtils.loadPropertyResourceBundle(
-                    DEFAULT_CONFIG_NAME, Configuration.class);
+                try {
+                    config = ClassLoaderUtils.loadPropertyResourceBundle(
+                        DEFAULT_CONFIG_NAME, Configuration.class);
+                } catch (MissingResourceException e) {
+                    // Cannot find cactus properties file. Do nothing.
+                    return;
+                }
             } else {
                 // Try to read from specified properties file
                 try {
@@ -144,8 +150,8 @@ public class Configuration
                             new FileInputStream(configOverride));
                 } catch (IOException e) {
                     throw new ChainedRuntimeException(
-                            "Cannot read cactus configuration file ["
-                            + configOverride + "]", e);
+                        "Cannot read cactus configuration file ["
+                        + configOverride + "]", e);
                 }
             }
 
