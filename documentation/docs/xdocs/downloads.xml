@@ -51,16 +51,6 @@
               released.
             </p>
           </li>
-          <li>
-            <strong>jakarta-cactus-ant-*.zip</strong>
-            <p>
-              A distribution of Ant that has been pre-configured to run Cactus
-              tests. <em>This archive is no longer being made available as of
-              Cactus 1.5. See the documentation about the
-              <link href="site:integration_ant">Ant integration</link> for
-              information on how to setup Ant for use with Cactus.</em>
-            </p>
-          </li>
         </ul>
 
       </section>
