@@ -83,6 +83,15 @@
 
   <actions priority="wish">
     <action context="code">
+      Create a Cactus Doclet. This will introduce new javadoc tags (like the
+      <link href="">EJBDoclet</link>) that will be used by the javadoc command
+      to do several things : generate test classes and test methods, generate
+      richer documentation. Indeed, the best documentation for a method is
+      it's test methods that show how to use it effectively. So maybe we could
+      append to the HTML javadoc for a method the java test method code as an
+      example.
+    </action>
+    <action context="code">
       Integration for Netbeans by integration with the Netbeans XTest module.
     </action>
     <action context="code">
