@@ -4,7 +4,7 @@
    name="%pluginName"
    version="0.1"
    provider-name="%providerName"
-   class="org.apache.cactus.eclipse.CactusPlugin">
+   class="">
 
    <runtime>
    </runtime>
@@ -21,9 +21,26 @@
       <import plugin="org.eclipse.core.runtime"/>
       <import plugin="org.eclipse.jdt.launching"/>
       <import plugin="org.eclipse.jdt.debug.ui"/>
+      <import plugin="org.eclipse.jdt.junit"/>
       <import plugin="org.junit"/>
    </requires>
-
+   <extension
+         point="org.eclipse.debug.core.launchConfigurationTypes">
+      <launchConfigurationType
+            name="%Launch.label"
+            delegate="org.apache.cactus.eclipse.launcher.CactusLaunchConfiguration"
+            modes="run, debug"
+            id="org.apache.cactus.eclipse.launchconfig">
+         <fileExtension
+               default="false"
+               extension="java">
+         </fileExtension>
+         <fileExtension
+               default="false"
+               extension="class">
+         </fileExtension>
+      </launchConfigurationType>
+   </extension>
    <extension
          point="org.eclipse.debug.ui.launchShortcuts">
       <shortcut
