@@ -90,7 +90,7 @@
         </action>
         <action dev="VMA" type="update">
           Improved (and normalized) build system. This change should not 
-          be affect nor be visible by Cactus end-users.
+          affect nor be visible by Cactus end-users.
         </action>
         <action dev="VMA" type="update">
           Improved test classe names in the Servlet Sample application.
