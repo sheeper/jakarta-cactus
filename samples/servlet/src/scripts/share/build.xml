@@ -2,34 +2,34 @@
 
 <!--
   =============================================================================
-    Build file for the Cactus Servlet Sample subproject (it shows how to use
-    Cactus for unit testing the Servlet API : Servlets, Fitlers, Taglibs).
+    Build file for the Cactus Servlet Sample subproject. It shows how to use
+    Cactus for unit testing the Servlet API (Servlets, Filters and Taglibs).
 
     The following Ant tasks need to be available in your ant installation (i.e.
     the Ant task themselves and their dependent jars need to be put in
-    ANT_HOME/lib) :
+    ANT_HOME/lib):
 
         junit                  [REQUIRED] JUnit Ant task
 
-    The following properties need to be set in either a ./build.properties or
-    a ${user.home}/build.properties one or in a calling Ant script :
+    The following properties need to be set in a build properties file located
+    either in the project directory or the user directory:
 
         cactus.port            [OPTIONAL] The port that should be used for
                                starting the servers during unit testing. This
                                should be used not to interfere with other
                                running servers. The default is 8080. This
-                               property is used when running the test target
+                               property is used when running the 'test' target.
 
-    Additionally and depending on the servlet engines whith which you wish to
-    run your tests, you'll need to set the following kind of properties
-    (see build.properties.sample) :
+    Additionally and depending on the containers with which you wish to run
+    your tests, you'll need to set the following kind of properties
+    (see build.properties.sample):
 
         cactus.home.<container name>
 
     Example: For Resin 2.x, you'll need to have a "cactus.home.resin2x" 
     property defined and pointing to the location where Resin 2.x is installed.
 
-    This script should be started with the following command line :
+    This script should be started with the following command line:
 
         ant <target>
 
@@ -75,7 +75,8 @@
     <property name="src.cactus.dir" value="${src.dir}/test-cactus"/>
     <property name="src.webapp.dir" value="${src.dir}/webapp"/>
     <property name="build.dir" value="${base.dir}/build"/>
-    <property name="build.integration.dir" value="${build.dir}/cactus-integration-ant"/>
+    <property name="build.integration.dir"
+        value="${build.dir}/cactus-integration-ant"/>
 
     <!--
        ========================================================================
@@ -109,7 +110,7 @@
 
     <!--
        ========================================================================
-         Set the properties related to the Ant Integration
+         Set the properties related to the Ant integration
        ========================================================================
     -->
     <property name="cactus.war" value="${basedir}/${target.dir}/${sample.war.name}.war"/>
@@ -166,9 +167,7 @@
        ========================================================================
     -->
     <target name="check.properties"
-        depends="display.properties,check.properties.test,check.properties.warn"/>
-
-    <target name="check.properties.test">
+        depends="display.properties">
 
         <condition property="properties.ok">
             <and>
@@ -178,11 +177,9 @@
            </and>
         </condition>
 
-    </target>
-
-    <target name="check.properties.warn" unless="properties.ok">
-
-        <fail message="Missing property or property pointing to an invalid file (check your build.properties file)"/>
+        <fail message="Missing property or property pointing to an invalid file
+                       (check your build.properties file)"
+             unless="properties.ok"/>
 
     </target>
 
