@@ -31,16 +31,17 @@
             <arg value="start"/>
             <classpath>
 
-              <!-- This is to allow the use of -Dbuild.sysclasspath=only when
-                   starting Ant - Meaning that all jars need to be on the
-                   initial classpath. The classpath also contains the JDK
-                   tools.jar, which is needed by Jasper. -->
-              <pathelement path="${java.class.path}"/>
-
-              <!-- These are ignore if -Dbuild.sysclasspath=only is used -->
+              <!-- These are ignored if -Dbuild.sysclasspath=only is used -->
+              <pathelement path="${java.home}/../lib/tools.jar"/>
               <fileset dir="${tomcat.home.40}">
                   <include name="bin/bootstrap.jar"/>
               </fileset>
+
+              <!-- This is to allow the use of -Dbuild.sysclasspath=only when
+                   starting Ant - Meaning that all jars need to be on the
+                   initial classpath. -->
+              <pathelement path="${java.class.path}"/>
+
             </classpath>
         </java>
 
