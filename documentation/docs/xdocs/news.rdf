@@ -42,6 +42,7 @@
 
     <items>
       <rdf:Seq>
+        <rdf:li rdf:resource="http://jakarta.apache.org/cactus/news.html#news26"/>
         <rdf:li rdf:resource="http://jakarta.apache.org/cactus/news.html#news25"/>
         <rdf:li rdf:resource="http://jakarta.apache.org/cactus/news.html#news24"/>
         <rdf:li rdf:resource="http://jakarta.apache.org/cactus/news.html#news23"/>
@@ -71,6 +72,19 @@
     </items>
 
   </channel>
+
+  <item rdf:about="http://jakarta.apache.org/cactus/news.html#news26">
+    <title>Testing Your Enterprise JavaBeans with Cactus</title>
+    <link>http://jakarta.apache.org/cactus/news.html#news26</link>
+    <description>
+<![CDATA[Olexiy Prohorenko has published a nice tutorial 
+<a href="http://today.java.net/pub/a/today/2004/12/09/testejb.html">article</a> 
+explaining how to use Cactus to test EJBs.]]>
+    </description>
+    <dc:subject></dc:subject>
+    <dc:creator>vmassol</dc:creator>
+    <dc:date>2004-12-10T00:00:00+00:00</dc:date>
+  </item>
 
   <item rdf:about="http://jakarta.apache.org/cactus/news.html#news25">
     <title>Cargo project</title>
