@@ -128,18 +128,25 @@
         </copy>
         
     </target>
-    
+
     <!--
        ========================================================================
-         Framework-cactifify (i.e. cactification without stest classes)
-         a plain war (pointed to by the cactus.war property).
+         Merge the user's web.xml file with the Cactus-provided one. If the 
+         source web.xml file does not exist, simply return the cactus-provided 
+         web.xml file.
        ========================================================================
     -->
-    <target name="cactus.war" depends="cactus.compile" 
-        description="Cactify the war">
-                
-        <unwar src="${cactus.war}" 
-            dest="${cactus.target.dir}/${cactus.context}"/>
+    <target name="cactus.war.merge.check">
+
+        <condition property="cactus.war.should.merge">
+            <available 
+              file="${cactus.target.dir}/${cactus.context}/WEB-INF/web.xml"/>
+        </condition>
+        	
+    </target>
+
+    <target name="cactus.war.merge.yes" depends="cactus.war.merge.check"
+      if="cactus.war.should.merge">
 
         <!-- Perform a web.xml merge -->
 		<webxmlmerge 
@@ -159,6 +166,35 @@
         <!-- Rename the merged web.xml -->
         <move file="${cactus.target.dir}/${cactus.context}/WEB-INF/web-temp.xml"
             tofile="${cactus.target.dir}/${cactus.context}/WEB-INF/web.xml"/>
+ 
+    </target>
+
+    <target name="cactus.war.merge.no" depends="cactus.war.merge.check"
+      unless="cactus.war.should.merge">
+
+        <!-- Copy the Cactus-provided web.xml file -->
+        <copy tofile="${cactus.target.dir}/${cactus.context}/WEB-INF/web.xml"
+            file="${cactus.conf.dir}/web.xml"/>
+ 
+    </target>
+
+    <target name="cactus.war.merge" 
+      depends="cactus.war.merge.yes,cactus.war.merge.no"/>
+    
+    <!--
+       ========================================================================
+         Framework-cactifify (i.e. cactification without stest classes)
+         a plain war (pointed to by the cactus.war property).
+       ========================================================================
+    -->
+    <target name="cactus.war" depends="cactus.compile" 
+        description="Cactify the war">
+                
+        <unwar src="${cactus.war}" 
+            dest="${cactus.target.dir}/${cactus.context}"/>
+
+        <!-- Merge the web.xml files -->
+        <antcall target="cactus.war.merge"/>
 
         <!-- Copy the log4j configuration files -->
         <copy tofile="${cactus.target.dir}/${cactus.context}/WEB-INF/classes/log4j.properties"
