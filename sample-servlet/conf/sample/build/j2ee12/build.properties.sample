@@ -22,8 +22,8 @@ cactus.framework.jar = ../lib/cactus.jar
 # The location of the Cactus custom Ant tasks jar
 cactus.ant.jar = ../lib/cactus-ant.jar
 
-# The location of the Servlet API 2.2 jar (not provided with the Cactus
-# distribution)
+# The location of the Servlet API 2.2 jar. Note: This file is not provided
+# with the Cactus distribution (you'll have to get it).
 servlet.jar = ../lib/servlet.jar
 
 # The location of the AspectJ runtime jar
