@@ -3,7 +3,7 @@
 
 <orion-application>
 
-    <web-module id="test" path="../test.war"/>
+    <web-module id="test" path="../@cactus.context@.war"/>
 
     <security-role-mapping name="test">
         <user name="testuser"/>

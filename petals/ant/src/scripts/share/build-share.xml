@@ -62,6 +62,7 @@
 
         <!-- Filters -->
         <filter token="cactus.port" value="${cactus.port}"/>
+        <filter token="cactus.context" value="${cactus.context}"/>
 
         <!-- Initialize Cactus custom Ant task needed for running the server
              tests -->

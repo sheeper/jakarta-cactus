@@ -5,10 +5,8 @@
     <!ENTITY build-tests-tomcat4x SYSTEM "file:./scripts/build-tests-tomcat4x.xml">
     <!ENTITY build-tests-jboss3x SYSTEM "file:./scripts/build-tests-jboss3x.xml">
     <!ENTITY build-tests-resin2x SYSTEM "file:./scripts/build-tests-resin2x.xml">
+    <!ENTITY build-tests-orion1x SYSTEM "file:./scripts/build-tests-orion1x.xml">
 <!--
-    <!ENTITY build-tests-orion-14 SYSTEM "file:./scripts/build-tests-orion-14.xml">
-    <!ENTITY build-tests-orion-15 SYSTEM "file:./scripts/build-tests-orion-15.xml">
-    <!ENTITY build-tests-orion-16 SYSTEM "file:./scripts/build-tests-orion-16.xml">
     <!ENTITY build-tests-weblogic-61 SYSTEM "file:./scripts/build-tests-weblogic-61.xml">
     <!ENTITY build-tests-weblogic-70 SYSTEM "file:./scripts/build-tests-weblogic-70.xml">
 -->
@@ -68,10 +66,8 @@
     &build-tests-tomcat4x;
     &build-tests-jboss3x;
     &build-tests-resin2x;
+    &build-tests-orion1x;
 <!--
-    &build-tests-orion-14;
-    &build-tests-orion-15;
-    &build-tests-orion-16;
     &build-tests-weblogic-61;
     &build-tests-weblogic-70;
 -->
