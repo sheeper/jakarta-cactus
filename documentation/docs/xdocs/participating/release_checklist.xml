@@ -114,7 +114,7 @@
     <section title="Announcement template">
 
 <source><![CDATA[
-The Cactus project is pleased to announce the release of Version <version>
+The Cactus project is pleased to announce the release of version <version>.
 Cactus is a unit testing framework for testing server side java code.
 
 <Some comment specific to this release>
