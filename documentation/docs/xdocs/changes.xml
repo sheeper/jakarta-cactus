@@ -65,6 +65,11 @@
       </devs>
 
       <release version="1.5" date="- in CVS">
+        <action dev="VMA" type="add">
+          Added a quick tutorial for Cactus developers who want to 
+          <a href="site:integration_eclipse_dev">set up their Eclipse 
+          environment</a> to work on the Cactus plugins for Eclipse.
+        </action>
         <action dev="CML" type="add">
           The <code>WebResponse</code> class now has a method to directly
           retrieve the status code.

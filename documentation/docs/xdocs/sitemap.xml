@@ -337,6 +337,12 @@
       name="Eclipse Web Application Plugin">
     Information about the Cactus Web Application plugin for Eclipse.
   </resource>
+  <resource id="integration_eclipse_dev" 
+  	  target="integration/eclipse/development.html"
+  	  name="Eclipse development environment set up">
+    Described how to set up an Eclipse development environment for
+    working on the Cactus plugins for Eclipse.
+  </resource>
 
   <resource id="news_rdf" target="news.rdf" name="RSS News">
     All the recent Cactus news as a RDF feed so that you always

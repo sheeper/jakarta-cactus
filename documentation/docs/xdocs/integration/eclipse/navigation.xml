@@ -16,4 +16,8 @@
     <item id="integration_eclipse_webapp" label="Web Application Plugin"/>
   </menu>
 
+  <menu label="Developers">
+    <item id="integration_eclipse_dev" label="Development environment"/>
+  </menu>
+  
 </navigation>

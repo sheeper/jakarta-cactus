@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+
+<document id="integration_eclipse_dev">
+
+  <properties>
+    <title>Development Environment</title>
+    <authors>
+      <author name="Vincent Massol" email="vmassol@apache.org" />
+    </authors>
+  </properties>
+
+  <body>
+    <section title="Setting up a development environment">
+      <p>
+        This section describes how to set up a development environment in 
+        Eclipse for working on the Cactus plugins for Eclipse.
+      </p>
+      <note>
+        The instructions below are for Eclipse 2.1 or greater.
+      </note>
+      <p>
+        Let's assume you have a clean workspace and that you have checked out
+        the Cactus source code from CVS in a <code>jakarta-cactus/</code>
+        directory. Follow these steps:
+      </p>
+      <ol>
+        <li>
+          Import the Webapp plugin by clicking on "File | Import ...". Then
+          pick "Existing Projects into Workspace". Browse and select the
+          <code>jakarta-cactus/integration/eclipse/org.apache.cactus.eclipse.webapp</code>
+          directory. Press the Ok button and then press the Finish one. Note
+          that you'll get build errors as this plugin depends on other Eclipse
+          plugins. More on that below.
+        </li>
+        <li>
+          Perform the same action for the
+          <code>jakarta-cactus/integration/eclipse/org.apache.cactus.eclipse.runner</code>
+          plugin.
+        </li>
+        <li>
+          Let's now resolve missing dependencies. Click on "File | Import ...".
+          Then pick "External Plug-ins and Fragments". Make sure to select the
+          "Import plug-ins and fragments required by existing workspace 
+          plug-ins" radio. Select the "Source folders" if you want to import the 
+          source code for these dependent plug-ins. This can be very useful if
+          you're still learning Eclipse development. Click the Next button and
+          make sure your 2 plug-in projects are selected and press Finish.
+        </li>
+        <li>
+          That should normally be enough. However I have found that for some
+          reason the workspace is still missing the 
+          <code>org.eclipse.ui.externaltools</code> plugin. Click on
+          "File | Import ..." and then "External Plug-ins and Fragments".
+          This time select the "Select from all plug-ins and fragments found
+          at the specified location" radio. Press Next and select the
+          <code>externaltools</code> plug-in from the list. Add it to your
+          select and press Finish.
+        </li>
+      </ol>
+    </section>
+
+  </body>
+</document>
