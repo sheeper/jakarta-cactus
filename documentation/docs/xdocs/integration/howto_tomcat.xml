@@ -249,8 +249,9 @@ public class TestSampleServlet extends ServletTestCase
       <p>
         Ok, that's nice ... But what if I want HTML instead of XML? Don't
         worry there is a solution. Grab the following
-        <link href="site:code_junit_noframes">junit-noframes.xsl</link>
-        stylesheet used to format JUnitReport Ant task results and drop it in
+        <link href="site:cactus_report_xsl">XSLT stylesheet</link>
+        (based on the stylesheet used by the
+        <strong>&lt;junitreport&gt;</strong> Ant task) and drop it in
         <code>[tomcat-root]/webapps/test</code>. Then, open a browser and type
         <code>http://localhost:8080/test/ServletTestRunner?suite=TestSampleServlet&amp;xsl=junit-noframes.xsl</code>.
         You should now see the following:
