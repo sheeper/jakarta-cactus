@@ -67,12 +67,8 @@
 
         <!-- Initialize Cactus custom Ant task needed for running the server
              tests -->
-        <taskdef name="runservertests"
-            classname="org.apache.cactus.integration.ant.RunServerTestsTask">
-            <classpath>
-                <pathelement location="${cactus.antintegration.jar}"/>
-            </classpath>
-        </taskdef>
+        <taskdef resource="cactus.tasks"
+          classpath="${cactus.antintegration.jar}"/>
 
     </target>
 
