@@ -122,6 +122,12 @@
       <email>cmlenz@gmx.de</email>
       <organization></organization>
     </developer>
+    <developer>
+      <name>Felipe Leme</name>
+      <id>felipeal</id>
+      <email>cactus@felipeal.net</email>
+      <organization>Falcon Informatica</organization>
+    </developer>
   </developers>
   <contributors>
     <contributor>

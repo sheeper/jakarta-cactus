@@ -95,7 +95,7 @@
           To build Cactus from source, you'll need to have
           <link href="ext:ant">Ant</link> 1.6.1 (or later) installed. For
           building the Maven plugin you'll need to have 
-          <link href="ext:maven">Maven</link> 1.0 rc3 (or later) installed.
+          <link href="ext:maven">Maven</link> 1.0 (or later) installed.
         </p>
 
         <p>
@@ -548,15 +548,8 @@ $ ant dist]]>
     <section title="Generating the Maven plugin">
 
       <p>
-        Right now the Maven plugin must be build in a separate process, as described below:
+        To generate the maven plugin, you must first perform the Ant build (see above). Than you just need to go to the <code>integration/maven</code> sub-directory and run <code>maven plugin:install</code>.
       </p>
-      <ol>
-        <li>Build the Cactus framework using Ant, as described in the previous section</li>
-        <li>Copy the generated jar (in <code>dist-13/lib</code>) to your local maven repository, adding <code>-13</code> in the name (between <code>cactus</code> and the version number). Example: <code>cp framework/dist-13/lib/cactus-1.7dev.jar ~/.maven/repository/cactus/jars/cactus-13-1.7dev.jar</code></li>
-        <li>Build the Cactus Ant integration using Ant, as described in the previous section</li>
-        <li>Copy the generated jar (in <code>dist-13/lib</code>) to your local maven repository, adding <code>-13</code> in the name (between <code>cactus</code> and the version number). Example: <code>cp integration/ant/dist-13/lib/cactus-ant-1.7dev.jar ~/.maven/repository/cactus/jars/cactus-ant-13-1.7dev.jar</code></li>
-        <li>Go to the <code>integration/maven</code> directory and type <code>maven plugin:install</code></li>
-      </ol>
 
     </section>
 
