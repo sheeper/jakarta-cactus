@@ -254,8 +254,12 @@ public class WebResponse
                 try {
                     cookies = org.apache.commons.httpclient.Cookie.parse(
                         HttpClientHelper.getDomain(getWebRequest(),
-                            getConnection()), new Header(headerName,
-                                headerValue));
+                            getConnection()), 
+                        HttpClientHelper.getPort(getWebRequest(),
+                            getConnection()),     
+                        HttpClientHelper.getPath(getWebRequest(),
+                            getConnection()),                                 
+                        new Header(headerName, headerValue));
                 } catch (HttpException e) {
                     throw new ChainedRuntimeException(
                         "Error parsing cookies", e);

@@ -244,27 +244,27 @@ public class HttpClientHelper
         if (!cookies.isEmpty()) {
 
             // transform the Cactus cookies into HttpClient cookies
-            Vector httpclientCookies = new Vector();
-            Enumeration enumCookies = cookies.elements();
-            while (enumCookies.hasMoreElements()) {
+            org.apache.commons.httpclient.Cookie[] httpclientCookies = 
+                new org.apache.commons.httpclient.Cookie[cookies.size()];
+            for (int i = 0; i < cookies.size(); i++) {
                 org.apache.cactus.Cookie cactusCookie =
-                    (org.apache.cactus.Cookie)enumCookies.nextElement();
-                org.apache.commons.httpclient.Cookie httpclientCookie =
+                    (org.apache.cactus.Cookie)cookies.elementAt(i);
+                httpclientCookies[i] =
                     new org.apache.commons.httpclient.Cookie(
                         cactusCookie.getDomain(), cactusCookie.getName(),
                         cactusCookie.getValue());
-                httpclientCookie.setComment(cactusCookie.getComment());
-                httpclientCookie.setExpiryDate(cactusCookie.getExpiryDate());
-                httpclientCookie.setPath(cactusCookie.getPath());
-                httpclientCookie.setSecure(cactusCookie.isSecure());
-                httpclientCookies.addElement(httpclientCookie);
+                httpclientCookies[i].setComment(cactusCookie.getComment());
+                httpclientCookies[i].setExpiryDate(cactusCookie.getExpiryDate());
+                httpclientCookies[i].setPath(cactusCookie.getPath());
+                httpclientCookies[i].setSecure(cactusCookie.isSecure());
             }
 
             // and create the cookie header to send
             Header cookieHeader =
                 org.apache.commons.httpclient.Cookie.createCookieHeader(
-                getDomain(theRequest, theConnection),
-                getPath(theRequest, theConnection), httpclientCookies);
+                    HttpClientHelper.getDomain(theRequest, theConnection),
+                    HttpClientHelper.getPath(theRequest, theConnection), 
+                    httpclientCookies);
 
             logger.debug("Cookie string = [" + cookieHeader.getValue() +
                 "]");
@@ -307,6 +307,36 @@ public class HttpClientHelper
     }
 
     /**
+     * Returns the domain that will be used to send the cookies. If a host
+     * was specified using <code>setURL()</code> then the domain will be
+     * this host. Otherwise it will be the redirector host.
+     *
+     * @param theRequest the request containing all data to pass to the server
+     *        redirector.
+     * @param theConnection the HTTP connection
+     * @return the cookie domain to use
+     */
+    public static int getPort(WebRequest theRequest,
+        URLConnection theConnection)
+    {
+        logger.entry("getPort(...)");
+
+        int port;
+        ServletURL url = theRequest.getURL();
+
+        if ((url != null) && (url.getHost() != null)) {
+            port = url.getPort();
+        } else {
+            port = theConnection.getURL().getPort();
+        }
+
+        logger.debug("Cookie validation port = [" + port + "]");
+
+        logger.exit("getPort");
+        return port;
+    }
+
+    /**
      * Returns the path that will be used to validate if a cookie will be
      * sent or not. The algorithm is as follows : if the cookie path is not
      * set (i.e. null) then the cookie is always sent (provided the domain
@@ -321,7 +351,7 @@ public class HttpClientHelper
      * @param theConnection the HTTP connection
      * @return the path to use to decide if a cookie will get sent
      */
-    private String getPath(WebRequest theRequest, URLConnection theConnection)
+    public static String getPath(WebRequest theRequest, URLConnection theConnection)
     {
         logger.entry("getPath(...)");
 
