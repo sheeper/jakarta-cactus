@@ -361,9 +361,10 @@
             dir="${cactus.home.jboss3x}" 
             output="${cactus.reports.dir}/jboss3x.out"
             todir="${cactus.reports.dir}/jboss3x"
-            config="${cactus.jboss3x.config.name}">
-          <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
-            <ant:setProperty name="tmpdir" value="${cactus.tmp.dir}"/>
+            config="${cactus.jboss3x.config.name}"
+            tmpdir="${cactus.jboss3x.tmp.dir}">
+          <j:if test="${context.getVariable('cactus.jboss3x.config.dir') != null}">
+            <ant:setProperty name="configdir" value="${cactus.jboss3x.config.dir}"/>
           </j:if>    
           <j:if test="${context.getVariable('cactus.jboss3x.jndiport') != null}">
             <ant:setProperty name="jndiport" value="${cactus.jboss3x.jndiport}"/>
@@ -594,9 +595,10 @@
             dir="${cactus.home.jboss3x}"
             output="${cactus.reports.dir}/jboss3x.out"
             todir="${cactus.reports.dir}/jboss3x"
-            config="${cactus.jboss3x.config.name}">
-          <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
-            <ant:setProperty name="tmpdir" value="${cactus.tmp.dir}"/>
+            config="${cactus.jboss3x.config.name}"
+            tmpdir="${cactus.jboss3x.tmp.dir}">
+          <j:if test="${context.getVariable('cactus.jboss3x.config.dir') != null}">
+            <ant:setProperty name="configdir" value="${cactus.jboss3x.config.dir}"/>
           </j:if>    
           <j:if test="${context.getVariable('cactus.jboss3x.jndiport') != null}">
             <ant:setProperty name="jndiport" value="${cactus.jboss3x.jndiport}"/>
@@ -764,9 +766,10 @@
             dir="${cactus.home.jboss3x}"
             output="${cactus.reports.dir}/jboss3x.out"
             todir="${cactus.reports.dir}/jboss3x"
-            config="${cactus.jboss3x.config.name}">
-          <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
-            <ant:setProperty name="tmpdir" value="${cactus.tmp.dir}"/>
+            config="${cactus.jboss3x.config.name}"
+            tmpdir="${cactus.jboss3x.tmp.dir}">
+          <j:if test="${context.getVariable('cactus.jboss3x.config.dir') != null}">
+            <ant:setProperty name="configdir" value="${cactus.jboss3x.config.dir}"/>
           </j:if>    
           <j:if test="${context.getVariable('cactus.jboss3x.jndiport') != null}">
             <ant:setProperty name="jndiport" value="${cactus.jboss3x.jndiport}"/>
@@ -994,10 +997,11 @@
             dir="${cactus.home.jboss3x}"
             output="${cactus.reports.dir}/jboss3x.out"
             todir="${cactus.reports.dir}/jboss3x"
-            config="${cactus.jboss3x.config.name}">
-          <j:if test="${context.getVariable('cactus.tmp.dir') != null}">
-            <ant:setProperty name="tmpdir" value="${cactus.tmp.dir}"/>
-          </j:if>
+            config="${cactus.jboss3x.config.name}"
+            tmpdir="${cactus.jboss3x.tmp.dir}">
+          <j:if test="${context.getVariable('cactus.jboss3x.config.dir') != null}">
+            <ant:setProperty name="configdir" value="${cactus.jboss3x.config.dir}"/>
+          </j:if>    
           <j:if test="${context.getVariable('cactus.jboss3x.jndiport') != null}">
             <ant:setProperty name="jndiport" value="${cactus.jboss3x.jndiport}"/>
           </j:if>    

@@ -398,7 +398,9 @@
             <tr>
               <td>config</td>
               <td>
-                The name of the JBoss server configuration to use
+                The name of the JBoss server configuration to use. The 
+                files in this server configuration will be copied to the
+                tmp directory used to start the container.
               </td>
               <td>No, the default is <em>default</em></td>
             </tr>
@@ -422,6 +424,17 @@
                 JNDI port.
               </td>
               <td>No, default is 1099</td>
+            </tr>
+            <tr>
+              <td>tmpdir</td>
+              <td>
+                The directory to which the container will be installed for the
+                tests.
+              </td>
+              <td>
+                No (by default the <code>[JBOSS_HOME]/server/cactus</code> 
+                temporary directory is used)
+              </td>
             </tr>
             <tr>
               <td>output</td>

@@ -8,6 +8,19 @@
   <body>
 
     <release version="1.7dev" date="in CVS">
+      <action dev="vmassol" type="add" issue="CACTUS-119">
+        Added new <code>cactus.jboss3x.config.dir</code> property which allows
+        users to specify the location of a custom JBoss server configuration
+        to use. This configuration, if specified, will be copied by the
+        &lt;cactus&gt; task to <code>cactus.jboss3x.tmp.dir</code>.
+      </action>        
+      <action dev="vmassol" type="add" issue="CACTUS-119">
+        Added new <code>cactus.jboss3x.tmp.dir</code> property which
+        points to where the JBoss server configuration for Cactus will be
+        created. It defaults to 
+        <code>${cactus.home.jboss3x}/server/cactus</code>.
+      </action>        
+      </action>
       <action dev="vmassol" type="add">
         Added new <code>cactus.sysproperties</code> property to the 
         Maven plugin for Cactus to allow passing system properties to

@@ -90,6 +90,16 @@
       </devs>
 
       <release version="1.7dev" date="in CVS">
+        <action dev="VMA" type="add" issue="CACTUS-119">
+          The <code>&lt;jboss3x&gt;</code> container element now supports 
+          running JBoss in a temporary directory, specified by the 
+          <code>tmpdir</code> attribute. In addition, by using the
+          <code>configDir</code> attribute, you can now specify a
+          directory where you have stored a custom JBoss server configuration
+          (identified by the <code>config</code> attribute).
+          This configuration will be copied to the tmp directory and used
+          to configure JBoss.
+        </action>
         <action dev="VMA" type="fix" issue="CACTUS-123" due-to="Maxwell Grender-Jones">
           Cactus was failing with a <code>NullPointerException</code> if the 
           response was not returning any output stream (which happens if 

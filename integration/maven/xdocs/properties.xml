@@ -293,6 +293,28 @@ basedir=${basedir}
           </td>
         </tr>
         <tr>
+          <td>cactus.jboss3x.tmp.dir</td>
+          <td>Yes</td>
+          <td>
+            <p>
+              Default tmp directory where the JBoss server configuration for 
+              Cactus will be created.
+              Default value is <code>${cactus.home.jboss3x}/server/cactus</code>.
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td>cactus.jboss3x.config.dir</td>
+          <td>Yes</td>
+          <td>
+            <p>
+              Location of a custom user-specified server configuration which
+              will be copied to <code>cactus.jboss3x.tmp.dir</code> if 
+              specified. By default this property is not set.
+            </p>
+          </td>
+        </tr>
+        <tr>
           <td>cactus.jboss3x.jndiport</td>
           <td>Yes</td>
           <td>

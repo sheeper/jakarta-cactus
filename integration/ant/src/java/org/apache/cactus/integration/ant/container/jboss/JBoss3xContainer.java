@@ -33,7 +33,9 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.cactus.integration.ant.container.AbstractJavaContainer;
 import org.apache.tools.ant.BuildException;
+import org.apache.tools.ant.taskdefs.Copy;
 import org.apache.tools.ant.taskdefs.Java;
+import org.apache.tools.ant.types.FileSet;
 import org.apache.tools.ant.types.Path;
 import org.apache.tools.ant.util.FileUtils;
 import org.w3c.dom.Document;
@@ -63,6 +65,12 @@ public class JBoss3xContainer extends AbstractJavaContainer
     private String config = "default";
 
     /**
+     * The location of a directory where to find the JBoss server 
+     * configurations.
+     */
+    private File configDir;
+    
+    /**
      * The port to which the container should be bound.
      */
     private int port = 8080;
@@ -82,6 +90,11 @@ public class JBoss3xContainer extends AbstractJavaContainer
      * The context root of the tested application.
      */
     private String testContextRoot;
+
+    /**
+     * The temporary directory from which the container will be started.
+     */
+    private File tmpDir;
     
     // Public Methods ----------------------------------------------------------
 
@@ -107,6 +120,16 @@ public class JBoss3xContainer extends AbstractJavaContainer
         this.config = theConfig;
     }
 
+    /**
+     * Sets the location of the server configuration directory.
+     * 
+     * @param theConfigDir The configuration directory
+     */
+    public final void setConfigDir(File theConfigDir)
+    {
+        this.configDir = theConfigDir;
+    }
+    
     /**
      * Sets the port that will be used to poll the server to verify if
      * it is started. This is needed for the use case where the user
@@ -134,6 +157,16 @@ public class JBoss3xContainer extends AbstractJavaContainer
     public final void setJndiPort(int theJndiPort)
     {
         this.jndiPort = theJndiPort;
+    }
+
+    /**
+     * Sets the temporary directory from which the container is run.
+     * 
+     * @param theTmpDir The temporary directory to set
+     */
+    public final void setTmpDir(File theTmpDir)
+    {
+        this.tmpDir = theTmpDir;
     }
     
     // Container Implementation ------------------------------------------------
@@ -171,7 +204,16 @@ public class JBoss3xContainer extends AbstractJavaContainer
     {
         return this.jndiPort;
     }
-    
+
+    /**
+     * @return The temporary directory from which the container will be 
+     *         started.
+     */
+    protected final File getTmpDir()
+    {
+        return this.tmpDir;
+    }
+
     /**
      * @see AbstractJavaContainer#init()
      */
@@ -207,10 +249,24 @@ public class JBoss3xContainer extends AbstractJavaContainer
     {
         try
         {
-            prepare("cactus/jboss3x");
+            // TODO: It seems JBoss 3.2.x does not support server 
+            // configurations located in directories with spaces in their name.
+            // Thus we define the default tmp dir to default to where default
+            // JBoss server configurations are located. This should be removed
+            // once we find out how to make JBoss work when using the default
+            // tmp dir of System.getProperty("java.io.tmpdir")
+            if (getTmpDir() == null)
+            {
+                setTmpDir(new File(this.dir, "server/cactus"));
+            }            
+            
+            File customServerDir = setupTempDirectory(getTmpDir(), 
+                "cactus/jboss3x");
+            cleanTempDirectory(customServerDir);
+            
+            prepare("cactus/jboss3x", customServerDir);
             
             File binDir = new File(this.dir, "bin");
-            File configDir = new File(this.dir, "server");
             
             Java java = createJavaForStartUp();
             java.setDir(binDir);
@@ -219,11 +275,10 @@ public class JBoss3xContainer extends AbstractJavaContainer
                 createSysProperty("program.name",
                     new File(binDir, "run.bat")));
             java.addSysproperty(
-                createSysProperty("jboss.server.home.dir",
-                    new File(configDir, this.config)));
+                createSysProperty("jboss.server.home.dir", customServerDir));
             java.addSysproperty(
                 createSysProperty("jboss.server.home.url",
-                    new File(configDir, this.config).toURL().toString()));
+                    customServerDir.toURL().toString()));
 
             Path classpath = java.createClasspath();
             classpath.createPathElement().setLocation(
@@ -302,19 +357,41 @@ public class JBoss3xContainer extends AbstractJavaContainer
      * 
      * @param theDirName The name of the temporary container installation
      *        directory
+     * @param theCustomServerDir the directory where the JBoss server 
+     *        configuration is to be deployed
      * @throws IOException If an I/O error occurs
      */
-    private void prepare(String theDirName) throws IOException
+    private void prepare(String theDirName, File theCustomServerDir) 
+        throws IOException
     {
         FileUtils fileUtils = FileUtils.newFileUtils();
 
-        // TODO: Find out how to create a valid default server configuration.
-        // Copying the server directory does not seem to be enough
+        // If the configDir property has not been set, let's default it to
+        // the default JBoss server configuration directory.
+        File computedConfigDir;
+        if (this.configDir == null)
+        {
+            computedConfigDir = new File(this.dir, "server");
+        }
+        else
+        {
+            computedConfigDir = this.configDir;
+        }
+        
+        // Copy the default JBoss server config directory into our custom
+        // server directory.
+        Copy copy = new Copy();
+        copy.setTaskName("cactus");
+        copy.setProject(getProject());
+        copy.setTodir(theCustomServerDir);
+        FileSet srcFiles = new FileSet();
+        srcFiles.setDir(new File(computedConfigDir, this.config));
+        copy.addFileset(srcFiles);
+        copy.execute();
             
-        // deploy the web-app by copying the WAR file into the webapps
+        // Deploy the web-app by copying the WAR file into the webapps
         // directory
-        File configDir = new File(this.dir, "server");
-        File deployDir = new File(configDir, this.config + "/deploy");
+        File deployDir = new File(theCustomServerDir, "/deploy");
         fileUtils.copyFile(getDeployableFile().getFile(),
             new File(deployDir, getDeployableFile().getFile().getName()), 
             null, true);
