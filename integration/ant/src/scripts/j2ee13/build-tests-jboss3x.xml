@@ -41,12 +41,13 @@
 
         <dirname property="antfile.dir" file="${ant.file}"/>
 
-        <java jvm="${cactus.jvm}" classname="org.jboss.Main" fork="yes">
+        <java jvm="${cactus.jvm}" classname="org.jboss.Main" fork="yes"
+          dir="${cactus.home.jboss3x}/bin">
 
             <jvmarg value="-Dprogram.name=${cactus.home.jboss3x}/bin/run.bat"/>
             <jvmarg value="-Djboss.server.home.dir=${cactus.jboss3x.config.dir}/${cactus.jboss3x.config.name}"/>
             <jvmarg value="-Djboss.server.home.url=file:/${cactus.jboss3x.config.dir}/${cactus.jboss3x.config.name}"/>
-            
+             
             <arg line="-c ${cactus.jboss3x.config.name}"/>
             
             <classpath>
