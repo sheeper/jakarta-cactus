@@ -23,7 +23,7 @@
  *    Alternately, this acknowlegement may appear in the software itself,
  *    if and wherever such third-party acknowlegements normally appear.
  *
- * 4. The names "The Jakarta Project", "Ant", and "Apache Software
+ * 4. The names "The Jakarta Project", "Cactus", and "Apache Software
  *    Foundation" must not be used to endorse or promote products derived
  *    from this software without prior written permission. For written
  *    permission, please contact apache@apache.org.
@@ -66,7 +66,7 @@ public class ServletHttpClient extends AbstractHttpClient
     /**
      * Default URL to call the <code>ServletRedirector</code> servlet.
      */
-    protected final static String SERVLET_REDIRECTOR_URL = 
+    protected final static String SERVLET_REDIRECTOR_URL =
         CONFIG.getString("cactus.servletRedirectorURL");
 
     /**

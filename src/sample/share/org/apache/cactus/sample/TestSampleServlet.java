@@ -23,7 +23,7 @@
  *    Alternately, this acknowlegement may appear in the software itself,
  *    if and wherever such third-party acknowlegements normally appear.
  *
- * 4. The names "The Jakarta Project", "Ant", and "Apache Software
+ * 4. The names "The Jakarta Project", "Cactus", and "Apache Software
  *    Foundation" must not be used to endorse or promote products derived
  *    from this software without prior written permission. For written
  *    permission, please contact apache@apache.org.
@@ -128,7 +128,7 @@ public class TestSampleServlet extends ServletTestCase
     {
         String expected = "<html><head/><body>A GET request</body></html>";
         String result = AssertUtils.getResponseAsString(theConnection);
-        assertEquals(expected, result);            
+        assertEquals(expected, result);
     }
 
     //-------------------------------------------------------------------------

@@ -23,7 +23,7 @@
  *    Alternately, this acknowlegement may appear in the software itself,
  *    if and wherever such third-party acknowlegements normally appear.
  *
- * 4. The names "The Jakarta Project", "Ant", and "Apache Software
+ * 4. The names "The Jakarta Project", "Cactus", and "Apache Software
  *    Foundation" must not be used to endorse or promote products derived
  *    from this software without prior written permission. For written
  *    permission, please contact apache@apache.org.
@@ -175,7 +175,7 @@ public abstract class AbstractTestCase extends TestCase
 
                 // Check if method is public
                 if (!Modifier.isPublic(methods[i].getModifiers())) {
-                   fail("Method [" + methods[i].getName() + 
+                   fail("Method [" + methods[i].getName() +
                         "] should be declared public");
                 }
 
@@ -475,7 +475,7 @@ public abstract class AbstractTestCase extends TestCase
 
 		} catch (NoSuchMethodException e) {
             fail("Method [" + this.currentTestMethod +
-                "()] does not exist for class [" + 
+                "()] does not exist for class [" +
                 this.getClass().getName() + "].");
 		}
 		if (runMethod != null && !Modifier.isPublic(runMethod.getModifiers())) {
@@ -496,5 +496,5 @@ public abstract class AbstractTestCase extends TestCase
 
         this.logger.exit("runServerTest");
 	}
-	
+
 }

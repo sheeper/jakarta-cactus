@@ -23,7 +23,7 @@
  *    Alternately, this acknowlegement may appear in the software itself,
  *    if and wherever such third-party acknowlegements normally appear.
  *
- * 4. The names "The Jakarta Project", "Ant", and "Apache Software
+ * 4. The names "The Jakarta Project", "Cactus", and "Apache Software
  *    Foundation" must not be used to endorse or promote products derived
  *    from this software without prior written permission. For written
  *    permission, please contact apache@apache.org.
@@ -100,8 +100,8 @@ public abstract class AbstractTestController
     {
         this.logger.entry("handleRequest(...)");
 
-        // If the Cactus user has forgotten to put a needed jar on the server 
-        // classpath (i.e. in WEB-INF/lib), then the servlet engine Webapp 
+        // If the Cactus user has forgotten to put a needed jar on the server
+        // classpath (i.e. in WEB-INF/lib), then the servlet engine Webapp
         // class loader will throw a NoClassDefFoundError exception. As this
         // method is the entry point of the webapp, we'll catch all
         // NoClassDefFoundError exceptions and report a nice error message
@@ -124,9 +124,9 @@ public abstract class AbstractTestController
             // Is it the get test results service ?
             } else if (ServiceEnumeration.GET_RESULTS_SERVICE.
                 equals(serviceName)) {
-    
+
                 caller.doGetResults();
-    
+
             } else {
                 String message = "Unknown service [" + serviceName +
                     "] in HTTP request.";
