@@ -248,6 +248,68 @@ public abstract class AbstractTestCase extends TestCase
     }
 
     /**
+     * Call the test case begin method.
+     *
+     * @param theRequest the request object to pass to the begin method.
+     * @exception Throwable any error that occurred when calling the begin
+     *            method for the current test case.
+     */
+    protected void callBeginMethod(Request theRequest) throws Throwable
+    {
+        // First, verify if a begin method exist. If one is found, verify if
+        // it has the correct signature. If not, send a warning.
+        Method[] methods = getClass().getMethods();
+        for (int i = 0; i < methods.length; i++) {
+            if (methods[i].getName().equals(getBeginMethodName())) {
+
+                // Check return type
+                if (!methods[i].getReturnType().getName().equals("void")) {
+                    fail("The begin method [" + methods[i].getName() +
+                        "] should return void and not [" +
+                        methods[i].getReturnType().getName() + "]");
+                }
+
+                // Check if method is public
+                if (!Modifier.isPublic(methods[i].getModifiers())) {
+                    fail("Method [" + methods[i].getName() +
+                        "] should be declared public");
+                }
+
+                // Check parameters
+                Class[] parameters = methods[i].getParameterTypes();
+                if (parameters.length != 1) {
+
+                    fail("The begin method [" + methods[i].getName() +
+                        "] must accept a single parameter derived from " +
+                        "class [" + WebRequest.class.getName() + "], " +
+                        "but " + parameters.length + " parameters were found");
+
+                } else if (!theRequest.getClass().isAssignableFrom(
+                    parameters[0])) {
+
+                    fail("The begin method [" + methods[i].getName() +
+                        "] must accept a single parameter derived from " +
+                        "class [" + theRequest.getClass().getName() + "], " +
+                        "but found a [" + parameters[0].getName() + "] " +
+                        "parameter instead");
+                }
+
+                try {
+                    methods[i].invoke(this, new Object[]{theRequest});
+                    break;
+                } catch (InvocationTargetException e) {
+                    e.fillInStackTrace();
+                    throw e.getTargetException();
+                } catch (IllegalAccessException e) {
+                    e.fillInStackTrace();
+                    throw e;
+                }
+
+            }
+        }
+    }
+
+    /**
      * Run the test that was specified in the constructor on the server side.
      *
      * @exception Throwable any error that occurred when calling the test method
