@@ -63,21 +63,23 @@ import javax.servlet.http.*;
  * <code>forward()</code> and <code>include</code> methods to use the original
  * HTTP request object instead of the simulated one used by Cactus.
  *
- * @version @version@
+ * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
+ *
+ * @version $Id$
  */
 public class RequestDispatcherWrapper implements RequestDispatcher
 {
     /**
      * The original request dispatcher object
      */
-     private RequestDispatcher m_OriginalDispatcher;
+     private RequestDispatcher originalDispatcher;
 
     /**
      * @param theOriginalDispatcher the original request dispatcher object
      */
     public RequestDispatcherWrapper(RequestDispatcher theOriginalDispatcher)
     {
-        m_OriginalDispatcher = theOriginalDispatcher;
+        this.originalDispatcher = theOriginalDispatcher;
     }
 
     /**
@@ -88,10 +90,13 @@ public class RequestDispatcherWrapper implements RequestDispatcher
      * @param theRequest the simulation HTTP request
      * @param theResponse the original HTTP response
      */
-    public void forward(ServletRequest theRequest, ServletResponse theResponse) throws IOException, ServletException
+    public void forward(ServletRequest theRequest, ServletResponse theResponse)
+        throws IOException, ServletException
     {
-        HttpServletRequestWrapper request = (HttpServletRequestWrapper)theRequest;
-        m_OriginalDispatcher.forward(request.getOriginalRequest(), theResponse);
+        HttpServletRequestWrapper request =
+            (HttpServletRequestWrapper)theRequest;
+        this.originalDispatcher.forward(request.getOriginalRequest(),
+            theResponse);
     }
 
     /**
@@ -102,10 +107,13 @@ public class RequestDispatcherWrapper implements RequestDispatcher
      * @param theRequest the simulation HTTP request
      * @param theResponse the original HTTP response
      */
-    public void include(ServletRequest theRequest, ServletResponse theResponse) throws IOException, ServletException
+    public void include(ServletRequest theRequest, ServletResponse theResponse)
+        throws IOException, ServletException
     {
-        HttpServletRequestWrapper request = (HttpServletRequestWrapper)theRequest;
-        m_OriginalDispatcher.include(request.getOriginalRequest(), theResponse);
+        HttpServletRequestWrapper request =
+            (HttpServletRequestWrapper)theRequest;
+        this.originalDispatcher.include(request.getOriginalRequest(),
+            theResponse);
     }
 
 }

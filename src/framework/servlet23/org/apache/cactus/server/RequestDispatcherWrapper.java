@@ -90,10 +90,13 @@ public class RequestDispatcherWrapper implements RequestDispatcher
      * @param theRequest the simulation HTTP request
      * @param theResponse the original HTTP response
      */
-    public void forward(ServletRequest theRequest, ServletResponse theResponse) throws IOException, ServletException
+    public void forward(ServletRequest theRequest, ServletResponse theResponse)
+        throws IOException, ServletException
     {
-        HttpServletRequestWrapper request = (HttpServletRequestWrapper)theRequest;
-        this.originalDispatcher.forward(request.getOriginalRequest(), theResponse);
+        HttpServletRequestWrapper request =
+            (HttpServletRequestWrapper)theRequest;
+        this.originalDispatcher.forward(request.getOriginalRequest(),
+            theResponse);
     }
 
     /**
@@ -104,10 +107,13 @@ public class RequestDispatcherWrapper implements RequestDispatcher
      * @param theRequest the simulation HTTP request
      * @param theResponse the original HTTP response
      */
-    public void include(ServletRequest theRequest, ServletResponse theResponse) throws IOException, ServletException
+    public void include(ServletRequest theRequest, ServletResponse theResponse)
+        throws IOException, ServletException
     {
-        HttpServletRequestWrapper request = (HttpServletRequestWrapper)theRequest;
-        this.originalDispatcher.include(request.getOriginalRequest(), theResponse);
+        HttpServletRequestWrapper request =
+            (HttpServletRequestWrapper)theRequest;
+        this.originalDispatcher.include(request.getOriginalRequest(),
+            theResponse);
     }
 
 }

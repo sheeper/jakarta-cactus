@@ -66,7 +66,9 @@ import javax.servlet.http.*;
  * <code>getRequestDispatcher()</code> method to return our own wrapper around
  * <code>RequestDispatcher</code>.
  *
- * @version @version@
+ * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
+ *
+ * @version $Id$
  * @see RequestDispatcherWrapper
  */
 public class ServletContextWrapper implements ServletContext
@@ -74,29 +76,29 @@ public class ServletContextWrapper implements ServletContext
     /**
      * The original servlet context object
      */
-    private ServletContext m_OriginalContext;
+    private ServletContext originalContext;
 
     /**
      * @param theOriginalContext the original servlet context object
      */
     public ServletContextWrapper(ServletContext theOriginalContext)
     {
-        m_OriginalContext = theOriginalContext;
+        this.originalContext = theOriginalContext;
     }
 
     public String getMimeType(String theFilename)
     {
-        return m_OriginalContext.getMimeType(theFilename);
+        return this.originalContext.getMimeType(theFilename);
     }
 
     public URL getResource(String thePath) throws MalformedURLException
     {
-        return m_OriginalContext.getResource(thePath);
+        return this.originalContext.getResource(thePath);
     }
 
     public InputStream getResourceAsStream(String thePath)
     {
-        return m_OriginalContext.getResourceAsStream(thePath);
+        return this.originalContext.getResourceAsStream(thePath);
     }
 
     /**
@@ -105,20 +107,20 @@ public class ServletContextWrapper implements ServletContext
     public RequestDispatcher getRequestDispatcher(String thePath)
     {
         RequestDispatcher dispatcher = new RequestDispatcherWrapper(
-            m_OriginalContext.getRequestDispatcher(thePath));
+            this.originalContext.getRequestDispatcher(thePath));
         return dispatcher;
     }
 
     public RequestDispatcher getNamedDispatcher(String theName)
     {
         RequestDispatcher dispatcher = new RequestDispatcherWrapper(
-            m_OriginalContext.getNamedDispatcher(theName));
+            this.originalContext.getNamedDispatcher(theName));
         return dispatcher;
     }
 
     public String getRealPath(String thePath)
     {
-        return m_OriginalContext.getRealPath(thePath);
+        return this.originalContext.getRealPath(thePath);
     }
 
     /**
@@ -127,85 +129,85 @@ public class ServletContextWrapper implements ServletContext
     public ServletContext getContext(String theUripath)
     {
         ServletContext context = new ServletContextWrapper(
-            m_OriginalContext.getContext(theUripath));
+            this.originalContext.getContext(theUripath));
         return context;
     }
 
     public String getServerInfo()
     {
-        return m_OriginalContext.getServerInfo();
+        return this.originalContext.getServerInfo();
     }
 
     public String getInitParameter(String theName)
     {
-        return m_OriginalContext.getInitParameter(theName);
+        return this.originalContext.getInitParameter(theName);
     }
 
     public Enumeration getInitParameterNames()
     {
-        return m_OriginalContext.getInitParameterNames();
+        return this.originalContext.getInitParameterNames();
     }
 
     public Object getAttribute(String theName)
     {
-        return m_OriginalContext.getAttribute(theName);
+        return this.originalContext.getAttribute(theName);
     }
 
     public Enumeration getAttributeNames()
     {
-        return m_OriginalContext.getAttributeNames();
+        return this.originalContext.getAttributeNames();
     }
 
     public void setAttribute(String theName, Object theAttribute)
     {
-        m_OriginalContext.setAttribute(theName, theAttribute);
+        this.originalContext.setAttribute(theName, theAttribute);
     }
 
     public void removeAttribute(String theName)
     {
-        m_OriginalContext.removeAttribute(theName);
+        this.originalContext.removeAttribute(theName);
     }
 
     public int getMajorVersion()
     {
-        return m_OriginalContext.getMajorVersion();
+        return this.originalContext.getMajorVersion();
     }
 
     public int getMinorVersion()
     {
-        return m_OriginalContext.getMinorVersion();
+        return this.originalContext.getMinorVersion();
     }
 
     public void log(String theMessage)
     {
-        m_OriginalContext.log(theMessage);
+        this.originalContext.log(theMessage);
     }
 
     public void log(String theMessage, Throwable theCause)
     {
-        m_OriginalContext.log(theMessage, theCause);
+        this.originalContext.log(theMessage, theCause);
     }
 
     // deprecated methods
 
     public Servlet getServlet(String theName) throws ServletException
     {
-        return m_OriginalContext.getServlet(theName);
+        return this.originalContext.getServlet(theName);
     }
 
     public Enumeration getServlets()
     {
-        return m_OriginalContext.getServlets();
+        return this.originalContext.getServlets();
     }
 
     public Enumeration getServletNames()
     {
-        return m_OriginalContext.getServletNames();
+        return this.originalContext.getServletNames();
     }
 
     public void log(Exception theException, String theMessage)
     {
-        m_OriginalContext.log(theException, theMessage);
+        this.originalContext.log(theException, theMessage);
     }
 
 }
