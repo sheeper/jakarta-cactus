@@ -71,6 +71,7 @@ import org.apache.cactus.eclipse.webapp.WarBuilder;
 import org.eclipse.core.boot.BootLoader;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.debug.core.DebugPlugin;
 import org.eclipse.debug.core.ILaunchConfigurationType;
@@ -333,42 +334,19 @@ public class AntContainerManager implements IContainerManager
     public void prepare(final IJavaProject theJavaProject)
     {
         this.prepared = false;
-        final IRunnableWithProgress runnable = new IRunnableWithProgress()
-        {
-            public void run(IProgressMonitor thePM) throws InterruptedException
-            {
-                try
-                {
-                    CactusPlugin.log("Preparing cactus tests");
-                    prepareCactusTests(theJavaProject, thePM, provider);
-                }
-                catch (CoreException e)
-                {
-                    throw new InterruptedException(e.getMessage());
-                }
-            }
-        };
-        Display.getDefault().asyncExec(new Runnable()
+        CactusPlugin.log("Preparing cactus tests");
+        new Thread(new Runnable()
         {
             public void run()
             {
                 try
                 {
-                    ProgressMonitorDialog dialog =
-                        new ProgressMonitorDialog(getShell());
-                    dialog.run(true, true, runnable);
+                    prepareCactusTests(
+                        theJavaProject,
+                        new NullProgressMonitor(),
+                        provider);
                 }
-                catch (InvocationTargetException e)
-                {
-                    CactusPlugin.displayErrorMessage(
-                        CactusMessages.getString(
-                            "CactusLaunch.message.prepare.error"),
-                        e.getTargetException().getMessage(),
-                        null);
-                    cancelPreparation(provider);
-                    return;
-                }
-                catch (InterruptedException e)
+                catch (CoreException e)
                 {
                     CactusPlugin.displayErrorMessage(
                         CactusMessages.getString(
@@ -379,7 +357,7 @@ public class AntContainerManager implements IContainerManager
                     return;
                 }
             }
-        });
+        }).start();
         while (!prepared)
         {
             try
