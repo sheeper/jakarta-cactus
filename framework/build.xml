@@ -409,8 +409,39 @@
 
         <echo message="Errors are reported in ${target.dir}/checkstyle_errors.xml"/>
 
-        <checkstyle paramPattern="^(the|is|has)[A-Z][a-zA-Z0-9]*$"
-            allowProtected="true" headerFile="LICENSE.cactus">
+        <checkstyle
+            lcurlyType="nl"
+            lcurlyMethod="nl"
+            lcurlyOther="eol"
+            rcurly="same"
+            allowTabs="false"
+            allowProtected="true"
+            allowPackage="false"
+            allowNoAuthor="false"
+            maxLineLen="80"
+            ignoreLineLengthPattern="(@version.*\$Id|@see)"
+            ignoreImportLen="true"
+            maxMethodLen="100"
+            maxConstructorLen="100"
+            maxFileLen="2000"
+            memberPattern="^[a-z][a-zA-Z0-9]*$"
+            publicMemberPattern="^[a-z][a-zA-Z0-9]*$"
+            paramPattern="^(the|is|has)[A-Z][a-zA-Z0-9]*$"
+            constPattern="^[A-Z]([A-Z0-9_]*[A-Z0-9])?$"
+            staticPattern="^[a-z][a-zA-Z0-9]*$"
+            typePattern="^[A-Z][a-zA-Z0-9]*$"
+            methodPattern="^[a-z][a-zA-Z0-9]*$"
+            localVarPattern="^[a-z][a-zA-Z0-9]*$"
+            headerFile="./LICENSE.cactus"
+            headerLinesRegexp="false"
+            javadocScope="private"
+            requirePackageHtml="false"
+            ignoreImports="false"
+            ignoreWhitespace="false"
+            ignoreCastWhitespace="false"
+            ignoreBraces="false"
+            failOnViolation="false"
+            cacheFile="${target.dir}/checkstyle.cache">
 
             <fileset dir="${src.java.dir}">
                 <include name="**/*.java"/>
