@@ -47,7 +47,7 @@ standard.jar = ${lib.repo}/taglibs/jars/standard-1.0.2.jar
 #       comment it's home property. For example, if you don't want to run the
 #       tests on the Resin 2.x, comment the "cactus.home.resin2x" property.
 
-#cactus.home.resin2x = c:/Apps/resin-2.1.6
+#cactus.home.resin2x = c:/Apps/resin-2.1.10
 #cactus.home.tomcat3x = c:/Apps/jakarta-tomcat-3.3.1
 #cactus.home.tomcat4x = c:/Apps/jakarta-tomcat-4.1.24
 #cactus.home.tomcat5x = c:/Apps/jakarta-tomcat-5.0.3
