@@ -69,28 +69,12 @@
     </category>
 
     <category title="Design/Code">
-      <action assigned-to="Hudson Wong, Vincent Massol">
-        Add an EJB sample application to demonstrate how to perform EJB
-        unit testing.
+      <action assigned-to="Vincent Massol">
+        In the Ant Integration, support merging of user web.xml with Cactus
+        provided web.xml.
       </action>
     </category>
-
-    <category title="Eclipse Plugin">
-      <action>
-        Fix bug that prevents the plugin from working with Eclipse M5 (has to
-        do with starting more than one AntRunner simultaneously).
-      </action>
-      <action>
-        Add client jars in the user's project classpath (popup menu to Cactify the project)
-      </action>
-      <action>
-        Add a log view a la Ant plugin
-      </action>
-      <action>
-        Add a few screenshots of the plugin to the user's doc
-      </action>
-    </category>
-
+    
   </version>
 
   <version title="Undefined">
@@ -115,6 +99,10 @@
     </category>
     
     <category title="Design/Code">
+      <action assigned-to="Hudson Wong, Vincent Massol">
+        Add an EJB sample application to demonstrate how to perform EJB
+        unit testing.
+      </action>
       <action assigned-to="Jason Robertson, Vincent Massol">
         Add test case for form-based authentication.
       </action>
@@ -155,6 +143,10 @@
         Servlet/JSP/Filter Redirector, which is fine for certain tests but not
         needed for others.
       </action>
+      <action assigned-to="Vincent Massol">
+        In the Ant Integration, add support for EARs (used for EJB unit 
+        testing).
+      </action>
     </category>
 
     <category title="Ideas">
@@ -162,7 +154,7 @@
         Ideas to explore ...
       </p>
       <action>
-      	Bundling of JUnitEE.
+      	Potential bundling of JUnitEE.
       </action>
       <action>
         Add performance extensions to be able to test each single method in
@@ -206,6 +198,18 @@
         Ability to leave the server running after the test is
         finished so that we don't need to start it again for the next
         test (needs hot redeploy)
+      </action>
+      <action>
+        Add client jars in the user's project classpath (popup menu to Cactify the project)
+      </action>
+      <action>
+        Add a log view a la Ant plugin
+      </action>
+      <action>
+        Separate the war creation in a war plugin
+      </action>
+      <action>
+        Separate the container start/stop/deploy feature in a separate plugin
       </action>
     </category>
     
