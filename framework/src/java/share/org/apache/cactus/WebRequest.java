@@ -327,7 +327,7 @@ public class WebRequest extends BaseWebRequest
 
         Cookie cookie = response.getCookieIgnoreCase("jsessionid");
 
-        // FIXME: Add a constructor to the Cookie class that takes a Cookie
+        // TODO: Add a constructor to the Cookie class that takes a Cookie
         // as parameter.
 
         HttpSessionCookie sessionCookie = null;
