@@ -245,7 +245,7 @@ public class ServletTestRunner extends HttpServlet
      * @return the result object
      * @exception ServletException if the suite failed to be loaded
      */
-    public String run(String theSuiteClassName, String theXslFileName)
+    protected String run(String theSuiteClassName, String theXslFileName)
         throws ServletException
     {
         TestResult result = new TestResult();
