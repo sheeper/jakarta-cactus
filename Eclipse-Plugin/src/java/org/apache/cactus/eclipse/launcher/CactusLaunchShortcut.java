@@ -112,10 +112,13 @@ public class CactusLaunchShortcut
     }
 
     /**
-     * launches a Java type from the Object array.
+     * Launches a Java type from the Object array.
      * If many test items exist in the array, we call chooseType
-     * to select the type to launch.
-     * Otherwise we launch the type to test.
+     * to select the type to launch. In all cases we prepare and launch
+     * the type to test : we prepare for testing (war creation, container
+     * setup), then we register the current CactusLaunchShortcut instance to
+     * the JUnit plugin as a listener to test events. Finally we run the JUnit
+     * method for tests launch.
      * @param theSearch array of possible types to launch
      * @param theMode mode for the configuration
      */
@@ -163,41 +166,17 @@ public class CactusLaunchShortcut
         }
         if (type != null)
         {
-            launch(type, theMode);
+			prepareCactusTests(type);
+			JUnitPlugin.getDefault().addTestRunListener(this);
+            super.launchType(theSearch, theMode);
         }
     }
 
     /**
-     * Launches the Cactus tests for the given type and mode.
-     * We prepare for testing (war creation, container setup)
-     * Then we launch the JUnit testing
-     * Finally we launch the JUnitViewFinder which adds the current
-     * CactusLaunchShortcut instance as a listener to test ending.
+
      * @param theType test or test suite to launch
      * @param theMode mode for launch configuration
      */
-    private void launch(IType theType, String theMode)
-    {
-        prepareCactusTests(theType);
-        ILaunchConfiguration config = findLaunchConfiguration(theType, theMode);
-        JUnitPlugin.getDefault().addTestRunListener(this);
-        if (config != null)
-        {
-            try
-            {
-                config.launch(theMode, null);
-            }
-            catch (CoreException e)
-            {
-                CactusPlugin.displayErrorMessage(
-                    CactusMessages.getString(
-                        "LaunchTestAction.message.launchFailed"),
-                    e.getMessage(),
-                    e.getStatus());
-            }
-            
-        }
-    }
 
     /**
      * creates the war file, deploys and launches the container.
