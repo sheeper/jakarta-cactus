@@ -367,7 +367,14 @@ public class TestSampleServlet extends ServletTestCase
 
         assert("Cannot find [responsecookie]", cookie != null);
         assertEquals("responsecookie", cookie.getName());
-        assertEquals("this is a response cookie", cookie.getValue());
+
+        // Some servers may encode the cookie value (ex: the latest
+        // version of Tomcat 4.0). In order for this test to succeed on
+        // all servlet engine, we URL decode the cookie value before
+        // comparing it.
+        assertEquals("this is a response cookie",
+            URLDecoder.decode(cookie.getValue()));
+
         assertEquals("jakarta.apache.org", cookie.getDomain());
     }
 
