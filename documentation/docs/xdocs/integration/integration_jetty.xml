@@ -30,7 +30,6 @@
         TestSetup class provided by Cactus so that Jetty is started before the 
         tests are run.
       </p>
-      
       <p>
         In order to use the TestSetup, you need to wrap your test suite in 
         <code>JettyTestSetup</code>:
@@ -50,28 +49,33 @@ public class TestJettyAll extends TestCase
 ]]></source>
       
       <p>
-        You can also define some System properties (they are optional) to 
-        control the Jetty TestSetup behavior:
-      </p>      
+        You can configure the Jetty TestSetup either programatically or
+        with system properties:
+      </p>
       <ul>
         <li>
-          <code>cactus.jetty.config</code> (optional), value :
-          location of a jetty.xml file (see Jetty's documentation
-          for details)
+          The method <code>setConfigFile(File)</code> or the system property
+          <code>cactus.jetty.config</code> sets the location of an optional
+          jetty.xml file (see Jetty's documentation for details).
         </li>
         <li>
-          <code>cactus.jetty.resourceDir</code> (optional), value :
-          location of a webapp directory (expanded war)
+          The method <code>setResourceDir(File)</code> or the system property
+          <code>cactus.jetty.resourceDir</code> sets the directory containing
+          the web-application resources (expanded WAR). If you omit this step,
+          you'll only be able to use the Servlet Redirector.
         </li>
       </ul>
-
+      <p>
+        In both cases, the value set programatically takes precendence over the
+        value of the corresponding system property.
+      </p>
       <note>
         If you're using JSPs you'll need to add the Jasper jars to your 
         runtime Classpath (in addition to the Jetty jar).
       </note>      
 
-      <section title="Case 1: running from Ant">
-	
+      <section title="Example 1: Running from Ant">
+
         <p>
           Let's assume we have a JUnit task that launches the tests.
           We need to add the Jetty jar and optionally the Jasper jars
@@ -100,23 +104,22 @@ public class TestJettyAll extends TestCase
 
 </junit>
 ]]></source>
-	    
+
       </section>
-	    
-      <section title="Case 2: running from an IDE">
-		
+
+      <section title="Example 2: Running from an IDE">
+
         <p>
           Again all you have to do is add the correct VM arguments, and the
           Jetty and Jasper jars, to the JUnit launch.
         </p>
-		    
         <p>
           For example in Eclipse you would add the jars, and create a JUnit
           launch configuration as below:
         </p>
         <figure src="images/jetty_eclipse.png"
-          alt="Eclipse configuration for Jetty"/>          
-		
+            alt="Eclipse configuration for Jetty"/>
+
       </section>
 
     </section>
