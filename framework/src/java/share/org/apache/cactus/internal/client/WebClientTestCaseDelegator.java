@@ -54,7 +54,7 @@
  * <http://www.apache.org/>.
  *
  */
-package org.apache.cactus;
+package org.apache.cactus.internal.client;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -64,51 +64,35 @@ import java.net.HttpURLConnection;
 
 import junit.framework.Test;
 
+import org.apache.cactus.RequestDirectives;
+import org.apache.cactus.WebRequest;
 import org.apache.cactus.client.ClientException;
 import org.apache.cactus.client.WebResponseObjectFactory;
+import org.apache.cactus.client.connector.http.DefaultHttpClient;
+import org.apache.cactus.configuration.Configuration;
+import org.apache.cactus.configuration.WebConfiguration;
 
 /**
- * Abstract Test Case for Test Cases using the HTTP protocol. It extends
- * {@link AbstractClientTestCase} and adds support for end methods (as
- * they are dependent on the protocol used, which is HTTP here).
+ * Delegator extension to support test cases using the HTTP protocol. It adds 
+ * support for end methods (as they are dependent on the protocol used, which 
+ * is HTTP here).
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
  */
-public abstract class AbstractWebClientTestCase extends AbstractClientTestCase
+public class WebClientTestCaseDelegator extends ClientTestCaseDelegator
 {
     /**
-     * Default constructor defined in order to allow creating Test Case
-     * without needing to define constructor (new feature in JUnit 3.8.1).
-     * Should only be used with JUnit 3.8.1 or greater. 
-     * 
-     * @since 1.5 
+     * @param theDelegatedTest the test we are delegating for
+     * @param theWrappedTest the test being wrapped by this delegator (or null 
+     *        if none)
+     * @param theConfiguration the configuration to use 
      */
-    public AbstractWebClientTestCase()
+    public WebClientTestCaseDelegator(Test theDelegatedTest, 
+        Test theWrappedTest, Configuration theConfiguration)
     {
-    }
-
-    /**
-     * Constructs a JUnit test case with the given name.
-     *
-     * @param theName the name of the test case
-     */
-    public AbstractWebClientTestCase(String theName)
-    {
-        super(theName);
-    }
-
-    /**
-     * Wraps a standard JUnit Test Case in a Cactus Test Case.
-     *  
-     * @param theName the name of the test
-     * @param theTest the Test Case class to wrap
-     * @since 1.5
-     */
-    public AbstractWebClientTestCase(String theName, Test theTest)
-    {
-        super(theName, theTest);
+        super(theDelegatedTest, theWrappedTest, theConfiguration);
     }
 
     /**
@@ -253,11 +237,102 @@ public abstract class AbstractWebClientTestCase extends AbstractClientTestCase
      * @exception Throwable any error that occurred when calling the end method
      *         for the current test case.
      */
-    protected Object callEndMethod(WebRequest theRequest, 
+    public Object callEndMethod(WebRequest theRequest, 
         HttpURLConnection theConnection) throws Throwable
     {
         return callGenericEndMethod(theRequest, theConnection, 
             getEndMethodName(), null);
     }
 
+    /**
+     * Runs a test case. This method is overriden from the JUnit
+     * <code>TestCase</code> class in order to seamlessly call the
+     * Cactus redirection servlet.
+     *
+     * @exception Throwable if any error happens during the execution of
+     *            the test
+     */
+    public void runTest() throws Throwable
+    {
+        runGenericTest(new DefaultHttpClient(
+            (WebConfiguration) getConfiguration()));        
+    }
+
+    /**
+     * Execute the test case begin method, then connect to the server proxy
+     * redirector (where the test case test method is executed) and then
+     * executes the test case end method.
+     *
+     * @param theHttpClient the HTTP client class to use to connect to the
+     *        proxy redirector.
+     * @exception Throwable any error that occurred when calling the test method
+     *            for the current test case.
+     */
+    protected void runGenericTest(DefaultHttpClient theHttpClient)
+        throws Throwable
+    {
+        WebRequest request = new WebRequest(
+            (WebConfiguration) getConfiguration());
+
+        // Call the set up and begin methods to fill the request object
+        callClientGlobalBegin(request);
+        callBeginMethod(request);
+
+        // Run the web test
+        HttpURLConnection connection = runWebTest(request, theHttpClient);
+
+        // Call the end method
+        Object response = callEndMethod(request, connection);
+
+        // call the tear down method
+        callClientGlobalEnd(request, connection, response);
+
+        // Close the input stream (just in the case the user has not done it
+        // in it's endXXX method (or if he has no endXXX method) ....
+        connection.getInputStream().close();
+    }
+
+    /**
+     * Run the web test by connecting to the server proxy
+     * redirector (where the test case test method is executed).
+     *
+     * @param theRequest the request object which will contain data that will
+     *        be used to connect to the Cactus server side redirectors.
+     * @param theHttpClient the HTTP client class to use to connect to the
+     *        proxy redirector.
+     * @return the HTTP connection object that was used to call the server side
+     * @exception Throwable any error that occurred when calling the test method
+     *            for the current test case.
+     */
+    private HttpURLConnection runWebTest(
+        WebRequest theRequest,
+        DefaultHttpClient theHttpClient)
+        throws Throwable
+    {
+        // Add the class name, the method name, to the request to simulate and
+        // automatic session creation flag to the request
+        RequestDirectives directives = new RequestDirectives(theRequest);
+        directives.setClassName(getDelegatedTest().getClass().getName());
+        directives.setMethodName(getCurrentTestName());
+        directives.setAutoSession(
+            theRequest.getAutomaticSession() ? "true" : "false");
+
+        // Add the wrapped test if it is not equal to our current instance
+        if (isWrappingATest())
+        {
+              directives.setWrappedTestName(getWrappedTestName());
+        }
+        // Add the simulated URL (if one has been defined)
+        if (theRequest.getURL() != null)
+        {
+            theRequest.getURL().saveToRequest(theRequest);
+        }
+
+        // Open the HTTP connection to the servlet redirector
+        // and manage errors that could be returned in the
+        // HTTP response.
+        HttpURLConnection connection = theHttpClient.doTest(theRequest);
+
+        return connection;
+    }
 }

@@ -59,8 +59,8 @@ package org.apache.cactus.sample.unit;
 import org.apache.cactus.ServletTestCase;
 import org.apache.cactus.WebRequest;
 import org.apache.cactus.WebResponse;
-import org.apache.cactus.client.connector.http.DefaultHttpClient;
-import org.apache.cactus.configuration.WebConfiguration;
+import org.apache.cactus.configuration.ServletConfiguration;
+import org.apache.cactus.internal.client.WebClientTestCaseDelegator;
 
 /**
  * Test global client side <code>begin()</code> and <code>end()</code> 
@@ -84,8 +84,11 @@ public class TestGlobalBeginEnd extends ServletTestCase
      */
     protected void runTest() throws Throwable
     {
-        runGenericTest(new DefaultHttpClient(
-            (WebConfiguration) getConfiguration()));
+        WebClientTestCaseDelegator delegator = 
+            new WebClientTestCaseDelegator(this, this, 
+            new ServletConfiguration());
+
+        delegator.runTest();        
 
         if (!this.isClientGlobalEndCalled)
         {

@@ -66,11 +66,11 @@ import javax.servlet.ServletException;
 import junit.framework.Test;
 import junit.framework.TestCase;
 
-import org.apache.cactus.AbstractWebServerTestCase;
 import org.apache.cactus.HttpServiceDefinition;
 import org.apache.cactus.ServiceEnumeration;
 import org.apache.cactus.WebTestResult;
 import org.apache.cactus.configuration.Version;
+import org.apache.cactus.internal.server.ServerTestCaseWrapper;
 import org.apache.cactus.util.ClassLoaderUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -122,8 +122,8 @@ public abstract class AbstractWebTestCaller
      * @exception Exception if an errors occurs when setting the implicit
      *            objects
      */
-    protected abstract void setTestCaseFields(
-        AbstractWebServerTestCase theTestCase) throws Exception;
+    protected abstract void setTestCaseFields(TestCase theTestCase) 
+        throws Exception;
 
     /**
      * @return a <code>Writer</code> object that will be used to return the
@@ -146,15 +146,20 @@ public abstract class AbstractWebTestCaller
         try
         {
             // Create an instance of the test class
-            AbstractWebServerTestCase testInstance = getTestClassInstance(
+            TestCase testInstance = getTestClassInstance(
                 getTestClassName(), getWrappedTestClassName(), 
                 getTestMethodName());
 
             // Set its fields (implicit objects)
             setTestCaseFields(testInstance);
 
+            // Wrap it in a server test case that will call all setUp(),
+            // testXXX() and tearDown() methods. 
+            ServerTestCaseWrapper wrappedTestInstance =
+                new ServerTestCaseWrapper(testInstance);
+
             // Call it's method corresponding to the current test case
-            testInstance.runBareServerTest();
+            wrappedTestInstance.runBareServerTest();
 
             // Return an instance of <code>WebTestResult</code> with a
             // positive result.
@@ -394,13 +399,13 @@ public abstract class AbstractWebTestCaller
      *            test fails to be instanciated (for example if some
      *            information is missing from the HTTP request)
      */
-    protected AbstractWebServerTestCase getTestClassInstance(
+    protected TestCase getTestClassInstance(
         String theClassName, String theWrappedClassName, 
         String theTestCaseName) throws ServletException
     {
         // Get the class to call and build an instance of it.
         Class testClass = getTestClassClass(theClassName);
-        AbstractWebServerTestCase testInstance = null;
+        TestCase testInstance = null;
         Constructor constructor;
         
         try
@@ -411,15 +416,13 @@ public abstract class AbstractWebTestCaller
 
                 if (constructor.getParameterTypes().length == 0)
                 {
-                    testInstance = 
-                        (AbstractWebServerTestCase) constructor.newInstance(
+                    testInstance = (TestCase) constructor.newInstance(
                         new Object[0]);
                     ((TestCase) testInstance).setName(theTestCaseName);
                 }
                 else
                 {
-                    testInstance = 
-                        (AbstractWebServerTestCase) constructor.newInstance(
+                    testInstance = (TestCase) constructor.newInstance(
                         new Object[] {theTestCaseName});                
                 }
             }
@@ -447,8 +450,7 @@ public abstract class AbstractWebTestCaller
                 constructor = testClass.getConstructor(
                     new Class[] {String.class, Test.class});
 
-                testInstance = 
-                    (AbstractWebServerTestCase) constructor.newInstance(
+                testInstance = (TestCase) constructor.newInstance(
                     new Object[] {theTestCaseName, wrappedTestInstance});
             }
         }

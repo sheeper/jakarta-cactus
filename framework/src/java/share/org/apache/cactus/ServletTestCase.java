@@ -60,9 +60,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import junit.framework.Test;
+import junit.framework.TestCase;
 
-import org.apache.cactus.configuration.Configuration;
 import org.apache.cactus.configuration.ServletConfiguration;
+import org.apache.cactus.internal.client.WebClientTestCaseDelegator;
 import org.apache.cactus.server.ServletConfigWrapper;
 
 /**
@@ -74,7 +75,7 @@ import org.apache.cactus.server.ServletConfigWrapper;
  *
  * @version $Id$
  */
-public class ServletTestCase extends AbstractWebServerTestCase
+public class ServletTestCase extends TestCase
 {
     /**
      * Valid <code>HttpServletRequest</code> object that you can access from
@@ -113,6 +114,13 @@ public class ServletTestCase extends AbstractWebServerTestCase
     public ServletConfigWrapper config;
 
     /**
+     * Delegator that provides all Cactus related test case logic. We are using
+     * a delegator in order to hide non public API to the users and thus to be 
+     * able to easily change the implementation.
+     */
+    private WebClientTestCaseDelegator delegator;
+
+    /**
      * Default constructor defined in order to allow creating Test Case
      * without needing to define constructor (new feature in JUnit 3.8.1).
      * Should only be used with JUnit 3.8.1 or greater. 
@@ -121,6 +129,7 @@ public class ServletTestCase extends AbstractWebServerTestCase
      */
     public ServletTestCase()
     {
+        init(this);
     }
 
     /**
@@ -131,10 +140,11 @@ public class ServletTestCase extends AbstractWebServerTestCase
     public ServletTestCase(String theName)
     {
         super(theName);
+        init(this);
     }
 
     /**
-     * Wraps a standard JUnit Test Case in a Cactus Test Case.
+     * Wraps a pure JUnit Test Case in a Cactus Test Case.
      *  
      * @param theName the name of the test
      * @param theTest the Test Case class to wrap
@@ -142,15 +152,73 @@ public class ServletTestCase extends AbstractWebServerTestCase
      */
     public ServletTestCase(String theName, Test theTest)
     {
-        super(theName, theTest);
-    }
-    
-    /**
-     * @see AbstractClientTestCase#createConfiguration()
-     */
-    protected Configuration createConfiguration()
-    {
-        return new ServletConfiguration();
+        super(theName);
+        init(theTest);
     }
 
+    /**
+     * Initializations common to all constructors.
+     *  
+     * @param theTest a pure JUnit Test that Cactus will wrap
+     */
+    void init(Test theTest)
+    {
+        setDelegator(new WebClientTestCaseDelegator(
+            this, theTest, new ServletConfiguration()));        
+    }
+
+    /**
+     * @param theDelegator the client test case delegator
+     */
+    void setDelegator(WebClientTestCaseDelegator theDelegator)
+    {
+        this.delegator = theDelegator;
+    }
+
+    /**
+     * @return the client test case delegator
+     */
+    WebClientTestCaseDelegator getDelegator()
+    {
+        return this.delegator;
+    }
+
+    /**
+     * Runs the bare test. This method is overridden from the JUnit 
+     * {@link TestCase} class in order to prevent the latter to call the 
+     * <code>setUp()</code> and <code>tearDown()</code> methods which, in 
+     * our case, need to be executed on the server side.
+     *
+     * @exception Throwable if any exception is thrown during the test. Any
+     *            exception will be displayed by the JUnit Test Runner
+     */
+    public void runBare() throws Throwable
+    {
+        getDelegator().runBareInit();
+
+        // Catch the exception just to have a chance to log it
+        try
+        {
+            // Give back control to JUnit
+            runTest();
+        }
+        catch (Throwable t)
+        {
+            getDelegator().getLogger().debug("Exception in test", t);
+            throw t;
+        }
+    }   
+
+    /**
+     * Runs a test case. This method is overriden from the JUnit
+     * {@link TestCase} class in order to seamlessly call the
+     * Cactus redirector.
+     *
+     * @exception Throwable if any error happens during the execution of
+     *            the test
+     */
+    protected void runTest() throws Throwable
+    {
+        getDelegator().runTest();        
+    }
 }

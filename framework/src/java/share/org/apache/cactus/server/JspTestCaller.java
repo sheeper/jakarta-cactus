@@ -63,7 +63,8 @@ import java.lang.reflect.Field;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.cactus.AbstractWebServerTestCase;
+import junit.framework.TestCase;
+
 import org.apache.cactus.JspTestCase;
 import org.apache.cactus.ServletURL;
 
@@ -88,7 +89,7 @@ public class JspTestCaller extends ServletTestCaller
     /**
      * @see AbstractWebTestCaller#setTestCaseFields(AbstractWebServerTestCase)
      */
-    protected void setTestCaseFields(AbstractWebServerTestCase theTestInstance)
+    protected void setTestCaseFields(TestCase theTestInstance)
         throws Exception
     {
         JspTestCase jspInstance = (JspTestCase) theTestInstance;

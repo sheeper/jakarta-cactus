@@ -61,6 +61,7 @@ import java.io.Serializable;
 import org.apache.cactus.ServletTestCase;
 import org.apache.cactus.client.AssertionFailedErrorWrapper;
 import org.apache.cactus.client.ServletExceptionWrapper;
+import org.apache.cactus.util.JUnitVersionHelper;
 
 import junit.framework.AssertionFailedError;
 import junit.framework.ComparisonFailure;
@@ -109,6 +110,17 @@ public class TestServerSideExceptions extends ServletTestCase
     }
 
     /**
+     * @param theTestName the test name to verify
+     * @return true if the test name to verify corresponds to the currently
+     *         executing test
+     */
+    private boolean checkName(String theTestName)
+    {
+        return JUnitVersionHelper.getTestCaseName(this).equals(
+            theTestName);
+    }
+
+    /**
      * Intercepts running test cases to check for normal exceptions.
      * 
      * @exception Throwable on test failure
@@ -124,7 +136,7 @@ public class TestServerSideExceptions extends ServletTestCase
             // If the test case is "testAssertionFailedError" and the exception
             // is of type AssertionFailedError and contains the text
             // "test assertion failed error", then the test is ok.
-            if (this.getCurrentTestName().equals("testAssertionFailedError"))
+            if (checkName("testAssertionFailedError"))
             {
                 if (e.instanceOf(AssertionFailedError.class))
                 {
@@ -138,7 +150,7 @@ public class TestServerSideExceptions extends ServletTestCase
             // is of type ComparisonFailure and contains the text
             // "test comparison failure", then the test is ok.
             else if (
-                this.getCurrentTestName().equals("testComparisonFailure"))
+                checkName("testComparisonFailure"))
             {
                 if (e.instanceOf(AssertionFailedError.class))
                 {
@@ -156,7 +168,7 @@ public class TestServerSideExceptions extends ServletTestCase
             // TestServletTestCaseHelper1_ExceptionNotSerializable
             // and contains the text "test non serializable exception", then
             // the test is ok.
-            if (this.getCurrentTestName().equals(
+            if (checkName(
                 "testExceptionNotSerializable"))
             {
                 if (e.instanceOf(NotSerializableException.class))
@@ -172,7 +184,7 @@ public class TestServerSideExceptions extends ServletTestCase
             // is of type TestServletTestCaseHelper1_ExceptionSerializable
             // and contains the text "test serializable exception", then
             // the test is ok.
-            if (this.getCurrentTestName().equals("testExceptionSerializable"))
+            if (checkName("testExceptionSerializable"))
             {
                 assertTrue(e.instanceOf(SerializableException.class));
 

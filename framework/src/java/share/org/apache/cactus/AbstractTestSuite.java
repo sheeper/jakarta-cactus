@@ -186,6 +186,10 @@ public abstract class AbstractTestSuite implements Test
                 {
                     constructorInstance = theConstructor.newInstance(
                         new Object[0]);
+                    if (constructorInstance instanceof TestCase)
+                    {
+                        ((TestCase) constructorInstance).setName(name);
+                    }
                 }
                 else
                 {

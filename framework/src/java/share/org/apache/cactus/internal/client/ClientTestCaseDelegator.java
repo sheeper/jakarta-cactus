@@ -54,15 +54,17 @@
  * <http://www.apache.org/>.
  *
  */
-package org.apache.cactus;
+package org.apache.cactus.internal.client;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
+import junit.framework.Assert;
 import junit.framework.Test;
-import junit.framework.TestCase;
 
+import org.apache.cactus.Request;
+import org.apache.cactus.WebRequest;
 import org.apache.cactus.client.initialization.ClientInitializer;
 import org.apache.cactus.configuration.Configuration;
 import org.apache.cactus.util.JUnitVersionHelper;
@@ -70,24 +72,26 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * Abstract class that is a thin layer on top of JUnit and that provides 
- * the ability to run common code before each test on the client side (note
- * that calling common tear down code is delegated to extending classes as the
- * method signature depends on the protocol used).
+ * Delegator class that provides useful methods for the Cactus  
+ * <code>XXXTestCase</code> classes. All the methods provided are independent
+ * of any communication protocol between client side and server side (HTTP, 
+ * JMS, etc). Subclasses will define additional behaviour that depends on the 
+ * protocol.
+ *  
+ * It provides the ability to run common code before each test on the client 
+ * side (note that calling common tear down code is delegated to child classes 
+ * as the method signature depends on the protocol used).
  *
- * In addition it provides ability to execute some one time initialisation
- * code (a pity this is not provided in JUnit). It can be useful to start
- * an embedded server for example.
- *
- * This class is independent of the protocol used to communicate from the
- * Cactus client side and the Cactus server side; it can be HTTP, JMS, etc.
- * Subclasses will define additional behaviour that depends on the protocol.
+ * In addition it provides the ability to execute some one time (per-JVM)
+ * initialisation code (a pity this is not provided in JUnit). It can be 
+ * useful to start an embedded server for example. Note: In the future this
+ * should be refatored and provided using a custom JUnit TestSuite.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
  */
-public abstract class AbstractClientTestCase extends TestCase
+public class ClientTestCaseDelegator extends Assert
 {
     /**
      * The prefix of a test method.
@@ -133,61 +137,72 @@ public abstract class AbstractClientTestCase extends TestCase
     private Configuration configuration;
 
     /**
-     * JUnit Test Case to wrap. This is needed to support running pure
-     * JUnit Test Case using Cactus.
+     * Pure JUnit Test Case that we are wrapping (if any)
      */
     private Test wrappedTest;
 
     /**
-     * Default constructor defined in order to allow creating Test Case
-     * without needing to define constructor (new feature in JUnit 3.8.1).
-     * Should only be used with JUnit 3.8.1 or greater. 
-     * 
-     * @since 1.5 
+     * The test we are delegating for.
      */
-    public AbstractClientTestCase()
-    {
-        super(null);
-        this.wrappedTest = this;
-    }
+    private Test delegatedTest;   
     
     /**
-     * Constructs a JUnit test case with the given name.
-     *
-     * @param theName the name of the test
+     * @param theDelegatedTest the test we are delegating for
+     * @param theWrappedTest the test being wrapped by this delegator (or null 
+     *        if none)
+     * @param theConfiguration the configuration to use 
      */
-    public AbstractClientTestCase(String theName)
-    {
-        super(theName);
-        this.wrappedTest = this;
+    public ClientTestCaseDelegator(Test theDelegatedTest, 
+        Test theWrappedTest, Configuration theConfiguration)
+    {        
+        if (theDelegatedTest == null)
+        {
+            throw new IllegalStateException(
+                "The test object passed must not be null");
+        }
+
+        setDelegatedTest(theDelegatedTest); 
+        setWrappedTest(theWrappedTest);
+        setConfiguration(theConfiguration);               
     }
 
     /**
-     * Wraps a standard JUnit Test Case in a Cactus Test Case.
-     *  
-     * @param theName the name of the test
-     * @param theTest the Test Case class to wrap
-     * @since 1.5
+     * @param theWrappedTest the pure JUnit test that we need to wrap 
      */
-    public AbstractClientTestCase(String theName, Test theTest)
+    public void setWrappedTest(Test theWrappedTest)
     {
-        this(theName);
-        this.wrappedTest = theTest;
+        this.wrappedTest = theWrappedTest;
     }
 
     /**
-     * @return the wrapped Test Case
+     * @param theDelegatedTest the test we are delegating for
      */
-    protected Test getWrappedTest()
+    public void setDelegatedTest(Test theDelegatedTest)
+    {
+        this.delegatedTest = theDelegatedTest;
+    }
+
+    /**
+     * @return the wrapped JUnit test
+     */
+    public Test getWrappedTest()
     {
         return this.wrappedTest;
     }
 
     /**
+     * @return the test we are delegating for
+     */
+    public Test getDelegatedTest()
+    {
+        return this.delegatedTest;
+    }
+    
+    /**
      * @return The logger used by the <code>TestCase</code> class and
      *         subclasses to perform logging.
      */
-    protected final Log getLogger()
+    public final Log getLogger()
     {
         return this.logger;
     }
@@ -203,7 +218,7 @@ public abstract class AbstractClientTestCase extends TestCase
     /**
      * @return the Cactus configuration
      */
-    protected Configuration getConfiguration()
+    public Configuration getConfiguration()
     {
         return this.configuration;
     }
@@ -213,7 +228,7 @@ public abstract class AbstractClientTestCase extends TestCase
      * 
      * @param theConfiguration the Cactus configuration
      */
-    protected void setConfiguration(Configuration theConfiguration)
+    public void setConfiguration(Configuration theConfiguration)
     {
         this.configuration = theConfiguration;
     }
@@ -225,15 +240,15 @@ public abstract class AbstractClientTestCase extends TestCase
     private String getBaseMethodName()
     {
         // Sanity check
-        if (!this.getCurrentTestMethod().startsWith(TEST_METHOD_PREFIX))
+        if (!getCurrentTestName().startsWith(TEST_METHOD_PREFIX))
         {
             throw new RuntimeException("bad name ["
-                + this.getCurrentTestMethod()
+                + getCurrentTestName()
                 + "]. It should start with ["
                 + TEST_METHOD_PREFIX + "].");
         }
 
-        return this.getCurrentTestMethod().substring(
+        return getCurrentTestName().substring(
             TEST_METHOD_PREFIX.length());
     }
 
@@ -258,16 +273,10 @@ public abstract class AbstractClientTestCase extends TestCase
     }
 
     /**
-     * Runs the bare test.
-     * This method is overridden from the JUnit <code>TestCase</code> class in
-     * order to prevent the latter to call the <code>setUp()</code> and
-     * <code>tearDown()</code> methods which, in our case, need to be ran in
-     * the servlet engine by the servlet redirector class.
-     *
-     * @exception Throwable if any exception is thrown during the test. Any
-     *            exception will be displayed by the JUnit Test Runner
+     * Perform client side initializations before each test, such as
+     * re-initializating the logger and printing some logging information.
      */
-    public void runBare() throws Throwable
+    public void runBareInit()
     {
         // We make sure we reinitialize The logger with the name of the
         // current extending class so that log statements will contain the
@@ -277,45 +286,16 @@ public abstract class AbstractClientTestCase extends TestCase
         // Initialize client side configuration
         if (!isClientInitialized)
         {
-            initializeClientSide();
+            // Call client side initializer (if defined). It will be called 
+            // only once per JVM.
+            ClientInitializer.initialize(getConfiguration());
         }
 
         // Mark beginning of test on client side
-        getLogger().debug("------------- Test: " + this.getCurrentTestMethod());
-
-        // Catch the exception just to have a chance to log it
-        try
-        {
-            runTest();
-        }
-        catch (Throwable t)
-        {
-            logger.debug("Exception in test", t);
-            throw t;
-        }
+        getLogger().debug("------------- Test: " 
+            + this.getCurrentTestName());        
     }
 
-    /**
-     * Perform client side initialization that need to be performed once
-     * per test suite.
-     */
-    protected void initializeClientSide()
-    {
-        // Call abstract method that initialize Cactus configuration
-        setConfiguration(createConfiguration());
-        
-        // Call client side initializer (if defined). It will be called only
-        // once per test suite
-        ClientInitializer.initialize(getConfiguration());
-    }
-
-    /**
-     * Creates the Cactus configuration object
-     * 
-     * @return the Cactus configuration
-     */
-    protected abstract Configuration createConfiguration();
-    
     /**
      * Call a begin method which takes Cactus WebRequest as parameter
      *
@@ -411,7 +391,7 @@ public abstract class AbstractClientTestCase extends TestCase
      * @exception Throwable any error that occurred when calling the begin
      *            method for the current test case.
      */
-    protected void callBeginMethod(Request theRequest) throws Throwable
+    public void callBeginMethod(Request theRequest) throws Throwable
     {
         callGenericBeginMethod(theRequest, getBeginMethodName());
     }
@@ -432,6 +412,26 @@ public abstract class AbstractClientTestCase extends TestCase
      */
     protected String getCurrentTestName()
     {
-        return JUnitVersionHelper.getTestCaseName(this);        
+        return JUnitVersionHelper.getTestCaseName(getDelegatedTest());        
+    }
+
+    /**
+     * @return The wrapped test name, if any (null otherwise).
+     */
+    public String getWrappedTestName()
+    {
+        if (isWrappingATest())
+        {
+            return getWrappedTest().getClass().getName();
+        }
+        return null;
+    }
+
+    /**
+     * @return whether this test case wraps another
+     */
+    public boolean isWrappingATest()
+    {
+        return getWrappedTest() != getDelegatedTest();
     }
 }
