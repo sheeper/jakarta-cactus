@@ -27,6 +27,10 @@
 
     <property name="org.apache.cactus.eclipse.feature.dir" value="integration/eclipse/org.apache.cactus.eclipse.feature"/>
 
+    <!-- Indicate that this subproject is dependant on the version of the J2EE
+         API available -->
+    <property name="j2ee.dependant" value="true"/>
+
     <!-- Include properties and targets common to the different subprojects -->
     &common;
 

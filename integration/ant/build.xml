@@ -24,7 +24,11 @@
 <project name="Cactus Ant Integration" default="dist" basedir="../..">
 
     <!-- Base directory for all file related operations -->
-    <property name="base.dir" value="integration/ant"/>
+    <property name="base.dir" location="integration/ant"/>
+
+    <!-- Indicate that this subproject is dependant on the version of the J2EE
+         API available -->
+    <property name="j2ee.dependant" value="true"/>
 
     <!-- Include properties and targets common to the different subprojects -->
     &common;
@@ -41,43 +45,43 @@
     <target name="properties">
 
         <!-- Set the properties related to the source tree -->
-	    <property name="src.dir" value="${base.dir}/src"/>
-	    <property name="src.java.dir" value="${src.dir}/java"/>
-	    <property name="src.test.dir" value="${src.dir}/test"/>
-	    <property name="src.testinput.dir" value="${src.dir}/test-input"/>
-	    <property name="src.script.dir" value="${src.dir}/scripts"/>
-	    <property name="src.conf.dir" value="${src.dir}/confs"/>
-	    <property name="build.dir" value="${base.dir}/."/>
+	    <property name="src.dir" location="${base.dir}/src"/>
+	    <property name="src.java.dir" location="${src.dir}/java"/>
+	    <property name="src.test.dir" location="${src.dir}/test"/>
+	    <property name="src.testinput.dir" location="${src.dir}/test-input"/>
+	    <property name="src.script.dir" location="${src.dir}/scripts"/>
+	    <property name="src.conf.dir" location="${src.dir}/confs"/>
+	    <property name="build.dir" location="${base.dir}/."/>
 
         <!-- Set the properties related to the target area -->
-	    <property name="target.classes.dir" value="${target.dir}/classes"/>
+	    <property name="target.classes.dir" location="${target.dir}/classes"/>
 	    <property name="target.classes.java.dir"
-	        value="${target.classes.dir}/java"/>
+	        location="${target.classes.dir}/java"/>
         <property name="target.classes.clover.dir"
-            value="${target.classes.dir}/clover"/>
+            location="${target.classes.dir}/clover"/>
 	    <property name="target.classes.test.dir"
-	        value="${target.classes.dir}/test"/>
-	    <property name="target.doc.dir" value="${target.dir}/doc"/>
-	    <property name="target.doc.api.dir" value="${target.doc.dir}/api"/>
+	        location="${target.classes.dir}/test"/>
+	    <property name="target.doc.dir" location="${target.dir}/doc"/>
+	    <property name="target.doc.api.dir" location="${target.doc.dir}/api"/>
 	    <property name="target.doc.testreports.dir"
-	        value="${target.doc.dir}/test-reports"/>
+	        location="${target.doc.dir}/test-reports"/>
 	    <property name="target.testinput.dir"
-	        value="${target.dir}/testinput"/>
+	        location="${target.dir}/testinput"/>
 
         <property name="target.integration.dir"
-            value="${target.dir}/integration"/>
+            location="${target.dir}/integration"/>
         <property name="target.integration.lib.dir" 
-            value="${target.integration.dir}/lib"/>
+            location="${target.integration.dir}/lib"/>
 	    <property name="target.integration.lib.client.dir" 
-	        value="${target.integration.lib.dir}/client"/>
+	        location="${target.integration.lib.dir}/client"/>
 	    <property name="target.integration.lib.server.dir"
-	        value="${target.integration.lib.dir}/server"/>
+	        location="${target.integration.lib.dir}/server"/>
 	    <property name="target.integration.lib.common.dir"
-	        value="${target.integration.lib.dir}/common"/>
+	        location="${target.integration.lib.dir}/common"/>
 	    <property name="target.integration.script.dir" 
-	        value="${target.integration.dir}/scripts"/>
+	        location="${target.integration.dir}/scripts"/>
 	    <property name="target.integration.conf.dir" 
-	        value="${target.integration.dir}/confs"/>
+	        location="${target.integration.dir}/confs"/>
 
     </target>
 

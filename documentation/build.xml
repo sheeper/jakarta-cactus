@@ -31,7 +31,7 @@
 <project name="Cactus Documentation" default="dist" basedir="..">
 
     <!-- Base directory for all file related operations -->
-    <property name="base.dir" value="documentation"/>
+    <property name="base.dir" location="documentation"/>
 
     <!-- Include properties and targets common to the different subprojects -->
     &common;

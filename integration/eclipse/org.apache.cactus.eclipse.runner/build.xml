@@ -27,6 +27,10 @@
     <property name="org.apache.cactus.eclipse.webapp.jar.name" value="webapp.jar"/>
     <property name="org.apache.cactus.eclipse.webapp.jar" value="${org.apache.cactus.eclipse.webapp.dir}/target/${org.apache.cactus.eclipse.webapp.jar.name}"/>
 
+    <!-- Indicate that this subproject is dependant on the version of the J2EE
+         API available -->
+    <property name="j2ee.dependant" value="true"/>
+
     <!-- Include properties and targets common to the different subprojects -->
     &common;
 

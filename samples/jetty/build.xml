@@ -35,6 +35,10 @@
      <!-- Base directory for all file related operations -->
     <property name="base.dir" value="samples/jetty"/>
     
+    <!-- Indicate that this subproject is dependant on the version of the J2EE
+         API available -->
+    <property name="j2ee.dependant" value="true"/>
+
     <!-- Include properties and targets common to the different subprojects -->
     &common;
     
@@ -50,40 +54,48 @@
     <target name="properties">
 
         <!-- Source locations for the build -->
-        <property name="src.dir" value="${cactus.samples.servlet.bin}/src"/>
-        <property name="src.lib.dir" value="${cactus.samples.servlet.bin}/lib"/>
-        <!--property name="src.sample.dir" value="${src.dir}/java"/>
-        <property name="src.unit.dir" value="${src.dir}/test-cactus"/-->
+        <property name="src.dir" location="${cactus.samples.servlet.bin}/src"/>
+        <property name="src.lib.dir"
+            location="${cactus.samples.servlet.bin}/lib"/>
+        <!--property name="src.sample.dir" location="${src.dir}/java"/>
+        <property name="src.unit.dir" location="${src.dir}/test-cactus"/-->
         
-        <property name="conf.dir" value="${base.dir}/conf"/>
-        <property name="conf.sample.dir" value="${conf.dir}/sample"/>
-        <property name="conf.sample.build.dir" value="${conf.sample.dir}/build"/>
-        <property name="conf.sample.conf.dir" value="${conf.sample.dir}/conf"/>
+        <property name="conf.dir" location="${base.dir}/conf"/>
+        <property name="conf.sample.dir"
+            location="${conf.dir}/sample"/>
+        <property name="conf.sample.build.dir"
+            location="${conf.sample.dir}/build"/>
+        <property name="conf.sample.conf.dir"
+            location="${conf.sample.dir}/conf"/>
         
-        <property name="web.dir" value="${src.dir}/webapp"/>
-        <property name="web.sample.dir" value="${web.dir}/test"/>
+        <property name="web.dir" location="${src.dir}/webapp"/>
+        <property name="web.sample.dir" location="${web.dir}/test"/>
         
         <!-- Set the properties related to the target area -->
-        <property name="target.sample.dir" value="${target.dir}/sample"/>
-        <property name="target.sample.src.dir" value="${target.sample.dir}/src"/>
-        <property name="target.sample.lib.dir" value="${target.sample.dir}/lib"/>
-        <property name="target.sample.build.dir" value="${target.sample.dir}/build"/>
+        <property name="target.sample.dir" location="${target.dir}/sample"/>
+        <property name="target.sample.src.dir"
+            location="${target.sample.dir}/src"/>
+        <property name="target.sample.lib.dir"
+            location="${target.sample.dir}/lib"/>
+        <property name="target.sample.build.dir"
+            location="${target.sample.dir}/build"/>
         
         <property name="target.sample.build.integration.dir" 
-            value="${target.sample.build.dir}/cactus-integration-ant"/>
+            location="${target.sample.build.dir}/cactus-integration-ant"/>
         
         <property name="target.sample.build.integration.dir.lib" 
-            value="${target.sample.build.integration.dir}/lib"/>
+            location="${target.sample.build.integration.dir}/lib"/>
         
-        <property name="target.sample.conf.dir" value="${target.sample.dir}/conf"/>
-        <property name="target.sample.src.sample.dir" value="${target.sample.src.dir}/java"/>
-        <property name="target.sample.src.unit.dir" value="${target.sample.src.dir}/test-cactus"/>
-        <property name="target.sample.web.dir" value="${target.sample.src.dir}/webapp"/>
+        <property name="target.sample.conf.dir"
+            location="${target.sample.dir}/conf"/>
+        <property name="target.sample.src.sample.dir"
+            location="${target.sample.src.dir}/java"/>
+        <property name="target.sample.src.unit.dir"
+            location="${target.sample.src.dir}/test-cactus"/>
+        <property name="target.sample.web.dir"
+            location="${target.sample.src.dir}/webapp"/>
         
     </target>
-
-    <!-- The location of the Cactus custom Ant tasks jar -->
-    <property name="cactus.ant.jar" value="anttasks/dist/lib/cactus-anttasks.jar"/>
 
     <!--
        ========================================================================
@@ -93,8 +105,6 @@
        ========================================================================
     -->
     <target name="properties.target">
-
-        
 
     </target>
 
@@ -107,8 +117,8 @@
     -->
     <target name="properties.distribution">
 
-        <property name="dist.dir" value="${base.dir}/dist-${j2ee.api}"/>
-        <property name="dist.bin.dir" value="${dist.dir}/bin"/>
+        <property name="dist.dir" location="${base.dir}/dist-${j2ee.api}"/>
+        <property name="dist.bin.dir" location="${dist.dir}/bin"/>
 
     </target>
 
@@ -165,7 +175,7 @@
 
         <taskdef name="checkProperty" classname="org.apache.cactus.ant.CheckPropertiesTask">
             <classpath>
-                <pathelement location="${cactus.ant.jar}"/>
+                <pathelement location="${cactus.anttasks.jar}"/>
             </classpath>
         </taskdef>
 

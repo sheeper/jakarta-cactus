@@ -24,7 +24,7 @@
 <project name="Cactus Ant Tasks" default="dist" basedir="..">
 
     <!-- Base directory for all file related operations -->
-    <property name="base.dir" value="anttasks"/>
+    <property name="base.dir" location="anttasks"/>
 
     <!-- Include properties and targets common to the different subprojects -->
     &common;
@@ -41,16 +41,16 @@
     <target name="properties">
 
         <!-- Set the properties related to the source tree -->
-        <property name="src.dir" value="${base.dir}/src"/>
-        <property name="src.java.dir" value="${src.dir}/java"/>
-        <property name="build.dir" value="${base.dir}/."/>
+        <property name="src.dir" location="${base.dir}/src"/>
+        <property name="src.java.dir" location="${src.dir}/java"/>
+        <property name="build.dir" location="${base.dir}/."/>
 
         <!-- Set the properties related to the target area -->
-        <property name="target.classes.dir" value="${target.dir}/classes"/>
+        <property name="target.classes.dir" location="${target.dir}/classes"/>
         <property name="target.classes.java.dir"
-            value="${target.classes.dir}/java"/>
-        <property name="target.doc.dir" value="${target.dir}/doc"/>
-        <property name="target.doc.api.dir" value="${target.doc.dir}/api"/>
+            location="${target.classes.dir}/java"/>
+        <property name="target.doc.dir" location="${target.dir}/doc"/>
+        <property name="target.doc.api.dir" location="${target.doc.dir}/api"/>
 
     </target>
         

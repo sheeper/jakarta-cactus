@@ -37,7 +37,11 @@
 <project name="Cactus Framework" default="dist" basedir="..">
 
     <!-- Base directory for all file related operations -->
-    <property name="base.dir" value="framework"/>
+    <property name="base.dir" location="framework"/>
+
+    <!-- Indicate that this subproject is dependant on the version of the J2EE
+         API available -->
+    <property name="j2ee.dependant" value="true"/>
 
     <!-- Include properties and targets common to the different subprojects -->
     &common;
@@ -54,28 +58,28 @@
     <target name="properties">
 
         <!-- Set the properties related to the source tree -->
-        <property name="src.dir" value="${base.dir}/src"/>
-        <property name="src.java.dir" value="${src.dir}/java"/>
-        <property name="src.java.share.dir" value="${src.java.dir}/share"/>
+        <property name="src.dir" location="${base.dir}/src"/>
+        <property name="src.java.dir" location="${src.dir}/java"/>
+        <property name="src.java.share.dir" location="${src.java.dir}/share"/>
         <property name="src.java.specific.dir"
-            value="${src.java.dir}/j2ee${j2ee.api}"/>
-        <property name="src.test.dir" value="${src.dir}/test"/>
-        <property name="src.test.share.dir" value="${src.test.dir}/share"/>
-        <property name="build.dir" value="${base.dir}/."/>
-        <property name="conf.dir" value="${base.dir}/conf"/>
-        <property name="web.dir" value="${base.dir}/web"/>
+            location="${src.java.dir}/j2ee${j2ee.api}"/>
+        <property name="src.test.dir" location="${src.dir}/test"/>
+        <property name="src.test.share.dir" location="${src.test.dir}/share"/>
+        <property name="build.dir" location="${base.dir}/."/>
+        <property name="conf.dir" location="${base.dir}/conf"/>
+        <property name="web.dir" location="${base.dir}/web"/>
 
         <!-- Set the properties related to the target area -->
-        <property name="target.src.dir" value="${target.dir}/src"/>
-        <property name="target.classes.dir" value="${target.dir}/classes"/>
+        <property name="target.src.dir" location="${target.dir}/src"/>
+        <property name="target.classes.dir" location="${target.dir}/classes"/>
         <property name="target.classes.java.dir"
-            value="${target.classes.dir}/java"/>
+            location="${target.classes.dir}/java"/>
         <property name="target.classes.clover.dir"
-            value="${target.classes.dir}/clover"/>
+            location="${target.classes.dir}/clover"/>
         <property name="target.classes.test.dir"
-            value="${target.classes.dir}/test"/>
-        <property name="target.doc.dir" value="${target.dir}/doc"/>
-        <property name="target.doc.api.dir" value="${target.doc.dir}/api"/>
+            location="${target.classes.dir}/test"/>
+        <property name="target.doc.dir" location="${target.dir}/doc"/>
+        <property name="target.doc.api.dir" location="${target.doc.dir}/api"/>
 
     </target>
 
