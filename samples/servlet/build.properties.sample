@@ -54,10 +54,7 @@ standard.jar = ${lib.repo}/taglibs/jars/standard-1.0.2.jar
 #cactus.home.orion1x = c:/Apps/orion-1.6.0
 #cactus.home.orion2x = c:/Apps/orion-2.0.1
 #cactus.home.jboss3x = c:/Apps/jboss-3.2.1
-
-# Note: cactus.home.weblogic7x is the location of BEA Home and NOT the 
-# location of weblogic7xx, inside the bea home directory.
-#cactus.home.weblogic7x = c:/bea
+#cactus.home.weblogic7x = c:/bea/weblogic700
 
 # Should we instrument our code with Clover (test coverage tool) ?
 # For this to work, the clover.jar needs to be in ANTHOME/lib.
