@@ -126,6 +126,7 @@ integration/maven/src/plugin-test/testCustomWarName/dist
 integration/maven/src/plugin-test/testCustomWarName/gump.xml
 integration/maven/src/plugin-test/testCustomWarName/target
 integration/maven/src/plugin-test/testCustomWarName/targetdist
+integration/maven/src/plugin-test/testIncludeResources/target
 integration/maven/src/plugin-test/testSimpleWar/*.log
 integration/maven/src/plugin-test/testSimpleWar/dist
 integration/maven/src/plugin-test/testSimpleWar/gump.xml

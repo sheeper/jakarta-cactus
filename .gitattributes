@@ -647,6 +647,7 @@ integration/maven/src/plugin-test/testCustomWarName/maven.xml svn_keywords=Autho
 integration/maven/src/plugin-test/testCustomWarName/project.properties svn_keywords=Author+Date+Id+Revision
 integration/maven/src/plugin-test/testCustomWarName/project.xml svn_keywords=Author+Date+Id+Revision
 integration/maven/src/plugin-test/testCustomWarName/src/web/WEB-INF/web.xml svn_keywords=Author+Date+Id+Revision
+integration/maven/src/plugin-test/testIncludeResources/.cvsignore svn_keywords=Author+Date+Id+Revision
 integration/maven/src/plugin-test/testIncludeResources/maven.xml svn_keywords=Author+Date+Id+Revision
 integration/maven/src/plugin-test/testIncludeResources/project.properties svn_keywords=Author+Date+Id+Revision
 integration/maven/src/plugin-test/testIncludeResources/project.xml svn_keywords=Author+Date+Id+Revision
