@@ -79,7 +79,6 @@ import org.apache.tools.ant.util.FileUtils;
  */
 public abstract class AbstractCatalinaContainer extends AbstractTomcatContainer
 {
-
     // Instance Variables ------------------------------------------------------
 
     /**
@@ -236,23 +235,29 @@ public abstract class AbstractCatalinaContainer extends AbstractTomcatContainer
             this.tmpDir = createTempDirectory(theDirName);
         }
 
-        // copy configuration files into the temporary container directory
         File confDir = createDirectory(tmpDir, "conf");
-        copyConfFiles(confDir);
+        
+        // Copy first the default configuration files so that they can be
+        // overriden by the user-provided ones.
+
         if (getServerXml() == null)
         {
             ResourceUtils.copyResource(getProject(),
                 RESOURCE_PATH + theResourcePrefix + "/server.xml",
                 new File(confDir, "server.xml"), filterChain);
         }
-        // TODO: only copy these files if they haven't been provided by the
-        // user as a conf fileset
+        
         ResourceUtils.copyResource(getProject(),
             RESOURCE_PATH + theResourcePrefix + "/tomcat-users.xml",
             new File(confDir, "tomcat-users.xml"));
         fileUtils.copyFile(new File(getDir(), "conf/web.xml"),
             new File(confDir, "web.xml"));
-            
+        
+        // Copy user-provided configuration files into the temporary container 
+        // directory
+
+        copyConfFiles(confDir);
+           
         // deploy the web-app by copying the WAR file into the webapps
         // directory
         File webappsDir = createDirectory(tmpDir, "webapps");
