@@ -97,7 +97,7 @@
     <dependency>
       <groupId>aspectwerkz</groupId>
       <artifactId>aspectwerkz</artifactId>
-      <version>0.9.RC2.dev.20040125</version>
+      <version>0.9</version>
     </dependency>
     <dependency>
       <groupId>dom4j</groupId>
