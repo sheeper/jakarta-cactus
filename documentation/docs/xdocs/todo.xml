@@ -116,6 +116,16 @@
         Ideas to explore ...
       </p>
       <action>
+      	Bundling of JUnitEE.
+      </action>
+      <action>
+      	Notion of initializer in <code>XXXTestCase</code> that allows some
+      	one time setup to happen for the tests running in a given JVM. This
+      	will allow for example a servlet engine like Jetty be automatically
+      	configured and started before the test simply using a normal JUnit
+      	TestRunner.
+      </action>
+      <action>
         Create a new package <code>org.apache.cactus.extensions</code> for
         putting extensions to Cactus Test Cases. The first extension
         would be an extension that runs a bunch of test at the same time,
@@ -135,8 +145,7 @@
         automatically generating test cases from methods to test, ...
       </action>
       <action>
-        Integration to Netbeans in general and especially integration with the
-        Netbeans XTest module.
+        Integration to Eclipse.
       </action>
       <action assigned-to="Vincent Massol">
         Evaluate the use of AspectJ for writing Cactus test cases.
