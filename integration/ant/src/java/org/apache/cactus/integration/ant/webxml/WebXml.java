@@ -233,12 +233,12 @@ public class WebXml
             throw new IllegalStateException("Filter '" + theFilterName +
                 "' not defined");
         }
-		Element initParamElement =
-		    this.document.createElement(WebXmlTag.INIT_PARAM.getTagName());
-		initParamElement.appendChild(
-		    createNestedText(WebXmlTag.PARAM_NAME, theParamName));
-		initParamElement.appendChild(
-		    createNestedText(WebXmlTag.PARAM_VALUE, theParamValue));
+        Element initParamElement =
+            this.document.createElement(WebXmlTag.INIT_PARAM.getTagName());
+        initParamElement.appendChild(
+            createNestedText(WebXmlTag.PARAM_NAME, theParamName));
+        initParamElement.appendChild(
+            createNestedText(WebXmlTag.PARAM_VALUE, theParamValue));
         filterElement.appendChild(initParamElement);
     }
     
@@ -255,12 +255,12 @@ public class WebXml
             throw new IllegalStateException("Filter '" + theFilterName +
                 "' not defined");
         }
-		Element filterMappingElement =
-		    this.document.createElement(WebXmlTag.FILTER_MAPPING.getTagName());
-		filterMappingElement.appendChild(
-		    createNestedText(WebXmlTag.FILTER_NAME, theFilterName));
-		filterMappingElement.appendChild(
-		    createNestedText(WebXmlTag.URL_PATTERN,  theUrlPattern));
+        Element filterMappingElement =
+            this.document.createElement(WebXmlTag.FILTER_MAPPING.getTagName());
+        filterMappingElement.appendChild(
+            createNestedText(WebXmlTag.FILTER_NAME, theFilterName));
+        filterMappingElement.appendChild(
+            createNestedText(WebXmlTag.URL_PATTERN,  theUrlPattern));
         addElement(WebXmlTag.FILTER_MAPPING, filterMappingElement);
     }
     
@@ -473,12 +473,12 @@ public class WebXml
             throw new IllegalStateException("Servlet '" + theServletName +
                 "' not defined");
         }
-		Element initParamElement =
-		    this.document.createElement(WebXmlTag.INIT_PARAM.getTagName());
-		initParamElement.appendChild(
-		    createNestedText(WebXmlTag.PARAM_NAME, theParamName));
-		initParamElement.appendChild(
-		    createNestedText(WebXmlTag.PARAM_VALUE, theParamValue));
+        Element initParamElement =
+            this.document.createElement(WebXmlTag.INIT_PARAM.getTagName());
+        initParamElement.appendChild(
+            createNestedText(WebXmlTag.PARAM_NAME, theParamName));
+        initParamElement.appendChild(
+            createNestedText(WebXmlTag.PARAM_VALUE, theParamValue));
         servletElement.appendChild(initParamElement);
     }
     
@@ -495,12 +495,12 @@ public class WebXml
             throw new IllegalStateException("Servlet '" + theServletName +
                 "' not defined");
         }
-		Element servletMappingElement =
-		    this.document.createElement(WebXmlTag.SERVLET_MAPPING.getTagName());
-		servletMappingElement.appendChild(
-		    createNestedText(WebXmlTag.SERVLET_NAME, theServletName));
-		servletMappingElement.appendChild(
-		    createNestedText(WebXmlTag.URL_PATTERN, theUrlPattern));
+        Element servletMappingElement =
+            this.document.createElement(WebXmlTag.SERVLET_MAPPING.getTagName());
+        servletMappingElement.appendChild(
+            createNestedText(WebXmlTag.SERVLET_NAME, theServletName));
+        servletMappingElement.appendChild(
+            createNestedText(WebXmlTag.URL_PATTERN, theUrlPattern));
         addElement(WebXmlTag.SERVLET_MAPPING, servletMappingElement);
     }
     
