@@ -722,27 +722,17 @@ public class CactifyWarTask extends War
 
             // now add the default redirectors if they haven't been provided by
             // the user
-            if (!filterRedirectorDefined
-             && (WebXmlVersion.V2_3.compareTo(webXml.getVersion()) <= 0))
+            if (!filterRedirectorDefined)
             {
-                // add the default filter redirector
-                webXml.addFilter("FilterRedirector",
-                    FILTER_REDIRECTOR_CLASS);
-                webXml.addFilterMapping("FilterRedirector",
-                    DEFAULT_FILTER_REDIRECTOR_MAPPING);
+                new FilterRedirector().mergeInto(webXml);
             }
             if (!servletRedirectorDefined)
             {
-                webXml.addServlet("ServletRedirector",
-                    SERVLET_REDIRECTOR_CLASS);
-                webXml.addServletMapping("ServletRedirector",
-                    DEFAULT_SERVLET_REDIRECTOR_MAPPING);
+                new ServletRedirector().mergeInto(webXml);
             }
             if (!jspRedirectorDefined)
             {
-                webXml.addJspFile("JspRedirector", "/jspRedirector.jsp");
-                webXml.addServletMapping("JspRedirector",
-                    DEFAULT_JSP_REDIRECTOR_MAPPING);
+                new JspRedirector().mergeInto(webXml);
             }
 
             return webXml;
