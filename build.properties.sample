@@ -70,7 +70,7 @@ xmlapis.jar = ${lib.repo}/xerces/jars/xmlParserAPIs-2.2.1.jar
 # default container in which to run the Cactus tests
 
 # The location of the Jetty jar
-jetty.jar = ${lib.repo}/jetty/jars/org.mortbay.jetty-4.2.9.jar
+jetty.jar = ${lib.repo}/jetty/jars/org.mortbay.jetty-4.2.11.jar
 
 # -----------------------------------------------------------------------------
 # Mandatory properties for the Jetty Sample
