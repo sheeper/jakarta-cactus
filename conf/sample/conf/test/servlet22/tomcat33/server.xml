@@ -5,9 +5,6 @@
 
       <!-- ==================== Global modules ==================== -->
 
-        <LogSetter name="tc_log" timestamps="true" path="tomcat.log"
-                verbosityLevel="INFORMATION"  />
-
         <LogEvents enabled="false" />
         
         <AutoDeploy source="webapps" target="webapps" />
@@ -83,7 +80,7 @@
                secure - use SSL ( https )
                keystore, keypass - certs for SSL
                port -->
-        <Http10Connector port="@test.port@" 
+        <Http10Connector port="@test.port@" delaySocketClose="true"
 			   secure="false"
 			   maxThreads="100"
 			   maxSpareThreads="50"

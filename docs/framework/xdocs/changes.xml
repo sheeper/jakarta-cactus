@@ -137,7 +137,10 @@
       </action>
       <action dev="VMA" type="fix" due-to="Larry Isaacs" due-to-email="Larry.Isaacs@sas.com">
         Improved Tomcat 3.3 configuration that is bundled with the Cactus
-        sample application.
+        sample application and added <code>delaySocketClose="true"</code>,
+        which is a new attribute of Tomcat 3.3.1. The reason is that on fast
+        CPU Tomcat 3.3.0 is releasing too quickly opened sockets and the Cactus
+        client side gets a "socket closed by peer" exception.
       </action>
       <action dev="VMA" type="add">
         Added automatic script support for WebLogic 6.1.
