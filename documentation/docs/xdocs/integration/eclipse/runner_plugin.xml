@@ -115,6 +115,11 @@
             alt="Cactify popup menu" />
         </li>
       </ul>
+      <ul>
+        <li>
+          Log view a la Ant plugin
+        </li>
+      </ul>
     </section>
 
     <anchor id="installation"/>
@@ -122,7 +127,7 @@
       <section title="Requirements">
         <p>
           The Cactus plugin requires a version of the Eclipse platform later
-          than 2.1 RC2.
+          than 2.1.
         </p>
       </section>
       <section title="Installation">
@@ -143,18 +148,7 @@
     <anchor id="using" />
     <section title="Using">
       <p>
-        While the Cactify action is not implemented you have to do the
-        following :
-        <ul>
-          <li>
-            add Cactus client and common libraries to your Java project
-          </li>
-          <li>
-            your Java project must have the following directory structure :
-            [project's root]/web/WEB-INF/lib (create these as 'folders')
-          </li>
-        </ul>
-        Select any Cactus test class file and select from the toolbar :
+        Select any Cactus test class and from the toolbar do :
         Run As -> Cactus Test
         <figure src="images/eclipse/runner/launchshortcut.png"
           alt="Cactus launch shortcut" />
@@ -164,8 +158,7 @@
     <anchor id="next" />
     <section title="What's next">
       <p>
-        In order to release a production-quality tool some features remain to
-        be done.
+        In order to release a production-quality tool some features are needed.
       </p>
       <p>
         See the todo section on the Cactus framework page for a list of
@@ -177,7 +170,7 @@
     <section title="Developer's corner">
       <section title="Overview of the plug-in">
         <p>
-          The Cactus framework extends JUnit. In the same way the Cactus
+          The Cactus framework extends JUnit. The Cactus
           plugin for Eclipse extends in a certain manner the existing JUnit
           plugin. For example
           <code>JUnitLaunchShortcut</code>
@@ -253,10 +246,10 @@
             . See its javadoc for more information.
           </p>
           <p>
-            A container provider is implemented in the current version of the
+            A container manager is implemented in the current version of the
             plugin, which uses Ant scripts to carry out these actions. It is
             called
-            <code>GenericAntProvider</code>
+            <code>AntContainerManager</code>
             and may be used to execute tests on all the containers supported
             by the Ant integration subproject.
           </p>
@@ -293,7 +286,7 @@
               <p>
                 In the case of
                 <code>
-                  GenericAntProvider
+                  AntContainerProvider
                 </code>
                 :
               </p>
