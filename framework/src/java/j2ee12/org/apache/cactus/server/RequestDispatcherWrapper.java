@@ -54,7 +54,7 @@
  * <http://www.apache.org/>.
  *
  */
-package org.apache.cactus.server.wrapper;
+package org.apache.cactus.server;
 
 import java.io.IOException;
 
@@ -101,7 +101,7 @@ public class RequestDispatcherWrapper implements RequestDispatcher
         throws IOException, ServletException
     {
         HttpServletRequestWrapper request = 
-            (HttpServletRequestWrapper) theRequest;
+                (HttpServletRequestWrapper) theRequest;
 
         this.originalDispatcher.forward(request.getOriginalRequest(), 
             theResponse);
@@ -114,14 +114,14 @@ public class RequestDispatcherWrapper implements RequestDispatcher
      *
      * @param theRequest the simulation HTTP request
      * @param theResponse the original HTTP response
-     * @exception IOException {@link RequestDispatcher#forward}
-     * @exception ServletException {@link RequestDispatcher#forward}
+     * @exception IOException {@link RequestDispatcher#include}
+     * @exception ServletException {@link RequestDispatcher#include}
      */
     public void include(ServletRequest theRequest, ServletResponse theResponse)
         throws IOException, ServletException
     {
         HttpServletRequestWrapper request = 
-            (HttpServletRequestWrapper) theRequest;
+                (HttpServletRequestWrapper) theRequest;
 
         this.originalDispatcher.include(request.getOriginalRequest(), 
             theResponse);

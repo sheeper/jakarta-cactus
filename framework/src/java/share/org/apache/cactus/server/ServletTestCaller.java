@@ -67,8 +67,6 @@ import javax.servlet.http.HttpSession;
 import org.apache.cactus.AbstractWebServerTestCase;
 import org.apache.cactus.ServletTestCase;
 import org.apache.cactus.ServletURL;
-import org.apache.cactus.server.wrapper.HttpServletRequestWrapper;
-import org.apache.cactus.server.wrapper.ServletConfigWrapper;
 
 /**
  * Responsible for instanciating the <code>TestCase</code> class on the server

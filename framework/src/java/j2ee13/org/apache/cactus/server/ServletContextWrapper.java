@@ -54,19 +54,23 @@
  * <http://www.apache.org/>.
  *
  */
-package org.apache.cactus.server.wrapper;
+package org.apache.cactus.server;
+
+import java.lang.reflect.Method;
+
+import java.util.Set;
 
 import javax.servlet.ServletContext;
 
 /**
- * Wrapper around Servlet 2.2 <code>ServletContext</code>. This wrapper
+ * Wrapper around Servlet 2.3 <code>ServletContext</code>. This wrapper
  * provides additional behaviour (see
  * <code>AbstractServletContextWrapper</code>).
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
- * @see AbstractServletContextWrapper
+ * @see RequestDispatcherWrapper
  */
 public class ServletContextWrapper extends AbstractServletContextWrapper
 {
@@ -76,5 +80,89 @@ public class ServletContextWrapper extends AbstractServletContextWrapper
     public ServletContextWrapper(ServletContext theOriginalContext)
     {
         super(theOriginalContext);
+    }
+
+    /**
+     * @see ServletContext#getServletContextName()
+     */
+    public String getServletContextName()
+    {
+        return this.originalContext.getServletContextName();
+    }
+
+    /**
+     * @see #getResourcePaths(String)
+     */
+    public Set getResourcePaths()
+    {
+        Set returnSet;
+
+        // Use reflection because newest Servlet API 2.3 changes removed this
+        // method
+        try
+        {
+            Method method = this.originalContext.getClass().getMethod(
+                "getResourcePaths", null);
+
+            if (method != null)
+            {
+                returnSet = (Set) method.invoke(this.originalContext, null);
+            }
+            else
+            {
+                throw new RuntimeException("Method ServletContext."
+                    + "getResourcePaths() no longer supported by your servlet "
+                    + "engine !");
+            }
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            throw new RuntimeException("Error getting/calling method "
+                + "getResourcePaths()");
+        }
+
+        return returnSet;
+    }
+
+    /**
+     * Added to support the changes of the Jakarta Servlet API 2.3 of the
+     * 17/03/2001 (in anticipation of the upcoming draft of Servlet 2.3). Kept
+     * the method without parameters for servlet engines that do not have
+     * upgraded yet to the new signature.
+     *
+     * @see ServletContext#getResourcePaths(String)
+     */
+    public Set getResourcePaths(String thePath)
+    {
+        Set returnSet;
+
+        // Check if the method exist (for servlet engines that do not have
+        // upgraded yet)
+        try
+        {
+            Method method = this.originalContext.getClass().getMethod(
+                "getResourcePaths", new Class[] {String.class});
+
+            if (method != null)
+            {
+                returnSet = (Set) method.invoke(this.originalContext, 
+                    new Object[] {thePath});
+            }
+            else
+            {
+                throw new RuntimeException("Method ServletContext."
+                    + "getResourcePaths(String path) not supported yet by your "
+                    + "servlet engine !");
+            }
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            throw new RuntimeException("Error getting/calling method "
+                + "getResourcePaths(String path)");
+        }
+
+        return returnSet;
     }
 }

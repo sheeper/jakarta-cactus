@@ -54,17 +54,17 @@
  * <http://www.apache.org/>.
  *
  */
-package org.apache.cactus.server.wrapper;
+package org.apache.cactus.server;
 
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Vector;
 
-import javax.servlet.ServletConfig;
+import javax.servlet.FilterConfig;
 import javax.servlet.ServletContext;
 
 /**
- * Wrapper around <code>ServletConfig</code> which overrides the
+ * Wrapper around <code>FilterConfig</code> which overrides the
  * <code>getServletContext()</code> method to return our own wrapper around
  * <code>ServletContext</code>.
  *
@@ -73,12 +73,12 @@ import javax.servlet.ServletContext;
  * @version $Id$
  * @see ServletContext
  */
-public class ServletConfigWrapper implements ServletConfig
+public class FilterConfigWrapper implements FilterConfig
 {
     /**
-     * The original servlet config object
+     * The original filter config object
      */
-    private ServletConfig originalConfig;
+    private FilterConfig originalConfig;
 
     /**
      * List of parameters set using the <code>setInitParameter()</code> method.
@@ -86,14 +86,14 @@ public class ServletConfigWrapper implements ServletConfig
     private Hashtable initParameters;
 
     /**
-     * Simulated name of the servlet
+     * Simulated name of the filter
      */
-    private String servletName;
+    private String filterName;
 
     /**
-     * @param theOriginalConfig the original servlet config object
+     * @param theOriginalConfig the original filter config object
      */
-    public ServletConfigWrapper(ServletConfig theOriginalConfig)
+    public FilterConfigWrapper(FilterConfig theOriginalConfig)
     {
         this.originalConfig = theOriginalConfig;
         this.initParameters = new Hashtable();
@@ -111,30 +111,30 @@ public class ServletConfigWrapper implements ServletConfig
     }
 
     /**
-     * Sets the servlet name. That will be the value returned by the
-     * <code>getServletName()</code> method.
+     * Sets the filter name. That will be the value returned by the
+     * <code>getFilterName()</code> method.
      *
-     * @param theServletName the servlet's name
+     * @param theFilterName the filter name
      */
-    public void setServletName(String theServletName)
+    public void setFilterName(String theFilterName)
     {
-        this.servletName = theServletName;
+        this.filterName = theFilterName;
     }
 
     //--Overridden methods ----------------------------------------------------
 
     /**
-     * @return the simulated servlet's name if defined or the redirector
-     *         servlet's name
+     * @return the simulated filter's name if defined or the redirector
+     *         filter's name
      */
-    public String getServletName()
+    public String getFilterName()
     {
-        if (this.servletName != null)
+        if (this.filterName != null)
         {
-            return this.servletName;
+            return this.filterName;
         }
 
-        return this.originalConfig.getServletName();
+        return this.originalConfig.getFilterName();
     }
 
     /**
@@ -167,7 +167,6 @@ public class ServletConfigWrapper implements ServletConfig
 
             names.add(value);
         }
-
 
         // Add parameters from web.xml
         enum = this.originalConfig.getInitParameterNames();

@@ -54,7 +54,7 @@
  * <http://www.apache.org/>.
  *
  */
-package org.apache.cactus.server.wrapper;
+package org.apache.cactus.server;
 
 import java.util.Enumeration;
 import java.util.Hashtable;
@@ -124,12 +124,65 @@ public class ServletConfigWrapper implements ServletConfig
     //--Overridden methods ----------------------------------------------------
 
     /**
+     * @return the simulated servlet's name if defined or the redirector
+     *         servlet's name
+     */
+    public String getServletName()
+    {
+        if (this.servletName != null)
+        {
+            return this.servletName;
+        }
+
+        return this.originalConfig.getServletName();
+    }
+
+    /**
      * @return our own wrapped servlet context object
      */
     public ServletContext getServletContext()
     {
         return new ServletContextWrapper(
             this.originalConfig.getServletContext());
+    }
+
+    /**
+     * Return the union of the parameters defined in the Redirector
+     * <code>web.xml</code> file and the one set using the
+     * <code>setInitParameter()</code> method. The parameters with the same
+     * name (and same case) are only returned once.
+     *
+     * @return the init parameters
+     */
+    public Enumeration getInitParameterNames()
+    {
+        Vector names = new Vector();
+
+        // Add parameters that were added using setInitParameter()
+        Enumeration enum = this.initParameters.keys();
+
+        while (enum.hasMoreElements())
+        {
+            String value = (String) enum.nextElement();
+
+            names.add(value);
+        }
+
+
+        // Add parameters from web.xml
+        enum = this.originalConfig.getInitParameterNames();
+
+        while (enum.hasMoreElements())
+        {
+            String value = (String) enum.nextElement();
+
+            if (!names.contains(value))
+            {
+                names.add(value);
+            }
+        }
+
+        return names.elements();
     }
 
     /**
@@ -150,49 +203,5 @@ public class ServletConfigWrapper implements ServletConfig
         }
 
         return value;
-    }
-
-    /**
-     * @return the union of the parameters defined in the Redirector
-     *         <code>web.xml</code> file and the one set using the
-     *         <code>setInitParameter()</code> method.
-     */
-    public Enumeration getInitParameterNames()
-    {
-        Vector names = new Vector();
-
-        Enumeration enum = this.initParameters.keys();
-
-        while (enum.hasMoreElements())
-        {
-            String value = (String) enum.nextElement();
-
-            names.add(value);
-        }
-
-        enum = this.originalConfig.getInitParameterNames();
-
-        while (enum.hasMoreElements())
-        {
-            String value = (String) enum.nextElement();
-
-            names.add(value);
-        }
-
-        return names.elements();
-    }
-
-    /**
-     * @return the simulated servlet's name if defined or the redirector
-     *         servlet's name
-     */
-    public String getServletName()
-    {
-        if (this.servletName != null)
-        {
-            return this.servletName;
-        }
-
-        return this.originalConfig.getServletName();
     }
 }

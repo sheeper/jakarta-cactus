@@ -54,76 +54,49 @@
  * <http://www.apache.org/>.
  *
  */
-package org.apache.cactus.server.wrapper;
+package org.apache.cactus.server;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
+import javax.servlet.jsp.PageContext;
+
+import org.apache.cactus.ServletURL;
 
 /**
- * Wrapper around <code>RequestDispatcher</code> which overrides the
- * <code>forward()</code> and <code>include</code> methods to use the original
- * HTTP request object instead of the simulated one used by Cactus.
+ * Wrapper around <code>PageContext</code> so that get methods that would
+ * normally return implicit objects will now return Cactus wrapper of
+ * implicit objects instead.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
  */
-public class RequestDispatcherWrapper implements RequestDispatcher
+public class PageContextWrapper extends AbstractPageContextWrapper
 {
     /**
-     * The original request dispatcher object
+     * Construct an <code>PageContext</code> instance that delegates
+     * it's method calls to the page context object passed as parameter and
+     * that uses the URL passed as parameter to simulate a URL from which
+     * the request would come from.
+     *
+     * @param theOriginalPageContext the real page context
+     * @param theURL the URL to simulate or <code>null</code> if none
      */
-    private RequestDispatcher originalDispatcher;
-
-    /**
-     * @param theOriginalDispatcher the original request dispatcher object
-     */
-    public RequestDispatcherWrapper(RequestDispatcher theOriginalDispatcher)
+    public PageContextWrapper(PageContext theOriginalPageContext, 
+        ServletURL theURL)
     {
-        this.originalDispatcher = theOriginalDispatcher;
+        super(theOriginalPageContext, theURL);
     }
 
-    /**
-     * Call the original <code>RequestDispatcher</code> <code>forward()</code>
-     * method but with the original HTTP request (not the simulation one which
-     * would make the servlet engine choke !).
-     *
-     * @param theRequest the simulation HTTP request
-     * @param theResponse the original HTTP response
-     * @exception IOException {@link RequestDispatcher#forward}
-     * @exception ServletException {@link RequestDispatcher#forward}
-     */
-    public void forward(ServletRequest theRequest, ServletResponse theResponse)
-        throws IOException, ServletException
-    {
-        HttpServletRequestWrapper request = 
-                (HttpServletRequestWrapper) theRequest;
-
-        this.originalDispatcher.forward(request.getOriginalRequest(), 
-            theResponse);
-    }
+    // Unmodified overridden methods -----------------------------------------
 
     /**
-     * Call the original <code>RequestDispatcher</code> <code>include()</code>
-     * method but with the original HTTP request (not the simulation one which
-     * would make the servlet engine choke !).
-     *
-     * @param theRequest the simulation HTTP request
-     * @param theResponse the original HTTP response
-     * @exception IOException {@link RequestDispatcher#include}
-     * @exception ServletException {@link RequestDispatcher#include}
+     * @see PageContext#handlePageException(Throwable)
      */
-    public void include(ServletRequest theRequest, ServletResponse theResponse)
-        throws IOException, ServletException
+    public void handlePageException(Throwable theThrowable)
+        throws ServletException, IOException
     {
-        HttpServletRequestWrapper request = 
-                (HttpServletRequestWrapper) theRequest;
-
-        this.originalDispatcher.include(request.getOriginalRequest(), 
-            theResponse);
+        this.originalPageContext.handlePageException(theThrowable);
     }
 }

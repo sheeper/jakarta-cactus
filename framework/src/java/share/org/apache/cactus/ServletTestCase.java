@@ -63,7 +63,7 @@ import junit.framework.Test;
 
 import org.apache.cactus.configuration.Configuration;
 import org.apache.cactus.configuration.ServletConfiguration;
-import org.apache.cactus.server.wrapper.ServletConfigWrapper;
+import org.apache.cactus.server.ServletConfigWrapper;
 
 /**
  * Test classes that need access to valid Servlet implicit objects (such as the
@@ -83,7 +83,7 @@ public class ServletTestCase extends AbstractWebServerTestCase
      * <code>beginXXX()</code> or <code>endXXX()</code> methods it will
      * have the <code>null</code> value.
      */
-    public org.apache.cactus.server.wrapper.HttpServletRequestWrapper request;
+    public org.apache.cactus.server.HttpServletRequestWrapper request;
 
     /**
      * Valid <code>HttpServletResponse</code> object that you can access from

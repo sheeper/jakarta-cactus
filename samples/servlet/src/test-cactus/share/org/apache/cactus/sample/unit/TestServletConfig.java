@@ -62,7 +62,7 @@ import java.util.Vector;
 import javax.servlet.ServletContext;
 
 import org.apache.cactus.ServletTestCase;
-import org.apache.cactus.server.wrapper.ServletContextWrapper;
+import org.apache.cactus.server.ServletContextWrapper;
 
 /**
  * Tests that exercise the Servlet Config.

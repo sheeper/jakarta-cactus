@@ -60,7 +60,7 @@ import javax.servlet.jsp.JspWriter;
 
 import org.apache.cactus.configuration.Configuration;
 import org.apache.cactus.configuration.JspConfiguration;
-import org.apache.cactus.server.wrapper.PageContextWrapper;
+import org.apache.cactus.server.PageContextWrapper;
 
 /**
  * Test classes that need access to valid JSP implicit objects (such as the

@@ -54,28 +54,31 @@
  * <http://www.apache.org/>.
  *
  */
-package org.apache.cactus.server.wrapper;
+package org.apache.cactus.server;
+
+import java.io.UnsupportedEncodingException;
+
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.cactus.ServletURL;
 
 /**
- * Encapsulation class for the Servlet 2.2 API <code>HttpServletRequest</code>.
+ * Encapsulation class for the Servlet 2.3 API <code>HttpServletRequest</code>.
  * This is an implementation that delegates all the call to the
  * <code>HttpServletRequest</code> object passed in the constructor except for
- * some overridden methods which are use to simulate a URL. This is to be able
- * to simulate any URL that would have been used to call the test method : if
- * this was not done, the URL that would be returned (by calling the
+ * some overiden methods which are use to simulate a URL. This is to be able to
+ * simulate any URL that would have been used to call the test method : if this
+ * was not done, the URL that would be returned (by calling the
  * <code>getRequestURI()</code> method or others alike) would be the URL of the
- * server redirector servlet or JSP and not a URL that the test case want to
- * simulate.
+ * Cactus redirector servlet and not a URL that the test case want to simulate.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
  */
-public class HttpServletRequestWrapper
+public class HttpServletRequestWrapper 
     extends AbstractHttpServletRequestWrapper
 {
     /**
@@ -91,5 +94,47 @@ public class HttpServletRequestWrapper
         ServletURL theURL)
     {
         super(theRequest, theURL);
+    }
+
+    // Not modified methods --------------------------------------------------
+
+    /**
+     * @return the URL from the simulated URL or the real URL
+     *         if a simulation URL has not been defined.
+     * @see HttpServletRequest#getRequestURL()
+     */
+    public StringBuffer getRequestURL()
+    {
+        StringBuffer result;
+
+        if (this.url != null)
+        {
+            result = new StringBuffer(this.url.getProtocol() + "://"
+                + getServerName() + ":" + getServerPort() + getContextPath() 
+                + getServletPath() + getPathInfo());
+        }
+        else
+        {
+            result = this.request.getRequestURL();
+        }
+
+        return result;
+    }
+
+    /**
+     * @see HttpServletRequest#setCharacterEncoding(String)
+     */
+    public void setCharacterEncoding(String theEnvironment)
+        throws UnsupportedEncodingException
+    {
+        this.request.setCharacterEncoding(theEnvironment);
+    }
+
+    /**
+     * @see HttpServletRequest#getParameterMap()
+     */
+    public Map getParameterMap()
+    {
+        return this.request.getParameterMap();
     }
 }

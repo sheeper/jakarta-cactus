@@ -54,17 +54,17 @@
  * <http://www.apache.org/>.
  *
  */
-package org.apache.cactus.server.wrapper;
+package org.apache.cactus.server;
 
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Vector;
 
-import javax.servlet.FilterConfig;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 
 /**
- * Wrapper around <code>FilterConfig</code> which overrides the
+ * Wrapper around <code>ServletConfig</code> which overrides the
  * <code>getServletContext()</code> method to return our own wrapper around
  * <code>ServletContext</code>.
  *
@@ -73,12 +73,12 @@ import javax.servlet.ServletContext;
  * @version $Id$
  * @see ServletContext
  */
-public class FilterConfigWrapper implements FilterConfig
+public class ServletConfigWrapper implements ServletConfig
 {
     /**
-     * The original filter config object
+     * The original servlet config object
      */
-    private FilterConfig originalConfig;
+    private ServletConfig originalConfig;
 
     /**
      * List of parameters set using the <code>setInitParameter()</code> method.
@@ -86,14 +86,14 @@ public class FilterConfigWrapper implements FilterConfig
     private Hashtable initParameters;
 
     /**
-     * Simulated name of the filter
+     * Simulated name of the servlet
      */
-    private String filterName;
+    private String servletName;
 
     /**
-     * @param theOriginalConfig the original filter config object
+     * @param theOriginalConfig the original servlet config object
      */
-    public FilterConfigWrapper(FilterConfig theOriginalConfig)
+    public ServletConfigWrapper(ServletConfig theOriginalConfig)
     {
         this.originalConfig = theOriginalConfig;
         this.initParameters = new Hashtable();
@@ -111,31 +111,17 @@ public class FilterConfigWrapper implements FilterConfig
     }
 
     /**
-     * Sets the filter name. That will be the value returned by the
-     * <code>getFilterName()</code> method.
+     * Sets the servlet name. That will be the value returned by the
+     * <code>getServletName()</code> method.
      *
-     * @param theFilterName the filter name
+     * @param theServletName the servlet's name
      */
-    public void setFilterName(String theFilterName)
+    public void setServletName(String theServletName)
     {
-        this.filterName = theFilterName;
+        this.servletName = theServletName;
     }
 
     //--Overridden methods ----------------------------------------------------
-
-    /**
-     * @return the simulated filter's name if defined or the redirector
-     *         filter's name
-     */
-    public String getFilterName()
-    {
-        if (this.filterName != null)
-        {
-            return this.filterName;
-        }
-
-        return this.originalConfig.getFilterName();
-    }
 
     /**
      * @return our own wrapped servlet context object
@@ -144,44 +130,6 @@ public class FilterConfigWrapper implements FilterConfig
     {
         return new ServletContextWrapper(
             this.originalConfig.getServletContext());
-    }
-
-    /**
-     * Return the union of the parameters defined in the Redirector
-     * <code>web.xml</code> file and the one set using the
-     * <code>setInitParameter()</code> method. The parameters with the same
-     * name (and same case) are only returned once.
-     *
-     * @return the init parameters
-     */
-    public Enumeration getInitParameterNames()
-    {
-        Vector names = new Vector();
-
-        // Add parameters that were added using setInitParameter()
-        Enumeration enum = this.initParameters.keys();
-
-        while (enum.hasMoreElements())
-        {
-            String value = (String) enum.nextElement();
-
-            names.add(value);
-        }
-
-        // Add parameters from web.xml
-        enum = this.originalConfig.getInitParameterNames();
-
-        while (enum.hasMoreElements())
-        {
-            String value = (String) enum.nextElement();
-
-            if (!names.contains(value))
-            {
-                names.add(value);
-            }
-        }
-
-        return names.elements();
     }
 
     /**
@@ -202,5 +150,49 @@ public class FilterConfigWrapper implements FilterConfig
         }
 
         return value;
+    }
+
+    /**
+     * @return the union of the parameters defined in the Redirector
+     *         <code>web.xml</code> file and the one set using the
+     *         <code>setInitParameter()</code> method.
+     */
+    public Enumeration getInitParameterNames()
+    {
+        Vector names = new Vector();
+
+        Enumeration enum = this.initParameters.keys();
+
+        while (enum.hasMoreElements())
+        {
+            String value = (String) enum.nextElement();
+
+            names.add(value);
+        }
+
+        enum = this.originalConfig.getInitParameterNames();
+
+        while (enum.hasMoreElements())
+        {
+            String value = (String) enum.nextElement();
+
+            names.add(value);
+        }
+
+        return names.elements();
+    }
+
+    /**
+     * @return the simulated servlet's name if defined or the redirector
+     *         servlet's name
+     */
+    public String getServletName()
+    {
+        if (this.servletName != null)
+        {
+            return this.servletName;
+        }
+
+        return this.originalConfig.getServletName();
     }
 }

@@ -66,7 +66,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.cactus.AbstractWebServerTestCase;
 import org.apache.cactus.JspTestCase;
 import org.apache.cactus.ServletURL;
-import org.apache.cactus.server.wrapper.PageContextWrapper;
 
 /**
  * Call the test method on the server side after assigning the JSP implicit
