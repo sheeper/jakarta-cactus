@@ -32,7 +32,6 @@
         points to where the JBoss server configuration for Cactus will be
         created. It defaults to 
         <code>${cactus.home.jboss3x}/server/cactus</code>.
-      </action>        
       </action>
       <action dev="vmassol" type="add">
         Added new <code>cactus.sysproperties</code> property to the 
