@@ -48,10 +48,6 @@
       documentation of each release.
     </action>
     <action context="docs" assigned-to="VMA">
-      Add a license section to the Cactus web site that explains that Cactus
-      is under the APL license and shows the license statement.
-    </action>
-    <action context="docs" assigned-to="VMA">
       Add a contributing section to the Cactus web site (see the contributing
       section of Cocoon as a sample).
     </action>
