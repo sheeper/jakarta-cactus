@@ -1,27 +1,97 @@
-The Cactus project is pleased to announce the release of version <v>.
+The Cactus project is pleased to announce the release of version 1.7.
 Cactus is a unit testing framework for testing server side java code.
 
 Goals
 -----
 
-[add description of main focus here]
+Primarily a bug fix release. Several usability enhancements and the 
+support for JDK 5 have been added.
 
 Main new features
 -----------------
 
-[add main new features here]
+* [All] Make Cactus work with JDK 1.5 (CACTUS-129)
+* [All] Tested with Orion 1.6.0b, Orion 2.0.4, Tomcat 4.1.31, Tomcat 5.0.29, 
+  Resin 2.1.14, Resin 3.0.9, JBoss 3.2.6.
+* [All] Added support for Resin 3.0.9 and above.
+* [Ant/Maven] Add attribute "jvmArgs" in the container tasks (CACTUS-158).
+* [Ant] The <jboss3x> container element now supports running JBoss in a 
+  temporary directory, specified by the "tmpdir" attribute. In addition, by 
+  using the "configDir" attribute, you can now specify a directory where you 
+  have stored a custom JBoss server configuration (identified by the "config"
+  attribute). This configuration will be copied to the tmp directory and used
+  to configure JBoss (CACTUS-119).
+* [Ant] Added new <resin2x> and <resin3x> tasks to start/stop Resin 2.x/3.x 
+  instances.
+* [Ant] Ensure faster shutdown times with WebLogic 7.x by using the 
+  FORCESHUTDOWN WebLogic command instead of the graceful one (CACTUS-120).
+* [Core] The JettyTestSetup class now checks if the Jetty server is already 
+  started and only starts it if it isn't running. It also does not stops it if
+  it was running before JettyTestSetup was called. This is useful when you have
+  a master test suite and when you also wish to run your tests one by one
+  (CACTUS-118).
+* [Maven] Added optional "source" attribute from the java plugin for compiling 
+  cactus tests (CACTUS-156).
+* [Maven] Allow Cactus to include some resources in the webapp classpath
+  (WEB-INF/classes), through the use of variable "cactus.resources.dirs"
+  (CACTUS-132).
+* [Maven] Extended "cactus.sysproperties" property to the "cactus:match" and
+  "cactus:single" goals (CACTUS-128).
+* [Maven] Goal "cactus:test" is not executed if property "maven.test.skip" is
+  set (CACTUS-146).
+* [Maven] The Cactus HTML JUnit report now displays the stack trace in case of
+  failure (CACTUS-135).
+* [Maven] The plugin now correctly uses the "maven.war.build.dir",
+  "maven.war.final.name", "maven.ejb.build.dir" and "maven.ejb.final.name" 
+  properties from the WAR and EJB plugins instead of hard-coding the values. 
+  Note that as a result, the Cactus plugins now requires version 1.7+ of the 
+  WAR plugin and version 1.6+ of the EJB plugin. Please note that Maven 1.0.2
+  contains older versions of those plugins (CACTUS-64).
+* [Maven] Cactus now guesses automatically what Java source files are Cactus 
+  tests when packaging tests in an EAR (it was already supported when running
+  tests packaged in a WAR).
+* [Maven] Added new "cactus.jboss3x.config.dir" property which allows users 
+  to specify the location of a custom JBoss server configuration to use. This 
+  configuration, if specified, will be copied by the <cactus> task to 
+  "cactus.jboss3x.tmp.dir" (CACTUS-119).
+* [Maven] Added new "cactus.jboss3x.tmp.dir" property which points to where the
+  JBoss server configuration for Cactus will be created. It defaults to 
+  "${cactus.home.jboss3x}/server/cactus" (CACTUS-119).
+* [Maven] Added new "cactus.sysproperties" property to the Maven plugin for 
+  Cactus to allow passing system properties to the client and server side 
+  Cactus JVMs.
+
+Main bugs fixed
+---------------
+
+* [Ant] The <resin3x> element of the <cactus> task is now correctly using the
+  user-defined port ("port" attribute). The port was previously hardcoded to 
+  "8080".
+* [Core] The Cactus Servlet Test Runner now re-initializes the Cactus 
+  configuration when it is called the first time (in its init() method). This 
+  allows testing several webapps in the same JVM (i.e without restarting the 
+  container).
+* [Core] Cactus was failing with a NullPointerException if the response was not
+  returning any output stream (which happens if response.setStatus(
+  HttpServletResponse.SC_NO_CONTENT) is called for example) (CACTUS-123).
+* [Ant] Fixed "java.lang.NumberFormatException: For input string: "localhost""
+  error that was happening when using the <cactus> task with JBoss 3.0.8. It 
+  was due to the fact that JBoss 3.0.8 does not support the new "--server" 
+  parameter which works with newer versions of JBoss 3.x (CACTUS-122).
+* [Maven] Proper use of "maven.compile.target" and "maven.compile.source" 
+  properties (CACTUS-161).
 
 Changes
 -------
 
 Please check the Changes page at
 http://jakarta.apache.org/cactus/changes.html for a full list of the 
-changes in version <v>. 
+changes in version 1.7. 
 
 Known limitations and bugs:
 ---------------------------
 
-[add main limitations and known bugs here]
+The list of open issues can be found at http://tinyurl.com/6do8z
 
 For more information about Cactus, please visit
 http://jakarta.apache.org/cactus/.

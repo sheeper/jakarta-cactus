@@ -50,8 +50,8 @@
         <code>maven.war.final.name</code>, <code>maven.ejb.build.dir</code>
         and <code>maven.ejb.final.name</code> properties from the WAR and EJB
         plugins instead of hard-coding the values. Note that as a result, the 
-        Cactus plugins now requires version 1.7 of the WAR plugin and version
-        1.6 of the EJB plugin.
+        Cactus plugins now requires version 1.7+ of the WAR plugin and version
+        1.6+ of the EJB plugin.
       </action>
       <action dev="vmassol" type="fix">
         Cactus now guesses automatically what Java source files are Cactus tests
@@ -76,6 +76,8 @@
         the client and server side Cactus JVMs.
       </action>
     </release>
+
+    <release version="1.6.1" date="2004-05-14"/>
     
     <release version="1.6" date="2004-05-08">
       <action dev="vmassol" type="add" issue="CACTUS-102" due-to="Nicolas De Loof">

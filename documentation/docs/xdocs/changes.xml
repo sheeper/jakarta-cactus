@@ -110,7 +110,7 @@
           The <code>&lt;resin3x&gt;</code> element of the 
           <code>&lt;cactus&gt;</code> task is now correctly using the
           user-defined port (<code>port</code> attribute). The port was
-          hardcoded to <code>8080</code>.
+          previously hardcoded to <code>8080</code>.
         </action>
         <action dev="VMA" type="fix">
           The Cactus Servlet Test Runner now re-initializes the Cactus 
@@ -147,10 +147,10 @@
           Resin 2.x/3.x instances.
         </action>
         <action dev="VMA" type="update">
-          Building Cactus from the sources now requires Ant 1.6.1+. The 
-          Cactus build also been simplified a lot and external libraries
-          are automatically downloaded from ibiblio.org if not present
-          on the file system.
+          Building Cactus from the sources now requires Ant 1.6.1+ (Ant 1.6.2
+          if you're using JDK 5). The Cactus build also been simplified a lot 
+          and external libraries are automatically downloaded from ibiblio.org 
+          if not present on the file system.
         </action>
         <action dev="VMA" type="update" issue="CACTUS-120">
           Ensure faster shutdown times with WebLogic 7.x by using the 
