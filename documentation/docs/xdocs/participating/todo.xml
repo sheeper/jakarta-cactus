@@ -193,7 +193,7 @@
         instead of Cactus extensions (by using special Cactus TestSuite 
         objects). This will allow to easily execute the same test outside and 
         inside of the container (for test not depending on container objects).
-        Idea suggested by <link href="loney@spiritedsw.com">Fred Loney</link>.
+        Idea suggested by <link href="mailto:loney@spiritedsw.com">Fred Loney</link>.
       </action>
     </category>
 
