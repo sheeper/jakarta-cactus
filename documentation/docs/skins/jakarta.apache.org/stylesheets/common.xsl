@@ -23,7 +23,7 @@
 
   <!-- Location of the sitemap.xml file, which describes the documentation
        resources -->
-  <xsl:param name="sitefile" select="''"/>
+  <xsl:param name="sitemapFile" select="''"/>
 
   <!-- ==================================================================== -->
   <!-- Global variables -->
@@ -36,7 +36,7 @@
        sitemap.xml placed at the same level as the xdoc files. 
        The path we specify is relative to where this stylesheet is located -->
   <xsl:variable name="sitemap" 
-    select="document(concat($xdocdir,'/',$sitefile))/sitemap"/>
+    select="document(concat('file:/',$sitemapFile))/sitemap"/>
 
   <!-- The current document being processed. Note: This is needed for the
        "get-base-directory" template as it can be called with another

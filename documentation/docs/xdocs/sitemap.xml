@@ -8,8 +8,8 @@
   <!-- Internal links -->
 
   <resource id="index" target="index.html" name="What is Cactus?">
-    Describes what is the Cactus framework, defines several types of
-    unit tests and explains what are those best achieved with Cactus.
+    Describes what the Cactus framework is, defines several types of
+    unit tests and explains which are best implemented with Cactus.
   </resource>
 
   <resource id="news" target="news.html" name="News">
@@ -29,6 +29,10 @@
     Short and long term goals for Cactus.
   </resource>
   
+  <resource id="sitemap" target="sitemap.html" name="Sitemap">
+    List of all site resources.
+  </resource>
+
   <resource id="todo" target="participating/todo.html" name="Roadmap/Todo">
     List of todo tasks for the next Cactus releases.
   </resource>

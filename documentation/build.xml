@@ -114,6 +114,18 @@
          Generate the documentation
        ========================================================================
     -->
+    <target name="doc.validate" depends="doc.prepare">
+
+        <xmlvalidate warn="yes">
+            <xmlcatalog refid="documentation.dtds"/>
+            <fileset dir="${doc.xdoc.dir}">
+                <include name="sitemap.xml"/>
+                <include name="**/navigation.xml"/>
+            </fileset>
+        </xmlvalidate>
+
+    </target>
+
     <target name="doc.prepare" depends="init">
 
         <mkdir dir="${target.xdoc.dir}"/>
@@ -127,6 +139,7 @@
                 <exclude name="original/**"/>
                 <exclude name="misc/**"/>
                 <exclude name="images/**"/>
+                <exclude name="sitemap.xml"/>
             </fileset>
         </copy>
 
@@ -172,28 +185,26 @@
 
     </target>
 
-    <target name="doc.validate" depends="doc.prepare">
-
-        <xmlvalidate warn="yes">
-            <xmlcatalog refid="documentation.dtds"/>
-            <fileset dir="${target.xdoc.dir}">
-                <include name="sitemap.xml"/>
-                <include name="**/navigation.xml"/>
-            </fileset>
-        </xmlvalidate>
-
-    </target>
-
     <target name="doc.generate" depends="doc.prepare,doc.cvschangelog">
 
-        <!-- Generate the docs -->
+        <property name="sitemap.file" location="${doc.xdoc.dir}/sitemap.xml"/>
+        
+       <!-- Transform sitemap -->
+       <style in="${doc.xdoc.dir}/sitemap.xml"
+            out="${target.xdoc.dir}/sitemap.xml"
+            style="${doc.skin.dir}/jakarta.apache.org/stylesheets/sitemap2document.xsl">
+
+            <xmlcatalog refid="documentation.dtds"/>
+
+       </style>
+
+       <!-- Generate the docs -->
         <style basedir="${target.xdoc.dir}" destdir="${target.doc.dir}"
             style="${doc.skin.dir}/jakarta.apache.org/stylesheets/document2html.xsl">
 
             <xmlcatalog refid="documentation.dtds"/>
 
             <include name="**/*.xml"/>
-            <exclude name="sitemap.xml"/>
             <exclude name="**/navigation.xml"/>
             <exclude name="**/cvslog.xml"/>
 
@@ -212,7 +223,7 @@
             <param name="xdocdir" expression="../../../../../${target.xdoc.dir}"/>
 
             <!-- Location of the sitemap.xml file relative to xdocdir -->
-            <param name="sitefile" expression="sitemap.xml"/>
+            <param name="sitemapFile" expression="${sitemap.file}"/>
 
             <!-- Location of the cvslog.xml file relative to xdocdir -->
             <param name="cvslogfile" expression="cvslog/cvslog.xml"/>
@@ -231,7 +242,7 @@
         </taskdef>
 
         <!-- Check the sitemap for invalid links -->
-        <checksitemap sitemap="${target.xdoc.dir}/sitemap.xml"
+        <checksitemap sitemap="${doc.xdoc.dir}/sitemap.xml"
             outputDir="${target.doc.dir}">
             <xmlcatalog refid="documentation.dtds"/>
         </checksitemap>
