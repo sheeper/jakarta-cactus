@@ -63,7 +63,7 @@
     <section title="Prerequisites">
       <p>
         To build Cactus from source, you'll need to have
-        <link href="ext:ant">Ant</link> 1.5.1 (or later)
+        <link href="ext:ant">Ant</link> 1.5.3 (or later)
         installed. Please make sure that the distribution also includes the JAR
         containing the optional tasks (<code>optional.jar</code>). In addition,
         please add an XSLT processor (like
@@ -95,7 +95,7 @@
             <td nowrap="true">
               <link href="ext:commons_logging">aspectjrt.jar</link>
             </td>
-            <td nowrap="true">1.0.6 or later</td>
+            <td nowrap="true">1.1.1 or later</td>
             <td>
               The AspectJ runtime.
             </td>
@@ -104,25 +104,16 @@
             <td nowrap="true">
               <link href="ext:aspectj">aspectjtools.jar</link>
             </td>
-            <td nowrap="true">1.0.6 or later</td>
+            <td nowrap="true">1.1.0 or later</td>
             <td>
               The AspectJ compiler and other tools.
-            </td>
-          </tr>
-          <tr>
-            <td><link href="ext:aspectj">aspectj-ant.jar</link></td>
-            <td nowrap="true">1.0.6 or later</td>
-            <td>
-              The AspectJ Ant tasks.<br/>
-              <em>Since version 1.1 of AspectJ, the Ant tasks are included
-              in <code>aspectjtools.jar</code>.</em>
             </td>
           </tr>
           <tr>
             <td nowrap="true">
               <link href="ext:commons_httpclient">commons-httpclient.jar</link>
             </td>
-            <td nowrap="true">2.0 beta 1 or later</td>
+            <td nowrap="true">2.0 rc1 or later</td>
             <td>
               Jakarta Commons HttpClient.
             </td>
@@ -131,7 +122,7 @@
             <td nowrap="true">
               <link href="ext:commons_logging">commons-logging.jar</link>
             </td>
-            <td nowrap="true">1.0 or later</td>
+            <td nowrap="true">1.0.3 or later</td>
             <td>
               Jakarta Commons Logging.
             </td>
@@ -140,7 +131,7 @@
             <td nowrap="true">
               <link href="ext:junit">junit.jar</link>
             </td>
-            <td nowrap="true">3.7 or later</td>
+            <td nowrap="true">3.8.1 or later</td>
             <td>
               The JUnit framework.<br/>
               <em>This JAR file must be placed in the <code>lib</code>
@@ -283,7 +274,7 @@
             <td nowrap="true">
               <link href="ext:taglibs_standard">standard.jar</link>
             </td>
-            <td nowrap="true">1.0 or later</td>
+            <td nowrap="true">1.0</td>
             <td>
               Jakarta Standard Taglib. Required for compiling and running the
               servlet sample test suite on J2EE 1.3.

@@ -75,10 +75,9 @@
   <target name="init.aspectj">
 
     <!-- Define the AspectJ tasks -->
-    <taskdef name="ajc" classname="org.aspectj.tools.ant.taskdefs.Ajc">
+    <taskdef resource="org/aspectj/tools/ant/taskdefs/aspectjTaskdefs.properties">
       <classpath>
         <pathelement location="${aspectj-tools.jar}"/>
-        <pathelement location="${aspectj-ant.jar}"/>
       </classpath>
     </taskdef>
 
@@ -224,16 +223,16 @@ be resolved. Please check you build.properties file, and run Ant with the
 
     <mkdir dir="${target.classes.java.dir}"/>
 
-    <ajc destdir="${target.classes.java.dir}"
+    <iajc destdir="${target.classes.java.dir}" verbose="${verbose}"
         debug="${debug}" deprecation="${deprecation}"
-        optimize="${optimize}">
-      <src path="${target.src.dir}"/>
-      <src path="${src.java.specific.dir}"/>
-      <src path="${src.aspect.dir}"/>
-      <exclude name="**/package.html"/>
-      <exclude name="**/overview.html"/>
+        sourceRootCopyFilter="**/CVS/*,**/*.java,**/*.html">
+      <sourceroots>
+        <pathelement location="${target.src.dir}"/>
+        <pathelement location="${src.java.specific.dir}"/>
+        <pathelement location="${src.aspect.dir}"/>
+      </sourceroots>
       <classpath refid="project.classpath"/>
-    </ajc>
+    </iajc>
 
     <copy todir="${target.classes.java.dir}/org/apache/cactus/server"
         file="${web.dir}/jspRedirector.jsp"/>

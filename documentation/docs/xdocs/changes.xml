@@ -68,14 +68,19 @@
       </devs>
 
       <release version="1.6dev" date="in CVS">
+      </release>
+      
+      <release version="1.5-rc1" date="in CVS">
+        <action dev="VMA" type="update">
+          Updated to use AspectJ 1.1.1. When you upgrade to Cactus 1.5-rc1
+          make sure you update your <code>aspectjrt.jar</code> to version
+          1.1.1 (the jar is provided in the Cactus distribution).
+        </action>
         <action dev="VMA" type="add">
           Added an EJB sample application to demonstrate how to perform EJB
           unit testing with Cactus and how to automate it with the 
           Cactus/Ant integration.
         </action>
-      </release>
-      
-      <release version="1.5-rc1" date="in CVS">
         <action dev="VMA" type="fix" due-to="Alexander Ananiev" due-to-email="alexander@myarch.com">
           When using the new <code>ServletTestSuite</code> wrapper around pure
           JUnit test cases, the <code>setUp()</code> and 

@@ -45,15 +45,11 @@ httpunit.jar = ${lib.repo}/httpunit/jars/httpunit-1.5.3.jar
 
 # The location of the AspectJ runtime jar
 # If not specified here, the jar must be present in ANTHOME/lib
-aspectjrt.jar = ${lib.repo}/aspectj/jars/aspectjrt-1.0.6.jar
+aspectjrt.jar = ${lib.repo}/aspectj/jars/aspectjrt-1.1.1.jar
 
 # The location of the AspectJ tools jar
 # If not specified here, the jar must be present in ANTHOME/lib
-aspectj-tools.jar = ${lib.repo}/aspectj/jars/aspectj-tools-1.0.6.jar
-
-# The location of the AspectJ Ant tasks jar
-# If not specified here, the jar must be present in ANTHOME/lib
-aspectj-ant.jar = ${lib.repo}/aspectj/jars/aspectj-ant-1.0.6.jar
+aspectj-tools.jar = ${lib.repo}/aspectj/jars/aspectjtools-1.1.1.jar
 
 # Dependencies for Checkstyle code auditing
 # If not specified here, the JARs must be present in ANTHOME/lib
