@@ -305,7 +305,7 @@
                 <exclude name="**/test*.*"/>
             </fileset>
 
-            <fileset dir="${sample.conf.dir}/test">
+            <fileset dir="${sample.conf.dir}/test/share">
                 <include name="log_*.properties"/>
             </fileset>
 
