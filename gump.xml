@@ -46,7 +46,6 @@
 
     <ant buildfile="documentation/build.xml" target="dist">
       <depend property="cactus.ant.jar" project="jakarta-cactus-ant"/>
-      <property name="cvs.executable" value="cvs"/>
     </ant>
   
     <depend project="jakarta-ant" inherit="runtime"/>
@@ -254,7 +253,6 @@
       <depend property="standard.jar" project="jakarta-taglibs-standard"
         id="standard"/>
       <property name="release.dir" value="release-12"/>
-      <property name="cvs.executable" value="cvs"/>
 
     </ant>
 
@@ -294,7 +292,6 @@
       <depend property="standard.jar" project="jakarta-taglibs-standard"
         id="standard"/>
       <property name="release.dir" value="release-13"/>
-      <property name="cvs.executable" value="cvs"/>
 
     </ant>
 
@@ -333,7 +330,6 @@
       <depend property="jstl.jar" project="jakarta-taglibs-standard" id="jstl"/>
       <depend property="standard.jar" project="jakarta-taglibs-standard"
         id="standard"/>
-      <property name="cvs.executable" value="cvs"/>
 
     </ant>
 

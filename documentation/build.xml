@@ -110,17 +110,6 @@
     -->
     <target name="check.properties" depends="display.properties">
 
-        <taskdef name="checkProperty"
-            classname="org.apache.cactus.ant.CheckPropertiesTask">
-            <classpath>
-                <pathelement location="${cactus.ant.jar}"/>
-            </classpath>
-        </taskdef>
-
-        <checkProperty>
-            <property name="cvs.executable"/>
-        </checkProperty>
-
     </target>
 
     <!--
@@ -150,19 +139,12 @@
         <mkdir dir="${target.doc.dir}"/>
         <mkdir dir="${target.doc.dir}/images"/>
 
-        <!-- Custom Ant task definitions -->
-        <taskdef name="cvslog" classname="org.apache.cactus.ant.ChangeLogTask">
-            <classpath>
-                <pathelement location="${cactus.ant.jar}"/>
-            </classpath>
-        </taskdef>
-
         <!-- Generate cvs log -->
         <mkdir dir="${target.xdoc.dir}/cvslog"/>
-        <cvslog users="${doc.xdoc.dir}/cvslog/users.properties"
-            work="${doc.xdoc.dir}" output="${target.xdoc.dir}/cvslog/cvslog.xml"
-            elapsed="15" executable="${cvs.executable}">
-
+        <cvschangelog dir="${doc.xdoc.dir}"
+            usersfile="${doc.xdoc.dir}/cvslog/users.properties"
+            destfile="${target.xdoc.dir}/cvslog/cvslog.xml"
+            daysinpast="15">
             <fileset dir="${doc.xdoc.dir}">
                 <exclude name="**/navigation.xml"/>
                 <exclude name="sitemap.xml"/>
@@ -171,8 +153,7 @@
                 <exclude name="**/cvslog.xml"/>
                 <include name="**/*.xml"/>
             </fileset>
-
-        </cvslog>
+        </cvschangelog>
 
         <!-- Copy all files that may contain token filters or that are not 
              binary files -->

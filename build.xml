@@ -99,8 +99,6 @@
         <echo message="j2ee.jar = ${j2ee.jar}"/>
         <echo message="servlet.jar = ${servlet.jar}"/>
         <echo message=""/>
-        <echo message="cvs.executable = ${cvs.executable}"/>
-        <echo message=""/>
         <echo message="clover.enable (optional) = ${clover.enable}"/>
         <echo message=""/>
 
@@ -125,7 +123,6 @@
                 <available file="${aspectjrt.jar}"/>
                 <available file="${jstl.jar}"/>
                 <available file="${standard.jar}"/>
-                <isset property="cvs.executable"/>
            </and>
         </condition>
 

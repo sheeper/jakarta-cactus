@@ -16,10 +16,6 @@
 # Mandatory properties
 # -----------------------------------------------------------------------------
 
-# CVS executable to use for documentation generation (used to automatically
-# generate web site changelog).
-cvs.executable = cvs
-
 # -----------------------------------------------------------------------------
 # Optional properties
 # -----------------------------------------------------------------------------

@@ -55,10 +55,6 @@ jstl.jar = ${lib.repo}/jstl/jars/jstl-1.0.2.jar
 # The location of the JSTL jar
 standard.jar = ${lib.repo}/taglibs/jars/standard-1.0.2.jar
 
-# CVS executable to use for documentation generation (used to automatically
-# generate web site changelog).
-cvs.executable = cvs
-
 # -----------------------------------------------------------------------------
 # Optional properties
 # -----------------------------------------------------------------------------
