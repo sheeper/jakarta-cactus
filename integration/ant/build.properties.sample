@@ -60,7 +60,7 @@ xerces.jar = ${lib.repo}/xerces/jars/xercesImpl-2.3.0.jar
 xmlapis.jar = ${lib.repo}/xerces/jars/xmlParserAPIs-2.2.1.jar
 
 # JTidy (required by HttpUnit)
-tidy.jar = ${lib.repo}/jtidy/jars/jtidy-04aug2000r7.jar
+tidy.jar = ${lib.repo}/jtidy/jars/jtidy-4aug2000r7-dev.jar
 
 # -----------------------------------------------------------------------------
 # Optional properties
