@@ -1,29 +1,36 @@
     <!--
        ========================================================================
-         Run WebLogic 7.0 tests
-       ========================================================================
-    -->
-    <target name="test.weblogic.70" depends="prepare.weblogic.70"
-        if="home.weblogic.70" description="Run tests on WebLogic 7.0">
-
-        <!-- Start the servlet engine, wait for it to be started, run the
-             unit tests, stop the servlet engine, wait for it to be stopped.
-             The servlet engine is stopped if the tests fail for any reason -->
-
-        <runservertests 
-            testURL="http://localhost:${test.port}/test/ServletRedirector?Cactus_Service=RUN_TEST"
-            startTarget="start.weblogic.70"
-            stopTarget="stop.weblogic.70"
-            testTarget="test"/>
-
-    </target>
-
-    <!--
-       ========================================================================
          Start WebLogic 7.0
        ========================================================================
     -->
-    <target name="start.weblogic.70">
+    <target name="start.weblogic.70" depends="checkwindows, windows.start.weblogic.70, other.start.weblogic.70"/>
+    
+    <target name="windows.start.weblogic.70" if="isWindows">
+        <property name="target.weblogic70.dir"
+            value="${target.test.dir}/weblogic70"/>
+        <java jvm='javaw' classname="weblogic.Server" fork="yes"
+            dir="${target.weblogic70.dir}/testdomain">
+
+            <classpath>
+                <pathelement location="${home.weblogic.70}/weblogic700/server/lib/weblogic.sp.jar"/>
+                <pathelement location="${home.weblogic.70}/weblogic700/server/lib/weblogic.jar"/>
+            </classpath>
+
+            <jvmarg value="-hotspot"/>
+            <jvmarg value="-ms64m"/>
+            <jvmarg value="-mx64m"/>
+            <jvmarg value="-Djava.library.path=${java.library.path};${home.weblogic.70}/weblogic700/server/bin"/>
+            <jvmarg value="-Dweblogic.Name=testserver"/>
+            <jvmarg value="-Dbea.home=${home.weblogic.70}"/>
+            <jvmarg value="-Dweblogic.management.username=system"/>
+            <jvmarg value="-Dweblogic.management.password=password"/>
+            <jvmarg value="-Djava.security.policy==./server/lib/weblogic.policy"/>
+
+        </java>
+
+    </target>
+
+    <target name="other.start.weblogic.70" unless="isWindows">
         <property name="target.weblogic70.dir"
             value="${target.test.dir}/weblogic70"/>
         <java classname="weblogic.Server" fork="yes"
@@ -53,7 +60,27 @@
          Stop WebLogic 7.0
        ========================================================================
     -->
-    <target name="stop.weblogic.70">
+    <target name="stop.weblogic.70" depends="checkwindows, windows.stop.weblogic.70, other.stop.weblogic.70"/>
+    
+    <target name="windows.stop.weblogic.70" if="isWindows">
+
+        <java jvm='javaw' classname="weblogic.Admin" fork="yes">
+
+            <classpath>
+                <pathelement location="${home.weblogic.70}/weblogic700/server/lib/weblogic.sp.jar"/>
+                <pathelement location="${home.weblogic.70}/weblogic700/server/lib/weblogic.jar"/>
+            </classpath>
+
+            <arg line="-url t3://localhost:${test.port}"/>
+            <arg line="-username system"/>
+            <arg line="-password password"/>
+            <arg value="SHUTDOWN"/>
+
+        </java>
+
+    </target>
+
+    <target name="other.stop.weblogic.70" unless="isWindows">
 
         <java classname="weblogic.Admin" fork="yes">
 
@@ -71,22 +98,6 @@
 
     </target>
 
-    <!--
-       ========================================================================
-         Display a warning message if the needed servlet engine home property
-         is not set
-       ========================================================================
-    -->
-    <target name="check.test.weblogic.70" unless="home.weblogic.70">
-
-        <echo message=""/>
-        <echo message="******************************************************"/>
-        <echo message="WARNING : The 'home.weblogic.70' property has not been"/>
-        <echo message="set. No test will be run on that servlet engine."/>
-        <echo message="******************************************************"/>
-        <echo message=""/>
-
-    </target>
 
     <!--
        ========================================================================
