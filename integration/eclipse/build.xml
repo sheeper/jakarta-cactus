@@ -49,6 +49,13 @@
         <property name="dist.bin.integration.dir" 
             value="${dist.bin.dir}/${project.name.file}"/>
 
+        <!-- Set the properties related to the jar names -->
+        <property name="cactus.eclipseintegration.jar.name" 
+            value="cactussupport.jar"/>
+
+        <property name="cactus.eclipseintegration.src.jar.name" 
+            value="cactussupportsrc.jar"/>
+
     </target>
 
     <!--
@@ -89,6 +96,8 @@
        ========================================================================
     -->
     <target name="init" depends="init.common,properties,check.properties">
+        <!-- Filters -->
+        <filter token="cactus.eclipseintegration.jar.name" value="${cactus.eclipseintegration.jar.name}"/>
     </target>
 
     <!--
@@ -209,9 +218,9 @@
 		<mkdir dir="${dist.bin.integration.dir}"/>
 
         <copy todir="${dist.bin.integration.dir}"
-            file="${target.dir}/cactussupport.jar"/>
+            file="${target.dir}/${cactus.eclipseintegration.jar.name}"/>
         <copy todir="${dist.bin.integration.dir}"
-            file="${target.dir}/cactussupportsrc.jar"/>
+            file="${target.dir}/${cactus.eclipseintegration.src.jar.name}"/>
 	
 		<copy todir="${dist.bin.integration.dir}" file="${base.dir}/plugin.xml"/>
 		<copy todir="${dist.bin.integration.dir}" 
@@ -226,7 +235,7 @@
             <fileset dir="${cactus.antintegration.bin}"/>
          </copy>
 
-        <copy todir="${dist.bin.integration.dir}/ant">
+        <copy todir="${dist.bin.integration.dir}/ant" filtering="on">
             <fileset dir="${src.scripts.dir}"/>
         </copy>
 

@@ -345,6 +345,8 @@ integration/eclipse/src/java/org/apache/cactus/eclipse/ui/CactusPreferencePage.j
 integration/eclipse/src/java/org/apache/cactus/eclipse/ui/CactusPreferences.java svn_keywords=Author+Date+Id+Revision
 integration/eclipse/src/java/org/apache/cactus/eclipse/ui/ContainersPreferencePage.java svn_keywords=Author+Date+Id+Revision
 integration/eclipse/src/scripts/build-war.xml svn_keywords=Author+Date+Id+Revision
+integration/eclipse/src/scripts/eclipse/build-share.xml svn_keywords=Author+Date+Id+Revision
+integration/eclipse/src/scripts/eclipse/build.xml svn_keywords=Author+Date+Id+Revision
 samples/jetty/.cvsignore svn_keywords=Author+Date+Id+Revision
 samples/jetty/build.properties.sample svn_keywords=Author+Date+Id+Revision
 samples/jetty/build.xml svn_keywords=Author+Date+Id+Revision
