@@ -265,14 +265,15 @@ public class CactusPlugin extends AbstractUIPlugin
         {
             log(theStatus);
         }
+
         Display.getDefault().asyncExec(new Runnable()
         {
             public void run()
             {
                 MessageDialog.openError(
                     getActiveWorkbenchShell(),
-                    theTitle,
-                    theMessage);
+                    (theTitle == null) ? "" : theTitle,
+                    (theMessage == null) ? "" : theMessage);
             }
         });
     }
