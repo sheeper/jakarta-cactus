@@ -76,8 +76,7 @@
         value="${cactus.lib.client.dir}/@xerces.jar.name@"/>
     <property name="cactus.xmlapis.jar" 
         value="${cactus.lib.client.dir}/@xmlapis.jar.name@"/>
-    <property name="cactus.tidy.jar" 
-        value="${cactus.lib.client.dir}/@tidy.jar.name@"/>
+
     <!--
        ========================================================================
          Initialize the build. Must be called by all targets
@@ -319,7 +318,6 @@
                 <pathelement location="${cactus.nekohtml.jar}"/>
                 <pathelement location="${cactus.xerces.jar}"/>
                 <pathelement location="${cactus.xmlapis.jar}"/>
-                <pathelement location="${cactus.tidy.jar}"/>                
                 <path refid="cactus.classpath"/>
             </classpath>
 
@@ -372,7 +370,6 @@
                 <pathelement location="${cactus.nekohtml.jar}"/>
                 <pathelement location="${cactus.xerces.jar}"/>
                 <pathelement location="${cactus.xmlapis.jar}"/>
-                <pathelement location="${cactus.tidy.jar}"/>                
                 <path refid="cactus.classpath"/>
             </classpath>
 

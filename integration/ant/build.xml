@@ -106,7 +106,6 @@
             <property name="nekohtml.jar" isfile="true"/>
             <property name="xerces.jar" isfile="true"/>
             <property name="xmlapis.jar" isfile="true"/>
-            <property name="tidy.jar" isfile="true"/>
         </checkProperty>
 
         <path id="project.classpath">
@@ -463,7 +462,6 @@
         <copy todir="${target.integration.lib.client.dir}" file="${nekohtml.jar}"/>
         <copy todir="${target.integration.lib.client.dir}" file="${xerces.jar}"/>
         <copy todir="${target.integration.lib.client.dir}" file="${xmlapis.jar}"/>
-        <copy todir="${target.integration.lib.client.dir}" file="${tidy.jar}"/>        
 
         <!-- Note: ATM we copy the servlet jar (and not the J2EE one). The 
              reasons are that ATM we only need the servlet API and that the
@@ -506,8 +504,6 @@
         <filter token="xerces.jar.name" value="${xerces.jar.name}"/>
 		<basename property="xmlapis.jar.name" file="${xmlapis.jar}"/>
         <filter token="xmlapis.jar.name" value="${xmlapis.jar.name}"/>
-		<basename property="tidy.jar.name" file="${tidy.jar}"/>
-        <filter token="tidy.jar.name" value="${tidy.jar.name}"/>
 
 		<copy todir="${target.integration.script.dir}" filtering="on">
 			<fileset dir="${src.script.dir}/share"/>
