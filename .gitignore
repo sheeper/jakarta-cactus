@@ -1,3 +1,5 @@
+/.classpath
+/.project
 anttasks/build.properties
 anttasks/dist
 anttasks/target
@@ -9,6 +11,7 @@ documentation/target
 framework/build.properties
 framework/dist
 framework/target
+/misc
 /release
 sample-servlet/build.properties
 sample-servlet/dist
