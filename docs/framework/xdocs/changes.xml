@@ -25,6 +25,9 @@
 
     <release version="1.0 in CVS">
       <action dev="VMA" type="add">
+        Added a contributing section that explains how to contribute to Cactus.
+      </action>
+      <action dev="VMA" type="add">
         Added a license page on the Cactus web site that explains that Cactus
         is under the APL license.
       </action>

@@ -16,6 +16,7 @@
     <menu-item type="changes" label="Changes" source="changes.xml"/>
     <menu-item type="todo" label="Todo" source="todo.xml"/>
     <menu-item label="Contributors" source="contributors.xml"/>
+    <menu-item label="Contributing" source="contributing.xml"/>
     <menu-item label="License" source="license.xml"/>
     <menu-item type="hidden" source="scope.xml" />
   </menu>

@@ -43,10 +43,6 @@
       Handle <code>getRealPath()</code>, <code>getPathTranslated()</code> in the
       <code>ServletRedirectorRequest</code> class.
     </action>
-    <action context="docs" assigned-to="VMA">
-      Add a contributing section to the Cactus web site (see the contributing
-      section of Cocoon as a sample).
-    </action>
     <action context="build" assigned-to="VMA">
       On the documentation web pages (i.e. not the site web pages) add a sub
       header for each page with a message saying "Click here if you want to
