@@ -57,8 +57,6 @@
 package org.apache.cactus.client;
 
 import java.net.HttpURLConnection;
-import java.util.PropertyResourceBundle;
-import java.util.ResourceBundle;
 
 import org.apache.cactus.ServiceDefinition;
 import org.apache.cactus.ServiceEnumeration;
@@ -81,17 +79,6 @@ import org.apache.cactus.client.authentication.AbstractAuthentication;
  */
 public abstract class AbstractHttpClient
 {
-    /**
-     * Name of the Cactus configuration file
-     */
-    public static final String CONFIG_NAME = "cactus";
-
-    /**
-     * Properties file holding configuration data for Cactus.
-     */
-    public static final ResourceBundle CONFIG =
-        PropertyResourceBundle.getBundle(CONFIG_NAME);
-
     /**
      * Return the redirector URL to connect to.
      *
