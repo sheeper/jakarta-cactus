@@ -60,13 +60,13 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
-
 import java.net.HttpURLConnection;
 import java.net.URL;
 
 import org.apache.tools.ant.BuildException;
 import org.eclipse.ant.core.AntRunner;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
 
 /**
  * A helper class for an Ant Task that does the following :
@@ -86,9 +86,15 @@ import org.eclipse.core.runtime.CoreException;
 public class StartServerHelper implements Runnable
 {
     /**
+     * The progress monitor that reflects progress made while starting the
+     * container.
+     */
+    private IProgressMonitor pm;
+
+    /**
      * The URL that is continuously pinged to verify if the server is running.
      */
-    private URL testURL;    
+    private URL testURL;
 
     /**
      * The tasks that wraps around this helper class
@@ -257,7 +263,7 @@ public class StartServerHelper implements Runnable
         // Call the AntRunner .
         try
         {
-            runner.run();
+            runner.run(pm);
         }
         catch (CoreException e)
         {
@@ -274,5 +280,13 @@ public class StartServerHelper implements Runnable
     public void setTestURL(URL theTestURL)
     {
         this.testURL = theTestURL;
+    }
+
+    /**
+     * @param thePM the progress monitor to use
+     */
+    public void setProgressMonitor(IProgressMonitor thePM)
+    {
+        this.pm = thePM;
     }
 }

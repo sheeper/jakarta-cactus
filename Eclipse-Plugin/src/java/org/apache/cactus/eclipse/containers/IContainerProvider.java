@@ -59,6 +59,7 @@ package org.apache.cactus.eclipse.containers;
 import java.net.URL;
 
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
 
 /**
  * Interface for container configuration and startup.
@@ -72,34 +73,46 @@ public interface IContainerProvider
     /**
      * Starts the container.
      * @param theContainerInfo detail of the container configuration
+     * @param thePM the monitor that reflects progress made while starting
      * @throws CoreException when starting fails
      */
-    void start(ContainerInfo theContainerInfo) throws CoreException;
+    void start(ContainerInfo theContainerInfo, IProgressMonitor thePM)
+        throws CoreException;
 
     /**
      * Deploy a webapp to the container.
      * @param theContextPath path to the webapp (for example "test")
      * @param theDeployableObject war file to be deployed
      * @param theCredentials credentials for deployment (user:pwd)
+     * @param thePM the monitor that reflects progress made while deploying
      * @throws CoreException when deployment fails 
      */
-    void deploy(String theContextPath,
-                 URL theDeployableObject,
-                 Credential theCredentials) throws CoreException;
- 
+    void deploy(
+        String theContextPath,
+        URL theDeployableObject,
+        Credential theCredentials,
+        IProgressMonitor thePM)
+        throws CoreException;
+
     /**
      * UnDeploy a webapp to the container.
      * @param theContextPath path to the webapp
-     * @param theCredentials credentials for undeployment (user:pwd) 
+     * @param theCredentials credentials for undeployment (user:pwd)
+     * @param thePM the monitor that reflects progress made while undeploying
      * @throws CoreException when undeployment fails
-     */    
-    void undeploy(String theContextPath,
-                  Credential theCredentials) throws CoreException;
- 
+     */
+    void undeploy(
+        String theContextPath,
+        Credential theCredentials,
+        IProgressMonitor thePM)
+        throws CoreException;
+
     /**
      * Stops the container.
      * @param theContainerInfo detail of the container configuration
+     * @param thePM the monitor that reflects progress made while stopping
      * @throws CoreException when stopping fails
-     */    
-    void stop(ContainerInfo theContainerInfo) throws CoreException;
+     */
+    void stop(ContainerInfo theContainerInfo, IProgressMonitor thePM)
+        throws CoreException;
 }

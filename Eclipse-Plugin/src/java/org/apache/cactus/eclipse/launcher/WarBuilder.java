@@ -64,6 +64,7 @@ import org.apache.cactus.eclipse.ui.CactusPlugin;
 import org.eclipse.ant.core.AntRunner;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
@@ -155,10 +156,11 @@ public class WarBuilder
 
     /**
      * Creates the war file in the Java temp directory.
+     * @param thePM a monitor that reflects the overall progress 
      * @return File the location where the war file was created
      * @throws CoreException if we can't create the file
      */
-    public File createWar() throws CoreException
+    public File createWar(IProgressMonitor thePM) throws CoreException
     {
         File testWar = null;
         try
@@ -202,7 +204,7 @@ public class WarBuilder
         runner.setArguments(antArguments);
         String[] targets = { "testwar" };
         runner.setExecutionTargets(targets);
-        runner.run();
+        runner.run(thePM);
         // Delete the created Web dir, if any.
         // Could not use deleteOnExit on this dir because the VM launched by
         // Ant seems to be crashing when shut down by the 'stop' task

@@ -67,6 +67,7 @@ import org.apache.cactus.eclipse.containers.IContainerProvider;
 import org.apache.cactus.eclipse.ui.CactusPlugin;
 import org.eclipse.ant.core.AntRunner;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
@@ -141,7 +142,8 @@ public class GenericAntProvider implements IContainerProvider
     /**
      * @see org.apache.cactus.eclipse.containers.IContainerProvider#start(org.apache.cactus.eclipse.containers.ContainerInfo)
      */
-    public void start(ContainerInfo theContainerInfo) throws CoreException
+    public void start(ContainerInfo theContainerInfo, IProgressMonitor thePM)
+        throws CoreException
     {
         String[] targets = getMasked("start.");
         AntRunner runner = createAntRunner(targets);
@@ -169,6 +171,7 @@ public class GenericAntProvider implements IContainerProvider
                     e));
         }
         startHelper.setTestURL(testURL);
+        startHelper.setProgressMonitor(thePM);
         startHelper.execute();
     }
 
@@ -178,7 +181,8 @@ public class GenericAntProvider implements IContainerProvider
     public void deploy(
         String theContextPath,
         URL theDeployableObject,
-        Credential theCredentials)
+        Credential theCredentials,
+        IProgressMonitor thePM)
         throws CoreException
     {
         contextPath = theContextPath;
@@ -186,14 +190,17 @@ public class GenericAntProvider implements IContainerProvider
         antArguments.add("-Dwar.path=" + warPath);
         antArguments.add("-Dcontext.path=" + theContextPath);
         String[] targets = getMasked("prepare.");
-        createAntRunner(targets).run();
+        createAntRunner(targets).run(thePM);
 
     }
 
     /**
      * @see org.apache.cactus.eclipse.containers.IContainerProvider#undeploy(java.lang.String, org.apache.cactus.eclipse.containers.Credential)
      */
-    public void undeploy(String theContextPath, Credential theCredentials)
+    public void undeploy(
+        String theContextPath,
+        Credential theCredentials,
+        IProgressMonitor thePM)
         throws CoreException
     {
         String[] targets = { "clean" };
@@ -203,10 +210,11 @@ public class GenericAntProvider implements IContainerProvider
     /**
      * @see org.apache.cactus.eclipse.containers.IContainerProvider#stop(org.apache.cactus.eclipse.containers.ContainerInfo)
      */
-    public void stop(ContainerInfo theContainerInfo) throws CoreException
+    public void stop(ContainerInfo theContainerInfo, IProgressMonitor thePM)
+        throws CoreException
     {
         String[] targets = getMasked("stop.");
-        createAntRunner(targets).run();
+        createAntRunner(targets).run(thePM);
     }
 
     /**
