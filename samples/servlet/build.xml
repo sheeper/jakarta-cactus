@@ -5,22 +5,9 @@
 
 <!--
   =============================================================================
-    Build file for the Cactus Servlet Sample subproject (it shows how to use
-    Cactus for unit testing the Servlet API : Servlets, Fitlers, Taglibs).
+    Build file for the Cactus Servlet Sample subproject.
 
-    The mandatory and optional Ant properties are defined in
-    build.properties.sample. Please read and edit that file.
-
-    This script should be started with the following command line :
-
-        ant <target>
-
-    Run "ant -projecthelp" to get a list of available targets. The default
-    target is "dist"
-
-    Note: basedir points to the main Cactus directory in order to have the same
-          base dir for all Cactus subprojects and thus be able to share
-          relative paths.
+    $Id$
   =============================================================================
 -->
 <project name="Cactus Servlet Sample" default="dist" basedir="../..">

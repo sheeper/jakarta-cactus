@@ -7,18 +7,7 @@
   =============================================================================
     Build file for the Cactus Ant Integration project.
 
-    See build.properties.sample for mandatory and optional Ant properties that
-    need to be set prior to calling this build script.
-
-    This script should be started with the following command line :
-
-        ant <target>
-
-    Run "ant -projecthelp" to get a list of available targets.
-
-    Note: basedir points to the main Cactus directory in order to have the same
-          base dir for all Cactus subprojects and thus be able to share
-          relative paths.
+    $Id$
   =============================================================================
 -->
 <project name="Cactus Ant Integration" default="dist" basedir="../..">

@@ -7,31 +7,7 @@
   =============================================================================
     Build file for the Cactus framework.
 
-    The following Ant tasks need to be available in your ant installation (i.e.
-    the Ant task themselves and their dependent jars need to be put in
-    ANT_HOME/lib) :
-
-        checkstyle   [OPTIONAL] Only needed for the "checkstyle" target which
-                                is used to check coding and naming conventions.
-
-        ajc/ajdoc    [REQUIRED] AspectJ Ant tasks
-
-        junit        [REQUIRED] JUnit Ant task
-
-        clover       [OPTIONAL] Clover jar (only for test coverage)
-
-    See build.properties.sample for mandatory and optional Ant properties that
-    need to be set prior to calling this build script.
-
-    This script should be started with the following command line :
-
-        ant <target>
-
-    Run "ant -projecthelp" to get a list of available targets.
-
-    Note: basedir points to the main Cactus directory in order to have the same
-          base dir for all Cactus subprojects and thus be able to share
-          relative paths.
+    $Id$
   =============================================================================
 -->
 <project name="Cactus Framework" default="dist" basedir="..">

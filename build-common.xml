@@ -3,11 +3,8 @@
     Build file used by the different Cactus subprojects. It contains common
     Ant properties and common useful targets.
     
-    The following properties need to be defined prior to include this scriptlet
-    in your build script:
-    
-        base.dir    Base directory for all file related operations. Ex: 
-                    "framework" for the Framework subproject
+
+    $Id$
   =============================================================================
 -->
 

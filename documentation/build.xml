@@ -8,24 +8,7 @@
     Build file for the Cactus Documentation (it builds the Cactus web pages
     which serves both as the Cactus Web Site and as local documentation).
 
-    The following Ant tasks need to be available in your ant installation (i.e.
-    the Ant task themselves and their dependent jars need to be put in
-    ANT_HOME/lib) :
-
-        xalan task (used by the <style> task)
-
-    See build.properties.sample for mandatory and optional Ant properties that
-    need to be set prior to calling this build script.
-
-    This script should be started with the following command line :
-
-        ant <target>
-
-    Run "ant -projecthelp" to get a list of available targets.
-
-    Note: basedir points to the main Cactus directory in order to have the same
-          base dir for all Cactus subprojects and thus be able to share
-          relative paths.
+    $Id$
   =============================================================================
 -->
 <project name="Cactus Documentation" default="dist" basedir="..">

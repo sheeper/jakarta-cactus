@@ -5,18 +5,9 @@
 
 <!--
   =============================================================================
-    Master build file for building all Cactus components (the Ant tasks,
-    the framework itself, the Integrations, the documentation, the samples, 
-    etc).
+    Master build file for building all Cactus components.
 
-    See build.properties.sample for details of mandatory and optional
-    properties to set.
-
-    This script should be started with the following command line :
-
-        ant <target>
-
-    Run "ant -projecthelp" to get a list of available targets.
+    $Id$
   =============================================================================
 -->
 <project name="Master Cactus Build" default="dist" basedir=".">
