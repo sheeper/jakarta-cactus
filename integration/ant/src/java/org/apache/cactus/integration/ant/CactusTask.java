@@ -443,8 +443,8 @@ public class CactusTask extends JUnitTask
                 runner.setTimeout(this.containerSet.getTimeout());
             }
             runner.startUpContainer();
-            log("Container responding to HTTP requests as "
-                + runner.getServerName(), Project.MSG_VERBOSE);
+            log("Server name retrieved from 'Server' HTTP header: ["
+                + runner.getServerName() + "]", Project.MSG_VERBOSE);
             try
             {
                 Enumeration tests = getIndividualTests();
