@@ -166,8 +166,9 @@ public abstract class AbstractTestController
         logger.entry("getServiceName(...)");
 
         // Call the correct Service method
-        String serviceName =
-            theRequest.getParameter(ServiceDefinition.SERVICE_NAME_PARAM);
+        String queryString = theRequest.getQueryString();
+        String serviceName = ServletUtil.getQueryStringParameter(queryString,
+            ServiceDefinition.SERVICE_NAME_PARAM);
 
         if (serviceName == null) {
             String message = "Missing service name parameter [" +

@@ -586,4 +586,39 @@ public class TestServletTestCase2 extends ServletTestCase
             pathTranslated.endsWith(nativePathInfo));
     }
 
+    //-------------------------------------------------------------------------
+
+    /**
+     * Verify that a test case can get the request body by calling
+     * <code>HttpServletRequest.getReader()</code>. In other words, verify that
+     * internal parameters that Cactus passes from its client side to the
+     * server do not affect this ability.
+     *
+     * @param theRequest the request object that serves to initialize the
+     *                   HTTP connection to the server redirector.
+     */
+    public void beginGetReader(WebRequest theRequest)
+    {
+        theRequest.addParameter("test", "something", WebRequest.POST_METHOD);
+    }
+
+    /**
+     * Verify that a test case can get the request body by calling
+     * <code>HttpServletRequest.getReader()</code>. In other words, verify that
+     * internal parameters that Cactus passes from its client side to the
+     * server do not affect this ability.
+     */
+    public void testGetReader() throws Exception
+    {
+        String buffer;
+        StringBuffer body = new StringBuffer();
+
+        BufferedReader reader = request.getReader();
+        while ((buffer = reader.readLine()) != null) {
+            body.append(buffer);
+        }
+
+        assertEquals("test=something", body.toString());
+    }
+
 }

@@ -63,6 +63,7 @@ import javax.servlet.http.*;
 
 import junit.framework.*;
 import org.apache.cactus.util.log.*;
+import org.apache.cactus.server.*;
 
 /**
  * Simulate an HTTP URL by breaking it into its different parts :<br>
@@ -342,11 +343,18 @@ public class ServletURL
     {
         logger.entry("loadFromRequest(...)");
 
-        String serverName = theRequest.getParameter(URL_SERVER_NAME_PARAM);
-        String contextPath = theRequest.getParameter(URL_CONTEXT_PATH_PARAM);
-        String servletPath = theRequest.getParameter(URL_SERVLET_PATH_PARAM);
-        String pathInfo = theRequest.getParameter(URL_PATH_INFO_PARAM);
-        String queryString = theRequest.getParameter(URL_QUERY_STRING_PARAM);
+        String qString = theRequest.getQueryString();
+
+        String serverName = ServletUtil.getQueryStringParameter(qString,
+            URL_SERVER_NAME_PARAM);
+        String contextPath = ServletUtil.getQueryStringParameter(qString,
+            URL_CONTEXT_PATH_PARAM);
+        String servletPath = ServletUtil.getQueryStringParameter(qString,
+            URL_SERVLET_PATH_PARAM);
+        String pathInfo = ServletUtil.getQueryStringParameter(qString,
+            URL_PATH_INFO_PARAM);
+        String queryString = ServletUtil.getQueryStringParameter(qString,
+            URL_QUERY_STRING_PARAM);
 
         ServletURL url = new ServletURL(serverName, contextPath, 
             servletPath, pathInfo, queryString);

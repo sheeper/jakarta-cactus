@@ -211,8 +211,10 @@ public abstract class AbstractTestCaller
     {
         logger.entry("getTestClassName()");
 
-        String className = this.webImplicitObjects.getHttpServletRequest().
-            getParameter(ServiceDefinition.CLASS_NAME_PARAM);
+        String queryString =
+            this.webImplicitObjects.getHttpServletRequest().getQueryString();
+        String className = ServletUtil.getQueryStringParameter(queryString,
+            ServiceDefinition.CLASS_NAME_PARAM);
 
         if (className == null) {
             String message = "Missing class name parameter [" +
@@ -235,8 +237,10 @@ public abstract class AbstractTestCaller
     {
         logger.entry("getTestMethodName()");
 
-        String methodName = this.webImplicitObjects.getHttpServletRequest().
-            getParameter(ServiceDefinition.METHOD_NAME_PARAM);
+        String queryString =
+            this.webImplicitObjects.getHttpServletRequest().getQueryString();
+        String methodName = ServletUtil.getQueryStringParameter(queryString,
+            ServiceDefinition.METHOD_NAME_PARAM);
 
         if (methodName == null) {
             String message = "Missing method name parameter [" +
@@ -259,8 +263,10 @@ public abstract class AbstractTestCaller
     {
         logger.entry("isAutoSession()");
 
-        String autoSession = this.webImplicitObjects.getHttpServletRequest().
-            getParameter(ServiceDefinition.AUTOSESSION_NAME_PARAM);
+        String queryString =
+            this.webImplicitObjects.getHttpServletRequest().getQueryString();
+        String autoSession = ServletUtil.getQueryStringParameter(queryString,
+            ServiceDefinition.AUTOSESSION_NAME_PARAM);
 
         boolean isAutomaticSession = new Boolean(autoSession).booleanValue();
 
