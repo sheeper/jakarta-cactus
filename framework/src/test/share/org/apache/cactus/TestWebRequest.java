@@ -58,17 +58,17 @@ package org.apache.cactus;
 
 import junit.framework.TestCase;
 
-import org.apache.cactus.server.ServletUtil;
 import org.apache.cactus.util.log.LogService;
+import org.apache.cactus.util.ChainedRuntimeException;
 
 /**
- * Unit tests of the <code>ServletUtil</code> class.
+ * Unit tests of the <code>WebRequest</code> class.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
  */
-public class TestServletUtil extends TestCase
+public class TestWebRequest extends TestCase
 {
     // Initialize logging system first
     static {
@@ -80,7 +80,7 @@ public class TestServletUtil extends TestCase
      *
      * @param theName the testcase's name.
      */
-    public TestServletUtil(String theName)
+    public TestWebRequest(String theName)
     {
         super(theName);
     }
@@ -88,15 +88,19 @@ public class TestServletUtil extends TestCase
     //-------------------------------------------------------------------------
 
     /**
-     * Verify than <code>getQueryStringParameterEmpty()</code> returns an
-     * empty string if the parameter existe but has no value defined.
+     * Verify that an exception is thrown when an invalid HTTP METHOD is used
+     * when adding an HTTP parameter.
      */
-    public void testGetQueryStringParameterEmpty()
+    public void testAddParameterInvalidMethod()
     {
-        String queryString = "param1=&param2=value2";
-        String result = ServletUtil.getQueryStringParameter(
-            queryString, "param1");
-        assertEquals("", result);
-    }
+        WebRequest request = new WebRequest();
 
+        try {
+            request.addParameter("param1", "value1", "INVALIDMETHOD");
+            fail("Should have thrown an exception");
+        } catch (ChainedRuntimeException e) {
+            assertEquals("The method need to be either \"POST\" or \"GET\"",
+                e.getMessage());
+        }
+    }
 }

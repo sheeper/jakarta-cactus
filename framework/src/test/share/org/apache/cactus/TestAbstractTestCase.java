@@ -58,9 +58,6 @@ package org.apache.cactus;
 
 import java.net.HttpURLConnection;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
-
 import org.apache.cactus.util.log.LogService;
 
 /**
@@ -86,27 +83,6 @@ public class TestAbstractTestCase extends
     public TestAbstractTestCase(String theName)
     {
         super(theName);
-    }
-
-    /**
-     * Start the tests.
-     *
-     * @param theArgs the arguments. Not used
-     */
-    public static void main(String[] theArgs)
-    {
-        junit.swingui.TestRunner.main(
-            new String[]{TestAbstractTestCase.class.getName()});
-    }
-
-    /**
-     * @return a test suite (<code>TestSuite</code>) that includes all methods
-     *         starting with "test"
-     */
-    public static Test suite()
-    {
-        // All methods starting with "test" will be executed in the test suite.
-        return new TestSuite(TestAbstractTestCase.class);
     }
 
     //-------------------------------------------------------------------------
