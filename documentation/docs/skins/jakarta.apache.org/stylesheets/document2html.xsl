@@ -84,38 +84,23 @@
             </td>
             <td width="14%" valign="top" nowrap="1">
 
-            <font size="-2">
-              Last update : <xsl:value-of select="$updated"/>
-            </font>
-            <br/>
-            <font size="-2">
-              Doc for : v<xsl:value-of select="$docfor"/>
-            </font>
+              <font size="-2">
+                Last update : <xsl:value-of select="$updated"/>
+              </font>
+              <br/>
+              <font size="-2">
+                Doc for : v<xsl:value-of select="$docfor"/>
+              </font>
 
               <br/>
               <font face="arial,helvetica,sanserif">
                 <xsl:apply-templates select="document($stylebook.project)"/>
               </font>
+
             </td>
             <!-- THE CONTENT PANEL -->
             <td width="*" valign="top" align="left">
-              <table border="0" cellspacing="0" cellpadding="3">
-                <tr><td><br/><xsl:apply-templates/></td></tr>
-<!--
-                <tr>
-                 <td align="right">
-                  <xsl:if test="header/authors">
-                   <p>by
-                    <xsl:for-each select="header/authors/person">
-                     <a href="mailto:{@email}"><xsl:value-of select="@name"/></a>
-                     <xsl:if test="not(position()=last())">, </xsl:if>
-                    </xsl:for-each>
-                   </p>
-                  </xsl:if>
-                 </td>
-                </tr>
--->
-              </table>
+              <xsl:apply-templates/>
             </td>
           </tr>
         </table>
