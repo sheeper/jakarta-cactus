@@ -58,7 +58,14 @@ package org.apache.cactus;
 
 /**
  * List of valid services that the test redirectors can perform.
- *
+ * 
+ * <p>
+ *   <strong>WARNING</strong><br/>
+ *   This class is not intended for use by API clients. It may be altered in
+ *   backwards-incompatible ways and even moved or removed at any time without
+ *   further notice.
+ * </p>
+ * 
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
  *

@@ -60,6 +60,13 @@ package org.apache.cactus;
  * Constants that define HTTP parameters required for defining a service that
  * is performed by the <code>ServletTestRedirector</code> servlet.
  *
+ * <p>
+ *   <strong>WARNING</strong><br/>
+ *   This interface is not intended for use by API clients. It may be altered in
+ *   backwards-incompatible ways and even moved or removed at any time without
+ *   further notice.
+ * </p>
+ * 
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
