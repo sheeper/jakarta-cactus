@@ -248,13 +248,13 @@ public class CheckSitemapTask extends Task
      */
     private boolean checkSitemapResource(Element theElement)
     {
+        boolean isResourcePresent = true;       
         String id = theElement.getAttribute("id");
 
         if (isResourceToBeChecked(theElement))
         {
             String target = theElement.getAttribute("target");
-                         
-    
+                             
             if ((target == null) || (target.length() == 0))
             {
                 log("Skipping remote resource [" + id + "]", 
@@ -262,7 +262,7 @@ public class CheckSitemapTask extends Task
             }
             else
             {
-                checkLocalSitemapResource(id, target);
+                isResourcePresent = checkLocalSitemapResource(id, target);
             }
         }
         else
@@ -270,7 +270,7 @@ public class CheckSitemapTask extends Task
             log("This resource should not be checked: [" + id + "]", 
                 Project.MSG_VERBOSE);
         }
-        return true;
+        return isResourcePresent;
     }
 
     /**
