@@ -28,6 +28,15 @@
     <table>
       <tr>
         <td>
+          18/09/2001
+        </td>
+        <td>
+          The <link href="howto_testcase_jsp.html">Taglib testing
+          tutorial</link> is now available ! Thanks Nicholas !
+        </td>
+      </tr>
+      <tr>
+        <td>
           15/09/2001
         </td>
         <td>
@@ -45,34 +54,6 @@
           been updated to reflect this and package names have changed from
           <code>org.apache.commons.cactus.*</code> to
           <code>org.apache.cactus.*</code>.
-        </td>
-      </tr>
-      <tr>
-        <td>
-          11/09/2001
-        </td>
-        <td>
-          Even more documentation updates : better tutorial for writing
-          test cases, rewritten the Ant integration tutorial, ...
-        </td>
-      </tr>
-      <tr>
-        <td>
-          16/08/2001
-        </td>
-        <td>
-          More documentation updates (<link href="getting_started.html">Getting
-          Started</link> Guide, rewritten
-          <link href="howto_config.html">Configuration Howto</link>, new
-          <link href="howto_httpunit.html">HttpUnit Howto</link>).
-        </td>
-      </tr>
-      <tr>
-        <td>
-          05/08/2001
-        </td>
-        <td>
-          Major update of the web site and update of almost all documentation.
         </td>
       </tr>
     </table>
