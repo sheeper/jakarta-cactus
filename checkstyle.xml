@@ -101,7 +101,7 @@
       <property name="versionFormat" value="\$Id.*\$"/>
     </module>
     <module name="JavadocMethod">
-      <property name="scope" value="protected"/>
+      <property name="scope" value="private"/>
       <property name="allowUndeclaredRTE" value="true"/>
     </module>
     <module name="JavadocVariable">
