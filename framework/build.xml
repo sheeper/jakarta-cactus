@@ -485,7 +485,7 @@
             packagenames="org.apache.cactus.*"
             destdir="${target.doc.api.dir}"
             author="true"
-            public="true"
+            protected="true"
             version="true"
             use="true"
             windowtitle="${project.name.text} ${project.version}"
