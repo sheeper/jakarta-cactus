@@ -67,7 +67,7 @@ import java.util.ResourceBundle;
  * @version $Id$
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  */
-public class CactusMessages
+public final class CactusMessages
 {
     /**
      * Name and location of property resource bundle on disk.
