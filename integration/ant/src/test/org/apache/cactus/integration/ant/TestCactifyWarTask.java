@@ -56,20 +56,13 @@
  */
 package org.apache.cactus.integration.ant;
 
-import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.Iterator;
-import java.util.jar.JarInputStream;
 
+import org.apache.cactus.integration.ant.deployment.WarArchive;
 import org.apache.cactus.integration.ant.deployment.WebXml;
-import org.apache.cactus.integration.ant.deployment.WebXmlIo;
 import org.apache.cactus.integration.ant.deployment.WebXmlVersion;
 import org.apache.tools.ant.BuildException;
-import org.xml.sax.EntityResolver;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
 
 /**
  * Unit tests for {@link CactifyWarTask}.
@@ -87,26 +80,6 @@ import org.xml.sax.SAXException;
  */
 public final class TestCactifyWarTask extends AntTestCase
 {
-
-    // Inner Classes -----------------------------------------------------------
-
-    /**
-     * Entity resolver implementation that simply returns <code>null</code>
-     * for each request. 
-     */
-    private static class NullEntityResolver implements EntityResolver
-    {
-
-        /**
-         * @see org.xml.sax.EntityResolver#resolveEntity
-         */
-        public InputSource resolveEntity(String thePublicId, String theSystemId)
-            throws SAXException, IOException
-        {
-            return new InputSource(new ByteArrayInputStream("".getBytes()));
-        }
-
-    }
 
     // Constructors ------------------------------------------------------------
 
@@ -184,29 +157,20 @@ public final class TestCactifyWarTask extends AntTestCase
         executeTestTarget();
 
         File destFile = getProject().resolveFile("work/destfile.war");
-        JarInputStream destWar =
-            new JarInputStream(new FileInputStream(destFile));
-        try
-        {
-            WebXml webXml = WebXmlIo.parseWebXmlFromWar(destWar,
-                new NullEntityResolver());
-            assertNull("The web.xml should not have a version specified",
-                webXml.getVersion());
-            assertServletMapping(webXml,
-                "org.apache.cactus.server.ServletTestRedirector",
-                "/ServletRedirector");
-            assertJspMapping(webXml, "/jspRedirector.jsp", "/JspRedirector");
-            // As the deployment descriptor in the source WAR doesn't contain a 
-            // DOCTYPE, it is assumed to be a version 2.2 descriptor. Thus it 
-            // should not contain a definition of the filter test redirector.
-            // Assert that.
-            assertTrue("Filter test redirector should not have been defined",
-                !webXml.getFilterNames().hasNext());
-        }
-        finally
-        {
-            destWar.close();
-        }
+        WarArchive destWar = new WarArchive(destFile);
+        WebXml webXml = destWar.getWebXml();
+        assertNull("The web.xml should not have a version specified",
+            webXml.getVersion());
+        assertServletMapping(webXml,
+            "org.apache.cactus.server.ServletTestRedirector",
+            "/ServletRedirector");
+        assertJspMapping(webXml, "/jspRedirector.jsp", "/JspRedirector");
+        // As the deployment descriptor in the source WAR doesn't contain a 
+        // DOCTYPE, it is assumed to be a version 2.2 descriptor. Thus it 
+        // should not contain a definition of the filter test redirector.
+        // Assert that.
+        assertTrue("Filter test redirector should not have been defined",
+            !webXml.getFilterNames().hasNext());
     }
 
     /**
@@ -220,24 +184,15 @@ public final class TestCactifyWarTask extends AntTestCase
         executeTestTarget();
 
         File destFile = getProject().resolveFile("work/destfile.war");
-        JarInputStream destWar =
-            new JarInputStream(new FileInputStream(destFile));
-        try
-        {
-            WebXml webXml = WebXmlIo.parseWebXmlFromWar(destWar,
-                new NullEntityResolver());
-            assertEquals(WebXmlVersion.V2_2, webXml.getVersion());
-            assertServletMapping(webXml,
-                "org.apache.cactus.server.ServletTestRedirector",
-                "/ServletRedirector");
-            assertJspMapping(webXml, "/jspRedirector.jsp", "/JspRedirector");
-            assertTrue("Filter test redirector should not have been defined",
-                !webXml.getFilterNames().hasNext());
-        }
-        finally
-        {
-            destWar.close();
-        }
+        WarArchive destWar = new WarArchive(destFile);
+        WebXml webXml = destWar.getWebXml();
+        assertEquals(WebXmlVersion.V2_2, webXml.getVersion());
+        assertServletMapping(webXml,
+            "org.apache.cactus.server.ServletTestRedirector",
+            "/ServletRedirector");
+        assertJspMapping(webXml, "/jspRedirector.jsp", "/JspRedirector");
+        assertTrue("Filter test redirector should not have been defined",
+            !webXml.getFilterNames().hasNext());
     }
 
     /**
@@ -251,25 +206,16 @@ public final class TestCactifyWarTask extends AntTestCase
         executeTestTarget();
 
         File destFile = getProject().resolveFile("work/destfile.war");
-        JarInputStream destWar =
-            new JarInputStream(new FileInputStream(destFile));
-        try
-        {
-            WebXml webXml = WebXmlIo.parseWebXmlFromWar(destWar,
-                new NullEntityResolver());
-            assertEquals(WebXmlVersion.V2_3, webXml.getVersion());
-            assertServletMapping(webXml,
-                "org.apache.cactus.server.ServletTestRedirector",
-                "/ServletRedirector");
-            assertJspMapping(webXml, "/jspRedirector.jsp", "/JspRedirector");
-            assertFilterMapping(webXml,
-                "org.apache.cactus.server.FilterTestRedirector",
-                "/FilterRedirector");
-        }
-        finally
-        {
-            destWar.close();
-        }
+        WarArchive destWar = new WarArchive(destFile);
+        WebXml webXml = destWar.getWebXml();
+        assertEquals(WebXmlVersion.V2_3, webXml.getVersion());
+        assertServletMapping(webXml,
+            "org.apache.cactus.server.ServletTestRedirector",
+            "/ServletRedirector");
+        assertJspMapping(webXml, "/jspRedirector.jsp", "/JspRedirector");
+        assertFilterMapping(webXml,
+            "org.apache.cactus.server.FilterTestRedirector",
+            "/FilterRedirector");
     }
 
     /**
@@ -284,24 +230,15 @@ public final class TestCactifyWarTask extends AntTestCase
         executeTestTarget();
 
         File destFile = getProject().resolveFile("work/destfile.war");
-        JarInputStream destWar =
-            new JarInputStream(new FileInputStream(destFile));
-        try
-        {
-            WebXml webXml = WebXmlIo.parseWebXmlFromWar(destWar,
-                new NullEntityResolver());
-            assertEquals(WebXmlVersion.V2_2, webXml.getVersion());
-            assertServletMapping(webXml,
-                "org.apache.cactus.server.ServletTestRedirector",
-                "/ServletRedirector");
-            assertJspMapping(webXml, "/jspRedirector.jsp", "/JspRedirector");
-            assertTrue("Filter test redirector should not have been defined",
-                !webXml.getFilterNames().hasNext());
-        }
-        finally
-        {
-            destWar.close();
-        }
+        WarArchive destWar = new WarArchive(destFile);
+        WebXml webXml = destWar.getWebXml();
+        assertEquals(WebXmlVersion.V2_2, webXml.getVersion());
+        assertServletMapping(webXml,
+            "org.apache.cactus.server.ServletTestRedirector",
+            "/ServletRedirector");
+        assertJspMapping(webXml, "/jspRedirector.jsp", "/JspRedirector");
+        assertTrue("Filter test redirector should not have been defined",
+            !webXml.getFilterNames().hasNext());
     }
 
     /**
@@ -316,25 +253,16 @@ public final class TestCactifyWarTask extends AntTestCase
         executeTestTarget();
 
         File destFile = getProject().resolveFile("work/destfile.war");
-        JarInputStream destWar =
-            new JarInputStream(new FileInputStream(destFile));
-        try
-        {
-            WebXml webXml = WebXmlIo.parseWebXmlFromWar(destWar,
-                new NullEntityResolver());
-            assertEquals(WebXmlVersion.V2_3, webXml.getVersion());
-            assertServletMapping(webXml,
-                "org.apache.cactus.server.ServletTestRedirector",
-                "/ServletRedirector");
-            assertJspMapping(webXml, "/jspRedirector.jsp", "/JspRedirector");
-            assertFilterMapping(webXml,
-                "org.apache.cactus.server.FilterTestRedirector",
-                "/FilterRedirector");
-        }
-        finally
-        {
-            destWar.close();
-        }
+        WarArchive destWar = new WarArchive(destFile);
+        WebXml webXml = destWar.getWebXml();
+        assertEquals(WebXmlVersion.V2_3, webXml.getVersion());
+        assertServletMapping(webXml,
+            "org.apache.cactus.server.ServletTestRedirector",
+            "/ServletRedirector");
+        assertJspMapping(webXml, "/jspRedirector.jsp", "/JspRedirector");
+        assertFilterMapping(webXml,
+            "org.apache.cactus.server.FilterTestRedirector",
+            "/FilterRedirector");
     }
 
     // Private Methods ---------------------------------------------------------
