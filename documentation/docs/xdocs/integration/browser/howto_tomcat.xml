@@ -57,7 +57,7 @@
       <p>
         Download <link href="http://jakarta.apache.org/builds/jakarta-tomcat-4.0/release/">Tomcat</link>
         4.0 or greater and unzip it in any directory. Let's call this directory
-        <code>[tomcat root]</code>.
+        <code>$TOMCAT_HOME</code>.
       </p>
     </section>
 
@@ -68,7 +68,7 @@
         directory in the zip.
       </p>
       <p>
-        Copy the following jars to <code>[tomcat root]/common/lib</code>:
+        Copy the following jars to <code>$TOMCAT_HOME/common/lib</code>:
       </p>
       <ul>
         <li>
@@ -96,22 +96,26 @@
 
     <section title="Step 3: Modify Tomcat web.xml">
       <p>
-        Edit <code>[tomcat root]/conf/web.xml</code> and add the following at
+        Edit <code>$TOMCAT_HOME/conf/web.xml</code> and add the following at
         the beginning of the file, after the <code>&lt;webapp&gt;</code> tag:
       </p>
 <source><![CDATA[
 <servlet>
-    <servlet-name>ServletRedirector</servlet-name>
-    <servlet-class>org.apache.cactus.server.ServletTestRedirector</servlet-class>
-    <init-param>
-      <param-name>param1</param-name>
-      <param-value>value1 used for testing</param-value>
-    </init-param>
+  <servlet-name>ServletRedirector</servlet-name>
+  <servlet-class>
+    org.apache.cactus.server.ServletTestRedirector
+  </servlet-class>
+  <init-param>
+    <param-name>param1</param-name>
+    <param-value>value1 used for testing</param-value>
+  </init-param>
 </servlet>
 
 <servlet>
-    <servlet-name>ServletTestRunner</servlet-name>
-    <servlet-class>org.apache.cactus.server.runner.ServletTestRunner</servlet-class>
+  <servlet-name>ServletTestRunner</servlet-name>
+  <servlet-class>
+    org.apache.cactus.server.runner.ServletTestRunner
+  </servlet-class>
 </servlet>
 ]]></source>
 
@@ -144,7 +148,7 @@
       </p>
 
 <source><![CDATA[
-[tomcat root]/webapps
+$TOMCAT_HOME/webapps
   |_ test
     |_ WEB-INF
       |_ classes
@@ -153,7 +157,7 @@
       <p>
         Then, create the following <code>SampleServlet.java</code> java source
         file, compile it and copy the resulting .class file in
-        <code>[tomcat root]/webapps/test/WEB-INF/classes</code>. Note that
+        <code>$TOMCAT_HOME/webapps/test/WEB-INF/classes</code>. Note that
         you can download the pre-compiled class file
         <link href="site:code_sample_servlet">here</link>.
       </p>
@@ -183,7 +187,7 @@ public class SampleServlet extends HttpServlet
         We're now read to create our first Cactus test case. Create the
         following <code>TestSampleServlet.java</code> java source file, compile
         it and copy the resulting .class file in
-        <code>[tomcat root]/webapps/test/WEB-INF/classes</code>. Note that
+        <code>$TOMCAT_HOME/webapps/test/WEB-INF/classes</code>. Note that
         you can download the pre-compiled class file
         <link href="site:code_test_sample_servlet">here</link>.
       </p>
@@ -227,11 +231,12 @@ public class TestSampleServlet extends ServletTestCase
 
       <p>
         Time to enjoy our hard work ! Start Tomcat by running
-        <code>[tomcat root]/bin/startup.bat</code> (for windows) or
-        <code>[tomcat root]/bin/startup.sh</code> (for unix).
+        <code>$TOMCAT_HOME/bin/startup.bat</code> (for windows) or
+        <code>$TOMCAT_HOME/bin/startup.sh</code> (for unix).
       </p>
       <p>
-        Open a browser and point it at <code>http://localhost:8080/test/ServletTestRunner?suite=TestSampleServlet</code>
+        Open a browser and point it at
+        <code>http://localhost:8080/test/ServletTestRunner?suite=TestSampleServlet</code>
       </p>
       <p>
         You should see:
@@ -240,13 +245,13 @@ public class TestSampleServlet extends ServletTestCase
 
     </section>
 
-    <section title="Step 6: Even more fun !">
+    <section title="Step 6: Even more fun!">
       <p>
         Ok, that's nice ... But what if I want HTML instead of XML? Don't
         worry there is a solution. Grab the following
         <link href="site:code_junit_noframes">junit-noframes.xsl</link>
         stylesheet used to format JUnitReport Ant task results and drop it in
-        <code>[tomcat root]/webapps/test</code>. Then, open a browser and type
+        <code>$TOMCAT_HOME/webapps/test</code>. Then, open a browser and type
         <code>http://localhost:8080/test/ServletTestRunner?suite=TestSampleServlet&amp;xsl=junit-noframes.xsl</code>.
         You should now see the following:
       </p>
@@ -254,11 +259,12 @@ public class TestSampleServlet extends ServletTestCase
       <figure src="images/tomcat_html.jpg" alt="HTML output of ServletTestRunner"/>
 
       <note>
-        This will work with Internet Explorer as the XSL transformation is
-        performed on the client side (i.e by the browser). I'm not sure
-        about other browsers.
+        This will work with any browser that supports client-slide XSLT 
+        transformations (both Internet Explorer and Mozilla do, for example).
       </note>
+
     </section>
 
   </body>
+
 </document>
