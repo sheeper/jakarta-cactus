@@ -86,14 +86,14 @@
     <!-- Libraries required for the sample project -->
     <property name="servlet.jar"
         location="${lib.dir}/@servlet.jar.name@"/>
-    <property name="jstl.jar"
-        location="${lib.dir}/@jstl.jar.name@"/>
-    <property name="standard.jar"
-        location="${lib.dir}/@standard.jar.name@"/>
+    <@j2ee13.begin@property name="jstl.jar"
+        location="${lib.dir}/@jstl.jar.name@"/@j2ee13.end@>
+    <@j2ee13.begin@property name="standard.jar"
+        location="${lib.dir}/@standard.jar.name@"/@j2ee13.end@>
     <path id="project.classpath">
         <pathelement location="${servlet.jar}"/>
-        <pathelement location="${jstl.jar}"/>
-        <pathelement location="${standard.jar}"/>
+        <@j2ee13.begin@pathelement location="${jstl.jar}"/@j2ee13.end@>
+        <@j2ee13.begin@pathelement location="${standard.jar}"/@j2ee13.end@>
     </path>
 
     <!-- Libraries required for the Cactus tests -->
@@ -123,7 +123,7 @@
         <pathelement location="${httpunit.jar}"/>
         <pathelement location="${junit.jar}"/>
         <pathelement location="${nekohtml.jar}"/>
-        @cactus.clover.pathelement@
+        <@clover.begin@pathelement location="${clover.jar}"/@clover.end@>
     </path>
 
     <!--
@@ -136,8 +136,8 @@
         <condition property="properties.ok">
             <and>
                 <available file="${servlet.jar}"/>
-                <available file="${jstl.jar}"/>
-                <available file="${standard.jar}"/>
+                <@j2ee13.begin@available file="${jstl.jar}"/@j2ee13.end@>
+                <@j2ee13.begin@available file="${standard.jar}"/@j2ee13.end@>
            </and>
         </condition>
         <fail message="Missing property or property pointing to an invalid file
@@ -210,8 +210,8 @@
 
             <classes dir="${target.classes.java.dir}"/>
 
-            <lib file="${jstl.jar}"/>
-            <lib file="${standard.jar}"/>
+            <@j2ee13.begin@lib file="${jstl.jar}"/@j2ee13.end@>
+            <@j2ee13.begin@lib file="${standard.jar}"/@j2ee13.end@>
 
         </war>
 
@@ -255,6 +255,7 @@
         <cactify srcfile="${target.dir}/${project.name.file}.war"
             destfile="${target.dir}/test.war">
           <classes dir="${target.classes.cactus.dir}"/>
+          <@clover.begin@lib file="${clover.jar}"/@clover.end@>
           <!-- Orion fails on a servlet filter that is not mapped to an actual
                resource, to trick it -->
           <filterredirector mapping="/test/filterRedirector.jsp"/>
@@ -278,6 +279,7 @@
             <path refid="project.classpath"/>
             <pathelement location="${target.classes.java.dir}"/>
             <pathelement location="${target.classes.cactus.dir}"/>
+            <@clover.begin@pathelement location="${clover.jar}"/@clover.end@>
           </classpath>
           <containerset>
             <@j2ee13.begin@jboss3x if="cactus.home.jboss3x"
