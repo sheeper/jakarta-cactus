@@ -422,6 +422,7 @@ public abstract class AbstractContainer extends ProjectComponent
         fileSet.createInclude().setName("**/*");
         delete.addFileset(fileSet);
         delete.setIncludeEmptyDirs(true);
+        delete.setFailOnError(false);
         delete.execute();
     }
     
