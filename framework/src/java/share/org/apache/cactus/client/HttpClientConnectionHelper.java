@@ -66,7 +66,9 @@ import java.util.Enumeration;
 import org.apache.cactus.WebRequest;
 import org.apache.cactus.client.authentication.AbstractAuthentication;
 import org.apache.cactus.util.UrlUtil;
+import org.apache.commons.httpclient.HostConfiguration;
 import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.Protocol;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
 
@@ -166,15 +168,16 @@ public class HttpClientConnectionHelper extends AbstractConnectionHelper
 
         // Open the connection and get the result
         HttpClient client = new HttpClient();
-
-        client.startSession(url.getHost(), url.getPort(), 
-            url.getProtocol().equalsIgnoreCase("HTTPS"));
-        client.executeMethod(this.method);
+        HostConfiguration hostConfiguration = new HostConfiguration();
+        hostConfiguration.setHost(url.getHost(), url.getPort(),
+            Protocol.getProtocol(url.getProtocol()));
+        client.executeMethod(hostConfiguration, this.method);
 
         // Wrap the HttpClient method in a java.net.HttpURLConnection object
-        return new org.apache.cactus.util.HttpURLConnection(this.method, url);
+        return new org.apache.commons.httpclient.util.HttpURLConnection(
+            this.method, url);
     }
-
+    
     /**
      * Add the HTTP parameters that need to be passed in the request body.
      *

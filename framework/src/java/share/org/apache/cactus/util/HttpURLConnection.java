@@ -80,7 +80,12 @@ import org.apache.commons.httpclient.HttpMethodBase;
  * the numerous <code>HttpURLConnection</code> bugs!).
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
+ * 
+ * @deprecated This class has been donated to the
+ * <a href="http://jakarta.apache.org/commons/httpclient/">Jakarta 
+ * Commons-HttpClient</a> project, and is now maintained there as 
+ * <code>org.apache.commons.httpclient.util.HttpURLConnection</code>.
+ * 
  * @version $Id$
  */
 public class HttpURLConnection extends java.net.HttpURLConnection
