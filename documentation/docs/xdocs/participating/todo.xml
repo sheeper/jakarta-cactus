@@ -41,19 +41,8 @@
   <version title="Version 1.5">
 
     <category title="Documentation">
-      <action>
-        Modify the web site presentation: start by introducing the Cactus
-        Ecosystem: framework + front ends.
-      </action>
       <action assigned-to="Jason Robertson, Vincent Massol">
         Add documentation for form-based authentication.
-      </action>
-    </category>
-
-    <category title="Design/Code">
-      <action assigned-to="Vincent Massol">
-        In the Ant Integration, support merging of user web.xml with Cactus
-        provided web.xml.
       </action>
     </category>
     
@@ -73,10 +62,11 @@
         Move Cactus to Maven.
       </action>
       <action>
-        Add Ant scripts for JBoss/Tomcat.
+        Add support in Ant Integration for JBoss/Tomcat (JBoss/Jetty is 
+        supported).
       </action>
       <action>
-        Add Ant scripts for the J2EE RI.
+        Add support in Ant Integration for the J2EE RI.
       </action>
     </category>
     
@@ -125,13 +115,6 @@
         Servlet/JSP/Filter Redirector, which is fine for certain tests but not
         needed for others.
       </action>
-      <action assigned-to="Vincent Massol">
-        In the Ant Integration, add support for EARs (used for EJB unit 
-        testing).
-      </action>
-      <action>
-        Add support for Orion 2.0 in the Ant Integration.
-      </action>
     </category>
 
     <category title="Ideas">
@@ -156,11 +139,10 @@
         used to automatically generate <code>web.xml</code> files,
         automatically generating test cases from methods to test, ...
       </action>
-      <action assigned-to="Nicholas Lesiecki, Vincent Massol">
-        Add tutorial on AspectJ testing (using AspectJ with Cactus testing
-        in order to easily intercept method calls and relace them by the
-        needed behavior for the test). Research adding a Cactus Aspect 
-        extension to allow writing test cases as Aspects (this would allow to
+      <action>
+        Add tutorial on Cactus and AOP unit testing (using AspectWerkz
+        for example). Also research adding a Cactus Aspect extension to allow 
+        writing test cases as Aspects (this would allow to
         remove the need for Cactus redirectors in most cases).
       </action>
       <action>
