@@ -131,6 +131,9 @@
         <pathelement location="${target.classes.java.dir}"/>
         @cactus.clover.pathelement@
         <path refid="project.classpath"/>
+
+        <!-- Add java classpath for Gump only -->
+        <path location="${java.class.path}"/>       
     </path>
 
     <!--
