@@ -8,6 +8,9 @@
   <body>
 
     <release version="1.7dev" date="in CVS">
+      <action dev="felipeal" type="add" issue="CACTUS-158">
+        Added <code>jvmArg</code> property to the containers tasks.
+      </action>
       <action dev="vmassol" type="update" due-to="Henner Kollmann" issue="CACTUS-156">
         Added optional <code>source</code> attribute from the java plugin for 
         compiling cactus tests.

@@ -275,6 +275,28 @@ basedir=${basedir}
       </table>
     </section>
 
+    <section name="Cactus/Generic Container Settings">
+      <table>
+        <tr>
+          <th>Property</th>
+          <th>Optional?</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <td>cactus.genericContainer.jvmArgs</td>
+          <td>Yes</td>
+          <td>
+            <p>
+              Arguments to be passed to a container's JVM (for instance,
+              <code>-Xms256m -Xmx800m</code>). Each container has an
+              equivalent property, which by default points to this one.
+            </p>
+          </td>
+        </tr>
+      </table>
+    </section>
+
+
     <section name="Cactus/JBoss 3.x Settings">
       <table>
         <tr>
@@ -324,6 +346,16 @@ basedir=${basedir}
             </p>
           </td>
         </tr>
+        <tr>
+          <td>cactus.jboss3x.jvmArgs</td>
+          <td>Yes</td>
+          <td>
+            <p>
+              Arguments to be passed to the container's JVM. Defaults to
+              <code>${cactus.genericContainer.jvmArgs}</code>.
+            </p>
+          </td>
+        </tr>
       </table>
     </section>
 
@@ -341,6 +373,16 @@ basedir=${basedir}
             <p>
               Location of the Resin 2.x configuration file if you don't want 
               to use the cactus-provided one.
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td>cactus.resin2x.jvmArgs</td>
+          <td>Yes</td>
+          <td>
+            <p>
+              Arguments to be passed to the container's JVM. Defaults to
+              <code>${cactus.genericContainer.jvmArgs}</code>.
             </p>
           </td>
         </tr>
@@ -364,9 +406,59 @@ basedir=${basedir}
             </p>
           </td>
         </tr>
+        <tr>
+          <td>cactus.resin3x.jvmArgs</td>
+          <td>Yes</td>
+          <td>
+            <p>
+              Arguments to be passed to the container's JVM. Defaults to
+              <code>${cactus.genericContainer.jvmArgs}</code>.
+            </p>
+          </td>
+        </tr>
       </table>
     </section>
     
+    <section name="Cactus/Orion 1.x Settings">
+      <table>
+        <tr>
+          <th>Property</th>
+          <th>Optional?</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <td>cactus.orion1x.jvmArgs</td>
+          <td>Yes</td>
+          <td>
+            <p>
+              Arguments to be passed to the container's JVM. Defaults to
+              <code>${cactus.genericContainer.jvmArgs}</code>.
+            </p>
+          </td>
+        </tr>
+      </table>
+    </section>
+
+    <section name="Cactus/Orion 2.x Settings">
+      <table>
+        <tr>
+          <th>Property</th>
+          <th>Optional?</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <td>cactus.orion2x.jvmArgs</td>
+          <td>Yes</td>
+          <td>
+            <p>
+              Arguments to be passed to the container's JVM. Defaults to
+              <code>${cactus.genericContainer.jvmArgs}</code>.
+            </p>
+          </td>
+        </tr>
+      </table>
+    </section>
+
     <section name="Cactus/Tomcat 4.x Settings">
       <table>
         <tr>
@@ -425,6 +517,16 @@ basedir=${basedir}
 	      By default the system temporary directory is used.
 	    </p>
 	  </td>
+        </tr>
+        <tr>
+          <td>cactus.tomcat4x.jvmArgs</td>
+          <td>Yes</td>
+          <td>
+            <p>
+              Arguments to be passed to the container's JVM. Defaults to
+              <code>${cactus.genericContainer.jvmArgs}</code>.
+            </p>
+          </td>
         </tr>
       </table>
     </section>
@@ -488,6 +590,16 @@ basedir=${basedir}
             </p>
           </td>
         </tr>        
+        <tr>
+          <td>cactus.tomcat5x.jvmArgs</td>
+          <td>Yes</td>
+          <td>
+            <p>
+              Arguments to be passed to the container's JVM. Defaults to
+              <code>${cactus.genericContainer.jvmArgs}</code>.
+            </p>
+          </td>
+        </tr>
       </table>
     </section>
 
@@ -551,6 +663,16 @@ basedir=${basedir}
           <td>
             Comma-separated list of which files in the directory defined by cactus.resources.[label].dir should be included in the Cactus war.
             Default value is none, which means no files are excluded.
+          </td>
+        </tr>
+        <tr>
+          <td>cactus.weblogic.jvmArgs</td>
+          <td>Yes</td>
+          <td>
+            <p>
+              Arguments to be passed to the container's JVM. Defaults to
+              <code>${cactus.genericContainer.jvmArgs}</code>.
+            </p>
           </td>
         </tr>
       </table>
