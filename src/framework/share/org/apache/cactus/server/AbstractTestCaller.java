@@ -296,16 +296,15 @@ public abstract class AbstractTestCaller
         }
 
         // Get the class to call and build an instance of it.
-        Class testClass = null;
+        Class testClass = getTestClassClass(theClassName);
         AbstractTestCase testInstance = null;
         try {
-            testClass = getTestClassClass(theClassName);
             Constructor constructor = testClass.getConstructor(
                 new Class[] { String.class });
             testInstance = (AbstractTestCase)constructor.newInstance(
                 new Object[] { theTestCaseName });
         } catch (Exception e) {
-            String message = "Error instanciating class [" + theClassName +
+            String message = "Error instantiating class [" + theClassName +
                 "(" + theTestCaseName + ")]";
             logger.error(message, e);
             throw new ServletException(message, e);
@@ -331,7 +330,15 @@ public abstract class AbstractTestCaller
             testClass = Class.forName(theClassName);
         } catch (Exception e) {
             String message = "Error finding class [" + theClassName +
-                "] in classpath";
+                "] in classpath. ";
+            message += "If you are getting this message Cactus may ";
+            message += "not be able to see your test cases.\r\n ";
+            message += "Possible causes include:\r\n";
+            message += "\t- Your webapp may not include your test classes,\r\n";
+            message += "\t- The cactus.jar resides in a global location and";
+            message += " your test classes reside in a specific webapp,\r\n";
+            message += "\t- Something else ... !";         
+                
             logger.error(message, e);
             throw new ServletException(message, e);
         }
