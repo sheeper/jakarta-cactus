@@ -70,7 +70,7 @@ httpunit.jar = ${lib.repo}/httpunit-1.4.1.jar
 #orion.home.15 = c:/Apps/orion-1.5.4
 #orion.home.16 = c:/Apps/orion-1.6.0
 #resin.home.20 = c:/Apps/resin-2.1.0
-#tomcat.home.40 = c:/Apps/jakarta-tomcat-4.0.3
+#tomcat.home.40 = c:/Apps/jakarta-tomcat-4.0.4
 #resin.home.13 = xxx
 #tomcat.home.33 = c:/Apps/jakarta-tomcat-3.3.1
 
