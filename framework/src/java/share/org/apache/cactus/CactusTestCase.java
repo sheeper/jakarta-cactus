@@ -67,7 +67,7 @@ public interface CactusTestCase
 {
     /**
      * Executes JUnit tests on the server side. It is the equivalent of
-     * {@link org.junit.framework.TestCase#runBare()} but run on the server 
+     * {@link junit.framework.TestCase#runBare()} but run on the server 
      * side. 
      *   
      * @throws Throwable if an error occurred when running the test on the 
