@@ -265,6 +265,10 @@ be resolved. Please check you build.properties file, and run Ant with the
       <pathelement location="${junit.jar}"/>
       <pathelement path="${target.classes.clover.dir}"/>
       <pathelement path="${target.classes.test.dir}"/>
+      <!-- Also add the Ant classpath so that if some jars (such as clover)
+           are located in Ant's lib/ directory, it will still work. Note that
+           this is because the clover.jar property is optional -->
+      <pathelement path="${java.class.path}"/>
     </path>
 
   </target>
