@@ -77,11 +77,6 @@
         connection output stream. This is to easily test code that sends bytes
         of data as POST data to the servlet.
       </action>
-      <action>
-        Check why zipped distributable files have a mode of 644 on unix systems
-        (it should rather be 755). Reported by Jason Crickmer. Need to verify
-        first that the problem still exist.
-      </action>
     </category>
 
   </version>
