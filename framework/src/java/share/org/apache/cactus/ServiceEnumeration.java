@@ -94,6 +94,7 @@ public class ServiceEnumeration
     /**
      * Service used to create an HTTP session so that it is returned
      * in a cookie.
+     * @since 1.5
      */
     public static final ServiceEnumeration CREATE_SESSION_SERVICE = 
         new ServiceEnumeration("CREATE_SESSION");
@@ -102,6 +103,7 @@ public class ServiceEnumeration
      * Service that returns a cactus version identifier. This is used
      * to verify that the server side and client side versions of 
      * Cactus are the same.
+     * @since 1.5
      */
     public static final ServiceEnumeration GET_VERSION_SERVICE = 
         new ServiceEnumeration("GET_VERSION");
@@ -140,6 +142,7 @@ public class ServiceEnumeration
      * Always compares object identity.
      * 
      * @see java.lang.Object#equals(Object)
+     * @since 1.5
      */
     public final boolean equals(Object theObject)
     {
@@ -150,6 +153,7 @@ public class ServiceEnumeration
      * Delegates to the <code>java.lang.Object</code> implementation.
      * 
      * @see java.lang.Object#equals(Object)
+     * @since 1.5
      */
     public final int hashCode()
     {
@@ -173,7 +177,7 @@ public class ServiceEnumeration
      * 
      * @param theName The name of the service
      * @return The corresponding service instance
-     * @since Cactus 1.5
+     * @since 1.5
      */
     public static ServiceEnumeration valueOf(String theName)
     {
