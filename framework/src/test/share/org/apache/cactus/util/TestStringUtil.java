@@ -75,18 +75,6 @@ public class TestStringUtil extends TestCase
     }
 
     /**
-     * Defines the testcase name for JUnit.
-     *
-     * @param theName the testcase's name.
-     */
-    public TestStringUtil(String theName)
-    {
-        super(theName);
-    }
-
-    //-------------------------------------------------------------------------
-
-    /**
      * Verify package-based stack-trace filtering.
      */
     public void testFilterLinePackageTrue()
