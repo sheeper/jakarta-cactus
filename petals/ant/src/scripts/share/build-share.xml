@@ -47,11 +47,11 @@
         value="${cactus.lib.common.dir}/@commons.logging.jar.name@"/>
     <property name="cactus.junit.jar" 
         value="${cactus.lib.common.dir}/@junit.jar.name@"/>
+    <property name="cactus.httpunit.jar" 
+        value="${cactus.lib.common.dir}/@httpunit.jar.name@"/>
 
     <property name="cactus.commons.httpclient.jar" 
         value="${cactus.lib.client.dir}/@commons.httpclient.jar.name@"/>
-    <property name="cactus.httpunit.jar" 
-        value="${cactus.lib.client.dir}/@httpunit.jar.name@"/>
 
     <!--
        ========================================================================
@@ -203,7 +203,13 @@
             fork="yes">
 
             <jvmarg value="-Dcactus.contextURL=http://localhost:${cactus.port}/${cactus.context}"/>
-            
+
+            <!-- This is needed to override the default mapping which is 
+                 "/FilterRedirector". The reason is that in web.xml we have
+                 mapped the filter redirector to "test/filterRedirector.jsp"
+                 as some containers do not support mapping to a directory -->
+            <jvmarg value="-Dcactus.filterRedirectorName=test/filterRedirector.jsp"/>
+                 
             <classpath>
                 <pathelement location="${cactus.target.classes.dir}"/>
                 <pathelement location="${cactus.framework.jar}"/>
