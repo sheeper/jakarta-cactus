@@ -54,22 +54,24 @@
  * <http://www.apache.org/>.
  *
  */
-package org.apache.cactus.eclipse.launcher;
+package org.apache.cactus.eclipse.war;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.util.Vector;
 
 import org.apache.cactus.eclipse.ui.CactusMessages;
 import org.apache.cactus.eclipse.ui.CactusPlugin;
-import org.apache.cactus.eclipse.ui.CactusPreferences;
+import org.apache.tools.ant.Project;
+import org.apache.tools.ant.taskdefs.Copy;
+import org.apache.tools.ant.types.FileSet;
 import org.eclipse.ant.core.AntRunner;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.SubProgressMonitor;
+import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaModelException;
 
@@ -89,10 +91,7 @@ public class WarBuilder
      * the web.xml file
      */
     private File userWebXML;
-    /**
-     * directory where to find jars for the webapp
-     */
-    private File userJarFilesDir;
+
     /**
      * directory where to find user's web files
      */
@@ -101,6 +100,12 @@ public class WarBuilder
      * the location of the Ant build file for creating wars
      */
     private File buildFileLocation;
+
+    private File war;
+
+    private File tempDir;
+
+    private IClasspathEntry[] jarEntries;
     /**
      * Cactus plug-in relative path to the war build file
      */
@@ -109,18 +114,16 @@ public class WarBuilder
      * Cactus plug-in relative path to the web.xml file
      */
     private static final String WEB_XML_PATH = "./ant/confs/web.xml";
-    /**
-     * User's project relative path to the web directory
-     */
-    private String userWebFilesPath = CactusPreferences.getWebappDir();
-    /**
-     * User's project relative path to the web.xml file
-     */
-    private String userWebXMLPath = userWebFilesPath + "/WEB-INF/web.xml";
-    /**
-     * User's project relative path to the lib directory
-     */
-    private String userJarFilesPath = userWebFilesPath + "/WEB-INF/lib";
+
+    public static final String WEBINF = "WEB-INF";
+
+    public static final String LIB = "lib";
+
+    public static final String WEBXML = "web.xml";
+
+    private static final String JARS_PATH =
+        "org.apache.cactus.eclipse.war.jars.temp";
+
     /**
      * Constructor.
      * @param theBuildFileLocation the build file for war creation
@@ -139,7 +142,7 @@ public class WarBuilder
         this.buildFileLocation = theBuildFileLocation;
         this.userClassFilesDir = theClassFilesDir;
         this.userWebXML = theWebXML;
-        this.userJarFilesDir = theJarFilesDir;
+        //        this.userJarFilesDir = theJarFilesDir;
         this.userWebFilesDir = theWebFilesDir;
     }
 
@@ -150,6 +153,24 @@ public class WarBuilder
      */
     public WarBuilder(IJavaProject theJavaProject) throws JavaModelException
     {
+        Webapp webapp = new Webapp(theJavaProject.getProject());
+        try
+        {
+            webapp.loadValues();
+        }
+        catch (CoreException e)
+        {
+            throw new JavaModelException(e);
+        }
+
+        war = new File(webapp.getOutput());
+        tempDir = new File(webapp.getTempDir());
+        jarEntries = webapp.getClasspath();
+        // User's project relative path to the web directory
+        String userWebFilesPath = webapp.getDir();
+        // User's project relative path to the web.xml file
+        String userWebXMLPath = userWebFilesPath + "/" + WEBINF + "/" + WEBXML;
+
         CactusPlugin thePlugin = CactusPlugin.getDefault();
         URL buildFileURL = thePlugin.find(new Path(BUILD_FILE_PATH));
         if (buildFileURL == null)
@@ -167,56 +188,36 @@ public class WarBuilder
                 theJavaProject.getOutputLocation());
         userClassFilesDir = classFilesPath.toFile();
         userWebXML = projectPath.append(userWebXMLPath).toFile();
-        if (!userWebXML.exists())
-        {
-            URL webXMLURL = thePlugin.find(new Path(WEB_XML_PATH));
-            if (webXMLURL == null)
-            {
-                throw new JavaModelException(
-                    CactusPlugin.createCoreException(
-                        "CactusLaunch.message.prepare.error.plugin.file",
-                        " : " + WEB_XML_PATH,
-                        null));
-            }
-            userWebXML = new File(webXMLURL.getPath());
-        }
-        userJarFilesDir = projectPath.append(userJarFilesPath).toFile();
         // copy any web folder situated in the user's project
         userWebFilesDir = projectPath.append(userWebFilesPath).toFile();
     }
 
     /**
      * Creates the war file in the Java temp directory.
-     * @param thePM a monitor that reflects the overall progress 
+     * @param thePM a monitor that reflects the overall progress
      * @return File the location where the war file was created
      * @throws CoreException if we can't create the file
      */
     public File createWar(IProgressMonitor thePM) throws CoreException
     {
         thePM.subTask(CactusMessages.getString("CactusLaunch.message.war"));
-        File testWar = null;
-        try
-        {
-            testWar = File.createTempFile("test", ".war");
-        }
-        catch (IOException e)
-        {
-            throw CactusPlugin.createCoreException(
-                "CactusLaunch.message.war.error",
-                e);
-        }
         Vector arguments = new Vector();
-
-        String jarFilesPath = userJarFilesDir.getAbsolutePath();
+        IPath tempJarsPath =
+            new Path(tempDir.getAbsolutePath()).append(JARS_PATH);
+        File tempJarsDir = tempJarsPath.toFile();
+        tempJarsDir.mkdir();
+        copyJars(jarEntries, tempJarsDir);
+        String jarFilesPath = tempDir.getAbsolutePath();
         arguments.add("-Djars.dir=" + jarFilesPath);
-
-        String webXMLPath = userWebXML.getAbsolutePath();
-        arguments.add("-Dwebxml.path=" + webXMLPath);
-
+        if (userWebXML.exists())
+        {
+            String webXMLPath = userWebXML.getAbsolutePath();
+            arguments.add("-Dwebxml.path=" + webXMLPath);
+        }
         String classFilesPath = userClassFilesDir.getAbsolutePath();
         arguments.add("-Dclasses.dir=" + classFilesPath);
 
-        String warFilePath = testWar.getAbsolutePath();
+        String warFilePath = war.getAbsolutePath();
         arguments.add("-Dwar.path=" + warFilePath);
 
         if (userWebFilesDir.exists())
@@ -231,6 +232,59 @@ public class WarBuilder
         String[] targets = { "testwar" };
         runner.setExecutionTargets(targets);
         runner.run(new SubProgressMonitor(thePM, 3));
-        return testWar;
+        delete(tempJarsDir);
+        return war;
     }
+
+    /**
+     * Copies a set of Jar files to the destination directory.
+     * @param theEntries set of Jars
+     * @param theDestination the destination directory 
+     */
+    private void copyJars(IClasspathEntry[] theEntries, File theDestination)
+    {
+        if (!theDestination.isDirectory())
+        {
+            return;
+        }
+        Project antProject = new Project();
+        antProject.init();
+        Copy jarCopy = new Copy();
+        jarCopy.setProject(antProject);
+        jarCopy.setTodir(theDestination);
+        for (int i = 0; i < theEntries.length; i++)
+        {
+            IClasspathEntry currentEntry = theEntries[i];
+            if (currentEntry.getEntryKind() == IClasspathEntry.CPE_LIBRARY)
+            {
+                File currentJar = currentEntry.getPath().toFile();
+                FileSet fileSet = new FileSet();
+                fileSet.setFile(currentJar);
+                jarCopy.addFileset(fileSet);
+            }
+        }
+        jarCopy.execute();
+    }
+    /**
+     * Removes the specified file or directory, and all subdirectories
+     * @param theFile the file or directory to delete
+     */
+    public static void delete(File theFile)
+    {
+        if (theFile.isDirectory())
+        {
+            File[] dir = theFile.listFiles();
+            for (int i = 0; i < dir.length; i++)
+            {
+                delete(dir[i]);
+            }
+            theFile.delete();
+        }
+        else
+            if (theFile.exists())
+            {
+                theFile.delete();
+            }
+    }
+
 }

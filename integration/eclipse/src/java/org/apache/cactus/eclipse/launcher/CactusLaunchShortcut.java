@@ -65,6 +65,7 @@ import org.apache.cactus.eclipse.containers.IContainerProvider;
 import org.apache.cactus.eclipse.ui.CactusMessages;
 import org.apache.cactus.eclipse.ui.CactusPlugin;
 import org.apache.cactus.eclipse.ui.CactusPreferences;
+import org.apache.cactus.eclipse.war.WarBuilder;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.debug.core.DebugPlugin;
@@ -313,6 +314,7 @@ public class CactusLaunchShortcut
         try
         {
             WarBuilder newWar = new WarBuilder(theJavaProject);
+            File tempDir = new File(CactusPreferences.getTempDir());
             war = newWar.createWar(thePM);
             URL warURL = war.toURL();
             String contextURLPath = CactusPreferences.getContextURLPath();

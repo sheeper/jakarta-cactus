@@ -341,7 +341,6 @@ integration/eclipse/src/java/org/apache/cactus/eclipse/containers/ant/EclipseRun
 integration/eclipse/src/java/org/apache/cactus/eclipse/containers/ant/GenericAntProvider.java svn_keywords=Author+Date+Id+Revision
 integration/eclipse/src/java/org/apache/cactus/eclipse/launcher/CactusLaunchConfiguration.java svn_keywords=Author+Date+Id+Revision
 integration/eclipse/src/java/org/apache/cactus/eclipse/launcher/CactusLaunchShortcut.java svn_keywords=Author+Date+Id+Revision
-integration/eclipse/src/java/org/apache/cactus/eclipse/launcher/WarBuilder.java svn_keywords=Author+Date+Id+Revision
 integration/eclipse/src/java/org/apache/cactus/eclipse/ui/CactifyActionDelegate.java svn_keywords=Author+Date+Id+Revision
 integration/eclipse/src/java/org/apache/cactus/eclipse/ui/CactusMessages.java svn_keywords=Author+Date+Id+Revision
 integration/eclipse/src/java/org/apache/cactus/eclipse/ui/CactusMessages.properties svn_keywords=Author+Date+Id+Revision
@@ -349,6 +348,10 @@ integration/eclipse/src/java/org/apache/cactus/eclipse/ui/CactusPlugin.java svn_
 integration/eclipse/src/java/org/apache/cactus/eclipse/ui/CactusPreferencePage.java svn_keywords=Author+Date+Id+Revision
 integration/eclipse/src/java/org/apache/cactus/eclipse/ui/CactusPreferences.java svn_keywords=Author+Date+Id+Revision
 integration/eclipse/src/java/org/apache/cactus/eclipse/ui/ContainersPreferencePage.java svn_keywords=Author+Date+Id+Revision
+integration/eclipse/src/java/org/apache/cactus/eclipse/war/WarBuilder.java svn_keywords=Author+Date+Id+Revision
+integration/eclipse/src/java/org/apache/cactus/eclipse/war/Webapp.java svn_keywords=Author+Date+Id+Revision
+integration/eclipse/src/java/org/apache/cactus/eclipse/war/ui/WebAppConfigurationBlock.java svn_keywords=Author+Date+Id+Revision
+integration/eclipse/src/java/org/apache/cactus/eclipse/war/ui/WebAppPropertyPage.java svn_keywords=Author+Date+Id+Revision
 integration/eclipse/src/scripts/build-war.xml svn_keywords=Author+Date+Id+Revision
 integration/eclipse/src/scripts/eclipse/build-share.xml svn_keywords=Author+Date+Id+Revision
 integration/eclipse/src/scripts/eclipse/build.xml svn_keywords=Author+Date+Id+Revision

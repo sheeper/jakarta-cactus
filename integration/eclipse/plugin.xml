@@ -144,4 +144,14 @@
       </extraClasspathEntry>
    </extension>
 
+<extension
+	point="org.eclipse.ui.propertyPages">
+   	<page name="%webAppPageName"
+  	   id="org.apache.cactus.eclipse.WebAppPropertyPage"
+       objectClass="org.eclipse.jdt.core.IJavaProject"
+       class="org.apache.cactus.eclipse.war.ui.WebAppPropertyPage">
+       <filter name="nature" value="org.eclipse.jdt.core.javanature"/>
+   	</page>
+</extension>
+
 </plugin>
