@@ -120,6 +120,8 @@
               value="org.apache.cactus.integration.ant.RunServerTestsTask"/>
             <entry key="webmerge"
               value="org.apache.cactus.integration.ant.WebMergeTask"/>
+            <entry key="webxmlmerge"
+              value="org.apache.cactus.integration.ant.WebXmlMergeTask"/>
         </propertyfile>
 
         <javac srcdir="${src.java.dir}" destdir="${target.classes.java.dir}"
