@@ -345,6 +345,7 @@
 
     <target name="package.sample-servlet" depends="init">
 
+        <mkdir dir="${dist.dir}/sample-servlet"/>
         <unzip src="${sample-servlet.dir}/${dist.dir}/bin/sample-servlet.zip"
             dest="${dist.dir}/sample-servlet"/>
 
