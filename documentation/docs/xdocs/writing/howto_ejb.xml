@@ -15,15 +15,15 @@
 
     <p>
       This document explains how to unit test EJBs with Cactus. It is
-      divided in 2 parts :
+      divided in 2 parts:
     </p>
     <ul>
       <li>
-        <jump anchor="ejb_general">General concepts</jump> : explains the
+        <jump anchor="ejb_general">General concepts</jump>: explains the
         generic concepts behind EJB unit testing with Cactus,
       </li>
       <li>
-        <jump anchor="ejb_j2eeri">J2EE RI tutorial</jump> : provides a
+        <jump anchor="ejb_j2eeri">J2EE RI tutorial</jump>: provides a
         detailed tutorial, on a sample, on how to explicitely perform EJB
         unit testing with the
         <link href="http://java.sun.com/j2ee/download.html#sdk">J2EE Reference
@@ -40,14 +40,14 @@
   <anchor id="ejb_general"/>
   <section title="General Concepts">
 
-    <section title="Why use Cactus for testing EJBs ?">
+    <section title="Why use Cactus for testing EJBs?">
 
       <p>
         You might be wondering why you would use Cactus to unit test your
         EJBs whereas you could use standard JUnit test cases. Indeed,
         you could write a standard JUnit test case and view your code as
         client side code for the EJB to test ... There are actually a few
-        reasons to choose Cactus instead :
+        reasons to choose Cactus instead:
       </p>
       <ul>
         <li>
@@ -83,7 +83,7 @@
     <section title="The process">
 
       <p>
-        You can unit test your EJBs from any of Cactus redirectors :
+        You can unit test your EJBs from any of Cactus redirectors:
         <code>ServletTestCase</code>, <code>JspTestCase</code> or
         <code>FilterTestCase</code>.
       </p>
@@ -96,7 +96,7 @@
       <p>
         It is that simple ! What is slightly more complex is the deployment
         of your EJBs to your EJB container but you should be familiar with
-        this, right ?
+        this, right?
       </p>
 
     </section>

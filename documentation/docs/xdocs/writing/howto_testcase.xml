@@ -15,7 +15,7 @@
 
       <p>
         This tutorial explains how to write a test case, using Cactus. There
-        are several types of test cases : test cases for writing servlet
+        are several types of test cases: test cases for writing servlet
         unit tests, test cases for writing taglib unit tests and test cases
         for writing filter unit tests. We will first cover the principles
         which are generic to all test cases and then we will dive into
@@ -46,12 +46,12 @@
         To write a test case, please follow the steps defined below.
       </p>
 
-      <section title="Step 1 : Imports">
+      <section title="Step 1: Imports">
 
         <p>
           You need to include the following imports in your test class (
           <code>junit.framework.*</code> is needed because Cactus uses JUnit
-          as the client side application for calling the tests) :
+          as the client side application for calling the tests):
         </p>
 
 <source><![CDATA[
@@ -61,21 +61,21 @@ import junit.framework.*;
 
       </section>
 
-      <section title="Step 2 : Extend a Cactus TestCase class">
+      <section title="Step 2: Extend a Cactus TestCase class">
 
         <p>
           Now, we need to create a class (our test class) that extends one of
-          Cactus test cases, depending on what we are testing :
+          Cactus test cases, depending on what we are testing:
         </p>
         <ul>
           <li>
-            <strong><code>ServletTestCase</code></strong> : extend this class
+            <strong><code>ServletTestCase</code></strong>: extend this class
             for writing tests for unit testing code that uses Servlet API
             objects (<code>HttpServletRequest</code>,
             <code>HttpServletResponse</code>, <code>HttpSession</code>,
             <code>ServletConfig</code>, <code>ServletContext</code>, ...),
             like Servlets or any java classes which have methods that
-            manipulates Servlet API objects. For example :<br/><br/>
+            manipulates Servlet API objects. For example:<br/><br/>
 <source><![CDATA[
 public class TestSampleServlet extends ServletTestCase
 {
@@ -83,11 +83,11 @@ public class TestSampleServlet extends ServletTestCase
             <br/>
           </li>
           <li>
-            <strong><code>JspTestCase</code></strong> : extend this class for
+            <strong><code>JspTestCase</code></strong>: extend this class for
             writing tests for unit testing code that uses JSP API objects
             (<code>PageContext</code>, <code>JspWriter</code>, ...), like
             Taglibs or any java classes which have methods that manipulates
-            JSP API objects. For example :<br/><br/>
+            JSP API objects. For example:<br/><br/>
 <source><![CDATA[
 public class TestSampleTag extends JspTestCase
 {
@@ -95,12 +95,12 @@ public class TestSampleTag extends JspTestCase
             <br/>
           </li>
           <li>
-            <strong><code>FilterTestCase</code></strong> : extend this class
+            <strong><code>FilterTestCase</code></strong>: extend this class
             for writing tests for unit testing code that uses Filter API
             objects (<code>FilterChain</code>, <code>FilterConfig</code>,
             <code>HttpServletRequest</code>, <code>HttpServletResponse</code>,
             ...), like Filters or any java classes which have methods that
-            manipulates Filter API objects. For example :<br/><br/>
+            manipulates Filter API objects. For example:<br/><br/>
 <source><![CDATA[
 public class TestSampleFilter extends FilterTestCase
 {
@@ -111,11 +111,11 @@ public class TestSampleFilter extends FilterTestCase
 
       </section>
 
-      <section title="Step 3 : Standard JUnit methods">
+      <section title="Step 3: Standard JUnit methods">
 
         <p>
           As in a normal JUnit test case, define the following standard JUnit
-          methods :
+          methods:
         </p>
         <ul>
           <li>
@@ -132,7 +132,7 @@ public class TestSampleFilter extends FilterTestCase
           </li>
         </ul>
         <p>
-          For example :
+          For example:
         </p>
 
 <source><![CDATA[
@@ -154,7 +154,7 @@ public static Test suite()
 
       </section>
 
-      <section title="Step 4 (optional) : setUp() and tearDown() methods">
+      <section title="Step 4 (optional): setUp() and tearDown() methods">
 
         <p>
           As in JUnit, you can define a <code>setUp()</code> and a
@@ -174,7 +174,7 @@ public static Test suite()
 
       </section>
 
-      <section title="Step 5 : testXXX() methods">
+      <section title="Step 5: testXXX() methods">
 
         <p>
           As in JUnit, the main method for a test is the
@@ -183,7 +183,7 @@ public static Test suite()
           case must have a <code>testXXX()</code> method defined.
         </p>
         <p>
-          In your <code>testXXX()</code> methods you will :
+          In your <code>testXXX()</code> methods you will:
         </p>
         <ul>
           <li>
@@ -213,7 +213,7 @@ public static Test suite()
           </li>
         </ul>
         <p>
-          For Example :
+          For example:
         </p>
 
 <source><![CDATA[
@@ -237,7 +237,7 @@ public void testXXX()
 
       </section>
 
-      <section title="Step 6 (optional) : beginXXX() methods">
+      <section title="Step 6 (optional): beginXXX() methods">
 
         <p>
           For each XXX test case, you can define a corresponding
@@ -250,7 +250,7 @@ public void testXXX()
           <code>getHeader()</code>, ...).
         </p>
         <p>
-          The signature of the begin method is :
+          The signature of the begin method is:
         </p>
 
 <source><![CDATA[
@@ -280,7 +280,7 @@ public void beginXXX(WebRequest theRequest)
       </section>
 
       <anchor id="endxxx"/>
-      <section title="Step 7 (optional) : endXXX() methods">
+      <section title="Step 7 (optional): endXXX() methods">
 
         <p>
           For each XXX test case, you can define a corresponding
@@ -291,7 +291,7 @@ public void beginXXX(WebRequest theRequest)
         </p>
         <p>
           For versions of Cactus up to v1.1, the signature of the end
-          method is :
+          method is:
         </p>
 
 <source><![CDATA[

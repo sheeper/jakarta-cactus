@@ -57,7 +57,7 @@
         </li>
         <li>
           Add the following directories to JUnit's TestRunner project classpath
-          (project's properties dialog box) :
+          (project's properties dialog box):
         </li>
       </ul>
 <source><![CDATA[

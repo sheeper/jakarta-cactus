@@ -76,16 +76,16 @@
       </p>
 
       <p>
-        Follow these steps :
+        Follow these steps:
       </p>
       <ul>
         <li>
-          <strong>Step 1</strong> : Put <code>aspectjrt.jar</code> (found in
+          <strong>Step 1</strong>: Put <code>aspectjrt.jar</code> (found in
           <code>CACTUS_HOME/lib</code>) in both your client side and server
           side classpaths.
         </li>
         <li>
-          <strong>Step 2</strong> : Modify your <code>cactus.properties</code>
+          <strong>Step 2</strong>: Modify your <code>cactus.properties</code>
           to the new format. For example:
         </li>
 <source><![CDATA[
@@ -93,10 +93,10 @@ cactus.contextURL = http://localhost:8000/cactus
 cactus.servletRedirectorName = ServletRedirector
 ]]></source>
         <li>
-          <strong>Step 3</strong> : Ensure that
+          <strong>Step 3</strong>: Ensure that
           <code>cactus.servletRedirectorName</code> does
           not end with a "/" and that the mapping in <code>web.xml</code>
-          matches it :
+          matches it:
         </li>
 <source><![CDATA[
     <servlet-mapping>

@@ -14,20 +14,20 @@
     <section title="File list">
 
       <p>
-        Here follows the list of files that you can download :
+        Here follows the list of files that you can download:
       </p>
       <ul>
         <li>
           <strong><code>jakarta-cactus-&lt;j2eeapi&gt;-&lt;version&gt;.zip</code>
-          </strong> : the Cactus distribution for J2EE &lt;j2eeapi&gt; (where
-          &lt;j2eeapi&gt; = { 1.2 , 1.3 }. It contains :
+          </strong>: the Cactus distribution for J2EE &lt;j2eeapi&gt; (where
+          &lt;j2eeapi&gt; = { 1.2 , 1.3 }. It contains:
           <ul>
             <li>
-              <strong><code>cactus.jar</code></strong> : the Cactus
+              <strong><code>cactus.jar</code></strong>: the Cactus
               runtime jar,
             </li>
             <li>
-              <strong><code>cactus-ant.jar</code></strong> :
+              <strong><code>cactus-ant.jar</code></strong>:
               some custom Ant tasks that are helpful for automating
               running Cactus unit tests. Especially the
               <code>runservertests</code> which automagically start a servlet
@@ -54,16 +54,16 @@
           </ul>
         </li>
         <li>
-          <strong><code>jakarta-cactus-src-&lt;version&gt;.zip</code></strong> :
+          <strong><code>jakarta-cactus-src-&lt;version&gt;.zip</code></strong>:
           the full Cactus sources,
         </li>
         <li>
-          <strong><code>jakarta-cactus-ant-&lt;version of Ant&gt;-&lt;date&gt;.zip</code></strong>
-          : a prepackaged version of Ant,
-          which contains all needed external jars for tasks used by Cactus build
-          files. This is not a compulsory download but it makes it easier for
-          installing Ant and preparing it for Cactus. This file is only
-          delivered for releases (and not for nightly builds).
+          <strong><code>jakarta-cactus-ant-&lt;version of Ant&gt;-&lt;date&gt;.zip</code></strong>:
+          a prepackaged version of Ant, which contains all needed external 
+          jars for tasks used by Cactus build files. This is not a compulsory 
+          download but it makes it easier for installing Ant and preparing it 
+          for Cactus. This file is only delivered for releases (and not for 
+          nightly builds).
         </li>
       </ul>
 

@@ -16,13 +16,12 @@
         Cactus uses and extends JUnit. It might then seem natural
         that the Cactus plugin for Eclipse extends in a certain manner
         the existing JUnit plugin. For example
-        <code>JUnitLaunchShortcut</code>
-        is overloaded to be able to :
+        <code>JUnitLaunchShortcut</code> is overloaded to be able to:
       </p>
       <ul>
-        <li>prepare tests : setup of the container (deployment) and startup</li>
+        <li>prepare tests: setup of the container (deployment) and startup</li>
         <li>execute tests using the JUnit plugin methods</li>
-        <li>tear down tests : stop the container and clean the deployment.</li>
+        <li>tear down tests: stop the container and clean the deployment.</li>
       </ul>
       <p>
         In its actual state the plugin uses Ant scripts for these
@@ -50,10 +49,10 @@
           </li>
         </ul>
       </section>
-      <section title="GUI : preference page">
+      <section title="GUI: preference page">
         <p>
           A preference page is contributed to the Eclipse
-          preferences. It shows the following entries :
+          preferences. It shows the following entries:
         </p>
         <ul>
           <li>Cactus properties (contextURL)</li>
@@ -100,24 +99,23 @@
         <ul>
           <li>
             Tests preparation
-            <p>This includes :</p>
+            <p>This includes:</p>
             <ul>
               <li>
                 creating the war file for the cactus
-                tests : this is done by the
+                tests: this is done by the
                 <code>WarBuilder</code>
                 class, and relies on an Ant script for that.
               </li>
               <li>
-                setting up the container : prepares the
+                setting up the container: prepares the
                 configuration for the selected container
               </li>
               <li>starting the container.</li>
             </ul>
             <p>
               In the case of
-              <code>GenericAntProvider</code>
-              :
+              <code>GenericAntProvider</code>:
             </p>
             <ul>
               <li>setting up is done by an Ant script</li>
@@ -136,8 +134,7 @@
               This behaviour is inherited from the JUnit plugin since
               <code>CactusLaunchShortcut</code>
               extends
-              <code>JUnitLaunchShortcut</code>
-              .
+              <code>JUnitLaunchShortcut</code> .
             </p>
           </li>
           <li>
@@ -220,7 +217,7 @@
     <section title="What is next">
       <p>
         In order to have a production-quality tool the following
-        points must be done :
+        points must be done:
       </p>
       <ul>
         <li>integrate the plugin to the Cactus build process</li>

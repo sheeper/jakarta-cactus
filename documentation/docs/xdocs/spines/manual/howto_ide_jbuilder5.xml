@@ -28,20 +28,20 @@
 
     </section>
 
-    <section title="Step 1 : Create cactus.properties file">
+    <section title="Step 1: Create cactus.properties file">
 
       <p>
-        Create cactus.properties file : Add entry to identify the URL of the
+        Create cactus.properties file: Add entry to identify the URL of the
         redirector (see the <link href="site:howto_config">Configuration
         Howto</link> for details).
       </p>
 
     </section>
 
-    <section title="Step 2 : Configure Cactus to work with JBuilder5">
+    <section title="Step 2: Configure Cactus to work with JBuilder5">
 
       <p>
-        Follow these steps :
+        Follow these steps:
       </p>
       <ol>
         <li>
@@ -100,7 +100,7 @@
 
     </section>
 
-    <section title="Step 3 : Configure Cactus for Weblogic6.1">
+    <section title="Step 3: Configure Cactus for Weblogic6.1">
 
       <ol>
         <li>
@@ -125,7 +125,7 @@
 
     </section>
 
-    <section title="Step 4 : Run the test">
+    <section title="Step 4: Run the test">
 
       <ol>
         <li>

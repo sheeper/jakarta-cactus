@@ -12,11 +12,11 @@
 
   <body>
 
-    <section title="When to use ?">
+    <section title="When to use?">
 
       <p>
         Your test case class should extend <code>JspTestCase</code>
-        whenever you are unit testing :
+        whenever you are unit testing:
       </p>
       <ul>
         <li>
@@ -86,7 +86,7 @@
       </note>
 
       <p>
-        The provided implicit objects are :
+        The provided implicit objects are:
       </p>
 
       <anchor id="jsp_request"/>

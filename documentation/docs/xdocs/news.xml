@@ -15,7 +15,7 @@
 
       <ul>
         <li>
-          <jump anchor="who_talks_news">Who talks about Cactus ?</jump>
+          <jump anchor="who_talks_news">Who talks about Cactus?</jump>
         </li>
         <li>
           <jump anchor="internal_news">Internal Cactus project news (big
@@ -48,7 +48,7 @@
           <td>
             New <link href="http://www-106.ibm.com/developerworks/java/library/j-aspectj2/?loc=j">Test
             flexibly with AspectJ and mock objects</link> article by
-            <link href="mailto:ndlesiecki@apache.org">Nick Lesiecki</link> :
+            <link href="mailto:ndlesiecki@apache.org">Nick Lesiecki</link>:
             It demonstrates how to use AspectJ in association with Mock Objects
             to provide greater test flexibility. It also shows how AspectJ can
             complement Cactus tests.
@@ -61,7 +61,7 @@
           </td>
           <td>
             <link href="mailto:kaarle.kaila@iki.fi">Kaarle Kaila</link> has
-            started <link href="http://kacoma.sourceforge.net">KaCoMa</link> :
+            started <link href="http://kacoma.sourceforge.net">KaCoMa</link>:
             KaCoMa (abbreviation for Kaarle's ContentManagement until further
             notice) is a ContentManagement system for web-sites that serves
             as a tutorial for beginners of custom taglibraries and/or Unit
@@ -86,7 +86,7 @@
           </td>
           <td>
             Speech on Cactus and the Jakarta Community entitled "Itineraire d'un
-            logiciel libre : Jakarta Cactus" at the Luxembourg Free Open Source
+            logiciel libre: Jakarta Cactus" at the Luxembourg Free Open Source
             days ("Journees du Libre"). Led by
             <link href="mailto:vmassol@octo.com">Vincent Massol</link> from
             <link href="ext:octo">OCTO Technology</link>.
@@ -134,7 +134,7 @@
           </td>
           <td>
             New book on open source tools for XP, including a big chapter on
-            Cactus :
+            Cactus:
             <link href="http://www.amazon.com/exec/obidos/ASIN/047120708X/">
             Java Tools for Extreme Programming: Mastering Open Source Tools,
             including Ant, JUnit, and Cactus</link>. By Rick Hightower and
@@ -159,7 +159,7 @@
             28/06/2001
           </td>
           <td>
-            Article on Cactus from Earthweb :
+            Article on Cactus from Earthweb:
             <link href="http://softwaredev.earthweb.com/java/article/0,,12082_793701,00.html">Cactus:
             no pity for bugs</link>.
           </td>
@@ -287,7 +287,7 @@
             13/05/2002
           </td>
           <td>
-            New tutorial that explains a new of running Cactus tests : through
+            New tutorial that explains a new of running Cactus tests: through
             a browser. Check the <link href="site:howto_runner">TestRunner
             Howto</link> now !
           </td>

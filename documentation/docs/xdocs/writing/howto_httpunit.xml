@@ -28,12 +28,12 @@
       </p>
       <ul>
         <li>
-          <strong>Method 1</strong> :  it allows you to do simple check on the
+          <strong>Method 1</strong>:  it allows you to do simple check on the
           returned stream like checking for returned cookies, HTTP headers and
           to do assertions on the returned content as a String,
         </li>
         <li>
-          <strong>Method 2</strong> : it allows you to do complex and
+          <strong>Method 2</strong>: it allows you to do complex and
           powerful assertions on the returned content. For example, you can
           get an HTML DOM view of your returned HTML page and check that a given
           named table has the correct number of columns, ....
@@ -55,7 +55,7 @@
     <section title="Usage">
 
       <p>
-        The signature of an <code>endXXX()</code> method is always :
+        The signature of an <code>endXXX()</code> method is always:
       </p>
 <source><![CDATA[
 public void endXXX(WebResponse theResponse)
@@ -68,7 +68,7 @@ public void endXXX(WebResponse theResponse)
         The <code>WebResponse</code> object is passed by the Cactus framework
         to your <code>endXXX()</code> method. What changes between the 2
         methods described above is the class of the <code>WebResponse</code>
-        object that is passed :
+        object that is passed:
       </p>
       <ul>
         <li>
@@ -80,10 +80,10 @@ public void endXXX(WebResponse theResponse)
         </li>
       </ul>
 
-      <section title="Method 1 : Cactus provided WebResponse object">
+      <section title="Method 1: Cactus provided WebResponse object">
 
          <p>
-           An example :
+           An example:
          </p>
 
 <source><![CDATA[
@@ -108,10 +108,10 @@ public void endXXX(org.apache.cactus.WebResponse theResponse)
 
       </section>
 
-      <section title="Method 2 : HttpUnit provided WebResponse object">
+      <section title="Method 2: HttpUnit provided WebResponse object">
 
          <p>
-           An example :
+           An example:
          </p>
 
 <source><![CDATA[

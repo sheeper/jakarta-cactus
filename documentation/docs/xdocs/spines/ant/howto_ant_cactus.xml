@@ -25,26 +25,26 @@
         script (i.e. <code>build.xml</code>).
       </p>
       <p>
-        The Ant tasks involved for running a Cactus test are the following :
+        The Ant tasks involved for running a Cactus test are the following:
       </p>
       <ul>
         <li>
-          <em>Step 0</em> : (optional) Deploy configuration files for your
+          <em>Step 0</em>: (optional) Deploy configuration files for your
           container,
         </li>
         <li>
-          <em>Step 1</em> : Package your Cactus tests as a WAR file and
+          <em>Step 1</em>: Package your Cactus tests as a WAR file and
           deploy it to your servlet engine webapps directory,
         </li>
         <li>
-          <em>Step 2</em> : Start your servlet engine if it is not already
+          <em>Step 2</em>: Start your servlet engine if it is not already
           started,
          </li>
          <li>
-           <em>Step 3</em> : Run the tests using JUnit,
+           <em>Step 3</em>: Run the tests using JUnit,
          </li>
          <li>
-           <em>Step 4</em> : Stop the servlet engine (if need be)
+           <em>Step 4</em>: Stop the servlet engine (if need be)
          </li>
        </ul>
        <p>
@@ -67,7 +67,7 @@
      <section title="The 'runservertests' task">
 
         <p>
-          This task will perform several actions, in the following order :
+          This task will perform several actions, in the following order:
         </p>
         <ul>
           <li>
@@ -111,7 +111,7 @@
           they will get called at the right time.
         </p>
         <p>
-          Example :
+          Example:
         </p>
 
 <source><![CDATA[
@@ -142,7 +142,7 @@
          good place to do this is in an <code>init</code> target.
        </p>
        <p>
-         Example :
+         Example:
        </p>
 
 <source><![CDATA[
@@ -185,7 +185,7 @@
      <section title="Step 0: Deploy container configuration files">
 
        <p>
-         There are 2 possibilities for configuring your application server :
+         There are 2 possibilities for configuring your application server:
        </p>
        <ol>
          <li>
@@ -203,7 +203,7 @@
        </ol>
        <p>
          In the provided Cactus Ant scripts, we have decided to follow
-         approach 2 for the following reasons :
+         approach 2 for the following reasons:
        </p>
        <ul>
          <li>
@@ -230,7 +230,7 @@
          </li>
        </ul>
        <p>
-         However, this may not be the best approach for all cases, as :
+         However, this may not be the best approach for all cases, as:
        </p>
        <ul>
          <li>
@@ -260,7 +260,7 @@
        </p>
 
        <p>
-         Example :
+         Example:
        </p>
 
 <source><![CDATA[
@@ -332,7 +332,7 @@
           the example below for details on what files to include in the WAR.
         </p>
         <p>
-          Example :
+          Example:
         </p>
 
 <source><![CDATA[
@@ -364,24 +364,24 @@
 ]]></source>
 
        <p>
-         where :
+         where:
        </p>
        <ul>
          <li>
-           <code>${conf.test.dir}</code> : directory containing configuration
+           <code>${conf.test.dir}</code>: directory containing configuration
            files for the test,
          </li>
          <li>
-           <code>${target.classes.*.dir}</code> : directory where the java
+           <code>${target.classes.*.dir}</code>: directory where the java
            classes have been compiled. These are the classes under test + the
            test classes,
          </li>
          <li>
-           <code>${target.lib.dir}</code> : directory containing the needed jars
+           <code>${target.lib.dir}</code>: directory containing the needed jars
            (<code>junit.jar</code>, <code>cactus.jar</code>, ...).
          </li>
          <li>
-           <code>${web.dir}</code> : directory containing the web files to
+           <code>${web.dir}</code>: directory containing the web files to
            include in the test webapp (JSPs, HTML, ...).
          </li>
        </ul>
@@ -396,7 +396,7 @@
      <section title="Step 2: Start the container">
 
        <p>
-         Example :
+         Example:
        </p>
 
 <source><![CDATA[
@@ -428,7 +428,7 @@
 
        <p>
          We start the unit test by calling a JUnit test runner (we use the
-         text runner in this example). Example :
+         text runner in this example). Example:
        </p>
 
 <source><![CDATA[
@@ -471,7 +471,7 @@
      <section title="Step 4: Stop the container">
 
        <p>
-         Example :
+         Example:
        </p>
 
 <source><![CDATA[

@@ -53,7 +53,7 @@
           it helps think about writing better code and do some refactoring,
         </li>
         <li>
-          Cactus provides a good middle ground in term of test granularity :
+          Cactus provides a good middle ground in term of test granularity:
           too fine-grained tests are hard to write (like mock objects tests
           that completely simulates the domain objects and focus exclusively
           on unit testing your code logic) and need complementary tests. Too
@@ -99,13 +99,13 @@
         <li>
           Extends JUnit by defining two additional (and optional) methods
           that can be implemented for each test case (i.e. for each
-          <code>testXXX()</code> method) : <code>beginXXX()</code> and
+          <code>testXXX()</code> method): <code>beginXXX()</code> and
           <code>endXXX()</code>. See the
           <link href="site:howto_testcase">TestCase Howto</link> tutorial
           for details.
         </li>
         <li>
-          It is possible to set up the following in <code>beginXXX()</code> :
+          It is possible to set up the following in <code>beginXXX()</code>:
           <ul>
             <li>
               HTTP cookies,
@@ -128,7 +128,7 @@
           </ul>
         </li>
         <li>
-          It is possible to verify the following in <code>endXXX()</code> :
+          It is possible to verify the following in <code>endXXX()</code>:
           <ul>
             <li>
               Returned data (as String or using <code>HttpUnit</code>),
@@ -151,7 +151,7 @@
           following Servlet engines (but it is easy to add new engines and some
           Cactus users have already posted scripts on the
           <link href="site:mailinglist">Cactus mailing list</link> for other
-          containers) :
+          containers):
           <ul>
             <li>
               Tomcat 3.x (Servlet API 2.2)

@@ -102,7 +102,7 @@
         Otherwise the plugin will use the one provided by default.
       </action>
       <action>
-        User interface : no shell popups for Ant tasks, preferences
+        User interface: no shell popups for Ant tasks, preferences
         for JAR files (JARs should be included in the Plugin, override by
         the user possible)
       </action>

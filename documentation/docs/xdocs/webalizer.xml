@@ -23,11 +23,11 @@
         <p>
           From the
           <link href="ftp://ftp.mrunix.net/pub/webalizer/README/">Webalizer
-          Readme</link> :
+          Readme</link>:
         </p>
 
         <p>
-          <strong>Hits</strong> : Any request made to the server which is
+          <strong>Hits</strong>: Any request made to the server which is
           logged, is considered a 'hit'. The requests can be for anything...
           html pages, graphic images, audio files, CGI scripts, etc... Each
           valid line in the server log is counted as a hit. This number
@@ -36,7 +36,7 @@
         </p>
 
         <p>
-          <strong>Files</strong> : Some requests made to the server, require
+          <strong>Files</strong>: Some requests made to the server, require
           that the server then send something back to the requesting client,
           such as a html page or graphic image. When this happens, it is
           considered a 'file' and the files total is incremented. The
@@ -45,7 +45,7 @@
         </p>
 
         <p>
-          <strong>Pages</strong> : Pages are, well, pages! Generally, any HTML
+          <strong>Pages</strong>: Pages are, well, pages! Generally, any HTML
           document, or anything that generates an HTML document, would be
           considered a page. This does not include the other stuff that goes
           into a document, such as graphic images, audio clips, etc... This
@@ -61,7 +61,7 @@
         </p>
 
         <p>
-          <strong>Sites</strong> : Each request made to the server comes from
+          <strong>Sites</strong>: Each request made to the server comes from
           a unique 'site', which can be referenced by a name or ultimately, an
           IP address. The 'sites' number shows how many unique IP addresses
           made requests to the server during the reporting time period. This
@@ -72,7 +72,7 @@
         </p>
 
         <p>
-          <strong>Visits</strong> : Whenever a request is made to the server
+          <strong>Visits</strong>: Whenever a request is made to the server
           from a given IP address (site), the amount of time since a previous
           request by the address is calculated (if any). If the time
           difference is greater than a pre-configured 'visit timeout' value (or
@@ -92,7 +92,7 @@
         </p>
 
         <p>
-          <strong>KBytes</strong> : The KBytes (kilobytes) value shows the
+          <strong>KBytes</strong>: The KBytes (kilobytes) value shows the
           amount of data, in KB, that was sent out by the server during the
           specified reporting period. This value is generated directly from the
           log file, so it is up to the web server to produce accurate numbers

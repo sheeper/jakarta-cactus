@@ -46,23 +46,23 @@
 
       <p>
         There are several kinds of unit testing frameworks. We categorize them
-        in 3 types :
+        in 3 types:
       </p>
       <ol>
         <li>
-          <strong>Type 1 : code logic unit testing</strong>. Probably the
+          <strong>Type 1: code logic unit testing</strong>. Probably the
           best strategy for these tests is to use a
           <link href="ext:mockobjects">Mock Objects</link> type
           framework.
         </li>
         <li>
-          <strong>Type 2 : integration unit testing</strong>. Cactus is
+          <strong>Type 2: integration unit testing</strong>. Cactus is
           typically in this category (I'll let you judge if it is the best or
           not :)). These tests will exercise the interactions with the
           container.
         </li>
         <li>
-          <strong>Type 3 : functional unit testing</strong>. These unit tests
+          <strong>Type 3: functional unit testing</strong>. These unit tests
           will let you test the returned values from your server code. This is
           for example
           <link href="ext:httpunit">HttpUnit</link> (Note that HttpUnit also 

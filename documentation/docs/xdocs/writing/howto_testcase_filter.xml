@@ -11,11 +11,11 @@
 
   <body>
 
-    <section title="When to use ?">
+    <section title="When to use?">
 
       <p>
         Your test case class should extend <code>FilterTestCase</code>
-        whenever you are unit testing :
+        whenever you are unit testing:
       </p>
       <ul>
         <li>
@@ -56,7 +56,7 @@
       </note>
 
       <p>
-        The provided implicit objects are :
+        The provided implicit objects are:
       </p>
 
       <anchor id="filter_request"/>
@@ -106,7 +106,7 @@
         </table>
 
         <p>
-          Cactus wraps the original Filter Config for two reasons :
+          Cactus wraps the original Filter Config for two reasons:
         </p>
         <ul>
           <li>
@@ -195,7 +195,7 @@
           As you are performing unit testing of your filter, you may wish
           to simulate the next filter in the filter chain so that you can
           decide, as part of your unit test, what this other filter returns
-          to your filter under test. Here is how you could do that :
+          to your filter under test. Here is how you could do that:
         </p>
 
 <source><![CDATA[

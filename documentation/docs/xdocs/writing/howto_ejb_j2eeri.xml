@@ -34,7 +34,7 @@
 
   <section title="EJB Jar">
 
-    <section title="Step 1 : Prepare the Sample EJB">
+    <section title="Step 1: Prepare the Sample EJB">
 
       <p>
         The EJB used in this tutorial is a simple Session Bean with a method
@@ -120,10 +120,10 @@ public class ConverterEJB implements SessionBean
 
     </section>
 
-    <section title="Step 2 : Prepare EJB Deployment Descriptor (ejb-jar.xml)">
+    <section title="Step 2: Prepare EJB Deployment Descriptor (ejb-jar.xml)">
 
       <p>
-        Prepare the standard EJB Deployment Descriptor for the Session EJB :
+        Prepare the standard EJB Deployment Descriptor for the Session EJB:
       </p>
 
 <source><![CDATA[
@@ -162,7 +162,7 @@ public class ConverterEJB implements SessionBean
 
     </section>
 
-    <section title="Step 3 : Prepare EJB Runtime (only valid for J2EE RI)">
+    <section title="Step 3: Prepare EJB Runtime (only valid for J2EE RI)">
 
 <source><![CDATA[
 <?xml version="1.0" encoding="ISO-8859-1"?>
@@ -187,7 +187,7 @@ public class ConverterEJB implements SessionBean
 
   <section title="Cactus Web Application">
 
-    <section title="Step 1 : Prepare test code">
+    <section title="Step 1: Prepare test code">
 
 <source><![CDATA[
 package org.apache.cactus.sample.ejb;
@@ -231,7 +231,7 @@ public class ConverterTest extends ServletTestCase
 
     </section>
 
-    <section title="Step 2 : Prepare Web Application Deployment Descriptor (web.xml)">
+    <section title="Step 2: Prepare Web Application Deployment Descriptor (web.xml)">
 
 <source><![CDATA[
 <?xml version="1.0" encoding="UTF-8"?>
@@ -266,7 +266,7 @@ public class ConverterTest extends ServletTestCase
 
     </section>
 
-    <section title="Step 3 : Package Web Application">
+    <section title="Step 3: Package Web Application">
 
       <p>
         Package the web application into a war and then deploy it. Please
@@ -276,7 +276,7 @@ public class ConverterTest extends ServletTestCase
 
     </section>
 
-    <section title="Step 4 : (Only valid to J2EE RI 1.2.1): War Runtime">
+    <section title="Step 4: (Only valid to J2EE RI 1.2.1): War Runtime">
 
 <source><![CDATA[
 <j2ee-ri-specific-information>
@@ -298,7 +298,7 @@ public class ConverterTest extends ServletTestCase
 
     </section>
 
-    <section title="Step 5 : Deploy">
+    <section title="Step 5: Deploy">
 
       <p>
         You need to deploy the war and the <code>ejb-jar.xml</code> based on

@@ -121,7 +121,7 @@
           By components we mean pieces of code that execute in a container.
           The container will provide more and more services for the components
           (like transactions, security, life cycle, persistence, interfaces
-          - like web services -, logging, ...). The consequences will be :
+          - like web services -, logging, ...). The consequences will be:
         </p>
         <ul>
           <li>
@@ -145,7 +145,7 @@
 
         <p>
           Consequently to the above predictions, there are 2 long term goals
-          for Cactus :
+          for Cactus:
         </p>
         <ul>
           <li>
@@ -163,7 +163,7 @@
             and simple implementation. Thus, the goal of Cactus will be
             to help specify needed container API/SPI for unit testing, 
             i.e. create
-            an additional service of the container :  a "unit-testing service"
+            an additional service of the container:  a "unit-testing service"
             (in addition to the existing Security, Transaction, Life Cycle, ...
             Services). As Cactus and Tomcat projects are both hosted on Jakarta
             it might be a good test ground for this kind of work. Of course,
@@ -191,13 +191,13 @@
         the subject of Cactus future.
       </p>
       <p>
-        How do you view the future of Cactus ?
+        How do you view the future of Cactus?
       </p>
       <p>
-        Do you like the goals defined above ?
+        Do you like the goals defined above?
       </p>
       <p>
-        Do you think it is feasible ?
+        Do you think it is feasible?
       </p>
       <p>
         Please send all answers to the 

@@ -39,7 +39,7 @@
       <p>
         Let's go through the different steps to understand how it works. Here
         is what happens for each <code>testXXX()</code> method in your
-        test case class (derived from <code>YYYTestCase</code>) :
+        test case class (derived from <code>YYYTestCase</code>):
       </p>
       <ol>
         <li>
@@ -61,13 +61,13 @@
         <li>
           The Redirector proxy acts as a proxy on the server side for your
           test case class. It means that your test case class is instantiated
-          twice : once on the client side (by the JUnit Test Runner) and once
+          twice: once on the client side (by the JUnit Test Runner) and once
           on the server side (by the Redirector proxy). The client side
           instance is used for executing the
           <code>beginXXX()</code> and <code>endXXX()</code> methods (see
           steps 1 and 8) and the server side instance is used for executing
           the <code>testXXX()</code> methods (see step 4). The Redirector
-          proxy does the following :
+          proxy does the following:
           <ul>
             <li>
               creates an instance of your test class using reflection. It
@@ -137,7 +137,7 @@
         <p>
           Cactus provides 3 implementations of Redirector Proxies
           (see the <link href="site:howto_testcase">TestCase Howto</link>
-          tutorial for more details on how to use these redirectors) :
+          tutorial for more details on how to use these redirectors):
         </p>
         <ul>
           <li>

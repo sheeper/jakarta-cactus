@@ -39,7 +39,7 @@
       </p>
       <p>
         There are 2 kinds of productivity environments in which you may want to
-        use Cactus, mainly :
+        use Cactus, mainly:
       </p>
       <ul>
         <li>
@@ -62,7 +62,7 @@
 
       <p>
         In order to run Cactus tests you need to have the following
-        software already installed on your system :
+        software already installed on your system:
       </p>
 
       <ul>
@@ -99,16 +99,16 @@
       </p>
       <p>
         The jars making up Cactus can be found in
-        <code>[cactus root]/lib</code>. Namely, they are :
+        <code>[cactus root]/lib</code>. Namely, they are:
       </p>
       <ul>
         <li>
-          <strong><code>cactus.jar</code></strong> : the main jar,
+          <strong><code>cactus.jar</code></strong>: the main jar,
           contains the framework classes. You can find this jar in
           <code>[cactus root]/lib</code>.
         </li>
         <li>
-          <strong><code>cactus-ant.jar</code></strong> : a jar which
+          <strong><code>cactus-ant.jar</code></strong>: a jar which
           contains some custom Ant tasks to help integrate easily with Ant.
           This is only needed if you wish to use Ant for automating the
           execution of Cactus tests. For more information on how to integrate
@@ -117,28 +117,28 @@
           find this jar in <code>[cactus root]/lib</code>.
         </li>
         <li>
-          <strong><code>httpclient.jar</code></strong> : Cactus is relying
+          <strong><code>httpclient.jar</code></strong>: Cactus is relying
           on the Jakarta Commons HttpClient framework for Cookie handling.
         </li>
         <li>
-          <strong><code>junit.jar</code></strong> : Cactus extends JUnit and
+          <strong><code>junit.jar</code></strong>: Cactus extends JUnit and
           thus needs the JUnit jar.
         </li>
         <li>
-          <strong><code>aspectjrt.jar</code></strong> : Cactus uses
+          <strong><code>aspectjrt.jar</code></strong>: Cactus uses
           <link href="ext:aspectj">AspectJ</link> for performing
           several tasks (logging entries and exit of methods, checking
           configuration, etc).
         </li>
         <li>
-          <strong><code>commons-logging.jar</code></strong> : Cactus uses
+          <strong><code>commons-logging.jar</code></strong>: Cactus uses
           the Jakarta Commons Logging facade framework to provide seamless
           Cactus logging using any existing Logging framework (Log4j,
           LogKit, JDK 1.4 Logging, etc). It is also needed for Commons
           HttpClient.
         </li>
         <li>
-          <strong><code>logging framework</code>(optional)</strong> : The
+          <strong><code>logging framework</code>(optional)</strong>: The
           logging framework to use (Log4j jar, LogKit jar, etc). It is optional
           as it is only needed for internal Cactus logging and in addition, the
           Commons Logging framework provides a simple logger that logs on the
@@ -152,7 +152,7 @@
 
     </section>
 
-    <section title="What's next ?">
+    <section title="What's next?">
 
       <p>
         At this point you should understand what Cactus is and how it works.

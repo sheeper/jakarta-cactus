@@ -3,7 +3,7 @@
 <document id="cactusname">
 
   <properties>
-    <title>Why the name ?</title>
+    <title>Why the name?</title>
     <authors>
       <author name="Vincent Massol" email="vmassol@apache.org"/>
     </authors>
@@ -11,10 +11,10 @@
 
   <body>
 
-    <section title="Why Cactus ?">
+    <section title="Why Cactus?">
 
       <p>
-        Here are some stories and reasons about the 'Cactus' name :)
+        Here are some stories and reasons about the 'Cactus' name:)
       </p>
       <ul>
         <li>
@@ -71,7 +71,7 @@
           We can imagine a motto like "Tested on Apache-Cactus" !
         </li>
         <li>
-          Any more ... ?
+          Any more...?
         </li>
       </ul>
 

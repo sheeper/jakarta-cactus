@@ -17,7 +17,7 @@
         In order to simplify Cactus integration within your IDE (i.e. running
         the Cactus tests from your IDE), we have
         provided several tutorial detailing the involved steps for several
-        IDEs :
+        IDEs:
       </p>
       <ul>
         <li>
@@ -29,7 +29,7 @@
           Tutorial</link> (more focused on JBuilder 5),
         </li>
         <li>
-          VisualAge for Java Integration :
+          VisualAge for Java Integration:
           <ul>
             <li>
               <link href="site:howto_ide_vajava_wte">VAJava and integrated WebSphere Test

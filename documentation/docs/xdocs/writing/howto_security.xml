@@ -36,10 +36,10 @@
 
     </section>
 
-    <section title="Step 1 : Passing credentials in beginXXX()">
+    <section title="Step 1: Passing credentials in beginXXX()">
 
       <p>
-        Let's start with an example :
+        Let's start with an example:
       </p>
 
 <source><![CDATA[
@@ -59,7 +59,7 @@ public void testBasicAuthentication()
 ]]></source>
 
       <p>
-        There are several things to understand here :
+        There are several things to understand here:
       </p>
       <ul>
         <li>
@@ -86,12 +86,12 @@ public void testBasicAuthentication()
 
     </section>
 
-    <section title="Step 2 : Securing the Cactus Redirector">
+    <section title="Step 2: Securing the Cactus Redirector">
 
       <p>
        All calls to the server side go through the Cactus Servlet Redirector
        and thus it is that servlet that needs to be secured in
-       <code>web.xml</code>. It is performed as follows (example) :
+       <code>web.xml</code>. It is performed as follows (example):
       </p>
 
 <source><![CDATA[
@@ -158,7 +158,7 @@ public void testBasicAuthentication()
 
     </section>
 
-    <section title="Step 3 : Map Users/Roles">
+    <section title="Step 3: Map Users/Roles">
 
       <p>
         This step consists in defining authorized users and mapping them to the
@@ -169,7 +169,7 @@ public void testBasicAuthentication()
       <p>
         This step is completely container-dependent and there is no standard
         way of doing it. You'll have to learn how to do it for your container.
-        For example, here is how you would do it for Tomcat 4.0 :
+        For example, here is how you would do it for Tomcat 4.0:
       </p>
       <ul>
         <li>
@@ -180,7 +180,7 @@ public void testBasicAuthentication()
       </ul>
       <p>
         Here is an example of <code>tomcat-users.xml</code> that matches the
-        test we have defined in step 1 :
+        test we have defined in step 1:
       </p>
 
 <source><![CDATA[

@@ -20,14 +20,14 @@
         lists.
       </p>
       <p>
-        Cactus has 2 lists :
+        Cactus has 2 lists:
       </p>
       <ul>
         <li>
-          <code>cactus-user@jakarta.apache.org</code> : for users of Cactus
+          <code>cactus-user@jakarta.apache.org</code>: for users of Cactus
         </li>
         <li>
-          <code>cactus-dev@jakarta.apache.org</code> : for developers of
+          <code>cactus-dev@jakarta.apache.org</code>: for developers of
           Cactus
         </li>
       </ul>

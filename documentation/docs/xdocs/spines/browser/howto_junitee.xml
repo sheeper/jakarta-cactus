@@ -38,7 +38,7 @@
 
       <ul>
         <li>
-          <strong>All class files are in one place</strong> :  Install all your
+          <strong>All class files are in one place</strong>:  Install all your
           TestCase class-files only in your container classpath. Both
           TestCases derived from
           <code>junit.framework.TestCase</code> and from
@@ -46,7 +46,7 @@
           will be located in the same place and only once.
         </li>
         <li>
-          <strong>Run all TestCases in the container</strong> : You can mix
+          <strong>Run all TestCases in the container</strong>: You can mix
           both types of TestCases mentioned above in your test. All tests are
           executed inside the Container. You can use testcases derived from
           <code>junit.framework.TestCase</code> to test methods that do not

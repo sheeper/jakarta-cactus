@@ -25,7 +25,7 @@
       </p>
       <p>
         There are 2 ways of packaging Cactus so that you can execute Cactus
-        tests on your application :
+        tests on your application:
       </p>
       <ul>
         <li>
@@ -53,7 +53,7 @@
 
     </section>
 
-    <section title="Step 1 : Install Tomcat">
+    <section title="Step 1: Install Tomcat">
       <p>
         Download <link href="http://jakarta.apache.org/builds/jakarta-tomcat-4.0/release/">Tomcat</link>
         4.0 or greater and unzip it in any directory. Let's call this directory
@@ -68,7 +68,7 @@
         directory in the zip.
       </p>
       <p>
-        Copy the following jars to <code>[tomcat root]/common/lib</code> :
+        Copy the following jars to <code>[tomcat root]/common/lib</code>:
       </p>
       <ul>
         <li>
@@ -94,10 +94,10 @@
       </note>
     </section>
 
-    <section title="Step 3 : Modify Tomcat web.xml">
+    <section title="Step 3: Modify Tomcat web.xml">
       <p>
         Edit <code>[tomcat root]/conf/web.xml</code> and add the following at
-        the beginning of the file, after the <code>&lt;webapp&gt;</code> tag :
+        the beginning of the file, after the <code>&lt;webapp&gt;</code> tag:
       </p>
 <source><![CDATA[
 <servlet>
@@ -117,7 +117,7 @@
 
       <p>
         Then, after the last <code>&lt;servlet&gt;</code> definition (there
-        are a few provided by Tomcat in addition to our 2 above), add :
+        are a few provided by Tomcat in addition to our 2 above), add:
       </p>
 
 <source><![CDATA[
@@ -134,13 +134,13 @@
 
     </section>
 
-    <section title="Step 4 : Creating a sample applicaton to test">
+    <section title="Step 4: Creating a sample applicaton to test">
       <p>
         We're now going to create a very very simple application to server
         so that we can unit test it.
       </p>
       <p>
-        First, create the following directory structure :
+        First, create the following directory structure:
       </p>
 
 <source><![CDATA[
@@ -223,7 +223,7 @@ public class TestSampleServlet extends ServletTestCase
 
     </section>
 
-    <section title="Step 5 : Run the test">
+    <section title="Step 5: Run the test">
 
       <p>
         Time to enjoy our hard work ! Start Tomcat by running
@@ -234,21 +234,21 @@ public class TestSampleServlet extends ServletTestCase
         Open a browser and point it at <code>http://localhost:8080/test/ServletTestRunner?suite=TestSampleServlet</code>
       </p>
       <p>
-        You should see :
+        You should see:
       </p>
       <figure src="images/tomcat_xml.jpg" alt="XML output of ServletTestRunner"/>
 
     </section>
 
-    <section title="Step 6 : Even more fun !">
+    <section title="Step 6: Even more fun !">
       <p>
-        Ok, that's nice ... But what if I want HTML instead of XML ? Don't
+        Ok, that's nice ... But what if I want HTML instead of XML? Don't
         worry there is a solution. Grab the following
         <link href="misc/junit-noframes.xsl">junit-noframes.xsl</link>
         stylesheet used to format JUnitReport Ant task results and drop it in
         <code>[tomcat root]/webapps/test</code>. Then, open a browser and type
         <code>http://localhost:8080/test/ServletTestRunner?suite=TestSampleServlet&amp;xsl=junit-noframes.xsl</code>.
-        You should now see the following :
+        You should now see the following:
       </p>
 
       <figure src="images/tomcat_html.jpg" alt="HTML output of ServletTestRunner"/>

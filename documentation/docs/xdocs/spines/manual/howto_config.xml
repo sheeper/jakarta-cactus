@@ -53,7 +53,7 @@
             classpath. You can override the name and location of the
             configuration file by setting the <code>cactus.config</code> System
             property. For example you can pass the following when starting the
-            JVM : <code>-Dcactus.config=c:/cactus.txt</code>.
+            JVM: <code>-Dcactus.config=c:/cactus.txt</code>.
           </li>
           <li>
             In your tests (using <code>System.setProperty()</code>). This
@@ -332,7 +332,7 @@
         </p>
         <p>
           For example, for the Servlet Redirector (same principle applies
-          to all other redirectors) :
+          to all other redirectors):
         </p>
 
 <source><![CDATA[

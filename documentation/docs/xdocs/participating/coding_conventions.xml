@@ -36,7 +36,7 @@
 
     </section>
 
-    <section title="How to apply ?">
+    <section title="How to apply?">
 
       <p>
         Having coding conventions is nice but having a way to ensure they are
@@ -98,7 +98,7 @@ if (expression)
 
         <p>
            keywords followed by a parenthesis should be separated by a space.
-           Example :
+           Example:
         </p>
 
 <source><![CDATA[
@@ -110,7 +110,7 @@ while (true)
 
         <p>
           Blank space should appear after commas in argument lists. Binary
-          operators should be separated from their operands by spaces :
+          operators should be separated from their operands by spaces:
         </p>
 
 <source><![CDATA[
@@ -182,7 +182,7 @@ printSize("size is " + foo + "\n");
 
         <p>
           Class variables should not have any prefix and <strong>must</strong>
-          be referenced using the <code>this</code> object. Example :
+          be referenced using the <code>this</code> object. Example:
         </p>
 
 <source><![CDATA[
@@ -203,7 +203,7 @@ public class SomeClass
 
         <p>
           Method parameters should be prefixed by "<code>the</code>" (for
-          differentiating them from inner variables). For example :
+          differentiating them from inner variables). For example:
         </p>
 
 <source><![CDATA[
@@ -242,7 +242,7 @@ public void someMethod(String theClassName)
           Do <strong>not</strong> use <code>System.out</code> to log. Instead,
           use the Cactus logging classes which are a facade to Log4j. Use the
           name of your class as the Log4j <code>Category</code>. For
-          example :
+          example:
         </p>
 
 <source><![CDATA[
@@ -270,29 +270,29 @@ public void someMethod()
         </p>
         <ul>
           <li>
-            <strong>Rule 1</strong> : Try to catch exceptions as much as
+            <strong>Rule 1</strong>: Try to catch exceptions as much as
             possible and rethrow higher level exceptions (meaning hiding the
             low level detailed and putting a message that is more related to
             the function of your code).
           </li>
           <li>
-            <strong>Rule 2</strong> : It is important not to loose the stack
+            <strong>Rule 2</strong>: It is important not to loose the stack
             trace which contains important information. Use chained exceptions
             for that. Cactus provides a <code>ChainedRuntimeException</code>
             for chaining runtime exceptions.
           </li>
           <li>
-            <strong>Rule 3</strong> : Always log the exception at the higher
+            <strong>Rule 3</strong>: Always log the exception at the higher
             level (ie. where it is handled and not rethrown).
           </li>
           <li>
-            <strong>Rule 4</strong> : Try to avoid catching
+            <strong>Rule 4</strong>: Try to avoid catching
             <code>Throwable</code> or <code>Exception</code> and catch
             specific exceptions instead.
           </li>
         </ul>
         <p>
-          An example :
+          An example:
         </p>
 
 <source><![CDATA[
@@ -319,10 +319,10 @@ public void getTestClass()
         <p>
           All <code>import</code> statements should containing the full class
           name of classes to import and should not use the <code>"*"</code>
-          notation :
+          notation:
         </p>
         <p>
-          An example :
+          An example:
         </p>
 
 <source><![CDATA[

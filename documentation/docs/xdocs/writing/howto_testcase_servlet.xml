@@ -11,11 +11,11 @@
 
   <body>
 
-    <section title="When to use ?">
+    <section title="When to use?">
 
       <p>
         Your test case class should extend <code>ServletTestCase</code>
-        whenever you are unit testing :
+        whenever you are unit testing:
       </p>
       <ul>
         <li>
@@ -46,7 +46,7 @@
       </note>
 
       <p>
-        The provided implicit objects are :
+        The provided implicit objects are:
       </p>
 
       <anchor id="servlet_request"/>
@@ -171,7 +171,7 @@
         </table>
 
         <p>
-          Cactus wraps the original Servlet Config for two reasons :
+          Cactus wraps the original Servlet Config for two reasons:
         </p>
         <ul>
           <li>
@@ -312,7 +312,7 @@
           <code>ServletConfig</code> object.
         </p>
         <p>
-          For example :
+          For example:
         </p>
 
 <source><![CDATA[

@@ -35,7 +35,7 @@
       <p>
         These are the changes that happened to the Cactus web site for the past
         15 days since the last site update (excluding the todo and changes 
-        pages which are modified too often) :
+        pages which are modified too often):
       </p>
 
       <!-- Note: The XSL stylesheet will include the CVS changelog here -->
@@ -271,10 +271,10 @@
       </action>
       <action dev="VMA" type="update">
         Refactored internal code to be able to use different HTTP connection
-        implementation. 2 are currently provided : one using the JDK
+        implementation. 2 are currently provided: one using the JDK
         <code>HttpURLConnection</code> and one using Jakarta
         <link href="ext:httpclient">Commons HttpClient</link> (the default 
-        one). It can be modified by setting the following System property :
+        one). It can be modified by setting the following System property:
         <code>cactus.connectionHelper.classname =
         org.apache.cactus.client.JdkConnectionHelper</code> (for the JDK
         <code>HttpURLConnection</code>). Note that the Servlet Sample test
@@ -286,7 +286,7 @@
         (<code>commons-logging.jar</code>). It is needed as Commons HttpClient
         is now using Commons Logging for logging and Cactus depends on
         HttpClient. Cactus is also now using Commons HttpClient for all its
-        internal logs. This lets us use any underlying logging implementation :
+        internal logs. This lets us use any underlying logging implementation:
         Log4j, LogKit, JDK 1.4 Logging, No Logging or SimpleLog (provided with
         Commons Logging - logs to the console). Check the
         <link href="site:howto_config">Config Howto</link> for how
@@ -374,7 +374,7 @@
         explains how to run Cactus tests quickly in Tomcat.
       </action>
       <action dev="VMA" type="add">
-        A cool new way to quickly execute your test cases : Cactus now has
+        A cool new way to quickly execute your test cases: Cactus now has
         a JUnit Test Runner called ServletTestRunner (it is a servlet) that
         you start using your browser. See the
         <link href="site:howto_runner">TestRunner Howto</link> tutorial.
@@ -396,7 +396,7 @@
 
     <release version="1.3" date="April 21 2002">
       <action dev="VMA" type="update">
-        Improved classloader support on the server side : Cactus first tries
+        Improved classloader support on the server side: Cactus first tries
         to load the Class to test using the Context class loader (thus, if you
         container has set the context class loader to point to the webapp
         classloader you'll be able to use Cactus as an extension and share it
@@ -514,7 +514,7 @@
         Modified <code>cactus.properties</code> configuration parameters. For
         example, where you previously were writing
         <code>cactus.servletRedirectorURL = http://localhost:8080/test/ServletRedirector</code>
-        you would now have 2 parameters :
+        you would now have 2 parameters:
         <code>cactus.contextURL = http://localhost:8080/test</code> and
         <code>cactus.servletRedirectorName = ServletRedirector</code>.
       </action>
@@ -606,7 +606,7 @@
         supporting earlier versions of JUnit.
       </action>
       <action dev="VMA" type="add">
-        Added a new method : <code>WebRequest.setContentType(String)</code>
+        Added a new method: <code>WebRequest.setContentType(String)</code>
         (if you don't specify anything it default to
         "application/x-www-form-urlencoded"). This will set the
         content type HTTP header for the request. You can get this value from
@@ -614,7 +614,7 @@
         <code>HttpServletRequest.getContentType()</code>.
       </action>
       <action dev="VMA" type="add">
-        Added new method : <code>WebRequest.setUserData(InputStream)</code> to
+        Added new method: <code>WebRequest.setUserData(InputStream)</code> to
         allow sending arbitrary data in the request body. Note that calling this
         method will invalidate any parameters that were set to be sent in the
         request body.
@@ -763,7 +763,7 @@
         Added new end method signature that integrates with HttpUnit. You now
         have the possibility to use the full assertion power of HttpUnit in
         your end method. You simply need to define your end methods with the
-        following signature :
+        following signature:
         <code>endXXX(com.meterware.httpunit.WebResponse)</code>. If you don't
         need that power and only want to do simple asserts you can use the
         <code>endXXX(org.apache.cactus.WebResponse)</code> signature
@@ -829,7 +829,7 @@
         have to manually call <code>addParameters()</code>.
       </action>
       <action dev="VMA" type="fix" due-to="Kunal Vaishnav" due-to-email="Kunal_Vaishnav@jdedwards.com">
-        Fixed bug : URL encoding was applied to cookies so that when passing
+        Fixed bug: URL encoding was applied to cookies so that when passing
         a special in a cookie it would get encoded when trying to retrieve it.
         Thanks to <link href="mailto:jariw@hyperlink-interactive.co.uk">
         Jari Worsley</link> for fixing it.

@@ -45,7 +45,7 @@
     <section title="Ant benefits">
 
       <p>
-        The benefits of using Ant for running unit tests are as follows :
+        The benefits of using Ant for running unit tests are as follows:
       </p>
       <table>
         <tr>
@@ -104,7 +104,7 @@
       <section title="Project directory structure">
 
         <p>
-          Create the following directories :
+          Create the following directories:
         </p>
         <table>
           <tr>
@@ -176,7 +176,7 @@
               <code>src</code>
             </td>
             <td>
-              The project sources : java files + java test files +
+              The project sources: java files + java test files +
               properties files + test properties files + other files for
               runtime or test (XML files, ...). Note that all test files
               should begin by 'Test' or 'test' in order to easily separate them
@@ -189,7 +189,7 @@
               <code>web</code>
             </td>
             <td>
-              The project web files : HTML, JSP, ... (if any)
+              The project web files: HTML, JSP, ... (if any)
             </td>
           </tr>
         </table>
@@ -204,7 +204,7 @@
         <note>
           We don't have any <code>lib</code> directory because it is always
           better not to include dependent jars in your project whenever
-          possible for the following reasons : better continuous integration
+          possible for the following reasons: better continuous integration
           with other libraries (meaning they also evolve and you should test
           as much as possible with the latest version to discover potential
           problems early, more lightweight downloads, less jar proliferation
@@ -322,7 +322,7 @@
               <jump anchor="doc"><code>doc</code></jump>
             </td>
             <td>
-              Generates the full project documentation : javadoc + README files
+              Generates the full project documentation: javadoc + README files
               + documentation web site (using Stylebook for example).
             </td>
             <td>
@@ -375,7 +375,7 @@
 
       <anchor id="basedir"/>
 
-      <section title="Step 1 : The Ant project basedir">
+      <section title="Step 1: The Ant project basedir">
 
         <p>
           You <code>build.xml</code> file being in located in
@@ -388,7 +388,7 @@
           directory.
         </p>
         <p>
-          Example :
+          Example:
         </p>
 <source><![CDATA[
 <?xml version="1.0"?>
@@ -398,7 +398,7 @@
 
       </section>
 
-      <section title="Step 2 : initialization of project properties">
+      <section title="Step 2: initialization of project properties">
 
         <p>
           You should define as properties all values that can be factorized
@@ -413,7 +413,7 @@
           it <code>build.properties</code> located either where
           <code>build.xml</code> is located or in your home directory. The
           properties defined in this file will be loaded by
-          <code>build.xml</code> using the following code :
+          <code>build.xml</code> using the following code:
         </p>
 
 <source><![CDATA[
@@ -424,7 +424,7 @@
 ]]></source>
 
         <p>
-          Here are our properties initializations :
+          Here are our properties initializations:
         </p>
 
 <source><![CDATA[
@@ -488,7 +488,7 @@
     <!-- The full sources of Cactus Sample in a zip file -->
     <property name="final.src.name" value="${out.dir}/${project.name}-src-@servlet.api@.zip"/>
 
-    <!-- The Cactus Sample documentation in a zip : javadoc -->
+    <!-- The Cactus sample documentation in a zip file -->
     <property name="final.doc.name" value="${out.dir}/${project.name}-doc-@servlet.api@.zip"/>
 
     <!--
@@ -529,7 +529,7 @@
 
       <anchor id="init"/>
 
-      <section title="Step 3 : 'init' target">
+      <section title="Step 3: 'init' target">
 
         <p>
           Useful for initializing a timestamp (DSTAMP, TODAY, TSTAMP), defining
@@ -583,7 +583,7 @@
 
       <anchor id="usage"/>
 
-      <section title="Step 4 : 'usage' targets">
+      <section title="Step 4: 'usage' targets">
 
         <p>
           Display a usage message.
@@ -601,7 +601,7 @@
         <echo message="${project.fullname} build file"/>
         <echo message="------------------------------------------------------"/>
         <echo message=""/>
-        <echo message=" Available targets are :"/>
+        <echo message=" Available targets are:"/>
         <echo message=""/>
         <echo message=" war    --> generates the war file (default)"/>
         <echo message=" clean  --> cleans up the build directory"/>
@@ -610,7 +610,7 @@
         <echo message=" all    --> do it all at once"/>
         <echo message="            (clean, war, source, doc)"/>
         <echo message=""/>
-        <echo message=" Targets for running the tests for Servlet API 2.2 :"/>
+        <echo message=" Targets for running the tests for Servlet API 2.2:"/>
         <echo message=""/>
         <echo message=" tests_resin_12    --> run tests for Resin 1.2"/>
         <echo message=" tests_tomcat_32   --> run tests for Tomcat 3.2"/>
@@ -625,7 +625,7 @@
 
       <anchor id="prepare"/>
 
-      <section title="Step 5 : 'prepare' target">
+      <section title="Step 5: 'prepare' target">
 
         <p>
           This target is needed for both compiling and generating the javadoc.
@@ -664,7 +664,7 @@
 
       <anchor id="compile"/>
 
-      <section title="Step 6 : 'compile' target">
+      <section title="Step 6: 'compile' target">
 
         <p>
           The <code>compile</code> target simply compiles the java files into
@@ -731,7 +731,7 @@
 
       <anchor id="source"/>
 
-      <section title="Step 7 : 'source' target">
+      <section title="Step 7: 'source' target">
 
         <p>
           Zip up the sources for distribution.
@@ -762,7 +762,7 @@
 
       <anchor id="javadoc"/>
 
-      <section title="Step 8 : 'javadoc' target">
+      <section title="Step 8: 'javadoc' target">
 
         <p>
           Generate the project's javadoc.
@@ -811,7 +811,7 @@
 
       <anchor id="doc"/>
 
-      <section title="Step 9 : 'doc' target">
+      <section title="Step 9: 'doc' target">
 
         <p>
           Generate the project's documentation. It includes the javadoc,
@@ -848,7 +848,7 @@
 
       <anchor id="clean"/>
 
-      <section title="Step 10 : 'clean' target">
+      <section title="Step 10: 'clean' target">
 
         <p>
           Removes all build generated files.
@@ -882,7 +882,7 @@
 
       </section>
 
-      <section title="Step 11 : 'jar', 'war' targets">
+      <section title="Step 11: 'jar', 'war' targets">
 
         <anchor id="jar"/>
 
@@ -897,7 +897,7 @@
           </p>
 
           <p>
-            Example (from the Cactus build file) :
+            Example (from the Cactus build file):
           </p>
 
 <source><![CDATA[
@@ -950,7 +950,7 @@
           </p>
 
           <p>
-            Example (from the Cactus sample) :
+            Example (from the Cactus sample):
           </p>
 
 <source><![CDATA[
@@ -1003,7 +1003,7 @@
 
       <anchor id="tests"/>
 
-      <section title="Step 12 : 'tests_XXX' target">
+      <section title="Step 12: 'tests_XXX' target">
 
         <p>
           The <code>tests_XXX</code> target is in charge of running the

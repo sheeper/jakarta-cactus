@@ -15,7 +15,7 @@
 
       <p>
         The Cactus tests are started using a JUnit Test Runner. There are
-        several configurations for executing these test runners :
+        several configurations for executing these test runners:
       </p>
       <ul>
         <li>
@@ -54,7 +54,7 @@
         You need to set up your classpath in the same way as when you run
         Cactus tests from Ant. However, you start the test with the following
         command line (this is an example using the Swing UI TestRunner found
-        in the junit jar) :
+        in the junit jar):
       </p>
       <p>
         <code>junit.swingui.TestRunner.main [test case class]</code>
@@ -78,7 +78,7 @@
         This section only applies for Cactus 1.4 and greater.
       </note>
 
-      <section title="Step 1 : Setting up the classpath">
+      <section title="Step 1: Setting up the classpath">
 
         <p>
           In order to run Cactus tests from a browser you need to have a webapp
@@ -96,13 +96,13 @@
 
       </section>
 
-      <section title="Step 2 : Mapping the Cactus Servlet Test Runner">
+      <section title="Step 2: Mapping the Cactus Servlet Test Runner">
 
         <p>
           Then, in addition to the Cactus redirectors that you have mapped in
           your <code>web.xml</code> (see the
           <link href="site:howto_config">Configuration howto</link>), you also
-          need to map the Cactus Servlet Test Runner, as follows :
+          need to map the Cactus Servlet Test Runner, as follows:
         </p>
 
 <source><![CDATA[
@@ -123,11 +123,11 @@
 
       </section>
 
-      <section title="Step 3 : Executing the tests">
+      <section title="Step 3: Executing the tests">
 
         <p>
           Open a browser and type <code>http://server:port/mywebapp/ServletTestRunner?suite=mytestcase</code>
-          where :
+          where:
         </p>
         <ul>
           <li>
@@ -147,7 +147,7 @@
         </ul>
 
         <p>
-          Here is an example of what you will get :
+          Here is an example of what you will get:
         </p>
 
         <figure src="images/servlettestrunner_xml.jpg" alt="XML output of ServletTestRunner"/>
@@ -158,14 +158,14 @@
         </note>
         
         <p>
-          Ok, that's nice ... But what if I want HTML instead of XML ? Don't
+          Ok, that's nice ... But what if I want HTML instead of XML? Don't
           worry there is a solution. Grab the following
           <link href="misc/junit-noframes.xsl">stylesheet</link>
           used to format JUnitReport Ant task results and drop it in your
           webapp and name it <code>junit-noframes.xsl</code> (in the root
           directory for example). Then, open a browser and type
           <code>http://server:port/mywebapp/ServletTestRunner?suite=mytestcase&amp;xsl=junit-noframes.xsl</code>.
-          You should see the following :
+          You should see the following:
         </p>
 
         <figure src="images/servlettestrunner_html.jpg" alt="HTML output of ServletTestRunner"/>

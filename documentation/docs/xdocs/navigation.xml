@@ -22,7 +22,7 @@
 
   <menu label="Documentation">
     <item label="Site Map" id="sitemap"/>
-    <item label="How it works ?" id="how_it_works"/>
+    <item label="How it works?" id="how_it_works"/>
     <item label="Getting Started" id="getting_started"/>
     <item label="Mock vs Container" id="mockobjects"/>
     <item label="Javadocs" id="javadoc"/>
@@ -65,7 +65,7 @@
   </menu>
 
   <menu label="Misc.">
-    <item label="Why the name ?" id="cactusname"/>
+    <item label="Why the name?" id="cactusname"/>
     <item label="Logo Challenge" id="logos"/>
     <item label="Resources" id="resources"/>
     <item label="Test Coverage" id="coverage"/>

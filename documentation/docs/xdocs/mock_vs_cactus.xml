@@ -43,7 +43,7 @@
         it is also applicable to unit test server side code like Servlets,
         Filters, Taglibs, EJBs, ... See the original article
         <link href="http://mockobjects.sourceforge.net/endotesting.html">
-        "Endo-Testing : Unit Testing with Mock Objects"</link> for full details
+        "Endo-Testing: Unit Testing with Mock Objects"</link> for full details
         on MO. As such it is a challenger to Cactus but we'll see
         in the rest of this article that it is in fact complementary rather than
         a replacement.
@@ -85,7 +85,7 @@
     <section title="An example">
 
       <p>
-        Simple test case using Cactus :
+        Simple test case using Cactus:
       </p>
 
 <source><![CDATA[
@@ -116,7 +116,7 @@ public void endXXX(WebResponse theResponse)
 ]]></source>
 
       <p>
-        Simple test case using Mock Objects :
+        Simple test case using Mock Objects:
       </p>
 
 <source><![CDATA[
@@ -180,7 +180,7 @@ public void testXXX()
             i.e. before the implementation are ready. Or before a choice of
             implementation has been made. Thus, for example, it is possible to
             write servlet code before choosing a container. This is in
-            accordance with XP that says : "not commit to infrastructure choice
+            accordance with XP that says: "not commit to infrastructure choice
             before you have to" and "write unit test first".
           </td>
           <td>
@@ -191,7 +191,7 @@ public void testXXX()
         <tr>
           <td>
             MO is comprehensive/universal. It adapts to all kind of unit
-            testing :
+            testing:
             Servlet unit testing, JDBC unit testing, Struts unit testing, ...
             Cactus only addresses server-side testing, meaning that if in your
             Servlet code you have JDBC connections and you want to unit test
@@ -276,7 +276,7 @@ public void testXXX()
           <td>
             Using MO is not simple. It needs some discipline and some
             experience. Same as for unit tesing using JUnit, there are some
-            methodologies to follow. Some are :
+            methodologies to follow. Some are:
             <ul>
               <li>
                 In order not to be weighted down by having to implement myriad
@@ -307,7 +307,7 @@ public void testXXX()
             <code>init(MockObject)</code> method in a Servlet in order to
             initialize a mock version of an internally used domain object. Also
             the code may become more complex (even if more flexible) because
-            of the need for testing and not because of business requirements :
+            of the need for testing and not because of business requirements:
             for example, one might need to introduce a factory when it was not
             needed simply to be able to provide MO objects from the factory.
           </td>
@@ -378,7 +378,7 @@ public void testXXX()
         code but it is more difficult to understand than Cactus tests.
       </p>
       <p>
-        Finally, we believe that MO and Cactus are complementary in 2 areas :
+        Finally, we believe that MO and Cactus are complementary in 2 areas:
         <ul>
           <li>
             During the development phase, MO could be used to unit test the
@@ -412,13 +412,13 @@ public void testXXX()
     <section title="Resources on MO">
 
       <p>
-        Some links :
+        Some links:
       </p>
       <p>
         <ul>
           <li>
             <link href="http://mockobjects.sourceforge.net/endotesting.html">
-            "Endo-Testing : Unit Testing with Mock Objects"</link> (PDF).
+            "Endo-Testing: Unit Testing with Mock Objects"</link> (PDF).
             Describes the vision behind MO.
           </li>
           <li>

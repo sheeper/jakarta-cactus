@@ -43,26 +43,26 @@
           explanations on how JUnit works see the
           <link href="http://junit.sourceforge.net">JUnit web site</link>).
           As pictured in figure 1, you need to have the following jars and
-          classes in your client side classpath :
+          classes in your client side classpath:
         </p>
         <ul>
           <li>
-            <strong><code>junit.jar</code></strong> : obviously this is needed
+            <strong><code>junit.jar</code></strong>: obviously this is needed
             for the JUnit Test Runner and because the Cactus
             <code>XXXTestCase</code> classes extend the JUnit
             <code>org.junit.framework.TestCase</code> class.
           </li>
           <li>
-            <strong><code>cactus.jar</code></strong> : well, this is the
+            <strong><code>cactus.jar</code></strong>: well, this is the
             Cactus jar containing all Cactus classes,
           </li>
           <li>
-            <strong>your test classes</strong> : these are
+            <strong>your test classes</strong>: these are
             your test classes that extend the Cactus <code>XXXTestCase</code>
             classes,
           </li>
           <li>
-            <strong><code>servlet.jar or j2ee.jar</code></strong> : these are
+            <strong><code>servlet.jar or j2ee.jar</code></strong>: these are
             the Servlet API / J2EE API interfaces. This
             is needed on the client side classpath because your test cases
             extend one or several of <code>XXXTestCase</code> which use class
@@ -76,18 +76,18 @@
             page</link>).
           </li>
           <li>
-            <strong><code>httpclient.jar</code></strong> : needed for
+            <strong><code>httpclient.jar</code></strong>: needed for
             Cactus Cookie handling.
           </li>
           <li>
-            <strong><code>commons-logging.jar</code></strong> : Cactus uses
+            <strong><code>commons-logging.jar</code></strong>: Cactus uses
             the Jakarta Commons Logging facade framework to provide seamless
             Cactus logging using any existing Logging framework (Log4j,
             LogKit, JDK 1.4 Logging, etc). It is also needed for Commons
             HttpClient.
           </li>
           <li>
-            <strong><code>logging framework jar</code>(optional)</strong> : The
+            <strong><code>logging framework jar</code>(optional)</strong>: The
             logging framework to use (Log4j jar, LogKit jar, etc). It is
             optional as it is only needed for internal Cactus logging and in
             addition, the Commons Logging framework provides a simple logger
@@ -96,7 +96,7 @@
           <li>
             <strong><code>httpunit.jar</code></strong>, <strong>
             <code>Tidy.jar</code></strong> and <strong>
-            <code>xerces.jar</code> (optional)</strong> : only needed if you
+            <code>xerces.jar</code> (optional)</strong>: only needed if you
             wish to use
             <link href="http://httpunit.sourceforge.net">HttpUnit</link>
             in your <code>endXXX()</code> methods (see the
@@ -104,7 +104,7 @@
             The 3 jars mentioned above are part of the HttpUnit distribution.
           </li>
           <li>
-            <strong><code>aspectjrt.jar</code></strong> :
+            <strong><code>aspectjrt.jar</code></strong>:
             <link href="ext:aspectj">AspectJ</link> runtime jar.
           </li>
         </ul>
@@ -138,34 +138,34 @@
         <p>
           The server side part is a webapp. It can be packaged as a .war file
           or as expanded war. It should have the following structure, which
-          will ensure that the classpath is correct :
+          will ensure that the classpath is correct:
         </p>
 
         <ul>
           <li>
-            <strong><code>WEB-INF/lib/cactus.jar</code></strong> : the
+            <strong><code>WEB-INF/lib/cactus.jar</code></strong>: the
             Cactus main jar,
           </li>
           <li>
-            <strong><code>WEB-INF/lib/junit.jar</code></strong> : this is
+            <strong><code>WEB-INF/lib/junit.jar</code></strong>: this is
             needed because the Cactus <code>XXXTestCase</code> extends
             the JUnit <code>org.junit.framework.TestCase</code> class.
           </li>
           <li>
             <strong><code>WEB-INF/classes/&lt;your test classes&gt;</code>
-            </strong> : obviously as their <code>testXXX()</code> methods will
+            </strong>: obviously as their <code>testXXX()</code> methods will
             get executed in the container.
           </li>
           <li>
             <strong><code>WEB-INF/classes/&lt;your classes under test&gt;</code>
-            </strong> : will be called by your test classes.
+            </strong>: will be called by your test classes.
           </li>
           <li>
-            <strong><code>aspectjrt.jar</code></strong> :
+            <strong><code>aspectjrt.jar</code></strong>:
             <link href="ext:aspectj">AspectJ</link> runtime jar.
           </li>
           <li>
-            <strong><code>WEB-INF/lib/commons-logging.jar</code></strong> :
+            <strong><code>WEB-INF/lib/commons-logging.jar</code></strong>:
             Cactus uses the Jakarta Commons Logging facade framework to provide
             seamless Cactus logging using any existing Logging framework (Log4j,
             LogKit, JDK 1.4 Logging, etc). It is also needed for Commons
@@ -173,7 +173,7 @@
           </li>
           <li>
             <strong><code>WEB-INF/lib/logging framework jar</code>
-            (optional)</strong> : The logging framework to use (Log4j jar,
+            (optional)</strong>: The logging framework to use (Log4j jar,
             LogKit jar, etc). It is optional as it is only needed for internal
             Cactus logging and in addition, the Commons Logging framework
             provides a simple logger that logs on the console.

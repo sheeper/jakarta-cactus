@@ -30,10 +30,10 @@
 
     </section>
 
-    <section title="Step 1 : Import the correct packages in VAJava">
+    <section title="Step 1: Import the correct packages in VAJava">
 
       <p>
-        Let's assume the following conventions :
+        Let's assume the following conventions:
         <strong><code>{Cactus dir}</code></strong> is the directory where you
         have unzipped the Cactus distribution or sources and
         <strong><code>{VAJava dir}</code></strong> is the directory where
@@ -44,7 +44,7 @@
       </p>
 
       <p>
-        You need to create 4 projects : one for JUnit, one for Cactus (
+        You need to create 4 projects: one for JUnit, one for Cactus (
         let's call it "Cactus"), one for HttpClient and
         optionally one for Log4j. Note that the Log4j one is useful only if
         wish to get some Cactus runtime logs. If you don't import the Log4j
@@ -55,10 +55,10 @@
       <note>
         You can either import the source files or the compiled classes as you
         wish. If you import the source file, you should import the following
-        directories : <code>{Cactus dir}/src/framework/servlet22</code> and
+        directories: <code>{Cactus dir}/src/framework/servlet22</code> and
         <code>{Cactus dir}/src/framework/share</code>. You also need to
         copy the following files into
-        <code>{VAJava dir}/ide/project_resources/Cactus</code> :
+        <code>{VAJava dir}/ide/project_resources/Cactus</code>:
         <code>log_client.properties</code> and
         <code>log_server.properties</code> which are located in
         <code>{Cactus dir}/sample/conf/test</code>. If you have imported from
@@ -68,7 +68,7 @@
 
     </section>
 
-    <section title="Step 2 : Set up the cactus.properties file">
+    <section title="Step 2: Set up the cactus.properties file">
 
       <p>
         Copy your <code>cactus.properties</code> file (see the
@@ -92,13 +92,13 @@
 
     </section>
 
-    <section title="Step 3 : Modify WebSphere Test Environment">
+    <section title="Step 3: Modify WebSphere Test Environment">
 
       <section title="Edit default.servlet_engine">
 
         <p>
           Edit <code>{WTE dir}/properties/default.servlet_engine</code> and
-          add the following under the <code>default_app</code> webgroup :
+          add the following under the <code>default_app</code> webgroup:
         </p>
 
 <source><![CDATA[
@@ -128,7 +128,7 @@
         <p>
           Create a directory called <code>test</code> under
           <code>{WTE dir}/hosts/default_host</code>. Under <code>test</code>
-          create another 2 subdirectories : <code>servlets</code> and
+          create another 2 subdirectories: <code>servlets</code> and
           <code>web</code>.
         </p>
 
@@ -139,7 +139,7 @@
         <p>
           Create a test.webapp file in
           <code>{WTE dir}/hosts/default_host/test/servlets</code> and put the
-          following content :
+          following content:
         </p>
 
 <source><![CDATA[
@@ -235,11 +235,11 @@
 
     </section>
 
-    <section title="Step 4 : Edit VAJava workspace classpath">
+    <section title="Step 4: Edit VAJava workspace classpath">
 
       <p>
         Add the following to the VAJava workspace classpath (select menu
-        "Window... | Resources" under VAJava) :
+        "Window... | Resources" under VAJava):
       </p>
 
 <source><![CDATA[
@@ -252,7 +252,7 @@
 
     </section>
 
-    <section title="Step 5 : Edit VAJava workspace classpath">
+    <section title="Step 5: Edit VAJava workspace classpath">
 
       <p>
         In the WebSphere Test Environment under Servlet Engine, add Cactus,

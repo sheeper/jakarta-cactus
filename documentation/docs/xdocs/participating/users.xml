@@ -3,7 +3,7 @@
 <document id="users">
 
   <properties>
-    <title>Who is using Cactus ?</title>
+    <title>Who is using Cactus?</title>
     <authors>
       <author name="Vincent Massol" email="vmassol@apache.org"/>
     </authors>
@@ -11,7 +11,7 @@
 
   <body>
 
-    <section title="Who is using Cactus ?">
+    <section title="Who is using Cactus?">
 
       <p>
         This page is dedicated for Cactus users who want to share with other
@@ -23,7 +23,7 @@
       </p>
       <p>
         <strong><link href="ext:c2_who_uses_cactus">Who uses
-        Cactus ?</link></strong>
+        Cactus?</link></strong>
       </p>
 
     </section>
