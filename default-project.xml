@@ -65,6 +65,11 @@
       <tag>CACTUS_16_RELEASE</tag>
     </version>
     <version>
+      <id>1.6.1</id>
+      <name>1.6.1</name>
+      <tag>CACTUS_161_RELEASE</tag>
+    </version>
+    <version>
       <id>1.7</id>
       <name>1.7</name>
       <tag>HEAD</tag>
