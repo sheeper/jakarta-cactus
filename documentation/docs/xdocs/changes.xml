@@ -48,6 +48,12 @@
     </devs>
 
     <release version="1.3 in CVS">
+      <action dev="VMA" type="fix" due-to="Kjeld" due-to-email="kfr@eos.dk">
+       (<link href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=6093">
+        Bug #6093</link>). Modified the mechanism to get test result from the
+        Server side. Previously Cactus was using a serialized object whereas
+        now Cactus sends back XML data.
+      </action>
       <action dev="VMA" type="add">
         Added a <link href="testedon.html">Tested On ...</link> page that gives
         the list of Servers/Versions on which Cactus has been tested. Please
