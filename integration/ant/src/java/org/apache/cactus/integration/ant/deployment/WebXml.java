@@ -798,6 +798,64 @@ public class WebXml
     }
     
     /**
+     * Returns whether the descriptor has a login configuration.
+     * 
+     * @return <code>true</code> if a login config is defined,
+     *         <code>false</code> otherwise
+     */
+    public final boolean hasLoginConfig()
+    {
+        return (getLoginConfig() != null);
+    }
+
+    /**
+     * Returns whether the descriptor has a login configuration.
+     * 
+     * @return <code>true</code> if a login config is defined,
+     *         <code>false</code> otherwise
+     */
+    public final Element getLoginConfig()
+    {
+        Iterator loginConfigElements = getElements(WebXmlTag.LOGIN_CONFIG);
+        if (loginConfigElements.hasNext())
+        {
+            return (Element) loginConfigElements.next();
+        }
+        return null;
+    }
+
+    /**
+     * Returns the authorization method defined by the login configuration.
+     * 
+     * @return The authorization method
+     */
+    public final String getLoginConfigAuthMethod()
+    {
+        return getNestedText(getLoginConfig(), WebXmlTag.AUTH_METHOD);
+    }
+
+    /**
+     * 
+     * 
+     * @param theRealmName
+     * @param theAuthMethod
+     */
+    public void setLoginConfig(String theAuthMethod, String theRealmName)
+    {
+        if ((theRealmName == null) || (theAuthMethod == null))
+        {
+            throw new NullPointerException();
+        }
+        Element loginConfigElement =
+            document.createElement(WebXmlTag.LOGIN_CONFIG.getTagName());
+        loginConfigElement.appendChild(
+            createNestedText(WebXmlTag.AUTH_METHOD, theAuthMethod));
+        loginConfigElement.appendChild(
+            createNestedText(WebXmlTag.REALM_NAME, theRealmName));
+        replaceElement(WebXmlTag.LOGIN_CONFIG, loginConfigElement);
+    }
+
+    /**
      * Adds a new security role to the descriptor.
      * 
      * @param theRoleName The name of the role to add

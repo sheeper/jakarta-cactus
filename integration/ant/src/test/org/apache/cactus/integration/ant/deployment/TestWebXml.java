@@ -1026,7 +1026,8 @@ public final class TestWebXml extends TestCase
     }
 
     /**
-     * TODO
+     * Tests whether a security-constraint with no roles is successfully added
+     * to an empty descriptor.
      * 
      * @throws Exception If an unexpected error occurs
      */
@@ -1041,7 +1042,8 @@ public final class TestWebXml extends TestCase
     }
 
     /**
-     * TODO
+     * Tests whether a security-constraint with two roles is successfully added
+     * to an empty descriptor.
      * 
      * @throws Exception If an unexpected error occurs
      */
@@ -1070,6 +1072,94 @@ public final class TestWebXml extends TestCase
             roleNameElements.item(0).getChildNodes().item(0).getNodeValue());
         assertEquals("role2",
             roleNameElements.item(1).getChildNodes().item(0).getNodeValue());
+    }
+
+    /**
+     * Tests whether checking an empty descriptor for a login configuration
+     * results in <code>false</code>.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
+    public void testHasLoginConfigEmpty()
+        throws Exception
+    {
+        String xml = "<web-app></web-app>";
+        Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
+        WebXml webXml = new WebXml(doc);
+        assertTrue(!webXml.hasLoginConfig());
+    }
+
+    /**
+     * Tests whether checking a descriptor with a login configuration for a
+     * login configuration results in <code>true</code>.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
+    public void testHasLoginConfig()
+        throws Exception
+    {
+        String xml = "<web-app>"
+            + "  <login-config>"
+            + "    <auth-method>BASIC</auth-method>"
+            + "  </login-config>"
+            + "</web-app>";
+        Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
+        WebXml webXml = new WebXml(doc);
+        assertTrue(webXml.hasLoginConfig());
+    }
+
+    /**
+     * Tests retrieving the authentication method from a descriptor.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
+    public void testGetLoginConfigAuthMethod()
+        throws Exception
+    {
+        String xml = "<web-app>"
+            + "  <login-config>"
+            + "    <auth-method>BASIC</auth-method>"
+            + "  </login-config>"
+            + "</web-app>";
+        Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
+        WebXml webXml = new WebXml(doc);
+        assertEquals("BASIC", webXml.getLoginConfigAuthMethod());
+    }
+
+    /**
+     * Tests retrieving the authentication method from a descriptor.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
+    public void testSetLoginConfigAdding()
+        throws Exception
+    {
+        String xml = "<web-app></web-app>";
+        Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
+        WebXml webXml = new WebXml(doc);
+        webXml.setLoginConfig("BASIC", "Test Realm");
+        assertTrue(webXml.hasLoginConfig());
+        assertEquals("BASIC", webXml.getLoginConfigAuthMethod());
+    }
+
+    /**
+     * Tests retrieving the authentication method from a descriptor.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
+    public void testSetLoginConfigReplacing()
+        throws Exception
+    {
+        String xml = "<web-app>"
+        + "  <login-config>"
+        + "    <auth-method>DIGEST</auth-method>"
+        + "  </login-config>"
+        + "</web-app>";
+        Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
+        WebXml webXml = new WebXml(doc);
+        webXml.setLoginConfig("BASIC", "Test Realm");
+        assertTrue(webXml.hasLoginConfig());
+        assertEquals("BASIC", webXml.getLoginConfigAuthMethod());
     }
 
     /**

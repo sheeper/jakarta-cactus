@@ -149,13 +149,13 @@ public final class WebXmlTag
         new WebXmlTag("listener");
     
     /**
-     * Element name 'servlet',
+     * Element name 'servlet'.
      */
     public static final WebXmlTag SERVLET =
         new WebXmlTag("servlet");
     
     /**
-     * Element name 'servlet-name',
+     * Element name 'servlet-name'.
      */
     public static final WebXmlTag SERVLET_NAME =
         new WebXmlTag("servlet-name");
@@ -173,115 +173,127 @@ public final class WebXmlTag
         new WebXmlTag("servlet-class");
     
     /**
-     * Element name 'servlet-mapping',
+     * Element name 'servlet-mapping'.
      */
     public static final WebXmlTag SERVLET_MAPPING =
         new WebXmlTag("servlet-mapping");
     
     /**
-     * Element name 'url-pattern',
+     * Element name 'url-pattern'.
      */
     public static final WebXmlTag URL_PATTERN =
         new WebXmlTag("url-pattern");
     
     /**
-     * Element name 'session-config',
+     * Element name 'session-config'.
      */
     public static final WebXmlTag SESSION_CONFIG =
         new WebXmlTag("session-config", false);
     
     /**
-     * Element name 'mime-mapping',
+     * Element name 'mime-mapping'.
      */
     public static final WebXmlTag MIME_MAPPING =
         new WebXmlTag("mime-mapping");
     
     /**
-     * Element name 'welcome-file-list',
+     * Element name 'welcome-file-list'.
      */
     public static final WebXmlTag WELCOME_FILE_LIST =
         new WebXmlTag("welcome-file-list", false);
     
     /**
-     * Element name 'error-page',
+     * Element name 'error-page'.
      */
     public static final WebXmlTag ERROR_PAGE =
         new WebXmlTag("error-page");
     
     /**
-     * Element name 'taglib',
+     * Element name 'taglib'.
      */
     public static final WebXmlTag TAGLIB =
         new WebXmlTag("taglib");
     
     /**
-     * Element name 'resource-env-ref',
+     * Element name 'resource-env-ref'.
      */
     public static final WebXmlTag RESOURCE_ENV_REF =
         new WebXmlTag("resource-env-ref");
     
     /**
-     * Element name 'resource-ref',
+     * Element name 'resource-ref'.
      */
     public static final WebXmlTag RESOURCE_REF =
         new WebXmlTag("resource-ref");
     
     /**
-     * Element name 'security-constraint',
+     * Element name 'security-constraint'.
      */
     public static final WebXmlTag SECURITY_CONSTRAINT =
         new WebXmlTag("security-constraint");
     
     /**
-     * Element name 'web-resource-collection',
+     * Element name 'web-resource-collection'.
      */
     public static final WebXmlTag WEB_RESOURCE_COLLECTION =
         new WebXmlTag("web-resource-collection");
     
     /**
-     * Element name 'web-resource-name',
+     * Element name 'web-resource-name'.
      */
     public static final WebXmlTag WEB_RESOURCE_NAME =
         new WebXmlTag("web-resource-name");
     
     /**
-     * Element name 'auth-constraint',
+     * Element name 'auth-constraint'.
      */
     public static final WebXmlTag AUTH_CONSTRAINT =
         new WebXmlTag("auth-constraint");
     
     /**
-     * Element name 'login-config',
+     * Element name 'login-config'.
      */
     public static final WebXmlTag LOGIN_CONFIG =
         new WebXmlTag("login-config", false);
     
     /**
-     * Element name 'security-role',
+     * Element name 'auth-method'.
+     */
+    public static WebXmlTag AUTH_METHOD =
+        new WebXmlTag("auth-method");
+
+    /**
+     * Element name 'realm-name'.
+     */
+    public static WebXmlTag REALM_NAME =
+        new WebXmlTag("realm-name");
+
+    /**
+     * Element name 'security-role'.
      */
     public static final WebXmlTag SECURITY_ROLE =
         new WebXmlTag("security-role");
     
     /**
-     * Element name 'role-name',
+     * Element name 'role-name'.
      */
     public static final WebXmlTag ROLE_NAME =
         new WebXmlTag("role-name");
     
     /**
-     * Element name 'env-entry',
+     * Element name 'env-entry'.
      */
     public static final WebXmlTag ENV_ENTRY =
         new WebXmlTag("env-entry");
     
     /**
-     * Element name 'ejb-ref',
+     * Element name 'ejb-ref'.
      */
     public static final WebXmlTag EJB_REF =
         new WebXmlTag("ejb-ref");
     
     /**
-     * Element name 'ejb-local-ref',
+     * Element name 'ejb-local-ref'.
      */
     public static final WebXmlTag EJB_LOCAL_REF =
         new WebXmlTag("ejb-local-ref");
