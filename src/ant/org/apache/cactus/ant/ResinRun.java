@@ -61,133 +61,35 @@ import java.lang.reflect.*;
 /**
  * Starts/stop Resin by setting up a listener socket.
  */
-public class ResinRun extends Thread
+public class ResinRun extends AbstractServerRun
 {
     private Object m_Server;
-    private int m_Port = 7777;
 
-    public static void main(String[] args)
+	public static void main(String[] args)
+	{
+	    AbstractServerRun.doRun(new ResinRun(), args);
+	}
+
+	// function to actually start a Resin server
+	protected void doStartServer(String[] args) throws Exception
     {
-        ResinRun run = new ResinRun();
+	    if (m_Server == null) {
+			Class resinClass = Class.forName("com.caucho.server.http.ResinServer");
+			Constructor constructor = resinClass.getConstructor(new Class[] { args.getClass(), boolean.class});
+			m_Server = constructor.newInstance(new Object[] { args, new Boolean(true)});
+			Method initMethod = resinClass.getMethod("init", new Class[] { boolean.class});
+			initMethod.invoke(m_Server, new Object[] { new Boolean(true)} );
+		}
+	}
 
-        // Look for a -start or -stop flag
-        boolean isStart = true;
-        Vector newArgs = new Vector();
-
-        for (int i = 0; i < args.length; i++) {
-            if (args[i].equalsIgnoreCase("-start")) {
-                isStart = true;
-            } else if (args[i].equalsIgnoreCase("-stop")) {
-                isStart = false;
-            } else if (args[i].equalsIgnoreCase("-port")) {
-                run.m_Port = Integer.parseInt(args[i+1]);
-                i++;
-            } else {
-                newArgs.add(args[i]);
-            }
-        }
-
-        if (isStart) {
-            String[] strArgs = new String[0];
-            run.startResin((String[])newArgs.toArray(strArgs));
-        } else {
-            run.stopResin();
-        }
-
-    }
-
-    private void startResin(String[] args)
+	// function to actually stop a Resin server
+	protected void doStopServer() throws Exception
     {
-        if (m_Server == null) {
-            try  {
-                Class resinClass = Class.forName("com.caucho.server.http.ResinServer");
-                Constructor constructor = resinClass.getConstructor(new Class[] { args.getClass(), boolean.class });
-                m_Server = constructor.newInstance(new Object[] { args, new Boolean(true) });
-                Method initMethod = resinClass.getMethod("init", new Class[] { boolean.class });
-                initMethod.invoke(m_Server, new Object[] { new Boolean(true) } );
-            } catch (Exception e) {
-                e.printStackTrace();
-                throw new RuntimeException("Error starting Resin");
-            }
-        }
-
-        // Set up listener socket for listening to request to stop Resin
-        new Thread(this).start();
-    }
-
-    private void stopResin()
-    {
-        // Open socket connection
-        Socket clientSocket = null;
-
-        try {
-            clientSocket = new Socket("127.0.0.1", m_Port);
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new RuntimeException("Error opening socket tp 127.0.0.1 on port [" + m_Port + "]");
-        } finally {
-            try {
-                if (clientSocket != null) {
-                    clientSocket.close();
-                }
-            } catch (IOException e) {
-                throw new RuntimeException("Cannot close client socket");
-            }
-        }
-    }
-
-    public void run()
-    {
-        ServerSocket serverSocket = setUpListenerSocket();
-
-        // Accept a client socket connection
-        Socket clientSocket = null;
-        try {
-            clientSocket = serverSocket.accept();
-        } catch (IOException e) {
-            throw new RuntimeException("Error accepting connection for server socket [" + serverSocket + "]");
-
-        } finally {
-            // Stop server socket
-            try {
-                serverSocket.close();
-            } catch (IOException e) {
-                throw new RuntimeException("Cannot close server socket [" + serverSocket + "]");
-            }
-        }
-
-        // Stop Resin server
-        if (m_Server != null) {
-            try {
-                Method closeMethod = m_Server.getClass().getMethod("close", null);
-                closeMethod.invoke(m_Server, null);
-            } catch (Exception e) {
-                e.printStackTrace();
-                throw new RuntimeException("Cannot stop Resin server");
-            }
-        }
-
-        // Stop server socket
-        try {
-            serverSocket.close();
-        } catch (IOException e) {
-            throw new RuntimeException("Cannot close server socket [" + serverSocket + "]");
-        }
-
-    }
-
-    private ServerSocket setUpListenerSocket()
-    {
-        ServerSocket serverSocket = null;
-
-        try {
-            serverSocket = new ServerSocket(m_Port);
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw new RuntimeException("Error setting up the Resin listener socket");
-        }
-
-        return serverSocket;
-    }
+		// Stop Resin server
+		if (m_Server != null) {
+			Method closeMethod = m_Server.getClass().getMethod("close", null);
+			closeMethod.invoke(m_Server, null);
+		}
+	}
 
 }
