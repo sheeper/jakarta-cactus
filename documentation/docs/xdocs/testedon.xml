@@ -47,6 +47,30 @@
         <code>[TestedOn]</code> in the subject.
       </p>
 
+      <section title="Cactus 1.5">
+
+        <table>
+          <tr>
+            <th>
+              Server
+            </th>
+            <th>
+              Version
+            </th>
+            <th>
+              J2EE API
+            </th>
+            <th>
+              Submitted by
+            </th>
+            <th>
+              Note
+            </th>
+          </tr>
+        </table>
+        
+      </section>
+      
       <section title="Cactus 1.4">
 
         <table>
