@@ -306,16 +306,16 @@
     <target name="package.documentation.clover.yes" if="clover.enable">
 
         <mkdir dir="${dist.doc.dir}"/>
-        <copy tofile="${dist.doc.dir}/coverage.html"
-            file="documentation/dist/doc/coverage_${j2ee.api}.html"/>
+        <copy tofile="${dist.doc.dir}/participating/coverage.html"
+            file="documentation/dist/doc/participating/coverage_${j2ee.api}.html"/>
 
     </target>
 
     <target name="package.documentation.clover.no" unless="clover.enable">
 
         <mkdir dir="${dist.doc.dir}"/>
-        <copy tofile="${dist.doc.dir}/coverage.html"
-            file="documentation/dist/doc/coverage_empty.html"/>
+        <copy tofile="${dist.doc.dir}/participating/coverage.html"
+            file="documentation/dist/doc/participating/coverage_empty.html"/>
 
     </target>
 
