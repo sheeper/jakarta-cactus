@@ -19,7 +19,15 @@
     Run "ant -projecthelp" to get a list of available targets.
   =============================================================================
 -->
-<project name="Master Cactus Build" default="release" basedir=".">
+<project name="Master Cactus Build" default="dist" basedir=".">
+
+    <description>
+ Cactus Master Build
+ ---------------------------------------------------------
+ Master build file for building all of the various
+ sub-modules that compose the Cactus project, and
+ packaging release archives.
+    </description>
 
     <!-- Base directory for all file related operations -->
     <property name="base.dir" location="."/>
@@ -41,7 +49,8 @@
          Generate the release files for all the Cactus subprojects
        ========================================================================
     -->
-    <target name="dist">
+    <target name="dist"
+        description="Invokes the 'dist' target of every sub-module">
 
         <ant antfile="framework/build.xml" inheritAll="false" 
             target="dist">
@@ -113,7 +122,8 @@
        ========================================================================
     -->
     <target name="release"
-        depends="clean, dist">
+        depends="clean, dist"
+        description="Generates the release archives">
         <antcall target="release.bin" inheritall="no">
             <param name="j2ee.dependant" value="true"/>
             <param name="j2ee.jar" location="${j2ee.12.jar}"/>
@@ -193,7 +203,8 @@
        ========================================================================
     -->
     <target name="clean"
-        depends="init.properties">
+        depends="init.properties"
+        description="Invokes the 'clean' target of every sub-module">
 
         <delete dir="${release.dir}"/>
         <delete dir="target-12"/>

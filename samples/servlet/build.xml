@@ -26,8 +26,11 @@
 <project name="Cactus Servlet Sample" default="dist" basedir="../..">
 
     <description>
- Build file for the Cactus Servlet Sample, which shows how to use Cactus for
- unit testing the Servlet API (Servlets, Fitlers, Tag Libraries).
+ Cactus Servlet Sample
+ ---------------------------------------------------------
+ Sample web-application that demonstrates how Cactus can
+ be used for unit testing classes that use the servlet API
+ (such as servlets, filters and tag libraries).
     </description>
 
     <!-- Base directory for all file related operations -->

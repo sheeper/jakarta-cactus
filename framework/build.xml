@@ -36,6 +36,13 @@
 -->
 <project name="Cactus Framework" default="dist" basedir="..">
 
+    <description>
+ Cactus Framework
+ ---------------------------------------------------------
+ Contains the core classes of the Cactus in-container 
+ testing framework.
+    </description>
+
     <!-- Base directory for all file related operations -->
     <property name="base.dir" location="framework"/>
 

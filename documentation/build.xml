@@ -30,6 +30,14 @@
 -->
 <project name="Cactus Documentation" default="dist" basedir="..">
 
+    <description>
+ Cactus Documentation
+ ---------------------------------------------------------
+ Contains the documentation and web site of Cactus as XML
+ documents, as well as the XSLT stylesheets for
+ transformation to HTML.
+    </description>
+
     <!-- Base directory for all file related operations -->
     <property name="base.dir" location="documentation"/>
 

@@ -23,6 +23,13 @@
 -->
 <project name="Cactus Ant Integration" default="dist" basedir="../..">
 
+    <description>
+ Cactus Ant Integration
+ ---------------------------------------------------------
+ Contains tasks, types and support classes for integration
+ of Cactus with Ant.
+    </description>
+
     <!-- Base directory for all file related operations -->
     <property name="base.dir" location="integration/ant"/>
 
