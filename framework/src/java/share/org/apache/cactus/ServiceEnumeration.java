@@ -57,10 +57,10 @@
 package org.apache.cactus;
 
 /**
- * List of valid services that the <code>ServletTestRedirector</code> can
- * perform.
+ * List of valid services that the test redirectors can perform.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
+ * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
  *
  * @version $Id$
  */
@@ -97,7 +97,8 @@ public class ServiceEnumeration
     private String name;
 
     /**
-     * Private constructor so that only allowed enumeration can be created.
+     * Private constructor to only allow the predefined instances of the
+     * enumeration.
      *
      * @param theServiceName the name of the service
      */
@@ -107,11 +108,12 @@ public class ServiceEnumeration
     }
 
     /**
-     * Compares a string representing the name of the service with the Service
+     * Compares a string representing the name of the service with the service
      * enumerated type.
      *
      * @param theString the string to compare with this Service name
      * @return true if the string corresponds to the current Service
+     * @see java.lang.Object#equals
      */
     public boolean equals(String theString)
     {
@@ -119,10 +121,27 @@ public class ServiceEnumeration
     }
 
     /**
-     * @return the Service's name
+     * Calculates a hash code for the service.
+     *
+     * @return the hash code
+     * @see java.lang.Object#hashCode
+     */
+    public int hashCode()
+    {
+        int result = 17;
+        result = 37 * result + this.name.hashCode();
+        return result;
+    }
+
+    /**
+     * Returns the string representation of the service.
+     * 
+     * @return the service's name
+     * @see java.lang.Object#toString
      */
     public String toString()
     {
         return this.name;
     }
+    
 }
