@@ -545,6 +545,7 @@
     </ant>
 
     <depend project="ant" inherit="runtime"/>
+    <depend project="xml-xerces"/>
 
     <!-- Only release if the projects have built successfully -->
     <depend project="jakarta-cactus-framework-12"/>
@@ -576,6 +577,7 @@
     </ant>
 
     <depend project="ant" inherit="runtime"/>
+    <depend project="xml-xerces"/>
 
     <!-- Only release if the projects have built successfully -->
     <depend project="jakarta-cactus-framework-13"/>
