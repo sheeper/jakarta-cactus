@@ -192,7 +192,8 @@
         <mkdir dir="${target.classes.clover.dir}"/>
 
         <javac destdir="${target.classes.clover.dir}"
-            deprecation="${deprecation}" optimize="${optimize}">
+            debug="${debug}" deprecation="${deprecation}"
+            optimize="${optimize}">
             <src path="${target.src.dir}"/>
             <src path="${src.java.specific.dir}"/>
             <exclude name="**/package.html"/>
@@ -213,7 +214,8 @@
         <mkdir dir="${target.classes.test.dir}"/>
 
         <javac destdir="${target.classes.test.dir}"
-          deprecation="${deprecation}" optimize="${optimize}">
+            debug="${debug}" deprecation="${deprecation}"
+            optimize="${optimize}">
 
             <src path="${src.test.share.dir}"/>
 
@@ -247,7 +249,8 @@
         <mkdir dir="${target.classes.java.dir}"/>
 
         <ajc destdir="${target.classes.java.dir}"
-          deprecation="${deprecation}" optimize="${optimize}">
+            debug="${debug}" deprecation="${deprecation}"
+            optimize="${optimize}">
 
             <src path="${target.src.dir}"/>
             <src path="${src.java.specific.dir}"/>
