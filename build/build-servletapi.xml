@@ -648,7 +648,10 @@
     
         <zip zipfile="${dist.full.name}.zip">
             <zipfileset dir="${out.dist.dir}"
-                prefix="${project.name}-${servlet.api}-${DSTAMP}"/>
+                prefix="${project.name}-${servlet.api}-${DSTAMP}">
+                
+                <exclude name="**/build.properties"/>
+            </zipfileset>
         </zip>
 
     </target>
