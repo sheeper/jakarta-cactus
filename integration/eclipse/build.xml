@@ -82,6 +82,7 @@
             <property name="eclipse.jdt.core.jar" isfile="true"/>
             <property name="eclipse.jdt.junit.jar" isfile="true"/>
             <property name="eclipse.jdt.launching.jar" isfile="true"/>
+            <property name="eclipse.jdt.ui.jar" isfile="true"/>
             <property name="eclipse.swt.jar" isfile="true"/>
             <property name="eclipse.jface.jar" isfile="true"/>
             <property name="eclipse.ant.core.jar" isfile="true"/>
@@ -141,6 +142,7 @@
 				<pathelement location="${eclipse.jdt.core.jar}"/>
 				<pathelement location="${eclipse.jdt.junit.jar}"/>
 				<pathelement location="${eclipse.jdt.launching.jar}"/>
+				<pathelement location="${eclipse.jdt.ui.jar}"/>				
 				<pathelement location="${eclipse.swt.jar}"/>
 				<pathelement location="${eclipse.jface.jar}"/>
 				<pathelement location="${eclipse.ant.core.jar}"/>
