@@ -81,29 +81,24 @@ final class AutoReadHttpURLConnection extends HttpURLConnection
     /**
      * The logger
      */
-    private static Log logger =
+    private final static Log logger =
         LogService.getInstance().
         getLog(AutoReadHttpURLConnection.class.getName());
 
     /**
-     * Default size of array for copying data, not sure what a good size is.
+     * Default size of array for copying data.
      */
-    static final int DEFAULT_CHUNK_SIZE = 16384;
-
-    /**
-     * Size of array for copying data, Allow reset for testing copy loop.
-     */
-    int chunkSize = DEFAULT_CHUNK_SIZE;
+    private static final int DEFAULT_CHUNK_SIZE = 16384;
 
     /**
      * The wrapped connection.
      */
-    HttpURLConnection delegate;
+    private HttpURLConnection delegate;
 
     /**
      * The read input stream.
      */
-    InputStream streamBuffer;
+    private InputStream streamBuffer;
 
     AutoReadHttpURLConnection(HttpURLConnection theConnection)
     {
@@ -119,19 +114,18 @@ final class AutoReadHttpURLConnection extends HttpURLConnection
      */
     public synchronized InputStream getInputStream() throws IOException
     {
-        logger.debug("Original connection = " + this.delegate);
-
-        if (streamBuffer == null) {
+        if (this.streamBuffer == null) {
+            logger.debug("Original connection = " + this.delegate);
             InputStream is = this.delegate.getInputStream();
-            streamBuffer = bufferInputStream(is);
+            this.streamBuffer = bufferInputStream(is);
         }
 
-        return streamBuffer;
+        return this.streamBuffer;
     }
 
-    InputStream bufferInputStream(InputStream is) throws IOException
+    private InputStream bufferInputStream(InputStream is) throws IOException
     {
-        ByteArrayOutputStream os = new ByteArrayOutputStream(this.chunkSize);
+        ByteArrayOutputStream os = new ByteArrayOutputStream(DEFAULT_CHUNK_SIZE);
         copy(is, os);
         ByteArrayInputStream bais =
                 new ByteArrayInputStream(os.toByteArray());
@@ -139,7 +133,7 @@ final class AutoReadHttpURLConnection extends HttpURLConnection
         return bais;
     }
 
-    void copy(InputStream is, OutputStream os) throws IOException
+    private void copy(InputStream is, OutputStream os) throws IOException
     {
         // Only copy if there are data to copy ... The problem is that not
         // all servers return a content-length header. If there is no header
@@ -152,14 +146,58 @@ final class AutoReadHttpURLConnection extends HttpURLConnection
 
         if (this.delegate.getContentLength() != 0) {
 
-            byte[] buf = new byte[this.chunkSize];
+            byte[] buf = new byte[DEFAULT_CHUNK_SIZE];
             int count;
 
             while(-1 != (count = is.read(buf))) {
+
+                // log read data
+                printReadLogs(count, buf);
                 os.write(buf, 0, count);
             }
 
         }
+    }
+
+    /**
+     * Format log data read from socket for pretty printing (replaces
+     * asc char 10 by "\r", asc char 13 by "\n" and only print the first
+     * 50 characters and the last 50.
+     *
+     * @param count the number of bytes read in the buffer
+     * @param buffer the buffer containing the data to print
+     */
+    private void printReadLogs(int count, byte[] buffer)
+    {
+        // Log portion of read data and replace asc 10 by \r and asc
+        // 13 by /n
+        StringBuffer prefix = new StringBuffer();
+        for (int i = 0; i < count && i < 50; i++) {
+            if (buffer[i] == 10) {
+                prefix.append("\\r");
+            } else if (buffer[i] == 13) {
+                prefix.append("\\n");
+            } else {
+                prefix.append((char)buffer[i]);
+            }
+        }
+
+        StringBuffer suffix = new StringBuffer();
+        for (int i = count - 50; i > 0 && i < count; i++) {
+            if (buffer[i] == 10) {
+                suffix.append("\\r");
+            } else if (buffer[i] == 13) {
+                suffix.append("\\n");
+            } else {
+                suffix.append((char)buffer[i]);
+            }
+        }
+
+        if (suffix.length() > 0) {
+            prefix.append(" ...] [... ");
+        }
+
+        logger.debug("Read [" + count + "]: [" + prefix + suffix + "]");
     }
 
     // Delegated methods
