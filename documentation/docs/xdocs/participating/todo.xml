@@ -1,0 +1,217 @@
+<?xml version="1.0"?>
+
+<document id="todo">
+
+  <properties>
+    <title>Roadmap/Todo for Cactus</title>
+    <authors>
+      <author name="Vincent Massol" email="vmassol@apache.org"/>
+    </authors>
+  </properties>
+
+  <body>
+
+    <s1 title="Forewords">
+      <p>
+        As is stated on the Cactus <link href="site:goals">goals</link> page, 
+        the intention is to explore as much as possible in the realm of unit 
+        testing of server side java code ...
+      </p>
+      <p>
+        This brings a bad news and a good one ... The
+        bad one is that the TODO list is likely to keep growing or at least
+        have a respectable size ... The good one
+        is that there will be work for everyone ... :-)
+      </p>
+      <p>
+        If you are interested in participating, send an email on the Cactus 
+        mailing list stating your interest and you'll be enrolled right 
+        away ... We're always looking for help ! Don't be put off if in the 
+        "Volunteer" column there is already a person listed. On the contrary, 
+        the more person that participate in a given task, the better (like in 
+        pair programming, several sets of eyes are always better than one!). 
+        However you'll need to sync. with these others persons but this is 
+        easily done by posting to the mailing-list.
+      </p>
+      <p>
+        The game has just begun ... !
+      </p>
+    </s1>
+
+  <version title="Version 1.5">
+
+    <category title="Documentation">
+      <action>
+        Update web site for new <code>begin()</code> and <code>end()</code>
+        methods.
+      </action>
+      <action>
+        Add documentation for the new Initializer feature.
+      </action>
+      <action>
+        Add documentation for a new way to start Cactus tests by using the
+        Jetty Initializer.
+      </action>
+    </category>
+
+    <category title="Build Process">
+      <p>
+        All tasks that are related to building Cactus in general.
+      </p>
+      <action>
+        Add support for Enhydra 5.
+      </action>
+      <action>
+        Add Ant scripts for JBoss/Tomcat.
+      </action>
+    </category>
+
+    <category title="Design/Code">
+      <action assigned-to="Christopher Lenz">
+        Improve the ServletTestRunner: look at ways to make it run without the
+        permission to set system properties.
+        Potentially look at replacing it by the JUnitEE test runner.
+      </action>
+      <action>
+        Continue the JMS Redirector/Client to test Message Driven Beans.
+      </action>
+      <action assigned-to="Jason Robertson, Vincent Massol">
+        Add test case for form-based authentication and test it on several
+        servers. Also add documentation on web site to explain how to use it.
+      </action>
+      <action>
+        Add EJB Redirectors so that unit testing of code that require an EJB
+        is facilitated. For example, let's imagine you need to test that an
+        object that has been put in the JNDI tree by a servlet can be retrieved
+        by an EJB. These are not unit tests per see but rather integration
+        tests, which is Cactus favorite domain. Also these redirectors could be
+        used to directly unit tests EJB whithout requiring a servlet
+        environment (at the current time, you need to call your EJB from a
+        Servlet/JSP/Filter Redirector, which is fine for certain tests but not
+        needed for others.
+      </action>
+      <action assigned-to="Hudson Wong, Vincent Massol">
+        Add an EJB sample application to demonstrate how to perform EJB
+        unit testing.
+      </action>
+    </category>
+
+    <category title="Eclipse Plugin">
+      <action>
+        The user must be able to provide its own web.xml file.
+        Otherwise the plugin will use the one provided by default.
+      </action>
+      <action>
+        User interface : no shell popups for Ant tasks, preferences
+        for JAR files (JARs should be included in the Plugin, override by
+        the user possible)
+      </action>
+      <action>
+        Add full plugin documentation and development documentation
+        (for todos, etc).
+      </action>
+    </category>
+
+  </version>
+
+  <version title="Undefined">
+
+    <category title="Build Process">
+      <action assigned-to="Jason Van Zyl">
+        Move Cactus to Maven.
+      </action>
+    </category>
+    
+    <category title="Design/Code">
+      <action>
+        Add support for Servlet API 2.4/JSP 2.0 (by using Tomcat 5).
+      </action>
+      <action>
+        Potentially replace access to instance variables of redirectors by 
+        method calls. For example, replace "request.xxx()" by 
+        "getHttpServletRequest().xxx()". Deprecate the direct access. Needs
+        to be discussed on cactus-dev.
+      </action>
+      <action>
+        Add support for multi-concurrent Cactus tests. This involves storing
+        each test result under a unique key in the application scope.
+      </action>
+    </category>
+
+    <category title="Ideas">
+      <p>
+        Ideas to explore ...
+      </p>
+      <action>
+      	Bundling of JUnitEE.
+      </action>
+      <action>
+        Add performance extensions to be able to test each single method in
+        performance: response time. Need to add notion of server time in
+        cactus XML response. And need extensions (probably TestSuite 
+        extensions to repeat each test or start several threads). Idea 
+        initially suggested by
+        <link href="mailto:rimovm@centercomp.com">Michael Rimov</link>.
+      </action>
+      <action>
+        Use <link href="http://xdoclet.sourceforge.net/docs/">XDoclet</link>
+        with Cactus to better provide continuous integration. It could be
+        used to automatically generate <code>web.xml</code> files,
+        automatically generating test cases from methods to test, ...
+      </action>
+      <action assigned-to="Nicholas Lesiecki, Vincent Massol">
+        Add tutorial on AspectJ testing (using AspectJ with Cactus testing
+        in order to easily intercept method calls and relace them by the
+        needed behavior for the test). Research adding a Cactus Aspect 
+        extension to allow writing test cases as Aspects (this would allow to
+        remove the need for Cactus redirectors in most cases).
+      </action>
+      <action>
+        Help Cactus users test multipart/form-data. At least explain how to do
+        it. Some idea: use cos.jar (from
+        <link href="http://www.servlets.com/cos/index.html">http://www.servlets.com/cos/index.html</link>)
+        to read multipart/form-data on the server side. Now we still need to
+        provide a mechanism to easily send multipart/form-data on the Cactus
+        client side. The best solution would be to use HttpClient but we need
+        to check if it has this feature or if it can be added. Submitted by
+        <link href="mailto:Gunnar.Skogen@ergo.no">Gunnar Ole Skogen</link>.
+      </action>
+      <action>
+        Provide a full servlet container test suite a la Watchdog using Cactus
+      </action>
+      <action>
+        Improve Cactus usability by providing different Cactus front ends 
+        that does all the packaging of the application by simply specifying 
+        source location, resource location and web.xml. These front ends would
+        already contains all the logic to create the war and deploy it 
+        for a given application server. Possibilies are: Cactus standalone 
+        application which uses the JUnit Swing TestRunner, Cactus Ant tasks,
+        Generic Cactus plugin for IDEs, Special Cactus plugin for Eclipse.
+      </action>
+      <action>
+        Ability to write Cactus tests by extending normal JUnit TestCase 
+        instead of Cactus extensions (by using special Cactus TestSuite 
+        objects). This will allow to easily execute the same test outside and 
+        inside of the container (for test not depending on container objects).
+        Idea suggested by <link href="loney@spiritedsw.com">Fred Loney</link>.
+      </action>
+    </category>
+
+    <category title="Eclipse Plugin">
+      <action>
+        Ability to leave the server running after the test is
+        finished so that we don’t need to start it again for the next
+        test (needs hot redeploy)
+      </action>
+      <action>
+        Externalize the Ant scripts for container management.
+        Many plugins and tools need such functionality so there is a need
+        for common Ant scripts.
+      </action>
+    </category>
+    
+  </version>
+
+  </body>
+  
+</document>

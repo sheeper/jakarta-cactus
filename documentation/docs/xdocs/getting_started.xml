@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<document>
+<document id="getting_started">
 
   <properties>
     <title>Getting Started</title>
@@ -14,7 +14,7 @@
     <s1 title="Forewords">
       <p>
         If you want to quickly get a feeling of Cactus, there is a
-        <link href="howto_tomcat.html">20 minutes tutorial</link> that take you
+        <link href="site:howto_tomcat">20 minutes tutorial</link> that take you
         through running your first Cactus test using Tomcat. It doesn't explain
         how Cactus works or any other details but let's you have something
         running quickly.
@@ -46,8 +46,7 @@
           within your IDE,
         </li>
         <li>
-          from the command line, using
-          <link href="http://jakarta.apache.org/ant">Ant</link>
+          from the command line, using <link href="ext:ant">Ant</link>
         </li>
       </ul>
       <note>
@@ -83,7 +82,7 @@
           Ant is only needed if you are working from the command line or if you
           wish to automate the execution of tests. If you wish to use Ant,
           make sure that you read the
-          <link href="howto_ant.html">Ant Howto</link> after you finish
+          <link href="site:howto_ant">Ant Howto</link> after you finish
           reading this introductory guide.
         </li>
       </ul>
@@ -94,7 +93,7 @@
 
       <p>
         At this point, you should have
-        <link href="downloads.html">downloaded</link> a Cactus distribution
+        <link href="site:downloads">downloaded</link> a Cactus distribution
         (for the J2EE API you intend to use) and unzipped it in a
         <code>[cactus root]</code> directory.
       </p>
@@ -114,7 +113,7 @@
           This is only needed if you wish to use Ant for automating the
           execution of Cactus tests. For more information on how to integrate
           Cactus with Ant, see the
-          <link href="howto_ant.html">Ant Howto</link> tutorial. You also
+          <link href="site:howto_ant">Ant Howto</link> tutorial. You also
           find this jar in <code>[cactus root]/lib</code>.
         </li>
         <li>
@@ -127,7 +126,7 @@
         </li>
         <li>
           <strong><code>aspectjrt.jar</code></strong> : Cactus uses
-          <link href="http://www.aspectj.org">AspectJ</link> for performing
+          <link href="ext:aspectj">AspectJ</link> for performing
           several tasks (logging entries and exit of methods, checking
           configuration, etc).
         </li>
@@ -148,7 +147,7 @@
       </ul>
       <p>
         The Cactus configuration files are described in the
-        <link href="howto_config.html">Configuration Howto</link> tutorial.
+        <link href="site:howto_config">Configuration Howto</link> tutorial.
       </p>
 
     </s1>
@@ -160,17 +159,17 @@
       </p>
       <p>
         The next step is to understand how to set up Cactus in your environment.
-        For this you'll need to understand <link href="howto_classpath.html">How
+        For this you'll need to understand <link href="site:howto_classpath">How
         to setup Cactus classpaths and start Cactus tests</link> and
-        <link href="howto_config.html">How to configure Cactus</link>.
+        <link href="site:howto_config">How to configure Cactus</link>.
       </p>
       <p>
-        Then, you should read the <link href="howto_testcase.html">TestCase
+        Then, you should read the <link href="site:howto_testcase">TestCase
         Howto</link> to understand how to write Cactus Test Cases.
       </p>
       <p>
         The last step is probably to put in practice what you've learned so far
-        by <link href="howto_sample.html">running the Cactus Samples</link>.
+        by <link href="site:howto_sample">running the Cactus Samples</link>.
       </p>
       <p>
         Enjoy !

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<document>
+<document id="cactusname">
 
   <properties>
     <title>Why the name ?</title>
@@ -25,9 +25,9 @@
           There is a famous french song by Jacques Dutronc about cacti that
           goes "le monde entier est un cactus ..." (the whole world is a
           Cactus). The lyrics is available
-          <link href="http://www.muriset.com/paroles/les_cactus.htm">here
+          <link href="ext:cactus_dutronc_lyrics">here
           </link> and the music (midi format)
-          <link href="http://www.muriset.com/musique/les_cactus.mid">here
+          <link href="ext:cactus_dutronc_midi">here
           </link>. It is a
           song that says that cacti are everywhere and that everything is
           a cactus. I like that ! :) ...
@@ -40,26 +40,25 @@
           Cactus is actually an acronym ... ha ha .. for Computer Assisted
           Construction of Test Units for the Server, or Cool and Comprehensive
           Test Units for the Server, or ... (please send your suggestions to
-          the <link href="mailinglist.html">Cactus mailing list</link>).
+          the <link href="site:mailinglist">Cactus mailing list</link>).
         </li>
         <li>
           The company for which I work (
-          <link href="http://www.octo.com">OCTO Technology</link>) had
-          organized a diner to celebrate our 3
-          years of existence. I was looking for a new name for J2EEUnit. I
-          asked some workmates to help me look for a name. We tried to
-          find a name which had something to do with the Apache name. We thought
-          of indians of course ... we tried several names and then Dominique
-          said "Cactus" (you know, indians, the desert, cacti. That's one
-          cliche; of indians we have here in France !). I immediatly liked
-          it ...
+          <link href="ext:octo">OCTO Technology</link>) had organized a diner 
+          to celebrate our 3 years of existence. I was looking for a new name 
+          for J2EEUnit. I asked some workmates to help me look for a name. We 
+          tried to find a name which had something to do with the Apache name. 
+          We thought of indians of course ... we tried several names and then 
+          Dominique said "Cactus" (you know, indians, the desert, cacti. 
+          That's one cliche of indians we have here in France !). I immediatly 
+          liked it ...
         </li>
         <li>
           The Cactus name has a rich visual iconography associated with it. So
           it should be possible to find a nice and funny logo (I'm still
           looking for the perfect logo ... If you have propositions, you can
-          send them to the <link href="mailinglist.html">Cactus mailing list
-          </link> (there is currently a <link href="logos.html">logo contest
+          send them to the <link href="site:mailinglist">Cactus mailing list
+          </link> (there is currently a <link href="site:logos">logo contest
           </link> going on ! Try defeating the current logo if you think you
           can do better !).
         </li>

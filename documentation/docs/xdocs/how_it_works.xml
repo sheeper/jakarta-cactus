@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<document>
+<document id="how_it_works">
 
   <properties>
     <title>Cactus Architecture</title>
@@ -14,7 +14,7 @@
     <s1 title="How it works">
 
       <p>
-        Click <link href="how_it_works_uml.html">here</link> for a UML
+        Click <link href="site:how_it_works_uml">here</link> for a UML
         sequence diagram.
       </p>
 
@@ -124,7 +124,7 @@
           If no exception occurred, the <code>YYYTestCase.runTest()</code>
           method looks for an <code>endXXX(org.apache.cactus.WebResponse)</code>
           or <code>endXXX(com.meterware.httpunit.WebResponse)</code> (this
-          signature is used for <link href="howto_httpunit.html">HttpUnit
+          signature is used for <link href="site:howto_httpunit">HttpUnit
           integration</link>) method and executes it if found. At this stage,
           you have the opportunity to check returned HTTP headers, Cookies and
           the servlet output stream in the <code>endXXX()</code> method, again
@@ -136,7 +136,7 @@
 
         <p>
           Cactus provides 3 implementations of Redirector Proxies
-          (see the <link href="howto_testcase.html">TestCase Howto</link>
+          (see the <link href="site:howto_testcase">TestCase Howto</link>
           tutorial for more details on how to use these redirectors) :
         </p>
         <ul>

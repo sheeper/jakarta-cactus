@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+
+<document id="howto_ant">
+
+  <properties>
+    <title>Ant Howto</title>
+    <authors>
+      <author name="Vincent Massol" email="vmassol@apache.org"/>
+    </authors>
+  </properties>
+
+  <body>
+
+  <s1 title="Ant integration">
+
+    <p>
+      This tutorial has several trails :
+    </p>
+    <ul>
+      <li>
+        <link href="howto_ant_cactus.html">Using Cactus with Ant</link> :
+        Explain how to integrate Cactus tests in your own Ant build process,
+      </li>
+      <li>
+        <link href="howto_ant_install.html">Ant installation</link> :
+        Explains how to install Ant to run the samples provided in the Cactus
+        distribution or to build Cactus from the sources,
+      </li>
+      <li>
+        <link href="howto_ant_primer.html">Ant Primer</link> :
+        Provides an Ant primer that explains how to best organize a project
+        around an Ant build process (directory structure, Ant targets, ...).
+        At the same time it described the principles that have been followed
+        for Cactus's own build process (it is no longer in sync with current
+        Cactus build).
+      </li>
+    </ul>
+
+  </s1>
+
+  </body>
+</document>

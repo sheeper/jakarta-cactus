@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<document>
+<document id="changes">
 
   <properties>
     <title>Changes</title>
@@ -14,7 +14,7 @@
     <s1 title="Summary of changes">
       <ul>
         <li>
-          <link href="news.html">News and Events</link>
+          <link href="site:news">News and Events</link>
         </li>
         <li>
           <jump anchor="website_changes">Last 15 days web site changes</jump>
@@ -66,7 +66,7 @@
         </action>
         <action dev="JRU" type="add">
           First release of the Eclipse plugin. See the
-          <link href="eclipse_plugin.html">Eclipse Plugin documentation</link>
+          <link href="site:eclipse_plugin">Eclipse Plugin documentation</link>
           for more information.
         </action>
         <action dev="CML" type="update">
@@ -150,7 +150,7 @@
           Added Form-based authentication support.
         </action>
         <action dev="VMA" type="add">
-          Added a <link href="howto_build.html">tutorial</link> that explains 
+          Added a <link href="site:howto_build">tutorial</link> that explains 
           how to build Cactus from the sources.
         </action>
         <action dev="VMA" type="add">
@@ -243,7 +243,7 @@
 	
     <release version="1.4" date="25 August 2002">
       <action dev="VMA" type="add">
-        Added a <link href="howto_jsp.html">tutorial</link> that explains how
+        Added a <link href="site:howto_jsp">tutorial</link> that explains how
         to test JSPs with Cactus.
       </action>
       <action dev="VMA" type="fix" due-to="David George" due-to-email="david.off@voila.fr">
@@ -264,18 +264,17 @@
         has returned a 500 response code. See the tests provided in the Sample
         Servlet application which is part of the Cactus distribution. This
         change was possible because we moved the underlying implementation from
-        <code>HttpURLConnection</code> to Jakarta Commons
-        <link href="http://jakarta.apache.org/commons/httpclient">
-        HttpClient</link>. Note: It is still not possible to test a 401
-        response code (this limitation has been raised to the HttpClient team).
+        <code>HttpURLConnection</code> to Jakarta
+        <link href="ext:httpclient">Commons HttpClient</link>. Note: It is 
+        still not possible to test a 401 response code (this limitation has 
+        been raised to the HttpClient team).
       </action>
       <action dev="VMA" type="update">
         Refactored internal code to be able to use different HTTP connection
         implementation. 2 are currently provided : one using the JDK
-        <code>HttpURLConnection</code> and one using Jakarta Commons
-        <link href="http://jakarta.apache.org/commons/httpclient">
-        HttpClient</link> (the default one). It can be modified by setting
-        the following System property :
+        <code>HttpURLConnection</code> and one using Jakarta
+        <link href="ext:httpclient">Commons HttpClient</link> (the default 
+        one). It can be modified by setting the following System property :
         <code>cactus.connectionHelper.classname =
         org.apache.cactus.client.JdkConnectionHelper</code> (for the JDK
         <code>HttpURLConnection</code>). Note that the Servlet Sample test
@@ -290,7 +289,7 @@
         internal logs. This lets us use any underlying logging implementation :
         Log4j, LogKit, JDK 1.4 Logging, No Logging or SimpleLog (provided with
         Commons Logging - logs to the console). Check the
-        <link href="howto_config.html">Config Howto</link> for how
+        <link href="site:howto_config">Config Howto</link> for how
         to configure logging in Cactus.
       </action>
       <action dev="VMA" type="remove">
@@ -315,12 +314,11 @@
       <action dev="VMA" type="add">
         Added automatic script support for WebLogic 7.0.
       </action>
-      <action dev="VMA" type="fix" due-to="Daniel Dennison" due-to-email="dennison@mitec.net">
-        (<link href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=9544">
-         Bug #9544</link>. It seems that it is possible that the test result
-         contain an end of line character and the Cactus
-         <code>WebTestResultParser</code> was choking on this and seeing
-         the returned result as invalid. This has been fixed.
+      <action dev="VMA" type="fix" fixes-bug="9544" due-to="Daniel Dennison" due-to-email="dennison@mitec.net">
+         It seems that it is possible that the test result contain an end of 
+         line character and the Cactus <code>WebTestResultParser</code> was 
+         choking on this and seeing the returned result as invalid. This has 
+         been fixed.
       </action>
       <action dev="VMA" type="add">
         Added Test Coverage Reports as part of the Web Site generation.
@@ -340,9 +338,8 @@
         broken by a line introduced in Cactus 1.3 that would only work with
         Ant 1.5. However, this line can easily be commented out).
       </action>
-      <action dev="VMA" type="fix" due-to="Marc Brette" due-to-email="Marc.Brette@mkms.xerox.com">
-        (<link href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=8640">
-         Bug #8640</link>. It also solves bug
+      <action dev="VMA" type="fix" fixes-bug="8640" due-to="Marc Brette" due-to-email="Marc.Brette@mkms.xerox.com">
+         (It also solves bug
          <link href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=8640">
          Bug #4167</link> reported by
          <link href="mailto:eqwalker@yahoo.com">Eric Walker</link>).
@@ -373,14 +370,14 @@
         "FilterRedirector".
       </action>
       <action dev="VMA" type="add">
-        New <link href="howto_tomcat.html">Quick start tutorial</link> that
+        New <link href="site:howto_tomcat">Quick start tutorial</link> that
         explains how to run Cactus tests quickly in Tomcat.
       </action>
       <action dev="VMA" type="add">
         A cool new way to quickly execute your test cases : Cactus now has
         a JUnit Test Runner called ServletTestRunner (it is a servlet) that
         you start using your browser. See the
-        <link href="howto_runner.html">TestRunner Howto</link> tutorial.
+        <link href="site:howto_runner">TestRunner Howto</link> tutorial.
       </action>
       <action dev="VMA" type="fix">
         Test classes are now first looked for using the Current classloader
@@ -408,19 +405,18 @@
         (in that case you'll need to have <code>cactus.jar</code> in your
         <code>WEB-INF/lib</code> directory).
       </action>
-      <action dev="VMA" type="fix" due-to="Kjeld" due-to-email="kfr@eos.dk">
-       (<link href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=6093">
-        Bug #6093</link>). Modified the mechanism to get test result from the
+      <action dev="VMA" type="fix" fixes-bug="6093" due-to="Kjeld" due-to-email="kfr@eos.dk">
+        Modified the mechanism to get test result from the
         Server side. Previously Cactus was using a serialized object whereas
         now Cactus sends back XML data.
       </action>
       <action dev="VMA" type="add">
-        Added a <link href="testedon.html">Tested On ...</link> page that gives
+        Added a <link href="site:testedon">Tested On ...</link> page that gives
         the list of Servers/Versions on which Cactus has been tested. Please
         contribute if you have a working configuration not listed there.
       </action>
       <action dev="VMA" type="add">
-        Added a <link href="users.html">"Cactus users"</link> page so that
+        Added a <link href="site:users">"Cactus users"</link> page so that
         Cactus users can describe what they are doing with Cactus and share
         that with others.
       </action>
@@ -446,12 +442,10 @@
         If Log4J is not in the classpath, then logging is disabled.
       </action>
       <action dev="VMA" type="add">
-        Added a <link href="news.html">"News"</link> page with all news and
+        Added a <link href="site:news">"News"</link> page with all news and
         events regarding Cactus. It is also supposed to act as a history page.
       </action>
-      <action dev="VMA" type="fix" due-to="Steven L. Youtsey" due-to-email="syoutsey@unwiredexpress.com">
-        (<link href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=4563">
-        Bug #4563</link>).
+      <action dev="VMA" type="fix" fixes-bug="4563" due-to="Steven L. Youtsey" due-to-email="syoutsey@unwiredexpress.com">
         <code>HttpServletContextWrapper.getRequestDispatcher()</code> now throws
         <code>null</code> when the wrapped servlet context returns 
         <code>null</code> when asked for a request dispatcher.
@@ -470,8 +464,7 @@
         that returned nothing. Also added some verbose logs.
       </action>
       <action dev="VMA" type="add">
-        New <link href="http://jakarta.apache.org/cactus/stats/index.html">Web
-        site Statistics</link> page, using Webalizer.
+        New <link href="ext:stats">Web site Statistics</link> page, using Webalizer.
       </action>
       <action dev="VMA" type="fix" due-to="Kim Madsen" due-to-email="kim.madsen@inceptor.com">
         Corrected issue with <code>getNamedDispatcher()</code> not returning
@@ -479,7 +472,7 @@
         as is expected by the spec. Added test cases to verify the behaviour.
       </action>
       <action dev="VMA" type="add">
-        <link href="howto_migration.html">Migration tutorial</link> that
+        <link href="site:howto_migration">Migration tutorial</link> that
         explains how to move from Cactus 1.2 to Cactus 1.3
       </action>
       <action dev="VMA" type="add">
@@ -491,15 +484,14 @@
       <action dev="VMA" type="update">
         Updated coding conventions and added target to Ant build file for
         automatic checking of conventions using
-        <link href="checkstyle.sf.net">Checkstyle</link>.
+        <link href="ext:checkstyle">Checkstyle</link>.
       </action>
       <action dev="VMA" type="update">
         Reformatted all sources to be compliant with our coding conventions
-        (checked using
-        <link href="http://sf.net/projects/checkstyle">Checkstyle</link>).
+        (checked using <link href="ext:checkstyle">Checkstyle</link>).
       </action>
       <action dev="VMA" type="add" due-to="Sean Zhang" due-to-email="sean.zhang@verizon.com">
-        New <link href="howto_ide_jbuilder5.html">JBuilder5 integration
+        New <link href="site:howto_ide_jbuilder5">JBuilder5 integration
         tutorial</link>.
       </action>
       <action dev="VMA" type="add">
@@ -601,9 +593,7 @@
         and also so that we can have our FAQ in CVS along with the rest of the
         documentation.
       </action>
-      <action dev="VMA" type="fix" due-to="Chris Hazen" due-to-email="cjkchazen@earthlink.net">
-        (<link href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=4563">
-        Bug #4563</link>).
+      <action dev="VMA" type="fix" fixes-bug="4563" due-to="Chris Hazen" due-to-email="cjkchazen@earthlink.net">
         The <code>getHost()</code> method of the <code>ServletURL</code> class
         returns the ":" signifing the start of the port number of the host.
         This has side effects in Cactus in that passing
@@ -711,9 +701,7 @@
         by providing a new <code>FilterTestCase</code> test case class. Also
         added some filter unit testing samples in the distribution.
       </action>
-      <action dev="VMA" type="fix" due-to="Tony Payne" due-to-email="anthonyp@petsmart.com">
-        (<link href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=3427">
-        Bug #3427</link>).
+      <action dev="VMA" type="fix" fixes-bug="3427" due-to="Tony Payne" due-to-email="anthonyp@petsmart.com">
         The Cactus HTTP client was following redirects.
         This is wrong for unit tests as we should be able to assert returned
         headers, cookies, ... even for a redirect response.
@@ -865,9 +853,8 @@
         Cactus tests. If the log4j jar is present logs will be generated and if
         not, then no log will be generated.
       </action>
-      <action dev="VMA" type="fix" due-to="Bob Davison" due-to-email="bob.davison@reuters.com">
-        (<link href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=1612">
-        Bug #1612</link>). With some servlet engines (like Tomcat) there is a
+      <action dev="VMA" type="fix" fixes-bug="1612" due-to="Bob Davison" due-to-email="bob.davison@reuters.com">
+        With some servlet engines (like Tomcat) there is a
         risk that the test result will not be committed to the servlet
         application scope *before* the client requests the test result, thus
         getting a no result exception or, worse, getting the result from the
@@ -882,18 +869,16 @@
         same spirit as the <code>AssertUtils.getResponseAsString()</code>
         method which returnes the result as a single string.
       </action>
-      <action dev="VMA" type="fix" due-to="Bob Davison" due-to-email="bob.davison@reuters.com">
-        (<link href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=1610">
-        Bug #1610</link>). Corrected handling of multi-line text in
+      <action dev="VMA" type="fix" fixes-bug="1610" due-to="Bob Davison" due-to-email="bob.davison@reuters.com">
+        Corrected handling of multi-line text in
         <code>AssertUtils.getResponseAsString()</code> which was not handling
         correctly line terminators (they were skipped).
       </action>
     </release>
 
     <release version="1.0" date="May 2 2001">
-      <action dev="VMA" type="fix" due-to="Arun Katkere" due-to-email="katkere@praja.com">
-        (<link href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=1582">
-        Bug #1582</link>). Applied patch from Arun Katkere in order to prevent
+      <action dev="VMA" type="fix" fixes-bug="1582" due-to="Arun Katkere" due-to-email="katkere@praja.com">
+        Applied patch from Arun Katkere in order to prevent
         the "connexion reset by peer" error message that may appear in Tomcat
         when the connection is broken without reading the requested URL by the
         custom Ant tasks to start and stop a server.

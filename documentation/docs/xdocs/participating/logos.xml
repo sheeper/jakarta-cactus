@@ -1,0 +1,159 @@
+<?xml version="1.0"?>
+
+<document id="logos">
+
+  <properties>
+    <title>Logos for Cactus</title>
+    <authors>
+      <author name="Vincent Massol" email="vmassol@apache.org"/>
+    </authors>
+  </properties>
+
+  <body>
+
+    <s1 title="Propositions of logos for Cactus">
+
+      <p>
+        Here are contributions for a Cactus logo and associated slogan. Thanks
+        to all that have already participated.
+      </p>
+      <p>
+        You can vote for your favorite logo by
+        sending a mail on the <link href="site:mailinglist">Cactus mailing
+        list</link> with the subject <em>
+        "Logo vote"</em>.
+      </p>
+      <p>
+        You can also participate by sending your proposition on the
+        <link href="site:mailinglist">Cactus mailing list</link>
+        with the subject <em>
+        "Logo proposition"</em>. The best logo will be displayed as the
+        official Cactus logo in the top right corner of the Cactus web site ...
+      </p>
+
+      <s2 title="Proposition 1 : Classic">
+
+        <p>
+          This is the current logo being displayed on the Cactus web site. It
+          was designed by <link href="mailto:lthouvenot@octo.com">Lyonel
+          Thouvenot</link> from <link href="ext:octo">Octo
+          Technology</link>.
+        </p>
+
+        <figure src="images/logocactus.gif" alt="Proposition 1: Classic"/>
+
+      </s2>
+
+      <s2 title="Proposition 2 : Tomahawk">
+
+        <p>
+          This is a proposition from
+          <link href="mailto:Victor.Gritsen@pwgsc.gc.ca">Victor Gritsenko</link>
+          .
+        </p>
+
+        <link href="images/logos/vgritsenko.jpg"><figure src="images/logos/vgritsenko.jpg" height="185" width="119"
+        alt="Proposition 2: Tomahawk"/></link>
+
+      </s2>
+
+      <s2 title="Proposition 3 : A happy cactus">
+
+        <p>
+          This is a proposition from
+          <link href="mailto:harishsk@mindtree.com">Harish S K</link>
+          .
+        </p>
+
+        <figure src="images/logos/harishsk.jpg" alt="Proposition 3: A happy cactus"/>
+
+      </s2>
+
+      <s2 title="Proposition 4 : Severe testing">
+
+        <p>
+          This is a proposition from
+          <link href="mailto:Victor.Gritsen@pwgsc.gc.ca">Victor Gritsenko</link>
+          .
+        </p>
+
+        <link href="images/logos/vgritsenko2.jpg">
+        <figure src="images/logos/vgritsenko2.jpg" alt="Proposition 3: Severe testing"
+        height="64" width="311"/></link>
+
+      </s2>
+
+      <s2 title="Proposition 4">
+
+        <p>
+          This is a proposition from
+          <link href="mailto:alessandro.ceglia@rcn.com">Alessandro Ceglia</link>
+          .
+        </p>
+
+        <figure src="images/logos/aceglia1.jpg" alt="Proposition 4"/>
+
+      </s2>
+
+      <s2 title="Proposition 5">
+
+        <p>
+          This is a proposition from
+          <link href="mailto:bogglins@yahoo.com">Dimenzio Design Works</link>
+          .
+        </p>
+
+        <figure src="images/logos/bogglins.gif" alt="Proposition 5"/>
+
+      </s2>
+
+      <s2 title="Proposition 6">
+
+        <p>
+          This is a proposition from
+          <link href="mailto:alessandro.ceglia@rcn.com">Alessandro Ceglia</link>
+          .
+        </p>
+
+        <figure src="images/logos/aceglia2.jpg" alt="Proposition 6"/>
+
+      </s2>
+
+      <s2 title="Proposition 7">
+
+        <p>
+          This is a proposition from
+          <link href="mailto:alessandro.ceglia@rcn.com">Alessandro Ceglia</link>
+          .
+        </p>
+
+        <figure src="images/logos/aceglia3.jpg" alt="Proposition 7"/>
+
+      </s2>
+
+      <s2 title="Proposition 8">
+
+        <p>
+          This is a proposition from
+          <link href="mailto:Arthur.Jasso@acuity.com">Arthur Jasso</link>.
+        </p>
+
+        <figure src="images/logos/ajasso.gif" alt="Proposition 8"/>
+
+      </s2>
+
+      <s2 title="Proposition 9">
+
+        <p>
+          This is a proposition from
+          <link href="mailto:Outoftheboxweb@aol.com">Outoftheboxweb</link>.
+        </p>
+
+        <figure src="images/logos/outoftheboxweb.gif" alt="Proposition 9"/>
+
+      </s2>
+
+    </s1>
+
+  </body>
+</document>

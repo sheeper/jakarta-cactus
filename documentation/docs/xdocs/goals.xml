@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<document>
+<document id="goals">
 
   <properties>
     <title>Cactus goals</title>
@@ -48,7 +48,7 @@
           to test a user application. Some already implemented ideas:
           <ul>
           	<li>
-              See the <link href="howto_tomcat.html">Tomcat Howto</link> for 
+              See the <link href="site:howto_tomcat">Tomcat Howto</link> for 
               an example of Tomcat integration. However, it could be made even 
               easier by providing a packaged Tomcat.
             </li>
@@ -200,8 +200,8 @@
         Do you think it is feasible ?
       </p>
       <p>
-        Please send all answers to the <link href="mailinglist.html">
-        Cactus mailing list</link>.
+        Please send all answers to the 
+        <link href="site:mailinglist">Cactus mailing list</link>.
       </p>
       <p>
         Thanks.

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<document>
+<document id="index">
 
   <properties>
     <title>Jakarta Cactus</title>
@@ -19,25 +19,25 @@
       <p>
         The intent of Cactus is to lower the cost of writing tests for
         server-side code. It
-        uses <a href="http://junit.org">JUnit</a> and extends it.
+        uses <link href="ext:junit">JUnit</link> and extends it.
       </p>
       <p>
         Cactus has been developed with the idea of automatic testing in mind
         and it provides a packaged and simple
-        mechanism based on <a href="http://jakarta.apache.org/ant">Ant</a>
+        mechanism based on <link href="ext:ant">Ant</link>
         to automate server-side testing.
       </p>
       <p>
         Cactus implements an in-container strategy (click on the diagram below
         to understand how it works). An alternative but complementary approach
         not covered by Cactus is to use Mock Objects (see the
-        <a href="mockobjects.html">Mock vs Container</a> page to
+        <link href="site:mock_vs_cactus">Mock vs Container</link> page to
         understand the differences and why Cactus believes in the
         usefulness of an in-container approach).
       </p>
       <p>
-        <a href="how_it_works.html">
-        <figure src="images/archiani.gif" alt="How it works ..."/></a>
+        <link href="site:how_it_works">
+        <figure src="images/archiani.gif" alt="How it works ..."/></link>
       </p>
     </section>
 
@@ -52,7 +52,7 @@
         <li>
           <strong>Type 1 : code logic unit testing</strong>. Probably the
           best strategy for these tests is to use a
-          <a href="http://www.mockobjects.com">Mock Objects</a> type
+          <link href="ext:mockobjects">Mock Objects</link> type
           framework.
         </li>
         <li>
@@ -65,11 +65,10 @@
           <strong>Type 3 : functional unit testing</strong>. These unit tests
           will let you test the returned values from your server code. This is
           for example
-          <a href="http://sourceforge.net/projects/httpunit">HttpUnit
-          </a> (Note that HttpUnit also performs standard functional testing
-          - as opposed to functional unit testing -, which let you test full
-          use cases - a login use case for example, which is comprised of
-          several requests/responses).
+          <link href="ext:httpunit">HttpUnit</link> (Note that HttpUnit also 
+          performs standard functional testing - as opposed to functional unit 
+          testing -, which let you test full use cases - a login use case for 
+          example, which is comprised of several requests/responses).
         </li>
       </ol>
       <p>
@@ -93,7 +92,7 @@
 
       <p>
         To get started, read the
-        <a href="getting_started.html">Getting Started</a> guide.
+        <link href="site:getting_started">Getting Started</link> guide.
       </p>
 
     </section>

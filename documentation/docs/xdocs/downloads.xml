@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<document>
+<document id="downloads">
 
   <properties>
     <title>Downloads</title>
@@ -37,7 +37,7 @@
             <li>
               Dependent libraries that you need to put in your classpath along
               with the Cactus jars. See
-              <link href="getting_started.html">Getting Started</link> for
+              <link href="site:getting_started">Getting Started</link> for
               details.
             </li>
             <li>
@@ -77,8 +77,7 @@
     <s1 title="Releases">
 
       <p>
-        Click <link href="http://jakarta.apache.org/builds/jakarta-cactus/release">
-        here</link> for Cactus releases.
+        Click <link href="ext:cactus_release">here</link> for Cactus releases.
       </p>
 
     </s1>
@@ -86,14 +85,13 @@
     <s1 title="Nightly builds">
 
       <p>
-        Click <link href="http://cvs.apache.org/builds/jakarta-cactus/nightly">
-        here</link> for Cactus nightly builds.
+        Click <link href="ext:cactus_nightly">here</link> for Cactus nightly 
+        builds.
       </p>
 
       <note>
-        You can also check the
-        <link href="build_result.html">Build result</link> page, which gives
-        information on Cactus nightly builds.
+        You can also check the <link href="site:build_result">Build 
+        result</link> page, which gives information on Cactus nightly builds.
       </note>
 
     </s1>

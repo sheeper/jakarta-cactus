@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+
+<document id="coverage_empty">
+
+  <properties>
+    <title>Test Coverage</title>
+    <authors>
+      <author name="Vincent Massol" email="vmassol@apache.org"/>
+    </authors>
+  </properties>
+
+  <body>
+
+    <s1 title="Test Coverage Reports">
+
+      <p>
+        Sorry ! No test coverage report was created as this site was generated
+        without coverage report enabled.
+      </p>
+
+    </s1>
+
+  </body>
+</document>

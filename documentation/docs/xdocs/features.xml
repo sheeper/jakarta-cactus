@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<document>
+<document id="features">
 
   <properties>
     <title>Features</title>
@@ -17,15 +17,15 @@
 
       <note>
         Support for testing the View layer is done through integration
-        with <link href="http://httpunit.sourceforge.net">HttpUnit</link>.
+        with <link href="ext:httpunit">HttpUnit</link>.
         This is functional unit testing (see the
-        <link href="index.html#unittest_types">What is Cactus</link> page, for
-        a description of the different kinds of unit tests).
+        <jump href="site:index" anchor="unittest_types">What is Cactus</jump> 
+        page, for a description of the different kinds of unit tests).
       </note>
       <note>
         EJB unit testing is done by calling the EJB to unit test as you
         would if you were writing code to call an EJB from a servlet (See
-        the <link href="howto_ejb.html">EJB Howto</link> page for more details).
+        the <link href="site:howto_ejb">EJB Howto</link> page for more details).
       </note>
 
     </s1>
@@ -73,7 +73,7 @@
           Integrates seamlessly with the JUnit testing framework. Any tool
           that works with JUnit will work with Cactus because a Cactus test
           is a JUnit test ! See
-          <link href="howto_testcase.html">TestCase Howto</link>
+          <link href="site:howto_testcase">TestCase Howto</link>
           tutorial for details.
         </li>
         <li>
@@ -94,14 +94,14 @@
         <li>
           Ability to unit test EJBs (including local interfaces) by calling
           them from a <code>ServletTestCase</code> class (see the
-          <link href="howto_ejb.html">EJB Howto</link>).
+          <link href="site:howto_ejb">EJB Howto</link>).
         </li>
         <li>
           Extends JUnit by defining two additional (and optional) methods
           that can be implemented for each test case (i.e. for each
           <code>testXXX()</code> method) : <code>beginXXX()</code> and
           <code>endXXX()</code>. See the
-          <link href="howto_testcase.html">TestCase Howto</link> tutorial
+          <link href="site:howto_testcase">TestCase Howto</link> tutorial
           for details.
         </li>
         <li>
@@ -150,7 +150,7 @@
           tests and stopping your server). There are scripts provided for the
           following Servlet engines (but it is easy to add new engines and some
           Cactus users have already posted scripts on the
-          <link href="mailinglist.html">Cactus mailing list</link> for other
+          <link href="site:mailinglist">Cactus mailing list</link> for other
           containers) :
           <ul>
             <li>
@@ -213,7 +213,7 @@
         <li>
           Wraps some of the standard API objects in order to provide
           additional methods to help write unit tests.
-          See the <link href="howto_testcase.html">TestCase
+          See the <link href="site:howto_testcase">TestCase
           Howto</link> tutorial for details.
         </li>
         <li>
@@ -222,20 +222,19 @@
         </li>
         <li>
           HttpUnit integration. See the
-          <link href="howto_httpunit.html">HttpUnit Howto</link>) tutorial
+          <link href="site:howto_httpunit">HttpUnit Howto</link>) tutorial
           for details. This enables
           Cactus to provide strong and integrated functional
           unit testing features.
         </li>
         <li>
           Uses Jakarta Commons
-          <link href="http://jakarta.apache.org/commons/httpclient">HttpClient
-          </link> for HTTP connections.
+          <link href="ext:httpclient">HttpClient</link> for HTTP connections.
         </li>
         <li>
           Support for BASIC and Form-based authentication methods. You can test 
           code that uses the Servlet security API (see the
-          <link href="howto_security.html">Security Howto</link>).
+          <link href="site:howto_security">Security Howto</link>).
         </li>
         <li>
           Ability to specify, per test case, what redirector to use. Useful,

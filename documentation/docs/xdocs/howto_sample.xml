@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<document>
+<document id="howto_sample">
 
   <properties>
     <title>Sample Howto</title>
@@ -21,7 +21,7 @@
         There are some samples available as part of the documentation. The
         samples depend on the kind of test case you are writing (Servlet,
         Taglibs, Filters, ...). For this reason you'll find some samples
-        in the <link href="howto_testcase.html">TestCase Howto</link>
+        in the <link href="site:howto_testcase">TestCase Howto</link>
         tutorial.
       </p>
       <p>
@@ -35,10 +35,10 @@
         If you wish to integrate them in your own build system or in your
         favorite IDE, you'll have to understand the principles first and
         manually install them (read the
-        <link href="getting_started.html">Getting Started</link>
-        and the <link href="howto_config.html">Configuration Howto</link>
+        <link href="site:getting_started">Getting Started</link>
+        and the <link href="site:howto_config">Configuration Howto</link>
         tutorials). Some detailed explanations for IDE integration
-        are also available in the <link href="howto_ide.html">IDE Howto</link>
+        are also available in the <link href="site:howto_ide">IDE Howto</link>
         tutorial.
       </p>
 
@@ -62,7 +62,7 @@
             tests on several Servlet Engines.
           </li>
           <li>
-            Ant (see the <link href="howto_ant_install.html">"Installing
+            Ant (see the <link href="site:howto_ant_install">"Installing
             Ant"</link> tutorial).
           </li>
           <li>
@@ -75,10 +75,9 @@
                 <ul>
                   <li>
                     From
-                    <link href="http://java.sun.com/products/servlet/download.html">
-                    Sun</link> or from the
-                    <link href="http://jakarta.apache.org/builds/jakarta-servletapi/">
-                    Jakarta reference implementation</link>
+                    <link href="ext:sun_servlet_downloads">Sun</link> or from 
+                    the <link href="ext:servletapi_2_2">Jakarta reference 
+                    implementation</link>
                   </li>
                 </ul>
               </li>
@@ -87,10 +86,9 @@
                 <ul>
                   <li>
                     From
-                    <link href="http://java.sun.com/products/servlet/download.html">
-                    Sun</link> or from the
-                    <link href="http://jakarta.apache.org/builds/jakarta-servletapi-4/">
-                    Jakarta reference implementation</link>
+                    <link href="ext:sun_servlet_downloads">Sun</link> or from 
+                    the <link href="ext:servletapi_2_3">Jakarta reference 
+                    implementation</link>
                   </li>
                 </ul>
               </li>
@@ -98,9 +96,8 @@
                 For the J2EE jar
                 <ul>
                   <li>
-                    From
-                    <link href="http://java.sun.com/j2ee/download.html">J2EE
-                    download page</link>
+                    From <link href="ext:sun_j2ee_downloads">J2EE download 
+                    page</link>
                   </li>
                 </ul>
               </li>
@@ -120,7 +117,7 @@
         </p>
         <ul>
           <li>
-            Download the <link href="downloads.html">Cactus Sample</link> and
+            Download the <link href="site:downloads">Cactus Sample</link> and
             unzip it in a directory. Let's call this directory
             <em><code>sampleroot</code></em>.
           </li>

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<document>
+<document id="faq">
 
   <properties>
     <title>FAQ</title>
@@ -71,7 +71,7 @@ at java.util.ResourceBundle.getBundle(ResourceBundle.java:546)
         your CLASSPATH (i.e. the directory which contains this file should
         be in the CLASSPATH). This file is the Cactus configuration file and
         is required. Check the Cactus
-        <link href="howto_config.html">Configuration Howto</link> page for
+        <link href="site:howto_config">Configuration Howto</link> page for
         more information.
       </p>
     </s1>
@@ -308,7 +308,7 @@ org.apache.cactus.client.WebTestResultParser.readRootElement(
         </p>
         <p>
           To easiest way to diagnosis the problem is to enable Cactus logging
-          (see the <link href="howto_config.html">Configuration Howto</link>
+          (see the <link href="site:howto_config">Configuration Howto</link>
           for how to do this). The cactus client log
           (<code>cactus_client.log</code> will clearly give the error).
         </p>
@@ -327,7 +327,7 @@ org.apache.cactus.client.WebTestResultParser.readRootElement(
         <s2 title="Solution">
           <p>
             One solution is to use the
-            <link href="http://www.innovation.ch/java/HTTPClient/">HTTPClient</link>
+            <link href="ext:httpclient_other">HTTPClient</link>
             classes from Ronald Tschalar, as demonstrated in the following
             example :
           </p>
@@ -381,11 +381,11 @@ org.apache.cactus.AbstractTestCase.runBare(AbstractTestCase.java:188)
         <s2 title="Solution">
           <p>
 	        Check the 
-	        <link href="http://junit.sourceforge.net/doc/faq/faq.htm#runners_1">JUnit 
-	        FAQ</link>. Indeed, JUnit uses a special class loader to 
-	        load classes that is incompatible with the Commons-Logging 
-	        framework. Thus you need to put the commons-logging package in the
-	        JUnit <code>excluded.properties</code> file (see the JUnit FAQ).
+	        <jump href="ext:junit_faq_runner" anchor="runners_1">JUnit 
+	        FAQ</jump>. Indeed, JUnit uses a special class loader to load 
+	        classes that is incompatible with the Commons-Logging framework. 
+	        Thus you need to put the commons-logging package in the JUnit 
+	        <code>excluded.properties</code> file (see the JUnit FAQ).
 		  </p>
 		</s2>
 

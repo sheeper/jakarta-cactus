@@ -4,11 +4,11 @@
 
   <menu label="About">
     <item id="index"/>
-    <item label="News" id="news"/>
-    <item label="Changes" id="changes"/>
-    <item label="Features/Status" id="features"/>
-    <item label="Goals" id="goals"/>
-    <item label="Roadmap/Todo" id="todo"/>
+    <item id="news"/>
+    <item id="changes"/>
+    <item id="features"/>
+    <item id="goals"/>
+    <item id="todo"/>
     <item label="Contributors" id="contributors"/>
     <item label="Contributing" id="contributing"/>
     <item label="Cactus Users" id="users"/>
@@ -21,6 +21,7 @@
   </menu>
 
   <menu label="Documentation">
+    <item label="Site Map" id="sitemap"/>
     <item label="How it works ?" id="how_it_works"/>
     <item label="Getting Started" id="getting_started"/>
     <item label="Mock vs Container" id="mockobjects"/>

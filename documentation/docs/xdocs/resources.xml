@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<document>
+<document id="resources">
 
   <properties>
     <title>Resources</title>
@@ -234,7 +234,8 @@
 
         <tr>
           <td>
-            <link href="mockobjects.html#mo_resources">Mock Object resources</link>
+            <jump href="site:mock_vs_cactus" anchor="mo_resources">Mock Object 
+            resources</jump>
           </td>
 		  <td>
 		    Reference
