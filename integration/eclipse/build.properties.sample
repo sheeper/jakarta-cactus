@@ -14,7 +14,7 @@
 # -----------------------------------------------------------------------------
 
 # Location of Eclipse.
-eclipse.home = D:/dev/eclipse-RC1
+eclipse.home = D:/dev/eclipse-2.1RC1
 
 # Locations of Eclipse dependent plugin jars
 
