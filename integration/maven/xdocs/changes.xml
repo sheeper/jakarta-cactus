@@ -8,6 +8,10 @@
   <body>
 
     <release version="1.7dev" date="in CVS">
+      <action dev="felipeal" type="add" issue="CACTUS-128" due-to"Maxwell Grender-Jones">
+        Extended <code>cactus.sysproperties</code> property to the
+        <code>cactus:match</code> and <code>cactus:single</code> goals.
+      </action>
       <action dev="felipeal" type="new" issue="CACTUS-146">
         Goal <code>cactus:test</code> is not executed if property <code>maven.test.skip</code> is set.
       </action>
