@@ -210,7 +210,19 @@
           directory where the Cactus plugin will create all its files
           (packaged war, app server config files, etc)
         </li>
-        <li>Minimal plugin documentation</li>
+	      <li>
+	        Plugin documentation and development documentation
+	        (for todos, etc).
+	      </li>
+      </ul>
+      <ul>
+	      <li>
+	        The user can provide its own web.xml file.
+	        Otherwise the plugin will use the one provided by default.
+	      </li>
+	      <li>
+	        User interface: no shell popups for Ant tasks
+	      </li>
       </ul>
     </section>
 
@@ -220,13 +232,8 @@
         points must be done:
       </p>
       <ul>
-        <li>integrate the plugin to the Cactus build process</li>
         <li>automate tests on the plugin</li>
         <li>ability to leave the container running between redeployments</li>
-        <li>
-          the user must be able to provide its own web.xml file.
-          Otherwise the plugin will use the one provided by default.
-        </li>
       </ul>
 
     </section>
