@@ -1,0 +1,9 @@
+<project
+  xmlns:j="jelly:core"
+  xmlns:maven="jelly:maven">
+  
+  <goal name="dist">
+    <attainGoal name="multiproject:goal"/>
+  </goal>
+  
+</project>
