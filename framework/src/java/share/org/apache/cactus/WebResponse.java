@@ -70,6 +70,8 @@ import org.apache.cactus.util.CookieUtil;
 import org.apache.cactus.util.IoUtil;
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpException;
+import org.apache.commons.httpclient.cookie.CookiePolicy;
+import org.apache.commons.httpclient.cookie.CookieSpec;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -276,6 +278,7 @@ public class WebResponse
         String headerValue = this.connection.getHeaderField(0);
 
         Vector cookieVector = new Vector();
+        CookieSpec cookieSpec = CookiePolicy.getDefaultSpec();
 
         for (int i = 1; (headerName != null) || (headerValue != null); i++)
         {
@@ -288,17 +291,16 @@ public class WebResponse
             {
                 // Parse the cookie definition
                 org.apache.commons.httpclient.Cookie[] cookies;
-
                 try
                 {
-                    cookies = org.apache.commons.httpclient.Cookie.parse(
+                    cookies = cookieSpec.parse(
                         CookieUtil.getCookieDomain(getWebRequest(), 
                             getConnection().getURL().getHost()), 
                         CookieUtil.getCookiePort(getWebRequest(), 
                             getConnection().getURL().getPort()), 
                         CookieUtil.getCookiePath(getWebRequest(), 
-                            getConnection().getURL().getFile()), 
-                        new Header(headerName, headerValue));
+                            getConnection().getURL().getFile()),
+                        false, new Header(headerName, headerValue));
                 }
                 catch (HttpException e)
                 {
