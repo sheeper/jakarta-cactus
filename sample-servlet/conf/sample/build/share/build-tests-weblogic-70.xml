@@ -112,6 +112,7 @@
             value="${conf.test.dir}/weblogic70"/>
 
         <mkdir dir="${target.weblogic70.dir}/testdomain/applications"/>
+        <mkdir dir="${target.weblogic70.dir}/testdomain/testserver"/>
 
         <!-- Copy WL 7.0 configuration files -->
         <copy file="${conf.weblogic70.dir}/config.xml"
@@ -122,6 +123,11 @@
             todir="${target.weblogic70.dir}/testdomain"/>
         <copy file="${conf.weblogic70.dir}/DefaultAuthenticatorInit.ldift"
             todir="${target.weblogic70.dir}/testdomain"/>
+
+        <!-- Copy security configuration files -->
+        <copy todir="${target.weblogic70.dir}/testdomain/testserver">
+            <fileset dir="${conf.weblogic70.dir}/testserver"/>
+        </copy>
 
         <!-- Copy the war file -->
         <copy file="${target.test.dir}/test.war"

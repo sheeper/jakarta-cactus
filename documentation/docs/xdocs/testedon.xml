@@ -229,6 +229,22 @@
             <td>
             </td>
           </tr>
+          <tr>
+            <td>
+              WebLogic
+            </td>
+            <td>
+              7.0
+            </td>
+            <td>
+              1.2
+            </td>
+            <td>
+              <link href="mailto:vmassol@apache.org">Vincent Massol</link>
+            </td>
+            <td>
+            </td>
+          </tr>
 
         </table>
 

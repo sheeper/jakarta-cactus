@@ -48,7 +48,7 @@ public void beginBasicAuthentication(WebRequest theRequest)
 {
     theRequest.setRedirectorName("ServletRedirectorSecure");
     theRequest.setAuthentication(
-        new BasicAuthentication("testuser", "testpwd"));
+        new BasicAuthentication("testuser", "testpassword"));
 }
 
 public void testBasicAuthentication()
@@ -186,7 +186,7 @@ public void testBasicAuthentication()
 
 <source><![CDATA[
 <tomcat-users>
-  <user name="testuser" password="testpwd" roles="test" />
+  <user name="testuser" password="testpassword" roles="test" />
 </tomcat-users>
 ]]></source>
 

@@ -115,7 +115,7 @@ public class TestServletTestCase_Authentication extends ServletTestCase
     {
         theRequest.setRedirectorName("ServletRedirectorSecure");
         theRequest.setAuthentication(
-            new BasicAuthentication("testuser", "testpwd"));
+            new BasicAuthentication("testuser", "testpassword"));
     }
 
     /**
