@@ -712,6 +712,9 @@
       <xsl:when test="starts-with(@href,'http:')">
         <xsl:value-of select="@href"/>
       </xsl:when>
+      <xsl:when test="starts-with(@href,'ftp:')">
+        <xsl:value-of select="@href"/>
+      </xsl:when>
       <xsl:when test="starts-with(@href,'mailto:')">
         <xsl:value-of select="@href"/>
       </xsl:when>
