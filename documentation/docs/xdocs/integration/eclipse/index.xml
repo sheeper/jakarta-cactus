@@ -11,6 +11,17 @@
 
   <body>
     <section title="Overview">
+
+      <note><strong>
+        The Eclipse plugin is still experimental and is not yet delivered as
+        part of the Cactus 1.5 framework (it can be downloaded from the
+        <a href="site:downloads">Nightly build area</a>). It will be 
+        delivered in a subsequent release of Cactus as we don't consider it 
+        to be stable yet. However, we encourage you to provide us with as 
+        much feedback as possible so that it can be become stable and be 
+        included in a release.
+      </strong></note>
+
       <p>
         The integration of Cactus in the 
         <link href="ext:eclipse">Eclipse</link> platform relies on 2 separate plug-ins :
