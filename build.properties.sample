@@ -91,6 +91,9 @@ xerces.jar = ${lib.repo}/xerces/jars/xercesImpl-2.3.0.jar
 # XML Parsers API (required by HttpUnit)
 xmlapis.jar = ${lib.repo}/xerces/jars/xmlParserAPIs-2.2.1.jar
 
+# The location of the Jetty jar
+jetty.jar = ${lib.repo}/jetty/jars/org.mortbay.jetty-4.2.11.jar
+
 # -----------------------------------------------------------------------------
 # Mandatory properties for the Sample Servlet project.
 # -----------------------------------------------------------------------------
@@ -98,15 +101,6 @@ xmlapis.jar = ${lib.repo}/xerces/jars/xmlParserAPIs-2.2.1.jar
 # Location of the Servlet API jar.
 servlet.jar = ${lib.repo}/servletapi/jars/servletapi-2.3.jar
 #servlet.jar = ${lib.repo}/servletapi/jars/servletapi-2.2.jar
-
-# -----------------------------------------------------------------------------
-# Mandatory properties for the Eclipse plugin ant the Jetty Sample
-# -----------------------------------------------------------------------------
-# The Jetty container is packaged in the Eclipse plugin and is used as the 
-# default container in which to run the Cactus tests
-
-# The location of the Jetty jar
-jetty.jar = ${lib.repo}/jetty/jars/org.mortbay.jetty-4.2.11.jar
 
 # -----------------------------------------------------------------------------
 # Mandatory properties for the Jetty Sample

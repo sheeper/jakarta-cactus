@@ -24,7 +24,7 @@ import java.util.Enumeration;
 import junit.framework.TestCase;
 
 import org.apache.cactus.internal.WebRequestImpl;
-import org.apache.cactus.internal.configuration.ServletConfiguration;
+import org.apache.cactus.internal.configuration.DefaultServletConfiguration;
 import org.apache.cactus.util.ChainedRuntimeException;
 
 /**
@@ -35,13 +35,24 @@ import org.apache.cactus.util.ChainedRuntimeException;
 public class TestWebRequest extends TestCase
 {
     /**
+     * Object to unit test.
+     */
+    private WebRequest request;
+
+    /**
+     * @see TestCase#setUp()
+     */
+    protected void setUp()
+    {
+        request = new WebRequestImpl(new DefaultServletConfiguration());
+    }
+    
+    /**
      * Verify that an exception is thrown when an invalid HTTP METHOD is used
      * when adding an HTTP parameter.
      */
     public void testAddParameterInvalidMethod()
     {
-        WebRequest request = new WebRequestImpl(new ServletConfiguration());
-
         try
         {
             request.addParameter("param1", "value1", "INVALIDMETHOD");
@@ -60,8 +71,6 @@ public class TestWebRequest extends TestCase
      */
     public void testGetParametersGetOk()
     {
-        WebRequest request = new WebRequestImpl(new ServletConfiguration());
-
         request.addParameter("param1", "value1", WebRequest.GET_METHOD);
         request.addParameter("param1", "value2", WebRequest.GET_METHOD);
 
@@ -76,8 +85,6 @@ public class TestWebRequest extends TestCase
      */
     public void testGetParameterGetNull()
     {
-        WebRequest request = new WebRequestImpl(new ServletConfiguration());
-
         request.addParameter("param1", "value1", WebRequest.POST_METHOD);
 
         String result = request.getParameterGet("param1");
@@ -91,8 +98,6 @@ public class TestWebRequest extends TestCase
      */
     public void testGetParametersPostOk()
     {
-        WebRequest request = new WebRequestImpl(new ServletConfiguration());
-
         request.addParameter("param1", "value1", WebRequest.POST_METHOD);
         request.addParameter("param1", "value2", WebRequest.POST_METHOD);
 
@@ -107,8 +112,6 @@ public class TestWebRequest extends TestCase
      */
     public void testGetParameterPostNull()
     {
-        WebRequest request = new WebRequestImpl(new ServletConfiguration());
-
         request.addParameter("param1", "value1", WebRequest.GET_METHOD);
 
         String result = request.getParameterPost("param1");
@@ -122,8 +125,6 @@ public class TestWebRequest extends TestCase
      */
     public void testGetHeaderOk()
     {
-        WebRequest request = new WebRequestImpl(new ServletConfiguration());
-
         request.addHeader("header1", "value1");
         request.addHeader("header2", "value2");
 
@@ -138,8 +139,6 @@ public class TestWebRequest extends TestCase
      */
     public void testGetHeaderNull()
     {
-        WebRequest request = new WebRequestImpl(new ServletConfiguration());
-
         String result = request.getHeader("header1");
 
         assertNull(result);
@@ -151,8 +150,6 @@ public class TestWebRequest extends TestCase
      */
     public void testToString()
     {
-        WebRequest request = new WebRequestImpl(new ServletConfiguration());
-
         request.addHeader("header1", "value1");
         request.addHeader("header1", "value2");
         request.addParameter("param1", "value1", WebRequest.GET_METHOD);
@@ -183,8 +180,6 @@ public class TestWebRequest extends TestCase
      */
     public void testSetURLBadQueryString()
     {
-        WebRequest request = new WebRequestImpl(new ServletConfiguration());
-
         try
         {
             request.setURL("jakarta.apache.org:80", "/catalog", "/garden", 
@@ -203,8 +198,6 @@ public class TestWebRequest extends TestCase
      */
     public void testGetPostParametersSeveral()
     {
-        WebRequest request = new WebRequestImpl(new ServletConfiguration());
-
         request.addParameter("param1", "value1", WebRequest.POST_METHOD);
         request.addParameter("param2", "value2", WebRequest.POST_METHOD);
         request.addParameter("param3", "value3", WebRequest.POST_METHOD);
@@ -225,6 +218,4 @@ public class TestWebRequest extends TestCase
             }            
         }
     }
-    
-
 }

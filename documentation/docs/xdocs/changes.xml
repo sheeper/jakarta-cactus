@@ -90,6 +90,13 @@
       </devs>
 
       <release version="1.7dev" date="in CVS">
+        <action dev="VMA" type="update">
+          The <code>JettyTestSetup</code> class now checks if the Jetty server
+          is already started and only starts it if it isn't running. It also
+          does not stops it if it was running before <code>JettyTestSetup</code>
+          was called. This is useful when you have a master test suite and when
+          you also wish to run your tests one by one.
+        </action>
       </release>
 
       <release version="1.6.1" date="in CVS">

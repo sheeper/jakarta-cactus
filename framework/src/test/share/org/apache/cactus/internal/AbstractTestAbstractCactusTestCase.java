@@ -31,7 +31,7 @@ import org.apache.cactus.internal.client.ClientException;
 import org.apache.cactus.internal.client.ClientTestCaseCaller;
 import org.apache.cactus.internal.client.WebResponseObjectFactory;
 import org.apache.cactus.internal.client.connector.http.HttpProtocolHandler;
-import org.apache.cactus.internal.configuration.ServletConfiguration;
+import org.apache.cactus.internal.configuration.DefaultServletConfiguration;
 import org.apache.cactus.internal.util.JUnitVersionHelper;
 import org.apache.cactus.mock.MockHttpURLConnection;
 
@@ -67,12 +67,14 @@ public abstract class AbstractTestAbstractCactusTestCase extends TestCase
     protected void runTest() throws Throwable
     {
         ClientTestCaseCaller delegator = new ClientTestCaseCaller(
-            this, this, new HttpProtocolHandler(new ServletConfiguration()));
+            this, this, 
+            new HttpProtocolHandler(new DefaultServletConfiguration()));
 
         try
         {
             // Call the begin method
-            WebRequest request = new WebRequestImpl(new ServletConfiguration());
+            WebRequest request = 
+                new WebRequestImpl(new DefaultServletConfiguration());
 
             delegator.callBeginMethod(request);
 

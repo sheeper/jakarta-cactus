@@ -48,7 +48,9 @@
         location="${src.java.dir}/j2ee${j2ee.api}"/>
     <property name="src.test.dir" location="${src.dir}/test"/>
     <property name="src.test.share.dir" location="${src.test.dir}/share"/>
-    <property name="src.aspect.dir" location="${src.dir}/aspect"/>
+    <property name="src.test.specific.dir"
+        location="${src.test.dir}/j2ee${j2ee.api}"/>
+      <property name="src.aspect.dir" location="${src.dir}/aspect"/>
     <property name="build.dir" location="${base.dir}/."/>
     <property name="conf.dir" location="${base.dir}/conf"/>
     <property name="web.dir" location="${base.dir}/web"/>
@@ -64,6 +66,9 @@
         location="${target.classes.dir}/test"/>
     <property name="target.doc.dir" location="${target.dir}/doc"/>
     <property name="target.doc.api.dir" location="${target.doc.dir}/api"/>
+
+    <!-- Ensure that there is always a default for the container port -->
+    <property name="cactus.port" value="8080"/>
 
   </target>
 
@@ -100,13 +105,15 @@
     <echo>  j2ee.jar = [${j2ee.jar}]</echo>
     <echo>  junit.jar = [${junit.jar}]</echo>
     <echo>  mockobjects.jar = [${mockobjects.jar}]</echo>
+    <echo>  jetty.jar = [${jetty.jar}]</echo>
     <echo>  log4j.jar (optional) = [${log4j.jar}]</echo>
     <echo>  xmlapis.jar (optional) = [${xmlapis.jar}]</echo>
     <echo/>
     <echo>Options:</echo>
     <echo>  clover.enable = ${clover.enable}</echo>
     <echo>  clover.jar = [${clover.jar}]</echo>
-
+    <echo>  cactus.port = [${cactus.port}]</echo>
+  
     <path id="project.classpath">
       <pathelement location="${aspectjrt.jar}"/>
       <pathelement location="${commons.logging.jar}"/>
@@ -126,6 +133,7 @@
         <available file="${j2ee.jar}"/>
         <available file="${junit.jar}"/>
         <available file="${mockobjects.jar}"/>
+        <available file="${jetty.jar}"/>
         <!-- Check for a TraX class instead of the xmlapis.jar file so that
              the build works on JDK 1.4 without needing to define the
              xmlapis.jar property -->
@@ -210,10 +218,12 @@ be resolved. Please check you build.properties file, and run Ant with the
         debug="${debug}" deprecation="${deprecation}"
         optimize="${optimize}">
       <src path="${src.test.share.dir}"/>
+      <src path="${src.test.specific.dir}"/>
       <classpath>
         <path path="${target.classes.java.dir}"/>
         <path refid="project.classpath"/>
         <pathelement location="${mockobjects.jar}"/>
+        <pathelement location="${jetty.jar}"/>
       </classpath>
     </javac>
 
@@ -408,6 +418,7 @@ be resolved. Please check you build.properties file, and run Ant with the
       <pathelement location="${clover.jar}"/>
       <pathelement location="${log4j.jar}"/>
       <pathelement location="${mockobjects.jar}"/>
+      <pathelement location="${jetty.jar}"/>
       <path refid="project.classpath"/>
     </path>
 
@@ -421,6 +432,7 @@ be resolved. Please check you build.properties file, and run Ant with the
       <pathelement path="${target.classes.test.dir}"/>
       <pathelement location="${log4j.jar}"/>
       <pathelement location="${mockobjects.jar}"/>
+      <pathelement location="${jetty.jar}"/>
       <path refid="project.classpath"/>
     </path>
 
@@ -453,6 +465,7 @@ be resolved. Please check you build.properties file, and run Ant with the
     <junit printsummary="yes" haltonfailure="yes" fork="yes">
       <sysproperty key="cactus.logging.config" 
           value="${target.dir.normalized}/logging.properties"/>
+      <sysproperty key="cactus.port" value="${cactus.port}"/>
       <classpath>
         <path refid="test.class.path"/>
       </classpath>

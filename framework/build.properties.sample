@@ -42,6 +42,10 @@ httpunit.jar = ${lib.repo}/httpunit/jars/httpunit-1.5.4.jar
 # The location of the MockObjects jar (needed for our unit tests)
 mockobjects.jar = ${lib.repo}/mockobjects/jars/mockobjects-core-0.09.jar
 
+# The location of the Jetty jar (used for compiling and running the unit tests 
+# only)
+jetty.jar = ${lib.repo}/jetty/jars/org.mortbay.jetty-4.2.11.jar
+
 # -----------------------------------------------------------------------------
 # Optional properties
 # -----------------------------------------------------------------------------

@@ -24,7 +24,7 @@ import javax.servlet.jsp.JspWriter;
 import junit.framework.Test;
 
 import org.apache.cactus.internal.client.connector.http.HttpProtocolHandler;
-import org.apache.cactus.internal.configuration.JspConfiguration;
+import org.apache.cactus.internal.configuration.DefaultJspConfiguration;
 import org.apache.cactus.server.PageContextWrapper;
 import org.apache.cactus.spi.client.connector.ProtocolHandler;
 
@@ -84,6 +84,6 @@ public class JspTestCase extends ServletTestCase
      */
     protected ProtocolHandler createProtocolHandler()
     {
-        return new HttpProtocolHandler(new JspConfiguration());
+        return new HttpProtocolHandler(new DefaultJspConfiguration());
     }
 }

@@ -17,14 +17,31 @@
  * 
  * ========================================================================
  */
-package org.apache.cactus.internal.configuration;
+package org.apache.cactus;
+
+import junit.framework.Test;
+import junit.framework.TestSuite;
 
 /**
- * Provides access to the Cactus configuration parameters related to the
- * JSP Redirector.
+ * Run all the Cactus unit tests related to J2EE API 1.2.
  *
  * @version $Id$
  */
-public interface JspConfiguration extends WebConfiguration
+public class TestAll
 {
+    /**
+     * @return a test suite (<code>TestSuite</code>) that includes all methods
+     *         starting with "test"
+     * @exception Exception on failure to load the cactus properties file
+     */
+    public static Test suite() throws Exception
+    {
+        TestSuite suite = new TestSuite(
+            "Cactus unit tests for J2EE 1.2");
+
+        // Add shared tests
+        suite.addTest(TestShareAll.suite());
+
+        return suite;
+    }
 }

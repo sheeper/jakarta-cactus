@@ -42,17 +42,17 @@ import junit.framework.TestSuite;
  *
  * @version $Id$
  */
-public class TestAll
+public class TestShareAll
 {
     /**
-     * @return a test suite (<code>TestSuite</code>) that includes all methods
-     *         starting with "test"
+     * @return a test suite (<code>TestSuite</code>) that includes all shared
+     *         tests
      * @exception Exception on failure to load the cactus properties file
      */
     public static Test suite() throws Exception
     {
         TestSuite suite = new TestSuite(
-            "Cactus unit tests not needing servlet engine");
+            "Cactus unit tests for all J2EE APIs");
 
         // Make sure logging configuration properties are initialized so
         // that it is possible to control logging from the outside of the
@@ -79,7 +79,7 @@ public class TestAll
         suite.addTestSuite(TestUniqueGenerator.class);
 
         suite.addTestSuite(TestServletTestRunner.class);
-                
+
         return suite;
     }
 }

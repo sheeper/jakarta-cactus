@@ -20,6 +20,9 @@
 package org.apache.cactus.extension.jetty;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
 import java.net.URL;
 
 import junit.extensions.TestSetup;
@@ -29,6 +32,8 @@ import junit.framework.TestResult;
 
 import org.apache.cactus.internal.configuration.BaseConfiguration;
 import org.apache.cactus.internal.configuration.Configuration;
+import org.apache.cactus.internal.configuration.DefaultFilterConfiguration;
+import org.apache.cactus.internal.configuration.DefaultServletConfiguration;
 import org.apache.cactus.internal.configuration.FilterConfiguration;
 import org.apache.cactus.internal.configuration.ServletConfiguration;
 import org.apache.cactus.internal.util.ClassLoaderUtils;
@@ -80,13 +85,67 @@ public class JettyTestSetup extends TestSetup
     private Object server; 
 
     /**
+     * Whether the container had already been running before.
+     */
+    private boolean alreadyRunning;
+
+    /**
+     * Whether the container is running or not.
+     */
+    private boolean isRunning = false;
+
+    /**
+     * Whether the container should be stopped on tearDown even though
+     * it was not started by us.
+     */
+    private boolean forceShutdown = false;
+    
+    /**
+     * The Servlet configuration object used to configure Jetty. 
+     */
+    private ServletConfiguration servletConfiguration;
+
+    /**
+     * The Filter configuration object used to configure Jetty. 
+     */
+    private FilterConfiguration filterConfiguration;
+
+    /**
+     * The base configuration object used to configure Jetty. 
+     */
+    private Configuration baseConfiguration;
+    
+    /**
      * @param theTest the test we are decorating (usually a test suite)
      */
     public JettyTestSetup(Test theTest)
     {
         super(theTest);
+        this.baseConfiguration = new BaseConfiguration();
+        this.servletConfiguration = new DefaultServletConfiguration();
+        this.filterConfiguration = new DefaultFilterConfiguration();
     }
 
+    /**
+     * @param theTest the test we are decorating (usually a test suite)
+     * @param theBaseConfiguration the base configuration object used to
+     *        configure Jetty
+     * @param theServletConfiguration the servlet configuration object used
+     *        to configure Jetty
+     * @param theFilterConfiguration the filter configuration object used
+     *       to configure Jetty
+     */
+    public JettyTestSetup(Test theTest, 
+        Configuration theBaseConfiguration,
+        ServletConfiguration theServletConfiguration,
+        FilterConfiguration theFilterConfiguration)
+    {
+        this(theTest);
+        this.baseConfiguration = theBaseConfiguration;
+        this.servletConfiguration = theServletConfiguration;
+        this.filterConfiguration = theFilterConfiguration;
+    }
+    
     /**
      * Make sure that {@link #tearDown} is called if {@link #setUp} fails
      * to start the container properly. The default 
@@ -125,6 +184,20 @@ public class JettyTestSetup extends TestSetup
      */
     protected void setUp() throws Exception
     {
+        // Try connecting in case the server is already running. If so, does
+        // nothing
+        URL contextURL = new URL(this.baseConfiguration.getContextURL()
+            + "/" + this.servletConfiguration.getDefaultRedirectorName()
+            + "?Cactus_Service=RUN_TEST");
+        this.alreadyRunning = isAvailable(testConnectivity(contextURL));
+        if (this.alreadyRunning)
+        {
+            // Server is already running. Record this information so that we
+            // don't stop it afterwards.
+            this.isRunning = true;
+            return;
+        }
+
         // Note: We are currently using reflection in order not to need Jetty
         // to compile Cactus. If the code becomes more complex or we need to 
         // add other initializer, it will be worth considering moving them
@@ -132,25 +205,20 @@ public class JettyTestSetup extends TestSetup
         // in its classpath (using the same mechanism as the Ant project is
         // using to conditionally compile tasks).
 
-        // Create configuration objects
-        BaseConfiguration baseConfig = new BaseConfiguration();
-        ServletConfiguration servletConfig = new ServletConfiguration();
-        FilterConfiguration filterConfig = new FilterConfiguration();
-
         // Create a Jetty Server object and configure a listener
-        this.server = createServer(baseConfig);
+        this.server = createServer(this.baseConfiguration);
 
         // Create a Jetty context.
-        Object context = createContext(this.server, baseConfig);
+        Object context = createContext(this.server, this.baseConfiguration);
         
         // Add the Cactus Servlet redirector
-        addServletRedirector(context, servletConfig);
+        addServletRedirector(context, this.servletConfiguration);
 
         // Add the Cactus Jsp redirector
         addJspRedirector(context);
 
         // Add the Cactus Filter redirector
-        addFilterRedirector(context, filterConfig);
+        addFilterRedirector(context, this.filterConfiguration);
 
         // Configure Jetty with an XML file if one has been specified on the
         // command line.
@@ -164,6 +232,8 @@ public class JettyTestSetup extends TestSetup
         // Start the Jetty server
         this.server.getClass().getMethod("start", null).invoke(
             this.server, null);
+
+        this.isRunning = true;
     }
 
     /**
@@ -173,6 +243,12 @@ public class JettyTestSetup extends TestSetup
      */
     protected void tearDown() throws Exception
     { 
+        // Don't shut down a container that has not been started by us
+        if (!this.forceShutdown && this.alreadyRunning)
+        {
+            return;
+        }
+
         if (this.server != null)
         { 
             // First, verify if the server is running
@@ -186,6 +262,8 @@ public class JettyTestSetup extends TestSetup
                     this.server, null);
             }
         } 
+
+        this.isRunning = false;
     }
 
     /**
@@ -209,6 +287,15 @@ public class JettyTestSetup extends TestSetup
         this.resourceDir = theResourceDir;
     }
 
+    /**
+     * @param isForcedShutdown if true the container will be stopped even
+     *        if it has not been started by us
+     */
+    public final void setForceShutdown(boolean isForcedShutdown)
+    {
+        this.forceShutdown = isForcedShutdown;
+    }
+    
     /**
      * @return The resource directory, or <code>null</code> if it has not been
      *         set
@@ -406,4 +493,87 @@ public class JettyTestSetup extends TestSetup
         }
     }
 
+    /**
+     * Tests whether we are able to connect to the HTTP server identified by the
+     * specified URL.
+     * 
+     * @param theUrl The URL to check
+     * @return the HTTP response code or -1 if no connection could be 
+     *         established
+     */
+    protected int testConnectivity(URL theUrl)
+    {
+        int code;
+        try
+        {
+            HttpURLConnection connection = 
+                (HttpURLConnection) theUrl.openConnection();
+            connection.setRequestProperty("Connection", "close");
+            connection.connect();
+            readFully(connection);
+            connection.disconnect();
+            code = connection.getResponseCode();
+        }
+        catch (IOException e)
+        {
+            code = -1;
+        }
+        return code;
+    }
+
+    /**
+     * Tests whether an HTTP return code corresponds to a valid connection
+     * to the test URL or not. Success is 200 up to but excluding 300.
+     * 
+     * @param theCode the HTTP response code to verify
+     * @return <code>true</code> if the test URL could be called without error,
+     *         <code>false</code> otherwise
+     */
+    protected boolean isAvailable(int theCode)
+    {
+        boolean result;
+        if ((theCode != -1) && (theCode < 300)) 
+        {
+            result = true;            
+        }
+        else
+        {
+            result = false;
+        }
+        return result;
+    }
+
+    /**
+     * Fully reads the input stream from the passed HTTP URL connection to
+     * prevent (harmless) server-side exception.
+     *
+     * @param theConnection the HTTP URL connection to read from
+     * @exception IOException if an error happens during the read
+     */
+    protected void readFully(HttpURLConnection theConnection)
+        throws IOException
+    {
+        // Only read if there is data to read ... The problem is that not
+        // all servers return a content-length header. If there is no header
+        // getContentLength() returns -1. It seems to work and it seems
+        // that all servers that return no content-length header also do
+        // not block on read() operations!
+        if (theConnection.getContentLength() != 0)
+        {
+            byte[] buf = new byte[256];
+            InputStream in = theConnection.getInputStream();
+            while (in.read(buf) != -1)
+            {
+                // Make sure we read all the data in the stream
+            }
+        }
+    }
+
+    /**
+     * @return true if the server is running or false otherwise
+     */
+    protected boolean isRunning()
+    {
+        return this.isRunning;
+    }
 }

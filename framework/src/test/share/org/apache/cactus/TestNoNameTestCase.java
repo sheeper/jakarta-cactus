@@ -23,7 +23,7 @@ import junit.framework.TestCase;
 import org.apache.cactus.internal.AbstractCactusTestCase;
 import org.apache.cactus.internal.client.connector.http.HttpProtocolHandler;
 import org.apache.cactus.internal.configuration.BaseConfiguration;
-import org.apache.cactus.internal.configuration.ServletConfiguration;
+import org.apache.cactus.internal.configuration.DefaultServletConfiguration;
 import org.apache.cactus.internal.util.TestCaseImplementError;
 import org.apache.cactus.spi.client.connector.ProtocolHandler;
 
@@ -69,7 +69,7 @@ public class TestNoNameTestCase extends TestCase
          */
         protected ProtocolHandler createProtocolHandler()
         {
-            return new HttpProtocolHandler(new ServletConfiguration());
+            return new HttpProtocolHandler(new DefaultServletConfiguration());
         }
 
         /**

@@ -1,7 +1,7 @@
 /* 
  * ========================================================================
  * 
- * Copyright 2004 The Apache Software Foundation.
+ * Copyright 2001-2004 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,6 +25,30 @@ package org.apache.cactus.internal.configuration;
  *
  * @version $Id$
  */
-public interface JspConfiguration extends WebConfiguration
+public class DefaultJspConfiguration 
+    extends AbstractWebConfiguration implements JspConfiguration
 {
+    /**
+     * Name of the cactus property that specifies the name of the JSP
+     * redirector.
+     */
+    public static final String CACTUS_JSP_REDIRECTOR_NAME_PROPERTY = 
+        "cactus.jspRedirectorName";
+
+    /**
+     * @see WebConfiguration#getDefaultRedirectorName()
+     */
+    public String getDefaultRedirectorName()
+    {
+        String redirectorName = 
+            System.getProperty(CACTUS_JSP_REDIRECTOR_NAME_PROPERTY);
+
+        if (redirectorName == null)
+        {
+            redirectorName = "JspRedirector";
+        }
+
+        return redirectorName;
+    }
+
 }
