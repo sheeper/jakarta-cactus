@@ -22,6 +22,13 @@
         <link href="how_it_works.html">How it works</link> to understand the
         mechanism.
       </p>
+
+      <p>
+        Please also check the <link href="howto_runner.html">TestRunner
+        Howto</link> tutorial which explains all the different ways to
+        start a JUnit Test Runner.
+      </p>
+
       <note>
         <strong>It is very important that you understand what files you need
         to put in the client and server classpaths, as 99% of Cactus

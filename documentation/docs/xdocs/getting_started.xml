@@ -137,8 +137,8 @@
       <p>
         The next step is to understand how to set up Cactus in your environment.
         For this you'll need to understand <link href="howto_classpath.html">How
-        to setup Cactus classpaths</link> and <link href="howto_config.html">How
-        to configure Cactus</link>.
+        to setup Cactus classpaths and start Cactus tests</link> and
+        <link href="howto_config.html">How to configure Cactus</link>.
       </p>
       <p>
         Then, you should read the <link href="howto_testcase.html">TestCase

@@ -51,8 +51,8 @@
       <action dev="VMA" type="add">
         A cool new way to quickly execute your test cases : Cactus now has
         a JUnit Test Runner called ServletTestRunner (it is a servlet) that
-        you can use to quickly exercise your tests. See the tutorial
-        (forthcoming).
+        you start using your browser. See the
+        <link href="howto_runner.html">TestRunner Howto</link> tutorial.
       </action>
       <action dev="VMA" type="fix">
         Test classes are now first looked for using the Current classloader

@@ -1,0 +1,188 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE document SYSTEM "./dtd/document-v10.dtd">
+
+<document>
+  <header>
+    <title>TestRunner Howto</title>
+    <authors>
+      <person name="Vincent Massol" email="vmassol@apache.org"/>
+    </authors>
+  </header>
+
+  <body>
+
+    <s1 title="Starting Cactus tests">
+
+	  <p>
+        The Cactus tests are started using a JUnit Test Runner. There are
+        several configurations for executing these test runners :
+      </p>
+      <ul>
+        <li>
+          <jump anchor="from_ant">From Ant</jump>, by using the
+          <code>&lt;junit&gt;</code> task
+        </li>
+        <li>
+          <jump anchor="from_command_line">From the java command line</jump>,
+          calling the <code>main()</code> method of a Test Runner.
+        </li>
+        <li>
+          <jump anchor="from_ide">From an IDE</jump> or any tool providing a
+          JUnit integration plugin.
+        </li>
+        <li>
+          <jump anchor="from_browser">From a browser</jump>, by using the
+          Cactus Servlet Test Runner, which is a special JUnit Test Runner.
+        </li>
+      </ul>
+
+    </s1>
+
+    <anchor id="from_ant"/>
+    <s1 title="Running Cactus tests from Ant">
+
+      <p>
+        Refer to the <link href="howto_ant.html">Ant Howto</link>.
+      </p>
+
+    </s1>
+
+    <anchor id="from_command_line"/>
+    <s1 title="Running Cactus tests from the command line">
+
+      <p>
+        You need to set up your classpath in the same way as when you run
+        Cactus tests from Ant. However, you start the test with the following
+        command line (this is an example using the Swing UI TestRunner found
+        in the junit jar) :
+      </p>
+      <p>
+        <code>junit.swingui.TestRunner.main [test case class]</code>
+      </p>
+
+    </s1>
+
+    <anchor id="from_ide"/>
+    <s1 title="Running Cactus tests from an IDE">
+
+      <p>
+        Refer to the <link href="howto_ide.html">IDE Howto</link>.
+      </p>
+
+    </s1>
+
+    <anchor id="from_browser"/>
+    <s1 title="Running Cactus tests from a browser">
+
+      <note>
+        This section only applies for Cactus 1.4 and greater.
+      </note>
+
+      <s2 title="Step 1 : Setting up the classpath">
+
+        <p>
+          In order to run Cactus tests from a browser you need to have a webapp
+          containing your classes to test and your test classes. In addition,
+          both Cactus client side and server side jar classes must be able to be
+          loaded from your webapp (i.e located in your <code>WEB-INF/lib</code>
+          directory or in a location available through your container Context
+          class loader (refer to your container documentation).
+        </p>
+
+        <note>
+          Refer to the <link href="howto_classpath.html">Classpath Howto</link>
+          guide for the exact list of jars.
+        </note>
+
+      </s2>
+
+      <s2 title="Step 2 : Mapping the Cactus Servlet Test Runner">
+
+        <p>
+          Then, in addition to the Cactus redirectors that you have mapped in
+          your <code>web.xml</code> (see the
+          <link href="howto_config.html">Configuration howto</link>), you also
+          need to map the Cactus Servlet Test Runner, as follows :
+        </p>
+
+<source><![CDATA[
+[...]
+<servlet>
+    <servlet-name>ServletTestRunner</servlet-name>
+    <servlet-class>org.apache.cactus.server.runner.ServletTestRunner</servlet-class>
+</servlet>
+[...]
+<servlet-mapping>
+    <servlet-name>ServletTestRunner</servlet-name>
+    <url-pattern>/ServletTestRunner</url-pattern>
+</servlet-mapping>
+[...]
+]]></source>
+
+      </s2>
+
+      <s2 title="Step 3 : cactus.properties">
+
+        <p>
+          Lastly, you need to ensure you have put your
+          <code>cactus.properties</code> file in your webapp
+          <code>WEB-INF/classes</code> directory.
+        </p>
+
+      </s2>
+
+      <s2 title="Step 4 : Executing the tests">
+
+        <p>
+          Open a browser and type <code>http://server:port/mywebapp/ServletTestRunner?suite=mytestcase</code>
+          where :
+        </p>
+        <ul>
+          <li>
+            <code>server:port</code> is the name of your server machine and
+            port on which your container is running
+          </li>
+          <li>
+            <code>mywebapp</code> is the name of your webapp (usually the name
+            of your war file)
+          </li>
+          <li>
+            <code>mytestcase</code> is the fully qualified name (i.e. with
+            packages) of your <code>TestCase</code> class containing a
+            <code>suite()</code> method listing all the tests, in standard
+            JUnit fashion.
+          </li>
+        </ul>
+
+        <p>
+          Here is an example of what you will get :
+        </p>
+
+        <figure src="images/servlettestrunner_xml.jpg" alt="XML output of ServletTestRunner"/>
+
+        <p>
+          Ok, that's nice ... But what if I want HTML instead of XML ? Don't
+          worry there is a solution. Grab the following
+          <link href="http://cvs.apache.org/viewcvs/~checkout~/jakarta-ant/src/etc/junit-noframes.xsl?rev=1.7">stylesheet</link>
+          used to format JUnitReport Ant task results and drop it in your
+          webapp and name it <code>junit-noframes.xsl</code> (in the root
+          directory for example). Then, open a browser and type
+          <code>http://server:port/mywebapp/ServletTestRunner?suite=mytestcase&amp;xsl=junit-noframes.xsl</code>.
+          You should see the following :
+        </p>
+
+        <figure src="images/servlettestrunner_html.jpg" alt="HTML output of ServletTestRunner"/>
+
+        <note>
+          This will work with Internet Explorer as the XSL transformation is
+          performed on the client side (i.e by the browser). I'm not sure
+          about other browsers.
+        </note>
+
+      </s2>
+
+    </s1>
+
+  </body>
+</document>
