@@ -5,6 +5,15 @@
     Build file for the Cactus project. This build file will call the
     build-servletapi.xml build file for several Servlet API (2.2 and 2.3).
 
+    The following Ant tasks must be available in your ant installation
+    (i.e. the Ant task themselves and their dependent jars need to be put
+    in ANT_HOME/lib) :
+
+        stylebook             [REQUIRED] For builing the documentation and
+                               web site.
+
+        junit                 [REQUIRED] For running the unit tests.
+
     The following properties need to be set in a ./build.properties or
     or ${user.home}/build.properties file :
 
@@ -17,21 +26,20 @@
                               API
 
         junit.jar             [REQUIRED] The path to the JUnit jar file.
-                              Required for running the sample application
-                              unit tests.
+                              Required for compiling Cactus classes.
 
         httpunit.jar          [REQUIRED] The path to the HttpUnit jar file.
-                              Required for the unit tests.
+                              Required for compiling and running the unit
+                              tests (used in build-servletapi.xml).
 
-        log4j.jar             [REQUIRED] The path to the Log4j jar file
+        httpclient.jar        [REQUIRED] The path to the Commons HttpClient
+                              jar file. Required for performing all Cactus
+                              HTTP requests. It is also required for
+                              bundling it in the the distribution.
 
-        stylebook.jar         [REQUIRED] The path to the Stylebook jar file.
-
-        xerces.jar            [REQUIRED] The path to the Xerces jar file.
-
-        xalan.jar             [REQUIRED] The path to the Xalan jar file.
-
-        crimson.jar           [REQUIRED] The path to the Crimson jar file.
+        log4j.jar             [REQUIRED] The path to the Log4j jar file.
+                              Required for bundling it in the distribution
+                              (used in build-servletapi.xml).
 
         dist.dir              [OPTIONAL] The directories where distributable
                               files will be copied with version number
@@ -430,9 +438,6 @@
 
             <classpath>
                 <pathelement path="${java.class.path}"/>
-                <pathelement location="${stylebook.jar}"/>
-                <pathelement location="${xerces.jar}"/>
-                <pathelement location="${xalan.jar}"/>
             </classpath>
 
         </stylebook>
@@ -583,12 +588,20 @@
         <zip zipfile="${dist.src.name}">
 
             <zipfileset dir="." prefix="${project.name}-${DSTAMP}">
-                <exclude name="${out.root.dir}/**"/>
+
+                <include name="${build.dir}/**"/>
+                <include name="${conf.dir}/**"/>
+                <include name="${doc.root.dir}/**"/>
+                <include name="${src.dir}/**"/>
+                <include name="${web.dir}/**"/>
+                <include name="LICENSE"/>
+                <include name="README"/>
+
                 <exclude name="**/build.properties"/>
                 <exclude name="**/*.log"/>
                 <exclude name="**/*.bak"/>
                 <exclude name="**/*.class"/>
-                <exclude name="${dist.dir}/**"/>
+
             </zipfileset>
         </zip>
 
