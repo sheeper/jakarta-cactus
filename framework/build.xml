@@ -549,6 +549,7 @@
             headerFile="./LICENSE.cactus"
             failOnViolation="true"
             wrapOp="ignore"
+            maxParameters="10"
             cacheFile="${target.dir}/checkstyle.cache">
 
             <fileset dir="${src.java.dir}">
