@@ -64,7 +64,7 @@
             <arg value="resin.conf"/>
 
             <!-- Needed so that Resin use the cactus.home.resin2x variable as 
-                 it's root directory for resolving file paths -->
+                 its root directory for resolving file paths -->
             <sysproperty key="resin.home" file="${cactus.target.resin2x}"/>
 
             <classpath>
