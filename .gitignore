@@ -41,6 +41,7 @@ integration/eclipse/ant
 integration/eclipse/bin
 integration/eclipse/build-local.xml
 integration/eclipse/build.properties
+integration/eclipse/cactussupportsrc.jar
 integration/eclipse/dist
 integration/eclipse/dist-12
 integration/eclipse/dist-13
