@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<!DOCTYPE navigation
-  PUBLIC "-//Apache Software Foundation//DTD Cactus Navigation V1.0//EN"
+<!DOCTYPE navigation PUBLIC
+  "-//Apache Software Foundation//DTD Cactus Navigation V1.0//EN"
   "file:../dtds/navigation-v10.dtd">
 
 <navigation>
@@ -24,7 +24,6 @@
   </menu>
 
   <menu label="Documentation">
-    <item label="Site Map" id="sitemap"/>
     <item label="How it works?" id="how_it_works"/>
     <item label="Getting Started" id="getting_started"/>
     <item label="Mock vs Container" id="mockobjects"/>

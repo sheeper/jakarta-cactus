@@ -36,7 +36,7 @@
        sitemap.xml placed at the same level as the xdoc files. 
        The path we specify is relative to where this stylesheet is located -->
   <xsl:variable name="sitemap" 
-    select="document(concat($xdocdir,'/',$sitefile))/document/body/sitemap"/>
+    select="document(concat($xdocdir,'/',$sitefile))/sitemap"/>
 
   <!-- The current document being processed. Note: This is needed for the
        "get-base-directory" template as it can be called with another
@@ -98,7 +98,7 @@
       </xsl:with-param>
     </xsl:call-template>
   </xsl:template>
-  
+
   <xsl:template name="get-base-directory-internal">
     <xsl:param name="file"/>
     <xsl:choose>

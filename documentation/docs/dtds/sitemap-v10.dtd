@@ -1,0 +1,30 @@
+<!-- ===================================================================
+
+     Apache Cactus Sitemap DTD (Version 1.0)
+
+PURPOSE:
+  This DTD defines the structure of the Sitemap used as a central URI
+  management isntance for Cactus documentation.
+
+TYPICAL INVOCATION:
+
+  <!DOCTYPE sitemap PUBLIC
+       "-//Apache Software Foundation//DTD Cactus Sitemap V1.0//EN"
+       "sitemap-v10.dtd">
+
+==================================================================== -->
+
+
+<!-- =============================================================== -->
+<!-- Sitemap -->
+<!-- =============================================================== -->
+
+<!ELEMENT sitemap (resource*)>
+
+<!ELEMENT resource (#PCDATA)>
+<!ATTLIST resource
+    id ID #REQUIRED
+    source CDATA #IMPLIED
+    href CDATA #IMPLIED
+    name CDATA #IMPLIED
+>

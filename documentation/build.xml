@@ -139,6 +139,8 @@
         <xmlcatalog id="documentation.dtds">
           <dtd publicId="-//Apache Software Foundation//DTD Cactus Navigation V1.0//EN"
               location="${doc.dtd.dir}/navigation-v10.dtd"/>
+          <dtd publicId="-//Apache Software Foundation//DTD Cactus Sitemap V1.0//EN"
+              location="${doc.dtd.dir}/sitemap-v10.dtd"/>
         </xmlcatalog>
 
     </target>
@@ -220,7 +222,9 @@
         </taskdef>
 
         <!-- Check the sitemap for invalid links -->
-        <checksitemap sitemap="${target.xdoc.dir}/sitemap.xml"/>
+        <checksitemap sitemap="${target.xdoc.dir}/sitemap.xml">
+          <xmlcatalog refid="documentation.dtds"/>
+        </checksitemap>
 
     </target>
 
@@ -234,6 +238,7 @@
             <xmlcatalog refid="documentation.dtds"/>
 
             <include name="**/*.xml"/>
+            <exclude name="sitemap.xml"/>
             <exclude name="**/navigation.xml"/>
             <exclude name="**/cvslog.xml"/>
 

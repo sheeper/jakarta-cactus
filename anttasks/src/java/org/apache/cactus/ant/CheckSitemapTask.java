@@ -66,6 +66,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.Task;
+import org.apache.tools.ant.types.XMLCatalog;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -96,6 +97,11 @@ public class CheckSitemapTask extends Task
     private File sitemapDir;
 
     /**
+     * For resolving entities such as DTDs.
+     */
+    private XMLCatalog xmlCatalog = new XMLCatalog();
+
+    /**
      * Sets the location of the sitemap file.
      * 
      * @param theSitemap The sitemap file
@@ -113,6 +119,26 @@ public class CheckSitemapTask extends Task
     public void setFailOnError(boolean theFailOnError)
     {
         this.failOnError = theFailOnError;
+    }
+
+    /**
+     * Add the catalog to our internal catalog
+     *
+     * @param theXmlCatalog the XMLCatalog instance to use to look up DTDs
+     */
+    public void addConfiguredXMLCatalog(XMLCatalog theXmlCatalog)
+    {
+        this.xmlCatalog.addConfiguredXMLCatalog(theXmlCatalog);
+    }
+
+    /**
+     * @see Task#init()
+     */
+    public void init() throws BuildException
+    {
+        super.init();
+        // Initialize internal instance of XMLCatalog
+        this.xmlCatalog.setProject(getProject());
     }
 
     /**
@@ -139,6 +165,7 @@ public class CheckSitemapTask extends Task
         try
         {
             DocumentBuilder builder = getDocumentBuilder();
+            builder.setEntityResolver(this.xmlCatalog);
             Document document = builder.parse(sitemap);
             if (!checkSitemap(document) && (this.failOnError))
             {
@@ -183,11 +210,8 @@ public class CheckSitemapTask extends Task
      */
     private boolean checkSitemap(Document theDocument)
     {
-        Element root =
-            (Element) theDocument.getElementsByTagName("document").item(0);
-        Element body = (Element) root.getElementsByTagName("body").item(0);
         Element sitemap =
-            (Element) body.getElementsByTagName("sitemap").item(0);
+            (Element) theDocument.getElementsByTagName("sitemap").item(0);
         NodeList resources = sitemap.getElementsByTagName("resource");
         boolean success = true;
         for (int i = 0; i < resources.getLength(); i++)
