@@ -122,12 +122,7 @@
             <table width="100%">
               <tr>
                 <td id="breadCrumbs" width="50%">
-                  <script language="JavaScript" type="text/javascript">
-                    <xsl:attribute name="src">
-                      <xsl:value-of select="$basedir"/>
-                      <xsl:text>js/breadcrumbs.js</xsl:text>
-                    </xsl:attribute>
-                  </script>
+                  <xsl:call-template name="generate-breadcrumbs"/>
                 </td>
                 <td id="status" width="50%">
                   Docs for:
@@ -821,7 +816,46 @@
         </xsl:if>
       </td>
     </tr>
- </xsl:template>
+  </xsl:template>
+
+  <!-- ==================================================================== -->
+  <!-- Generate the breadcrumbs trail -->
+  <!-- ==================================================================== -->
+  <xsl:template name="generate-breadcrumbs">
+    <!-- Per directory navigation file -->
+    <xsl:param name="dir">
+      <xsl:call-template name="get-directory">
+        <xsl:with-param name="file">
+          <xsl:call-template name="get-target"/>
+        </xsl:with-param>
+      </xsl:call-template>
+    </xsl:param>
+    <xsl:choose>
+      <xsl:when
+          test="document(concat($xdocdir,'/',$dir,'../navigation.xml'))/navigation">
+        <xsl:call-template name="generate-breadcrumbs">
+          <xsl:with-param name="dir" select="concat($dir,'../')"/>
+        </xsl:call-template>
+        <xsl:text> &gt; </xsl:text>
+      </xsl:when>
+      <xsl:otherwise>
+        <a href="http://www.apache.org/">Apache</a>
+        <xsl:text> &gt; </xsl:text>
+        <a href="http://jakarta.apache.org/">Jakarta</a>
+        <xsl:text> &gt; </xsl:text>
+      </xsl:otherwise>
+    </xsl:choose>
+    <xsl:variable name="curnav"
+        select="document(concat($xdocdir,'/',$dir,'navigation.xml'))/navigation"/>
+    <a>
+      <xsl:attribute name="href">
+        <xsl:call-template name="get-target-file">
+          <xsl:with-param name="id" select="$curnav/@index"/>
+        </xsl:call-template>
+      </xsl:attribute>
+      <xsl:value-of select="$curnav/@title"/>
+    </a>
+  </xsl:template>
 
   <!-- ==================================================================== -->
   <!-- Apply the navigation file -->
