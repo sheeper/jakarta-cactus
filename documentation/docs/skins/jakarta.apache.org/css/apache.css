@@ -141,6 +141,15 @@ img {
     font-weight: lighter;
     white-space: nowrap;
   }
+  #navigation a:link, #navigation a:visited {
+    padding: 2px 3px;
+    text-decoration: none;
+  }
+  #navigation a.currentPage {
+    border: solid 1px #023264;
+    padding: 1px 2px;
+    color: gray;
+  }
 }
 @media print {
   #sidebar {
