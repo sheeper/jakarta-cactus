@@ -14,6 +14,7 @@ anttasks/target
 documentation/ant.bat
 documentation/build.properties
 documentation/dist
+documentation/docs/xdocs/cvslog/cvslog.xml
 documentation/target
 framework/ant.bat
 framework/build.properties
