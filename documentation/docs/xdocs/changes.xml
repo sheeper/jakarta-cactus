@@ -73,9 +73,6 @@
           own CVS. It is now in the Cactus CVS and is part of the Cactus
           distribution.
         </action>
-      </release>
-
-      <release version="1.5-rc2" date="in CVS">
         <action dev="VMA" type="fix" fixes-bug="24072" due-to="James Stangler" due-to-email="jastangler@yahoo.com">
           The Jetty Test Setup was not shutting Jetty down if an error ocurred
           during setUp.
