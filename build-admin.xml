@@ -1,0 +1,123 @@
+<?xml version="1.0"?>
+
+<!--
+  =============================================================================
+    Build file for Cactus related administrative tasks (build and upload the
+    Cactus web site, upload a distribution, etc).
+
+    The following properties need to be set in either a ./build.properties or
+    a ${user.home}/build.properties one or in a calling Ant script :
+
+        jakarta.username       [OPTIONAL] Needed for the deploy.website target.
+                               It is the username to use when connecting to
+                               jakarta.apache.org.
+
+    This script should be started with the following command line :
+
+        ant <target>
+
+    Run "ant -projecthelp" to get a list of available targets. The default
+    target is "dist"
+  =============================================================================
+-->
+<project name="Cactus Administration" default="website" basedir=".">
+
+    <!-- Give user a chance to override without editing this file
+         (and without typing -D each time it compiles it) -->
+    <property file="build.properties" />
+    <property file="${user.home}/build.properties" />
+
+    <!-- Global project properties -->
+    <property name="project.name.text" value="Cactus Administration"/>
+
+    <!-- Prefix to add to all distributable files -->
+    <property name="project.prefix" value="jakarta-"/>
+
+    <property name="year" value="2000-2002"/>
+
+    <!--
+       ========================================================================
+         Set the properties related to the target area
+       ========================================================================
+    -->
+    <!-- Distribution directory, i.e. where the expanded distibutable files
+         are located -->
+    <property name="dist.dir" value="dist"/>
+
+    <!-- Release directory, i.e. where the zipped distribution is located -->
+    <property name="release.dir" value="release"/>
+
+    <!--
+       ========================================================================
+         Initialize the build. Must be called by all targets
+       ========================================================================
+    -->
+    <target name="init">
+
+        <tstamp/>
+
+        <echo message="----- ${project.name.text} -----"/>
+        <echo message=""/>
+        <echo message="java.class.path = ${java.class.path}"/>
+        <echo message=""/>
+
+    </target>
+
+    <!--
+       ========================================================================
+         Deploy the web site to the Jakarta server, using the 'scp'
+         and 'ssh' commands.
+
+         Note 1 : This target does not deploy the javadoc
+         Note 2 : The property "jakarta.username" need to be passed
+         to Ant when calling this target.
+       ========================================================================
+    -->
+    <target name="deploy.website" depends="clean" if="jakarta.username"
+        description="Deploy the Cactus web site">
+
+        <mkdir dir="${release.dir}"/>
+
+        <!-- Generate the website first -->
+        <ant target="dist.documentation" inheritAll="false"/>
+
+        <!-- Zip it up -->
+        <property name="cactus.website.name"
+            value="${project.prefix}cactus-website-${DSTAMP}"/>
+
+        <tar tarfile="${release.dir}/${cactus.website.name}.tar">
+            <tarfileset dir="${dist.dir}/doc">
+                <exclude name="api/**"/>
+            </tarfileset>
+        </tar>
+        <gzip zipfile="${release.dir}/${cactus.website.name}.tar.gz"
+            src="${release.dir}/${cactus.website.name}.tar"/>
+        <delete file="${release.dir}/${cactus.website.name}.tar"/>
+
+        <property name="cactus.homepage"
+            value="/www/jakarta.apache.org/cactus"/>
+
+        <exec dir="." executable="scp">
+            <arg value="${release.dir}/${cactus.website.name}.tar.gz"/>
+            <arg value="${jakarta.username}@jakarta.apache.org:${cactus.homepage}"/>
+        </exec>
+
+        <exec dir="." executable="ssh">
+            <arg line="-l ${jakarta.username} jakarta.apache.org 'cd ${cactus.homepage};gunzip ${cactus.website.name}.tar.gz;tar xvf ${cactus.website.name}.tar;rm ${cactus.website.name}.tar'"/>
+        </exec>
+
+    </target>
+
+   <!--
+       ========================================================================
+         Clean generated files (including distributables)
+       ========================================================================
+    -->
+    <target name="clean" depends="init" description="Clean all generated files">
+
+        <delete dir="${dist.dir}"/>
+        <delete dir="${release.dir}"/>
+
+    </target>
+
+</project>

@@ -1,0 +1,126 @@
+    <!-- 
+       ========================================================================
+         Run WebLogic 5.1 tests
+       ========================================================================
+    -->
+    <target name="test.weblogic.51" depends="prepare.test.weblogic.51"
+        if="weblogic.home.51" description="Run tests on WebLogic 5.1">
+
+        <!-- Start the servlet engine, wait for it to be started, run the
+             unit tests, stop the servlet engine, wait for it to be stopped.
+             The servlet engine is stopped if the tests fail for any reason -->
+
+        <runservertests testURL="http://localhost:${test.port}/test"
+            startTarget="start.weblogic.51"
+            stopTarget="stop.weblogic.51"
+            testTarget="test"/>
+
+    </target>
+
+    <!-- 
+       ========================================================================
+         Start WebLogic 5.1
+       ========================================================================
+    -->
+    <target name="start.weblogic.51">
+
+        <java classname="weblogic.Server" fork="yes">
+
+            <classpath>
+              <pathelement location="${weblogic.home.51}/lib/weblogic510sp8boot.jar"/>
+              <pathelement location="${weblogic.home.51}/classes/boot"/>
+            </classpath>
+
+            <jvmarg value="-ms64m"/>
+            <jvmarg value="-mx64m"/>
+            <jvmarg value="-Dweblogic.class.path=${weblogic.home.51}/lib/weblogic510sp8.jar;${weblogic.home.51}/license;${weblogic.home.51}/classes;${weblogic.home.51}/lib/weblogicaux.jar"/>
+            <jvmarg value="-Dweblogic.home=${target.weblogic51.dir}"/>
+            <jvmarg value="-Dweblogic.system.home=${target.weblogic51.dir}"/>
+            <jvmarg value="-Dweblogic.system.name=testinstance"/>
+            <jvmarg value="-Djava.security.manager"/>
+            <jvmarg value="-Djava.security.policy==${conf.weblogic51.dir}/weblogic.policy"/>
+
+        </java>
+
+    </target>
+
+    <!-- 
+       ========================================================================
+         Stop WebLogic 5.1
+       ========================================================================
+    -->
+    <target name="stop.weblogic.51">
+
+        <java classname="weblogic.Admin" fork="yes">
+
+            <classpath>
+                <pathelement location="${weblogic.home.51}/lib/weblogic510sp8.jar"/>
+                <pathelement location="${weblogic.home.51}/license"/>
+                <pathelement location="${weblogic.home.51}/classes"/>
+                <pathelement location="${weblogic.home.51}/lib/weblogicaux.jar"/>
+            </classpath>
+
+            <arg value="t3://localhost:${test.port}/test"/>
+            <arg value="SHUTDOWN"/>
+            <arg value="system"/>
+            <arg value="password"/>
+
+        </java>
+
+    </target>
+
+    <!-- 
+       ========================================================================
+         Display a warning message if the needed servlet engine home property
+         is not set
+       ========================================================================
+    -->
+    <target name="check.test.weblogic.51" depends="testwar"
+        unless="weblogic.home.51">
+
+        <echo message=""/>
+        <echo message="******************************************************"/>
+        <echo message="WARNING : The 'weblogic.home.51' property has not been"/>
+        <echo message="set. No test will be run on that servlet engine."/>
+        <echo message="******************************************************"/>
+        <echo message=""/>
+
+    </target>
+
+    <!-- 
+       ========================================================================
+         Prepare directories and variables for running the tests
+       ========================================================================
+    -->
+    <target name="prepare.test.weblogic.51"
+        depends="check.test.weblogic.51,prepare.test" if="weblogic.home.51">
+
+        <echo message="weblogic.home.51 = ${weblogic.home.51}"/>
+
+        <property name="target.weblogic51.dir"
+            value="${target.test.dir}/weblogic51"/>
+        <property name="conf.weblogic51.dir"
+            value="${conf.test.dir}/weblogic51"/>
+        <filter token="target.wlinstance.dir"
+            value="${target.weblogic51.dir}/testinstance"/>
+
+        <mkdir dir="${target.weblogic51.dir}/testinstance"/>
+
+        <!-- Delete some config file so that they will be copied every time -->
+        <delete file="${target.weblogic51.dir}/weblogic.properties"/>
+
+        <copy file="${conf.weblogic51.dir}/weblogic.properties"
+            tofile="${target.weblogic51.dir}/weblogic.properties"
+            filtering="on"/>
+
+        <!-- Copy the war file -->
+        <copy file="${target.test.dir}/test.war"
+            tofile="${target.weblogic51.dir}/testinstance/test.war"/>
+
+        <!-- This is needed here because WebLogic 5.1 does not support
+             automatic war deployment (except with latest Service Packs and
+             even when it does there are issues with support files -->
+        <unwar src="${target.weblogic51.dir}/testinstance/test.war"
+            dest="${target.weblogic51.dir}/testinstance/test"/>
+
+    </target>

@@ -1,0 +1,69 @@
+# -----------------------------------------------------------------------------
+# build.properties.sample
+#
+# This is an example "build.properties" file, used to customize building the
+# Cactus Servlet Sample for your local environment.  Make any changes you need,
+# and rename this file to "build.properties" in the same directory that
+# contains the "build.xml" file.
+#
+# $Id$
+# -----------------------------------------------------------------------------
+
+# WARNING:  The relative paths below are relative to the directory where the
+# build.xml file is located.
+
+# -----------------------------------------------------------------------------
+# Mandatory properties
+# -----------------------------------------------------------------------------
+
+# The location of the Cactus framework jar
+cactus.framework.jar = ../lib/cactus.jar
+
+# The location of the Cactus custom Ant tasks jar
+cactus.ant.jar = ../lib/cactus-ant.jar
+
+# The location of the Servlet API 2.2 jar (not provided with the Cactus
+# distribution)
+servlet.jar = ../lib/servlet.jar
+
+# The location of the AspectJ runtime jar
+aspectjrt.jar = ../lib/aspectjrt.jar
+
+# The location of the log4j jar (optional). Only needed if you want Cactus to
+# generate logs
+log4j.jar = ../lib/log4j.jar
+
+# The location of the Commons Httpclient jar
+commons.httpclient.jar = ../lib/commons-httpclient.jar
+
+# The location of the Junit jar
+junit.jar = ../lib/junit.jar
+
+# The location of the Httpunit jar
+httpunit.jar = ../lib/httpunit.jar
+
+# -----------------------------------------------------------------------------
+# Optional properties
+# -----------------------------------------------------------------------------
+
+# The port to use for starting the servers during unit testing. If not
+# sepcified, it defaults to port 8080.
+#test.port = 8081
+
+# Servlet engine locations for the tests
+
+# Note: If you don't want to run the test on a given servlet engine, just
+#       comment it's home property. For example, if you don't want to run the
+#       tests on the Resin 1.2, comment the "resin.home.12" property.
+
+#resin.home.20 = c:/apps/resin-2.0.5
+#resin.home.12 = f:/applis/resin-1.2.5
+#tomcat.home.32 = c:/apps/jakarta-tomcat-3.2.4
+#tomcat.home.33 = f:/applis/jakarta-tomcat-3.3-m4
+#orion.home.15 = f:/applis/orion-1.5.2
+#weblogic.home.51 = e:/weblogic
+#enhydra.home.31 =
+
+# Note: There seems to be a bug in Orion 1.4 preventing it to run correctly
+#       the testSendUserData() test. It runs fine in Orion 1.5 though.
+#orion.home.14 = f:/applis/orion-1.4.5
