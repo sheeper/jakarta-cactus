@@ -98,7 +98,7 @@ public class TestAll extends TestCase
         // Note: This test need to run first. See the comments in the
         // test class for more information on why
         suite.addTest(
-            org.apache.cactus.unit.TestServletTestCase_TestResult.suite());
+            org.apache.cactus.unit.TestServletTestCaseTestResult.suite());
 
         // AbstractTestCase related tests
         suite.addTestSuite(
@@ -111,12 +111,12 @@ public class TestAll extends TestCase
         suite.addTest(org.apache.cactus.unit.TestServletTestCase4.suite());
         suite.addTest(org.apache.cactus.unit.TestServletTestCase5.suite());
         suite.addTest(
-            org.apache.cactus.unit.TestServletTestCase_OverrideRedirector
+            org.apache.cactus.unit.TestServletTestCaseOverrideRedirector
             .suite());
         suite.addTest(
             org.apache.cactus.unit.TestServletTestCaseAuthentication.suite());
         suite.addTest(
-            org.apache.cactus.unit.TestServletTestCase_HttpUnit.suite());
+            org.apache.cactus.unit.TestServletTestCaseHttpUnit.suite());
 
         // Test cases specific to Servlet API 2.2 only
         suite.addTest(
