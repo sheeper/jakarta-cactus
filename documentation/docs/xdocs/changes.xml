@@ -105,6 +105,10 @@ Note: To be added once we include the Eclipse plugin in a release
           is useful for users who have defined their own JBoss 
           configuration and are using a port other than 8080.
         </action>
+        <action dev="VMA" type="fix" fixes-bug="21892" due-to="Christopher Marshall" due-to-email="cmarshall@infoclarus.com">
+          Fixed bug in Eclipse plugin build where the plugin version was not
+          correctly resolved.
+        </action>
       </release>
       	
       <release version="1.5" date="14 July 2003">
