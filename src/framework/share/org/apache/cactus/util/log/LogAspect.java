@@ -70,28 +70,28 @@ public aspect LogAspect
      * perform the logging and thus at execution time we would enter an infinite recursive loop.
      */
     pointcut logObjectCalls() :
-        call(public * org.apache.cactus.util.log..*(..));
+        execution(public * org.apache.cactus.util.log..*(..));
 
     /**
      * All public static methods that have parameters.
      */
     pointcut publicStaticMethodsWithParameterCalls() :
-        !call(public static * org.apache.cactus..*()) &&
-        call(public static * org.apache.cactus..*(..));
+        !execution(public static * org.apache.cactus..*()) &&
+        execution(public static * org.apache.cactus..*(..));
 
     /**
      * All public methods that have parameters.
      */
     pointcut publicMethodsWithParameterCalls() :
-        !call(public * org.apache.cactus..*()) &&
-        call(public * org.apache.cactus..*(..));
+        !execution(public * org.apache.cactus..*()) &&
+        execution(public * org.apache.cactus..*(..));
 
     /**
      * All public methods that return values
      */
     pointcut publicMethodsWithReturnValueCalls() :
-        !call(public void org.apache.cactus..*(..)) &&
-        call(public * org.apache.cactus..*(..));
+        !execution(public void org.apache.cactus..*(..)) &&
+        execution(public * org.apache.cactus..*(..));
 
     /**
      * Log all entries and exits of static methods that have no return values.
