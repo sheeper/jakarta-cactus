@@ -93,7 +93,7 @@
       <pathelement location="${xmlapis.jar}"/>
       
       <!-- Required for Gump -->
-      <pathelement location="${java.class.path}"/>
+      <pathelement path="${java.class.path}"/>
       
     </path>
 

@@ -105,7 +105,7 @@
 
     <javac srcdir="${src.java.dir}" destdir="${target.classes.java.dir}"
         deprecation="${deprecation}" optimize="${optimize}"
-        debug="${debug}"/>
+        debug="${debug}" classpath="${java.class.path}"/>
 
   </target>
 
