@@ -384,22 +384,19 @@
 
       <depend property="j2ee.jar" project="jakarta-servletapi"/>
       <depend property="log4j.jar" project="jakarta-log4j" id="log4j"/>
-      <depend property="commons.logging.jar" project="commons-logging" 
+      <depend property="commons.logging.jar" project="commons-logging"
         id="all"/>
       <depend property="commons.httpclient.jar" project="commons-httpclient"/>
       <depend property="httpunit.jar" project="httpunit"/>
       <depend property="aspectjrt.jar" project="aspectj" id="aspectjrt"/>
       <depend property="junit.jar" project="junit"/>
-      <depend property="jstl.jar" project="jakarta-taglibs-standard" 
-        id="jstl"/>
-      <depend property="standard.jar" project="jakarta-taglibs-standard"
-        id="standard"/>
       <depend property="nekohtml.jar" project="nekohtml" id="nekohtml"/>
       <depend property="cactus.jar" project="jakarta-cactus-framework-12"/>
       <depend property="cactus.ant.jar"
       	project="jakarta-cactus-integration-ant-12"/>
       <property name="cactus.port" value="8082"/>
-      <property name="cactus.home.tomcat3x" reference="home" project="jakarta-tomcat"/>
+      <property name="cactus.home.tomcat3x" reference="home"
+        project="jakarta-tomcat"/>
 
     </ant>
   

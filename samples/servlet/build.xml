@@ -201,11 +201,18 @@
             <available file="${commons.logging.jar}"/>
             <available file="${httpunit.jar}"/>
             <available file="${j2ee.jar}"/>
-            <available file="${jstl.jar}"/>
+            <or>
+              <not>
+                <isset property="j2ee13.available"/>
+              </not>
+              <and>
+                <available file="${jstl.jar}"/>
+                <available file="${standard.jar}"/>
+              </and>
+            </or>
             <available file="${junit.jar}"/>
             <available file="${log4j.jar}"/>
             <available file="${nekohtml.jar}"/>
-            <available file="${standard.jar}"/>
             <!-- Check for a JAXP class instead of the xmlapis.jar file so that
                  the build works on JDK 1.4 without needing to define the
                  xmlapis.jar property -->
