@@ -379,7 +379,6 @@ public class WebXmlMergeTask extends Task
             outputFormat.setPreserveSpace(false);
             XMLSerializer serializer = new XMLSerializer(out, outputFormat);
             serializer.serialize(theWebXml.getDocument());
-            System.out.println();
         }
         finally
         {
