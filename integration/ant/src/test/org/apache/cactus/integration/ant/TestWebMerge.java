@@ -94,11 +94,11 @@ public class TestWebMerge extends TestCase
             + "    <servlet-name>s2</servlet-name>".trim()
             + "    <servlet-class>sclass2</servlet-class>".trim()
             + "  </servlet>".trim()
+            + "  <security-constraint/>".trim()
             + "  <security-role>".trim()
             + "    <description>Test role</description>".trim()
             + "    <role-name>test</role-name>".trim()
             + "  </security-role>".trim()
-            + "  <security-constraint/>".trim()
             + "</web-app>".trim();
         WebMerge webMerge = new WebMerge();
         return webMerge.parse(new ByteArrayInputStream(xml.getBytes())); 
@@ -120,11 +120,15 @@ public class TestWebMerge extends TestCase
             + "    <servlet-name>s4</servlet-name>".trim()
             + "    <servlet-class>sclass4</servlet-class>".trim()
             + "  </servlet>".trim()
+            + "  <security-constraint/>".trim()
             + "  <login-config>".trim()
             + "    <auth-method>BASIC</auth-method>".trim()
             + "    <realm-name>Test</realm-name>".trim()
             + "  </login-config>".trim()
-            + "  <security-constraint/>".trim()
+            + "  <security-role>".trim()
+            + "    <description>Test role</description>".trim()
+            + "    <role-name>test</role-name>".trim()
+            + "  </security-role>".trim()
             + "</web-app>".trim();
 
         WebMerge webMerge = new WebMerge();
@@ -138,26 +142,63 @@ public class TestWebMerge extends TestCase
         return doc;
     }        
 
-    private void verifyMergedDocument(Node theCurrent)
+    private Document createResultDocument() throws Exception
     {
-        assertEquals("servlet", theCurrent.getNodeName());
-        assertEquals("s3", 
-            theCurrent.getFirstChild().getFirstChild().getNodeValue());
+        String xml = 
+              "<web-app>".trim()
+            + "  <filter>".trim()
+            + "    <filter-name>f1</filter-name>".trim()
+            + "    <filter-class>fclass1</filter-class>".trim()
+            + "  </filter>".trim()
+            + "  <servlet>".trim()
+            + "    <servlet-name>s3</servlet-name>".trim()
+            + "    <servlet-class>sclass3</servlet-class>".trim()
+            + "  </servlet>".trim()
+            + "  <servlet>".trim()
+            + "    <servlet-name>s4</servlet-name>".trim()
+            + "    <servlet-class>sclass4</servlet-class>".trim()
+            + "  </servlet>".trim()
+            + "  <servlet>".trim()
+            + "    <servlet-name>s1</servlet-name>".trim()
+            + "    <servlet-class>sclass1</servlet-class>".trim()
+            + "  </servlet>".trim()
+            + "  <servlet>".trim()
+            + "    <servlet-name>s2</servlet-name>".trim()
+            + "    <servlet-class>sclass2</servlet-class>".trim()
+            + "  </servlet>".trim()
+            + "  <security-constraint/>".trim()
+            + "  <login-config>".trim()
+            + "    <auth-method>BASIC</auth-method>".trim()
+            + "    <realm-name>Test</realm-name>".trim()
+            + "  </login-config>".trim()
+            + "  <security-role>".trim()
+            + "    <description>Test role</description>".trim()
+            + "    <role-name>test</role-name>".trim()
+            + "  </security-role>".trim()
+            + "</web-app>".trim();
 
-        theCurrent = theCurrent.getNextSibling();
-        assertEquals("servlet", theCurrent.getNodeName());
-        assertEquals("s4", 
-            theCurrent.getFirstChild().getFirstChild().getNodeValue());
+        WebMerge webMerge = new WebMerge();
+        return webMerge.parse(new ByteArrayInputStream(xml.getBytes())); 
+    }
 
-        theCurrent = theCurrent.getNextSibling();
-        assertEquals("servlet", theCurrent.getNodeName());
-        assertEquals("s1",
-            theCurrent.getFirstChild().getFirstChild().getNodeValue());
+    private void verifyNode(Node theTemplateNode, Node theNode)
+    {
+        NodeList childrenTemplate = theTemplateNode.getChildNodes();
+        NodeList children = theNode.getChildNodes();
 
-        theCurrent = theCurrent.getNextSibling();
-        assertEquals("servlet", theCurrent.getNodeName());
-        assertEquals("s2", 
-            theCurrent.getFirstChild().getFirstChild().getNodeValue());
+        assertEquals(childrenTemplate.getLength(), children.getLength());
+        
+        for (int i = 0; i < childrenTemplate.getLength(); i++)
+        {
+            Node childTemplate = childrenTemplate.item(i);
+            Node child = children.item(i);
+            
+            assertEquals(childTemplate.getNodeName(), child.getNodeName());
+            assertEquals(childTemplate.getNodeType(), child.getNodeType());
+            assertEquals(childTemplate.getNodeValue(),child.getNodeValue());
+
+            verifyNode(childTemplate, child);
+        }
     }
 
     public void testInsertBeforeWithNodeListOk() throws Exception
@@ -175,7 +216,25 @@ public class TestWebMerge extends TestCase
         webMerge.insertBefore(nl, node);
 
         Node current = originalDoc.getElementsByTagName("servlet").item(0);
-        verifyMergedDocument(current);
+  
+        assertEquals("servlet", current.getNodeName());
+        assertEquals("s3", 
+            current.getFirstChild().getFirstChild().getNodeValue());
+
+        current = current.getNextSibling();
+        assertEquals("servlet", current.getNodeName());
+        assertEquals("s4", 
+            current.getFirstChild().getFirstChild().getNodeValue());
+
+        current = current.getNextSibling();
+        assertEquals("servlet", current.getNodeName());
+        assertEquals("s1",
+            current.getFirstChild().getFirstChild().getNodeValue());
+
+        current = current.getNextSibling();
+        assertEquals("servlet", current.getNodeName());
+        assertEquals("s2", 
+            current.getFirstChild().getFirstChild().getNodeValue());
     }
 
     public void testInsertTagServletElementsExist() throws Exception
@@ -266,8 +325,8 @@ public class TestWebMerge extends TestCase
         WebMerge webMerge = new WebMerge();
         Document resultDoc = webMerge.merge(originalDoc, overrideDoc);                
 
-        Node current = resultDoc.getElementsByTagName("servlet").item(0);
-        verifyMergedDocument(current);
+        verifyNode(createResultDocument().getDocumentElement(),
+            resultDoc.getDocumentElement());
     }
 
     public void testMergeUniqueElements() throws Exception
