@@ -1,3 +1,4 @@
 <Domain Name="testdomain">
-  <Server Name="testserver" NativeIOEnabled="true" ListenPort="@cactus.port@"/>
+  <Server Name="testserver" ListenPort="@cactus.port@"
+    NativeIOEnabled="false"/>
 </Domain>

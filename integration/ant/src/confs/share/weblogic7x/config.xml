@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
 <Domain Name="testdomain">
-    <Server Name="testserver" ListenPort="@cactus.port@"/>
+  <Server Name="testserver" ListenPort="@cactus.port@"
+    NativeIOEnabled="false"/>
 </Domain>
