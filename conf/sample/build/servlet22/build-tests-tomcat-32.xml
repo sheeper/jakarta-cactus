@@ -1,4 +1,4 @@
-    <!-- 
+    <!--
        ========================================================================
          Run Tomcat 3.2 tests
        ========================================================================
@@ -16,7 +16,7 @@
 
     </target>
 
-    <!-- 
+    <!--
        ========================================================================
          Start Tomcat 3.2
        ========================================================================
@@ -26,7 +26,7 @@
         <java classname="org.apache.tomcat.startup.Tomcat" fork="yes">
             <arg value="-config"/>
             <arg value="${out.tomcat32.dir}/conf/server.xml"/>
-            <classpath>            
+            <classpath>
                 <pathelement location="${java.home}/../lib/tools.jar"/>
                 <fileset dir="${tomcat.home.32}/lib">
                     <include name="*.jar"/>
@@ -36,7 +36,7 @@
 
     </target>
 
-    <!-- 
+    <!--
        ========================================================================
          Stop Tomcat 3.2
        ========================================================================
@@ -48,7 +48,7 @@
             <arg value="-stop"/>
             <arg value="-config"/>
             <arg value="${out.tomcat32.dir}/conf/server.xml"/>
-            <classpath>            
+            <classpath>
                 <pathelement location="${java.home}/../lib/tools.jar"/>
                 <fileset dir="${tomcat.home.32}/lib">
                     <include name="*.jar"/>
@@ -58,7 +58,7 @@
 
     </target>
 
-    <!-- 
+    <!--
        ========================================================================
          Display a warning message if the needed servlet engine home property
          is not set
@@ -75,7 +75,7 @@
 
     </target>
 
-    <!-- 
+    <!--
        ========================================================================
          Prepare directories and variables for running the tests
        ========================================================================
@@ -95,6 +95,9 @@
 
         <!-- Delete some config file so that they will be copied every time -->
         <delete file="${out.tomcat32.dir}/conf/testserver.xml"/>
+
+        <!-- Delete the expanded war so that the new one is picked up -->
+        <delete dir="${out.tomcat32.dir}/webapps"/>
 
         <!-- Copy the default tomcat web.xml to our test conf/ directory.
              This is needed otherwise tomcat does not start -->
