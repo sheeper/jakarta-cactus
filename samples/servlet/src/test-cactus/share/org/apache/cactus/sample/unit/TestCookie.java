@@ -88,12 +88,13 @@ public class TestCookie extends ServletTestCase
     {
         javax.servlet.http.Cookie[] cookies = request.getCookies();
 
+        assertNotNull("No cookies in request", cookies);
+
         for (int i = 0; i < cookies.length; i++)
         {
             if (cookies[i].getName().equals("testcookie"))
             {
                 assertEquals("user&pwd", cookies[i].getValue());
-
                 return;
             }
         }
