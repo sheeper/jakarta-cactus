@@ -43,11 +43,6 @@
         Add documentation for a new way to start Cactus tests by using the
         Jetty Initializer.
       </action>
-      <action assigned-to="Vincent Massol">
-        Fix Clover reports as they seem broken. They do not count any tests
-        executed on the server. Overall coverage is reported as 45% whereas
-        it is more thaqn 60% in reality ...
-      </action>
       <action>
         Add doc for new <code>JspTagLifecycle</code> class.
       </action>
