@@ -78,9 +78,10 @@
         </p>
         <ul>
           <li>
-            testing strategies that are not in-container, like Mock Objects 
-            will become less useful. Indeed, as the components will rely
-            more and more on the container's services, the confidence that
+            testing strategies that are not in-container, like Mock Objects
+            will still very useful but will provide less added value in
+            ensuring that the code behaves ok. Indeed, as the components will
+            rely more and more on the container's services, the confidence that
             the tests will run well when deployed will decrease and the need
             for a solution that ensures the code will run correctly in it's
             environment will increase,
@@ -96,7 +97,7 @@
       <s2 title="Long term goals for Cactus">
 
         <p>
-          Consequently to the above prediction, there are 2 long term goals
+          Consequently to the above predictions, there are 2 long term goals
           for Cactus :
         </p>
         <ul>
