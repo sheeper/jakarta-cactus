@@ -78,7 +78,7 @@
     <description>
 <![CDATA[The <a href="http://cargo.codehaus.org">Cargo</a> project has just started. 
 The goal is to extract the code to start/stop/configure containers from the Cactus Ant 
-integration and make it a standalone project.</a>.
+integration and make it a standalone project.
 ]]>
     </description>
     <dc:subject></dc:subject>
