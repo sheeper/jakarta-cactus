@@ -394,7 +394,7 @@ public class WebXmlMergeTask extends Task
      * @param theFile The file to write to
      * @throws IOException If an I/O error occurs
      */
-    protected void writeWebXml(WebXml theWebXml, File theFile)
+    private void writeWebXml(WebXml theWebXml, File theFile)
         throws IOException
     {
         FileOutputStream out = null;
