@@ -39,14 +39,6 @@
       <action assigned-to="Nicholas Lesiecki">
         Write a tutorial that explains how to unit test Tag libraries.
       </action>
-      <action assigned-to="Vincent Massol">
-        Add a FAQ entry for explaining unit testing of persistent
-        sessions, i.e. to explain that each unit test is *independent* of
-        another and that each test need to set up it's own preconditions
-        (HTTP paramteres, cookies, HTTP headers, ...) but *also* values that
-        are expected to be set in the HTTP Session, application scope, ...
-        before running the test.
-      </action>
     </category>
 
     <category title="Build Process">
@@ -61,7 +53,7 @@
         within the <code>out</code> output directory and not to where
         JBoss/Tomcat is installed.
       </action>
-      <action>
+      <action assigned-to="Vincent Massol">
         Add Ant scripts to support WebLogic 6.0.
       </action>
       <action>
