@@ -43,11 +43,6 @@
       Handle <code>getRealPath()</code>, <code>getPathTranslated()</code> in the
       <code>ServletRedirectorRequest</code> class.
     </action>
-    <action context="admin" assigned-to="VMA">
-      On the Cactus news web page, provide a list of pages that have been
-      recently modified so that end users can see at a glance what has changed
-      recently on the web site.
-    </action>
     <action context="build" assigned-to="VMA">
       Generate changelog file from CVS change log information and put in the
       documentation of each release.
