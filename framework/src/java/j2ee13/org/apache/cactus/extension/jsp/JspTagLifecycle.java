@@ -816,12 +816,12 @@ public final class JspTagLifecycle
                         && (tag instanceof BodyTag))
                     {
                         BodyTag bodyTag = (BodyTag) tag;
+                        body = pageContext.pushBody();
                         if (log.isDebugEnabled())
                         {
-                            log.debug("Pushing body content '"
+                            log.debug("Pushed body content '"
                                 + body.getString() + "'");
                         }
-                        body = pageContext.pushBody();
                         bodyTag.setBodyContent(body);
                         bodyTag.doInitBody();
                     }
