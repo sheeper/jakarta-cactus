@@ -176,7 +176,16 @@ public class CactusLaunchConfiguration extends JUnitLaunchConfiguration
             apacheJarPaths =
                 concatenateStringArrays(
                     apacheJarPaths,
-                    getLibrariesPaths(descriptor));
+                    getLibrariesPaths(descriptor, null));
+        }
+        Plugin tomcatPlugin = Platform.getPlugin("org.eclipse.tomcat");
+        if (tomcatPlugin != null)
+        {
+            IPluginDescriptor descriptor = tomcatPlugin.getDescriptor();
+            apacheJarPaths =
+                concatenateStringArrays(
+                    apacheJarPaths,
+                    getLibrariesPaths(descriptor, "org.apache.jasper"));
         }
         return concatenateStringArrays(jettyJarPaths, apacheJarPaths);
     }
@@ -259,28 +268,56 @@ public class CactusLaunchConfiguration extends JUnitLaunchConfiguration
     }
 
     /**
-     * @param theDescriptor the plug-in descriptor to get libraries from 
+     * @param theDescriptor the plug-in descriptor to get libraries from
+     * @param thePackagePrefix package prefix used to filter libraries 
      * @return an array of jar paths exposed by the plug-in
      */
-    private String[] getLibrariesPaths(IPluginDescriptor theDescriptor)
+    private String[] getLibrariesPaths(
+        IPluginDescriptor theDescriptor,
+        String thePackagePrefix)
     {
         Vector result = new Vector();
         URL root = theDescriptor.getInstallURL();
         ILibrary[] libraries = theDescriptor.getRuntimeLibraries();
         for (int i = 0; i < libraries.length; i++)
         {
-            try
+            ILibrary currentLib = libraries[i];
+            if (thePackagePrefix == null
+                || isContained(thePackagePrefix, currentLib))
             {
-                URL url = new URL(root, libraries[i].getPath().toString());
-                result.add(Platform.asLocalURL(url).getFile());
-            }
-            catch (IOException e)
-            {
-                // if the URL is not valid we don't add it
-                CactusPlugin.log(e);
-                continue;
+                try
+                {
+                    URL url = new URL(root, currentLib.getPath().toString());
+                    result.add(Platform.asLocalURL(url).getFile());
+                }
+                catch (IOException e)
+                {
+                    // if the URL is not valid we don't add it
+                    CactusPlugin.log(e);
+                    continue;
+                }
             }
         }
         return (String[]) result.toArray(new String[result.size()]);
+    }
+
+    /**
+     * @param thePackagePrefix prefix which presence is to be tested
+     * @param theCurrentLib the library in which the prefix will be searched 
+     * @return true if the library declares the given package prefix
+     */
+    private boolean isContained(
+        String thePackagePrefix,
+        ILibrary theCurrentLib)
+    {
+        String[] prefixes = theCurrentLib.getPackagePrefixes();
+        for (int i = 0; i < prefixes.length; i++)
+        {
+            if (prefixes[i].equals(thePackagePrefix))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }
