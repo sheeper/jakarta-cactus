@@ -8,6 +8,13 @@
     <person name="Vincent Massol" email="vmassol@users.sourceforge.net" id="VMA"/>
   </devs>
 
+  <release version="1.0b2 in CVS" date="">
+    <action dev="VMA" type="update" due-to="Jeff Turner" due-to-email="jeff@socialchange.net.au">
+      Improved build process so that it nows works even if junit, stylebook, ..
+      jars are not in the <code>CLASSPATH</code> prior to running the build.
+    </action>
+  </release>
+
   <release version="1.0b1" date="April 9 2001">
     <action dev="VMA" type="update">
       Updated the Cactus distribution so that everything is contained into one
