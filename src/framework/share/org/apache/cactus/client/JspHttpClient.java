@@ -64,17 +64,11 @@ package org.apache.cactus.client;
 public class JspHttpClient extends AbstractHttpClient
 {
     /**
-     * Default URL to call the <code>jspRedirector</code> JSP.
-     */
-    protected final static String JSP_REDIRECTOR_URL =
-        CONFIG.getString("cactus.jspRedirectorURL");
-
-    /**
      * @return the URL to call the redirector
      */
     protected String getRedirectorURL()
     {
-        return JSP_REDIRECTOR_URL;
+        return ClientConfiguration.getJspRedirectorURL();
     }
 
 }

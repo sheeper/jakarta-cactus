@@ -180,6 +180,7 @@ src/framework/share/org/apache/cactus/WebTestResult.java svn_keywords=Author+Dat
 src/framework/share/org/apache/cactus/client/AbstractHttpClient.java svn_keywords=Author+Date+Id+Revision
 src/framework/share/org/apache/cactus/client/AssertionFailedErrorWrapper.java svn_keywords=Author+Date+Id+Revision
 src/framework/share/org/apache/cactus/client/AutoReadHttpURLConnection.java svn_keywords=Author+Date+Id+Revision
+src/framework/share/org/apache/cactus/client/ClientConfiguration.java svn_keywords=Author+Date+Id+Revision
 src/framework/share/org/apache/cactus/client/ClientConfigurationChecker.java svn_keywords=Author+Date+Id+Revision
 src/framework/share/org/apache/cactus/client/HttpClientHelper.java svn_keywords=Author+Date+Id+Revision
 src/framework/share/org/apache/cactus/client/JspHttpClient.java svn_keywords=Author+Date+Id+Revision

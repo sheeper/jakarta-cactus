@@ -64,17 +64,11 @@ package org.apache.cactus.client;
 public class ServletHttpClient extends AbstractHttpClient
 {
     /**
-     * Default URL to call the <code>ServletRedirector</code> servlet.
-     */
-    protected final static String SERVLET_REDIRECTOR_URL =
-        CONFIG.getString("cactus.servletRedirectorURL");
-
-    /**
      * @return the URL to call the redirector
      */
     protected String getRedirectorURL()
     {
-        return SERVLET_REDIRECTOR_URL;
+        return ClientConfiguration.getServletRedirectorURL();
     }
 
 }
