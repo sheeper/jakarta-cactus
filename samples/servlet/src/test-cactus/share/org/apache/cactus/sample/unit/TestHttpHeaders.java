@@ -171,8 +171,8 @@ public class TestHttpHeaders extends ServletTestCase
      */
     public void testResponseAddHeaders()
     {
-        response.addHeader("X-Access-Header1", "value1");
-        response.addHeader("X-Access-Header2", "value2");
+        response.addHeader("X-Test-Header1", "value1");
+        response.addHeader("X-Test-Header2", "value2");
     }
 
     /**
@@ -184,9 +184,9 @@ public class TestHttpHeaders extends ServletTestCase
     public void endResponseAddHeaders(WebResponse theResponse) 
     {
         String value1 = 
-            theResponse.getConnection().getHeaderField("X-Access-Header1");
+            theResponse.getConnection().getHeaderField("X-Test-Header1");
         String value2 = 
-            theResponse.getConnection().getHeaderField("X-Access-Header2");
+            theResponse.getConnection().getHeaderField("X-Test-Header2");
 
         assertEquals("value1", value1);
         assertEquals("value2", value2);
