@@ -394,6 +394,9 @@ be resolved. Please check you build.properties file, and run Ant with the
       <path refid="project.classpath"/>
     </path>
 
+	<!-- Convert the path to logging.properties to use forward slashes
+	     so that it works when loaded as a String in Java (backslashes
+	     won't work. -->
 	<pathconvert property="target.dir.normalized" dirsep="/">
 	  <path>
 	    <pathelement location="${target.dir}"/>
