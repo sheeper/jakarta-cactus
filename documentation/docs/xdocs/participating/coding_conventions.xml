@@ -167,14 +167,17 @@ printSize("size is " + foo + "\n");
       <section title="6. Author references">
 
         <p>
-          If you contribute to a file (code or documentation), add yourself to
-          the top of the file (below the existing authors). For java files the
-          preferred Javadoc format is:
+          Do not put <code>@author</code> tags in source code. We are following
+          the Apache board recommendation. This view is 
+          <a href="ext:apache_no_author_tags">summarized</a> nicely
+          by Dirk-Willem Van Gullick, president of the ASF.
         </p>
-
-<source><![CDATA[
-@author <a href="mailto:user@domain.com">John Doe</a>
-]]></source>
+        <p>
+          However you are very much encouraged to edit the 
+          <code>contributors.xml</code> file located in 
+          <code>jakarta-cactus/documentation/docs/xdocs/participating/</code>
+          which lists contributors' participation.
+        </p>
 
       </section>
 
