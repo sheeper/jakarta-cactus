@@ -442,7 +442,7 @@ be resolved. Please check you build.properties file, and run Ant with the
        the checkstyle jar is in the Ant classpasth.
      ========================================================================
   -->
-  <target name="checkstyle" depends="init,init.checkstyle" 
+  <target name="checkstyle" depends="init,init.checkstyle,compile" 
       if="checkstyle.available"
       description="Perform a code audit using Checkstyle">
 
@@ -465,6 +465,10 @@ be resolved. Please check you build.properties file, and run Ant with the
 
       <property key="checkstyle.header.file" file="./LICENSE.cactus"/>
 
+      <classpath>
+        <pathelement path="${target.classes.java.dir}"/>      
+      </classpath>
+      
     </checkstyle>
 
   </target>
