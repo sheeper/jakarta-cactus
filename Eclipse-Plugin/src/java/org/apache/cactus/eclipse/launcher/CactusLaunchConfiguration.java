@@ -56,6 +56,9 @@
  */
 package org.apache.cactus.eclipse.launcher;
 
+import org.apache.cactus.eclipse.ui.CactusPreferences;
+import org.apache.cactus.eclipse.ui.CactusPreferences;
+import org.apache.cactus.eclipse.ui.CactusPreferences;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.jdt.core.IType;
@@ -103,10 +106,8 @@ public class CactusLaunchConfiguration extends JUnitLaunchConfiguration
         VMRunnerConfiguration configuration =
             super.launchTypes(theConfiguration, theMode, theTests, thePort);
 
-        // Compute new VM arguments : JUnit VM argument + Cactus VM arguments
-        // TODO: Get this from the plugin preference page.
         String[] cactusVMArgs =
-            { "-Dcactus.contextURL=http://localhost:8081/test" };
+            { "-Dcactus.contextURL=" + CactusPreferences.getContextURL() };
         String[] jUnitArgs = configuration.getVMArguments();
         String[] globalArgs = concatenateStringArrays(jUnitArgs, cactusVMArgs);
         configuration.setVMArguments(globalArgs);
