@@ -350,7 +350,19 @@ public abstract class AbstractTestSuite implements Test
         };
     }
 
+    /**
+     * @param theTestClass the test class containing the tests to be included
+     *        in the Cactus Test Suite
+     * @return a Cactus Test Suite (ex: ServletTestSuite) initialized with a
+     *         test class
+     */
     protected abstract Test createTestSuite(Class theTestClass);
 
+    /**
+     * @param theName the name of the Cactus Test Case
+     * @param theTest the wrapped test
+     * @return a Cactus Test Case object initialized with the give name and
+     *         wrapped test
+     */
     protected abstract Test createCactusTestCase(String theName, Test theTest);
 }
