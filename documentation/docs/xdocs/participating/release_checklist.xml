@@ -61,9 +61,6 @@
           page.</em>
         </li>
         <li>
-          Build the source release (<code>ant release.src</code>).
-        </li>
-        <li>
           Install each delivered release on your local computer and try running
           the Sample application tests for one application server.
         </li>
