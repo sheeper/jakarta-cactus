@@ -63,6 +63,7 @@ import java.util.Vector;
 
 import org.apache.cactus.eclipse.runner.containers.IContainerManager;
 import org.apache.cactus.eclipse.runner.containers.ant.AntContainerManager;
+import org.apache.cactus.eclipse.runner.containers.jetty.JettyContainerManager;
 import org.apache.cactus.eclipse.runner.launcher.CactusLaunchShortcut;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPluginDescriptor;
@@ -262,7 +263,7 @@ public class CactusPlugin extends AbstractUIPlugin
     {
         if (CactusPreferences.getJetty())
         {
-            return null;
+            return new JettyContainerManager();
         }
         return new AntContainerManager(
             BUILD_FILE_PATH,

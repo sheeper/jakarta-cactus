@@ -57,17 +57,28 @@
 package org.apache.cactus.eclipse.runner.containers.ant;
 
 import java.io.File;
+import java.lang.reflect.InvocationTargetException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Hashtable;
 import java.util.Vector;
 
 import org.apache.cactus.eclipse.runner.containers.IContainerManager;
 import org.apache.cactus.eclipse.runner.containers.IContainerProvider;
+import org.apache.cactus.eclipse.runner.ui.CactusMessages;
 import org.apache.cactus.eclipse.runner.ui.CactusPlugin;
+import org.apache.cactus.eclipse.runner.ui.CactusPreferences;
+import org.apache.cactus.eclipse.webapp.WarBuilder;
 import org.eclipse.ant.core.AntRunner;
 import org.eclipse.core.boot.BootLoader;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jface.dialogs.ProgressMonitorDialog;
+import org.eclipse.jface.operation.IRunnableWithProgress;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Shell;
 
 /**
  * Implementation of IContainerManager based on Ant.
@@ -78,6 +89,11 @@ import org.eclipse.core.runtime.Path;
  */
 public class AntContainerManager implements IContainerManager
 {
+    /**
+     * Provider currently used 
+     */
+    private AntContainerProvider provider;
+
     /**
      * Table containing all the information needed
      * (key = target mask & value = container home directory)
@@ -94,6 +110,11 @@ public class AntContainerManager implements IContainerManager
      * Path to the Ant build file for the manager
      */
     private String buildFilePath;
+
+    /**
+     * Reference to the War file so that we can delete it on tearDown()
+     */
+    private File war;
 
     /**
      * Constructor.
@@ -138,12 +159,13 @@ public class AntContainerManager implements IContainerManager
         {
             antArguments.add("-Dcactus.jvm=javaw");
         }
+        this.provider = (AntContainerProvider) getContainerProviders()[0];
     }
 
     /**
      * @see IContainerManager#getContainerProvider()
      */
-    public IContainerProvider[] getContainerProviders()
+    private IContainerProvider[] getContainerProviders()
     {
         String[] ids =
             (String[]) containerHomes.keySet().toArray(
@@ -214,4 +236,234 @@ public class AntContainerManager implements IContainerManager
             managerArguments.length);
         return allArguments;
     }
+
+    /**
+     * @see IContainerManager#prepare(org.eclipse.jdt.core.IJavaProject)
+     */
+    public void prepare(final IJavaProject theJavaProject)
+    {
+        final IRunnableWithProgress runnable = new IRunnableWithProgress()
+        {
+            public void run(IProgressMonitor thePM) throws InterruptedException
+            {
+                try
+                {
+                    CactusPlugin.log("Preparing cactus tests");
+                    prepareCactusTests(theJavaProject, thePM, provider);
+                }
+                catch (CoreException e)
+                {
+                    throw new InterruptedException(e.getMessage());
+                }
+            }
+        };
+        Display.getDefault().asyncExec(new Runnable()
+        {
+            public void run()
+            {
+                try
+                {
+                    ProgressMonitorDialog dialog =
+                        new ProgressMonitorDialog(getShell());
+                    dialog.run(true, true, runnable);
+                }
+                catch (InvocationTargetException e)
+                {
+                    CactusPlugin.displayErrorMessage(
+                        CactusMessages.getString(
+                            "CactusLaunch.message.prepare.error"),
+                        e.getTargetException().getMessage(),
+                        null);
+                    cancelPreparation(provider);
+                    return;
+                }
+                catch (InterruptedException e)
+                {
+                    CactusPlugin.displayErrorMessage(
+                        CactusMessages.getString(
+                            "CactusLaunch.message.prepare.error"),
+                        e.getMessage(),
+                        null);
+                    cancelPreparation(provider);
+                    return;
+                }
+            }
+        });
+    }
+    
+    /**
+     * creates the war file, deploys and launches the container.
+     * @param theJavaProject the Java file
+     * @param thePM the progress monitor to report to
+     * @param theProvider the provider to prepare
+     * @throws CoreException if anything goes wrong during preparation
+     */
+    private void prepareCactusTests(
+        IJavaProject theJavaProject,
+        IProgressMonitor thePM,
+        IContainerProvider theProvider)
+        throws CoreException
+    {
+        thePM.beginTask(
+            CactusMessages.getString("CactusLaunch.message.prepare"),
+            10);
+        try
+        {
+            WarBuilder newWar = new WarBuilder(theJavaProject);
+            this.war = newWar.createWar(thePM);
+            URL warURL = war.toURL();
+            String contextURLPath = CactusPreferences.getContextURLPath();
+            if (contextURLPath.equals(""))
+            {
+                throw CactusPlugin.createCoreException(
+                    "CactusLaunch.message.invalidproperty.contextpath",
+                    null);
+            }
+            theProvider.deploy(contextURLPath, warURL, null, thePM);
+            theProvider.start(null, thePM);
+        }
+        catch (MalformedURLException e)
+        {
+            CactusPlugin.log(e);
+            throw CactusPlugin.createCoreException(
+                "CactusLaunch.message.war.malformed",
+                e);
+        }
+        thePM.done();
+    }
+
+    /**
+     * Launches a new progress dialog for preparation cancellation.
+     * @param theProvider the provider which preparation to cancel
+     */
+    private void cancelPreparation(final IContainerProvider theProvider)
+    {
+        ProgressMonitorDialog dialog = new ProgressMonitorDialog(getShell());
+        IRunnableWithProgress tearDownRunnable = new IRunnableWithProgress()
+        {
+            public void run(IProgressMonitor thePM) throws InterruptedException
+            {
+                try
+                {
+                    teardownCactusTests(thePM, theProvider);
+                }
+                catch (CoreException e)
+                {
+                    throw new InterruptedException(e.getMessage());
+                }
+            }
+        };
+        try
+        {
+            dialog.run(true, true, tearDownRunnable);
+        }
+        catch (InvocationTargetException tearDownE)
+        {
+            CactusPlugin.displayErrorMessage(
+                CactusMessages.getString("CactusLaunch.message.teardown.error"),
+                tearDownE.getTargetException().getMessage(),
+                null);
+        }
+        catch (InterruptedException tearDownE)
+        {
+            CactusPlugin.displayErrorMessage(
+                CactusMessages.getString("CactusLaunch.message.teardown.error"),
+                tearDownE.getMessage(),
+                null);
+        }
+    }
+
+    /**
+     * Tears down the Cactus tests
+     */
+    public void tearDown()
+    {
+        final IRunnableWithProgress runnable = new IRunnableWithProgress()
+        {
+            public void run(IProgressMonitor thePM) throws InterruptedException
+            {
+                CactusPlugin.log("Tearing down cactus tests");
+                try
+                {
+                    teardownCactusTests(thePM, provider);
+                }
+                catch (CoreException e)
+                {
+                    throw new InterruptedException(e.getMessage());
+                }
+            }
+        };
+        Display.getDefault().asyncExec(new Runnable()
+        {
+            public void run()
+            {
+                try
+                {
+                    ProgressMonitorDialog dialog =
+                        new ProgressMonitorDialog(getShell());
+                    dialog.run(true, true, runnable);
+                }
+                catch (InvocationTargetException e)
+                {
+                    CactusPlugin.displayErrorMessage(
+                        CactusMessages.getString(
+                            "CactusLaunch.message.teardown.error"),
+                        e.getTargetException().getMessage(),
+                        null);
+                    cancelPreparation(provider);
+                    return;
+                }
+                catch (InterruptedException e)
+                {
+                    CactusPlugin.displayErrorMessage(
+                        CactusMessages.getString(
+                            "CactusLaunch.message.teardown.error"),
+                        e.getMessage(),
+                        null);
+                    cancelPreparation(provider);
+                    return;
+                }
+            }
+
+        });
+    }
+
+    /**
+     * Stops the container and undeploys (cleans) it.
+     * @param thePM a progress monitor that reflects progress made while tearing
+     * down the container setup
+     * @param theProvider the provider of the container to stop and undeploy
+     * @throws CoreException if an error occurs when tearing down
+     */
+    private void teardownCactusTests(
+        IProgressMonitor thePM,
+        IContainerProvider theProvider)
+        throws CoreException
+    {
+        thePM.beginTask(
+            CactusMessages.getString("CactusLaunch.message.teardown"),
+            100);
+        theProvider.stop(null, thePM);
+        theProvider.undeploy(null, null, thePM);
+        this.war.delete();
+        thePM.done();
+    }
+
+    /**
+     * Convenience method to get the active Shell.
+     * @return the active shell 
+     */
+    protected Shell getShell()
+    {
+        return CactusPlugin.getActiveWorkbenchShell();
+    }
+
+    /**
+     * @param theRunner the Eclipse runner to call when tests are done
+     */
+    public void setEclipseRunner(EclipseRunTests theRunner)
+    {
+        provider.setEclipseRunner(theRunner);
+    }
+    
 }

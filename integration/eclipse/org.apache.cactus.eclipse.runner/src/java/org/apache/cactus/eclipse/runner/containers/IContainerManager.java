@@ -56,6 +56,8 @@
  */
 package org.apache.cactus.eclipse.runner.containers;
 
+import org.eclipse.jdt.core.IJavaProject;
+
 /**
  * Interface for container providers management.
  * 
@@ -66,8 +68,13 @@ package org.apache.cactus.eclipse.runner.containers;
 public interface IContainerManager
 {
     /**
-     * @return array of supported container providers
-     *         must not be null, but can be an empty array
+     * Prepares the container providers for Cactus tests
+     * @param theJavaProject the Java project to prepare providers for
      */
-    IContainerProvider[] getContainerProviders();
+    void prepare(IJavaProject theJavaProject);
+
+    /**
+     * Tears down the container providers
+     */
+    void tearDown();
 }

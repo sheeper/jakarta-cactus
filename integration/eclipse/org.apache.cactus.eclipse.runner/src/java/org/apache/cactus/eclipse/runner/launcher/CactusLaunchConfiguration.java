@@ -63,11 +63,13 @@ import java.util.Vector;
 
 import org.apache.cactus.eclipse.runner.common.JarFilenameFilter;
 import org.apache.cactus.eclipse.runner.common.LibraryHelper;
+import org.apache.cactus.eclipse.runner.containers.jetty.JettyContainerManager;
 import org.apache.cactus.eclipse.runner.ui.CactusPlugin;
 import org.apache.cactus.eclipse.runner.ui.CactusPreferences;
 import org.eclipse.ant.core.AntCorePlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.ILibrary;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IPluginDescriptor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
@@ -118,18 +120,18 @@ public class CactusLaunchConfiguration extends JUnitLaunchConfiguration
      * @exception CoreException on critical failures
      */
     protected VMRunnerConfiguration launchTypes(
-        ILaunchConfiguration theConfiguration, String theMode, 
-        IType[] theTests, int thePort) throws CoreException
+        ILaunchConfiguration theConfiguration,
+        String theMode,
+        IType[] theTests,
+        int thePort)
+        throws CoreException
     {
         CactusPlugin.log("creating VMRunnerConfiguration for Cactus");
         VMRunnerConfiguration configuration =
             super.launchTypes(theConfiguration, theMode, theTests, thePort);
         String[] jUnitArgs = configuration.getVMArguments();
         String[] cactusVMArgs = getCactusVMArgs(theTests);
-        String[] globalArgs =
-            concatenateStringArrays(
-                jUnitArgs,
-                cactusVMArgs);
+        String[] globalArgs = concatenateStringArrays(jUnitArgs, cactusVMArgs);
         configuration.setVMArguments(globalArgs);
         CactusPlugin.log("Cactus VM arguments : [" + cactusVMArgs + "]");
 
@@ -212,8 +214,7 @@ public class CactusLaunchConfiguration extends JUnitLaunchConfiguration
         if (tomcatPlugin != null)
         {
             IPluginDescriptor descriptor = tomcatPlugin.getDescriptor();
-            apacheJarPaths =
-                    getLibrariesPaths(descriptor, "org.apache.jasper");
+            apacheJarPaths = getLibrariesPaths(descriptor, "org.apache.jasper");
         }
         return concatenateStringArrays(jettyJarPaths, apacheJarPaths);
     }
@@ -234,11 +235,20 @@ public class CactusLaunchConfiguration extends JUnitLaunchConfiguration
                 String jettyResourcePath =
                     CactusPreferences.getTempDir()
                         + File.separator
-                        + CactusLaunchShortcut.getJettyWebappPath();
+                        + JettyContainerManager.getJettyWebappPath();
                 cactusVMArgs.add(
                     "-Dcactus.jetty.resourceDir=" + jettyResourcePath);
-                cactusVMArgs.add(
-                    "-Dcactus.jetty.config=" + CactusPreferences.getJettyXML());
+                IPath projectLocation =
+                    theTests[0].getJavaProject().getProject().getLocation();
+                File jettyXML =
+                    projectLocation
+                        .append(CactusPreferences.getJettyXML())
+                        .toFile();
+                if (jettyXML.exists())
+                {
+                    cactusVMArgs.add(
+                        "-Dcactus.jetty.config=" + jettyXML.getAbsolutePath());
+                }
             }
             cactusVMArgs.add(
                 "-Dcactus.initializer="
@@ -255,12 +265,17 @@ public class CactusLaunchConfiguration extends JUnitLaunchConfiguration
      * @return a string array containing the first array followed by the second
      *         one
      */
-    private String[] concatenateStringArrays(String[] theArray1,
+    private String[] concatenateStringArrays(
+        String[] theArray1,
         String[] theArray2)
     {
         String[] newArray = new String[theArray1.length + theArray2.length];
         System.arraycopy(theArray1, 0, newArray, 0, theArray1.length);
-        System.arraycopy(theArray2, 0, newArray, theArray1.length, 
+        System.arraycopy(
+            theArray2,
+            0,
+            newArray,
+            theArray1.length,
             theArray2.length);
         return newArray;
     }

@@ -58,35 +58,20 @@ package org.apache.cactus.eclipse.runner.launcher;
 
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
-import java.net.MalformedURLException;
-import java.net.URL;
 
 import org.apache.cactus.eclipse.runner.containers.IContainerManager;
-import org.apache.cactus.eclipse.runner.containers.IContainerProvider;
 import org.apache.cactus.eclipse.runner.ui.CactusMessages;
 import org.apache.cactus.eclipse.runner.ui.CactusPlugin;
-import org.apache.cactus.eclipse.runner.ui.CactusPreferences;
-import org.apache.cactus.eclipse.webapp.WarBuilder;
-import org.apache.cactus.eclipse.webapp.Webapp;
-import org.apache.cactus.eclipse.webapp.ui.WebappPlugin;
-import org.apache.tools.ant.Project;
-import org.apache.tools.ant.taskdefs.Copy;
-import org.apache.tools.ant.types.FileSet;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.debug.core.DebugPlugin;
 import org.eclipse.debug.core.ILaunchConfigurationType;
 import org.eclipse.debug.core.ILaunchManager;
-import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.internal.junit.launcher.JUnitLaunchShortcut;
 import org.eclipse.jdt.internal.junit.ui.JUnitPlugin;
 import org.eclipse.jdt.internal.junit.util.TestSearchEngine;
 import org.eclipse.jdt.junit.ITestRunListener;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
-import org.eclipse.jface.operation.IRunnableWithProgress;
-import org.eclipse.swt.widgets.Display;
 
 /**
  * Launch shortcut used to start the Cactus launch configuration on the
@@ -111,11 +96,6 @@ public class CactusLaunchShortcut
     private File war;
 
     /**
-     * The container provider that is used in this launch.
-     */
-    private IContainerProvider provider = null;
-
-    /**
      * The current search to launch on.
      */
     private Object[] search;
@@ -126,15 +106,9 @@ public class CactusLaunchShortcut
     private String mode;
 
     /**
-     * The name of the path to the Jetty webapp
+     * The manager that handles container preparation.
      */
-    private static final String JETTY_WEBAPP_PATH = "jetty.webapp";
-
-    /**
-     * The name of the jspRedirector.jsp file
-     */
-    private static final String JSPREDIRECTOR_PATH =
-        "./ant/confs/jspRedirector.jsp";
+    private IContainerManager manager;
 
     /**
      * @return the Cactus launch configuration type. This method overrides
@@ -211,21 +185,10 @@ public class CactusLaunchShortcut
             CactusPlugin.getDefault().setCactusLaunchShortcut(this);
             try
             {
-                IContainerManager manager = CactusPlugin.getContainerManager();
-                // when manager is null we use Jetty as the container
-                if (manager == null)
-                {
-                    cactifyWebapp(type.getJavaProject());
-                    this.provider = null;
-                    super.launchType(theSearch, theMode);
-                }
-                else
-                {
-                    this.search = theSearch;
-                    this.mode = theMode;
-                    this.provider = manager.getContainerProviders()[0];
-                    prepare(type.getJavaProject(), getContainerProvider());
-                }
+                this.manager = CactusPlugin.getContainerManager();
+                this.search = theSearch;
+                this.mode = theMode;
+                manager.prepare(type.getJavaProject());
             }
             catch (CoreException e)
             {
@@ -237,135 +200,7 @@ public class CactusLaunchShortcut
             }
         }
     }
-    
-    /**
-     * @param theJavaProject the project to cactify
-     * @throws CoreException if the cactification could not occur
-     */
-    private void cactifyWebapp(IJavaProject theJavaProject)
-        throws CoreException
-    {
-        File jettyWebappDir =
-            new File(
-                CactusPreferences.getTempDir()
-                    + File.separator
-                    + JETTY_WEBAPP_PATH);
-        WarBuilder.delete(jettyWebappDir);
-        jettyWebappDir.mkdir();
-        copyCactusWebappResources(jettyWebappDir);
-        Webapp webapp = WebappPlugin.getWebapp(theJavaProject);
-        webapp.init();
-        File webappDir = webapp.getAbsoluteDir();
-        if (webappDir != null && webappDir.exists())
-        {
-            copyContents(webappDir, jettyWebappDir);
-        }
-    }
 
-    /**
-     * copies files from a directory to another directory
-     * @param theSourceDir directory to copy files from
-     * @param theTargetDir directory to copy files to
-     */
-    private void copyContents(File theSourceDir, File theTargetDir)
-    {
-        Project antProject = new Project();
-        antProject.init();
-        Copy copy = new Copy();
-        copy.setProject(antProject);
-        copy.setTodir(theTargetDir);
-        FileSet fileSet = new FileSet();
-        fileSet.setDir(theSourceDir);
-        copy.addFileset(fileSet);
-        copy.execute();
-    }
-
-    /**
-     * Copies Cactus webapp resources (jspredirector.jsp) to the given
-     * directory
-     * @param theDir the directory to copy resources to
-     * @throws CoreException if we cannot copy the resources
-     */
-    private void copyCactusWebappResources(File theDir) throws CoreException
-    {
-        Project antProject = new Project();
-        antProject.init();
-        Copy copy = new Copy();
-        copy.setProject(antProject);
-        copy.setTodir(theDir);
-        CactusPlugin thePlugin = CactusPlugin.getDefault();
-        URL jspRedirectorURL = thePlugin.find(new Path(JSPREDIRECTOR_PATH));
-        if (jspRedirectorURL == null)
-        {
-            throw CactusPlugin.createCoreException(
-                "CactusLaunch.message.prepare.error.plugin.file",
-                " : " + JSPREDIRECTOR_PATH,
-                null);
-        }
-        File jspRedirector = new File(jspRedirectorURL.getPath());
-        FileSet fileSet = new FileSet();
-        fileSet.setFile(jspRedirector);
-        copy.addFileset(fileSet);
-        copy.execute();
-    }
-
-    /**
-     * Prepares the Cactus test launch.
-     * @param theJavaProject the project that the Cactus tests are run from
-     * @param theProvider the provider to be prepared for the tests
-     */
-    private void prepare(
-        final IJavaProject theJavaProject,
-        final IContainerProvider theProvider)
-    {
-        final IRunnableWithProgress runnable = new IRunnableWithProgress()
-        {
-            public void run(IProgressMonitor thePM) throws InterruptedException
-            {
-                try
-                {
-                    CactusPlugin.log("Preparing cactus tests");
-                    prepareCactusTests(theJavaProject, thePM, theProvider);
-                }
-                catch (CoreException e)
-                {
-                    throw new InterruptedException(e.getMessage());
-                }
-            }
-        };
-        Display.getDefault().asyncExec(new Runnable()
-        {
-            public void run()
-            {
-                try
-                {
-                    ProgressMonitorDialog dialog =
-                        new ProgressMonitorDialog(getShell());
-                    dialog.run(true, true, runnable);
-                }
-                catch (InvocationTargetException e)
-                {
-                    CactusPlugin.displayErrorMessage(
-                        CactusMessages.getString(
-                            "CactusLaunch.message.prepare.error"),
-                        e.getTargetException().getMessage(),
-                        null);
-                    cancelPreparation(theProvider);
-                    return;
-                }
-                catch (InterruptedException e)
-                {
-                    CactusPlugin.displayErrorMessage(
-                        CactusMessages.getString(
-                            "CactusLaunch.message.prepare.error"),
-                        e.getMessage(),
-                        null);
-                    cancelPreparation(theProvider);
-                    return;
-                }
-            }
-        });
-    }
     /**
      * Launches the Junit tests.
      */
@@ -373,119 +208,6 @@ public class CactusLaunchShortcut
     {
         CactusPlugin.log("Launching tests");
         super.launchType(this.search, this.mode);
-    }
-
-    /**
-     * Returns the provider associated with this CactusLaunchShortcut instance,
-     * or null if there is none (i.e. Jetty).
-     * @return the provider associated with this instance
-     */
-    public IContainerProvider getContainerProvider()
-    {
-        return this.provider;
-    }
-
-    /**
-     * Launches a new progress dialog for preparation cancellation.
-     * @param theProvider the provider which preparation to cancel
-     */
-    private void cancelPreparation(final IContainerProvider theProvider)
-    {
-        ProgressMonitorDialog dialog = new ProgressMonitorDialog(getShell());
-        IRunnableWithProgress tearDownRunnable = new IRunnableWithProgress()
-        {
-            public void run(IProgressMonitor thePM) throws InterruptedException
-            {
-                try
-                {
-                    teardownCactusTests(thePM, theProvider);
-                }
-                catch (CoreException e)
-                {
-                    throw new InterruptedException(e.getMessage());
-                }
-            }
-        };
-        try
-        {
-            dialog.run(true, true, tearDownRunnable);
-        }
-        catch (InvocationTargetException tearDownE)
-        {
-            CactusPlugin.displayErrorMessage(
-                CactusMessages.getString("CactusLaunch.message.teardown.error"),
-                tearDownE.getTargetException().getMessage(),
-                null);
-        }
-        catch (InterruptedException tearDownE)
-        {
-            CactusPlugin.displayErrorMessage(
-                CactusMessages.getString("CactusLaunch.message.teardown.error"),
-                tearDownE.getMessage(),
-                null);
-        }
-    }
-
-    /**
-     * creates the war file, deploys and launches the container.
-     * @param theJavaProject the Java file
-     * @param thePM the progress monitor to report to
-     * @param theProvider the provider to prepare
-     * @throws CoreException if anything goes wrong during preparation
-     */
-    private void prepareCactusTests(
-        IJavaProject theJavaProject,
-        IProgressMonitor thePM,
-        IContainerProvider theProvider)
-        throws CoreException
-    {
-        thePM.beginTask(
-            CactusMessages.getString("CactusLaunch.message.prepare"),
-            10);
-        try
-        {
-            WarBuilder newWar = new WarBuilder(theJavaProject);
-            this.war = newWar.createWar(thePM);
-            URL warURL = war.toURL();
-            String contextURLPath = CactusPreferences.getContextURLPath();
-            if (contextURLPath.equals(""))
-            {
-                throw CactusPlugin.createCoreException(
-                    "CactusLaunch.message.invalidproperty.contextpath",
-                    null);
-            }
-            theProvider.deploy(contextURLPath, warURL, null, thePM);
-            theProvider.start(null, thePM);
-        }
-        catch (MalformedURLException e)
-        {
-            CactusPlugin.log(e);
-            throw CactusPlugin.createCoreException(
-                "CactusLaunch.message.war.malformed",
-                e);
-        }
-        thePM.done();
-    }
-
-    /**
-     * Stops the container and undeploys (cleans) it.
-     * @param thePM a progress monitor that reflects progress made while tearing
-     * down the container setup
-     * @param theProvider the provider of the container to stop and undeploy
-     * @throws CoreException if an error occurs when tearing down
-     */
-    private void teardownCactusTests(
-        IProgressMonitor thePM,
-        IContainerProvider theProvider)
-        throws CoreException
-    {
-        thePM.beginTask(
-            CactusMessages.getString("CactusLaunch.message.teardown"),
-            100);
-        theProvider.stop(null, thePM);
-        theProvider.undeploy(null, null, thePM);
-        this.war.delete();
-        thePM.done();
     }
 
     /**
@@ -508,71 +230,8 @@ public class CactusLaunchShortcut
             return;
         }
         CactusPlugin.log("Test run ended");
-        if (getContainerProvider() != null)
-        {
-            teardown(getContainerProvider());
-        }
+        manager.tearDown();
         this.launchEnded = true;
-    }
-
-    /**
-     * Tears down the Cactus tests
-     * @param theProvider the container provider to tear down
-     */
-    private void teardown(final IContainerProvider theProvider)
-    {
-        final IRunnableWithProgress runnable = new IRunnableWithProgress()
-        {
-            public void run(IProgressMonitor thePM) throws InterruptedException
-            {
-                CactusPlugin.log("Tearing down cactus tests");
-                try
-                {
-                    teardownCactusTests(thePM, theProvider);
-                }
-                catch (CoreException e)
-                {
-                    throw new InterruptedException(e.getMessage());
-                }
-            }
-        };
-        Display.getDefault().asyncExec(new Runnable()
-        {
-            public void run()
-            {
-                try
-                {
-                    ProgressMonitorDialog dialog =
-                        new ProgressMonitorDialog(getShell());
-                    dialog.run(true, true, runnable);
-                }
-                catch (InvocationTargetException e)
-                {
-                    CactusPlugin.displayErrorMessage(
-                        CactusMessages.getString(
-                            "CactusLaunch.message.teardown.error"),
-                        e.getTargetException().getMessage(),
-                        null);
-                    cancelPreparation(theProvider);
-                    return;
-                }
-                catch (InterruptedException e)
-                {
-                    CactusPlugin.displayErrorMessage(
-                        CactusMessages.getString(
-                            "CactusLaunch.message.teardown.error"),
-                        e.getMessage(),
-                        null);
-                    cancelPreparation(theProvider);
-                    return;
-                }
-                finally
-                {
-                    CactusLaunchShortcut.this.launchEnded = true;
-                }
-            }
-
-        });
     }
 
     /**
@@ -639,11 +298,11 @@ public class CactusLaunchShortcut
     }
 
     /**
-     * @return jettyWebappPath
+     * @return the current container manager
      */
-    public static String getJettyWebappPath()
+    public IContainerManager getContainerManager()
     {
-        return JETTY_WEBAPP_PATH;
+        return manager;
     }
 
 }

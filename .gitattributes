@@ -358,6 +358,7 @@ integration/eclipse/org.apache.cactus.eclipse.runner/src/java/org/apache/cactus/
 integration/eclipse/org.apache.cactus.eclipse.runner/src/java/org/apache/cactus/eclipse/runner/containers/ant/AntContainerManager.java svn_keywords=Author+Date+Id+Revision
 integration/eclipse/org.apache.cactus.eclipse.runner/src/java/org/apache/cactus/eclipse/runner/containers/ant/AntContainerProvider.java svn_keywords=Author+Date+Id+Revision
 integration/eclipse/org.apache.cactus.eclipse.runner/src/java/org/apache/cactus/eclipse/runner/containers/ant/EclipseRunTests.java svn_keywords=Author+Date+Id+Revision
+integration/eclipse/org.apache.cactus.eclipse.runner/src/java/org/apache/cactus/eclipse/runner/containers/jetty/JettyContainerManager.java svn_keywords=Author+Date+Id+Revision
 integration/eclipse/org.apache.cactus.eclipse.runner/src/java/org/apache/cactus/eclipse/runner/launcher/CactusLaunchConfiguration.java svn_keywords=Author+Date+Id+Revision
 integration/eclipse/org.apache.cactus.eclipse.runner/src/java/org/apache/cactus/eclipse/runner/launcher/CactusLaunchShortcut.java svn_keywords=Author+Date+Id+Revision
 integration/eclipse/org.apache.cactus.eclipse.runner/src/java/org/apache/cactus/eclipse/runner/ui/CactifyActionDelegate.java svn_keywords=Author+Date+Id+Revision
