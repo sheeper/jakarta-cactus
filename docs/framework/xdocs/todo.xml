@@ -155,6 +155,13 @@
         Support unit testing of Servlet code that uses Security APIs, such as
         <code>isUserInRole()</code>, ...
       </action>
+      <action>
+        Find a mechanism to instanciate Log4j just for Cactus and not
+        interfere with a user using Log4j in it's code. At the current time,
+        Cactus reconfigure Log4j at init and thus will invalidate the
+        configuration of a Cactus user or that user will have to add
+        the Log4j configuration for Cactus in its own config file.
+      </action>
     </category>
 
     <category title="Ideas">
