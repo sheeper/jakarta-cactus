@@ -81,7 +81,7 @@ public class ServletTestCaller
     /**
      * The logger
      */
-    private static Log logger = LogService.getInstance().getLog(ServletTestRedirector.class.getName());
+    private static Log logger = LogService.getInstance().getLog(ServletTestCaller.class.getName());
 
     /**
      * Call the method to test.
