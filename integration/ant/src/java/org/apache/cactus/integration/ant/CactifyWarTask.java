@@ -698,7 +698,7 @@ public class CactifyWarTask extends War
         tmpWebXml.deleteOnExit();
         try
         {
-            WebXmlIo.writeWebXml(theWebXml, tmpWebXml);
+            WebXmlIo.writeWebXml(theWebXml, tmpWebXml, null, true);
         }
         catch (IOException ioe)
         {
