@@ -57,6 +57,11 @@
 package org.apache.cactus.extension.jsp;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+import junit.framework.Assert;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
@@ -65,6 +70,9 @@ import javax.servlet.jsp.tagext.BodyTag;
 import javax.servlet.jsp.tagext.IterationTag;
 import javax.servlet.jsp.tagext.Tag;
 import javax.servlet.jsp.tagext.TryCatchFinally;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * Convenience class that supports the testing of JSP tag by managing the tag's
@@ -119,66 +127,51 @@ import javax.servlet.jsp.tagext.TryCatchFinally;
  *   </ol>
  * </p>
  * 
- * <h4>Testing Iteration and Body Tags with Lifecycle Interceptors</h4>
+ * <h4>Adding Special Assertions to the Lifecycle</h4>
  * <p>
- *   In the example above, the tag's lifecycle is simply run through from start
- *   to finish. However, <code>JspTagLifecycle</code> also let's you get
- *   <em>inside</em> significant phases of the tag's lifecycle. For this you
- *   need to use the method
- *   {@link #invoke(JspTagLifecycle.Interceptor) invoke(Interceptor)}
- *   supplying a custom
- *   {@link JspTagLifecycle.Interceptor Interceptor} implementation.
+ *   <code>JspTagLifecycle</code> features a couple of methods that let you 
+ *   easily add JUnit assertions about the tag's lifecycle to the test. For
+ *   example, the method {@link #assertBodySkipped assertBodySkipped()} can be 
+ *   used to assert that tag's body is not evaluated under the conditions set up
+ *   by the test:
+ *   <pre>
+  IfTag tag = new IfTag();
+  JspTagLifecycle lifecycle = new JspTagLifecycle(pageContext, tag);
+  tag.setTest("false");
+  lifecycle.assertBodySkipped();
+  lifecycle.invoke();</pre>
  * </p>
- * 
  * <p>
- *   This feature can be used to test iteration and body tags. The following 
- *   code snippet is a simple example for testing the
- *   <code>&lt;c:forEach&gt;</code>-tag of the JSTL reference implementation:
- *   <blockquote><pre>
+ *   An example of a more sophisticated assertion is the
+ *   {@link #assertScopedVariableExposed(String, Object[])}
+ *   method, which can verify that a specific scoped variable gets exposed in
+ *   the body of the tag, and that the exposed variable has a specific value in
+ *   each iteration step:
+ *   <pre>
   ForEachTag tag = new ForEachTag();
   JspTagLifecycle lifecycle = new JspTagLifecycle(pageContext, tag);
   tag.setVar("item");
-  tag.setItems("one,two,three");
-  lifecycle.invoke(new JspTagLifecycle.Interceptor() {
-    public void evalBody(int iteration, BodyContent body) {
-      String item = (String)pageContext.findAttribute("item");
-      if (iteration == 0) {
-        assertEquals("one", item);
-      } else if (iteration == 1) {
-        assertEquals("two", item);
-      } else if (iteration == 2) {
-        assertEquals("three", item);
-      } else {
-        fail("More iterations than expected!");
-      }
-    }
-  });</pre>
- * </blockquote></p>
+  tag.setItems("One,Two,Three");
+  lifecycle.assertBodyEvaluated();
+  lifecycle.assertScopedVariableExposed(
+      "item", new Object[] {"One", "Two", "Three"});
+  lifecycle.invoke();</pre>
+ * </p>
  * 
+ * <h4>Specifying Nested Content</h4>
  * <p>
- *   To test a tag that does buffered evaluation of its body content, the 
- *   {@link JspTagLifecycle.Interceptor#evalBody Interceptor.evalBody()} method
- *   can be overridden to write the content that the tag will see. The following
- *   example demonstrates this using the <code>&lt;c:out&gt;</code> tag:
- *   <blockquote><pre>
-  OutTag tag = new OutTag();
-  JspTagLifecycle lifecycle = new JspTagLifecycle(pageContext, tag);
-  tag.setValue(null);
-  lifecycle.invoke(new JspTagLifecycle.Interceptor() {
-    public void evalBody(int iteration, BodyContent body)
-        throws IOException {
-        body.print("Default Value");
-    }
-  });
-  </blockquote>
+ *   <code>JspTagLifecycle</code> let's you add nested tempate text as well as 
+ *   nested tags to the tag under test. The most important use of this feature 
+ *   is testing of collaboration between tags.
  * </p>
  * 
  * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
+ * @since Cactus 1.5
  * 
  * @version $Id$
  * @see org.apache.cactus.JspTestCase
  */
-public class JspTagLifecycle
+public final class JspTagLifecycle
 {  
     // Inner Classes -----------------------------------------------------------
     
@@ -188,6 +181,7 @@ public class JspTagLifecycle
      * it is being executed.
      * 
      * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
+     * @since Cactus 1.5
      */
     public abstract static class Interceptor
     {
@@ -195,15 +189,29 @@ public class JspTagLifecycle
         /**
          * Method called when the body of the tag would be evaluated. Can be
          * used in specific test cases to perform assertions.
-         *  
+         * 
+         * Please note that if you're testing a <code>BodyTag</code>, you
+         * should not write content to the
+         * {@link org.apache.cactus.JspTestCase#out} instance variable while 
+         * the body is being evaluated. This is because the actual implicit
+         * object <code>out</code> in JSP pages gets replaced by the current 
+         * nested <code>BodyContent</code>, whereas in <code>JspTestCase</code>
+         * the <code>out</code> variable always refers to the top level
+         * <code>JspWriter</code>. Instead, simply use the 
+         * <code>BodyContent</code> parameter passed into the
+         * {@link JspTagLifecycle.Interceptor#evalBody evalBody()} method or 
+         * the <code>JspWriter</code> retrieved by a call to 
+         * {javax.servlet.jsp.PageContext#getOut pageContext.getOut()}. 
+         * 
          * @param theIteration The number of times the body has been evaluated
          * @param theBody The body content, or <tt>null</tt> if the tag isn't a
          *        <tt>BodyTag</tt>
+         * @throws JspException If thrown by a nested tag
          * @throws IOException If an error occurs when reading or writing the
          *         body content
          */
         public void evalBody(int theIteration, BodyContent theBody)
-            throws IOException
+            throws JspException, IOException
         {
             // default implementation does nothing
         }
@@ -220,17 +228,160 @@ public class JspTagLifecycle
     }
     
     /**
-     * Used internally to avoid having to check for <tt>null</tt>.
+     * A specialized interceptor that asserts that the tag's body is evaluated
+     * at least once.
      */
-    private static final Interceptor NOOP_INTERCEPTOR = 
-        new Interceptor()
+    private static class AssertBodyEvaluatedInterceptor
+        extends Interceptor
+    {
+        /**
+         * The actual number of times the tag's body has been evaluated.
+         */
+        private int actualNumIterations;
+        
+        /**
+         * The number of times the tag's body is expected to be evaluated.
+         */
+        private int expectedNumIterations;
+        
+        public AssertBodyEvaluatedInterceptor(int theNumIterations)
         {
-        };
+            this.expectedNumIterations = theNumIterations;
+        }
+        
+        public void evalBody(int theIteration, BodyContent theBody)
+        {
+            actualNumIterations++;
+            if (actualNumIterations > expectedNumIterations)
+            {
+                Assert.fail("Expected " + expectedNumIterations
+                    + " iterations, but was " + actualNumIterations);
+            }
+        }
+        
+        public void skipBody()
+        {
+            if (actualNumIterations < expectedNumIterations)
+            {
+                Assert.fail("Expected " + expectedNumIterations
+                    + " iterations, but was " + actualNumIterations);
+            }
+        }
+    }
+    
+    /**
+     * A specialized interceptor that asserts that the tag's body is skipped.
+     */
+    private static class AssertBodySkippedInterceptor
+        extends Interceptor
+    {
+        public void evalBody(int theIteration, BodyContent theBody)
+        {
+            Assert.fail("Tag body should have been skipped");
+        }
+    }
+    
+    /**
+     * A specialized interceptor ...
+     */
+    private class AssertScopedVariableExposedInterceptor
+        extends Interceptor
+    {
+        /**
+         * The name of the scoped variable.
+         */
+        private String name;
+        
+        /**
+         * The list of expected values of the variable.
+         */
+        private Object[] expectedValues;
+        
+        /**
+         * The scope in which the variable is stored.
+         */
+        private int scope;
+        
+        public AssertScopedVariableExposedInterceptor(String theName,
+            Object[] theExpectedValues, int theScope)
+        {
+            this.name = theName;
+            this.expectedValues = theExpectedValues;
+            this.scope = theScope;
+        }
+        
+        public void evalBody(int theIteration, BodyContent theBody)
+        {
+            Assert.assertEquals(expectedValues[theIteration],
+                pageContext.getAttribute(name, scope));
+        }
+    }
+    
+    /**
+     * A specialized interceptor that invokes the lifecycle of a nested tag.
+     */
+    private class NestedTagInterceptor
+        extends Interceptor
+    {
+        /**
+         * The lifecycle object of the nested tag.
+         */
+        private JspTagLifecycle lifecycle;
+        
+        public NestedTagInterceptor(JspTagLifecycle theLifecycle)
+        {
+            this.lifecycle = theLifecycle;
+        }
+        
+        public void evalBody(int theIteration, BodyContent theBody)
+            throws JspException, IOException
+        {
+            lifecycle.invoke();
+        }
+    }
+    
+    /**
+     * A specialized interceptor that prints nested template text when the tag's
+     * body is evaluated.
+     */
+    private class NestedTextInterceptor
+        extends Interceptor
+    {
+        /**
+         * The nested text.
+         */
+        private String text;
+        
+        public NestedTextInterceptor(String theText)
+        {
+            this.text = theText;
+        }
+        
+        public void evalBody(int theIteration, BodyContent theBody)
+            throws IOException
+        {
+            if (theBody != null)
+            {
+                theBody.print(text);
+            }
+            else
+            {
+                pageContext.getOut().print(text);
+            }
+        }
+    }
+    
+    // Class Variables ---------------------------------------------------------
+    
+    /**
+     * The log target.
+     */
+    private static Log log = LogFactory.getLog(JspTagLifecycle.class);
     
     // Instance Variables ------------------------------------------------------
     
     /**
-     * The JSP tag handler.
+     * The JSP page context.
      */
     private PageContext pageContext;
     
@@ -240,9 +391,14 @@ public class JspTagLifecycle
     private Tag tag;
     
     /**
-     * The JSP tag handler.
+     * The enclosing tag.
      */
     private Tag parent;
+    
+    /**
+     * The interceptor chain.
+     */
+    private List interceptors;
     
     // Constructors ------------------------------------------------------------
     
@@ -254,40 +410,147 @@ public class JspTagLifecycle
      */
     public JspTagLifecycle(PageContext thePageContext, Tag theTag)
     {
-        this(thePageContext, theTag, null);
-    }
-    
-    /**
-     * Constructor.
-     * 
-     * @param thePageContext The JSP page context
-     * @param theTag The JSP tag
-     * @param theParent The parent tag, or <tt>null</tt>
-     */
-    public JspTagLifecycle(PageContext thePageContext, Tag theTag, 
-        Tag theParent)
-    {
+        if ((thePageContext == null) || (theTag == null))
+        {
+            throw new NullPointerException();
+        }
         this.tag = theTag;
         this.pageContext = thePageContext;
         tag.setPageContext(pageContext);
-        this.parent = theParent;
-        tag.setParent(parent);
     }
     
     // Public Methods ----------------------------------------------------------
     
     /**
-     * Invokes the tag. The tag should have been populated with its properties
-     * before calling this method. The tag is not released after the tag's
-     * lifecycle is over.
+     * Adds an interceptor to the interceptor chain.
      * 
-     * @throws JspException If the tag throws an exception
-     * @throws IOException If an error occurs when reading or writing the body
-     *         content
+     * @param theInterceptor The interceptor to add
      */
-    public void invoke() throws JspException, IOException
+    public void addInterceptor(Interceptor theInterceptor)
     {
-        invoke(NOOP_INTERCEPTOR);
+        if (theInterceptor == null)
+        {
+            throw new NullPointerException();
+        }
+        if (interceptors == null)
+        {
+            interceptors = new ArrayList();
+        }
+        interceptors.add(theInterceptor);
+    }
+    
+    /**
+     * Adds a nested tag. The tag will be invoked when the body content of the
+     * enclosing tag is evaluated.
+     * 
+     * @return The lifecycle wrapper for the nested tag, can be used to add 
+     *         assertions to the nested tag
+     * @param theNestedTag The tag to be nested
+     */
+    public JspTagLifecycle addNestedTag(Tag theNestedTag)
+    {
+        if (theNestedTag == null)
+        {
+            throw new NullPointerException();
+        }
+        JspTagLifecycle lifecycle =
+            new JspTagLifecycle(pageContext, theNestedTag);
+        theNestedTag.setParent(tag);
+        addInterceptor(new NestedTagInterceptor(lifecycle));
+        return lifecycle;
+    }
+    
+    /**
+     * Adds template text to nest inside the tag. The text will be printed to 
+     * the body content when it is evaluated.
+     * 
+     * @param theNestedText The string containing the template text
+     */
+    public void addNestedText(String theNestedText)
+    {
+        if (theNestedText == null)
+        {
+            throw new NullPointerException();
+        }
+        addInterceptor(new NestedTextInterceptor(theNestedText));
+    }
+    
+    /**
+     * Adds the assertion that the tag body must be evaluated once in the course
+     * of the tags lifecycle.
+     */
+    public void assertBodyEvaluated()
+    {
+        addInterceptor(new AssertBodyEvaluatedInterceptor(1));
+    }
+    
+    /**
+     * Adds the assertion that the tag body must be evaluated a specific number
+     * of times in the course of the tags lifecycle.
+     */
+    public void assertBodyEvaluated(int theNumIterations)
+    {
+        addInterceptor(new AssertBodyEvaluatedInterceptor(theNumIterations));
+    }
+    
+    /**
+     * Adds the assertion that the tag body must be skipped. Essentially, this
+     * assertion verifies that the tag returns <code>SKIP_BODY</code> from
+     * <code>doStartTag()</code>.
+     */
+    public void assertBodySkipped()
+    {
+        addInterceptor(new AssertBodySkippedInterceptor());
+    }
+    
+    /**
+     * Adds a special assertion that verifies that a specific scoped variable
+     * is exposed in the body of the tag.
+     * 
+     * @param theName The name of the variable
+     * @param theExpectedValues An ordered list containing the expected values 
+     *                          values of the scoped variable, one for each 
+     *                          expected iteration step
+     */
+    public void assertScopedVariableExposed(String theName,
+                                            Object[] theExpectedValues)
+    {
+        assertScopedVariableExposed(theName, theExpectedValues,
+            PageContext.PAGE_SCOPE);
+    }
+    
+    /**
+     * Adds a special assertion that verifies that a specific scoped variable
+     * is exposed in the body of the tag.
+     * 
+     * @param theName The name of the variable
+     * @param theExpectedValues An ordered list containing the expected values 
+     *                          values of the scoped variable, one for each 
+     *                          expected iteration step
+     * @param theScope The scope under which the variable is stored
+     */
+    public void assertScopedVariableExposed(String theName,
+                                            Object[] theExpectedValues,
+                                            int theScope)
+    {
+        if ((theName == null) || (theExpectedValues == null))
+        {
+            throw new NullPointerException();
+        }
+        if (theExpectedValues.length == 0)
+        {
+            throw new IllegalArgumentException();
+        }
+        if ((theScope != PageContext.PAGE_SCOPE)
+         && (theScope != PageContext.REQUEST_SCOPE)
+         && (theScope != PageContext.SESSION_SCOPE)
+         && (theScope != PageContext.APPLICATION_SCOPE))
+        {
+            throw new IllegalArgumentException();
+        }
+        addInterceptor(
+            new AssertScopedVariableExposedInterceptor(theName,
+                theExpectedValues, theScope));
     }
     
     /**
@@ -295,26 +558,19 @@ public class JspTagLifecycle
      * populated with its properties before calling this method. The tag is not
      * released after the tag's lifecycle is over.
      * 
-     * @param theInterceptor The interceptor that will be notified about 
-     *        important lifecycle events
      * @throws JspException If the tag throws an exception
      * @throws IOException If an error occurs when reading or writing the body
      *         content
      */
-    public void invoke(Interceptor theInterceptor) 
+    public void invoke()
         throws JspException, IOException
     {
-        if (theInterceptor == null)
-        {
-            throw new NullPointerException();
-        }
-        BodyContent body = null;
         if (tag instanceof TryCatchFinally)
         {
             TryCatchFinally tryCatchFinally = (TryCatchFinally) tag;
             try
             {
-                body = invokeTag(theInterceptor);
+                invokeInternal();
             }
             catch (Throwable t1)
             {
@@ -329,77 +585,126 @@ public class JspTagLifecycle
             }
             finally
             {
-                if (body != null)
-                {
-                    pageContext.popBody();
-                    body = null;
-                }
                 tryCatchFinally.doFinally();
             }
         }
         else
         {
-            try
-            {
-                body = invokeTag(theInterceptor);
-            }
-            finally
-            {
-                if (body != null)
-                {
-                    pageContext.popBody();
-                    body = null;
-                }
-            }
+            invokeInternal();
         }
     }
     
     // Private Methods ---------------------------------------------------------
     
     /**
+     * Notify all interceptors about a body evaluation.
+     * 
+     * @param theIteration The iteration
+     * @param theBody The body content
+     * @throws JspException If thrown by a nested tag
+     * @throws IOException If an error occurs when reading or writing the body
+     *         content
+     */
+    private void fireEvalBody(int theIteration, BodyContent theBody)
+        throws JspException, IOException
+    {
+        if (interceptors != null)
+        {
+            for (Iterator i = interceptors.iterator(); i.hasNext();)
+            {
+                ((Interceptor)i.next()).evalBody(theIteration, theBody);
+            }
+        }
+    }
+    
+    /**
+     * Notify all interceptors that the body has been skipped.
+     */
+    private void fireSkipBody()
+    {
+        if (interceptors != null)
+        {
+            for (Iterator i = interceptors.iterator(); i.hasNext();)
+            {
+                ((Interceptor)i.next()).skipBody();
+            }
+        }
+    }
+    
+    /**
      * Internal method to invoke a tag without doing exception handling.
      * 
-     * @param theInterceptor The interceptor that will be notified about 
-     *        lifecycle events
      * @throws JspException If the tag throws an exception
      * @throws IOException If an error occurs when reading or writing the body
      *         content
-     * @return The body content, or <tt>null</tt> if the tag didn't request
-     *         buffered body evaluation
      */
-    private BodyContent invokeTag(Interceptor theInterceptor)
+    private void invokeInternal()
         throws JspException, IOException
     {
-        BodyContent body = null;
         int status = tag.doStartTag();
         if (tag instanceof IterationTag)
         {
             if (status != Tag.SKIP_BODY)
             {
-                IterationTag iterationTag = (IterationTag) tag;
-                if ((status == BodyTag.EVAL_BODY_BUFFERED)
-                    && (tag instanceof BodyTag))
+                BodyContent body = null;
+                try
                 {
-                    BodyTag bodyTag = (BodyTag) tag;
-                    body = pageContext.pushBody();
-                    bodyTag.setBodyContent(body);
-                    bodyTag.doInitBody();
+                    IterationTag iterationTag = (IterationTag) tag;
+                    if ((status == BodyTag.EVAL_BODY_BUFFERED)
+                        && (tag instanceof BodyTag))
+                    {
+                        BodyTag bodyTag = (BodyTag) tag;
+                        if (log.isDebugEnabled())
+                        {
+                            log.debug("Pushing body content '"
+                                + body.getString() + "'");
+                        }
+                        body = pageContext.pushBody();
+                        bodyTag.setBodyContent(body);
+                        bodyTag.doInitBody();
+                    }
+                    int iteration = 0;
+                    do
+                    {
+                        fireEvalBody(iteration, body);
+                        if (log.isDebugEnabled())
+                        {
+                            log.debug("Body evaluated for the "
+                                + iteration + " time");
+                        }
+                        status = iterationTag.doAfterBody();
+                        iteration++;
+                    } while (status == IterationTag.EVAL_BODY_AGAIN);
+                    if (log.isDebugEnabled())
+                    {
+                        log.debug("Body skipped");
+                    }
+                    fireSkipBody();
                 }
-                int iteration = 0;
-                do
+                finally
                 {
-                    theInterceptor.evalBody(iteration, body);
-                    status = iterationTag.doAfterBody();
-                    iteration++;
-                } while (status == IterationTag.EVAL_BODY_AGAIN);
+                    if (body != null)
+                    {
+                        if (log.isDebugEnabled())
+                        {
+                            log.debug("Popping body content '"
+                                + body.getString() + "'");
+                        }
+                        pageContext.popBody();
+                        body = null;
+                    }
+                }
             }
             else
             {
-                theInterceptor.skipBody();
+                if (log.isDebugEnabled())
+                {
+                    log.debug("Body skipped");
+                }
+                fireSkipBody();
             }
         }
         status = tag.doEndTag();
-        return body;
     }
     
 }
