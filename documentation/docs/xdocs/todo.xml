@@ -39,9 +39,6 @@
       <action assigned-to="Vincent Massol">
         Explain how to configure logging using Commons Logging.
       </action>
-      <action assigned-to="Vincent Massol">
-        Modify documentation for new jar : Commons Logging
-      </action>
     </category>
 
   </version>

@@ -207,7 +207,8 @@
           Howto</link> tutorial for details.
         </li>
         <li>
-          Internal Log4j logging to help debug problems.
+          Internal logging using Jakarta Commons Logging facade framework
+          to help debug problems.
         </li>
         <li>
           HttpUnit integration. See the
@@ -219,10 +220,6 @@
         <li>
           Support for BASIC authentication. You can test code that uses the
           Servlet security API.
-        </li>
-        <li>
-          Ability to define where to locate the Cactus configuration file
-          (<code>cactus.properties</code>).
         </li>
         <li>
           Ability to specify, per test case, what redirector to use. Useful,
