@@ -1,4 +1,7 @@
 <?xml version="1.0"?>
+<!DOCTYPE project [
+    <!ENTITY common SYSTEM "file:../common.xml">
+]>
 
 <!--
   =============================================================================
@@ -36,7 +39,8 @@
 
     <!-- Give user a chance to override without editing this file
          (and without typing -D each time it compiles it) -->
-    <property file="framework/build.properties" />
+    <property file="${basedir}/framework/build.properties" />
+    <property file="${basedir}/build.properties" />
     <property file="${user.home}/build.properties" />
 
     <!-- Global project properties -->
@@ -64,6 +68,13 @@
        ========================================================================
     -->
     <property name="base.dir" location="framework"/>
+
+    <!--
+       ========================================================================
+         Include common targets and properties
+       ========================================================================
+    -->
+    &common;
 
     <!--
        ========================================================================
@@ -623,19 +634,10 @@
          the checkstyle jar is in the Ant classpasth.
        ========================================================================
     -->
-    <target name="checkstyle.check">
-
-        <available property="checkstyle.present"
-            classname="com.puppycrawl.tools.checkstyle.CheckStyleTask"/>
-
-    </target>
-
-    <target name="checkstyle" depends="checkstyle.check,init"
-        if="checkstyle.present"
+    <target name="checkstyle"
+        depends="init, init.checkstyle"
+        if="checkstyle.available"
         description="Perform a code audit using Checkstyle">
-
-        <taskdef name="checkstyle"
-            classname="com.puppycrawl.tools.checkstyle.CheckStyleTask"/>
 
         <mkdir dir="${target.dir}"/>
 

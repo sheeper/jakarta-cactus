@@ -48,6 +48,7 @@ anttasks/src/java/org/apache/cactus/ant/StopServerTask.java svn_keywords=Author+
 /build-admin.xml svn_keywords=Author+Date+Id+Revision
 /build.properties.sample svn_keywords=Author+Date+Id+Revision
 /build.xml svn_keywords=Author+Date+Id+Revision
+/common.xml svn_keywords=Author+Date+Id+Revision
 documentation/.cvsignore svn_keywords=Author+Date+Id+Revision
 documentation/README svn_keywords=Author+Date+Id+Revision
 documentation/build.properties.sample svn_keywords=Author+Date+Id+Revision

@@ -1,4 +1,7 @@
 <?xml version="1.0"?>
+<!DOCTYPE project [
+    <!ENTITY common SYSTEM "file:../common.xml">
+]>
 
 <!--
   =============================================================================
@@ -28,7 +31,8 @@
 
     <!-- Give user a chance to override without editing this file
          (and without typing -D each time it compiles it) -->
-    <property file="anttasks/build.properties" />
+    <property file="${basedir}/anttasks/build.properties" />
+    <property file="${basedir}/build.properties" />
     <property file="${user.home}/build.properties" />
 
     <!-- Global project properties -->
@@ -96,6 +100,13 @@
 
     <!-- The custom task jar and helper classes -->
     <property name="anttasks.jar.name" value="${project.name.file}"/>
+
+    <!--
+       ========================================================================
+         Include common targets and properties
+       ========================================================================
+    -->
+    &common;
 
     <!--
        ========================================================================
@@ -250,18 +261,10 @@
          Perform a code audit using CheckStyle.
        ========================================================================
     -->
-    <target name="checkstyle.check">
-
-        <available property="checkstyle.present"
-            classname="com.puppycrawl.tools.checkstyle.CheckStyleTask"/>
-
-    </target>
-    <target name="checkstyle" depends="checkstyle.check,init"
-        if="checkstyle.present"
+    <target name="checkstyle"
+        depends="init, init.checkstyle"
+        if="checkstyle.available"
         description="Perform a code audit using Checkstyle">
-
-        <taskdef name="checkstyle"
-            classname="com.puppycrawl.tools.checkstyle.CheckStyleTask"/>
 
         <mkdir dir="${target.dir}"/>
 
