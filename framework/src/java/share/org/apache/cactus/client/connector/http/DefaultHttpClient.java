@@ -230,9 +230,6 @@ public class DefaultHttpClient
         resultsRequest.setRedirectorName(
             theOriginalRequest.getRedirectorName());
         
-        //also copy the unique id to get the correct test results
-        directives.setId(new RequestDirectives(theOriginalRequest).getId());
-         
         // Add authentication details
         if (theOriginalRequest.getAuthentication() != null)
         {

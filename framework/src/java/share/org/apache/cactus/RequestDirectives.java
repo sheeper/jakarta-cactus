@@ -90,28 +90,6 @@ public class RequestDirectives
     }
 
     /**
-     * @param theId new id for the test case associated
-     *        with this request
-     */
-    public void setId(String theId)
-    {
-        if (getId() != null)
-        {
-            throw new IllegalStateException("uniqueId already set!");
-        }
-        addDirective(HttpServiceDefinition.TEST_ID_PARAM, theId);
-    }
-
-    /**
-     * @return Gets the unique id of the test case
-     */
-    public String getId()
-    {
-        return underlyingRequest.getParameterGet(
-            HttpServiceDefinition.TEST_ID_PARAM);
-    }
-
-    /**
      * @param theName name of the test class.
      */
     public void setClassName(String theName)

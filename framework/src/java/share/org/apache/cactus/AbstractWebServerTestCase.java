@@ -65,7 +65,6 @@ import junit.framework.Test;
 
 import org.apache.cactus.client.connector.http.DefaultHttpClient;
 import org.apache.cactus.configuration.WebConfiguration;
-import org.apache.cactus.util.UniqueGenerator;
 import org.apache.commons.logging.LogFactory;
 
 /**
@@ -250,9 +249,6 @@ public abstract class AbstractWebServerTestCase
         directives.setMethodName(this.getCurrentTestMethod());
         directives.setAutoSession(
             theRequest.getAutomaticSession() ? "true" : "false");
-
-
-        directives.setId(UniqueGenerator.generate(this));
 
         // Add the wrapped test if it is not equal to our current instance
         if (isWrappingATest())
