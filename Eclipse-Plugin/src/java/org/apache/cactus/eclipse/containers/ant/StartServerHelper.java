@@ -270,9 +270,8 @@ public class StartServerHelper implements Runnable
         {
             throw new BuildException(e);
         }
-
-        // Should never reach this point as the target is blocking, unless the
-        // server is stopped.
+        // Since the target is blocking this point will be reached
+        // when the server is stopped.
     }
 
     /**
