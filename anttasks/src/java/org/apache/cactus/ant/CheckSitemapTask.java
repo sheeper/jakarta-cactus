@@ -132,6 +132,8 @@ public class CheckSitemapTask extends Task
                 "The [sitemap] attribute must point to an existing file");
         }
         
+        log("Checking sitemap at " + sitemap + "", Project.MSG_INFO);
+        
         this.sitemapDir = sitemap.getParentFile();
         
         try
