@@ -186,9 +186,8 @@
             style="${doc.skin.dir}/jakarta.apache.org/stylesheets/document2html.xsl">
 
             <include name="**/*.xml"/>
-            <!--include name="**/build_result.xml"/>
-            <include name="**/howto_testcase.xml"/-->
             <exclude name="**/navigation.xml"/>
+            <exclude name="**/cvslog.xml"/>
 
             <param name="software" expression="Cactus"/>
             <param name="title" expression="Cactus Documentation"/>
