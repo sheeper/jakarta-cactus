@@ -7,91 +7,91 @@
 
   <!-- Internal links -->
 
-  <resource id="index" source="index.xml" name="What is Cactus?">
+  <resource id="index" target="index.html" name="What is Cactus?">
     Describes what is the Cactus framework, defines several types of
     unit tests and explains what are those best achieved with Cactus.
   </resource>
 
-  <resource id="news" source="news.xml" name="News">
+  <resource id="news" target="news.html" name="News">
     Latest news and events about Cactus.
   </resource>
   
-  <resource id="changes" source="changes.xml" name="Changes">
+  <resource id="changes" target="changes.html" name="Changes">
     Cactus release changelogs and list of all the web site pages that
     have been recently changed.
   </resource>
   
-  <resource id="features" source="features.xml" name="Features/Status">
+  <resource id="features" target="features.html" name="Features/Status">
     Cactus feature list.
   </resource>
   
-  <resource id="goals" source="goals.xml" name="Goals">
+  <resource id="goals" target="goals.html" name="Goals">
     Short and long term goals for Cactus.
   </resource>
   
-  <resource id="todo" source="participating/todo.xml" name="Roadmap/Todo">
+  <resource id="todo" target="participating/todo.html" name="Roadmap/Todo">
     List of todo tasks for the next Cactus releases.
   </resource>
   
-  <resource id="contributors" source="participating/contributors.xml"/>
-  <resource id="contributing" source="participating/contributing.xml"/>
-  <resource id="users" source="participating/users.xml"/>
-  <resource id="testedon" source="testedon.xml"/>
-  <resource id="license" source="license.xml"/>
-  <resource id="downloads" source="downloads.xml"/>
-  <resource id="how_it_works" source="how_it_works.xml"/>
-  <resource id="how_it_works_uml" source="how_it_works_uml.xml"/>
-  <resource id="getting_started" source="getting_started.xml"/>
-  <resource id="mock_vs_cactus" source="mock_vs_cactus.xml"/>
-  <resource id="javadoc" source="javadoc.xml"/>
-  <resource id="javadoc_12" source="javadoc_12.xml"/>
-  <resource id="javadoc_13" source="javadoc_13.xml"/>
-  <resource id="faq" source="faq.xml"/>
-  <resource id="eclipse_plugin" source="spines/eclipse/eclipse_plugin.xml"/>
-  <resource id="howto_classpath" source="spines/manual/howto_classpath.xml"/>
-  <resource id="howto_config" source="spines/manual/howto_config.xml"/>
-  <resource id="howto_migration" source="howto_migration.xml"/>
-  <resource id="howto_testcase" source="writing/howto_testcase.xml"/>
-  <resource id="howto_testcase_servlet" source="writing/howto_testcase_servlet.xml"/>
-  <resource id="howto_testcase_jsp" source="writing/howto_testcase_jsp.xml"/>
-  <resource id="howto_testcase_filter" source="writing/howto_testcase_filter.xml"/>
-  <resource id="howto_jsp" source="writing/howto_jsp.xml"/>
-  <resource id="howto_runner" source="spines/howto_runner.xml"/>
-  <resource id="howto_security" source="writing/howto_security.xml"/>
-  <resource id="howto_ant" source="spines/ant/howto_ant.xml"/>
-  <resource id="howto_ant_cactus" source="spines/ant/howto_ant_cactus.xml"/>
-  <resource id="howto_ant_install" source="spines/ant/howto_ant_install.xml"/>
-  <resource id="howto_ant_primer" source="spines/ant/howto_ant_primer.xml"/>
-  <resource id="howto_httpunit" source="writing/howto_httpunit.xml"/>
-  <resource id="howto_sample" source="howto_sample.xml"/>
-  <resource id="howto_ejb" source="writing/howto_ejb.xml"/>
-  <resource id="howto_ejb_j2eeri" source="writing/howto_ejb_j2eeri.xml"/>
-  <resource id="howto_ide" source="spines/manual/howto_ide.xml"/>
-  <resource id="howto_ide_vajava_wte" source="spines/manual/howto_ide_vajava_wte.xml"/>
-  <resource id="howto_ide_vajava_tomcat" source="spines/manual/howto_ide_vajava_tomcat.xml"/>
-  <resource id="howto_ide_jbuilder4" source="spines/manual/howto_ide_jbuilder4.xml"/>
-  <resource id="howto_ide_jbuilder5" source="spines/manual/howto_ide_jbuilder5.xml"/>
-  <resource id="howto_tomcat" source="spines/browser/howto_tomcat.xml"/>
-  <resource id="howto_junitee" source="spines/browser/howto_junitee.xml"/>
-  <resource id="mailinglist" source="mailinglist.xml"/>
-  <resource id="cactusname" source="cactusname.xml"/>
-  <resource id="logos" source="participating/logos.xml"/>
-  <resource id="resources" source="resources.xml"/>
-  <resource id="coverage" source="participating/coverage.xml"/>
-  <resource id="coverage_12" source="participating/coverage_12.xml"/>
-  <resource id="coverage_13" source="participating/coverage_13.xml"/>
-  <resource id="coverage_empty" source="participating/coverage_empty.xml"/>
-  <resource id="webalizer" source="webalizer.xml"/>
-  <resource id="coding_conventions" source="participating/coding_conventions.xml"/>
-  <resource id="build_result" source="build_result.xml"/>
-  <resource id="release_checklist" source="participating/release_checklist.xml"/>
-  <resource id="howto_build" source="participating/howto_build.xml"/>
+  <resource id="contributors" target="participating/contributors.html"/>
+  <resource id="contributing" target="participating/contributing.html"/>
+  <resource id="users" target="participating/users.html"/>
+  <resource id="testedon" target="testedon.html"/>
+  <resource id="license" target="license.html"/>
+  <resource id="downloads" target="downloads.html"/>
+  <resource id="how_it_works" target="how_it_works.html"/>
+  <resource id="how_it_works_uml" target="how_it_works_uml.html"/>
+  <resource id="getting_started" target="getting_started.html"/>
+  <resource id="mock_vs_cactus" target="mock_vs_cactus.html"/>
+  <resource id="javadoc" target="javadoc.html"/>
+  <resource id="javadoc_12" target="javadoc_12.html"/>
+  <resource id="javadoc_13" target="javadoc_13.html"/>
+  <resource id="faq" target="faq.html"/>
+  <resource id="eclipse_plugin" target="spines/eclipse/eclipse_plugin.html"/>
+  <resource id="howto_classpath" target="spines/manual/howto_classpath.html"/>
+  <resource id="howto_config" target="spines/manual/howto_config.html"/>
+  <resource id="howto_migration" target="howto_migration.html"/>
+  <resource id="howto_testcase" target="writing/howto_testcase.html"/>
+  <resource id="howto_testcase_servlet" target="writing/howto_testcase_servlet.html"/>
+  <resource id="howto_testcase_jsp" target="writing/howto_testcase_jsp.html"/>
+  <resource id="howto_testcase_filter" target="writing/howto_testcase_filter.html"/>
+  <resource id="howto_jsp" target="writing/howto_jsp.html"/>
+  <resource id="howto_runner" target="spines/howto_runner.html"/>
+  <resource id="howto_security" target="writing/howto_security.html"/>
+  <resource id="howto_ant" target="spines/ant/howto_ant.html"/>
+  <resource id="howto_ant_cactus" target="spines/ant/howto_ant_cactus.html"/>
+  <resource id="howto_ant_install" target="spines/ant/howto_ant_install.html"/>
+  <resource id="howto_ant_primer" target="spines/ant/howto_ant_primer.html"/>
+  <resource id="howto_httpunit" target="writing/howto_httpunit.html"/>
+  <resource id="howto_sample" target="howto_sample.html"/>
+  <resource id="howto_ejb" target="writing/howto_ejb.html"/>
+  <resource id="howto_ejb_j2eeri" target="writing/howto_ejb_j2eeri.html"/>
+  <resource id="howto_ide" target="spines/manual/howto_ide.html"/>
+  <resource id="howto_ide_vajava_wte" target="spines/manual/howto_ide_vajava_wte.html"/>
+  <resource id="howto_ide_vajava_tomcat" target="spines/manual/howto_ide_vajava_tomcat.html"/>
+  <resource id="howto_ide_jbuilder4" target="spines/manual/howto_ide_jbuilder4.html"/>
+  <resource id="howto_ide_jbuilder5" target="spines/manual/howto_ide_jbuilder5.html"/>
+  <resource id="howto_tomcat" target="spines/browser/howto_tomcat.html"/>
+  <resource id="howto_junitee" target="spines/browser/howto_junitee.html"/>
+  <resource id="mailinglist" target="mailinglist.html"/>
+  <resource id="cactusname" target="cactusname.html"/>
+  <resource id="logos" target="participating/logos.html"/>
+  <resource id="resources" target="resources.html"/>
+  <resource id="coverage" target="participating/coverage.html"/>
+  <resource id="coverage_12" target="participating/coverage_12.html"/>
+  <resource id="coverage_13" target="participating/coverage_13.html"/>
+  <resource id="coverage_empty" target="participating/coverage_empty.html"/>
+  <resource id="webalizer" target="webalizer.html"/>
+  <resource id="coding_conventions" target="participating/coding_conventions.html"/>
+  <resource id="build_result" target="build_result.html"/>
+  <resource id="release_checklist" target="participating/release_checklist.html"/>
+  <resource id="howto_build" target="participating/howto_build.html"/>
 
-  <resource id="javadoc_anttasks_api" check="false" source="api/anttasks/index.html"/>
-  <resource id="javadoc_framework_12_api" check="false" source="api/framework-12/index.html"/>
-  <resource id="javadoc_framework_13_api" check="false" source="api/framework-13/index.html"/>
-  <resource id="coverage_clover_12_report" check="false" source="clover-12/index.html"/>
-  <resource id="coverage_clover_13_report" check="false" source="clover-13/index.html"/>
+  <resource id="javadoc_anttasks_api" check="false" target="api/anttasks/index.html"/>
+  <resource id="javadoc_framework_12_api" check="false" target="api/framework-12/index.html"/>
+  <resource id="javadoc_framework_13_api" check="false" target="api/framework-13/index.html"/>
+  <resource id="coverage_clover_12_report" check="false" target="clover-12/index.html"/>
+  <resource id="coverage_clover_13_report" check="false" target="clover-13/index.html"/>
   
   <!-- External links (sorted alphabetically by id) -->
   

@@ -151,8 +151,7 @@
          Compile utility Java code
        ========================================================================
     -->
-    <target name="compile"
-        depends="init"
+    <target name="compile" depends="init"
         description="Compile utility Java code">
 
         <mkdir dir="${target.classes.java.dir}"/>
@@ -166,8 +165,7 @@
          Generate the documentation
        ========================================================================
     -->
-    <target name="doc.prepare"
-        depends="init">
+    <target name="doc.prepare" depends="init">
 
         <mkdir dir="${target.xdoc.dir}"/>
         <mkdir dir="${target.doc.dir}"/>
@@ -205,9 +203,7 @@
 
     </target>
 
-    <target name="doc.cvschangelog"
-        depends="doc.prepare"
-        unless="offline">
+    <target name="doc.cvschangelog" depends="init" unless="offline">
 
         <!-- Generate CVS log -->
         <mkdir dir="${target.xdoc.dir}/cvslog"/>
@@ -227,8 +223,7 @@
 
     </target>
 
-    <target name="doc.validate"
-        depends="doc.cvschangelog">
+    <target name="doc.validate" depends="doc.prepare">
 
         <xmlvalidate warn="yes">
             <xmlcatalog refid="documentation.dtds"/>
@@ -240,25 +235,7 @@
 
     </target>
 
-    <target name="doc.checksitemap"
-        depends="compile, doc.validate">
-
-        <taskdef name="checksitemap"
-            classname="org.apache.cactus.documentation.CheckSitemapTask">
-          <classpath>
-              <pathelement location="${target.classes.java.dir}"/>
-          </classpath>
-        </taskdef>
-
-        <!-- Check the sitemap for invalid links -->
-        <checksitemap sitemap="${target.xdoc.dir}/sitemap.xml">
-          <xmlcatalog refid="documentation.dtds"/>
-        </checksitemap>
-
-    </target>
-
-    <target name="doc"
-        depends="doc.checksitemap">
+    <target name="doc.generate" depends="doc.prepare,doc.cvschangelog">
 
         <!-- Generate the docs -->
         <style basedir="${target.xdoc.dir}" destdir="${target.doc.dir}"
@@ -293,6 +270,26 @@
 
         </style>
 
+    </target>
+
+    <target name="doc.checksitemap" depends="compile,doc.prepare">
+
+        <taskdef name="checksitemap"
+            classname="org.apache.cactus.documentation.CheckSitemapTask">
+            <classpath>
+              <pathelement location="${target.classes.java.dir}"/>
+            </classpath>
+        </taskdef>
+
+        <!-- Check the sitemap for invalid links -->
+        <checksitemap sitemap="${target.xdoc.dir}/sitemap.xml"
+            outputDir="${target.doc.dir}">
+            <xmlcatalog refid="documentation.dtds"/>
+        </checksitemap>
+
+    </target>
+
+    <target name="doc" depends="doc.validate,doc.generate,doc.checksitemap">
     </target>
 
     <!--

@@ -93,9 +93,9 @@ public class CheckSitemapTask extends Task
     private boolean failOnError = true;
 
     /**
-     * The directory in which the sitemap is located.
+     * The output directory where files are generated.
      */
-    private File sitemapDir;
+    private File outputDir;
 
     /**
      * For resolving entities such as DTDs.
@@ -110,6 +110,15 @@ public class CheckSitemapTask extends Task
     public void setSitemap(File theSitemap)
     {
         this.sitemap = theSitemap;
+    }
+
+    /**
+     * @param theOutputDir the location of the output directory where files are
+     * generated
+     */
+    public void setOutputDir(File theOutputDir)
+    {
+        this.outputDir = theOutputDir;
     }
 
     /**
@@ -153,16 +162,21 @@ public class CheckSitemapTask extends Task
         {
             throw new BuildException("The [sitemap] attribute must be set");
         }
+        if (this.outputDir == null)
+        {
+            throw new BuildException("The [outputDir] attribute must be set");
+        }
+
         if (!this.sitemap.exists())
         {
             throw new BuildException(
                 "The [sitemap] attribute must point to an existing file");
         }
         
-        log("Checking sitemap at " + sitemap + "", Project.MSG_INFO);
-        
-        this.sitemapDir = sitemap.getParentFile();
-        
+        log("Checking sitemap at [" + sitemap + "]", Project.MSG_INFO);
+        log("Generated doc output directory is [" + outputDir + "]", 
+            Project.MSG_INFO);
+               
         try
         {
             DocumentBuilder builder = getDocumentBuilder();
@@ -234,21 +248,27 @@ public class CheckSitemapTask extends Task
      */
     private boolean checkSitemapResource(Element theElement)
     {
+        String id = theElement.getAttribute("id");
+
         if (isResourceToBeChecked(theElement))
         {
-            String id = theElement.getAttribute("id");
-            String source = theElement.getAttribute("source");
+            String target = theElement.getAttribute("target");
                          
     
-            if ((source == null) || (source.length() == 0))
+            if ((target == null) || (target.length() == 0))
             {
                 log("Skipping remote resource [" + id + "]", 
                     Project.MSG_VERBOSE);
             }
             else
             {
-                checkLocalSitemapResource(id, source);
+                checkLocalSitemapResource(id, target);
             }
+        }
+        else
+        {
+            log("This resource should not be checked: [" + id + "]", 
+                Project.MSG_VERBOSE);
         }
         return true;
     }
@@ -262,7 +282,9 @@ public class CheckSitemapTask extends Task
     {
         // Checks are enabled by default 
         boolean isToBeChecked = true;
-        if (theElement.getAttribute("check") != null)
+
+        if ((theElement.getAttribute("check") != null) 
+            && (theElement.getAttribute("check").length() > 0))
         {
             isToBeChecked = 
                 (new Boolean(theElement.getAttribute("check"))).booleanValue();
@@ -275,20 +297,20 @@ public class CheckSitemapTask extends Task
      * file.
      * 
      * @param theId The <code>id</code> attribute of the resource element
-     * @param theSource The <code>source</code> attribute of the resource
+     * @param theTarget The <code>target</code> attribute of the resource
      * element, the relative path from the directory containing the sitemap file
-     * to the resource file
+     * to the generated file
      * @return Whether the file exists
      */
-    private boolean checkLocalSitemapResource(String theId, String theSource)
+    private boolean checkLocalSitemapResource(String theId, String theTarget)
     {
-        File sourceFile = new File(sitemapDir, theSource);
-        log("Checking resource [" + theId + "] at [" + theSource + "]",
+        File targetFile = new File(this.outputDir, theTarget);
+        log("Checking resource [" + theId + "] at [" + theTarget + "]",
             Project.MSG_DEBUG);
-        if (!sourceFile.exists())
+        if (!targetFile.exists())
         {
             log("Sitemap resource [" + theId + "] not found under [" 
-                + theSource + "]", Project.MSG_ERR);
+                + targetFile + "]", Project.MSG_ERR);
             return false;
         }
         return true;

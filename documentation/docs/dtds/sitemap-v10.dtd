@@ -24,7 +24,7 @@ TYPICAL INVOCATION:
 <!ELEMENT resource (#PCDATA)>
 <!ATTLIST resource
     id ID #REQUIRED
-    source CDATA #IMPLIED
+    target CDATA #IMPLIED
     name CDATA #IMPLIED
     check CDATA #IMPLIED
 >

@@ -683,7 +683,6 @@
       <xsl:when test="starts-with(@href,'site:')">
         <xsl:call-template name="get-target-file">
           <xsl:with-param name="id" select="substring-after(@href,'site:')"/>
-          <xsl:with-param name="extension" select="'html'"/>
         </xsl:call-template>
       </xsl:when>
       <xsl:when test="starts-with(@href,'ext:')">

@@ -121,15 +121,13 @@
 
   <xsl:template name="get-target-file">
     <xsl:param name="id"/>
-    <xsl:param name="extension"/>
     <xsl:variable name="source">
       <xsl:call-template name="get-source-from-id">
         <xsl:with-param name="id" select="$id"/>
       </xsl:call-template>
     </xsl:variable>
     <xsl:call-template name="get-base-directory"/>
-    <xsl:value-of select="substring($source,0,string-length($source)-3)"/>
-    <xsl:text>.</xsl:text><xsl:value-of select="$extension"/>
+    <xsl:value-of select="$source"/>
   </xsl:template>
 
 </xsl:stylesheet>
