@@ -1,11 +1,11 @@
 body {
  background: #fffff;
  color: #00000;
- }
+}
 
 a:link, a:visited {
  color: #023264;
- }
+}
  
 div#source {
  background-color: #fff;
@@ -17,17 +17,21 @@ div#source {
  margin-right: 7px;
  margin-left: 7px;
  margin-top: 1em;
- }
+}
 
 div#source pre {
  margin-right: 7px;
  margin-left: 7px;
- }
+}
 
 div#menu {
  margin-left: 7px;
  margin-top: 3px;
  margin-bottom: 3px;
+}
+
+td#sidebar {
+ padding-right: 2em;
 }
 
 li#sitemap {
