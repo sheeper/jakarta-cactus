@@ -219,7 +219,7 @@
     <!-- Run Documentation dist target -->
     <target name="run.documentation" depends="run.anttasks">
 
-        <ant target="dist" antfile="$documentation/build.xml"
+        <ant target="dist" antfile="documentation/build.xml"
             inheritAll="false">
 
             <property file="build.properties" />
