@@ -90,6 +90,12 @@
       </devs>
 
       <release version="1.7dev" date="in CVS">
+        <action dev="VMA" type="fix">
+          The Cactus Servlet Test Runner now re-initializes the Cactus 
+          configuration when it is called the first time (in its 
+          <code>init()</code> method). This allows testing several webapps
+          in the same JVM (i.e without restarting the container).
+        </action>
         <action dev="VMA" type="add" issue="CACTUS-119">
           The <code>&lt;jboss3x&gt;</code> container element now supports 
           running JBoss in a temporary directory, specified by the 

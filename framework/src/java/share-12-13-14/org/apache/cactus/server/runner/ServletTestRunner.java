@@ -107,6 +107,11 @@ public class ServletTestRunner extends HttpServlet
      */
     public void init() throws ServletException
     {
+        // Reset the Cactus initialization so that multiple web application can 
+        // work with different Cactus configurations. Otherwise, as the Cactus 
+        // initialization is JVM-wide, the config is not read again.
+        ConfigurationInitializer.setIsInitialized(false);
+        
         // Initialize Cactus configuration
         ConfigurationInitializer.initialize();
 

@@ -64,6 +64,16 @@ public class ConfigurationInitializer
     private static boolean isInitialized;
 
     /**
+     * @param isInitializedFlag if false consider the system as uninitialized 
+     *        so that next time the {@link #initialize()} method is called the
+     *        Cactus configurations will be read again
+     */
+    public static void setIsInitialized(boolean isInitializedFlag)
+    {
+        isInitialized = isInitializedFlag;
+    }
+    
+    /**
      * Read Cactus configuration files.
      */
     public static synchronized void initialize()
@@ -72,7 +82,7 @@ public class ConfigurationInitializer
         {    
             initializeConfig();
             initializeLoggingConfig();
-            isInitialized = true;
+            setIsInitialized(true);
         }
     }
     
