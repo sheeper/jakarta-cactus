@@ -31,7 +31,7 @@
         </li>
         <li>
           Ensure you have added a news item for the new Cactus release on
-          the <link href="news.html">News/link> page.
+          the <link href="news.html">News</link> page.
         </li>
         <li>
           Edit the <code>build.xml</code> file for each Cactus subprojects and
