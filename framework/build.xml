@@ -394,22 +394,26 @@ be resolved. Please check you build.properties file, and run Ant with the
       <path refid="project.classpath"/>
     </path>
 
+	<pathconvert property="target.dir.normalized" dirsep="/">
+	  <path>
+	    <pathelement location="${target.dir}"/>
+	  </path>
+	</pathconvert>
+	<copy todir="${target.dir}" filtering="on" 
+		file="${base.dir}/logging.properties">
+	  <filterset>
+        <filter token="target.dir" value="${target.dir.normalized}"/>
+      </filterset>
+	</copy>
+
   </target>
 
   <target name="test" depends="test.clover.prepare,test.main.prepare"
       description="Run the unit tests">
 
-    <!-- Save all Ant properties to a file so that it can be read by the
-         TestAll test suite. This is to allow passing system properties
-         to the tests. This is useful for example to configure logging
-         properties. For example, if you are using the JDK 1.4 and you 
-         wish to pass your custom logging file, you can can:
-           ant -Djava.util.logging.config.file=logging.properties test -->
-    <echoproperties destfile="${target.dir}/test.properties"/>
-
     <junit printsummary="yes" haltonfailure="yes" fork="yes">
-      <sysproperty key="cactus.test.propertiesFile" 
-          file="${target.dir}/test.properties"/>
+      <sysproperty key="cactus.logging.config" 
+          file="${target.dir}/logging.properties"/>
       <classpath>
         <path refid="test.class.path"/>
       </classpath>

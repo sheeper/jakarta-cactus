@@ -165,6 +165,7 @@ framework/.cvsignore svn_keywords=Author+Date+Id+Revision
 framework/README svn_keywords=Author+Date+Id+Revision
 framework/build.properties.sample svn_keywords=Author+Date+Id+Revision
 framework/build.xml svn_keywords=Author+Date+Id+Revision
+framework/logging.properties svn_keywords=Author+Date+Id+Revision
 framework/maven.xml svn_keywords=Author+Date+Id+Revision
 framework/project.properties svn_keywords=Author+Date+Id+Revision
 framework/project.xml svn_keywords=Author+Date+Id+Revision

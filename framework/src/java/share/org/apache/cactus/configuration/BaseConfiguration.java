@@ -124,6 +124,13 @@ public class BaseConfiguration implements Configuration
         "cactus.initializer";
 
     /**
+     * Name of the Cactus property that points to a properties file
+     * containing logging configuration.
+     */
+    private static final String CACTUS_LOGGING_CONFIG_PROPERTY = 
+        "cactus.logging.config";
+
+    /**
      * Initialize all Cactus configuration properties.
      */
     public BaseConfiguration()
@@ -132,12 +139,22 @@ public class BaseConfiguration implements Configuration
     }
 
     /**
-     * Read the cactus configuration file from the java property defined
-     * on the command line (named CACTUS_CONFIG_PROPERTY) and if none has been
-     * defined tries to read the DEFAULT_CONFIG_NAME file from the classpath.
-     * All properties found are exported as java system properties.
+     * Initialize all configurations properties. 
      */
     private void initialize()
+    {
+        initializeConfig();
+        initializeLoggingConfig();
+    }
+
+    /**
+     * Initialize general cactus configuration. Read the cactus configuration 
+     * file from the java property defined on the command line 
+     * (named CACTUS_CONFIG_PROPERTY) and if none has been defined tries to 
+     * read the DEFAULT_CONFIG_NAME file from the classpath. All properties 
+     * found are exported as java system properties.
+     */
+    public void initializeConfig()
     {
         ResourceBundle config;
 
@@ -176,7 +193,42 @@ public class BaseConfiguration implements Configuration
             }
         }
 
-        Enumeration keys = config.getKeys();
+        addSystemProperties(config);
+    }
+
+    /**
+     * Initialize logging configuration.
+     */
+    public void initializeLoggingConfig()
+    {
+        String logConfig = System.getProperty(CACTUS_LOGGING_CONFIG_PROPERTY);
+        if (logConfig != null)
+        {
+            ResourceBundle bundle;
+            try
+            {
+                bundle = new PropertyResourceBundle(
+                    new FileInputStream(logConfig));
+            } 
+            catch (IOException e)
+            {
+                throw new ChainedRuntimeException("Failed to load logging "
+                    + "configuration file [" + logConfig + "]");
+            }
+            addSystemProperties(bundle);
+        }
+    }
+
+    /**
+     * Add all properties found in the resource bundle as system
+     * properties.
+     *
+     * @param theBundle the resource bundle containing the properties to
+     *        set as system properties
+     */
+    private void addSystemProperties(ResourceBundle theBundle)
+    {
+        Enumeration keys = theBundle.getKeys();
 
         while (keys.hasMoreElements())
         {
@@ -187,11 +239,11 @@ public class BaseConfiguration implements Configuration
             // some values on the command line.
             if (System.getProperty(key) == null)
             {
-                System.setProperty(key, config.getString(key));
+                System.setProperty(key, theBundle.getString(key));
             }
         }
     }
-
+    
     /**
      * @return the context URL under which our application to test runs.
      */

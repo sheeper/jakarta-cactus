@@ -56,9 +56,7 @@
  */
 package org.apache.cactus;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.util.Properties;
+import org.apache.cactus.configuration.BaseConfiguration;
 
 import junit.framework.Test;
 import junit.framework.TestSuite;
@@ -85,22 +83,11 @@ public class TestAll
         TestSuite suite = new TestSuite(
             "Cactus unit tests not needing servlet engine");
 
-        // Load a Cactus properties file so that we can pass system
-        // properties to the tests. For example, this is useful to
-        // set logging properties. If you are using the JDK 1.4 and
-        // you wish to pass your custom logging file, you'll add the
-        // following line to the Cactus properties file:
-        //
-        // java.util.logging.config.file=logging.properties
-        
-        String propsFile = System.getProperty("cactus.test.propertiesFile");
-        if ((propsFile != null) && (new File(propsFile).exists()))
-        {    
-            Properties props = new Properties();
-            props.load(new FileInputStream(propsFile));
-            System.setProperties(props);
-        }        
-        
+        // Make sure logging configuration properties are initialized so
+        // that it is possible to control logging from the outside of the
+        // tests.
+        new BaseConfiguration();
+
         suite.addTestSuite(TestAbstractTestCase.class);
         suite.addTestSuite(TestServletURL.class);
         suite.addTestSuite(TestServletUtil.class);
