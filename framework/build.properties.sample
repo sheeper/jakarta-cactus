@@ -34,7 +34,7 @@ commons.logging.jar = ${lib.repo}/commons-logging/jars/commons-logging-1.0.1.jar
 log4j.jar = ${lib.repo}/log4j/jars/log4j-1.2.6.jar
 
 # The location of the Commons Httpclient jar
-commons.httpclient.jar = ${lib.repo}/commons-httpclient/jars/commons-httpclient-2.0alpha2-20030103.jar
+commons.httpclient.jar = ${lib.repo}/commons-httpclient/jars/commons-httpclient-2.0alpha2-20030125.jar
 
 # The location of the Httpunit jar
 httpunit.jar = ${lib.repo}/httpunit/jars/httpunit-1.4.5.jar

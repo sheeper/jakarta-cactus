@@ -178,7 +178,7 @@
         </action>
         <action dev="VMA" type="update">
           Update of jars bundled in the Cactus distribution: Commons Logging
-          1.0.1, Log4j 1.2.6, HttpClient 2.0alpha2 built on 03/01/2003,
+          1.0.1, Log4j 1.2.6, HttpClient 2.0alpha2 built on 25/01/2003,
           HttpUnit 1.4.5 and JUnit 3.8.1.
         </action>
         <action dev="VMA" type="add">

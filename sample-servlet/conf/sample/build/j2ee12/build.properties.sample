@@ -36,7 +36,7 @@ commons.logging.jar = ../lib/commons-logging-1.0.1.jar
 log4j.jar = ../lib/log4j-1.2.6.jar
 
 # The location of the Commons Httpclient jar
-commons.httpclient.jar = ../lib/commons-httpclient-2.0alpha2-20030103.jar
+commons.httpclient.jar = ../lib/commons-httpclient-2.0alpha2-20030125.jar
 
 # The location of the Junit jar
 junit.jar = ../lib/junit-3.8.1.jar
