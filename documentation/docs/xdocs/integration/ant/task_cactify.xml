@@ -48,13 +48,6 @@
             <th>Required</th>
           </tr>
           <tr>
-            <td><strong>srcfile</strong></td>
-            <td>
-              The original web-application archive that is going to be cactified
-            </td>
-            <td>Yes</td>
-          </tr>
-          <tr>
             <td><strong>destfile</strong></td>
             <td>
               The location of the cactified web-application archive
@@ -62,7 +55,17 @@
             <td>Yes</td>
           </tr>
           <tr>
-            <td><strong>mergewebxml</strong></td>
+            <td>srcfile</td>
+            <td>
+              The original web-application archive that is going to be
+              cactified. If this attribute is not specified, a new web-app
+              archive will be created. You'll need to specify the
+              <em>version</em> attribute in that case.
+            </td>
+            <td>No</td>
+          </tr>
+          <tr>
+            <td>mergewebxml</td>
             <td>
               Allows the specification of a web deployment descriptor whose 
               content will get merged into the resulting descriptor. This is
@@ -73,6 +76,15 @@
               <link href="site:task_webxmlmerge">webxmlmerge</link> task.
             </td>
             <td>No</td>
+          </tr>
+          <tr>
+            <td>version</td>
+            <td>
+              The version of the web application archive to create if no source
+              archive has been specified with the <em>srcfile</em> attribute.
+              Can be either <code>2.2</code> or <code>2.3</code>.
+            </td>
+            <td>No, unless the <em>srcfile</em> attribute is omitted</td>
           </tr>
         </table>
 
@@ -103,12 +115,12 @@
                 <th>Required</th>
               </tr>
               <tr>
-                <td><strong>mapping</strong></td>
+                <td>mapping</td>
                 <td>
                   The URL-pattern to which the redirector should be mapped.
                   Must start with a forward slash (&quot;/&quot;).
                 </td>
-                <td>Yes</td>
+                <td>No, the default is <em>/FilterRedirector</em></td>
               </tr>
             </table>
 
@@ -137,12 +149,12 @@
                 <th>Required</th>
               </tr>
               <tr>
-                <td><strong>mapping</strong></td>
+                <td>mapping</td>
                 <td>
                   The URL-pattern to which the redirector should be mapped.
                   Must start with a forward slash (&quot;/&quot;).
                 </td>
-                <td>Yes</td>
+                <td>No, the default is <em>/JspRedirector</em></td>
               </tr>
             </table>
 
@@ -167,12 +179,12 @@
                 <th>Required</th>
               </tr>
               <tr>
-                <td><strong>mapping</strong></td>
+                <td>mapping</td>
                 <td>
                   The URL-pattern to which the redirector should be mapped.
                   Must start with a forward slash (&quot;/&quot;).
                 </td>
-                <td>Yes</td>
+                <td>No, the default is <em>/ServletRedirector</em></td>
               </tr>
             </table>
 
