@@ -148,6 +148,7 @@
     <depend project="ant" inherit="runtime"/>
     <depend project="xml-xerces"/>
     <depend project="aspectj"/>
+    <option project="checkstyle" inherit="runtime"/>
 
     <work nested="integration/ant/target-12/classes/java"/>
     <work nested="integration/ant/target-12/classes/test"/>
@@ -201,6 +202,7 @@
     <depend project="ant" inherit="runtime"/>
     <depend project="xml-xerces"/>
     <depend project="aspectj"/>
+    <option project="checkstyle" inherit="runtime"/>
 
     <work nested="integration/ant/target-13/classes/java"/>
     <work nested="integration/ant/target-13/classes/test"/>
