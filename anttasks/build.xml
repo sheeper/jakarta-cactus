@@ -231,7 +231,7 @@
     </target>
 
     <target name="release" depends="release.prepare,release.common"
-        description="Generate the release">
+        description="Generate a release">
     </target>
 
     <!--
@@ -254,7 +254,7 @@
     </target>
 
     <target name="nightly" depends="nightly.prepare,release.common"
-        description="Generate the release">
+        description="Generate a nightly release">
     </target>
 
     <!--
