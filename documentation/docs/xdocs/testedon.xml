@@ -114,6 +114,12 @@
               Does <strong>not</strong> work under JDK version 1.4 or later
             </td>
           </tr>
+          <tr>
+            <td>Weblogic</td>
+            <td>7.0 SP2</td>
+            <td>1.2, 1.3</td>
+            <td/>
+          </tr>
         </table>
       </section>
 
