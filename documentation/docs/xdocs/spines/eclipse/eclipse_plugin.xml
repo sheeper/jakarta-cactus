@@ -11,7 +11,7 @@
 
   <body>
 
-    <s1 title="Overview">
+    <section title="Overview">
       <p>
         Cactus uses and extends JUnit. It might then seem natural
         that the Cactus plugin for Eclipse extends in a certain manner
@@ -29,10 +29,10 @@
         container setup and teardown.
       </p>
 
-    </s1>
-    <s1 title="How it works">
+    </section>
+    <section title="How it works">
 
-      <s2 title="Extension points">
+      <section title="Extension points">
         <ul>
           <li>
             <em>org.eclipse.debug.core.launchConfigurationTypes</em>
@@ -49,8 +49,8 @@
             adds the Cactus preference page to the preferences.
           </li>
         </ul>
-      </s2>
-      <s2 title="GUI : preference page">
+      </section>
+      <section title="GUI : preference page">
         <p>
           A preference page is contributed to the Eclipse
           preferences. It shows the following entries :
@@ -63,9 +63,9 @@
           </li>
           <li>setting of the container homes</li>
         </ul>
-      </s2>
+      </section>
 
-      <s2 title="IContainerProvider">
+      <section title="IContainerProvider">
         <p>
           To enable different ways to setup, start, and stop
           containers the idea of container providers has been
@@ -86,8 +86,8 @@
           <code>GenericAntProvider</code>
           and may be used to execute tests on Tomcat 4.0 and Weblogic 7.0.
         </p>
-      </s2>
-      <s2 title="What happens when a test is launched">
+      </section>
+      <section title="What happens when a test is launched">
         <p>
           The
           <code>launch(IType theType, String theMode)</code>
@@ -172,15 +172,15 @@
             </p>
           </li>
         </ul>
-      </s2>
-    </s1>
-    <s1 title="What has been done so far">
+      </section>
+    </section>
+    <section title="What has been done so far">
       <p>
         In its actual state the plugin is a proof of concept. It is
         able to run the distribution sample tests.
       </p>
-    </s1>
-    <s1 title="Features">
+    </section>
+    <section title="Features">
       <ul>
         <li>a minimalistic launch configuration</li>
         <li>a minimalistic launch shortcut</li>
@@ -215,9 +215,9 @@
         </li>
         <li>Minimal plugin documentation</li>
       </ul>
-    </s1>
+    </section>
 
-    <s1 title="What is next">
+    <section title="What is next">
       <p>
         In order to have a production-quality tool the following
         points must be done :
@@ -232,6 +232,6 @@
         </li>
       </ul>
 
-    </s1>
+    </section>
   </body>
 </document>

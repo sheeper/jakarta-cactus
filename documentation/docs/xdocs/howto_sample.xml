@@ -11,7 +11,7 @@
 
   <body>
 
-    <s1 title="Introduction">
+    <section title="Introduction">
 
       <p>
         This tutorial explains where to get Cactus samples and how to use
@@ -42,11 +42,11 @@
         tutorial.
       </p>
 
-    </s1>
+    </section>
 
-    <s1 title="Running the Cactus Samples using Ant">
+    <section title="Running the Cactus Samples using Ant">
 
-      <s2 title="Prerequisites">
+      <section title="Prerequisites">
 
         <p>
           You need to install the following items prior to building the Cactus
@@ -108,9 +108,9 @@
           </li>
         </ul>
 
-      </s2>
+      </section>
 
-      <s2 title="Installing the Cactus Sample">
+      <section title="Installing the Cactus Sample">
 
         <p>
           Follow these steps :
@@ -132,9 +132,9 @@
           </li>
         </ul>
 
-      </s2>
+      </section>
 
-      <s2 title="Running the samples">
+      <section title="Running the samples">
 
         <p>
           Open a shell, cd to the <em><code>sampleroot</code></em>
@@ -143,9 +143,9 @@
           defined in the <code>build.properties</code> file you have edited.
         </p>
 
-      </s2>
+      </section>
 
-    </s1>
+    </section>
 
   </body>
 </document>

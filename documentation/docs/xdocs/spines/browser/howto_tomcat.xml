@@ -11,7 +11,7 @@
 
   <body>
 
-    <s1 title="Tomcat Quickstart forewords">
+    <section title="Tomcat Quickstart forewords">
 
       <note>
         This tutorial applies to Cactus 1.4 or greater and Tomcat 4.0 or
@@ -51,17 +51,17 @@
         only once to be able to run Cactus tests within Tomcat.
       </note>
 
-    </s1>
+    </section>
 
-    <s1 title="Step 1 : Install Tomcat">
+    <section title="Step 1 : Install Tomcat">
       <p>
         Download <link href="http://jakarta.apache.org/builds/jakarta-tomcat-4.0/release/">Tomcat</link>
         4.0 or greater and unzip it in any directory. Let's call this directory
         <code>[tomcat root]</code>.
       </p>
-    </s1>
+    </section>
 
-    <s1 title="Step 2 : Copy the Cactus jars">
+    <section title="Step 2 : Copy the Cactus jars">
       <p>
         Download the Cactus jars from the <link href="site:downloads">Cactus
         download page</link>. They are located in the <code>lib/</code>
@@ -92,9 +92,9 @@
         Cactus <link href="site:howto_httpunit">HttpUnit integration</link>
         you'll also need to copy <code>httpunit.jar</code>.
       </note>
-    </s1>
+    </section>
 
-    <s1 title="Step 3 : Modify Tomcat web.xml">
+    <section title="Step 3 : Modify Tomcat web.xml">
       <p>
         Edit <code>[tomcat root]/conf/web.xml</code> and add the following at
         the beginning of the file, after the <code>&lt;webapp&gt;</code> tag :
@@ -132,9 +132,9 @@
 </servlet-mapping>
 ]]></source>
 
-    </s1>
+    </section>
 
-    <s1 title="Step 4 : Creating a sample applicaton to test">
+    <section title="Step 4 : Creating a sample applicaton to test">
       <p>
         We're now going to create a very very simple application to server
         so that we can unit test it.
@@ -221,9 +221,9 @@ public class TestSampleServlet extends ServletTestCase
 }
 ]]></source>
 
-    </s1>
+    </section>
 
-    <s1 title="Step 5 : Run the test">
+    <section title="Step 5 : Run the test">
 
       <p>
         Time to enjoy our hard work ! Start Tomcat by running
@@ -238,9 +238,9 @@ public class TestSampleServlet extends ServletTestCase
       </p>
       <figure src="images/tomcat_xml.jpg" alt="XML output of ServletTestRunner"/>
 
-    </s1>
+    </section>
 
-    <s1 title="Step 6 : Even more fun !">
+    <section title="Step 6 : Even more fun !">
       <p>
         Ok, that's nice ... But what if I want HTML instead of XML ? Don't
         worry there is a solution. Grab the following
@@ -258,7 +258,7 @@ public class TestSampleServlet extends ServletTestCase
         performed on the client side (i.e by the browser). I'm not sure
         about other browsers.
       </note>
-    </s1>
+    </section>
 
   </body>
 </document>

@@ -11,7 +11,7 @@
 
   <body>
 
-    <s1 title="Why Cactus ?">
+    <section title="Why Cactus ?">
 
       <p>
         Here are some stories and reasons about the 'Cactus' name :)
@@ -82,7 +82,7 @@
         -Vincent Massol
       </p>
 
-    </s1>
+    </section>
 
   </body>
 </document>

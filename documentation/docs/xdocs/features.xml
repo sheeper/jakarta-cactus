@@ -11,7 +11,7 @@
 
   <body>
 
-    <s1 title="Current scope and status of Cactus">
+    <section title="Current scope and status of Cactus">
 
       <figure src="images/scope.jpg" alt="Scope and Status"/>
 
@@ -28,9 +28,9 @@
         the <link href="site:howto_ejb">EJB Howto</link> page for more details).
       </note>
 
-    </s1>
+    </section>
 
-    <s1 title="General design features">
+    <section title="General design features">
 
       <ul>
         <li>
@@ -64,9 +64,9 @@
         </li>
       </ul>
 
-    </s1>
+    </section>
 
-    <s1 title="Detailed feature list">
+    <section title="Detailed feature list">
       <p><br/></p>
       <ul>
         <li>
@@ -243,7 +243,7 @@
           be protected.
         </li>
       </ul>
-    </s1>
+    </section>
 
   </body>
 </document>

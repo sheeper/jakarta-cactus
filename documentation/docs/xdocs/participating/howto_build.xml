@@ -11,7 +11,7 @@
 
   <body>
 
-    <s1 title="Introduction">
+    <section title="Introduction">
       <p>
         This tutorial explains how to build Cactus from CVS or from a source
         download.
@@ -22,15 +22,15 @@
         latest and greatest), or the latest 
         <link href="site:downloads">stable release</link> otherwise.
       </note>
-    </s1>
+    </section>
 
-    <s1 title="Getting the Source">
+    <section title="Getting the Source">
       <p>
         There are two ways to obtain the source code for Cactus: either 
         directly from CVS, or by downloading a prepackaged source archive.
       </p>
 
-      <s2 title="CVS">
+      <section title="CVS">
       	<p>
           To get the current development version of the Cactus source code,
           you'll need to download the source from CVS. To do this, you'll need
@@ -42,9 +42,9 @@
           <link href="ext:cvs">here</link>. The module name for Cactus is 
           <code>jakarta-cactus</code>.
         </p>
-      </s2>
+      </section>
 
-      <s2 title="Prepackaged Source Archives">
+      <section title="Prepackaged Source Archives">
         <p>
           If you don't have access to the Apache CVS repository (because you're
           behind a firewall, for example), or you don't need to be absolutely 
@@ -56,11 +56,11 @@
           nightly builds. Go <link href="site:downloads">here</link> to find 
           out about the download locations.
         </p>
-      </s2>
+      </section>
 
-    </s1>
+    </section>
 
-    <s1 title="Prerequisites">
+    <section title="Prerequisites">
       <p>
         To build Cactus from source, you'll need to have
         <link href="ext:ant">Ant</link> 1.5 (or later)
@@ -79,7 +79,7 @@
         distribution.
       </p>
 
-      <s2 title="Required Libraries">
+      <section title="Required Libraries">
         <table>
           <tr>
             <th>Name</th>
@@ -122,9 +122,9 @@
             </td>
           </tr>
         </table>
-      </s2>
+      </section>
 
-      <s2 title="Optional Libraries">
+      <section title="Optional Libraries">
         <table>
           <tr>
             <th>Name</th>
@@ -195,7 +195,7 @@
             </td>
           </tr>
         </table>
-      </s2>
+      </section>
 
       <note>
         <strong>If you don't want to have problems with versions, you need 
@@ -217,9 +217,9 @@
         you will need to remove it.
       </note>
 
-    </s1>
+    </section>
 
-    <s1 title="Understanding the directory structure">
+    <section title="Understanding the directory structure">
       <p>
         The Cactus project is divided into several subprojects, each having 
         its own build. Examples of subprojects are:
@@ -249,9 +249,9 @@
         All projects follow the same directory structure and they all use
         Ant as the build tool.
       </p>        
-    </s1>
+    </section>
 
-    <s1 title="Building a Cactus project">
+    <section title="Building a Cactus project">
       <p>
         First, you need to create a <code>build.properties</code> file
         in the directory for the project you wish to build. You will find 
@@ -278,14 +278,14 @@
         for those projects before. The order is as follows: anttasks, then
         framework (or documentation), then sample projects.
       </note>
-    </s1>
+    </section>
 
-    <s1 title="Building the full Cactus distribution">
+    <section title="Building the full Cactus distribution">
       <p>
         Go to the top level directory, create a <code>build.properties</code>
         and type <code>ant release</code>.
       </p>
-    </s1>
+    </section>
         
   </body>
 </document>

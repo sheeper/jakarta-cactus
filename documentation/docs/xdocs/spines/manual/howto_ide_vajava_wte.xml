@@ -11,7 +11,7 @@
 
   <body>
 
-    <s1 title="Forewords and Requirements">
+    <section title="Forewords and Requirements">
 
       <note>
         <strong>This tutorial is written for Cactus 1.2 only. It will need
@@ -28,9 +28,9 @@
         other versions.
       </p>
 
-    </s1>
+    </section>
 
-    <s1 title="Step 1 : Import the correct packages in VAJava">
+    <section title="Step 1 : Import the correct packages in VAJava">
 
       <p>
         Let's assume the following conventions :
@@ -66,9 +66,9 @@
         then they have been automatically imported for you.
       </note>
 
-    </s1>
+    </section>
 
-    <s1 title="Step 2 : Set up the cactus.properties file">
+    <section title="Step 2 : Set up the cactus.properties file">
 
       <p>
         Copy your <code>cactus.properties</code> file (see the
@@ -90,11 +90,11 @@
         if you have test cases that extend <code>JspTestCase</code>.
       </note>
 
-    </s1>
+    </section>
 
-    <s1 title="Step 3 : Modify WebSphere Test Environment">
+    <section title="Step 3 : Modify WebSphere Test Environment">
 
-      <s2 title="Edit default.servlet_engine">
+      <section title="Edit default.servlet_engine">
 
         <p>
           Edit <code>{WTE dir}/properties/default.servlet_engine</code> and
@@ -121,9 +121,9 @@
           used by a test case.
         </note>
 
-      </s2>
+      </section>
 
-      <s2 title="Create a test directory">
+      <section title="Create a test directory">
 
         <p>
           Create a directory called <code>test</code> under
@@ -132,9 +132,9 @@
           <code>web</code>.
         </p>
 
-      </s2>
+      </section>
 
-      <s2 title="Create a test.webapp file">
+      <section title="Create a test.webapp file">
 
         <p>
           Create a test.webapp file in
@@ -222,20 +222,20 @@
 </webapp>
 ]]></source>
 
-      </s2>
+      </section>
 
-      <s2 title="Copy the Cactus JSP Redirector file">
+      <section title="Copy the Cactus JSP Redirector file">
 
         <p>
           Copy the <code>{Cactus dir}/sample/web/test/jspRedirector.jsp</code>
           file to <code>{WTE dir}/hosts/default_host/test/web</code>.
         </p>
 
-      </s2>
+      </section>
 
-    </s1>
+    </section>
 
-    <s1 title="Step 4 : Edit VAJava workspace classpath">
+    <section title="Step 4 : Edit VAJava workspace classpath">
 
       <p>
         Add the following to the VAJava workspace classpath (select menu
@@ -250,9 +250,9 @@
 {VAJava dir}\ide\project_resources\Servlet API Classes\;
 ]]></source>
 
-    </s1>
+    </section>
 
-    <s1 title="Step 5 : Edit VAJava workspace classpath">
+    <section title="Step 5 : Edit VAJava workspace classpath">
 
       <p>
         In the WebSphere Test Environment under Servlet Engine, add Cactus,
@@ -260,9 +260,9 @@
         the classpath.
       </p>
 
-    </s1>
+    </section>
 
-    <s1 title="Final note">
+    <section title="Final note">
 
       <note>
         With this configuration, you'll find <code>cactus_client.log</code>
@@ -279,7 +279,7 @@
         returned in suite(), for your test case.
       </note>
 
-    </s1>
+    </section>
 
   </body>
 </document>

@@ -11,14 +11,14 @@
 
   <body>
 
-    <s1 title="Webalizer">
+    <section title="Webalizer">
 
       <p>
         Webalizer is an httpd logfile analysis tool, which the Cactus web site
         uses to track website traffic.
       </p>
 
-      <s2 title="Webalizer Definitions">
+      <section title="Webalizer Definitions">
 
         <p>
           From the
@@ -106,9 +106,9 @@
           Note: A kilobyte is 1024 bytes, not 1000 :)
         </p>
 
-      </s2>
+      </section>
 
-    </s1>
+    </section>
 
   </body>
 </document>

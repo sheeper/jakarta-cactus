@@ -11,7 +11,7 @@
 
   <body>
 
-    <s1 title="Mock Objects vs In-Container testing">
+    <section title="Mock Objects vs In-Container testing">
       <note>
         Throughout this article, we'll use the abbreviations MO for Mock
         Objects and IC for In-Container strategy.
@@ -33,10 +33,10 @@
           <jump anchor="mo_resources">MO resources</jump>
         </li>
       </ul>
-    </s1>
+    </section>
 
     <anchor id="mo_serverside"/>
-    <s1 title="MO and Server-side tests">
+    <section title="MO and Server-side tests">
 
       <p>
         MO is a strategy to unit test java classes in general. As such
@@ -79,10 +79,10 @@
         Let's start first by an example to understand better what are MO.
       </p>
 
-    </s1>
+    </section>
 
     <anchor id="mo_example"/>
-    <s1 title="An example">
+    <section title="An example">
 
       <p>
         Simple test case using Cactus :
@@ -143,10 +143,10 @@ public void testXXX()
 }
 ]]></source>
 
-    </s1>
+    </section>
 
     <anchor id="mo_differences"/>
-    <s1 title="Differences between MO and IC">
+    <section title="Differences between MO and IC">
 
       <p>
         Comparison of pros and cons of MO versus IC.
@@ -342,10 +342,10 @@ public void testXXX()
         </tr>
       </table>
 
-    </s1>
+    </section>
 
     <anchor id="mo_conclusion"/>
-    <s1 title="Conclusion">
+    <section title="Conclusion">
 
       <p>
         Mock Objects are a very interesting way of doing unit testing which
@@ -406,10 +406,10 @@ public void testXXX()
         Thanks a lot.
       </p>
 
-    </s1>
+    </section>
 
     <anchor id="mo_resources"/>
-    <s1 title="Resources on MO">
+    <section title="Resources on MO">
 
       <p>
         Some links :
@@ -450,7 +450,7 @@ public void testXXX()
         </ul>
       </p>
 
-    </s1>
+    </section>
 
   </body>
 </document>

@@ -11,7 +11,7 @@
 
   <body>
 
-    <s1 title="Who is using Cactus ?">
+    <section title="Who is using Cactus ?">
 
       <p>
         This page is dedicated for Cactus users who want to share with other
@@ -26,7 +26,7 @@
         Cactus ?</link></strong>
       </p>
 
-    </s1>
+    </section>
 
   </body>
 </document>

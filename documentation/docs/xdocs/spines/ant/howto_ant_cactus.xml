@@ -11,7 +11,7 @@
 
   <body>
 
-    <s1 title="Introduction">
+    <section title="Introduction">
 
       <note>
         <strong>You need to have a good understanding of Ant before
@@ -62,9 +62,9 @@
           Cactus distribution.
         </p>
 
-     </s1>
+     </section>
 
-     <s1 title="The 'runservertests' task">
+     <section title="The 'runservertests' task">
 
         <p>
           This task will perform several actions, in the following order :
@@ -180,9 +180,9 @@
          property is not defined we don't run the tests.
        </note>
 
-     </s1>
+     </section>
 
-     <s1 title="Step 0: Deploy container configuration files">
+     <section title="Step 0: Deploy container configuration files">
 
        <p>
          There are 2 possibilities for configuring your application server :
@@ -321,9 +321,9 @@
          <code>server.xml</code>).
        </note>
 
-     </s1>
+     </section>
 
-     <s1 title="Step 1: create and deploy test WAR file">
+     <section title="Step 1: create and deploy test WAR file">
 
         <p>
           Creating a WAR file is the preferred way of deploying Cactus tests
@@ -391,9 +391,9 @@
          into the <code>${target.classes.*.dir}</code> directory.
        </note>
 
-     </s1>
+     </section>
 
-     <s1 title="Step 2: Start the container">
+     <section title="Step 2: Start the container">
 
        <p>
          Example :
@@ -422,9 +422,9 @@
 </target>
 ]]></source>
 
-     </s1>
+     </section>
 
-     <s1 title="Step 3: Run the unit tests">
+     <section title="Step 3: Run the unit tests">
 
        <p>
          We start the unit test by calling a JUnit test runner (we use the
@@ -466,9 +466,9 @@
          Howto</link> guide.
        </note>
 
-     </s1>
+     </section>
 
-     <s1 title="Step 4: Stop the container">
+     <section title="Step 4: Stop the container">
 
        <p>
          Example :
@@ -496,7 +496,7 @@
 </target>
 ]]></source>
 
-     </s1>
+     </section>
 
   </body>
 </document>

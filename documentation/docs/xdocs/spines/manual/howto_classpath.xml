@@ -11,7 +11,7 @@
 
   <body>
 
-    <s1 title="Setting up Cactus Classpaths">
+    <section title="Setting up Cactus Classpaths">
 
       <p>
         You must understand that your Cactus tests are started by a JUnit
@@ -36,7 +36,7 @@
 
       <figure src="images/classpath.jpg" alt="Classpaths"/>
 
-      <s2 title="Client side classpath">
+      <section title="Client side classpath">
 
         <p>
           The Cactus tests are started by running a JUnit Test Runner (For
@@ -131,9 +131,9 @@
           <link href="site:howto_config">Config Howto</link> tutorial).
         </note>
 
-      </s2>
+      </section>
 
-      <s2 title="Server side classpath">
+      <section title="Server side classpath">
 
         <p>
           The server side part is a webapp. It can be packaged as a .war file
@@ -195,9 +195,9 @@
           <code>WEB-INF/classes</code>).
         </note>
 
-      </s2>
+      </section>
 
-    </s1>
+    </section>
 
   </body>
 </document>

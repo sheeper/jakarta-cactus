@@ -12,7 +12,7 @@
 
   <body>
 
-    <s1 title="JUnitEE, a TestRunner inside the Container">
+    <section title="JUnitEE, a TestRunner inside the Container">
 
       <note>
         Since Version 1.4 Cactus contains a new Servlet Test Runner that
@@ -75,9 +75,9 @@
         </li>
       </ul>
 
-    </s1>
+    </section>
 
-    <s1 title="How to install JUnitEE">
+    <section title="How to install JUnitEE">
 
       <p>
         Download the
@@ -105,9 +105,9 @@
         i.e. the JUnitEE interface.
       </p>
 
-    </s1>
+    </section>
 
-    <s1 title="Executing the tests with JUnitEE">
+    <section title="Executing the tests with JUnitEE">
       <p>
         You request the tests from an html-page in your container. You can
         write the name of your testclasses according to the examples with
@@ -129,9 +129,9 @@
           form-element
         </li>
       </ul>
-    </s1>
+    </section>
 
-    <s1 title="Tell JUnitEE to use Cactus redirector">
+    <section title="Tell JUnitEE to use Cactus redirector">
 
       <p>
         The
@@ -139,7 +139,7 @@
         container can find it e.g. in your containers classpath.
       </p>
 
-    </s1>
+    </section>
 
   </body>
 </document>

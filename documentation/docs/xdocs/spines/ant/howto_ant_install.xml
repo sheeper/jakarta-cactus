@@ -11,7 +11,7 @@
 
   <body>
 
-    <s1 title="Forewords">
+    <section title="Forewords">
 
       <note>
         <strong>You need to have a good understanding of Ant before
@@ -26,9 +26,9 @@
         also build the Cactus distribution from the sources.
       </p>
 
-    </s1>
+    </section>
 
-    <s1 title="Ant tasks needed by Cactus">
+    <section title="Ant tasks needed by Cactus">
 
       <p>
         Cactus uses the following optional tasks of Ant :
@@ -61,9 +61,9 @@
         the <link href="site:downloads">downloads</link> section.
       </p>
 
-    </s1>
+    </section>
 
-    <s1 title="Installing Ant on Windows systems">
+    <section title="Installing Ant on Windows systems">
 
       <p>
         Follow the steps below to install Ant :
@@ -111,7 +111,7 @@
         </li>
       </ol>
 
-    </s1>
+    </section>
 
   </body>
 </document>

@@ -11,7 +11,7 @@
 
   <body>
 
-    <s1 title="Forewords">
+    <section title="Forewords">
       <p>
         If you want to quickly get a feeling of Cactus, there is a
         <link href="site:howto_tomcat">20 minutes tutorial</link> that take you
@@ -25,9 +25,9 @@
         in action and will be ready to understand the concepts behind it and
         its full power.
       </p>
-    </s1>
+    </section>
 
-    <s1 title="Installing Cactus">
+    <section title="Installing Cactus">
 
       <p>
         There is not really an installation of Cactus per see, as Cactus is
@@ -56,9 +56,9 @@
         (continuous) builds (including running the Cactus tests).
       </note>
 
-    </s1>
+    </section>
 
-    <s1 title="System Requirements">
+    <section title="System Requirements">
 
       <p>
         In order to run Cactus tests you need to have the following
@@ -87,9 +87,9 @@
         </li>
       </ul>
 
-    </s1>
+    </section>
 
-    <s1 title="The Cactus files">
+    <section title="The Cactus files">
 
       <p>
         At this point, you should have
@@ -150,9 +150,9 @@
         <link href="site:howto_config">Configuration Howto</link> tutorial.
       </p>
 
-    </s1>
+    </section>
 
-    <s1 title="What's next ?">
+    <section title="What's next ?">
 
       <p>
         At this point you should understand what Cactus is and how it works.
@@ -175,7 +175,7 @@
         Enjoy !
       </p>
 
-    </s1>
+    </section>
 
   </body>
 </document>

@@ -13,14 +13,14 @@
 
   <body>
 
-    <s1 title="Forewords and Requirements">
+    <section title="Forewords and Requirements">
       <p>
         First of all, you need to download the
         <link href="site:downloads">Cactus distribution</link>
       </p>
-    </s1>
+    </section>
 
-    <s1 title="Step 1 : Create JBuilder libraries">
+    <section title="Step 1 : Create JBuilder libraries">
 
       <p>
         Let's assume the following conventions :
@@ -31,15 +31,15 @@
 
       <figure src="images/jb_libraries.gif" alt="jbuilder libraries" />
 
-      <s2 title="Create the JUnit library">
+      <section title="Create the JUnit library">
 
         <p>
           Create a JUnit library and include <code>junit.jar</code>.
         </p>
 
-      </s2>
+      </section>
 
-      <s2 title="Create the Cactus library">
+      <section title="Create the Cactus library">
 
         <p>
           Create a Cactus library containing <code>cactus.jar</code> and
@@ -52,9 +52,9 @@
           This way, you will be able to debug inside cactus sources.
         </note>
 
-      </s2>
+      </section>
 
-      <s2 title="Create the tomcat library">
+      <section title="Create the tomcat library">
         <p>
           Create another library named <code>tomcat</code>
           and add all the jar files from <code>{Tomcat dir}/lib</code>.
@@ -65,10 +65,10 @@
           this library because Tomcat 3.1 is provided with those versions.
         </note>
 
-      </s2>
-    </s1>
+      </section>
+    </section>
 
-    <s1 title="Step 2 : Set up the cactus.properties file">
+    <section title="Step 2 : Set up the cactus.properties file">
 
       <p>
         Edit a new file named <code>cactus.properties</code>
@@ -81,11 +81,11 @@
         directory in the class tab of the cactus library.
       </p>
 
-    </s1>
+    </section>
 
-    <s1 title="Step 3 : Configure Tomcat Environment">
+    <section title="Step 3 : Configure Tomcat Environment">
 
-      <s2 title="Create a cactus webapp">
+      <section title="Create a cactus webapp">
 
         <p>
           Create and edit the file
@@ -113,7 +113,7 @@
 </web-app>
 ]]></source>
 
-      </s2>
+      </section>
 
       <note>
         You can edit <code>{Tomcat dir}/conf/web.xml</code> instead if you
@@ -122,9 +122,9 @@
         located the servlet(s) you want to test. <br/>
         Don't forget to modify <code>cactus.properties</code> file accordingly.
       </note>
-    </s1>
+    </section>
 
-    <s1 title="Step 4 : Configure your project">
+    <section title="Step 4 : Configure your project">
       <ol>
         <li>
           Put <code>-classic -Dtomcat.home="{Tomcat dir}"</code> as the VM
@@ -143,11 +143,11 @@
           <figure src="images/jb_paths.gif" alt="jbuilder libraries" />
         </li>
       </ol>
-    </s1>
+    </section>
 
-    <s1 title="Step 5 : Test and debug your servlet">
+    <section title="Step 5 : Test and debug your servlet">
 
-      <s2 title="Test your servlet">
+      <section title="Test your servlet">
         <ol>
           <li>
             Start Tomcat using the <code>Run/Run Project</code> menu.
@@ -157,9 +157,9 @@
             case and click on <code>run</code>
           </li>
         </ol>
-      </s2>
+      </section>
 
-      <s2 title="Debug your servlet and your tests">
+      <section title="Debug your servlet and your tests">
         <p>
           You can easily print the results of the methods on the server-side
           itself.
@@ -177,8 +177,8 @@
           <code>void endXXX(WebResponse)</code> or
           <code>void beginXXX(WebRequest)</code>
         </p>
-      </s2>
-    </s1>
+      </section>
+    </section>
 
   </body>
 </document>

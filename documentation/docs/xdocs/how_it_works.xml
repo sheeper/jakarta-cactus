@@ -11,7 +11,7 @@
 
   <body>
 
-    <s1 title="How it works">
+    <section title="How it works">
 
       <p>
         Click <link href="site:how_it_works_uml">here</link> for a UML
@@ -132,7 +132,7 @@
         </li>
       </ol>
 
-      <s2 title="Redirector Proxies">
+      <section title="Redirector Proxies">
 
         <p>
           Cactus provides 3 implementations of Redirector Proxies
@@ -158,7 +158,7 @@
           </li>
         </ul>
 
-        <s3 title="Servlet Redirector Proxy">
+        <section title="Servlet Redirector Proxy">
 
           <figure src="images/archi_servlet.jpg"
             alt="Servlet Redirector Architecture"/>
@@ -173,9 +173,9 @@
             connection.
           </p>
 
-        </s3>
+        </section>
 
-        <s3 title="JSP Redirector Proxy">
+        <section title="JSP Redirector Proxy">
 
           <figure src="images/archi_jsp.jpg" alt="JSP Redirector Architecture"/>
 
@@ -189,9 +189,9 @@
             connection.
           </p>
 
-        </s3>
+        </section>
 
-        <s3 title="Filter Redirector Proxy">
+        <section title="Filter Redirector Proxy">
 
           <figure src="images/archi_filter.jpg" alt="Filter Redirector Architecture"/>
 
@@ -205,11 +205,11 @@
             connection.
           </p>
 
-        </s3>
+        </section>
 
-      </s2>
+      </section>
 
-    </s1>
+    </section>
 
   </body>
 </document>

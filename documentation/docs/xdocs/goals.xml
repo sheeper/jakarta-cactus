@@ -11,7 +11,7 @@
 
   <body>
 
-    <s1 title="General goals">
+    <section title="General goals">
 
       <ul>
         <li>
@@ -29,9 +29,9 @@
         </li>
       </ul>          
         
-    </s1>
+    </section>
 
-    <s1 title="Short terms goals">
+    <section title="Short terms goals">
 
       <p>
         The short term goals for Cactus are to continue providing and improving
@@ -103,11 +103,11 @@
         </li>
       </ul>
 
-    </s1>
+    </section>
 
-    <s1 title="Long term goals">
+    <section title="Long term goals">
 
-      <s2 title="The Future of Component Unit Testing">
+      <section title="The Future of Component Unit Testing">
 
         <p>
           We believe unit testing server side components is going to get harder
@@ -139,9 +139,9 @@
           </li>
         </ul>
 
-      </s2>
+      </section>
 
-      <s2 title="Long term goals for Cactus">
+      <section title="Long term goals for Cactus">
 
         <p>
           Consequently to the above predictions, there are 2 long term goals
@@ -179,11 +179,11 @@
           </li>        
         </ul>
 
-      </s2>
+      </section>
 
-    </s1>
+    </section>
 
-    <s1 title="Feedback needed !">
+    <section title="Feedback needed !">
 
       <p>
         Cactus is an open source project where everyone is free to participate
@@ -207,7 +207,7 @@
         Thanks.
       </p>
 
-    </s1>
+    </section>
 
   </body>
 </document>

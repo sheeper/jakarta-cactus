@@ -11,11 +11,11 @@
 
   <body>
 
-    <s1 title="UML Sequence Diagram">
+    <section title="UML Sequence Diagram">
 
       <figure src="images/sequence.jpg" alt="UML Sequence Diagram"/>
 
-    </s1>
+    </section>
 
   </body>
 </document>

@@ -11,7 +11,7 @@
 
   <body>
 
-    <s1 title="Introduction to testing secure code">
+    <section title="Introduction to testing secure code">
 
       <p>
         Beginning with version 1.3, Cactus is able to unit test Servlet code
@@ -34,9 +34,9 @@
         that is explained here.
       </note>
 
-    </s1>
+    </section>
 
-    <s1 title="Step 1 : Passing credentials in beginXXX()">
+    <section title="Step 1 : Passing credentials in beginXXX()">
 
       <p>
         Let's start with an example :
@@ -84,9 +84,9 @@ public void testBasicAuthentication()
         </li>
       </ul>
 
-    </s1>
+    </section>
 
-    <s1 title="Step 2 : Securing the Cactus Redirector">
+    <section title="Step 2 : Securing the Cactus Redirector">
 
       <p>
        All calls to the server side go through the Cactus Servlet Redirector
@@ -156,9 +156,9 @@ public void testBasicAuthentication()
 </web-app>
 ]]></source>
 
-    </s1>
+    </section>
 
-    <s1 title="Step 3 : Map Users/Roles">
+    <section title="Step 3 : Map Users/Roles">
 
       <p>
         This step consists in defining authorized users and mapping them to the
@@ -189,7 +189,7 @@ public void testBasicAuthentication()
 </tomcat-users>
 ]]></source>
 
-    </s1>
+    </section>
 
   </body>
 </document>

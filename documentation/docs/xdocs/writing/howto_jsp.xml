@@ -11,7 +11,7 @@
 
   <body>
 
-    <s1 title="JSP Testing in Cactus">
+    <section title="JSP Testing in Cactus">
 
       <p>
         This tutorial explains how Cactus can be used to test JSP.        
@@ -39,10 +39,10 @@
 	    </li>
 	  </ul>
 	      
-    </s1>
+    </section>
 
     <anchor id="jsp_type1"/>
-    <s1 title="Type 1: verifying JSP result">
+    <section title="Type 1: verifying JSP result">
 
       <p>
       	This is easily done by implementing a
@@ -77,10 +77,10 @@ public class MyTest extends ServletTestCase
 }        
 ]]></source>
       
-    </s1>
+    </section>
 
     <anchor id="jsp_type2"/>
-    <s1 title="Type 2: testing JSP taglibs">
+    <section title="Type 2: testing JSP taglibs">
 
       <p>
       	This is easily done by creating a test case class that extends
@@ -89,10 +89,10 @@ public class MyTest extends ServletTestCase
         tutorial</link>.
       </p>
       
-    </s1>
+    </section>
 
     <anchor id="jsp_type3"/>
-    <s1 title="Type 3: testing JSP in isolation">
+    <section title="Type 3: testing JSP in isolation">
 
       <p>
         This type of testing depends mostly on your architecture. The general
@@ -108,7 +108,7 @@ public class MyTest extends ServletTestCase
       	some mock code logic that you would write for your tests.
       </p>
       
-      <s2 title="Example1">
+      <section title="Example1">
 
 <source><![CDATA[
 public class MyTestCase extends JspTestCase
@@ -165,9 +165,9 @@ public class MyTestCase extends JspTestCase
 </HTML>
 ]]></source>
         
-      </s2>
+      </section>
       
-      <s2 title="Example2: Struts application">
+      <section title="Example2: Struts application">
 
         <p>
           See the 
@@ -175,9 +175,9 @@ public class MyTestCase extends JspTestCase
           project.
         </p>
         
-      </s2>
+      </section>
 
-    </s1>
+    </section>
 
   </body>
 </document>

@@ -12,7 +12,7 @@
 
   <body>
 
-    <s1 title="External resources related to Cactus">
+    <section title="External resources related to Cactus">
 
       <note>
         Recent entries comes first in the table.
@@ -205,9 +205,9 @@
 
       </table>
 
-    </s1>
+    </section>
 
-    <s1 title="External resources related to testing in general">
+    <section title="External resources related to testing in general">
 
       <note>
         Recent entries comes first in the table.
@@ -273,7 +273,7 @@
 
       </table>
 
-    </s1>
+    </section>
 
   </body>
 </document>

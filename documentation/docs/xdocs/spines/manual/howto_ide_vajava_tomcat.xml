@@ -11,7 +11,7 @@
 
   <body>
 
-    <s1 title="Forewords and Requirements">
+    <section title="Forewords and Requirements">
 
       <note>
         <strong>This tutorial is written for Cactus 1.2 only. It will need
@@ -28,9 +28,9 @@
         with other versions.
       </p>
 
-    </s1>
+    </section>
 
-    <s1 title="Steps">
+    <section title="Steps">
 
       <p>
         Let's call <strong><code>{VAJava dir}</code></strong> the directory
@@ -71,7 +71,7 @@
         </li>
       </ul>
 
-    </s1>
+    </section>
 
   </body>
 </document>

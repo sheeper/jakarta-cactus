@@ -12,7 +12,7 @@
 
   <body>
 
-    <s1 title="Meritocracy">
+    <section title="Meritocracy">
 
       <p>
         All work on Cactus is contributed by volunteers whose only motivation
@@ -29,9 +29,9 @@
         Jakarta Website.
       </p>
 
-    </s1>
+    </section>
 
-    <s1 title="Source code contributors">
+    <section title="Source code contributors">
 
       <ul>
         <li>
@@ -74,9 +74,9 @@
         </li>
       </ul>
 
-    </s1>
+    </section>
 
-    <s1 title="Documentation contributors">
+    <section title="Documentation contributors">
 
       <ul>
         <li>
@@ -119,10 +119,10 @@
         </li>
       </ul>
 
-    </s1>
+    </section>
 
     <anchor id="committers"/>
-    <s1 title="Committers">
+    <section title="Committers">
 
       <ul>
         <li>
@@ -144,9 +144,9 @@
         </li>
       </ul>
 
-    </s1>
+    </section>
 
-    <s1 title="Special thanks">
+    <section title="Special thanks">
 
       <p>
         Thanks to all that have reported bugs or suggested ideas for Cactus.
@@ -168,9 +168,9 @@
         it a home and more importantly a family.
       </p>
 
-    </s1>
+    </section>
 
-    <s1 title="More about us">
+    <section title="More about us">
 
       <p>
         <strong><link href="mailto:vmassol@apache.org">Vincent Massol</link>
@@ -304,7 +304,7 @@
 		phase in in-container testing by providing a more abstract framework for
 		interacting with a wider variety of containers (EJB, JMS, etc. ).
       </p>
-    </s1>
+    </section>
 
   </body>
 </document>

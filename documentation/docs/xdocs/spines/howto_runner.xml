@@ -11,7 +11,7 @@
 
   <body>
 
-    <s1 title="Starting Cactus tests">
+    <section title="Starting Cactus tests">
 
       <p>
         The Cactus tests are started using a JUnit Test Runner. There are
@@ -36,19 +36,19 @@
         </li>
       </ul>
 
-    </s1>
+    </section>
 
     <anchor id="from_ant"/>
-    <s1 title="Running Cactus tests from Ant">
+    <section title="Running Cactus tests from Ant">
 
       <p>
         Refer to the <link href="site:howto_ant">Ant Howto</link>.
       </p>
 
-    </s1>
+    </section>
 
     <anchor id="from_command_line"/>
-    <s1 title="Running Cactus tests from the command line">
+    <section title="Running Cactus tests from the command line">
 
       <p>
         You need to set up your classpath in the same way as when you run
@@ -60,25 +60,25 @@
         <code>junit.swingui.TestRunner.main [test case class]</code>
       </p>
 
-    </s1>
+    </section>
 
     <anchor id="from_ide"/>
-    <s1 title="Running Cactus tests from an IDE">
+    <section title="Running Cactus tests from an IDE">
 
       <p>
         Refer to the <link href="site:howto_ide">IDE Howto</link>.
       </p>
 
-    </s1>
+    </section>
 
     <anchor id="from_browser"/>
-    <s1 title="Running Cactus tests from a browser">
+    <section title="Running Cactus tests from a browser">
 
       <note>
         This section only applies for Cactus 1.4 and greater.
       </note>
 
-      <s2 title="Step 1 : Setting up the classpath">
+      <section title="Step 1 : Setting up the classpath">
 
         <p>
           In order to run Cactus tests from a browser you need to have a webapp
@@ -94,9 +94,9 @@
           guide for the exact list of jars.
         </note>
 
-      </s2>
+      </section>
 
-      <s2 title="Step 2 : Mapping the Cactus Servlet Test Runner">
+      <section title="Step 2 : Mapping the Cactus Servlet Test Runner">
 
         <p>
           Then, in addition to the Cactus redirectors that you have mapped in
@@ -121,9 +121,9 @@
 [...]
 ]]></source>
 
-      </s2>
+      </section>
 
-      <s2 title="Step 3 : Executing the tests">
+      <section title="Step 3 : Executing the tests">
 
         <p>
           Open a browser and type <code>http://server:port/mywebapp/ServletTestRunner?suite=mytestcase</code>
@@ -176,9 +176,9 @@
           about other browsers.
         </note>
 
-      </s2>
+      </section>
 
-      <s2 title="Enabling Server-Side XSLT Transformations">
+      <section title="Enabling Server-Side XSLT Transformations">
 
         <p>
           In the previous section, the XSLT transformation was performed on the 
@@ -239,9 +239,9 @@ http://server:port/mywebapp/ServletTestRunner?suite=mytestcase&transform=yes
           not get picked up until the web-application is reloaded.
         </note>
 
-      </s2>
+      </section>
 
-    </s1>
+    </section>
 
   </body>
 </document>

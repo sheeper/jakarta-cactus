@@ -11,7 +11,7 @@
 
   <body>
 
-    <s1 title="When to use ?">
+    <section title="When to use ?">
 
       <p>
         Your test case class should extend <code>ServletTestCase</code>
@@ -27,9 +27,9 @@
         </li>
       </ul>
 
-    </s1>
+    </section>
 
-    <s1 title="Provided Implicit Objects">
+    <section title="Provided Implicit Objects">
 
       <p>
         Cactus automatically initializes the implicit objects for you and
@@ -50,7 +50,7 @@
       </p>
 
       <anchor id="servlet_request"/>
-      <s2 title="request">
+      <section title="request">
 
         <table>
           <tr>
@@ -95,7 +95,7 @@
           samples provided in the Cactus distribution.
         </p>
 
-        <s3 title="Additional methods">
+        <section title="Additional methods">
 
           <p>
             Cactus provides some additional methods to ease writing tests
@@ -114,12 +114,12 @@
             </li>
           </ul>
 
-        </s3>
+        </section>
 
-      </s2>
+      </section>
 
       <anchor id="servlet_response"/>
-      <s2 title="response">
+      <section title="response">
 
         <table>
           <tr>
@@ -144,10 +144,10 @@
           Cactus does not wrap the response.
         </note>
 
-      </s2>
+      </section>
 
       <anchor id="servlet_config"/>
-      <s2 title="config">
+      <section title="config">
 
         <table>
           <tr>
@@ -200,7 +200,7 @@
           samples provided in the Cactus distribution.
         </p>
 
-        <s3 title="Additional methods">
+        <section title="Additional methods">
 
           <p>
             Additional methods provided:
@@ -218,12 +218,12 @@
             </li>
           </ul>
 
-        </s3>
+        </section>
 
-      </s2>
+      </section>
 
       <anchor id="servlet_context"/>
-      <s2 title="ServletContextWrapper">
+      <section title="ServletContextWrapper">
 
         <p>
           This is not an implicit object per see (as it is not accessible as
@@ -243,7 +243,7 @@
           samples provided in the Cactus distribution.
         </p>
 
-        <s3 title="Additional methods">
+        <section title="Additional methods">
 
           <p>
             Additional methods provided:
@@ -256,12 +256,12 @@
             </li>
           </ul>
 
-        </s3>
+        </section>
 
-      </s2>
+      </section>
 
       <anchor id="servlet_session"/>
-      <s2 title="session">
+      <section title="session">
 
         <table>
           <tr>
@@ -295,13 +295,13 @@
           "<code>request.getSession(false)</code>" is <code>null</code>.
         </p>
 
-      </s2>
+      </section>
 
-    </s1>
+    </section>
 
-    <s1 title="Tips and Tricks">
+    <section title="Tips and Tricks">
 
-      <s2 title="Parameter initialisation">
+      <section title="Parameter initialisation">
 
         <p>
           If your code under test make use of any of the servlet methods
@@ -332,11 +332,11 @@ public void testXXX()
           See the samples provided as part of the Cactus distribution.
         </p>
 
-      </s2>
+      </section>
 
-    </s1>
+    </section>
 
-    <s1 title="Sample">
+    <section title="Sample">
 
       <p>
         This is a very basic sample intended to give you a flavour of Servlet
@@ -382,7 +382,7 @@ public void endXXX(WebResponse theResponse)
 }
 ]]></source>
 
-    </s1>
+    </section>
 
   </body>
 </document>

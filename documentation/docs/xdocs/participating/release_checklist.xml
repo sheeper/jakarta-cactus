@@ -11,7 +11,7 @@
 
   <body>
 
-    <s1 title="Release Checklist">
+    <section title="Release Checklist">
 
       <p>
         Checklist of tasks to perform for each release:
@@ -111,9 +111,9 @@
         </li>
       </ol>
 
-    </s1>
+    </section>
 
-    <s1 title="Announcement template">
+    <section title="Announcement template">
 
 <source><![CDATA[
 The Cactus project is pleased to announce the release of Version <version>
@@ -130,7 +130,7 @@ migrate from the previous vesion to this new version.
 For more information about Cactus, please visit: http://jakarta.apache.org/cactus/.
 ]]></source>
 
-    </s1>
+    </section>
 
   </body>
 </document>

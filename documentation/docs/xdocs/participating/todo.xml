@@ -11,7 +11,7 @@
 
   <body>
 
-    <s1 title="Forewords">
+    <section title="Forewords">
       <p>
         As is stated on the Cactus <link href="site:goals">goals</link> page, 
         the intention is to explore as much as possible in the realm of unit 
@@ -36,7 +36,7 @@
       <p>
         The game has just begun ... !
       </p>
-    </s1>
+    </section>
 
   <version title="Version 1.5">
 

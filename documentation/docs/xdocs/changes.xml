@@ -11,7 +11,7 @@
 
   <body>
 
-    <s1 title="Summary of changes">
+    <section title="Summary of changes">
       <ul>
         <li>
           <link href="site:news">News and Events</link>
@@ -23,7 +23,7 @@
           <jump anchor="release_changes">Release changes</jump>
         </li>
       </ul>
-    </s1>
+    </section>
 
     <!-- ================================================================= -->
     <!-- Last 15 days web site changes -->

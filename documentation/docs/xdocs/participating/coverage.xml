@@ -11,7 +11,7 @@
 
   <body>
 
-    <s1 title="Test Coverage Reports">
+    <section title="Test Coverage Reports">
 
       <p>
         These are test coverage reports for Cactus. They were generated using
@@ -50,7 +50,7 @@
         </tr>
       </table>
 
-    </s1>
+    </section>
 
   </body>
 </document>

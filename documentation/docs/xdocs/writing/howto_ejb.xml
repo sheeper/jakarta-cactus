@@ -11,7 +11,7 @@
 
   <body>
 
-  <s1 title="Introduction">
+  <section title="Introduction">
 
     <p>
       This document explains how to unit test EJBs with Cactus. It is
@@ -35,12 +35,12 @@
       EJB unit testing works with Cactus 1.0 or later.
     </note>
 
-  </s1>
+  </section>
 
   <anchor id="ejb_general"/>
-  <s1 title="General Concepts">
+  <section title="General Concepts">
 
-    <s2 title="Why use Cactus for testing EJBs ?">
+    <section title="Why use Cactus for testing EJBs ?">
 
       <p>
         You might be wondering why you would use Cactus to unit test your
@@ -78,9 +78,9 @@
         </li>
       </ul>
 
-    </s2>
+    </section>
 
-    <s2 title="The process">
+    <section title="The process">
 
       <p>
         You can unit test your EJBs from any of Cactus redirectors :
@@ -99,12 +99,12 @@
         this, right ?
       </p>
 
-    </s2>
+    </section>
 
-  </s1>
+  </section>
 
   <anchor id="ejb_j2eeri"/>
-  <s1 title="J2EE RI Tutorial">
+  <section title="J2EE RI Tutorial">
 
     <p>
       This <link href="site:howto_ejb_j2eeri">J2EE RI tutorial</link>
@@ -112,7 +112,7 @@
       Sun J2EE RI server.
     </p>
 
-  </s1>
+  </section>
 
   </body>
 </document>

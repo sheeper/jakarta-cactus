@@ -11,7 +11,7 @@
 
   <body>
 
-    <s1 title="What containers has Cactus been tested on ?">
+    <section title="What containers has Cactus been tested on ?">
 
       <ul>
         <li>
@@ -22,10 +22,10 @@
         </li>
       </ul>
 
-    </s1>
+    </section>
 
     <anchor id="tested_on"/>
-    <s1 title="Tested on ...">
+    <section title="Tested on ...">
 
       <note>
         Cactus is supposed to work on any J2EE 1.2 and 1.3 compliant servers.
@@ -47,7 +47,7 @@
         <code>[TestedOn]</code> in the subject.
       </p>
 
-      <s2 title="Cactus 1.4">
+      <section title="Cactus 1.4">
 
         <table>
           <tr>
@@ -387,9 +387,9 @@
 
         </table>
 
-      </s2>
+      </section>
 
-      <s2 title="Cactus 1.3">
+      <section title="Cactus 1.3">
 
         <table>
           <tr>
@@ -683,12 +683,12 @@
 
         </table>
 
-      </s2>
+      </section>
 
-    </s1>
+    </section>
 
     <anchor id="fails_on"/>
-    <s1 title="Fails on ...">
+    <section title="Fails on ...">
 
       <p>
         Some containers have some issues which prevent them from running the
@@ -736,7 +736,7 @@
 
       </table>
 
-    </s1>
+    </section>
 
   </body>
 </document>

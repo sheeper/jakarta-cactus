@@ -11,7 +11,7 @@
 
   <body>
   
-    <s1 title="Cactus Public License">
+    <section title="Cactus Public License">
 
 <source><![CDATA[
 /* ====================================================================
@@ -69,7 +69,7 @@
  */
 ]]></source>
 
-    </s1>
+    </section>
   </body>
 
 </document>

@@ -11,7 +11,7 @@
 
   <body>
 
-    <s1 title="Introduction">
+    <section title="Introduction">
 
       <p>
         This tutorial explains how to write a test case, using Cactus. There
@@ -37,16 +37,16 @@
         as they are in essence JUnit test cases.
       </note>
 
-    </s1>
+    </section>
 
     <anchor id="general_principles"/>
-    <s1 title="General principles">
+    <section title="General principles">
 
       <p>
         To write a test case, please follow the steps defined below.
       </p>
 
-      <s2 title="Step 1 : Imports">
+      <section title="Step 1 : Imports">
 
         <p>
           You need to include the following imports in your test class (
@@ -59,9 +59,9 @@ import org.apache.cactus.*;
 import junit.framework.*;
 ]]></source>
 
-      </s2>
+      </section>
 
-      <s2 title="Step 2 : Extend a Cactus TestCase class">
+      <section title="Step 2 : Extend a Cactus TestCase class">
 
         <p>
           Now, we need to create a class (our test class) that extends one of
@@ -109,9 +109,9 @@ public class TestSampleFilter extends FilterTestCase
           </li>
         </ul>
 
-      </s2>
+      </section>
 
-      <s2 title="Step 3 : Standard JUnit methods">
+      <section title="Step 3 : Standard JUnit methods">
 
         <p>
           As in a normal JUnit test case, define the following standard JUnit
@@ -152,9 +152,9 @@ public static Test suite()
 }
 ]]></source>
 
-      </s2>
+      </section>
 
-      <s2 title="Step 4 (optional) : setUp() and tearDown() methods">
+      <section title="Step 4 (optional) : setUp() and tearDown() methods">
 
         <p>
           As in JUnit, you can define a <code>setUp()</code> and a
@@ -172,9 +172,9 @@ public static Test suite()
           methods are optional.
         </p>
 
-      </s2>
+      </section>
 
-      <s2 title="Step 5 : testXXX() methods">
+      <section title="Step 5 : testXXX() methods">
 
         <p>
           As in JUnit, the main method for a test is the
@@ -235,9 +235,9 @@ public void testXXX()
 }
 ]]></source>
 
-      </s2>
+      </section>
 
-      <s2 title="Step 6 (optional) : beginXXX() methods">
+      <section title="Step 6 (optional) : beginXXX() methods">
 
         <p>
           For each XXX test case, you can define a corresponding
@@ -277,10 +277,10 @@ public void beginXXX(WebRequest theRequest)
           represent API objects (their values are <code>null</code>)
         </p>
 
-      </s2>
+      </section>
 
       <anchor id="endxxx"/>
-      <s2 title="Step 7 (optional) : endXXX() methods">
+      <section title="Step 7 (optional) : endXXX() methods">
 
         <p>
           For each XXX test case, you can define a corresponding
@@ -324,12 +324,12 @@ public void endXXX(HttpURLConnection theConnection)
           represent API objects (their values are <code>null</code>)
         </p>
 
-      </s2>
+      </section>
 
-    </s1>
+    </section>
 
     <anchor id="specific_details"/>
-    <s1 title="TestCase specific details">
+    <section title="TestCase specific details">
 
       <p>
         <strong>Before reading any of the following detailed tutorials,
@@ -350,7 +350,7 @@ public void endXXX(HttpURLConnection theConnection)
         </li>
       </ul>
 
-    </s1>
+    </section>
 
   </body>
 </document>

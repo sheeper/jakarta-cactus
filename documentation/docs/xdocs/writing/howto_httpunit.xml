@@ -11,7 +11,7 @@
 
   <body>
 
-    <s1 title="HttpUnit integration">
+    <section title="HttpUnit integration">
 
       <note>
         <strong>The HttpUnit integration is only available for Cactus v1.2 and
@@ -50,9 +50,9 @@
         method you want to use.
       </p>
 
-    </s1>
+    </section>
 
-    <s1 title="Usage">
+    <section title="Usage">
 
       <p>
         The signature of an <code>endXXX()</code> method is always :
@@ -80,7 +80,7 @@ public void endXXX(WebResponse theResponse)
         </li>
       </ul>
 
-      <s2 title="Method 1 : Cactus provided WebResponse object">
+      <section title="Method 1 : Cactus provided WebResponse object">
 
          <p>
            An example :
@@ -106,9 +106,9 @@ public void endXXX(org.apache.cactus.WebResponse theResponse)
           <code>WebResponse</code> object, see the associated Javadoc.
         </note>
 
-      </s2>
+      </section>
 
-      <s2 title="Method 2 : HttpUnit provided WebResponse object">
+      <section title="Method 2 : HttpUnit provided WebResponse object">
 
          <p>
            An example :
@@ -131,9 +131,9 @@ public void endXXX(com.meterware.httpunit.WebResponse theResponse)
           documentation.
         </note>
 
-      </s2>
+      </section>
 
-    </s1>
+    </section>
 
   </body>
 </document>

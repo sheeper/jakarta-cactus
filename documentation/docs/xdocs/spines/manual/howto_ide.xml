@@ -11,7 +11,7 @@
 
   <body>
 
-    <s1 title="IDE integration">
+    <section title="IDE integration">
 
       <p>
         In order to simplify Cactus integration within your IDE (i.e. running
@@ -53,7 +53,7 @@
         and do the same for yours.
       </p>
 
-    </s1>
+    </section>
 
   </body>
 </document>

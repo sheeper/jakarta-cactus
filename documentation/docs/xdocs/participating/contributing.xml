@@ -11,7 +11,7 @@
 
   <body>
 
-  <s1 title="Introduction">
+  <section title="Introduction">
 
     <p>
       The Cactus Project is an <link href="ext:opensource">Open Source</link>
@@ -37,9 +37,9 @@
       in.
     </p>
 
-  </s1>
+  </section>
 
-  <s1 title="Help Wanted Here">
+  <section title="Help Wanted Here">
 
     <p>
       The rest of this document is mainly about
@@ -92,9 +92,9 @@
       Thank you very much.
     </p>
 
-  </s1>
+  </section>
 
-  <s1 title="Contributions of Code and Documentation">
+  <section title="Contributions of Code and Documentation">
   
     <p>
       We are starting to use an informal system for accepting contributions to
@@ -116,7 +116,7 @@
       <code>diff</code> of your patch against the latest CVS version of the code.
     </p>
   
-    <s2 title="Licensing Requirements for the Cactus Distribution">
+    <section title="Licensing Requirements for the Cactus Distribution">
   
       <p>
         To avoid legal problems, the Apache Project Management Committee (PMC) 
@@ -142,9 +142,9 @@
         statements from all contributors!
       </p>
    
-    </s2>
+    </section>
  
-  </s1>
+  </section>
 
   </body>
 

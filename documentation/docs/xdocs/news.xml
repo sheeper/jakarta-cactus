@@ -11,7 +11,7 @@
 
   <body>
 
-    <s1 title="News and Events">
+    <section title="News and Events">
 
       <ul>
         <li>
@@ -23,10 +23,10 @@
         </li>
       </ul>
 
-    </s1>
+    </section>
 
     <anchor id="who_talks_news"/>
-    <s1 title="Who talks about Cactus">
+    <section title="Who talks about Cactus">
 
       <table>
 
@@ -167,10 +167,10 @@
 
       </table>
 
-    </s1>
+    </section>
 
     <anchor id="internal_news"/>
-    <s1 title="Internal Cactus project News (big headlines)">
+    <section title="Internal Cactus project News (big headlines)">
 
       <table>
 
@@ -383,7 +383,7 @@
 
       </table>
 
-    </s1>
+    </section>
 
   </body>
 </document>

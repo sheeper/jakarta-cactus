@@ -11,7 +11,7 @@
 
   <body>
 
-    <s1 title="Continuous integration">
+    <section title="Continuous integration">
 
       <note>
         <strong>This tutorial was written when I wrote Cactus 1.2. Since then
@@ -40,9 +40,9 @@
         the perfect tool for this task.
       </p>
 
-    </s1>
+    </section>
 
-    <s1 title="Ant benefits">
+    <section title="Ant benefits">
 
       <p>
         The benefits of using Ant for running unit tests are as follows :
@@ -83,9 +83,9 @@
         </tr>
       </table>
 
-    </s1>
+    </section>
 
-    <s1 title="Writing an Ant build script tutorial">
+    <section title="Writing an Ant build script tutorial">
 
       <p>
         The sample Ant build file described below is taken from the
@@ -101,7 +101,7 @@
         you are free to adapt/modify it to suit your needs.
       </note>
 
-      <s2 title="Project directory structure">
+      <section title="Project directory structure">
 
         <p>
           Create the following directories :
@@ -214,9 +214,9 @@
           you are in trouble !), ...
         </note>
 
-      </s2>
+      </section>
 
-      <s2 title="Ant Target List">
+      <section title="Ant Target List">
 
         <p>
           Define the following targets in your <code>build.xml</code>.
@@ -371,11 +371,11 @@
           </tr>
         </table>
 
-      </s2>
+      </section>
 
       <anchor id="basedir"/>
 
-      <s2 title="Step 1 : The Ant project basedir">
+      <section title="Step 1 : The Ant project basedir">
 
         <p>
           You <code>build.xml</code> file being in located in
@@ -396,9 +396,9 @@
 <project name="Cactus Sample" default="war" basedir="..">
 ]]></source>
 
-      </s2>
+      </section>
 
-      <s2 title="Step 2 : initialization of project properties">
+      <section title="Step 2 : initialization of project properties">
 
         <p>
           You should define as properties all values that can be factorized
@@ -525,11 +525,11 @@
     </patternset>
 ]]></source>
 
-      </s2>
+      </section>
 
       <anchor id="init"/>
 
-      <s2 title="Step 3 : 'init' target">
+      <section title="Step 3 : 'init' target">
 
         <p>
           Useful for initializing a timestamp (DSTAMP, TODAY, TSTAMP), defining
@@ -579,11 +579,11 @@
     </target>
 ]]></source>
 
-      </s2>
+      </section>
 
       <anchor id="usage"/>
 
-      <s2 title="Step 4 : 'usage' targets">
+      <section title="Step 4 : 'usage' targets">
 
         <p>
           Display a usage message.
@@ -621,11 +621,11 @@
     </target>
 ]]></source>
 
-      </s2>
+      </section>
 
       <anchor id="prepare"/>
 
-      <s2 title="Step 5 : 'prepare' target">
+      <section title="Step 5 : 'prepare' target">
 
         <p>
           This target is needed for both compiling and generating the javadoc.
@@ -660,11 +660,11 @@
     </target>
 ]]></source>
 
-      </s2>
+      </section>
 
       <anchor id="compile"/>
 
-      <s2 title="Step 6 : 'compile' target">
+      <section title="Step 6 : 'compile' target">
 
         <p>
           The <code>compile</code> target simply compiles the java files into
@@ -727,11 +727,11 @@
     </target>
 ]]></source>
 
-      </s2>
+      </section>
 
       <anchor id="source"/>
 
-      <s2 title="Step 7 : 'source' target">
+      <section title="Step 7 : 'source' target">
 
         <p>
           Zip up the sources for distribution.
@@ -758,11 +758,11 @@
     </target>
 ]]></source>
 
-      </s2>
+      </section>
 
       <anchor id="javadoc"/>
 
-      <s2 title="Step 8 : 'javadoc' target">
+      <section title="Step 8 : 'javadoc' target">
 
         <p>
           Generate the project's javadoc.
@@ -807,11 +807,11 @@
     </target>
 ]]></source>
 
-      </s2>
+      </section>
 
       <anchor id="doc"/>
 
-      <s2 title="Step 9 : 'doc' target">
+      <section title="Step 9 : 'doc' target">
 
         <p>
           Generate the project's documentation. It includes the javadoc,
@@ -844,11 +844,11 @@
     </target>
 ]]></source>
 
-      </s2>
+      </section>
 
       <anchor id="clean"/>
 
-      <s2 title="Step 10 : 'clean' target">
+      <section title="Step 10 : 'clean' target">
 
         <p>
           Removes all build generated files.
@@ -880,13 +880,13 @@
     </target>
 ]]></source>
 
-      </s2>
+      </section>
 
-      <s2 title="Step 11 : 'jar', 'war' targets">
+      <section title="Step 11 : 'jar', 'war' targets">
 
         <anchor id="jar"/>
 
-        <s3 title="'jar' target">
+        <section title="'jar' target">
 
           <p>
             This target is useful if your project is a framework for example and
@@ -936,11 +936,11 @@
     </target>
 ]]></source>
 
-        </s3>
+        </section>
 
         <anchor id="war"/>
 
-        <s3 title="'war' target">
+        <section title="'war' target">
 
           <p>
             This target is useful if you're building a web application.
@@ -997,13 +997,13 @@
     </target>
 ]]></source>
 
-        </s3>
+        </section>
 
-      </s2>
+      </section>
 
       <anchor id="tests"/>
 
-      <s2 title="Step 12 : 'tests_XXX' target">
+      <section title="Step 12 : 'tests_XXX' target">
 
         <p>
           The <code>tests_XXX</code> target is in charge of running the
@@ -1018,9 +1018,9 @@
           Ant</link> tutorial for details on to do this.
         </p>
 
-      </s2>
+      </section>
 
-    </s1>
+    </section>
 
   </body>
 </document>

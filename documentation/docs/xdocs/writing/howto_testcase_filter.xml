@@ -11,7 +11,7 @@
 
   <body>
 
-    <s1 title="When to use ?">
+    <section title="When to use ?">
 
       <p>
         Your test case class should extend <code>FilterTestCase</code>
@@ -37,9 +37,9 @@
         above.</strong>
       </note>
 
-    </s1>
+    </section>
 
-    <s1 title="Provided Implicit Objects">
+    <section title="Provided Implicit Objects">
 
       <p>
         Cactus automatically initializes the implicit objects for you and
@@ -60,7 +60,7 @@
       </p>
 
       <anchor id="filter_request"/>
-      <s2 title="request">
+      <section title="request">
 
         <p>
          See <code>ServletTestCase</code><code>
@@ -68,10 +68,10 @@
          </jump></code> implicit object for documentation.
        </p>
 
-      </s2>
+      </section>
 
       <anchor id="filter_response"/>
-      <s2 title="response">
+      <section title="response">
 
         <p>
          See <code>ServletTestCase</code><code>
@@ -79,10 +79,10 @@
          </jump></code> implicit object for documentation.
        </p>
 
-      </s2>
+      </section>
 
       <anchor id="filter_config"/>
-      <s2 title="config">
+      <section title="config">
 
         <table>
           <tr>
@@ -135,7 +135,7 @@
           samples provided in the Cactus distribution.
         </p>
 
-        <s3 title="Additional methods">
+        <section title="Additional methods">
 
           <p>
             Additional methods provided:
@@ -153,12 +153,12 @@
             </li>
           </ul>
 
-        </s3>
+        </section>
 
-      </s2>
+      </section>
 
       <anchor id="filter_filterChain"/>
-      <s2 title="filterChain">
+      <section title="filterChain">
 
         <table>
           <tr>
@@ -183,13 +183,13 @@
           Cactus does not wrap the filter chain.
         </note>
 
-      </s2>
+      </section>
 
-    </s1>
+    </section>
 
-    <s1 title="Tips and Tricks">
+    <section title="Tips and Tricks">
 
-      <s2 title="Simulating the next fitler in chain">
+      <section title="Simulating the next fitler in chain">
 
         <p>
           As you are performing unit testing of your filter, you may wish
@@ -230,11 +230,11 @@ public void testDoFilterOK() throws ServletException, IOException
           See the samples provided as part of the Cactus distribution.
         </p>
 
-      </s2>
+      </section>
 
-    </s1>
+    </section>
 
-    <s1 title="Sample">
+    <section title="Sample">
 
       <p>
         This is a very basic sample intended to give you a flavour of Filter
@@ -278,7 +278,7 @@ public void endXXX(WebResponse theResponse)
 }
 ]]></source>
 
-    </s1>
+    </section>
 
   </body>
 </document>

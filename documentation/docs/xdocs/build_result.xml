@@ -11,7 +11,7 @@
 
   <body>
 
-    <s1 title="Nightly Build Results">
+    <section title="Nightly Build Results">
 
       <p>
         Every day, the main Cactus build is run, the cactus jars are generated,
@@ -77,9 +77,9 @@
         <link href="ext:gump_results">here</link>.
       </p>
 
-    </s1>
+    </section>
 
-    <s1 title="Nightly Build results">
+    <section title="Nightly Build results">
 
       <p>
         If the nightly build is successful, Gump posts the packaged Cactus
@@ -96,7 +96,7 @@
         <link href="ext:gump_javadocs">here</link>.
       </p>
 
-    </s1>
+    </section>
 
   </body>
 </document>

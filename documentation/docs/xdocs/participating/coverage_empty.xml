@@ -11,14 +11,14 @@
 
   <body>
 
-    <s1 title="Test Coverage Reports">
+    <section title="Test Coverage Reports">
 
       <p>
         Sorry ! No test coverage report was created as this site was generated
         without coverage report enabled.
       </p>
 
-    </s1>
+    </section>
 
   </body>
 </document>

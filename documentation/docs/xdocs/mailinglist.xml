@@ -11,7 +11,7 @@
 
   <body>
 
-    <s1 title="Mailing List directions">
+    <section title="Mailing List directions">
 
       <p>
         General information about the jakarta mailing lists can be found
@@ -51,7 +51,7 @@
       <note>
         The same applies for the dev mailing list; replace "user" by "dev".
       </note>
-    </s1>
+    </section>
 
   </body>
 </document>

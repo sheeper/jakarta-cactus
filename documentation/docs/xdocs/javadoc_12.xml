@@ -11,7 +11,7 @@
 
   <body>
 
-    <s1 title="Javadocs">
+    <section title="Javadocs">
 
       <p>
         These are the generated Cactus javadocs.
@@ -37,7 +37,7 @@
         </tr>
       </table>
 
-    </s1>
+    </section>
 
   </body>
 </document>

@@ -11,7 +11,7 @@
 
   <body>
 
-    <s1 title="Propositions of logos for Cactus">
+    <section title="Propositions of logos for Cactus">
 
       <p>
         Here are contributions for a Cactus logo and associated slogan. Thanks
@@ -31,7 +31,7 @@
         official Cactus logo in the top right corner of the Cactus web site ...
       </p>
 
-      <s2 title="Proposition 1 : Classic">
+      <section title="Proposition 1 : Classic">
 
         <p>
           This is the current logo being displayed on the Cactus web site. It
@@ -42,9 +42,9 @@
 
         <figure src="images/logocactus.gif" alt="Proposition 1: Classic"/>
 
-      </s2>
+      </section>
 
-      <s2 title="Proposition 2 : Tomahawk">
+      <section title="Proposition 2 : Tomahawk">
 
         <p>
           This is a proposition from
@@ -55,9 +55,9 @@
         <link href="images/logos/vgritsenko.jpg"><figure src="images/logos/vgritsenko.jpg" height="185" width="119"
         alt="Proposition 2: Tomahawk"/></link>
 
-      </s2>
+      </section>
 
-      <s2 title="Proposition 3 : A happy cactus">
+      <section title="Proposition 3 : A happy cactus">
 
         <p>
           This is a proposition from
@@ -67,9 +67,9 @@
 
         <figure src="images/logos/harishsk.jpg" alt="Proposition 3: A happy cactus"/>
 
-      </s2>
+      </section>
 
-      <s2 title="Proposition 4 : Severe testing">
+      <section title="Proposition 4 : Severe testing">
 
         <p>
           This is a proposition from
@@ -81,9 +81,9 @@
         <figure src="images/logos/vgritsenko2.jpg" alt="Proposition 3: Severe testing"
         height="64" width="311"/></link>
 
-      </s2>
+      </section>
 
-      <s2 title="Proposition 4">
+      <section title="Proposition 4">
 
         <p>
           This is a proposition from
@@ -93,9 +93,9 @@
 
         <figure src="images/logos/aceglia1.jpg" alt="Proposition 4"/>
 
-      </s2>
+      </section>
 
-      <s2 title="Proposition 5">
+      <section title="Proposition 5">
 
         <p>
           This is a proposition from
@@ -105,9 +105,9 @@
 
         <figure src="images/logos/bogglins.gif" alt="Proposition 5"/>
 
-      </s2>
+      </section>
 
-      <s2 title="Proposition 6">
+      <section title="Proposition 6">
 
         <p>
           This is a proposition from
@@ -117,9 +117,9 @@
 
         <figure src="images/logos/aceglia2.jpg" alt="Proposition 6"/>
 
-      </s2>
+      </section>
 
-      <s2 title="Proposition 7">
+      <section title="Proposition 7">
 
         <p>
           This is a proposition from
@@ -129,9 +129,9 @@
 
         <figure src="images/logos/aceglia3.jpg" alt="Proposition 7"/>
 
-      </s2>
+      </section>
 
-      <s2 title="Proposition 8">
+      <section title="Proposition 8">
 
         <p>
           This is a proposition from
@@ -140,9 +140,9 @@
 
         <figure src="images/logos/ajasso.gif" alt="Proposition 8"/>
 
-      </s2>
+      </section>
 
-      <s2 title="Proposition 9">
+      <section title="Proposition 9">
 
         <p>
           This is a proposition from
@@ -151,9 +151,9 @@
 
         <figure src="images/logos/outoftheboxweb.gif" alt="Proposition 9"/>
 
-      </s2>
+      </section>
 
-    </s1>
+    </section>
 
   </body>
 </document>

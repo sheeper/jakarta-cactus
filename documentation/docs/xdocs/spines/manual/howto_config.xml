@@ -11,7 +11,7 @@
 
   <body>
 
-    <s1 title="Cactus Configuration">
+    <section title="Cactus Configuration">
 
       <note>
         You should read the <link href="site:getting_started">Getting
@@ -70,7 +70,7 @@
       </note>
 
       <anchor id="clientside"/>
-      <s2 title="Client side configuration">
+      <section title="Client side configuration">
 
         <p>
           The following table lists the properties that can be defined on
@@ -244,10 +244,10 @@
           </tr>
         </table>
 
-      </s2>
+      </section>
 
       <anchor id="serverside"/>
-      <s2 title="Server side configuration">
+      <section title="Server side configuration">
 
         <p>
           On Cactus server side, you only need to properly configure your
@@ -362,10 +362,10 @@
           <link href="site:howto_security">Security Howto</link>.
         </p>
 
-      </s2>
+      </section>
 
       <anchor id="logging"/>
-      <s2 title="Cactus logging configuration">
+      <section title="Cactus logging configuration">
 
         <p>
           Since Cactus 1.4, we have switched to using the
@@ -389,7 +389,7 @@
           easily configure Log4j.
         </p>
 
-        <s3 title="Log4J configuration">
+        <section title="Log4J configuration">
 
           <p>
             Create a <code>log4j.properties</code> file and drop it in both
@@ -448,11 +448,11 @@ log4j.additivity.httpclient=false
             thus not appending is usually a good choice.
           </note>
 
-        </s3>
+        </section>
 
-      </s2>
+      </section>
 
-    </s1>
+    </section>
 
   </body>
 </document>

@@ -12,7 +12,7 @@
 
   <body>
 
-    <s1 title="Forewords and Requirements">
+    <section title="Forewords and Requirements">
 
       <p>
         This document describes steps to setup Cactus to unit test Server side
@@ -26,9 +26,9 @@
         (which means that you can run sample successfully).
       </p>
 
-    </s1>
+    </section>
 
-    <s1 title="Step 1 : Create cactus.properties file">
+    <section title="Step 1 : Create cactus.properties file">
 
       <p>
         Create cactus.properties file : Add entry to identify the URL of the
@@ -36,9 +36,9 @@
         Howto</link> for details).
       </p>
 
-    </s1>
+    </section>
 
-    <s1 title="Step 2 : Configure Cactus to work with JBuilder5">
+    <section title="Step 2 : Configure Cactus to work with JBuilder5">
 
       <p>
         Follow these steps :
@@ -98,9 +98,9 @@
         </li>
       </ol>
 
-    </s1>
+    </section>
 
-    <s1 title="Step 3 : Configure Cactus for Weblogic6.1">
+    <section title="Step 3 : Configure Cactus for Weblogic6.1">
 
       <ol>
         <li>
@@ -123,9 +123,9 @@
         </li>
       </ol>
 
-    </s1>
+    </section>
 
-    <s1 title="Step 4 : Run the test">
+    <section title="Step 4 : Run the test">
 
       <ol>
         <li>
@@ -143,7 +143,7 @@
         </li>
       </ol>
 
-    </s1>
+    </section>
 
   </body>
 </document>

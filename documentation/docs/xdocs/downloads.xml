@@ -11,7 +11,7 @@
 
   <body>
 
-    <s1 title="File list">
+    <section title="File list">
 
       <p>
         Here follows the list of files that you can download :
@@ -72,17 +72,17 @@
         and date stamp for nightly builds.
       </note>
 
-    </s1>
+    </section>
 
-    <s1 title="Releases">
+    <section title="Releases">
 
       <p>
         Click <link href="ext:cactus_release">here</link> for Cactus releases.
       </p>
 
-    </s1>
+    </section>
 
-    <s1 title="Nightly builds">
+    <section title="Nightly builds">
 
       <p>
         Click <link href="ext:cactus_nightly">here</link> for Cactus nightly 
@@ -94,7 +94,7 @@
         result</link> page, which gives information on Cactus nightly builds.
       </note>
 
-    </s1>
+    </section>
 
   </body>
 </document>
