@@ -22,6 +22,14 @@
         <link href="site:howto_classpath">Classpath Howto</link> for details).
       </p>
 
+      <note>
+        If you want to use the
+        <link href="site:howto_httpunit">HttpUnit integration</link> in your
+        tests, you'll need to explicitly add the <code>httpunit.jar</code> to
+        the cactified WAR. You can easily do this by using a nested
+        <code>&lt;lib&gt;</code> element.
+      </note>
+
       <p>
         The <strong>cactify</strong> task extends the built-in Ant task
         <strong>war</strong>, so it also supports all attributes and nested
@@ -191,6 +199,47 @@
           </section>
 
         </section>
+
+      </section>
+
+      <section title="Examples">
+
+        <p>
+          The following example demonstrates the simplest-possible use of the
+          task. It will add the redirectors with the default mappings to the
+          cactified WARs, as well as the Cactus libraries and the JSP page
+          needed for the JSP redirector.
+        </p>
+
+        <source><![CDATA[
+<cactify srcfile="${build.dir}/my.war" destfile="${build.dir}/test.war"/>
+]]></source>
+
+        <p>
+          The next example demonstrates how to modify the mappings of the
+          redirectors.
+        </p>
+
+        <source><![CDATA[
+<cactify srcfile="${build.dir}/my.war" destfile="${build.dir}/test.war">
+  <filterredirector mapping="/test/filterRedirector"/>
+  <jspredirector mapping="/test/jspRedirector"/>
+  <servletredirector mapping="/test/servletRedirector"/>
+</cactify>
+]]></source>
+
+        <p>
+          In the following example, we add the test classes as well as the
+          <link href="site:howto_httpunit">HttpUnit</link> library to the
+          cactified WAR.
+        </p>
+
+        <source><![CDATA[
+<cactify srcfile="${build.dir}/my.war" destfile="${build.dir}/test.war">
+  <classes dir="${build.dir}/classes/test" includes="**/*.class"/>
+  <lib file="${httpunit.jar}"/>
+</cactify>
+]]></source>
 
       </section>
 
