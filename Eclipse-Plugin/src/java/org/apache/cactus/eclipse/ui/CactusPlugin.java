@@ -61,7 +61,7 @@ import org.apache.cactus.eclipse.containers.ant.GenericAntProvider;
 import org.eclipse.core.runtime.IPluginDescriptor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.jface.dialogs.ErrorDialog;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
@@ -219,10 +219,9 @@ public class CactusPlugin extends AbstractUIPlugin
         String theMessage,
         IStatus theStatus)
     {
-        ErrorDialog.openError(
+        MessageDialog.openError(
             getActiveWorkbenchShell(),
             theTitle,
-            theMessage,
-            theStatus);
+            theMessage);
     }
 }
