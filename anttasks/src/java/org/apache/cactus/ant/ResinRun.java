@@ -113,7 +113,7 @@ public class ResinRun extends AbstractServerRun
                 new Class[] {this.args.getClass(), boolean.class});
 
             this.resinServer = constructor.newInstance(
-                new Object[] {this.args, new Boolean(true)});
+                new Object[] {this.args, Boolean.TRUE});
 
             // Try Resin 2.0 first
             try
@@ -144,7 +144,7 @@ public class ResinRun extends AbstractServerRun
         Method initMethod = theResinServer.getClass().getMethod("init", 
             new Class[] {boolean.class});
 
-        initMethod.invoke(theResinServer, new Object[] {new Boolean(true)});
+        initMethod.invoke(theResinServer, new Object[] {Boolean.TRUE});
     }
 
     /**
