@@ -139,6 +139,27 @@
 
         <tr>
           <td>
+            21/04/2002
+          </td>
+          <td>
+            Cactus 1.3 is released ! Get it from the
+            <link href="downloads.html">Download area</link>. Complete change
+            log is available <link href="changes.html">here</link>.
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            21/04/2002
+          </td>
+          <td>
+            New <link href="testedon.html">Tested On ...</link> page which
+            lists what containers have been tested with Cactus.
+          </td>
+        </tr>
+
+        <tr>
+          <td>
             20/04/2002
           </td>
           <td>
