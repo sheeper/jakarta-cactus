@@ -141,7 +141,7 @@ public abstract class AbstractHttpServletRequestWrapper
     }
 
     /**
-     * Simulates the remote IP address (i.e. the client IP address).
+     * Simulates the remote IP address (ie the client IP address).
      *
      * @param theRemoteIPAddress the simulated IP address in string format.
      *        Exemple : "127.0.0.1"
@@ -152,7 +152,7 @@ public abstract class AbstractHttpServletRequestWrapper
     }
 
     /**
-     * Simulates the remote host name(i.e. the client host name).
+     * Simulates the remote host name(ie the client host name).
      *
      * @param theRemoteHostName the simulated host name in string format.
      *        Exemple : "atlantis"
