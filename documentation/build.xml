@@ -48,14 +48,14 @@
     <target name="properties">
 
         <!-- Set the properties related to the source tree -->
-        <property name="src.dir" value="${base.dir}/src"/>
-        <property name="src.java.dir" value="${src.dir}/java"/>
-        <property name="doc.dir" value="${base.dir}/docs"/>
-        <property name="doc.dtd.dir" value="${doc.dir}/dtds"/>
-        <property name="doc.skin.dir" value="${doc.dir}/skins"/>
-        <property name="doc.xdoc.dir" value="${doc.dir}/xdocs"/>
-        <property name="build.dir" value="${base.dir}/."/>
-        <property name="conf.dir" value="${base.dir}/conf"/>
+        <property name="src.dir" location="${base.dir}/src"/>
+        <property name="src.java.dir" location="${src.dir}/java"/>
+        <property name="doc.dir" location="${base.dir}/docs"/>
+        <property name="doc.dtd.dir" location="${doc.dir}/dtds"/>
+        <property name="doc.skin.dir" location="${doc.dir}/skins"/>
+        <property name="doc.xdoc.dir" location="${doc.dir}/xdocs"/>
+        <property name="build.dir" location="${base.dir}/."/>
+        <property name="conf.dir" location="${base.dir}/conf"/>
 
         <!-- Locations of javadocs that need to be included if javadoc.include
              is defined -->
@@ -67,11 +67,11 @@
         	location="integration/ant/dist-13/doc/api"/>             
 
         <!-- Set the properties related to the target area -->
-        <property name="target.classes.dir" value="${target.dir}/classes"/>
+        <property name="target.classes.dir" location="${target.dir}/classes"/>
         <property name="target.classes.java.dir"
-            value="${target.classes.dir}/java"/>
-        <property name="target.doc.dir" value="${target.dir}/doc"/>
-        <property name="target.xdoc.dir" value="${target.dir}/xdocs"/>
+            location="${target.classes.dir}/java"/>
+        <property name="target.doc.dir" location="${target.dir}/doc"/>
+        <property name="target.xdoc.dir" location="${target.dir}/xdocs"/>
 
     </target>
 
@@ -90,6 +90,15 @@
           <dtd publicId="-//Apache Software Foundation//DTD Cactus Sitemap V1.0//EN"
               location="${doc.dtd.dir}/sitemap-v10.dtd"/>
         </xmlcatalog>
+
+        <condition property="offline">
+          <or>
+            <isset property="offline"/>
+            <not>
+              <http url="http://jakarta.apache.org/"/>
+            </not>
+          </or>
+        </condition>
 
     </target>
 
@@ -200,21 +209,22 @@
 
         <property name="sitemap.file" location="${doc.xdoc.dir}/sitemap.xml"/>
         
-       <!-- Transform sitemap -->
-       <style in="${doc.xdoc.dir}/sitemap.xml"
+        <basename property="xdoc.dir.name" file="${target.xdoc.dir}"/>
+
+        <!-- Transform sitemap -->
+        <style in="${doc.xdoc.dir}/sitemap.xml"
             out="${target.xdoc.dir}/sitemap.xml"
             style="${doc.skin.dir}/jakarta.apache.org/stylesheets/sitemap2document.xsl">
-
             <xmlcatalog refid="documentation.dtds"/>
-       </style>
+        </style>
 
-       <!-- Transform RDF news -->
-       <style in="${doc.xdoc.dir}/news.rdf"
+        <!-- Transform RDF news -->
+        <style in="${doc.xdoc.dir}/news.rdf"
             out="${target.xdoc.dir}/news.xml"
             style="${doc.skin.dir}/jakarta.apache.org/stylesheets/rdf2document.xsl">
-       </style>
+        </style>
        
-       <!-- Generate the docs -->
+        <!-- Generate the docs -->
         <style basedir="${target.xdoc.dir}" destdir="${target.doc.dir}"
             style="${doc.skin.dir}/jakarta.apache.org/stylesheets/document2html.xsl">
 
@@ -236,7 +246,7 @@
             <!-- Location of the xdoc directory relative to where the
                  stylesheet is located. Note: this path MUST be relative as it 
                  is used as a relative URI from within the stylesheet -->
-            <param name="xdocdir" expression="../../../../../${target.xdoc.dir}"/>
+            <param name="xdocdir" expression="../../../${xdoc.dir.name}"/>
 
             <!-- Location of the sitemap.xml file relative to xdocdir -->
             <param name="sitemapFile" expression="${sitemap.file}"/>
