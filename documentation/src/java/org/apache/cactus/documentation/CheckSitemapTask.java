@@ -237,7 +237,7 @@ public class CheckSitemapTask extends Task
         String source = theElement.getAttribute("source");
         if ((source == null) || (source.length() == 0))
         {
-            log("Skipping remote resource '" + id + "'", Project.MSG_VERBOSE);
+            log("Skipping remote resource [" + id + "]", Project.MSG_VERBOSE);
         }
         else
         {
@@ -250,21 +250,21 @@ public class CheckSitemapTask extends Task
      * Checks whether a specified local sitemap resource points to an existing
      * file.
      * 
-     * @param theId The 'id' attribute of the resource element
-     * @param theSource The 'source' attribute of the resource element, the
-     *        relative path from the directory containing the sitemap file to 
-     *        the resource file
+     * @param theId The <code>id</code> attribute of the resource element
+     * @param theSource The <code>source</code> attribute of the resource
+     * element, the relative path from the directory containing the sitemap file
+     * to the resource file
      * @return Whether the file exists
      */
     private boolean checkLocalSitemapResource(String theId, String theSource)
     {
         File sourceFile = new File(sitemapDir, theSource);
-        log("Checking resource '" + theId + "' at '" + theSource + "'",
+        log("Checking resource [" + theId + "] at [" + theSource + "]",
             Project.MSG_DEBUG);
         if (!sourceFile.exists())
         {
-            log("Sitemap resource '" + theId + "' not found under '" +
-                theSource + "'", Project.MSG_ERR);
+            log("Sitemap resource [" + theId + "] not found under [" 
+                + theSource + "]", Project.MSG_ERR);
             return false;
         }
         return true;
