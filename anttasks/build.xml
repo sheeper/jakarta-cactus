@@ -143,7 +143,6 @@
 
         <javac srcdir="${src.java.dir}" destdir="${target.classes.java.dir}"
           deprecation="${deprecation}" optimize="${optimize}">
-            <include name="**/*.java"/>
             <classpath refid="project.class.path"/>
         </javac>
 
