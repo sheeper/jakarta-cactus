@@ -1,0 +1,139 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE document SYSTEM "./dtd/document-v10.dtd">
+
+<document>
+  <header>
+    <title>Jakarta Cactus</title>
+    <subtitle>Cactus News</subtitle>
+    <authors>
+      <person name="Vincent Massol" email="vmassol@apache.org"/>
+    </authors>
+  </header>
+
+  <body>
+
+    <s1 title="News and Events">
+
+      <table>
+
+        <tr>
+          <td>
+            08/04/2002
+          </td>
+          <td>
+            Cactus BOF at <link href="http://www.ot2002.org">OT2002</link> led
+            by <link href="mailto:vmassol@octo.com">Vincent Massol</link> from
+            <link href="http://www.octo.com">OCTO Technology</link>.
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            25/03/2002
+          </td>
+          <td>
+            Speech on Cactus and the Jakarta Community entitled "Itineraire d'un
+            logiciel libre : Jakarta Cactus" at the Luxembourg Free Open Source
+            days ("Journees du Libre"). Led by
+            <link href="mailto:vmassol@octo.com">Vincent Massol</link> from
+            <link href="http://www.octo.com">OCTO Technology</link>.
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            21/03/2002
+          </td>
+          <td>
+            Cactus is now integrated in
+            <link href="http://www.objecteering.com">Objecteering</link>. Read
+            <link href="http://www.objecteering.com/us/p_cactus.htm">here</link>
+            for details about this integration.
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            27/02/2002
+          </td>
+          <td>
+            <link href="http://www.togethersoft.com">Together Control Center
+            6.0</link> now incorporates the concept of Test
+            Plan and has tight integration with JUnit, HttpUnit and Cactus.
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            22/02/2002
+          </td>
+          <td>
+            New <link href="logos.html">logo proposals</link> by Alessandro
+            Ceglia !
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            19/01/2002
+          </td>
+          <td>
+            New <link href="howto_ide_jbuilder5.html">JBuilder 5 tutorial</link>
+            for Cactus integration. Thanks Sean !
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            10/02/2002
+          </td>
+          <td>
+            New <link href="http://jakarta.apache.org/cactus/stats/index.html">Web
+            site Statistics</link> page.
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            20/01/2002
+          </td>
+          <td>
+            Link to Cactus nightly build result added to the left menu in the
+            developer section.
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            11/2002
+          </td>
+          <td>
+            New book on open source tools for XP, including a big chapter on
+            Cactus :
+            <link href="http://www.amazon.com/exec/obidos/ASIN/047120708X/">
+            Java Tools for Extreme Programming: Mastering Open Source Tools,
+            including Ant, JUnit, and Cactus</link>. By Rick Hightower and
+            Nicholas Lesiecki from
+            <link href="http://www.eblox.com">eBlox</link>.
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            12/10/2001
+          </td>
+          <td>
+            Presentation of Cactus at <link href="http://www.jsig.com">London
+            JSIG</link>. Led by <link href="mailto:vmassol@octo.com">Vincent
+            Massol</link> from <link href="http://www.octo.com">OCTO
+            Technology</link>.
+          </td>
+        </tr>
+
+      </table>
+
+    </s1>
+
+  </body>
+</document>

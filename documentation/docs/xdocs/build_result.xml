@@ -32,17 +32,71 @@
         </tr>
         <tr>
           <td>
-            <link href="http://jakarta.apache.org/builds/gump/latest/jakarta-cactus-22.html">Cactus
-            for Servlet API 2.2</link>
+            <link href="http://jakarta.apache.org/builds/gump/latest/jakarta-cactus-ant.html">Cactus
+            Ant tasks</link>
           </td>
         </tr>
         <tr>
           <td>
-            <link href="http://jakarta.apache.org/builds/gump/latest/jakarta-cactus-23.html">Cactus
-            for Servlet API 2.3</link>
+            <link href="http://jakarta.apache.org/builds/gump/latest/jakarta-cactus-framework-12.html">Cactus
+            Framework for J2EE 1.2 (Servlet API 2.2)</link>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <link href="http://jakarta.apache.org/builds/gump/latest/jakarta-cactus-framework-13.html">Cactus
+            Framework for J2EE 1.3 (Servlet API 2.3)</link>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <link href="http://jakarta.apache.org/builds/gump/latest/jakarta-cactus-sample-servlet-12.html">Cactus
+            Servlet Sample for J2EE 1.2 (Servlet API 2.2)</link>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <link href="http://jakarta.apache.org/builds/gump/latest/jakarta-cactus-sample-servlet-13.html">Cactus
+            Servlet Sample for J2EE 1.3 (Servlet API 2.3)</link>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <link href="http://jakarta.apache.org/builds/gump/latest/jakarta-cactus-distribution-12.html">Cactus
+            Distribution for J2EE 1.2 (Servlet API 2.2)</link>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <link href="http://jakarta.apache.org/builds/gump/latest/jakarta-cactus-distribution-13.html">Cactus
+            Distribution for J2EE 1.3 (Servlet API 2.3)</link>
           </td>
         </tr>
       </table>
+
+      <p>
+        All Gump results are available
+        <link href="http://jakarta.apache.org/builds/gump/latest">here</link>.
+      </p>
+
+    </s1>
+
+    <s1 title="Nightly Build results">
+
+      <p>
+        If the nightly build is successful, Gump posts the packaged Cactus
+        distributable in the Cactus nightly
+        <link href="downloads.html">download area</link>.
+      </p>
+      <p>
+        However it is also possible to get the different jars (unpackaged) from
+        Gump <link href="http://gump.covalent.net/jars/2002-04-13/jakarta-cactus/">here</link>.
+      </p>
+      <p>
+        In addition, it is possible to see the documentation (javadoc, website)
+        generated during Gump build
+        <link href="http://nagoya.apache.org/~rubys/gump/javadoc.html">here</link>.
+      </p>
 
     </s1>
 
