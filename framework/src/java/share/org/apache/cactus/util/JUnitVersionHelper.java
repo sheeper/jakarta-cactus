@@ -109,18 +109,20 @@ public class JUnitVersionHelper
      */
     public static String getTestCaseName(Test theTest)
     {
+        String name = "unknown";
+        
         if (theTest instanceof TestCase && (testCaseName != null))
         {
             try
             {
-                return (String) testCaseName.invoke(theTest, new Object[0]);
+                name = (String) testCaseName.invoke(theTest, new Object[0]);
             }
             catch (Throwable e)
             {
-                // If it fails, we return "unknown"
+                // We return "unknown"
             }
         }
 
-        return "unknown";
+        return name;
     }
 }
