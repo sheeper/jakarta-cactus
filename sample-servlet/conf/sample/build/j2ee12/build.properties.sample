@@ -17,10 +17,10 @@
 # -----------------------------------------------------------------------------
 
 # The location of the Cactus framework jar
-cactus.framework.jar = ../lib/cactus.jar
+cactus.framework.jar = ../lib/cactus-@version@.jar
 
 # The location of the Cactus custom Ant tasks jar
-cactus.ant.jar = ../lib/cactus-ant.jar
+cactus.ant.jar = ../lib/cactus-ant-@version@.jar
 
 # The location of the Servlet API 2.2 jar
 servlet.jar = ../lib/servletapi-2.2.jar
