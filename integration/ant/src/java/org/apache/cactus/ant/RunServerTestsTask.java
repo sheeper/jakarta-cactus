@@ -45,9 +45,6 @@ import org.apache.tools.ant.Project;
  *  when this task was executed.</li>
  * </ul>
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
- *
  * @version $Id$
  * 
  * @deprecated The implementation of this task has moved to

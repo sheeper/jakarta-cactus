@@ -51,9 +51,6 @@ import org.apache.tools.ant.Task;
  *  when this task was executed.</li>
  * </ul>
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
- * 
  * @since Cactus 1.5
  * @version $Id$
  */

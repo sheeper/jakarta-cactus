@@ -27,8 +27,6 @@ import org.apache.cactus.integration.ant.deployment.WarArchive;
  * Logic common to all deployable implementations (WAR and EAR
  * deployments).  
  * 
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @since Cactus 1.5
  * @version $Id$
  */

@@ -40,8 +40,6 @@ import org.apache.tools.ant.types.selectors.SelectorUtils;
  * Abstract base class for supporting specific containers as nested elements in
  * the {@link org.apache.cactus.integration.ant.CactusTask}.
  * 
- * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
- *
  * @version $Id$
  */
 public abstract class AbstractContainer extends ProjectComponent

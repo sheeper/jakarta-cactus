@@ -28,8 +28,6 @@ import org.apache.tools.ant.BuildException;
 /**
  * Factory for container support classes.
  * 
- * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
- * 
  * @version $Id$
  */
 public class ContainerFactory

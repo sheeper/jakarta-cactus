@@ -32,8 +32,6 @@ import org.apache.tools.ant.BuildException;
  * Support class that handles the lifecycle of a container, which basically
  * consists of startup and shutdown.
  * 
- * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
- *
  * @version $Id$
  */
 public final class ContainerRunner

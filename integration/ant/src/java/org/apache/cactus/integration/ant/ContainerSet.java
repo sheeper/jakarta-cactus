@@ -33,8 +33,6 @@ import org.apache.tools.ant.types.DataType;
 /**
  * Ant data type that represents a set of J2EE containers.
  * 
- * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
- *
  * @version $Id$
  */
 public class ContainerSet extends DataType implements DynamicConfigurator

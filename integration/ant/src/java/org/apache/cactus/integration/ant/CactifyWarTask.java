@@ -50,8 +50,6 @@ import org.xml.sax.SAXException;
  * An Ant task that injects elements necessary to run Cactus tests into an
  * existing WAR file.
  * 
- * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
- *
  * @version $Id$
  */
 public class CactifyWarTask extends War

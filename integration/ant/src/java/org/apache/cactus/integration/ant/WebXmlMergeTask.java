@@ -38,9 +38,6 @@ import org.xml.sax.SAXException;
  * Ant task that can merge the definitions from two web deployment descriptors
  * into one descriptor.
  * 
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
- *
  * @since Cactus 1.5
  * @version $Id$
  */

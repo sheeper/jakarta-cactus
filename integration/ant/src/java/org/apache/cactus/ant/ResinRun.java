@@ -24,9 +24,6 @@ import java.io.PrintStream;
 /**
  * Starts/stop Resin by setting up a listener socket.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- * @author <a href="mailto:digital@ix.net.au">Robert Leftwich</a>
- *
  * @version $Id$
  * @see AbstractServerRun
  * 

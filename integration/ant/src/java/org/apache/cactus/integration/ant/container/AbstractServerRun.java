@@ -30,9 +30,6 @@ import java.util.Vector;
  * set up. Then, we it is later called to stop the server, we connect to the
  * listener socket and tell the server to stop.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- * @author <a href="mailto:digital@ix.net.au">Robert Leftwich</a>
- *
  * @version $Id$
  */
 public abstract class AbstractServerRun extends Thread

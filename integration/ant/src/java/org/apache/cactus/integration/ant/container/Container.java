@@ -30,9 +30,6 @@ import org.apache.tools.ant.types.Environment.Variable;
  * <code>&lt;containers&gt;</code> element of the <code>&lt;cactus&gt;</code>
  * task.
  * 
- * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public interface Container

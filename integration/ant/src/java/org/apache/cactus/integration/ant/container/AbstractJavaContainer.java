@@ -30,8 +30,6 @@ import org.apache.tools.ant.types.Environment.Variable;
  * Abstract base class for containers that perform the starting and stopping
  * of the server by executing Java classes in a forked JVM.
  * 
- * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
- * 
  * @version $Id$
  */
 public abstract class AbstractJavaContainer extends AbstractContainer

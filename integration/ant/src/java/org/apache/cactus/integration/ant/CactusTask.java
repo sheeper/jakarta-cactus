@@ -47,9 +47,6 @@ import org.apache.tools.ant.types.Environment.Variable;
  * An Ant task that extends the optional JUnit task to provide support for
  * in-container testing.
  * 
- * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class CactusTask extends JUnitTask
