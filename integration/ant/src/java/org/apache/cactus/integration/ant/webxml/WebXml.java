@@ -200,6 +200,32 @@ public class WebXml
     /**
      * Adds a new servlet filter to the descriptor.
      * 
+     * @param theFilterName The name of the filter to add
+     * @param theFilterClass The name of the class implementing the filter
+     */
+    public final void addFilter(String theFilterName, String theFilterClass)
+    {
+        if (theFilterName == null)
+        {
+            throw new NullPointerException();
+        }
+        if (hasFilter(theFilterName))
+        {
+            throw new IllegalStateException("Filter '" + theFilterName
+                + "' already defined");
+        }
+        Element filterElement =
+            this.document.createElement(WebXmlTag.FILTER.getTagName());
+        filterElement.appendChild(
+            createNestedText(WebXmlTag.FILTER_NAME, theFilterName));
+        filterElement.appendChild(
+            createNestedText(WebXmlTag.FILTER_CLASS, theFilterClass));
+        addElement(WebXmlTag.FILTER, filterElement);
+    }
+    
+    /**
+     * Adds a new servlet filter to the descriptor.
+     * 
      * @param theFilter The element representing the filter definition
      */
     public final void addFilter(Element theFilter)
@@ -410,6 +436,59 @@ public class WebXml
     public final boolean hasFilter(String theFilterName)
     {
         return (getFilter(theFilterName) != null);
+    }
+    
+    /**
+     * Adds a mapped JSP file to the descriptor.
+     * 
+     * @param theServletName The name of the servlet to add
+     * @param theJspFile The path to the JSP file relative to the root of the
+     *        web application
+     */
+    public final void addJspFile(String theServletName, String theJspFile)
+    {
+        if (theServletName == null)
+        {
+            throw new NullPointerException();
+        }
+        if (hasFilter(theServletName))
+        {
+            throw new IllegalStateException("Servlet '" + theServletName
+                + "' already defined");
+        }
+        Element servletElement =
+            this.document.createElement(WebXmlTag.SERVLET.getTagName());
+        servletElement.appendChild(
+            createNestedText(WebXmlTag.SERVLET_NAME, theServletName));
+        servletElement.appendChild(
+            createNestedText(WebXmlTag.JSP_FILE, theJspFile));
+        addElement(WebXmlTag.SERVLET, servletElement);
+    }
+    
+    /**
+     * Adds a new servlet to the descriptor.
+     * 
+     * @param theServletName The name of the servlet to add
+     * @param theServletClass The name of the class implementing the servlet
+     */
+    public final void addServlet(String theServletName, String theServletClass)
+    {
+        if (theServletName == null)
+        {
+            throw new NullPointerException();
+        }
+        if (hasFilter(theServletName))
+        {
+            throw new IllegalStateException("Servlet '" + theServletName
+                + "' already defined");
+        }
+        Element servletElement =
+            this.document.createElement(WebXmlTag.SERVLET.getTagName());
+        servletElement.appendChild(
+            createNestedText(WebXmlTag.SERVLET_NAME, theServletName));
+        servletElement.appendChild(
+            createNestedText(WebXmlTag.SERVLET_CLASS, theServletClass));
+        addElement(WebXmlTag.SERVLET, servletElement);
     }
     
     /**

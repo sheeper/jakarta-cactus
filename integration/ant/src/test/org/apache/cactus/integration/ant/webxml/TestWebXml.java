@@ -580,6 +580,22 @@ public final class TestWebXml extends TestCase
     }
 
     /**
+     * Tests whether a single filter can be added using the method that takes 
+     * a string for the filter name and a string for the filter class.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
+    public void testAddFilterWithNameAndClass() throws Exception
+    {
+        String xml = "<web-app>"
+            + "</web-app>";
+        Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
+        WebXml webXml = new WebXml(doc);
+        webXml.addServlet("f1", "f1class");
+        assertTrue(webXml.hasServlet("f1"));
+    }
+
+    /**
      * Tests whether calling {@link WebXml#hasServlet} with a <code>null</code> 
      * parameter as servlet name throws a <code>NullPointerException</code>.  
      * 
@@ -980,6 +996,38 @@ public final class TestWebXml extends TestCase
         assertEquals("s1param2", initParams.next());
         assertEquals("s1param3", initParams.next());
         assertTrue(!initParams.hasNext());
+    }
+
+    /**
+     * Tests whether a single servlet can be added using the method that takes 
+     * a string for the servlet name and a string for the servlet class.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
+    public void testAddServletWithNameAndClass() throws Exception
+    {
+        String xml = "<web-app>"
+            + "</web-app>";
+        Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
+        WebXml webXml = new WebXml(doc);
+        webXml.addServlet("s1", "s1class");
+        assertTrue(webXml.hasServlet("s1"));
+    }
+
+    /**
+     * Tests whether a single servlet can be added using the method that takes 
+     * a string for the servlet name and a string for the JSP file.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
+    public void testAddServletWithNameAndJspFile() throws Exception
+    {
+        String xml = "<web-app>"
+            + "</web-app>";
+        Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
+        WebXml webXml = new WebXml(doc);
+        webXml.addJspFile("s1", "s1.jsp");
+        assertTrue(webXml.hasServlet("s1"));
     }
 
     /**
