@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>org.apache.cactus.eclipse</name>
+	<name>eclipse</name>
 	<comment></comment>
 	<projects>
 		<project>org.apache.ant</project>
@@ -23,6 +23,11 @@
 		<project>org.eclipse.ui.workbench</project>
 	</projects>
 	<buildSpec>
+		<buildCommand>
+			<name>com.atlassw.tools.eclipse.checkstyle.CheckstyleBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
 		<buildCommand>
 			<name>com.telesynthesis.tools.eclipse.checkstyle.CheckStyleBuilder</name>
 			<arguments>
@@ -48,5 +53,6 @@
 		<nature>org.eclipse.pde.PluginNature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>com.telesynthesis.tools.eclipse.checkstyle.CheckStyleNature</nature>
+		<nature>com.atlassw.tools.eclipse.checkstyle.CheckstyleNature</nature>
 	</natures>
 </projectDescription>

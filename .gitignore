@@ -49,6 +49,7 @@ integration/eclipse/release-13
 integration/eclipse/target
 integration/eclipse/target-12
 integration/eclipse/target-13
+integration/eclipse/temp
 integration/eclipse/web
 /maven.log
 /misc
