@@ -307,7 +307,9 @@
         <mkdir dir="${release.dir}"/>
 
         <zip destfile="${release.dir}/${main.release.name}.zip">
-            <zipfileset dir="${dist.bin.integration.dir}"/>
+            <zipfileset dir="${dist.bin.integration.dir}"
+                prefix="org.apache.cactus.integration.eclipse.runner_${project.version}">
+            </zipfileset>
         </zip>
         
     </target>
