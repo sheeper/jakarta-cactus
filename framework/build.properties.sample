@@ -37,7 +37,7 @@ log4j.jar = ${lib.repo}/log4j/jars/log4j-1.2.8.jar
 commons.httpclient.jar = ${lib.repo}/commons-httpclient/jars/commons-httpclient-2.0-beta2.jar
 
 # The location of the Httpunit jar
-httpunit.jar = ${lib.repo}/httpunit/jars/httpunit-1.5.jar
+httpunit.jar = ${lib.repo}/httpunit/jars/httpunit-1.5.3.jar
 
 # -----------------------------------------------------------------------------
 # Optional properties
