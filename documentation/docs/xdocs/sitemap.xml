@@ -416,10 +416,6 @@
       name="WebXmlMerge Ant Task">
     Documentation for the &lt;webxmlmerge&gt; task provided by Cactus.
   </resource>
-
-  <resource id="todo" target="participating/todo.html" name="Roadmap/Todo">
-    List of todo tasks for the next Cactus releases.
-  </resource>
   
   <resource id="users" target="participating/users.html"
       name="Who Uses Cactus?">

@@ -35,7 +35,7 @@
   </menu>
 
   <menu label="Developers">
-    <item id="todo"/>
+    <item id="bug_database_cactus_open_issues" label="Todo/Open Issues"/>
     <item id="build_result"/>
     <item id="coding_conventions"/>
     <item id="apis"/>
@@ -43,7 +43,6 @@
     <item id="howto_build"/>
     <item id="coverage"/>
     <item id="release_checklist"/>
-    <item id="bug_database_cactus_open_issues" label="Open Issues"/>
   </menu>
 
   <menu label="Miscellaneous">

@@ -57,8 +57,9 @@
           use these latest versions.
         </li>
         <li>
-          Ensure that the <link href="site:todo">Todo</link> page has no more 
-          items for the current version.
+          Ensure that the 
+          <link href="ext:bug_database_cactus_open_issues">Todo</link> page 
+          has no more items for the current version.
         </li>
         <li>
           Update the <code>ANNOUNCEMENT.txt</code> file in CVS with the release
