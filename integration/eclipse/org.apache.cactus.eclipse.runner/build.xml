@@ -18,14 +18,17 @@
           relative paths.
   =============================================================================
 -->
-<project name="Cactus Eclipse Plugin" default="dist" basedir="../../..">
+<project name="Cactus Eclipse Runner Plugin" default="dist" basedir="../../..">
 
     <!-- Base directory for all file related operations -->
-    <property name="base.dir" value="integration/eclipse/org.apache.cactus.eclipse.runner"/>
+    <property name="base.dir"
+        location="integration/eclipse/org.apache.cactus.eclipse.runner"/>
     
-    <property name="org.apache.cactus.eclipse.webapp.dir" value="integration/eclipse/org.apache.cactus.eclipse.webapp"/>
-    <property name="org.apache.cactus.eclipse.webapp.jar.name" value="webapp.jar"/>
-    <property name="org.apache.cactus.eclipse.webapp.jar" value="${org.apache.cactus.eclipse.webapp.dir}/target/${org.apache.cactus.eclipse.webapp.jar.name}"/>
+    <property name="cactus.eclipse.webapp.dir"
+        location="integration/eclipse/org.apache.cactus.eclipse.webapp"/>
+    <property name="cactus.eclipse.webapp.jar.name" value="webapp.jar"/>
+    <property name="cactus.eclipse.webapp.jar"
+        location="${cactus.eclipse.webapp.dir}/target/${cactus.eclipse.webapp.jar.name}"/>
 
     <!-- Indicate that this subproject is dependant on the version of the J2EE
          API available -->
@@ -36,7 +39,8 @@
 
     <!-- Global project properties -->
     <property name="project.name.text" value="Cactus Eclipse Integration"/>
-    <property name="project.name.file" value="cactus-integration-eclipse-runner"/>
+    <property name="project.name.file"
+        value="cactus-integration-eclipse-runner"/>
 
     <!--
        ========================================================================
@@ -46,16 +50,16 @@
     <target name="properties">
 
         <!-- Set the properties related to the source tree -->
-        <property name="src.dir" value="${base.dir}/src"/>
-        <property name="src.java.dir" value="${src.dir}/java"/>
-        <property name="src.scripts.dir" value="${src.dir}/scripts"/>
+        <property name="src.dir" location="${base.dir}/src"/>
+        <property name="src.java.dir" location="${src.dir}/java"/>
+        <property name="src.scripts.dir" location="${src.dir}/scripts"/>
 
         <!-- Set the properties related to the target area -->
-        <property name="target.classes.dir" value="${target.dir}/classes"/>
+        <property name="target.classes.dir" location="${target.dir}/classes"/>
 
         <!-- Set the properties related to the dist area -->
-        <property name="dist.bin.integration.dir" 
-            value="${dist.bin.dir}/${project.name.file}"/>
+        <property name="dist.bin.integration.dir"
+            location="${dist.bin.dir}/${project.name.file}"/>
 
         <!-- Set the properties related to the jar names -->
         <property name="cactus.eclipseintegration.jar.name" 
@@ -73,6 +77,8 @@
     -->
     <target name="init" depends="init.common, properties">
 
+        <echo>***** Needs Eclipse 2.1 RC2 or later *****</echo>
+        <echo/>
         <echo>Dependencies:</echo>
         <echo>  cactus.jar = [${cactus.jar}]</echo>
         <echo>  cactus.ant.jar = [${cactus.ant.jar}]</echo>
@@ -91,7 +97,7 @@
         <echo>  eclipse.ui.workbench.jar = [${eclipse.ui.workbench.jar}]</echo>
         <echo>  eclipse.ui.externaltools.jar = [${eclipse.ui.externaltools.jar}]</echo>
         <echo>  jetty.jar = [${jetty.jar}]</echo>
-        <echo>  org.apache.cactus.eclipse.webapp.jar = [${org.apache.cactus.eclipse.webapp.jar}]</echo>
+        <echo>  cactus.eclipse.webapp.jar = [${cactus.eclipse.webapp.jar}]</echo>
 
         <condition property="properties.ok">
           <and>
@@ -112,7 +118,7 @@
             <available file="${eclipse.ui.workbench.jar}"/>
             <available file="${eclipse.ui.externaltools.jar}"/>
             <available file="${jetty.jar}"/>
-            <available file="${org.apache.cactus.eclipse.webapp.jar}"/>
+            <available file="${cactus.eclipse.webapp.jar}"/>
           </and>
         </condition>
 
@@ -120,7 +126,6 @@
 be resolved. Please check you build.properties file, and run Ant with the 
 -verbose option for more details</fail>
 
-        <echo>***** Needs Eclipse 2.1 RC2 or later *****</echo>
         <condition property="eclipse.version" value="ok">
             <available classname="org.eclipse.jdt.junit.ITestRunListener">
                 <classpath>
@@ -139,45 +144,40 @@ be resolved. Please check you build.properties file, and run Ant with the
          Compile the plugin
        ========================================================================
     -->
-	<target name="compile" depends="init">
-        		
-		<mkdir dir="${target.classes.dir}"/>
+    <target name="compile" depends="init">
+                
+        <mkdir dir="${target.classes.dir}"/>
 
-		<javac destdir="${target.classes.dir}" deprecation="${deprecation}" 
-		  optimize="${optimize}" debug="${debug}">
-		
-			<src path="${src.java.dir}"/>
-			<classpath>
-				<pathelement location="${org.apache.cactus.eclipse.webapp.jar}"/>
-				
-				<pathelement location="${eclipse.ant.core.jar}"/>
-				<pathelement location="${eclipse.core.boot.jar}"/>
-				<pathelement location="${eclipse.core.resources.jar}"/>
-				<pathelement location="${eclipse.core.runtime.jar}"/>
-				<pathelement location="${eclipse.debug.core.jar}"/>
-				<pathelement location="${eclipse.debug.ui.jar}"/>
-				<pathelement location="${eclipse.jdt.core.jar}"/>
-				<pathelement location="${eclipse.jdt.junit.jar}"/>
-				<pathelement location="${eclipse.jdt.launching.jar}"/>
-				<pathelement location="${eclipse.jdt.ui.jar}"/>
-				<pathelement location="${eclipse.jface.jar}"/>
-				<pathelement location="${eclipse.swt.jar}"/>
-				<pathelement location="${eclipse.ui.workbench.jar}"/>
-				<pathelement location="${eclipse.ui.externaltools.jar}"/>
-
-                <!-- Needed for Gump -->
-                <pathelement location="${java.class.path}"/>
-
-			</classpath>
-		</javac>
-		
-		<copy todir="${target.classes.dir}">
-		    <fileset dir="${src.java.dir}">
-		        <exclude name="**/*.java"/>
-		    </fileset>
-		</copy>
-		
-	</target>
+        <javac destdir="${target.classes.dir}" deprecation="${deprecation}" 
+          optimize="${optimize}" debug="${debug}">
+        
+            <src path="${src.java.dir}"/>
+            <classpath>
+                <pathelement location="${cactus.eclipse.webapp.jar}"/>
+                <pathelement location="${eclipse.ant.core.jar}"/>
+                <pathelement location="${eclipse.core.boot.jar}"/>
+                <pathelement location="${eclipse.core.resources.jar}"/>
+                <pathelement location="${eclipse.core.runtime.jar}"/>
+                <pathelement location="${eclipse.debug.core.jar}"/>
+                <pathelement location="${eclipse.debug.ui.jar}"/>
+                <pathelement location="${eclipse.jdt.core.jar}"/>
+                <pathelement location="${eclipse.jdt.junit.jar}"/>
+                <pathelement location="${eclipse.jdt.launching.jar}"/>
+                <pathelement location="${eclipse.jdt.ui.jar}"/>
+                <pathelement location="${eclipse.jface.jar}"/>
+                <pathelement location="${eclipse.swt.jar}"/>
+                <pathelement location="${eclipse.ui.workbench.jar}"/>
+                <pathelement location="${eclipse.ui.externaltools.jar}"/>
+            </classpath>
+        </javac>
+        
+        <copy todir="${target.classes.dir}">
+            <fileset dir="${src.java.dir}">
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+        
+    </target>
 
     <!--
        ========================================================================
@@ -187,9 +187,9 @@ be resolved. Please check you build.properties file, and run Ant with the
     <target name="jar" depends="compile"
         description="Generates the jars">
         
-		<mkdir dir="${target.dir}"/>
+        <mkdir dir="${target.dir}"/>
 
-		<jar jarfile="${target.dir}/${cactus.eclipseintegration.jar.name}">
+        <jar jarfile="${target.dir}/${cactus.eclipseintegration.jar.name}">
             <manifest>
                 <section name="org/apache/cactus/eclipse/runner/">
                     <attribute name="Specification-Title"
@@ -211,8 +211,9 @@ be resolved. Please check you build.properties file, and run Ant with the
             </metainf>
             <fileset dir="${target.classes.dir}"/>
         </jar>
-				
-		<jar jarfile="${target.dir}/${cactus.eclipseintegration.src.jar.name}">
+
+        <!-- TODO: produce a ZIP instead, without a manifest -->
+        <jar jarfile="${target.dir}/${cactus.eclipseintegration.src.jar.name}">
             <manifest>
                 <section name="org/apache/cactus/eclipse/runner/">
                     <attribute name="Specification-Title"
@@ -233,7 +234,7 @@ be resolved. Please check you build.properties file, and run Ant with the
                 <include name="LICENSE.cactus"/>
             </metainf>
             <fileset dir="${src.java.dir}"/>
-		</jar>		
+        </jar>      
 
     </target>
 
@@ -243,52 +244,55 @@ be resolved. Please check you build.properties file, and run Ant with the
          plugin structure.
        ========================================================================
     -->
-	<target name="dist" depends="checkstyle,jar"
-	  description="Generate the distributable files">
-
+    <target name="dist" depends="checkstyle,jar"
+      description="Generate the distributable files">
 
         <filter token="cactus.ant.jar.name"
             value="${cactus.ant.jar.name}.jar"/>
         <filter token="cactus.jar.name" value="${cactus.jar.name}.jar"/>
 
-		<basename property="log4j.jar.name" file="${log4j.jar}"/>
+        <basename property="log4j.jar.name" file="${log4j.jar}"/>
         <filter token="log4j.jar.name" value="${log4j.jar.name}"/>
-		<basename property="aspectjrt.jar.name" file="${aspectjrt.jar}"/>
+        <basename property="aspectjrt.jar.name" file="${aspectjrt.jar}"/>
         <filter token="aspectjrt.jar.name" value="${aspectjrt.jar.name}"/>
-		<basename property="commons.logging.jar.name" file="${commons.logging.jar}"/>
-        <filter token="commons.logging.jar.name" value="${commons.logging.jar.name}"/>
-		<basename property="junit.jar.name" file="${junit.jar}"/>
+        <basename property="commons.logging.jar.name"
+            file="${commons.logging.jar}"/>
+        <filter token="commons.logging.jar.name"
+            value="${commons.logging.jar.name}"/>
+        <basename property="junit.jar.name" file="${junit.jar}"/>
         <filter token="junit.jar.name" value="${junit.jar.name}"/>
-		<basename property="commons.httpclient.jar.name" file="${commons.httpclient.jar}"/>
-        <filter token="commons.httpclient.jar.name" value="${commons.httpclient.jar.name}"/>
-		<basename property="httpunit.jar.name" file="${httpunit.jar}"/>
+        <basename property="commons.httpclient.jar.name"
+            file="${commons.httpclient.jar}"/>
+        <filter token="commons.httpclient.jar.name"
+            value="${commons.httpclient.jar.name}"/>
+        <basename property="httpunit.jar.name" file="${httpunit.jar}"/>
         <filter token="httpunit.jar.name" value="${httpunit.jar.name}"/>
-		<basename property="nekohtml.jar.name" file="${nekohtml.jar}"/>
+        <basename property="nekohtml.jar.name" file="${nekohtml.jar}"/>
         <filter token="nekohtml.jar.name" value="${nekohtml.jar.name}"/>
-		<basename property="xerces.jar.name" file="${xerces.jar}"/>
+        <basename property="xerces.jar.name" file="${xerces.jar}"/>
         <filter token="xerces.jar.name" value="${xerces.jar.name}"/>
-		<basename property="xmlapis.jar.name" file="${xmlapis.jar}"/>
+        <basename property="xmlapis.jar.name" file="${xmlapis.jar}"/>
         <filter token="xmlapis.jar.name" value="${xmlapis.jar.name}"/>
 
-
-	  
-		<mkdir dir="${dist.bin.integration.dir}"/>
+        <mkdir dir="${dist.bin.integration.dir}"/>
 
         <copy todir="${dist.bin.integration.dir}"
             file="${target.dir}/${cactus.eclipseintegration.jar.name}"/>
         <copy todir="${dist.bin.integration.dir}"
             file="${target.dir}/${cactus.eclipseintegration.src.jar.name}"/>
-	
-		<copy todir="${dist.bin.integration.dir}" file="${base.dir}/plugin.xml"/>
-		<copy todir="${dist.bin.integration.dir}" 
-		    file="${base.dir}/plugin.properties"/>
-		<copy todir="${dist.bin.integration.dir}" file="${base.dir}/README.txt"/>
-		<copy todir="${dist.bin.integration.dir}/icons">
-		    <fileset dir="${base.dir}/icons"/>
-		</copy>
+    
+        <copy todir="${dist.bin.integration.dir}"
+            file="${base.dir}/plugin.xml"/>
+        <copy todir="${dist.bin.integration.dir}" 
+            file="${base.dir}/plugin.properties"/>
+        <copy todir="${dist.bin.integration.dir}"
+            file="${base.dir}/README.txt"/>
+        <copy todir="${dist.bin.integration.dir}/icons">
+            <fileset dir="${base.dir}/icons"/>
+        </copy>
 
-		<copy todir="${dist.bin.integration.dir}/lib"
-		    file="${jetty.jar}"/>
+        <copy todir="${dist.bin.integration.dir}/lib"
+            file="${jetty.jar}"/>
 
         <!-- Copy the Ant Integration files -->
         <copy todir="${dist.bin.integration.dir}/ant">
@@ -355,7 +359,7 @@ be resolved. Please check you build.properties file, and run Ant with the
        ========================================================================
     -->
     <target name="clean" depends="init.display,init.properties"
-    	description="Clean all generated files">
+        description="Clean all generated files">
 
         <delete dir="${target.dir}"/>
         <delete dir="${dist.dir}"/>
