@@ -26,8 +26,10 @@
       <ul>
         <li>Apache Tomcat 3.x</li>
         <li>Apache Tomcat 4.x</li>
+        <li>Apache Tomcat 5.x</li>
         <li>JBoss Application Server 3.x</li>
         <li>Orion Application Server 1.x</li>
+        <li>Orion Application Server 2.x</li>
         <li>Resin Server 2.x</li>
         <li>Bea WebLogic Server 7.x</li>
       </ul>
@@ -295,15 +297,6 @@
 
         </section>
 
-        <section title="Nested Elements">
-
-          <p>
-            The <strong>resin2x</strong> container supports the following nested
-            elements:
-          </p>
-
-        </section>
-
       </section>
 
       <section title="orion1x">
@@ -355,12 +348,54 @@
 
         </section>
 
-        <section title="Nested Elements">
+      </section>
 
-          <p>
-            The <strong>orion1x</strong> container supports the following nested
-            elements:
-          </p>
+      <section title="orion2x">
+
+        <p>
+          The nested element <strong>orion1x</strong> allows running the tests
+          against the Orion Application Server 2.x.
+        </p>
+
+        <section title="Parameters">
+
+          <table>
+            <tr>
+              <th>Name</th>
+              <th>Description</th>
+              <th>Required</th>
+            </tr>
+            <tr>
+              <td><strong>dir</strong></td>
+              <td>
+                The installation directory of the Orion 2.x server
+              </td>
+              <td>Yes</td>
+            </tr>
+            <tr>
+              <td>port</td>
+              <td>
+                The TCP port that the container should listen to
+              </td>
+              <td>No, default is 8080</td>
+            </tr>
+            <tr>
+              <td>output</td>
+              <td>
+                Name of a file to write the output of the container to. If not
+                specified, the standard output will be used
+              </td>
+              <td>No</td>
+            </tr>
+            <tr>
+              <td>append</td>
+              <td>
+                Whether output should be appended to or overwrite an existing
+                file.
+              </td>
+              <td>No, default is <em>false</em></td>
+            </tr>
+          </table>
 
         </section>
 
@@ -419,15 +454,6 @@
               <td>No, default is <em>false</em></td>
             </tr>
           </table>
-
-        </section>
-
-        <section title="Nested Elements">
-
-          <p>
-            The <strong>resin2x</strong> container supports the following nested
-            elements:
-          </p>
 
         </section>
 
@@ -571,6 +597,84 @@
 
           <p>
             The <strong>tomcat4x</strong> container supports the following
+            nested elements:
+          </p>
+
+          <section title="conf">
+
+            <p>
+              A fileset that can be used to specify the set of files that
+              should be placed into the <code>conf</code> directory of the
+              installation directory. This fileset should not include the
+              <code>serverxml</code> file.
+            </p>
+
+          </section>
+
+        </section>
+
+      </section>
+
+      <section title="tomcat5x">
+
+        <p>
+          The nested element <strong>tomcat5x</strong> allows running the tests
+          against the Apache Tomcat 5.x servlet container.
+        </p>
+
+        <section title="Parameters">
+
+          <table>
+            <tr>
+              <th>Name</th>
+              <th>Description</th>
+              <th>Required</th>
+            </tr>
+            <tr>
+              <td><strong>dir</strong></td>
+              <td>
+                The installation directory of the Tomcat 5.x server
+              </td>
+              <td>Yes</td>
+            </tr>
+            <tr>
+              <td>serverxml</td>
+              <td>
+                The server configuration file to use instead of the default one
+              </td>
+              <td>No</td>
+            </tr>
+            <tr>
+              <td>port</td>
+              <td>
+                The TCP port that the container should listen to
+              </td>
+              <td>No, default is 8080</td>
+            </tr>
+            <tr>
+              <td>output</td>
+              <td>
+                Name of a file to write the output of the container to. If not
+                specified, the standard output will be used
+              </td>
+              <td>No</td>
+            </tr>
+            <tr>
+              <td>append</td>
+              <td>
+                Whether output should be appended to or overwrite an existing
+                file.
+              </td>
+              <td>No, default is <em>false</em></td>
+            </tr>
+          </table>
+
+        </section>
+
+        <section title="Nested Elements">
+
+          <p>
+            The <strong>tomcat5x</strong> container supports the following
             nested elements:
           </p>
 
