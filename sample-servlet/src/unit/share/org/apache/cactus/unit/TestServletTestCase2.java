@@ -60,8 +60,10 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+
 import java.util.Enumeration;
 import java.util.Vector;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -107,8 +109,8 @@ public class TestServletTestCase2 extends ServletTestCase
      */
     public static void main(String[] theArgs)
     {
-        junit.swingui.TestRunner.main(new String[]{
-            TestServletTestCase2.class.getName()});
+        junit.swingui.TestRunner.main(
+            new String[] { TestServletTestCase2.class.getName() });
     }
 
     /**
@@ -141,8 +143,8 @@ public class TestServletTestCase2 extends ServletTestCase
      */
     public void testNoAutomaticSessionCreation()
     {
-        assertNull("A valid session has been found when no session should exist",
-            session);
+        assertNull("A valid session has been found when no session should "
+            + "exist", session);
     }
 
     //-------------------------------------------------------------------------
@@ -167,13 +169,19 @@ public class TestServletTestCase2 extends ServletTestCase
     public void testMultiValueParameters()
     {
         String[] values = request.getParameterValues("multivalue");
-        if (values[0].equals("value 1")) {
+
+        if (values[0].equals("value 1"))
+        {
             assertEquals("value 2", values[1]);
-        } else if (values[0].equals("value 2")) {
+        }
+        else if (values[0].equals("value 2"))
+        {
             assertEquals("value 1", values[1]);
-        } else {
-            fail("Shoud have returned a vector with the " +
-                "values \"value 1\" and \"value 2\"");
+        }
+        else
+        {
+            fail("Shoud have returned a vector with the "
+                + "values \"value 1\" and \"value 2\"");
         }
     }
 
@@ -181,10 +189,13 @@ public class TestServletTestCase2 extends ServletTestCase
 
     /**
      * Verify that it is possible to write to the servlet output stream.
+     * 
+     * @exception IOException on test failure
      */
     public void testWriteOutputStream() throws IOException
     {
         PrintWriter pw = response.getWriter();
+
         pw.println("should not result in an error");
     }
 
@@ -192,11 +203,14 @@ public class TestServletTestCase2 extends ServletTestCase
      * Verify that it is possible to write to the servlet output stream.
      *
      * @param theResponse the response from the server side.
+     * 
+     * @exception IOException on test failure
      */
     public void endWriteOutputStream(WebResponse theResponse) throws IOException
     {
         DataInputStream dis = new DataInputStream(
             theResponse.getConnection().getInputStream());
+
         assertEquals("should not result in an error", dis.readLine());
     }
 
@@ -214,10 +228,15 @@ public class TestServletTestCase2 extends ServletTestCase
 
         boolean found = false;
         Enumeration enum = config.getInitParameterNames();
-        while (enum.hasMoreElements()) {
+
+        while (enum.hasMoreElements())
+        {
             String name = (String) enum.nextElement();
-            if (name.equals("testparam")) {
+
+            if (name.equals("testparam"))
+            {
                 found = true;
+
                 break;
             }
         }
@@ -263,9 +282,7 @@ public class TestServletTestCase2 extends ServletTestCase
         // URLConnection.setRequestProperty("testheader", "value1,value2") in
         // JdkConnectionHelper to send the headers but request.getHeaders() does
         // not seem to separate the different header values.
-
         // The RFC 2616 says :
-
         // message-header = field-name ":" [ field-value ]
         // field-name     = token
         // field-value    = *( field-content | LWS )
@@ -284,9 +301,7 @@ public class TestServletTestCase2 extends ServletTestCase
         // interpretation of the combined field value, and thus a proxy MUST
         // NOT change the order of these field values when a message is
         // forwarded.
-
         // ... so it should be ok ...
-
         assertEquals("value1,value2", request.getHeader("testheader"));
 
         // Here is commented out what I would have thought I should have
@@ -312,10 +327,13 @@ public class TestServletTestCase2 extends ServletTestCase
     /**
      * Verify that the <code>AsertUtils.getResponseAsString()</code> method
      * works with output text sent on multiple lines.
+     * 
+     * @exception IOException on test failure
      */
     public void testGetResponseAsStringMultiLines() throws IOException
     {
         PrintWriter pw = response.getWriter();
+
         response.setContentType("text/html");
         pw.println("<html><head/>");
         pw.println("<body>A GET request</body>");
@@ -327,17 +345,21 @@ public class TestServletTestCase2 extends ServletTestCase
      * works with output text sent on multiple lines.
      *
      * @param theResponse the response from the server side.
+     * 
+     * @exception IOException on test failure
      */
     public void endGetResponseAsStringMultiLines(WebResponse theResponse)
         throws IOException
     {
         StringWriter sw = new StringWriter();
         PrintWriter pw = new PrintWriter(sw);
+
         pw.println("<html><head/>");
         pw.println("<body>A GET request</body>");
         pw.println("</html>");
 
         String result = theResponse.getText();
+
         assertEquals(sw.toString(), result);
 
         pw.close();
@@ -349,10 +371,13 @@ public class TestServletTestCase2 extends ServletTestCase
      * Verify that the <code>getTestAsArray()</code> method
      * works with output text sent on multiple lines. We also verify that
      * we can call it several times with the same result.
+     * 
+     * @exception IOException on test failure
      */
     public void testGetResponseAsStringArrayMultiLines() throws IOException
     {
         PrintWriter pw = response.getWriter();
+
         response.setContentType("text/html");
         pw.println("<html><head/>");
         pw.println("<body>A GET request</body>");
@@ -365,6 +390,8 @@ public class TestServletTestCase2 extends ServletTestCase
      * we can call it several times with the same result.
      *
      * @param theResponse the response from the server side.
+     * 
+     * @exception IOException on test failure
      */
     public void endGetResponseAsStringArrayMultiLines(WebResponse theResponse)
         throws IOException
@@ -372,14 +399,14 @@ public class TestServletTestCase2 extends ServletTestCase
         String[] results1 = theResponse.getTextAsArray();
         String[] results2 = theResponse.getTextAsArray();
 
-        assertTrue("Should have returned 3 lines of text but returned [" +
-            results1.length + "]", results1.length == 3);
+        assertTrue("Should have returned 3 lines of text but returned ["
+            + results1.length + "]", results1.length == 3);
         assertEquals("<html><head/>", results1[0]);
         assertEquals("<body>A GET request</body>", results1[1]);
         assertEquals("</html>", results1[2]);
 
-        assertTrue("Should have returned 3 lines of text but returned [" +
-            results2.length + "]", results2.length == 3);
+        assertTrue("Should have returned 3 lines of text but returned ["
+            + results2.length + "]", results2.length == 3);
         assertEquals("<html><head/>", results2[0]);
         assertEquals("<body>A GET request</body>", results2[1]);
         assertEquals("</html>", results2[2]);
@@ -406,12 +433,17 @@ public class TestServletTestCase2 extends ServletTestCase
     public void testCookieEncoding()
     {
         javax.servlet.http.Cookie[] cookies = request.getCookies();
-        for (int i = 0; i < cookies.length; i++) {
-            if (cookies[i].getName().equals("testcookie")) {
+
+        for (int i = 0; i < cookies.length; i++)
+        {
+            if (cookies[i].getName().equals("testcookie"))
+            {
                 assertEquals("user&pwd", cookies[i].getValue());
+
                 return;
             }
         }
+
         fail("No cookie named 'testcookie' found");
     }
 
@@ -419,12 +451,16 @@ public class TestServletTestCase2 extends ServletTestCase
 
     /**
      * Verify that getNamedDispatcher() can be used to get a dispatcher.
+     * 
+     * @exception IOException on test failure
+     * @exception ServletException on test failure
      */
     public void testGetRequestDispatcherFromNamedDispatcherOK()
         throws ServletException, IOException
     {
-        RequestDispatcher rd =
-            config.getServletContext().getNamedDispatcher("TestJsp");
+        RequestDispatcher rd = config.getServletContext().getNamedDispatcher(
+            "TestJsp");
+
         rd.forward(request, response);
     }
 
@@ -432,12 +468,15 @@ public class TestServletTestCase2 extends ServletTestCase
      * Verify that getNamedDispatcher() can be used to get a dispatcher.
      *
      * @param theResponse the response from the server side.
+     * 
+     * @exception IOException on test failure
      */
     public void endGetRequestDispatcherFromNamedDispatcherOK(
         WebResponse theResponse) throws IOException
     {
         String result = theResponse.getText();
-        assertTrue("Page not found, got [" + result + "]",
+
+        assertTrue("Page not found, got [" + result + "]", 
             result.indexOf("Hello !") > 0);
     }
 
@@ -446,12 +485,16 @@ public class TestServletTestCase2 extends ServletTestCase
     /**
      * Verify that getNamedDispatcher() returns null when passed an invalid
      * name.
+     * 
+     * @exception IOException on test failure
+     * @exception ServletException on test failure
      */
     public void testGetRequestDispatcherFromNamedDispatcherInvalid()
         throws ServletException, IOException
     {
-        RequestDispatcher rd =
-            config.getServletContext().getNamedDispatcher("invalid name");
+        RequestDispatcher rd = config.getServletContext().getNamedDispatcher(
+            "invalid name");
+
         assertNull(rd);
     }
 
@@ -460,11 +503,15 @@ public class TestServletTestCase2 extends ServletTestCase
     /**
      * Verify that request.getRequestDispatcher() works properly with an
      * absolute path
+     * 
+     * @exception IOException on test failure
+     * @exception ServletException on test failure
      */
-    public void testGetRequestDispatcherFromRequest1()
+    public void testGetRequestDispatcherFromRequest1() 
         throws ServletException, IOException
     {
         RequestDispatcher rd = request.getRequestDispatcher("/test/test.jsp");
+
         rd.include(request, response);
     }
 
@@ -473,12 +520,15 @@ public class TestServletTestCase2 extends ServletTestCase
      * absolute path
      *
      * @param theResponse the response from the server side.
+     * 
+     * @exception IOException on test failure
      */
     public void endGetRequestDispatcherFromRequest1(WebResponse theResponse)
         throws IOException
     {
         String result = theResponse.getText();
-        assertTrue("Page not found, got [" + result + "]",
+
+        assertTrue("Page not found, got [" + result + "]", 
             result.indexOf("Hello !") > 0);
     }
 
@@ -491,8 +541,7 @@ public class TestServletTestCase2 extends ServletTestCase
      * @param theRequest the request object that serves to initialize the
      *                   HTTP connection to the server redirector.
      */
-    public void beginGetRequestDispatcherFromRequest2(
-        WebRequest theRequest)
+    public void beginGetRequestDispatcherFromRequest2(WebRequest theRequest)
     {
         theRequest.setURL(null, "/test", "/anything.jsp", null, null);
     }
@@ -500,11 +549,15 @@ public class TestServletTestCase2 extends ServletTestCase
     /**
      * Verify that request.getRequestDispatcher() works properly with a
      * relative path.
+     * 
+     * @exception IOException on test failure
+     * @exception ServletException on test failure
      */
-    public void testGetRequestDispatcherFromRequest2()
+    public void testGetRequestDispatcherFromRequest2() 
         throws ServletException, IOException
     {
         RequestDispatcher rd = request.getRequestDispatcher("test/test.jsp");
+
         rd.include(request, response);
     }
 
@@ -513,12 +566,15 @@ public class TestServletTestCase2 extends ServletTestCase
      * relative path.
      *
      * @param theResponse the response from the server side.
+     * 
+     * @exception IOException on test failure
      */
     public void endGetRequestDispatcherFromRequest2(WebResponse theResponse)
         throws IOException
     {
         String result = theResponse.getText();
-        assertTrue("Page not found, got [" + result + "]",
+
+        assertTrue("Page not found, got [" + result + "]", 
             result.indexOf("Hello !") > 0);
     }
 
@@ -536,8 +592,9 @@ public class TestServletTestCase2 extends ServletTestCase
         context.log(message);
 
         Vector logs = ((ServletContextWrapper) context).getLogs();
+
         assertEquals("Found more than one log message", logs.size(), 1);
-        assertTrue("Cannot find expected log message : [" + message + "]",
+        assertTrue("Cannot find expected log message : [" + message + "]", 
             logs.contains("some test log"));
     }
 
@@ -563,11 +620,12 @@ public class TestServletTestCase2 extends ServletTestCase
      * status code is > 400 and the request does not end with a "/" !
      *
      * @param theResponse the response from the server side.
+     * 
+     * @exception IOException on test failure
      */
-    public void endStatusCode(WebResponse theResponse)
-        throws IOException
+    public void endStatusCode(WebResponse theResponse) throws IOException
     {
-        assertEquals(HttpServletResponse.SC_INTERNAL_SERVER_ERROR,
+        assertEquals(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, 
             theResponse.getConnection().getResponseCode());
     }
 
@@ -576,6 +634,8 @@ public class TestServletTestCase2 extends ServletTestCase
     /**
      * Verify that we can assert HTTP status code when it is a redirect and
      * that the client side of Cactus does not follow the redirect.
+     * 
+     * @exception IOException on test failure
      */
     public void testRedirect() throws IOException
     {
@@ -587,11 +647,12 @@ public class TestServletTestCase2 extends ServletTestCase
      * that the client side of Cactus does not follow the redirect.
      *
      * @param theResponse the response from the server side.
+     * 
+     * @exception IOException on test failure
      */
-    public void endRedirect(WebResponse theResponse)
-        throws IOException
+    public void endRedirect(WebResponse theResponse) throws IOException
     {
-        assertEquals(HttpServletResponse.SC_MOVED_TEMPORARILY,
+        assertEquals(HttpServletResponse.SC_MOVED_TEMPORARILY, 
             theResponse.getConnection().getResponseCode());
     }
 
@@ -606,7 +667,7 @@ public class TestServletTestCase2 extends ServletTestCase
      */
     public void beginGetPathTranslated(WebRequest theRequest)
     {
-        theRequest.setURL("jakarta.apache.org", "/mywebapp", "/myservlet",
+        theRequest.setURL("jakarta.apache.org", "/mywebapp", "/myservlet", 
             "/test1/test2", "PARAM1=value1");
     }
 
@@ -620,18 +681,21 @@ public class TestServletTestCase2 extends ServletTestCase
      */
     public void testGetPathTranslated()
     {
-        String nativePathInfo = File.separator + "test1" + File.separator +
-            "test2";
+        String nativePathInfo = File.separator + "test1" + File.separator
+            + "test2";
 
         String pathTranslated = request.getPathTranslated();
 
         // Should be null if getRealPath("/") is null
-        if (request.getRealPath("/") == null) {
+        if (request.getRealPath("/") == null)
+        {
             assertNull("Should have been null", pathTranslated);
-        } else {
+        }
+        else
+        {
             assertNotNull("Should not be null", pathTranslated);
-            assertTrue("Should end with [" + nativePathInfo + "] but got [" +
-                pathTranslated + "] instead",
+            assertTrue("Should end with [" + nativePathInfo + "] but got ["
+                + pathTranslated + "] instead", 
                 pathTranslated.endsWith(nativePathInfo));
         }
     }
@@ -657,6 +721,8 @@ public class TestServletTestCase2 extends ServletTestCase
      * <code>HttpServletRequest.getReader()</code>. In other words, verify that
      * internal parameters that Cactus passes from its client side to the
      * server do not affect this ability.
+     * 
+     * @exception Exception on test failure
      */
     public void testGetReader() throws Exception
     {
@@ -664,7 +730,9 @@ public class TestServletTestCase2 extends ServletTestCase
         StringBuffer body = new StringBuffer();
 
         BufferedReader reader = request.getReader();
-        while ((buffer = reader.readLine()) != null) {
+
+        while ((buffer = reader.readLine()) != null)
+        {
             body.append(buffer);
         }
 
@@ -690,6 +758,8 @@ public class TestServletTestCase2 extends ServletTestCase
 
     /**
      * Verify that we can send arbitrary data in the request body.
+     * 
+     * @exception Exception on test failure
      */
     public void testSendUserData() throws Exception
     {
@@ -697,11 +767,13 @@ public class TestServletTestCase2 extends ServletTestCase
         StringBuffer body = new StringBuffer();
 
         BufferedReader reader = request.getReader();
-        while ((buffer = reader.readLine()) != null) {
+
+        while ((buffer = reader.readLine()) != null)
+        {
             body.append(buffer);
         }
 
-        assertEquals("<data>some data to send in the body</data>",
+        assertEquals("<data>some data to send in the body</data>", 
             body.toString());
         assertEquals("text/xml", request.getContentType());
     }
@@ -742,4 +814,36 @@ public class TestServletTestCase2 extends ServletTestCase
         assertEquals("atlantis", request.getRemoteHost());
     }
 
+    //-------------------------------------------------------------------------
+
+    /**
+     * Verify we can set and retrieve several parameters.
+     *
+     * @param theRequest the request object that serves to initialize the
+     *                   HTTP connection to the server redirector.
+     */
+    public void beginTestSeveralParameters(WebRequest theRequest)
+    {
+        theRequest.addParameter("PostParameter1", "EMPLOYEE0145", 
+            theRequest.POST_METHOD);
+        theRequest.addParameter("PostParameter2", "W", theRequest.GET_METHOD);
+        theRequest.addParameter("PostParameter3", "07/08/2002", 
+            theRequest.POST_METHOD);
+        theRequest.addParameter("PostParameter4", "/tas/ViewSchedule.esp", 
+            theRequest.GET_METHOD);
+    }
+
+    /**
+     * Verify we can set and retrieve several parameters.
+     */
+    public void testTestSeveralParameters()
+    {
+        assertEquals("parameter4", "/tas/ViewSchedule.esp", 
+            request.getParameter("PostParameter4"));
+        assertEquals("parameter1", "EMPLOYEE0145", 
+            request.getParameter("PostParameter1"));
+        assertEquals("parameter2", "W", request.getParameter("PostParameter2"));
+        assertEquals("parameter3", "07/08/2002", 
+            request.getParameter("PostParameter3"));
+    }
 }
