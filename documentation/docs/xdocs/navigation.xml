@@ -2,16 +2,6 @@
 
 <navigation>
 
-  <menu label="Doc Tracks">
-    <item label="WhatIs Track" source="tracks/whatis.xml">
-      <item label="What is Cactus ?" source="index.xml"/>
-    </item>
-    <item label="Status Track" source="tracks/status.xml"/>
-    <item label="WritingTests Track" source="tracks/writingtests.xml"/>
-    <item label="RunningTests Track" source="tracks/runningtests.xml"/>
-    <item label="Participating Track" source="tracks/participating.xml"/>
-  </menu>
-  
   <menu label="About">
     <item label="What is Cactus ?" source="index.xml"/>
     <item label="News" source="news.xml"/>
