@@ -39,8 +39,14 @@ table, th, td { border: none; }
   width: 100%;
 }
 #header td.logo { padding: 3px }
-#projectLogo { text-align: left }
-#subprojectLogo { text-align: right }
+#projectLogo {
+  text-align: left;
+  width: 50%;
+}
+#subprojectLogo {
+  text-align: right;
+  width: 50%;
+}
 #contextBar td {
   background-color: whitesmoke;
   border: solid silver;
@@ -65,31 +71,25 @@ table, th, td { border: none; }
 
 /* Styles for the left sidebar */
 #sidebar {
-  float: left;
-  margin-left: 2px;
   padding: 2px 4px;
+  vertical-align: top;
   width: 160px;
 }
-#navigation {
-  font: normal small Arial,Helvetica,sans-serif;
-  margin-left: 0;
-}
 #navigation ul {
+  font: normal 100% Arial,Helvetica,sans-serif;
   list-style: none;
-  margin: 0 0 1em .5em;
+  margin: 0 0 1em;
   padding: 0;
 }
-#navigation > ul { margin-left: 0em }
-#navigation li { margin-bottom: 0.25em }
-#navigation li.menu {
-  font-size: larger;
-  font-weight: bolder;
+#navigation ul ul { margin-left: .5em }
+#navigation li {
+  font-weight: bold;
+  margin-bottom: 0.25em;
   white-space: nowrap;
 }
-#navigation li.menuItem {
+#navigation li li {
   font-size: smaller;
-  font-weight: lighter;
-  white-space: nowrap;
+  font-weight: normal;
 }
 #navigation a:link, #navigation a:visited {
   text-decoration: none;
@@ -105,7 +105,8 @@ table, th, td { border: none; }
 
 /* Styles for the main content area */
 #content {
-  margin: 0 6px 0 166px;
+  /*margin: 0 6px 0 6px;*/
+  vertical-align: top;
 }
 #content .figure {
   text-align: center;

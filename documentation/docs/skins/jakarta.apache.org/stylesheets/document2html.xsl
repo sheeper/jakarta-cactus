@@ -91,12 +91,12 @@
             <xsl:text>css/apache.css</xsl:text>
           </xsl:attribute>
         </link>
-	<link rel="stylesheet" type="text/css" media="print">
-	  <xsl:attribute name="href">
-	    <xsl:value-of select="$basedir"/>
-	    <xsl:text>css/print.css</xsl:text>
-	  </xsl:attribute>
-	</link>
+        <link rel="stylesheet" type="text/css" media="print">
+          <xsl:attribute name="href">
+            <xsl:value-of select="$basedir"/>
+            <xsl:text>css/print.css</xsl:text>
+          </xsl:attribute>
+        </link>
 
         <!-- Add the document title -->
         <title><xsl:call-template name="get-title"/></title>
@@ -111,7 +111,7 @@
 
         <table id="header" cellspacing="0" width="100%">
           <tr>
-            <td class="logo" id="projectLogo" width="50%">
+            <td class="logo" id="projectLogo">
               <a href="http://jakarta.apache.org/">
                 <img>
                   <xsl:attribute name="alt">
@@ -124,7 +124,7 @@
                 </img>
               </a>
             </td>
-            <td class="logo" id="subprojectLogo" width="50%">
+            <td class="logo" id="subprojectLogo">
               <a href="http://jakarta.apache.org/cactus/">
                 <img>
                   <xsl:attribute name="alt">
@@ -138,7 +138,7 @@
               </a>
             </td>
           </tr>
-	  <tr id="contextBar">
+          <tr id="contextBar">
             <td id="breadCrumbs">
               <xsl:call-template name="generate-breadcrumbs"/>
             </td>
@@ -166,27 +166,29 @@
             </td>
           </tr>
         </table>
-        <div id="main">
+        <table id="main">
+          <tr>
 
           <!-- ======================================================== -->
           <!-- Sidebar -->
           <!-- ======================================================== -->
 
-          <div id="sidebar">
-            <div id="navigation">
-              <xsl:call-template name="apply-navigation"/>
-            </div>
-          </div>
+            <td id="sidebar">
+              <div id="navigation">
+                <xsl:call-template name="apply-navigation"/>
+              </div>
+            </td>
 
           <!-- ======================================================== -->
           <!-- Content -->
           <!-- ======================================================== -->
 
-          <div id="content">
-            <xsl:apply-templates/>
-          </div>
+            <td id="content">
+              <xsl:apply-templates/>
+            </td>
 
-        </div>
+          </tr>
+        </table>
 
         <!-- ============================================================== -->
         <!-- Footer -->
@@ -218,7 +220,7 @@
   <!-- ==================================================================== -->
 
   <xsl:template match="menu//item">
-    <li class="menuItem">
+    <li>
       <xsl:call-template name="generate-navigation-entry">
         <xsl:with-param name="node" select="."/>
       </xsl:call-template>
@@ -226,7 +228,7 @@
   </xsl:template>
 
   <xsl:template match="menu">
-    <li class="menu">
+    <li>
       <xsl:choose>
         <xsl:when test="@id">
           <xsl:call-template name="generate-navigation-entry">
@@ -495,7 +497,7 @@
     <div class="figure">
       <xsl:choose>
         <xsl:when test="@width">
-          <img alt="{@alt}" border="0" width="{@width}" height="{@height}">
+          <img alt="{@alt}" width="{@width}" height="{@height}">
             <xsl:attribute name="src">
               <xsl:call-template name="get-base-directory"/>
               <xsl:value-of select="@src"/>
@@ -505,11 +507,10 @@
                 <xsl:value-of select="@usemap"/>
               </xsl:attribute>
             </xsl:if>
-            <xsl:apply-templates/>
           </img>
         </xsl:when>
         <xsl:otherwise>
-          <img alt="{@alt}" border="0">
+          <img alt="{@alt}">
             <xsl:attribute name="src">
               <xsl:call-template name="get-base-directory"/>
               <xsl:value-of select="@src"/>
@@ -519,10 +520,10 @@
                 <xsl:value-of select="@usemap"/>
               </xsl:attribute>
             </xsl:if>
-            <xsl:apply-templates/>
           </img>
         </xsl:otherwise>
       </xsl:choose>
+      <xsl:apply-templates/>
     </div>
   </xsl:template>
  
@@ -533,7 +534,7 @@
   </xsl:template>
 
   <xsl:template match="figure/map/area">
-    <area shape="{@shape}" coords="{@coords}">
+    <area shape="{@shape}" alt="{@alt}" coords="{@coords}">
       <xsl:attribute name="href">
         <xsl:call-template name="get-link-href">
           <xsl:with-param name="href" select="@href"/>
