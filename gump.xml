@@ -85,9 +85,14 @@
 
     <license name="LICENSE.cactus"/>
 
+    <!-- Note: The release is delivered in the jakarta-cactus-release-12
+    	project. Reason: only deliver it if the sample-servlet project
+    	builds successfully (functional tests are executed in the 
+    	sample-servlet project). -->
+
     <nag from="Vincent Massol &lt;vmassol@apache.org&gt;"
       to="cactus-dev@jakarta.apache.org"/>
-
+    	
   </project>
 
   <!--
@@ -129,6 +134,11 @@
 
     <license name="LICENSE.cactus"/>
 
+    <!-- Note: The release is delivered in the jakarta-cactus-release-13
+    	project. Reason: only deliver it if the sample-servlet project
+    	builds successfully (functional tests are executed in the 
+    	sample-servlet project). -->
+
     <nag from="Vincent Massol &lt;vmassol@apache.org&gt;"
       to="cactus-dev@jakarta.apache.org"/>
         
@@ -167,6 +177,11 @@
     	
     <license name="LICENSE.cactus"/>
 
+    <!-- Note: The release is delivered in the jakarta-cactus-release-12
+    	project. Reason: only deliver it if the sample-servlet project
+    	builds successfully (functional tests are executed in the 
+    	sample-servlet project). -->
+
     <nag from="Vincent Massol &lt;vmassol@apache.org&gt;"
       to="cactus-dev@jakarta.apache.org"/>
 
@@ -204,6 +219,11 @@
     <jar name="bin/cactus-integration-ant/lib/client/cactus-integration-ant-@@DATE@@.jar"/>
 
     <license name="LICENSE.cactus"/>
+
+    <!-- Note: The release is delivered in the jakarta-cactus-release-13
+    	project. Reason: only deliver it if the sample-servlet project
+    	builds successfully (functional tests are executed in the 
+    	sample-servlet project). -->
 
     <nag from="Vincent Massol &lt;vmassol@apache.org&gt;"
       to="cactus-dev@jakarta.apache.org"/>
@@ -247,10 +267,18 @@
     <depend project="jakarta-cactus-integration-ant-12"/>
     <work nested="integration/eclipse/lib/junitsupport-2.1.0dev.jar"/>
 
+    <home nested="integration/eclipse/dist-12"/>
+    <jar name="bin/cactus-integration-eclipse/cactussupport.jar"/>
+
     <license name="LICENSE.cactus"/>
 
     <nag from="Vincent Massol &lt;vmassol@apache.org&gt;"
       to="cactus-dev@jakarta.apache.org"/>
+
+    <!-- Note: The release is delivered in the jakarta-cactus-release-12
+    	project. Reason: only deliver it if the sample-servlet project
+    	builds successfully (functional tests are executed in the 
+    	sample-servlet project). -->
 
   </project>
   
@@ -290,11 +318,19 @@
     <depend project="xml-xerces"/>
     <depend project="jakarta-cactus-integration-ant-13"/>
     <work nested="integration/eclipse/lib/junitsupport-2.1.0dev.jar"/>
+
+    <home nested="integration/eclipse/dist-13"/>
+    <jar name="bin/cactus-integration-eclipse/cactussupport.jar"/>
     
     <license name="LICENSE.cactus"/>
 
     <nag from="Vincent Massol &lt;vmassol@apache.org&gt;"
       to="cactus-dev@jakarta.apache.org"/>
+
+    <!-- Note: The release is delivered in the jakarta-cactus-release-13
+    	project. Reason: only deliver it if the sample-servlet project
+    	builds successfully (functional tests are executed in the 
+    	sample-servlet project). -->
 
   </project>
 
@@ -349,7 +385,10 @@
     <work nested="samples/servlet/target-12/sample/target/cactus/classes"/>
     <work nested="samples/servlet/target-12/sample/target/conf/client"/>
 
-    <jar name="samples/servlet/dist-12/bin/cactus-sample-servlet"/>
+    <!-- Note: The sample project delivers a zip, not a jar. However, we
+    	need to put a <jar> entry so that dependent project will get a 
+    	PREREQ failure if this build was not successful -->
+    <jar name="samples/servlet/release-12/jakarta-cactus-sample-servlet-@@DATE@@.zip"/>
 
     <license name="LICENSE.cactus"/>
 
@@ -410,7 +449,10 @@
     <work nested="samples/servlet/target-13/sample/target/cactus/classes"/>
     <work nested="samples/servlet/target-13/sample/target/conf/client"/>
 
-    <jar name="samples/servlet/dist-13/bin/cactus-sample-servlet"/>
+    <!-- Note: The sample project delivers a zip, not a jar. However, we
+    	need to put a <jar> entry so that dependent project will get a 
+    	PREREQ failure if this build was not successful -->
+    <jar name="samples/servlet/release-13/jakarta-cactus-sample-servlet-@@DATE@@.zip"/>
 
     <license name="LICENSE.cactus"/>
 
@@ -441,7 +483,10 @@
     <depend project="xml-xalan2"/>
 
     <!-- Dependencies to make sure this project is not built if one of the
-       dependent project fails -->
+       dependent project fails. This is because the documentation project
+       generated Javadoc for Cactus Framework 1.2, 1.3 and for the Ant
+       tasks. In addition it also publishes Clover reports (which are
+       created in the Sample Servlet 1.2 and 1.3 projects). -->
     <depend project="jakarta-cactus-framework-12"/>
     <depend project="jakarta-cactus-framework-13"/>
     <depend project="jakarta-cactus-anttasks"/>
@@ -464,18 +509,25 @@
 
   <!--
      ========================================================================
-       Cactus Releases for J2EE API 1.2. Only release if the Cactus Sample 
-       Servlet project has succeeded.
+       Cactus Releases for J2EE API 1.2.
      ========================================================================
   -->
   <project name="jakarta-cactus-release-12">
 
-    <jar name="samples/servlet/release-12/jakarta-cactus-sample-servlet-@@DATE@@.zip"/>
+    <!-- Only release if the projects have built successfully -->
+    <depend project="jakarta-cactus-framework-12"/>
+    <depend project="jakarta-cactus-sample-servlet-12"/>
+    <depend project="jakarta-cactus-integration-ant-12"/>
+    <depend project="jakarta-cactus-integration-eclipse-12"/>
 
     <deliver fromdir="framework/release-12" tosite="jakarta.apache.org"
       todir="builds/jakarta-cactus/nightly/@@DATE@@/" />
 
     <deliver fromdir="integration/ant/release-12" tosite="jakarta.apache.org"
+      todir="builds/jakarta-cactus/nightly/@@DATE@@/" />
+
+    <deliver fromdir="integration/eclipse/release-12" 
+      tosite="jakarta.apache.org" 
       todir="builds/jakarta-cactus/nightly/@@DATE@@/" />
 
     <deliver fromdir="samples/servlet/release-12" tosite="jakarta.apache.org"
@@ -485,18 +537,25 @@
 
   <!--
      ========================================================================
-       Cactus Releases for J2EE API 1.3. Only release if the Cactus Sample 
-       Servlet project has succeeded.
+       Cactus Releases for J2EE API 1.3.
      ========================================================================
   -->
   <project name="jakarta-cactus-release-13">
 
-    <jar name="samples/servlet/release-13/jakarta-cactus-sample-servlet-@@DATE@@.zip"/>
+    <!-- Only release if the projects have built successfully -->
+    <depend project="jakarta-cactus-framework-13"/>
+    <depend project="jakarta-cactus-sample-servlet-13"/>
+    <depend project="jakarta-cactus-integration-ant-13"/>
+    <depend project="jakarta-cactus-integration-eclipse-13"/>
 
     <deliver fromdir="framework/release-13" tosite="jakarta.apache.org"
       todir="builds/jakarta-cactus/nightly/@@DATE@@/" />
 
     <deliver fromdir="integration/ant/release-13" tosite="jakarta.apache.org"
+      todir="builds/jakarta-cactus/nightly/@@DATE@@/" />
+
+    <deliver fromdir="integration/eclipse/release-13" 
+      tosite="jakarta.apache.org" 
       todir="builds/jakarta-cactus/nightly/@@DATE@@/" />
 
     <deliver fromdir="samples/servlet/release-13" tosite="jakarta.apache.org"
