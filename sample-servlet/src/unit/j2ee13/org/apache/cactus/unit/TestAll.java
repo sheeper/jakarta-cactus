@@ -115,6 +115,8 @@ public class TestAll extends TestCase
             .suite());
         suite.addTest(
             org.apache.cactus.unit.TestServletTestCaseAuthentication.suite());
+        suite.addTest(
+            org.apache.cactus.unit.TestServletTestCase_HttpUnit.suite());
 
         // Test cases specific to Servlet API 2.3 only
         suite.addTest(

@@ -1,7 +1,7 @@
 /*
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2001-2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 1999 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -53,25 +53,29 @@
  */
 package org.apache.cactus.unit;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+
 import junit.framework.Test;
-import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
+import org.apache.cactus.ServletTestCase;
+
 /**
- * Run all the Cactus unit tests related to Servlet API 2.2.
+ * Some tests that verify Cactus HtppUnit integration.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
- * @version $Id$
+ * @version $Id: TestServletTestCase_HttpUnit.java._,v 1.1 2002/03/10 14:26:04 vmassol Exp $
  */
-public class TestAll extends TestCase
+public class TestServletTestCase_HttpUnit extends ServletTestCase
 {
     /**
      * Defines the testcase name for JUnit.
      *
      * @param theName the testcase's name.
      */
-    public TestAll(String theName)
+    public TestServletTestCase_HttpUnit(String theName)
     {
         super(theName);
     }
@@ -83,7 +87,8 @@ public class TestAll extends TestCase
      */
     public static void main(String[] theArgs)
     {
-        junit.swingui.TestRunner.main(new String[] { TestAll.class.getName() });
+        junit.swingui.TestRunner.main(
+            new String[] { TestServletTestCase_HttpUnit.class.getName() });
     }
 
     /**
@@ -92,39 +97,36 @@ public class TestAll extends TestCase
      */
     public static Test suite()
     {
-        TestSuite suite = new TestSuite(
-            "Cactus unit tests for Servlet API 2.2");
+        // All methods starting with "test" will be executed in the test suite.
+        return new TestSuite(TestServletTestCase_HttpUnit.class);
+    }
 
-        // Note: This test need to run first. See the comments in the
-        // test class for more information on why
-        suite.addTest(
-            org.apache.cactus.unit.TestServletTestCase_TestResult.suite());
+    //-------------------------------------------------------------------------
 
-        // AbstractTestCase related tests
-        suite.addTestSuite(
-            org.apache.cactus.unit.TestAbstractWebTestCase.class);
+    /**
+     * Verify that the HttpUnit integration works.
+     * 
+     * @exception IOException on test failure
+     */
+    public void testHttpUnitGetText() throws IOException
+    {
+        PrintWriter pw = response.getWriter();
 
-        // ServletTestCase related tests
-        suite.addTest(org.apache.cactus.unit.TestServletTestCase1.suite());
-        suite.addTest(org.apache.cactus.unit.TestServletTestCase2.suite());
-        suite.addTest(org.apache.cactus.unit.TestServletTestCase3.suite());
-        suite.addTest(org.apache.cactus.unit.TestServletTestCase4.suite());
-        suite.addTest(org.apache.cactus.unit.TestServletTestCase5.suite());
-        suite.addTest(
-            org.apache.cactus.unit.TestServletTestCase_OverrideRedirector
-            .suite());
-        suite.addTest(
-            org.apache.cactus.unit.TestServletTestCaseAuthentication.suite());
-        suite.addTest(
-            org.apache.cactus.unit.TestServletTestCase_HttpUnit.suite());
+        pw.print("something to return for the test");
+    }
 
-        // Test cases specific to Servlet API 2.2 only
-        suite.addTest(
-            org.apache.cactus.unit.TestServletTestCaseSpecific.suite());
+    /**
+     * Verify that HttpUnit integration works
+     *
+     * @param theResponse the response from the server side.
+     * 
+     * @exception IOException on test failure
+     */
+    public void endHttpUnitGetText(
+        com.meterware.httpunit.WebResponse theResponse) throws IOException
+    {
+        String text = theResponse.getText();
 
-        // JspTestCase related tests
-        suite.addTest(org.apache.cactus.unit.TestJspTestCase.suite());
-
-        return suite;
+        assertEquals("something to return for the test", text);
     }
 }
