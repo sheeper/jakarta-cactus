@@ -8,7 +8,7 @@
   <body>
 
     <release version="1.6dev" date="in CVS">
-      <action dev="vmassol" type="add" issue="" due-to="Michael Gaffney" due-to-email="michael.gaffney@panacya.com">
+      <action dev="vmassol" type="add" issue="24754" due-to="Michael Gaffney" due-to-email="michael.gaffney@panacya.com">
        Added support for EJB testing with Cactus. Calling 
        <code>cactus:test-ear</code> packages the whole thing in an EAR and
        executes the Cactus tests.
