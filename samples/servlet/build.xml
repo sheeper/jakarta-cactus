@@ -180,11 +180,11 @@
         <echo>  commons.logging.jar = [${commons.logging.jar}]</echo>
         <echo>  httpunit.jar = [${httpunit.jar}]</echo>
         <echo>  j2ee.jar = [${j2ee.jar}]</echo>
-        <echo>  jstl.jar = [${jstl.jar}]</echo>
         <echo>  junit.jar = [${junit.jar}]</echo>
         <echo>  log4j.jar = [${log4j.jar}]</echo>
         <echo>  nekohtml.jar = [${nekohtml.jar}]</echo>
-        <echo>  standard.jar = [${standard.jar}]</echo>
+        <echo>  jstl.jar (for J2EE 1.3 only) = [${jstl.jar}]</echo>
+        <echo>  standard.jar (for J2EE 1.3 only) = [${standard.jar}]</echo>
         <echo>  xerces.jar (optional) = [${xerces.jar}]</echo>
         <echo>  xmlapis.jar (optional) = [${xmlapis.jar}]</echo>
         <echo/>
