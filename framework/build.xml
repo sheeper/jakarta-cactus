@@ -396,10 +396,19 @@
 
     <!--
        ========================================================================
-         Perform a code audit using CheckStyle.
+         Perform a code audit using CheckStyle. Only performs the audit if
+         the checkstyle jar is in the Ant classpasth.
        ========================================================================
     -->
-    <target name="checkstyle" depends="init"
+    <target name="checkstyle.check">
+
+        <available property="checkstyle.present"
+            classname="com.puppycrawl.tools.checkstyle.CheckStyleTask"/>
+
+    </target>
+
+    <target name="checkstyle" depends="checkstyle.check,init"
+        if="checkstyle.present"
         description="Perform a code audit using Checkstyle">
 
         <taskdef name="checkstyle"
