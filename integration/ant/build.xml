@@ -605,24 +605,6 @@
 
     <!--
        ========================================================================
-         Generate the release
-       ========================================================================
-    -->
-    <target name="release" depends="clean,dist"
-        description="Generate the release files">
-
-        <mkdir dir="${release.dir}"/>
-
-        <zip destfile="${release.dir}/${main.release.name}.zip">
-            <zipfileset dir="${dist.bin.dir}/${project.name.file}" 
-                prefix="${main.release.name}">
-            </zipfileset>
-        </zip>
-        
-    </target>
-
-    <!--
-       ========================================================================
          Clean generated files (including distributables)
        ========================================================================
     -->
@@ -631,7 +613,6 @@
 
         <delete dir="${target.dir}"/>
         <delete dir="${dist.dir}"/>
-        <delete dir="${release.dir}"/>
 
     </target>
 

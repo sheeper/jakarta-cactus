@@ -478,24 +478,6 @@
 
     <!--
        ========================================================================
-         Generate the release
-       ========================================================================
-    -->
-    <target name="release" depends="clean,dist"
-        description="Generate the release files">
-
-        <mkdir dir="${release.dir}"/>
-
-        <zip destfile="${release.dir}/${main.release.name}.zip">
-            <zipfileset dir="${dist.dir}" prefix="${main.release.name}">
-                <exclude name="**/${cactus.framework.clover.jar.name}.jar"/>
-            </zipfileset>
-        </zip>
-        
-    </target>
-
-    <!--
-       ========================================================================
          Perform a code audit using CheckStyle. Only performs the audit if
          the checkstyle jar is in the Ant classpasth.
        ========================================================================
@@ -554,7 +536,6 @@
 
         <delete dir="${target.dir}"/>
         <delete dir="${dist.dir}"/>
-        <delete dir="${release.dir}"/>
 
     </target>
 

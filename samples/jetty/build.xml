@@ -524,77 +524,6 @@
 
     <!--
        ========================================================================
-         Build all : builds the distribution for both J2EE API 1.2 and 1.3
-       ========================================================================
-    -->
-    <target name="dist.all"
-        description="Generate the distributable files (for all J2EE APIs)">
-
-        <ant antfile="sample-jetty/build.xml" target="dist" inheritAll="false">
-            <property name="j2ee.jar" value="${j2ee.12.jar}"/>
-        </ant>
-
-        <ant antfile="sample-jetty/build.xml" target="dist" inheritAll="false">
-            <property name="j2ee.jar" value="${j2ee.13.jar}"/>
-        </ant>
-
-    </target>
-    
-    <!--
-       ========================================================================
-         Generate the release
-       ========================================================================
-    -->
-    <target name="release.common" depends="dist">
-
-        <mkdir dir="${release.dir}"/>
-
-        <zip destfile="${release.dir}/${main.release.name}.zip">
-            <zipfileset dir="${dist.bin.dir}/${project.name.file}" 
-                prefix="${main.release.name}"/>
-        </zip>
-        
-    </target>
-
-    <target name="release" depends="clean,release.common"
-        description="Generate the release files">
-
-        <mkdir dir="${release.dir}"/>
-
-        <zip destfile="${release.dir}/${main.release.name}.zip">
-            <zipfileset dir="${dist.bin.dir}/${project.name.file}" 
-                prefix="${main.release.name}"/>
-        </zip>
-        
-    </target>
-
-    <!-- Generate the release (for Gump). Does not clean the directories
-         because some class paths that are created by the build need to be
-         added to the Ant classpath before the build starts (because of the
-         use of build.sysclasspath=only by Gump -->
-    <target name="release.gump" depends="release.common">
-    </target>
-
-    <!--
-       ========================================================================
-         Clean all, for all J2EE APIs
-       ========================================================================
-    -->
-    <target name="clean.all"
-        description="Clean all generated files (for all J2EE APIs)">
-
-        <ant antfile="sample-jetty/build.xml" target="clean" inheritAll="false">
-            <property name="j2ee.jar" value="${j2ee.12.jar}"/>
-        </ant>
-
-        <ant antfile="sample-jetty/build.xml" target="clean" inheritAll="false">
-            <property name="j2ee.jar" value="${j2ee.13.jar}"/>
-        </ant>
-
-    </target>
-
-    <!--
-       ========================================================================
          Clean generated files (including distributables)
        ========================================================================
     -->
@@ -603,7 +532,6 @@
 
         <delete dir="${target.dir}"/>
         <delete dir="${dist.dir}"/>
-        <delete dir="${release.dir}"/>
 
     </target>
 

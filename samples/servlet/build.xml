@@ -385,41 +385,6 @@
 
     <!--
        ========================================================================
-         Generate the release
-       ========================================================================
-    -->
-    <target name="release.common" depends="dist">
-
-        <mkdir dir="${release.dir}"/>
-
-        <zip destfile="${release.dir}/${main.release.name}.zip">
-            <zipfileset dir="${dist.bin.dir}/${project.name.file}" 
-                prefix="${main.release.name}"/>
-        </zip>
-        
-    </target>
-
-    <target name="release" depends="clean,release.common"
-        description="Generate the release files">
-
-        <mkdir dir="${release.dir}"/>
-
-        <zip destfile="${release.dir}/${main.release.name}.zip">
-            <zipfileset dir="${dist.bin.dir}/${project.name.file}" 
-                prefix="${main.release.name}"/>
-        </zip>
-        
-    </target>
-
-    <!-- Generate the release (for Gump). Does not clean the directories
-         because some class paths that are created by the build need to be
-         added to the Ant classpath before the build starts (because of the
-         use of build.sysclasspath=only by Gump -->
-    <target name="release.gump" depends="release.common">
-    </target>
-
-    <!--
-       ========================================================================
          Clean generated files (including distributables)
        ========================================================================
     -->
@@ -428,7 +393,6 @@
 
         <delete dir="${target.dir}"/>
         <delete dir="${dist.dir}"/>
-        <delete dir="${release.dir}"/>
 
     </target>
 
