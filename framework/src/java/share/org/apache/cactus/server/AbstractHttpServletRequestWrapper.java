@@ -185,9 +185,7 @@ public abstract class AbstractHttpServletRequestWrapper
 
     /**
      * @return the path info from the simulated URL or the real path info
-     *         if a simulation URL has not been defined. If the path info
-     *         value defined in the simulated URL is null, return an empty
-     *         string.
+     *         if a simulation URL has not been defined.
      */
     public String getPathInfo()
     {
@@ -195,14 +193,7 @@ public abstract class AbstractHttpServletRequestWrapper
 
         if (this.url != null)
         {
-            if (this.url.getPathInfo() == null)
-            {
-                result = "";
-            }
-            else
-            {
-                result = this.url.getPathInfo();
-            }
+            result = this.url.getPathInfo();
             LOGGER.debug("Using simulated PathInfo : [" + result + "]");
         }
         else

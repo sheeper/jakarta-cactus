@@ -66,16 +66,6 @@
 
       <release version="1.5" date="- in CVS">
         <action dev="VMA" type="fix">
-          Modified the behavior of Cactus
-          <code>HttpServletRequestWrapper.getPathInfo()</code>
-          when a Simulation URL is defined: if the call to 
-          <code>WebRequest.setURL()</code> passes a <code>null</code> value
-          for the Path Info parameter, a call to
-          <code>HttpServletRequestWrapper.getPathInfo()</code> now returns an 
-          empty string ("") instead of a <code>null</code> value. This is in
-          accordance with the Servlet Specification.
-        </action>
-        <action dev="VMA" type="fix">
           When a simulation URL is used and null values are passed for the
           Server name, Context Path and Servlet Path parameters, calls to 
           Cactus <code>HttpServletRequestWrapper.getServerName()</code>,

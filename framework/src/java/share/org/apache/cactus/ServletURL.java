@@ -235,8 +235,7 @@ public class ServletURL
      * @param thePathInfo   the path info in the URL to simulate, i.e. this is
      *                      the name that will be returned by the
      *                      <code>HttpServletRequest.getPathInfo()</code>. Can
-     *                      be null. If null, then no extra path will be set.
-     *                      Format : "/" + name.
+     *                      be null. Format : "/" + name.
      * @param theQueryString the Query string in the URL to simulate, i.e. this
      *                       is the string that will be returned by the
      *                       <code>HttpServletResquest.getQueryString()</code>.
@@ -279,8 +278,7 @@ public class ServletURL
      * @param thePathInfo   the path info in the URL to simulate, i.e. this is
      *                      the name that will be returned by the
      *                      <code>HttpServletRequest.getPathInfo()</code>. Can
-     *                      be null. If null, then no extra path will be set.
-     *                      Format : "/" + name.
+     *                      be null. Format : "/" + name.
      * @param theQueryString the Query string in the URL to simulate, i.e. this
      *                       is the string that will be returned by the
      *                       <code>HttpServletResquest.getQueryString()</code>.
