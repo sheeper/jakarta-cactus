@@ -38,26 +38,13 @@
       </p>
     </section>
 
-  <version title="Version 1.5">
+  <version title="Undefined">
 
     <category title="Documentation">
       <action>
         Update the "how it works" section by adding the new global
         <code>begin()</code> and <code>end()</code> methods.
       </action>
-    </category>
-
-    <category title="Build process">
-    </category>
-
-    <category title="Design/Code">
-    </category>
-    
-  </version>
-
-  <version title="Undefined">
-
-    <category title="Documentation">
       <action assigned-to="Jason Robertson, Vincent Massol">
         Add documentation for form-based authentication.
       </action>
