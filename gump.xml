@@ -231,6 +231,9 @@
       <depend property="eclipse.ant.core.jar" project="eclipse" id="antsupport"/>
       <depend property="eclipse.ui.workbench.jar" project="eclipse" id="workbench"/>
 
+      <property name="eclipse.jdt.junit.jar" 
+        value="integration/eclipse/lib/junitsupport-2.1.0dev.jar"/>
+
     </ant>
   
     <depend project="jakarta-ant" inherit="runtime"/>
@@ -270,6 +273,9 @@
       <depend property="eclipse.jface.jar" project="eclipse" id="jface"/>
       <depend property="eclipse.ant.core.jar" project="eclipse" id="antsupport"/>
       <depend property="eclipse.ui.workbench.jar" project="eclipse" id="workbench"/>
+
+      <property name="eclipse.jdt.junit.jar" 
+        value="integration/eclipse/lib/junitsupport-2.1.0dev.jar"/>
 
     </ant>
     
