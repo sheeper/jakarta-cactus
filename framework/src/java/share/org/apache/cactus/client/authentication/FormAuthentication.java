@@ -61,7 +61,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import org.apache.cactus.WebRequest;
-import org.apache.cactus.client.HttpClientConnectionHelper;
+import org.apache.cactus.client.ConnectionHelper;
+import org.apache.cactus.client.ConnectionHelperFactory;
 import org.apache.cactus.util.ChainedRuntimeException;
 import org.apache.cactus.util.WebConfiguration;
 import org.apache.commons.logging.Log;
@@ -211,8 +212,9 @@ public class FormAuthentication extends AbstractAuthentication
 
             String resource = 
                 ((WebConfiguration) getConfiguration()).getRedirectorURL();
-            HttpClientConnectionHelper helper = 
-                new HttpClientConnectionHelper(resource);
+            ConnectionHelper helper = 
+                ConnectionHelperFactory.getConnectionHelper(resource, 
+                getConfiguration());
 
             // Make the connection using a default web request.
             HttpURLConnection connection = helper.connect(
@@ -254,8 +256,8 @@ public class FormAuthentication extends AbstractAuthentication
             }
 
             // Create a helper that will connect to the security check URL.
-            helper = new HttpClientConnectionHelper(
-                getSecurityCheckURL().toString());
+            helper = ConnectionHelperFactory.getConnectionHelper(
+                getSecurityCheckURL().toString(), getConfiguration());
                 
             // Configure a web request with the JSESSIONID cookie, 
             // the username and the password.
