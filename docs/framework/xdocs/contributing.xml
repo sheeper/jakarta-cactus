@@ -26,19 +26,9 @@
       proposing ideas, reporting bugs, suggesting bug-fixes, etc..).
     </p>
     <p>
-      To begin with, we suggest you to subscribe to the
-      <link href="mailto:jakarta-commons-subscribe@jakarta.apache.org">
-      Jakarta Commons mailing list</link>
-      (Indeed, Cactus is part of the Jakarta Commons project).
+      To begin with, we suggest you to subscribe to the 
+      <link href="mailinglist.html">Cactus mailing list</link>.
     </p>
-    <note>
-      Any mail sent
-      on the <link href="mailto:jakarta-commons@jakarta.apache.org">
-      Jakarta Commons</link> mailing list concerning Cactus should have it's
-      subject prefixed with <code>[cactus]</code> to differentiate it from
-      other emails sent for other components (Cactus is only one component of
-      Jakata Commons).
-    </note>
     <p>
       Then you can download the <link href="downloads.html">latest Cactus
       release</link> or checkout the latest code from
@@ -61,7 +51,8 @@
     </p>
     <ul>
       <li>
-        Answering questions on the <code>jakarta-commons</code> mailing list -
+        Answering questions on the 
+        <link href="mailinglist.html">Cactus mailing list</link>;
         there is often a problem of having too many questioners and not enough
         experts to respond to all the questions.
       </li>
@@ -77,11 +68,9 @@
       </li>
       <li>
         Specifying/analysing/designing new features for Cactus (If you wish to
-        get involved with this, please join
-        <code>jakarta-commons@jakarta.apache.org</code>),
-        install and try out Cactus and read some of the
-        <link href="http://www.mail-archive.com/jakarta-commons%40jakarta.apache.org/">
-        mail archives</link>.
+        get involved with this, please join the <link href="mailinglist.html">
+        Cactus mailing list</link>,
+        install and try out Cactus and read some of the mailing list archives.        
       </li>
       <li>
         Providing automated Ant scripts for new servlet engines/application
@@ -123,8 +112,8 @@
       (code or documentation), then it counts as a <strong>patch</strong>. If 
       you have a patch and would like to see it incorporated into the Cactus
       distribution, take note of the Licensing Requirements listed below, and 
-      then post a message to the <code>jakarta-commons</code> mailing list with
-      <code>[cactus] [PATCH]</code> in the subject and include a
+      then post a message to the <link href="mailinglist.html">Cactus mailing
+      list</link> with <code>[PATCH]</code> in the subject and include a
       <code>diff</code> of your patch against the latest CVS version of the code.
     </p>
   

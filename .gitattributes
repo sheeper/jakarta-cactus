@@ -82,6 +82,7 @@ docs/framework/xdocs/index.xml svn_keywords=Author+Date+Id+Revision
 docs/framework/xdocs/javadoc.xml svn_keywords=Author+Date+Id+Revision
 docs/framework/xdocs/license.xml svn_keywords=Author+Date+Id+Revision
 docs/framework/xdocs/logos.xml svn_keywords=Author+Date+Id+Revision
+docs/framework/xdocs/mailinglist.xml svn_keywords=Author+Date+Id+Revision
 docs/framework/xdocs/misc/archi.ppt -text
 docs/framework/xdocs/misc/archi_jsp.ppt -text
 docs/framework/xdocs/misc/archi_servlet.ppt -text

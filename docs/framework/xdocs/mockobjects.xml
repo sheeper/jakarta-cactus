@@ -363,11 +363,7 @@ public void testXXX()
       <p>
         I would very much like to have your feedback on Mock Objects versus
         In-Container/Cactus testing. Please post your feedback on the
-        <link href="mailto:jakarta-commons@jakarta.apache.org">jakarta-commons
-        </link> mailing list and prefix your
-        subject with "<code>[cactus]</code>" (To subscribe, send an empty
-        mail to <link href="mailto:jakarta-commons-subscribe@jakarta.apache.org">
-        jakarta-commons-subscribe@jakarta.apache.org</link>).
+        <link href="mailinglist.html">Cactus mailing list</link>.
       </p>
       <p>
         I would also like to point out that I am

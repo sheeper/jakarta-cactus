@@ -47,7 +47,7 @@
   <menu label="Support">
     <menu-item type="external" label="CVS" href="http://jakarta.apache.org/site/cvsindex.html"/>
     <menu-item type="external" label="Bug database" href="http://jakarta.apache.org/site/bugs.html"/>
-    <menu-item type="external" label="Mailing lists" href="http://jakarta.apache.org/site/mail.html"/>
+    <menu-item label="Mailing list" source="mailinglist.xml"/>
     <menu-item type="external" label="FAQ" href="http://jakarta.apache.org:8080/jyve-faq/Turbine/screen/DisplayTopics/action/SetAll/project_id/2/faq_id/39"/>
   </menu>
 
