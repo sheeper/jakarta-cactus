@@ -21,7 +21,7 @@
     <property name="cactus.context" value="cactustest"/>
 
     <!-- Decides whether the test result will be printed to the console or
-    	 not. Default is true -->
+         not. Default is true -->
     <property name="cactus.junit.usefile" value="false"/>   
 
     <!-- Location of junit test reports for the Cactus tests -->
@@ -33,7 +33,7 @@
     <property name="cactus.halt.on.error" value="true"/>
 
     <!-- JUnit Runner to use for executing the tests. Valid values are
-    	 "text" and "swing" -->
+         "text" and "swing" -->
     <property name="cactus.runner" value="text"/>
 
     <!--
@@ -154,17 +154,17 @@
             <available 
               file="${cactus.target.dir}/${cactus.context}/WEB-INF/web.xml"/>
         </condition>
-        	
+            
     </target>
 
     <target name="cactus.war.merge.yes" depends="cactus.war.merge.check"
       if="cactus.war.should.merge">
 
         <!-- Perform a web.xml merge -->
-		<webxmlmerge 
-		  srcfile="${cactus.target.dir}/${cactus.context}/WEB-INF/web.xml"
-		  mergefile="${cactus.conf.dir}/web.xml"
-		  destfile="${cactus.target.dir}/${cactus.context}/WEB-INF/web-temp.xml">
+        <webxmlmerge 
+          srcfile="${cactus.target.dir}/${cactus.context}/WEB-INF/web.xml"
+          mergefile="${cactus.conf.dir}/web.xml"
+          destfile="${cactus.target.dir}/${cactus.context}/WEB-INF/web-temp.xml">
             <xmlcatalog>
                 <dtd
                   publicId="-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
@@ -173,7 +173,7 @@
                   publicId="-//Sun Microsystems, Inc.//DTD Web Application 2.2//EN"
                   location="${cactus.conf.dir}/web-app.dtd"/>
             </xmlcatalog>
-		</webxmlmerge>
+        </webxmlmerge>
 
         <!-- Rename the merged web.xml -->
         <move file="${cactus.target.dir}/${cactus.context}/WEB-INF/web-temp.xml"
@@ -209,15 +209,15 @@
 
         <!-- Copy the log4j configuration files -->
         <copy tofile="${cactus.target.dir}/${cactus.context}/WEB-INF/classes/log4j.properties"
-        	file="${cactus.conf.dir}/log_server.properties"/>
-        	
+            file="${cactus.conf.dir}/log_server.properties"/>
+            
         <antcall target="cactus.copyclasses"/>
-	
+    
         <!-- Copy the Cactus jars that should be on server side classpath. 
-        	 Note: we used the named jars as it should
-        	 be possible to override the locations of jars and they should not
-        	 be expected to be in ${cactus.lib.*.dir}. For example this feature
-        	 is used by the Maven plugin for Cactus. -->
+             Note: we used the named jars as it should
+             be possible to override the locations of jars and they should not
+             be expected to be in ${cactus.lib.*.dir}. For example this feature
+             is used by the Maven plugin for Cactus. -->
         <copy todir="${cactus.target.dir}/${cactus.context}/WEB-INF/lib"
           file="${cactus.jar}"/>
         <copy todir="${cactus.target.dir}/${cactus.context}/WEB-INF/lib"
@@ -248,7 +248,7 @@
     <target name="cactus.test">
 
         <!-- Copy the log4j client side configuration file in a location that
-        	we put in the classpath of the JUnit Test Runner -->
+            we put in the classpath of the JUnit Test Runner -->
         <copy tofile="${cactus.target.conf.dir}/log4j.properties"
             file="${cactus.conf.dir}/log_client.properties"/>
 
@@ -263,7 +263,7 @@
     <target name="cactus.test.check.result">
 
         <!-- Decides whether to halt the build if errors or failures have
-        	  occurred -->
+              occurred -->
 
         <condition property="cactus.test.error.shouldstop">
           <and>
