@@ -1,4 +1,6 @@
 /*
+ * ====================================================================
+ *
  * The Apache Software License, Version 1.1
  *
  * Copyright (c) 2001-2002 The Apache Software Foundation.  All rights
@@ -23,10 +25,10 @@
  *    Alternately, this acknowlegement may appear in the software itself,
  *    if and wherever such third-party acknowlegements normally appear.
  *
- * 4. The names "The Jakarta Project", "Cactus", and "Apache Software
- *    Foundation" must not be used to endorse or promote products derived
- *    from this software without prior written permission. For written
- *    permission, please contact apache@apache.org.
+ * 4. The names "The Jakarta Project", "Cactus" and "Apache Software
+ *    Foundation" must not be used to endorse or promote products
+ *    derived from this software without prior written permission. For
+ *    written permission, please contact apache@apache.org.
  *
  * 5. Products derived from this software may not be called "Apache"
  *    nor may "Apache" appear in their names without prior written
@@ -50,6 +52,7 @@
  * individuals on behalf of the Apache Software Foundation.  For more
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
+ *
  */
 package org.apache.cactus.server;
 
@@ -77,6 +80,9 @@ public class ServletContextWrapper extends AbstractServletContextWrapper
         super(theOriginalContext);
     }
 
+    /**
+     * @see ServletContext#getServletContextName()
+     */
     public String getServletContextName()
     {
         return this.originalContext.getServletContextName();
@@ -116,6 +122,8 @@ public class ServletContextWrapper extends AbstractServletContextWrapper
      * 17/03/2001 (in anticipation of the upcoming draft of Servlet 2.3). Kept
      * the method without parameters for servlet engines that do not have
      * upgraded yet to the new signature.
+     *
+     * @see ServletContext#getResourcePaths(String
      */
     public Set getResourcePaths(String thePath)
     {
