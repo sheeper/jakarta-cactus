@@ -1,66 +1,92 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE config PUBLIC
+    "-//Puppy Crawl//DTD Check Configuration 1.0//EN"
+    "http://www.puppycrawl.com/dtds/configuration_1_0.dtd">
 
 <!-- Checkstyle properties for Cactus projects -->
-
-<configuration>
-    <check classname="com.puppycrawl.tools.checkstyle.checks.AvoidStarImport"/>
-    <check classname="com.puppycrawl.tools.checkstyle.checks.ConstantNameCheck"/>
-    <check classname="com.puppycrawl.tools.checkstyle.checks.EmptyBlockCheck">
-        <property name="option" value="text"/>
-    </check>
-    <!--check classname="com.puppycrawl.tools.checkstyle.checks.EqualsHashCodeCheck"/-->
-    <check classname="com.puppycrawl.tools.checkstyle.checks.FileLengthCheck"/>
-    <check classname="com.puppycrawl.tools.checkstyle.checks.HeaderCheck"/>
-    <check classname="com.puppycrawl.tools.checkstyle.checks.IllegalImportCheck"/>
-    <check classname="com.puppycrawl.tools.checkstyle.checks.IllegalInstantiationCheck"/>
-    <check classname="com.puppycrawl.tools.checkstyle.checks.InnerAssignmentCheck"/>
-    <check classname="com.puppycrawl.tools.checkstyle.checks.JavadocTypeCheck"/>
-    <check classname="com.puppycrawl.tools.checkstyle.checks.JavadocVariableCheck"/>
-    <check classname="com.puppycrawl.tools.checkstyle.checks.LineLengthCheck">
-        <property name="ignorePattern" value="(@version|@see)"/>
-    </check>
-    <check classname="com.puppycrawl.tools.checkstyle.checks.LocalFinalVariableNameCheck"/>
-    <check classname="com.puppycrawl.tools.checkstyle.checks.LocalVariableNameCheck"/>
-    <check classname="com.puppycrawl.tools.checkstyle.checks.MemberNameCheck"/>
-    <check classname="com.puppycrawl.tools.checkstyle.checks.MethodLeftCurlyCheck">
-        <property name="option" value="nl"/>
-    </check>
-    <check classname="com.puppycrawl.tools.checkstyle.checks.MethodLengthCheck"/>
-    <check classname="com.puppycrawl.tools.checkstyle.checks.MethodNameCheck"/>
-    <check classname="com.puppycrawl.tools.checkstyle.checks.ModifierCheck"/>
-    <check classname="com.puppycrawl.tools.checkstyle.checks.NoWhitespaceBeforeCheck"/>
-    <check classname="com.puppycrawl.tools.checkstyle.checks.NoWhitespaceAfterCheck"/>
-    <check classname="com.puppycrawl.tools.checkstyle.checks.OtherLeftCurlyCheck">
-        <property name="option" value="nl"/>
-    </check>
-    <check classname="com.puppycrawl.tools.checkstyle.checks.PackageNameCheck"/>
-    <check classname="com.puppycrawl.tools.checkstyle.checks.ParameterNameCheck">
-        <property name="format" value="^(the|is|has)[A-Z][a-zA-Z0-9]*$"/>
-    </check>
-    <check classname="com.puppycrawl.tools.checkstyle.checks.ParameterNumberCheck"/>
-    <check classname="com.puppycrawl.tools.checkstyle.checks.ParenPadCheck"/>
-    <check classname="com.puppycrawl.tools.checkstyle.checks.PublicMemberNameCheck">
-        <property name="format" value="^[a-z][a-zA-Z0-9]*$"/>
-    </check>
-    <check classname="com.puppycrawl.tools.checkstyle.checks.RedundantImportCheck"/>
-    <check classname="com.puppycrawl.tools.checkstyle.checks.RedundantModifierCheck"/>
-    <check classname="com.puppycrawl.tools.checkstyle.checks.RegexpHeaderCheck"/>
-    <check classname="com.puppycrawl.tools.checkstyle.checks.RightCurlyCheck">
-        <property name="option" value="alone"/>
-    </check>
-    <check classname="com.puppycrawl.tools.checkstyle.checks.SimplifyBooleanExpressionCheck"/>
-    <check classname="com.puppycrawl.tools.checkstyle.checks.SimplifyBooleanReturnCheck"/>
-    <check classname="com.puppycrawl.tools.checkstyle.checks.StaticVariableNameCheck"/>
-    <check classname="com.puppycrawl.tools.checkstyle.checks.TabCharacterCheck"/>
-    <check classname="com.puppycrawl.tools.checkstyle.checks.TypeLeftCurlyCheck">
-        <property name="option" value="nl"/>
-    </check>
-    <check classname="com.puppycrawl.tools.checkstyle.checks.TypeNameCheck"/>
-    <check classname="com.puppycrawl.tools.checkstyle.checks.UnusedImportsCheck"/>
-    <check classname="com.puppycrawl.tools.checkstyle.checks.UpperEllCheck"/>
-    <check classname="com.puppycrawl.tools.checkstyle.checks.VisibilityModifierCheck">
-        <property name="protectedAllowed" value="true"/>
-        <property name="publicMemberPattern" value="^[a-z][a-zA-Z0-9]*$"/>
-    </check>
-    <check classname="com.puppycrawl.tools.checkstyle.checks.WhitespaceAroundCheck"/>
-</configuration>
+<config name="configuration">
+  
+  <config name="TreeWalker">
+    <config name="AvoidStarImport"/>
+    <config name="ConstantNameCheck"/>
+    <config name="EmptyBlockCheck">
+      <property name="option" value="text"/>
+    </config>
+    <!-- config name="EqualsHashCodeCheck"/ -->
+    <config name="FileLengthCheck"/>
+    <!-- config name="HeaderCheck"/ -->
+    <config name="IllegalImportCheck"/>
+    <config name="IllegalInstantiationCheck"/>
+    <config name="InnerAssignmentCheck"/>
+    <config name="JavadocTypeCheck">
+      <property name="authorFormat" value="\S"/>
+    </config>
+    <config name="JavadocMethodCheck">
+      <property name="checkUnusedThrows" value="true"/>
+    </config>
+    <config name="JavadocVariableCheck"/>
+    <config name="LineLengthCheck">
+      <property name="ignorePattern" value="(@version|@see)"/>
+    </config>
+    <config name="LocalFinalVariableNameCheck"/>
+    <config name="LocalVariableNameCheck"/>
+    <config name="MemberNameCheck"/>
+    <config name="MethodLeftCurlyCheck">
+      <property name="option" value="nl"/>
+    </config>
+    <config name="MethodLengthCheck"/>
+    <config name="MethodNameCheck"/>
+    <config name="ModifierCheck"/>
+    <config name="NeedBracesCheck"/>
+    <config name="NoWhitespaceAfterCheck"/>
+    <config name="NoWhitespaceBeforeCheck"/>
+    <config name="NoWhitespaceAfterCheck">
+      <property name="tokens" value="DOT"/>
+      <property name="allowLineBreaks" value="true"/>
+    </config>
+    <config name="NoWhitespaceBeforeCheck">
+      <property name="tokens" value="DOT"/>
+      <property name="allowLineBreaks" value="true"/>
+    </config>
+    <config name="OperatorWrapCheck"/>
+    <config name="OperatorWrapCheck">
+      <property name="tokens" value="ASSIGN, DIV_ASSIGN, PLUS_ASSIGN, MINUS_ASSIGN, STAR_ASSIGN, MOD_ASSIGN, SR_ASSIGN, BSR_ASSIGN, SL_ASSIGN, BXOR_ASSIGN, BOR_ASSIGN, BAND_ASSIGN"/>
+      <property name="option" value="eol"/>
+    </config>
+    <config name="OtherLeftCurlyCheck">
+      <property name="option" value="nl"/>
+    </config>
+    <config name="PackageNameCheck"/>
+    <config name="ParameterNameCheck">
+      <property name="format" value="^(the|is|has)[A-Z][a-zA-Z0-9]*$"/>
+    </config>
+    <config name="ParameterNumberCheck"/>
+    <config name="ParenPadCheck"/>
+    <config name="PublicMemberNameCheck">
+      <property name="format" value="^[a-z][a-zA-Z0-9]*$"/>
+    </config>
+    <config name="RedundantImportCheck"/>
+    <config name="RedundantModifierCheck"/>
+    <!-- config name="RegexpHeaderCheck"/ -->
+    <config name="RightCurlyCheck">
+      <property name="option" value="alone"/>
+    </config>
+    <config name="SimplifyBooleanExpressionCheck"/>
+    <config name="SimplifyBooleanReturnCheck"/>
+    <config name="StaticVariableNameCheck"/>
+    <config name="TabCharacterCheck"/>
+    <config name="TypeLeftCurlyCheck">
+      <property name="option" value="nl"/>
+    </config>
+    <config name="TypeNameCheck"/>
+    <config name="UnusedImportsCheck"/>
+    <config name="UpperEllCheck"/>
+    <config name="VisibilityModifierCheck">
+      <property name="protectedAllowed" value="true"/>
+      <property name="publicMemberPattern" value="^[a-z][a-zA-Z0-9]*$"/>
+    </config>
+    <config name="WhitespaceAfterCheck"/>
+    <config name="WhitespaceAroundCheck"/>
+  </config>
+  
+</config>
