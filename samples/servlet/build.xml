@@ -312,14 +312,14 @@
             <arg value="-Dbase.dir=${target.sample.dir}"/>
             <arg value="-Dbasedir=${basedir}"/>
             
+            <!-- Override default cactus jar defined in the called script
+                 by the clovered one if clover is enabled -->
+            <arg line="${clover.system.parameter}"/>
+
             <!-- Pass all servlet engine properties -->
             <arg line="${test.args.list}"/>
             <arg line="-buildfile ${target.sample.dir}/build.xml"/>
             <arg value="test"/>
-
-            <!-- Override default cactus jar defined in the called script
-                 by the clovered one if clover is enabled -->
-            <arg line="${clover.system.parameter}"/>
                  
             <classpath>
                 <pathelement path="${java.class.path}"/>
