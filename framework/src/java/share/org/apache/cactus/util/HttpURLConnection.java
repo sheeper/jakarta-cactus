@@ -67,6 +67,7 @@ import java.security.Permission;
 
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpMethod;
+import org.apache.commons.httpclient.HttpMethodBase;
 
 /**
  * Provides a <code>HttpURLConnection</code> wrapper around HttpClient
@@ -192,6 +193,7 @@ public class HttpURLConnection extends java.net.HttpURLConnection
     {
         // Note: Return the last matching header in the Header[] array, as in
         // the JDK implementation.
+        
         Header[] headers = this.method.getResponseHeaders();
 
         for (int i = headers.length - 1; i >= 0; i--)
@@ -210,16 +212,25 @@ public class HttpURLConnection extends java.net.HttpURLConnection
      */
     public String getHeaderFieldKey(int theKeyPosition)
     {
+        // Note: HttpClient does not consider the returned Status Line as
+        // a response header. However, getHeaderFieldKey(0) is supposed to 
+        // return null. Hence the special case below ...
+        
+        if (theKeyPosition == 0)
+        {
+            return null;
+        }
+
         // Note: I hope the header fields are kept in the correct order when
         // calling getRequestHeaders.
         Header[] headers = this.method.getResponseHeaders();
-
+        
         if ((theKeyPosition < 0) || (theKeyPosition >= headers.length))
         {
             return null;
         }
 
-        return headers[theKeyPosition].getName();
+        return headers[theKeyPosition - 1].getName();
     }
 
     /**
@@ -227,6 +238,24 @@ public class HttpURLConnection extends java.net.HttpURLConnection
      */
     public String getHeaderField(int thePosition)
     {
+        // Note: HttpClient does not consider the returned Status Line as
+        // a response header. However, getHeaderField(0) is supposed to 
+        // return the status line. Hence the special case below ...
+        
+        if (thePosition == 0)
+        {
+            if (((HttpMethodBase) this.method).isHttp11())
+            {
+                return "HTTP/1.1 " + this.method.getStatusCode() 
+                    + " " + this.method.getStatusText();
+            }
+            else
+            {
+                return "HTTP/1.0 " + this.method.getStatusCode() 
+                    + " " + this.method.getStatusText();
+            }
+        }
+
         // Note: I hope the header fields are kept in the correct order when
         // calling getRequestHeaders.
         Header[] headers = this.method.getResponseHeaders();
@@ -236,7 +265,7 @@ public class HttpURLConnection extends java.net.HttpURLConnection
             return null;
         }
 
-        return headers[thePosition].getValue();
+        return headers[thePosition - 1].getValue();
     }
 
     /**
