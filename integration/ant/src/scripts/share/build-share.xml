@@ -52,8 +52,8 @@
     <property name="cactus.target.conf.dir" value="${cactus.target.dir}/conf"/>
 
     <!-- Cactus related jar locations -->
-    <property name="cactus.antintegration.jar" 
-        value="${cactus.lib.client.dir}/@cactus.antintegration.jar.name@"/>
+    <property name="cactus.ant.jar" 
+        value="${cactus.lib.client.dir}/@cactus.ant.jar.name@"/>
 
     <property name="cactus.jar" 
         value="${cactus.lib.common.dir}/@cactus.jar.name@"/>
@@ -90,8 +90,7 @@
 
         <!-- Initialize Cactus custom Ant task needed for running the server
              tests -->
-        <taskdef resource="cactus.tasks"
-          classpath="${cactus.antintegration.jar}"/>         
+        <taskdef resource="cactus.tasks" classpath="${cactus.ant.jar}"/>         
 
     </target>
 
