@@ -206,6 +206,11 @@
         finished so that we don’t need to start it again for the next
         test (needs hot redeploy)
       </action>
+      <action>
+        Externalize the Ant scripts for container management.
+        Many plugins and tools need such functionality so there is a need
+        for common Ant scripts.
+      </action>
     </category>
     
   </version>
