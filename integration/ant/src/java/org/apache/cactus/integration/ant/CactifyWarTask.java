@@ -199,6 +199,10 @@ public class CactifyWarTask extends War
      */
     public static final class FilterRedirector extends Redirector
     {
+        /**
+         * Default not-secured Filter redirector name.
+         */
+        private static final String DEFAULT_NAME = "DefaultFilterRedirector";
 
         /**
          * Default constructor.
@@ -232,6 +236,10 @@ public class CactifyWarTask extends War
      */
     public static final class JspRedirector extends Redirector
     {
+        /**
+         * Default not-secured JSP redirector name.
+         */
+        private static final String DEFAULT_NAME = "DefaultJspRedirector";
 
         /**
          * Default constructor.
@@ -262,7 +270,11 @@ public class CactifyWarTask extends War
      */
     public static final class ServletRedirector extends Redirector
     {
-
+        /**
+         * Default not-secured servlet redirector name.
+         */
+        private static final String DEFAULT_NAME = "DefaultServletRedirector";
+        
         /**
          * Default constructor.
          */
@@ -572,42 +584,27 @@ public class CactifyWarTask extends War
      */
     private void addRedirectorDefinitions(WebXml theWebXml)
     {
-        boolean filterRedirectorDefined = false;
-        boolean jspRedirectorDefined = false;
-        boolean servletRedirectorDefined = false;
+        // Always add the default redirectors first. The reason is that
+        // these redirectors need to be not secured as they will be used
+        // to verify if the container is up and running or not.
+
+        FilterRedirector defaultFilterRedirector = new FilterRedirector();
+        defaultFilterRedirector.setName(FilterRedirector.DEFAULT_NAME);
+        defaultFilterRedirector.mergeInto(theWebXml);
         
+        ServletRedirector defaultServletRedirector = new ServletRedirector();
+        defaultServletRedirector.setName(ServletRedirector.DEFAULT_NAME);
+        defaultServletRedirector.mergeInto(theWebXml);
+
+        JspRedirector defaultJspRedirector = new JspRedirector();
+        defaultJspRedirector.setName(JspRedirector.DEFAULT_NAME);
+        defaultJspRedirector.mergeInto(theWebXml);
+       
         // add the user defined redirectors
         for (Iterator i = this.redirectors.iterator(); i.hasNext();)
         {
             Redirector redirector = (Redirector) i.next();
-            if (redirector instanceof FilterRedirector)
-            {
-                filterRedirectorDefined = true;
-            }
-            else if (redirector instanceof JspRedirector)
-            {
-                jspRedirectorDefined = true;
-            }
-            else if (redirector instanceof ServletRedirector)
-            {
-                servletRedirectorDefined = true;
-            }
             redirector.mergeInto(theWebXml);
-        }
-
-        // now add the default redirectors if they haven't been provided by
-        // the user
-        if (!filterRedirectorDefined)
-        {
-            new FilterRedirector().mergeInto(theWebXml);
-        }
-        if (!servletRedirectorDefined)
-        {
-            new ServletRedirector().mergeInto(theWebXml);
-        }
-        if (!jspRedirectorDefined)
-        {
-            new JspRedirector().mergeInto(theWebXml);
         }
     }
 

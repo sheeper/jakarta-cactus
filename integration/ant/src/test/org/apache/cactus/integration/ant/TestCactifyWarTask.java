@@ -147,8 +147,10 @@ public final class TestCactifyWarTask extends AntTestCase
             webXml.getVersion());
         assertServletMapping(webXml,
             "org.apache.cactus.server.ServletTestRedirector",
+            "DefaultServletRedirector",
             "/ServletRedirector");
-        assertJspMapping(webXml, "/jspRedirector.jsp", "/JspRedirector");
+        assertJspMapping(webXml, "/jspRedirector.jsp", "DefaultJspRedirector", 
+            "/JspRedirector");
         // As the deployment descriptor in the source WAR doesn't contain a 
         // DOCTYPE, it is assumed to be a version 2.2 descriptor. Thus it 
         // should not contain a definition of the filter test redirector.
@@ -171,10 +173,12 @@ public final class TestCactifyWarTask extends AntTestCase
         WarArchive destWar = new DefaultWarArchive(destFile);
         WebXml webXml = destWar.getWebXml();
         assertEquals(WebXmlVersion.V2_2, webXml.getVersion());
-        assertServletMapping(webXml,
+        assertServletMapping(webXml, 
             "org.apache.cactus.server.ServletTestRedirector",
+            "DefaultServletRedirector",
             "/ServletRedirector");
-        assertJspMapping(webXml, "/jspRedirector.jsp", "/JspRedirector");
+        assertJspMapping(webXml, "/jspRedirector.jsp", "DefaultJspRedirector",
+            "/JspRedirector");
         assertTrue("Filter test redirector should not have been defined",
             !webXml.getFilterNames().hasNext());
     }
@@ -193,12 +197,15 @@ public final class TestCactifyWarTask extends AntTestCase
         WarArchive destWar = new DefaultWarArchive(destFile);
         WebXml webXml = destWar.getWebXml();
         assertEquals(WebXmlVersion.V2_3, webXml.getVersion());
-        assertServletMapping(webXml,
+        assertServletMapping(webXml, 
             "org.apache.cactus.server.ServletTestRedirector",
+            "DefaultServletRedirector",
             "/ServletRedirector");
-        assertJspMapping(webXml, "/jspRedirector.jsp", "/JspRedirector");
+        assertJspMapping(webXml, "/jspRedirector.jsp", "DefaultJspRedirector",
+            "/JspRedirector");
         assertFilterMapping(webXml,
             "org.apache.cactus.server.FilterTestRedirector",
+            "DefaultFilterRedirector",
             "/FilterRedirector");
     }
 
@@ -219,8 +226,10 @@ public final class TestCactifyWarTask extends AntTestCase
         assertEquals(WebXmlVersion.V2_2, webXml.getVersion());
         assertServletMapping(webXml,
             "org.apache.cactus.server.ServletTestRedirector",
+            "DefaultServletRedirector",
             "/ServletRedirector");
-        assertJspMapping(webXml, "/jspRedirector.jsp", "/JspRedirector");
+        assertJspMapping(webXml, "/jspRedirector.jsp", "DefaultJspRedirector",
+            "/JspRedirector");
         assertTrue("Filter test redirector should not have been defined",
             !webXml.getFilterNames().hasNext());
     }
@@ -241,11 +250,14 @@ public final class TestCactifyWarTask extends AntTestCase
         WebXml webXml = destWar.getWebXml();
         assertEquals(WebXmlVersion.V2_3, webXml.getVersion());
         assertServletMapping(webXml,
-            "org.apache.cactus.server.ServletTestRedirector",
+            "org.apache.cactus.server.ServletTestRedirector",                
+            "DefaultServletRedirector",
             "/ServletRedirector");
-        assertJspMapping(webXml, "/jspRedirector.jsp", "/JspRedirector");
+        assertJspMapping(webXml, "/jspRedirector.jsp", "DefaultJspRedirector",
+            "/JspRedirector");
         assertFilterMapping(webXml,
             "org.apache.cactus.server.FilterTestRedirector",
+            "DefaultFilterRedirector",
             "/FilterRedirector");
     }
 
@@ -263,7 +275,8 @@ public final class TestCactifyWarTask extends AntTestCase
         WarArchive destWar = new DefaultWarArchive(destFile);
         WebXml webXml = destWar.getWebXml();
         assertServletMapping(webXml,
-            "org.apache.cactus.server.ServletTestRedirector",
+            "org.apache.cactus.server.ServletTestRedirector",                
+            "ServletRedirector", 
             "/test/servletRedirector");
     }
 
@@ -280,7 +293,8 @@ public final class TestCactifyWarTask extends AntTestCase
         File destFile = getProject().resolveFile("work/destfile.war");
         WarArchive destWar = new DefaultWarArchive(destFile);
         WebXml webXml = destWar.getWebXml();
-        assertJspMapping(webXml, "/jspRedirector.jsp", "/test/jspRedirector");
+        assertJspMapping(webXml, "/jspRedirector.jsp", "JspRedirector",
+            "/test/jspRedirector");
     }
 
     /**
@@ -298,6 +312,7 @@ public final class TestCactifyWarTask extends AntTestCase
         WebXml webXml = destWar.getWebXml();
         assertFilterMapping(webXml,
             "org.apache.cactus.server.FilterTestRedirector",
+            "FilterRedirector",
             "/test/filterRedirector");
     }
 
@@ -473,19 +488,37 @@ public final class TestCactifyWarTask extends AntTestCase
      * 
      * @param theWebXml The deployment descriptor
      * @param theFilterClass The name of the filter class
+     * @param theFilterName The name of the filter
      * @param theMapping The URL-pattern that the filter is expected to be
      *        mapped to
      */
     private void assertFilterMapping(WebXml theWebXml, String theFilterClass,
-        String theMapping)
+        String theFilterName, String theMapping)
     {
         Iterator names = theWebXml.getFilterNamesForClass(theFilterClass);
-        assertTrue("Definition of " + theFilterClass + " not found",
-            names.hasNext());
-        String name = (String) names.next();
+
+        // Look for the definition that matches the JSP servlet name
+        boolean found = false; 
+        String name = null;
+        while (names.hasNext())
+        {
+            name = (String) names.next();
+            if (name.equals(theFilterName))
+            {
+                found = true;
+                break;
+            }
+        }
+        
+        if (!found)
+        {
+            fail("Definition of [" + theFilterClass + "(" + theFilterName
+                + ")] not found");
+        }
+
         Iterator mappings = theWebXml.getFilterMappings(name);
-        assertTrue("Mapping for " + theFilterClass + " not found",
-            mappings.hasNext());
+        assertTrue("Mapping for [" + theFilterClass + "(" + theFilterName
+            + ")] not found", mappings.hasNext());
         assertEquals(theMapping, mappings.next());
     }
 
@@ -495,41 +528,77 @@ public final class TestCactifyWarTask extends AntTestCase
      * 
      * @param theWebXml The deployment descriptor
      * @param theJspFile The JSP file name
+     * @param theJspName The JSP servlet name
      * @param theMapping The URL-pattern that the JSP file is expected to be
      *        mapped to
      */
     private void assertJspMapping(WebXml theWebXml, String theJspFile,
-        String theMapping)
+        String theJspName, String theMapping)
     {
         Iterator names = theWebXml.getServletNamesForJspFile(theJspFile);
-        assertTrue("Definition of " + theJspFile + " not found",
-            names.hasNext());
-        String name = (String) names.next();
+
+        // Look for the definition that matches the JSP servlet name
+        boolean found = false; 
+        String name = null;
+        while (names.hasNext())
+        {
+            name = (String) names.next();
+            if (name.equals(theJspName))
+            {
+                found = true;
+                break;
+            }
+        }
+        
+        if (!found)
+        {
+            fail("Definition of [" + theJspFile + "(" + theJspName
+                + ")] not found");
+        }
+        
         Iterator mappings = theWebXml.getServletMappings(name);
-        assertTrue("Mapping for " + theJspFile + " not found",
-            mappings.hasNext());
+        assertTrue("Mapping for [" + theJspFile + "(" + theJspName
+            + ")] not found", mappings.hasNext());
         assertEquals(theMapping, mappings.next());
     }
 
     /**
-     * Asserts that a servlet of the specified class is defined in the given
+     * Asserts that a servlet of the specified name is defined in the given
      * deployment descriptor and mapped to a specific URL-pattern.
      * 
      * @param theWebXml The deployment descriptor
      * @param theServletClass The name of servlet class
+     * @param theServletName The name of the servlet
      * @param theMapping The URL-pattern that the servlet is expected to be
      *        mapped to
      */
-    private void assertServletMapping(WebXml theWebXml, String theServletClass,
-        String theMapping)
+    private void assertServletMapping(WebXml theWebXml, String theServletClass, 
+        String theServletName, String theMapping)
     {
         Iterator names = theWebXml.getServletNamesForClass(theServletClass);
-        assertTrue("Definition of " + theServletClass + " not found",
-            names.hasNext());
-        String name = (String) names.next();
+        
+        // Look for the definition that matches the servlet name
+        boolean found = false; 
+        String name = null;
+        while (names.hasNext())
+        {
+            name = (String) names.next();
+            if (name.equals(theServletName))
+            {
+                found = true;
+                break;
+            }
+        }
+
+        if (!found)
+        {
+            fail("Definition of [" + theServletClass + "(" + theServletName
+                + ")] not found");
+        }
+        
         Iterator mappings = theWebXml.getServletMappings(name);
-        assertTrue("Mapping for " + theServletClass + " not found",
-            mappings.hasNext());
+        assertTrue("Mapping for [" + theServletClass + "(" + theServletName
+            + ")] not found", mappings.hasNext());
         assertEquals(theMapping, mappings.next());
     }
 
