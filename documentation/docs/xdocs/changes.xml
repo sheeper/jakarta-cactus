@@ -99,7 +99,7 @@
         </action>
       </release>
 
-      <release version="1.6.1" date="in CVS">
+      <release version="1.6.1" date="14 May 2004">
         <action dev="VMA" type="fix" issue="CACTUS-107">
           An error was introduced in the Servlet Test Runner during the 
           internal package refactoring that happened in Cactus 1.6. The
