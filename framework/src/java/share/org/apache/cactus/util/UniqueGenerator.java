@@ -59,7 +59,7 @@ package org.apache.cactus.util;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
-import org.apache.cactus.AbstractWebServerTestCase;
+import junit.framework.TestCase;
 
 /**
  * Generates a quasi-unique id for a test case.
@@ -108,7 +108,7 @@ public class UniqueGenerator
      * @param theTestCase The Test to generate a unique ID for
      * @return The generated ID
      */
-    public static String generate(AbstractWebServerTestCase theTestCase)
+    public static String generate(TestCase theTestCase)
     {
         long time = System.currentTimeMillis();
         synchronized (lock)
@@ -125,7 +125,7 @@ public class UniqueGenerator
      * @param theTime The time component to include in the generated ID
      * @return The generated ID
      */
-    public static String generate(AbstractWebServerTestCase theTestCase,
+    public static String generate(TestCase theTestCase,
         long theTime)
     {
         String id = ipAddress;
