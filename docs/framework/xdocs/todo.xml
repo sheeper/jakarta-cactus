@@ -33,17 +33,20 @@
 
     <category title="Documentation">
       <action>
-        Update web site documentation to explain new dependency with Log4j in
-        the installation tutorial.
-      </action>
-      <action>
         Add a tutorial for building Cactus from the source distribution.
+      </action>
+      <action assigned-to="Vincent Massol">
+        Rewrite an Ant integration tutorial.
+      </action>
+      <action assigned-to="Vincent Massol">
+        Rewrite a Cactus TestCase tutorial that explains the different
+        <code>TestCase</code> classes and how to write tests using them.
       </action>
       <action assigned-to="Hudson Wong">
         Add a tutorial that explains how to unit test EJBs in the current
         version of Cactus.
       </action>
-      <action>
+      <action assigned-to="Nicholas Lesiecki">
         Write a tutorial that explains how to unit test Tag libraries (only
         taglets that extend TagSupport for the moment).
       </action>
@@ -77,10 +80,12 @@
       <action assigned-to="Vincent Massol">
         Set up nightly builds (it is high time !). Almost done (works for
         Cactus for Servlet API 2.3 and soon for Cactus for Servlet API 2.2) !
+        90% done.
       </action>
       <action>
         Add support for Orion 1.5 in Ant build files (current support is for
         Orion 1.4 only but may work on 1.5.2 - need to be tested though).
+        90% done.
       </action>
       <action>
         Add the Ant scripts for JBoss 2.x w/Tomcat provided by Jeffrey Madynski
@@ -99,12 +104,12 @@
     </category>
 
     <category title="Design/Code">
-      <action assigned-to="Vincent Massol, Jari Worsley">
+      <action assigned-to="Jari Worsley">
         Continue support for JSP Taglib to fully support all types of taglets
         (even the one with body content which extend TagBodySupport). At the
         current time only taglib that extend TagSupport are supported.
       </action>
-      <action>
+      <action assigned-to="Vincent Massol">
         Design and implement support for unit testing Filters (Servlet API
         2.3 only).
       </action>
@@ -115,7 +120,7 @@
         Servlet Redirector and not for your servlet being tested.
       </action>
       <action>
-        Add an API in <code>ServletTestRequest</code> to send data to the URL
+        Add an API in <code>WebRequest</code> to send data to the URL
         connection output stream. This is to easily test code that sends bytes
         of data as POST data to the servlet.
       </action>
@@ -123,10 +128,6 @@
         Check why zipped distributable files have a mode of 644 on unix systems
         (it should rather be 755). Reported by Jason Crickmer. Need to verify
         first that the problem still exist.
-      </action>
-      <action>
-        Support unit testing of Servlet code that uses Security APIs, such as
-        <code>isUserInRole()</code>, ...
       </action>
     </category>
 
@@ -152,7 +153,14 @@
             to an EJBTestCase that user need to derive (exactly the same
             mechanism currently used for Servlets),
           </li>
+          <li>
+            others ?
+          </li>
         </ul>
+      </action>
+      <action>
+        Support unit testing of Servlet code that uses Security APIs, such as
+        <code>isUserInRole()</code>, ...
       </action>
     </category>
 
