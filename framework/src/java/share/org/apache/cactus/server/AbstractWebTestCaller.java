@@ -69,6 +69,7 @@ import org.apache.cactus.AbstractWebServerTestCase;
 import org.apache.cactus.HttpServiceDefinition;
 import org.apache.cactus.ServiceEnumeration;
 import org.apache.cactus.WebTestResult;
+import org.apache.cactus.configuration.Version;
 import org.apache.cactus.util.ClassLoaderUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -230,6 +231,31 @@ public abstract class AbstractWebTestCaller
         // been established !
     }
 
+    /**
+     * Return the cactus version. This is to make sure both the client side
+     * and server side are using the same version.
+     *  
+     * @exception ServletException if an unexpected error occurred
+     */    
+    public void doGetVersion() throws ServletException
+    {
+        try
+        {
+            Writer writer = getResponseWriter();
+            writer.write(Version.VERSION);
+            writer.close();
+        }
+        catch (IOException e)
+        {
+            String message = "Error writing HTTP response back to client "
+                + "for service [" + ServiceEnumeration.GET_VERSION_SERVICE
+                + "]";
+
+            LOGGER.error(message, e);
+            throw new ServletException(message, e);
+        }        
+    }
+    
     /**
      * Create an HTTP Session and returns the response that contains the
      * HTTP session as a cookie (unless URL rewriting is used in which

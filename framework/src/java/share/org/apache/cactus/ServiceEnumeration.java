@@ -99,6 +99,14 @@ public class ServiceEnumeration
         new ServiceEnumeration("CREATE_SESSION");
 
     /**
+     * Service that returns a cactus version identifier. This is used
+     * to verify that the server side and client side versions of 
+     * Cactus are the same.
+     */
+    public static final ServiceEnumeration GET_VERSION_SERVICE = 
+        new ServiceEnumeration("GET_VERSION");
+
+    /**
      * The service's name
      */
     private String name;
@@ -184,6 +192,10 @@ public class ServiceEnumeration
         else if (CREATE_SESSION_SERVICE.name.equals(theName))
         {
             return CREATE_SESSION_SERVICE;
+        }
+        else if (GET_VERSION_SERVICE.name.equals(theName))
+        {
+            return GET_VERSION_SERVICE;
         }
         return null;
     }

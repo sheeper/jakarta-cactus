@@ -66,9 +66,9 @@ import org.apache.commons.logging.LogFactory;
 
 /**
  * Controller that extracts the requested service from the HTTP request and
- * executes the request by calling a <code>WebTestCaller</code>. There
- * are 2 services available : one for executing the test and one for returning
- * the test result.
+ * executes the request. Examples of requests are: executing a given test, 
+ * returning the test result, verifying that the controller is correctly 
+ * configured, etc.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
@@ -145,6 +145,10 @@ public abstract class AbstractWebTestController implements TestController
             else if (service == ServiceEnumeration.CREATE_SESSION_SERVICE)
             {
                 caller.doCreateSession();                
+            }
+            else if (service == ServiceEnumeration.GET_VERSION_SERVICE)
+            {
+                caller.doGetVersion();
             }
             else
             {
