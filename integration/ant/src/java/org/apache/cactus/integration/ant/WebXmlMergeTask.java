@@ -201,7 +201,7 @@ public class WebXmlMergeTask extends Task
      *
      * @param theXmlCatalog the XMLCatalog instance to use to look up DTDs
      */
-    public void addConfiguredXMLCatalog(XMLCatalog theXmlCatalog)
+    public final void addConfiguredXMLCatalog(XMLCatalog theXmlCatalog)
     {
         this.xmlCatalog.addConfiguredXMLCatalog(theXmlCatalog);
     }
@@ -212,7 +212,7 @@ public class WebXmlMergeTask extends Task
      * 
      * @param theSrcFile the original <code>web.xml</code>
      */
-    public void setSrcFile(File theSrcFile)
+    public final void setSrcFile(File theSrcFile)
     {
         this.srcFile = theSrcFile;
     }
@@ -222,7 +222,7 @@ public class WebXmlMergeTask extends Task
      * 
      * @param theMergeFile the <code>web.xml</code> to merge
      */
-    public void setMergeFile(File theMergeFile)
+    public final void setMergeFile(File theMergeFile)
     {
         this.mergeFile = theMergeFile;
     }
@@ -232,7 +232,7 @@ public class WebXmlMergeTask extends Task
      * 
      * @param theDestFile the resulting <code>web.xml</code>
      */
-    public void setDestFile(File theDestFile)
+    public final void setDestFile(File theDestFile)
     {
         this.destFile = theDestFile;
     }
@@ -243,7 +243,7 @@ public class WebXmlMergeTask extends Task
      * 
      * @param isForce Whether the merge should be forced
      */
-    public void setForce(boolean isForce)
+    public final void setForce(boolean isForce)
     {
         this.force = isForce;
     }
@@ -253,7 +253,7 @@ public class WebXmlMergeTask extends Task
      * 
      * @param theEncoding The encoding to set
      */
-    public void setEncoding(String theEncoding)
+    public final void setEncoding(String theEncoding)
     {
         this.encoding = theEncoding;
     }
@@ -264,7 +264,7 @@ public class WebXmlMergeTask extends Task
      *  
      * @param isIndent Whether the result should be indented
      */
-    public void setIndent(boolean isIndent)
+    public final void setIndent(boolean isIndent)
     {
         this.indent = isIndent;
     }

@@ -168,7 +168,7 @@ public class WebXml
      * 
      * @return The document representing the deploy descriptor
      */
-    public Document getDocument()
+    public final Document getDocument()
     {
         return this.document;
     }
@@ -179,7 +179,7 @@ public class WebXml
      * 
      * @return The servlet API version.
      */
-    public String getVersion()
+    public final String getVersion()
     {
         DocumentType docType = this.document.getDoctype();
         if (docType != null)
@@ -202,7 +202,7 @@ public class WebXml
      * 
      * @param theFilter The element representing the filter definition
      */
-    public void addFilter(Element theFilter)
+    public final void addFilter(Element theFilter)
     {
         checkElement(theFilter, WebXmlTag.FILTER);
         String filterName = getNestedText(theFilter, WebXmlTag.FILTER_NAME);
@@ -225,8 +225,8 @@ public class WebXml
      * @param theParamName The name of the parameter
      * @param theParamValue The parameter value
      */
-    public void addFilterInitParam(String theFilterName, String theParamName,
-        String theParamValue)
+    public final void addFilterInitParam(String theFilterName,
+        String theParamName, String theParamValue)
     {
         Element filterElement = getFilter(theFilterName);
         if (filterElement == null)
@@ -243,7 +243,8 @@ public class WebXml
      * @param theFilterName The name of the filter
      * @param theUrlPattern The URL pattern the filter should be mapped to
      */
-    public void addFilterMapping(String theFilterName, String theUrlPattern)
+    public final void addFilterMapping(String theFilterName,
+        String theUrlPattern)
     {
         if (!hasFilter(theFilterName))
         {
@@ -267,7 +268,7 @@ public class WebXml
      * @param theFilterName The name of the servlet filter
      * @return The DOM element representing the filter definition
      */
-    public Element getFilter(String theFilterName)
+    public final Element getFilter(String theFilterName)
     {
         if (theFilterName == null)
         {
@@ -293,7 +294,8 @@ public class WebXml
      * @param theParamName The name of the initialization parameter
      * @return The parameter value
      */
-    public String getFilterInitParam(String theFilterName, String theParamName)
+    public final String getFilterInitParam(String theFilterName,
+        String theParamName)
     {
         return getInitParam(getFilter(theFilterName), theParamName);
     }
@@ -306,7 +308,7 @@ public class WebXml
      *         parameter names should be retrieved
      * @return An iterator over the ordered list of parameter names
      */
-    public Iterator getFilterInitParamNames(String theFilterName)
+    public final Iterator getFilterInitParamNames(String theFilterName)
     {
         return getInitParamNames(getFilter(theFilterName));
     }
@@ -320,7 +322,7 @@ public class WebXml
      *         mappings should be retrieved
      * @return An iterator over the ordered list of URL-patterns
      */
-    public Iterator getFilterMappings(String theFilterName)
+    public final Iterator getFilterMappings(String theFilterName)
     {
         if (theFilterName == null)
         {
@@ -352,7 +354,7 @@ public class WebXml
      * 
      * @return The filter names
      */
-    public Iterator getFilterNames()
+    public final Iterator getFilterNames()
     {
         List filterNames = new ArrayList();
         Iterator filterElements = getElements(WebXmlTag.FILTER);
@@ -377,7 +379,7 @@ public class WebXml
      * @return <code>true</code> if the filter is defined, <code>false</code>
      *          otherwise
      */
-    public boolean hasFilter(String theFilterName)
+    public final boolean hasFilter(String theFilterName)
     {
         return (getFilter(theFilterName) != null);
     }
@@ -387,7 +389,7 @@ public class WebXml
      * 
      * @param theServlet The element representing the servlet definition
      */
-    public void addServlet(Element theServlet)
+    public final void addServlet(Element theServlet)
     {
         checkElement(theServlet, WebXmlTag.SERVLET);
         String servletName = getNestedText(theServlet, WebXmlTag.SERVLET_NAME);
@@ -410,8 +412,8 @@ public class WebXml
      * @param theParamName The name of the parameter
      * @param theParamValue The parameter value
      */
-    public void addServletInitParam(String theServletName, String theParamName,
-        String theParamValue)
+    public final void addServletInitParam(String theServletName,
+        String theParamName, String theParamValue)
     {
         Element servletElement = getServlet(theServletName);
         if (servletElement == null)
@@ -428,7 +430,8 @@ public class WebXml
      * @param theServletName The name of the servlet
      * @param theUrlPattern The URL pattern the servlet should be mapped to
      */
-    public void addServletMapping(String theServletName, String theUrlPattern)
+    public final void addServletMapping(String theServletName,
+        String theUrlPattern)
     {
         if (!hasServlet(theServletName))
         {
@@ -452,7 +455,7 @@ public class WebXml
      * @param theServletName The name of the servlet
      * @return The DOM element representing the servlet definition
      */
-    public Element getServlet(String theServletName)
+    public final Element getServlet(String theServletName)
     {
         if (theServletName == null)
         {
@@ -479,7 +482,7 @@ public class WebXml
      * @param theParamName The name of the initialization parameter
      * @return The parameter value
      */
-    public String getServletInitParam(String theServletName,
+    public final String getServletInitParam(String theServletName,
         String theParamName)
     {
         return getInitParam(getServlet(theServletName), theParamName);
@@ -493,7 +496,7 @@ public class WebXml
      *         names should be retrieved
      * @return An iterator over the ordered list of parameter names
      */
-    public Iterator getServletInitParamNames(String theServletName)
+    public final Iterator getServletInitParamNames(String theServletName)
     {
         return getInitParamNames(getServlet(theServletName));
     }
@@ -507,7 +510,7 @@ public class WebXml
      *         should be retrieved
      * @return An iterator over the ordered list of URL-patterns
      */
-    public Iterator getServletMappings(String theServletName)
+    public final Iterator getServletMappings(String theServletName)
     {
         if (theServletName == null)
         {
@@ -540,7 +543,7 @@ public class WebXml
      * 
      * @return The servlet names
      */
-    public Iterator getServletNames()
+    public final Iterator getServletNames()
     {
         List servletNames = new ArrayList();
         Iterator servletElements = getElements(WebXmlTag.SERVLET);
@@ -565,7 +568,7 @@ public class WebXml
      * @return <code>true</code> if the servlet is defined, <code>false</code>
      *          otherwise
      */
-    public boolean hasServlet(String theServletName)
+    public final boolean hasServlet(String theServletName)
     {
         return (getServlet(theServletName) != null);
     }
@@ -578,7 +581,7 @@ public class WebXml
      * @return An iterator over the elements matching the tag, in the order 
      *          they occur in the descriptor
      */
-    public Iterator getElements(WebXmlTag theTag)
+    public final Iterator getElements(WebXmlTag theTag)
     {
         List elements = new ArrayList();
         NodeList nodeList =
@@ -596,7 +599,7 @@ public class WebXml
      * @param theTag The descriptor tag
      * @param theElement The element to add
      */
-    public void addElement(WebXmlTag theTag, Element theElement)
+    public final void addElement(WebXmlTag theTag, Element theElement)
     {
         if (!theTag.getTagName().equals(theElement.getNodeName()))
         {
@@ -619,7 +622,7 @@ public class WebXml
      * @param theTag The descriptor tag
      * @param theElement The element to replace the current elements with
      */
-    public void replaceElement(WebXmlTag theTag, Element theElement)
+    public final void replaceElement(WebXmlTag theTag, Element theElement)
     {
         Iterator elements = getElements(theTag);
         while (elements.hasNext())

@@ -93,7 +93,7 @@ public class WebXmlMerger
      *         that are to be merged into the original descriptor
      * @return The number of filters merged into the original descriptor
      */
-    public int mergeFilters(WebXml theWebXml)
+    public final int mergeFilters(WebXml theWebXml)
     {
         Iterator filterNames = theWebXml.getFilterNames();
         int count = 0;
@@ -138,7 +138,7 @@ public class WebXmlMerger
      *         that are to be merged into the original descriptor
      * @return The number of servlets merged into the original descriptor
      */
-    public int mergeServlets(WebXml theWebXml)
+    public final int mergeServlets(WebXml theWebXml)
     {
         Iterator servletNames = theWebXml.getServletNames();
         int count = 0;
@@ -184,7 +184,7 @@ public class WebXmlMerger
      * @return The number of security constraints merged into the original
      *          descriptor
      */
-    public int mergeSecurityConstraints(WebXml theWebXml)
+    public final int mergeSecurityConstraints(WebXml theWebXml)
     {
         Iterator securityConstraints =
             theWebXml.getElements(WebXmlTag.SECURITY_CONSTRAINT);
@@ -206,7 +206,7 @@ public class WebXmlMerger
      *         is to be merged into the original descriptor
      * @return Whether the login config was merged
      */
-    public boolean mergeLoginConfig(WebXml theWebXml)
+    public final boolean mergeLoginConfig(WebXml theWebXml)
     {
         Iterator loginConfigs = theWebXml.getElements(WebXmlTag.LOGIN_CONFIG);
         if (loginConfigs.hasNext())
@@ -226,7 +226,7 @@ public class WebXmlMerger
      * @return The number of security constraints merged into the original
      *          descriptor
      */
-    public int mergeSecurityRoles(WebXml theWebXml)
+    public final int mergeSecurityRoles(WebXml theWebXml)
     {
         Iterator securityRoles =
             theWebXml.getElements(WebXmlTag.SECURITY_ROLE);
