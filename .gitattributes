@@ -42,6 +42,7 @@ documentation/docs/skins/jakarta.apache.org/stylesheets/document2html.xsl svn_ke
 documentation/docs/xdocs/build_result.xml svn_keywords=Author+Date+Id+Revision
 documentation/docs/xdocs/cactusname.xml svn_keywords=Author+Date+Id+Revision
 documentation/docs/xdocs/changes.xml svn_keywords=Author+Date+Id+Revision
+documentation/docs/xdocs/cvslog/cvslog.xml svn_keywords=Author+Date+Id+Revision
 documentation/docs/xdocs/cvslog/users.properties svn_keywords=Author+Date+Id+Revision
 documentation/docs/xdocs/downloads.xml svn_keywords=Author+Date+Id+Revision
 documentation/docs/xdocs/faq.xml svn_keywords=Author+Date+Id+Revision
