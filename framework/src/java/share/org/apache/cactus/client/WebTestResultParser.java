@@ -126,8 +126,9 @@ public class WebTestResultParser
         String endRootString = "</" + WebTestResult.XML_ROOT_ELEMENT + ">";
         String buffer;
 
-        // It is possible that some end of line character are inserted at the end of the
-        // string. This is valid, which is why we trim teh string before perfoming the checks.
+        // It is possible that some end of line character are inserted at the
+        // end of the string. This is valid, which is why we trim the string
+        // before perfoming the checks.
         String trimmedData = theData.trim();
 
         if (trimmedData.startsWith(startRootString) &&
