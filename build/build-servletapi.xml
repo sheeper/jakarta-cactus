@@ -162,6 +162,17 @@
              These files do not need to be redistributed to end-users. It is
              only needed to put the javadoc online to the Cactus web site. -->
         <property name="dist.javadoc.name" value="${out.root.dir}/${javadoc.name}-${DSTAMP}"/>
+
+        <!-- Custom Ant task definition used in the test targets below.
+             It is used for computing the "-D" parameter list
+             for home directories of defined servlet engines. If a given
+             property is not defined, it won't be added to the list -->
+        <taskdef name="argsList" classname="org.apache.commons.cactus.ant.ArgListTask">
+            <classpath>
+                <pathelement location="${final.jar.ant.name}"/>
+                <pathelement path="${java.class.path}"/>
+            </classpath>
+        </taskdef>
               
     </target>
 
@@ -527,67 +538,17 @@
          Run the functional tests
        ========================================================================
     -->
-    <target name="tests-functional22-resin12-if" if="resin.home.12">
-        <property name="resin.flag.12" value="-Dresin.home.12=${resin.home.12}"/>
-    </target>
-    <target name="tests-functional22-resin12-else" unless="resin.home.12">
-        <property name="resin.flag.12" value=""/>
-    </target>
-    <target name="tests-functional22-resin20-if" if="resin.home.20">
-        <property name="resin.flag.20" value="-Dresin.home.20=${resin.home.20}"/>
-    </target>
-    <target name="tests-functional22-resin20-else" unless="resin.home.20">
-        <property name="resin.flag.20" value=""/>
-    </target>
-    <target name="tests-functional22-tomcat32-if" if="tomcat.home.32">
-        <property name="tomcat.flag.32" value="-Dtomcat.home.32=${tomcat.home.32}"/>
-    </target>
-    <target name="tests-functional22-tomcat32-else" unless="tomcat.home.32">
-        <property name="tomcat.flag.32" value=""/>
-    </target>
-    <target name="tests-functional22-tomcat33-if" if="tomcat.home.33">
-        <property name="tomcat.flag.33" value="-Dtomcat.home.33=${tomcat.home.33}"/>
-    </target>
-    <target name="tests-functional22-tomcat33-else" unless="tomcat.home.33">
-        <property name="tomcat.flag.33" value=""/>
-    </target>
-    <target name="tests-functional22-orion14-if" if="orion.home.14">
-        <property name="orion.flag.14" value="-Dorion.home.14=${orion.home.14}"/>
-    </target>
-    <target name="tests-functional22-orion14-else" unless="orion.home.14">
-        <property name="orion.flag.14" value=""/>
-    </target>
-    <target name="tests-functional22-weblogic51-if" if="weblogic.home.51">
-        <property name="weblogic.flag.51" value="-Dweblogic.home.51=${weblogic.home.51}"/>
-    </target>
-    <target name="tests-functional22-weblogic51-else" unless="weblogic.home.51">
-        <property name="weblogic.flag.51" value=""/>
-    </target>
-    <target name="tests-functional22-enhydra31-if" if="enhydra.home.31">
-        <property name="enhydra.flag.31" value="-Denhydra.home.31=${enhydra.home.31}"/>
-    </target>
-    <target name="tests-functional22-enhydra31-else" unless="enhydra.home.31">
-        <property name="enhydra.flag.31" value=""/>
-    </target>
+    <target name="tests-functional22" depends="sample">
 
-    <target name="tests-functional22-checks"
-        depends="tests-functional22-resin12-if,
-                 tests-functional22-resin12-else,
-                 tests-functional22-resin20-if,
-                 tests-functional22-resin20-else,
-                 tests-functional22-tomcat32-if,
-                 tests-functional22-tomcat32-else,
-                 tests-functional22-tomcat33-if,
-                 tests-functional22-tomcat33-else,
-                 tests-functional22-orion14-if,
-                 tests-functional22-orion14-else,
-                 tests-functional22-weblogic51-if,
-                 tests-functional22-weblogic51-else,
-                 tests-functional22-enhydra31-if,
-                 tests-functional22-enhydra31-else">
-    </target>
-
-    <target name="tests-functional22" depends="sample,tests-functional22-checks">
+        <argsList property="test22.args.list">
+            <property name="resin.home.12"/>
+            <property name="resin.home.20"/>
+            <property name="tomcat.home.32"/>
+            <property name="tomcat.home.33"/>
+            <property name="orion.home.14"/>
+            <property name="weblogic.home.51"/>
+            <property name="enhydra.home.31"/>
+        </argsList>
 
         <java classname="org.apache.tools.ant.Main"
             dir="${out.sample.build.dir}" fork="yes" failonerror="yes">
@@ -600,13 +561,7 @@
             <arg value="-Dlog4j.jar=${log4j.jar}"/>
 
             <!-- Pass all servlet engine properties -->
-            <arg value="${resin.flag.12}"/>
-            <arg value="${resin.flag.20}"/>
-            <arg value="${tomcat.flag.32}"/>
-            <arg value="${tomcat.flag.33}"/>
-            <arg value="${orion.flag.14}"/>
-            <arg value="${weblogic.flag.51}"/>
-            <arg value="${enhydra.flag.31}"/>
+            <arg line="${test22.args.list}"/>
             <arg value="tests_all"/>
 
             <classpath>            
@@ -617,43 +572,14 @@
         
     </target>
 
-    <target name="tests-functional23-resin13-if" if="resin.home.13">
-        <property name="resin.flag.13" value="-Dresin.home.13=${resin.home.13}"/>
-    </target>
-    <target name="tests-functional23-resin13-else" unless="resin.home.13">
-        <property name="resin.flag.13" value=""/>
-    </target>
-    <target name="tests-functional23-resin20-if" if="resin.home.20">
-        <property name="resin.flag.20" value="-Dresin.home.20=${resin.home.20}"/>
-    </target>
-    <target name="tests-functional23-resin20-else" unless="resin.home.20">
-        <property name="resin.flag.20" value=""/>
-    </target>
-    <target name="tests-functional23-tomcat40-if" if="tomcat.home.40">
-        <property name="tomcat.flag.40" value="-Dtomcat.home.40=${tomcat.home.40}"/>
-    </target>
-    <target name="tests-functional23-tomcat40-else" unless="tomcat.home.40">
-        <property name="tomcat.flag.40" value=""/>
-    </target>
-    <target name="tests-functional23-orion14-if" if="orion.home.14">
-        <property name="orion.flag.14" value="-Dorion.home.14=${orion.home.14}"/>
-    </target>
-    <target name="tests-functional23-orion14-else" unless="orion.home.14">
-        <property name="orion.flag.14" value=""/>
-    </target>
+    <target name="tests-functional23" depends="sample">
 
-    <target name="tests-functional23-checks"
-        depends="tests-functional23-resin13-if,
-                 tests-functional23-resin13-else,
-                 tests-functional23-resin20-if,
-                 tests-functional23-resin20-else,
-                 tests-functional23-orion14-if,
-                 tests-functional23-orion14-else,
-                 tests-functional23-tomcat40-if,
-                 tests-functional23-tomcat40-else">
-    </target>
-
-    <target name="tests-functional23" depends="sample,tests-functional23-checks">
+        <argsList property="test23.args.list">
+            <property name="resin.home.13"/>
+            <property name="resin.home.20"/>
+            <property name="tomcat.home.40"/>
+            <property name="orion.home.14"/>
+        </argsList>
 
         <java classname="org.apache.tools.ant.Main"
             dir="${out.sample.build.dir}" fork="yes" failonerror="yes">
@@ -666,10 +592,7 @@
             <arg value="-Dlog4j.jar=${log4j.jar}"/>
 
             <!-- Pass all servlet engine properties -->
-            <arg value="${resin.flag.13}"/>
-            <arg value="${resin.flag.20}"/>
-            <arg value="${orion.flag.14}"/>
-            <arg value="${tomcat.flag.40}"/>
+            <arg line="${test23.args.list}"/>
             <arg value="tests_all"/>
 
             <classpath>            

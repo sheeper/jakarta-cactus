@@ -287,7 +287,7 @@
         </ant>        
     </target>
 
-    <target name="jar" depends="jar.22,jar.23">
+    <target name="jar.ant" depends="init">
 
         <!-- Copy source files to apply tokens -->
         <mkdir dir="${out.src.ant.dir}"/>
@@ -319,6 +319,9 @@
         <jar jarfile="${final.jar.ant.name}" basedir="${out.classes.ant.dir}"
             manifest="${out.conf.ant.dir}/manifest"/>
 
+    </target>
+
+    <target name="jar" depends="jar.ant,jar.22,jar.23">
     </target>
 
     <!-- 
