@@ -75,7 +75,6 @@ import javax.servlet.http.*;
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
- * @see AbstractRequestDispatcherWrapper
  */
 public abstract class AbstractServletContextWrapper implements ServletContext
 {
@@ -130,7 +129,7 @@ public abstract class AbstractServletContextWrapper implements ServletContext
      * log messages that can then later be retrieved and asserted by the
      * test case writer. Note that the throwable is not saved.
      *
-     * @see getLogs()
+     * @see #getLogs()
      */
     public void log(String theMessage, Throwable theCause)
     {
@@ -145,7 +144,7 @@ public abstract class AbstractServletContextWrapper implements ServletContext
      * log messages that can then later be retrieved and asserted by the
      * test case writer. Note that the throwable is not saved.
      *
-     * @see getLogs()
+     * @see #getLogs()
      */
     public void log(String theMessage)
     {
@@ -160,7 +159,7 @@ public abstract class AbstractServletContextWrapper implements ServletContext
      * log messages that can then later be retrieved and asserted by the
      * test case writer. Note that the throwable is not saved.
      *
-     * @see getLogs()
+     * @see #getLogs()
      */
     public void log(Exception theException, String theMessage)
     {
