@@ -101,6 +101,17 @@ public class WebMerge
     private File output;
 
     /**
+     * List of XML elements to merge from the override document to the
+     * original document. For each element we also specify if the element
+     * can be inserted in the original document or whether it should replace
+     * the element of the same name in the original document. 
+     */
+    private static final String[][] ELEMENTS = { 
+        {"filter", "true"}, {"filter-mapping", "true"}, {"servlet", "true"},
+        {"servlet-mapping", "true"}, {"security-constraint", "false"}, 
+        {"login-config", "false"}, {"security-role", "false"}};
+    
+    /**
      * Noop entity resolver so that <code>DOCTYPE</code> entries in XML files
      * do not cause any exception when we are offline and the entity to 
      * resolve is an external URI. 
@@ -166,14 +177,33 @@ public class WebMerge
         {
             return theOverrideDoc;
         }
-        
-        // Add <servlet> elements
-        currentNode = insertTag("servlet", currentNode, theOriginalDoc, 
-            theOverrideDoc);
 
-        // Add <servlet-mapping> elements
-        currentNode = insertTag("servlet-mapping", currentNode, 
-            theOriginalDoc, theOverrideDoc);
+        // Merge the elements
+        for (int i = 0; i < ELEMENTS.length; i++)
+        {
+            currentNode = insertTag(ELEMENTS[i][0], currentNode, 
+                theOriginalDoc, theOverrideDoc);            
+
+            // If the element is unique and present in the override document
+            // and the original document, then remove it from the original
+            // document.
+            if (!new Boolean(ELEMENTS[i][1]).booleanValue()) 
+            {
+                NodeList originalNl = 
+                    theOriginalDoc.getElementsByTagName(ELEMENTS[i][0]);
+                NodeList overrideNl = 
+                    theOverrideDoc.getElementsByTagName(ELEMENTS[i][0]);
+                if (overrideNl.getLength() > 0)
+                { 
+                    if (originalNl.getLength() > 0)
+                    {
+                        theOriginalDoc.getDocumentElement().removeChild(
+                            theOriginalDoc.getElementsByTagName(
+                            ELEMENTS[i][0]).item(0));
+                    }
+                }
+            }
+        }
  
         return theOriginalDoc;       
     }
