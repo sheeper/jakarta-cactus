@@ -484,23 +484,13 @@
             <fileset dir=".">
                 <include name="**/*.bak"/>
                 <include name="${xdoc.dir}/cvslog/cvslog.xml"/>
+                <include name="**/*.log"/>
             </fileset>
-        </delete>
-
-        <!-- Deletes all files ending with '~' -->
-        <delete>
             <fileset dir="." includes="**/*~" defaultexcludes="no"/>
         </delete>
 
         <!-- Remove the out directory -->
         <delete dir="${out.root.dir}"/>
-
-        <!-- Delete log files and version.txt -->
-        <delete>
-            <fileset dir=".">
-                <include name="**/*.log"/>
-            </fileset>
-        </delete>
 
     </target>
 
@@ -601,6 +591,7 @@
                 <exclude name="**/*.log"/>
                 <exclude name="**/*.bak"/>
                 <exclude name="**/*.class"/>
+                <exclude name="**/.nbattrs"/>
 
             </zipfileset>
         </zip>
