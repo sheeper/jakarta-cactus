@@ -31,8 +31,10 @@ framework/target-13
 /misc
 petals/ant/ant.bat
 petals/ant/build.properties
-petals/ant/dist
-petals/ant/target
+petals/ant/dist-12
+petals/ant/dist-13
+petals/ant/target-12
+petals/ant/target-13
 /release
 sample-jetty/ant.bat
 sample-jetty/build.properties
