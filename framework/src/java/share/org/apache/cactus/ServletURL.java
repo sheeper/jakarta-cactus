@@ -142,6 +142,16 @@ public class ServletURL
     public static final String PROTOCOL_HTTPS = "https";
 
     /**
+     * Default port of the HTTP protocol.
+     */
+    private static final int DEFAULT_PORT_HTTP = 80;
+
+    /**
+     * Default port of HTTP over SSL.
+     */
+    private static final int DEFAULT_PORT_HTTPS = 443;
+
+    /**
      * The logger
      */
     private static final Log LOGGER = LogFactory.getLog(ServletURL.class);
@@ -320,6 +330,14 @@ public class ServletURL
     }
 
     /**
+     * Returns the host name.
+     * 
+     * <p>
+     *   The host name is extracted from the specified server name (as in 
+     *   <code><strong>jakarta.apache.org</strong>:80</code>). If the server
+     *   name has not been set, this method will return <code>null</code>.
+     * </p>
+     * 
      * @return the simulated URL server name (excluding the port number)
      */
     public String getHost()
@@ -340,8 +358,19 @@ public class ServletURL
     }
 
     /**
-     * @return the port number or -1 if none has been defined or it is a bad
-     *         port
+     * Returns the port.
+     * 
+     * <p>
+     *   The port is extracted from the specified server name (as in 
+     *   <code>jakarta.apache.org:<strong>80</strong></code>). If the server
+     *   name doesn't contain a port number, the default port number is returned
+     *   (80 for HTTP, 443 for HTTP over SSL). If a port number is specified but
+     *   illegal, or the server name has not been set, this method will return
+     *   -1.
+     * </p>
+     * 
+     * @return the simulated port number or -1 if an illegal port has been
+     *          specified
      */
     public int getPort()
     {
@@ -353,16 +382,25 @@ public class ServletURL
 
             if (pos < 0)
             {
-                return -1;
+                // the server name doesn't contain a port specification, so use
+                // the default port for the protocol
+                port = getDefaultPort();
             }
-
-            try
+            else
             {
-                port = Integer.parseInt(getServerName().substring(pos + 1));
-            }
-            catch (NumberFormatException e)
-            {
-                port = -1;
+                // parse the port encoded in the server name
+                try
+                {
+                    port = Integer.parseInt(getServerName().substring(pos + 1));
+                    if (port < 0)
+                    {
+                        port = -1;
+                    }
+                }
+                catch (NumberFormatException e)
+                {
+                    port = -1;
+                }
             }
         }
 
@@ -602,4 +640,22 @@ public class ServletURL
 
         return buffer.toString();
     }
+
+    /**
+     * Returns the default port for the protocol.
+     * 
+     * @return the default port (80 for HTTP, 443 for HTTP over SSL)
+     */
+    private int getDefaultPort()
+    {
+        if (PROTOCOL_HTTPS.equals(getProtocol()))
+        {
+            return DEFAULT_PORT_HTTPS;
+        }
+        else
+        {
+            return DEFAULT_PORT_HTTP;
+        }
+    }
+
 }
