@@ -189,7 +189,7 @@ public class GenericAntProvider implements IContainerProvider
         String[] targets = getMasked("cactus.run.");
         AntRunner runner = createAntRunner(targets);
         serverStopped = false;
-        runner.run(new SubProgressMonitor(thePM, 1));
+        runner.run(new SubProgressMonitor(thePM, 8));
         serverStopped = true;
     }
 
@@ -235,12 +235,12 @@ public class GenericAntProvider implements IContainerProvider
         if (eclipseRunner != null)
         {
             eclipseRunner.finish();
-            thePM.worked(10);
+            thePM.worked(30);
             while (!serverStopped)
             {
                 try
                 {
-                    Thread.sleep(100);
+                    Thread.sleep(300);
                     thePM.worked(1);
                 }
                 catch (InterruptedException e)
