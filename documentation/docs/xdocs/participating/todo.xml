@@ -74,22 +74,6 @@
         provided web.xml.
       </action>
     </category>
-
-    <category title="Eclipse Plugin">
-      <action assigned-to="Julien Ruaux">
-        Changed directory structure to 
-        <code>integration/eclipse/org.apache.cactus.eclipse/</code>, in order
-        to allow for several other Eclipse plugins, Eclipse features and 
-        Eclipse sites. And this is the standard directory structure for Eclipse
-        plugins.
-      </action>
-      <action assigned-to="Julien Ruaux">
-        Add an Eclipse Feature to distribute our Eclipse plugin.
-      </action>
-      <action assigned-to="Julien Ruaux">
-        Add an Eclipse Site to distribute our Eclipse plugin.
-      </action>
-    </category>
     
   </version>
 
