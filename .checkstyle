@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<checkstyle>
+    <file-filters>
+        <file-filter value="dist-12"/>
+        <file-filter value="dist-13"/>
+        <file-filter value="target-12"/>
+        <file-filter value="target-13"/>
+        <file-filter value="dist"/>
+        <file-filter value="target"/>
+    </file-filters>
+</checkstyle>
