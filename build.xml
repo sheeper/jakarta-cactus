@@ -456,18 +456,19 @@
         <copy todir="${target.lib.dir}" file="${aspectjrt.jar}"/>
 
         <zip zipfile="${release.dir}/${cactus.release.name}.zip">
-            <fileset dir="${dist.dir}"/>
+
+            <zipfileset dir="${dist.dir}" prefix="${cactus.release.name}"/>
 
             <!-- Add the external libraries to the zip (except the j2ee.jar one
                  as it is already present in containers -->
-            <zipfileset dir="${target.lib.dir}" prefix="lib">
+            <zipfileset dir="${target.lib.dir}" prefix="${cactus.release.name}/lib">
                 <include name="*.jar"/>
             </zipfileset>
 
             <!-- Add the licenses -->
-            <fileset dir=".">
+            <zipfileset dir="." prefix="${cactus.release.name}">
                 <include name="LICENSE.*"/>
-            </fileset>
+            </zipfileset>
         </zip>
 
     </target>
