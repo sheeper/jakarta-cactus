@@ -132,6 +132,11 @@
         Add support for multi-concurrent Cactus tests. This involves storing
         each test result under a unique key in the application scope.
       </action>
+      <action>
+        Improve support for the JUnitReport XML format so that the Ant-provided
+        <code>junit-noframes.xsl</code> XSL is completely supported. ATM, some
+        sections appear blank.
+      </action>
     </category>
 
     <category title="Ideas">
