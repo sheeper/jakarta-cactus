@@ -45,6 +45,7 @@
 
     <ant buildfile="documentation/build.xml" target="dist">
       <depend property="cactus.ant.jar" project="jakarta-cactus-ant"/>
+      <property name="cvs.executable" value="cvs"/>
     </ant>
   
     <depend project="jakarta-ant"/>
@@ -224,6 +225,7 @@
       <property name="dist.dir" value="dist-12"/>
       <property name="target.dir" value="target-12"/>
       <property name="release.dir" value="release-12"/>
+      <property name="cvs.executable" value="cvs"/>
 
     </ant>
 
@@ -260,6 +262,7 @@
       <property name="dist.dir" value="dist-13"/>
       <property name="target.dir" value="target-13"/>
       <property name="release.dir" value="release-13"/>
+      <property name="cvs.executable" value="cvs"/>
 
     </ant>
 
