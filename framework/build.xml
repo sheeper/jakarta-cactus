@@ -456,7 +456,10 @@
 
         <mkdir dir="${target.doc.api.dir}"/>
 
-        <ajdoc
+        <!-- Ideally we should use Ajdoc. However, the generated output is not
+             as nice as the javadoc output. In addition, ajdoc does not 
+             currently work with the JDK 1.4 (at least until Ajdoc 1.0.6). -->
+        <javadoc
             packagenames="org.apache.cactus.*"
             destdir="${target.doc.api.dir}"
             author="true"
@@ -474,7 +477,7 @@
 
             <classpath refid="project.class.path"/>
 
-        </ajdoc>
+        </javadoc>
 
     </target>
 
