@@ -103,7 +103,7 @@ public abstract class AbstractTestCase extends TestCase
     /**
      * The logger (only used on the client side).
      */
-    protected static Log logger;
+    protected Log logger;
 
     /**
      * Constructs a JUnit test case with the given name.
@@ -359,9 +359,12 @@ public abstract class AbstractTestCase extends TestCase
         // side, so we instanciate the log for client side here.
         if (!LogService.getInstance().isInitialized()) {
             LogService.getInstance().init("/log_client.properties");
-            this.logger =
-                LogService.getInstance().getLog(this.getClass().getName());
         }
+
+        // We make sure we reinitialize the logger with the name of the
+        // current class (that's why the logge instance is not static).
+        this.logger =
+            LogService.getInstance().getLog(this.getClass().getName());
 
         // Catch the exception just to have a chance to log it
         try {
