@@ -99,6 +99,9 @@ import org.apache.tools.ant.types.FileSet;
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
+ * 
+ * @deprecated A task with equivalent capabilities is now included in the Ant
+ *             distribution in form of the &lt;cvschangelog&gt; task.
  */
 public class ChangeLogTask extends Task implements ExecuteStreamHandler
 {
