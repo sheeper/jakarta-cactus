@@ -39,8 +39,8 @@
         extends it.
       </p>
       <p>
-        Cactus implements an in-container strategy (See
-        <link href="site:how_it_works">How it works</link>).
+        Cactus implements an in-container strategy, meaning that tests are
+        executed inside the container.
       </p>
       <figure src="images/ecosystem.jpg" alt="The Cactus Ecosystem"
         usemap="#ecosystem">
