@@ -79,6 +79,12 @@ Note: To be added once we include the Eclipse plugin in a release
 	
       <release version="1.5" date="- in CVS">
         <action dev="VMA" type="update">
+          Support for WebLogic 6.x is still available in the Ant integration.
+          However, it has not been tested as it is no longer possible to
+          download WebLogic 6.x from the BEA web site. It is thus completely
+          untested.
+        </action>
+        <action dev="VMA" type="update">
           Update of jars bundled in the Cactus distribution: Commons Logging
           1.0.3, Log4j 1.2.8, HttpClient 2.0beta2, HttpUnit 1.5.3 and 
           JUnit 3.8.1. In addition the requirements for the jars needed to 
