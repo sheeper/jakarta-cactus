@@ -4,6 +4,7 @@
 
   <xsl:param name="stylebook.project"/>
   <xsl:param name="copyright"/>
+  <xsl:param name="updated"/>
   <xsl:param name="docid"/>
   <xsl:param name="target"/>
 
@@ -83,7 +84,7 @@
             <td width="14%" valign="top" nowrap="1">
 
             <font size="-2">
-              Last update : <xsl:value-of select="@updated"/>
+              Last update : <xsl:value-of select="$updated"/>
             </font>
 
               <br/>
