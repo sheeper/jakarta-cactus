@@ -5,5 +5,9 @@ All documentation is available online at http://jakarta.apache.org/cactus. The
 documentation is also packaged in the distributions (which you can get on
 http://jakarta.apache.org/cactus/downloads.html).
 
+To build Cactus from CVS, please refer to the following tuturial which contains
+detailed explanations:
+http://jakarta.apache.org/cactus/participating/howto_build.html
+
 Thank you.
 The Cactus Team
