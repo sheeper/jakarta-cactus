@@ -745,12 +745,14 @@
         select="document(concat($xdocdir,'/',$cvslogfile))/changelog"/>
       <xsl:choose>
         <xsl:when test="$cvslog/entry">
-          <table width="100%" border="1" cellspacing="2" cellpadding="2">
-            <caption><xsl:value-of select="caption"/></caption>
-            <xsl:apply-templates select="$cvslog/entry">
-              <xsl:sort select="concat(date,time)" order="descending"/>
-            </xsl:apply-templates>
-          </table>
+          <div class="tabular">
+            <table width="100%" border="1" cellspacing="2" cellpadding="2">
+              <caption><xsl:value-of select="caption"/></caption>
+              <xsl:apply-templates select="$cvslog/entry">
+                <xsl:sort select="concat(date,time)" order="descending"/>
+              </xsl:apply-templates>
+            </table>
+          </div>
         </xsl:when>
         <xsl:otherwise>
           <xsl:text>&lt;no changes&gt;</xsl:text><br/>
@@ -761,9 +763,9 @@
 
   <xsl:template match="entry">
     <tr>
-      <td nowrap="true">
+      <th nowrap="true">
         <xsl:value-of select="date"/>
-      </td>
+      </th>
       <td>
         <xsl:for-each select="file">
           <a>
