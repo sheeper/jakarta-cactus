@@ -407,6 +407,7 @@
         <copy tofile="${target.lib.dir}/cactus.jar" file="${cactus.framework.jar}"/>
         <copy tofile="${target.lib.dir}/aspectjrt.jar" file="${aspectjrt.jar}"/>
         <copy tofile="${target.lib.dir}/commons-logging.jar" file="${commons.logging.jar}"/>
+        <copy tofile="${target.lib.dir}/httpunit.jar" file="${httpunit.jar}"/>
 
         <!-- Copy the log4j server configuration file in order to change its
              name to log4j.properties (the default name for Log4j) -->
