@@ -101,7 +101,6 @@ public class GenericAntProvider implements IContainerProvider
      * the context path for the test web app
      */
     private String contextPath = null;
-
     /**
      * Array containing all the information needed
      * (target mask & container home directory)
@@ -202,7 +201,7 @@ public class GenericAntProvider implements IContainerProvider
                 null);
         }
         antArguments.add(
-            "-Dcactus.eclipseintegration.jar.name=" + libURL.getPath());
+            "-Dcactus.plugin.jar=" + libURL.getPath());
         thePM.subTask(CactusMessages.getString("CactusLaunch.message.start"));
         String[] targets = getMasked("cactus.run.");
         AntRunner runner = createAntRunner(targets);
