@@ -5,7 +5,9 @@
 <configuration>
     <check classname="com.puppycrawl.tools.checkstyle.checks.AvoidStarImport"/>
     <check classname="com.puppycrawl.tools.checkstyle.checks.ConstantNameCheck"/>
-    <!--check classname="com.puppycrawl.tools.checkstyle.checks.EmptyBlockCheck"/-->
+    <check classname="com.puppycrawl.tools.checkstyle.checks.EmptyBlockCheck">
+        <property name="option" value="text"/>
+    </check>
     <!--check classname="com.puppycrawl.tools.checkstyle.checks.EqualsHashCodeCheck"/-->
     <check classname="com.puppycrawl.tools.checkstyle.checks.FileLengthCheck"/>
     <check classname="com.puppycrawl.tools.checkstyle.checks.HeaderCheck"/>
@@ -26,7 +28,7 @@
     <check classname="com.puppycrawl.tools.checkstyle.checks.MethodLengthCheck"/>
     <check classname="com.puppycrawl.tools.checkstyle.checks.MethodNameCheck"/>
     <check classname="com.puppycrawl.tools.checkstyle.checks.ModifierCheck"/>
-    <!--check classname="com.puppycrawl.tools.checkstyle.checks.NoWhiteSpaceBeforeCheck"/-->
+    <check classname="com.puppycrawl.tools.checkstyle.checks.NoWhitespaceBeforeCheck"/>
     <check classname="com.puppycrawl.tools.checkstyle.checks.NoWhitespaceAfterCheck"/>
     <check classname="com.puppycrawl.tools.checkstyle.checks.OtherLeftCurlyCheck">
         <property name="option" value="nl"/>
