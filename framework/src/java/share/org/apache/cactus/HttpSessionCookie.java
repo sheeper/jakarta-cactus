@@ -60,7 +60,7 @@ package org.apache.cactus;
  * Cookie containing an HTTP Session id.
  * 
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- * @version $Id: $
+ * @version $Id: TestHttpSession.java,v 1.4 2003/05/26 12:15:14 cmlenz Exp $
  * @since 1.5
  */
 public class HttpSessionCookie extends Cookie
