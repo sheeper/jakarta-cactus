@@ -63,6 +63,7 @@ import java.io.*;
 import junit.framework.*;
 
 import org.apache.commons.cactus.*;
+import org.apache.commons.cactus.server.*;
 import org.apache.commons.cactus.util.*;
 
 /**
@@ -460,6 +461,25 @@ public class TestServletTestCase2 extends ServletTestCase
         String result = theResponse.getText();
         assert("Page not found, got [" + result + "]",
             result.indexOf("Hello !") > 0);
+    }
+
+    //-------------------------------------------------------------------------
+
+    /**
+     * Verify that calls to <code>ServletContext.log()</code> methods can
+     * be retrieved and asserted.
+     */
+    public void testGetLogs()
+    {
+        String message = "some test log";
+        ServletContext context = config.getServletContext();
+
+        context.log(message);
+
+        Vector logs = ((ServletContextWrapper)context).getLogs();
+        assertEquals("Found more than one log message", logs.size(), 1);
+        assert("Cannot find expected log message : [" + message + "]",
+            logs.contains("some test log"));
     }
 
 }
