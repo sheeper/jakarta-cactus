@@ -157,7 +157,8 @@ public class WebXmlMergeTask extends Task
                     WebXmlMerger merger = new WebXmlMerger(srcWebXml);
                     merger.setLog(new AntLog(this));
                     merger.merge(mergeWebXml);
-                    WebXmlIo.writeWebXml(srcWebXml, this.destFile);
+                    WebXmlIo.writeWebXml(srcWebXml, this.destFile,
+                        this.encoding, this.indent);
                 }
                 else
                 {
