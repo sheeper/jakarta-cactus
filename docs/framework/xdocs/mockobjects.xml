@@ -8,7 +8,7 @@
   <header>
     <title>Mock Objects vs In-Container testing</title>
     <authors>
-      <person name="Vincent Massol" email="vmassol@users.sourceforge.net"/>
+      <person name="Vincent Massol" email="vmassol@apache.org"/>
     </authors>
   </header>
 
