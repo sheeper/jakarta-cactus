@@ -1,0 +1,1 @@
+This jar is used for building the plugin. This is temporary solution to providing the jar, since the patch should be included in a next release of Eclipse.
