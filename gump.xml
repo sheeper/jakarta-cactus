@@ -26,6 +26,7 @@
   
     <depend project="jakarta-ant" inherit="runtime"/>
     <depend project="xml-xerces"/>
+    <option project="checkstyle" inherit="runtime"/>
 
     <home nested="anttasks/dist"/>
     <jar name="lib/cactus-ant.jar"/>
