@@ -61,9 +61,12 @@ import java.util.Iterator;
 
 import org.apache.cactus.integration.ant.deployment.WarArchive;
 import org.apache.cactus.integration.ant.deployment.WebXml;
+import org.apache.cactus.integration.ant.deployment.WebXmlTag;
 import org.apache.cactus.integration.ant.deployment.WebXmlVersion;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Project;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 /**
  * Unit tests for {@link CactifyWarTask}.
@@ -435,6 +438,29 @@ public final class TestCactifyWarTask extends AntTestCase
             webXml.getServletMappings("ServletRedirectorSecure").next());
         assertTrue(webXml.hasSecurityRole("test"));
         assertTrue(webXml.hasSecurityRole("cactus"));
+        assertTrue(webXml.hasSecurityConstraint("/ServletRedirectorSecure"));
+        Element securityConstraintElement =
+            webXml.getSecurityConstraint("/ServletRedirectorSecure");
+        assertNotNull(securityConstraintElement);
+        Element authConstraintElement = (Element)
+            securityConstraintElement.getElementsByTagName(
+                "auth-constraint").item(0);
+        assertNotNull(authConstraintElement);
+        NodeList roleNameElements =
+            authConstraintElement.getElementsByTagName("role-name");
+        assertEquals(2, roleNameElements.getLength());
+        assertEquals("test",
+            roleNameElements.item(0).getChildNodes().item(0).getNodeValue());
+        assertEquals("cactus",
+            roleNameElements.item(1).getChildNodes().item(0).getNodeValue());
+        Iterator loginConfigElements =
+            webXml.getElements(WebXmlTag.LOGIN_CONFIG);
+        assertTrue(loginConfigElements.hasNext());
+        Element loginConfigElement = (Element) loginConfigElements.next();
+        Element authMethodElement = (Element)
+            loginConfigElement.getElementsByTagName("auth-method").item(0);
+        assertEquals("BASIC",
+            authMethodElement.getChildNodes().item(0).getNodeValue());
     }
 
     /**

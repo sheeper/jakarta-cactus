@@ -203,15 +203,29 @@ public class CactifyWarTask extends War
          * 
          * @param theWebXml The deployment descriptor
          */
-        protected void addRoles(WebXml theWebXml)
+        protected void addSecurity(WebXml theWebXml)
         {
             StringTokenizer tokenizer = new StringTokenizer(this.roles, ",");
+            List roles = new ArrayList();
             while (tokenizer.hasMoreTokens())
             {
                 String role = tokenizer.nextToken().trim();
                 if (!theWebXml.hasSecurityRole(role))
                 {
                     theWebXml.addSecurityRole(role);
+                }
+                roles.add(role);
+            }
+            if (!roles.isEmpty())
+            {
+                if (!theWebXml.hasLoginConfig())
+                {
+                    theWebXml.setLoginConfig("BASIC", "Cactus Test Realm");
+                }
+                if (!theWebXml.hasSecurityConstraint(this.mapping))
+                {
+                    theWebXml.addSecurityConstraint("Cactus Test Redirector",
+                        this.mapping, roles);
                 }
             }
         }
@@ -244,7 +258,7 @@ public class CactifyWarTask extends War
                 theWebXml.addFilterMapping(this.name, this.mapping);
                 if (this.roles != null)
                 {
-                    addRoles(theWebXml);
+                    addSecurity(theWebXml);
                 }
             }
         }
@@ -275,7 +289,7 @@ public class CactifyWarTask extends War
             theWebXml.addServletMapping(this.name, this.mapping);
             if (this.roles != null)
             {
-                addRoles(theWebXml);
+                addSecurity(theWebXml);
             }
         }
         
@@ -305,7 +319,7 @@ public class CactifyWarTask extends War
             theWebXml.addServletMapping(this.name, this.mapping);
             if (this.roles != null)
             {
-                addRoles(theWebXml);
+                addSecurity(theWebXml);
             }
         }
         
