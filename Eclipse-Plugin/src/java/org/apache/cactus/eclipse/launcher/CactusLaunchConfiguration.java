@@ -58,12 +58,10 @@ package org.apache.cactus.eclipse.launcher;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.MessageFormat;
-import java.util.Vector;
 
 import org.eclipse.core.boot.BootLoader;
 import org.eclipse.core.runtime.CoreException;
@@ -71,7 +69,6 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.ILaunchConfiguration;
-import org.eclipse.debug.core.ILaunchManager;
 import org.eclipse.debug.core.model.ISourceLocator;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IType;
@@ -201,7 +198,7 @@ public class CactusLaunchConfiguration extends JUnitLaunchConfiguration
         int thePort, String theRunMode) throws CoreException
     {
         // Get the VM used by the JUnit plugin
-        VMRunnerConfiguration vmConfig = super.createVMRunner(theConfiguration,        
+        VMRunnerConfiguration vmConfig = super.createVMRunner(theConfiguration,
             theTestTypes, thePort, theRunMode);
             
         // Add Cactus specific arguments
