@@ -121,7 +121,8 @@
         <!-- TODO: Perform a web.xml merge -->
 
         <!-- Copy the Cactus web.xml -->
-        <copy todir="${cactus.target.dir}/${cactus.context}/WEB-INF">
+        <copy todir="${cactus.target.dir}/${cactus.context}/WEB-INF" 
+        	overwrite="true">
             <fileset dir="${cactus.conf.dir}">
                 <include name="web.xml"/>
             </fileset>
