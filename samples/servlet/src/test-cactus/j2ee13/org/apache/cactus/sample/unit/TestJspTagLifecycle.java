@@ -103,7 +103,7 @@ public class TestJspTagLifecycle extends JspTestCase
             new JspTagLifecycle(null, new OutTag());
             fail("Expected NullPointerException");
         }
-        catch (NullPointerException npe)
+        catch (NullPointerException expected)
         {
             // expected
         }
@@ -120,7 +120,7 @@ public class TestJspTagLifecycle extends JspTestCase
             new JspTagLifecycle(pageContext, null);
             fail("Expected NullPointerException");
         }
-        catch (NullPointerException npe)
+        catch (NullPointerException expected)
         {
             // expected
         }
@@ -140,7 +140,7 @@ public class TestJspTagLifecycle extends JspTestCase
             lifecycle.addInterceptor(null);
             fail("Expected NullPointerException");
         }
-        catch (NullPointerException npe)
+        catch (NullPointerException expected)
         {
             // expected
         }
@@ -160,7 +160,7 @@ public class TestJspTagLifecycle extends JspTestCase
             lifecycle.addNestedTag(null);
             fail("Expected NullPointerException");
         }
-        catch (NullPointerException npe)
+        catch (NullPointerException expected)
         {
             // expected
         }
@@ -180,7 +180,7 @@ public class TestJspTagLifecycle extends JspTestCase
             lifecycle.addNestedText(null);
             fail("Expected NullPointerException");
         }
-        catch (NullPointerException npe)
+        catch (NullPointerException expected)
         {
             // expected
         }
@@ -200,7 +200,7 @@ public class TestJspTagLifecycle extends JspTestCase
             lifecycle.expectScopedVariableExposed(null, new Object[] {"value"});
             fail("Expected NullPointerException");
         }
-        catch (NullPointerException npe)
+        catch (NullPointerException expected)
         {
             // expected
         }
@@ -220,7 +220,7 @@ public class TestJspTagLifecycle extends JspTestCase
             lifecycle.expectScopedVariableExposed("name", null);
             fail("Expected NullPointerException");
         }
-        catch (NullPointerException npe)
+        catch (NullPointerException expected)
         {
             // expected
         }
@@ -240,7 +240,7 @@ public class TestJspTagLifecycle extends JspTestCase
             lifecycle.expectScopedVariableExposed("name", new Object[0]);
             fail("Expected IllegalArgumentException");
         }
-        catch (IllegalArgumentException iae)
+        catch (IllegalArgumentException expected)
         {
             // expected
         }
@@ -261,7 +261,7 @@ public class TestJspTagLifecycle extends JspTestCase
                 "name", new Object[]{"value"}, 0);
             fail("Expected IllegalArgumentException");
         }
-        catch (IllegalArgumentException iae)
+        catch (IllegalArgumentException expected)
         {
             // expected
         }
@@ -714,7 +714,7 @@ public class TestJspTagLifecycle extends JspTestCase
             lifecycle.invoke();
             fail("Expected JSPTagException");
         } 
-        catch (JspTagException je)
+        catch (JspTagException expected)
         {
             // expected
         }
