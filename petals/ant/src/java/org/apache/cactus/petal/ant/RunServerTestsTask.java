@@ -168,6 +168,7 @@ public class RunServerTestsTask extends Task
         callee.setTaskName(getTaskName());
         callee.setLocation(location);
         callee.setInheritAll(true);
+        callee.setInheritRefs(true);
         callee.init();
         callee.setTarget(this.testTarget);
         callee.execute();
