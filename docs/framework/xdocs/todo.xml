@@ -61,8 +61,8 @@
       <p>
         All tasks that are related to building Cactus in general.
       </p>
-      <action>
-        Add Ant scripts to support WebLogic 6.0.
+      <action assigned-to="Wind Li">
+        Add Ant scripts to support WebLogic 6.x.
       </action>
       <action assigned-to="Bob Tanner">
         Finalize support for Enhydra 3.1.1. There are some errors upon
