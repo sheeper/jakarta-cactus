@@ -40,7 +40,7 @@
         <code>cactus.test.includes</code>/<code>cactus.test.excludes</code> thus
         leading to tests not being included/excluded.
       </action>
-      <action dev="VMA" type="update">
+      <action dev="vmassol" type="update">
         Updated the version of Commons HttpClient in the Cactus distribution 
         to 2.0 final.
       </action>
