@@ -60,9 +60,9 @@ import org.apache.cactus.*;
 import org.apache.cactus.util.log.*;
 
 /**
- * Extension of the <code>redirector.jsp</code> JSP Redirector in the java
+ * Extension of the <code>jspRedirector.jsp</code> JSP Redirector in the java
  * realmn in order to provide a symmetry with the <code>ServletRedirector</code>
- * and minimize the amount of java code in <code>redirector.jsp</code>.
+ * and minimize the amount of java code in <code>jspRedirector.jsp</code>.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
@@ -86,7 +86,7 @@ public class JspTestRedirector
         LogService.getInstance().getLog(JspTestRedirector.class.getName());
 
     /**
-     * Handles requests from the <code>redirector.jsp</code> JSP Redirector.
+     * Handles requests from the <code>jspRedirector.jsp</code> JSP Redirector.
      * @param theObjects the implicit objects that will be passed to the test
      *        case
      */

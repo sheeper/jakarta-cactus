@@ -134,6 +134,24 @@ public class FilterTestRedirector implements Filter
     }
 
     /**
+     * Provided so that it works with containers that do not support the
+     * latest Filter spec yet ! (ex: Orion 1.5.2 !)
+     */
+    public void setFilterConfig(FilterConfig theConfig)
+    {
+        this.config = theConfig;
+    }
+
+    /**
+     * Provided so that it works with containers that do not support the
+     * latest Filter spec yet ! (ex: Orion 1.5.2 !)
+     */
+    public FilterConfig getFilterConfig()
+    {
+        return this.config;
+    }
+
+    /**
      * Destroy the filter. Called by the container.
      */
     public void destroy()

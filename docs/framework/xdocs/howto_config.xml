@@ -305,7 +305,7 @@ log4j.category.org.apache.cactus = DEBUG, cactus
     <!-- JSP Redirector URL configuration -->
     <servlet>
         <servlet-name>JspRedirector</servlet-name>
-        <jsp-file>/somewhere/redirector.jsp</jsp-file>
+        <jsp-file>/somewhere/jspRedirector.jsp</jsp-file>
     </servlet>
 
     <!-- Servlet Redirector URL mapping -->
@@ -335,7 +335,7 @@ log4j.category.org.apache.cactus = DEBUG, cactus
           <note>
             If you are using the JSP Redirector (i.e. you have test classes
             that extend <code>JspTestCase</code>), you <strong>must</strong>
-            copy the <code>redirector.jsp</code> file (found in the
+            copy the <code>jspRedirector.jsp</code> file (found in the
             <code>sample/web/test</code> directory where you unpacked your
             Cactus distribution) anywhere in your webapp and you need to
             out it's relative path in the mapping defined above (here we
@@ -350,7 +350,7 @@ log4j.category.org.apache.cactus = DEBUG, cactus
             mapping in <code>web.xml</code> for the JSP Redirector and use
             the following URL in your <code>cactus.properties</code> :
             <code>cactus.jspRedirectorURL =
-            http://localhost:8080/test/somewhere/redirector.jsp</code>
+            http://localhost:8080/test/somewhere/jspRedirector.jsp</code>
           </note>
 
           <p>

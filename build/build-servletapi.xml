@@ -514,7 +514,7 @@
         </copy>
 
         <!-- Copy web files -->
-        <copy file="${web.dir}/redirector.jsp" tofile="${out.sample.web.dir}/test/redirector.jsp"/>
+        <copy file="${web.dir}/jspRedirector.jsp" tofile="${out.sample.web.dir}/test/jspRedirector.jsp"/>
         <copy todir="${out.sample.web.dir}">
             <fileset dir="${sample.web.dir}"/>
         </copy>

@@ -228,5 +228,5 @@ src/test/share/org/apache/cactus/TestAbstractTestCase.java svn_keywords=Author+D
 src/test/share/org/apache/cactus/TestAbstractTestCase_InterceptorTestCase.java svn_keywords=Author+Date+Id+Revision
 src/test/share/org/apache/cactus/TestAll.java svn_keywords=Author+Date+Id+Revision
 src/test/share/org/apache/cactus/mock/MockHttpURLConnection.java svn_keywords=Author+Date+Id+Revision
-web/redirector.jsp svn_keywords=Author+Date+Id+Revision
+web/jspRedirector.jsp svn_keywords=Author+Date+Id+Revision
 web/sample/test/test.jsp svn_keywords=Author+Date+Id+Revision

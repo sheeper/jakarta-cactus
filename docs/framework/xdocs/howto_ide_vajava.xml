@@ -90,7 +90,7 @@
         <code>cactus.properties</code>, you should simply
         put the JSP file name, as in
         "<code>cactus.jspRedirectorURL =
-        http://localhost:8080/test/redirector.jsp</code>". This is only needed
+        http://localhost:8080/test/jspRedirector.jsp</code>". This is only needed
         if you have test cases that extend <code>JspTestCase</code>.
       </note>
 
@@ -231,7 +231,7 @@
       <s2 title="Copy the Cactus JSP Redirector file">
 
         <p>
-          Copy the <code>{Cactus dir}/sample/web/test/redirector.jsp</code>
+          Copy the <code>{Cactus dir}/sample/web/test/jspRedirector.jsp</code>
           file to <code>{WTE dir}/hosts/default_host/test/web</code>.
         </p>
 

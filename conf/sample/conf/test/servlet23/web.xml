@@ -13,7 +13,14 @@
 
     <filter-mapping>
         <filter-name>FilterRedirector</filter-name>
-        <url-pattern>/FilterRedirector/</url-pattern>
+
+        <!-- Some servlet 2.3 containers need to map the filter to a valid
+             resource (Orion 1.5.2 for example). Others, like Tomcat,
+             are happy with just any mapping.
+
+             For example, the following would work with Tomcat :
+             <url-pattern>/FilterRedirector/</url-pattern> -->
+        <url-pattern>/test/filterRedirector.jsp</url-pattern>
     </filter-mapping>
 
     <servlet>
@@ -27,7 +34,7 @@
 
     <servlet>
         <servlet-name>JspRedirector</servlet-name>
-        <jsp-file>/test/redirector.jsp</jsp-file>
+        <jsp-file>/test/jspRedirector.jsp</jsp-file>
         <init-param>
           <param-name>param1</param-name>
           <param-value>value1 used for testing</param-value>

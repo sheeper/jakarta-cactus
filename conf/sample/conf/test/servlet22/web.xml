@@ -17,7 +17,7 @@
 
     <servlet>
         <servlet-name>JspRedirector</servlet-name>
-        <jsp-file>/test/redirector.jsp</jsp-file>
+        <jsp-file>/test/jspRedirector.jsp</jsp-file>
         <init-param>
           <param-name>param1</param-name>
           <param-value>value1 used for testing</param-value>
