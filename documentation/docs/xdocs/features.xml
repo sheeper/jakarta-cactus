@@ -129,7 +129,7 @@
           </ul>
         </li>
         <li>
-          It is possible to verify the following in <code>beginXXX()</code> :
+          It is possible to verify the following in <code>endXXX()</code> :
           <ul>
             <li>
               Returned data (as String or using <code>HttpUnit</code>),
