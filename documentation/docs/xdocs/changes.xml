@@ -65,6 +65,10 @@
       </devs>
 
       <release version="1.5" date="- in CVS">
+        <action dev="CML" type="add">
+          The <code>WebResponse</code> class now has a method to directly
+          retrieve the status code.
+        </action>
         <action dev="VMA" type="fix">
           When a simulation URL is used and null values are passed for the
           Server name, Context Path and Servlet Path parameters, calls to 
