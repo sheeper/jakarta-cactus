@@ -104,13 +104,64 @@ public class TestServletConfig extends ServletTestCase
     //-------------------------------------------------------------------------
 
     /**
+     * Verify that calling <code>setInitParameter()</code> with a parameter
+     * already defined in <code>web.xml</code> will override it.
+     */
+    public void testSetConfigParameterOverrideWebXmlParameter()
+    {
+        // Note: "param1" is a parameter that must be defined on the Servlet
+        // redirector, with a value different than "testoverrideparam1".
+        assertTrue(
+            config.getOriginalConfig().getInitParameter("param1") != null);
+        assertTrue(
+            !config.getOriginalConfig().getInitParameter("param1").equals(
+            "testoverrideparam1"));
+
+        config.setInitParameter("param1", "testoverrideparam1");
+
+        Enumeration enum = config.getInitParameterNames();
+        int count = 0;
+        
+        while (enum.hasMoreElements())
+        {
+            String name = (String) enum.nextElement();
+
+            if (name.equals("param1"))
+            {
+                assertEquals("testoverrideparam1",
+                    config.getInitParameter(name));
+                count++;
+            }
+        }
+
+        assertTrue("[param1] was found " + count + " times. Should have "
+            + "been found once.", count == 1);
+    }
+
+    //-------------------------------------------------------------------------
+
+    /**
      * Verify that we can override the
      * <code>ServletConfig.getServletName()</code> method.
      */
-    public void testGetServletName()
+    public void testGetServletNameOverriden()
     {
         config.setServletName("MyServlet");
         assertEquals("MyServlet", config.getServletName());
+        assertTrue(!config.getOriginalConfig().getServletName().equals(
+            config.getServletName()));
+    }
+
+    //-------------------------------------------------------------------------
+
+    /**
+     * Verify that if we don't override the servlet name we get the original
+     * name (i.e. Cactus is effectively transparent).
+     */
+    public void testGetServletNameNoOverride()
+    {
+        assertEquals(config.getOriginalConfig().getServletName(),
+            config.getServletName());
     }
 
     //-------------------------------------------------------------------------
