@@ -67,7 +67,9 @@ import javax.servlet.http.*;
  * <code>getRequestDispatcher()</code> method to return our own wrapper around
  * <code>RequestDispatcher</code>.
  *
- * @version @version@
+ * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
+ *
+ * @version $Id$
  * @see RequestDispatcherWrapper
  */
 public class ServletContextWrapper implements ServletContext
@@ -75,64 +77,64 @@ public class ServletContextWrapper implements ServletContext
     /**
      * The original servlet context object
      */
-    private ServletContext m_OriginalContext;
+    private ServletContext originalContext;
 
     /**
      * @param theOriginalContext the original servlet context object
      */
     public ServletContextWrapper(ServletContext theOriginalContext)
     {
-        m_OriginalContext = theOriginalContext;
+        this.originalContext = theOriginalContext;
     }
 
     public void setAttribute(String theName, Object theAttribute)
     {
-        m_OriginalContext.setAttribute(theName, theAttribute);
+        this.originalContext.setAttribute(theName, theAttribute);
     }
 
     public void removeAttribute(String theName)
     {
-        m_OriginalContext.removeAttribute(theName);
+        this.originalContext.removeAttribute(theName);
     }
 
     public void log(String theMessage, Throwable theCause)
     {
-        m_OriginalContext.log(theMessage, theCause);
+        this.originalContext.log(theMessage, theCause);
     }
 
     public void log(String theMessage)
     {
-        m_OriginalContext.log(theMessage);
+        this.originalContext.log(theMessage);
     }
 
     public void log(Exception theException, String theMessage)
     {
-        m_OriginalContext.log(theException, theMessage);
+        this.originalContext.log(theException, theMessage);
     }
 
     public Enumeration getServlets()
     {
-        return m_OriginalContext.getServlets();
+        return this.originalContext.getServlets();
     }
 
     public Enumeration getServletNames()
     {
-        return m_OriginalContext.getServletNames();
+        return this.originalContext.getServletNames();
     }
 
     public String getServletContextName()
     {
-        return m_OriginalContext.getServletContextName();
+        return this.originalContext.getServletContextName();
     }
 
     public Servlet getServlet(String theName) throws ServletException
     {
-        return m_OriginalContext.getServlet(theName);
+        return this.originalContext.getServlet(theName);
     }
 
     public String getServerInfo()
     {
-        return m_OriginalContext.getServerInfo();
+        return this.originalContext.getServerInfo();
     }
 
     public Set getResourcePaths()
@@ -142,15 +144,20 @@ public class ServletContextWrapper implements ServletContext
         // Use reflection because newest Servlet API 2.3 changes removed this
         // method
         try {
-            Method method = m_OriginalContext.getClass().getMethod("getResourcePaths", null);
+            Method method = this.originalContext.getClass().
+                getMethod("getResourcePaths", null);
+
             if (method != null) {
-                returnSet = (Set)method.invoke(m_OriginalContext, null);
+                returnSet = (Set)method.invoke(this.originalContext, null);
             } else {
-                throw new RuntimeException("Method ServletContext.getResourcePaths() no longer supported by your servlet engine !");
+                throw new RuntimeException("Method ServletContext." +
+                    "getResourcePaths() no longer supported by your servlet " +
+                    "engine !");
             }
         } catch (Exception e) {
             e.printStackTrace();
-            throw new RuntimeException("Error getting/calling method getResourcePaths()");
+            throw new RuntimeException("Error getting/calling method " +
+                "getResourcePaths()");
         }
 
         return returnSet;
@@ -169,15 +176,21 @@ public class ServletContextWrapper implements ServletContext
         // Check if the method exist (for servlet engines that do not have
         // upgraded yet)
         try {
-            Method method = m_OriginalContext.getClass().getMethod("getResourcePaths", new Class[] { String.class });
+            Method method = this.originalContext.getClass().
+                getMethod("getResourcePaths", new Class[] { String.class });
+
             if (method != null) {
-                returnSet = (Set)method.invoke(m_OriginalContext, new Object[] { thePath });
+                returnSet = (Set)method.invoke(this.originalContext,
+                    new Object[] { thePath });
             } else {
-                throw new RuntimeException("Method ServletContext.getResourcePaths(String path) not supported yet by your servlet engine !");
+                throw new RuntimeException("Method ServletContext." +
+                    "getResourcePaths(String path) not supported yet by your " +
+                    "servlet engine !");
             }
         } catch (Exception e) {
             e.printStackTrace();
-            throw new RuntimeException("Error getting/calling method getResourcePaths(String path)");
+            throw new RuntimeException("Error getting/calling method " +
+                "getResourcePaths(String path)");
         }
 
         return returnSet;
@@ -185,12 +198,12 @@ public class ServletContextWrapper implements ServletContext
 
     public InputStream getResourceAsStream(String thePath)
     {
-        return m_OriginalContext.getResourceAsStream(thePath);
+        return this.originalContext.getResourceAsStream(thePath);
     }
 
     public URL getResource(String thePath) throws MalformedURLException
     {
-        return m_OriginalContext.getResource(thePath);
+        return this.originalContext.getResource(thePath);
     }
 
     /**
@@ -199,13 +212,13 @@ public class ServletContextWrapper implements ServletContext
     public RequestDispatcher getRequestDispatcher(String thePath)
     {
         RequestDispatcher dispatcher = new RequestDispatcherWrapper(
-            m_OriginalContext.getRequestDispatcher(thePath));
+            this.originalContext.getRequestDispatcher(thePath));
         return dispatcher;
     }
 
     public String getRealPath(String thePath)
     {
-        return m_OriginalContext.getRealPath(thePath);
+        return this.originalContext.getRealPath(thePath);
     }
 
     /**
@@ -214,33 +227,33 @@ public class ServletContextWrapper implements ServletContext
     public RequestDispatcher getNamedDispatcher(String theName)
     {
         RequestDispatcher dispatcher = new RequestDispatcherWrapper(
-            m_OriginalContext.getNamedDispatcher(theName));
+            this.originalContext.getNamedDispatcher(theName));
         return dispatcher;
     }
 
     public int getMinorVersion()
     {
-        return m_OriginalContext.getMinorVersion();
+        return this.originalContext.getMinorVersion();
     }
 
     public String getMimeType(String theFilename)
     {
-        return m_OriginalContext.getMimeType(theFilename);
+        return this.originalContext.getMimeType(theFilename);
     }
 
     public int getMajorVersion()
     {
-        return m_OriginalContext.getMajorVersion();
+        return this.originalContext.getMajorVersion();
     }
 
     public Enumeration getInitParameterNames()
     {
-        return m_OriginalContext.getInitParameterNames();
+        return this.originalContext.getInitParameterNames();
     }
 
     public String getInitParameter(String theName)
     {
-        return m_OriginalContext.getInitParameter(theName);
+        return this.originalContext.getInitParameter(theName);
     }
 
     /**
@@ -249,18 +262,18 @@ public class ServletContextWrapper implements ServletContext
     public ServletContext getContext(String theUripath)
     {
         ServletContext context = new ServletContextWrapper(
-            m_OriginalContext.getContext(theUripath));
+            this.originalContext.getContext(theUripath));
         return context;
     }
 
     public Enumeration getAttributeNames()
     {
-        return m_OriginalContext.getAttributeNames();
+        return this.originalContext.getAttributeNames();
     }
 
     public Object getAttribute(String theName)
     {
-        return m_OriginalContext.getAttribute(theName);
+        return this.originalContext.getAttribute(theName);
     }
 
 }

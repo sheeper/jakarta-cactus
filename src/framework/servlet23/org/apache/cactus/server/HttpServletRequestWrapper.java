@@ -74,25 +74,28 @@ import org.apache.commons.cactus.util.log.*;
  * <code>getRequestURI()</code> method or others alike) would be the URL of the
  * Cactus redirector servlet and not a URL that the test case want to simulate.
  *
- * @version @version@
+ * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
+ *
+ * @version $Id$
  */
 public class HttpServletRequestWrapper implements HttpServletRequest
 {
     /**
      * The real HTTP request
      */
-    private HttpServletRequest m_Request;
+    private HttpServletRequest request;
 
     /**
      * The URL to simulate
      */
-    private ServletURL m_URL;
+    private ServletURL url;
 
     /**
      * The logger
      */
-    private static Log m_Logger =
-        LogService.getInstance().getLog(HttpServletRequestWrapper.class.getName());
+    private static Log logger =
+        LogService.getInstance().
+        getLog(HttpServletRequestWrapper.class.getName());
 
     /**
      * Construct an <code>HttpServletRequest</code> instance that delegates
@@ -103,54 +106,55 @@ public class HttpServletRequestWrapper implements HttpServletRequest
      * @param theRequest the real HTTP request
      * @param theURL     the URL to simulate or <code>null</code> if none
      */
-    public HttpServletRequestWrapper(HttpServletRequest theRequest, ServletURL theURL)
+    public HttpServletRequestWrapper(HttpServletRequest theRequest,
+        ServletURL theURL)
     {
-        m_Request = theRequest;
-        m_URL = theURL;
+        this.request = theRequest;
+        this.url = theURL;
     }
 
     public HttpServletRequest getOriginalRequest()
     {
-        return m_Request;
+        return this.request;
     }
 
     public boolean isUserInRole(String theRole)
     {
-        return m_Request.isUserInRole(theRole);
+        return this.request.isUserInRole(theRole);
     }
 
     public boolean isRequestedSessionIdValid()
     {
-        return m_Request.isRequestedSessionIdValid();
+        return this.request.isRequestedSessionIdValid();
     }
     public boolean isRequestedSessionIdFromUrl()
     {
-        return m_Request.isRequestedSessionIdFromUrl();
+        return this.request.isRequestedSessionIdFromUrl();
     }
 
     public boolean isRequestedSessionIdFromURL()
     {
-        return m_Request.isRequestedSessionIdFromURL();
+        return this.request.isRequestedSessionIdFromURL();
     }
 
     public boolean isRequestedSessionIdFromCookie()
     {
-        return m_Request.isRequestedSessionIdFromCookie();
+        return this.request.isRequestedSessionIdFromCookie();
     }
 
     public Principal getUserPrincipal()
     {
-        return m_Request.getUserPrincipal();
+        return this.request.getUserPrincipal();
     }
 
     public HttpSession getSession(boolean isCreate)
     {
-        return m_Request.getSession(isCreate);
+        return this.request.getSession(isCreate);
     }
 
     public HttpSession getSession()
     {
-        return m_Request.getSession();
+        return this.request.getSession();
     }
 
     /**
@@ -159,27 +163,28 @@ public class HttpServletRequestWrapper implements HttpServletRequest
      */
     public String getServletPath()
     {
-        m_Logger.entry("getServletPath()");
+        this.logger.entry("getServletPath()");
 
-        String result = m_Request.getServletPath();
+        String result = this.request.getServletPath();
 
-        if (m_URL != null) {
-            result = m_URL.getServletPath();
-            m_Logger.debug("Using simulated servlet path : [" + result + "]");
+        if (this.url != null) {
+            result = this.url.getServletPath();
+            this.logger.debug("Using simulated servlet path : [" + result +
+                "]");
         }
 
-        m_Logger.exit("getServletPath");
+        this.logger.exit("getServletPath");
         return result;
     }
 
     public String getRequestedSessionId()
     {
-        return m_Request.getRequestedSessionId();
+        return this.request.getRequestedSessionId();
     }
 
     public StringBuffer getRequestURL()
     {
-        return m_Request.getRequestURL();
+        return this.request.getRequestURL();
     }
 
     /**
@@ -188,26 +193,26 @@ public class HttpServletRequestWrapper implements HttpServletRequest
      */
     public String getRequestURI()
     {
-        m_Logger.entry("getRequestURI()");
+        this.logger.entry("getRequestURI()");
 
-        String result = m_Request.getRequestURI();
+        String result = this.request.getRequestURI();
 
-        if (m_URL != null) {
+        if (this.url != null) {
 
             result = getContextPath() + 
                 ((getServletPath() == null) ? "" : getServletPath()) + 
                 ((getPathInfo() == null) ? "" : getPathInfo());
 
-            m_Logger.debug("Using simulated request URI : [" + result + "]");
+            this.logger.debug("Using simulated request URI : [" + result + "]");
         }
 
-        m_Logger.exit("getRequestURI");
+        this.logger.exit("getRequestURI");
         return result;
     }
 
     public String getRemoteUser()
     {
-        return m_Request.getRemoteUser();
+        return this.request.getRemoteUser();
     }
 
     /**
@@ -216,22 +221,23 @@ public class HttpServletRequestWrapper implements HttpServletRequest
      */
     public String getQueryString()
     {
-        m_Logger.entry("getQueryString()");
+        this.logger.entry("getQueryString()");
 
-        String result = m_Request.getQueryString();
+        String result = this.request.getQueryString();
 
-        if (m_URL != null) {
-            result = m_URL.getQueryString();
-            m_Logger.debug("Using simulated query string : [" + result + "]");
+        if (this.url != null) {
+            result = this.url.getQueryString();
+            this.logger.debug("Using simulated query string : [" + result +
+                "]");
         }
 
-        m_Logger.exit("getQueryString");
+        this.logger.exit("getQueryString");
         return result;
     }
 
     public String getPathTranslated()
     {
-        return m_Request.getPathTranslated();
+        return this.request.getPathTranslated();
     }
 
     /**
@@ -240,52 +246,52 @@ public class HttpServletRequestWrapper implements HttpServletRequest
      */
     public String getPathInfo()
     {
-        m_Logger.entry("getPathInfo()");
+        this.logger.entry("getPathInfo()");
 
-        String result = m_Request.getPathInfo();
+        String result = this.request.getPathInfo();
 
-        if (m_URL != null) {
-            result = m_URL.getPathInfo();
-            m_Logger.debug("Using simulated PathInfo : [" + result + "]");
+        if (this.url != null) {
+            result = this.url.getPathInfo();
+            this.logger.debug("Using simulated PathInfo : [" + result + "]");
         }
 
-        m_Logger.exit("getPathInfo");
+        this.logger.exit("getPathInfo");
         return result;
     }
 
     public String getMethod()
     {
-        return m_Request.getMethod();
+        return this.request.getMethod();
     }
 
     public int getIntHeader(String theName)
     {
-        return m_Request.getIntHeader(theName);
+        return this.request.getIntHeader(theName);
     }
 
     public Enumeration getHeaders(String theName)
     {
-        return m_Request.getHeaders(theName);
+        return this.request.getHeaders(theName);
     }
 
     public Enumeration getHeaderNames()
     {
-        return m_Request.getHeaderNames();
+        return this.request.getHeaderNames();
     }
 
     public String getHeader(String theName)
     {
-        return m_Request.getHeader(theName);
+        return this.request.getHeader(theName);
     }
 
     public long getDateHeader(String theName)
     {
-        return m_Request.getDateHeader(theName);
+        return this.request.getDateHeader(theName);
     }
 
     public Cookie[] getCookies()
     {
-        return m_Request.getCookies();
+        return this.request.getCookies();
     }
 
     /**
@@ -294,44 +300,45 @@ public class HttpServletRequestWrapper implements HttpServletRequest
      */
     public String getContextPath()
     {
-        m_Logger.entry("getContextPath()");
+        this.logger.entry("getContextPath()");
 
-        String result = m_Request.getContextPath();
+        String result = this.request.getContextPath();
 
-        if (m_URL != null) {
-            if (m_URL.getContextPath() != null) {
-                result = m_URL.getContextPath();
-                m_Logger.debug("Using simulated context : [" + result + "]");
+        if (this.url != null) {
+            if (this.url.getContextPath() != null) {
+                result = this.url.getContextPath();
+                this.logger.debug("Using simulated context : [" + result + "]");
             }
         }
 
-        m_Logger.exit("getContextPath");
+        this.logger.exit("getContextPath");
         return result;
     }
 
     public String getAuthType()
     {
-        return m_Request.getAuthType();
+        return this.request.getAuthType();
     }
 
-    public void setCharacterEncoding(String env) throws UnsupportedEncodingException
+    public void setCharacterEncoding(String env)
+        throws UnsupportedEncodingException
     {
-        m_Request.setCharacterEncoding(env);
+        this.request.setCharacterEncoding(env);
     }
 
     public void setAttribute(String theName, Object theAttribute)
     {
-        m_Request.setAttribute(theName, theAttribute);
+        this.request.setAttribute(theName, theAttribute);
     }
 
     public void removeAttribute(String theName)
     {
-        m_Request.removeAttribute(theName);
+        this.request.removeAttribute(theName);
     }
 
     public boolean isSecure()
     {
-        return m_Request.isSecure();
+        return this.request.isSecure();
     }
 
     /**
@@ -341,16 +348,16 @@ public class HttpServletRequestWrapper implements HttpServletRequest
      */
     public int getServerPort()
     {
-        m_Logger.entry("getServerPort()");
+        this.logger.entry("getServerPort()");
 
-        int result = m_Request.getServerPort();
+        int result = this.request.getServerPort();
 
-        if (m_URL != null) {
-            result = (m_URL.getPort() == -1) ? 80 : m_URL.getPort();
-            m_Logger.debug("Using simulated server port : [" + result + "]");
+        if (this.url != null) {
+            result = (this.url.getPort() == -1) ? 80 : this.url.getPort();
+            this.logger.debug("Using simulated server port : [" + result + "]");
         }
 
-        m_Logger.exit("getServerPort");
+        this.logger.exit("getServerPort");
         return result;
     }
 
@@ -360,24 +367,25 @@ public class HttpServletRequestWrapper implements HttpServletRequest
      */
     public String getServerName()
     {
-        m_Logger.entry("getServerName()");
+        this.logger.entry("getServerName()");
 
-        String result = m_Request.getServerName();
+        String result = this.request.getServerName();
 
-        if (m_URL != null) {
-            if (m_URL.getServerName() != null) {
-                result = m_URL.getHost();
-                m_Logger.debug("Using simulated server name : [" + result + "]");
+        if (this.url != null) {
+            if (this.url.getServerName() != null) {
+                result = this.url.getHost();
+                this.logger.debug("Using simulated server name : [" + result +
+                    "]");
             }
         }
 
-        m_Logger.exit("getServerName");
+        this.logger.exit("getServerName");
         return result;
     }
 
     public String getScheme()
     {
-        return m_Request.getScheme();
+        return this.request.getScheme();
     }
 
     /**
@@ -389,7 +397,7 @@ public class HttpServletRequestWrapper implements HttpServletRequest
      */
     public RequestDispatcher getRequestDispatcher(String thePath)
     {
-        m_Logger.entry("getRequestDispatcher([" + thePath + "])");
+        this.logger.entry("getRequestDispatcher([" + thePath + "])");
 
         // I hate it, but we have to write some logic here ! Ideally we
         // shouldn't have to do this as it is supposed to be done by the servlet
@@ -398,7 +406,7 @@ public class HttpServletRequestWrapper implements HttpServletRequest
         // (it has to mock some parts of the servlet engine) !
 
         if (thePath == null) {
-            m_Logger.exit("getRequestDispatcher");
+            this.logger.exit("getRequestDispatcher");
             return null;
         }
 
@@ -422,18 +430,18 @@ public class HttpServletRequestWrapper implements HttpServletRequest
             }
 
 	        if (fullPath == null) {
-                m_Logger.exit("getRequestDispatcher");
+                this.logger.exit("getRequestDispatcher");
                 return null;
             }
 
         }
                 
-        m_Logger.debug("Computed full path : [" + fullPath + "]");
+        this.logger.debug("Computed full path : [" + fullPath + "]");
 
         dispatcher = new RequestDispatcherWrapper(
-            m_Request.getRequestDispatcher(fullPath));
+            this.request.getRequestDispatcher(fullPath));
 
-        m_Logger.exit("getRequestDispatcher");
+        this.logger.exit("getRequestDispatcher");
         return dispatcher;
     }
 
@@ -469,87 +477,87 @@ public class HttpServletRequestWrapper implements HttpServletRequest
 
     public String getRemoteHost()
     {
-        return m_Request.getRemoteHost();
+        return this.request.getRemoteHost();
     }
 
     public String getRemoteAddr()
     {
-        return m_Request.getRemoteAddr();
+        return this.request.getRemoteAddr();
     }
 
     public String getRealPath(String thePath)
     {
-        return m_Request.getRealPath(thePath);
+        return this.request.getRealPath(thePath);
     }
 
     public BufferedReader getReader() throws IOException
     {
-        return m_Request.getReader();
+        return this.request.getReader();
     }
 
     public String getProtocol()
     {
-        return m_Request.getProtocol();
+        return this.request.getProtocol();
     }
 
     public String[] getParameterValues(String theName)
     {
-        return m_Request.getParameterValues(theName);
+        return this.request.getParameterValues(theName);
     }
 
     public Enumeration getParameterNames()
     {
-        return m_Request.getParameterNames();
+        return this.request.getParameterNames();
     }
 
     public Map getParameterMap()
     {
-        return m_Request.getParameterMap();
+        return this.request.getParameterMap();
     }
 
     public String getParameter(String theName)
     {
-        return m_Request.getParameter(theName);
+        return this.request.getParameter(theName);
     }
 
     public Enumeration getLocales()
     {
-        return m_Request.getLocales();
+        return this.request.getLocales();
     }
 
     public Locale getLocale()
     {
-        return m_Request.getLocale();
+        return this.request.getLocale();
     }
 
     public ServletInputStream getInputStream() throws IOException
     {
-        return m_Request.getInputStream();
+        return this.request.getInputStream();
     }
 
     public String getContentType()
     {
-        return m_Request.getContentType();
+        return this.request.getContentType();
     }
 
     public int getContentLength()
     {
-        return m_Request.getContentLength();
+        return this.request.getContentLength();
     }
 
     public String getCharacterEncoding()
     {
-        return m_Request.getCharacterEncoding();
+        return this.request.getCharacterEncoding();
     }
 
     public Enumeration getAttributeNames()
     {
-        return m_Request.getAttributeNames();
+        return this.request.getAttributeNames();
     }
 
     public Object getAttribute(String theName)
     {
-        return m_Request.getAttribute(theName);
+        return this.request.getAttribute(theName);
     }
 
 }

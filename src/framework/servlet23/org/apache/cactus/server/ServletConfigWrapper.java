@@ -66,7 +66,9 @@ import javax.servlet.http.*;
  * <code>getServletContext()</code> method to return our own wrapper around
  * <code>ServletContext</code>.
  *
- * @version @version@
+ * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
+ *
+ * @version $Id$
  * @see ServletContext
  */
 public class ServletConfigWrapper implements ServletConfig
@@ -74,25 +76,25 @@ public class ServletConfigWrapper implements ServletConfig
     /**
      * The original servlet config object
      */
-    private ServletConfig m_OriginalConfig;
+    private ServletConfig originalConfig;
 
     /**
      * List of parameters set using the <code>setInitParameter()</code> method.
      */
-    private Hashtable m_InitParameters;
+    private Hashtable initParameters;
 
     /**
      * Simulated name of the servlet
      */
-    private String m_ServletName;
+    private String servletName;
 
     /**
      * @param theOriginalConfig the original servlet config object
      */
     public ServletConfigWrapper(ServletConfig theOriginalConfig)
     {
-        m_OriginalConfig = theOriginalConfig;
-        m_InitParameters = new Hashtable();
+        this.originalConfig = theOriginalConfig;
+        this.initParameters = new Hashtable();
     }
 
     /**
@@ -103,7 +105,7 @@ public class ServletConfigWrapper implements ServletConfig
      */
     public void setInitParameter(String theName, String theValue)
     {
-        m_InitParameters.put(theName, theValue);
+        this.initParameters.put(theName, theValue);
     }
 
     /**
@@ -114,10 +116,10 @@ public class ServletConfigWrapper implements ServletConfig
      */
     public void setServletName(String theServletName)
     {
-        m_ServletName = theServletName;
+        this.servletName = theServletName;
     }
 
-    //--Overridden methods -----------------------------------------------------
+    //--Overridden methods ----------------------------------------------------
 
     /**
      * @return the simulated servlet's name if defined or the redirector
@@ -125,11 +127,11 @@ public class ServletConfigWrapper implements ServletConfig
      */
     public String getServletName()
     {
-        if (m_ServletName != null) {
-            return m_ServletName;
+        if (this.servletName != null) {
+            return this.servletName;
         }
 
-        return m_OriginalConfig.getServletName();
+        return this.originalConfig.getServletName();
     }
 
     /**
@@ -137,7 +139,8 @@ public class ServletConfigWrapper implements ServletConfig
      */
     public ServletContext getServletContext()
     {
-        return new ServletContextWrapper(m_OriginalConfig.getServletContext());
+        return new ServletContextWrapper(
+            this.originalConfig.getServletContext());
     }
 
     /**
@@ -149,13 +152,13 @@ public class ServletConfigWrapper implements ServletConfig
     {
         Vector names = new Vector();
 
-        Enumeration enum = m_InitParameters.keys();
+        Enumeration enum = this.initParameters.keys();
         while (enum.hasMoreElements()) {
             String value = (String)enum.nextElement();
             names.add(value);
         }
 
-        enum = m_OriginalConfig.getInitParameterNames();
+        enum = this.originalConfig.getInitParameterNames();
         while (enum.hasMoreElements()) {
             String value = (String)enum.nextElement();
             names.add(value);
@@ -174,9 +177,9 @@ public class ServletConfigWrapper implements ServletConfig
     {
         // Look first in the list of parameters set using the
         // setInitParameter() method.
-        String value = (String)m_InitParameters.get(theName);
+        String value = (String)this.initParameters.get(theName);
         if (value == null) {
-            value = m_OriginalConfig.getInitParameter(theName);
+            value = this.originalConfig.getInitParameter(theName);
         }
 
         return value;
