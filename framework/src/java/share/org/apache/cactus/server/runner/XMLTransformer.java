@@ -74,7 +74,8 @@ import javax.xml.transform.stream.StreamSource;
  * some output format determined by a stylesheet.
  * 
  * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
- *
+ * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
+ * 
  * @version $Id$
  */
 public class XMLTransformer
@@ -125,7 +126,7 @@ public class XMLTransformer
 
     /**
      * The MIME type of the content we'll be sending to the client. This
-     * defaults to "text/html", but depends on the provided XSLT stylesheet.
+     * defaults to "text/xml", but depends on the provided XSLT stylesheet.
      */
     private String contentType = XML_MIME_TYPE;
 
@@ -136,6 +137,8 @@ public class XMLTransformer
      * 
      * @param theStylesheet The input stream for the stylesheet to use for the 
      *        transformations
+     * @exception TransformerConfigurationException if an error occurs when
+     *            creating the XSL templates 
      */
     public XMLTransformer(InputStream theStylesheet)
         throws TransformerConfigurationException
@@ -148,26 +151,15 @@ public class XMLTransformer
         TransformerFactory transformerFactory =
             TransformerFactory.newInstance();
         Source source = new StreamSource(theStylesheet);
-        templates =
-            transformerFactory.newTemplates(source);
+        this.templates = transformerFactory.newTemplates(source);
+        
         // Find out which content type is produced by the
         // stylesheet (valid values per XSLT 1.0 are 'xml', 'html'
         // and 'text')
-        String outputMethod =
-            templates.getOutputProperties().getProperty(
-                XSL_OUTPUT_PROPERTY_METHOD);
-        if (HTML_OUTPUT_METHOD.equals(outputMethod))
-        {
-            contentType = HTML_MIME_TYPE;
-        }
-        else if (TEXT_OUTPUT_METHOD.equals(outputMethod))
-        {
-            contentType = TEXT_MIME_TYPE;
-        }
-        else if (XML_OUTPUT_METHOD.equals(outputMethod))
-        {
-            contentType = XML_MIME_TYPE;
-        }
+        String outputMethod = this.templates.getOutputProperties().getProperty(
+            XSL_OUTPUT_PROPERTY_METHOD);
+
+        this.contentType = getContentType(outputMethod);
     }
 
     // Public Methods ----------------------------------------------------------
@@ -180,7 +172,7 @@ public class XMLTransformer
      */
     public String getContentType()
     {
-        return contentType;
+        return this.contentType;
     }
 
     /**
@@ -189,13 +181,41 @@ public class XMLTransformer
      * @param theXml The XML source to transform
      * @param theWriter The writer to which the transformation result should be 
      *        written.
+     * @exception TransformerException if an error occurs when applying the
+     *            XSL template to the XML source
      */
     public void transform(Reader theXml, Writer theWriter)
         throws TransformerException
     {
-        Transformer transformer = templates.newTransformer();
-        transformer.transform(new StreamSource(theXml),
+        Transformer transformer = this.templates.newTransformer();
+        transformer.transform(new StreamSource(theXml), 
             new StreamResult(theWriter));
+    }
+
+    // Private Methods --------------------------------------------------------
+
+    /**
+     * @param theOutputMethod the output method type (Ex: "xml", "html",
+     *        "text", etc)
+     * @return the MIME type of the content we'll be sending to the client
+     */
+    private String getContentType(String theOutputMethod)
+    {
+        String contentType;
+
+        if (HTML_OUTPUT_METHOD.equals(theOutputMethod))
+        {
+            contentType = HTML_MIME_TYPE;
+        }
+        else if (TEXT_OUTPUT_METHOD.equals(theOutputMethod))
+        {
+            contentType = TEXT_MIME_TYPE;
+        }
+        else
+        {
+            contentType = XML_MIME_TYPE;
+        }
+        return contentType;
     }
 
 }
