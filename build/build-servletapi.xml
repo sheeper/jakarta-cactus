@@ -444,29 +444,13 @@
          tests. And of course, it serves as a sample on how to use Cactus
        ========================================================================
     -->
-    <patternset id="all.sample.conf.servlet22.files">
-
-        <include name="orion14/**"/>
-        <include name="resin12/**"/>
-        <include name="tomcat32/**"/>
-        <include name="weblogic51/**"/>
-
-    </patternset>
-
-    <patternset id="all.sample.conf.servlet23.files">
-
-        <include name="tomcat40/**"/>
-        <include name="resin13/**"/>
-
-    </patternset>
-
     <target name="prepare-sample" depends="jar">
 
         <!-- Create output directory structure and sample files in it -->
         <mkdir dir="${out.sample.dir}"/>
         <mkdir dir="${out.sample.doc.dir}"/>
         <mkdir dir="${out.sample.build.dir}"/>
-        <mkdir dir="${out.sample.conf.dir}"/>
+        <mkdir dir="${out.sample.conf.dir}/test"/>
         <mkdir dir="${out.sample.src.dir}"/>
         <mkdir dir="${out.sample.web.dir}"/>
 
@@ -486,21 +470,16 @@
 
         <!-- Copy conf files -->
         <copy todir="${out.sample.conf.dir}/test">
-            <fileset dir="${sample.conf.dir}/test">
-                <patternset refid="all.sample.conf.servlet${servlet.api}.files"/>
-            </fileset>
-        </copy>
-        <copy tofile="${out.sample.conf.dir}/test/web.xml"
-            file="${sample.conf.dir}/test/web.xml"/>
-        <copy todir="${out.sample.conf.dir}/test">
-            <fileset dir="${sample.conf.dir}/test">
-                <include name="*.properties"/>
-            </fileset>
+            <fileset dir="${sample.conf.dir}/test/share"/>
+            <fileset dir="${sample.conf.dir}/test/servlet${servlet.api}"/>
         </copy>
         <copy todir="${out.sample.conf.dir}">
-            <fileset dir="${sample.conf.dir}"/>
+            <fileset dir="${sample.conf.dir}">
+                <include name="web.xml"/>
+                <include name="manifest"/>
+            </fileset>
         </copy>
-
+    
         <!-- Copy web files -->
         <copy file="${web.dir}/redirector.jsp" tofile="${out.sample.web.dir}/test/redirector.jsp"/>
         <copy todir="${out.sample.web.dir}">
