@@ -89,8 +89,8 @@ public class TestFilterHttpHeaders extends FilterTestCase
     {
         String header1 = theResponse.getHeaderField("xxparevcount");
         String header2 = theResponse.getHeaderField("xparevcount");
-        assertNotNull("Header should not be null", header1);
-        assertNotNull("Header should not be null", header2);
+        assertNotNull("Header 1 should not be null", header1);
+        assertNotNull("Header 2 should not be null", header2);
         assertEquals("xxparevcount", header1);
         assertEquals("xparevcount", header2);
        }

@@ -190,6 +190,26 @@ public class ClientTestCaseDelegate extends Assert
     {
         return this.delegatedTest;
     }
+
+    /**
+     * @return the test on which we will operate. If there is a wrapped
+     *         test then the returned test is the wrapped test. Otherwise we
+     *         return the delegated test.
+     */
+    public Test getTest()
+    {
+        Test activeTest;
+        if (getWrappedTest() != null)
+        {
+            activeTest = getWrappedTest();
+        }
+        else
+        {
+            activeTest = getDelegatedTest();
+        }
+        return activeTest;
+    }
+
     
     /**
      * @return The logger used by the <code>TestCase</code> class and
@@ -294,7 +314,7 @@ public class ClientTestCaseDelegate extends Assert
     {
         // First, verify if a begin method exist. If one is found, verify if
         // it has the correct signature. If not, send a warning.
-        Method[] methods = getWrappedTest().getClass().getMethods();
+        Method[] methods = getTest().getClass().getMethods();
 
         for (int i = 0; i < methods.length; i++)
         {
@@ -337,8 +357,7 @@ public class ClientTestCaseDelegate extends Assert
 
                 try
                 {
-                    methods[i].invoke(getWrappedTest(), 
-                        new Object[] {theRequest});
+                    methods[i].invoke(getTest(), new Object[] {theRequest});
 
                     break;
                 }
@@ -417,6 +436,6 @@ public class ClientTestCaseDelegate extends Assert
      */
     public boolean isWrappingATest()
     {
-        return getWrappedTest() != getDelegatedTest();
+        return (getWrappedTest() != null);
     }
 }

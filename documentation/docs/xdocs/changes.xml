@@ -71,6 +71,11 @@
       </release>
       
       <release version="1.5-rc1" date="in CVS">
+        <action dev="VMA" type="fix" due-to="Alexander Ananiev" due-to-email="alexander@myarch.com">
+          When using the new <code>ServletTestSuite</code> wrapper around pure
+          JUnit test cases, the <code>setUp()</code> and 
+          <code>tearDown()</code> methods were not called.
+        </action>
         <action dev="VMA" type="fix" fixes-bug="22794" due-to="Jonathan Kovacs" due-to-email="jdk@jdk.ca">
           In the Ant integration, the <code>cactus.context</code> filter token 
           was not correctly defined for EAR files. However, it is needed. For 

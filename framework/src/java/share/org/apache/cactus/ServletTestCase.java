@@ -137,7 +137,7 @@ public class ServletTestCase extends TestCase
      */
     public ServletTestCase()
     {
-        init(this);
+        init(null);
     }
 
     /**
@@ -148,7 +148,7 @@ public class ServletTestCase extends TestCase
     public ServletTestCase(String theName)
     {
         super(theName);
-        init(this);
+        init(null);
     }
 
     /**
@@ -247,8 +247,7 @@ public class ServletTestCase extends TestCase
         // Catch the exception just to have a chance to log it
         try
         {
-            // Give back control to JUnit
-            runTest();
+            runCactusTest();
         }
         catch (Throwable t)
         {
@@ -261,27 +260,26 @@ public class ServletTestCase extends TestCase
     }   
 
     /**
-     * Runs a test case. This method is overriden from the JUnit
-     * {@link TestCase} class in order to seamlessly call the
-     * Cactus redirector on the client side and the test on the server
-     * side.
+     * Runs a Cactus test case.
      *
      * @exception Throwable if any error happens during the execution of
      *            the test
      */
-    protected void runTest() throws Throwable
+    protected void runCactusTest() throws Throwable
     {
         if (isServerSide())
         {
-            setUp();
+            // Note: We cannot delegate this piece of code in the
+            // ServerTestCaseDelegate class as it requires to call
+            // super.runBare()
 
-            try
+            if (getServerDelegate().getWrappedTest() != null)
             {
-                getServerDelegate().runServerTest();
+                ((TestCase) getServerDelegate().getWrappedTest()).runBare();
             }
-            finally
+            else
             {
-                tearDown();
+                super.runBare();            
             }
         }
         else

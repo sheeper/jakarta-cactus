@@ -72,6 +72,16 @@ import junit.framework.TestCase;
 public class TestJUnitTestCaseWrapper extends TestCase
 {
     /**
+     * Used to verify that the setUp method does get called.
+     */
+    private boolean isSetUpCalled;
+
+    /**
+     * Used to verify that the testXXX method does get called.
+     */
+    private boolean isTestXXXCalled;
+    
+    /**
      * Runs this pure JUnit Test Case with Cactus, wrapping it in
      * a Servlet Test Case.
      * 
@@ -92,7 +102,7 @@ public class TestJUnitTestCaseWrapper extends TestCase
      */
     public void setUp()
     {
-        // This test is executed on the server side.
+        this.isSetUpCalled = true;
     }
     
     /**
@@ -101,7 +111,8 @@ public class TestJUnitTestCaseWrapper extends TestCase
      */
     public void testXXX()
     {
-        // This test is executed on the server side.
+        assertTrue("setUp() should have been called", this.isSetUpCalled);
+        this.isTestXXXCalled = true;
     }
 
     /**
@@ -110,7 +121,7 @@ public class TestJUnitTestCaseWrapper extends TestCase
      */
     public void tearDown()
     {
-        // This test is executed on the server side.
+        assertTrue("testXXX() should have been called", this.isTestXXXCalled);
     }
 
 }

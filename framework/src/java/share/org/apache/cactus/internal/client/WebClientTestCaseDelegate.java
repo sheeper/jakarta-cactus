@@ -119,7 +119,7 @@ public class WebClientTestCaseDelegate extends ClientTestCaseDelegate
         Method methodToCall = null;
         Object paramObject = null;
 
-        Method[] methods = getWrappedTest().getClass().getMethods();
+        Method[] methods = getTest().getClass().getMethods();
 
         for (int i = 0; i < methods.length; i++)
         {
@@ -186,8 +186,7 @@ public class WebClientTestCaseDelegate extends ClientTestCaseDelegate
         {
             try
             {
-                methodToCall.invoke(getWrappedTest(), 
-                    new Object[] {paramObject});
+                methodToCall.invoke(getTest(), new Object[] {paramObject});
             }
             catch (InvocationTargetException e)
             {

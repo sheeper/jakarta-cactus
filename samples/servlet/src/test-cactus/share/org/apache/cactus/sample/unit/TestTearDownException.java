@@ -73,11 +73,11 @@ public class TestTearDownException extends ServletTestCase
     /**
      * Intercepts running test cases to check for normal exceptions.
      */
-    protected void runTest()
+    protected void runCactusTest()
     {
         try
         {
-            super.runTest();
+            super.runCactusTest();
         }
         catch (Throwable e)
         {

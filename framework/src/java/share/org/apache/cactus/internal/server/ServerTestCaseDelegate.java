@@ -56,14 +56,9 @@
  */
 package org.apache.cactus.internal.server;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
-
 import junit.framework.Assert;
 import junit.framework.Test;
 
-import org.apache.cactus.util.JUnitVersionHelper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -172,57 +167,4 @@ public class ServerTestCaseDelegate extends Assert
     {
         this.logger = theLogger;
     }
-
-    /**
-     * Run the test that was specified in the constructor on the server side
-     * by executing the testXXX method.
-     *
-     * @exception Throwable any error that occurred when calling the test method
-     *         for the current test case, on the server side.
-     */
-    public void runServerTest() throws Throwable
-    {
-        Method runMethod = null;
-
-        try
-        {
-            // Use getMethod to get all public inherited
-            // methods. getDeclaredMethods returns all
-            // methods of this class but excludes the
-            // inherited ones.
-            runMethod = getWrappedTest().getClass().getMethod(
-                JUnitVersionHelper.getTestCaseName(getWrappedTest()),
-                new Class[0]);
-        }
-        catch (NoSuchMethodException e)
-        {
-            fail("Method [" 
-                + JUnitVersionHelper.getTestCaseName(getWrappedTest())
-                + "()] does not exist for class [" 
-                + getWrappedTest().getClass().getName() + "].");
-        }
-
-        if ((runMethod != null) && !Modifier.isPublic(runMethod.getModifiers()))
-        {
-            fail("Method [" 
-                + JUnitVersionHelper.getTestCaseName(getWrappedTest())
-                + "()] should be public");
-        }
-
-        try
-        {
-            runMethod.invoke(getWrappedTest(), new Class[0]);
-        }
-        catch (InvocationTargetException e)
-        {
-            e.fillInStackTrace();
-            throw e.getTargetException();
-        }
-        catch (IllegalAccessException e)
-        {
-            e.fillInStackTrace();
-            throw e;
-        }
-    }
-
 }
