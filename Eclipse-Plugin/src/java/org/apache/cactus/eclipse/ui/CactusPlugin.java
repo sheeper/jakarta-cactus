@@ -99,10 +99,11 @@ public class CactusPlugin extends AbstractUIPlugin implements ILaunchListener
      */
     private static CactusPlugin fgPlugin = null;
 
-    public static final String PLUGIN_ID = "org.apache.cactus.eclipse"; //$NON-NLS-1$
+    public static final String PLUGIN_ID = "org.apache.cactus.eclipse";
 
-    public final static String TEST_SUPERCLASS_NAME = "junit.framework.TestCase"; //$NON-NLS-1$
-    public final static String TEST_INTERFACE_NAME = "junit.framework.Test"; //$NON-NLS-1$
+    public static final String TEST_SUPERCLASS_NAME = 
+        "junit.framework.TestCase";
+    public static final String TEST_INTERFACE_NAME = "junit.framework.Test";
 
     private static URL fgIconBaseURL;
 
@@ -113,16 +114,17 @@ public class CactusPlugin extends AbstractUIPlugin implements ILaunchListener
      */
     private AbstractSet fTrackedLaunches = new HashSet(20);
 
-    public CactusPlugin(IPluginDescriptor desc)
+    public CactusPlugin(IPluginDescriptor theDescription)
     {
-        super(desc);
+        super(theDescription);
         fgPlugin = this;
-        String pathSuffix = "icons/"; //$NON-NLS-1$
+        String pathSuffix = "icons/";
         try
         {
             fgIconBaseURL =
                 new URL(getDescriptor().getInstallURL(), pathSuffix);
-        } catch (MalformedURLException e)
+        } 
+        catch (MalformedURLException e)
         {
             // do nothing
         }
@@ -137,7 +139,9 @@ public class CactusPlugin extends AbstractUIPlugin implements ILaunchListener
     {
         IWorkbenchWindow workBenchWindow = getActiveWorkbenchWindow();
         if (workBenchWindow == null)
+        {
             return null;
+        }
         return workBenchWindow.getShell();
     }
 
@@ -149,10 +153,14 @@ public class CactusPlugin extends AbstractUIPlugin implements ILaunchListener
     public static IWorkbenchWindow getActiveWorkbenchWindow()
     {
         if (fgPlugin == null)
+        {
             return null;
+        }
         IWorkbench workBench = fgPlugin.getWorkbench();
         if (workBench == null)
+        {
             return null;
+        }
         return workBench.getActiveWorkbenchWindow();
     }
 
@@ -169,62 +177,46 @@ public class CactusPlugin extends AbstractUIPlugin implements ILaunchListener
     /*
      * @see AbstractUIPlugin#initializeDefaultPreferences
      */
-    protected void initializeDefaultPreferences(IPreferenceStore store)
+    protected void initializeDefaultPreferences(IPreferenceStore theStore)
     {
-        super.initializeDefaultPreferences(store);
-        //		JUnitPreferencePage.initializeDefaults(store);
+        super.initializeDefaultPreferences(theStore);
     }
 
-    public static void log(Throwable e)
+    public static void log(Throwable theThrowable)
     {
-        log(new Status(IStatus.ERROR, getPluginId(), IStatus.ERROR, "Error", e)); //$NON-NLS-1$
+        log(new Status(IStatus.ERROR, getPluginId(), IStatus.ERROR, "Error", 
+            theThrowable));
     }
 
-    public static void log(IStatus status)
+    public static void log(IStatus theStatus)
     {
-        getDefault().getLog().log(status);
+        getDefault().getLog().log(theStatus);
     }
-
-//    public static URL makeIconFileURL(String name) throws MalformedURLException
-//    {
-//        if (JUnitPlugin.fgIconBaseURL == null)
-//            throw new MalformedURLException();
-//        return new URL(JUnitPlugin.fgIconBaseURL, name);
-//    }
-//    static ImageDescriptor getImageDescriptor(String relativePath)
-//    {
-//        try
-//        {
-//            return ImageDescriptor.createFromURL(makeIconFileURL(relativePath));
-//        } catch (MalformedURLException e)
-//        {
-//            // should not happen
-//            return ImageDescriptor.getMissingImageDescriptor();
-//        }
-//    }
 
     /*
      * @see ILaunchListener#launchRemoved(ILaunch)
      */
-    public void launchRemoved(ILaunch launch)
+    public void launchRemoved(ILaunch theLaunch)
     {
-        fTrackedLaunches.remove(launch);
+        fTrackedLaunches.remove(theLaunch);
     }
 
     /*
      * @see ILaunchListener#launchAdded(ILaunch)
      */
-    public void launchAdded(ILaunch launch)
+    public void launchAdded(ILaunch theLaunch)
     {
-        fTrackedLaunches.add(launch);
+        fTrackedLaunches.add(theLaunch);
     }
 
     public void connectTestRunner(ILaunch launch, IType launchedType, int port)
     {
         IWorkbench workbench = getWorkbench();
         if (workbench == null)
+        {
             return;
-
+        }
+        
         IWorkbenchWindow window = getWorkbench().getActiveWorkbenchWindow();
         IWorkbenchPage page = window.getActivePage();
         TestRunnerViewPart testRunner = null;
@@ -243,13 +235,16 @@ public class CactusPlugin extends AbstractUIPlugin implements ILaunchListener
                     //restore focus stolen by the creation of the result view
                     page.activate(activePart);
                 }
-            } catch (PartInitException pie)
+            } 
+            catch (PartInitException pie)
             {
                 log(pie);
             }
         }
         if (testRunner != null)
+        {
             testRunner.startTestRunListening(launchedType, port, launch);
+        }
     }
 
     /*
@@ -258,7 +253,9 @@ public class CactusPlugin extends AbstractUIPlugin implements ILaunchListener
     public void launchChanged(final ILaunch launch)
     {
         if (!fTrackedLaunches.contains(launch))
+        {
             return;
+        }
 
         ILaunchConfiguration config = launch.getLaunchConfiguration();
         IType launchedType = null;
@@ -275,7 +272,9 @@ public class CactusPlugin extends AbstractUIPlugin implements ILaunchListener
                 port = Integer.parseInt(portStr);
                 IJavaElement element = JavaCore.create(typeStr);
                 if (element instanceof IType)
+                {
                     launchedType = (IType) element;
+                }
             }
         }
         if (launchedType != null)
