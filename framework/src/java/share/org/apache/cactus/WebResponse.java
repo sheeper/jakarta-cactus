@@ -65,8 +65,8 @@ import java.net.HttpURLConnection;
 
 import java.util.Vector;
 
-import org.apache.cactus.client.connector.http.CookieUtil;
 import org.apache.cactus.util.ChainedRuntimeException;
+import org.apache.cactus.util.CookieUtil;
 import org.apache.cactus.util.IoUtil;
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpException;

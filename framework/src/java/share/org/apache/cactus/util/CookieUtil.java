@@ -54,10 +54,18 @@
  * <http://www.apache.org/>.
  *
  */
-package org.apache.cactus.client.connector.http;
+package org.apache.cactus.util;
 
+import java.net.URL;
+import java.util.Vector;
+
+import org.apache.cactus.Cookie;
 import org.apache.cactus.ServletURL;
 import org.apache.cactus.WebRequest;
+import org.apache.cactus.client.ClientException;
+import org.apache.commons.httpclient.Header;
+import org.apache.commons.httpclient.cookie.CookiePolicy;
+import org.apache.commons.httpclient.cookie.CookieSpec;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -189,5 +197,159 @@ public class CookieUtil
         LOGGER.debug("Cookie validation path = [" + path + "]");
 
         return path;
+    }
+
+    /**
+     * Create a Commons-HttpClient cookie from a Cactus cookie, with information
+     * from the web request and the URL.
+     * 
+     * @param theRequest The request
+     * @param theUrl The URL
+     * @param theCactusCookie The Cactus Cookie object
+     * @return The HttpClient cookie
+     */
+    public static org.apache.commons.httpclient.Cookie createHttpClientCookie(
+        WebRequest theRequest, URL theUrl, Cookie theCactusCookie)
+    {
+        // If no domain has been specified, use a default one
+        String domain;
+        if (theCactusCookie.getDomain() == null)
+        {
+            domain = CookieUtil.getCookieDomain(theRequest, theUrl.getHost());
+        }
+        else
+        {
+            domain = theCactusCookie.getDomain();
+        }
+
+        // If not path has been specified , use a default one
+        String path;
+        if (theCactusCookie.getPath() == null)
+        {
+            path = CookieUtil.getCookiePath(theRequest, theUrl.getFile());
+        }
+        else
+        {
+            path = theCactusCookie.getPath();
+        }
+
+        // Assemble the HttpClient cookie
+        org.apache.commons.httpclient.Cookie httpclientCookie =
+            new org.apache.commons.httpclient.Cookie(domain,
+                theCactusCookie.getName(), theCactusCookie.getValue());
+        httpclientCookie.setComment(theCactusCookie.getComment());
+        httpclientCookie.setExpiryDate(
+            theCactusCookie.getExpiryDate());
+        httpclientCookie.setPath(path);
+        httpclientCookie.setSecure(theCactusCookie.isSecure());
+        
+        return httpclientCookie;
+    }
+
+    /**
+     * Transforms an array of Cactus cookies into an array of Commons-HttpClient
+     * cookies, using information from the request and URL.
+     * 
+     * @param theRequest The request
+     * @param theUrl The URL
+     * @return The array of HttpClient cookies
+     */
+    public static org.apache.commons.httpclient.Cookie[] 
+        createHttpClientCookies(WebRequest theRequest, URL theUrl)
+    {
+        Vector cactusCookies = theRequest.getCookies();
+        
+        // transform the Cactus cookies into HttpClient cookies
+        org.apache.commons.httpclient.Cookie[] httpclientCookies = 
+            new org.apache.commons.httpclient.Cookie[cactusCookies.size()];
+
+        for (int i = 0; i < cactusCookies.size(); i++)
+        {
+            Cookie cactusCookie = (Cookie) cactusCookies.elementAt(i);
+            httpclientCookies[i] = CookieUtil.createHttpClientCookie(
+                theRequest, theUrl, cactusCookie);
+        }
+
+        return httpclientCookies;
+    }
+
+    /**
+     * Create a HttpClient {@link Header} for cookies that matches
+     * the domain and path.
+     * 
+     * @param theDomain the cookie domain to match
+     * @param thePath the cookie path to match
+     * @param theCookies the list of potential cookies
+     * @return the HttpClient {@link Header} containing the matching 
+     *         cookies
+     * @throws ClientException if no cookie was matching the domain
+     *         and path
+     */
+    public static Header createCookieHeader(String theDomain, String thePath,
+        org.apache.commons.httpclient.Cookie[] theCookies)
+        throws ClientException
+    {
+        Header cookieHeader = null;
+        
+        // separate domain into host and port
+        int port = 80;
+        String host = theDomain;
+        int portIndex = theDomain.indexOf(":");
+        if (portIndex != -1)
+        {
+            host = host.substring(0, portIndex);
+            port = Integer.parseInt(theDomain.substring(portIndex + 1));
+        }
+
+        CookieSpec matcher = CookiePolicy.getDefaultSpec();
+        org.apache.commons.httpclient.Cookie[] cookies =
+            matcher.match(host, port, thePath, false, theCookies);
+        if ((cookies != null) && (cookies.length > 0))
+        {
+            cookieHeader = matcher.formatCookieHeader(cookies);
+        }
+        
+        if (cookieHeader == null)
+        {
+            throw new ClientException("Failed to create Cookie header for ["
+                + "domain = [" + theDomain + ", path = [" + thePath
+                + ", cookies = [" + theCookies + "]]. Turn on HttpClient "
+                + "logging for more information about the error"); 
+        }
+        
+        return cookieHeader;
+    }
+
+    /**
+     * @return the cookie string which will be added as a HTTP "Cookie" header
+     *         or null if no cookie has been set
+     * @param theRequest the request containing all data to pass to the server
+     *        redirector.
+     * @param theUrl the URL to connect to
+     * @throws ClientException if an error occurred when creating the cookie
+     *         string
+     */
+    public static String getCookieString(WebRequest theRequest, URL theUrl)
+        throws ClientException
+    {
+        // If no Cookies, then exit
+        Vector cookies = theRequest.getCookies();
+
+        if (!cookies.isEmpty())
+        {
+            // transform the Cactus cookies into HttpClient cookies
+            org.apache.commons.httpclient.Cookie[] httpclientCookies = 
+                CookieUtil.createHttpClientCookies(theRequest, theUrl);
+
+            // and create the cookie header to send
+            Header cookieHeader = createCookieHeader(
+                CookieUtil.getCookieDomain(theRequest, theUrl.getHost()), 
+                CookieUtil.getCookiePath(theRequest, theUrl.getFile()), 
+                httpclientCookies);
+
+            return cookieHeader.getValue();
+        }
+
+        return null;
     }
 }

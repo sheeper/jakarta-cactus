@@ -60,7 +60,7 @@ import java.io.Serializable;
 
 import java.util.Date;
 
-import org.apache.cactus.client.connector.http.CookieUtil;
+import org.apache.cactus.util.CookieUtil;
 
 /**
  * Client cookie. Used for manipulating client cookies either in

@@ -68,6 +68,7 @@ import java.util.List;
 import org.apache.cactus.WebRequest;
 import org.apache.cactus.client.authentication.Authentication;
 import org.apache.cactus.configuration.Configuration;
+import org.apache.cactus.util.CookieUtil;
 import org.apache.cactus.util.UrlUtil;
 import org.apache.commons.httpclient.HostConfiguration;
 import org.apache.commons.httpclient.HttpClient;
@@ -165,7 +166,7 @@ public class HttpClientConnectionHelper extends AbstractConnectionHelper
 
         // Add the cookies
         HttpState state = new HttpState();
-        state.addCookies(createHttpClientCookies(theRequest, url));
+        state.addCookies(CookieUtil.createHttpClientCookies(theRequest, url));
 
         // Open the connection and get the result
         HttpClient client = new HttpClient();

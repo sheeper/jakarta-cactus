@@ -72,6 +72,7 @@ import org.apache.cactus.WebRequest;
 import org.apache.cactus.client.authentication.Authentication;
 import org.apache.cactus.configuration.Configuration;
 import org.apache.cactus.util.ChainedRuntimeException;
+import org.apache.cactus.util.CookieUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -162,7 +163,7 @@ public class JdkConnectionHelper extends AbstractConnectionHelper
         addHeaders(theRequest, connection);
 
         // Add the cookies
-        String cookieString = getCookieString(theRequest, url);
+        String cookieString = CookieUtil.getCookieString(theRequest, url);
 
         if (cookieString != null)
         {
