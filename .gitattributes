@@ -713,3 +713,5 @@ samples/servlet/src/webapp/j2ee13/WEB-INF/web.xml svn_keywords=Author+Date+Id+Re
 samples/servlet/src/webapp/j2ee13/test/filterRedirector.jsp svn_keywords=Author+Date+Id+Revision
 samples/servlet/src/webapp/share/cactus-report.xsl svn_keywords=Author+Date+Id+Revision
 samples/servlet/src/webapp/share/test/test.jsp svn_keywords=Author+Date+Id+Revision
+scratchpad/cactus2/documentation/docs/xdocs/original/architecture.ppt -text
+scratchpad/cactus2/documentation/docs/xdocs/original/scope.ppt -text
