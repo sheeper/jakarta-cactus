@@ -202,8 +202,7 @@
         <condition property="cactus.test.error.shouldstop">
           <and>
             <isset property="cactus.junit.error"/>
-            <equals arg1="${cactus.halt.on.error}" arg2="true" trim="true"
-              casesensitive="false"/>
+            <istrue value="${cactus.halt.on.error}"/>
           </and>
         </condition>
         <antcall target="cactus.test.check.error"/>
@@ -211,8 +210,7 @@
         <condition property="cactus.test.failure.shouldstop">
           <and>
             <isset property="cactus.junit.failure"/>
-            <equals arg1="${cactus.halt.on.failure}" arg2="true" trim="true"
-              casesensitive="false"/>
+            <istrue value="${cactus.halt.on.failure}"/>
           </and>
         </condition>
         <antcall target="cactus.test.check.failure"/>
