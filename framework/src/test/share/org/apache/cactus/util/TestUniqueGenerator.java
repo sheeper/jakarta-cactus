@@ -59,6 +59,7 @@ package org.apache.cactus.util;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -68,13 +69,23 @@ import junit.framework.TestCase;
 
 /**
  * Smoke test for the unique id generator.
- *
+ * 
  * @author <a href="mailto:ndlesiecki@apache.org>Nicholas Lesiecki</a>
+ * @author <a href="mailto:cmlenz@apache.org>Christopher Lenz</a>
  *
  * @version $Id$
  */
-public class UniqueGeneratorTest extends TestCase
+public class TestUniqueGenerator extends TestCase
 {
+
+    /**
+     * @see TestCase#setUp
+     */
+    protected void setUp()
+    {
+        // let the generator initialize
+        UniqueGenerator.generate(new ServletTestCase("foo"));
+    }
 
     /**
      * Simulates several simultaneous id generations using threads.
@@ -83,6 +94,7 @@ public class UniqueGeneratorTest extends TestCase
     public void testThatSimultaneouslyGeneratedIdsAreUnique()
     {
         final ServletTestCase aTestCase = new ServletTestCase("foo");
+
         Thread[] threads = new Thread[10];
         final List results = Collections.synchronizedList(new ArrayList());
         for (int i = 0; i < threads.length; i++)
@@ -96,8 +108,8 @@ public class UniqueGeneratorTest extends TestCase
             };
         }
 
-        //loops seperate to make their beginning as simultaneous
-        //as possible
+        // loops separate to make their beginning as simultaneous
+        // as possible
         for (int i = 0; i < threads.length; i++)
         {
             threads[i].run();
@@ -105,12 +117,18 @@ public class UniqueGeneratorTest extends TestCase
 
         try
         {
-            //in case the threads need time to finish
+            // in case the threads need time to finish
             Thread.sleep(200);
         }
         catch (InterruptedException e)
         {
             throw new ChainedRuntimeException(e);
+        }
+
+        for (Iterator i = results.iterator(); i.hasNext();)
+        {
+            String id = (String) i.next();
+            System.out.println(id + " (" + id.length() + ")");
         }
 
         Set resultSet = new HashSet(results);
@@ -119,4 +137,39 @@ public class UniqueGeneratorTest extends TestCase
             results.size(),
             resultSet.size());
     }
+
+    /**
+     * Sanity check to verify that different IDs are generated for different
+     * instances of the test class.
+     */
+    public void testThatGeneratedIdsForDifferentTestCasesAreUnique()
+    {
+        final ServletTestCase firstTestCase = new ServletTestCase("foo");
+        final ServletTestCase secondTestCase = new ServletTestCase("foo");
+        
+        String firstId = UniqueGenerator.generate(firstTestCase, 0);
+        System.out.println(firstId);
+        String secondId = UniqueGenerator.generate(secondTestCase, 0);
+        System.out.println(secondId);
+
+        assertFalse("IDs not unique", firstId.equals(secondId));
+    }
+
+    /**
+     * Sanity check to verify that different IDs are generated for different
+     * test methods/names.
+     */
+    public void testThatGeneratedIdsForDifferentTestMethodsAreUnique()
+    {
+        final ServletTestCase aTestCase = new ServletTestCase("foo");
+        
+        String firstId = UniqueGenerator.generate(aTestCase, 0);
+        System.out.println(firstId);
+        aTestCase.setName("bar");
+        String secondId = UniqueGenerator.generate(aTestCase, 0);
+        System.out.println(secondId);
+
+        assertFalse("IDs not unique", firstId.equals(secondId));
+    }
+
 }

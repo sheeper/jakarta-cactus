@@ -278,7 +278,7 @@ framework/src/test/share/org/apache/cactus/client/TestWebTestResultParser.java s
 framework/src/test/share/org/apache/cactus/mock/MockHttpURLConnection.java svn_keywords=Author+Date+Id+Revision
 framework/src/test/share/org/apache/cactus/util/TestCookieUtil.java svn_keywords=Author+Date+Id+Revision
 framework/src/test/share/org/apache/cactus/util/TestStringUtil.java svn_keywords=Author+Date+Id+Revision
-framework/src/test/share/org/apache/cactus/util/UniqueGeneratorTest.java svn_keywords=Author+Date+Id+Revision
+framework/src/test/share/org/apache/cactus/util/TestUniqueGenerator.java svn_keywords=Author+Date+Id+Revision
 framework/web/jspRedirector.jsp svn_keywords=Author+Date+Id+Revision
 /gump.xml svn_keywords=Author+Date+Id+Revision
 integration/ant/.cvsignore svn_keywords=Author+Date+Id+Revision

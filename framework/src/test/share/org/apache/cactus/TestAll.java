@@ -107,10 +107,9 @@ public class TestAll extends TestCase
         suite.addTestSuite(org.apache.cactus.TestWebRequest.class);
         suite.addTestSuite(
             org.apache.cactus.client.TestWebTestResultParser.class);
-        suite.addTestSuite(
-            org.apache.cactus.util.TestStringUtil.class);
-        suite.addTestSuite(
-            org.apache.cactus.util.TestCookieUtil.class);
+        suite.addTestSuite(org.apache.cactus.util.TestStringUtil.class);
+        suite.addTestSuite(org.apache.cactus.util.TestCookieUtil.class);
+        suite.addTestSuite(org.apache.cactus.util.TestUniqueGenerator.class);
 
         return suite;
     }
