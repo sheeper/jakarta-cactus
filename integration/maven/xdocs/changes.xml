@@ -8,6 +8,12 @@
   <body>
 
     <release version="1.6dev" date="in CVS">
+      <action dev="vmassol" type="add" issue="24754" due-to="Sean Timm" due-to-email="stimm@proclarity.com">
+        Added 2 properties (<code>cactus.build.goal.war</code> and
+        <code>cactus.build.goal.ejb</code>) for defining which goal is called 
+        by Cactus to generate the war and ejb artifacts. They default to
+        <code>war:war</code> and <code>ejb:ejb</code> respectively.
+      </action>
       <action dev="vmassol" type="add">
         Added new optional <code>cactus.war</code> property. It specified the
         location where to generate the cactified WAR. Note that this is 

@@ -34,7 +34,7 @@
        Initializations.
      ========================================================================
   -->
-  <goal name="cactus:init" prereqs="war:war">
+  <goal name="cactus:init">
 
     <ant:path id="cactus.classpath">
       <ant:pathelement location="${plugin.getDependencyPath('cactus:cactus-ant')}"/>
@@ -222,6 +222,9 @@
   -->
   <goal name="cactus:cactifywar" prereqs="cactus:compile"
       description="Cactify the application war">
+
+    <!-- Generate the war artifact -->
+    <attainGoal name="${cactus.build.goal.war}"/>
 
     <cactifywar srcfile="${cactus.src.war}" destfile="${cactus.war}">
 
@@ -746,8 +749,11 @@
      ========================================================================
   -->
   <goal name="cactus:cactifyear" 
-      prereqs="ejb:ejb,cactus:cactifywar,cactus:generate-ear-descriptor"
+      prereqs="cactus:cactifywar,cactus:generate-ear-descriptor"
       description="Create and cactify an EAR">
+
+    <!-- Generate the ejb artifact -->
+    <attainGoal name="${cactus.build.goal.ejb}"/>
 
     <ant:mkdir dir="${maven.build.dir}"/>
 

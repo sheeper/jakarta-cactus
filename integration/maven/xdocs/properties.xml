@@ -180,6 +180,26 @@
             </p>
           </td>
         </tr>
+        <tr>
+          <td>cactus.build.goal.war</td>
+          <td>Yes</td>
+          <td>
+            <p>
+              Goal that Cactus should call for generating the war artifact.
+              Default to <code>war:war</code>.
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td>cactus.build.goal.ejb</td>
+          <td>Yes</td>
+          <td>
+            <p>
+              Goal that Cactus should call for generating the ejb artifact.
+              Default to <code>ejb:ejb</code>.
+            </p>
+          </td>
+        </tr>
       </table>
     </section>
 
