@@ -279,18 +279,9 @@
   <target name="test" depends="test.prepare"
       description="Run the tests on the defined containers">
 
-    <!-- Save all Ant properties to a file so that it can be read by the
-         TestAll test suite. This is to allow passing system properties
-         to the tests. This is useful for example to configure logging
-         properties. For example, if you are using the JDK 1.4 and you 
-         wish to pass your custom logging file, you can can:
-           ant -Djava.util.logging.config.file=logging.properties test -->
-    <echoproperties destfile="${target.dir}/test.properties"/>
-
     <!-- Run the tests -->
     <cactus warfile="${target.dir}/test.war" fork="yes"
-        failureproperty="tests.failed">
-      <sysproperty key="cactus.config" file="${target.dir}/test.properties"/>
+        failureproperty="tests.failed" haltonerror="true">
       <classpath>
         <path refid="project.classpath"/>
         <@clover.begin@pathelement location="${clover.jar}"/@clover.end@>
