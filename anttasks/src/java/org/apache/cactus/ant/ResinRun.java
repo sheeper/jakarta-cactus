@@ -58,6 +58,7 @@ package org.apache.cactus.ant;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 
 /**
  * Starts/stop Resin by setting up a listener socket.
@@ -109,14 +110,36 @@ public class ResinRun extends AbstractServerRun
                 new Class[]{this.args.getClass(), boolean.class});
             this.resinServer = constructor.newInstance(
                 new Object[]{this.args, new Boolean(true)});
-            Method initMethod = resinClass.getMethod("init",
-                new Class[]{boolean.class});
-            initMethod.invoke(this.resinServer, new Object[]{
-                new Boolean(true)});
+
+            // Try Resin 2.0 first
+            try {
+                startResin20(resinServer, resinClass);
+            } catch (NoSuchMethodException nsme) {
+                // Try Resin 2.1
+                startResin21(resinServer, resinClass);
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException("Cannot create instance of ResinServer");
         }
+    }
+
+    private void startResin20(Object resinServer, Class resinClass)
+        throws Exception
+    {
+        Method initMethod = resinClass.getMethod("init",
+            new Class[]{boolean.class});
+        initMethod.invoke(resinServer, new Object[]{
+            new Boolean(true)});
+    }
+
+    private void startResin21(Object resinServer, Class resinClass)
+        throws Exception
+    {
+        Method initMethod = resinClass.getMethod("init",
+            new Class[]{ArrayList.class});
+        initMethod.invoke(resinServer, new Object[]{ null });
     }
 
     /**
