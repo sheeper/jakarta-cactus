@@ -14,62 +14,100 @@
 
     <s1 title="Cactus contributors">
 
-      <p>Thanks to all that have contributed so far to Cactus ... </p>
+      <p>
+        The people listed below have made significant contributions to Cactus
+        by working long and hard to make quality software for the rest of the
+        world to use. Contributors to the Cactus project should be extremely
+        proud of themselves. 
+      </p>
+      <p>
+        If you would like to become a contributor, please see the 
+        <link href="todo.html">Todo</link> document and read the
+        <link href="contributing.html">Contributor's guide</link> to find areas 
+        where you can contribute effectively.
+      </p>
+      <p>
+        The table is listed in alphabetic order.
+      </p>
 
-      <s2 title="Commiters">
+      <table>
+        <tr>
+          <td>
+            <link href="mailto:paston@bea.com">
+            Philip Aston</link>
+          </td>
+          <td>
+            Bugfix and patches
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <link href="mailto:Bob.Davison@reuters.com">
+            Bob Davison</link>
+          </td>
+          <td>
+            Bugfix and patches
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <link href="mailto:vmassol@users.sourceforge.net">
+            Vincent Massol</link>
+          </td>
+          <td>
+            Original developer of Cactus, current project maintainer
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <link href="mailto:lthouvenot@octo.com">Lyonel Thouvenot</link>
+          </td>
+          <td>
+            Cactus logo (and web site design and graphisms when Cactus was not
+            using Stylebook)
+          </td>
+        </tr>
+      </table>
 
-        <table>
-          <tr>
-            <td>
-              <link href="mailto:vmassol@users.sourceforge.net">Vincent Massol</link><br/>
-              Main developer of Cactus, current project maintainer.
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <link href="mailto:lthouvenot@octo.com">Lyonel Thouvenot</link><br/>
-              Cactus logo (and web site design and graphisms when Cactus was not
-              using Stylebook).
-            </td>
-          </tr>
-        </table>
+      <p>
+        Thanks to all that have reported bugs or suggested ideas for Cactus.
+      </p>
+      <p>
+        Thanks to Erik Meade for linking Cactus on the
+        <link href="http://junit.org">JUnit web site</link>.
+      </p>
+      <p>
+        Thanks to all that are participating to the 
+        <link href="logos.html">Cactus Logo competition</link>.
+      </p>
+      <p>
+        And, of course ...
+      </p>
+      <p>
+        Thanks to the <link href="http://jakarta.apache.org">Apache
+        Jakarta</link> project and more specifically the
+        <link href="http://jakarta.apache.org/commons">Jakarta Commons</link>
+        project for accepting the donation of J2EEUnit (renamed Cactus), thus
+        giving it a home and a family.
+      </p>
 
-      </s2>
+    </s1>
 
-      <s2 title="Contributors">
+    <s1 title="Sponsors">
 
-        <p>
-          Thanks to all that have reported bugs or suggested ideas for Cactus.
-        </p>
-        <p>
-          A special thank to Erik Meade for linking Cactus on the
-          <link href="http://junit.org">JUnit web site</link>.
-        </p>
-        <p>
-          Thanks also to the <link href="http://jakarta.apache.org">Apache
-          Jakarta</link> project and more specifically the
-          <link href="http://jakarta.apache.org/commons">Jakarta Commons</link>
-          project for accepting the donation of J2EEUnit (renamed Cactus), thus
-          giving it a home and a family.
-        </p>
-
-      </s2>
-
-      <s2 title="Sponsors">
-
-        <table>
-          <tr>
-            <td>
-              <link href="http://www.octo.com">OCTO Technology</link> (the company
-              for which I work),<br/>
-              An IT consulting company on the cutting edge of new technologies,
-              providing expert Architects in the fields of applications servers
-              (J2EE, Microsoft DNA &amp; .NET, ...), EAI and IRM.
-            </td>
-          </tr>
-        </table>
-
-      </s2>
+      <table>
+        <tr>
+          <td>
+            <link href="http://www.octo.com">OCTO Technology</link>
+          </td>
+          <td>
+            Octo is the company for which I work. It is an
+            IS consulting company on the cutting edge of new technologies,
+            providing expert Architects in the fields of applications servers
+            (J2EE, Microsoft DNA &amp; .NET, ...), EAI and IRM.
+          </td>
+        </tr>
+      </table>
 
     </s1>
 
