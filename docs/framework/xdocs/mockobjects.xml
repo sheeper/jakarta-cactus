@@ -15,46 +15,76 @@
   <body>
 
     <s1 title="Mock Objects vs In-Container testing">
+      <note>
+        Throughout this article, we'll use the abbreviations MO for Mock
+        Objects and IC for In-Container strategy.
+      </note>
+      <ul>
+        <li>
+          <jump anchor="mo_serverside">MO and Server-side tests</jump>
+        </li>
+        <li>
+          <jump anchor="mo_example">An example</jump>
+        </li>
+        <li>
+          <jump anchor="mo_differences">Differences between MO and IC</jump>
+        </li>
+        <li>
+          <jump anchor="mo_conclusion">Conclusion</jump>
+        </li>
+        <li>
+          <jump anchor="mo_resources">MO resources</jump>
+        </li>
+      </ul>
+    </s1>          
+
+    <anchor id="mo_serverside"/>
+    <s1 title="MO and Server-side tests">
 
       <p>
-        Using Mock Objects is a way to unit test java classes in general, that
-        is also applicable to unit test server side code like Servlets,
+        MO is a strategy to unit test java classes in general. As such
+        it is also applicable to unit test server side code like Servlets,
         Filters, Taglibs, EJBs, ... See the original article
         <link href="http://www.sidewize.com/company/mockobjects.pdf">
         "Endo-Testing : Unit Testing with Mock Objects"</link> for full details
-        on Mock Objects.
+        on MO. As such it is a challenger to Cactus but we'll see
+        in the rest of this article that it is in fact complementary rather than
+        a replacement.
       </p>
       <p>
-        A method, when unit tested, may take parameters and may manipulate
-        objects from other classes. It is not the goal of this method unit
-        test to unit test these ancillary objects. Thus, the Mock objects
-        strategy is to fake the latter by using simulated copies instead of
-        the real objects. This enables to finely unit test the method with no
-        "noise" from the surrounding domain objects. In other words,
-        it enables the method being unit tested to be completely isolated from
-        its surrounding and thus its unit tests can concentrate on unit testing
-        its logic.
+        The main goal of MO is to unit test a method in isolation of other
+        domain objects. Thus, the MO approach is to fake domain objects
+        by using simulated copies instead of the real objects (be careful
+        MO does not implement any logic in it's fake objects, that would be
+        "stubbing". All behaviours of mock objects are described by the unit
+        test itself). This enables to 
+        finely unit test the method with no environment
+        "noise" and to concentrate on unit testing its logic.
       </p>
       <p>
-        When applied to servlet testing, it means Mock Objects need
+        When applied to servlet testing, it means mock objects need
         to be provided for simulating the servlet container. In other words
-        a Mock implementation of the Servlet API need to be provided (of course
+        a mock implementation of the Servlet API need to be provided (of course
         only the Servlet API methods used in the classes under test need to be
-        mocked).
+        mocked and the approach described in the white paper is to start small
+        and develop the mock implementations as they are needed - Note that
+        mock objects can even be generated at build time or at run time with
+        JDK 1.3 dynamic proxies, see
+        <jump anchor="mo_resources">resources</jump>-).
       </p>
       <p>
-        Cactus' strategy so far has been to rely on the container to provide
-        the implementation of the Servlet API. In that sense, Cactus and
-        Mock Objects are 2 different ways of writing unit test for servlet code
-        (and any other server side code for any other API).
-      </p>
-      <p>
+        Cactus' strategy on the other hand has been to rely on the real 
+        container to provide the implementation of the Servlet API.
         In the rest of this article, we'll discuss the pros and cons of each
-        approach.
+        approach and draw a conclusion.
+      </p>
+      <p>
+        Let's start first by an example to understand better what are MO.
       </p>
 
     </s1>
 
+    <anchor id="mo_example"/>
     <s1 title="An example">
 
       <p>
@@ -118,24 +148,27 @@ public void testXXX()
 
     </s1>
 
-    <s1 title="Pros and Cons">
+    <anchor id="mo_differences"/>
+    <s1 title="Differences between MO and IC">
 
       <p>
-        Comparison of pros and cons of Mock Objects (MO)
-        versus In-Container/Cactus (IC) but also of MO in general
-        versus no MO.
+        Comparison of pros and cons of MO versus IC.
       </p>
       <note>
         This table is not meant to be comprehensive in
         term of benefits/inconvenients of using MO. It is more focused on
-        pros and cons of MO when used for unit testing server side code
-        (Servlets for example)
+        pros and cons of MO when used for unit testing server side code (i.e.
+        what Cactus is focused on).
+      </note>
+      <note>
+        A '+' indicates a positive point.For example
+        a '+' in the MO column shows that it has an advantage over IC.
       </note>
 
       <table>
         <tr>
           <th>
-            Issue
+            Issues
           </th>
           <th>
             MO
@@ -160,12 +193,14 @@ public void testXXX()
         </tr>
         <tr>
           <td>
-            MO is comprehensive/universal. It adapts to all kind of unit testing :
+            MO is comprehensive/universal. It adapts to all kind of unit 
+            testing :
             Servlet unit testing, JDBC unit testing, Struts unit testing, ...
             Cactus only addresses server-side testing, meaning that if in your
             Servlet code you have JDBC connections and you want to unit test
             the methods that does database access you still need to have a
-            MO-like strategy, thus you need to understand and learn 2 strategies.
+            MO-like strategy, thus you need to understand and learn 2 
+            strategies.
           </td>
           <td>
             +
@@ -179,27 +214,6 @@ public void testXXX()
             start the container, run the tests, stop the container. However,
             this can be alleviated by using Ant and by using a reloadable
             container (the majority of servlet engines do dynamic reloading).
-          </td>
-          <td>
-            +
-          </td>
-          <td/>
-        </tr>
-        <tr>
-          <td>
-            It is possible to write generic MO suite for a given API set. It
-            fits very well with the Jakarta frameworks in the sense that it is
-            possible to write an MO suite for the Servlet API, but also an MO
-            suite for Struts, an MO suite for Velocity, ... There can 3 levels
-            in an MO unit testing framework : the core level providing basic
-            core functionality, some standard API level libraries (like a MO
-            library for the Servlet API, for Taglibs, ...) and some
-            application API level libraries (like a MO library for Struts, ...).
-            Whereas, if we want to ease unit testing of Struts Actions 
-            (for example) using Cactus, we still need to make available a
-            MO suite for Struts. The question then is : As this Struts MO suite
-            does not have the same goal as Cactus, where do we host it ? In
-            Cactus, in Struts, somwhere else ?
           </td>
           <td>
             +
@@ -223,7 +237,7 @@ public void testXXX()
         <tr>
           <td>
             Using MO, it is not sure the classes will run correctly in the
-            chosen servlet engine. On the other hand, IC tests ensures that
+            chosen container. On the other hand, IC tests ensures that
             all code will run perfectly well in container.
           </td>
           <td/>
@@ -233,30 +247,15 @@ public void testXXX()
         </tr>
         <tr>
           <td>
-            MO does not include a build/deployment methodology whereas Cactus
-            does. This could certainly be included in a Cactus-like framework
-            based on MO.
+            MO tests tend to be very fine-grained. Thus, there is no assurance
+            that object interactions will work properly and thus more coarse
+            grained tests tests are a must (integration tests, functional 
+            tests).
           </td>
           <td/>
           <td>
             +
           </td>
-        </tr>
-        <tr>
-          <td>
-            MO tests tend to be very fine-grained. Thus, there is no assurance
-            that object interactions will work properly and thus functional
-            tests are a must. However, this is probably simply a question of
-            practice as the granularity of MO can vary depending on the test
-            case needs.
-            It means that it is possible to implement a very fine grain test
-            case and then another test case where we mock less domain objects
-            and use more real objects instead.
-          </td>
-          <td>
-            +/-
-          </td>
-          <td/>
         </tr>
         <tr>
           <td>
@@ -268,10 +267,10 @@ public void testXXX()
             for some parts, MO does not fit that well with the idea of generic
             libraries. A middle ground could probably be found.
           </td>
-          <td>
-            -
-          </td>
           <td/>
+          <td>
+            +
+          </td>
         </tr>
         <tr>
           <td>
@@ -296,10 +295,10 @@ public void testXXX()
               </li>
             </ul>
           </td>
-          <td>
-            -
-          </td>
           <td/>
+          <td>
+            +
+          </td>
         </tr>
         <tr>
           <td>                 
@@ -312,10 +311,10 @@ public void testXXX()
             for example, one might need to introduce a factory when it was not
             needed simply to be able to provide MO objects from the factory.
           </td>
-          <td>
-            -
-          </td>
           <td/>
+          <td>
+            +
+          </td>
         </tr>
         <tr>
           <td>                 
@@ -325,35 +324,33 @@ public void testXXX()
             complexity of a generic MO library may be higher than just
             reimplementing from scratch just the needed mocked parts.
           </td>
-          <td>
-            -
-          </td>
           <td/>
+          <td>
+            +
+          </td>
         </tr>
         <tr>
           <td>                 
             MO does not always work well. For example the API being mocked need
             to offer the correct interfaces and means to override/set internal
-            objects. IC has the same problem but if a test service can be
-            included from within the container (i.e. be part of the API SPI,
-            like the container API part from Servlet API) it would solve this
-            problem (see <link href="goals.html">Cactus goals</link>).
-          </td>
-          <td>
-            -
+            objects.
           </td>
           <td/>
+          <td>
+            +
+          </td>
         </tr>
       </table>
 
     </s1>
 
+    <anchor id="mo_conclusion"/>
     <s1 title="Conclusion">
 
       <p>
         Mock Objects are a very interesting way of doing unit testing which
         could bridge the gap between standard java class unit testing and
-        server-side testing of container components. I would say the biggest
+        server-side testing of container components. The biggest
         difference between the way Cactus currently works and Mock Objects is
         that Cactus tests tend to be more coarse-grained and they also ensure
         that developed code will run in the container. On the other hand, Mock
@@ -361,17 +358,48 @@ public void testXXX()
         limited to servlet unit testing but cover the whole spectrum of code.
       </p>
       <p>
-        I would very much like to have your feedback on Mock Objects versus
-        In-Container/Cactus testing. Please post your feedback on the
-        <link href="mailinglist.html">Cactus mailing list</link>.
+        We believe the graininess Cactus tests is just correct. Having
+        fine-grained is nice but it is also a lot of effort. It seems Cactus
+        tests are a middle ground where you can still do unit tests fine
+        enough and at the same time it gives you *enough* confidence that your
+        tests will run fine when deployed.
       </p>
       <p>
-        I would also like to point out that I am
-        not opposed to changing Cactus strategy (from In-Container to Mock
-        Objects) in a future version (like a 2.0). In that case, Cactus could
-        for example provide the 3 levels of frameworks mentionned above : core
-        library + standard API libraries (Servlets, Taglibs, ...) + Jakarta
-        oriented API libraries (Struts, Turbine, ...)
+        Also, as described on the <link href="goals.html">Cactus' goals
+        page</link>, we think that a framework like Cactus will be more and
+        more useful as we use more and more components in the future because 
+        it will provide
+        the needed confidence that the code will run ok in the container.
+      </p>
+      <p>
+        We also believe that writing correctly MO tests is a difficult process
+        that need some training. MO are good because they let you write better
+        code but is more difficult to understand than Cactus tests.
+      </p>
+      <p>
+        Finally, we believe that MO and Cactus are complementary in 2 areas :
+        <ul>
+          <li>
+            During the development phase, MO could be used to unit test the
+            code logic only. They run fast and you could use them easily
+            inside your IDE. Then every few hours, you'll run the Cactus tests
+            which test interactions between objects and container interactions.
+            Then you'll run the functional/acceptance tests when you deploy
+            to the real platform. Note that this is if you want to do the full
+            cycle. A short cycle could simply be Cactus tests and functional
+            /acceptance tests.
+          </li>
+          <li>
+            Cactus focuses on server side code. However you can use MO (or
+            stubs) within Cactus tests for simulating a JDBC connection, an 
+            LDAP connection, ... for example. There are no restrictions.
+          </li>
+        </ul>
+      </p>
+      <p>
+        We would very much like to have your feedback on MO vs IC. Please post 
+        your feedback on the
+        <link href="mailinglist.html">Cactus mailing list</link>.
       </p>
       <p>
         Thanks a lot.
@@ -379,7 +407,8 @@ public void testXXX()
 
     </s1>
 
-    <s1 title="Resources">
+    <anchor id="mo_resources"/>
+    <s1 title="Resources on MO">
 
       <p>
         Some links :
@@ -388,11 +417,30 @@ public void testXXX()
         <ul>
           <li>
             <link href="http://www.sidewize.com/company/mockobjects.pdf">
-            "Endo-Testing : Unit Testing with Mock Objects"</link>
+            "Endo-Testing : Unit Testing with Mock Objects"</link> (PDF). 
+            Describes the vision behind MO.
+          </li>
+          <li>
+            <link href="http://c2.com/ppr/wiki/RecentChanges/MockObject.html">
+            Mock Object discussions on Wiki</link>.
           </li>
           <li>
             <link href="http://sourceforge.net/projects/mockobjects">Mock Object
-            project</link> on SourceForge          
+            project</link> on SourceForge. MO framework and some mock
+            implementations.
+          </li>
+          <li>
+            <link 
+            href="http://www.xpdeveloper.com/cgi-bin/wiki.cgi?MockMaker">Mock 
+            Maker</link>. Generates build time MO implementations for the 
+            SourceForge Mock Objects project. Generation is done from 
+            interfaces.
+          </li>
+          <li>
+            <link href="http://tammofreese.de/easymock/">Easy Mock</link>. 
+            Uses dynamic proxies (JDK 1.3) to provide runtime
+            mock implementations, thus eliminating the need for generating/
+            writing the mock implementations.
           </li>
           <li>
             <link href="http://www.xpdeveloper.com">xpdeveloper.com</link> web
