@@ -40,6 +40,9 @@
     <target name="cactus.start.weblogic6x" description="Start WebLogic 6.x"
         depends="cactus.check.weblogic6x" if="cactus.home.weblogic6x">
 
+        <property name="cactus.weblogic6x.java.library.path"
+            location="${java.library.path};${cactus.weblogic6x.libpath};${cactus.weblogic6x.server}/bin"/>
+
         <java jvm="${cactus.jvm}" classname="weblogic.Server" fork="yes"
             dir="${cactus.target.weblogic6x}">
 
@@ -52,9 +55,7 @@
             <jvmarg value="-ms64m"/>
             <jvmarg value="-mx64m"/>
 
-			<!-- TODO: Add support for Unix -->
-            <jvmarg value="-Djava.library.path=${java.library.path};${cactus.weblogic6x.server}/bin;${cactus.weblogic6x.libpath}"/>
-
+            <jvmarg value="-Djava.library.path=${cactus.weblogic6x.java.library.path}"/>
             <jvmarg value="-Dweblogic.RootDirectory=."/>
             <jvmarg value="-Dweblogic.Domain=testdomain"/>
             <jvmarg value="-Dweblogic.Name=testserver"/>

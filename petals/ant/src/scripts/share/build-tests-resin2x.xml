@@ -45,7 +45,7 @@
             <jvmarg value="-Dresin.home=${cactus.target.resin2x}"/>
 
             <classpath>
-                <pathelement location="${cactus.petal.ant.jar}"/>
+                <pathelement location="${cactus.antpetal.jar}"/>
                 <fileset dir="${cactus.home.resin2x}/lib">
                     <include name="*.jar"/>
                 </fileset>
@@ -69,7 +69,7 @@
             <arg value="-stop"/>
 
             <classpath>
-                <pathelement location="${cactus.petal.ant.jar}"/>
+                <pathelement location="${cactus.antpetal.jar}"/>
                 <fileset dir="${cactus.home.resin2x}/lib">
                     <include name="*.jar"/>
                 </fileset>

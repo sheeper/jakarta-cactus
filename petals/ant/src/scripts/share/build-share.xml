@@ -11,7 +11,8 @@
     <property name="cactus.src.includes" value="**/*Test*.java"/>
 
     <!-- Default Cactus test files to exclude from the test -->
-    <property name="cactus.src.excludes" value="**/AllTests.java"/>
+    <property name="cactus.src.excludes" 
+        value="**/AllTests.java,**/Test*All.java"/>
 
     <!-- Default Java VM to use for java Ant tasks -->
     <property name="cactus.jvm" value="java"/>
@@ -34,8 +35,8 @@
     <property name="cactus.target.classes.dir" value="${cactus.target.dir}/classes"/>
 
     <!-- Cactus related jar locations -->
-    <property name="cactus.petal.ant.jar" 
-        value="${cactus.lib.client.dir}/@cactus.petal.ant.jar.name@"/>
+    <property name="cactus.antpetal.jar" 
+        value="${cactus.lib.client.dir}/@cactus.antpetal.jar.name@"/>
 
     <property name="cactus.framework.jar" 
         value="${cactus.lib.common.dir}/@cactus.framework.jar.name@"/>
@@ -69,7 +70,7 @@
         <taskdef name="runservertests"
             classname="org.apache.cactus.petal.ant.RunServerTestsTask">
             <classpath>
-                <pathelement location="${cactus.petal.ant.jar}"/>
+                <pathelement location="${cactus.antpetal.jar}"/>
             </classpath>
         </taskdef>
 
