@@ -1,5 +1,5 @@
 
-    <!-- Give user a chance to override without editing this file 
+    <!-- Give user a chance to override without editing this file
          (and without typing -D each time it compiles it) -->
     <property file="build/build.properties" />
     <property file="${user.home}/build.properties" />
@@ -15,15 +15,15 @@
     <property name="optimize" value="off"/>
     <property name="deprecation" value="off"/>
 
-    <!-- 
+    <!--
        ========================================================================
          Default values that can be overidden
        ========================================================================
     -->
     <!-- The port that will be used to start the servers -->
-    <property name="test.port" value="8080"/>    
+    <property name="test.port" value="8080"/>
 
-    <!-- 
+    <!--
        ========================================================================
          Set the properties related to the source tree
        ========================================================================
@@ -39,7 +39,7 @@
     <property name="conf.test.dir" value="conf/test"/>
     <property name="web.dir" value="web"/>
 
-    <!-- 
+    <!--
        ========================================================================
          Set the properties related to the build area
        ========================================================================
@@ -68,7 +68,7 @@
     <!-- The Cactus Sample documentation in a zip : javadoc -->
     <property name="final.doc.name" value="${out.dir}/${project.name}-doc-@servlet.api@.zip"/>
 
-    <!-- 
+    <!--
        ========================================================================
          Useful file patterns for targets
        ========================================================================
@@ -101,7 +101,7 @@
 
     </patternset>
 
-    <!-- 
+    <!--
        ========================================================================
          Initialize the build. Must be called by all targets
        ========================================================================
@@ -122,10 +122,11 @@
         <echo message=""/>
         <echo message="basedir = ${basedir}"/>
         <echo message=""/>
-        <echo message="servlet.jar = ${servlet.jar}"/>
         <echo message="cactus.jar = ${cactus.jar}"/>
-        <echo message="junit.jar = ${junit.jar}"/>
         <echo message="cactus.ant.jar = ${cactus.ant.jar}"/>
+        <echo message="servlet.jar = ${servlet.jar}"/>
+        <echo message="junit.jar = ${junit.jar}"/>
+        <echo message="httpclient.jar = ${httpclient.jar}"/>
 
         <!-- Filters -->
         <filter token="version" value="${project.version}"/>
@@ -142,7 +143,7 @@
 
     </target>
 
-    <!-- 
+    <!--
        ========================================================================
          Prepare the output directory by copying the source files into it
        ========================================================================
@@ -165,7 +166,7 @@
 
     </target>
 
-    <!-- 
+    <!--
        ========================================================================
          Compiles the source directory
        ========================================================================
@@ -198,9 +199,10 @@
             <exclude name="**/*.properties"/>
 
             <classpath>
-                <pathelement path="${java.class.path}"/>
                 <pathelement location="${servlet.jar}"/>
                 <pathelement location="${cactus.jar}"/>
+                <pathelement location="${junit.jar}"/>
+                <pathelement path="${java.class.path}"/>
             </classpath>
 
         </javac>
@@ -219,7 +221,7 @@
 
     </target>
 
-    <!-- 
+    <!--
        ========================================================================
          Create the runtime war file
        ========================================================================
@@ -261,7 +263,7 @@
 
     </target>
 
-    <!-- 
+    <!--
        ========================================================================
          Generates source zip of the project
        ========================================================================
@@ -280,7 +282,7 @@
 
     </target>
 
-    <!-- 
+    <!--
        ========================================================================
          Generate the javadoc
        ========================================================================
@@ -308,16 +310,17 @@
             bottom="Copyright &amp;copy; ${year} Apache Software Foundation. All Rights Reserved.">
 
             <classpath>
-                <pathelement path="${java.class.path}"/>
                 <pathelement location="${servlet.jar}"/>
                 <pathelement location="${cactus.jar}"/>
+                <pathelement location="${junit.jar}"/>
+                <pathelement path="${java.class.path}"/>
             </classpath>
 
         </javadoc>
 
     </target>
 
-    <!-- 
+    <!--
        ========================================================================
          Generate the full documentation
        ========================================================================
@@ -337,7 +340,7 @@
 
     </target>
 
-    <!-- 
+    <!--
        ========================================================================
          Remove all build generated files
        ========================================================================
@@ -361,7 +364,7 @@
 
     </target>
 
-    <!-- 
+    <!--
        ========================================================================
          Run the client JUnit test cases. This target should not be called
          directly. It must be called by a test_XXX target (where XXX is the
@@ -372,12 +375,19 @@
 
         <junit printsummary="yes" haltonfailure="yes" haltonerror="yes" fork="yes">
 
+            <jvmarg value="-Djava.protocol.handler.pkgs=HTTPClient"/>
+
             <classpath>
-                <pathelement path="${java.class.path}"/>
                 <pathelement location="${servlet.jar}"/>
+
+                <!-- Will be ignore if log4j.jar is not defined -->
                 <pathelement location="${log4j.jar}"/>
+
                 <pathelement location="${cactus.jar}"/>
+                <pathelement location="${junit.jar}"/>
+                <pathelement location="${httpclient.jar}"/>
                 <pathelement location="${out.classes.dir}"/>
+                <pathelement path="${java.class.path}"/>
             </classpath>
 
             <formatter type="plain" usefile="false"/>
@@ -403,20 +413,35 @@
 
     </target>
 
-    <!-- 
+    <!--
        ========================================================================
          Create a test war file that includes the sample application unit tests
        ========================================================================
     -->
-    <target name="testwar" depends="compile">
+    <target name="prepare-testwar-log4j" if="log4j.jar">
 
-        <!-- Gather libraries -->
-        <copy tofile="${out.lib.dir}/junit.jar" file="${junit.jar}"/>
+        <!-- We only copy the Log4j jar if the log4j.jar property has been
+             defined. This is because it is optional and not having log4j in
+             the classpath will simply mean no log generated but will still
+             work fine -->
         <copy tofile="${out.lib.dir}/log4j.jar" file="${log4j.jar}"/>
-        <copy tofile="${out.lib.dir}/cactus-@servlet.api@.jar" file="${cactus.jar}"/>
+
+    </target>
+
+    <target name="prepare-testwar" depends="compile,prepare-testwar-log4j">
+
+        <!-- Gather libraries in a place where they can be copied in the
+             war -->
+        <copy tofile="${out.lib.dir}/junit.jar" file="${junit.jar}"/>
+        <copy tofile="${out.lib.dir}/commons-httpclient.jar" file="${httpclient.jar}"/>
+        <copy tofile="${out.lib.dir}/commons-cactus-@servlet.api@.jar" file="${cactus.jar}"/>
 
         <!-- Make sure the directory for the war exist -->
         <mkdir dir="${out.test.dir}"/>
+
+    </target>
+
+    <target name="testwar" depends="prepare-testwar">
 
         <!-- Create the war file -->
         <war warfile="${out.test.dir}/test.war"
@@ -427,19 +452,20 @@
                 <exclude name="cactus.properties"/>
             </classes>
 
-            <!-- We need to copy the Cactus and JUnit jars in the war. This is
+            <!-- We need to copy all dependent jar in the war. This is
                  because if we just put these jars in the global classpath for
                  the Servlet engine, the Cactus jar might not be able to load
-                 the test case class as it loadable only by the war classloader
-                 -->
+                 the test case class as it may be loadable only by the war
+                 classloader -->
             <lib dir="${out.lib.dir}">
-                <include name="junit.jar"/>
-                <include name="log4j.jar"/>
-                <include name="cactus-@servlet.api@.jar"/>
+                <exclude name="commons-cactus-*.jar"/>
+            </lib>
+            <lib dir="${out.lib.dir}">
+                <include name="commons-cactus-@servlet.api@.jar"/>
             </lib>
 
             <fileset dir="${web.dir}"/>
- 
+
        </war>
 
     </target>
