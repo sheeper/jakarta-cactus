@@ -91,6 +91,11 @@
       </devs>
 
       <release version="1.8dev" date="in CVS">
+        <action dev="VMA" type="add">
+          Added new public 
+          <code>PageContextWrapper.getOriginalPageContext()</code> method 
+          that returns the original PageContext object that Cactus is wrapping.
+        </action>
         <action dev="VMA" type="add" issue="CACTUS-81" due-to="Thomas Schapitz">
           Added 3 new attributes to the nested containers of the 
           <code>&lt;cactus&gt;</code> task: <code>protocol</code>,

@@ -71,6 +71,17 @@ public abstract class AbstractPageContextWrapper extends PageContext
         this.url = theURL;
     }
 
+    // New methods ---------------------------------------------------------
+
+    /**
+     * @return the original page context
+     * @since 1.7
+     */
+    public PageContext getOriginalPageContext()
+    {
+        return this.originalPageContext;
+    }
+    
     // Modified overridden methods -------------------------------------------
 
     /**
