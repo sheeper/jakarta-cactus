@@ -73,7 +73,7 @@
     <module name="IllegalInstantiation"/>
     <module name="InnerAssignment"/>
     <module name="MethodLength"/>
-    <module name="Modifier"/>
+    <module name="ModifierOrder"/>
     <module name="ParameterNumber"/>
     <module name="ParenPad"/>
     <module name="RedundantModifier"/>
@@ -93,7 +93,7 @@
     </module>
     <module name="JavadocMethod">
       <property name="scope" value="private"/>
-      <property name="checkUnusedThrows" value="true"/>
+      <property name="allowUndeclaredRTE" value="true"/>
     </module>
     <module name="JavadocVariable">
       <property name="scope" value="private"/>
