@@ -138,5 +138,11 @@
             id="org.apache.cactus.eclipse.launching.ant">
       </launchConfigurationType>
    </extension>
+   <!-- Extra Classpath -->
+   <extension point="org.eclipse.ant.core.extraClasspathEntries">
+      <extraClasspathEntry
+         library="cactussupport.jar">
+      </extraClasspathEntry>
+   </extension>
 
 </plugin>
