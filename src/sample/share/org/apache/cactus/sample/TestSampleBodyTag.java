@@ -136,12 +136,19 @@ public class TestSampleBodyTag extends JspTestCase
         //add the tag's body by writing to the BodyContent object created in
         //setUp()
         this.tagContent.println("@target@ is now @target@");
-        this.tagContent.println("@target@");
+        this.tagContent.println("@target@_@target@");
         
         //none of the other life cycle methods need to be implemented, so they 
         //do not need to be called.
         int result = this.tag.doAfterBody();
         assertEquals(BodyTag.SKIP_BODY, result);
+        
+    }
+    
+    public void tearDown()
+    {    
+        //necessary for tag to output anything on most servlet engines.
+        this.pageContext.popBody();
     }
     
     /**
@@ -150,17 +157,13 @@ public class TestSampleBodyTag extends JspTestCase
      */
     public void endReplacement(WebResponse theResponse)
     {
-        String[] contentArray = theResponse.getTextAsArray();
-        assert("Response contains [" + contentArray.length + "]. It should " +
-            "have contained 2 lines !", contentArray.length == 2);
-        String firstLine = contentArray[0];
-        String secondLine = contentArray[1];
+        String content = theResponse.getText();
               
-        assert("Line [" + firstLine + "] should have contained the [" +
+        assert("Response should have contained the [" +
             "replacement is now replacement] string",
-            firstLine.indexOf("replacement is now replacement") > -1);
-        assert("Line [" + secondLine + "] should have contained the [" +
-            "replacement] string", secondLine.indexOf("replacement") > -1);
+            content.indexOf("replacement is now replacement") > -1);
+        assert("Response should have contained the [" +
+            "replacement_replacement] string", content.indexOf("replacement") > -1);
     }
     
 }
