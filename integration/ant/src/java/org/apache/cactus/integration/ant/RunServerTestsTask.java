@@ -61,6 +61,7 @@ import java.net.URL;
 import org.apache.cactus.integration.ant.container.ContainerRunner;
 import org.apache.cactus.integration.ant.container.GenericContainer;
 import org.apache.cactus.integration.ant.util.AntLog;
+import org.apache.cactus.integration.ant.util.AntTaskFactory;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
 
@@ -118,6 +119,24 @@ public class RunServerTestsTask extends Task
      */
     private long timeout = 180000;
     
+    /**
+     * The factory for creating ant tasks that is passed to the containers.
+     */
+    private transient AntTaskFactory antTaskFactory = new AntTaskFactory()
+    {
+        public Task createTask(String theName)
+        {
+            Task retVal = getProject().createTask(theName);
+            if (retVal != null)
+            {
+                retVal.setTaskName(getTaskName());
+                retVal.setLocation(getLocation());
+                retVal.setOwningTarget(getOwningTarget());
+            }
+            return retVal;
+        }
+    };
+
     // Task Implementation -----------------------------------------------------
 
     /**
@@ -149,6 +168,8 @@ public class RunServerTestsTask extends Task
             throw new BuildException(
                 "The [testurl] attribute must be specified");
         }
+
+        this.container.setAntTaskFactory(antTaskFactory);
 
         ContainerRunner runner = new ContainerRunner(this.container);
         runner.setLog(new AntLog(this));
