@@ -32,13 +32,6 @@
         </li>
       </ul>
 
-      <note>
-        Cactus uses AspectJ and thus the coverage report is run on the
-        code as modified by AspectJ. This explains why code formatting is
-        less than perfect and why you may notice some strange method names
-        (they are introduced by AspectJ).
-      </note>
-
     </section>
 
   </body>
