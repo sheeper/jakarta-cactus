@@ -87,7 +87,8 @@ public class ServletUtil
      *         theParameter does not exist and "" if the parameter exists but
      *         has no value defined in the query string
      */
-    public static String getQueryStringParameter(String theQueryString, String theParameter)
+    public static String getQueryStringParameter(String theQueryString,
+            String theParameter)
     {
         if (theQueryString == null) {
             return null;

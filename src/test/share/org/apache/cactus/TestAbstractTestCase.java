@@ -1,4 +1,6 @@
 /*
+ * ====================================================================
+ *
  * The Apache Software License, Version 1.1
  *
  * Copyright (c) 2001-2002 The Apache Software Foundation.  All rights
@@ -23,10 +25,10 @@
  *    Alternately, this acknowlegement may appear in the software itself,
  *    if and wherever such third-party acknowlegements normally appear.
  *
- * 4. The names "The Jakarta Project", "Cactus", and "Apache Software
- *    Foundation" must not be used to endorse or promote products derived
- *    from this software without prior written permission. For written
- *    permission, please contact apache@apache.org.
+ * 4. The names "The Jakarta Project", "Cactus" and "Apache Software
+ *    Foundation" must not be used to endorse or promote products
+ *    derived from this software without prior written permission. For
+ *    written permission, please contact apache@apache.org.
  *
  * 5. Products derived from this software may not be called "Apache"
  *    nor may "Apache" appear in their names without prior written
@@ -50,6 +52,7 @@
  * individuals on behalf of the Apache Software Foundation.  For more
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
+ *
  */
 package org.apache.cactus;
 
@@ -110,11 +113,7 @@ public class TestAbstractTestCase extends
     //-------------------------------------------------------------------------
 
     /**
-     * Test that when a begin method for a given test does not have the correct
-     * return type (i.e. void), a <code>AssertionFailedError</code> exception
-     * is returned.
-     * Note: the assert is done in the
-     * <code>TestAbstractTestCase_InterceptorTestCase</code> class.
+     * @see #testBeginMethodBadReturnType()
      */
     public String beginBeginMethodBadReturnType(WebRequest theRequest)
     {
@@ -141,10 +140,7 @@ public class TestAbstractTestCase extends
     //-------------------------------------------------------------------------
 
     /**
-     * Test that when a begin method for a given test is not declared public
-     * a <code>AssertionFailedError</code> exception is returned.
-     * Note: the assert is done in the
-     * <code>TestAbstractTestCase_InterceptorTestCase</code> class.
+     * @see #testBeginMethodNotPublic()
      */
     private void beginBeginMethodNotPublic(WebRequest theRequest)
     {
@@ -168,10 +164,7 @@ public class TestAbstractTestCase extends
     //-------------------------------------------------------------------------
 
     /**
-     * Test that when a begin method for a given test has the wrong type of
-     * parameters, a <code>AssertionFailedError</code> exception is returned.
-     * Note: the assert is done in the
-     * <code>TestAbstractTestCase_InterceptorTestCase</code> class.
+     * @see #testBeginMethodBadReturnType()
      */
     public void beginBeginMethodBadParamType(String theDummy)
     {
@@ -195,10 +188,7 @@ public class TestAbstractTestCase extends
     //-------------------------------------------------------------------------
 
     /**
-     * Test that when a begin method for a given test has the wrong number of
-     * parameters, a <code>AssertionFailedError</code> exception is returned.
-     * Note: the assert is done in the
-     * <code>TestAbstractTestCase_InterceptorTestCase</code> class.
+     * @see #testBeginMethodBadParamNumber()
      */
     public void beginBeginMethodBadParamNumber(WebRequest theRequest,
         String theString)
@@ -223,8 +213,7 @@ public class TestAbstractTestCase extends
     //-------------------------------------------------------------------------
 
     /**
-     * Verify that the begin method with a
-     * <code>WebRequest</code> parameter is called correctly.
+     * @see #testBeginMethodOK()
      */
     public void beginBeginMethodOK(WebRequest theRequest)
     {
@@ -258,11 +247,7 @@ public class TestAbstractTestCase extends
     }
 
     /**
-     * Test that when an end method for a given test does not have the correct
-     * return type (i.e. void), a <code>AssertionFailedError</code> exception
-     * is returned.
-     * Note: the assert is done in the
-     * <code>TestAbstractTestCase_InterceptorTestCase</code> class.
+     * @see #testEndMethodBadReturnType()
      */
     public String endEndMethodBadReturnType(WebResponse theResponse)
     {
@@ -283,10 +268,7 @@ public class TestAbstractTestCase extends
     }
 
     /**
-     * Test that when an end method for a given test is not declared public
-     * a <code>AssertionFailedError</code> exception is returned.
-     * Note: the assert is done in the
-     * <code>TestAbstractTestCase_InterceptorTestCase</code> class.
+     * @see #testEndMethodNotPublic()
      */
     private void endEndMethodNotPublic(WebResponse theResponse)
     {
@@ -305,10 +287,7 @@ public class TestAbstractTestCase extends
     }
 
     /**
-     * Test that when an end method for a given test has the wrong type of
-     * parameters, a <code>AssertionFailedError</code> exception is returned.
-     * Note: the assert is done in the
-     * <code>TestAbstractTestCase_InterceptorTestCase</code> class.
+     * @see #testEndMethodBadParamType()
      */
     public void endEndMethodBadParamType(String theDummy)
     {
@@ -327,10 +306,7 @@ public class TestAbstractTestCase extends
     }
 
     /**
-     * Test that when an end method for a given test has the wrong number of
-     * parameters, a <code>AssertionFailedError</code> exception is returned.
-     * Note: the assert is done in the
-     * <code>TestAbstractTestCase_InterceptorTestCase</code> class.
+     * @see #testEndMethodBadParamNumber()
      */
     public void endEndMethodBadParamNumber(WebResponse theResponse,
         String theDummy)
@@ -348,8 +324,7 @@ public class TestAbstractTestCase extends
     }
 
     /**
-     * Test that the end method is called correctly when it's signature
-     * contains a <code>org.apache.cactus.WebResponse</code> parameter.
+     * @see #testEndMethodOK1()
      */
     public void endEndMethodOK1(WebResponse theResponse)
     {
@@ -373,11 +348,7 @@ public class TestAbstractTestCase extends
     }
 
     /**
-     * Test that the end method is called correctly when it's signature
-     * contains a <code>com.meterware.httpunit.WebResponse</code> parameter.
-     *
-     * Note: We need the Httpunit jar and an XML parser jar on the classpath
-     * for this test
+     * @see #testEndMethodOK2()
      */
     public void endEndMethodOK2(com.meterware.httpunit.WebResponse theResponse)
     {
@@ -398,8 +369,7 @@ public class TestAbstractTestCase extends
     }
 
     /**
-     * Test that the deprecated end method with the
-     * <code>HttpURLConnection</code> parameter can still be called correctly.
+     * @see #testEndMethodOK3()
      */
     public void endEndMethodOK3(HttpURLConnection theResponse)
     {

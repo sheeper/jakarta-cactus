@@ -123,6 +123,10 @@ public class ServletTestCase extends AbstractTestCase
      * Runs a test case. This method is overriden from the JUnit
      * <code>TestCase</code> class in order to seamlessly call the
      * Cactus redirection servlet.
+     *
+     * @exception Throwable if an error happens during the test case
+     *            execution. All errors are thrown to the JUnit Test
+     *            Runner which will report them
      */
     protected void runTest() throws Throwable
     {

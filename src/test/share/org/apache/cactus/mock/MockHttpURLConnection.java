@@ -1,4 +1,6 @@
 /*
+ * ====================================================================
+ *
  * The Apache Software License, Version 1.1
  *
  * Copyright (c) 2001-2002 The Apache Software Foundation.  All rights
@@ -23,10 +25,10 @@
  *    Alternately, this acknowlegement may appear in the software itself,
  *    if and wherever such third-party acknowlegements normally appear.
  *
- * 4. The names "The Jakarta Project", "Cactus", and "Apache Software
- *    Foundation" must not be used to endorse or promote products derived
- *    from this software without prior written permission. For written
- *    permission, please contact apache@apache.org.
+ * 4. The names "The Jakarta Project", "Cactus" and "Apache Software
+ *    Foundation" must not be used to endorse or promote products
+ *    derived from this software without prior written permission. For
+ *    written permission, please contact apache@apache.org.
  *
  * 5. Products derived from this software may not be called "Apache"
  *    nor may "Apache" appear in their names without prior written
@@ -50,6 +52,7 @@
  * individuals on behalf of the Apache Software Foundation.  For more
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
+ *
  */
 package org.apache.cactus.mock;
 
@@ -117,25 +120,25 @@ public class MockHttpURLConnection extends HttpURLConnection
     }
 
     /**
-     * See <code>java.net.URLConnection.getHeaderField</code>.
+     * @see HttpURLConnection#getHeaderField(int)
      */
-    public String getHeaderField(int fieldNumber)
+    public String getHeaderField(int theFieldNumber)
     {
         if (this.getHeaderFieldValue == null) {
-            throw new RuntimeException("Must call setExpectedGetHeaderField() " +
-                "first !");
+            throw new RuntimeException(
+                "Must call setExpectedGetHeaderField() first !");
         }
         return this.getHeaderFieldValue;
     }
 
     /**
-     * See <code>java.net.URLConnection.getInputStream</code>.
+     * @see HttpURLConnection#getInputStream()
      */
     public InputStream getInputStream()
     {
         if (this.getInputStreamValue == null) {
-            throw new RuntimeException("Must call setExpectedGetInputStream() " +
-                "first !");
+            throw new RuntimeException(
+                "Must call setExpectedGetInputStream() first !");
         }
         return this.getInputStreamValue;
     }
@@ -144,15 +147,24 @@ public class MockHttpURLConnection extends HttpURLConnection
     // Methods needed because HttpURLConnection is an abstract class
     // -----------------------------------------------------------------------
 
+    /**
+     * @see HttpURLConnection#usingProxy()
+     */
     public boolean usingProxy()
     {
         return false;
     }
 
+    /**
+     * @see HttpURLConnection#disconnect()
+     */
     public void disconnect()
     {
     }
 
+    /**
+     * @see HttpURLConnection#connect()
+     */
     public void connect()
     {
     }

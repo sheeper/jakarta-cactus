@@ -147,7 +147,7 @@ public class WebTestResult implements Serializable
     }
 
     /**
-     * Gives a string representation of the test result
+     * @see Object#toString()
      */
     public String toString()
     {
