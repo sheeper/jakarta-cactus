@@ -104,6 +104,15 @@
           </td>
           <td>Yes</td>
         </tr>
+        <tr>
+          <td>timeout</td>
+          <td>
+            The timeout in seconds. If the server could not be started before
+            the timeout is reached, the task will terminate and report a
+            failure.
+          </td>
+          <td>No</td>
+        </tr>
       </table>
 
     </section>
