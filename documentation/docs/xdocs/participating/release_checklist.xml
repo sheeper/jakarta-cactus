@@ -70,8 +70,9 @@
           directory.
         </li>
         <li>
-          Upload the Cactus website by running <code>ant -f
-          build-admin.xml deploy</code> in the Cactus directory.
+          Upload the Cactus website by running <code>ant upload</code> in the 
+          Cactus <code>documentation/</code> project (after you have run
+          <code>cactus release</code> from the top level).
         </li>
         <li>
           Tag the CVS HEAD with a new release tag named
