@@ -67,7 +67,7 @@
 
         <echo>***** Needs Eclipse 2.1 RC2 or later *****</echo>
         <echo/>
-        <echo>Dependancies:</echo>
+        <echo>Dependencies:</echo>
         <echo>  eclipse.core.boot.jar = [${eclipse.core.boot.jar}]</echo>
         <echo>  eclipse.core.resources.jar = [${eclipse.core.resources.jar}]</echo>
         <echo>  eclipse.core.runtime.jar = [${eclipse.core.runtime.jar}]</echo>

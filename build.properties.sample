@@ -127,7 +127,7 @@ aspectj-tools.jar = ${lib.repo}/aspectj/jars/aspectj-tools-1.0.6.jar
 # If not specified here, the jar must be present in ANTHOME/lib
 aspectj-ant.jar = ${lib.repo}/aspectj/jars/aspectj-ant-1.0.6.jar
 
-# Dependancies for Checkstyle code auditing
+# Dependencies for Checkstyle code auditing
 # If not specified here, the JARs must be present in ANTHOME/lib
 antlr.jar = ${lib.repo}/antlr/jars/antlr-2.7.2.jar
 checkstyle.jar = ${lib.repo}/checkstyle/jars/checkstyle-3.1.jar

@@ -93,7 +93,7 @@
     <target name="init"
         depends="init.common, properties, init.clover">
 
-        <echo>Dependancies:</echo>
+        <echo>Dependencies:</echo>
         <echo>  aspectjrt.jar = [${aspectjrt.jar}]</echo>
         <echo>  cactus.jar = [${cactus.jar}]</echo>
         <echo>  commons.httpclient.jar = [${commons.httpclient.jar}]</echo>

@@ -108,7 +108,7 @@
     <target name="init" 
         depends="init.common, properties, init.aspectj, init.clover">
 
-        <echo>Dependancies:</echo>
+        <echo>Dependencies:</echo>
         <echo>  aspectjrt.jar = [${aspectjrt.jar}]</echo>
         <echo>  commons.httpclient.jar = [${commons.httpclient.jar}]</echo>
         <echo>  commons.logging.jar = [${commons.logging.jar}]</echo>

@@ -73,7 +73,7 @@
     -->
     <target name="init" depends="init.common, properties">
 
-        <echo>Dependancies:</echo>
+        <echo>Dependencies:</echo>
         <echo>  cactus.jar = [${cactus.jar}]</echo>
         <echo>  cactus.ant.jar = [${cactus.ant.jar}]</echo>
         <echo>  eclipse.ant.core.jar = [${eclipse.ant.core.jar}]</echo>

@@ -58,7 +58,7 @@ xmlapis.jar = ${lib.repo}/xerces/jars/xmlParserAPIs-2.2.1.jar
 # Optional properties
 # -----------------------------------------------------------------------------
 
-# Dependancies for Checkstyle code auditing
+# Dependencies for Checkstyle code auditing
 # If not specified here, the JARs must be present in ANTHOME/lib
 antlr.jar = ${lib.repo}/antlr/jars/antlr-2.7.2.jar
 checkstyle.jar = ${lib.repo}/checkstyle/jars/checkstyle-3.1.jar
