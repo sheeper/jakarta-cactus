@@ -1,0 +1,20 @@
+# -----------------------------------------------------------------------------
+# build.properties.sample
+#
+# This is an example "build.properties" file, used to customize the build of
+# the Cactus Website for your local environment.  Make any changes you need,
+# and rename this file to "build.properties" in the same directory that contains
+# the "build.xml" file.
+#
+# $Id$
+# -----------------------------------------------------------------------------
+
+# WARNING:  The relative paths below are relative to the directory where the
+# build.xml file is located.
+
+# -----------------------------------------------------------------------------
+# Mandatory properties
+# -----------------------------------------------------------------------------
+
+# Location of the Cactus Ant jar
+cactus.ant.jar = ./anttasks/dist/lib/cactus-ant.jar

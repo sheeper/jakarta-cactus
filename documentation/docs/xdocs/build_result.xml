@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE document SYSTEM "./dtd/document-v10.dtd">
+
+<document>
+  <header>
+    <title>Nightly Build Results</title>
+    <authors>
+      <person name="Vincent Massol" email="vmassol@apache.org"/>
+    </authors>
+  </header>
+
+  <body>
+
+    <s1 title="Nightly Build Results">
+
+      <p>
+        Every day, the main Cactus build is run, the cactus jars are generated,
+        the full suite of tests is executed and a nightly cactus distribution
+        is packaged. This is possible thanks to
+        <link href="http://jakarta.apache.org/gump/">GUMP</link>.
+      </p>
+      <p>
+        Please find below the links to the Cactus Nightly Build results :
+      </p>
+
+      <table>
+        <tr>
+          <th>
+            <strong>Name</strong>
+          </th>
+        </tr>
+        <tr>
+          <td>
+            <link href="http://jakarta.apache.org/builds/gump/latest/jakarta-cactus-22.html">Cactus
+            for Servlet API 2.2</link>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <link href="http://jakarta.apache.org/builds/gump/latest/jakarta-cactus-23.html">Cactus
+            for Servlet API 2.3</link>
+          </td>
+        </tr>
+      </table>
+
+    </s1>
+
+  </body>
+</document>

@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE document SYSTEM "./dtd/document-v10.dtd">
+
+<document>
+  <header>
+    <title>Downloads</title>
+    <authors>
+      <person name="Vincent Massol" email="vmassol@apache.org"/>
+    </authors>
+  </header>
+
+  <body>
+
+    <s1 title="File list">
+
+      <p>
+        Here follows the list of files that you can download :
+      </p>
+      <ul>
+        <li>
+          <strong><code>jakarta-cactus-&lt;servletapi&gt;-&lt;version&gt;.zip</code>
+          </strong> : the Cactus distribution. It contains :
+          <ul>
+            <li>
+              <strong><code>cactus.jar</code></strong> : the Cactus
+              runtime jar,
+            </li>
+            <li>
+              <strong><code>cactus-ant.jar</code></strong> :
+              some custom Ant tasks that are helpful for automating
+              running Cactus unit tests. Especially the
+              <code>runservertests</code> which automagically start a servlet
+              engine, run the Cactus tests against it and stop the server once
+              it is finished,
+            </li>
+            <li>
+              A Cactus Sample application that shows how to write
+              Cactus tests and how to run and deploy them in a servlet engine
+              using Ant,
+            </li>
+            <li>
+              The Cactus documentation (includes the javadoc + a local copy of
+              the Cactus web site)
+            </li>              
+          </ul>
+        </li>
+        <li>
+          <strong><code>jakarta-cactus-src-&lt;version&gt;.zip</code></strong> :
+          the full Cactus sources,
+        </li>
+        <li>
+          <strong><code>jakarta-cactus-ant-&lt;version of Ant&gt;-&lt;date&gt;.zip</code></strong>
+          : a prepackaged version of Ant,
+          which contains all needed external jars for tasks used by Cactus build
+          files. This is not a compulsory download but it makes it easier for
+          installing Ant and preparing it for Cactus. This file is only
+          delivered for releases (and not for nightly builds).
+        </li>
+      </ul>
+
+      <note>
+        <code>&lt;servletapi&gt;</code> represents the Servlet API
+        specifications for which you want to write Cactus unit tests for.
+      </note>
+
+      <note>
+        <code>&lt;version&gt;</code> represents the version number for releases
+        and date stamp for nightly builds.
+      </note>
+
+    </s1>
+
+    <s1 title="Releases">
+
+      <p>
+        Click <link href="http://jakarta.apache.org/builds/jakarta-cactus/release">
+        here</link> for Cactus releases.
+      </p>
+
+    </s1>
+
+    <s1 title="Nightly builds">
+
+      <p>
+        Click <link href="http://jakarta.apache.org/builds/jakarta-cactus/nightly">
+        here</link> for Cactus nightly builds.
+      </p>
+
+    </s1>
+
+  </body>
+</document>

@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE document SYSTEM "./dtd/document-v10.dtd">
+
+<document>
+  <header>
+    <title>API Reference</title>
+    <authors>
+      <person name="Vincent Massol" email="vmassol@apache.org"/>
+    </authors>
+  </header>
+
+  <body>
+
+    <s1 title="Javadocs">
+
+      <p>
+        These are the generated javadocs for the Cactus releases for
+        the different J2EE API.
+      </p>
+      
+      <table>
+        <tr>
+          <th>
+            <strong>Name</strong>
+          </th>
+        </tr>
+        <tr>
+          <td>
+            <link href="javadoc/j2ee12/index.html">Javadoc for Cactus for
+            J2EE 1.2</link>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <link href="javadoc/j2ee13/index.html">Javadoc for Cactus for
+            J2EE 1.3</link>
+          </td>
+        </tr>
+      </table>
+
+    </s1>
+
+  </body>
+</document>

@@ -1,0 +1,237 @@
+<?xml version="1.0"?>
+
+<!--
+  =============================================================================
+    Build file for the Cactus Documentation (it builds the Cactus web pages
+    which serves as the Cactus Web Site and as local documentation in the
+    Cactus distribution).
+
+    The following Ant tasks need to be available in your ant installation (i.e.
+    the Ant task themselves and their dependent jars need to be put in
+    ANT_HOME/lib) :
+
+        stylebook             [REQUIRED] For builing the documentation from XML
+
+    The following properties need to be set in either a ./build.properties or
+    a ${user.home}/build.properties one or in a calling Ant script :
+
+        cactus.ant.jar        [REQUIRED] The path to the Cactus Ant jar.
+
+    This script should be started with the following command line :
+
+        ant <target>
+
+    Run "ant -projecthelp" to get a list of available targets. The default
+    target is "dist"
+
+    Note: basedir points to the main Cactus directory in order to have the same
+          base dir for all Cactus subprojects and thus be able to share
+          relative paths.
+  =============================================================================
+-->
+<project name="Cactus Documentation" default="dist" basedir="..">
+
+    <!-- Give user a chance to override without editing this file
+         (and without typing -D each time it compiles it) -->
+    <property file="documentation/build.properties" />
+    <property file="${user.home}/build.properties" />
+
+    <!-- Global project properties -->
+    <property name="project.name.text" value="Cactus Documentation"/>
+    <property name="project.version" value="1.3dev"/>
+
+    <!-- Prefix to add to all distributable files -->
+    <property name="project.prefix" value="jakarta-"/>
+
+    <!--
+       ========================================================================
+         Default values for properties not defined in build.properties or in
+         a higher level calling Ant script
+       ========================================================================
+    -->
+    <property name="year" value="2000-2002"/>
+
+    <!--
+       ========================================================================
+         Base directory for all file related operations
+       ========================================================================
+    -->
+    <property name="base.dir" value="documentation"/>
+
+    <!--
+       ========================================================================
+         Set the properties related to the source tree
+       ========================================================================
+    -->
+    <!-- Source locations for the build -->
+    <property name="doc.dir" value="${base.dir}/docs"/>
+    <property name="doc.skin.dir" value="${doc.dir}/skins"/>
+    <property name="doc.xdoc.dir" value="${doc.dir}/xdocs"/>
+    <property name="build.dir" value="${base.dir}/."/>
+    <property name="conf.dir" value="${base.dir}/conf"/>
+
+    <!--
+       ========================================================================
+         Set the properties related to the target area
+       ========================================================================
+    -->
+    <!-- Destination locations for the build -->
+    <property name="target.dir" value="${base.dir}/target"/>
+    <property name="target.doc.dir" value="${target.dir}/doc"/>
+    <property name="target.xdoc.dir" value="${target.dir}/xdocs"/>
+    <property name="target.doc.api.dir" value="${target.doc.dir}/api"/>
+
+    <!-- Distribution directory, i.e. where the expanded distibutable files
+         are located -->
+    <property name="dist.dir" value="${base.dir}/dist"/>
+    <property name="dist.doc.dir" value="${dist.dir}/doc"/>
+
+    <!--
+       ========================================================================
+         Display configurable properties values
+       ========================================================================
+    -->
+    <target name="display.properties">
+
+        <echo message="----- ${project.name.text} ${project.version} -----"/>
+        <echo message=""/>
+        <echo message="java.class.path = ${java.class.path}"/>
+        <echo message=""/>
+        <echo message="java.home = ${java.home}"/>
+        <echo message="user.home = ${user.home}"/>
+        <echo message="ant.home = ${ant.home}"/>
+        <echo message=""/>
+        <echo message="cactus.ant.jar = ${cactus.ant.jar}"/>
+        <echo message=""/>
+
+    </target>
+
+    <!--
+       ========================================================================
+         Verify that all mandatory properties have been set
+       ========================================================================
+    -->
+    <target name="check.properties" depends="display.properties">
+
+        <condition property="properties.ok">
+            <and>
+                <available file="${cactus.ant.jar}"/>
+           </and>
+        </condition>
+
+        <fail message="Missing property or property pointing to an invalid file (check your build.properties file)"
+            unless="properties.ok"/>
+
+    </target>
+
+    <!--
+       ========================================================================
+         Initialize the build. Must be called by all targets
+       ========================================================================
+    -->
+    <target name="init" depends="check.properties">
+
+        <tstamp/>
+
+        <!-- Filters -->
+        <filter token="version" value="${project.version}"/>
+        <filter token="year" value="${year}"/>
+        <filter token="today" value="${TODAY}"/>
+
+    </target>
+
+    <!--
+       ========================================================================
+         Generate the documentation (javadoc)
+       ========================================================================
+    -->
+    <target name="doc" depends="init">
+
+        <mkdir dir="${target.xdoc.dir}"/>
+        <mkdir dir="${target.doc.dir}"/>
+        <mkdir dir="${target.doc.dir}/images"/>
+
+        <!-- Custom Ant task definitions -->
+        <taskdef name="cvslog" classname="org.apache.cactus.ant.ChangeLogTask">
+            <classpath>
+                <pathelement location="${cactus.ant.jar}"/>
+            </classpath>
+        </taskdef>
+
+        <!-- Generate cvs log -->
+        <cvslog users="${doc.xdoc.dir}/cvslog/users.properties"
+            work="${doc.xdoc.dir}" output="${doc.xdoc.dir}/cvslog/cvslog.xml"
+            elapsed="15">
+
+            <fileset dir="${doc.xdoc.dir}">
+                <exclude name="book.xml"/>
+                <exclude name="todo.xml"/>
+                <exclude name="changes.xml"/>
+                <exclude name="**/cvslog.xml"/>
+                <include name="**/*.xml"/>
+            </fileset>
+
+        </cvslog>
+
+        <!-- Copy book.xml to replace the token filters (year) -->
+        <copy file="${doc.xdoc.dir}/book.xml"
+            todir="${target.xdoc.dir}" filtering="on"/>
+
+        <!-- Copy all remaining files -->
+        <copy todir="${target.xdoc.dir}" filtering="on">
+            <fileset dir="${doc.xdoc.dir}">
+                <exclude name="book.xml"/>
+                <exclude name="misc/**"/>
+            </fileset>
+        </copy>
+
+        <!-- Copy the version.txt file -->
+        <copy file="${conf.dir}/version.txt" todir="${target.doc.dir}"
+            filtering="on"/>
+
+        <!-- Copy the images -->
+        <copy todir="${target.doc.dir}/images">
+            <fileset dir="${doc.xdoc.dir}/images"/>
+        </copy>
+
+        <!-- Generate the docs -->
+        <stylebook book="${target.xdoc.dir}/book.xml"
+            skinDirectory="${doc.skin.dir}/jakarta.apache.org"
+            targetDirectory="${target.doc.dir}">
+
+            <classpath>
+                <pathelement path="${java.class.path}"/>
+            </classpath>
+
+        </stylebook>
+
+    </target>
+
+    <!--
+       ========================================================================
+         Generate the documentation
+       ========================================================================
+    -->
+    <target name="dist" depends="doc" description="Generate the documentation">
+
+        <mkdir dir="${dist.doc.dir}"/>
+
+        <copy todir="${dist.doc.dir}">
+            <fileset dir="${target.doc.dir}"/>
+        </copy>
+
+    </target>
+
+   <!--
+       ========================================================================
+         Clean generated files (including distributables)
+       ========================================================================
+    -->
+    <target name="clean" description="Clean all generated files">
+
+        <delete dir="${target.dir}"/>
+        <delete dir="${dist.dir}"/>
+
+    </target>
+
+</project>

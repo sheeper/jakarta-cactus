@@ -1,0 +1,132 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE document SYSTEM "./dtd/document-v10.dtd">
+
+<document>
+  <header>
+    <title>JUnitEE Howto</title>
+    <authors>
+      <person name="Kaarle Kaila" email="kaarle.kaila@iki.fi"/>
+      <person name="Vincent Massol" email="vmassol@apache.org"/>
+    </authors>
+  </header>
+
+  <body>
+
+    <s1 title="JUnitEE, a TestRunner inside the Container">
+
+	  <p>
+		You can use the JUnitEE user interface to run your all your tests inside
+		the Container. JUnitEE is a JUnit TestRunner that has been written as a
+        servlet with the user interface in HTML format.
+	  </p>
+
+	  <p>
+		You cannot achieve all features of Cactus using JUnitEE as
+		part of them depend on being executed on the client side.
+		Executing JUnitEE from ANT commands will probably not be possible.
+		Some benefits however of JUnitEE are:
+	  </p>
+
+	  <ul>
+	   <li>
+	   	  <strong>All class files are in one place</strong> :  Install all your
+          TestCase class-files only in your container classpath. Both
+          TestCases derived from
+		  <code>junit.framework.TestCase</code> and from
+          <code>org.apache.cactus.JspTestCase</code>
+		  will be located in the same place and only once.
+	   </li>
+	   <li>
+          <strong>Run all TestCases in the container</strong> : You can mix
+          both types of TestCases mentioned above in your test. All tests are
+          executed inside the Container. You can use testcases derived from
+          <code>junit.framework.TestCase</code> to test methods that do not
+          require the http objects such as the
+		  <code>HttpServletRequest</code> or
+          <code>HttpServletResponse</code> objects.
+	   </li>
+	  </ul>
+
+	  <p>
+	    Using JUnitEE is (relatively) simple. Assuming you have a container
+        such as Weblogic, Tomcat or Orion functioning and you know how to
+        configure Servlets and adding libraries to the Containers classpath and
+        you are familiar with the basics of Cactus then the rest is easy.
+	  </p>
+
+	  <ul>
+	  	<li>
+	  	  One good reason to use JUnitEE would be when you want to try Cactus
+          quickly and are not concerned with automatic unit testing.
+		</li>
+		<li>
+		  Usage of standard JUnit testrunner (textui,swingui, ...) will not be
+          possible if cactus is configured this way and thus the ant junit task
+          cannot be used to automate the test.
+		</li>
+	  </ul>
+
+    </s1>
+
+    <s1 title="How to install JUnitEE">
+
+	  <p>
+		Download the <link href="http://junitee.sourceforge.net">JUnitEE</link>
+		zip-file. Add a reference to junitee.jar to your Container classpath.
+        Add also references to <code>junit.jar</code>, <code>httpunit.jar</code>
+        and <code>cactus.jar</code> if you have not already done that.
+	  </p>
+
+	  <note>
+        add <code>junitee.jar</code> in the same way as cactus.jar is added.
+	  </note>
+
+	  <p>
+	  	Configure TestServlet in your Container. You may use the example servlet
+		<code>org.infohazard.servlet.TestServlet</code> that
+		comes with JUnitEE. Check JUnitEE documentation. TestServlet extends
+		<code>junit.htmlui.TestServletBase</code> that executes
+        <code>junit.htmlui.TestRunner</code>
+		i.e. the JUnitEE interface.
+	  </p>
+	 </s1>
+
+     <s1 title="Executing the tests with JUnitEE">
+		<p>
+           You request the tests from an html-page in your container. You can
+           write the name of your testclasses according to the examples with
+           JUnitEE as:
+		</p>
+
+		<ul>
+		   <li>
+		   	a commandstring parameter such as
+			"<code>/TestServlet?suite=fi.iki.kaila.MyTests&amp;list=yes</code>"
+		   </li>
+		   <li>
+		   	as input using
+            <code>&lt;input type="text" name="suite" size=60 /&gt;</code> in
+            a form element that requests TestServlet
+		   </li>
+		   <li>
+		    as one or more option elements in a select element in the
+            form-element
+		   </li>
+		</ul>
+      </s1>
+
+      <s1 title="Tell JUnitEE to use Cactus redirector">
+
+         <p>
+		   The <code>cactus.properties</code> file must be located so that your
+           container can find it e.g. in your containers classpath. The file
+           contains an url to the cactus redirector.jsp file such as :
+         </p>
+<source>
+cactus.jspRedirectorURL = http://localhost:7001/test/JspRedirector/
+</source>
+      </s1>
+
+  </body>
+</document>

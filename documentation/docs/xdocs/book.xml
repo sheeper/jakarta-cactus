@@ -1,0 +1,86 @@
+<?xml version="1.0"?>
+
+<book software="Cactus"
+      title="Cactus Documentation"
+      copyright="@year@ The Apache Software Foundation"
+      updated="@today@">
+
+  <menu label="About">
+    <menu-item label="What is Cactus ?" source="index.xml"/>
+    <menu-item label="Features/Status" source="features.xml"/>
+    <menu-item label="Goals" source="goals.xml"/>
+    <menu-item type="changes" label="News/Changes" source="changes.xml"/>
+    <menu-item type="roadmap" label="Roadmap/Todo" source="todo.xml"/>
+    <menu-item label="Contributors" source="contributors.xml"/>
+    <menu-item label="Contributing" source="contributing.xml"/>
+    <menu-item label="License" source="license.xml"/>
+    <menu-item type="hidden" source="logos.xml" />
+  </menu>
+
+  <menu label="Downloads">
+    <menu-item label="Downloads" source="downloads.xml"/>
+  </menu>
+
+  <menu label="Documentation">
+    <menu-item label="How it works ?" source="how_it_works.xml"/>
+    <menu-item label="Getting Started" source="getting_started.xml"/>
+    <menu-item label="Mock vs Container" source="mockobjects.xml"/>
+    <menu-item type="external" label="Javadocs" href="api"/>
+    <menu-item label="FAQ" source="faq.xml"/>
+  </menu>
+
+  <menu label="Howto Guides">
+    <menu-item label="Config Howto" source="howto_config.xml"/>
+    <menu-item label="Migration Howto" source="howto_migration.xml"/>
+
+    <!-- TestCase tutorials -->
+    <menu-item label="TestCase Howto" source="howto_testcase.xml"/>
+    <menu-item type="hidden" source="howto_testcase_servlet.xml"/>
+    <menu-item type="hidden" source="howto_testcase_jsp.xml"/>
+    <menu-item type="hidden" source="howto_testcase_filter.xml"/>
+
+    <!-- Ant tutorial -->
+    <menu-item label="Ant Howto" source="howto_ant.xml"/>
+    <menu-item type="hidden" source="howto_ant_cactus.xml"/>
+    <menu-item type="hidden" source="howto_ant_install.xml"/>
+    <menu-item type="hidden" source="howto_ant_primer.xml"/>
+
+    <menu-item label="HttpUnit Howto" source="howto_httpunit.xml"/>
+    <menu-item label="Sample Howto" source="howto_sample.xml"/>
+
+    <!-- EJB tutorial -->
+    <menu-item label="EJB Howto" source="howto_ejb.xml"/>
+    <menu-item type="hidden" source="howto_ejb_j2eeri.xml"/>
+
+    <!-- IDE tutorials -->
+    <menu-item label="IDE Howto" source="howto_ide.xml"/>
+    <menu-item type="hidden" source="howto_ide_vajava_wte.xml"/>
+    <menu-item type="hidden" source="howto_ide_vajava_tomcat.xml"/>
+    <menu-item type="hidden" source="howto_ide_jbuilder4.xml"/>
+    <menu-item type="hidden" source="howto_ide_jbuilder5.xml"/>
+
+    <menu-item label="JUnitEE Howto" source="howto_junitee.xml"/>
+  </menu>
+
+  <menu label="Support">
+    <menu-item type="external" label="Bug database"
+        href="http://jakarta.apache.org/site/bugs.html"/>
+    <menu-item label="Mailing list" source="mailinglist.xml"/>
+  </menu>
+
+  <menu label="Misc.">
+    <menu-item label="Why the name ?" source="cactusname.xml"/>
+    <menu-item label="Resources" source="resources.xml"/>
+    <menu-item type="external" label="Stats"
+        href="http://jakarta.apache.org/cactus/stats/index.html"/>
+    <menu-item type="hidden" source="webalizer.xml"/>
+  </menu>
+
+  <menu label="Developers">
+    <menu-item type="external" label="CVS"
+        href="http://jakarta.apache.org/site/cvsindex.html"/>
+    <menu-item label="Coding Conventions" source="coding_conventions.xml"/>
+    <menu-item label="Build results" source="build_result.xml"/>
+  </menu>
+
+</book>

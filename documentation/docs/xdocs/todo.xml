@@ -1,0 +1,207 @@
+<?xml version="1.0"?>
+
+<roadmap title="Roadmap/Todo for Cactus">
+
+  <s1 title="Forewords">
+    <p>
+      As is stated on the Cactus <link href="goals.html">goals</link> page, the
+      intention is to explore as much as possible in the realm of unit testing
+      of server side java code ...
+    </p>
+    <p>
+      This brings a bad news and a good one ... The
+      bad one is that the TODO list is likely to keep growing or at least
+      have a respectable size ... The good one
+      is that there will be work for everyone ... :-)
+    </p>
+    <p>
+      If you are interested in participating, send an email on the Cactus mailing
+      list stating your interest and you'll be enrolled right away ... We're
+      always looking for help ! Don't be put off if in the "Volunteer" column
+      there is already a person listed. On the contrary, the more person that
+      participate in a given task, the better (like in pair programming, several
+      sets of eyes are always better than one!). However you'll need to sync.
+      with these others persons but this is easily done by posting to the
+      mailing-list.
+    </p>
+    <p>
+      The game has just begun ... !
+    </p>
+  </s1>
+
+  <version title="Version 1.3">
+
+    <category title="Design/Code">
+      <action assigned-to="Peter Wong, Jason Robertson, Vincent Massol">
+        Configure all supported containers with authentication so that they
+        pass the Cactus unit tests (done for Tomcat 3.x + Tomcat 4.x).
+      </action>
+    </category>
+    <category title="Documentation">
+      <action>
+        Document all new features of Cactus 1.3.
+      </action>
+    </category>
+
+  </version>
+
+  <version title="Version 1.4">
+
+    <category title="Documentation">
+      <action assigned-to="Vincent Massol">
+        Move all documentation to docbook and cocoon2 and generate PDF
+        containing full Cactus documentation. Note: I still need to find out
+        how to make Cocoon2 generate errors during generation of doc. so that
+        the Ant build reports an error and stops upon finding one.
+      </action>
+      <action>
+        Add a tutorial for building Cactus from the source distribution.
+      </action>
+      <action assigned-to="Jari Worsley">
+        Write a tutorial that explains how to use Cactus to do unit testing of
+        JSP, i.e. only test
+        the JSP itself and not the controller part and the model (only test the
+        View in an MVC model). This is done by using mock implementations of
+        java beans used in the JSP to unit test, set these java beans in the
+        testXXX() method of a cactus test and then assert the result of the
+        JSP executing in the endXXX() method.
+      </action>
+      <action>
+        Add some documentation (possibly in the FAQ) to explain how to unit
+        test Struts classes (refer to the
+        <link href="http://strutstestcase.sourceforge.net/">StrutsTestCase</link>
+        project).
+      </action>
+    </category>
+
+    <category title="Build Process">
+      <p>
+        All tasks that are related to building Cactus in general.
+      </p>
+      <action assigned-to="Bob Tanner">
+        Finalize support for Enhydra 3.1.1. There are some errors upon
+        starting the enhydra server and the <code>testOut()</code> method
+        is failing. Need help from Enhydra experts to go forward.
+      </action>
+      <action>
+        Add the Ant scripts for JBoss 2.x w/Tomcat provided by Jeffrey Madynski
+        (jmadynski@food.com) on the jakarta-commons mailing list (Subject
+        "[cactus] Using Cactus with JBoss-2.2.1 with Embedded Tomcat"). The
+        scripts need to be reworked so that the deployed test war is deployed
+        within the <code>target</code> output directory and not to where
+        JBoss/Tomcat is installed.
+      </action>
+    </category>
+
+    <category title="Design/Code">
+      <action assigned-to="Peter Wong, Jason Robertson, Vincent Massol">
+        Add support for Form-based authentication.
+      </action>
+      <action>
+        Refactor/redesign the Cactus client side so that it can accept several
+        kinds of protocol injectors (it now only supports HTTP). The idea is to
+        be able to add first JMS so that Message-Driven Beans or simply JMS
+        listeners can be unit tested.
+      </action>
+      <action>
+        Add methods that are called before and after each test, but on the
+        client side (i.e. before the <code>beginXXX()</code> and
+        <code>endXXX()</code> methods). They
+        would act the same way as <code>setUp()</code> and
+        <code>tearDown()</code> but on the client side. They could be
+        named <code>init()</code> and <code>destroy()</code>, or maybe we
+        should rather rename the existing <code>setUp()</code> and
+        <code>tearDown()</code> and have something consistent like :
+        <code>setUpClient()</code>, <code>setUpServer()</code>,
+        <code>tearDownClient()</code> and <code>tearDownServer()</code> ?
+      </action>
+      <action>
+        Provide support for generating Session cookies and URL Sessions
+        (URL rewriting). A description of the mechanism has been
+        posted in thread "How does cactus simulate a session" on the
+        Cactus user mailing list. Thanks to
+        <link href="mailto:kyle.w.willkomm@accenture.com">Kyle W.
+        Willkomm</link>.
+      </action>
+      <action>
+        Add EJB Redirectors so that unit testing of code that require an EJB
+        is facilitated. For example, let's imagine you need to test that an
+        object that has been put in the JNDI tree by a servlet can be retrieved
+        by an EJB. These are not unit tests per see but rather integration
+        tests, which is Cactus favorite domain. Also these redirectors could be
+        used to directly unit tests EJB whithout requiring a servlet
+        environment (at the current time, you need to call your EJB from a
+        Servlet/JSP/Filter Redirector, which is fine for certain tests but not
+        needed for others.
+      </action>
+      <action>
+        Move to Log4J 1.2 so that we can use the notion of Repository and not
+        interfere with the application to test if this later also uses log4j
+        for its own logging. Note: What about moving to commons-logging ? Will
+        it also support non-interference with application log ?
+      </action>
+      <action>
+        Consider using Commons Logging Wrapper as it provides seamless support
+        for No Log, Log4J, LogKit and JDK 1.4 logging.
+      </action>
+      <action assigned-to="Hudson Wong, Vincent Massol">
+        Add an EJB sample application to demonstrate how to perform EJB
+        unit testing (the tutorial that explains the process will be part
+        of Cactus 1.2 but the inclusion of the sample will be delivered
+        in a subsequent release as it involves some changes in the build
+        process). Prerequisite: We need to move from Servlet API 2.x paradigm
+        to the J2EE 1.x paradigm (ie. move from servlet.jar to j2ee.jar - this
+        involves a few build and packaging changes).
+      </action>
+      <action>
+        Consider moving from HttpURLConnection to Commons HttpClient. This
+        will solve the problem of asserting code that returns an error
+        response code. Note: this has been fixed in JDK 1.3.1 I believe for
+        HttpURLConnection but as we're already using HttpClient for handling
+        cookies (because the JDK does not seem to provide any API for that).
+        Review JDK 1.4's HttpURLConnection to check if the JDK is making any
+        progress in this area. In term of design, isolate the implementation
+        with an interface so that different implementation can be plugged in
+        without affecting any other business classes.
+      </action>
+    </category>
+
+  </version>
+
+  <version title="Undefined">
+
+    <category title="Ideas">
+      <p>
+        Ideas to explore ...
+      </p>
+      <action>
+        Create a new package <code>org.apache.cactus.extensions</code> for
+        putting extensions to Cactus Test Cases. The first extension
+        would be an extension that runs a bunch of test at the same time,
+        thus spawing several threads in the container in order to discover
+        bugs [Note: We would have to correct the name under which Cactus test
+        results are stored in the application context so that it is unique
+        per test case]. We would need to create a
+        <code>org.apache.cactus.extensions.ParallelServletTestCase</code>.
+        The constructor would take some parameters, such as the number of
+        parallel threads to spawn, ... Idea suggested by
+        <link href="mailto:rimovm@centercomp.com">Michael Rimov</link>.
+      </action>
+      <action>
+        Use <link href="http://xdoclet.sourceforge.net/docs/">XDoclet</link>
+        with Cactus to better provide continuous integration. It could be
+        used to automatically generate <code>web.xml</code> files,
+        automatically generating test cases from methods to test, ...
+      </action>
+      <action>
+        Integration to Netbeans in general and especially integration with the
+        Netbeans XTest module.
+      </action>
+      <action assigned-to="Vincent Massol">
+        Evaluate the use of AspectJ for writing Cactus test cases.
+      </action>
+    </category>
+
+  </version>
+
+</roadmap>
