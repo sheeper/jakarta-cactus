@@ -247,6 +247,8 @@
         <checkstyle
             lcurlyType="nl"
             lcurlyMethod="nl"
+			lcurlyOther="nl"
+			rcurly="alone"
             allowProtected="true"
             ignoreLineLengthPattern="(@version.*\$Id|@see)"
             paramPattern="^(the|is|has)[A-Z][a-zA-Z0-9]*$"
