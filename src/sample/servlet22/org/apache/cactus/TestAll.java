@@ -1,7 +1,7 @@
 /*
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 1999 The Apache Software Foundation.  All rights
+ * Copyright (c) 2001-2002 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -100,6 +100,7 @@ public class TestAll extends TestCase
 
         // Functional tests
         suite.addTest(org.apache.cactus.sample.TestSampleServlet.suite());
+
         suite.addTest(org.apache.cactus.sample.TestSampleServletConfig.suite());
         suite.addTest(org.apache.cactus.sample.TestSampleTag.suite());
         suite.addTest(org.apache.cactus.sample.TestSampleBodyTag.suite());
