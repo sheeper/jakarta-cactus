@@ -37,6 +37,7 @@ documentation/docs/skins/jakarta.apache.org/images/logocactus.gif -text
 documentation/docs/skins/jakarta.apache.org/images/note.gif -text
 documentation/docs/skins/jakarta.apache.org/images/remove.jpg -text
 documentation/docs/skins/jakarta.apache.org/images/update.jpg -text
+documentation/docs/skins/jakarta.apache.org/js/breadcrumbs.js svn_keywords=Author+Date+Id+Revision
 documentation/docs/skins/jakarta.apache.org/stylesheets/common.xsl svn_keywords=Author+Date+Id+Revision
 documentation/docs/skins/jakarta.apache.org/stylesheets/document2html.xsl svn_keywords=Author+Date+Id+Revision
 documentation/docs/skins/jakarta.apache.org/stylesheets/sitemap2document.xsl svn_keywords=Author+Date+Id+Revision
