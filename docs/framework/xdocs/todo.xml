@@ -16,7 +16,7 @@
     <action context="samples">
       Add a sample that shows how to test EJBs.
     </action>
-    <action context="design" assigned-to="VMA">
+    <action context="design">
       Add support for testing custom JSP Taglibs (suggested by Sohail Aslam) +
       tutorial + sample
     </action>
@@ -24,8 +24,10 @@
       Add support for testing Servlet API 2.3 Filters.
     </action>
     <action context="design" assigned-to="BNA">
-      Provide a mechanism for easier testing of EJBs. The mechanism is to be
-      defined (requested by notyy).
+      Provide support for easier testing of EJBs by writing an EJB Redirector
+      (which is a EJB Session Bean) so that it is possible to test EJB methods
+      that uses EJB container API like security checks, transaction, JNDI
+      calls, ... (requested by notyy).
     </action>
   </actions>
 
@@ -39,15 +41,9 @@
     <action context="build">
       Add Ant scripts to support WebLogic 6.0.
     </action>
-    <action context="code" assigned-to="VMA">
+    <action context="code">
       Handle <code>getRealPath()</code>, <code>getPathTranslated()</code> in the
       <code>ServletRedirectorRequest</code> class.
-    </action>
-    <action context="build" assigned-to="VMA">
-      On the documentation web pages (i.e. not the site web pages) add a sub
-      header for each page with a message saying "Click here if you want to
-      see the latest online version of this page". Modify a stylebook stylesheet
-      to do this (combined with an Ant token filter or an Ant replace task).
     </action>
     <action context="code">
       Add API in <code>ServletTestRequest</code> to send data to the URL
