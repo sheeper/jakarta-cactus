@@ -19,6 +19,7 @@
   xmlns:ant="jelly:ant"
   xmlns:define="jelly:define"
   xmlns:x="jelly:xml"
+  xmlns:test="test"
   xmlns:cactus="jelly:org.apache.cactus.integration.maven.CactusTagLibrary">
 
   <!--
@@ -36,6 +37,9 @@
   -->
   <goal name="cactus:init">
 
+    <!-- Not sure why but this is needed, otherwise the taskdefs below fail -->
+    <test:dependency-handle/>
+    
     <ant:path id="cactus.classpath">
       <ant:pathelement location="${plugin.getDependencyPath('cactus:cactus-ant')}"/>
       <ant:pathelement location="${plugin.getDependencyPath('cactus:cactus')}"/>
@@ -57,11 +61,6 @@
 
     <ant:property name="cactus.target.classes.dir"
         value="${maven.build.dir}/test-cactus-classes"/>
-
-    <j:set var="warBuildDir"
-        value="${pom.getPluginContext('maven-war-plugin').getVariable('maven.war.build.dir')}"/>
-    <ant:property name="cactus.src.war"
-        value="${warBuildDir}/${maven.war.final.name}"/>
 
     <util:available file="${cactus.src.dir}">
       <j:set var="cactusSourcePresent" value="true"/>
@@ -123,7 +122,7 @@
        Compiles the Cactus tests.
      ========================================================================
   -->
-  <goal name="cactus:compile" prereqs="cactus:init"
+  <goal name="cactus:compile" prereqs="cactus:init,java:compile"
       description="Compiles the cactus tests">
 
     <ant:mkdir dir="${cactus.target.classes.dir}"/>

@@ -171,6 +171,16 @@
           <td>Yes</td>
           <td>
             <p>
+              Location of war to cactify. Defaults to
+              <code>${maven.build.dir}/${pom.artifactId}.war</code>.
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td>cactus.war</td>
+          <td>Yes</td>
+          <td>
+            <p>
               Location where to generate the cactified WAR. Note that this is 
               also the name of the test context that will be used (except if 
               the context is specified by other means such as in 
