@@ -71,6 +71,10 @@
       <action assigned-to="Christopher Lenz">
         Improve the ServletTestRunner. Move stylesheet definition to web.xml
         and provide support for XSLT performed inside ServletTestRunner. 
+        Bundle an XSLT stylesheet with the sample-servlet.
+        Maybe add stack trace filtering.
+        Look at ways to make it run without the permission to set system
+        properties.
         Potentially look at replacing it by the JUnitEE test runner.
       </action>
       <action>
