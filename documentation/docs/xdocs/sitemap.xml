@@ -397,6 +397,7 @@
   <external id="australian_slang" url="http://www.koalanet.com.au/australian-slang.html#C"/>
   <external id="book_javatools" url="http://www.amazon.com/exec/obidos/ASIN/047120708X/"/>
   <external id="bug_database" url="http://jakarta.apache.org/site/bugs.html"/>
+  <external id="bug_database_cactus_open" url="http://issues.apache.org/bugzilla/buglist.cgi?bug_status=NEW&amp;bug_status=ASSIGNED&amp;bug_status=REOPENED&amp;product=Cactus"/>
   <external id="c2_vma" url="http://c2.com/cgi/wiki?VincentMassol"/>
   <external id="c2_who_uses_cactus" url="http://c2.com/cgi/wiki?WhoUsesCactus"/>
   <external id="cactus_dutronc_lyrics" url="http://www.muriset.com/paroles/les_cactus.htm"/>

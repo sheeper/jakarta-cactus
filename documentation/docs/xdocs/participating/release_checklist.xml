@@ -18,9 +18,10 @@
       </p>
       <ol>
         <li>
-          Ensure that the bugs have been either fixed, marked as INVALID or 
-          WONTFIX  or marked as LATER (indicating that they will be resolved 
-          after this release) .
+          Ensure that all
+          <link href="ext:bug_database_cactus_open">open bugs</link> have 
+          been either fixed, marked as INVALID or WONTFIX  or marked as 
+          LATER (indicating that they will be resolved after this release).
         </li>
         <li>
           Ensure that the Cactus tests have been run on several application
@@ -29,17 +30,18 @@
         </li>
         <li>
           Ensure that Cactus works with the latest released versions of the
-          frameworks it uses (Commons-logging, HttpClient, HttpUnit, etc)
-          and update the <code>build.properties.sample</code> files to use
-          these latest versions.
+          external libraries it uses (Commons-logging, HttpClient, HttpUnit, 
+          etc) and update the <code>build.properties.sample</code> files to 
+          use these latest versions.
         </li>
         <li>
-          Ensure that the Todo page has no more items for the current version.
+          Ensure that the <link href="site:todo">Todo</link> page has no more 
+          items for the current version.
         </li>
         <li>
           Update the <code>ANNOUNCEMENT.txt</code> file in CVS with the release
-          note (i.e. limitations of the current release). A sample announcement
-          template is provided at the bottom of this page.
+          notes. A <jump anchor="announcement_template">sample announcement 
+          template</jump> is provided at the bottom of this page.
         </li>
         <li>
           Ensure that the Cactus web site is up to date with the new release.
@@ -118,6 +120,7 @@
 
     </section>
 
+    <anchor id="announcement_template"/>
     <section title="Announcement template">
 
 <source><![CDATA[
