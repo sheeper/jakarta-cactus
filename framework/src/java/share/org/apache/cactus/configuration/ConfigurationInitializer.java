@@ -105,7 +105,7 @@ public class ConfigurationInitializer
     /**
      * Read Cactus configuration files.
      */
-    public static final synchronized void initialize()
+    public static synchronized void initialize()
     {
         if (!isInitialized)
         {    
@@ -122,7 +122,7 @@ public class ConfigurationInitializer
      * read the DEFAULT_CONFIG_NAME file from the classpath. All properties 
      * found are exported as java system properties.
      */
-    private static final void initializeConfig()
+    private static void initializeConfig()
     {
         ResourceBundle config;
 
@@ -167,7 +167,7 @@ public class ConfigurationInitializer
     /**
      * Initialize logging configuration.
      */
-    private static final void initializeLoggingConfig()
+    private static void initializeLoggingConfig()
     {
         String logConfig = System.getProperty(CACTUS_LOGGING_CONFIG_PROPERTY);
         if (logConfig != null)

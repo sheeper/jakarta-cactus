@@ -197,6 +197,25 @@ public abstract class AbstractJavaContainer extends AbstractContainer
     }
 
     /**
+     * Returns the file containing the JDK tools (such as the compiler). This
+     * method must not be called on Mac OSX as there is no tools.jar file on
+     * that platform (everything is included in classes.jar).
+     * 
+     * @return The tools.jar file
+     * @throws FileNotFoundException If the tools.jar file could not be found
+     */
+    protected final File getToolsJar() throws FileNotFoundException
+    {
+        String javaHome = System.getProperty("java.home"); 
+        File toolsJar = new File(javaHome, "../lib/tools.jar");
+        if (!toolsJar.isFile())
+        {
+            throw new FileNotFoundException(toolsJar.getAbsolutePath());
+        }
+        return toolsJar;
+    }   
+ 
+    /**
      * Adds the tools.jar to the classpath, except for Mac OSX as it is not
      * needed.
      * 
@@ -229,28 +248,9 @@ public abstract class AbstractJavaContainer extends AbstractContainer
      *
      * @return true if the user's system is determined to be Mac OS X.
      */
-    private final boolean isOSX()
+    private boolean isOSX()
     {
         return (System.getProperty("mrj.version") != null);
     }    
 
-    /**
-     * Returns the file containing the JDK tools (such as the compiler). This
-     * method must not be called on Mac OSX as there is no tools.jar file on
-     * that platform (everything is included in classes.jar).
-     * 
-     * @return The tools.jar file
-     * @throws FileNotFoundException If the tools.jar file could not be found
-     */
-    protected final File getToolsJar() throws FileNotFoundException
-    {
-        String javaHome = System.getProperty("java.home"); 
-        File toolsJar = new File(javaHome, "../lib/tools.jar");
-        if (!toolsJar.isFile())
-        {
-            throw new FileNotFoundException(toolsJar.getAbsolutePath());
-        }
-        return toolsJar;
-    }   
-    
 }
