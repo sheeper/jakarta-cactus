@@ -307,6 +307,7 @@
          that JVM do not drop these directories from the CLASSPATH
          (apparently some do) -->
     <mkdir dir="samples/servlet/target-12/sample/target/classes/java"/>
+    <mkdir dir="samples/servlet/target-12/sample/target/cactus/classes"/>
     <mkdir dir="samples/servlet/target-12/sample/target/conf/client"/>
 
     <ant buildfile="samples/servlet/build.xml" target="release.gump">
@@ -343,6 +344,7 @@
     <depend project="jakarta-cactus-integration-ant-12"/>
 
     <work nested="samples/servlet/target-12/sample/target/classes/java"/>
+    <work nested="samples/servlet/target-12/sample/target/cactus/classes"/>
     <work nested="samples/servlet/target-12/sample/target/conf/client"/>
 
     <jar name="samples/servlet/dist-12/bin/cactus-sample-servlet"/>
@@ -365,6 +367,7 @@
          that JVM do not drop these directories from the CLASSPATH
          (apparently some do) -->
     <mkdir dir="samples/servlet/target-13/sample/target/classes/java"/>
+    <mkdir dir="samples/servlet/target-13/sample/target/cactus/classes"/>
     <mkdir dir="samples/servlet/target-13/sample/target/conf/client"/>
 
     <ant buildfile="samples/servlet/build.xml" target="release.gump">
@@ -402,6 +405,7 @@
     <depend project="jakarta-cactus-integration-ant-13"/>
 
     <work nested="samples/servlet/target-13/sample/target/classes/java"/>
+    <work nested="samples/servlet/target-13/sample/target/cactus/classes"/>
     <work nested="samples/servlet/target-13/sample/target/conf/client"/>
 
     <jar name="samples/servlet/dist-13/bin/cactus-sample-servlet"/>
