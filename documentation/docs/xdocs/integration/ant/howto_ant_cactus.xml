@@ -33,7 +33,7 @@
         the snippets shown here.
       </note>
 
-      <section title="Starting off with a plain build">
+      <section title="Starting Off with a Plain Build">
 
         <p>
           The servlet sample is a simple web application that contains
@@ -81,8 +81,7 @@
     <pathelement location="${servlet.jar}"/>
     <pathelement location="${jstl.jar}"/>
     <pathelement location="${standard.jar}"/>
-  </path>
-]]></source>
+  </path>]]></source>
 
         <p>
           Next, we check whether the required libraries are actually available.
@@ -104,8 +103,7 @@
     </condition>
     <fail unless="properties.ok">Missing property...</fail>
     <tstamp/>
-  </target>
-]]></source>
+  </target>]]></source>
 
         <p>
           The first <em>real</em> thing we'll do in the build is to compile
@@ -123,8 +121,7 @@
       <src path="${src.java.dir}"/>
       <classpath refid="project.classpath"/>
     </javac>
-  </target>
-]]></source>
+  </target>]]></source>
 
         <p>
           What's left is just the generation of the web-application archice
@@ -143,8 +140,7 @@
       <lib file="${jstl.jar}">
       <lib file="${standard.jar}">
     </war>
-  </target>
-]]></source>
+  </target>]]></source>
 
         <p>
           After that, we might want to copy the generated WAR file to the
@@ -166,8 +162,7 @@
       description="Remove all generated files">
     <delete dir="${target.dir}"/>
     <delete dir="${dist.dir}"/>
-  </target>
-]]></source>
+  </target>]]></source>
 
       </section>
 
@@ -208,8 +203,7 @@
     <pathelement location="${commons.httpclient.jar}"/>
     <pathelement location="${commons.logging.jar}"/>
     <pathelement location="${junit.jar}"/>
-  </path>
-]]></source>
+  </path>]]></source>
 
         <p>
           Once this is done, we can proceed with the actual definition of the
@@ -217,8 +211,8 @@
         </p>
 
         <source><![CDATA[
-  <taskdef resource="cactus.tasks" classpathref="cactus.classpath"/>
-]]></source>
+  <taskdef resource="cactus.tasks"
+      classpathref="cactus.classpath"/>]]></source>
 
         <p>
           By using the <em>cactus.tasks</em> property file included in the
@@ -257,8 +251,7 @@
   </target>
 
   <target name="compile" depends="compile.java, compile.test">
-  </target>
-]]></source>
+  </target>]]></source>
 
         <p>
           Note that we renamed the target to compile the application classes
@@ -308,13 +301,13 @@
           easier to use.
         </p>
 
-      <p>
-        For the cactification, we add a target called <em>test.prepare</em>,
-        on which the <em>test</em> target will depend. This target itself
-        depends on the application WAR being built (the <em>war</em> target),
-        and the Cactus test cases being compiled (the <em>compile.cactus</em>
-        target):
-      </p>
+        <p>
+          For the cactification, we add a target called <em>test.prepare</em>,
+          on which the <em>test</em> target will depend. This target itself
+          depends on the application WAR being built (the <em>war</em> target),
+          and the Cactus test cases being compiled (the <em>compile.cactus</em>
+          target):
+        </p>
 
         <source><![CDATA[
 <target name="test.prepare" depends="war, compile.cactus">
@@ -326,8 +319,7 @@
     <lib file="${httpunit.jar}"/>
   </cactifywar>
 
-</target>
-]]></source>
+</target>]]></source>
 
         <p>
           So what the <strong>&lt;cactifywar&gt;</strong> task does here, is to
@@ -370,7 +362,108 @@
       <section title="Running the Cactus Tests">
 
         <p>
-          (To be written)
+          Now to the probably most important part: running the Cactus tests.
+          The critical point here is that a J2EE container must be running 
+          while the tests are executed, and that the web-application under
+          test must have been successfully deployed. If that is the case,
+          you can simply run the tests like normal JUnit tests, and provide
+          a couple of system properties that tell Cactus how to connect to the
+          server (see the
+          <link href="site:howto_config">Configuration Guide</link> for
+          details).
+        </p>
+        <p>
+          However, you will probably want to automate the deployment of the
+          cactified WAR, and maybe also the startup and shutdown of the 
+          container. This can be done with some Ant scripting in combination
+          with the <strong>&lt;runservertests&gt;</strong> task provided by
+          Cactus. But Cactus also provides a higher-level abstraction for 
+          running the tests with the <strong>&lt;cactus&gt;</strong> task.
+        </p>
+        <p>
+          The <strong>&lt;cactus&gt;</strong> task extends the optional Ant
+          task <strong>&lt;junit&gt;</strong>, adding support for in-container
+          tests and hiding some of the details such as the system properties
+          used for configuring Cactus:
+        </p>
+
+        <source><![CDATA[
+<target name="test" depends="test.prepare"
+    description="Run the tests on the defined containers">
+
+  <!-- Run the tests -->
+  <cactus warfile="${target.dir}/test.war" fork="yes"
+      failureproperty="tests.failed">
+    <classpath>
+      <path refid="project.classpath"/>
+      <pathelement location="${httpunit.jar}"/>
+      <pathelement location="${nekohtml.jar}"/>
+      <pathelement location="${target.classes.java.dir}"/>
+      <pathelement location="${target.classes.cactus.dir}"/>
+    </classpath>
+    <containerset timeout="180000">
+      <tomcat4x if="cactus.home.tomcat4x"
+          dir="${cactus.home.tomcat4x}" port="${cactus.port}"
+          output="${target.testreports.dir}/tomcat4x.out"
+          todir="${target.testreports.dir}/tomcat4x"/>
+    </containerset>
+    <formatter type="brief" usefile="false"/>
+    <formatter type="xml"/>
+    <batchtest>
+      <fileset dir="${src.cactus.dir}">
+        <include name="**/Test*.java"/>
+        <exclude name="**/Test*All.java"/>
+      </fileset>
+    </batchtest>
+  </cactus>
+
+</target>]]></source>
+
+        <p>
+          In this example, we specify the <em>"WAR under test"</em> using the
+          <strong>warfile</strong> attribute. This must point to an already
+          cactified WAR. The task will extract information about the mappings
+          of the test redirectors from the deployment descriptor of the 
+          web-application, and automically setup the corresponding system 
+          properties.
+        </p>
+        <p>
+          Next, we add a nested <strong>&lt;containerset&gt;</strong> element,
+          which allows us to specify one or more containers against which the
+          tests will be executed. Here we only test against Apache Tomcat 4.x.
+          We specify the installation directory of Tomcat using the
+          <strong>dir</strong> attribute, as well as the port to which the
+          container should be bound using the <strong>port</strong> attribute.
+        </p>
+        <p>
+          What happens behind the scenes is this:
+          <ol>
+            <li>
+              Tomcat is installed to a temporary directory using a minimal 
+              configuration.
+            </li>
+            <li>
+              The specified WAR is copied into the Tomcat <code>webapps</code>
+              directory, so that it will be deployed when Tomcat is started up.
+            </li>
+            <li>
+              Tomcat is started. The task assumes that the startup is complete
+              as soon as HTTP requests to the test web-application are
+              successful.
+            </li>
+            <li>
+              Now the tests are executed. The required system properties such
+              as <code>cactus.contextURL</code> and the redirector mappings are
+              automatically passed to the test runner.
+            </li>
+            <li>
+              After the tests have terminated (successfully or not), Tomcat is
+              shut down.
+            </li>
+          </ol>
+          If we had defined more than one container in the
+          <strong>&lt;containerset&gt;</strong> element, this procedure would
+          be repeated for every container in the list.
         </p>
 
       </section>
