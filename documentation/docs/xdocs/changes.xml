@@ -70,13 +70,6 @@
           It should provide better printing capabilities and a more consistent
           look.
         </action>
-        <action dev="CML" type="add">
-          Proposed enhancements to the Ant integration provided by Cactus have
-          been added to CVS in the branch <code>CACTUS_14_ANT_BRANCH</code>.
-          The proposal includes two new tasks, <em>cactify</em> and
-          <em>cactus</em>, which provide very tight integration of Cactus-based
-          testing with Ant.
-        </action>
         <action dev="VMA" type="fix" fixes-bug="9544" due-to="Misak Boulatian" due-to-email="misak@vantra.com">
           Cactus was not correctly handling the <code>ComparisonFailure</code> 
           exception introduced by JUnit 3.8.1 and these exceptions were 
