@@ -135,11 +135,11 @@ import org.apache.commons.logging.LogFactory;
  *   verify that tag's body is not evaluated under the conditions set up by the
  *   test:
  *   <pre>
-  IfTag tag = new IfTag();
-  JspTagLifecycle lifecycle = new JspTagLifecycle(pageContext, tag);
-  tag.setTest("false");
-  lifecycle.expectBodySkipped();
-  lifecycle.invoke();</pre>
+ * IfTag tag = new IfTag();
+ * JspTagLifecycle lifecycle = new JspTagLifecycle(pageContext, tag);
+ * tag.setTest("false");
+ * lifecycle.expectBodySkipped();
+ * lifecycle.invoke();</pre>
  * </p>
  * <p>
  *   An example of a more sophisticated expectationion is the
@@ -148,14 +148,14 @@ import org.apache.commons.logging.LogFactory;
  *   the body of the tag, and that the exposed variable has a specific value in
  *   each iteration step:
  *   <pre>
-  ForEachTag tag = new ForEachTag();
-  JspTagLifecycle lifecycle = new JspTagLifecycle(pageContext, tag);
-  tag.setVar("item");
-  tag.setItems("One,Two,Three");
-  lifecycle.expectBodyEvaluated(3);
-  lifecycle.expectScopedVariableExposed(
-      "item", new Object[] {"One", "Two", "Three"});
-  lifecycle.invoke();</pre>
+ * ForEachTag tag = new ForEachTag();
+ * JspTagLifecycle lifecycle = new JspTagLifecycle(pageContext, tag);
+ * tag.setVar("item");
+ * tag.setItems("One,Two,Three");
+ * lifecycle.expectBodyEvaluated(3);
+ * lifecycle.expectScopedVariableExposed(
+ *     "item", new Object[] {"One", "Two", "Three"});
+ * lifecycle.invoke();</pre>
  * </p>
  * 
  * <h4>Custom Expectations</h4>
@@ -167,31 +167,31 @@ import org.apache.commons.logging.LogFactory;
  *   class, and adding it to the list of the tag lifecycles interceptors through 
  *   {@link JspTagLifecycle#addInterceptor addInterceptor()}:
  *   <pre>
-  ForEachTag tag = new ForEachTag();
-  JspTagLifecycle lifecycle = new JspTagLifecycle(pageContext, tag);
-  tag.setVarStatus("status");
-  tag.setBegin("0");
-  tag.setEnd("2");
-  lifecycle.addInterceptor(new JspTagLifecycle.Interceptor() {
-      public void evalBody(int theIteration, BodyContent theBody) {
-          LoopTagStatus status = (LoopTagStatus)
-              pageContext.findAttribute("status");
-          assertNotNull(status);
-          if (theIteration == 0) {
-              assertTrue(status.isFirst());
-              assertFalse(status.isLast());
-          }
-          else if (theIteration == 1) {
-              assertFalse(status.isFirst());
-              assertFalse(status.isLast());
-          }
-          else if (theIteration == 2) {
-              assertFalse(status.isFirst());
-              assertTrue(status.isLast());
-          }
-      }
-  });
-  lifecycle.invoke();</pre>
+ * ForEachTag tag = new ForEachTag();
+ * JspTagLifecycle lifecycle = new JspTagLifecycle(pageContext, tag);
+ * tag.setVarStatus("status");
+ * tag.setBegin("0");
+ * tag.setEnd("2");
+ * lifecycle.addInterceptor(new JspTagLifecycle.Interceptor() {
+ *     public void evalBody(int theIteration, BodyContent theBody) {
+ *         LoopTagStatus status = (LoopTagStatus)
+ *             pageContext.findAttribute("status");
+ *         assertNotNull(status);
+ *         if (theIteration == 0) {
+ *             assertTrue(status.isFirst());
+ *             assertFalse(status.isLast());
+ *         }
+ *         else if (theIteration == 1) {
+ *             assertFalse(status.isFirst());
+ *             assertFalse(status.isLast());
+ *         }
+ *         else if (theIteration == 2) {
+ *             assertFalse(status.isFirst());
+ *             assertTrue(status.isLast());
+ *         }
+ *     }
+ * });
+ * lifecycle.invoke();</pre>
  * </p>
  * 
  * <h4>Specifying Nested Content</h4>
@@ -206,18 +206,18 @@ import org.apache.commons.logging.LogFactory;
  *   tag, and how to assert that the body was written to the HTTP response on
  *   the client side:
  *   <pre>
-  public void testOutTagDefaultBody() throws JspException, IOException {
-      OutTag tag = new OutTag();
-      JspTagLifecycle lifecycle = new JspTagLifecycle(pageContext, tag);
-      tag.setValue(null);
-      lifecycle.addNestedText("Default");
-      lifecycle.expectBodyEvaluated();
-      lifecycle.invoke();
-  }
-  public void endOutTagDefaultBody(WebResponse theResponse) {
-      String output = theResponse.getText();
-      assertEquals("Default", output);
-  }</pre>
+ * public void testOutTagDefaultBody() throws JspException, IOException {
+ *     OutTag tag = new OutTag();
+ *     JspTagLifecycle lifecycle = new JspTagLifecycle(pageContext, tag);
+ *     tag.setValue(null);
+ *     lifecycle.addNestedText("Default");
+ *     lifecycle.expectBodyEvaluated();
+ *     lifecycle.invoke();
+ * }
+ * public void endOutTagDefaultBody(WebResponse theResponse) {
+ *     String output = theResponse.getText();
+ *     assertEquals("Default", output);
+ * }</pre>
  * </p>
  * <p>
  *   In sophisticated tag libraries, there will be many cases where tags need 
@@ -227,31 +227,30 @@ import org.apache.commons.logging.LogFactory;
  *   The nested tags can than be decorated with expectations themselves, as you
  *   can see in the following example:
  *   <pre>
-  ChooseTag chooseTag = new ChooseTag();
-  JspTagLifecycle chooseLifecycle =
-      new JspTagLifecycle(pageContext, chooseTag);
-  WhenTag whenTag = new WhenTag();
-  JspTagLifecycle whenLifecycle =
-      chooseLifecycle.addNestedTag(whenTag);
-  whenTag.setTest("false");
-  whenLifecycle.expectBodySkipped();
-  OtherwiseTag otherwiseTag = new OtherwiseTag();
-  JspTagLifecycle otherwiseLifecycle =
-      chooseLifecycle.addNestedTag(otherwiseTag);
-  otherwiseLifecycle.expectBodyEvaluated();
-  chooseLifecycle.invoke();</pre>
+ * ChooseTag chooseTag = new ChooseTag();
+ * JspTagLifecycle chooseLifecycle =
+ *     new JspTagLifecycle(pageContext, chooseTag);
+ * WhenTag whenTag = new WhenTag();
+ * JspTagLifecycle whenLifecycle =
+ *     chooseLifecycle.addNestedTag(whenTag);
+ * whenTag.setTest("false");
+ * whenLifecycle.expectBodySkipped();
+ * OtherwiseTag otherwiseTag = new OtherwiseTag();
+ * JspTagLifecycle otherwiseLifecycle =
+ *     chooseLifecycle.addNestedTag(otherwiseTag);
+ * otherwiseLifecycle.expectBodyEvaluated();
+ * chooseLifecycle.invoke();</pre>
  *   The code above creates a constellation of tags equivalent to the following
  *   JSP fragment:
  *   <pre>
-&lt;c:choose&gt;
-  &lt;c:when test='false'&gt;
-    &lt;%-- body content not significant for the test --%&gt;
-  &lt;/c:when&gt;
-  &lt;c:otherwise&gt;
-    &lt;%-- body content not significant for the test --%&gt;
-  &lt;/c:otherwise&gt;
-&lt;/c:choose&gt;
-</pre>
+ * &lt;c:choose&gt;
+ *  &lt;c:when test='false'&gt;
+ *   &lt;%-- body content not significant for the test --%&gt;
+ *  &lt;/c:when&gt;
+ *  &lt;c:otherwise&gt;
+ *   &lt;%-- body content not significant for the test --%&gt;
+ *  &lt;/c:otherwise&gt;
+ * &lt;/c:choose&gt;</pre>
  * </p>
  * 
  * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
@@ -261,7 +260,7 @@ import org.apache.commons.logging.LogFactory;
  * @see org.apache.cactus.JspTestCase
  */
 public final class JspTagLifecycle
-{  
+{   
     // Inner Classes -----------------------------------------------------------
     
     /**
