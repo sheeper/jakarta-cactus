@@ -85,40 +85,17 @@
 
     <!--
        ========================================================================
-         Useful patterns for targets
-       ========================================================================
-    -->
-    <path id="project.class.path">
-
-        <pathelement location="${j2ee.jar}"/>
-        <pathelement location="${aspectjrt.jar}"/>
-        <pathelement location="${log4j.jar}"/>
-        <pathelement location="${commons.logging.jar}"/>
-        <pathelement location="${commons.httpclient.jar}"/>
-        <pathelement location="${httpunit.jar}"/>
-
-        <!-- Includes system classpath for jars that are in ANT_HOME/lib such
-             as aspectrt.jar, etc -->
-        <pathelement path="${java.class.path}"/>
-    </path>
-
-    <!--
-       ========================================================================
          Initialize AspectJ
        ========================================================================
     -->
     <target name="init.aspectj">
 
-        <path id="aspectj.classpath">
-            <pathelement location="${aspectjrt.jar}"/>
-            <pathelement location="${aspectj-tools.jar}"/>
-            <pathelement location="${aspectj-ant.jar}"/>
-            <pathelement path="${java.class.path}"/>
-        </path>
-
-        <!-- AspectJ task definition -->
+        <!-- Define the AspectJ tasks -->
         <taskdef name="ajc" classname="org.aspectj.tools.ant.taskdefs.Ajc">
-            <classpath refid="aspectj.classpath"/>
+            <classpath>
+                <pathelement location="${aspectj-tools.jar}"/>
+                <pathelement location="${aspectj-ant.jar}"/>
+            </classpath>
         </taskdef>
 
     </target>
@@ -131,27 +108,40 @@
     <target name="init" 
         depends="init.common, properties, init.aspectj, init.clover">
 
-        <echo>j2ee.jar = [${j2ee.jar}]</echo>
-        <echo>log4j.jar = [${log4j.jar}]</echo>
-        <echo>commons.httpclient.jar = [${commons.httpclient.jar}]</echo>
-        <echo>commons.logging.jar = [${commons.logging.jar}]</echo>
-        <echo>httpunit.jar = [${httpunit.jar}]</echo>
-
-        <echo>clover.enable (optional) = ${clover.enable}</echo>
+        <echo>Dependancies:</echo>
+        <echo>  aspectjrt.jar = [${aspectjrt.jar}]</echo>
+        <echo>  commons.httpclient.jar = [${commons.httpclient.jar}]</echo>
+        <echo>  commons.logging.jar = [${commons.logging.jar}]</echo>
+        <echo>  httpunit.jar = [${httpunit.jar}]</echo>
+        <echo>  j2ee.jar = [${j2ee.jar}]</echo>
+        <echo>  junit.jar = [${junit.jar}]</echo>
+        <echo/>
+        <echo>Options:</echo>
+        <echo>  clover.enable (optional) = ${clover.enable}</echo>
 
         <condition property="properties.ok">
           <and>
-            <available file="${j2ee.jar}"/>
-            <available file="${log4j.jar}"/>
+            <available file="${aspectjrt.jar}"/>
             <available file="${commons.httpclient.jar}"/>
             <available file="${commons.logging.jar}"/>
             <available file="${httpunit.jar}"/>
+            <available file="${j2ee.jar}"/>
+            <available file="${junit.jar}"/>
           </and>
         </condition>
 
         <fail unless="properties.ok">One or more required dependancies could not
 be resolved. Please check you build.properties file, and run Ant with the 
 -verbose option for more details</fail>
+
+        <path id="project.classpath">
+            <pathelement location="${aspectjrt.jar}"/>
+            <pathelement location="${commons.logging.jar}"/>
+            <pathelement location="${commons.httpclient.jar}"/>
+            <pathelement location="${httpunit.jar}"/>
+            <pathelement location="${j2ee.jar}"/>
+            <pathelement location="${junit.jar}"/>
+        </path>
 
     </target>
 
@@ -194,7 +184,7 @@ be resolved. Please check you build.properties file, and run Ant with the
             <src path="${src.java.specific.dir}"/>
             <exclude name="**/package.html"/>
             <exclude name="**/overview.html"/>
-            <classpath refid="project.class.path"/>
+            <classpath refid="project.classpath"/>
         </javac>
 
         <copy todir="${target.classes.clover.dir}/org/apache/cactus/server"
@@ -217,7 +207,7 @@ be resolved. Please check you build.properties file, and run Ant with the
 
             <classpath>
                 <path path="${target.classes.java.dir}"/>
-                <path refid="project.class.path"/>
+                <path refid="project.classpath"/>
             </classpath>
 
         </javac>
@@ -254,7 +244,7 @@ be resolved. Please check you build.properties file, and run Ant with the
             <exclude name="**/package.html"/>
             <exclude name="**/overview.html"/>
 
-            <classpath refid="project.class.path"/>
+            <classpath refid="project.classpath"/>
         </ajc>
 
         <copy todir="${target.classes.java.dir}/org/apache/cactus/server"
@@ -392,7 +382,7 @@ be resolved. Please check you build.properties file, and run Ant with the
                 <pathelement location="${src.java.specific.dir}"/>
             </sourcepath>
 
-            <classpath refid="project.class.path"/>
+            <classpath refid="project.classpath"/>
 
         </javadoc>
 
@@ -409,7 +399,8 @@ be resolved. Please check you build.properties file, and run Ant with the
         <path id="test.class.path">
             <pathelement path="${target.classes.clover.dir}"/>
             <pathelement path="${target.classes.test.dir}"/>
-            <path refid="project.class.path"/>
+            <pathelement location="${clover.jar}"/>
+            <path refid="project.classpath"/>
         </path>
 
     </target>
@@ -420,7 +411,7 @@ be resolved. Please check you build.properties file, and run Ant with the
         <path id="test.class.path">
             <pathelement path="${target.classes.java.dir}"/>
             <pathelement path="${target.classes.test.dir}"/>
-            <path refid="project.class.path"/>
+            <path refid="project.classpath"/>
         </path>
 
     </target>
@@ -516,7 +507,7 @@ be resolved. Please check you build.properties file, and run Ant with the
             fork="yes">
             <arg path="${clover.initstring}"/>
             <classpath>
-                <pathelement path="${java.class.path}"/>
+                <pathelement path="${clover.jar}"/>
             </classpath>
         </java>
 
