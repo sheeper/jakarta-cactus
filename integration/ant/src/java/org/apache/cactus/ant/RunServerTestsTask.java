@@ -87,8 +87,8 @@ import org.apache.tools.ant.Project;
  *
  * @version $Id$
  * 
- * @deprecated The implementation of this task has moved to the
- *              {@link org.apache.cactus.integration.ant} package.
+ * @deprecated The implementation of this task has moved to
+ *             {@link org.apache.cactus.integration.ant.RunServerTestsTask}. 
  */
 public class RunServerTestsTask
     extends org.apache.cactus.integration.ant.RunServerTestsTask
