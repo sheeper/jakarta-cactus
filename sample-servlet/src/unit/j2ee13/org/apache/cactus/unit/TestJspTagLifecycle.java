@@ -71,21 +71,29 @@ import org.apache.taglibs.standard.tag.el.core.SetTag;
 import org.apache.taglibs.standard.tag.el.core.WhenTag;
 
 /**
+ * Tests for the <code>JspTagLifecycle</code> extension.
  * 
+ * <p>
+ *   The lifecycle helper is tested here by testing the reference implementation
+ *   of the JSP standard tag library (JSTL), available at
+ *   <a href="http://jakarta.apache.org/taglibs/">.
+ * </p>
  * 
  * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
  */
 public class TestJspTagLifecycle
-    extends JspTestCase {
+    extends JspTestCase
+{
     
     // Constructors ------------------------------------------------------------
     
     /**
-     * Defines the testcase name for JUnit.
-     *
-     * @param theName the testcase's name.
+     * Constructor.
+     * 
+     * @param theName The name of the test case
      */
-    public TestJspTagLifecycle(String theName) {
+    public TestJspTagLifecycle(String theName)
+    {
         super(theName);
     }
     
@@ -104,123 +112,153 @@ public class TestJspTagLifecycle
     // Test Methods ------------------------------------------------------------
     
     /**
+     * Tests the <code>&lt;c:out&gt;</code>-tag with a proper, literal value for
+     * it's <code>value</code> attribute.
      * 
-     * @throws JspException
-     * @throws IOException
+     * @throws JspException If the tag throws a JSPException
+     * @throws IOException If the tag throws an IOException
      */
     public void testOutTag()
-        throws JspException, IOException {
-        
+        throws JspException, IOException
+    {
         OutTag tag = new OutTag();
-        tag.setValue("TEST");
         JspTagLifecycle lifecycle = new JspTagLifecycle(pageContext, tag);
-        lifecycle.invoke(new JspTagLifecycle.Interceptor() {
-            public void evalBody(int iteration, BodyContent body) {
-                assertEquals("TEST", body.getString());
+        tag.setValue("Value");
+        lifecycle.invoke();
+    }
+    
+    /**
+     * Verifies that the response has been correctly rendered by the 
+     * <code>&lt;c:out&gt;</code>-tag.
+     * 
+     * @param theResponse The HTTP response
+     */
+    public void endOutTag(WebResponse theResponse)
+    {
+        String output = theResponse.getText();
+        assertEquals("Value", output);
+    }
+    
+    /**
+     * Tests the <code>&lt;c:out&gt;</code>-tag with <code>null</code> for
+     * it's <code>value</code> attribute, and a proper, literal value for it's
+     * <code>default</code> attribute.
+     * 
+     * @throws JspException If the tag throws a JSPException
+     * @throws IOException If the tag throws an IOException
+     */
+    public void testOutTagDefaultAttribute()
+        throws JspException, IOException
+    {
+        OutTag tag = new OutTag();
+        JspTagLifecycle lifecycle = new JspTagLifecycle(pageContext, tag);
+        tag.setValue(null);
+        tag.setDefault("Default");
+        lifecycle.invoke();
+    }
+    
+    /**
+     * Verifies that the response has been correctly rendered by the 
+     * <code>&lt;c:out&gt;</code>-tag.
+     *  
+     * @param theResponse The HTTP response
+     */
+    public void endOutTagWithDefaultAttribute(WebResponse theResponse)
+    {
+        String output = theResponse.getText();
+        assertEquals("Default", output);
+    }
+    
+    /**
+     * Tests the &lt;c:out&gt;-Tag with a value that evaluates to
+     * <code>null</code>, and the default value specified in the tag's body.
+     * 
+     * @throws JspException If the tag throws a JSPException
+     * @throws IOException If the tag throws an IOException
+     */
+    public void testOutTagDefaultBody()
+        throws JspException, IOException
+    {
+        OutTag tag = new OutTag();
+        JspTagLifecycle lifecycle = new JspTagLifecycle(pageContext, tag);
+        tag.setValue(null);
+        lifecycle.invoke(new JspTagLifecycle.Interceptor()
+        {
+            public void evalBody(int iteration, BodyContent body)
+                throws IOException
+            {
+                body.print("Default");
             }
         });
     }
     
     /**
+     * Verifies that the response has been correctly rendered by the 
+     * <code>&lt;c:out&gt;</code>-tag.
      * 
-     * @param theResponse
+     * @param theResponse The HTTP response
+     * @todo This test currently fails if commented in
      */
-    public void endOutTag(WebResponse theResponse) {
-        
+    public void endOutTagDefaultBody(WebResponse theResponse)
+    {
         String output = theResponse.getText();
-        assertEquals("TEST", output);
+        //assertEquals("Default", output);
     }
     
     /**
+     * Tests the &lt;c:set&gt;-tag with a proper, literal values for it's
+     * <code>var</code> and <code>value</code> attributes. Verification is done
+     * by checking the scoped variable stored by the tag.
      * 
-     * @throws JspException
-     * @throws IOException
-     */
-    public void testOutTagDefaultAttribute()
-        throws JspException, IOException {
-        
-        OutTag tag = new OutTag();
-        tag.setValue(null);
-        tag.setDefault("Default Value");
-        JspTagLifecycle lifecycle = new JspTagLifecycle(pageContext, tag);
-        lifecycle.invoke();
-    }
-    
-    /**
-     * 
-     * @param theResponse
-     */
-    public void endOutTagWithDefaultAttribute(WebResponse theResponse) {
-        
-        String output = theResponse.getText();
-        assertEquals("Default Value", output);
-    }
-    
-    /**
-     * 
-     * @throws JspException
-     * @throws IOException
-     */
-    public void testOutTagDefaultBody()
-        throws JspException, IOException {
-/*      
-        OutTag tag = new OutTag();
-        tag.setValue(null);
-        new JspTagLifecycle(tag) {
-            protected void evalBody(int iteration, BodyContent body)
-                throws IOException {
-                body.print("Default Value");
-            }
-        }.invoke(pageContext, null);*/
-    }
-    
-    /**
-     * 
-     * @param theResponse
-     */
-    public void endOutTagDefaultBody(WebResponse theResponse) {
-/*        
-        String output = theResponse.getText();
-        assertEquals("Default Value", output);*/
-    }
-    
-    /**
-     * 
-     * @throws JspException
-     * @throws IOException
+     * @throws JspException If the tag throws a JSPException
+     * @throws IOException If the tag throws an IOException
      */
     public void testSetTag()
-        throws JspException, IOException {
-        
+        throws JspException, IOException
+    {
         SetTag tag = new SetTag();
-        tag.setVar("name");
-        tag.setValue("value");
         JspTagLifecycle lifecycle = new JspTagLifecycle(pageContext, tag);
+        tag.setVar("Var");
+        tag.setValue("Value");
         lifecycle.invoke();
-        assertEquals("value", pageContext.findAttribute("name"));
+        assertEquals("Value", pageContext.findAttribute("Var"));
     }
     
     /**
+     * Tests the tag &lt;c:forEach&gt; by providing a comma-delimited list of 
+     * string to it's <code>items</code> attributes, and checking the exposed
+     * scoped variable on every iteration step.
      * 
-     * @throws JspException
-     * @throws IOException
+     * @throws JspException If the tag throws a JSPException
+     * @throws IOException If the tag throws an IOException
      */
     public void testForEachTag()
-        throws JspException, IOException {
-        
+        throws JspException, IOException
+    {
         ForEachTag tag = new ForEachTag();
-        tag.setVar("item");
-        tag.setItems("uno,dos,tres");
         JspTagLifecycle lifecycle = new JspTagLifecycle(pageContext, tag);
-        lifecycle.invoke(new JspTagLifecycle.Interceptor() {
-            public void evalBody(int iteration, BodyContent body) {
-                if (iteration == 0) {
-                    assertEquals("uno", pageContext.findAttribute("item"));
-                } else if (iteration == 1) {
-                    assertEquals("dos", pageContext.findAttribute("item"));
-                } else if (iteration == 2) {
-                    assertEquals("tres", pageContext.findAttribute("item"));
-                } else {
+        tag.setVar("Item");
+        tag.setItems("One,Two,Three");
+        lifecycle.invoke(new JspTagLifecycle.Interceptor()
+        {
+            public void evalBody(int iteration, BodyContent body)
+            {
+                String item = (String)pageContext.findAttribute("Item");
+                assertNotNull(item);
+                if (iteration == 0)
+                {
+                    assertEquals("One", item);
+                }
+                else if (iteration == 1)
+                {
+                    assertEquals("Two", item);
+                }
+                else if (iteration == 2)
+                {
+                    assertEquals("Three", item);
+                }
+                else
+                {
                     fail("More iterations than expected!");
                 }
             }
@@ -228,95 +266,124 @@ public class TestJspTagLifecycle
     }
     
     /**
+     * Tests the conditional tag &lt;c:if&gt; by providing a proper, literal 
+     * value to it's <code>test</code> attribute that evaluates to
+     * the boolean value <code>true</code>. The test verifies the correct
+     * behaviour by asserting that the tag's body is not skipped.
      * 
-     * @throws JspException
-     * @throws IOException
+     * @throws JspException If the tag throws a JSPException
+     * @throws IOException If the tag throws an IOException
      */
     public void testIfTagTrue()
-        throws JspException, IOException {
-        
+        throws JspException, IOException
+    {
         IfTag tag = new IfTag();
-        tag.setTest("true");
         JspTagLifecycle lifecycle = new JspTagLifecycle(pageContext, tag);
-        lifecycle.invoke(new JspTagLifecycle.Interceptor() {
-            public void skipBody() {
+        tag.setTest("true");
+        lifecycle.invoke(new JspTagLifecycle.Interceptor()
+        {
+            public void skipBody()
+            {
                 fail("Body should have been evaluated!");
             }
         });
     }
     
     /**
+     * Tests the conditional tag &lt;c:if&gt; by providing a proper, literal 
+     * value to it's <code>test</code> attribute that evaluates to
+     * the boolean value <code>false</code>. The test verifies the correct
+     * behaviour by asserting that the tag's body is not evaluated.
      * 
-     * @throws JspException
-     * @throws IOException
+     * @throws JspException If the tag throws a JSPException
+     * @throws IOException If the tag throws an IOException
      */
     public void testIfTagFalse()
-        throws JspException, IOException {
-        
+        throws JspException, IOException
+    {
         IfTag tag = new IfTag();
-        tag.setTest("false");
         JspTagLifecycle lifecycle = new JspTagLifecycle(pageContext, tag);
-        lifecycle.invoke(new JspTagLifecycle.Interceptor() {
-            public void evalBody(int iteration, BodyContent body) {
+        tag.setTest("false");
+        lifecycle.invoke(new JspTagLifecycle.Interceptor()
+        {
+            public void evalBody(int iteration, BodyContent body)
+            {
                 fail("Body should have been skipped!");
             }
         });
     }
     
     /**
+     * Tests the &lt;c:when&gt;-tag correctly nested inside a &lt;c:choose&gt;
+     * tag, and providing a proper, literal value to it's <code>test</code>
+     * attribute that evaluates to the boolean value <code>true</code>. The test
+     * verifies the correct behaviour by asserting that the tag's body is not
+     * skipped.
      * 
-     * @throws JspException
-     * @throws IOException
+     * @throws JspException If the tag throws a JSPException
+     * @throws IOException If the tag throws an IOException
      */
     public void testWhenTag()
         throws JspException, IOException
     {
-        
         WhenTag tag = new WhenTag();
-        tag.setTest("true");
         JspTagLifecycle lifecycle =
             new JspTagLifecycle(pageContext, tag, new ChooseTag());
-        lifecycle.invoke(new JspTagLifecycle.Interceptor() {
-            public void skipBody() {
+        tag.setTest("true");
+        lifecycle.invoke(new JspTagLifecycle.Interceptor()
+        {
+            public void skipBody()
+            {
                 fail("Body should have been evaluated!");
             }
         });
     }
     
     /**
+     * Tests the &lt;c:when&gt;-tag correctly nested inside a &lt;c:choose&gt;
+     * tag, and providing a proper, literal value to it's <code>test</code>
+     * attribute that evaluates to the boolean value <code>true</code>. However,
+     * an earlier instance of the <code>&lt;c:when&gt;</code> tag nested in the
+     * parent has already succeeded, so this test asserts that the body of the
+     * later <code>&lt;c:when&gt;</code> does not get evaluated.
      * 
-     * @throws JspException
-     * @throws IOException
+     * @throws JspException If the tag throws a JSPException
+     * @throws IOException If the tag throws an IOException
      */
     public void testWhenTagNoPermission()
         throws JspException, IOException
     {
-        
         ChooseTag parent = new ChooseTag();
         parent.subtagSucceeded();
         WhenTag tag = new WhenTag();
-        tag.setTest("true");
         JspTagLifecycle lifecycle =
             new JspTagLifecycle(pageContext, tag, parent);
-        lifecycle.invoke(new JspTagLifecycle.Interceptor() {
-            public void evalBody(int iteration, BodyContent body) {
+        tag.setTest("true");
+        lifecycle.invoke(new JspTagLifecycle.Interceptor()
+        {
+            public void evalBody(int iteration, BodyContent body)
+            {
                 fail("Body should have been skipped!");
             }
         });
     }
     
     /**
+     * Tests te <code>&lt;c:when&gt;</code> tag not nested inside a 
+     * <code>&lt;c:choose&gt;</code> tag. The test expects a
+     * <code>JspException</code> to be thrown.
      * 
-     * @throws JspException
-     * @throws IOException
+     * @throws JspException If the tag throws a JSPException
+     * @throws IOException If the tag throws an IOException
      */
     public void testWhenTagWithoutChooseTag()
-        throws JspException, IOException {
-        
+        throws JspException, IOException
+    {
         WhenTag tag = new WhenTag();
+        JspTagLifecycle lifecycle = new JspTagLifecycle(pageContext, tag);
         tag.setTest("true");
-        try {
-            JspTagLifecycle lifecycle = new JspTagLifecycle(pageContext, tag);
+        try
+        {
             lifecycle.invoke();
             fail("Expected JSPTagException");
         } catch (JspTagException je) {
