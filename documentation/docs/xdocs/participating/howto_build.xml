@@ -93,7 +93,7 @@
           </tr>
           <tr>
             <td nowrap="true">
-              <link href="ext:commons_logging">aspectjrt.jar</link>
+              <link href="ext:aspectj">aspectjrt.jar</link>
             </td>
             <td nowrap="true">1.1.1 or later</td>
             <td>
@@ -104,7 +104,7 @@
             <td nowrap="true">
               <link href="ext:aspectj">aspectjtools.jar</link>
             </td>
-            <td nowrap="true">1.1.0 or later</td>
+            <td nowrap="true">1.1.1 or later</td>
             <td>
               The AspectJ compiler and other tools.
             </td>
