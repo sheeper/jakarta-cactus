@@ -57,6 +57,16 @@
       <version>2.3</version>
     </dependency>
   </dependencies>
+  <packageGroups>
+    <packageGroup>
+      <title>Public API</title>
+      <packages>org.apache.cactus,org.apache.cactus.client.authentication,org.apache.cactus.extension.jsp,org.apache.cactus.server</packages>
+    </packageGroup>
+    <packageGroup>
+      <title>Internal API</title>
+      <packages>org.apache.cactus.client,org.apache.cactus.client.connector.http,org.apache.cactus.client.initialization,org.apache.cactus.configuration,org.apache.cactus.extension.jetty,org.apache.cactus.server.runner,org.apache.cactus.util</packages>
+    </packageGroup>
+  </packageGroups>  
   <build>
     <!-- TODO: Fix this - Aspects need to be moved to a specific source
          directory -->
