@@ -246,18 +246,7 @@
          Trigger the Cactus test by running a JUnit Test Runner
        ========================================================================
     -->
-    <target name="cactus.test" depends="cactus.test.eclipse, cactus.test.junit"/>
-
-    <!-- Target called when running Eclipse -->
-    <target name="cactus.test.eclipse" if="cactus.test.runeclipse">
-
-      <taskdef name="eclipseruntests"
-               classname="org.apache.cactus.eclipse.runner.containers.ant.EclipseRunTests"/> 
-      <eclipseruntests/>
-
-    </target>
-
-    <target name="cactus.test.junit" unless="cactus.test.runeclipse">
+    <target name="cactus.test">
 
         <!-- Copy the log4j client side configuration file in a location that
         	we put in the classpath of the JUnit Test Runner -->
