@@ -48,6 +48,14 @@
     </devs>
 
     <release version="1.5" date="- in CVS">
+      <action dev="VMA" type="fix" due-to="Roumen B. Antonov" due-to-email="rantonov@fourthgen.com">
+        Fixed a potential bug with classloaders. On the server side, Cactus 
+        looks for the TestCase class by searching first the WebApp Classloader
+        and then the Context ClassLoader. However, the Context ClassLoader is 
+        only searched if an Exception (subclass of <code>Exception</code>) is 
+        raised. Thus, if a <code>NoClassDefFoundError</code> had been raised, 
+        Cactus would not have searched in the Context ClassLoader.
+      </action>
       <action dev="VMA" type="update">
         Updated to the latest <code>junit-noframes.xsl</code> from Ant.
       </action>

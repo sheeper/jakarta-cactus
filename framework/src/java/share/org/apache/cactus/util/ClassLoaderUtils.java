@@ -93,7 +93,7 @@ public class ClassLoaderUtils
             // try loading from webapp classloader first
             clazz = loadClassFromWebappClassLoader(theClassName, theReferrer);
         }
-        catch (Exception internalException)
+        catch (Throwable internalException)
         {
             // Then try first from Context class loader so that we can put the
             // Cactus jar as an external library.
