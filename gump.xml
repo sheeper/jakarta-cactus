@@ -124,7 +124,7 @@
     <depend project="jakarta-ant" inherit="runtime"/>
     <depend project="xml-xerces"/>
     <depend project="aspectj"/>
-    <depend project="jakarta-tomcat"/>
+    <depend project="jakarta-tomcat" inherit="runtime"/>
 
     <jar name="sample-servlet/dist-12/bin/sample-servlet.zip"/>
 
