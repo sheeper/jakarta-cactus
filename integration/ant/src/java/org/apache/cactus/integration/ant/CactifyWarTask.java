@@ -379,6 +379,9 @@ public class CactifyWarTask extends War
         WebXml webXml = null;
         if (this.srcFile != null)
         {
+            log("Analyzing war: " + this.srcFile.getAbsolutePath(),
+                Project.MSG_INFO);
+
             // Add everything that's in the source WAR to the destination WAR
             ZipFileSet currentFiles = new ZipFileSet();
             currentFiles.setSrc(this.srcFile);
