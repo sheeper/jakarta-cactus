@@ -68,6 +68,9 @@
       </devs>
 
       <release version="1.6dev" date="in CVS">
+        <action dev="VMA" type="update">
+          Migrated to Apache license 2.0.
+        </action>
         <action dev="VMA" type="update" fixes-bug="25034" due-to="Daniel Rabe" due-to-email="drabe@opentext.com">
           The <code>&lt;cactus&gt;</code> task now also cleans custom tmp
           directories (passed using the <code>tmpdir</code> attribute).
