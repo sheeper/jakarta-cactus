@@ -33,6 +33,7 @@
     <property name="cactus.script.dir" value="scripts"/>
 
     <property name="cactus.target.classes.dir" value="${cactus.target.dir}/classes"/>
+    <property name="cactus.target.conf.dir" value="${cactus.target.dir}/conf"/>
 
     <!-- Cactus related jar locations -->
     <property name="cactus.antintegration.jar" 
@@ -160,6 +161,12 @@
     -->
     <target name="cactus.test">
 
+        <!-- Copy the log4j client side configuration file in a location that
+        	we put in the classpath of the JUnit Test Runner -->
+        <mkdir dir="cactus.target.conf.dir"/>
+        <copy tofile="${cactus.target.conf.dir}/log4j.properties"
+            file="${cactus.conf.dir}/log_client.properties"/>
+
         <junit printsummary="yes" haltonfailure="yes" haltonerror="yes"
             fork="yes">
 
@@ -172,6 +179,7 @@
             <jvmarg value="-Dcactus.filterRedirectorName=test/filterRedirector.jsp"/>
                  
             <classpath>
+                <pathelement location="${cactus.target.conf.dir}"/>
                 <pathelement location="${cactus.target.classes.dir}"/>
                 <pathelement location="${cactus.framework.jar}"/>
                 <pathelement location="${cactus.log4j.jar}"/>
