@@ -48,13 +48,15 @@
     </devs>
 
     <release version="1.5" date="- in CVS">
-      <action dev="VMA" type="fix" due-to="Dave Hoover" due-to-email="dave@redsquirrel.com">
-        The encoding in the sample <code>junit-noframes</code> XSL 
-        stylesheet was set to be "US-ASCII". It is now set to "UTF-8". 
-        Apparently, XSLT processors are only required to support utf-8 
-        and utf-16, the rest is processor specific. For example your 
-        processor might spupport US-ASCII-7 and others might support 
-        US-ASCII. Thanks to Robert Koberg for the explanation!
+      <action dev="VMA" type="update">
+        Update of jars bundled in the Cactus distribution: Commons Logging
+        1.0.1, Log4j 1.2.6, HttpClient 2.0alpha1 built on 29/08/2002 and
+        HttpUnit 1.4.5.
+        Note: We are not packaging JUnit
+        3.8 as it has several issues (<code>ComparisonFailure</code> class 
+        problem with <code>null</code> values, and it now uses the context
+        class loader which is fine but may break existing setups). However,
+        Cactus is fully compatible with JUnit 3.8.
       </action>
       <action dev="VMA" type="add">
         Added support for client side <code>begin(...)</code>
@@ -70,6 +72,26 @@
       </action>
     </release>
 
+    <release version="1.4.1" date="31 August 2002">
+      <action dev="VMA" type="fix" due-to="Hirsch Richard" due-to-email="richard.hirsch@siemens.com">
+        Fixed default properties for the sample application so that it points 
+        to the correct HttpClient jar which is packaged with Cactus (the one 
+        built on 06/06/2002).
+      </action>
+      <action dev="VMA" type="fix" due-to="Larry Tambascio" due-to-email="ltambascio@charter.net">
+        Fixed a bug that was preventing having several POST parameters added in 
+        the request in <code>beginXXX()</code> methods.
+      </action>
+      <action dev="VMA" type="fix" due-to="Dave Hoover" due-to-email="dave@redsquirrel.com">
+        The encoding in the sample <code>junit-noframes</code> XSL 
+        stylesheet was set to be "US-ASCII". It is now set to "UTF-8". 
+        Apparently, XSLT processors are only required to support utf-8 
+        and utf-16, the rest is processor specific. For example your 
+        processor might spupport US-ASCII-7 and others might support 
+        US-ASCII. Thanks to Robert Koberg for the explanation!
+      </action>
+    </release>
+	
     <release version="1.4" date="25 August 2002">
       <action dev="VMA" type="add">
         Added a <link href="howto_jsp.html">tutorial</link> that explains how
