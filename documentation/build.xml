@@ -165,7 +165,15 @@
 
     </target>
 
-    <target name="doc.cvschangelog" depends="init" unless="offline">
+    <target name="doc.cvschangelog" 
+      depends="doc.cvschangelog.offline,doc.cvschangelog.online"/>
+
+    <target name="doc.cvschangelog.offline" if="offline">
+        <echo>No changelog generation as it appears we are offline</echo>
+    </target>
+
+    <target name="doc.cvschangelog.online" depends="init" unless="offline">
+        <echo>Generating web site changelogs</echo>
 
         <!-- Generate CVS log -->
         <mkdir dir="${target.xdoc.dir}/cvslog"/>
