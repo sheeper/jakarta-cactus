@@ -252,10 +252,13 @@
 
         <java classname="com.cortexeb.tools.clover.reporters.html.HtmlReporter">
 
-            <arg line="--outputdir ${dist.doc.dir}/clover-${j2ee.api}"/>
-            <arg line="--showSrc"/>
-            <arg line="--initstring ${clover.initstring}"/>
-            <arg line="--title 'Cactus ${project.version} for J2EE API ${j2ee.api}'"/>
+            <arg value="--outputdir"/>
+            <arg path="${dist.doc.dir}/clover-${j2ee.api}"/>
+            <arg value="--showSrc"/>
+            <arg value="--initstring"/>
+            <arg path="${clover.initstring}"/>
+            <arg value="--title"/>
+            <arg value="'Cactus ${project.version} for J2EE API ${j2ee.api}'"/>
 
         </java>
 
