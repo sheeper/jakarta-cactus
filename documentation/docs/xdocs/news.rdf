@@ -198,9 +198,7 @@ about performing fileuploads with Cactus, Java NIO and Commons-httpclient.
     <title>Cactus 1.5-beta1 released</title>
     <link>http://jakarta.apache.org/cactus/news.html#news12</link>
     <description>
-<![CDATA[Cactus 1.5-beta1 has been released. Full details can be found
-in the <a href="http://jakarta.apache.org/cactus/1.5-beta1/ANNOUNCEMENT.txt">
-release announcement</a>.
+<![CDATA[Cactus 1.5-beta1 has been released.
 ]]>
     </description>
     <dc:subject></dc:subject>
