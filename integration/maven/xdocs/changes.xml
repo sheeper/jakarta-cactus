@@ -10,6 +10,13 @@
     <release version="1.6dev" date="in CVS">
       <action dev="vmassol" type="fix">
         Fixed bug 
+        <a href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=24447">24447</a>.
+        The plugin now correctly uses the <code>${maven.war.final.name}</code>
+        property instead of hard-coding the war name to 
+        <code>${pom.artifactId}.war</code>.
+      </action>
+      <action dev="vmassol" type="fix">
+        Fixed bug 
         <a href="http://jira.codehaus.org/secure/ViewIssue.jspa?key=MAVEN-977">MAVEN-977</a>.
         Cactus <code>cactus.src.includes</code> and 
         <code>cactus.src.excludes</code> properties should now work.

@@ -59,7 +59,7 @@
     <j:set var="warBuildDir"
         value="${pom.getPluginContext('maven-war-plugin').getVariable('maven.war.build.dir')}"/>
     <ant:property name="cactus.src.war"
-        value="${warBuildDir}/${pom.artifactId}.war"/>
+        value="${warBuildDir}/${maven.war.final.name}"/>
 
     <util:available file="${cactus.src.dir}">
       <j:set var="cactusSourcePresent" value="true"/>
