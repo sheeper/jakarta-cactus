@@ -56,10 +56,17 @@
  */
 package org.apache.cactus.eclipse.launcher;
 
+import java.net.URL;
+import java.util.Vector;
+
+import org.apache.cactus.eclipse.ui.CactusMessages;
+import org.apache.cactus.eclipse.ui.CactusPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.internal.junit.launcher.JUnitLaunchConfiguration;
+import org.eclipse.jdt.launching.IJavaLaunchConfigurationConstants;
 import org.eclipse.jdt.launching.VMRunnerConfiguration;
 
 /**
@@ -111,8 +118,7 @@ public class CactusLaunchConfiguration extends JUnitLaunchConfiguration
             theConfiguration, theTestTypes, thePort, theRunMode);
             
         // Compute new classpath : JUnit CP + Cactus CP        
-        // TODO: Add Cactus specific jars to the classpath here
-        String[] cactusClasspath = {};     
+        String[] cactusClasspath = getCactusClientJars();     
         String[] classpath = concatenateStringArrays(
             junitVmConfig.getClassPath(), cactusClasspath);
 
@@ -140,6 +146,39 @@ public class CactusLaunchConfiguration extends JUnitLaunchConfiguration
         return cactusVmConfig;
     }
 
+    /**
+     * @return the cactus related jars that must be in the Cactus client side 
+     *         classpath
+     * @exception CoreException on critical failures
+     */
+    private String[] getCactusClientJars() throws CoreException
+    {
+        Vector cactusJars = new Vector();
+        
+        // Base URL pointing to our plugin directory
+        URL baseUrl = 
+            CactusPlugin.getDefault().getDescriptor().getInstallURL();
+
+        try 
+        {
+            cactusJars.add(Platform.asLocalURL(new URL(baseUrl, 
+                "cactus.jar")).getFile());
+            cactusJars.add(Platform.asLocalURL(new URL(baseUrl, 
+                "aspectjrt.jar")).getFile());
+            cactusJars.add(Platform.asLocalURL(new URL(baseUrl, 
+                "junit.jar")).getFile());
+            cactusJars.add(Platform.asLocalURL(new URL(baseUrl, 
+                "commons-httpclient.jar")).getFile());
+        }
+        catch (Exception e)
+        {
+            abort(CactusMessages.getString("cactus.error.cannotfindjar"), e, 
+                IJavaLaunchConfigurationConstants.ERR_INTERNAL_ERROR);
+        }
+
+        return (String[]) cactusJars.toArray();
+    }
+    
     /**
      * Concatenate two string arrays.
      * 
