@@ -43,10 +43,6 @@
       Handle <code>getRealPath()</code>, <code>getPathTranslated()</code> in the
       <code>ServletRedirectorRequest</code> class.
     </action>
-    <action context="build" assigned-to="VMA">
-      Generate changelog file from CVS change log information and put in the
-      documentation of each release.
-    </action>
     <action context="docs" assigned-to="VMA">
       Add a contributing section to the Cactus web site (see the contributing
       section of Cocoon as a sample).
