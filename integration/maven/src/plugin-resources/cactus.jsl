@@ -54,18 +54,14 @@
     <define:tag name="displayFailure">
       <j:choose>
         <j:when test="${current.attribute('message') != null}">
-          ${htmlescape.getText(current.attribute('message').value)}
+          <code>
+          	${htmlescape.getText(current.attribute('message').value)}
+          </code>
         </j:when>
         <j:otherwise>
           N/A
         </j:otherwise>
       </j:choose>
-      <p/>
-      <j:if test="${current.value() != null}">
-        <code>
-          ${htmlescape.getText(current.value())}
-        </code>
-      </j:if>
     </define:tag>
   </define:taglib>
 
@@ -121,9 +117,9 @@
         <section name="Package List">
           <junit:nav/>
           <table>
-            <!--
-            <junit:testSuiteHeader/>
-            -->
+            <tr>
+              <th>Package</th><th>Tests</th><th>Errors</th><th>Failures</th><th>Success Rate</th><th>Time</th>
+            </tr>
             <x:set var="testsuites" select="./testsuite[not(./@package = preceding-sibling::testsuite/@package)]"/>
             <j:forEach var="testsuite" items="${testsuites}">
               <j:set var="package" value="${testsuite.attribute('package').value}"/>
@@ -132,7 +128,7 @@
               <j:set var="errorCount"><x:expr select="sum(./testsuite[./@package = $quotedPackage]/@errors)"/></j:set>
               <j:set var="failureCount"><x:expr select="sum(./testsuite[./@package = $quotedPackage]/@failures)"/></j:set>
               <j:set var="timeCount"><x:expr select="sum(./testsuite[./@package = $quotedPackage]/@time)"/></j:set>
-    
+              <j:set var="successRate"><x:expr select="($testCount - ($failureCount + $errorCount)) div $testCount"/></j:set>    
               <tr>
                 <td>
                   <a href="#${package}">${package}</a>
@@ -141,10 +137,13 @@
                   <doc:formatAsNumber string="${testCount}" pattern="0"/>
                 </td>
                 <td>
+                  <doc:formatAsNumber string="${errorCount}" pattern="0"/>
+                </td>
+                <td>
                   <doc:formatAsNumber string="${failureCount}" pattern="0"/>
                 </td>
                 <td>
-                  <doc:formatAsNumber string="${errorCount}" pattern="0"/>
+                  <doc:formatAsNumber string="${successRate}" pattern="0.00%"/>
                 </td>
                 <td>
                   <doc:formatAsNumber string="${timeCount}" pattern="0.00"/>
@@ -164,22 +163,29 @@
             <a name="${package}"></a>
             <subsection name="${package}">
               <table>
-                <!--
-                <junit:testSuiteHeader/>
-                -->
+                <tr>
+                  <th>Class</th><th>Tests</th><th>Errors</th><th>Failures</th><th>Success Rate</th><th>Time</th>
+                </tr>
                 <x:forEach var="test" select="/testsuites/testsuite[./@package = $quotedPackage]">
+                  <j:set var="testCount"><x:expr select="${test.attribute('tests').value}" /></j:set>
+                  <j:set var="errorCount"><x:expr select="${test.attribute('errors').value}" /></j:set>
+                  <j:set var="failureCount"><x:expr select="${test.attribute('failures').value}" /></j:set>
+                  <j:set var="successRate"><x:expr select="($testCount - ($failureCount + $errorCount)) div $testCount"/></j:set>
                   <tr>
                     <td>
                       <a href="#${test.attribute('name').value}">${test.attribute('name').value}</a>
                     </td>
                     <td>
-                      <doc:formatAsNumber string="${test.attribute('tests').value}" pattern="0"/>
+                      <doc:formatAsNumber string="${testCount}" pattern="0"/>
                     </td>
                     <td>
-                      <doc:formatAsNumber string="${test.attribute('errors').value}" pattern="0"/>
+                      <doc:formatAsNumber string="${errorCount}" pattern="0"/>
                     </td>
                     <td>
-                      <doc:formatAsNumber string="${test.attribute('failures').value}" pattern="0"/>
+                      <doc:formatAsNumber string="${failureCount}" pattern="0"/>
+                    </td>
+                    <td>
+                      <doc:formatAsNumber string="${successRate}" pattern="0.00%"/>
                     </td>
                     <td>
                       <doc:formatAsNumber string="${test.attribute('time').value}" pattern="0.000"/>
