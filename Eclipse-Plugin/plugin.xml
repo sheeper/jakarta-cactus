@@ -83,6 +83,12 @@
         name="%PreferencePage.label"
         class="org.apache.cactus.eclipse.ui.CactusPreferencePage">
       </page>
+      <page
+         name="%ContainersPreferencePage.label"
+         id="org.apache.cactus.eclipse.ui.containersPreferencePage"
+         class="org.apache.cactus.eclipse.ui.ContainersPreferencePage"
+         category="org.apache.cactus.eclipse.preferencePage">
+	  </page>
    </extension>
 
 </plugin>
