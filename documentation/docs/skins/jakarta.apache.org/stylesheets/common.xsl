@@ -95,19 +95,16 @@
 
   <xsl:template name="get-directory">
     <xsl:param name="file"/>
-    <xsl:choose>
-      <xsl:when test="contains( $file, '/' )">
-        <xsl:variable name="dir" select="substring-before($file, '/')" />
-        <xsl:variable name="remainder" select="substring-after($file, '/')" />
-        <xsl:variable name="path">
-          <xsl:call-template name="get-directory">
-            <xsl:with-param name="file" select="$remainder"/>
-          </xsl:call-template>
-        </xsl:variable>
-        <xsl:value-of select="concat($dir,'/',$path)"/>
-      </xsl:when>
-      <xsl:otherwise/>
-    </xsl:choose>
+    <xsl:if test="contains($file,'/')">
+      <xsl:variable name="dir" select="substring-before($file,'/')" />
+      <xsl:variable name="remainder" select="substring-after($file,'/')" />
+      <xsl:variable name="path">
+        <xsl:call-template name="get-directory">
+          <xsl:with-param name="file" select="$remainder"/>
+        </xsl:call-template>
+      </xsl:variable>
+      <xsl:value-of select="concat($dir,'/',$path)"/>
+    </xsl:if>
   </xsl:template>
 
   <!-- ==================================================================== -->
@@ -125,8 +122,8 @@
   <xsl:template name="get-base-directory-internal">
     <xsl:param name="file"/>
     <xsl:choose>
-      <xsl:when test="contains( $file, '/' )">
-        <xsl:variable name="remainder" select="substring-after($file, '/')" />
+      <xsl:when test="contains($file,'/')">
+        <xsl:variable name="remainder" select="substring-after($file,'/')" />
         <xsl:variable name="path">
           <xsl:call-template name="get-base-directory-internal">
             <xsl:with-param name="file" select="$remainder"/>
