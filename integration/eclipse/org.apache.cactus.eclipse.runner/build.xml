@@ -92,6 +92,7 @@
             <property name="eclipse.jface.jar" isfile="true"/>
             <property name="eclipse.swt.jar" isfile="true"/>
             <property name="eclipse.ui.workbench.jar" isfile="true"/>
+            <property name="eclipse.ui.externaltools.jar" isfile="true"/>
             <property name="jetty.jar" isfile="true"/>
 
         </checkProperty>
@@ -155,6 +156,7 @@
 				<pathelement location="${eclipse.jface.jar}"/>
 				<pathelement location="${eclipse.swt.jar}"/>
 				<pathelement location="${eclipse.ui.workbench.jar}"/>
+				<pathelement location="${eclipse.ui.externaltools.jar}"/>
 
                 <!-- Needed for Gump -->
                 <pathelement location="${java.class.path}"/>
