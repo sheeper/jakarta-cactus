@@ -9,7 +9,12 @@
     <person name="Philip Aston" email="paston@bea.com" id="PAS"/>
   </devs>
 
-  <release version="1.0b2 in CVS" date="">
+  <release version="1.0b2 in CVS" date="April 20 2001">
+    <action dev="VMA" type="update">
+      Some minor refactoring of code (added <code>AbstractTestCase</code>,
+      modified <code>AbstractHttpClient</code>, <code>JspHttpClient</code>,
+      <code>ServletHttpClient</code>).
+    </action>
     <action dev="VMA" type="add" due-to="Hoani Cross" due-to-email="cross@tahiti-surf.com">
       Add handling of multivalued HTTP headers (same header name with different
       values) in <code>ServletTestRequest</code>.
