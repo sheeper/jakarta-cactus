@@ -21,6 +21,8 @@ package org.apache.cactus.client.authentication;
 
 import org.apache.cactus.WebRequest;
 import org.apache.cactus.configuration.Configuration;
+import org.apache.commons.httpclient.HttpMethod;
+import org.apache.commons.httpclient.HttpState;
 
 /**
  * Interface for different authentication modules. An authentication class is
@@ -36,13 +38,18 @@ public interface Authentication
 
     /**
      * Modifies the request so that it will carry authentication information.
-     * 
+     *
+     * @param theState The HttpClient state object that can be used to ask
+     *        HttpClient to set up authentication
+     * @param theMethod the HttpClient HTTP method that will be used to connect 
+     *        to the server side 
      * @param theRequest The request object that will be sent to the Cactus
      *        Redirector over HTTP
      * @param theConfiguration The Cactus configuration so that 
      *        authentication methods can get access to Cactus configuration 
      *        properties
      */
-    void configure(WebRequest theRequest, Configuration theConfiguration);
+    void configure(HttpState theState, HttpMethod theMethod, 
+        WebRequest theRequest, Configuration theConfiguration);
 
 }

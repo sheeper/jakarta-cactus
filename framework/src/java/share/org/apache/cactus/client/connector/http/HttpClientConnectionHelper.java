@@ -78,19 +78,6 @@ public class HttpClientConnectionHelper implements ConnectionHelper
         URL url = new URL(this.url);
 
         HttpState state = new HttpState();
-        
-        // Add Authentication headers, if necessary. This is the first
-        // step to allow authentication to add extra headers, HTTP parameters,
-        // etc.
-        Authentication authentication = theRequest.getAuthentication();
-
-        if (authentication != null)
-        {
-            authentication.configure(theRequest, theConfiguration);
-        }
-
-        // Add the parameters that need to be passed as part of the URL
-        url = HttpUtil.addHttpGetParameters(theRequest, url);
 
         // Choose the method that we will use to post data :
         // - If at least one parameter is to be sent in the request body, then
@@ -105,6 +92,20 @@ public class HttpClientConnectionHelper implements ConnectionHelper
         {
             this.method = new GetMethod();
         }
+
+        // Add Authentication headers, if necessary. This is the first
+        // step to allow authentication to add extra headers, HTTP parameters,
+        // etc.
+        Authentication authentication = theRequest.getAuthentication();
+
+        if (authentication != null)
+        {
+            authentication.configure(state, this.method, theRequest, 
+                theConfiguration);
+        }
+
+        // Add the parameters that need to be passed as part of the URL
+        url = HttpUtil.addHttpGetParameters(theRequest, url);
 
         this.method.setFollowRedirects(false);
         this.method.setPath(UrlUtil.getPath(url));

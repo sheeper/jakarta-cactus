@@ -63,7 +63,6 @@ public abstract class AbstractAuthentication implements Authentication
      */
     public final void setName(String theName)
     {
-        validateName(theName);
         this.name = theName;
     }
 
@@ -82,7 +81,6 @@ public abstract class AbstractAuthentication implements Authentication
      */
     public final void setPassword(String thePassword)
     {
-        validatePassword(thePassword);
         this.password = thePassword;
     }
 
@@ -93,21 +91,4 @@ public abstract class AbstractAuthentication implements Authentication
     {
         return this.password;
     }
-
-    /**
-     * Verify that the user name passed as parameter is a valid user name
-     * for the current authentication scheme.
-     *
-     * @param theName the user name to validate
-     */
-    protected abstract void validateName(String theName);
-
-    /**
-     * Verify that the user password passed as parameter is a valid user
-     * password for the current authentication scheme.
-     *
-     * @param thePassword the user password to validate
-     */
-    protected abstract void validatePassword(String thePassword);
-
 }

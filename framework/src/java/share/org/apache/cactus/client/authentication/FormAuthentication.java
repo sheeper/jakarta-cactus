@@ -30,6 +30,8 @@ import org.apache.cactus.configuration.Configuration;
 import org.apache.cactus.configuration.WebConfiguration;
 import org.apache.cactus.internal.WebRequestImpl;
 import org.apache.cactus.util.ChainedRuntimeException;
+import org.apache.commons.httpclient.HttpMethod;
+import org.apache.commons.httpclient.HttpState;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -92,26 +94,10 @@ public class FormAuthentication extends AbstractAuthentication
     }
     
     /**
-     * @see AbstractAuthentication#validateName(String)
+     * @see Authentication#configure
      */
-    protected void validateName(String theName)
-    {
-        // Nothing to do here...
-    }
-    
-    /**
-     * @see AbstractAuthentication#validatePassword(String)
-     */
-    protected void validatePassword(String thePassword)
-    {
-        // Nothing to do here...
-    }
-
-    /**
-     * @see AbstractAuthentication#configure(WebRequest, Configuration)
-     */
-    public void configure(WebRequest theRequest,
-        Configuration theConfiguration)
+    public void configure(HttpState theState, HttpMethod theMethod,
+        WebRequest theRequest, Configuration theConfiguration)
     {
         // Only authenticate the first time this instance is used.
         if (this.jsessionCookie == null)
