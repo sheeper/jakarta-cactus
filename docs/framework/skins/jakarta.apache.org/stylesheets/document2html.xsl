@@ -435,7 +435,16 @@
 <!-- ====================================================================== -->
 
  <xsl:template match="figure">
-  <p align="center"><img src="{@src}" alt="{@alt}" border="0" vspace="4" hspace="4"/></p>
+   <p align="center">  
+   <xsl:choose>
+     <xsl:when test="@width">
+       <img src="{@src}" alt="{@alt}" width="{@width}" height="{@height}" border="0" vspace="4" hspace="4"/>
+     </xsl:when>
+     <xsl:otherwise>
+       <img src="{@src}" alt="{@alt}" border="0" vspace="4" hspace="4"/>
+     </xsl:otherwise>
+   </xsl:choose>
+   </p>
  </xsl:template>
  
  <xsl:template match="img">
