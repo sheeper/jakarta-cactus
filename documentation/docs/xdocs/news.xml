@@ -20,7 +20,7 @@
           <jump anchor="who_talks_news">Who talks about Cactus ?</jump>
         </li>
         <li>
-          <jump anchor="internal_news">Internal web site news (big
+          <jump anchor="internal_news">Internal Cactus project news (big
           headlines)</jump>
         </li>
       </ul>
@@ -173,9 +173,19 @@
     </s1>
 
     <anchor id="internal_news"/>
-    <s1 title="Internal Web site News (big headlines)">
+    <s1 title="Internal Cactus project News (big headlines)">
 
       <table>
+
+        <tr>
+          <td>
+            22/07/2002
+          </td>
+          <td>
+            Added automatic script support for Orion 1.6. They are delivered
+            as part of the Cactus distribution.
+          </td>
+        </tr>
 
         <tr>
           <td>
