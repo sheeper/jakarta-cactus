@@ -69,7 +69,7 @@ import org.apache.cactus.*;
  * @version $Id$
  * @see TestServletTestCase1
  */
-public class TestServletTestCase1_InterceptorServletTestCase 
+public class TestServletTestCase1_InterceptorServletTestCase
     extends ServletTestCase
 {
     /**
@@ -94,7 +94,7 @@ public class TestServletTestCase1_InterceptorServletTestCase
             // If the test case is "testAssertionFailedError" and the exception
             // is of type AssertionFailedError and contains the text
             // "test assertion failed error", then the test is ok.
-            if (this.currentTestMethod.equals("testAssertionFailedError")) {
+            if (this.getCurrentTestMethod().equals("testAssertionFailedError")) {
                 if (e.instanceOf(AssertionFailedError.class)) {
                     assertEquals("test assertion failed error", e.getMessage());
                     return;
@@ -108,7 +108,7 @@ public class TestServletTestCase1_InterceptorServletTestCase
             // TestServletTestCaseHelper1_ExceptionNotSerializable
             // and contains the text "test non serializable exception", then
             // the test is ok.
-            if (this.currentTestMethod.equals("testExceptionNotSerializable")) {
+            if (this.getCurrentTestMethod().equals("testExceptionNotSerializable")) {
                 if (e.instanceOf(
                     TestServletTestCase1_ExceptionNotSerializable.class)) {
 
@@ -122,7 +122,7 @@ public class TestServletTestCase1_InterceptorServletTestCase
             // is of type TestServletTestCaseHelper1_ExceptionSerializable
             // and contains the text "test serializable exception", then
             // the test is ok.
-            if (this.currentTestMethod.equals("testExceptionSerializable")) {
+            if (this.getCurrentTestMethod().equals("testExceptionSerializable")) {
                 assert(e.instanceOf(
                     TestServletTestCase1_ExceptionSerializable.class));
 

@@ -107,7 +107,7 @@ public abstract class AbstractTestCase extends TestCase
      * <code>tearDown()</code> method, as well as from <code>beginXXX()</code>
      * and <code>endXXX()</code> methods.
      */
-    public String currentTestMethod;
+    private String currentTestMethod;
 
     /**
      * The logger (only used on the client side).
@@ -122,7 +122,7 @@ public abstract class AbstractTestCase extends TestCase
     public AbstractTestCase(String theName)
     {
         super(theName);
-        this.currentTestMethod = JUnitVersionHelper.getTestCaseName(this);
+        this.setCurrentTestMethod(JUnitVersionHelper.getTestCaseName(this));
     }
 
     /**
@@ -141,12 +141,14 @@ public abstract class AbstractTestCase extends TestCase
     private String getBaseMethodName()
     {
         // Sanity check
-        if (!this.currentTestMethod.startsWith(TEST_METHOD_PREFIX)) {
-            throw new RuntimeException("bad name [" + this.currentTestMethod +
-                "]. It should start with [" + TEST_METHOD_PREFIX + "].");
+        if (!this.getCurrentTestMethod().startsWith(TEST_METHOD_PREFIX)) {
+            throw new RuntimeException("bad name [" +
+                this.getCurrentTestMethod() + "]. It should start with [" +
+                TEST_METHOD_PREFIX + "].");
         }
 
-        return this.currentTestMethod.substring(TEST_METHOD_PREFIX.length());
+        return this.getCurrentTestMethod().substring(
+            TEST_METHOD_PREFIX.length());
     }
 
     /**
@@ -174,6 +176,8 @@ public abstract class AbstractTestCase extends TestCase
      *
      * @param theRequest the <code>WebRequest</code> object to
      *                   pass to the begin method.
+     * @throws Throwable any error that occurred when calling the begin method
+     *         for the current test case.
      */
     protected void callBeginMethod(WebRequest theRequest)
         throws Throwable
@@ -242,6 +246,8 @@ public abstract class AbstractTestCase extends TestCase
      *        to open the connection to the redirection servlet. The response
      *        codes, headers, cookies can be checked using the get methods of
      *        this object.
+     * @throws Throwable any error that occurred when calling the end method
+     *         for the current test case.
      */
     protected void callEndMethod(WebRequest theRequest,
         HttpURLConnection theConnection) throws Throwable
@@ -306,7 +312,7 @@ public abstract class AbstractTestCase extends TestCase
                 // Has a method to call already been found ?
                 if (methodToCall != null) {
                     fail("There can only be one end method per test case. " +
-                        "Test case [" + this.currentTestMethod +
+                        "Test case [" + this.getCurrentTestMethod() +
                          "] has two at least !");
                 }
 
@@ -338,6 +344,10 @@ public abstract class AbstractTestCase extends TestCase
      * that we don't need the HttpUnit jar for users who are not using
      * the HttpUnit endXXX() signature).
      *
+     * @param theConnection the HTTP connection that was used when connecting
+     *        to the server side and which now contains the returned HTTP
+     *        response that we will pass to HttpUnit so that it can construt
+     *        a <code>com.meterware.httpunit.WebResponse</code> object.
      * @return a HttpUnit <code>WebResponse</code> object
      */
     private Object createHttpUnitWebResponse(HttpURLConnection theConnection)
@@ -382,7 +392,7 @@ public abstract class AbstractTestCase extends TestCase
             LogService.getInstance().getLog(this.getClass().getName());
 
         // Mark beginning of test on client side
-        getLogger().debug("------------- Test: " + this.currentTestMethod);
+        getLogger().debug("------------- Test: " + this.getCurrentTestMethod());
 
         // Catch the exception just to have a chance to log it
         try {
@@ -398,6 +408,9 @@ public abstract class AbstractTestCase extends TestCase
      * Runs a test case. This method is overriden from the JUnit
      * <code>TestCase</code> class in order to seamlessly call the
      * Cactus redirection servlet.
+     *
+     * @throws Throwable any error that occurred when calling the test method
+     *         for the current test case.
      */
     protected abstract void runTest() throws Throwable;
 
@@ -408,6 +421,8 @@ public abstract class AbstractTestCase extends TestCase
      *
      * @param theHttpClient the HTTP client class to use to connect to the
      *                      proxy redirector.
+     * @throws Throwable any error that occurred when calling the test method
+     *         for the current test case.
      */
     protected void runGenericTest(AbstractHttpClient theHttpClient)
         throws Throwable
@@ -424,8 +439,8 @@ public abstract class AbstractTestCase extends TestCase
         // a file, ...
         request.addParameter(ServiceDefinition.CLASS_NAME_PARAM,
             this.getClass().getName(), WebRequest.GET_METHOD);
-        request.addParameter(ServiceDefinition.METHOD_NAME_PARAM, this.currentTestMethod,
-            WebRequest.GET_METHOD);
+        request.addParameter(ServiceDefinition.METHOD_NAME_PARAM,
+            this.getCurrentTestMethod(), WebRequest.GET_METHOD);
         request.addParameter(ServiceDefinition.AUTOSESSION_NAME_PARAM,
             new Boolean(request.getAutomaticSession()).toString(),
             WebRequest.GET_METHOD);
@@ -451,10 +466,13 @@ public abstract class AbstractTestCase extends TestCase
     // Methods below are only called by the Cactus redirector on the server
     // side
 
-	/**
-	 * Run the test that was specified in the constructor on the server side,
+    /**
+     * Run the test that was specified in the constructor on the server side,
      * calling <code>setUp()</code> and <code>tearDown()</code>.
-	 */
+     *
+     * @throws Throwable any error that occurred when calling the test method
+     *         for the current test case, on the server side.
+     */
     public void runBareServerTest() throws Throwable
     {
         // Initialize the logging system. As this class is instanciated both
@@ -473,42 +491,64 @@ public abstract class AbstractTestCase extends TestCase
         finally {
             tearDown();
         }
-	}
+    }
 
-	/**
-	 * Run the test that was specified in the constructor on the server side,
-	 */
-	protected void runServerTest() throws Throwable
+    /**
+     * Run the test that was specified in the constructor on the server side.
+     *
+     * @throws Throwable any error that occurred when calling the test method
+     *         for the current test case, on the server side.
+     */
+    protected void runServerTest() throws Throwable
     {
-		Method runMethod= null;
-		try {
-			// use getMethod to get all public inherited
-			// methods. getDeclaredMethods returns all
-			// methods of this class but excludes the
-			// inherited ones.
-			runMethod = getClass().getMethod(this.currentTestMethod,
+        Method runMethod = null;
+        try {
+            // use getMethod to get all public inherited
+            // methods. getDeclaredMethods returns all
+            // methods of this class but excludes the
+            // inherited ones.
+            runMethod = getClass().getMethod(this.getCurrentTestMethod(),
                 new Class[0]);
 
-		} catch (NoSuchMethodException e) {
-            fail("Method [" + this.currentTestMethod +
+        } catch (NoSuchMethodException e) {
+            fail("Method [" + this.getCurrentTestMethod() +
                 "()] does not exist for class [" +
                 this.getClass().getName() + "].");
-		}
-		if (runMethod != null && !Modifier.isPublic(runMethod.getModifiers())) {
-			fail("Method [" + this.currentTestMethod + "()] should be public");
-		}
+        }
+        if (runMethod != null && !Modifier.isPublic(runMethod.getModifiers())) {
+            fail("Method [" + this.getCurrentTestMethod() +
+                "()] should be public");
+        }
 
-		try {
-			runMethod.invoke(this, new Class[0]);
-		}
-		catch (InvocationTargetException e) {
-			e.fillInStackTrace();
-			throw e.getTargetException();
-		}
-		catch (IllegalAccessException e) {
-			e.fillInStackTrace();
-			throw e;
-		}
-	}
+        try {
+            runMethod.invoke(this, new Class[0]);
+        }
+        catch (InvocationTargetException e) {
+            e.fillInStackTrace();
+            throw e.getTargetException();
+        }
+        catch (IllegalAccessException e) {
+            e.fillInStackTrace();
+            throw e;
+        }
+    }
+
+    /**
+     * @return the name of the current test case being executed (it corresponds
+     *         to the name of the test method with the "test" prefix removed.
+     *         For example, for "testSomeTestOk" would return "someTestOk".
+     */
+    protected String getCurrentTestMethod()
+    {
+        return currentTestMethod;
+    }
+
+    /**
+     * @param theCurrentTestMethod the name of the current test case.
+     */
+    private void setCurrentTestMethod(String theCurrentTestMethod)
+    {
+        this.currentTestMethod = theCurrentTestMethod;
+    }
 
 }

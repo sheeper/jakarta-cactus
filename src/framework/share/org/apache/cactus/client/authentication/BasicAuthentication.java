@@ -90,13 +90,16 @@ public class BasicAuthentication extends AbstractAuthentication
         String illegalChars = "()<>@,;:\\\"/[]?={} \t";
         StringCharacterIterator iter = new StringCharacterIterator(userid);
         
-        for (char c = iter.first(); c != CharacterIterator.DONE; c = iter.next()) {
+        for (char c = iter.first(); c != CharacterIterator.DONE;
+        	c = iter.next()) {
+
             if ((illegalChars.indexOf(c) != -1) || 
                 ((c >=0 ) && (c <= 31)) || 
                 (c == 127)) {
                 
                 // Bad userid! Go to your room!
-                throw new IllegalArgumentException("Given userid contains illegal characters.");
+                throw new IllegalArgumentException(
+                    "Given userid contains illegal characters.");
             }
         }
     }
@@ -137,7 +140,8 @@ public class BasicAuthentication extends AbstractAuthentication
                 }
                 
                 // Bad password! Go to your room!
-                throw new IllegalArgumentException("Given password contains illegal characters.");
+                throw new IllegalArgumentException(
+                    "Given password contains illegal characters.");
             }
         }
     }
@@ -153,36 +157,39 @@ public class BasicAuthentication extends AbstractAuthentication
         // see setUserId and setPassword for details of token and TEXT
 
         String basicCookie = userid + ":" + password;
-        String basicCredentials = "Basic " + new String(base64Encode(basicCookie.getBytes()));
+        String basicCredentials = "Basic " +
+            new String(base64Encode(basicCookie.getBytes()));
         
         connection.setRequestProperty("Authorization", basicCredentials);
     }
 
-    // Base64 code - is there common code somewhere I should be using???
-    
     /**
-    * Provides encoding of raw bytes to base64-encoded characters, and
-    * decoding of base64 characters to raw bytes.
-    *
-    * @author Kevin Kelley (kelley@iguana.ruralnet.net)
-    * @version 1.0
-    * @date 06 August 1998
-    */    
+     * Provides encoding of raw bytes to base64-encoded characters, and
+     * decoding of base64 characters to raw bytes.
+     */
 
-    static private char[] alphabet =
+    private static char[] alphabet =
         "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=".toCharArray();
    
-    //
-    // lookup table for converting base64 characters to value in range 0..63
-    //
-    static private byte[] codes = new byte[256];
+    /**
+     * Lookup table for converting base64 characters to value in range 0..63
+     */
+    private static byte[] codes = new byte[256];
     
     static 
     {
-        for (int i=0; i<256; i++) codes[i] = -1;
-        for (int i = 'A'; i <= 'Z'; i++) codes[i] = (byte)( i - 'A');
-        for (int i = 'a'; i <= 'z'; i++) codes[i] = (byte)(26 + i - 'a');
-        for (int i = '0'; i <= '9'; i++) codes[i] = (byte)(52 + i - '0');
+        for (int i=0; i<256; i++) {
+            codes[i] = -1;
+        }
+        for (int i = 'A'; i <= 'Z'; i++) {
+            codes[i] = (byte)( i - 'A');
+        }
+        for (int i = 'a'; i <= 'z'; i++) {
+            codes[i] = (byte)(26 + i - 'a');
+        }
+        for (int i = '0'; i <= '9'; i++) {
+            codes[i] = (byte)(52 + i - '0');
+        }
         codes['+'] = 62;
         codes['/'] = 63;
     }
@@ -194,7 +201,7 @@ public class BasicAuthentication extends AbstractAuthentication
      * @param data the array of bytes to encode
      * @return base64-coded character array.
      */
-    static private char[] base64Encode(byte[] data)
+    private static char[] base64Encode(byte[] data)
     {
         char[] out = new char[((data.length + 2) / 3) * 4];
         
@@ -238,6 +245,3 @@ public class BasicAuthentication extends AbstractAuthentication
         return out;
     }
 }
-
-
-
