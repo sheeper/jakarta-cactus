@@ -346,16 +346,9 @@ public class GenericAntProvider implements IContainerProvider
          */
         public boolean accept(File theDir, String theFilename)
         {
-            if (theFilename
+            return (theFilename
                 .substring(0, CONTAINER_BUILD_FILES_PREFIX.length())
-                .equals(CONTAINER_BUILD_FILES_PREFIX))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+                .equals(CONTAINER_BUILD_FILES_PREFIX));
         }
     }
 }
