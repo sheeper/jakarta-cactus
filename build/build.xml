@@ -125,7 +125,7 @@
          Default values for properties not defined in build.properties
        ========================================================================
     -->
-    <property name="dist.dir" value="${out.root.dir}/dist"/>
+    <property name="dist.dir" value="dist"/>
 
     <!-- 
        ========================================================================
@@ -368,7 +368,7 @@
         <mkdir dir="${out.site.dir}/images"/>
 
         <!-- Custom Ant task definitions -->
-        <taskdef name="cvslog" classname="org.apache.commons.cactus.ant.ChangeLogNewsTask">
+        <taskdef name="cvslog" classname="org.apache.commons.cactus.ant.ChangeLogTask">
             <classpath>
                 <pathelement location="${final.jar.ant.name}"/>
                 <pathelement path="${java.class.path}"/>
@@ -376,11 +376,12 @@
         </taskdef>
 
         <!-- Generate cvs log -->
-        <delete file="${xdoc.dir}/cvslog/cvslog.xml"/>
         <cvslog users="${xdoc.dir}/cvslog/users.properties" work="${xdoc.dir}"
             output="${xdoc.dir}/cvslog/cvslog.xml" elapsed="15">
 
-            <fileset dir="${xdoc.dir}" excludes="book.xml,cvslog.xml,doc-book.xml,site-book.xml">
+            <fileset dir="${xdoc.dir}">
+                <exclude name="*book.xml"/>
+                <exclude name="**/cvslog.xml"/>
                 <include name="**/*.xml"/>
             </fileset>
 
