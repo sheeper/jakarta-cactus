@@ -25,24 +25,39 @@ import org.codehaus.aspectwerkz.attribdef.aspect.Aspect;
 import org.codehaus.aspectwerkz.joinpoint.JoinPoint;
 
 /**
- * Intercepts client side JUnit tests and sets up the test listener socket
- * if not set.
+ * Intercepts client side JUnit tests and initialize the Cactus system: 
+ * <ul>
+ *   <li>sets up PicoContainer,</li>
+ *   <li>sets up the test listener socket if not set</li>
+ * </ul>
  */
-public class OrchestratorAspect extends Aspect
+public class InitializationAspect extends Aspect
 {
     /**
      * @Execution * *..TestCase+.test*()
      */
     private Pointcut interceptClientTest;
 
-    private Orchestrator orchestrator = new Orchestrator();
+    /**
+     * Has the Cactus system been already initialized? 
+     */
+    private boolean isInitialized = false;
     
     /**
      * @Around interceptClientTest
      */
-    public Object setupOrchestrator(JoinPoint joinPoint) throws Throwable
+    public synchronized Object initialize(JoinPoint joinPoint) 
+        throws Throwable
     {
-        this.orchestrator.initialize();
+        if (!this.isInitialized)
+        {
+            // TODO: Create a Configuration component to externalize 
+            // configuration data
+            Orchestrator orchestrator = new Orchestrator(7777);
+            orchestrator.start();
+            
+            this.isInitialized = true;
+        }
         return joinPoint.proceed();
     }
 }

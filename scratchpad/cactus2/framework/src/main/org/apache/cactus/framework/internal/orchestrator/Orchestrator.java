@@ -29,48 +29,48 @@ import org.mortbay.http.SocketListener;
 
 public class Orchestrator
 {
-    private int port = 7777;
-    
-    /**
-     * Has the test listener socket been set up? 
-     */
-    private boolean isInitialized = false;
+    private int port;
 
-    public synchronized void initialize() throws Throwable
+    public Orchestrator(int port)
     {
-        if (!this.isInitialized)
-        {
-            // Setup HTTP server and attach to it handlers to manage
-            // the executing test and to manage retrieval of test results
+        this.port = port;
+    }
 
-            HttpServer server = new HttpServer();
-            SocketListener listener = new SocketListener();
-            listener.setPort(this.port);
-            server.addListener(listener);
+    public int getPort()
+    {
+        return this.port;
+    }
+    
+    public void start() throws Throwable
+    {
+        // Setup HTTP server and attach to it handlers to manage
+        // the executing test and to manage retrieval of test results
 
-            HttpContext getTestContext = new HttpContext();
-            getTestContext.setContextPath("/gettest");
-            getTestContext.addHandler(new GetTestHandler());
-            server.addContext(getTestContext);
+        HttpServer server = new HttpServer();
+        SocketListener listener = new SocketListener();
+        listener.setPort(getPort());
+        server.addListener(listener);
 
-            HttpContext setTestContext = new HttpContext();
-            setTestContext.setContextPath("/settest");
-            setTestContext.addHandler(new SetTestHandler());
-            server.addContext(setTestContext);
+        HttpContext getTestContext = new HttpContext();
+        getTestContext.setContextPath("/gettest");
+        getTestContext.addHandler(new GetTestHandler());
+        server.addContext(getTestContext);
 
-            HttpContext getResultContext = new HttpContext();
-            getResultContext.setContextPath("/getresult");
-            getResultContext.addHandler(new GetResultHandler());
-            server.addContext(getResultContext);
+        HttpContext setTestContext = new HttpContext();
+        setTestContext.setContextPath("/settest");
+        setTestContext.addHandler(new SetTestHandler());
+        server.addContext(setTestContext);
 
-            HttpContext setResultContext = new HttpContext();
-            setResultContext.setContextPath("/setresult");
-            setResultContext.addHandler(new SetResultHandler());
-            server.addContext(setResultContext);
+        HttpContext getResultContext = new HttpContext();
+        getResultContext.setContextPath("/getresult");
+        getResultContext.addHandler(new GetResultHandler());
+        server.addContext(getResultContext);
 
-            server.start();
-            
-            this.isInitialized = true;
-        }
+        HttpContext setResultContext = new HttpContext();
+        setResultContext.setContextPath("/setresult");
+        setResultContext.addHandler(new SetResultHandler());
+        server.addContext(setResultContext);
+
+        server.start();
     }
 }
