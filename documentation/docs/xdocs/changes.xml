@@ -73,6 +73,7 @@
           for the pre-authentication step to accept any status code less 
           than 400. It was previously only accepting a 302 code but different
           servers are implementing it differently.
+        </action>
         <action dev="VMA" type="add">
           Added new <code>ServletContextWrapper.setInitParameters()</code>
           which allows to programatically define Context init parameters (as
