@@ -541,7 +541,7 @@ public final class JspTagLifecycle
     /**
      * The JSP page context.
      */
-    private PageContext pageContext;
+    protected PageContext pageContext;
     
     /**
      * The JSP tag handler.
