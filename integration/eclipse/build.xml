@@ -35,7 +35,7 @@
          Initialize source, target and dist properties
        ========================================================================
     -->
-    <target name="properties" depends="init.junitplugin.find">
+    <target name="properties" depends="init.eclipseversion.check">
 
         <!-- Set the properties related to the source tree -->
         <property name="src.dir" value="${base.dir}/src"/>
@@ -104,9 +104,9 @@
          Find out the JUnit Eclipse plug-in version
        ========================================================================
     -->
-    <target name="init.junitplugin.find">
+    <target name="init.eclipseversion.check">
         <echo>***** Needs Eclipse 2.1 RC2 or later *****</echo>
-        <condition property="junitplugin.version" value="ok">
+        <condition property="eclipse.version" value="ok">
             <available classname="org.eclipse.jdt.junit.ITestRunListener">
                 <classpath>
                    <pathelement location="${eclipse.jdt.junit.jar}"/>
@@ -115,7 +115,7 @@
         </condition>
 
         <fail message="Eclipse version must be higher than 2.1 RC2" 
-            unless="junitplugin.version"/>
+            unless="eclipse.version"/>
 
     </target>
 
