@@ -28,6 +28,15 @@
     <table>
       <tr>
         <td>
+          22/02/2002
+        </td>
+        <td>
+          New <link href="logos.html">logo proposals</link> by Alessandro
+          Ceglia !
+        </td>
+      </tr>
+      <tr>
+        <td>
           10/02/2002
         </td>
         <td>
@@ -51,15 +60,6 @@
         <td>
           New <link href="howto_ide_jbuilder5.html">JBuilder 5 tutorial</link>
           for Cactus integration. Thanks Sean !
-        </td>
-      </tr>
-      <tr>
-        <td>
-          14/11/2001
-        </td>
-        <td>
-          New tutorial that explains how to use JUnitEE with Cactus. Check it
-          <link href="howto_junitee.html">here</link>. Thanks Kaarle !
         </td>
       </tr>
     </table>
