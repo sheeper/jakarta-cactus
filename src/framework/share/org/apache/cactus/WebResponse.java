@@ -93,6 +93,11 @@ public class WebResponse
     private WebRequest request;
 
     /**
+     * Save the response content for repeatable reads.
+     */
+    private String content;
+
+    /**
      * @param theRequest the request data that were used to open the
      *        connection to the server.
      * @param theConnection the original <code>HttpURLConnection</code> used
@@ -127,22 +132,30 @@ public class WebResponse
      */
     public String getText()
     {
-        StringBuffer sb = new StringBuffer();
+        // Get the text from the save content if content has already been
+        // read.
+        if (this.content == null) {
 
-        try {
-            BufferedReader input = new BufferedReader(
-                new InputStreamReader(this.connection.getInputStream()));
-            char[] buffer = new char[2048];
-            int nb;
-            while (-1 != (nb = input.read(buffer, 0, 2048))) {
-                sb.append(buffer, 0, nb);
+            StringBuffer sb = new StringBuffer();
+
+            try {
+                BufferedReader input = new BufferedReader(
+                    new InputStreamReader(this.connection.getInputStream()));
+                char[] buffer = new char[2048];
+                int nb;
+                while (-1 != (nb = input.read(buffer, 0, 2048))) {
+                    sb.append(buffer, 0, nb);
+                }
+                input.close();
+            } catch (IOException e) {
+                throw new ChainedRuntimeException(e);
             }
-            input.close();
-        } catch (IOException e) {
-            throw new ChainedRuntimeException(e);
+
+            this.content = sb.toString();
+
         }
 
-        return sb.toString();
+        return this.content;
     }
 
     /**
@@ -154,8 +167,14 @@ public class WebResponse
         Vector lines = new Vector();
 
         try {
+
+            // Read content first
+            if (this.content == null) {
+                getText();
+            }
+
             BufferedReader input = new BufferedReader(
-                new InputStreamReader(this.connection.getInputStream()));
+                new StringReader(this.content));
             String str;
             while (null != (str = input.readLine())) {
                 lines.addElement(str);
