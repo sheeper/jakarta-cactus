@@ -164,7 +164,8 @@
             elapsed="15" executable="${cvs.executable}">
 
             <fileset dir="${doc.xdoc.dir}">
-                <exclude name="navigation.xml"/>
+                <exclude name="**/navigation.xml"/>
+                <exclude name="sitemap.xml"/>
                 <exclude name="todo.xml"/>
                 <exclude name="changes.xml"/>
                 <exclude name="**/cvslog.xml"/>
@@ -186,7 +187,12 @@
         <!-- Copy the images -->
         <copy todir="${target.doc.dir}/images" filtering="off">
             <fileset dir="${doc.xdoc.dir}/images"/>
-            <fileset dir="${doc.skin.dir}/jakarta.apache.org/resources"/>
+            <fileset dir="${doc.skin.dir}/jakarta.apache.org/images"/>
+        </copy>
+
+        <!-- Copy the css -->
+        <copy todir="${target.doc.dir}/css" filtering="on">
+            <fileset dir="${doc.skin.dir}/jakarta.apache.org/css"/>
         </copy>
 
         <!-- Copy the misc doc files needed by the web site -->
@@ -202,8 +208,10 @@
 		<style basedir="${target.xdoc.dir}" destdir="${target.doc.dir}"
           style="${doc.skin.dir}/jakarta.apache.org/stylesheets/document2html.xsl">
 
-        	<include name="*.xml"/>
-        	<exclude name="navigation.xml"/>
+        	<include name="**/*.xml"/>
+        	<!--include name="**/build_result.xml"/>
+        	<include name="**/howto_testcase.xml"/-->
+        	<exclude name="**/navigation.xml"/>
 
 			<param name="software" expression="Cactus"/>
 			<param name="title" expression="Cactus Documentation"/>
@@ -212,15 +220,16 @@
             <param name="project.other.version" expression="${project.other.version}"/>
             <param name="last.updated.date" expression="${TODAY}"/>
 
-            <!--Location of the navigation.xml file relative to where the 
-                stylesheet is located. Note: this path MUST be relative as it 
-                is used as a relative URI from within the stylesheet -->
-            <param name="navfile" expression="../../../../../${target.xdoc.dir}/navigation.xml"/>
+            <!-- Location of the xdoc directory relative to where the
+                 stylesheet is located. Note: this path MUST be relative as it 
+                 is used as a relative URI from within the stylesheet -->
+            <param name="xdocdir" expression="../../../../../${target.xdoc.dir}"/>
 
-			<!-- Location of the cvslog.xml file relative to where the 
-			     stylesheet is located. Note: this path MUST be relative as it
-			     is used as a realtive URI from within the stylesheet -->
-            <param name="cvslogfile" expression="../../../../../${target.xdoc.dir}/cvslog/cvslog.xml"/>
+            <!-- Location of the sitemap.xml file relative to xdocdir -->
+            <param name="sitefile" expression="sitemap.xml"/>
+
+			<!-- Location of the cvslog.xml file relative to xdocdir -->
+            <param name="cvslogfile" expression="cvslog/cvslog.xml"/>
 			     
         </style>
 

@@ -6,14 +6,8 @@
 <!-- ====================================================================== -->
 
 <!-- TODOS:
-     - remove all color references and expose them as variables. Second
-       step is to use CSS
-     - handle xdocs located in sub-directories (issue is with the 
-       relative path to the images). Solution: add "url" attribute to
-       the <document> tag.
-     - add an XSL param that is the absolute path
-       from this stylesheet to the xdoc root. This is to compute the
-       location of per-directory navigation.xml files
+     - finish removing all style references and put them in the CSS. Only use
+       CSS features that are standard across browsers (it is possible?). VMA
 -->
 
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
@@ -22,9 +16,14 @@
   <xsl:param name="title" select="''"/>
   <xsl:param name="copyright" select="''"/>
   
-  <!-- Location of the navigation.xml file, which describes the web site meta
-       data such as the menu items, etc -->
-  <xsl:param name="navfile" select="''"/>
+  <!-- Location of the xdoc directory relative to where this stylesheet is 
+       located. Note: this path MUST be relative as it is used as a relative 
+       URI from within this stylesheet -->
+  <xsl:param name="xdocdir" select="''"/>
+
+  <!-- Location of the sitemap.xml file, which describes the web site 
+       resources -->
+  <xsl:param name="sitefile" select="''"/>
 
   <!-- Location of the cvslog.xml file which contains the CVS changelog
        items for the last 15 days web site changes -->
@@ -45,9 +44,8 @@
   
   <!-- Output method -->
   <xsl:output method="html" indent="no"/>
-
+  
   <!-- Defined variables -->
-  <xsl:variable name="body-bg"    select="'#ffffff'"/>
   <xsl:variable name="body-fg"    select="'#000000'"/>
   <xsl:variable name="body-link"  select="'#023264'"/>
   <xsl:variable name="banner-bg"  select="'#023264'"/>
@@ -56,7 +54,19 @@
   <!-- Read the menu definitions. They are located in a file named 
        navigation.xml placed at the same level as the xdoc files. 
        The path we specify is relative to where this stylesheet is located -->
-  <xsl:variable name="navigation" select="document($navfile)/navigation"/>
+  <!--xsl:variable name="navigation" 
+    select="document(concat($xdocdir,'/',$navfile))/navigation"/-->
+
+  <!-- Read the resource definitions. They are located in a file named 
+       sitemap.xml placed at the same level as the xdoc files. 
+       The path we specify is relative to where this stylesheet is located -->
+  <xsl:variable name="sitemap" 
+    select="document(concat($xdocdir,'/',$sitefile))/document/body/sitemap"/>
+
+  <!-- The current document being processed. Note: This is needed for the
+       "get-base-directory" template as it can be called with another
+       document context (the $navigation one) -->
+  <xsl:variable name="document" select="/document"/>
 
   <!-- ==================================================================== -->
   <!-- Document section -->
@@ -67,6 +77,14 @@
     <html>
 
       <head>
+
+        <!-- CSS imports -->
+        <link rel="stylesheet" type="text/css">
+          <xsl:attribute name="href">
+            <xsl:call-template name="get-base-directory"/>
+            <xsl:text>css/apache.css</xsl:text>
+          </xsl:attribute>
+        </link>
 
         <!-- Add the authors as a meta tag -->
         <meta name="author">
@@ -83,8 +101,7 @@
 
       </head>
 
-      <body bgcolor="{$body-bg}" text="{$body-fg}" link="{$body-link}"
-          alink="{$body-link}" vlink="{$body-link}">
+      <body>
 
         <!-- ============================================================== -->
         <!-- Top level header -->
@@ -97,7 +114,7 @@
             <td valign="top" align="left">
               <a href="http://jakarta.apache.org/">
                 <img hspace="0" vspace="0" border="0">
-                  <xsl:attribute name="src">images/jakarta-logo.gif</xsl:attribute>
+                  <xsl:attribute name="src"><xsl:call-template name="get-base-directory"/>images/jakarta-logo.gif</xsl:attribute>
                 </img>
               </a>
             </td>
@@ -108,7 +125,7 @@
                   <xsl:attribute name="alt">
                     <xsl:call-template name="get-title"/>
                   </xsl:attribute>
-                  <xsl:attribute name="src">images/logocactus.gif</xsl:attribute>
+                  <xsl:attribute name="src"><xsl:call-template name="get-base-directory"/>images/logocactus.gif</xsl:attribute>
                 </img>
               </a>
             </td>
@@ -142,6 +159,7 @@
                 <xsl:text> | </xsl:text>
                 <a>
                   <xsl:attribute name="href">
+                    <xsl:call-template name="get-base-directory"/>
                     <xsl:choose>
                       <xsl:when test="contains($project.version,'dev')">
                         <xsl:text>..</xsl:text>
@@ -162,7 +180,7 @@
 
               <br/>
               <font face="arial,helvetica,sanserif">
-                <xsl:apply-templates select="$navigation"/>
+                <xsl:call-template name="apply-navigation"/>
               </font>
 
             </td>
@@ -216,28 +234,51 @@
   <!-- Menu elements: "menu/menu-item/separator" elements -->
   <!-- ==================================================================== -->
 
-  <xsl:template match="menu/item">
+  <xsl:template match="menu//item">
+
+    <xsl:variable name="curid" select="@id"/>
+    <xsl:variable name="cursite" select="$sitemap//page[@id=$curid]"/>
+
+    <xsl:variable name="level" select="count(ancestor::item)+1"/>
 
     <xsl:choose>
-      <xsl:when test="@type='external'">
-        <li>
-          <font size="-1">
-            <a href="{@href}" target="{@id}"><xsl:value-of select="@label"/></a>
+      <xsl:when test="$cursite/@type='external'">
+        <div id="menu">
+          <font size="-{$level}">
+            <a href="{$cursite/@href}" target="{@id}">
+              <xsl:value-of select="@label"/>
+            </a>
           </font>
-        </li>
+          <xsl:apply-templates/>
+        </div>
       </xsl:when>
-      <xsl:when test="not(@type) or @type!='hidden'">
-        <li>
+      <xsl:when test="not($cursite/@type) or $cursite/@type!='hidden'">
+        <div id="menu">
           <a>
-            <xsl:attribute name="href"><xsl:value-of 
-              select="substring(@source,0,string-length(@source)-3)"/>.html</xsl:attribute>
-            <font size="-1"><xsl:value-of select="@label"/></font>
-         </a>
-       </li>
+            <xsl:attribute name="href">
+              <xsl:call-template name="get-base-directory"/>
+              <xsl:value-of select="substring($cursite/@source,0,string-length($cursite/@source)-3)"/>
+              <xsl:text>.html</xsl:text>
+            </xsl:attribute>
+            <font size="-{$level}">
+              <!-- Use the label from the sitemap if none has been defined
+                   in the navigation file -->
+              <xsl:choose>
+                <xsl:when test="@label">
+                  <xsl:value-of select="@label"/>
+                </xsl:when>
+                <xsl:otherwise>
+                  <xsl:value-of select="$cursite/@name"/>
+                </xsl:otherwise>
+              </xsl:choose>
+            </font>
+            <xsl:apply-templates/>
+          </a>
+        </div>
       </xsl:when>
       <xsl:otherwise><!-- hidden --></xsl:otherwise>
     </xsl:choose>
-
+    
   </xsl:template>
 
   <xsl:template match="separator">
@@ -250,7 +291,46 @@
     <font size="+1" color="#000000"><xsl:value-of select="@label"/></font>
     <br/>
     <font size="-1"><xsl:apply-templates/></font>
-    <br/>
+  </xsl:template>
+
+  <!-- ==================================================================== -->
+  <!-- Sitemap elements: "sitemap/page" elements -->
+  <!-- ==================================================================== -->
+  <xsl:template match="sitemap">
+
+    <!-- s1 -->
+    <xsl:call-template name="section">
+      <xsl:with-param name="width">100%</xsl:with-param>
+      <xsl:with-param name="font-size">+1</xsl:with-param>
+      <xsl:with-param name="name"><xsl:text>Site Map</xsl:text></xsl:with-param>
+    </xsl:call-template>
+    
+  </xsl:template>
+
+  <xsl:template match="sitemap/page">
+    <xsl:if test="not(@type) or @type!='external'">
+      <li>
+        <!-- link -->
+        <a>
+          <xsl:attribute name="href">
+            <xsl:value-of select="substring(@source,0,string-length(@source)-3)"/>
+            <xsl:text>.html</xsl:text>
+          </xsl:attribute>
+          <xsl:choose>
+            <xsl:when test="@name">
+              <xsl:value-of select="@name"/>        
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:value-of select="@id"/>        
+            </xsl:otherwise>
+          </xsl:choose>
+        </a>
+        <xsl:if test="text()">
+          <xsl:text>:</xsl:text>
+          <xsl:apply-templates/>
+        </xsl:if>
+      </li>
+    </xsl:if>
   </xsl:template>
 
   <!-- ==================================================================== -->
@@ -367,13 +447,9 @@
   <!-- ==================================================================== -->
 
   <xsl:template match="source">
-   <div align="center">
-    <table border="1" cellspacing="2" cellpadding="2">
-    <tr>
-       <td><pre><xsl:apply-templates/></pre></td>
-    </tr>
-    </table>
-   </div>
+    <div id="source">
+      <pre><xsl:apply-templates/></pre>
+    </div>
   </xsl:template>
 
   <!-- ==================================================================== -->
@@ -415,8 +491,13 @@
       <table width="100%" cellspacing="3" cellpadding="0" border="0">
         <tr>
           <td width="28" valign="top">
-            <img src="images/note.gif" width="28" height="29" vspace="0" 
-              hspace="0" border="0" alt="Note"/>
+            <img width="28" height="29" vspace="0" 
+              hspace="0" border="0" alt="Note">
+              <xsl:attribute name="src">
+                <xsl:call-template name="get-base-directory"/>
+                <xsl:text>images/note.gif</xsl:text>
+              </xsl:attribute>
+            </img>
           </td>
           <td valign="top">
             <font size="-1" face="arial,helvetica,sanserif" color="{$body-fg}">
@@ -512,23 +593,42 @@
     <p align="center">  
       <xsl:choose>
         <xsl:when test="@width">
-          <img src="{@src}" alt="{@alt}" width="{@width}" height="{@height}" 
-            border="0" vspace="4" hspace="4"/>
+          <img alt="{@alt}" width="{@width}" height="{@height}" 
+            border="0" vspace="4" hspace="4">
+            <xsl:attribute name="src">
+              <xsl:call-template name="get-base-directory"/>
+              <xsl:value-of select="@src"/>
+            </xsl:attribute>
+          </img>
         </xsl:when>
         <xsl:otherwise>
-          <img src="{@src}" alt="{@alt}" border="0" vspace="4" hspace="4"/>
+          <img alt="{@alt}" border="0" vspace="4" hspace="4">
+            <xsl:attribute name="src">
+              <xsl:call-template name="get-base-directory"/>
+              <xsl:value-of select="@src"/>
+            </xsl:attribute>
+          </img>
         </xsl:otherwise>
       </xsl:choose>
     </p>
   </xsl:template>
  
   <xsl:template match="img">
-    <img src="{@src}" alt="{@alt}" border="0" vspace="4" hspace="4" 
-      align="right"/>
+    <img alt="{@alt}" border="0" vspace="4" hspace="4" align="right">
+      <xsl:attribute name="src">
+        <xsl:call-template name="get-base-directory"/>
+        <xsl:value-of select="@src"/>
+      </xsl:attribute>
+    </img>
   </xsl:template>
 
   <xsl:template match="icon">
-    <img src="{@src}" alt="{@alt}" border="0" align="absmiddle"/>
+    <img alt="{@alt}" border="0" align="absmiddle">
+      <xsl:attribute name="src">
+        <xsl:call-template name="get-base-directory"/>
+        <xsl:value-of select="@src"/>
+      </xsl:attribute>
+    </img>
   </xsl:template>
 
   <!-- ==================================================================== -->
@@ -536,19 +636,47 @@
   <!-- ==================================================================== -->
 
   <xsl:template match="a">
-    <a href="{@href}"><xsl:apply-templates/></a>
+    <a>
+      <xsl:attribute name="href">
+        <xsl:if test="substring(@href,0,5)!='http'">
+          <xsl:call-template name="get-base-directory"/>
+        </xsl:if>
+        <xsl:value-of select="@href"/>
+      </xsl:attribute>
+      <xsl:apply-templates/>
+    </a>
   </xsl:template>
 
   <xsl:template match="link">
-    <a href="{@href}"><xsl:apply-templates/></a>
+    <a>
+      <xsl:attribute name="href">
+        <xsl:if test="substring(@href,0,5)!='http'">
+          <xsl:call-template name="get-base-directory"/>
+        </xsl:if>
+        <xsl:value-of select="@href"/>
+      </xsl:attribute>
+      <xsl:apply-templates/>
+    </a>
   </xsl:template>
 
   <xsl:template match="jump">
-    <a href="{@href}#{@anchor}"><xsl:apply-templates/></a>
+    <a>
+      <xsl:attribute name="href">
+        <xsl:value-of select="@href"/>
+        <xsl:text>#</xsl:text>
+        <xsl:value-of select="@anchor"/>
+      </xsl:attribute>
+      <xsl:apply-templates/>
+    </a>
   </xsl:template>
 
   <xsl:template match="fork">
-    <a href="{@href}" target="_blank"><xsl:apply-templates/></a>
+    <a target="_blank">
+      <xsl:attribute name="href">
+        <xsl:value-of select="@href"/>
+      </xsl:attribute>
+      <xsl:apply-templates/>
+    </a>
   </xsl:template>
 
   <xsl:template match="anchor">
@@ -612,7 +740,14 @@
   <xsl:template match="release/action">
     <li>
       <!-- icon -->
-      <img src="images/{@type}.jpg" alt="{@type}" border="0" align="absmiddle"/>
+      <img alt="{@type}" border="0" align="absmiddle">
+        <xsl:attribute name="src">
+          <xsl:call-template name="get-base-directory"/>
+          <xsl:text>images/</xsl:text>
+          <xsl:value-of select="@type"/>
+          <xsl:text>.jpg</xsl:text>
+        </xsl:attribute>
+      </img>
 
       <xsl:apply-templates/>
       <xsl:text>(</xsl:text><xsl:value-of select="@dev"/><xsl:text>)</xsl:text>
@@ -652,7 +787,8 @@
       <xsl:with-param name="name"><xsl:value-of select="@title"/></xsl:with-param>
     </xsl:call-template>
 
-    <xsl:variable name="cvslog" select="document($cvslogfile)/changelog"/>
+    <xsl:variable name="cvslog" 
+      select="document(concat($xdocdir,'/',$cvslogfile))/changelog"/>
 
     <xsl:choose>
       <xsl:when test="$cvslog/entry">
@@ -686,9 +822,13 @@
       <td bgcolor="#a0ddf0" colspan="{@colspan}" rowspan="{@rowspan}" valign="top" align="left">
         <font color="#000000" size="-1" face="arial,helvetica,sanserif">
           <xsl:for-each select="file">
-            <link href="{concat(substring-before(name, '.'),'.html')}">
+            <a>
+              <xsl:attribute name="href">
+                <xsl:call-template name="get-base-directory"/>
+                <xsl:value-of select="concat(substring-before(name, '.'),'.html')"/>
+              </xsl:attribute>
               <xsl:value-of select="substring-before(name, '.')"/>
-            </link>
+            </a>
             <xsl:if test="position()!=last()">
               <xsl:text>, </xsl:text>
             </xsl:if>
@@ -781,6 +921,37 @@
  </xsl:template>
 
   <!-- ==================================================================== -->
+  <!-- Apply the navigation file -->
+  <!-- Note: The navigation.xml files must exist but can be left empty, i.e -->
+  <!-- containing only <navigation/>. In which case, the top level menu is  -->
+  <!-- used. -->
+  <!-- ==================================================================== -->
+  <xsl:template name="apply-navigation">
+
+    <!-- Per directory navigation file -->
+    <xsl:variable name="basedir">
+      <xsl:call-template name="get-directory">
+        <xsl:with-param name="file">
+          <xsl:call-template name="get-source"/>
+        </xsl:with-param>
+      </xsl:call-template>
+    </xsl:variable>
+    <xsl:variable name="perdirnav"
+      select="document(concat($xdocdir,'/',$basedir,'/navigation.xml'))/navigation"/>
+
+    <xsl:choose>
+      <xsl:when test="$perdirnav/menu">
+        <xsl:apply-templates select="$perdirnav"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:apply-templates 
+          select="document(concat($xdocdir,'/navigation.xml'))/navigation"/>
+      </xsl:otherwise>
+    </xsl:choose>
+
+  </xsl:template>
+
+  <!-- ==================================================================== -->
   <!-- Return the document title -->
   <!-- ==================================================================== -->
   <xsl:template name="get-title">
@@ -791,6 +962,64 @@
       <xsl:otherwise>
         <xsl:value-of select="$title"/>
       </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+
+  <!-- ==================================================================== -->
+  <!-- Extract directory -->
+  <!-- ==================================================================== -->
+ 
+  <xsl:template name="get-directory">
+    <xsl:param name="file"/>     
+    <xsl:choose>
+      <xsl:when test="contains( $file, '/' )">
+        <xsl:variable name="dir" select="substring-before($file, '/')" />
+        <xsl:variable name="remainder" select="substring-after($file, '/')" />
+        <xsl:variable name="path">
+          <xsl:call-template name="get-directory">
+            <xsl:with-param name="file" select="$remainder"/>
+          </xsl:call-template>
+        </xsl:variable>
+        <xsl:value-of select="concat($dir,$path)"/>
+      </xsl:when>
+      <xsl:otherwise/>
+    </xsl:choose>
+  </xsl:template>
+
+  <!-- ==================================================================== -->
+  <!-- Get current processed file source path -->
+  <!-- ==================================================================== -->
+
+  <xsl:template name="get-source">
+    <xsl:variable name="curid" select="$document/@id"/>
+    <xsl:value-of select="$sitemap//page[@id=$curid]/@source"/>
+  </xsl:template>
+  
+  <!-- ==================================================================== -->
+  <!-- Compute base directory -->
+  <!-- ==================================================================== -->
+
+  <xsl:template name="get-base-directory">  
+    <xsl:call-template name="get-base-directory-internal">
+      <xsl:with-param name="file">
+        <xsl:call-template name="get-source"/>
+      </xsl:with-param>
+    </xsl:call-template>
+  </xsl:template>
+  
+  <xsl:template name="get-base-directory-internal">
+    <xsl:param name="file"/>     
+    <xsl:choose>
+      <xsl:when test="contains( $file, '/' )">
+        <xsl:variable name="remainder" select="substring-after($file, '/')" />
+        <xsl:variable name="path">
+          <xsl:call-template name="get-base-directory-internal">
+            <xsl:with-param name="file" select="$remainder"/>
+          </xsl:call-template>
+        </xsl:variable>
+        <xsl:value-of select="concat('../',$path)"/>
+      </xsl:when>
+      <xsl:otherwise>./</xsl:otherwise>
     </xsl:choose>
   </xsl:template>
 

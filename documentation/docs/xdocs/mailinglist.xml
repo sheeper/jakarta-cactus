@@ -51,22 +51,6 @@
       <note>
         The same applies for the dev mailing list; replace "user" by "dev".
       </note>
-      <note>
-        The creation of the Cactus dev mailing-list happened on the
-        15th of September 2001. Pior to that date dev messages were posted
-        to the cactus-user mailing-list (and even for some time after that
-        date!).
-      </note>
-      <note>
-        The creation of the Cactus user mailing list happened on the
-        5th of July 2001. Prior to that date all messages were posted on the
-        <code>jakarta-commons</code> mailing list (and even for some time
-        after that date!). You can check the archives of
-        <code>jakarta-commons</code>
-        <link href="http://www.mail-archive.com/jakarta-commons%40jakarta.apache.org/">
-        here</link>.
-      </note>
-
     </s1>
 
   </body>

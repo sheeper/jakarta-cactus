@@ -56,7 +56,7 @@
           Cactus provides a good middle ground in term of test granularity :
           too fine-grained tests are hard to write (like mock objects tests
           that completely simulates the domain objects and focus exclusively
-          on unit testing your logic code) and need complementary tests. Too
+          on unit testing your code logic) and need complementary tests. Too
           coarse-grained tests (like functional tests) are not enough to
           easily uncover bugs and work in a iterative development process
           where tests are run very often to ensure everything is working. We
@@ -120,7 +120,7 @@
               Whether an HTTP Session will be created or not on the server side,
             </li>
             <li>
-              BASIC Authentication parameters,
+              BASIC and Form-based Authentication parameters,
             </li>
             <li>
               Send any data as POST data
@@ -189,6 +189,9 @@
             <li>
               Enhydra 3.1 (Servlet API 2.2)
             </li>
+            <li>
+              JBoss/Jetty 3.x (Servlet API 2.3)
+            </li>
           </ul>
         </li>
         <li>
@@ -230,8 +233,8 @@
           </link> for HTTP connections.
         </li>
         <li>
-          Support for BASIC authentication. You can test code that uses the
-          Servlet security API (see the
+          Support for BASIC and Form-based authentication methods. You can test 
+          code that uses the Servlet security API (see the
           <link href="howto_security.html">Security Howto</link>).
         </li>
         <li>

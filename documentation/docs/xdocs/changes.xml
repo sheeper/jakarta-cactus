@@ -57,6 +57,13 @@
       </devs>
 
       <release version="1.5" date="- in CVS">
+        <action dev="VMA" type="update">
+          Modified the build process to generate the Cactus web site by 
+          removing the use of Stylebook and replacing it with an XSL
+          stylesheet. In addition, added several new features: support for
+          subdirectories, support for dynamic menu items and sitemap 
+          generation.
+        </action>
         <action dev="JRU" type="add">
           First release of the Eclipse plugin. See the
           <link href="eclipse_plugin.html">Eclipse Plugin documentation</link>

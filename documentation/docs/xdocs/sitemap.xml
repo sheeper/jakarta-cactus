@@ -1,0 +1,95 @@
+<?xml version="1.0"?>
+
+<document>
+
+  <properties>
+    <title>Site Map</title>
+    <authors>
+      <author name="Vincent Massol" email="vmassol@apache.org"/>
+    </authors>
+  </properties>
+
+  <body>
+
+    <sitemap>
+
+      <page id="index" source="index.xml" name="What is Cactus?">
+        Describes what is the Cactus framework, defines several types of
+        unit tests and explains what are those best achieved with Cactus.
+      </page>
+  
+      <page id="news" source="news.xml"/>
+      <page id="changes" source="changes.xml"/>
+      <page id="features" source="features.xml"/>
+      <page id="goals" source="goals.xml"/>
+      <page id="todo" source="todo.xml"/>
+      <page id="contributors" source="contributors.xml"/>
+      <page id="contributing" source="contributing.xml"/>
+      <page id="users" source="users.xml"/>
+      <page id="testedon" source="testedon.xml"/>
+      <page id="license" source="license.xml"/>
+      <page id="downloads" source="downloads.xml"/>
+      <page id="how_it_works" source="how_it_works.xml"/>
+      <page id="how_it_works_uml" source="how_it_works_uml.xml"/>
+      <page id="getting_started" source="getting_started.xml"/>
+      <page id="mockobjects" source="mockobjects.xml"/>
+      <page id="javadoc" source="javadoc.xml"/>
+      <page id="javadoc_12" source="javadoc_12.xml"/>
+      <page id="javadoc_13" source="javadoc_13.xml"/>
+      <page id="faq" source="faq.xml"/>
+      <page id="eclipse_plugin" source="eclipse_plugin.xml"/>
+      <page id="howto_classpath" source="howto_classpath.xml"/>
+      <page id="howto_config" source="howto_config.xml"/>
+      <page id="howto_migration" source="howto_migration.xml"/>
+      <page id="howto_testcase" source="howto_testcase.xml"/>
+      <page id="howto_testcase_servlet" source="howto_testcase_servlet.xml"/>
+      <page id="howto_testcase_jsp" source="howto_testcase_jsp.xml"/>
+      <page id="howto_testcase_filter" source="howto_testcase_filter.xml"/>
+      <page id="howto_jsp" source="howto_jsp.xml"/>
+      <page id="howto_runner" source="howto_runner.xml"/>
+      <page id="howto_security" source="howto_security.xml"/>
+      <page id="howto_ant" source="howto_ant.xml"/>
+      <page id="howto_ant_cactus" source="howto_ant_cactus.xml"/>
+      <page id="howto_ant_install" source="howto_ant_install.xml"/>
+      <page id="howto_ant_primter" source="howto_ant_primer.xml"/>
+      <page id="howto_httpunit" source="howto_httpunit.xml"/>
+      <page id="howto_sample" source="howto_sample.xml"/>
+      <page id="howto_ejb" source="howto_ejb.xml"/>
+      <page id="howto_ejb_j2eeri" source="howto_ejb_j2eeri.xml"/>
+      <page id="howto_ide" source="howto_ide.xml"/>
+      <page id="howto_ide_vajava_wte" source="howto_ide_vajava_wte.xml"/>
+      <page id="howto_ide_vajava_tomcat" source="howto_ide_vajava_tomcat.xml"/>
+      <page id="howto_ide_jbuilder4" source="howto_ide_jbuilder4.xml"/>
+      <page id="howto_ide_jbuilder5" source="howto_ide_jbuilder5.xml"/>
+      <page id="howto_tomcat" source="howto_tomcat.xml"/>
+      <page id="howto_junitee" source="howto_junitee.xml"/>
+      <page id="mailinglist" source="mailinglist.xml"/>
+      <page id="cactusname" source="cactusname.xml"/>
+      <page id="logos" source="logos.xml"/>
+      <page id="resources" source="resources.xml"/>
+      <page id="coverage" source="coverage.xml"/>
+      <page id="coverage_12" source="coverage_12.xml"/>
+      <page id="coverage_13" source="coverage_13.xml"/>
+      <page id="coverage_empty" source="coverage_empty.xml"/>
+      <page id="webalizer" source="webalizer.xml"/>
+      <page id="coding_conventions" source="coding_conventions.xml"/>
+      <page id="build_result" source="build_result.xml"/>
+      <page id="release_checklist" source="release_checklist.xml"/>
+      <page id="howto_build" source="howto_build.xml"/>
+
+      <page id="bug_database" type="external"
+        href="http://jakarta.apache.org/site/bugs.html"/>
+      <page id="stats" type="external"
+        href="http://jakarta.apache.org/cactus/stats/index.html"/>
+      <page id="cvs" type="external"
+        href="http://jakarta.apache.org/site/cvsindex.html"/>
+      <page id="korean" type="external" 
+        href="http://jakarta.apache-korea.org/cactus/index.html"/>
+      <page id="japanese" type="external" 
+        href="http://www.ingrid.org/jajakarta/cactus/"/>
+
+    </sitemap>
+    
+  </body>
+  
+</document>
