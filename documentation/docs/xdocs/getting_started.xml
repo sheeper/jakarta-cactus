@@ -49,29 +49,12 @@
       <p>
         There is not really an installation of Cactus per see, as Cactus is
         not an application but a framework. However you do need to understand
-        how it integrates in your working environment. Thus, installing Cactus
-        simply means to understand what jars need to be put where and what are
-        the configuration files you need to have and edit. This is discussed
-        below.
+        how it integrates in your working environment. In order to simplify
+        this integration Cactus offers 
+        <a href="site:howto_runner">several integration modules</a>. Thus, 
+        installing Cactus simply means picking an integration module and 
+        learning how to configure and use it.
       </p>
-      <p>
-        There are 2 kinds of productivity environments in which you may want to
-        use Cactus, mainly:
-      </p>
-      <ul>
-        <li>
-          within your IDE,
-        </li>
-        <li>
-          from the command line, using <link href="ext:ant">Ant</link>
-        </li>
-      </ul>
-      <note>
-        Usually, these 2 environments are complementary. A good strategy is
-        to use an IDE to increase day to day productivity, run quickly the
-        Cactus tests in the IDE and use Ant to perform the
-        (continuous) builds (including running the Cactus tests).
-      </note>
 
     </section>
 
@@ -90,19 +73,19 @@
           using servlets you already have one installed.
         </li>
         <li>
-          <strong>Servlet Engine</strong>
-          A Servlet 2.x compliant servlet engine (where x >= 2.2) for running
-          your Cactus tests must be present.
-        </li>
-        <li>
-          <strong>Ant (optional)</strong>
-          Ant is only needed if you are working from the command line or if you
-          wish to automate the execution of tests. If you wish to use Ant,
-          make sure that you read the
-          <link href="site:integration_ant">Ant Howto</link> after you finish
-          reading this introductory guide.
+          <strong>Servlet/J2EE Engine</strong>
+          A Servlet 2.x/J2EE 1.x compliant servlet engine for running your 
+          Cactus tests must be present.
         </li>
       </ul>
+
+      <p>
+        You also need to have installed the development tools that you are 
+        integrating Cactus with. For example, if you plan to use the Ant
+        integration, you must have Ant installed. If you plan to execute
+        Cactus tests from an IDE, this IDE software has to be already 
+        installed, etc.
+      </p>
 
     </section>
 
@@ -115,8 +98,45 @@
         <code>[cactus root]</code> directory.
       </p>
       <p>
-        The jars making up Cactus can be found in
-        <code>[cactus root]/lib</code>. Namely, they are:
+        You'll find the following directories under <code>[cactus root]</code>:
+      </p>
+      <ul>
+        <li>
+          <strong><code>doc/</code></strong>: contains Cactus web site and
+          API javadocs.
+        </li>
+        <li>
+          <strong><code>lib/</code></strong>: contains Cactus jars and related
+          external libraries.
+        </li>
+        <li>
+          <strong><code>samples/</code></strong>: contains 
+          <a href="site:howto_sample">sample applications</a>
+          showing how to write Cactus tests and how to automate their 
+          execution.
+        </li>
+        <li>
+          <strong><code>samples/ejb</code></strong>: contains a sample 
+          application showing how to test EJBs with Cactus.
+        </li>
+        <li>
+          <strong><code>samples/jetty</code></strong>: contains a sample 
+          application showing how to test Servlet with Cactus and Jetty
+          (using the <code>JettyTestSetup</code> extension).
+        </li>
+        <li>
+          <strong><code>samples/servlet</code></strong>: contains a sample 
+          application showing how to test Servlet/JSPs/Taglibs with Cactus.
+        </li>
+        <li>
+          <strong><code>web/</code></strong>: contains the JSP redirector file
+          which is only required if you're using the 
+          <a href="site:integration_manual">manual integration</a>.
+        </li>
+      </ul>
+
+      <p>
+        The jars making up Cactus are:
       </p>
       <ul>
         <li>
@@ -155,17 +175,24 @@
           HttpClient.
         </li>
         <li>
-          <strong><code>logging framework</code>(optional)</strong>: The
-          logging framework to use (Log4j jar, LogKit jar, etc). It is optional
-          as it is only needed for internal Cactus logging and in addition, the
-          Commons Logging framework provides a simple logger that logs on the
-          console.
+          <strong><code>servletapi.jar</code></strong>: Required for compiling
+          the Servlet sample. Ideally we should be bundling the J2EE jar (which
+          is required for compiling the EJB sample). However the Sun license 
+          does not allow us to redistribute it so you'll need to download it
+          by yourself (see the <a href="site:howto_sample">Sample howto</a> 
+          page.
+        </li>
+        <li>
+          <strong><code>httpunit.jar</code></strong>: Cactus uses the
+          HttpUnit framework to perform <a href="site:howto_httpunit">complex 
+          assertions of returned responses</a>. Cactus also bundles a default 
+          web response object but the HttpUnit one should be preffered for 
+          complex assertions.
+        </li>
+        <li>
+          <strong><code>nekohtml.jar</code></strong>: Required by HttpUnit.
         </li>
       </ul>
-      <p>
-        The Cactus configuration files are described in the
-        <link href="site:howto_config">Configuration Howto</link> tutorial.
-      </p>
 
     </section>
 
@@ -175,10 +202,9 @@
         At this point you should understand what Cactus is and how it works.
       </p>
       <p>
-        The next step is to understand how to set up Cactus in your environment.
-        For this you'll need to understand <link href="site:howto_classpath">How
-        to setup Cactus classpaths and start Cactus tests</link> and
-        <link href="site:howto_config">How to configure Cactus</link>.
+        Pick the <a href="site:howto_runner">Cactus integration module</a> that 
+        you wish to use in your development environment. Read up on how it works
+        and how to use it.
       </p>
       <p>
         Then, you should read the <link href="site:howto_testcase">TestCase
