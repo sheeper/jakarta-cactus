@@ -11,7 +11,6 @@
 
   <menu label="About">
     <menu-item label="What is Cactus ?" source="index.xml"/>
-    <menu-item label="How it works ?" source="how_it_works.xml"/>
     <menu-item label="Features/Status" source="features.xml"/>
     <menu-item label="Goals" source="goals.xml"/>
     <menu-item type="changes" label="News/Changes" source="changes.xml"/>
