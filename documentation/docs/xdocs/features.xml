@@ -221,31 +221,31 @@ experimental and needs some work
           The Ant Integration Module supports the following containers:
           <ul>
             <li>
-              Tomcat 3.x (Servlet API 2.2)
+              Tomcat 3.x
             </li>
             <li>
-              Tomcat 4.x (Servlet API 2.2 and 2.3)
+              Tomcat 4.x
             </li>
             <li>
-              Tomcat 5.x (Servlet API 2.3)
+              Tomcat 5.x
               <img src="images/new.jpg" alt="New in Cactus 1.5"/>
             </li>
             <li>
-              Resin 2.x (Servlet API 2.2 and 2.3)
+              Resin 2.x
             </li>
             <li>
-              WebLogic 7.x (Servlet API 2.2 and 2.3)
+              WebLogic 7.x
               <img src="images/new.jpg" alt="New in Cactus 1.5"/>
             </li>
             <li>
-              Orion 1.x (Servlet API 2.2 and 2.3)
+              Orion 1.x
             </li>
             <li>
-              Orion 2.x (Servlet API 2.2 and 2.3)
+              Orion 2.x
               <img src="images/new.jpg" alt="New in Cactus 1.5"/>
             </li>
             <li>
-              JBoss/Jetty 3.x (Servlet API 2.3)
+              JBoss/Jetty 3.x
               <img src="images/new.jpg" alt="New in Cactus 1.5"/>
             </li>
             <li>
