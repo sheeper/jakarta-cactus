@@ -309,6 +309,8 @@ integration/ant/src/java/org/apache/cactus/integration/ant/ResinRun.java svn_key
 integration/ant/src/java/org/apache/cactus/integration/ant/RunServerTestsTask.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/java/org/apache/cactus/integration/ant/StartServerHelper.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/java/org/apache/cactus/integration/ant/StopServerHelper.java svn_keywords=Author+Date+Id+Revision
+integration/ant/src/java/org/apache/cactus/integration/ant/WebMerge.java svn_keywords=Author+Date+Id+Revision
+integration/ant/src/java/org/apache/cactus/integration/ant/WebMergeTask.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/scripts/j2ee12/build-tests-tomcat3x.xml svn_keywords=Author+Date+Id+Revision
 integration/ant/src/scripts/j2ee12/build.xml svn_keywords=Author+Date+Id+Revision
 integration/ant/src/scripts/j2ee13/build-tests-jboss3x.xml svn_keywords=Author+Date+Id+Revision
@@ -319,6 +321,7 @@ integration/ant/src/scripts/share/build-tests-resin2x.xml svn_keywords=Author+Da
 integration/ant/src/scripts/share/build-tests-tomcat4x.xml svn_keywords=Author+Date+Id+Revision
 integration/ant/src/scripts/share/build-tests-weblogic6x.xml svn_keywords=Author+Date+Id+Revision
 integration/ant/src/scripts/share/build-tests-weblogic7x.xml svn_keywords=Author+Date+Id+Revision
+integration/ant/src/test/org/apache/cactus/integration/ant/TestWebMerge.java svn_keywords=Author+Date+Id+Revision
 integration/eclipse/.classpath svn_keywords=Author+Date+Id+Revision
 integration/eclipse/.classpath.sample -text svneol=unset#application/octet-stream
 integration/eclipse/.cvsignore svn_keywords=Author+Date+Id+Revision
