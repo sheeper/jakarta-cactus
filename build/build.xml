@@ -276,6 +276,8 @@
         <echo message="                      source, doc, site, tests, dist)"/>
         <echo message=" dist             --> version all distributables and copies"/>
         <echo message="                      them to the dist.dir directory"/>
+        <echo message=" deploy-site      --> deploy the Cactus web site to it's home"/>
+        <echo message="                      page on Jakarta Commons"/>
         <echo message=""/>
 
     </target>
@@ -595,6 +597,31 @@
        ========================================================================
     -->
     <target name="all" depends="clean,jar,sample,doc,site,tests,dist">
+    </target>
+
+    <!-- 
+       ========================================================================
+         Deploy the web site to the Jakarta Commons server, using the 'scp'
+         and 'ssh' commands. The variable "username" need to be passed to Ant
+         when calling this target.
+
+         Ex: ant -Dusername=vmassol deploy-site 
+
+       ========================================================================
+    -->
+    <target name="deploy-site" depends="site" if="username">
+
+        <property name="homepage" value="/www/jakarta.apache.org/commons/cactus"/>
+
+        <exec dir="." executable="scp">
+            <arg value="${final.site.name}-${DSTAMP}.tar.gz"/>
+            <arg value="${username}@jakarta.apache.org:${homepage}"/>
+        </exec>
+
+        <exec dir="." executable="ssh">
+            <arg line="-l ${username} jakarta.apache.org 'cd ${homepage};gunzip ${site.name}-${DSTAMP}.tar.gz;tar xvf ${site.name}-${DSTAMP}.tar;rm ${site.name}-${DSTAMP}.tar'"/>
+        </exec>
+
     </target>
 
 </project>
