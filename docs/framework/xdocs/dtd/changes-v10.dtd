@@ -36,6 +36,7 @@ FIXME:
 CHANGE HISTORY:
   19991129 Initial version. (SM)
   20000316 Added bugfixing attribute. (SM)
+  20010428 Added support for CVS changelog (Vincent Massol)
 
 COPYRIGHT:
   Copyright (c) @year@ The Apache Software Foundation.
@@ -46,6 +47,8 @@ COPYRIGHT:
   included files.
 
 ==================================================================== -->
+
+<!ENTITY cvslog SYSTEM "../cvslog/cvslog.xml">
 
 <!-- =============================================================== -->
 <!-- Extend the Documentation DTD -->
@@ -66,9 +69,12 @@ COPYRIGHT:
 <!-- Document Type Definition -->
 <!-- =============================================================== -->
 
-<!ELEMENT changes (devs, release*)>
+<!ELEMENT changes (cvslogs?, releases?)>
 <!ATTLIST changes %common.att;
                   %title.att;>
+
+<!ELEMENT releases (devs, release*)>
+<!ATTLIST releases title CDATA #REQUIRED>
 
     <!ELEMENT devs (person+)>
     <!ATTLIST devs %common.att;>
@@ -85,6 +91,40 @@ COPYRIGHT:
                          due-to CDATA #IMPLIED
                          due-to-email CDATA #IMPLIED
                          fixes-bug CDATA #IMPLIED>
+
+    <!-- ==================================================== -->
+    <!-- Changelog -->
+    <!-- ==================================================== -->
+
+    <!ELEMENT cvslogs (p?, changelog)>
+    <!ATTLIST cvslogs title CDATA #REQUIRED>
+
+    <!ELEMENT changelog (entry)*>
+
+    <!ELEMENT entry (date, time, author, (file)+, msg)>
+
+    <!ELEMENT date (%text;)>
+    <!ATTLIST date %common.att;>
+
+    <!ELEMENT time (%text;)>
+    <!ATTLIST time %common.att;>
+
+    <!ELEMENT author (%text;)>
+    <!ATTLIST author %common.att;>
+
+    <!ELEMENT file (name, revision, prevrevision?)>
+
+    <!ELEMENT name (%text;)>
+    <!ATTLIST name %common.att;>
+
+    <!ELEMENT revision (%text;)>
+    <!ATTLIST revision %common.att;>
+
+    <!ELEMENT prevrevision (%text;)>
+    <!ATTLIST prevrevision %common.att;>
+
+    <!ELEMENT msg (%text;)>
+    <!ATTLIST msg %common.att;>
 
 <!-- =============================================================== -->
 <!-- End of DTD -->
