@@ -262,7 +262,7 @@
         </li>
         <li>
           HttpUnit integration. See the
-          <link href="site:howto_httpunit">HttpUnit Howto</link>) tutorial
+          <link href="site:howto_httpunit">HttpUnit Howto</link> tutorial
           for details. This enables
           Cactus to provide strong and integrated functional
           unit testing features.
