@@ -254,8 +254,8 @@ public class WebRequest
     /**
      * Sets the simulated URL. A URL is of the form :<br>
      * <code><pre><b>
-     * URL        = "http://" + serverName (including port) + requestURI ? queryString<br>
-     * requestURI = contextPath + servletPath + pathInfo
+     * URL = "http://" + serverName (including port) + requestURI ? queryString
+     * <br>requestURI = contextPath + servletPath + pathInfo
      * </b></pre></code>
      * From the Servlet 2.2 specification :<br>
      * <code><pre><ul>

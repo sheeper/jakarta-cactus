@@ -84,7 +84,7 @@ public abstract class AbstractTestCaller
      * Name of the attribute in the <code>application</code> scope that will
      * hold the results of the test.
      */
-    private final static String TEST_RESULTS =
+    private static final String TEST_RESULTS =
         "ServletTestRedirector_TestResults";
 
     /**
@@ -369,7 +369,7 @@ public abstract class AbstractTestCaller
     private ClassLoader getAppropriateClassLoader()
     {
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
-        if(loader == null) {
+        if (loader == null) {
             loader = this.getClass().getClassLoader();
         }
         return loader;

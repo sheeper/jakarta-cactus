@@ -77,8 +77,7 @@ public class JUnitVersionHelper
      */
     private static Method testCaseName = null;
 
-    static
-    {
+    static {
         try {
             testCaseName = TestCase.class.getMethod("getName", new Class[0]);
         } catch (NoSuchMethodException e) {
@@ -86,7 +85,7 @@ public class JUnitVersionHelper
             try {
                 testCaseName = TestCase.class.getMethod("name", new Class[0]);
             } catch (NoSuchMethodException e2) {
-                throw new ChainedRuntimeException("Cannot find method 'name()'");
+                throw new ChainedRuntimeException("Cannot find method name()");
             }
         }
     }

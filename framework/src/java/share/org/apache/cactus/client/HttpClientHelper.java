@@ -100,13 +100,10 @@ public class HttpClientHelper
     private String url;
 
     // Static initialisations
-    static
-    {
-
+    static {
         // Do not follow redirects (because we are doing unit tests and
         // we need to be able to assert the returned headers, cookies, ...)
         HttpURLConnection.setFollowRedirects(false);
-
     }
 
     /**
@@ -373,7 +370,8 @@ public class HttpClientHelper
                 // If no domain has been specified, use a default one
                 String domain;
                 if (cactusCookie.getDomain() == null) {
-                    domain = HttpClientHelper.getDomain(theRequest, theConnection);
+                    domain = HttpClientHelper.getDomain(theRequest,
+                        theConnection);
                 } else {
                     domain = cactusCookie.getDomain();
                 }

@@ -79,8 +79,7 @@ public class ServletTestRedirector extends HttpServlet
      * details from the correct properties file. Initialization is done here
      * as this servlet is the first point of entry to the server code.
      */
-    static
-    {
+    static {
         LogService.getInstance().init("/log_server.properties");
     }
 

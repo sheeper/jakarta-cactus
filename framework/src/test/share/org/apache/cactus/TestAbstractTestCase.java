@@ -74,8 +74,7 @@ public class TestAbstractTestCase extends
     TestAbstractTestCase_InterceptorTestCase
 {
     // Initialize logging system first
-    static
-    {
+    static {
         LogService.getInstance().init(null);
     }
 

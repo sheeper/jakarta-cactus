@@ -86,8 +86,7 @@ public class BasicAuthentication extends AbstractAuthentication
      */
     private static byte[] codes = new byte[256];
 
-    static
-    {
+    static {
         for (int i = 0; i < 256; i++) {
             codes[i] = -1;
         }

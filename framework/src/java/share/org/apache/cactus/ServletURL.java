@@ -65,7 +65,7 @@ import org.apache.cactus.util.log.LogService;
 /**
  * Simulate an HTTP URL by breaking it into its different parts :<br>
  * <code><pre><b>
- * URL        = "http://" + serverName (including port) + requestURI ? queryString<br>
+ * URL = "http://" + serverName (including port) + requestURI ? queryString<br>
  * requestURI = contextPath + servletPath + pathInfo
  * </b></pre></code>
  * From the Servlet 2.2 specification :<br>
@@ -91,7 +91,7 @@ public class ServletURL
      * (HTTP, HTTPS, etc) in the URL to simulate. The name is voluntarily long
      * so that it will not clash with a user-defined parameter.
      */
-    public final static String URL_PROTOCOL_PARAM =
+    public static final String URL_PROTOCOL_PARAM =
         "Cactus_URL_Protocol";
 
     /**
@@ -99,7 +99,7 @@ public class ServletURL
      * name (+ port) in the URL to simulate. The name is voluntarily long so
      * that it will not clash with a user-defined parameter.
      */
-    public final static String URL_SERVER_NAME_PARAM =
+    public static final String URL_SERVER_NAME_PARAM =
         "Cactus_URL_Server";
 
     /**
@@ -107,7 +107,7 @@ public class ServletURL
      * path in the URL to simulate. The name is voluntarily long so that it
      * will not clash with a user-defined parameter.
      */
-    public final static String URL_CONTEXT_PATH_PARAM =
+    public static final String URL_CONTEXT_PATH_PARAM =
         "Cactus_URL_ContextPath";
 
     /**
@@ -115,7 +115,7 @@ public class ServletURL
      * Path in the URL to simulate. The name is voluntarily long so that it
      * will not clash with a user-defined parameter.
      */
-    public final static String URL_SERVLET_PATH_PARAM =
+    public static final String URL_SERVLET_PATH_PARAM =
         "Cactus_URL_ServletPath";
 
     /**
@@ -123,7 +123,7 @@ public class ServletURL
      * in the URL to simulate. The name is voluntarily long so that it will not
      * clash with a user-defined parameter.
      */
-    public final static String URL_PATH_INFO_PARAM =
+    public static final String URL_PATH_INFO_PARAM =
         "Cactus_URL_PathInfo";
 
     /**
@@ -131,18 +131,18 @@ public class ServletURL
      * String in the URL to simulate. The name is voluntarily long so that it
      * will not clash with a user-defined parameter.
      */
-    public final static String URL_QUERY_STRING_PARAM =
+    public static final String URL_QUERY_STRING_PARAM =
         "Cactus_URL_QueryString";
 
     /**
      * Http protocol.
      */
-    public final static String PROTOCOL_HTTP = "http";
+    public static final String PROTOCOL_HTTP = "http";
 
     /**
      * Https protocol.
      */
-    public final static String PROTOCOL_HTTPS = "https";
+    public static final String PROTOCOL_HTTPS = "https";
 
     /**
      * The server name to simulate (including port number)

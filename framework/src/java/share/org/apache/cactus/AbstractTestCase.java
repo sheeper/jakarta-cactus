@@ -85,22 +85,22 @@ public abstract class AbstractTestCase extends TestCase
     /**
      * The prefix of a test method.
      */
-    protected final static String TEST_METHOD_PREFIX = "test";
+    protected static final String TEST_METHOD_PREFIX = "test";
 
     /**
      * The prefix of a begin test method.
      */
-    protected final static String BEGIN_METHOD_PREFIX = "begin";
+    protected static final String BEGIN_METHOD_PREFIX = "begin";
 
     /**
      * The prefix of an end test method.
      */
-    protected final static String END_METHOD_PREFIX = "end";
+    protected static final String END_METHOD_PREFIX = "end";
 
     /**
      * Name of properties file to initialize logging subsystem
      */
-    public final static String LOG_CLIENT_CONFIG = "log_client.properties";
+    public static final String LOG_CLIENT_CONFIG = "log_client.properties";
 
     /**
      * The name of the current test method being executed. This name is valid

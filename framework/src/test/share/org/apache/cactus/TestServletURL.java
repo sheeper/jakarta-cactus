@@ -72,8 +72,7 @@ import org.apache.cactus.util.log.LogService;
 public class TestServletURL extends TestCase
 {
     // Initialize logging system first
-    static
-    {
+    static {
         LogService.getInstance().init(null);
     }
 
