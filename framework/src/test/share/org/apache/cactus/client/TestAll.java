@@ -3,7 +3,7 @@
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2001-2003 The Apache Software Foundation.  All rights
+ * Copyright (c) 2003 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -54,16 +54,15 @@
  * <http://www.apache.org/>.
  *
  */
-package org.apache.cactus;
+package org.apache.cactus.client;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 /**
- * Run all the unit tests of Cactus that do not need a servlet
- * environment to run. These other tests will be exercised in the sample
- * application.
+ * Run the unit tests of the Cactus client package that do not need a servlet
+ * environment to run.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
@@ -99,15 +98,9 @@ public class TestAll extends TestCase
     public static Test suite()
     {
         TestSuite suite = new TestSuite(
-            "Cactus unit tests not needing servlet engine");
+            "Cactus unit tests for the client package");
 
-        suite.addTestSuite(TestAbstractTestCase.class);
-        suite.addTestSuite(TestServletURL.class);
-        suite.addTestSuite(TestServletUtil.class);
-        suite.addTestSuite(TestWebTestResult.class);
-        suite.addTestSuite(TestWebRequest.class);
-        suite.addTest(org.apache.cactus.client.TestAll.suite());
-        suite.addTest(org.apache.cactus.util.TestAll.suite());
+        suite.addTestSuite(TestWebTestResultParser.class);
 
         return suite;
     }
