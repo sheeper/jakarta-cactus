@@ -291,6 +291,14 @@
           Added a new <code>CheckPropertiesTask</code> Ant task to check
           properties in build files.
         </action>
+        <action dev="JRU" type="add">
+          Added a <link href="site:howto_initializer">tutorial</link> that explains 
+          how to use the initializer feature.
+        </action>
+        <action dev="JRU" type="add">
+          Added a <link href="site:integration_jetty">Jetty integration 
+          tutorial</link>.
+        </action>
       </release>
 
     <release version="1.4.1" date="31 August 2002">
