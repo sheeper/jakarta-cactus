@@ -68,8 +68,8 @@ import org.apache.cactus.util.Initializable;
 import org.apache.cactus.util.ServletConfiguration;
 
 /**
- * Cactus initializer to start an embedded Jetty server (it will be stopped
- * automatically upon JVM shutdown).
+ * Cactus initializer to start an embedded Jetty server. It will be stopped
+ * automatically upon JVM shutdown.
  * 
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
