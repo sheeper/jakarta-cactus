@@ -747,16 +747,16 @@
       <xsl:text>(</xsl:text><xsl:value-of select="@dev"/><xsl:text>)</xsl:text>
       <xsl:if test="@due-to">
         <xsl:text> Thanks to </xsl:text>
-         <!-- link -->
-         <a href="mailto:{@due-to-email}"><xsl:value-of select="@due-to"/></a>
+          <!-- link -->
+          <a href="mailto:{@due-to-email}"><xsl:value-of select="@due-to"/></a>
         <xsl:text>.</xsl:text>
       </xsl:if>
-      <xsl:if test="@fixes-bug">
-        <xsl:text> Fixes </xsl:text>
-         <!-- link -->
-         <a href="http://nagoya.apache.org/jira/secure/ViewIssue.jspa?key={@fixes-bug}">
-           <xsl:text>bug </xsl:text><xsl:value-of select="@fixes-bug"/>
-        </a>
+      <xsl:if test="@issue">
+        <xsl:text> Fixes issue </xsl:text>
+          <!-- link -->
+          <a href="http://nagoya.apache.org/jira/browse/{@issue}">
+            <xsl:value-of select="@issue"/>
+          </a>
         <xsl:text>.</xsl:text>
       </xsl:if>
     </li>

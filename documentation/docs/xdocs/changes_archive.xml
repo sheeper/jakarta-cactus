@@ -55,7 +55,7 @@
         (in that case you'll need to have <code>cactus.jar</code> in your
         <code>WEB-INF/lib</code> directory).
       </action>
-      <action dev="VMA" type="fix" fixes-bug="6093" due-to="Kjeld" due-to-email="kfr@eos.dk">
+      <action dev="VMA" type="fix" issue="CACTUS-16" due-to="Kjeld" due-to-email="kfr@eos.dk">
         Modified the mechanism to get test result from the
         Server side. Previously Cactus was using a serialized object whereas
         now Cactus sends back XML data.
@@ -95,7 +95,7 @@
         Added a <link href="site:news">"News"</link> page with all news and
         events regarding Cactus. It is also supposed to act as a history page.
       </action>
-      <action dev="VMA" type="fix" fixes-bug="4563" due-to="Steven L. Youtsey" due-to-email="syoutsey@unwiredexpress.com">
+      <action dev="VMA" type="fix" issue="CACTUS-13" due-to="Steven L. Youtsey" due-to-email="syoutsey@unwiredexpress.com">
         <code>HttpServletContextWrapper.getRequestDispatcher()</code> now throws
         <code>null</code> when the wrapped servlet context returns 
         <code>null</code> when asked for a request dispatcher.
@@ -243,7 +243,7 @@
         and also so that we can have our FAQ in CVS along with the rest of the
         documentation.
       </action>
-      <action dev="VMA" type="fix" fixes-bug="4563" due-to="Chris Hazen" due-to-email="cjkchazen@earthlink.net">
+      <action dev="VMA" type="fix" issue="CACTUS-13" due-to="Chris Hazen" due-to-email="cjkchazen@earthlink.net">
         The <code>getHost()</code> method of the <code>ServletURL</code> class
         returns the ":" signifing the start of the port number of the host.
         This has side effects in Cactus in that passing
@@ -351,7 +351,7 @@
         by providing a new <code>FilterTestCase</code> test case class. Also
         added some filter unit testing samples in the distribution.
       </action>
-      <action dev="VMA" type="fix" fixes-bug="3427" due-to="Tony Payne" due-to-email="anthonyp@petsmart.com">
+      <action dev="VMA" type="fix" issue="CACTUS-9" due-to="Tony Payne" due-to-email="anthonyp@petsmart.com">
         The Cactus HTTP client was following redirects.
         This is wrong for unit tests as we should be able to assert returned
         headers, cookies, ... even for a redirect response.
@@ -503,7 +503,7 @@
         Cactus tests. If the log4j jar is present logs will be generated and if
         not, then no log will be generated.
       </action>
-      <action dev="VMA" type="fix" fixes-bug="1612" due-to="Bob Davison" due-to-email="bob.davison@reuters.com">
+      <action dev="VMA" type="fix" issue="CACTUS-4" due-to="Bob Davison" due-to-email="bob.davison@reuters.com">
         With some servlet engines (like Tomcat) there is a
         risk that the test result will not be committed to the servlet
         application scope *before* the client requests the test result, thus
@@ -519,7 +519,7 @@
         same spirit as the <code>AssertUtils.getResponseAsString()</code>
         method which returnes the result as a single string.
       </action>
-      <action dev="VMA" type="fix" fixes-bug="1610" due-to="Bob Davison" due-to-email="bob.davison@reuters.com">
+      <action dev="VMA" type="fix" issue="CACTUS-3" due-to="Bob Davison" due-to-email="bob.davison@reuters.com">
         Corrected handling of multi-line text in
         <code>AssertUtils.getResponseAsString()</code> which was not handling
         correctly line terminators (they were skipped).
@@ -527,7 +527,7 @@
     </release>
 
     <release version="1.0" date="May 2 2001">
-      <action dev="VMA" type="fix" fixes-bug="1582" due-to="Arun Katkere" due-to-email="katkere@praja.com">
+      <action dev="VMA" type="fix" issue="CACTUS-2" due-to="Arun Katkere" due-to-email="katkere@praja.com">
         Applied patch from Arun Katkere in order to prevent
         the "connexion reset by peer" error message that may appear in Tomcat
         when the connection is broken without reading the requested URL by the

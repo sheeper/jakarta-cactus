@@ -90,7 +90,7 @@
       </devs>
 
       <release version="1.7dev" date="in CVS">
-        <action dev="VMA" type="update" fixes-bug="CACTUS-118">
+        <action dev="VMA" type="update" issue="CACTUS-118">
           The <code>JettyTestSetup</code> class now checks if the Jetty server
           is already started and only starts it if it isn't running. It also
           does not stops it if it was running before <code>JettyTestSetup</code>
@@ -100,7 +100,7 @@
       </release>
 
       <release version="1.6.1" date="in CVS">
-        <action dev="VMA" type="fix" fixes-bug="CACTUS-107">
+        <action dev="VMA" type="fix" issue="CACTUS-107">
           An error was introduced in the Servlet Test Runner during the 
           internal package refactoring that happened in Cactus 1.6. The
           <code>XMLTransformer</code> could not be loaded and it resulted
@@ -200,7 +200,7 @@
           that allows to set the security cookie name to a name different than
           <code>JSESSIONID</code> (the default).
         </action>
-        <action dev="VMA" type="fix" fixes-bug="CACTUS-37" due-to="Kazuhito Suguri" due-to-email="suguri.kazuhito@lab.ntt.co.jp">
+        <action dev="VMA" type="fix" issue="CACTUS-37" due-to="Kazuhito Suguri" due-to-email="suguri.kazuhito@lab.ntt.co.jp">
           <code>FormAuthentication</code> no longer assumes "localhost" when 
           adding cookies.
         </action>
@@ -213,11 +213,11 @@
         <action dev="VMA" type="update">
           Migrated to Apache license 2.0.
         </action>
-        <action dev="VMA" type="update" fixes-bug="CACTUS-79" due-to="Daniel Rabe" due-to-email="drabe@opentext.com">
+        <action dev="VMA" type="update" issue="CACTUS-79" due-to="Daniel Rabe" due-to-email="drabe@opentext.com">
           The <code>&lt;cactus&gt;</code> task now also cleans custom tmp
           directories (passed using the <code>tmpdir</code> attribute).
         </action>
-        <action dev="VMA" type="add" fixes-bug="CACTUS-85" due-to="James Carpenter" due-to-email="jacarpenter@ercot.com">
+        <action dev="VMA" type="add" issue="CACTUS-85" due-to="James Carpenter" due-to-email="jacarpenter@ercot.com">
           Added support for specifying which JNDI port to use when shutting 
           down JBoss 3.x in the Cactus Ant integration. 
           The <code>&lt;jboss3x&gt;</code> nested element now supports the new
@@ -231,7 +231,7 @@
           <code>encoding</code> parameters allows using a user-specified 
           encoding.
         </action>
-        <action dev="VMA" type="fix" fixes-bug="CACTUS-89" due-to="Scott Leberknight" due-to-email="scott.leberknight@nearinfinity.com">
+        <action dev="VMA" type="fix" issue="CACTUS-89" due-to="Scott Leberknight" due-to-email="scott.leberknight@nearinfinity.com">
           Fixed <code>request.getRequestURL()</code> (J2EE 1.3 only) which was 
           not working properly when <code>WebRequest.setURL()</code> was called
           with a null pathinfo parameter.
@@ -251,7 +251,7 @@
           <code>&lt;conf&gt;</code> element (see the <code>&lt;cactus&gt;</code>
           task documentation for more details).
         </action>
-        <action dev="VMA" type="fix" fixes-bug="CACTUS-84" due-to="Brian Topping" due-to-email="topping@digidemic.com">
+        <action dev="VMA" type="fix" issue="CACTUS-84" due-to="Brian Topping" due-to-email="topping@digidemic.com">
           In the Ant integration, added support for web contexts defined in
           JBoss's <code>jboss-web.xml</code>.
         </action>
@@ -261,7 +261,7 @@
           object you got from your Cactus test case (i.e. a Cactus request 
           wrapper object). Instead we got [...]</code>.
         </action>
-        <action dev="VMA" type="add" fixes-bug="CACTUS-53">
+        <action dev="VMA" type="add" issue="CACTUS-53">
           In the Ant integration module, added new <code>configXml</code> 
           attribute to the <code>&lt;weblogic7x&gt;</code> container 
           element of the <code>&lt;cactus&gt;</code> task.
@@ -289,14 +289,14 @@
           version provided by Cactus. This is for the Tomcat 4.x and 5.x
           containers.
         </action>
-        <action dev="VMA" type="fix" fixes-bug="CACTUS-63" due-to="James Stangler" due-to-email="jastangler@yahoo.com">
+        <action dev="VMA" type="fix" issue="CACTUS-63" due-to="James Stangler" due-to-email="jastangler@yahoo.com">
           The Jetty Test Setup was not shutting Jetty down if an error ocurred
           during setUp.
         </action>
       </release>
       
       <release version="1.5-rc1" date="26 October 2003">
-        <action dev="VMA" type="fix" fixes-bug="CACTUS-58" due-to="Norbert Pabis" due-to-email="npabis@astercity.net">
+        <action dev="VMA" type="fix" issue="CACTUS-58" due-to="Norbert Pabis" due-to-email="npabis@astercity.net">
           The Cactus Ant integration now reports the HTTP error code when it 
           fails to start the container and timeouts. It was previously doing 
           this but only in debug mode.
@@ -330,11 +330,11 @@
           JUnit test cases, the <code>setUp()</code> and 
           <code>tearDown()</code> methods were not called.
         </action>
-        <action dev="VMA" type="fix" fixes-bug="CACTUS-52" due-to="Jonathan Kovacs" due-to-email="jdk@jdk.ca">
+        <action dev="VMA" type="fix" issue="CACTUS-52" due-to="Jonathan Kovacs" due-to-email="jdk@jdk.ca">
           In the Ant integration, when using the &lt;cactus&gt; task with
           an EAR, the test webapp context was not correctly set.
         </action>
-        <action dev="VMA" type="fix" fixes-bug="22249" due-to="James Stangler" due-to-email="jastangler@yahoo.com">
+        <action dev="VMA" type="fix" issue="CACTUS-49" due-to="James Stangler" due-to-email="jastangler@yahoo.com">
           Fixed the <code>JettyTestSetup</code> class so that it stops the
           running Jetty server at the end of the test suite execution.
         </action>
@@ -370,7 +370,7 @@
           is useful for users who have defined their own JBoss 
           configuration and are using a port other than 8080.
         </action>
-        <action dev="VMA" type="fix" fixes-bug="21892" due-to="Christopher Marshall" due-to-email="cmarshall@infoclarus.com">
+        <action dev="VMA" type="fix" issue="CACTUS-47" due-to="Christopher Marshall" due-to-email="cmarshall@infoclarus.com">
           Fixed bug in Eclipse plugin build where the plugin version was not
           correctly resolved.
         </action>
@@ -452,7 +452,7 @@
           It should provide better printing capabilities and a more consistent
           look.
         </action>
-        <action dev="VMA" type="fix" fixes-bug="9544" due-to="Misak Boulatian" due-to-email="misak@vantra.com">
+        <action dev="VMA" type="fix" issue="CACTUS-22" due-to="Misak Boulatian" due-to-email="misak@vantra.com">
           Cactus was not correctly handling the <code>ComparisonFailure</code> 
           exception introduced by JUnit 3.8.1 and these exceptions were 
           reported as errors instead of failures.
@@ -766,7 +766,7 @@
       <action dev="VMA" type="add">
         Added automatic script support for WebLogic 7.0.
       </action>
-      <action dev="VMA" type="fix" fixes-bug="9544" due-to="Daniel Dennison" due-to-email="dennison@mitec.net">
+      <action dev="VMA" type="fix" issue="CACTUS-22" due-to="Daniel Dennison" due-to-email="dennison@mitec.net">
          It seems that it is possible that the test result contain an end of 
          line character and the Cactus <code>WebTestResultParser</code> was 
          choking on this and seeing the returned result as invalid. This has 
@@ -790,7 +790,7 @@
         broken by a line introduced in Cactus 1.3 that would only work with
         Ant 1.5. However, this line can easily be commented out).
       </action>
-      <action dev="VMA" type="fix" fixes-bug="CACTUS-21" due-to="Marc Brette" due-to-email="Marc.Brette@mkms.xerox.com">
+      <action dev="VMA" type="fix" issue="CACTUS-21" due-to="Marc Brette" due-to-email="Marc.Brette@mkms.xerox.com">
          Modified the <code>jspRedirector.jsp</code> so that
          it initializes an HTTP Session (<code>session="true"</code>). There
          is no way I know to make this parameter dynamic so we set it to true
