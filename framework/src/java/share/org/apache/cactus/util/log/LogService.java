@@ -180,11 +180,12 @@ public class LogService
      */
     private boolean isLog4jInClasspath()
     {
-        boolean isLog4jInClasspath = false;
+        boolean isLog4jInClasspath;
         try {
             Class.forName("org.apache.log4j.PropertyConfigurator");
             isLog4jInClasspath = true;
         } catch (ClassNotFoundException e) {
+            isLog4jInClasspath = false;
         }
         return isLog4jInClasspath;
     }

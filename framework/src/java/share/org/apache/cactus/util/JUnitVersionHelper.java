@@ -105,7 +105,9 @@ public class JUnitVersionHelper
         if (theTest instanceof TestCase && testCaseName != null) {
             try {
                 return (String) testCaseName.invoke(theTest, new Object[0]);
-            } catch (Throwable e) {}
+            } catch (Throwable e) {
+                // If it fails, we return "unknown"
+            }
         }
         return "unknown";
     }
