@@ -57,7 +57,10 @@ import java.net.*;
 import java.io.*;
 import java.util.*;
 
+import org.apache.commons.httpclient.*;
+
 import org.apache.commons.cactus.*;
+import org.apache.commons.cactus.client.*;
 import org.apache.commons.cactus.util.*;
 import org.apache.commons.cactus.util.log.*;
 
@@ -85,11 +88,19 @@ public class WebResponse
     private HttpURLConnection connection;
 
     /**
+     * The request data that were used to open the connection to the server.
+     */
+    private WebRequest request;
+
+    /**
+     * @param theRequest the request data that were used to open the
+     *        connection to the server.
      * @param theConnection the original <code>HttpURLConnection</code> used
      *        to call the URL
      */
-    public WebResponse(HttpURLConnection theConnection)
+    public WebResponse(WebRequest theRequest, HttpURLConnection theConnection)
     {
+        this.request = theRequest;
         this.connection = theConnection;
     }
 
@@ -100,6 +111,15 @@ public class WebResponse
     public HttpURLConnection getConnection()
     {
         return this.connection;
+    }
+
+    /**
+     * @return the request data the were used to open the connection to the
+     *         server
+     */
+    public WebRequest getWebRequest()
+    {
+        return this.request;
     }
 
     /**
@@ -164,167 +184,89 @@ public class WebResponse
     }
 
     /**
-     * @return the returned cookies as a hashtable of <code>ClientCookie</code>
-     *         objects indexed on the cookie name
+     * Return the first cookie found that has the specified name or null
+     * if not found.
+     *
+     * @param theName the cookie name to find
+     * @return the cookie or null if not found
      */
-    public Hashtable getCookies()
+    public Cookie getCookie(String theName)
     {
-        this.logger.entry("getCookies()");
+        Cookie result = null;
 
-        // We conform to the RFC 2109 :
-        //
-        //   The syntax for the Set-Cookie response header is
-        //
-        //   set-cookie      =       "Set-Cookie:" cookies
-        //   cookies         =       1#cookie
-        //   cookie          =       NAME "=" VALUE *(";" cookie-av)
-        //   NAME            =       attr
-        //   VALUE           =       value
-        //   cookie-av       =       "Comment" "=" value
-        //                   |       "Domain" "=" value
-        //                   |       "Max-Age" "=" value
-        //                   |       "Path" "=" value
-        //                   |       "Secure"
-        //                   |       "Version" "=" 1*DIGIT
+        Cookie[] cookies = getCookies();
+        for (int i = 0; i < cookies.length; i++) {
+            if (cookies[i].getName().equals(theName)) {
+                result = cookies[i];
+                break;
+            }
+        }
 
-        Hashtable cookies = new Hashtable();
+        return result;
+    }
 
-        // There can be several headers named "Set-Cookie", so loop through all
-        // the headers, looking for cookies
+    /**
+     * @return the cookies returned by the server
+     */
+    public Cookie[] getCookies()
+    {
+        logger.entry("getCookies()");
+
+        Cookie[] returnCookies = null;
+
+        // There can be several headers named "Set-Cookie", so loop through
+        // all the headers, looking for cookies
+
         String headerName = this.connection.getHeaderFieldKey(0);
         String headerValue = this.connection.getHeaderField(0);
+
+        Vector cookieVector = new Vector();
+
         for (int i = 1; (headerName != null) || (headerValue != null); i++) {
 
-            this.logger.debug("Header name  = [" + headerName + "]");
-            this.logger.debug("Header value = [" + headerValue + "]");
+            logger.debug("Header name  = [" + headerName + "]");
+            logger.debug("Header value = [" + headerValue + "]");
 
-            if ((headerName != null) && headerName.equals("Set-Cookie")) {
+            if ((headerName != null) &&
+                (headerName.toLowerCase().equals("set-cookie") ||
+                headerName.toLowerCase().equals("set-cookie2"))) {
 
                 // Parse the cookie definition
-                Vector clientCookies = parseSetCookieHeader(headerValue);
-
-                if (clientCookies.isEmpty()) {
-                    continue;
+                org.apache.commons.httpclient.Cookie[] cookies;
+                try {
+                    cookies = org.apache.commons.httpclient.Cookie.parse(
+                        HttpClientHelper.getDomain(getWebRequest(),
+                            getConnection()), new Header(headerName,
+                                headerValue));
+                } catch (HttpException e) {
+                    throw new ChainedRuntimeException(
+                        "Error parsing cookies", e);
                 }
 
-                // Check if the cookie name already exist in the hashtable.
-                // If so, then add it to the vector of cookies for that name.
+                // Transform the HttpClient cookies into Cactus cookies and
+                // add them to the cookieVector vector
+                for (int j = 0; j < cookies.length; j++) {
+                    Cookie cookie = new Cookie(
+                        cookies[j].getDomain(), cookies[j].getName(),
+                        cookies[j].getValue());
+                    cookie.setComment(cookies[j].getComment());
+                    cookie.setExpiryDate(cookies[j].getExpiryDate());
+                    cookie.setPath(cookies[j].getPath());
+                    cookie.setSecure(cookies[j].getSecure());
 
-                String name =
-                    ((ClientCookie)clientCookies.elementAt(0)).getName();
-
-                if (cookies.containsKey(name)) {
-                    Vector cookieValues = (Vector)cookies.get(name);
-                    cookieValues.addAll(clientCookies);
-                } else {
-                    Vector cookieValues = new Vector();
-                    cookieValues.addAll(clientCookies);
-                    cookies.put(name, cookieValues);
+                    cookieVector.addElement(cookie);
                 }
             }
 
             headerName = this.connection.getHeaderFieldKey(i);
             headerValue = this.connection.getHeaderField(i);
-
         }
 
-        this.logger.exit("getCookies");
-        return cookies;
-    }
+        returnCookies = new Cookie[cookieVector.size()];
+        cookieVector.copyInto(returnCookies);
 
-    /**
-     * Parse a single "Set-Cookie" header.
-     *
-     * @return a vector og <code>ClientCookie</code> objects containing the
-     *         parsed values from the "Set-Cookie" header.
-     */
-    protected Vector parseSetCookieHeader(String theHeaderValue)
-    {
-        this.logger.entry("parseSetCookieHeader([" + theHeaderValue + "])");
-
-        String name;
-        String value;
-        String comment = null;
-        String path = null;
-        String domain = null;
-        long maxAge = 0;
-        boolean isSecure = false;
-        float version = 1;
-
-        Vector cookies = new Vector();
-
-        // Find all cookies, they are comma-separated
-        StringTokenizer stCookies = new StringTokenizer(theHeaderValue, ",");
-        while (stCookies.hasMoreTokens()) {
-            String singleCookie = stCookies.nextToken();
-            singleCookie = singleCookie.trim();
-
-            // Parse a single cookie
-
-            // Extract cookie values, they are semi-colon separated
-            StringTokenizer stParams = new StringTokenizer(singleCookie, ";");
-
-            // The first parameter is always NAME = VALUE
-            String param = stParams.nextToken();
-            param = param.trim();
-
-            int pos = param.indexOf("=");
-            if (pos < 0) {
-                this.logger.warn("Bad 'Set-Cookie' syntax, missing '=' [" +
-                    param + "], ignoring it !");
-                continue;
-            }
-
-            name = param.substring(0, pos).trim();
-            value = param.substring(pos + 1).trim();
-
-            while (stParams.hasMoreTokens()) {
-                param = stParams.nextToken();
-                param = param.trim();
-
-                String left;
-                String right;
-
-                // Tokenize on "="
-                pos = param.indexOf("=");
-                if (pos < 0) {
-                    left = param;
-                    right = "";
-                } else {
-                    left = param.substring(0, pos).trim();
-                    right = param.substring(pos + 1).trim();
-                }
-
-                // Is it a comment ?
-                if (left.equalsIgnoreCase("comment")) {
-                    comment = right;
-                } else if (left.equalsIgnoreCase("domain")) {
-                    domain = right;
-                } else if (left.equalsIgnoreCase("max-age")) {
-                    maxAge = Long.parseLong(right);
-                } else if (left.equalsIgnoreCase("path")) {
-                    path = right;
-                } else if (left.equalsIgnoreCase("secure")) {
-                    isSecure = true;
-                } else if (left.equalsIgnoreCase("version")) {
-                    version = Float.parseFloat(right);
-                } else {
-                    this.logger.warn("Bad 'Set-Cookie' syntax, bad name [" +
-                        param + "], ignoring it !");
-                    continue;
-                }
-
-            }
-
-            // Create the client cookie
-            ClientCookie cookie = new ClientCookie(name, value, comment,
-                domain, maxAge, path, isSecure, version);
-
-            cookies.add(cookie);
-        }
-
-        this.logger.exit("parseSetCookieHeader");
-        return cookies;
+        logger.exit("getCookies");
+        return returnCookies;
     }
 
 }

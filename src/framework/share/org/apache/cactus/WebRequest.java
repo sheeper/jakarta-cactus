@@ -101,7 +101,7 @@ public class WebRequest
     /**
      * The Cookies
      */
-    private Hashtable cookies = new Hashtable();
+    private Vector cookies = new Vector();
 
     /**
      * HTTP Headers.
@@ -300,32 +300,63 @@ public class WebRequest
     }
 
     /**
-     * Adds a cookie to the request.
+     * Adds a cookie to the request. The cookie will be created with a
+     * default localhost domain. Use the
+     * <code>addCookie(String theDomain, String theName,
+     * String theValue)</code> method or the
+     * <code>addCookie(Cookie theCookie)</code> if you wish to specify a
+     * domain.
      *
-     * @param theName  the cookie's name
+     * Note that the domain must match either the redirector host
+     * (specified in <code>cactus.properties</code>) or the host set
+     * using <code>setURL()</code>.
+     *
+     * @param theName the cookie's name
      * @param theValue the cookie's value
      */
     public void addCookie(String theName, String theValue)
     {
-        this.cookies.put(theName, theValue);
+        addCookie("localhost", theName, theValue);
     }
 
     /**
-     * @return the cookie names
+     * Adds a cookie to the request. The cookie will be created with the
+     * domain passed as parameter (i.e. the cookie will get sent only to
+     * requests to that domain).
+     *
+     * Note that the domain must match either the redirector host
+     * (specified in <code>cactus.properties</code>) or the host set
+     * using <code>setURL()</code>.
+     *
+     * @param theDomain the cookie domain
+     * @param theName the cookie name
+     * @param theValue the cookie value
      */
-    public Enumeration getCookieNames()
+    public void addCookie(String theDomain, String theName, String theValue)
     {
-        return this.cookies.keys();
+        addCookie(new Cookie(theDomain, theName, theValue));
     }
 
     /**
-     * @param  theName the cookie's name
-     * @return the value corresponding to this cookie's name or null if not
-     *         found
+     * Adds a cookie to the request.
+     *
+     * Note that the domain must match either the redirector host
+     * (specified in <code>cactus.properties</code>) or the host set
+     * using <code>setURL()</code>.
+     *
+     * @param theCookie the cookie to add
      */
-    public String getCookieValue(String theName)
+    public void addCookie(Cookie theCookie)
     {
-        return (String)this.cookies.get(theName);
+        this.cookies.addElement(theCookie);
+    }
+
+    /**
+     * @return the cookies (vector of <code>Cookie</code> objects)
+     */
+    public Vector getCookies()
+    {
+        return this.cookies;
     }
 
     /**
@@ -447,13 +478,10 @@ public class WebRequest
 
         // Append cookies
         buffer.append("cookies = [");
-        Enumeration cookies = getCookieNames();
+        Enumeration cookies = getCookies().elements();
         while (cookies.hasMoreElements()) {
-            buffer.append("[");
-            String cookieName = (String)cookies.nextElement();
-            String cookieValue = getCookieValue(cookieName);
-            buffer.append("[" + cookieName + "] = [" + cookieValue + "]");
-            buffer.append("]");
+            Cookie cookie = (Cookie)cookies.nextElement();
+            buffer.append("[" + cookie + "]");
         }
         buffer.append("], ");
 

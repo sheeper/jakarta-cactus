@@ -92,12 +92,12 @@ public class JspTestRedirector
      */
     public void doGet(JspImplicitObjects theObjects) throws ServletException
     {
-        this.logger.entry("doGet(...)");
+        logger.entry("doGet(...)");
 
         JspTestController controller = new JspTestController();
         controller.handleRequest(theObjects);
 
-        this.logger.exit("doGet");
+        logger.exit("doGet");
     }
 
 }

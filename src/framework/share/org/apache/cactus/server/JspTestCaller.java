@@ -97,7 +97,7 @@ public class JspTestCaller extends ServletTestCaller
     protected void setTestCaseFields(ServletTestCase theTestInstance)
         throws Exception
     {
-        this.logger.entry("setTestCaseFields([" + theTestInstance + "])");
+        logger.entry("setTestCaseFields([" + theTestInstance + "])");
 
         JspImplicitObjects jspImplicitObjects =
             (JspImplicitObjects)this.servletImplicitObjects;
@@ -121,7 +121,7 @@ public class JspTestCaller extends ServletTestCaller
         Field outField = theTestInstance.getClass().getField("out");
         outField.set(theTestInstance, jspImplicitObjects.getJspWriter());
 
-        this.logger.exit("setTestCaseFields");
+        logger.exit("setTestCaseFields");
     }
 
 }

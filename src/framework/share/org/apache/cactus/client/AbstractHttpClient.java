@@ -116,7 +116,7 @@ public abstract class AbstractHttpClient
     public HttpURLConnection doTest(ServletTestRequest theRequest)
         throws Throwable
     {
-        this.logger.entry("doTest(" + theRequest + ")");
+        logger.entry("doTest(" + theRequest + ")");
 
         // Open the first connection to the redirector to execute the test on
         // the server side
@@ -187,7 +187,7 @@ public abstract class AbstractHttpClient
 
         }
 
-        this.logger.exit("doTest");
+        logger.exit("doTest");
         return connection;
     }
 

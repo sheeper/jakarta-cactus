@@ -98,7 +98,7 @@ public abstract class AbstractTestController
     public void handleRequest(ServletImplicitObjects theObjects)
         throws ServletException
     {
-        this.logger.entry("handleRequest(...)");
+        logger.entry("handleRequest(...)");
 
         // If the Cactus user has forgotten to put a needed jar on the server
         // classpath (i.e. in WEB-INF/lib), then the servlet engine Webapp
@@ -130,7 +130,7 @@ public abstract class AbstractTestController
             } else {
                 String message = "Unknown service [" + serviceName +
                     "] in HTTP request.";
-                this.logger.error(message);
+                logger.error(message);
                 throw new ServletException(message);
             }
 
@@ -141,18 +141,18 @@ public abstract class AbstractTestController
             if (e.getMessage().startsWith("junit/framework")) {
                 String message = "You must put the JUnit jar in " +
                     "your server classpath (in WEB-INF/lib for example)";
-                this.logger.error(message, e);
+                logger.error(message, e);
                 throw new ServletException(message, e);
             } else {
                 String message = "You are missing a jar in your " +
                     "classpath (class [" + e.getMessage() + "] could not " +
                     "be found";
-                this.logger.error(message, e);
+                logger.error(message, e);
                 throw new ServletException(message, e);
             }
         }
 
-        this.logger.exit("doPost");
+        logger.exit("doPost");
     }
 
     /**
@@ -163,7 +163,7 @@ public abstract class AbstractTestController
     private String getServiceName(HttpServletRequest theRequest)
         throws ServletException
     {
-        this.logger.entry("getServiceName(...)");
+        logger.entry("getServiceName(...)");
 
         // Call the correct Service method
         String serviceName =
@@ -172,13 +172,13 @@ public abstract class AbstractTestController
         if (serviceName == null) {
             String message = "Missing service name parameter [" +
                 ServiceDefinition.SERVICE_NAME_PARAM + "] in HTTP request.";
-            this.logger.debug(message);
+            logger.debug(message);
             throw new ServletException(message);
         }
 
-        this.logger.debug("Service to call = " + serviceName);
+        logger.debug("Service to call = " + serviceName);
 
-        this.logger.exit("getServiceName");
+        logger.exit("getServiceName");
         return serviceName;
     }
 

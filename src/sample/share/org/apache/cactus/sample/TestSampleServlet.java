@@ -55,8 +55,6 @@ package org.apache.commons.cactus.sample;
 
 import java.util.*;
 import java.text.*;
-import javax.servlet.*;
-import javax.servlet.http.*;
 import java.net.*;
 import java.io.*;
 
@@ -334,6 +332,26 @@ public class TestSampleServlet extends ServletTestCase
     /**
      * Test that it is possible to send back a Cookie and verify it on the
      * client side.
+     *
+     * @param theRequest the request object that serves to initialize the
+     *                   HTTP connection to the server redirector.
+     */
+    public void beginReceiveCookie(WebRequest theRequest)
+    {
+        // Why do we need to have a begin method here ? Good question !
+        // The answer is that in this test, the SampleServlet's
+        // setResponseCookie() method sets the domain name of the cookie
+        // to return to jakarta.apache.org. It means that for this cookie
+        // to be valid the domain of the request (i.e. the host) must be
+        // jakarta.apache.org (this is according to the cookies RFCs). Thus
+        // we need to simulate the URL and act as if we had sent a request
+        // to jakarta.apache.org ! Logical, no ?
+        theRequest.setURL("jakarta.apache.org", null, null, null, null);
+    }
+
+    /**
+     * Test that it is possible to send back a Cookie and verify it on the
+     * client side.
      */
     public void testReceiveCookie()
     {
@@ -345,20 +363,13 @@ public class TestSampleServlet extends ServletTestCase
      * Test that it is possible to send back a Cookie and verify it on the
      * client side.
      *
-     * @param theConnection the HTTP connection that was used to call the
-     *                      server redirector. It contains the returned HTTP
-     *                      response.
+     * @param theResponse the response from the server side.
      */
-    public void endReceiveCookie(HttpURLConnection theConnection)
+    public void endReceiveCookie(WebResponse theResponse)
     {
-        Hashtable cookies = AssertUtils.getCookies(theConnection);
+        Cookie cookie = theResponse.getCookie("responsecookie");
 
-        Vector list = (Vector)cookies.get("responsecookie");
-        assert("Cannot find [responsecookie]", list != null);
-        assert("There is more than one cookie value for " +
-            "cookie [responsecookie]", list.size() == 1);
-
-        ClientCookie cookie = (ClientCookie)list.elementAt(0);
+        assert("Cannot find [responsecookie]", cookie != null);
         assertEquals("responsecookie", cookie.getName());
         assertEquals("this is a response cookie", cookie.getValue());
         assertEquals("jakarta.apache.org", cookie.getDomain());

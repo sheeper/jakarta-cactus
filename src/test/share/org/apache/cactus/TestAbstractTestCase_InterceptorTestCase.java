@@ -106,7 +106,7 @@ public class TestAbstractTestCase_InterceptorTestCase
                 "".getBytes()));
 
             // Create a WebResponse object and call the end method
-            callEndMethod(connection);
+            callEndMethod(request, connection);
 
         } catch (AssertionFailedError e) {
 

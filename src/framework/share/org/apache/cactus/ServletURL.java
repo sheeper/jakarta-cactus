@@ -212,10 +212,10 @@ public class ServletURL
     {
         String host = this.serverName;
 
-        if (this.serverName != null) {
-            int pos = this.serverName.indexOf(":");
+        if (host != null) {
+            int pos = host.indexOf(":");
             if (pos > 0) {
-                host = this.serverName.substring(0, pos + 1);
+                host = host.substring(0, pos + 1);
             }
         }
 
@@ -278,6 +278,25 @@ public class ServletURL
     public String getQueryString()
     {
         return this.queryString;
+    }
+
+    /**
+     * @return the path (contextPath + servletPath + pathInfo) or null if
+     *         not set
+     */
+    public String getPath()
+    {
+        String path;
+
+        path = getContextPath() == null ? "" : getContextPath();
+        path += getServletPath() == null ? "" : getServletPath();
+        path += getPathInfo() == null ? "" : getPathInfo();
+
+        if (path.length() == 0) {
+            path = null;
+        }
+
+        return path;
     }
 
     /**

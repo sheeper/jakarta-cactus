@@ -386,7 +386,7 @@ public class TestServletTestCase2 extends ServletTestCase
      */
     public void testCookieEncoding()
     {
-        Cookie[] cookies = request.getCookies();
+        javax.servlet.http.Cookie[] cookies = request.getCookies();
         for (int i = 0; i < cookies.length; i++) {
             if (cookies[i].getName().equals("testcookie")) {
                 assertEquals("user&pwd", cookies[i].getValue());

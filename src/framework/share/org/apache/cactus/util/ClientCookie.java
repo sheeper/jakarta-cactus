@@ -60,6 +60,8 @@ package org.apache.commons.cactus.util;
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
+ * @deprecated As of Cactus 1.2, replaced by org.apache.commons.cactus.Cookie
+ * @see org.apache.commons.cactus.Cookie
  */
 public class ClientCookie
 {

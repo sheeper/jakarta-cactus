@@ -101,12 +101,12 @@ public class ServletTestRedirector extends HttpServlet
     public void doGet(HttpServletRequest theRequest,
         HttpServletResponse theResponse) throws ServletException, IOException
     {
-        this.logger.entry("doGet(...)");
+        logger.entry("doGet(...)");
 
         // Same handling than for a POST
         doPost(theRequest, theResponse);
 
-        this.logger.exit("doGet");
+        logger.exit("doGet");
     }
 
     /**
@@ -121,7 +121,7 @@ public class ServletTestRedirector extends HttpServlet
     public void doPost(HttpServletRequest theRequest,
         HttpServletResponse theResponse) throws ServletException, IOException
     {
-        this.logger.entry("doPost(...)");
+        logger.entry("doPost(...)");
 
         // Create implicit object holder
         ServletImplicitObjects objects = new ServletImplicitObjects();
@@ -132,7 +132,7 @@ public class ServletTestRedirector extends HttpServlet
         ServletTestController controller = new ServletTestController();
         controller.handleRequest(objects);
 
-        this.logger.exit("doPost");
+        logger.exit("doPost");
     }
 
 }

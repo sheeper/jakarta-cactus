@@ -140,18 +140,18 @@ public class HttpServletRequestWrapper implements HttpServletRequest
      */
     public String getContextPath()
     {
-        this.logger.entry("getContextPath()");
+        logger.entry("getContextPath()");
 
         String result = this.request.getContextPath();
 
         if (this.url != null) {
             if (this.url.getContextPath() != null) {
                 result = this.url.getContextPath();
-                this.logger.debug("Using simulated context : [" + result + "]");
+                logger.debug("Using simulated context : [" + result + "]");
             }
         }
 
-        this.logger.exit("getContextPath");
+        logger.exit("getContextPath");
         return result;
     }
 
@@ -166,16 +166,16 @@ public class HttpServletRequestWrapper implements HttpServletRequest
      */
     public String getPathInfo()
     {
-        this.logger.entry("getPathInfo()");
+        logger.entry("getPathInfo()");
 
         String result = this.request.getPathInfo();
 
         if (this.url != null) {
             result = this.url.getPathInfo();
-            this.logger.debug("Using simulated PathInfo : [" + result + "]");
+            logger.debug("Using simulated PathInfo : [" + result + "]");
         }
 
-        this.logger.exit("getPathInfo");
+        logger.exit("getPathInfo");
         return result;
     }
 
@@ -190,19 +190,19 @@ public class HttpServletRequestWrapper implements HttpServletRequest
      */
     public String getServerName()
     {
-        this.logger.entry("getServerName()");
+        logger.entry("getServerName()");
 
         String result = this.request.getServerName();
 
         if (this.url != null) {
             if (this.url.getServerName() != null) {
                 result = this.url.getHost();
-                this.logger.debug("Using simulated server name : [" + result +
+                logger.debug("Using simulated server name : [" + result +
                     "]");
             }
         }
 
-        this.logger.exit("getServerName");
+        logger.exit("getServerName");
         return result;
     }
 
@@ -243,16 +243,16 @@ public class HttpServletRequestWrapper implements HttpServletRequest
      */
     public int getServerPort()
     {
-        this.logger.entry("getServerPort()");
+        logger.entry("getServerPort()");
 
         int result = this.request.getServerPort();
 
         if (this.url != null) {
             result = (this.url.getPort() == -1) ? 80 : this.url.getPort();
-            this.logger.debug("Using simulated server port : [" + result + "]");
+            logger.debug("Using simulated server port : [" + result + "]");
         }
 
-        this.logger.exit("getServerPort");
+        logger.exit("getServerPort");
         return result;
     }
 
@@ -272,7 +272,7 @@ public class HttpServletRequestWrapper implements HttpServletRequest
      */
     public String getRequestURI()
     {
-        this.logger.entry("getRequestURI()");
+        logger.entry("getRequestURI()");
 
         String result = this.request.getRequestURI();
 
@@ -282,10 +282,10 @@ public class HttpServletRequestWrapper implements HttpServletRequest
                 ((getServletPath() == null) ? "" : getServletPath()) + 
                 ((getPathInfo() == null) ? "" : getPathInfo());
 
-            this.logger.debug("Using simulated request URI : [" + result + "]");
+            logger.debug("Using simulated request URI : [" + result + "]");
         }
 
-        this.logger.exit("getRequestURI");
+        logger.exit("getRequestURI");
         return result;
     }
 
@@ -325,17 +325,17 @@ public class HttpServletRequestWrapper implements HttpServletRequest
      */
     public String getServletPath()
     {
-        this.logger.entry("getServletPath()");
+        logger.entry("getServletPath()");
 
         String result = this.request.getServletPath();
 
         if (this.url != null) {
             result = this.url.getServletPath();
-            this.logger.debug("Using simulated servlet path : [" + result +
+            logger.debug("Using simulated servlet path : [" + result +
                 "]");
         }
 
-        this.logger.exit("getServletPath");
+        logger.exit("getServletPath");
         return result;
     }
 
@@ -410,17 +410,17 @@ public class HttpServletRequestWrapper implements HttpServletRequest
      */
     public String getQueryString()
     {
-        this.logger.entry("getQueryString()");
+        logger.entry("getQueryString()");
 
         String result = this.request.getQueryString();
 
         if (this.url != null) {
             result = this.url.getQueryString();
-            this.logger.debug("Using simulated query string : [" + result +
+            logger.debug("Using simulated query string : [" + result +
                 "]");
         }
 
-        this.logger.exit("getQueryString");
+        logger.exit("getQueryString");
         return result;
     }
 
@@ -463,7 +463,7 @@ public class HttpServletRequestWrapper implements HttpServletRequest
      */
     public RequestDispatcher getRequestDispatcher(String thePath)
     {
-        this.logger.entry("getRequestDispatcher([" + thePath + "])");
+        logger.entry("getRequestDispatcher([" + thePath + "])");
 
         // I hate it, but we have to write some logic here ! Ideally we
         // shouldn't have to do this as it is supposed to be done by the servlet
@@ -472,7 +472,7 @@ public class HttpServletRequestWrapper implements HttpServletRequest
         // (it has to mock some parts of the servlet engine) !
 
         if (thePath == null) {
-            this.logger.exit("getRequestDispatcher");
+            logger.exit("getRequestDispatcher");
             return null;
         }
 
@@ -496,17 +496,17 @@ public class HttpServletRequestWrapper implements HttpServletRequest
             }
 
 	        if (fullPath == null) {
-                this.logger.exit("getRequestDispatcher");
+                logger.exit("getRequestDispatcher");
                 return null;
             }
         }
                 
-        this.logger.debug("Computed full path : [" + fullPath + "]");
+        logger.debug("Computed full path : [" + fullPath + "]");
 
         dispatcher = new RequestDispatcherWrapper(
             this.request.getRequestDispatcher(fullPath));
 
-        this.logger.exit("getRequestDispatcher");
+        logger.exit("getRequestDispatcher");
         return dispatcher;
     }
 
@@ -540,7 +540,7 @@ public class HttpServletRequestWrapper implements HttpServletRequest
 	    return lookupPath + "/" + path;
     }
 
-    public Cookie[] getCookies()
+    public javax.servlet.http.Cookie[] getCookies()
     {
         return this.request.getCookies();
     }

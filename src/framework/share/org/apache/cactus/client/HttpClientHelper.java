@@ -58,9 +58,11 @@ import java.net.*;
 import java.io.*;
 
 import junit.framework.*;
+import org.apache.commons.httpclient.*;
 
 import org.apache.commons.cactus.*;
 import org.apache.commons.cactus.util.log.*;
+import org.apache.commons.cactus.util.*;
 
 /**
  * Helper class to open an HTTP connection to the server redirector and pass
@@ -70,7 +72,7 @@ import org.apache.commons.cactus.util.log.*;
  *
  * @version $Id$
  */
-class HttpClientHelper
+public class HttpClientHelper
 {
     /**
      * The logger
@@ -88,22 +90,22 @@ class HttpClientHelper
      */
     public HttpClientHelper(String theURL)
     {
-        this.logger.entry("HttpClientHelper([" + theURL + "])");
+        logger.entry("HttpClientHelper([" + theURL + "])");
 
         this.url = theURL;
 
-        this.logger.exit("HttpClientHelper");
+        logger.exit("HttpClientHelper");
     }
 
     /**
      * Add the parameters to the request using a GET method.
      *
      * @param theRequest the request containing all data to pass to the server
-     *                   redirector.
+     *        redirector.
      * @param theURL the URL used to connect to the server redirector.
      * @return the new URL
      */
-    private URL addParametersUsingGet(ServletTestRequest theRequest, URL theURL)
+    private URL addParametersUsingGet(WebRequest theRequest, URL theURL)
         throws Throwable
     {
         // If no parameters, then exit
@@ -155,10 +157,10 @@ class HttpClientHelper
      * Add the parameters to the request using a POST method.
      *
      * @param theRequest the request containing all data to pass to the server
-     *                   redirector.
+     *        redirector.
      * @param theConnection the HTTP connection
      */
-    private void addParametersUsingPost(ServletTestRequest theRequest,
+    private void addParametersUsingPost(WebRequest theRequest,
         URLConnection theConnection) throws Throwable
     {
         // If no parameters, then exit
@@ -220,65 +222,123 @@ class HttpClientHelper
      * Add the Cookies to the request.
      *
      * @param theRequest the request containing all data to pass to the server
-     *                   redirector.
+     *        redirector.
      * @param theConnection the HTTP connection
      */
-    private void addCookies(ServletTestRequest theRequest,
+    private void addCookies(WebRequest theRequest,
         URLConnection theConnection)
     {
-        this.logger.entry("addCookies(...)");
+        logger.entry("addCookies(...)");
 
         // If no Cookies, then exit
-        if (!theRequest.getCookieNames().hasMoreElements()) {
-            this.logger.exit("addCookies");
-            return;
+        Vector cookies = theRequest.getCookies();
+        if (!cookies.isEmpty()) {
+
+            // transform the Cactus cookies into HttpClient cookies
+            Vector httpclientCookies = new Vector();
+            Enumeration enumCookies = cookies.elements();
+            while (enumCookies.hasMoreElements()) {
+                org.apache.commons.cactus.Cookie cactusCookie =
+                    (org.apache.commons.cactus.Cookie)enumCookies.nextElement();
+                org.apache.commons.httpclient.Cookie httpclientCookie =
+                    new org.apache.commons.httpclient.Cookie(
+                        cactusCookie.getDomain(), cactusCookie.getName(),
+                        cactusCookie.getValue());
+                httpclientCookie.setComment(cactusCookie.getComment());
+                httpclientCookie.setExpiryDate(cactusCookie.getExpiryDate());
+                httpclientCookie.setPath(cactusCookie.getPath());
+                httpclientCookie.setSecure(cactusCookie.isSecure());
+                httpclientCookies.addElement(httpclientCookie);
+            }
+
+            // and create the cookie header to send
+            Header cookieHeader =
+                org.apache.commons.httpclient.Cookie.createCookieHeader(
+                getDomain(theRequest, theConnection),
+                getPath(theRequest, theConnection), httpclientCookies);
+
+            logger.debug("Cookie string = [" + cookieHeader.getValue() +
+                "]");
+
+            theConnection.setRequestProperty("Cookie",
+                cookieHeader.getValue());
         }
 
-        Enumeration keys = theRequest.getCookieNames();
+        logger.exit("addCookies");
+    }
 
-        StringBuffer cookieString = new StringBuffer();
+    /**
+     * Returns the domain that will be used to send the cookies. If a host
+     * was specified using <code>setURL()</code> then the domain will be
+     * this host. Otherwise it will be the redirector host.
+     *
+     * @param theRequest the request containing all data to pass to the server
+     *        redirector.
+     * @param theConnection the HTTP connection
+     * @return the cookie domain to use
+     */
+    public static String getDomain(WebRequest theRequest,
+        URLConnection theConnection)
+    {
+        logger.entry("getDomain(...)");
 
-        // Format of a Cookie string is (according to RFC 2109) :
-        //   cookie          =       "Cookie:" cookie-version
-        //                           1*((";" | ",") cookie-value)
-        //   cookie-value    =       NAME "=" VALUE [";" path] [";" domain]
-        //   cookie-version  =       "$Version" "=" value
-        //   NAME            =       attr
-        //   VALUE           =       value
-        //   path            =       "$Path" "=" value
-        //   domain          =       "$Domain" "=" value
+        String domain;
+        ServletURL url = theRequest.getURL();
 
-        // Write the cookie version first
-        cookieString.append("$Version=1");
-
-        // Possible improvement here: to add support for :
-        // - path
-        // - domain
-
-        while (keys.hasMoreElements()) {
-            String key = (String)keys.nextElement();
-            String value = (String)theRequest.getCookieValue(key);
-            cookieString.append(';');
-            cookieString.append(key);
-            cookieString.append('=');
-            cookieString.append(value);
+        if ((url != null) && (url.getHost() != null)) {
+            domain = url.getHost();
+        } else {
+            domain = theConnection.getURL().getHost();
         }
 
-        this.logger.debug("Cookie string = [" + cookieString + "]");
+        logger.debug("Cookie validation domain = [" + domain + "]");
 
-        theConnection.setRequestProperty("Cookie", cookieString.toString());
+        logger.exit("getDomain");
+        return domain;
+    }
 
-        this.logger.exit("addCookies");
+    /**
+     * Returns the path that will be used to validate if a cookie will be
+     * sent or not. The algorithm is as follows : if the cookie path is not
+     * set (i.e. null) then the cookie is always sent (provided the domain
+     * is right). If the cookie path is set, the cookie is sent only if
+     * the request path starts with the same string as the cookie path. If
+     * <code>setURL()</code> has been called, return the path it has been
+     * set to (context + servletPath + pathInfo). Otherwise return the
+     * redirector path.
+     *
+     * @param theRequest the request containing all data to pass to the server
+     *        redirector.
+     * @param theConnection the HTTP connection
+     * @return the path to use to decide if a cookie will get sent
+     */
+    private String getPath(WebRequest theRequest, URLConnection theConnection)
+    {
+        logger.entry("getPath(...)");
+
+        String path;
+        ServletURL url = theRequest.getURL();
+
+        if ((url != null) && (url.getPath() != null)) {
+            path = url.getPath();
+        } else {
+            path = theConnection.getURL().getPath();
+        }
+
+        logger.debug("Cookie validation pah = [" + path + "]");
+
+        logger.exit("getPath");
+        return path;
     }
 
     /**
      * Add the Headers to the request.
      *
      * @param theRequest the request containing all data to pass to the server
-     *                   redirector.
+     *        redirector.
      * @param theConnection the HTTP connection
      */
-    private void addHeaders(ServletTestRequest theRequest,
+    private void addHeaders(WebRequest theRequest,
         URLConnection theConnection)
     {
         Enumeration keys = theRequest.getHeaderNames();
@@ -311,10 +371,10 @@ class HttpClientHelper
      *
      * @exception Throwable if an unexpected error occured
      */
-    public HttpURLConnection connect(ServletTestRequest theRequest)
+    public HttpURLConnection connect(WebRequest theRequest)
         throws Throwable
     {
-        this.logger.entry("connect(" + theRequest + ")");
+        logger.entry("connect(" + theRequest + ")");
 
         URL url = new URL(this.url);
 
@@ -350,7 +410,7 @@ class HttpClientHelper
         // Open the connection and get the result
         connection.connect();
 
-        this.logger.exit("connect");
+        logger.exit("connect");
         return connection;
     }
 

@@ -119,35 +119,35 @@ final class AutoReadHttpURLConnection extends HttpURLConnection
      */
     public synchronized InputStream getInputStream() throws IOException
     {
-        this.logger.entry("getInputStream()");
+        logger.entry("getInputStream()");
 
-        this.logger.debug("Original connection = " + this.delegate);
+        logger.debug("Original connection = " + this.delegate);
 
         if (streamBuffer == null) {
             InputStream is = this.delegate.getInputStream();
             streamBuffer = bufferInputStream(is);
         }
 
-        this.logger.exit("getInputStream");
+        logger.exit("getInputStream");
         return streamBuffer;
     }
 
     InputStream bufferInputStream(InputStream is) throws IOException
     {
-        this.logger.entry("bufferInputStream(...)");
+        logger.entry("bufferInputStream(...)");
 
         ByteArrayOutputStream os = new ByteArrayOutputStream(this.chunkSize);
         copy(is, os);
         ByteArrayInputStream bais =
                 new ByteArrayInputStream(os.toByteArray());
 
-        this.logger.exit("bufferInputStream");
+        logger.exit("bufferInputStream");
         return bais;
     }
 
     void copy(InputStream is, OutputStream os) throws IOException
     {
-        this.logger.entry("copy(...)");
+        logger.entry("copy(...)");
 
         // Only copy if there are data to copy ... The problem is that not
         // all servers return a content-length header. If there is no header
@@ -155,7 +155,7 @@ final class AutoReadHttpURLConnection extends HttpURLConnection
         // that all servers that return no content-length header also do
         // not block on read() operations !
 
-        this.logger.debug("Content-Length : [" +
+        logger.debug("Content-Length : [" +
             this.delegate.getContentLength() + "]");
 
         if (this.delegate.getContentLength() != 0) {
@@ -169,7 +169,7 @@ final class AutoReadHttpURLConnection extends HttpURLConnection
 
         }
 
-        this.logger.exit("copy");
+        logger.exit("copy");
     }
 
     // Delegated methods

@@ -136,6 +136,7 @@ src/framework/servlet23/org/apache/cactus/server/RequestDispatcherWrapper.java s
 src/framework/servlet23/org/apache/cactus/server/ServletConfigWrapper.java svn_keywords=Author+Date+Id+Revision
 src/framework/servlet23/org/apache/cactus/server/ServletContextWrapper.java svn_keywords=Author+Date+Id+Revision
 src/framework/share/org/apache/cactus/AbstractTestCase.java svn_keywords=Author+Date+Id+Revision
+src/framework/share/org/apache/cactus/Cookie.java svn_keywords=Author+Date+Id+Revision
 src/framework/share/org/apache/cactus/JspTestCase.java svn_keywords=Author+Date+Id+Revision
 src/framework/share/org/apache/cactus/ServiceDefinition.java svn_keywords=Author+Date+Id+Revision
 src/framework/share/org/apache/cactus/ServiceEnumeration.java svn_keywords=Author+Date+Id+Revision

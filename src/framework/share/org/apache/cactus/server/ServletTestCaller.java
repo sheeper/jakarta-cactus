@@ -110,7 +110,7 @@ public class ServletTestCaller
      */
     public void doTest() throws ServletException
     {
-        this.logger.entry("doTest()");
+        logger.entry("doTest()");
 
         WebTestResult result = null;
 
@@ -137,15 +137,15 @@ public class ServletTestCaller
 
         }
 
-        this.logger.debug("Test result : [" + result + "]");
+        logger.debug("Test result : [" + result + "]");
 
         // Set the test result.
         this.servletImplicitObjects.getServletConfig().getServletContext().
             setAttribute(TEST_RESULTS, result);
 
-        this.logger.debug("Result saved in context scope");
+        logger.debug("Result saved in context scope");
 
-        this.logger.exit("doTest");
+        logger.exit("doTest");
     }
 
     /**
@@ -155,7 +155,7 @@ public class ServletTestCaller
      */
     public void doGetResults() throws ServletException
     {
-        this.logger.entry("doGetResults()");
+        logger.entry("doGetResults()");
 
         // One could think there is a potential risk that the client side of
         // Cactus will request the result before it has been written to the
@@ -169,7 +169,7 @@ public class ServletTestCaller
             (WebTestResult)(this.servletImplicitObjects.getServletConfig().
             getServletContext().getAttribute(TEST_RESULTS));
 
-        this.logger.debug("Test Result = [" + result + "]");
+        logger.debug("Test Result = [" + result + "]");
 
         // Write back the results as a serialized object to the outgoing stream.
         try {
@@ -187,11 +187,11 @@ public class ServletTestCaller
         } catch (IOException e) {
             String message = "Error writing WebTestResult instance to output " +
                 "stream";
-            this.logger.error(message, e);
+            logger.error(message, e);
             throw new ServletException(message, e);
         }
 
-        this.logger.exit("doGetResults");
+        logger.exit("doGetResults");
     }
 
     /**
@@ -199,7 +199,7 @@ public class ServletTestCaller
      */
     protected String getTestClassName() throws ServletException
     {
-        this.logger.entry("getTestClassName()");
+        logger.entry("getTestClassName()");
 
         String className = this.servletImplicitObjects.
             getHttpServletRequest().
@@ -208,13 +208,13 @@ public class ServletTestCaller
         if (className == null) {
             String message = "Missing class name parameter [" +
                 ServiceDefinition.CLASS_NAME_PARAM + "] in HTTP request.";
-            this.logger.error(message);
+            logger.error(message);
             throw new ServletException(message);
         }
 
-        this.logger.debug("Class to call = " + className);
+        logger.debug("Class to call = " + className);
 
-        this.logger.exit("getTestClassName");
+        logger.exit("getTestClassName");
         return className;
     }
 
@@ -224,7 +224,7 @@ public class ServletTestCaller
      */
     protected String getTestMethodName() throws ServletException
     {
-        this.logger.entry("getTestMethodName()");
+        logger.entry("getTestMethodName()");
 
         String methodName = this.servletImplicitObjects.getHttpServletRequest().
             getParameter(ServiceDefinition.METHOD_NAME_PARAM);
@@ -232,13 +232,13 @@ public class ServletTestCaller
         if (methodName == null) {
             String message = "Missing method name parameter [" +
                 ServiceDefinition.METHOD_NAME_PARAM + "] in HTTP request.";
-            this.logger.error(message);
+            logger.error(message);
             throw new ServletException(message);
         }
 
-        this.logger.debug("Method to call = " + methodName);
+        logger.debug("Method to call = " + methodName);
 
-        this.logger.exit("getTestMethodName");
+        logger.exit("getTestMethodName");
         return methodName;
     }
 
@@ -248,7 +248,7 @@ public class ServletTestCaller
      */
     protected boolean isAutoSession()
     {
-        this.logger.entry("isAutoSession()");
+        logger.entry("isAutoSession()");
 
         String autoSession = this.servletImplicitObjects.
             getHttpServletRequest().
@@ -256,9 +256,9 @@ public class ServletTestCaller
 
         boolean isAutomaticSession = new Boolean(autoSession).booleanValue();
 
-        this.logger.debug("Auto session is " + isAutomaticSession);
+        logger.debug("Auto session is " + isAutomaticSession);
 
-        this.logger.exit("isAutoSession");
+        logger.exit("isAutoSession");
         return isAutomaticSession;
     }
 
@@ -270,11 +270,11 @@ public class ServletTestCaller
     protected ServletTestCase getTestClassInstance(String theClassName,
         String theTestCaseName) throws ServletException
     {
-        this.logger.entry("getTestClassInstance([" + theClassName + "], [" +
+        logger.entry("getTestClassInstance([" + theClassName + "], [" +
             theTestCaseName + "])");
 
         // Print info on the classloader used to load this class
-        if (this.logger.isDebugEnabled()) {
+        if (logger.isDebugEnabled()) {
             StringBuffer buffer = new StringBuffer("Classloaders = ");
             ClassLoader classLoader = this.getClass().getClassLoader();
             while (classLoader != null) {
@@ -284,7 +284,7 @@ public class ServletTestCaller
                     buffer.append(", ");
                 }
             }
-            this.logger.debug(buffer.toString());
+            logger.debug(buffer.toString());
         }
 
         // Get the class to call and build an instance of it.
@@ -299,11 +299,11 @@ public class ServletTestCaller
         } catch (Exception e) {
             String message = "Error instanciating class [" + theClassName +
                 "(" + theTestCaseName + ")]";
-            this.logger.error(message, e);
+            logger.error(message, e);
             throw new ServletException(message, e);
         }
 
-        this.logger.exit("getTestClassInstance");
+        logger.exit("getTestClassInstance");
         return testInstance;
     }
 
@@ -315,7 +315,7 @@ public class ServletTestCaller
     protected Class getTestClassClass(String theClassName)
         throws ServletException
     {
-        this.logger.entry("getTestClassClass([" + theClassName + "])");
+        logger.entry("getTestClassClass([" + theClassName + "])");
 
         // Get the class to call and build an instance of it.
         Class testClass = null;
@@ -324,11 +324,11 @@ public class ServletTestCaller
         } catch (Exception e) {
             String message = "Error finding class [" + theClassName +
                 "] in classpath";
-            this.logger.error(message, e);
+            logger.error(message, e);
             throw new ServletException(message, e);
         }
 
-        this.logger.exit("getTestClassClass");
+        logger.exit("getTestClassClass");
         return testClass;
     }
 
@@ -339,7 +339,7 @@ public class ServletTestCaller
     protected void setTestCaseFields(ServletTestCase theTestInstance)
         throws Exception
     {
-        this.logger.entry("setTestCaseFields([" + theTestInstance + "])");
+        logger.entry("setTestCaseFields([" + theTestInstance + "])");
 
         // Sets the request field of the test case class
         // ---------------------------------------------
@@ -384,7 +384,7 @@ public class ServletTestCaller
 
         }
 
-        this.logger.exit("setTestCaseFields");
+        logger.exit("setTestCaseFields");
     }
 
 }

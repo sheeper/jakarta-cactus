@@ -218,13 +218,15 @@ public abstract class AbstractTestCase extends TestCase
     /**
      * Call the test case end method
      *
+     * @param theRequest the request data that were used to open the
+     *                   connection.
      * @param theConnection the <code>HttpURLConnection</code> that was used
      *        to open the connection to the redirection servlet. The response
      *        codes, headers, cookies can be checked using the get methods of
      *        this object.
      */
-    protected void callEndMethod(HttpURLConnection theConnection)
-        throws Throwable
+    protected void callEndMethod(ServletTestRequest theRequest,
+        HttpURLConnection theConnection) throws Throwable
     {
         // First, verify if an end method exist. If one is found, verify if
         // it has the correct signature. If not, send a warning. Also
@@ -268,7 +270,7 @@ public abstract class AbstractTestCase extends TestCase
                 } else if (parameters[0].getName().
                     equals("org.apache.commons.cactus.WebResponse")) {
 
-                    paramObject = new WebResponse(theConnection);
+                    paramObject = new WebResponse(theRequest, theConnection);
 
                 // Is it an old HttpURLConnection (deprecated) ?
                 } else if (parameters[0].getName().
@@ -365,7 +367,7 @@ public abstract class AbstractTestCase extends TestCase
         try {
             runTest();
         } catch (Throwable t) {
-            this.logger.debug("Exception in test", t);
+            logger.debug("Exception in test", t);
             throw t;
         }
 
@@ -389,10 +391,10 @@ public abstract class AbstractTestCase extends TestCase
     protected void runGenericTest(AbstractHttpClient theHttpClient)
         throws Throwable
     {
-        this.logger.entry("runGenericTest(...)");
+        logger.entry("runGenericTest(...)");
 
         // Log the test name
-        this.logger.debug("Test case = " + currentTestMethod);
+        logger.debug("Test case = " + currentTestMethod);
 
         // Call the begin method to fill the request object
         ServletTestRequest request = new ServletTestRequest();
@@ -417,13 +419,13 @@ public abstract class AbstractTestCase extends TestCase
         HttpURLConnection connection = theHttpClient.doTest(request);
 
         // Call the end method
-        callEndMethod(connection);
+        callEndMethod(request, connection);
 
         // Close the intput stream (just in the case the user has not done it
         // in it's endXXX method (or if he has no endXXX method) ....
         connection.getInputStream().close();
 
-        this.logger.exit("runGenericTest");
+        logger.exit("runGenericTest");
      }
 
     // Methods below are only called by the Cactus redirector on the server
@@ -444,7 +446,7 @@ public abstract class AbstractTestCase extends TestCase
                 LogService.getInstance().getLog(this.getClass().getName());
         }
 
-        this.logger.entry("runBareServerTest()");
+        logger.entry("runBareServerTest()");
 
         setUp();
         try {
@@ -454,7 +456,7 @@ public abstract class AbstractTestCase extends TestCase
             tearDown();
         }
 
-        this.logger.exit("runBareServerTest");
+        logger.exit("runBareServerTest");
 	}
 
 	/**
@@ -462,7 +464,7 @@ public abstract class AbstractTestCase extends TestCase
 	 */
 	protected void runServerTest() throws Throwable
     {
-        this.logger.entry("runServerTest()");
+        logger.entry("runServerTest()");
 
 		Method runMethod= null;
 		try {
@@ -494,7 +496,7 @@ public abstract class AbstractTestCase extends TestCase
 			throw e;
 		}
 
-        this.logger.exit("runServerTest");
+        logger.exit("runServerTest");
 	}
 
 }

@@ -166,9 +166,11 @@ public class SampleServlet extends HttpServlet
         Hashtable allCookies = new Hashtable();
 
         Cookie[] cookies = theRequest.getCookies();
-        for (int i = 0; i < cookies.length; i++) {
-            Cookie cookie = cookies[i];
-            allCookies.put(cookie.getName(), cookie.getValue());
+        if (cookies != null) {
+            for (int i = 0; i < cookies.length; i++) {
+                Cookie cookie = cookies[i];
+                allCookies.put(cookie.getName(), cookie.getValue());
+            }
         }
 
         return allCookies;
