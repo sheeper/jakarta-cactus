@@ -108,12 +108,12 @@
       depends="clean, dist"
       description="Generates the release archives">
 
-    <antcall target="release.bin" inheritall="no">
+    <antcall target="release.j2ee12" inheritall="no">
       <param name="j2ee.dependant" value="true"/>
       <param name="j2ee.jar" location="${j2ee.12.jar}"/>
       <param name="release.dir" location="release"/>
     </antcall>
-    <antcall target="release.bin" inheritall="no">
+    <antcall target="release.j2ee13" inheritall="no">
       <param name="j2ee.dependant" value="true"/>
       <param name="j2ee.jar" location="${j2ee.13.jar}"/>
       <param name="release.dir" location="release"/>
@@ -129,10 +129,10 @@
 
   </target>
 
-  <target name="release.bin"
+  <target name="release.shared"
       depends="init.properties, release.prepare">
 
-    <zip destfile="${release.dir}/${main.release.name}.zip">
+    <zip destfile="${release.dir}/tmp.zip">
       <zipfileset dir="documentation/dist/doc"
           prefix="${main.release.name}/doc"/>
       <zipfileset file="${aspectjrt.jar}"
@@ -157,15 +157,37 @@
           prefix="${main.release.name}/samples/servlet">
         <exclude name="lib/**"/>
       </zipfileset>
-      <zipfileset file="${jstl.jar}"
-          prefix="${main.release.name}/samples/servlet/lib"/>
-      <zipfileset file="${standard.jar}"
-          prefix="${main.release.name}/samples/servlet/lib"/>
       <zipfileset dir="framework/web"
           prefix="${main.release.name}/web"/>
       <zipfileset dir="." prefix="${main.release.name}"
           includes="LICENSE.*"/>
     </zip>
+
+  </target>
+
+  <target name="release.j2ee12"
+      depends="release.shared">
+
+    <zip destfile="${release.dir}/${main.release.name}.zip">
+      <zipfileset src="${release.dir}/tmp.zip"/>
+    </zip>
+    <delete file="${release.dir}/tmp.zip"/>
+
+  </target>
+
+  <target name="release.j2ee13"
+      depends="release.shared">
+
+    <zip destfile="${release.dir}/${main.release.name}.zip">
+      <zipfileset src="${release.dir}/tmp.zip"/>
+      <zipfileset dir="samples/jetty/dist-${j2ee.api}/bin"
+          prefix="${main.release.name}/samples/jetty"/>
+      <zipfileset file="${jstl.jar}"
+          prefix="${main.release.name}/samples/servlet/lib"/>
+      <zipfileset file="${standard.jar}"
+          prefix="${main.release.name}/samples/servlet/lib"/>
+    </zip>
+    <delete file="${release.dir}/tmp.zip"/>
 
   </target>
 
