@@ -85,6 +85,9 @@
         <li>
           <code>junit.jar</code>
         </li>
+        <li>
+          <code>aspectjrt.jar</code>
+        </li>
       </ul>
       <note>
         This is the minium set of jars needed. If later on you wish to use the
