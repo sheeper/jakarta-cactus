@@ -54,6 +54,9 @@
           CVS logs for the changes page.</em>
         </li>
         <li>
+          Build the source release (<code>ant release.src</code>).
+        </li>
+        <li>
           Install each delivered release on your local computer and try running
           the Sample application tests for one application server.
         </li>
@@ -69,8 +72,9 @@
           Ant&gt;-&lt;date&gt;.zip</code>.
         </li>
         <li>
-          Upload the Cactus releases (for all Servlet APIs) and the zipped Ant
-          distribution to <code>jakarta.apache.org</code>, putting them in a
+          Upload the Cactus releases (for all Servlet APIs and the source one)
+          and the zipped Ant distribution to <code>jakarta.apache.org</code>,
+          putting them in a
           <code>/www/jakarta.apache.org/builds/jakarta-cactus/release/&lt;version&gt;</code>
           directory.
         </li>
