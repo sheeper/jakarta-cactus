@@ -379,6 +379,9 @@ public class CactifyWarTask extends War
      */
     private void addJarWithClass(String theClassName, String theDescription)
     {
+        // TODO: only add a JAR if the source WAR doesn't already contain an
+        // equivalent JAR. We'd probably determine equivalence by looking at the 
+        // 'Extension-Name' attributes in the JARs MANIFESTs
         String resourceName = "/" + theClassName.replace('.', '/') + ".class";
         ZipFileSet jar = new ZipFileSet();
         File file = ResourceUtils.getResourceLocation(resourceName);
