@@ -696,7 +696,7 @@
 
         <echo message="Errors are reported in ${out.root.dir}/checkstyle_share.xml"/>
 
-        <checkstyle failOnViolation="false">
+        <checkstyle failOnViolation="false" paramPattern="^the[A-Z][a-zA-Z0-9]*$">
             <fileset dir="${src.java.share.dir}">
                 <include name="**/*.java"/>
                 <exclude name="**/*Aspect.java"/>
