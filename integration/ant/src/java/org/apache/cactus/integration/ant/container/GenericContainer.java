@@ -263,7 +263,7 @@ public class GenericContainer extends AbstractContainer
     /**
      * Sets the target to call to start the server.
      *
-     * @param theStartTarget the Ant target to call
+     * @param theStartUpTarget the Ant target to call
      */
     public void setStartUpTarget(String theStartUpTarget)
     {
@@ -279,7 +279,7 @@ public class GenericContainer extends AbstractContainer
     /**
      * Sets the target to call to stop the server.
      *
-     * @param theStopTarget the Ant target to call
+     * @param theShutDownTarget the Ant target to call
      */
     public void setShutDownTarget(String theShutDownTarget)
     {
