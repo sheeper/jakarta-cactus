@@ -103,7 +103,7 @@ public class ClientCookie
     /**
      * The cookie's spec. version
      */
-    private float m_Version;
+    private float version;
 
     /**
      * Construct a client cookie.
@@ -128,7 +128,7 @@ public class ClientCookie
         this.name = theName;
         this.path = thePath;
         this.value = theValue;
-        m_Version = theVersion;
+        this.version = theVersion;
     }
 
     /**
@@ -192,7 +192,7 @@ public class ClientCookie
      */
     public float getVersion()
     {
-        return m_Version;
+        return this.version;
     }
 
 }
