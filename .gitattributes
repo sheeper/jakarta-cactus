@@ -306,6 +306,7 @@ integration/ant/src/confs/share/weblogic7x/testserver/ldap/ldapfiles/EmbeddedLDA
 integration/ant/src/confs/share/weblogic7x/testserver/ldap/ldapfiles/EmbeddedLDAP.trpos -text
 integration/ant/src/confs/share/weblogic7x/testserver/ldap/ldapfiles/EmbeddedLDAP.twpos -text
 integration/ant/src/confs/share/weblogic7x/weblogic.xml svn_keywords=Author+Date+Id+Revision
+integration/ant/src/java/org/apache/cactus/ant/RunServerTestsTask.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/java/org/apache/cactus/integration/ant/AbstractServerRun.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/java/org/apache/cactus/integration/ant/EnhydraRun.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/java/org/apache/cactus/integration/ant/ResinRun.java svn_keywords=Author+Date+Id+Revision

@@ -237,7 +237,8 @@
 
         <javadoc
             sourcepath="${src.java.dir}"
-            packagenames="org.apache.cactus.integration.ant.*"
+            packagenames="org.apache.cactus.ant.*,
+                          org.apache.cactus.integration.ant.*"
             destdir="${target.doc.api.dir}"
             author="true"
             public="true"
