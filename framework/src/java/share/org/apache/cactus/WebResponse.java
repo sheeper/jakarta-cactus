@@ -330,4 +330,23 @@ public class WebResponse
 
         return returnCookies;
     }
+
+    /**
+     * Returns the status code returned by the server.
+     * 
+     * @return The status code
+     * @since 1.5
+     */
+    public int getStatusCode()
+    {
+        try
+        {
+            return this.connection.getResponseCode();
+        }
+        catch (IOException e)
+        {
+            throw new ChainedRuntimeException(e);
+        }
+    }
+
 }
