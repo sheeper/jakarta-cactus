@@ -280,9 +280,12 @@ public class ChangeLogTask extends Task implements ExecuteStreamHandler
      * dumped to this debug file.
      *
      * @param theDebugFile the name of the debug file to use.
+     *
+     * @exception IOException for backward compatibility with JDK 1.2.2 (not
+     *            needed for JDK 1.3+)
      */
     public void setDebug(File theDebugFile)
-        throws FileNotFoundException, UnsupportedEncodingException
+        throws FileNotFoundException, UnsupportedEncodingException, IOException
     {
         this.debug = new PrintWriter(new OutputStreamWriter(
             new FileOutputStream(theDebugFile),"UTF-8"), true);

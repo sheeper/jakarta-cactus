@@ -54,6 +54,7 @@
 package org.apache.cactus.server;
 
 import org.apache.cactus.util.log.*;
+import org.apache.cactus.util.ChainedRuntimeException;
 import org.apache.cactus.*;
 
 import java.net.*;
@@ -113,7 +114,15 @@ public class ServletUtil
             } else {
                 value = theQueryString.substring(startIndex);
             }
-            value = URLDecoder.decode(value);
+
+            // In JDK 1.2 URLDecoder.decode throws an Exception. This is not
+            // needed for JDK 1.3+ but needed to keep JDK 1.2.2 compatibility
+            try {
+                value = URLDecoder.decode(value);
+            } catch (Exception e) {
+                throw new ChainedRuntimeException("Error URL decoding [" +
+                    value + "]", e);
+            }
         }
 
         return value;
