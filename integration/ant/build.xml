@@ -126,15 +126,29 @@
 
         <propertyfile file="${target.classes.java.dir}/cactus.tasks"
           comment="Cactus Tasks for Ant">
+            <entry key="cactify"
+              value="org.apache.cactus.integration.ant.CactifyTask"/>
+            <entry key="cactus"
+              value="org.apache.cactus.integration.ant.CactusTask"/>
             <entry key="runservertests"
               value="org.apache.cactus.integration.ant.RunServerTestsTask"/>
             <entry key="webxmlmerge"
               value="org.apache.cactus.integration.ant.WebXmlMergeTask"/>
         </propertyfile>
 
+        <copy todir="${target.classes.java.dir}">
+            <fileset dir="${src.java.dir}" includes="**/*.properties"/>
+        </copy>
+
         <javac srcdir="${src.java.dir}" destdir="${target.classes.java.dir}"
           deprecation="${deprecation}" optimize="${optimize}" 
-          debug="${debug}"/>
+          debug="${debug}">
+
+          <classpath>
+            <pathelement location="${commons.logging.jar}"/>
+          </classpath>
+
+        </javac>
 
     </target>
 
@@ -148,6 +162,7 @@
 
             <classpath>
                 <path path="${target.classes.java.dir}"/>
+                <pathelement location="${commons.logging.jar}"/>
             </classpath>
 
         </javac>
@@ -170,13 +185,16 @@
         <junit printsummary="yes" failureproperty="tests.failed" fork="yes">
 
             <classpath>
+                <pathelement path="${commons.logging.jar}"/>
                 <pathelement path="${target.classes.java.dir}"/>
                 <pathelement path="${target.classes.test.dir}"/>
             </classpath>
 
             <formatter type="brief" usefile="false"/>
 
-            <batchtest todir="${target.doc.testreports.dir}">
+            <test name="${testcase}" if="testcase"/>
+
+            <batchtest todir="${target.doc.testreports.dir}" unless="testcase">
                 <fileset dir="${src.test.dir}">
                     <include name="**/Test*.java"/>
                     <exclude name="**/TestAll.java"/>
@@ -226,7 +244,33 @@
             <metainf dir=".">
                 <include name="LICENSE.cactus"/>
             </metainf>
+
             <fileset dir="${target.classes.java.dir}"/>
+
+            <zipfileset dir="${src.conf.dir}"
+                prefix="org/apache/cactus/integration/ant/webxml/resources">
+              <include name="web-app_*.*"/>
+            </zipfileset>
+
+            <zipfileset dir="${src.conf.dir}/share"
+                prefix="org/apache/cactus/integration/ant/container/resources">
+              <include name="**/orion1x/**/*.*"/>
+              <include name="**/orion2x/**/*.*"/>
+              <include name="**/resin2x/**/*.*"/>
+              <include name="**/tomcat4x/**/*.*"/>
+              <include name="**/tomcat5x/**/*.*"/>
+              <include name="**/weblogic6x/**/*.*"/>
+              <include name="**/weblogic7x/**/*.*"/>
+            </zipfileset>
+            <zipfileset dir="${src.conf.dir}/j2ee12"
+                prefix="org/apache/cactus/integration/ant/container/resources">
+              <include name="**/tomcat3x/**/*.*"/>
+            </zipfileset>
+            <zipfileset dir="${src.conf.dir}/j2ee13"
+                prefix="org/apache/cactus/integration/ant/container/resources">
+              <include name="**/jboss3x/**/*.*"/>
+            </zipfileset>
+
         </jar>
 
     </target>
@@ -264,6 +308,11 @@
             doctitle="${project.name.text} ${project.version}"
             bottom="Copyright &amp;copy; ${year} Apache Software Foundation.
                     All Rights Reserved.">
+
+          <classpath>
+            <pathelement location="${commons.logging.jar}"/>
+            <pathelement path="${java.class.path}"/>
+          </classpath>
 
         </javadoc>
 
@@ -364,8 +413,12 @@
         description="Generate the distributable files">
 
         <mkdir dir="${dist.bin.dir}"/>
+        <mkdir dir="${dist.lib.dir}"/>
         <mkdir dir="${dist.doc.api.dir}"/>
         
+        <copy todir="${dist.lib.dir}"
+            file="${target.dir}/${cactus.antintegration.jar.name}.jar"/>
+
         <!-- Copy the Integration -->
         <copy todir="${dist.bin.dir}/${project.name.file}">
             <fileset dir="${target.integration.dir}"/>
@@ -390,7 +443,7 @@
         <mkdir dir="${target.dir}"/>
 
         <checkstyle config="./checkstyle.xml" 
-            failOnViolation="false">
+            failOnViolation="yes">
 
             <fileset dir="${src.java.dir}">
                 <include name="**/*.java"/>
