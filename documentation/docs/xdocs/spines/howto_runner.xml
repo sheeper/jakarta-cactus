@@ -42,7 +42,7 @@
     <s1 title="Running Cactus tests from Ant">
 
       <p>
-        Refer to the <link href="howto_ant.html">Ant Howto</link>.
+        Refer to the <link href="site:howto_ant">Ant Howto</link>.
       </p>
 
     </s1>
@@ -66,7 +66,7 @@
     <s1 title="Running Cactus tests from an IDE">
 
       <p>
-        Refer to the <link href="howto_ide.html">IDE Howto</link>.
+        Refer to the <link href="site:howto_ide">IDE Howto</link>.
       </p>
 
     </s1>
@@ -90,7 +90,7 @@
         </p>
 
         <note>
-          Refer to the <link href="howto_classpath.html">Classpath Howto</link>
+          Refer to the <link href="site:howto_classpath">Classpath Howto</link>
           guide for the exact list of jars.
         </note>
 
@@ -101,7 +101,7 @@
         <p>
           Then, in addition to the Cactus redirectors that you have mapped in
           your <code>web.xml</code> (see the
-          <link href="howto_config.html">Configuration howto</link>), you also
+          <link href="site:howto_config">Configuration howto</link>), you also
           need to map the Cactus Servlet Test Runner, as follows :
         </p>
 
@@ -191,8 +191,8 @@
           Since Cactus 1.5, the ServletTestRunner can also perform the 
           transformation on the server-side. To enable that feature, make sure
           that a JAXP compliant XSLT processor (such as 
-          <link href="http://xml.apache.org/xalan-j/">Xalan</link>) is available
-          to the web-application.
+          <link href="ext:xalanj">Xalan</link>) is available to the 
+          web-application.
         </p>
 
         <p>
