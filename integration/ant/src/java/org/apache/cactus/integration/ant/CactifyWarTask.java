@@ -447,8 +447,8 @@ public class CactifyWarTask extends War
         {
             try
             {
-                WebXml parsedMergeWebXml =
-                    WebXmlIo.parseWebXmlFromFile(this.mergeWebXml, this.xmlCatalog);
+                WebXml parsedMergeWebXml = WebXmlIo.parseWebXmlFromFile(
+                    this.mergeWebXml, this.xmlCatalog);
                 merger = new WebXmlMerger(theWebXml);
                 merger.setLog(new AntLog(this));
                 merger.merge(parsedMergeWebXml);
