@@ -56,13 +56,6 @@
  */
 package org.apache.cactus.integration.ant.container;
 
-import java.io.File;
-import java.io.StringReader;
-import java.util.Vector;
-
-import org.apache.tools.ant.filters.util.ChainReaderHelper;
-import org.apache.tools.ant.types.FilterChain;
-
 import junit.framework.TestCase;
 
 /**
