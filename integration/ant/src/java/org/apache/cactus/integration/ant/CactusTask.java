@@ -60,26 +60,20 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Iterator;
-import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.cactus.integration.ant.container.Container;
-import org.apache.cactus.integration.ant.container.ContainerFactory;
 import org.apache.cactus.integration.ant.container.ContainerRunner;
-import org.apache.cactus.integration.ant.container.ContainerWrapper;
 import org.apache.cactus.integration.ant.util.AntLog;
 import org.apache.cactus.integration.ant.util.AntTaskFactory;
 import org.apache.cactus.integration.ant.deployment.ApplicationXml;
 import org.apache.cactus.integration.ant.deployment.EarArchive;
 import org.apache.cactus.integration.ant.deployment.WarArchive;
 import org.apache.tools.ant.BuildException;
-import org.apache.tools.ant.DynamicConfigurator;
 import org.apache.tools.ant.Project;
-import org.apache.tools.ant.ProjectComponent;
 import org.apache.tools.ant.Task;
 import org.apache.tools.ant.taskdefs.optional.junit.JUnitTask;
 import org.apache.tools.ant.taskdefs.optional.junit.JUnitTest;
@@ -96,122 +90,6 @@ import org.xml.sax.SAXException;
  */
 public class CactusTask extends JUnitTask
 {
-
-    /**
-     * Nested element that can contain a list of containers against which the
-     * tests should be run.
-     */
-    public static class ContainerSet extends ProjectComponent
-        implements DynamicConfigurator
-    {
-
-        // Instance Variables --------------------------------------------------
-
-        /**
-         * The list of nested container elements.
-         */
-        private ContainerFactory factory = new ContainerFactory();
-
-        /**
-         * The list of nested container elements.
-         */
-        private List containers = new ArrayList();
-
-        /**
-         * The timeout in milliseconds. 
-         */
-        private long timeout = -1;
-
-        /**
-         * The proxy port. 
-         */
-        private int proxyPort = 0;
-
-        // DynamicConfigurator Implementation ----------------------------------
-
-        /**
-         * @see org.apache.tools.ant.DynamicConfigurator#createDynamicElement
-         */
-        public Object createDynamicElement(String theName) throws BuildException
-        {
-            Container container = this.factory.createContainer(theName);
-            this.containers.add(container);
-            return container;
-        }
-
-        /**
-         * @see org.apache.tools.ant.DynamicConfigurator#setDynamicAttribute
-         */
-        public void setDynamicAttribute(String theName, String theValue)
-            throws BuildException
-        {
-            throw new BuildException("Attribute [" + theName
-                + "] not supported");
-        }
-
-        // Public Methods ------------------------------------------------------
-
-        /**
-         * Returns an iterator over the nested container elements, in the order
-         * they appear in the build file.
-         * 
-         * @return An iterator over the nested container elements
-         */
-        public Container[] getContainers()
-        {
-            Container[] containers = (Container[])
-                this.containers.toArray(new Container[this.containers.size()]);
-            if (this.proxyPort > 0)
-            {
-                for (int i = 0; i < containers.length; i++)
-                {
-                    containers[i] = new ContainerWrapper(containers[i])
-                    {
-                        public int getPort()
-                        {
-                            return proxyPort;
-                        }
-                    };
-                }
-            }
-            return containers;
-        }
-
-        /**
-         * Returns the timeout after which connecting to a container will be
-         * given up.
-         * 
-         * @return The timeout in milliseconds
-         */
-        public long getTimeout()
-        {
-            return this.timeout;
-        }
-
-        /**
-         * Sets the timeout after which connecting to a container will be given
-         * up.
-         * 
-         * @param theTimeout The timeout in milliseconds
-         */
-        public void setTimeout(long theTimeout)
-        {
-            this.timeout = theTimeout;
-        }
-
-        /**
-         * Sets the proxy port which will be used by the test caller instead 
-         * of the real container port. This can be used to insert protocol 
-         * tracers between the test caller and the container.
-         * 
-         * @param theProxyPort The proxy port to set
-         */
-        public void setProxyPort(int theProxyPort)
-        {
-            this.proxyPort = theProxyPort;
-        }
-
-    }
 
     // Instance Variables ------------------------------------------------------
 
