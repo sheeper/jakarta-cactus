@@ -56,12 +56,16 @@
  */
 package org.apache.cactus.util;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
 import org.apache.cactus.AbstractWebServerTestCase;
 
 /**
  * Generates a quasi-unique id for a test case.
  *
  * @author <a href="mailto:ndlesiecki@apache.org>Nicholas Lesiecki</a>
+ * @author <a href="mailto:cmlenz@apache.org>Christopher Lenz</a>
  *
  * @version $Id$
  */
@@ -72,52 +76,74 @@ public class UniqueGenerator
      * identical ids from two threads requesting an id in the
      * same millisecond.
      */
-    private static int count = 0;
+    private static byte count = 0;
     
     /**
      * Lock for count.
      */
     private static Object lock = new Object();
-    
+
     /**
-     * @param theTestCase TestCase to generate a unique id for.
-     * @return The unique id.
+     * The local IP address in hexadecimal format.
+     */
+    private static String ipAddress;
+    static
+    {
+        try
+        {
+            byte ip[] = InetAddress.getLocalHost().getAddress();
+            ipAddress = toHex(((ip[0] & 0xff) << 24)
+                | ((ip[1] & 0xff) << 16) | ((ip[2] & 0xff) << 8)
+                | (ip[3] & 0xff));
+        }
+        catch (UnknownHostException e)
+        {
+            ipAddress = "";
+        }
+    }
+
+    /**
+     * Generates a unique identifier for a Cactus test.
+     * 
+     * @param theTestCase The Test to generate a unique ID for
+     * @return The generated ID
      */
     public static String generate(AbstractWebServerTestCase theTestCase)
     {
-        String id = String.valueOf(System.identityHashCode(theTestCase));
-
+        long time = System.currentTimeMillis();
         synchronized (lock)
         {
-            id += count++;
+            time += count++;
         }
-        id += System.currentTimeMillis();
-        id += fullNameHash(theTestCase);
+        return generate(theTestCase, time);
+    }
+
+    /**
+     * Generates a unique identifier for a Cactus test.
+     * 
+     * @param theTestCase The Test to generate a unique ID for
+     * @param theTime The time component to include in the generated ID
+     * @return The generated ID
+     */
+    public static String generate(AbstractWebServerTestCase theTestCase,
+        long theTime)
+    {
+        String id = ipAddress;
+        id += "-" + toHex(theTime);
+        id += "-" + toHex(System.identityHashCode(theTestCase));
+        id += toHex(theTestCase.getName().hashCode());
         return id;
     }
 
     /**
-     * @param theTestCase The TestCase to generate a hash for.
-     * @return The hash code of the full name of the testCase.
+     * Returns the hexadecimal representation of an integer as string.
+     * 
+     * @param theValue The integer value
+     * @return The integer value as string of hexadecimal digits
      */
-    private static String fullNameHash(AbstractWebServerTestCase theTestCase)
+    private static String toHex(long theValue)
     {
-        String name;
-        if (theTestCase.isWrappingATest())
-        {
-            name = theTestCase.getWrappedTestName();
-        }
-        else
-        {
-            name = theTestCase.getClass().getName();
-        }
-
-        //the test method
-        name += theTestCase.getName();
-
-        return String.valueOf(name.hashCode());
+        return Long.toString(theValue, 16).toUpperCase();
     }
-
-
 
 }
