@@ -100,4 +100,76 @@ public class TestServletURL extends TestCase
         assertEquals(8080, servletURL.getPort());
     }
 
+    /**
+     * Verify that <code>getPort()</code> returns -1 when the port is invalid.
+     */
+    public void testGetPortInvalidPortNumber()
+    {
+        ServletURL servletURL = new ServletURL();
+        servletURL.setServerName("jakarta.apache.org:invalidPort80");
+
+        int port = servletURL.getPort();
+
+        assertEquals(-1, port);
+    }
+
+    /**
+     * Verify that an invalid protocol raises an exception.
+     */
+    public void testSetProtocolInvalidProtocol()
+    {
+        ServletURL servletURL = new ServletURL();
+
+        try {
+            servletURL.setProtocol("invalid protocol");
+            fail("Should have raised an invalid protocol error");
+        } catch (RuntimeException e) {
+            assertEquals("Invalid protocol [invalid protocol]. Currently "
+                + "supported protocols are [http] and [https].",
+                e.getMessage());
+        }
+    }
+
+    /**
+     * Verify that a valid protocol works.
+     */
+    public void testSetProtocolOk()
+    {
+        ServletURL servletURL = new ServletURL();
+
+        servletURL.setProtocol(ServletURL.PROTOCOL_HTTP);
+        assertEquals(ServletURL.PROTOCOL_HTTP, servletURL.getProtocol());
+
+        servletURL.setProtocol(ServletURL.PROTOCOL_HTTPS);
+        assertEquals(ServletURL.PROTOCOL_HTTPS, servletURL.getProtocol());
+    }
+
+    /**
+     * Verify <code>getPath()</code> is ok when all parts are filled.
+     */
+    public void testGetPath()
+    {
+        ServletURL servletURL = new ServletURL();
+        servletURL.setQueryString("param1=value1");
+            servletURL.setContextPath("/context");
+        servletURL.setServletPath("/servletPath");
+        servletURL.setPathInfo("/pathInfo");
+
+        String path = servletURL.getPath();
+
+        assertEquals("/context/servletPath/pathInfo", path);
+    }
+
+    /**
+     * Verify <code>getPath()</code> returns null when no parts are filled.
+     */
+    public void testGetPathNull()
+    {
+        ServletURL servletURL = new ServletURL();
+
+        String path = servletURL.getPath();
+
+        assertNull(path);
+    }
+
 }
