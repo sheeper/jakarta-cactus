@@ -243,6 +243,7 @@
 
       <property name="project.version" value="@@DATE@@"/>
 
+      <depend property="cactus.anttasks.jar" project="jakarta-cactus-anttasks"/>
       <depend property="eclipse.core.boot.jar" project="eclipse" id="boot"/>
       <depend property="eclipse.core.resources.jar" project="eclipse" id="resources"/>
       <depend property="eclipse.core.runtime.jar" project="eclipse" id="runtime"/>
