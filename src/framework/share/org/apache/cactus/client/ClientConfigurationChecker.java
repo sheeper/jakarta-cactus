@@ -166,6 +166,10 @@ public class ClientConfigurationChecker
     /**
      * Verify that log_client.properties is in the CLASSPATH if the log4j jar
      * is in the classpath
+     *
+     * TODO: This method should no longer be needed with AspectJ as we should be
+     * able to ensure that logging is always initialized. Need to be tested
+     * though, so I'll leave it for the moment.
      */
     public void checkLog4j()
     {
