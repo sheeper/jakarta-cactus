@@ -56,8 +56,11 @@
 	        value="${target.classes.dir}/test"/>
 	    <property name="target.doc.dir" value="${target.dir}/doc"/>
 	    <property name="target.doc.api.dir" value="${target.doc.dir}/api"/>
+	    <property name="target.doc.testreports.dir"
+	        value="${target.doc.dir}/test-reports"/>
 
-        <property name="target.integration.dir" value="${target.dir}/integration"/>
+        <property name="target.integration.dir"
+            value="${target.dir}/integration"/>
         <property name="target.integration.lib.dir" 
             value="${target.integration.dir}/lib"/>
 	    <property name="target.integration.lib.client.dir" 
@@ -162,6 +165,8 @@
     <target name="test" depends="compile.test"
         description="Runs the unit tests">
 
+        <mkdir dir="${target.doc.testreports.dir}"/>
+
         <junit printsummary="yes" failureproperty="tests.failed" fork="yes">
 
             <classpath>
@@ -171,14 +176,21 @@
 
             <formatter type="brief" usefile="false"/>
 
-            <batchtest>
+            <batchtest todir="${target.doc.testreports.dir}">
                 <fileset dir="${src.test.dir}">
                     <include name="**/Test*.java"/>
                     <exclude name="**/TestAll.java"/>
                 </fileset>
+                <formatter type="xml"/>
             </batchtest>
 
         </junit>
+
+        <junitreport todir="${target.doc.testreports.dir}">
+          <fileset dir="${target.doc.testreports.dir}"
+              includes="TEST-*.xml"/>
+          <report format="frames" todir="${target.doc.testreports.dir}"/>
+        </junitreport>
 
         <fail if="tests.failed">At least one unit test failed!</fail>
 
@@ -262,7 +274,7 @@
          Generate the distributable files
        ========================================================================
     -->
-    <target name="dist.prepare" depends="test,jar,doc,checkstyle">
+    <target name="dist.prepare" depends="jar,doc,test,checkstyle">
 
         <mkdir dir="${target.integration.dir}"/>
         <mkdir dir="${target.integration.lib.client.dir}"/>
