@@ -148,9 +148,8 @@
   </resource>
   
   <resource id="howto_runner" target="integration/index.html"
-      name="Using the Cactus ServletTestRunner">
-    Information on using the Cactus ServletTestRunner to run tests from a
-    Web-browser.
+      name="Cactus runners">
+    Information on the various methods of running tests with Cactus.
   </resource>
   
   <resource id="howto_security" target="writing/howto_security.html"/>
