@@ -41,7 +41,7 @@ public class XMLFormatter implements XMLConstants, TestListener
     /**
      * Default stack filter patterns.
      */
-    public static final String[] DEFAULT_STACK_FILTER_PATTERNS = new String[]
+    private static final String[] DEFAULT_STACK_FILTER_PATTERNS = new String[]
         {
             "org.apache.cactus.AbstractTestCase",
             "org.apache.cactus.AbstractWebTestCase",
