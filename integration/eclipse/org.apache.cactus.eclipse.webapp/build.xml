@@ -161,7 +161,7 @@
         
 		<mkdir dir="${target.dir}"/>
 
-		<jar jarfile="${target.dir}/cactussupport.jar">
+		<jar jarfile="${target.dir}/${cactus.webappintegration.jar.name}">
             <manifest>
                 <section name="org/apache/cactus/eclipse/webapp/">
                     <attribute name="Specification-Title"
@@ -184,7 +184,7 @@
             <fileset dir="${target.classes.dir}"/>
         </jar>
 				
-		<jar jarfile="${target.dir}/cactussupportsrc.jar">
+		<jar jarfile="${target.dir}/${cactus.webappintegration.src.jar.name}">
             <manifest>
                 <section name="org/apache/cactus/eclipse/webapp/">
                     <attribute name="Specification-Title"
@@ -228,19 +228,6 @@
 		<copy todir="${dist.bin.integration.dir}" file="${base.dir}/plugin.xml"/>
 		<copy todir="${dist.bin.integration.dir}" 
 		    file="${base.dir}/plugin.properties"/>
-		<copy todir="${dist.bin.integration.dir}" file="${base.dir}/README.txt"/>
-		<copy todir="${dist.bin.integration.dir}/icons">
-		    <fileset dir="${base.dir}/icons"/>
-		</copy>
-
-        <!-- Copy the Ant Integration files -->
-        <copy todir="${dist.bin.integration.dir}/ant">
-            <fileset dir="${cactus.antintegration.bin}"/>
-         </copy>
-
-        <copy todir="${dist.bin.integration.dir}/ant">
-            <fileset dir="${src.scripts.dir}"/>
-        </copy>
 
         <copy todir="${dist.bin.integration.dir}">
             <fileset dir=".">
