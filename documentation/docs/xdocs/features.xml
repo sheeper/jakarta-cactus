@@ -92,8 +92,8 @@
 
     <section title="Detailed feature list">
       <p>
-        <img src="images/new.jpg" alt="New in Cactus 1.6"/><em> = 
-        New in Cactus 1.6</em>
+        <img src="images/new.jpg" alt="New in Cactus 1.7"/><em> = 
+        New in Cactus 1.7</em>
       </p>
       <ul>
         <li>
@@ -204,18 +204,6 @@
               automatically, package and deploy a Cactify webapp and run the 
               tests).
             </li>
-<!--
-Note: Uncomment once we releasee the Eclipse plugin. ATM it is still very
-experimental and needs some work
-
-            <li>
-              <em>Eclipse Plugin</em>: An Eclipse Plugin that integrates
-              Cactus in the Eclipse IDE (start and stop containers 
-              automatically, package and deploy a Cactify webapp and run the 
-              tests).
-              <img src="images/new.jpg" alt="New in Cactus 1.5"/>           
-            </li>
--->
             <li>
               <em>Browser Integration</em>: It is possible to run Cactus tests
               from a Browser. Results can be displayed either in XML or in
@@ -227,7 +215,6 @@ experimental and needs some work
               automation with minimal setup. It's probably currently the easiest
               way to run Cactus tests (provided you have Maven installed on
               your machine).
-              <img src="images/new.jpg" alt="New in Cactus 1.6"/>
             </li>
             <li>
               Several other integration provided by third parties.
@@ -245,15 +232,13 @@ experimental and needs some work
               Tomcat 4.x
             </li>
             <li>
-              Tomcat 5.x
-              <img src="images/new.jpg" alt="New in Cactus 1.6"/>
+              Tomcat 5.0.x
             </li>
             <li>
               Resin 2.x
             </li>
             <li>
               Resin 3.x (above version 3.0.5)
-              <img src="images/new.jpg" alt="New in Cactus 1.6"/>
             </li>
             <li>
               WebLogic 7.x
