@@ -133,5 +133,4 @@ public abstract class AbstractWebImplicitObjects implements WebImplicitObjects
     {
         this.request = theRequest;
     }
-
 }

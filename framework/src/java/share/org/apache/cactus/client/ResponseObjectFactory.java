@@ -82,6 +82,6 @@ public interface ResponseObjectFactory
      *         methods and to the global end method
      * @throws ClientException if it fails to construct the response object
      */
-    Object getResponseObject(String theClassName, Request theRequest,
+    Object getResponseObject(String theClassName, Request theRequest, 
         HttpURLConnection theConnection) throws ClientException;
 }

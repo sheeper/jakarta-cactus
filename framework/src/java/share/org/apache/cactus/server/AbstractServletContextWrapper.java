@@ -57,10 +57,13 @@
 package org.apache.cactus.server;
 
 import java.io.InputStream;
+
 import java.net.MalformedURLException;
 import java.net.URL;
+
 import java.util.Enumeration;
 import java.util.Vector;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.Servlet;
 import javax.servlet.ServletContext;
@@ -92,6 +95,16 @@ public abstract class AbstractServletContextWrapper implements ServletContext
      */
     private Vector logs = new Vector();
 
+    // Interface methods ---------------------------------------------------
+
+    /**
+     * @param theOriginalContext the original servlet context object
+     */
+    public AbstractServletContextWrapper(ServletContext theOriginalContext)
+    {
+        this.originalContext = theOriginalContext;
+    }
+
     // New methods ---------------------------------------------------------
 
     /**
@@ -106,16 +119,6 @@ public abstract class AbstractServletContextWrapper implements ServletContext
     public Vector getLogs()
     {
         return this.logs;
-    }
-
-    // Interface methods ---------------------------------------------------
-
-    /**
-     * @param theOriginalContext the original servlet context object
-     */
-    public AbstractServletContextWrapper(ServletContext theOriginalContext)
-    {
-        this.originalContext = theOriginalContext;
     }
 
     /**
@@ -148,9 +151,11 @@ public abstract class AbstractServletContextWrapper implements ServletContext
      */
     public void log(String theMessage, Throwable theCause)
     {
-        if (theMessage != null) {
+        if (theMessage != null)
+        {
             this.logs.addElement(theMessage);
         }
+
         this.originalContext.log(theMessage, theCause);
     }
 
@@ -167,9 +172,11 @@ public abstract class AbstractServletContextWrapper implements ServletContext
      */
     public void log(String theMessage)
     {
-        if (theMessage != null) {
+        if (theMessage != null)
+        {
             this.logs.addElement(theMessage);
         }
+
         this.originalContext.log(theMessage);
     }
 
@@ -193,9 +200,11 @@ public abstract class AbstractServletContextWrapper implements ServletContext
      */
     public void log(Exception theException, String theMessage)
     {
-        if (theMessage != null) {
+        if (theMessage != null)
+        {
             this.logs.addElement(theMessage);
         }
+
         this.originalContext.log(theException, theMessage);
     }
 
@@ -256,12 +265,12 @@ public abstract class AbstractServletContextWrapper implements ServletContext
     {
         RequestDispatcher wrappedDispatcher = null;
 
-        RequestDispatcher originalDispatcher =
-            this.originalContext.getRequestDispatcher(thePath);
+        RequestDispatcher originalDispatcher = this.originalContext.getRequestDispatcher(
+            thePath);
 
-        if (originalDispatcher != null) {
-            wrappedDispatcher =
-                new RequestDispatcherWrapper(originalDispatcher);
+        if (originalDispatcher != null)
+        {
+            wrappedDispatcher = new RequestDispatcherWrapper(originalDispatcher);
         }
 
         return wrappedDispatcher;
@@ -277,12 +286,12 @@ public abstract class AbstractServletContextWrapper implements ServletContext
     {
         RequestDispatcher wrappedDispatcher = null;
 
-        RequestDispatcher originalDispatcher =
-            this.originalContext.getNamedDispatcher(theName);
+        RequestDispatcher originalDispatcher = this.originalContext.getNamedDispatcher(
+            theName);
 
-        if (originalDispatcher != null) {
-            wrappedDispatcher =
-                new RequestDispatcherWrapper(originalDispatcher);
+        if (originalDispatcher != null)
+        {
+            wrappedDispatcher = new RequestDispatcherWrapper(originalDispatcher);
         }
 
         return wrappedDispatcher;
@@ -346,6 +355,7 @@ public abstract class AbstractServletContextWrapper implements ServletContext
     {
         ServletContext context = new ServletContextWrapper(
             this.originalContext.getContext(theUripath));
+
         return context;
     }
 
@@ -364,5 +374,4 @@ public abstract class AbstractServletContextWrapper implements ServletContext
     {
         return this.originalContext.getAttribute(theName);
     }
-
 }

@@ -56,10 +56,10 @@
  */
 package org.apache.cactus.server;
 
+import javax.servlet.ServletException;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import javax.servlet.ServletException;
 
 /**
  * Extension of the <code>jspRedirector.jsp</code> JSP Redirector in the java
@@ -75,7 +75,7 @@ public class JspTestRedirector
     /**
      * The logger
      */
-    private static final Log LOGGER =
+    private static final Log LOGGER = 
         LogFactory.getLog(JspTestRedirector.class);
 
     /**
@@ -90,7 +90,7 @@ public class JspTestRedirector
         LOGGER.debug("------------- Start JSP service");
 
         JspTestController controller = new JspTestController();
+
         controller.handleRequest(theObjects);
     }
-
 }

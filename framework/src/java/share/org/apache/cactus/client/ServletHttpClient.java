@@ -81,14 +81,16 @@ public class ServletHttpClient extends AbstractHttpClient
         String url;
 
         // Check if user has overriden the servlet redirector
-        if (theRequest.getRedirectorName() != null) {
+        if (theRequest.getRedirectorName() != null)
+        {
             url = ServletConfiguration.getContextURL() + "/"
                 + theRequest.getRedirectorName();
-        } else {
+        }
+        else
+        {
             url = ServletConfiguration.getServletRedirectorURL();
         }
 
         return url;
     }
-
 }

@@ -57,7 +57,9 @@
 package org.apache.cactus.server;
 
 import java.io.IOException;
+
 import java.util.Enumeration;
+
 import javax.servlet.Servlet;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
@@ -101,7 +103,7 @@ public abstract class AbstractPageContextWrapper extends PageContext
      * @param theOriginalPageContext the real page context
      * @param theURL the URL to simulate or <code>null</code> if none
      */
-    public AbstractPageContextWrapper(PageContext theOriginalPageContext,
+    public AbstractPageContextWrapper(PageContext theOriginalPageContext, 
         ServletURL theURL)
     {
         this.originalPageContext = theOriginalPageContext;
@@ -118,7 +120,7 @@ public abstract class AbstractPageContextWrapper extends PageContext
     {
         // Note: we only manage HttpServletRequest here
         return new HttpServletRequestWrapper(
-            (HttpServletRequest) this.originalPageContext.getRequest(),
+            (HttpServletRequest) this.originalPageContext.getRequest(), 
             this.url);
     }
 
@@ -153,7 +155,7 @@ public abstract class AbstractPageContextWrapper extends PageContext
     /**
      * @see PageContext#forward(String)
      */
-    public void forward(String theRelativeURLPath) throws ServletException,
+    public void forward(String theRelativeURLPath) throws ServletException, 
         IOException
     {
         this.originalPageContext.forward(theRelativeURLPath);
@@ -243,7 +245,7 @@ public abstract class AbstractPageContextWrapper extends PageContext
     /**
      * @see PageContext#include(String)
      */
-    public void include(String theRelativeURLPath) throws ServletException,
+    public void include(String theRelativeURLPath) throws ServletException, 
         IOException
     {
         this.originalPageContext.include(theRelativeURLPath);
@@ -252,13 +254,13 @@ public abstract class AbstractPageContextWrapper extends PageContext
     /**
      * @see PageContext#initialize(Servlet, ServletRequest, ServletResponse, String, boolean, int, boolean)
      */
-    public void initialize(Servlet theServlet, ServletRequest theRequest,
-        ServletResponse theResponse, String theErrorPageURL,
-        boolean isSessionNeeded, int theBufferSize, boolean isAutoFlush)
+    public void initialize(Servlet theServlet, ServletRequest theRequest, 
+        ServletResponse theResponse, String theErrorPageURL, 
+        boolean isSessionNeeded, int theBufferSize, boolean isAutoFlush) 
         throws IOException, IllegalStateException, IllegalArgumentException
     {
-        this.originalPageContext.initialize(theServlet, theRequest,
-            theResponse, theErrorPageURL, isSessionNeeded, theBufferSize,
+        this.originalPageContext.initialize(theServlet, theRequest, 
+            theResponse, theErrorPageURL, isSessionNeeded, theBufferSize, 
             isAutoFlush);
     }
 
@@ -313,11 +315,8 @@ public abstract class AbstractPageContextWrapper extends PageContext
     /**
      * @see PageContext#setAttribute(String, Object)
      */
-    public void setAttribute(String theName, Object theAttribute,
-        int theScope)
+    public void setAttribute(String theName, Object theAttribute, int theScope)
     {
-        this.originalPageContext.setAttribute(theName, theAttribute,
-            theScope);
+        this.originalPageContext.setAttribute(theName, theAttribute, theScope);
     }
-
 }

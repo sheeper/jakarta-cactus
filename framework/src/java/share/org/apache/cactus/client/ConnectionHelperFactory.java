@@ -56,10 +56,10 @@
  */
 package org.apache.cactus.client;
 
-import org.apache.cactus.util.Configuration;
-import org.apache.cactus.util.ChainedRuntimeException;
-
 import java.lang.reflect.Constructor;
+
+import org.apache.cactus.util.ChainedRuntimeException;
+import org.apache.cactus.util.Configuration;
 
 /**
  * Factory that returns the <code>ConnectionHelper</code> specified in Cactus
@@ -83,17 +83,22 @@ public class ConnectionHelperFactory
     {
         // Load the corresponding class
         ConnectionHelper connectionHelper;
-        try {
-            Class connectionHelperClass =
+
+        try
+        {
+            Class connectionHelperClass = 
                 Class.forName(Configuration.getConnectionHelper());
             Constructor constructor = connectionHelperClass.getConstructor(
-                new Class[] {String.class});
+                new Class[] { String.class });
+
             connectionHelper = (ConnectionHelper) constructor.newInstance(
-                new Object[] {theUrl});
-        } catch (Exception e) {
+                new Object[] { theUrl });
+        }
+        catch (Exception e)
+        {
             throw new ChainedRuntimeException("Failed to load the ["
-                + Configuration.getConnectionHelper() + "] ConnectionHelper "
-                + "class", e);
+                + Configuration.getConnectionHelper()
+                + "] ConnectionHelper " + "class", e);
         }
 
         return connectionHelper;

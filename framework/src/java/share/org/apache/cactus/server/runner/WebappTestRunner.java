@@ -56,10 +56,10 @@
  */
 package org.apache.cactus.server.runner;
 
+import junit.framework.AssertionFailedError;
+import junit.framework.Test;
 import junit.runner.BaseTestRunner;
 import junit.runner.TestSuiteLoader;
-import junit.framework.Test;
-import junit.framework.AssertionFailedError;
 
 /**
  * JUnit Test Runner that can load test cases that are in the classpath of
@@ -151,7 +151,7 @@ public class WebappTestRunner extends BaseTestRunner
     /**
      * @see BaseTestRunner#addFailure(Test, AssertionFailedError)
      */
-    public void addFailure(Test theTest,
+    public void addFailure(Test theTest, 
         AssertionFailedError theAssertionFailedError)
     {
         // not used

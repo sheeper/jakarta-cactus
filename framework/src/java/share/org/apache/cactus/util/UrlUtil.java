@@ -79,14 +79,21 @@ public class UrlUtil
     {
         String file = theURL.getFile();
         String path = null;
-        if (file != null) {
+
+        if (file != null)
+        {
             int q = file.lastIndexOf('?');
-            if (q != -1) {
+
+            if (q != -1)
+            {
                 path = file.substring(0, q);
-            } else {
+            }
+            else
+            {
                 path = file;
             }
         }
+
         return path;
     }
 
@@ -102,14 +109,21 @@ public class UrlUtil
     {
         String file = theURL.getFile();
         String query = null;
-        if (file != null) {
+
+        if (file != null)
+        {
             int q = file.lastIndexOf('?');
-            if (q != -1) {
+
+            if (q != -1)
+            {
                 query = file.substring(q + 1);
-            } else {
+            }
+            else
+            {
                 query = "";
             }
         }
+
         return query;
     }
 }

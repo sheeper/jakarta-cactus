@@ -56,20 +56,21 @@
  */
 package org.apache.cactus.client;
 
-import java.net.URL;
-import java.net.HttpURLConnection;
-import java.util.Enumeration;
-import java.io.InputStream;
-import java.io.IOException;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.methods.PostMethod;
-import org.apache.commons.httpclient.methods.GetMethod;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
+import java.util.Enumeration;
 
 import org.apache.cactus.WebRequest;
-import org.apache.cactus.util.UrlUtil;
 import org.apache.cactus.client.authentication.AbstractAuthentication;
+import org.apache.cactus.util.UrlUtil;
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.commons.httpclient.methods.PostMethod;
 
 /**
  * Implementation of <code>ConnectionHelper</code> using Jakarta Commons
@@ -103,8 +104,7 @@ public class HttpClientConnectionHelper extends AbstractConnectionHelper
     /**
      * @see ConnectionHelper#connect(WebRequest)
      */
-    public HttpURLConnection connect(WebRequest theRequest)
-        throws Throwable
+    public HttpURLConnection connect(WebRequest theRequest) throws Throwable
     {
         URL url = new URL(this.url);
 
@@ -112,7 +112,9 @@ public class HttpClientConnectionHelper extends AbstractConnectionHelper
         // step to allow authentication to add extra headers, HTTP parameters,
         // etc.
         AbstractAuthentication authentication = theRequest.getAuthentication();
-        if (authentication != null) {
+
+        if (authentication != null)
+        {
             authentication.configure(theRequest);
         }
 
@@ -123,12 +125,13 @@ public class HttpClientConnectionHelper extends AbstractConnectionHelper
         // - If at least one parameter is to be sent in the request body, then
         //   we are doing a POST.
         // - If user data has been specified, then we are doing a POST
-
         if (theRequest.getParameterNamesPost().hasMoreElements()
-            || (theRequest.getUserData() != null)) {
-
+            || (theRequest.getUserData() != null))
+        {
             this.method = new PostMethod();
-        } else {
+        }
+        else
+        {
             this.method = new GetMethod();
         }
 
@@ -138,7 +141,7 @@ public class HttpClientConnectionHelper extends AbstractConnectionHelper
         this.method.setQueryString(UrlUtil.getQuery(url));
 
         // Sets the content type
-        this.method.setRequestHeader("Content-type",
+        this.method.setRequestHeader("Content-type", 
             theRequest.getContentType());
 
         // Add the other header fields
@@ -146,20 +149,26 @@ public class HttpClientConnectionHelper extends AbstractConnectionHelper
 
         // Add the cookies
         String cookieString = getCookieString(theRequest, url);
-        if (cookieString != null) {
+
+        if (cookieString != null)
+        {
             this.method.addRequestHeader("Cookie", cookieString);
         }
 
         // Add the POST parameters if no user data has been specified (user data
         // overried post parameters)
-        if (theRequest.getUserData() != null) {
+        if (theRequest.getUserData() != null)
+        {
             addUserData(theRequest);
-        } else {
+        }
+        else
+        {
             addParametersPost(theRequest);
         }
 
         // Open the connection and get the result
         HttpClient client = new HttpClient();
+
         client.startSession(url.getHost(), url.getPort());
         client.executeMethod(this.method);
 
@@ -176,15 +185,20 @@ public class HttpClientConnectionHelper extends AbstractConnectionHelper
     private void addParametersPost(WebRequest theRequest)
     {
         // If no parameters, then exit
-        if (!theRequest.getParameterNamesPost().hasMoreElements()) {
+        if (!theRequest.getParameterNamesPost().hasMoreElements())
+        {
             return;
         }
 
         Enumeration keys = theRequest.getParameterNamesPost();
-        if (keys.hasMoreElements()) {
+
+        if (keys.hasMoreElements())
+        {
             String key = (String) keys.nextElement();
             String[] values = theRequest.getParameterValuesPost(key);
-            for (int i = 0; i < values.length; i++) {
+
+            for (int i = 0; i < values.length; i++)
+            {
                 ((PostMethod) this.method).addParameter(key, values[i]);
             }
         }
@@ -200,14 +214,18 @@ public class HttpClientConnectionHelper extends AbstractConnectionHelper
     {
         Enumeration keys = theRequest.getHeaderNames();
 
-        while (keys.hasMoreElements()) {
+        while (keys.hasMoreElements())
+        {
             String key = (String) keys.nextElement();
             String[] values = theRequest.getHeaderValues(key);
 
             StringBuffer fullHeaderValue = new StringBuffer(values[0]);
-            for (int i = 1; i < values.length; i++) {
+
+            for (int i = 1; i < values.length; i++)
+            {
                 fullHeaderValue.append("," + values[i]);
             }
+
             this.method.addRequestHeader(key, fullHeaderValue.toString());
         }
     }
@@ -219,11 +237,11 @@ public class HttpClientConnectionHelper extends AbstractConnectionHelper
      *        redirector.
      * @exception IOException if we fail to read the user data
      */
-    private void addUserData(WebRequest theRequest)
-        throws IOException
+    private void addUserData(WebRequest theRequest) throws IOException
     {
         // If no user data, then exit
-        if (theRequest.getUserData() == null) {
+        if (theRequest.getUserData() == null)
+        {
             return;
         }
 
@@ -232,11 +250,12 @@ public class HttpClientConnectionHelper extends AbstractConnectionHelper
 
         byte[] buffer = new byte[2048];
         int length;
-        while ((length = stream.read(buffer)) != -1) {
+
+        while ((length = stream.read(buffer)) != -1)
+        {
             baos.write(buffer, 0, length);
         }
 
         ((PostMethod) this.method).setRequestBody(baos.toString());
     }
-
 }

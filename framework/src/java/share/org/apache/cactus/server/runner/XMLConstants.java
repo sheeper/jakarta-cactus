@@ -129,5 +129,4 @@ public interface XMLConstants
      * Message attribute for failure elements (message of the exception)
      */
     String ATTR_MESSAGE = "message";
-
 }

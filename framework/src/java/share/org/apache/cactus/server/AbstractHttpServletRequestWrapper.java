@@ -59,18 +59,21 @@ package org.apache.cactus.server;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+
 import java.security.Principal;
+
 import java.util.Enumeration;
 import java.util.Locale;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletInputStream;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.servlet.http.Cookie;
 
 import org.apache.cactus.ServletURL;
-import org.apache.commons.logging.LogFactory;
 import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * Abstract wrapper around <code>HttpServletRequest</code>. This class provides
@@ -81,8 +84,14 @@ import org.apache.commons.logging.Log;
  * @version $Id$
  */
 public abstract class AbstractHttpServletRequestWrapper
-        implements HttpServletRequest
+    implements HttpServletRequest
 {
+    /**
+     * The logger
+     */
+    private static final Log LOGGER = 
+        LogFactory.getLog(AbstractHttpServletRequestWrapper.class);
+
     /**
      * The real HTTP request
      */
@@ -105,12 +114,6 @@ public abstract class AbstractHttpServletRequestWrapper
      */
     protected String remoteHostName;
 
-    /**
-     * The logger
-     */
-    private static final Log LOGGER =
-        LogFactory.getLog(AbstractHttpServletRequestWrapper.class);
-
     // New methods not in the interface --------------------------------------
 
     /**
@@ -122,7 +125,7 @@ public abstract class AbstractHttpServletRequestWrapper
      * @param theRequest the real HTTP request
      * @param theURL     the URL to simulate or <code>null</code> if none
      */
-    public AbstractHttpServletRequestWrapper(HttpServletRequest theRequest,
+    public AbstractHttpServletRequestWrapper(HttpServletRequest theRequest, 
         ServletURL theURL)
     {
         this.request = theRequest;
@@ -169,10 +172,13 @@ public abstract class AbstractHttpServletRequestWrapper
     {
         String result;
 
-        if ((this.url != null) && (this.url.getContextPath() != null)) {
+        if ((this.url != null) && (this.url.getContextPath() != null))
+        {
             result = this.url.getContextPath();
             LOGGER.debug("Using simulated context : [" + result + "]");
-        } else {
+        }
+        else
+        {
             result = this.request.getContextPath();
         }
 
@@ -187,12 +193,16 @@ public abstract class AbstractHttpServletRequestWrapper
     {
         String result;
 
-        if (this.url != null) {
+        if (this.url != null)
+        {
             result = this.url.getPathInfo();
             LOGGER.debug("Using simulated PathInfo : [" + result + "]");
-        } else {
+        }
+        else
+        {
             result = this.request.getPathInfo();
         }
+
         return result;
     }
 
@@ -204,11 +214,13 @@ public abstract class AbstractHttpServletRequestWrapper
     {
         String result;
 
-        if ((this.url != null) && (this.url.getServerName() != null)) {
+        if ((this.url != null) && (this.url.getServerName() != null))
+        {
             result = this.url.getHost();
-            LOGGER.debug("Using simulated server name : [" + result
-                + "]");
-        } else {
+            LOGGER.debug("Using simulated server name : [" + result + "]");
+        }
+        else
+        {
             result = this.request.getServerName();
         }
 
@@ -224,10 +236,13 @@ public abstract class AbstractHttpServletRequestWrapper
     {
         int result;
 
-        if (this.url != null) {
+        if (this.url != null)
+        {
             result = (this.url.getPort() == -1) ? 80 : this.url.getPort();
             LOGGER.debug("Using simulated server port : [" + result + "]");
-        } else {
+        }
+        else
+        {
             result = this.request.getServerPort();
         }
 
@@ -242,14 +257,16 @@ public abstract class AbstractHttpServletRequestWrapper
     {
         String result;
 
-        if (this.url != null) {
-
+        if (this.url != null)
+        {
             result = getContextPath()
                 + ((getServletPath() == null) ? "" : getServletPath())
                 + ((getPathInfo() == null) ? "" : getPathInfo());
 
             LOGGER.debug("Using simulated request URI : [" + result + "]");
-        } else {
+        }
+        else
+        {
             result = this.request.getRequestURI();
         }
 
@@ -264,11 +281,13 @@ public abstract class AbstractHttpServletRequestWrapper
     {
         String result;
 
-        if (this.url != null) {
+        if (this.url != null)
+        {
             result = this.url.getServletPath();
-            LOGGER.debug("Using simulated servlet path : [" + result
-                + "]");
-        } else {
+            LOGGER.debug("Using simulated servlet path : [" + result + "]");
+        }
+        else
+        {
             result = this.request.getServletPath();
         }
 
@@ -285,27 +304,36 @@ public abstract class AbstractHttpServletRequestWrapper
         String pathTranslated;
 
         String pathInfo = this.url.getPathInfo();
-        if (pathInfo != null) {
 
+        if (pathInfo != null)
+        {
             // If getRealPath returns null then getPathTranslated should also
             // return null (see section SRV.4.5 of the Servlet 2.3 spec).
-            if (this.request.getRealPath("/") == null) {
+            if (this.request.getRealPath("/") == null)
+            {
                 pathTranslated = null;
-            } else {
-
+            }
+            else
+            {
                 // Compute the translated path using the root real path
                 String newPathInfo = (pathInfo.startsWith("/")
                     ? pathInfo.substring(1) : pathInfo);
-                if (this.request.getRealPath("/").endsWith("/")) {
+
+                if (this.request.getRealPath("/").endsWith("/"))
+                {
                     pathTranslated = this.request.getRealPath("/")
                         + newPathInfo.replace('/', File.separatorChar);
-                } else {
+                }
+                else
+                {
                     pathTranslated = this.request.getRealPath("/")
-                        + File.separatorChar + newPathInfo.replace('/',
+                        + File.separatorChar + newPathInfo.replace('/', 
                         File.separatorChar);
                 }
             }
-        } else {
+        }
+        else
+        {
             pathTranslated = this.request.getPathTranslated();
         }
 
@@ -320,11 +348,13 @@ public abstract class AbstractHttpServletRequestWrapper
     {
         String result;
 
-        if (this.url != null) {
+        if (this.url != null)
+        {
             result = this.url.getQueryString();
-            LOGGER.debug("Using simulated query string : [" + result
-                + "]");
-        } else {
+            LOGGER.debug("Using simulated query string : [" + result + "]");
+        }
+        else
+        {
             result = this.request.getQueryString();
         }
 
@@ -347,8 +377,8 @@ public abstract class AbstractHttpServletRequestWrapper
         // engine. However as we are simulating the request URL, we have to
         // provide it ... This is where we can see the limitation of Cactus
         // (it has to mock some parts of the servlet engine) !
-
-        if (thePath == null) {
+        if (thePath == null)
+        {
             return null;
         }
 
@@ -358,20 +388,25 @@ public abstract class AbstractHttpServletRequestWrapper
         // The spec says that the path can be relative, in which case it will
         // be relative to the request. So for relative paths, we need to take
         // into account the simulated URL (ServletURL).
-        if (thePath.startsWith("/")) {
-
+        if (thePath.startsWith("/"))
+        {
             fullPath = thePath;
-
-        } else {
-
+        }
+        else
+        {
             String pI = getPathInfo();
-            if (pI == null) {
+
+            if (pI == null)
+            {
                 fullPath = catPath(getServletPath(), thePath);
-            } else {
+            }
+            else
+            {
                 fullPath = catPath(getServletPath() + pI, thePath);
             }
 
-            if (fullPath == null) {
+            if (fullPath == null)
+            {
                 return null;
             }
         }
@@ -397,14 +432,19 @@ public abstract class AbstractHttpServletRequestWrapper
     {
         // Cut off the last slash and everything beyond
         int index = theLookupPath.lastIndexOf("/");
+
         theLookupPath = theLookupPath.substring(0, index);
 
         // Deal with .. by chopping dirs off the lookup thePath
-        while (thePath.startsWith("../")) {
-            if (theLookupPath.length() > 0) {
+        while (thePath.startsWith("../"))
+        {
+            if (theLookupPath.length() > 0)
+            {
                 index = theLookupPath.lastIndexOf("/");
                 theLookupPath = theLookupPath.substring(0, index);
-            } else {
+            }
+            else
+            {
                 // More ..'s than dirs, return null
                 return null;
             }
@@ -424,11 +464,16 @@ public abstract class AbstractHttpServletRequestWrapper
     public String getRemoteAddr()
     {
         String remoteIPAddress;
-        if (this.remoteIPAddress != null) {
+
+        if (this.remoteIPAddress != null)
+        {
             remoteIPAddress = this.remoteIPAddress;
-        } else {
+        }
+        else
+        {
             remoteIPAddress = this.request.getRemoteAddr();
         }
+
         return remoteIPAddress;
     }
 
@@ -440,11 +485,16 @@ public abstract class AbstractHttpServletRequestWrapper
     public String getRemoteHost()
     {
         String remoteHostName;
-        if (this.remoteHostName != null) {
+
+        if (this.remoteHostName != null)
+        {
             remoteHostName = this.remoteHostName;
-        } else {
+        }
+        else
+        {
             remoteHostName = this.request.getRemoteHost();
         }
+
         return remoteHostName;
     }
 
@@ -737,5 +787,4 @@ public abstract class AbstractHttpServletRequestWrapper
     {
         return this.request.getProtocol();
     }
-
 }

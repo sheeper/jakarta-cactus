@@ -56,9 +56,9 @@
  */
 package org.apache.cactus.client;
 
-import org.apache.cactus.WebRequest;
-
 import java.net.HttpURLConnection;
+
+import org.apache.cactus.WebRequest;
 
 /**
  * Helper class to open an HTTP connection to the server redirector and pass
@@ -81,5 +81,4 @@ public interface ConnectionHelper
      * @exception Throwable if an unexpected error occured
      */
     HttpURLConnection connect(WebRequest theRequest) throws Throwable;
-
 }

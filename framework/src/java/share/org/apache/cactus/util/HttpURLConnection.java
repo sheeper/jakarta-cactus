@@ -56,15 +56,17 @@
  */
 package org.apache.cactus.util;
 
-import org.apache.commons.httpclient.HttpMethod;
-import org.apache.commons.httpclient.Header;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.URL;
+
 import java.net.ProtocolException;
+import java.net.URL;
+
 import java.security.Permission;
+
+import org.apache.commons.httpclient.Header;
+import org.apache.commons.httpclient.HttpMethod;
 
 /**
  * Provides a <code>HttpURLConnection</code> wrapper around HttpClient
@@ -191,8 +193,11 @@ public class HttpURLConnection extends java.net.HttpURLConnection
         // Note: Return the last matching header in the Header[] array, as in
         // the JDK implementation.
         Header[] headers = this.method.getResponseHeaders();
-        for (int i = headers.length - 1; i >= 0; i--) {
-            if (headers[i].getName().equalsIgnoreCase(theName)) {
+
+        for (int i = headers.length - 1; i >= 0; i--)
+        {
+            if (headers[i].getName().equalsIgnoreCase(theName))
+            {
                 return headers[i].getValue();
             }
         }
@@ -207,9 +212,10 @@ public class HttpURLConnection extends java.net.HttpURLConnection
     {
         // Note: I hope the header fields are kept in the correct order when
         // calling getRequestHeaders.
-
         Header[] headers = this.method.getResponseHeaders();
-        if (theKeyPosition < 0 || theKeyPosition >= headers.length) {
+
+        if ((theKeyPosition < 0) || (theKeyPosition >= headers.length))
+        {
             return null;
         }
 
@@ -223,9 +229,10 @@ public class HttpURLConnection extends java.net.HttpURLConnection
     {
         // Note: I hope the header fields are kept in the correct order when
         // calling getRequestHeaders.
-
         Header[] headers = this.method.getResponseHeaders();
-        if (thePosition < 0 || thePosition >= headers.length) {
+
+        if ((thePosition < 0) || (thePosition >= headers.length))
+        {
             return null;
         }
 
@@ -243,7 +250,6 @@ public class HttpURLConnection extends java.net.HttpURLConnection
     // Note: We don't implement the following methods so that they default to
     // the JDK implementation. They will all call
     // <code>getHeaderField(String)</code> which we have overridden.
-
     // java.net.HttpURLConnection#getHeaderFieldDate(String, long)
     // java.net.HttpURLConnection#getContentLength()
     // java.net.HttpURLConnection#getContentType()
@@ -430,5 +436,4 @@ public class HttpURLConnection extends java.net.HttpURLConnection
     {
         throw new RuntimeException("Not implemented yet");
     }
-
 }

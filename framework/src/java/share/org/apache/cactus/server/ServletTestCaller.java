@@ -56,9 +56,11 @@
  */
 package org.apache.cactus.server;
 
-import java.lang.reflect.Field;
-import java.io.Writer;
 import java.io.IOException;
+import java.io.Writer;
+
+import java.lang.reflect.Field;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -91,49 +93,47 @@ public class ServletTestCaller extends AbstractWebTestCaller
         throws Exception
     {
         ServletTestCase servletInstance = (ServletTestCase) theTestInstance;
-        ServletImplicitObjects servletImplicitObjects =
+        ServletImplicitObjects servletImplicitObjects = 
             (ServletImplicitObjects) this.webImplicitObjects;
 
         // Sets the request field of the test case class
         // ---------------------------------------------
-
         // Extract from the HTTP request the URL to simulate (if any)
-        HttpServletRequest request =
+        HttpServletRequest request = 
             servletImplicitObjects.getHttpServletRequest();
 
         ServletURL url = ServletURL.loadFromRequest(request);
 
         Field requestField = servletInstance.getClass().getField("request");
-        requestField.set(servletInstance,
+
+        requestField.set(servletInstance, 
             new HttpServletRequestWrapper(request, url));
 
         // Set the response field of the test case class
         // ---------------------------------------------
-
         Field responseField = servletInstance.getClass().getField("response");
-        responseField.set(servletInstance,
+
+        responseField.set(servletInstance, 
             servletImplicitObjects.getHttpServletResponse());
 
         // Set the config field of the test case class
         // -------------------------------------------
-
         Field configField = servletInstance.getClass().getField("config");
-        configField.set(servletInstance,
-            new ServletConfigWrapper(
-                servletImplicitObjects.getServletConfig()));
+
+        configField.set(servletInstance, new ServletConfigWrapper(
+            servletImplicitObjects.getServletConfig()));
 
         // Set the session field of the test case class
         // --------------------------------------------
-
         // Create a Session object if the auto session flag is on
-        if (isAutoSession()) {
-
-            HttpSession session =
-                servletImplicitObjects.getHttpServletRequest().getSession(true);
+        if (isAutoSession())
+        {
+            HttpSession session = servletImplicitObjects.getHttpServletRequest()
+                .getSession(true);
 
             Field sessionField = servletInstance.getClass().getField("session");
-            sessionField.set(servletInstance, session);
 
+            sessionField.set(servletInstance, session);
         }
     }
 
@@ -144,5 +144,4 @@ public class ServletTestCaller extends AbstractWebTestCaller
     {
         return this.webImplicitObjects.getHttpServletResponse().getWriter();
     }
-
 }

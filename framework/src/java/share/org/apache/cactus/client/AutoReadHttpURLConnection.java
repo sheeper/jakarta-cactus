@@ -56,9 +56,6 @@
  */
 package org.apache.cactus.client;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -66,10 +63,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+
 import java.net.HttpURLConnection;
 import java.net.ProtocolException;
 import java.net.URL;
+
 import java.security.Permission;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * Wrapper class for the real <code>HttpURLConnection</code> to the test servlet
@@ -93,7 +95,7 @@ final class AutoReadHttpURLConnection extends HttpURLConnection
     /**
      * The logger
      */
-    private static final Log LOGGER =
+    private static final Log LOGGER = 
         LogFactory.getLog(AutoReadHttpURLConnection.class);
 
     /**
@@ -133,13 +135,19 @@ final class AutoReadHttpURLConnection extends HttpURLConnection
     public synchronized InputStream getInputStream() throws IOException
     {
         // Catch IOException to log the content of the error stream
-        try {
-            if (this.streamBuffer == null) {
+        try
+        {
+            if (this.streamBuffer == null)
+            {
                 LOGGER.debug("Original connection = " + this.delegate);
+
                 InputStream is = this.delegate.getInputStream();
+
                 this.streamBuffer = getBufferedInputStream(is);
             }
-        } catch (IOException e) {
+        }
+        catch (IOException e)
+        {
             logErrorStream(this.delegate.getErrorStream());
             throw e;
         }
@@ -156,12 +164,15 @@ final class AutoReadHttpURLConnection extends HttpURLConnection
      */
     private void logErrorStream(InputStream theErrorStream) throws IOException
     {
-        if (theErrorStream != null) {
+        if (theErrorStream != null)
+        {
             // Log content of error stream
-            BufferedReader errorStream = new BufferedReader(
-                new InputStreamReader(theErrorStream));
+            BufferedReader errorStream = 
+                new BufferedReader(new InputStreamReader(theErrorStream));
             String buffer;
-            while ((buffer = errorStream.readLine()) != null) {
+
+            while ((buffer = errorStream.readLine()) != null)
+            {
                 LOGGER.debug("ErrorStream [" + buffer + "]");
             }
         }
@@ -178,11 +189,12 @@ final class AutoReadHttpURLConnection extends HttpURLConnection
     private InputStream getBufferedInputStream(InputStream theInputStream)
         throws IOException
     {
-        ByteArrayOutputStream os =
+        ByteArrayOutputStream os = 
             new ByteArrayOutputStream(DEFAULT_CHUNK_SIZE);
+
         copy(theInputStream, os);
-        ByteArrayInputStream bais =
-            new ByteArrayInputStream(os.toByteArray());
+
+        ByteArrayInputStream bais = new ByteArrayInputStream(os.toByteArray());
 
         return bais;
     }
@@ -204,22 +216,20 @@ final class AutoReadHttpURLConnection extends HttpURLConnection
         // getContentLength() returns -1. It seems to work and it seems
         // that all servers that return no content-length header also do
         // not block on read() operations !
+        LOGGER.debug("Content-Length : [" + this.delegate.getContentLength()
+            + "]");
 
-        LOGGER.debug("Content-Length : ["
-            + this.delegate.getContentLength() + "]");
-
-        if (this.delegate.getContentLength() != 0) {
-
+        if (this.delegate.getContentLength() != 0)
+        {
             byte[] buf = new byte[DEFAULT_CHUNK_SIZE];
             int count;
 
-            while (-1 != (count = theInputStream.read(buf))) {
-
+            while (-1 != (count = theInputStream.read(buf)))
+            {
                 // log read data
                 printReadLogs(count, buf);
                 theOutputStream.write(buf, 0, count);
             }
-
         }
     }
 
@@ -235,12 +245,19 @@ final class AutoReadHttpURLConnection extends HttpURLConnection
         // Log portion of read data and replace asc 10 by \r and asc
         // 13 by /n
         StringBuffer prefix = new StringBuffer();
-        for (int i = 0; i < theCount; i++) {
-            if (theBuffer[i] == 10) {
+
+        for (int i = 0; i < theCount; i++)
+        {
+            if (theBuffer[i] == 10)
+            {
                 prefix.append("\\r");
-            } else if (theBuffer[i] == 13) {
+            }
+            else if (theBuffer[i] == 13)
+            {
                 prefix.append("\\n");
-            } else {
+            }
+            else
+            {
                 prefix.append((char) theBuffer[i]);
             }
         }
@@ -553,5 +570,4 @@ final class AutoReadHttpURLConnection extends HttpURLConnection
     {
         return this.delegate.usingProxy();
     }
-
 }

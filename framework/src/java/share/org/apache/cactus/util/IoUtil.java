@@ -57,9 +57,9 @@
 package org.apache.cactus.util;
 
 import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 
 /**
  * Various utility methods for manipulating IO streams.
@@ -78,8 +78,7 @@ public class IoUtil
      * @return the string representation of the data
      * @throws IOException if an error occurs during the read of data
      */
-    public static String getText(InputStream theStream)
-        throws IOException
+    public static String getText(InputStream theStream) throws IOException
     {
         StringBuffer sb = new StringBuffer();
 
@@ -87,9 +86,12 @@ public class IoUtil
             new InputStreamReader(theStream));
         char[] buffer = new char[2048];
         int nb;
-        while (-1 != (nb = input.read(buffer, 0, 2048))) {
+
+        while (-1 != (nb = input.read(buffer, 0, 2048)))
+        {
             sb.append(buffer, 0, nb);
         }
+
         input.close();
 
         return sb.toString();

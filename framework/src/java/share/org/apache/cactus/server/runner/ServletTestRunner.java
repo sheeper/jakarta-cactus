@@ -56,16 +56,18 @@
  */
 package org.apache.cactus.server.runner;
 
-import java.io.PrintWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.ServletException;
+
+import junit.framework.Test;
+import junit.framework.TestResult;
 
 import org.apache.cactus.util.Configuration;
-import junit.framework.TestResult;
-import junit.framework.Test;
 
 /**
  * Helper servlet to start a JUnit Test Runner in a webapp.
@@ -98,12 +100,15 @@ public class ServletTestRunner extends HttpServlet
      *            request
      * @exception IOException if an error occurs when servicing the request
      */
-    public void doGet(HttpServletRequest theRequest,
-        HttpServletResponse theResponse) throws ServletException, IOException
+    public void doGet(HttpServletRequest theRequest, 
+        HttpServletResponse theResponse) throws ServletException, 
+        IOException
     {
         // Verify if a suite parameter exists
         String suiteClassName = theRequest.getParameter(HTTP_SUITE_PARAM);
-        if (suiteClassName == null) {
+
+        if (suiteClassName == null)
+        {
             throw new ServletException("Missing HTTP parameter ["
                 + HTTP_SUITE_PARAM + "] in request");
         }
@@ -111,17 +116,21 @@ public class ServletTestRunner extends HttpServlet
         // Get the XSL stylesheet parameter if any
         String xslParam = theRequest.getParameter(HTTP_XSL_PARAM);
 
+
         // Set up default Cactus System properties so that there is no need
         // to have a cactus.properties file in WEB-INF/classes
-        System.setProperty(Configuration.CACTUS_CONTEXT_URL_PROPERTY,
+        System.setProperty(Configuration.CACTUS_CONTEXT_URL_PROPERTY, 
             "http://" + theRequest.getServerName() + ":"
-            + theRequest.getServerPort() + theRequest.getContextPath());
+            + theRequest.getServerPort()
+            + theRequest.getContextPath());
 
         // Run the tests
         String xml = run(suiteClassName, xslParam);
 
         theResponse.setContentType("text/xml");
+
         PrintWriter pw = theResponse.getWriter();
+
         pw.println(xml);
     }
 
@@ -140,6 +149,7 @@ public class ServletTestRunner extends HttpServlet
         TestResult result = new TestResult();
 
         XMLFormatter formatter = new XMLFormatter();
+
         formatter.setXslFileName(theXslFileName);
 
         formatter.setSuiteClassName(theSuiteClassName);
@@ -151,11 +161,14 @@ public class ServletTestRunner extends HttpServlet
         WebappTestRunner testRunner = new WebappTestRunner();
 
         Test suite = testRunner.getTest(theSuiteClassName);
-        if (suite == null) {
+
+        if (suite == null)
+        {
             throw new ServletException("Failed to load test suite ["
                 + theSuiteClassName + "], Reason is ["
                 + testRunner.getErrorMessage() + "]");
         }
+
 
         // Run the tests
         suite.run(result);
@@ -166,5 +179,4 @@ public class ServletTestRunner extends HttpServlet
 
         return formatter.toXML(result);
     }
-
 }

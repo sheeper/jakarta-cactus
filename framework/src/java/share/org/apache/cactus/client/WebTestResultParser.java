@@ -100,13 +100,16 @@ public class WebTestResultParser
 
         buffer = readRootElement(theData);
 
-        if (buffer.length() == 0) {
+        if (buffer.length() == 0)
+        {
             result = new WebTestResult();
-        } else {
+        }
+        else
+        {
             buffer = readExceptionClassname(buffer);
             buffer = readExceptionMessage(buffer);
             buffer = readExceptionStacktrace(buffer);
-            result = new WebTestResult(this.exceptionClassname,
+            result = new WebTestResult(this.exceptionClassname, 
                 this.exceptionMessage, this.exceptionStacktrace);
         }
 
@@ -132,16 +135,18 @@ public class WebTestResultParser
         String trimmedData = theData.trim();
 
         if (trimmedData.startsWith(startRootString)
-            && trimmedData.endsWith(endRootString)) {
-
-            buffer = trimmedData.substring(startRootString.length(),
+            && trimmedData.endsWith(endRootString))
+        {
+            buffer = trimmedData.substring(startRootString.length(), 
                 trimmedData.length() - endRootString.length());
-        } else {
+        }
+        else
+        {
             // Display the first 100 characters of the invalid data as it can
             // be very big ...
             throw new ParsingException("Not a valid response. First 100 "
-                + "characters of the reponse: [" + theData.substring(0, 100)
-                + "]");
+                + "characters of the reponse: ["
+                + theData.substring(0, 100) + "]");
         }
 
         return buffer;
@@ -158,24 +163,28 @@ public class WebTestResultParser
     protected String readExceptionClassname(String theData)
         throws ParsingException
     {
-        String startString = "<" + WebTestResult.XML_EXCEPTION_ELEMENT
-            + " " + WebTestResult.XML_EXCEPTION_CLASSNAME_ATTRIBUTE + "=\"";
+        String startString = "<" + WebTestResult.XML_EXCEPTION_ELEMENT + " "
+            + WebTestResult.XML_EXCEPTION_CLASSNAME_ATTRIBUTE + "=\"";
         String endString = "</" + WebTestResult.XML_EXCEPTION_ELEMENT + ">";
         String buffer;
 
-        if (theData.startsWith(startString) && theData.endsWith(endString)) {
+        if (theData.startsWith(startString) && theData.endsWith(endString))
+        {
             int pos = theData.indexOf('\"', startString.length());
-            this.exceptionClassname = theData.substring(startString.length(),
+
+            this.exceptionClassname = theData.substring(startString.length(), 
                 pos);
             buffer = theData.substring(startString.length()
-                + this.exceptionClassname.length() + 2,
+                + this.exceptionClassname.length() + 2, 
                 theData.length() - endString.length());
-        } else {
+        }
+        else
+        {
             // Display the first 100 characters of the invalid data as it can
             // be very big ...
             throw new ParsingException("Not a valid response. First 100 "
-                + "characters of the reponse: [" + theData.substring(0, 100)
-                + "]");
+                + "characters of the reponse: ["
+                + theData.substring(0, 100) + "]");
         }
 
         return buffer;
@@ -198,17 +207,21 @@ public class WebTestResultParser
             + WebTestResult.XML_EXCEPTION_MESSAGE_ELEMENT + ">";
         String buffer;
 
-        if (theData.startsWith(startString)) {
+        if (theData.startsWith(startString))
+        {
             int pos = theData.indexOf(endString, startString.length());
-            this.exceptionMessage = theData.substring(startString.length(),
+
+            this.exceptionMessage = theData.substring(startString.length(), 
                 pos);
             buffer = theData.substring(pos + endString.length());
-        } else {
+        }
+        else
+        {
             // Display the first 100 characters of the invalid data as it can
             // be very big ...
             throw new ParsingException("Not a valid response. First 100 "
-                + "characters of the reponse: [" + theData.substring(0, 100)
-                + "]");
+                + "characters of the reponse: ["
+                + theData.substring(0, 100) + "]");
         }
 
         return buffer;
@@ -231,20 +244,23 @@ public class WebTestResultParser
             + WebTestResult.XML_EXCEPTION_STACKTRACE_ELEMENT + ">";
         String buffer;
 
-        if (theData.startsWith(startString)) {
+        if (theData.startsWith(startString))
+        {
             int pos = theData.indexOf(endString, startString.length());
-            this.exceptionStacktrace = theData.substring(startString.length(),
+
+            this.exceptionStacktrace = theData.substring(startString.length(), 
                 pos);
             buffer = theData.substring(pos + endString.length());
-        } else {
+        }
+        else
+        {
             // Display the first 100 characters of the invalid data as it can
             // be very big ...
             throw new ParsingException("Not a valid response. First 100 "
-                + "characters of the reponse: [" + theData.substring(0, 100)
-                + "]");
+                + "characters of the reponse: ["
+                + theData.substring(0, 100) + "]");
         }
 
         return buffer;
     }
-
 }

@@ -60,18 +60,19 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
-import java.util.Enumeration;
 
-import org.apache.commons.logging.LogFactory;
-import org.apache.commons.logging.Log;
+import java.util.Enumeration;
 
 import org.apache.cactus.WebRequest;
 import org.apache.cactus.client.authentication.AbstractAuthentication;
 import org.apache.cactus.util.ChainedRuntimeException;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * Implementation of <code>ConnectionHelper</code> using the JDK
@@ -87,20 +88,21 @@ public class JdkConnectionHelper extends AbstractConnectionHelper
     /**
      * The logger
      */
-    private static final Log LOGGER =
+    private static final Log LOGGER = 
         LogFactory.getLog(JdkConnectionHelper.class);
+
+    // Static initialisations
+    static
+    {
+        // Do not follow redirects (because we are doing unit tests and
+        // we need to be able to assert the returned headers, cookies, ...)
+        HttpURLConnection.setFollowRedirects(false);
+    }
 
     /**
      * The URL that will be used for the HTTP connection.
      */
     private String url;
-
-    // Static initialisations
-    static {
-        // Do not follow redirects (because we are doing unit tests and
-        // we need to be able to assert the returned headers, cookies, ...)
-        HttpURLConnection.setFollowRedirects(false);
-    }
 
     /**
      * @param theURL the URL that will be used for the HTTP connection.
@@ -113,8 +115,7 @@ public class JdkConnectionHelper extends AbstractConnectionHelper
     /**
      * @see ConnectionHelper#connect(WebRequest)
      */
-    public HttpURLConnection connect(WebRequest theRequest)
-        throws Throwable
+    public HttpURLConnection connect(WebRequest theRequest) throws Throwable
     {
         URL url = new URL(this.url);
 
@@ -122,9 +123,12 @@ public class JdkConnectionHelper extends AbstractConnectionHelper
         // step to allow authentication to add extra headers, HTTP parameters,
         // etc.
         AbstractAuthentication authentication = theRequest.getAuthentication();
-        if (authentication != null) {
+
+        if (authentication != null)
+        {
             authentication.configure(theRequest);
         }
+
 
         // Add the parameters that need to be passed as part of the URL
         url = addParametersGet(theRequest, url);
@@ -138,17 +142,19 @@ public class JdkConnectionHelper extends AbstractConnectionHelper
         //   we are doing a POST.
         // - If user data has been specified, then we are doing a POST
         if (theRequest.getParameterNamesPost().hasMoreElements()
-            || (theRequest.getUserData() != null)) {
-
+            || (theRequest.getUserData() != null))
+        {
             connection.setDoOutput(true);
-        } else {
+        }
+        else
+        {
             connection.setDoOutput(false);
         }
 
         connection.setUseCaches(false);
 
         // Sets the content type
-        connection.setRequestProperty("Content-type",
+        connection.setRequestProperty("Content-type", 
             theRequest.getContentType());
 
         // Add the other header fields
@@ -156,20 +162,27 @@ public class JdkConnectionHelper extends AbstractConnectionHelper
 
         // Add the cookies
         String cookieString = getCookieString(theRequest, url);
-        if (cookieString != null) {
+
+        if (cookieString != null)
+        {
             connection.setRequestProperty("Cookie", cookieString);
         }
 
         // Add the POST parameters if no user data has been specified (user data
         // overried post parameters)
-        if (theRequest.getUserData() != null) {
+        if (theRequest.getUserData() != null)
+        {
             addUserData(theRequest, connection);
-        } else {
+        }
+        else
+        {
             addParametersPost(theRequest, connection);
         }
 
+
         // Log content length
         LOGGER.debug("ContentLength = [" + connection.getContentLength() + "]");
+
 
         // Open the connection and get the result
         connection.connect();
@@ -185,11 +198,12 @@ public class JdkConnectionHelper extends AbstractConnectionHelper
      * @param theConnection the HTTP connection
      * @exception IOException if we fail to read the user data
      */
-    private void addUserData(WebRequest theRequest,
-        URLConnection theConnection) throws IOException
+    private void addUserData(WebRequest theRequest, URLConnection theConnection)
+                      throws IOException
     {
         // If no user data, then exit
-        if (theRequest.getUserData() == null) {
+        if (theRequest.getUserData() == null)
+        {
             return;
         }
 
@@ -198,7 +212,9 @@ public class JdkConnectionHelper extends AbstractConnectionHelper
 
         byte[] buffer = new byte[2048];
         int length;
-        while ((length = stream.read(buffer)) != -1) {
+
+        while ((length = stream.read(buffer)) != -1)
+        {
             out.write(buffer, 0, length);
         }
 
@@ -212,11 +228,12 @@ public class JdkConnectionHelper extends AbstractConnectionHelper
      *        redirector.
      * @param theConnection the HTTP connection
      */
-    private void addParametersPost(WebRequest theRequest,
-        URLConnection theConnection)
+    private void addParametersPost(WebRequest theRequest, 
+                                   URLConnection theConnection)
     {
         // If no parameters, then exit
-        if (!theRequest.getParameterNamesPost().hasMoreElements()) {
+        if (!theRequest.getParameterNamesPost().hasMoreElements())
+        {
             return;
         }
 
@@ -224,13 +241,17 @@ public class JdkConnectionHelper extends AbstractConnectionHelper
         StringBuffer queryString = new StringBuffer();
         Enumeration keys = theRequest.getParameterNamesPost();
 
-        if (keys.hasMoreElements()) {
+        if (keys.hasMoreElements())
+        {
             String key = (String) keys.nextElement();
             String[] values = theRequest.getParameterValuesPost(key);
+
             queryString.append(key);
             queryString.append('=');
             queryString.append(URLEncoder.encode(values[0]));
-            for (int i = 1; i < values.length; i++) {
+
+            for (int i = 1; i < values.length; i++)
+            {
                 queryString.append('&');
                 queryString.append(key);
                 queryString.append('=');
@@ -238,10 +259,13 @@ public class JdkConnectionHelper extends AbstractConnectionHelper
             }
         }
 
-        while (keys.hasMoreElements()) {
+        while (keys.hasMoreElements())
+        {
             String key = (String) keys.nextElement();
             String[] values = theRequest.getParameterValuesPost(key);
-            for (int i = 0; i < values.length; i++) {
+
+            for (int i = 0; i < values.length; i++)
+            {
                 queryString.append('&');
                 queryString.append(key);
                 queryString.append('=');
@@ -260,16 +284,20 @@ public class JdkConnectionHelper extends AbstractConnectionHelper
     private OutputStream getConnectionStream(URLConnection theConnection)
     {
         OutputStream out;
-        try {
+
+        try
+        {
             out = theConnection.getOutputStream();
-        } catch (IOException e) {
+        }
+        catch (IOException e)
+        {
             // Cannot connect to server, try to explain why ...
             String reason = "Cannot connect to URL [" + theConnection.getURL()
                 + "]. Reason : [" + e.getMessage() + "]\r\n";
             reason += "Possible reasons :\r\n";
             reason += "\t- The server is not running,\r\n";
-            reason += "\t- The server redirector is not correctly mapped in "
-                + "web.xml,\r\n";
+            reason += ("\t- The server redirector is not correctly mapped in " 
+                + "web.xml,\r\n");
             reason += "\t- Something else ... !";
 
             throw new ChainedRuntimeException(reason);
@@ -285,12 +313,12 @@ public class JdkConnectionHelper extends AbstractConnectionHelper
      *        redirector.
      * @param theConnection the HTTP connection
      */
-    private void addHeaders(WebRequest theRequest,
-        URLConnection theConnection)
+    private void addHeaders(WebRequest theRequest, URLConnection theConnection)
     {
         Enumeration keys = theRequest.getHeaderNames();
 
-        while (keys.hasMoreElements()) {
+        while (keys.hasMoreElements())
+        {
             String key = (String) keys.nextElement();
             String[] values = theRequest.getHeaderValues(key);
 
@@ -300,14 +328,14 @@ public class JdkConnectionHelper extends AbstractConnectionHelper
             // Question: Is this an implementation bug ? It seems because
             // on the server side, I cannot use the request.getHeaders() (it
             // only returns a single header).
-
             StringBuffer fullHeaderValue = new StringBuffer(values[0]);
-            for (int i = 1; i < values.length; i++) {
+
+            for (int i = 1; i < values.length; i++)
+            {
                 fullHeaderValue.append("," + values[i]);
             }
-            theConnection.setRequestProperty(key, fullHeaderValue.toString());
 
+            theConnection.setRequestProperty(key, fullHeaderValue.toString());
         }
     }
-
 }

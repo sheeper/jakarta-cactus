@@ -58,7 +58,9 @@ package org.apache.cactus.server;
 
 import java.io.IOException;
 import java.io.Writer;
+
 import java.lang.reflect.Constructor;
+
 import javax.servlet.ServletException;
 
 import org.apache.cactus.AbstractTestCase;
@@ -84,13 +86,13 @@ public abstract class AbstractWebTestCaller
      * Name of the attribute in the <code>application</code> scope that will
      * hold the results of the test.
      */
-    protected static final String TEST_RESULTS =
+    protected static final String TEST_RESULTS = 
         "ServletTestRedirector_TestResults";
 
     /**
      * The logger.
      */
-    private static final Log LOGGER =
+    private static final Log LOGGER = 
         LogFactory.getLog(AbstractWebTestCaller.class);
 
     /**
@@ -136,8 +138,8 @@ public abstract class AbstractWebTestCaller
     {
         WebTestResult result = null;
 
-        try {
-
+        try
+        {
             // Create an instance of the test class
             AbstractTestCase testInstance = getTestClassInstance(
                 getTestClassName(), getTestMethodName());
@@ -151,19 +153,20 @@ public abstract class AbstractWebTestCaller
             // Return an instance of <code>WebTestResult</code> with a
             // positive result.
             result = new WebTestResult();
-
-        } catch (Throwable e) {
+        }
+        catch (Throwable e)
+        {
             // An error occurred, return an instance of
             // <code>WebTestResult</code> with an exception.
             result = new WebTestResult(e);
-
         }
 
         LOGGER.debug("Test result : [" + result + "]");
 
+
         // Set the test result.
-        this.webImplicitObjects.getServletContext().setAttribute(TEST_RESULTS,
-            result);
+        this.webImplicitObjects.getServletContext()
+            .setAttribute(TEST_RESULTS, result);
 
         LOGGER.debug("Result saved in context scope");
     }
@@ -182,23 +185,24 @@ public abstract class AbstractWebTestCaller
         // first request is done to execute the test, all the result is read
         // by the AutoReadHttpURLConnection class, thus ensuring that the
         // request is fully finished and the resukt has been committed ...
-
-        WebTestResult result =
-            (WebTestResult) (this.webImplicitObjects.getServletContext().
-            getAttribute(TEST_RESULTS));
+        WebTestResult result = (WebTestResult) (this.webImplicitObjects
+            .getServletContext().getAttribute(TEST_RESULTS));
 
         LOGGER.debug("Test Result = [" + result + "]");
 
         // Write back the results to the outgoing stream as an XML string.
-        try {
-
+        try
+        {
             Writer writer = getResponseWriter();
+
             writer.write(result.toXml());
             writer.close();
-
-        } catch (IOException e) {
+        }
+        catch (IOException e)
+        {
             String message = "Error writing WebTestResult instance to output "
                 + "stream";
+
             LOGGER.error(message, e);
             throw new ServletException(message, e);
         }
@@ -224,14 +228,17 @@ public abstract class AbstractWebTestCaller
      */
     protected String getTestClassName() throws ServletException
     {
-        String queryString =
-            this.webImplicitObjects.getHttpServletRequest().getQueryString();
-        String className = ServletUtil.getQueryStringParameter(queryString,
+        String queryString = this.webImplicitObjects.getHttpServletRequest()
+            .getQueryString();
+        String className = ServletUtil.getQueryStringParameter(queryString, 
             HttpServiceDefinition.CLASS_NAME_PARAM);
 
-        if (className == null) {
+        if (className == null)
+        {
             String message = "Missing class name parameter ["
-                + HttpServiceDefinition.CLASS_NAME_PARAM + "] in HTTP request.";
+                + HttpServiceDefinition.CLASS_NAME_PARAM
+                + "] in HTTP request.";
+
             LOGGER.error(message);
             throw new ServletException(message);
         }
@@ -249,15 +256,17 @@ public abstract class AbstractWebTestCaller
      */
     protected String getTestMethodName() throws ServletException
     {
-        String queryString =
-            this.webImplicitObjects.getHttpServletRequest().getQueryString();
-        String methodName = ServletUtil.getQueryStringParameter(queryString,
+        String queryString = this.webImplicitObjects.getHttpServletRequest()
+            .getQueryString();
+        String methodName = ServletUtil.getQueryStringParameter(queryString, 
             HttpServiceDefinition.METHOD_NAME_PARAM);
 
-        if (methodName == null) {
+        if (methodName == null)
+        {
             String message = "Missing method name parameter ["
                 + HttpServiceDefinition.METHOD_NAME_PARAM
                 + "] in HTTP request.";
+
             LOGGER.error(message);
             throw new ServletException(message);
         }
@@ -273,13 +282,13 @@ public abstract class AbstractWebTestCaller
      */
     protected boolean isAutoSession()
     {
-        String queryString =
-            this.webImplicitObjects.getHttpServletRequest().getQueryString();
-        String autoSession = ServletUtil.getQueryStringParameter(queryString,
+        String queryString = this.webImplicitObjects.getHttpServletRequest()
+            .getQueryString();
+        String autoSession = ServletUtil.getQueryStringParameter(queryString, 
             HttpServiceDefinition.AUTOSESSION_NAME_PARAM);
 
-        boolean isAutomaticSession = Boolean.valueOf(
-            autoSession).booleanValue();
+        boolean isAutomaticSession = 
+            Boolean.valueOf(autoSession).booleanValue();
 
         LOGGER.debug("Auto session is " + isAutomaticSession);
 
@@ -294,20 +303,26 @@ public abstract class AbstractWebTestCaller
      *            test fails to be instanciated (for example if some
      *            information is missing from the HTTP request)
      */
-    protected AbstractTestCase getTestClassInstance(String theClassName,
+    protected AbstractTestCase getTestClassInstance(String theClassName, 
         String theTestCaseName) throws ServletException
     {
         // Get the class to call and build an instance of it.
         Class testClass = getTestClassClass(theClassName);
         AbstractTestCase testInstance = null;
-        try {
+
+        try
+        {
             Constructor constructor = testClass.getConstructor(
-                new Class[]{String.class});
+                new Class[] { String.class });
+
             testInstance = (AbstractTestCase) constructor.newInstance(
-                new Object[]{theTestCaseName});
-        } catch (Exception e) {
-            String message = "Error instantiating class [" + theClassName
-                + "(" + theTestCaseName + ")]";
+                new Object[] { theTestCaseName });
+        }
+        catch (Exception e)
+        {
+            String message = "Error instantiating class [" + theClassName + "("
+                + theTestCaseName + ")]";
+
             LOGGER.error(message, e);
             throw new ServletException(message, e);
         }
@@ -327,18 +342,23 @@ public abstract class AbstractWebTestCaller
     {
         // Get the class to call and build an instance of it.
         Class testClass = null;
-        try {
-            testClass = ClassLoaderUtils.loadClass(theClassName,
+
+        try
+        {
+            testClass = ClassLoaderUtils.loadClass(theClassName, 
                 this.getClass());
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             String message = "Error finding class [" + theClassName
                 + "] using both the Context classloader and the webapp "
                 + "classloader. Possible causes include:\r\n";
-            message += "\t- Your webapp does not include your test "
-                + "classes,\r\n";
-            message += "\t- The cactus.jar is not located in your "
-                + "WEB-INF/lib directory and your Container has not set the "
-                + "Context classloader to point to the webapp one";
+
+            message += ("\t- Your webapp does not include your test " 
+                + "classes,\r\n");
+            message += ("\t- The cactus.jar is not located in your " 
+                + "WEB-INF/lib directory and your Container has not set the " 
+                + "Context classloader to point to the webapp one");
 
             LOGGER.error(message, e);
             throw new ServletException(message, e);
@@ -346,5 +366,4 @@ public abstract class AbstractWebTestCaller
 
         return testClass;
     }
-
 }

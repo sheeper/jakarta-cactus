@@ -58,11 +58,12 @@ package org.apache.cactus.server.runner;
 
 import java.text.NumberFormat;
 
+import junit.framework.AssertionFailedError;
 import junit.framework.Test;
-import junit.framework.TestResult;
 import junit.framework.TestFailure;
 import junit.framework.TestListener;
-import junit.framework.AssertionFailedError;
+import junit.framework.TestResult;
+
 import org.apache.cactus.util.JUnitVersionHelper;
 import org.apache.cactus.util.StringUtil;
 
@@ -153,8 +154,7 @@ public class XMLFormatter implements XMLConstants, TestListener
      */
     private String getDurationAsString(long theDuration)
     {
-        return NumberFormat.getInstance().format(
-            (double) theDuration / 1000);
+        return NumberFormat.getInstance().format((double) theDuration / 1000);
     }
 
     /**
@@ -179,9 +179,10 @@ public class XMLFormatter implements XMLConstants, TestListener
 
         xml.append("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>");
 
-        if (this.xslFileName != null) {
-            xml.append("<?xml-stylesheet type=\"text/xsl\" "
-                + "href=\"" + this.xslFileName + "\"?>");
+        if (this.xslFileName != null)
+        {
+            xml.append("<?xml-stylesheet type=\"text/xsl\" " + "href=\""
+                + this.xslFileName + "\"?>");
         }
 
         xml.append("<" + TESTSUITES + ">");
@@ -227,8 +228,8 @@ public class XMLFormatter implements XMLConstants, TestListener
             + xmlEncode(failure.thrownException().getMessage()) + "\" "
             + ATTR_TYPE + "=\""
             + failure.thrownException().getClass().getName() + "\">");
-        xml.append(xmlEncode(
-            StringUtil.exceptionToString(failure.thrownException())));
+        xml.append(xmlEncode(StringUtil.exceptionToString(
+            failure.thrownException())));
         xml.append("</" + ERROR + ">");
 
         this.currentTestFailure = xml.toString();
@@ -246,11 +247,11 @@ public class XMLFormatter implements XMLConstants, TestListener
         StringBuffer xml = new StringBuffer();
 
         xml.append("<" + FAILURE + " " + ATTR_MESSAGE + "=\""
-            + xmlEncode(failure.thrownException().getMessage())
-            + "\" " + ATTR_TYPE + "=\""
+            + xmlEncode(failure.thrownException().getMessage()) + "\" "
+            + ATTR_TYPE + "=\""
             + failure.thrownException().getClass().getName() + "\">");
-        xml.append(xmlEncode(
-            StringUtil.exceptionToString(failure.thrownException())));
+        xml.append(xmlEncode(StringUtil.exceptionToString(
+            failure.thrownException())));
         xml.append("</" + FAILURE + ">");
 
         this.currentTestFailure = xml.toString();
@@ -264,14 +265,15 @@ public class XMLFormatter implements XMLConstants, TestListener
     public void endTest(Test theTest)
     {
         StringBuffer xml = new StringBuffer();
-        String duration = getDurationAsString(
-            System.currentTimeMillis() - this.currentTestStartTime);
+        String duration = getDurationAsString(System.currentTimeMillis()
+            - this.currentTestStartTime);
 
         xml.append("<" + TESTCASE + " " + ATTR_NAME + "=\""
-            + JUnitVersionHelper.getTestCaseName(theTest) + "\" " + ATTR_TIME
-            + "=\"" + duration + "\">");
+            + JUnitVersionHelper.getTestCaseName(theTest) + "\" "
+            + ATTR_TIME + "=\"" + duration + "\">");
 
-        if (this.currentTestFailure != null) {
+        if (this.currentTestFailure != null)
+        {
             xml.append(this.currentTestFailure);
         }
 
@@ -309,31 +311,40 @@ public class XMLFormatter implements XMLConstants, TestListener
      * @param theNewString the string with which to replace the char
      * @return the string with replacements done
      */
-    public static String replace(String theBaseString, char theChar,
+    public static String replace(String theBaseString, char theChar, 
         String theNewString)
     {
-        if (theBaseString == null) {
+        if (theBaseString == null)
+        {
             return null;
         }
-            
+
         final int len = theBaseString.length() - 1;
         int pos = -1;
 
-        while ((pos = theBaseString.indexOf(theChar, pos + 1)) > -1) {
-            if (pos == 0) {
+        while ((pos = theBaseString.indexOf(theChar, pos + 1)) > -1)
+        {
+            if (pos == 0)
+            {
                 final String after = theBaseString.substring(1);
+
                 theBaseString = theNewString + after;
-            } else if (pos == len) {
+            }
+            else if (pos == len)
+            {
                 final String before = theBaseString.substring(0, pos);
+
                 theBaseString = before + theNewString;
-            } else {
+            }
+            else
+            {
                 final String before = theBaseString.substring(0, pos);
                 final String after = theBaseString.substring(pos + 1);
+
                 theBaseString = before + theNewString + after;
             }
         }
+
         return theBaseString;
-
     }
-
 }

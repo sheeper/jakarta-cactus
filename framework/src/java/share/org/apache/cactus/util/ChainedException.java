@@ -126,7 +126,9 @@ public class ChainedException extends Exception
     public void printStackTrace(PrintStream thePs)
     {
         super.printStackTrace(thePs);
-        if (this.originalException != null) {
+
+        if (this.originalException != null)
+        {
             this.originalException.printStackTrace(thePs);
         }
     }
@@ -139,9 +141,10 @@ public class ChainedException extends Exception
     public void printStackTrace(PrintWriter thePw)
     {
         super.printStackTrace(thePw);
-        if (this.originalException != null) {
+
+        if (this.originalException != null)
+        {
             this.originalException.printStackTrace(thePw);
         }
     }
-
 }

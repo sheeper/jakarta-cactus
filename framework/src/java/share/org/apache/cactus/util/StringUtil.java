@@ -56,8 +56,8 @@
  */
 package org.apache.cactus.util;
 
-import java.io.StringWriter;
 import java.io.PrintWriter;
+import java.io.StringWriter;
 
 /**
  * Various utility methods for string manipulation.
@@ -77,7 +77,9 @@ public class StringUtil
     {
         StringWriter sw = new StringWriter();
         PrintWriter pw = new PrintWriter(sw);
+
         theThrowable.printStackTrace(pw);
+
         return sw.toString();
     }
 }

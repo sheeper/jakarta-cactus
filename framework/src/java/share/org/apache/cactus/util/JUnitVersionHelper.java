@@ -58,8 +58,8 @@ package org.apache.cactus.util;
 
 import java.lang.reflect.Method;
 
-import junit.framework.TestCase;
 import junit.framework.Test;
+import junit.framework.TestCase;
 
 /**
  * Work around for some changes to the public JUnit API between
@@ -78,14 +78,21 @@ public class JUnitVersionHelper
      */
     private static Method testCaseName = null;
 
-    static {
-        try {
+    static
+    {
+        try
+        {
             testCaseName = TestCase.class.getMethod("getName", new Class[0]);
-        } catch (NoSuchMethodException e) {
+        }
+        catch (NoSuchMethodException e)
+        {
             // pre JUnit 3.7
-            try {
+            try
+            {
                 testCaseName = TestCase.class.getMethod("name", new Class[0]);
-            } catch (NoSuchMethodException e2) {
+            }
+            catch (NoSuchMethodException e2)
+            {
                 throw new ChainedRuntimeException("Cannot find method name()");
             }
         }
@@ -102,14 +109,18 @@ public class JUnitVersionHelper
      */
     public static String getTestCaseName(Test theTest)
     {
-        if (theTest instanceof TestCase && testCaseName != null) {
-            try {
+        if (theTest instanceof TestCase && (testCaseName != null))
+        {
+            try
+            {
                 return (String) testCaseName.invoke(theTest, new Object[0]);
-            } catch (Throwable e) {
+            }
+            catch (Throwable e)
+            {
                 // If it fails, we return "unknown"
             }
         }
+
         return "unknown";
     }
-
 }

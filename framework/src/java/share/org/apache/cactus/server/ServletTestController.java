@@ -71,10 +71,8 @@ public class ServletTestController extends AbstractWebTestController
     /**
      * @see AbstractWebTestController#getTestCaller(WebImplicitObjects)
      */
-    protected AbstractWebTestCaller getTestCaller(
-        WebImplicitObjects theObjects)
+    protected AbstractWebTestCaller getTestCaller(WebImplicitObjects theObjects)
     {
         return new ServletTestCaller((ServletImplicitObjects) theObjects);
     }
-
 }

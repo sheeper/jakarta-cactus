@@ -56,13 +56,13 @@
  */
 package org.apache.cactus.server;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * Generic Servlet redirector that calls a test method on the server side.
@@ -77,7 +77,7 @@ public class ServletTestRedirector extends HttpServlet
     /**
      * The logger
      */
-    private static final Log LOGGER =
+    private static final Log LOGGER = 
         LogFactory.getLog(ServletTestRedirector.class);
 
     /**
@@ -89,7 +89,7 @@ public class ServletTestRedirector extends HttpServlet
      * @exception ServletException if an error occurs when servicing the
      *            request
      */
-    public void doGet(HttpServletRequest theRequest,
+    public void doGet(HttpServletRequest theRequest, 
         HttpServletResponse theResponse) throws ServletException
     {
         // Same handling than for a POST
@@ -106,7 +106,7 @@ public class ServletTestRedirector extends HttpServlet
      * @exception ServletException if an error occurs when servicing the
      *            request
      */
-    public void doPost(HttpServletRequest theRequest,
+    public void doPost(HttpServletRequest theRequest, 
         HttpServletResponse theResponse) throws ServletException
     {
         // Mark beginning of test on server side
@@ -114,13 +114,14 @@ public class ServletTestRedirector extends HttpServlet
 
         // Create implicit object holder
         ServletImplicitObjects objects = new ServletImplicitObjects();
+
         objects.setHttpServletRequest(theRequest);
         objects.setHttpServletResponse(theResponse);
         objects.setServletContext(getServletContext());
         objects.setServletConfig(getServletConfig());
 
         ServletTestController controller = new ServletTestController();
+
         controller.handleRequest(objects);
     }
-
 }

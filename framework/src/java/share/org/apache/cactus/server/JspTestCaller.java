@@ -56,9 +56,11 @@
  */
 package org.apache.cactus.server;
 
-import java.lang.reflect.Field;
-import java.io.Writer;
 import java.io.IOException;
+import java.io.Writer;
+
+import java.lang.reflect.Field;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.cactus.AbstractTestCase;
@@ -90,32 +92,29 @@ public class JspTestCaller extends ServletTestCaller
         throws Exception
     {
         JspTestCase jspInstance = (JspTestCase) theTestInstance;
-        JspImplicitObjects jspImplicitObjects =
+        JspImplicitObjects jspImplicitObjects = 
             (JspImplicitObjects) this.webImplicitObjects;
 
         // Sets the Servlet-related implicit objects
         // -----------------------------------------
-
         super.setTestCaseFields(jspInstance);
 
         // Set the page context field of the test case class
         // -------------------------------------------------
-
         // Extract from the HTTP request the URL to simulate (if any)
-        HttpServletRequest request =
-            jspImplicitObjects.getHttpServletRequest();
+        HttpServletRequest request = jspImplicitObjects.getHttpServletRequest();
 
         ServletURL url = ServletURL.loadFromRequest(request);
 
-        Field pageContextField = jspInstance.getClass().
-            getField("pageContext");
-        pageContextField.set(jspInstance,
+        Field pageContextField = jspInstance.getClass().getField("pageContext");
+
+        pageContextField.set(jspInstance, 
             new PageContextWrapper(jspImplicitObjects.getPageContext(), url));
 
         // Set the JSP writer field of the test case class
         // -----------------------------------------------
-
         Field outField = jspInstance.getClass().getField("out");
+
         outField.set(jspInstance, jspImplicitObjects.getJspWriter());
     }
 
@@ -124,9 +123,9 @@ public class JspTestCaller extends ServletTestCaller
      */
     protected Writer getResponseWriter() throws IOException
     {
-        JspImplicitObjects jspImplicitObjects =
+        JspImplicitObjects jspImplicitObjects = 
             (JspImplicitObjects) this.webImplicitObjects;
+
         return jspImplicitObjects.getJspWriter();
     }
-
 }

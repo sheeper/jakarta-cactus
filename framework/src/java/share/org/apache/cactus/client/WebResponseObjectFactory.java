@@ -56,13 +56,14 @@
  */
 package org.apache.cactus.client;
 
-import java.net.HttpURLConnection;
-import java.net.URLConnection;
 import java.lang.reflect.Method;
 
+import java.net.HttpURLConnection;
+import java.net.URLConnection;
+
 import org.apache.cactus.Request;
-import org.apache.cactus.WebResponse;
 import org.apache.cactus.WebRequest;
+import org.apache.cactus.WebResponse;
 
 /**
  * Constructs Web response object that are passed as parameter to
@@ -77,26 +78,33 @@ public class WebResponseObjectFactory implements ResponseObjectFactory
     /**
      * @see ResponseObjectFactory#getResponseObject
      */
-    public Object getResponseObject(String theClassName, Request theRequest,
+    public Object getResponseObject(String theClassName, Request theRequest, 
         HttpURLConnection theConnection) throws ClientException
     {
         Object responseObject;
 
         // Is it a Http Unit WebResponse ?
-        if (theClassName.equals("com.meterware.httpunit.WebResponse")) {
+        if (theClassName.equals("com.meterware.httpunit.WebResponse"))
+        {
             responseObject = createHttpUnitWebResponse(theConnection);
 
-        // Is it a Cactus WebResponse ?
-        } else if (theClassName.equals("org.apache.cactus.WebResponse")) {
-            responseObject = new WebResponse((WebRequest) theRequest,
+            // Is it a Cactus WebResponse ?
+        }
+        else if (theClassName.equals("org.apache.cactus.WebResponse"))
+        {
+            responseObject = new WebResponse((WebRequest) theRequest, 
                 theConnection);
 
-        // Is it an old HttpURLConnection (deprecated) ?
-        } else if (theClassName.equals("java.net.HttpURLConnection")) {
+            // Is it an old HttpURLConnection (deprecated) ?
+        }
+        else if (theClassName.equals("java.net.HttpURLConnection"))
+        {
             responseObject = theConnection;
 
-        // Else it is an error ...
-        } else {
+            // Else it is an error ...
+        }
+        else
+        {
             throw new ClientException("Invalid parameter type [" + theClassName
                 + "]");
         }
@@ -122,13 +130,17 @@ public class WebResponseObjectFactory implements ResponseObjectFactory
     {
         Object webResponse;
 
-        try {
-            Class responseClass =
+        try
+        {
+            Class responseClass = 
                 Class.forName("com.meterware.httpunit.WebResponse");
-            Method method = responseClass.getMethod("newResponse",
-                new Class[]{URLConnection.class});
-            webResponse = method.invoke(null, new Object[]{theConnection});
-        } catch (Exception e) {
+            Method method = responseClass.getMethod("newResponse", 
+                new Class[] { URLConnection.class });
+
+            webResponse = method.invoke(null, new Object[] { theConnection });
+        }
+        catch (Exception e)
+        {
             throw new ClientException("Error calling "
                 + "[public static com.meterware.httpunit.WebResponse "
                 + "com.meterware.httpunit.WebResponse.newResponse("
@@ -137,5 +149,4 @@ public class WebResponseObjectFactory implements ResponseObjectFactory
 
         return webResponse;
     }
-
 }

@@ -56,10 +56,10 @@
  */
 package org.apache.cactus.util;
 
-import java.util.ResourceBundle;
-import java.util.PropertyResourceBundle;
-import java.util.MissingResourceException;
 import java.util.Locale;
+import java.util.MissingResourceException;
+import java.util.PropertyResourceBundle;
+import java.util.ResourceBundle;
 
 /**
  * Utiliy methods related to class loading in a webapp environment.
@@ -88,11 +88,13 @@ public class ClassLoaderUtils
         // Get the class to call and build an instance of it.
         Class clazz = null;
 
-        try {
+        try
+        {
             // try loading from webapp classloader first
-            clazz = loadClassFromWebappClassLoader(theClassName,
-                theReferrer);
-        } catch (Exception internalException) {
+            clazz = loadClassFromWebappClassLoader(theClassName, theReferrer);
+        }
+        catch (Exception internalException)
+        {
             // Then try first from Context class loader so that we can put the
             // Cactus jar as an external library.
             clazz = loadClassFromContextClassLoader(theClassName);
@@ -112,7 +114,7 @@ public class ClassLoaderUtils
     public static Class loadClassFromContextClassLoader(String theClassName)
         throws ClassNotFoundException
     {
-        return Class.forName(theClassName, true,
+        return Class.forName(theClassName, true, 
             Thread.currentThread().getContextClassLoader());
     }
 
@@ -126,12 +128,11 @@ public class ClassLoaderUtils
      * @exception ClassNotFoundException if the class cannot be loaded through
      *            this class loader
      */
-    public static Class loadClassFromWebappClassLoader(
-        String theClassName, Class theReferrer) throws ClassNotFoundException
+    public static Class loadClassFromWebappClassLoader(String theClassName, 
+        Class theReferrer) throws ClassNotFoundException
     {
         return Class.forName(theClassName, true, theReferrer.getClassLoader());
     }
-
 
     /**
      * Try loading a resource bundle from either the context class loader or
@@ -142,23 +143,25 @@ public class ClassLoaderUtils
      *        classloader which has loaded this referrer class
      * @return the loaded resource bundle
      */
-    public static ResourceBundle loadPropertyResourceBundle(
-        String theName, Class theReferrer)
+    public static ResourceBundle loadPropertyResourceBundle(String theName, 
+        Class theReferrer)
     {
         ResourceBundle bundle;
 
-        try {
+        try
+        {
             // Then, try to load from the referrer class loader first
-            bundle = PropertyResourceBundle.getBundle(theName,
+            bundle = PropertyResourceBundle.getBundle(theName, 
                 Locale.getDefault(), theReferrer.getClassLoader());
-        } catch (MissingResourceException e) {
+        }
+        catch (MissingResourceException e)
+        {
             // Then, try to load from context classloader
-            bundle = PropertyResourceBundle.getBundle(theName,
-                Locale.getDefault(),
+            bundle = PropertyResourceBundle.getBundle(theName, 
+                Locale.getDefault(), 
                 Thread.currentThread().getContextClassLoader());
         }
 
         return bundle;
     }
-
 }

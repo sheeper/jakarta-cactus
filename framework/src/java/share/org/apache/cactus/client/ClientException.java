@@ -90,5 +90,4 @@ public class ClientException extends ChainedException
     {
         super(theException);
     }
-
 }

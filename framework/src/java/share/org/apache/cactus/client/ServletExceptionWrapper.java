@@ -113,7 +113,7 @@ public class ServletExceptionWrapper extends Throwable
      * @param theClassName the server exception class name
      * @param theStackTrace the server exception stack trace
      */
-    public ServletExceptionWrapper(String theMessage, String theClassName,
+    public ServletExceptionWrapper(String theMessage, String theClassName, 
         String theStackTrace)
     {
         super(theMessage);
@@ -128,9 +128,12 @@ public class ServletExceptionWrapper extends Throwable
      */
     public void printStackTrace(PrintStream thePs)
     {
-        if (this.stackTrace == null) {
+        if (this.stackTrace == null)
+        {
             thePs.print(getMessage());
-        } else {
+        }
+        else
+        {
             thePs.print(this.stackTrace);
         }
     }
@@ -142,9 +145,12 @@ public class ServletExceptionWrapper extends Throwable
      */
     public void printStackTrace(PrintWriter thePw)
     {
-        if (this.stackTrace == null) {
+        if (this.stackTrace == null)
+        {
             thePw.print(getMessage());
-        } else {
+        }
+        else
+        {
             thePw.print(this.stackTrace);
         }
     }
@@ -160,11 +166,11 @@ public class ServletExceptionWrapper extends Throwable
      */
     public boolean instanceOf(Class theClass)
     {
-        if (this.className == null) {
+        if (this.className == null)
+        {
             return false;
         }
 
         return theClass.getName().equals(this.className);
     }
-
 }

@@ -87,10 +87,11 @@ public class ServletUtil
      *         theParameter does not exist and "" if the parameter exists but
      *         has no value defined in the query string
      */
-    public static String getQueryStringParameter(String theQueryString,
-            String theParameter)
+    public static String getQueryStringParameter(String theQueryString, 
+        String theParameter)
     {
-        if (theQueryString == null) {
+        if (theQueryString == null)
+        {
             return null;
         }
 
@@ -98,24 +99,34 @@ public class ServletUtil
 
         int startIndex = theQueryString.indexOf(theParameter + "=");
 
-        if (startIndex >= 0) {
+        if (startIndex >= 0)
+        {
             // add 1 for '='
-            startIndex += theParameter.length() + 1;
+            startIndex += (theParameter.length() + 1);
+
             int endIndex = theQueryString.indexOf('&', startIndex);
 
-            if (endIndex > startIndex) {
+            if (endIndex > startIndex)
+            {
                 value = theQueryString.substring(startIndex, endIndex);
-            } else if (endIndex == startIndex) {
+            }
+            else if (endIndex == startIndex)
+            {
                 value = "";
-            } else {
+            }
+            else
+            {
                 value = theQueryString.substring(startIndex);
             }
 
             // In JDK 1.2 URLDecoder.decode throws an Exception. This is not
             // needed for JDK 1.3+ but needed to keep JDK 1.2.2 compatibility
-            try {
+            try
+            {
                 value = URLDecoder.decode(value);
-            } catch (Exception e) {
+            }
+            catch (Exception e)
+            {
                 throw new ChainedRuntimeException("Error URL decoding ["
                     + value + "]", e);
             }
@@ -123,5 +134,4 @@ public class ServletUtil
 
         return value;
     }
-
 }

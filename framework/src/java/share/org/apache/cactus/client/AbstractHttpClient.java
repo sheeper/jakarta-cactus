@@ -61,11 +61,11 @@ import java.net.HttpURLConnection;
 import org.apache.cactus.HttpServiceDefinition;
 import org.apache.cactus.ServiceEnumeration;
 import org.apache.cactus.WebRequest;
-import org.apache.cactus.WebTestResult;
 import org.apache.cactus.WebResponse;
-import org.apache.cactus.util.IoUtil;
-import org.apache.cactus.util.ChainedRuntimeException;
+import org.apache.cactus.WebTestResult;
 import org.apache.cactus.client.authentication.AbstractAuthentication;
+import org.apache.cactus.util.ChainedRuntimeException;
+import org.apache.cactus.util.IoUtil;
 
 /**
  * Abstract class for performing the steps necessary to run a test. It involves
@@ -93,16 +93,15 @@ public abstract class AbstractHttpClient
      * then open a second HTTP connection to retrieve the test results.
      *
      * @param theRequest the request containing all data to pass to the
-     *                   redirector servlet.
+     *        redirector servlet.
      *
      * @return the <code>HttpURLConnection</code> that contains the HTTP
      *         response when the test was called.
      *
      * @exception Throwable if an error occured in the test method or in the
-     *                      redirector servlet.
+     *            redirector servlet.
      */
-    public HttpURLConnection doTest(WebRequest theRequest)
-        throws Throwable
+    public HttpURLConnection doTest(WebRequest theRequest) throws Throwable
     {
         // Open the first connection to the redirector to execute the test on
         // the server side
@@ -110,9 +109,13 @@ public abstract class AbstractHttpClient
 
         // Open the second connection to get the test results
         WebTestResult result = null;
-        try {
+
+        try
+        {
             result = callGetResult(theRequest.getAuthentication());
-        } catch (ParsingException e) {
+        }
+        catch (ParsingException e)
+        {
             throw new ChainedRuntimeException("Failed to get the test "
                 + "results. This is probably due to an error that happened on "
                 + "the server side when trying to execute the tests. Here is "
@@ -123,37 +126,32 @@ public abstract class AbstractHttpClient
         // Check if the returned result object returned contains an error or
         // not. If yes, we need to raise an exception so that the JUnit
         // framework can catch it
-
-        if (result.hasException()) {
-
+        if (result.hasException())
+        {
             // Wrap the exception message and stack trace into a fake
             // exception class with overloaded <code>printStackTrace()</code>
             // methods so that when JUnit calls this method it will print the
             // stack trace that was set on the server side.
-
             // If the error was an AssertionFailedError then we use an instance
             // of AssertionFailedErrorWrapper (so that JUnit recognize it is
             // an AssertionFailedError exception and print it differently in
             // it's runner console). Otherwise we use an instance of
             // ServletExceptionWrapper.
-
-            if (result.getExceptionClassName().
-                equals("junit.framework.AssertionFailedError")) {
-
+            if (result.getExceptionClassName().equals(
+                "junit.framework.AssertionFailedError"))
+            {
                 throw new AssertionFailedErrorWrapper(
-                    result.getExceptionMessage(),
-                    result.getExceptionClassName(),
+                    result.getExceptionMessage(), 
+                    result.getExceptionClassName(), 
                     result.getExceptionStackTrace());
-
-            } else {
-
-                throw new ServletExceptionWrapper(
-                    result.getExceptionMessage(),
-                    result.getExceptionClassName(),
-                    result.getExceptionStackTrace());
-
             }
-
+            else
+            {
+                throw new ServletExceptionWrapper(
+                    result.getExceptionMessage(), 
+                    result.getExceptionClassName(), 
+                    result.getExceptionStackTrace());
+            }
         }
 
         return connection;
@@ -163,19 +161,19 @@ public abstract class AbstractHttpClient
      * Execute the test by calling the redirector.
      *
      * @param theRequest the request containing all data to pass to the
-     *                   redirector servlet.
+     *        redirector servlet.
      * @return the <code>HttpURLConnection</code> that contains the HTTP
      *         response when the test was called.
      *
      * @exception Throwable if an error occured in the test method or in the
-     *                      redirector servlet.
+     *            redirector servlet.
      */
-    private HttpURLConnection callRunTest(WebRequest theRequest)
+    private HttpURLConnection callRunTest(WebRequest theRequest) 
         throws Throwable
     {
         // Specify the service to call on the redirector side
-        theRequest.addParameter(HttpServiceDefinition.SERVICE_NAME_PARAM,
-            ServiceEnumeration.CALL_TEST_SERVICE.toString(),
+        theRequest.addParameter(HttpServiceDefinition.SERVICE_NAME_PARAM, 
+            ServiceEnumeration.CALL_TEST_SERVICE.toString(), 
             WebRequest.GET_METHOD);
 
         // Open the first connection to the redirector to execute the test on
@@ -205,16 +203,17 @@ public abstract class AbstractHttpClient
      * @return the result that was returned by the redirector.
      *
      * @exception Throwable if an error occured in the test method or in the
-     *                      redirector servlet.
+     *            redirector servlet.
      */
     private WebTestResult callGetResult(
         AbstractAuthentication theAuthentication) throws Throwable
     {
         WebRequest resultsRequest = new WebRequest();
 
+
         // Add authentication details
-        resultsRequest.addParameter(HttpServiceDefinition.SERVICE_NAME_PARAM,
-            ServiceEnumeration.GET_RESULTS_SERVICE.toString(),
+        resultsRequest.addParameter(HttpServiceDefinition.SERVICE_NAME_PARAM, 
+            ServiceEnumeration.GET_RESULTS_SERVICE.toString(), 
             WebRequest.GET_METHOD);
         resultsRequest.setAuthentication(theAuthentication);
 
@@ -231,5 +230,4 @@ public abstract class AbstractHttpClient
 
         return result;
     }
-
 }
