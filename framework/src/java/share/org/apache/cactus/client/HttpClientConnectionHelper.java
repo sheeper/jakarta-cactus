@@ -68,6 +68,7 @@ import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.GetMethod;
 
 import org.apache.cactus.WebRequest;
+import org.apache.cactus.util.UrlUtil;
 import org.apache.cactus.client.authentication.AbstractAuthentication;
 
 /**
@@ -133,8 +134,8 @@ public class HttpClientConnectionHelper extends AbstractConnectionHelper
 
         this.method.setUseDisk(false);
         this.method.setFollowRedirects(false);
-        this.method.setPath(url.getPath());
-        this.method.setQueryString(url.getQuery());
+        this.method.setPath(UrlUtil.getPath(url));
+        this.method.setQueryString(UrlUtil.getQuery(url));
 
         // Sets the content type
         this.method.setRequestHeader("Content-type",
