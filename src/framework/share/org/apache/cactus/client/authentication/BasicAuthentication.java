@@ -63,7 +63,7 @@ public class BasicAuthentication extends AbstractAuthentication
     {
         super(userid, password);
     }
-    
+
     protected void validateUserId(String userid)
     {
         // According to HTTP 1.0 Spec:
@@ -76,34 +76,34 @@ public class BasicAuthentication extends AbstractAuthentication
         //            "{" | "}" | SP | HT
         // SP       = <US-ASCII SP, space (32)>
         // HT       = <US-ASCII HT, horizontal-tab (9)>
-        
+
         // Validate the given userid
-        
+
         // The userid is optional, it can be blank.
         if (userid == null)
         {
             return;
         }
-      
-        // If it's non-blank, there is no maximum length 
+
+        // If it's non-blank, there is no maximum length
         // and it can't contain any illegal characters
         String illegalChars = "()<>@,;:\\\"/[]?={} \t";
         StringCharacterIterator iter = new StringCharacterIterator(userid);
-        
+
         for (char c = iter.first(); c != CharacterIterator.DONE;
         	c = iter.next()) {
 
-            if ((illegalChars.indexOf(c) != -1) || 
-                ((c >=0 ) && (c <= 31)) || 
+            if ((illegalChars.indexOf(c) != -1) ||
+                ((c >=0 ) && (c <= 31)) ||
                 (c == 127)) {
-                
+
                 // Bad userid! Go to your room!
                 throw new IllegalArgumentException(
                     "Given userid contains illegal characters.");
             }
         }
     }
-   
+
     protected void validatePassword(String password)
     {
         // According to HTTP 1.0 Spec:
@@ -117,35 +117,35 @@ public class BasicAuthentication extends AbstractAuthentication
         // LF    = <US-ASCII LF, linefeed (10)>
         // SP    = <US-ASCII SP, space (32)>
         // HT    = <US-ASCII HT, horizontal-tab (9)>
-        
+
         // Validate the given password
-        
+
         // The password can have zero characters, i.e. be blank.
         if (password == null)
         {
             return;
         }
-      
-        // If it's non-blank, there is no maximum length 
+
+        // If it's non-blank, there is no maximum length
         // and it can't contain any illegal characters
         String exceptionChars = "\r\n \t"; // CR LF SP HT
         StringCharacterIterator iter = new StringCharacterIterator(password);
-        
+
         for (char c = iter.first(); c != CharacterIterator.DONE; c = iter.next()) {
             if (((c >=0 ) && (c <= 31)) || (c == 127)) {
-                
+
                 if (exceptionChars.indexOf(c) != -1 )
                 {
                     continue;
                 }
-                
+
                 // Bad password! Go to your room!
                 throw new IllegalArgumentException(
                     "Given password contains illegal characters.");
             }
         }
     }
-    
+
     public void configure(HttpURLConnection connection)
     {
         // According to HTTP 1.0 Spec:
@@ -156,10 +156,10 @@ public class BasicAuthentication extends AbstractAuthentication
         //
         // see setUserId and setPassword for details of token and TEXT
 
-        String basicCookie = userid + ":" + password;
+        String basicCookie = getUserId() + ":" + getPassword();
         String basicCredentials = "Basic " +
             new String(base64Encode(basicCookie.getBytes()));
-        
+
         connection.setRequestProperty("Authorization", basicCredentials);
     }
 
@@ -170,13 +170,13 @@ public class BasicAuthentication extends AbstractAuthentication
 
     private static char[] alphabet =
         "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=".toCharArray();
-   
+
     /**
      * Lookup table for converting base64 characters to value in range 0..63
      */
     private static byte[] codes = new byte[256];
-    
-    static 
+
+    static
     {
         for (int i=0; i<256; i++) {
             codes[i] = -1;
@@ -204,7 +204,7 @@ public class BasicAuthentication extends AbstractAuthentication
     private static char[] base64Encode(byte[] data)
     {
         char[] out = new char[((data.length + 2) / 3) * 4];
-        
+
         //
         // 3 bytes encode to 4 chars. Output is always an even
         // multiple of 4 characters.
@@ -213,33 +213,33 @@ public class BasicAuthentication extends AbstractAuthentication
         {
             boolean quad = false;
             boolean trip = false;
-            
+
             int val = (0xFF & (int) data[i]);
             val <<= 8;
-            
+
             if ((i+1) < data.length)
             {
                 val |= (0xFF & (int) data[i+1]);
                 trip = true;
             }
-            
+
             val <<= 8;
-            
-            if ((i+2) < data.length) 
+
+            if ((i+2) < data.length)
             {
                 val |= (0xFF & (int) data[i+2]);
                 quad = true;
             }
-            
+
             out[index+3] = alphabet[(quad? (val & 0x3F): 64)];
             val >>= 6;
-            
+
             out[index+2] = alphabet[(trip? (val & 0x3F): 64)];
             val >>= 6;
-            
+
             out[index+1] = alphabet[val & 0x3F];
             val >>= 6;
-            
+
             out[index+0] = alphabet[val & 0x3F];
         }
         return out;

@@ -76,40 +76,40 @@ public abstract class AbstractAuthentication
     /**
      * User id part of the Credential
      */
-    protected String userid;
+    private String userId;
 
     /**
      * Password part of the Credential
      */
-    protected String password;
-    
-    public AbstractAuthentication(String theUserid, String thePassword)
+    private String password;
+
+    public AbstractAuthentication(String theUserId, String thePassword)
     {
-        setUserId(theUserid);
+        setUserId(theUserId);
         setPassword(thePassword);
     }
-    
-    public void setUserId(String theUserid)
+
+    public void setUserId(String theUserId)
     {
-        validateUserId(theUserid);
-        this.userid = theUserid;
+        validateUserId(theUserId);
+        this.userId = theUserId;
     }
 
     public String getUserId()
     {
-        return this.userid;
+        return this.userId;
     }
-    
+
     public void setPassword(String thePassword)
     {
         validatePassword(thePassword);
         this.password = thePassword;
     }
-    
+
     /**
      * @exception IllegalArgumentException if invalid
      */
-    protected abstract void validateUserId(String theUserid);
+    protected abstract void validateUserId(String theUserId);
 
     /**
      * @exception IllegalArgumentException if invalid
@@ -117,4 +117,9 @@ public abstract class AbstractAuthentication
     protected abstract void validatePassword(String thePassword);
 
     public abstract void configure(HttpURLConnection theConnection);
+
+    protected String getPassword()
+    {
+        return this.password;
+    }
 }
