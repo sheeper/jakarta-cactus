@@ -120,10 +120,7 @@
         <pathelement location="${cactus.framework.jar}"/>
         <pathelement location="${commons.httpclient.jar}"/>
         <pathelement location="${commons.logging.jar}"/>
-        <pathelement location="${httpunit.jar}"/>
         <pathelement location="${junit.jar}"/>
-        <pathelement location="${nekohtml.jar}"/>
-        <@clover.begin@pathelement location="${clover.jar}"/@clover.end@>
     </path>
 
     <!--
@@ -182,6 +179,8 @@
             <src path="${src.cactus.dir}"/>
             <classpath>
                 <path refid="cactus.classpath"/>
+                <pathelement location="${httpunit.jar}"/>
+                <pathelement location="${nekohtml.jar}"/>
                 <pathelement location="${target.classes.java.dir}"/>
             </classpath>
         </javac>
@@ -278,9 +277,11 @@
             printsummary="yes" failureproperty="tests.failed">
           <classpath>
             <path refid="project.classpath"/>
+            <@clover.begin@pathelement location="${clover.jar}"/@clover.end@>
+            <pathelement location="${httpunit.jar}"/>
+            <pathelement location="${nekohtml.jar}"/>
             <pathelement location="${target.classes.java.dir}"/>
             <pathelement location="${target.classes.cactus.dir}"/>
-            <@clover.begin@pathelement location="${clover.jar}"/@clover.end@>
           </classpath>
           <containerset>
             <@j2ee13.begin@jboss3x if="cactus.home.jboss3x"

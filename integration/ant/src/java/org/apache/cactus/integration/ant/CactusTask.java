@@ -278,8 +278,6 @@ public class CactusTask extends JUnitTask
             "/org/apache/cactus/integration/ant/CactusTask.class");
         addClasspathEntry("/org/apache/commons/logging/Log.class");
         addClasspathEntry("/org/apache/commons/httpclient/HttpClient.class");
-        addClasspathEntry("/com/meterware/httpunit/WebResponse.class");
-        addClasspathEntry("/org/cyberneko/html/HTMLConfiguration.class");
     }
 
     /**
