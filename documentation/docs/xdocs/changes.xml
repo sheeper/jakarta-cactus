@@ -141,7 +141,7 @@
         </action>
         <action dev="JRU" type="add">
           First release of the Eclipse plugin. See the
-          <link href="site:eclipse_plugin">Eclipse Plugin documentation</link>
+          <link href="site:eclipse_integration">Eclipse integration documentation</link>
           for more information.
         </action>
         <action dev="CML" type="update">
