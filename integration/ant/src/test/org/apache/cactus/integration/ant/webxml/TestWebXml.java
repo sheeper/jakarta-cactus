@@ -776,7 +776,8 @@ public class TestWebXml extends TestCase
         String xml = "<web-app></web-app>";
         Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
         WebXml webXml = new WebXml(doc);
-        Iterator securityConstraints = webXml.getSecurityConstraints();
+        Iterator securityConstraints =
+            webXml.getElements(WebXmlTag.SECURITY_CONSTRAINT);
         assertTrue(!securityConstraints.hasNext());
     }
 
@@ -792,7 +793,8 @@ public class TestWebXml extends TestCase
             + "</web-app>";
         Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
         WebXml webXml = new WebXml(doc);
-        Iterator securityConstraints = webXml.getSecurityConstraints();
+        Iterator securityConstraints =
+            webXml.getElements(WebXmlTag.SECURITY_CONSTRAINT);
         assertNotNull(securityConstraints.next());
         assertTrue(!securityConstraints.hasNext());
     }
@@ -819,7 +821,8 @@ public class TestWebXml extends TestCase
             + "</web-app>";
         Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
         WebXml webXml = new WebXml(doc);
-        Iterator securityConstraints = webXml.getSecurityConstraints();
+        Iterator securityConstraints =
+            webXml.getElements(WebXmlTag.SECURITY_CONSTRAINT);
         assertNotNull(securityConstraints.next());
         assertNotNull(securityConstraints.next());
         assertNotNull(securityConstraints.next());
@@ -832,7 +835,7 @@ public class TestWebXml extends TestCase
         String xml = "<web-app></web-app>";
         Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
         WebXml webXml = new WebXml(doc);
-        assertNull(webXml.getLoginConfig());
+        assertTrue(!webXml.getElements(WebXmlTag.LOGIN_CONFIG).hasNext());
     }
 
     public void testGetLoginConfig()
@@ -841,7 +844,7 @@ public class TestWebXml extends TestCase
         String xml = "<web-app><login-config/></web-app>";
         Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
         WebXml webXml = new WebXml(doc);
-        assertNotNull(webXml.getLoginConfig());
+        assertTrue(webXml.getElements(WebXmlTag.LOGIN_CONFIG).hasNext());
     }
 
     public void testGetSecurityRoleEmpty()
@@ -850,7 +853,7 @@ public class TestWebXml extends TestCase
         String xml = "<web-app></web-app>";
         Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
         WebXml webXml = new WebXml(doc);
-        Iterator securityRoles = webXml.getSecurityRoles();
+        Iterator securityRoles = webXml.getElements(WebXmlTag.SECURITY_ROLE);
         assertTrue(!securityRoles.hasNext());
     }
 
@@ -864,7 +867,7 @@ public class TestWebXml extends TestCase
             + "</web-app>";
         Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
         WebXml webXml = new WebXml(doc);
-        Iterator securityRoles = webXml.getSecurityRoles();
+        Iterator securityRoles = webXml.getElements(WebXmlTag.SECURITY_ROLE);
         assertNotNull(securityRoles.next());
         assertTrue(!securityRoles.hasNext());
     }
@@ -885,7 +888,7 @@ public class TestWebXml extends TestCase
             + "</web-app>";
         Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
         WebXml webXml = new WebXml(doc);
-        Iterator securityRoles = webXml.getSecurityRoles();
+        Iterator securityRoles = webXml.getElements(WebXmlTag.SECURITY_ROLE);
         assertNotNull(securityRoles.next());
         assertNotNull(securityRoles.next());
         assertNotNull(securityRoles.next());

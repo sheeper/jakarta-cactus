@@ -58,8 +58,6 @@ package org.apache.cactus.integration.ant.webxml;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 /**
  * Class that knows about the names and order of the top-level elements in a web
@@ -69,206 +67,285 @@ import org.w3c.dom.NodeList;
  *
  * @version $Id$
  */
-public class WebXmlElement
+public class WebXmlTag
 {
     
     // Public Constants --------------------------------------------------------
     
     /**
-     * Element name 'web-app'.
-     */
-    public static final String WEB_APP = "web-app";
-    
-    /**
      * Element name 'icon'.
      */
-    public static final String ICON = "web-app";
+    public static final WebXmlTag ICON =
+        new WebXmlTag("icon", false);
     
     /**
      * Element name 'display-name'.
      */
-    public static final String DISPLAY_NAME = "display-name";
+    public static final WebXmlTag DISPLAY_NAME =
+        new WebXmlTag("display-name", false);
     
     /**
      * Element name 'description'.
      */
-    public static final String DESCRIPTION = "description";
+    public static final WebXmlTag DESCRIPTION =
+        new WebXmlTag("description", false);
     
     /**
      * Element name 'distributable'.
      */
-    public static final String DISTRIBUTABLE = "distributable";
+    public static final WebXmlTag DISTRIBUTABLE =
+        new WebXmlTag("distributable", false);
     
     /**
      * Element name 'context-param'.
      */
-    public static final String CONTEXT_PARAM = "context-param";
+    public static final WebXmlTag CONTEXT_PARAM =
+        new WebXmlTag("context-param");
     
     /**
      * Element name 'param-name'.
      */
-    public static final String PARAM_NAME = "param-name";
+    public static final WebXmlTag PARAM_NAME =
+        new WebXmlTag("param-name");
     
     /**
      * Element name 'param-value'.
      */
-    public static final String PARAM_VALUE = "param-value";
+    public static final WebXmlTag PARAM_VALUE =
+        new WebXmlTag("param-value");
     
     /**
      * Element name 'filter'.
      */
-    public static final String FILTER = "filter";
+    public static final WebXmlTag FILTER =
+        new WebXmlTag("filter");
     
     /**
      * Element name 'filter-name'.
      */
-    public static final String FILTER_NAME = "filter-name";
+    public static final WebXmlTag FILTER_NAME =
+        new WebXmlTag("filter-name");
     
     /**
      * Element name 'filter-class'.
      */
-    public static final String FILTER_CLASS = "filter-class";
+    public static final WebXmlTag FILTER_CLASS =
+        new WebXmlTag("filter-class");
     
     /**
      * Element name 'filter-mapping'.
      */
-    public static final String FILTER_MAPPING = "filter-mapping";
+    public static final WebXmlTag FILTER_MAPPING =
+        new WebXmlTag("filter-mapping");
     
     /**
      * Element name 'init-param'.
      */
-    public static final String INIT_PARAM = "init-param";
+    public static final WebXmlTag INIT_PARAM =
+        new WebXmlTag("init-param");
     
     /**
      * Element name 'listener'.
      */
-    public static final String LISTENER = "listener";
+    public static final WebXmlTag LISTENER =
+        new WebXmlTag("listener");
     
     /**
      * Element name 'servlet',
      */
-    public static final String SERVLET = "servlet";
+    public static final WebXmlTag SERVLET =
+        new WebXmlTag("servlet");
     
     /**
      * Element name 'servlet-name',
      */
-    public static final String SERVLET_NAME = "servlet-name";
+    public static final WebXmlTag SERVLET_NAME =
+        new WebXmlTag("servlet-name");
     
     /**
      * Element name 'jsp-file'.
      */
-    public static final String JSP_FILE = "jsp-file";
+    public static final WebXmlTag JSP_FILE =
+        new WebXmlTag("jsp-file");
     
     /**
      * Element name 'servlet-class'.
      */
-    public static final String SERVLET_CLASS = "servlet-class";
+    public static final WebXmlTag SERVLET_CLASS =
+        new WebXmlTag("servlet-class");
     
     /**
      * Element name 'servlet-mapping',
      */
-    public static final String SERVLET_MAPPING = "servlet-mapping";
+    public static final WebXmlTag SERVLET_MAPPING =
+        new WebXmlTag("servlet-mapping");
     
     /**
      * Element name 'url-pattern',
      */
-    public static final String URL_PATTERN = "url-pattern";
+    public static final WebXmlTag URL_PATTERN =
+        new WebXmlTag("url-pattern");
     
     /**
      * Element name 'session-config',
      */
-    public static final String SESSION_CONFIG = "session-config";
+    public static final WebXmlTag SESSION_CONFIG =
+        new WebXmlTag("session-config", false);
     
     /**
      * Element name 'mime-mapping',
      */
-    public static final String MIME_MAPPING = "mime-mapping";
+    public static final WebXmlTag MIME_MAPPING =
+        new WebXmlTag("mime-mapping");
     
     /**
      * Element name 'welcome-file-list',
      */
-    public static final String WELCOME_FILE_LIST = "welcome-file-list";
+    public static final WebXmlTag WELCOME_FILE_LIST =
+        new WebXmlTag("welcome-file-list", false);
     
     /**
      * Element name 'error-page',
      */
-    public static final String ERROR_PAGE = "error-page";
+    public static final WebXmlTag ERROR_PAGE =
+        new WebXmlTag("error-page");
     
     /**
      * Element name 'taglib',
      */
-    public static final String TAGLIB = "taglib";
+    public static final WebXmlTag TAGLIB =
+        new WebXmlTag("taglib");
     
     /**
      * Element name 'resource-env-ref',
      */
-    public static final String RESOURCE_ENV_REF = "resource-env-ref";
+    public static final WebXmlTag RESOURCE_ENV_REF =
+        new WebXmlTag("resource-env-ref");
     
     /**
      * Element name 'resource-ref',
      */
-    public static final String RESOURCE_REF = "resource-ref";
+    public static final WebXmlTag RESOURCE_REF =
+        new WebXmlTag("resource-ref");
     
     /**
      * Element name 'security-constraint',
      */
-    public static final String SECURITY_CONSTRAINT = "security-constraint";
+    public static final WebXmlTag SECURITY_CONSTRAINT =
+        new WebXmlTag("security-constraint");
     
     /**
      * Element name 'login-config',
      */
-    public static final String LOGIN_CONFIG = "login-config";
+    public static final WebXmlTag LOGIN_CONFIG =
+        new WebXmlTag("login-config", false);
     
     /**
      * Element name 'security-role',
      */
-    public static final String SECURITY_ROLE = "security-role";
+    public static final WebXmlTag SECURITY_ROLE =
+        new WebXmlTag("security-role");
     
     /**
      * Element name 'env-entry',
      */
-    public static final String ENV_ENTRY = "env-entry";
+    public static final WebXmlTag ENV_ENTRY =
+        new WebXmlTag("env-entry");
     
     /**
      * Element name 'ejb-ref',
      */
-    public static final String EJB_REF = "ejb-ref";
+    public static final WebXmlTag EJB_REF =
+        new WebXmlTag("ejb-ref");
     
     /**
      * Element name 'ejb-local-ref',
      */
-    public static final String EJB_LOCAL_REF = "ejb-local-ref";
+    public static final WebXmlTag EJB_LOCAL_REF =
+        new WebXmlTag("ejb-local-ref");
     
-    // Private Constants -------------------------------------------------------
+    // Instance Variables ------------------------------------------------------
     
     /**
-     * Specifies the order in which the top-level elements must appear in the
-     * descriptor, according to the DTD.
+     * The tag name,
      */
-    private static final String[] ELEMENT_ORDER = {
-        WebXmlElement.ICON,
-        WebXmlElement.DISPLAY_NAME,
-        WebXmlElement.DESCRIPTION,
-        WebXmlElement.DISTRIBUTABLE,
-        WebXmlElement.FILTER,
-        WebXmlElement.FILTER_MAPPING,
-        WebXmlElement.LISTENER,
-        WebXmlElement.SERVLET,
-        WebXmlElement.SERVLET_MAPPING,
-        WebXmlElement.SESSION_CONFIG,
-        WebXmlElement.MIME_MAPPING,
-        WebXmlElement.WELCOME_FILE_LIST,
-        WebXmlElement.ERROR_PAGE,
-        WebXmlElement.TAGLIB,
-        WebXmlElement.RESOURCE_ENV_REF,
-        WebXmlElement.RESOURCE_REF,
-        WebXmlElement.SECURITY_CONSTRAINT,
-        WebXmlElement.LOGIN_CONFIG,
-        WebXmlElement.SECURITY_ROLE,
-        WebXmlElement.ENV_ENTRY,
-        WebXmlElement.EJB_REF,
-        WebXmlElement.EJB_LOCAL_REF,
-    };
+    private String tagName;
+    
+    /**
+     * Whether multiple occurrences of the tag in the descriptor are allowed.
+     */
+    private boolean multipleAllowed;
+    
+    // Constructors ------------------------------------------------------------
+    
+    /**
+     * Constructor.
+     * 
+     * @param theTagName The tag name of the element
+     * @param isMultipleAllowed Whether the element may occur multiple times in
+     *         the descriptor
+     */
+    private WebXmlTag(String theTagName, boolean isMultipleAllowed)
+    {
+        this.tagName = theTagName;
+        this.multipleAllowed = isMultipleAllowed;
+    }
+
+    /**
+     * Constructor.
+     * 
+     * @param theTagName The tag name of the element
+     */
+    private WebXmlTag(String theTagName)
+    {
+        this(theTagName, true);
+    }
+
+    // Public Methods ----------------------------------------------------------
+    
+    /**
+     * @see java.lang.Object#toString
+     */
+    public final boolean equals(Object theOther)
+    {
+        return super.equals(theOther);
+    }
+    
+    /**
+     * @see java.lang.Object#hashCode
+     */
+    public final int hashCode()
+    {
+        return super.hashCode();
+    }
+    
+    /**
+     * Returns the tag name.
+     * 
+     * @return The tag name
+     */
+    public final String getTagName()
+    {
+        return this.tagName;
+    }
+    
+    /**
+     * Returns whether the tag may occur multiple times in the descriptor.
+     * 
+     * @return Whether multiple occurrences are allowed
+     */
+    public final boolean isMultipleAllowed()
+    {
+        return this.multipleAllowed;
+    }
+    
+    /**
+     * @see java.lang.Object#toString
+     */
+    public final String toString()
+    {
+        return getTagName();
+    }
     
     // Public Static Methods ---------------------------------------------------
     
@@ -285,11 +362,13 @@ public class WebXmlElement
         String theFilterName, String theUrlPattern)
     {
         Element filterMappingElement =
-            theDocument.createElement(WebXmlElement.FILTER_MAPPING);
+            theDocument.createElement(FILTER_MAPPING.getTagName());
         filterMappingElement.appendChild(
-            createNestedText(theDocument, FILTER_NAME, theFilterName));
+            createNestedText(theDocument, FILTER_NAME.getTagName(),
+                theFilterName));
         filterMappingElement.appendChild(
-            createNestedText(theDocument, URL_PATTERN, theUrlPattern));
+            createNestedText(theDocument, URL_PATTERN.getTagName(),
+                theUrlPattern));
         return filterMappingElement;
     }
     
@@ -306,11 +385,13 @@ public class WebXmlElement
         String theParamName, String theParamValue)
     {
         Element initParamElement =
-            theDocument.createElement(WebXmlElement.INIT_PARAM);
+            theDocument.createElement(INIT_PARAM.getTagName());
         initParamElement.appendChild(
-            createNestedText(theDocument, PARAM_NAME, theParamName));
+            createNestedText(theDocument, PARAM_NAME.getTagName(),
+                theParamName));
         initParamElement.appendChild(
-            createNestedText(theDocument, PARAM_VALUE, theParamValue));
+            createNestedText(theDocument, PARAM_VALUE.getTagName(),
+                theParamValue));
         return initParamElement;
     }
     
@@ -327,44 +408,14 @@ public class WebXmlElement
         String theServletName, String theUrlPattern)
     {
         Element servletMappingElement =
-            theDocument.createElement(WebXmlElement.SERVLET_MAPPING);
+            theDocument.createElement(SERVLET_MAPPING.getTagName());
         servletMappingElement.appendChild(
-            createNestedText(theDocument, SERVLET_NAME, theServletName));
+            createNestedText(theDocument, SERVLET_NAME.getTagName(),
+                theServletName));
         servletMappingElement.appendChild(
-            createNestedText(theDocument, URL_PATTERN, theUrlPattern));
+            createNestedText(theDocument, URL_PATTERN.getTagName(),
+                theUrlPattern));
         return servletMappingElement;
-    }
-    
-    /**
-     * Finds and returns the node before which a new element of the specified 
-     * name should be inserted.
-     * 
-     * @param theDocument The DOM representation of the descriptor
-     * @param theTagName The name of the element that is to be inserted
-     * @return The node before which the element should be inserted, or
-     *          <code>null</code> if the element should be appended to the end
-     */
-    public static Node getNodeToInsertBefore(Document theDocument,
-        String theTagName)
-    {
-        Element root = theDocument.getDocumentElement();
-        for (int i = 0; i < ELEMENT_ORDER.length; i++)
-        {
-            if (ELEMENT_ORDER[i].equals(theTagName))
-            {
-                for (int j = i + 1; j < ELEMENT_ORDER.length; j++)
-                {
-                    NodeList elements =
-                        root.getElementsByTagName(ELEMENT_ORDER[j]);
-                    if (elements.getLength() > 0)
-                    {
-                        return elements.item(0);
-                    }
-                }
-                break;
-            }
-        }
-        return null;
     }
     
     // Private Static Methods --------------------------------------------------

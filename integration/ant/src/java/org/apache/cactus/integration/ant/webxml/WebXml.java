@@ -104,6 +104,35 @@ public class WebXml
     private static final String WEB_APP_2_3_PUBLIC_ID =
         "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN";
     
+    /**
+     * Specifies the order in which the top-level elements must appear in the
+     * descriptor, according to the DTD.
+     */
+    private static final WebXmlTag[] ELEMENT_ORDER = {
+        WebXmlTag.ICON,
+        WebXmlTag.DISPLAY_NAME,
+        WebXmlTag.DESCRIPTION,
+        WebXmlTag.DISTRIBUTABLE,
+        WebXmlTag.FILTER,
+        WebXmlTag.FILTER_MAPPING,
+        WebXmlTag.LISTENER,
+        WebXmlTag.SERVLET,
+        WebXmlTag.SERVLET_MAPPING,
+        WebXmlTag.SESSION_CONFIG,
+        WebXmlTag.MIME_MAPPING,
+        WebXmlTag.WELCOME_FILE_LIST,
+        WebXmlTag.ERROR_PAGE,
+        WebXmlTag.TAGLIB,
+        WebXmlTag.RESOURCE_ENV_REF,
+        WebXmlTag.RESOURCE_REF,
+        WebXmlTag.SECURITY_CONSTRAINT,
+        WebXmlTag.LOGIN_CONFIG,
+        WebXmlTag.SECURITY_ROLE,
+        WebXmlTag.ENV_ENTRY,
+        WebXmlTag.EJB_REF,
+        WebXmlTag.EJB_LOCAL_REF,
+    };
+    
     // Instance Variables ------------------------------------------------------
     
     /**
@@ -174,9 +203,8 @@ public class WebXml
      */
     public void addFilter(Element theFilter)
     {
-        checkElement(theFilter, WebXmlElement.FILTER);
-        String filterName =
-            getNestedText(theFilter, WebXmlElement.FILTER_NAME);
+        checkElement(theFilter, WebXmlTag.FILTER);
+        String filterName = getNestedText(theFilter, WebXmlTag.FILTER_NAME);
         if (filterName == null)
         {
             throw new IllegalArgumentException("Not a valid filter element");
@@ -186,7 +214,7 @@ public class WebXml
             throw new IllegalStateException("Filter '" + filterName +
                 "' already defined");
         }
-        addElement(theFilter);
+        addElement(WebXmlTag.FILTER, theFilter);
     }
     
     /**
@@ -205,7 +233,7 @@ public class WebXml
             throw new IllegalStateException("Filter '" + theFilterName +
                 "' not defined");
         }
-        Element initParamElement = WebXmlElement.createInitParam(
+        Element initParamElement = WebXmlTag.createInitParam(
             document, theParamName, theParamValue);
         filterElement.appendChild(initParamElement);
     }
@@ -223,17 +251,17 @@ public class WebXml
             throw new IllegalStateException("Filter '" + theFilterName +
                 "' not defined");
         }
-        Element filterMappingElement = WebXmlElement.createFilterMapping(
+        Element filterMappingElement = WebXmlTag.createFilterMapping(
             document, theFilterName, theUrlPattern);
-        addElement(filterMappingElement);
+        addElement(WebXmlTag.FILTER_MAPPING, filterMappingElement);
     }
     
     /**
      * Removes a servlet filter from the descriptor.
      * 
      * @param theFilterName The name of the filter to remove
-     * @return The removed element, or <code>null</code> if the specified filter
-     *          was not defined
+     * @return The removed element, or <code>null</code> if the specified
+     *          filter was not defined
      */
     public Element removeFilter(String theFilterName)
     {
@@ -259,13 +287,12 @@ public class WebXml
         {
             throw new NullPointerException();
         }
-        NodeList filterElements =
-            rootElement.getElementsByTagName(WebXmlElement.FILTER);
-        for (int i = 0; i < filterElements.getLength(); i++)
+        Iterator filterElements = getElements(WebXmlTag.FILTER);
+        while (filterElements.hasNext())
         {
-            Element filterElement = (Element) filterElements.item(i);
+            Element filterElement = (Element) filterElements.next();
             if (theFilterName.equals(getNestedText(
-                filterElement, WebXmlElement.FILTER_NAME)))
+                filterElement, WebXmlTag.FILTER_NAME)))
             {
                 return filterElement;
             }
@@ -285,17 +312,16 @@ public class WebXml
         Element filterElement = getFilter(theFilterName);
         if (filterElement != null)
         {
-            NodeList initParamElements =
-                filterElement.getElementsByTagName(WebXmlElement.INIT_PARAM);
-            for (int i = 0; i < initParamElements.getLength(); i++)
+            Iterator initParamElements = getElements(WebXmlTag.INIT_PARAM);
+            while (initParamElements.hasNext())
             {
-                Element initParamElement = (Element) initParamElements.item(i);
+                Element initParamElement = (Element) initParamElements.next();
                 String paramName = getNestedText(
-                    initParamElement, WebXmlElement.PARAM_NAME);
+                    initParamElement, WebXmlTag.PARAM_NAME);
                 if (theParamName.equals(paramName))
                 {
                     return getNestedText(
-                        initParamElement, WebXmlElement.PARAM_VALUE);
+                        initParamElement, WebXmlTag.PARAM_VALUE);
                 }
             }
         }
@@ -316,13 +342,12 @@ public class WebXml
         Element filterElement = getFilter(theFilterName);
         if (filterElement != null)
         {
-            NodeList initParamElements =
-                filterElement.getElementsByTagName(WebXmlElement.INIT_PARAM);
-            for (int i = 0; i < initParamElements.getLength(); i++)
+            Iterator initParamElements = getElements(WebXmlTag.INIT_PARAM);
+            while (initParamElements.hasNext())
             {
-                Element initParamElement = (Element) initParamElements.item(i);
+                Element initParamElement = (Element) initParamElements.next();
                 String paramName = getNestedText(
-                    initParamElement, WebXmlElement.PARAM_NAME);
+                    initParamElement, WebXmlTag.PARAM_NAME);
                 if (paramName != null)
                 {
                     initParamNames.add(paramName);
@@ -337,8 +362,8 @@ public class WebXml
      * ordered list. If there are no mappings for the specified filter, an
      * iterator over an empty list is returned.
      * 
-     * @param theFilterName The name of the servlet filter of which the mappings
-     *         should be retrieved
+     * @param theFilterName The name of the servlet filter of which the 
+     *         mappings should be retrieved
      * @return An iterator over the ordered list of URL-patterns
      */
     public Iterator getFilterMappings(String theFilterName)
@@ -348,17 +373,16 @@ public class WebXml
             throw new NullPointerException();
         }
         List filterMappings = new ArrayList();
-        NodeList filterMappingElements =
-            rootElement.getElementsByTagName(WebXmlElement.FILTER_MAPPING);
-        for (int i = 0; i < filterMappingElements.getLength(); i++)
+        Iterator filterMappingElements = getElements(WebXmlTag.FILTER_MAPPING);
+        while (filterMappingElements.hasNext())
         {
             Element filterMappingElement = (Element)
-                filterMappingElements.item(i);
+                filterMappingElements.next();
             if (theFilterName.equals(getNestedText(
-                filterMappingElement, WebXmlElement.FILTER_NAME)))
+                filterMappingElement, WebXmlTag.FILTER_NAME)))
             {
                 String urlPattern = getNestedText(
-                    filterMappingElement, WebXmlElement.URL_PATTERN);
+                    filterMappingElement, WebXmlTag.URL_PATTERN);
                 if (urlPattern != null)
                 {
                     filterMappings.add(urlPattern);
@@ -377,13 +401,12 @@ public class WebXml
     public Iterator getFilterNames()
     {
         List filterNames = new ArrayList();
-        NodeList filterElements =
-            rootElement.getElementsByTagName(WebXmlElement.FILTER);
-        for (int i = 0; i < filterElements.getLength(); i++)
+        Iterator filterElements = getElements(WebXmlTag.FILTER);
+        while (filterElements.hasNext())
         {
-            Element filterElement = (Element) filterElements.item(i);
+            Element filterElement = (Element) filterElements.next();
             String filterName =
-                getNestedText(filterElement, WebXmlElement.FILTER_NAME);
+                getNestedText(filterElement, WebXmlTag.FILTER_NAME);
             if (filterName != null)
             {
                 filterNames.add(filterName);
@@ -412,9 +435,8 @@ public class WebXml
      */
     public void addServlet(Element theServlet)
     {
-        checkElement(theServlet, WebXmlElement.SERVLET);
-        String servletName =
-            getNestedText(theServlet, WebXmlElement.SERVLET_NAME);
+        checkElement(theServlet, WebXmlTag.SERVLET);
+        String servletName = getNestedText(theServlet, WebXmlTag.SERVLET_NAME);
         if (servletName == null)
         {
             throw new IllegalArgumentException("Not a valid servlet element");
@@ -424,7 +446,7 @@ public class WebXml
             throw new IllegalStateException("Servlet '" + servletName +
                 "' already defined");
         }
-        addElement(theServlet);
+        addElement(WebXmlTag.SERVLET, theServlet);
     }
     
     /**
@@ -443,7 +465,7 @@ public class WebXml
             throw new IllegalStateException("Servlet '" + theServletName +
                 "' not defined");
         }
-        Element initParamElement = WebXmlElement.createInitParam(
+        Element initParamElement = WebXmlTag.createInitParam(
             document, theParamName, theParamValue);
         servletElement.appendChild(initParamElement);
     }
@@ -461,9 +483,9 @@ public class WebXml
             throw new IllegalStateException("Servlet '" + theServletName +
                 "' not defined");
         }
-        Element servletMappingElement = WebXmlElement.createServletMapping(
+        Element servletMappingElement = WebXmlTag.createServletMapping(
             document, theServletName, theUrlPattern);
-        addElement(servletMappingElement);
+        addElement(WebXmlTag.SERVLET_MAPPING, servletMappingElement);
     }
     
     /**
@@ -497,13 +519,12 @@ public class WebXml
         {
             throw new NullPointerException();
         }
-        NodeList servletElements =
-            rootElement.getElementsByTagName(WebXmlElement.SERVLET);
-        for (int i = 0; i < servletElements.getLength(); i++)
+        Iterator servletElements = getElements(WebXmlTag.SERVLET);
+        while (servletElements.hasNext())
         {
-            Element servletElement = (Element) servletElements.item(i);
+            Element servletElement = (Element) servletElements.next();
             if (theServletName.equals(getNestedText(
-                servletElement, WebXmlElement.SERVLET_NAME)))
+                servletElement, WebXmlTag.SERVLET_NAME)))
             {
                 return servletElement;
             }
@@ -525,17 +546,16 @@ public class WebXml
         Element servletElement = getServlet(theServletName);
         if (servletElement != null)
         {
-            NodeList initParamElements =
-                servletElement.getElementsByTagName(WebXmlElement.INIT_PARAM);
-            for (int i = 0; i < initParamElements.getLength(); i++)
+            Iterator initParamElements = getElements(WebXmlTag.INIT_PARAM);
+            while (initParamElements.hasNext())
             {
-                Element initParamElement = (Element) initParamElements.item(i);
+                Element initParamElement = (Element) initParamElements.next();
                 String paramName = getNestedText(
-                    initParamElement, WebXmlElement.PARAM_NAME);
+                    initParamElement, WebXmlTag.PARAM_NAME);
                 if (theParamName.equals(paramName))
                 {
                     return getNestedText(
-                        initParamElement, WebXmlElement.PARAM_VALUE);
+                        initParamElement, WebXmlTag.PARAM_VALUE);
                 }
             }
         }
@@ -556,13 +576,12 @@ public class WebXml
         Element servletElement = getServlet(theServletName);
         if (servletElement != null)
         {
-            NodeList initParamElements =
-                servletElement.getElementsByTagName(WebXmlElement.INIT_PARAM);
-            for (int i = 0; i < initParamElements.getLength(); i++)
+            Iterator initParamElements = getElements(WebXmlTag.INIT_PARAM);
+            while (initParamElements.hasNext())
             {
-                Element initParamElement = (Element) initParamElements.item(i);
+                Element initParamElement = (Element) initParamElements.next();
                 String paramName = getNestedText(
-                    initParamElement, WebXmlElement.PARAM_NAME);
+                    initParamElement, WebXmlTag.PARAM_NAME);
                 if (paramName != null)
                 {
                     initParamNames.add(paramName);
@@ -588,17 +607,17 @@ public class WebXml
             throw new NullPointerException();
         }
         List servletMappings = new ArrayList();
-        NodeList servletMappingElements =
-            rootElement.getElementsByTagName(WebXmlElement.SERVLET_MAPPING);
-        for (int i = 0; i < servletMappingElements.getLength(); i++)
+        Iterator servletMappingElements =
+            getElements(WebXmlTag.SERVLET_MAPPING);
+        while (servletMappingElements.hasNext())
         {
             Element servletMappingElement = (Element)
-                servletMappingElements.item(i);
+                servletMappingElements.next();
             if (theServletName.equals(getNestedText(
-                servletMappingElement, WebXmlElement.SERVLET_NAME)))
+                servletMappingElement, WebXmlTag.SERVLET_NAME)))
             {
                 String urlPattern = getNestedText(
-                    servletMappingElement, WebXmlElement.URL_PATTERN);
+                    servletMappingElement, WebXmlTag.URL_PATTERN);
                 if (urlPattern != null)
                 {
                     servletMappings.add(urlPattern);
@@ -617,13 +636,12 @@ public class WebXml
     public Iterator getServletNames()
     {
         List servletNames = new ArrayList();
-        NodeList servletElements =
-            rootElement.getElementsByTagName(WebXmlElement.SERVLET);
-        for (int i = 0; i < servletElements.getLength(); i++)
+        Iterator servletElements = getElements(WebXmlTag.SERVLET);
+        while (servletElements.hasNext())
         {
-            Element servletElement = (Element) servletElements.item(i);
+            Element servletElement = (Element) servletElements.next();
             String servletName =
-                getNestedText(servletElement, WebXmlElement.SERVLET_NAME);
+                getNestedText(servletElement, WebXmlTag.SERVLET_NAME);
             if (servletName != null)
             {
                 servletNames.add(servletName);
@@ -646,140 +664,136 @@ public class WebXml
     }
     
     /**
-     * Adds a security constraint element to the descriptor.
+     * Returns an iterator over the elements that match the specified tag.
      * 
-     * @param theSecurityConstraint The element to add
+     * @param theTag The descriptor tag of which the elements should be
+     *         returned
+     * @return An iterator over the elements matching the tag, in the order 
+     *          they occur in the descriptor
      */
-    public void addSecurityConstraint(Element theSecurityConstraint)
+    public Iterator getElements(WebXmlTag theTag)
     {
-        checkElement(theSecurityConstraint, WebXmlElement.SECURITY_CONSTRAINT);
-        addElement(theSecurityConstraint);
-    }
-
-    /**
-     * Returns the security constraint elements in the order they have been 
-     * defined in the descriptor.
-     * 
-     * @return An iterator over the ordered list of security constraints
-     */
-    public Iterator getSecurityConstraints()
-    {
-        List securityConstraints = new ArrayList();
-        NodeList securityConstraintElements =
-            rootElement.getElementsByTagName(WebXmlElement.SECURITY_CONSTRAINT);
-        for (int i = 0; i < securityConstraintElements.getLength(); i++)
+        List elements = new ArrayList();
+        NodeList nodeList =
+            this.rootElement.getElementsByTagName(theTag.getTagName()); 
+        for (int i = 0; i < nodeList.getLength(); i++)
         {
-            securityConstraints.add(securityConstraintElements.item(i));
+            elements.add(nodeList.item(i));
         }
-        return securityConstraints.iterator();
+        return elements.iterator();
     }
     
     /**
-     * Returns the security constraint elements in the order they have been 
-     * defined in the descriptor.
+     * Adds an element of the specified tag to the descriptor.
      * 
-     * @return An iterator over the ordered list of security constraints
+     * @param theTag The descriptor tag
+     * @param theElement The element to add
      */
-    public Element getLoginConfig()
+    public void addElement(WebXmlTag theTag, Element theElement)
     {
-        NodeList loginConfigElements =
-            rootElement.getElementsByTagName(WebXmlElement.LOGIN_CONFIG);
-        if (loginConfigElements.getLength() > 0)
+        if (!theTag.getTagName().equals(theElement.getNodeName()))
         {
-            return (Element) loginConfigElements.item(0);
+            throw new IllegalArgumentException("Not a '" + theTag
+                + "' element");
         }
-        return null;
+        if (!theTag.isMultipleAllowed() && getElements(theTag).hasNext())
+        {
+            throw new IllegalStateException("The tag '" + theTag
+                + "' may not occur more than once in the descriptor");
+        }
+        Node importedNode = this.document.importNode(theElement, true);
+        Node refNode = getInsertionPointFor(theTag);
+        this.rootElement.insertBefore(importedNode, refNode);
     }
     
     /**
-     * Sets the login configuration, overwriting any previous configuration. 
+     * Replaces all elements of the specified tag with the provided element.
      * 
-     * @param theLoginConfig A DOM representation of the login configuration
+     * @param theTag The descriptor tag
+     * @param theElement The element to replace the current elements with
      */
-    public void setLoginConfig(Element theLoginConfig)
+    public void replaceElement(WebXmlTag theTag, Element theElement)
     {
-        Element oldLoginConfig = getLoginConfig();
-        if (oldLoginConfig != null)
+        Iterator elements = getElements(theTag);
+        while (elements.hasNext())
         {
-            replaceElement(oldLoginConfig, theLoginConfig);
+            Element element = (Element) elements.next();
+            element.getParentNode().removeChild(element);
         }
-        else
-        {
-            addElement(theLoginConfig);
-        }
-    }
-    
-    /**
-     * Adds a security role element to the descriptor.
-     * 
-     * @param theSecurityRole The element to add
-     */
-    public void addSecurityRole(Element theSecurityRole)
-    {
-        checkElement(theSecurityRole, WebXmlElement.SECURITY_ROLE);
-        addElement(theSecurityRole);
-    }
-
-    /**
-     * Returns the security role elements in the order they have been 
-     * defined in the descriptor.
-     * 
-     * @return An iterator over the ordered list of security roles
-     */
-    public Iterator getSecurityRoles()
-    {
-        List securityRoles = new ArrayList();
-        NodeList securityRoleElements =
-            rootElement.getElementsByTagName(WebXmlElement.SECURITY_ROLE);
-        for (int i = 0; i < securityRoleElements.getLength(); i++)
-        {
-            securityRoles.add(securityRoleElements.item(i));
-        }
-        return securityRoles.iterator();
+        addElement(theTag, theElement);
     }
     
     // Private Methods ---------------------------------------------------------
     
     /**
-     * Adds a top-level element to the descriptor. The element is imported and 
-     * inserted at the correct position.
-     * 
-     * @param theElement The element to add
-     */
-    private void addElement(Element theElement)
-    {
-        Node importedNode = document.importNode(theElement, true);
-        Node refNode = WebXmlElement.getNodeToInsertBefore(
-            document, theElement.getNodeName());
-        rootElement.insertBefore(importedNode, refNode);
-    }
-    
-    /**
      * Checks an element whether its name matches the specified name.
      * 
      * @param theElement The element to check
-     * @param theTagName The expected tag name
+     * @param theExpectedTag The expected tag name
      * @throws IllegalArgumentException If the element name doesn't match
      */
-    private void checkElement(Element theElement, String theTagName)
+    private void checkElement(Element theElement, WebXmlTag theExpectedTag)
     {
-        if (!theTagName.equals(theElement.getNodeName()))
+        if (!theExpectedTag.getTagName().equals(theElement.getNodeName()))
         {
-            throw new IllegalArgumentException("Not a '" + theTagName
+            throw new IllegalArgumentException("Not a '" + theExpectedTag
                 + "' element");
         }
+    }
+    
+    /**
+     * Returns the node before which the specified tag should be inserted, or
+     * <code>null</code> if the node should be inserted at the end of the 
+     * descriptor.
+     * 
+     * FIXME: need more unit tests for this routine, as it is quite fragile
+     *  
+     * @param theTag The tag that should be inserted
+     * @return The node before which the tag can be inserted
+     */
+    private Node getInsertionPointFor(WebXmlTag theTag)
+    {
+        for (int i = 0; i < ELEMENT_ORDER.length; i++)
+        {
+            if (ELEMENT_ORDER[i] == theTag)
+            {
+                for (int j = i + 1; j < ELEMENT_ORDER.length; j++)
+                {
+                    NodeList elements =
+                        this.rootElement.getElementsByTagName(
+                            ELEMENT_ORDER[j].getTagName());
+                    if (elements.getLength() > 0)
+                    {
+                        Node result = elements.item(0);
+                        Node previous = result.getPreviousSibling();
+                        while ((previous != null) &&
+                            ((previous.getNodeType() == Node.COMMENT_NODE) ||
+                             (previous.getNodeType() == Node.TEXT_NODE)))
+                        {
+                            result = previous;
+                            previous = result.getPreviousSibling();
+                        }
+                        return result;
+                    }
+                }
+                break;
+            }
+        }
+        return null;
     }
     
     /**
      * 
      * @param theElement The element of which the nested text should be
      *         returned
-     * @param theTagName The name of the child element that contains the text
+     * @param theTag The descriptor tag in which the text is nested
      * @return The text nested in the element
      */
-    private String getNestedText(Element theElement, String theTagName)
+    private String getNestedText(Element theElement,
+        WebXmlTag theTag)
     {
-        NodeList nestedElements = theElement.getElementsByTagName(theTagName);
+        NodeList nestedElements =
+            theElement.getElementsByTagName(theTag.getTagName());
         if (nestedElements.getLength() > 0)
         {
             Node nestedText = nestedElements.item(0).getFirstChild();
@@ -789,20 +803,6 @@ public class WebXml
             }
         }
         return null;
-    }
-    
-    /**
-     * Adds a top-level element to the descriptor. The element is imported and 
-     * inserted at the correct position.
-     * 
-     * @param theOldElement The element that should be replaced
-     * @param theNewElement The element that should replace the other element
-     */
-    private void replaceElement(Element theOldElement, Element theNewElement)
-    {
-        Node importedNode = document.importNode(theNewElement, true);
-        theOldElement.getParentNode().replaceChild(importedNode,
-            theOldElement);
     }
     
 }

@@ -186,12 +186,14 @@ public class WebXmlMerger
      */
     public int mergeSecurityConstraints(WebXml theWebXml)
     {
-        Iterator securityConstraints = theWebXml.getSecurityConstraints();
+        Iterator securityConstraints =
+            theWebXml.getElements(WebXmlTag.SECURITY_CONSTRAINT);
         int count = 0;
         while (securityConstraints.hasNext())
         {
             Element securityConstraint = (Element) securityConstraints.next();
-            webXml.addSecurityConstraint(securityConstraint);
+            webXml.addElement(WebXmlTag.SECURITY_CONSTRAINT,
+                securityConstraint);
             count++;
         }
         return count;
@@ -206,10 +208,11 @@ public class WebXmlMerger
      */
     public boolean mergeLoginConfig(WebXml theWebXml)
     {
-        Element loginConfig = theWebXml.getLoginConfig();
-        if (loginConfig != null)
+        Iterator loginConfigs = theWebXml.getElements(WebXmlTag.LOGIN_CONFIG);
+        if (loginConfigs.hasNext())
         {
-            webXml.setLoginConfig(loginConfig);
+            webXml.replaceElement(WebXmlTag.LOGIN_CONFIG,
+                (Element) loginConfigs.next());
             return true;
         }
         return false;
@@ -225,12 +228,14 @@ public class WebXmlMerger
      */
     public int mergeSecurityRoles(WebXml theWebXml)
     {
-        Iterator securityRoles = theWebXml.getSecurityRoles();
+        Iterator securityRoles =
+            theWebXml.getElements(WebXmlTag.SECURITY_ROLE);
         int count = 0;
         while (securityRoles.hasNext())
         {
             Element securityRole = (Element) securityRoles.next();
-            webXml.addSecurityRole(securityRole);
+            webXml.addElement(WebXmlTag.SECURITY_ROLE,
+                securityRole);
             count++;
         }
         return count;
