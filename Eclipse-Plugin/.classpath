@@ -16,5 +16,5 @@
     <classpathentry kind="src" path="/org.eclipse.jdt.debug.ui"/>
     <classpathentry kind="src" path="/org.eclipse.jdt.junit"/>
     <classpathentry kind="src" path="/org.junit"/>
-    <classpathentry kind="output" path="target\eclipse"/>
+    <classpathentry kind="output" path="bin"/>
 </classpath>
