@@ -223,13 +223,15 @@ public class DefaultHttpClient
     {
         WebRequest resultsRequest = new WebRequest(this.configuration);
 
-        resultsRequest.addParameter(HttpServiceDefinition.SERVICE_NAME_PARAM, 
-            ServiceEnumeration.GET_RESULTS_SERVICE.toString(), 
-            WebRequest.GET_METHOD);
+        resultsRequest.addCactusCommand(HttpServiceDefinition.SERVICE_NAME_PARAM, 
+            ServiceEnumeration.GET_RESULTS_SERVICE.toString());
 
         // Use the same redirector as was used by the original request
         resultsRequest.setRedirectorName(
             theOriginalRequest.getRedirectorName());
+        
+        //also copy the unique id to get the correct test results
+        resultsRequest.setUniqueId(theOriginalRequest.getUniqueId());
          
         // Add authentication details
         if (theOriginalRequest.getAuthentication() != null)
