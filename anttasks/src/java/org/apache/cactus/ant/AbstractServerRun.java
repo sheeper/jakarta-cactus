@@ -90,7 +90,7 @@ public abstract class AbstractServerRun extends Thread
     /**
      * The command line arguments
      */
-    private String[] args;
+    protected String[] args;
 
     /**
      * Flag that specifies if the server is already started to prevent
