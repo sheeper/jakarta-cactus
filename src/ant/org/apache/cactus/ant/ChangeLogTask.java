@@ -545,9 +545,12 @@ public class ChangeLogTask extends Task implements ExecuteStreamHandler
                     }
                     entry.addFile(file, revision);
 
-                    // Continue reading the other revisions
-
-                    status = GET_REVISION;
+                    // Continue reading the other revisions or skip to next file
+                    if (line.startsWith("======")) {
+                        status = GET_FILE;
+                    } else {
+                        status = GET_REVISION;
+                    }
                     break;
 
             }
