@@ -58,10 +58,12 @@ package org.apache.cactus.eclipse.launcher;
 
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
+import java.net.MalformedURLException;
 
 import org.apache.cactus.eclipse.containers.IContainerProvider;
 import org.apache.cactus.eclipse.ui.CactusMessages;
 import org.apache.cactus.eclipse.ui.CactusPlugin;
+import org.apache.cactus.eclipse.ui.CactusPreferencePage;
 import org.apache.cactus.eclipse.ui.CactusPreferences;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.DebugPlugin;
@@ -69,6 +71,7 @@ import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationType;
 import org.eclipse.debug.core.ILaunchManager;
 import org.eclipse.jdt.core.IType;
+import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.internal.junit.launcher.JUnitLaunchShortcut;
 import org.eclipse.jdt.internal.junit.runner.ITestRunListener;
 import org.eclipse.jdt.internal.junit.ui.JUnitPlugin;
@@ -131,10 +134,18 @@ public class CactusLaunchShortcut
         }
         catch (InterruptedException e)
         {
+            CactusPlugin.displayErrorMessage(
+                "Error when launching tests",
+                e.getMessage(),
+                null);
             return;
         }
         catch (InvocationTargetException e)
         {
+            CactusPlugin.displayErrorMessage(
+                "Error when launching tests",
+                e.getMessage(),
+                null);
             return;
         }
         IType type = null;
@@ -180,8 +191,7 @@ public class CactusLaunchShortcut
             }
             catch (CoreException e)
             {
-                ErrorDialog.openError(
-                    getShell(),
+                CactusPlugin.displayErrorMessage(
                     CactusMessages.getString(
                         "LaunchTestAction.message.launchFailed"),
                     e.getMessage(),
@@ -200,9 +210,10 @@ public class CactusLaunchShortcut
      */
     private void prepareCactusTests(IType theType)
     {
+
+        provider = CactusPlugin.getContainerProvider();
         try
         {
-            provider = CactusPlugin.getContainerProvider();
             WarBuilder newWar =
                 new WarBuilder(
                     theType.getJavaProject(),
@@ -214,10 +225,21 @@ public class CactusLaunchShortcut
                 null);
             provider.start(null);
         }
-        catch (Exception e)
+        catch (CoreException e)
         {
-            e.printStackTrace();
+            CactusPlugin.displayErrorMessage(
+                "Error when preparing tests",
+                e.getMessage(),
+                e.getStatus());
         }
+        catch (MalformedURLException e)
+        {
+            CactusPlugin.displayErrorMessage(
+                "Error when preparing tests",
+                e.getMessage(),
+                null);
+        }
+
     }
 
     /**
@@ -233,7 +255,10 @@ public class CactusLaunchShortcut
         }
         catch (CoreException e)
         {
-            e.printStackTrace();
+            CactusPlugin.displayErrorMessage(
+                "Error when tearing down tests",
+                e.getMessage(),
+                e.getStatus());
         }
     }
     /**

@@ -261,8 +261,7 @@ public class StartServerHelper implements Runnable
         }
         catch (CoreException e)
         {
-            e.printStackTrace();
-            throw new BuildException("Error while running the Ant task");
+            throw new BuildException(e);
         }
 
         // Should never reach this point as the target is blocking, unless the
