@@ -444,8 +444,8 @@
   <external id="bug_database_cactus_open_issues" url="http://nagoya.apache.org/jira/secure/BrowseProject.jspa?id=10471"/>
   <external id="bug_database_cactus_open_bugs" url="http://nagoya.apache.org/jira/secure/IssueNavigator.jspa?view=&amp;decorator=&amp;start=0&amp;mode=hide&amp;tempMax=-1"/>
   <external id="c2_mock_object" url="http://c2.com/cgi/wiki?MockObject"/>
-  <external id="cactus_dutronc_lyrics" url="http://www.muriset.com/paroles/les_cactus.htm"/>
-  <external id="cactus_dutronc_midi" url="http://www.muriset.com/musique/les_cactus.mid"/>
+  <external id="cactus_dutronc_lyrics" url="http://www.frmusique.ru/texts/d/dutronc_jacques/cactus.htm"/>
+  <external id="cactus_dutronc_midi" url="http://membres.lycos.fr/nabla007/musique/jacques_dutronc_(les_cactus).mid"/>
   <external id="cactus_nightly" url="http://cvs.apache.org/builds/jakarta-cactus/nightly"/>
   <external id="cactus_release_bin" url="http://jakarta.apache.org/site/binindex.cgi"/>
   <external id="cactus_release_src" url="http://jakarta.apache.org/site/sourceindex.cgi"/>
