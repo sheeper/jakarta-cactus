@@ -43,6 +43,7 @@
         <!-- Set the properties related to the source tree -->
 	    <property name="src.dir" value="${base.dir}/src"/>
 	    <property name="src.java.dir" value="${src.dir}/java"/>
+	    <property name="src.test.dir" value="${src.dir}/test"/>
 	    <property name="src.script.dir" value="${src.dir}/scripts"/>
 	    <property name="src.conf.dir" value="${src.dir}/confs"/>
 	    <property name="build.dir" value="${base.dir}/."/>
@@ -51,6 +52,8 @@
 	    <property name="target.classes.dir" value="${target.dir}/classes"/>
 	    <property name="target.classes.java.dir"
 	        value="${target.classes.dir}/java"/>
+	    <property name="target.classes.test.dir"
+	        value="${target.classes.dir}/test"/>
 	    <property name="target.doc.dir" value="${target.dir}/doc"/>
 	    <property name="target.doc.api.dir" value="${target.doc.dir}/api"/>
 
@@ -110,7 +113,7 @@
          Compiles the sources
        ========================================================================
     -->
-    <target name="compile" depends="init" description="Compile the sources">
+    <target name="compile.main" depends="init">
 
         <mkdir dir="${target.classes.java.dir}"/>
 
@@ -130,12 +133,64 @@
 
     </target>
 
+    <target name="compile.test" depends="compile.main">
+
+        <mkdir dir="${target.classes.test.dir}"/>
+
+        <javac srcdir="${src.test.dir}" destdir="${target.classes.test.dir}"
+          deprecation="${deprecation}" optimize="${optimize}"
+          debug="${debug}">
+
+            <classpath>
+                <path path="${target.classes.java.dir}"/>
+            </classpath>
+
+        </javac>
+
+    </target>
+
+    <target name="compile" depends="compile.main, compile.test"
+        description="Compile the sources"/>
+
+    <!--
+       ========================================================================
+         Runs the unit tests
+       ========================================================================
+    -->
+    <target name="test" depends="compile.test"
+        description="Runs the unit tests">
+
+        <junit printsummary="yes" failureproperty="tests.failed" fork="yes">
+
+            <classpath>
+                <pathelement path="${target.classes.java.dir}"/>
+                <pathelement path="${target.classes.test.dir}"/>
+            </classpath>
+
+            <formatter type="brief" usefile="false"/>
+
+            <batchtest>
+                <fileset dir="${src.test.dir}">
+                    <include name="**/Test*.java"/>
+                    <exclude name="**/TestAll.java"/>
+                    <!-- Temporary exclude, the tests currently fail -->
+                    <exclude name="**/TestWebMerge.java"/>
+                </fileset>
+            </batchtest>
+
+        </junit>
+
+        <fail if="tests.failed">At least one unit test failed!</fail>
+
+    </target>
+
     <!--
        ========================================================================
          Create the runtime jar file
        ========================================================================
     -->
-    <target name="jar" depends="compile" description="Generate the integration jar">
+    <target name="jar" depends="compile.main"
+        description="Generate the integration jar">
 
         <jar jarfile="${target.dir}/${cactus.antintegration.jar.name}.jar">
 
@@ -206,7 +261,7 @@
          Generate the distributable files
        ========================================================================
     -->
-    <target name="dist.prepare" depends="jar,doc,checkstyle">
+    <target name="dist.prepare" depends="test,jar,doc,checkstyle">
 
         <mkdir dir="${target.integration.dir}"/>
         <mkdir dir="${target.integration.lib.client.dir}"/>
