@@ -326,7 +326,7 @@ public class CactusLaunchShortcut
         thePM.done();
     }
     /**
-     * @see org.eclipse.jdt.internal.junit.runner.ITestRunListener#testRunStarted(int)
+     * @see ITestRunListener#testRunStarted(int)
      */
     public void testRunStarted(int theTestCount)
     {
@@ -400,14 +400,14 @@ public class CactusLaunchShortcut
     }
 
     /**
-     * @see org.eclipse.jdt.internal.junit.runner.ITestRunListener#testStarted(java.lang.String)
+     * @see ITestRunListener#testStarted(java.lang.String)
      */
     public void testStarted(String theTestName)
     {
     }
 
     /**
-     * @see org.eclipse.jdt.internal.junit.runner.ITestRunListener#testEnded(java.lang.String)
+     * @see ITestRunListener#testEnded(java.lang.String)
      */
     public void testEnded(String theTestName)
     {
@@ -421,7 +421,7 @@ public class CactusLaunchShortcut
     }
 
     /**
-     * @see org.eclipse.jdt.internal.junit.runner.ITestRunListener#testTreeEntry(java.lang.String)
+     * @see ITestRunListener#testTreeEntry(java.lang.String)
      */
     public void testTreeEntry(String theEntry)
     {
