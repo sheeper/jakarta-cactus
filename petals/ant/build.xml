@@ -97,7 +97,20 @@
 	        location="${target.classes.dir}/java"/>
 	    <property name="target.doc.dir" location="${target.dir}/doc"/>
 	    <property name="target.doc.api.dir" location="${target.doc.dir}/api"/>
-		<property name="target.test.dir" location="${target.dir}/test/tomcat4x"/>
+
+        <property name="target.petal.dir" location="${target.dir}/petal"/>
+        <property name="target.petal.lib.dir" 
+            location="${target.petal.dir}/lib"/>
+	    <property name="target.petal.lib.client.dir" 
+	        location="${target.petal.lib.dir}/client"/>
+	    <property name="target.petal.lib.server.dir"
+	        location="${target.petal.lib.dir}/server"/>
+	    <property name="target.petal.lib.common.dir"
+	        location="${target.petal.lib.dir}/common"/>
+	    <property name="target.petal.script.dir" 
+	        location="${target.petal.dir}/scripts"/>
+	    <property name="target.petal.conf.dir" 
+	        location="${target.petal.dir}/confs"/>
 
 	</target>
 
@@ -111,14 +124,9 @@
     <target name="properties.distribution">
 
 	    <property name="dist.dir" location="${base.dir}/dist-${j2ee.api}"/>
-	    <property name="dist.lib.dir" location="${dist.dir}/lib"/>
-	    <property name="dist.lib.client.dir" location="${dist.lib.dir}/client"/>
-	    <property name="dist.lib.server.dir" location="${dist.lib.dir}/server"/>
-	    <property name="dist.lib.common.dir" location="${dist.lib.dir}/common"/>
+	    <property name="dist.bin.dir" location="${dist.dir}/bin"/>
 	    <property name="dist.doc.dir" location="${dist.dir}/doc"/>
 	    <property name="dist.doc.api.dir" location="${dist.doc.dir}/api"/>
-	    <property name="dist.script.dir" location="${dist.dir}/scripts"/>
-	    <property name="dist.conf.dir" location="${dist.dir}/confs"/>
 
 	</target>
 
@@ -326,32 +334,32 @@
          Generate the distributable files
        ========================================================================
     -->
-    <target name="dist" depends="jar,doc,checkstyle"
-        description="Generate the distributable files">
+    <target name="dist.prepare" depends="jar,doc,checkstyle">
 
-        <mkdir dir="${dist.lib.client.dir}"/>
-        <mkdir dir="${dist.lib.server.dir}"/>
-        <mkdir dir="${dist.lib.common.dir}"/>
-        <mkdir dir="${dist.script.dir}"/>
-        <mkdir dir="${dist.conf.dir}"/>
+        <mkdir dir="${target.petal.dir}"/>
+        <mkdir dir="${target.petal.lib.client.dir}"/>
+        <mkdir dir="${target.petal.lib.server.dir}"/>
+        <mkdir dir="${target.petal.lib.common.dir}"/>
+        <mkdir dir="${target.petal.script.dir}"/>
+        <mkdir dir="${target.petal.conf.dir}"/>
 
 		<!-- Gather all server side Cactus jars -->
         <!-- (None at the moment) -->
         
 		<!-- Gather all client side Cactus jars -->
-        <copy tofile="${dist.lib.client.dir}/${antpetal.jar.name}-${project.version}.jar"
+        <copy tofile="${target.petal.lib.client.dir}/${antpetal.jar.name}-${project.version}.jar"
             file="${target.dir}/${antpetal.jar.name}.jar"/>
-        <copy todir="${dist.lib.dir}/client" file="${j2ee.jar}"/>
-        <copy todir="${dist.lib.dir}/client" file="${commons.httpclient.jar}"/>
-        <copy todir="${dist.lib.dir}/client" file="${httpunit.jar}"/>
+        <copy todir="${target.petal.lib.client.dir}" file="${j2ee.jar}"/>
+        <copy todir="${target.petal.lib.client.dir}" file="${commons.httpclient.jar}"/>
+        <copy todir="${target.petal.lib.client.dir}" file="${httpunit.jar}"/>
 
 		<!-- Gather all shared (client and server) Cactus jars -->
-        <copy tofile="${dist.lib.common.dir}/cactus-${project.version}.jar" 
+        <copy tofile="${target.petal.lib.common.dir}/cactus-${project.version}.jar" 
         	file="${cactus.framework.jar}"/>
-        <copy todir="${dist.lib.common.dir}" file="${commons.logging.jar}"/>
-        <copy todir="${dist.lib.common.dir}" file="${log4j.jar}"/>
-        <copy todir="${dist.lib.common.dir}" file="${aspectjrt.jar}"/>
-        <copy todir="${dist.lib.common.dir}" file="${junit.jar}"/>
+        <copy todir="${target.petal.lib.common.dir}" file="${commons.logging.jar}"/>
+        <copy todir="${target.petal.lib.common.dir}" file="${log4j.jar}"/>
+        <copy todir="${target.petal.lib.common.dir}" file="${aspectjrt.jar}"/>
+        <copy todir="${target.petal.lib.common.dir}" file="${junit.jar}"/>
 
 		<!-- Copy the scripts for the current J2EE API -->
 
@@ -373,25 +381,42 @@
 		<basename property="httpunit.jar.name" file="${httpunit.jar}"/>
         <filter token="httpunit.jar.name" value="${httpunit.jar.name}"/>
 
-		<copy todir="${dist.script.dir}" filtering="on">
+		<copy todir="${target.petal.script.dir}" filtering="on">
 			<fileset dir="${src.script.dir}/share"/>
 			<fileset dir="${src.script.dir}/j2ee${j2ee.api}">
 				<exclude name="build.xml"/>
 			</fileset>
 		</copy>
-		<copy todir="${dist.dir}"
+		<copy todir="${target.petal.dir}"
 			file="${src.script.dir}/j2ee${j2ee.api}/build.xml"/>
 
 		<!-- Copy the confs for the current J2EE API -->
-		<copy todir="${dist.conf.dir}">
+		<copy todir="${target.petal.conf.dir}">
 			<fileset dir="${src.conf.dir}/share"/>
 			<fileset dir="${src.conf.dir}/j2ee${j2ee.api}"/>
 		</copy>
 
 		<!-- Copy the JSP Redirector -->
-		<copy todir="${dist.conf.dir}" 
+		<copy todir="${target.petal.conf.dir}" 
 			file="${cactus.framework.web}/jspRedirector.jsp"/>
-		
+
+    </target>
+
+    <target name="dist" depends="dist.prepare"
+        description="Generate the distributable files">
+
+        <mkdir dir="${dist.bin.dir}"/>
+        <mkdir dir="${dist.doc.api.dir}"/>
+        
+        <zip zipfile="${dist.bin.dir}/${antpetal.zip.name}.zip">
+            <fileset dir="${target.petal.dir}"/>           
+        </zip>
+
+        <!-- Copy the generated documentation -->
+        <copy todir="${dist.doc.api.dir}">
+            <fileset dir="${target.doc.api.dir}"/>
+        </copy>
+        		
     </target>
 
     <!--
