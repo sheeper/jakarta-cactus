@@ -64,7 +64,9 @@ import org.apache.commons.cactus.util.log.*;
 /**
  * Unit tests of the <code>AbstractTestCase</code> class.
  *
- * @version @version@
+ * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
+ *
+ * @version $Id$
  */
 public class TestAbstractTestCase extends
     TestAbstractTestCase_InterceptorTestCase

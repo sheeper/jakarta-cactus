@@ -60,59 +60,93 @@ import java.util.*;
 /**
  * Mock implementation of <code>HttpURLConnection</code>.
  *
- * @version @version@
+ * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
+ *
+ * @version $Id$
  */
 public class MockHttpURLConnection extends HttpURLConnection
 {
-    private Vector m_GetHeaderFieldValues = new Vector();
-    private Vector m_GetInputStreamValues = new Vector();
+    /**
+     * Store the header fields that the <code>getHeaderField()</code> will
+     * return (for each call, the last entry of the vector will be returned
+     * and removed from the vector).
+     */
+    private Vector getHeaderFieldValues = new Vector();
+
+    /**
+     * Store the input streams that the <code>getHeaderField()</code> will
+     * return (for each call, the last entry of the vector will be returned
+     * and removed from the vector).
+     */
+    private Vector getInputStreamValues = new Vector();
 
     // -----------------------------------------------------------------------
     // Methods added on top of those found in HttpURLConnection
     // -----------------------------------------------------------------------
 
+    /**
+     * Add a new header field value to the vector of values that will be
+     * returned by <code>getHeaderField()</code>.
+     *
+     * @param theValue the header file value to add
+     */
     public void addGetHeaderFieldValue(String theValue)
     {
-        m_GetHeaderFieldValues.addElement(theValue);
+        this.getHeaderFieldValues.addElement(theValue);
     }
 
+    /**
+     * Add a new input stream to the vector of values that will be
+     * returned by <code>getInputStream()</code>.
+     *
+     * @param theValue the input stream to add
+     */
     public void addGetInputStream(InputStream theValue)
     {
-        m_GetInputStreamValues.addElement(theValue);
+        this.getInputStreamValues.addElement(theValue);
     }
 
     // -----------------------------------------------------------------------
     // Methods overriding those from HttpURLConnection
     // -----------------------------------------------------------------------
 
+    /**
+     * @param theURL the underlying URL
+     */
     public MockHttpURLConnection(URL theURL)
     {
         super(theURL);
     }
 
+    /**
+     * See <code>java.net.URLConnection.getHeaderField</code>.
+     */
     public String getHeaderField(int fieldNumber)
     {
-        if (m_GetHeaderFieldValues.isEmpty()) {
+        if (this.getHeaderFieldValues.isEmpty()) {
             throw new RuntimeException("Must call addGetHeaderFieldValue() " +
                 "first !");
         }
-        String result = (String)m_GetHeaderFieldValues.elementAt(
-            m_GetHeaderFieldValues.size() - 1);
-        m_GetHeaderFieldValues.removeElementAt(
-            m_GetHeaderFieldValues.size() - 1);
+        String result = (String)this.getHeaderFieldValues.elementAt(
+            this.getHeaderFieldValues.size() - 1);
+        this.getHeaderFieldValues.removeElementAt(
+            this.getHeaderFieldValues.size() - 1);
         return result;
     }
 
+    /**
+     * See <code>java.net.URLConnection.getInputStream</code>.
+     */
     public InputStream getInputStream()
     {
-        if (m_GetInputStreamValues.isEmpty()) {
+        if (this.getInputStreamValues.isEmpty()) {
             throw new RuntimeException("Must call addGetInputStream() " +
                 "first !");
         }
-        InputStream result = (InputStream)m_GetInputStreamValues.elementAt(
-            m_GetInputStreamValues.size() - 1);
-        m_GetInputStreamValues.removeElementAt(
-            m_GetInputStreamValues.size() - 1);
+        InputStream result = (InputStream)this.getInputStreamValues.elementAt(
+            this.getInputStreamValues.size() - 1);
+        this.getInputStreamValues.removeElementAt(
+            this.getInputStreamValues.size() - 1);
         return result;
     }
 

@@ -112,10 +112,10 @@ public class LogService
      */
     public static synchronized LogService getInstance()
     {
-        if (this.instance == null) {
-            this.instance = new LogService();
+        if (instance == null) {
+            instance = new LogService();
         }
-        return this.instance;
+        return instance;
     }
 
     /**

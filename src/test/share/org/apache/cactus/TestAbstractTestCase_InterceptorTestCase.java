@@ -66,7 +66,9 @@ import org.apache.commons.cactus.mock.*;
  * them) coming from test case classes that inherits from it. This class is
  * used to unit test the <code>TestAbstractTestCase</code> class.
  *
- * @version @version@
+ * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
+ *
+ * @version $Id$
  */
 public class TestAbstractTestCase_InterceptorTestCase
     extends AbstractTestCase

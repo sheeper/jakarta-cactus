@@ -60,7 +60,9 @@ import junit.framework.*;
  * environment to run. These other tests will be exercised in the sample
  * application.
  *
- * @version @version@
+ * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
+ *
+ * @version $Id$
  */
 public class TestAll extends TestCase
 {
@@ -90,7 +92,8 @@ public class TestAll extends TestCase
      */
     public static Test suite()
     {
-        TestSuite suite = new TestSuite("Cactus unit tests not needing servlet engine");
+        TestSuite suite =
+            new TestSuite("Cactus unit tests not needing servlet engine");
 
         suite.addTest(org.apache.commons.cactus.util.TestAssertUtils.suite());
         suite.addTest(org.apache.commons.cactus.TestAbstractTestCase.suite());
