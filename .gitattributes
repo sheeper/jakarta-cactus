@@ -162,7 +162,6 @@ documentation/docs/xdocs/writing/navigation.xml svn_keywords=Author+Date+Id+Revi
 documentation/src/java/org/apache/cactus/documentation/CheckSitemapTask.java svn_keywords=Author+Date+Id+Revision
 framework/.cvsignore svn_keywords=Author+Date+Id+Revision
 framework/README svn_keywords=Author+Date+Id+Revision
-framework/build-jdiff.xml svn_keywords=Author+Date+Id+Revision
 framework/build.properties.sample svn_keywords=Author+Date+Id+Revision
 framework/build.xml svn_keywords=Author+Date+Id+Revision
 framework/src/java/j2ee12/org/apache/cactus/server/HttpServletRequestWrapper.java svn_keywords=Author+Date+Id+Revision
