@@ -24,11 +24,6 @@
 			</arguments>
 		</buildCommand>
 		<buildCommand>
-			<name>com.telesynthesis.tools.eclipse.checkstyle.CheckStyleBuilder</name>
-			<arguments>
-			</arguments>
-		</buildCommand>
-		<buildCommand>
 			<name>org.eclipse.jdt.core.javabuilder</name>
 			<arguments>
 			</arguments>
@@ -47,7 +42,6 @@
 	<natures>
 		<nature>org.eclipse.pde.PluginNature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
-		<nature>com.telesynthesis.tools.eclipse.checkstyle.CheckStyleNature</nature>
 		<nature>com.atlassw.tools.eclipse.checkstyle.CheckstyleNature</nature>
 	</natures>
 </projectDescription>
