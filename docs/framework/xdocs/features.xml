@@ -133,10 +133,13 @@
               Resin 1.3 (Servlet API 2.3)
             </li>
             <li>
+              Resin 2.0 (Servlet API 2.2 and 2.3)
+            </li>
+            <li>
               WebLogic 5.1 (Servlet API 2.2)
             </li>
             <li>
-              Orion 1.4 (Servlet API 2.2 and 2.3)
+              Orion 1.4 (Servlet API 2.2)
             </li>
           </ul>
         </li>
@@ -161,7 +164,7 @@
           not provided as it is now too old).
         </li>
         <li>
-          Support for JDK 1.2 or greater.
+          Support for JDK 1.2 or 1.3 (not tested with 1.4 yet)
         </li>
         <li>
           Possibility to assert the returned servlet output stream from classes
