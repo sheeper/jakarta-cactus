@@ -53,8 +53,8 @@
  */
 package org.apache.cactus;
 
-import java.util.*;
-import java.io.*;
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Client cookie. Used for manipulating client cookies either in

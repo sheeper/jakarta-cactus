@@ -53,10 +53,10 @@
  */
 package org.apache.cactus;
 
-import javax.servlet.jsp.*;
+import javax.servlet.jsp.JspWriter;
 
-import org.apache.cactus.client.*;
-import org.apache.cactus.server.*;
+import org.apache.cactus.server.PageContextWrapper;
+import org.apache.cactus.client.JspHttpClient;
 
 /**
  * Test classes that need access to valid JSP implicit objects (such as the

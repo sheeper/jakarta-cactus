@@ -53,8 +53,6 @@
  */
 package org.apache.cactus;
 
-import java.util.*;
-
 /**
  * Contains all HTTP request data for a test case. It is the data that
  * will be sent to the server redirector and that will be available to the test

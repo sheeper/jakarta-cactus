@@ -53,11 +53,14 @@
  */
 package org.apache.cactus;
 
-import java.util.*;
-import java.io.*;
+import java.util.Hashtable;
+import java.util.Vector;
+import java.util.Enumeration;
+import java.util.StringTokenizer;
+import java.io.InputStream;
 
-import org.apache.cactus.util.*;
 import org.apache.cactus.client.authentication.AbstractAuthentication;
+import org.apache.cactus.util.ChainedRuntimeException;
 
 /**
  * Contains all HTTP request data for a test case. It is the data that

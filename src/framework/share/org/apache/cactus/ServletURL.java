@@ -53,17 +53,11 @@
  */
 package org.apache.cactus;
 
-import java.util.*;
-import java.io.*;
-import java.security.*;
-import java.net.*;
+import javax.servlet.http.HttpServletRequest;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-
-import junit.framework.*;
-import org.apache.cactus.util.log.*;
-import org.apache.cactus.server.*;
+import org.apache.cactus.util.log.Log;
+import org.apache.cactus.util.log.LogService;
+import org.apache.cactus.server.ServletUtil;
 
 /**
  * Simulate an HTTP URL by breaking it into its different parts :<br>

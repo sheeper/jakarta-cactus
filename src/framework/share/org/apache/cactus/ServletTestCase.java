@@ -53,15 +53,11 @@
  */
 package org.apache.cactus;
 
-import java.lang.reflect.*;
-import javax.servlet.*;
-import javax.servlet.http.*;
-import java.net.*;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import junit.framework.*;
-
-import org.apache.cactus.client.*;
-import org.apache.cactus.server.*;
+import org.apache.cactus.server.ServletConfigWrapper;
+import org.apache.cactus.client.ServletHttpClient;
 
 /**
  * Test classes that need access to valid Servlet implicit objects (such as the
