@@ -58,10 +58,6 @@
     <version title="Cactus 1.6">
 
       <category title="Documentation">
-        <action>
-          Update the "how it works" section by adding the new global
-          <code>begin()</code> and <code>end()</code> methods.
-        </action>
         <action assigned-to="Vincent Massol">
           Add documentation for form-based authentication.
         </action>

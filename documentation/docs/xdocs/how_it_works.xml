@@ -61,13 +61,14 @@
       <ol>
         <li>
           The JUnit Test Runner calls a <code>YYYTestCase.runTest()</code>
-          method. This method looks for a
+          method. This method first looks for a <code>begin(WebRequest)</code>
+          method and executes it if found. Note that this method is called 
+          before each test. The <code>WebRequest</code> parameter passed to 
+          the <code>beginXXX()</code> method is used to set the HTTP headers, 
+          the HTTP parameters, ... that will be sent in step 2 to the Redirector 
+          proxy. The <code>runTest()</code> method then looks for a 
           <code>beginXXX(WebRequest)</code> method and executes it if
-          one is found. This is executed on the client side (i.e. not in a
-          server engine). The <code>WebRequest</code>
-          parameter passed to the <code>beginXXX()</code> method is used
-          to set the HTTP headers, the HTTP parameters, ... that will be
-          sent in step 2 to the Redirector proxy.
+          found.
         </li>
         <li>
           The <code>YYYTestCase.runTest()</code> method then opens an HTTP
@@ -81,7 +82,8 @@
           twice: once on the client side (by the JUnit Test Runner) and once
           on the server side (by the Redirector proxy). The client side
           instance is used for executing the
-          <code>beginXXX()</code> and <code>endXXX()</code> methods (see
+          <code>begin()</code>, <code>beginXXX()</code>, <code>endXXX()</code> 
+          and <code>end()</code> methods (see
           steps 1 and 8) and the server side instance is used for executing
           the <code>testXXX()</code> methods (see step 4). The Redirector
           proxy does the following:
@@ -140,12 +142,16 @@
         <li>
           If no exception occurred, the <code>YYYTestCase.runTest()</code>
           method looks for an <code>endXXX(org.apache.cactus.WebResponse)</code>
-          or <code>endXXX(com.meterware.httpunit.WebResponse)</code> (this
+          or <code>endXXX(com.meterware.httpunit.WebResponse)</code> method (this
           signature is used for <link href="site:howto_httpunit">HttpUnit
-          integration</link>) method and executes it if found. At this stage,
+          integration</link>) and executes it if found. At this stage,
           you have the opportunity to check returned HTTP headers, Cookies and
           the servlet output stream in the <code>endXXX()</code> method, again
           using JUnit asserts and helper utility classes provided by Cactus.
+          Then the <code>runTest()</code> methods looks for an
+          <code>end(org.apache.cactus.WebResponse)</code> or
+          <code>end(com.meterware.httpunit.WebResponse)</code> method and calls
+          it if found. This <code>end()</code> method is called after each test.
         </li>
       </ol>
 
