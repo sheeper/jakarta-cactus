@@ -994,8 +994,9 @@
         </xsl:with-param>
       </xsl:call-template>
     </xsl:variable>
+
     <xsl:variable name="perdirnav"
-      select="document(concat($xdocdir,'/',dir,'/navigation.xml'))/navigation"/>
+      select="document(concat($xdocdir,'/',$dir,'/navigation.xml'))/navigation"/>
 
     <xsl:choose>
       <xsl:when test="$perdirnav/menu">
