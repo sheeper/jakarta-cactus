@@ -56,6 +56,8 @@
  */
 package org.apache.cactus;
 
+import java.util.Enumeration;
+
 import junit.framework.TestCase;
 
 import org.apache.cactus.util.ChainedRuntimeException;
@@ -251,4 +253,33 @@ public class TestWebRequest extends TestCase
                 + "[badquerystring]", e.getMessage());
         }
     }
+
+    /**
+     * Verify that we can retrieve several POST parameters.
+     */
+    public void testGetPostParametersSeveral()
+    {
+        WebRequest request = new WebRequest();
+
+        request.addParameter("param1", "value1", WebRequest.POST_METHOD);
+        request.addParameter("param2", "value2", WebRequest.POST_METHOD);
+        request.addParameter("param3", "value3", WebRequest.POST_METHOD);
+
+        Enumeration keys = request.getParameterNamesPost();
+        while (keys.hasMoreElements())
+        {
+            String key = (String) keys.nextElement();
+            String[] values = request.getParameterValuesPost(key);
+
+            assertEquals(1, values.length);
+            
+            if (!values[0].equals("value1") && !values[0].equals("value2")
+                && !values[0].equals("value3"))
+            {
+                fail("Return value was [" + values[0] + "] but should have "
+                    + "been one of [value1], [value2] or [value3]");
+            }            
+        }
+    }
+
 }

@@ -191,8 +191,7 @@ public class HttpClientConnectionHelper extends AbstractConnectionHelper
         }
 
         Enumeration keys = theRequest.getParameterNamesPost();
-
-        if (keys.hasMoreElements())
+        while (keys.hasMoreElements())
         {
             String key = (String) keys.nextElement();
             String[] values = theRequest.getParameterValuesPost(key);
