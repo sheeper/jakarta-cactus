@@ -18,3 +18,4 @@ bin
 default.ajsym
 default.lst
 .checkclipse
+junit*.properties

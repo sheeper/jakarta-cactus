@@ -90,6 +90,7 @@ integration/eclipse/target-12
 integration/eclipse/target-13
 integration/eclipse/temp
 integration/eclipse/web
+/junit*.properties
 /maven.log
 /misc
 /release
