@@ -159,7 +159,7 @@ public class EarArchive extends JarArchive
         InputStream war = null;
         try
         {
-            getResource(theUri);
+            war = getResource(theUri);
             if (war != null)
             {
                 return new WarArchive(war);
