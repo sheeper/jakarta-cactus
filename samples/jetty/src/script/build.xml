@@ -46,6 +46,7 @@
 
   <!-- Properties for the Cactus tests -->
   <property name="cactus.port" value="8080"/>
+  <property name="tools.jar" location="${java.home}/../lib/tools.jar"/>
 
   <!--
      ========================================================================
@@ -239,15 +240,12 @@
         <path refid="cactus.classpath"/>
         <pathelement location="${target.classes.java.dir}"/>
         <pathelement location="${target.classes.cactus.dir}"/>
-        <pathelement location="${java.home}/../lib/tools.jar"/>
+        <pathelement location="${tools.jar}"/>
       </classpath>
       <formatter type="brief" usefile="false"/>
       <formatter type="xml"/>
-      <batchtest todir="${target.testreports.dir}">
-        <fileset dir="${src.cactus.dir}">
-          <include name="**/sample/Test*.java"/>
-        </fileset>
-      </batchtest>
+      <test todir="${target.testreports.dir}"
+          name="org.apache.cactus.sample.TestAll"/>
     </junit>
 
     <junitreport todir="${target.testreports.dir}">
