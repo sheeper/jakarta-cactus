@@ -10,6 +10,8 @@
   <description>
     Unit test framework for server-side java code
   </description>
+  
+  <redistributable/>
 
   <cvs repository="jakarta"/>
      
