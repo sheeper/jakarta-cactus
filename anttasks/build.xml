@@ -72,6 +72,8 @@
     <property name="target.classes.dir" value="${target.dir}/classes"/>
     <property name="target.classes.java.dir" value="${target.classes.dir}/java"/>
     <property name="target.conf.dir" value="${target.dir}/conf"/>
+    <property name="target.doc.dir" value="${target.dir}/doc"/>
+    <property name="target.doc.api.dir" value="${target.doc.dir}/api"/>
 
     <!-- Distribution directory, i.e. where the expanded distibutable files
          are located -->
@@ -97,8 +99,7 @@
          Useful patterns for targets
        ========================================================================
     -->
-    <!-- Compilation classpath -->
-    <path id="compile.classpath">
+    <path id="project.class.path">
       <pathelement location="${ant.jar}"/>
     </path>
 
@@ -143,7 +144,7 @@
         <javac srcdir="${src.java.dir}" destdir="${target.classes.java.dir}"
           deprecation="${deprecation}" optimize="${optimize}">
             <include name="**/*.java"/>
-            <classpath refid="compile.classpath"/>
+            <classpath refid="project.class.path"/>
         </javac>
 
     </target>
@@ -161,7 +162,7 @@
         <copy todir="${target.conf.dir}" file="${conf.dir}/manifest"
             filtering="on"/>
 
-        <jar jarfile="${target.dir}/${anttasks.jar.name}.jar"
+        <jar destfile="${target.dir}/${anttasks.jar.name}.jar"
           manifest="${target.conf.dir}/manifest">
             <fileset dir="${target.classes.java.dir}"/>
         </jar>
@@ -170,16 +171,51 @@
 
     <!--
        ========================================================================
+         Generate the documentation (javadoc)
+       ========================================================================
+    -->
+    <target name="doc" depends="init" description="Generates the documentation">
+
+        <mkdir dir="${target.doc.api.dir}"/>
+
+        <javadoc
+            sourcepath="${src.java.dir}"
+            packagenames="org.apache.cactus.ant.*"
+            destdir="${target.doc.api.dir}"
+            author="true"
+            public="true"
+            version="true"
+            use="true"
+            windowtitle="${project.name.text} ${project.version}"
+            doctitle="${project.name.text} ${project.version}"
+            bottom="Copyright &amp;copy; ${year} Apache Software Foundation. All Rights Reserved.">
+
+            <classpath>
+                <path refid="project.class.path"/>
+                <!-- javadoc needs an XML parser -->
+                <path path="${java.class.path}"/>
+            </classpath>
+
+        </javadoc>
+
+    </target>
+
+    <!--
+       ========================================================================
          Generate the distributable files
        ========================================================================
     -->
-    <target name="dist" depends="jar" 
-      description="Generate the distributable files">
+    <target name="dist" depends="jar,doc"
+        description="Generate the distributable files">
 
         <mkdir dir="${dist.lib.dir}"/>
+        <mkdir dir="${dist.doc.api.dir}"/>
 
         <copy todir="${dist.lib.dir}"
             file="${target.dir}/${anttasks.jar.name}.jar"/>
+        <copy todir="${dist.doc.api.dir}">
+            <fileset dir="${target.doc.api.dir}"/>
+        </copy>
 
     </target>
 
@@ -197,7 +233,7 @@
 
         <mkdir dir="${release.dir}"/>
 
-        <zip zipfile="${release.dir}/${anttasks.release.name}.zip">
+        <zip destfile="${release.dir}/${anttasks.release.name}.zip">
             <fileset dir="${dist.dir}"/>
         </zip>
 
