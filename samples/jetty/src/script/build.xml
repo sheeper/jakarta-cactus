@@ -243,7 +243,7 @@
       <formatter type="brief" usefile="false"/>
       <formatter type="xml"/>
       <test todir="${target.testreports.dir}"
-          name="org.apache.cactus.sample.TestJettyAll"/>
+          name="org.apache.cactus.sample.jetty.TestJettyAll"/>
     </junit>
 
     <junitreport todir="${target.testreports.dir}">

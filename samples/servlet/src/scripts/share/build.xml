@@ -373,14 +373,14 @@
         <fileset dir="${src.cactus.dir}">
           <!-- Due to some Cactus synchronization bug, the 'unit' tests need
                to run before the 'sample' tests -->
-          <include name="**/unit/Test*.java"/>
-          <exclude name="**/unit/Test*All.java"/>
+          <include name="**/servlet/unit/Test*.java"/>
+          <exclude name="**/servlet/unit/Test*All.java"/>
         </fileset>
       </batchtest>
       <batchtest>
         <fileset dir="${src.cactus.dir}">
-          <include name="**/sample/Test*.java"/>
-          <exclude name="**/sample/Test*All.java"/>
+          <include name="**/servlet/Test*.java"/>
+          <exclude name="**/servlet/Test*All.java"/>
         </fileset>
       </batchtest>
     </cactus>
