@@ -69,7 +69,7 @@ import javax.servlet.ServletConfig;
 public class ServletConfigWrapper extends AbstractServletConfigWrapper
 {
     /**
-     * @see AbstractServletConfigWrapper#AbstractServletConfigWrapper()
+     * @see AbstractServletConfigWrapper#AbstractServletConfigWrapper(ServletConfig)
      */
     public ServletConfigWrapper(ServletConfig theOriginalConfig)
     {
