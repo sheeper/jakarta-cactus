@@ -146,7 +146,7 @@
               Yes. Required only to run the release build of Cactus or if you 
               have turned on "clovering" (<code>clover.enable = true</code>).
             </td>
-            <td nowrap="true">1.1</td>
+            <td nowrap="true">1.2.3</td>
             <td>
               Clover code coverage tool.
             </td>

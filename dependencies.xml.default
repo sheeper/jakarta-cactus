@@ -11,6 +11,8 @@
       artifact="aspectjtools" version="1.1.1"/>
   <checkstyle project="checkstyle"
       artifact="checkstyle" version="3.4"/>
+  <clover project="clover"
+      artifact="clover" version="1.2.3"/>
   <commons.beanutils project="commons-beanutils"
       artifact="commons-beanutils" version="1.6.1"/>
   <commons.collections project="commons-collections"

@@ -109,6 +109,7 @@
     <download jar="aspectjrt"/>
     <download jar="aspectj-tools"/>
     <download jar="checkstyle"/>
+    <download jar="clover"/>
     <download jar="commons.beanutils"/>
     <download jar="commons.collections"/>
     <download jar="commons.httpclient"/>
