@@ -63,19 +63,14 @@ import org.eclipse.jdt.internal.junit.launcher.JUnitLaunchConfiguration;
 import org.eclipse.jdt.launching.VMRunnerConfiguration;
 
 /**
- * Provides a launcher to start Cactus tests. This is done by implementing
- * the Eclipse
- * {@link org.eclipse.debug.core.model.ILaunchConfigurationDelegate} class
- * and adding a
- * <code>"org.eclipse.debug.core.launchConfigurationTypes"</code> extension
- * point.
- *
- * Moreover, as Cactus tests are also JUnit tests and must be started by
- * a JUnit Test Runner, this class extends the JUnit plugin
- * {@link org.eclipse.jdt.internal.junit.launcher.JUnitLaunchConfiguration}
- * launcher class. 
+ * Provides a launcher to start Cactus tests. This is done by extending
+ * the JUnit Plugin launch configuration and adding Cactus specific VM
+ * configuration (Cactus jars, VM parameters) and by registering this
+ * class as an 
+ * <code>"org.eclipse.debug.core.launchConfigurationTypes"</code> Eclipse
+ * extension point.
  * 
- * @version $Id: $
+ * @version $Id:$
  * @author <a href="mailto:jruaux@octo.com">Julien Ruaux</a>
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  */
