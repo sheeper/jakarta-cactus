@@ -286,8 +286,8 @@ public class CheckSitemapTask extends Task
         if ((theElement.getAttribute("check") != null) 
             && (theElement.getAttribute("check").length() > 0))
         {
-            isToBeChecked = 
-                (new Boolean(theElement.getAttribute("check"))).booleanValue();
+            isToBeChecked = Boolean.valueOf(
+                theElement.getAttribute("check")).booleanValue();
         }
         return isToBeChecked;            
     }
