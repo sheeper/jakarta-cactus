@@ -1,0 +1,208 @@
+
+    <!-- Global properties -->
+    <property name="cactus.conf.weblogic7x" value="${cactus.conf.dir}/weblogic7x"/>
+    <property name="cactus.target.weblogic7x" value="${cactus.target.dir}/weblogic7x"/>
+
+    <!-- Location of WebLogic server directory. Can be overriden by calling
+         scripts -->
+    <property name="cactus.weblogic7x.server" 
+        value="${cactus.home.weblogic7x}/weblogic700/server"/>
+
+	<!-- Allow additional libraries to be added -->
+	<property name="cactus.weblogic7x.libpath" value=""/>
+
+    <!--
+       ========================================================================
+         Run WebLogic 7.x tests
+       ========================================================================
+    -->
+    <target name="cactus.run.weblogic7x" 
+        depends="cactus.check.weblogic7x,cactus.init,cactus.setup.weblogic7x,cactus.war,cactus.deploy.weblogic7x"
+        if="cactus.home.weblogic7x" description="Run tests on WebLogic 7.x">
+
+        <!-- Start the servlet engine, wait for it to be started, run the
+             unit tests, stop the servlet engine, wait for it to be stopped.
+             The servlet engine is stopped if the tests fail for any reason -->
+
+        <antcall target="cactus.runservertests.weblogic7x" inheritRefs="true"/>
+
+    </target>
+
+    <target name="cactus.runservertests.weblogic7x" depends="cactus.runservertests.task.weblogic7x, cactus.runservertests.target.weblogic7x"/>
+
+    <target name="cactus.runservertests.task.weblogic7x" if ="cactus.test.task">
+
+        <taskdef name="cactus.testTask" classname="${cactus.test.task}"/>
+        <runservertests
+            testURL="http://localhost:${cactus.port}/${cactus.context}/ServletRedirector?Cactus_Service=RUN_TEST"
+            startTarget="cactus.start.weblogic7x"
+            stopTarget="cactus.stop.weblogic7x"
+            testTask="${cactus.test.task}">
+          <test>
+          	<cactus.testTask/>
+          </test>
+        </runservertests>
+
+    </target>
+
+    <target name="cactus.runservertests.target.weblogic7x" unless="cactus.test.task">
+
+        <runservertests
+            testURL="http://localhost:${cactus.port}/${cactus.context}/ServletRedirector?Cactus_Service=RUN_TEST"
+            startTarget="cactus.start.weblogic7x"
+            stopTarget="cactus.stop.weblogic7x"
+            testTarget="cactus.test"/>
+
+    </target>
+
+
+    <!--
+       ========================================================================
+         Start WebLogic 7.x
+       ========================================================================
+    -->
+    <target name="cactus.start.weblogic7x" description="Start WebLogic 7.x"
+        depends="cactus.check.weblogic7x" if="cactus.home.weblogic7x">
+
+        <available property="cactus.jdk1.4+" 
+            classname="java.lang.CharSequence"/>
+        <fail if="cactus.jdk1.4+">Our script does not yet support running 
+WL 7.x under JDK 1.4+. Please submit a patch!</fail>
+            
+        <property name="cactus.weblogic7x.java.library.path"
+            location="${java.library.path};${cactus.weblogic7x.libpath};${cactus.weblogic7x.server}/bin"/>
+
+        <java jvm="${cactus.jvm}" classname="weblogic.Server" fork="yes"
+            dir="${cactus.target.weblogic7x}/testdomain">
+
+            <jvmarg value="-hotspot"/>
+            <jvmarg value="-ms64m"/>
+            <jvmarg value="-mx64m"/>
+
+            <sysproperty key="java.library.path" path="${cactus.weblogic7x.java.library.path}"/>
+            <sysproperty key="weblogic.Name" value="testserver"/>
+            <sysproperty key="bea.home" file="${cactus.home.weblogic7x}"/>
+            <sysproperty key="weblogic.management.username" value="system"/>
+            <sysproperty key="weblogic.management.password" value="password"/>
+            <sysproperty key="java.security.policy" value="=./server/lib/weblogic.policy"/>
+
+            <classpath>
+                <pathelement location="${cactus.weblogic7x.server}/lib/weblogic_sp.jar"/>
+                <pathelement location="${cactus.weblogic7x.server}/lib/weblogic.jar"/>
+            </classpath>
+            
+        </java>
+
+    </target>
+
+    <!--
+       ========================================================================
+         Stop WebLogic 7.x
+       ========================================================================
+    -->
+    <target name="cactus.stop.weblogic7x" description="Stop WebLogic 7.x"
+        depends="cactus.check.weblogic7x" if="cactus.home.weblogic7x">
+
+        <java jvm="${cactus.jvm}" classname="weblogic.Admin" fork="yes">
+
+            <classpath>
+                <pathelement location="${cactus.weblogic7x.server}/lib/weblogic_sp.jar"/>
+                <pathelement location="${cactus.weblogic7x.server}/lib/weblogic.jar"/>
+            </classpath>
+
+            <arg line="-url t3://localhost:${cactus.port}"/>
+            <arg line="-username system"/>
+            <arg line="-password password"/>
+            <arg value="SHUTDOWN"/>
+
+        </java>
+
+    </target>
+
+    <!--
+       ========================================================================
+         Display a warning message if the needed servlet engine home property
+         is not set
+       ========================================================================
+    -->
+    <target name="cactus.check.weblogic7x" unless="cactus.home.weblogic7x">
+
+        <echo></echo>
+        <echo>******************************************************</echo>
+        <echo>WARNING : The 'cactus.home.weblogic7x' property has not</echo>
+        <echo>been set. No test will be run on that servlet engine.</echo>
+        <echo>******************************************************</echo>
+        <echo></echo>
+
+    </target>
+
+    <!--
+       ========================================================================
+         Deploy the cactified webapp
+       ========================================================================
+    -->
+    <target name="cactus.deploy.weblogic7x" depends="cactus.check.weblogic7x" 
+        if="cactus.home.weblogic7x" 
+        description="Deploy the webapp on WebLogic 7.x">
+
+        <!-- Copy the webapp -->
+        <mkdir dir="${cactus.target.weblogic7x}/tmp/${cactus.context}"/>
+        <copy todir="${cactus.target.weblogic7x}/tmp/${cactus.context}">
+            <fileset dir="${cactus.target.dir}/${cactus.context}"/>
+        </copy>
+
+        <!-- Add the WebLogic specific descriptors -->
+        <copy todir="${cactus.target.weblogic7x}/tmp/${cactus.context}/WEB-INF">
+            <fileset dir="${cactus.conf.weblogic7x}">
+                <include name="weblogic.xml"/>
+            </fileset>
+        </copy>
+
+        <jar destfile="${cactus.target.weblogic7x}/testdomain/applications/${cactus.context}.war">
+            <fileset dir="${cactus.target.weblogic7x}/tmp/${cactus.context}"/>
+        </jar>
+
+    </target>
+
+    <!--
+       ========================================================================
+         Set up a valid WebLogic 7.x directory structure in the
+         cactus.target.weblogic7x directory.
+       ========================================================================
+    -->
+    <target name="cactus.setup.weblogic7x"
+        depends="cactus.check.weblogic7x,cactus.init" 
+        if="cactus.home.weblogic7x"
+        description="Set up a WebLogic 7.x directory structure">
+
+        <mkdir dir="${cactus.target.weblogic7x}/testdomain/applications"/>
+        <mkdir dir="${cactus.target.weblogic7x}/testdomain/testserver"/>
+
+        <!-- Copy WL 7.x configuration files -->
+        <copy file="${cactus.conf.weblogic7x}/config.xml"
+            todir="${cactus.target.weblogic7x}/testdomain" filtering="on"/>
+        <copy file="${cactus.conf.weblogic7x}/fileRealm.properties"
+            todir="${cactus.target.weblogic7x}/testdomain"/>
+        <copy file="${cactus.conf.weblogic7x}/SerializedSystemIni.dat"
+            todir="${cactus.target.weblogic7x}/testdomain"/>
+        <copy file="${cactus.conf.weblogic7x}/DefaultAuthenticatorInit.ldift"
+            todir="${cactus.target.weblogic7x}/testdomain"/>
+
+        <!-- Copy security configuration files -->
+        <copy todir="${cactus.target.weblogic7x}/testdomain/testserver">
+            <fileset dir="${cactus.conf.weblogic7x}/testserver"/>
+        </copy>
+
+    </target>
+
+    <!--
+       ========================================================================
+         Clean generated files (including distributables)
+       ========================================================================
+    -->
+    <target name="cactus.clean.weblogic7x" depends="cactus.init,cactus.clean" 
+        description="Clean target directory">
+        <delete includeEmptyDirs="true">
+            <fileset dir="${cactus.target.weblogic7x}"/>
+        </delete>
+    </target>

@@ -451,6 +451,43 @@ integration/eclipse/org.apache.cactus.eclipse.runner/build.xml svn_keywords=Auth
 integration/eclipse/org.apache.cactus.eclipse.runner/icons/calaunch.gif -text
 integration/eclipse/org.apache.cactus.eclipse.runner/plugin.properties svn_keywords=Author+Date+Id+Revision
 integration/eclipse/org.apache.cactus.eclipse.runner/plugin.xml svn_keywords=Author+Date+Id+Revision
+integration/eclipse/org.apache.cactus.eclipse.runner/src/conf/j2ee12/tomcat3x/modules.xml svn_keywords=Author+Date+Id+Revision
+integration/eclipse/org.apache.cactus.eclipse.runner/src/conf/j2ee12/tomcat3x/server.xml svn_keywords=Author+Date+Id+Revision
+integration/eclipse/org.apache.cactus.eclipse.runner/src/conf/j2ee12/tomcat3x/tomcat-users.xml svn_keywords=Author+Date+Id+Revision
+integration/eclipse/org.apache.cactus.eclipse.runner/src/conf/j2ee12/web-app.dtd svn_keywords=Author+Date+Id+Revision
+integration/eclipse/org.apache.cactus.eclipse.runner/src/conf/j2ee12/web.xml svn_keywords=Author+Date+Id+Revision
+integration/eclipse/org.apache.cactus.eclipse.runner/src/conf/j2ee13/jboss3x/jboss-web.xml svn_keywords=Author+Date+Id+Revision
+integration/eclipse/org.apache.cactus.eclipse.runner/src/conf/j2ee13/jboss3x/roles.properties svn_keywords=Author+Date+Id+Revision
+integration/eclipse/org.apache.cactus.eclipse.runner/src/conf/j2ee13/jboss3x/users.properties svn_keywords=Author+Date+Id+Revision
+integration/eclipse/org.apache.cactus.eclipse.runner/src/conf/j2ee13/web-app.dtd svn_keywords=Author+Date+Id+Revision
+integration/eclipse/org.apache.cactus.eclipse.runner/src/conf/j2ee13/web.xml svn_keywords=Author+Date+Id+Revision
+integration/eclipse/org.apache.cactus.eclipse.runner/src/conf/share/log_client.properties svn_keywords=Author+Date+Id+Revision
+integration/eclipse/org.apache.cactus.eclipse.runner/src/conf/share/log_server.properties svn_keywords=Author+Date+Id+Revision
+integration/eclipse/org.apache.cactus.eclipse.runner/src/conf/share/orion1x/application.xml svn_keywords=Author+Date+Id+Revision
+integration/eclipse/org.apache.cactus.eclipse.runner/src/conf/share/orion1x/default-web-site.xml svn_keywords=Author+Date+Id+Revision
+integration/eclipse/org.apache.cactus.eclipse.runner/src/conf/share/orion1x/global-web-application.xml svn_keywords=Author+Date+Id+Revision
+integration/eclipse/org.apache.cactus.eclipse.runner/src/conf/share/orion1x/mime.types -text svneol=unset#application/octet-stream
+integration/eclipse/org.apache.cactus.eclipse.runner/src/conf/share/orion1x/principals.xml svn_keywords=Author+Date+Id+Revision
+integration/eclipse/org.apache.cactus.eclipse.runner/src/conf/share/orion1x/rmi.xml svn_keywords=Author+Date+Id+Revision
+integration/eclipse/org.apache.cactus.eclipse.runner/src/conf/share/orion1x/server.xml svn_keywords=Author+Date+Id+Revision
+integration/eclipse/org.apache.cactus.eclipse.runner/src/conf/share/resin2x/resin.conf -text svneol=unset#application/octet-stream
+integration/eclipse/org.apache.cactus.eclipse.runner/src/conf/share/tomcat4x/server.xml svn_keywords=Author+Date+Id+Revision
+integration/eclipse/org.apache.cactus.eclipse.runner/src/conf/share/tomcat4x/tomcat-users.xml svn_keywords=Author+Date+Id+Revision
+integration/eclipse/org.apache.cactus.eclipse.runner/src/conf/share/weblogic6x/SerializedSystemIni.dat -text svneol=unset#application/octet-stream
+integration/eclipse/org.apache.cactus.eclipse.runner/src/conf/share/weblogic6x/config.xml svn_keywords=Author+Date+Id+Revision
+integration/eclipse/org.apache.cactus.eclipse.runner/src/conf/share/weblogic6x/fileRealm.properties svn_keywords=Author+Date+Id+Revision
+integration/eclipse/org.apache.cactus.eclipse.runner/src/conf/share/weblogic6x/weblogic.xml svn_keywords=Author+Date+Id+Revision
+integration/eclipse/org.apache.cactus.eclipse.runner/src/conf/share/weblogic7x/DefaultAuthenticatorInit.ldift -text svneol=unset#application/octet-stream
+integration/eclipse/org.apache.cactus.eclipse.runner/src/conf/share/weblogic7x/SerializedSystemIni.dat -text svneol=unset#application/octet-stream
+integration/eclipse/org.apache.cactus.eclipse.runner/src/conf/share/weblogic7x/config.xml svn_keywords=Author+Date+Id+Revision
+integration/eclipse/org.apache.cactus.eclipse.runner/src/conf/share/weblogic7x/fileRealm.properties svn_keywords=Author+Date+Id+Revision
+integration/eclipse/org.apache.cactus.eclipse.runner/src/conf/share/weblogic7x/testserver/ldap/ldapfiles/EmbeddedLDAP.data -text
+integration/eclipse/org.apache.cactus.eclipse.runner/src/conf/share/weblogic7x/testserver/ldap/ldapfiles/EmbeddedLDAP.delete -text
+integration/eclipse/org.apache.cactus.eclipse.runner/src/conf/share/weblogic7x/testserver/ldap/ldapfiles/EmbeddedLDAP.index -text
+integration/eclipse/org.apache.cactus.eclipse.runner/src/conf/share/weblogic7x/testserver/ldap/ldapfiles/EmbeddedLDAP.tran -text
+integration/eclipse/org.apache.cactus.eclipse.runner/src/conf/share/weblogic7x/testserver/ldap/ldapfiles/EmbeddedLDAP.trpos -text
+integration/eclipse/org.apache.cactus.eclipse.runner/src/conf/share/weblogic7x/testserver/ldap/ldapfiles/EmbeddedLDAP.twpos -text
+integration/eclipse/org.apache.cactus.eclipse.runner/src/conf/share/weblogic7x/weblogic.xml svn_keywords=Author+Date+Id+Revision
 integration/eclipse/org.apache.cactus.eclipse.runner/src/java/org/apache/cactus/eclipse/runner/common/JarFilenameFilter.java svn_keywords=Author+Date+Id+Revision
 integration/eclipse/org.apache.cactus.eclipse.runner/src/java/org/apache/cactus/eclipse/runner/common/LibraryHelper.java svn_keywords=Author+Date+Id+Revision
 integration/eclipse/org.apache.cactus.eclipse.runner/src/java/org/apache/cactus/eclipse/runner/containers/ContainerInfo.java svn_keywords=Author+Date+Id+Revision
@@ -471,6 +508,16 @@ integration/eclipse/org.apache.cactus.eclipse.runner/src/java/org/apache/cactus/
 integration/eclipse/org.apache.cactus.eclipse.runner/src/java/org/apache/cactus/eclipse/runner/ui/CactusPreferencePage.java svn_keywords=Author+Date+Id+Revision
 integration/eclipse/org.apache.cactus.eclipse.runner/src/java/org/apache/cactus/eclipse/runner/ui/CactusPreferences.java svn_keywords=Author+Date+Id+Revision
 integration/eclipse/org.apache.cactus.eclipse.runner/src/java/org/apache/cactus/eclipse/runner/ui/ContainersPreferencePage.java svn_keywords=Author+Date+Id+Revision
+integration/eclipse/org.apache.cactus.eclipse.runner/src/script/j2ee12/build-tests-tomcat3x.xml svn_keywords=Author+Date+Id+Revision
+integration/eclipse/org.apache.cactus.eclipse.runner/src/script/j2ee12/build.xml svn_keywords=Author+Date+Id+Revision
+integration/eclipse/org.apache.cactus.eclipse.runner/src/script/j2ee13/build-tests-jboss3x.xml svn_keywords=Author+Date+Id+Revision
+integration/eclipse/org.apache.cactus.eclipse.runner/src/script/j2ee13/build.xml svn_keywords=Author+Date+Id+Revision
+integration/eclipse/org.apache.cactus.eclipse.runner/src/script/share/build-share.xml svn_keywords=Author+Date+Id+Revision
+integration/eclipse/org.apache.cactus.eclipse.runner/src/script/share/build-tests-orion1x.xml svn_keywords=Author+Date+Id+Revision
+integration/eclipse/org.apache.cactus.eclipse.runner/src/script/share/build-tests-resin2x.xml svn_keywords=Author+Date+Id+Revision
+integration/eclipse/org.apache.cactus.eclipse.runner/src/script/share/build-tests-tomcat4x.xml svn_keywords=Author+Date+Id+Revision
+integration/eclipse/org.apache.cactus.eclipse.runner/src/script/share/build-tests-weblogic6x.xml svn_keywords=Author+Date+Id+Revision
+integration/eclipse/org.apache.cactus.eclipse.runner/src/script/share/build-tests-weblogic7x.xml svn_keywords=Author+Date+Id+Revision
 integration/eclipse/org.apache.cactus.eclipse.site/.cvsignore svn_keywords=Author+Date+Id+Revision
 integration/eclipse/org.apache.cactus.eclipse.site/build.xml svn_keywords=Author+Date+Id+Revision
 integration/eclipse/org.apache.cactus.eclipse.site/site.xml svn_keywords=Author+Date+Id+Revision

@@ -1,0 +1,165 @@
+
+    <!-- Global properties -->
+    <property name="cactus.conf.orion1x" value="${cactus.conf.dir}/orion1x"/>
+    <property name="cactus.target.orion1x" value="${cactus.target.dir}/orion1x"/>
+
+    <!--
+       ========================================================================
+         Run Orion 1.x tests
+       ========================================================================
+    -->
+    <target name="cactus.run.orion1x" 
+        depends="cactus.init,cactus.setup.orion1x,cactus.war,cactus.deploy.orion1x"
+        if="cactus.home.orion1x" description="Run tests on Orion 1.x">
+
+        <!-- Start the servlet engine, wait for it to be started, run the
+             unit tests, stop the servlet engine, wait for it to be stopped.
+             The servlet engine is stopped if the tests fail for any reason -->
+
+        <antcall target="cactus.runservertests.orion1x" inheritRefs="true"/>
+
+    </target>
+
+    <target name="cactus.runservertests.orion1x" depends="cactus.runservertests.task.orion1x, cactus.runservertests.target.orion1x"/>
+
+    <target name="cactus.runservertests.task.orion1x" if ="cactus.test.task">
+
+        <taskdef name="cactus.testTask" classname="${cactus.test.task}"/>
+        <runservertests
+            testURL="http://localhost:${cactus.port}/${cactus.context}/ServletRedirector?Cactus_Service=RUN_TEST"
+            startTarget="cactus.start.orion1x"
+            stopTarget="cactus.stop.orion1x">
+          <test>
+          	<cactus.testTask/>
+          </test>
+        </runservertests>
+
+    </target>
+
+    <target name="cactus.runservertests.target.orion1x" unless="cactus.test.task">
+
+        <runservertests
+            testURL="http://localhost:${cactus.port}/${cactus.context}/ServletRedirector?Cactus_Service=RUN_TEST"
+            startTarget="cactus.start.orion1x"
+            stopTarget="cactus.stop.orion1x"
+            testTarget="cactus.test"/>
+
+    </target>
+
+    <!--
+       ========================================================================
+         Start Orion 1.x
+       ========================================================================
+    -->
+    <target name="cactus.start.orion1x" description="Start Orion 1.x"
+        depends="cactus.check.orion1x" if="cactus.home.orion1x">
+
+        <java jvm="${cactus.jvm}"
+            classname="com.evermind.server.ApplicationServer" 
+            fork="yes">
+            
+            <arg value="-config"/>
+            <arg file="${cactus.target.orion1x}/conf/server.xml"/>
+
+            <classpath>
+              <fileset dir="${cactus.home.orion1x}">
+                  <include name="*.jar"/>
+              </fileset>
+            </classpath>
+
+        </java>
+
+    </target>
+
+    <!--
+       ========================================================================
+         Stop Orion 1.x
+       ========================================================================
+    -->
+    <target name="cactus.stop.orion1x" description="Stop Orion 1.x"
+        depends="cactus.check.orion1x" if="cactus.home.orion1x">
+
+        <java jvm="${cactus.jvm}"
+            classname="com.evermind.client.orion.OrionConsoleAdmin"
+            fork="yes">
+
+            <arg value="ormi://localhost:23791/"/>
+            <arg value="admin"/>
+            <arg value="password"/>
+            <arg value="-shutdown"/>
+
+            <classpath>
+              <fileset dir="${cactus.home.orion1x}">
+                  <include name="*.jar"/>
+              </fileset>
+            </classpath>
+        </java>
+
+    </target>
+
+    <!--
+       ========================================================================
+         Display a warning message if the needed servlet engine home property
+         is not set
+       ========================================================================
+    -->
+    <target name="cactus.check.orion1x" unless="cactus.home.orion1x">
+
+        <echo></echo>
+        <echo>******************************************************</echo>
+        <echo>WARNING : The 'cactus.home.orion1x' property has not</echo>
+        <echo>been set. No test will be run on that servlet engine.</echo>
+        <echo>******************************************************</echo>
+        <echo></echo>
+
+    </target>
+
+    <!--
+       ========================================================================
+         Deploy the cactified webapp
+       ========================================================================
+    -->
+    <target name="cactus.deploy.orion1x" if="cactus.home.orion1x"
+        description="Deploy the webapp on Orion 1.x">
+
+        <jar destfile="${cactus.target.orion1x}/${cactus.context}.war">
+            <fileset dir="${cactus.target.dir}/${cactus.context}"/>
+        </jar>
+
+    </target>
+
+    <!--
+       ========================================================================
+         Set up a valid Orion 1.x directory structure in the
+         cactus.target.orion1x directory.
+       ========================================================================
+    -->
+    <target name="cactus.setup.orion1x"
+        depends="cactus.init, cactus.check.orion1x" if="cactus.home.orion1x"
+        description="Set up a Orion 1.x directory structure">
+
+        <!-- Create work and conf directories and copy configuration files -->
+        <mkdir dir="${cactus.target.orion1x}"/>
+        <mkdir dir="${cactus.target.orion1x}/conf"/>
+
+        <!-- Orion need to have a /persistence directory created, otherwise
+             it throws an error -->
+        <mkdir dir="${cactus.target.orion1x}/persistence"/>
+
+        <copy todir="${cactus.target.orion1x}/conf" filtering="on">
+            <fileset dir="${cactus.conf.orion1x}"/>
+        </copy>
+
+    </target>
+
+    <!--
+       ========================================================================
+         Clean generated files (including distributables)
+       ========================================================================
+    -->
+    <target name="cactus.clean.orion1x" depends="cactus.init, cactus.clean"
+        description="Clean target directory">
+        <delete includeEmptyDirs="true">
+            <fileset dir="${cactus.target.orion1x}"/>
+        </delete>
+    </target>

@@ -1,0 +1,164 @@
+
+    <!-- Global properties -->
+    <property name="cactus.conf.resin2x" value="${cactus.conf.dir}/resin2x"/>
+    <property name="cactus.target.resin2x" value="${cactus.target.dir}/resin2x"/>
+
+    <!--
+       ========================================================================
+         Run Resin 2.x tests
+       ========================================================================
+    -->
+    <target name="cactus.run.resin2x" 
+        depends="cactus.init,cactus.setup.resin2x,cactus.war,cactus.deploy.resin2x"
+        if="cactus.home.resin2x" description="Run tests on Resin 2.x">
+
+        <!-- Start the servlet engine, wait for it to be started, run the
+             unit tests, stop the servlet engine, wait for it to be stopped.
+             The servlet engine is stopped if the tests fail for any reason -->
+
+        <antcall target="cactus.runservertests.resin2x" inheritRefs="true"/>
+
+    </target>
+
+    <target name="cactus.runservertests.resin2x" depends="cactus.runservertests.task.resin2x, cactus.runservertests.target.resin2x"/>
+
+    <target name="cactus.runservertests.task.resin2x" if ="cactus.test.task">
+
+        <taskdef name="cactus.testTask" classname="${cactus.test.task}"/>
+        <runservertests
+            testURL="http://localhost:${cactus.port}/${cactus.context}/ServletRedirector?Cactus_Service=RUN_TEST"
+            startTarget="cactus.start.resin2x"
+            stopTarget="cactus.stop.resin2x">
+          <test>
+          	<cactus.testTask/>
+          </test>
+        </runservertests>
+
+    </target>
+
+    <target name="cactus.runservertests.target.resin2x" unless="cactus.test.task">
+
+        <runservertests
+            testURL="http://localhost:${cactus.port}/${cactus.context}/ServletRedirector?Cactus_Service=RUN_TEST"
+            startTarget="cactus.start.resin2x"
+            stopTarget="cactus.stop.resin2x"
+            testTarget="cactus.test"/>
+
+    </target>
+
+    <!-- 
+       ========================================================================
+         Start Resin 2.x
+       ========================================================================
+    -->
+    <target name="cactus.start.resin2x" description="Start Resin 2.x"
+        depends="cactus.check.resin2x" if="cactus.home.resin2x">
+
+        <java jvm="${cactus.jvm}"
+            classname="org.apache.cactus.integration.ant.ResinRun"
+            fork="yes">
+
+            <arg value="-start"/>
+
+            <arg value="-conf"/>
+            <arg value="resin.conf"/>
+
+            <!-- Needed so that Resin use the cactus.home.resin2x variable as 
+                 it's root directory for resolving file paths -->
+            <sysproperty key="resin.home" file="${cactus.target.resin2x}"/>
+
+            <classpath>
+                <pathelement location="${cactus.antintegration.jar}"/>
+                <fileset dir="${cactus.home.resin2x}/lib">
+                    <include name="*.jar"/>
+                </fileset>
+            </classpath>
+
+        </java>
+
+    </target>
+
+    <!-- 
+       ========================================================================
+         Stop Resin 2.x
+       ========================================================================
+    -->
+    <target name="cactus.stop.resin2x" description="Stop Resin 2.x"
+        depends="cactus.check.resin2x" if="cactus.home.resin2x">
+
+        <java jvm="${cactus.jvm}" classname="org.apache.cactus.integration.ant.ResinRun" 
+            fork="yes">
+
+            <arg value="-stop"/>
+
+            <classpath>
+                <pathelement location="${cactus.antintegration.jar}"/>
+                <fileset dir="${cactus.home.resin2x}/lib">
+                    <include name="*.jar"/>
+                </fileset>
+            </classpath>
+
+        </java>
+
+    </target>
+
+    <!-- 
+       ========================================================================
+         Display a warning message if the needed servlet engine home property
+         is not set
+       ========================================================================
+    -->
+    <target name="cactus.check.resin2x" unless="cactus.home.resin2x">
+
+        <echo></echo>
+        <echo>******************************************************</echo>
+        <echo>WARNING : The 'cactus.home.resin2x' property has not</echo>
+        <echo>been set. No test will be run on that servlet engine.</echo>
+        <echo>******************************************************</echo>
+        <echo></echo>
+
+    </target>
+
+    <!--
+       ========================================================================
+         Deploy the cactified webapp
+       ========================================================================
+    -->
+    <target name="cactus.deploy.resin2x" if="cactus.home.resin2x"
+        description="Deploy the webapp on Resin 2.x">
+
+        <jar destfile="${cactus.target.resin2x}/${cactus.context}.war">
+            <fileset dir="${cactus.target.dir}/${cactus.context}"/>
+        </jar>
+
+    </target>
+
+    <!--
+       ========================================================================
+         Set up a valid Resin 2.x directory structure in the
+         cactus.target.resin2x directory.
+       ========================================================================
+    -->
+    <target name="cactus.setup.resin2x"
+        depends="cactus.init, cactus.check.resin2x" if="cactus.home.resin2x"
+        description="Set up a Resin 2.x directory structure">
+
+        <mkdir dir="${cactus.target.resin2x}"/>
+
+        <!-- Copy resin configuration files -->
+        <copy file="${cactus.conf.resin2x}/resin.conf" 
+            tofile="${cactus.target.resin2x}/resin.conf" filtering="on"/>
+
+    </target>
+
+    <!--
+       ========================================================================
+         Clean generated files (including distributables)
+       ========================================================================
+    -->
+    <target name="cactus.clean.resin2x" depends="cactus.init, cactus.clean"
+        description="Clean target directory">
+        <delete includeEmptyDirs="true">
+            <fileset dir="${cactus.target.resin2x}"/>
+        </delete>
+    </target>
