@@ -58,6 +58,8 @@ package org.apache.cactus.integration.ant.util;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
@@ -211,6 +213,36 @@ public final class ResourceUtils
         }
     }
     
+    /**
+     * Returns a resource from a JAR as input stream.
+     * 
+     * @param theJar The archive to extract the resource from
+     * @param theResourceName The name of the resource
+     * @return An input stream containing the specified resource, or
+     *         <code>null</code> if the resource was not found in the JAR
+     */
+    public static InputStream getResource(JarInputStream theJar,
+        String theResourceName)
+        throws IOException
+    {
+        ZipEntry zipEntry = null;
+        while ((zipEntry = theJar.getNextEntry()) != null)
+        {
+            if ("WEB-INF/web.xml".equals(zipEntry.getName()))
+            {
+                ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+                byte bytes[] = new byte[2048];
+                int bytesRead = -1;
+                while ((bytesRead = theJar.read(bytes)) != -1)
+                {
+                    buffer.write(bytes, 0, bytesRead);
+                }
+                return new ByteArrayInputStream(buffer.toByteArray());
+            }
+        }
+        return null;
+    }
+
     /**
      * Search for the given resource and return the directory or archive
      * that contains it.

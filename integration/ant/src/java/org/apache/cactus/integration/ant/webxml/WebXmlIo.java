@@ -56,8 +56,6 @@
  */
 package org.apache.cactus.integration.ant.webxml;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -65,12 +63,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.jar.JarInputStream;
-import java.util.zip.ZipEntry;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.apache.cactus.integration.ant.util.ResourceUtils;
 import org.apache.xml.serialize.OutputFormat;
 import org.apache.xml.serialize.XMLSerializer;
 import org.w3c.dom.Document;
@@ -178,23 +176,15 @@ public class WebXmlIo
         InputStream in = null;
         try
         {
-            ZipEntry zipEntry = null;
-            while ((zipEntry = theWar.getNextEntry()) != null)
+            in = ResourceUtils.getResource(theWar, "WEB-INF/web.xml");
+            if (in == null)
             {
-                if ("WEB-INF/web.xml".equals(zipEntry.getName()))
-                {
-                    ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-                    byte bytes[] = new byte[2048];
-                    int bytesRead = -1;
-                    while ((bytesRead = theWar.read(bytes)) != -1)
-                    {
-                        buffer.write(bytes, 0, bytesRead);
-                    }
-                    in = new ByteArrayInputStream(buffer.toByteArray());
-                    return parseWebXml(in, theEntityResolver);
-                }
+                return null;
             }
-            return null;
+            else
+            {
+                return parseWebXml(in, theEntityResolver);
+            }
         }
         finally
         {
