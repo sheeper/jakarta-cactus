@@ -119,9 +119,7 @@
 <source><![CDATA[
 <servlet>
   <servlet-name>ServletRedirector</servlet-name>
-  <servlet-class>
-    org.apache.cactus.server.ServletTestRedirector
-  </servlet-class>
+  <servlet-class>org.apache.cactus.server.ServletTestRedirector</servlet-class>
   <init-param>
     <param-name>param1</param-name>
     <param-value>value1 used for testing</param-value>
@@ -130,9 +128,7 @@
 
 <servlet>
   <servlet-name>ServletTestRunner</servlet-name>
-  <servlet-class>
-    org.apache.cactus.server.runner.ServletTestRunner
-  </servlet-class>
+  <servlet-class>org.apache.cactus.server.runner.ServletTestRunner</servlet-class>
 </servlet>
 ]]></source>
 
