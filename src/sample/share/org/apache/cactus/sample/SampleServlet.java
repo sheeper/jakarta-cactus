@@ -219,4 +219,22 @@ public class SampleServlet extends HttpServlet
         rd.forward(theRequest, theResponse);
     }
 
+    /**
+     * Use a <code>RequestDispatcher</code> to include a JSP page. This is
+     * to verify that Cactus supports asserting the result, even in the case
+     * of including another page.
+     *
+     * @param theRequest the HTTP request
+     * @param theResponse the HTTP response
+     * @param theConfig the servlet config object
+     */
+    public void doInclude(HttpServletRequest theRequest,
+        HttpServletResponse theResponse, ServletConfig theConfig)
+        throws IOException, ServletException
+    {
+        RequestDispatcher rd = theConfig.getServletContext().
+            getRequestDispatcher("/test/test.jsp");
+        rd.include(theRequest, theResponse);
+    }
+
 }
