@@ -65,9 +65,11 @@ import org.apache.cactus.eclipse.ui.CactusMessages;
 import org.apache.cactus.eclipse.ui.CactusPlugin;
 import org.apache.cactus.eclipse.ui.CactusPreferences;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.debug.core.DebugPlugin;
 import org.eclipse.debug.core.ILaunchConfigurationType;
 import org.eclipse.debug.core.ILaunchManager;
+import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.internal.junit.launcher.JUnitLaunchShortcut;
 import org.eclipse.jdt.internal.junit.runner.ITestRunListener;
@@ -75,6 +77,7 @@ import org.eclipse.jdt.internal.junit.ui.JUnitPlugin;
 import org.eclipse.jdt.internal.junit.util.TestSearchEngine;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
+import org.eclipse.jface.operation.IRunnableWithProgress;
 
 /**
  * Launch shortcut used to start the Cactus launch configuration on the
@@ -165,8 +168,30 @@ public class CactusLaunchShortcut
         }
         if (type != null)
         {
-            prepareCactusTests(type);
             JUnitPlugin.getDefault().addTestRunListener(this);
+            final IJavaProject theJavaProject = type.getJavaProject();
+            ProgressMonitorDialog dialog =
+                new ProgressMonitorDialog(getShell());
+            IRunnableWithProgress runnable = new IRunnableWithProgress()
+            {
+                public void run(IProgressMonitor thePM)
+                    throws InterruptedException
+                {
+                    prepareCactusTests(theJavaProject, thePM);
+                }
+            };
+            try
+            {
+                dialog.run(true, true, runnable);
+            }
+            catch (InvocationTargetException e)
+            {
+                // TODO: handle exception
+            }
+            catch (InterruptedException e)
+            {
+                // TODO: handle exception (cancel button ?)
+            }
             super.launchType(theSearch, theMode);
         }
     }
@@ -179,24 +204,27 @@ public class CactusLaunchShortcut
 
     /**
      * creates the war file, deploys and launches the container.
-     * @param theType the Java file     
+     * @param theJavaProject the Java file
+     * @param thePM sdfsdf
      */
-    private void prepareCactusTests(IType theType)
+    private void prepareCactusTests(
+        IJavaProject theJavaProject,
+        IProgressMonitor thePM)
     {
-
         provider = CactusPlugin.getContainerProvider();
         try
         {
             WarBuilder newWar =
                 new WarBuilder(
-                    theType.getJavaProject(),
+                    theJavaProject,
                     new File(CactusPreferences.getJarsDir()));
-            war = newWar.createWar();
+            war = newWar.createWar(thePM);
             provider.deploy(
                 CactusPreferences.getContextURLPath(),
                 war.toURL(),
-                null);
-            provider.start(null);
+                null,
+                thePM);
+            provider.start(null, thePM);
         }
         catch (CoreException e)
         {
@@ -217,13 +245,15 @@ public class CactusLaunchShortcut
 
     /**
      * Stops the container and undeploys (cleans) it.
+     * @param thePM a progress monitor that reflects progress made while tearing
+     * down the container setup
      */
-    private void teardownCactusTests()
+    private void teardownCactusTests(IProgressMonitor thePM)
     {
         try
         {
-            provider.stop(null);
-            provider.undeploy(null, null);
+            provider.stop(null, thePM);
+            provider.undeploy(null, null, thePM);
             war.delete();
         }
         catch (CoreException e)
@@ -241,13 +271,37 @@ public class CactusLaunchShortcut
     {
     }
 
+    
     /**
      * Test run has ended so we tear down the container setup.
      * @param theElapsedTime not used here
      */
     public void testRunEnded(long theElapsedTime)
     {
-        teardownCactusTests();
+        ProgressMonitorDialog dialog =
+            new ProgressMonitorDialog(getShell());
+        IRunnableWithProgress runnable = new IRunnableWithProgress()
+        {
+            public void run(IProgressMonitor thePM)
+                throws InterruptedException
+            {
+                teardownCactusTests(thePM);
+            }
+        };
+        try
+        {
+            dialog.run(true, true, runnable);
+        }
+        catch (InvocationTargetException e)
+        {
+            e.printStackTrace();
+            // TODO: handle exception
+        }
+        catch (InterruptedException e)
+        {
+            e.printStackTrace();
+            // TODO: handle exception (cancel button ?)
+        }
     }
 
     /**
