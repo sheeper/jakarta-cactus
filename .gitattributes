@@ -258,6 +258,7 @@ framework/src/java/share/org/apache/cactus/util/ClassLoaderUtils.java svn_keywor
 framework/src/java/share/org/apache/cactus/util/HttpURLConnection.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/util/IoUtil.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/util/JUnitVersionHelper.java svn_keywords=Author+Date+Id+Revision
+framework/src/java/share/org/apache/cactus/util/NetUtil.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/util/StringUtil.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/util/UrlUtil.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/util/log/LogAspect.aj -text svneol=unset#application/octet-stream

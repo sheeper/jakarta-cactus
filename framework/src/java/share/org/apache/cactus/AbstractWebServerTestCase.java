@@ -60,14 +60,12 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.net.HttpURLConnection;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 
 import junit.framework.Test;
 
 import org.apache.cactus.client.connector.http.DefaultHttpClient;
 import org.apache.cactus.configuration.WebConfiguration;
-import org.apache.cactus.util.ChainedRuntimeException;
+import org.apache.cactus.util.NetUtil;
 import org.apache.commons.logging.LogFactory;
 
 /**
@@ -76,7 +74,7 @@ import org.apache.commons.logging.LogFactory;
  * on the server side.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *         <a href="mailto:ndlesiecki@apache.org>Nicholas Lesiecki</a>
+ * @author <a href="mailto:ndlesiecki@apache.org>Nicholas Lesiecki</a>
  *
  * @version $Id$
  */
@@ -313,35 +311,16 @@ public abstract class AbstractWebServerTestCase
         }
         id += "thread:" + Thread.currentThread().toString() + "_";
         id += "runtime_hash:" + Runtime.getRuntime().hashCode() + "_";
-        id += "client_ip:" + getIp() + "_";
+        id += "client_ip:" + NetUtil.getIp() + "_";
         id += "time:" + System.currentTimeMillis() + "_";
         return id;
     }
 
     /**
-     * Obtains the client machine's IP.
+     * Shortcut to {@link WebRequest#addCactusCommand}.
      */
-    private String getIp()
-    {
-        InetAddress thisIp;
-        try
-        {
-            thisIp = InetAddress.getLocalHost();
-        }
-        catch (UnknownHostException e)
-        {
-            throw new ChainedRuntimeException(e);
-        }
-        return thisIp.getHostAddress();
-    }
-
-    /**
-     * Shortcut to addCactusCommand.
-     */
-    private void addCactusCommand(
-        String theCommandName,
-        String theCommandValue,
-        WebRequest theRequest)
+    private void addCactusCommand(String theCommandName, 
+        String theCommandValue, WebRequest theRequest)
     {
         theRequest.addCactusCommand(theCommandName, theCommandValue);
     }
