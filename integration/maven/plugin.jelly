@@ -124,9 +124,6 @@
     <ant:dirname property="cactus.ejb.dir" file="${cactus.src.ejb}"/>
     <ant:basename property="cactus.ejb.name" file="${cactus.src.ejb}"/>
      
-    <j:set var="cactus.ear" 
-        value="${maven.build.dir}/${pom.artifactId}-cactus.ear"/>
-
   </goal>
 
   <!--

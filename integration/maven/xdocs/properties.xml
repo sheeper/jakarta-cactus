@@ -203,6 +203,16 @@
           </td>
         </tr>
         <tr>
+          <td>cactus.ear</td>
+          <td>Yes</td>
+          <td>
+            <p>
+              Location where to generate the cactified EAR. Defaults to
+              <code>${maven.build.dir}/${pom.artifactId}-cactus.ear</code>.
+            </p>
+          </td>
+        </tr>
+        <tr>
           <td>cactus.build.goal.war</td>
           <td>Yes</td>
           <td>

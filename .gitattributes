@@ -650,6 +650,10 @@ integration/maven/src/plugin-test/testCactusSysProperties/project.properties svn
 integration/maven/src/plugin-test/testCactusSysProperties/project.xml svn_keywords=Author+Date+Id+Revision
 integration/maven/src/plugin-test/testCactusSysProperties/src/test-cactus/org/apache/cactus/integration/maven/test/TestProperties.java svn_keywords=Author+Date+Id+Revision
 integration/maven/src/plugin-test/testCactusSysProperties/src/web/WEB-INF/web.xml svn_keywords=Author+Date+Id+Revision
+integration/maven/src/plugin-test/testCactusWarEarProperties/maven.xml svn_keywords=Author+Date+Id+Revision
+integration/maven/src/plugin-test/testCactusWarEarProperties/project.properties svn_keywords=Author+Date+Id+Revision
+integration/maven/src/plugin-test/testCactusWarEarProperties/project.xml svn_keywords=Author+Date+Id+Revision
+integration/maven/src/plugin-test/testCactusWarEarProperties/src/web/WEB-INF/web.xml svn_keywords=Author+Date+Id+Revision
 integration/maven/src/plugin-test/testCustomWarName/.cvsignore svn_keywords=Author+Date+Id+Revision
 integration/maven/src/plugin-test/testCustomWarName/maven.xml svn_keywords=Author+Date+Id+Revision
 integration/maven/src/plugin-test/testCustomWarName/project.properties svn_keywords=Author+Date+Id+Revision
