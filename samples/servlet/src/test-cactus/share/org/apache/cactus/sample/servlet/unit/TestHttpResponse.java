@@ -279,4 +279,24 @@ public class TestHttpResponse extends ServletTestCase
         assertEquals(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, 
             theResponse.getStatusCode());
     }
+
+    //-------------------------------------------------------------------------
+
+    /**
+     * Verify that we can return a NO_CONTENT response.
+     */
+    public void testNoContentResponseCode()
+    {
+        response.setStatus(HttpServletResponse.SC_NO_CONTENT); 
+    }
+
+    /**
+     * Verify that we can return a NO_CONTENT response.
+     *
+     * @param theResponse the response from the server side.
+     */
+    public void endNoContentResponseCode(WebResponse theResponse) 
+    {
+        assertEquals(theResponse.getStatusCode(), 204);
+    }
 }

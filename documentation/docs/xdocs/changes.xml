@@ -90,6 +90,12 @@
       </devs>
 
       <release version="1.7dev" date="in CVS">
+        <action dev="VMA" type="fix" issue="CACTUS-123" due-to="Maxwell Grender-Jones">
+          Cactus was failing with a <code>NullPointerException</code> if the 
+          response was not returning any output stream (which happens if 
+          <code>response.setStatus(HttpServletResponse.SC_NO_CONTENT)</code> is
+          called for example).
+        </action>
         <action dev="VMA" type="fix" issue="CACTUS-122" due-to="Raphael Philipe Mendes da Silva">
           Fixed "<code>java.lang.NumberFormatException: For input string: 
           "localhost"</code>" error that was happening when using the 

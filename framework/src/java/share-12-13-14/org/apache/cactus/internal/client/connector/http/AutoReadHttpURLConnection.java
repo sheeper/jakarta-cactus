@@ -179,7 +179,7 @@ final class AutoReadHttpURLConnection extends HttpURLConnection
         LOGGER.debug("Content-Length : [" + this.delegate.getContentLength()
             + "]");
 
-        if (this.delegate.getContentLength() != 0)
+        if (theInputStream != null && this.delegate.getContentLength() != 0)
         {
             byte[] buf = new byte[DEFAULT_CHUNK_SIZE];
             int count;
