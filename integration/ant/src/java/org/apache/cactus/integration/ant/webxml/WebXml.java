@@ -783,7 +783,7 @@ public class WebXml
      * descriptor.
      * 
      * FIXME: need more unit tests for this routine, as it is quite fragile
-     *  
+     * 
      * @param theTag The tag that should be inserted
      * @return The node before which the tag can be inserted
      */
@@ -819,6 +819,7 @@ public class WebXml
     }
     
     /**
+     * Returns the text nested inside a child element of the specified element.
      * 
      * @param theElement The element of which the nested text should be
      *         returned
