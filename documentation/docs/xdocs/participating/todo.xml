@@ -48,13 +48,6 @@
       <action assigned-to="Christopher Lenz">
         Add a web site sitemap.
       </action>
-      <action>
-        Add documentation for the new Initializer feature.
-      </action>
-      <action>
-        Add documentation for a new way to start Cactus tests by using the
-        Jetty Initializer.
-      </action>
       <action assigned-to="Jason Robertson, Vincent Massol">
         Add documentation for form-based authentication.
       </action>
