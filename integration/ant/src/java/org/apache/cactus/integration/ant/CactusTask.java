@@ -262,9 +262,7 @@ public class CactusTask extends JUnitTask
     }
 
     /**
-     * Adds a system property. Note that we can't reuse the JUnitTask
-     * sysproperty element as there is no getter to get them.
-     * 
+     * Adds a system property to both client side and server side JVMs. 
      * @see JUnitTask#addSysproperty(Environment.Variable) 
      */
     public void addSysproperty(Environment.Variable theProperty)
