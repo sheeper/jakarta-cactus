@@ -56,6 +56,7 @@
  */
 package org.apache.cactus.eclipse.launcher;
 
+import java.io.File;
 import java.net.URL;
 import java.util.Vector;
 
@@ -66,6 +67,7 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.internal.junit.launcher.JUnitLaunchConfiguration;
+import org.eclipse.jdt.launching.ExecutionArguments;
 import org.eclipse.jdt.launching.IJavaLaunchConfigurationConstants;
 import org.eclipse.jdt.launching.VMRunnerConfiguration;
 
@@ -86,8 +88,54 @@ public class CactusLaunchConfiguration extends JUnitLaunchConfiguration
     /**
      * Id under which the Cactus launch configuration has been registered. 
      */
-    public static final String ID_CACTUS_APPLICATION = 
+    public static final String ID_CACTUS_APPLICATION =
         "org.apache.cactus.eclipse.launchconfig";
+
+    /**
+     * Returns a VM configuration. This method in JUnit actually
+     * dismisses the VM args from theConfiguration, so we redid it
+     * to include them.
+     *
+     * @param theConfiguration the launch configuration
+     * @param theMode the mode
+     * @param theTests the JUnit tests that will be run
+     * @param thePort the JUnit remote port
+     * @return the configuration for the VM in which to run the tests 
+     * 
+     * @exception CoreException on critical failures
+     */
+    protected VMRunnerConfiguration launchTypes(
+        ILaunchConfiguration theConfiguration,
+        String theMode,
+        IType[] theTests,
+        int thePort)
+        throws CoreException
+    {
+        File workingDir = verifyWorkingDirectory(theConfiguration);
+        String workingDirName = null;
+        if (workingDir != null)
+        {
+            workingDirName = workingDir.getAbsolutePath();
+        }
+
+        // Program & VM args
+        String vmArgs = getVMArguments(theConfiguration);
+        ExecutionArguments execArgs = new ExecutionArguments(vmArgs, "");
+
+        VMRunnerConfiguration runConfig =
+            createVMRunner(theConfiguration, theTests, thePort, theMode);
+        String[] cactusVMArgs = runConfig.getVMArguments();
+        String[] globalArgs =
+            concatenateStringArrays(
+                execArgs.getVMArgumentsArray(),
+                cactusVMArgs);
+        runConfig.setVMArguments(globalArgs);
+        runConfig.setWorkingDirectory(workingDirName);
+
+        String[] bootpath = getBootpath(theConfiguration);
+        runConfig.setBootClassPath(bootpath);
+        return runConfig;
+    }
 
     /**
      * Create a VM configuration which will be used to run the Cactus tests.
@@ -110,38 +158,47 @@ public class CactusLaunchConfiguration extends JUnitLaunchConfiguration
      * @exception CoreException on critical failures
      */
     protected VMRunnerConfiguration createVMRunner(
-        ILaunchConfiguration theConfiguration, IType[] theTestTypes, 
-        int thePort, String theRunMode) throws CoreException
+        ILaunchConfiguration theConfiguration,
+        IType[] theTestTypes,
+        int thePort,
+        String theRunMode)
+        throws CoreException
     {
         // Get the VM used by the JUnit plugin
-        VMRunnerConfiguration junitVmConfig = super.createVMRunner(
-            theConfiguration, theTestTypes, thePort, theRunMode);
-            
-        // Compute new classpath : JUnit CP + Cactus CP        
-        String[] cactusClasspath = getCactusClientJars();     
-        String[] classpath = concatenateStringArrays(
-            junitVmConfig.getClassPath(), cactusClasspath);
+        VMRunnerConfiguration junitVmConfig =
+            super.createVMRunner(
+                theConfiguration,
+                theTestTypes,
+                thePort,
+                theRunMode);
 
+        // Compute new classpath : JUnit CP + Cactus CP        
+        //        String[] cactusClasspath = getCactusClientJars();     
+        //        String[] classpath = concatenateStringArrays(
+        //            junitVmConfig.getClassPath(), cactusClasspath);
+
+        String[] classpath = junitVmConfig.getClassPath();
         // Compute new VM arguments : JUnit VM argument + Cactus VM arguments
         // TODO: Get this from the plugin preference page.
-        String[] cactusVmArgs = { 
-            "-Dcactus.contextURL=http://localhost:8081/test" 
-        };
-        String[] vmArgs = concatenateStringArrays(
-            junitVmConfig.getVMArguments(), cactusVmArgs);
-                         
+        String[] cactusVmArgs =
+            { "-Dcactus.contextURL=http://localhost:8081/test" };
+        String[] vmArgs =
+            concatenateStringArrays(
+                junitVmConfig.getVMArguments(),
+                cactusVmArgs);
+
         // Create a new VM that includes both JUnit parameters and the new
         // Cactus parameters.
-        VMRunnerConfiguration cactusVmConfig = new VMRunnerConfiguration(
-            junitVmConfig.getClassToLaunch(), classpath);        
+        VMRunnerConfiguration cactusVmConfig =
+            new VMRunnerConfiguration(
+                junitVmConfig.getClassToLaunch(),
+                classpath);
         cactusVmConfig.setBootClassPath(junitVmConfig.getBootClassPath());
-        cactusVmConfig.setProgramArguments(
-            junitVmConfig.getProgramArguments());
+        cactusVmConfig.setProgramArguments(junitVmConfig.getProgramArguments());
         cactusVmConfig.setVMArguments(vmArgs);
         cactusVmConfig.setVMSpecificAttributesMap(
-            junitVmConfig.getVMSpecificAttributesMap());        
-        cactusVmConfig.setWorkingDirectory(
-            junitVmConfig.getWorkingDirectory());        
+            junitVmConfig.getVMSpecificAttributesMap());
+        cactusVmConfig.setWorkingDirectory(junitVmConfig.getWorkingDirectory());
 
         return cactusVmConfig;
     }
@@ -154,31 +211,36 @@ public class CactusLaunchConfiguration extends JUnitLaunchConfiguration
     private String[] getCactusClientJars() throws CoreException
     {
         Vector cactusJars = new Vector();
-        
-        // Base URL pointing to our plugin directory
-        URL baseUrl = 
-            CactusPlugin.getDefault().getDescriptor().getInstallURL();
 
-        try 
+        // Base URL pointing to our plugin directory
+        URL baseUrl = CactusPlugin.getDefault().getDescriptor().getInstallURL();
+
+        try
         {
-            cactusJars.add(Platform.asLocalURL(new URL(baseUrl, 
-                "cactus.jar")).getFile());
-            cactusJars.add(Platform.asLocalURL(new URL(baseUrl, 
-                "aspectjrt.jar")).getFile());
-            cactusJars.add(Platform.asLocalURL(new URL(baseUrl, 
-                "junit.jar")).getFile());
-            cactusJars.add(Platform.asLocalURL(new URL(baseUrl, 
-                "commons-httpclient.jar")).getFile());
+            cactusJars.add(
+                Platform.asLocalURL(new URL(baseUrl, "cactus.jar")).getFile());
+            cactusJars.add(
+                Platform
+                    .asLocalURL(new URL(baseUrl, "aspectjrt.jar"))
+                    .getFile());
+            cactusJars.add(
+                Platform.asLocalURL(new URL(baseUrl, "junit.jar")).getFile());
+            cactusJars.add(
+                Platform
+                    .asLocalURL(new URL(baseUrl, "commons-httpclient.jar"))
+                    .getFile());
         }
         catch (Exception e)
         {
-            abort(CactusMessages.getString("cactus.error.cannotfindjar"), e, 
+            abort(
+                CactusMessages.getString("cactus.error.cannotfindjar"),
+                e,
                 IJavaLaunchConfigurationConstants.ERR_INTERNAL_ERROR);
         }
 
         return (String[]) cactusJars.toArray();
     }
-    
+
     /**
      * Concatenate two string arrays.
      * 
@@ -186,13 +248,18 @@ public class CactusLaunchConfiguration extends JUnitLaunchConfiguration
      * @param theArray2 the second array
      * @return a string array containing the first array followed by the second
      *         one
-     */    
-    private String[] concatenateStringArrays(String[] theArray1, 
+     */
+    private String[] concatenateStringArrays(
+        String[] theArray1,
         String[] theArray2)
     {
         String[] newArray = new String[theArray1.length + theArray2.length];
         System.arraycopy(theArray1, 0, newArray, 0, theArray1.length);
-        System.arraycopy(theArray2, 0, newArray, theArray1.length, 
+        System.arraycopy(
+            theArray2,
+            0,
+            newArray,
+            theArray1.length,
             theArray2.length);
         return newArray;
     }
