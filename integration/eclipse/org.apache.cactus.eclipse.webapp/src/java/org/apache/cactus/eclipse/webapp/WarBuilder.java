@@ -212,6 +212,16 @@ public class WarBuilder
                     result.add(
                         JavaCore.newLibraryEntry(absolutePath, null, null));
                 }
+                else
+                if (target instanceof File)
+                {
+                    File file = (File) target;
+                    result.add(
+                        JavaCore.newLibraryEntry(
+                            new Path(file.getAbsolutePath()),
+                            null,
+                            null));
+                }
             }
         }
         return (IClasspathEntry[]) result.toArray(
