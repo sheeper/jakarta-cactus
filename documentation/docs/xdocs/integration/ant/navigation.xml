@@ -4,4 +4,16 @@
   "file:../../../dtds/navigation-v10.dtd">
 
 <navigation>
+
+  <menu label="Ant Integration">
+    <item id="howto_ant" label="Overview"/>
+    <item id="howto_ant_install" label="Ant Installation"/>
+    <item id="howto_ant_primer" label="Ant Primer"/>
+    <item id="howto_ant_cactus" label="Using Cactus with Ant"/>
+  </menu>
+
+  <menu label="Ant Tasks">
+    <item id="task_webxmlmerge" label="WebXmlMerge"/>
+  </menu>
+
 </navigation>
