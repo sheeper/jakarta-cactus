@@ -100,9 +100,9 @@ public class EnhydraRun extends AbstractServerRun
             Class enhydraClass = 
                 Class.forName("com.lutris.multiServer.MultiServer");
             Method initMethod = enhydraClass.getMethod("main", 
-                new Class[] { this.args.getClass() });
+                new Class[] {this.args.getClass()});
 
-            initMethod.invoke(null, new Object[] { this.args });
+            initMethod.invoke(null, new Object[] {this.args});
         }
         catch (Exception e)
         {

@@ -110,10 +110,10 @@ public class ResinRun extends AbstractServerRun
             Class resinClass = 
                 Class.forName("com.caucho.server.http.ResinServer");
             Constructor constructor = resinClass.getConstructor(
-                new Class[] { this.args.getClass(), boolean.class });
+                new Class[] {this.args.getClass(), boolean.class});
 
             this.resinServer = constructor.newInstance(
-                new Object[] { this.args, new Boolean(true) });
+                new Object[] {this.args, new Boolean(true)});
 
             // Try Resin 2.0 first
             try
@@ -142,9 +142,9 @@ public class ResinRun extends AbstractServerRun
     private void startResin20(Object theResinServer) throws Exception
     {
         Method initMethod = theResinServer.getClass().getMethod("init", 
-            new Class[] { boolean.class });
+            new Class[] {boolean.class});
 
-        initMethod.invoke(theResinServer, new Object[] { new Boolean(true) });
+        initMethod.invoke(theResinServer, new Object[] {new Boolean(true)});
     }
 
     /**
@@ -156,9 +156,9 @@ public class ResinRun extends AbstractServerRun
     private void startResin21(Object theResinServer) throws Exception
     {
         Method initMethod = theResinServer.getClass().getMethod("init",
-            new Class[] { ArrayList.class });
+            new Class[] {ArrayList.class});
 
-        initMethod.invoke(theResinServer, new Object[] { null });
+        initMethod.invoke(theResinServer, new Object[] {null});
     }
 
     /**
