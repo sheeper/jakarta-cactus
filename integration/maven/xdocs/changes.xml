@@ -13,10 +13,10 @@
         (<code>WEB-INF/classes</code>), through the use of variable 
         <code>cactus.resources.dirs</code>.
       </action>
-      <action dev="felipeal" type="update" issue="CACTUS-129" due-to"Mark Lambert">
+      <action dev="felipeal" type="update" issue="CACTUS-129" due-to="Mark Lambert">
         Updated AspectJ to 1.2.1, so Cactus compiles and run under JDK 1.5.
       </action>
-      <action dev="felipeal" type="add" issue="CACTUS-128" due-to"Maxwell Grender-Jones">
+      <action dev="felipeal" type="add" issue="CACTUS-128" due-to="Maxwell Grender-Jones">
         Extended <code>cactus.sysproperties</code> property to the
         <code>cactus:match</code> and <code>cactus:single</code> goals.
       </action>
