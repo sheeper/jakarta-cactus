@@ -376,6 +376,7 @@ integration/ant/src/java/org/apache/cactus/integration/ant/container/orion/Orion
 integration/ant/src/java/org/apache/cactus/integration/ant/container/orion/Orion2xContainer.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/java/org/apache/cactus/integration/ant/container/orion/package.html svn_keywords=Author+Date+Id+Revision
 integration/ant/src/java/org/apache/cactus/integration/ant/container/package.html svn_keywords=Author+Date+Id+Revision
+integration/ant/src/java/org/apache/cactus/integration/ant/container/resin/AbstractResinContainer.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/java/org/apache/cactus/integration/ant/container/resin/Resin2xContainer.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/java/org/apache/cactus/integration/ant/container/resin/ResinRun.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/java/org/apache/cactus/integration/ant/container/resin/package.html svn_keywords=Author+Date+Id+Revision

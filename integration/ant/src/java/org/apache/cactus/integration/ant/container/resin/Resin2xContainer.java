@@ -56,94 +56,16 @@
  */
 package org.apache.cactus.integration.ant.container.resin;
 
-import java.io.File;
-import java.io.IOException;
-
-import org.apache.cactus.integration.ant.container.AbstractJavaContainer;
-import org.apache.cactus.integration.ant.util.ResourceUtils;
-import org.apache.tools.ant.BuildException;
-import org.apache.tools.ant.taskdefs.Java;
-import org.apache.tools.ant.types.FileSet;
-import org.apache.tools.ant.types.FilterChain;
-import org.apache.tools.ant.types.Path;
-import org.apache.tools.ant.util.FileUtils;
-
 /**
  * Special container support for the Caucho Resin 2.x servlet container.
  * 
  * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
+ * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  * 
  * @version $Id$
  */
-public class Resin2xContainer extends AbstractJavaContainer
+public class Resin2xContainer extends AbstractResinContainer
 {
-
-    // Instance Variables ------------------------------------------------------
-
-    /**
-     * The Resin 2.x installation directory.
-     */
-    private File dir;
-
-    /**
-     * A user-specific resin.conf configuration file. If this variable is not
-     * set, the default configuration file from the JAR resources will be used.
-     */
-    private File resinConf;
-
-    /**
-     * The port to which the container should be bound.
-     */
-    private int port = 8080;
-
-    /**
-     * The temporary directory from which the container will be started.
-     */
-    private File tmpDir;
-
-    // Public Methods ----------------------------------------------------------
-
-    /**
-     * Sets the Resin installation directory.
-     * 
-     * @param theDir The directory to set
-     */
-    public final void setDir(File theDir)
-    {
-        this.dir = theDir;
-    }
-
-    /**
-     * Sets the configuration file to use for the test installation of Resin
-     * 2.x.
-     * 
-     * @param theResinConf The resin.conf file
-     */
-    public final void setResinConf(File theResinConf)
-    {
-        this.resinConf = theResinConf;
-    }
-
-    /**
-     * Sets the port to which the container should listen.
-     * 
-     * @param thePort The port to set
-     */
-    public final void setPort(int thePort)
-    {
-        this.port = thePort;
-    }
-
-    /**
-     * Sets the temporary directory from which the container is run.
-     * 
-     * @param theTmpDir The temporary directory to set
-     */
-    public final void setTmpDir(File theTmpDir)
-    {
-        this.tmpDir = theTmpDir;
-    }
-
     // AbstractContainer Implementation ----------------------------------------
 
     /**
@@ -153,118 +75,14 @@ public class Resin2xContainer extends AbstractJavaContainer
     {
         return "Resin 2.x";
     }
-
-    /**
-     * Returns the port to which the container should listen.
-     * 
-     * @return The port
-     */
-    public final int getPort()
-    {
-        return this.port;
-    }
-
-    /**
-     * @see org.apache.cactus.integration.ant.container.Container#init
-     */
-    public final void init()
-    {
-        if (!this.dir.isDirectory())
-        {
-            throw new BuildException(this.dir + " is not a directory");
-        }
-    }
-
-    /**
-     * @see org.apache.cactus.integration.ant.container.Container#startUp
-     */
-    public final void startUp()
-    {
-        try
-        {
-            prepare("cactus/resin2x");
-            
-            // invoke the main class
-            Java java = createJavaForStartUp();           
-            java.addSysproperty(createSysProperty("resin.home", this.tmpDir));
-            Path classpath = java.createClasspath();
-            classpath.createPathElement().setLocation(
-                ResourceUtils.getResourceLocation("/"
-                    + ResinRun.class.getName().replace('.', '/') + ".class"));
-            FileSet fileSet = new FileSet();
-            fileSet.setDir(this.dir);
-            fileSet.createInclude().setName("lib/*.jar");
-            classpath.addFileset(fileSet);
-            java.setClassname(ResinRun.class.getName());
-            java.createArg().setValue("-start");
-            java.createArg().setValue("-conf");
-            java.createArg().setFile(new File(tmpDir, "resin.conf"));
-            java.execute();
-        }
-        catch (IOException ioe)
-        {
-            getLog().error("Failed to startup the container", ioe);
-            throw new BuildException(ioe);
-        }
-    }
-
-    /**
-     * @see org.apache.cactus.integration.ant.container.Container#shutDown
-     */
-    public final void shutDown()
-    {
-        // invoke the main class
-        Java java = createJavaForShutDown();
-        java.setFork(true);
-        java.addSysproperty(createSysProperty("resin.home", this.tmpDir));
-        Path classpath = java.createClasspath();
-        classpath.createPathElement().setLocation(
-            ResourceUtils.getResourceLocation("/"
-                + ResinRun.class.getName().replace('.', '/') + ".class"));
-        FileSet fileSet = new FileSet();
-        fileSet.setDir(this.dir);
-        fileSet.createInclude().setName("lib/*.jar");
-        classpath.addFileset(fileSet);
-        java.setClassname(ResinRun.class.getName());
-        java.createArg().setValue("-stop");
-        java.execute();
-    }
     
-    // Private Methods ---------------------------------------------------------
+    // AbstractResinContainer Implementation -----------------------------------
 
     /**
-     * Prepares a temporary installation of the container and deploys the 
-     * web-application.
-     * 
-     * @param theDirName The name of the temporary container installation
-     *        directory
-     * @throws IOException If an I/O error occurs
+     * @see AbstractResinContainer#getContainerDirName
      */
-    private void prepare(String theDirName) throws IOException
+    protected final String getContainerDirName()
     {
-        FileUtils fileUtils = FileUtils.newFileUtils();
-        FilterChain filterChain = createFilterChain();
-        
-        if (this.tmpDir == null)
-        {
-            this.tmpDir = createTempDirectory(theDirName);
-        }
-
-        // copy configuration files into the temporary container directory
-        if (this.resinConf != null)
-        {
-            fileUtils.copyFile(this.resinConf, new File(tmpDir, "resin.conf"));
-        }
-        else
-        {
-            ResourceUtils.copyResource(getProject(),
-                RESOURCE_PATH + "resin2x/resin.conf",
-                new File(tmpDir, "resin.conf"), filterChain);
-        }
-            
-        fileUtils.copyFile(getDeployableFile().getFile(),
-            new File(tmpDir, getDeployableFile().getFile().getName()), 
-            null, true);
+        return "resin2x";
     }
-
 }
