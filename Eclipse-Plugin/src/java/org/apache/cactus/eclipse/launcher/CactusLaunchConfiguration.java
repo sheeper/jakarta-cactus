@@ -101,10 +101,10 @@ public class CactusLaunchConfiguration extends JUnitLaunchConfiguration
     /**
      * @see org.eclipse.debug.core.model.ILaunchConfigurationDelegate#launch(ILaunchConfiguration, String, ILaunch, IProgressMonitor)
      */
-    public void launch(ILaunchConfiguration Configuration, String Mode,
-        ILaunch launch, IProgressMonitor pm) throws CoreException
+    public void launch(ILaunchConfiguration theConfiguration, String theMode,
+        ILaunch theLaunch, IProgressMonitor thePm) throws CoreException
     {
-        IJavaProject javaProject = getJavaProject(configuration);
+        IJavaProject javaProject = getJavaProject(theConfiguration);
         if ((javaProject == null) || !javaProject.exists())
         {
             abort(JUnitMessages.getString(
@@ -112,10 +112,10 @@ public class CactusLaunchConfiguration extends JUnitLaunchConfiguration
                 IJavaLaunchConfigurationConstants.ERR_NOT_A_JAVA_PROJECT);
         }
 
-        IType testType = getTestType(configuration, javaProject);
-        IVMInstallType type = getVMInstallType(configuration);
-        IVMInstall install = getVMInstall(configuration);
-        IVMRunner runner = install.getVMRunner(mode);
+        IType testType = getTestType(theConfiguration, javaProject);
+        IVMInstallType type = getVMInstallType(theConfiguration);
+        IVMInstall install = getVMInstall(theConfiguration);
+        IVMRunner runner = install.getVMRunner(theMode);
 
         if (runner == null)
         {
@@ -125,7 +125,7 @@ public class CactusLaunchConfiguration extends JUnitLaunchConfiguration
                 IJavaLaunchConfigurationConstants.ERR_VM_RUNNER_DOES_NOT_EXIST);
         }
 
-        File workingDir = verifyWorkingDirectory(configuration);
+        File workingDir = verifyWorkingDirectory(theConfiguration);
         String workingDirName = null;
         if (workingDir != null)
         {
@@ -133,7 +133,7 @@ public class CactusLaunchConfiguration extends JUnitLaunchConfiguration
         }
 
         // Program & VM args
-        String vmArgs = getVMArguments(configuration);
+        String vmArgs = getVMArguments(theConfiguration);
         ExecutionArguments execArgs = new ExecutionArguments(vmArgs, "");
 
         // Create VM config
@@ -141,7 +141,7 @@ public class CactusLaunchConfiguration extends JUnitLaunchConfiguration
         int port = SocketUtil.findUnusedLocalPort("", 5000, 15000);
 
         VMRunnerConfiguration runConfig =
-            createVMRunner(configuration, types, port, mode);
+            createVMRunner(theConfiguration, types, port, theMode);
 
         // Surprisingly enough the JUnit plugin discards all VM arguments set 
         // in the configuration. This is why we add the cactus VM argument here
@@ -150,61 +150,57 @@ public class CactusLaunchConfiguration extends JUnitLaunchConfiguration
         String[] globalVMArgs =
             new String[cactusVMArgs.length + configVMArgs.length];
         System.arraycopy(configVMArgs, 0, globalVMArgs, 0, configVMArgs.length);
-        System.arraycopy(
-            cactusVMArgs,
-            0,
-            globalVMArgs,
-            configVMArgs.length,
+        System.arraycopy(cactusVMArgs, 0, globalVMArgs, configVMArgs.length, 
             cactusVMArgs.length);
 
         runConfig.setVMArguments(globalVMArgs);
         runConfig.setWorkingDirectory(workingDirName);
 
-        String[] bootpath = getBootpath(configuration);
+        String[] bootpath = getBootpath(theConfiguration);
         runConfig.setBootClassPath(bootpath);
 
         //  set default source locator if none specified
         String id =
-            configuration.getAttribute(
+            theConfiguration.getAttribute(
                 ILaunchConfiguration.ATTR_SOURCE_LOCATOR_ID,
                 (String) null);
         if (id == null)
         {
             ISourceLocator sourceLocator = new JavaSourceLocator(javaProject);
-            launch.setSourceLocator(sourceLocator);
+            theLaunch.setSourceLocator(sourceLocator);
         }
 
-        launch.setAttribute(PORT_ATTR, Integer.toString(port));
-        launch.setAttribute(TESTTYPE_ATTR, testType.getHandleIdentifier());
-        runner.run(runConfig, launch, pm);
+        theLaunch.setAttribute(PORT_ATTR, Integer.toString(port));
+        theLaunch.setAttribute(TESTTYPE_ATTR, testType.getHandleIdentifier());
+        runner.run(runConfig, theLaunch, thePm);
     }
 
     /**
      * @see org.eclipse.jdt.internal.junit.launcher.JUnitBaseLaunchConfiguration#createVMRunner(ILaunchConfiguration, IType[], int, String)
      */
     protected VMRunnerConfiguration createVMRunner(
-        ILaunchConfiguration configuration, IType[] testTypes, int port, 
-        String runMode) throws CoreException
+        ILaunchConfiguration theConfiguration, IType[] theTestTypes, 
+        int thePort, String theRunMode) throws CoreException
     {
-        String[] classPath = createClassPath(configuration, testTypes[0]);
+        String[] classPath = createClassPath(theConfiguration, theTestTypes[0]);
         VMRunnerConfiguration vmConfig = new VMRunnerConfiguration(
             "org.eclipse.jdt.internal.junit.runner.RemoteTestRunner", 
             classPath);
 
         Vector argv = new Vector(10);
         argv.add("-port");
-        argv.add(Integer.toString(port));
+        argv.add(Integer.toString(thePort));
         argv.add("-classNames");
 
-        if (keepAlive(configuration) 
-            && runMode.equals(ILaunchManager.DEBUG_MODE))
+        if (keepAlive(theConfiguration) 
+            && theRunMode.equals(ILaunchManager.DEBUG_MODE))
         {
             argv.add(0, "-keepalive");
         }
         
-        for (int i = 0; i < testTypes.length; i++)
+        for (int i = 0; i < theTestTypes.length; i++)
         {
-            argv.add(testTypes[i].getFullyQualifiedName());
+            argv.add(theTestTypes[i].getFullyQualifiedName());
         }
         
         String[] args = new String[argv.size()];
@@ -219,17 +215,19 @@ public class CactusLaunchConfiguration extends JUnitLaunchConfiguration
     }
 
     /**
-     * Adds the junitsupport.jar path to the given configuration and returns it.
-     * @param configuration
-     * @param type
-     * @return String[]
+     * Adds the junitsupport.jar path to the given configuration and returns 
+     * it.
+     * 
+     * @param theConfiguration
+     * @param theType
+     * @return
      * @throws CoreException
      */
-    private String[] createClassPath(ILaunchConfiguration configuration, 
-        IType type) throws CoreException
+    private String[] createClassPath(ILaunchConfiguration theConfiguration, 
+        IType theType) throws CoreException
     {
         URL url = JUnitPlugin.getDefault().getDescriptor().getInstallURL();
-        String[] cp = getClasspath(configuration);
+        String[] cp = getClasspath(theConfiguration);
         boolean inDevelopmentMode = BootLoader.inDevelopmentMode();
 
         String[] classPath = new String[cp.length + 1];
