@@ -1,0 +1,180 @@
+
+	<!-- Global properties -->
+	
+	<!-- Default port on which to start the containers -->
+	<property name="cactus.port" value="8080"/>
+
+	<!-- Tmp dir used by Cactus for its operations -->
+    <property name="cactus.target.dir" value="target"/>
+
+	<!-- Default Cactus test files to include in the test -->
+	<property name="cactus.src.includes" value="**/*Test*.java"/>
+
+	<!-- Default Cactus test files to exclude from the test -->
+	<property name="cactus.src.excludes" value="**/AllTests.java"/>
+
+	<!-- Default classpath for the Cactus client side -->	
+    <path id="cactus.classpath">
+        <pathelement path="${java.class.path}"/>
+    </path>
+
+    <!--
+       ========================================================================
+         Set the properties related to the source tree.
+       ========================================================================
+    -->
+    <property name="conf.dir" value="confs"/>
+    <property name="lib.dir" value="lib"/>
+    <property name="lib.client.dir" value="${lib.dir}/client"/>
+    <property name="lib.server.dir" value="${lib.dir}/server"/>
+    <property name="lib.common.dir" value="${lib.dir}/common"/>
+    <property name="script.dir" value="scripts"/>
+
+	<property name="target.classes.dir" value="${cactus.target.dir}/classes"/>
+
+	<!-- Cactus related jar locations -->
+	<property name="cactus.petal.ant.jar" 
+		value="${lib.client.dir}/@cactus.petal.ant.jar.name@"/>
+
+	<property name="cactus.framework.jar" 
+		value="${lib.common.dir}/@cactus.framework.jar.name@"/>
+	<property name="log4j.jar" 
+		value="${lib.common.dir}/@log4j.jar.name@"/>
+	<property name="aspectjrt.jar" 
+		value="${lib.common.dir}/@aspectjrt.jar.name@"/>
+	<property name="commons.logging.jar" 
+		value="${lib.common.dir}/@commons.logging.jar.name@"/>
+	<property name="junit.jar" 
+		value="${lib.common.dir}/@junit.jar.name@"/>
+
+	<property name="commons.httpclient.jar" 
+		value="${lib.client.dir}/@commons.httpclient.jar.name@"/>
+	<property name="httpunit.jar" 
+		value="${lib.client.dir}/@httpunit.jar.name@"/>
+
+    <!--
+       ========================================================================
+         Initialize the build. Must be called by all targets
+       ========================================================================
+    -->
+    <target name="cactus.init">
+
+        <!-- Filters -->
+        <filter token="cactus.port" value="${cactus.port}"/>
+
+        <!-- Initialize Cactus custom Ant task needed for running the server
+             tests -->
+        <taskdef name="runservertests"
+            classname="org.apache.cactus.petal.ant.RunServerTestsTask">
+            <classpath>
+                <pathelement location="${cactus.petal.ant.jar}"/>
+            </classpath>
+        </taskdef>
+
+    </target>
+
+    <!--
+       ========================================================================
+         Compile the Cactus tests.
+       ========================================================================
+    -->
+    <target name="cactus.compile" description="Compile the Cactus tests">
+
+        <mkdir dir="${target.classes.dir}"/>
+
+        <javac destdir="${target.classes.dir}" srcdir="${cactus.src.dir}">
+            <classpath>
+				<pathelement location="${cactus.framework.jar}"/>
+				<pathelement location="${log4j.jar}"/>
+				<pathelement location="${aspectjrt.jar}"/>
+				<pathelement location="${commons.logging.jar}"/>
+				<pathelement location="${junit.jar}"/>
+                <path refid="cactus.classpath"/>
+            </classpath>
+        </javac>
+
+	</target>
+	
+    <!--
+       ========================================================================
+         Cactifify a plain war (pointed to by the cactus.war property).
+       ========================================================================
+    -->
+    <target name="cactus.war" depends="cactus.compile" 
+    	description="Cactify the war">
+				
+		<unwar src="${cactus.war}" dest="${cactus.target.dir}/test"/>
+
+		<!-- TODO: Perform a web.xml merge -->
+
+		<!-- Copy the Cactus web.xml -->
+		<copy todir="${cactus.target.dir}/test/WEB-INF">
+			<fileset dir="${conf.dir}">
+				<include name="web.xml"/>
+			</fileset>
+		</copy>
+
+		<!-- Copy the Cactus test classes -->
+		<copy todir="${cactus.target.dir}/test/WEB-INF/classes">
+			<fileset dir="${target.classes.dir}">
+				<include name="**/*.class"/>
+		    </fileset>
+		</copy>
+				
+		<!-- Copy the Cactus jars -->
+		<copy todir="${cactus.target.dir}/test/WEB-INF/lib">
+			<fileset dir="${lib.server.dir}">
+				<include name="*.jar"/>
+		    </fileset>
+			<fileset dir="${lib.common.dir}">
+				<include name="*.jar"/>
+		    </fileset>
+		</copy>
+
+		<!-- Copy the JSP Redirector -->
+		<copy todir="${cactus.target.dir}/test">
+			<fileset dir="${conf.dir}">
+				<include name="jspRedirector.jsp"/>
+			</fileset>			
+		</copy>
+					
+    </target>
+   
+    <!--
+       ========================================================================
+         Trigger the Cactus test by running a JUnit Test Runner
+       ========================================================================
+    -->
+    <target name="cactus.test">
+
+        <junit printsummary="yes" haltonfailure="yes" haltonerror="yes"
+            fork="yes">
+
+			<jvmarg value="-Dcactus.contextURL=http://localhost:${cactus.port}/test"/>
+			
+            <classpath>
+				<pathelement location="${target.classes.dir}"/>
+				<pathelement location="${cactus.framework.jar}"/>
+				<pathelement location="${log4j.jar}"/>
+				<pathelement location="${aspectjrt.jar}"/>
+				<pathelement location="${commons.logging.jar}"/>
+				<pathelement location="${junit.jar}"/>
+                <path refid="cactus.classpath"/>
+				<pathelement location="${commons.httpclient.jar}"/>
+				<pathelement location="${httpunit.jar}"/>
+            </classpath>
+
+            <formatter type="plain" usefile="false"/>
+
+			<!-- TODO: Automatically discover Cactus tests -->
+
+			<batchtest>
+		    	<fileset dir="${cactus.src.dir}" 
+		    		includes="${cactus.src.includes}" 
+		    		excludes="${cactus.src.excludes}"/>
+			</batchtest>
+
+        </junit>
+
+    </target>
+       

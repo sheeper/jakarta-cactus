@@ -29,6 +29,10 @@ framework/target-12
 framework/target-13
 /maven.log
 /misc
+petals/ant/ant.bat
+petals/ant/build.properties
+petals/ant/dist
+petals/ant/target
 /release
 sample-jetty/ant.bat
 sample-jetty/build.properties

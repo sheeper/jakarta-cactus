@@ -1,0 +1,56 @@
+# -----------------------------------------------------------------------------
+# build.properties.sample
+#
+# This is an example "build.properties" file, used to customize building the
+# Cactus Ant Petal for your local environment.  Make any changes you need, and
+# rename this file to "build.properties" in the same directory that contains the
+# "build.xml" file.
+#
+# $Id: build.properties.sample,v 1.4 2002/12/26 13:11:50 cmlenz Exp $
+# -----------------------------------------------------------------------------
+
+# WARNING:  The relative paths below are relative to the directory where the
+# build.xml file is located.
+
+# -----------------------------------------------------------------------------
+# Mandatory properties
+# -----------------------------------------------------------------------------
+
+# Location of all jars. Note: This is not a mandatory property. It is only
+# used here so that it can be reused when defining the location of all the jars
+# below. You do not have to put all the external jars in a single location.
+lib.repo = c:/apps/maven/repository
+
+# Location of the Servlet API jar (it is needed because we want to copy it
+# in the Cactus distribution).
+servlet.jar = ${lib.repo}/servletapi/jars/servletapi-2.3.jar
+
+# The location of the Commons Logging jar
+commons.logging.jar = ${lib.repo}/commons-logging/jars/commons-logging-1.0.1.jar
+
+# The location of the log4j jar
+log4j.jar = ${lib.repo}/log4j/jars/log4j-1.2.6.jar
+
+# The location of the Commons Httpclient jar
+commons.httpclient.jar = ${lib.repo}/commons-httpclient/jars/commons-httpclient-2.0alpha2-20030103.jar
+
+# The location of the Httpunit jar
+httpunit.jar = ${lib.repo}/httpunit/jars/httpunit-1.4.5.jar
+
+# The location of the AspectJ runtime jar
+aspectjrt.jar = ${lib.repo}/aspectj/jars/aspectjrt-1.0.6.jar
+
+# The location of the Junit jar
+junit.jar = ${lib.repo}/junit/jars/junit-3.8.1.jar
+
+# -----------------------------------------------------------------------------
+# Optional properties
+# -----------------------------------------------------------------------------
+
+# Dependancies for Checkstyle code auditing
+# If not specified here, the JARs must be present in ANTHOME/lib
+antlr.jar = ${lib.repo}/antlr/jars/antlr-2.7.1.jar
+checkstyle.jar = ${lib.repo}/checkstyle/jars/checkstyle-2.4.jar
+commons-beanutils.jar = ${lib.repo}/commons-beanutils/jars/commons-beanutils-1.5.jar
+commons-collections.jar = ${lib.repo}/commons-collections/jars/commons-collections-2.1.jar
+regexp.jar = ${lib.repo}/regexp/jars/regexp-1.2.jar

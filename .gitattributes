@@ -286,6 +286,74 @@ framework/src/test/share/org/apache/cactus/mock/MockHttpURLConnection.java svn_k
 framework/src/test/share/org/apache/cactus/util/TestStringUtil.java svn_keywords=Author+Date+Id+Revision
 framework/web/jspRedirector.jsp svn_keywords=Author+Date+Id+Revision
 /gump.xml svn_keywords=Author+Date+Id+Revision
+petals/ant/.cvsignore svn_keywords=Author+Date+Id+Revision
+petals/ant/build.properties.sample -text svneol=unset#application/octet-stream
+petals/ant/build.xml svn_keywords=Author+Date+Id+Revision
+petals/ant/src/confs/j2ee12/enhydra31/multiserver.conf -text svneol=unset#application/octet-stream
+petals/ant/src/confs/j2ee12/resin12/resin.conf -text svneol=unset#application/octet-stream
+petals/ant/src/confs/j2ee12/tomcat32/server.xml svn_keywords=Author+Date+Id+Revision
+petals/ant/src/confs/j2ee12/tomcat32/tomcat-users.xml svn_keywords=Author+Date+Id+Revision
+petals/ant/src/confs/j2ee12/tomcat33/modules.xml svn_keywords=Author+Date+Id+Revision
+petals/ant/src/confs/j2ee12/tomcat33/server.xml svn_keywords=Author+Date+Id+Revision
+petals/ant/src/confs/j2ee12/tomcat33/tomcat-users.xml svn_keywords=Author+Date+Id+Revision
+petals/ant/src/confs/j2ee12/web.xml svn_keywords=Author+Date+Id+Revision
+petals/ant/src/confs/j2ee12/weblogic51/weblogic.policy -text svneol=unset#application/octet-stream
+petals/ant/src/confs/j2ee12/weblogic51/weblogic.properties svn_keywords=Author+Date+Id+Revision
+petals/ant/src/confs/j2ee13/jboss3x/jboss-web.xml svn_keywords=Author+Date+Id+Revision
+petals/ant/src/confs/j2ee13/jboss3x/roles.properties svn_keywords=Author+Date+Id+Revision
+petals/ant/src/confs/j2ee13/jboss3x/users.properties svn_keywords=Author+Date+Id+Revision
+petals/ant/src/confs/j2ee13/resin13/resin.conf -text svneol=unset#application/octet-stream
+petals/ant/src/confs/j2ee13/web.xml svn_keywords=Author+Date+Id+Revision
+petals/ant/src/confs/share/log_client.properties svn_keywords=Author+Date+Id+Revision
+petals/ant/src/confs/share/log_server.properties svn_keywords=Author+Date+Id+Revision
+petals/ant/src/confs/share/orion14/application.xml svn_keywords=Author+Date+Id+Revision
+petals/ant/src/confs/share/orion14/default-web-site.xml svn_keywords=Author+Date+Id+Revision
+petals/ant/src/confs/share/orion14/global-web-application.xml svn_keywords=Author+Date+Id+Revision
+petals/ant/src/confs/share/orion14/mime.types -text svneol=unset#application/octet-stream
+petals/ant/src/confs/share/orion14/principals.xml svn_keywords=Author+Date+Id+Revision
+petals/ant/src/confs/share/orion14/rmi.xml svn_keywords=Author+Date+Id+Revision
+petals/ant/src/confs/share/orion14/server.xml svn_keywords=Author+Date+Id+Revision
+petals/ant/src/confs/share/orion15/application.xml svn_keywords=Author+Date+Id+Revision
+petals/ant/src/confs/share/orion15/default-web-site.xml svn_keywords=Author+Date+Id+Revision
+petals/ant/src/confs/share/orion15/global-web-application.xml svn_keywords=Author+Date+Id+Revision
+petals/ant/src/confs/share/orion15/mime.types -text svneol=unset#application/octet-stream
+petals/ant/src/confs/share/orion15/principals.xml svn_keywords=Author+Date+Id+Revision
+petals/ant/src/confs/share/orion15/rmi.xml svn_keywords=Author+Date+Id+Revision
+petals/ant/src/confs/share/orion15/server.xml svn_keywords=Author+Date+Id+Revision
+petals/ant/src/confs/share/orion16/application.xml svn_keywords=Author+Date+Id+Revision
+petals/ant/src/confs/share/orion16/default-web-site.xml svn_keywords=Author+Date+Id+Revision
+petals/ant/src/confs/share/orion16/global-web-application.xml svn_keywords=Author+Date+Id+Revision
+petals/ant/src/confs/share/orion16/mime.types -text svneol=unset#application/octet-stream
+petals/ant/src/confs/share/orion16/principals.xml svn_keywords=Author+Date+Id+Revision
+petals/ant/src/confs/share/orion16/rmi.xml svn_keywords=Author+Date+Id+Revision
+petals/ant/src/confs/share/orion16/server.xml svn_keywords=Author+Date+Id+Revision
+petals/ant/src/confs/share/resin20/resin.conf -text svneol=unset#application/octet-stream
+petals/ant/src/confs/share/tomcat4x/server.xml svn_keywords=Author+Date+Id+Revision
+petals/ant/src/confs/share/tomcat4x/tomcat-users.xml svn_keywords=Author+Date+Id+Revision
+petals/ant/src/confs/share/weblogic61/SerializedSystemIni.dat -text svneol=unset#application/octet-stream
+petals/ant/src/confs/share/weblogic61/config.xml svn_keywords=Author+Date+Id+Revision
+petals/ant/src/confs/share/weblogic61/fileRealm.properties svn_keywords=Author+Date+Id+Revision
+petals/ant/src/confs/share/weblogic61/weblogic.xml svn_keywords=Author+Date+Id+Revision
+petals/ant/src/confs/share/weblogic70/DefaultAuthenticatorInit.ldift -text svneol=unset#application/octet-stream
+petals/ant/src/confs/share/weblogic70/SerializedSystemIni.dat -text svneol=unset#application/octet-stream
+petals/ant/src/confs/share/weblogic70/config.xml svn_keywords=Author+Date+Id+Revision
+petals/ant/src/confs/share/weblogic70/fileRealm.properties svn_keywords=Author+Date+Id+Revision
+petals/ant/src/confs/share/weblogic70/testserver/ldap/ldapfiles/EmbeddedLDAP.data -text
+petals/ant/src/confs/share/weblogic70/testserver/ldap/ldapfiles/EmbeddedLDAP.delete -text
+petals/ant/src/confs/share/weblogic70/testserver/ldap/ldapfiles/EmbeddedLDAP.index -text
+petals/ant/src/confs/share/weblogic70/testserver/ldap/ldapfiles/EmbeddedLDAP.tran -text
+petals/ant/src/confs/share/weblogic70/testserver/ldap/ldapfiles/EmbeddedLDAP.trpos -text
+petals/ant/src/confs/share/weblogic70/testserver/ldap/ldapfiles/EmbeddedLDAP.twpos -text
+petals/ant/src/confs/share/weblogic70/weblogic.xml svn_keywords=Author+Date+Id+Revision
+petals/ant/src/java/org/apache/cactus/petal/ant/AbstractServerRun.java svn_keywords=Author+Date+Id+Revision
+petals/ant/src/java/org/apache/cactus/petal/ant/EnhydraRun.java svn_keywords=Author+Date+Id+Revision
+petals/ant/src/java/org/apache/cactus/petal/ant/ResinRun.java svn_keywords=Author+Date+Id+Revision
+petals/ant/src/java/org/apache/cactus/petal/ant/RunServerTestsTask.java svn_keywords=Author+Date+Id+Revision
+petals/ant/src/java/org/apache/cactus/petal/ant/StartServerHelper.java svn_keywords=Author+Date+Id+Revision
+petals/ant/src/java/org/apache/cactus/petal/ant/StopServerHelper.java svn_keywords=Author+Date+Id+Revision
+petals/ant/src/scripts/j2ee13/build.xml svn_keywords=Author+Date+Id+Revision
+petals/ant/src/scripts/share/build-share.xml svn_keywords=Author+Date+Id+Revision
+petals/ant/src/scripts/share/build-tests-tomcat-40.xml svn_keywords=Author+Date+Id+Revision
 sample-jetty/build.properties.sample -text svneol=unset#application/octet-stream
 sample-jetty/conf/sample/build/build.properties.sample -text svneol=unset#application/octet-stream
 sample-jetty/conf/sample/conf/manifest -text svneol=unset#application/octet-stream

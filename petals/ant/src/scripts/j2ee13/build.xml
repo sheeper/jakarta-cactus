@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE project [
+    <!ENTITY build-share SYSTEM "file:./scripts/build-share.xml">
+    <!ENTITY build-tests-tomcat-40 SYSTEM "file:./scripts/build-tests-tomcat-40.xml">
+<!--
+    <!ENTITY build-tests-resin-20 SYSTEM "file:./scripts/build-tests-resin-20.xml">
+    <!ENTITY build-tests-resin-13 SYSTEM "file:./scripts/build-tests-resin-13.xml">
+    <!ENTITY build-tests-orion-14 SYSTEM "file:./scripts/build-tests-orion-14.xml">
+    <!ENTITY build-tests-orion-15 SYSTEM "file:./scripts/build-tests-orion-15.xml">
+    <!ENTITY build-tests-orion-16 SYSTEM "file:./scripts/build-tests-orion-16.xml">
+    <!ENTITY build-tests-weblogic-61 SYSTEM "file:./scripts/build-tests-weblogic-61.xml">
+    <!ENTITY build-tests-weblogic-70 SYSTEM "file:./scripts/build-tests-weblogic-70.xml">
+    <!ENTITY build-tests-jboss-3x SYSTEM "file:./scripts/build-tests-jboss-3x.xml">
+-->
+]>
+
+<!--
+  =============================================================================
+    Generic build file for executing Cactus tests. This Ant script is expected
+    to be called from another Ant script, using the <ant> task. 
+
+    The following Ant properties need to be passed to this script:
+
+        cactus.home.[container]    Location where the container is installed
+
+        cactus.port                [OPTIONAL] Port on which to start the 
+                                   containers (Default is 8080)
+
+		cactus.target.dir          [OPTIONAL] Tmp directory for Cactus 
+		                           operations
+		
+        cactus.war                 Location of the war to cactify        
+
+        cactus.src.dir             Location of Cactus java source files
+        
+        cactus.src.includes        [OPTIONAL] List of Cactus java test files
+                                   to include in the test. Defaults to
+                                   "**/*Test*.java".
+
+        cactus.src.excludes        [OPTIONAL] List of Cactus java test files
+                                   to exclude in the test. Defaults to
+                                   "**/AllTests.java".
+
+    The following Ant references need to be passed to this script:
+    
+        cactus.classpath           [OPTIONAL] The classpath reference for 
+                                   running junit on the client side. Only
+                                   needed if special jars need to be on the
+                                   classpath        
+                                   
+  =============================================================================
+-->
+<project name="Cactus Executor" default="cactus.init" basedir=".">
+
+    &build-share;
+
+    &build-tests-tomcat-40;
+<!--
+    &build-tests-resin-20;
+    &build-tests-resin-13;
+    &build-tests-orion-14;
+    &build-tests-orion-15;
+    &build-tests-orion-16;
+    &build-tests-weblogic-61;
+    &build-tests-weblogic-70;
+    &build-tests-jboss-3x;
+-->
+</project>
