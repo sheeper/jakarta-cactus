@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+
+<project name="test-runservertests" basedir="." default="help">
+
+  <property name="work.dir" location="${basedir}/work"/>
+
+  <target name="setUp">
+    <mkdir dir="${work.dir}"/>
+  </target>
+
+  <target name="tearDown">
+    <delete dir="${work.dir}"/>
+  </target>
+
+  <!-- Test Targets -->
+
+  <target name="testStartNotSet">
+    <runservertests stoptarget="stopDummy" testtarget="testDummy"/>
+  </target>
+
+  <target name="testStopNotSet">
+    <runservertests starttarget="startDummy" testtarget="testDummy"/>
+  </target>
+
+  <target name="testTestNotSet">
+    <runservertests starttarget="stopDummy" stoptarget="stopDummy"/>
+  </target>
+
+  <target name="testTestUrlNotSet">
+    <runservertests starttarget="startDummy" stoptarget="stopDummy"
+        testtarget="testDummy"/>
+  </target>
+
+  <target name="testNonHttpTestUrl">
+    <runservertests starttarget="startDummy" stoptarget="stopDummy"
+        testtarget="testDummy"
+        testurl="ftp://ftp.example.com"/>
+  </target>
+
+  <!-- Utility Targets -->
+
+  <target name="startDummy">
+  </target>
+
+  <target name="stopDummy">
+  </target>
+
+  <target name="testDummy">
+  </target>
+
+</project>
