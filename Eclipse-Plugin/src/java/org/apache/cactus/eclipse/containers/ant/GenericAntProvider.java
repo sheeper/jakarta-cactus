@@ -71,6 +71,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.SubProgressMonitor;
 
 /**
  * Implementation of a container provider that uses ant scripts to set up
@@ -172,9 +173,8 @@ public class GenericAntProvider implements IContainerProvider
                     e));
         }
         startHelper.setTestURL(testURL);
-        startHelper.setProgressMonitor(thePM);
+        startHelper.setProgressMonitor(new SubProgressMonitor(thePM, 4));
         startHelper.execute();
-        thePM.done();
     }
 
     /**
@@ -193,8 +193,7 @@ public class GenericAntProvider implements IContainerProvider
         antArguments.add("-Dwar.path=" + warPath);
         antArguments.add("-Dcontext.path=" + theContextPath);
         String[] targets = getMasked("prepare.");
-        createAntRunner(targets).run(thePM);
-        thePM.done();
+        createAntRunner(targets).run(new SubProgressMonitor(thePM, 3));
     }
 
     /**
