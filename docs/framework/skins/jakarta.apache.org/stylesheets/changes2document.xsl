@@ -83,7 +83,7 @@
       <xsl:when test="entry">
         <table>
           <xsl:apply-templates select="entry">
-            <xsl:sort select="date" order="descending"/>
+            <xsl:sort select="concat(date,time)" order="descending"/>
           </xsl:apply-templates>
         </table>
       </xsl:when>
@@ -95,13 +95,18 @@
 
   <xsl:template match="entry">
     <tr>
-      <td>
+      <td nowrap="true">
         <xsl:value-of select="date"/>
       </td>
       <td>
-        <link href="{concat(substring-before(file/name, '.'),'.html')}">
-          <xsl:value-of select="substring-before(file/name, '.')"/>
-        </link>
+        <xsl:for-each select="file">
+          <link href="{concat(substring-before(name, '.'),'.html')}">
+            <xsl:value-of select="substring-before(name, '.')"/>
+          </link>
+          <xsl:if test="position()!=last()">
+            <xsl:text>, </xsl:text>
+          </xsl:if>
+        </xsl:for-each>
       </td>
       <td>
         <xsl:value-of select="msg"/>
