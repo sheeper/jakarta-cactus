@@ -179,5 +179,57 @@
 
     </s1>
 
+    <s1 title="Enabling Server-Side XSLT Transformations">
+      <p>
+        In the previous section, the XSLT transformation was performed on the 
+        client. This requires a browser capable of doing XSLT transformations 
+        in a standards-compliant manner, and requires adding the location of 
+        the stylesheet as a request parameter.
+      </p>
+      <p>
+        Since Cactus 1.5, the ServletTestRunner can also perform the 
+        transformation on the server-side. To enable that feature, make sure
+        that a JAXP compliant XSLT processor (such as 
+        <link href="http://xml.apache.org/xalan-j/">Xalan</link>) is available
+        to the web-application.
+      </p>
+      <p>
+        In addition, the location of the XSLT stylesheet needs to specified as
+        initialization parameter of the ServletTestRunner. For example:
+      </p>
+	<source><![CDATA[
+[...]
+<servlet>
+    <servlet-name>ServletTestRunner</servlet-name>
+    <servlet-class>org.apache.cactus.server.runner.ServletTestRunner</servlet-class>
+    <init-param>
+        <param-name>xsl-stylesheet</param-name>
+        <param-value>styles/cactus-report.xsl</param-value>
+    </init-param>
+</servlet>
+[...]
+]]></source>
+      <p>
+        The specified path is relative to the root of the web-application. Of 
+        course, the stylesheet needs to exist at that location. In contrast to
+        client-side transformations, the stylesheet may be placed somewhere
+        inside the <code>WEB-INF</code> directory, because clients do not need
+        to access it directly.
+      </p>
+      <p>
+        If all of the above is correctly set up, you can enable the actual
+        transformation by including a <code>transform</code> parameter with
+        the request (the value of the parameter does not matter). For example
+      </p>
+	<source><![CDATA[
+http://server:port/mywebapp/ServletTestRunner?suite=mytestcase&transform=yes
+]]></source>
+      <note>
+        The stylesheet specified as initialization parameter is loaded when the
+        ServletTestRunner gets initialized. Changes to the stylesheet will not 
+        get picked up until the web-application is reloaded.
+      </note>
+    </s1>
+
   </body>
 </document>
