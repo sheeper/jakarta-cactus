@@ -137,7 +137,11 @@ public class WebTestResultParser
             buffer = trimmedData.substring(startRootString.length(),
                 trimmedData.length() - endRootString.length());
         } else {
-            throw new ParsingException("Not a valid response");
+            // Display the first 100 characters of the invalid data as it can
+            // be very big ...
+            throw new ParsingException("Not a valid response. First 100 "
+                + "characters of the reponse: [" + theData.substring(0, 100)
+                + "]");
         }
 
         return buffer;
@@ -167,7 +171,11 @@ public class WebTestResultParser
                 + this.exceptionClassname.length() + 2,
                 theData.length() - endString.length());
         } else {
-            throw new ParsingException("Not a valid response");
+            // Display the first 100 characters of the invalid data as it can
+            // be very big ...
+            throw new ParsingException("Not a valid response. First 100 "
+                + "characters of the reponse: [" + theData.substring(0, 100)
+                + "]");
         }
 
         return buffer;
@@ -196,7 +204,11 @@ public class WebTestResultParser
                 pos);
             buffer = theData.substring(pos + endString.length());
         } else {
-            throw new ParsingException("Not a valid response");
+            // Display the first 100 characters of the invalid data as it can
+            // be very big ...
+            throw new ParsingException("Not a valid response. First 100 "
+                + "characters of the reponse: [" + theData.substring(0, 100)
+                + "]");
         }
 
         return buffer;
@@ -225,7 +237,11 @@ public class WebTestResultParser
                 pos);
             buffer = theData.substring(pos + endString.length());
         } else {
-            throw new ParsingException("Not a valid response");
+            // Display the first 100 characters of the invalid data as it can
+            // be very big ...
+            throw new ParsingException("Not a valid response. First 100 "
+                + "characters of the reponse: [" + theData.substring(0, 100)
+                + "]");
         }
 
         return buffer;
