@@ -47,7 +47,7 @@
       <person name="Nicholas Lesiecki" email="ndlesiecki@yahoo.com" id="NDL"/>
     </devs>
 
-    <release version="1.3 in CVS">
+    <release version="1.3" date="April 21 2002">
       <action dev="VMA" type="update">
         Improved classloader support on the server side : Cactus first tries
         to load the Class to test using the Context class loader (thus, if you
