@@ -30,17 +30,6 @@
   </s1>
 
   <version title="Version 1.4">
-
-    <category title="Documentation">
-      <action assigned-to="Vincent Massol">
-        Modify the configuration page to reflect the fact that all cactus
-        properties are now java system properties.
-      </action>
-      <action assigned-to="Vincent Massol">
-        Explain how to configure logging using Commons Logging.
-      </action>
-    </category>
-
   </version>
 
   <version title="Version 1.5">

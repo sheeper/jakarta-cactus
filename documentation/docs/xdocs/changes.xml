@@ -107,8 +107,9 @@
       </action>
       <action dev="VMA" type="fix" due-to="Daniel Dennison" due-to-email="dennison@mitec.net">
         (<link href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=9544">
-         Bug #9544</link>. It seems that it is possible that the test result contain an end of line
-         character and the Cactus <code>WebTestResultParser</code> was choking on this and seeing
+         Bug #9544</link>. It seems that it is possible that the test result
+         contain an end of line character and the Cactus
+         <code>WebTestResultParser</code> was choking on this and seeing
          the returned result as invalid. This has been fixed.
       </action>
       <action dev="VMA" type="add">
@@ -128,10 +129,6 @@
         Cactus Sample can be built using Ant 1.4 (support for Ant 1.4 was
         broken by a line introduced in Cactus 1.3 that would only work with
         Ant 1.5. However, this line can easily be commented out).
-      </action>
-      <action dev="VMA" type="fix">
-        Cactus does not check for existing <code>log_client.properties</code>
-        and <code>log_server.properties</code> when logging is not enabled.
       </action>
       <action dev="VMA" type="fix" due-to="Marc Brette" due-to-email="Marc.Brette@mkms.xerox.com">
         (<link href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=8640">
