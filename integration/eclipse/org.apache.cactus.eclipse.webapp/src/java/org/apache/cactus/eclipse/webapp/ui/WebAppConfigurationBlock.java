@@ -66,12 +66,14 @@ import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.internal.ui.JavaPlugin;
 import org.eclipse.jdt.internal.ui.preferences.PreferencesMessages;
+import org.eclipse.jdt.internal.ui.util.PixelConverter;
 import org.eclipse.jdt.internal.ui.wizards.buildpaths.CPListElement;
 import org.eclipse.jdt.internal.ui.wizards.buildpaths.LibrariesWorkbookPage;
 import org.eclipse.jdt.internal.ui.wizards.dialogfields.CheckedListDialogField;
 import org.eclipse.jdt.internal.ui.wizards.dialogfields.DialogField;
 import org.eclipse.jdt.internal.ui.wizards.dialogfields.IDialogFieldListener;
 import org.eclipse.jdt.internal.ui.wizards.dialogfields.IStringButtonAdapter;
+import org.eclipse.jdt.internal.ui.wizards.dialogfields.LayoutUtil;
 import org.eclipse.jdt.internal.ui.wizards.dialogfields.StringButtonDialogField;
 import org.eclipse.jdt.internal.ui.wizards.dialogfields.StringDialogField;
 import org.eclipse.jface.viewers.LabelProvider;
@@ -313,10 +315,9 @@ public class WebAppConfigurationBlock
      */
     public Control createContents(Composite theParent)
     {
-        final Composite topComp = new Composite(theParent, SWT.NONE);
-        GridLayout topLayout = new GridLayout();
+        Composite topComp = new Composite(theParent, SWT.NONE);
 
-        topComp.setLayout(topLayout);
+        GridLayout topLayout = new GridLayout();
         topLayout.numColumns = 3;
         topLayout.marginWidth = 0;
         topLayout.marginHeight = 0;
@@ -326,12 +327,17 @@ public class WebAppConfigurationBlock
         webappDirField.doFillIntoGrid(topComp, 3);
         tempDirField.doFillIntoGrid(topComp, 3);
 
+        PixelConverter converter = new PixelConverter(topComp);
+        LayoutUtil.setWidthHint(
+            outputField.getTextControl(null),
+            converter.convertWidthInCharsToPixels(25));
+        LayoutUtil.setHorizontalGrabbing(outputField.getTextControl(null));
+
         Control libraryPageControl = libraryPage.getControl(topComp);
         GridData gd = new GridData(GridData.HORIZONTAL_ALIGN_FILL);
         gd.horizontalSpan = 3;
         libraryPageControl.setLayoutData(gd);
         libraryPage.init(javaProject);
-
         return topComp;
     }
 
