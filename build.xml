@@ -86,11 +86,11 @@
       <property name="j2ee.jar" value="${j2ee.13.jar}"/>
       <property name="clover.enable" value="true"/>
     </ant>
-    <!-- ant antfile="samples/jetty/build.xml" inheritAll="false" 
+    <ant antfile="samples/jetty/build.xml" inheritAll="false" 
         target="dist">
       <property name="j2ee.jar" value="${j2ee.13.jar}"/>
       <property name="clover.enable" value="true"/>
-    </ant -->
+    </ant>
     <ant antfile="documentation/build.xml" inheritAll="false" 
         target="dist">
       <property name="javadoc.include" value="true"/>
@@ -239,10 +239,10 @@
         target="clean">
       <property name="j2ee.jar" value="${j2ee.13.jar}"/>
     </ant>
-    <!-- ant antfile="samples/jetty/build.xml" inheritAll="false" 
+    <ant antfile="samples/jetty/build.xml" inheritAll="false" 
         target="clean">
       <property name="j2ee.jar" value="${j2ee.13.jar}"/>
-    </ant -->
+    </ant>
     <ant antfile="documentation/build.xml" inheritAll="false" 
         target="clean"/>
 
