@@ -228,8 +228,6 @@ public class WebResponse
      */
     public Cookie[] getCookies()
     {
-        logger.entry("getCookies()");
-
         Cookie[] returnCookies = null;
 
         // There can be several headers named "Set-Cookie", so loop through
@@ -287,7 +285,6 @@ public class WebResponse
         returnCookies = new Cookie[cookieVector.size()];
         cookieVector.copyInto(returnCookies);
 
-        logger.exit("getCookies");
         return returnCookies;
     }
 
