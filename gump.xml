@@ -296,6 +296,7 @@
       <depend property="httpunit.jar" project="httpunit"/>
       <depend property="aspectjrt.jar" project="aspectj" id="aspectjrt"/>
       <depend property="junit.jar" project="junit"/>
+      <property name="cvs.executable" value="cvs"/>
 
     </ant>
 
