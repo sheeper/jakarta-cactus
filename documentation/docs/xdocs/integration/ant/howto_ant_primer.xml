@@ -29,8 +29,8 @@
         Continuous Integration</link> article by Martin Fowler). The traditional
         approach has been
         to developing the code first, then test it and then integrate
-        it with other appications. The continuous integration principle is to
-        develop code, tests and integrate at the same time, i.e. at any point
+        it with other applications. The continuous integration principle is to
+        develop code, test and integrate at the same time, i.e. at any point
         in time, you have a functioning code along with tests and integrated.
       </p>
       <p>
