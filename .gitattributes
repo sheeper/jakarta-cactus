@@ -445,6 +445,7 @@ samples/servlet/src/test-cactus/share/org/apache/cactus/sample/unit/TestSetURL.j
 samples/servlet/src/test-cactus/share/org/apache/cactus/sample/unit/TestSetUpTearDown.java svn_keywords=Author+Date+Id+Revision
 samples/servlet/src/test-cactus/share/org/apache/cactus/sample/unit/TestShareAll.java svn_keywords=Author+Date+Id+Revision
 samples/servlet/src/test-cactus/share/org/apache/cactus/sample/unit/TestTearDownException.java svn_keywords=Author+Date+Id+Revision
-samples/servlet/src/webapp/WEB-INF/web.xml svn_keywords=Author+Date+Id+Revision
-samples/servlet/src/webapp/cactus-report.xsl svn_keywords=Author+Date+Id+Revision
-samples/servlet/src/webapp/test/test.jsp -text svneol=unset#application/octet-stream
+samples/servlet/src/webapp/j2ee12/WEB-INF/web.xml svn_keywords=Author+Date+Id+Revision
+samples/servlet/src/webapp/j2ee13/WEB-INF/web.xml svn_keywords=Author+Date+Id+Revision
+samples/servlet/src/webapp/share/cactus-report.xsl svn_keywords=Author+Date+Id+Revision
+samples/servlet/src/webapp/share/test/test.jsp svn_keywords=Author+Date+Id+Revision
