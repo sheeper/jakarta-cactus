@@ -92,6 +92,11 @@ public abstract class AbstractTestCase extends TestCase
     protected final static String END_METHOD_PREFIX = "end";
 
     /**
+     * Name of properties file to initialize logging subsystem
+     */
+    public final static String LOG_CLIENT_CONFIG = "log_client.properties";
+
+    /**
      * The name of the current test method being executed. This name is valid
      * both on the client side and on the server side, meaning you can call it
      * from a <code>testXXX()</code>, <code>setUp()</code> or
@@ -353,16 +358,21 @@ public abstract class AbstractTestCase extends TestCase
      */
     public void runBare() throws Throwable
     {
+        // Run some configuration checks
+        ClientConfigurationChecker.getInstance().checkCactusProperties();
+        ClientConfigurationChecker.getInstance().checkHttpClient();
+        ClientConfigurationChecker.getInstance().checkLog4j();
+
         // Initialize the logging system. As this class is instanciated both
         // on the server side and on the client side, we need to differentiate
         // the logging initialisation. This method is only called on the client
         // side, so we instanciate the log for client side here.
         if (!LogService.getInstance().isInitialized()) {
-            LogService.getInstance().init("/log_client.properties");
+            LogService.getInstance().init("/" + AbstractTestCase.LOG_CLIENT_CONFIG);
         }
 
         // We make sure we reinitialize the logger with the name of the
-        // current class (that's why the logge instance is not static).
+        // current class (that's why the logged instance is not static).
         this.logger =
             LogService.getInstance().getLog(this.getClass().getName());
 

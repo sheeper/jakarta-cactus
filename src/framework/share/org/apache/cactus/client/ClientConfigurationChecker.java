@@ -57,11 +57,17 @@ import java.util.*;
 import java.io.*;
 
 import org.apache.cactus.*;
+import org.apache.cactus.util.*;
+import org.apache.cactus.util.log.*;
 
 /**
  * Helper class that checks configuration parameters (for the client side)
  * like if the CLASSPATH contains the jar for the Servlet API, if the
  * <code>cactus.properties</code> file is in the CLASSPATH, ...
+ *
+ * Note: there cannot be any logging in the checking process as the
+ * logging system has not been initialized yet when the methods of this class
+ * are called.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
@@ -70,22 +76,123 @@ import org.apache.cactus.*;
 public class ClientConfigurationChecker
 {
     /**
+     * Singleton instance
+     */
+    private static ClientConfigurationChecker instance;
+
+    /**
+     * Has the presence of httpclient jar been checked ?
+     */
+    private boolean isHttpClientChecked;
+
+    /**
+     * Has the presence of cactus.properties been checked ?
+     */
+    private boolean isCactusPropertiesChecked;
+
+    /**
+     * Has the log4j subsystem been checked ?
+     */
+    private boolean isLog4jChecked;
+
+    /**
+     * Private constructor (singleton)
+     */
+    private ClientConfigurationChecker()
+    {
+    }
+
+    /**
+     * @return the singleton instance
+     */
+    public static synchronized ClientConfigurationChecker getInstance()
+    {
+        if (instance == null) {
+            instance = new ClientConfigurationChecker();
+        }
+
+        return instance;
+    }
+
+    /**
      * Checks if the <code>cactus.properties</code> file is in the CLASSPATH.
      *
-     * @exception RuntimeException if the properties file is not in the
+     * @exception ChainedRuntimeException if the properties file is not in the
      *            CLASSPATH.
      */
-    public static void checkConfigProperties()
+    public synchronized void checkCactusProperties()
     {
-        InputStream is = ClientConfigurationChecker.class.getResourceAsStream( 
+        if (this.isCactusPropertiesChecked) {
+            return;
+        }
+
+        InputStream is = ClientConfigurationChecker.class.getResourceAsStream(
             "/" + AbstractHttpClient.CONFIG_NAME + ".properties");
         
         if (is == null) {
             String msg = "The Cactus '" + AbstractHttpClient.CONFIG_NAME +
                 ".properties' configuration file need to be present in the " +
                 "java CLASSPATH (i.e. the directory that contains it need " +
-                "to be added to the CLASSPATH).";
-            throw new RuntimeException(msg);
+                "to be added to the client side CLASSPATH - This is the " +
+                "CLASSPATH that you used to start the JUnit test runner).";
+            throw new ChainedRuntimeException(msg);
+        }
+
+        this.isCactusPropertiesChecked = true;
+    }
+
+    /**
+     * Check if the httpclient jar is in the CLASSPATH
+     */
+    public void checkHttpClient()
+    {
+        if (this.isHttpClientChecked) {
+            return;
+        }
+
+        try {
+            Class httpclientClass =
+                Class.forName("org.apache.commons.httpclient.HttpClient");
+        } catch (ClassNotFoundException e) {
+            String msg = "The Commons HttpClient jar file need to be " +
+                "present in the client side CLASSPATH (This is the " +
+                "CLASSPATH that you used to start the JUnit test runner).";
+            throw new ChainedRuntimeException(msg, e);
+        }
+
+        this.isHttpClientChecked = true;
+    }
+
+    /**
+     * Verify that log_client.properties is in the CLASSPATH if the log4j jar
+     * is in the classpath
+     */
+    public void checkLog4j()
+    {
+        if (this.isLog4jChecked) {
+            return;
+        }
+
+        try {
+            Class log4jClass =
+                Class.forName("org.apache.log4j.Category");
+        } catch (ClassNotFoundException e) {
+            // Log4j is not in the classpath, so it is fine if
+            // log_client.properties is not in the classpath as the logging
+            // system will be initialized with no op log class.
+            this.isLog4jChecked = true;
+            return;
+        }
+
+        InputStream is = ClientConfigurationChecker.class.getResourceAsStream(
+            "/" + AbstractTestCase.LOG_CLIENT_CONFIG);
+
+        if (is == null) {
+            String msg = "The '" + AbstractTestCase.LOG_CLIENT_CONFIG +
+                "' logging configuration file need to be present in the " +
+                "java CLASSPATH. If you do not wish to enable logging, " +
+                "please remove the log4j jar from the CLASSPATH.";
+            throw new ChainedRuntimeException(msg);
         }
 
     }

@@ -84,6 +84,15 @@ public class TestAbstractTestCase_InterceptorTestCase
     }
 
     /**
+     * Override default method so that configuration checks are not run during
+     * these unit tests.
+     */
+    public void runBare() throws Throwable
+    {
+        runTest();
+    }
+
+    /**
      * Intercepts running test cases to check for normal exceptions.
      */
      protected void runTest() throws Throwable

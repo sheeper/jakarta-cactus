@@ -89,13 +89,6 @@ public abstract class AbstractHttpClient
         PropertyResourceBundle.getBundle(CONFIG_NAME);
 
     /**
-     * Check client configuration parameters (verify client classpath)
-     */
-    static {
-        ClientConfigurationChecker.checkConfigProperties();
-    }
-
-    /**
      * @return the URL to call the redirector
      */
     protected abstract String getRedirectorURL();
