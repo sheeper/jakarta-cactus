@@ -32,8 +32,8 @@
           requests?</jump>
         </li>
         <li>
-          <jump anchor="faq5">The Ant runservertests task hangs when my server
-          is started</jump>
+          <jump anchor="faq5">The &lt;runservertests&gt; Ant task hangs when 
+          my server is started</jump>
         </li>
         <li>
           <jump anchor="faq6">I'm getting a
@@ -252,23 +252,24 @@ web application is built)
     </section>
 
     <anchor id="faq5"/>
-    <section title="The Ant runservertests task hangs when my server is started">
+    <section title="The &lt;runservertests&gt; Ant task hangs when my server is started">
 
       <section title="Question">
         <p>
-          When I use the <code>runservertests</code> Cactus custom Ant task,
-          it starts my server allright but then hangs and the tests are not
-          executed. What is happening?
+          When I use the <code>&lt;runservertests&gt;</code> Cactus custom Ant 
+          task, it starts my server allright but then hangs and the tests are 
+          not executed. What is happening?
         </p>
       </section>
       <section title="Solution">
         <p>
           It means that the <code>testURL</code> attribute you've specified
-          in <code>runservertests</code> is not a valid URL. It must be a URL
-          that is valid when the server is up. To diagnosis the problem simply
-          open a browser once your server is started (i.e. when the task hangs)
-          and type the URL in your browser. An alternative to debug is also to
-          run Ant in debug mode (<code>ant -debug [your target]</code>).
+          in <code>&lt;runservertests&gt;</code> is not a valid URL. It must 
+          be a URL that is valid when the server is up. To diagnosis the 
+          problem simply open a browser once your server is started (i.e. when 
+          the task hangs) and type the URL in your browser. An alternative to 
+          debug is also to run Ant in debug mode 
+          (<code>ant -debug [your target]</code>).
         </p>
         <p>
           With Cactus 1.3, the correct URL to call is the following, which is

@@ -49,9 +49,9 @@
        </ul>
        <p>
          Cactus provides a custom Ant task (called the
-         <code>runservertests</code> task) that helps perform all these tasks.
-         The rest of this tutorial will explain how to write an Ant build
-         file (<code>build.xml</code>) that performs these tasks and use
+         <code>&lt;runservertests&gt;</code> task) that helps perform all these
+         tasks. The rest of this tutorial will explain how to write an Ant 
+         build file (<code>build.xml</code>) that performs these tasks and use
          the Cactus custom Ant task.
        </p>
         <p>
@@ -64,7 +64,7 @@
 
      </section>
 
-     <section title="The 'runservertests' task">
+     <section title="The &lt;runservertests&gt; task">
 
         <p>
           This task will perform several actions, in the following order:
@@ -79,7 +79,7 @@
             If a server is not started, call the Ant target defined by the
             <code>startTarget</code> attribute (see the example below). This
             target is
-            supposed to start your container. The <code>runservertests</code>
+            supposed to start your container. The <code>&lt;runservertests&gt;</code>
             task will then constantly poll the server by calling the test URL
             until the server answers back,
           </li>
@@ -95,18 +95,18 @@
             <code>testTarget</code> has finished executing), it will then
             call the Ant target defined by the <code>stopTarget</code>
             attribute (see the example below). This target is supposed to stop
-            the container. The <code>runservertests</code>
+            the container. The <code>&lt;runservertests&gt;</code>
             task will then constantly poll the server by calling the test URL
             until the server stops answering, at which point it will consider
             the server to be stopped. Note that the <code>stopTarget</code>
             will only get called if the server was not already started when
-            the <code>runservertests</code> task began executing. This is to
-            allow keeping running servers for intensive debugging phases.
+            the <code>&lt;runservertests&gt;</code> task began executing. This
+            is to allow keeping running servers for intensive debugging phases.
           </li>
         </ul>
         <p>
-          The <code>runservertests</code> task is generic in the sense that
-          you are free to implement the <code>startTarget</code>,
+          The <code>&lt;runservertests&gt;</code> task is generic in the sense 
+          that you are free to implement the <code>startTarget</code>,
           <code>testTarget</code> and <code>stopTarget</code> as you wish and
           they will get called at the right time.
         </p>
@@ -137,8 +137,8 @@
 ]]></source>
 
        <p>
-         Before you can execute the <code>runservertests</code> task, you
-         need to define it for Ant as it is not a standard Ant task. A
+         Before you can execute the <code>&lt;runservertests&gt;</code> task,
+         you need to define it for Ant as it is not a standard Ant task. A
          good place to do this is in an <code>init</code> target.
        </p>
        <p>
@@ -153,7 +153,7 @@
 -->
 <target name="init">
     [...]
-    <taskdef name="runservertests" classname="org.apache.cactus.ant.RunServerTestsTask">
+    <taskdef resource="cactus.tasks">
         <classpath>
             <pathelement location="${cactus.ant.jar}"/>
         </classpath>
@@ -166,7 +166,11 @@
          where <code>${cactus.ant.jar}</code> is an Ant property that points
          to the <code>cactus-ant.jar</code> file found in the
          <code>lib/</code> directory where you unpacked the Cactus
-         distribution.
+         distribution. In this example, <em>&quot;cactus.tasks&quot;</em> 
+         refers to a property file contained in the 
+         <code>cactus-ant.jar</code>. This       property file lists the Ant 
+         tasks provided by Cactus, so you don't need to specify the class name 
+         that implements the task.
        </p>
 
        <note>

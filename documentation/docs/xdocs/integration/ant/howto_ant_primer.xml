@@ -568,8 +568,8 @@
         <filter token="version" value="${project.version}"/>
         <filter token="year" value="${year}"/>
 
-        <!-- Initialize custom Ant task needed for running the server tests -->
-        <taskdef name="runservertests" classname="org.apache.cactus.ant.RunServerTestsTask">
+        <!-- Initialize custom Ant tasks needed for running the server tests -->
+        <taskdef resource="cactus.tasks">
             <classpath>
                 <pathelement location="${cactus.ant.jar}"/>
                 <pathelement path="${java.class.path}"/>
