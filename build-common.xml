@@ -175,7 +175,7 @@
                 <equals arg1="${base.dir}" arg2="samples/servlet"/>
                 <equals arg1="${base.dir}" arg2="samples/jetty"/>
                 <equals arg1="${base.dir}" arg2="integration/ant"/>
-                <equals arg1="${base.dir}" arg2="integration/eclipse"/>
+                <equals arg1="${base.dir}" arg2="integration/eclipse/org.apache.cactus.eclipse.runner"/>
             </or>
         </condition>
 

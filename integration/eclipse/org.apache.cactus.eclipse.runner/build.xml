@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!DOCTYPE project [
-    <!ENTITY common SYSTEM "file:../../build-common.xml">
+    <!ENTITY common SYSTEM "file:../../../build-common.xml">
 ]>
 
 <!--
@@ -22,6 +22,10 @@
 
     <!-- Base directory for all file related operations -->
     <property name="base.dir" value="integration/eclipse/org.apache.cactus.eclipse.runner"/>
+    
+    <property name="org.apache.cactus.eclipse.webapp.dir" value="integration/eclipse/org.apache.cactus.eclipse.webapp"/>
+    <property name="org.apache.cactus.eclipse.webapp.jar.name" value="webapp.jar"/>
+    <property name="org.apache.cactus.eclipse.webapp.jar" value="${org.apache.cactus.eclipse.webapp.dir}/target/${org.apache.cactus.eclipse.webapp.jar.name}"/>
 
     <!-- Include properties and targets common to the different subprojects -->
     &common;
@@ -73,6 +77,8 @@
         </taskdef>
 
         <checkProperty>
+            <property name="org.apache.cactus.eclipse.webapp.jar" isfile="true"/>
+                    
             <property name="eclipse.junit.jar" isfile="true"/>
             <property name="eclipse.core.boot.jar" isfile="true"/>
             <property name="eclipse.core.resources.jar" isfile="true"/>
@@ -147,6 +153,7 @@
 				<pathelement location="${eclipse.jface.jar}"/>
 				<pathelement location="${eclipse.ant.core.jar}"/>
 				<pathelement location="${eclipse.ui.workbench.jar}"/>
+				<pathelement location="${org.apache.cactus.eclipse.webapp.jar}"/>
 
                 <!-- Needed for Gump -->
                 <pathelement location="${java.class.path}"/>
