@@ -59,7 +59,7 @@
         are expected to be set in the HTTP Session, application scope, ...
         before running the test.
       </action>
-      <action>
+      <action assigned-to="Jari Worsley">
         Write a tutorial that explains how to use Cactus to do unit testing of 
         JSP, i.e. only test
         the JSP itself and not the controller part and the model (only test the
