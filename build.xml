@@ -202,20 +202,18 @@
     -->
 
     <!-- Generate Cactus Ant tasks deliverables -->
-    <target name="dist.anttasks" depends="clean.anttasks">
+    <target name="dist.anttasks" depends="init">
 
         <ant target="dist" antfile="${anttasks.dir}/build.xml"
-            inheritAll="false">
+            inheritAll="true">
 
             <property file="build.properties" />
             <property file="${user.home}/build.properties" />
 
             <property name="base.dir" value="${anttasks.dir}"/>
-            <property name="project.version" value="${project.version}"/>
-            <property name="year" value="${year}"/>
-            <property name="debug" value="${debug}"/>
-            <property name="optimize" value="${optimize}"/>
-            <property name="deprecation" value="${deprecation}"/>
+            <property name="project.name.text" value="Cactus Ant tasks"/>
+            <property name="project.name.file" value="cactus-ant"/>
+            <property name="target.dir" value="${anttasks.dir}/target"/>
             <property name="dist.dir" value="${anttasks.dir}/${dist.dir}"/>
             <property name="dist.lib.dir"
                 value="${anttasks.dir}/${dist.lib.dir}"/>
@@ -223,7 +221,6 @@
                 value="${anttasks.dir}/${dist.doc.dir}"/>
             <property name="dist.doc.api.dir"
                 value="${anttasks.dir}/${dist.doc.api.dir}"/>
-            <property name="anttasks.jar.name" value="${anttasks.jar.name}"/>
         </ant>
 
         <copy todir="${dist.lib.dir}">
@@ -238,20 +235,18 @@
     </target>
 
     <!-- Generate Cactus Ant tasks deliverables -->
-    <target name="dist.framework" depends="clean.framework">
+    <target name="dist.framework" depends="init">
 
         <ant target="dist" antfile="${framework.dir}/build.xml"
-            inheritAll="false">
+            inheritAll="true">
 
             <property file="build.properties" />
             <property file="${user.home}/build.properties" />
 
             <property name="base.dir" value="${framework.dir}"/>
-            <property name="project.version" value="${project.version}"/>
-            <property name="year" value="${year}"/>
-            <property name="debug" value="${debug}"/>
-            <property name="optimize" value="${optimize}"/>
-            <property name="deprecation" value="${deprecation}"/>
+            <property name="project.name.text" value="Cactus Framework"/>
+            <property name="project.name.file" value="cactus"/>
+            <property name="target.dir" value="${framework.dir}/target"/>
             <property name="dist.dir" value="${framework.dir}/${dist.dir}"/>
             <property name="dist.lib.dir"
                 value="${framework.dir}/${dist.lib.dir}"/>
@@ -261,7 +256,6 @@
                 value="${framework.dir}/${dist.doc.api.dir}"/>
             <property name="dist.web.dir"
                 value="${framework.dir}/${dist.web.dir}"/>
-            <property name="framework.jar.name" value="${framework.jar.name}"/>
         </ant>
 
         <copy todir="${dist.lib.dir}">
@@ -280,20 +274,19 @@
     </target>
 
     <!-- Generate Cactus Servlet Sample deliverables -->
-    <target name="dist.sample-servlet" depends="clean.sample-servlet">
+    <target name="dist.sample-servlet" depends="init">
 
          <ant target="dist" antfile="${sample-servlet.dir}/build.xml"
-            inheritAll="false">
+            inheritAll="true">
 
             <property file="build.properties" />
             <property file="${user.home}/build.properties" />
 
             <property name="base.dir" value="${sample-servlet.dir}"/>
-            <property name="project.version" value="${project.version}"/>
-            <property name="year" value="${year}"/>
-            <property name="debug" value="${debug}"/>
-            <property name="optimize" value="${optimize}"/>
-            <property name="deprecation" value="${deprecation}"/>
+            <property name="project.name.text" value="Cactus Documentation"/>
+            <property name="project.name.text" value="Cactus Servlet Sample"/>
+            <property name="project.name.file" value="sample-servlet"/>
+            <property name="target.dir" value="${sample-servlet.dir}/target"/>
             <property name="dist.dir"
                 value="${sample-servlet.dir}/${dist.dir}"/>
             <property name="dist.bin.dir"
@@ -315,17 +308,16 @@
     </target>
 
     <!-- Generate Documentation deliverables -->
-    <target name="dist.documentation" depends="clean.documentation,dist.anttasks">
+    <target name="dist.documentation" depends="dist.anttasks">
 
         <ant target="dist" antfile="${documentation.dir}/build.xml"
-            inheritAll="false">
+            inheritAll="true">
 
             <property file="build.properties" />
             <property file="${user.home}/build.properties" />
 
             <property name="base.dir" value="${documentation.dir}"/>
-            <property name="project.version" value="${project.version}"/>
-            <property name="year" value="${year}"/>
+            <property name="target.dir" value="${documentation.dir}/target"/>
             <property name="dist.dir"
                 value="${documentation.dir}/${dist.dir}"/>
             <property name="dist.doc.dir"
