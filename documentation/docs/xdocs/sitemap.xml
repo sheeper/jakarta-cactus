@@ -418,8 +418,9 @@
   <external id="gump_cactus_sample_servlet_13" url="http://cvs.apache.org/builds/gump/latest/jakarta-cactus-sample-servlet-13.html"/>
   <external id="gump_cactus_integration_ant_12" url="http://cvs.apache.org/builds/gump/latest/jakarta-cactus-integration-ant-12.html"/>
   <external id="gump_cactus_integration_ant_13" url="http://cvs.apache.org/builds/gump/latest/jakarta-cactus-integration-ant-13.html"/>
-  <external id="gump_cactus_integration_eclipse_12" url="http://cvs.apache.org/builds/gump/latest/jakarta-cactus-integration-eclipse-12.html"/>
-  <external id="gump_cactus_integration_eclipse_13" url="http://cvs.apache.org/builds/gump/latest/jakarta-cactus-integration-eclipse-13.html"/>
+  <external id="gump_cactus_integration_eclipse_webapp" url="http://cvs.apache.org/builds/gump/latest/jakarta-cactus-integration-eclipse-webapp.html"/>
+  <external id="gump_cactus_integration_eclipse_runner_12" url="http://cvs.apache.org/builds/gump/latest/jakarta-cactus-integration-eclipse-runner-12.html"/>
+  <external id="gump_cactus_integration_eclipse_runner_13" url="http://cvs.apache.org/builds/gump/latest/jakarta-cactus-integration-eclipse-runner-13.html"/>
   <external id="gump_jars" url="http://gump.covalent.net/jars/latest/"/>
   <external id="gump_results" url="http://cvs.apache.org/builds/gump/latest"/>
   <external id="httpclient_other" url="http://www.innovation.ch/java/HTTPClient/"/>
