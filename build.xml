@@ -89,6 +89,11 @@
       <property name="j2ee.jar" value="${j2ee.13.jar}"/>
       <property name="clover.enable" value="true"/>
     </ant>
+    <ant antfile="samples/ejb/build.xml" inheritAll="false" 
+        target="dist">
+      <property name="j2ee.jar" value="${j2ee.13.jar}"/>
+      <property name="clover.enable" value="true"/>
+    </ant>
     <ant antfile="documentation/build.xml" inheritAll="false" 
         target="dist">
       <property name="javadoc.include" value="true"/>
@@ -155,7 +160,7 @@
           prefix="${main.release.name}/lib"/>
       <zipfileset file="${j2ee.jar}"
           prefix="${main.release.name}/lib"/>
-      <zipfileset dir="samples/servlet/target-${j2ee.api}/sample"
+      <zipfileset dir="${cactus.samples.servlet.bin}"
           prefix="${main.release.name}/samples/servlet">
         <exclude name="lib/**"/>
       </zipfileset>
@@ -184,12 +189,18 @@
 
     <zip destfile="${release.dir}/${main.release.name}.zip">
       <zipfileset src="${release.dir}/tmp.zip"/>
-      <zipfileset dir="samples/jetty/dist-${j2ee.api}/bin"
-          prefix="${main.release.name}/samples/jetty"/>
+      <zipfileset dir="${cactus.samples.jetty.bin}"
+          prefix="${main.release.name}/samples/jetty">
+        <exclude name="lib/**"/>
+      </zipfileset>
       <zipfileset file="${jstl.jar}"
           prefix="${main.release.name}/samples/servlet/lib"/>
       <zipfileset file="${standard.jar}"
           prefix="${main.release.name}/samples/servlet/lib"/>
+      <zipfileset dir="${cactus.samples.ejb.bin}"
+          prefix="${main.release.name}/samples/ejb">
+        <exclude name="lib/**"/>
+      </zipfileset>
     </zip>
     <delete file="${release.dir}/tmp.zip"/>
 
@@ -266,6 +277,10 @@
       <property name="j2ee.jar" value="${j2ee.13.jar}"/>
     </ant>
     <ant antfile="samples/jetty/build.xml" inheritAll="false" 
+        target="clean">
+      <property name="j2ee.jar" value="${j2ee.13.jar}"/>
+    </ant>
+    <ant antfile="samples/ejb/build.xml" inheritAll="false" 
         target="clean">
       <property name="j2ee.jar" value="${j2ee.13.jar}"/>
     </ant>

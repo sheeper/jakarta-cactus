@@ -216,6 +216,14 @@
     <property name="cactus.samples.servlet.bin"
         location="samples/servlet/dist-${j2ee.api}/bin"/>
 
+    <!-- The Sample Jetty dist -->
+    <property name="cactus.samples.jetty.bin"
+        location="samples/jetty/dist-${j2ee.api}/bin"/>
+
+    <!-- The Sample EJB dist -->
+    <property name="cactus.samples.ejb.bin"
+        location="samples/ejb/dist-${j2ee.api}/bin"/>
+
   </target>
 
   <!--
