@@ -332,6 +332,7 @@ integration/ant/src/java/org/apache/cactus/integration/ant/CactusTask.java svn_k
 integration/ant/src/java/org/apache/cactus/integration/ant/RunServerTestsTask.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/java/org/apache/cactus/integration/ant/WebXmlMergeTask.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/java/org/apache/cactus/integration/ant/applicationxml/ApplicationXml.java svn_keywords=Author+Date+Id+Revision
+integration/ant/src/java/org/apache/cactus/integration/ant/applicationxml/ApplicationXmlIo.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/java/org/apache/cactus/integration/ant/applicationxml/ApplicationXmlTag.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/java/org/apache/cactus/integration/ant/container/AbstractContainer.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/java/org/apache/cactus/integration/ant/container/AbstractJavaContainer.java svn_keywords=Author+Date+Id+Revision
