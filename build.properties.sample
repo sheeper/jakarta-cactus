@@ -71,16 +71,16 @@ xmlapis.jar = ${lib.repo}/xerces/jars/xmlParserAPIs-2.2.1.jar
 tidy.jar = ${lib.repo}/jtidy/jars/jtidy-4aug2000r7-dev.jar
 
 # -----------------------------------------------------------------------------
-# Mandatory property for the Eclipse plugin ant the sample jetty
+# Mandatory properties for the Eclipse plugin ant the Jetty Sample
 # -----------------------------------------------------------------------------
 # The Jetty container is packaged in the Eclipse plugin and is used as the 
-# default container in which to run the Cactus tests.
+# default container in which to run the Cactus tests
 
 # The location of the Jetty jar
 jetty.jar = ${lib.repo}/jetty/jars/org.mortbay.jetty-4.2.9.jar
 
 # -----------------------------------------------------------------------------
-# Mandatory property for the sample jetty
+# Mandatory properties for the Jetty Sample
 # -----------------------------------------------------------------------------
 
 # The location of the Jasper compiler jar
