@@ -175,7 +175,7 @@
         stylesheet was set to be "US-ASCII". It is now set to "UTF-8". 
         Apparently, XSLT processors are only required to support utf-8 
         and utf-16, the rest is processor specific. For example your 
-        processor might spupport US-ASCII-7 and others might support 
+        processor might support US-ASCII-7 and others might support 
         US-ASCII. Thanks to Robert Koberg for the explanation!
       </action>
     </release>
