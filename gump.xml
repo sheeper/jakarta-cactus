@@ -123,6 +123,8 @@
     <depend project="aspectj"/>
     <depend project="jakarta-tomcat"/>
 
+    <jar name="sample-servlet/dist-12/bin/sample-servlet.zip"/>
+
     <nag from="Vincent Massol &lt;vmassol@apache.org&gt;"
          to="cactus-dev@jakarta.apache.org"/>
   </project>
@@ -190,6 +192,8 @@
     <depend project="xml-xerces"/>
     <depend project="jakarta-tomcat-4.0" inherit="runtime"/>
     <depend project="aspectj"/>
+
+    <jar name="sample-servlet/dist-13/bin/sample-servlet.zip"/>
 
     <nag from="Vincent Massol &lt;vmassol@apache.org&gt;"
          to="cactus-dev@jakarta.apache.org"/>
