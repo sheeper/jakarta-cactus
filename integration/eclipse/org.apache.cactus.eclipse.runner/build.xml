@@ -307,8 +307,7 @@
         <mkdir dir="${release.dir}"/>
 
         <zip destfile="${release.dir}/${main.release.name}.zip">
-            <zipfileset dir="${dist.bin.integration.dir}">
-            </zipfileset>
+            <zipfileset dir="${dist.bin.integration.dir}"/>
         </zip>
         
     </target>
