@@ -479,7 +479,7 @@ generated. Run 'ant dist.javadoc -verbose' to find out what the problem is.</fai
     <target name="upload.release" depends="upload.init" 
         unless="is.dev.version">
 
-        <echo>Deploying release version to ${cactus.homepage} ...</echo>
+        <echo>Deploying release version to ${cactus.homepage}/${project.version} ...</echo>
         
         <exec dir="." executable="${ssh}">
             <arg line="-l ${jakarta.username} jakarta.apache.org 'cd /tmp;rm -Rf ${main.release.name};unzip ${main.release.name}.zip;cp -Rfv ${main.release.name}/* ${cactus.homepage}/${project.version};rm -Rf ${main.release.name}.zip;rm -Rf ${main.release.name}'"/>
@@ -490,7 +490,7 @@ generated. Run 'ant dist.javadoc -verbose' to find out what the problem is.</fai
     <target name="upload.dev" depends="upload.init" 
         if="is.dev.version">
 
-        <echo>Deploying dev version to ${cactus.homepage}/${project.version} ...</echo>
+        <echo>Deploying dev version to ${cactus.homepage} ...</echo>
 
         <exec dir="." executable="${ssh}">
             <arg line="-l ${jakarta.username} jakarta.apache.org 'cd /tmp;rm -Rf ${main.release.name};unzip ${main.release.name}.zip;cp -Rfv ${main.release.name}/* ${cactus.homepage};rm -Rf ${main.release.name}.zip;rm -Rf ${main.release.name}'"/>
