@@ -42,19 +42,11 @@
 
     <category title="Documentation">
       <action>
-        Add doc for the new feature to run JUnit Test Case without modifying 
-        them on the server side.
-      </action>
-      <action>
         Modify the web site presentation: start by introducing the Cactus
         Ecosystem: framework + front ends.
       </action>
       <action assigned-to="Christopher Lenz">
         Add a web site sitemap.
-      </action>
-      <action>
-        Update web site for new <code>begin()</code> and <code>end()</code>
-        methods.
       </action>
       <action>
         Add documentation for the new Initializer feature.
