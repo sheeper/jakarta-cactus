@@ -56,33 +56,110 @@
  */
 package org.apache.cactus.integration.ant.deployment;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.xml.sax.SAXException;
 
 /**
- * Encapsulates access to a WAR.
+ * Encapsulates access to an EAR.
  * 
+ * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @since Cactus 1.5
  * @version $Id$
  */
-public interface WarArchive extends JarArchive
+public class DefaultEarArchive extends DefaultJarArchive implements EarArchive
 {
+    // Instance Variables ------------------------------------------------------
+
     /**
-     * Returns the deployment descriptor of the web application.
-     * 
-     * @return The parsed deployment descriptor
-     * @throws IOException If there was a problem reading the  deployment
-     *         descriptor in the WAR
-     * @throws SAXException If the deployment descriptor of the WAR could not
-     *         be parsed
-     * @throws ParserConfigurationException If there is an XML parser
-     *         configration problem
+     * The parsed deployment descriptor.
      */
-    WebXml getWebXml()
-        throws IOException, SAXException, ParserConfigurationException;
+    private ApplicationXml applicationXml;
+
+    // Constructors ------------------------------------------------------------
+    
+    /**
+     * Constructor.
+     * 
+     * @param theFile The enterprise application archive
+     * @throws IOException If there was a problem reading the EAR
+     */
+    public DefaultEarArchive(File theFile)
+        throws IOException
+    {
+        super(theFile);
+    }
+
+    /**
+     * Constructor.
+     * 
+     * @param theInputStream The input stream for the enterprise application
+     *        archive
+     * @throws IOException If there was a problem reading the EAR
+     */
+    public DefaultEarArchive(InputStream theInputStream)
+        throws IOException
+    {
+        super(theInputStream);
+    }
+
+    // Public Methods ----------------------------------------------------------
+
+    /**
+     * @see EarArchive#getApplicationXml()
+     */
+    public final ApplicationXml getApplicationXml()
+        throws IOException, SAXException, ParserConfigurationException
+    {
+        if (this.applicationXml == null)
+        {
+            InputStream in = null;
+            try
+            {
+                in = getResource("META-INF/application.xml");
+                this.applicationXml =
+                    ApplicationXmlIo.parseApplicationXml(in, null);
+            }
+            finally
+            {
+                if (in != null)
+                {
+                    in.close();
+                }
+            }
+        }
+        return this.applicationXml;
+    }
+
+    /**
+     * @see EarArchive#getWebModule(String)
+     */
+    public final WarArchive getWebModule(String theUri)
+        throws IOException
+    {
+        InputStream war = null;
+        try
+        {
+            war = getResource(theUri);
+            if (war != null)
+            {
+                return new DefaultWarArchive(war);
+            }
+        }
+        finally
+        {
+            if (war != null)
+            {
+                war.close();
+            }
+        }
+        return null;
+    }
+
 }

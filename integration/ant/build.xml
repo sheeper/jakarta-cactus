@@ -77,6 +77,7 @@
     <echo>Dependencies:</echo>
     <echo>  commons.logging.jar = [${commons.logging.jar}]</echo>
     <echo>  junit.jar = [${junit.jar}]</echo>
+    <echo>  mockobjects.jar = [${mockobjects.jar}]</echo>
     <echo>  xerces.jar (optional) = [${xerces.jar}]</echo>
     <echo>  xmlapis.jar (optional) = [${xmlapis.jar}]</echo>
     <echo/>
@@ -94,6 +95,7 @@
       <and>
         <available file="${commons.logging.jar}"/>
         <available file="${junit.jar}"/>
+        <available file="${mockobjects.jar}"/>
         <!-- Check for a JAXP class instead of the xmlapis.jar file so that
              the build works on JDK 1.4 without needing to define the
              xmlapis.jar property -->
@@ -199,6 +201,7 @@ be resolved. Please check you build.properties file, and run Ant with the
       <classpath>
         <path refid="project.classpath"/>
         <pathelement location="${junit.jar}"/>
+        <pathelement location="${mockobjects.jar}"/>
         <pathelement location="${target.classes.java.dir}"/>
       </classpath>
     </javac>
@@ -275,6 +278,7 @@ be resolved. Please check you build.properties file, and run Ant with the
       <path refid="project.classpath"/>
       <pathelement path="${clover.jar}"/>
       <pathelement location="${junit.jar}"/>
+      <pathelement location="${mockobjects.jar}"/>
       <pathelement path="${target.classes.clover.dir}"/>
       <pathelement path="${target.classes.test.dir}"/>
     </path>
@@ -287,6 +291,7 @@ be resolved. Please check you build.properties file, and run Ant with the
     <path id="test.classpath">
       <path refid="project.classpath"/>
       <pathelement location="${junit.jar}"/>
+      <pathelement location="${mockobjects.jar}"/>
       <pathelement path="${target.classes.java.dir}"/>
       <pathelement path="${target.classes.test.dir}"/>
     </path>

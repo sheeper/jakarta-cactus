@@ -57,14 +57,8 @@
 package org.apache.cactus.integration.ant.container;
 
 import java.io.File;
-import java.io.IOException;
-import java.util.Iterator;
-
-import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.cactus.integration.ant.deployment.WarArchive;
-import org.apache.tools.ant.BuildException;
-import org.xml.sax.SAXException;
 
 /**
  * Logic common to all deployable implementations (WAR and EAR
@@ -72,6 +66,7 @@ import org.xml.sax.SAXException;
  * 
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
+ * @since Cactus 1.5
  * @version $Id$
  */
 public abstract class AbstractDeployableFile implements DeployableFile
@@ -90,7 +85,7 @@ public abstract class AbstractDeployableFile implements DeployableFile
     /**
      * Webapp context path containing the Cactus tests
      */
-    protected String contextPath;
+    protected String testContext;
         
     /**
      * Servlet mapping of the Cactus Servlet redirector found
@@ -111,36 +106,6 @@ public abstract class AbstractDeployableFile implements DeployableFile
     protected String jspRedirectorMapping;
 
     /**
-     * @param theDeployableFile the WAR/EAR file to deploy in a container
-     * @exception BuildException on parsing error
-     */
-    public AbstractDeployableFile(File theDeployableFile) throws BuildException
-    {
-        this.deployableFile = theDeployableFile;        
-
-        try
-        {
-            parse();        
-            parseServletRedirectorMapping();
-            parseFilterRedirectorMapping();
-            parseJspRedirectorMapping();
-        }
-        catch (SAXException e)
-        {
-            throw new BuildException(
-                "Parsing of deployment descriptor failed", e);
-        }
-        catch (IOException e)
-        {
-            throw new BuildException("Failed to open archive", e);
-        }
-        catch (ParserConfigurationException e)
-        {
-            throw new BuildException("XML parser configuration error", e);
-        }
-    }
-
-    /**
      * @see DeployableFile#getFile()
      */
     public final File getFile()
@@ -149,13 +114,30 @@ public abstract class AbstractDeployableFile implements DeployableFile
     }
 
     /**
+     * @param theDeployableFile the file to deploy
+     */
+    public final void setFile(File theDeployableFile)
+    {
+        this.deployableFile = theDeployableFile;
+    }
+    
+    /**
      * @see DeployableFile#getTestContext()
      */
     public final String getTestContext()
     {
-        return this.contextPath;
+        return this.testContext;
     }
 
+    /**
+     * @param theTestContext the test context that will be used to test if the
+     *        container is started or not
+     */
+    public final void setTestContext(String theTestContext)
+    {
+        this.testContext = theTestContext;
+    }
+    
     /**
      * @see DeployableFile#getServletRedirectorMapping()
      */
@@ -165,11 +147,27 @@ public abstract class AbstractDeployableFile implements DeployableFile
     }
 
     /**
+     * @param theMapping the servlet redirector mapping
+     */
+    public final void setServletRedirectorMapping(String theMapping)
+    {
+        this.servletRedirectorMapping = theMapping;
+    }
+    
+    /**
      * @see DeployableFile#getFilterRedirectorMapping()
      */
     public final String getFilterRedirectorMapping()
     {
         return this.filterRedirectorMapping;
+    }
+
+    /**
+     * @param theMapping the filter redirector mapping
+     */
+    public final void setFilterRedirectorMapping(String theMapping)
+    {
+        this.filterRedirectorMapping = theMapping;
     }
 
     /**
@@ -181,139 +179,26 @@ public abstract class AbstractDeployableFile implements DeployableFile
     }
 
     /**
+     * @param theMapping the JSP redirector mapping
+     */
+    public final void setJspRedirectorMapping(String theMapping)
+    {
+        this.jspRedirectorMapping = theMapping;
+    }
+
+    /**
      * @see DeployableFile#getWarArchive()
      */
     public final WarArchive getWarArchive()
     {
         return this.warArchive;
     }
-    
+  
     /**
-     * Parse the WAR/EAR deployment descriptor to extract needed information.
-     * 
-     * @throws IOException If there was a problem reading the deployment
-     *         descriptor in the WAR
-     * @throws SAXException If the deployment descriptor of the WAR could not
-     *         be parsed
-     * @throws ParserConfigurationException If there is an XML parser
-     *         configration problem
+     * @param theWarArchive the WAR archive object
      */
-    protected abstract void parse() 
-        throws IOException, SAXException, ParserConfigurationException;
-
-    /**
-     * @see #parseServletRedirectorMapping(WarArchive)
-     */
-    protected void parseServletRedirectorMapping()
-        throws SAXException, IOException, ParserConfigurationException
+    public final void setWarArchive(WarArchive theWarArchive)
     {
-        this.servletRedirectorMapping =
-            parseServletRedirectorMapping(this.warArchive);
-    }
-
-    /**
-     * Find the first URL-pattern to which the Cactus servlet redirector is 
-     * mapped in the deployment descriptor.
-     *
-     * @return the servlet redirector mapping if found or <code>null</code>
-     *         if not found
-     * @param theWar the WAR descriptor that is parsed when looking for
-     *        a Cactus servlet redirector mapping  
-     * @throws IOException If there was a problem reading the deployment
-     *         descriptor in the WAR
-     * @throws SAXException If the deployment descriptor of the WAR could not
-     *         be parsed
-     * @throws ParserConfigurationException If there is an XML parser
-     *         configration problem
-     */
-    protected String parseServletRedirectorMapping(WarArchive theWar)
-        throws SAXException, IOException, ParserConfigurationException
-    {
-        Iterator servletNames = theWar.getWebXml().getServletNamesForClass(
-            "org.apache.cactus.server.ServletTestRedirector");
-        if (servletNames.hasNext())
-        {
-            // we only care about the first definition and the first mapping
-            String name = (String) servletNames.next(); 
-            Iterator mappings = theWar.getWebXml().getServletMappings(name);
-            if (mappings.hasNext())
-            {
-                return (String) mappings.next();
-            }
-        }        
-        return null;
-    }
-
-    /**
-     * Find the first URL-pattern to which the Cactus filter redirector is 
-     * mapped in the deployment descriptor.
-     * 
-     * @throws IOException If there was a problem reading the  deployment
-     *         descriptor in the WAR
-     * @throws SAXException If the deployment descriptor of the WAR could not
-     *         be parsed
-     * @throws ParserConfigurationException If there is an XML parser
-     *         configration problem
-     */
-    private void parseFilterRedirectorMapping()
-        throws IOException, SAXException, ParserConfigurationException
-    {
-        Iterator filterNames = 
-            this.warArchive.getWebXml().getFilterNamesForClass(
-            "org.apache.cactus.server.FilterTestRedirector");
-        if (filterNames.hasNext())
-        {
-            // we only care about the first definition and the first mapping
-            String name = (String) filterNames.next(); 
-            Iterator mappings = 
-                this.warArchive.getWebXml().getFilterMappings(name);
-            if (mappings.hasNext())
-            {
-                this.filterRedirectorMapping = (String) mappings.next();
-                return;
-            }
-        }
-        this.filterRedirectorMapping = null;
-    }
-
-    /**
-     * Find the first URL-pattern to which the Cactus JSP redirector is 
-     * mapped in the deployment descriptor.
-     * 
-     * @throws IOException If there was a problem reading the  deployment
-     *         descriptor in the WAR
-     * @throws SAXException If the deployment descriptor of the WAR could not
-     *         be parsed
-     * @throws ParserConfigurationException If there is an XML parser
-     *         configration problem
-     */
-    private void parseJspRedirectorMapping()
-        throws IOException, SAXException, ParserConfigurationException
-    {
-        // To get the JSP redirector mapping, we must first get the full path to
-        // the corresponding JSP file in the WAR
-        String jspRedirectorPath = 
-            this.warArchive.findResource("jspRedirector.jsp");
-        if (jspRedirectorPath != null)
-        {
-            jspRedirectorPath = "/" + jspRedirectorPath;
-            Iterator jspNames = 
-                this.warArchive.getWebXml().getServletNamesForJspFile(
-                jspRedirectorPath);
-            if (jspNames.hasNext())
-            {
-                // we only care about the first definition and the first
-                // mapping
-                String name = (String) jspNames.next(); 
-                Iterator mappings = 
-                    this.warArchive.getWebXml().getServletMappings(name);
-                if (mappings.hasNext())
-                {
-                    this.jspRedirectorMapping = (String) mappings.next();
-                    return;
-                }
-            }
-        }
-        this.jspRedirectorMapping = null;
+        this.warArchive = theWarArchive;
     }
 }

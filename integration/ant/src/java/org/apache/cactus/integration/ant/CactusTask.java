@@ -67,8 +67,8 @@ import java.util.ResourceBundle;
 import org.apache.cactus.integration.ant.container.Container;
 import org.apache.cactus.integration.ant.container.ContainerRunner;
 import org.apache.cactus.integration.ant.container.DeployableFile;
-import org.apache.cactus.integration.ant.container.EarDeployableFile;
-import org.apache.cactus.integration.ant.container.WarDeployableFile;
+import org.apache.cactus.integration.ant.container.EarParser;
+import org.apache.cactus.integration.ant.container.WarParser;
 import org.apache.cactus.integration.ant.util.AntLog;
 import org.apache.cactus.integration.ant.util.AntTaskFactory;
 import org.apache.cactus.integration.ant.util.PropertySet;
@@ -183,11 +183,11 @@ public class CactusTask extends JUnitTask
         DeployableFile deployableFile;
         if (this.warFile != null)
         {
-            deployableFile = new WarDeployableFile(this.warFile);
+            deployableFile = WarParser.parse(this.warFile);
         }
         else 
         {
-            deployableFile = new EarDeployableFile(this.earFile);
+            deployableFile = EarParser.parse(this.earFile);
         } 
 
         addRedirectorNameProperties(deployableFile);

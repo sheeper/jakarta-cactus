@@ -54,35 +54,89 @@
  * <http://www.apache.org/>.
  *
  */
-package org.apache.cactus.integration.ant.deployment;
+package org.apache.cactus.integration.ant.container;
 
-import java.io.IOException;
+import org.apache.cactus.integration.ant.deployment.ApplicationXml;
+import org.apache.cactus.integration.ant.deployment.EarArchive;
 
-import javax.xml.parsers.ParserConfigurationException;
+import com.mockobjects.dynamic.Mock;
 
-import org.xml.sax.SAXException;
+import junit.framework.TestCase;
 
 /**
- * Encapsulates access to a WAR.
- * 
+ * Unit tests for {@link EarParser}.
+ *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
- * @since Cactus 1.5
  * @version $Id$
  */
-public interface WarArchive extends JarArchive
-{
+public final class TestEarParser extends TestCase
+{   
     /**
-     * Returns the deployment descriptor of the web application.
-     * 
-     * @return The parsed deployment descriptor
-     * @throws IOException If there was a problem reading the  deployment
-     *         descriptor in the WAR
-     * @throws SAXException If the deployment descriptor of the WAR could not
-     *         be parsed
-     * @throws ParserConfigurationException If there is an XML parser
-     *         configration problem
+     * Control mock for {@link ApplicationXml}.
      */
-    WebXml getWebXml()
-        throws IOException, SAXException, ParserConfigurationException;
+    private Mock mockApplicationXml;
+
+    /**
+     * Mock for {@link ApplicationXml}.
+     */
+    private ApplicationXml applicationXml;
+
+    /**
+     * Control mock for {@link EarArchive}.
+     */
+    private Mock mockArchive;
+
+    /**
+     * Mock for {@link EarArchive}.
+     */
+    private EarArchive archive;
+    
+    /**
+     * @see TestCase#setUp()
+     */
+    protected void setUp()
+    {
+        mockApplicationXml = new Mock(ApplicationXml.class);
+        applicationXml = (ApplicationXml) mockApplicationXml.proxy();
+
+        mockArchive = new Mock(EarArchive.class);
+        archive = (EarArchive) mockArchive.proxy();
+        mockArchive.expectAndReturn("getApplicationXml", applicationXml); 
+    }
+
+    /**
+     * Verify that if the <code>application.xml</code> defines a
+     * <code>context-root</code> element, then Cactus will use it
+     * as the test context to use when polling the container to see
+     * if it is started.
+     * 
+     * @exception Exception on error
+     */
+    public void testParseTestContextWhenWebUriDefined() throws Exception
+    {
+        mockApplicationXml.expectAndReturn("getWebModuleContextRoot", 
+            "test.war", "/testcontext");
+
+        String context = EarParser.parseTestContext(archive, "test.war");
+        assertEquals("testcontext", context);
+    }
+
+    /**
+     * Verify that if the <code>application.xml</code> does not define a
+     * <code>context-root</code> element, then Cactus will use the web URI
+     * as the test context (minus the ".war" extension). This test context
+     * is used when polling the container to see if it is started.
+     * 
+     * @exception Exception on error
+     */
+    public void testParseTestContextWhenNoWebUriInApplicationXml() 
+        throws Exception
+    {
+        mockApplicationXml.expectAndReturn("getWebModuleContextRoot", 
+            "test.war", null);
+        
+        String context = EarParser.parseTestContext(archive, "test.war");
+        assertEquals("test", context);
+    }
 }

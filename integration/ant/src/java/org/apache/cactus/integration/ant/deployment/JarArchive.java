@@ -56,82 +56,20 @@
  */
 package org.apache.cactus.integration.ant.deployment;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.jar.JarInputStream;
-import java.util.zip.ZipEntry;
 
 /**
- * Abstract base class for classes that provide convenient access to the
- * contents of a J2EE deployment archive (EAR or WAR, for example).
- * 
- * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
+ * Provide convenient methods to read information from a Jar archive.
+ *
+ * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @since Cactus 1.5
  * @version $Id$
  */
-public class JarArchive
+public interface JarArchive
 {
-
-    // Instance Variables ------------------------------------------------------
-
-    /**
-     * The content of the archive as an input stream.
-     */
-    private byte content[];
-
-    // Constructors ------------------------------------------------------------
-    
-    /**
-     * Constructor.
-     * 
-     * @param theFile The archive file
-     * @throws IOException If there was a problem reading the WAR
-     */
-    public JarArchive(File theFile)
-        throws IOException
-    {
-        this(new FileInputStream(theFile));
-    }
-
-    /**
-     * Constructor.
-     * 
-     * @param theInputStream The input stream for the archive (it will be closed
-     *        after the constructor returns)
-     * @throws IOException If there was a problem reading the WAR
-     */
-    public JarArchive(InputStream theInputStream)
-        throws IOException
-    {
-        try
-        {
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            byte[] buffer = new byte[2048];
-            int bytesRead = -1;
-            while ((bytesRead = theInputStream.read(buffer)) != -1)
-            {
-                baos.write(buffer, 0, bytesRead);
-            }
-            this.content = baos.toByteArray();
-        }
-        finally
-        {
-            if (theInputStream != null)
-            {
-                theInputStream.close();
-            }
-        }
-    }
-
-    // Public Methods ----------------------------------------------------------
-
     /**
      * Returns whether a class of the specified name is contained in the
      * archive.
@@ -140,12 +78,7 @@ public class JarArchive
      * @return Whether the class was found
      * @throws IOException If an I/O error occurred reading the archive
      */
-    public boolean containsClass(String theClassName)
-        throws IOException
-    {
-        String resourceName = theClassName.replace('.', '/') + ".class";
-        return (getResource(resourceName) != null);
-    }
+    boolean containsClass(String theClassName) throws IOException;
 
     /**
      * Returns the full path of a named resource in the archive.
@@ -154,38 +87,8 @@ public class JarArchive
      * @return The full path to the resource inside the archive
      * @throws IOException If an I/O error occurred reading the archive
      */
-    public final String findResource(String theName)
-        throws IOException
-    {
-        JarInputStream in = null;
-        try
-        {
-            in = new JarInputStream(getContentAsStream());
-            ZipEntry entry = null;
-            while ((entry = in.getNextEntry()) != null)
-            {
-                String entryName = entry.getName();
-                int lastSlashIndex = entryName.lastIndexOf('/');
-                if (lastSlashIndex >= 0)
-                {
-                    entryName = entryName.substring(lastSlashIndex + 1);
-                }
-                if (entryName.equals(theName))
-                {
-                    return entry.getName();
-                }
-            }
-        }
-        finally
-        {
-            if (in != null)
-            {
-                in.close();
-            }
-        }
-        return null;
-    }
-
+    String findResource(String theName) throws IOException;
+    
     /**
      * Returns a resource from the archive as input stream.
      * 
@@ -194,39 +97,8 @@ public class JarArchive
      *         <code>null</code> if the resource was not found in the JAR
      * @throws IOException If an I/O error occurs
      */
-    public final InputStream getResource(String thePath)
-        throws IOException
-    {
-        JarInputStream in = null;
-        try
-        {
-            in = getContentAsStream();
-            ZipEntry zipEntry = null;
-            while ((zipEntry = in.getNextEntry()) != null)
-            {
-                if (thePath.equals(zipEntry.getName()))
-                {
-                    ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-                    byte bytes[] = new byte[2048];
-                    int bytesRead = -1;
-                    while ((bytesRead = in.read(bytes)) != -1)
-                    {
-                        buffer.write(bytes, 0, bytesRead);
-                    }
-                    return new ByteArrayInputStream(buffer.toByteArray());
-                }
-            }
-        }
-        finally
-        {
-            if (in != null)
-            {
-                in.close();
-            }
-        }
-        return null;
-    }
-
+    InputStream getResource(String thePath) throws IOException;
+    
     /**
      * Returns the list of resources in the specified directory.
      * 
@@ -234,46 +106,5 @@ public class JarArchive
      * @return The list of resources
      * @throws IOException If an I/O error occurs
      */
-    public final List getResources(String thePath)
-        throws IOException
-    {
-        List resources = new ArrayList();
-        JarInputStream in = null;
-        try
-        {
-            in = getContentAsStream();
-            ZipEntry zipEntry = null;
-            while ((zipEntry = in.getNextEntry()) != null)
-            {
-                if ((zipEntry.getName().startsWith(thePath)
-                 && !zipEntry.getName().equals(thePath)))
-                {
-                    resources.add(zipEntry.getName());
-                }
-            }
-        }
-        finally
-        {
-            if (in != null)
-            {
-                in.close();
-            }
-        }
-        return resources;
-    }
-
-    // Protected Methods -------------------------------------------------------
-
-    /**
-     * Returns the content of the archive as <code>JarInputStream</code>.
-     * 
-     * @return The input stream
-     * @throws IOException If an exception occurred reading the archive
-     */
-    protected final JarInputStream getContentAsStream()
-        throws IOException
-    {
-        return new JarInputStream(new ByteArrayInputStream(this.content));
-    }
-
+    List getResources(String thePath) throws IOException;
 }

@@ -56,40 +56,16 @@
  */
 package org.apache.cactus.integration.ant.container;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.Iterator;
-
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.apache.cactus.integration.ant.deployment.ApplicationXml;
-import org.apache.cactus.integration.ant.deployment.EarArchive;
-import org.apache.cactus.integration.ant.deployment.WarArchive;
-import org.apache.tools.ant.BuildException;
-import org.xml.sax.SAXException;
-
 /**
  * Represents an EAR file to deploy in a container. 
  * 
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
+ * @since Cactus 1.5
  * @version $Id$
  */
 public class EarDeployableFile extends AbstractDeployableFile
 {
-    /**
-     * EAR deployment descriptor as a java object
-     */
-    private EarArchive earArchive;
-
-    /**
-     * @see AbstractDeployableFile#AbstractDeployableFile(File) 
-     */
-    public EarDeployableFile(File theDeployableFile) throws BuildException
-    {
-        super(theDeployableFile);
-    }
-
     /**
      * @see DeployableFile#isWar()
      */
@@ -104,73 +80,5 @@ public class EarDeployableFile extends AbstractDeployableFile
     public final boolean isEar()
     {
         return true;
-    }
-
-    /**
-     * @see AbstractDeployableFile#parse()
-     */
-    protected void parse() 
-        throws SAXException, IOException, ParserConfigurationException
-    {
-        this.earArchive = new EarArchive(getFile());
-        String webUri = getUriOfCactifiedWebModule();
-        if (webUri == null)
-        {
-            throw new BuildException("Could not find cactified web "
-                + "module in the EAR");
-        }
-        this.warArchive = this.earArchive.getWebModule(webUri);
-        if (this.warArchive == null)
-        {
-            throw new BuildException("Could not find the WAR [" + webUri
-                + "] in the EAR");
-        }
-        String context = this.earArchive.getApplicationXml()
-            .getWebModuleContextRoot(webUri);
-        if (context == null)
-        {
-            throw new BuildException("Could not find the Cactus context "
-                + "path in the EAR");            
-        }
-
-        // Remove leading "/" if there is one.
-        if (context.startsWith("/"))
-        {
-            context = context.substring(1);
-        }
-        
-        this.contextPath = context;
-    }   
-
-    /**
-     * Finds the web module in the EAR that contains the servlet test 
-     * redirector, and returns the web-uri of the module found.
-     * 
-     * <em>A web-app is considered cactified when it contains at least a 
-     * mapping for the Cactus servlet test redirector</em>
-     * 
-     * @return The URI of the cactified web-module, or <code>null</code> if no
-     *         cactified web-app could be found
-     * @throws IOException If there was a problem reading the  deployment
-     *         descriptor in the WAR
-     * @throws SAXException If the deployment descriptor of the WAR could not
-     *         be parsed
-     * @throws ParserConfigurationException If there is an XML parser
-     *         configration problem
-     */
-    private String getUriOfCactifiedWebModule()
-        throws SAXException, IOException, ParserConfigurationException
-    {
-        ApplicationXml applicationXml = this.earArchive.getApplicationXml();
-        for (Iterator i = applicationXml.getWebModuleUris(); i.hasNext();)
-        {
-            String webUri = (String) i.next();
-            WarArchive war = this.earArchive.getWebModule(webUri);
-            if ((war != null) && (parseServletRedirectorMapping(war) != null))
-            {
-                return webUri;
-            }
-        }
-        return null;
     }
 }

@@ -59,6 +59,7 @@ package org.apache.cactus.integration.ant;
 import java.io.File;
 import java.util.Iterator;
 
+import org.apache.cactus.integration.ant.deployment.DefaultWarArchive;
 import org.apache.cactus.integration.ant.deployment.WarArchive;
 import org.apache.cactus.integration.ant.deployment.WebXml;
 import org.apache.cactus.integration.ant.deployment.WebXmlTag;
@@ -178,7 +179,7 @@ public final class TestCactifyWarTask extends AntTestCase
         executeTestTarget();
 
         File destFile = getProject().resolveFile("work/destfile.war");
-        WarArchive destWar = new WarArchive(destFile);
+        WarArchive destWar = new DefaultWarArchive(destFile);
         WebXml webXml = destWar.getWebXml();
         assertNull("The web.xml should not have a version specified",
             webXml.getVersion());
@@ -205,7 +206,7 @@ public final class TestCactifyWarTask extends AntTestCase
         executeTestTarget();
 
         File destFile = getProject().resolveFile("work/destfile.war");
-        WarArchive destWar = new WarArchive(destFile);
+        WarArchive destWar = new DefaultWarArchive(destFile);
         WebXml webXml = destWar.getWebXml();
         assertEquals(WebXmlVersion.V2_2, webXml.getVersion());
         assertServletMapping(webXml,
@@ -227,7 +228,7 @@ public final class TestCactifyWarTask extends AntTestCase
         executeTestTarget();
 
         File destFile = getProject().resolveFile("work/destfile.war");
-        WarArchive destWar = new WarArchive(destFile);
+        WarArchive destWar = new DefaultWarArchive(destFile);
         WebXml webXml = destWar.getWebXml();
         assertEquals(WebXmlVersion.V2_3, webXml.getVersion());
         assertServletMapping(webXml,
@@ -251,7 +252,7 @@ public final class TestCactifyWarTask extends AntTestCase
         executeTestTarget();
 
         File destFile = getProject().resolveFile("work/destfile.war");
-        WarArchive destWar = new WarArchive(destFile);
+        WarArchive destWar = new DefaultWarArchive(destFile);
         WebXml webXml = destWar.getWebXml();
         assertEquals(WebXmlVersion.V2_2, webXml.getVersion());
         assertServletMapping(webXml,
@@ -274,7 +275,7 @@ public final class TestCactifyWarTask extends AntTestCase
         executeTestTarget();
 
         File destFile = getProject().resolveFile("work/destfile.war");
-        WarArchive destWar = new WarArchive(destFile);
+        WarArchive destWar = new DefaultWarArchive(destFile);
         WebXml webXml = destWar.getWebXml();
         assertEquals(WebXmlVersion.V2_3, webXml.getVersion());
         assertServletMapping(webXml,
@@ -297,7 +298,7 @@ public final class TestCactifyWarTask extends AntTestCase
         executeTestTarget();
 
         File destFile = getProject().resolveFile("work/destfile.war");
-        WarArchive destWar = new WarArchive(destFile);
+        WarArchive destWar = new DefaultWarArchive(destFile);
         WebXml webXml = destWar.getWebXml();
         assertServletMapping(webXml,
             "org.apache.cactus.server.ServletTestRedirector",
@@ -315,7 +316,7 @@ public final class TestCactifyWarTask extends AntTestCase
         executeTestTarget();
 
         File destFile = getProject().resolveFile("work/destfile.war");
-        WarArchive destWar = new WarArchive(destFile);
+        WarArchive destWar = new DefaultWarArchive(destFile);
         WebXml webXml = destWar.getWebXml();
         assertJspMapping(webXml, "/jspRedirector.jsp", "/test/jspRedirector");
     }
@@ -331,7 +332,7 @@ public final class TestCactifyWarTask extends AntTestCase
         executeTestTarget();
 
         File destFile = getProject().resolveFile("work/destfile.war");
-        WarArchive destWar = new WarArchive(destFile);
+        WarArchive destWar = new DefaultWarArchive(destFile);
         WebXml webXml = destWar.getWebXml();
         assertFilterMapping(webXml,
             "org.apache.cactus.server.FilterTestRedirector",
@@ -350,7 +351,7 @@ public final class TestCactifyWarTask extends AntTestCase
         executeTestTarget();
 
         File destFile = getProject().resolveFile("work/destfile.war");
-        WarArchive destWar = new WarArchive(destFile);
+        WarArchive destWar = new DefaultWarArchive(destFile);
         WebXml webXml = destWar.getWebXml();
         assertTrue("The filter redirector should not have been defined",
             !webXml.getFilterNamesForClass(
@@ -368,7 +369,7 @@ public final class TestCactifyWarTask extends AntTestCase
         executeTestTarget();
 
         File destFile = getProject().resolveFile("work/destfile.war");
-        WarArchive destWar = new WarArchive(destFile);
+        WarArchive destWar = new DefaultWarArchive(destFile);
         WebXml webXml = destWar.getWebXml();
         assertTrue(webXml.hasServlet("ServletRedirector"));
         assertEquals("/test/ServletRedirector",
@@ -389,7 +390,7 @@ public final class TestCactifyWarTask extends AntTestCase
         executeTestTarget();
 
         File destFile = getProject().resolveFile("work/destfile.war");
-        WarArchive destWar = new WarArchive(destFile);
+        WarArchive destWar = new DefaultWarArchive(destFile);
         WebXml webXml = destWar.getWebXml();
         assertTrue(webXml.hasServlet("JspRedirector"));
         assertEquals("/test/JspRedirector",
@@ -410,7 +411,7 @@ public final class TestCactifyWarTask extends AntTestCase
         executeTestTarget();
 
         File destFile = getProject().resolveFile("work/destfile.war");
-        WarArchive destWar = new WarArchive(destFile);
+        WarArchive destWar = new DefaultWarArchive(destFile);
         WebXml webXml = destWar.getWebXml();
         assertTrue(webXml.hasFilter("FilterRedirector"));
         assertEquals("/test/FilterRedirector",
@@ -431,7 +432,7 @@ public final class TestCactifyWarTask extends AntTestCase
         executeTestTarget();
 
         File destFile = getProject().resolveFile("work/destfile.war");
-        WarArchive destWar = new WarArchive(destFile);
+        WarArchive destWar = new DefaultWarArchive(destFile);
         WebXml webXml = destWar.getWebXml();
         assertTrue(webXml.hasServlet("ServletRedirectorSecure"));
         assertEquals("/ServletRedirectorSecure",
@@ -475,7 +476,7 @@ public final class TestCactifyWarTask extends AntTestCase
         executeTestTarget();
 
         File destFile = getProject().resolveFile("work/destfile.war");
-        WarArchive destWar = new WarArchive(destFile);
+        WarArchive destWar = new DefaultWarArchive(destFile);
         WebXml webXml = destWar.getWebXml();
         assertEquals("FORM", webXml.getLoginConfigAuthMethod());
     }

@@ -45,6 +45,9 @@ aspectjrt.jar = ${lib.repo}/aspectj/jars/aspectjrt-1.1.1.jar
 # The location of the Junit jar
 junit.jar = ${lib.repo}/junit/jars/junit-3.8.1.jar
 
+# The location of the MockObjects jar (needed for our unit tests)
+mockobjects.jar = ${lib.repo}/mockobjects/jars/mockobjects-core-0.09.jar
+
 # The location of the JSTL jar
 jstl.jar = ${lib.repo}/jstl/jars/jstl-1.0.2.jar
  

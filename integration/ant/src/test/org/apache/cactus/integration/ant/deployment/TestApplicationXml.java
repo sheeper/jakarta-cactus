@@ -121,7 +121,7 @@ public final class TestApplicationXml extends TestCase
     {
         try
         {
-            new ApplicationXml(null);
+            new DefaultApplicationXml(null);
             fail("Expected NullPointerException");
         }
         catch (NullPointerException npe)
@@ -145,7 +145,7 @@ public final class TestApplicationXml extends TestCase
             + "  </module>"
             + "</application>";
         Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
-        ApplicationXml applicationXml = new ApplicationXml(doc);
+        ApplicationXml applicationXml = new DefaultApplicationXml(doc);
         Iterator webUris = applicationXml.getWebModuleUris();
         assertTrue("No web modules defined", !webUris.hasNext());
     }
@@ -168,7 +168,7 @@ public final class TestApplicationXml extends TestCase
             + "  </module>"
             + "</application>";
         Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
-        ApplicationXml applicationXml = new ApplicationXml(doc);
+        ApplicationXml applicationXml = new DefaultApplicationXml(doc);
         Iterator webUris = applicationXml.getWebModuleUris();
         assertEquals("webmodule.jar", webUris.next());
         assertTrue(!webUris.hasNext());
@@ -204,7 +204,7 @@ public final class TestApplicationXml extends TestCase
             + "  </module>"
             + "</application>";
         Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
-        ApplicationXml applicationXml = new ApplicationXml(doc);
+        ApplicationXml applicationXml = new DefaultApplicationXml(doc);
         Iterator webUris = applicationXml.getWebModuleUris();
         assertEquals("webmodule1.jar", webUris.next());
         assertEquals("webmodule2.jar", webUris.next());
@@ -227,7 +227,7 @@ public final class TestApplicationXml extends TestCase
             + "  </module>"
             + "</application>";
         Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
-        ApplicationXml applicationXml = new ApplicationXml(doc);
+        ApplicationXml applicationXml = new DefaultApplicationXml(doc);
         try
         {
             applicationXml.getWebModuleContextRoot("webmodule.jar");
@@ -256,7 +256,7 @@ public final class TestApplicationXml extends TestCase
             + "  </module>"
             + "</application>";
         Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
-        ApplicationXml applicationXml = new ApplicationXml(doc);
+        ApplicationXml applicationXml = new DefaultApplicationXml(doc);
         assertEquals("/webmodule",
             applicationXml.getWebModuleContextRoot("webmodule.jar"));
     }
@@ -290,7 +290,7 @@ public final class TestApplicationXml extends TestCase
             + "  </module>"
             + "</application>";
         Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
-        ApplicationXml applicationXml = new ApplicationXml(doc);
+        ApplicationXml applicationXml = new DefaultApplicationXml(doc);
         assertEquals("/webmodule1",
             applicationXml.getWebModuleContextRoot("webmodule1.jar"));
         assertEquals("/webmodule2",

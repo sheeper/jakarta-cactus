@@ -57,29 +57,18 @@
 package org.apache.cactus.integration.ant.deployment;
 
 import junit.framework.Test;
-import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 /**
  * Run all the unit tests for the deployment support classes.
  *
  * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
+ * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
  */
-public final class TestAll extends TestCase
+public final class TestAll
 {
-
-    /**
-     * Start the tests.
-     *
-     * @param theArgs the arguments. Not used
-     */
-    public static void main(String[] theArgs)
-    {
-        junit.swingui.TestRunner.main(new String[] {TestAll.class.getName()});
-    }
-
     /**
      * @return a test suite (<code>TestSuite</code>) that includes all methods
      *         starting with "test"

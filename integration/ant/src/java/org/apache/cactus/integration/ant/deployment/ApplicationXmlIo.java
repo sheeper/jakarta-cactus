@@ -184,7 +184,7 @@ public class ApplicationXmlIo
         {
             builder.setEntityResolver(new ApplicationXmlEntityResolver());
         }
-        return new ApplicationXml(builder.parse(theInput));
+        return new DefaultApplicationXml(builder.parse(theInput));
     }
 
 }

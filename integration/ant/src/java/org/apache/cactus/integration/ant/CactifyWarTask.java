@@ -67,6 +67,7 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.cactus.integration.ant.util.AntLog;
 import org.apache.cactus.integration.ant.util.ResourceUtils;
+import org.apache.cactus.integration.ant.deployment.DefaultWarArchive;
 import org.apache.cactus.integration.ant.deployment.WarArchive;
 import org.apache.cactus.integration.ant.deployment.WebXml;
 import org.apache.cactus.integration.ant.deployment.WebXmlIo;
@@ -544,7 +545,7 @@ public class CactifyWarTask extends War
         {
             try
             {
-                WarArchive srcWar = new WarArchive(srcFile);
+                WarArchive srcWar = new DefaultWarArchive(srcFile);
                 if (srcWar.containsClass(theClassName))
                 {
                     log("The " + theDescription + " JAR is already present in "
@@ -722,7 +723,7 @@ public class CactifyWarTask extends War
         WarArchive war = null;
         try
         {
-            war = new WarArchive(this.srcFile);
+            war = new DefaultWarArchive(this.srcFile);
             WebXml webXml = war.getWebXml();
             if (webXml == null)
             {

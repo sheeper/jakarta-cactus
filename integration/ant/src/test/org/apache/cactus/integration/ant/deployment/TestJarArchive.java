@@ -87,7 +87,7 @@ public final class TestJarArchive extends TestCase
     {
         try
         {
-            new JarArchive((File) null);
+            new DefaultJarArchive((File) null);
             fail("NullPointerException expected");
         }
         catch (NullPointerException expected)
@@ -106,7 +106,7 @@ public final class TestJarArchive extends TestCase
     {
         try
         {
-            new JarArchive((InputStream) null);
+            new DefaultJarArchive((InputStream) null);
             fail("NullPointerException expected");
         }
         catch (NullPointerException expected)
@@ -122,7 +122,7 @@ public final class TestJarArchive extends TestCase
      */
     public void testRandomAccess() throws Exception
     {
-        JarArchive jar = new JarArchive(getTestInput(
+        JarArchive jar = new DefaultJarArchive(getTestInput(
             "org/apache/cactus/integration/ant/deployment/randomaccess.jar"));
         assertContains(jar.getResource("firstEntry.txt"), "firstEntry");
         assertContains(jar.getResource("secondEntry.txt"), "secondEntry");
@@ -138,7 +138,7 @@ public final class TestJarArchive extends TestCase
      */
     public void testContainsClass() throws Exception
     {
-        JarArchive jar = new JarArchive(getTestInput(
+        JarArchive jar = new DefaultJarArchive(getTestInput(
             "org/apache/cactus/integration/ant/deployment/containsclass.jar"));
         assertTrue(jar.containsClass("test.Test"));
     }
@@ -151,7 +151,7 @@ public final class TestJarArchive extends TestCase
      */
     public void testContainsClassEmpty() throws Exception
     {
-        JarArchive jar = new JarArchive(getTestInput(
+        JarArchive jar = new DefaultJarArchive(getTestInput(
             "org/apache/cactus/integration/ant/deployment/empty.jar"));
         assertTrue(!jar.containsClass("test.Test"));
     }

@@ -127,8 +127,7 @@ public class TestAbstractContainer extends TestCase
         assertTrue("The test input " + fileName + " does not exist",
             earFile.exists());
 
-        this.container.setDeployableFile(
-            new EarDeployableFile(earFile));
+        this.container.setDeployableFile(EarParser.parse(earFile));
 
         // Note that we needed to add a last character to the string
         // after the @cactus.context@ token as otherwise the Ant code 

@@ -57,7 +57,6 @@
 package org.apache.cactus.integration.ant.container;
 
 import junit.framework.Test;
-import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 /**
@@ -68,7 +67,7 @@ import junit.framework.TestSuite;
  *
  * @version $Id$
  */
-public final class TestAll extends TestCase
+public final class TestAll
 {
     /**
      * @return a test suite (<code>TestSuite</code>) that includes all methods
@@ -81,7 +80,8 @@ public final class TestAll extends TestCase
 
         suite.addTestSuite(TestContainerRunner.class);
         suite.addTestSuite(TestAbstractContainer.class);
-
+        suite.addTestSuite(TestEarParser.class);
+        
         return suite;
     }
 }

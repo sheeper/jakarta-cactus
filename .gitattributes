@@ -361,8 +361,10 @@ integration/ant/src/java/org/apache/cactus/integration/ant/container/ContainerRu
 integration/ant/src/java/org/apache/cactus/integration/ant/container/ContainerWrapper.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/java/org/apache/cactus/integration/ant/container/DeployableFile.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/java/org/apache/cactus/integration/ant/container/EarDeployableFile.java svn_keywords=Author+Date+Id+Revision
+integration/ant/src/java/org/apache/cactus/integration/ant/container/EarParser.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/java/org/apache/cactus/integration/ant/container/GenericContainer.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/java/org/apache/cactus/integration/ant/container/WarDeployableFile.java svn_keywords=Author+Date+Id+Revision
+integration/ant/src/java/org/apache/cactus/integration/ant/container/WarParser.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/java/org/apache/cactus/integration/ant/container/default.properties svn_keywords=Author+Date+Id+Revision
 integration/ant/src/java/org/apache/cactus/integration/ant/container/enhydra/EnhydraRun.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/java/org/apache/cactus/integration/ant/container/enhydra/package.html svn_keywords=Author+Date+Id+Revision
@@ -388,6 +390,10 @@ integration/ant/src/java/org/apache/cactus/integration/ant/deployment/Applicatio
 integration/ant/src/java/org/apache/cactus/integration/ant/deployment/ApplicationXmlIo.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/java/org/apache/cactus/integration/ant/deployment/ApplicationXmlTag.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/java/org/apache/cactus/integration/ant/deployment/ApplicationXmlVersion.java svn_keywords=Author+Date+Id+Revision
+integration/ant/src/java/org/apache/cactus/integration/ant/deployment/DefaultApplicationXml.java svn_keywords=Author+Date+Id+Revision
+integration/ant/src/java/org/apache/cactus/integration/ant/deployment/DefaultEarArchive.java svn_keywords=Author+Date+Id+Revision
+integration/ant/src/java/org/apache/cactus/integration/ant/deployment/DefaultJarArchive.java svn_keywords=Author+Date+Id+Revision
+integration/ant/src/java/org/apache/cactus/integration/ant/deployment/DefaultWarArchive.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/java/org/apache/cactus/integration/ant/deployment/EarArchive.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/java/org/apache/cactus/integration/ant/deployment/JarArchive.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/java/org/apache/cactus/integration/ant/deployment/WarArchive.java svn_keywords=Author+Date+Id+Revision
@@ -444,6 +450,7 @@ integration/ant/src/test/org/apache/cactus/integration/ant/container/MockHttpSer
 integration/ant/src/test/org/apache/cactus/integration/ant/container/TestAbstractContainer.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/test/org/apache/cactus/integration/ant/container/TestAll.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/test/org/apache/cactus/integration/ant/container/TestContainerRunner.java svn_keywords=Author+Date+Id+Revision
+integration/ant/src/test/org/apache/cactus/integration/ant/container/TestEarParser.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/test/org/apache/cactus/integration/ant/deployment/TestAll.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/test/org/apache/cactus/integration/ant/deployment/TestApplicationXml.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/test/org/apache/cactus/integration/ant/deployment/TestApplicationXmlVersion.java svn_keywords=Author+Date+Id+Revision

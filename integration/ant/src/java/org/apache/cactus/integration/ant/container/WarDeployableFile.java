@@ -56,29 +56,16 @@
  */
 package org.apache.cactus.integration.ant.container;
 
-import java.io.File;
-import java.io.IOException;
-
-import org.apache.cactus.integration.ant.deployment.WarArchive;
-import org.apache.tools.ant.BuildException;
-
 /**
  * Represents a WAR file to deploy in a container. 
  * 
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
+ * @since Cactus 1.5
  * @version $Id$
  */
 public class WarDeployableFile extends AbstractDeployableFile
 {
-    /**
-     * @see AbstractDeployableFile#AbstractDeployableFile(File)
-     */
-    public WarDeployableFile(File theDeployableFile) throws BuildException
-    {
-        super(theDeployableFile);    
-    }
-
     /**
      * @see DeployableFile#isWar()
      */
@@ -94,19 +81,4 @@ public class WarDeployableFile extends AbstractDeployableFile
     {
         return false;
     }
-
-    /**
-     * @see AbstractDeployableFile#parse()
-     */
-    protected void parse() throws IOException
-    {
-        this.warArchive = new WarArchive(getFile());
-        String context = getFile().getName();
-        int warIndex = context.toLowerCase().lastIndexOf(".war");
-        if (warIndex >= 0)
-        {
-            context = context.substring(0, warIndex);
-        }
-        this.contextPath = context;
-    }   
 }
