@@ -116,6 +116,11 @@ integration/maven/src/plugin-test/dist
 integration/maven/src/plugin-test/gump.xml
 integration/maven/src/plugin-test/target
 integration/maven/src/plugin-test/targetdist
+integration/maven/src/plugin-test/testCactusSysProperties/*.log
+integration/maven/src/plugin-test/testCactusSysProperties/dist
+integration/maven/src/plugin-test/testCactusSysProperties/gump.xml
+integration/maven/src/plugin-test/testCactusSysProperties/target
+integration/maven/src/plugin-test/testCactusSysProperties/targetdist
 integration/maven/src/plugin-test/testCustomWarName/*.log
 integration/maven/src/plugin-test/testCustomWarName/dist
 integration/maven/src/plugin-test/testCustomWarName/gump.xml
