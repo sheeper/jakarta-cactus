@@ -248,7 +248,7 @@
   <target name="doc.checksitemap" depends="compile,doc.prepare">
 
     <taskdef name="checksitemap"
-        classname="org.apache.cactus.documentation.CheckSitemapTask">
+        classname="org.apache.cactus.build.documentation.CheckSitemapTask">
       <classpath>
         <pathelement location="${target.classes.java.dir}"/>
       </classpath>

@@ -54,7 +54,7 @@
  * <http://www.apache.org/>.
  *
  */
-package org.apache.cactus.documentation;
+package org.apache.cactus.build.documentation;
 
 import java.io.File;
 import java.io.IOException;
