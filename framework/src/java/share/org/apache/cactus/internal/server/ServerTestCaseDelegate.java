@@ -138,6 +138,8 @@ public class ServerTestCaseDelegate extends Assert
     }
 
     /**
+     * Perform server side initializations before each test, such as
+     * initializating the logger.
      */
     public void runBareInit()
     {
