@@ -17,6 +17,7 @@
  * 
  * ========================================================================
  */
+
 package org.apache.cactus.test;
 
 import java.util.Map;
@@ -24,6 +25,14 @@ import java.util.Map;
 import org.apache.cactus.ServletTestCase;
 import org.apache.cactus.WebRequest;
 
+/**
+ * Verify that properties defined by the 
+ * <code>cactus.sysproperties</code> are found in the resulting
+ * cactified WAR. Note that we're testing this by executing this code inside
+ * the container.
+ *
+ * @version $Id$
+ */
 public class TestProperties extends ServletTestCase
 {
 
