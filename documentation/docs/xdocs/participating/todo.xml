@@ -44,10 +44,6 @@
     </category>
 
     <category title="Build process">
-      <action>
-        Fix the Jetty build to be at the same quality standard
-        as the other builds.
-      </action>
     </category>
 
     <category title="Design/Code">
