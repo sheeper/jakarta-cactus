@@ -3,8 +3,8 @@
 # the command line when starting Ant with the -D switch
 
 servlet.jar = f:/applis/apache-dev/jakarta-servletapi/lib/servlet.jar
-cactus.jar = ../../cactus-23.jar
-cactus.ant.jar = ../../cactus-ant.jar
+cactus.jar = ../lib/commons-cactus.jar
+cactus.ant.jar = ../lib/commons-cactus-ant.jar
 junit.jar=f:/applis/jakarta-ant-1.4alpha/lib/junit.jar
 
 # Servlet engine locations for the tests
