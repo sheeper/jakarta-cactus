@@ -68,6 +68,11 @@
       </devs>
 
       <release version="1.6dev" date="in CVS">
+        <action dev="VMA" type="fix">
+          Fixed bug in <code>HttpServletRequestWrapper.include()</code> where
+          the passed request was not the original request. The problem was 
+          only apparent with Tomcat 3.x.
+        </action>
         <action dev="VMA" type="add">
           Added support for Tomcat 3.3.2 (note that this required adding the
           commons-logging jar to the Tomcat bootstrap classpath).

@@ -91,7 +91,7 @@ public class RequestDispatcherWrapper implements RequestDispatcher
         throws IOException, ServletException
     {
         // Always pass the original request to the forward() call.
-        if (!HttpServletRequestWrapper.class.isAssignableFrom(
+        if (HttpServletRequestWrapper.class.isAssignableFrom(
             theRequest.getClass()))
         {
             HttpServletRequestWrapper request = 
