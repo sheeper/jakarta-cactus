@@ -64,6 +64,11 @@
           mean?</jump>
         </li>
         <li>
+          <jump anchor="faq_failed_to_get_test_results">I'm getting a
+          "<code>ChainedRuntimeException</code>: Failed to get the test results" 
+          error message. What does it mean?</jump>
+        </li>
+        <li>
           <jump anchor="faq_send_multipart">How to send multipart/form-data?</jump>
         </li>
         <li>
@@ -361,6 +366,33 @@ org.apache.cactus.client.WebTestResultParser.readRootElement(
           (see the <link href="site:howto_config">Configuration Howto</link>
           for how to do this). The cactus client log
           (<code>cactus_client.log</code> will clearly give the error).
+        </p>
+      </section>
+
+    </section>
+
+    <anchor id="faq_failed_to_get_test_results"/>
+    <section title="I'm getting a 'ChainedRuntimeException: Failed to get the test results' error message. What does it mean?">
+
+      <section title="Question">
+        <p>
+         When I run my Cactus test, I'm getting the following:
+        </p>
+
+<source><![CDATA[
+org.apache.cactus.util.ChainedRuntimeException: 
+    Failed to get the test results [...]
+]]></source>
+
+      </section>
+      <section title="Solution">
+        <p>
+         It means that Cactus failed to retrieve the test result from the 
+         server side for some reason. To easiest way to diagnosis the problem 
+         is to enable Cactus logging(see the 
+         <link href="site:howto_config">Configuration Howto</link>
+         or how to do this). The cactus client log
+        (<code>cactus_client.log</code> will clearly give the error).
         </p>
       </section>
 
