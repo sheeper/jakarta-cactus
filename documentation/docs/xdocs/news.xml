@@ -190,8 +190,8 @@
           </td>
           <td>
             Release 1.0 of the 
-            <a href="http://jakarta.apache.org/turbine/maven/reference/plugins/cactus">Cactus 
-            plugin for Maven</a> is out. This is certainly the easiest way
+            <link href="http://jakarta.apache.org/turbine/maven/reference/plugins/cactus">Cactus 
+            plugin for Maven</link> is out. This is certainly the easiest way
             to run Cactus tests so far. This plugin is part of the core 
             Maven plugins and is thus delivered with Maven. 
           </td>
