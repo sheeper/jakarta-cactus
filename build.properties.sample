@@ -93,7 +93,7 @@ eclipse.ui.workbench.jar = ${eclipse.home}/plugins/org.eclipse.ui.workbench_2.1.
 
 # The Jetty container is packaged in the Eclipse plugin and is used as the 
 # default container in which to run the Cactus tests.
-jetty.jar = ${lib.repo}/jetty/jars/org.mortbay.jetty-jdk1.2-4.2.9.jar
+jetty.jar = ${lib.repo}/jetty/jars/org.mortbay.jetty-4.2.9.jar
 
 # -----------------------------------------------------------------------------
 # Optional properties for the main Cactus build
