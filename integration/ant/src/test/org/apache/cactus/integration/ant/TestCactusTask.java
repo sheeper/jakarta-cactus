@@ -68,14 +68,6 @@ import org.apache.tools.ant.BuildException;
 public final class TestCactusTask extends AntTestCase
 {
 
-    // Constants ---------------------------------------------------------------
-
-    /**
-     * The build file corresponding to this fixture.
-     */
-    private static final String TEST_BUILD_FILE =
-        "src/test-input/org/apache/cactus/integration/ant/test-cactus.xml";
-
     // Constructors ------------------------------------------------------------
 
     /**
@@ -83,7 +75,8 @@ public final class TestCactusTask extends AntTestCase
      */
     public TestCactusTask(String theTestName)
     {
-        super(theTestName, TEST_BUILD_FILE);
+        super(theTestName,
+            "org/apache/cactus/integration/ant/test-cactus.xml");
     }
 
     // TestCase Implementation -------------------------------------------------

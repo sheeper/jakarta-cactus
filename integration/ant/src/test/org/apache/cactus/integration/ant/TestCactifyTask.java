@@ -105,14 +105,6 @@ public final class TestCactifyTask extends AntTestCase
         
     }
 
-    // Constants ---------------------------------------------------------------
-
-    /**
-     * The build file corresponding to this fixture.
-     */
-    private static final String TEST_BUILD_FILE =
-        "src/test-input/org/apache/cactus/integration/ant/test-cactify.xml";
-
     // Constructors ------------------------------------------------------------
 
     /**
@@ -120,7 +112,8 @@ public final class TestCactifyTask extends AntTestCase
      */
     public TestCactifyTask(String theTestName)
     {
-        super(theTestName, TEST_BUILD_FILE);
+        super(theTestName,
+            "org/apache/cactus/integration/ant/test-cactify.xml");
     }
 
     // TestCase Implementation -------------------------------------------------

@@ -114,6 +114,65 @@ public abstract class AntTestCase extends TestCase implements BuildListener
         this.buildFile = theBuildFile;
     }
 
+    // BuildListener Implementation --------------------------------------------
+
+    /**
+     * @see BuildListener#buildStarted
+     */
+    public void buildStarted(BuildEvent theEvent)
+    {
+    }
+
+    /**
+     * @see BuildListener#buildFinished
+     */
+    public void buildFinished(BuildEvent theEvent)
+    {
+    }
+
+    /**
+     * @see BuildListener#targetStarted
+     */
+    public void targetStarted(BuildEvent theEvent)
+    {
+    }
+
+    /**
+     * @see BuildListener#targetFinished
+     */
+    public void targetFinished(BuildEvent theEvent)
+    {
+    }
+
+    /**
+     * @see BuildListener#taskStarted
+     */
+    public void taskStarted(BuildEvent theEvent)
+    {
+    }
+
+    /**
+     * @see BuildListener#taskFinished
+     */
+    public void taskFinished(BuildEvent theEvent)
+    {
+    }
+
+    /**
+     * @see BuildListener#messageLogged
+     */
+    public void messageLogged(BuildEvent theEvent)
+    {
+        StringBuffer buffer = (StringBuffer)
+            log.get(new Integer(theEvent.getPriority()));
+        if (buffer == null)
+        {
+            buffer = new StringBuffer();
+            log.put(new Integer(theEvent.getPriority()), buffer);
+        }
+        buffer.append(theEvent.getMessage());
+    }
+
     // TestCase Implementation -------------------------------------------------
 
     /**
@@ -127,7 +186,8 @@ public abstract class AntTestCase extends TestCase implements BuildListener
         this.project = new Project();
         this.project.addBuildListener(this);
         this.project.init();
-        ProjectHelper.configureProject(this.project, new File(this.buildFile));
+        ProjectHelper.configureProject(this.project,
+            getBuildFile(this.buildFile));
         if (getProject().getTargets().get("setUp") != null)
         {
             getProject().executeTarget("setUp");
@@ -252,63 +312,28 @@ public abstract class AntTestCase extends TestCase implements BuildListener
         return (Target) getProject().getTargets().get(getName());
     }
 
-    // BuildListener Implementation ----------------------------------------
+    // Private Methods ---------------------------------------------------------
 
     /**
-     * @see BuildListener#buildStarted
+     * Returns a file from the test inputs directory, which is determined by the
+     * system property <code>testinput.dir</code>.
+     * 
+     * @param theFileName The name of the file relative to the test input
+     *        directory 
+     * @return The file from the test input directory
      */
-    public void buildStarted(BuildEvent theEvent)
+    private File getBuildFile(String theFileName)
     {
-    }
-
-    /**
-     * @see BuildListener#buildFinished
-     */
-    public void buildFinished(BuildEvent theEvent)
-    {
-    }
-
-    /**
-     * @see BuildListener#targetStarted
-     */
-    public void targetStarted(BuildEvent theEvent)
-    {
-    }
-
-    /**
-     * @see BuildListener#targetFinished
-     */
-    public void targetFinished(BuildEvent theEvent)
-    {
-    }
-
-    /**
-     * @see BuildListener#taskStarted
-     */
-    public void taskStarted(BuildEvent theEvent)
-    {
-    }
-
-    /**
-     * @see BuildListener#taskFinished
-     */
-    public void taskFinished(BuildEvent theEvent)
-    {
-    }
-
-    /**
-     * @see BuildListener#messageLogged
-     */
-    public void messageLogged(BuildEvent theEvent)
-    {
-        StringBuffer buffer = (StringBuffer)
-            log.get(new Integer(theEvent.getPriority()));
-        if (buffer == null)
-        {
-            buffer = new StringBuffer();
-            log.put(new Integer(theEvent.getPriority()), buffer);
-        }
-        buffer.append(theEvent.getMessage());
+        String testInputDirProperty = System.getProperty("testinput.dir");
+        assertTrue("The system property 'testinput.dir' must be set",
+            testInputDirProperty != null);
+        File testInputDir = new File(testInputDirProperty);
+        assertTrue("The system property 'testinput.dir' must point to an "
+            + "existing directory", testInputDir.isDirectory());
+        File buildFile = new File(testInputDir, theFileName);
+        assertTrue("The test input " + theFileName + " does not exist",
+            buildFile.exists());
+        return buildFile;
     }
 
 }
