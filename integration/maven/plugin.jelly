@@ -270,60 +270,6 @@
   <goal name="cactus:cactifywar" prereqs="cactus:compile"
       description="Cactify the application war">
  
-    <!-- Copy cactus resources to maven.build.dest -->
-    <util:tokenize var="resourcesList" delim=",">${cactus.resources.dirs}</util:tokenize>
-    <j:forEach var="resourcesLabel" items="${resourcesList}">
-      <j:set var="resourcesDirVarName" 
-        value="cactus.resources.${resourcesLabel}.dir"/>
-      <j:choose>
-        <j:when test="${context.getVariable(resourcesDirVarName) != null}">
-          <j:set var="includesVarName" 
-            value="cactus.resources.${resourcesLabel}.includes"/>
-          <j:choose>
-            <j:when test="${context.getVariable(includesVarName) != null}">
-              <j:set var="includes" 
-                     value="${context.getVariable(includesVarName)}"/>
-            </j:when>
-            <j:otherwise>
-              <j:set var="includes" 
-                     value="**/*"/>
-            </j:otherwise>
-          </j:choose>
-          <j:set var="excludesVarName" 
-            value="cactus.resources.${resourcesLabel}.excludes"/>
-          <j:choose>
-            <j:when test="${context.getVariable(excludesVarName) != null}">
-              <j:set var="excludes" 
-                     value="${context.getVariable(excludesVarName)}"/>
-            </j:when>
-            <j:otherwise>
-              <j:set var="excludes" 
-                     value=""/>
-            </j:otherwise>
-          </j:choose>
-
-          <util:file var="resourceFile" 
-            name="${context.getVariable(resourcesDirVarName)}/"/>
-          <j:choose>
-            <j:when test="${resourceFile.exists() and resourceFile.isDirectory()}">
-              <ant:copy todir="${maven.build.dest}">
-                <ant:fileset dir="${context.getVariable(resourcesDirVarName)}">
-                  <ant:include name="${includes}"/>
-                  <ant:exclude name="${excludes}"/>
-                </ant:fileset>
-              </ant:copy>
-            </j:when>
-            <j:otherwise>
-              <ant:echo>Skipping invalid directory ${context.getVariable(resourcesDirVarName)}.</ant:echo>
-            </j:otherwise>
-          </j:choose>
-        </j:when>
-        <j:otherwise>
-            <ant:echo>You must set the directory with the ${resourcesDirVarName} property.</ant:echo>
-        </j:otherwise>
-      </j:choose>
-    </j:forEach>
-
     <!-- Generate the war artifact -->
     <attainGoal name="${cactus.build.goal.war}"/>
 
@@ -370,6 +316,58 @@
         <j:if test="${dep.getProperty('cactus.bundle')=='true'}">
           <lib file="${artifact.path}"/>
         </j:if>
+      </j:forEach>
+
+      <!-- Add cactus resources to the classes included in the war -->
+      <util:tokenize var="resourcesList" delim=",">${cactus.resources.dirs}</util:tokenize>
+      <j:forEach var="resourcesLabel" items="${resourcesList}">
+        <j:set var="resourcesDirVarName" 
+          value="cactus.resources.${resourcesLabel}.dir"/>
+        <j:choose>
+          <j:when test="${context.getVariable(resourcesDirVarName) != null}">
+            <j:set var="includesVarName" 
+              value="cactus.resources.${resourcesLabel}.includes"/>
+            <j:choose>
+              <j:when test="${context.getVariable(includesVarName) != null}">
+                <j:set var="includes" 
+                       value="${context.getVariable(includesVarName)}"/>
+              </j:when>
+              <j:otherwise>
+                <j:set var="includes" 
+                       value="**/*"/>
+              </j:otherwise>
+            </j:choose>
+            <j:set var="excludesVarName" 
+              value="cactus.resources.${resourcesLabel}.excludes"/>
+            <j:choose>
+              <j:when test="${context.getVariable(excludesVarName) != null}">
+                <j:set var="excludes" 
+                       value="${context.getVariable(excludesVarName)}"/>
+              </j:when>
+              <j:otherwise>
+                <j:set var="excludes" 
+                       value=""/>
+              </j:otherwise>
+            </j:choose>
+  
+            <util:file var="resourceFile" 
+              name="${context.getVariable(resourcesDirVarName)}/"/>
+            <j:choose>
+              <j:when test="${resourceFile.exists() and resourceFile.isDirectory()}">
+                <ant:classes dir="${context.getVariable(resourcesDirVarName)}">
+                    <ant:include name="${includes}"/>
+                    <ant:exclude name="${excludes}"/>
+                </ant:classes>
+              </j:when>
+              <j:otherwise>
+                <ant:echo>Skipping invalid directory ${context.getVariable(resourcesDirVarName)}.</ant:echo>
+              </j:otherwise>
+            </j:choose>
+          </j:when>
+          <j:otherwise>
+              <ant:echo>You must set the directory with the ${resourcesDirVarName} property.</ant:echo>
+          </j:otherwise>
+        </j:choose>
       </j:forEach>
                      	   
     </cactifywar>
