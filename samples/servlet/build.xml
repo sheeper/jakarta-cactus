@@ -321,6 +321,10 @@
             <arg line="-buildfile ${target.sample.dir}/build.xml"/>
             <arg value="test"/>
 
+            <!-- TODO: Remove me. Only used to debug Gump build which is 
+                 currently failing, as of 12/02/2003. VMA -->
+            <arg value="-debug"/>
+            
             <classpath>
                 <pathelement path="${java.class.path}"/>
             </classpath>
