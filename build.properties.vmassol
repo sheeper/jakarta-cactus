@@ -30,7 +30,7 @@ commons.logging.jar = ${lib.repo}/commons-logging/jars/commons-logging-1.0.3.jar
 log4j.jar = ${lib.repo}/log4j/jars/log4j-1.2.8.jar
 
 # The location of the Commons Httpclient jar
-commons.httpclient.jar = ${lib.repo}/commons-httpclient/jars/commons-httpclient-2.0-rc2.jar
+commons.httpclient.jar = ${lib.repo}/commons-httpclient/jars/commons-httpclient-2.0.jar
 
 # The location of the AspectJ runtime jar
 aspectjrt.jar = ${lib.repo}/aspectj/jars/aspectjrt-1.1.1.jar

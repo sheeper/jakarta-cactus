@@ -7,6 +7,13 @@
 
   <body>
 
+    <release version="1.6dev" date="in CVS">
+      <action dev="VMA" type="update">
+        Updated the version of Commons HttpClient in the Cactus distribution 
+        to 2.0 final.
+      </action>
+    </release>
+    
     <release version="1.6dev" date="development build of 2004-02-26">
       <action dev="vmassol" type="fix">
         Aligned the EAR-ing behavior in the Cactus plugin (when using the

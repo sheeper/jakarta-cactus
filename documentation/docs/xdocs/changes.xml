@@ -68,6 +68,10 @@
       </devs>
 
       <release version="1.6dev" date="in CVS">
+        <action dev="VMA" type="update">
+          Updated the version of Commons HttpClient in the Cactus distribution 
+          to 2.0 final.
+        </action>
         <action dev="VMA" type="add" due-to="Kazuhito Suguri" due-to-email="suguri.kazuhito@lab.ntt.co.jp">
           Added new 
           <code>FormAuthentication.setExpectedAuthResponse(int)</code>
@@ -192,7 +196,7 @@
         </action>
         <action dev="VMA" type="update">
           Update the version of Commons HttpClient in the Cactus distribution to 
-          1.0 rc2.
+          2.0 rc2.
         </action>
         <action dev="VMA" type="fix">
           Fixed and improved logging. It now works with Log4j, JDK 1.4 logging
