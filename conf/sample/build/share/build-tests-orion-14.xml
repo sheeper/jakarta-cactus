@@ -89,17 +89,13 @@
         <mkdir dir="${out.orion14.dir}"/>
         <mkdir dir="${out.orion14.dir}/conf"/>
 
-        <copy file="${conf.orion14.dir}/server.xml"
-            tofile="${out.orion14.dir}/conf/server.xml"/>
-        <copy file="${conf.orion14.dir}/application.xml"
-            tofile="${out.orion14.dir}/conf/application.xml"/>
-        <copy file="${conf.orion14.dir}/default-web-site.xml"
-            tofile="${out.orion14.dir}/conf/default-web-site.xml"
-            filtering="on"/>
-        <copy file="${conf.orion14.dir}/principals.xml"
-            tofile="${out.orion14.dir}/conf/principals.xml"/>
-        <copy file="${conf.orion14.dir}/rmi.xml"
-            tofile="${out.orion14.dir}/conf/rmi.xml"/>
+        <!-- Orion need to have a /persistence directory created, otherwise
+             it throws an error -->
+        <mkdir dir="${out.orion14.dir}/persistence"/>
+
+        <copy todir="${out.orion14.dir}/conf" filtering="on">
+            <fileset dir="${conf.orion14.dir}"/>
+        </copy>
 
         <!-- Copy the war file -->
         <copy file="${out.test.dir}/test.war" tofile="${out.orion14.dir}/test.war"/>
