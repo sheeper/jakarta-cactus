@@ -28,11 +28,13 @@
    </postGoal>
 
    <goal name="install-cactus-dist">
-      <j:set var="jarsDir" value="${maven.repo.local}/${pom.groupId}/jars"/>
-      <ant:echo>Copying Cactus jars to ${jarsDir}</ant:echo>
-      <ant:mkdir dir="${jarsDir}"/>
-      <ant:copy tofile="${jarsDir}/cactus-13-${pom.currentVersion}.jar" file="${maven.jar.cactus}"/>
-      <ant:copy tofile="${jarsDir}/cactus-ant-13-${pom.currentVersion}.jar" file="${maven.jar.cactus.ant}"/>
+     <j:if test="${context.getVariable('maven.jar.override')=='on'}">
+       <j:set var="jarsDir" value="${maven.repo.local}/${pom.groupId}/jars"/>
+       <ant:echo>Copying Cactus jars to ${jarsDir}</ant:echo>
+       <ant:mkdir dir="${jarsDir}"/>
+       <ant:copy tofile="${jarsDir}/cactus-13-${pom.currentVersion}.jar" file="${maven.jar.cactus}"/>
+       <ant:copy tofile="${jarsDir}/cactus-ant-13-${pom.currentVersion}.jar" file="${maven.jar.cactus.ant}"/>
+     </j:if>
    </goal>
 
 </project>
