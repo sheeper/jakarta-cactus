@@ -144,7 +144,7 @@
   <external id="junitee" url="http://junitee.sourceforge.net"/>
   <external id="junit_faq" url="http://junit.sourceforge.net/doc/faq/faq.htm"/>
   <external id="korean" url="http://jakarta.apache-korea.org/cactus/index.html"/>
-  <external id="maven_cactus" url="http://jakarta.apache.org/turbine/maven/reference/plugins/cactus"/>
+  <external id="maven_cactus" url="http://maven.apache.org/reference/plugins/cactus"/>
   <external id="mockobjects" url="http://www.mockobjects.com"/>
   <external id="octo" url="http://www.octo.com"/>
   <external id="opensource" url="http://www.opensource.org/"/>
