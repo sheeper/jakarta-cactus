@@ -22,25 +22,24 @@ cactus.framework.jar = ../lib/cactus.jar
 # The location of the Cactus custom Ant tasks jar
 cactus.ant.jar = ../lib/cactus-ant.jar
 
-# The location of the Servlet API 2.2 jar. Note: This file is not provided
-# with the Cactus distribution (you'll have to get it).
-servlet.jar = ../lib/servlet.jar
+# The location of the Servlet API 2.2 jar
+servlet.jar = ../lib/servletapi-2.2.jar
 
 # The location of the AspectJ runtime jar
-aspectjrt.jar = ../lib/aspectjrt.jar
+aspectjrt.jar = ../lib/aspectjrt-1.0.4.jar
 
 # The location of the log4j jar (optional). Only needed if you want Cactus to
 # generate logs
-log4j.jar = ../lib/log4j-1.2rc1.jar
+log4j.jar = ../lib/log4j-1.2.3.jar
 
 # The location of the Commons Httpclient jar
-commons.httpclient.jar = ../lib/commons-httpclient-20020421.jar
+commons.httpclient.jar = ../lib/commons-httpclient-2.0alpha1-20020606.jar
 
 # The location of the Junit jar
-junit.jar = ../lib/junit.jar
+junit.jar = ../lib/junit-3.7.jar
 
 # The location of the Httpunit jar
-httpunit.jar = ../lib/httpunit.jar
+httpunit.jar = ../lib/httpunit-1.4.jar
 
 # -----------------------------------------------------------------------------
 # Optional properties

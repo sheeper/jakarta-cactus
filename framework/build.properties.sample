@@ -16,19 +16,22 @@
 # Mandatory properties
 # -----------------------------------------------------------------------------
 
+# Location of all jars. Note: This is not a mandatory property. It is only
+# used in so that it can be reused when defining the location of all the jars
+# below. You do not have to put all the external jars in a single location.
+lib.repo = c:/apps/repo
+
 # The location of the J2EE API jar. Depending on the version (1.2 or 1.3) of
 # it, the corresponding Cactus Framework will be built. For example if you use
 # J2EE 1.3 jar, then the Cactus jar will contain the Filter Redirector which is
 # only available for Servlet 2.3 (part of J2EE 1.3).
-
-j2ee.jar = ../jakarta-servletapi-4/dist/lib/servlet.jar
-#j2ee.jar = ../jakarta-servletapi/dist/lib/servlet.jar
+j2ee.jar = ${lib.repo}/servletapi-2.3.jar
 
 # The location of the log4j jar
-log4j.jar = ../jakarta-log4j/dist/lib/log4j-1.2rc1.jar
+log4j.jar = ${lib.repo}/log4j-1.2.3.jar
 
 # The location of the Commons Httpclient jar
-commons.httpclient.jar = ../jakarta-commons/httpclient/dist/commons-httpclient-20020421.jar
+commons.httpclient.jar = ${lib.repo}/commons-httpclient-2.0alpha1-20020606.jar
 
 # The location of the Httpunit jar
-httpunit.jar = ../httpunit/lib/httpunit.jar
+httpunit.jar = ${lib.repo}/httpunit-1.4.jar

@@ -135,7 +135,10 @@
          Verify that all mandatory properties have been set
        ========================================================================
     -->
-    <target name="check.properties" depends="display.properties">
+    <target name="check.properties"
+        depends="display.properties,check.properties.test,check.properties.warn"/>
+
+    <target name="check.properties.test">
 
         <condition property="properties.ok">
             <and>
@@ -149,11 +152,13 @@
            </and>
         </condition>
 
-        <fail message="Missing property or property pointing to an invalid file (check your build.properties file)"
-            unless="properties.ok"/>
-
     </target>
 
+    <target name="check.properties.warn" unless="properties.ok">
+
+        <fail message="Missing property or property pointing to an invalid file (check your build.properties file)"/>
+
+    </target>
     <!--
        ========================================================================
          Initialize the build. Must be called by all targets
