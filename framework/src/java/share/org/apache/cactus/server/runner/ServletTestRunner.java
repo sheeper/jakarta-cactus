@@ -56,10 +56,17 @@
  */
 package org.apache.cactus.server.runner;
 
+import java.io.InputStream;
 import java.io.IOException;
+import java.io.Reader;
 import java.io.PrintWriter;
+import java.io.StringReader;
+import java.io.Writer;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
 
 import javax.servlet.ServletException;
+import javax.servlet.UnavailableException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -71,8 +78,15 @@ import org.apache.cactus.util.BaseConfiguration;
 
 /**
  * Helper servlet to start a JUnit Test Runner in a webapp.
- *
+ * 
+ * <p>
+ *   This class currently does a couple of reflection tricks to avoid a direct 
+ *   dependancy on the TraX API (<code>javax.xml.transform.*</code>),
+ *   encapsulated in the {@link XMLTransformer} class.
+ * </p>
+ * 
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
+ * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
  *
  * @version $Id$
  */
@@ -84,11 +98,71 @@ public class ServletTestRunner extends HttpServlet
     private static final String HTTP_SUITE_PARAM = "suite";
 
     /**
+     * HTTP parameter that determines whether the XML test results should be 
+     * transformed using the XSLT stylesheet specified as initialization 
+     * parameter.
+     */
+    private static final String HTTP_TRANSFORM_PARAM = "transform";
+
+    /**
      * HTTP parameter containing name of the XSL stylesheet to put in the
      * returned XML test result. It will only work if the browser supports
      * this feature (IE does, I don't know about others).
      */
     private static final String HTTP_XSL_PARAM = "xsl";
+
+    /**
+     * Name of the servlet initialization parameter that contains the path to
+     * the XSLT stylesheet for transforming the XML report into HTML.
+     */
+    private static final String XSL_STYLESHEET_PARAM = "xsl-stylesheet";
+
+    /**
+     * The XML transformer. Avoid direct dependancy by using reflection.
+     */
+    private Object transformer = null;
+
+    /**
+     * Called by the container when the servlet is initialized.
+     * 
+     * @throws ServletException If an initialization parameter contains an
+     *         illegal value
+     */
+    public void init() throws ServletException
+    {
+        String xslStylesheetParam = getInitParameter(XSL_STYLESHEET_PARAM);
+        if (xslStylesheetParam != null)
+        {
+            InputStream xslStylesheet =
+                getServletContext().getResourceAsStream(xslStylesheetParam);
+            if (xslStylesheet != null)
+            {
+                try
+                {
+                    Class transformerClass =
+                        Class.forName(
+                            "org.apache.cactus.server.runner.XMLTransformer");
+                    Constructor transformerCtor =
+                        transformerClass.getConstructor(
+                            new Class[] {InputStream.class});
+                    transformer =
+                        transformerCtor.newInstance(
+                            new Object[] {xslStylesheet});
+                }
+                catch (Throwable t)
+                {
+                    log("Could not instantiate XMLTransformer - will not "
+                        + "perform server-side XSLT transformations", t);
+                }
+            }
+            else
+            {
+                throw new UnavailableException(
+                    "The initialization parameter 'xsl-stylesheet' does not "
+                    + "refer to an existing resource");
+            }
+        }
+    }
 
     /**
      * Starts the test suite passed as a HTTP parameter
@@ -113,10 +187,6 @@ public class ServletTestRunner extends HttpServlet
                 + HTTP_SUITE_PARAM + "] in request");
         }
 
-        // Get the XSL stylesheet parameter if any
-        String xslParam = theRequest.getParameter(HTTP_XSL_PARAM);
-
-
         // Set up default Cactus System properties so that there is no need
         // to have a cactus.properties file in WEB-INF/classes
         System.setProperty(BaseConfiguration.CACTUS_CONTEXT_URL_PROPERTY, 
@@ -124,14 +194,46 @@ public class ServletTestRunner extends HttpServlet
             + theRequest.getServerPort()
             + theRequest.getContextPath());
 
+        // Get the XSL stylesheet parameter if any
+        String xslParam = theRequest.getParameter(HTTP_XSL_PARAM);
+
+        // Get the transform parameter if any
+        String transformParam = theRequest.getParameter(HTTP_TRANSFORM_PARAM);
+
         // Run the tests
         String xml = run(suiteClassName, xslParam);
 
-        theResponse.setContentType("text/xml");
-
-        PrintWriter pw = theResponse.getWriter();
-
-        pw.println(xml);
+        // Check if we should do the transformation server side
+        if ((transformParam != null) && (transformer != null))
+        {
+            // Transform server side
+            try
+            {
+                Method getContentTypeMethod =
+                    transformer.getClass().getMethod(
+                        "getContentType", new Class[0]);
+                theResponse.setContentType((String)
+                    getContentTypeMethod.invoke(transformer, new Object[0]));
+                PrintWriter out = theResponse.getWriter();
+                Method transformMethod =
+                    transformer.getClass().getMethod(
+                        "transform", new Class[] {Reader.class,Writer.class});
+                transformMethod.invoke(transformer,
+                    new Object[] {new StringReader(xml), out});
+            }
+            catch (Exception e)
+            {
+                throw new ServletException(
+                    "Problem applying the XSLT transformation", e);
+            }
+        }
+        else
+        {
+            // Transform client side (or not at all)
+            theResponse.setContentType("text/xml");
+            PrintWriter pw = theResponse.getWriter();
+            pw.println(xml);
+        }
     }
 
     /**
