@@ -156,50 +156,7 @@ public class TestJUnitTestCaseWrapper extends TestCase
   
       </section>
 
-      <section title="Step 3: Standard JUnit methods">
-
-        <p>
-          As in a normal JUnit test case, define the following standard JUnit
-          methods:
-        </p>
-        <ul>
-          <li>
-            A constructor with a single parameter (it is the test name),
-          </li>
-          <li>
-            (optional): A <code>main()</code> method in which you start a JUnit
-            test runner if you want your test to be executable,
-          </li>
-          <li>
-            (optional): A <code>suite()</code> method to list the tests that
-            should be executed by your test class (default is to include all
-            method starting with "<code>test</code>").
-          </li>
-        </ul>
-        <p>
-          For example:
-        </p>
-
-<source><![CDATA[
-public TestSampleServlet(String theName)
-{
-    super(theName);
-}
-
-public static void main(String[] theArgs)
-{
-    junit.swingui.TestRunner.main(new String[] {TestSampleServlet.class.getName()});
-}
-
-public static Test suite()
-{
-    return new TestSuite(TestSampleServlet.class);
-}
-]]></source>
-
-      </section>
-
-      <section title="Step 4 (optional): setUp() and tearDown() methods">
+      <section title="Step 3 (optional): setUp() and tearDown() methods">
 
         <p>
           As in JUnit, you can define a <code>setUp()</code> and a
@@ -219,7 +176,7 @@ public static Test suite()
 
       </section>
 
-      <section title="Step 5 (optional): begin() and end() methods">
+      <section title="Step 4 (optional): begin() and end() methods">
 
         <p>
           <code>begin(...)</code> and <code>end(...)</code> methods are the
@@ -234,7 +191,7 @@ public static Test suite()
 
       </section>
 
-      <section title="Step 6: testXXX() methods">
+      <section title="Step 5: testXXX() methods">
 
         <p>
           As in JUnit, the main method for a test is the
@@ -297,7 +254,7 @@ public void testXXX()
 
       </section>
 
-      <section title="Step 7 (optional): beginXXX() methods">
+      <section title="Step 6 (optional): beginXXX() methods">
 
         <p>
           For each XXX test case, you can define a corresponding
@@ -340,7 +297,7 @@ public void beginXXX(WebRequest theRequest)
       </section>
 
       <anchor id="endxxx"/>
-      <section title="Step 8 (optional): endXXX() methods">
+      <section title="Step 7 (optional): endXXX() methods">
 
         <p>
           For each XXX test case, you can define a corresponding
