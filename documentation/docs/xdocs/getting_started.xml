@@ -82,7 +82,7 @@
           Ant is only needed if you are working from the command line or if you
           wish to automate the execution of tests. If you wish to use Ant,
           make sure that you read the
-          <link href="site:howto_ant">Ant Howto</link> after you finish
+          <link href="site:integration_ant">Ant Howto</link> after you finish
           reading this introductory guide.
         </li>
       </ul>
@@ -113,7 +113,7 @@
           This is only needed if you wish to use Ant for automating the
           execution of Cactus tests. For more information on how to integrate
           Cactus with Ant, see the
-          <link href="site:howto_ant">Ant Howto</link> tutorial. You also
+          <link href="site:integration_ant">Ant Howto</link> tutorial. You also
           find this jar in <code>[cactus root]/lib</code>.
         </li>
         <li>

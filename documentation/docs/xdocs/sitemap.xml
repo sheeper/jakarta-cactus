@@ -56,7 +56,7 @@
   <resource id="howto_jsp" target="writing/howto_jsp.html"/>
   <resource id="howto_runner" target="integration/howto_runner.html"/>
   <resource id="howto_security" target="writing/howto_security.html"/>
-  <resource id="howto_ant" target="integration/ant/howto_ant.html"/>
+  <resource id="integration_ant" target="integration/ant/index.html"/>
   <resource id="howto_ant_cactus" target="integration/ant/howto_ant_cactus.html"/>
   <resource id="howto_ant_install" target="integration/ant/howto_ant_install.html"/>
   <resource id="howto_ant_primer" target="integration/ant/howto_ant_primer.html"/>

@@ -59,7 +59,7 @@
   </menu>
 
   <menu label="Integration">
-    <item label="Ant" id="howto_ant"/>
+    <item label="Ant" id="integration_ant"/>
     <item label="Eclipse" id="eclipse_plugin"/>
   </menu>
 

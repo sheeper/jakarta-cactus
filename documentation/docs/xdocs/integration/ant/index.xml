@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<document id="howto_ant">
+<document id="integration_ant">
 
   <properties>
     <title>Ant Howto</title>
@@ -11,7 +11,7 @@
 
   <body>
 
-  <section title="Ant integration">
+  <section title="Ant Integration">
 
     <p>
       This tutorial has several trails:

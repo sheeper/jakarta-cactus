@@ -86,10 +86,10 @@ documentation/docs/xdocs/images/servlettestrunner_xml.jpg -text
 documentation/docs/xdocs/images/tomcat_html.jpg -text
 documentation/docs/xdocs/images/tomcat_xml.jpg -text
 documentation/docs/xdocs/index.xml svn_keywords=Author+Date+Id+Revision
-documentation/docs/xdocs/integration/ant/howto_ant.xml svn_keywords=Author+Date+Id+Revision
 documentation/docs/xdocs/integration/ant/howto_ant_cactus.xml svn_keywords=Author+Date+Id+Revision
 documentation/docs/xdocs/integration/ant/howto_ant_install.xml svn_keywords=Author+Date+Id+Revision
 documentation/docs/xdocs/integration/ant/howto_ant_primer.xml svn_keywords=Author+Date+Id+Revision
+documentation/docs/xdocs/integration/ant/index.xml svn_keywords=Author+Date+Id+Revision
 documentation/docs/xdocs/integration/ant/navigation.xml svn_keywords=Author+Date+Id+Revision
 documentation/docs/xdocs/integration/ant/task_runservertests.xml svn_keywords=Author+Date+Id+Revision
 documentation/docs/xdocs/integration/ant/task_webxmlmerge.xml svn_keywords=Author+Date+Id+Revision

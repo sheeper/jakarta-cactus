@@ -42,7 +42,8 @@
     <section title="Running Cactus tests from Ant">
 
       <p>
-        Refer to the <link href="site:howto_ant">Ant Howto</link>.
+        Refer to the documentation about the Cactus
+        <link href="site:integration_ant">Ant Integration</link>.
       </p>
 
     </section>
