@@ -15,6 +15,20 @@
 
     <s1 title="News and Events">
 
+      <ul>
+        <li>
+          <jump anchor="who_talks_news">Who talks about Cactus ?</jump>
+        </li>
+        <li>
+          <jump anchor="internal_news">Internal web site news</jump>
+        </li>
+      </ul>
+
+    </s1>
+
+    <anchor id="who_talks_news"/>
+    <s1 title="Who talks about Cactus">
+
       <table>
 
         <tr>
@@ -66,6 +80,84 @@
 
         <tr>
           <td>
+            12/2001
+          </td>
+          <td>
+            <link href="http://strutstestcase.sourceforge.net/">
+            StrutsTestCase for JUnit</link> is a framework for un it testing
+            Struts code. It provides both mock objects and a Cactus integration
+            for testin inside and outside of the container.
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            11/2001
+          </td>
+          <td>
+            New book on open source tools for XP, including a big chapter on
+            Cactus :
+            <link href="http://www.amazon.com/exec/obidos/ASIN/047120708X/">
+            Java Tools for Extreme Programming: Mastering Open Source Tools,
+            including Ant, JUnit, and Cactus</link>. By Rick Hightower and
+            <link href="mailto:nick@eblox.com">Nicholas Lesiecki</link> from
+            <link href="http://www.eblox.com">eBlox</link>.
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            12/10/2001
+          </td>
+          <td>
+            Presentation of Cactus at <link href="http://www.jsig.com">London
+            JSIG</link>. Led by <link href="mailto:vmassol@octo.com">Vincent
+            Massol</link> from <link href="http://www.octo.com">OCTO
+            Technology</link>.
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            28/06/2001
+          </td>
+          <td>
+            Article on Cactus from Earthweb :
+            <link href="http://softwaredev.earthweb.com/java/article/0,,12082_793701,00.html">Cactus:
+            no pity for bugs</link>.
+          </td>
+        </tr>
+
+      </table>
+
+    </s1>
+
+    <anchor id="internal_news"/>
+    <s1 title="Internal Web site News">
+
+      <table>
+
+        <tr>
+          <td>
+            20/04/2002
+          </td>
+          <td>
+            New <link href="howto_security.html">Security tutorial</link>.
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            20/04/2002
+          </td>
+          <td>
+            New <link href="logos.html">logo proposals</link> by Alessandro
+            Ceglia, Dimenzio Design Works and Arthur Jasso.
+          </td>
+        </tr>
+
+        <tr>
+          <td>
             22/02/2002
           </td>
           <td>
@@ -101,33 +193,6 @@
           <td>
             Link to Cactus nightly build result added to the left menu in the
             developer section.
-          </td>
-        </tr>
-
-        <tr>
-          <td>
-            11/2002
-          </td>
-          <td>
-            New book on open source tools for XP, including a big chapter on
-            Cactus :
-            <link href="http://www.amazon.com/exec/obidos/ASIN/047120708X/">
-            Java Tools for Extreme Programming: Mastering Open Source Tools,
-            including Ant, JUnit, and Cactus</link>. By Rick Hightower and
-            <link href="mailto:nick@eblox.com">Nicholas Lesiecki</link> from
-            <link href="http://www.eblox.com">eBlox</link>.
-          </td>
-        </tr>
-
-        <tr>
-          <td>
-            12/10/2001
-          </td>
-          <td>
-            Presentation of Cactus at <link href="http://www.jsig.com">London
-            JSIG</link>. Led by <link href="mailto:vmassol@octo.com">Vincent
-            Massol</link> from <link href="http://www.octo.com">OCTO
-            Technology</link>.
           </td>
         </tr>
 
