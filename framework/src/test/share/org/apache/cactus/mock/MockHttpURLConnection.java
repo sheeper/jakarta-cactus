@@ -57,6 +57,7 @@
 package org.apache.cactus.mock;
 
 import java.io.InputStream;
+
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -80,6 +81,18 @@ public class MockHttpURLConnection extends HttpURLConnection
      * return.
      */
     private InputStream getInputStreamValue;
+
+    // -----------------------------------------------------------------------
+    // Methods overriding those from HttpURLConnection
+    // -----------------------------------------------------------------------
+
+    /**
+     * @param theURL the underlying URL
+     */
+    public MockHttpURLConnection(URL theURL)
+    {
+        super(theURL);
+    }
 
     // -----------------------------------------------------------------------
     // Methods added on top of those found in HttpURLConnection
@@ -107,27 +120,17 @@ public class MockHttpURLConnection extends HttpURLConnection
         this.getInputStreamValue = theValue;
     }
 
-    // -----------------------------------------------------------------------
-    // Methods overriding those from HttpURLConnection
-    // -----------------------------------------------------------------------
-
-    /**
-     * @param theURL the underlying URL
-     */
-    public MockHttpURLConnection(URL theURL)
-    {
-        super(theURL);
-    }
-
     /**
      * @see HttpURLConnection#getHeaderField(int)
      */
     public String getHeaderField(int theFieldNumber)
     {
-        if (this.getHeaderFieldValue == null) {
+        if (this.getHeaderFieldValue == null)
+        {
             throw new RuntimeException(
                 "Must call setExpectedGetHeaderField() first !");
         }
+
         return this.getHeaderFieldValue;
     }
 
@@ -136,10 +139,12 @@ public class MockHttpURLConnection extends HttpURLConnection
      */
     public InputStream getInputStream()
     {
-        if (this.getInputStreamValue == null) {
+        if (this.getInputStreamValue == null)
+        {
             throw new RuntimeException(
                 "Must call setExpectedGetInputStream() first !");
         }
+
         return this.getInputStreamValue;
     }
 
@@ -168,5 +173,4 @@ public class MockHttpURLConnection extends HttpURLConnection
     public void connect()
     {
     }
-
 }

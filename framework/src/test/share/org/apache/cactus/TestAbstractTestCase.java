@@ -65,12 +65,13 @@ import java.net.HttpURLConnection;
  *
  * @version $Id$
  */
-public class TestAbstractTestCase extends
-    TestAbstractTestCaseInterceptorTestCase
+public class TestAbstractTestCase
+    extends TestAbstractTestCaseInterceptorTestCase
 {
     // Make sure logging is disabled
-    static {
-        System.setProperty("org.apache.commons.logging.Log",
+    static
+    {
+        System.setProperty("org.apache.commons.logging.Log", 
             "org.apache.commons.logging.impl.NoOpLog");
     }
 
@@ -106,7 +107,6 @@ public class TestAbstractTestCase extends
     {
         // This method only exist so that a test exist and thus the begin
         // method for that test will be called.
-
         // Should not reach this point
         fail("Should not reach this point");
     }
@@ -130,7 +130,6 @@ public class TestAbstractTestCase extends
     {
         // This method only exist so that a test exist and thus the begin
         // method for that test will be called.
-
         // Should not reach this point
         fail("Should not reach this point");
     }
@@ -154,7 +153,6 @@ public class TestAbstractTestCase extends
     {
         // This method only exist so that a test exist and thus the begin
         // method for that test will be called.
-
         // Should not reach this point
         fail("Should not reach this point");
     }
@@ -164,7 +162,7 @@ public class TestAbstractTestCase extends
     /**
      * @see #testBeginMethodBadParamNumber()
      */
-    public void beginBeginMethodBadParamNumber(WebRequest theRequest,
+    public void beginBeginMethodBadParamNumber(WebRequest theRequest, 
         String theString)
     {
     }
@@ -179,7 +177,6 @@ public class TestAbstractTestCase extends
     {
         // This method only exist so that a test exist and thus the begin
         // method for that test will be called.
-
         // Should not reach this point
         fail("Should not reach this point");
     }
@@ -282,7 +279,7 @@ public class TestAbstractTestCase extends
     /**
      * @see #testEndMethodBadParamNumber()
      */
-    public void endEndMethodBadParamNumber(WebResponse theResponse,
+    public void endEndMethodBadParamNumber(WebResponse theResponse, 
         String theDummy)
     {
     }
@@ -352,5 +349,4 @@ public class TestAbstractTestCase extends
         // TestAbstractTestCaseInterceptorTestCase
         fail("endEndMethodOK3");
     }
-
 }

@@ -70,8 +70,9 @@ import org.apache.cactus.WebTestResult;
 public class TestWebTestResultParser extends TestCase
 {
     // Make sure logging is disabled
-    static {
-        System.setProperty("org.apache.commons.logging.Log",
+    static
+    {
+        System.setProperty("org.apache.commons.logging.Log", 
             "org.apache.commons.logging.impl.NoOpLog");
     }
 
@@ -118,11 +119,11 @@ public class TestWebTestResultParser extends TestCase
         WebTestResult result = parser.parse(initialResult.toXml());
 
         assertNotNull(result);
-        assertTrue("There is no exception in the test result !",
+        assertTrue("There is no exception in the test result !", 
             result.hasException());
         assertEquals("java.lang.Exception", result.getExceptionClassName());
         assertEquals("test exception", result.getExceptionMessage());
-        assertTrue("Should not be empty",
+        assertTrue("Should not be empty", 
             result.getExceptionStackTrace().length() > 0);
     }
 
@@ -138,6 +139,7 @@ public class TestWebTestResultParser extends TestCase
         WebTestResultParser parser = new WebTestResultParser();
 
         String buffer = parser.readRootElement(initialResult.toXml());
+
         assertEquals("", buffer);
     }
 
@@ -159,9 +161,10 @@ public class TestWebTestResultParser extends TestCase
         WebTestResultParser parser = new WebTestResultParser();
 
         String buffer = parser.readRootElement(initialResult.toXml());
-        assertTrue("Should have started with [" + expectedStart + "]",
+
+        assertTrue("Should have started with [" + expectedStart + "]", 
             buffer.startsWith(expectedStart));
-        assertTrue("Should have ended with [" + expectedEnd + "]",
+        assertTrue("Should have ended with [" + expectedEnd + "]", 
             buffer.endsWith(expectedEnd));
     }
 
@@ -183,9 +186,9 @@ public class TestWebTestResultParser extends TestCase
 
         buffer = parser.readExceptionClassname(buffer);
         assertEquals("java.lang.Exception", parser.exceptionClassname);
-        assertTrue("Should have started with [" + expectedStart + "]",
+        assertTrue("Should have started with [" + expectedStart + "]", 
             buffer.startsWith(expectedStart));
-        assertTrue("Should have ended with [" + expectedEnd + "]",
+        assertTrue("Should have ended with [" + expectedEnd + "]", 
             buffer.endsWith(expectedEnd));
     }
 
@@ -203,13 +206,14 @@ public class TestWebTestResultParser extends TestCase
         WebTestResult initialResult = new WebTestResult(e);
         WebTestResultParser parser = new WebTestResultParser();
         String buffer = parser.readRootElement(initialResult.toXml());
+
         buffer = parser.readExceptionClassname(buffer);
 
         buffer = parser.readExceptionMessage(buffer);
         assertEquals("test exception", parser.exceptionMessage);
-        assertTrue("Should have started with [" + expectedStart + "]",
+        assertTrue("Should have started with [" + expectedStart + "]", 
             buffer.startsWith(expectedStart));
-        assertTrue("Should have ended with [" + expectedEnd + "]",
+        assertTrue("Should have ended with [" + expectedEnd + "]", 
             buffer.endsWith(expectedEnd));
     }
 }

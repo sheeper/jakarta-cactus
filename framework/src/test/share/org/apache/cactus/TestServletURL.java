@@ -68,8 +68,9 @@ import junit.framework.TestCase;
 public class TestServletURL extends TestCase
 {
     // Make sure logging is disabled
-    static {
-        System.setProperty("org.apache.commons.logging.Log",
+    static
+    {
+        System.setProperty("org.apache.commons.logging.Log", 
             "org.apache.commons.logging.impl.NoOpLog");
     }
 
@@ -92,7 +93,7 @@ public class TestServletURL extends TestCase
      */
     public void testGetHostWithPort()
     {
-        ServletURL servletURL = new ServletURL("jakarta.apache.org:8080",
+        ServletURL servletURL = new ServletURL("jakarta.apache.org:8080", 
             null, null, null, null);
 
         assertEquals("jakarta.apache.org", servletURL.getHost());
@@ -105,6 +106,7 @@ public class TestServletURL extends TestCase
     public void testGetPortInvalidPortNumber()
     {
         ServletURL servletURL = new ServletURL();
+
         servletURL.setServerName("jakarta.apache.org:invalidPort80");
 
         int port = servletURL.getPort();
@@ -119,12 +121,15 @@ public class TestServletURL extends TestCase
     {
         ServletURL servletURL = new ServletURL();
 
-        try {
+        try
+        {
             servletURL.setProtocol("invalid protocol");
             fail("Should have raised an invalid protocol error");
-        } catch (RuntimeException e) {
+        }
+        catch (RuntimeException e)
+        {
             assertEquals("Invalid protocol [invalid protocol]. Currently "
-                + "supported protocols are [http] and [https].",
+                + "supported protocols are [http] and [https].", 
                 e.getMessage());
         }
     }
@@ -149,8 +154,9 @@ public class TestServletURL extends TestCase
     public void testGetPath()
     {
         ServletURL servletURL = new ServletURL();
+
         servletURL.setQueryString("param1=value1");
-            servletURL.setContextPath("/context");
+        servletURL.setContextPath("/context");
         servletURL.setServletPath("/servletPath");
         servletURL.setPathInfo("/pathInfo");
 
@@ -170,5 +176,4 @@ public class TestServletURL extends TestCase
 
         assertNull(path);
     }
-
 }

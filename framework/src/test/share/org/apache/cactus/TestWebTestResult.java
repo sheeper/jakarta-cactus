@@ -68,8 +68,9 @@ import junit.framework.TestCase;
 public class TestWebTestResult extends TestCase
 {
     // Make sure logging is disabled
-    static {
-        System.setProperty("org.apache.commons.logging.Log",
+    static
+    {
+        System.setProperty("org.apache.commons.logging.Log", 
             "org.apache.commons.logging.impl.NoOpLog");
     }
 
@@ -92,6 +93,7 @@ public class TestWebTestResult extends TestCase
     public void testToXmlNoException()
     {
         WebTestResult result = new WebTestResult();
+
         assertEquals("<webresult></webresult>", result.toXml());
     }
 
@@ -108,9 +110,10 @@ public class TestWebTestResult extends TestCase
 
         Exception e = new Exception("test exception");
         WebTestResult result = new WebTestResult(e);
-        assertTrue("Should have started with [" + expectedStart + "]",
+
+        assertTrue("Should have started with [" + expectedStart + "]", 
             result.toXml().startsWith(expectedStart));
-        assertTrue("Should have ended with [" + expectedEnd + "]",
+        assertTrue("Should have ended with [" + expectedEnd + "]", 
             result.toXml().endsWith(expectedEnd));
     }
 }

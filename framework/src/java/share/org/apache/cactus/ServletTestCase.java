@@ -132,5 +132,4 @@ public class ServletTestCase extends AbstractWebTestCase
     {
         runGenericTest(new ServletHttpClient());
     }
-
 }

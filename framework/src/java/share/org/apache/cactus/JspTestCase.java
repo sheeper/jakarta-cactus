@@ -112,5 +112,4 @@ public class JspTestCase extends ServletTestCase
     {
         runGenericTest(new JspHttpClient());
     }
-
 }

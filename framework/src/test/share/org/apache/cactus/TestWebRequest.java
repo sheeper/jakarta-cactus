@@ -70,8 +70,9 @@ import org.apache.cactus.util.ChainedRuntimeException;
 public class TestWebRequest extends TestCase
 {
     // Make sure logging is disabled
-    static {
-        System.setProperty("org.apache.commons.logging.Log",
+    static
+    {
+        System.setProperty("org.apache.commons.logging.Log", 
             "org.apache.commons.logging.impl.NoOpLog");
     }
 
@@ -95,11 +96,14 @@ public class TestWebRequest extends TestCase
     {
         WebRequest request = new WebRequest();
 
-        try {
+        try
+        {
             request.addParameter("param1", "value1", "INVALIDMETHOD");
             fail("Should have thrown an exception");
-        } catch (ChainedRuntimeException e) {
-            assertEquals("The method need to be either \"POST\" or \"GET\"",
+        }
+        catch (ChainedRuntimeException e)
+        {
+            assertEquals("The method need to be either \"POST\" or \"GET\"", 
                 e.getMessage());
         }
     }
@@ -111,6 +115,7 @@ public class TestWebRequest extends TestCase
     public void testGetParametersGetOk()
     {
         WebRequest request = new WebRequest();
+
         request.addParameter("param1", "value1", WebRequest.GET_METHOD);
         request.addParameter("param1", "value2", WebRequest.GET_METHOD);
 
@@ -126,6 +131,7 @@ public class TestWebRequest extends TestCase
     public void testGetParameterGetNull()
     {
         WebRequest request = new WebRequest();
+
         request.addParameter("param1", "value1", WebRequest.POST_METHOD);
 
         String result = request.getParameterGet("param1");
@@ -140,6 +146,7 @@ public class TestWebRequest extends TestCase
     public void testGetParametersPostOk()
     {
         WebRequest request = new WebRequest();
+
         request.addParameter("param1", "value1", WebRequest.POST_METHOD);
         request.addParameter("param1", "value2", WebRequest.POST_METHOD);
 
@@ -155,6 +162,7 @@ public class TestWebRequest extends TestCase
     public void testGetParameterPostNull()
     {
         WebRequest request = new WebRequest();
+
         request.addParameter("param1", "value1", WebRequest.GET_METHOD);
 
         String result = request.getParameterPost("param1");
@@ -169,6 +177,7 @@ public class TestWebRequest extends TestCase
     public void testGetHeaderOk()
     {
         WebRequest request = new WebRequest();
+
         request.addHeader("header1", "value1");
         request.addHeader("header2", "value2");
 
@@ -197,13 +206,14 @@ public class TestWebRequest extends TestCase
     public void testToString()
     {
         WebRequest request = new WebRequest();
+
         request.addHeader("header1", "value1");
         request.addHeader("header1", "value2");
         request.addParameter("param1", "value1", WebRequest.GET_METHOD);
         request.addParameter("param1", "value1", WebRequest.POST_METHOD);
         request.addCookie("cookie1", "value1");
         request.setAutomaticSession(false);
-        request.setURL("jakarta.apache.org:80", "/catalog", "/garden",
+        request.setURL("jakarta.apache.org:80", "/catalog", "/garden", 
             "/implements/", "param1=value1&param2=&param3=value3");
 
         String result = request.toString();
@@ -217,7 +227,7 @@ public class TestWebRequest extends TestCase
             + "[false], comment = [null], expiryDate = [null]]], headers = "
             + "[[[header1] = [[value1], [value2]]]], GET parameters = "
             + "[[[param3] = [[value3]]][[param2] = [[]]][[param1] = [[value1], "
-            + "[value1]]]], POST parameters = [[[param1] = [[value1]]]]",
+            + "[value1]]]], POST parameters = [[[param1] = [[value1]]]]", 
             result);
     }
 
@@ -229,14 +239,16 @@ public class TestWebRequest extends TestCase
     {
         WebRequest request = new WebRequest();
 
-        try {
-            request.setURL("jakarta.apache.org:80", "/catalog", "/garden",
+        try
+        {
+            request.setURL("jakarta.apache.org:80", "/catalog", "/garden", 
                 "/implements/", "badquerystring");
             fail("Failed to recognize invalid query string");
-        } catch (RuntimeException e) {
+        }
+        catch (RuntimeException e)
+        {
             assertEquals("Bad QueryString [badquerystring] NameValue pair: "
                 + "[badquerystring]", e.getMessage());
         }
     }
-
 }

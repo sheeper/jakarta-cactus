@@ -57,12 +57,13 @@
 package org.apache.cactus;
 
 import java.io.ByteArrayInputStream;
+
 import java.net.URL;
 
 import junit.framework.AssertionFailedError;
 
-import org.apache.cactus.mock.MockHttpURLConnection;
 import org.apache.cactus.client.ClientException;
+import org.apache.cactus.mock.MockHttpURLConnection;
 
 /**
  * Test <code>TestCase</code> class that intercepts all exceptions (and assert
@@ -108,9 +109,11 @@ public class TestAbstractTestCaseInterceptorTestCase
      */
     protected void runTest() throws Throwable
     {
-        try {
+        try
+        {
             // Call the begin method
             WebRequest request = new WebRequest();
+
             callBeginMethod(request);
 
             // Create a mock HttpURLConnection as it is needed by HttpUnit
@@ -122,32 +125,30 @@ public class TestAbstractTestCaseInterceptorTestCase
             // cases that have an end method with an HttpUnit WebReponse
             // will use the HttpURLConnection.
             connection.setExpectedGetHeaderField("HTTP/1.1 200 OK");
-            connection.setExpectedGetInputStream(new ByteArrayInputStream(
-                "".getBytes()));
+            connection.setExpectedGetInputStream(
+                new ByteArrayInputStream("".getBytes()));
 
             // Create a WebResponse object and call the end method
             callEndMethod(request, connection);
-
-        } catch (AssertionFailedError e) {
-
-            // Perform asserts
-            if (!verifyBeginMethodsOk(e.getMessage())
-                && !verifyEndMethodsOk(e.getMessage())) {
-
-                throw e;
-            }
-
-        } catch (ClientException e) {
-
-            // Perform asserts
-            if (!verifyBeginMethodsOk(e.getMessage())
-                && !verifyEndMethodsOk(e.getMessage())) {
-
-                throw e;
-            }
-
         }
-
+        catch (AssertionFailedError e)
+        {
+            // Perform asserts
+            if (!verifyBeginMethodsOk(e.getMessage())
+                && !verifyEndMethodsOk(e.getMessage()))
+            {
+                throw e;
+            }
+        }
+        catch (ClientException e)
+        {
+            // Perform asserts
+            if (!verifyBeginMethodsOk(e.getMessage())
+                && !verifyEndMethodsOk(e.getMessage()))
+            {
+                throw e;
+            }
+        }
     }
 
     /**
@@ -161,59 +162,59 @@ public class TestAbstractTestCaseInterceptorTestCase
         // Test that when a begin method for a given test does not have the
         // correct return type (i.e. void), a
         // <code>AssertionFailedError</code> exception is returned.
-        if (this.getCurrentTestMethod().equals(
-                "testBeginMethodBadReturnType")) {
-
+        if (this.getCurrentTestMethod().equals("testBeginMethodBadReturnType"))
+        {
             assertEquals("The method "
                 + "[beginBeginMethodBadReturnType] should return void and "
                 + "not [java.lang.String]", theMessage);
+
             return true;
         }
 
         // Test that when a begin method for a given test is not declared
         // public a <code>AssertionFailedError</code> exception is returned.
-        if (this.getCurrentTestMethod().equals(
-                "testBeginMethodNotPublic")) {
-
+        if (this.getCurrentTestMethod().equals("testBeginMethodNotPublic"))
+        {
             assertEquals("Method [beginBeginMethodNotPublic] should be "
                 + "declared public", theMessage);
+
             return true;
         }
 
         // Test that when a begin method for a given test has the wrong
         // type of parameters, a <code>AssertionFailedError</code> exception
         // is returned.
-        if (this.getCurrentTestMethod().equals(
-                "testBeginMethodBadParamType")) {
-
+        if (this.getCurrentTestMethod().equals("testBeginMethodBadParamType"))
+        {
             assertEquals("The method "
                 + "[beginBeginMethodBadParamType] must accept a single "
                 + "parameter derived from class "
                 + "[org.apache.cactus.WebRequest], but "
-                + "found a [java.lang.String] parameter instead",
-                theMessage);
+                + "found a [java.lang.String] parameter instead", theMessage);
+
             return true;
         }
 
         // Test that when a begin method for a given test has the wrong
         // number of parameters, a <code>AssertionFailedError</code>
         // exception is returned.
-        if (this.getCurrentTestMethod().equals(
-                "testBeginMethodBadParamNumber")) {
-
+        if (this.getCurrentTestMethod().equals("testBeginMethodBadParamNumber"))
+        {
             assertEquals("The method "
                 + "[beginBeginMethodBadParamNumber] must accept a single "
                 + "parameter derived from class "
                 + "[org.apache.cactus.WebRequest], but 2 "
-                + "parameters were found",
-                theMessage);
+                + "parameters were found", theMessage);
+
             return true;
         }
 
         // Verify that the begin method with a
         // <code>WebRequest</code> parameter is called correctly.
-        if (this.getCurrentTestMethod().equals("testBeginMethodOK")) {
+        if (this.getCurrentTestMethod().equals("testBeginMethodOK"))
+        {
             assertEquals("beginBeginMethodOK", theMessage);
+
             return true;
         }
 
@@ -231,71 +232,78 @@ public class TestAbstractTestCaseInterceptorTestCase
         // Test that when an end method for a given test does not have the
         // correct return type (i.e. void), a
         // <code>AssertionFailedError</code> exception is returned.
-        if (this.getCurrentTestMethod().equals(
-                "testEndMethodBadReturnType")) {
-
+        if (this.getCurrentTestMethod().equals("testEndMethodBadReturnType"))
+        {
             assertEquals("The method "
                 + "[endEndMethodBadReturnType] should return void and "
                 + "not [java.lang.String]", theMessage);
+
             return true;
         }
 
         // Test that when an end method for a given test is not declared
         // public a <code>AssertionFailedError</code> exception is returned.
-        if (this.getCurrentTestMethod().equals("testEndMethodNotPublic")) {
+        if (this.getCurrentTestMethod().equals("testEndMethodNotPublic"))
+        {
             assertEquals("Method [endEndMethodNotPublic] should be "
                 + "declared public", theMessage);
+
             return true;
         }
 
         // Test that when an end method for a given test has the wrong
         // type of parameters, a <code>AssertionFailedError</code> exception
         // is returned.
-        if (this.getCurrentTestMethod().equals(
-                "testEndMethodBadParamType")) {
-
+        if (this.getCurrentTestMethod().equals("testEndMethodBadParamType"))
+        {
             assertEquals("The method [endEndMethodBadParamType] "
-                + "has a bad parameter of type [java.lang.String]",
+                + "has a bad parameter of type [java.lang.String]", 
                 theMessage);
+
             return true;
         }
 
         // Test that when an end method for a given test has the wrong
         // number of parameters, a <code>AssertionFailedError</code>
         // exception is returned.
-        if (this.getCurrentTestMethod().equals(
-                "testEndMethodBadParamNumber")) {
-
+        if (this.getCurrentTestMethod().equals("testEndMethodBadParamNumber"))
+        {
             assertEquals("The method [endEndMethodBadParamNumber] "
                 + "must only have a single parameter", theMessage);
+
             return true;
         }
 
         // Test that the end method is called correctly when it's signature
         // contains a <code>org.apache.cactus.WebResponse</code>
         // parameter.
-        if (this.getCurrentTestMethod().equals("testEndMethodOK1")) {
+        if (this.getCurrentTestMethod().equals("testEndMethodOK1"))
+        {
             assertEquals("endEndMethodOK1", theMessage);
+
             return true;
         }
 
         // Test that the end method is called correctly when it's signature
         // contains a <code>com.meterware.httpunit.WebResponse</code>
         // parameter.
-        if (this.getCurrentTestMethod().equals("testEndMethodOK2")) {
+        if (this.getCurrentTestMethod().equals("testEndMethodOK2"))
+        {
             assertEquals("endEndMethodOK2", theMessage);
+
             return true;
         }
 
         // Test that the deprecated end method with the
         // <code>HttpURLConnection</code> parameter can still be called
         // correctly.
-        if (this.getCurrentTestMethod().equals("testEndMethodOK3")) {
+        if (this.getCurrentTestMethod().equals("testEndMethodOK3"))
+        {
             assertEquals("endEndMethodOK3", theMessage);
+
             return true;
         }
 
         return false;
     }
-
 }

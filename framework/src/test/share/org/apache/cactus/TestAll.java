@@ -88,7 +88,7 @@ public class TestAll extends TestCase
      */
     public static void main(String[] theArgs)
     {
-        junit.swingui.TestRunner.main(new String[]{TestAll.class.getName()});
+        junit.swingui.TestRunner.main(new String[] { TestAll.class.getName() });
     }
 
     /**
@@ -97,8 +97,8 @@ public class TestAll extends TestCase
      */
     public static Test suite()
     {
-        TestSuite suite =
-            new TestSuite("Cactus unit tests not needing servlet engine");
+        TestSuite suite = new TestSuite(
+            "Cactus unit tests not needing servlet engine");
 
         suite.addTestSuite(org.apache.cactus.TestAbstractTestCase.class);
         suite.addTestSuite(org.apache.cactus.TestServletURL.class);
@@ -110,5 +110,4 @@ public class TestAll extends TestCase
 
         return suite;
     }
-
 }

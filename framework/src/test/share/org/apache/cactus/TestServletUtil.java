@@ -70,8 +70,9 @@ import org.apache.cactus.server.ServletUtil;
 public class TestServletUtil extends TestCase
 {
     // Make sure logging is disabled
-    static {
-        System.setProperty("org.apache.commons.logging.Log",
+    static
+    {
+        System.setProperty("org.apache.commons.logging.Log", 
             "org.apache.commons.logging.impl.NoOpLog");
     }
 
@@ -94,9 +95,9 @@ public class TestServletUtil extends TestCase
     public void testGetQueryStringParameterEmpty()
     {
         String queryString = "param1=&param2=value2";
-        String result = ServletUtil.getQueryStringParameter(
-            queryString, "param1");
+        String result = ServletUtil.getQueryStringParameter(queryString, 
+            "param1");
+
         assertEquals("", result);
     }
-
 }
