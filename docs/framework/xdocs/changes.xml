@@ -25,6 +25,10 @@
 
     <release version="1.0 in CVS">
       <action dev="VMA" type="add">
+        Added a license page on the Cactus web site that explains that Cactus
+        is under the APL license.
+      </action>
+      <action dev="VMA" type="add">
         Added a new target called <code>deploy-site</code> that automatically
         deploy the generated web site to it's home page on the Jakarta server.
         This will be very useful when integrated with GUMP nightly builds so
