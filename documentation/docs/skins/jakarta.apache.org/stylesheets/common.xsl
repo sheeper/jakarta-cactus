@@ -44,10 +44,10 @@
   <xsl:variable name="document" select="/document"/>
 
   <!-- ==================================================================== -->
-  <!-- Get current processed file source path -->
+  <!-- Get the path to a sitemap resource -->
   <!-- ==================================================================== -->
 
-  <xsl:template name="get-source-from-id">
+  <xsl:template name="check-resource-id">
     <xsl:param name="id"/>
     <!-- Issue a warning if the id is invalid -->
     <xsl:if test="not($sitemap/resource[@id=$id])">
@@ -57,13 +57,36 @@
         <xsl:text>] has no reference in sitemap.xml</xsl:text>
       </xsl:message>
     </xsl:if>
+  </xsl:template>
+
+  <xsl:template name="get-target-from-id">
+    <xsl:param name="id"/>
+    <xsl:call-template name="check-resource-id">
+      <xsl:with-param name="id" select="$id"/>
+    </xsl:call-template>
     <xsl:value-of select="$sitemap//resource[@id=$id]/@target"/>
   </xsl:template>
 
-  <xsl:template name="get-source">
-    <xsl:call-template name="get-source-from-id">
+  <xsl:template name="get-target">
+    <xsl:call-template name="get-target-from-id">
       <xsl:with-param name="id" select="$document/@id"/>
     </xsl:call-template>
+  </xsl:template>
+
+  <xsl:template name="get-resource-name">
+    <xsl:param name="id"/>
+    <xsl:call-template name="check-resource-id">
+      <xsl:with-param name="id" select="$id"/>
+    </xsl:call-template>
+    <xsl:value-of select="$sitemap//resource[@id=$id]/@name"/>
+  </xsl:template>
+
+  <xsl:template name="get-resource-description">
+    <xsl:param name="id"/>
+    <xsl:call-template name="check-resource-id">
+      <xsl:with-param name="id" select="$id"/>
+    </xsl:call-template>
+    <xsl:value-of select="$sitemap//resource[@id=$id]/text()"/>
   </xsl:template>
 
   <!-- ==================================================================== -->
@@ -94,7 +117,7 @@
   <xsl:template name="get-base-directory">
     <xsl:call-template name="get-base-directory-internal">
       <xsl:with-param name="file">
-        <xsl:call-template name="get-source"/>
+        <xsl:call-template name="get-target"/>
       </xsl:with-param>
     </xsl:call-template>
   </xsl:template>
@@ -121,13 +144,13 @@
 
   <xsl:template name="get-target-file">
     <xsl:param name="id"/>
-    <xsl:variable name="source">
-      <xsl:call-template name="get-source-from-id">
+    <xsl:variable name="target">
+      <xsl:call-template name="get-target-from-id">
         <xsl:with-param name="id" select="$id"/>
       </xsl:call-template>
     </xsl:variable>
     <xsl:call-template name="get-base-directory"/>
-    <xsl:value-of select="$source"/>
+    <xsl:value-of select="$target"/>
   </xsl:template>
 
 </xsl:stylesheet>

@@ -6,8 +6,6 @@
 <!-- ====================================================================== -->
 
 <!-- TODOS:
-     - finish removing all style references and put them in the CSS. Only use
-       CSS features that are standard across browsers (it is possible?).
      - modify <figure> to support site: and ext: notations
      - add warnings for external <link> not using ext:
 -->
@@ -18,7 +16,9 @@
   <!-- Import common templates and parameters -->
   <xsl:import href="common.xsl"/>
 
-  <xsl:output method="html" indent="no"/>
+  <xsl:output method="html"
+      doctype-public="-//W3C//DTD HTML 4.0 Transitional//EN"
+      doctype-system="http://www.w3.org/TR/html4/loose.dtd"/>
 
   <!-- ==================================================================== -->
   <!-- Parameters -->
@@ -39,16 +39,6 @@
   <xsl:param name="project.version.previous"/>
 
   <!-- ==================================================================== -->
-  <!-- Global variables -->
-  <!-- ==================================================================== -->
-
-  <!-- Defined variables -->
-  <xsl:variable name="body-fg"    select="'#000000'"/>
-  <xsl:variable name="body-link"  select="'#023264'"/>
-  <xsl:variable name="banner-bg"  select="'#023264'"/>
-  <xsl:variable name="banner-fg"  select="'#ffffff'"/>
-
-  <!-- ==================================================================== -->
   <!-- Document section -->
   <!-- ==================================================================== -->
 
@@ -64,20 +54,6 @@
 
       <head>
 
-        <!-- CSS imports -->
-        <link rel="stylesheet" type="text/css">
-          <xsl:attribute name="href">
-            <xsl:value-of select="$basedir"/>
-            <xsl:text>css/apache.css</xsl:text>
-          </xsl:attribute>
-        </link>
-        <link rel="stylesheet" type="text/css" media="print">
-          <xsl:attribute name="href">
-            <xsl:value-of select="$basedir"/>
-            <xsl:text>css/print.css</xsl:text>
-          </xsl:attribute>
-        </link>
-
         <!-- Add the authors as a meta tag -->
         <meta name="author">
           <xsl:attribute name="content">
@@ -88,132 +64,140 @@
           </xsl:attribute>
         </meta>
 
+        <!-- CSS stylesheet -->
+        <link rel="stylesheet" type="text/css">
+          <xsl:attribute name="href">
+            <xsl:value-of select="$basedir"/>
+            <xsl:text>css/apache.css</xsl:text>
+          </xsl:attribute>
+        </link>
+
         <!-- Add the document title -->
         <title><xsl:call-template name="get-title"/></title>
 
       </head>
 
-      <body text="{$body-fg}" link="#525D76" vlink="{$body-link}" 
-        alink="{$body-link}" topmargin="4" leftmargin="4" 
-        marginwidth="4" marginheight="4" bgcolor="{$banner-fg}">
+      <body text="#000000" link="#525D76" vlink="#023264" alink="#023264">
 
         <!-- ============================================================== -->
-        <!-- Top level header -->
+        <!-- Header -->
         <!-- ============================================================== -->
 
-        <table width="100%" cellspacing="0" cellpadding="0" border="0">
-          <tr>
+        <div id="header">
+          <table border="0" width="100%">
+            <tr>
+              <td width="50%">
+                <div id="projectLogo">
+                  <a href="http://jakarta.apache.org/">
+                    <img border="0">
+                      <xsl:attribute name="alt">
+                        <xsl:text>The Apache Jakarta Project</xsl:text>
+                      </xsl:attribute>
+                      <xsl:attribute name="src">
+                        <xsl:value-of select="$basedir"/>
+                        <xsl:text>images/jakarta-logo.gif</xsl:text>
+                      </xsl:attribute>
+                    </img>
+                  </a>
+                </div>
+              </td>
+              <td width="50%">
+                <div id="subprojectLogo">
+                  <a href="http://jakarta.apache.org/cactus/">
+                    <img>
+                      <xsl:attribute name="alt">
+                        <xsl:call-template name="get-title"/>
+                      </xsl:attribute>
+                      <xsl:attribute name="src">
+                        <xsl:value-of select="$basedir"/>
+                        <xsl:text>images/logocactus.gif</xsl:text>
+                      </xsl:attribute>
+                    </img>
+                  </a>
+                </div>
+              </td>
+            </tr>
+          </table>
+          <div id="contextBar">
+            <table width="100%">
+              <tr>
+                <td id="breadCrumbs" width="50%">
+                  <script language="JavaScript" type="text/javascript">
+                    <xsl:attribute name="src">
+                      <xsl:value-of select="$basedir"/>
+                      <xsl:text>js/breadcrumbs.js</xsl:text>
+                    </xsl:attribute>
+                  </script>
+                </td>
+                <td id="status" width="50%">
+                  Docs for:
+                  <strong>v<xsl:value-of select="$project.version"/></strong>
+                  <xsl:text> | </xsl:text>
+                  <a>
+                    <xsl:attribute name="href">
+                      <xsl:value-of select="$basedir"/>
+                      <xsl:choose>
+                        <xsl:when test="contains($project.version,'dev')">
+                          <xsl:value-of select="$project.version.previous"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                          <xsl:text>..</xsl:text>
+                        </xsl:otherwise>
+                      </xsl:choose>
+                    </xsl:attribute>
+                    <xsl:text>v</xsl:text>
+                    <xsl:value-of select="$project.version.previous"/>
+                  </a>
+                  &#160;&#160;
+                  Last update: <xsl:value-of select="$last.updated.date"/>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
 
-            <!-- Display left logo (the Jakarta logo) -->
-            <td valign="top" align="left">
-              <a href="http://jakarta.apache.org/">
-                <img hspace="0" vspace="0" border="0">
-                  <xsl:attribute name="src">
-                    <xsl:value-of select="$basedir"/>
-                    <xsl:text>images/jakarta-logo.gif</xsl:text>
-                  </xsl:attribute>
-                </img>
-              </a>
-            </td>
+        <div id="main">
 
-            <td width="100%" valign="middle" align="left" bgcolor="#ffffff">
-              <a href="http://jakarta.apache.org/cactus/">
-                <img hspace="0" vspace="0" border="0" align="right">
-                  <xsl:attribute name="alt">
-                    <xsl:call-template name="get-title"/>
-                  </xsl:attribute>
-                  <xsl:attribute name="src">
-                    <xsl:value-of select="$basedir"/>
-                    <xsl:text>images/logocactus.gif</xsl:text>
-                  </xsl:attribute>
-                </img>
-              </a>
-            </td>
-          </tr>
-          
-          <tr>
-            <td width="100%" height="2" colspan="2"><hr noshade="" size="1"/></td>
-          </tr>
-        </table>
-
-        <!-- ============================================================== -->
-        <!-- Main panel (sidebar and content) -->
-        <!-- ============================================================== -->
-
-        <table width="100%" cellspacing="0" cellpadding="0" border="0">
-          <tr>
-
-            <!-- ========================================================== -->
-            <!-- Side bar -->
-            <!-- ========================================================== -->
-
-            <td width="1%" valign="top">
-            </td>
-            <td id="sidebar" width="14%" valign="top" nowrap="1">
-              <font size="-2">
-                Last update: <xsl:value-of select="$last.updated.date"/>
-              </font>
-              <br/>
-              <font size="-2">
-                Docs for: <b>v<xsl:value-of select="$project.version"/></b>
-                <xsl:text> | </xsl:text>
-                <a>
-                  <xsl:attribute name="href">
-                    <xsl:value-of select="$basedir"/>
-                    <xsl:choose>
-                      <xsl:when test="contains($project.version,'dev')">
-                        <xsl:value-of select="$project.version.previous"/>
-                      </xsl:when>
-                      <xsl:otherwise>
-                        <xsl:text>..</xsl:text>
-                      </xsl:otherwise>
-                    </xsl:choose>
-                  </xsl:attribute>
-                  <xsl:text>v</xsl:text>
-                  <xsl:value-of select="$project.version.previous"/>
-                </a>
-              </font>
+          <table width="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
 
               <!-- ======================================================== -->
-              <!-- Menu -->
+              <!-- Sidebar -->
               <!-- ======================================================== -->
-              <br/>
-              <font face="arial,helvetica,sanserif">
-                <xsl:call-template name="apply-navigation"/>
-              </font>
 
-            </td>
+              <td valign="top">
+                <div id="sidebar">
+                  <div id="navigation">
+                    <xsl:call-template name="apply-navigation"/>
+                  </div>
+                </div>
+              </td>
 
-            <!-- ========================================================== -->
-            <!-- Content Panel -->
-            <!-- ========================================================== -->
+              <!-- ======================================================== -->
+              <!-- Content -->
+              <!-- ======================================================== -->
 
-            <td width="*" valign="top" align="left">
-              <xsl:apply-templates/>
-            </td>
+              <td valign="top">
+                <div id="content">
+                  <xsl:apply-templates/>
+                </div>
+              </td>
 
-          </tr>
-        </table>
+            </tr>
+          </table>
 
-        <br/>
-        
+        </div>
+
         <!-- ============================================================== -->
         <!-- Footer -->
         <!-- ============================================================== -->
 
-        <table width="100%" border="0" cellspacing="0" cellpadding="0">
-          <tr><td><hr noshade="" size="1"/></td></tr>
-          <tr>
-            <td align="center">
-             <font face="arial,helvetica,sanserif" size="-1" color="{$body-link}">
-               <i>
-                Copyright &#169; <xsl:value-of select="$copyright"/>.
-                All Rights Reserved.
-               </i>
-             </font>
-            </td>
-          </tr>
-        </table>
+        <div id="footer">
+          <p>
+            Copyright &#169; <xsl:value-of select="$copyright"/>.
+            All Rights Reserved.
+          </p>
+        </div>
 
       </body>
 
@@ -242,105 +226,65 @@
 
     <xsl:choose>
       <xsl:when test="name($cursite) = 'external'">
-        <div id="menu">
+        <li class="menuItem">
           <a href="{$cursite/@url}" target="{@id}">
-            <font size="-{$level}">
-              <!-- Use the label from the sitemap if none has been defined
-                   in the navigation file -->
-              <xsl:choose>
-                <xsl:when test="@label">
-                  <xsl:value-of select="@label"/>
-                </xsl:when>
-                <xsl:otherwise>
-                  <xsl:value-of select="$cursite/@name"/>
-                </xsl:otherwise>
-              </xsl:choose>
-            </font>
+            <!-- Use the label from the sitemap if none has been defined
+                 in the navigation file -->
+            <xsl:choose>
+              <xsl:when test="@label">
+                <xsl:value-of select="@label"/>
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:value-of select="$cursite/@name"/>
+              </xsl:otherwise>
+            </xsl:choose>
             <xsl:apply-templates/>
           </a>
-        </div>
+        </li>
       </xsl:when>
       <xsl:when test="name($cursite) = 'resource'">
-        <div id="menu">
+        <li class="menuItem">
           <a>
             <xsl:attribute name="href">
               <xsl:call-template name="get-base-directory"/>
               <xsl:value-of select="$cursite/@target"/>
             </xsl:attribute>
-            <font size="-{$level}">
-              <!-- Use the label from the sitemap if none has been defined
-                   in the navigation file -->
-              <xsl:choose>
-                <xsl:when test="@label">
-                  <xsl:value-of select="@label"/>
-                </xsl:when>
-                <xsl:otherwise>
-                  <xsl:value-of select="$cursite/@name"/>
-                </xsl:otherwise>
-              </xsl:choose>
-            </font>
+            <xsl:attribute name="title">
+              <xsl:variable name="description">
+                <xsl:call-template name="get-resource-description">
+                  <xsl:with-param name="id" select="$curid"/>
+                </xsl:call-template>
+              </xsl:variable>
+              <xsl:value-of select="normalize-space($description)"/>
+            </xsl:attribute>
+            <!-- Use the label from the sitemap if none has been defined
+                 in the navigation file -->
+            <xsl:choose>
+              <xsl:when test="@label">
+                <xsl:value-of select="@label"/>
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:value-of select="$cursite/@name"/>
+              </xsl:otherwise>
+            </xsl:choose>
             <xsl:apply-templates/>
           </a>
-        </div>
+        </li>
       </xsl:when>
       <xsl:otherwise><!-- hidden --></xsl:otherwise>
     </xsl:choose>
     
   </xsl:template>
 
-  <xsl:template match="separator">
-    <br/>
-  </xsl:template>
+  <xsl:template match="separator"></xsl:template>
 
   <xsl:template match="menu">
-    <br/>
-    <!-- alternate color #F3510C -->
-    <font size="+1" color="#000000">
+    <li class="menu">
       <xsl:value-of select="@label"/>
-    </font>
-    <br/>
-    <font size="-1">
-      <xsl:apply-templates/>
-    </font>
-  </xsl:template>
-
-  <!-- ==================================================================== -->
-  <!-- Sitemap elements: "sitemap/resource" elements -->
-  <!-- ==================================================================== -->
-  <xsl:template match="sitemap">
-
-    <!-- s1 -->
-    <xsl:call-template name="section">
-      <xsl:with-param name="width">100%</xsl:with-param>
-      <xsl:with-param name="font-size">+1</xsl:with-param>
-      <xsl:with-param name="name"><xsl:text>Site Map</xsl:text></xsl:with-param>
-    </xsl:call-template>
-    
-  </xsl:template>
-
-  <xsl:template match="sitemap/resource">
-    <xsl:if test="@target">
-      <li id="sitemap">
-        <!-- link -->
-        <a>
-          <xsl:attribute name="href">
-            <xsl:value-of select="@target"/>
-          </xsl:attribute>
-          <xsl:choose>
-            <xsl:when test="@name">
-              <xsl:value-of select="@name"/>        
-            </xsl:when>
-            <xsl:otherwise>
-              <xsl:value-of select="@id"/>        
-            </xsl:otherwise>
-          </xsl:choose>
-        </a>
-        <xsl:if test="text()">
-          <xsl:text>:</xsl:text>
-          <xsl:apply-templates/>
-        </xsl:if>
-      </li>
-    </xsl:if>
+      <ul>
+        <xsl:apply-templates/>
+      </ul>
+    </li>
   </xsl:template>
 
   <!-- ==================================================================== -->
@@ -348,101 +292,60 @@
   <!-- ==================================================================== -->
 
   <xsl:template match="section">
-  
     <xsl:variable name="level" select="count(ancestor::section)+1"/>
-
-    <xsl:choose>
-      <xsl:when test="$level=1">
-        <xsl:call-template name="section">
-          <xsl:with-param name="width">100%</xsl:with-param>
-          <xsl:with-param name="font-size">+1</xsl:with-param>
-          <xsl:with-param name="name"><xsl:value-of select="@title"/></xsl:with-param>
-        </xsl:call-template>
-      </xsl:when>
-      <xsl:when test="$level=2">
-        <xsl:call-template name="section">
-          <xsl:with-param name="width">98%</xsl:with-param>
-          <xsl:with-param name="font-size">+0</xsl:with-param>
-          <xsl:with-param name="name"><xsl:value-of select="@title"/></xsl:with-param>
-        </xsl:call-template>
-      </xsl:when>
-      <xsl:when test="$level=3">
-        <xsl:call-template name="section">
-          <xsl:with-param name="width">96%</xsl:with-param>
-          <xsl:with-param name="font-size">-1</xsl:with-param>
-          <xsl:with-param name="name"><xsl:value-of select="@title"/></xsl:with-param>
-        </xsl:call-template>
-      </xsl:when>
-      <xsl:otherwise>
-        <xsl:call-template name="section">
-          <xsl:with-param name="width">94%</xsl:with-param>
-          <xsl:with-param name="font-size">-2</xsl:with-param>
-          <xsl:with-param name="name"><xsl:value-of select="@title"/></xsl:with-param>
-        </xsl:call-template>
-      </xsl:otherwise>
-    </xsl:choose>
-
+    <xsl:call-template name="section">
+      <xsl:with-param name="level"><xsl:value-of select="$level"/></xsl:with-param>
+    </xsl:call-template>
   </xsl:template>
 
   <xsl:template match="s1">
     <xsl:call-template name="section">
-      <xsl:with-param name="width">100%</xsl:with-param>
-      <xsl:with-param name="font-size">+1</xsl:with-param>
-      <xsl:with-param name="name"><xsl:value-of select="@title"/></xsl:with-param>
+      <xsl:with-param name="level">1</xsl:with-param>
     </xsl:call-template>
   </xsl:template>
 
   <xsl:template match="s2">
     <xsl:call-template name="section">
-      <xsl:with-param name="width">98%</xsl:with-param>
-      <xsl:with-param name="font-size">+0</xsl:with-param>
-      <xsl:with-param name="name"><xsl:value-of select="@title"/></xsl:with-param>
+      <xsl:with-param name="level">2</xsl:with-param>
     </xsl:call-template>
   </xsl:template>
 
   <xsl:template match="s3">
     <xsl:call-template name="section">
-      <xsl:with-param name="width">96%</xsl:with-param>
-      <xsl:with-param name="font-size">-1</xsl:with-param>
-      <xsl:with-param name="name"><xsl:value-of select="@title"/></xsl:with-param>
+      <xsl:with-param name="level">3</xsl:with-param>
     </xsl:call-template>
   </xsl:template>
 
   <xsl:template match="s4">
     <xsl:call-template name="section">
-      <xsl:with-param name="width">94%</xsl:with-param>
-      <xsl:with-param name="font-size">-2</xsl:with-param>
-      <xsl:with-param name="name"><xsl:value-of select="@title"/></xsl:with-param>
+      <xsl:with-param name="level">4</xsl:with-param>
     </xsl:call-template>
   </xsl:template>
 
   <xsl:template name="section">
-   <xsl:param name="width" />
-   <xsl:param name="font-size" />
-   <xsl:param name="name" />
-
-   <div align="right">
-    <table border="0" cellspacing="0" cellpadding="2">
-     <xsl:attribute name="width"><xsl:value-of select="$width"/></xsl:attribute>
-     <tr>
-      <td bgcolor="{$body-link}">
-       <font face="arial,helvetica,sanserif" color="#ffffff">
-        <xsl:attribute name="size"><xsl:value-of select="$font-size"/></xsl:attribute>
-        <b><xsl:value-of select="$name"/></b>
-       </font>
-      </td>
-     </tr>
-     <tr>
-      <td>
-       <font face="arial,helvetica,sanserif" color="{$body-fg}">
-         <br/>
-         <xsl:apply-templates/>
-       </font>
-      </td>
-     </tr>
-    </table>
-   </div>
-   <br/>
+    <xsl:param name="level"/>
+    <div class="section">
+      <xsl:choose>
+        <xsl:when test="$level=1">
+          <h1><xsl:value-of select="@title"/></h1>
+        </xsl:when>
+        <xsl:when test="$level=2">
+          <h2><xsl:value-of select="@title"/></h2>
+        </xsl:when>
+        <xsl:when test="$level=3">
+          <h3><xsl:value-of select="@title"/></h3>
+        </xsl:when>
+        <xsl:when test="$level=4">
+          <h4><xsl:value-of select="@title"/></h4>
+        </xsl:when>
+        <xsl:otherwise>
+          <h5><xsl:value-of select="@title"/></h5>
+        </xsl:otherwise>
+      </xsl:choose>
+      <blockquote>
+        <xsl:apply-templates/>
+      </blockquote>
+    </div>
   </xsl:template>
 
   <!-- ==================================================================== -->
@@ -450,7 +353,7 @@
   <!-- ==================================================================== -->
 
   <xsl:template match="p">
-    <p align="justify">
+    <p>
       <xsl:apply-templates/>
     </p>
   </xsl:template>
@@ -460,7 +363,7 @@
   <!-- ==================================================================== -->
 
   <xsl:template match="source">
-    <div id="source">
+    <div class="source">
       <pre>
         <xsl:apply-templates/>
       </pre>
@@ -472,11 +375,9 @@
   <!-- ==================================================================== -->
 
   <xsl:template match="ul|ol|dl">
-    <blockquote>
-      <xsl:copy>
-        <xsl:apply-templates/>
-      </xsl:copy>
-    </blockquote>
+    <xsl:copy>
+      <xsl:apply-templates/>
+    </xsl:copy>
   </xsl:template>
  
   <xsl:template match="li">
@@ -491,7 +392,7 @@
     <li>
       <strong><xsl:value-of select="."/></strong>
       <xsl:text> - </xsl:text>
-      <xsl:value-of select="following::dd"/>   
+      <xsl:value-of select="following::dd"/>
     </li>
   </xsl:template>
  
@@ -504,28 +405,9 @@
   <!-- ==================================================================== -->
 
   <xsl:template match="note">
-    <p>
-      <table width="100%" cellspacing="3" cellpadding="0" border="0">
-        <tr>
-          <td width="28" valign="top">
-            <img width="28" height="29" vspace="0" 
-              hspace="0" border="0" alt="Note">
-              <xsl:attribute name="src">
-                <xsl:call-template name="get-base-directory"/>
-                <xsl:text>images/note.gif</xsl:text>
-              </xsl:attribute>
-            </img>
-          </td>
-          <td valign="top">
-            <font size="-1" face="arial,helvetica,sanserif" color="{$body-fg}">
-              <i>
-                <xsl:apply-templates/>
-              </i>
-            </font>
-          </td>
-        </tr>  
-      </table>
-    </p>
+    <div class="note">
+      <xsl:apply-templates/>
+    </div>
   </xsl:template>
 
   <!-- ==================================================================== -->
@@ -533,10 +415,12 @@
   <!-- ==================================================================== -->
 
   <xsl:template match="table">
-    <table width="100%" border="0" cellspacing="2" cellpadding="2">
-      <caption><xsl:value-of select="caption"/></caption>
-      <xsl:apply-templates/>
-    </table>
+    <div class="tabular">
+      <table border="1" cellspacing="2" cellpadding="2">
+        <caption><xsl:apply-templates select="caption"/></caption>
+        <xsl:apply-templates/>
+      </table>
+    </div>
   </xsl:template>
 
   <xsl:template match="tr">
@@ -544,40 +428,40 @@
   </xsl:template>
 
   <xsl:template match="th">
-    <td bgcolor="#039acc" colspan="{@colspan}" rowspan="{@rowspan}" 
-      valign="center" align="center">
-      <font color="#ffffff" size="-1" face="arial,helvetica,sanserif">
-        <b><xsl:apply-templates/></b>&#160;
-      </font>
-    </td>
+    <th>
+      <xsl:if test="@colspan">
+        <xsl:attribute name="colspan">
+          <xsl:value-of select="@colspan"/>
+        </xsl:attribute>
+      </xsl:if>
+      <xsl:if test="@rowspan">
+        <xsl:attribute name="rowspan">
+          <xsl:value-of select="@rowspan"/>
+        </xsl:attribute>
+      </xsl:if>
+      <xsl:apply-templates/>
+    </th>
   </xsl:template>
 
   <xsl:template match="td">
-    <xsl:choose>
-      <xsl:when test="@nowrap">
-        <td bgcolor="#a0ddf0" colspan="{@colspan}" rowspan="{@rowspan}" 
-          nowrap="true" valign="top" align="left">
-          <font color="#000000" size="-1" face="arial,helvetica,sanserif">
-            <xsl:apply-templates/>&#160;
-          </font>
-        </td>
-      </xsl:when>
-      <xsl:otherwise>
-        <td bgcolor="#a0ddf0" colspan="{@colspan}" rowspan="{@rowspan}" valign="top" align="left">
-          <font color="#000000" size="-1" face="arial,helvetica,sanserif">
-            <xsl:apply-templates/>&#160;
-          </font>
-        </td>
-      </xsl:otherwise>
-    </xsl:choose>
-  </xsl:template>
-
-  <xsl:template match="tn">
-    <td bgcolor="#ffffff" colspan="{@colspan}" rowspan="{@rowspan}">
-      &#160;
+    <td>
+      <xsl:if test="@colspan">
+        <xsl:attribute name="colspan">
+          <xsl:value-of select="@colspan"/>
+        </xsl:attribute>
+      </xsl:if>
+      <xsl:if test="@rowspan">
+        <xsl:attribute name="rowspan">
+          <xsl:value-of select="@rowspan"/>
+        </xsl:attribute>
+      </xsl:if>
+      <xsl:if test="@nowrap">
+        <xsl:attribute name="nowrap">true</xsl:attribute>
+      </xsl:if>
+      <xsl:apply-templates/>
     </td>
   </xsl:template>
-  
+
   <xsl:template match="caption">
     <!-- ignore since already used -->
   </xsl:template>
@@ -599,7 +483,7 @@
   </xsl:template>
 
   <xsl:template match="code">
-    <code><font face="courier, monospaced"><xsl:apply-templates/></font></code>
+    <code><xsl:apply-templates/></code>
   </xsl:template>
 
   <!-- ==================================================================== -->
@@ -607,11 +491,10 @@
   <!-- ==================================================================== -->
 
   <xsl:template match="figure">
-    <p align="center">  
+    <div class="figure">
       <xsl:choose>
         <xsl:when test="@width">
-          <img alt="{@alt}" width="{@width}" height="{@height}" 
-            border="0" vspace="4" hspace="4">
+          <img alt="{@alt}" border="0" width="{@width}" height="{@height}">
             <xsl:attribute name="src">
               <xsl:call-template name="get-base-directory"/>
               <xsl:value-of select="@src"/>
@@ -625,7 +508,7 @@
           </img>
         </xsl:when>
         <xsl:otherwise>
-          <img alt="{@alt}" border="0" vspace="4" hspace="4">
+          <img alt="{@alt}" border="0">
             <xsl:attribute name="src">
               <xsl:call-template name="get-base-directory"/>
               <xsl:value-of select="@src"/>
@@ -639,7 +522,7 @@
           </img>
         </xsl:otherwise>
       </xsl:choose>
-    </p>
+    </div>
   </xsl:template>
  
   <xsl:template match="figure/map">
@@ -651,7 +534,7 @@
   <xsl:template match="figure/map/area">
     <area shape="{@shape}" coords="{@coords}">
       <xsl:attribute name="href">
-        <xsl:call-template name="compute-link-href">
+        <xsl:call-template name="get-link-href">
           <xsl:with-param name="href" select="@href"/>
         </xsl:call-template>
       </xsl:attribute>
@@ -683,9 +566,17 @@
   <xsl:template match="link">
     <a>
       <xsl:attribute name="href">
-        <xsl:call-template name="compute-link-href">
+        <xsl:call-template name="get-link-href">
           <xsl:with-param name="href" select="@href"/>
         </xsl:call-template>
+      </xsl:attribute>
+      <xsl:attribute name="title">
+      	<xsl:variable name="title">
+          <xsl:call-template name="get-link-title">
+            <xsl:with-param name="href" select="@href"/>
+          </xsl:call-template>
+        </xsl:variable>
+        <xsl:value-of select="normalize-space($title)"/>
       </xsl:attribute>
       <xsl:apply-templates/>
     </a>
@@ -695,7 +586,7 @@
     <a>
       <xsl:attribute name="href">
         <xsl:if test="@href">
-          <xsl:call-template name="compute-link-href">
+          <xsl:call-template name="get-link-href">
             <xsl:with-param name="href" select="@href"/>
           </xsl:call-template>
         </xsl:if>
@@ -709,7 +600,7 @@
   <xsl:template match="fork">
     <a target="_blank">
       <xsl:attribute name="href">
-        <xsl:call-template name="compute-link-href">
+        <xsl:call-template name="get-link-href">
           <xsl:with-param name="href" select="@href"/>
         </xsl:call-template>
       </xsl:attribute>
@@ -721,7 +612,7 @@
     <a name="{@id}"><xsl:comment>anchor</xsl:comment></a>
   </xsl:template>  
 
-  <xsl:template name="compute-link-href">
+  <xsl:template name="get-link-href">
     <xsl:param name="href"/>
     <xsl:choose>
       <xsl:when test="starts-with(@href,'site:')">
@@ -752,6 +643,15 @@
     </xsl:choose>
   </xsl:template>
 
+  <xsl:template name="get-link-title">
+    <xsl:param name="href"/>
+    <xsl:if test="starts-with(@href,'site:')">
+      <xsl:call-template name="get-resource-description">
+        <xsl:with-param name="id" select="substring-after(@href, 'site:')"/>
+      </xsl:call-template>
+    </xsl:if>
+  </xsl:template>
+
   <!-- ==================================================================== -->
   <!-- "br" elements -->
   <!-- ==================================================================== -->
@@ -777,23 +677,15 @@
   <!-- ==================================================================== -->
 
   <xsl:template match="releases">
-
-    <!-- s1 -->
-    <xsl:call-template name="section">
-      <xsl:with-param name="width">100%</xsl:with-param>
-      <xsl:with-param name="font-size">+1</xsl:with-param>
-      <xsl:with-param name="name"><xsl:value-of select="@title"/></xsl:with-param>
-    </xsl:call-template>
-
+    <div class="section">
+      <h1><xsl:value-of select="@title"/></h1>
+      <xsl:apply-templates select="release"/>
+    </div>
   </xsl:template>
 
   <xsl:template match="release">
-
-    <!-- s2 -->
-    <xsl:call-template name="section">
-      <xsl:with-param name="width">98%</xsl:with-param>
-      <xsl:with-param name="font-size">+0</xsl:with-param>
-      <xsl:with-param name="name">
+    <div class="section">
+      <h2>
         <xsl:value-of select="$software"/><xsl:text> </xsl:text>
         <xsl:value-of select="@version"/>
         <xsl:if test="@date">
@@ -801,12 +693,14 @@
           <xsl:value-of select="@date"/>
           <xsl:text>)</xsl:text>
         </xsl:if>
-      </xsl:with-param>
-    </xsl:call-template>
-
+      </h2>
+      <ul class="changes">
+        <xsl:apply-templates select="action"/>
+      </ul>
+    </div>
   </xsl:template>
 
-  <xsl:template match="release/action">
+  <xsl:template match="action">
     <li>
       <!-- icon -->
       <img alt="{@type}" border="0" align="absmiddle">
@@ -817,17 +711,14 @@
           <xsl:text>.jpg</xsl:text>
         </xsl:attribute>
       </img>
-
       <xsl:apply-templates/>
       <xsl:text>(</xsl:text><xsl:value-of select="@dev"/><xsl:text>)</xsl:text>
-
       <xsl:if test="@due-to">
         <xsl:text> Thanks to </xsl:text>
          <!-- link -->
          <a href="mailto:{@due-to-email}"><xsl:value-of select="@due-to"/></a>
         <xsl:text>.</xsl:text>
       </xsl:if>
-
       <xsl:if test="@fixes-bug">
         <xsl:text> Fixes </xsl:text>
          <!-- link -->
@@ -848,67 +739,47 @@
   <!-- ==================================================================== -->
 
   <xsl:template match="cvslogs">
-
-    <!-- s1 -->
-    <xsl:call-template name="section">
-      <xsl:with-param name="width">100%</xsl:with-param>
-      <xsl:with-param name="font-size">+1</xsl:with-param>
-      <xsl:with-param name="name"><xsl:value-of select="@title"/></xsl:with-param>
-    </xsl:call-template>
-
-    <xsl:variable name="cvslog" 
-      select="document(concat($xdocdir,'/',$cvslogfile))/changelog"/>
-
-    <xsl:choose>
-      <xsl:when test="$cvslog/entry">
-        <!-- table -->
-        <table width="100%" border="0" cellspacing="2" cellpadding="2">
-          <caption><xsl:value-of select="caption"/></caption>
-          <xsl:apply-templates select="$cvslog/entry">
-            <xsl:sort select="concat(date,time)" order="descending"/>
-          </xsl:apply-templates>
-        </table>
-      </xsl:when>
-      <xsl:otherwise>
-        <xsl:text>&lt;no changes&gt;</xsl:text><br/>
-      </xsl:otherwise>
-    </xsl:choose>
-
-    <br/>
-        
+    <div class="section">
+      <h1><xsl:value-of select="@title"/></h1>
+      <xsl:variable name="cvslog" 
+        select="document(concat($xdocdir,'/',$cvslogfile))/changelog"/>
+      <xsl:choose>
+        <xsl:when test="$cvslog/entry">
+          <table width="100%" border="1" cellspacing="2" cellpadding="2">
+            <caption><xsl:value-of select="caption"/></caption>
+            <xsl:apply-templates select="$cvslog/entry">
+              <xsl:sort select="concat(date,time)" order="descending"/>
+            </xsl:apply-templates>
+          </table>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:text>&lt;no changes&gt;</xsl:text><br/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </div>
   </xsl:template>
 
   <xsl:template match="entry">
     <tr>
-      <!-- td (nowrap=true) -->
-      <td bgcolor="#a0ddf0" colspan="{@colspan}" rowspan="{@rowspan}" 
-        nowrap="true" valign="top" align="left">
-        <font color="#000000" size="-1" face="arial,helvetica,sanserif">
-          <xsl:value-of select="date"/>&#160;
-        </font>
+      <td nowrap="true">
+        <xsl:value-of select="date"/>
       </td>
-      <!-- td -->
-      <td bgcolor="#a0ddf0" colspan="{@colspan}" rowspan="{@rowspan}" valign="top" align="left">
-        <font color="#000000" size="-1" face="arial,helvetica,sanserif">
-          <xsl:for-each select="file">
-            <a>
-              <xsl:attribute name="href">
-                <xsl:call-template name="get-base-directory"/>
-                <xsl:value-of select="concat(substring-before(name, '.'),'.html')"/>
-              </xsl:attribute>
-              <xsl:value-of select="substring-before(name, '.')"/>
-            </a>
-            <xsl:if test="position()!=last()">
-              <xsl:text>, </xsl:text>
-            </xsl:if>
-          </xsl:for-each>&#160;
-        </font>
+      <td>
+        <xsl:for-each select="file">
+          <a>
+            <xsl:attribute name="href">
+              <xsl:call-template name="get-base-directory"/>
+              <xsl:value-of select="concat(substring-before(name, '.'),'.html')"/>
+            </xsl:attribute>
+            <xsl:value-of select="substring-before(name, '.')"/>
+          </a>
+          <xsl:if test="position()!=last()">
+            <xsl:text>, </xsl:text>
+          </xsl:if>
+        </xsl:for-each>
       </td>
-      <!-- td -->
-      <td bgcolor="#a0ddf0" colspan="{@colspan}" rowspan="{@rowspan}" valign="top" align="left">
-        <font color="#000000" size="-1" face="arial,helvetica,sanserif">
-          <xsl:value-of select="msg"/>&#160;
-        </font>
+      <td>
+        <xsl:value-of select="msg"/>
       </td>
     </tr>
   </xsl:template>
@@ -918,73 +789,37 @@
   <!-- ==================================================================== -->
 
   <xsl:template match="version">
-    <!-- s1 -->
     <xsl:call-template name="section">
-      <xsl:with-param name="width">100%</xsl:with-param>
-      <xsl:with-param name="font-size">+1</xsl:with-param>
-      <xsl:with-param name="name"><xsl:value-of select="@title"/></xsl:with-param>
+      <xsl:with-param name="level">1</xsl:with-param>
     </xsl:call-template>
   </xsl:template>
 
   <xsl:template match="category">
     <!-- s2 section -->
-    <div align="right">
-      <table border="0" cellspacing="0" cellpadding="2" width="98%">
-        <tr>
-          <td bgcolor="{$body-link}">
-            <font face="arial,helvetica,sanserif" color="#ffffff" size="+0">
-              <b><xsl:value-of select="@title"/></b>
-            </font>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <font face="arial,helvetica,sanserif" color="{$body-fg}">
-              <br/>
-                <!-- table -->
-                <table width="100%" border="0" cellspacing="2" cellpadding="2">
-                  <caption><xsl:value-of select="caption"/></caption>
-                  <tr>
-                    <!-- th -->
-                    <td bgcolor="#039acc" colspan="{@colspan}" rowspan="{@rowspan}" 
-                      valign="center" align="center" width="85%">
-                      <font color="#ffffff" size="-1" face="arial,helvetica,sanserif">
-                        <b>Description</b>&#160;
-                      </font>
-                    </td>
-                    <!-- th -->
-                    <td bgcolor="#039acc" colspan="{@colspan}" rowspan="{@rowspan}" 
-                      valign="center" align="center" width="15%">
-                      <font color="#ffffff" size="-1" face="arial,helvetica,sanserif">
-                        <b>Volunteers</b>&#160;
-                      </font>
-                    </td>
-                  </tr>
-                  <xsl:apply-templates/>
-                </table>
-            </font>
-          </td>
-        </tr>
-      </table>
+    <div class="section">
+      <h2><xsl:value-of select="@title"/></h2>
+      <div class="tabular">
+        <table width="100%" border="1" cellspacing="2" cellpadding="2">
+          <caption><xsl:value-of select="caption"/></caption>
+          <tr>
+            <th width="85%">Description</th>
+            <th width="15%">Volunteers</th>
+          </tr>
+          <xsl:apply-templates/>
+        </table>
+      </div>
     </div>
-    <br/>
-  </xsl:template>  
+  </xsl:template>
 
   <xsl:template match="category/action">
     <tr>
-      <!-- td -->
-      <td bgcolor="#a0ddf0" colspan="{@colspan}" rowspan="{@rowspan}" valign="top" align="left">
-        <font color="#000000" size="-1" face="arial,helvetica,sanserif">
-          <xsl:apply-templates/>&#160;
-        </font>
+      <td>
+        <xsl:apply-templates/>
       </td>
-      <!-- td -->
-      <td bgcolor="#a0ddf0" colspan="{@colspan}" rowspan="{@rowspan}" valign="top" align="left">
-        <font color="#000000" size="-1" face="arial,helvetica,sanserif">
-          <xsl:if test="@assigned-to">
-            <xsl:value-of select="@assigned-to"/>
-          </xsl:if>&#160;
-        </font>
+      <td>
+        <xsl:if test="@assigned-to">
+          <xsl:value-of select="@assigned-to"/>
+        </xsl:if>
       </td>
     </tr>
  </xsl:template>
@@ -1001,7 +836,7 @@
     <xsl:variable name="dir">
       <xsl:call-template name="get-directory">
         <xsl:with-param name="file">
-          <xsl:call-template name="get-source"/>
+          <xsl:call-template name="get-target"/>
         </xsl:with-param>
       </xsl:call-template>
     </xsl:variable>
@@ -1009,15 +844,17 @@
     <xsl:variable name="perdirnav"
       select="document(concat($xdocdir,'/',$dir,'/navigation.xml'))/navigation"/>
 
-    <xsl:choose>
-      <xsl:when test="$perdirnav/menu">
-        <xsl:apply-templates select="$perdirnav"/>
-      </xsl:when>
-      <xsl:otherwise>
-        <xsl:apply-templates 
-          select="document(concat($xdocdir,'/navigation.xml'))/navigation"/>
-      </xsl:otherwise>
-    </xsl:choose>
+    <ul>
+      <xsl:choose>
+        <xsl:when test="$perdirnav/menu">
+          <xsl:apply-templates select="$perdirnav"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:apply-templates 
+            select="document(concat($xdocdir,'/navigation.xml'))/navigation"/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </ul>
 
   </xsl:template>
 
