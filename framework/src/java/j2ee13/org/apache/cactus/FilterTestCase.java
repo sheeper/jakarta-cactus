@@ -60,8 +60,8 @@ import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.cactus.configuration.Configuration;
+import org.apache.cactus.configuration.FilterConfiguration;
 import org.apache.cactus.server.wrapper.FilterConfigWrapper;
-import org.apache.cactus.util.FilterConfiguration;
 
 /**
  * Test classes that need access to valid Filter implicit objects (such as the

@@ -54,56 +54,38 @@
  * <http://www.apache.org/>.
  *
  */
-package org.apache.cactus.util;
-
-import org.apache.cactus.WebRequest;
-import org.apache.cactus.configuration.BaseConfiguration;
-import org.apache.cactus.configuration.WebConfiguration;
+package org.apache.cactus.configuration;
 
 /**
- * Common implementation for all <code>WebConfiguration</code> 
- * implementations.
+ * Provides access to the Cactus configuration parameters related to the
+ * Filter Redirector.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
- * @version $Id: ServletConfiguration.java,v 1.6 2002/09/26 16:43:32 vmassol Exp $
+ * @version $Id$
  */
-public abstract class AbstractWebConfiguration extends BaseConfiguration 
-    implements WebConfiguration
+public class FilterConfiguration extends AbstractWebConfiguration
 {
     /**
-     * @see WebConfiguration#getDefaultRedirectorURL()
+     * Name of the cactus property that specifies the name of the JSP
+     * redirector.
      */
-    public String getDefaultRedirectorURL()
-    {
-        return getContextURL() + "/" + getDefaultRedirectorName();
-    }
+    public static final String CACTUS_FILTER_REDIRECTOR_NAME_PROPERTY = 
+        "cactus.filterRedirectorName";
 
     /**
-     * @see WebConfiguration#getRedirectorURL(WebRequest)
+     * @see AbstractWebConfiguration#getDefaultRedirectorName()
      */
-    public String getRedirectorURL(WebRequest theRequest)
+    public String getDefaultRedirectorName()
     {
-        return getContextURL() + "/" + getRedirectorName(theRequest);
-    }
+        String redirectorName = 
+            System.getProperty(CACTUS_FILTER_REDIRECTOR_NAME_PROPERTY);
 
-    /**
-     * @see WebConfiguration#getRedirectorName(WebRequest)
-     */
-    public String getRedirectorName(WebRequest theRequest)
-    {
-        String redirectorName;
-        
-        if (theRequest.getRedirectorName() != null)
+        if (redirectorName == null)
         {
-            redirectorName = theRequest.getRedirectorName();
-        }
-        else
-        {
-            redirectorName = getDefaultRedirectorName();
+            redirectorName = "FilterRedirector";
         }
 
         return redirectorName;
     }
-
 }

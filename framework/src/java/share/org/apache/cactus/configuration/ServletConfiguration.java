@@ -56,7 +56,6 @@
  */
 package org.apache.cactus.configuration;
 
-import org.apache.cactus.util.AbstractWebConfiguration;
 
 /**
  * Provides access to the Cactus configuration parameters related to the

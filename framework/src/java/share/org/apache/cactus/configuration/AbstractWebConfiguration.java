@@ -54,38 +54,54 @@
  * <http://www.apache.org/>.
  *
  */
-package org.apache.cactus.util;
+package org.apache.cactus.configuration;
+
+import org.apache.cactus.WebRequest;
 
 /**
- * Provides access to the Cactus configuration parameters related to the
- * Filter Redirector.
+ * Common implementation for all <code>WebConfiguration</code> 
+ * implementations.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @version $Id$
  */
-public class FilterConfiguration extends AbstractWebConfiguration
+public abstract class AbstractWebConfiguration extends BaseConfiguration 
+    implements WebConfiguration
 {
     /**
-     * Name of the cactus property that specifies the name of the JSP
-     * redirector.
+     * @see WebConfiguration#getDefaultRedirectorURL()
      */
-    public static final String CACTUS_FILTER_REDIRECTOR_NAME_PROPERTY = 
-        "cactus.filterRedirectorName";
+    public String getDefaultRedirectorURL()
+    {
+        return getContextURL() + "/" + getDefaultRedirectorName();
+    }
 
     /**
-     * @see AbstractWebConfiguration#getDefaultRedirectorName()
+     * @see WebConfiguration#getRedirectorURL(WebRequest)
      */
-    public String getDefaultRedirectorName()
+    public String getRedirectorURL(WebRequest theRequest)
     {
-        String redirectorName = 
-            System.getProperty(CACTUS_FILTER_REDIRECTOR_NAME_PROPERTY);
+        return getContextURL() + "/" + getRedirectorName(theRequest);
+    }
 
-        if (redirectorName == null)
+    /**
+     * @see WebConfiguration#getRedirectorName(WebRequest)
+     */
+    public String getRedirectorName(WebRequest theRequest)
+    {
+        String redirectorName;
+        
+        if (theRequest.getRedirectorName() != null)
         {
-            redirectorName = "FilterRedirector";
+            redirectorName = theRequest.getRedirectorName();
+        }
+        else
+        {
+            redirectorName = getDefaultRedirectorName();
         }
 
         return redirectorName;
     }
+
 }
