@@ -6,7 +6,8 @@
       updated="@today@">
 
   <menu label="Home">
-    <menu-item label="Jakarta Commons" href="http://jakarta.apache.org/commons" type="external"/>
+    <menu-item label="Jakarta Commons"
+        href="http://jakarta.apache.org/commons" type="external"/>
   </menu>
 
   <menu label="About">
@@ -18,6 +19,8 @@
     <menu-item label="Contributors" source="contributors.xml"/>
     <menu-item label="Contributing" source="contributing.xml"/>
     <menu-item label="License" source="license.xml"/>
+    <menu-item type="external" label="Feedback"
+        href="http://trial.zaplet.com/servlet/Z?m=QAU8DI98-9VBTIjqAm_M-UsA"/>
     <menu-item type="hidden" source="logos.xml" />
   </menu>
 
@@ -50,9 +53,11 @@
   </menu>
 
   <menu label="Support">
-    <menu-item type="external" label="Bug database" href="http://jakarta.apache.org/site/bugs.html"/>
+    <menu-item type="external" label="Bug database"
+        href="http://jakarta.apache.org/site/bugs.html"/>
     <menu-item label="Mailing list" source="mailinglist.xml"/>
-    <menu-item type="external" label="FAQ" href="http://jakarta.apache.org:8080/jyve-faq/Turbine/screen/DisplayTopics/action/SetAll/project_id/2/faq_id/39"/>
+    <menu-item type="external" label="FAQ"
+        href="http://jakarta.apache.org:8080/jyve-faq/Turbine/screen/DisplayTopics/action/SetAll/project_id/2/faq_id/39"/>
   </menu>
 
   <menu label="Misc.">
@@ -61,7 +66,8 @@
   </menu>
 
   <menu label="Developers">
-    <menu-item type="external" label="CVS" href="http://jakarta.apache.org/site/cvsindex.html"/>
+    <menu-item type="external" label="CVS"
+        href="http://jakarta.apache.org/site/cvsindex.html"/>
     <menu-item label="Coding Conventions" source="coding_conventions.xml"/>
   </menu>
 

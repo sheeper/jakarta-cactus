@@ -13,15 +13,6 @@
 
   <body>
 
-    <s1 title="Feedback needed !">
-        <p>
-          We need your feedback on Cactus ! Please take a few seconds to
-          <link
-          href="http://trial.zaplet.com/servlet/Z?m=QAU8DI98-9VBTIjqAm_M-UsA">
-          vote</link> !
-        </p>
-    </s1>
-
     <s1 title="Project description">
       <p>
         Cactus is a simple test framework for unit testing server-side java
