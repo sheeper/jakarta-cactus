@@ -135,15 +135,24 @@
             <fileset dir="${cactus.target.classes.dir}"/>
         </copy>
                 
-        <!-- Copy the Cactus jars -->
-        <copy todir="${cactus.target.dir}/${cactus.context}/WEB-INF/lib">
-            <fileset dir="${cactus.lib.server.dir}">
-                <include name="*.jar"/>
-            </fileset>
-            <fileset dir="${cactus.lib.common.dir}">
-                <include name="*.jar"/>
-            </fileset>
-        </copy>
+        <!-- Copy the Cactus jars that should be on server side classpath. 
+        	 Note: we used the named jars as it should
+        	 be possible to override the locations of jars and they should not
+        	 be expected to be in ${cactus.lib.*.dir}. For example this feature
+        	 is used by the Maven plugin for Cactus. -->
+
+        <copy todir="${cactus.target.dir}/${cactus.context}/WEB-INF/lib"
+          file="${cactus.framework.jar}"/>
+        <copy todir="${cactus.target.dir}/${cactus.context}/WEB-INF/lib"
+          file="${cactus.log4j.jar}"/>
+        <copy todir="${cactus.target.dir}/${cactus.context}/WEB-INF/lib"
+          file="${cactus.aspectjrt.jar}"/>
+        <copy todir="${cactus.target.dir}/${cactus.context}/WEB-INF/lib"
+          file="${cactus.commons.logging.jar}"/>
+        <copy todir="${cactus.target.dir}/${cactus.context}/WEB-INF/lib"
+          file="${cactus.junit.jar}"/>
+        <copy todir="${cactus.target.dir}/${cactus.context}/WEB-INF/lib"
+          file="${cactus.httpunit.jar}"/>
 
         <!-- Copy the JSP Redirector -->
         <copy todir="${cactus.target.dir}/${cactus.context}">
