@@ -738,27 +738,24 @@
   <!-- Changelog: "cvslogs/changelog/entry" elements -->
   <!-- ==================================================================== -->
 
-  <xsl:template match="cvslogs">
-    <div class="section">
-      <h1><xsl:value-of select="@title"/></h1>
-      <xsl:variable name="cvslog" 
-        select="document(concat($xdocdir,'/',$cvslogfile))/changelog"/>
-      <xsl:choose>
-        <xsl:when test="$cvslog/entry">
-          <div class="tabular">
-            <table width="100%" border="1" cellspacing="2" cellpadding="2">
-              <caption><xsl:value-of select="caption"/></caption>
-              <xsl:apply-templates select="$cvslog/entry">
-                <xsl:sort select="concat(date,time)" order="descending"/>
-              </xsl:apply-templates>
-            </table>
-          </div>
-        </xsl:when>
-        <xsl:otherwise>
-          <xsl:text>&lt;no changes&gt;</xsl:text><br/>
-        </xsl:otherwise>
-      </xsl:choose>
-    </div>
+  <xsl:template match="cvschangelog">
+    <xsl:variable name="changelog" 
+      select="document(concat($xdocdir,'/',$cvslogfile))/changelog"/>
+    <xsl:choose>
+      <xsl:when test="$changelog/entry">
+        <div class="tabular">
+          <table width="100%" border="1" cellspacing="2" cellpadding="2">
+            <caption><xsl:value-of select="caption"/></caption>
+            <xsl:apply-templates select="$changelog/entry">
+              <xsl:sort select="concat(date,time)" order="descending"/>
+            </xsl:apply-templates>
+          </table>
+        </div>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:text>&lt;no changes&gt;</xsl:text><br/>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
 
   <xsl:template match="entry">

@@ -30,7 +30,7 @@
     <!-- ================================================================= -->
 
     <anchor id="website_changes"/>
-    <cvslogs title="Last 15 days web site changes">
+    <section title="Last 15 days web site changes">
 
       <p>
         These are the changes that happened to the Cactus web site for the past
@@ -39,8 +39,9 @@
       </p>
 
       <!-- Note: The XSL stylesheet will include the CVS changelog here -->
+      <cvschangelog/>
       
-    </cvslogs>
+    </section>
 
     <!-- ================================================================= -->
     <!-- Release changes -->
