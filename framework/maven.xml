@@ -4,6 +4,8 @@
   xmlns:u="jelly:util"
   xmlns:maven="jelly:maven">
 
+  <goal name="dist" prereqs="clean,jar:jar,site"/>
+    
   <goal name="cactus-framework:init">
     <!-- Add the J2EE specific source directory to the list of source 
          directories, as Maven only supports defining a single source

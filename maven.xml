@@ -2,7 +2,10 @@
   default="cactus-build:jar"
   xmlns:j="jelly:core"
   xmlns:maven="jelly:maven">
-  
+
+  <!-- Note: This file is automatically inherited by all Cactus Maven 
+       projects -->
+       
   <!--
      ========================================================================
        Package all Cactus modules.
