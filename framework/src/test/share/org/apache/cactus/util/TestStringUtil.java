@@ -54,62 +54,91 @@
  * <http://www.apache.org/>.
  *
  */
-package org.apache.cactus;
+package org.apache.cactus.util;
 
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
 
 /**
- * Run all the unit tests of Cactus that do not need a servlet
- * environment to run. These other tests will be exercised in the sample
- * application.
+ * Unit tests for the <code>StringUtil</code> class.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
+ * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
  *
  * @version $Id$
  */
-public class TestAll extends TestCase
+public class TestStringUtil extends TestCase
 {
+    // Make sure logging is disabled
+    static
+    {
+        System.setProperty("org.apache.commons.logging.Log", 
+            "org.apache.commons.logging.impl.NoOpLog");
+    }
+
     /**
      * Defines the testcase name for JUnit.
      *
      * @param theName the testcase's name.
      */
-    public TestAll(String theName)
+    public TestStringUtil(String theName)
     {
         super(theName);
     }
 
+    //-------------------------------------------------------------------------
+
     /**
-     * Start the tests.
-     *
-     * @param theArgs the arguments. Not used
+     * Verify package-based stack-trace filtering.
      */
-    public static void main(String[] theArgs)
+    public void testFilterLinePackageTrue()
     {
-        junit.swingui.TestRunner.main(new String[] {TestAll.class.getName()});
+        String[] filterPatterns = new String[] {"my.package" };
+        assertTrue(StringUtil.filterLine(
+            "    at my.package.MyClass.method(MyClass.java:100)",
+            filterPatterns));
+    }
+    
+    /**
+     * Verify package-based stack-trace filtering.
+     */
+    public void testFilterLinePackageFalse()
+    {
+        String[] filterPatterns = new String[] {"my.package" };
+        assertFalse(StringUtil.filterLine(
+            "    at other.package.MyClass.method(MyClass.java:100)",
+            filterPatterns));
     }
 
     /**
-     * @return a test suite (<code>TestSuite</code>) that includes all methods
-     *         starting with "test"
+     * Verify class-based stack-trace filtering.
      */
-    public static Test suite()
+    public void testFilterLineClassTrue()
     {
-        TestSuite suite = new TestSuite(
-            "Cactus unit tests not needing servlet engine");
-
-        suite.addTestSuite(org.apache.cactus.TestAbstractTestCase.class);
-        suite.addTestSuite(org.apache.cactus.TestServletURL.class);
-        suite.addTestSuite(org.apache.cactus.TestServletUtil.class);
-        suite.addTestSuite(org.apache.cactus.TestWebTestResult.class);
-        suite.addTestSuite(org.apache.cactus.TestWebRequest.class);
-        suite.addTestSuite(
-            org.apache.cactus.client.TestWebTestResultParser.class);
-        suite.addTestSuite(
-            org.apache.cactus.util.TestStringUtil.class);
-
-        return suite;
+        String[] filterPatterns = new String[] {"my.package.MyClass" };
+        assertTrue(StringUtil.filterLine(
+            "    at my.package.MyClass.method(MyClass.java:100)",
+            filterPatterns));
     }
+
+    /**
+     * Verify class-based stack-trace filtering.
+     */
+    public void testFilterLineClassFalse1()
+    {
+        String[] filterPatterns = new String[] {"my.package.MyClass" };
+        assertFalse(StringUtil.filterLine(
+            "    at my.package.OtherClass.method(MyClass.java:100)",
+            filterPatterns));
+    }
+
+    /**
+     * Verify class-based stack-trace filtering.
+     */
+    public void testFilterLineClassFalse2()
+    {
+        String[] filterPatterns = new String[] {"my.package.MyClass" };
+        assertFalse(StringUtil.filterLine(
+            "    at other.package.MyClass.method(MyClass.java:100)",
+            filterPatterns));
+    }
+
 }
