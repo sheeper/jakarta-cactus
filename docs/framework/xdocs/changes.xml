@@ -8,7 +8,8 @@
 
     <p>
       These are the changes that happened to the Cactus web site for the past
-      15 days since the last site update :
+      15 days since the last site update (excluding the todo and changes pages
+      which are modified too often) :
     </p>
 
     &cvslog;
@@ -35,7 +36,7 @@
       </action>
       <action dev="VMA" type="update">
         Make the <code>ChangeLogTask</code> work even when not connected to the
-        Internet (i.e. use previous <code>cvslog.xml</code> file or genreate
+        Internet (i.e. use previous <code>cvslog.xml</code> file or generate
         an empty one if non already exists).
       </action>
       <action dev="VMA" type="add">
