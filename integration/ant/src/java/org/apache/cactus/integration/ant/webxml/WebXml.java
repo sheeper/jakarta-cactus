@@ -231,16 +231,10 @@ public class WebXml
         Element filterElement = getFilter(theFilterName);
         if (filterElement == null)
         {
-            throw new IllegalStateException("Filter '" + theFilterName +
-                "' not defined");
+            throw new IllegalStateException("Filter '" + theFilterName
+                + "' not defined");
         }
-        Element initParamElement =
-            this.document.createElement(WebXmlTag.INIT_PARAM.getTagName());
-        initParamElement.appendChild(
-            createNestedText(WebXmlTag.PARAM_NAME, theParamName));
-        initParamElement.appendChild(
-            createNestedText(WebXmlTag.PARAM_VALUE, theParamValue));
-        filterElement.appendChild(initParamElement);
+        addInitParam(filterElement, theParamName, theParamValue);
     }
     
     /**
@@ -318,23 +312,7 @@ public class WebXml
      */
     public String getFilterInitParam(String theFilterName, String theParamName)
     {
-        Element filterElement = getFilter(theFilterName);
-        if (filterElement != null)
-        {
-            Iterator initParamElements = getElements(WebXmlTag.INIT_PARAM);
-            while (initParamElements.hasNext())
-            {
-                Element initParamElement = (Element) initParamElements.next();
-                String paramName = getNestedText(
-                    initParamElement, WebXmlTag.PARAM_NAME);
-                if (theParamName.equals(paramName))
-                {
-                    return getNestedText(
-                        initParamElement, WebXmlTag.PARAM_VALUE);
-                }
-            }
-        }
-        return null;
+        return getInitParam(getFilter(theFilterName), theParamName);
     }
     
     /**
@@ -347,23 +325,7 @@ public class WebXml
      */
     public Iterator getFilterInitParamNames(String theFilterName)
     {
-        List initParamNames = new ArrayList();
-        Element filterElement = getFilter(theFilterName);
-        if (filterElement != null)
-        {
-            Iterator initParamElements = getElements(WebXmlTag.INIT_PARAM);
-            while (initParamElements.hasNext())
-            {
-                Element initParamElement = (Element) initParamElements.next();
-                String paramName = getNestedText(
-                    initParamElement, WebXmlTag.PARAM_NAME);
-                if (paramName != null)
-                {
-                    initParamNames.add(paramName);
-                }
-            }
-        }
-        return initParamNames.iterator();
+        return getInitParamNames(getFilter(theFilterName));
     }
     
     /**
@@ -474,13 +436,7 @@ public class WebXml
             throw new IllegalStateException("Servlet '" + theServletName +
                 "' not defined");
         }
-        Element initParamElement =
-            this.document.createElement(WebXmlTag.INIT_PARAM.getTagName());
-        initParamElement.appendChild(
-            createNestedText(WebXmlTag.PARAM_NAME, theParamName));
-        initParamElement.appendChild(
-            createNestedText(WebXmlTag.PARAM_VALUE, theParamValue));
-        servletElement.appendChild(initParamElement);
+        addInitParam(servletElement, theParamName, theParamValue);
     }
     
     /**
@@ -560,23 +516,7 @@ public class WebXml
     public String getServletInitParam(String theServletName,
         String theParamName)
     {
-        Element servletElement = getServlet(theServletName);
-        if (servletElement != null)
-        {
-            Iterator initParamElements = getElements(WebXmlTag.INIT_PARAM);
-            while (initParamElements.hasNext())
-            {
-                Element initParamElement = (Element) initParamElements.next();
-                String paramName = getNestedText(
-                    initParamElement, WebXmlTag.PARAM_NAME);
-                if (theParamName.equals(paramName))
-                {
-                    return getNestedText(
-                        initParamElement, WebXmlTag.PARAM_VALUE);
-                }
-            }
-        }
-        return null;
+        return getInitParam(getServlet(theServletName), theParamName);
     }
     
     /**
@@ -589,23 +529,7 @@ public class WebXml
      */
     public Iterator getServletInitParamNames(String theServletName)
     {
-        List initParamNames = new ArrayList();
-        Element servletElement = getServlet(theServletName);
-        if (servletElement != null)
-        {
-            Iterator initParamElements = getElements(WebXmlTag.INIT_PARAM);
-            while (initParamElements.hasNext())
-            {
-                Element initParamElement = (Element) initParamElements.next();
-                String paramName = getNestedText(
-                    initParamElement, WebXmlTag.PARAM_NAME);
-                if (paramName != null)
-                {
-                    initParamNames.add(paramName);
-                }
-            }
-        }
-        return initParamNames.iterator();
+        return getInitParamNames(getServlet(theServletName));
     }
     
     /**
@@ -743,6 +667,26 @@ public class WebXml
     // Private Methods ---------------------------------------------------------
     
     /**
+     * Adds an initialization parameter to the specified filter or servlet.
+     * 
+     * @param theElement The filter or servlet element to which the
+     *         initialization parameter should be added
+     * @param theParamName The name of the parameter
+     * @param theParamValue The parameter value
+     */
+    private void addInitParam(Element theElement, String theParamName,
+        String theParamValue)
+    {
+        Element initParamElement =
+            this.document.createElement(WebXmlTag.INIT_PARAM.getTagName());
+        initParamElement.appendChild(
+            createNestedText(WebXmlTag.PARAM_NAME, theParamName));
+        initParamElement.appendChild(
+            createNestedText(WebXmlTag.PARAM_VALUE, theParamValue));
+        theElement.appendChild(initParamElement);
+    }
+    
+    /**
      * Checks an element whether its name matches the specified name.
      * 
      * @param theElement The element to check
@@ -770,6 +714,66 @@ public class WebXml
         Element element = this.document.createElement(theTag.getTagName());
         element.appendChild(this.document.createTextNode(theText));
         return element;
+    }
+    
+    /**
+     * Returns the value of an initialization parameter of the specified filter
+     * or servlet.
+     * 
+     * @param theElement The filter or servlet element that contains the
+     *         initialization parameters
+     * @param theParamName The name of the initialization parameter
+     * @return The parameter value
+     */
+    private String getInitParam(Element theElement, String theParamName)
+    {
+        if (theElement != null)
+        {
+            NodeList initParamElements =
+                theElement.getElementsByTagName(
+                    WebXmlTag.INIT_PARAM.getTagName());
+            for (int i = 0; i < initParamElements.getLength(); i++)
+            {
+                Element initParamElement = (Element) initParamElements.item(i);
+                String paramName = getNestedText(
+                    initParamElement, WebXmlTag.PARAM_NAME);
+                if (theParamName.equals(paramName))
+                {
+                    return getNestedText(
+                        initParamElement, WebXmlTag.PARAM_VALUE);
+                }
+            }
+        }
+        return null;
+    }
+    
+    /**
+     * Returns the names of the initialization parameters of the specified 
+     * filter or servlet.
+     * 
+     * @param theElement The filter or servlet element that contains the
+     *         initialization parameters
+     * @return An iterator over the ordered list of parameter names
+     */
+    private Iterator getInitParamNames(Element theElement)
+    {
+        List initParamNames = new ArrayList();
+        if (theElement != null)
+        {
+            NodeList initParamElements =
+                theElement.getElementsByTagName(WebXmlTag.INIT_PARAM.getTagName());
+            for (int i = 0; i < initParamElements.getLength(); i++)
+            {
+                Element initParamElement = (Element) initParamElements.item(i);
+                String paramName = getNestedText(
+                    initParamElement, WebXmlTag.PARAM_NAME);
+                if (paramName != null)
+                {
+                    initParamNames.add(paramName);
+                }
+            }
+        }
+        return initParamNames.iterator();
     }
     
     /**
