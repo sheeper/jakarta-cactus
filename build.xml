@@ -532,12 +532,13 @@
         <zip zipfile="${release.dir}/${cactus.release.src.name}.zip">
 
             <zipfileset dir="." prefix="${cactus.release.src.name}">
-                <exclude name="**/target/**"/>
-                <exclude name="**/dist/**"/>
+                <exclude name="**/target*/**"/>
+                <exclude name="**/dist*/**"/>
                 <exclude name="**/release/**"/>
                 <exclude name="**/misc/**"/>
                 <exclude name="**/*.log"/>
                 <exclude name="**/build.properties"/>
+                <exclude name="**/ant.bat"/>
             </zipfileset>
 
         </zip>
