@@ -173,7 +173,7 @@
           </tr>
           <tr>
             <td>clover.jar</td>
-            <td>1.0</td>
+            <td>1.1</td>
             <td>
               Clover code coverage tool.
               Available <link href="ext:clover">here</link>.
