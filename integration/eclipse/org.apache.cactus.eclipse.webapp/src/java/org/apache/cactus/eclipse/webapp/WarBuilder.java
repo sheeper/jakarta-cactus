@@ -58,6 +58,7 @@ package org.apache.cactus.eclipse.webapp;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Vector;
 
 import org.apache.cactus.eclipse.webapp.ui.WebappMessages;
 import org.apache.cactus.eclipse.webapp.ui.WebappPlugin;
@@ -67,6 +68,8 @@ import org.apache.tools.ant.taskdefs.War;
 import org.apache.tools.ant.taskdefs.Zip;
 import org.apache.tools.ant.types.FileSet;
 import org.apache.tools.ant.types.ZipFileSet;
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -75,7 +78,9 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
+import org.eclipse.jdt.internal.core.JavaModel;
 
 /**
  * Helper class for creating War files.
@@ -153,7 +158,7 @@ public class WarBuilder
 
         this.outputWar = new File(webapp.getOutput());
         this.tempDir = new File(webapp.getTempDir());
-        this.jarEntries = webapp.getClasspath();
+        this.jarEntries = getAbsoluteEntries(webapp.getClasspath());
 
         // path to the web directory relative to the user's project
         String userWebFilesPath = webapp.getDir();
@@ -167,7 +172,7 @@ public class WarBuilder
             IPath projectPath = theJavaProject.getProject().getLocation();
 
             // web application folder situated in the user's project
-            this.userWebFilesDir = 
+            this.userWebFilesDir =
                 projectPath.append(userWebFilesPath).toFile();
 
             // path to the web.xml file relative to the user's project
@@ -175,6 +180,42 @@ public class WarBuilder
                 userWebFilesPath + "/" + WEBINF + "/" + WEBXML;
             this.userWebXML = projectPath.append(userWebXMLPath).toFile();
         }
+    }
+
+    /**
+     * For each IClasspathEntry transform the path in an absolute path.
+     * @param theEntries array of IClasspathEntry to render asbolute
+     * @return an array of absolute IClasspathEntries
+     */
+    private IClasspathEntry[] getAbsoluteEntries(IClasspathEntry[] theEntries)
+    {
+        if (theEntries == null)
+        {
+            return new IClasspathEntry[0];
+        }
+        Vector result = new Vector();
+        for (int i = 0; i < theEntries.length; i++)
+        {
+            IClasspathEntry currentEntry = theEntries[i];
+            if (currentEntry.getEntryKind() == IClasspathEntry.CPE_LIBRARY)
+            {
+                IPath path = currentEntry.getPath();
+                Object target =
+                    JavaModel.getTarget(
+                        ResourcesPlugin.getWorkspace().getRoot(),
+                        path,
+                        true);
+                if (target instanceof IFile)
+                {
+                    IFile file = (IFile) target;
+                    IPath absolutePath = file.getLocation();
+                    result.add(
+                        JavaCore.newLibraryEntry(absolutePath, null, null));
+                }
+            }
+        }
+        return (IClasspathEntry[]) result.toArray(
+            new IClasspathEntry[result.size()]);
     }
 
     /**
@@ -318,10 +359,11 @@ public class WarBuilder
             }
             theFile.delete();
         }
-        else if (theFile.exists())
-        {
-            theFile.delete();
-        }
+        else
+            if (theFile.exists())
+            {
+                theFile.delete();
+            }
     }
 
     /**
