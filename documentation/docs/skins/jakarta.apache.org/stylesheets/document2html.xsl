@@ -376,35 +376,28 @@
   </xsl:template>
 
   <!-- ==================================================================== -->
-  <!-- "ul/ol/dl/li/sl/dt/dd" elements -->
+  <!-- "ul/ol/dl/li/dt/dd" elements -->
   <!-- ==================================================================== -->
 
-  <xsl:template match="ul|ol|dl">
+  <xsl:template match="ul|ol|li">
     <xsl:copy>
       <xsl:apply-templates/>
     </xsl:copy>
   </xsl:template>
+
+  <xsl:template match="dl">
+    <ul>
+      <xsl:apply-templates/>
+    </ul>
+  </xsl:template>
  
-  <xsl:template match="li">
-    <xsl:copy><xsl:apply-templates/></xsl:copy>
-  </xsl:template>
-
-  <xsl:template match="sl">
-    <ul><xsl:apply-templates/></ul>
-  </xsl:template>
-
   <xsl:template match="dt">
     <li>
-      <strong><xsl:value-of select="."/></strong>
-      <xsl:text> - </xsl:text>
-      <xsl:value-of select="following::dd"/>
+      <strong><xsl:value-of select="."/></strong><br/>
+      <xsl:apply-templates select="dd"/>
     </li>
   </xsl:template>
  
-  <xsl:template match="dd">
-    <!-- ignore since already used -->
-  </xsl:template>
-
   <!-- ==================================================================== -->
   <!-- "note" elements -->
   <!-- ==================================================================== -->
