@@ -206,7 +206,7 @@ public class JettyInitializer implements Initializable
     }
     
     /**
-     * Adds the Cactus Servlet redirector configuration.
+     * Adds the Cactus Servlet redirector configuration
      * 
      * @param theContext the Jetty context under which to add the configuration
      * @param theConfiguration the Cactus Servlet configuration
