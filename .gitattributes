@@ -359,6 +359,9 @@ integration/ant/src/java/org/apache/cactus/integration/ant/deployment/Applicatio
 integration/ant/src/java/org/apache/cactus/integration/ant/deployment/ApplicationXmlIo.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/java/org/apache/cactus/integration/ant/deployment/ApplicationXmlTag.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/java/org/apache/cactus/integration/ant/deployment/ApplicationXmlVersion.java svn_keywords=Author+Date+Id+Revision
+integration/ant/src/java/org/apache/cactus/integration/ant/deployment/EarArchive.java svn_keywords=Author+Date+Id+Revision
+integration/ant/src/java/org/apache/cactus/integration/ant/deployment/JarArchive.java svn_keywords=Author+Date+Id+Revision
+integration/ant/src/java/org/apache/cactus/integration/ant/deployment/WarArchive.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/java/org/apache/cactus/integration/ant/deployment/WebXml.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/java/org/apache/cactus/integration/ant/deployment/WebXmlIo.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/java/org/apache/cactus/integration/ant/deployment/WebXmlMerger.java svn_keywords=Author+Date+Id+Revision
