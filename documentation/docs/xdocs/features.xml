@@ -223,6 +223,10 @@
               Tomcat 4.x (Servlet API 2.2 and 2.3)
             </li>
             <li>
+              Tomcat 5.x (Servlet API 2.3)
+              <img src="images/new.jpg" alt="New in Cactus 1.5"/>
+            </li>
+            <li>
               Resin 2.x (Servlet API 2.2 and 2.3)
             </li>
             <li>
@@ -236,7 +240,7 @@
             </li>
             <li>
               JBoss/Jetty 3.x (Servlet API 2.3)
-              <img src="images/new.jpg" alt="New in Cactus 1.5"/>           
+              <img src="images/new.jpg" alt="New in Cactus 1.5"/>
             </li>
           </ul>
         </li>
