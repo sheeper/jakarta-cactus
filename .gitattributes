@@ -344,6 +344,7 @@ integration/eclipse/org.apache.cactus.eclipse.runner/build-eclipse.properties sv
 integration/eclipse/org.apache.cactus.eclipse.runner/build.properties.sample svn_keywords=Author+Date+Id+Revision
 integration/eclipse/org.apache.cactus.eclipse.runner/build.xml svn_keywords=Author+Date+Id+Revision
 integration/eclipse/org.apache.cactus.eclipse.runner/icons/calaunch.gif -text
+integration/eclipse/org.apache.cactus.eclipse.runner/lib/org.mortbay.jetty-jdk1.2-4.1.4.jar -text
 integration/eclipse/org.apache.cactus.eclipse.runner/plugin.properties svn_keywords=Author+Date+Id+Revision
 integration/eclipse/org.apache.cactus.eclipse.runner/plugin.xml svn_keywords=Author+Date+Id+Revision
 integration/eclipse/org.apache.cactus.eclipse.runner/src/java/org/apache/cactus/eclipse/runner/common/JarFilenameFilter.java svn_keywords=Author+Date+Id+Revision
