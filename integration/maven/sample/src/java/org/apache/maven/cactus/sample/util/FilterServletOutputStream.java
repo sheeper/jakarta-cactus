@@ -1,9 +1,9 @@
-package org.apache.maven.cactus.sample.util;
-
-/* ====================================================================
+/*
+ * ====================================================================
+ *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2002-2003 The Apache Software Foundation.  All rights
+ * Copyright (c) 2001-2003 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -18,21 +18,21 @@ package org.apache.maven.cactus.sample.util;
  *    the documentation and/or other materials provided with the
  *    distribution.
  *
- * 3. The end-user documentation included with the redistribution,
- *    if any, must include the following acknowledgment:
+ * 3. The end-user documentation included with the redistribution, if
+ *    any, must include the following acknowlegement:
  *       "This product includes software developed by the
  *        Apache Software Foundation (http://www.apache.org/)."
- *    Alternately, this acknowledgment may appear in the software itself,
- *    if and wherever such third-party acknowledgments normally appear.
+ *    Alternately, this acknowlegement may appear in the software itself,
+ *    if and wherever such third-party acknowlegements normally appear.
  *
- * 4. The names "Apache" and "Apache Software Foundation" and
- *    "Apache Maven" must not be used to endorse or promote products
+ * 4. The names "The Jakarta Project", "Cactus" and "Apache Software
+ *    Foundation" must not be used to endorse or promote products
  *    derived from this software without prior written permission. For
  *    written permission, please contact apache@apache.org.
  *
- * 5. Products derived from this software may not be called "Apache",
- *    "Apache Maven", nor may "Apache" appear in their name, without
- *    prior written permission of the Apache Software Foundation.
+ * 5. Products derived from this software may not be called "Apache"
+ *    nor may "Apache" appear in their names without prior written
+ *    permission of the Apache Group.
  *
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
@@ -53,8 +53,8 @@ package org.apache.maven.cactus.sample.util;
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * ====================================================================
  */
+package org.apache.maven.cactus.sample.util;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -77,7 +77,8 @@ import javax.servlet.ServletOutputStream;
  *
  * @see GenericResponseWrapper
  */
-public class FilterServletOutputStream extends ServletOutputStream {
+public class FilterServletOutputStream extends ServletOutputStream
+{
     /**
      * The stream where all the data will get written to
      */
@@ -89,7 +90,8 @@ public class FilterServletOutputStream extends ServletOutputStream {
      * @param theOutput the output stream that we wrap in a
      *        <code>DataOutputStream</code> in order to hold the data
      */
-    public FilterServletOutputStream(OutputStream theOutput) {
+    public FilterServletOutputStream(OutputStream theOutput)
+    {
         stream = new DataOutputStream(theOutput);
     }
 
@@ -98,21 +100,25 @@ public class FilterServletOutputStream extends ServletOutputStream {
     /**
      * @see ServletOutputStream#write(int)
      */
-    public void write(int b) throws IOException {
-        stream.write(b);
+    public void write(int theByte) throws IOException
+    {
+        stream.write(theByte);
     }
 
     /**
      * @see ServletOutputStream#write(byte[])
      */
-    public void write(byte[] b) throws IOException {
-        stream.write(b);
+    public void write(byte[] theBytes) throws IOException
+    {
+        stream.write(theBytes);
     }
 
     /**
      * @see ServletOutputStream#write(byte[], int, int)
      */
-    public void write(byte[] b, int off, int len) throws IOException {
+    public void write(byte[] theByte, int theOffset, int theLength) 
+        throws IOException
+    {
         stream.write(b, off, len);
     }
 }

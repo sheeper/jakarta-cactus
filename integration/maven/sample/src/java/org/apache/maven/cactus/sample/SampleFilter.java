@@ -1,9 +1,9 @@
-package org.apache.maven.cactus.sample;
-
-/* ====================================================================
+/*
+ * ====================================================================
+ *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2002-2003 The Apache Software Foundation.  All rights
+ * Copyright (c) 2001-2003 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -18,21 +18,21 @@ package org.apache.maven.cactus.sample;
  *    the documentation and/or other materials provided with the
  *    distribution.
  *
- * 3. The end-user documentation included with the redistribution,
- *    if any, must include the following acknowledgment:
+ * 3. The end-user documentation included with the redistribution, if
+ *    any, must include the following acknowlegement:
  *       "This product includes software developed by the
  *        Apache Software Foundation (http://www.apache.org/)."
- *    Alternately, this acknowledgment may appear in the software itself,
- *    if and wherever such third-party acknowledgments normally appear.
+ *    Alternately, this acknowlegement may appear in the software itself,
+ *    if and wherever such third-party acknowlegements normally appear.
  *
- * 4. The names "Apache" and "Apache Software Foundation" and
- *    "Apache Maven" must not be used to endorse or promote products
+ * 4. The names "The Jakarta Project", "Cactus" and "Apache Software
+ *    Foundation" must not be used to endorse or promote products
  *    derived from this software without prior written permission. For
  *    written permission, please contact apache@apache.org.
  *
- * 5. Products derived from this software may not be called "Apache",
- *    "Apache Maven", nor may "Apache" appear in their name, without
- *    prior written permission of the Apache Software Foundation.
+ * 5. Products derived from this software may not be called "Apache"
+ *    nor may "Apache" appear in their names without prior written
+ *    permission of the Apache Group.
  *
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
@@ -53,8 +53,8 @@ package org.apache.maven.cactus.sample;
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * ====================================================================
  */
+package org.apache.maven.cactus.sample;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -78,7 +78,8 @@ import org.apache.maven.cactus.sample.util.GenericResponseWrapper;
  *
  * @version $Id$
  */
-public class SampleFilter implements Filter {
+public class SampleFilter implements Filter
+{
     /**
      * We need to save the filter config as the Fitler API does not offer
      * a means to get the filter config ... except in the <code>init()</code>
@@ -93,7 +94,8 @@ public class SampleFilter implements Filter {
      *
      * @exception ServletException on failure
      */
-    public void init(FilterConfig theConfig) throws ServletException {
+    public void init(FilterConfig theConfig) throws ServletException
+    {
         this.config = theConfig;
     }
 
@@ -111,7 +113,8 @@ public class SampleFilter implements Filter {
      */
     public void doFilter(ServletRequest theRequest,
         ServletResponse theResponse, FilterChain theChain) throws IOException,
-        ServletException {
+        ServletException
+    {
         OutputStream out = theResponse.getOutputStream();
 
         addHeader(out);
@@ -139,10 +142,12 @@ public class SampleFilter implements Filter {
      *
      * @exception IOException on failure
      */
-    protected void addHeader(OutputStream theOutputStream) throws IOException {
+    protected void addHeader(OutputStream theOutputStream) throws IOException 
+    {
         String header = this.config.getInitParameter("header");
 
-        if (header != null) {
+        if (header != null)
+        {
             theOutputStream.write(header.getBytes());
         }
     }
@@ -156,10 +161,12 @@ public class SampleFilter implements Filter {
      *
      * @exception IOException on failure
      */
-    protected void addFooter(OutputStream theOutputStream) throws IOException {
+    protected void addFooter(OutputStream theOutputStream) throws IOException
+    {
         String footer = this.config.getInitParameter("footer");
 
-        if (footer != null) {
+        if (footer != null)
+        {
             theOutputStream.write(footer.getBytes());
         }
     }
@@ -168,6 +175,7 @@ public class SampleFilter implements Filter {
      * Filter un-initialisation. Called by the servlet engine during the life
      * cycle of the filter.
      */
-    public void destroy() {
+    public void destroy()
+    {
     }
 }
