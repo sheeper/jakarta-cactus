@@ -104,6 +104,12 @@ public class WebXmlMergeTask extends Task
     private File destFile;
 
     /**
+     * Whether the merge should be performed even when the destination file is
+     * up to date.
+     */
+    private boolean force = false;
+    
+    /**
      * Whether the resulting XML file should be indented.
      */
     private boolean indent = false;
@@ -151,25 +157,41 @@ public class WebXmlMergeTask extends Task
             throw new BuildException("The [destfile] attribute is required");
         }
         
-        // FIXME: Skip merge if destfile newer than srcfile and mergefile
         try
         {
-            WebXml srcWebXml = parseWebXml(this.srcFile);
             if (this.mergeFile != null)
             {
-                WebXml mergeWebXml = parseWebXml(this.mergeFile);
-                checkServletVersions(srcWebXml, mergeWebXml);
-                merge(srcWebXml, mergeWebXml);
+                if (force ||
+                    (srcFile.lastModified() > destFile.lastModified()) ||
+                    (mergeFile.lastModified() > destFile.lastModified()))
+                {
+                    WebXml srcWebXml = parseWebXml(this.srcFile);
+                    WebXml mergeWebXml = parseWebXml(this.mergeFile);
+                    checkServletVersions(srcWebXml, mergeWebXml);
+                    merge(srcWebXml, mergeWebXml);
+                    writeWebXml(srcWebXml, this.destFile);
+                }
+                else
+                {
+                    log("The destination file is up to date",
+                        Project.MSG_VERBOSE);
+                }
             }
-            writeWebXml(srcWebXml, this.destFile);
+            else
+            {
+                throw new BuildException("The [mergefile] attribute is "
+                    + "required");
+            }
         }
         catch (ParserConfigurationException pce)
         {
-            throw new BuildException("XML parser configuration problem", pce);
+            throw new BuildException("XML parser configuration problem: "
+                + pce.getMessage(), pce);
         }
         catch (IOException ioe)
         {
-            throw new BuildException("An I/O error occurred", ioe);
+            throw new BuildException("An I/O error occurred: "
+                + ioe.getMessage(), ioe);
         }
     }
 
@@ -215,6 +237,17 @@ public class WebXmlMergeTask extends Task
     }
     
     /**
+     * Sets whether the merge should be performed even when the destination 
+     * file is up to date.
+     * 
+     * @param isForce Whether the merge should be forced
+     */
+    public void setForce(boolean isForce)
+    {
+        this.force = isForce;
+    }
+
+    /**
      * Sets the encoding of the resulting XML file. Default is 'UTF-8'.
      * 
      * @param theEncoding The encoding to set
@@ -228,11 +261,11 @@ public class WebXmlMergeTask extends Task
      * Whether the result XML file should be indented for better readability.
      * Default is 'false'.
      *  
-     * @param theIndent Whether the result should be indented
+     * @param isIndent Whether the result should be indented
      */
-    public void setIndent(boolean theIndent)
+    public void setIndent(boolean isIndent)
     {
-        this.indent = theIndent;
+        this.indent = isIndent;
     }
 
     // Private Methods ---------------------------------------------------------
