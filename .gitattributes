@@ -562,6 +562,7 @@ integration/eclipse/org.apache.cactus.eclipse.webapp/src/java/org/apache/cactus/
 integration/eclipse/org.apache.cactus.eclipse.webapp/src/java/org/apache/cactus/eclipse/webapp/internal/ui/WebappMessages.properties svn_keywords=Author+Date+Id+Revision
 integration/eclipse/org.apache.cactus.eclipse.webapp/src/java/org/apache/cactus/eclipse/webapp/internal/ui/WebappPlugin.java svn_keywords=Author+Date+Id+Revision
 integration/maven/.cvsignore svn_keywords=Author+Date+Id+Revision
+integration/maven/build.properties.sample svn_keywords=Author+Date+Id+Revision
 integration/maven/plugin.jelly svn_keywords=Author+Date+Id+Revision
 integration/maven/plugin.properties svn_keywords=Author+Date+Id+Revision
 integration/maven/project.properties svn_keywords=Author+Date+Id+Revision
