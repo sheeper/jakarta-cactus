@@ -56,6 +56,7 @@
  */
 package org.apache.cactus.integration.ant;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
@@ -100,9 +101,9 @@ public final class TestCactifyTask extends AntTestCase
         public InputSource resolveEntity(String thePublicId, String theSystemId)
             throws SAXException, IOException
         {
-            return null;
+            return new InputSource(new ByteArrayInputStream("".getBytes()));
         }
-        
+
     }
 
     // Constructors ------------------------------------------------------------
