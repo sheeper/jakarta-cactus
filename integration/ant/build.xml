@@ -344,7 +344,8 @@ be resolved. Please check you build.properties file, and run Ant with the
                     <!-- Momentarily exclude this test that fails for some 
                          reason on the Gump machine but not on our local
                          machines -->
-                    <exclude name="**/TestContainerRunner.java">
+                    <exclude name="**/TestContainerRunner.java"/>
+                    <exclude name="**/TestRunServerTestsTask.java"/>
                 </fileset>
                 <formatter type="xml"/>
             </batchtest>
