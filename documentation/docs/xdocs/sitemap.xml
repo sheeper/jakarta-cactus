@@ -89,7 +89,7 @@
 
   <!-- External links (sorted alphabetically by id) -->
   
-  <external-ref id="ant" href="http://ant.apache.org/"/>
+  <external-ref id="ant" url="http://ant.apache.org/"/>
   <external-ref id="antlr" url="http://antlr.org/"/>
   <external-ref id="apache" url="http://www.apache.org/"/>
   <external-ref id="aspectj" url="http://www.aspectj.org"/>

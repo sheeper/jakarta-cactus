@@ -19,7 +19,7 @@ TYPICAL INVOCATION:
 <!-- Sitemap -->
 <!-- =============================================================== -->
 
-<!ELEMENT sitemap (resource*)>
+<!ELEMENT sitemap (resource*, external-ref*)>
 
 <!ELEMENT resource (#PCDATA)>
 <!ATTLIST resource
