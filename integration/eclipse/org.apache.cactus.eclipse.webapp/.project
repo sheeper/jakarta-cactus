@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>webapp</name>
+	<name>org.apache.cactus.eclipse.webapp</name>
 	<comment></comment>
 	<projects>
 		<project>org.apache.ant</project>
