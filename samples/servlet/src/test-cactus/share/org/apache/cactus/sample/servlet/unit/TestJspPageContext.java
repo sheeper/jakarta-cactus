@@ -29,8 +29,6 @@ import org.apache.cactus.server.ServletConfigWrapper;
  * Test the usage of the <code>pageContext</code> implicit object when using
  * <code>JspTestCase</code>.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class TestJspPageContext extends JspTestCase

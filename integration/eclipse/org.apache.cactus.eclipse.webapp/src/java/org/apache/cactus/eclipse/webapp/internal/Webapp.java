@@ -39,8 +39,6 @@ import org.eclipse.jdt.core.JavaModelException;
  * It knows how to load its values from project properties and
  * how to persist them.
  * 
- * @author <a href="mailto:jruaux@octo.com">Julien Ruaux</a>
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  * @version $Id$
  */
 public class Webapp

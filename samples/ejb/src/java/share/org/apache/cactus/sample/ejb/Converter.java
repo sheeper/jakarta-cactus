@@ -26,8 +26,6 @@ import javax.ejb.EJBObject;
 /**
  * Sample EJB interface
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- * 
  * @version $Id$
  */
 public interface Converter extends EJBObject

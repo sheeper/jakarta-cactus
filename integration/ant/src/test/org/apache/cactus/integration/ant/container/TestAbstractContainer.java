@@ -32,8 +32,6 @@ import org.apache.tools.ant.types.FilterChain;
 /**
  * Unit tests for {@link AbstractContainer}.
  *  
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class TestAbstractContainer extends TestCase

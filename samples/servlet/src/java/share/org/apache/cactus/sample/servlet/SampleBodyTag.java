@@ -30,8 +30,6 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  * body. "Target" and "Replacement" Strings are defined by the tag's attributes
  * and each "occurrence" of the target is replaced by the "replacement".
  *
- * @author <a href="mailto:nick@eblox.com">Nicholas Lesiecki</a>
- *
  * @version $Id$
  */
 public class SampleBodyTag extends BodyTagSupport

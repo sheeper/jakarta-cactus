@@ -26,8 +26,6 @@ import org.apache.cactus.WebRequest;
  * Test that it is possible to override a servlet redirector as defined in
  * <code>cactus.properties</code> on a per test case basis.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class TestServletRedirectorOverride extends ServletTestCase

@@ -31,8 +31,6 @@ import org.apache.cactus.WebResponse;
 /**
  * Tests manipulating The Request Dispatcher.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class TestRequestDispatcher extends ServletTestCase

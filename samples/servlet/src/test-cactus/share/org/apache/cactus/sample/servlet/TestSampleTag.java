@@ -27,8 +27,6 @@ import org.apache.cactus.WebResponse;
 /**
  * Tests of the <code>SampleTag</code> class.
  *
- * @author <a href="mailto:nick@eblox.com">Nicholas Lesiecki</a>
- *
  * @version $Id$
  */
 public class TestSampleTag extends JspTestCase

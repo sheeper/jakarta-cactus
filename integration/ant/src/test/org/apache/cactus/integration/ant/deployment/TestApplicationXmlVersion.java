@@ -31,8 +31,6 @@ import org.w3c.dom.DocumentType;
 /**
  * Unit tests for {@link ApplicationXmlVersion}.
  *
- * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
- *
  * @version $Id$
  */
 public final class TestApplicationXmlVersion extends TestCase

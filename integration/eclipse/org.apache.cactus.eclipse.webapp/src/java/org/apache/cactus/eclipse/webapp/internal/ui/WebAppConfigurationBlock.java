@@ -51,7 +51,6 @@ import org.eclipse.swt.widgets.Shell;
 /**
  * UI block which shows a list of jar entries.
  * 
- * @author <a href="mailto:jruaux@octo.com">Julien Ruaux</a>
  * @version $Id$
  */
 public class WebAppConfigurationBlock

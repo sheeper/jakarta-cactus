@@ -41,9 +41,6 @@ import org.eclipse.ui.IWorkbenchPreferencePage;
  * </p>
  * 
  * @version $Id$
- * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- * @author <a href="mailto:jruaux@octo.com">Julien Ruaux</a>
  */
 public class CactusPreferencePage
     extends FieldEditorPreferencePage

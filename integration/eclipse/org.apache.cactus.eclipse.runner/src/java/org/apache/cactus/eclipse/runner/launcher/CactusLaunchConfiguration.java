@@ -52,8 +52,6 @@ import org.eclipse.swt.widgets.Display;
  * extension point.
  * 
  * @version $Id$
- * @author <a href="mailto:jruaux@octo.com">Julien Ruaux</a>
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  */
 public class CactusLaunchConfiguration
     extends JUnitLaunchConfiguration

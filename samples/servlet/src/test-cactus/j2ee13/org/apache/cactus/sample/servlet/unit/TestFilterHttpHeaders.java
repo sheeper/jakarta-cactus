@@ -26,8 +26,6 @@ import com.meterware.httpunit.WebResponse;
 /**
  * Tests HTTP headers set in Filter code.
  * 
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- * 
  * @version $Id$
  */
 public class TestFilterHttpHeaders extends FilterTestCase

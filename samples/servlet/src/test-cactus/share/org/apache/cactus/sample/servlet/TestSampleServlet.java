@@ -33,8 +33,6 @@ import org.apache.cactus.WebResponse;
 /**
  * Tests of the <code>SampleServlet</code> servlet class.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class TestSampleServlet extends ServletTestCase

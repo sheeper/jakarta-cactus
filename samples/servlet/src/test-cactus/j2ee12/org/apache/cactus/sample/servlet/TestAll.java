@@ -25,8 +25,6 @@ import junit.framework.TestSuite;
 /**
  * Run all the Sample Servlet API 2.2 Cactus tests.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class TestAll

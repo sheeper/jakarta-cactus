@@ -34,8 +34,6 @@ import javax.servlet.ServletOutputStream;
  * {@link <a href="http://www.orionserver.com/tutorials/filters/lesson3/">
  * here</a>}
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  *
  * @see GenericResponseWrapper

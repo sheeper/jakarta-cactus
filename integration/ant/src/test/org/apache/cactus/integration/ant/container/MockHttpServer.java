@@ -40,8 +40,6 @@ import junit.framework.Assert;
  * A very simple HTTP server that binds to a port and responds to all requests
  * with a predefined response.
  *
- * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
- *
  * @version $Id$
  */
 public final class MockHttpServer implements Runnable

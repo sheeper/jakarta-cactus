@@ -31,8 +31,6 @@ import org.eclipse.jdt.core.JavaCore;
 /**
  * Helper class for library access.
  * 
- * @author <a href="mailto:jruaux@octo.com">Julien Ruaux</a>
- * 
  * @version $Id$
  */
 public class LibraryHelper

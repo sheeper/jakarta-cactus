@@ -30,8 +30,6 @@ import org.apache.cactus.server.ServletContextWrapper;
 /**
  * Tests that exercise the Cactus Servlet Config wrapper.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class TestServletConfig extends ServletTestCase

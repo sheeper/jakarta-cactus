@@ -27,8 +27,6 @@ import junit.framework.AssertionFailedError;
  * Test that <code>tearDown()</code> is called even when an exception
  * occurs during the test.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class TestTearDownException extends ServletTestCase

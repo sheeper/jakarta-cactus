@@ -35,10 +35,6 @@ import junit.framework.ComparisonFailure;
  * non-serializable and {@link AssertionFailedError} exceptions are 
  * correctly propagated to the client side.
  *
- * @see
- * 
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class TestServerSideExceptions extends ServletTestCase

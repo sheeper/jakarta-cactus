@@ -44,8 +44,6 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
  * The plug-in runtime class for the Cactus plug-in.
  * 
  * @version $Id$
- * @author <a href="mailto:jruaux@octo.com">Julien Ruaux</a>
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  */
 public class CactusPlugin extends AbstractUIPlugin
 {
@@ -319,8 +317,6 @@ public class CactusPlugin extends AbstractUIPlugin
     /**
      * Filter for container script files.
      * i.e. accepts files like 'build-tests-mycontainer3.1.xml'
-     * 
-     * @author <a href="mailto:jruaux@octo.com">Julien Ruaux</a>
      * 
      * @version $Id$
      */

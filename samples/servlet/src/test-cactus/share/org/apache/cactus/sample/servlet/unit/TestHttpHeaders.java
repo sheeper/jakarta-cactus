@@ -26,8 +26,6 @@ import org.apache.cactus.WebResponse;
 /**
  * Tests manipulating HTTP headers.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class TestHttpHeaders extends ServletTestCase

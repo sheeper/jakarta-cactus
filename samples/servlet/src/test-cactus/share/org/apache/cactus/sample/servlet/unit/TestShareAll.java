@@ -26,8 +26,6 @@ import junit.framework.TestSuite;
  * Test suite containing all test cases that should be run on all J2EE 
  * APIs.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public abstract class TestShareAll

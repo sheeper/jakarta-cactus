@@ -28,7 +28,6 @@ import java.util.ResourceBundle;
  * bundle.
  * 
  * @version $Id$
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  */
 public final class WebappMessages
 {

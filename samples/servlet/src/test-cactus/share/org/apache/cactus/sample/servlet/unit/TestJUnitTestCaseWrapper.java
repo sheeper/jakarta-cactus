@@ -28,8 +28,6 @@ import junit.framework.TestCase;
  * Pure JUnit Test Case that we run on the server side using Cactus, by
  * using a {@link ServletTestSuite}.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class TestJUnitTestCaseWrapper extends TestCase

@@ -26,8 +26,6 @@ import javax.servlet.ServletContext;
  * provides additional behaviour (see
  * <code>AbstractServletContextWrapper</code>).
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  * @see AbstractServletContextWrapper
  */

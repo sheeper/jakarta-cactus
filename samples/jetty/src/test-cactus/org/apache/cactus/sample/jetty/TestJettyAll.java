@@ -28,8 +28,6 @@ import junit.framework.TestSuite;
 /**
  * Run all tests inside the Jetty container.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class TestJettyAll extends TestCase

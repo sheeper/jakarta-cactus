@@ -28,8 +28,6 @@ import org.apache.cactus.WebResponse;
 /**
  * Tests of the <code>SampleBodyTag</code> class.
  *
- * @author <a href="mailto:nick@eblox.com">Nciholas Lesiecki</a>
- *
  * @version $Id$
  */
 public class TestSampleBodyTag extends JspTestCase

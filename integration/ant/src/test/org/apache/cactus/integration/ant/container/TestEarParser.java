@@ -30,8 +30,6 @@ import junit.framework.TestCase;
 /**
  * Unit tests for {@link EarParser}.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public final class TestEarParser extends TestCase

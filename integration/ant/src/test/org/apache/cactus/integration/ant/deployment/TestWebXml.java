@@ -42,9 +42,6 @@ import org.xml.sax.SAXException;
 /**
  * Unit tests for {@link WebXml}.
  *
- * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public final class TestWebXml extends TestCase

@@ -37,8 +37,6 @@ import org.apache.cactus.sample.servlet.util.GenericResponseWrapper;
  * to provide some functional tests for Cactus and examples for Cactus users.
  * This filter simply adds a header and a footer to the returned HTML.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class SampleFilter implements Filter

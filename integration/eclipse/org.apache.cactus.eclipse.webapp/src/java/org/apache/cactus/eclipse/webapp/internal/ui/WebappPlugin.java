@@ -33,7 +33,6 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
  * The main plugin class to be used in the desktop.
  * 
  * @version $Id$
- * @author <a href="mailto:jruaux@octo.com">Julien Ruaux</a>
  */
 public class WebappPlugin extends AbstractUIPlugin
 {

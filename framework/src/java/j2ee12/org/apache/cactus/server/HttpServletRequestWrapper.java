@@ -34,8 +34,6 @@ import org.apache.cactus.ServletURL;
  * server redirector servlet or JSP and not a URL that the test case want to
  * simulate.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class HttpServletRequestWrapper

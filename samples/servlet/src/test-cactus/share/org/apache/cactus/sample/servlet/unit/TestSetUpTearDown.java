@@ -26,8 +26,6 @@ import org.apache.cactus.WebResponse;
  * Test that <code>setUp()</code> and <code>tearDown()</code> methods are 
  * called and can access implicit objects in <code>ServletTestCase</code>.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class TestSetUpTearDown extends ServletTestCase

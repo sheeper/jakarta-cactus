@@ -37,8 +37,6 @@ import org.xml.sax.SAXException;
 /**
  * Unit tests for {@link ApplicationXml}.
  *
- * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
- *
  * @version $Id$
  */
 public final class TestApplicationXml extends TestCase

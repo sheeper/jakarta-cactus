@@ -36,9 +36,6 @@ import org.w3c.dom.Element;
  * 
  * TODO: we need more tests for the security sections and the various references
  * 
- * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public final class TestWebXmlMerger extends TestCase

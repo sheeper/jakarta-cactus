@@ -25,8 +25,6 @@ import org.apache.cactus.WebRequest;
 /**
  * Test passing HTTP parameters to the server side.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class TestHttpParameters extends ServletTestCase

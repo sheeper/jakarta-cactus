@@ -25,8 +25,6 @@ import java.net.URL;
  * Configuration information for containers. It contains all information needed
  * for container start and stop actions.
  * 
- * @author <a href="mailto:jruaux@octo.com">Julien Ruaux</a>
- * 
  * @version $Id$
  */
 public class ContainerInfo

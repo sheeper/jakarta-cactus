@@ -27,8 +27,6 @@ import org.apache.cactus.WebResponse;
  * Test global client side <code>begin()</code> and <code>end()</code> 
  * methods.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class TestGlobalBeginEnd extends ServletTestCase

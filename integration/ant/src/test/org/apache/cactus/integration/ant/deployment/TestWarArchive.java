@@ -26,8 +26,6 @@ import junit.framework.TestCase;
 /**
  * Unit tests for {@link WarArchive}.
  *
- * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
- *
  * @version $Id$
  */
 public final class TestWarArchive extends TestCase

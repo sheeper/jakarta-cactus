@@ -25,8 +25,6 @@ import org.apache.cactus.WebRequest;
 /**
  * Tests related to Cookies.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class TestCookie extends ServletTestCase

@@ -30,8 +30,6 @@ import org.apache.cactus.ServletTestCase;
  * test result might be that of the previous test and not the current test one,
  * thus proving nothing !!
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class TestClientServerSynchronization extends ServletTestCase

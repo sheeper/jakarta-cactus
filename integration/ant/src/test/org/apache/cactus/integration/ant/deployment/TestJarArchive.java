@@ -31,8 +31,6 @@ import junit.framework.TestCase;
 /**
  * Unit tests for {@link JarArchive}.
  *
- * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
- *
  * @version $Id$
  */
 public final class TestJarArchive extends TestCase

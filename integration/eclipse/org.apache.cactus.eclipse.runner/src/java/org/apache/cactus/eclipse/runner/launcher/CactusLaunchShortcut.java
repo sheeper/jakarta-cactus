@@ -29,8 +29,6 @@ import org.eclipse.jdt.internal.junit.launcher.JUnitLaunchShortcut;
  * Launch shortcut used to start the Cactus launch configuration on the
  * current workbench selection.
  * 
- * @author <a href="mailto:jruaux@octo.com">Julien Ruaux</a>
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  * @version $Id$
  */
 public class CactusLaunchShortcut

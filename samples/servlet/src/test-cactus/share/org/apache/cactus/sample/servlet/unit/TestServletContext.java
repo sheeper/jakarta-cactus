@@ -27,8 +27,6 @@ import org.apache.cactus.server.ServletContextWrapper;
 /**
  * Tests that exercise the Cactus Servlet Context wrapper.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class TestServletContext extends ServletTestCase

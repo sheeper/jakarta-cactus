@@ -46,9 +46,6 @@ import org.apache.taglibs.standard.tag.el.core.WhenTag;
  *   at <a href="http://jakarta.apache.org/taglibs/">.
  * </p>
  * 
- * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- * 
  * @version $Id$
  */
 public class TestJspTagLifecycle extends JspTestCase

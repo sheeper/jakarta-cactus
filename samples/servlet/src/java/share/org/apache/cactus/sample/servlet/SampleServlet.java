@@ -39,8 +39,6 @@ import javax.servlet.http.HttpSession;
  * different test cases as possible rather than implementing a meaningful
  * business logic.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class SampleServlet extends HttpServlet

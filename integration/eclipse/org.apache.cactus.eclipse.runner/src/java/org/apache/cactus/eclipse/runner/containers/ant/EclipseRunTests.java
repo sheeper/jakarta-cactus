@@ -29,8 +29,6 @@ import org.eclipse.swt.widgets.Display;
  * This Ant task is used for running tests between container startup and
  * shutdown.
  *
- * @author <a href="mailto:jruaux@octo.com">Julien Ruaux</a>
- *
  * @version $Id$
  */
 public class EclipseRunTests extends Task implements Runnable

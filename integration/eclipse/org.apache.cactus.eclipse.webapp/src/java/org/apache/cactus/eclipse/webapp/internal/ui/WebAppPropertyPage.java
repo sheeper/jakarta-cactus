@@ -33,7 +33,6 @@ import org.eclipse.ui.dialogs.PropertyPage;
  * Property page for the web application.
  * It is displayed in project's property pages.
  * 
- * @author <a href="mailto:jruaux@octo.com">Julien Ruaux</a>
  * @version $Id$
  */
 public class WebAppPropertyPage extends PropertyPage

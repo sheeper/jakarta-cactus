@@ -35,8 +35,6 @@ import org.apache.cactus.WebResponse;
 /**
  * Tests that writes to the HTTP response.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class TestHttpResponse extends ServletTestCase

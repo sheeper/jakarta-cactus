@@ -39,7 +39,6 @@ import org.eclipse.ui.IWorkbenchPart;
  * Action delegate to cactify a project.
  * 
  * @version $Id$
- * @author <a href="mailto:jruaux@octo.com">Julien Ruaux</a>
  */
 public class CactifyActionDelegate implements IObjectActionDelegate
 {

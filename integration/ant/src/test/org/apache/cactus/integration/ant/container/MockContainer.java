@@ -30,8 +30,6 @@ import org.apache.tools.ant.types.Environment.Variable;
 /**
  * Mock implementation of the {@link Container} interface.
  *
- * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
- *
  * @version $Id$
  */
 public final class MockContainer implements Container

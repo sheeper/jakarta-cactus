@@ -27,8 +27,6 @@ import org.apache.cactus.WebResponse;
 /**
  * Tests that manipulates the HTTP Session.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class TestHttpSession extends ServletTestCase

@@ -27,8 +27,6 @@ import org.eclipse.core.runtime.IProgressMonitor;
 /**
  * Interface for container configuration and startup.
  * 
- * @author <a href="mailto:jruaux@octo.com">Julien Ruaux</a>
- * 
  * @version $Id$
  */
 public interface IContainerProvider

@@ -28,8 +28,6 @@ import org.apache.cactus.WebResponse;
  * Test the usage of the <code>out</code> implicit object when using
  * <code>JspTestCase</code>.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class TestJspOut extends JspTestCase

@@ -28,8 +28,6 @@ import org.apache.cactus.ServletURL;
  * normally return implicit objects will now return Cactus wrapper of
  * implicit objects instead.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class PageContextWrapper extends AbstractPageContextWrapper

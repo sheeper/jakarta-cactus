@@ -26,8 +26,6 @@ import org.apache.cactus.WebRequest;
  * Test the J2EE 1.3 specifics of the {@link WebRequest#setURL} method
  * (specifically verify calls to <code>getRequestURL</code>).
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class TestSetURLSpecific extends ServletTestCase

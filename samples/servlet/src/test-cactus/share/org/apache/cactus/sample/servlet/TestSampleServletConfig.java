@@ -30,8 +30,6 @@ import org.apache.cactus.ServletTestCase;
  * have been inherited from <code>GenericServlet</code>) can be unit-tested
  * with Cactus.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class TestSampleServletConfig extends ServletTestCase

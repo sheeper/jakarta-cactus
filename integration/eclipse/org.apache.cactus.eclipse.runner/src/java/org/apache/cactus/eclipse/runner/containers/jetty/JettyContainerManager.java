@@ -38,8 +38,6 @@ import org.eclipse.jdt.core.IJavaProject;
 /**
  * Implementation of IContainerManager for the Jetty container.
  * 
- * @author <a href="mailto:jruaux@octo.com">Julien Ruaux</a>
- * 
  * @version $Id$
  */
 public class JettyContainerManager implements IContainerManager

@@ -25,8 +25,6 @@ import junit.framework.TestSuite;
 /**
  * Run all the Cactus unit tests related to J2EE API 1.3.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class TestAll

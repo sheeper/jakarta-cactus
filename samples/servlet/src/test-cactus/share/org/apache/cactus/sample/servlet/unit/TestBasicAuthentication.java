@@ -26,8 +26,6 @@ import org.apache.cactus.client.authentication.BasicAuthentication;
 /**
  * Test running some test using BASIC authentication.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class TestBasicAuthentication extends ServletTestCase

@@ -23,8 +23,6 @@ package org.apache.cactus.eclipse.runner.containers;
  * Credentials (user name, password) passed to the container
  * when performing administrative actions on it..
  * 
- * @author <a href="mailto:jruaux@octo.com">Julien Ruaux</a>
- * 
  * @version $Id$
  */
 public class Credential

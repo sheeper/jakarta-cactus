@@ -25,8 +25,6 @@ import org.apache.cactus.WebRequest;
 /**
  * Test the {@link WebRequest#setURL} method.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class TestSetURL extends ServletTestCase

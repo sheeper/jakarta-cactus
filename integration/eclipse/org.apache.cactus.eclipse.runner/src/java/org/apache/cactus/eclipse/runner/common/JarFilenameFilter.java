@@ -27,8 +27,6 @@ import java.io.FilenameFilter;
  * Filter for jar files.
  * i.e. accepts files like 'library.jar'
  * 
- * @author <a href="mailto:jruaux@octo.com">Julien Ruaux</a>
- * 
  * @version $Id$
  */
 public class JarFilenameFilter implements FilenameFilter

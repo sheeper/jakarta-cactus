@@ -27,8 +27,6 @@ import org.apache.cactus.WebRequest;
 /**
  * Test HTTP request methods specific to Servlet API 2.3.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class TestHttpRequestSpecific extends ServletTestCase

@@ -29,8 +29,6 @@ import org.apache.cactus.WebRequest;
 /**
  * Tests that exercise the HTTP request.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class TestHttpRequest extends ServletTestCase

@@ -37,8 +37,6 @@ import org.eclipse.debug.core.ILaunchManager;
  * Implementation of IContainerProvider that uses ant scripts to set up
  * and launch containers.
  * 
- * @author <a href="mailto:jruaux@octo.com">Julien Ruaux</a>
- * 
  * @version $Id$
  */
 public class AntContainerProvider implements IContainerProvider

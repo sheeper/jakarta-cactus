@@ -32,8 +32,6 @@ import javax.servlet.jsp.tagext.TagSupport;
 /**
  * Sample tag that implements simple tag logic.
  *
- * @author <a href="mailto:nick@eblox.com">Nicholas Lesiecki</a>
- *
  * @version $Id$
  */
 public class SampleTag extends TagSupport

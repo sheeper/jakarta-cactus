@@ -50,8 +50,6 @@ import org.eclipse.ui.externaltools.internal.model.IExternalToolConstants;
 /**
  * Implementation of IContainerManager based on Ant.
  * 
- * @author <a href="mailto:jruaux@octo.com">Julien Ruaux</a>
- * 
  * @version $Id$
  */
 public class AntContainerManager implements IContainerManager

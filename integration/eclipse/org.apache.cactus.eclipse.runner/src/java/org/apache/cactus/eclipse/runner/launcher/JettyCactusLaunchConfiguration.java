@@ -48,8 +48,6 @@ import org.eclipse.jdt.core.IJavaProject;
  * extension point.
  * 
  * @version $Id$
- * @author <a href="mailto:jruaux@octo.com">Julien Ruaux</a>
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  */
 public class JettyCactusLaunchConfiguration
     extends CactusLaunchConfiguration

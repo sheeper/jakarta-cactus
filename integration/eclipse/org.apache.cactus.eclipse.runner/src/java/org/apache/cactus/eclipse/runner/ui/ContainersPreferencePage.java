@@ -42,7 +42,6 @@ import org.eclipse.ui.IWorkbenchPreferencePage;
  * </p>
  * 
  * @version $Id$
- * @author <a href="mailto:jruaux@octo.com">Julien Ruaux</a>
  */
 public class ContainersPreferencePage
     extends FieldEditorPreferencePage

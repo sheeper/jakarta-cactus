@@ -24,8 +24,6 @@ import org.eclipse.jdt.core.IJavaProject;
 /**
  * Interface for container providers management.
  * 
- * @author <a href="mailto:jruaux@octo.com">Julien Ruaux</a>
- * 
  * @version $Id$
  */
 public interface IContainerManager

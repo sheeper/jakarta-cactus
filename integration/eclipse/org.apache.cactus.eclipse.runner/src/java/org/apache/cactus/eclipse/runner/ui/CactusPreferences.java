@@ -27,8 +27,6 @@ import org.eclipse.jface.preference.IPreferenceStore;
  * Central class for managing the Cactus preferences.
  * 
  * @version $Id$
- * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
- * @author <a href="mailto:jruaux@octo.com">Julien Ruaux</a>
  */
 public class CactusPreferences
 {
