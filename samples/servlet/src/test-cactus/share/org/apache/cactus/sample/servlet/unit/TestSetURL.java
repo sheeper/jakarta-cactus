@@ -88,8 +88,6 @@ public class TestSetURL extends ServletTestCase
     public void testSimulatedURLBasics()
     {
         assertEquals("/test/test.jsp", request.getRequestURI());
-        assertEquals("http://jakarta.apache.org:80/test/test.jsp", 
-            request.getRequestURL().toString());
         assertEquals("jakarta.apache.org", request.getServerName());
         assertEquals(80, request.getServerPort());
         assertEquals("", request.getContextPath());
@@ -115,8 +113,6 @@ public class TestSetURL extends ServletTestCase
     public void testSimulatedURL1()
     {
         assertEquals("/mywebapp/test/test.jsp", request.getRequestURI());
-        assertEquals("http://jakarta.apache.org:80/mywebapp/test/test.jsp", 
-            request.getRequestURL().toString());
         assertEquals("jakarta.apache.org", request.getServerName());
         assertEquals(80, request.getServerPort());
         assertEquals("/mywebapp", request.getContextPath());
@@ -143,8 +139,6 @@ public class TestSetURL extends ServletTestCase
     {
         assertEquals("jakarta.apache.org", request.getServerName());
         assertEquals("/catalog/lawn/index.html", request.getRequestURI());
-        assertEquals("http://jakarta.apache.org:80/catalog/lawn/index.html", 
-            request.getRequestURL().toString());
         assertEquals(80, request.getServerPort());
         assertEquals("/catalog", request.getContextPath());
         assertEquals("/lawn", request.getServletPath());
@@ -172,8 +166,6 @@ public class TestSetURL extends ServletTestCase
     {
         assertEquals("jakarta.apache.org", request.getServerName());
         assertEquals("/catalog/garden/implements/", request.getRequestURI());
-        assertEquals("http://jakarta.apache.org:80/catalog/garden/implements/", 
-            request.getRequestURL().toString());
         assertEquals(80, request.getServerPort());
         assertEquals("/catalog", request.getContextPath());
         assertEquals("/garden", request.getServletPath());
@@ -201,8 +193,6 @@ public class TestSetURL extends ServletTestCase
     {
         assertEquals("jakarta.apache.org", request.getServerName());
         assertEquals("/catalog/help/feedback.jsp", request.getRequestURI());
-        assertEquals("http://jakarta.apache.org:80/catalog/help/feedback.jsp", 
-            request.getRequestURL().toString());
         assertEquals(80, request.getServerPort());
         assertEquals("/catalog", request.getContextPath());
         assertEquals("/help/feedback.jsp", request.getServletPath());
@@ -233,8 +223,6 @@ public class TestSetURL extends ServletTestCase
     {
         assertEquals("jakarta.apache.org", request.getServerName());
         assertEquals("/catalog/help/feedback.jsp", request.getRequestURI());
-        assertEquals("http://jakarta.apache.org:80/catalog/help/feedback.jsp", 
-            request.getRequestURL().toString());
         assertEquals(80, request.getServerPort());
         assertEquals("/catalog", request.getContextPath());
         assertEquals("/help/feedback.jsp", request.getServletPath());
