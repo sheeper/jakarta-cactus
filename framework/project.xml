@@ -52,9 +52,9 @@
       <url>http://www.httpunit.org/</url>
     </dependency>
     <dependency>
-      <groupId>servletapi</groupId>
-      <artifactId>servletapi</artifactId>
-      <version>2.3</version>
+      <groupId>j2ee</groupId>
+      <artifactId>j2ee</artifactId>
+      <version>${cactus.j2ee.version.full}</version>
     </dependency>
   </dependencies>
   <packageGroups>
