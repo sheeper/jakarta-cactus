@@ -1,7 +1,6 @@
 * text=auto !eol
 /.cvsignore svn_keywords=Author+Date+Id+Revision
 /ANNOUNCEMENT.txt svn_keywords=Author+Date+Id+Revision
-/NOTICE.cactus svn_keywords=Author+Date+Id+Revision
 /README svn_keywords=Author+Date+Id+Revision
 /build-common.xml svn_keywords=Author+Date+Id+Revision
 /build.properties.default svn_keywords=Author+Date+Id+Revision
