@@ -103,4 +103,11 @@
     <menu-item label="Build from sources" source="howto_build.xml"/>
   </menu>
 
+  <menu label="Translations">
+    <menu-item type="external" label="Korean"
+      href="http://jakarta.apache-korea.org/cactus/index.html"/>
+    <menu-item type="external" label="Japanese"
+      href="http://www.ingrid.org/jajakarta/cactus/"/>
+  </menu>
+
 </book>
