@@ -160,7 +160,7 @@
         of an Action class need to get hold of several Struts object
         beforehand). A solution might be to provide some factory helper classes
         to provide these objects. This could go in a
-        <code>org.apache.commons.cactus.util.struts</code> package but will
+        <code>org.apache.cactus.util.struts</code> package but will
         need to be maintained and synced with Struts versions. Another solution
         might be to host these helper classes within Struts itself. We need to
         think about that (same issue as with Ant custom tasks - There have

@@ -88,7 +88,7 @@ public class ServletContextWrapper extends AbstractServletContextWrapper
     }
 
     /**
-     * @see getResourcePaths(String)
+     * @see #getResourcePaths(String)
      */
     public Set getResourcePaths()
     {

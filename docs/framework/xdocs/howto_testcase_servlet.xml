@@ -67,7 +67,7 @@
               Class name
             </td>
             <td>
-              <code>org.apache.commons.cactus.server.HttpServletRequestWrapper
+              <code>org.apache.cactus.server.HttpServletRequestWrapper
               </code>, which inherits from
               <code>javax.servlet.http.HttpServletRequest</code>
             </td>
@@ -90,8 +90,8 @@
         </p>
         <p>
           See the javadoc for the
-          <code>org.apache.commons.cactus.WebRequest</code> and
-          <code>org.apache.commons.cactus.server.HttpServletRequestWrapper
+          <code>org.apache.cactus.WebRequest</code> and
+          <code>org.apache.cactus.server.HttpServletRequestWrapper
           </code> classes for all details. You should also look at the
           samples provided in the Cactus distribution.
         </p>
@@ -142,7 +142,7 @@
               Class name
             </td>
             <td>
-              <code>org.apache.commons.cactus.server.ServletConfigWrapper
+              <code>org.apache.cactus.server.ServletConfigWrapper
               </code>, which inherits from
               <code>javax.servlet.ServletConfig</code>
             </td>
@@ -174,7 +174,7 @@
         </p>
         <p>
           See the javadoc for the
-          <code>org.apache.commons.cactus.server.ServletConfigWrapper</code>
+          <code>org.apache.cactus.server.ServletConfigWrapper</code>
           class for all details. You should also look at the
           samples provided in the Cactus distribution.
         </p>

@@ -19,15 +19,15 @@
       </p>
       <ul>
         <li>
-          <strong><code>commons-cactus-&lt;servletapi&gt;-&lt;version&gt;.zip</code>
+          <strong><code>jakarta-cactus-&lt;servletapi&gt;-&lt;version&gt;.zip</code>
           </strong> : the Cactus distribution. It contains :
           <ul>
             <li>
-              <strong><code>commons-cactus.jar</code></strong> : the Cactus
+              <strong><code>cactus.jar</code></strong> : the Cactus
               runtime jar,
             </li>
             <li>
-              <strong><code>commons-cactus-ant.jar</code></strong> :
+              <strong><code>cactus-ant.jar</code></strong> :
               some custom Ant tasks that are helpful for automating
               running Cactus unit tests. Especially the
               <code>runservertests</code> which automagically start a servlet
@@ -46,11 +46,11 @@
           </ul>
         </li>
         <li>
-          <strong><code>commons-cactus-src-&lt;version&gt;.zip</code></strong> :
+          <strong><code>jakarta-cactus-src-&lt;version&gt;.zip</code></strong> :
           the full Cactus sources,
         </li>
         <li>
-          <strong><code>commons-cactus-ant-&lt;version of Ant&gt;-&lt;date&gt;.zip</code></strong>
+          <strong><code>jakarta-cactus-ant-&lt;version of Ant&gt;-&lt;date&gt;.zip</code></strong>
           : a prepackaged version of Ant,
           which contains all needed external jars for tasks used by Cactus build
           files. This is not a compulsory download but it makes it easier for
@@ -74,7 +74,7 @@
     <s1 title="Releases">
 
       <p>
-        Click <link href="http://jakarta.apache.org/builds/jakarta-commons/release/commons-cactus">
+        Click <link href="http://jakarta.apache.org/builds/jakarta-cactus/release">
         here</link> for Cactus releases.
       </p>
 
@@ -83,7 +83,7 @@
     <s1 title="Nightly builds">
 
       <p>
-        Click <link href="http://jakarta.apache.org/builds/jakarta-commons/nightly/commons-cactus">
+        Click <link href="http://jakarta.apache.org/builds/jakarta-cactus/nightly">
         here</link> for Cactus nightly builds.
       </p>
 

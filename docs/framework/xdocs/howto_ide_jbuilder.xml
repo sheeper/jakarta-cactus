@@ -62,8 +62,10 @@
       <s2 title="Create the cactus library">
         <p>
           Create a library named <code>cactus</code>.
-          Add commons-cactus.jar and optionnaly log4j-core.jar. Note that
-          log4j-core.jar is useful only if you wish to get some Cactus runtime logs.
+          Add <code>cactus.jar</code> and optionnaly
+          <code>log4j-core.jar</code>. Note that
+          <code>log4j-core.jar</code> is useful only if you wish to get
+          some Cactus runtime logs.
         </p>
 
         <note>
@@ -128,7 +130,7 @@
 <web-app>
     <servlet>
         <servlet-name>ServletRedirector</servlet-name>
-        <servlet-class>org.apache.commons.cactus.server.ServletTestRedirector</servlet-class>
+        <servlet-class>org.apache.cactus.server.ServletTestRedirector</servlet-class>
     </servlet>
 
     <servlet-mapping>

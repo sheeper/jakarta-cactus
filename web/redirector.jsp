@@ -1,4 +1,4 @@
-<%@page import="org.apache.commons.cactus.server.*" session="false" %><%
+<%@page import="org.apache.cactus.server.*" session="false" %><%
 
     /**                                                
      *                                                 

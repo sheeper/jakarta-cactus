@@ -8,7 +8,7 @@
 
     <filter>
         <filter-name>FilterRedirector</filter-name>
-        <filter-class>org.apache.commons.cactus.server.FilterTestRedirector</filter-class>
+        <filter-class>org.apache.cactus.server.FilterTestRedirector</filter-class>
     </filter>
 
     <filter-mapping>
@@ -18,7 +18,7 @@
 
     <servlet>
         <servlet-name>ServletRedirector</servlet-name>
-        <servlet-class>org.apache.commons.cactus.server.ServletTestRedirector</servlet-class>
+        <servlet-class>org.apache.cactus.server.ServletTestRedirector</servlet-class>
         <init-param>
           <param-name>param1</param-name>
           <param-value>value1 used for testing</param-value>

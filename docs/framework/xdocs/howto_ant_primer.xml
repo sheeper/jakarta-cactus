@@ -440,7 +440,7 @@
     <!-- Generic project properties -->
     <property name="project.fullname" value="Cactus Sample"/>
     <property name="project.version" value="@version@"/>
-    <property name="project.name" value="commons-cactus-sample"/>
+    <property name="project.name" value="cactus-sample"/>
 
     <!-- Miscellaneous settings -->
     <property name="year" value="@year@"/>
@@ -571,7 +571,7 @@
         <filter token="year" value="${year}"/>
 
         <!-- Initialize custom Ant task needed for running the server tests -->
-        <taskdef name="runservertests" classname="org.apache.commons.cactus.ant.RunServerTestsTask">
+        <taskdef name="runservertests" classname="org.apache.cactus.ant.RunServerTestsTask">
             <classpath>
                 <pathelement location="${cactus.ant.jar}"/>
                 <pathelement path="${java.class.path}"/>
@@ -788,7 +788,7 @@
 
         <javadoc
             sourcepath="${out.src.dir}"
-            packagenames="org.apache.commons.cactus.sample.*"
+            packagenames="org.apache.cactus.sample.*"
             destdir="${out.javadoc.dir}"
             author="true"
             public="true"

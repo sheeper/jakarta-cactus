@@ -23,7 +23,7 @@
     -->
     <target name="start_enhydra_31">
 
-        <java classname="org.apache.commons.cactus.ant.EnhydraRun" fork="yes">
+        <java classname="org.apache.cactus.ant.EnhydraRun" fork="yes">
             <arg value="-start"/>
             <arg value="${out.enhydra31.dir}/conf/multiserver.conf"/>
             <classpath>
@@ -45,7 +45,7 @@
     -->
     <target name="stop_enhydra_31">
 
-        <java classname="org.apache.commons.cactus.ant.EnhydraRun" fork="yes">
+        <java classname="org.apache.cactus.ant.EnhydraRun" fork="yes">
             <arg value="-stop"/>
             <classpath>
                 <fileset dir="${enhydra.home.31}/lib">
@@ -83,7 +83,7 @@
     -->
     <target name="prepare_tests_enhydra_31" depends="check_tests_enhydra_31" if="enhydra.home.31">
 
-        <taskdef name="pathconvert" classname="org.apache.commons.cactus.ant.PathConvert">
+        <taskdef name="pathconvert" classname="org.apache.cactus.ant.PathConvert">
             <classpath>
                 <pathelement location="${cactus.ant.jar}"/>
             </classpath>

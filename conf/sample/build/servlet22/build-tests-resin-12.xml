@@ -23,7 +23,7 @@
     -->
     <target name="start_resin_12">
 
-        <java classname="org.apache.commons.cactus.ant.ResinRun" fork="yes">
+        <java classname="org.apache.cactus.ant.ResinRun" fork="yes">
 
             <arg value="-start"/>
 
@@ -52,7 +52,7 @@
     -->
     <target name="stop_resin_12">
 
-        <java classname="org.apache.commons.cactus.ant.ResinRun" fork="yes">
+        <java classname="org.apache.cactus.ant.ResinRun" fork="yes">
 
             <arg value="-stop"/>
 

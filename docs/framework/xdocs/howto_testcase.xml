@@ -56,7 +56,7 @@
         </p>
 
 <source><![CDATA[
-import org.apache.commons.cactus.*;
+import org.apache.cactus.*;
 import junit.framework.*;
 ]]></source>
 

@@ -54,7 +54,7 @@
         </li>
         <li>
           The Cactus Sample application uses some Ant custom tasks provided
-          by Cactus in the <code>commons-cactus-ant.jar</code> jar file (
+          by Cactus in the <code>cactus-ant.jar</code> jar file (
           found in the <code>lib/</code> directory where you unpacked the
           Cactus distribution).
         </li>

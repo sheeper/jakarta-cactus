@@ -201,7 +201,7 @@ cactus.filterRedirectorURL = http://localhost:8080/test/FilterRedirector/
 
           <p>
             A default <code>log_client.properties</code> is already provided
-            in the <code>commons-cactus.jar</code> jar. It is used for
+            in the <code>cactus.jar</code> jar. It is used for
             configuring Log4j, which is the logging framework used by Cactus
             to log debug information.
           </p>
@@ -224,7 +224,7 @@ log4j.appender.cactus.Append = false
 log4j.appender.cactus.layout = org.apache.log4j.PatternLayout
 log4j.appender.cactus.layout.ConversionPattern = %r [%t] %-5p %c{2} %x - %m %n
 
-log4j.category.org.apache.commons.cactus = DEBUG, cactus
+log4j.category.org.apache.cactus = DEBUG, cactus
 ]]></source>
 
           <p>
@@ -240,7 +240,7 @@ log4j.category.org.apache.commons.cactus = DEBUG, cactus
             logging parameter, just provide your own
             <code>log_client.properties</code> file (it has to be named this
             way) and put in the client side classpath <strong>before</strong>
-            the <code>commons-cactus.jar</code> file.
+            the <code>cactus.jar</code> file.
           </p>
 
         </s3>
@@ -287,7 +287,7 @@ log4j.category.org.apache.commons.cactus = DEBUG, cactus
     <!-- Filter Redirector definition -->
     <filter>
         <filter-name>FilterRedirector</filter-name>
-        <filter-class>org.apache.commons.cactus.server.FilterTestRedirector</filter-class>
+        <filter-class>org.apache.cactus.server.FilterTestRedirector</filter-class>
     </filter>
 
     <!-- Filter Redirector URL mapping -->
@@ -299,7 +299,7 @@ log4j.category.org.apache.commons.cactus = DEBUG, cactus
     <!-- Servlet Redirector configuration -->
     <servlet>
         <servlet-name>ServletRedirector</servlet-name>
-        <servlet-class>org.apache.commons.cactus.server.ServletTestRedirector</servlet-class>
+        <servlet-class>org.apache.cactus.server.ServletTestRedirector</servlet-class>
     </servlet>
 
     <!-- JSP Redirector URL configuration -->
@@ -368,7 +368,7 @@ log4j.category.org.apache.commons.cactus = DEBUG, cactus
 [...]
     <servlet>
         <servlet-name>ServletRedirector</servlet-name>
-        <servlet-class>org.apache.commons.cactus.server.ServletTestRedirector</servlet-class>
+        <servlet-class>org.apache.cactus.server.ServletTestRedirector</servlet-class>
         <init-param>
           <param-name>param1</param-name>
           <param-value>value1 used for testing</param-value>
@@ -391,7 +391,7 @@ log4j.category.org.apache.commons.cactus = DEBUG, cactus
 
           <p>
             A default <code>log_server.properties</code> is already provided
-            in the <code>commons-cactus.jar</code> jar. It is used for
+            in the <code>cactus.jar</code> jar. It is used for
             configuring Log4j, which is the logging framework used by Cactus
             to log debug information.
           </p>
@@ -414,7 +414,7 @@ log4j.appender.cactus.Append = false
 log4j.appender.cactus.layout = org.apache.log4j.PatternLayout
 log4j.appender.cactus.layout.ConversionPattern = %r [%t] %-5p %c{2} %x - %m %n
 
-log4j.category.org.apache.commons.cactus = DEBUG, cactus
+log4j.category.org.apache.cactus = DEBUG, cactus
 ]]></source>
 
           <p>
@@ -432,10 +432,10 @@ log4j.category.org.apache.commons.cactus = DEBUG, cactus
             way) and put in the <code>WEB-INF/classes</code> directory of
             your webapp (and hope that the webapp classloader of your server
             picks up the files in <code>WEB-INF/classes</code> before the ones
-            in <code>WEB-INF/lib</code>, where <code>commons-cactus.jar</code>
+            in <code>WEB-INF/lib</code>, where <code>cactus.jar</code>
             is located ... :) I don't know if this is part of the
             specification). Alternatively, edit the file in
-            <code>commons-cactus.jar</code> !
+            <code>cactus.jar</code> !
           </p>
 
         </s3>

@@ -5,11 +5,6 @@
       copyright="@year@ The Apache Software Foundation"
       updated="@today@">
 
-  <menu label="Home">
-    <menu-item label="Jakarta Commons"
-        href="http://jakarta.apache.org/commons" type="external"/>
-  </menu>
-
   <menu label="About">
     <menu-item label="What is Cactus ?" source="index.xml"/>
     <menu-item label="Features/Status" source="features.xml"/>

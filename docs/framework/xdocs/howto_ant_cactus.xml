@@ -150,7 +150,7 @@
 -->
 <target name="init">
     [...]
-    <taskdef name="runservertests" classname="org.apache.commons.cactus.ant.RunServerTestsTask">
+    <taskdef name="runservertests" classname="org.apache.cactus.ant.RunServerTestsTask">
         <classpath>
             <pathelement location="${cactus.ant.jar}"/>
             <pathelement path="${java.class.path}"/>
@@ -162,7 +162,7 @@
 
        <p>
          where <code>${cactus.ant.jar}</code> is an Ant property that points
-         to the <code>commons-cactus-ant.jar</code> file found in the
+         to the <code>cactus-ant.jar</code> file found in the
          <code>lib/</code> directory where you unpacked the Cactus
          distribution.
        </p>
@@ -361,7 +361,7 @@
          </li>
          <li>
            <code>${lib.dir}</code> : directory containing the needed jars
-           (<code>junit.jar</code>, <code>commons-cactus.jar</code>, ...).
+           (<code>junit.jar</code>, <code>cactus.jar</code>, ...).
          </li>
          <li>
            <code>${web.dir}</code> : directory containing the web files to

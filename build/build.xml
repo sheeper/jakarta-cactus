@@ -76,9 +76,11 @@
     <property file="${user.home}/build.properties" />
 
     <!-- Generic project properties -->
-    <property name="project.fullname" value="Cactus"/>
-    <property name="project.version" value="1.2"/>
-    <property name="project.name" value="commons-cactus"/>
+
+    <property name="project.version" value="1.2dev"/>
+    <property name="project.name.text" value="Cactus"/>
+    <property name="project.name.short" value="cactus"/>
+    <property name="project.name.prefix" value="jakarta-"/>
 
     <!-- Miscellaneous settings -->
     <property name="year" value="2000-2001"/>
@@ -139,14 +141,14 @@
     -->
 
     <!-- The Cactus jar containing custom Ant tasks and helper classes -->
-    <property name="jar.ant.name" value="${project.name}-ant"/>
+    <property name="jar.ant.name" value="${project.name.short}-ant"/>
 
     <!-- The full sources of Cactus in a zip file -->
-    <property name="src.name" value="${project.name}-src"/>
+    <property name="src.name" value="${project.name.short}-src"/>
 
     <!-- The Cactus web site in a gzip file (without the Javadoc but
          with a link pointing to javadoc : <htdocs>/servletXX/index.html -->
-    <property name="site.name" value="${project.name}-website"/>
+    <property name="site.name" value="${project.name.short}-website"/>
 
     <!--
        ========================================================================
@@ -215,7 +217,7 @@
 
         <tstamp/>
 
-        <echo message="--------- ${project.fullname} ${project.version} ---------"/>
+        <echo message="--------- ${project.name.text} ${project.version} ---------"/>
         <echo message=""/>
 
         <echo message="java.class.path = ${java.class.path}"/>
@@ -231,15 +233,15 @@
 
         <!-- The Cactus jar containing custom Ant tasks and helper classes -->
         <property name="dist.jar.ant.name"
-            value="${dist.dir}/${jar.ant.name}-${DSTAMP}.jar"/>
+            value="${dist.dir}/${project.name.prefix}${jar.ant.name}-${DSTAMP}.jar"/>
 
         <!-- The full sources of Cactus in a zip file -->
         <property name="dist.src.name"
-            value="${dist.dir}/${src.name}-${DSTAMP}.zip"/>
+            value="${dist.dir}/${project.name.prefix}${src.name}-${DSTAMP}.zip"/>
 
         <!-- The Cactus web site in a gzip file (without the Javadoc but
              with a link pointing to javadoc : <htdocs>/servletXX/index.html -->
-        <property name="dist.site.name" value="${dist.dir}/${site.name}"/>
+        <property name="dist.site.name" value="${dist.dir}/${project.name.prefix}${site.name}"/>
 
         <!-- Filters -->
         <filter token="version" value="${project.version}"/>
@@ -264,7 +266,7 @@
     <target name="usage" depends="init">
 
         <echo message=""/>
-        <echo message="${project.fullname} build file"/>
+        <echo message="${project.name.text} build file"/>
         <echo message="------------------------------------------------------"/>
         <echo message=""/>
         <echo message=" Available targets are :"/>
@@ -282,7 +284,7 @@
         <echo message=" dist             --> version all distributables and copies"/>
         <echo message="                      them to the dist.dir directory"/>
         <echo message=" deploy-site      --> deploy the Cactus web site to it's home"/>
-        <echo message="                      page on Jakarta Commons"/>
+        <echo message="                      page on Jakarta"/>
         <echo message=""/>
 
     </target>
@@ -378,7 +380,7 @@
         <mkdir dir="${out.site.dir}/images"/>
 
         <!-- Custom Ant task definitions -->
-        <taskdef name="cvslog" classname="org.apache.commons.cactus.ant.ChangeLogTask">
+        <taskdef name="cvslog" classname="org.apache.cactus.ant.ChangeLogTask">
             <classpath>
                 <pathelement location="${final.jar.ant.name}"/>
                 <pathelement path="${java.class.path}"/>
@@ -580,7 +582,7 @@
         <!-- Package the sources in the distribution -->
         <zip zipfile="${dist.src.name}">
 
-            <zipfileset dir="." prefix="${project.name}-${DSTAMP}">
+            <zipfileset dir="." prefix="${project.name.prefix}${project.name.short}-${project.version}">
 
                 <include name="${build.dir}/**"/>
                 <include name="${conf.dir}/**"/>
@@ -617,7 +619,7 @@
 
     <!--
        ========================================================================
-         Deploy the web site to the Jakarta Commons server, using the 'scp'
+         Deploy the web site to the Jakarta server, using the 'scp'
          and 'ssh' commands. The variable "username" need to be passed to Ant
          when calling this target.
 
@@ -627,7 +629,7 @@
     -->
     <target name="deploy-site" depends="clean,site" if="username">
 
-        <property name="homepage" value="/www/jakarta.apache.org/commons/cactus"/>
+        <property name="homepage" value="/www/jakarta.apache.org/cactus"/>
 
         <exec dir="." executable="scp">
             <arg value="${final.site.name}-${DSTAMP}.tar.gz"/>

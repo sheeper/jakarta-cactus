@@ -114,8 +114,6 @@ public class TestSampleServletConfig extends ServletTestCase
      * <code>getServletConfig()</code>, <code>getServletContext()</code>,
      * <code>log()</code>, ... (i.e. methods inherited from
      * <code>GenericServlet</code>).
-     *
-     * @see TestSampleServletConfig_Helper
      */
     public void testServletConfig() throws ServletException
     {

@@ -88,12 +88,12 @@
       </p>
       <ul>
         <li>
-          <strong><code>commons-cactus.jar</code></strong> : the main jar,
+          <strong><code>cactus.jar</code></strong> : the main jar,
           contains the framework classes. You can find this jar in
           <code>[cactus root]/lib</code>.
         </li>
         <li>
-          <strong><code>commons-cactus-ant.jar</code></strong> : a jar which
+          <strong><code>cactus-ant.jar</code></strong> : a jar which
           contains some custom Ant tasks to help integrate easily with Ant.
           This is only needed if you wish to use Ant for automating the
           execution of Cactus tests. For more information on how to integrate
@@ -144,7 +144,7 @@
             <code>org.junit.framework.TestCase</code> class.
           </li>
           <li>
-            <strong><code>commons-cactus.jar</code></strong> : well, this is the
+            <strong><code>cactus.jar</code></strong> : well, this is the
             Cactus jar containing all Cactus classes,
           </li>
           <li>
@@ -203,8 +203,8 @@
         <note>
           In theory you would also need to put the
           <code>log_client.properties</code> properties file in your classpath.
-          However a default one is provided in <code>commons-cactus.jar</code>
-          (and thus is on the classpath as <code>commons-cactus.jar</code> is
+          However a default one is provided in <code>cactus.jar</code>
+          (and thus is on the classpath as <code>cactus.jar</code> is
           itself in the classpath !).
         </note>
 
@@ -219,7 +219,7 @@
         </p>
         <ul>
           <li>
-            <strong><code>WEB-INF/lib/commons-cactus.jar</code></strong> : the
+            <strong><code>WEB-INF/lib/cactus.jar</code></strong> : the
             Cactus main jar,
           </li>
           <li>
@@ -247,8 +247,8 @@
           In theory you would also need to put the
           <code>log_server.properties</code> configuration file in your
           classpath. However a default one is provided in
-          <code>commons-cactus.jar</code>
-          (and thus is on the classpath as <code>commons-cactus.jar</code> is
+          <code>cactus.jar</code>
+          (and thus is on the classpath as <code>cactus.jar</code> is
           itself in the classpath !).
         </note>
 

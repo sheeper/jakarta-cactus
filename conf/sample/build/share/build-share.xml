@@ -5,9 +5,9 @@
     <property file="${user.home}/build.properties" />
 
     <!-- Generic project properties -->
-    <property name="project.fullname" value="Cactus Sample"/>
     <property name="project.version" value="@version@"/>
-    <property name="project.name" value="commons-cactus-sample"/>
+    <property name="project.name.text" value="Cactus Sample"/>
+    <property name="project.name.short" value="cactus-sample"/>
 
     <!-- Miscellaneous settings -->
     <property name="year" value="@year@"/>
@@ -46,7 +46,7 @@
     -->
     <!-- Destination locations for the build (relative to the basedir as -->
     <!-- specified in the basedir attribute of the project tag)          -->
-    <property name="out.dir" value="out"/>
+    <property name="out.dir" value="target"/>
     <property name="out.dist.dir" value="${out.dir}/dist"/>
     <property name="out.lib.dir" value="${out.dir}/lib"/>
     <property name="out.test.dir" value="${out.dir}/test"/>
@@ -60,13 +60,13 @@
 
     <!-- The Cactus Sample war file. This is the file that should be
          used at runtime by end users (it excludes the test classes) -->
-    <property name="final.war.name" value="${out.dir}/${project.name}-@servlet.api@.war"/>
+    <property name="final.war.name" value="${out.dir}/${project.name.short}-@servlet.api@.war"/>
 
     <!-- The full sources of Cactus Sample in a zip file -->
-    <property name="final.src.name" value="${out.dir}/${project.name}-src-@servlet.api@.zip"/>
+    <property name="final.src.name" value="${out.dir}/${project.name.short}-src-@servlet.api@.zip"/>
 
     <!-- The Cactus Sample documentation in a zip : javadoc -->
-    <property name="final.doc.name" value="${out.dir}/${project.name}-doc-@servlet.api@.zip"/>
+    <property name="final.doc.name" value="${out.dir}/${project.name.short}-doc-@servlet.api@.zip"/>
 
     <!--
        ========================================================================
@@ -112,7 +112,7 @@
              in targets, if need be -->
         <tstamp/>
 
-        <echo message="--------- ${project.fullname} ${project.version} ---------"/>
+        <echo message="--------- ${project.name.text} ${project.version} ---------"/>
         <echo message=""/>
 
         <echo message="java.class.path = ${java.class.path}"/>
@@ -134,7 +134,7 @@
         <filter token="test.port" value="${test.port}"/>
 
         <!-- Initialize custom Ant task needed for running the server tests -->
-        <taskdef name="runservertests" classname="org.apache.commons.cactus.ant.RunServerTestsTask">
+        <taskdef name="runservertests" classname="org.apache.cactus.ant.RunServerTestsTask">
             <classpath>
                 <pathelement location="${cactus.ant.jar}"/>
                 <pathelement path="${java.class.path}"/>
@@ -299,14 +299,14 @@
 
         <javadoc
             sourcepath="${out.src.dir}"
-            packagenames="org.apache.commons.cactus.sample.*"
+            packagenames="org.apache.cactus.sample.*"
             destdir="${out.javadoc.dir}"
             author="true"
             public="true"
             version="true"
             use="true"
-            windowtitle="${project.fullname} ${project.version} for Servlet @servlet.api@ API"
-            doctitle="${project.fullname} ${project.version} for Servlet @servlet.api@ API"
+            windowtitle="${project.name.text} ${project.version} for Servlet @servlet.api@ API"
+            doctitle="${project.name.text} ${project.version} for Servlet @servlet.api@ API"
             bottom="Copyright &amp;copy; ${year} Apache Software Foundation. All Rights Reserved.">
 
             <classpath>
@@ -390,7 +390,7 @@
 
             <formatter type="plain" usefile="false"/>
 
-            <test name="org.apache.commons.cactus.TestAll"/>
+            <test name="org.apache.cactus.TestAll"/>
 
         </junit>
 
@@ -416,8 +416,8 @@
         <!-- Gather libraries in a place where they can be copied in the
              war -->
         <copy tofile="${out.lib.dir}/junit.jar" file="${junit.jar}"/>
-        <copy tofile="${out.lib.dir}/commons-httpclient.jar" file="${httpclient.jar}"/>
-        <copy tofile="${out.lib.dir}/commons-cactus-@servlet.api@.jar" file="${cactus.jar}"/>
+        <copy tofile="${out.lib.dir}/httpclient.jar" file="${httpclient.jar}"/>
+        <copy tofile="${out.lib.dir}/cactus.jar" file="${cactus.jar}"/>
 
         <!-- Make sure the directory for the war exist -->
         <mkdir dir="${out.test.dir}"/>
@@ -440,12 +440,7 @@
                  the Servlet engine, the Cactus jar might not be able to load
                  the test case class as it may be loadable only by the war
                  classloader -->
-            <lib dir="${out.lib.dir}">
-                <exclude name="commons-cactus-*.jar"/>
-            </lib>
-            <lib dir="${out.lib.dir}">
-                <include name="commons-cactus-@servlet.api@.jar"/>
-            </lib>
+            <lib dir="${out.lib.dir}"/>
 
             <fileset dir="${web.dir}"/>
 

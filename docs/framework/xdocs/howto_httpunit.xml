@@ -79,7 +79,7 @@ public void endXXX(WebResponse theResponse)
       </p>
       <ul>
         <li>
-          <code>org.apache.commons.cactus.WebResponse</code> for Method 1,
+          <code>org.apache.cactus.WebResponse</code> for Method 1,
         </li>
         <li>
           <code>com.meterware.httpunit.WebResponse</code> for Method 2
@@ -94,7 +94,7 @@ public void endXXX(WebResponse theResponse)
          </p>
 
 <source><![CDATA[
-public void endXXX(org.apache.commons.cactus.WebResponse theResponse)
+public void endXXX(org.apache.cactus.WebResponse theResponse)
 {
   // Get the returned cookies
   Hashtable cookies = theResponse.getCookies();

@@ -15,24 +15,33 @@
     <s1 title="Mailing List directions">
 
       <p>
-        Although Cactus is part of the Jakarta Commons project, it has it's own
-        mailing list, <code>cactus-user</code>.
-      </p>
-      <p>
         General information about the jakarta mailing lists can be found
         <link href="http://jakarta.apache.org/site/mail.html">here</link>.
         Please read these guidelines before subscribing or posting to the
-        list.
+        lists.
       </p>
       <p>
-        To subscribe to the list, send an empty message to
+        Cactus has 2 lists :
+      </p>
+      <ul>
+        <li>
+          <code>cactus-user@jakarta.apache.org</code> : for users of Cactus
+        </li>
+        <li>
+          <code>cactus-dev@jakarta.apache.org</code> : for developers of
+          Cactus
+        </li>
+      </ul>
+      <p>
+        To subscribe to the user list, send an empty message to
         <link href="mailto:cactus-user-subscribe@jakarta.apache.org">
         cactus-user-subscribe@jakarta.apache.org</link>.
       </p>
       <p>
         Once you're subscribed, send mail to
         <link href="mailto:cactus-user@jakarta.apache.org">
-        cactus-user@jakarta.apache.org</link> to post messages.
+        cactus-user@jakarta.apache.org</link> to post messages on the user
+        list.
       </p>
       <p>
         All mail sent to <code>cactus-user@jakarta.apache.org</code> is
@@ -41,10 +50,20 @@
         here</link>.
       </p>
       <note>
-        The creation of the Cactus mailing list happened on the 5th of July. Prior
-        to that date all messages were posted on the <code>jakarta-commons
-        </code> mailing list (and even for some time after that date!). You can
-        check the archives of <code>jakarta-commons</code>
+        The same applies for the dev mailing list; replace "user" by "dev".
+      </note>
+      <note>
+        The creation of the Cactus dev mailing-list happened on the
+        15th of September 2001. Pior to that date dev messages were posted
+        to the cactus-user mailing-list (and even for some time after that
+        date!).
+      </note>
+      <note>
+        The creation of the Cactus user mailing list happened on the
+        5th of July 2001. Prior to that date all messages were posted on the
+        <code>jakarta-commons</code> mailing list (and even for some time
+        after that date!). You can check the archives of
+        <code>jakarta-commons</code>
         <link href="http://www.mail-archive.com/jakarta-commons%40jakarta.apache.org/">
         here</link>.
       </note>

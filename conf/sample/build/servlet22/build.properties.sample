@@ -6,14 +6,14 @@
 servlet.jar = f:/applis/apache-dev/jakarta-servletapi/lib/servlet.jar
 
 # Cactus jars
-cactus.jar = ../lib/commons-cactus.jar
-cactus.ant.jar = ../lib/commons-cactus-ant.jar
+cactus.jar = ../lib/cactus.jar
+cactus.ant.jar = ../lib/cactus-ant.jar
 
 # Junit jar (needed by Cactus)
 junit.jar = f:/applis/jakarta-ant-1.4/lib/junit.jar
 
 # Commons HttpClient class (needed by Cactus)
-httpclient.jar=../lib/commons-httpclient.jar
+httpclient.jar=../lib/httpclient.jar
 
 # You have 2 options. Define a property named "log4j.jar" and point it to the
 # log4j jar file. In that case, Cactus will generate log files (named

@@ -104,16 +104,16 @@
     -->
 
     <!-- The full distribution name -->
-    <property name="full.name" value="${project.name}-${servlet.api}"/>
+    <property name="full.name" value="${project.name.short}-${servlet.api}"/>
 
     <!-- The Cactus jar file. This is the file that should be used at
          runtime by end users -->
-    <property name="jar.name" value="${project.name}"/>
+    <property name="jar.name" value="${project.name.short}"/>
 
     <!-- The Cactus javadocs for Servlet API 2.2 and 2.3.
          These files do not need to be redistributed to end-users. It is
          only needed to put the javadoc online to the Cactus web site. -->
-    <property name="javadoc.name" value="${project.name}-javadoc-${servlet.api}"/>
+    <property name="javadoc.name" value="${project.name.short}-javadoc-${servlet.api}"/>
 
     <!--
        ========================================================================
@@ -168,7 +168,7 @@
     -->
     <target name="init">
 
-        <echo message="--------- ${project.fullname} ${project.version} for Servlet API ${servlet.api} ---------"/>
+        <echo message="--------- ${project.name.text} ${project.version} for Servlet API ${servlet.api} ---------"/>
         <echo message=""/>
 
         <echo message="servlet.api = ${servlet.api}"/>
@@ -184,18 +184,18 @@
              tstamp task need to be located in a target -->
 
         <!-- The full distribution name -->
-        <property name="dist.full.name" value="${dist.dir}/${full.name}-${DSTAMP}"/>
+        <property name="dist.full.name" value="${dist.dir}/${project.name.prefix}${full.name}-${DSTAMP}"/>
 
         <!-- The Cactus javadocs for Servlet API 2.2 and 2.3.
              These files do not need to be redistributed to end-users. It is
              only needed to put the javadoc online to the Cactus web site. -->
-        <property name="dist.javadoc.name" value="${out.root.dir}/${javadoc.name}-${DSTAMP}"/>
+        <property name="dist.javadoc.name" value="${out.root.dir}/${project.name.prefix}${javadoc.name}-${DSTAMP}"/>
 
         <!-- Custom Ant task definition used in the test targets below.
              It is used for computing the "-D" parameter list
              for home directories of defined servlet engines. If a given
              property is not defined, it won't be added to the list -->
-        <taskdef name="argsList" classname="org.apache.commons.cactus.ant.ArgListTask">
+        <taskdef name="argsList" classname="org.apache.cactus.ant.ArgListTask">
             <classpath>
                 <pathelement location="${final.jar.ant.name}"/>
                 <pathelement path="${java.class.path}"/>
@@ -212,7 +212,7 @@
     <target name="usage" depends="init">
 
         <echo message=""/>
-        <echo message="${project.fullname} build file for Servlet API ${servlet.api}"/>
+        <echo message="${project.name.text} build file for Servlet API ${servlet.api}"/>
         <echo message="------------------------------------------------------"/>
         <echo message=""/>
         <echo message=" Available targets are :"/>
@@ -364,15 +364,15 @@
 
         <javadoc
             sourcepath="${out.src.dir}"
-            packagenames="org.apache.commons.cactus.*"
+            packagenames="org.apache.cactus.*"
             destdir="${out.javadoc.dir}"
             author="true"
             public="true"
             version="true"
             use="true"
-            overview="${out.src.dir}/org/apache/commons/cactus/overview.html"
-            windowtitle="${project.fullname} ${project.version} for Servlet ${servlet.api} API"
-            doctitle="${project.fullname} ${project.version} for Servlet ${servlet.api} API"
+            overview="${out.src.dir}/org/apache/cactus/overview.html"
+            windowtitle="${project.name.text} ${project.version} for Servlet ${servlet.api} API"
+            doctitle="${project.name.text} ${project.version} for Servlet ${servlet.api} API"
             bottom="Copyright &amp;copy; ${year} Apache Software Foundation. All Rights Reserved.">
 
             <classpath>
@@ -413,7 +413,7 @@
         <mkdir dir="${out.doc.dir}/images"/>
 
         <!-- Custom Ant task definitions -->
-        <taskdef name="cvslog" classname="org.apache.commons.cactus.ant.ChangeLogTask">
+        <taskdef name="cvslog" classname="org.apache.cactus.ant.ChangeLogTask">
             <classpath>
                 <pathelement location="${final.jar.ant.name}"/>
                 <pathelement path="${java.class.path}"/>
@@ -558,7 +558,7 @@
 
             <formatter type="plain" usefile="false"/>
 
-            <test name="org.apache.commons.cactus.TestAll"/>
+            <test name="org.apache.cactus.TestAll"/>
 
         </junit>
 
@@ -650,8 +650,8 @@
         <mkdir dir="${dist.dir}"/>
 
         <!-- Make sure we have a clean directory before copying the files -->
-        <delete dir="${dist.dir}/${full.name}"/>
-        <mkdir dir="${dist.dir}/${full.name}"/>
+        <delete dir="${dist.dir}/${project.name.short}-${servlet.api}"/>
+        <mkdir dir="${dist.dir}/${project.name.short}-${servlet.api}"/>
 
         <!-- Copy the custom Ant tasks jar to the servlet API dist directory
         -->
@@ -688,8 +688,8 @@
         </copy>
 
         <zip zipfile="${dist.full.name}.zip">
-            <zipfileset dir="${dist.dir}/${full.name}"
-                prefix="${full.name}-${DSTAMP}"/>
+            <zipfileset dir="${dist.dir}/${project.name.short}-${servlet.api}"
+                prefix="${project.name.prefix}${full.name}-${project.version}"/>
         </zip>
 
     </target>

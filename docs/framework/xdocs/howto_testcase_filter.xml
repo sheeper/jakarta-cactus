@@ -98,7 +98,7 @@
               Class name
             </td>
             <td>
-              <code>org.apache.commons.cactus.server.FilterConfigWrapper
+              <code>org.apache.cactus.server.FilterConfigWrapper
               </code>, which inherits from
               <code>javax.servlet.FilterConfig</code>
             </td>
@@ -130,7 +130,7 @@
         </p>
         <p>
           See the javadoc for the
-          <code>org.apache.commons.cactus.server.FilterConfigWrapper</code>
+          <code>org.apache.cactus.server.FilterConfigWrapper</code>
           class for all details. You should also look at the
           samples provided in the Cactus distribution.
         </p>

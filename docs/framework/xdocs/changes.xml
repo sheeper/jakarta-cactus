@@ -28,6 +28,27 @@
     <table>
       <tr>
         <td>
+          15/09/2001
+        </td>
+        <td>
+          A cactus-dev mailing list has been created (in addition to the
+          existing cactus-user one). See the
+          <link href="mailinglist.html">Mailing-list page</link>.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          15/09/2001
+        </td>
+        <td>
+          Cactus is now a top level Jakarta project ! All documentations have
+          been updated to reflect this and package names have changed from
+          <code>org.apache.commons.cactus.*</code> to
+          <code>org.apache.cactus.*</code>.
+        </td>
+      </tr>
+      <tr>
+        <td>
           11/09/2001
         </td>
         <td>
@@ -87,6 +108,11 @@
     </devs>
 
     <release version="1.2 in CVS">
+      <action dev="VMA" type="update">
+        <strong>Cactus is now a top level Jakarta project. The package names
+        have been changed from <code>org.apache.commons.cactus</code> to
+        <code>org.apache.cactus</code></strong>.
+      </action>
       <action dev="VMA" type="fix" due-to="Nicholas Lesiecki" due-to-email="nick@eblox.com">
         Bug fix: <code>getRequest()</code>, <code>getServletContext()</code>
         and <code>getServletConfig()</code> methods on the
@@ -113,8 +139,8 @@
         adding cookies to the request.
       </action>
       <action dev="VMA" type="add">
-       New <code>org.apache.commons.cactus.Cookie</code> class that replaces
-       the old <code>org.apache.commons.cactus.util.ClientCookie</code> one
+       New <code>org.apache.cactus.Cookie</code> class that replaces
+       the old <code>org.apache.cactus.util.ClientCookie</code> one
        which has been deprecated. The new Cookie class can be used in
        <code>beginXXX()</code> and <code>endXXX()</code> methods to
        manipulate cookies.
@@ -167,13 +193,13 @@
         following signature :
         <code>endXXX(com.meterware.httpunit.WebResponse)</code>. If you don't
         need that power and only want to do simple asserts you can use the
-        <code>endXXX(org.apache.commons.cactus.WebResponse)</code> signature
+        <code>endXXX(org.apache.cactus.WebResponse)</code> signature
         which will let you do simple assertions (cookies, headers, content as
         a String, ...).
       </action>
       <action dev="VMA" type="update">
         Deprecated the way to write end methods. The new correct way is
-        <code>endXXX(org.apache.commons.cactus.WebResponse theResponse)</code>
+        <code>endXXX(org.apache.cactus.WebResponse theResponse)</code>
         (it was <code>endXXX(HttpURLConnection theConnection)</code>
         previously). All helper methods of <code>AssertUtils</code> have been
         included in <code>WebResponse</code> and <code>AssertUtils</code> is
@@ -387,7 +413,7 @@
         Renamed the project from J2EEUnit to Cactus. Although it was a difficult
         decision to make, it had to be done as J2EE is a Sun trademark. Renamed
         all occurrences of J2EEUnit to Cactus and changed package names (from
-        <code>j2eeunit.*</code> to <code>org.apache.commons.castor.*</code>.
+        <code>j2eeunit.*</code> to <code>org.apache.commons.cactus.*</code>.
       </action>
       <action dev="VMA" type="fix">
         The sample application sources now contains all needed configuration

@@ -156,7 +156,7 @@
    <servlet>
       <name>ServletRedirector</name>
       <description>Cactus Testing ServletRedirector</description>
-      <code>org.apache.commons.cactus.server.ServletTestRedirector</code>
+      <code>org.apache.cactus.server.ServletTestRedirector</code>
       <servlet-path>/ServletRedirector</servlet-path>
       <autostart>false</autostart>
       <init-parameter>

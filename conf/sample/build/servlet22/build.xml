@@ -75,7 +75,7 @@
     <target name="usage" depends="init">
 
         <echo message=""/>
-        <echo message="${project.fullname} build file"/>
+        <echo message="${project.name.text} build file"/>
         <echo message="------------------------------------------------------"/>
         <echo message=""/>
         <echo message=" Available targets are :"/>

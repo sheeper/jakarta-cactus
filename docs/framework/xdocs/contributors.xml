@@ -116,10 +116,8 @@
       </p>
       <p>
         Thanks to the <link href="http://jakarta.apache.org">Apache
-        Jakarta</link> project and more specifically the
-        <link href="http://jakarta.apache.org/commons">Jakarta Commons</link>
-        project for accepting the donation of J2EEUnit (renamed Cactus), thus
-        giving it a home and a family.
+        Jakarta</link> project for accepting the donation of J2EEUnit
+        (renamed Cactus), thus giving it a home and more importantly a family.
       </p>
 
     </s1>
@@ -197,7 +195,12 @@
         places.
       </p>
       <p>
-        I am now busy improving Cactus and looking for help. The first step
+        Then, thanks to Cactus growing community, our efforts were rewarded
+        and Cactus was accepted as a Jakarta top level project, alongside
+        the renowned Tomcat, Ant, Struts, ... waowww !
+      </p>
+      <p>
+        We are now busy improving Cactus and looking for help. The first step
         was to get Cactus up and running and demonstrate it worked and is
         useful. This step has been achieved (I hope :) ). The second step is
         now to
@@ -211,8 +214,8 @@
         Cactus and there is still everything to invent.
       </p>
       <p>
-        Although the project started as a one-man project, my goal is to
-        relinquish as much as possible my hold on Cactus and make it
+        Although the project started as a one-man project, my goal has always
+        been to relinquish as much as possible my hold on Cactus and make it
         a community-wide project. This is a work in progess and I am proud
         to say that I am no longer the only committer on the project and
         several persons have jumped aboard and are already helping shape
