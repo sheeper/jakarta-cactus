@@ -437,6 +437,10 @@
   <external id="gump_results" url="http://cvs.apache.org/builds/gump/latest"/>
   <external id="httpclient_other" url="http://www.innovation.ch/java/HTTPClient/"/>
   <external id="httpunit" url="http://httpunit.sourceforge.net/"/>
+
+  <!-- ATM, the maven web site is generated separately. -->
+  <external id="integration_maven" url="http://jakarta.apache.org/cactus/integration/maven/index.html"/>
+
   <external id="jakarta" url="http://jakarta.apache.org/"/>
   <external id="jakarta_roles" url="http://jakarta.apache.org/site/roles.html"/>
   <external id="japanese" url="http://www.ingrid.org/jajakarta/cactus/"/>
@@ -448,7 +452,6 @@
   <external id="log4j" url="http://jakarta.apache.org/log4j/"/>
   <external id="korean" url="http://jakarta.apache-korea.org/cactus/index.html"/>
   <external id="maven" url="http://maven.apache.org"/>
-  <external id="maven_cactus" url="http://maven.apache.org/reference/plugins/cactus"/>
   <external id="mockmaker" url="http://mockmaker.sourceforge.net/"/>
   <external id="mockobjects" url="http://www.mockobjects.com"/>
   <external id="mockobjects_endotesting" url="http://www.mockobjects.com/wiki/MocksObjectsPaper?action=AttachFile&amp;do=get&amp;target=mockobjects.pdf"/>
