@@ -51,76 +51,89 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
-package org.apache.cactus;
+package org.apache.cactus.sample;
 
-import junit.framework.*;
+import java.util.*;
+import javax.servlet.jsp.*;
+import javax.servlet.jsp.tagext.*;
+import java.io.*;
 
 /**
- * Run all the sample tests of Cactus for Servlet API 2.2 that do need a
- * servlet environment to run.
+ * Sample tag that interacts with its body. The tag acts as a filter for its
+ * body. "Target" and "Replacement" Strings are defined by the tag's attributes
+ * and each "occurrence" of the target is replaced by the "replacement".
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
+ * @author <a href="mailto:nick@eblox.com">Nicholas Lesiecki</a>
  *
  * @version $Id$
  */
-public class TestAll extends TestCase
+public class SampleBodyTag extends BodyTagSupport
 {
     /**
-     * Defines the testcase name for JUnit.
-     *
-     * @param theName the testcase's name.
+     * The substring to be replaced in the body.
      */
-    public TestAll(String theName)
-    {
-        super(theName);
-    }
+    private String target;    
 
     /**
-     * Start the tests.
+     * The substring that will replace the target in the body.
+     */
+    private String replacement;
+
+    /** 
+     * Sets the substring to be replaced in the body.
      *
-     * @param theArgs the arguments. Not used
+     * @param theTarget the substring to be replaced in the body
      */
-    public static void main(String[] theArgs)
+    public void setTarget(String theTarget)
     {
-        junit.ui.TestRunner.main(new String[] {TestAll.class.getName()});
+        this.target = theTarget;
     }
-
-    /**
-     * @return a test suite (<code>TestSuite</code>) that includes all methods
-     *         starting with "test"
+    
+    /** 
+     * Sets the substring that will replace the target in the body.
      */
-    public static Test suite()
+    public void setReplacement(String theReplacement) 
     {
-        TestSuite suite =
-            new TestSuite("Cactus tests needing a servlet engine");
-
-        // Note: This test need to run first. See the comments in the
-        // test class for more information on why
-        suite.addTest(org.apache.cactus.sample.unit.TestServletTestCase_TestResult.suite());
-
-        // Functional tests
-        suite.addTest(org.apache.cactus.sample.TestSampleServlet.suite());
-        suite.addTest(org.apache.cactus.sample.TestSampleServletConfig.suite());
-        suite.addTest(org.apache.cactus.sample.TestSampleTag.suite());
-
-        // TODO: Will need to be uncommented once the test run fine on
-        // all servlet engined (it is failing on Tomcat 4.x, Orion 1.x)
-        //suite.addTest(org.apache.cactus.sample.TestSampleBodyTag.suite());
-
-        // Unit tests requiring a servlet engine
-
-        // ServletTestCase tests
-        suite.addTest(org.apache.cactus.sample.unit.TestServletTestCase1.suite());
-        suite.addTest(org.apache.cactus.sample.unit.TestServletTestCase2.suite());
-        suite.addTest(org.apache.cactus.sample.unit.TestServletTestCase3.suite());
-        suite.addTest(org.apache.cactus.sample.unit.TestServletTestCase4.suite());
-        suite.addTest(org.apache.cactus.sample.unit.TestServletTestCase5.suite());
-        suite.addTest(org.apache.cactus.sample.unit.TestServletTestCaseSpecific.suite());
-
-        // JspTestCase tests
-        suite.addTest(org.apache.cactus.sample.unit.TestJspTestCase.suite());
-
-        return suite;
+        this.replacement = theReplacement;
+    }
+    
+    /**
+     * Performs the replacement.
+     */ 
+    public int doAfterBody() throws JspTagException
+    {
+        String contentString = this.bodyContent.getString();
+        StringBuffer contentBuffer = new StringBuffer(contentString);
+        
+        int beginIndex = -1;
+        int targetLength = this.target.length();
+        
+        // while instances of target still exist
+        while ((beginIndex = contentString.indexOf(this.target)) > -1){
+            
+            int endIndex = beginIndex + targetLength;
+            contentBuffer.replace(beginIndex, endIndex, this.replacement);
+            
+            contentString = contentBuffer.toString();
+        }
+        
+        // write out the changed body
+        JspWriter pageWriter = this.bodyContent.getEnclosingWriter();
+        try {
+            
+            pageWriter.write(contentString);
+        
+        } catch (IOException e){
+            throw new JspTagException(e.getMessage());
+        }
+        
+        return SKIP_BODY;
+    }
+    
+    public void release()
+    {
+        this.target = null;
+        this.replacement = null;
     }
 
 }

@@ -212,10 +212,14 @@ src/sample/servlet23/org/apache/cactus/sample/TestSampleFilter.java svn_keywords
 src/sample/servlet23/org/apache/cactus/sample/unit/TestServletTestCaseSpecific.java svn_keywords=Author+Date+Id+Revision
 src/sample/servlet23/org/apache/cactus/sample/util/FilterServletOutputStream.java svn_keywords=Author+Date+Id+Revision
 src/sample/servlet23/org/apache/cactus/sample/util/GenericResponseWrapper.java svn_keywords=Author+Date+Id+Revision
+src/sample/share/org/apache/cactus/sample/SampleBodyTag.java svn_keywords=Author+Date+Id+Revision
 src/sample/share/org/apache/cactus/sample/SampleServlet.java svn_keywords=Author+Date+Id+Revision
 src/sample/share/org/apache/cactus/sample/SampleServletConfig.java svn_keywords=Author+Date+Id+Revision
+src/sample/share/org/apache/cactus/sample/SampleTag.java svn_keywords=Author+Date+Id+Revision
+src/sample/share/org/apache/cactus/sample/TestSampleBodyTag.java svn_keywords=Author+Date+Id+Revision
 src/sample/share/org/apache/cactus/sample/TestSampleServlet.java svn_keywords=Author+Date+Id+Revision
 src/sample/share/org/apache/cactus/sample/TestSampleServletConfig.java svn_keywords=Author+Date+Id+Revision
+src/sample/share/org/apache/cactus/sample/TestSampleTag.java svn_keywords=Author+Date+Id+Revision
 src/sample/share/org/apache/cactus/sample/unit/TestJspTestCase.java svn_keywords=Author+Date+Id+Revision
 src/sample/share/org/apache/cactus/sample/unit/TestServletTestCase1.java svn_keywords=Author+Date+Id+Revision
 src/sample/share/org/apache/cactus/sample/unit/TestServletTestCase1_ExceptionNotSerializable.java svn_keywords=Author+Date+Id+Revision

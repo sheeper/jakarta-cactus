@@ -51,26 +51,32 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
-package org.apache.cactus;
+package org.apache.cactus.sample;
 
+import java.util.*;
+import java.io.*;
+import javax.servlet.jsp.*;
+import javax.servlet.jsp.tagext.*;
 import junit.framework.*;
 
+import org.apache.cactus.*;
+import org.apache.cactus.util.*;
+
 /**
- * Run all the sample tests of Cactus for Servlet API 2.2 that do need a
- * servlet environment to run.
+ * Tests of the <code>SampleBodyTag</code> class.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
+ * @author <a href="mailto:nick@eblox.com">Nciholas Lesiecki</a>
  *
  * @version $Id$
  */
-public class TestAll extends TestCase
+public class TestSampleBodyTag extends JspTestCase
 {
     /**
      * Defines the testcase name for JUnit.
      *
      * @param theName the testcase's name.
      */
-    public TestAll(String theName)
+    public TestSampleBodyTag(String theName)
     {
         super(theName);
     }
@@ -82,7 +88,8 @@ public class TestAll extends TestCase
      */
     public static void main(String[] theArgs)
     {
-        junit.ui.TestRunner.main(new String[] {TestAll.class.getName()});
+        junit.ui.TestRunner.main(new String[] {
+            TestSampleBodyTag.class.getName()});
     }
 
     /**
@@ -91,36 +98,69 @@ public class TestAll extends TestCase
      */
     public static Test suite()
     {
-        TestSuite suite =
-            new TestSuite("Cactus tests needing a servlet engine");
-
-        // Note: This test need to run first. See the comments in the
-        // test class for more information on why
-        suite.addTest(org.apache.cactus.sample.unit.TestServletTestCase_TestResult.suite());
-
-        // Functional tests
-        suite.addTest(org.apache.cactus.sample.TestSampleServlet.suite());
-        suite.addTest(org.apache.cactus.sample.TestSampleServletConfig.suite());
-        suite.addTest(org.apache.cactus.sample.TestSampleTag.suite());
-
-        // TODO: Will need to be uncommented once the test run fine on
-        // all servlet engined (it is failing on Tomcat 4.x, Orion 1.x)
-        //suite.addTest(org.apache.cactus.sample.TestSampleBodyTag.suite());
-
-        // Unit tests requiring a servlet engine
-
-        // ServletTestCase tests
-        suite.addTest(org.apache.cactus.sample.unit.TestServletTestCase1.suite());
-        suite.addTest(org.apache.cactus.sample.unit.TestServletTestCase2.suite());
-        suite.addTest(org.apache.cactus.sample.unit.TestServletTestCase3.suite());
-        suite.addTest(org.apache.cactus.sample.unit.TestServletTestCase4.suite());
-        suite.addTest(org.apache.cactus.sample.unit.TestServletTestCase5.suite());
-        suite.addTest(org.apache.cactus.sample.unit.TestServletTestCaseSpecific.suite());
-
-        // JspTestCase tests
-        suite.addTest(org.apache.cactus.sample.unit.TestJspTestCase.suite());
-
-        return suite;
+        // All methods starting with "test" will be executed in the test suite.
+        return new TestSuite(TestSampleBodyTag.class);
     }
 
+    //-------------------------------------------------------------------------
+
+    private SampleBodyTag tag;
+    private BodyContent tagContent;
+    
+    /**
+     * In addition to creating the tag instance and adding the pageContext to
+     * it, this method creates a BodyContent object and passes it to the tag.
+     */
+    public void setUp()
+    {
+        this.tag = new SampleBodyTag();
+        this.tag.setPageContext(this.pageContext);
+        
+        //create the BodyContent object and call the setter on the tag instance
+        this.tagContent = this.pageContext.pushBody();
+        this.tag.setBodyContent(this.tagContent);
+    }
+
+    //-------------------------------------------------------------------------
+
+    /**
+     * Sets the replacement target and replacement String on the tag, then calls
+     * doAfterBody(). Most of the assertion work is done in endReplacement().
+     */
+    public void testReplacement() throws Exception
+    {
+        //set the target and the String to replace it with
+        this.tag.setTarget("@target@");
+        this.tag.setReplacement("replacement");
+        
+        //add the tag's body by writing to the BodyContent object created in
+        //setUp()
+        this.tagContent.println("@target@ is now @target@");
+        this.tagContent.println("@target@");
+        
+        //none of the other life cycle methods need to be implemented, so they 
+        //do not need to be called.
+        int result = this.tag.doAfterBody();
+        assertEquals(BodyTag.SKIP_BODY, result);
+    }
+    
+    /**
+     * Verifies that the target String has indeed been replaced in the tag's 
+     * body.
+     */
+    public void endReplacement(WebResponse theResponse)
+    {
+        String[] contentArray = theResponse.getTextAsArray();
+        assert("Response contains [" + contentArray.length + "]. It should " +
+            "have contained 2 lines !", contentArray.length == 2);
+        String firstLine = contentArray[0];
+        String secondLine = contentArray[1];
+              
+        assert("Line [" + firstLine + "] should have contained the [" +
+            "replacement is now replacement] string",
+            firstLine.indexOf("replacement is now replacement") > -1);
+        assert("Line [" + secondLine + "] should have contained the [" +
+            "replacement] string", secondLine.indexOf("replacement") > -1);
+    }
+    
 }
