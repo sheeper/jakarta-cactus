@@ -60,7 +60,7 @@
       <action>
         Add Ant scripts to support WebLogic 6.0.
       </action>
-      <action>
+      <action assigned-to="Bob Tanner">
         Finalize support for Enhydra 3.1.1. There are some errors upon
         starting the enhydra server and the <code>testOut()</code> method
         is failing. Need help from Enhydra experts to go forward.
