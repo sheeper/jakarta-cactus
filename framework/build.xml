@@ -250,8 +250,7 @@
         <mkdir dir="${clover.db.dir}"/>
 
         <property name="clover.excludes"
-            value="**/*Aspect.java,**/Test*.java,**/Mock*.java,**/AssertUtils.java,**/ClientCookie.java"/>
-
+            value="**/*Aspect.*,**/Test*.java,**/Mock*.java,**/AssertUtils.java,**/ClientCookie.java"/>
     </target>
 
     <!--
@@ -308,7 +307,7 @@
             <!-- We exclude the Logging Aspect as it adds 2 new methods for
                  each method to log and thus leads to flawed test coverage
                  statistics -->
-            <exclude name="**/LogAspect.java"/>
+            <exclude name="**/LogAspect.*"/>
 
             <classpath refid="project.class.path"/>
         </ajc>
@@ -595,6 +594,8 @@
         <checkstyle
             lcurlyType="nl"
             lcurlyMethod="nl"
+			lcurlyOther="nl"
+			rcurly="alone"
             allowProtected="true"
             ignoreLineLengthPattern="(@version.*\$Id|@see)"
             paramPattern="^(the|is|has)[A-Z][a-zA-Z0-9]*$"
@@ -606,7 +607,7 @@
 
             <fileset dir="${src.java.dir}">
                 <include name="**/*.java"/>
-                <exclude name="**/*Aspect.java"/>
+                <exclude name="**/*Aspect.*"/>
             </fileset>
             <fileset dir="${src.test.dir}">
                 <include name="**/*.java"/>
