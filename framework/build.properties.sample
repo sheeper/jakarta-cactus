@@ -39,6 +39,9 @@ commons.httpclient.jar = ${lib.repo}/commons-httpclient/jars/commons-httpclient-
 # The location of the Httpunit jar
 httpunit.jar = ${lib.repo}/httpunit/jars/httpunit-1.5.4.jar
 
+# The location of the MockObjects jar (needed for our unit tests)
+mockobjects.jar = ${lib.repo}/mockobjects/jars/mockobjects-core-0.09.jar
+
 # -----------------------------------------------------------------------------
 # Optional properties
 # -----------------------------------------------------------------------------

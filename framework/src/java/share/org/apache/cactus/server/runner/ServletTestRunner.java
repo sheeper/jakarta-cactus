@@ -130,8 +130,8 @@ public class ServletTestRunner extends HttpServlet
             {
                 try
                 {
-                    Class transformerClass = Class.forName(
-                        "org.apache.cactus.server.runner.XMLTransformer");
+                    Class transformerClass = Class.forName("org.apache.cactus."
+                        + "internal.server.runner.XMLTransformer");
                     Constructor transformerCtor = 
                         transformerClass.getConstructor(
                         new Class[] {InputStream.class});

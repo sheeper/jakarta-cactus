@@ -99,6 +99,7 @@
     <echo>  httpunit.jar = [${httpunit.jar}]</echo>
     <echo>  j2ee.jar = [${j2ee.jar}]</echo>
     <echo>  junit.jar = [${junit.jar}]</echo>
+    <echo>  mockobjects.jar = [${mockobjects.jar}]</echo>
     <echo>  log4j.jar (optional) = [${log4j.jar}]</echo>
     <echo>  xmlapis.jar (optional) = [${xmlapis.jar}]</echo>
     <echo/>
@@ -124,6 +125,7 @@
         <available file="${httpunit.jar}"/>
         <available file="${j2ee.jar}"/>
         <available file="${junit.jar}"/>
+        <available file="${mockobjects.jar}"/>
         <!-- Check for a TraX class instead of the xmlapis.jar file so that
              the build works on JDK 1.4 without needing to define the
              xmlapis.jar property -->
@@ -209,8 +211,9 @@ be resolved. Please check you build.properties file, and run Ant with the
         optimize="${optimize}">
       <src path="${src.test.share.dir}"/>
       <classpath>
-          <path path="${target.classes.java.dir}"/>
-          <path refid="project.classpath"/>
+        <path path="${target.classes.java.dir}"/>
+        <path refid="project.classpath"/>
+        <pathelement location="${mockobjects.jar}"/>
       </classpath>
     </javac>
 
@@ -404,6 +407,7 @@ be resolved. Please check you build.properties file, and run Ant with the
       <pathelement path="${target.classes.test.dir}"/>
       <pathelement location="${clover.jar}"/>
       <pathelement location="${log4j.jar}"/>
+      <pathelement location="${mockobjects.jar}"/>
       <path refid="project.classpath"/>
     </path>
 
@@ -416,6 +420,7 @@ be resolved. Please check you build.properties file, and run Ant with the
       <pathelement path="${target.classes.java.dir}"/>
       <pathelement path="${target.classes.test.dir}"/>
       <pathelement location="${log4j.jar}"/>
+      <pathelement location="${mockobjects.jar}"/>
       <path refid="project.classpath"/>
     </path>
 

@@ -30,6 +30,7 @@ import org.apache.cactus.internal.util.TestIoUtil;
 import org.apache.cactus.internal.util.TestStringUtil;
 import org.apache.cactus.internal.util.TestTestCaseImplementChecker;
 import org.apache.cactus.internal.util.TestUniqueGenerator;
+import org.apache.cactus.server.runner.TestServletTestRunner;
 
 import junit.framework.Test;
 import junit.framework.TestSuite;
@@ -76,7 +77,9 @@ public class TestAll
         suite.addTestSuite(TestStringUtil.class);
         suite.addTestSuite(TestTestCaseImplementChecker.class);
         suite.addTestSuite(TestUniqueGenerator.class);
-        
+
+        suite.addTestSuite(TestServletTestRunner.class);
+                
         return suite;
     }
 }
