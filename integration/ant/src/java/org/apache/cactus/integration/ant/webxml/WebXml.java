@@ -748,8 +748,6 @@ public class WebXml
      * <code>null</code> if the node should be inserted at the end of the 
      * descriptor.
      * 
-     * FIXME: need more unit tests for this routine, as it is quite fragile
-     * 
      * @param theTag The tag that should be inserted
      * @return The node before which the tag can be inserted
      */
