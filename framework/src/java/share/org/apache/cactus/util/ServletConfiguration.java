@@ -86,6 +86,16 @@ public class ServletConfiguration extends Configuration
     {
         initialize();
 
+        return getContextURL() + "/" + getServletRedirectorName();
+    }
+
+    /**
+     * @return the Servlet redirector name
+     */
+    public static String getServletRedirectorName()
+    {
+        initialize();
+
         String servletRedirectorName = 
             System.getProperty(CACTUS_SERVLET_REDIRECTOR_NAME_PROPERTY);
 
@@ -94,6 +104,7 @@ public class ServletConfiguration extends Configuration
             servletRedirectorName = "ServletRedirector";
         }
 
-        return getContextURL() + "/" + servletRedirectorName;
+        return servletRedirectorName;
     }
+    
 }
