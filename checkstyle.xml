@@ -14,7 +14,7 @@
       <property name="headerFile" value="${checkstyle.header.file}"/>
     </module>
     <module name="LineLength">
-      <property name="ignorePattern" value="(@version|@see)"/>
+      <property name="ignorePattern" value="(@version|@see|^import)"/>
     </module>
     <module name="TabCharacter"/>
     
