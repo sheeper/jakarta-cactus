@@ -426,6 +426,7 @@
   <external id="gump_cactus_framework_13" url="http://cvs.apache.org/builds/gump/latest/jakarta-cactus-framework-13.html"/>
   <external id="gump_cactus_sample_servlet_12" url="http://cvs.apache.org/builds/gump/latest/jakarta-cactus-sample-servlet-12.html"/>
   <external id="gump_cactus_sample_servlet_13" url="http://cvs.apache.org/builds/gump/latest/jakarta-cactus-sample-servlet-13.html"/>
+  <external id="gump_cactus_sample_jetty_13" url="http://cvs.apache.org/builds/gump/latest/jakarta-cactus-sample-jetty-13.html"/>
   <external id="gump_cactus_integration_ant_12" url="http://cvs.apache.org/builds/gump/latest/jakarta-cactus-integration-ant-12.html"/>
   <external id="gump_cactus_integration_ant_13" url="http://cvs.apache.org/builds/gump/latest/jakarta-cactus-integration-ant-13.html"/>
   <external id="gump_cactus_integration_eclipse_webapp" url="http://cvs.apache.org/builds/gump/latest/jakarta-cactus-integration-eclipse-webapp.html"/>
