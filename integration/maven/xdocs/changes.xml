@@ -8,6 +8,12 @@
   <body>
 
     <release version="1.6dev" date="in CVS">
+      <action dev="vmassol" type="add">
+        The <code>cactus:test</code> can now also be used to run tests packaged
+        in an EAR. However the <code>cactus.is.ear</code> property needs
+        to be set to <code>true</code> (it is <code>false</code> by default
+        thus packaging tests in a WAR).
+      </action>
       <action dev="vmassol" type="fix" issue="27351">
         Aligning the EAR-ing behavior in the Cactus plugin for 
         Maven with the behavior from the EAR Maven plugin. More specifically,
@@ -16,7 +22,7 @@
         descriptor.
       </action>
       <action dev="vmassol" type="fix" due-to="Nicolas Chalumeau" due-to-email="Nicolas.CHALUMEAU@arsoe-trelaze.com">
-        The <code>cactus:test-ear</code> goal was not properly using the
+        The <code>cactus:test-ear</code> goal was not using properly the
         <code>cactus.test.includes</code>/<code>cactus.test.excludes</code> thus
         leading to tests not being included/excluded.
       </action>

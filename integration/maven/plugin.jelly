@@ -288,12 +288,14 @@
      ========================================================================
   -->
   <goal name="cactus:test" description="Run all Cactus tests">
-    <j:if test="${context.getVariable('cactus.test.ear') == 'true'}">
-      <attainGoal name="cactus:test-ear"/>
-    </j:if>
-    <j:if test="${context.getVariable('cactus.test.ear') != 'true'}">
-      <attainGoal name="cactus:test-war"/>
-    </j:if>
+    <j:choose>
+      <j:when test="${context.getVariable('cactus.is.ear') == 'true'}">
+        <attainGoal name="cactus:test-ear"/>
+      </j:when>
+      <j:otherwise>
+        <attainGoal name="cactus:test-war"/>
+      </j:otherwise>
+    </j:choose>
   </goal>
 
   <!--
