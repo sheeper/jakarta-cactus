@@ -49,6 +49,11 @@
     </devs>
 
     <release version="1.5" date="- in CVS">
+      <action dev="CML" type="update">
+        Added stack trace filtering to the ServletTestRunner. Stack frames
+        in the JUnit framework classes as well as in the Cactus base test case
+        classes are filtered out.
+      </action>
       <action dev="VMA" type="add">
         The Cactus web site now provides online documentation for both the
         CVS HEAD version and the last released version.
