@@ -22,7 +22,7 @@ package org.apache.cactus.configuration;
 import org.apache.cactus.WebRequest;
 
 /**
- * Extends the generic <code>Configuration<code> interface with methods
+ * Extends the generic <code>Configuration</code> interface with methods
  * provided configuration information related to Web redirectors.
  * 
  * @version $Id$
