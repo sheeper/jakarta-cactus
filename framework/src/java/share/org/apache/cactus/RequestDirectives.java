@@ -3,7 +3,7 @@
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2001-2003 The Apache Software Foundation.  All rights
+ * Copyright (c) 2003 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -58,9 +58,17 @@ package org.apache.cactus;
 
 
 /**
- * Encapsulates the Cactus-specific URL parameters added to the WebRequest.
+ * Encapsulates the Cactus-specific parameters added to a request.
  *
+ * <p>
+ *   <strong>WARNING</strong><br/>
+ *   This interface is not intended for use by API clients. It may be altered in
+ *   backwards-incompatible ways and even moved or removed at any time without
+ *   further notice.
+ * </p>
+ * 
  * @author <a href="mailto:ndlesiecki@apache.org>Nicholas Lesiecki</a>
+ * @author <a href="mailto:cmlenz@apache.org>Christopher Lenz</a>
  *
  * @version $Id$
  */
@@ -82,31 +90,6 @@ public class RequestDirectives
     }
 
     /**
-     * Adds a cactus-specific command to the URL of the WebRequest
-     * The URL is used to allow the user to send whatever he wants
-     * in the request body. For example a file, ...
-     * 
-     * @param theCommandName The name of the command to add--must start with 
-     *                       "Cactus_"
-     * @param theCommandValue Value of the command
-     */
-    public void addCactusCommand(String theCommandName, String theCommandValue)
-    {
-        if (!theCommandName.startsWith(HttpServiceDefinition.COMMAND_PREFIX))
-        {
-            throw new IllegalArgumentException(
-                "Cactus commands must begin"
-                    + " with" + HttpServiceDefinition.COMMAND_PREFIX
-                    + ". The offending command was [" + theCommandName
-                    + "]");
-        }
-        underlyingRequest.addParameter(
-            theCommandName,
-            theCommandValue,
-            WebRequest.GET_METHOD);
-    }
-
-    /**
      * @param theId new id for the test case associated
      *        with this request
      */
@@ -116,7 +99,7 @@ public class RequestDirectives
         {
             throw new IllegalStateException("uniqueId already set!");
         }
-        addCactusCommand(HttpServiceDefinition.TEST_ID_PARAM, theId);
+        addDirective(HttpServiceDefinition.TEST_ID_PARAM, theId);
     }
 
     /**
@@ -133,56 +116,65 @@ public class RequestDirectives
      */
     public void setClassName(String theName)
     {
-        addCactusCommand(
-            HttpServiceDefinition.CLASS_NAME_PARAM,
-            theName);
+        addDirective(HttpServiceDefinition.CLASS_NAME_PARAM, theName);
     }
-
 
     /**
      * @param theName The name of the wrapped test.
      */
     public void setWrappedTestName(String theName)
     {
-        addCactusCommand(
-            HttpServiceDefinition.WRAPPED_CLASS_NAME_PARAM,
-            theName);
-
+        addDirective(HttpServiceDefinition.WRAPPED_CLASS_NAME_PARAM, theName);
     }
 
     /**
-     * @param theMethodName name of the test method to execute.
+     * @param theName name of the test method to execute.
      */
-    public void setMethodName(String theMethodName)
+    public void setMethodName(String theName)
     {
-            addCactusCommand(
-                HttpServiceDefinition.METHOD_NAME_PARAM,
-                theMethodName);
+        addDirective(HttpServiceDefinition.METHOD_NAME_PARAM, theName);
     }
-
-
 
     /**
      * @param theService The service to request of the redirector.
      */
     public void setService(ServiceEnumeration theService)
     {
-        addCactusCommand(HttpServiceDefinition.SERVICE_NAME_PARAM,
-                         theService.toString());
-        
+        addDirective(HttpServiceDefinition.SERVICE_NAME_PARAM,
+            theService.toString());
     }
 
     /**
-     * @param hasAutoSession A "boolean string" indicating
+     * @param isAutoSession A "boolean string" indicating
      *                       whether or not to use the 
      *                       autoSession option.
      */
-    public void setAutoSession(String hasAutoSession)
+    public void setAutoSession(String isAutoSession)
     {
-        addCactusCommand(
-            HttpServiceDefinition.AUTOSESSION_NAME_PARAM,
-            hasAutoSession);
-        
+        addDirective(HttpServiceDefinition.AUTOSESSION_NAME_PARAM,
+            isAutoSession);
+    }
+
+    /**
+     * Adds a cactus-specific command to the URL of the WebRequest
+     * The URL is used to allow the user to send whatever he wants
+     * in the request body. For example a file, ...
+     * 
+     * @param theName The name of the directive to add
+     * @param theValue The directive value
+     * @throws IllegalArgumentException If the directive name is invalid
+     */
+    private void addDirective(String theName, String theValue)
+        throws IllegalArgumentException
+    {
+        if (!theName.startsWith(HttpServiceDefinition.COMMAND_PREFIX))
+        {
+            throw new IllegalArgumentException("Cactus directives must begin"
+                + " with [" + HttpServiceDefinition.COMMAND_PREFIX
+                + "]. The offending directive was [" + theName + "]");
+        }
+        underlyingRequest.addParameter(theName, theValue,
+            WebRequest.GET_METHOD);
     }
 
 }
