@@ -74,7 +74,7 @@ import org.w3c.dom.Document;
  *
  * @version $Id$
  */
-public class TestWebXmlMerger extends TestCase
+public final class TestWebXmlMerger extends TestCase
 {
     /**
      * The document builder factory.

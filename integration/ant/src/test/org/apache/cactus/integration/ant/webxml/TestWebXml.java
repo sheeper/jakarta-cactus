@@ -80,7 +80,7 @@ import org.xml.sax.SAXException;
  *
  * @version $Id$
  */
-public class TestWebXml extends TestCase
+public final class TestWebXml extends TestCase
 {
     /**
      * The document builder factory.

@@ -67,7 +67,7 @@ import junit.framework.TestSuite;
  *
  * @version $Id$
  */
-public class TestAll extends TestCase
+public final class TestAll extends TestCase
 {
     /**
      * Defines the testcase name for JUnit.
