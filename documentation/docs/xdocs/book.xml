@@ -15,6 +15,7 @@
     <menu-item type="roadmap" label="Roadmap/Todo" source="todo.xml"/>
     <menu-item label="Contributors" source="contributors.xml"/>
     <menu-item label="Contributing" source="contributing.xml"/>
+    <menu-item label="Cactus Users" source="users.xml"/>
     <menu-item label="License" source="license.xml"/>
   </menu>
 
