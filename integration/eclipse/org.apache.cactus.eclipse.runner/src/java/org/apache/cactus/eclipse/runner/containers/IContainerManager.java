@@ -54,60 +54,19 @@
  * <http://www.apache.org/>.
  *
  */
-package org.apache.cactus.eclipse.runner.containers.ant;
+package org.apache.cactus.eclipse.runner.containers;
 
 /**
- * Class representing a target/directory couple.
+ * Interface for container providers management.
  * 
  * @author <a href="mailto:jruaux@octo.com">Julien Ruaux</a>
  * 
  * @version $Id$
  */
-public class ContainerHome
+public interface IContainerManager
 {
     /**
-     * the target mask in the ant build (e.g. "tomcat4x") 
+     * @return array of supported container providers
      */
-    private String targetMask;
-    /**
-     * path to the container home (e.g. "c:/jakarta/tomcat40")
-     */
-    private String directory;
-
-    /**
-     * Constructor.
-     * @param theTargetMask the target in the ant build (e.g. "tomcat4x")
-     * @param theDirectory path to the container home
-     *                      (e.g. "c:/jakarta/tomcat40")
-     */
-    public ContainerHome(String theTargetMask, String theDirectory)
-    {
-        targetMask = theTargetMask;
-        directory = theDirectory;
-    }
-
-    /**
-     * @return String the target mask
-     */
-    public String getTargetMask()
-    {
-        return targetMask;
-    }
-
-    /**
-     * @return String the directory
-     */
-    public String getDirectory()
-    {
-        return directory;
-    }
-    
-    /**
-     * @return A String representation of the container home
-     */    
-    public String toString()
-    {
-        String representation = getTargetMask() + " : " + getDirectory(); 
-        return representation;
-    }
+    IContainerProvider[] getContainerProviders();
 }

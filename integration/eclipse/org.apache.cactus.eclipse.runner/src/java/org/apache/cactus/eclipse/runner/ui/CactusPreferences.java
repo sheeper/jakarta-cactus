@@ -56,9 +56,8 @@
  */
 package org.apache.cactus.eclipse.runner.ui;
 
-import java.util.Vector;
+import java.util.Hashtable;
 
-import org.apache.cactus.eclipse.runner.containers.ant.ContainerHome;
 import org.eclipse.jface.preference.IPreferenceStore;
 
 /**
@@ -219,11 +218,10 @@ public class CactusPreferences
      * Returns the ContainerHome array.
      * @return String
      */
-    public static ContainerHome[] getContainerHomes()
+    public static Hashtable getContainerHomes()
     {
-        Vector containerHomes = new Vector();
-            String[] containerIds =
-                CactusPlugin.getContainers();
+        Hashtable containerHomes = new Hashtable();
+        String[] containerIds = CactusPlugin.getContainerIds();
 
             for (int i = 0; i < containerIds.length; i++)
             {
@@ -231,16 +229,12 @@ public class CactusPreferences
                 String currentContainerDir = getContainerDir(currentId);
                 if (!currentContainerDir.equals(""))
                 {
-                    containerHomes.addElement(
-                        new ContainerHome(currentId, currentContainerDir));
+                    containerHomes.put(currentId, currentContainerDir);
                 }
 
             }
-
-        ContainerHome[] result =
-            (ContainerHome[]) containerHomes.toArray(new ContainerHome[0]);
         CactusPlugin.log(
-            "Cactus preference : ContainerHomes = [" + result + "]");
-        return result;
+            "Cactus preference : ContainerHomes = [" + containerHomes + "]");
+        return containerHomes;
     }
 }

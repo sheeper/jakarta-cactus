@@ -56,12 +56,18 @@
  */
 package org.apache.cactus.eclipse.runner.ui;
 
-import org.apache.cactus.eclipse.runner.containers.IContainerProvider;
-import org.apache.cactus.eclipse.runner.containers.ant.GenericAntProvider;
+import java.io.File;
+import java.io.FilenameFilter;
+import java.net.URL;
+import java.util.Vector;
+
+import org.apache.cactus.eclipse.runner.containers.IContainerManager;
+import org.apache.cactus.eclipse.runner.containers.ant.AntContainerManager;
 import org.apache.cactus.eclipse.runner.launcher.CactusLaunchShortcut;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPluginDescriptor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.preference.IPreferenceStore;
@@ -88,6 +94,21 @@ public class CactusPlugin extends AbstractUIPlugin
      * The current instance of CactusLaunchShortcut.
      */
     private CactusLaunchShortcut launchShortcut;
+
+    /**
+     * Plug-in relative path to the Ant build file.
+     */
+    private static final String BUILD_FILE_PATH = "./ant/eclipse/build.xml";
+
+    /**
+     * Plug-in relative path to the Ant container build files.
+     */
+    private static final String CONTAINER_BUILD_FILES_PATH = "./ant/scripts";
+
+    /**
+     * Prefix of container build files.
+     */
+    private static final String CONTAINER_BUILD_FILES_PREFIX = "build-tests-";
 
     /**
      * @see org.eclipse.core.runtime.Plugin#Plugin(IPluginDescriptor)
@@ -235,21 +256,14 @@ public class CactusPlugin extends AbstractUIPlugin
      * @return IContainerProvider a container provider to use for Cactus tests.
      * @throws CoreException if the container provider can't be contructed
      */
-    public static IContainerProvider getContainerProvider()
+    public static IContainerManager getContainerManager()
         throws CoreException
     {
-        return new GenericAntProvider(
+        return new AntContainerManager(
+            BUILD_FILE_PATH,
             CactusPreferences.getContextURLPort(),
             CactusPreferences.getTempDir(),
             CactusPreferences.getContainerHomes());
-    }
-
-    /**
-     * @return an array of identifiers of supported containers
-     */
-    public static String[] getContainers()
-    {
-        return GenericAntProvider.getContainers();
     }
 
     /**
@@ -344,4 +358,56 @@ public class CactusPlugin extends AbstractUIPlugin
     {
         this.launchShortcut = theCactusLaunchShortcut;
     }
+    
+    /**
+     * Filter for container script files.
+     * i.e. accepts files like 'build-tests-mycontainer3.1.xml'
+     * 
+     * @author <a href="mailto:jruaux@octo.com">Julien Ruaux</a>
+     * 
+     * @version $Id$
+     */
+    private static class BuildFilenameFilter implements FilenameFilter
+    {
+        /**
+         * @see java.io.FilenameFilter#accept(java.io.File, java.lang.String)
+         */
+        public boolean accept(File theDir, String theFilename)
+        {
+            return (
+                theFilename.substring(
+                    0,
+                    CONTAINER_BUILD_FILES_PREFIX.length()).equals(
+                    CONTAINER_BUILD_FILES_PREFIX));
+        }
+    } 
+    /**
+     * @see org.apache.cactus.eclipse.runner.containers.IContainerManager#getContainerIds()
+     */
+    public static String[] getContainerIds()
+    {
+        Vector containers = new Vector();
+        URL containerDirURL =
+            CactusPlugin.getDefault().find(
+                new Path(CONTAINER_BUILD_FILES_PATH));
+        if (containerDirURL == null)
+        {
+            // No container available
+            return new String[0];
+        }
+        Path containerDir = new Path(containerDirURL.getPath());
+        File dir = containerDir.toFile();
+        String[] containerFiles = dir.list(new BuildFilenameFilter());
+        for (int i = 0; i < containerFiles.length; i++)
+        {
+            String currentFileName = containerFiles[i];
+            String currentId =
+                currentFileName.substring(
+                    CONTAINER_BUILD_FILES_PREFIX.length(),
+                    currentFileName.lastIndexOf("."));
+            containers.add(currentId);
+        }
+        return (String[]) containers.toArray(new String[containers.size()]);
+    }
+
 }

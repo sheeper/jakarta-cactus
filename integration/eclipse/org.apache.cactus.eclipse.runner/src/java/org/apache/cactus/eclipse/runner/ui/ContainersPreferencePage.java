@@ -119,7 +119,7 @@ public class ContainersPreferencePage
      */
     public void init(IWorkbench theWorkbench)
     {
-            containerIds = CactusPlugin.getContainers();
+            containerIds = CactusPlugin.getContainerIds();
 
     }
 

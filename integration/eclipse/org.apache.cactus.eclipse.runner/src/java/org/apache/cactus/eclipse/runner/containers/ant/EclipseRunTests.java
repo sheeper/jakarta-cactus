@@ -111,8 +111,8 @@ public class EclipseRunTests extends Task implements Runnable
     {
         CactusLaunchShortcut launchShortcut =
             CactusPlugin.getDefault().getCactusLaunchShortcut();
-        GenericAntProvider antProvider =
-            (GenericAntProvider) launchShortcut.getContainerProvider();
+        AntContainerProvider antProvider =
+            (AntContainerProvider) launchShortcut.getContainerProvider();
         antProvider.setEclipseRunner(this);
         launchShortcut.launchJunitTests();
     }

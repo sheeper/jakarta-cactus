@@ -61,6 +61,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import org.apache.cactus.eclipse.runner.containers.IContainerManager;
 import org.apache.cactus.eclipse.runner.containers.IContainerProvider;
 import org.apache.cactus.eclipse.runner.ui.CactusMessages;
 import org.apache.cactus.eclipse.runner.ui.CactusPlugin;
@@ -104,7 +105,7 @@ public class CactusLaunchShortcut
     private File war;
 
     /**
-     * The provider to use for container setup.
+     * The container provider that is used in this launch.
      */
     private IContainerProvider provider;
 
@@ -317,7 +318,8 @@ public class CactusLaunchShortcut
         thePM.beginTask(
             CactusMessages.getString("CactusLaunch.message.prepare"),
             10);
-        this.provider = CactusPlugin.getContainerProvider();
+        IContainerManager manager = CactusPlugin.getContainerManager();
+        this.provider = manager.getContainerProviders()[0];
         try
         {
             WarBuilder newWar = new WarBuilder(theJavaProject);
