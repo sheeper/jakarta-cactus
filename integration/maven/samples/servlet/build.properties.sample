@@ -10,8 +10,8 @@
 # Paths to containers on which you wish to run the Cactus tests
 
 cactus.home.tomcat4x = C:/Apps/jakarta-tomcat-4.1.30
-cactus.home.resin2x = C:/Apps/resin-2.1.12
-cactus.home.resin3x = C:/Apps/resin-3.0.6
+cactus.home.resin2x = C:/Apps/resin-2.1.13
+cactus.home.resin3x = C:/Apps/resin-3.0.7
 cactus.home.jboss3x = C:/Apps/jboss-3.2.3
 cactus.home.weblogic7x = C:/bea/weblogic700
 
