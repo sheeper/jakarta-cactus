@@ -7,7 +7,7 @@
 
   <body>
 
-    <release version="1.6dev" date="in CVS">
+    <release version="1.6dev" date="development build of 2004-02-26">
       <action dev="vmassol" type="fix">
         Aligned the EAR-ing behavior in the Cactus plugin (when using the
         <code>cactus:test-ear</code> goal) with the behavior from the EAR Maven

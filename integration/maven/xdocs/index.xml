@@ -21,6 +21,17 @@
           <th>Description</th>
         </tr>
         <tr>
+          <td>26 Feb 2004</td>
+          <td>
+            New development build of the Cactus plugin. See the
+            <a href="changes-report.html">changes report</a> for the detailed list of changes.
+            To install it, run:<br/>
+            <code>maven plugin:download -DartifactId=cactus-maven -DgroupId=cactus -Dversion=1.6dev-20040226</code>
+            <br/>Read the <a href="using.html">using guide</a> for more details
+            on installation and usage.
+          </td>
+        </tr>
+        <tr>
           <td>15 Jan 2004</td>
           <td>
             New development build of the Cactus plugin. See the
@@ -29,24 +40,6 @@
             <code>maven plugin:download -DartifactId=cactus-maven -DgroupId=cactus -Dversion=1.6dev-20040115</code>
             <br/>Read the <a href="using.html">using guide</a> for more details
             on installation and usage.
-          </td>
-        </tr>
-        <tr>
-          <td>31 Oct 2003</td>
-          <td>
-            Released development build of the Cactus plugin. It is equivalent
-            the 3.2 version when the plugin was hosted in Maven land. To 
-            install it, run:<br/>
-            <code>maven plugin:download -DartifactId=cactus-maven -DgroupId=cactus -Dversion=1.6dev-20031031</code>
-            <br/>Read the <a href="using.html">using guide</a> for more details
-            on installation and usage.
-          </td>
-        </tr>
-        <tr>
-          <td>29 Oct 2003</td>
-          <td>
-            This plugin was previously hosted in the Maven project itself. It 
-            has now moved to the Cactus project.
           </td>
         </tr>
       </table>
