@@ -33,6 +33,7 @@
     <menu-item type="hidden" source="javadoc_12.xml"/>
     <menu-item type="hidden" source="javadoc_13.xml"/>
     <menu-item label="FAQ" source="faq.xml"/>
+    <menu-item label="Eclipse plugin" source="eclipse-plugin.xml"/>
   </menu>
 
   <menu label="Howto Guides">
