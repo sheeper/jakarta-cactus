@@ -36,29 +36,8 @@
         Update web site for new <code>begin()</code> and <code>end()</code>
         methods.
       </action>
-      <action assigned-to="Vincent Massol">
-        Move all documentation to docbook and cocoon2 and generate PDF
-        containing full Cactus documentation. Note: I still need to find out
-        how to make Cocoon2 generate errors during generation of doc. so that
-        the Ant build reports an error and stops upon finding one.
-      </action>
       <action>
         Add a tutorial for building Cactus from the source distribution.
-      </action>
-      <action assigned-to="Jari Worsley">
-        Write a tutorial that explains how to use Cactus to do unit testing of
-        JSP, i.e. only test
-        the JSP itself and not the controller part and the model (only test the
-        View in an MVC model). This is done by using mock implementations of
-        java beans used in the JSP to unit test, set these java beans in the
-        testXXX() method of a cactus test and then assert the result of the
-        JSP executing in the endXXX() method.
-      </action>
-      <action>
-        Add some documentation (possibly in the FAQ) to explain how to unit
-        test Struts classes (refer to the
-        <link href="http://strutstestcase.sourceforge.net/">StrutsTestCase</link>
-        project).
       </action>
     </category>
 
@@ -79,9 +58,16 @@
         within the <code>target</code> output directory and not to where
         JBoss/Tomcat is installed.
       </action>
+      <action>
+      	Move Cactus to Maven.
+      </action>
     </category>
 
     <category title="Design/Code">
+      <action>
+        Improve the ServletTestRunner. Move stylesheet definition to web.xml
+        and provide support for XSLT performed inside ServletTestRunner.
+      </action>
       <action>
         Write a JMS Redirector/Client to test Message Driven Beans.
       </action>
