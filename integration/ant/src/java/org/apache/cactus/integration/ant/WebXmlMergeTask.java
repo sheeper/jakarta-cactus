@@ -162,9 +162,9 @@ public class WebXmlMergeTask extends Task
         {
             if (this.mergeFile != null)
             {
-                if (force ||
-                    (srcFile.lastModified() > destFile.lastModified()) ||
-                    (mergeFile.lastModified() > destFile.lastModified()))
+                if (force
+                 || (srcFile.lastModified() > destFile.lastModified())
+                 || (mergeFile.lastModified() > destFile.lastModified()))
                 {
                     WebXml srcWebXml = parseWebXml(this.srcFile);
                     WebXml mergeWebXml = parseWebXml(this.mergeFile);
@@ -286,8 +286,8 @@ public class WebXmlMergeTask extends Task
         String mergeVersion = theMergeWebXml.getVersion();
         if (srcVersion != mergeVersion)
         {
-            if (WebXml.SERVLET_VERSION_2_2.equals(srcVersion) &&
-                WebXml.SERVLET_VERSION_2_3.equals(mergeVersion))
+            if (WebXml.SERVLET_VERSION_2_2.equals(srcVersion)
+             && WebXml.SERVLET_VERSION_2_3.equals(mergeVersion))
             {
                 log("Merging elements from a version 2.3 into a version 2.2 "
                     + "descriptor, some elements may be skipped");

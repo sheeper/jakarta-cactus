@@ -212,8 +212,8 @@ public class WebXml
         }
         if (hasFilter(filterName))
         {
-            throw new IllegalStateException("Filter '" + filterName +
-                "' already defined");
+            throw new IllegalStateException("Filter '" + filterName
+                + "' already defined");
         }
         addElement(WebXmlTag.FILTER, theFilter);
     }
@@ -247,8 +247,8 @@ public class WebXml
     {
         if (!hasFilter(theFilterName))
         {
-            throw new IllegalStateException("Filter '" + theFilterName +
-                "' not defined");
+            throw new IllegalStateException("Filter '" + theFilterName
+                + "' not defined");
         }
         Element filterMappingElement =
             this.document.createElement(WebXmlTag.FILTER_MAPPING.getTagName());
@@ -397,8 +397,8 @@ public class WebXml
         }
         if (hasServlet(servletName))
         {
-            throw new IllegalStateException("Servlet '" + servletName +
-                "' already defined");
+            throw new IllegalStateException("Servlet '" + servletName
+                + "' already defined");
         }
         addElement(WebXmlTag.SERVLET, theServlet);
     }
@@ -416,8 +416,8 @@ public class WebXml
         Element servletElement = getServlet(theServletName);
         if (servletElement == null)
         {
-            throw new IllegalStateException("Servlet '" + theServletName +
-                "' not defined");
+            throw new IllegalStateException("Servlet '" + theServletName
+                + "' not defined");
         }
         addInitParam(servletElement, theParamName, theParamValue);
     }
@@ -432,8 +432,8 @@ public class WebXml
     {
         if (!hasServlet(theServletName))
         {
-            throw new IllegalStateException("Servlet '" + theServletName +
-                "' not defined");
+            throw new IllegalStateException("Servlet '" + theServletName
+                + "' not defined");
         }
         Element servletMappingElement =
             this.document.createElement(WebXmlTag.SERVLET_MAPPING.getTagName());
@@ -766,9 +766,9 @@ public class WebXml
                     {
                         Node result = elements.item(0);
                         Node previous = result.getPreviousSibling();
-                        while ((previous != null) &&
-                            ((previous.getNodeType() == Node.COMMENT_NODE) ||
-                             (previous.getNodeType() == Node.TEXT_NODE)))
+                        while ((previous != null)
+                            && ((previous.getNodeType() == Node.COMMENT_NODE)
+                             || (previous.getNodeType() == Node.TEXT_NODE)))
                         {
                             result = previous;
                             previous = result.getPreviousSibling();
