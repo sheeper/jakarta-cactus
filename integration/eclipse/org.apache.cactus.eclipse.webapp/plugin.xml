@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--@cactus.begin@-->
 <plugin
    id="org.apache.cactus.eclipse.webapp"
    name="%pluginName"
    version="1.5.0"
    provider-name="%providerName"
    class="org.apache.cactus.eclipse.webapp.internal.ui.WebappPlugin">
+<!--@cactus.end@-->
+<!--@cactus.replace@-->
 
    <runtime>
       <library name="webapp.jar">  
