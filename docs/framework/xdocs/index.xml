@@ -31,7 +31,7 @@
       </p>
       <p>
         Cactus implements an in-container strategy (click on the diagram below
-        to undestand how it works). An alternative but complementary approach
+        to understand how it works). An alternative but complementary approach
         not covered by Cactus is to use Mock Objects (see the
         <link href="mockobjects.html">Mock vs Container</link> page to
         understand the differences and why Cactus believes in the
