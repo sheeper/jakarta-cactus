@@ -20,6 +20,7 @@
   xmlns:define="jelly:define"
   xmlns:x="jelly:xml"
   xmlns:test="test"
+  xmlns:cactustag="cactus"
   xmlns:cactus="jelly:org.apache.cactus.integration.maven.CactusTagLibrary">
 
   <!--
@@ -479,62 +480,7 @@
 
     </cactus>
 
-    <!-- TODO: Change the Cactus stylesheet (cactus.jsl) to handle reports
-    	 for several containers -->
-    	
-    <!-- Consolidate the reports into a single -->
-    <ant:junitreport todir="${cactus.reports.dir}"
-        tofile="TESTS-TestSuites-Cactus.xml">
-
-      <j:if test="${context.getVariable('cactus.home.jboss3x') != null}">
-        <ant:fileset dir="${cactus.reports.dir}/jboss3x">
-          <ant:include name="TEST-*.xml"/>
-        </ant:fileset>
-      </j:if>
-
-      <j:if test="${context.getVariable('cactus.home.orion1x') != null}">
-        <ant:fileset dir="${cactus.reports.dir}/orion1x">
-          <ant:include name="TEST-*.xml"/>
-        </ant:fileset>
-      </j:if>
-
-      <j:if test="${context.getVariable('cactus.home.orion2x') != null}">
-        <ant:fileset dir="${cactus.reports.dir}/orion2x">
-          <ant:include name="TEST-*.xml"/>
-        </ant:fileset>
-      </j:if>
-
-      <j:if test="${context.getVariable('cactus.home.resin2x') != null}">
-        <ant:fileset dir="${cactus.reports.dir}/resin2x">
-          <ant:include name="TEST-*.xml"/>
-        </ant:fileset>
-      </j:if>
-
-      <j:if test="${context.getVariable('cactus.home.resin3x') != null}">
-        <ant:fileset dir="${cactus.reports.dir}/resin3x">
-          <ant:include name="TEST-*.xml"/>
-        </ant:fileset>
-      </j:if>
-
-      <j:if test="${context.getVariable('cactus.home.tomcat4x') != null}">
-        <ant:fileset dir="${cactus.reports.dir}/tomcat4x">
-          <ant:include name="TEST-*.xml"/>
-        </ant:fileset>
-      </j:if>
-
-      <j:if test="${context.getVariable('cactus.home.tomcat5x') != null}">
-        <ant:fileset dir="${cactus.reports.dir}/tomcat5x">
-          <ant:include name="TEST-*.xml"/>
-        </ant:fileset>
-      </j:if>
-
-      <j:if test="${context.getVariable('cactus.home.weblogic7x') != null}">
-        <ant:fileset dir="${cactus.reports.dir}/weblogic7x">
-          <ant:include name="TEST-*.xml"/>
-        </ant:fileset>
-      </j:if>
-
-    </ant:junitreport>
+    <cactustag:junitreport/>
     
     <j:if test="${cactus.halt.on.failure}">
       <ant:fail if="cactustests.failure">At least one test had a failure!</ant:fail>
@@ -1117,62 +1063,7 @@
 
     </cactus>
 
-    <!-- TODO: Change the Cactus stylesheet (cactus.jsl) to handle reports
-    	 for several containers -->
-    	
-    <!-- Consolidate the reports into a single -->
-    <ant:junitreport todir="${cactus.reports.dir}"
-        tofile="TESTS-TestSuites-Cactus.xml">
-
-      <j:if test="${context.getVariable('cactus.home.jboss3x') != null}">
-        <ant:fileset dir="${cactus.reports.dir}/jboss3x">
-          <ant:include name="TEST-*.xml"/>
-        </ant:fileset>
-      </j:if>
-
-      <j:if test="${context.getVariable('cactus.home.orion1x') != null}">
-        <ant:fileset dir="${cactus.reports.dir}/orion1x">
-          <ant:include name="TEST-*.xml"/>
-        </ant:fileset>
-      </j:if>
-
-      <j:if test="${context.getVariable('cactus.home.orion2x') != null}">
-        <ant:fileset dir="${cactus.reports.dir}/orion2x">
-          <ant:include name="TEST-*.xml"/>
-        </ant:fileset>
-      </j:if>
-
-      <j:if test="${context.getVariable('cactus.home.resin2x') != null}">
-        <ant:fileset dir="${cactus.reports.dir}/resin2x">
-          <ant:include name="TEST-*.xml"/>
-        </ant:fileset>
-      </j:if>
-
-      <j:if test="${context.getVariable('cactus.home.resin3x') != null}">
-        <ant:fileset dir="${cactus.reports.dir}/resin3x">
-          <ant:include name="TEST-*.xml"/>
-        </ant:fileset>
-      </j:if>
-
-      <j:if test="${context.getVariable('cactus.home.tomcat4x') != null}">
-        <ant:fileset dir="${cactus.reports.dir}/tomcat4x">
-          <ant:include name="TEST-*.xml"/>
-        </ant:fileset>
-      </j:if>
-
-      <j:if test="${context.getVariable('cactus.home.tomcat5x') != null}">
-        <ant:fileset dir="${cactus.reports.dir}/tomcat5x">
-          <ant:include name="TEST-*.xml"/>
-        </ant:fileset>
-      </j:if>
-
-      <j:if test="${context.getVariable('cactus.home.weblogic7x') != null}">
-        <ant:fileset dir="${cactus.reports.dir}/weblogic7x">
-          <ant:include name="TEST-*.xml"/>
-        </ant:fileset>
-      </j:if>
-
-    </ant:junitreport>
+    <cactustag:junitreport/>
     
     <j:if test="${cactus.halt.on.failure}">
       <ant:fail if="cactustests.failure">At least one test had a failure!</ant:fail>
@@ -1348,12 +1239,6 @@
 
   </goal>
   
-  <define:taglib uri="cactus">
-    <define:tag name="dependency-handle">
-      <!-- Use this tag to allow this plugin to be loaded into another -->
-    </define:tag>
-  </define:taglib>
-
   <!--
      ========================================================================
        Install the Cactus jar in the local repository.
@@ -1373,8 +1258,83 @@
     <ant:copy 
       file="${maven.build.dir}/${pom.artifactId}-cactus-${pom.currentVersion}.jar"
       todir="${jardir__}"
-      overwrite="true"
-    />
+      overwrite="true"/>
   </goal>
+
+  <!--
+     ========================================================================
+       Useful tag libraries to promote reuse of Jelly code snippets.
+     ========================================================================
+  -->
+
+  <define:taglib uri="cactus">
+
+    <!-- Use this tag to allow this plugin to be loaded into another -->
+    <define:tag name="dependency-handle">
+    </define:tag>
+
+    <!-- Consolidate the JUnit reports into a single one
+         TODO: Change the Cactus stylesheet (cactus.jsl) to handle reports
+    	   for several containers -->
+    <define:tag name="junitreport">
+
+      <ant:junitreport todir="${cactus.reports.dir}"
+          tofile="TESTS-TestSuites-Cactus.xml">
+
+        <j:if test="${context.getVariable('cactus.home.jboss3x') != null}">
+          <ant:fileset dir="${cactus.reports.dir}/jboss3x">
+            <ant:include name="TEST-*.xml"/>
+          </ant:fileset>
+        </j:if>
+
+        <j:if test="${context.getVariable('cactus.home.orion1x') != null}">
+          <ant:fileset dir="${cactus.reports.dir}/orion1x">
+            <ant:include name="TEST-*.xml"/>
+          </ant:fileset>
+        </j:if>
+
+        <j:if test="${context.getVariable('cactus.home.orion2x') != null}">
+          <ant:fileset dir="${cactus.reports.dir}/orion2x">
+            <ant:include name="TEST-*.xml"/>
+          </ant:fileset>
+        </j:if>
+
+        <j:if test="${context.getVariable('cactus.home.resin2x') != null}">
+          <ant:fileset dir="${cactus.reports.dir}/resin2x">
+            <ant:include name="TEST-*.xml"/>
+          </ant:fileset>
+        </j:if>
+
+        <j:if test="${context.getVariable('cactus.home.resin3x') != null}">
+          <ant:fileset dir="${cactus.reports.dir}/resin3x">
+            <ant:include name="TEST-*.xml"/>
+          </ant:fileset>
+        </j:if>
+
+        <j:if test="${context.getVariable('cactus.home.tomcat4x') != null}">
+          <ant:fileset dir="${cactus.reports.dir}/tomcat4x">
+            <ant:include name="TEST-*.xml"/>
+          </ant:fileset>
+        </j:if>
+
+        <j:if test="${context.getVariable('cactus.home.tomcat5x') != null}">
+          <ant:fileset dir="${cactus.reports.dir}/tomcat5x">
+            <ant:include name="TEST-*.xml"/>
+          </ant:fileset>
+        </j:if>
+
+        <j:if test="${context.getVariable('cactus.home.weblogic7x') != null}">
+          <ant:fileset dir="${cactus.reports.dir}/weblogic7x">
+            <ant:include name="TEST-*.xml"/>
+          </ant:fileset>
+        </j:if>
+
+      </ant:junitreport>
+      
+    </define:tag>
+
+  </define:taglib>
+
+
 
 </project>
