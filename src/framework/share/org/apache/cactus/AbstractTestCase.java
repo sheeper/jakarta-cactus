@@ -371,6 +371,57 @@ public abstract class AbstractTestCase extends TestCase
      */
     protected abstract void runTest() throws Throwable;
 
+    /**
+     * Execute the test case begin method, then connect to the server proxy
+     * redirector (where the test case test method is executed) and then
+     * executes the test case end method.
+     *
+     * @param theHttpClient the HTTP client class to use to connect to the
+     *                      proxy redirector.
+     */
+    protected void runGenericTest(AbstractHttpClient theHttpClient)
+        throws Throwable
+    {
+        this.logger.entry("runGenericTest(...)");
+
+        // Log the test name
+        this.logger.debug("Test case = " + currentTestMethod);
+
+        // Call the begin method to fill the request object
+        ServletTestRequest request = new ServletTestRequest();
+        callBeginMethod(request);
+
+        // Add the class name, the method name, the URL to simulate and
+        // automatic session creation flag to the request
+        request.addParameter(ServiceDefinition.CLASS_NAME_PARAM,
+            this.getClass().getName());
+        request.addParameter(ServiceDefinition.METHOD_NAME_PARAM, name());
+        request.addParameter(ServiceDefinition.AUTOSESSION_NAME_PARAM,
+            new Boolean(request.getAutomaticSession()).toString());
+
+        // Add the simulated URL (if one has been defined)
+        if (request.getURL() != null) {
+            request.getURL().saveToRequest(request);
+        }
+
+        // Open the HTTP connection to the servlet redirector
+        // and manage errors that could be returned in the
+        // HTTP response.
+        HttpURLConnection connection = theHttpClient.doTest(request);
+
+        // Call the end method
+        callEndMethod(connection);
+
+        // Close the intput stream (just in the case the user has not done it
+        // in it's endXXX method (or if he has no endXXX method) ....
+        connection.getInputStream().close();
+
+        this.logger.exit("runGenericTest");
+     }
+
+    // Methods below are only called by the Cactus redirector on the server
+    // side
+
 	/**
 	 * Run the test that was specified in the constructor on the server side,
      * calling <code>setUp()</code> and <code>tearDown()</code>.
