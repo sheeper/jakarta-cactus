@@ -110,8 +110,8 @@ public class HttpServletRequestWrapper
         if (this.url != null)
         {
             result = new StringBuffer(this.url.getProtocol() + "://"
-                + getServerName() + ":" + getServerPort() + getContextPath() 
-                + getServletPath() + getPathInfo());
+                + getServerName() + ":" + getServerPort()
+                + getRequestURI());
         }
         else
         {
