@@ -69,7 +69,7 @@ public class ServiceDefinition
      * clash with a user-defined parameter.
      */
     public final static String CLASS_NAME_PARAM =
-        "ServletTestRedirector_TestClass";
+        "Cactus_TestClass";
 
     /**
      * Name of the parameter in the HTTP request that represents the name of the
@@ -77,14 +77,14 @@ public class ServiceDefinition
      * clash with a user-defined parameter.
      */
     public final static String METHOD_NAME_PARAM =
-        "ServletTestRedirector_TestMethod";
+        "Cactus_TestMethod";
 
     /**
      * Name of the parameter in the HTTP request that specify if a session
      * should be automatically created for the user or not.
      */
     public final static String AUTOSESSION_NAME_PARAM =
-        "ServletTestRedirector_AutomaticSession";
+        "Cactus_AutomaticSession";
 
     /**
      * Name of the parameter in the HTTP request that specify the service asked
@@ -95,6 +95,6 @@ public class ServiceDefinition
      * @see ServiceEnumeration
      */
     public final static String SERVICE_NAME_PARAM =
-        "ServletTestRedirector_Service";
+        "Cactus_Service";
 
 }
