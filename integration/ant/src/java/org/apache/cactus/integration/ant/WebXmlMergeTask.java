@@ -300,7 +300,6 @@ public class WebXmlMergeTask extends Task
      * 
      * @param theSrcWebXml The original descriptor
      * @param theMergeWebXml The descriptor to merge in
-     * @throws BuildException If the operation fails
      */
     private void merge(WebXml theSrcWebXml, WebXml theMergeWebXml)
     {
