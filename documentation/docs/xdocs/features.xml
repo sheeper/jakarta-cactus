@@ -19,11 +19,14 @@
       <note>
         Support for testing the View layer is done through integration
         with <link href="http://httpunit.sourceforge.net">HttpUnit</link>.
-        This is functional testing and not unit testing.
+        This is functional unit testing (see the
+        <link href="index.html#unittest_types">What is Cactus</link> page, for
+        a description of the different kinds of unit tests).
       </note>
       <note>
         EJB unit testing is done by calling the EJB to unit test as you
-        would if you were writing code to call an EJB from a servlet.
+        would if you were writing code to call an EJB from a servlet (See
+        the <link href="howto_ejb.html">EJB Howto</link> page for more details).
       </note>
 
     </s1>
@@ -33,7 +36,7 @@
       <ul>
         <li>
           Cactus gives you a very good confidence that your code is going
-          to run fine on the server it will be deployed to (thanks to Cactus
+          to run fine on the server it will be deployed on (thanks to Cactus
           in-container approach that executes the test <em>inside</em> the
           container),
         </li>
@@ -51,13 +54,14 @@
           it helps think about writing better code and do some refactoring,
         </li>
         <li>
-          Cactus provides a good middle ground in term of test graininess :
+          Cactus provides a good middle ground in term of test granularity :
           too fine-grained tests are hard to write (like mock objects tests
           that completely simulates the domain objects and focus exclusively
           on unit testing your logic code) and need complementary tests. Too
           coarse-grained tests (like functional tests) are not enough to
           easily uncover bugs and work in a iterative development process
-          where tests are run very often to ensure everything is working
+          where tests are run very often to ensure everything is working. We
+          believe Cactus provides a good compromise.
         </li>
       </ul>
 
@@ -97,10 +101,50 @@
           for details.
         </li>
         <li>
+          It is possible to set up the following in <code>beginXXX()</code> :
+          <ul>
+            <li>
+              HTTP cookies,
+            </li>
+            <li>
+              HTTP parameters (GET and POST),
+            </li>
+            <li>
+              HTTP Headers
+            </li>
+            <li>
+              Whether an HTTP Session will be created or not on the server side,
+            </li>
+            <li>
+              BASIC Authentication parameters,
+            </li>
+            <li>
+              Send any data as POST data
+            </li>
+          </ul>
+        </li>
+        <li>
+          It is possible to verify the following in <code>beginXXX()</code> :
+          <ul>
+            <li>
+              Returned data (as String or using <code>HttpUnit</code>,
+            </li>
+            <li>
+              Returned cookies,
+            </li>
+            <li>
+              Returned HTTP headers
+            </li>
+          </ul>
+        </li>
+        <li>
           Predefined Ant build scripts that demonstrate how to automate Cactus
           unit tests (automatically starting your servlet engine, running the
           tests and stopping your server). There are scripts provided for the
-          following Servlet engines (but it is easy to add new engines) :
+          following Servlet engines (but it is easy to add new engines and some
+          Cactus users have already posted scripts on the
+          <link href="mailinglist.html">Cactus mailing list</link> for other
+          containers) :
           <ul>
             <li>
               Tomcat 3.2 (Servlet API 2.2)
@@ -124,10 +168,16 @@
               WebLogic 5.1 (Servlet API 2.2)
             </li>
             <li>
+              WebLogic 6.1 (Servlet API 2.3)
+            </li>
+            <li>
               Orion 1.4 (Servlet API 2.2 and 2.3)
             </li>
             <li>
               Orion 1.5 (Servlet API 2.2 and 2.3)
+            </li>
+            <li>
+              Enhydra 3.1 (Servlet API 2.2)
             </li>
           </ul>
         </li>
@@ -138,14 +188,14 @@
           method
         </li>
         <li>
-          Tested with all versions of JUnit up to 3.7 included
+          Tested with all versions of JUnit up to the current one in JUnit CVS.
         </li>
         <li>
           Support for Servlet API 2.2 and 2.3 (Support for Servlet API 2.1 is
           no longer provided)
         </li>
         <li>
-          Works with JDK 1.2 or 1.3 (not tested with 1.4 yet)
+          Works with JDK 1.2, 1.3 and 1.4.
         </li>
         <li>
           Wraps some of the standard API objects in order to provide
@@ -154,15 +204,28 @@
           Howto</link> tutorial for details.
         </li>
         <li>
-          Transparent Log4j logging (if you don't have Log4j in your classpath
-          no logging is done) to help debug problems.
+          Internal Log4j logging to help debug problems.
         </li>
         <li>
           HttpUnit integration. See the
           <link href="howto_httpunit.html">HttpUnit Howto</link>) tutorial
           for details. This enables
           Cactus to provide strong and integrated functional
-          testing features.
+          unit testing features.
+        </li>
+        <li>
+          Support for BASIC authentication. You can test code that uses the
+          Servlet security API.
+        </li>
+        <li>
+          Ability to define where to locate the Cactus configuration file
+          (<code>cactus.properties</code>).
+        </li>
+        <li>
+          Ability to specify, per test case, what redirector to use. Useful,
+          for example, when you want to test some code that is using the
+          Servlet Security API at the same time as other code that should not
+          be protected.
         </li>
       </ul>
     </s1>

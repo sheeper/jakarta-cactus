@@ -25,6 +25,7 @@
 
   <menu label="Documentation">
     <menu-item label="How it works ?" source="how_it_works.xml"/>
+    <menu-item type="hidden" source="how_it_works_uml.xml"/>
     <menu-item label="Getting Started" source="getting_started.xml"/>
     <menu-item label="Mock vs Container" source="mockobjects.xml"/>
     <menu-item type="external" label="Javadocs" href="api"/>

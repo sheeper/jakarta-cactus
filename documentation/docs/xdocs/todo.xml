@@ -139,13 +139,6 @@
         needed for others.
       </action>
       <action>
-        Add a debug switch to Cactus that is off by default so that Cactus
-        logging won't interfere with the logging of the application under test.
-        Log4J 1.2 solves this by introducing the notion of Repositories.
-        However, not everyone has switched yet to log4j 1.2 so it would
-        probably be an issue.
-      </action>
-      <action>
         Consider using Commons Logging Wrapper as it provides seamless support
         for No Log, Log4J, LogKit and JDK 1.4 logging.
       </action>
@@ -166,13 +159,6 @@
         progress in this area. In term of design, isolate the implementation
         with an interface so that different implementation can be plugged in
         without affecting any other business classes.
-      </action>
-      <action>
-        Add support for Chunked-Transfer-Encoding (HTTP 1.1). There is currently
-        a bug in Cactus 1.3 in AutoReadHttpURLConnection that prevents it to
-        work (see
-        <link href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=6944">Bug
-        #6944</link>. Thanks to Ryan Shaw.
       </action>
     </category>
 

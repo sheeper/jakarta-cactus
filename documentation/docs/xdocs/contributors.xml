@@ -97,6 +97,9 @@
         <li>
           <link href="mailto:sean.zhang@verizon.com">Sean Zhang</link>
         </li>
+        <li>
+          <link href="mailto:matt.sullivan@bea.com">Matt Sullivan</link>
+        </li>
       </ul>
 
     </s1>
@@ -147,7 +150,8 @@
     <s1 title="More about us">
 
       <p>
-        <strong>Vincent Massol -- Committer</strong>
+        <strong><link href="mailto:vmassol@apache.org">Vincent Massol</link>
+        -- Committer</strong>
       </p>
       <p>
         I started designing internet applications in 1998, when I joined
@@ -243,36 +247,36 @@
         several persons have jumped aboard and are already helping shape
         Cactus future. Come and help us ! :)
       </p>
-			<anchor id="nick_bio"/>
+
+      <anchor id="nick_bio"/>
       <p>
         <strong>
-					<link href="mailto:ndlesiecki@apache.org">Nicholas Lesiecki</link>
-					-- Committer
-				</strong>
+        <link href="mailto:ndlesiecki@apache.org">Nicholas Lesiecki</link>
+		-- Committer</strong>
       </p>
       <p>
       	I became involved in Cactus while co-authoring 
-				<link href="http://www.amazon.com/exec/obidos/ASIN/047120708X/">
-					Java Tools for Extreme Programming.
-				</link> (See our <link href="resources.html#xp_book">resources</link> 
-				section for details.) While researching the framework I found myself making some 
-				suggestions on the project's mailing list. One thing led to another, 
-				and now I am graced with commiter status.
-			</p>
-			<p>
-				I currently work as a Technical Team Lead at
-				<link href="http://www.eblox.com">eBlox, Inc</link>, 
-				a consulting and ecommerce application development shop. Right now I lead
-				development of the company's flagship online catalog system, 
-				<link href="http://eblox.com/storeblox.php">storeBlox</link>. As such, 
-				I'm always working on new ways to test J2EE components, and so my 
-				involvement with Cactus is natural.
-			</p>
-			<p>
-				I'm excited about Cactus 2.0, which we hope will usher in the next 
-				phase in in-container testing by providing a more abstract framework for
-				interacting with a wider variety of containers (EJB, JMS, etc. ).
-			</p>
+		<link href="http://www.amazon.com/exec/obidos/ASIN/047120708X/">Java
+		Tools for Extreme Programming</link>. (See
+        our <link href="resources.html#xp_book">resources</link> section for
+        details.) While researching the framework I found myself making some
+		suggestions on the project's mailing list. One thing led to another,
+		and now I am graced with commiter status.
+	  </p>
+	  <p>
+		I currently work as a Technical Team Lead at
+        <link href="http://www.eblox.com">eBlox, Inc</link>, a consulting and
+        ecommerce application development shop. Right now I lead development of
+        the company's flagship online catalog system,
+		<link href="http://eblox.com/storeblox.php">storeBlox</link>. As such,
+		I'm always working on new ways to test J2EE components, and so my
+		involvement with Cactus is natural.
+	  </p>
+	  <p>
+		I'm excited about Cactus 2.0, which we hope will usher in the next
+		phase in in-container testing by providing a more abstract framework for
+		interacting with a wider variety of containers (EJB, JMS, etc. ).
+      </p>
     </s1>
 
   </body>

@@ -61,6 +61,7 @@ documentation/docs/xdocs/features.xml svn_keywords=Author+Date+Id+Revision
 documentation/docs/xdocs/getting_started.xml svn_keywords=Author+Date+Id+Revision
 documentation/docs/xdocs/goals.xml svn_keywords=Author+Date+Id+Revision
 documentation/docs/xdocs/how_it_works.xml svn_keywords=Author+Date+Id+Revision
+documentation/docs/xdocs/how_it_works_uml.xml svn_keywords=Author+Date+Id+Revision
 documentation/docs/xdocs/howto_ant.xml svn_keywords=Author+Date+Id+Revision
 documentation/docs/xdocs/howto_ant_cactus.xml svn_keywords=Author+Date+Id+Revision
 documentation/docs/xdocs/howto_ant_install.xml svn_keywords=Author+Date+Id+Revision
@@ -99,12 +100,14 @@ documentation/docs/xdocs/images/logos/vgritsenko.jpg -text
 documentation/docs/xdocs/images/logos/vgritsenko2.jpg -text
 documentation/docs/xdocs/images/remove.jpg -text
 documentation/docs/xdocs/images/scope.jpg -text
+documentation/docs/xdocs/images/sequence.jpg -text
 documentation/docs/xdocs/images/update.jpg -text
 documentation/docs/xdocs/index.xml svn_keywords=Author+Date+Id+Revision
 documentation/docs/xdocs/javadoc.xml svn_keywords=Author+Date+Id+Revision
 documentation/docs/xdocs/license.xml svn_keywords=Author+Date+Id+Revision
 documentation/docs/xdocs/logos.xml svn_keywords=Author+Date+Id+Revision
 documentation/docs/xdocs/mailinglist.xml svn_keywords=Author+Date+Id+Revision
+documentation/docs/xdocs/misc/Sequence.dfSequence svn_keywords=Author+Date+Id+Revision
 documentation/docs/xdocs/misc/archi.ppt -text
 documentation/docs/xdocs/misc/archi_classpath.ppt -text
 documentation/docs/xdocs/misc/archi_filter.ppt -text

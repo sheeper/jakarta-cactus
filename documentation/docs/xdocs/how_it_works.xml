@@ -14,6 +14,11 @@
 
     <s1 title="How it works">
 
+      <p>
+        Click <link href="how_it_works_uml.html">here</link> for a UML
+        sequence diagram.
+      </p>
+
       <figure src="images/archi.jpg" alt="Cactus Architecture"/>
 
       <note>
@@ -24,6 +29,14 @@
         You'll find details for a specific redirector proxy in the next
         section.
       </note>
+      <note>
+        YYYTestCase = ( ServletTestCase | FilterTestCase | JspTestCase )
+      </note>
+      <note>
+        XXX is the name of the test case. Each YYYTestCase class contains
+        several test cases.
+      </note>
+
       <p>
         Let's go through the different steps to understand how it works. Here
         is what happens for each <code>testXXX()</code> method in your

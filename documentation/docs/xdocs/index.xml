@@ -43,7 +43,8 @@
       </p>
     </s1>
 
-    <s1 title="Different kind of unit tests">
+    <anchor id="unittest_types"/>
+    <s1 title="Different kinds of unit tests">
 
       <p>
         There are several kinds of unit testing frameworks. We categorize them

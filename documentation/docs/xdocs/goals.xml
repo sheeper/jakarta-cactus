@@ -26,7 +26,7 @@
         </li>
         <li>
           To be the framework of reference for in-container unit testing
-          strategy,
+          strategy
         </li>
       </ul>          
         
@@ -51,10 +51,10 @@
           EJBs
         </li>
       </ul>
-			<p>
-        All of these are currently enabled in Cactus 1.2,
-				though we'd like to do more work on
-				facilitating EJB and Taglib testing.
+      <p>
+        All of these are currently enabled in Cactus 1.2 and greater, though
+        we'd like to do more work on facilitating EJB and Taglib testing (like
+        unit testing MDB EJBs easily, etc).
       </p>
     </s1>
 
@@ -127,7 +127,7 @@
             integrating it into the Servlet Specifications 
             (or other components -like EJBs -
             specifications). Agreed, this far-streched at the current time
-            but it is the Cactus' vision !
+            but it is the Cactus vision !
           </li>        
         </ul>
 
