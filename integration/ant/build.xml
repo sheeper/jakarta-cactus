@@ -291,10 +291,9 @@ be resolved. Please check you build.properties file, and run Ant with the
 
     <mkdir dir="${target.doc.testreports.dir}"/>
 
-    <junit printsummary="yes" failureproperty="tests.failed" fork="yes">
+    <junit failureproperty="tests.failed" fork="yes">
       <sysproperty key="testinput.dir" file="${target.testinput.dir}"/>
       <classpath refid="test.classpath"/>
-      <formatter type="brief" usefile="false"/>
       <test name="${testcase}" if="testcase"/>
       <batchtest todir="${target.doc.testreports.dir}" unless="testcase">
         <fileset dir="${src.test.dir}">
@@ -306,6 +305,7 @@ be resolved. Please check you build.properties file, and run Ant with the
           <exclude name="**/TestContainerRunner.java"/>
           <exclude name="**/TestRunServerTestsTask.java"/>
         </fileset>
+        <formatter type="brief" usefile="false"/>
         <formatter type="xml"/>
       </batchtest>
     </junit>
