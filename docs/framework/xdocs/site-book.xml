@@ -50,7 +50,6 @@
   </menu>
 
   <menu label="Support">
-    <menu-item type="external" label="CVS" href="http://jakarta.apache.org/site/cvsindex.html"/>
     <menu-item type="external" label="Bug database" href="http://jakarta.apache.org/site/bugs.html"/>
     <menu-item label="Mailing list" source="mailinglist.xml"/>
     <menu-item type="external" label="FAQ" href="http://jakarta.apache.org:8080/jyve-faq/Turbine/screen/DisplayTopics/action/SetAll/project_id/2/faq_id/39"/>
@@ -59,6 +58,11 @@
   <menu label="Misc.">
     <menu-item label="Why the name ?" source="cactusname.xml"/>
     <menu-item label="Resources" source="resources.xml"/>
+  </menu>
+
+  <menu label="Developers">
+    <menu-item type="external" label="CVS" href="http://jakarta.apache.org/site/cvsindex.html"/>
+    <menu-item label="Coding Conventions" source="coding_conventions.xml"/>
   </menu>
 
 </book>

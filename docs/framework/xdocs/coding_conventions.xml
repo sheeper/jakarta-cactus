@@ -1,0 +1,356 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE document SYSTEM "./dtd/document-v10.dtd">
+
+<document>
+  <header>
+    <title>Coding Conventions</title>
+    <authors>
+      <person name="Vincent Massol" email="vmassol@users.sourceforge.net"/>
+    </authors>
+  </header>
+
+  <body>
+
+    <s1 title="Forewords">
+
+      <p>
+        This document describes a list of coding conventions that are
+        required for code submissions to the project. By default, the coding
+        conventions for most Open Source Projects should follow the existing coding
+        conventions in the code that you are working on. For example,
+        if the bracket is on the same line as the if statement, then you
+        should write all your code to have that convention.
+      </p>
+      <note>
+        <strong>If you commit code that does not follow these conventions and
+        you are caught, you are responsible for also fixing your own code.
+        </strong>
+      </note>
+      <p>
+         Below is a list of coding conventions that are specific to Cactus,
+         everything else not specificially mentioned here should follow the
+         official <link
+         href="http://java.sun.com/docs/codeconv/html/CodeConvTOC.doc.html">Sun
+         Java Coding Conventions</link>.
+      </p>
+
+    </s1>
+
+    <s1 title="Cactus specific coding conventions">
+
+      <s2 title="1. Brackets">
+
+        <p>
+          For class and method declaration, brackets should begin and end on a
+          <strong>new</strong> line. Example :
+        </p>
+
+<source><![CDATA[
+public class SomeClass
+{
+    public void someMethod()
+    {
+    }
+}
+]]></source>
+
+        <p>
+          Brackets for blocks of code inside methods should begin and end
+          on the <strong>same</strong> line (this applies to <code>if</code>,
+          <code>for</code>, <code>while</code>, <code>try/catch</code>, ...).
+          Example :
+        </p>
+
+<source><![CDATA[
+public void someMethod()
+{
+    if (expression) {
+    } else if (other_expression) {
+    }
+
+    try {
+    } catch (Exception e) {
+    }
+}
+]]></source>
+
+        <p>
+          <strong>Brackets are mandatory even for single line statements !
+          </strong>
+        </p>
+
+<source><![CDATA[
+// Incorrect
+if (expression)
+    // some code
+
+// Correct
+if (expression) {
+    // some code
+}
+]]></source>
+
+      </s2>
+
+      <s2 title="2. Blank Spaces">
+
+        <p>
+           keywords followed by a parenthesis should be separated by a space.
+           Example :
+        </p>
+
+<source><![CDATA[
+while (true) {
+    // some code
+}
+]]></source>
+
+        <p>
+          Blank space should appear after commas in argument lists. Binary
+          operators should be separated from their operands by spaces :
+        </p>
+
+<source><![CDATA[
+a += c + d;
+a = (a + b) / (c * d);
+
+while (d++ = s++) {
+    n++;
+}
+
+printSize("size is " + foo + "\n");
+]]></source>
+
+      </s2>
+
+      <s2 title="3. Indentations">
+
+        <p>
+          <strong>4 spaces. NO tabs</strong>. Period. We understand that a lot
+          of you like to
+          use tabs, but the fact of the matter is that in a distributed
+          development environment, when the cvs commit messages get sent to a
+          mailing list, they are almost impossible to read if you use tabs.
+        </p>
+
+      </s2>
+
+      <s2 title="4. Comments">
+
+        <p>
+          Javadoc SHOULD exist on all your class members (methods + class
+          variables), including the private ones. Also, if you are working on
+          existing code and there currently isn't a javadoc for that
+          method/class/variable or whatever, then you should contribute and
+          add it. This will improve the project as a whole.
+        </p>
+        <p>
+          Also add code comments when you think it's necessary (like
+          assumptions), especially when the code is not obvious.
+        </p>
+
+      </s2>
+
+      <s2 title="5. License">
+
+        <p>
+          The Jakarta Apache/Cactus License MUST be placed at the top of each
+          and every file.
+        </p>
+
+      </s2>
+
+      <s2 title="6. Author references">
+
+        <p>
+          If you contribute to a file (code or documentation), add yourself to
+          the top of the file (below the existing authors). For java files the
+          preferred Javadoc format is:
+        </p>
+
+<source><![CDATA[
+@author <a href="mailto:user@domain.com">John Doe</a>
+]]></source>
+
+      </s2>
+
+      <s2 title="7. Class variables">
+
+        <p>
+          Class variables should not have any prefix and <strong>must</strong>
+          be referenced using the <code>this</code> object. Example :
+        </p>
+
+<source><![CDATA[
+public class SomeClass
+{
+    private String someString;
+[...]
+    public void someMethod()
+    {
+        logger.debug("Value = " + this.someString);
+    }
+}
+]]></source>
+
+      </s2>
+
+      <s2 title="8. Parameter names">
+
+        <p>
+          Method parameters should be prefixed by "<code>the</code>" (for
+          differentiating them from inner variables). For example :
+        </p>
+
+<source><![CDATA[
+public void someMethod(String theClassName)
+{
+    String className; // inner variable
+}
+]]></source>
+
+      </s2>
+
+      <s2 title="9. Line length">
+
+        <p>
+          Avoid lines longer than 80 characters for Code, comments, ...
+        </p>
+
+      </s2>
+
+      <s2 title="10. Versionning">
+
+        <p>
+          All .java files should have a <code>@version</code> tag like the one
+          below.
+        </p>
+
+<source><![CDATA[
+@version $Id$
+]]></source>
+
+      </s2>
+
+      <s2 title="11. Logging">
+
+        <p>
+          Do <strong>not</strong> use <code>System.out</code> to log. Instead,
+          use the Cactus logging classes which are a facade to Log4j. Use the
+          name of your class as the Log4j <code>Category</code>.For
+          example :
+        </p>
+
+<source><![CDATA[
+private static Log logger =
+    LogService.getInstance().getLog(MyClass.class.getName());
+
+public void someMethod()
+{
+    logger.debug("some debug text");
+}
+]]></source>
+
+        <p>
+          Try as much as possible to log entry and exits of methods with
+          the parameter values. Cactus logging interface provides 2 methods
+          for this : <code>logger.entry()</code> and <code>logger.exit()</code>,
+          used as follows :
+        </p>
+
+<source><![CDATA[
+public void someMethod(String theClassName)
+{
+    logger.entry("someMethod([" + theClassName + "])");
+[...]
+    logger.exit("someMethod");
+}
+]]></source>
+
+        <p>
+          This will translate in the following log :
+        </p>
+
+<source><![CDATA[
+3435 [ApplicationServerThread] DEBUG some.package.MyClass - >someMethod([SomeClassName])
+3436 [ApplicationServerThread] DEBUG some.package.MyClass - <someMethod
+]]></source>
+
+        <p>
+          If there is no value in logging the parameters (for example because
+          the object passed as parameter do not have a string representation
+          and you cannot add one), use the following :
+        </p>
+
+<source><![CDATA[
+public void someMethod(InputStream theInputStream)
+{
+    logger.entry("someMethod(...)");
+[...]
+    logger.exit("someMethod");
+}
+]]></source>
+
+        <p>
+          This is because you could have a method within your class with the
+          same name but without parameters and we need to differentiate that
+          in the logs.
+        </p>
+
+      </s2>
+
+      <s2 title="12. Exception handling">
+
+        <p>
+          Managing exceptions correctly requires experience. This is not
+          supposed to be a guide on managing exceptions, simply a few best
+          practices.
+        </p>
+        <ul>
+          <li>
+            <strong>Rule 1</strong> : Try to catch exceptions as much as
+            possible and rethrow higher level exceptions (meaning hiding the
+            low level detailed and putting a message that is more related to
+            the function of your code).
+          </li>
+          <li>
+            <strong>Rule 2</strong> : It is important not to loose the stack
+            trace which contains important information. Use chained exceptions
+            for that. Cactus provides a <code>ChainedRuntimeException</code>
+            for chaining runtime exceptions.
+          </li>
+          <li>
+            <strong>Rule 3</strong> : Always log the exception at the higher
+            level (ie. where it is handled and not rethrown).
+          </li>
+          <li>
+            <strong>Rule 4</strong> : Try to avoid catching
+            <code>Throwable</code> or <code>Exception</code> and catch
+            specific exceptions instead.
+          </li>
+        </ul>
+        <p>
+          An example :
+        </p>
+
+<source><![CDATA[
+public void getTestClass()
+{
+    try {
+        Class responseClass =
+            Class.forName("some.package.MyClass");
+    } catch (ClassNotFoundException cnfe) {
+        String message = "Cannot instantiate test class";
+        logger.error(message);
+        throw new ChainedRuntimeException(message, e);
+    }
+}
+]]></source>
+
+      </s2>
+
+    </s1>
+
+  </body>
+</document>
