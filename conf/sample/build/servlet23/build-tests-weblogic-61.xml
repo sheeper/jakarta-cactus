@@ -10,7 +10,7 @@
              The servlet engine is stopped if the tests fail for any reason -->
 
         <runservertests 
-            testURL=""http://localhost:${test.port}/test/ServletRedirector?Cactus_Service=RUN_TEST""
+            testURL="http://localhost:${test.port}/test/ServletRedirector?Cactus_Service=RUN_TEST"
             startTarget="start_weblogic_61"
             stopTarget="stop_weblogic_61"
             testTarget="tests"/>
