@@ -36,9 +36,6 @@
         Add a tutorial for building Cactus from the source distribution.
       </action>
       <action assigned-to="Vincent Massol">
-        Rewrite an Ant integration tutorial.
-      </action>
-      <action assigned-to="Vincent Massol">
         Rewrite a Cactus TestCase tutorial that explains the different
         <code>TestCase</code> classes and how to write tests using them.
       </action>
@@ -49,6 +46,9 @@
       <action assigned-to="Nicholas Lesiecki">
         Write a tutorial that explains how to unit test Tag libraries (only
         taglets that extend TagSupport for the moment).
+      </action>
+      <action assigned-to="Vincent Massol">
+        Write a tutorial that explains how to unit test Servlet Filters.
       </action>
       <action>
         Add a tutorial/FAQ entry for explaining unit testing of persistent
@@ -96,10 +96,6 @@
         Continue support for JSP Taglib to fully support all types of taglets
         (even the one with body content which extend TagBodySupport). At the
         current time only taglib that extend TagSupport are supported.
-      </action>
-      <action assigned-to="Vincent Massol">
-        Design and implement support for unit testing Filters (Servlet API
-        2.3 only).
       </action>
       <action>
         Handle <code>getRealPath()</code>, <code>getPathTranslated()</code> in
