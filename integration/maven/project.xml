@@ -18,7 +18,7 @@
   <siteDirectory>/www/jakarta.apache.org/cactus/integration/maven/</siteDirectory>
   <repository>
     <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-cactus/integration/maven/</connection>
-    <url>http://cvs.apache.org/viewcvs/jakarta-cactus/integration/maven</url>
+    <url>http://cvs.apache.org/viewcvs/jakarta-cactus/integration/maven/</url>
   </repository>
   <dependencies>
     <dependency>
