@@ -60,6 +60,7 @@
   <resource id="howto_ant_cactus" target="integration/ant/howto_ant_cactus.html"/>
   <resource id="howto_ant_install" target="integration/ant/howto_ant_install.html"/>
   <resource id="howto_ant_primer" target="integration/ant/howto_ant_primer.html"/>
+  <resource id="task_runservertests" target="integration/ant/task_runservertests.html"/>
   <resource id="task_webxmlmerge" target="integration/ant/task_webxmlmerge.html"/>
   <resource id="howto_httpunit" target="writing/howto_httpunit.html"/>
   <resource id="howto_sample" target="howto_sample.html"/>

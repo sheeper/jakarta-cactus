@@ -13,6 +13,7 @@
   </menu>
 
   <menu label="Ant Tasks">
+    <item id="task_runservertests" label="RunServerTests"/>
     <item id="task_webxmlmerge" label="WebXmlMerge"/>
   </menu>
 

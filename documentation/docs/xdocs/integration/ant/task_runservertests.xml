@@ -1,0 +1,136 @@
+<?xml version="1.0"?>
+
+<document id="task_runservertests">
+
+  <properties>
+    <title>RunServerTests Ant Task</title>
+    <authors>
+      <author name="Vincent Massol" email="vmassol@apache.org"/>
+      <author name="Christopher Lenz" email="cmlenz@apache.org"/>
+    </authors>
+  </properties>
+
+  <body>
+
+  <section title="RunServerTests Task">
+
+    <p>
+      The <strong>runservertests</strong> task provides support for starting up
+      a servlet container to run in-container tests, and shutting it down again
+      after the tests have completed.
+    </p>
+    <p>
+      This task will perform several actions, in the following order:
+    </p>
+    <ul>
+      <li>
+        Check if a server is already started by constantly trying to
+        call the test URL defined by the <code>testurl</code> attribute.
+      </li>
+      <li>
+        If a server is not running, call the Ant target defined by the
+        <code>starttarget</code> attribute. This target is supposed to start 
+        your container. The <strong>runservertests</strong> task will then
+        constantly poll the server by calling the test URL until the server
+        answers back.
+      </li>
+      <li>
+        It will then call the Ant target defined by the <code>testtarget</code>
+        attribute. This target is supposed to run the unit tests. This is
+        usually implemented by using the Ant <code>junit</code> task.
+      </li>
+      <li>
+        Once the tests are finished (i.e. when the
+        <code>testtarget</code> has finished executing), it will then
+        call the Ant target defined by the <code>stoptarget</code> attribute.
+        This target is supposed to stop the container. The
+        <strong>runservertests</strong> task will then constantly poll the
+        server by calling the test URL until the server stops answering, at
+        which point it will consider the server to be stopped. Note that the
+        <code>stoptarget</code> will only get called if the server was not
+        already started when the <strong>runservertests</strong> task began
+        executing. This is to allow keeping running servers for intensive
+        debugging phases.
+      </li>
+    </ul>
+    <p>
+      The <strong>runservertests</strong> task is generic in the sense that you
+      are free to define the <code>starttarget</code>, <code>testtarget</code>
+      and <code>stoptarget</code> as you wish and they will get called at the
+      right time.
+    </p>
+
+    <note>
+      Since Ant 1.5, the effects of this task can also be achieved by using a
+      combination of the built-in Ant tasks <code>waitfor</code> (with the 
+      <code>http</code> condition), <code>parallel</code>, 
+      <code>sequential</code> and <code>antcall</code>.
+    </note>
+
+    <section title="Parameters">
+
+      <table>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Required</th>
+        </tr>
+        <tr>
+          <td>testurl</td>
+          <td>
+            The HTTP URL to check whether the server is running.
+          </td>
+          <td>Yes</td>
+        </tr>
+        <tr>
+          <td>starttarget</td>
+          <td>
+            The target that is called when the server needs to be started.
+          </td>
+          <td>Yes</td>
+        </tr>
+        <tr>
+          <td>stoptarget</td>
+          <td>
+            The target that is called when the server should be shut down.
+          </td>
+          <td>Yes</td>
+        </tr>
+        <tr>
+          <td>testtarget</td>
+          <td>
+            The target that is called once the server is running. This target
+            will normally perform the actual unit tests.
+          </td>
+          <td>Yes</td>
+        </tr>
+      </table>
+
+    </section>
+
+    <section title="Examples">
+
+      <p>
+        In the following example, the target <code>start.tomcat.40</code> will
+        be called if the specified test URL is not available. After the server
+        has started up so that requests to the test URL return successful HTTP
+        status codes, the target <code>test</code> is called. Finally, after the
+        <code>test</code> target has completed, the target
+        <code>stop.tomcat.40</code> is called to shut down the servlet
+        container.
+      </p>
+
+      <source><![CDATA[
+<runservertests
+    testurl="http://localhost:${test.port}/test/ServletRedirector?Cactus_Service=RUN_TEST"
+    starttarget="start.tomcat.40"
+    stoptarget="stop.tomcat.40"
+    testtarget="test"/>
+]]></source>
+
+    </section>
+
+  </section>
+
+  </body>
+</document>

@@ -6,6 +6,7 @@
     <title>Running Cactus tests from Ant</title>
     <authors>
       <author name="Vincent Massol" email="vmassol@apache.org"/>
+      <author name="Christopher Lenz" email="cmlenz@apache.org"/>
     </authors>
   </properties>
 
@@ -16,13 +17,13 @@
       <note>
         <strong>You need to have a good understanding of Ant before
         reading this tutorial. If you don't, I suggest you read the
-        <link href="http://jakarta.apache.org/ant/manual/index.html">Ant
+        <link href="http://ant.apache.org/manual/index.html">Ant
         User Manual</link> first</strong>.
       </note>
 
       <p>
-        This tutorial explains how start Cactus tests from your Ant build
-        script (i.e. <code>build.xml</code>).
+        This tutorial explains how to integrate Cactus tests with a build
+        process based on Apache <link href="ext:ant">Ant</link>.
       </p>
       <p>
         The Ant tasks involved for running a Cactus test are the following:
@@ -30,159 +31,81 @@
       <ul>
         <li>
           <em>Step 0</em>: (optional) Deploy configuration files for your
-          container,
+          container
         </li>
         <li>
           <em>Step 1</em>: Package your Cactus tests as a WAR file and
-          deploy it to your servlet engine webapps directory,
+          deploy it to your servlet engine webapps directory
         </li>
         <li>
           <em>Step 2</em>: Start your servlet engine if it is not already
-          started,
-         </li>
-         <li>
-           <em>Step 3</em>: Run the tests using JUnit,
-         </li>
-         <li>
-           <em>Step 4</em>: Stop the servlet engine (if need be)
-         </li>
-       </ul>
-       <p>
-         Cactus provides a custom Ant task (called the
-         <code>&lt;runservertests&gt;</code> task) that helps perform all these
-         tasks. The rest of this tutorial will explain how to write an Ant 
-         build file (<code>build.xml</code>) that performs these tasks and use
-         the Cactus custom Ant task.
-       </p>
-        <p>
-          During the remainder of this tutorial we will show examples for
-          Tomcat 4.0. However, the principle can be applied to any other
-          container. Ant Scripts for other containers can be found in the
-          <code>/sample/build</code> directory where you have unpacked the
-          Cactus distribution.
-        </p>
+          started
+        </li>
+        <li>
+          <em>Step 3</em>: Run the tests using JUnit
+        </li>
+        <li>
+          <em>Step 4</em>: Stop the servlet engine if it hadn't been running
+          before
+        </li>
+      </ul>
+      <p>
+        Cactus provides a couple of custom Ant tasks that help perform these 
+        steps. The rest of this tutorial will explain how to write an Ant 
+        build file (<code>build.xml</code>) that performs the above steps using
+        the Cactus custom Ant tasks.
+      </p>
+      <p>
+        During the remainder of this tutorial we will show examples for
+        Tomcat 4.0. However, the principle can be applied to any other
+        container. Ant scripts for other containers are included with the 
+        distribution of the Cactus/Ant-integration.
+      </p>
 
-     </section>
+    </section>
 
-     <section title="The &lt;runservertests&gt; task">
+    <section title="Using the Cactus Ant Tasks">
 
-        <p>
-          This task will perform several actions, in the following order:
-        </p>
+      <p>
+        The Cactus/Ant-integration includes some custom tasks that can be used
+        from within Ant build files.
         <ul>
           <li>
-            Check if a server is already started by constantly trying to
-            call the test URL defined by the <code>testURL</code>
-            attribute (see the example below),
+            <link href="site:task_runservertests">RunServerTests</link>
+            provides support for starting up a servlet container to run
+            in-container tests, and shutting it down again after the tests have
+            completed.
           </li>
           <li>
-            If a server is not started, call the Ant target defined by the
-            <code>startTarget</code> attribute (see the example below). This
-            target is
-            supposed to start your container. The <code>&lt;runservertests&gt;</code>
-            task will then constantly poll the server by calling the test URL
-            until the server answers back,
-          </li>
-          <li>
-            It will then call the Ant target defined by the
-            <code>testTarget</code> attribute (see the example below). This
-            target is
-            supposed to start the unit tests. This is usually implemented
-            by using the Ant <code>junit</code> task,
-          </li>
-          <li>
-            Once the tests are finished (i.e. when the
-            <code>testTarget</code> has finished executing), it will then
-            call the Ant target defined by the <code>stopTarget</code>
-            attribute (see the example below). This target is supposed to stop
-            the container. The <code>&lt;runservertests&gt;</code>
-            task will then constantly poll the server by calling the test URL
-            until the server stops answering, at which point it will consider
-            the server to be stopped. Note that the <code>stopTarget</code>
-            will only get called if the server was not already started when
-            the <code>&lt;runservertests&gt;</code> task began executing. This
-            is to allow keeping running servers for intensive debugging phases.
+            <link href="site:task_webxmlmerge">WebXmlMerge</link> provides a
+            convenient way to inject external definitions into a web deployment
+            descriptor (<code>web.xml</code>) from an Ant build
           </li>
         </ul>
-        <p>
-          The <code>&lt;runservertests&gt;</code> task is generic in the sense 
-          that you are free to implement the <code>startTarget</code>,
-          <code>testTarget</code> and <code>stopTarget</code> as you wish and
-          they will get called at the right time.
-        </p>
-        <p>
-          Example:
-        </p>
+      </p>
+      
+      <p>
+        Before you can use one of these tasks, you need to introduce it to Ant
+        as it is not a built-in task. This is done in a build file using the
+        <code>taskdef</code> task:
+      </p>
 
 <source><![CDATA[
-<!--
-   ========================================================================
-     Run Tomcat 4.0 tests
-   ========================================================================
--->
-<target name="test.tomcat.40" depends="prepare.test.tomcat.40"
-    if="tomcat.home.40" description="Run tests on Tomcat 4.0">
-
-    <!-- Start the servlet engine, wait for it to be started, run the
-         unit tests, stop the servlet engine, wait for it to be stopped.
-         The servlet engine is stopped if the tests fail for any reason -->
-
-    <runservertests
-        testURL="http://localhost:${test.port}/test/ServletRedirector?Cactus_Service=RUN_TEST"
-        startTarget="start.tomcat.40"
-        stopTarget="stop.tomcat.40"
-        testTarget="test"/>
-
-</target>
+<taskdef resource="cactus.tasks">
+  <classpath>
+    <pathelement location="${cactus-ant.jar}"/>
+  </classpath>
+</taskdef>
 ]]></source>
 
        <p>
-         Before you can execute the <code>&lt;runservertests&gt;</code> task,
-         you need to define it for Ant as it is not a standard Ant task. A
-         good place to do this is in an <code>init</code> target.
+         In this example, <code>${cactus-ant.jar}</code> is an Ant property that
+         points to the Cactus JAR that contains the custom Ant tasks. Note that
+         by specifying the <code>resource</code> attribute, it is not
+         necessary to define each task individually. The value of this
+         attribute, <code>cactus.tasks</code>, is a property file contained in 
+         the JAR file which lists all tasks provided by Cactus.
        </p>
-       <p>
-         Example:
-       </p>
-
-<source><![CDATA[
-<!--
-   ======================================================================
-     Initialize the build. Must be called by all targets
-   ======================================================================
--->
-<target name="init">
-    [...]
-    <taskdef resource="cactus.tasks">
-        <classpath>
-            <pathelement location="${cactus.ant.jar}"/>
-        </classpath>
-    </taskdef>
-    [...]
-</target>
-]]></source>
-
-       <p>
-         where <code>${cactus.ant.jar}</code> is an Ant property that points
-         to the <code>cactus-ant.jar</code> file found in the
-         <code>lib/</code> directory where you unpacked the Cactus
-         distribution. In this example, <em>&quot;cactus.tasks&quot;</em> 
-         refers to a property file contained in the 
-         <code>cactus-ant.jar</code>. This       property file lists the Ant 
-         tasks provided by Cactus, so you don't need to specify the class name 
-         that implements the task.
-       </p>
-
-       <note>
-         The <code>prepare.test.tomcat.40</code> target is described in
-         Step 0 below.
-       </note>
-
-       <note>
-         The <code>tomcat.home.40</code> is simply an Ant property that
-         points to the directory where Tomcat 4.0 has been installed. If this
-         property is not defined we don't run the tests.
-       </note>
 
      </section>
 
