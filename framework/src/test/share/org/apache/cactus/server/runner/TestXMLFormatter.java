@@ -3,7 +3,7 @@
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2001-2004 The Apache Software Foundation.  All rights
+ * Copyright (c) 2004 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -54,52 +54,57 @@
  * <http://www.apache.org/>.
  *
  */
-package org.apache.cactus;
+package org.apache.cactus.server.runner;
 
-import org.apache.cactus.configuration.ConfigurationInitializer;
-import org.apache.cactus.server.runner.TestXMLFormatter;
-
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import junit.framework.TestCase;
+import junit.framework.TestResult;
 
 /**
- * Run all the unit tests of Cactus that do not need a servlet
- * environment to run. These other tests will be exercised in the sample
- * application.
+ * Unit tests for {@link XMLFormatter}.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
  *
  * @version $Id$
  */
-public class TestAll
-{
+public final class TestXMLFormatter extends TestCase
+{   
     /**
-     * @return a test suite (<code>TestSuite</code>) that includes all methods
-     *         starting with "test"
-     * @exception Exception on failure to load the cactus properties file
+     * Instance to unit test 
      */
-    public static Test suite() throws Exception
+    private XMLFormatter formatter;
+   
+    /**
+     * TestResult object used for testing
+     */
+    private TestResult testResult;
+    
+    /**
+     * Set up common mock behaviors.
+     */
+    public void setUp()
     {
-        TestSuite suite = new TestSuite(
-            "Cactus unit tests not needing servlet engine");
+        formatter = new XMLFormatter();
+        testResult = new TestResult();
+    }
 
-        // Make sure logging configuration properties are initialized so
-        // that it is possible to control logging from the outside of the
-        // tests.
-        ConfigurationInitializer.initialize();
+    public void testToXmlEmptyWithDefaultEncoding()
+    {
+        String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+            + "<testsuites><testsuite name=\"null\" tests=\"0\" failures=\"0\""
+            + " errors=\"0\" time=\"0\"></testsuite></testsuites>";
         
-        suite.addTestSuite(TestAbstractTestCase.class);
-        suite.addTestSuite(TestServletURL.class);
-        suite.addTestSuite(TestServletUtil.class);
-        suite.addTestSuite(TestWebTestResult.class);
-        suite.addTestSuite(TestWebRequest.class);
+        String result = formatter.toXML(testResult);
+        assertEquals(expected, result);
+    }
 
-        suite.addTest(org.apache.cactus.internal.client.TestAll.suite());
-        suite.addTest(org.apache.cactus.util.TestAll.suite());
-
-        suite.addTestSuite(TestXMLFormatter.class);
+    public void testToXmlEmptyWithCustomEncoding()
+    {
+        String expected = "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>"
+        + "<testsuites><testsuite name=\"null\" tests=\"0\" failures=\"0\""
+        + " errors=\"0\" time=\"0\"></testsuite></testsuites>";
         
-        return suite;
+        formatter.setEncoding("ISO-8859-1");
+        String result = formatter.toXML(testResult);
+        assertEquals(expected, result);
     }
 }

@@ -68,6 +68,13 @@
       </devs>
 
       <release version="1.6dev" date="in CVS">
+        <action dev="VMA" type="add">
+          Added new <code>encoding</code> HTTP parameter for the Cactus Servlet 
+          TestRunner. By default the XML returned (when there is no server-side
+          XSL transformation) is using the UTF-8 encoding. This 
+          <code>encoding</code> parameters allows using a user-specified 
+          encoding.
+        </action>
         <action dev="VMA" type="fix" fixes-bug="26401" due-to="Scott Leberknight" due-to-email="scott.leberknight@nearinfinity.com">
           Fixed <code>request.getRequestURL()</code> (J2EE 1.3 only) which was 
           not working properly when <code>WebRequest.setURL()</code> was called

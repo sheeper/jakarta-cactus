@@ -112,6 +112,11 @@ public class XMLFormatter implements XMLConstants, TestListener
     private long totalDuration;
 
     /**
+     * Encoding to use for the returned XML. Defaults to "UTF-8". 
+     */
+    private String encoding = "UTF-8";
+    
+    /**
      * Time current test was started
      */
     private long currentTestStartTime;
@@ -145,6 +150,22 @@ public class XMLFormatter implements XMLConstants, TestListener
         this.xslFileName = theXslFileName;
     }
 
+    /**
+     * @param theEncoding the encoding to use for the returned XML.
+     */
+    public void setEncoding(String theEncoding)
+    {
+        this.encoding = theEncoding;
+    }
+
+    /**
+     * @return the encoding to use for the returned XML
+     */
+    public String getEncoding()
+    {
+        return this.encoding;
+    }
+    
     /**
      * @return the suite class name
      */
@@ -202,7 +223,8 @@ public class XMLFormatter implements XMLConstants, TestListener
     {
         StringBuffer xml = new StringBuffer();
 
-        xml.append("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>");
+        xml.append("<?xml version=\"1.0\" encoding=\"" + getEncoding()
+            + "\"?>");
 
         if (this.xslFileName != null)
         {

@@ -293,6 +293,7 @@ framework/src/test/share/org/apache/cactus/TestWebTestResult.java svn_keywords=A
 framework/src/test/share/org/apache/cactus/internal/client/TestAll.java svn_keywords=Author+Date+Id+Revision
 framework/src/test/share/org/apache/cactus/internal/client/TestWebTestResultParser.java svn_keywords=Author+Date+Id+Revision
 framework/src/test/share/org/apache/cactus/mock/MockHttpURLConnection.java svn_keywords=Author+Date+Id+Revision
+framework/src/test/share/org/apache/cactus/server/runner/TestXMLFormatter.java svn_keywords=Author+Date+Id+Revision
 framework/src/test/share/org/apache/cactus/util/TestAll.java svn_keywords=Author+Date+Id+Revision
 framework/src/test/share/org/apache/cactus/util/TestCookieUtil.java svn_keywords=Author+Date+Id+Revision
 framework/src/test/share/org/apache/cactus/util/TestStringUtil.java svn_keywords=Author+Date+Id+Revision

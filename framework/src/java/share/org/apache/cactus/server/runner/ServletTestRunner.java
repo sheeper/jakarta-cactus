@@ -3,7 +3,7 @@
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2001-2003 The Apache Software Foundation.  All rights
+ * Copyright (c) 2001-2004 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -118,6 +118,11 @@ public class ServletTestRunner extends HttpServlet
     private static final String XSL_STYLESHEET_PARAM = "xsl-stylesheet";
 
     /**
+     * Encoding to use for the returned XML.
+     */
+    private static final String ENCODING_PARAM = "encoding";
+    
+    /**
      * The XML transformer. Avoid direct dependancy by using reflection.
      */
     private Object transformer = null;
@@ -205,8 +210,11 @@ public class ServletTestRunner extends HttpServlet
         // Get the transform parameter if any
         String transformParam = theRequest.getParameter(HTTP_TRANSFORM_PARAM);
 
+        // Get the enconding parameter, if any
+        String encoding = theRequest.getParameter(ENCODING_PARAM);
+        
         // Run the tests
-        String xml = run(suiteClassName, xslParam);
+        String xml = run(suiteClassName, xslParam, encoding);
 
         // Check if we should do the transformation server side
         if ((transformParam != null) && (transformer != null))
@@ -279,20 +287,25 @@ public class ServletTestRunner extends HttpServlet
      * @param theSuiteClassName the suite containing the tests to run
      * @param theXslFileName the name of the XSL stylesheet or null if we don't
      *        want to apply a stylesheet to the returned XML data
+     * @param theEncoding the encoding to use for the returned XML or null if
+     *        default encoding is to be used
      * @return the result object
      * @exception ServletException if the suite failed to be loaded
      */
-    protected String run(String theSuiteClassName, String theXslFileName)
-        throws ServletException
+    protected String run(String theSuiteClassName, String theXslFileName,
+        String theEncoding) throws ServletException
     {
         TestResult result = new TestResult();
 
         XMLFormatter formatter = new XMLFormatter();
-
         formatter.setXslFileName(theXslFileName);
-
         formatter.setSuiteClassName(theSuiteClassName);
 
+        if (theEncoding != null)
+        {
+            formatter.setEncoding(theEncoding);
+        }
+        
         result.addListener(formatter);
 
         long startTime = System.currentTimeMillis();
@@ -307,7 +320,6 @@ public class ServletTestRunner extends HttpServlet
                 + theSuiteClassName + "], Reason is ["
                 + testRunner.getErrorMessage() + "]");
         }
-
 
         // Run the tests
         suite.run(result);
