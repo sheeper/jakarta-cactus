@@ -117,6 +117,15 @@
 
         <tstamp/>
 
+        <condition property="offline">
+          <or>
+            <isset property="offline"/>
+            <not>
+              <http url="http://www.apache.org/"/>
+            </not>
+          </or>
+        </condition>
+
         <!-- Filters -->
         <filter token="version" value="${project.version}"/>
         <filter token="year" value="${year}"/>
@@ -129,13 +138,20 @@
          Generate the documentation
        ========================================================================
     -->
-    <target name="doc" depends="init">
+    <target name="doc.prepare"
+        depends="init">
 
         <mkdir dir="${target.xdoc.dir}"/>
         <mkdir dir="${target.doc.dir}"/>
         <mkdir dir="${target.doc.dir}/images"/>
 
-        <!-- Generate cvs log -->
+    </target>
+
+    <target name="doc.cvschangelog"
+        depends="doc.prepare"
+        unless="offline">
+
+        <!-- Generate CVS log -->
         <mkdir dir="${target.xdoc.dir}/cvslog"/>
         <cvschangelog dir="${doc.xdoc.dir}"
             usersfile="${doc.xdoc.dir}/cvslog/users.properties"
@@ -150,6 +166,11 @@
                 <include name="**/*.xml"/>
             </fileset>
         </cvschangelog>
+
+    </target>
+
+    <target name="doc"
+        depends="doc.cvschangelog">
 
         <!-- Copy all files that may contain token filters or that are not 
              binary files -->
