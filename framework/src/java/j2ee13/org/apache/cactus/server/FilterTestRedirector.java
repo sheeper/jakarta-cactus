@@ -139,7 +139,7 @@ public class FilterTestRedirector implements Filter
 
     /**
      * Provided so that it works with containers that do not support the
-     * latest Filter spec yet ! (ex: Orion 1.5.2 !)
+     * latest Filter spec yet (ex: Orion 1.5.2)
      *
      * @param theConfig the Filter Config
      */
@@ -150,7 +150,7 @@ public class FilterTestRedirector implements Filter
 
     /**
      * Provided so that it works with containers that do not support the
-     * latest Filter spec yet ! (ex: Orion 1.5.2 !)
+     * latest Filter spec yet (ex: Orion 1.5.2)
      *
      * @return the Filter Config
      */

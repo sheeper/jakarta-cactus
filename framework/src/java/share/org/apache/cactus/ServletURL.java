@@ -63,8 +63,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * Simulate an HTTP URL by breaking it into its different parts :<br>
- * <code><pre><b>
+ * Simulate an HTTP URL by breaking it into its different parts.
+ * <br><code><pre><b>
  * URL = "http://" + serverName (including port) + requestURI ? queryString<br>
  * requestURI = contextPath + servletPath + pathInfo
  * </b></pre></code>
