@@ -87,6 +87,12 @@
   <resource id="release_checklist" source="participating/release_checklist.xml"/>
   <resource id="howto_build" source="participating/howto_build.xml"/>
 
+  <resource id="javadoc_anttasks_api" check="false" source="api/anttasks/index.html"/>
+  <resource id="javadoc_framework_12_api" check="false" source="api/framework-12/index.html"/>
+  <resource id="javadoc_framework_13_api" check="false" source="api/framework-13/index.html"/>
+  <resource id="coverage_clover_12_report" check="false" source="clover-12/index.html"/>
+  <resource id="coverage_clover_13_report" check="false" source="clover-13/index.html"/>
+  
   <!-- External links (sorted alphabetically by id) -->
   
   <external id="ant" url="http://ant.apache.org/"/>
