@@ -71,6 +71,11 @@
       </release>
       
       <release version="1.5-rc1" date="in CVS">
+        <action dev="VMA" type="fix" fixes-bug="23604" due-to="Norbert Pabis" due-to-email="npabis@astercity.net">
+          The Cactus Ant integration now reports the HTTP error code when it 
+          fails to start the container and timeouts. It was previously doing 
+          this but only in debug mode.
+        </action>
         <action dev="VMA" type="update">
           Update the version of Commons HttpClient in the Cactus distribution to 
           1.0 rc2.
