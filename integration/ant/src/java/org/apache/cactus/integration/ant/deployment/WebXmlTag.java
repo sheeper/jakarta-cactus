@@ -346,7 +346,7 @@ public final class WebXmlTag
     /**
      * @see java.lang.Object#toString
      */
-    public final boolean equals(Object theOther)
+    public boolean equals(Object theOther)
     {
         return super.equals(theOther);
     }
@@ -354,7 +354,7 @@ public final class WebXmlTag
     /**
      * @see java.lang.Object#hashCode
      */
-    public final int hashCode()
+    public int hashCode()
     {
         return super.hashCode();
     }
@@ -364,7 +364,7 @@ public final class WebXmlTag
      * 
      * @return The tag name
      */
-    public final String getTagName()
+    public String getTagName()
     {
         return this.tagName;
     }
@@ -374,7 +374,7 @@ public final class WebXmlTag
      * 
      * @return Whether multiple occurrences are allowed
      */
-    public final boolean isMultipleAllowed()
+    public boolean isMultipleAllowed()
     {
         return this.multipleAllowed;
     }
@@ -382,7 +382,7 @@ public final class WebXmlTag
     /**
      * @see java.lang.Object#toString
      */
-    public final String toString()
+    public String toString()
     {
         return getTagName();
     }

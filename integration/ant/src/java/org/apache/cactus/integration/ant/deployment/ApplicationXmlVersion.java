@@ -144,7 +144,7 @@ public final class ApplicationXmlVersion implements Comparable
     /**
      * @see java.lang.Object#toString
      */
-    public final boolean equals(Object theOther)
+    public boolean equals(Object theOther)
     {
         return super.equals(theOther);
     }
@@ -152,7 +152,7 @@ public final class ApplicationXmlVersion implements Comparable
     /**
      * @see java.lang.Object#hashCode
      */
-    public final int hashCode()
+    public int hashCode()
     {
         return super.hashCode();
     }
@@ -162,7 +162,7 @@ public final class ApplicationXmlVersion implements Comparable
      * 
      * @return The tag name
      */
-    public final String getVersion()
+    public String getVersion()
     {
         return this.version;
     }
@@ -192,7 +192,7 @@ public final class ApplicationXmlVersion implements Comparable
     /**
      * @see java.lang.Object#toString
      */
-    public final String toString()
+    public String toString()
     {
         return getVersion();
     }

@@ -190,7 +190,7 @@ public final class GenericContainer extends AbstractContainer
      * @return The new hook element
      * @throws BuildException If a startup hook has already been added
      */
-    public final Hook createStartUp() throws BuildException
+    public Hook createStartUp() throws BuildException
     {
         if (isStartUpSet())
         {
@@ -207,7 +207,7 @@ public final class GenericContainer extends AbstractContainer
      * @return The new hook element
      * @throws BuildException If a shutdown hook has already been added
      */
-    public final Hook createShutDown() throws BuildException
+    public Hook createShutDown() throws BuildException
     {
         if (isShutDownSet())
         {
@@ -245,7 +245,7 @@ public final class GenericContainer extends AbstractContainer
      * 
      * @param theName The container name
      */
-    public final void setName(String theName)
+    public void setName(String theName)
     {
         this.name = theName;
     }
@@ -255,7 +255,7 @@ public final class GenericContainer extends AbstractContainer
      * 
      * @param thePort The port to set
      */
-    public final void setPort(int thePort)
+    public void setPort(int thePort)
     {
         this.port = thePort;
     }
@@ -297,7 +297,7 @@ public final class GenericContainer extends AbstractContainer
     /**
      * @see org.apache.cactus.integration.ant.container.Container#getName
      */
-    public final String getName()
+    public String getName()
     {
         return this.name;
     }
@@ -307,7 +307,7 @@ public final class GenericContainer extends AbstractContainer
      * 
      * @return The port
      */
-    public final int getPort()
+    public int getPort()
     {
         return this.port;
     }
@@ -317,7 +317,7 @@ public final class GenericContainer extends AbstractContainer
      * 
      * @throws BuildException If thrown by the startup hook
      */
-    public final void startUp() throws BuildException
+    public void startUp() throws BuildException
     {
         if (this.startUpHook != null)
         {
@@ -330,7 +330,7 @@ public final class GenericContainer extends AbstractContainer
      * 
      * @throws BuildException If thrown by the shutdown hook
      */
-    public final void shutDown() throws BuildException
+    public void shutDown() throws BuildException
     {
         if (this.shutDownHook != null)
         {

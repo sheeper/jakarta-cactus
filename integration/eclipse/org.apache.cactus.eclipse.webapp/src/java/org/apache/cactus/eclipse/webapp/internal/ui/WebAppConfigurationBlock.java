@@ -200,7 +200,7 @@ public class WebAppConfigurationBlock
      * Possible use : validation of an entry in a dialog field.
      * @param theField field that triggered an event.
      */
-    private final void webappDialogFieldChanged(final DialogField theField)
+    private void webappDialogFieldChanged(final DialogField theField)
     {
         // TODO: validate entries in dialogs
         // Do nothing.
@@ -210,7 +210,7 @@ public class WebAppConfigurationBlock
      * Adapter that dispatches events from StringButtonDialog fields.
      * @param theField field that triggered an event.
      */
-    private final void webappChangeControlPressed(final DialogField theField)
+    private void webappChangeControlPressed(final DialogField theField)
     {
             if (theField == outputField)
             {

@@ -160,7 +160,7 @@ public class ServerTestCaseDelegate extends Assert
      * @return the logger pointing to the wrapped test case that use to perform
      *         logging on behalf of the wrapped test.
      */
-    private final Log getLogger()
+    private Log getLogger()
     {
         return this.logger;
     }

@@ -136,7 +136,7 @@ public final class ApplicationXmlTag
     /**
      * @see java.lang.Object#toString
      */
-    public final boolean equals(Object theOther)
+    public boolean equals(Object theOther)
     {
         return super.equals(theOther);
     }
@@ -144,7 +144,7 @@ public final class ApplicationXmlTag
     /**
      * @see java.lang.Object#hashCode
      */
-    public final int hashCode()
+    public int hashCode()
     {
         return super.hashCode();
     }
@@ -154,7 +154,7 @@ public final class ApplicationXmlTag
      * 
      * @return The tag name
      */
-    public final String getTagName()
+    public String getTagName()
     {
         return this.tagName;
     }
@@ -162,7 +162,7 @@ public final class ApplicationXmlTag
     /**
      * @see java.lang.Object#toString
      */
-    public final String toString()
+    public String toString()
     {
         return getTagName();
     }

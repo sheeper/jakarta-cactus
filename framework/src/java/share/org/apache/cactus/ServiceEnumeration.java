@@ -144,7 +144,7 @@ public final class ServiceEnumeration
      * @see java.lang.Object#equals(Object)
      * @since 1.5
      */
-    public final boolean equals(Object theObject)
+    public boolean equals(Object theObject)
     {
         return super.equals(theObject);
     }
@@ -155,7 +155,7 @@ public final class ServiceEnumeration
      * @see java.lang.Object#equals(Object)
      * @since 1.5
      */
-    public final int hashCode()
+    public int hashCode()
     {
         return super.hashCode();
     }

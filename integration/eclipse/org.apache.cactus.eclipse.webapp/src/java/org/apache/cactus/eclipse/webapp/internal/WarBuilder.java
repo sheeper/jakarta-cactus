@@ -204,7 +204,7 @@ public class WarBuilder
      * @throws JavaModelException if we fail to get the project relative 
      *         output location
      */
-    private static final File getAbsoluteOutputLocation(
+    private static File getAbsoluteOutputLocation(
         final IJavaProject theJavaProject) throws JavaModelException
     {
         IPath projectPath = theJavaProject.getProject().getLocation();
@@ -305,7 +305,7 @@ public class WarBuilder
      * @param theJarEntries the jars to build ZipFileSets from
      * @return an array of ZipFileSet corresponding to the given jars
      */
-    private static final ZipFileSet[] getZipFileSets(
+    private static ZipFileSet[] getZipFileSets(
         final IClasspathEntry[] theJarEntries)
     {
         Vector result = new Vector();
