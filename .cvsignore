@@ -17,3 +17,4 @@ target
 bin
 default.ajsym
 default.lst
+.checkclipse
