@@ -196,7 +196,6 @@ public abstract class AbstractConnectionHelper
      * 
      * @param theRequest The request
      * @param theUrl The URL
-     * @param theCactusCookies The array of Cactus Cookies
      * @return The array of HttpClient cookies
      */
     protected org.apache.commons.httpclient.Cookie[] createHttpClientCookies(
