@@ -6,7 +6,10 @@
 <!-- Checkstyle properties for Cactus projects -->
 <module name="Checker">
   
-  <module name="NewlineAtEndOfFile"/>
+
+<module name="NewlineAtEndOfFile">
+    <property name="lineSeparator" value="lf"/>
+</module>
 
   <module name="TreeWalker">
     
