@@ -71,7 +71,7 @@ public class CactifyActionDelegate implements IObjectActionDelegate
 {
 
     /**
-     * @see org.eclipse.ui.IObjectActionDelegate#setActivePart(org.eclipse.jface.action.IAction, org.eclipse.ui.IWorkbenchPart)
+     * @see IObjectActionDelegate#setActivePart(IAction, IWorkbenchPart)
      */
     public void setActivePart(IAction theAction, IWorkbenchPart theTargetPart)
     {
@@ -89,7 +89,7 @@ public class CactifyActionDelegate implements IObjectActionDelegate
     }
 
     /**
-     * @see org.eclipse.ui.IActionDelegate#selectionChanged(org.eclipse.jface.action.IAction, org.eclipse.jface.viewers.ISelection)
+     * @see IActionDelegate#selectionChanged(IAction, ISelection)
      */
     public void selectionChanged(IAction theAction, ISelection theSelection)
     {
