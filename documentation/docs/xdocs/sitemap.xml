@@ -462,7 +462,7 @@
   <external id="commons_httpclient" url="http://jakarta.apache.org/commons/httpclient/"/>
   <external id="commons_httpclient_multipart" url="http://jakarta.apache.org/commons/httpclient/apidocs/org/apache/commons/httpclient/methods/multipart/package-summary.html"/>
   <external id="commons_httpclient_multipart_tobias" url="http://www.freeroller.net/page/tradem/20030722"/>
-  <external id="commons_logging" url="http://jakarta.apache.org/commons/logging.html"/>
+  <external id="commons_logging" url="http://jakarta.apache.org/commons/logging/"/>
   <external id="cruisecontrol" url="http://cruisecontrol.sourceforge.net/"/>
   <external id="cvs" url="http://jakarta.apache.org/site/cvsindex.html"/>
   <external id="easymock" url="http://easymock.org"/>
