@@ -4,417 +4,34 @@ RCS file: /home/eclipse/org.eclipse.jdt.junit/plugin.properties,v
 retrieving revision 1.11
 diff -u -r1.11 plugin.properties
 --- plugin.properties	28 May 2002 08:36:22 -0000	1.11
-+++ plugin.properties	2 Jan 2003 15:12:05 -0000
++++ plugin.properties	7 Jan 2003 12:25:23 -0000
 @@ -15,3 +15,4 @@
  TestSuiteWizard.name= TestSuite
  
  JUnitShortcut.label=JUnit Test
-+TestRunListener.name= TestRun Listeners
++TestRunListener.name= TestRun ListenersTestRunListener.name= TestRun Listeners
 \ No newline at end of file
 Index: plugin.xml
 ===================================================================
 RCS file: /home/eclipse/org.eclipse.jdt.junit/plugin.xml,v
-retrieving revision 1.35
-diff -u -r1.35 plugin.xml
---- plugin.xml	12 Dec 2002 11:46:25 -0000	1.35
-+++ plugin.xml	2 Jan 2003 15:12:05 -0000
-@@ -1,185 +1,210 @@
- <?xml version="1.0" encoding="UTF-8"?>
--
- <plugin
--	id="org.eclipse.jdt.junit"
--	name="%pluginName"
--	version="2.1.0"
--	class="org.eclipse.jdt.internal.junit.ui.JUnitPlugin"
--	provider-name="%providerName">
--
--	<requires>
--		<import plugin="org.eclipse.ui"/>
--		<import plugin="org.eclipse.core.resources"/>
--		<import plugin="org.eclipse.core.boot"/>
--		<import plugin="org.eclipse.debug.core"/>
--		<import plugin="org.eclipse.debug.ui"/>
--		<import plugin="org.eclipse.jdt.core"/>
--		<import plugin="org.eclipse.jdt.ui"/>
--		<import plugin="org.eclipse.jdt.debug"/>
--		<import plugin="org.eclipse.swt"/>
--		<import plugin="org.eclipse.core.runtime"/>
--		<import plugin="org.eclipse.jdt.launching"/>
--		<import plugin="org.eclipse.jdt.debug.ui"/>
--		<import plugin="org.junit"/>     
--	</requires>
--	
--	<runtime>
--		<library name="junitsupport.jar">
--			<export name="*"/>
--			<packages prefixes="org.eclipse.jdt.internal.junit"/>
--		</library>
--	</runtime>
--
--	<extension
--		point="org.eclipse.ui.views">
--		<view
--			name="%View.label"
--			icon="icons/full/cview16/junit.gif"
--			category="org.eclipse.jdt.ui.java"
--			class="org.eclipse.jdt.internal.junit.ui.TestRunnerViewPart"
--			id="org.eclipse.jdt.junit.ResultView"
--			fastViewWidthRatio="0.40">	
--		</view>
--	</extension>
--	
--    <extension 
--    	point="org.eclipse.ui.perspectiveExtensions">
--        <perspectiveExtension 
--           targetID="org.eclipse.jdt.ui.JavaPerspective"> 
--           <view id="org.eclipse.jdt.junit.ResultView" 
--                relative="org.eclipse.jdt.ui.PackageExplorer"
--                visible="false" 
--                relationship="stack"/> 
--        </perspectiveExtension> 
--        <perspectiveExtension 
--			targetID="org.eclipse.jdt.ui.JavaPerspective">
--			<actionSet id="org.eclipse.jdt.junit.JUnitActionSet"/>
--		</perspectiveExtension>
--		<perspectiveExtension 
--			targetID="org.eclipse.jdt.ui.JavaBrowsingPerspective">
--			<actionSet id="org.eclipse.jdt.junit.JUnitActionSet"/>
--		</perspectiveExtension>
--    </extension> 
--
--	<extension
--		point="org.eclipse.ui.preferencePages">
--		<page name="%PreferencePage.label"
--			id="org.eclipse.jdt.junit.preferences"
--			class="org.eclipse.jdt.internal.junit.ui.JUnitPreferencePage"
--			category= "org.eclipse.jdt.ui.preferences.JavaBasePreferencePage"> 
--		</page>
--	</extension>
--	
--	<extension point = "org.eclipse.debug.core.launchConfigurationTypes">
--   		<launchConfigurationType
--   	   		id="org.eclipse.jdt.junit.launchconfig"
--	   		name="%Launch.label"
--	   		delegate="org.eclipse.jdt.internal.junit.launcher.JUnitLaunchConfiguration"
--	   		modes= "run, debug">
--	   <fileExtension
--	   		extension="java"
--	   		default="false"/>
--	   <fileExtension
--	   		extension="class"
--	   		default="false"/>
--   		</launchConfigurationType>
--	</extension>
--	
--	<extension point = "org.eclipse.debug.core.launchConfigurationComparators">
--		<launchConfigurationComparator
--			id = "org.eclipse.jdt.junit.containerComparator"
--			class = "org.eclipse.jdt.internal.junit.launcher.ContainerComparator"
--			attribute = "org.eclipse.jdt.junit.CONTAINER"/>
--	</extension>
--	
--	<extension point="org.eclipse.debug.ui.launchConfigurationTypeImages">
--		<launchConfigurationTypeImage
--			id="org.eclipse.jdt.junit.launchimage"
--			configTypeID="org.eclipse.jdt.junit.launchconfig"
--			icon="icons/full/obj16/julaunch.gif">
--		</launchConfigurationTypeImage>	
--	</extension>
--		
--	<extension point = "org.eclipse.debug.ui.launchConfigurationTabGroups">
--		<launchConfigurationTabGroup
--			id="org.eclipse.jdt.junit.launchConfigurationTabGroup.junit"
--			type ="org.eclipse.jdt.junit.launchconfig"
--			class="org.eclipse.jdt.internal.junit.launcher.JUnitTabGroup">
--		</launchConfigurationTabGroup>
--	</extension>
--
--	<extension point="org.eclipse.ui.newWizards">
--		<category
--		   id = "org.eclipse.jdt.junit"
--		   parentCategory="org.eclipse.jdt.ui.java"
--		   name="%WizardCategory.name">
--		</category>
--		<wizard 
--			id="org.eclipse.jdt.junit.wizards.NewTestCaseCreationWizard"
--			name="%TestCaseWizard.name"
--			class="org.eclipse.jdt.internal.junit.wizards.NewTestCaseCreationWizard"
--			category="org.eclipse.jdt.ui.java/org.eclipse.jdt.junit"
--			icon="icons/full/ctool16/new_testcase.gif">
--			<description>%TestWizard.description</description>
--	    </wizard>
--		<wizard 
--			id="org.eclipse.jdt.junit.wizards.NewTestSuiteCreationWizard"
--			name="%TestSuiteWizard.name"
--			class="org.eclipse.jdt.internal.junit.wizards.NewTestSuiteCreationWizard"
--			category="org.eclipse.jdt.ui.java/org.eclipse.jdt.junit"
--			icon="icons/full/ctool16/new_testsuite.gif">
--			<description>%SuiteWizard.description</description>
--	    </wizard>
--	</extension>
--	
--	<extension point="org.eclipse.ui.popupMenus">
--		<objectContribution
--			id="org.eclipse.jdt.junit.wizards.UpdateTestSuite"
--			objectClass="org.eclipse.jdt.core.ICompilationUnit"
--			nameFilter="AllTests.java">
--			<action
--				id="updateTestSuite"
--				label="%UpdateSuiteAction.label"
--				tooltip="%UpdateSuiteAction.tooltip"
--				enablesFor="1"
--				class="org.eclipse.jdt.internal.junit.wizards.UpdateTestSuite">
--			</action>
--		</objectContribution>
--	</extension>
--
--   <extension point="org.eclipse.ui.actionSets">
--		<actionSet
-+   id="org.eclipse.jdt.junit"
-+   name="%pluginName"
-+   version="2.1.0.1"
-+   provider-name="%providerName"
-+   class="org.eclipse.jdt.internal.junit.ui.JUnitPlugin">
-+
-+   <runtime>
-+      <library name="junitsupport.jar">
-+         <export name="*"/>
-+      </library>
-+   </runtime>
-+   <requires>
-+      <import plugin="org.eclipse.ui"/>
-+      <import plugin="org.eclipse.core.resources"/>
-+      <import plugin="org.eclipse.core.boot"/>
-+      <import plugin="org.eclipse.debug.core"/>
-+      <import plugin="org.eclipse.debug.ui"/>
-+      <import plugin="org.eclipse.jdt.core"/>
-+      <import plugin="org.eclipse.jdt.ui"/>
-+      <import plugin="org.eclipse.jdt.debug"/>
-+      <import plugin="org.eclipse.swt"/>
-+      <import plugin="org.eclipse.core.runtime"/>
-+      <import plugin="org.eclipse.jdt.launching"/>
-+      <import plugin="org.eclipse.jdt.debug.ui"/>
-+      <import plugin="org.junit"/>
-+   </requires>
-+
-+
-+   <extension-point id="testRunListeners" name="%TestRunListener.name" schema="schema/org.eclipse.jdt.junit.testRunListeners.exsd"/>
-+
-+   <extension
-+         point="org.eclipse.ui.views">
-+      <view
-+            name="%View.label"
-+            icon="icons/full/cview16/junit.gif"
-+            fastViewWidthRatio="0.40"
-+            category="org.eclipse.jdt.ui.java"
-+            class="org.eclipse.jdt.internal.junit.ui.TestRunnerViewPart"
-+            id="org.eclipse.jdt.junit.ResultView">
-+      </view>
-+   </extension>
-+   <extension
-+         point="org.eclipse.ui.perspectiveExtensions">
-+      <perspectiveExtension
-+            targetID="org.eclipse.jdt.ui.JavaPerspective">
-+         <view
-+               relative="org.eclipse.jdt.ui.PackageExplorer"
-+               visible="false"
-+               relationship="stack"
-+               id="org.eclipse.jdt.junit.ResultView">
-+         </view>
-+      </perspectiveExtension>
-+      <perspectiveExtension
-+            targetID="org.eclipse.jdt.ui.JavaPerspective">
-+         <actionSet
-+               id="org.eclipse.jdt.junit.JUnitActionSet">
-+         </actionSet>
-+      </perspectiveExtension>
-+      <perspectiveExtension
-+            targetID="org.eclipse.jdt.ui.JavaBrowsingPerspective">
-+         <actionSet
-+               id="org.eclipse.jdt.junit.JUnitActionSet">
-+         </actionSet>
-+      </perspectiveExtension>
-+   </extension>
-+   <extension
-+         point="org.eclipse.ui.preferencePages">
-+      <page
-+            name="%PreferencePage.label"
-+            category="org.eclipse.jdt.ui.preferences.JavaBasePreferencePage"
-+            class="org.eclipse.jdt.internal.junit.ui.JUnitPreferencePage"
-+            id="org.eclipse.jdt.junit.preferences">
-+      </page>
-+   </extension>
-+   <extension
-+         point="org.eclipse.debug.core.launchConfigurationTypes">
-+      <launchConfigurationType
-+            name="%Launch.label"
-+            delegate="org.eclipse.jdt.internal.junit.launcher.JUnitLaunchConfiguration"
-+            modes="run, debug"
-+            id="org.eclipse.jdt.junit.launchconfig">
-+         <fileExtension
-+               default="false"
-+               extension="java">
-+         </fileExtension>
-+         <fileExtension
-+               default="false"
-+               extension="class">
-+         </fileExtension>
-+      </launchConfigurationType>
-+   </extension>
-+   <extension
-+         point="org.eclipse.debug.core.launchConfigurationComparators">
-+      <launchConfigurationComparator
-+            attribute="org.eclipse.jdt.junit.CONTAINER"
-+            class="org.eclipse.jdt.internal.junit.launcher.ContainerComparator"
-+            id="org.eclipse.jdt.junit.containerComparator">
-+      </launchConfigurationComparator>
-+   </extension>
-+   <extension
-+         point="org.eclipse.debug.ui.launchConfigurationTypeImages">
-+      <launchConfigurationTypeImage
-+            icon="icons/full/obj16/julaunch.gif"
-+            configTypeID="org.eclipse.jdt.junit.launchconfig"
-+            id="org.eclipse.jdt.junit.launchimage">
-+      </launchConfigurationTypeImage>
-+   </extension>
-+   <extension
-+         point="org.eclipse.debug.ui.launchConfigurationTabGroups">
-+      <launchConfigurationTabGroup
-+            type="org.eclipse.jdt.junit.launchconfig"
-+            class="org.eclipse.jdt.internal.junit.launcher.JUnitTabGroup"
-+            id="org.eclipse.jdt.junit.launchConfigurationTabGroup.junit">
-+      </launchConfigurationTabGroup>
-+   </extension>
-+   <extension
-+         point="org.eclipse.ui.newWizards">
-+      <category
-+            name="%WizardCategory.name"
-+            parentCategory="org.eclipse.jdt.ui.java"
-+            id="org.eclipse.jdt.junit">
-+      </category>
-+      <wizard
-+            name="%TestCaseWizard.name"
-+            icon="icons/full/ctool16/new_testcase.gif"
-+            category="org.eclipse.jdt.ui.java/org.eclipse.jdt.junit"
-+            class="org.eclipse.jdt.internal.junit.wizards.NewTestCaseCreationWizard"
-+            id="org.eclipse.jdt.junit.wizards.NewTestCaseCreationWizard">
-+         <description>
-+            %TestWizard.description
-+         </description>
-+      </wizard>
-+      <wizard
-+            name="%TestSuiteWizard.name"
-+            icon="icons/full/ctool16/new_testsuite.gif"
-+            category="org.eclipse.jdt.ui.java/org.eclipse.jdt.junit"
-+            class="org.eclipse.jdt.internal.junit.wizards.NewTestSuiteCreationWizard"
-+            id="org.eclipse.jdt.junit.wizards.NewTestSuiteCreationWizard">
-+         <description>
-+            %SuiteWizard.description
-+         </description>
-+      </wizard>
-+   </extension>
-+   <extension
-+         point="org.eclipse.ui.popupMenus">
-+      <objectContribution
-+            objectClass="org.eclipse.jdt.core.ICompilationUnit"
-+            nameFilter="AllTests.java"
-+            id="org.eclipse.jdt.junit.wizards.UpdateTestSuite">
-+         <action
-+               label="%UpdateSuiteAction.label"
-+               tooltip="%UpdateSuiteAction.tooltip"
-+               class="org.eclipse.jdt.internal.junit.wizards.UpdateTestSuite"
-+               enablesFor="1"
-+               id="updateTestSuite">
-+         </action>
-+      </objectContribution>
-+   </extension>
-+   <extension
-+         point="org.eclipse.ui.actionSets">
-+      <actionSet
-             label="JUnit"
-             visible="false"
-             id="org.eclipse.jdt.junit.JUnitActionSet">
--			<action
--				label="Referring Tests..."
--				tooltip="Go to Test Referring to Selection"
--				class="org.eclipse.jdt.internal.junit.ui.GotoReferencedTestAction"
--				menubarPath="navigate/goTo/"
--				id="junit.actions.GotoTestAction">
--			</action>
--		</actionSet>
--   </extension>	
--	
--	
--	<extension id="junit_task" point="org.eclipse.core.resources.markers" name="%Task.name">
--		<super type="org.eclipse.core.resources.taskmarker"/>
--		<persistent value="true"/>
--	</extension>
--	
--	<extension point = "org.eclipse.debug.ui.launchShortcuts">
--		<shortcut
--			id="org.eclipse.jdt.junit.junitShortcut"
--			class="org.eclipse.jdt.internal.junit.launcher.JUnitLaunchShortcut"
--			label="%JUnitShortcut.label"
--			icon="icons/full/obj16/julaunch.gif"
--			modes="run, debug">
--			<perspective id="org.eclipse.jdt.ui.JavaPerspective"/>
--			<perspective id="org.eclipse.jdt.ui.JavaHierarchyPerspective"/>
--			<perspective id="org.eclipse.jdt.ui.JavaBrowsingPerspective"/>
--			<perspective id="org.eclipse.debug.ui.DebugPerspective"/>
--		</shortcut>
--	</extension>
-+         <action
-+               label="Referring Tests..."
-+               tooltip="Go to Test Referring to Selection"
-+               class="org.eclipse.jdt.internal.junit.ui.GotoReferencedTestAction"
-+               menubarPath="navigate/goTo/"
-+               id="junit.actions.GotoTestAction">
-+         </action>
-+      </actionSet>
-+   </extension>
-+   <extension
-+         id="junit_task"
-+         name="%Task.name"
-+         point="org.eclipse.core.resources.markers">
-+      <super
-+            type="org.eclipse.core.resources.taskmarker">
-+      </super>
-+      <persistent
-+            value="true">
-+      </persistent>
-+   </extension>
-+   <extension
-+         point="org.eclipse.debug.ui.launchShortcuts">
-+      <shortcut
-+            label="%JUnitShortcut.label"
-+            icon="icons/full/obj16/julaunch.gif"
-+            modes="run, debug"
-+            class="org.eclipse.jdt.internal.junit.launcher.JUnitLaunchShortcut"
-+            id="org.eclipse.jdt.junit.junitShortcut">
-+         <perspective
-+               id="org.eclipse.jdt.ui.JavaPerspective">
-+         </perspective>
-+         <perspective
-+               id="org.eclipse.jdt.ui.JavaHierarchyPerspective">
-+         </perspective>
-+         <perspective
-+               id="org.eclipse.jdt.ui.JavaBrowsingPerspective">
-+         </perspective>
-+         <perspective
-+               id="org.eclipse.debug.ui.DebugPerspective">
-+         </perspective>
-+      </shortcut>
-+   </extension>
+retrieving revision 1.36
+diff -u -r1.36 plugin.xml
+--- plugin.xml	5 Jan 2003 19:15:59 -0000	1.36
++++ plugin.xml	7 Jan 2003 12:25:24 -0000
+@@ -26,6 +26,7 @@
+       <import plugin="org.junit"/>
+    </requires>
  
--</plugin>
-\ No newline at end of file
-+</plugin>
++   <extension-point id="testRunListeners" name="%TestRunListener.name" schema="schema/org.eclipse.jdt.junit.testRunListeners.exsd"/>
+ 
+    <extension
+          point="org.eclipse.ui.views">
 Index: doc/org.eclipse.jdt.junit.testRunListeners.html
 ===================================================================
 RCS file: doc/org.eclipse.jdt.junit.testRunListeners.html
 diff -N doc/org.eclipse.jdt.junit.testRunListeners.html
 --- /dev/null	1 Jan 1970 00:00:00 -0000
-+++ doc/org.eclipse.jdt.junit.testRunListeners.html	2 Jan 2003 15:12:06 -0000
++++ doc/org.eclipse.jdt.junit.testRunListeners.html	7 Jan 2003 12:25:28 -0000
 @@ -0,0 +1,36 @@
 +<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 +<HEAD><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
@@ -458,7 +75,7 @@ RCS file: /home/eclipse/org.eclipse.jdt.junit/src/org/eclipse/jdt/internal/junit
 retrieving revision 1.15
 diff -u -r1.15 JUnitPlugin.java
 --- src/org/eclipse/jdt/internal/junit/ui/JUnitPlugin.java	15 Dec 2002 19:57:32 -0000	1.15
-+++ src/org/eclipse/jdt/internal/junit/ui/JUnitPlugin.java	2 Jan 2003 15:12:06 -0000
++++ src/org/eclipse/jdt/internal/junit/ui/JUnitPlugin.java	7 Jan 2003 12:25:27 -0000
 @@ -12,13 +12,18 @@
  import java.util.HashSet;
  import java.util.List;
@@ -575,7 +192,7 @@ RCS file: /home/eclipse/org.eclipse.jdt.junit/src/org/eclipse/jdt/internal/junit
 retrieving revision 1.3
 diff -u -r1.3 RemoteTestRunnerClient.java
 --- src/org/eclipse/jdt/internal/junit/ui/RemoteTestRunnerClient.java	13 Apr 2002 23:43:08 -0000	1.3
-+++ src/org/eclipse/jdt/internal/junit/ui/RemoteTestRunnerClient.java	2 Jan 2003 15:12:06 -0000
++++ src/org/eclipse/jdt/internal/junit/ui/RemoteTestRunnerClient.java	7 Jan 2003 12:25:25 -0000
 @@ -21,9 +21,10 @@
   */
  public class RemoteTestRunnerClient {
@@ -714,11 +331,11 @@ diff -u -r1.3 RemoteTestRunnerClient.java
 Index: src/org/eclipse/jdt/internal/junit/ui/TestRunnerViewPart.java
 ===================================================================
 RCS file: /home/eclipse/org.eclipse.jdt.junit/src/org/eclipse/jdt/internal/junit/ui/TestRunnerViewPart.java,v
-retrieving revision 1.23
-diff -u -r1.23 TestRunnerViewPart.java
---- src/org/eclipse/jdt/internal/junit/ui/TestRunnerViewPart.java	17 Dec 2002 20:48:21 -0000	1.23
-+++ src/org/eclipse/jdt/internal/junit/ui/TestRunnerViewPart.java	2 Jan 2003 15:12:06 -0000
-@@ -459,7 +459,13 @@
+retrieving revision 1.24
+diff -u -r1.24 TestRunnerViewPart.java
+--- src/org/eclipse/jdt/internal/junit/ui/TestRunnerViewPart.java	5 Jan 2003 19:15:59 -0000	1.24
++++ src/org/eclipse/jdt/internal/junit/ui/TestRunnerViewPart.java	7 Jan 2003 12:25:26 -0000
+@@ -460,7 +460,13 @@
  			stopTest();
  		}
  		fTestRunnerClient= new RemoteTestRunnerClient();
