@@ -76,7 +76,7 @@
       <action assigned-to="Peter Wong, Jason Robertson, Vincent Massol">
         Configure all supported containers with authentication so that they
         pass the Cactus unit tests (done for Tomcat 3.x + Tomcat 4.x +
-        Resin 2.x)
+        Resin 2.x + Orion 1.x)
       </action>
       <action assigned-to="Bob Tanner">
         Finalize support for Enhydra 3.1.1. There are some errors upon
