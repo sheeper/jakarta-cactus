@@ -111,7 +111,10 @@ public abstract class AbstractTomcatContainer extends AbstractJavaContainer
      */
     public final void addConf(FileSet theConf)
     {
+        // Exclude the server.xml file as there is a "serverXml" specific 
+        // property for it.
         theConf.createExclude().setName("**/server.xml");
+
         this.confFileSets.add(theConf);
     }
 
