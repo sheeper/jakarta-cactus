@@ -44,6 +44,7 @@
 	    <property name="src.dir" value="${base.dir}/src"/>
 	    <property name="src.java.dir" value="${src.dir}/java"/>
 	    <property name="src.test.dir" value="${src.dir}/test"/>
+	    <property name="src.testinput.dir" value="${src.dir}/test-input"/>
 	    <property name="src.script.dir" value="${src.dir}/scripts"/>
 	    <property name="src.conf.dir" value="${src.dir}/confs"/>
 	    <property name="build.dir" value="${base.dir}/."/>
@@ -58,6 +59,8 @@
 	    <property name="target.doc.api.dir" value="${target.doc.dir}/api"/>
 	    <property name="target.doc.testreports.dir"
 	        value="${target.doc.dir}/test-reports"/>
+	    <property name="target.testinput.dir"
+	        value="${target.dir}/testinput"/>
 
         <property name="target.integration.dir"
             value="${target.dir}/integration"/>
@@ -180,9 +183,16 @@
     <target name="test" depends="compile.test"
         description="Runs the unit tests">
 
+        <mkdir dir="${target.testinput.dir}"/>
+        <copy todir="${target.testinput.dir}">
+          <fileset dir="${src.testinput.dir}"/>
+        </copy>
+
         <mkdir dir="${target.doc.testreports.dir}"/>
 
         <junit printsummary="yes" failureproperty="tests.failed" fork="yes">
+
+            <sysproperty key="testinput.dir" file="${target.testinput.dir}"/>
 
             <classpath>
                 <pathelement path="${commons.logging.jar}"/>
