@@ -227,6 +227,7 @@ framework/src/java/share/org/apache/cactus/util/IoUtil.java svn_keywords=Author+
 framework/src/java/share/org/apache/cactus/util/JUnitVersionHelper.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/util/JspConfiguration.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/util/ServletConfiguration.java svn_keywords=Author+Date+Id+Revision
+framework/src/java/share/org/apache/cactus/util/StringUtil.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/util/log/LogAspect.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/util/log/LogManagerAspect.java svn_keywords=Author+Date+Id+Revision
 framework/src/test/share/org/apache/cactus/TestAbstractTestCase.java svn_keywords=Author+Date+Id+Revision

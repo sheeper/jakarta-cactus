@@ -64,6 +64,7 @@ import junit.framework.TestFailure;
 import junit.framework.TestListener;
 import junit.framework.AssertionFailedError;
 import org.apache.cactus.util.JUnitVersionHelper;
+import org.apache.cactus.util.StringUtil;
 
 /**
  * Format the test results in XML.
@@ -222,9 +223,11 @@ public class XMLFormatter implements XMLConstants, TestListener
         StringBuffer xml = new StringBuffer();
 
         xml.append("<" + ERROR + " " + ATTR_MESSAGE + "=\""
-            + xmlEncode(failure.exceptionMessage()) + "\" " + ATTR_TYPE + "=\""
+            + xmlEncode(failure.thrownException().getMessage()) + "\" "
+            + ATTR_TYPE + "=\""
             + failure.thrownException().getClass().getName() + "\">");
-        xml.append(xmlEncode(failure.trace()));
+        xml.append(xmlEncode(
+            StringUtil.exceptionToString(failure.thrownException())));
         xml.append("</" + ERROR + ">");
 
         this.currentTestFailure = xml.toString();
@@ -242,9 +245,11 @@ public class XMLFormatter implements XMLConstants, TestListener
         StringBuffer xml = new StringBuffer();
 
         xml.append("<" + FAILURE + " " + ATTR_MESSAGE + "=\""
-            + xmlEncode(failure.exceptionMessage()) + "\" " + ATTR_TYPE + "=\""
+            + xmlEncode(failure.thrownException().getMessage())
+            + "\" " + ATTR_TYPE + "=\""
             + failure.thrownException().getClass().getName() + "\">");
-        xml.append(xmlEncode(failure.trace()));
+        xml.append(xmlEncode(
+            StringUtil.exceptionToString(failure.thrownException())));
         xml.append("</" + FAILURE + ">");
 
         this.currentTestFailure = xml.toString();
@@ -290,6 +295,7 @@ public class XMLFormatter implements XMLConstants, TestListener
 
         newString = XMLFormatter.replace(newString, '<', "&lt;");
         newString = XMLFormatter.replace(newString, '>', "&gt;");
+        newString = XMLFormatter.replace(newString, '\"', "&quot;");
 
         return newString;
     }
