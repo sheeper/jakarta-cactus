@@ -385,13 +385,13 @@
              defined. This is because it is optional and not having log4j in
              the classpath will simply mean no log generated but will still
              work fine -->
-        <copy todir="${target.lib.dir}" file="${log4j.jar}"/>
+        <copy tofile="${target.lib.dir}/log4j.jar" file="${log4j.jar}"/>
 
     </target>
 
     <target name="prepare.testwar.clover" if="clover.jar">
 
-        <copy todir="${target.lib.dir}" file="${clover.jar}"/>
+        <copy tofile="${target.lib.dir}/clover.jar" file="${clover.jar}"/>
 
     </target>
 
