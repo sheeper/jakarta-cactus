@@ -78,26 +78,26 @@ public interface HttpServiceDefinition
      * Test class to call. The name is voluntarily long so that it will not
      * clash with a user-defined parameter.
      */
-    static String CLASS_NAME_PARAM = "Cactus_TestClass";
+    String CLASS_NAME_PARAM = "Cactus_TestClass";
 
     /**
      * Name of the parameter in the HTTP request that represents an optional
      * Test being wrapped by the class represented by CLASS_NAME_PARAM.
      */
-    static String WRAPPED_CLASS_NAME_PARAM = "Cactus_WrappedTestClass";
+    String WRAPPED_CLASS_NAME_PARAM = "Cactus_WrappedTestClass";
 
     /**
      * Name of the parameter in the HTTP request that represents the name of the
      * Test method to call. The name is voluntarily long so that it will not
      * clash with a user-defined parameter.
      */
-    static String METHOD_NAME_PARAM = "Cactus_TestMethod";
+    String METHOD_NAME_PARAM = "Cactus_TestMethod";
 
     /**
      * Name of the parameter in the HTTP request that specify if a session
      * should be automatically created for the user or not.
      */
-    static String AUTOSESSION_NAME_PARAM = "Cactus_AutomaticSession";
+    String AUTOSESSION_NAME_PARAM = "Cactus_AutomaticSession";
 
     /**
      * Name of the parameter in the HTTP request that specify the service asked
@@ -107,5 +107,5 @@ public interface HttpServiceDefinition
      *
      * @see ServiceEnumeration
      */
-    static String SERVICE_NAME_PARAM = "Cactus_Service";
+    String SERVICE_NAME_PARAM = "Cactus_Service";
 }
