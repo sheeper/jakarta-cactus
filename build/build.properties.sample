@@ -12,6 +12,9 @@ junit.jar = f:/applis/jakarta-ant-1.4alpha/lib/junit.jar
 servlet22.jar = f:/applis/apache-dev/jakarta-servletapi/lib/servlet.jar
 servlet23.jar = f:/applis/apache-dev/jakarta-servletapi-4/lib/servlet.jar
 
+# Log4j (used for logging)
+log4j.jar = f:/applis/apache-dev/jakarta-log4j/dist/lib/log4j-core.jar
+
 # The following jars are only needed for the 'dependencies' target, used to
 # generate a zip file containing all dependent jars
 
@@ -34,6 +37,6 @@ resin.home.12 = f:/applis/resin-1.2.5
 tomcat.home.32 = f:/applis/jakarta-tomcat-3.2.1
 orion.home.14 = f:/applis/orion-1.4.5
 weblogic.home.51 = e:/weblogic
-
+resin.home.20 = f:/applis/resin-2.0.0
 resin.home.13 = f:/applis/resin-1.3.s010125
 tomcat.home.40 = f:/applis/jakarta-tomcat-4.0-b1

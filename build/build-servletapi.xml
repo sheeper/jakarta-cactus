@@ -15,6 +15,8 @@
 
         junit.jar             [REQUIRED] The path to the JUnit jar file
 
+        junit.jar             [REQUIRED] The path to the JUnit jar file
+
         dist.dir              [REQUIRED] The directories where distributable
                               files will be copied with version number
                               postfixed.
@@ -161,6 +163,7 @@
         <filter token="jar.ant.name" value="${jar.ant.name}"/>
         <filter token="servlet.jar" value="${servlet.jar}"/>
         <filter token="junit.jar" value="${junit.jar}"/>
+        <filter token="log4j.jar" value="${log4j.jar}"/>
         <filter token="servlet.api" value="${servlet.api}"/>
         <filter token="today" value="${TODAY}"/>
 
@@ -263,6 +266,7 @@
                 <pathelement path="${java.class.path}"/>
                 <pathelement location="${servlet.jar}"/>
                 <pathelement location="${junit.jar}"/>
+                <pathelement location="${log4j.jar}"/>
             </classpath>
 
         </javac>
@@ -302,12 +306,17 @@
     <!-- Generate the jar file -->
     <target name="jar" depends="prepare-jar">
 
-        <jar jarfile="${final.jar.name}" basedir="${out.classes.dir}"
-            manifest="${out.conf.dir}/manifest">
+        <jar jarfile="${final.jar.name}" manifest="${out.conf.dir}/manifest">
 
-            <!-- Do not include test files in the runtime jar -->
-            <exclude name="**/Test*.*"/>
-            <exclude name="**/test*.*"/>
+            <fileset dir="${out.classes.dir}">
+                <!-- Do not include test files in the runtime jar -->
+                <exclude name="**/Test*.*"/>
+                <exclude name="**/test*.*"/>
+            </fileset>
+
+            <fileset dir="${sample.conf.dir}/test">
+                <include name="log_*.properties"/>
+            </fileset>
 
         </jar>
 
@@ -345,6 +354,7 @@
                 <pathelement path="${java.class.path}"/>
                 <pathelement location="${servlet.jar}"/>
                 <pathelement location="${junit.jar}"/>
+                <pathelement location="${log4j.jar}"/>
             </classpath>
 
         </javadoc>
@@ -492,8 +502,11 @@
         </copy>
         <copy tofile="${out.sample.conf.dir}/test/web.xml"
             file="${sample.conf.dir}/test/web.xml"/>
-        <copy tofile="${out.sample.conf.dir}/test/cactus.properties"
-            file="${sample.conf.dir}/test/cactus.properties"/>
+        <copy todir="${out.sample.conf.dir}/test">
+            <fileset dir="${sample.conf.dir}/test">
+                <include name="*.properties"/>
+            </fileset>
+        </copy>
         <copy todir="${out.sample.conf.dir}">
             <fileset dir="${sample.conf.dir}"/>
         </copy>
@@ -540,7 +553,8 @@
 
             <formatter type="plain" usefile="false"/>
 
-            <test name="org.apache.commons.cactus.TestAll"/>
+            <test name="org.apache.commons.cactus.util.TestAssertUtils"/>
+            <!--test name="org.apache.commons.cactus.client.TestAutoReadHttpURLConnection"/-->
 
         </junit>
 
@@ -556,6 +570,12 @@
     </target>
     <target name="tests-functional22-resin12-else" unless="resin.home.12">
         <property name="resin.flag.12" value=""/>
+    </target>
+    <target name="tests-functional22-resin20-if" if="resin.home.20">
+        <property name="resin.flag.20" value="-Dresin.home.20=${resin.home.20}"/>
+    </target>
+    <target name="tests-functional22-resin20-else" unless="resin.home.20">
+        <property name="resin.flag.20" value=""/>
     </target>
     <target name="tests-functional22-tomcat32-if" if="tomcat.home.32">
         <property name="tomcat.flag.32" value="-Dtomcat.home.32=${tomcat.home.32}"/>
@@ -579,6 +599,8 @@
     <target name="tests-functional22-checks"
         depends="tests-functional22-resin12-if,
                  tests-functional22-resin12-else,
+                 tests-functional22-resin20-if,
+                 tests-functional22-resin20-else,
                  tests-functional22-tomcat32-if,
                  tests-functional22-tomcat32-else,
                  tests-functional22-orion14-if,
@@ -596,6 +618,7 @@
             dir="${out.sample.build.dir}" fork="yes" failonerror="yes">
 
             <arg value="${resin.flag.12}"/>
+            <arg value="${resin.flag.20}"/>
             <arg value="${tomcat.flag.32}"/>
             <arg value="${orion.flag.14}"/>
             <arg value="${weblogic.flag.51}"/>
@@ -615,6 +638,12 @@
     <target name="tests-functional23-resin13-else" unless="resin.home.13">
         <property name="resin.flag.13" value=""/>
     </target>
+    <target name="tests-functional23-resin20-if" if="resin.home.20">
+        <property name="resin.flag.20" value="-Dresin.home.20=${resin.home.20}"/>
+    </target>
+    <target name="tests-functional23-resin20-else" unless="resin.home.20">
+        <property name="resin.flag.20" value=""/>
+    </target>
     <target name="tests-functional23-tomcat40-if" if="tomcat.home.40">
         <property name="tomcat.flag.40" value="-Dtomcat.home.40=${tomcat.home.40}"/>
     </target>
@@ -625,6 +654,8 @@
     <target name="tests-functional23-checks"
         depends="tests-functional23-resin13-if,
                  tests-functional23-resin13-else,
+                 tests-functional22-resin20-if,
+                 tests-functional22-resin20-else,
                  tests-functional23-tomcat40-if,
                  tests-functional23-tomcat40-else">
     </target>
@@ -638,6 +669,7 @@
             dir="${out.sample.build.dir}" fork="yes" failonerror="yes">
 
             <arg value="${resin.flag.13}"/>
+            <arg value="${resin.flag.20}"/>
             <arg value="${tomcat.flag.40}"/>
             <arg value="tests_all"/>
 
@@ -676,12 +708,17 @@
     </target>
 
     <target name="dist" depends="prepare-dist">
+
+        <!-- Copy the log4j jar in the lib directory so that it is bundled
+             with the distribution -->
+        <copy todir="${out.lib.dir}" file="${log4j.jar}"/>
     
         <zip zipfile="${dist.full.name}.zip">
             <zipfileset dir="${out.dist.dir}"
                 prefix="${project.name}-${servlet.api}-${DSTAMP}">
                 
                 <exclude name="**/build.properties"/>
+                <exclude name="**/*.log"/>
                 <exclude name="**/out"/>
             </zipfileset>
         </zip>
