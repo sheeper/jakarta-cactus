@@ -260,23 +260,6 @@ public class WebXml
     }
     
     /**
-     * Removes a servlet filter from the descriptor.
-     * 
-     * @param theFilterName The name of the filter to remove
-     * @return The removed element, or <code>null</code> if the specified
-     *          filter was not defined
-     */
-    public Element removeFilter(String theFilterName)
-    {
-        Element filterElement = getFilter(theFilterName);
-        if (filterElement != null)
-        {
-            filterElement.getParentNode().removeChild(filterElement);
-        }
-        return filterElement;
-    }
-    
-    /**
      * Returns the element that contains the definition of a specific servlet
      * filter, or <code>null</code> if a filter of the specified name is not
      * defined in the descriptor.
@@ -459,23 +442,6 @@ public class WebXml
         servletMappingElement.appendChild(
             createNestedText(WebXmlTag.URL_PATTERN, theUrlPattern));
         addElement(WebXmlTag.SERVLET_MAPPING, servletMappingElement);
-    }
-    
-    /**
-     * Removes a servlet from the descriptor.
-     * 
-     * @param theServletName The name of the servlet to remove
-     * @return The removed element, or <code>null</code> if the servlet was not
-     *          defined
-     */
-    public Element removeServlet(String theServletName)
-    {
-        Element servletElement = getServlet(theServletName);
-        if (servletElement != null)
-        {
-            servletElement.getParentNode().removeChild(servletElement);
-        }
-        return servletElement;
     }
     
     /**
