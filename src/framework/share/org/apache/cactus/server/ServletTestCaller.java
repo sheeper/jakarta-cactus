@@ -95,6 +95,7 @@ public class ServletTestCaller
             Constructor constructor = testClass.getConstructor(new Class[] { String.class });
             testInstance = (ServletTestCase)constructor.newInstance(new Object[] { theMethod });
         } catch (Exception e) {
+            e.printStackTrace();
             throw new ServletException("Error instanciating class [" + theClassName + "]", e);
         }
 
