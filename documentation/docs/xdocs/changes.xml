@@ -48,6 +48,18 @@
     </devs>
 
     <release version="1.4 in CVS">
+      <action dev="VMA" type="add">
+        A cool new way to quickly execute your test cases : Cactus now has
+        a JUnit Test Runner called ServletTestRunner (it is a servlet) that
+        you can use to quickly exercise your tests. See the tutorial
+        (forthcoming).
+      </action>
+      <action dev="VMA" type="fix">
+        Test classes are now first looked for using the Current classloader
+        (the webapp one for Servlets) and if not found using the context
+        class loader. Previously the order was the revert, which was not
+        logical and could lead to issues.
+      </action>
       <action dev="VMA" type="update">
         Improved debugging of <code>runservertests</code> task. Simply run
         Ant in debug mode (<code>ant -debug xxx</code>) and the task will
