@@ -1,76 +1,27 @@
-The Cactus project is pleased to announce the release of version 1.5-rc1
+The Cactus project is pleased to announce the release of version <v>.
 Cactus is a unit testing framework for testing server side java code.
 
 Goals
 -----
 
-The main focus for version 1.5-rc1 was on usability. We had several user
-requests to make Cactus easier to get started with. The web site has
-been overhauled to provide better doc navigation and contains several
-new tutorials. In addition, several new front
-ends for Cactus have been added: Ant integration, Maven integration
-Jetty integration, and an experimental Eclipse plugin.
-
-It should be noted that the Eclipse plugin for Cactus is not part of
-Cactus 1.5-rc1 as it is still experimental. It is available in Cactus 
-nightly build area (http://jakarta.apache.org/cactus/downloads.html). 
-Your feedback is important to make it production ready. If you're an 
-Eclipse user, make sure you try it (it is documented on 
-http://jakarta.apache.org/cactus/integration/eclipse/index.html).
+[add description of main focus here]
 
 Main new features
 -----------------
 
-The following main features have been added:
-* Added support for begin()/end() that are run before and after each
-  test on the client side (mirrors setUp()/tearDown() which are run
-  before and after each test on the server side).
-* Special Jetty integration to automatically start Jetty when executing
-  a test suite
-* Added support for Form-based authentication
-* Added support for i8n
-* Added new JspTagLifecycle class to help unit test taglibs
-* Added support for JBoss in Ant integration
-* Added support for server-side XSLT when running Cactus tests from a 
-  browser
-* New Ant integration (<cactifywar> and <cactus> Ant tasks). Note that
-  version 1.5-rc1 has added support for WebLogic 7.x as compared to
-  version 1.5-beta1.
-* Added ability to run pure JUnit tests seamlessly on the server side
-* Lots of other new features. For a full feature list, see
-  http://jakarta.apache.org/cactus/features.html
+[add main new features here]
 
 Changes
 -------
 
 Please check the Changes page at
 http://jakarta.apache.org/cactus/changes.html for a full list of the 
-changes in version 1.5-rc1. 
+changes in version <v>. 
 
 Known limitations and bugs:
 ---------------------------
 
-* Support for WebLogic 6.x has not been tested. This is because BEA is
-  no longer providing a download for WebLogic 6.x (unless you're a BEA
-  customer).
-* [Bug 21484] ClassCastException when casting WebAppRequestDispatcher  
-* [Bug 21237] CactifyWarTask duplicates init-param lines in existing 
-  web.xml servlet tag  
-* [Bug 17933] FormAuthentication assumes "localhost" when adding cookies  
-* [Bug 17077] Code page problems under WebSphere z/OS  
-* [Bug 17653] result is null in AbstractWebTestCaller's doGetResults() 
-  method. Note that this bug is probably due to a race condition problem 
-  that happens very unfrequently and which is not yet resolved. It will be 
-  solved in an upcoming point release.
-* Some binary incompatiblity was introduced by the refactoring of the
-  XXXTestCase class hierarchy. Whereas it was previously inheriting from 
-  AbstractWebTestCase and AbstractTestCase, it is now simply inheriting
-  from JUnit TestCase. Thus all non-public API are now not visible from 
-  users (as they should be). If you had some framework compiled with 
-  Cactus 1.4.1 and using some methods from AbstractWebTestCase or 
-  AbstractTestCase, you'll need to recompile it with Cactus 1.5-rc1 or 
-  you might get a NoClassDefFoundError exception. We'll be more careful in the
-  future.
+[add main limitations and known bugs here]
 
 For more information about Cactus, please visit
 http://jakarta.apache.org/cactus/.
