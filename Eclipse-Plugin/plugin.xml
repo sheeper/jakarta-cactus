@@ -4,7 +4,7 @@
    name="%pluginName"
    version="0.1"
    provider-name="%providerName"
-   class="">
+   class="org.apache.cactus.eclipse.ui.CactusPlugin">
 
    <runtime>
    </runtime>
