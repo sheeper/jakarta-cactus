@@ -184,7 +184,7 @@
 		<basename property="junit.jar.name" file="${junit.jar}"/>
 		<basename property="nekohtml.jar.name" file="${nekohtml.jar}"/>
 
-        <filterset id="jar.locations">
+        <filterset id="jar.names">
             <filter token="jstl.jar.name" value="${jstl.jar.name}"/>
             <filter token="standard.jar.name" value="${standard.jar.name}"/>
             <filter token="servlet.jar.name" value="${servlet.jar.name}"/>
@@ -226,7 +226,6 @@
 
         <!-- Create output directory structure and copy sample files in it -->
         <mkdir dir="${target.sample.dir}"/>
-        <mkdir dir="${target.sample.lib.dir}"/>
         <mkdir dir="${target.sample.src.java.dir}"/>
         <mkdir dir="${target.sample.src.conf.dir}"/>
         <mkdir dir="${target.sample.src.cactus.dir}"/>
@@ -251,7 +250,7 @@
             <fileset dir="${src.script.dir}/j2ee${j2ee.api}"/>
             <filterset refid="clover.enablement"/>
             <filterset refid="container.enablement"/>
-            <filterset refid="jar.locations"/>
+            <filterset refid="jar.names"/>
         </copy>
 
         <!-- Copy webapp files -->
@@ -260,21 +259,6 @@
             <fileset dir="${src.webapp.dir}/j2ee${j2ee.api}"/>
         </copy>
 
-        <!-- Copy application jars -->
-        <copy todir="${target.sample.lib.dir}" file="${jstl.jar}"/>
-        <copy todir="${target.sample.lib.dir}" file="${standard.jar}"/>
-        <copy todir="${target.sample.lib.dir}" file="${j2ee.jar}"/>
-        <copy todir="${target.sample.lib.dir}" file="${aspectjrt.jar}"/>
-        <copy todir="${target.sample.lib.dir}"
-            file="${cactus.antintegration.jar}"/>
-        <copy todir="${target.sample.lib.dir}" file="${cactus.framework.jar}"/>
-        <copy todir="${target.sample.lib.dir}"
-            file="${commons.httpclient.jar}"/>
-        <copy todir="${target.sample.lib.dir}" file="${commons.logging.jar}"/>
-        <copy todir="${target.sample.lib.dir}" file="${httpunit.jar}"/>
-        <copy todir="${target.sample.lib.dir}" file="${junit.jar}"/>
-        <copy todir="${target.sample.lib.dir}" file="${nekohtml.jar}"/>
-        
         <!-- Copy README file -->
         <copy todir="${target.sample.dir}" file="${base.dir}/README"/>
 
@@ -342,7 +326,7 @@
             <property name="cactus.ant.jar"
                 location="${test.cactus.antintegration.jar}"/>
             <property name="clover.jar" value="${clover.jar}"/>
-       </ant>
+        </ant>
 
     </target>
 

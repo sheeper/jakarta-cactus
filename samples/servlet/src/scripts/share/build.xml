@@ -50,8 +50,7 @@
          Set the properties related to the source tree.
        ========================================================================
     -->
-    <property name="lib.dir" location="${basedir}/lib"/>
-    <property name="src.dir" location="${basedir}/src"/>
+    <property name="src.dir" location="src"/>
     <property name="src.java.dir" location="${src.dir}/java"/>
     <property name="src.conf.dir" location="${src.dir}/conf"/>
     <property name="src.cactus.dir" location="${src.dir}/test-cactus"/>
@@ -63,7 +62,7 @@
        ========================================================================
     -->
     <!-- Destination locations for the build -->
-    <property name="target.dir" location="${basedir}/target"/>
+    <property name="target.dir" location="target"/>
     <property name="target.classes.dir" location="${target.dir}/classes"/>
     <property name="target.classes.java.dir"
         location="${target.classes.dir}/java"/>
@@ -74,7 +73,7 @@
 
     <!-- Distribution directory, i.e. where the expanded distibutable files
          are located -->
-    <property name="dist.dir" location="${basedir}/dist"/>
+    <property name="dist.dir" location="dist"/>
 
     <!--
        ========================================================================
@@ -82,7 +81,7 @@
        ========================================================================
     -->
 
-    <property name="lib.dir" location="${basedir}/lib"/>
+    <property name="lib.dir" location="../../lib"/>
 
     <!-- Libraries required for the sample project -->
     <property name="servlet.jar"
