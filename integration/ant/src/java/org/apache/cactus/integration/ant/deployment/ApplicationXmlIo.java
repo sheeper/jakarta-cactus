@@ -68,6 +68,7 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.cactus.integration.ant.util.ResourceUtils;
 import org.xml.sax.EntityResolver;
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 /**
@@ -82,6 +83,42 @@ import org.xml.sax.SAXException;
 public class ApplicationXmlIo
 {
     
+    // Inner Classes -----------------------------------------------------------
+
+    /**
+     * Implementation of the SAX EntityResolver interface that looks up the
+     * application DTDs from the JAR.
+     */
+    private static class ApplicationXmlEntityResolver implements EntityResolver
+    {
+
+        /**
+         * @see org.xml.sax.EntityResolver#resolveEntity
+         */
+        public InputSource resolveEntity(String thePublicId, String theSystemId)
+            throws SAXException, IOException
+        {
+            ApplicationXmlVersion version =
+                ApplicationXmlVersion.valueOf(thePublicId);
+            if (version != null)
+            {
+                String fileName = version.getSystemId().substring(
+                    version.getSystemId().lastIndexOf('/'));
+                InputStream in = this.getClass().getResourceAsStream(
+                    "/org/apache/cactus/integration/ant/deployment/resources"
+                    + fileName);
+                if (in != null)
+                {
+                    return new InputSource(in);
+                }
+            }
+            System.err.println("Resource for public ID " + thePublicId
+                + " not found");
+            return null;
+        }
+
+    }
+
     // Public Methods ----------------------------------------------------------
 
     /**
@@ -186,6 +223,10 @@ public class ApplicationXmlIo
         if (theEntityResolver != null)
         {
             builder.setEntityResolver(theEntityResolver);
+        }
+        else
+        {
+            builder.setEntityResolver(new ApplicationXmlEntityResolver());
         }
         return new ApplicationXml(builder.parse(theInput));
     }
