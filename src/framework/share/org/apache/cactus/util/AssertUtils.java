@@ -74,13 +74,36 @@ public class AssertUtils
     {
         StringBuffer sb = new StringBuffer();
         BufferedReader input = new BufferedReader(new InputStreamReader(theConnection.getInputStream()));
-        String str;
-        while (null != ((str = input.readLine()))) {
-            sb.append(str);
+        char[] buffer = new char[2048];
+        int nb;
+        while (-1 != (nb = input.read(buffer, 0, 2048))) {
+            sb.append(buffer, 0, nb);
         }
         input.close ();
 
         return sb.toString();
+    }
+
+    /**
+     * @param theConnection the connection object used to connect to the server
+     *                      redirector.
+     * @return the servlet output stream bytes as an array of string (each
+     *         string is a separate line from the output stream).
+     */
+    public static String[] getResponseAsStringArray(HttpURLConnection theConnection) throws IOException
+    {
+        BufferedReader input = new BufferedReader(new InputStreamReader(theConnection.getInputStream()));
+        Vector lines = new Vector();
+        String str;
+        while (null != (str = input.readLine())) {
+            lines.addElement(str);
+        }
+        input.close ();
+
+        // Fixme: I don't know why but if I don't use this dummy stuff I get a
+        // ClassCastException !
+        String[] dummy = new String[lines.size()];
+        return (String[])(lines.toArray(dummy));
     }
 
     /**

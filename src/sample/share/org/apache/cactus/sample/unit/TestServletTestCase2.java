@@ -63,6 +63,7 @@ import java.io.*;
 import junit.framework.*;
 
 import org.apache.commons.cactus.*;
+import org.apache.commons.cactus.util.*;
 
 /**
  * Some Cactus unit tests for testing <code>ServletTestCase</code>.
@@ -289,6 +290,76 @@ public class TestServletTestCase2 extends ServletTestCase
         }
         assertEquals("Should have received 2 values for header [testheader]", 2, count);
         */
+    }
+
+    //-------------------------------------------------------------------------
+
+    /**
+     * Verify that the <code>AsertUtils.getResponseAsString()</code> method
+     * works with output text sent on multiple lines.
+     */
+    public void testGetResponseAsStringMultiLines() throws IOException
+    {
+        PrintWriter pw = response.getWriter();
+        response.setContentType("text/html");
+        pw.println("<html><head/>");
+        pw.println("<body>A GET request</body>");
+        pw.println("</html>");
+    }
+
+    /**
+     * Verify that the <code>AsertUtils.getResponseAsString()</code> method
+     * works with output text sent on multiple lines.
+     *
+     * @param theConnection the HTTP connection that was used to call the
+     *                      server redirector. It contains the returned HTTP
+     *                      response.
+     */
+    public void endGetResponseAsStringMultiLines(HttpURLConnection theConnection) throws IOException
+    {
+        StringWriter sw = new StringWriter();
+        PrintWriter pw = new PrintWriter(sw);
+        pw.println("<html><head/>");
+        pw.println("<body>A GET request</body>");
+        pw.println("</html>");
+
+        String result = AssertUtils.getResponseAsString(theConnection);
+        assertEquals(sw.toString(), result);
+
+        pw.close();
+    }
+
+    //-------------------------------------------------------------------------
+
+    /**
+     * Verify that the <code>AsertUtils.getResponseAsStringArray()</code> method
+     * works with output text sent on multiple lines.
+     */
+    public void testGetResponseAsStringArrayMultiLines() throws IOException
+    {
+        PrintWriter pw = response.getWriter();
+        response.setContentType("text/html");
+        pw.println("<html><head/>");
+        pw.println("<body>A GET request</body>");
+        pw.println("</html>");
+    }
+
+    /**
+     * Verify that the <code>AsertUtils.getResponseAsStringArray()</code> method
+     * works with output text sent on multiple lines.
+     *
+     * @param theConnection the HTTP connection that was used to call the
+     *                      server redirector. It contains the returned HTTP
+     *                      response.
+     */
+    public void endGetResponseAsStringArrayMultiLines(HttpURLConnection theConnection) throws IOException
+    {
+        String[] results = AssertUtils.getResponseAsStringArray(theConnection);
+
+        assert("Should have returned 3 lines of text", results.length == 3);
+        assertEquals("<html><head/>", results[0]);
+        assertEquals("<body>A GET request</body>", results[1]);
+        assertEquals("</html>", results[2]);
     }
 
 }

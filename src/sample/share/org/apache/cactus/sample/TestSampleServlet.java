@@ -122,8 +122,9 @@ public class TestSampleServlet extends ServletTestCase
      */
     public void endReadServletOutputStream(HttpURLConnection theConnection) throws IOException
     {
-        assertEquals("<html><head/><body>A GET request</body></html>",
-            AssertUtils.getResponseAsString(theConnection));
+        String expected = "<html><head/><body>A GET request</body></html>";
+        String result = AssertUtils.getResponseAsString(theConnection);
+        assertEquals(expected, result);            
     }
 
     //-------------------------------------------------------------------------

@@ -82,9 +82,12 @@ public class SampleServlet extends HttpServlet
 
         theResponse.setContentType("text/html");
 
-        pw.println("<html><head/><body>");
-        pw.println("A GET request");
-        pw.println("</body></html>");
+        // Note: We send the text in one line only because some servlet engines
+        // (like Tomcat 3.2) add some characters at the end of the line
+        // ('\x0D' + '\x0A') even though we use the print() method and not
+        // println() ....
+
+        pw.print("<html><head/><body>A GET request</body></html>");
     }
 
     /**
