@@ -154,7 +154,7 @@ public class TestAbstractTestCaseInterceptorTestCase
         if (this.getCurrentTestMethod().equals(
                 "testBeginMethodBadReturnType")) {
 
-            assertEquals("The begin method "
+            assertEquals("The method "
                 + "[beginBeginMethodBadReturnType] should return void and "
                 + "not [java.lang.String]", theMessage);
             return true;
@@ -176,7 +176,7 @@ public class TestAbstractTestCaseInterceptorTestCase
         if (this.getCurrentTestMethod().equals(
                 "testBeginMethodBadParamType")) {
 
-            assertEquals("The begin method "
+            assertEquals("The method "
                 + "[beginBeginMethodBadParamType] must accept a single "
                 + "parameter derived from class "
                 + "[org.apache.cactus.WebRequest], but "
@@ -191,7 +191,7 @@ public class TestAbstractTestCaseInterceptorTestCase
         if (this.getCurrentTestMethod().equals(
                 "testBeginMethodBadParamNumber")) {
 
-            assertEquals("The begin method "
+            assertEquals("The method "
                 + "[beginBeginMethodBadParamNumber] must accept a single "
                 + "parameter derived from class "
                 + "[org.apache.cactus.WebRequest], but 2 "
@@ -224,7 +224,7 @@ public class TestAbstractTestCaseInterceptorTestCase
         if (this.getCurrentTestMethod().equals(
                 "testEndMethodBadReturnType")) {
 
-            assertEquals("The end method "
+            assertEquals("The method "
                 + "[endEndMethodBadReturnType] should return void and "
                 + "not [java.lang.String]", theMessage);
             return true;
@@ -244,7 +244,7 @@ public class TestAbstractTestCaseInterceptorTestCase
         if (this.getCurrentTestMethod().equals(
                 "testEndMethodBadParamType")) {
 
-            assertEquals("The end method [endEndMethodBadParamType] "
+            assertEquals("The method [endEndMethodBadParamType] "
                 + "has a bad parameter of type [java.lang.String]",
                 theMessage);
             return true;
@@ -256,7 +256,7 @@ public class TestAbstractTestCaseInterceptorTestCase
         if (this.getCurrentTestMethod().equals(
                 "testEndMethodBadParamNumber")) {
 
-            assertEquals("The end method [endEndMethodBadParamNumber] "
+            assertEquals("The method [endEndMethodBadParamNumber] "
                 + "must only have a single parameter", theMessage);
             return true;
         }

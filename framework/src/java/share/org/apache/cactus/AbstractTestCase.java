@@ -68,7 +68,10 @@ import org.apache.commons.logging.LogFactory;
 
 /**
  * Abstract class that is a thin layer on top of JUnit and that knows about
- * test cases that are executed on the server side. This class is independent
+ * test cases that are executed on the server side. It also provides the
+ * ability to run common set up code before each test on the client side (note
+ * that calling common tear down code is delegated to extending classes as the
+ * method signature depends on the protocol used). This class is independent
  * of the protocol used to communicate from the Cactus client side and the
  * Cactus server side; it can be HTTP, JMS, etc. Subclasses will define
  * additional behaviour that depends on the protocol.
@@ -93,6 +96,24 @@ public abstract class AbstractTestCase extends TestCase
      * The prefix of an end test method.
      */
     protected static final String END_METHOD_PREFIX = "end";
+
+    /**
+     * The name of the set up method to run on the client side if it exists.
+     * This method is run before each test in the same way as the JUnit
+     * <code>setUp()</code> method is run. The difference is that is that it
+     * is run on the client side whereas <code>setUp()</code> runs on the
+     * server side.
+     */
+    protected static final String CLIENT_SETUP_METHOD = "clientSetUp";
+
+    /**
+     * The name of the tear down method to run on the client side if it exists.
+     * This method is run after each test in the same way as the JUnit
+     * <code>tearDown()</code> method is run. The difference is that is that it
+     * is run on the client side whereas <code>tearDown()</code> runs on the
+     * server side.
+     */
+    protected static final String CLIENT_TEARDOWN_METHOD = "clientTearDown";
 
     /**
      * Name of properties file to initialize logging subsystem
@@ -171,11 +192,11 @@ public abstract class AbstractTestCase extends TestCase
     }
 
     /**
-     * Runs the bare test sequence. This method is overridden from the
-     * JUnit <code>TestCase</code> class in order to prevent the latter
-     * to call the <code>setUp()</code> and <code>tearDown()</code> methods
-     * which, in our case, need to be ran in the servlet engine by the
-     * servlet redirector class.
+     * Runs the bare test.
+     * This method is overridden from the JUnit <code>TestCase</code> class in
+     * order to prevent the latter to call the <code>setUp()</code> and
+     * <code>tearDown()</code> methods which, in our case, need to be ran in
+     * the servlet engine by the servlet redirector class.
      *
      * @exception Throwable if any exception is thrown during the test. Any
      *            exception will be displayed by the JUnit Test Runner
@@ -197,7 +218,6 @@ public abstract class AbstractTestCase extends TestCase
             logger.debug("Exception in test", t);
             throw t;
         }
-
     }
 
     /**
@@ -239,23 +259,26 @@ public abstract class AbstractTestCase extends TestCase
     }
 
     /**
-     * Call the test case begin method.
+     * Call an end method which takes either a Cactus WebResponse parameter
+     * or a HttpUnit WebResponse object as paramter.
      *
-     * @param theRequest the request object to pass to the begin method.
-     * @exception Throwable any error that occurred when calling the begin
-     *            method for the current test case.
+     * @param theRequest the request object which will contain data that will
+     *        be used to connect to the Cactus server side redirectors.
+     * @param theMethodName the name of the begin method to call
+     * @exception Throwable any error that occurred when calling the method
      */
-    protected void callBeginMethod(Request theRequest) throws Throwable
+    private void callGenericBeginMethod(Request theRequest,
+        String theMethodName) throws Throwable
     {
         // First, verify if a begin method exist. If one is found, verify if
         // it has the correct signature. If not, send a warning.
         Method[] methods = getClass().getMethods();
         for (int i = 0; i < methods.length; i++) {
-            if (methods[i].getName().equals(getBeginMethodName())) {
+            if (methods[i].getName().equals(theMethodName)) {
 
                 // Check return type
                 if (!methods[i].getReturnType().getName().equals("void")) {
-                    fail("The begin method [" + methods[i].getName()
+                    fail("The method [" + methods[i].getName()
                         + "] should return void and not ["
                         + methods[i].getReturnType().getName() + "]");
                 }
@@ -270,7 +293,7 @@ public abstract class AbstractTestCase extends TestCase
                 Class[] parameters = methods[i].getParameterTypes();
                 if (parameters.length != 1) {
 
-                    fail("The begin method [" + methods[i].getName()
+                    fail("The method [" + methods[i].getName()
                         + "] must accept a single parameter derived from "
                         + "class [" + WebRequest.class.getName() + "], "
                         + "but " + parameters.length
@@ -279,7 +302,7 @@ public abstract class AbstractTestCase extends TestCase
                 } else if (!theRequest.getClass().isAssignableFrom(
                     parameters[0])) {
 
-                    fail("The begin method [" + methods[i].getName()
+                    fail("The method [" + methods[i].getName()
                         + "] must accept a single parameter derived from "
                         + "class [" + theRequest.getClass().getName() + "], "
                         + "but found a [" + parameters[0].getName() + "] "
@@ -299,6 +322,30 @@ public abstract class AbstractTestCase extends TestCase
 
             }
         }
+    }
+
+    /**
+     * Call the client side set up method if it exists.
+     *
+     * @param theRequest the request object which will contain data that will
+     *        be used to connect to the Cactus server side redirectors.
+     * @exception Throwable any error that occurred when calling the method
+     */
+    protected void callClientSetUp(Request theRequest) throws Throwable
+    {
+        callGenericBeginMethod(theRequest, CLIENT_SETUP_METHOD);
+    }
+
+    /**
+     * Call the test case begin method.
+     *
+     * @param theRequest the request object to pass to the begin method.
+     * @exception Throwable any error that occurred when calling the begin
+     *            method for the current test case.
+     */
+    protected void callBeginMethod(Request theRequest) throws Throwable
+    {
+        callGenericBeginMethod(theRequest, getBeginMethodName());
     }
 
     /**

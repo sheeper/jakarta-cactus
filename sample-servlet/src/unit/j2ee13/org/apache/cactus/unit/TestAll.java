@@ -100,6 +100,9 @@ public class TestAll extends TestCase
         // test class for more information on why
         suite.addTest(org.apache.cactus.unit.TestServletTestCase_TestResult.suite());
 
+        // AbstractTestCase related tests
+        suite.addTestSuite(org.apache.cactus.unit.TestAbstractWebTestCase.class);
+
         // ServletTestCase related tests
         suite.addTest(org.apache.cactus.unit.TestServletTestCase1.suite());
         suite.addTest(org.apache.cactus.unit.TestServletTestCase2.suite());

@@ -32,6 +32,10 @@
   <version title="Version 1.5">
 
     <category title="Documentation">
+      <action>
+        Update web site for new <code>clientSetUp()</code> and
+        <code>clientTearDown()</code> methods.
+      </action>
       <action assigned-to="Vincent Massol">
         Move all documentation to docbook and cocoon2 and generate PDF
         containing full Cactus documentation. Note: I still need to find out
@@ -83,18 +87,6 @@
       </action>
       <action assigned-to="Peter Wong, Jason Robertson, Vincent Massol">
         Add support for Form-based authentication.
-      </action>
-      <action>
-        Add methods that are called before and after each test, but on the
-        client side (i.e. before the <code>beginXXX()</code> and
-        <code>endXXX()</code> methods). They
-        would act the same way as <code>setUp()</code> and
-        <code>tearDown()</code> but on the client side. They could be
-        named <code>init()</code> and <code>destroy()</code>, or maybe we
-        should rather rename the existing <code>setUp()</code> and
-        <code>tearDown()</code> and have something consistent like :
-        <code>setUpClient()</code>, <code>setUpServer()</code>,
-        <code>tearDownClient()</code> and <code>tearDownServer()</code> ?
       </action>
       <action>
         Provide support for generating Session cookies and URL Sessions
