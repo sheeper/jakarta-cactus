@@ -32,6 +32,10 @@
   <version title="Version 1.3">
 
     <category title="Documentation">
+      <action assigned-to="Vincent Massol">
+        Move all documentation to docbook and cocoon2 and generate PDF containing full Cactus
+        documentation.
+      </action>
       <action>
         Add a tutorial for VAJava with Tomcat environment (the current
         tutorial on the web site is for VAJava with WTE). Needed steps

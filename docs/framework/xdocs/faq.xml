@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE document SYSTEM "./dtd/document-v10.dtd">
+
+<document>
+  <header>
+    <title>FAQ</title>
+    <authors>
+      <person name="Vincent Massol" email="vmassol@apache.org"/>
+    </authors>
+  </header>
+
+  <body>
+
+    <s1 title="FAQ Content">
+      <ul>
+        <li>
+          <jump anchor="faq1_web_xml_production">How can I have a web.xml that is valid both for
+          testing and for production ?</jump>
+        </li>
+      </ul>
+    </s1>
+
+    <anchor id="faq1_web_xml_production"/>
+    <s1 title="How can I have a web.xml that is valid both for testing and for production ?">
+
+      <p>
+        <em>submitted by <link href="mailto:lists@ehatchersolutions.com">Erik Hatcher</link></em>
+      </p>
+
+      <s2 title="Question">
+        <p>
+          Cactus needs to have a few entries set in the <code>web.xml</code> file (redirector
+          definition and mappings mostly). The application to test also needs its own entries.
+          What would be nice would be to be able to use the same <code>web.xml</code> file in
+          the build process for both application testing and deployment to production.
+        </p>
+      </s2>
+      <s2 title="Solution">
+        <p>
+            Here's how I accomplished conditional inclusion
+            of Cactus web.xml configuration.  My web.xml file is capable of working
+            standalone without requiring any filtered copy to work.   In Ant I'm doing
+            this:
+        </p>
+<source><![CDATA[
+<!-- Activate the Cactus web.xml configuration -->
+<copy todir="${admin.build.dir}/WEB-INF"
+      file="web/admin/WEB-INF/web.xml"
+      overwrite="yes">
+  <filterset>
+    <filter token="start.cactus.config" value="--&gt;" />
+    <filter token="end.cactus.config" value="&lt;!--" />
+  </filterset>
+</copy>]]></source>
+
+        <p>
+          In <code>web.xml</code> I have this:
+        </p>
+
+<source><![CDATA[
+<!-- Cactus configuration
+Note: Do not place any XML comments in this Cactus configuration section
+(Ant's filtered copy is used to activate this configuration when the test
+web application is built)
+-->
+<!-- Begin Cactus Configuration @start.cactus.config@
+<servlet>
+  <servlet-name>ServletRedirector</servlet-name>
+  <servlet-class>org.apache.cactus.server.ServletTestRedirector</servlet-class>
+</servlet>
+
+<servlet>
+    <servlet-name>JspRedirector</servlet-name>
+    <jsp-file>/somewhere/jspRedirector.jsp</jsp-file>
+</servlet>
+
+<servlet-mapping>
+    <servlet-name>ServletRedirector</servlet-name>
+    <url-pattern>/ServletRedirector/</url-pattern>
+</servlet-mapping>
+
+<servlet-mapping>
+    <servlet-name>JspRedirector</servlet-name>
+    <url-pattern>/JspRedirector/</url-pattern>
+</servlet-mapping>
+
+@end.cactus.config@ End Cactus Configuration -->
+]]></source>
+
+      </s2>
+
+    </s1>
+
+  </body>
+</document>

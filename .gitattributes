@@ -81,6 +81,7 @@ docs/framework/xdocs/dtd/changes-v10.dtd svn_keywords=Author+Date+Id+Revision
 docs/framework/xdocs/dtd/characters.ent svn_keywords=Author+Date+Id+Revision
 docs/framework/xdocs/dtd/document-v10.dtd svn_keywords=Author+Date+Id+Revision
 docs/framework/xdocs/dtd/todo-v10.dtd svn_keywords=Author+Date+Id+Revision
+docs/framework/xdocs/faq.xml svn_keywords=Author+Date+Id+Revision
 docs/framework/xdocs/features.xml svn_keywords=Author+Date+Id+Revision
 docs/framework/xdocs/getting_started.xml svn_keywords=Author+Date+Id+Revision
 docs/framework/xdocs/goals.xml svn_keywords=Author+Date+Id+Revision
