@@ -27,8 +27,6 @@ import org.apache.cactus.integration.ant.deployment.WarArchive;
  * Represents a component to deploy in a container. It can either be
  * a WAR or an EAR file. 
  * 
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public interface DeployableFile

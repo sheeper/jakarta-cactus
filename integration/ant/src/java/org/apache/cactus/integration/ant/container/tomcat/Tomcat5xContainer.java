@@ -26,8 +26,6 @@ import org.apache.tools.ant.BuildException;
 /**
  * Special container support for the Apache Tomcat 5.x servlet container.
  * 
- * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
- * 
  * @version $Id$
  */
 public class Tomcat5xContainer extends AbstractCatalinaContainer

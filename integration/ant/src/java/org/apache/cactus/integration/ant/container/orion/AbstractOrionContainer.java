@@ -34,8 +34,6 @@ import org.apache.tools.ant.util.FileUtils;
 /**
  * Basic support for the Orin application server.
  * 
- * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
- * 
  * @version $Id$
  */
 public abstract class AbstractOrionContainer extends AbstractJavaContainer

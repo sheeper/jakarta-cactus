@@ -37,9 +37,6 @@ import org.apache.tools.ant.util.FileUtils;
  * 
  * TODO: this doesn't work for me on JDK 1.3.1 and WL 7.0 SP2
  * 
- * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- * 
  * @version $Id$
  */
 public class WebLogic7xContainer extends AbstractJavaContainer

@@ -28,9 +28,6 @@ import org.apache.tools.ant.util.FileUtils;
 /**
  * Special container support for the Apache Tomcat 4.x servlet container.
  * 
- * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- * 
  * @version $Id$
  */
 public class Tomcat4xContainer extends AbstractCatalinaContainer

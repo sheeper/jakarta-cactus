@@ -34,8 +34,6 @@ import org.xml.sax.SAXException;
  * Parse an WAR descriptor to extract meaninful information for Cactus,
  * the results being stored in a {@link WarDeployableFile} object. 
  * 
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @since Cactus 1.5
  * @version $Id$
  */

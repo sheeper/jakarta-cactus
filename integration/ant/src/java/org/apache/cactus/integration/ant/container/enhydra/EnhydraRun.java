@@ -26,9 +26,6 @@ import org.apache.cactus.integration.ant.container.AbstractServerRun;
 /**
  * Starts/stop Enhydra by setting up a listener socket.
  *
- * @author <a href="mailto:digital@ix.net.au">Robert Leftwich</a>
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  * @see AbstractServerRun
  */

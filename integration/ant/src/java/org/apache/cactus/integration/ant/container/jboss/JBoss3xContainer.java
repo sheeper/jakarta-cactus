@@ -46,8 +46,6 @@ import org.xml.sax.SAXException;
 /**
  * Special container support for the JBoss application server.
  * 
- * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
- * 
  * @version $Id$
  */
 public class JBoss3xContainer extends AbstractJavaContainer

@@ -26,9 +26,6 @@ import org.apache.tools.ant.types.Path;
 /**
  * Special container support for the Caucho Resin 2.x servlet container.
  * 
- * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- * 
  * @version $Id$
  */
 public class Resin2xContainer extends AbstractResinContainer

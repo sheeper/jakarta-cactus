@@ -34,8 +34,6 @@ import org.apache.tools.ant.util.FileUtils;
 /**
  * Common support for all Resin container versions.
  * 
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- * 
  * @version $Id$
  */
 public abstract class AbstractResinContainer extends AbstractJavaContainer

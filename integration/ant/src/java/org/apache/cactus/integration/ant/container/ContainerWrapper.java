@@ -29,8 +29,6 @@ import org.apache.tools.ant.types.Environment.Variable;
  * Class that wraps around an implementation of the <code>Container</code>
  * interface and delegates all calls to the wrapped instance.
  * 
- * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
- * 
  * @version $Id$
  */
 public class ContainerWrapper implements Container

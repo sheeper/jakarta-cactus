@@ -26,8 +26,6 @@ import org.apache.tools.ant.BuildException;
 /**
  * Special container support for the Orin 1.x application server.
  * 
- * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
- * 
  * @version $Id$
  */
 public class Orion1xContainer extends AbstractOrionContainer

@@ -30,9 +30,6 @@ import org.apache.cactus.integration.ant.container.AbstractServerRun;
  * Starts/stop Resin by setting up a listener socket. Supports Resin 2.0.x,
  * 2.1.x and 3.x.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- * @author <a href="mailto:digital@ix.net.au">Robert Leftwich</a>
- *
  * @version $Id$
  */
 public class ResinRun extends AbstractServerRun

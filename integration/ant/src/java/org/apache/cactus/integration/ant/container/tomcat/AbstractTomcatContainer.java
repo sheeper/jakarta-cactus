@@ -34,8 +34,6 @@ import org.apache.tools.ant.util.FileUtils;
 /**
  * Base support for Catalina based containers.
  * 
- * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
- * 
  * @version $Id$
  */
 public abstract class AbstractTomcatContainer extends AbstractJavaContainer

@@ -33,8 +33,6 @@ import org.apache.tools.ant.taskdefs.CallTarget;
  * {@link org.apache.cactus.integration.ant.CactusTask} to support complete 
  * customization of the container lifecycle from a build file.
  * 
- * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
- *
  * @version $Id$
  */
 public final class GenericContainer extends AbstractContainer

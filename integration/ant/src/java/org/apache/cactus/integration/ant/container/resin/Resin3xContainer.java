@@ -30,8 +30,6 @@ import org.apache.tools.ant.types.Path;
 /**
  * Special container support for the Caucho Resin 3.x servlet container.
  * 
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- * 
  * @version $Id$
  */
 public class Resin3xContainer extends AbstractResinContainer

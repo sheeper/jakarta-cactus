@@ -32,8 +32,6 @@ import org.apache.tools.ant.util.FileUtils;
 /**
  * Special container support for the Apache Tomcat 3.x servlet container.
  * 
- * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
- *
  * @version $Id$
  */
 public class Tomcat3xContainer extends AbstractTomcatContainer
