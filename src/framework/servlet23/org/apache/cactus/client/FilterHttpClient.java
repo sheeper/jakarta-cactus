@@ -64,17 +64,11 @@ package org.apache.cactus.client;
 public class FilterHttpClient extends AbstractHttpClient
 {
     /**
-     * Default URL to call the <code>ServletRedirector</code> servlet.
-     */
-    protected final static String FILTER_REDIRECTOR_URL =
-        CONFIG.getString("cactus.filterRedirectorURL");
-
-    /**
      * @return the URL to call the redirector
      */
     protected String getRedirectorURL()
     {
-        return FILTER_REDIRECTOR_URL;
+        return ClientConfiguration.getFilterRedirectorURL();
     }
 
 }
