@@ -115,6 +115,7 @@
   <external id="clover" url="http://www.thecortex.net/clover/index.html"/>
   <external id="collections" url="http://jakarta.apache.org/commons/collections.html"/>
   <external id="cvs" url="http://jakarta.apache.org/site/cvsindex.html"/>
+  <external id="eclipse" url="http://www.eclipse.org"/>  
   <external id="eblox" url="http://www.eblox.com"/>
   <external id="gump" url="http://jakarta.apache.org/gump/"/>
   <external id="gump_cactus_anttasks" url="http://cvs.apache.org/builds/gump/latest/jakarta-cactus-anttasks.html"/>
