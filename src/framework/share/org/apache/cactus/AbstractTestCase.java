@@ -108,7 +108,7 @@ public abstract class AbstractTestCase extends TestCase
     /**
      * The logger (only used on the client side).
      */
-    protected Log logger;
+    private Log logger;
 
     /**
      * Constructs a JUnit test case with the given name.
@@ -119,6 +119,15 @@ public abstract class AbstractTestCase extends TestCase
     {
         super(theName);
         this.currentTestMethod = JUnitVersionHelper.getTestCaseName(this);
+    }
+
+    /**
+     * @return the logger used by the <code>TestCase</code> class and
+     *         subclasses to perform logging.
+     */
+    protected final Log getLogger()
+    {
+        return this.logger;
     }
 
     /**
@@ -448,7 +457,7 @@ public abstract class AbstractTestCase extends TestCase
         // on the server side and on the client side, we need to differentiate
         // the logging initialisation. This method is only called on the server
         // side, so we instanciate the log for server side here.
-        if (this.logger == null) {
+        if (getLogger() == null) {
             this.logger =
                 LogService.getInstance().getLog(this.getClass().getName());
         }

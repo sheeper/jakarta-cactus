@@ -128,6 +128,15 @@
 
     <release version="1.3 in CVS">
       <action dev="VMA" type="add">
+        Added a <code>AbstractTestCase.getLogger()</code> method that lets any test case class get
+        access to a logger to perform its own logging. Logs will go into the Cactus log files.
+      </action>
+      <action dev="VMA" type="update">
+        By default, the Cactus log4j configuration file defines a root category that logs to the
+        Cactus log file with a DEBUG Priority. There is another category for the Cactus classes
+        with a Priority of WARN so that no debug logs will be printed by default.
+      </action>
+      <action dev="VMA" type="add">
         Cactus is now using AspectJ under the hood to provide automatic logging of entries and
         exits of methods (for debugging purpose) and to automatically initialise the logging
         subsystem. The next step is to add automatic configuration checking using AspectJ. The
