@@ -74,6 +74,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jdt.core.IClasspathEntry;
@@ -220,13 +221,16 @@ public class WarBuilder
 
     /**
      * Creates the war file in the Java temp directory.
-     * @param thePM a monitor that reflects the overall progress
+     * @param thePM a monitor that reflects the overall progress,
+     *  or null if none is to be used.
      * @return File the location where the war file was created
      * @throws CoreException if we can't create the file
      */
     public File createWar(IProgressMonitor thePM) throws CoreException
     {
-        thePM.subTask(
+        IProgressMonitor progressMonitor =
+            (thePM != null) ? thePM : new NullProgressMonitor();
+        progressMonitor.subTask(
             WebappMessages.getString("WarBuilder.message.createwar.monitor"));
         this.webapp.loadValues();
         File outputWar = getOutputWar();
@@ -247,7 +251,7 @@ public class WarBuilder
         }
         tempJarsDir.mkdir();
         copyJars(jarEntries, tempJarsDir);
-        thePM.worked(1);
+        progressMonitor.worked(1);
         Project antProject = new Project();
         antProject.init();
         warTask.setProject(antProject);
@@ -301,7 +305,7 @@ public class WarBuilder
         warTask.addLib(lib);
         warTask.execute();
         delete(tempJarsDir);
-        thePM.worked(2);
+        progressMonitor.worked(2);
         return outputWar;
     }
 
