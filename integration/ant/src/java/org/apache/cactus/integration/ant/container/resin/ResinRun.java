@@ -67,8 +67,10 @@ public class ResinRun extends AbstractServerRun
      * 
      * @see AbstractServerRun#doStartServer
      */
-    protected final void doStartServer(String[] theArgs)
+    protected final Thread doStartServer(String[] theArgs)
     {
+        Thread runningThread = this;
+        
         try
         {
             if (isResinVersion("2.0"))
@@ -81,7 +83,7 @@ public class ResinRun extends AbstractServerRun
             }
             else if (isResinVersion("3"))
             {
-                startResin3x(theArgs);
+                runningThread = startResin3x(theArgs);
             }
             else
             {
@@ -94,6 +96,8 @@ public class ResinRun extends AbstractServerRun
             e.printStackTrace();
             throw new RuntimeException("Failed to start Resin server");
         }
+
+        return runningThread;
     }
 
     /**
@@ -143,10 +147,11 @@ public class ResinRun extends AbstractServerRun
     /**
      * Starts Resin 3.x
      *
+     * @return the thread in which the server has been started
      * @param theArgs the command line arguments for starting the server
      * @throws Exception if an error happens when starting the server
      */
-    private void startResin3x(final String[] theArgs) throws Exception
+    private Thread startResin3x(final String[] theArgs) throws Exception
     {
         // Start the server in another thread so that it doesn't block
         // the current thread. It seems that Resin 3.x is acting differently
@@ -168,6 +173,7 @@ public class ResinRun extends AbstractServerRun
                 }
                 catch (Exception e)
                 {
+                    e.printStackTrace();
                     throw new RuntimeException(
                         "Failed to start Resin 3.x. Error = ["
                         + e.getMessage() + "]");
@@ -175,6 +181,8 @@ public class ResinRun extends AbstractServerRun
             }
         };
         startThread.start();
+        
+        return startThread;
     }
     
     /**

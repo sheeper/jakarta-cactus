@@ -72,10 +72,11 @@ public abstract class AbstractServerRun extends Thread
     /**
      * Starts the server (in a blocking mode) and set up a socket listener.
      *
+     * @return the thread in which the server has been started
      * @param theArgs the command line arguments
      * @exception Exception if any error happens when starting the server
      */
-    protected abstract void doStartServer(String[] theArgs) throws Exception;
+    protected abstract Thread doStartServer(String[] theArgs) throws Exception;
 
     /**
      * Stops the server by connecting to the socket set up when the server
@@ -149,7 +150,7 @@ public abstract class AbstractServerRun extends Thread
 
         try
         {
-            doStartServer(this.args);
+            this.runningServerThread = doStartServer(this.args);
         }
         catch (Exception e)
         {
@@ -159,9 +160,9 @@ public abstract class AbstractServerRun extends Thread
 
         // Server is now started
         this.isStarted = true;
-        
-        this.runningServerThread = new Thread(this);
-        this.runningServerThread.start();
+
+        // Start a socket listener that will listen for stop commands. 
+        start();
     }
 
     /**

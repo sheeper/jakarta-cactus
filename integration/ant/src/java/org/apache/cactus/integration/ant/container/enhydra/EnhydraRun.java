@@ -57,7 +57,7 @@ public class EnhydraRun extends AbstractServerRun
      * 
      * @see AbstractServerRun#doStartServer
      */
-    protected final void doStartServer(String[] theArgs)
+    protected final Thread doStartServer(String[] theArgs)
     {
         try
         {
@@ -73,6 +73,8 @@ public class EnhydraRun extends AbstractServerRun
             e.printStackTrace();
             throw new RuntimeException("Cannot create instance of MultiServer");
         }
+        
+        return this;
     }
 
     /**
