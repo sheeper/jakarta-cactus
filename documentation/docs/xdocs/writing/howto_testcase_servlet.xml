@@ -112,6 +112,10 @@
               <code>setRemoteHostName()</code>: sets the remote Host name
               that will be returned by <code>getRemoteHostName()</code>,
             </li>
+            <li>
+              <code>setRemoteUser()</code>: sets the remote user name
+              that will be returned by <code>getRemoteUser()</code>.
+            </li>
           </ul>
 
         </section>
