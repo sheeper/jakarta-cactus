@@ -9,4 +9,6 @@
     <!-- The Cactus test webapp -->
     <web-app application="default" name="test" root="/@cactus.context@"/>
 
+    <access-log path="../log/default-web-access.log"/>
+    
 </web-site>

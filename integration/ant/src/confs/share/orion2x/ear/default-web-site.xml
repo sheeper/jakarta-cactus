@@ -6,4 +6,6 @@
     <!-- The default web-app for this site, bound to the root -->
     <default-web-app application="default" name="defaultWebApp"/>
 
+    <access-log path="../log/default-web-access.log"/>
+
 </web-site>

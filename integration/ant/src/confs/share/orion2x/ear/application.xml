@@ -13,4 +13,21 @@
 		<file path="../log/global-application.log"/>
 	</log>
 
+	<namespace-access>
+		<read-access>
+			<namespace-resource root="">
+				<security-role-mapping>
+					<group name="administrators" />
+				</security-role-mapping>
+			</namespace-resource>
+		</read-access>
+		<write-access>
+			<namespace-resource root="">
+				<security-role-mapping>
+					<group name="administrators" />
+				</security-role-mapping>
+			</namespace-resource>
+		</write-access>
+	</namespace-access>
+
 </orion-application>
