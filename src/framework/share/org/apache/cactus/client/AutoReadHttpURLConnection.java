@@ -135,12 +135,14 @@ final class AutoReadHttpURLConnection extends HttpURLConnection
 
     private void logErrorStream(InputStream theErrorStream) throws IOException
     {
-        // Log content of error stream
-        BufferedReader errorStream = new BufferedReader(
-            new InputStreamReader(theErrorStream));
-        String buffer;
-        while ((buffer = errorStream.readLine()) != null) {
-            logger.debug("ErrorStream [" + buffer + "]");
+        if (theErrorStream != null) {
+            // Log content of error stream
+            BufferedReader errorStream = new BufferedReader(
+                new InputStreamReader(theErrorStream));
+            String buffer;
+            while ((buffer = errorStream.readLine()) != null) {
+                logger.debug("ErrorStream [" + buffer + "]");
+            }
         }
     }
 
