@@ -770,4 +770,126 @@ public class TestWebXml extends TestCase
         assertTrue(webXml.hasServlet("s3"));
     }
 
+    public void testGetSecurityConstraintEmpty()
+        throws Exception
+    {
+        String xml = "<web-app></web-app>";
+        Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
+        WebXml webXml = new WebXml(doc);
+        Iterator securityConstraints = webXml.getSecurityConstraints();
+        assertTrue(!securityConstraints.hasNext());
+    }
+
+    public void testGetSingleSecurityConstraint()
+        throws Exception
+    {
+        String xml = "<web-app>"
+            + "  <security-constraint>"
+            + "    <web-resource-collection>"
+            + "      <web-resource-name>wr1</web-resource-name>"
+            + "    </web-resource-collection>"
+            + "  </security-constraint>"
+            + "</web-app>";
+        Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
+        WebXml webXml = new WebXml(doc);
+        Iterator securityConstraints = webXml.getSecurityConstraints();
+        assertNotNull(securityConstraints.next());
+        assertTrue(!securityConstraints.hasNext());
+    }
+
+    public void testGetMutlipleSecurityConstraints()
+        throws Exception
+    {
+        String xml = "<web-app>"
+            + "  <security-constraint>"
+            + "    <web-resource-collection>"
+            + "      <web-resource-name>wr1</web-resource-name>"
+            + "    </web-resource-collection>"
+            + "  </security-constraint>"
+            + "  <security-constraint>"
+            + "    <web-resource-collection>"
+            + "      <web-resource-name>wr2</web-resource-name>"
+            + "    </web-resource-collection>"
+            + "  </security-constraint>"
+            + "  <security-constraint>"
+            + "    <web-resource-collection>"
+            + "      <web-resource-name>wr3</web-resource-name>"
+            + "    </web-resource-collection>"
+            + "  </security-constraint>"
+            + "</web-app>";
+        Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
+        WebXml webXml = new WebXml(doc);
+        Iterator securityConstraints = webXml.getSecurityConstraints();
+        assertNotNull(securityConstraints.next());
+        assertNotNull(securityConstraints.next());
+        assertNotNull(securityConstraints.next());
+        assertTrue(!securityConstraints.hasNext());
+    }
+
+    public void testGetLoginConfigEmpty()
+        throws Exception
+    {
+        String xml = "<web-app></web-app>";
+        Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
+        WebXml webXml = new WebXml(doc);
+        assertNull(webXml.getLoginConfig());
+    }
+
+    public void testGetLoginConfig()
+        throws Exception
+    {
+        String xml = "<web-app><login-config/></web-app>";
+        Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
+        WebXml webXml = new WebXml(doc);
+        assertNotNull(webXml.getLoginConfig());
+    }
+
+    public void testGetSecurityRoleEmpty()
+        throws Exception
+    {
+        String xml = "<web-app></web-app>";
+        Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
+        WebXml webXml = new WebXml(doc);
+        Iterator securityRoles = webXml.getSecurityRoles();
+        assertTrue(!securityRoles.hasNext());
+    }
+
+    public void testGetSingleSecurityRole()
+        throws Exception
+    {
+        String xml = "<web-app>"
+            + "  <security-role>"
+            + "    <role-name>r1</role-name>"
+            + "  </security-role>"
+            + "</web-app>";
+        Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
+        WebXml webXml = new WebXml(doc);
+        Iterator securityRoles = webXml.getSecurityRoles();
+        assertNotNull(securityRoles.next());
+        assertTrue(!securityRoles.hasNext());
+    }
+
+    public void testGetMutlipleSecurityRoles()
+        throws Exception
+    {
+        String xml = "<web-app>"
+            + "  <security-role>"
+            + "    <role-name>r1</role-name>"
+            + "  </security-role>"
+            + "  <security-role>"
+            + "    <role-name>r2</role-name>"
+            + "  </security-role>"
+            + "  <security-role>"
+            + "    <role-name>r3</role-name>"
+            + "  </security-role>"
+            + "</web-app>";
+        Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
+        WebXml webXml = new WebXml(doc);
+        Iterator securityRoles = webXml.getSecurityRoles();
+        assertNotNull(securityRoles.next());
+        assertNotNull(securityRoles.next());
+        assertNotNull(securityRoles.next());
+        assertTrue(!securityRoles.hasNext());
+    }
+
 }

@@ -276,15 +276,38 @@ public class WebXmlMergeTask extends Task
             int filtersMerged = merger.mergeFilters(theMergeWebXml);
             if (filtersMerged > 0)
             {
-                log("Merged " + filtersMerged + " filter definitions into the "
-                    + "descriptor", Project.MSG_INFO);
+                log("Merged " + filtersMerged + " filter definition"
+                    + (filtersMerged != 1 ? "s " : " ")
+                    + "into the descriptor", Project.MSG_INFO);
             }
         }
         int servletsMerged = merger.mergeServlets(theMergeWebXml);
         if (servletsMerged > 0)
         {
-            log("Merged " + servletsMerged + " servlet definitions into the "
-                + "descriptor", Project.MSG_INFO);
+            log("Merged " + servletsMerged + " servlet definition"
+                + (servletsMerged != 1 ? "s " : " ")
+                + "into the descriptor", Project.MSG_INFO);
+        }
+        int securityConstraintsMerged =
+            merger.mergeSecurityConstraints(theMergeWebXml);
+        if (securityConstraintsMerged > 0)
+        {
+            log("Merged " + securityConstraintsMerged + " security constraint"
+                + (securityConstraintsMerged != 1 ? "s " : " ")
+                + "into the descriptor", Project.MSG_INFO);
+        }
+        boolean loginConfigMerged = merger.mergeLoginConfig(theMergeWebXml);
+        if (loginConfigMerged)
+        {
+            log("Merged the login configuration into the descriptor",
+                Project.MSG_INFO);
+        }
+        int securityRolesMerged = merger.mergeSecurityRoles(theMergeWebXml);
+        if (securityRolesMerged > 0)
+        {
+            log("Merged " + securityRolesMerged + " security role"
+                + (securityRolesMerged != 1 ? "s " : " ")
+                + "into the descriptor", Project.MSG_INFO);
         }
     }
     

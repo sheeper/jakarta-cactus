@@ -170,12 +170,13 @@ public class WebXml
     /**
      * Adds a new servlet filter to the descriptor.
      * 
-     * @param theFilterElement The element representing the filter definition
+     * @param theFilter The element representing the filter definition
      */
-    public void addFilter(Element theFilterElement)
+    public void addFilter(Element theFilter)
     {
+        checkElement(theFilter, WebXmlElement.FILTER);
         String filterName =
-            getNestedText(theFilterElement, WebXmlElement.FILTER_NAME);
+            getNestedText(theFilter, WebXmlElement.FILTER_NAME);
         if (filterName == null)
         {
             throw new IllegalArgumentException("Not a valid filter element");
@@ -185,10 +186,7 @@ public class WebXml
             throw new IllegalStateException("Filter '" + filterName +
                 "' already defined");
         }
-        Node importedNode = document.importNode(theFilterElement, true);
-        Node refNode = WebXmlElement.getNodeToInsertBefore(
-            document, WebXmlElement.FILTER);
-        rootElement.insertBefore(importedNode, refNode);
+        addElement(theFilter);
     }
     
     /**
@@ -227,9 +225,7 @@ public class WebXml
         }
         Element filterMappingElement = WebXmlElement.createFilterMapping(
             document, theFilterName, theUrlPattern);
-        Node refNode = WebXmlElement.getNodeToInsertBefore(
-            document, WebXmlElement.FILTER_MAPPING);
-        rootElement.insertBefore(filterMappingElement, refNode);
+        addElement(filterMappingElement);
     }
     
     /**
@@ -412,12 +408,13 @@ public class WebXml
     /**
      * Adds a new servlet to the descriptor.
      * 
-     * @param theServletElement The element representing the servlet definition
+     * @param theServlet The element representing the servlet definition
      */
-    public void addServlet(Element theServletElement)
+    public void addServlet(Element theServlet)
     {
+        checkElement(theServlet, WebXmlElement.SERVLET);
         String servletName =
-            getNestedText(theServletElement, WebXmlElement.SERVLET_NAME);
+            getNestedText(theServlet, WebXmlElement.SERVLET_NAME);
         if (servletName == null)
         {
             throw new IllegalArgumentException("Not a valid servlet element");
@@ -427,30 +424,7 @@ public class WebXml
             throw new IllegalStateException("Servlet '" + servletName +
                 "' already defined");
         }
-        Node importedNode = document.importNode(theServletElement, true);
-        Node refNode = WebXmlElement.getNodeToInsertBefore(
-            document, WebXmlElement.SERVLET);
-        rootElement.insertBefore(importedNode, refNode);
-    }
-    
-    /**
-     * Adds a servlet mapping to the descriptor.
-     * 
-     * @param theServletName The name of the servlet
-     * @param theUrlPattern The URL pattern the servlet should be mapped to
-     */
-    public void addServletMapping(String theServletName, String theUrlPattern)
-    {
-        if (!hasServlet(theServletName))
-        {
-            throw new IllegalStateException("Servlet '" + theServletName +
-                "' not defined");
-        }
-        Element servletMappingElement = WebXmlElement.createServletMapping(
-            document, theServletName, theUrlPattern);
-        Node refNode = WebXmlElement.getNodeToInsertBefore(
-            document, WebXmlElement.SERVLET_MAPPING);
-        rootElement.insertBefore(servletMappingElement, refNode);
+        addElement(theServlet);
     }
     
     /**
@@ -472,6 +446,24 @@ public class WebXml
         Element initParamElement = WebXmlElement.createInitParam(
             document, theParamName, theParamValue);
         servletElement.appendChild(initParamElement);
+    }
+    
+    /**
+     * Adds a servlet mapping to the descriptor.
+     * 
+     * @param theServletName The name of the servlet
+     * @param theUrlPattern The URL pattern the servlet should be mapped to
+     */
+    public void addServletMapping(String theServletName, String theUrlPattern)
+    {
+        if (!hasServlet(theServletName))
+        {
+            throw new IllegalStateException("Servlet '" + theServletName +
+                "' not defined");
+        }
+        Element servletMappingElement = WebXmlElement.createServletMapping(
+            document, theServletName, theUrlPattern);
+        addElement(servletMappingElement);
     }
     
     /**
@@ -653,7 +645,130 @@ public class WebXml
         return (getServlet(theServletName) != null);
     }
     
+    /**
+     * Adds a security constraint element to the descriptor.
+     * 
+     * @param theSecurityConstraint The element to add
+     */
+    public void addSecurityConstraint(Element theSecurityConstraint)
+    {
+        checkElement(theSecurityConstraint, WebXmlElement.SECURITY_CONSTRAINT);
+        addElement(theSecurityConstraint);
+    }
+
+    /**
+     * Returns the security constraint elements in the order they have been 
+     * defined in the descriptor.
+     * 
+     * @return An iterator over the ordered list of security constraints
+     */
+    public Iterator getSecurityConstraints()
+    {
+        List securityConstraints = new ArrayList();
+        NodeList securityConstraintElements =
+            rootElement.getElementsByTagName(WebXmlElement.SECURITY_CONSTRAINT);
+        for (int i = 0; i < securityConstraintElements.getLength(); i++)
+        {
+            securityConstraints.add(securityConstraintElements.item(i));
+        }
+        return securityConstraints.iterator();
+    }
+    
+    /**
+     * Returns the security constraint elements in the order they have been 
+     * defined in the descriptor.
+     * 
+     * @return An iterator over the ordered list of security constraints
+     */
+    public Element getLoginConfig()
+    {
+        NodeList loginConfigElements =
+            rootElement.getElementsByTagName(WebXmlElement.LOGIN_CONFIG);
+        if (loginConfigElements.getLength() > 0)
+        {
+            return (Element) loginConfigElements.item(0);
+        }
+        return null;
+    }
+    
+    /**
+     * Sets the login configuration, overwriting any previous configuration. 
+     * 
+     * @param theLoginConfig A DOM representation of the login configuration
+     */
+    public void setLoginConfig(Element theLoginConfig)
+    {
+        Element oldLoginConfig = getLoginConfig();
+        if (oldLoginConfig != null)
+        {
+            replaceElement(oldLoginConfig, theLoginConfig);
+        }
+        else
+        {
+            addElement(theLoginConfig);
+        }
+    }
+    
+    /**
+     * Adds a security role element to the descriptor.
+     * 
+     * @param theSecurityRole The element to add
+     */
+    public void addSecurityRole(Element theSecurityRole)
+    {
+        checkElement(theSecurityRole, WebXmlElement.SECURITY_ROLE);
+        addElement(theSecurityRole);
+    }
+
+    /**
+     * Returns the security role elements in the order they have been 
+     * defined in the descriptor.
+     * 
+     * @return An iterator over the ordered list of security roles
+     */
+    public Iterator getSecurityRoles()
+    {
+        List securityRoles = new ArrayList();
+        NodeList securityRoleElements =
+            rootElement.getElementsByTagName(WebXmlElement.SECURITY_ROLE);
+        for (int i = 0; i < securityRoleElements.getLength(); i++)
+        {
+            securityRoles.add(securityRoleElements.item(i));
+        }
+        return securityRoles.iterator();
+    }
+    
     // Private Methods ---------------------------------------------------------
+    
+    /**
+     * Adds a top-level element to the descriptor. The element is imported and 
+     * inserted at the correct position.
+     * 
+     * @param theElement The element to add
+     */
+    private void addElement(Element theElement)
+    {
+        Node importedNode = document.importNode(theElement, true);
+        Node refNode = WebXmlElement.getNodeToInsertBefore(
+            document, theElement.getNodeName());
+        rootElement.insertBefore(importedNode, refNode);
+    }
+    
+    /**
+     * Checks an element whether its name matches the specified name.
+     * 
+     * @param theElement The element to check
+     * @param theTagName The expected tag name
+     * @throws IllegalArgumentException If the element name doesn't match
+     */
+    private void checkElement(Element theElement, String theTagName)
+    {
+        if (!theTagName.equals(theElement.getNodeName()))
+        {
+            throw new IllegalArgumentException("Not a '" + theTagName
+                + "' element");
+        }
+    }
     
     /**
      * 
@@ -674,6 +789,20 @@ public class WebXml
             }
         }
         return null;
+    }
+    
+    /**
+     * Adds a top-level element to the descriptor. The element is imported and 
+     * inserted at the correct position.
+     * 
+     * @param theOldElement The element that should be replaced
+     * @param theNewElement The element that should replace the other element
+     */
+    private void replaceElement(Element theOldElement, Element theNewElement)
+    {
+        Node importedNode = document.importNode(theNewElement, true);
+        theOldElement.getParentNode().replaceChild(importedNode,
+            theOldElement);
     }
     
 }

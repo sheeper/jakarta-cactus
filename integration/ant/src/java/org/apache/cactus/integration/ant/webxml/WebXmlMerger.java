@@ -58,6 +58,8 @@ package org.apache.cactus.integration.ant.webxml;
 
 import java.util.Iterator;
 
+import org.w3c.dom.Element;
+
 /**
  * Helper class that can merge two web deployment descriptors.
  *
@@ -134,7 +136,7 @@ public class WebXmlMerger
      * 
      * @param theWebXml The descriptor that contains the servlet definitions
      *         that are to be merged into the original descriptor
-     * @return The number of servlet merged into the original descriptor
+     * @return The number of servlets merged into the original descriptor
      */
     public int mergeServlets(WebXml theWebXml)
     {
@@ -169,6 +171,66 @@ public class WebXmlMerger
                 String urlPattern = (String) servletMappings.next();
                 webXml.addServletMapping(servletName, urlPattern);
             }
+            count++;
+        }
+        return count;
+    }
+
+    /**
+     * 
+     * 
+     * @param theWebXml The descriptor that contains the security constraints
+     *         that are to be merged into the original descriptor
+     * @return The number of security constraints merged into the original
+     *          descriptor
+     */
+    public int mergeSecurityConstraints(WebXml theWebXml)
+    {
+        Iterator securityConstraints = theWebXml.getSecurityConstraints();
+        int count = 0;
+        while (securityConstraints.hasNext())
+        {
+            Element securityConstraint = (Element) securityConstraints.next();
+            webXml.addSecurityConstraint(securityConstraint);
+            count++;
+        }
+        return count;
+    }
+
+    /**
+     * 
+     * 
+     * @param theWebXml The descriptor that contains the login config that
+     *         is to be merged into the original descriptor
+     * @return Whether the login config was merged
+     */
+    public boolean mergeLoginConfig(WebXml theWebXml)
+    {
+        Element loginConfig = theWebXml.getLoginConfig();
+        if (loginConfig != null)
+        {
+            webXml.setLoginConfig(loginConfig);
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * 
+     * 
+     * @param theWebXml The descriptor that contains the security roles that
+     *         are to be merged into the original descriptor
+     * @return The number of security constraints merged into the original
+     *          descriptor
+     */
+    public int mergeSecurityRoles(WebXml theWebXml)
+    {
+        Iterator securityRoles = theWebXml.getSecurityRoles();
+        int count = 0;
+        while (securityRoles.hasNext())
+        {
+            Element securityRole = (Element) securityRoles.next();
+            webXml.addSecurityRole(securityRole);
             count++;
         }
         return count;
