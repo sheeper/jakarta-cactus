@@ -77,6 +77,10 @@ Note: To be added once we include the Eclipse plugin in a release
         </action>
 -->
       <release version="1.6" date="in CVS">
+        <action dev="VMA" type="update">
+          The Cactus distribution now packages commons-httpclient 2.0 RC1
+          (we were previously including version 2.0 beta2).
+        </action>
         <action dev="VMA" type="fix">
           Support for WebLogic 7.x is now working fine. Fixed bugs in the 
           WebLogic 7.x configuration: the
