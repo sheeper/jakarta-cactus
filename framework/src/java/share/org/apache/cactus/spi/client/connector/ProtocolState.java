@@ -1,7 +1,7 @@
 /* 
  * ========================================================================
  * 
- * Copyright 2003 The Apache Software Foundation.
+ * Copyright 2003-2004 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,17 +17,18 @@
  * 
  * ========================================================================
  */
-package org.apache.cactus.client.connector;
+package org.apache.cactus.spi.client.connector;
 
 /**
  * Hold protocol-related information that need to be exchanged during the 
- * lifecycle of the {@link org.apache.cactus.client.connector.ProtocolHandler}.
+ * lifecycle of the 
+ * {@link org.apache.cactus.spi.client.connector.ProtocolHandler}.
  * For example the HTTP protocol handler needs to pass the HTTP connection
  * around to the different lifecycle methods. However, as this kind of state
  * information is highly protocol dependent, we needed to abstract out the
  * state information, hence this tagging interface. The implementation is free
  * to have any kind of methods. These methods will only be used in the
- * {@link org.apache.cactus.client.connector.ProtocolHandler} implementation
+ * {@link org.apache.cactus.spi.client.connector.ProtocolHandler} implementation
  * classes.
  * 
  * @version $Id$

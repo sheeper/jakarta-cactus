@@ -20,11 +20,11 @@
 package org.apache.cactus;
 
 import junit.framework.TestCase;
-import org.apache.cactus.client.connector.ProtocolHandler;
 import org.apache.cactus.client.connector.http.HttpProtocolHandler;
 import org.apache.cactus.configuration.BaseConfiguration;
 import org.apache.cactus.configuration.ServletConfiguration;
 import org.apache.cactus.internal.AbstractCactusTestCase;
+import org.apache.cactus.spi.client.connector.ProtocolHandler;
 import org.apache.cactus.util.TestCaseImplementError;
 
 /**

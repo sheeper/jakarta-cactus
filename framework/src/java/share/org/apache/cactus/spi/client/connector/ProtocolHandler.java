@@ -1,7 +1,7 @@
 /* 
  * ========================================================================
  * 
- * Copyright 2003 The Apache Software Foundation.
+ * Copyright 2003-2004 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,12 +17,12 @@
  * 
  * ========================================================================
  */
-package org.apache.cactus.client.connector;
+package org.apache.cactus.spi.client.connector;
 
 import junit.framework.Test;
 
 import org.apache.cactus.Request;
-import org.apache.cactus.client.ResponseObjectFactory;
+import org.apache.cactus.spi.client.ResponseObjectFactory;
 
 /**
  * Any communication protocol (e.g HTTP) used to connect between

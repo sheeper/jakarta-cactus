@@ -26,12 +26,12 @@ import java.net.URL;
 import junit.framework.AssertionFailedError;
 import junit.framework.TestCase;
 
-import org.apache.cactus.client.WebResponseObjectFactory;
 import org.apache.cactus.client.connector.http.HttpProtocolHandler;
 import org.apache.cactus.configuration.ServletConfiguration;
 import org.apache.cactus.internal.WebRequestImpl;
 import org.apache.cactus.internal.client.ClientException;
 import org.apache.cactus.internal.client.ClientTestCaseCaller;
+import org.apache.cactus.internal.client.WebResponseObjectFactory;
 import org.apache.cactus.mock.MockHttpURLConnection;
 import org.apache.cactus.util.JUnitVersionHelper;
 

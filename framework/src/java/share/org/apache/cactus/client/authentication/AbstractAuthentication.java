@@ -1,7 +1,7 @@
 /* 
  * ========================================================================
  * 
- * Copyright 2001-2003 The Apache Software Foundation.
+ * Copyright 2001-2004 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,12 +39,12 @@ public abstract class AbstractAuthentication implements Authentication
     /**
      * User name part of the Credential
      */
-    protected String name;
+    private String name;
 
     /**
      * Password part of the Credential
      */
-    protected String password;
+    private String password;
 
     /**
      * @param theName user name of the Credential
@@ -87,7 +87,7 @@ public abstract class AbstractAuthentication implements Authentication
     /**
      * @return the user password of the Credential
      */
-    protected final String getPassword()
+    public final String getPassword()
     {
         return this.password;
     }

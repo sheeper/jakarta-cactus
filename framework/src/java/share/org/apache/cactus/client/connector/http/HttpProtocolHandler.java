@@ -26,13 +26,13 @@ import junit.framework.Test;
 
 import org.apache.cactus.Request;
 import org.apache.cactus.WebRequest;
-import org.apache.cactus.client.ResponseObjectFactory;
-import org.apache.cactus.client.WebResponseObjectFactory;
-import org.apache.cactus.client.connector.ProtocolHandler;
-import org.apache.cactus.client.connector.ProtocolState;
 import org.apache.cactus.configuration.WebConfiguration;
 import org.apache.cactus.internal.RequestDirectives;
 import org.apache.cactus.internal.WebRequestImpl;
+import org.apache.cactus.internal.client.WebResponseObjectFactory;
+import org.apache.cactus.spi.client.ResponseObjectFactory;
+import org.apache.cactus.spi.client.connector.ProtocolHandler;
+import org.apache.cactus.spi.client.connector.ProtocolState;
 import org.apache.cactus.util.JUnitVersionHelper;
 
 /**

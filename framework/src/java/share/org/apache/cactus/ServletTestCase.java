@@ -24,12 +24,12 @@ import javax.servlet.http.HttpSession;
 
 import junit.framework.Test;
 
-import org.apache.cactus.client.connector.ProtocolHandler;
 import org.apache.cactus.client.connector.http.HttpProtocolHandler;
 import org.apache.cactus.configuration.ServletConfiguration;
 import org.apache.cactus.internal.AbstractCactusTestCase;
 import org.apache.cactus.internal.CactusTestCase;
 import org.apache.cactus.server.ServletConfigWrapper;
+import org.apache.cactus.spi.client.connector.ProtocolHandler;
 
 /**
  * Cactus test case to unit test Servlets. Test classes that need access to 

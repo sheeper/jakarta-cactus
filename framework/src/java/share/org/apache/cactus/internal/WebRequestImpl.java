@@ -26,10 +26,10 @@ import org.apache.cactus.Cookie;
 import org.apache.cactus.HttpSessionCookie;
 import org.apache.cactus.ServletURL;
 import org.apache.cactus.WebResponse;
-import org.apache.cactus.client.WebResponseObjectFactory;
 import org.apache.cactus.client.connector.http.HttpClientConnectionHelper;
 import org.apache.cactus.configuration.WebConfiguration;
 import org.apache.cactus.internal.client.ClientException;
+import org.apache.cactus.internal.client.WebResponseObjectFactory;
 import org.apache.cactus.util.ChainedRuntimeException;
 
 /**

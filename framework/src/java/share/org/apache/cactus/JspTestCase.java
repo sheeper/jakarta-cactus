@@ -23,10 +23,10 @@ import javax.servlet.jsp.JspWriter;
 
 import junit.framework.Test;
 
-import org.apache.cactus.client.connector.ProtocolHandler;
 import org.apache.cactus.client.connector.http.HttpProtocolHandler;
 import org.apache.cactus.configuration.JspConfiguration;
 import org.apache.cactus.server.PageContextWrapper;
+import org.apache.cactus.spi.client.connector.ProtocolHandler;
 
 /**
  * Test classes that need access to valid JSP implicit objects (such as the

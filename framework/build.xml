@@ -365,6 +365,10 @@ be resolved. Please check you build.properties file, and run Ant with the
         <package name="org.apache.cactus.extension.jsp"/>
         <package name="org.apache.cactus.server"/>
       </group>
+      <group title="Public SPI">
+        <package name="org.apache.cactus.spi.client"/>
+        <package name="org.apache.cactus.spi.client.connector"/>
+      </group>
       <group title="Internal API">
         <package name="org.apache.cactus.internal"/>
         <package name="org.apache.cactus.internal.client"/>

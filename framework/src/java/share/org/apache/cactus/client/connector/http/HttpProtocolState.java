@@ -1,7 +1,7 @@
 /* 
  * ========================================================================
  * 
- * Copyright 2003 The Apache Software Foundation.
+ * Copyright 2003-2004 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,11 +21,11 @@ package org.apache.cactus.client.connector.http;
 
 import java.net.HttpURLConnection;
 
-import org.apache.cactus.client.connector.ProtocolState;
+import org.apache.cactus.spi.client.connector.ProtocolState;
 
 /**
  * HTTP-specific state information to be passed to the different 
- * {@link org.apache.cactus.client.connector.ProtocolHandler} lifecycle
+ * {@link org.apache.cactus.spi.client.connector.ProtocolHandler} lifecycle
  * methods. More specifically, we need to pass around the HTTP connection
  * object as it is created in the lifecycle method that runs the test
  * and the it is required in the lifecycle methods that create the 
