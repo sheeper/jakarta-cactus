@@ -56,7 +56,7 @@
  */
 package org.apache.cactus.ant;
 
-import java.io.BufferedInputStream;
+import java.io.InputStream;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -65,6 +65,7 @@ import java.net.URL;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
 import org.apache.tools.ant.taskdefs.CallTarget;
+import org.apache.tools.ant.Project;
 
 /**
  * A helper class for an Ant Task that does the following :
@@ -148,11 +149,14 @@ public class StartServerHelper implements Runnable
             // don't stop it afterwards.
             this.isServerAlreadyStarted = true;
 
+            this.task.log("Server is already running", Project.MSG_VERBOSE);
+
             return;
 
         } catch (IOException e) {
             // An error occurred. It just means the server is not running. Do
             // nothing
+            this.task.log("Server is not running", Project.MSG_VERBOSE);
         }
 
         // Call the target that starts the server, in another thread. The called
@@ -172,6 +176,8 @@ public class StartServerHelper implements Runnable
         // Continuously try calling the test URL until it succeeds
         while (true) {
 
+            this.task.log("Checking if server is up ...", Project.MSG_VERBOSE);
+
             try {
                 HttpURLConnection connection =
                     (HttpURLConnection) this.testURL.openConnection();
@@ -179,13 +185,20 @@ public class StartServerHelper implements Runnable
                 readFully(connection);
                 connection.disconnect();
             } catch (IOException e) {
+
+                this.task.log("... got error : " + e.getMessage(),
+                    Project.MSG_VERBOSE);
+
                 try {
                     Thread.sleep(500);
                 } catch (InterruptedException ee) {
                     throw new BuildException("Interruption during sleep", ee);
                 }
+
                 continue;
             }
+
+            this.task.log("Server is up !", Project.MSG_VERBOSE);
 
             break;
         }
@@ -197,7 +210,10 @@ public class StartServerHelper implements Runnable
             throw new BuildException("Interruption during sleep", e);
         }
 
+        this.task.log("Server started", Project.MSG_VERBOSE);
+
         // We're done ... Ant will continue processing other tasks
+
     }
 
     /**
@@ -207,15 +223,23 @@ public class StartServerHelper implements Runnable
      * @param theConnection the HTTP URL connection to read from
      * @exception IOException if an error happens during the read
      */
-    static void readFully(HttpURLConnection theConnection) throws IOException
+    static void readFully(HttpURLConnection theConnection)
+        throws IOException
     {
-        // finish reading it to prevent (harmless) server-side exceptions
-        BufferedInputStream is =
-            new BufferedInputStream(theConnection.getInputStream());
-        byte[] buffer = new byte[256];
-        while ((is.read(buffer)) > 0) {
+        // Only read if there is data to read ... The problem is that not
+        // all servers return a content-length header. If there is no header
+        // getContentLength() returns -1. It seems to work and it seems
+        // that all servers that return no content-length header also do
+        // not block on read() operations !
+
+        if (theConnection.getContentLength() != 0) {
+
+            byte[] buf = new byte[256];
+
+            InputStream is = theConnection.getInputStream();
+            while (-1 != is.read(buf)) {
+            }
         }
-        is.close();
     }
 
     /**
