@@ -54,6 +54,11 @@
       <tag>CACTUS_15_BETA1_RELEASE</tag>
     </version>
     <version>
+      <id>1.5</id>
+      <name>1.5</name>
+      <tag>CACTUS_15_RELEASE</tag>
+    </version>
+    <version>
       <id>1.6dev</id>
       <name>1.6dev</name>
       <tag>HEAD</tag>
