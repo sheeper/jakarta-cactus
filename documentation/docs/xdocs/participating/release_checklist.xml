@@ -74,9 +74,9 @@
         </li>
         <li>
           Upload the Cactus releases (for all Servlet APIs and the source one)
-          and the zipped Ant distribution to <code>archive.apache.org</code>,
+          and the zipped Ant distribution to <code>cvs.apache.org</code>,
           putting them in the
-          <code>/www/archive.apache.org/dist/jakarta/cactus</code>
+          <code>/www/www.apache.org/dist/jakarta/cactus</code>
           directory (binaries go in <code>binaries/</code> and sources in
           <code>source/</code>). Also make sure you link the latest versions
           to the <code>*-current.zip</code> files.
