@@ -89,6 +89,8 @@
             <property name="eclipse.jdt.junit.jar" isfile="true"/>
             <property name="eclipse.jdt.launching.jar" isfile="true"/>
             <property name="eclipse.jdt.ui.jar" isfile="true"/>
+            <property name="eclipse.jface.jar" isfile="true"/>
+            <property name="eclipse.swt.jar" isfile="true"/>
             <property name="eclipse.ui.workbench.jar" isfile="true"/>
 
         </checkProperty>
@@ -137,7 +139,9 @@
 		
 			<src path="${src.java.dir}"/>
 			<classpath>
-				<pathelement location="${eclipse.junit.jar}"/>
+				<pathelement location="${org.apache.cactus.eclipse.webapp.jar}"/>
+				
+				<pathelement location="${eclipse.ant.core.jar}"/>
 				<pathelement location="${eclipse.core.boot.jar}"/>
 				<pathelement location="${eclipse.core.resources.jar}"/>
 				<pathelement location="${eclipse.core.runtime.jar}"/>
@@ -146,12 +150,10 @@
 				<pathelement location="${eclipse.jdt.core.jar}"/>
 				<pathelement location="${eclipse.jdt.junit.jar}"/>
 				<pathelement location="${eclipse.jdt.launching.jar}"/>
-				<pathelement location="${eclipse.jdt.ui.jar}"/>				
-				<pathelement location="${eclipse.swt.jar}"/>
+				<pathelement location="${eclipse.jdt.ui.jar}"/>
 				<pathelement location="${eclipse.jface.jar}"/>
-				<pathelement location="${eclipse.ant.core.jar}"/>
+				<pathelement location="${eclipse.swt.jar}"/>
 				<pathelement location="${eclipse.ui.workbench.jar}"/>
-				<pathelement location="${org.apache.cactus.eclipse.webapp.jar}"/>
 
                 <!-- Needed for Gump -->
                 <pathelement location="${java.class.path}"/>
