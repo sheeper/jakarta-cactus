@@ -172,7 +172,7 @@ public abstract class AbstractHttpServletRequestWrapper
     {
         String result;
 
-        if ((this.url != null) && (this.url.getContextPath() != null))
+        if (this.url != null)
         {
             result = this.url.getContextPath();
             LOGGER.debug("Using simulated context : [" + result + "]");
@@ -214,7 +214,7 @@ public abstract class AbstractHttpServletRequestWrapper
     {
         String result;
 
-        if ((this.url != null) && (this.url.getServerName() != null))
+        if (this.url != null)
         {
             result = this.url.getHost();
             LOGGER.debug("Using simulated server name : [" + result + "]");
