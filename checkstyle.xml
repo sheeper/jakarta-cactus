@@ -6,88 +6,84 @@
 <!-- Checkstyle properties for Cactus projects -->
 <module name="Checker">
   
+  <property name="tabWidth" value="4" />
+  
   <module name="TreeWalker">
     <module name="AvoidStarImport"/>
-    <module name="ConstantNameCheck"/>
-    <module name="EmptyBlockCheck">
+    <module name="ConstantName"/>
+    <module name="EmptyBlock">
       <property name="option" value="text"/>
     </module>
-    <!-- module name="EqualsHashCodeCheck"/ -->
-    <module name="FileLengthCheck"/>
-    <module name="HeaderCheck">
+    <!-- module name="EqualsHashCode"/ -->
+    <module name="FileLength"/>
+    <module name="Header">
       <property name="headerFile" value="${checkstyle.header.file}"/>
     </module>
-    <module name="IllegalImportCheck"/>
-    <module name="IllegalInstantiationCheck"/>
-    <module name="InnerAssignmentCheck"/>
-    <module name="JavadocTypeCheck">
+    <module name="IllegalImport"/>
+    <module name="IllegalInstantiation"/>
+    <module name="InnerAssignment"/>
+    <module name="JavadocType">
       <property name="authorFormat" value="\S"/>
     </module>
-    <module name="JavadocMethodCheck">
+    <module name="JavadocMethod">
       <property name="checkUnusedThrows" value="true"/>
     </module>
-    <module name="JavadocVariableCheck"/>
-    <module name="LineLengthCheck">
+    <module name="JavadocVariable"/>
+    <module name="LineLength">
       <property name="ignorePattern" value="(@version|@see)"/>
     </module>
-    <module name="LocalFinalVariableNameCheck"/>
-    <module name="LocalVariableNameCheck"/>
-    <module name="MemberNameCheck"/>
-    <module name="MethodLeftCurlyCheck">
-      <property name="option" value="nl"/>
-    </module>
-    <module name="MethodLengthCheck"/>
-    <module name="MethodNameCheck"/>
-    <module name="ModifierCheck"/>
-    <module name="NeedBracesCheck"/>
-    <module name="NoWhitespaceAfterCheck"/>
-    <module name="NoWhitespaceBeforeCheck"/>
-    <module name="NoWhitespaceAfterCheck">
+    <module name="LocalFinalVariableName"/>
+    <module name="LocalVariableName"/>
+    <module name="MemberName"/>
+    <module name="MethodLength"/>
+    <module name="MethodName"/>
+    <module name="Modifier"/>
+    <module name="NeedBraces"/>
+    <module name="NoWhitespaceAfter"/>
+    <module name="NoWhitespaceBefore"/>
+    <module name="NoWhitespaceAfter">
       <property name="tokens" value="DOT"/>
       <property name="allowLineBreaks" value="true"/>
     </module>
-    <module name="NoWhitespaceBeforeCheck">
+    <module name="NoWhitespaceBefore">
       <property name="tokens" value="DOT"/>
       <property name="allowLineBreaks" value="true"/>
     </module>
-    <module name="OperatorWrapCheck"/>
-    <module name="OperatorWrapCheck">
+    <module name="OperatorWrap"/>
+    <module name="OperatorWrap">
       <property name="tokens" value="ASSIGN, DIV_ASSIGN, PLUS_ASSIGN, MINUS_ASSIGN, STAR_ASSIGN, MOD_ASSIGN, SR_ASSIGN, BSR_ASSIGN, SL_ASSIGN, BXOR_ASSIGN, BOR_ASSIGN, BAND_ASSIGN"/>
       <property name="option" value="eol"/>
     </module>
-    <module name="OtherLeftCurlyCheck">
-      <property name="option" value="nl"/>
-    </module>
-    <module name="PackageNameCheck"/>
-    <module name="ParameterNameCheck">
+    <module name="PackageName"/>
+    <module name="ParameterName">
       <property name="format" value="^(the|is|has)[A-Z][a-zA-Z0-9]*$"/>
     </module>
-    <module name="ParameterNumberCheck"/>
-    <module name="ParenPadCheck"/>
-    <module name="PublicMemberNameCheck">
+    <module name="ParameterNumber"/>
+    <module name="ParenPad"/>
+    <module name="PublicMemberName">
       <property name="format" value="^[a-z][a-zA-Z0-9]*$"/>
     </module>
-    <module name="RedundantImportCheck"/>
-    <module name="RedundantModifierCheck"/>
-    <module name="RightCurlyCheck">
-      <property name="option" value="alone"/>
-    </module>
-    <module name="SimplifyBooleanExpressionCheck"/>
-    <module name="SimplifyBooleanReturnCheck"/>
-    <module name="StaticVariableNameCheck"/>
-    <module name="TabCharacterCheck"/>
-    <module name="TypeLeftCurlyCheck">
+    <module name="RedundantImport"/>
+    <module name="RedundantModifier"/>
+    <module name="LeftCurly">
       <property name="option" value="nl"/>
     </module>
-    <module name="TypeNameCheck"/>
-    <module name="UnusedImportsCheck"/>
-    <module name="UpperEllCheck"/>
-    <module name="VisibilityModifierCheck">
+    <module name="RightCurly">
+      <property name="option" value="alone"/>
+    </module>
+    <module name="SimplifyBooleanExpression"/>
+    <module name="SimplifyBooleanReturn"/>
+    <module name="StaticVariableName"/>
+    <module name="TabCharacter"/>
+    <module name="TypeName"/>
+    <module name="UnusedImports"/>
+    <module name="UpperEll"/>
+    <module name="VisibilityModifier">
       <property name="protectedAllowed" value="true"/>
       <property name="publicMemberPattern" value="^[a-z][a-zA-Z0-9]*$"/>
     </module>
-    <module name="WhitespaceAfterCheck"/>
-    <module name="WhitespaceAroundCheck"/>
+    <module name="WhitespaceAfter"/>
+    <module name="WhitespaceAround"/>
   </module>
   
 </module>
