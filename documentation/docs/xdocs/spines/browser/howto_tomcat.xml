@@ -30,7 +30,7 @@
       <ul>
         <li>
           By putting all Cactus jars in your <code>WEB-INF/lib</code> directory,
-          as described in the <link href="howto_classpath.html">Classpath
+          as described in the <link href="site:howto_classpath">Classpath
           Tutorial</link>,
         </li>
         <li>
@@ -42,7 +42,7 @@
       </ul>
       <p>
         In addition to this, there are several ways to trigger the execution of
-        the Cactus tests (see the <link href="howto_runner.html">TestRunner
+        the Cactus tests (see the <link href="site:howto_runner">TestRunner
         Howto</link> tutorial). We will describe the easiest one to set up in
         this tutorial, which is by using a browser.
       </p>
@@ -63,7 +63,7 @@
 
     <s1 title="Step 2 : Copy the Cactus jars">
       <p>
-        Download the Cactus jars from the <link href="downloads.html">Cactus
+        Download the Cactus jars from the <link href="site:downloads">Cactus
         download page</link>. They are located in the <code>lib/</code>
         directory in the zip.
       </p>
@@ -89,7 +89,7 @@
       </ul>
       <note>
         This is the minium set of jars needed. If later on you wish to use the
-        Cactus <link href="howto_httpunit.html">HttpUnit integration</link>
+        Cactus <link href="site:howto_httpunit">HttpUnit integration</link>
         you'll also need to copy <code>httpunit.jar</code>.
       </note>
     </s1>
