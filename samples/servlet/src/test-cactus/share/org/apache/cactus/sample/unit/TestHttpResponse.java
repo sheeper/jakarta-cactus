@@ -289,7 +289,7 @@ public class TestHttpResponse extends ServletTestCase
     public void endRedirect(WebResponse theResponse) throws IOException
     {
         assertEquals(HttpServletResponse.SC_MOVED_TEMPORARILY, 
-            theResponse.getConnection().getResponseCode());
+            theResponse.getStatusCode());
     }
 
     //-------------------------------------------------------------------------
@@ -320,6 +320,6 @@ public class TestHttpResponse extends ServletTestCase
     public void endStatusCode(WebResponse theResponse) throws IOException
     {
         assertEquals(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, 
-            theResponse.getConnection().getResponseCode());
+            theResponse.getStatusCode());
     }
 }
