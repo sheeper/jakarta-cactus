@@ -1129,19 +1129,19 @@ public final class TestWebXml extends TestCase
     }
 
     /**
-     * Tests whether retrieving the security-role elements from an empty
-     * descriptor results in an empty iterator.
+     * Tests whether checking an empty descriptor for some security roles
+     * results in <code>false</code>.
      * 
      * @throws Exception If an unexpected error occurs
      */
-    public void testGetSecurityRoleEmpty()
+    public void testHasSecurityRoleEmpty()
         throws Exception
     {
         String xml = "<web-app></web-app>";
         Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
         WebXml webXml = new WebXml(doc);
-        Iterator securityRoles = webXml.getElements(WebXmlTag.SECURITY_ROLE);
-        assertTrue(!securityRoles.hasNext());
+        assertTrue(!webXml.hasSecurityRole("someRole"));
+        assertTrue(!webXml.getSecurityRoleNames().hasNext());
     }
 
     /**
@@ -1153,15 +1153,24 @@ public final class TestWebXml extends TestCase
         throws Exception
     {
         String xml = "<web-app>"
-            + "  <security-role>"
-            + "    <role-name>r1</role-name>"
-            + "  </security-role>"
+            + "  <security-role>".trim()
+            + "    <role-name>r1</role-name>".trim()
+            + "  </security-role>".trim()
             + "</web-app>";
         Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
         WebXml webXml = new WebXml(doc);
-        Iterator securityRoles = webXml.getElements(WebXmlTag.SECURITY_ROLE);
-        assertNotNull(securityRoles.next());
-        assertTrue(!securityRoles.hasNext());
+        assertTrue(webXml.hasSecurityRole("r1"));
+        Element securityRoleElement = webXml.getSecurityRole("r1");
+        assertNotNull(securityRoleElement);
+        assertEquals("security-role", securityRoleElement.getNodeName());
+        assertEquals("role-name",
+            securityRoleElement.getFirstChild().getNodeName());
+        assertEquals("r1",
+            securityRoleElement.getFirstChild().getFirstChild().getNodeValue());
+        Iterator securityRoleNames = webXml.getSecurityRoleNames();
+        assertTrue(securityRoleNames.hasNext());
+        assertEquals("r1", securityRoleNames.next());
+        assertTrue(!securityRoleNames.hasNext());
     }
 
     /**
@@ -1174,23 +1183,53 @@ public final class TestWebXml extends TestCase
         throws Exception
     {
         String xml = "<web-app>"
-            + "  <security-role>"
-            + "    <role-name>r1</role-name>"
-            + "  </security-role>"
-            + "  <security-role>"
-            + "    <role-name>r2</role-name>"
-            + "  </security-role>"
-            + "  <security-role>"
-            + "    <role-name>r3</role-name>"
-            + "  </security-role>"
+            + "  <security-role>".trim()
+            + "    <role-name>r1</role-name>".trim()
+            + "  </security-role>".trim()
+            + "  <security-role>".trim()
+            + "    <role-name>r2</role-name>".trim()
+            + "  </security-role>".trim()
+            + "  <security-role>".trim()
+            + "    <role-name>r3</role-name>".trim()
+            + "  </security-role>".trim()
             + "</web-app>";
         Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
         WebXml webXml = new WebXml(doc);
-        Iterator securityRoles = webXml.getElements(WebXmlTag.SECURITY_ROLE);
-        assertNotNull(securityRoles.next());
-        assertNotNull(securityRoles.next());
-        assertNotNull(securityRoles.next());
-        assertTrue(!securityRoles.hasNext());
+        assertTrue(webXml.hasSecurityRole("r1"));
+        Element securityRoleElement1 = webXml.getSecurityRole("r1");
+        assertNotNull(securityRoleElement1);
+        assertEquals("security-role", securityRoleElement1.getNodeName());
+        assertEquals("role-name",
+            securityRoleElement1.getFirstChild().getNodeName());
+        assertEquals("r1",
+            securityRoleElement1.getFirstChild().getFirstChild().
+                getNodeValue());
+        assertTrue(webXml.hasSecurityRole("r2"));
+        Element securityRoleElement2 = webXml.getSecurityRole("r2");
+        assertNotNull(securityRoleElement2);
+        assertEquals("security-role", securityRoleElement2.getNodeName());
+        assertEquals("role-name",
+            securityRoleElement2.getFirstChild().getNodeName());
+        assertEquals("r2",
+            securityRoleElement2.getFirstChild().getFirstChild().
+                getNodeValue());
+        assertTrue(webXml.hasSecurityRole("r3"));
+        Element securityRoleElement3 = webXml.getSecurityRole("r3");
+        assertNotNull(securityRoleElement3);
+        assertEquals("security-role", securityRoleElement3.getNodeName());
+        assertEquals("role-name",
+            securityRoleElement3.getFirstChild().getNodeName());
+        assertEquals("r3",
+            securityRoleElement3.getFirstChild().getFirstChild().
+                getNodeValue());
+        Iterator securityRoleNames = webXml.getSecurityRoleNames();
+        assertTrue(securityRoleNames.hasNext());
+        assertEquals("r1", securityRoleNames.next());
+        assertTrue(securityRoleNames.hasNext());
+        assertEquals("r2", securityRoleNames.next());
+        assertTrue(securityRoleNames.hasNext());
+        assertEquals("r3", securityRoleNames.next());
+        assertTrue(!securityRoleNames.hasNext());
     }
 
     /**

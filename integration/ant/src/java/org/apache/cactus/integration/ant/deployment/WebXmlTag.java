@@ -245,6 +245,12 @@ public final class WebXmlTag
         new WebXmlTag("security-role");
     
     /**
+     * Element name 'role-name',
+     */
+    public static final WebXmlTag ROLE_NAME =
+        new WebXmlTag("role-name");
+    
+    /**
      * Element name 'env-entry',
      */
     public static final WebXmlTag ENV_ENTRY =

@@ -48,7 +48,8 @@
         </li>
         <li>
           <emphasis>Security Roles</emphasis>: Any &lt;security-role&gt;
-          elements get inserted into the resulting descriptor verbatim.
+          elements that are not already defined in the source descriptor
+          are inserted into the resulting descriptor.
         </li>
         <li>
           <emphasis>Environment Entries</emphasis>: Any &lt;env-entry&gt;

@@ -445,7 +445,7 @@ public class WebXml
         {
             throw new NullPointerException();
         }
-        if (hasFilter(theServletName))
+        if (hasServlet(theServletName))
         {
             throw new IllegalStateException("Servlet '" + theServletName
                 + "' already defined");
@@ -703,6 +703,91 @@ public class WebXml
     public final boolean hasServlet(String theServletName)
     {
         return (getServlet(theServletName) != null);
+    }
+    
+    /**
+     * Adds a new security role to the descriptor.
+     * 
+     * @param theRoleName The name of the role to add
+     */
+    public final void addSecurityRole(String theRoleName)
+    {
+        if (theRoleName == null)
+        {
+            throw new NullPointerException();
+        }
+        if (hasSecurityRole(theRoleName))
+        {
+            throw new IllegalStateException("Security role '" + theRoleName
+                + "' already defined");
+        }
+        Element securityRoleElement =
+            this.document.createElement(WebXmlTag.SECURITY_ROLE.getTagName());
+        securityRoleElement.appendChild(
+            createNestedText(WebXmlTag.ROLE_NAME, theRoleName));
+        addElement(WebXmlTag.SECURITY_ROLE, securityRoleElement);
+    }
+    
+    /**
+     * Returns the element that contains the specified security role, or
+     * <code>null</code> if the role is not defined in the descriptor.
+     * 
+     * @param theRoleName The name of the role
+     * @return The DOM element representing the security role
+     */
+    public final Element getSecurityRole(String theRoleName)
+    {
+        if (theRoleName == null)
+        {
+            throw new NullPointerException();
+        }
+        Iterator securityRoleElements = getElements(WebXmlTag.SECURITY_ROLE);
+        while (securityRoleElements.hasNext())
+        {
+            Element securityRoleElement = (Element) securityRoleElements.next();
+            if (theRoleName.equals(getNestedText(
+                securityRoleElement, WebXmlTag.ROLE_NAME)))
+            {
+                return securityRoleElement;
+            }
+        }
+        return null;
+    }
+    
+    /**
+     * Returns a list of the security role names defined in the deployment 
+     * descriptor
+     * 
+     * @return An iterator over the list of security role names, or an empty
+     *         iterator if no security roles are defined in the descriptor
+     */
+    public final Iterator getSecurityRoleNames()
+    {
+        List securityRoleNames = new ArrayList();
+        Iterator securityRoleElements = getElements(WebXmlTag.SECURITY_ROLE);
+        while (securityRoleElements.hasNext())
+        {
+            Element securityRoleElement = (Element) securityRoleElements.next();
+            String securityRoleName =
+                getNestedText(securityRoleElement, WebXmlTag.ROLE_NAME);
+            if (securityRoleName != null)
+            {
+                securityRoleNames.add(securityRoleName);
+            }
+        }
+        return securityRoleNames.iterator();
+    }
+    
+    /**
+     * Returns whether a specific security role has been defined
+     * 
+     * @param theRoleName The name of the role
+     * @return <code>true</code> if the security role is defined,
+     *         <code>false</code> otherwise
+     */
+    public final boolean hasSecurityRole(String theRoleName)
+    {
+        return (getSecurityRole(theRoleName) != null);
     }
     
     /**

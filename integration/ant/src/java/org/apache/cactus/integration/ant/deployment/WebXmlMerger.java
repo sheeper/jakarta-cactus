@@ -329,7 +329,16 @@ public class WebXmlMerger
      */
     protected final void mergeSecurityRoles(WebXml theWebXml)
     {
-        int count = insertElements(theWebXml, WebXmlTag.SECURITY_ROLE);
+        Iterator securityRoleNames = theWebXml.getSecurityRoleNames();
+        int count = 0;
+        while (securityRoleNames.hasNext())
+        {
+            String securityRoleName = (String) securityRoleNames.next();
+            if (!this.webXml.hasSecurityRole(securityRoleName))
+            {
+                this.webXml.addSecurityRole(securityRoleName);
+            }
+        }
         if (count > 0)
         {
             this.log.trace("Merged " + count + " security role"

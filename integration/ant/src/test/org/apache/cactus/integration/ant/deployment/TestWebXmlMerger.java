@@ -686,6 +686,69 @@ public final class TestWebXmlMerger extends TestCase
     }
 
     /**
+     * Tests whether a single security role is correctly inserted into an empty
+     * descriptor.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
+    public void testMergeSecurityRoleIntoEmptyDocument()
+        throws Exception
+    {
+        String srcXml = "<web-app></web-app>";
+        Document srcDoc =
+            builder.parse(new ByteArrayInputStream(srcXml.getBytes()));
+        WebXml srcWebXml = new WebXml(srcDoc);
+        String mergeXml = "<web-app>"
+            + "  <security-role>"
+            + "    <role-name>role1</role-name>"
+            + "  </security-role>"
+            + "</web-app>";
+        Document mergeDoc =
+            builder.parse(new ByteArrayInputStream(mergeXml.getBytes()));
+        WebXml mergeWebXml = new WebXml(mergeDoc);
+        WebXmlMerger merger = new WebXmlMerger(srcWebXml);
+        merger.mergeSecurityRoles(mergeWebXml);
+        Iterator securityRoleNames = srcWebXml.getSecurityRoleNames();
+        assertTrue(securityRoleNames.hasNext());
+        assertEquals("role1", securityRoleNames.next());
+        assertTrue(!securityRoleNames.hasNext());
+    }
+
+    /**
+     * Tests whether a single security role is ignored when the source
+     * descriptor already contains a role with the same name.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
+    public void testMergeSecurityRoleIntoDocumentWithSameRole()
+        throws Exception
+    {
+        String srcXml = "<web-app>"
+            + "  <security-role>"
+            + "    <description>A role</description>"
+            + "    <role-name>role1</role-name>"
+            + "  </security-role>"
+            + "</web-app>";
+        Document srcDoc =
+            builder.parse(new ByteArrayInputStream(srcXml.getBytes()));
+        WebXml srcWebXml = new WebXml(srcDoc);
+        String mergeXml = "<web-app>"
+            + "  <security-role>"
+            + "    <role-name>role1</role-name>"
+            + "  </security-role>"
+            + "</web-app>";
+        Document mergeDoc =
+            builder.parse(new ByteArrayInputStream(mergeXml.getBytes()));
+        WebXml mergeWebXml = new WebXml(mergeDoc);
+        WebXmlMerger merger = new WebXmlMerger(srcWebXml);
+        merger.mergeSecurityRoles(mergeWebXml);
+        Iterator securityRoleNames = srcWebXml.getSecurityRoleNames();
+        assertTrue(securityRoleNames.hasNext());
+        assertEquals("role1", securityRoleNames.next());
+        assertTrue(!securityRoleNames.hasNext());
+    }
+
+    /**
      * Tests whether a single EJB reference is correctly inserted into an empty
      * descriptor.
      * 
