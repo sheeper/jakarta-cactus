@@ -211,13 +211,23 @@ public abstract class AbstractServletContextWrapper implements ServletContext
     }
 
     /**
-     * @return our request dispatcher wrapper
+     * @return our request dispatcher wrapper or null if the servlet cannot
+     *         be found.
+     * @see javax.servlet.ServletContext.getNamedDispatcher(String)
      */
     public RequestDispatcher getNamedDispatcher(String theName)
     {
-        RequestDispatcher dispatcher = new RequestDispatcherWrapper(
-            this.originalContext.getNamedDispatcher(theName));
-        return dispatcher;
+        RequestDispatcher wrappedDispatcher = null;
+
+        RequestDispatcher originalDispatcher =
+            this.originalContext.getNamedDispatcher(theName);
+
+        if (originalDispatcher != null) {
+            wrappedDispatcher =
+                new RequestDispatcherWrapper(originalDispatcher);
+        }
+
+        return wrappedDispatcher;
     }
 
     public String getRealPath(String thePath)

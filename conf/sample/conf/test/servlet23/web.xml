@@ -55,6 +55,11 @@
         </init-param>
     </servlet>
 
+    <servlet>
+        <servlet-name>TestJsp</servlet-name>
+        <jsp-file>/test/test.jsp</jsp-file>
+    </servlet>
+
     <servlet-mapping>
         <servlet-name>ServletRedirector</servlet-name>
         <url-pattern>/ServletRedirector</url-pattern>

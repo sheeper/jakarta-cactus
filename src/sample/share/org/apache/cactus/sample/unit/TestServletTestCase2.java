@@ -418,6 +418,46 @@ public class TestServletTestCase2 extends ServletTestCase
     //-------------------------------------------------------------------------
 
     /**
+     * Verify that getNamedDispatcher() can be used to get a dispatcher.
+     */
+    public void testGetRequestDispatcherFromNamedDispatcherOK()
+        throws ServletException, IOException
+    {
+        RequestDispatcher rd =
+            config.getServletContext().getNamedDispatcher("TestJsp");
+        rd.forward(request, response);
+    }
+
+    /**
+     * Verify that getNamedDispatcher() can be used to get a dispatcher.
+     *
+     * @param theResponse the response from the server side.
+     */
+    public void endGetRequestDispatcherFromNamedDispatcherOK(WebResponse theResponse)
+        throws IOException
+    {
+        String result = theResponse.getText();
+        assertTrue("Page not found, got [" + result + "]",
+            result.indexOf("Hello !") > 0);
+    }
+
+    //-------------------------------------------------------------------------
+
+    /**
+     * Verify that getNamedDispatcher() returns null when passed an invalid
+     * name.
+     */
+    public void testGetRequestDispatcherFromNamedDispatcherInvalid()
+        throws ServletException, IOException
+    {
+        RequestDispatcher rd =
+            config.getServletContext().getNamedDispatcher("invalid name");
+        assertNull(rd);
+    }
+
+    //-------------------------------------------------------------------------
+
+    /**
      * Verify that request.getRequestDispatcher() works properly with an
      * absolute path
      */

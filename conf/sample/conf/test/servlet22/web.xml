@@ -38,6 +38,11 @@
         </init-param>
     </servlet>
 
+    <servlet>
+        <servlet-name>TestJsp</servlet-name>
+        <jsp-file>/test/test.jsp</jsp-file>
+    </servlet>
+
     <servlet-mapping>
         <servlet-name>ServletRedirector</servlet-name>
         <url-pattern>/ServletRedirector</url-pattern>
@@ -56,6 +61,11 @@
     <servlet-mapping>
         <servlet-name>JspRedirector</servlet-name>
         <url-pattern>/JspRedirector</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>TestJsp</servlet-name>
+        <url-pattern>/TestJsp</url-pattern>
     </servlet-mapping>
 
   	<!-- Authentication -->
