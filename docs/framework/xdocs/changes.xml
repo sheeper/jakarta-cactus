@@ -87,6 +87,11 @@
     </devs>
 
     <release version="1.2 in CVS">
+      <action dev="VMA" type="add">
+        Added support for unit testing Servlet Filters (Servlet API 2.3 only)
+        by providing a new <code>FilterTestCase</code> test case class. Also
+        added some filter unit testing samples in the distribution.
+      </action>
       <action dev="VMA" type="fix" due-to="Tony Payne" due-to-email="anthonyp@petsmart.com">
         (<link href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=3427">
         Bug #3427</link>).
