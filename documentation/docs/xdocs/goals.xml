@@ -40,7 +40,7 @@
         
       <ul>
         <li>
-          Add support for Servlet API 2.4/JSP 1.4 (by using 
+          Add support for Servlet API 2.4/JSP 2.0 (by using 
           Tomcat 5/Resin 3.x),
         </li>
         <li>
