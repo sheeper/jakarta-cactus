@@ -382,11 +382,22 @@
   </xsl:template>
 
   <xsl:template match="td">
-    <td bgcolor="#a0ddf0" colspan="{@colspan}" rowspan="{@rowspan}" nowrap="{@nowrap}" valign="top" align="left">
-      <font color="#000000" size="-1" face="arial,helvetica,sanserif">
-        <xsl:apply-templates/>&#160;
-      </font>
-    </td>
+    <xsl:choose>
+      <xsl:when test="@nowrap">
+        <td bgcolor="#a0ddf0" colspan="{@colspan}" rowspan="{@rowspan}" nowrap="true" valign="top" align="left">
+          <font color="#000000" size="-1" face="arial,helvetica,sanserif">
+            <xsl:apply-templates/>&#160;
+          </font>
+        </td>
+      </xsl:when>
+      <xsl:otherwise>
+        <td bgcolor="#a0ddf0" colspan="{@colspan}" rowspan="{@rowspan}" valign="top" align="left">
+          <font color="#000000" size="-1" face="arial,helvetica,sanserif">
+            <xsl:apply-templates/>&#160;
+          </font>
+        </td>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
 
   <xsl:template match="tn">
