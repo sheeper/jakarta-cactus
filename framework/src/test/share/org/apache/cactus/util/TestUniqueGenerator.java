@@ -59,7 +59,6 @@ package org.apache.cactus.util;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -125,12 +124,6 @@ public class TestUniqueGenerator extends TestCase
             throw new ChainedRuntimeException(e);
         }
 
-        for (Iterator i = results.iterator(); i.hasNext();)
-        {
-            String id = (String) i.next();
-            System.out.println(id + " (" + id.length() + ")");
-        }
-
         Set resultSet = new HashSet(results);
         assertEquals(
             "Results contained duplicate ids.",
@@ -148,9 +141,7 @@ public class TestUniqueGenerator extends TestCase
         final ServletTestCase secondTestCase = new ServletTestCase("foo");
         
         String firstId = UniqueGenerator.generate(firstTestCase, 0);
-        System.out.println(firstId);
         String secondId = UniqueGenerator.generate(secondTestCase, 0);
-        System.out.println(secondId);
 
         assertFalse("IDs not unique", firstId.equals(secondId));
     }
@@ -164,10 +155,8 @@ public class TestUniqueGenerator extends TestCase
         final ServletTestCase aTestCase = new ServletTestCase("foo");
         
         String firstId = UniqueGenerator.generate(aTestCase, 0);
-        System.out.println(firstId);
         aTestCase.setName("bar");
         String secondId = UniqueGenerator.generate(aTestCase, 0);
-        System.out.println(secondId);
 
         assertFalse("IDs not unique", firstId.equals(secondId));
     }
