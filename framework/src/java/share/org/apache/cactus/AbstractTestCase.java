@@ -186,7 +186,7 @@ public abstract class AbstractTestCase extends TestCase
     {
         // First, verify if a begin method exist. If one is found, verify if
         // it has the correct signature. If not, send a warning.
-        Method[] methods = getClass().getDeclaredMethods();
+        Method[] methods = getClass().getMethods();
         for (int i = 0; i < methods.length; i++) {
             if (methods[i].getName().equals(getBeginMethodName())) {
 
@@ -259,7 +259,7 @@ public abstract class AbstractTestCase extends TestCase
         Method methodToCall = null;
         Object paramObject = null;
 
-        Method[] methods = getClass().getDeclaredMethods();
+        Method[] methods = getClass().getMethods();
         for (int i = 0; i < methods.length; i++) {
             if (methods[i].getName().equals(getEndMethodName())) {
 
