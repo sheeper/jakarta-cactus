@@ -6,7 +6,6 @@
 
   <devs>
     <person name="Vincent Massol" email="vmassol@users.sourceforge.net" id="VMA"/>
-    <person name="P. Babu Naidu" email="pbnaidu99@hotmail.com" id="BNA"/>
   </devs>
 
   <actions priority="medium">
@@ -23,11 +22,9 @@
     <action context="design" assigned-to="VMA">
       Add support for testing Servlet API 2.3 Filters.
     </action>
-    <action context="design" assigned-to="BNA">
-      Provide support for easier testing of EJBs by writing an EJB Redirector
-      (which is a EJB Session Bean) so that it is possible to test EJB methods
-      that uses EJB container API like security checks, transaction, JNDI
-      calls, ... (requested by notyy).
+    <action context="design">
+      Provide support for easier testing of EJBs. The mechanism is yet to be
+      defined (requested by notyy).
     </action>
   </actions>
 
