@@ -49,6 +49,10 @@
 
     <release version="1.5" date="- in CVS">
       <action dev="VMA" type="add">
+        Added a Jetty Sample application to demonstrate how to use the new
+        Jetty initializer.
+      </action>
+      <action dev="VMA" type="add">
         Added a Jetty initializer. This is the first implementation of the 
         new initializer feature. This initializer starts Jetty before Cactus 
         tests are run. This is really nice to quickly run tests inside any 
