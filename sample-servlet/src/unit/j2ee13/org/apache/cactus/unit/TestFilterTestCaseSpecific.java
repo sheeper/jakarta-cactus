@@ -53,81 +53,57 @@
  */
 package org.apache.cactus.unit;
 
+import org.apache.cactus.FilterTestCase;
+
+import com.meterware.httpunit.WebResponse;
+
 import junit.framework.Test;
-import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 /**
- * Run all the Cactus unit tests related to J2EE API 1.3.
- *
+ * Cactus unit tests for testing <code>FilterTestCase</code>. These tests are
+ * specific to Servlet API 2.3 only.
+ * 
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
+ * 
  * @version $Id$
  */
-public class TestAll extends TestCase
+public class TestFilterTestCaseSpecific extends FilterTestCase
 {
     /**
-     * Defines the testcase name for JUnit.
-     *
-     * @param theName the testcase's name.
+     * Constructor.
+     * 
+     * @param theName The name of the test case
      */
-    public TestAll(String theName)
+    public TestFilterTestCaseSpecific(String theName)
     {
         super(theName);
     }
-
-    /**
-     * Start the tests.
-     *
-     * @param theArgs the arguments. Not used
-     */
-    public static void main(String[] theArgs)
-    {
-        junit.swingui.TestRunner.main(new String[] { TestAll.class.getName() });
-    }
-
+    
     /**
      * @return a test suite (<code>TestSuite</code>) that includes all methods
      *         starting with "test"
      */
     public static Test suite()
     {
-        TestSuite suite = new TestSuite(
-            "Cactus unit tests for J2EE 1.3");
-
-        // Note: This test need to run first. See the comments in the
-        // test class for more information on why
-        suite.addTest(
-            org.apache.cactus.unit.TestServletTestCaseTestResult.suite());
-
-        // AbstractTestCase related tests
-        suite.addTestSuite(
-            org.apache.cactus.unit.TestAbstractWebTestCase.class);
-
-        // ServletTestCase related tests
-        suite.addTest(org.apache.cactus.unit.TestServletTestCase1.suite());
-        suite.addTest(org.apache.cactus.unit.TestServletTestCase2.suite());
-        suite.addTest(org.apache.cactus.unit.TestServletTestCase3.suite());
-        suite.addTest(org.apache.cactus.unit.TestServletTestCase4.suite());
-        suite.addTest(org.apache.cactus.unit.TestServletTestCase5.suite());
-        suite.addTest(
-            org.apache.cactus.unit.TestServletTestCaseOverrideRedirector
-            .suite());
-        suite.addTest(
-            org.apache.cactus.unit.TestServletTestCaseAuthentication.suite());
-        suite.addTest(
-            org.apache.cactus.unit.TestServletTestCaseHttpUnit.suite());
-
-        // Test cases specific to J2EE 1.3 only
-        suite.addTest(
-            org.apache.cactus.unit.TestServletTestCaseSpecific.suite());
-        suite.addTest(org.apache.cactus.unit.TestJspTagLifecycle.suite());
-        suite.addTest(
-            org.apache.cactus.unit.TestFilterTestCaseSpecific.suite());
-
-        // JspTestCase related tests
-        suite.addTest(org.apache.cactus.unit.TestJspTestCase.suite());
-
-        return suite;
+        // All methods starting with "test" will be executed in the test suite.
+        return new TestSuite(TestFilterTestCaseSpecific.class);
     }
+    
+    public void testHeaders()
+    {
+        response.setHeader("xparevcount", "xparevcount");
+        response.setHeader("xxparevcount", "xxparevcount");
+    }
+
+    public void endHeaders(WebResponse theResponse)
+    {
+        String header1 = theResponse.getHeaderField("xxparevcount");
+        String header2 = theResponse.getHeaderField("xparevcount");
+        assertNotNull("Header should not be null", header1);
+        assertNotNull("Header should not be null", header2);
+        assertEquals("xxparevcount", header1);
+        assertEquals("xparevcount", header2);
+       }
+
 }
