@@ -48,6 +48,25 @@
     </devs>
 
     <release version="1.5" date="- in CVS">
+      <action dev="VMA" type="add">
+        Added a Jetty initializer. This is the first implementation of the 
+        new initializer feature. This initializer starts Jetty before Cactus 
+        tests are run. This is really nice to quickly run tests inside any 
+        IDE or even from a simple <code>&lt;junit&gt;</code> Ant taks without 
+        the need to package and deploy a WAR. In addition, it is real nice to 
+        debug tests this way. Moreover, Jetty starts in less than 1 second, 
+        making it completely seamless and transparent! We are now at the same 
+        order of magnitude as pure JUnit tests in term of speed ... :-). Of 
+        course, this is only for Servlet tests ... I am still waiting for an
+        embeddable EJB container that starts in less than 1 second ...
+      </action>
+      <action dev="VMA" type="add">
+		Added notion of Initializer. This is an optional class that you can 
+		specify in <code>cactus.properties</code> or as a System property (
+		the property name is <code>cactus.initializer</code>). It will be run
+		once per JVM only. The initializer class must implement the
+		<code>org.apache.cactus.util.Initializable</code> interface.
+      </action>
       <action dev="VMA" type="update">
         Update of jars bundled in the Cactus distribution: Commons Logging
         1.0.1, Log4j 1.2.6, HttpClient 2.0alpha1 built on 29/08/2002 and
