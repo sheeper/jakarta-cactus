@@ -21,7 +21,7 @@
     have been recently changed.
   </resource>
   
-  <resource id="features" target="features.html" name="Features/Status">
+  <resource id="features" target="features.html" name="Features">
     Cactus feature list.
   </resource>
   
@@ -94,7 +94,7 @@
   <resource id="javadoc_framework_jsptaglifecycle" check="false" target="api/framework-13/org/apache/cactus/extension/jsp/JspTagLifecycle.html"/>
   <resource id="coverage_clover_12_report" check="false" target="clover-12/index.html"/>
   <resource id="coverage_clover_13_report" check="false" target="clover-13/index.html"/>
-  
+
   <!-- External links (sorted alphabetically by id) -->
   
   <external id="ant" url="http://ant.apache.org/"/>
