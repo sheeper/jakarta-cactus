@@ -28,7 +28,7 @@
 
     <!-- Global project properties -->
     <property name="project.name.text" value="Cactus Eclipse Integration"/>
-    <property name="project.name.file" value="cactus-integration-eclipse"/>
+    <property name="project.name.file" value="cactus-integration-eclipse-runner"/>
 
     <!--
        ========================================================================
@@ -174,7 +174,7 @@
 
 		<jar jarfile="${target.dir}/cactussupport.jar">
             <manifest>
-                <section name="org/apache/cactus/eclipse/">
+                <section name="org/apache/cactus/eclipse/runner/">
                     <attribute name="Specification-Title"
                         value="${project.name.text}"/>
                     <attribute name="Specification-Version"
@@ -197,7 +197,7 @@
 				
 		<jar jarfile="${target.dir}/cactussupportsrc.jar">
             <manifest>
-                <section name="org/apache/cactus/eclipse/">
+                <section name="org/apache/cactus/eclipse/runner/">
                     <attribute name="Specification-Title"
                         value="${project.name.text}"/>
                     <attribute name="Specification-Version"
@@ -273,7 +273,7 @@
 
         <zip destfile="${release.dir}/${main.release.name}.zip">
             <zipfileset dir="${dist.bin.integration.dir}"
-                prefix="org.apache.cactus.integration.eclipse_${project.version}">
+                prefix="org.apache.cactus.integration.eclipse.runner_${project.version}">
             </zipfileset>
         </zip>
         

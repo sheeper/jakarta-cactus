@@ -236,9 +236,9 @@
      ========================================================================
   -->
 
-  <project name="jakarta-cactus-integration-eclipse-12">
+  <project name="jakarta-cactus-integration-eclipse-runner-12">
 
-    <ant buildfile="integration/eclipse/build.xml" target="release">
+    <ant buildfile="integration/eclipse/org.apache.cactus.eclipse.runner/build.xml" target="release">
 
       <property name="project.version" value="@@DATE@@"/>
 
@@ -265,10 +265,9 @@
     <depend project="ant" inherit="runtime"/>
     <depend project="xml-xerces"/>
     <depend project="jakarta-cactus-integration-ant-12"/>
-    <work nested="integration/eclipse/lib/junitsupport-2.1.0dev.jar"/>
 
-    <home nested="integration/eclipse/dist-12"/>
-    <jar name="bin/cactus-integration-eclipse/cactussupport.jar"/>
+    <home nested="integration/eclipse/org.apache.cactus.eclipse.runner/dist-12"/>
+    <jar name="bin/cactus-integration-eclipse-runner/cactussupport.jar"/>
 
     <license name="LICENSE.cactus"/>
 
@@ -288,9 +287,9 @@
      ========================================================================
   -->
 
-  <project name="jakarta-cactus-integration-eclipse-13">
+  <project name="jakarta-cactus-integration-eclipse-runner-13">
 
-    <ant buildfile="integration/eclipse/build.xml" target="release">
+    <ant buildfile="integration/eclipse/org.apache.cactus.eclipse.runner/build.xml" target="release">
 
       <property name="project.version" value="@@DATE@@"/>
 
@@ -316,10 +315,9 @@
     <depend project="ant" inherit="runtime"/>
     <depend project="xml-xerces"/>
     <depend project="jakarta-cactus-integration-ant-13"/>
-    <work nested="integration/eclipse/lib/junitsupport-2.1.0dev.jar"/>
 
-    <home nested="integration/eclipse/dist-13"/>
-    <jar name="bin/cactus-integration-eclipse/cactussupport.jar"/>
+    <home nested="integration/eclipse/org.apache.cactus.eclipse.runner/dist-13"/>
+    <jar name="bin/cactus-integration-eclipse-runner/cactussupport.jar"/>
     
     <license name="LICENSE.cactus"/>
 
@@ -517,7 +515,7 @@
     <depend project="jakarta-cactus-framework-12"/>
     <depend project="jakarta-cactus-sample-servlet-12"/>
     <depend project="jakarta-cactus-integration-ant-12"/>
-    <depend project="jakarta-cactus-integration-eclipse-12"/>
+    <depend project="jakarta-cactus-integration-eclipse-runner-12"/>
 
     <deliver fromdir="framework/release-12" tosite="jakarta.apache.org"
       todir="builds/jakarta-cactus/nightly/@@DATE@@/" />
@@ -525,7 +523,7 @@
     <deliver fromdir="integration/ant/release-12" tosite="jakarta.apache.org"
       todir="builds/jakarta-cactus/nightly/@@DATE@@/" />
 
-    <deliver fromdir="integration/eclipse/release-12" 
+    <deliver fromdir="integration/eclipse/org.apache.cactus.eclipse.runner/release-12" 
       tosite="jakarta.apache.org" 
       todir="builds/jakarta-cactus/nightly/@@DATE@@/" />
 
@@ -545,7 +543,7 @@
     <depend project="jakarta-cactus-framework-13"/>
     <depend project="jakarta-cactus-sample-servlet-13"/>
     <depend project="jakarta-cactus-integration-ant-13"/>
-    <depend project="jakarta-cactus-integration-eclipse-13"/>
+    <depend project="jakarta-cactus-integration-eclipse-runner-13"/>
 
     <deliver fromdir="framework/release-13" tosite="jakarta.apache.org"
       todir="builds/jakarta-cactus/nightly/@@DATE@@/" />
@@ -553,7 +551,7 @@
     <deliver fromdir="integration/ant/release-13" tosite="jakarta.apache.org"
       todir="builds/jakarta-cactus/nightly/@@DATE@@/" />
 
-    <deliver fromdir="integration/eclipse/release-13" 
+    <deliver fromdir="integration/eclipse/org.apache.cactus.eclipse.runner/release-13" 
       tosite="jakarta.apache.org" 
       todir="builds/jakarta-cactus/nightly/@@DATE@@/" />
 
