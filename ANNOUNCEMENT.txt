@@ -21,9 +21,12 @@ Known limitations or not fixed bugs:
   might get a NoClassDefFoundError exception. We'll be more careful in the
   future.
 
-Existing users of Cactus 1.4.1 can also check the Migration page
-(http://jakarta.apache.org/cactus/howto_migration.html) which explains how to
-migrate from the previous vesion to this new version.
+Also it should be noted that the Eclipse plugin for Cactus is not part of
+Cactus 1.5 as it is still experimental. It is available in Cactus nightly
+build area (http://jakarta.apache.org/cactus/downloads.html). Your feedback
+is important to make it production ready. If you're an Eclipse user, make
+sure you try it (it is documented on 
+http://jakarta.apache.org/cactus/integration/eclipse/index.html).
 
 For more information about Cactus, please visit
 http://jakarta.apache.org/cactus/.
