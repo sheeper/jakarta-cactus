@@ -31,7 +31,7 @@
 
           <map name="ecosystem">
             <area shape="circle" href="site:index" coords="225,200,35"/>
-            <area shape="circle" href="site:eclipse_plugin" coords="165,145,35"/>
+            <area shape="circle" href="site:eclipse_integration" coords="165,145,35"/>
             <area shape="circle" href="site:howto_runner" coords="305,220,35"/>
             <area shape="circle" href="ext:maven_cactus" coords="390,200,35"/>
             <area shape="circle" href="ext:strutstestcase" coords="375,260,35"/>
