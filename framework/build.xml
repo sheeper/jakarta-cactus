@@ -402,12 +402,14 @@ be resolved. Please check you build.properties file, and run Ant with the
 	    <pathelement location="${target.dir}"/>
 	  </path>
 	</pathconvert>
-	<copy todir="${target.dir}" filtering="on" 
+	<copy todir="${target.dir}" filtering="on" failonerror="false"
 		file="${base.dir}/logging.properties">
 	  <filterset>
         <filter token="target.dir" value="${target.dir.normalized}"/>
       </filterset>
 	</copy>
+    <!-- Make sure a logging.properties file exists, even if empty -->
+    <touch file="${target.dir}/logging.properties"/>
 
   </target>
 

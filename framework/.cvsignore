@@ -1,4 +1,5 @@
 build.properties
+logging.properties
 dist-12
 dist-13
 target-12
