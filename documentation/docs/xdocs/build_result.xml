@@ -31,43 +31,60 @@
         </tr>
         <tr>
           <td>
-            <link href="ext:gump_cactus_ant">Cactus Ant tasks</link>
+            <link href="ext:gump_cactus_anttasks">Cactus Ant tasks</link>
           </td>
         </tr>
         <tr>
           <td>
-            <link href="ext:gump_cactus_fwk_12">Cactus Framework for J2EE 1.2 
-            (Servlet API 2.2)</link>
+            <link href="ext:gump_cactus_doc">Cactus Documentation</link>
           </td>
         </tr>
         <tr>
           <td>
-            <link href="ext:gump_cactus_fwk_13">Cactus Framework for J2EE 1.3 
-            (Servlet API 2.3)</link>
+            <link href="ext:gump_cactus_framework_12">Cactus Framework for 
+            J2EE 1.2</link>
           </td>
         </tr>
         <tr>
           <td>
-            <link href="ext:gump_cactus_sample_12">Cactus Servlet Sample for 
-            J2EE 1.2 (Servlet API 2.2)</link>
+            <link href="ext:gump_cactus_framework_13">Cactus Framework for 
+            J2EE 1.3</link>
           </td>
         </tr>
         <tr>
           <td>
-            <link href="ext:gump_cactus_sample_12">Cactus Servlet Sample for 
-            J2EE 1.3 (Servlet API 2.3)</link>
+            <link href="ext:gump_cactus_integration_ant_12">Cactus Ant 
+            Integration for J2EE 1.2</link>
           </td>
         </tr>
         <tr>
           <td>
-            <link href="ext:gump_cactus_dist_12">Cactus Distribution for 
-            J2EE 1.2 (Servlet API 2.2)</link>
+            <link href="ext:gump_cactus_integration_ant_13">Cactus Ant 
+            Integration for J2EE 1.3</link>
           </td>
         </tr>
         <tr>
           <td>
-            <link href="ext:gump_cactus_dist_13">Cactus Distribution for 
-            J2EE 1.3 (Servlet API 2.3)</link>
+            <link href="ext:gump_cactus_integration_eclipse_12">Cactus 
+            Eclipse Plugin for J2EE 1.2</link>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <link href="ext:gump_cactus_integration_eclipse_13">Cactus 
+            Eclipse Plugin for J2EE 1.3</link>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <link href="ext:gump_cactus_sample_servlet_12">Cactus Servlet 
+            Sample for J2EE 1.2 (Servlet API 2.2)</link>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <link href="ext:gump_cactus_sample_servlet_13">Cactus Servlet 
+            Sample for J2EE 1.3 (Servlet API 2.3)</link>
           </td>
         </tr>
       </table>
@@ -85,15 +102,6 @@
         If the nightly build is successful, Gump posts the packaged Cactus
         distributable in the Cactus nightly
         <link href="site:downloads">download area</link>.
-      </p>
-      <p>
-        However it is also possible to get the different jars (unpackaged) from
-        Gump <link href="ext:gump_cactus_jars">here</link>.
-      </p>
-      <p>
-        In addition, it is possible to see the documentation (javadoc, website)
-        generated during Gump build
-        <link href="ext:gump_javadocs">here</link>.
       </p>
 
     </section>

@@ -18,52 +18,49 @@
       </p>
       <ul>
         <li>
-          <strong><code>jakarta-cactus-&lt;j2eeapi&gt;-&lt;version&gt;.zip</code>
-          </strong>: the Cactus distribution for J2EE &lt;j2eeapi&gt; (where
-          &lt;j2eeapi&gt; = { 1.2 , 1.3 }. It contains:
+          <strong><code>jakarta-cactus-anttasks-&lt;version&gt;.zip</code>
+          </strong>: some generic Ant tasks that are used internally by the 
+          Cactus build scripts and which can be useful to other projects.
+        </li>
+        <li>
+          <strong><code>jakarta-cactus-doc-&lt;version&gt;.zip</code>
+          </strong>: the Cactus documentation. It contains the same
+          information as that found on the Cactus web site, but it can
+          be browsed locally.
+        </li>
+        <li>
+          Cactus currently has 4 Integration modules (a.k.a. front-ends) that 
+          you can use to run Cactus tests. You need to pick the one that
+          corresponds to the way you want to use Cactus:
           <ul>
             <li>
-              <strong><code>cactus.jar</code></strong>: the Cactus
-              runtime jar,
+              <em>"Manual" Integration</em>: This is the 
+              <strong><code>jakarta-cactus-framework-&lt;j2eeapi&gt;-&lt;version&gt;.zip</code>
+              </strong> zip file. It contains the core Cactus Framework jar
+              and its javadoc.             
             </li>
             <li>
-              <strong><code>cactus-ant.jar</code></strong>:
-              some custom Ant tasks that are helpful for automating
-              running Cactus unit tests. Especially the
-              <code>runservertests</code> which automagically start a servlet
-              engine, run the Cactus tests against it and stop the server once
-              it is finished,
+              <em>Ant Integration</em>: This is the 
+              <strong><code>jakarta-cactus-integration-ant-&lt;j2eeapi&gt;-&lt;version&gt;.zip</code>
+              </strong> zip file. It contains a complete ready to use Ant 
+              "plugin" that you can call directly from your own Ant scripts.
             </li>
             <li>
-              Dependent libraries that you need to put in your classpath along
-              with the Cactus jars. See
-              <link href="site:getting_started">Getting Started</link> for
-              details.
+              <em>Eclipse Integration</em>: This is the 
+              <strong><code>jakarta-cactus-integration-eclipse-&lt;j2eeapi&gt;-&lt;version&gt;.zip</code>
+              </strong> zip file. It is an Eclipse plugin.
             </li>
             <li>
-              A Cactus Sample application that shows how to write
-              Cactus tests for Servlets, Taglibs and Filters (only if you use
-              the J2EE 1.3 API). It also demonstrates how to automate and deploy
-              them in a servlet engine using Ant (scripts for several servlet
-              engines are provided).
+              <em>Maven Integration</em>: This is a Cactus plugin for Maven. 
+              This plugin is hosted by the Maven project. It can be downloaded
+              <link href="ext:maven_cactus">here</link>.
             </li>
-            <li>
-              The Cactus documentation (includes the javadoc + a local copy of
-              the Cactus web site)
-            </li>              
           </ul>
         </li>
         <li>
-          <strong><code>jakarta-cactus-src-&lt;version&gt;.zip</code></strong>:
-          the full Cactus sources,
-        </li>
-        <li>
-          <strong><code>jakarta-cactus-ant-&lt;version of Ant&gt;-&lt;date&gt;.zip</code></strong>:
-          a prepackaged version of Ant, which contains all needed external 
-          jars for tasks used by Cactus build files. This is not a compulsory 
-          download but it makes it easier for installing Ant and preparing it 
-          for Cactus. This file is only delivered for releases (and not for 
-          nightly builds).
+          <strong><code>jakarta-cactus-sample-servlet-&lt;j2eeapi&gt;-&lt;version&gt;.zip</code>
+          </strong>: A full sample application demonstrating both how to write 
+          Cactus tests and how to use the Ant Integration module.
         </li>
       </ul>
 
