@@ -18,6 +18,11 @@ junit.jar = f:/applis/jakarta-ant-1.4alpha/lib/junit.jar
 #       the task that copies it in the "testwar" target.
 log4j.jar = ../lib/log4j-core.jar
 
+# Port that will be used to start the servlet engines for testing. This is
+# optional and if omitted will default to 8080. This is used when you don't
+# want to interfere with a running servlet engine on port 8080.
+#test.port=8180
+
 # Servlet engine locations for the tests
 
 # Note: If you don't want to run the test on a given servlet engine, just

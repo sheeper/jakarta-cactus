@@ -9,7 +9,7 @@
              unit tests, stop the servlet engine, wait for it to be stopped.
              The servlet engine is stopped if the tests fail for any reason -->
 
-        <runservertests testURL="http://localhost:8080/test"
+        <runservertests testURL="http://localhost:${test.port}/test"
             startTarget="start_enhydra_31"
             stopTarget="stop_enhydra_31"
             testTarget="tests"/>

@@ -9,7 +9,7 @@
              unit tests, stop the servlet engine, wait for it to be stopped.
              The servlet engine is stopped if the tests fail for any reason -->
 
-        <runservertests testURL="http://localhost:8080/test"
+        <runservertests testURL="http://localhost:${test.port}/test"
             startTarget="start_weblogic_51"
             stopTarget="stop_weblogic_51"
             testTarget="tests"/>
@@ -59,7 +59,7 @@
                 <pathelement location="${weblogic.home.51}/lib/weblogicaux.jar"/>
             </classpath>
 
-            <arg value="t3://localhost:8080/test"/>
+            <arg value="t3://localhost:${test.port}/test"/>
             <arg value="SHUTDOWN"/>
             <arg value="system"/>
             <arg value="password"/>

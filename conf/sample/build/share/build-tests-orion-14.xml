@@ -9,7 +9,7 @@
              unit tests, stop the servlet engine, wait for it to be stopped.
              The servlet engine is stopped if the tests fail for any reason -->
 
-        <runservertests testURL="http://localhost:8080/test"
+        <runservertests testURL="http://localhost:${test.port}/test"
             startTarget="start_orion_14"
             stopTarget="stop_orion_14"
             testTarget="tests"/>
@@ -94,7 +94,8 @@
         <copy file="${conf.orion14.dir}/application.xml"
             tofile="${out.orion14.dir}/conf/application.xml"/>
         <copy file="${conf.orion14.dir}/default-web-site.xml"
-            tofile="${out.orion14.dir}/conf/default-web-site.xml"/>
+            tofile="${out.orion14.dir}/conf/default-web-site.xml"
+            filtering="on"/>
         <copy file="${conf.orion14.dir}/principals.xml"
             tofile="${out.orion14.dir}/conf/principals.xml"/>
         <copy file="${conf.orion14.dir}/rmi.xml"

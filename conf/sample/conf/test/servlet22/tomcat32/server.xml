@@ -23,12 +23,16 @@
     <ContextInterceptor className="org.apache.tomcat.context.LoadOnStartupInterceptor" />
     <Connector className="org.apache.tomcat.service.PoolTcpConnector">
         <Parameter name="handler" value="org.apache.tomcat.service.http.HttpConnectionHandler"/>
-        <Parameter name="port" value="8080"/>
+        <Parameter name="port" value="@test.port@"/>
     </Connector>
+
+    <!-- Note: we use a port different from the standard one (8007) not
+         to interfere with an other running tomcat -->
     <Connector className="org.apache.tomcat.service.PoolTcpConnector">
         <Parameter name="handler" value="org.apache.tomcat.service.connector.Ajp12ConnectionHandler"/>
-        <Parameter name="port" value="8007"/>
+        <Parameter name="port" value="8777"/>
     </Connector>
+
     <Context path="" docBase="" debug="0" />
 
   </ContextManager>

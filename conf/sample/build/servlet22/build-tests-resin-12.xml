@@ -9,7 +9,7 @@
              unit tests, stop the servlet engine, wait for it to be stopped.
              The servlet engine is stopped if the tests fail for any reason -->
 
-        <runservertests testURL="http://localhost:8080/test"
+        <runservertests testURL="http://localhost:${test.port}/test"
             startTarget="start_resin_12"
             stopTarget="stop_resin_12"
             testTarget="tests"/>
@@ -99,7 +99,8 @@
         <mkdir dir="${out.resin12.dir}"/>
 
         <!-- Copy resin configuration files -->
-        <copy file="${conf.resin12.dir}/resin.conf" tofile="${out.resin12.dir}/resin.conf"/>
+        <copy file="${conf.resin12.dir}/resin.conf" 
+            tofile="${out.resin12.dir}/resin.conf" filtering="on"/>
 
         <!-- Create the war file -->
         <copy file="${out.test.dir}/test.war" tofile="${out.resin12.dir}/test.war"/>

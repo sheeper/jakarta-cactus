@@ -17,6 +17,14 @@
 
     <!-- 
        ========================================================================
+         Default values that can be overidden
+       ========================================================================
+    -->
+    <!-- The port that will be used to start the servers -->
+    <property name="test.port" value="8080"/>    
+
+    <!-- 
+       ========================================================================
          Set the properties related to the source tree
        ========================================================================
     -->
@@ -122,6 +130,7 @@
         <!-- Filters -->
         <filter token="version" value="${project.version}"/>
         <filter token="year" value="${year}"/>
+        <filter token="test.port" value="${test.port}"/>
 
         <!-- Initialize custom Ant task needed for running the server tests -->
         <taskdef name="runservertests" classname="org.apache.commons.cactus.ant.RunServerTestsTask">
@@ -206,7 +215,7 @@
         <!-- As this classes directory will be used to run the client side
              of Cactus, we need to copy the cactus.properties -->
         <copy todir="${out.classes.dir}"
-            file="${conf.test.dir}/cactus.properties"/>
+            file="${conf.test.dir}/cactus.properties" filtering="on"/>
 
     </target>
 

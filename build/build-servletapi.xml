@@ -19,6 +19,12 @@
                               files will be copied with version number
                               postfixed.
 
+        test.port             [OPTIONAL] The port that should be used for
+                              starting the servers during unit testing. This 
+                              should be used not to interfere with other 
+                              running servers. The default is 8080. This 
+                              property is used when running the functional tests
+
     Additionally and depending on the servlet engines whith which you wish to
     run your tests, you'll need to set the following kind of properties :
 
@@ -548,6 +554,7 @@
             <property name="orion.home.14"/>
             <property name="weblogic.home.51"/>
             <property name="enhydra.home.31"/>
+            <property name="test.port"/>
         </argsList>
 
         <java classname="org.apache.tools.ant.Main"
@@ -579,6 +586,7 @@
             <property name="resin.home.20"/>
             <property name="tomcat.home.40"/>
             <property name="orion.home.14"/>
+            <property name="test.port"/>
         </argsList>
 
         <java classname="org.apache.tools.ant.Main"

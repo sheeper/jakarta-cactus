@@ -83,16 +83,18 @@
                secure - use SSL ( https )
                keystore, keypass - certs for SSL
                port -->
-        <Http10Interceptor port="8080" 
+        <Http10Interceptor port="@test.port@" 
 			   secure="false"
 			   maxThreads="100"
 			   maxSpareThreads="50"
 			   minSpareThreads="10" />
 
+        <!-- Note: we use a port different from the standard one (8007) not
+             to interfere with an other running tomcat -->
         <RequestInterceptor 
          className="org.apache.tomcat.modules.server.Ajp12Interceptor"
          tomcatAuthentication="false" 
-         port="8007" />
+         port="8777" />
 
     </ContextManager>
 </Server>

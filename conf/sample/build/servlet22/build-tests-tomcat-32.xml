@@ -9,7 +9,7 @@
              unit tests, stop the servlet engine, wait for it to be stopped.
              The servlet engine is stopped if the tests fail for any reason -->
 
-        <runservertests testURL="http://localhost:8080/test"
+        <runservertests testURL="http://localhost:${test.port}/test"
             startTarget="start_tomcat_32"
             stopTarget="stop_tomcat_32"
             testTarget="tests"/>
@@ -46,6 +46,8 @@
         <java classname="org.apache.tomcat.startup.Tomcat" fork="yes">
             <jvmarg value="-Dtomcat.home=${tomcat.home.32}"/>
             <arg value="-stop"/>
+            <arg value="-config"/>
+            <arg value="${out.tomcat32.dir}/conf/server.xml"/>
             <classpath>            
                 <pathelement location="${java.home}/../lib/tools.jar"/>
                 <fileset dir="${tomcat.home.32}/lib">
