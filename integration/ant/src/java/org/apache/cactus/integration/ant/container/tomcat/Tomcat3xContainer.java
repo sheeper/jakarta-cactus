@@ -81,7 +81,19 @@ public class Tomcat3xContainer extends AbstractTomcatContainer
     /**
      * The temporary directory from which the container will be started.
      */
-    private transient File tmpDir;
+    private File tmpDir;
+
+    // Public Methods ----------------------------------------------------------
+
+    /**
+     * Sets the temporary installation directory.
+     * 
+     * @param theTmpDir The temporary directory to set
+     */
+    public final void setTmpDir(File theTmpDir)
+    {
+        this.tmpDir = theTmpDir;
+    }
 
     // AbstractContainer Implementation ----------------------------------------
 
@@ -159,8 +171,11 @@ public class Tomcat3xContainer extends AbstractTomcatContainer
         FileUtils fileUtils = FileUtils.newFileUtils();
         FilterChain filterChain = createFilterChain();
         
-        tmpDir = createTempDirectory(theDirName);
-        
+        if (this.tmpDir == null)
+        {
+            this.tmpDir = createTempDirectory(theDirName);
+        }
+
         // copy configuration files into the temporary container directory
         File confDir = createDirectory(tmpDir, "conf");
         copyConfFiles(confDir);

@@ -101,7 +101,7 @@ public class WebLogic7xContainer extends AbstractJavaContainer
     /**
      * The temporary directory from which the container will be started.
      */
-    private transient File tmpDir;
+    private File tmpDir;
 
     // Public Methods ----------------------------------------------------------
 
@@ -133,6 +133,16 @@ public class WebLogic7xContainer extends AbstractJavaContainer
     public final void setPort(int thePort)
     {
         this.port = thePort;
+    }
+
+    /**
+     * Sets the temporary installation directory.
+     * 
+     * @param theTmpDir The temporary directory to set
+     */
+    public final void setTmpDir(File theTmpDir)
+    {
+        this.tmpDir = theTmpDir;
     }
 
     // AbstractContainer Implementation ----------------------------------------
@@ -258,7 +268,10 @@ public class WebLogic7xContainer extends AbstractJavaContainer
     {
         FilterChain filterChain = createFilterChain();
         
-        this.tmpDir = createTempDirectory(theDirName);
+        if (this.tmpDir == null)
+        {
+            this.tmpDir = createTempDirectory(theDirName);
+        }
 
         File testDomainDir = createDirectory(this.tmpDir, "testdomain");
         ResourceUtils.copyResource(getProject(),

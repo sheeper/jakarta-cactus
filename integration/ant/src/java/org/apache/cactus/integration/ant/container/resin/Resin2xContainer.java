@@ -99,12 +99,12 @@ public class Resin2xContainer extends AbstractJavaContainer
     /**
      * The temporary directory from which the container will be started.
      */
-    private transient File tmpDir;
+    private File tmpDir;
 
     // Public Methods ----------------------------------------------------------
 
     /**
-     * Sets the Tomcat 4.x installation directory.
+     * Sets the Resin installation directory.
      * 
      * @param theDir The directory to set
      */
@@ -114,8 +114,8 @@ public class Resin2xContainer extends AbstractJavaContainer
     }
 
     /**
-     * Sets the REsin configuration file to use for the test installation of
-     * Resin 2.x.
+     * Sets the configuration file to use for the test installation of Resin
+     * 2.x.
      * 
      * @param theResinConf The resin.conf file
      */
@@ -132,6 +132,16 @@ public class Resin2xContainer extends AbstractJavaContainer
     public final void setPort(int thePort)
     {
         this.port = thePort;
+    }
+
+    /**
+     * Sets the temporary directory from which the container is run.
+     * 
+     * @param theTmpDir The temporary directory to set
+     */
+    public final void setTmpDir(File theTmpDir)
+    {
+        this.tmpDir = theTmpDir;
     }
 
     // AbstractContainer Implementation ----------------------------------------
@@ -234,7 +244,10 @@ public class Resin2xContainer extends AbstractJavaContainer
         FileUtils fileUtils = FileUtils.newFileUtils();
         FilterChain filterChain = createFilterChain();
         
-        this.tmpDir = createTempDirectory(theDirName);
+        if (this.tmpDir == null)
+        {
+            this.tmpDir = createTempDirectory(theDirName);
+        }
 
         // copy configuration files into the temporary container directory
         if (this.resinConf != null)

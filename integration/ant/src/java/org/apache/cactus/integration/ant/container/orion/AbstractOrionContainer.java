@@ -94,12 +94,12 @@ public abstract class AbstractOrionContainer extends AbstractJavaContainer
     /**
      * The temporary directory from which the container will be started.
      */
-    private transient File tmpDir;
+    private File tmpDir;
 
     // Public Methods ----------------------------------------------------------
 
     /**
-     * Sets the Tomcat 4.x installation directory.
+     * Sets the Orion installation directory.
      * 
      * @param theDir The directory to set
      */
@@ -116,6 +116,16 @@ public abstract class AbstractOrionContainer extends AbstractJavaContainer
     public final void setPort(int thePort)
     {
         this.port = thePort;
+    }
+
+    /**
+     * Sets the temporary directory from which to start the container.
+     * 
+     * @param theTmpDir The directory to set
+     */
+    public final void setTmpDir(File theTmpDir)
+    {
+        this.tmpDir = theTmpDir;
     }
 
     // AbstractContainer Implementation ----------------------------------------
@@ -206,7 +216,10 @@ public abstract class AbstractOrionContainer extends AbstractJavaContainer
         FileUtils fileUtils = FileUtils.newFileUtils();
         FilterChain filterChain = createFilterChain();
 
-        this.tmpDir = createTempDirectory(theDirName);
+        if (this.tmpDir == null)
+        {
+            this.tmpDir = createTempDirectory(theDirName);
+        }
 
         // copy configuration files into the temporary container directory
         File confDir = createDirectory(tmpDir, "conf");
