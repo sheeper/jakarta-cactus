@@ -41,7 +41,7 @@ aspectjrt.jar = ../aspectj/lib/aspectjrt.jar
 log4j.jar = ../jakarta-log4j/dist/lib/log4j-1.2rc1.jar
 
 # The location of the Commons Httpclient jar
-commons.httpclient.jar = ../jakarta-commons/httpclient/dist/commons-httpclient.jar
+commons.httpclient.jar = ../jakarta-commons/httpclient/dist/commons-httpclient-20020421.jar
 
 # The location of the Junit jar
 junit.jar = ../junit/junit3.7/junit.jar
