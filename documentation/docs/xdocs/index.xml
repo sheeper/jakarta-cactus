@@ -39,6 +39,7 @@
             <area shape="circle" href="ext:jenerator" coords="355,115,35"/>
             <area shape="circle" href="site:integration_ant" coords="140,225,35"/>
             <area shape="circle" href="site:integration_jetty" coords="280,145,35"/>
+            <area shape="circle" href="site:howto_sample" coords="55,200,35"/>
           </map>            	
          
         </figure>
