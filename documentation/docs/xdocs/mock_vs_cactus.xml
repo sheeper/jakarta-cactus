@@ -366,7 +366,7 @@ public void testXXX()
         tests will run fine when deployed.
       </p>
       <p>
-        Also, as described on the <link href="goals.html">Cactus' goals
+        Also, as described on the <link href="site:goals">Cactus' goals
         page</link>, we think that a framework like Cactus will be more and
         more useful as we use more and more components in the future because
         it will provide
@@ -400,7 +400,7 @@ public void testXXX()
       <p>
         We would very much like to have your feedback on MO vs IC. Please post
         your feedback on the
-        <link href="mailinglist.html">Cactus mailing list</link>.
+        <link href="site:mailinglist">Cactus mailing list</link>.
       </p>
       <p>
         Thanks a lot.

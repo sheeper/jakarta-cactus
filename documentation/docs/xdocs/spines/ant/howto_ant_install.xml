@@ -58,7 +58,7 @@
         In order to simplify the installation of Ant and the gathering of
         the required Ant tasks as described above, we provide a
         prepackaged zip containing everything needed. This is available from
-        the <link href="downloads.html">downloads</link> section.
+        the <link href="site:downloads">downloads</link> section.
       </p>
 
     </s1>
@@ -102,8 +102,8 @@
           download the Stylebook 1.0b3 for Xalan 2 jar, the latest
           <link href="http://xml.apache.org/xalan-j/">Xalan</link>, the latest
           <link href="http://xml.apache.org/xerces-j">Xerces</link>, the
-          latest <link href="http://junit.org">JUnit</link> and the latest
-          <link href="http://checkstyle.sf.net">Checkstyle</link> jars. You'll
+          latest <link href="ext:junit">JUnit</link> and the latest
+          <link href="ext:checkstyle">Checkstyle</link> jars. You'll
           also need to ensure that you use a JAXP 1.1 parser. You can download
           one (crimson) from
           <link href="http://java.sun.com/xml/download.html">here</link>. Put

@@ -328,7 +328,7 @@
         <p>
           Creating a WAR file is the preferred way of deploying Cactus tests
           to your servlet engine. Check the
-          <link href="getting_started.html">Getting Started</link> guide and
+          <link href="site:getting_started">Getting Started</link> guide and
           the example below for details on what files to include in the WAR.
         </p>
         <p>
@@ -462,7 +462,7 @@
 
        <note>
          The list of jars to include in your classpath is explained and
-         detailed in the <link href="howot_classpath.html">Classpath
+         detailed in the <link href="site:howto_classpath">Classpath
          Howto</link> guide.
        </note>
 

@@ -167,8 +167,9 @@
 		    Book
 		  </td>
 		  <td>
-            Co-authored by <link href="contributors.html#nick_bio">Nicholas
-            Lesiecki</link> (a Cactus commiter) and Richard Hightower, this
+            Co-authored by 
+            <jump href="site:contributors" anchor="nick_bio">Nicholas
+            Lesiecki</jump> (a Cactus commiter) and Richard Hightower, this
             book covers key open source testing and integration tools that work
             well in agile processes such as XP. The book features a Cactus API
             reference, an in-depth tutorial on Cactus use, and an example of

@@ -18,7 +18,7 @@
         Since Version 1.4 Cactus contains a new Servlet Test Runner that
         enables the same features than the JUnitEE was providing, but in an
         even easier way. Please check the
-        <link href="howto_runner.html">TestRunner Howto</link> tutorial.
+        <link href="site:howto_runner">TestRunner Howto</link> tutorial.
       </note>
 
       <p>

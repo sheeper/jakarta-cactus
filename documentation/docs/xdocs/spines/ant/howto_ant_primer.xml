@@ -89,7 +89,7 @@
 
       <p>
         The sample Ant build file described below is taken from the
-        <link href="downloads.html">Cactus Sample for Servlet API 2.2
+        <link href="site:downloads">Cactus Sample for Servlet API 2.2
         </link> project.
       </p>
 
@@ -1014,7 +1014,7 @@
         </p>
 
         <p>
-          See the <link href="howto_ant_cactus.html">Using Cactus with
+          See the <link href="site:howto_ant_cactus">Using Cactus with
           Ant</link> tutorial for details on to do this.
         </p>
 
