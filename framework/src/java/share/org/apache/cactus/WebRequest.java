@@ -56,13 +56,8 @@
  */
 package org.apache.cactus;
 
-import java.io.InputStream;
 import java.net.HttpURLConnection;
-
-import java.util.Enumeration;
-import java.util.Hashtable;
 import java.util.StringTokenizer;
-import java.util.Vector;
 
 import org.apache.cactus.client.ClientException;
 import org.apache.cactus.client.ConnectionHelper;
@@ -73,66 +68,16 @@ import org.apache.cactus.util.ChainedRuntimeException;
 import org.apache.cactus.util.WebConfiguration;
 
 /**
- * Contains all HTTP request data for a test case. It is the data that
- * will be sent to the server redirector and that will be available to the test
- * methods through the <code>HttpServletRequest</code> object.
- * <br><br>
- * Namely, it is :
- * <ul>
- *   <li>Request parameters that the test case can retrieve using
- *       <code>HttpServletRequest.getParameters()</code>,</li>
- *   <li>Cookies that the test case can retrieve using
- *       <code>HttpServletRequest.getCookies()</code>,</li>
- *   <li>HTTP headers that the test case can retrieve using the
- *       <code>HttpServletRequest.getHeader(), getHeaders(),
- *       ...</code> APIs,</li>
- *   <li>URL data the the test case can retrieve using
- *       <code>HttpServletRequest.getRequestURI(), ...</code></li>
- *   <li>Whether you want the server redirector to automatically create a
- *       session for you or not,</li>
- *   <li>Whether you want the HTTP connection to the server redirector to
- *       use a POST or GET method. Default is POST</li>
- *   <li>Authentication to use (optional)</li>
- *   <li>Content type (optional)</li>
- * </ul>
+ * Extends {@link BaseWebRequest} to add properties specific to the
+ * Cactus Web Redirectors.
  *
  * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  * @author <a href="mailto:Jason.Robertson@acs-inc.com">Jason Robertson</a>
  *
  * @version $Id$
  */
-public class WebRequest implements Request
+public class WebRequest extends BaseWebRequest
 {
-    /**
-     * GET Method identifier.
-     */
-    public static final String GET_METHOD = "GET";
-
-    /**
-     * POST Method identifier.
-     */
-    public static final String POST_METHOD = "POST";
-
-    /**
-     * The request parameters that need to be sent in the body (POST)
-     */
-    private Hashtable parametersPost = new Hashtable();
-
-    /**
-     * The request parameters that need to be sent in the URL (GET)
-     */
-    private Hashtable parametersGet = new Hashtable();
-
-    /**
-     * The Cookies
-     */
-    private Vector cookies = new Vector();
-
-    /**
-     * HTTP Headers.
-     */
-    private Hashtable headers = new Hashtable();
-
     /**
      * The URL to simulate
      */
@@ -142,16 +87,6 @@ public class WebRequest implements Request
      * Automatic session creation flag (default is true).
      */
     private boolean isAutomaticSession = true;
-
-    /**
-     * Binary data to send in the request body (if any)
-     */
-    private InputStream dataStream;
-
-    /**
-     * The content type to set in the http request
-     */
-    private String contentType = "application/x-www-form-urlencoded";
 
     /**
      * The Authentication Object that will configure the http request
@@ -174,6 +109,7 @@ public class WebRequest implements Request
      */
     public WebRequest(WebConfiguration theConfiguration)
     {
+        super();
         this.configuration = theConfiguration;
     }
 
@@ -228,42 +164,6 @@ public class WebRequest implements Request
     public AbstractAuthentication getAuthentication()
     {
         return this.authentication;
-    }
-
-    /**
-     * Sets the content type that will be set in the http request
-     *
-     * @param theContentType the content type
-     */
-    public void setContentType(String theContentType)
-    {
-        this.contentType = theContentType;
-    }
-
-    /**
-     * @return the content type that will be set in the http request
-     */
-    public String getContentType()
-    {
-        return this.contentType;
-    }
-
-    /**
-     * Allow the user to send arbitrary data in the request body
-     *
-     * @param theDataStream the stream on which the data are put by the user
-     */
-    public void setUserData(InputStream theDataStream)
-    {
-        this.dataStream = theDataStream;
-    }
-
-    /**
-     * @return the data stream set up by the user
-     */
-    public InputStream getUserData()
-    {
-        return this.dataStream;
     }
 
     /**
@@ -346,346 +246,18 @@ public class WebRequest implements Request
     }
 
     /**
-     * Adds a parameter to the request. It is possible to add several times the
-     * the same parameter name, but with different value (the same as for the
-     * <code>HttpServletRequest</code>).
-     *
-     * @param theName the parameter's name
-     * @param theValue the parameter's value
-     * @param theMethod GET_METHOD or POST_METHOD. If GET_METHOD then the
-     *        parameter will be sent in the query string of the URL. If
-     *        POST_METHOD, it will be sent as a parameter in the request body.
+     * @return a string representation of the request
      */
-    public void addParameter(String theName, String theValue, String theMethod)
+    public String toString()
     {
-        Hashtable parameters;
+        StringBuffer buffer = new StringBuffer();
 
-        // Decide if the parameter is to be sent using in the url or not
-        if (theMethod.equalsIgnoreCase(WebRequest.POST_METHOD))
-        {
-            parameters = this.parametersPost;
-        }
-        else if (theMethod.equalsIgnoreCase(WebRequest.GET_METHOD))
-        {
-            parameters = this.parametersGet;
-        }
-        else
-        {
-            throw new ChainedRuntimeException("The method need to be either "
-                + "\"POST\" or \"GET\"");
-        }
+        buffer.append("simulation URL = [" + getURL() + "], ");
+        buffer.append("automatic session = [" + getAutomaticSession() + "], ");
 
-        // If there is already a parameter of the same name, add the
-        // new value to the Vector. If not, create a Vector an add it to the
-        // hashtable
-        if (parameters.containsKey(theName))
-        {
-            Vector v = (Vector) parameters.get(theName);
-
-            v.addElement(theValue);
-        }
-        else
-        {
-            Vector v = new Vector();
-
-            v.addElement(theValue);
-            parameters.put(theName, v);
-        }
-    }
-
-    /**
-     * Adds a parameter to the request. The parameter is added to the query
-     * string of the URL.
-     *
-     * @param theName  the parameter's name
-     * @param theValue the parameter's value
-     *
-     * @see #addParameter(String, String, String)
-     */
-    public void addParameter(String theName, String theValue)
-    {
-        addParameter(theName, theValue, WebRequest.GET_METHOD);
-    }
-
-    /**
-     * @return the parameter names that will be passed in the request body
-     * (POST)
-     */
-    public Enumeration getParameterNamesPost()
-    {
-        return getParameterNames(this.parametersPost);
-    }
-
-    /**
-     * @return the parameter names that will be passed in the URL (GET)
-     */
-    public Enumeration getParameterNamesGet()
-    {
-        return getParameterNames(this.parametersGet);
-    }
-
-    /**
-     * Returns all the values in the passed hashtable of parameters.
-     *
-     * @param theParameters the hashtable of parameters
-     * @return the parameter names
-     */
-    private Enumeration getParameterNames(Hashtable theParameters)
-    {
-        return theParameters.keys();
-    }
-
-    /**
-     * Returns the first value corresponding to this parameter's name (provided
-     * this parameter is passed in the URL).
-     *
-     * @param theName the parameter's name
-     * @return the first value corresponding to this parameter's name or null
-     *         if not found in the list of parameters to be sent in the URL
-     */
-    public String getParameterGet(String theName)
-    {
-        String[] values = getParameterValuesGet(theName);
-
-        if (values != null)
-        {
-            return values[0];
-        }
-
-        return null;
-    }
-
-    /**
-     * Returns the first value corresponding to this parameter's name (provided
-     * this parameter is passed in the request body - POST).
-     *
-     * @param theName the parameter's name
-     * @return the first value corresponding to this parameter's name or null
-     *         if not found in the list of parameters to be sent in the request
-     *         body
-     */
-    public String getParameterPost(String theName)
-    {
-        String[] values = getParameterValuesPost(theName);
-
-        if (values != null)
-        {
-            return values[0];
-        }
-
-        return null;
-    }
-
-    /**
-     * Returns all the values corresponding to this parameter's name (provided
-     * this parameter is passed in the URL).
-     *
-     * @param theName the parameter's name
-     * @return the first value corresponding to this parameter's name or null
-     *         if not found in the list of parameters to be sent in the URL
-     */
-    public String[] getParameterValuesGet(String theName)
-    {
-        return getParameterValues(theName, this.parametersGet);
-    }
-
-    /**
-     * Returns all the values corresponding to this parameter's name (provided
-     * this parameter is passed in the request body - POST).
-     *
-     * @param theName the parameter's name
-     * @return the first value corresponding to this parameter's name or null
-     *         if not found in the list of parameters to be sent in the request
-     *         body
-     */
-    public String[] getParameterValuesPost(String theName)
-    {
-        return getParameterValues(theName, this.parametersPost);
-    }
-
-    /**
-     * Returns all the values corresponding to this parameter's name in the
-     * provided hashtable.
-     *
-     * @param theName the parameter's name
-     * @param theParameters the hashtable containing the parameters
-     * @return the first value corresponding to this parameter's name or null
-     *         if not found in the passed hashtable
-     */
-    private String[] getParameterValues(String theName, Hashtable theParameters)
-    {
-        if (theParameters.containsKey(theName))
-        {
-            Vector v = (Vector) theParameters.get(theName);
-
-            Object[] objs = new Object[v.size()];
-
-            v.copyInto(objs);
-
-            String[] result = new String[objs.length];
-
-            for (int i = 0; i < objs.length; i++)
-            {
-                result[i] = (String) objs[i];
-            }
-
-            return result;
-        }
-
-        return null;
-    }
-
-    /**
-     * Adds a cookie to the request. The cookie will be created with a
-     * default localhost domain. Use the
-     * <code>addCookie(String theDomain, String theName,
-     * String theValue)</code> method or the
-     * <code>addCookie(Cookie theCookie)</code> if you wish to specify a
-     * domain.
-     *
-     * Note that the domain must match either the redirector host
-     * (specified in <code>cactus.properties</code>) or the host set
-     * using <code>setURL()</code>.
-     *
-     * @param theName the cookie's name
-     * @param theValue the cookie's value
-     */
-    public void addCookie(String theName, String theValue)
-    {
-        addCookie("localhost", theName, theValue);
-    }
-
-    /**
-     * Adds a cookie to the request. The cookie will be created with the
-     * domain passed as parameter (i.e. the cookie will get sent only to
-     * requests to that domain).
-     *
-     * Note that the domain must match either the redirector host
-     * (specified in <code>cactus.properties</code>) or the host set
-     * using <code>setURL()</code>.
-     *
-     * @param theDomain the cookie domain
-     * @param theName the cookie name
-     * @param theValue the cookie value
-     */
-    public void addCookie(String theDomain, String theName, String theValue)
-    {
-        addCookie(new Cookie(theDomain, theName, theValue));
-    }
-
-    /**
-     * Adds a cookie to the request.
-     *
-     * Note that the domain must match either the redirector host
-     * (specified in <code>cactus.properties</code>) or the host set
-     * using <code>setURL()</code>.
-     *
-     * @param theCookie the cookie to add
-     */
-    public void addCookie(Cookie theCookie)
-    {
-        this.cookies.addElement(theCookie);
-    }
-
-    /**
-     * @return the cookies (vector of <code>Cookie</code> objects)
-     */
-    public Vector getCookies()
-    {
-        return this.cookies;
-    }
-
-    /**
-     * Adds a header to the request. Supports adding several values for the
-     * same header name.
-     *
-     * @param theName  the header's name
-     * @param theValue the header's value
-     */
-    public void addHeader(String theName, String theValue)
-    {
-        // If the header is "Content-type", then call setContentType() instead.
-        // This is to prevent the content type to be set twice.
-        if (theName.equalsIgnoreCase("Content-type"))
-        {
-            setContentType(theValue);
-
-            return;
-        }
-
-        // If there is already a header of the same name, add the
-        // new header to the Vector. If not, create a Vector an add it to the
-        // hashtable
-        if (this.headers.containsKey(theName))
-        {
-            Vector v = (Vector) this.headers.get(theName);
-
-            v.addElement(theValue);
-        }
-        else
-        {
-            Vector v = new Vector();
-
-            v.addElement(theValue);
-            this.headers.put(theName, v);
-        }
-    }
-
-    /**
-     * @return the header names
-     */
-    public Enumeration getHeaderNames()
-    {
-        return this.headers.keys();
-    }
-
-    /**
-     * Returns the first value corresponding to this header's name.
-     *
-     * @param  theName the header's name
-     * @return the first value corresponding to this header's name or null if
-     *         not found
-     */
-    public String getHeader(String theName)
-    {
-        String[] values = getHeaderValues(theName);
-
-        if (values != null)
-        {
-            return values[0];
-        }
-
-        return null;
-    }
-
-    /**
-     * Returns all the values associated with this header's name.
-     *
-     * @param  theName the header's name
-     * @return the values corresponding to this header's name or null if not
-     *         found
-     */
-    public String[] getHeaderValues(String theName)
-    {
-        if (this.headers.containsKey(theName))
-        {
-            Vector v = (Vector) this.headers.get(theName);
-
-            Object[] objs = new Object[v.size()];
-
-            v.copyInto(objs);
-
-            String[] result = new String[objs.length];
-
-            for (int i = 0; i < objs.length; i++)
-            {
-                result[i] = (String) objs[i];
-            }
-
-            return result;
-        }
-
-        return null;
+        buffer.append(super.toString());
+        
+        return buffer.toString();
     }
 
     /**
@@ -726,139 +298,7 @@ public class WebRequest implements Request
             }
         }
     }
-
-    /**
-     * @return a string representation of the request
-     */
-    public String toString()
-    {
-        StringBuffer buffer = new StringBuffer();
-
-        buffer.append("simulation URL = [" + getURL() + "], ");
-        buffer.append("automatic session = [" + getAutomaticSession() + "], ");
-
-        // Append cookies
-        buffer.append("cookies = [");
-        buffer.append(toStringAppendCookies());
-        buffer.append("], ");
-
-        // Append headers
-        buffer.append("headers = [");
-        buffer.append(toStringAppendHeaders());
-        buffer.append("], ");
-
-        // Append parameters
-        buffer.append("GET parameters = [");
-        buffer.append(toStringAppendParametersGet());
-        buffer.append("], ");
-        buffer.append("POST parameters = [");
-        buffer.append(toStringAppendParametersPost());
-        buffer.append("]");
-
-        return buffer.toString();
-    }
-
-    /**
-     * @return a string representation of the headers
-     */
-    private String toStringAppendHeaders()
-    {
-        StringBuffer buffer = new StringBuffer();
-
-        Enumeration headers = getHeaderNames();
-
-        while (headers.hasMoreElements())
-        {
-            buffer.append("[");
-
-            String headerName = (String) headers.nextElement();
-            String[] headerValues = getHeaderValues(headerName);
-
-            buffer.append("[" + headerName + "] = [");
-
-            for (int i = 0; i < (headerValues.length - 1); i++)
-            {
-                buffer.append("[" + headerValues[i] + "], ");
-            }
-
-            buffer.append("[" + headerValues[headerValues.length - 1] + "]]");
-            buffer.append("]");
-        }
-
-        return buffer.toString();
-    }
-
-    /**
-     * @return a string representation of the cookies
-     */
-    private String toStringAppendCookies()
-    {
-        StringBuffer buffer = new StringBuffer();
-
-        Enumeration cookies = getCookies().elements();
-
-        while (cookies.hasMoreElements())
-        {
-            Cookie cookie = (Cookie) cookies.nextElement();
-
-            buffer.append("[" + cookie + "]");
-        }
-
-        return buffer.toString();
-    }
-
-    /**
-     * @return a string representation of the parameters to be added in the
-     *         request body
-     */
-    private String toStringAppendParametersPost()
-    {
-        return toStringAppendParameters(this.parametersPost);
-    }
-
-    /**
-     * @return a string representation of the parameters to be added in the
-     *         URL
-     */
-    private String toStringAppendParametersGet()
-    {
-        return toStringAppendParameters(this.parametersGet);
-    }
-
-    /**
-     * @param theParameters the HTTP parameters
-     * @return a string representation of the HTTP parameters passed as
-     *         parameters
-     */
-    private String toStringAppendParameters(Hashtable theParameters)
-    {
-        StringBuffer buffer = new StringBuffer();
-
-        Enumeration parameters = getParameterNames(theParameters);
-
-        while (parameters.hasMoreElements())
-        {
-            buffer.append("[");
-
-            String parameterName = (String) parameters.nextElement();
-            String[] parameterValues = getParameterValues(parameterName, 
-                theParameters);
-
-            buffer.append("[" + parameterName + "] = [");
-
-            for (int i = 0; i < (parameterValues.length - 1); i++)
-            {
-                buffer.append("[" + parameterValues[i] + "], ");
-            }
-
-            buffer.append("[" + parameterValues[parameterValues.length - 1]
-                + "]]");
-            buffer.append("]");
-        }
-
-        return buffer.toString();
-    }
-
+    
     /**
      * Gets an HTTP session id by calling the server side and retrieving
      * the jsessionid cookie in the HTTP response. This is achieved by
