@@ -570,7 +570,10 @@
         </ant>
 
     </target>
-    <target name="dist" depends="clean,jar,sample,doc,site,dist.22,dist.23">
+
+    <!-- Do not call the 'clean' target. This is needed for GUMP nightly
+         builds. See the description of the 'gump' target -->
+    <target name="dist.gump" depends="jar,sample,doc,site,dist.22,dist.23">
 
         <mkdir dir="${dist.dir}"/>
 
@@ -596,6 +599,12 @@
             </zipfileset>
         </zip>
 
+    </target>
+
+    <!-- Perform a clean before generating the distribution. This is to
+         make sure there is no side effect coming from previously
+         generatred files -->
+    <target name="dist" depends="clean,dist.gump">
     </target>
 
     <!--
@@ -629,6 +638,19 @@
             <arg line="-l ${username} jakarta.apache.org 'cd ${homepage};gunzip ${site.name}-${DSTAMP}.tar.gz;tar xvf ${site.name}-${DSTAMP}.tar;rm ${site.name}-${DSTAMP}.tar'"/>
         </exec>
 
+    </target>
+
+    <!--
+       ========================================================================
+         Do it all for GUMP nightly builds. Please note that the 'clean'
+         target should not be called as this generates problems with the
+         GUMP mechanism where all classpath entries need to be set before
+         running the build (i.e. the <classpath> entries in the build are
+         ignored using the "-Dbuild.sysclasspath=only" switch when running
+         Ant).
+       ========================================================================
+    -->
+    <target name="gump" depends="jar,sample,doc,site,tests,dist.gump">
     </target>
 
 </project>
