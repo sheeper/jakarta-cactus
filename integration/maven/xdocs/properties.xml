@@ -131,7 +131,7 @@
               How summary information on test should be printed to the console. This 
               property has the same meaning as the <code>printsummary</code> attribute
               of the JUnit Ant task. Default value is
-              <code>maven.cactus.printsummary = withOutAndErr</code>.
+              <code>cactus.printsummary = withOutAndErr</code>.
             </p>
           </td>
         </tr>
