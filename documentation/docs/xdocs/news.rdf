@@ -22,6 +22,7 @@
 
     <items>
       <rdf:Seq>
+        <rdf:li rdf:resource="http://jakarta.apache.org/cactus/news.html#news14"/>
         <rdf:li rdf:resource="http://jakarta.apache.org/cactus/news.html#news13"/>
         <rdf:li rdf:resource="http://jakarta.apache.org/cactus/news.html#news12"/>
         <rdf:li rdf:resource="http://jakarta.apache.org/cactus/news.html#news11"/>
@@ -39,6 +40,20 @@
     </items>
 
   </channel>
+
+  <item rdf:about="http://jakarta.apache.org/cactus/news.html#news14">
+    <title>Cactus 1.5-rc1 released</title>
+    <link>http://jakarta.apache.org/cactus/news.html#news14</link>
+    <description>
+<![CDATA[Cactus 1.5-rc1 has been released. Full details can be found
+in the <a href="http://jakarta.apache.org/cactus/1.5-rc1/ANNOUNCEMENT.txt">
+release announcement</a>.
+]]>
+    </description>
+    <dc:subject></dc:subject>
+    <dc:creator>vmassol</dc:creator>
+    <dc:date>2003-10-24T00:00:00+00:00</dc:date>
+  </item>
 
   <item rdf:about="http://jakarta.apache.org/cactus/news.html#news13">
     <title>Testing FileUploads with Cactus</title>
