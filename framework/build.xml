@@ -236,7 +236,7 @@
         </javac>
 
         <copy todir="${target.classes.java.dir}/org/apache/cactus/server"
-            file="{web.dir}/jspRedirector.jsp"/>
+            file="${web.dir}/jspRedirector.jsp"/>
 
     </target>
 
