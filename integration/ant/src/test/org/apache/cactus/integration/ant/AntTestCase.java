@@ -186,8 +186,9 @@ public abstract class AntTestCase extends TestCase implements BuildListener
         this.project = new Project();
         this.project.addBuildListener(this);
         this.project.init();
-        ProjectHelper.configureProject(this.project,
-            getBuildFile(this.buildFile));
+        File buildFile = getBuildFile(this.buildFile);
+        this.project.setUserProperty("ant.file", buildFile.getAbsolutePath());
+        ProjectHelper.configureProject(this.project, buildFile);
         if (getProject().getTargets().get("setUp") != null)
         {
             getProject().executeTarget("setUp");
