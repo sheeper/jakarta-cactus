@@ -32,10 +32,6 @@
   <version title="Version 1.2">
 
     <category title="Documentation">
-      <action assigned-to="Vincent Massol">
-        Rewrite a Cactus TestCase tutorial that explains the different
-        <code>TestCase</code> classes and how to write tests using them.
-      </action>
       <action assigned-to="Hudson Wong">
         Add a tutorial that explains how to unit test EJBs in the current
         version of Cactus.
@@ -43,9 +39,6 @@
       <action assigned-to="Nicholas Lesiecki">
         Write a tutorial that explains how to unit test Tag libraries (only
         taglets that extend TagSupport for the moment).
-      </action>
-      <action assigned-to="Vincent Massol">
-        Write a tutorial that explains how to unit test Servlet Filters.
       </action>
       <action>
         Add a tutorial/FAQ entry for explaining unit testing of persistent
