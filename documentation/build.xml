@@ -197,6 +197,8 @@
 
   <target name="doc.generate" depends="doc.prepare,doc.cvschangelog">
 
+    <property name="cvslog.file"
+        location="${target.xdoc.dir}/cvslog/cvslog.xml"/>
     <property name="sitemap.file" location="${doc.xdoc.dir}/sitemap.xml"/>
     <basename property="xdoc.dir.name" file="${target.xdoc.dir}"/>
 
@@ -235,7 +237,7 @@
       <!-- Location of the sitemap.xml file relative to xdocdir -->
       <param name="sitemapFile" expression="${sitemap.file}"/>
       <!-- Location of the cvslog.xml file relative to xdocdir -->
-      <param name="cvslogfile" expression="cvslog/cvslog.xml"/>
+      <param name="cvslogfile" expression="${cvslog.file}"/>
     </style>
 
   </target>

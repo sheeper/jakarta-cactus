@@ -768,7 +768,7 @@
 
   <xsl:template match="cvschangelog">
     <xsl:variable name="changelog" 
-      select="document(concat($xdocdir,'/',$cvslogfile))/changelog"/>
+      select="document($cvslogfile)/changelog"/>
     <xsl:choose>
       <xsl:when test="$changelog/entry">
         <div class="tabular">
