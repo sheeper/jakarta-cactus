@@ -98,8 +98,6 @@ public abstract class AbstractTestController
     public void handleRequest(WebImplicitObjects theObjects)
         throws ServletException
     {
-        logger.entry("handleRequest(...)");
-
         // If the Cactus user has forgotten to put a needed jar on the server
         // classpath (i.e. in WEB-INF/lib), then the servlet engine Webapp
         // class loader will throw a NoClassDefFoundError exception. As this
@@ -127,6 +125,14 @@ public abstract class AbstractTestController
 
                 caller.doGetResults();
 
+            // Is it the test connection service ?
+            // This service is only used to verify that connection between
+            // client and server is working fine
+            } else if (ServiceEnumeration.RUN_TEST_SERVICE.
+                equals(serviceName)) {
+
+                caller.doRunTest();
+
             } else {
                 String message = "Unknown service [" + serviceName +
                     "] in HTTP request.";
@@ -151,8 +157,6 @@ public abstract class AbstractTestController
                 throw new ServletException(message, e);
             }
         }
-
-        logger.exit("doPost");
     }
 
     /**
@@ -163,8 +167,6 @@ public abstract class AbstractTestController
     private String getServiceName(HttpServletRequest theRequest)
         throws ServletException
     {
-        logger.entry("getServiceName(...)");
-
         // Call the correct Service method
         String queryString = theRequest.getQueryString();
         String serviceName = ServletUtil.getQueryStringParameter(queryString,
@@ -179,7 +181,6 @@ public abstract class AbstractTestController
 
         logger.debug("Service to call = " + serviceName);
 
-        logger.exit("getServiceName");
         return serviceName;
     }
 
