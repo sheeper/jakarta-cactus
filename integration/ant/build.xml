@@ -23,514 +23,486 @@
 -->
 <project name="Cactus Ant Integration" default="dist" basedir="../..">
 
-    <description>
+  <description>
  Cactus Ant Integration
  ---------------------------------------------------------
  Contains tasks, types and support classes for integration
  of Cactus with Ant.
-    </description>
+  </description>
 
-    <!-- Base directory for all file related operations -->
-    <property name="base.dir" location="integration/ant"/>
+  <!-- Base directory for all file related operations -->
+  <property name="base.dir" location="integration/ant"/>
 
-    <!-- Indicate that this subproject is dependant on the version of the J2EE
-         API available -->
-    <property name="j2ee.dependant" value="true"/>
+  <!-- Indicate that this subproject is dependant on the version of the J2EE
+       API available -->
+  <property name="j2ee.dependant" value="true"/>
 
-    <!-- Include properties and targets common to the different subprojects -->
-    &common;
+  <!-- Include properties and targets common to the different subprojects -->
+  &common;
 
-    <!-- Global project properties -->
-    <property name="project.name.text" value="Cactus Ant Integration"/>
-    <property name="project.name.file" value="cactus-integration-ant"/>
-    
-    <!--
-       ========================================================================
-         Initialize source, target and dist properties
-       ========================================================================
-    -->
-    <target name="properties">
+  <!-- Global project properties -->
+  <property name="project.name.text" value="Cactus Ant Integration"/>
+  <property name="project.name.file" value="cactus-integration-ant"/>
 
-        <!-- Set the properties related to the source tree -->
-	    <property name="src.dir" location="${base.dir}/src"/>
-	    <property name="src.java.dir" location="${src.dir}/java"/>
-	    <property name="src.test.dir" location="${src.dir}/test"/>
-	    <property name="src.testinput.dir" location="${src.dir}/test-input"/>
-	    <property name="src.script.dir" location="${src.dir}/scripts"/>
-	    <property name="src.conf.dir" location="${src.dir}/confs"/>
-	    <property name="build.dir" location="${base.dir}/."/>
+  <!--
+     ========================================================================
+       Initialize source, target and dist properties
+     ========================================================================
+  -->
+  <target name="properties">
 
-        <!-- Set the properties related to the target area -->
-	    <property name="target.classes.dir" location="${target.dir}/classes"/>
-	    <property name="target.classes.java.dir"
-	        location="${target.classes.dir}/java"/>
-        <property name="target.classes.clover.dir"
-            location="${target.classes.dir}/clover"/>
-	    <property name="target.classes.test.dir"
-	        location="${target.classes.dir}/test"/>
-	    <property name="target.doc.dir" location="${target.dir}/doc"/>
-	    <property name="target.doc.api.dir" location="${target.doc.dir}/api"/>
-	    <property name="target.doc.testreports.dir"
-	        location="${target.doc.dir}/test-reports"/>
-	    <property name="target.testinput.dir"
-	        location="${target.dir}/testinput"/>
+    <!-- Set the properties related to the source tree -->
+    <property name="src.dir" location="${base.dir}/src"/>
+    <property name="src.java.dir" location="${src.dir}/java"/>
+    <property name="src.test.dir" location="${src.dir}/test"/>
+    <property name="src.testinput.dir" location="${src.dir}/test-input"/>
+    <property name="src.script.dir" location="${src.dir}/scripts"/>
+    <property name="src.conf.dir" location="${src.dir}/confs"/>
+    <property name="build.dir" location="${base.dir}/."/>
 
-    </target>
+    <!-- Set the properties related to the target area -->
+    <property name="target.classes.dir" location="${target.dir}/classes"/>
+    <property name="target.classes.java.dir"
+        location="${target.classes.dir}/java"/>
+    <property name="target.classes.clover.dir"
+        location="${target.classes.dir}/clover"/>
+    <property name="target.classes.test.dir"
+        location="${target.classes.dir}/test"/>
+    <property name="target.doc.dir" location="${target.dir}/doc"/>
+    <property name="target.doc.api.dir" location="${target.doc.dir}/api"/>
+    <property name="target.doc.testreports.dir"
+        location="${target.doc.dir}/test-reports"/>
+    <property name="target.testinput.dir"
+        location="${target.dir}/testinput"/>
 
-    <!--
-       ========================================================================
-         Initialize the build. Must be called by all targets
-       ========================================================================
-    -->
-    <target name="init"
-        depends="init.common, properties, init.clover">
+  </target>
 
-        <echo>Dependencies:</echo>
-        <echo>  commons.logging.jar = [${commons.logging.jar}]</echo>
-        <echo>  junit.jar = [${junit.jar}]</echo>
-        <echo>  xerces.jar (optional) = [${xerces.jar}]</echo>
-        <echo>  xmlapis.jar (optional) = [${xmlapis.jar}]</echo>
-        <echo/>
-        <echo>Options:</echo>
-        <echo>  clover.enable = ${clover.enable}</echo>
+  <!--
+     ========================================================================
+       Initialize the build. Must be called by all targets
+     ========================================================================
+  -->
+  <target name="init"
+      depends="init.common, properties, init.clover">
 
-        <path id="project.classpath">
-          <pathelement location="${commons.logging.jar}"/>
-          <pathelement location="${xerces.jar}"/>
-          <pathelement location="${xmlapis.jar}"/>
-        </path>
+    <echo>Dependencies:</echo>
+    <echo>  commons.logging.jar = [${commons.logging.jar}]</echo>
+    <echo>  junit.jar = [${junit.jar}]</echo>
+    <echo>  xerces.jar (optional) = [${xerces.jar}]</echo>
+    <echo>  xmlapis.jar (optional) = [${xmlapis.jar}]</echo>
+    <echo/>
+    <echo>Options:</echo>
+    <echo>  clover.enable = ${clover.enable}</echo>
 
-        <condition property="properties.ok">
-          <and>
-            <available file="${commons.logging.jar}"/>
-            <available file="${junit.jar}"/>
-            <!-- Check for a JAXP class instead of the xmlapis.jar file so that
-                 the build works on JDK 1.4 without needing to define the
-                 xmlapis.jar property -->
-            <available classname="javax.xml.parsers.DocumentBuilder"
-                classpathref="project.classpath"/>
-            <!-- Check for a Xerces class instead of the xerces.jar file so
-                 that the build also works on JDKs that bundle Xerces without
-                 needing to define the xerces.jar property -->
-            <available classname="org.apache.xml.serialize.XMLSerializer"
-                classpathref="project.classpath"/>
-          </and>
-        </condition>
+    <path id="project.classpath">
+      <pathelement location="${commons.logging.jar}"/>
+      <pathelement location="${xerces.jar}"/>
+      <pathelement location="${xmlapis.jar}"/>
+    </path>
 
-        <fail unless="properties.ok">One or more required dependancies could not
+    <condition property="properties.ok">
+      <and>
+        <available file="${commons.logging.jar}"/>
+        <available file="${junit.jar}"/>
+        <!-- Check for a JAXP class instead of the xmlapis.jar file so that
+             the build works on JDK 1.4 without needing to define the
+             xmlapis.jar property -->
+        <available classname="javax.xml.parsers.DocumentBuilder"
+            classpathref="project.classpath"/>
+        <!-- Check for a Xerces class instead of the xerces.jar file so
+             that the build also works on JDKs that bundle Xerces without
+             needing to define the xerces.jar property -->
+        <available classname="org.apache.xml.serialize.XMLSerializer"
+            classpathref="project.classpath"/>
+      </and>
+    </condition>
+
+    <fail unless="properties.ok">One or more required dependancies could not
 be resolved. Please check you build.properties file, and run Ant with the 
 -verbose option for more details</fail>
 
-    </target>
+  </target>
 
-    <!--
-       ========================================================================
-         Compiles the sources
-       ========================================================================
-    -->
-    <target name="compile.prepare" depends="init">
-        <fileset id="deployment.resources" dir="${src.conf.dir}">
-            <include name="*.dtd"/>
+  <!--
+     ========================================================================
+       Compiles the sources
+     ========================================================================
+  -->
+  <target name="compile.prepare" depends="init">
+    <fileset id="deployment.resources" dir="${src.conf.dir}">
+      <include name="*.dtd"/>
+    </fileset>
+    <fileset id="container.share.resources" dir="${src.conf.dir}/share">
+      <include name="orion1x/**/*.*"/>
+      <include name="orion2x/**/*.*"/>
+      <include name="resin2x/**/*.*"/>
+      <include name="tomcat4x/**/*.*"/>
+      <include name="tomcat5x/**/*.*"/>
+      <include name="weblogic6x/**/*.*"/>
+      <include name="weblogic7x/**/*.*"/>
+    </fileset>
+    <fileset id="container.j2ee12.resources" dir="${src.conf.dir}/j2ee12">
+      <include name="tomcat3x/**/*.*"/>
+    </fileset>
+    <fileset id="container.j2ee13.resources" dir="${src.conf.dir}/j2ee13">
+      <include name="jboss3x/**/*.*"/>
+    </fileset>
+  </target>
+
+  <target name="compile.main" depends="compile.prepare">
+
+    <mkdir dir="${target.classes.java.dir}"/>
+
+    <propertyfile file="${target.classes.java.dir}/cactus.tasks"
+        comment="Cactus Tasks for Ant">
+      <entry key="cactifywar"
+          value="org.apache.cactus.integration.ant.CactifyWarTask"/>
+      <entry key="cactus"
+          value="org.apache.cactus.integration.ant.CactusTask"/>
+      <entry key="runservertests"
+          value="org.apache.cactus.integration.ant.RunServerTestsTask"/>
+      <entry key="webxmlmerge"
+          value="org.apache.cactus.integration.ant.WebXmlMergeTask"/>
+    </propertyfile>
+
+    <copy todir="${target.classes.java.dir}">
+      <fileset dir="${src.java.dir}" includes="**/*.properties"/>
+    </copy>
+
+    <mkdir dir="${target.classes.java.dir}/org/apache/cactus/integration/ant/deployment/resources"/>
+    <copy todir="${target.classes.java.dir}/org/apache/cactus/integration/ant/deployment/resources">
+      <fileset refid="deployment.resources"/>
+    </copy>
+
+    <mkdir dir="${target.classes.java.dir}/org/apache/cactus/integration/ant/container/resources"/>
+    <copy todir="${target.classes.java.dir}/org/apache/cactus/integration/ant/container/resources">
+      <fileset refid="container.share.resources"/>
+      <fileset refid="container.j2ee12.resources"/>
+      <fileset refid="container.j2ee13.resources"/>
+    </copy>
+
+    <javac srcdir="${src.java.dir}" destdir="${target.classes.java.dir}"
+        deprecation="${deprecation}" optimize="${optimize}" 
+        debug="${debug}">
+      <classpath refid="project.classpath"/>
+    </javac>
+
+  </target>
+
+  <target name="compile.test" depends="compile.main">
+
+    <mkdir dir="${target.classes.test.dir}"/>
+    <javac srcdir="${src.test.dir}" destdir="${target.classes.test.dir}"
+        deprecation="${deprecation}" optimize="${optimize}"
+        debug="${debug}">
+      <classpath>
+        <path refid="project.classpath"/>
+        <pathelement location="${junit.jar}"/>
+        <pathelement location="${target.classes.java.dir}"/>
+      </classpath>
+    </javac>
+
+  </target>
+
+  <target name="compile.clover"
+      depends="compile.prepare, init.clover"
+      if="clover.enable">
+
+    <clover-setup initstring="${clover.initstring}" enabled="yes">
+      <files>
+        <exclude name="**/Test*.*"/>
+        <exclude name="**/Mock*.*"/>
+      </files>
+    </clover-setup>
+
+    <mkdir dir="${target.classes.clover.dir}"/>
+
+    <propertyfile file="${target.classes.clover.dir}/cactus.tasks"
+        comment="Cactus Tasks for Ant">
+      <entry key="cactifywar"
+          value="org.apache.cactus.integration.ant.CactifyWarTask"/>
+      <entry key="cactus"
+          value="org.apache.cactus.integration.ant.CactusTask"/>
+      <entry key="runservertests"
+          value="org.apache.cactus.integration.ant.RunServerTestsTask"/>
+      <entry key="webxmlmerge"
+          value="org.apache.cactus.integration.ant.WebXmlMergeTask"/>
+    </propertyfile>
+
+    <copy todir="${target.classes.clover.dir}">
+      <fileset dir="${src.java.dir}" includes="**/*.properties"/>
+    </copy>
+
+    <mkdir dir="${target.classes.clover.dir}/org/apache/cactus/integration/ant/deployment/resources"/>
+    <copy todir="${target.classes.clover.dir}/org/apache/cactus/integration/ant/deployment/resources">
+      <fileset refid="deployment.resources"/>
+    </copy>
+
+    <mkdir dir="${target.classes.clover.dir}/org/apache/cactus/integration/ant/container/resources"/>
+    <copy todir="${target.classes.clover.dir}/org/apache/cactus/integration/ant/container/resources">
+      <fileset refid="container.share.resources"/>
+      <fileset refid="container.j2ee12.resources"/>
+      <fileset refid="container.j2ee13.resources"/>
+    </copy>
+
+    <javac destdir="${target.classes.clover.dir}"
+        deprecation="${deprecation}" optimize="${optimize}"
+        debug="${debug}">
+      <src path="${src.java.dir}"/>
+      <exclude name="**/package.html"/>
+      <exclude name="**/overview.html"/>
+      <classpath refid="project.classpath"/>
+    </javac>
+
+    <!-- Disable Clover for subsequent compilations -->
+    <clover-setup initstring="${clover.initstring}" enabled="no"/>
+
+  </target>
+
+  <target name="compile" depends="compile.main, compile.test, compile.clover"
+      description="Compile the sources"/>
+
+  <!--
+     ========================================================================
+       Runs the unit tests
+     ========================================================================
+  -->
+  <target name="test.clover.prepare" depends="compile.test, compile.clover"
+      if="clover.enable">
+
+    <path id="test.classpath">
+      <path refid="project.classpath"/>
+      <pathelement path="${clover.jar}"/>
+      <pathelement location="${junit.jar}"/>
+      <pathelement path="${target.classes.clover.dir}"/>
+      <pathelement path="${target.classes.test.dir}"/>
+    </path>
+
+  </target>
+
+  <target name="test.main.prepare" depends="compile.test" 
+      unless="clover.enable">
+
+    <path id="test.classpath">
+      <path refid="project.classpath"/>
+      <pathelement location="${junit.jar}"/>
+      <pathelement path="${target.classes.java.dir}"/>
+      <pathelement path="${target.classes.test.dir}"/>
+    </path>
+
+  </target>
+
+  <target name="test" depends="test.clover.prepare, test.main.prepare"
+      description="Runs the unit tests">
+
+    <mkdir dir="${target.testinput.dir}"/>
+    <copy todir="${target.testinput.dir}">
+      <fileset dir="${src.testinput.dir}"/>
+    </copy>
+
+    <mkdir dir="${target.doc.testreports.dir}"/>
+
+    <junit printsummary="yes" failureproperty="tests.failed" fork="yes">
+      <sysproperty key="testinput.dir" file="${target.testinput.dir}"/>
+      <classpath refid="test.classpath"/>
+      <formatter type="brief" usefile="false"/>
+      <test name="${testcase}" if="testcase"/>
+      <batchtest todir="${target.doc.testreports.dir}" unless="testcase">
+        <fileset dir="${src.test.dir}">
+          <include name="**/Test*.java"/>
+          <exclude name="**/TestAll.java"/>
+          <!-- Momentarily exclude this test that fails for some 
+               reason on the Gump machine but not on our local
+               machines -->
+          <exclude name="**/TestContainerRunner.java"/>
+          <exclude name="**/TestRunServerTestsTask.java"/>
         </fileset>
-        <fileset id="container.share.resources" dir="${src.conf.dir}/share">
-            <include name="orion1x/**/*.*"/>
-            <include name="orion2x/**/*.*"/>
-            <include name="resin2x/**/*.*"/>
-            <include name="tomcat4x/**/*.*"/>
-            <include name="tomcat5x/**/*.*"/>
-            <include name="weblogic6x/**/*.*"/>
-            <include name="weblogic7x/**/*.*"/>
-        </fileset>
-        <fileset id="container.j2ee12.resources" dir="${src.conf.dir}/j2ee12">
-            <include name="tomcat3x/**/*.*"/>
-        </fileset>
-        <fileset id="container.j2ee13.resources" dir="${src.conf.dir}/j2ee13">
-            <include name="jboss3x/**/*.*"/>
-        </fileset>
-    </target>
-
-    <target name="compile.main" depends="compile.prepare">
-
-        <mkdir dir="${target.classes.java.dir}"/>
-
-        <propertyfile file="${target.classes.java.dir}/cactus.tasks"
-          comment="Cactus Tasks for Ant">
-            <entry key="cactifywar"
-              value="org.apache.cactus.integration.ant.CactifyWarTask"/>
-            <entry key="cactus"
-              value="org.apache.cactus.integration.ant.CactusTask"/>
-            <entry key="runservertests"
-              value="org.apache.cactus.integration.ant.RunServerTestsTask"/>
-            <entry key="webxmlmerge"
-              value="org.apache.cactus.integration.ant.WebXmlMergeTask"/>
-        </propertyfile>
-
-        <copy todir="${target.classes.java.dir}">
-            <fileset dir="${src.java.dir}" includes="**/*.properties"/>
-        </copy>
-
-        <mkdir dir="${target.classes.java.dir}/org/apache/cactus/integration/ant/deployment/resources"/>
-        <copy todir="${target.classes.java.dir}/org/apache/cactus/integration/ant/deployment/resources">
-            <fileset refid="deployment.resources"/>
-        </copy>
-
-        <mkdir dir="${target.classes.java.dir}/org/apache/cactus/integration/ant/container/resources"/>
-        <copy todir="${target.classes.java.dir}/org/apache/cactus/integration/ant/container/resources">
-            <fileset refid="container.share.resources"/>
-            <fileset refid="container.j2ee12.resources"/>
-            <fileset refid="container.j2ee13.resources"/>
-        </copy>
-
-        <javac srcdir="${src.java.dir}" destdir="${target.classes.java.dir}"
-            deprecation="${deprecation}" optimize="${optimize}" 
-            debug="${debug}">
-            <classpath refid="project.classpath"/>
-        </javac>
-
-    </target>
-
-    <target name="compile.test" depends="compile.main">
-
-        <mkdir dir="${target.classes.test.dir}"/>
-
-        <javac srcdir="${src.test.dir}" destdir="${target.classes.test.dir}"
-          deprecation="${deprecation}" optimize="${optimize}"
-          debug="${debug}">
-
-            <classpath>
-                <path refid="project.classpath"/>
-                <pathelement location="${junit.jar}"/>
-                <pathelement location="${target.classes.java.dir}"/>
-            </classpath>
-
-        </javac>
-
-    </target>
-
-    <target name="compile.clover"
-        depends="compile.prepare, init.clover"
-        if="clover.enable">
-
-        <clover-setup initstring="${clover.initstring}" enabled="yes">
-            <files>
-                <exclude name="**/Test*.*"/>
-                <exclude name="**/Mock*.*"/>
-            </files>
-        </clover-setup>
-
-        <mkdir dir="${target.classes.clover.dir}"/>
-
-        <propertyfile file="${target.classes.clover.dir}/cactus.tasks"
-          comment="Cactus Tasks for Ant">
-            <entry key="cactifywar"
-              value="org.apache.cactus.integration.ant.CactifyWarTask"/>
-            <entry key="cactus"
-              value="org.apache.cactus.integration.ant.CactusTask"/>
-            <entry key="runservertests"
-              value="org.apache.cactus.integration.ant.RunServerTestsTask"/>
-            <entry key="webxmlmerge"
-              value="org.apache.cactus.integration.ant.WebXmlMergeTask"/>
-        </propertyfile>
-
-        <copy todir="${target.classes.clover.dir}">
-            <fileset dir="${src.java.dir}" includes="**/*.properties"/>
-        </copy>
-
-        <mkdir dir="${target.classes.clover.dir}/org/apache/cactus/integration/ant/deployment/resources"/>
-        <copy todir="${target.classes.clover.dir}/org/apache/cactus/integration/ant/deployment/resources">
-            <fileset refid="deployment.resources"/>
-        </copy>
-
-        <mkdir dir="${target.classes.clover.dir}/org/apache/cactus/integration/ant/container/resources"/>
-        <copy todir="${target.classes.clover.dir}/org/apache/cactus/integration/ant/container/resources">
-            <fileset refid="container.share.resources"/>
-            <fileset refid="container.j2ee12.resources"/>
-            <fileset refid="container.j2ee13.resources"/>
-        </copy>
-
-        <javac destdir="${target.classes.clover.dir}"
-            deprecation="${deprecation}" optimize="${optimize}"
-            debug="${debug}">
-            <src path="${src.java.dir}"/>
-            <exclude name="**/package.html"/>
-            <exclude name="**/overview.html"/>
-            <classpath refid="project.classpath"/>
-        </javac>
-
-        <!-- Disable Clover for subsequent compilations -->
-        <clover-setup initstring="${clover.initstring}" enabled="no"/>
-
-    </target>
-
-    <target name="compile" depends="compile.main, compile.test, compile.clover"
-        description="Compile the sources"/>
-
-    <!--
-       ========================================================================
-         Runs the unit tests
-       ========================================================================
-    -->
-    <target name="test.clover.prepare" depends="compile.test, compile.clover"
-        if="clover.enable">
-
-        <path id="test.classpath">
-            <path refid="project.classpath"/>
-            <pathelement path="${clover.jar}"/>
-            <pathelement location="${junit.jar}"/>
-            <pathelement path="${target.classes.clover.dir}"/>
-            <pathelement path="${target.classes.test.dir}"/>
-        </path>
-
-    </target>
-
-    <target name="test.main.prepare" depends="compile.test" 
-        unless="clover.enable">
-
-        <path id="test.classpath">
-            <path refid="project.classpath"/>
-            <pathelement location="${junit.jar}"/>
-            <pathelement path="${target.classes.java.dir}"/>
-            <pathelement path="${target.classes.test.dir}"/>
-        </path>
-
-    </target>
-
-    <target name="test" depends="test.clover.prepare, test.main.prepare"
-        description="Runs the unit tests">
-
-        <mkdir dir="${target.testinput.dir}"/>
-        <copy todir="${target.testinput.dir}">
-          <fileset dir="${src.testinput.dir}"/>
-        </copy>
-
-        <mkdir dir="${target.doc.testreports.dir}"/>
-
-        <junit printsummary="yes" failureproperty="tests.failed" fork="yes">
-
-            <sysproperty key="testinput.dir" file="${target.testinput.dir}"/>
-
-            <classpath refid="test.classpath"/>
-
-            <formatter type="brief" usefile="false"/>
-
-            <test name="${testcase}" if="testcase"/>
-
-            <batchtest todir="${target.doc.testreports.dir}" unless="testcase">
-                <fileset dir="${src.test.dir}">
-                    <include name="**/Test*.java"/>
-                    <exclude name="**/TestAll.java"/>
-                    <!-- Momentarily exclude this test that fails for some 
-                         reason on the Gump machine but not on our local
-                         machines -->
-                    <exclude name="**/TestContainerRunner.java"/>
-                    <exclude name="**/TestRunServerTestsTask.java"/>
-                </fileset>
-                <formatter type="xml"/>
-            </batchtest>
-
-        </junit>
-
-        <junitreport todir="${target.doc.testreports.dir}">
-          <fileset dir="${target.doc.testreports.dir}"
-              includes="TEST-*.xml"/>
-          <report format="frames" todir="${target.doc.testreports.dir}"/>
-        </junitreport>
-
-        <fail if="tests.failed">At least one unit test failed!</fail>
-
-    </target>
-
-    <!--
-       ========================================================================
-         Create the runtime jar file
-       ========================================================================
-    -->
-    <target name="jar.clover" depends="compile.clover">
-
-        <jar jarfile="${target.dir}/${cactus.ant.clover.jar.name}.jar">
-
-            <manifest>
-                <section name="org/apache/cactus/integration/ant/">
-                    <attribute name="Specification-Title"
-                        value="${project.name.text}"/>
-                    <attribute name="Specification-Version"
-                        value="${project.version}"/>
-                    <attribute name="Specification-Vendor"
-                        value="Apache Software Foundation"/>
-                    <attribute name="Implementation-Title"
-                        value="${project.name.file}"/>
-                    <attribute name="Implementation-Version"
-                        value="${project.version} ${TODAY}"/>
-                    <attribute name="Implementation-Vendor"
-                        value="Apache Software Foundation"/>
-                </section>
-            </manifest>
-
-            <metainf dir=".">
-                <include name="LICENSE.cactus"/>
-            </metainf>
-
-            <fileset dir="${target.classes.java.dir}"/>
-
-        </jar>
-
-    </target>
-
-    <target name="jar.main" depends="compile.main">
-
-        <jar jarfile="${target.dir}/${cactus.ant.jar.name}.jar">
-
-            <manifest>
-                <section name="org/apache/cactus/integration/ant/">
-                    <attribute name="Specification-Title"
-                        value="${project.name.text}"/>
-                    <attribute name="Specification-Version"
-                        value="${project.version}"/>
-                    <attribute name="Specification-Vendor"
-                        value="Apache Software Foundation"/>
-                    <attribute name="Implementation-Title"
-                        value="${project.name.file}"/>
-                    <attribute name="Implementation-Version"
-                        value="${project.version} ${TODAY}"/>
-                    <attribute name="Implementation-Vendor"
-                        value="Apache Software Foundation"/>
-                </section>
-            </manifest>
-
-            <metainf dir=".">
-                <include name="LICENSE.cactus"/>
-            </metainf>
-
-            <fileset dir="${target.classes.java.dir}"/>
-
-        </jar>
-
-    </target>
-
-    <target name="jar"
-        depends="jar.main, jar.clover"
-        description="Generate the integration jar"/>
-
-    <!--
-       ========================================================================
-         Generate the documentation (javadoc)
-       ========================================================================
-    -->
-    <target name="doc.check" depends="init">
-
-      <uptodate property="doc.uptodate"
-          targetfile="${target.doc.api.dir}/index.html">
-          <srcfiles dir="${src.java.dir}"
-              includes="**/*.java, **/*.html"/>
-      </uptodate>
-
-    </target>
-
-    <target name="doc" depends="doc.check" unless="doc.uptodate"
-        description="Generates the API documentation">
-
-        <mkdir dir="${target.doc.api.dir}"/>
-
-        <javadoc
-            sourcepath="${src.java.dir}"
-            packagenames="org.apache.cactus.ant.*,
-                          org.apache.cactus.integration.ant.*"
-            destdir="${target.doc.api.dir}"
-            author="true"
-            public="true"
-            version="true"
-            use="true"
-            windowtitle="${project.name.text} ${project.doc.version}"
-            doctitle="${project.name.text} ${project.doc.version}"
-            bottom="Copyright &amp;copy; ${year} Apache Software Foundation.
-                    All Rights Reserved.">
-
-          <classpath>
-            <path refid="project.classpath"/>
-            <pathelement location="${commons.logging.jar}"/>
-            <pathelement location="${junit.jar}"/>
-            <pathelement path="${java.class.path}"/>
-          </classpath>
-
-        </javadoc>
-
-    </target>
-
-    <!--
-       ========================================================================
-         Generate the distributable files
-       ========================================================================
-    -->
-    <target name="dist.prepare" depends="jar,doc,test,checkstyle">
-
-        <mkdir dir="${dist.lib.dir}"/>
-        <mkdir dir="${dist.doc.api.dir}"/>
-        
-    </target>
-
-    <target name="dist.clover"
-        depends="jar.clover"
-        if="clover.enable">
-
-        <copy todir="${dist.lib.dir}"
-            file="${target.dir}/${cactus.ant.clover.jar.name}.jar"/>
-
-    </target>
-
-    <target name="dist" depends="dist.prepare, dist.clover"
-        description="Generate the distributable files">
-
-        <copy todir="${dist.lib.dir}"
-            file="${target.dir}/${cactus.ant.jar.name}.jar"/>
-
-        <!-- Copy the generated documentation -->
-        <copy todir="${dist.doc.api.dir}">
-            <fileset dir="${target.doc.api.dir}"/>
-        </copy>
-        		
-    </target>
-
-    <!--
-       ========================================================================
-         Perform a code audit using CheckStyle.
-       ========================================================================
-    -->
-    <target name="checkstyle" depends="init,init.checkstyle"
-        if="checkstyle.available"
-        description="Perform a code audit using Checkstyle">
-
-        <mkdir dir="${target.dir}"/>
-
-        <checkstyle config="./checkstyle.xml" 
-            failOnViolation="yes">
-
-            <fileset dir="${src.java.dir}">
-                <include name="**/*.java"/>
-            </fileset>
-            <fileset dir="${src.test.dir}">
-                <include name="**/*.java"/>
-            </fileset>
-        
-            <formatter type="plain"/>
-            <formatter type="xml"
-                toFile="${target.dir}/checkstyle_results.xml"/>
-
-            <property key="checkstyle.header.file" file="./LICENSE.cactus"/>
-        </checkstyle>
-
-    </target>
-
-    <!--
-       ========================================================================
-         Clean generated files (including distributables)
-       ========================================================================
-    -->
-    <target name="clean" depends="init.display,init.properties"
-    	description="Clean all generated files">
-
-        <delete dir="${target.dir}"/>
-        <delete dir="${dist.dir}"/>
-
-    </target>
+        <formatter type="xml"/>
+      </batchtest>
+    </junit>
+
+    <junitreport todir="${target.doc.testreports.dir}">
+      <fileset dir="${target.doc.testreports.dir}"
+          includes="TEST-*.xml"/>
+      <report format="frames" todir="${target.doc.testreports.dir}"/>
+    </junitreport>
+
+    <fail if="tests.failed">At least one unit test failed!</fail>
+
+  </target>
+
+  <!--
+     ========================================================================
+       Create the runtime jar file
+     ========================================================================
+  -->
+  <target name="jar.clover" depends="compile.clover">
+
+    <jar jarfile="${target.dir}/${cactus.ant.clover.jar.name}.jar">
+      <manifest>
+        <section name="org/apache/cactus/integration/ant/">
+          <attribute name="Specification-Title"
+              value="${project.name.text}"/>
+          <attribute name="Specification-Version"
+              value="${project.version}"/>
+          <attribute name="Specification-Vendor"
+              value="Apache Software Foundation"/>
+          <attribute name="Implementation-Title"
+              value="${project.name.file}"/>
+          <attribute name="Implementation-Version"
+              value="${project.version} ${TODAY}"/>
+          <attribute name="Implementation-Vendor"
+              value="Apache Software Foundation"/>
+        </section>
+      </manifest>
+      <metainf dir=".">
+        <include name="LICENSE.cactus"/>
+      </metainf>
+      <fileset dir="${target.classes.java.dir}"/>
+    </jar>
+
+  </target>
+
+  <target name="jar.main" depends="compile.main">
+
+      <jar jarfile="${target.dir}/${cactus.ant.jar.name}.jar">
+        <manifest>
+          <section name="org/apache/cactus/integration/ant/">
+            <attribute name="Specification-Title"
+                value="${project.name.text}"/>
+            <attribute name="Specification-Version"
+                value="${project.version}"/>
+            <attribute name="Specification-Vendor"
+                value="Apache Software Foundation"/>
+            <attribute name="Implementation-Title"
+                value="${project.name.file}"/>
+            <attribute name="Implementation-Version"
+                value="${project.version} ${TODAY}"/>
+            <attribute name="Implementation-Vendor"
+                value="Apache Software Foundation"/>
+          </section>
+        </manifest>
+        <metainf dir=".">
+          <include name="LICENSE.cactus"/>
+        </metainf>
+        <fileset dir="${target.classes.java.dir}"/>
+      </jar>
+
+  </target>
+
+  <target name="jar"
+      depends="jar.main, jar.clover"
+      description="Generate the integration jar"/>
+
+  <!--
+     ========================================================================
+       Generate the documentation (javadoc)
+     ========================================================================
+  -->
+  <target name="doc.check" depends="init">
+
+    <uptodate property="doc.uptodate"
+        targetfile="${target.doc.api.dir}/index.html">
+      <srcfiles dir="${src.java.dir}"
+          includes="**/*.java, **/*.html"/>
+    </uptodate>
+
+  </target>
+
+  <target name="doc" depends="doc.check" unless="doc.uptodate"
+      description="Generates the API documentation">
+
+    <mkdir dir="${target.doc.api.dir}"/>
+    <javadoc
+        sourcepath="${src.java.dir}"
+        packagenames="org.apache.cactus.ant.*,
+                      org.apache.cactus.integration.ant.*"
+        destdir="${target.doc.api.dir}"
+        author="true" public="true" version="true" use="true"
+        windowtitle="${project.name.text} ${project.doc.version}"
+        doctitle="${project.name.text} ${project.doc.version}"
+        bottom="Copyright &amp;copy; ${year} Apache Software Foundation.
+                All Rights Reserved.">
+      <classpath>
+        <path refid="project.classpath"/>
+        <pathelement location="${commons.logging.jar}"/>
+        <pathelement location="${junit.jar}"/>
+        <pathelement path="${java.class.path}"/>
+      </classpath>
+    </javadoc>
+
+  </target>
+
+  <!--
+     ========================================================================
+       Generate the distributable files
+     ========================================================================
+  -->
+  <target name="dist.prepare" depends="jar,doc,test,checkstyle">
+
+    <mkdir dir="${dist.lib.dir}"/>
+    <mkdir dir="${dist.doc.api.dir}"/>
+
+  </target>
+
+  <target name="dist.clover"
+      depends="jar.clover"
+      if="clover.enable">
+
+    <copy todir="${dist.lib.dir}"
+        file="${target.dir}/${cactus.ant.clover.jar.name}.jar"/>
+
+  </target>
+
+  <target name="dist" depends="dist.prepare, dist.clover"
+      description="Generate the distributable files">
+
+    <copy todir="${dist.lib.dir}"
+        file="${target.dir}/${cactus.ant.jar.name}.jar"/>
+    <copy todir="${dist.doc.api.dir}">
+      <fileset dir="${target.doc.api.dir}"/>
+    </copy>
+
+  </target>
+
+  <!--
+     ========================================================================
+       Perform a code audit using CheckStyle.
+     ========================================================================
+  -->
+  <target name="checkstyle" depends="init,init.checkstyle"
+      if="checkstyle.available"
+      description="Perform a code audit using Checkstyle">
+
+    <mkdir dir="${target.dir}"/>
+
+    <checkstyle config="./checkstyle.xml" 
+        failOnViolation="yes">
+      <fileset dir="${src.java.dir}">
+        <include name="**/*.java"/>
+      </fileset>
+      <fileset dir="${src.test.dir}">
+        <include name="**/*.java"/>
+      </fileset>
+      <formatter type="plain"/>
+      <formatter type="xml"
+          toFile="${target.dir}/checkstyle_results.xml"/>
+      <property key="checkstyle.header.file" file="./LICENSE.cactus"/>
+    </checkstyle>
+
+  </target>
+
+  <!--
+     ========================================================================
+       Clean generated files (including distributables)
+     ========================================================================
+  -->
+  <target name="clean" depends="init.display,init.properties"
+    description="Clean all generated files">
+
+    <delete dir="${target.dir}"/>
+    <delete dir="${dist.dir}"/>
+
+  </target>
 
 </project>
