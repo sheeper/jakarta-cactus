@@ -142,11 +142,7 @@ public class WebTestResultParser
         }
         else
         {
-            // Display the first 100 characters of the invalid data as it can
-            // be very big ...
-            throw new ParsingException("Not a valid response. First 100 "
-                + "characters of the reponse: ["
-                + theData.substring(0, 100) + "]");
+            throw new ParsingException(formatError(theData));
         }
 
         return buffer;
@@ -180,11 +176,7 @@ public class WebTestResultParser
         }
         else
         {
-            // Display the first 100 characters of the invalid data as it can
-            // be very big ...
-            throw new ParsingException("Not a valid response. First 100 "
-                + "characters of the reponse: ["
-                + theData.substring(0, 100) + "]");
+            throw new ParsingException(formatError(theData));
         }
 
         return buffer;
@@ -217,11 +209,7 @@ public class WebTestResultParser
         }
         else
         {
-            // Display the first 100 characters of the invalid data as it can
-            // be very big ...
-            throw new ParsingException("Not a valid response. First 100 "
-                + "characters of the reponse: ["
-                + theData.substring(0, 100) + "]");
+            throw new ParsingException(formatError(theData));
         }
 
         return buffer;
@@ -254,13 +242,23 @@ public class WebTestResultParser
         }
         else
         {
-            // Display the first 100 characters of the invalid data as it can
-            // be very big ...
-            throw new ParsingException("Not a valid response. First 100 "
-                + "characters of the reponse: ["
-                + theData.substring(0, 100) + "]");
+            throw new ParsingException(formatError(theData));
         }
 
         return buffer;
+    }
+
+    /**
+     * @param theData the data to format
+     * @return the first 100 characters (or less if the data has fewer
+     *        characters) of the invalid data as it can be very big
+     */
+    private String formatError(String theData)
+    {
+        int nbChars = theData.length() > 100 ? 100 : theData.length();
+
+        return "Not a valid response. First " + nbChars 
+            + " characters of the reponse: ["
+            + theData.substring(0, nbChars) + "]";        
     }
 }
