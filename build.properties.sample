@@ -19,35 +19,35 @@
 # Location of all jars. Note: This is not a mandatory property. It is only
 # used here so that it can be reused when defining the location of all the jars
 # below. You do not have to put all the external jars in a single location.
-lib.repo = c:/apps/repo
+lib.repo = c:/apps/maven/repository
 
 # The location of the J2EE API jar. Depending on the version (1.2 or 1.3) of
 # it, the corresponding Cactus Framework will be built. For example if you use
 # J2EE 1.3 jar, then the Cactus jar will contain the Filter Redirector which is
 # only available for Servlet 2.3 (part of J2EE 1.3).
-j2ee.jar = ${lib.repo}/j2ee-1.3.jar
+j2ee.jar = ${lib.repo}/j2ee/jars/j2ee-1.2.jar
 
 # Location of the Servlet API jar (it is needed because we want to copy it
 # in the Cactus distribution).
-servlet.jar = ${lib.repo}/servletapi-2.3.jar
+servlet.jar = ${lib.repo}/servletapi/jars/servletapi-2.2.jar
 
 # The location of the Commons Logging jar
-commons.logging.jar = ${lib.repo}/commons-logging-1.0.jar
+commons.logging.jar = ${lib.repo}/commons-logging/jars/commons-logging-1.0.jar
 
 # The location of the log4j jar
-log4j.jar = ${lib.repo}/log4j-1.2.5.jar
+log4j.jar = ${lib.repo}/log4j/jars/log4j-1.2.5.jar
 
 # The location of the Commons Httpclient jar
-commons.httpclient.jar = ${lib.repo}/commons-httpclient-2.0alpha1-20020720.jar
+commons.httpclient.jar = ${lib.repo}/commons-httpclient/jars/commons-httpclient-2.0alpha1-20020809.jar
 
 # The location of the Httpunit jar
-httpunit.jar = ${lib.repo}/httpunit-1.4.1.jar
+httpunit.jar = ${lib.repo}/httpunit/jars/httpunit-1.4.1.jar
 
 # The location of the AspectJ runtime jar
-aspectjrt.jar = ${lib.repo}/aspectjrt-1.0.5.jar
+aspectjrt.jar = ${lib.repo}/aspectj/jars/aspectjrt-1.0.5.jar
 
 # The location of the Junit jar
-junit.jar = ${lib.repo}/junit-3.7.jar
+junit.jar = ${lib.repo}/junit/jars/junit-3.7.jar
 
 # CVS executable to use for documentation generation (used to automatically
 # generate web site changelog).
