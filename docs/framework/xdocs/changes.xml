@@ -23,11 +23,28 @@
       <person name="Philip Aston" email="paston@bea.com" id="PAS"/>
     </devs>
 
+    <release version="1.1 in CVS">
+      <action dev="VMA" type="add">
+        Added a new mehod <code>AssertUtils.getResponseAsStringArray()</code>
+        that returns the servlet output stream as an array of string (each
+        line terminated by a end of line is a string) in the
+        same spirit as the <code>AssertUtils.getResponseAsString()</code>
+        method which returnes the result as a single string.
+      </action>
+      <action dev="VMA" type="fix" due-to="Bob Davison" due-to-email="bob.davison@reuters.com">
+        (<link href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=1610">
+        Bug #1610</link>). Corrected handling of multi-line text in
+        <code>AssertUtils.getResponseAsString()</code> which was not handling
+        correctly line terminators (they were skipped).
+      </action>
+    </release>
+
     <release version="1.0" date="May 2 2001">
       <action dev="VMA" type="fix" due-to="Arun Katkere" due-to-email="katkere@praja.com">
-        Applied patch from Arun Katkere in order to prevent the
-        "connexion reset by peer" error message that may appear in Tomcat when
-        the connection is broken without reading the requested URL by the
+        (<link href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=1582">
+        Bug #1582</link>). Applied patch from Arun Katkere in order to prevent
+        the "connexion reset by peer" error message that may appear in Tomcat
+        when the connection is broken without reading the requested URL by the
         custom Ant tasks to start and stop a server.
       </action>
       <action dev="VMA" type="add">
