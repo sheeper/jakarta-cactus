@@ -72,7 +72,30 @@
 
     <!-- Release directory, i.e. where the zipped distribution is located -->
     <property name="release.dir" value="${base.dir}/release"/>
-    
+
+    <!--
+       ========================================================================
+         Find out the J2EE API version
+       ========================================================================
+    -->
+    <target name="check.j2ee.version">
+
+        <condition property="j2ee.api" value="13">
+            <available classname="javax.servlet.Filter"
+                classpath="${j2ee.jar}"/>
+        </condition>
+
+        <condition property="j2ee.api" value="12">
+            <available classname="javax.servlet.Servlet"
+                classpath="${j2ee.jar}"/>
+        </condition>
+
+        <fail message="Unsupported J2EE version" unless="j2ee.api"/>
+
+        <echo message="j2ee.api = ${j2ee.api}"/>
+
+    </target>
+        
     <!--
        ========================================================================
          Display configurable properties values
@@ -100,7 +123,8 @@
          Initialize the build. Must be called by all targets
        ========================================================================
     -->
-    <target name="init" depends="display.properties">
+    
+    <target name="init" depends="check.j2ee.version, display.properties">
 
         <tstamp/>
 
@@ -211,6 +235,16 @@
 			<fileset dir="${base.dir}/ant"/>
 		</copy>
 
+		<copy todir="${dist.dir}/lib/client" file="${commons.httpclient.jar}"/>
+    	<copy todir="${dist.dir}/lib/client" file="${servlet.jar}"/>
+		<copy todir="${dist.dir}/lib/share" file="${aspectjrt.jar}"/>
+    	<copy todir="${dist.dir}/lib/share" file="${junit.jar}"/>
+    	<copy todir="${dist.dir}/lib/share" file="${commons.logging.jar}"/>
+		<copy todir="${dist.dir}/lib/share" file="framework/dist-${j2ee.api}/lib/cactus.jar"/>
+
+        <copy todir="${dist.dir}/web">
+            <fileset dir="framework/dist-${j2ee.api}/web"/>
+        </copy>
 	</target>
 
     <!--
