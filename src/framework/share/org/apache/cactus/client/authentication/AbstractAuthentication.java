@@ -106,14 +106,8 @@ public abstract class AbstractAuthentication
         this.password = thePassword;
     }
 
-    /**
-     * @exception IllegalArgumentException if invalid
-     */
     protected abstract void validateUserId(String theUserId);
 
-    /**
-     * @exception IllegalArgumentException if invalid
-     */
     protected abstract void validatePassword(String thePassword);
 
     public abstract void configure(HttpURLConnection theConnection);

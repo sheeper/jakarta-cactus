@@ -53,15 +53,20 @@
  */
 package org.apache.cactus.client;
 
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
-import java.net.URL;
 import java.net.ProtocolException;
-import java.io.*;
+import java.net.URL;
 import java.security.Permission;
 
-import org.apache.cactus.util.log.LogService;
 import org.apache.cactus.util.log.Log;
-
+import org.apache.cactus.util.log.LogService;
 
 /**
  * Wrapper class for the real <code>HttpURLConnection</code> to the test servlet
@@ -153,7 +158,7 @@ final class AutoReadHttpURLConnection extends HttpURLConnection
             new ByteArrayOutputStream(DEFAULT_CHUNK_SIZE);
         copy(theInputStream, os);
         ByteArrayInputStream bais =
-                new ByteArrayInputStream(os.toByteArray());
+            new ByteArrayInputStream(os.toByteArray());
 
         return bais;
     }
@@ -175,7 +180,7 @@ final class AutoReadHttpURLConnection extends HttpURLConnection
             byte[] buf = new byte[DEFAULT_CHUNK_SIZE];
             int count;
 
-            while(-1 != (count = theInputStream.read(buf))) {
+            while (-1 != (count = theInputStream.read(buf))) {
 
                 // log read data
                 printReadLogs(count, buf);
@@ -204,7 +209,7 @@ final class AutoReadHttpURLConnection extends HttpURLConnection
             } else if (theBuffer[i] == 13) {
                 prefix.append("\\n");
             } else {
-                prefix.append((char)theBuffer[i]);
+                prefix.append((char) theBuffer[i]);
             }
         }
 
@@ -215,7 +220,7 @@ final class AutoReadHttpURLConnection extends HttpURLConnection
             } else if (theBuffer[i] == 13) {
                 suffix.append("\\n");
             } else {
-                suffix.append((char)theBuffer[i]);
+                suffix.append((char) theBuffer[i]);
             }
         }
 
@@ -228,71 +233,113 @@ final class AutoReadHttpURLConnection extends HttpURLConnection
 
     // Delegated methods
 
+    /**
+     * @see java.net.HttpURLConnection.connect()
+     */
     public void connect() throws IOException
     {
         this.delegate.connect();
     }
 
+    /**
+     * @see java.net.HttpURLConnection.getAllowUserInteraction()
+     */
     public boolean getAllowUserInteraction()
     {
         return this.delegate.getAllowUserInteraction();
     }
 
+    /**
+     * @see java.net.HttpURLConnection.getContent()
+     */
     public Object getContent() throws IOException
     {
         return this.delegate.getContent();
     }
 
+    /**
+     * @see java.net.HttpURLConnection.getContentEncoding()
+     */
     public String getContentEncoding()
     {
         return this.delegate.getContentEncoding();
     }
 
+    /**
+     * @see java.net.HttpURLConnection.getContentLength()
+     */
     public int getContentLength()
     {
         return this.delegate.getContentLength();
     }
 
+    /**
+     * @see java.net.HttpURLConnection.getContentType()
+     */
     public String getContentType()
     {
         return this.delegate.getContentType();
     }
 
+    /**
+     * @see java.net.HttpURLConnection.getDate()
+     */
     public long getDate()
     {
         return this.delegate.getDate();
     }
 
+    /**
+     * @see java.net.HttpURLConnection.getDefaultUseCaches()
+     */
     public boolean getDefaultUseCaches()
     {
-      return this.delegate.getDefaultUseCaches();
+        return this.delegate.getDefaultUseCaches();
     }
 
+    /**
+     * @see java.net.HttpURLConnection.getDoInput()
+     */
     public boolean getDoInput()
     {
         return this.delegate.getDoInput();
     }
 
+    /**
+     * @see java.net.HttpURLConnection.getDoOutput()
+     */
     public boolean getDoOutput()
     {
         return this.delegate.getDoOutput();
     }
 
+    /**
+     * @see java.net.HttpURLConnection.getExpiration()
+     */
     public long getExpiration()
     {
         return this.delegate.getExpiration();
     }
 
+    /**
+     * @see java.net.HttpURLConnection.getHeaderField(int)
+     */
     public String getHeaderField(int a0)
     {
         return this.delegate.getHeaderField(a0);
     }
 
+    /**
+     * @see java.net.HttpURLConnection.getHeaderField(String)
+     */
     public String getHeaderField(String a0)
     {
         return this.delegate.getHeaderField(a0);
     }
 
+    /**
+     * @see java.net.HttpURLConnection.getHeaderFieldDate(String, int)
+     */
     public long getHeaderFieldDate(String a0, long a1)
     {
         return this.delegate.getHeaderFieldDate(a0, a1);

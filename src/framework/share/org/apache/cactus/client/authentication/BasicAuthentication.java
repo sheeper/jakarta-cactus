@@ -80,8 +80,7 @@ public class BasicAuthentication extends AbstractAuthentication
         // Validate the given userid
 
         // The userid is optional, it can be blank.
-        if (userid == null)
-        {
+        if (userid == null) {
             return;
         }
 
@@ -91,10 +90,10 @@ public class BasicAuthentication extends AbstractAuthentication
         StringCharacterIterator iter = new StringCharacterIterator(userid);
 
         for (char c = iter.first(); c != CharacterIterator.DONE;
-        	c = iter.next()) {
+             c = iter.next()) {
 
             if ((illegalChars.indexOf(c) != -1) ||
-                ((c >=0 ) && (c <= 31)) ||
+                ((c >= 0) && (c <= 31)) ||
                 (c == 127)) {
 
                 // Bad userid! Go to your room!
@@ -121,8 +120,7 @@ public class BasicAuthentication extends AbstractAuthentication
         // Validate the given password
 
         // The password can have zero characters, i.e. be blank.
-        if (password == null)
-        {
+        if (password == null) {
             return;
         }
 
@@ -132,10 +130,9 @@ public class BasicAuthentication extends AbstractAuthentication
         StringCharacterIterator iter = new StringCharacterIterator(password);
 
         for (char c = iter.first(); c != CharacterIterator.DONE; c = iter.next()) {
-            if (((c >=0 ) && (c <= 31)) || (c == 127)) {
+            if (((c >= 0) && (c <= 31)) || (c == 127)) {
 
-                if (exceptionChars.indexOf(c) != -1 )
-                {
+                if (exceptionChars.indexOf(c) != -1) {
                     continue;
                 }
 
@@ -178,17 +175,17 @@ public class BasicAuthentication extends AbstractAuthentication
 
     static
     {
-        for (int i=0; i<256; i++) {
+        for (int i = 0; i < 256; i++) {
             codes[i] = -1;
         }
         for (int i = 'A'; i <= 'Z'; i++) {
-            codes[i] = (byte)( i - 'A');
+            codes[i] = (byte) (i - 'A');
         }
         for (int i = 'a'; i <= 'z'; i++) {
-            codes[i] = (byte)(26 + i - 'a');
+            codes[i] = (byte) (26 + i - 'a');
         }
         for (int i = '0'; i <= '9'; i++) {
-            codes[i] = (byte)(52 + i - '0');
+            codes[i] = (byte) (52 + i - '0');
         }
         codes['+'] = 62;
         codes['/'] = 63;
@@ -209,38 +206,35 @@ public class BasicAuthentication extends AbstractAuthentication
         // 3 bytes encode to 4 chars. Output is always an even
         // multiple of 4 characters.
         //
-        for (int i=0, index=0; i<data.length; i+=3, index+=4)
-        {
+        for (int i = 0, index = 0; i < data.length; i += 3, index += 4) {
             boolean quad = false;
             boolean trip = false;
 
             int val = (0xFF & (int) data[i]);
             val <<= 8;
 
-            if ((i+1) < data.length)
-            {
-                val |= (0xFF & (int) data[i+1]);
+            if ((i + 1) < data.length) {
+                val |= (0xFF & (int) data[i + 1]);
                 trip = true;
             }
 
             val <<= 8;
 
-            if ((i+2) < data.length)
-            {
-                val |= (0xFF & (int) data[i+2]);
+            if ((i + 2) < data.length) {
+                val |= (0xFF & (int) data[i + 2]);
                 quad = true;
             }
 
-            out[index+3] = alphabet[(quad? (val & 0x3F): 64)];
+            out[index + 3] = alphabet[(quad ? (val & 0x3F): 64)];
             val >>= 6;
 
-            out[index+2] = alphabet[(trip? (val & 0x3F): 64)];
+            out[index + 2] = alphabet[(trip ? (val & 0x3F): 64)];
             val >>= 6;
 
-            out[index+1] = alphabet[val & 0x3F];
+            out[index + 1] = alphabet[val & 0x3F];
             val >>= 6;
 
-            out[index+0] = alphabet[val & 0x3F];
+            out[index + 0] = alphabet[val & 0x3F];
         }
         return out;
     }
