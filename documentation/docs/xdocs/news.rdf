@@ -22,6 +22,9 @@
 
     <items>
       <rdf:Seq>
+        <rdf:li rdf:resource="http://jakarta.apache.org/cactus/news.html#news11"/>
+        <rdf:li rdf:resource="http://jakarta.apache.org/cactus/news.html#news10"/>
+        <rdf:li rdf:resource="http://jakarta.apache.org/cactus/news.html#news9"/>
         <rdf:li rdf:resource="http://jakarta.apache.org/cactus/news.html#news8"/>
         <rdf:li rdf:resource="http://jakarta.apache.org/cactus/news.html#news7"/>
         <rdf:li rdf:resource="http://jakarta.apache.org/cactus/news.html#news6"/>
@@ -35,15 +38,57 @@
 
   </channel>
 
+  <item rdf:about="http://jakarta.apache.org/cactus/news.html#news11">
+    <title>Unit Test Java Web Apps with Cactus</title>
+    <link>http://jakarta.apache.org/cactus/news.html#news11</link>
+    <description>
+<![CDATA[A new article about using Cactus to unit test webapps has been
+posted on 
+<a href="http://www.ftponline.com/javapro/2003_07/online/cactus_kjones_07_08_03/">JavaPro</a>.
+]]>
+    </description>
+    <dc:subject></dc:subject>
+    <dc:creator>vmassol</dc:creator>
+    <dc:date>2003-07-12T00:00:00+00:00</dc:date>
+  </item>
+
+  <item rdf:about="http://jakarta.apache.org/cactus/news.html#news10">
+    <title>JUnit in Action - Available through MEAP</title>
+    <link>http://jakarta.apache.org/cactus/news.html#news10</link>
+    <description>
+<![CDATA[<a href="http://www.manning.com/massol">JUnit in Action</a> is 
+available through Manning Early Access Programme (MEAP). By subscribing,
+you get the chapters as they are made available (in PDF). There are currently 
+3 chapters available and a new one is posted every week.]]>
+    </description>
+    <dc:subject></dc:subject>
+    <dc:creator>vmassol</dc:creator>
+    <dc:date>2003-07-11T00:00:00+00:00</dc:date>
+  </item>
+
+  <item rdf:about="http://jakarta.apache.org/cactus/news.html#news9">
+    <title>Slides from TheServerSide Symposium</title>
+    <link>http://jakarta.apache.org/cactus/news.html#news9</link>
+    <description>
+<![CDATA[The slides from Vincent's presentation at the TheServerSide Symposium 
+about "Unit testing J2EE applications" are available
+<a href="http://blogs.codehaus.org/people/vmassol/archives/000080.html">here</a>.
+]]>
+    </description>
+    <dc:subject></dc:subject>
+    <dc:creator>vmassol</dc:creator>
+    <dc:date>2003-07-04T00:00:00+00:00</dc:date>
+  </item>
+
   <item rdf:about="http://jakarta.apache.org/cactus/news.html#news8">
     <title>JUnit in Action book on Amazon</title>
     <link>http://jakarta.apache.org/cactus/news.html#news8</link>
     <description>
 <![CDATA["JUnit in Action", from 
-<a href="mailto:vmassol@pivolis.com">Vincent Massol</a> and 
-<a href="mailto:ted@husted.com">Ted Husted</a> is available for pre-order on
+<a href="mailto:vmassol@pivolis.com">Vincent Massol</a> (with 
+<a href="mailto:ted@husted.com">Ted Husted</a>) is available for pre-order on
 <a href="http://www.amazon.com/exec/obidos/tg/detail/-/1930110995/qid=1054215451/sr=8-1/ref=sr_8_1/102-2634070-5985761?v=glance&amp;s=books&amp;n=507846">Amazon</a>
-. It will be available as part of Manning Early-Access Program in about 2 weeks.]]>
+.]]>
     </description>
     <dc:subject></dc:subject>
     <dc:creator>vmassol</dc:creator>

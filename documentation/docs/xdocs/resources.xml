@@ -27,6 +27,35 @@
 
         <tr>
           <td>
+            <link href="http://www.ftponline.com/javapro/2003_07/online/cactus_kjones_07_08_03/">
+            Unit Test Java Web Apps with Cactus</link>.
+          </td>
+		  <td>
+		    Article
+		  </td>
+		  <td>
+            Extreme programming means testing often during the development life 
+            cycle, and the Cactus environment is ideal for making unit testing 
+            easier.
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <link href="http://http://blogs.codehaus.org/people/vmassol/archives/000080.html">
+            Unit testing J2EE applications</link>.
+          </td>
+		  <td>
+		    Slides
+		  </td>
+		  <td>
+            Vincent's slides on "Unit testing J2EE applications" presented at 
+            TheServerSide Symposium 2002.
+		  </td>
+        </tr>
+
+        <tr>
+          <td>
             <link href="http://www.ehatchersolutions.com/JavaDevWithAnt/">
             JavaDevWithAnt</link>.
           </td>
