@@ -85,36 +85,46 @@ public class TestServletTestCase1_InterceptorServletTestCase
 
     /**
      * Intercepts running test cases to check for normal exceptions.
+     * 
+     * @exception Throwable on test failure
      */
     protected void runTest() throws Throwable
     {
-        try {
+        try
+        {
             super.runTest();
-        } catch (AssertionFailedErrorWrapper e) {
-
+        }
+        catch (AssertionFailedErrorWrapper e)
+        {
             // If the test case is "testAssertionFailedError" and the exception
             // is of type AssertionFailedError and contains the text
             // "test assertion failed error", then the test is ok.
-            if (this.getCurrentTestMethod().equals("testAssertionFailedError")) {
-                if (e.instanceOf(AssertionFailedError.class)) {
+            if (this.getCurrentTestMethod().equals("testAssertionFailedError"))
+            {
+                if (e.instanceOf(AssertionFailedError.class))
+                {
                     assertEquals("test assertion failed error", e.getMessage());
+
                     return;
                 }
             }
-
-        } catch (ServletExceptionWrapper e) {
-
+        }
+        catch (ServletExceptionWrapper e)
+        {
             // If the test case is "testExceptionNotSerializable" and the
             // exception is of type
             // TestServletTestCaseHelper1_ExceptionNotSerializable
             // and contains the text "test non serializable exception", then
             // the test is ok.
-            if (this.getCurrentTestMethod().equals("testExceptionNotSerializable")) {
+            if (this.getCurrentTestMethod().equals(
+                "testExceptionNotSerializable"))
+            {
                 if (e.instanceOf(
-                    TestServletTestCase1_ExceptionNotSerializable.class)) {
-
-                    assertEquals("test non serializable exception",
+                    TestServletTestCase1_ExceptionNotSerializable.class))
+                {
+                    assertEquals("test non serializable exception", 
                         e.getMessage());
+
                     return;
                 }
             }
@@ -123,16 +133,17 @@ public class TestServletTestCase1_InterceptorServletTestCase
             // is of type TestServletTestCaseHelper1_ExceptionSerializable
             // and contains the text "test serializable exception", then
             // the test is ok.
-            if (this.getCurrentTestMethod().equals("testExceptionSerializable")) {
+            if (this.getCurrentTestMethod().equals("testExceptionSerializable"))
+            {
                 assertTrue(e.instanceOf(
                     TestServletTestCase1_ExceptionSerializable.class));
 
                 assertEquals("test serializable exception", e.getMessage());
+
                 return;
             }
 
             throw e;
-
         }
     }
 }

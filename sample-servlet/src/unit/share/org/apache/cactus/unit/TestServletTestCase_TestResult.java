@@ -96,8 +96,8 @@ public class TestServletTestCase_TestResult extends ServletTestCase
      */
     public static void main(String[] theArgs)
     {
-        junit.swingui.TestRunner.main(new String[]{
-            TestServletTestCase_TestResult.class.getName()});
+        junit.swingui.TestRunner.main(
+            new String[] { TestServletTestCase_TestResult.class.getName() });
     }
 
     /**
@@ -117,10 +117,13 @@ public class TestServletTestCase_TestResult extends ServletTestCase
      * logic in the method to test takes a long time and thus it verifies that
      * the test result is only returned after it has been written in the
      * application scope on the server side.
+     * 
+     * @exception Exception on test failure
      */
     public void testLongProcess() throws Exception
     {
         ServletOutputStream os = response.getOutputStream();
+
         os.print("<html><head><Long Process></head><body>");
         os.flush();
 
@@ -134,16 +137,21 @@ public class TestServletTestCase_TestResult extends ServletTestCase
     /**
      * Verify that when big amount of data is returned by the servlet output
      * stream, it does not io-block.
+     * 
+     * @exception Exception on test failure
      */
     public void testLotsOfData() throws Exception
     {
         ServletOutputStream os = response.getOutputStream();
+
         os.println("<html><head>Lots of Data</head><body>");
         os.flush();
-        for (int i = 0; i < 5000; i++) {
+
+        for (int i = 0; i < 5000; i++)
+        {
             os.println("<p>Lots and lots of data here");
         }
+
         os.println("</body></html>");
     }
-
 }

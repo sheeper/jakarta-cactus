@@ -55,7 +55,9 @@ package org.apache.cactus.sample;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+
 import java.util.Hashtable;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -84,8 +86,10 @@ public class SampleServlet extends HttpServlet
      *
      * @param theRequest the HTTP request
      * @param theResponse the HTTP response
+     * 
+     * @exception IOException on failure
      */
-    public void doGet(HttpServletRequest theRequest,
+    public void doGet(HttpServletRequest theRequest, 
         HttpServletResponse theResponse) throws IOException
     {
         PrintWriter pw = theResponse.getWriter();
@@ -96,7 +100,6 @@ public class SampleServlet extends HttpServlet
         // (like Tomcat 3.2) add some characters at the end of the line
         // ('\x0D' + '\x0A') even though we use the print() method and not
         // println() ....
-
         pw.print("<html><head/><body>A GET request</body></html>");
     }
 
@@ -123,7 +126,8 @@ public class SampleServlet extends HttpServlet
     public void setSessionVariable(HttpServletRequest theRequest)
     {
         HttpSession session = theRequest.getSession(false);
-        session.setAttribute("name_setSessionVariable",
+
+        session.setAttribute("name_setSessionVariable", 
             "value_setSessionVariable");
     }
 
@@ -134,7 +138,7 @@ public class SampleServlet extends HttpServlet
      */
     public void setRequestAttribute(HttpServletRequest theRequest)
     {
-        theRequest.setAttribute("name_setRequestAttribute",
+        theRequest.setAttribute("name_setRequestAttribute", 
             "value_setRequestAttribute");
     }
 
@@ -147,6 +151,7 @@ public class SampleServlet extends HttpServlet
     public Hashtable getRequestParameters(HttpServletRequest theRequest)
     {
         Hashtable params = new Hashtable();
+
         params.put("param1", theRequest.getParameter("param1"));
         params.put("param2", theRequest.getParameter("param2"));
 
@@ -156,6 +161,7 @@ public class SampleServlet extends HttpServlet
     /**
      * Get a header from the request.
      *
+     * @return a test request header
      * @param theRequest the HTTP request
      */
     public String getRequestHeader(HttpServletRequest theRequest)
@@ -173,9 +179,13 @@ public class SampleServlet extends HttpServlet
         Hashtable allCookies = new Hashtable();
 
         Cookie[] cookies = theRequest.getCookies();
-        if (cookies != null) {
-            for (int i = 0; i < cookies.length; i++) {
+
+        if (cookies != null)
+        {
+            for (int i = 0; i < cookies.length; i++)
+            {
                 Cookie cookie = cookies[i];
+
                 allCookies.put(cookie.getName(), cookie.getValue());
             }
         }
@@ -202,8 +212,9 @@ public class SampleServlet extends HttpServlet
      */
     public void setResponseCookie(HttpServletResponse theResponse)
     {
-        Cookie cookie = new Cookie("responsecookie",
+        Cookie cookie = new Cookie("responsecookie", 
             "this is a response cookie");
+
         cookie.setDomain("jakarta.apache.org");
         theResponse.addCookie(cookie);
     }
@@ -216,13 +227,18 @@ public class SampleServlet extends HttpServlet
      * @param theRequest the HTTP request
      * @param theResponse the HTTP response
      * @param theConfig the servlet config object
+     * 
+     * @exception IOException on failure
+     * @exception ServletException on failure
      */
-    public void doForward(HttpServletRequest theRequest,
-        HttpServletResponse theResponse, ServletConfig theConfig)
+    public void doForward(HttpServletRequest theRequest, 
+        HttpServletResponse theResponse, ServletConfig theConfig) 
         throws IOException, ServletException
     {
-        RequestDispatcher rd = theConfig.getServletContext().
-            getRequestDispatcher("/test/test.jsp");
+        RequestDispatcher rd = 
+            theConfig.getServletContext().getRequestDispatcher(
+            "/test/test.jsp");
+
         rd.forward(theRequest, theResponse);
     }
 
@@ -234,14 +250,18 @@ public class SampleServlet extends HttpServlet
      * @param theRequest the HTTP request
      * @param theResponse the HTTP response
      * @param theConfig the servlet config object
+     * 
+     * @exception IOException on failure
+     * @exception ServletException on failure
      */
-    public void doInclude(HttpServletRequest theRequest,
-        HttpServletResponse theResponse, ServletConfig theConfig)
+    public void doInclude(HttpServletRequest theRequest, 
+        HttpServletResponse theResponse, ServletConfig theConfig) 
         throws IOException, ServletException
     {
-        RequestDispatcher rd = theConfig.getServletContext().
-            getRequestDispatcher("/test/test.jsp");
+        RequestDispatcher rd = 
+            theConfig.getServletContext().getRequestDispatcher(
+            "/test/test.jsp");
+
         rd.include(theRequest, theResponse);
     }
-
 }

@@ -71,6 +71,9 @@ import org.apache.cactus.WebResponse;
  */
 public class TestSampleBodyTag extends JspTestCase
 {
+    private SampleBodyTag tag;
+    private BodyContent tagContent;
+
     /**
      * Defines the testcase name for JUnit.
      *
@@ -88,8 +91,8 @@ public class TestSampleBodyTag extends JspTestCase
      */
     public static void main(String[] theArgs)
     {
-        junit.swingui.TestRunner.main(new String[]{
-            TestSampleBodyTag.class.getName()});
+        junit.swingui.TestRunner.main(
+            new String[] { TestSampleBodyTag.class.getName() });
     }
 
     /**
@@ -101,12 +104,6 @@ public class TestSampleBodyTag extends JspTestCase
         // All methods starting with "test" will be executed in the test suite.
         return new TestSuite(TestSampleBodyTag.class);
     }
-
-    //-------------------------------------------------------------------------
-
-    private SampleBodyTag tag;
-
-    private BodyContent tagContent;
 
     /**
      * In addition to creating the tag instance and adding the pageContext to
@@ -142,8 +139,8 @@ public class TestSampleBodyTag extends JspTestCase
         //none of the other life cycle methods need to be implemented, so they
         //do not need to be called.
         int result = this.tag.doAfterBody();
-        assertEquals(BodyTag.SKIP_BODY, result);
 
+        assertEquals(BodyTag.SKIP_BODY, result);
     }
 
     public void tearDown()
@@ -160,11 +157,11 @@ public class TestSampleBodyTag extends JspTestCase
     {
         String content = theResponse.getText();
 
-        assertTrue("Response should have contained the [" +
-            "replacement is now replacement] string",
+        assertTrue("Response should have contained the ["
+            + "replacement is now replacement] string", 
             content.indexOf("replacement is now replacement") > -1);
-        assertTrue("Response should have contained the [" +
-            "replacement_replacement] string", content.indexOf("replacement") > -1);
+        assertTrue("Response should have contained the ["
+            + "replacement_replacement] string", 
+            content.indexOf("replacement") > -1);
     }
-
 }

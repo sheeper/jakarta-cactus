@@ -94,8 +94,8 @@ public class TestServletTestCase_OverrideRedirector extends ServletTestCase
      */
     public static void main(String[] theArgs)
     {
-        junit.swingui.TestRunner.main(new String[]{
-            TestServletTestCase_OverrideRedirector.class.getName()});
+        junit.swingui.TestRunner.main(new String[] { 
+            TestServletTestCase_OverrideRedirector.class.getName() });
     }
 
     /**
@@ -110,14 +110,24 @@ public class TestServletTestCase_OverrideRedirector extends ServletTestCase
 
     //-------------------------------------------------------------------------
 
+    /**
+     * Verify that it is possible to override the default redirector.
+     *
+     * @param theRequest the request object that serves to initialize the
+     *                   HTTP connection to the server redirector.
+     */
     public void beginRedirectorOverride1(WebRequest theRequest)
     {
         theRequest.setRedirectorName("ServletRedirectorOverride");
     }
 
+    /**
+     * Verify that it is possible to override the default redirector.
+     */
     public void testRedirectorOverride1()
     {
-        assertEquals("value2 used for testing", config.getInitParameter("param2"));
+        assertEquals("value2 used for testing", 
+            config.getInitParameter("param2"));
     }
 
     //-------------------------------------------------------------------------
@@ -129,13 +139,15 @@ public class TestServletTestCase_OverrideRedirector extends ServletTestCase
 
     public void testRedirectorOverride2()
     {
-        assertEquals("value1 used for testing", config.getInitParameter("param1"));
+        assertEquals("value1 used for testing", 
+            config.getInitParameter("param1"));
     }
 
     //-------------------------------------------------------------------------
 
     public void testRedirectorOverride3()
     {
-        assertEquals("value1 used for testing", config.getInitParameter("param1"));
+        assertEquals("value1 used for testing", 
+            config.getInitParameter("param1"));
     }
 }

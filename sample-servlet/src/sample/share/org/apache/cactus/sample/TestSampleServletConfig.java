@@ -90,8 +90,8 @@ public class TestSampleServletConfig extends ServletTestCase
      */
     public static void main(String[] theArgs)
     {
-        junit.swingui.TestRunner.main(new String[]{
-            TestSampleServletConfig.class.getName()});
+        junit.swingui.TestRunner.main(
+            new String[] { TestSampleServletConfig.class.getName() });
     }
 
     /**
@@ -109,6 +109,8 @@ public class TestSampleServletConfig extends ServletTestCase
      * <code>getServletConfig()</code>, <code>getServletContext()</code>,
      * <code>log()</code>, ... (i.e. methods inherited from
      * <code>GenericServlet</code>).
+     * 
+     * @exception ServletException on test failure
      */
     public void testServletConfig() throws ServletException
     {
@@ -120,5 +122,4 @@ public class TestSampleServletConfig extends ServletTestCase
 
         assertEquals("value1 used for testing", servlet.getConfigData());
     }
-
 }

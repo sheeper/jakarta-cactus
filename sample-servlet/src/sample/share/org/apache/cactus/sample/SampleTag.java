@@ -54,7 +54,9 @@
 package org.apache.cactus.sample;
 
 import java.io.IOException;
+
 import java.util.Enumeration;
+
 import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
@@ -80,7 +82,9 @@ public class SampleTag extends TagSupport
      */
     private boolean stopPage;
 
-    /** Determines whether the tag's body should be shown.
+    /** 
+     * Determines whether the tag's body should be shown.
+     * 
      * @param showBody a String equaling 'true' will be taken as
      *                 <code>true</code>. Anything else will be
      *                 taken as <code>false</code>.
@@ -91,8 +95,10 @@ public class SampleTag extends TagSupport
         this.showBody = "true".equals(showBody);
     }
 
-    /** Determines whether page should stop after the tag.
-     * @param showBody a String equaling 'true' will be taken as
+    /** 
+     * Determines whether page should stop after the tag.
+     * 
+     * @param stopPage a String equaling 'true' will be taken as
      *                 <code>true</code>. Anything else will be
      *                 taken as <code>false</code>.
      */
@@ -104,32 +110,38 @@ public class SampleTag extends TagSupport
     /**
      * Prints the names and values of everything in page scope to the response,
      * along with the body (if showBody is set to <code>true</code>).
+     * 
+     * @return the return code
+     * @exception JspTagException on failure
      */
     public int doStartTag() throws JspTagException
     {
-        Enumeration names =
-            pageContext.getAttributeNamesInScope(PageContext.PAGE_SCOPE);
+        Enumeration names = pageContext.getAttributeNamesInScope(
+            PageContext.PAGE_SCOPE);
 
         JspWriter out = pageContext.getOut();
 
-        try {
-
+        try
+        {
             out.println("The following attributes exist in page scope: <BR>");
 
-            while (names.hasMoreElements()) {
+            while (names.hasMoreElements())
+            {
                 String name = (String) names.nextElement();
                 Object attribute = pageContext.getAttribute(name);
 
                 out.println(name + " = " + attribute + " <BR>");
             }
 
-            if (this.showBody) {
-
+            if (this.showBody)
+            {
                 out.println("Body Content Follows: <BR>");
+
                 return EVAL_BODY_INCLUDE;
             }
-
-        } catch (IOException e) {
+        }
+        catch (IOException e)
+        {
             throw new JspTagException(e.getMessage());
         }
 
@@ -142,28 +154,34 @@ public class SampleTag extends TagSupport
      *      <li>Stops the page if the corresponding attribute has been set</li>
      *      <li>Prints a message another tag encloses this one.</li>
      * </ul>
+     * 
+     * @return the return code
+     * @exception JspTagException on failure
      */
     public int doEndTag() throws JspTagException
     {
         //get the parent if any
         Tag parent = this.getParent();
 
-        if (parent != null) {
-            try {
+        if (parent != null)
+        {
+            try
+            {
                 JspWriter out = this.pageContext.getOut();
-                out.println("This tag has a parent. <BR>");
 
-            } catch (IOException e) {
+                out.println("This tag has a parent. <BR>");
+            }
+            catch (IOException e)
+            {
                 throw new JspTagException(e.getMessage());
             }
         }
 
-        if (this.stopPage) {
-
+        if (this.stopPage)
+        {
             return Tag.SKIP_PAGE;
         }
 
         return Tag.EVAL_PAGE;
     }
-
 }

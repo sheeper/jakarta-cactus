@@ -76,5 +76,4 @@ public class SampleServletConfig extends HttpServlet
     {
         return getServletConfig().getInitParameter("param1");
     }
-
 }

@@ -54,7 +54,9 @@
 package org.apache.cactus.sample;
 
 import java.io.IOException;
+
 import java.net.URLDecoder;
+
 import java.util.Hashtable;
 
 import junit.framework.Test;
@@ -91,8 +93,8 @@ public class TestSampleServlet extends ServletTestCase
      */
     public static void main(String[] theArgs)
     {
-        junit.swingui.TestRunner.main(new String[]{
-            TestSampleServlet.class.getName()});
+        junit.swingui.TestRunner.main(
+            new String[] { TestSampleServlet.class.getName() });
     }
 
     /**
@@ -109,10 +111,13 @@ public class TestSampleServlet extends ServletTestCase
 
     /**
      * Verify that we can assert the servlet output stream.
+     * 
+     * @exception IOException on test failure
      */
     public void testReadServletOutputStream() throws IOException
     {
         SampleServlet servlet = new SampleServlet();
+
         servlet.doGet(request, response);
     }
 
@@ -120,12 +125,15 @@ public class TestSampleServlet extends ServletTestCase
      * Verify that we can assert the servlet output stream.
      *
      * @param theResponse the response from the server side.
+     * 
+     * @exception IOException on test failure
      */
     public void endReadServletOutputStream(WebResponse theResponse)
         throws IOException
     {
         String expected = "<html><head/><body>A GET request</body></html>";
         String result = theResponse.getText();
+
         assertEquals(expected, result);
     }
 
@@ -151,6 +159,7 @@ public class TestSampleServlet extends ServletTestCase
     public void testPostMethod()
     {
         SampleServlet servlet = new SampleServlet();
+
         assertEquals("POST", servlet.checkMethod(request));
         assertEquals("value", request.getParameter("param"));
     }
@@ -164,6 +173,7 @@ public class TestSampleServlet extends ServletTestCase
     public void testGetMethod()
     {
         SampleServlet servlet = new SampleServlet();
+
         assertEquals("GET", servlet.checkMethod(request));
     }
 
@@ -176,10 +186,11 @@ public class TestSampleServlet extends ServletTestCase
     public void testSetAttribute()
     {
         SampleServlet servlet = new SampleServlet();
+
         servlet.setSessionVariable(request);
 
         assertNotNull(session);
-        assertEquals("value_setSessionVariable",
+        assertEquals("value_setSessionVariable", 
             session.getAttribute("name_setSessionVariable"));
     }
 
@@ -189,9 +200,10 @@ public class TestSampleServlet extends ServletTestCase
     public void testSetRequestAttribute()
     {
         SampleServlet servlet = new SampleServlet();
+
         servlet.setRequestAttribute(request);
 
-        assertEquals("value_setRequestAttribute",
+        assertEquals("value_setRequestAttribute", 
             request.getAttribute("name_setRequestAttribute"));
     }
 
@@ -272,8 +284,8 @@ public class TestSampleServlet extends ServletTestCase
         SampleServlet servlet = new SampleServlet();
         Hashtable cookies = servlet.getRequestCookies(request);
 
-        assertNotNull("Cannot find [testcookie] cookie in request",
-            cookies.get("testcookie"));
+        assertNotNull("Cannot find [testcookie] cookie in request", 
+                      cookies.get("testcookie"));
         assertEquals("thisisacookie", cookies.get("testcookie"));
     }
 
@@ -313,6 +325,7 @@ public class TestSampleServlet extends ServletTestCase
     public void testReceiveHeader()
     {
         SampleServlet servlet = new SampleServlet();
+
         servlet.setResponseHeader(response);
     }
 
@@ -324,7 +337,7 @@ public class TestSampleServlet extends ServletTestCase
      */
     public void endReceiveHeader(WebResponse theResponse)
     {
-        assertEquals("this is a response header",
+        assertEquals("this is a response header", 
             theResponse.getConnection().getHeaderField("responseheader"));
     }
 
@@ -357,6 +370,7 @@ public class TestSampleServlet extends ServletTestCase
     public void testReceiveCookie()
     {
         SampleServlet servlet = new SampleServlet();
+
         servlet.setResponseCookie(response);
     }
 
@@ -376,11 +390,12 @@ public class TestSampleServlet extends ServletTestCase
         assertNotNull("Cannot find [responsecookie]", cookie);
         assertEquals("responsecookie", cookie.getName());
 
+
         // Some servers may encode the cookie value (ex: the latest
         // version of Tomcat 4.0). In order for this test to succeed on
         // all servlet engine, we URL decode the cookie value before
         // comparing it.
-        assertEquals("this is a response cookie",
+        assertEquals("this is a response cookie", 
             URLDecoder.decode(cookie.getValue()));
 
         assertEquals("jakarta.apache.org", cookie.getDomain());
@@ -392,10 +407,13 @@ public class TestSampleServlet extends ServletTestCase
      * Verify that we can use a <code>RequestDispatcher</code> in the class to
      * test to forward to another page and compare the result sent to the
      * output stream on the client side.
+     * 
+     * @exception Exception on test failure
      */
     public void testRequestDispatcherForward() throws Exception
     {
         SampleServlet servlet = new SampleServlet();
+
         servlet.doForward(request, response, config);
     }
 
@@ -405,6 +423,8 @@ public class TestSampleServlet extends ServletTestCase
      * output stream on the client side.
      *
      * @param theResponse the response from the server side.
+     * 
+     * @exception IOException on test failure
      */
     public void endRequestDispatcherForward(WebResponse theResponse)
         throws IOException
@@ -413,7 +433,7 @@ public class TestSampleServlet extends ServletTestCase
         // different Servlet engine return different text ! For example some
         // return the JSP comment, other do not, ...
         // Thus, we only test for a match of "Hello !"
-        assertTrue("Text missing 'Hello !' : [" + theResponse.getText() + "]",
+        assertTrue("Text missing 'Hello !' : [" + theResponse.getText() + "]", 
             theResponse.getText().indexOf("Hello !") > 0);
     }
 
@@ -423,10 +443,13 @@ public class TestSampleServlet extends ServletTestCase
      * Verify that we can use a <code>RequestDispatcher</code> in the class to
      * test to include another page and compare the result sent to the
      * output stream on the client side.
+     * 
+     * @exception Exception on test failure
      */
     public void testRequestDispatcherInclude() throws Exception
     {
         SampleServlet servlet = new SampleServlet();
+
         servlet.doInclude(request, response, config);
     }
 
@@ -436,6 +459,8 @@ public class TestSampleServlet extends ServletTestCase
      * output stream on the client side.
      *
      * @param theResponse the response from the server side.
+     * 
+     * @exception IOException on test failure
      */
     public void endRequestDispatcherInclude(WebResponse theResponse)
         throws IOException
@@ -444,8 +469,7 @@ public class TestSampleServlet extends ServletTestCase
         // different Servlet engine return different text ! For example some
         // return the JSP comment, other do not, ...
         // Thus, we only test for a match of "Hello !"
-        assertTrue("Text missing 'Hello !' : [" + theResponse.getText() + "]",
+        assertTrue("Text missing 'Hello !' : [" + theResponse.getText() + "]", 
             theResponse.getText().indexOf("Hello !") > 0);
     }
-
 }

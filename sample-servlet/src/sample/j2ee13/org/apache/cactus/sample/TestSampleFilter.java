@@ -56,6 +56,7 @@ package org.apache.cactus.sample;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
@@ -94,8 +95,8 @@ public class TestSampleFilter extends FilterTestCase
      */
     public static void main(String[] theArgs)
     {
-        junit.swingui.TestRunner.main(new String[]{
-            TestSampleFilter.class.getName()});
+        junit.swingui.TestRunner.main(
+            new String[] { TestSampleFilter.class.getName() });
     }
 
     /**
@@ -113,14 +114,19 @@ public class TestSampleFilter extends FilterTestCase
     /**
      * Test that adding a header to the output stream is working fine when
      * a header parameter is defined.
+     * 
+     * @exception ServletException on test failure
+     * @exception IOException on test failure
      */
     public void testAddHeaderParamOK() throws ServletException, IOException
     {
         SampleFilter filter = new SampleFilter();
+
         config.setInitParameter("header", "<h1>header</h1>");
         filter.init(config);
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
         filter.addHeader(baos);
 
         assertEquals("<h1>header</h1>", baos.toString());
@@ -131,14 +137,19 @@ public class TestSampleFilter extends FilterTestCase
     /**
      * Test that adding a header to the output stream is working fine
      * (i.e. nothing gets written) when no header parameter is defined.
+     * 
+     * @exception ServletException on test failure
+     * @exception IOException on test failure
      */
-    public void testAddHeaderParamNotDefined() throws ServletException,
+    public void testAddHeaderParamNotDefined() throws ServletException, 
         IOException
     {
         SampleFilter filter = new SampleFilter();
+
         filter.init(config);
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
         filter.addHeader(baos);
 
         assertEquals("", baos.toString());
@@ -149,14 +160,19 @@ public class TestSampleFilter extends FilterTestCase
     /**
      * Test that adding a footer to the output stream is working fine when
      * a footer parameter is defined.
+     * 
+     * @exception ServletException on test failure
+     * @exception IOException on test failure
      */
     public void testAddFooterParamOK() throws ServletException, IOException
     {
         SampleFilter filter = new SampleFilter();
+
         config.setInitParameter("footer", "<h1>footer</h1>");
         filter.init(config);
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
         filter.addFooter(baos);
 
         assertEquals("<h1>footer</h1>", baos.toString());
@@ -167,14 +183,19 @@ public class TestSampleFilter extends FilterTestCase
     /**
      * Test that adding a footer to the output stream is working fine
      * (i.e. nothing gets written) when no footer parameter is defined.
+     * 
+     * @exception ServletException on test failure
+     * @exception IOException on test failure
      */
-    public void testAddFooterParamNotDefined() throws ServletException,
+    public void testAddFooterParamNotDefined() throws ServletException, 
         IOException
     {
         SampleFilter filter = new SampleFilter();
+
         filter.init(config);
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
         filter.addFooter(baos);
 
         assertEquals("", baos.toString());
@@ -185,20 +206,26 @@ public class TestSampleFilter extends FilterTestCase
     /**
      * Test that the filter does correctly add a header and footer to
      * any requets it is serving.
+     * 
+     * @exception ServletException on test failure
+     * @exception IOException on test failure
      */
     public void testDoFilterOK() throws ServletException, IOException
     {
         SampleFilter filter = new SampleFilter();
+
         config.setInitParameter("header", "<h1>header</h1>");
         config.setInitParameter("footer", "<h1>footer</h1>");
         filter.init(config);
 
         FilterChain mockFilterChain = new FilterChain()
         {
-            public void doFilter(ServletRequest theRequest,
-                ServletResponse theResponse) throws IOException, ServletException
+            public void doFilter(ServletRequest theRequest, 
+                ServletResponse theResponse) throws IOException, 
+                ServletException
             {
                 PrintWriter writer = theResponse.getWriter();
+
                 writer.print("<p>some content</p>");
                 writer.close();
             }
@@ -223,8 +250,7 @@ public class TestSampleFilter extends FilterTestCase
      */
     public void endDoFilterOK(WebResponse theResponse)
     {
-        assertEquals("<h1>header</h1><p>some content</p><h1>footer</h1>",
+        assertEquals("<h1>header</h1><p>some content</p><h1>footer</h1>", 
             theResponse.getText());
     }
-
 }

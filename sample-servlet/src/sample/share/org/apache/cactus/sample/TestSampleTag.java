@@ -70,6 +70,9 @@ import org.apache.cactus.WebResponse;
  */
 public class TestSampleTag extends JspTestCase
 {
+    //-------------------------------------------------------------------------
+    private SampleTag tag;
+
     /**
      * Defines the testcase name for JUnit.
      *
@@ -87,8 +90,8 @@ public class TestSampleTag extends JspTestCase
      */
     public static void main(String[] theArgs)
     {
-        junit.swingui.TestRunner.main(new String[]{
-            TestSampleTag.class.getName()});
+        junit.swingui.TestRunner.main(
+            new String[] { TestSampleTag.class.getName() });
     }
 
     /**
@@ -100,10 +103,6 @@ public class TestSampleTag extends JspTestCase
         // All methods starting with "test" will be executed in the test suite.
         return new TestSuite(TestSampleTag.class);
     }
-
-    //-------------------------------------------------------------------------
-
-    private SampleTag tag;
 
     public void setUp()
     {
@@ -124,6 +123,7 @@ public class TestSampleTag extends JspTestCase
         this.pageContext.setAttribute("test-key", "test-value");
 
         this.tag.setShowBody("false");
+
         int result = this.tag.doStartTag();
 
         //body should not show up
@@ -138,7 +138,7 @@ public class TestSampleTag extends JspTestCase
     {
         // check that two of the lines output by the tag showed up in
         // the response
-        assertContains(theResponse,
+        assertContains(theResponse, 
             "The following attributes exist in page scope: <BR>");
 
         assertContains(theResponse, "test-key = test-value <BR>");
@@ -182,6 +182,7 @@ public class TestSampleTag extends JspTestCase
         this.tag.setStopPage("false");
 
         int result = this.tag.doEndTag();
+
         assertEquals(Tag.EVAL_PAGE, result);
     }
 
@@ -206,6 +207,7 @@ public class TestSampleTag extends JspTestCase
         this.tag.setStopPage("true");
 
         int result = this.tag.doEndTag();
+
         assertEquals(Tag.SKIP_PAGE, result);
     }
 
@@ -217,6 +219,7 @@ public class TestSampleTag extends JspTestCase
     {
         String target = theResponse.getText();
         boolean containsMessage = target.indexOf("This tag has a parent. <BR>") > 0;
+
         assertTrue(!containsMessage);
     }
 
@@ -230,10 +233,10 @@ public class TestSampleTag extends JspTestCase
     {
         String target = theResponse.getText();
 
-        if (target.indexOf(theSubstring) < 0) {
-            fail("Response did not contain the substring: [" +
-                theSubstring + "]");
+        if (target.indexOf(theSubstring) < 0)
+        {
+            fail("Response did not contain the substring: [" + theSubstring
+                + "]");
         }
     }
-
 }

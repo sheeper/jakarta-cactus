@@ -55,6 +55,7 @@ package org.apache.cactus.sample.util;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintWriter;
+
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
@@ -123,33 +124,51 @@ public class GenericResponseWrapper extends HttpServletResponseWrapper
 
     // Overridden methods ----------------------------------------------------
 
+    /**
+     * @see HttpServletResponseWrapper#getOutputStream()
+     */
     public ServletOutputStream getOutputStream()
     {
         return new FilterServletOutputStream(this.output);
     }
 
+    /**
+     * @see HttpServletResponseWrapper#setContentLength(int)
+     */
     public void setContentLength(int theLength)
     {
         this.contentLength = theLength;
         super.setContentLength(theLength);
     }
 
+    /**
+     * @see HttpServletResponseWrapper#getContentLength()
+     */
     public int getContentLength()
     {
         return this.contentLength;
     }
 
+    /**
+     * @see HttpServletResponseWrapper#setContentType(String)
+     */
     public void setContentType(String theType)
     {
         this.contentType = theType;
         super.setContentType(theType);
     }
 
+    /**
+     * @see HttpServletResponseWrapper#getContentType()
+     */
     public String getContentType()
     {
         return this.contentType;
     }
 
+    /**
+     * @see HttpServletResponseWrapper#getWriter()
+     */
     public PrintWriter getWriter()
     {
         return new PrintWriter(getOutputStream(), true);

@@ -54,6 +54,7 @@
 package org.apache.cactus.sample;
 
 import java.io.IOException;
+
 import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.BodyTagSupport;
@@ -91,6 +92,8 @@ public class SampleBodyTag extends BodyTagSupport
 
     /**
      * Sets the substring that will replace the target in the body.
+     * 
+     * @param theReplacement the replacement string
      */
     public void setReplacement(String theReplacement)
     {
@@ -98,7 +101,7 @@ public class SampleBodyTag extends BodyTagSupport
     }
 
     /**
-     * Performs the replacement.
+     * @see BodyTagSupport#doAfterBody()
      */
     public int doAfterBody() throws JspTagException
     {
@@ -109,9 +112,10 @@ public class SampleBodyTag extends BodyTagSupport
         int targetLength = this.target.length();
 
         // while instances of target still exist
-        while ((beginIndex = contentString.indexOf(this.target)) > -1) {
-
+        while ((beginIndex = contentString.indexOf(this.target)) > -1)
+        {
             int endIndex = beginIndex + targetLength;
+
             contentBuffer.replace(beginIndex, endIndex, this.replacement);
 
             contentString = contentBuffer.toString();
@@ -119,21 +123,25 @@ public class SampleBodyTag extends BodyTagSupport
 
         // write out the changed body
         JspWriter pageWriter = this.bodyContent.getEnclosingWriter();
-        try {
 
+        try
+        {
             pageWriter.write(contentString);
-
-        } catch (IOException e) {
+        }
+        catch (IOException e)
+        {
             throw new JspTagException(e.getMessage());
         }
 
         return SKIP_BODY;
     }
 
+    /**
+     * @see BodyTagSupport#release()
+     */
     public void release()
     {
         this.target = null;
         this.replacement = null;
     }
-
 }

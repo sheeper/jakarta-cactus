@@ -71,5 +71,4 @@ public class TestServletTestCase1_ExceptionNotSerializable extends Exception
     {
         super(theMessage);
     }
-
 }
