@@ -31,6 +31,7 @@
         <li>Orion Application Server 1.x</li>
         <li>Orion Application Server 2.x</li>
         <li>Resin Server 2.x</li>
+        <li>WebLogic 7.x</li>
       </ul>
     </p>
 
@@ -287,9 +288,20 @@
             <tr>
               <td>config</td>
               <td>
-                The name of the configuration to use
+                The name of the JBoss server configuration to use
               </td>
               <td>No, the default is <em>default</em></td>
+            </tr>
+            <tr>
+              <td>port</td>
+              <td>
+                The TCP port that will be used to poll the server to
+                verify if it is running. Note that this port value is
+                not used to tell JBoss on what port it should listen
+                to, as is the case for the other containers (this may 
+                be implemented in the future).
+              </td>
+              <td>No, default is 8080</td>
             </tr>
             <tr>
               <td>output</td>
@@ -945,6 +957,124 @@
 
           <p>
             The <strong>tomcat5x</strong> container supports the following
+            nested elements:
+          </p>
+
+          <section title="conf">
+
+            <p>
+              A fileset that can be used to specify the set of files that
+              should be placed into the <strong>conf</strong> directory of the
+              installation directory. This fileset should not include the
+              <code>serverxml</code> file.
+            </p>
+
+          </section>
+
+          <section title="exclude">
+
+            <p>
+              Multiple <strong>exclude</strong> elements can be used as in
+              standard Ant PatternSets or FileSets to exclude specific tests
+              from running in the container.
+            </p>
+
+          </section>
+
+        </section>
+
+      </section>
+
+      <section title="weblogic7x">
+
+        <p>
+          The nested element <strong>weblogic7x</strong> allows running the 
+          tests against the WebLogic 7.x J2EE container.
+        </p>
+
+        <section title="Parameters">
+
+          <table>
+            <tr>
+              <th>Name</th>
+              <th>Description</th>
+              <th>Required</th>
+            </tr>
+            <tr>
+              <td><strong>dir</strong></td>
+              <td>
+                The installation directory of WebLogic 7.x. Note that this
+                should not be the the bea home directory. For example:
+                <code>c:\bea\weblogic700</code>.
+              </td>
+              <td>Yes</td>
+            </tr>
+            <tr>
+              <td><strong>beahome</strong></td>
+              <td>
+                The bea home directory. By default Cactus tries to guess the
+                bea home directory by taking the parent directory of the
+                <code>dir</code> directory (i.e. where WebLogic 7.x is
+                installed). You only need to use the <code>beahome</code> if
+                you have put your bea home directory somewhere else.
+              </td>
+              <td>No, defaults to the parent directory of dir</td>
+            </tr>
+            <tr>
+              <td>port</td>
+              <td>
+                The TCP port that the container should listen to
+              </td>
+              <td>No, default is 8080</td>
+            </tr>
+            <tr>
+              <td>tmpdir</td>
+              <td>
+                The directory to which the container will be installed for the
+                tests.
+              </td>
+              <td>No (by default the system temporary directory is used)</td>
+            </tr>
+            <tr>
+              <td>output</td>
+              <td>
+                Name of a file to write the output of the container to. If not
+                specified, the standard output will be used
+              </td>
+              <td>No</td>
+            </tr>
+            <tr>
+              <td>append</td>
+              <td>
+                Whether output should be appended to or overwrite an existing
+                file.
+              </td>
+              <td>No, default is <em>false</em></td>
+            </tr>
+            <tr>
+              <td>if</td>
+              <td>
+                Tests will only be run in the container if a property of the
+                given name exists in the current project
+              </td>
+              <td>No</td>
+            </tr>
+            <tr>
+              <td>unless</td>
+              <td>
+                Tests will only be run in the container if a property of the
+                given name doesn't exist in the current project
+              </td>
+              <td>No</td>
+            </tr>
+          </table>
+
+        </section>
+
+        <section title="Nested Elements">
+
+          <p>
+            The <strong>tomcat4x</strong> container supports the following
             nested elements:
           </p>
 

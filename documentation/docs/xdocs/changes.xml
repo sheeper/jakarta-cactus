@@ -78,7 +78,8 @@ Note: To be added once we include the Eclipse plugin in a release
 -->
       <release version="1.6" date="in CVS">
         <action dev="VMA" type="fix">
-          Fixed bugs in the WebLogic 7.x configuration: the
+          Support for WebLogic 7.x is now working fine. Fixed bugs in the 
+          WebLogic 7.x configuration: the
           <code>weblogic.xml</code> file was not correctly copied
           in the <code>WEB-INF</code> directory of the cactified
           war, and an NPE happened when the bea home property was not 
