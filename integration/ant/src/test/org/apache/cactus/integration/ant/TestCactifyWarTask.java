@@ -284,6 +284,77 @@ public final class TestCactifyWarTask extends AntTestCase
             "/FilterRedirector");
     }
 
+    /**
+     * Verifies that the mapping of the servlet redirector is correctly
+     * overridden by a nested 'servletredirector' element.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
+    public void testCustomServletRedirectorMapping() throws Exception
+    {
+        executeTestTarget();
+
+        File destFile = getProject().resolveFile("work/destfile.war");
+        WarArchive destWar = new WarArchive(destFile);
+        WebXml webXml = destWar.getWebXml();
+        assertServletMapping(webXml,
+            "org.apache.cactus.server.ServletTestRedirector",
+            "/test/servletRedirector");
+    }
+
+    /**
+     * Verifies that the mapping of the JSP redirector is correctly overridden
+     * by a nested 'jspredirector' element.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
+    public void testCustomJspRedirectorMapping() throws Exception
+    {
+        executeTestTarget();
+
+        File destFile = getProject().resolveFile("work/destfile.war");
+        WarArchive destWar = new WarArchive(destFile);
+        WebXml webXml = destWar.getWebXml();
+        assertJspMapping(webXml, "/jspRedirector.jsp", "/test/jspRedirector");
+    }
+
+    /**
+     * Verifies that the mapping of the filter redirector is correctly
+     * overridden by a nested 'filterredirector' element.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
+    public void testCustomFilterRedirectorMapping() throws Exception
+    {
+        executeTestTarget();
+
+        File destFile = getProject().resolveFile("work/destfile.war");
+        WarArchive destWar = new WarArchive(destFile);
+        WebXml webXml = destWar.getWebXml();
+        assertFilterMapping(webXml,
+            "org.apache.cactus.server.FilterTestRedirector",
+            "/test/filterRedirector");
+    }
+
+    /**
+     * Verifies that no definition of the filter redirector is added to a 
+     * Servlet 2.2 descriptor, even when explicitly requested by a nested
+     * 'filterredirector' element.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
+    public void testCustomFilterRedirectorMappingIgnored() throws Exception
+    {
+        executeTestTarget();
+
+        File destFile = getProject().resolveFile("work/destfile.war");
+        WarArchive destWar = new WarArchive(destFile);
+        WebXml webXml = destWar.getWebXml();
+        assertTrue("The filter redirector should not have been defined",
+            !webXml.getFilterNamesForClass(
+                "org.apache.cactus.server.FilterTestRedirector").hasNext());
+    }
+
     // Private Methods ---------------------------------------------------------
 
     /**

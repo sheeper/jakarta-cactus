@@ -46,6 +46,34 @@
         destfile="${work.dir}/destfile.war"/>
   </target>
 
+  <target name="testCustomServletRedirectorMapping">
+    <cactifywar srcfile="empty-2_3.war"
+        destfile="${work.dir}/destfile.war">
+      <servletredirector mapping="/test/servletRedirector"/>
+    </cactifywar>
+  </target>
+
+  <target name="testCustomJspRedirectorMapping">
+    <cactifywar srcfile="empty-2_3.war"
+        destfile="${work.dir}/destfile.war">
+      <jspredirector mapping="/test/jspRedirector"/>
+    </cactifywar>
+  </target>
+
+  <target name="testCustomFilterRedirectorMapping">
+    <cactifywar srcfile="empty-2_3.war"
+        destfile="${work.dir}/destfile.war">
+      <filterredirector mapping="/test/filterRedirector"/>
+    </cactifywar>
+  </target>
+
+  <target name="testCustomFilterRedirectorMappingIgnored">
+    <cactifywar srcfile="empty-2_2.war"
+        destfile="${work.dir}/destfile.war">
+      <filterredirector mapping="/test/filterRedirector"/>
+    </cactifywar>
+  </target>
+
   <target name="tearDown">
     <delete dir="${work.dir}"/>
   </target>
