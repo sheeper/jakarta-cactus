@@ -46,18 +46,16 @@
       <email>vmassol@pivolis.com</email>
       <organization>Pivolis</organization>
     </developer>
-    <contributors>
-      <contributor>
-        <name>Felipe Leme</name>
-        <email>cactus@felipeal.net</email>
-        <organization>Falcon Informatica</organization>
-        <roles>
-           <role>Test cases project creator</role>
-           <role>Jelly developer</role>
-        </roles>
-      </contributor>
-  </contributors>
+    <developer>
+      <name>Felipe Leme</name>
+      <id>felipeal</id>
+      <email>vmassol@pivolis.com</email>
+      <organization>Falcon Informatica</organization>
+      <roles>
+         <role>Test cases project creator</role>
+         <role>Jelly developer</role>
+      </roles>
+    </developer>
   </developers>
-
   <build/>
 </project>
