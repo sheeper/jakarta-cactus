@@ -119,6 +119,12 @@
 
     <release version="1.3 in CVS">
       <action dev="VMA" type="update">
+        As Cactus 1.3 need JUnit 3.7 and later (because of JUnit removal of <code>name()</code> in
+        favor of <code>getName()</code>), we also need Ant 1.5 (for building Cactus from sources
+        but also for running the junit task). Indeed, prior to Ant 1.5, the Ant junit task was using
+        <code>name()</code> (it has been updated in Ant 1.5).
+      </action>
+      <action dev="VMA" type="update">
         Cactus 1.3 will need JUnit 3.7 and later. Reason :
         <code>TestCase.name()</code> was deprecated in JUnit 3.7 and has now
         been removed (22/10/2001) from the JUnit sources in CVS, meaning that
