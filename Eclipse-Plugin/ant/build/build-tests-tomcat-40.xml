@@ -1,29 +1,38 @@
     <!--
        ========================================================================
-         Run Tomcat 4.0 tests
-       ========================================================================
-    -->
-    <target name="test.tomcat.40" depends="prepare.tomcat.40"
-        if="home.tomcat.40" description="Run tests on Tomcat 4.0">
-
-        <!-- Start the servlet engine, wait for it to be started, run the
-             unit tests, stop the servlet engine, wait for it to be stopped.
-             The servlet engine is stopped if the tests fail for any reason -->
-
-        <runservertests
-            testURL="http://localhost:${test.port}/test/ServletRedirector?Cactus_Service=RUN_TEST"
-            startTarget="start.tomcat.40"
-            stopTarget="stop.tomcat.40"
-            testTarget="test"/>
-
-    </target>
-
-    <!--
-       ========================================================================
          Start Tomcat 4.0
        ========================================================================
     -->
-    <target name="start.tomcat.40">
+    <target name="start.tomcat.40" depends="checkwindows, windows.start.tomcat.40, other.start.tomcat.40"/>
+    
+    <target name="windows.start.tomcat.40" if="isWindows">
+        <property name="target.tomcat40.dir"
+            value="${target.test.dir}/tomcat40"/>
+        <java jvm='javaw' classname="org.apache.catalina.startup.Bootstrap" fork="yes">
+
+            <jvmarg value="-Dcatalina.home=${home.tomcat.40}"/>
+            <jvmarg value="-Dcatalina.base=${target.tomcat40.dir}"/>
+            <arg value="start"/>
+            
+            <classpath>
+
+              <!-- These are ignored if -Dbuild.sysclasspath=only is used -->
+              <pathelement path="${java.home}/../lib/tools.jar"/>
+              <fileset dir="${home.tomcat.40}">
+                  <include name="bin/bootstrap.jar"/>
+              </fileset>
+
+              <!-- This is to allow the use of -Dbuild.sysclasspath=only when
+                   starting Ant - Meaning that all jars need to be on the
+                   initial classpath. -->
+              <pathelement path="${java.class.path}"/>
+
+            </classpath>
+        </java>
+
+    </target>
+
+    <target name="other.start.tomcat.40" unless="isWindows">
         <property name="target.tomcat40.dir"
             value="${target.test.dir}/tomcat40"/>
         <java classname="org.apache.catalina.startup.Bootstrap" fork="yes">
@@ -49,13 +58,38 @@
         </java>
 
     </target>
-
+   
     <!--
        ========================================================================
          Stop Tomcat 4.0
        ========================================================================
     -->
-    <target name="stop.tomcat.40">
+    <target name="stop.tomcat.40" depends="checkwindows, windows.stop.tomcat.40, other.stop.tomcat.40"/>
+
+    <target name="windows.stop.tomcat.40" if="isWindows">
+        <property name="target.tomcat40.dir"
+            value="${target.test.dir}/tomcat40"/>
+        <java jvm='javaw' classname="org.apache.catalina.startup.Bootstrap" fork="yes">
+            <jvmarg value="-Dcatalina.home=${home.tomcat.40}"/>
+            <jvmarg value="-Dcatalina.base=${target.tomcat40.dir}"/>
+            <arg value="stop"/>
+            <classpath>
+
+              <!-- This is to allow the use of -Dbuild.sysclasspath=only when
+                   starting Ant - Meaning that all jars need to be on the
+                   initial classpath -->
+              <pathelement path="${java.class.path}"/>
+
+              <!-- These are ignored if -Dbuild.sysclasspath=only is used -->
+              <fileset dir="${home.tomcat.40}">
+                  <include name="bin/bootstrap.jar"/>
+              </fileset>
+            </classpath>
+        </java>
+
+    </target>
+
+    <target name="other.stop.tomcat.40" unless="isWindows">
         <property name="target.tomcat40.dir"
             value="${target.test.dir}/tomcat40"/>
         <java classname="org.apache.catalina.startup.Bootstrap" fork="yes">
@@ -77,6 +111,7 @@
         </java>
 
     </target>
+
 
     <!--
        ========================================================================
