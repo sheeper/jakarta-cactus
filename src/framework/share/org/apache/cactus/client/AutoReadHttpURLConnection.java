@@ -1,4 +1,6 @@
 /*
+ * ====================================================================
+ *
  * The Apache Software License, Version 1.1
  *
  * Copyright (c) 2001-2002 The Apache Software Foundation.  All rights
@@ -23,10 +25,10 @@
  *    Alternately, this acknowlegement may appear in the software itself,
  *    if and wherever such third-party acknowlegements normally appear.
  *
- * 4. The names "The Jakarta Project", "Cactus", and "Apache Software
- *    Foundation" must not be used to endorse or promote products derived
- *    from this software without prior written permission. For written
- *    permission, please contact apache@apache.org.
+ * 4. The names "The Jakarta Project", "Cactus" and "Apache Software
+ *    Foundation" must not be used to endorse or promote products
+ *    derived from this software without prior written permission. For
+ *    written permission, please contact apache@apache.org.
  *
  * 5. Products derived from this software may not be called "Apache"
  *    nor may "Apache" appear in their names without prior written
@@ -50,6 +52,7 @@
  * individuals on behalf of the Apache Software Foundation.  For more
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
+ *
  */
 package org.apache.cactus.client;
 
@@ -109,6 +112,12 @@ final class AutoReadHttpURLConnection extends HttpURLConnection
      */
     private InputStream streamBuffer;
 
+    /**
+     * Constructs a an <code>AutoReadHttpURLConnection</code> object from an
+     * <code>HttpURLConnection</code>.
+     *
+     * @param theConnection the original connection to wrap
+     */
     AutoReadHttpURLConnection(HttpURLConnection theConnection)
     {
         super(null);
@@ -120,6 +129,7 @@ final class AutoReadHttpURLConnection extends HttpURLConnection
      * the wrapped connection's input stream
      *
      * @return the input stream
+     * @exception IOException if an error occurs when reading the input stream
      */
     public synchronized InputStream getInputStream() throws IOException
     {
@@ -128,7 +138,7 @@ final class AutoReadHttpURLConnection extends HttpURLConnection
             if (this.streamBuffer == null) {
                 LOGGER.debug("Original connection = " + this.delegate);
                 InputStream is = this.delegate.getInputStream();
-                this.streamBuffer = bufferInputStream(is);
+                this.streamBuffer = getBufferedInputStream(is);
             }
         } catch (IOException e) {
             logErrorStream(this.delegate.getErrorStream());
@@ -138,6 +148,13 @@ final class AutoReadHttpURLConnection extends HttpURLConnection
         return this.streamBuffer;
     }
 
+    /**
+     * Logs the HTTP error stream (used to get more information when we fail
+     * to read from the HTTP URL connection).
+     *
+     * @param theErrorStream the error stream containing the error description
+     * @exception IOException if an error occurs when reading the input stream
+     */
     private void logErrorStream(InputStream theErrorStream) throws IOException
     {
         if (theErrorStream != null) {
@@ -151,7 +168,15 @@ final class AutoReadHttpURLConnection extends HttpURLConnection
         }
     }
 
-    private InputStream bufferInputStream(InputStream theInputStream)
+    /**
+     * Fully read the HTTP Connection response stream until there is no
+     * more bytes to read.
+     *
+     * @param theInputStream the input stream to fully read
+     * @return the data read as a buffered input stream
+     * @exception IOException if an error occurs when reading the input stream
+     */
+    private InputStream getBufferedInputStream(InputStream theInputStream)
         throws IOException
     {
         ByteArrayOutputStream os =
@@ -163,6 +188,15 @@ final class AutoReadHttpURLConnection extends HttpURLConnection
         return bais;
     }
 
+    /**
+     * Copies the input stream passed as parameter to the output stream also
+     * passed as parameter. The full stream is read until there is no more
+     * bytes to read.
+     *
+     * @param theInputStream the input stream to read from
+     * @param theOutputStream the output stream to write to
+     * @exception IOException if an error occurs when reading the input stream
+     */
     private void copy(InputStream theInputStream, OutputStream theOutputStream)
         throws IOException
     {
@@ -234,7 +268,7 @@ final class AutoReadHttpURLConnection extends HttpURLConnection
     // Delegated methods
 
     /**
-     * @see java.net.HttpURLConnection.connect()
+     * @see java.net.HttpURLConnection#connect()
      */
     public void connect() throws IOException
     {
@@ -242,7 +276,7 @@ final class AutoReadHttpURLConnection extends HttpURLConnection
     }
 
     /**
-     * @see java.net.HttpURLConnection.getAllowUserInteraction()
+     * @see java.net.HttpURLConnection#getAllowUserInteraction()
      */
     public boolean getAllowUserInteraction()
     {
@@ -250,7 +284,7 @@ final class AutoReadHttpURLConnection extends HttpURLConnection
     }
 
     /**
-     * @see java.net.HttpURLConnection.getContent()
+     * @see java.net.HttpURLConnection#getContent()
      */
     public Object getContent() throws IOException
     {
@@ -258,7 +292,7 @@ final class AutoReadHttpURLConnection extends HttpURLConnection
     }
 
     /**
-     * @see java.net.HttpURLConnection.getContentEncoding()
+     * @see java.net.HttpURLConnection#getContentEncoding()
      */
     public String getContentEncoding()
     {
@@ -266,7 +300,7 @@ final class AutoReadHttpURLConnection extends HttpURLConnection
     }
 
     /**
-     * @see java.net.HttpURLConnection.getContentLength()
+     * @see java.net.HttpURLConnection#getContentLength()
      */
     public int getContentLength()
     {
@@ -274,7 +308,7 @@ final class AutoReadHttpURLConnection extends HttpURLConnection
     }
 
     /**
-     * @see java.net.HttpURLConnection.getContentType()
+     * @see java.net.HttpURLConnection#getContentType()
      */
     public String getContentType()
     {
@@ -282,7 +316,7 @@ final class AutoReadHttpURLConnection extends HttpURLConnection
     }
 
     /**
-     * @see java.net.HttpURLConnection.getDate()
+     * @see java.net.HttpURLConnection#getDate()
      */
     public long getDate()
     {
@@ -290,7 +324,7 @@ final class AutoReadHttpURLConnection extends HttpURLConnection
     }
 
     /**
-     * @see java.net.HttpURLConnection.getDefaultUseCaches()
+     * @see java.net.HttpURLConnection#getDefaultUseCaches()
      */
     public boolean getDefaultUseCaches()
     {
@@ -298,7 +332,7 @@ final class AutoReadHttpURLConnection extends HttpURLConnection
     }
 
     /**
-     * @see java.net.HttpURLConnection.getDoInput()
+     * @see java.net.HttpURLConnection#getDoInput()
      */
     public boolean getDoInput()
     {
@@ -306,7 +340,7 @@ final class AutoReadHttpURLConnection extends HttpURLConnection
     }
 
     /**
-     * @see java.net.HttpURLConnection.getDoOutput()
+     * @see java.net.HttpURLConnection#getDoOutput()
      */
     public boolean getDoOutput()
     {
@@ -314,7 +348,7 @@ final class AutoReadHttpURLConnection extends HttpURLConnection
     }
 
     /**
-     * @see java.net.HttpURLConnection.getExpiration()
+     * @see java.net.HttpURLConnection#getExpiration()
      */
     public long getExpiration()
     {
@@ -322,144 +356,216 @@ final class AutoReadHttpURLConnection extends HttpURLConnection
     }
 
     /**
-     * @see java.net.HttpURLConnection.getHeaderField(int)
+     * @see java.net.HttpURLConnection#getHeaderField(int)
      */
-    public String getHeaderField(int a0)
+    public String getHeaderField(int thePosition)
     {
-        return this.delegate.getHeaderField(a0);
+        return this.delegate.getHeaderField(thePosition);
     }
 
     /**
-     * @see java.net.HttpURLConnection.getHeaderField(String)
+     * @see java.net.HttpURLConnection#getHeaderField(String)
      */
-    public String getHeaderField(String a0)
+    public String getHeaderField(String theName)
     {
-        return this.delegate.getHeaderField(a0);
+        return this.delegate.getHeaderField(theName);
     }
 
     /**
-     * @see java.net.HttpURLConnection.getHeaderFieldDate(String, int)
+     * @see java.net.HttpURLConnection#getHeaderFieldDate(String, long)
      */
-    public long getHeaderFieldDate(String a0, long a1)
+    public long getHeaderFieldDate(String theName, long theDefaultValue)
     {
-        return this.delegate.getHeaderFieldDate(a0, a1);
+        return this.delegate.getHeaderFieldDate(theName, theDefaultValue);
     }
 
-    public int getHeaderFieldInt(String a0, int a1)
+    /**
+     * @see java.net.HttpURLConnection#getHeaderFieldInt(String, int)
+     */
+    public int getHeaderFieldInt(String theName, int theDefaultValue)
     {
-        return this.delegate.getHeaderFieldInt(a0, a1);
+        return this.delegate.getHeaderFieldInt(theName, theDefaultValue);
     }
 
-    public String getHeaderFieldKey(int a0)
+    /**
+     * @see java.net.HttpURLConnection#getHeaderFieldKey(int)
+     */
+    public String getHeaderFieldKey(int thePosition)
     {
-        return this.delegate.getHeaderFieldKey(a0);
+        return this.delegate.getHeaderFieldKey(thePosition);
     }
 
+    /**
+     * @see java.net.HttpURLConnection#getIfModifiedSince()
+     */
     public long getIfModifiedSince()
     {
         return this.delegate.getIfModifiedSince();
     }
 
+    /**
+     * @see java.net.HttpURLConnection#getLastModified()
+     */
     public long getLastModified()
     {
         return this.delegate.getLastModified();
     }
 
+    /**
+     * @see java.net.HttpURLConnection#getOutputStream()
+     */
     public OutputStream getOutputStream() throws IOException
     {
         return this.delegate.getOutputStream();
     }
 
+    /**
+     * @see java.net.HttpURLConnection#getPermission()
+     */
     public Permission getPermission() throws IOException
     {
         return this.delegate.getPermission();
     }
 
-    public String getRequestProperty(String a0)
+    /**
+     * @see java.net.HttpURLConnection#getRequestProperty(String)
+     */
+    public String getRequestProperty(String theKey)
     {
-        return this.delegate.getRequestProperty(a0);
+        return this.delegate.getRequestProperty(theKey);
     }
 
+    /**
+     * @see java.net.HttpURLConnection#getURL()
+     */
     public URL getURL()
     {
         return this.delegate.getURL();
     }
 
+    /**
+     * @see java.net.HttpURLConnection#getUseCaches()
+     */
     public boolean getUseCaches()
     {
         return this.delegate.getUseCaches();
     }
 
-    public void setAllowUserInteraction(boolean a0)
+    /**
+     * @see java.net.HttpURLConnection#setAllowUserInteraction(boolean)
+     */
+    public void setAllowUserInteraction(boolean hasInteraction)
     {
-        this.delegate.setAllowUserInteraction(a0);
+        this.delegate.setAllowUserInteraction(hasInteraction);
     }
 
-    public void setDefaultUseCaches(boolean a0)
+    /**
+     * @see java.net.HttpURLConnection#setDefaultUseCaches(boolean)
+     */
+    public void setDefaultUseCaches(boolean isUsingDefaultCache)
     {
-        this.delegate.setDefaultUseCaches(a0);
+        this.delegate.setDefaultUseCaches(isUsingDefaultCache);
     }
 
-    public void setDoInput(boolean a0)
+    /**
+     * @see java.net.HttpURLConnection#setDoInput(boolean)
+     */
+    public void setDoInput(boolean isInput)
     {
-        this.delegate.setDoInput(a0);
+        this.delegate.setDoInput(isInput);
     }
 
-    public void setDoOutput(boolean a0)
+    /**
+     * @see java.net.HttpURLConnection#setDoOutput(boolean)
+     */
+    public void setDoOutput(boolean isOutput)
     {
-        this.delegate.setDoOutput(a0);
+        this.delegate.setDoOutput(isOutput);
     }
 
-    public void setIfModifiedSince(long a0)
+    /**
+     * @see java.net.HttpURLConnection#setIfModifiedSince(long)
+     */
+    public void setIfModifiedSince(long isModifiedSince)
     {
-        this.delegate.setIfModifiedSince(a0);
+        this.delegate.setIfModifiedSince(isModifiedSince);
     }
 
-    public void setRequestProperty(String a0, String a1)
+    /**
+     * @see java.net.HttpURLConnection#setRequestProperty(String, String)
+     */
+    public void setRequestProperty(String theKey, String theValue)
     {
-        this.delegate.setRequestProperty(a0, a1);
+        this.delegate.setRequestProperty(theKey, theValue);
     }
 
-    public void setUseCaches(boolean a0)
+    /**
+     * @see java.net.HttpURLConnection#setUseCaches(boolean)
+     */
+    public void setUseCaches(boolean isUsingCaches)
     {
-        this.delegate.setUseCaches(a0);
+        this.delegate.setUseCaches(isUsingCaches);
     }
 
+    /**
+     * @see java.net.HttpURLConnection#toString()
+     */
     public String toString()
     {
         return this.delegate.toString();
     }
 
+    /**
+     * @see java.net.HttpURLConnection#disconnect()
+     */
     public void disconnect()
     {
         this.delegate.disconnect();
     }
 
+    /**
+     * @see java.net.HttpURLConnection#getErrorStream()
+     */
     public InputStream getErrorStream()
     {
         return this.delegate.getErrorStream();
     }
 
+    /**
+     * @see java.net.HttpURLConnection#getRequestMethod()
+     */
     public String getRequestMethod()
     {
         return this.delegate.getRequestMethod();
     }
 
+    /**
+     * @see java.net.HttpURLConnection#getResponseCode()
+     */
     public int getResponseCode() throws IOException
     {
         return this.delegate.getResponseCode();
     }
 
+    /**
+     * @see java.net.HttpURLConnection#getResponseMessage()
+     */
     public String getResponseMessage() throws IOException
     {
         return this.delegate.getResponseMessage();
     }
 
-    public void setRequestMethod(String a0) throws ProtocolException
+    /**
+     * @see java.net.HttpURLConnection#setRequestMethod(String)
+     */
+    public void setRequestMethod(String theMethod) throws ProtocolException
     {
-        this.delegate.setRequestMethod(a0);
+        this.delegate.setRequestMethod(theMethod);
     }
 
+    /**
+     * @see java.net.HttpURLConnection#usingProxy()
+     */
     public boolean usingProxy()
     {
         return this.delegate.usingProxy();

@@ -1,4 +1,6 @@
 /*
+ * ====================================================================
+ *
  * The Apache Software License, Version 1.1
  *
  * Copyright (c) 2001-2002 The Apache Software Foundation.  All rights
@@ -23,10 +25,10 @@
  *    Alternately, this acknowlegement may appear in the software itself,
  *    if and wherever such third-party acknowlegements normally appear.
  *
- * 4. The names "The Jakarta Project", "Cactus", and "Apache Software
- *    Foundation" must not be used to endorse or promote products derived
- *    from this software without prior written permission. For written
- *    permission, please contact apache@apache.org.
+ * 4. The names "The Jakarta Project", "Cactus" and "Apache Software
+ *    Foundation" must not be used to endorse or promote products
+ *    derived from this software without prior written permission. For
+ *    written permission, please contact apache@apache.org.
  *
  * 5. Products derived from this software may not be called "Apache"
  *    nor may "Apache" appear in their names without prior written
@@ -50,6 +52,7 @@
  * individuals on behalf of the Apache Software Foundation.  For more
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
+ *
  */
 package org.apache.cactus;
 
@@ -113,8 +116,6 @@ public class Cookie implements Serializable
      * @param theDomain the cookie domain
      * @param theName the cookie name
      * @param theValue the cookie value
-     *
-     * @exception NullPointerException if one of the parameters is null
      */
     public Cookie(String theDomain, String theName, String theValue)
     {
@@ -318,6 +319,8 @@ public class Cookie implements Serializable
 
     /**
      * Hash up name, value and domain into new hash.
+     *
+     * @return the hashcode of this class
      */
     public int hashCode()
     {
@@ -329,6 +332,8 @@ public class Cookie implements Serializable
      * Two cookies match if the name, path and domain match.
      *
      * @param theObject the cookie object to match
+     * @return true of the object passed as paramater is equal to this coookie
+     *         instance
      */
     public boolean equals(Object theObject)
     {

@@ -1,4 +1,6 @@
 /*
+ * ====================================================================
+ *
  * The Apache Software License, Version 1.1
  *
  * Copyright (c) 2001-2002 The Apache Software Foundation.  All rights
@@ -23,10 +25,10 @@
  *    Alternately, this acknowlegement may appear in the software itself,
  *    if and wherever such third-party acknowlegements normally appear.
  *
- * 4. The names "The Jakarta Project", "Cactus", and "Apache Software
- *    Foundation" must not be used to endorse or promote products derived
- *    from this software without prior written permission. For written
- *    permission, please contact apache@apache.org.
+ * 4. The names "The Jakarta Project", "Cactus" and "Apache Software
+ *    Foundation" must not be used to endorse or promote products
+ *    derived from this software without prior written permission. For
+ *    written permission, please contact apache@apache.org.
  *
  * 5. Products derived from this software may not be called "Apache"
  *    nor may "Apache" appear in their names without prior written
@@ -50,6 +52,7 @@
  * individuals on behalf of the Apache Software Foundation.  For more
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
+ *
  */
 package org.apache.cactus.client;
 
@@ -61,6 +64,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
+import java.net.MalformedURLException;
 import java.util.Enumeration;
 import java.util.Vector;
 
@@ -71,6 +75,7 @@ import org.apache.cactus.WebRequest;
 import org.apache.cactus.client.authentication.AbstractAuthentication;
 import org.apache.cactus.util.log.Log;
 import org.apache.cactus.util.log.LogService;
+import org.apache.cactus.util.ChainedRuntimeException;
 
 /**
  * Helper class to open an HTTP connection to the server redirector and pass
@@ -113,11 +118,11 @@ public class HttpClientHelper
     }
 
     /**
-     * Calls the Servlet Redirector.
+     * Connects to the Cactus Redirector using HTTP.
      *
      * @param theRequest the request containing all data to pass to the
-     *                   server redirector.
-     *
+     *        server redirector.
+     * @return the HTTP Connection used to connect to the redirector.
      * @exception Throwable if an unexpected error occured
      */
     public HttpURLConnection connect(WebRequest theRequest)
@@ -185,9 +190,10 @@ public class HttpClientHelper
      * @param theRequest the request containing all data to pass to the server
      *        redirector.
      * @param theConnection the HTTP connection
+     * @exception IOException if we fail to read the user data
      */
     private void addUserData(WebRequest theRequest,
-        URLConnection theConnection) throws Throwable
+        URLConnection theConnection) throws IOException
     {
         // If no user data, then exit
         if (theRequest.getUserData() == null) {
@@ -214,9 +220,10 @@ public class HttpClientHelper
      *        redirector.
      * @param theURL the URL used to connect to the server redirector.
      * @return the new URL
+     * @exception MalformedURLException if the URL is malformed
      */
     private URL addParametersGet(WebRequest theRequest, URL theURL)
-        throws Throwable
+        throws MalformedURLException
     {
         // If no parameters, then exit
         if (!theRequest.getParameterNamesGet().hasMoreElements()) {
@@ -277,7 +284,7 @@ public class HttpClientHelper
      * @param theConnection the HTTP connection
      */
     private void addParametersPost(WebRequest theRequest,
-        URLConnection theConnection) throws Throwable
+        URLConnection theConnection)
     {
         // If no parameters, then exit
         if (!theRequest.getParameterNamesPost().hasMoreElements()) {
@@ -322,7 +329,6 @@ public class HttpClientHelper
      * @return an output stream to write in the request body
      */
     private OutputStream getConnectionStream(URLConnection theConnection)
-        throws Throwable
     {
         OutputStream out;
         try {
@@ -337,7 +343,7 @@ public class HttpClientHelper
                 "web.xml,\r\n";
             reason += "\t- Something else ... !";
 
-            throw new Exception(reason);
+            throw new ChainedRuntimeException(reason);
         }
 
         return out;
@@ -368,7 +374,8 @@ public class HttpClientHelper
                         cactusCookie.getDomain(), cactusCookie.getName(),
                         cactusCookie.getValue());
                 httpclientCookies[i].setComment(cactusCookie.getComment());
-                httpclientCookies[i].setExpiryDate(cactusCookie.getExpiryDate());
+                httpclientCookies[i].setExpiryDate(
+                        cactusCookie.getExpiryDate());
                 httpclientCookies[i].setPath(cactusCookie.getPath());
                 httpclientCookies[i].setSecure(cactusCookie.isSecure());
             }
@@ -457,7 +464,8 @@ public class HttpClientHelper
      * @param theConnection the HTTP connection
      * @return the path to use to decide if a cookie will get sent
      */
-    public static String getPath(WebRequest theRequest, URLConnection theConnection)
+    public static String getPath(WebRequest theRequest,
+            URLConnection theConnection)
     {
         String path;
         ServletURL url = theRequest.getURL();
@@ -466,8 +474,9 @@ public class HttpClientHelper
             path = url.getPath();
         } else {
 
-            // We do not use the URL.getPath() API as it was only introduced in JDK 1.3 and we
-            // want to retain compatibility with JDK 1.2. Using JDK 1.3, we would have written :
+            // We do not use the URL.getPath() API as it was only introduced
+            // in JDK 1.3 and we want to retain compatibility with JDK 1.2.
+            // Using JDK 1.3, we would have written :
             //      path = theConnection.getURL().getPath();
 
             String file = theConnection.getURL().getFile();

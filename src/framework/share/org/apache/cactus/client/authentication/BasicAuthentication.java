@@ -1,4 +1,6 @@
 /*
+ * ====================================================================
+ *
  * The Apache Software License, Version 1.1
  *
  * Copyright (c) 2001-2002 The Apache Software Foundation.  All rights
@@ -23,10 +25,10 @@
  *    Alternately, this acknowlegement may appear in the software itself,
  *    if and wherever such third-party acknowlegements normally appear.
  *
- * 4. The names "The Jakarta Project", "Cactus", and "Apache Software
- *    Foundation" must not be used to endorse or promote products derived
- *    from this software without prior written permission. For written
- *    permission, please contact apache@apache.org.
+ * 4. The names "The Jakarta Project", "Cactus" and "Apache Software
+ *    Foundation" must not be used to endorse or promote products
+ *    derived from this software without prior written permission. For
+ *    written permission, please contact apache@apache.org.
  *
  * 5. Products derived from this software may not be called "Apache"
  *    nor may "Apache" appear in their names without prior written
@@ -50,6 +52,7 @@
  * individuals on behalf of the Apache Software Foundation.  For more
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
+ *
  */
 package org.apache.cactus.client.authentication;
 
@@ -70,123 +73,13 @@ import java.text.StringCharacterIterator;
  */
 public class BasicAuthentication extends AbstractAuthentication
 {
-    public BasicAuthentication(String userid, String password)
-    {
-        super(userid, password);
-    }
-
-    /**
-     * @see AbstractAuthentication.validateName(String)
-     */
-    protected void validateName(String userid)
-    {
-        // According to HTTP 1.0 Spec:
-        // userid   = [ token ]
-        // token    = 1*<any CHAR except CTLs or tspecials>
-        // CTL      = <any US-ASCII control character (octets 0-31) and DEL (127)
-        // tspecial = "(" | ")" | "<" | ">" | "@"
-        //            "," | ";" | ":" | "\" | <">
-        //            "/" | "[" | "]" | "?" | "="
-        //            "{" | "}" | SP | HT
-        // SP       = <US-ASCII SP, space (32)>
-        // HT       = <US-ASCII HT, horizontal-tab (9)>
-
-        // Validate the given userid
-
-        // The userid is optional, it can be blank.
-        if (userid == null) {
-            return;
-        }
-
-        // If it's non-blank, there is no maximum length
-        // and it can't contain any illegal characters
-        String illegalChars = "()<>@,;:\\\"/[]?={} \t";
-        StringCharacterIterator iter = new StringCharacterIterator(userid);
-
-        for (char c = iter.first(); c != CharacterIterator.DONE;
-             c = iter.next()) {
-
-            if ((illegalChars.indexOf(c) != -1) ||
-                ((c >= 0) && (c <= 31)) ||
-                (c == 127)) {
-
-                // Bad userid! Go to your room!
-                throw new IllegalArgumentException(
-                    "Given userid contains illegal characters.");
-            }
-        }
-    }
-
-    /**
-     * @see AbstractAuthentication.validatePassword(String)
-     */
-    protected void validatePassword(String password)
-    {
-        // According to HTTP 1.0 Spec:
-        // password = *TEXT
-        // TEXT  = <any OCTET except CTLs, but including LWS>
-        // OCTET = <any 8-bit sequence of data>
-        // CTL   = <any US-ASCII control character (octets 0-31) and DEL (127)
-        // LWS   = [CRLF] 1*( SP | HT )
-        // CRLF  = CR LF
-        // CR    = <US-ASCII CR, carriage return (13)>
-        // LF    = <US-ASCII LF, linefeed (10)>
-        // SP    = <US-ASCII SP, space (32)>
-        // HT    = <US-ASCII HT, horizontal-tab (9)>
-
-        // Validate the given password
-
-        // The password can have zero characters, i.e. be blank.
-        if (password == null) {
-            return;
-        }
-
-        // If it's non-blank, there is no maximum length
-        // and it can't contain any illegal characters
-        String exceptionChars = "\r\n \t"; // CR LF SP HT
-        StringCharacterIterator iter = new StringCharacterIterator(password);
-
-        for (char c = iter.first(); c != CharacterIterator.DONE; c = iter.next()) {
-            if (((c >= 0) && (c <= 31)) || (c == 127)) {
-
-                if (exceptionChars.indexOf(c) != -1) {
-                    continue;
-                }
-
-                // Bad password! Go to your room!
-                throw new IllegalArgumentException(
-                    "Given password contains illegal characters.");
-            }
-        }
-    }
-
-    /**
-     * @see AbstractAuthentication.configure(HttpURLConnection)
-     */
-    public void configure(HttpURLConnection connection)
-    {
-        // According to HTTP 1.0 Spec:
-        // basic-credentials = "Basic" SP basic-cookie
-        // basic-cookie      = <base64 encoding of userid-password,
-        //                     except not limited to 76 char/line>
-        // userid-password   = [ token ] ":" *TEXT
-        //
-        // see setName and setPassword for details of token and TEXT
-
-        String basicCookie = getName() + ":" + getPassword();
-        String basicCredentials = "Basic " +
-            new String(base64Encode(basicCookie.getBytes()));
-
-        connection.setRequestProperty("Authorization", basicCredentials);
-    }
-
     /**
      * Provides encoding of raw bytes to base64-encoded characters, and
      * decoding of base64 characters to raw bytes.
      */
-
     private static char[] alphabet =
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=".toCharArray();
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=".
+            toCharArray();
 
     /**
      * Lookup table for converting base64 characters to value in range 0..63
@@ -212,36 +105,154 @@ public class BasicAuthentication extends AbstractAuthentication
     }
 
     /**
+     * @param theName user name of the Credential
+     * @param thePassword user password of the Credential
+     */
+    public BasicAuthentication(String theName, String thePassword)
+    {
+        super(theName, thePassword);
+    }
+
+    /**
+     * @see AbstractAuthentication#validateName(String)
+     */
+    protected void validateName(String theName)
+    {
+        // According to HTTP 1.0 Spec:
+        // userid   = [ token ]
+        // token    = 1*<any CHAR except CTLs or tspecials>
+        // CTL      = <any US-ASCII control character (octets 0-31) and
+        //            DEL (127)
+        // tspecial = "(" | ")" | "<" | ">" | "@"
+        //            "," | ";" | ":" | "\" | <">
+        //            "/" | "[" | "]" | "?" | "="
+        //            "{" | "}" | SP | HT
+        // SP       = <US-ASCII SP, space (32)>
+        // HT       = <US-ASCII HT, horizontal-tab (9)>
+
+        // Validate the given theName
+
+        // The theName is optional, it can be blank.
+        if (theName == null) {
+            return;
+        }
+
+        // If it's non-blank, there is no maximum length
+        // and it can't contain any illegal characters
+        String illegalChars = "()<>@,;:\\\"/[]?={} \t";
+        StringCharacterIterator iter = new StringCharacterIterator(theName);
+
+        for (char c = iter.first(); c != CharacterIterator.DONE;
+             c = iter.next()) {
+
+            if ((illegalChars.indexOf(c) != -1) ||
+                ((c >= 0) && (c <= 31)) ||
+                (c == 127)) {
+
+                    // Bad theName! Go to your room!
+                throw new IllegalArgumentException(
+                        "Given theName contains illegal characters.");
+            }
+        }
+    }
+
+    /**
+     * @see AbstractAuthentication#validatePassword(String)
+     */
+    protected void validatePassword(String thePassword)
+    {
+        // According to HTTP 1.0 Spec:
+        // password = *TEXT
+        // TEXT  = <any OCTET except CTLs, but including LWS>
+        // OCTET = <any 8-bit sequence of data>
+        // CTL   = <any US-ASCII control character (octets 0-31) and DEL (127)
+        // LWS   = [CRLF] 1*( SP | HT )
+        // CRLF  = CR LF
+        // CR    = <US-ASCII CR, carriage return (13)>
+        // LF    = <US-ASCII LF, linefeed (10)>
+        // SP    = <US-ASCII SP, space (32)>
+        // HT    = <US-ASCII HT, horizontal-tab (9)>
+
+        // Validate the given thePassword
+
+        // The thePassword can have zero characters, i.e. be blank.
+        if (thePassword == null) {
+            return;
+        }
+
+        // If it's non-blank, there is no maximum length
+        // and it can't contain any illegal characters
+        String exceptionChars = "\r\n \t"; // CR LF SP HT
+        StringCharacterIterator iter =
+                new StringCharacterIterator(thePassword);
+
+        for (char c = iter.first(); c != CharacterIterator.DONE;
+             c = iter.next()) {
+
+            if (((c >= 0) && (c <= 31)) || (c == 127)) {
+
+                if (exceptionChars.indexOf(c) != -1) {
+                    continue;
+                }
+
+                // Bad thePassword! Go to your room!
+                throw new IllegalArgumentException(
+                        "Given thePassword contains illegal characters.");
+            }
+        }
+    }
+
+    /**
+     * @see AbstractAuthentication#configure(HttpURLConnection)
+     */
+    public void configure(HttpURLConnection theConnection)
+    {
+        // According to HTTP 1.0 Spec:
+        // basic-credentials = "Basic" SP basic-cookie
+        // basic-cookie      = <base64 encoding of userid-password,
+        //                     except not limited to 76 char/line>
+        // userid-password   = [ token ] ":" *TEXT
+        //
+        // see setName and setPassword for details of token and TEXT
+
+        String basicCookie = getName() + ":" + getPassword();
+        String basicCredentials = "Basic " +
+            new String(base64Encode(basicCookie.getBytes()));
+
+        theConnection.setRequestProperty("Authorization", basicCredentials);
+    }
+
+    /**
      * returns an array of base64-encoded characters to represent the
-     * passed data array.
+     * passed theData array.
      *
-     * @param data the array of bytes to encode
+     * @param theData the array of bytes to encode
      * @return base64-coded character array.
      */
-    private static char[] base64Encode(byte[] data)
+    private static char[] base64Encode(byte[] theData)
     {
-        char[] out = new char[((data.length + 2) / 3) * 4];
+        char[] out = new char[((theData.length + 2) / 3) * 4];
 
         //
         // 3 bytes encode to 4 chars. Output is always an even
         // multiple of 4 characters.
         //
-        for (int i = 0, index = 0; i < data.length; i += 3, index += 4) {
+        for (int i = 0, index = 0; i < theData.length; i += 3, index += 4) {
             boolean quad = false;
             boolean trip = false;
 
-            int val = (0xFF & (int) data[i]);
+            int val = (0xFF & (int) theData[i]);
             val <<= 8;
 
-            if ((i + 1) < data.length) {
-                val |= (0xFF & (int) data[i + 1]);
+            if ((i + 1) < theData.length) {
+                val |= (0xFF & (int) theData[i + 1]);
                 trip = true;
             }
 
             val <<= 8;
 
-            if ((i + 2) < data.length) {
-                val |= (0xFF & (int) data[i + 2]);
+            if ((i + 2) < theData.length) {
+                val |= (0xFF & (int) theData[i + 2]);
                 quad = true;
             }
 

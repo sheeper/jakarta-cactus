@@ -1,4 +1,6 @@
 /*
+ * ====================================================================
+ *
  * The Apache Software License, Version 1.1
  *
  * Copyright (c) 2001-2002 The Apache Software Foundation.  All rights
@@ -23,10 +25,10 @@
  *    Alternately, this acknowlegement may appear in the software itself,
  *    if and wherever such third-party acknowlegements normally appear.
  *
- * 4. The names "The Jakarta Project", "Cactus", and "Apache Software
- *    Foundation" must not be used to endorse or promote products derived
- *    from this software without prior written permission. For written
- *    permission, please contact apache@apache.org.
+ * 4. The names "The Jakarta Project", "Cactus" and "Apache Software
+ *    Foundation" must not be used to endorse or promote products
+ *    derived from this software without prior written permission. For
+ *    written permission, please contact apache@apache.org.
  *
  * 5. Products derived from this software may not be called "Apache"
  *    nor may "Apache" appear in their names without prior written
@@ -50,6 +52,7 @@
  * individuals on behalf of the Apache Software Foundation.  For more
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
+ *
  */
 package org.apache.cactus.ant;
 
@@ -97,7 +100,9 @@ public class ArgListTask extends Task
     private String newProperty;
 
     /**
-     * Add a new property to the list of properties to check
+     * Add a new property to the list of properties to check.
+     *
+     * @param theProperty the property to add to the list
      */
     public void addProperty(ArgListProperty theProperty)
     {
@@ -106,6 +111,8 @@ public class ArgListTask extends Task
 
     /**
      * Set the name of the new Ant property that will contain the arg list.
+     *
+     * @param theNewProperty the property that will contain the arg list
      */
     public void setProperty(String theNewProperty)
     {
@@ -115,6 +122,8 @@ public class ArgListTask extends Task
     /**
      * Execute task. Check all specified Ant properties for existence and if
      * they exist add them to the arg list ("-Dname=value" format).
+     *
+     * @see Task#execute()
      */
     public void execute() throws BuildException
     {

@@ -1,4 +1,6 @@
 /*
+ * ====================================================================
+ *
  * The Apache Software License, Version 1.1
  *
  * Copyright (c) 2001-2002 The Apache Software Foundation.  All rights
@@ -23,10 +25,10 @@
  *    Alternately, this acknowlegement may appear in the software itself,
  *    if and wherever such third-party acknowlegements normally appear.
  *
- * 4. The names "The Jakarta Project", "Cactus", and "Apache Software
- *    Foundation" must not be used to endorse or promote products derived
- *    from this software without prior written permission. For written
- *    permission, please contact apache@apache.org.
+ * 4. The names "The Jakarta Project", "Cactus" and "Apache Software
+ *    Foundation" must not be used to endorse or promote products
+ *    derived from this software without prior written permission. For
+ *    written permission, please contact apache@apache.org.
  *
  * 5. Products derived from this software may not be called "Apache"
  *    nor may "Apache" appear in their names without prior written
@@ -50,6 +52,7 @@
  * individuals on behalf of the Apache Software Foundation.  For more
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
+ *
  */
 package org.apache.cactus.ant;
 
@@ -116,7 +119,7 @@ public class StartServerHelper implements Runnable
     }
 
     /**
-     * Executes the task.
+     * @see Task#execute()
      */
     public void execute() throws BuildException
     {
@@ -197,11 +200,18 @@ public class StartServerHelper implements Runnable
         // We're done ... Ant will continue processing other tasks
     }
 
-    static void readFully(HttpURLConnection connection) throws IOException
+    /**
+     * Fully reads the input stream from the passed HTTP URL connection to
+     * prevent (harmless) server-side exception.
+     *
+     * @param theConnection the HTTP URL connection to read from
+     * @exception IOException if an error happens during the read
+     */
+    static void readFully(HttpURLConnection theConnection) throws IOException
     {
         // finish reading it to prevent (harmless) server-side exceptions
         BufferedInputStream is =
-            new BufferedInputStream(connection.getInputStream());
+            new BufferedInputStream(theConnection.getInputStream());
         byte[] buffer = new byte[256];
         while ((is.read(buffer)) > 0) {
         }

@@ -320,7 +320,7 @@ public class PathConvert extends Task
 
     /**
      * Validate that all our parameters have been properly initialized.
-     * @throws BuildException if something is not setup properly
+     * @exception BuildException if something is not setup properly
      */
     private void validateSetup() throws BuildException
     {

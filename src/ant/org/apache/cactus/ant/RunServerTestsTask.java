@@ -1,4 +1,6 @@
 /*
+ * ====================================================================
+ *
  * The Apache Software License, Version 1.1
  *
  * Copyright (c) 2001-2002 The Apache Software Foundation.  All rights
@@ -23,10 +25,10 @@
  *    Alternately, this acknowlegement may appear in the software itself,
  *    if and wherever such third-party acknowlegements normally appear.
  *
- * 4. The names "The Jakarta Project", "Cactus", and "Apache Software
- *    Foundation" must not be used to endorse or promote products derived
- *    from this software without prior written permission. For written
- *    permission, please contact apache@apache.org.
+ * 4. The names "The Jakarta Project", "Cactus" and "Apache Software
+ *    Foundation" must not be used to endorse or promote products
+ *    derived from this software without prior written permission. For
+ *    written permission, please contact apache@apache.org.
  *
  * 5. Products derived from this software may not be called "Apache"
  *    nor may "Apache" appear in their names without prior written
@@ -50,6 +52,7 @@
  * individuals on behalf of the Apache Software Foundation.  For more
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
+ *
  */
 package org.apache.cactus.ant;
 
@@ -117,7 +120,7 @@ public class RunServerTestsTask extends Task
     }
 
     /**
-     * Executes the task.
+     * @see Task#execute()
      */
     public void execute() throws BuildException
     {
@@ -198,7 +201,7 @@ public class RunServerTestsTask extends Task
     /**
      * Sets the target to call to run the tests.
      *
-     * @param theTerstTarget the Ant target to call
+     * @param theTestTarget the Ant target to call
      */
     public void setTestTarget(String theTestTarget)
     {

@@ -1,4 +1,6 @@
 /*
+ * ====================================================================
+ *
  * The Apache Software License, Version 1.1
  *
  * Copyright (c) 2001-2002 The Apache Software Foundation.  All rights
@@ -23,10 +25,10 @@
  *    Alternately, this acknowlegement may appear in the software itself,
  *    if and wherever such third-party acknowlegements normally appear.
  *
- * 4. The names "The Jakarta Project", "Cactus", and "Apache Software
- *    Foundation" must not be used to endorse or promote products derived
- *    from this software without prior written permission. For written
- *    permission, please contact apache@apache.org.
+ * 4. The names "The Jakarta Project", "Cactus" and "Apache Software
+ *    Foundation" must not be used to endorse or promote products
+ *    derived from this software without prior written permission. For
+ *    written permission, please contact apache@apache.org.
  *
  * 5. Products derived from this software may not be called "Apache"
  *    nor may "Apache" appear in their names without prior written
@@ -50,6 +52,7 @@
  * individuals on behalf of the Apache Software Foundation.  For more
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
+ *
  */
 package org.apache.cactus;
 
@@ -175,7 +178,7 @@ public abstract class AbstractTestCase extends TestCase
      *
      * @param theRequest the <code>WebRequest</code> object to
      *                   pass to the begin method.
-     * @throws Throwable any error that occurred when calling the begin method
+     * @exception Throwable any error that occurred when calling the begin method
      *         for the current test case.
      */
     protected void callBeginMethod(WebRequest theRequest)
@@ -244,7 +247,7 @@ public abstract class AbstractTestCase extends TestCase
      *        to open the connection to the redirection servlet. The response
      *        codes, headers, cookies can be checked using the get methods of
      *        this object.
-     * @throws Throwable any error that occurred when calling the end method
+     * @exception Throwable any error that occurred when calling the end method
      *         for the current test case.
      */
     protected void callEndMethod(WebRequest theRequest,
@@ -406,7 +409,7 @@ public abstract class AbstractTestCase extends TestCase
      * <code>TestCase</code> class in order to seamlessly call the
      * Cactus redirection servlet.
      *
-     * @throws Throwable any error that occurred when calling the test method
+     * @exception Throwable any error that occurred when calling the test method
      *         for the current test case.
      */
     protected abstract void runTest() throws Throwable;
@@ -418,7 +421,7 @@ public abstract class AbstractTestCase extends TestCase
      *
      * @param theHttpClient the HTTP client class to use to connect to the
      *                      proxy redirector.
-     * @throws Throwable any error that occurred when calling the test method
+     * @exception Throwable any error that occurred when calling the test method
      *         for the current test case.
      */
     protected void runGenericTest(AbstractHttpClient theHttpClient)
@@ -467,7 +470,7 @@ public abstract class AbstractTestCase extends TestCase
      * Run the test that was specified in the constructor on the server side,
      * calling <code>setUp()</code> and <code>tearDown()</code>.
      *
-     * @throws Throwable any error that occurred when calling the test method
+     * @exception Throwable any error that occurred when calling the test method
      *         for the current test case, on the server side.
      */
     public void runBareServerTest() throws Throwable
@@ -492,7 +495,7 @@ public abstract class AbstractTestCase extends TestCase
     /**
      * Run the test that was specified in the constructor on the server side.
      *
-     * @throws Throwable any error that occurred when calling the test method
+     * @exception Throwable any error that occurred when calling the test method
      *         for the current test case, on the server side.
      */
     protected void runServerTest() throws Throwable
