@@ -78,6 +78,23 @@ import org.apache.cactus.util.StringUtil;
 public class XMLFormatter implements XMLConstants, TestListener
 {
     /**
+     * Default stack filter patterns.
+     */
+    public static final String[] DEFAULT_STACK_FILTER_PATTERNS = new String[]
+        {
+            "org.apache.cactus.AbstractTestCase",
+            "org.apache.cactus.AbstractWebTestCase",
+            "org.apache.cactus.FilterTestCase",
+            "org.apache.cactus.JspTestCase",
+            "org.apache.cactus.ServletTestCase",
+            "junit.framework.TestCase",
+            "junit.framework.TestResult",
+            "junit.framework.TestSuite",
+            "junit.framework.Assert.", // don't filter AssertionFailure
+            "java.lang.reflect.Method.invoke("
+        };
+
+    /**
      * (optional) Name of the XSL stylesheet to put in the returned XML string
      * so that the browser will try to apply it (IE at least, I don't know
      * about the others).
@@ -237,7 +254,7 @@ public class XMLFormatter implements XMLConstants, TestListener
             + ATTR_TYPE + "=\""
             + failure.thrownException().getClass().getName() + "\">");
         xml.append(xmlEncode(StringUtil.exceptionToString(
-            failure.thrownException())));
+            failure.thrownException(), DEFAULT_STACK_FILTER_PATTERNS)));
         xml.append("</" + ERROR + ">");
 
         this.currentTestFailure = xml.toString();
@@ -259,7 +276,7 @@ public class XMLFormatter implements XMLConstants, TestListener
             + ATTR_TYPE + "=\""
             + failure.thrownException().getClass().getName() + "\">");
         xml.append(xmlEncode(StringUtil.exceptionToString(
-            failure.thrownException())));
+            failure.thrownException(), DEFAULT_STACK_FILTER_PATTERNS)));
         xml.append("</" + FAILURE + ">");
 
         this.currentTestFailure = xml.toString();
@@ -320,7 +337,7 @@ public class XMLFormatter implements XMLConstants, TestListener
      * @return the string with replacements done or null if the input string
      *          was null
      */
-    public static String replace(String theBaseString, char theChar, 
+    private static String replace(String theBaseString, char theChar, 
         String theNewString)
     {
         if (theBaseString == null)
@@ -356,4 +373,5 @@ public class XMLFormatter implements XMLConstants, TestListener
 
         return theBaseString;
     }
+
 }
