@@ -32,16 +32,44 @@
   <version title="Version 1.3">
 
     <category title="Documentation">
-      <action assigned-to="Vincent Massol">
-        Move all documentation to docbook and cocoon2 and generate PDF containing full Cactus
-        documentation.
-      </action>
       <action>
         Add a tutorial for VAJava with Tomcat environment (the current
         tutorial on the web site is for VAJava with WTE). Needed steps
         are detailed on the cactus-user list, thread <code>"Cactus, Apache
         Tomcat &amp; VisualAge"</code>. Thanks to
         <link href="mailto:Jim.Young@cibc.com">Jim Young</link>.
+      </action>
+      <action assigned-to="Vincent Massol">
+        Move old FAQ entries from Jyve to our plain text file.
+      </action>
+    </category>
+
+    <category title="Build Process">
+      <p>
+        All tasks that are related to building Cactus in general.
+      </p>
+      <action assigned-to="Wind Li, Vincent Massol">
+        Add Ant scripts to support WebLogic 6.x.
+      </action>
+    </category>
+
+    <category title="Design/Code">
+      <action assigned-to="Peter Wong, Vincent Massol">
+        Support unit testing of Servlet code that uses Security APIs, such as
+        <code>isUserInRole()</code>, ... Review and Commit the code submitted by
+        Peter Wong on the mailing-list.
+      </action>
+    </category>
+
+  </version>
+
+  <version title="Version 1.4">
+
+    <category title="Documentation">
+      <action assigned-to="Vincent Massol">
+        Move all documentation to docbook and cocoon2 and generate PDF containing full Cactus
+        documentation. Note: I still need to find out how to make Cocoon2 generate errors during
+        generation of doc. so that the Ant build reports an error and stops upon finding one.
       </action>
       <action>
         Add a tutorial for building Cactus from the source distribution.
@@ -55,15 +83,17 @@
         testXXX() method of a cactus test and then assert the result of the
         JSP executing in the endXXX() method.
       </action>
+      <action>
+        Add some documentation (possibly in the FAQ) to explain how to unit test Struts classes
+        (refer to the <link href="http://strutstestcase.sourceforge.net/">StrutsTestCase</link>
+        project).
+      </action>
     </category>
 
     <category title="Build Process">
       <p>
         All tasks that are related to building Cactus in general.
       </p>
-      <action assigned-to="Wind Li">
-        Add Ant scripts to support WebLogic 6.x.
-      </action>
       <action assigned-to="Bob Tanner">
         Finalize support for Enhydra 3.1.1. There are some errors upon
         starting the enhydra server and the <code>testOut()</code> method
@@ -80,6 +110,11 @@
     </category>
 
     <category title="Design/Code">
+      <action>
+        Refactor/redesign the Cactus client side so that it can accept several kinds of protocol
+        injectors (it now only supports HTTP). The idea is to be able to add first JMS so that
+        Message-Driven Beans or simply JMS listeners can be unit tested.
+      </action>
       <action>
         Add methods that are called before and after each test, but on the
         client side (i.e. before the <code>beginXXX()</code> and
@@ -101,46 +136,32 @@
         Willkomm</link>.
       </action>
       <action>
-        Design and implement a mechanism for better supporting unit testing of
-        EJBs (they are currently supported). There are several possible
-        mechanisms :
-        <ul>
-          <li>
-            in-container, calling the remote methods from the testXXX() methods
-            by providing a helper class that looks up the home interface, create
-            an instance and call the method,
-          </li>
-          <li>
-            in-container, by providing an EJB Redirector which is itself an EJB
-            (and thus has access to container objects) and just call the EJB
-            method to test as a standard java class, providing implicit objects
-            to an EJBTestCase that user need to derive (exactly the same
-            mechanism currently used for Servlets),
-          </li>
-          <li>
-            others ?
-          </li>
-        </ul>
+        Add EJB Redirectors so that unit testing of code that require an EJB is facilitated. For
+        example, let's imagine you need to test that an object that has been put in the JNDI
+        tree by a servlet can be retrieved by an EJB. These are not unit tests per see but rather
+        integration tests, which is Cactus favorite domain. Also these redirectors could be used
+        to directly unit tests EJB whithout requiring a servlet environment (at the current time,
+        you need to call your EJB from a Servlet/JSP/Filter Redirector, which is fine for certain
+        tests but not needed for others.
       </action>
       <action>
-        Support unit testing of Servlet code that uses Security APIs, such as
-        <code>isUserInRole()</code>, ...
-      </action>
-      <action>
-        Find a mechanism to instanciate Log4j just for Cactus and not
-        interfere with a user using Log4j in it's code. At the current time,
-        Cactus reconfigure Log4j at init and thus will invalidate the
-        configuration of a Cactus user or that user will have to add
-        the Log4j configuration for Cactus in its own config file.
+        Move to Log4J 1.2 so that we can use the notion of Repository and not interfere with
+        the application to test if this later also uses log4j for its own logging.
       </action>
       <action assigned-to="Hudson Wong, Vincent Massol">
         Add an EJB sample application to demonstrate how to perform EJB
         unit testing (the tutorial that explains the process will be part
         of Cactus 1.2 but the inclusion of the sample will be delivered
         in a subsequent release as it involves some changes in the build
-        process).
+        process). Prerequisite: We need to move from Servlet API 2.x paradigm to the J2EE 1.x
+        paradigm (ie. move from servlet.jar to j2ee.jar - this involves a few build and
+        packaging changes).
       </action>
     </category>
+
+  </version>
+
+  <version title="Undefined">
 
     <category title="Ideas">
       <p>
@@ -169,23 +190,9 @@
         Integration to Netbeans in general and especially integration with the
         Netbeans XTest module.
       </action>
-      <action>
-        When we want to unit test classes written for the Struts framework
-        (for example), we can use Cactus to provide access to all Servlet API
-        implicit objects. However, there is still a need to get access to
-        Struts implicit objects (for example, calling the perform() method
-        of an Action class need to get hold of several Struts object
-        beforehand). A solution might be to provide some factory helper classes
-        to provide these objects. This could go in a
-        <code>org.apache.cactus.util.struts</code> package but will
-        need to be maintained and synced with Struts versions. Another solution
-        might be to host these helper classes within Struts itself. We need to
-        think about that (same issue as with Ant custom tasks - There have
-        been lengthy discussion on the subject on the Ant mailing list).
-        Another solution is to use Struts Mock Objects (could be done as part
-        of the SourceForge Mock Objects project - www.mockobjects.com).
+      <action assigned-to="Vincent Massol">
+        Evaluate the use of AspectJ for writing Cactus test cases.
       </action>
-
     </category>
 
   </version>
