@@ -94,4 +94,4 @@ httpunit.jar = ${lib.repo}/httpunit-1.4.1.jar
 #clover.enable = true
 
 # Clover jar
-#clover.jar = ${lib.repo}/clover-0.5b.jar
+#clover.jar = ${lib.repo}/clover-0.6b.jar

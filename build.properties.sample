@@ -102,7 +102,7 @@ cvs.executable = cvs
 #clover.enable = true
 
 # Clover jar
-clover.jar = ${lib.repo}/clover-0.5b.jar
+clover.jar = ${lib.repo}/clover-0.6b.jar
 
 # -----------------------------------------------------------------------------
 # Optional properties used by the build-admin.xml Ant build script only
