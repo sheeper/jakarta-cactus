@@ -113,6 +113,27 @@
           </ul>
         </li>
         <li>
+          Checkout the <code>jakarta-site2</code> CVS module. Modify the 
+          following files and then run <code>ant</code>. Commit the modified
+          files. Then log on <code>cvs.apache.org</code>, go to 
+          <code>/www/jakarta.apache.org/site</code> and type 
+          <code>cvs update</code>.
+          <ul>
+            <li>
+              <code>news.xml</code>
+            </li>
+            <li>
+              <code>binindex.xml</code>
+            </li>
+            <li>
+              <code>sourceindex.xml</code>
+            </li>
+            <li>
+              <code>index.xml</code>
+            </li>
+          </ul>
+        </li>
+        <li>
           Prepare the next version by editing again the
           <code>build-common.xml</code> file and modifying the
           <code>project.*.version</code> properties with the new development 
