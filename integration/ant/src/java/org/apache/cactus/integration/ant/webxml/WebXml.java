@@ -169,7 +169,7 @@ public class WebXml
      */
     public Document getDocument()
     {
-        return document;
+        return this.document;
     }
     
     /**
@@ -180,7 +180,7 @@ public class WebXml
      */
     public String getVersion()
     {
-        DocumentType docType = document.getDoctype();
+        DocumentType docType = this.document.getDoctype();
         if (docType != null)
         {
             String publicId = docType.getPublicId();
@@ -233,8 +233,12 @@ public class WebXml
             throw new IllegalStateException("Filter '" + theFilterName +
                 "' not defined");
         }
-        Element initParamElement = WebXmlTag.createInitParam(
-            document, theParamName, theParamValue);
+		Element initParamElement =
+		    this.document.createElement(WebXmlTag.INIT_PARAM.getTagName());
+		initParamElement.appendChild(
+		    createNestedText(WebXmlTag.PARAM_NAME, theParamName));
+		initParamElement.appendChild(
+		    createNestedText(WebXmlTag.PARAM_VALUE, theParamValue));
         filterElement.appendChild(initParamElement);
     }
     
@@ -251,8 +255,12 @@ public class WebXml
             throw new IllegalStateException("Filter '" + theFilterName +
                 "' not defined");
         }
-        Element filterMappingElement = WebXmlTag.createFilterMapping(
-            document, theFilterName, theUrlPattern);
+		Element filterMappingElement =
+		    this.document.createElement(WebXmlTag.FILTER_MAPPING.getTagName());
+		filterMappingElement.appendChild(
+		    createNestedText(WebXmlTag.FILTER_NAME, theFilterName));
+		filterMappingElement.appendChild(
+		    createNestedText(WebXmlTag.URL_PATTERN,  theUrlPattern));
         addElement(WebXmlTag.FILTER_MAPPING, filterMappingElement);
     }
     
@@ -465,8 +473,12 @@ public class WebXml
             throw new IllegalStateException("Servlet '" + theServletName +
                 "' not defined");
         }
-        Element initParamElement = WebXmlTag.createInitParam(
-            document, theParamName, theParamValue);
+		Element initParamElement =
+		    this.document.createElement(WebXmlTag.INIT_PARAM.getTagName());
+		initParamElement.appendChild(
+		    createNestedText(WebXmlTag.PARAM_NAME, theParamName));
+		initParamElement.appendChild(
+		    createNestedText(WebXmlTag.PARAM_VALUE, theParamValue));
         servletElement.appendChild(initParamElement);
     }
     
@@ -483,8 +495,12 @@ public class WebXml
             throw new IllegalStateException("Servlet '" + theServletName +
                 "' not defined");
         }
-        Element servletMappingElement = WebXmlTag.createServletMapping(
-            document, theServletName, theUrlPattern);
+		Element servletMappingElement =
+		    this.document.createElement(WebXmlTag.SERVLET_MAPPING.getTagName());
+		servletMappingElement.appendChild(
+		    createNestedText(WebXmlTag.SERVLET_NAME, theServletName));
+		servletMappingElement.appendChild(
+		    createNestedText(WebXmlTag.URL_PATTERN, theUrlPattern));
         addElement(WebXmlTag.SERVLET_MAPPING, servletMappingElement);
     }
     
@@ -739,6 +755,20 @@ public class WebXml
             throw new IllegalArgumentException("Not a '" + theExpectedTag
                 + "' element");
         }
+    }
+    
+    /**
+     * Creates an element that contains nested text.
+     * 
+     * @param theTag The tag to create an instance of
+     * @param theText The text that should be nested in the element
+     * @return The created DOM element
+     */
+    private Element createNestedText(WebXmlTag theTag, String theText)
+    {
+        Element element = this.document.createElement(theTag.getTagName());
+        element.appendChild(this.document.createTextNode(theText));
+        return element;
     }
     
     /**

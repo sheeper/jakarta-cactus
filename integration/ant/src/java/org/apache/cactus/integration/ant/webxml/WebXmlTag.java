@@ -56,12 +56,9 @@
  */
 package org.apache.cactus.integration.ant.webxml;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-
 /**
- * Class that knows about the names and order of the top-level elements in a web
- * deployment descriptor.
+ * Represents the various top-level tags in a web deployment descriptor as a 
+ * typesafe enumeration.
  * 
  * @author <a href="mailto:cmlenz@apache.org">Christopher Lenz</a>
  *
@@ -345,95 +342,6 @@ public class WebXmlTag
     public final String toString()
     {
         return getTagName();
-    }
-    
-    // Public Static Methods ---------------------------------------------------
-    
-    /**
-     * Creates a filter-mapping element initialized with the filter name and
-     * class.
-     * 
-     * @param theDocument The document for which the element should be created
-     * @param theFilterName The name of the filter
-     * @param theUrlPattern The URL-pattern to map the filter to
-     * @return A DOM element representing the filter definition
-     */
-    public static Element createFilterMapping(Document theDocument,
-        String theFilterName, String theUrlPattern)
-    {
-        Element filterMappingElement =
-            theDocument.createElement(FILTER_MAPPING.getTagName());
-        filterMappingElement.appendChild(
-            createNestedText(theDocument, FILTER_NAME.getTagName(),
-                theFilterName));
-        filterMappingElement.appendChild(
-            createNestedText(theDocument, URL_PATTERN.getTagName(),
-                theUrlPattern));
-        return filterMappingElement;
-    }
-    
-    /**
-     * Creates an init-param element initialized with the parameter name and
-     * value.
-     * 
-     * @param theDocument The document for which the element should be created
-     * @param theParamName The name of the parameter
-     * @param theParamValue The parameter value
-     * @return A DOM element representing the parameter definition
-     */
-    public static Element createInitParam(Document theDocument,
-        String theParamName, String theParamValue)
-    {
-        Element initParamElement =
-            theDocument.createElement(INIT_PARAM.getTagName());
-        initParamElement.appendChild(
-            createNestedText(theDocument, PARAM_NAME.getTagName(),
-                theParamName));
-        initParamElement.appendChild(
-            createNestedText(theDocument, PARAM_VALUE.getTagName(),
-                theParamValue));
-        return initParamElement;
-    }
-    
-    /**
-     * Creates a servlet-mapping element initialized with the servlet name and
-     * class.
-     * 
-     * @param theDocument The document for which the element should be created
-     * @param theServletName The name of the servlet
-     * @param theUrlPattern The URL-pattern to map the servlet to
-     * @return A DOM element representing the servlet definition
-     */
-    public static Element createServletMapping(Document theDocument,
-        String theServletName, String theUrlPattern)
-    {
-        Element servletMappingElement =
-            theDocument.createElement(SERVLET_MAPPING.getTagName());
-        servletMappingElement.appendChild(
-            createNestedText(theDocument, SERVLET_NAME.getTagName(),
-                theServletName));
-        servletMappingElement.appendChild(
-            createNestedText(theDocument, URL_PATTERN.getTagName(),
-                theUrlPattern));
-        return servletMappingElement;
-    }
-    
-    // Private Static Methods --------------------------------------------------
-    
-    /**
-     * Creates an element that contains nested text.
-     * 
-     * @param theDocument The document for which the element should be created
-     * @param theTagName The name of the element to create
-     * @param theText The text that should be nested in the element
-     * @return The DOM element
-     */
-    private static Element createNestedText(Document theDocument, 
-        String theTagName, String theText)
-    {
-        Element element = theDocument.createElement(theTagName);
-        element.appendChild(theDocument.createTextNode(theText));
-        return element;
     }
     
 }
