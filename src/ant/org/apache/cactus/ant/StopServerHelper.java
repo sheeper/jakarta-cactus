@@ -65,31 +65,33 @@ import org.apache.tools.ant.taskdefs.*;
  * the servlet engine to be stopped by trying to continously connect to a test
  * URL. If it succeeds it means the server is not stopped yet !
  *
- * @version @version@
+ * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
+ *
+ * @version $Id$
  */
 public class StopServerHelper implements Runnable
 {
     /**
      * The URL that is continuously pinged to verify if the server is stopped
      */
-    private URL m_TestURL;
+    private URL testURL;
 
     /**
      * The Ant target name that will stop the web server/servlet engine.
      */
-    private String m_StopTarget;
+    private String stopTarget;
 
     /**
      * The tasks that wraps around this helper class
      */
-    private Task m_Task;
+    private Task task;
 
     /**
      * @param theTask the Ant task that is calling this helper
      */
     public StopServerHelper(Task theTask)
     {
-        m_Task = theTask;
+        this.task = theTask;
     }
 
     /**
@@ -98,18 +100,20 @@ public class StopServerHelper implements Runnable
     public void execute() throws BuildException
     {
         // Verify that a test URL has been specified
-        if (m_TestURL == null) {
+        if (this.testURL == null) {
             throw new BuildException("A testURL attribute must be specified");
         }
 
         // Verify that a stop target has been specified
-        if (m_StopTarget == null) {
-            throw new BuildException("A stopTarget Ant target name must be specified");
+        if (this.stopTarget == null) {
+            throw new BuildException("A stopTarget Ant target name must be " +
+                "specified");
         }
 
         // Try connecting in case the server is already stopped.
         try {
-            HttpURLConnection connection = (HttpURLConnection)m_TestURL.openConnection();
+            HttpURLConnection connection =
+                (HttpURLConnection)this.testURL.openConnection();
             connection.connect();
             StartServerHelper.readFully(connection);
             connection.disconnect();
@@ -133,7 +137,8 @@ public class StopServerHelper implements Runnable
         while (true) {
 
             try {
-                HttpURLConnection connection = (HttpURLConnection)m_TestURL.openConnection();
+                HttpURLConnection connection =
+                    (HttpURLConnection)this.testURL.openConnection();
                 connection.connect();
                 StartServerHelper.readFully(connection);
                 connection.disconnect();
@@ -156,7 +161,7 @@ public class StopServerHelper implements Runnable
             throw new BuildException("Interruption during sleep", e);
         }
 
-        m_Task.log("Server stopped !");
+        this.task.log("Server stopped !");
 
         // We're done ... Ant will continue processing other tasks
     }
@@ -169,14 +174,14 @@ public class StopServerHelper implements Runnable
     {
         // Call the Ant target using the "antcall" task.
         CallTarget callee;
-        callee = (CallTarget)(m_Task.getProject().createTask("antcall"));
-        callee.setOwningTarget(m_Task.getOwningTarget());
-        callee.setTaskName(m_Task.getTaskName());
-        callee.setLocation(m_Task.getLocation());
+        callee = (CallTarget)(this.task.getProject().createTask("antcall"));
+        callee.setOwningTarget(this.task.getOwningTarget());
+        callee.setTaskName(this.task.getTaskName());
+        callee.setLocation(this.task.getLocation());
 
         callee.init();
 
-        callee.setTarget(m_StopTarget);
+        callee.setTarget(this.stopTarget);
         callee.execute();
     }
 
@@ -186,7 +191,7 @@ public class StopServerHelper implements Runnable
     public void setTestURL(String theTestURL)
     {
         try {
-            m_TestURL = new URL(theTestURL);
+            this.testURL = new URL(theTestURL);
         } catch (MalformedURLException e) {
             throw new BuildException("Bad URL [" + theTestURL + "]", e);
         }
@@ -197,7 +202,7 @@ public class StopServerHelper implements Runnable
      */
     public void setStopTarget(String theStopTarget)
     {
-        m_StopTarget = theStopTarget;
+        this.stopTarget = theStopTarget;
     }
 
 }

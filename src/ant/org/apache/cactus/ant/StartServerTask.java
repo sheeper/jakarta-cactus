@@ -69,21 +69,23 @@ import org.apache.tools.ant.taskdefs.*;
  *       trying to call a URL.</li>
  * </ul>.
  *
- * @version @version@
+ * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
+ *
+ * @version $Id$
  */
 public class StartServerTask extends Task
 {
     /**
      * Helper class
      */
-    private StartServerHelper m_Helper;
+    private StartServerHelper helper;
 
     /**
      * Initialization
      */
     public void init()
     {
-        m_Helper = new StartServerHelper(this);
+        this.helper = new StartServerHelper(this);
     }
 
     /**
@@ -91,7 +93,7 @@ public class StartServerTask extends Task
      */
     public void execute() throws BuildException
     {
-        m_Helper.execute();
+        this.helper.execute();
     }
 
     /**
@@ -102,7 +104,7 @@ public class StartServerTask extends Task
      */
     public void setTestURL(String theTestURL)
     {
-        m_Helper.setTestURL(theTestURL);
+        this.helper.setTestURL(theTestURL);
     }
 
     /**
@@ -113,7 +115,7 @@ public class StartServerTask extends Task
      */
     public void setStartTarget(String theStartTarget)
     {
-        m_Helper.setStartTarget(theStartTarget);
+        this.helper.setStartTarget(theStartTarget);
     }
 
 }

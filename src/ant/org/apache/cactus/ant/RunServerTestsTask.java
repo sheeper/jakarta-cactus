@@ -82,14 +82,16 @@ import org.apache.tools.ant.taskdefs.*;
  *  when this task was executed.</li>
  * </ul>
  *
- * @version @version@
+ * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
+ *
+ * @version $Id$
  */
 public class RunServerTestsTask extends Task
 {
     /**
      * the test target name.
      */
-    private String m_TestTarget;
+    private String testTarget;
 
     /**
      * The helper object used to start the server. We use a helper so that it
@@ -97,7 +99,7 @@ public class RunServerTestsTask extends Task
      * with Ant 1.3 and before there are classloaders issues with calling a 
      * custom task from another custom task. Using a helper is a workaround.
      */
-    private StartServerHelper m_StartHelper;
+    private StartServerHelper startHelper;
 
     /**
      * The helper object used to stop the server. We use a helper so that it
@@ -105,15 +107,15 @@ public class RunServerTestsTask extends Task
      * with Ant 1.3 and before there are classloaders issues with calling a 
      * custom task from another custom task. Using a helper is a workaround.
      */
-    private StopServerHelper m_StopHelper;
+    private StopServerHelper stopHelper;
 
     /**
      * Initialize the task.
      */
     public void init()
     {
-        m_StartHelper = new StartServerHelper(this);
-        m_StopHelper = new StopServerHelper(this);
+        this.startHelper = new StartServerHelper(this);
+        this.stopHelper = new StopServerHelper(this);
     }
 
     /**
@@ -127,7 +129,7 @@ public class RunServerTestsTask extends Task
         } finally {
             // Make sure we stop the server but only if it were not already
             // started before the execution of this task.
-            if (!m_StartHelper.isServerAlreadyStarted()) {
+            if (!this.startHelper.isServerAlreadyStarted()) {
                 callStop();
             }
         }
@@ -138,7 +140,7 @@ public class RunServerTestsTask extends Task
      */
     private void callStart()
     {
-        m_StartHelper.execute();
+        this.startHelper.execute();
     }
 
     /**
@@ -146,7 +148,7 @@ public class RunServerTestsTask extends Task
      */
     private void callStop()
     {
-        m_StopHelper.execute();
+        this.stopHelper.execute();
     }
 
     /**
@@ -160,7 +162,7 @@ public class RunServerTestsTask extends Task
         callee.setTaskName(getTaskName());
         callee.setLocation(location);
         callee.init();
-        callee.setTarget(m_TestTarget);
+        callee.setTarget(this.testTarget);
         callee.execute();
     }
 
@@ -171,7 +173,7 @@ public class RunServerTestsTask extends Task
      */
     public void setStartTarget(String theStartTarget)
     {
-        m_StartHelper.setStartTarget(theStartTarget);
+        this.startHelper.setStartTarget(theStartTarget);
     }
 
     /**
@@ -181,7 +183,7 @@ public class RunServerTestsTask extends Task
      */
     public void setStopTarget(String theStopTarget)
     {
-        m_StopHelper.setStopTarget(theStopTarget);
+        this.stopHelper.setStopTarget(theStopTarget);
     }
 
     /**
@@ -191,8 +193,8 @@ public class RunServerTestsTask extends Task
      */
     public void setTestURL(String theTestURL)
     {
-        m_StartHelper.setTestURL(theTestURL);
-        m_StopHelper.setTestURL(theTestURL);
+        this.startHelper.setTestURL(theTestURL);
+        this.stopHelper.setTestURL(theTestURL);
     }
 
     /**
@@ -202,7 +204,7 @@ public class RunServerTestsTask extends Task
      */
     public void setTestTarget(String theTestTarget)
     {
-        m_TestTarget = theTestTarget;
+        this.testTarget = theTestTarget;
     }
 
 }

@@ -69,33 +69,38 @@ import org.apache.tools.ant.taskdefs.*;
  *       trying to call a URL.</li>
  * </ul>.
  *
- * @version @version@
+ * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
+ *
+ * @version $Id$
  */
 public class StartServerHelper implements Runnable
 {
     /**
      * The URL that is continuously pinged to verify if the server is running.
      */
-    private URL m_TestURL;
+    private URL testURL;
 
     /**
      * The Ant target name that will start the web server/servlet engine.
      */
-    private String m_StartTarget;
+    private String startTarget;
 
     /**
      * The tasks that wraps around this helper class
      */
-    private Task m_Task;
+    private Task task;
 
     /**
      * True if the server was already started when this task is executed.
      */
-    private boolean m_IsServerAlreadyStarted = false;
+    private boolean isServerAlreadyStarted = false;
 
+    /**
+     * @return true if the server has already been started.
+     */
     public boolean isServerAlreadyStarted()
     {
-        return m_IsServerAlreadyStarted;
+        return this.isServerAlreadyStarted;
     }
 
     /**
@@ -103,7 +108,7 @@ public class StartServerHelper implements Runnable
      */
     public StartServerHelper(Task theTask)
     {
-        m_Task = theTask;
+        this.task = theTask;
     }
 
     /**
@@ -112,27 +117,29 @@ public class StartServerHelper implements Runnable
     public void execute() throws BuildException
     {
         // Verify that a test URL has been specified
-        if (m_TestURL == null) {
+        if (this.testURL == null) {
             throw new BuildException("A testURL attribute must be specified");
         }
 
         // Verify that a start target has been specified
-        if (m_StartTarget == null) {
-            throw new BuildException("A startTarget Ant target name must be specified");
+        if (this.startTarget == null) {
+            throw new BuildException("A startTarget Ant target name must " +
+                "be specified");
         }
 
         // Try connecting in case the server is already running. If so, does
         // nothing
         try {
 
-            HttpURLConnection connection = (HttpURLConnection)m_TestURL.openConnection();
+            HttpURLConnection connection =
+                (HttpURLConnection)this.testURL.openConnection();
             connection.connect();
             readFully(connection);
             connection.disconnect();
 
             // Server is already running. Record this information so that we
             // don't stop it afterwards.
-            m_IsServerAlreadyStarted = true;
+            this.isServerAlreadyStarted = true;
 
             return;
 
@@ -159,7 +166,8 @@ public class StartServerHelper implements Runnable
         while (true) {
 
             try {
-                HttpURLConnection connection = (HttpURLConnection)m_TestURL.openConnection();
+                HttpURLConnection connection =
+                    (HttpURLConnection)this.testURL.openConnection();
                 connection.connect();
                 readFully(connection);
                 connection.disconnect();
@@ -188,7 +196,8 @@ public class StartServerHelper implements Runnable
     static void readFully(HttpURLConnection connection) throws IOException
     {
         // finish reading it to prevent (harmless) server-side exceptions
-        BufferedInputStream is = new BufferedInputStream(connection.getInputStream());
+        BufferedInputStream is =
+            new BufferedInputStream(connection.getInputStream());
         byte[] buffer = new byte[256];
         while((is.read(buffer)) > 0) {}
         is.close();
@@ -202,14 +211,14 @@ public class StartServerHelper implements Runnable
     {
         // Call the Ant target using the "antcall" task.
         CallTarget callee;
-        callee = (CallTarget)(m_Task.getProject().createTask("antcall"));
-        callee.setOwningTarget(m_Task.getOwningTarget());
-        callee.setTaskName(m_Task.getTaskName());
-        callee.setLocation(m_Task.getLocation());
+        callee = (CallTarget)(this.task.getProject().createTask("antcall"));
+        callee.setOwningTarget(this.task.getOwningTarget());
+        callee.setTaskName(this.task.getTaskName());
+        callee.setLocation(this.task.getLocation());
 
         callee.init();
 
-        callee.setTarget(m_StartTarget);
+        callee.setTarget(this.startTarget);
         callee.execute();
 
         // Should never reach this point as the target is blocking, unless the
@@ -222,7 +231,7 @@ public class StartServerHelper implements Runnable
     public void setTestURL(String theTestURL)
     {
         try {
-            m_TestURL = new URL(theTestURL);
+            this.testURL = new URL(theTestURL);
         } catch (MalformedURLException e) {
             throw new BuildException("Bad URL [" + theTestURL + "]", e);
         }
@@ -233,7 +242,7 @@ public class StartServerHelper implements Runnable
      */
     public void setStartTarget(String theStartTarget)
     {
-        m_StartTarget = theStartTarget;
+        this.startTarget = theStartTarget;
     }
 
 }

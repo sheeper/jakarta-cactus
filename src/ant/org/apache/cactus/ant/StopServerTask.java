@@ -66,21 +66,23 @@ import org.apache.tools.ant.taskdefs.*;
  * when the start task was invoked, then it is not stopped when this tasks 
  * executes.
  *
- * @version @version@
+ * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
+ *
+ * @version $Id$
  */
 public class StopServerTask extends Task
 {
     /**
      * Helper class
      */
-    private StopServerHelper m_Helper;
+    private StopServerHelper helper;
 
     /**
      * Initialization
      */
     public void init()
     {
-        m_Helper = new StopServerHelper(this);
+        this.helper = new StopServerHelper(this);
     }
 
     /**
@@ -88,7 +90,7 @@ public class StopServerTask extends Task
      */
     public void execute() throws BuildException
     {
-        m_Helper.execute();
+        this.helper.execute();
     }
 
     /**
@@ -99,7 +101,7 @@ public class StopServerTask extends Task
      */
     public void setTestURL(String theTestURL)
     {
-        m_Helper.setTestURL(theTestURL);
+        this.helper.setTestURL(theTestURL);
     }
 
     /**
@@ -110,7 +112,7 @@ public class StopServerTask extends Task
      */
     public void setStopTarget(String theStopTarget)
     {
-        m_Helper.setStopTarget(theStopTarget);
+        this.helper.setStopTarget(theStopTarget);
     }
 
 }
