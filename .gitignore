@@ -20,12 +20,15 @@ documentation/dist
 documentation/docs/xdocs/cvslog/cvslog.xml
 documentation/release
 documentation/target
+framework/.classpath
+framework/.project
 framework/ant.bat
 framework/build.properties
 framework/dist-12
 framework/dist-13
 framework/release-12
 framework/release-13
+framework/target
 framework/target-12
 framework/target-13
 integration/ant/ant.bat
