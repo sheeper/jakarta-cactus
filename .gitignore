@@ -3,11 +3,6 @@
 /.classpath
 /.project
 /ant.bat
-anttasks/ant.bat
-anttasks/build.properties
-anttasks/dist
-anttasks/release
-anttasks/target
 /bin
 /build.properties
 /cactus_client.log

@@ -1,4 +1,0 @@
-This subproject contains generic Ant tasks used in other subproject builds. 
-Ideally these task should be found in the Ant project itself. Once Ant provides
-features to achieve the small goal as these task we will deprecate and remove
-them.

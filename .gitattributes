@@ -8,15 +8,6 @@
 /LICENSE.logging svn_keywords=Author+Date+Id+Revision
 /LICENSE.servletapi svn_keywords=Author+Date+Id+Revision
 /README svn_keywords=Author+Date+Id+Revision
-anttasks/.cvsignore svn_keywords=Author+Date+Id+Revision
-anttasks/README svn_keywords=Author+Date+Id+Revision
-anttasks/build.properties.sample svn_keywords=Author+Date+Id+Revision
-anttasks/build.xml svn_keywords=Author+Date+Id+Revision
-anttasks/src/java/org/apache/cactus/ant/ArgListTask.java svn_keywords=Author+Date+Id+Revision
-anttasks/src/java/org/apache/cactus/ant/ChangeLogTask.java svn_keywords=Author+Date+Id+Revision
-anttasks/src/java/org/apache/cactus/ant/CheckPropertiesTask.java svn_keywords=Author+Date+Id+Revision
-anttasks/src/java/org/apache/cactus/ant/CheckPropertyItem.java svn_keywords=Author+Date+Id+Revision
-anttasks/src/java/org/apache/cactus/ant/PropertyName.java svn_keywords=Author+Date+Id+Revision
 /build-common.xml svn_keywords=Author+Date+Id+Revision
 /build.properties.sample svn_keywords=Author+Date+Id+Revision
 /build.xml svn_keywords=Author+Date+Id+Revision
