@@ -336,8 +336,7 @@ public class CactusTask extends JUnitTask
             throw new BuildException("XML parser configuration error", e);
         }
 
-        Container[] containers = this.containerSet.getContainers();
-        if (containers.length == 0)
+        if (this.containerSet == null)
         {
             log("No containers specified, tests will run locally",
                 Project.MSG_VERBOSE);
@@ -345,6 +344,7 @@ public class CactusTask extends JUnitTask
         }
         else
         {
+            Container[] containers = this.containerSet.getContainers();
             Variable contextUrl = new Variable();
             contextUrl.setKey("cactus.contextURL");
             addSysproperty(contextUrl);
