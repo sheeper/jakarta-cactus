@@ -107,8 +107,7 @@ public abstract class AbstractTestSuite implements Test
         try
         {
             // Avoid generating multiple error messages
-            constructor = theClass.getConstructor(
-                new Class[] {String.class});
+            constructor = getTestConstructor(theClass); 
         }
         catch (NoSuchMethodException e)
         {
@@ -179,12 +178,21 @@ public abstract class AbstractTestSuite implements Test
         {
             theNames.addElement(name);
 
-            Object[] args = new Object[] {name};
             try
             {
                 // Note: We wrap the Test in a Cactus Test Case
-                addTest(new ServletTestCase(name, 
-                    (Test) theConstructor.newInstance(args)));
+                Object constructorInstance;
+                if (theConstructor.getParameterTypes().length == 0)
+                {
+                    constructorInstance = theConstructor.newInstance(
+                        new Object[0]);
+                }
+                else
+                {
+                    constructorInstance = theConstructor.newInstance(
+                        new Object[] {name});
+                }
+                addTest(new ServletTestCase(name, (Test) constructorInstance));
             }
             catch (InstantiationException e)
             {
@@ -290,6 +298,30 @@ public abstract class AbstractTestSuite implements Test
     public Test testAt(int theIndex)
     {
         return (Test) this.tests.elementAt(theIndex);
+    }
+
+    /**
+     * Gets a constructor which takes a single String as
+     * its argument or a no arg constructor.
+     * 
+     * @param theClass the class for which to find the constructor
+     * @return the valid constructor found
+     * @exception NoSuchMethodException if no valid constructor is
+     *            found
+     */
+    public static Constructor getTestConstructor(Class theClass) 
+        throws NoSuchMethodException
+    {
+        Class[] args = {String.class};
+        try
+        {
+            return theClass.getConstructor(args);   
+        }
+        catch (NoSuchMethodException e)
+        {
+            // fall through
+        }
+        return theClass.getConstructor(new Class[0]);
     }
 
     /**

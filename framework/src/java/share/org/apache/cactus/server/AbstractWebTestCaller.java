@@ -428,12 +428,22 @@ public abstract class AbstractWebTestCaller
                 Class wrappedTestClass = 
                     getTestClassClass(theWrappedClassName);
                 Constructor wrappedConstructor =
-                    wrappedTestClass.getConstructor(
-                    new Class[] {String.class});
-                Test wrappedTestInstance = 
-                    (Test) wrappedConstructor.newInstance(
-                    new Object[] {theTestCaseName});
-                    
+                    getTestClassConstructor(wrappedTestClass);
+
+                Test wrappedTestInstance;
+                if (wrappedConstructor.getParameterTypes().length == 0)
+                {
+                    wrappedTestInstance = 
+                        (Test) wrappedConstructor.newInstance(
+                        new Object[0]);                     
+                }
+                else
+                {
+                    wrappedTestInstance = 
+                        (Test) wrappedConstructor.newInstance(
+                        new Object[] {theTestCaseName});
+                }
+                                   
                 constructor = testClass.getConstructor(
                     new Class[] {String.class, Test.class});
 
