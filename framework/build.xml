@@ -490,7 +490,8 @@
             use="true"
             windowtitle="${project.name.text} ${project.version}"
             doctitle="${project.name.text} ${project.version}"
-            bottom="Copyright &amp;copy; ${year} Apache Software Foundation. All Rights Reserved.">
+            bottom="Copyright &amp;copy; ${year} Apache Software Foundation.
+                    All Rights Reserved.">
 
             <sourcepath>
                 <pathelement location="${src.java.share.dir}"/>

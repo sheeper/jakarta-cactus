@@ -178,7 +178,21 @@
          Generate the documentation (javadoc)
        ========================================================================
     -->
-    <target name="doc" depends="init" description="Generates the documentation">
+    <target name="doc.check"
+        depends="init">
+
+      <uptodate property="doc.uptodate"
+          targetfile="${target.doc.api.dir}/index.html">
+          <srcfiles dir="${src.java.dir}"
+              includes="**/*.java, **/*.html"/>
+      </uptodate>
+
+    </target>
+
+    <target name="doc"
+        depends="doc.check"
+        unless="doc.uptodate"
+        description="Generates the API documentation">
 
         <mkdir dir="${target.doc.api.dir}"/>
 
@@ -192,7 +206,8 @@
             use="true"
             windowtitle="${project.name.text} ${project.version}"
             doctitle="${project.name.text} ${project.version}"
-            bottom="Copyright &amp;copy; ${year} Apache Software Foundation. All Rights Reserved.">
+            bottom="Copyright &amp;copy; ${year} Apache Software Foundation.
+                    All Rights Reserved.">
 
         </javadoc>
 
