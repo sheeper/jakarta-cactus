@@ -377,6 +377,9 @@ public abstract class AbstractTestCase extends TestCase
         this.logger =
             LogService.getInstance().getLog(this.getClass().getName());
 
+        // Mark beginning of test on client side
+        getLogger().debug("------------- Test: " + this.currentTestMethod);
+
         // Catch the exception just to have a chance to log it
         try {
             runTest();
@@ -405,9 +408,6 @@ public abstract class AbstractTestCase extends TestCase
     protected void runGenericTest(AbstractHttpClient theHttpClient)
         throws Throwable
     {
-        // Log the test name
-        logger.debug("Test case = " + currentTestMethod);
-
         // Call the begin method to fill the request object
         WebRequest request = new WebRequest();
         callBeginMethod(request);

@@ -117,6 +117,9 @@ public class ServletTestRedirector extends HttpServlet
     public void doPost(HttpServletRequest theRequest,
         HttpServletResponse theResponse) throws ServletException, IOException
     {
+        // Mark beginning of test on server side
+        logger.debug("------------- Start Servlet service");
+
         // Create implicit object holder
         ServletImplicitObjects objects = new ServletImplicitObjects();
         objects.setHttpServletRequest(theRequest);

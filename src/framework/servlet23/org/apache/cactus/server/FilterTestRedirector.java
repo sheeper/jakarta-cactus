@@ -105,6 +105,9 @@ public class FilterTestRedirector implements Filter
         ServletResponse theResponse, FilterChain theFilterChain)
         throws IOException, ServletException
     {
+        // Mark beginning of test on server side
+        logger.debug("------------- Start Filter service");
+
         // Create implicit object holder
         FilterImplicitObjects objects = new FilterImplicitObjects();
         objects.setHttpServletRequest((HttpServletRequest)theRequest);

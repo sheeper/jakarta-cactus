@@ -92,6 +92,9 @@ public class JspTestRedirector
      */
     public void doGet(JspImplicitObjects theObjects) throws ServletException
     {
+        // Mark beginning of test on server side
+        logger.debug("------------- Start JSP service");
+
         JspTestController controller = new JspTestController();
         controller.handleRequest(theObjects);
     }
