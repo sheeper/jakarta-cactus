@@ -30,7 +30,7 @@ crimson.jar = f:/applis/jakarta-ant-1.4alpha/lib/crimson.jar
 #       comment it's home property. For example, if you don't want to run the
 #       tests on the Resin 1.2, comment the "resin.home.12" property.
 
-resin.home.12 = f:/applis/resin-1.2.s010208
+resin.home.12 = f:/applis/resin-1.2.5
 tomcat.home.32 = f:/applis/jakarta-tomcat-3.2.1
 orion.home.14 = f:/applis/orion-1.4.5
 weblogic.home.51 = e:/weblogic
