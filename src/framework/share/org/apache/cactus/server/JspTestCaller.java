@@ -63,6 +63,7 @@ import javax.servlet.http.*;
 import javax.servlet.jsp.*;
 
 import org.apache.commons.cactus.*;
+import org.apache.commons.cactus.util.log.*;
 
 /**
  * Call the test method on the server side after assigning the JSP implicit
@@ -72,6 +73,15 @@ import org.apache.commons.cactus.*;
  */
 public class JspTestCaller
 {
+    /**
+     * Initialize the logging subsystem so that it can get it's configuration
+     * details from the correct properties file. Initialization is done here
+     * as this servlet is the first point of entry to the server code.
+     */
+    static {
+        LogService.getInstance().init("/log_server.properties");
+    }
+
     /**
      * Name of the attribute in the <code>application</code> scope that will
      * hold the results of the test.
