@@ -197,7 +197,7 @@
     </target>
 
     <!-- Run Cactus Framework dist target -->
-    <target name="run.framework" depends="init">
+    <target name="run.framework" depends="init, run.anttasks">
 
         <ant target="dist" antfile="framework/build.xml"
             inheritAll="false">
@@ -247,7 +247,7 @@
 
         <!-- Clover will read this file to generate the report -->
         <property name="clover.initstring"
-            value="${target.dir}/clover-coverage.db"/>
+            location="${target.dir}/clover-coverage.db"/>
         <echo message="clover.initstring = ${clover.initstring}"/>
 
         <java classname="com.cortexeb.tools.clover.reporters.html.HtmlReporter">
