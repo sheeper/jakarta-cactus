@@ -78,7 +78,7 @@
          Compile the Cactus tests.
        ========================================================================
     -->
-    <target name="cactus.compile" description="Compile the Cactus tests">
+    <target name="cactus.compile" if="cactus.src.dir" description="Compile the Cactus tests">
 
         <mkdir dir="${target.classes.dir}"/>
 
