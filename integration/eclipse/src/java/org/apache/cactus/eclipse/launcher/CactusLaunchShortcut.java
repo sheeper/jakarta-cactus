@@ -439,21 +439,21 @@ public class CactusLaunchShortcut
     }
 
     /**
-     * @see ITestRunListener#testStarted(java.lang.String)
+     * @see ITestRunListener#testStarted(String, String)
      */
     public void testStarted(String theTestId, String theTestName)
     {
     }
 
     /**
-     * @see ITestRunListener#testEnded(java.lang.String)
+     * @see ITestRunListener#testEnded(String, String)
      */
     public void testEnded(String theTestId, String theTestName)
     {
     }
 
     /**
-     * @see ITestRunListener#testFailed (int, String, String)
+     * @see ITestRunListener#testFailed (int, String, String, String)
      */
     public void testFailed(
         int theStatus,
@@ -464,7 +464,7 @@ public class CactusLaunchShortcut
     }
 
     /**
-     * @see ITestRunListener#testTreeEntry(java.lang.String)
+     * @see ITestRunListener#testTreeEntry(String)
      */
     public void testTreeEntry(String theEntry)
     {
@@ -480,7 +480,7 @@ public class CactusLaunchShortcut
     }
 
     /**
-     * @see ITestRunListener#testReran(String, String, int, String)
+     * @see ITestRunListener#testReran(String, String, String, int, String)
      */
     public void testReran(
         String theTestId,
