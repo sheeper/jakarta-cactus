@@ -129,11 +129,17 @@ public class CactusPlugin extends AbstractUIPlugin
         return workBench.getActiveWorkbenchWindow();
     }
 
+    /**
+     * @return the plugin identifier
+     */
     public static String getPluginId()
     {
         return getDefault().getDescriptor().getUniqueIdentifier();
     }
 
+    /**
+     * @param theThrowable throwable to log
+     */
     public static void log(Throwable theThrowable)
     {
         log(
@@ -145,11 +151,17 @@ public class CactusPlugin extends AbstractUIPlugin
                 theThrowable));
     }
 
+    /**
+     * @param theStatus status to log
+     */
     public static void log(IStatus theStatus)
     {
         getDefault().getLog().log(theStatus);
     }
 
+    /**
+     * @return the current display
+     */
     public static Display getDisplay()
     {
         Shell shell = getActiveWorkbenchShell();
@@ -178,7 +190,9 @@ public class CactusPlugin extends AbstractUIPlugin
         theStore.setDefault(
             CactusPreferences.JARS_DIR,
             "D:/dev/cactus/jakarta-cactus-13-1.4b1/lib");
-        theStore.setDefault(CactusPreferences.TEMP_DIR, "D:/temp/target");
+        theStore.setDefault(CactusPreferences.TEMP_DIR, "C:/temp");
+        theStore.setDefault(CactusPreferences.TOMCAT40_DIR, "");
+        theStore.setDefault(CactusPreferences.RESIN20_DIR, "");
     }
 
     /**
@@ -189,6 +203,7 @@ public class CactusPlugin extends AbstractUIPlugin
     {
         return new GenericAntProvider(
             CactusPreferences.getContextURLPort(),
-            CactusPreferences.getTempDir());
+            CactusPreferences.getTempDir(),
+            CactusPreferences.getContainerHomes());
     }
 }

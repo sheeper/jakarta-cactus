@@ -66,9 +66,9 @@ package org.apache.cactus.eclipse.containers.ant;
 public class ContainerHome
 {
     /**
-     * the target in the ant build (e.g. "tomcat.home.40") 
+     * the target mask in the ant build (e.g. "tomcat.40") 
      */
-    private String target;
+    private String targetMask;
     /**
      * path to the container home (e.g. "c:/jakarta/tomcat40")
      */
@@ -76,27 +76,25 @@ public class ContainerHome
 
     /**
      * Constructor.
-     * @param theTarget the target in the ant build (e.g. "tomcat.home.40")
+     * @param theTargetMask the target in the ant build (e.g. "tomcat.40")
      * @param theDirectory path to the container home
      *                      (e.g. "c:/jakarta/tomcat40")
      */
-    public ContainerHome(String theTarget, String theDirectory)
+    public ContainerHome(String theTargetMask, String theDirectory)
     {
-        target = theTarget;
+        targetMask = theTargetMask;
         directory = theDirectory;
     }
 
     /**
-     * Returns the target.
-     * @return String the target
+     * @return String the target mask
      */
-    public String getTarget()
+    public String getTargetMask()
     {
-        return target;
+        return targetMask;
     }
 
     /**
-     * Returns the directory.
      * @return String the directory
      */
     public String getDirectory()

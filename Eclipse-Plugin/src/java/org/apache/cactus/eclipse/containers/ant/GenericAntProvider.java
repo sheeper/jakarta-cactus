@@ -99,26 +99,33 @@ public class GenericAntProvider implements IContainerProvider
     private String contextPath = null;
 
     /**
+     * Array containing all the information needed
+     * (target mask & container home directory)
+     * to call the scripts
+     */
+    private ContainerHome[] containerHomes;
+
+    /**
      * Constructor.
      * @param thePort the port that will be used when setting up the container
      * @param theTargetDir the directory to be used for container configuration
+     * @param theHomes ContainerHome array for container config
      */
-    public GenericAntProvider(int thePort, String theTargetDir)
+    public GenericAntProvider(
+        int thePort,
+        String theTargetDir,
+        ContainerHome[] theHomes)
     {
         port = thePort;
-        ContainerHome[] containerDirs =
-            {
-                 new ContainerHome(
-                    "tomcat.home.40",
-                    "D:/dev/jakarta-tomcat-4.1.12")};
+        containerHomes = theHomes;
         antArguments = new Vector();
         antArguments.add("-Dtest.port=" + thePort);
-        for (int i = 0; i < containerDirs.length; i++)
+        for (int i = 0; i < containerHomes.length; i++)
         {
-            ContainerHome currentContainerHome = containerDirs[i];
+            ContainerHome currentContainerHome = containerHomes[i];
             antArguments.add(
-                "-D"
-                    + currentContainerHome.getTarget()
+                "-Dhome."
+                    + currentContainerHome.getTargetMask()
                     + "="
                     + currentContainerHome.getDirectory());
         }
@@ -136,7 +143,7 @@ public class GenericAntProvider implements IContainerProvider
      */
     public void start(ContainerInfo theContainerInfo) throws CoreException
     {
-        String[] targets = { "start.all" };
+        String[] targets = getMasked("start.");
         AntRunner runner = createAntRunner(targets);
         StartServerHelper startHelper = new StartServerHelper(runner);
         URL testURL = null;
@@ -178,7 +185,7 @@ public class GenericAntProvider implements IContainerProvider
         String warPath = theDeployableObject.getPath();
         antArguments.add("-Dwar.path=" + warPath);
         antArguments.add("-Dcontext.path=" + theContextPath);
-        String[] targets = { "prepare.all" };
+        String[] targets = getMasked("prepare.");
         createAntRunner(targets).run();
 
     }
@@ -198,7 +205,7 @@ public class GenericAntProvider implements IContainerProvider
      */
     public void stop(ContainerInfo theContainerInfo) throws CoreException
     {
-        String[] targets = { "stop.all" };
+        String[] targets = getMasked("stop.");
         createAntRunner(targets).run();
     }
 
@@ -214,5 +221,20 @@ public class GenericAntProvider implements IContainerProvider
         runner.setArguments((String[]) antArguments.toArray(new String[0]));
         runner.setExecutionTargets(theTargets);
         return runner;
+    }
+
+    /**
+     * Returns a String array adding the containerHomes masks to the elements.
+     * @param thePrefix prefix to add to the mask
+     * @return String[] the masked array
+     */
+    private String[] getMasked(String thePrefix)
+    {
+        String[] result = new String[containerHomes.length];
+        for (int i = 0; i < result.length; i++)
+        {
+            result[i] = thePrefix + containerHomes[i].getTargetMask();
+        }
+        return result;
     }
 }

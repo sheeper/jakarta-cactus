@@ -7,7 +7,8 @@ import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbenchPage;
 
 /**
- * Used to find the JUnit view.
+ * Class responsible for finding the current JUnit view
+ * and for assigning it a test-run listener.
  * 
  * @author <a href="mailto:jruaux@octo.com">Julien Ruaux</a>
  * @version $Id: $
@@ -25,8 +26,8 @@ public class JUnitViewFinder implements Runnable
 
     /**
      * Constructor
-     * @param thePage the page to search
-     * @param theListener the listener to notify 
+     * @param thePage the page to search in
+     * @param theListener the listener to notify when the view is found
      */
     public JUnitViewFinder(IWorkbenchPage thePage, ITestRunListener theListener)
     {
@@ -34,7 +35,9 @@ public class JUnitViewFinder implements Runnable
         listener = theListener;
     }
     /**
-     * @see java.lang.Runnable#run()
+     * Constantly tries to get the JUnit view.
+     * When the View has been found it gets the associated
+     * RemoteTestRunner Client in order to add a listener to it.
      */
     public void run()
     {

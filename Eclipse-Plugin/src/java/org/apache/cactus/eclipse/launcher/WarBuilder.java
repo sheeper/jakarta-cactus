@@ -99,18 +99,26 @@ public class WarBuilder
      */
     private File buildFileLocation;
 
+    /**
+     * Constructor.
+     * @param theBuildFileLocation the build file for war creation
+     * @param theClassFilesDir classes to include in the war file
+     * @param theWebXML web.xml file to include in the war file
+     * @param theJarFilesDir jars to include in the war file
+     * @param theWebFilesDir web files to include in the war file
+     */
     public WarBuilder(
-        File buildFileLocation,
-        File classFilesDir,
-        File webXML,
-        File jarFilesDir,
-        File webFilesDir)
+        File theBuildFileLocation,
+        File theClassFilesDir,
+        File theWebXML,
+        File theJarFilesDir,
+        File theWebFilesDir)
     {
-        this.buildFileLocation = buildFileLocation;
-        this.classFilesDir = classFilesDir;
-        this.webXML = webXML;
-        this.jarFilesDir = jarFilesDir;
-        this.webFilesDir = webFilesDir;
+        this.buildFileLocation = theBuildFileLocation;
+        this.classFilesDir = theClassFilesDir;
+        this.webXML = theWebXML;
+        this.jarFilesDir = theJarFilesDir;
+        this.webFilesDir = theWebFilesDir;
     }
 
     /**

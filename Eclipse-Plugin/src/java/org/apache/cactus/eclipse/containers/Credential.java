@@ -57,7 +57,8 @@
 package org.apache.cactus.eclipse.containers;
 
 /**
- * Class representing credentials for container setup.
+ * Credentials (user name, password) passed to the container
+ * when performing administrative actions on it..
  * 
  * @author <a href="mailto:jruaux@octo.com">Julien Ruaux</a>
  * 

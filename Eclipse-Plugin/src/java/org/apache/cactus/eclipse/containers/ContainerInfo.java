@@ -68,7 +68,8 @@ import java.net.URL;
 public class ContainerInfo
 {
     /**
-     *
+     * @return the URL for the web application context under which the
+     *         cactus test is running. Example: http://localhost:8080/test.
      */
     private URL contextURL;
 
