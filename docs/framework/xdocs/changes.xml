@@ -96,6 +96,10 @@
     </devs>
 
     <release version="1.3 in CVS">
+      <action dev="VMA" type="fix" due-to="Aslak Hellesoy" due-to-email="aslak.hellesoy@netcom.no">
+        Corrected bug that prevented using testURL in runservertests with a URL
+        that returned nothing. Also added some verbose logs.
+      </action>
       <action dev="VMA" type="add">
         New <link href="http://jakarta.apache.org/cactus/stats/index.html">Web
         site Statistics</link> page, using Webalizer.
