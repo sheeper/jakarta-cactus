@@ -386,9 +386,17 @@ public class HttpServletRequestWrapper implements HttpServletRequest
         return m_Request.getRequestedSessionId();
     }
 
+    /**
+     * @return a wrapped request dispatcher instead of the real one, so that
+     *         forward() and include() calls will use the wrapped dispatcher
+     *         passing it the *original* request [this is needed for some
+     *         servlet engine like Tomcat 3.x which do not support the new
+     *         mechanism introduced by Servlet 2.3 Filters].
+     */
     public RequestDispatcher getRequestDispatcher(String thePath)
     {
-        return m_Request.getRequestDispatcher(thePath);
+        return new RequestDispatcherWrapper(
+            m_Request.getRequestDispatcher(thePath));
     }
 
     public Cookie[] getCookies()

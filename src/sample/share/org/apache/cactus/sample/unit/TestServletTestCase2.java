@@ -392,4 +392,16 @@ public class TestServletTestCase2 extends ServletTestCase
         fail("No cookie named 'testcookie' found");
     }
 
+    //-------------------------------------------------------------------------
+
+    /**
+     * Verify that request.getRequestDispatcher() works properly and can include
+     * another page.
+     */
+    public void testGetRequestDispatcherFromRequest() throws ServletException, IOException
+    {
+        RequestDispatcher rd = request.getRequestDispatcher("/test/test.jsp");
+        rd.include(request, response);
+    }
+
 }
