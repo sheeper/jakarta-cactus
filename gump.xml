@@ -161,7 +161,6 @@
       <depend property="aspectjrt.jar" project="aspectj" id="aspectjrt"/>
       <depend property="junit.jar" project="junit"/>
       <depend property="cactus.framework.jar" project="jakarta-cactus-framework-12"/>
-      <depend property="cactus.anttasks.jar" project="jakarta-cactus-anttasks"/>
       <depend property="httpunit.jar" project="httpunit"/>
       <depend property="nekohtml.jar" project="nekohtml" id="nekohtml"/>
       <depend property="xerces.jar" project="xml-xerces" id="parser"/>
@@ -215,7 +214,6 @@
       <depend property="aspectjrt.jar" project="aspectj" id="aspectjrt"/>
       <depend property="junit.jar" project="junit"/>
       <depend property="cactus.framework.jar" project="jakarta-cactus-framework-13"/>
-      <depend property="cactus.anttasks.jar" project="jakarta-cactus-anttasks"/>
       <depend property="httpunit.jar" project="httpunit"/>
       <depend property="nekohtml.jar" project="nekohtml" id="nekohtml"/>
       <depend property="xerces.jar" project="xml-xerces" id="parser"/>
