@@ -13,13 +13,11 @@
     <section title="Overview">
 
       <note><strong>
-        The Eclipse plugin is still experimental and is not yet delivered as
-        part of the Cactus 1.5 framework (it can be downloaded from the
-        <a href="site:downloads">Nightly build area</a>). It will be 
-        delivered in a subsequent release of Cactus as we don't consider it 
-        to be stable yet. However, we encourage you to provide us with as 
-        much feedback as possible so that it can be become stable and be 
-        included in a release.
+        The Eclipse plugin is a work in progress. In the past it was working, but
+        since we moved to the new Ant integration it has been broken. This 
+        requires a rewrite of the plugin code to fix. In the meantime, we have
+        removed the plugin download. Sorry about that. Any help will be much
+        welcome.
       </strong></note>
 
       <p>
