@@ -3,7 +3,7 @@
 <document id="eclipse_plugin">
 
   <properties>
-    <title>Architecture of the Eclipse Plugin for Cactus</title>
+    <title>Eclipse plug-in for Cactus</title>
     <authors>
       <author name="Julien Ruaux" email="jruaux@octo.com" />
     </authors>
@@ -41,8 +41,15 @@
       <ul>
         <li>
           Adds a shortcut for Cactus tests launching.
-          <figure src="images/eclipse/launchShortcut.png"
-            alt="Cactus launch shortcut" />
+          <figure src="images/eclipse/runner/launchshortcut.png"
+            alt="Cactus launch shortcut"/>
+        </li>
+      </ul>
+      <ul>
+        <li>
+          Uses the 
+          <link href="site:webapp_plugin">Webapp Eclipse plug-in</link> to
+          package a WAR file containing the web application.
         </li>
       </ul>
       <ul>
@@ -50,9 +57,8 @@
           Relies on the Eclipse Ant integration to :
           <ul>
             <li>
-              package a WAR containing the Web application
+              deploy the application
             </li>
-            <li>deploy the application</li>
             <li>
               start the container before running the tests
             </li>
@@ -63,19 +69,25 @@
         </li>
       </ul>
       <ul>
-        <p>
-          Cactus preference page
-          <figure src="images/eclipse/preferences.png"
-            alt="Cactus preference page" />
-        </p>
-        <li>Port on which the container is started.</li>
         <li>
-          Working directory where the Cactus plugin will create temporary
-          files (packaged war, container configuration files, etc).
+          Cactus preference page
+          <figure src="images/eclipse/runner/preferences.png"
+            alt="Cactus preference page" />
+	        <ul>
+		        <li>
+		          Port on which the container is started.
+		        </li>
+		        <li>
+		          Working directory where the Cactus plugin will create temporary
+		          files (packaged war, container configuration files, etc).
+		        </li>
+		        <li>
+		          Support for several containers
+			        <figure src="images/eclipse/runner/preferences_containers.png"
+			          alt="Preferences for containers" />
+		        </li>
+	        </ul>
         </li>
-        <li>Support for several containers</li>
-        <figure src="images/eclipse/preferences_containers.png"
-          alt="Preferences for containers" />
       </ul>
       <ul>
         <li>
@@ -86,8 +98,16 @@
       <ul>
         <li>
           Relies on the JUnit plug-in for test runs and result reports.
-          <figure src="images/eclipse/junit.png"
+          <figure src="images/eclipse/runner/junit.png"
             alt="JUnit plug-in" />
+        </li>
+      </ul>
+      <ul>
+        <li>
+          Cactify a Java project : adds client-side jars to a project's
+          build path.
+          <figure src="images/eclipse/runner/cactify.png"
+            alt="Cactify popup menu" />
         </li>
       </ul>
     </section>
@@ -131,7 +151,7 @@
         </ul>
         Select any Cactus test class file and select from the toolbar :
         Run As -> Cactus Test
-        <figure src="images/eclipse/launchShortcut.png"
+        <figure src="images/eclipse/runner/launchshortcut.png"
           alt="Cactus launch shortcut" />
       </p>
     </section>

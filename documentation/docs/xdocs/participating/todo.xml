@@ -216,28 +216,10 @@
         redeploy)
       </action>
       <action>
-        Add client jars in the user's project classpath (popup menu to
-        Cactify the project)
-      </action>
-      <action>
         Add a log view a la Ant plugin
       </action>
       <action>
-        Separate the war creation in a war plugin
-      </action>
-      <action>
         Separate the container start/stop/deploy feature in a separate plugin
-      </action>
-      <action>
-        Ability to Cactify a Java project :
-        <ul>
-          <li>
-            add the client-side jars to the project's build path
-          </li>
-          <li>
-            create a web application folder structure
-          </li>
-        </ul>
       </action>
       <action>
         Automate tests on the plugin

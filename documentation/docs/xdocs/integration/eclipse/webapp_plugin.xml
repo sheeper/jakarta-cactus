@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+
+<document id="eclipse_plugin">
+
+  <properties>
+    <title>Webapp Eclipse plug-in</title>
+    <authors>
+      <author name="Julien Ruaux" email="jruaux@octo.com" />
+    </authors>
+  </properties>
+
+  <body>
+    <section title="Overview">
+      <p>
+        The Webapp 
+        <link href="ext:eclipse">Eclipse</link>
+        plug-in is intended for war packaging of a web application.
+        It can only be used by another plug-in, i.e. it does not provide any action
+        to users for the moment.
+      </p>
+      <li>
+        <jump anchor="features">Features</jump>
+      </li>
+      <li>
+        <jump anchor="installation">Installation</jump>
+      </li>
+      <li>
+        <jump anchor="using">Using</jump>
+      </li>
+    </section>
+
+    <anchor id="features" />
+    <section title="Features">
+      <ul>
+        <li>
+          Provides a project property page for web application setup.
+          <figure src="images/eclipse/webapp/propertypage.png"
+            alt="Webapp property page"/>
+        </li>
+      </ul>
+      <ul>
+        <li>
+          Generates a war file containg the libraries (Jar files) and the web files
+          selected in the property page.
+        </li>
+      </ul>
+    </section>
+
+    <anchor id="installation"/>
+    <section title="Installation">
+      <section title="Requirements">
+        <p>
+          The webapp plugin requires a version of the Eclipse platform later
+          than 2.1 RC2.
+        </p>
+      </section>
+      <section title="Installation">
+        <p>
+          Uncompress the zip file and copy the
+          'org.apache.cactus.integration.eclipse_[version]' folder to your
+          Eclipse 'plugins' folder and restart Eclipse.
+        </p>
+      </section>
+      <section title="Configuration">
+        <p>
+          Select a Java project, right click and open its properties. On the page that
+          appears select the Web Application item.
+        </p>
+      </section>
+
+    </section>
+    
+    <anchor id="using" />
+    <section title="Using">
+      <p>
+        This plug-in can only be called by another plug-in. See the 
+        <link href="site:runner_plugin">Cactus runner plug-in</link> for
+        a use case.
+      </p>
+    </section>
+
+  </body>
+</document>
