@@ -46,23 +46,17 @@ junit.jar = ${lib.repo}/junit/jars/junit-3.8.1.jar
 httpunit.jar = ${lib.repo}/httpunit/jars/httpunit-1.5.3.jar
 
 # -----------------------------------------------------------------------------
-# Mandatory properties for the Eclipse plugin ant the Jetty Sample
+# Mandatory properties for the Jetty Sample
 # -----------------------------------------------------------------------------
-# The Jetty container is packaged in the Eclipse plugin and is used as the 
-# default container in which to run the Cactus tests
 
 # The location of the Jetty jar
 jetty.jar = ${lib.repo}/jetty/jars/org.mortbay.jetty-4.2.11.jar
 
-# -----------------------------------------------------------------------------
-# Mandatory properties for the Jetty Sample
-# -----------------------------------------------------------------------------
-
 # The location of the Jasper compiler jar (provided with Tomcat)
-jasperc.jar = ${lib.repo}/tomcat/jars/jasper-compiler-4.1.24.jar
+jasper-compiler.jar = ${lib.repo}/tomcat/jars/jasper-compiler-4.1.24.jar
 
 # The location of the Jasper runtime jar (provided with Tomcat)
-jasperr.jar = ${lib.repo}/tomcat/jars/jasper-runtime-4.1.24.jar
+jasper-runtime.jar = ${lib.repo}/tomcat/jars/jasper-runtime-4.1.24.jar
 
 # -----------------------------------------------------------------------------
 # Optional properties

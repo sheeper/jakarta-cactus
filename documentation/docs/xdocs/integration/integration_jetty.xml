@@ -79,8 +79,8 @@
         [...]
         <!-- Include Jetty jar and optionally Jasper jars in the classpath -->
         <pathelement location="${jetty.jar}"/>
-        <pathelement location="${jasperc.jar}"/>
-        <pathelement location="${jasperr.jar}"/>    
+        <pathelement location="${jasper-compiler.jar}"/>
+        <pathelement location="${jasper-runtime.jar}"/>    
     </classpath>
     
     <test name="org.apache.cactus.sample.TestAll"/>

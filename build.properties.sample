@@ -77,10 +77,10 @@ jetty.jar = ${lib.repo}/jetty/jars/org.mortbay.jetty-4.2.11.jar
 # -----------------------------------------------------------------------------
 
 # The location of the Jasper compiler jar (provided with Tomcat)
-jasperc.jar = ${lib.repo}/tomcat/jars/jasper-compiler-4.1.24.jar
+jasper-compiler.jar = ${lib.repo}/tomcat/jars/jasper-compiler-4.1.24.jar
 
 # The location of the Jasper runtime jar (provided with Tomcat)
-jasperr.jar = ${lib.repo}/tomcat/jars/jasper-runtime-4.1.24.jar
+jasper-runtime.jar = ${lib.repo}/tomcat/jars/jasper-runtime-4.1.24.jar
 
 # -----------------------------------------------------------------------------
 # Mandatory properties for the Eclipse plugin only

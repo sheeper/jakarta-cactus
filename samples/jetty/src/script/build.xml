@@ -100,9 +100,9 @@
       location="../../lib/@commons.httpclient.jar.name@"/>
   <property name="commons.logging.jar"
       location="../../lib/@commons.logging.jar.name@"/>
-  <property name="jasperc.jar"
+  <property name="jasper-compiler.jar"
       location="lib/@jetty.jar.name@"/>
-  <property name="jasperr.jar"
+  <property name="jasper-runtime.jar"
       location="lib/@jetty.jar.name@"/>
   <property name="jetty.jar"
       location="../../lib/@jetty.jar.name@"/>
@@ -114,8 +114,8 @@
     <pathelement location="${cactus.jar}"/>
     <pathelement location="${commons.httpclient.jar}"/>
     <pathelement location="${commons.logging.jar}"/>
-    <pathelement location="${jasperc.jar}"/>
-    <pathelement location="${jasperr.jar}"/>
+    <pathelement location="${jasper-compiler.jar}"/>
+    <pathelement location="${jasper-runtime.jar}"/>
     <pathelement location="${jetty.jar}"/>
     <pathelement location="${junit.jar}"/>
   </path>

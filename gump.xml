@@ -511,9 +511,9 @@
       <property name="project.version" value="@@DATE@@"/>
 
       <depend property="jetty.jar" project="jetty"/>
-      <depend property="jasperc.jar" project="jakarta-tomcat-4.0"
+      <depend property="jasper-compiler.jar" project="jakarta-tomcat-4.0"
         id="jasper-compiler"/>
-      <depend property="jasperr.jar" project="jakarta-tomcat-4.0"
+      <depend property="jasper-runtime.jar" project="jakarta-tomcat-4.0"
         id="jasper-runtime"/>
 
       <depend property="j2ee.jar" project="jakarta-servletapi-4"/>

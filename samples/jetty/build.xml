@@ -87,8 +87,8 @@
     <echo>  junit.jar = [${junit.jar}]</echo>
     <echo>  nekohtml.jar = [${nekohtml.jar}]</echo>
     <echo>  jetty.jar = [${jetty.jar}]</echo>
-    <echo>  jasperc.jar = [${jasperc.jar}]</echo>
-    <echo>  jasperr.jar = [${jasperr.jar}]</echo>
+    <echo>  jasper-compiler.jar = [${jasper-compiler.jar}]</echo>
+    <echo>  jasper-runtime.jar = [${jasper-runtime.jar}]</echo>
     <echo>  xerces.jar (optional) = [${xerces.jar}]</echo>
     <echo>  xmlapis.jar (optional) = [${xmlapis.jar}]</echo>
     <echo/>
@@ -105,8 +105,8 @@
         <available file="${httpunit.jar}"/>
         <available file="${j2ee.jar}"/>
         <available file="${jetty.jar}"/>
-        <available file="${jasperc.jar}"/>
-        <available file="${jasperr.jar}"/>
+        <available file="${jasper-compiler.jar}"/>
+        <available file="${jasper-runtime.jar}"/>
         <available file="${junit.jar}"/>
         <available file="${nekohtml.jar}"/>
         <!-- Check for a JAXP class instead of the xmlapis.jar file so that
@@ -163,30 +163,36 @@ be resolved. Please check you build.properties file, and run Ant with the
     <mkdir dir="${target.sample.lib.dir}"/>
     <copy todir="${target.sample.lib.dir}">
       <fileset file="${jetty.jar}"/>
-      <fileset file="${jasperr.jar}"/>
-      <fileset file="${jasperc.jar}"/>
+      <fileset file="${jasper-runtime.jar}"/>
+      <fileset file="${jasper-compiler.jar}"/>
     </copy>
 
     <!-- Copy build file -->
-    <filter token="cactus.jar.name" value="${cactus.jar.name}"/>
+    <filter token="cactus.jar.name" value="${cactus.jar.name}.jar"/>
     <basename property="servlet.jar.name" file="${j2ee.jar}"/>
     <filter token="servlet.jar.name" value="${servlet.jar.name}"/>
     <basename property="junit.jar.name" file="${junit.jar}"/>
     <filter token="junit.jar.name" value="${junit.jar.name}"/>
-    <basename property="commons.logging.jar.name" file="${commons.logging.jar}"/>
-    <filter token="commons.logging.jar.name" value="${commons.logging.jar.name}"/>
-    <basename property="commons.httpclient.jar.name" file="${commons.httpclient.jar}"/>
-    <filter token="commons.httpclient.jar.name" value="${commons.httpclient.jar.name}"/>
+    <basename property="commons.logging.jar.name"
+        file="${commons.logging.jar}"/>
+    <filter token="commons.logging.jar.name"
+        value="${commons.logging.jar.name}"/>
+    <basename property="commons.httpclient.jar.name"
+        file="${commons.httpclient.jar}"/>
+    <filter token="commons.httpclient.jar.name"
+        value="${commons.httpclient.jar.name}"/>
     <basename property="aspectjrt.jar.name" file="${aspectjrt.jar}"/>
     <filter token="aspectjrt.jar.name" value="${aspectjrt.jar.name}"/>
     <basename property="httpunit.jar.name" file="${httpunit.jar}"/>
     <filter token="httpunit.jar.name" value="${httpunit.jar.name}"/>
     <basename property="jetty.jar.name" file="${jetty.jar}"/>
     <filter token="jetty.jar.name" value="${jetty.jar.name}"/>
-    <basename property="jasperc.jar.name" file="${jasperc.jar}"/>
-    <filter token="jasperc.jar.name" value="${jasperc.jar.name}"/>
-    <basename property="jasperr.jar.name" file="${jasperr.jar}"/>
-    <filter token="jasperr.jar.name" value="${jasperr.jar.name}"/>
+    <basename property="jasper-compiler.jar.name"
+        file="${jasper-compiler.jar}"/>
+    <filter token="jasper-compiler.jar.name"
+        value="${jasper-compiler.jar.name}"/>
+    <basename property="jasper-runtime.jar.name" file="${jasper-runtime.jar}"/>
+    <filter token="jasper-runtime.jar.name" value="${jasper-runtime.jar.name}"/>
     <copy todir="${target.sample.dir}" filtering="on">
       <fileset dir="${src.script.dir}"/>
     </copy>
