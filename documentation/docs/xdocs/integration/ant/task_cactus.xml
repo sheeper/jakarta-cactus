@@ -31,7 +31,6 @@
         <li>Orion Application Server 1.x</li>
         <li>Orion Application Server 2.x</li>
         <li>Resin Server 2.x</li>
-        <li>Bea WebLogic Server 7.x</li>
       </ul>
     </p>
 
@@ -136,63 +135,11 @@
 
       <p>
         All elements nested in the <strong>containerset</strong> element
-        represent specific containers. As all these container element derive
-        from a common base, there are a couple of attribute and nested elements
-        that apply to all.
+        represent specific containers.
       </p>
 
-      <section title="Parameters">
-
-        <p>
-          Every container element supports the following parameters:
-        </p>
-
-        <table>
-          <tr>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Required</th>
-          </tr>
-          <tr>
-            <td>if</td>
-            <td>
-              Tests will only be run in the container if a property of the
-              given name exists in the current project
-            </td>
-            <td>No</td>
-          </tr>
-          <tr>
-            <td>unless</td>
-            <td>
-              Tests will only be run in the container if a property of the
-              given name doesn't exist in the current project
-            </td>
-            <td>No</td>
-          </tr>
-        </table>
-
-      </section>
-
-      <section title="Nested Elements">
-
-        <p>
-          Every container supports the following nested elements:
-        </p>
-
-        <section title="exclude">
-
-          <p>
-            Multiple <strong>exclude</strong> elements can be used as in
-            standard Ant PatternSets or FileSets to exclude specific tests
-            from running in the container.
-          </p>
-
-        </section>
-
-      </section>
-
       <p>
-        Specific container elements provide more attributes and nested elements
+        Specific container elements provide attributes and nested elements
         as appropriate.
       </p>
 
@@ -219,6 +166,22 @@
               </td>
               <td>No, default is 8080</td>
             </tr>
+            <tr>
+              <td>if</td>
+              <td>
+                Tests will only be run in the container if a property of the
+                given name exists in the current project
+              </td>
+              <td>No</td>
+            </tr>
+            <tr>
+              <td>unless</td>
+              <td>
+                Tests will only be run in the container if a property of the
+                given name doesn't exist in the current project
+              </td>
+              <td>No</td>
+            </tr>
           </table>
 
         </section>
@@ -229,6 +192,16 @@
             The <strong>generic</strong> container supports the following nested
             elements:
           </p>
+
+          <section title="exclude">
+
+            <p>
+              Multiple <strong>exclude</strong> elements can be used as in
+              standard Ant PatternSets or FileSets to exclude specific tests
+              from running in the container.
+            </p>
+
+          </section>
 
           <section title="startup">
 
@@ -305,7 +278,42 @@
               </td>
               <td>No, default is <em>false</em></td>
             </tr>
+            <tr>
+              <td>if</td>
+              <td>
+                Tests will only be run in the container if a property of the
+                given name exists in the current project
+              </td>
+              <td>No</td>
+            </tr>
+            <tr>
+              <td>unless</td>
+              <td>
+                Tests will only be run in the container if a property of the
+                given name doesn't exist in the current project
+              </td>
+              <td>No</td>
+            </tr>
           </table>
+
+        </section>
+
+        <section title="Nested Elements">
+
+          <p>
+            The <strong>jboss3x</strong> container supports the following
+            nested elements:
+          </p>
+
+          <section title="exclude">
+
+            <p>
+              Multiple <strong>exclude</strong> elements can be used as in
+              standard Ant PatternSets or FileSets to exclude specific tests
+              from running in the container.
+            </p>
+
+          </section>
 
         </section>
 
@@ -356,7 +364,42 @@
               </td>
               <td>No, default is <em>false</em></td>
             </tr>
+            <tr>
+              <td>if</td>
+              <td>
+                Tests will only be run in the container if a property of the
+                given name exists in the current project
+              </td>
+              <td>No</td>
+            </tr>
+            <tr>
+              <td>unless</td>
+              <td>
+                Tests will only be run in the container if a property of the
+                given name doesn't exist in the current project
+              </td>
+              <td>No</td>
+            </tr>
           </table>
+
+        </section>
+
+        <section title="Nested Elements">
+
+          <p>
+            The <strong>orion1x</strong> container supports the following
+            nested elements:
+          </p>
+
+          <section title="exclude">
+
+            <p>
+              Multiple <strong>exclude</strong> elements can be used as in
+              standard Ant PatternSets or FileSets to exclude specific tests
+              from running in the container.
+            </p>
+
+          </section>
 
         </section>
 
@@ -407,7 +450,42 @@
               </td>
               <td>No, default is <em>false</em></td>
             </tr>
+            <tr>
+              <td>if</td>
+              <td>
+                Tests will only be run in the container if a property of the
+                given name exists in the current project
+              </td>
+              <td>No</td>
+            </tr>
+            <tr>
+              <td>unless</td>
+              <td>
+                Tests will only be run in the container if a property of the
+                given name doesn't exist in the current project
+              </td>
+              <td>No</td>
+            </tr>
           </table>
+
+        </section>
+
+        <section title="Nested Elements">
+
+          <p>
+            The <strong>orion2x</strong> container supports the following
+            nested elements:
+          </p>
+
+          <section title="exclude">
+
+            <p>
+              Multiple <strong>exclude</strong> elements can be used as in
+              standard Ant PatternSets or FileSets to exclude specific tests
+              from running in the container.
+            </p>
+
+          </section>
 
         </section>
 
@@ -465,7 +543,42 @@
               </td>
               <td>No, default is <em>false</em></td>
             </tr>
+            <tr>
+              <td>if</td>
+              <td>
+                Tests will only be run in the container if a property of the
+                given name exists in the current project
+              </td>
+              <td>No</td>
+            </tr>
+            <tr>
+              <td>unless</td>
+              <td>
+                Tests will only be run in the container if a property of the
+                given name doesn't exist in the current project
+              </td>
+              <td>No</td>
+            </tr>
           </table>
+
+        </section>
+
+        <section title="Nested Elements">
+
+          <p>
+            The <strong>resin2x</strong> container supports the following
+            nested elements:
+          </p>
+
+          <section title="exclude">
+
+            <p>
+              Multiple <strong>exclude</strong> elements can be used as in
+              standard Ant PatternSets or FileSets to exclude specific tests
+              from running in the container.
+            </p>
+
+          </section>
 
         </section>
 
@@ -523,6 +636,22 @@
               </td>
               <td>No, default is <em>false</em></td>
             </tr>
+            <tr>
+              <td>if</td>
+              <td>
+                Tests will only be run in the container if a property of the
+                given name exists in the current project
+              </td>
+              <td>No</td>
+            </tr>
+            <tr>
+              <td>unless</td>
+              <td>
+                Tests will only be run in the container if a property of the
+                given name doesn't exist in the current project
+              </td>
+              <td>No</td>
+            </tr>
           </table>
 
         </section>
@@ -541,6 +670,16 @@
               should be placed into the <code>conf</code> directory of the
               installation directory. This fileset should not include the
               <code>serverxml</code> file.
+            </p>
+
+          </section>
+
+          <section title="exclude">
+
+            <p>
+              Multiple <strong>exclude</strong> elements can be used as in
+              standard Ant PatternSets or FileSets to exclude specific tests
+              from running in the container.
             </p>
 
           </section>
@@ -601,6 +740,22 @@
               </td>
               <td>No, default is <em>false</em></td>
             </tr>
+            <tr>
+              <td>if</td>
+              <td>
+                Tests will only be run in the container if a property of the
+                given name exists in the current project
+              </td>
+              <td>No</td>
+            </tr>
+            <tr>
+              <td>unless</td>
+              <td>
+                Tests will only be run in the container if a property of the
+                given name doesn't exist in the current project
+              </td>
+              <td>No</td>
+            </tr>
           </table>
 
         </section>
@@ -619,6 +774,16 @@
               should be placed into the <code>conf</code> directory of the
               installation directory. This fileset should not include the
               <code>serverxml</code> file.
+            </p>
+
+          </section>
+
+          <section title="exclude">
+
+            <p>
+              Multiple <strong>exclude</strong> elements can be used as in
+              standard Ant PatternSets or FileSets to exclude specific tests
+              from running in the container.
             </p>
 
           </section>
@@ -679,6 +844,22 @@
               </td>
               <td>No, default is <em>false</em></td>
             </tr>
+            <tr>
+              <td>if</td>
+              <td>
+                Tests will only be run in the container if a property of the
+                given name exists in the current project
+              </td>
+              <td>No</td>
+            </tr>
+            <tr>
+              <td>unless</td>
+              <td>
+                Tests will only be run in the container if a property of the
+                given name doesn't exist in the current project
+              </td>
+              <td>No</td>
+            </tr>
           </table>
 
         </section>
@@ -697,6 +878,16 @@
               should be placed into the <code>conf</code> directory of the
               installation directory. This fileset should not include the
               <code>serverxml</code> file.
+            </p>
+
+          </section>
+
+          <section title="exclude">
+
+            <p>
+              Multiple <strong>exclude</strong> elements can be used as in
+              standard Ant PatternSets or FileSets to exclude specific tests
+              from running in the container.
             </p>
 
           </section>
