@@ -60,7 +60,8 @@
     -->
 	<property name="src.dir" value="${base.dir}/src"/>
 	<property name="src.java.dir" value="${src.dir}/java"/>
-
+	<property name="src.scripts.dir" value="${src.dir}/scripts"/>
+	
     <!--
        ========================================================================
          Set the properties related to the target area
@@ -242,6 +243,9 @@
 		</copy>
         <copy todir="${dist.dir}/ant">
             <fileset dir="${petals.ant.dir}/dist-${j2ee.api}/"/>
+        </copy>
+        <copy todir="${dist.dir}/ant">
+            <fileset dir="${src.scripts.dir}"/>
         </copy>
         <copy todir="${dist.dir}/web">
             <fileset dir="${framework.dir}/dist-${j2ee.api}/web"/>
