@@ -62,6 +62,9 @@
           <jump anchor="faq12">Why do I get an HttpClient NoSuchMethodError when 
           running Cactus tests with JBoss 3.x?</jump>
         </li>
+        <li>
+          <jump anchor="faq13">Does Cactus work with load-balancers?</jump>
+        </li>
       </ul>
     </section>
 
@@ -518,6 +521,18 @@ java.lang.NoSuchMethodError:
         </p>
       </section>
 	</section>
+
+    <anchor id="faq13"/>
+    <section title="Does Cactus work with load-balancers?">
+      <p>
+        Answer: No. For each test, Cactus performs 2 HTTP connections to the
+        Server side: one for executing the test and one to get the test
+        result. The test result is stored in the application scope
+        (Servlet context). Thus, if the load-balancer directs the second
+        HTTP connection to another server instance, the test result will
+        not be correct.
+      </p>
+    </section>
 
   </body>
 </document>
