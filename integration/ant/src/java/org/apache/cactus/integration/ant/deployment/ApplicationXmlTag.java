@@ -54,7 +54,7 @@
  * <http://www.apache.org/>.
  *
  */
-package org.apache.cactus.integration.ant.applicationxml;
+package org.apache.cactus.integration.ant.deployment;
 
 /**
  * Represents the various top-level tags in a enterprise application deployment
