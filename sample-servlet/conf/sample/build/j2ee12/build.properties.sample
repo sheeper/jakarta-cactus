@@ -31,10 +31,10 @@ aspectjrt.jar = ../lib/aspectjrt.jar
 
 # The location of the log4j jar (optional). Only needed if you want Cactus to
 # generate logs
-log4j.jar = ../lib/log4j.jar
+log4j.jar = ../lib/log4j-1.2rc1.jar
 
 # The location of the Commons Httpclient jar
-commons.httpclient.jar = ../lib/commons-httpclient.jar
+commons.httpclient.jar = ../lib/commons-httpclient-20020421.jar
 
 # The location of the Junit jar
 junit.jar = ../lib/junit.jar
@@ -62,6 +62,11 @@ httpunit.jar = ../lib/httpunit.jar
 #tomcat.home.33 = c:/Apps/jakarta-tomcat-3.3.1
 #orion.home.15 = c:/Apps/orion-1.5.4
 #weblogic.home.51 = xxx
+#tomcat.home.40 = c:/Apps/jakarta-tomcat-4.0.3
+
+# Note: weblogic.home.61 is the location of BEA Home and NOT the location of
+# wlserver6.1, inside the bea home directory.
+#weblogic.home.61 = c:/Apps/bea
 
 # Note: Enhydra 3.3.1 does not seem to support BASIC authentication as defined
 # in the Servlet spec. and thus the tests which involve security are failing.
