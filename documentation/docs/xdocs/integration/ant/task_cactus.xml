@@ -161,6 +161,14 @@
               <th>Required</th>
             </tr>
             <tr>
+              <td>name</td>
+              <td>
+                A name for the container that is displayed when the tests are
+                run.
+              </td>
+              <td>No</td>
+            </tr>
+            <tr>
               <td>port</td>
               <td>
                 The TCP port that the container should listen to
@@ -970,15 +978,16 @@
     <section title="Examples">
 
       <p>
-        The following example demonstrates the simplest-possible use of the
-        task.
+        The following example demonstrates how to run a suite of Cactus tests
+        against three contains with builtin support (JBoss 3, Resin 2 and
+        Tomcat 4).
       </p>
 
       <source><![CDATA[
-<cactus warfile="${test.dir}/test.war" printsummary="yes"
-    haltonfailure="no" failureproperty="tests.failed">
+<cactus warfile="${test.dir}/test.war"
+    printsummary="yes" failureproperty="tests.failed">
   <classpath>
-    <path refid="cactus.runtime.classpath"/>
+    <path refid="cactus.classpath"/>
     <pathelement location="${build.classes.dir}"/>
     <pathelement location="${test.classes.dir}"/>
   </classpath>
@@ -989,6 +998,42 @@
         todir="${test.reports.dir}/resin2x"/>
     <tomcat4x dir="${tomcat4x.home}" port="8080"
         todir="${test.reports.dir}/tomcat4x"/>
+  </containerset>
+  <formatter type="xml"/>
+  <batchtest>
+    <fileset dir="${src.test.dir}">
+      <include name="**/Test*.java"/>
+      <exclude name="**/TestAll.java"/>
+    </fileset>
+  </batchtest>
+</cactus>
+]]></source>
+
+      <p>
+        The next example shows the use of the <strong>generic</strong>
+        container element for starting/stopping a custom container. You need
+        to define the two targets <em>mycontainer.start</em> and
+        <em>mycontainer.stop</em>, so that the container is started up (on 
+        port 8080) before the tests are run, and shut down after the tests
+        completed. How these targets are implemented is highly dependant on
+        the container. Most likely you'll need to copy some files and use
+        the <strong>&lt;java&gt;</strong> task to invoke a container-provided
+        Java class that can start/stop the container.
+      </p>
+
+      <source><![CDATA[
+<cactus warfile="${test.dir}/test.war"
+    printsummary="yes" failureproperty="tests.failed">
+  <classpath>
+    <path refid="cactus.runtime.classpath"/>
+    <pathelement location="${build.classes.dir}"/>
+    <pathelement location="${test.classes.dir}"/>
+  </classpath>
+  <containerset>
+    <generic name="My Container" port="8080">
+      <startup target="mycontainer.start"/>
+      <shutdown target="mycontainer.stop"/>
+    </generic>
   </containerset>
   <formatter type="xml"/>
   <batchtest>
