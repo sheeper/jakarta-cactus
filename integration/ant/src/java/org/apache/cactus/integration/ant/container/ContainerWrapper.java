@@ -98,14 +98,6 @@ public class ContainerWrapper implements Container
     // AbstractContainer Implementation ----------------------------------------
 
     /**
-     * @see org.apache.cactus.integration.ant.container.Container#getContextPath
-     */
-    public String getContextPath()
-    {
-        return this.container.getContextPath();
-    }
-
-    /**
      * @see org.apache.cactus.integration.ant.container.Container#getName
      */
     public String getName()

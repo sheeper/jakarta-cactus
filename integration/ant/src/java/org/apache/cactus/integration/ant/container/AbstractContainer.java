@@ -189,20 +189,6 @@ public abstract class AbstractContainer extends ProjectComponent
     // Container Implementation ------------------------------------------------
 
     /**
-     * @see org.apache.cactus.integration.ant.container.Container#getContextPath
-     */
-    public final String getContextPath()
-    {
-        String contextPath = getDeployableFile().getName();
-        int extensionIndex = contextPath.lastIndexOf(".war");
-        if (extensionIndex > 0)
-        {
-            contextPath = contextPath.substring(0, extensionIndex);
-        }
-        return contextPath;
-    }
-
-    /**
      * @see org.apache.cactus.integration.ant.container.Container#getToDir
      */
     public final File getToDir()
@@ -323,7 +309,8 @@ public abstract class AbstractContainer extends ProjectComponent
      * container configuration files to the temporary directory from which the
      * container is started. The default filter chain replaces all occurences
      * of @cactus.port@ with the TCP port of the container, and all occurences
-     * of @cactus.context@ with the web-application's context path.
+     * of @cactus.context@ with the web-application's context path (if the
+     * deployable file is a web-app).
      * 
      * @return The default filter chain
      */
@@ -331,18 +318,23 @@ public abstract class AbstractContainer extends ProjectComponent
     {
         ReplaceTokens.Token token = null;
         FilterChain filterChain = new FilterChain();
-        ReplaceTokens replaceContext = new ReplaceTokens();
-        token = new ReplaceTokens.Token();
-        token.setKey("cactus.context");
-        token.setValue(getContextPath());
-        replaceContext.addConfiguredToken(token);
-        filterChain.addReplaceTokens(replaceContext);
         ReplaceTokens replacePort = new ReplaceTokens();
         token = new ReplaceTokens.Token();
         token.setKey("cactus.port");
         token.setValue(String.valueOf(getPort()));
         replacePort.addConfiguredToken(token);
         filterChain.addReplaceTokens(replacePort);
+        if (isWar(getDeployableFile()))
+        {
+            ReplaceTokens replaceContext = new ReplaceTokens();
+            token = new ReplaceTokens.Token();
+            token.setKey("cactus.context");
+            String contextPath = getDeployableFile().getName();
+            contextPath = contextPath.substring(0, contextPath.length() - 4); 
+            token.setValue(contextPath);
+            replaceContext.addConfiguredToken(token);
+            filterChain.addReplaceTokens(replaceContext);
+        }
         return filterChain;
     }
 
@@ -402,6 +394,29 @@ public abstract class AbstractContainer extends ProjectComponent
     protected final File getDeployableFile()
     {
         return this.deployableFile;
+    }
+
+    /**
+     * Returns whether the deployable file is an enterprise application archive
+     * (EAR).
+     * 
+     * @param theDeployableFile The deployable file to check
+     * @return <code>true</code> if the deployable file is a EAR
+     */
+    protected final boolean isEar(File theDeployableFile)
+    {
+        return theDeployableFile.getName().toLowerCase().endsWith(".ear");
+    }
+
+    /**
+     * Returns whether the deployable file is a web-app archive (WAR).
+     * 
+     * @param theDeployableFile The deployable file to check
+     * @return <code>true</code> if the deployable file is a WAR
+     */
+    protected final boolean isWar(File theDeployableFile)
+    {
+        return theDeployableFile.getName().toLowerCase().endsWith(".war");
     }
 
     // Private Methods ---------------------------------------------------------

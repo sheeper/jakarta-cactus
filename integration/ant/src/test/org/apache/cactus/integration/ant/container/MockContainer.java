@@ -124,14 +124,6 @@ public class MockContainer implements Container
     // Container Implementation ------------------------------------------------
 
     /**
-     * @see org.apache.cactus.integration.ant.container.Container#getContextPath()
-     */
-    public String getContextPath()
-    {
-        return null;
-    }
-
-    /**
      * @see org.apache.cactus.integration.ant.container.Container#getName()
      */
     public String getName()

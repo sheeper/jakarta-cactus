@@ -76,13 +76,6 @@ public interface Container
     // Public Methods ----------------------------------------------------------
 
     /**
-     * Returns the context path of the web-application.
-     * 
-     * @return The context path
-     */
-    String getContextPath();
-
-    /**
      * Returns a displayable name of the container for logging purposes.
      * 
      * @return The container name

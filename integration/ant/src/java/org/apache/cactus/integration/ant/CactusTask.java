@@ -289,11 +289,18 @@ public class CactusTask extends JUnitTask
 
         // Open the archive as JAR file and extract the deployment descriptor
         WarArchive war = null;
+        String contextPath = null;
         try
         {
             if (this.warFile != null)
             {
                 war = new WarArchive(this.warFile);
+                contextPath = this.warFile.getName();
+                int warIndex = contextPath.toLowerCase().lastIndexOf(".war");
+                if (warIndex >= 0)
+                {
+                    contextPath = contextPath.substring(0, warIndex);
+                }
             }
             else
             {
@@ -310,6 +317,8 @@ public class CactusTask extends JUnitTask
                     throw new BuildException("Could not find the WAR " + webUri
                         + " in the EAR");
                 }
+                contextPath =
+                    ear.getApplicationXml().getWebModuleContextRoot(webUri);
             }
             addRedirectorNameProperties(war);
         }
@@ -358,8 +367,8 @@ public class CactusTask extends JUnitTask
                         Project.MSG_INFO);
                     contextUrl.setValue(
                         "http://localhost:" + containers[i].getPort() + "/"
-                        + containers[i].getContextPath());
-                    executeInContainer(containers[i], war);
+                        + contextPath);
+                    executeInContainer(containers[i], war, contextPath);
                 }
             }
         }
@@ -485,8 +494,11 @@ public class CactusTask extends JUnitTask
      * 
      * @param theContainer The container to run the tests against
      * @param theWar The web-app archive
+     * @param theContextPath The context path to which the test web-app will be
+     *        deployed
      */
-    private void executeInContainer(Container theContainer, WarArchive theWar)
+    private void executeInContainer(Container theContainer, WarArchive theWar,
+        String theContextPath)
     {
         log("Starting up container", Project.MSG_VERBOSE);
         ContainerRunner runner = new ContainerRunner(theContainer);
@@ -495,8 +507,7 @@ public class CactusTask extends JUnitTask
         {
             URL url =
                 new URL("http", "localhost", theContainer.getPort(), "/"
-                + theContainer.getContextPath()
-                + getServletRedirectorMapping(theWar)
+                + theContextPath + getServletRedirectorMapping(theWar)
                 + "?Cactus_Service=RUN_TEST");
             runner.setUrl(url);
             if (this.containerSet.getTimeout() > 0)
