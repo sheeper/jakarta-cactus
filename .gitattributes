@@ -232,6 +232,7 @@ framework/src/java/share/org/apache/cactus/configuration/WebConfiguration.java s
 framework/src/java/share/org/apache/cactus/package.html svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/server/AbstractHttpServletRequestWrapper.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/server/AbstractPageContextWrapper.java svn_keywords=Author+Date+Id+Revision
+framework/src/java/share/org/apache/cactus/server/AbstractServletConfigWrapper.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/server/AbstractServletContextWrapper.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/server/AbstractWebImplicitObjects.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share/org/apache/cactus/server/AbstractWebTestCaller.java svn_keywords=Author+Date+Id+Revision
