@@ -8,6 +8,9 @@
   <body>
 
     <release version="1.7dev" date="in CVS">
+      <action dev="felipeal" type="update" issue="CACTUS-139">
+        Cactus now uses <code>HttpUnit 1.6</code>.
+      </action>
       <action dev="felipeal" type="update" issue="CACTUS-137">
         Plugin is now buildable withouth any manual intervention.
       </action>

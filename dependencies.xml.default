@@ -22,7 +22,7 @@
   <commons.logging project="commons-logging"
       artifact="commons-logging" version="1.0.3"/>
   <httpunit project="httpunit"
-      artifact="httpunit" version="1.5.4"/>
+      artifact="httpunit" version="1.6"/>
   <j2ee.13 project="jboss"
      artifact="jboss-j2ee" version="3.2.3"/>
   <j2ee.14 project="jboss"
@@ -44,7 +44,7 @@
   <mockobjects project="mockobjects"
      artifact="mockobjects-core" version="0.09"/>
   <nekohtml project="nekohtml"
-      artifact="nekohtml" version="0.8.1"/>
+      artifact="nekohtml" version="0.9.1"/>
   <regexp project="regexp"
       artifact="regexp" version="1.3"/>
   <servlet.22 project="servletapi"
@@ -56,7 +56,7 @@
   <standard project="taglibs"
      artifact="standard" version="1.0.2"/>
   <xerces project="xerces"
-      artifact="xercesImpl" version="2.4.0"/>
-  <xmlapis project="xml-apis"
-      artifact="xml-apis" version="2.0.2"/>
+      artifact="xercesImpl" version="2.6.2"/>
+  <xmlapis project="xerces"
+      artifact="xmlParserAPIs" version="2.2.1"/>
 </dependencies>
