@@ -1,6 +1,6 @@
 
 	<!-- Global properties -->
-    <property name="conf.jboss3x.dir" value="${conf.dir}/jboss3x"/>
+    <property name="cactus.conf.jboss3x" value="${cactus.conf.dir}/jboss3x"/>
     <property name="cactus.target.jboss3x" value="${cactus.target.dir}/jboss3x"/>
 
     <!-- 
@@ -17,7 +17,7 @@
              The container is stopped if the tests fail for any reason -->
 
         <runservertests
-            testURL="http://localhost:${cactus.port}/test/ServletRedirector?Cactus_Service=RUN_TEST"
+            testURL="http://localhost:${cactus.port}/${cactus.context}/ServletRedirector?Cactus_Service=RUN_TEST"
             startTarget="cactus.start.jboss3x"
             stopTarget="cactus.stop.jboss3x"
             testTarget="cactus.test"/>
@@ -34,13 +34,13 @@
 
 		<dirname property="antfile.dir" file="${ant.file}"/>
 
-        <java classname="org.jboss.Main" fork="yes">
+        <java jvm="${cactus.jvm}" classname="org.jboss.Main" fork="yes">
 
             <jvmarg value="-Dprogram.name=${cactus.home.jboss3x}/bin/run.bat"/>
-            <jvmarg value="-Djboss.server.home.dir=${cactus.target.jboss3x}/server/cactus"/>
-            <jvmarg value="-Djboss.server.home.url=file:/${cactus.target.jboss3x}/server/cactus"/>
+            <jvmarg value="-Djboss.server.home.dir=${cactus.home.jboss3x}/server/default"/>
+            <jvmarg value="-Djboss.server.home.url=file:/${cactus.home.jboss3x}/server/default"/>
             
-            <arg line="-c cactus"/>
+            <arg line="-c default"/>
             
             <classpath>
                 <pathelement location="${cactus.home.jboss3x}/bin/run.jar"/>
@@ -59,7 +59,7 @@
     <target name="cactus.stop.jboss3x" description="Stop JBoss 3.x"
         depends="cactus.check.jboss3x" if="cactus.home.jboss3x">
 
-        <java classname="org.jboss.Shutdown" fork="yes">
+        <java jvm="${cactus.jvm}" classname="org.jboss.Shutdown" fork="yes">
 
             <arg value="localhost"/>
             <arg value="${cactus.port}"/>
@@ -102,20 +102,20 @@
 		     configured to allow this?). -->
 		    
         <!-- Copy the webapp -->
-		<mkdir dir="${cactus.target.jboss3x}/tmp/test"/>
-		<copy todir="${cactus.target.jboss3x}/tmp/test">
-			<fileset dir="${cactus.target.dir}/test"/>
+		<mkdir dir="${cactus.target.jboss3x}/tmp/${cactus.context}"/>
+		<copy todir="${cactus.target.jboss3x}/tmp/${cactus.context}">
+			<fileset dir="${cactus.target.dir}/${cactus.context}"/>
 		</copy>
 
         <!-- Add the JBoss specific configuration files -->
-		<copy todir="${cactus.target.jboss3x}/tmp/test/WEB-INF/classes">
-            <fileset dir="${conf.jboss3x.dir}">
+		<copy todir="${cactus.target.jboss3x}/tmp/${cactus.context}/WEB-INF/classes">
+            <fileset dir="${cactus.conf.jboss3x}">
                 <include name="*.properties"/>
             </fileset>
         </copy>
 
-		<jar destfile="${cactus.target.jboss3x}/server/cactus/deploy/test.war">
-			<fileset dir="${cactus.target.jboss3x}/tmp/test"/>
+		<jar destfile="${cactus.home.jboss3x}/server/default/deploy/${cactus.context}.war">
+			<fileset dir="${cactus.target.jboss3x}/tmp/${cactus.context}"/>
 		</jar>
 
 	</target>
@@ -130,20 +130,7 @@
         depends="cactus.check.jboss3x" if="cactus.home.jboss3x"
         description="Set up a JBoss 3.x directory structure">
 
-        <!-- Create a server configuration using the minimal JBoss 
-             configuration and adding the JBossWeb Service -->
-        <copy todir="${cactus.target.jboss3x}/server/cactus">
-            <fileset dir="${cactus.home.jboss3x}/server/minimal"/>
-        </copy>
-
-        <copy todir="${cactus.target.jboss3x}/server/cactus/deploy/jbossweb.sar">
-            <fileset dir="${cactus.home.jboss3x}/server/default/deploy/jbossweb.sar"/>
-        </copy>
-        <copy todir="${cactus.target.jboss3x}/server/cactus/lib">
-            <fileset dir="${cactus.home.jboss3x}/server/default/lib">
-                <include name="javax.servlet.jar"/>
-                <include name="jboss.jar"/>
-            </fileset>
-        </copy>
-
+		<!-- TODO: Find how to create a valid default server configuration.
+		     Copying the server/ directory does not seem to be enough -->
+		     
     </target>

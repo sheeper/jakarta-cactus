@@ -1,6 +1,6 @@
 
 	<!-- Global properties -->
-    <property name="conf.tomcat4x.dir" value="${conf.dir}/tomcat4x"/>
+    <property name="cactus.conf.tomcat4x" value="${cactus.conf.dir}/tomcat4x"/>
     <property name="cactus.target.tomcat4x" value="${cactus.target.dir}/tomcat4x"/>
 
     <!--
@@ -17,7 +17,7 @@
              The servlet engine is stopped if the tests fail for any reason -->
 
         <runservertests
-            testURL="http://localhost:${cactus.port}/test/ServletRedirector?Cactus_Service=RUN_TEST"
+            testURL="http://localhost:${cactus.port}/${cactus.context}/ServletRedirector?Cactus_Service=RUN_TEST"
             startTarget="cactus.start.tomcat4x"
             stopTarget="cactus.stop.tomcat4x"
             testTarget="cactus.test"/>
@@ -29,33 +29,10 @@
          Start Tomcat 4.x
        ========================================================================
     -->
-    <target name="start.tomcat.40" depends="cactus.check.tomcat4x, cactus.checkwindows, cactus.start.tomcat4x.windows, cactus.start.tomcat4x.other" if="cactus.home.tomcat4x" description="Start Tomcat 4.x"/>
+    <target name="cactus.start.tomcat4x" description="Start Tomcat 4.x"
+        depends="cactus.check.tomcat4x" if="cactus.home.tomcat4x">
 
-    <target name="cactus.start.tomcat4x.windows" if="isWindows">
-
-        <java jvm='javaw' classname="org.apache.catalina.startup.Bootstrap" fork="yes">
-
-            <jvmarg value="-Dcatalina.home=${cactus.home.tomcat4x}"/>
-            <jvmarg value="-Dcatalina.base=${cactus.target.tomcat4x}"/>
-
-            <arg value="start"/>
-            <classpath>
-
-              <!-- These are ignored if -Dbuild.sysclasspath=only is used -->
-              <pathelement path="${java.home}/../lib/tools.jar"/>
-              <fileset dir="${cactus.home.tomcat4x}">
-                  <include name="bin/bootstrap.jar"/>
-              </fileset>
-
-            </classpath>
-        </java>
-
-    </target>
-
-
-    <target name="cactus.start.tomcat4x.other" unless="isWindows">
-
-        <java classname="org.apache.catalina.startup.Bootstrap" fork="yes">
+        <java jvm="${cactus.jvm}" classname="org.apache.catalina.startup.Bootstrap" fork="yes">
 
             <jvmarg value="-Dcatalina.home=${cactus.home.tomcat4x}"/>
             <jvmarg value="-Dcatalina.base=${cactus.target.tomcat4x}"/>
@@ -79,50 +56,24 @@
          Stop Tomcat 4.x
        ========================================================================
     -->
-    <target name="stop.tomcat.40" depends="cactus.check.tomcat4x, cactus.checkwindows, cactus.stop.tomcat4x.windows, cactus.stop.tomcat4x.other" if="cactus.home.tomcat4x" description="Stop Tomcat 4.x"/>
+    <target name="cactus.stop.tomcat4x" description="Stop Tomcat 4.x"
+        depends="cactus.check.tomcat4x" if="cactus.home.tomcat4x">
 
-    <target name="cactus.stop.tomcat4x.windows" if="isWindows">
-
-        <java jvm='javaw' classname="org.apache.catalina.startup.Bootstrap" fork="yes">
-
+        <java jvm="${cactus.jvm}" classname="org.apache.catalina.startup.Bootstrap" fork="yes">
             <jvmarg value="-Dcatalina.home=${cactus.home.tomcat4x}"/>
             <jvmarg value="-Dcatalina.base=${cactus.target.tomcat4x}"/>
-
             <arg value="stop"/>
-            <classpath>
 
-              <!-- These are ignored if -Dbuild.sysclasspath=only is used -->
+            <classpath>
+              <!-- These are ignored if -Dbuild.sysclasspath=only is used
+                   (this is the case for Gump builds) -->
               <fileset dir="${cactus.home.tomcat4x}">
                   <include name="bin/bootstrap.jar"/>
               </fileset>
-
             </classpath>
         </java>
 
     </target>
-
-
-    <target name="cactus.stop.tomcat4x.other" unless="isWindows">
-
-        <java classname="org.apache.catalina.startup.Bootstrap" fork="yes">
-
-            <jvmarg value="-Dcatalina.home=${cactus.home.tomcat4x}"/>
-            <jvmarg value="-Dcatalina.base=${cactus.target.tomcat4x}"/>
-
-            <arg value="stop"/>
-            <classpath>
-
-              <!-- These are ignored if -Dbuild.sysclasspath=only is used -->
-              <fileset dir="${cactus.home.tomcat4x}">
-                  <include name="bin/bootstrap.jar"/>
-              </fileset>
-
-            </classpath>
-        </java>
-
-    </target>
-
-
 
     <!--
        ========================================================================
@@ -150,13 +101,12 @@
     	description="Deploy the webapp on Tomcat 4.x">
 
         <!-- Copy the webapp -->
-		<copy todir="${cactus.target.tomcat4x}/webapps/${context.path}">
-			<fileset dir="${cactus.target.dir}/test"/>
+		<copy todir="${cactus.target.tomcat4x}/webapps/${cactus.context}">
+			<fileset dir="${cactus.target.dir}/${cactus.context}"/>
 		</copy>
 
 	</target>
-
-
+	
     <!--
        ========================================================================
          Set up a valid Tomcat 4.x directory structure in the
@@ -177,10 +127,10 @@
 
         <!-- Remove the auto deployed webapp so that it is redeployed every
              time -->
-        <delete dir="${cactus.target.tomcat4x}/webapps/${context.path}"/>
+        <delete dir="${cactus.target.tomcat4x}/webapps/${cactus.context}"/>
 
         <copy todir="${cactus.target.tomcat4x}/conf" filtering="on">
-            <fileset dir="${conf.tomcat4x.dir}"/>
+            <fileset dir="${cactus.conf.tomcat4x}"/>
         </copy>
 
         <!-- Copy the Tomcat web.xml - We need to copy this file as it has
