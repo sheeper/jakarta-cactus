@@ -297,6 +297,9 @@
 
         <jar jarfile="${target.dir}/${framework.jar.name}.jar"
           manifest="${target.conf.dir}/manifest">
+            <metainf dir=".">
+                <include name="LICENSE.cactus"/>
+            </metainf>
             <fileset dir="${target.classes.java.dir}"/>
         </jar>
 
