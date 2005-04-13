@@ -47,6 +47,35 @@
 
     </section>
 
+    <anchor id="committers"/>
+    <section title="Committers">
+
+      <ul>
+        <li>
+          <link href="mailto:vmassol@apache.org">Vincent Massol</link>
+        </li>
+        <li>
+          <link href="mailto:jariw@hyperlink-interactive.co.uk">Jari Worsley</link>
+        </li>
+        <li>
+          <link href="mailto:ndlesiecki@yahoo.com">Nicholas Lesiecki</link>
+        </li>
+        <li>
+          <link href="mailto:jruaux@octo.com">Julien Ruaux</link>
+        </li>
+        <li>
+          <link href="mailto:cmlenz@gmx.de">Christopher Lenz</link>
+        </li>
+        <li>
+          <link href="mailto:felipeal@apache.org">Felipe Leme</link>
+        </li>
+        <li>
+          <link href="mailto:suguri.kazuhito@lab.ntt.co.jp">Kazuhito Suguri</link>
+        </li>
+      </ul>
+
+    </section>
+
     <section title="Contributors">
 
       <p>By alphabetical order on the last name:</p>
@@ -134,43 +163,21 @@
 
     </section>
 
-    <anchor id="committers"/>
-    <section title="Committers">
-
-      <ul>
-        <li>
-          <link href="mailto:vmassol@octo.com">Vincent Massol</link>
-        </li>
-        <li>
-          <link href="mailto:jariw@hyperlink-interactive.co.uk">Jari Worsley</link>
-        </li>
-        <li>
-          <link href="mailto:ndlesiecki@yahoo.com">Nicholas Lesiecki</link>
-        </li>
-        <li>
-          <link href="mailto:jruaux@octo.com">Julien Ruaux</link>
-        </li>
-        <li>
-          <link href="mailto:cmlenz@gmx.de">Christopher Lenz</link>
-        </li>
-        <li>
-          <link href="mailto:felipeal@apache.org">Felipe Leme</link>
-        </li>
-        <li>
-          <link href="mailto:suguri.kazuhito@lab.ntt.co.jp">Kazuhito Suguri</link>
-        </li>
-      </ul>
-
-    </section>
-
     <section title="Special thanks">
 
       <p>
         Thanks to all that have reported bugs or suggested ideas for Cactus.
       </p>
       <p>
-        Thanks to all that are participating to the
-        <link href="site:logos">Cactus Logo competition</link>.
+        Thanks to all that have participated to the
+        <link href="site:logos">Cactus Logo</link> competitions and especially
+        Lyonel Thouvenot who had his logo up on the Cacus web 
+        site from 2002 to April 2005:
+      </p>
+      <figure src="images/logos/lthouvenot.gif" alt="Proposition 1: Classic"/>     
+      <p>
+        Special thanks also to Eoghan McIlwaine who has designed the current 
+        Cactus logo.
       </p>
       <p>
         And, of course ...
@@ -187,7 +194,7 @@
 
       <p>
         <strong><link href="mailto:vmassol@apache.org">Vincent Massol</link>
-        -- Committer</strong>
+        -- Committer</strong> (written in 2002)
       </p>
       <p>
         I started designing internet applications in 1998, when I joined
@@ -205,10 +212,9 @@
         framework as I moved on, from customer to customer.
       </p>
       <p>
-        Until it
-        was time to open source it ! There were several drivers for that
+        Until it was time to open source it! There were several drivers for that
         decision. As I spread the word about this framework within Octo,
-        several octomen (and octowoman !) began using it and making
+        several octomen (and octowomen!) began using it and making
         modifications, and we
         ended up with several versions of it, making it difficult to
         synchronize them (although it was good for the evolutionary and

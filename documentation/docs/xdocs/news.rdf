@@ -42,6 +42,7 @@
 
     <items>
       <rdf:Seq>
+        <rdf:li rdf:resource="http://jakarta.apache.org/cactus/news.html#news30"/>
         <rdf:li rdf:resource="http://jakarta.apache.org/cactus/news.html#news29"/>
         <rdf:li rdf:resource="http://jakarta.apache.org/cactus/news.html#news28"/>
         <rdf:li rdf:resource="http://jakarta.apache.org/cactus/news.html#news27"/>
@@ -57,6 +58,21 @@
     </items>
 
   </channel>
+
+  <item rdf:about="http://jakarta.apache.org/cactus/news.html#news30">
+    <title>New Cactus logo</title>
+    <link>http://jakarta.apache.org/cactus/news.html#news30</link>
+    <description>
+<![CDATA[Our previous logo was nice and we thank Lyonel Thouvenot for designing it.
+However change is good and Eoghan McIlwaine has designed a 
+<a href="http://jakarta.apache.org/cactus/images/logos/eoghan2.jpg">new logo</a> for us!
+Thanks Eoghan.
+]]>
+    </description>
+    <dc:subject></dc:subject>
+    <dc:creator>vmassol</dc:creator>
+    <dc:date>2005-04-13T00:00:00+00:00</dc:date>
+  </item>
 
   <item rdf:about="http://jakarta.apache.org/cactus/news.html#news29">
     <title>Cactus 1.7 released</title>

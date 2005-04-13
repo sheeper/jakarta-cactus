@@ -3,7 +3,7 @@
 <!--
  * ========================================================================
  * 
- * Copyright 2001-2004 The Apache Software Foundation.
+ * Copyright 2001-2005 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -316,7 +316,7 @@
   </resource>
 
   <resource id="logos" target="participating/logos.html"
-      name="Logo Challenge">
+      name="Logos">
     Logos for Cactus proposed by various people.
   </resource>
   <resource id="logos_img_vgritsenko" target="images/logos/vgritsenko.jpg"/>
