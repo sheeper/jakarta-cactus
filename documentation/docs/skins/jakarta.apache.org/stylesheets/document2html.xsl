@@ -939,6 +939,9 @@
             select="document(concat($xdocdir,'/navigation.xml'))/navigation"/>
         </xsl:otherwise>
       </xsl:choose>
+      <li>
+        <img src="images/cactusbanner.gif"/>
+      </li>
     </ul>
 
   </xsl:template>

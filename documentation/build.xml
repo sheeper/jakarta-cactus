@@ -454,7 +454,7 @@ generated. Run 'ant dist.javadoc -verbose' to find out what the problem is.</fai
 
     <exec dir="." executable="${scp}">
       <arg value="${release.dir}/${main.release.name}.zip"/>
-      <arg value="${jakarta.username}@jakarta.apache.org:/tmp"/>
+      <arg value="${jakarta.username}@people.apache.org:/tmp"/>
     </exec>
 
   </target>
@@ -464,7 +464,7 @@ generated. Run 'ant dist.javadoc -verbose' to find out what the problem is.</fai
 
     <echo>Deploying release version to ${cactus.homepage}/${project.version} ...</echo>
     <exec dir="." executable="${ssh}">
-      <arg line="-l ${jakarta.username} jakarta.apache.org 'cd /tmp;rm -Rf ${main.release.name};unzip ${main.release.name}.zip;mkdir ${cactus.homepage}/${project.version};cp -Rfv ${main.release.name}/* ${cactus.homepage}/${project.version};rm -Rf ${main.release.name}.zip;rm -Rf ${main.release.name};cd ${cactus.homepage}/${project.version};chmod -R g+u * .'"/>
+      <arg line="-l ${jakarta.username} people.apache.org 'cd /tmp;rm -Rf ${main.release.name};unzip ${main.release.name}.zip;mkdir ${cactus.homepage}/${project.version};cp -Rfv ${main.release.name}/* ${cactus.homepage}/${project.version};rm -Rf ${main.release.name}.zip;rm -Rf ${main.release.name};cd ${cactus.homepage}/${project.version};chmod -R g+u * .'"/>
     </exec>
 
   </target>
@@ -474,7 +474,7 @@ generated. Run 'ant dist.javadoc -verbose' to find out what the problem is.</fai
 
     <echo>Deploying dev version to ${cactus.homepage} ...</echo>
     <exec dir="." executable="${ssh}">
-      <arg line="-l ${jakarta.username} jakarta.apache.org 'cd /tmp;rm -Rf ${main.release.name};unzip ${main.release.name}.zip;cp -Rfv ${main.release.name}/* ${cactus.homepage};rm -Rf ${main.release.name}.zip;rm -Rf ${main.release.name};cd ${cactus.homepage};chmod -R g+u * .'"/>
+      <arg line="-l ${jakarta.username} people.apache.org 'cd /tmp;rm -Rf ${main.release.name};unzip ${main.release.name}.zip;cp -Rfv ${main.release.name}/* ${cactus.homepage};rm -Rf ${main.release.name}.zip;rm -Rf ${main.release.name};cd ${cactus.homepage};chmod -R g+u * .'"/>
     </exec>
 
   </target>
