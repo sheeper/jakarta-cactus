@@ -42,6 +42,7 @@
 
     <items>
       <rdf:Seq>
+        <rdf:li rdf:resource="http://jakarta.apache.org/cactus/news.html#news31"/>
         <rdf:li rdf:resource="http://jakarta.apache.org/cactus/news.html#news30"/>
         <rdf:li rdf:resource="http://jakarta.apache.org/cactus/news.html#news29"/>
         <rdf:li rdf:resource="http://jakarta.apache.org/cactus/news.html#news28"/>
@@ -58,6 +59,22 @@
     </items>
 
   </channel>
+
+  <item rdf:about="http://jakarta.apache.org/cactus/news.html#news31">
+    <title>New Cactus banner</title>
+    <link>http://jakarta.apache.org/cactus/news.html#news31</link>
+    <description>
+<![CDATA[Cactus now has a nice
+<a href="http://jakarta.apache.org/cactus/images/cactusbanner.gif">banner</a>
+<img src="http://jakarta.apache.org/cactus/images/cactusbanner.gif"/> that you can use on your web
+site if you wish to show your support to the Cactus project. Thanks Eoghan for
+the design.
+]]>
+    </description>
+    <dc:subject></dc:subject>
+    <dc:creator>vmassol</dc:creator>
+    <dc:date>2005-04-14T00:00:00+00:00</dc:date>
+  </item>
 
   <item rdf:about="http://jakarta.apache.org/cactus/news.html#news30">
     <title>New Cactus logo</title>
