@@ -325,7 +325,9 @@ framework/src/test/share-12-13-14/org/apache/cactus/server/runner/TestServletTes
 framework/src/test/share-13-14/org/apache/cactus/TestAll.java svn_keywords=Author+Date+Id+Revision
 framework/src/test/share-13-14/org/apache/cactus/extension/jetty/TestJettyTestSetup.java svn_keywords=Author+Date+Id+Revision
 framework/web/jspRedirector.jsp svn_keywords=Author+Date+Id+Revision
+integration/ant/.classpath svn_keywords=Author+Date+Id+Revision
 integration/ant/.cvsignore svn_keywords=Author+Date+Id+Revision
+integration/ant/.project svn_keywords=Author+Date+Id+Revision
 integration/ant/build.xml svn_keywords=Author+Date+Id+Revision
 integration/ant/src/confs/application_1_2.dtd svn_keywords=Author+Date+Id+Revision
 integration/ant/src/confs/application_1_3.dtd svn_keywords=Author+Date+Id+Revision

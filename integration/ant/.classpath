@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src/java">
+		<attributes>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="src" path="src/test">
+		<attributes>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
+		<attributes>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="var" path="MAVEN_REPO/ant/jars/ant-1.6.2.jar">
+		<attributes>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="var" path="MAVEN_REPO/commons-logging/jars/commons-logging-1.0.4.jar">
+		<attributes>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="var" path="MAVEN_REPO/junit/jars/junit-3.8.1.jar">
+		<attributes>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="var" path="MAVEN_REPO/mockobjects/jars/mockobjects-core-0.09.jar">
+		<attributes>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="var" path="MAVEN_REPO/xerces/jars/xercesImpl-2.6.2.jar">
+		<attributes>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="var" path="MAVEN_REPO/xerces/jars/xmlParserAPIs-2.2.1.jar">
+		<attributes>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="var" path="MAVEN_REPO/ant/jars/ant-junit-1.6.2.jar">
+		<attributes>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="output" path="target-13/classes/test"/>
+</classpath>
