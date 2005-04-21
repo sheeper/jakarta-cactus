@@ -145,7 +145,7 @@ public final class TestCactifyWarTask extends AntTestCase
 		catch (BuildException e)
 		{
 			fail("The WAR source file does not contain a "
-					+ "WEB-INF/web.xml deployment descriptor, but Cactus should "
+					+ "WEB-INF/web.xml deployment descriptor, but Cactus "
 					+ "should have created an empty one" );
 		}
 	}	
@@ -165,7 +165,7 @@ public final class TestCactifyWarTask extends AntTestCase
 		catch (BuildException e)
 		{
 			fail("The WAR source file does not contain a "
-					+ "WEB-INF/web.xml deployment descriptor, but Cactus should "
+					+ "WEB-INF/web.xml deployment descriptor, but Cactus "
 					+ "should have created an empty one" );
 		}
 	}	
