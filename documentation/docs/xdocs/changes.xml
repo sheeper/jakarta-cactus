@@ -91,6 +91,10 @@
       </devs>
 
       <release version="1.8dev" date="in CVS">
+        <action dev="FAL" type="fix" issue="CACTUS-204">
+          <code>CactifyWar</code> task now does not require a <code>web.xml
+          </code> and creates an empty one if necessary.
+        </action>
         <action dev="VMA" type="update" issue="CACTUS-189" due-to="Magnus Grimsell">
           Added support for merging <code>&lt;run-as&gt;</code> element from a 
           provided <code>web.xml</code> file in the cactifywar Ant task.

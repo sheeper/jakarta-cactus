@@ -124,11 +124,51 @@ public final class TestCactifyWarTask extends AntTestCase
         }
         catch (BuildException expected)
         {
-            assertEquals("The WAR source file does not contain a "
-                + "WEB-INF/web.xml deployment descriptor", 
+            assertEquals("You need to specify either the [srcfile] or the "
+					+ "[version] attribute", 
                 expected.getMessage());
         }
     }
+	
+    /**
+     * Verifies an empty web was created when the source archive does not 
+     * contain a web deployment descriptor but specifies the version.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
+    public void testSrcFileWithoutWebXmlNewWebXml22() throws Exception
+    {
+		try
+		{
+			executeTestTarget();
+		}
+		catch (BuildException e)
+		{
+			fail("The WAR source file does not contain a "
+					+ "WEB-INF/web.xml deployment descriptor, but Cactus should "
+					+ "should have created an empty one" );
+		}
+	}	
+	
+    /**
+     * Verifies an empty web was created when the source archive does not 
+     * contain a web deployment descriptor but specifies the version.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
+    public void testSrcFileWithoutWebXmlNewWebXml23() throws Exception
+    {
+		try
+		{
+			executeTestTarget();
+		}
+		catch (BuildException e)
+		{
+			fail("The WAR source file does not contain a "
+					+ "WEB-INF/web.xml deployment descriptor, but Cactus should "
+					+ "should have created an empty one" );
+		}
+	}	
 
     /**
      * Tests whether the Cactus test redirectors are correctly added to the 

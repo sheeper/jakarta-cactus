@@ -21,6 +21,16 @@
         destfile="${work.dir}/destfile.war"/>
   </target>
 
+  <target name="testSrcFileWithoutWebXmlNewWebXml22">
+    <cactifywar srcfile="nowebxml.war" version="2.2"
+        destfile="${work.dir}/destfile.war"/>
+  </target>
+  
+  <target name="testSrcFileWithoutWebXmlNewWebXml23">
+    <cactifywar srcfile="nowebxml.war" version="2.3"
+        destfile="${work.dir}/destfile.war"/>
+  </target>
+  
   <target name="testDefaultRedirectorsNoDoctype">
     <cactifywar srcfile="empty.war"
         destfile="${work.dir}/destfile.war"/>

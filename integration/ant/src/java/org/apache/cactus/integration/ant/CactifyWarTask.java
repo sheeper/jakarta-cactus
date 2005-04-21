@@ -353,7 +353,7 @@ public class CactifyWarTask extends War
             // Parse the original deployment descriptor
             webXml = getOriginalWebXml();
         }
-        else
+        if (this.srcFile == null || webXml == null)
         {
             if (this.version == null)
             {
@@ -674,8 +674,8 @@ public class CactifyWarTask extends War
      * Extracts and parses the original web deployment descriptor from the
      * web-app.
      * 
-     * @return The parsed descriptor
-     * @throws BuildException If the descriptor is not found or could not be 
+     * @return The parsed descriptor or null if not found
+     * @throws BuildException If the descriptor could not be 
      *         parsed
      */
     private WebXml getOriginalWebXml() throws BuildException
@@ -686,11 +686,6 @@ public class CactifyWarTask extends War
         {
             war = new DefaultWarArchive(this.srcFile);
             WebXml webXml = war.getWebXml();
-            if (webXml == null)
-            {
-                throw new BuildException("The WAR source file does not "
-                    + "contain a WEB-INF/web.xml deployment descriptor");
-            }
             return webXml;
         }
         catch (SAXException e)
