@@ -190,31 +190,31 @@
             <ant:pathelement path="${maven.build.dest}"/>
           </ant:classpath>
 
-          <j:if test="${pom.getPluginContext('maven-java-plugin').getVariable('maven.compile.compilerargs')}">
+          <j:if test="${pom.getPluginContext('maven-java-plugin').getVariable('maven.compile.compilerargs') != null}">
             <ant:compilerarg line="${pom.getPluginContext('maven-java-plugin').getVariable('maven.compile.compilerargs')}"/>
           </j:if>
           
-          <j:if test="${pom.getPluginContext('maven-java-plugin').getVariable('maven.compile.encoding')}">
+          <j:if test="${pom.getPluginContext('maven-java-plugin').getVariable('maven.compile.encoding') != null}">
             <ant:setProperty name="encoding" value="${pom.getPluginContext('maven-java-plugin').getVariable('maven.compile.encoding')}"/>
           </j:if>
           
-          <j:if test="${pom.getPluginContext('maven-java-plugin').getVariable('maven.compile.executable')}">
+          <j:if test="${pom.getPluginContext('maven-java-plugin').getVariable('maven.compile.executable') != null}">
             <ant:setProperty name="executable" value="${pom.getPluginContext('maven-java-plugin').getVariable('maven.compile.executable')}"/>
           </j:if>
           
-          <j:if test="${pom.getPluginContext('maven-java-plugin').getVariable('maven.compile.fork')}">
+          <j:if test="${pom.getPluginContext('maven-java-plugin').getVariable('maven.compile.fork') != null}">
             <ant:setProperty name="fork" value="${pom.getPluginContext('maven-java-plugin').getVariable('maven.compile.fork')}"/>
           </j:if>
           
-          <j:if test="${pom.getPluginContext('maven-java-plugin').getVariable('maven.compile.source')}">
+          <j:if test="${pom.getPluginContext('maven-java-plugin').getVariable('maven.compile.source') != null}">
             <ant:setProperty name="source" value="${pom.getPluginContext('maven-java-plugin').getVariable('maven.compile.source')}"/>
           </j:if>
           
-          <j:if test="${pom.getPluginContext('maven-java-plugin').getVariable('maven.compile.target')}">
+          <j:if test="${pom.getPluginContext('maven-java-plugin').getVariable('maven.compile.target') != null}">
             <ant:setProperty name="target" value="${pom.getPluginContext('maven-java-plugin').getVariable('maven.compile.target')}"/>
           </j:if>
           
-          <j:if test="${pom.getPluginContext('maven-java-plugin').getVariable('maven.compile.verbose')}">
+          <j:if test="${pom.getPluginContext('maven-java-plugin').getVariable('maven.compile.verbose') != null}">
             <ant:setProperty name="verbose" value="${pom.getPluginContext('maven-java-plugin').getVariable('maven.compile.verbose')}"/>
           </j:if>
         </ant:javac>
