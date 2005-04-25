@@ -294,6 +294,21 @@ basedir=${basedir}
             </source>
           </td>
         </tr>
+        <tr>
+          <td>cactus.servlet.version</td>
+          <td>Yes</td>
+          <td>
+            <p>
+              Servlet version for the generated Cactus War file. Particularly 
+              useful when the project does not provide a web descriptor (<code>
+              web.xml</code>) - in this situation, the generated file
+              will be an empty descriptor for the Servlet API version defined
+              by this property.
+              Default value is <code>2.3</code> and currently only <code>
+              2.2</code> and <code>2.3</code> are supported.
+            </p>
+          </td>
+        </tr>
       </table>
     </section>
 

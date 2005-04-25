@@ -274,7 +274,7 @@
     <!-- Generate the war artifact -->
     <attainGoal name="${cactus.build.goal.war}"/>
 
-    <cactifywar version="2.3" destfile="${cactus.war}">
+    <cactifywar version="${cactus.servlet.version}" destfile="${cactus.war}">
 
       <!-- Only specify a source war to cactify if we are not testing EJBs.
            The reason is to prevent adding EJB sources to the cactified war,

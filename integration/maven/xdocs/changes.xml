@@ -8,6 +8,10 @@
   <body>
 
     <release version="1.8dev" date="in CVS">
+      <action dev="felipeal" type="add" issue="CACTUS-90">
+        Create empty <code>web.xml</code> file when one does not exist. Notice that this change 
+        also introduced the <code>cactus.servlet.version</code> plugin property.
+      </action>
       <action dev="vmassol" type="fix" issue="CACTUS-205">
         Fixed the usage of the Java plugin properties that are used when 
         compiling the Cactus tests. They were ignored due to some invalid

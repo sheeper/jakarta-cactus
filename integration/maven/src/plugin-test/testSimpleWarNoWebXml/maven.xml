@@ -1,0 +1,67 @@
+<!-- 
+/*
+ * Copyright 2005 The Apache Software Foundation.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ -->
+<project default="testPlugin"
+         xmlns:assert="assert"
+         xmlns:j="jelly:core"
+         xmlns:x="jelly:xml"
+         xmlns:util="jelly:util"
+>        
+  <goal name="testPlugin" prereqs="clean,testDefault,test22,test23">
+  </goal>
+
+  <goal name="testDefault">
+    <attainGoal name="cactus:test-war"/>
+    <j:set var="expectedDTD" value="http://java.sun.com/dtd/web-app_2_3.dtd"/>
+    <attainGoal name="checkGeneratedWar"/>
+  </goal>
+
+  <goal name="test22">
+    <j:set var="cactus.servlet.version" value="2.2"/>
+    <attainGoal name="cactus:test-war"/>
+    <j:set var="expectedDTD" value="http://java.sun.com/j2ee/dtds/web-app_2_2.dtd"/>
+    <attainGoal name="checkGeneratedWar"/>
+  </goal>
+
+  <goal name="test23">
+    <j:set var="cactus.servlet.version" value="2.3"/>
+    <attainGoal name="cactus:test-war"/>
+    <j:set var="expectedDTD" value="http://java.sun.com/dtd/web-app_2_3.dtd"/>
+    <attainGoal name="checkGeneratedWar"/>
+  </goal>
+
+  <goal name="checkGeneratedWar">
+    <!-- tests that the war is generated -->
+    <j:set var="warFile" value="${maven.build.dir}/${pom.artifactId}-cactus.war"/>
+    <assert:assertFileExists file="${warFile}"/>
+
+    <!-- unzip the war and look for the web.xml -->
+    <j:set var="unzipDir" value= "${maven.build.dir}/wartest"/>
+    <mkdir dir="${unzipDir}"/>
+    <unzip src="${warFile}" dest="${unzipDir}"/>
+    <j:set var="webXmlPath" value="${unzipDir}/WEB-INF/web.xml"/>
+    <assert:assertFileExists file="${webXmlPath}"
+      msg="web.xml not found in the war file"/>
+
+    <!-- verify the content of the web.xml -->
+    <util:file var="webXmlFile" name="${webXmlPath}"/>
+    <x:parse var="webXmlDoc" xml="${webXmlFile}"/>
+    <assert:assertEquals expected="${expectedDTD}" value="${webXmlDoc.getDocType().getSystemID()}"/>
+
+  </goal>
+
+</project>
