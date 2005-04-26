@@ -108,6 +108,7 @@
     <pathelement location="${aspectjrt.jar}"/>
     <pathelement location="${cactus.jar}"/>
     <pathelement location="${cactus.ant.jar}"/>
+  	<pathelement location="${cargo.jar}"/>
     <pathelement location="${commons.httpclient.jar}"/>
     <pathelement location="${commons.logging.jar}"/>
     <pathelement location="${junit.jar}"/>
