@@ -8,6 +8,10 @@
   <body>
 
     <release version="1.8dev" date="in CVS">
+      <action dev="felipeal" type="update" issue="CACTUS-197">
+        Update depedency on <code>Maven EAR Plugin</code> to release
+         <code>1.6.1</code>.
+      </action>
       <action dev="felipeal" type="add" issue="CACTUS-90">
         Create empty <code>web.xml</code> file when one does not exist. Notice that this change 
         also introduced the <code>cactus.servlet.version</code> plugin property.

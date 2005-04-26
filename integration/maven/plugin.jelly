@@ -56,7 +56,15 @@
         Try: maven plugin:download -DgroupId=maven -DartifactId=maven-ejb-plugin -Dversion=[version]
       </ant:fail>
     </j:if>
-    
+
+    <maven:get plugin="maven-ear-plugin" property="plugin" var="earPlugin" />
+    <j:if test="${earPlugin.currentVersion.compareTo('1.6.1') lt 0}">
+      <ant:fail>
+        Must have EAR plugin v1.6.1 or greater installed to use this version of the Cactus plugin.
+        Try: maven plugin:download -DgroupId=maven -DartifactId=maven-ear-plugin -Dversion=[version]
+      </ant:fail>
+    </j:if>
+
   </goal>
 
   <!--
