@@ -72,6 +72,9 @@
         <li>
           <link href="mailto:suguri.kazuhito@lab.ntt.co.jp">Kazuhito Suguri</link>
         </li>
+        <li>
+          <link href="mailto:grimsell@apache.org">Magnus Grimsell</link>
+        </li>
       </ul>
 
     </section>
@@ -102,7 +105,7 @@
           <link href="mailto:jgrelier@octo.com">Jerome Grelier</link>
         </li>
         <li>
-          <link href="mailto:magnus.grimsell@idainfront.se">Magnus Grimsell</link>
+          <link href="mailto:grimsell@apache.org">Magnus Grimsell</link>
         </li>
         <li>
           <link href="mailto:ahasegawa@borland.com">Atsushi Hasegawa</link>
