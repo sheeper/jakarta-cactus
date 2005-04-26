@@ -3,7 +3,7 @@
 <!--
  * ========================================================================
  * 
- * Copyright 2001-2004 The Apache Software Foundation.
+ * Copyright 2001-2005 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -313,7 +313,7 @@
         </note>
 
         <p>
-          By default, Cactus always creates an HTRP session for your test
+          By default, Cactus always creates an HTTP session for your test
           case. It is possible to tell it not to do so by calling the
           <code>WebRequest.setAutomaticSession(false)</code> method (it is
           <code>true</code> by default). This could be useful for cases
