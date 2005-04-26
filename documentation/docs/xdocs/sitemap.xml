@@ -398,6 +398,12 @@
     Documentation for the &lt;cactifywar&gt; task provided by Cactus.
   </resource>
 
+  <resource id="task_cactifyear"
+      target="integration/ant/task_cactifyear.html"
+      name="CactifyEar Ant Task">
+    Documentation for the &lt;cactifyear&gt; task provided by Cactus.
+  </resource>
+
   <resource id="task_cactus"
       target="integration/ant/task_cactus.html"
       name="Cactus Ant Task">

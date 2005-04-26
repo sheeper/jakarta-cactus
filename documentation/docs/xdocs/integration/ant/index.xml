@@ -205,6 +205,14 @@
               </td>
             </tr>
             <tr>
+              <th>CactifyEar</th>
+              <td>
+                This task can enhance a provided Enterprise application archive (EAR),
+                and add the elements required to run Cactus tests against it. It can 
+                also add EJB references to allow testing of local EJB:s. 
+              </td>
+            </tr>
+            <tr>
               <th>Cactus</th>
               <td>
                 This task extends the standard <code>&lt;junit&gt;</code> task
