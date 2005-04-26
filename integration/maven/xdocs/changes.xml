@@ -9,8 +9,9 @@
 
     <release version="1.8dev" date="in CVS">
       <action dev="felipeal" type="update" issue="CACTUS-197">
-        Update depedency on <code>Maven EAR Plugin</code> to release
-         <code>1.6.1</code>.
+        Added a check to verify that the user's version of the
+        <code>Maven EAR Plugin</code> is greater or equal to 1.6.1, as this the
+        version required for the <code>cactifyear</code> goal to work properly.
       </action>
       <action dev="felipeal" type="add" issue="CACTUS-90">
         Create empty <code>web.xml</code> file when one does not exist. Notice that this change 
