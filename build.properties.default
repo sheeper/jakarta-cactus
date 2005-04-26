@@ -190,6 +190,9 @@ jsp.11.jar = ${servlet.22.jar}
 jsp.12.jar = ${servlet.23.jar}
 jsp.20.jar = ${lib.repo}/${jsp.20.project}/jars/${jsp.20.artifact}-${jsp.20.version}.jar
 
+# The location of the Cargo jar
+cargo.jar = ${lib.repo}/${cargo.project}/jars/${cargo.artifact}-${cargo.version}.jar
+
 # The location of the Commons Logging jar
 commons.logging.jar = ${lib.repo}/${commons.logging.project}/jars/${commons.logging.artifact}-${commons.logging.version}.jar
 

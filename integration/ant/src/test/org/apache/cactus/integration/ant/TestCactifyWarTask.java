@@ -22,13 +22,15 @@ package org.apache.cactus.integration.ant;
 import java.io.File;
 import java.util.Iterator;
 
-import org.apache.cactus.integration.ant.deployment.webapp.DefaultWarArchive;
-import org.apache.cactus.integration.ant.deployment.webapp.WarArchive;
-import org.apache.cactus.integration.ant.deployment.webapp.WebXml;
-import org.apache.cactus.integration.ant.deployment.webapp.WebXmlTag;
-import org.apache.cactus.integration.ant.deployment.webapp.WebXmlVersion;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Project;
+import org.codehaus.cargo.module.webapp.DefaultWarArchive;
+import org.codehaus.cargo.module.webapp.WarArchive;
+import org.codehaus.cargo.module.webapp.WebXml;
+import org.codehaus.cargo.module.webapp.WebXmlTag;
+import org.codehaus.cargo.module.webapp.WebXmlVersion;
+import org.codehaus.cargo.module.webapp.weblogic.WeblogicXml;
+import org.codehaus.cargo.module.webapp.weblogic.WeblogicXmlTag;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
@@ -125,17 +127,17 @@ public final class TestCactifyWarTask extends AntTestCase
         catch (BuildException expected)
         {
             assertEquals("You need to specify either the [srcfile] or the "
-          + "[version] attribute", 
-                expected.getMessage());
+                         + "[version] attribute", 
+                         expected.getMessage());
         }
     }
-  
+    
     /**
-      * Verifies an empty web was created when the source archive does not 
-      * contain a web deployment descriptor but specifies the version.
-      * 
-      * @throws Exception If an unexpected error occurs
-      */
+     * Verifies an empty web was created when the source archive does not 
+     * contain a web deployment descriptor but specifies the version.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
     public void testSrcFileWithoutWebXmlNewWebXml22() throws Exception
     {
         try
@@ -145,17 +147,17 @@ public final class TestCactifyWarTask extends AntTestCase
         catch (BuildException e)
         {
             fail("The WAR source file does not contain a "
-          + "WEB-INF/web.xml deployment descriptor, but Cactus "
-          + "should have created an empty one");
+                 + "WEB-INF/web.xml deployment descriptor, but Cactus "
+                 + "should have created an empty one");
         }
-    }  
-  
+    }
+    
     /**
-      * Verifies an empty web was created when the source archive does not 
-      * contain a web deployment descriptor but specifies the version.
-      * 
-      * @throws Exception If an unexpected error occurs
-    */
+     * Verifies an empty web was created when the source archive does not 
+     * contain a web deployment descriptor but specifies the version.
+     * 
+     * @throws Exception If an unexpected error occurs
+     */
     public void testSrcFileWithoutWebXmlNewWebXml23() throws Exception
     {
         try
@@ -164,12 +166,12 @@ public final class TestCactifyWarTask extends AntTestCase
         }
         catch (BuildException e)
         {
-           fail("The WAR source file does not contain a "
-          + "WEB-INF/web.xml deployment descriptor, but Cactus "
-          + "should have created an empty one");
+            fail("The WAR source file does not contain a "
+                 + "WEB-INF/web.xml deployment descriptor, but Cactus "
+                 + "should have created an empty one");
         }
-    }  
-
+    }
+    
     /**
      * Tests whether the Cactus test redirectors are correctly added to the 
      * descriptor of the cactified WAR. 
@@ -520,6 +522,47 @@ public final class TestCactifyWarTask extends AntTestCase
             Project.MSG_VERBOSE);
     }
 
+    /**
+     * Tests that ejb refs can be added for weblogic
+     * 
+     * @throws Exception iIf an unexpected error occurs
+     */
+    public void testAddWeblogicEjbRefs() throws Exception
+    {
+        executeTestTarget();
+        
+        File destFile = getProject().resolveFile("work/destfile.war");
+        WarArchive destWar = new DefaultWarArchive(destFile);
+        
+        // test web.xml
+        WebXml webXml = destWar.getWebXml();
+        Iterator i = webXml.getElements(WebXmlTag.EJB_LOCAL_REF);
+        Element e = (Element) i.next();
+        NodeList nl = e.getElementsByTagName("ejb-ref-name");
+        Element f = (Element) nl.item(0);
+        assertEquals("MyEjb", f.getFirstChild().getNodeValue());
+        nl = e.getElementsByTagName("ejb-ref-type");
+        f = (Element) nl.item(0);
+        assertEquals("Session", f.getFirstChild().getNodeValue());
+        nl = e.getElementsByTagName("local-home");
+        f = (Element) nl.item(0);
+        assertEquals("com.wombat.MyEjbHome", f.getFirstChild().getNodeValue());
+        nl = e.getElementsByTagName("local");
+        f = (Element) nl.item(0);
+        assertEquals("com.wombat.MyEjb", f.getFirstChild().getNodeValue());
+        
+        // test weblogic.xml
+        WeblogicXml weblogicXml = (WeblogicXml) webXml.getVendorDescriptor();
+        i = weblogicXml.getElements(WeblogicXmlTag.EJB_REFERENCE_DESCRIPTION);
+        e = (Element) i.next();
+        nl = e.getElementsByTagName("ejb-ref-name");
+        f = (Element) nl.item(0);
+        assertEquals("MyEjb", f.getFirstChild().getNodeValue());
+        nl = e.getElementsByTagName("jndi-name");
+        f = (Element) nl.item(0);
+        assertEquals("/wombat/MyEjb", f.getFirstChild().getNodeValue());
+    }
+    
     // Private Methods ---------------------------------------------------------
 
     /**

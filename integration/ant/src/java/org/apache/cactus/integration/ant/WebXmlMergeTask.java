@@ -24,14 +24,14 @@ import java.io.IOException;
 
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.apache.cactus.integration.ant.util.AntLog;
-import org.apache.cactus.integration.ant.deployment.webapp.WebXml;
-import org.apache.cactus.integration.ant.deployment.webapp.WebXmlIo;
-import org.apache.cactus.integration.ant.deployment.webapp.WebXmlMerger;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.Task;
 import org.apache.tools.ant.types.XMLCatalog;
+import org.codehaus.cargo.module.webapp.WebXml;
+import org.codehaus.cargo.module.webapp.WebXmlIo;
+import org.codehaus.cargo.module.webapp.WebXmlMerger;
+import org.codehaus.cargo.util.monitor.AntMonitor;
 import org.xml.sax.SAXException;
 
 /**
@@ -115,7 +115,7 @@ public class WebXmlMergeTask extends Task
                     WebXml mergeWebXml = WebXmlIo.parseWebXmlFromFile(
                         this.mergeFile, this.xmlCatalog);
                     WebXmlMerger merger = new WebXmlMerger(srcWebXml);
-                    merger.setLog(new AntLog(this));
+                    merger.setMonitor(new AntMonitor(this));
                     merger.merge(mergeWebXml);
                     WebXmlIo.writeWebXml(srcWebXml, this.destFile,
                         this.encoding, this.indent);

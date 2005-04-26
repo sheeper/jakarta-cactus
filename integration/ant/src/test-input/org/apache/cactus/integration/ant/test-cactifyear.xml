@@ -16,6 +16,14 @@
         <cactuswar context="/myTestFramework" version="2.3"/>
     </cactifyear>
   </target>
+
+  <target name="testAddEjbReferences">
+    <cactifyear srcfile="weblogic.ear" 
+                destfile="${work.dir}/cactified.ear"
+                addEjbReferences="yes">
+        <cactuswar srcfile="weblogic.war"/>
+    </cactifyear>
+  </target>
   
   <target name="tearDown">
     <delete dir="${work.dir}"/>

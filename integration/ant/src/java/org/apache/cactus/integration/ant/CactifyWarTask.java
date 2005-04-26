@@ -28,14 +28,7 @@ import java.util.StringTokenizer;
 
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.apache.cactus.integration.ant.util.AntLog;
 import org.apache.cactus.integration.ant.util.ResourceUtils;
-import org.apache.cactus.integration.ant.deployment.webapp.DefaultWarArchive;
-import org.apache.cactus.integration.ant.deployment.webapp.WarArchive;
-import org.apache.cactus.integration.ant.deployment.webapp.WebXml;
-import org.apache.cactus.integration.ant.deployment.webapp.WebXmlIo;
-import org.apache.cactus.integration.ant.deployment.webapp.WebXmlMerger;
-import org.apache.cactus.integration.ant.deployment.webapp.WebXmlVersion;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.taskdefs.War;
@@ -44,6 +37,13 @@ import org.apache.tools.ant.types.FileSet;
 import org.apache.tools.ant.types.XMLCatalog;
 import org.apache.tools.ant.types.ZipFileSet;
 import org.apache.tools.ant.util.FileUtils;
+import org.codehaus.cargo.module.webapp.DefaultWarArchive;
+import org.codehaus.cargo.module.webapp.WarArchive;
+import org.codehaus.cargo.module.webapp.WebXml;
+import org.codehaus.cargo.module.webapp.WebXmlIo;
+import org.codehaus.cargo.module.webapp.WebXmlMerger;
+import org.codehaus.cargo.module.webapp.WebXmlVersion;
+import org.codehaus.cargo.util.monitor.AntMonitor;
 import org.xml.sax.SAXException;
 
 /**
@@ -303,6 +303,131 @@ public class CactifyWarTask extends War
 
     }
 
+    /**
+     * Implements the nested element ejbref
+     */
+    public static final class EjbRef
+    {
+        /**
+         * The name
+         */
+        private String name;
+        /**
+         * The local interface
+         */
+        private String localInterface;
+        /**
+         * The local home interface
+         */
+        private String localHomeInterface;
+        /**
+         * The jndi name
+         */
+        private String jndiName;
+        /**
+         * The type
+         */
+        private String type;
+        
+        /**
+         * Returns the jndi name
+         * 
+         * @return Returns the jndiName.
+         */
+        public String getJndiName()
+        {
+            return jndiName;
+        }
+        /**
+         * Sets the jndiName
+         * 
+         * @param theJndiName The jndiName to set.
+         */
+        public void setJndiName(String theJndiName)
+        {
+            this.jndiName = theJndiName;
+        }
+        
+        /**
+         * Returns the local home interface
+         * 
+         * @return Returns the localHomeInterface.
+         */
+        public String getLocalHomeInterface()
+        {
+            return localHomeInterface;
+        }
+        
+        /**
+         * Sets the local home interface
+         * 
+         * @param theLocalHomeInterface The localHomeInterface to set.
+         */
+        public void setLocalHomeInterface(String theLocalHomeInterface)
+        {
+            this.localHomeInterface = theLocalHomeInterface;
+        }
+        
+        /**
+         * Return the local interface
+         * 
+         * @return Returns the localInterface.
+         */
+        public String getLocalInterface()
+        {
+            return localInterface;
+        }
+        
+        /**
+         * Sets the local interface
+         * 
+         * @param theLocalInterface The localInterface to set.
+         */
+        public void setLocalInterface(String theLocalInterface)
+        {
+            this.localInterface = theLocalInterface;
+        }
+        
+        /**
+         * Returns the name
+         * 
+         * @return Returns the name.
+         */
+        public String getName()
+        {
+            return name;
+        }
+        
+        /**
+         * Sets the name
+         * 
+         * @param theName The name to set.
+         */
+        public void setName(String theName)
+        {
+            this.name = theName;
+        }
+        
+        /**
+         * Returns the type
+         * 
+         * @return Returns the type.
+         */
+        public String getType()
+        {
+            return type;
+        }
+        
+        /**
+         * Sets the type
+         * 
+         * @param theType The type to set.
+         */
+        public void setType(String theType)
+        {
+            this.type = theType;
+        }
+    }
     // Instance Variables ------------------------------------------------------
 
     /**
@@ -330,6 +455,11 @@ public class CactifyWarTask extends War
      * The web-app version to use when creating a WAR from scratch.
      */
     private String version = null;
+    
+    /**
+     * List of ejb-refs to add to the deployment descriptor of the cactified war
+     */
+    private List ejbRefs = new ArrayList();
 
     // Public Methods ----------------------------------------------------------
 
@@ -348,6 +478,9 @@ public class CactifyWarTask extends War
             ZipFileSet currentFiles = new ZipFileSet();
             currentFiles.setSrc(this.srcFile);
             currentFiles.createExclude().setName("WEB-INF/web.xml");
+            currentFiles.createExclude().setName("WEB-INF/weblogic.xml");
+            currentFiles.createExclude().setName("WEB-INF/orion-web.xml");
+            currentFiles.createExclude().setName("WEB-INF/ibm-web-bnd.xmi");
             addZipfileset(currentFiles);
 
             // Parse the original deployment descriptor
@@ -444,6 +577,16 @@ public class CactifyWarTask extends War
         this.xmlCatalog.addConfiguredXMLCatalog(theXmlCatalog);
     }
 
+    /**
+     * Adds a configured EjbRef instance. Called by Ant.
+     * 
+     * @param theEjbRef the EjbRef to add
+     */
+    public final void addConfiguredEjbref(EjbRef theEjbRef)
+    {
+        ejbRefs.add(theEjbRef);
+    }
+    
     /**
      * The descriptor to merge into the original file.
      * 
@@ -622,6 +765,7 @@ public class CactifyWarTask extends War
     {
         addRedirectorDefinitions(theWebXml);
         addJspRedirector();
+        addEjbRefs(theWebXml);
         
         // If the user has specified a deployment descriptor to merge into the
         // cactified descriptor, perform the merge 
@@ -632,9 +776,7 @@ public class CactifyWarTask extends War
                 WebXml parsedMergeWebXml = WebXmlIo.parseWebXmlFromFile(
                     this.mergeWebXml, this.xmlCatalog);
                 WebXmlMerger merger = new WebXmlMerger(theWebXml);
-                merger.setLog(new AntLog(this));
-                merger = new WebXmlMerger(theWebXml);
-                merger.setLog(new AntLog(this));
+                merger.setMonitor(new AntMonitor(this));
                 merger.merge(parsedMergeWebXml);
             }
             catch (IOException e)
@@ -655,19 +797,38 @@ public class CactifyWarTask extends War
         // Serialize the cactified deployment descriptor into a temporary file,
         // so that it can get picked up by the War task
         FileUtils fileUtils = FileUtils.newFileUtils();
-        File tmpWebXml = fileUtils.createTempFile("cactus", "web.xml",
+        File tmpDir = fileUtils.createTempFile("cactus", "tmp.dir",
             getProject().getBaseDir());
-        tmpWebXml.deleteOnExit();
+        tmpDir.mkdirs();
+        tmpDir.deleteOnExit();
+        File webXmlFile = null;
         try
         {
-            WebXmlIo.writeWebXml(theWebXml, tmpWebXml, null, true);
+            ZipFileSet fileSet = new ZipFileSet();
+            fileSet.setDir(tmpDir);
+            File[] files = WebXmlIo.writeAll(theWebXml, tmpDir);
+            for (int i = 0; i < files.length; i++)
+            {
+                File f = files[i];
+                f.deleteOnExit();
+                if (f.getName().equals("web.xml"))
+                {
+                    setWebxml(f);
+                    webXmlFile = f;
+                }
+                else
+                {
+                    fileSet.createInclude().setName(f.getName());
+                }
+            }
+            addWebinf(fileSet);
         }
         catch (IOException ioe)
         {
             throw new BuildException(
                 "Could not write temporary deployment descriptor", ioe);
         }
-        return tmpWebXml;
+        return webXmlFile;
     }
 
     /**
@@ -703,4 +864,31 @@ public class CactifyWarTask extends War
         }
     }
 
+    /**
+     * Add ejb references to a web.xml.
+     * 
+     * @param theWebXml the web.xml to modify
+     */
+    private void addEjbRefs(WebXml theWebXml)
+    {
+        Iterator i = ejbRefs.iterator();
+        while (i.hasNext())
+        {
+            EjbRef ref = (EjbRef) i.next();
+            if ("Session".equals(ref.getType()))
+            {
+                theWebXml.addLocalSessionEjbRef(ref.getName(), 
+                                                ref.getLocalInterface(),
+                                                ref.getLocalHomeInterface(), 
+                                                ref.getJndiName());
+            }
+            else if ("Entity".equals(ref.getType()))
+            {
+                theWebXml.addLocalEntityEjbRef(ref.getName(), 
+                                               ref.getLocalInterface(),
+                                               ref.getLocalHomeInterface(), 
+                                               ref.getJndiName());
+            }
+        }
+    }
 }

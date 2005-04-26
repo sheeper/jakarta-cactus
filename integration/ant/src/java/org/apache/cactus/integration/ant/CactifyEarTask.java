@@ -21,17 +21,23 @@ package org.apache.cactus.integration.ant;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Iterator;
 
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.apache.cactus.integration.ant.deployment.application.ApplicationXml;
-import org.apache.cactus.integration.ant.deployment.application.ApplicationXmlIo;
-import org.apache.cactus.integration.ant.deployment.application.DefaultEarArchive;
-import org.apache.cactus.integration.ant.deployment.application.EarArchive;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.taskdefs.Ear;
 import org.apache.tools.ant.types.ZipFileSet;
 import org.apache.tools.ant.util.FileUtils;
+import org.codehaus.cargo.module.application.ApplicationXml;
+import org.codehaus.cargo.module.application.ApplicationXmlIo;
+import org.codehaus.cargo.module.application.DefaultEarArchive;
+import org.codehaus.cargo.module.application.EarArchive;
+import org.codehaus.cargo.module.ejb.EjbArchive;
+import org.codehaus.cargo.module.ejb.EjbJarXml;
+import org.codehaus.cargo.module.ejb.Entity;
+import org.codehaus.cargo.module.ejb.Session;
+import org.codehaus.cargo.module.ejb.VendorEjbDescriptor;
 import org.xml.sax.SAXException;
 
 /**
@@ -51,6 +57,12 @@ public class CactifyEarTask extends Ear
      * The archive that contains the web-app that should be cactified.
      */
     private File srcFile;
+
+    /**
+     * Indicates whether or not we should add ejb references to local ejbs
+     * in the deployment descriptor.
+     */
+    private boolean addEjbReferences;
     
     /**
      * 
@@ -67,6 +79,25 @@ public class CactifyEarTask extends Ear
     public void setSrcFile(File theSrcFile)
     {
         srcFile = theSrcFile;
+    }
+    
+    /**
+     * @return Returns the addEjbReferences.
+     */
+    public boolean getAddEjbReferences()
+    {
+        return addEjbReferences;
+    }
+    /**
+     * Indicates whether or not ejb references should be added.
+     * If set to true all local ejbs will be accessible via
+     * java:comp/env/ejb/<EJB_NAME>
+     * 
+     * @param isAddEjbReferences if ejb references should be added.
+     */
+    public void setAddEjbReferences(boolean isAddEjbReferences)
+    {
+        this.addEjbReferences = isAddEjbReferences;
     }
     
     /**
@@ -169,6 +200,12 @@ public class CactifyEarTask extends Ear
                                                      getProject().getBaseDir());
         tmpCactusWar.deleteOnExit();
         cactusWar.setDestFile(tmpCactusWar);
+        
+        if (addEjbReferences)
+        {
+            addEjbReferencesToWar(tmpCactusWar);
+        }
+        
         cactusWar.execute();
         
         return tmpCactusWar;
@@ -202,5 +239,81 @@ public class CactifyEarTask extends Ear
         cactusWarConfig.setProject(getProject());
         
         return cactusWarConfig;
+    }
+
+    /**
+     * Add ejb references.
+     * 
+     * @param theWar temporary cactus war
+     */
+    private void addEjbReferencesToWar(File theWar) 
+    {
+        try
+        {
+            EarArchive ear = new DefaultEarArchive(srcFile);
+            ApplicationXml appXml = ear.getApplicationXml();
+            Iterator ejbModules = appXml.getEjbModules();
+            while (ejbModules.hasNext())
+            {
+                String module = (String) ejbModules.next();
+                EjbArchive ejbArchive = ear.getEjbModule(module);
+                EjbJarXml descr = ejbArchive.getEjbJarXml();
+                Iterator ejbs = descr.getSessionEjbs();
+                while (ejbs.hasNext())
+                {
+                    Session ejb = (Session) ejbs.next();
+                    String name = ejb.getName();
+                    String local = ejb.getLocal();
+                    String localHome = ejb.getLocalHome();
+                    if (local != null)
+                    {
+                        CactifyWarTask.EjbRef ref = new CactifyWarTask.EjbRef();
+                        ref.setType("Session");
+                        ref.setName("ejb/" + name);
+                        ref.setLocalInterface(local);
+                        ref.setLocalHomeInterface(localHome);
+                        VendorEjbDescriptor vendorDescr = 
+                            descr.getVendorDescriptor();
+                        String jndiName = vendorDescr.getJndiName(ejb);
+                        ref.setJndiName(jndiName);
+                        cactusWar.addConfiguredEjbref(ref);
+                    }
+                }
+                ejbs = descr.getEntityEjbs();
+                while (ejbs.hasNext())
+                {
+                    Entity ejb = (Entity) ejbs.next();
+                    String name = ejb.getName();
+                    String local = ejb.getLocal();
+                    String localHome = ejb.getLocalHome();
+                    if (local != null)
+                    {
+                        CactifyWarTask.EjbRef ref = new CactifyWarTask.EjbRef();
+                        ref.setType("Entity");
+                        ref.setName("ejb/" + name);
+                        ref.setLocalInterface(local);
+                        ref.setLocalHomeInterface(localHome);
+                        VendorEjbDescriptor vendorDescr = 
+                            descr.getVendorDescriptor();
+                        String jndiName = vendorDescr.getJndiName(ejb);
+                        ref.setJndiName(jndiName);
+                        cactusWar.addConfiguredEjbref(ref);
+                    }
+                }
+            }
+        }
+        catch (IOException e)
+        {
+            throw new BuildException("Could not merge deployment " 
+                                     + "descriptors", e);
+        }
+        catch (SAXException e)
+        {
+            throw new BuildException("Parsing of merge file failed", e);
+        }
+        catch (ParserConfigurationException e)
+        {
+            throw new BuildException("XML parser configuration error", e);
+        }
     }
 }

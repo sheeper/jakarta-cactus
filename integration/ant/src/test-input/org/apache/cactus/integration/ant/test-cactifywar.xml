@@ -137,6 +137,17 @@
         destfile="${work.dir}/destfile.war"/>
   </target>
 
+  <target name="testAddWeblogicEjbRefs">
+    <cactifywar srcfile="weblogic.war"
+        destfile="${work.dir}/destfile.war">
+        <ejbref name="MyEjb" 
+                localInterface="com.wombat.MyEjb" 
+                localHomeInterface="com.wombat.MyEjbHome"
+                jndiName="/wombat/MyEjb"
+                type="Session"/>
+    </cactifywar>
+  </target>
+
   <target name="tearDown">
     <delete dir="${work.dir}"/>
   </target>

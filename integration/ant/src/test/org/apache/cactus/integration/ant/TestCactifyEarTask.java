@@ -20,12 +20,18 @@
 package org.apache.cactus.integration.ant;
 
 import java.io.File;
+import java.util.Iterator;
 
-import org.apache.cactus.integration.ant.deployment.application.ApplicationXml;
-import org.apache.cactus.integration.ant.deployment.application.DefaultEarArchive;
-import org.apache.cactus.integration.ant.deployment.application.EarArchive;
-import org.apache.cactus.integration.ant.deployment.webapp.WarArchive;
-import org.apache.cactus.integration.ant.deployment.webapp.WebXml;
+import org.codehaus.cargo.module.application.ApplicationXml;
+import org.codehaus.cargo.module.application.DefaultEarArchive;
+import org.codehaus.cargo.module.application.EarArchive;
+import org.codehaus.cargo.module.webapp.WarArchive;
+import org.codehaus.cargo.module.webapp.WebXml;
+import org.codehaus.cargo.module.webapp.WebXmlTag;
+import org.codehaus.cargo.module.webapp.weblogic.WeblogicXml;
+import org.codehaus.cargo.module.webapp.weblogic.WeblogicXmlTag;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 /**
  * Test class for the CactifyEar task.
@@ -85,5 +91,80 @@ public class TestCactifyEarTask extends AntTestCase
         ApplicationXml appXml = destEar.getApplicationXml();
         assertEquals("/myTestFramework", 
             appXml.getWebModuleContextRoot("cactus.war"));
+    }
+    
+    /**
+     * @throws Exception If an unexpected error occurs
+     */
+    public void testAddEjbReferences() throws Exception
+    {
+        executeTestTarget();
+        
+        File destFile = getProject().resolveFile("work/cactified.ear");
+        EarArchive destEar = new DefaultEarArchive(destFile);
+        WarArchive cactusWar = destEar.getWebModule("cactus.war");
+        
+        // test web.xml
+        WebXml webXml = cactusWar.getWebXml();
+        Iterator i = webXml.getElements(WebXmlTag.EJB_LOCAL_REF);
+        assertEjbRef((Element) i.next(), "ejb/Session2", "Session", 
+                     "com.wombat.Session2", "com.wombat.Session2Home");
+        assertEjbRef((Element) i.next(), "ejb/Entity1", "Entity", 
+                     "com.wombat.Entity1", "com.wombat.Entity1Home");
+        assertFalse(i.hasNext());
+        
+        // test weblogic.xml
+        WeblogicXml weblogicXml = (WeblogicXml) webXml.getVendorDescriptor();
+        i = weblogicXml.getElements(WeblogicXmlTag.EJB_REFERENCE_DESCRIPTION);
+        assertWeblogicEjbRef((Element) i.next(), 
+                             "ejb/Session2", "/wombat/Session2");
+        assertWeblogicEjbRef((Element) i.next(), 
+                             "ejb/Entity1", "/wombat/Entity1");
+        assertFalse(i.hasNext());
+    }
+    
+    /**
+     * Help method to check that a given element is a correct ejb-ref
+     * 
+     * @param theElement the Element to check
+     * @param theName correct name of the ejb-ref
+     * @param theType correct ejb-ref type
+     * @param theLocal correct local interface of the ejb-ref
+     * @param theLocalHome correct local home interface of the ejb-ref
+     */
+    private void assertEjbRef(Element theElement, String theName, 
+                              String theType, String theLocal, 
+                              String theLocalHome)
+    {
+        NodeList nl = theElement.getElementsByTagName("ejb-ref-name");
+        Element f = (Element) nl.item(0);
+        assertEquals(theName, f.getFirstChild().getNodeValue());
+        nl = theElement.getElementsByTagName("ejb-ref-type");
+        f = (Element) nl.item(0);
+        assertEquals(theType, f.getFirstChild().getNodeValue());
+        nl = theElement.getElementsByTagName("local-home");
+        f = (Element) nl.item(0);
+        assertEquals(theLocalHome, f.getFirstChild().getNodeValue());
+        nl = theElement.getElementsByTagName("local");
+        f = (Element) nl.item(0);
+        assertEquals(theLocal, f.getFirstChild().getNodeValue());
+    }
+    
+    /**
+     * Help method to check that a given element is a correct weblogic ejb-ref
+     *  
+     * @param theElement the Element to check
+     * @param theName correct name of the ejb-ref
+     * @param theJndiName correct jndi name of the ejb-ref
+     */
+    private void assertWeblogicEjbRef(Element theElement, String theName, 
+                                      String theJndiName)
+    {
+        NodeList nl = theElement.getElementsByTagName("ejb-ref-name");
+        Element f = (Element) nl.item(0);
+        assertEquals(theName, f.getFirstChild().getNodeValue());
+        nl = theElement.getElementsByTagName("jndi-name");
+        f = (Element) nl.item(0);
+        assertEquals(theJndiName, f.getFirstChild().getNodeValue());
     }
 }

@@ -20,7 +20,9 @@
 package org.apache.cactus.integration.ant;
 
 /**
- * 
+ * Implements the nested element cactuswar of the cactifyear task.
+ * This element can be configured exactly as the cactifywar task 
+ * with som additions as context within the ear file.
  *
  *
  * @version $Id$

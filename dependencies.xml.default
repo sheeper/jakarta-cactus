@@ -9,6 +9,8 @@
       artifact="aspectjrt" version="1.2.1"/>
   <aspectj-tools project="aspectj"
       artifact="aspectjtools" version="1.2.1"/>
+  <cargo project="cargo"
+      artifact="cargo" version="0.5-SNAPSHOT"/>    
   <checkstyle project="checkstyle"
       artifact="checkstyle" version="3.4"/>
   <clover project="clover"

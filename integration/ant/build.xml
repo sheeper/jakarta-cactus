@@ -77,6 +77,7 @@
       depends="init.common, properties, init.clover">
 
     <echo>Dependencies:</echo>
+    <echo>  cargo.jar = [${cargo.jar}]</echo>    
     <echo>  commons.logging.jar = [${commons.logging.jar}]</echo>
     <echo>  junit.jar = [${junit.jar}]</echo>
     <echo>  mockobjects.jar = [${mockobjects.jar}]</echo>
@@ -88,6 +89,7 @@
     <echo>  clover.jar = [${clover.jar}]</echo>
 
     <path id="project.classpath">
+      <pathelement location="${cargo.jar}"/>      
       <pathelement location="${commons.logging.jar}"/>
       <pathelement location="${xerces.jar}"/>
       <pathelement location="${xmlapis.jar}"/>
@@ -99,6 +101,7 @@
 
     <condition property="properties.ok">
       <and>
+      	<available file="${cargo.jar}"/>
         <available file="${commons.logging.jar}"/>
         <available file="${junit.jar}"/>
         <available file="${mockobjects.jar}"/>

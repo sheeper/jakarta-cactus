@@ -108,6 +108,7 @@
     <download jar="antlr"/>
     <download jar="aspectjrt"/>
     <download jar="aspectj-tools"/>
+    <download jar="cargo"/>
     <download jar="checkstyle"/>
     <download jar="clover"/>
     <download jar="commons.beanutils"/>

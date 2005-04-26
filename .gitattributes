@@ -482,6 +482,8 @@ integration/ant/src/test-input/org/apache/cactus/integration/ant/test-cactifywar
 integration/ant/src/test-input/org/apache/cactus/integration/ant/test-cactus.xml svn_keywords=Author+Date+Id+Revision
 integration/ant/src/test-input/org/apache/cactus/integration/ant/test-containerset.xml svn_keywords=Author+Date+Id+Revision
 integration/ant/src/test-input/org/apache/cactus/integration/ant/test-runservertests.xml svn_keywords=Author+Date+Id+Revision
+integration/ant/src/test-input/org/apache/cactus/integration/ant/weblogic.ear -text
+integration/ant/src/test-input/org/apache/cactus/integration/ant/weblogic.war -text
 integration/ant/src/test/org/apache/cactus/integration/ant/AntTestCase.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/test/org/apache/cactus/integration/ant/TestAll.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/test/org/apache/cactus/integration/ant/TestCactifyEarTask.java svn_keywords=Author+Date+Id+Revision
