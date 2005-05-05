@@ -1,7 +1,7 @@
 /* 
  * ========================================================================
  * 
- * Copyright 2001-2004 The Apache Software Foundation.
+ * Copyright 2001-2005 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -302,59 +302,12 @@ public class XMLFormatter implements XMLConstants, TestListener
 
         // It is important to replace the "&" first as the other replacements
         // also introduces "&" chars ...
-        newString = XMLFormatter.replace(theString, '&', "&amp;");
+        newString = StringUtil.replace(theString, '&', "&amp;");
 
-        newString = XMLFormatter.replace(newString, '<', "&lt;");
-        newString = XMLFormatter.replace(newString, '>', "&gt;");
-        newString = XMLFormatter.replace(newString, '\"', "&quot;");
+        newString = StringUtil.replace(newString, '<', "&lt;");
+        newString = StringUtil.replace(newString, '>', "&gt;");
+        newString = StringUtil.replace(newString, '\"', "&quot;");
 
         return newString;
     }
-
-    /**
-     * Replaces a character in a string by a substring.
-     *
-     * @param theBaseString the base string in which to perform replacements
-     * @param theChar the char to look for
-     * @param theNewString the string with which to replace the char
-     * @return the string with replacements done or null if the input string
-     *          was null
-     */
-    private static String replace(String theBaseString, char theChar, 
-        String theNewString)
-    {
-        if (theBaseString == null)
-        {
-            return null;
-        }
-
-        final int len = theBaseString.length() - 1;
-        int pos = -1;
-
-        while ((pos = theBaseString.indexOf(theChar, pos + 1)) > -1)
-        {
-            if (pos == 0)
-            {
-                final String after = theBaseString.substring(1);
-
-                theBaseString = theNewString + after;
-            }
-            else if (pos == len)
-            {
-                final String before = theBaseString.substring(0, pos);
-
-                theBaseString = before + theNewString;
-            }
-            else
-            {
-                final String before = theBaseString.substring(0, pos);
-                final String after = theBaseString.substring(pos + 1);
-
-                theBaseString = before + theNewString + after;
-            }
-        }
-
-        return theBaseString;
-    }
-
 }

@@ -1,7 +1,7 @@
 /* 
  * ========================================================================
  * 
- * Copyright 2001-2003 The Apache Software Foundation.
+ * Copyright 2001-2005 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -124,4 +124,45 @@ public class StringUtil
         return false;
     }
 
+    /**
+     * Replaces a character in a string by a substring.
+     *
+     * @param theBaseString the base string in which to perform replacements
+     * @param theChar the char to look for
+     * @param theNewString the string with which to replace the char
+     * @return the string with replacements done or null if the input string
+     *          was null
+     */
+    public static String replace(String theBaseString, char theChar, 
+        String theNewString)
+    {
+        if (theBaseString == null)
+        {
+            return null;
+        }
+
+        int pos = theBaseString.indexOf(theChar);
+        if (pos < 0)
+        {
+            return theBaseString;
+        }
+        
+        int lastPos = 0;
+        StringBuffer result = new StringBuffer();
+        while (pos > -1)
+        {
+            result.append(theBaseString.substring(lastPos, pos));
+            result.append(theNewString);
+            
+            lastPos = pos + 1;
+            pos = theBaseString.indexOf(theChar, lastPos);
+        }
+
+        if (lastPos < theBaseString.length())
+        {
+            result.append(theBaseString.substring(lastPos));
+        }
+        
+        return result.toString();
+    }
 }

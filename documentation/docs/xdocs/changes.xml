@@ -91,6 +91,11 @@
       </devs>
 
       <release version="1.8dev" date="in CVS">
+        <action dev="VMA" type="fix" issue="CACTUS-210" due-to="Thorsten Harders">
+          The XML Formatter in the Servlet Test Runner had a bug where it
+          was sometime cuting some characters from the test result string
+          to format.
+        </action>
         <action dev="FAL" type="fix" issue="CACTUS-204">
           <code>CactifyWar</code> task now does not require a <code>web.xml
           </code> and creates an empty one if necessary.

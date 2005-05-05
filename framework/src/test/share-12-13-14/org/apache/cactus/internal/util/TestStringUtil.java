@@ -1,7 +1,7 @@
 /* 
  * ========================================================================
  * 
- * Copyright 2001-2004 The Apache Software Foundation.
+ * Copyright 2001-2005 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -81,6 +81,21 @@ public class TestStringUtil extends TestCase
         assertTrue(!StringUtil.filterLine(
             "    at other.package.MyClass.method(MyClass.java:100)",
             filterPatterns));
+    }
+
+    /**
+     * Verify character-replacement algorithm.
+     */
+    public void testReplace()
+    {
+        assertEquals("you&amp;me", 
+            StringUtil.replace("you&me", '&', "&amp;"));
+        assertEquals("&lt;tag", 
+            StringUtil.replace("<tag", '<', "&lt;"));
+        assertEquals("tag&gt;", 
+            StringUtil.replace("tag>", '>', "&gt;"));
+        assertEquals("12<X>456<X>89", 
+            StringUtil.replace("12x456x89", 'x', "<X>"));
     }
 
 }
