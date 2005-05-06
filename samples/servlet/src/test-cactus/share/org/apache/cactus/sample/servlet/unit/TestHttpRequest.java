@@ -21,7 +21,11 @@ package org.apache.cactus.sample.servlet.unit;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 import org.apache.cactus.ServletTestCase;
 import org.apache.cactus.WebRequest;
@@ -78,12 +82,13 @@ public class TestHttpRequest extends ServletTestCase
     //-------------------------------------------------------------------------
 
     /**
-     * Verify that we can send arbitrary data in the request body.
+     * Verify that we can send arbitrary data in the request body and read the
+     * data back on the server side using a Reader.
      *
      * @param theRequest the request object that serves to initialize the
      *                   HTTP connection to the server redirector.
      */
-    public void beginSendUserData(WebRequest theRequest)
+    public void beginSendUserDataAndReadWithReader(WebRequest theRequest)
     {
         ByteArrayInputStream bais = new ByteArrayInputStream(
             "<data>some data to send in the body</data>".getBytes());
@@ -93,11 +98,12 @@ public class TestHttpRequest extends ServletTestCase
     }
 
     /**
-     * Verify that we can send arbitrary data in the request body.
+     * Verify that we can send arbitrary data in the request body and read the
+     * data back on the server side using a Reader.
      * 
      * @exception Exception on test failure
      */
-    public void testSendUserData() throws Exception
+    public void testSendUserDataAndReadWithReader() throws Exception
     {
         String buffer;
         StringBuffer body = new StringBuffer();
@@ -112,6 +118,43 @@ public class TestHttpRequest extends ServletTestCase
         assertEquals("<data>some data to send in the body</data>", 
             body.toString());
         assertEquals("text/xml", request.getContentType());
+    }
+
+    //-------------------------------------------------------------------------
+
+    /**
+     * Verify that we can send arbitrary data in the request body and read the
+     * data back on the server side using an ObjectInputStream.
+     *
+     * @param theRequest the request object that serves to initialize the
+     *                   HTTP connection to the server redirector.
+     * @exception Exception on test failure
+     */
+    public void beginSendUserDataAndReadWithObjectInputStream(
+        WebRequest theRequest) throws Exception
+    {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();        
+        ObjectOutputStream oos = new ObjectOutputStream(baos);
+        oos.writeObject("Test with a String object");
+        oos.flush();
+
+        theRequest.setUserData(new ByteArrayInputStream(baos.toByteArray()));
+        theRequest.setContentType("application/octet-stream");
+    }
+
+    /**
+     * Verify that we can send arbitrary data in the request body and read the
+     * data back on the server side using an ObjectInputStream.
+     * 
+     * @exception Exception on test failure
+     */
+    public void testSendUserDataAndReadWithObjectInputStream() throws Exception
+    {
+        InputStream in = request.getInputStream();
+        ObjectInputStream  ois = new ObjectInputStream(in);
+        String data = (String) ois.readObject();
+        assertNotNull(data);
+        assertEquals("Test with a String object", data);
     }
 
     //-------------------------------------------------------------------------
