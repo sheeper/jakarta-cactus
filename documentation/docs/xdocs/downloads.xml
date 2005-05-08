@@ -3,7 +3,7 @@
 <!--
  * ========================================================================
  * 
- * Copyright 2001-2004 The Apache Software Foundation.
+ * Copyright 2001-2005 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -101,10 +101,6 @@ maven plugin:download -DgroupId=cactus -DartifactId=cactus-maven -Dversion=<vers
           <link href="ext:cactus_release_src">Cactus source releases</link>.
         </li>
       </ul>
-      <note>
-        For older Cactus releases (&lt;= 1.4.1), click 
-        <link href="ext:cactus_release_old">here</link>.
-      </note>
 
     </section>
 

@@ -455,9 +455,8 @@
   <external id="cactus_dutronc_lyrics" url="http://www.frmusique.ru/texts/d/dutronc_jacques/cactus.htm"/>
   <external id="cactus_dutronc_midi" url="http://membres.lycos.fr/nabla007/musique/jacques_dutronc_(les_cactus).mid"/>
   <external id="cactus_nightly" url="http://cvs.apache.org/builds/jakarta-cactus/nightly"/>
-  <external id="cactus_release_bin" url="http://jakarta.apache.org/site/binindex.cgi"/>
-  <external id="cactus_release_src" url="http://jakarta.apache.org/site/sourceindex.cgi"/>
-  <external id="cactus_release_old" url="http://jakarta.apache.org/builds/jakarta-cactus/release"/>
+  <external id="cactus_release_bin" url="http://jakarta.apache.org/site/downloads/downloads_cactus.cgi"/>
+  <external id="cactus_release_src" url="http://jakarta.apache.org/site/downloads/downloads_cactus.cgi"/>
   <external id="cactus_testedon" url="http://wiki.apache.org/jakarta-cactus/TestedOn"/>
   <external id="cactus_viewcvs" url="http://cvs.apache.org/viewcvs/jakarta-cactus/"/>
   <external id="cactus_who_uses_it" url="http://wiki.apache.org/jakarta-cactus/WhoUsesCactus"/>
