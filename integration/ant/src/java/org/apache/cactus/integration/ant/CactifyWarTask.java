@@ -813,7 +813,6 @@ public class CactifyWarTask extends War
                 f.deleteOnExit();
                 if (f.getName().equals("web.xml"))
                 {
-                    setWebxml(f);
                     webXmlFile = f;
                 }
                 else
