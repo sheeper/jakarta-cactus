@@ -26,6 +26,7 @@ import java.util.Iterator;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.tools.ant.BuildException;
+import org.apache.tools.ant.Project;
 import org.apache.tools.ant.taskdefs.Ear;
 import org.apache.tools.ant.types.ZipFileSet;
 import org.apache.tools.ant.util.FileUtils;
@@ -258,6 +259,13 @@ public class CactifyEarTask extends Ear
                 String module = (String) ejbModules.next();
                 EjbArchive ejbArchive = ear.getEjbModule(module);
                 EjbJarXml descr = ejbArchive.getEjbJarXml();
+                VendorEjbDescriptor vendorDescr = descr.getVendorDescriptor();
+                if (vendorDescr == null)
+                {
+                    throw new BuildException("Failed to find vendor " 
+                                             + "deployment descriptor " 
+                                             + "for ejb jar " + module);
+                }
                 Iterator ejbs = descr.getSessionEjbs();
                 while (ejbs.hasNext())
                 {
@@ -267,13 +275,15 @@ public class CactifyEarTask extends Ear
                     String localHome = ejb.getLocalHome();
                     if (local != null)
                     {
+                        log("Adding ejb-ref for local session ejb "
+                            + ejb.getName(),
+                            Project.MSG_VERBOSE);
                         CactifyWarTask.EjbRef ref = new CactifyWarTask.EjbRef();
                         ref.setType("Session");
                         ref.setName("ejb/" + name);
                         ref.setLocalInterface(local);
                         ref.setLocalHomeInterface(localHome);
-                        VendorEjbDescriptor vendorDescr = 
-                            descr.getVendorDescriptor();
+                        
                         String jndiName = vendorDescr.getJndiName(ejb);
                         ref.setJndiName(jndiName);
                         cactusWar.addConfiguredEjbref(ref);
@@ -288,13 +298,15 @@ public class CactifyEarTask extends Ear
                     String localHome = ejb.getLocalHome();
                     if (local != null)
                     {
+                        log("Adding ejb-ref for local entity ejb "
+                            + ejb.getName(),
+                            Project.MSG_VERBOSE);
                         CactifyWarTask.EjbRef ref = new CactifyWarTask.EjbRef();
                         ref.setType("Entity");
                         ref.setName("ejb/" + name);
                         ref.setLocalInterface(local);
                         ref.setLocalHomeInterface(localHome);
-                        VendorEjbDescriptor vendorDescr = 
-                            descr.getVendorDescriptor();
+                        
                         String jndiName = vendorDescr.getJndiName(ejb);
                         ref.setJndiName(jndiName);
                         cactusWar.addConfiguredEjbref(ref);
