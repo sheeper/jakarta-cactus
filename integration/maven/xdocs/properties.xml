@@ -312,6 +312,31 @@ basedir=${basedir}
       </table>
     </section>
 
+    <section name="Cactus Path Settings">
+      <table>
+        <tr>
+          <th>Path Id</th>
+          <th>Optional?</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <td>cactus.compile.src.set</td>
+          <td>No</td>
+          <td>
+            <p>
+              Ant path containing the Java classes used by the
+              <code>cactus:compile</code> goal. This path is created by
+              the <code>cactus:init</code> goal ant initially populated with
+              only one path element (<code>${cactus.src.dir}</code> - if a
+              project requires multiple source directories, it could create a
+              <code>preGoal</code> which would add more elements in the path.
+              by a 
+            </p>
+          </td>
+        </tr>
+      </table>
+    </section>
+
     <section name="Cactus/Generic Container Settings">
       <table>
         <tr>

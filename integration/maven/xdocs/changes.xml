@@ -8,6 +8,10 @@
   <body>
 
     <release version="1.8dev" date="in CVS">
+      <action dev="felipeal" type="add" issue="CACTUS-211">
+        Added a <code>cactus.compile.src.set</code> path element, which allows
+        Cactus tests to be split among multiple source directories.
+      </action>
       <action dev="felipeal" type="update" issue="CACTUS-197">
         Added a check to verify that the user's version of the
         <code>Maven EAR Plugin</code> is greater or equal to 1.6.1, as this the

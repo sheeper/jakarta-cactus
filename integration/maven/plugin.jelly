@@ -115,6 +115,9 @@
 
     <util:available file="${cactus.src.dir}">
       <j:set var="cactusSourcePresent" value="true"/>
+      <ant:path id="cactus.compile.src.set">
+        <ant:pathelement location="${cactus.src.dir}"/>
+      </ant:path>
     </util:available>
 
     <!-- The Cactus scanner automatically discovers Cactus tests -->
@@ -131,7 +134,8 @@
 
     <ant:dirname property="cactus.ejb.dir" file="${cactus.src.ejb}"/>
     <ant:basename property="cactus.ejb.name" file="${cactus.src.ejb}"/>
-     
+
+
   </goal>
 
   <!--
@@ -190,7 +194,9 @@
             deprecation="${pom.getPluginContext('maven-java-plugin').getVariable('maven.compile.deprecation')}"
             optimize="${pom.getPluginContext('maven-java-plugin').getVariable('maven.compile.optimize')}">
 
-          <ant:src path="${cactus.src.dir}"/>
+          <ant:src>
+            <ant:path refid="cactus.compile.src.set"/>
+          </ant:src>
           
           <ant:classpath>
             <ant:path refid="maven.dependency.classpath"/>
