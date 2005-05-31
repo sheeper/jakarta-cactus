@@ -8,6 +8,9 @@
   <body>
 
     <release version="1.8dev" date="in CVS">
+      <action dev="felipeal" type="fix" issue="CACTUS-214">
+        Added dependency on <code>Cargo</code>.
+      </action>
       <action dev="felipeal" type="add" issue="CACTUS-211">
         Added a <code>cactus.compile.src.set</code> path element, which allows
         Cactus tests to be split among multiple source directories.

@@ -103,6 +103,7 @@
       <ant:pathelement location="${plugin.getDependencyPath('xerces:xerces')}"/>
       <ant:pathelement location="${plugin.getDependencyPath('xml-apis:xml-apis')}"/>
       <ant:pathelement location="${plugin.getDependencyPath('rhino:js')}"/>
+      <ant:pathelement location="${plugin.getDependencyPath('cargo:cargo')}"/>
     </ant:path>
 
     <ant:taskdef resource="cactus.tasks" classpathref="cactus.classpath"/>
