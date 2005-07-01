@@ -503,6 +503,9 @@
   <external id="jasper-runtime" url="http://www.ibiblio.org/maven/tomcat/jars"/>
   <external id="jetty" url="http://mortbay.org/jetty/"/>  
   <external id="jenerator" url="http://www.visioncodified.com/"/>
+  <external id="jira" url="http://issues.apache.org/jira/"/>
+  <external id="jira_roadmap" url="http://issues.apache.org/jira/browse/CACTUS?report=com.atlassian.jira.plugin.system.project:roadmap-panel"/>
+  <external id="jira_changelog" url="http://issues.apache.org/jira/browse/CACTUS?report=com.atlassian.jira.plugin.system.project:changelog-panel"/>
   <external id="junit" url="http://junit.org"/>
   <external id="junitee" url="http://www.junitee.org/"/>
   <external id="junit_faq" url="http://junit.sourceforge.net/doc/faq/faq.htm"/>

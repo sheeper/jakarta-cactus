@@ -82,39 +82,15 @@
       	changes page</a>.
       </p>
 
-      <devs>
-        <person name="Vincent Massol" email="vmassol@apache.org" id="VMA"/>
-        <person name="Nicholas Lesiecki" email="ndlesiecki@yahoo.com" id="NDL"/>
-        <person name="Christopher Lenz" email="cmlenz@gmx.de" id="CML"/>
-        <person name="Julien Ruaux" email="jruaux@apache.org" id="JRU"/>
-        <person name="Felipe Leme" email="maven@felipeal.net" id="FAL"/>
-      </devs>
-
-      <release version="1.8dev" date="in CVS">
-        <action dev="VMA" type="fix" issue="CACTUS-210" due-to="Thorsten Harders">
-          The XML Formatter in the Servlet Test Runner had a bug where it
-          was sometime cuting some characters from the test result string
-          to format.
-        </action>
-        <action dev="FAL" type="fix" issue="CACTUS-204">
-          <code>CactifyWar</code> task now does not require a <code>web.xml
-          </code> and creates an empty one if necessary.
-        </action>
-        <action dev="VMA" type="update" issue="CACTUS-189" due-to="Magnus Grimsell">
-          Added support for merging <code>&lt;run-as&gt;</code> element from a 
-          provided <code>web.xml</code> file in the cactifywar Ant task.
-        </action>
-        <action dev="VMA" type="add">
-          Added new public 
-          <code>PageContextWrapper.getOriginalPageContext()</code> method 
-          that returns the original PageContext object that Cactus is wrapping.
-        </action>
-        <action dev="VMA" type="add" issue="CACTUS-81" due-to="Thomas Schapitz">
-          Added 3 new attributes to the nested containers of the 
-          <code>&lt;cactus&gt;</code> task: <code>protocol</code>,
-          <code>server</code> and <code>port</code>. This allows
-          running Cactus tests located in a container that is
-          remote from the Cactus client.
+      <release version="versions newer than 1.7" date="...">
+        <action dev="VMA" type="update">
+          Since version 1.8 of Cactus all changes are now recorded using
+          Apache's <a href="ext:jira">JIRA</a>. The list of changes for an 
+          unreleased version is available in the 
+          <strong><a href="ext:jira_roadmap">JIRA roadmap report</a></strong> 
+          and the released version changes in the 
+          <strong><a href="ext:jira_changelog">JIRA changelog 
+          report</a></strong>.
         </action>
       </release>
       
