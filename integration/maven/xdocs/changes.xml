@@ -8,6 +8,11 @@
   <body>
 
     <release version="1.8dev" date="in CVS">
+      <action dev="felipeal" type="fix" due-to="Eric Lapierre" 
+              issue="CACTUS-217">
+        Fixed bad end tags on <code>project.xml</code>, so it works with 
+        Maven 1.1.
+      </action>
       <action dev="felipeal" type="fix" issue="CACTUS-214">
         Added dependency on <code>Cargo</code>.
       </action>
