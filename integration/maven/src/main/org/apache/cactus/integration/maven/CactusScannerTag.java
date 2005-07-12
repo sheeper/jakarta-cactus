@@ -170,7 +170,7 @@ public class CactusScannerTag extends TagSupport implements TaskSource
      */
     public void addFileset(FileSet theSet)
     {
-        log.debug("Adding fileset [" + theSet + "]");
+        log.debug("Adding fileset");
         this.fileset = theSet;
     }
 
