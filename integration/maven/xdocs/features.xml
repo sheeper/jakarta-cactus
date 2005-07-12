@@ -36,6 +36,9 @@
           Supports Servlet API 2.3 only.
         </li>
         <li>
+          Requires JDK 1.4 or superior.
+        </li>
+        <li>
           Automatically discover test classes from non-test classes.
         </li>
       </ul>
