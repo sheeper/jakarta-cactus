@@ -84,7 +84,7 @@
 
       <release version="versions newer than 1.7" date="...">
         <action dev="VMA" type="update">
-          Since version 1.8 of Cactus all changes are now recorded using
+          Since version 1.7.1 of Cactus all changes are now recorded using
           Apache's <a href="ext:jira">JIRA</a>. The list of changes for an 
           unreleased version is available in the 
           <strong><a href="ext:jira_roadmap">JIRA roadmap report</a></strong> 

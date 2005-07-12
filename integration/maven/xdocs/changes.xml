@@ -7,44 +7,15 @@
 
   <body>
 
-    <release version="1.8dev" date="in CVS">
-      <action dev="felipeal" type="fix" due-to="Eric Lapierre" 
-              issue="CACTUS-217">
-        Fixed bad end tags on <code>project.xml</code>, so it works with 
-        Maven 1.1.
-      </action>
-      <action dev="felipeal" type="fix" issue="CACTUS-214">
-        Added dependency on <code>Cargo</code>.
-      </action>
-      <action dev="felipeal" type="add" issue="CACTUS-211">
-        Added a <code>cactus.compile.src.set</code> path element, which allows
-        Cactus tests to be split among multiple source directories.
-      </action>
-      <action dev="felipeal" type="update" issue="CACTUS-197">
-        Added a check to verify that the user's version of the
-        <code>Maven EAR Plugin</code> is greater or equal to 1.6.1, as this the
-        version required for the <code>cactifyear</code> goal to work properly.
-      </action>
-      <action dev="felipeal" type="add" issue="CACTUS-90">
-        Create empty <code>web.xml</code> file when one does not exist. Notice that this change 
-        also introduced the <code>cactus.servlet.version</code> plugin property.
-      </action>
-      <action dev="vmassol" type="fix" issue="CACTUS-205">
-        Fixed the usage of the Java plugin properties that are used when 
-        compiling the Cactus tests. They were ignored due to some invalid
-        Jelly syntax.
-      </action>
-      <action dev="felipeal" type="add" issue="CACTUS-201">
-        Goal <code>cactus:test</code> is not executed if property
-        <code>cactus.test.skip</code> (and not <code>maven.test.skip</code> anymore) is set.
-      </action>
-      <action dev="felipeal" type="fix" issue="CACTUS-202">
-        Property <code>cactus.ear</code> is now defined at 
-        the <code>plugin.properties</code> file.
-      </action>
-      <action dev="felipeal" type="fix" issue="CACTUS-197">
-        Added support for <code>ear.bundle.name</code> and
-        <code>ear.bundle.dir</code> properties.
+    <release version="versions newer than 1.7" date="...">
+      <action dev="felipeal" type="update">
+        Since version 1.7.1 of Cactus all changes are now recorded using
+        Apache's <a href="http://issues.apache.org/jira/browse/CACTUS">JIRA</a>. The list of changes for an 
+        unreleased version is available in the 
+        <strong><a href="http://tinyurl.com/97vtw">JIRA roadmap report</a></strong> 
+        and the released version changes in the 
+        <strong><a href="http://tinyurl.com/dl9ej">JIRA changelog 
+        report</a></strong>.
       </action>
     </release>
 

@@ -3,7 +3,7 @@
 <!--
  * ========================================================================
  * 
- * Copyright 2001-2004 The Apache Software Foundation.
+ * Copyright 2001-2005 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -59,6 +59,20 @@
     </items>
 
   </channel>
+
+  <item rdf:about="http://jakarta.apache.org/cactus/news.html#news32">
+    <title>Cactus 1.7.1 released</title>
+    <link>http://jakarta.apache.org/cactus/news.html#news32</link>
+    <description>
+<![CDATA[Cactus 1.7.1 has been released. Full details can be found
+in the <a href="http://jakarta.apache.org/cactus/1.7.1/ANNOUNCEMENT.txt">
+release announcement</a>.
+]]>
+    </description>
+    <dc:subject></dc:subject>
+    <dc:creator>felipeal</dc:creator>
+    <dc:date>2005-07-12T00:00:00+00:00</dc:date>
+  </item>
 
   <item rdf:about="http://jakarta.apache.org/cactus/news.html#news31">
     <title>New Cactus banner</title>

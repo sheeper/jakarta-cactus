@@ -1,27 +1,29 @@
-The Cactus project is pleased to announce the release of version 1.8.
+The Cactus project is pleased to announce the release of version 1.7.1.
 Cactus is a unit testing framework for testing server side java code.
 
 Goals
 -----
 
-[todo]
+This a checkpoint release, as Cactus 1.8 will be refactored to use Cargo for container management. As such, a new branch will be created for 1.7 releases (but hopefully no other release will be necessary before 1.8).
+
 
 Main new features
 -----------------
 
-[todo]
+- Cactus now uses Cargo for the CactifyEar task
+- JDK 1.2 and 1.3 are no longer supported
 
 Changes
 -------
 
 Please check the Changes page at
 http://jakarta.apache.org/cactus/changes.html for a full list of the 
-changes in version 1.8. 
+changes in version 1.7.1. 
 
 Known limitations and bugs:
 ---------------------------
 
-[todo]
+See http://issues.apache.org/jira/browse/CACTUS .
 
 For more information about Cactus, please visit
 http://jakarta.apache.org/cactus/.
