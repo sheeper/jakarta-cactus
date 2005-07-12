@@ -4,7 +4,7 @@
   <name>Jakarta Cactus</name>
   <groupId>cactus</groupId>
   <id>jakarta-cactus</id>
-  <currentVersion>1.7.1</currentVersion>
+  <currentVersion>1.8dev</currentVersion>
   <organization>
     <name>Apache Software Foundation</name>
     <url>http://jakarta.apache.org/</url>

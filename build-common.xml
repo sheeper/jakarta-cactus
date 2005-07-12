@@ -46,8 +46,8 @@
   	   major.minor.patch -->
 
   <property name="project.version.major" value="1"/>
-  <property name="project.version.minor" value="7"/>
-  <property name="project.version.suffix" value=".1"/>
+  <property name="project.version.minor" value="8"/>
+  <property name="project.version.suffix" value="dev"/>
   <property name="project.version.suffix.timestamp" value=""/>
 
   <property name="project.version"
