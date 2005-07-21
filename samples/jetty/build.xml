@@ -110,6 +110,7 @@
 
     <filterset id="jar.names">
       <filter token="cactus.jar.name" value="${cactus.jar.name}.jar"/>
+      <filter token="cargo.jar.name" value="${cargo.jar.name}.jar"/>
       <filter token="servlet.jar.name" value="${servlet.jar.name}"/>
       <filter token="aspectjrt.jar.name" value="${aspectjrt.jar.name}"/>
       <filter token="commons.httpclient.jar.name"
@@ -136,6 +137,7 @@
     <echo>Dependencies:</echo>
     <echo>  aspectjrt.jar = [${aspectjrt.jar}]</echo>
     <echo>  cactus.jar = [${cactus.jar}]</echo>
+    <echo>  cargo.jar = [${cargo.jar}]</echo>
     <echo>  commons.httpclient.jar = [${commons.httpclient.jar}]</echo>
     <echo>  commons.logging.jar = [${commons.logging.jar}]</echo>
     <echo>  httpunit.jar = [${httpunit.jar}]</echo>

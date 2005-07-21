@@ -220,6 +220,9 @@ standard.jar = ${lib.repo}/${standard.project}/jars/${standard.artifact}-${stand
 # The location of the Httpunit jar
 httpunit.jar = ${lib.repo}/${httpunit.project}/jars/${httpunit.artifact}-${httpunit.version}.jar
 
+# The location of the Cargo jar
+cargo.jar = ${lib.repo}/${cargo.project}/jars/${cargo.artifact}-${cargo.version}.jar
+
 # Neko HTML (required by HttpUnit)
 nekohtml.jar = ${lib.repo}/${nekohtml.project}/jars/${nekohtml.artifact}-${nekohtml.version}.jar
 

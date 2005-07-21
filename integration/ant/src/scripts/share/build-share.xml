@@ -57,6 +57,8 @@
 
     <property name="cactus.jar" 
         value="${cactus.lib.common.dir}/@cactus.jar.name@"/>
+    <property name="cactus.cargo.jar" 
+        value="${cactus.lib.common.dir}/@cargo.jar.name@"/>
     <property name="cactus.log4j.jar" 
         value="${cactus.lib.common.dir}/@log4j.jar.name@"/>
     <property name="cactus.aspectjrt.jar" 
@@ -106,6 +108,7 @@
         <javac destdir="${cactus.target.classes.dir}" srcdir="${cactus.src.dir}">
             <classpath>
                 <pathelement location="${cactus.jar}"/>
+                <pathelement location="${cactus.cargo.jar}"/>
                 <pathelement location="${cactus.log4j.jar}"/>
                 <pathelement location="${cactus.aspectjrt.jar}"/>
                 <pathelement location="${cactus.commons.logging.jar}"/>
@@ -220,6 +223,8 @@
         <copy todir="${cactus.target.dir}/${cactus.context}/WEB-INF/lib"
           file="${cactus.jar}"/>
         <copy todir="${cactus.target.dir}/${cactus.context}/WEB-INF/lib"
+          file="${cactus.cargo.jar}"/>
+        <copy todir="${cactus.target.dir}/${cactus.context}/WEB-INF/lib"
           file="${cactus.log4j.jar}"/>
         <copy todir="${cactus.target.dir}/${cactus.context}/WEB-INF/lib"
           file="${cactus.aspectjrt.jar}"/>
@@ -308,6 +313,7 @@
                 <pathelement location="${cactus.target.conf.dir}"/>
                 <pathelement location="${cactus.target.classes.dir}"/>
                 <pathelement location="${cactus.jar}"/>
+                <pathelement location="${cactus.cargo.jar}"/>
                 <pathelement location="${cactus.log4j.jar}"/>
                 <pathelement location="${cactus.aspectjrt.jar}"/>
                 <pathelement location="${cactus.commons.logging.jar}"/>
@@ -360,6 +366,7 @@
                 <pathelement location="${cactus.target.conf.dir}"/>
                 <pathelement location="${cactus.target.classes.dir}"/>
                 <pathelement location="${cactus.jar}"/>
+                <pathelement location="${cactus.cargo.jar}"/>
                 <pathelement location="${cactus.log4j.jar}"/>
                 <pathelement location="${cactus.aspectjrt.jar}"/>
                 <pathelement location="${cactus.commons.logging.jar}"/>

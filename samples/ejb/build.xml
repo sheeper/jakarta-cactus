@@ -140,6 +140,7 @@
       <filter token="aspectjrt.jar.name" value="${aspectjrt.jar.name}"/>
       <filter token="cactus.ant.jar.name" value="${cactus.ant.jar.name}.jar"/>
       <filter token="cactus.jar.name" value="${cactus.jar.name}.jar"/>
+      <filter token="cargo.jar.name" value="${cargo.jar.name}.jar"/>
       <filter token="commons.httpclient.jar.name"
           value="${commons.httpclient.jar.name}"/>
       <filter token="commons.logging.jar.name"
@@ -163,6 +164,7 @@
     <echo>  aspectjrt.jar = [${aspectjrt.jar}]</echo>
     <echo>  cactus.jar = [${cactus.jar}]</echo>
     <echo>  cactus.ant.jar = [${cactus.ant.jar}]</echo>
+    <echo>  cargo.jar = [${cargo.jar}]</echo>
     <echo>  commons.httpclient.jar = [${commons.httpclient.jar}]</echo>
     <echo>  commons.logging.jar = [${commons.logging.jar}]</echo>
     <echo>  j2ee.jar = [${j2ee.jar}]</echo>

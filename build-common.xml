@@ -63,6 +63,9 @@
 
   <!-- Prefix to add to all distributable files -->
   <property name="project.prefix" value="jakarta"/>
+  
+  <!-- TODO: temporary property, should be automatically calculated -->
+  <property name="cargo.jar.name" value="cargo-0.5"/>
  
   <!--
      ========================================================================

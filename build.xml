@@ -208,6 +208,8 @@
           prefix="${main.release.name}/lib"/>
       <zipfileset file="${cactus.jar}"
           prefix="${main.release.name}/lib"/>
+      <zipfileset file="${cargo.jar}"
+          prefix="${main.release.name}/lib"/>
       <zipfileset file="${commons.logging.jar}"
           prefix="${main.release.name}/lib"/>
       <zipfileset file="${commons.httpclient.jar}"

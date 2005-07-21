@@ -1,5 +1,7 @@
 * text=auto !eol
+/.classpath svn_keywords=Author+Date+Id+Revision
 /.cvsignore svn_keywords=Author+Date+Id+Revision
+/.project svn_keywords=Author+Date+Id+Revision
 /ANNOUNCEMENT.txt svn_keywords=Author+Date+Id+Revision
 /README svn_keywords=Author+Date+Id+Revision
 /build-common.xml svn_keywords=Author+Date+Id+Revision
