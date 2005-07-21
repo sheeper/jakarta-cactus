@@ -385,6 +385,7 @@ integration/ant/src/confs/web-app_2_3.dtd svn_keywords=Author+Date+Id+Revision
 integration/ant/src/java/org/apache/cactus/integration/ant/CactifyEarTask.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/java/org/apache/cactus/integration/ant/CactifyWarTask.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/java/org/apache/cactus/integration/ant/CactusTask.java svn_keywords=Author+Date+Id+Revision
+integration/ant/src/java/org/apache/cactus/integration/ant/CactusTestTask.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/java/org/apache/cactus/integration/ant/CactusWar.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/java/org/apache/cactus/integration/ant/ContainerSet.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/java/org/apache/cactus/integration/ant/RunServerTestsTask.java svn_keywords=Author+Date+Id+Revision

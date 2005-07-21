@@ -116,6 +116,8 @@
       location="../../lib/@junit.jar.name@"/>
   <property name="nekohtml.jar"
       location="../../lib/@nekohtml.jar.name@"/>
+ <property name="cargo.jar"
+      location="../../lib/@cargo.jar.name@"/>
 
   <!-- This is optional and only needed if you wish to debug and use 
        Log4J for logging -->
@@ -151,7 +153,7 @@
 (check your build.properties file)</fail>
 
     <taskdef resource="cactus.tasks" classpathref="cactus.classpath"/>
-
+    <taskdef resource="cargo.tasks" classpathref="cactus.classpath"/>
     <tstamp/>
 
   </target>
@@ -315,144 +317,150 @@
 
   </target>
 
-  <target name="test" depends="test.prepare"
+
+<!-- Start a container  -->
+  <macrodef name="start-container">
+    <attribute name="containerKey"/>
+    <sequential>
+      <mkdir dir="${target.dir}/@{containerKey}"/>
+      <cargo id="@{containerKey}" containerKey="@{containerKey}" action="start"
+          homeDir="${cactus.home.@{containerKey}}"
+          log="${target.dir}/@{containerKey}/cargo_start.log"
+          output="${target.dir}/@{containerKey}/container_start.log">
+  	<configuration>
+        <property name="cargo.servlet.port" value="${cactus.port}"/>
+        <property name="cargo.logging" value="high"/>
+
+        <war warfile="${target.dir}/${project.name.file}-cactified.war"/>
+	</configuration>
+        <!-- Configure Cactus for logging -->
+        <syspropertyset file="${target.dir.normalized}/logging_server.properties"/>
+
+        <!-- Additional jars that will be added to the classpath used to start 
+             the container -->
+        <extraclasspath>
+          <!-- pathelement location="${clover.jar}"/ -->
+        </extraclasspath>
+      </cargo>
+    </sequential>
+  </macrodef>
+<!-- Run JUnit Cactus tests on a running container  -->
+  <macrodef name="run-testcases">
+    <attribute name="containerKey"/>
+    <sequential>
+      <mkdir dir="${target.testreports.dir}"/>
+      <mkdir dir="${target.testreports.dir}/@{containerKey}"/>
+      <cactustests fork="yes" failureproperty="tests.failed" haltonerror="true" contexturl="http://localhost:${cactus.port}/${project.name.file}-cactified" warfile="${target.dir}/${project.name.file}-cactified.war" todir="${target.testreports.dir}/@{containerKey}" logs="${target.dir.normalized}/logging_client.properties">
+
+        <classpath>
+          <path refid="project.classpath"/>
+          <path refid="cactus.classpath"/>
+          <@clover.begin@pathelement location="${clover.jar}"/@clover.end@>
+          <pathelement location="${httpunit.jar}"/>
+          <pathelement location="${nekohtml.jar}"/>
+          <pathelement location="${target.classes.java.dir}"/>
+          <pathelement location="${target.classes.cactus.dir}"/>
+          <pathelement location="${log4j.jar}"/>
+        </classpath>
+        <formatter type="brief" usefile="false"/>
+        <formatter type="xml"/>
+        <batchtest>
+          <fileset dir="${src.cactus.dir}">
+            <!-- Due to some Cactus synchronization bug, the 'unit' tests need
+                 to run before the 'sample' tests -->
+            <include name="**/servlet/unit/Test*.java"/>
+            <exclude name="**/servlet/unit/Test*All.java"/>
+            <!-- Cargo0.5 release has not supported cargo.servlet.security -->
+            <exclude name="**/servlet/unit/TestBasicAuthentication.java"/>
+          </fileset>
+        </batchtest>
+        <batchtest>
+          <fileset dir="${src.cactus.dir}">
+            <include name="**/servlet/Test*.java"/>
+            <exclude name="**/servlet/Test*All.java"/>
+          </fileset>
+        </batchtest>
+      </cactustests>
+    </sequential>
+  </macrodef>
+
+<!-- Stop a container  -->
+  <macrodef name="stop-container">
+    <attribute name="containerKey"/>
+    <sequential>
+      <cargo refid="@{containerKey}" action="stop"
+          log="${target.dir}/@{containerKey}/cargo_stop.log"
+          output="${target.dir}/@{containerKey}/container_stop.log"/>
+    </sequential>
+  </macrodef>
+
+  <!-- Generate JUnit test reports for a container -->
+  <macrodef name="report-container">
+    <attribute name="containerKey"/>
+    <sequential>
+      <junitreport todir="${target.testreports.dir}/@{containerKey}">
+        <fileset dir="${target.testreports.dir}/@{containerKey}"
+            includes="TEST-*.xml"/>
+        <report todir="${target.testreports.dir}/@{containerKey}"
+            format="frames"/>
+      </junitreport>
+    </sequential>
+  </macrodef>
+<!-- Execute tests on a single container -->
+  <macrodef name="test-container-internal-check">
+    <attribute name="containerKey"/>
+    <sequential>
+      <condition property="container.shouldRun">
+        <isset property="cactus.home.@{containerKey}"/>
+      </condition>
+    </sequential>
+  </macrodef>
+
+  <target name="test-container-internal-check">
+    <test-container-internal-check containerKey="${containerKey}"/>
+  </target>
+
+  <target name="test-container-internal-ok" if="container.shouldRun">
+    <echo>Running tests on ${containerKey} container...</echo>
+    <start-container containerKey="${containerKey}"/>
+    <!-- <input>Press Return key to do test ...</input> -->
+    <run-testcases containerKey="${containerKey}"/> 
+    <stop-container containerKey="${containerKey}"/> 
+    <report-container containerKey="${containerKey}"/> 
+
+  </target>
+<target name="test-container-internal-nok" unless="container.shouldRun">
+    <echo>Not running tests on ${containerKey} container as [cactus.home.${containerKey}] property not defined</echo>
+  </target>
+
+  <target name="test-container-internal" 
+      depends="test-container-internal-check,test-container-internal-ok,test-container-internal-nok"/>
+
+  <macrodef name="test-container">
+    <attribute name="containerKey"/>
+    <sequential>
+      <antcall inheritAll="true" inheritRefs="true" target="test-container-internal">
+        <param name="containerKey" value="@{containerKey}"/>
+      </antcall>
+    </sequential>
+  </macrodef>
+
+<target name="test" depends="test.prepare"
       description="Run the tests on the defined containers">
 
-    <!-- Run the tests -->
-    <cactus warfile="${target.dir}/${project.name.file}-cactified.war" 
-        fork="yes" failureproperty="tests.failed" haltonerror="true">
+    <!-- Need to add jboss 3.x once it is supported by Cargo:
+    <test-container containerKey="jboss3x"/>-->
 
-      <!-- Configure the cactus task for logging -->
-      <cactusproperty server="false"
-          propertiesFile="${target.dir.normalized}/logging_client.properties"/>
-      <cactusproperty server="true"
-          propertiesFile="${target.dir.normalized}/logging_server.properties"/>
+    <test-container containerKey="oc4j9x"/>
+    <test-container containerKey="orion1x"/>
+    <test-container containerKey="orion2x"/>
+    <test-container containerKey="resin2x"/>
+    <test-container containerKey="resin3x"/>
+    <!-- test-container containerKey="tomcat3x"/ -->
+    <test-container containerKey="tomcat4x"/>
+    <test-container containerKey="tomcat5x"/>
+    <test-container containerKey="weblogic8x"/>
 
-      <!-- Additional jars that will be added to the classpath used to start the
-           container (in addition to the container jars themseleves which are
-           automatically added by the <cactus> task -->
-      <containerclasspath>
-        <@clover.begin@pathelement location="${clover.jar}"/@clover.end@>
-      </containerclasspath>
-
-      <classpath>
-        <path refid="project.classpath"/>
-        <@clover.begin@pathelement location="${clover.jar}"/@clover.end@>
-        <pathelement location="${httpunit.jar}"/>
-        <pathelement location="${nekohtml.jar}"/>
-        <pathelement location="${target.classes.java.dir}"/>
-        <pathelement location="${target.classes.cactus.dir}"/>
-        <pathelement location="${log4j.jar}"/>
-      </classpath>
-
-      <containerset>
-        <@j2ee13.begin@jboss3x if="cactus.home.jboss3x"
-            dir="${cactus.home.jboss3x}"
-            output="${target.testreports.dir}/jboss3x.out"
-            todir="${target.testreports.dir}/jboss3x"/@j2ee13.end@>
-        <orion1x if="cactus.home.orion1x"
-            dir="${cactus.home.orion1x}" port="${cactus.port}"
-            output="${target.testreports.dir}/orion1x.out"
-            todir="${target.testreports.dir}/orion1x"/>
-        <orion2x if="cactus.home.orion2x"
-            dir="${cactus.home.orion2x}" port="${cactus.port}"
-            output="${target.testreports.dir}/orion2x.out"
-            todir="${target.testreports.dir}/orion2x"/>
-        <resin2x if="cactus.home.resin2x"
-            dir="${cactus.home.resin2x}" port="${cactus.port}"
-            output="${target.testreports.dir}/resin2x.out"
-            todir="${target.testreports.dir}/resin2x"/>
-        <resin3x if="cactus.home.resin3x"
-            dir="${cactus.home.resin3x}" port="${cactus.port}"
-            output="${target.testreports.dir}/resin3x.out"
-            todir="${target.testreports.dir}/resin3x"/>
-        <@j2ee12.begin@tomcat3x if="cactus.home.tomcat3x"
-            dir="${cactus.home.tomcat3x}" port="${cactus.port}"
-            output="${target.testreports.dir}/tomcat3x.out"
-            todir="${target.testreports.dir}/tomcat3x"/@j2ee12.end@>
-        <tomcat4x if="cactus.home.tomcat4x"
-            dir="${cactus.home.tomcat4x}" port="${cactus.port}"
-            output="${target.testreports.dir}/tomcat4x.out"
-            todir="${target.testreports.dir}/tomcat4x"/>
-        <tomcat5x if="cactus.home.tomcat5x"
-            dir="${cactus.home.tomcat5x}" port="${cactus.port}"
-            output="${target.testreports.dir}/tomcat5x.out"
-            todir="${target.testreports.dir}/tomcat5x"/>
-        <weblogic7x if="cactus.home.weblogic7x"
-            dir="${cactus.home.weblogic7x}" port="${cactus.port}"
-            output="${target.testreports.dir}/weblogic7x.out"
-            todir="${target.testreports.dir}/weblogic7x"/>
-      </containerset>
-
-      <formatter type="brief" usefile="false"/>
-      <formatter type="xml"/>
-
-      <batchtest>
-        <fileset dir="${src.cactus.dir}">
-          <!-- Due to some Cactus synchronization bug, the 'unit' tests need
-               to run before the 'sample' tests -->
-          <include name="**/servlet/unit/Test*.java"/>
-          <exclude name="**/servlet/unit/Test*All.java"/>
-        </fileset>
-      </batchtest>
-      <batchtest>
-        <fileset dir="${src.cactus.dir}">
-          <include name="**/servlet/Test*.java"/>
-          <exclude name="**/servlet/Test*All.java"/>
-        </fileset>
-      </batchtest>
-
-    </cactus>
-
-    <!-- Generate the JUnit reports -->
-    <@j2ee13.begin@junitreport todir="${target.testreports.dir}/jboss3x">
-      <fileset dir="${target.testreports.dir}/jboss3x"
-          includes="TEST-*.xml"/>
-      <report todir="${target.testreports.dir}/jboss3x"
-          format="frames"/>
-    </junitreport@j2ee13.end@>
-    <junitreport todir="${target.testreports.dir}/orion1x">
-      <fileset dir="${target.testreports.dir}/orion1x"
-          includes="TEST-*.xml"/>
-      <report todir="${target.testreports.dir}/orion1x"
-          format="frames"/>
-    </junitreport>
-    <junitreport todir="${target.testreports.dir}/orion2x">
-      <fileset dir="${target.testreports.dir}/orion2x"
-          includes="TEST-*.xml"/>
-      <report todir="${target.testreports.dir}/orion2x"
-          format="frames"/>
-    </junitreport>
-    <junitreport todir="${target.testreports.dir}/resin2x">
-      <fileset dir="${target.testreports.dir}/resin2x"
-          includes="TEST-*.xml"/>
-      <report todir="${target.testreports.dir}/resin2x"
-          format="frames"/>
-    </junitreport>
-    <@j2ee12.begin@junitreport todir="${target.testreports.dir}/tomcat3x">
-      <fileset dir="${target.testreports.dir}/tomcat3x"
-          includes="TEST-*.xml"/>
-      <report todir="${target.testreports.dir}/tomcat3x"
-          format="frames"/>
-    </junitreport@j2ee12.end@>
-    <junitreport todir="${target.testreports.dir}/tomcat4x">
-      <fileset dir="${target.testreports.dir}/tomcat4x"
-          includes="TEST-*.xml"/>
-      <report todir="${target.testreports.dir}/tomcat4x"
-          format="frames"/>
-    </junitreport>
-    <junitreport todir="${target.testreports.dir}/tomcat5x">
-      <fileset dir="${target.testreports.dir}/tomcat5x"
-          includes="TEST-*.xml"/>
-      <report todir="${target.testreports.dir}/tomcat5x"
-          format="frames"/>
-    </junitreport>
-    <junitreport todir="${target.testreports.dir}/weblogic7x">
-      <fileset dir="${target.testreports.dir}/weblogic7x"
-          includes="TEST-*.xml"/>
-      <report todir="${target.testreports.dir}/weblogic7x"
-          format="frames"/>
-    </junitreport>
 
     <fail if="tests.failed">At least one test failed!</fail>
 
