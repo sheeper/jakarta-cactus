@@ -107,10 +107,11 @@
     <basename property="jetty.jar.name" file="${jetty.jar}"/>
     <basename property="jasper-compiler.jar.name" file="${jasper-compiler.jar}"/>
     <basename property="jasper-runtime.jar.name" file="${jasper-runtime.jar}"/>
+    <basename property="cargo.jar.name" file="${cargo.jar}"/>
 
     <filterset id="jar.names">
       <filter token="cactus.jar.name" value="${cactus.jar.name}.jar"/>
-      <filter token="cargo.jar.name" value="${cargo.jar.name}.jar"/>
+      <filter token="cargo.jar.name" value="${cargo.jar.name}"/>
       <filter token="servlet.jar.name" value="${servlet.jar.name}"/>
       <filter token="aspectjrt.jar.name" value="${aspectjrt.jar.name}"/>
       <filter token="commons.httpclient.jar.name"

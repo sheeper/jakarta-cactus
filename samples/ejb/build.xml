@@ -134,13 +134,14 @@
     <basename property="commons.logging.jar.name"
         file="${commons.logging.jar}"/>
     <basename property="junit.jar.name" file="${junit.jar}"/>
+    <basename property="cargo.jar.name" file="${cargo.jar}"/>
 
     <filterset id="jar.names">
       <filter token="j2ee.jar.name" value="${j2ee.jar.name}"/>
       <filter token="aspectjrt.jar.name" value="${aspectjrt.jar.name}"/>
       <filter token="cactus.ant.jar.name" value="${cactus.ant.jar.name}.jar"/>
       <filter token="cactus.jar.name" value="${cactus.jar.name}.jar"/>
-      <filter token="cargo.jar.name" value="${cargo.jar.name}.jar"/>
+      <filter token="cargo.jar.name" value="${cargo.jar.name}"/>
       <filter token="commons.httpclient.jar.name"
           value="${commons.httpclient.jar.name}"/>
       <filter token="commons.logging.jar.name"
