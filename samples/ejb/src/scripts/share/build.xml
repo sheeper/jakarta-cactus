@@ -132,7 +132,7 @@
 (check your build.properties file)</fail>
 
     <taskdef resource="cactus.tasks" classpathref="cactus.classpath"/>
-
+    <taskdef resource="cargo.tasks" classpathref="cactus.classpath"/>
     <tstamp/>
 
   </target>
@@ -268,75 +268,156 @@
        "cactus.home.[container name]" has been defined.
      ========================================================================
   -->
-  <target name="test.prepare" depends="ear, test.war">
+ <target name="test.prepare" depends="ear, test.war">
   
-    <!-- Prepare the directories for the JUnit reports -->
-    <mkdir dir="${target.testreports.dir}"/>
-    <@j2ee13.begin@mkdir dir="${target.testreports.dir}/jboss3x"/@j2ee13.end@>
-    <mkdir dir="${target.testreports.dir}/orion1x"/>
-    <mkdir dir="${target.testreports.dir}/orion2x"/>
-
+	<!-- Convert the path to logging_*.properties to use forward slashes
+	     so that it works when loaded as a String in Java (backslashes
+	     won't work. -->
+	<pathconvert property="target.dir.normalized" dirsep="/">
+	  <path>
+	    <pathelement location="${target.dir}"/>
+	  </path>
+	</pathconvert>
+	<copy todir="${target.dir}" filtering="on" failonerror="false">
+	  <fileset dir="${base.dir}">
+	    <include name="logging_*.properties"/>
+	  </fileset>
+	  <filterset>
+        <filter token="target.dir" value="${target.dir.normalized}"/>
+      </filterset>
+	</copy>
+    <!-- Make sure logging_*.properties files exist, even if empty -->
+    <touch file="${target.dir}/logging_client.properties"/>
+    <touch file="${target.dir}/logging_server.properties"/>
   </target>
 
-  <target name="test" depends="test.prepare"
-      description="Run the tests on the defined containers">
 
-    <!-- Run the tests -->
-    <cactus earfile="${target.dir}/${project.name.file}-cactified.ear" 
-        fork="yes" failureproperty="tests.failed">
-      <classpath>
-        <path refid="project.classpath"/>
-        <@clover.begin@pathelement location="${clover.jar}"/@clover.end@>
-        <pathelement location="${target.classes.java.dir}"/>
-        <pathelement location="${target.classes.cactus.dir}"/>
-      </classpath>
-      <containerset>
-        <@j2ee13.begin@jboss3x if="cactus.home.jboss3x"
-            startUpWait="${cactus.jboss.startUpWait}"
-            dir="${cactus.home.jboss3x}"
-            output="${target.testreports.dir}/jboss3x.out"
-            todir="${target.testreports.dir}/jboss3x"/@j2ee13.end@>
-        <orion1x if="cactus.home.orion1x"
-            dir="${cactus.home.orion1x}" port="${cactus.port}"
-            output="${target.testreports.dir}/orion1x.out"
-            todir="${target.testreports.dir}/orion1x"/>
-        <orion2x if="cactus.home.orion2x"
-            dir="${cactus.home.orion2x}" port="${cactus.port}"
-            output="${target.testreports.dir}/orion2x.out"
-            todir="${target.testreports.dir}/orion2x"/>
-      </containerset>
-      <formatter type="brief" usefile="false"/>
-      <formatter type="xml"/>
-      <batchtest>
+  <macrodef name="run-testcases">
+    <attribute name="containerKey"/>
+    <sequential>
+      <mkdir dir="${target.testreports.dir}"/>
+      <mkdir dir="${target.testreports.dir}/@{containerKey}"/>
+      <cactustests fork="yes" failureproperty="tests.failed" haltonerror="true"
+          servletport="${cactus.port}" earfile="${target.dir}/${project.name.file}-cactified.ear"
+          todir="${target.testreports.dir}/@{containerKey}" logs="${target.dir.normalized}/logging_client.properties">
+
+        <classpath>
+          <path refid="project.classpath"/>
+          <path refid="cactus.classpath"/>
+          <pathelement location="${httpunit.jar}"/>
+          <pathelement location="${nekohtml.jar}"/>
+          <pathelement location="${target.classes.java.dir}"/>
+          <pathelement location="${target.classes.cactus.dir}"/>
+          <pathelement location="${log4j.jar}"/>
+        </classpath>
+        <formatter type="brief" usefile="false"/>
+        <formatter type="xml"/>
+        <batchtest>
         <fileset dir="${src.cactus.dir}">
           <include name="**/Test*.java"/>
           <exclude name="**/Test*All.java"/>
         </fileset>
-      </batchtest>
-    </cactus>
+       </batchtest>
+      </cactustests>
+    </sequential>
+  </macrodef>
 
-    <!-- Generate the JUnit reports -->
-    <@j2ee13.begin@junitreport todir="${target.testreports.dir}/jboss3x">
-      <fileset dir="${target.testreports.dir}/jboss3x"
-          includes="TEST-*.xml"/>
-      <report todir="${target.testreports.dir}/jboss3x"
-          format="frames"/>
-    </junitreport@j2ee13.end@>
-    <junitreport todir="${target.testreports.dir}/orion1x">
-      <fileset dir="${target.testreports.dir}/orion1x"
-          includes="TEST-*.xml"/>
-      <report todir="${target.testreports.dir}/orion1x"
-          format="frames"/>
-    </junitreport>
-    <junitreport todir="${target.testreports.dir}/orion2x">
-      <fileset dir="${target.testreports.dir}/orion2x"
-          includes="TEST-*.xml"/>
-      <report todir="${target.testreports.dir}/orion2x"
-          format="frames"/>
-    </junitreport>
+  <macrodef name="test-ejb">
+    <attribute name="containerKey"/>
+    <sequential>
+      <antcall inheritAll="true" inheritRefs="true" target="test-container-internal">
+        <param name="containerKey" value="@{containerKey}"/>
+      </antcall>
+    </sequential>
+  </macrodef>
+  <!-- Execute tests on a single container -->
+  <macrodef name="test-container-internal-check">
+    <attribute name="containerKey"/>
+    <sequential>
+      <condition property="container.shouldRun">
+        <isset property="cactus.home.@{containerKey}"/>
+      </condition>
+    </sequential>
+  </macrodef>
+  <target name="test-container-internal-check">
+    <test-container-internal-check containerKey="${containerKey}"/>
+  </target>
+  <target name="test-container-internal-ok" if="container.shouldRun">
+    <echo>Running tests on ${containerKey} container...</echo>
+    <start-container containerKey="${containerKey}"/>
+    <run-testcases containerKey="${containerKey}"/> 
+    <stop-container containerKey="${containerKey}"/> 
+    <report-container containerKey="${containerKey}"/> 
 
+  </target>
+  <target name="test-container-internal-nok" unless="container.shouldRun">
+    <echo>Not running tests on ${containerKey} container as [cactus.home.${containerKey}] property not defined</echo>
+  </target>
+
+  <target name="test-container-internal" 
+      depends="test-container-internal-check,test-container-internal-ok,test-container-internal-nok"/>
+
+  <!-- Start a container  -->
+  <macrodef name="start-container">
+    <attribute name="containerKey"/>
+    <sequential>
+      <mkdir dir="${target.dir}/@{containerKey}"/>
+      <mkdir dir="${target.dir}/@{containerKey}/config"/>
+      <cargo id="@{containerKey}" containerId="@{containerKey}" action="start"
+          homeDir="${cactus.home.@{containerKey}}"
+          log="${target.dir}/@{containerKey}/cargo_start.log"
+          output="${target.dir}/@{containerKey}/container_start.log">
+  	<configuration dir="${target.dir}/@{containerKey}/config">
+        <property name="cargo.servlet.port" value="${cactus.port}"/>
+        <property name="cargo.logging" value="high"/>
+        <ear earfile="${target.dir}/${project.name.file}-cactified.ear"/> 
+	</configuration>
+        <!-- Configure Cactus for logging -->
+        <syspropertyset file="${target.dir.normalized}/logging_server.properties"/>
+
+        <!-- Additional jars that will be added to the classpath used to start 
+             the container -->
+        <extraclasspath>
+          <!-- pathelement location="${clover.jar}"/ -->
+        </extraclasspath>
+      </cargo>
+    </sequential>
+  </macrodef>
+  <!-- Stop a container  -->
+  <macrodef name="stop-container">
+    <attribute name="containerKey"/>
+    <sequential>
+      <cargo refid="@{containerKey}" action="stop"
+          log="${target.dir}/@{containerKey}/cargo_stop.log"
+          output="${target.dir}/@{containerKey}/container_stop.log"/>
+    </sequential>
+  </macrodef>
+  
+  <!-- Generate JUnit test reports for a container -->
+  <macrodef name="report-container">
+    <attribute name="containerKey"/>
+    <sequential>
+      <junitreport todir="${target.testreports.dir}/@{containerKey}">
+        <fileset dir="${target.testreports.dir}/@{containerKey}"
+            includes="TEST-*.xml"/>
+        <report todir="${target.testreports.dir}/@{containerKey}"
+            format="frames"/>
+      </junitreport>
+    </sequential>
+  </macrodef>
+
+  <target name="test" depends="test.prepare"
+      description="Run the tests on the defined containers">
+
+    <!-- Need to add jboss 3.x once it is supported by Cargo: -->
+    <test-ejb containerKey="jboss3x"/>
+    <test-ejb containerKey="orion1x"/>
+    <test-ejb containerKey="orion2x"/>
+    <test-ejb containerKey="weblogic8x"/>
+    
     <fail if="tests.failed">At least one test failed!</fail>
 
   </target>
+
 
 </project>

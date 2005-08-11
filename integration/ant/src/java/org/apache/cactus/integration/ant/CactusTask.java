@@ -116,6 +116,8 @@ public class CactusTask extends JUnitTask
      */
     public void execute() throws BuildException
     {
+        log("cactus tag is under major change " 
+            + " consider to use cactustest instead" , Project.MSG_INFO);
         if ((this.warFile == null) && (this.earFile == null))
         {
             throw new BuildException("You must specify either the [warfile] or "
@@ -435,6 +437,7 @@ public class CactusTask extends JUnitTask
                 + theFile.getServletRedirectorMapping()
                 + "?Cactus_Service=RUN_TEST");
             runner.setURL(url);
+         
             if (this.containerSet.getTimeout() > 0)
             {
                 runner.setTimeout(this.containerSet.getTimeout());

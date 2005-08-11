@@ -52,9 +52,9 @@ import org.apache.tools.ant.types.Environment.Variable;
 public class CactusTestTask extends JUnitTask
 {
     /**
-     * The context.url element.
+     * The servlet port element.
      */
-    private String contextURL;
+    private String servletPort;
 
     /**
      * The testreportDir element.
@@ -76,6 +76,11 @@ public class CactusTestTask extends JUnitTask
      * The archive that contains the web-app that is ready to be tested.
      */
     private File warFile;
+
+    /**
+     * The deployable file.
+     */
+    private DeployableFile deployableFile;
 
     /**
      * Additional classpath entries for the classpath that will be used to start
@@ -126,10 +131,11 @@ public class CactusTestTask extends JUnitTask
      */
     public void execute() throws BuildException
     {
-        if (this.contextURL == null)
+        if (this.servletPort == null)
         {
-            throw new BuildException(
-                    "You must specify the context url for the module to test");
+             log("Using default servletport=8080", Project.MSG_INFO);
+             servletPort = "8080";
+
         }
         if (this.toDir == null)
         {
@@ -145,7 +151,6 @@ public class CactusTestTask extends JUnitTask
         }
 
         // Parse deployment descriptors for WAR or EAR files
-        DeployableFile deployableFile;
         if (this.warFile != null)
         {
             deployableFile = WarParser.parse(this.warFile);
@@ -155,11 +160,12 @@ public class CactusTestTask extends JUnitTask
             deployableFile = EarParser.parse(this.earFile);
         }
 
-        addRedirectorNameProperties(deployableFile);
+        addRedirectorNameProperties();
 
         Variable contextUrlVar = new Variable();
         contextUrlVar.setKey("cactus.contextURL");
-        contextUrlVar.setValue(contextURL);
+        contextUrlVar.setValue("http://localhost:" + servletPort
+            + "/" + deployableFile.getTestContext());
         addSysproperty(contextUrlVar);
 
         //Setup logs
@@ -171,13 +177,10 @@ public class CactusTestTask extends JUnitTask
     /**
      * Extracts the redirector mappings from the deployment descriptor and sets
      * the corresponding system properties.
-     * 
-     * @param theFile
-     *            The file to deploy in the container
      */
-    private void addRedirectorNameProperties(DeployableFile theFile)
+    private void addRedirectorNameProperties()
     {
-        String filterRedirectorMapping = theFile
+        String filterRedirectorMapping = deployableFile
                 .getFilterRedirectorMapping();
         if (filterRedirectorMapping != null)
         {
@@ -193,7 +196,7 @@ public class CactusTestTask extends JUnitTask
                     Project.MSG_VERBOSE);
         }
 
-        String jspRedirectorMapping = theFile.getJspRedirectorMapping();
+        String jspRedirectorMapping = deployableFile.getJspRedirectorMapping();
         if (jspRedirectorMapping != null)
         {
             Variable jspRedirectorVar = new Variable();
@@ -207,7 +210,7 @@ public class CactusTestTask extends JUnitTask
                     Project.MSG_VERBOSE);
         }
 
-        String servletRedirectorMapping = theFile
+        String servletRedirectorMapping = deployableFile
                 .getServletRedirectorMapping();
         if (servletRedirectorMapping != null)
         {
@@ -234,12 +237,15 @@ public class CactusTestTask extends JUnitTask
         URL testURL = null;
         try
         {
-            testURL = new URL(this.contextURL);
+            testURL = new URL("http://localhost:" + servletPort 
+                + "/" +  deployableFile.getTestContext()
+                + deployableFile.getServletRedirectorMapping()
+                + "?Cactus_Service=RUN_TEST");
             
         }
         catch (MalformedURLException e)
         {
-            throw new BuildException("Invalid URL format: " + contextURL);
+            throw new BuildException("Invalid URL format: " + testURL);
         }
         //Ping the container
         //Continuously try calling the test URL until it succeeds or
@@ -252,7 +258,7 @@ public class CactusTestTask extends JUnitTask
             {
                 throw new BuildException("Failed to start the container after "
                     + "more than [" + this.timeout + "] ms. Trying to connect "
-                    + "to the [" + this.contextURL + "] test URL yielded a ["
+                    + "to the [" + testURL + "] test URL yielded a ["
                     + responseCode + "] error code. Please run in debug mode "
                     + "for more details about the error.");
             }
@@ -322,12 +328,12 @@ public class CactusTestTask extends JUnitTask
     /**
      * Sets the context url that will be tested.
      * 
-     * @param theContextURL
-     *            The context
+     * @param theServletPort
+     *            The servlet port
      */
-    public final void setContextURL(String theContextURL)
+    public final void setServletPort(String theServletPort)
     {
-        this.contextURL = theContextURL;
+        this.servletPort = theServletPort;
     }
 
     /**
@@ -362,21 +368,22 @@ public class CactusTestTask extends JUnitTask
      */
     private int testConnectivity(URL theUrl)
     {
-        int code;
+        int code = -1;
+        HttpURLConnection connection = null;
         try
         {
-            HttpURLConnection connection = 
-                (HttpURLConnection) theUrl.openConnection();
+            connection = (HttpURLConnection) theUrl.openConnection();
             connection.setRequestProperty("Connection", "close");
             connection.connect();
+            code = connection.getResponseCode();
             readFully(connection);
             connection.disconnect();
-            code = connection.getResponseCode();
         }
         catch (IOException e)
         {
-            log("Failed to connect to [" + theUrl + "]", Project.MSG_DEBUG);
-            code = -1;
+            log("Get status = " + code  
+                    + " when trying [" + theUrl + "]", Project.MSG_DEBUG);
+
         }
         return code;
     }

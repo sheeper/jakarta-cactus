@@ -61,7 +61,7 @@
     <dependency>
       <groupId>cargo</groupId>
       <artifactId>cargo</artifactId>
-      <version>0.5</version>
+      <version>0.6</version>
     </dependency>
 
     <!-- Note: Dependencies below are needed by HttpUnit. Xerces is also

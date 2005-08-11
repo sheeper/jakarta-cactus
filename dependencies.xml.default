@@ -10,7 +10,7 @@
   <aspectj-tools project="aspectj"
       artifact="aspectjtools" version="1.2.1"/>
   <cargo project="cargo"
-      artifact="cargo" version="0.5"/>
+      artifact="cargo" version="0.6"/>
   <checkstyle project="checkstyle"
       artifact="checkstyle" version="3.4"/>
   <clover project="clover"

@@ -44,7 +44,7 @@
 
   <!-- Properties for the Cactus tests -->
   <property name="cactus.port" value="8080"/>
-
+  <property name="cactus.securitytest.users" value="testuser:testpassword:test"/>
   <!-- Location where the logging properties files are located -->
   <property name="base.dir" location="."/>
 
@@ -104,8 +104,8 @@
       location="../../lib/@cactus.jar.name@"/>
   <property name="cactus.ant.jar"
       location="../../lib/@cactus.ant.jar.name@"/>
-  <property name="cargo.jar"
-      location="../../lib/@cargo.jar.name@"/>
+  <!-- <property name="cargo.jar"
+      location="../../lib/@cargo.jar.name@"/> -->
   <property name="commons.httpclient.jar"
       location="../../lib/@commons.httpclient.jar.name@"/>
   <property name="commons.logging.jar"
@@ -323,12 +323,14 @@
     <attribute name="containerKey"/>
     <sequential>
       <mkdir dir="${target.dir}/@{containerKey}"/>
-      <cargo id="@{containerKey}" containerKey="@{containerKey}" action="start"
+      <mkdir dir="${target.dir}/@{containerKey}/config"/>
+      <cargo id="@{containerKey}" containerId="@{containerKey}" action="start"
           homeDir="${cactus.home.@{containerKey}}"
           log="${target.dir}/@{containerKey}/cargo_start.log"
           output="${target.dir}/@{containerKey}/container_start.log">
-  	<configuration>
+  	<configuration dir="${target.dir}/@{containerKey}/config">
         <property name="cargo.servlet.port" value="${cactus.port}"/>
+        <property name="cargo.servlet.users" value="${cactus.securitytest.users}"/>
         <property name="cargo.logging" value="high"/>
 
         <war warfile="${target.dir}/${project.name.file}-cactified.war"/>
@@ -350,7 +352,11 @@
     <sequential>
       <mkdir dir="${target.testreports.dir}"/>
       <mkdir dir="${target.testreports.dir}/@{containerKey}"/>
-      <cactustests fork="yes" failureproperty="tests.failed" haltonerror="true" contexturl="http://localhost:${cactus.port}/${project.name.file}-cactified" warfile="${target.dir}/${project.name.file}-cactified.war" todir="${target.testreports.dir}/@{containerKey}" logs="${target.dir.normalized}/logging_client.properties">
+      <cactustests fork="yes" failureproperty="tests.failed" haltonerror="true" 
+          servletport="${cactus.port}"
+          warfile="${target.dir}/${project.name.file}-cactified.war" 
+          todir="${target.testreports.dir}/@{containerKey}" 
+          logs="${target.dir.normalized}/logging_client.properties">
 
         <classpath>
           <path refid="project.classpath"/>
@@ -370,8 +376,6 @@
                  to run before the 'sample' tests -->
             <include name="**/servlet/unit/Test*.java"/>
             <exclude name="**/servlet/unit/Test*All.java"/>
-            <!-- Cargo0.5 release has not supported cargo.servlet.security -->
-            <exclude name="**/servlet/unit/TestBasicAuthentication.java"/>
           </fileset>
         </batchtest>
         <batchtest>
@@ -429,6 +433,7 @@
     <report-container containerKey="${containerKey}"/> 
 
   </target>
+
 <target name="test-container-internal-nok" unless="container.shouldRun">
     <echo>Not running tests on ${containerKey} container as [cactus.home.${containerKey}] property not defined</echo>
   </target>
