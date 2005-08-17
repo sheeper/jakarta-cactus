@@ -16,3 +16,11 @@ maven.scp.executable = pscp
 #maven.proxy.port = 
 #maven.proxy.username = 
 #maven.proxy.password =
+
+maven.repo.apachecvs=scp://people.apache.org
+maven.repo.apachecvs.directory=/www/www.apache.org/dist/java-repository
+maven.repo.apachecvs.group=jakarta
+# These must be set elsewhere
+maven.repo.apachecvs.username=
+maven.repo.apachecvs.privatekey=
+maven.repo.apachecvs.passphrase=
