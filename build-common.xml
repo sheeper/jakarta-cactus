@@ -59,7 +59,7 @@
   	   be displayed on the web site. -->
   <property name="project.doc.version" 
     value="${project.version.major}.${project.version.minor}${project.version.suffix}"/>
-  <property name="project.doc.version.previous" value="1.7"/>
+  <property name="project.doc.version.previous" value="1.7.1"/>
 
   <!-- Prefix to add to all distributable files -->
   <property name="project.prefix" value="jakarta"/>
