@@ -19,8 +19,8 @@ Please check the Changes page at
 http://jakarta.apache.org/cactus/changes.html for a full list of the 
 changes in version 1.8. 
 
-Known limitations and bugs:
----------------------------
+Known limitations and bugs
+--------------------------
 
 See http://issues.apache.org/jira/browse/CACTUS .
 
