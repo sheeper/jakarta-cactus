@@ -138,6 +138,12 @@
       <email>cactus@felipeal.net</email>
       <organization>Falcon Informatica</organization>
     </developer>
+    <developer>
+      <name>Nicolas Chalumeau</name>
+      <id>nchalumeau</id>
+      <email>nchalumeau@apache.org</email>
+      <organization>Simecom</organization>
+    </developer>
   </developers>
   <contributors>
     <contributor>
