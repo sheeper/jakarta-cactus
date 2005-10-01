@@ -216,6 +216,8 @@
           prefix="${main.release.name}/lib"/>
       <zipfileset file="${httpunit.jar}"
           prefix="${main.release.name}/lib"/>
+	  <zipfileset file="${htmlunit.jar}"
+	      prefix="${main.release.name}/lib"/>
       <zipfileset file="${junit.jar}"
           prefix="${main.release.name}/lib"/>
       <zipfileset file="${nekohtml.jar}"

@@ -134,6 +134,7 @@
     <basename property="commons.logging.jar.name"
         file="${commons.logging.jar}"/>
     <basename property="httpunit.jar.name" file="${httpunit.jar}"/>
+    <basename property="htmlunit.jar.name" file="${htmlunit.jar}"/>
     <basename property="junit.jar.name" file="${junit.jar}"/>
     <basename property="nekohtml.jar.name" file="${nekohtml.jar}"/>
     <basename property="log4j.jar.name" file="${log4j.jar}"/>
@@ -152,6 +153,7 @@
       <filter token="commons.logging.jar.name"
           value="${commons.logging.jar.name}"/>
       <filter token="httpunit.jar.name" value="${httpunit.jar.name}"/>
+      <filter token="htmlunit.jar.name" value="${htmlunit.jar.name}"/>
       <filter token="junit.jar.name" value="${junit.jar.name}"/>
       <filter token="nekohtml.jar.name" value="${nekohtml.jar.name}"/>
       <filter token="log4j.jar.name" value="${log4j.jar.name}"/>
@@ -175,6 +177,7 @@
     <echo>  commons.httpclient.jar = [${commons.httpclient.jar}]</echo>
     <echo>  commons.logging.jar = [${commons.logging.jar}]</echo>
     <echo>  httpunit.jar = [${httpunit.jar}]</echo>
+    <echo>  htmlunit.jar = [${htmlunit.jar}]</echo>
     <echo>  servlet.jar = [${servlet.jar}]</echo>
     <echo>  junit.jar = [${junit.jar}]</echo>
     <echo>  log4j.jar = [${log4j.jar}]</echo>
@@ -197,6 +200,7 @@
         <available file="${commons.httpclient.jar}"/>
         <available file="${commons.logging.jar}"/>
         <available file="${httpunit.jar}"/>
+        <available file="${htmlunit.jar}"/>
         <available file="${servlet.jar}"/>
         <available file="${log4j.jar}"/>
         <or>

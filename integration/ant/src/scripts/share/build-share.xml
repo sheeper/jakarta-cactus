@@ -69,7 +69,8 @@
         value="${cactus.lib.common.dir}/@junit.jar.name@"/>
     <property name="cactus.httpunit.jar" 
         value="${cactus.lib.common.dir}/@httpunit.jar.name@"/>
-
+    <property name="cactus.htmlunit.jar" 
+        value="${cactus.lib.common.dir}/@htmlunit.jar.name@"/>
     <property name="cactus.commons.httpclient.jar" 
         value="${cactus.lib.client.dir}/@commons.httpclient.jar.name@"/>
     <property name="cactus.nekohtml.jar" 
@@ -115,6 +116,7 @@
                 <pathelement location="${cactus.junit.jar}"/>
                 <pathelement location="${cactus.commons.httpclient.jar}"/>
                 <pathelement location="${cactus.httpunit.jar}"/>
+                <pathelement location="${cactus.htmlunit.jar}"/>
                 <path refid="cactus.classpath"/>
             </classpath>
         </javac>
@@ -234,6 +236,8 @@
           file="${cactus.junit.jar}"/>
         <copy todir="${cactus.target.dir}/${cactus.context}/WEB-INF/lib"
           file="${cactus.httpunit.jar}"/>
+        <copy todir="${cactus.target.dir}/${cactus.context}/WEB-INF/lib"
+          file="${cactus.htmlunit.jar}"/>
 
         <!-- Copy the JSP Redirector -->
         <copy todir="${cactus.target.dir}/${cactus.context}">
@@ -320,6 +324,7 @@
                 <pathelement location="${cactus.junit.jar}"/>
                 <pathelement location="${cactus.commons.httpclient.jar}"/>
                 <pathelement location="${cactus.httpunit.jar}"/>
+                <pathelement location="${cactus.htmlunit.jar}"/>
                 <pathelement location="${cactus.nekohtml.jar}"/>
                 <pathelement location="${cactus.xerces.jar}"/>
                 <pathelement location="${cactus.xmlapis.jar}"/>
@@ -373,6 +378,7 @@
                 <pathelement location="${cactus.junit.jar}"/>
                 <pathelement location="${cactus.commons.httpclient.jar}"/>
                 <pathelement location="${cactus.httpunit.jar}"/>
+                <pathelement location="${cactus.htmlunit.jar}"/>
                 <pathelement location="${cactus.nekohtml.jar}"/>
                 <pathelement location="${cactus.xerces.jar}"/>
                 <pathelement location="${cactus.xmlapis.jar}"/>

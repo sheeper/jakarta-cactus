@@ -783,6 +783,7 @@ samples/servlet/src/test-cactus/share/org/apache/cactus/sample/servlet/unit/Test
 samples/servlet/src/test-cactus/share/org/apache/cactus/sample/servlet/unit/TestClientServerSynchronization.java svn_keywords=Author+Date+Id+Revision
 samples/servlet/src/test-cactus/share/org/apache/cactus/sample/servlet/unit/TestCookie.java svn_keywords=Author+Date+Id+Revision
 samples/servlet/src/test-cactus/share/org/apache/cactus/sample/servlet/unit/TestGlobalBeginEnd.java svn_keywords=Author+Date+Id+Revision
+samples/servlet/src/test-cactus/share/org/apache/cactus/sample/servlet/unit/TestHtmlUnitIntegration.java -text
 samples/servlet/src/test-cactus/share/org/apache/cactus/sample/servlet/unit/TestHttpHeaders.java svn_keywords=Author+Date+Id+Revision
 samples/servlet/src/test-cactus/share/org/apache/cactus/sample/servlet/unit/TestHttpParameters.java svn_keywords=Author+Date+Id+Revision
 samples/servlet/src/test-cactus/share/org/apache/cactus/sample/servlet/unit/TestHttpRequest.java svn_keywords=Author+Date+Id+Revision

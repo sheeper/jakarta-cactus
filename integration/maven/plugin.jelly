@@ -36,7 +36,7 @@
 
   <!--
      ========================================================================
-       Verify that the instlaled Maven has compatible versions of dependent 
+       Verify that the installed Maven has compatible versions of dependent 
        plugins.
      ========================================================================
   -->
@@ -100,6 +100,7 @@
       <ant:pathelement location="${plugin.getDependencyPath('commons-httpclient:commons-httpclient')}"/>
       <ant:pathelement location="${plugin.getDependencyPath('aspectj:aspectjrt')}"/>
       <ant:pathelement location="${plugin.getDependencyPath('httpunit:httpunit')}"/>
+      <ant:pathelement location="${plugin.getDependencyPath('htmlunit:htmlunit')}"/>
       <ant:pathelement location="${plugin.getDependencyPath('nekohtml:nekohtml')}"/>
       <ant:pathelement location="${plugin.getDependencyPath('xerces:xerces')}"/>
       <ant:pathelement location="${plugin.getDependencyPath('xml-apis:xml-apis')}"/>

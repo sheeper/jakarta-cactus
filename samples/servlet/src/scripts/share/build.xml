@@ -112,6 +112,8 @@
       location="../../lib/@commons.logging.jar.name@"/>
   <property name="httpunit.jar"
       location="../../lib/@httpunit.jar.name@"/>
+  <property name="htmlunit.jar"
+      location="../../lib/@htmlunit.jar.name@"/>
   <property name="junit.jar"
       location="../../lib/@junit.jar.name@"/>
   <property name="nekohtml.jar"
@@ -187,6 +189,7 @@
       <classpath>
         <path refid="cactus.classpath"/>
         <pathelement location="${httpunit.jar}"/>
+        <pathelement location="${htmlunit.jar}"/>
         <pathelement location="${nekohtml.jar}"/>
         <pathelement location="${target.classes.java.dir}"/>
       </classpath>
@@ -283,6 +286,7 @@
         mergewebxml="${src.webapp.dir}/WEB-INF/cactus-web.xml">
       <classes dir="${target.classes.cactus.dir}"/>
       <lib file="${httpunit.jar}"/>
+      <lib file="${htmlunit.jar}"/>
       <lib file="${log4j.jar}"/>
       <!-- Provide a secured servlet redirector in addition to the
            default servlet redirector -->

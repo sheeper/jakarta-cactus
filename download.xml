@@ -116,6 +116,7 @@
     <download jar="commons.httpclient"/>
     <download jar="commons.logging"/>
     <download jar="httpunit"/>
+    <download jar="htmlunit"/>
     <download jar="jasper-compiler"/>
     <download jar="jasper-runtime"/>
     <download jar="jetty"/>

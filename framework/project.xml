@@ -60,6 +60,11 @@
       <url>http://www.httpunit.org/</url>
     </dependency>
     <dependency>
+      <groupId>htmlunit</groupId>
+      <artifactId>htmlunit</artifactId>
+      <version>1.6</version>
+    </dependency>
+    <dependency>
       <groupId>j2ee</groupId>
       <artifactId>j2ee</artifactId>
       <version>${cactus.j2ee.version.full}</version>

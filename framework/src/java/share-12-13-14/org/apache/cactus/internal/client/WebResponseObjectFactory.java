@@ -19,9 +19,12 @@
  */
 package org.apache.cactus.internal.client;
 
+import java.io.InputStream;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 
 import java.net.HttpURLConnection;
+import java.net.URL;
 import java.net.URLConnection;
 
 import org.apache.cactus.Request;
@@ -65,6 +68,13 @@ public class WebResponseObjectFactory implements ResponseObjectFactory
         if (theClassName.equals("com.meterware.httpunit.WebResponse"))
         {
             responseObject = createHttpUnitWebResponse(this.connection);
+
+            // Is it a Html Unit WebResponse ?
+        }
+        else if (theClassName.equals(
+                    "com.gargoylesoftware.htmlunit.WebResponse"))
+        {
+            responseObject = createHtmlUnitWebResponse(this.connection);
 
             // Is it a Cactus WebResponse ?
         }
@@ -115,6 +125,48 @@ public class WebResponseObjectFactory implements ResponseObjectFactory
                 new Class[] {URLConnection.class});
 
             webResponse = method.invoke(null, new Object[] {theConnection});
+        }
+        catch (Exception e)
+        {
+            throw new ClientException("Error calling "
+                + "[public static com.meterware.httpunit.WebResponse "
+                + "com.meterware.httpunit.WebResponse.newResponse("
+                + "java.net.URLConnection) throws java.io.IOException]", e);
+        }
+
+        return webResponse;
+    }
+
+    /**
+     * Create a HtmlUnit <code>WebResponse</code> object by reflection (so
+     * that we don't need the HtmlUnit jar for users who are not using
+     * the HttpUnit endXXX() signature).
+     *
+     * @param theConnection the HTTP connection that was used when connecting
+     *        to the server side and which now contains the returned HTTP
+     *        response that we will pass to HttpUnit so that it can construct
+     *        a <code>com.gargoylesoftware.htmlunit.WebResponse</code> object.
+     * @return a HtmlUnit <code>WebResponse</code> object
+     * @exception ClientException if it failes to create a HttpClient
+     *            WebResponse object for any reason
+     */
+    private Object createHtmlUnitWebResponse(HttpURLConnection theConnection)
+        throws ClientException
+    {
+        Object webResponse;
+
+        try
+        {
+            Class responseClass = Class.forName(
+                    "com.gargoylesoftware.htmlunit.StringWebResponse");
+            Constructor method = responseClass.getConstructor(
+                new Class[] {String.class, URL.class});
+
+            InputStream input = theConnection.getInputStream();
+            byte[] buffer = new byte[input.available()];
+            input.read(buffer);
+            webResponse = method.newInstance(new Object[] {new String(buffer),
+                    theConnection.getURL()});
         }
         catch (Exception e)
         {

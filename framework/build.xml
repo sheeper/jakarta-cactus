@@ -96,6 +96,7 @@
     <echo>  commons.httpclient.jar = [${commons.httpclient.jar}]</echo>
     <echo>  commons.logging.jar = [${commons.logging.jar}]</echo>
     <echo>  httpunit.jar = [${httpunit.jar}]</echo>
+    <echo>  htmlunit.jar = [${htmlunit.jar}]</echo>
     <echo>  j2ee.jar = [${j2ee.jar}]</echo>
     <echo>  servlet.jar = [${servlet.jar}]</echo>
     <echo>  jsp.jar = [${jsp.jar}]</echo>
@@ -115,6 +116,7 @@
       <pathelement location="${commons.logging.jar}"/>
       <pathelement location="${commons.httpclient.jar}"/>
       <pathelement location="${httpunit.jar}"/>
+      <pathelement location="${htmlunit.jar}"/>
       <pathelement location="${j2ee.jar}"/>
       <pathelement location="${servlet.jar}"/>
       <pathelement location="${jsp.jar}"/>
@@ -128,6 +130,7 @@
         <available file="${commons.httpclient.jar}"/>
         <available file="${commons.logging.jar}"/>
         <available file="${httpunit.jar}"/>
+        <available file="${htmlunit.jar}"/>
         <available file="${j2ee.jar}"/>
         <available file="${servlet.jar}"/>
         <available file="${jsp.jar}"/>

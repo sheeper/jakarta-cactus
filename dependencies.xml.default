@@ -25,6 +25,8 @@
       artifact="commons-logging" version="1.0.4"/>
   <httpunit project="httpunit"
       artifact="httpunit" version="1.6"/>
+  <htmlunit project="htmlunit"
+      artifact="htmlunit" version="1.6"/>
   <j2ee.13 project="jboss"
      artifact="jboss-j2ee" version="3.2.3"/>
   <j2ee.14 project="jboss"
