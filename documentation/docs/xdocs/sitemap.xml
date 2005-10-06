@@ -357,6 +357,11 @@
     keep up to date!
   </resource>
 
+  <resource id="nicolas" target="participating/nicolas.html"
+      name="Farewell to Nicolas Chalumeau">
+    Eulogy for Nicolas Chalumeau.
+  </resource>
+  
   <resource id="participating" target="participating/index.html"
       name="Participating">
     Information on participating in the development of Cactus.

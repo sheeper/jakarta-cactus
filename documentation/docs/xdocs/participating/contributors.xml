@@ -84,16 +84,16 @@
 
     <section title="Contributors">
 
-      <p>By alphabetical order on the last name:</p>
+      <p>
+        By alphabetical order on the last name (this list excludes the 
+        Cactus committers):
+      </p>
       <ul>
         <li>
           <link href="mailto:paston@bea.com">Philip Aston</link>
         </li>
         <li>
           <link href="mailto:cchabanois@ifrance.com">Cedric Chabanois</link>
-        </li>
-        <li>
-          <link href="mailto:nicolas.chalumeau@gmail.com">Nicolas Chalumeau</link>
         </li>
         <li>
           <link href="mailto:Bob.Davison@reuters.com">Bob Davison</link>
@@ -108,9 +108,6 @@
           <link href="mailto:jgrelier@octo.com">Jerome Grelier</link>
         </li>
         <li>
-          <link href="mailto:grimsell@apache.org">Magnus Grimsell</link>
-        </li>
-        <li>
           <link href="mailto:ahasegawa@borland.com">Atsushi Hasegawa</link>
         </li>
         <li>
@@ -123,32 +120,14 @@
           <link href="mailto:digital@ix.net.au">Robert Leftwich</link>
         </li>
         <li>
-          <link href="mailto:felipeal@apache.org">Felipe Leme</link>
-        </li>
-        <li>
-          <link href="mailto:cmlenz@gmx.de">Christopher Lenz</link>
-        </li>
-        <li>
-          <link href="mailto:ndlesiecki@apache.org">Nicholas Lesiecki</link>
-        </li>
-        <li>
-          <link href="mailto:vmassol@apache.org">Vincent Massol</link>
-        </li>
-        <li>
           <link href="mailto:alan@digitalmonkey.co.uk">Alan Perfect</link>
         </li>
         <li>
           <link href="mailto:Jason.Robertson@acs-inc.com">Jason Robertson</link>
         </li>
         <li>
-          <link href="mailto:jruaux@octo.com">Julien Ruaux</link>
-        </li>
-        <li>
           <!-- No email. Request by Matt -->
           Matt Sullivan
-        </li>
-        <li>
-          <link href="mailto:suguri.kazuhito@lab.ntt.co.jp">Kazuhito Suguri</link>
         </li>
         <li>
           <link href="mailto:Kunal_Vaishnav@jdedwards.com">Kunal Vaishnav</link>
@@ -193,7 +172,11 @@
         for accepting the donation of J2EEUnit (renamed Cactus), thus giving 
         it a home and more importantly a family.
       </p>
-
+      <p>
+        Special memory for <link href="site:nicolas">Nicolas Chalumeau</link>
+        who has passed away on October 4th 2005.
+      </p>
+      
     </section>
 
     <section title="More about us">
