@@ -3,7 +3,7 @@
 <!--
  * ========================================================================
  * 
- * Copyright 2001-2003 The Apache Software Foundation.
+ * Copyright 2001-2005 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -175,6 +175,9 @@
 
             <td id="sidebar">
               <div id="navigation">
+                <a href=" http://apachecon.com/2005/US/">
+                  <img src="http://apache.org/images/ac2005us_blue_125x125.jpg"/>
+                </a>
                 <xsl:call-template name="apply-navigation"/>
               </div>
             </td>
