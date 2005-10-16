@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" ?>
 
 <!--
  * ========================================================================
@@ -312,6 +312,23 @@
 		phase in in-container testing by providing a more abstract framework for
 		interacting with a wider variety of containers (EJB, JMS, etc. ).
       </p>
+
+      <anchor id="felipe_bio"/>
+      <p>
+        <strong>
+        <link href="mailto:felipeal@apache.org">Felipe Leme</link>
+		-- Committer (written in October 2005)</strong>
+      </p>
+      <p>
+      	My first contact with unit testing happened in 2000, while working at Terraspring (a startup company later acquired by Sun), when my team was assigned to a manager with an XP background. At that time we were not using Cactus, only pure JUnit and some javascript unit testing tool.
+      </p>
+      <p>
+      	In 2002 I went back to Brazil, first working as consultant for an IT company in Sao Paulo and later (in 2004) as a System Architect for a telecomunications in Campinas, where I had my first contact with Cactus. As the company already used Cactus in the development process and was migrating the building process to Maven, I got more involved with these two projects, fixing a bug here and suggesting an improvement there. After a few months of colaboration, I was nominated a committer for the Maven Plugins and later for Cactus - in both cases the nomination was proposed by Vincent.
+      </p>
+      <p>
+        My main contributions were on the Maven integration, although I have done some stuff in the Ant integration as well. I wish I could do more, but unfortunately I am lacking the time to do so...
+      </p>
+
     </section>
 
   </body>
