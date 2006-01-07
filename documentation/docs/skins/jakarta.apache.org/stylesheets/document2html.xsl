@@ -175,9 +175,6 @@
 
             <td id="sidebar">
               <div id="navigation">
-                <a href=" http://apachecon.com/2005/US/">
-                  <img src="http://apache.org/images/ac2005us_blue_125x125.jpg"/>
-                </a>
                 <xsl:call-template name="apply-navigation"/>
               </div>
             </td>
