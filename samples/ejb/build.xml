@@ -128,6 +128,7 @@
 
     <!-- Copy scripts -->
     <basename property="j2ee.jar.name" file="${j2ee.jar}"/>
+    <basename property="j2ee-dist.jar.name" file="${j2ee-dist.jar}"/>
     <basename property="aspectjrt.jar.name" file="${aspectjrt.jar}"/>
     <basename property="commons.httpclient.jar.name"
         file="${commons.httpclient.jar}"/>
@@ -138,6 +139,7 @@
 
     <filterset id="jar.names">
       <filter token="j2ee.jar.name" value="${j2ee.jar.name}"/>
+      <filter token="j2ee-dist.jar.name" value="${j2ee-dist.jar.name}"/>
       <filter token="aspectjrt.jar.name" value="${aspectjrt.jar.name}"/>
       <filter token="cactus.ant.jar.name" value="${cactus.ant.jar.name}.jar"/>
       <filter token="cactus.jar.name" value="${cactus.jar.name}.jar"/>

@@ -31,6 +31,10 @@
      artifact="jboss-j2ee" version="3.2.3"/>
   <j2ee.14 project="jboss"
      artifact="jboss-j2ee" version="4.0.0DR4"/>
+<!-- j2ee.13 is distributed in order to run the examples, so it must be an
+     ASL2-compliant JAR -->
+  <j2ee-dist.13 project="geronimo-spec"
+     artifact="geronimo-spec-j2ee" version="1.4-rc4"/>
   <jasper-compiler project="tomcat"
       artifact="jasper-compiler" version="4.1.30"/>
   <jasper-runtime project="tomcat"

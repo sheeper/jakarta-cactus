@@ -85,7 +85,7 @@
 
   <!-- Libraries required for the sample project -->
   <property name="j2ee.jar"
-      location="../../lib/@j2ee.jar.name@"/>
+      location="../../lib/@j2ee-dist.jar.name@"/>
   <path id="project.classpath">
     <pathelement location="${j2ee.jar}"/>
   </path>

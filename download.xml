@@ -130,6 +130,7 @@
     <download jar="servlet.23"/>
     <download jar="servlet.24"/>
     <download jar="j2ee.13"/>
+    <download jar="j2ee-dist.13"/>
     <download jar="j2ee.14"/>
     <download jar="standard"/>
     <download jar="xerces"/>

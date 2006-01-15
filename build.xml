@@ -125,6 +125,7 @@
     <ant antfile="samples/ejb/build.xml" inheritAll="false" 
         target="dist">
       <property name="j2ee.jar" value="${j2ee.13.jar}"/>
+      <property name="j2ee-dist.jar" value="${j2ee-dist.13.jar}"/>
       <property name="servlet.jar" value="${servlet.23.jar}"/>
       <property name="clover.enable" value="true"/>
       <property name="env" value="${env}"/>
@@ -265,7 +266,7 @@
           prefix="${main.release.name}/samples/ejb">
         <exclude name="lib/**"/>
       </zipfileset>
-      <zipfileset file="${j2ee.13.jar}" prefix="${main.release.name}/lib"/>
+      <zipfileset file="${j2ee-dist.13.jar}" prefix="${main.release.name}/lib"/>
       <zipfileset file="${jetty.jar}" prefix="${main.release.name}/lib"/>
       <zipfileset file="${jasper-runtime.jar}" prefix="${main.release.name}/lib"/>
       <zipfileset file="${jasper-compiler.jar}" prefix="${main.release.name}/lib"/>
