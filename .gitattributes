@@ -171,6 +171,7 @@ documentation/licenses/README.txt svn_keywords=Author+Date+Id+Revision
 documentation/licenses/apache-1.1.txt svn_keywords=Author+Date+Id+Revision
 documentation/licenses/apache-2.0.txt svn_keywords=Author+Date+Id+Revision
 documentation/licenses/cpl1.0.txt svn_keywords=%22Author+Date+Id+Revision%22
+documentation/licenses/htmlunit.txt -text
 documentation/licenses/httpunit.txt svn_keywords=Author+Date+Id+Revision
 documentation/src/java/org/apache/cactus/build/documentation/CheckSitemapTask.java svn_keywords=Author+Date+Id+Revision
 /download.xml svn_keywords=Author+Date+Id+Revision
