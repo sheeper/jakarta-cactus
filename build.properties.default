@@ -1,6 +1,6 @@
 # ========================================================================
 # 
-# Copyright 2001-2004 The Apache Software Foundation.
+# Copyright 2001-2006 The Apache Software Foundation.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -173,6 +173,9 @@ proxyport = 80
 j2ee.12.jar = ${lib.repo}/j2ee/jars/j2ee-1.2.jar
 j2ee.13.jar = ${lib.repo}/${j2ee.13.project}/jars/${j2ee.13.artifact}-${j2ee.13.version}.jar
 j2ee.14.jar = ${lib.repo}/${j2ee.14.project}/jars/${j2ee.14.artifact}-${j2ee.14.version}.jar
+# j2ee.13 is distributed in order to run the examples, so it must be an
+# ASL2-compliant JAR
+j2ee-dist.13.jar = ${lib.repo}/${j2ee-dist.13.project}/jars/${j2ee-dist.13.artifact}-${j2ee-dist.13.version}.jar
 
 # List all available Servlet versions. Note that it is required to list all
 # versions if you wish to call "ant release" in jakarta-cactus. If you only
