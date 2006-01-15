@@ -104,8 +104,6 @@
       location="../../lib/@cactus.jar.name@"/>
   <property name="cactus.ant.jar"
       location="../../lib/@cactus.ant.jar.name@"/>
-  <!-- <property name="cargo.jar"
-      location="../../lib/@cargo.jar.name@"/> -->
   <property name="commons.httpclient.jar"
       location="../../lib/@commons.httpclient.jar.name@"/>
   <property name="commons.logging.jar"
@@ -118,7 +116,7 @@
       location="../../lib/@junit.jar.name@"/>
   <property name="nekohtml.jar"
       location="../../lib/@nekohtml.jar.name@"/>
- <property name="cargo.jar"
+  <property name="cargo.jar"
       location="../../lib/@cargo.jar.name@"/>
 
   <!-- This is optional and only needed if you wish to debug and use 
@@ -156,6 +154,7 @@
 
     <taskdef resource="cactus.tasks" classpathref="cactus.classpath"/>
     <taskdef resource="cargo.tasks" classpathref="cactus.classpath"/>
+
     <tstamp/>
 
   </target>
@@ -321,8 +320,7 @@
 
   </target>
 
-
-<!-- Start a container  -->
+  <!-- Start a container  -->
   <macrodef name="start-container">
     <attribute name="containerKey"/>
     <sequential>
@@ -345,7 +343,7 @@
         <!-- Additional jars that will be added to the classpath used to start 
              the container -->
         <extraclasspath>
-          <!-- pathelement location="${clover.jar}"/ -->
+          <@clover.begin@pathelement location="${clover.jar}"/@clover.end@>
         </extraclasspath>
       </cargo>
     </sequential>
@@ -457,15 +455,14 @@
 <target name="test" depends="test.prepare"
       description="Run the tests on the defined containers">
 
-    <!-- Need to add jboss 3.x once it is supported by Cargo:
-    <test-container containerKey="jboss3x"/>-->
+    <@j2ee13.begin@test-container containerKey="jboss3x"/@j2ee13.end@>
 
     <test-container containerKey="oc4j9x"/>
     <test-container containerKey="orion1x"/>
     <test-container containerKey="orion2x"/>
     <test-container containerKey="resin2x"/>
     <test-container containerKey="resin3x"/>
-    <!-- test-container containerKey="tomcat3x"/ -->
+    <@j2ee12.begin@test-container containerKey="tomcat3x"/@j2ee12.end@>
     <test-container containerKey="tomcat4x"/>
     <test-container containerKey="tomcat5x"/>
     <test-container containerKey="weblogic8x"/>
