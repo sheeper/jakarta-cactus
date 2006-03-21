@@ -3,7 +3,7 @@
 <!--
  * ========================================================================
  * 
- * Copyright 2001-2004 The Apache Software Foundation.
+ * Copyright 2001-2004,2006 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -47,7 +47,7 @@
     <p>
       Then you can download the <link href="site:downloads">latest Cactus
       release</link> or checkout the latest code from
-      <link href="ext:cactus_viewcvs">CVS</link>.
+      <link href="ext:cactus_viewcvs">SVN</link>.
     </p>
     <p>
       Last, you can check the <link href="ext:bug_database_cactus_open_issues">todo list</link> and 
@@ -115,7 +115,7 @@
       modification (i.e. patch) or a fairly standalone item, and whether you 
       have commit access (committers have been granted access by a vote of 
       confidence, so they are assumed to be trustworthy enough
-      to make changes directly in CVS. If you submit many good patches, you 
+      to make changes directly in SVN. If you submit many good patches, you
       may be nominated as a committer yourself!)
     </p>
 
@@ -125,8 +125,8 @@
       you have a patch and would like to see it incorporated into the Cactus
       distribution, take note of the Licensing Requirements listed below, and 
       then create a <link href="ext:bug_database">JIRA issue</link> and attach
-      to it  a unified diff (<code>cvs patch</code>) of your changes against 
-      the latest CVS version of the code (CVS HEAD).
+      to it a unified diff (<code>svn diff</code>) of your changes against
+      the latest SVN version of the code (SVN trunk).
     </p>
   
     <section title="Licensing Requirements for the Cactus Distribution">

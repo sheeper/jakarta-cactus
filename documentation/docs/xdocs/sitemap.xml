@@ -3,7 +3,7 @@
 <!--
  * ========================================================================
  * 
- * Copyright 2001-2005 The Apache Software Foundation.
+ * Copyright 2001-2006 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -463,7 +463,7 @@
   <external id="cactus_release_bin" url="http://jakarta.apache.org/site/downloads/downloads_cactus.cgi"/>
   <external id="cactus_release_src" url="http://jakarta.apache.org/site/downloads/downloads_cactus.cgi"/>
   <external id="cactus_testedon" url="http://wiki.apache.org/jakarta-cactus/TestedOn"/>
-  <external id="cactus_viewcvs" url="http://cvs.apache.org/viewcvs/jakarta-cactus/"/>
+  <external id="cactus_viewcvs" url="http://svn.apache.org/viewcvs/jakarta/cactus/trunk/"/>
   <external id="cactus_who_uses_it" url="http://wiki.apache.org/jakarta-cactus/WhoUsesCactus"/>
   <external id="cactus_wiki" url="http://wiki.apache.org/jakarta-cactus/FrontPage"/>
   <external id="cactus_wiki_faq" url="http://wiki.apache.org/jakarta-cactus/FrequentlyAskedQuestions"/>
