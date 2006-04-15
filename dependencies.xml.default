@@ -10,7 +10,7 @@
   <aspectj-tools project="aspectj"
       artifact="aspectjtools" version="1.2.1"/>
   <cargo project="cargo"
-      artifact="cargo" version="0.6"/>
+      artifact="cargo" version="0.8"/>
   <checkstyle project="checkstyle"
       artifact="checkstyle" version="3.4"/>
   <clover project="clover"
@@ -44,7 +44,7 @@
   <jsp.20 project="jspapi"
      artifact="jsp-api" version="2.0-20040521"/>
   <jstl project="jstl"
-      artifact="jstl" version="1.0.2"/>
+      artifact="jstl" version="1.0.6"/>
   <junit project="junit"
       artifact="junit" version="3.8.1"/>
   <log4j project="log4j"
@@ -62,7 +62,7 @@
   <servlet.24 project="servletapi"
      artifact="servlet-api" version="2.4-20040521"/>
   <standard project="taglibs"
-     artifact="standard" version="1.0.2"/>
+     artifact="standard" version="1.0.6"/>
   <xerces project="xerces"
       artifact="xercesImpl" version="2.6.2"/>
   <xmlapis project="xerces"

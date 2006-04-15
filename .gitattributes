@@ -308,6 +308,7 @@ framework/src/java/share-13-14/org/apache/cactus/server/FilterConfigWrapper.java
 framework/src/java/share-13-14/org/apache/cactus/server/FilterTestRedirector.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share-13-14/org/apache/cactus/server/ServletConfigWrapper.java svn_keywords=Author+Date+Id+Revision
 framework/src/java/share-13-14/org/apache/cactus/server/ServletContextWrapper.java svn_keywords=Author+Date+Id+Revision
+framework/src/test/eclipse/org/apache/cactus/TestAllOnEclipse.java -text
 framework/src/test/j2ee-12/org/apache/cactus/TestAll.java svn_keywords=Author+Date+Id+Revision
 framework/src/test/j2ee-13/.keepit -text svneol=unset#application/octet-stream
 framework/src/test/j2ee-14/.keepit -text svneol=unset#application/octet-stream
@@ -492,6 +493,7 @@ integration/ant/src/test-input/org/apache/cactus/integration/ant/weblogic.ear -t
 integration/ant/src/test-input/org/apache/cactus/integration/ant/weblogic.war -text
 integration/ant/src/test/org/apache/cactus/integration/ant/AntTestCase.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/test/org/apache/cactus/integration/ant/TestAll.java svn_keywords=Author+Date+Id+Revision
+integration/ant/src/test/org/apache/cactus/integration/ant/TestAllOnEclipse.java -text
 integration/ant/src/test/org/apache/cactus/integration/ant/TestCactifyEarTask.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/test/org/apache/cactus/integration/ant/TestCactifyWarTask.java svn_keywords=Author+Date+Id+Revision
 integration/ant/src/test/org/apache/cactus/integration/ant/TestCactusTask.java svn_keywords=Author+Date+Id+Revision
