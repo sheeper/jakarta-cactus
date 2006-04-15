@@ -161,14 +161,14 @@
   <mkdir dir="${target.dir}/tomcat4x"/>
   <mkdir dir="${target.dir}/tomcat4x/config"/>
   <cargo id="tomcat4x" containerId="tomcat4x" action="start"
-      homeDir="/home/shared/g_ciamassvr/j2ee/jakarta-tomcat-4.1.31"
+      home="/home/shared/g_ciamassvr/j2ee/jakarta-tomcat-4.1.31"
       log="${target.dir}/tomcat4x/cargo_start.log"
       output="${target.dir}/tomcat4x/container_start.log">
     <configuration dir="${target.dir}/tomcat4x/config">
       <property name="cargo.servlet.port" value="${cactus.port}"/>
       <property name="cargo.servlet.users" value="${cactus.securitytest.users}"/>
       <property name="cargo.logging" value="high"/>
-      <war warfile="${target.dir}/${project.name.file}-cactified.war"/>
+      <deployable type="war" file="${target.dir}/${project.name.file}-cactified.war"/>
     </configuration>
     <!-- Configure Cactus for logging -->
     <syspropertyset file="${target.dir.normalized}/logging_server.properties"/>
