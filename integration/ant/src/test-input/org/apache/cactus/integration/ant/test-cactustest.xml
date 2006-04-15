@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+
+<project name="test-cactustest" basedir="." default="setup">
+
+  <target name="testNeitherWarFileNorEarFileSet">
+    <cactustests/>
+  </target>
+
+  <target name="testWarFileNotExisting">
+    <cactustests runlocal="true" warfile="idontexist.war"/>
+  </target>
+
+  <target name="testWarFileNotCactified">
+    <cactustests runlocal="true" warfile="empty.war"/>
+  </target>
+
+  <target name="testWarFileCactified">
+    <cactustests runlocal="true" warfile="cactified.war"/>
+  </target>
+
+  <target name="testEarFileEmpty">
+    <cactustests runlocal="true" earfile="empty.ear"/>
+  </target>
+
+  <target name="testEarFileNotCactified">
+    <cactustests runlocal="true" earfile="notcactified.ear"/>
+  </target>
+
+  <target name="testEarFileCactified">
+    <cactustests runlocal="true" earfile="cactified.ear"/>
+  </target>
+
+</project>

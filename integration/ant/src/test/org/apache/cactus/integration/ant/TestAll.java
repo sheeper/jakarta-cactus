@@ -37,16 +37,12 @@ public final class TestAll
     {
         TestSuite suite = new TestSuite(
             "Unit tests for the Ant integration classes");
-
-        suite.addTest(
-            org.apache.cactus.integration.ant.container.TestAll.suite());
         suite.addTest(
             org.apache.cactus.integration.ant.deployment.TestAll.suite());
 
         suite.addTestSuite(TestCactifyWarTask.class);
-        suite.addTestSuite(TestCactusTask.class);
-        suite.addTestSuite(TestContainerSet.class);
-        suite.addTestSuite(TestRunServerTestsTask.class);
+        suite.addTestSuite(TestCactusTestTask.class);
+        //suite.addTestSuite(TestRunServerTestsTask.class);
 
         return suite;
     }

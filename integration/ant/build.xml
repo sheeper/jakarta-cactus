@@ -144,22 +144,6 @@ be resolved. Please check you build.properties file, and run Ant with the
     <fileset id="deployment.resources" dir="${src.conf.dir}">
       <include name="*.dtd"/>
     </fileset>
-    <fileset id="container.share.resources" dir="${src.conf.dir}/share">
-      <include name="orion1x/**/*.*"/>
-      <include name="orion2x/**/*.*"/>
-      <include name="resin2x/**/*.*"/>
-      <include name="resin3x/**/*.*"/>
-      <include name="tomcat4x/**/*.*"/>
-      <include name="tomcat5x/**/*.*"/>
-      <include name="weblogic6x/**/*.*"/>
-      <include name="weblogic7x/**/*.*"/>
-    </fileset>
-    <fileset id="container.j2ee12.resources" dir="${src.conf.dir}/j2ee12">
-      <include name="tomcat3x/**/*.*"/>
-    </fileset>
-    <fileset id="container.j2ee13.resources" dir="${src.conf.dir}/j2ee13">
-      <include name="jboss3x/**/*.*"/>
-    </fileset>
   </target>
 
   <target name="compile.main" depends="compile.prepare">
@@ -174,14 +158,10 @@ be resolved. Please check you build.properties file, and run Ant with the
           value="org.apache.cactus.integration.ant.CactusTestTask"/>
       <entry key="cactifyear"
       	  value="org.apache.cactus.integration.ant.CactifyEarTask"/>
-      <entry key="cactus"
-          value="org.apache.cactus.integration.ant.CactusTask"/>
       <entry key="runservertests"
-          value="org.apache.cactus.integration.ant.RunServerTestsTask"/>
+          value="org.apache.cactus.integration.ant.RunServerTestTask"/>
       <entry key="webxmlmerge"
           value="org.apache.cactus.integration.ant.WebXmlMergeTask"/>
-      <entry key="resin3x"
-          value="org.apache.cactus.integration.ant.container.resin.Resin3xTask"/>
     </propertyfile>
 
     <copy todir="${target.classes.java.dir}">
@@ -194,11 +174,6 @@ be resolved. Please check you build.properties file, and run Ant with the
     </copy>
 
     <mkdir dir="${target.classes.java.dir}/org/apache/cactus/integration/ant/container/resources"/>
-    <copy todir="${target.classes.java.dir}/org/apache/cactus/integration/ant/container/resources">
-      <fileset refid="container.share.resources"/>
-      <fileset refid="container.j2ee12.resources"/>
-      <fileset refid="container.j2ee13.resources"/>
-    </copy>
 
     <javac srcdir="${src.java.dir}" destdir="${target.classes.java.dir}"
         deprecation="${deprecation}" optimize="${optimize}" 
@@ -243,10 +218,8 @@ be resolved. Please check you build.properties file, and run Ant with the
           value="org.apache.cactus.integration.ant.CactifyWarTask"/>
       <entry key="cactustests"
           value="org.apache.cactus.integration.ant.CactusTestTask"/>
-      <entry key="cactus"
-          value="org.apache.cactus.integration.ant.CactusTask"/>
       <entry key="runservertests"
-          value="org.apache.cactus.integration.ant.RunServerTestsTask"/>
+          value="org.apache.cactus.integration.ant.RunServerTestTask"/>
       <entry key="webxmlmerge"
           value="org.apache.cactus.integration.ant.WebXmlMergeTask"/>
     </propertyfile>
@@ -261,11 +234,6 @@ be resolved. Please check you build.properties file, and run Ant with the
     </copy>
 
     <mkdir dir="${target.classes.clover.dir}/org/apache/cactus/integration/ant/container/resources"/>
-    <copy todir="${target.classes.clover.dir}/org/apache/cactus/integration/ant/container/resources">
-      <fileset refid="container.share.resources"/>
-      <fileset refid="container.j2ee12.resources"/>
-      <fileset refid="container.j2ee13.resources"/>
-    </copy>
 
     <javac destdir="${target.classes.clover.dir}"
         deprecation="${deprecation}" optimize="${optimize}"

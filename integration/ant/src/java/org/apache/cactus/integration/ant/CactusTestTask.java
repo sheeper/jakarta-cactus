@@ -1,7 +1,7 @@
 /* 
  * ========================================================================
  * 
- * Copyright 2003-2005 The Apache Software Foundation.
+ * Copyright 2003 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,11 +25,9 @@ import java.util.ResourceBundle;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.MalformedURLException;
-
+import org.apache.cactus.integration.ant.util.HttpProbe;
 import org.apache.cactus.integration.ant.deployment.DeployableFile;
 import org.apache.cactus.integration.ant.deployment.EarParser;
 import org.apache.cactus.integration.ant.deployment.WarParser;
@@ -54,7 +52,17 @@ public class CactusTestTask extends JUnitTask
     /**
      * The servlet port element.
      */
+    private String serverName;
+
+    /**
+     * The servlet port element.
+     */
     private String servletPort;
+
+    /**
+     * The context URL element.
+     */
+    private String contextURL;
 
     /**
      * The testreportDir element.
@@ -78,6 +86,12 @@ public class CactusTestTask extends JUnitTask
     private File warFile;
 
     /**
+     * The runLocal element.
+     */
+    private boolean runLocal;
+
+
+    /**
      * The deployable file.
      */
     private DeployableFile deployableFile;
@@ -87,12 +101,12 @@ public class CactusTestTask extends JUnitTask
      * the containers.
      */
     private Path additionalClasspath;
-    
+
     /**
      * Timeout after trying to connect(in ms).
      */
     private long timeout = 180000;
-    
+
     /**
      * The time interval in milliseconds to sleep between polling the container.
      */
@@ -103,7 +117,7 @@ public class CactusTestTask extends JUnitTask
 
     /**
      * Constructor.
-     * 
+     *
      * @throws Exception
      *             If the constructor of JUnitTask throws an exception
      */
@@ -131,25 +145,17 @@ public class CactusTestTask extends JUnitTask
      */
     public void execute() throws BuildException
     {
-        if (this.servletPort == null)
-        {
-             log("Using default servletport=8080", Project.MSG_INFO);
-             servletPort = "8080";
-
-        }
-        if (this.toDir == null)
-        {
-            throw new BuildException(
-                    "You must specify the test report directory");
-
-        }
         if ((this.warFile != null) && (this.earFile != null))
         {
-            throw new BuildException(
+             throw new BuildException(
                     "You must specify either the [warfile] or "
-                            + "the [earfile] attribute but not both");
+                          + "the [earfile] attribute but not both");
         }
-
+        if ((this.warFile == null) && (this.earFile == null))
+        {
+            throw new BuildException("You must specify either the [warfile] or "
+                + "the [earfile] attribute");
+        }
         // Parse deployment descriptors for WAR or EAR files
         if (this.warFile != null)
         {
@@ -162,10 +168,49 @@ public class CactusTestTask extends JUnitTask
 
         addRedirectorNameProperties();
 
+        if (runLocal)
+        {
+           log("Tests run locally", Project.MSG_VERBOSE);
+           super.execute();
+           return;
+        }
+
+        if (this.contextURL == null)
+        {
+            if (this.servletPort == null)
+            {
+                 log("Using default servletport=8080", Project.MSG_INFO);
+                 servletPort = "8080";
+
+            }
+            if (this.serverName == null)
+            {
+                log("Using default servername=localhost", Project.MSG_INFO);
+                serverName = "localhost";
+            }
+        }
+
+        if (this.toDir == null)
+        {
+            throw new BuildException(
+                    "You must specify the test report directory");
+
+        }
+
+
         Variable contextUrlVar = new Variable();
         contextUrlVar.setKey("cactus.contextURL");
-        contextUrlVar.setValue("http://localhost:" + servletPort
-            + "/" + deployableFile.getTestContext());
+        if (this.contextURL != null)
+        {
+           contextUrlVar.setValue(this.contextURL);
+        }
+        else
+        {
+            contextUrlVar.setValue("http://" + this.serverName + ":"
+                    + this.servletPort
+                    + "/" + deployableFile.getTestContext());
+        }
+
         addSysproperty(contextUrlVar);
 
         //Setup logs
@@ -226,22 +271,33 @@ public class CactusTestTask extends JUnitTask
         }
 
     }
-    
+
 
     /**
      * Executes the unit tests in the given container.
-     *  
+     *
      */
     private void testInContainer()
     {
         URL testURL = null;
         try
         {
-            testURL = new URL("http://localhost:" + servletPort 
-                + "/" +  deployableFile.getTestContext()
-                + deployableFile.getServletRedirectorMapping()
-                + "?Cactus_Service=RUN_TEST");
-            
+            if (this.contextURL == null)
+            {
+                testURL = new URL("http://" + this.serverName + ":"
+                        + this.servletPort + "/"
+                        + deployableFile.getTestContext()
+                        + deployableFile.getServletRedirectorMapping()
+                        + "?Cactus_Service=RUN_TEST");
+            }
+            else
+            {
+                testURL = new URL(this.contextURL
+                        + deployableFile.getServletRedirectorMapping()
+                        + "?Cactus_Service=RUN_TEST");
+            }
+
+
         }
         catch (MalformedURLException e)
         {
@@ -250,24 +306,27 @@ public class CactusTestTask extends JUnitTask
         //Ping the container
         //Continuously try calling the test URL until it succeeds or
         // until a timeout is reached (we then throw a build exception).
-        long startTime = System.currentTimeMillis();
-        int responseCode = -1;
-        do
+        try
         {
-            if ((System.currentTimeMillis() - startTime) > this.timeout)
+            HttpProbe httpProbe = new HttpProbe(testURL);
+            if (httpProbe.timeout(this.timeout, this.checkInterval))
             {
                 throw new BuildException("Failed to start the container after "
                     + "more than [" + this.timeout + "] ms. Trying to connect "
-                    + "to the [" + testURL + "] test URL yielded a ["
-                    + responseCode + "] error code. Please run in debug mode "
-                    + "for more details about the error.");
+                    + "to the [" + testURL + "] test URL yielded an "
+                    + "error code. Please run in debug mode for more details  "
+                    + "about the error.");
             }
-            sleep(this.checkInterval);
-            
-            responseCode = testConnectivity(testURL);
-        } while (!isAvailable(responseCode));
+        }
+        catch (InterruptedException ie)
+        {
+            throw new BuildException("Unexpected thread interruption");
+        }
+        catch (IOException io)
+        {
+            throw new BuildException("Http reading exception");
+        }
 
-        
         log("Starting up tests", Project.MSG_VERBOSE);
         try
         {
@@ -294,7 +353,7 @@ public class CactusTestTask extends JUnitTask
      * Sets the enterprise application archive that will be tested. It must
      * already contain the test-cases and the required libraries as a web
      * module.
-     * 
+     *
      * @param theEarFile
      *            The EAR file to set
      */
@@ -311,7 +370,7 @@ public class CactusTestTask extends JUnitTask
     /**
      * Sets the web application archive that will be tested. It must already
      * contain the test-cases and the required libraries.
-     * 
+     *
      * @param theWarFile
      *            The WAR file to set
      */
@@ -326,8 +385,19 @@ public class CactusTestTask extends JUnitTask
     }
 
     /**
-     * Sets the context url that will be tested.
-     * 
+     * Sets the server host that will be tested.
+     *
+     * @param theServerName
+     *            The server host
+     */
+    public final void setServerName(String theServerName)
+    {
+        this.serverName = theServerName;
+    }
+
+    /**
+     * Sets the servlet port that will be tested.
+     *
      * @param theServletPort
      *            The servlet port
      */
@@ -337,8 +407,19 @@ public class CactusTestTask extends JUnitTask
     }
 
     /**
-     * Sets the web application archive that should be cactified.
-     * 
+     * Sets the context url that will be tested.
+     *
+     * @param theContextURL
+     *            The context url
+     */
+    public final void setContextURL(String theContextURL)
+    {
+        this.contextURL = theContextURL;
+    }
+
+    /**
+     * Sets the test report dir.
+     *
      * @param theToDir
      *            The test report to set
      */
@@ -346,9 +427,21 @@ public class CactusTestTask extends JUnitTask
     {
         this.toDir = theToDir;
     }
+
     /**
-     * Sets the web application archive that should be cactified.
-     * 
+    * Sets the scope of the test.
+     *
+     * @param theRunLocal
+     *            Run Local define
+     */
+    public final void setRunLocal(boolean theRunLocal)
+    {
+        this.runLocal = theRunLocal;
+    }
+
+    /**
+     * Sets the Logs.
+     *
      * @param theLogs
      *            Different logs define
      */
@@ -358,128 +451,7 @@ public class CactusTestTask extends JUnitTask
     }
     // Private Methods ---------------------------------------------------------
 
-    /**
-     * Tests whether we are able to connect to the HTTP server identified by the
-     * specified URL.
-     * 
-     * @param theUrl The URL to check
-     * @return the HTTP response code or -1 if no connection could be 
-     *         established
-     */
-    private int testConnectivity(URL theUrl)
-    {
-        int code = -1;
-        HttpURLConnection connection = null;
-        try
-        {
-            connection = (HttpURLConnection) theUrl.openConnection();
-            connection.setRequestProperty("Connection", "close");
-            connection.connect();
-            code = connection.getResponseCode();
-            readFully(connection);
-            connection.disconnect();
-        }
-        catch (IOException e)
-        {
-            log("Get status = " + code  
-                    + " when trying [" + theUrl + "]", Project.MSG_DEBUG);
 
-        }
-        return code;
-    }
-
-
-    /**
-     * Tests whether an HTTP return code corresponds to a valid connection
-     * to the test URL or not. Success is 200 up to but excluding 300.
-     * 
-     * @param theCode the HTTP response code to verify
-     * @return <code>true</code> if the test URL could be called without error,
-     *         <code>false</code> otherwise
-     */
-    private boolean isAvailable(int theCode)
-    {
-        boolean result;
-        if ((theCode != -1) && (theCode < 300)) 
-        {
-            result = true;            
-        }
-        else
-        {
-            result = false;
-        }
-        return result;
-    }
-
-    /**
-     * Retrieves the server name of the container.
-     * 
-     * @param theUrl The URL to retrieve
-     * @return The server name, or <code>null</code> if the server name could 
-     *         not be retrieved
-     */
-    private String retrieveServerName(URL theUrl)
-    {
-        String retVal = null;
-        try
-        {
-            HttpURLConnection connection = 
-                (HttpURLConnection) theUrl.openConnection();
-            connection.connect();
-            retVal = connection.getHeaderField("Server");
-            connection.disconnect();
-        }
-        catch (IOException e)
-        {
-            log("Could not get server name from [" 
-                + theUrl + "]", Project.MSG_DEBUG);
-        }
-        return retVal;
-    }
-
-    /**
-     * Fully reads the input stream from the passed HTTP URL connection to
-     * prevent (harmless) server-side exception.
-     *
-     * @param theConnection the HTTP URL connection to read from
-     * @exception IOException if an error happens during the read
-     */
-    static void readFully(HttpURLConnection theConnection)
-                   throws IOException
-    {
-        // Only read if there is data to read ... The problem is that not
-        // all servers return a content-length header. If there is no header
-        // getContentLength() returns -1. It seems to work and it seems
-        // that all servers that return no content-length header also do
-        // not block on read() operations!
-        if (theConnection.getContentLength() != 0)
-        {
-            byte[] buf = new byte[256];
-            InputStream in = theConnection.getInputStream();
-            while (in.read(buf) != -1)
-            {
-                // Make sure we read all the data in the stream
-            }
-        }
-    }
-
-    /**
-     * Pauses the current thread for the specified amount.
-     *
-     * @param theMs The time to sleep in milliseconds
-     * @throws BuildException If the sleeping thread is interrupted
-     */
-    private void sleep(long theMs) throws BuildException
-    {
-        try
-        {
-            Thread.sleep(theMs);
-        }
-        catch (InterruptedException e)
-        {
-            throw new BuildException("Interruption during sleep", e);
-        }
-    }
     /**
      * @param theTimeout the timeout after which we stop trying to call the test
      *        URL.
@@ -493,18 +465,18 @@ public class CactusTestTask extends JUnitTask
      */
     public void setupLogs()
     {
-       
+
         if (this.logs == null)
         {
             throw new BuildException("Missing 'logs' attribute");
         }
-        
+
         ResourceBundle bundle = null;
         try
         {
             bundle = new PropertyResourceBundle(
                 new FileInputStream(this.logs));
-        } 
+        }
         catch (IOException e)
         {
             throw new BuildException("Failed to load properties "
@@ -516,10 +488,10 @@ public class CactusTestTask extends JUnitTask
             String key = (String) keys.nextElement();
             Variable var = new Variable();
             var.setKey(key);
-            var.setValue(bundle.getString(key));        
+            var.setValue(bundle.getString(key));
             super.addSysproperty(var);
-            
+
         }
-       
+
     }
 }
