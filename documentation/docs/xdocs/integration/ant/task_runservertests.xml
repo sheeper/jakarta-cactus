@@ -152,7 +152,67 @@
     stoptarget="stop.tomcat.40"
     testtarget="test"/>
 ]]></source>
+   <p>
+     If we use Cargo to start and stop the container, the first and third targets
+     can be:
+    
+    <source><![CDATA[
+<target name="start.tomcat.40">
+  <mkdir dir="${target.dir}/tomcat4x"/>
+  <mkdir dir="${target.dir}/tomcat4x/config"/>
+  <cargo id="tomcat4x" containerId="tomcat4x" action="start"
+      homeDir="/home/shared/g_ciamassvr/j2ee/jakarta-tomcat-4.1.31"
+      log="${target.dir}/tomcat4x/cargo_start.log"
+      output="${target.dir}/tomcat4x/container_start.log">
+    <configuration dir="${target.dir}/tomcat4x/config">
+      <property name="cargo.servlet.port" value="${cactus.port}"/>
+      <property name="cargo.servlet.users" value="${cactus.securitytest.users}"/>
+      <property name="cargo.logging" value="high"/>
+      <war warfile="${target.dir}/${project.name.file}-cactified.war"/>
+    </configuration>
+    <!-- Configure Cactus for logging -->
+    <syspropertyset file="${target.dir.normalized}/logging_server.properties"/>
+  </cargo>
+</target>
+<target name="stop.tomcat.40">
+  <cargo refid="tomcat4x" action="stop"
+      log="${target.dir}/tomcat4x/cargo_stop.log"
+      output="${target.dir}/tomcat4x/container_stop.log"/>
+</target>
+]]></source>
+   </p>
+    In particular, CactusTests can be used for the test target as following:
+   <p>
 
+<source><![CDATA[
+ <target name="run-testcases">  
+   <mkdir dir="${target.testreports.dir}"/>
+   <mkdir dir="${target.testreports.dir}/tomcat4x"/>
+   <cactustests fork="yes" failureproperty="tests.failed" haltonerror="true" 
+       servletport="${cactus.port}"
+       warfile="${target.dir}/${project.name.file}-cactified.war" 
+       todir="${target.testreports.dir}/tomcat4x" 
+       logs="${target.dir.normalized}/logging_client.properties">
+      <classpath>
+          <path refid="project.classpath"/>
+          <path refid="cactus.classpath"/>
+          <pathelement location="${httpunit.jar}"/>
+          <pathelement location="${nekohtml.jar}"/>
+          <pathelement location="${target.classes.java.dir}"/>
+          <pathelement location="${target.classes.cactus.dir}"/>
+          <pathelement location="${log4j.jar}"/>
+      </classpath>
+      <formatter type="xml"/>
+      <batchtest>
+        <fileset dir="${src.cactus.dir}">
+          <include name="**/servlet/unit/Test*.java"/>
+          <exclude name="**/servlet/unit/Test*All.java"/>
+        </fileset>
+      </batchtest>
+    </cactustests>
+  </target>
+]]></source>
+   </p>
     </section>
 
   </section>

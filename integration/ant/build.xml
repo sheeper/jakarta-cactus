@@ -159,7 +159,7 @@ be resolved. Please check you build.properties file, and run Ant with the
       <entry key="cactifyear"
       	  value="org.apache.cactus.integration.ant.CactifyEarTask"/>
       <entry key="runservertests"
-          value="org.apache.cactus.integration.ant.RunServerTestTask"/>
+          value="org.apache.cactus.integration.ant.RunServerTestsTask"/>
       <entry key="webxmlmerge"
           value="org.apache.cactus.integration.ant.WebXmlMergeTask"/>
     </propertyfile>
@@ -219,7 +219,7 @@ be resolved. Please check you build.properties file, and run Ant with the
       <entry key="cactustests"
           value="org.apache.cactus.integration.ant.CactusTestTask"/>
       <entry key="runservertests"
-          value="org.apache.cactus.integration.ant.RunServerTestTask"/>
+          value="org.apache.cactus.integration.ant.RunServerTestsTask"/>
       <entry key="webxmlmerge"
           value="org.apache.cactus.integration.ant.WebXmlMergeTask"/>
     </propertyfile>

@@ -36,7 +36,7 @@
   <menu label="Ant Tasks">
     <item id="task_cactifywar" label="CactifyWar"/>
     <item id="task_cactifyear" label="CactifyEar"/>
-    <item id="task_cactus" label="Cactus"/>
+    <item id="task_cactustests" label="CactusTests"/>
     <item id="task_runservertests" label="RunServerTests"/>
     <item id="task_webxmlmerge" label="WebXmlMerge"/>
     <item id="task_resin" label="Resin[2x|3x]"/>

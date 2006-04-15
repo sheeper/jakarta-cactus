@@ -126,6 +126,7 @@
 
     <!-- Copy scripts -->
     <basename property="cargo.jar.name" file="${cargo.jar}"/>
+    <basename property="cargo.ant.jar.name" file="${cargo.ant.jar}"/>
     <basename property="jstl.jar.name" file="${jstl.jar}"/>
     <basename property="standard.jar.name" file="${standard.jar}"/>
     <basename property="servlet.jar.name" file="${servlet.jar}"/>
@@ -142,7 +143,7 @@
 
     <filterset id="jar.names">
       <filter token="cargo.jar.name" value="${cargo.jar.name}"/>
-      <filter token="cargo.ant.name" value="${cargo.ant.name}"/>
+      <filter token="cargo.ant.jar.name" value="${cargo.ant.jar.name}"/>
       <filter token="jstl.jar.name" value="${jstl.jar.name}"/>
       <filter token="standard.jar.name" value="${standard.jar.name}"/>
       <filter token="servlet.jar.name" value="${servlet.jar.name}"/>

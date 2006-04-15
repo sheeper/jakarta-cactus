@@ -136,6 +136,7 @@
         file="${commons.logging.jar}"/>
     <basename property="junit.jar.name" file="${junit.jar}"/>
     <basename property="cargo.jar.name" file="${cargo.jar}"/>
+    <basename property="cargo.ant.jar.name" file="${cargo.ant.jar}"/>
 
     <filterset id="jar.names">
       <filter token="j2ee.jar.name" value="${j2ee.jar.name}"/>
@@ -144,6 +145,7 @@
       <filter token="cactus.ant.jar.name" value="${cactus.ant.jar.name}.jar"/>
       <filter token="cactus.jar.name" value="${cactus.jar.name}.jar"/>
       <filter token="cargo.jar.name" value="${cargo.jar.name}"/>
+      <filter token="cargo.ant.jar.name" value="${cargo.ant.jar.name}"/>
       <filter token="commons.httpclient.jar.name"
           value="${commons.httpclient.jar.name}"/>
       <filter token="commons.logging.jar.name"
@@ -168,6 +170,7 @@
     <echo>  cactus.jar = [${cactus.jar}]</echo>
     <echo>  cactus.ant.jar = [${cactus.ant.jar}]</echo>
     <echo>  cargo.jar = [${cargo.jar}]</echo>
+    <echo>  cargo.ant.jar = [${cargo.ant.jar}]</echo>
     <echo>  commons.httpclient.jar = [${commons.httpclient.jar}]</echo>
     <echo>  commons.logging.jar = [${commons.logging.jar}]</echo>
     <echo>  j2ee.jar = [${j2ee.jar}]</echo>

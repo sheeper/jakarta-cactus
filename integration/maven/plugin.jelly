@@ -1134,7 +1134,7 @@
             <j:set var="containerDir" value="${context.getVariable(containerDirVar)}"/>
             
             <j:if test="${containerDir != null and !containerDir.trim().equals('')}"> 
-                <ant:fileset dir="${cactus.reports.dir}/{containerId}">
+                <ant:fileset dir="${cactus.reports.dir}/${containerId}">
                     <ant:include name="TEST-*.xml"/>
                 </ant:fileset>
              </j:if>

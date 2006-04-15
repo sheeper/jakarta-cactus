@@ -392,25 +392,34 @@
         <p>
           However, you will probably want to automate the deployment of the
           cactified WAR, and maybe also the startup and shutdown of the 
-          container. This can be done with some Ant scripting in combination
-          with the <strong>&lt;runservertests&gt;</strong> task provided by
-          Cactus. But Cactus also provides a higher-level abstraction for 
-          running the tests with the <strong>&lt;cactus&gt;</strong> task.
+          container. This can be done in  Ant scripting with the support from 
+          Cargo. Cactus also provides a convenient task for 
+          running the tests in combination with Cargo task through <strong>&lt;
+          cactustests&gt;</strong> task.
         </p>
         <p>
-          The <strong>&lt;cactus&gt;</strong> task extends the optional Ant
-          task <strong>&lt;junit&gt;</strong>, adding support for in-container
-          tests and hiding some of the details such as the system properties
-          used for configuring Cactus:
+          The <strong>&lt;cactustests&gt;</strong> task extends the optional 
+          Ant task <strong>&lt;junit&gt;</strong>, adding support for 
+          in-container tests and hiding some of the details such as the system
+          properties used for configuring Cactus:
         </p>
 
         <source><![CDATA[
 <target name="test" depends="test.prepare"
     description="Run the tests on the defined containers">
-
+  <!-- Start tomcat container -->
+  <cargo-tomcat4x id="myContainer" home="c:/apps/tomcat-4x" 
+      output="${target.dir}/output.log" 
+      log="${target.dir}/cargo_start.log" action="start">
+    <configuration>
+      <property name="cargo.servlet.port" value="8080"/>
+      <property name="cargo.logging" value="high"/>
+      <deployable type="war" file="${target.dir}/cactified-test.war/>
+    </configuration>
+  </cargo-tomcat4x>
   <!-- Run the tests -->
-  <cactus warfile="${target.dir}/test.war" fork="yes"
-      failureproperty="tests.failed">
+  <cactustests warfile="${target.dir}/cactified-test.war" toDir="${report.dir}"
+      fork="yes" failureproperty="tests.failed">
     <classpath>
       <path refid="project.classpath"/>
       <pathelement location="${httpunit.jar}"/>
@@ -418,12 +427,6 @@
       <pathelement location="${target.classes.java.dir}"/>
       <pathelement location="${target.classes.cactus.dir}"/>
     </classpath>
-    <containerset timeout="180000">
-      <tomcat4x if="cactus.home.tomcat4x"
-          dir="${cactus.home.tomcat4x}" port="${cactus.port}"
-          output="${target.testreports.dir}/tomcat4x.out"
-          todir="${target.testreports.dir}/tomcat4x"/>
-    </containerset>
     <formatter type="brief" usefile="false"/>
     <formatter type="xml"/>
     <batchtest>
@@ -432,8 +435,11 @@
         <exclude name="**/Test*All.java"/>
       </fileset>
     </batchtest>
-  </cactus>
-
+  </cactustests>
+  
+  <!-- Stop tomcat container -->
+  <cargo-tomcat4x refid="myContainer" log="${target.dir}/cargo_stop.log"
+      action="stop"/>
 </target>]]></source>
 
         <p>
@@ -442,31 +448,21 @@
           cactified WAR. The task will extract information about the mappings
           of the test redirectors from the deployment descriptor of the 
           web-application, and automically setup the corresponding system 
-          properties.
-        </p>
-        <p>
-          Next, we add a nested <strong>&lt;containerset&gt;</strong> element,
-          which allows us to specify one or more containers against which the
-          tests will be executed. Here we only test against Apache Tomcat 4.x.
+          properties. Here we only test against Apache Tomcat 4.x using Cargo
           We specify the installation directory of Tomcat using the
           <strong>dir</strong> attribute, as well as the port to which the
           container should be bound using the <strong>port</strong> attribute.
+          More information about using Cargo can be found in its homepage 
+          project.
         </p>
         <p>
           What happens behind the scenes is this:
           <ol>
             <li>
               Tomcat is installed to a temporary directory using a minimal 
-              configuration.
-            </li>
-            <li>
-              The specified WAR is copied into the Tomcat <code>webapps</code>
-              directory, so that it will be deployed when Tomcat is started up.
-            </li>
-            <li>
-              Tomcat is started. The task assumes that the startup is complete
-              as soon as HTTP requests to the test web-application are
-              successful.
+              configuration and is started up by Cargo. The task assumes that 
+              the startup is complete as soon as HTTP requests to the test 
+              web-application are successful.
             </li>
             <li>
               Now the tests are executed. The required system properties such
@@ -475,12 +471,9 @@
             </li>
             <li>
               After the tests have terminated (successfully or not), Tomcat is
-              shut down.
+              shut down by Cargo.
             </li>
           </ol>
-          If we had defined more than one container in the
-          <strong>&lt;containerset&gt;</strong> element, this procedure would
-          be repeated for every container in the list.
         </p>
 
       </section>

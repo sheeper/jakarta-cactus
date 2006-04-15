@@ -129,6 +129,8 @@
     |- lib
     |   |- cactus.jar
     |   |- cactus-ant.jar
+    |   |- cargo.jar
+    |   |- cargo-ant.jar
     |   |- commons-httpclient.jar
     |   |- commons-logging.jar
     |   |- junit.jar
@@ -159,6 +161,8 @@
   <classpath>
     <pathelement location="lib/cactus.jar"/>
     <pathelement location="lib/cactus-ant.jar"/>
+    <pathelement location="lib/cargo.jar"/>
+    <pathelement location="lib/cargo-ant.jar"/>
     <pathelement location="lib/commons-httpclient.jar"/>
     <pathelement location="lib/commons-logging.jar"/>
     <pathelement location="lib/aspectjrt.jar"/>
@@ -220,6 +224,14 @@
               </td>
             </tr>
             <tr>
+              <th>CactusTests</th>
+              <td>
+                This task extends the standard <code>&lt;junit&gt;</code> task
+                and is used in combination with Cargo for start/stop containers when 
+                executes tests.
+              </td>
+            </tr>
+            <tr>
               <th>RunServerTests</th>
               <td>
                 This task is an alternative to the <code>&lt;cactus&gt;</code>
@@ -257,9 +269,13 @@
           	  <code>&lt;unwar&gt;</code>)
           	</li>
           	<li>
-          	  Start the target container, deploy the application, run the tests
-          	  and stop the container (using either <code>&lt;cactus&gt;</code> or
-          	  <code>&lt;runservertests&gt;</code>)
+          	  Use Cargo to start the target container and deploy the application.
+          	</li>
+          	<li>
+          	  Run the tests with <code>&lt;cactustests&gt;</code>.
+          	</li>
+          	<li>
+          	  Use cargo to stop the container
           	</li>
           </ol>
         </p>
