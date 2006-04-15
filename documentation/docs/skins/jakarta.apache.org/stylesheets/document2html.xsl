@@ -926,6 +926,11 @@
       </xsl:call-template>
     </xsl:variable>
 
+    <!-- Base directory - to get images -->
+    <xsl:variable name="basedir">
+      <xsl:call-template name="get-base-directory"/>
+    </xsl:variable>
+
     <xsl:variable name="perdirnav"
       select="document(concat($xdocdir,'/',$dir,'/navigation.xml'))/navigation"/>
 
@@ -940,7 +945,15 @@
         </xsl:otherwise>
       </xsl:choose>
       <li>
-        <img src="images/cactusbanner.gif"/>
+        <img>
+          <xsl:attribute name="alt">
+            <xsl:call-template name="get-title"/>
+          </xsl:attribute>
+          <xsl:attribute name="src">
+            <xsl:value-of select="$basedir"/>
+            <xsl:text>images/cactusbanner.gif</xsl:text>
+          </xsl:attribute>
+        </img>
       </li>
     </ul>
 
