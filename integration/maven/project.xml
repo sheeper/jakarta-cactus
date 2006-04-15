@@ -60,8 +60,9 @@
     <!-- Cactus now depends on Cargo -->
     <dependency>
       <groupId>cargo</groupId>
-      <artifactId>cargo</artifactId>
-      <version>0.6</version>
+      <artifactId>cargo-core-uberjar</artifactId>
+      <version>0.8</version>
+      <url>###GO TO ../.. (or ..\..) and run 'ant -f downloads.xml'###</url>
     </dependency>
 
     <!-- Note: Dependencies below are needed by HttpUnit. Xerces is also

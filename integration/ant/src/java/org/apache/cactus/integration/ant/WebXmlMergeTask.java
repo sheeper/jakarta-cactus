@@ -31,7 +31,7 @@ import org.apache.tools.ant.types.XMLCatalog;
 import org.codehaus.cargo.module.webapp.WebXml;
 import org.codehaus.cargo.module.webapp.WebXmlIo;
 import org.codehaus.cargo.module.webapp.WebXmlMerger;
-import org.codehaus.cargo.util.monitor.AntMonitor;
+import org.codehaus.cargo.util.log.AntLogger;
 import org.xml.sax.SAXException;
 
 /**
@@ -115,9 +115,9 @@ public class WebXmlMergeTask extends Task
                     WebXml mergeWebXml = WebXmlIo.parseWebXmlFromFile(
                         this.mergeFile, this.xmlCatalog);
                     WebXmlMerger merger = new WebXmlMerger(srcWebXml);
-                    merger.setMonitor(new AntMonitor(this));
+                    merger.setLogger(new AntLogger(this));
                     merger.merge(mergeWebXml);
-                    WebXmlIo.writeWebXml(srcWebXml, this.destFile,
+                    WebXmlIo.writeDescriptor(srcWebXml, this.destFile,
                         this.encoding, this.indent);
                 }
                 else

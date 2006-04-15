@@ -17,7 +17,7 @@
  * 
  * ========================================================================
  */
-package org.apache.cactus;
+package org.apache.cactus.integration.ant;
 
 import java.io.File;
 
@@ -28,15 +28,15 @@ import junit.framework.Test;
  *
  * @version $Id: $
  */
-public class TestAllOnEclipse
+public class EclipseTestAll
 {
+  
   /**
    * Sets the testinput.dir property and calls TestAll.suite()
    * @return a test suite (<code>TestSuite</code>) that includes all methods
    *         starting with "test"
-   * @throws Exception prpagated from TestShareAll.suite()
    */
-  public static Test suite() throws Exception
+  public static Test suite()
   {
     final String inputDir = System.getProperty("testinput.dir");
     if (inputDir == null) 
@@ -45,6 +45,7 @@ public class TestAllOnEclipse
       final String path = dir.getAbsolutePath();
       System.setProperty("testinput.dir", path);
     }
-    return TestShareAll.suite();
+    return TestAll.suite();
   }
+
 }

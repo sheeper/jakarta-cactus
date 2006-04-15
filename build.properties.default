@@ -226,8 +226,9 @@ httpunit.jar = ${lib.repo}/${httpunit.project}/jars/${httpunit.artifact}-${httpu
 # The location of the Hmlunit jar
 htmlunit.jar = ${lib.repo}/${htmlunit.project}/jars/${htmlunit.artifact}-${htmlunit.version}.jar
 
-# The location of the Cargo jar
+# The location of the Cargo jars
 cargo.jar = ${lib.repo}/${cargo.project}/jars/${cargo.artifact}-${cargo.version}.jar
+cargo-ant.jar = ${lib.repo}/${cargo-ant.project}/jars/${cargo-ant.artifact}-${cargo-ant.version}.jar
 
 # Neko HTML (required by HttpUnit)
 nekohtml.jar = ${lib.repo}/${nekohtml.project}/jars/${nekohtml.artifact}-${nekohtml.version}.jar

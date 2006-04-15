@@ -43,7 +43,7 @@ import org.codehaus.cargo.module.webapp.WebXml;
 import org.codehaus.cargo.module.webapp.WebXmlIo;
 import org.codehaus.cargo.module.webapp.WebXmlMerger;
 import org.codehaus.cargo.module.webapp.WebXmlVersion;
-import org.codehaus.cargo.util.monitor.AntMonitor;
+import org.codehaus.cargo.util.log.AntLogger;
 import org.xml.sax.SAXException;
 
 /**
@@ -776,7 +776,7 @@ public class CactifyWarTask extends War
                 WebXml parsedMergeWebXml = WebXmlIo.parseWebXmlFromFile(
                     this.mergeWebXml, this.xmlCatalog);
                 WebXmlMerger merger = new WebXmlMerger(theWebXml);
-                merger.setMonitor(new AntMonitor(this));
+                merger.setLogger(new AntLogger(this));
                 merger.merge(parsedMergeWebXml);
             }
             catch (IOException e)

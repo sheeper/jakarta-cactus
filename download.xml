@@ -68,27 +68,49 @@
       </antcall>
     </sequential>
   </macrodef>
-
+	
   <!-- This macro will download a single jar from ${repo.url} -->
   <macrodef name="download.jar">
     <attribute name="jar"/>
+    <sequential>
+      <property name="url" 
+      	  value="${repo.url}/${@{jar}.project}/jars/${@{jar}.artifact}-${@{jar}.version}.jar"/>
+      <download.jar.from.url jar="${jar}" url="${url}"/>
+    </sequential>
+  </macrodef>
+
+  <!-- This macro will download a single jar from ${url} -->
+  <macrodef name="download.jar.from.url">
+    <attribute name="jar"/>
+    <attribute name="url"/>
     <sequential>
       <property name="@{jar}.name"
           value="${@{jar}.artifact}-${@{jar}.version}.jar"/>
       <dirname property="@{jar}.dir" file="${@{jar}.jar}"/>
       <mkdir dir="${@{jar}.dir}"/>
       <echo message="Updating [${@{jar}.jar}]"/>
-      <get src="${repo.url}/${@{jar}.project}/jars/${@{jar}.name}"
+      <get src="${url}"
           dest="${@{jar}.jar}" usetimestamp="yes" ignoreerrors="yes"/>
       <echo message=""/>
     </sequential>
   </macrodef>
+	
+	
+  <!-- Sets the url property from the project's specific url -->	
+  <macrodef name="setUrl">
+    <attribute name="jar"/>
+    <sequential>
+    	<property name="url" value="${@{jar}.url}"/>
+    </sequential>
+  </macrodef>
+	
 
   <!-- Defines the property jar.present if the jar passed as parameter is 
        available on the local filesystem -->
   <macrodef name="verify">
     <attribute name="jar"/>
     <sequential>
+      <echo message="Checking if file ${@{jar}.jar} is present"/>
       <available file="${@{jar}.jar}" property="jar.present"/>
     </sequential>
   </macrodef>
@@ -109,6 +131,7 @@
     <download jar="aspectjrt"/>
     <download jar="aspectj-tools"/>
     <download jar="cargo"/>
+    <download jar="cargo-ant"/>
     <download jar="checkstyle"/>
     <download jar="clover"/>
     <download jar="commons.beanutils"/>
@@ -135,10 +158,6 @@
     <download jar="standard"/>
     <download jar="xerces"/>
     <download jar="xmlapis"/>
-
-    <!-- TODO: Add download of xalan for users who are building on 
-         JDK < 1.4+ -->
-
   </target>
 
   <!-- Targets to decide whether to download the jar. It verifies first if it 
@@ -151,10 +170,20 @@
   <target name="download.jar.present" if="jar.present">
     <echo>[${jar}] jar is already available</echo>
   </target>    
-  <target name="download.jar.notpresent" unless="jar.present">
+  <target name="download.set.default.url" unless="${jar}.url">
+  	<echo message="Downloading from default repository"/>
     <download.jar jar="${jar}"/>
+  </target>
+  <target name="download.set.other.url" if="${jar}.url">
+  	<setUrl jar="${jar}"/>
+  	<echo message="Downloading from specific url: ${url}"/>
+    <download.jar.from.url jar="${jar}" url="${url}"/>
+  </target>
+  <target name="set.url.and.download" depends="download.set.default.url,download.set.other.url"/>
+  <target name="download.jar.notpresent" unless="jar.present">
+   	<antcall target="set.url.and.download"/>
   </target>    
   <target name="download.jar" 
       depends="verify.jar,download.jar.present,download.jar.notpresent"/>
-
+  	
 </project>

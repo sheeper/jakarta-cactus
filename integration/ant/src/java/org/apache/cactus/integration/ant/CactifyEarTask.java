@@ -259,7 +259,8 @@ public class CactifyEarTask extends Ear
                 String module = (String) ejbModules.next();
                 EjbArchive ejbArchive = ear.getEjbModule(module);
                 EjbJarXml descr = ejbArchive.getEjbJarXml();
-                VendorEjbDescriptor vendorDescr = descr.getVendorDescriptor();
+                VendorEjbDescriptor vendorDescr = 
+                  (VendorEjbDescriptor) descr.getVendorDescriptor();
                 if (vendorDescr == null)
                 {
                     throw new BuildException("Failed to find vendor " 

@@ -28,7 +28,7 @@
 	<classpathentry kind="var" path="MAVEN_REPO/commons-logging/jars/commons-logging-1.0.4.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/jetty/jars/org.mortbay.jetty-4.2.17.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/junit/jars/junit-3.8.1.jar"/>
-	<classpathentry kind="var" path="MAVEN_REPO/cargo/jars/cargo-0.8.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/cargo/jars/cargo-core-uberjar-0.8.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/aspectj/jars/aspectjrt-1.2.1.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/mockobjects/jars/mockobjects-core-0.09.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/httpunit/jars/httpunit-1.6.jar"/>
@@ -40,5 +40,6 @@
 	<classpathentry kind="var" path="MAVEN_REPO/xerces/jars/xmlParserAPIs-2.6.2.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/clover/jars/clover-ant-1.3_01.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/geronimo-spec/jars/geronimo-spec-j2ee-1.4-rc4.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/cargo/jars/cargo-ant-0.8.jar"/>
 	<classpathentry kind="output" path="integration/ant/target-13/classes/test"/>
 </classpath>
