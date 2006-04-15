@@ -211,6 +211,8 @@
           prefix="${main.release.name}/lib"/>
       <zipfileset file="${cargo.jar}"
           prefix="${main.release.name}/lib"/>
+      <zipfileset file="${cargo.ant.jar}"
+          prefix="${main.release.name}/lib"/>
       <zipfileset file="${commons.logging.jar}"
           prefix="${main.release.name}/lib"/>
       <zipfileset file="${commons.httpclient.jar}"

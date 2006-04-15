@@ -118,6 +118,8 @@
       location="../../lib/@nekohtml.jar.name@"/>
   <property name="cargo.jar"
       location="../../lib/@cargo.jar.name@"/>
+  <property name="cargo.ant.jar"
+      location="../../lib/@cargo.ant.jar.name@"/>
 
   <!-- This is optional and only needed if you wish to debug and use 
        Log4J for logging -->
@@ -130,6 +132,7 @@
     <pathelement location="${cactus.jar}"/>
     <pathelement location="${cactus.ant.jar}"/>
     <pathelement location="${cargo.jar}"/>
+    <pathelement location="${cargo.ant.jar}"/>
     <pathelement location="${commons.httpclient.jar}"/>
     <pathelement location="${commons.logging.jar}"/>
     <pathelement location="${junit.jar}"/>
@@ -327,7 +330,7 @@
       <mkdir dir="${target.dir}/@{containerKey}"/>
       <mkdir dir="${target.dir}/@{containerKey}/config"/>
       <cargo id="@{containerKey}" containerId="@{containerKey}" action="start"
-          homeDir="${cactus.home.@{containerKey}}"
+          home="${cactus.home.@{containerKey}}"
           log="${target.dir}/@{containerKey}/cargo_start.log"
           output="${target.dir}/@{containerKey}/container_start.log">
   	<configuration dir="${target.dir}/@{containerKey}/config">
@@ -335,7 +338,7 @@
         <property name="cargo.servlet.users" value="${cactus.securitytest.users}"/>
         <property name="cargo.logging" value="high"/>
 
-        <war warfile="${target.dir}/${project.name.file}-cactified.war"/>
+        <deployable type="war" file="${target.dir}/${project.name.file}-cactified.war"/>
 	</configuration>
         <!-- Configure Cactus for logging -->
         <syspropertyset file="${target.dir.normalized}/logging_server.properties"/>
@@ -455,8 +458,8 @@
 <target name="test" depends="test.prepare"
       description="Run the tests on the defined containers">
 
-    <@j2ee13.begin@test-container containerKey="jboss3x"/@j2ee13.end@>
-
+    <test-container containerKey="jboss3x"/>
+    <test-container containerKey="jboss4x"/>
     <test-container containerKey="oc4j9x"/>
     <test-container containerKey="orion1x"/>
     <test-container containerKey="orion2x"/>
@@ -466,7 +469,6 @@
     <test-container containerKey="tomcat4x"/>
     <test-container containerKey="tomcat5x"/>
     <test-container containerKey="weblogic8x"/>
-
 
     <fail if="tests.failed">At least one test failed!</fail>
 

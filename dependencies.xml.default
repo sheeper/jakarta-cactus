@@ -13,7 +13,7 @@
   <cargo project="cargo"
       artifact="cargo-core-uberjar" version="0.8"
       url="http://cargo.codehaus.org/dist2/org/codehaus/cargo/cargo-core-uberjar/0.8/cargo-core-uberjar-0.8.jar"/>
-  <cargo-ant project="cargo"
+  <cargo.ant project="cargo"
       artifact="cargo-ant" version="0.8"
       url="http://cargo.codehaus.org/dist2/org/codehaus/cargo/cargo-ant/0.8/cargo-ant-0.8.jar"/>     
   <checkstyle project="checkstyle"

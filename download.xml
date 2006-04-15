@@ -131,7 +131,7 @@
     <download jar="aspectjrt"/>
     <download jar="aspectj-tools"/>
     <download jar="cargo"/>
-    <download jar="cargo-ant"/>
+    <download jar="cargo.ant"/>
     <download jar="checkstyle"/>
     <download jar="clover"/>
     <download jar="commons.beanutils"/>

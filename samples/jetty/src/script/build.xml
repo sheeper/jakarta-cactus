@@ -98,6 +98,8 @@
       location="../../lib/@cactus.jar.name@"/>
   <property name="cargo.jar"
       location="../../lib/@cargo.jar.name@"/>
+  <property name="cargo.ant.jar"
+      location="../../lib/@cargo.ant.jar.name@"/>
   <property name="commons.httpclient.jar"
       location="../../lib/@commons.httpclient.jar.name@"/>
   <property name="commons.logging.jar"
@@ -116,6 +118,7 @@
     <pathelement location="${aspectjrt.jar}"/>
     <pathelement location="${cactus.jar}"/>
     <pathelement location="${cargo.jar}"/>
+    <pathelement location="${cargo.ant.jar}"/>
     <pathelement location="${commons.httpclient.jar}"/>
     <pathelement location="${commons.logging.jar}"/>
     <pathelement location="${jasper-compiler.jar}"/>

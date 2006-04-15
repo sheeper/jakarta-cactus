@@ -142,6 +142,7 @@
 
     <filterset id="jar.names">
       <filter token="cargo.jar.name" value="${cargo.jar.name}"/>
+      <filter token="cargo.ant.name" value="${cargo.ant.name}"/>
       <filter token="jstl.jar.name" value="${jstl.jar.name}"/>
       <filter token="standard.jar.name" value="${standard.jar.name}"/>
       <filter token="servlet.jar.name" value="${servlet.jar.name}"/>
@@ -174,6 +175,7 @@
     <echo>  cactus.ant.jar = [${cactus.ant.jar}]</echo>
     <echo>  cactus.jar = [${cactus.jar}]</echo>
     <echo>  cargo.jar = [${cargo.jar}]</echo>
+    <echo>  cargo.ant.jar = [${cargo.ant.jar}]</echo>
     <echo>  commons.httpclient.jar = [${commons.httpclient.jar}]</echo>
     <echo>  commons.logging.jar = [${commons.logging.jar}]</echo>
     <echo>  htmlunit.jar = [${htmlunit.jar}]</echo>
@@ -198,6 +200,7 @@
         <available file="${cactus.jar}"/>
         <available file="${cactus.ant.jar}"/>
         <available file="${cargo.jar}"/>
+        <available file="${cargo.ant.jar}"/>
         <available file="${commons.httpclient.jar}"/>
         <available file="${commons.logging.jar}"/>
         <available file="${httpunit.jar}"/>
@@ -358,6 +361,8 @@ be resolved. Please check you build.properties file, and run Ant with the
       <property name="cactus.ant.jar" location="${test.cactus.ant.jar}"/>
       <property name="servlet.jar" value="${servlet.jar}"/>
       <property name="clover.jar" value="${clover.jar}"/>
+      <property name="cargo.jar" location="${cargo.jar}"/>
+      <property name="cargo.ant.jar" location="${cargo.ant.jar}"/>
     </ant>
 
   </target>

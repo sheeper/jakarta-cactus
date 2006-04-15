@@ -99,6 +99,8 @@
       location="../../lib/@cactus.ant.jar.name@"/>
   <property name="cargo.jar"
       location="../../lib/@cargo.jar.name@"/>
+  <property name="cargo.ant.jar"
+      location="../../lib/@cargo.ant.jar.name@"/>
   <property name="commons.httpclient.jar"
       location="../../lib/@commons.httpclient.jar.name@"/>
   <property name="commons.logging.jar"
@@ -111,6 +113,7 @@
     <pathelement location="${cactus.jar}"/>
     <pathelement location="${cactus.ant.jar}"/>
     <pathelement location="${cargo.jar}"/>
+    <pathelement location="${cargo.ant.jar}"/>
     <pathelement location="${commons.httpclient.jar}"/>
     <pathelement location="${commons.logging.jar}"/>
     <pathelement location="${junit.jar}"/>
@@ -364,13 +367,13 @@
       <mkdir dir="${target.dir}/@{containerKey}"/>
       <mkdir dir="${target.dir}/@{containerKey}/config"/>
       <cargo id="@{containerKey}" containerId="@{containerKey}" action="start"
-          homeDir="${cactus.home.@{containerKey}}"
+          home="${cactus.home.@{containerKey}}"
           log="${target.dir}/@{containerKey}/cargo_start.log"
           output="${target.dir}/@{containerKey}/container_start.log">
   	<configuration dir="${target.dir}/@{containerKey}/config">
         <property name="cargo.servlet.port" value="${cactus.port}"/>
         <property name="cargo.logging" value="high"/>
-        <ear earfile="${target.dir}/${project.name.file}-cactified.ear"/> 
+        <deployable type="ear" file="${target.dir}/${project.name.file}-cactified.ear"/> 
 	</configuration>
         <!-- Configure Cactus for logging -->
         <syspropertyset file="${target.dir.normalized}/logging_server.properties"/>
@@ -409,8 +412,8 @@
   <target name="test" depends="test.prepare"
       description="Run the tests on the defined containers">
 
-    <!-- Need to add jboss 3.x once it is supported by Cargo: -->
     <test-ejb containerKey="jboss3x"/>
+    <test-ejb containerKey="jboss4x"/>
     <test-ejb containerKey="orion1x"/>
     <test-ejb containerKey="orion2x"/>
     <test-ejb containerKey="weblogic8x"/>

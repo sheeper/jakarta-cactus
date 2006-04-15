@@ -193,8 +193,9 @@ jsp.11.jar = ${servlet.22.jar}
 jsp.12.jar = ${servlet.23.jar}
 jsp.20.jar = ${lib.repo}/${jsp.20.project}/jars/${jsp.20.artifact}-${jsp.20.version}.jar
 
-# The location of the Cargo jar
+# The location of the Cargo jars
 cargo.jar = ${lib.repo}/${cargo.project}/jars/${cargo.artifact}-${cargo.version}.jar
+cargo.ant.jar = ${lib.repo}/${cargo.ant.project}/jars/${cargo.ant.artifact}-${cargo.ant.version}.jar
 
 # The location of the Commons Logging jar
 commons.logging.jar = ${lib.repo}/${commons.logging.project}/jars/${commons.logging.artifact}-${commons.logging.version}.jar
@@ -225,10 +226,6 @@ httpunit.jar = ${lib.repo}/${httpunit.project}/jars/${httpunit.artifact}-${httpu
 
 # The location of the Hmlunit jar
 htmlunit.jar = ${lib.repo}/${htmlunit.project}/jars/${htmlunit.artifact}-${htmlunit.version}.jar
-
-# The location of the Cargo jars
-cargo.jar = ${lib.repo}/${cargo.project}/jars/${cargo.artifact}-${cargo.version}.jar
-cargo-ant.jar = ${lib.repo}/${cargo-ant.project}/jars/${cargo-ant.artifact}-${cargo-ant.version}.jar
 
 # Neko HTML (required by HttpUnit)
 nekohtml.jar = ${lib.repo}/${nekohtml.project}/jars/${nekohtml.artifact}-${nekohtml.version}.jar
