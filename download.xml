@@ -127,6 +127,7 @@
      proxypassword = "${proxypassword}"
      proxyport = "${proxyport}"/>
 
+    <download jar="_ant"/>
     <download jar="antlr"/>
     <download jar="aspectjrt"/>
     <download jar="aspectj-tools"/>

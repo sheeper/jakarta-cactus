@@ -3,6 +3,10 @@
      (both required and optional) for use with the download.xml
      script. -->
 <dependencies>
+  <!-- Ant is necessary only because of Eclipse's .classpath - it's not 
+       necessary to build Cactus -->
+  <_ant project="ant"
+      artifact="ant" version="1.6.5"/>
   <antlr project="antlr"
       artifact="antlr" version="2.7.2"/>
   <aspectjrt project="aspectj"

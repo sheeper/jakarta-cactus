@@ -250,6 +250,10 @@ jasper-runtime.jar = ${lib.repo}/${jasper-runtime.project}/jars/${jasper-runtime
 # The location of the AspectJ tools jar.
 aspectj-tools.jar = ${lib.repo}/${aspectj-tools.project}/jars/${aspectj-tools.artifact}-${aspectj-tools.version}.jar
 
+# Ant is used on Eclipse's .classpath only
+# (NOTE: Ant has a built-in ant.version property, so the _ant)
+_ant.jar = ${lib.repo}/${_ant.project}/jars/${_ant.artifact}-${_ant.version}.jar
+
 # Dependencies for Checkstyle code auditing.
 antlr.jar = ${lib.repo}/${antlr.project}/jars/${antlr.artifact}-${antlr.version}.jar
 checkstyle.jar = ${lib.repo}/${checkstyle.project}/jars/${checkstyle.artifact}-${checkstyle.version}.jar
