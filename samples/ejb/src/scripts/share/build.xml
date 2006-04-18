@@ -107,6 +107,8 @@
       location="../../lib/@commons.logging.jar.name@"/>
   <property name="junit.jar"
       location="../../lib/@junit.jar.name@"/>
+  <property name="htmlunit.jar"
+      location="../../lib/@htmlunit.jar.name@"/>
   <path id="cactus.classpath">
     <path refid="project.classpath"/>
     <pathelement location="${aspectjrt.jar}"/>
@@ -117,6 +119,7 @@
     <pathelement location="${commons.httpclient.jar}"/>
     <pathelement location="${commons.logging.jar}"/>
     <pathelement location="${junit.jar}"/>
+    <pathelement location="${htmlunit.jar}"/>
   </path>
 
   <!--
@@ -367,10 +370,10 @@
       <mkdir dir="${target.dir}/@{containerKey}"/>
       <mkdir dir="${target.dir}/@{containerKey}/config"/>
       <cargo id="@{containerKey}" containerId="@{containerKey}" action="start"
-          home="${cactus.home.@{containerKey}}"
+          home="${cactus.home.@{containerKey}}" wait="false"
           log="${target.dir}/@{containerKey}/cargo_start.log"
           output="${target.dir}/@{containerKey}/container_start.log">
-  	<configuration dir="${target.dir}/@{containerKey}/config">
+  	<configuration home="${target.dir}/@{containerKey}/config">
         <property name="cargo.servlet.port" value="${cactus.port}"/>
         <property name="cargo.logging" value="high"/>
         <deployable type="ear" file="${target.dir}/${project.name.file}-cactified.ear"/> 

@@ -134,6 +134,7 @@
     |   |- commons-httpclient.jar
     |   |- commons-logging.jar
     |   |- junit.jar
+    |   |- htmlunit.jar
     |   |- aspectjrt.jar
     |- src
     |   |- java
@@ -166,6 +167,7 @@
     <pathelement location="lib/commons-httpclient.jar"/>
     <pathelement location="lib/commons-logging.jar"/>
     <pathelement location="lib/aspectjrt.jar"/>
+    <pathelement location="lib/htmlunit.jar"/>
   </classpath>
 </taskdef>
 ]]></source>
@@ -199,7 +201,7 @@
           <table>
           	<caption>Ant tasks provided by Cactus</caption>
             <tr>
-              <th>CactifyWar</th>
+              <th><link href="site:task_cactifywar">CactifyWar</link></th>
               <td>
                 This task can enhance a provided web application archive (WAR),
                 and add the elements required to run Cactus tests against it.
@@ -209,7 +211,7 @@
               </td>
             </tr>
             <tr>
-              <th>CactifyEar</th>
+              <th><link href="site:task_cactifyear">CactifyEar</link></th>
               <td>
                 This task can enhance a provided Enterprise application archive (EAR),
                 and add the elements required to run Cactus tests against it. It can 
@@ -217,31 +219,25 @@
               </td>
             </tr>
             <tr>
-              <th>Cactus</th>
+              <th><link href="site:task_cactus">Cactus</link></th>
               <td>
                 This task extends the standard <code>&lt;junit&gt;</code> task
                 with the capability of running in-container tests.
               </td>
             </tr>
             <tr>
-              <th>CactusTests</th>
-              <td>
-                This task extends the standard <code>&lt;junit&gt;</code> task
-                and is used in combination with Cargo for start/stop containers when 
-                executes tests.
-              </td>
-            </tr>
-            <tr>
-              <th>RunServerTests</th>
+              <th><link href="site:task_runservertests">RunServerTests</link></th>
               <td>
                 This task is an alternative to the <code>&lt;cactus&gt;</code>
                 task that is more generic but harder to use. In contrast to 
                 the <code>&lt;cactus&gt;</code> task, it is not an extension of
-                the standard <code>&lt;junit&gt;</code> task.
+                the standard <code>&lt;junit&gt;</code> task and it is used in 
+                combination with Cargo for start/stop containers when it 
+                executes the tests.
               </td>
             </tr>
             <tr>
-              <th>WebXmlMerge</th>
+              <th><link href="site:task_webxmlmerge">WebXmlMerge</link></th>
               <td>
                 This task can merge the definitions from two web deployment
                 descriptors into a new descriptor, and can thus be used to

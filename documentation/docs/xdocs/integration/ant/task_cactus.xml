@@ -30,7 +30,9 @@
 
   <section title="Cactus Task">
 
-    <p>
+   <p><em>This task is deprecated and it might be not be available in future Cactus versions!</em> Please use the <link href="site:task_runservertests">RunServerTests</link> task instead.</p>
+
+   <p>
       The task <strong>cactus</strong> is an extension of the
       <strong>junit</strong> task that is included in Ant as an optional task.
       <strong>cactus</strong> extends <strong>junit</strong> to enable

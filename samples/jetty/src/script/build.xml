@@ -112,6 +112,8 @@
       location="../../lib/@jetty.jar.name@"/>
   <property name="junit.jar"
       location="../../lib/@junit.jar.name@"/>
+  <property name="htmlunit.jar"
+      location="../../lib/@htmlunit.jar.name@"/>
 
   <path id="cactus.classpath">
     <path refid="project.classpath"/>
@@ -125,6 +127,7 @@
     <pathelement location="${jasper-runtime.jar}"/>
     <pathelement location="${jetty.jar}"/>
     <pathelement location="${junit.jar}"/>
+    <pathelement location="${htmlunit.jar}"/>
     <@clover.begin@pathelement location="${clover.jar}"/@clover.end@>
   </path>
 
