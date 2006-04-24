@@ -9,15 +9,6 @@
 	<classpathentry kind="src" path="framework/src/test/share-13-14"/>
 	<classpathentry kind="src" path="integration/ant/src/java"/>
 	<classpathentry kind="src" path="integration/ant/src/test"/>
-	<classpathentry kind="src" path="integration/maven/samples/ejb/src/java"/>
-	<classpathentry kind="src" path="integration/maven/samples/ejb/src/test-cactus"/>
-	<classpathentry kind="src" path="integration/maven/samples/servlet/src/java"/>
-	<classpathentry kind="src" path="integration/maven/samples/servlet/src/test-cactus"/>
-	<classpathentry kind="src" path="integration/maven/src/main"/>
-	<classpathentry kind="src" path="integration/maven/src/plugin-test/testCactusTestSkip/src/test"/>
-	<classpathentry kind="src" path="integration/maven/src/plugin-test/testMultipleSrcDir/src/test"/>
-	<classpathentry kind="src" path="integration/maven/src/plugin-test/testMultipleSrcDir/src/test-2"/>
-	<classpathentry kind="src" path="integration/maven/src/plugin-test/testMultipleSrcDir/src/test-3"/>
 	<classpathentry kind="src" path="samples/servlet/src/java/j2ee13"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="var" path="MAVEN_REPO/servletapi/jars/servletapi-2.3.jar"/>
@@ -36,5 +27,6 @@
 	<classpathentry kind="var" path="MAVEN_REPO/cargo/jars/cargo-ant-0.8.jar"/>
 	<classpathentry kind="var" path="JUNIT_HOME/junit.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/ant/jars/ant-1.6.5.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/xerces/jars/xercesImpl-2.6.2.jar"/>
 	<classpathentry kind="output" path="integration/ant/target-13/classes/test"/>
 </classpath>
