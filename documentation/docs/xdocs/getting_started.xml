@@ -68,7 +68,7 @@
       <ul>
         <li>
           <strong>Java Virtual Machine</strong>
-          A Java 1.2 or greater compatible virtual machine must be present. Note
+          A Java 1.4 or greater compatible virtual machine must be present. Note
           that all servlet engines require a JVM to run so if you are already
           using servlets you already have one installed.
         </li>
