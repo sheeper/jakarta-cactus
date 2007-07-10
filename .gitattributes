@@ -11,6 +11,7 @@
 /checkstyle.license svn_keywords=Author+Date+Id+Revision
 /default-project.xml svn_keywords=Author+Date+Id+Revision
 /dependencies.xml.default svn_keywords=Author+Date+Id+Revision
+/doap_Jakarta_Cactus.rdf -text
 documentation/.cvsignore svn_keywords=Author+Date+Id+Revision
 documentation/README svn_keywords=Author+Date+Id+Revision
 documentation/build.xml svn_keywords=Author+Date+Id+Revision
