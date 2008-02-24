@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin
+   id="org.apache.cactus.eclipse.webapp"
+   name="%pluginName"
+   version="1.8.0"
+   provider-name="%providerName"
+   class="org.apache.cactus.eclipse.webapp.internal.ui.WebappPlugin">
+
+   <runtime>
+      <library name="org.apache.cactus.eclipse.webapp-1.8.0-SNAPSHOT.jar">  
+         <export name="*"/>
+         <packages prefixes="org.apache.cactus.eclipse.webapp.internal"/>
+      </library> 
+   </runtime>
+
+   <requires>
+      <import plugin="org.apache.ant"/>
+      <import plugin="org.eclipse.core.boot"/>
+      <import plugin="org.eclipse.core.resources"/>
+      <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.eclipse.jdt.core"/>
+      <import plugin="org.eclipse.jdt.ui"/>
+      <import plugin="org.eclipse.ui"/>      
+   </requires>
+
+   <extension point="org.eclipse.ui.propertyPages">
+      <page name="%webAppPageName"
+         id="org.apache.cactus.eclipse.WebAppPropertyPage"
+	     objectClass="org.eclipse.jdt.core.IJavaProject"
+	     class="org.apache.cactus.eclipse.webapp.internal.ui.WebAppPropertyPage">
+	     <filter name="nature" value="org.eclipse.jdt.core.javanature"/>
+	  </page>
+      <page name="%webAppPageName"
+         id="org.apache.cactus.eclipse.WebAppPropertyPage"
+	     objectClass="org.eclipse.core.resources.IProject"
+	     class="org.apache.cactus.eclipse.webapp.internal.ui.WebAppPropertyPage">
+	     <filter name="nature" value="org.eclipse.jdt.core.javanature"/>
+	  </page>
+   </extension>
+
+</plugin>

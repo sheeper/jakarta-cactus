@@ -39,7 +39,7 @@ import javax.servlet.http.HttpSession;
  * different test cases as possible rather than implementing a meaningful
  * business logic.
  *
- * @version $Id$
+ * @version $Id: SampleServlet.java 238835 2004-03-06 20:59:41Z vmassol $
  */
 public class SampleServlet extends HttpServlet
 {

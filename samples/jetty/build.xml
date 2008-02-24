@@ -1,301 +1,154 @@
 <?xml version="1.0"?>
-<!DOCTYPE project [
-  <!ENTITY common SYSTEM "file:../../build-common.xml">
-]>
 
 <!--
   =============================================================================
-    Build file for the Cactus Jetty Sample subproject.
+    Build file for the Cactus Jetty Sample subproject (it shows how to use
+    Cactus and Jelly in an integrated way for unit testing the Servlet API : 
+    Servlets, Fitlers, Taglibs).
 
-    $Id$
+    The following Ant tasks need to be available in your ant installation (i.e.
+    the Ant task themselves and their dependent jars need to be put in
+    ANT_HOME/lib) :
+
+        junit                  [REQUIRED] JUnit Ant task
+
+    The mandatory and optional Ant properties are defined in
+    build.properties.sample. Please read and edit that file.
+
+    This script should be started with the following command line :
+
+        ant <target>
+
+    Run "ant -projecthelp" to get a list of available targets. The default
+    target is "dist"
   =============================================================================
 -->
-<project name="Cactus Jetty Sample" default="dist" basedir="../..">
+<project name="Cactus Jetty Sample" xmlns:ivy="antlib:org.apache.ivy.ant" default="test">
 
   <description>
- Cactus Jetty Sample
- ---------------------------------------------------------
- Sample web-application that demonstrates how Cactus can
- be used using the Jetty integration for unit testing 
- classes that use the servlet API (such as servlets, 
- filters and tag libraries).
+     Cactus Jetty Sample
+     ---------------------------------------------------------
+     Sample web-application that demonstrates how Cactus can
+     be used using the Jetty integration for unit testing 
+     classes that use the servlet API (such as servlets, 
+     filters and tag libraries).
   </description>
 
-   <!-- Base directory for all file related operations -->
-  <property name="base.dir" location="${basedir}/samples/jetty"/>
-
-  <!-- Indicate that this subproject is dependent on the version of the J2EE
-       API available -->
-  <property name="j2ee.dependant" value="true"/>
-
-  <!-- Include properties and targets common to the different subprojects -->
-  &common;
-
-  <!-- Global project properties -->
-  <property name="project.name.text" value="Cactus Jetty Sample"/>
-  <property name="project.name.file" value="cactus-sample-jetty"/>
-
-  <!--
+ <!--
      ========================================================================
-       Initialize source, target and dist properties
+       Initialize properties.
      ========================================================================
-  -->
-  <target name="properties">
-
-    <!-- Source locations for the build -->
-    <property name="src.dir" location="${cactus.samples.servlet.bin}/src"/>
-    <property name="src.conf.dir" location="${base.dir}/src/conf"/>
-    <property name="src.java.dir" location="${src.dir}/java"/>
-    <property name="src.cactus.dir" location="${src.dir}/test-cactus"/>
-    <property name="src.cactus.jetty.dir" location="${base.dir}/src/test-cactus"/>
-    <property name="src.script.dir" location="${base.dir}/src/script"/>
-    <property name="src.webapp.dir" location="${base.dir}/src/webapp"/>
-
-    <!-- Set the properties related to the target area -->
-    <property name="target.sample.dir" location="${target.dir}/sample"/>
-    <property name="target.sample.src.dir"
-        location="${target.sample.dir}/src"/>
-    <property name="target.sample.src.conf.dir"
-        location="${target.sample.dir}/src/conf"/>
-    <property name="target.sample.src.java.dir"
-        location="${target.sample.dir}/src/java"/>
-    <property name="target.sample.src.cactus.dir"
-        location="${target.sample.dir}/src/test-cactus"/>
-    <property name="target.sample.src.webapp.dir"
-        location="${target.sample.dir}/src/webapp"/>
-    <property name="target.sample.lib.dir" location="${target.sample.dir}/lib"/>
-
-    <property name="dist.dir" location="${base.dir}/dist-${j2ee.api}"/>
-    <property name="dist.bin.dir" location="${dist.dir}/bin"/>
-
-  </target>
-
-  <!--
-     ========================================================================
-       Initialize filters used in copy operations
-     ========================================================================
-  -->
-  <target name="init.filters.clover" depends="init.common" if="clover.enable">
-
-    <filterset id="clover.enablement">
-      <filter token="clover.begin" value=""/>
-      <filter token="clover.end" value=""/>
-    </filterset>
-
-  </target>
-
-  <target name="init.filters.noclover" depends="init.common" unless="clover.enable">
-
-    <filterset id="clover.enablement">
-      <filter token="clover.begin" value="!-- "/>
-      <filter token="clover.end" value=" --"/>
-    </filterset>
-
-  </target>
-
-  <target name="init.filters" depends="init.filters.clover, init.filters.noclover">
-
-    <!-- Copy scripts -->
-    <basename property="servlet.jar.name" file="${servlet.jar}"/>
-    <basename property="aspectjrt.jar.name" file="${aspectjrt.jar}"/>
-    <basename property="commons.httpclient.jar.name"
-        file="${commons.httpclient.jar}"/>
-    <basename property="commons.logging.jar.name"
-        file="${commons.logging.jar}"/>
-    <basename property="httpunit.jar.name" file="${httpunit.jar}"/>
-    <basename property="junit.jar.name" file="${junit.jar}"/>
-    <basename property="jetty.jar.name" file="${jetty.jar}"/>
-    <basename property="jasper-compiler.jar.name" file="${jasper-compiler.jar}"/>
-    <basename property="jasper-runtime.jar.name" file="${jasper-runtime.jar}"/>
-    <basename property="cargo.jar.name" file="${cargo.jar}"/>
-
-    <filterset id="jar.names">
-      <filter token="cactus.jar.name" value="${cactus.jar.name}.jar"/>
-      <filter token="cargo.jar.name" value="${cargo.jar.name}"/>
-      <filter token="servlet.jar.name" value="${servlet.jar.name}"/>
-      <filter token="aspectjrt.jar.name" value="${aspectjrt.jar.name}"/>
-      <filter token="commons.httpclient.jar.name"
-          value="${commons.httpclient.jar.name}"/>
-      <filter token="commons.logging.jar.name"
-          value="${commons.logging.jar.name}"/>
-      <filter token="httpunit.jar.name" value="${httpunit.jar.name}"/>
-      <filter token="junit.jar.name" value="${junit.jar.name}"/>
-      <filter token="jetty.jar.name" value="${jetty.jar.name}"/>
-      <filter token="jasper-compiler.jar.name"
-          value="${jasper-compiler.jar.name}"/>
-      <filter token="jasper-runtime.jar.name" value="${jasper-runtime.jar.name}"/>
-    </filterset>
-
-  </target>
-
-  <!--
-     ========================================================================
-       Initialize the build. Must be called by all targets
-     ========================================================================
-  -->
-  <target name="init" depends="init.common, init.filters, properties">
-
-    <echo>Dependencies:</echo>
-    <echo>  aspectjrt.jar = [${aspectjrt.jar}]</echo>
-    <echo>  cactus.jar = [${cactus.jar}]</echo>
-    <echo>  cargo.jar = [${cargo.jar}]</echo>
-    <echo>  commons.httpclient.jar = [${commons.httpclient.jar}]</echo>
-    <echo>  commons.logging.jar = [${commons.logging.jar}]</echo>
-    <echo>  httpunit.jar = [${httpunit.jar}]</echo>
-    <echo>  servlet.jar = [${servlet.jar}]</echo>
-    <echo>  junit.jar = [${junit.jar}]</echo>
-    <echo>  jetty.jar = [${jetty.jar}]</echo>
-    <echo>  jasper-compiler.jar = [${jasper-compiler.jar}]</echo>
-    <echo>  jasper-runtime.jar = [${jasper-runtime.jar}]</echo>
-    <echo>  xerces.jar (optional) = [${xerces.jar}]</echo>
-    <echo>  xmlapis.jar (optional) = [${xmlapis.jar}]</echo>
-    <echo/>
-    <echo>Options:</echo>
-    <echo>  clover.enable = ${clover.enable}</echo>
-    <echo>  clover.jar = [${clover.jar}]</echo>
-    <echo>  cactus.port = ${cactus.port}</echo>
-
-    <condition property="properties.ok">
-      <and>
-        <available file="${aspectjrt.jar}"/>
-        <available file="${cactus.jar}"/>
-        <available file="${commons.httpclient.jar}"/>
-        <available file="${commons.logging.jar}"/>
-        <available file="${httpunit.jar}"/>
-        <available file="${servlet.jar}"/>
-        <available file="${jetty.jar}"/>
-        <available file="${jasper-compiler.jar}"/>
-        <available file="${jasper-runtime.jar}"/>
-        <available file="${junit.jar}"/>
-        <!-- Check for a JAXP class instead of the xmlapis.jar file so that
-             the build works on JDK 1.4 without needing to define the
-             xmlapis.jar property -->
-        <available classname="javax.xml.parsers.DocumentBuilder"
-            classpath="${xmlapis.jar}"/>
-        <!-- Check for a Xerces class instead of the xerces.jar file so
-             that the build also works on JDKs that bundle Xerces without
-             needing to define the xerces.jar property -->
-        <available classname="org.apache.xml.serialize.XMLSerializer"
-            classpath="${xerces.jar}"/>
-        <!-- Check that clover.jar points to a valid file if clover is 
-             enabled -->
-        <or>
-          <and>        
-            <isset property="clover.enable"/>
-            <available file="${clover.jar}"/>
-          </and>
-          <not>
-            <isset property="clover.enable"/>
-          </not>
-        </or>            
-      </and>
-    </condition>
-
-    <fail unless="j2ee13.available">Servlet API 2.3 is required for the Jetty
-sample</fail>
-
-    <fail unless="properties.ok">One or more required dependencies could not
-be resolved. Please check you build.properties file, and run Ant with the 
--verbose option for more details</fail>
-
-  </target>
-
-  <!--
-      ========================================================================
-        Generate the sample application
-      ========================================================================
-   -->
-  <target name="sample" depends="init"
-      description="Generate the sample application">
-
-    <!-- Copy configuration files -->
-    <mkdir dir="${target.sample.src.conf.dir}"/>
-    <copy todir="${target.sample.src.conf.dir}">
-      <fileset dir="${src.conf.dir}"/>
-    </copy>
-
-    <!-- Copy source from the servlet sample -->
-    <mkdir dir="${target.sample.src.java.dir}"/>
-    <copy todir="${target.sample.src.java.dir}">
-      <fileset dir="${src.java.dir}"/>
-    </copy>
-    <mkdir dir="${target.sample.src.cactus.dir}"/>
-    <copy todir="${target.sample.src.cactus.dir}">
-      <fileset dir="${src.cactus.dir}" excludes="**/unit/**"/>
-    </copy>
-
-    <!-- Copy the Jetty-sample specific source files to the target src dir -->
-    <copy todir="${target.sample.src.cactus.dir}">
-      <fileset dir="${src.cactus.jetty.dir}"/>
-    </copy>
-
-    <!-- Copy web-app files -->
-    <mkdir dir="${target.sample.src.webapp.dir}"/>
-    <copy todir="${target.sample.src.webapp.dir}">
-      <fileset dir="${src.webapp.dir}"/>
-      <fileset file="${cactus.framework.web}/jspRedirector.jsp"/>
-    </copy>
-
-    <!-- Copy libraries -->
-    <mkdir dir="${target.sample.lib.dir}"/>
-    <copy todir="${target.sample.lib.dir}">
-      <fileset file="${jetty.jar}"/>
-      <fileset file="${jasper-runtime.jar}"/>
-      <fileset file="${jasper-compiler.jar}"/>
-    </copy>
-
-    <!-- Copy build file -->
-    <copy todir="${target.sample.dir}" filtering="on">
-      <fileset dir="${src.script.dir}"/>
-      <filterset refid="clover.enablement"/>
-      <filterset refid="jar.names"/>
-    </copy>
-    
+  -->	
+  <target name="init" depends="">
+  
+	  <property name="cactus.sample.app.type" value="servlet"/>
+		<property name="cactus.sample.archive.type" value="war"/>
+    <property environment="env"/>
+    <property file="../build.properties"/>
+	 
+	
+		<path id="cactus.classpath">
+			<fileset dir="${ivy.lib.dir}">
+        <include name="*.jar"/>
+      </fileset>
+      <dirset dir="../servlet/target/">
+        <include name="classes"/>
+      </dirset>
+		</path>
+		
   </target>
   
-  <!--
+<!--
      ========================================================================
-       Run the full suite of tests on all defined containers.
+       Prepare the folder structure.
      ========================================================================
   -->
-  <target name="test.prepare" depends="sample">
+	<target name="prepare" depends="init">
+		<mkdir dir="${build.dir}"/>
+		<mkdir dir="${logs.dir}"/>
+		<mkdir dir="${reports.dir}"/>
+	</target>
 
-    <condition property="test.cactus.jar" value="${cactus.clover.jar}">
-      <isset property="clover.enable"/>
-    </condition>
-    <property name="test.cactus.jar" value="${cactus.jar}"/>
-
+<!--
+     ========================================================================
+       Resolve Ivy dependencies.
+     ========================================================================
+  -->
+	<target name="resolve" description="Retrieve dependencies with ivy" depends="prepare">
+		<ivy:configure file="../ivysettings.xml" />
+		<ivy:retrieve file="../ivy.xml" sync="true"/>
   </target>
 
-  <target name="test" depends="test.prepare"
-      description="Run the tests on all defined servers">
+<!--
+     ========================================================================
+       Load external ant tasks.
+     ========================================================================
+  -->
+	<target name="load.tasks" depends="resolve">
+		<taskdef resource="cactus.tasks"
+			 classpathref="cactus.classpath">
+		</taskdef>
+	</target>
 
-    <ant dir="${target.sample.dir}" target="test">
-      <property name="src.dir" location="${target.sample.src.dir}"/>
-      <property name="src.java.dir"
-          location="${target.sample.src.java.dir}"/>
-      <property name="src.conf.dir"
-          location="${target.sample.src.conf.dir}"/>
-      <property name="src.cactus.dir"
-          location="${target.sample.src.cactus.dir}"/>
-      <property name="src.webapp.dir"
-          location="${target.sample.src.webapp.dir}"/>
-      <property name="cactus.jar" location="${test.cactus.jar}"/>
-    </ant>
 
-  </target>
+
+<!--
+     ========================================================================
+       Compile source classes as well as cactus classes.
+     ========================================================================
+  -->
+	<!--Note that if some dependency is missing in the classpath, instead of compilation errors,
+      Ivy reports to Maven 'No Compiler Found' error. -->
+	<target name="compile" depends="load.tasks">
+		
+		<javac srcdir="${src.dir}"
+		       destdir="${build.dir}"
+		       classpathref="cactus.classpath"/>
+		
+		<javac srcdir="${cactus.src.dir}"
+		       destdir="${build.dir}"
+			     classpathref="cactus.classpath"/>
+		<javac srcdir="${src.webapp.dir}"
+		       destdir="${build.dir}"
+			     classpathref="cactus.classpath"/>
+	</target>
+
+  <!--
+     ========================================================================
+       Create the runtime war file.
+     ========================================================================
+  -->
+	<target name="package-war" depends="compile">
+		<war destfile="${servlet.archive.name}" webxml="${basedir}/src/main/webapp/WEB-INF/web.xml">
+		  <fileset dir="${basedir}/src/main/webapp/WEB-INF">
+        <exclude name="cactus-report.xsl"/>
+        <exclude name="cactus-web.xml"/>
+        <exclude name="web.xml"/>
+      </fileset>
+      <fileset dir="${basedir}/src/main/webapp">
+        <include name="test/test.jsp"/>
+        <include name="org/apache/jsp/jspRedirector.jsp"/>
+      </fileset>
+			<classes dir="${build.dir}"/>
+			<lib dir="${ivy.lib.dir}">
+				<include name="**.jar"/>
+				<exclude name="jsp-api-2.0.jar"/>
+        <exclude name="servlet-api-2.5.jar"/>
+			</lib>	
+		</war>
+	</target>
+
 
   <!--
      ========================================================================
        Generate the distributable files
      ========================================================================
   -->
-  <target name="dist" depends="sample,test">
+  <target name="dist" depends="clean, package-war, test"
+      description="Generate the distributable files">
 
-    <mkdir dir="${dist.bin.dir}"/>
-    <copy todir="${dist.bin.dir}">
-      <fileset dir="${target.sample.dir}"/>
-    </copy>
+    <copy todir="${dist.dir}"
+        file="${target.dir}/${project.name.file}.war"/>
 
   </target>
 
@@ -304,11 +157,43 @@ be resolved. Please check you build.properties file, and run Ant with the
        Clean generated files (including distributables)
      ========================================================================
   -->
-  <target name="clean" depends="init.display, init.properties"
-      description="Clean all generated files">
+  <target name="clean" depends="init" description="Clean all generated files">
 
     <delete dir="${target.dir}"/>
     <delete dir="${dist.dir}"/>
+
+  </target>
+
+<!--
+     ========================================================================
+       Run the tests on Jetty.
+     ========================================================================
+  -->
+  <target name="test" depends="compile">
+    
+    <junit fork="yes" failureproperty="tests.failed">
+      <sysproperty key="cactus.contextURL"
+          value="http://localhost:${cargo.servlet.port}/test"/>
+      <sysproperty key="cactus.jetty.resourceDir" file="${src.webapp.dir}"/>
+      <sysproperty key="cactus.jetty.config" file="${src.conf.dir}/jetty.xml"/>
+      <classpath>
+        <path refid="cactus.classpath"/>
+        <pathelement location="${build.dir}"/>
+        <!-- Needed By Jasper to Compile the JSPs-->
+        <pathelement location="${env.JAVA_HOME}\lib\tools.jar"/>
+      </classpath>
+      <formatter type="brief" usefile="false"/>
+      <formatter type="xml"/>
+      <test todir="${reports.dir}"
+          name="org.apache.cactus.sample.jetty.TestJettyAll"/>
+    </junit>
+
+    <junitreport todir="${reports.dir}">
+      <fileset dir="${reports.dir}" includes="TEST-*.xml"/>
+      <report todir="${reports.dir}" format="frames"/>
+    </junitreport>
+
+    <fail if="tests.failed">At least one test failed!</fail>
 
   </target>
 

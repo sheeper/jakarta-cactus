@@ -30,7 +30,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  * body. "Target" and "Replacement" Strings are defined by the tag's attributes
  * and each "occurrence" of the target is replaced by the "replacement".
  *
- * @version $Id$
+ * @version $Id: SampleBodyTag.java 238835 2004-03-06 20:59:41Z vmassol $
  */
 public class SampleBodyTag extends BodyTagSupport
 {

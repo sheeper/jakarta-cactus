@@ -1,0 +1,256 @@
+<?xml version="1.0"?>
+
+<!--
+ * ========================================================================
+ * 
+ * Copyright 2001-2005 The Apache Software Foundation.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * 
+ * ========================================================================
+-->
+
+<document id="logos">
+
+  <properties>
+    <title>Logos for Cactus</title>
+  </properties>
+
+  <body>
+
+	  <section name="Propositions of logos for Cactus">
+
+      <p>
+        Here are contributions for a Cactus logo and associated slogan. Thanks
+        to all that have already participated.
+      </p>
+
+      <section name="Proposition 1: Classic">
+
+        <p>
+          This is the Cactus logo that has been displayed on the Cactus web site
+          from 2002 to April 2005. It
+          was designed by <a href="mailto:lthouvenot@octo.com">Lyonel
+          Thouvenot</a> from <a href="http://www.octo.com/">Octo
+          Technology</a>.
+        </p>
+        <p>
+        <img src="images/logos/lthouvenot.gif" alt="Proposition 1: Classic"/>
+        </p>
+      </section>
+
+      <section name="Proposition 2: Tomahawk">
+
+        <p>
+          This is a proposition from
+          <a href="mailto:Victor.Gritsen@pwgsc.gc.ca">Victor Gritsenko</a>
+          .
+        </p>
+
+        <a href="images/logos/vgritsenko.jpg">
+          <p>
+          <img src="images/logos/vgritsenko.jpg" height="185" width="119"
+            alt="Proposition 2: Tomahawk"/>
+          </p>
+        </a>
+
+      </section>
+
+      <section name="Proposition 3: A happy cactus">
+
+        <p>
+          This is a proposition from
+          <a href="mailto:harishsk@mindtree.com">Harish S K</a>
+          .
+        </p>
+        <p>
+        <img src="images/logos/harishsk.jpg" alt="Proposition 3: A happy cactus"/>
+        </p>
+      </section>
+
+      <section name="Proposition 4: Severe testing">
+
+        <p>
+          This is a proposition from
+          <a href="mailto:Victor.Gritsen@pwgsc.gc.ca">Victor Gritsenko</a>
+          .
+        </p>
+
+        <a href="images/logos/vgritsenko2.jpg">
+        <p>
+          <img src="images/logos/vgritsenko2.jpg" alt="Proposition 3: Severe testing"
+            height="64" width="311"/>
+        </p>
+        </a>
+
+      </section>
+
+      <section name="Proposition 4">
+
+        <p>
+          This is a proposition from
+          <a href="mailto:alessandro.ceglia@rcn.com">Alessandro Ceglia</a>
+          .
+        </p>
+        <p>
+          <img src="images/logos/aceglia1.jpg" alt="Proposition 4"/>
+        </p>
+
+      </section>
+
+      <section name="Proposition 5">
+
+        <p>
+          This is a proposition from
+          <a href="mailto:bogglins@yahoo.com">Dimenzio Design Works</a>
+          .
+        </p>
+        <p>
+          <img src="images/logos/bogglins.gif" alt="Proposition 5"/>
+        </p>
+
+      </section>
+
+      <section name="Proposition 6">
+
+        <p>
+          This is a proposition from
+          <a href="mailto:alessandro.ceglia@rcn.com">Alessandro Ceglia</a>
+          .
+        </p>
+        <p>
+          <img src="images/logos/aceglia2.jpg" alt="Proposition 6"/>
+        </p>
+
+      </section>
+
+      <section name="Proposition 7">
+
+        <p>
+          This is a proposition from
+          <a href="mailto:alessandro.ceglia@rcn.com">Alessandro Ceglia</a>
+          .
+        </p>
+        <p>
+          <img src="images/logos/aceglia3.jpg" alt="Proposition 7"/>
+        </p>
+      </section>
+
+      <section name="Proposition 8">
+
+        <p>
+          This is a proposition from
+          <a href="mailto:Arthur.Jasso@acuity.com">Arthur Jasso</a>.
+        </p>
+        <p>
+          <img src="images/logos/ajasso.gif" alt="Proposition 8"/>
+        </p>
+      </section>
+
+      <section name="Proposition 9">
+
+        <p>
+          This is a proposition from
+          <a href="mailto:Outoftheboxweb@aol.com">Outoftheboxweb</a>.
+        </p>
+        <p>
+          <img src="images/logos/outoftheboxweb.gif" alt="Proposition 9"/>
+        </p>
+      </section>
+
+      <section name="Proposition 10">
+
+        <p>
+          This is a proposition from
+          <a href="mailto:Anuj.Dhawan@symphserv.com">Anuj Dhawan</a>.
+        </p>
+        <p>
+          <img src="images/logos/adhawan.jpg" alt="Proposition 10"/>
+        </p>
+      </section>
+
+      <section name="Proposition 11">
+
+        <p>
+          This is a proposition from
+          <a href="mailto:Sanjay.Raja@itsprojects.com">Sanjay Raja</a>.
+        </p>
+        <p>
+          <img src="images/logos/sraja.jpg" alt="Proposition 11"/>
+        </p>
+      </section>
+
+      <section name="Proposition 12">
+
+        <p>
+          This is a proposition from
+          <a href="mailto:sashi@easy.com.au">Ganesh Prasad</a>.
+        </p>
+
+        <p>
+          "a very rough idea for a Cactus logo along the lines of the Sun 
+          Java cup".
+        </p>
+        <p>
+          <img src="images/logos/gsprasad.png" alt="Proposition 12"/>
+        </p>
+      </section>
+
+      <section name="Proposition 13">
+
+        <p>
+          This is a proposition from
+          <a href="mailto:jgresse@sopragroup.com">Julien Gresse</a>.
+        </p>
+
+        <p>
+          "The thorns may sting, but the Cactus's water is crystal
+          clear..."       
+        </p>
+        <p>
+          "The thorns of your java code's Cactus will stung you, but with 
+          Cactus tests you could drew every drop of you code's essence."
+        </p>
+        <p>
+          <img src="images/logos/jgresse.gif" alt="Proposition 13"/>
+        </p>
+      </section>
+
+      <section name="Proposition 14">
+
+        <p>
+          This is our current logo (since April 2005). It was designed by
+          <a href="mailto:eoghan.mcilwaine2@mail.dcu.ie">Eoghan McIlwaine</a>.
+        </p>
+        <p>
+          <img src="images/logos/eoghan2.jpg" alt="Proposition 14 in situation"/>
+          <img src="images/logos/eoghan1.gif" alt="Proposition 14"/>
+        </p>
+      </section>
+
+      <section name="Proposition 15">
+
+        <p>
+          This is a proposition from
+          <a href="mailto:kacperus83@poczta.fm">Kacper Glowacki</a>.
+        </p>
+        <p>
+          <img src="images/logos/kaktus7ll.gif" alt="Proposition 15: Cactus Protects your code"/>
+        </p>
+
+      </section>
+      
+    </section>
+
+  </body>
+</document>

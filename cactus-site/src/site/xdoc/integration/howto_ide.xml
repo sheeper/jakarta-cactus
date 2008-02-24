@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+
+<!--
+ * ========================================================================
+ * 
+ * Copyright 2001-2004 The Apache Software Foundation.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * 
+ * ========================================================================
+-->
+
+<document id="howto_ide">
+
+  <properties>
+    <title>IDE Howto</title>
+  </properties>
+
+  <body>
+
+    <section name="IDE integration">
+
+      <p>
+        In order to simplify Cactus integration within your IDE (i.e. running
+        the Cactus tests from your IDE), we have
+        provided several tutorial detailing the involved steps for several
+        IDEs:
+      </p>
+      <ul>
+        <li>
+		<a href="howto_ide_jbuilder4.html">JBuilder Integration
+          Tutorial</a> (more focused on JBuilder 4),
+        </li>
+        <li>
+		Another <a href="howto_ide_jbuilder5.html">JBuilder Integration
+          Tutorial</a> (more focused on JBuilder 5),
+        </li>
+        <li>
+          VisualAge for Java Integration:
+          <ul>
+            <li>
+		    <a href="howto_ide_vajava_wte.html">VAJava and integrated WebSphere Test
+              Environment (WTE)</a>
+            </li>
+            <li>
+		    <a href="howto_ide_vajava_tomcat.html">VAJava and Tomcat Test Environment</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+
+      <p>
+        If your favorite IDE is not listed there, don't despair ! It is
+        actually very simple to integrate Cactus within your
+        environment. You simply need to know how to start your servlet engine
+        from your IDE (possibly in debug mode if you wish to debug your
+        test case) and set up correctly the class path (see the
+	<a href="manual/howto_classpath.html">Classpath Howto</a> tutorial
+        for understanding the classpath). Look at the tutorials for other IDEs
+        and do the same for yours.
+      </p>
+
+    </section>
+
+  </body>
+</document>

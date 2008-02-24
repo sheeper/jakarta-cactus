@@ -1,0 +1,14 @@
+<assembly>
+  <id>src</id>
+  <includeBaseDirectory>false</includeBaseDirectory>
+  <formats>
+    <format>zip</format>
+  </formats>
+  <fileSets>
+    <fileSet>
+      <directory>src/main/java/</directory>
+      <useDefaultExcludes>true</useDefaultExcludes>
+      <outputDirectory>/</outputDirectory>
+    </fileSet>
+  </fileSets>
+</assembly>

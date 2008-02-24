@@ -1,0 +1,33 @@
+<assembly>
+  <id>bin</id>
+	<formats>
+		<format>zip</format>
+	</formats>
+	<includeBaseDirectory>true</includeBaseDirectory>
+	<dependencySets>
+		<dependencySet>
+			<outputDirectory>/</outputDirectory>
+			<includes>
+				<include>org.apache.cactus:org.apache.cactus.eclipse.webapp:jar</include>
+			</includes>
+			<unpack>false</unpack>
+		</dependencySet>
+	</dependencySets>
+	<fileSets>
+	  <fileSet>
+      <directory>target</directory>
+      <outputDirectory>/</outputDirectory>  
+      <includes>
+        <include>*-src.zip</include>
+      </includes>
+    </fileSet>
+    <fileSet>
+      <directory>src/conf</directory>
+      <outputDirectory>/</outputDirectory>  
+      <includes>
+        <include>*.*</include>
+      </includes>
+    </fileSet>
+  </fileSets>
+</assembly>
+  

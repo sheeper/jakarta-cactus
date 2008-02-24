@@ -1,0 +1,8 @@
+#Cactus Tasks for Ant
+#Sun Mar 26 18:02:55 BRT 2006
+cactifywar=org.apache.cactus.integration.ant.CactifyWarTask
+runservertests=org.apache.cactus.integration.ant.RunServerTestsTask
+webxmlmerge=org.apache.cactus.integration.ant.WebXmlMergeTask
+cactifyear=org.apache.cactus.integration.ant.CactifyEarTask
+cactus=org.apache.cactus.integration.ant.CactusTask
+cactustests=org.apache.cactus.integration.ant.CactusTestTask

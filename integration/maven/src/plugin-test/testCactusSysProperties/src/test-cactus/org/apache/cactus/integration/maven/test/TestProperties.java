@@ -31,7 +31,7 @@ import org.apache.cactus.WebRequest;
  * cactified WAR. Note that we're testing this by executing this code inside
  * the container.
  *
- * @version $Id$
+ * @version $Id: TestProperties.java 239081 2004-11-08 22:02:37Z felipeal $
  */
 public class TestProperties extends ServletTestCase
 {

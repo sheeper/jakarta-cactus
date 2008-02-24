@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Licensed to the Apache Software Foundation (ASF) under one
+	or more contributor license agreements.  See the NOTICE file
+	distributed with this work for additional information
+	regarding copyright ownership.  The ASF licenses this file
+	to you under the Apache License, Version 2.0 (the
+	"License"); you may not use this file except in compliance
+	with the License.  You may obtain a copy of the License at
+	
+	http://www.apache.org/licenses/LICENSE-2.0
+	
+	Unless required by applicable law or agreed to in writing,
+	software distributed under the License is distributed on an
+	"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+	KIND, either express or implied.  See the License for the
+	specific language governing permissions and limitations
+	under the License.   
+-->
+<project>
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.apache.cactus</groupId>
+		<artifactId>cactus.integration</artifactId>
+		<version>1.8.0-SNAPSHOT</version>
+	</parent>
+	<artifactId>cactus.maven1.plugin</artifactId>
+	<name>Cactus Maven 1 Plugin</name>
+  <packaging>maven-one-plugin</packaging>
+	<dependencies>
+		<!-- Note: Dependencies below are needed by the Cactus scanner tag -->
+		<dependency>
+			<groupId>ant</groupId>
+			<artifactId>ant</artifactId>
+			<version>1.6.5</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-jelly</groupId>
+			<artifactId>commons-jelly</artifactId>
+			<version>20030902.160215</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-jelly</groupId>
+			<artifactId>commons-jelly-tags-ant</artifactId>
+			<version>20030625.032346</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+			<version>1.7.0</version>
+		</dependency>
+		
+		<!-- VMA: I don't know why but this dependency is required for some
+		     persons -->
+		<dependency>
+			<groupId>commons-jelly</groupId>
+			<artifactId>commons-jelly-tags-xml</artifactId>
+			<version>20030211.142705</version>
+		</dependency>
+	</dependencies>
+	  <build>
+	    <plugins>
+	      <plugin>
+	        <artifactId>maven-one-plugin</artifactId>
+	        <extensions>true</extensions>
+	        <executions>
+	          <execution>
+	            <goals>
+	              <goal>install-maven-one-repository</goal>
+	            </goals>
+	          </execution>
+	        </executions>
+	      </plugin>
+	    </plugins>
+	  </build>
+</project>
+
+
+ 

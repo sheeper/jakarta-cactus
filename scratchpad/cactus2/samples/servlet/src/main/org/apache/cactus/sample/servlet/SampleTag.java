@@ -32,7 +32,7 @@ import javax.servlet.jsp.tagext.TagSupport;
 /**
  * Sample tag that implements simple tag logic.
  *
- * @version $Id$
+ * @version $Id: SampleTag.java 238835 2004-03-06 20:59:41Z vmassol $
  */
 public class SampleTag extends TagSupport
 {

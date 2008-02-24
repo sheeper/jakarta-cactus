@@ -1,0 +1,43 @@
+<assembly>
+	<id>src</id>
+	<formats>
+		<format>zip</format>
+		<format>tar.gz</format>
+		<format>tar.bz2</format>
+	</formats>
+	<includeBaseDirectory>true</includeBaseDirectory>
+	<baseDirectory>${project.artifactId}-${project.version}-src</baseDirectory>
+	<fileSets>
+		<fileSet>
+			<useDefaultExcludes>false</useDefaultExcludes>
+			<includes>
+				<include>**/**</include>
+			</includes>
+			<excludes>
+				<exclude>**/target/**</exclude>
+				<!--Kate makes such temp files. -->
+				<exclude>**/*.*~</exclude>
+				<!--Eclipse's work directory -->
+				<exclude>bin/**</exclude>
+				<!-- svn directories -->
+				<exclude>**/.svn/**</exclude>
+				<exclude>descriptors/**</exclude>
+				<exclude>scratchpad/**</exclude>
+      </excludes>
+		</fileSet>
+		<fileSet>
+			<directory>cactus-site/target</directory>
+			<outputDirectory>cactus-site</outputDirectory>
+			<includes>
+				<include>site/**</include>
+			</includes>
+		</fileSet>
+		<fileSet>
+			<directory>cactus-site/src/site/resources</directory>
+			<outputDirectory>cactus-site</outputDirectory>
+			<includes>
+				<include>api-docs</include>
+			</includes>
+		</fileSet>
+	</fileSets>
+</assembly>

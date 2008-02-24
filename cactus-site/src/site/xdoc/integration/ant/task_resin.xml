@@ -1,0 +1,167 @@
+<?xml version="1.0"?>
+
+<!--
+ * ========================================================================
+ * 
+ * Copyright 2004 The Apache Software Foundation.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * 
+ * ========================================================================
+-->
+
+<document id="task_resin">
+
+  <properties>
+    <title>Resin[2x|3x] Ant Tasks</title>
+  </properties>
+
+  <body>
+
+	  <section name="Resin[2x|3x] Tasks">
+
+    <p>
+      The <strong>resin2x</strong> and <strong>resin3x</strong> tasks 
+      start/stop Resin 2.x/3.x instances. Both tasks support the following
+      parameters.
+    </p>
+
+    <section name="Parameters">
+
+      <table>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Required</th>
+        </tr>
+        <tr>
+          <td><strong>dir</strong></td>
+          <td>
+            The installation directory of the Resin server
+          </td>
+          <td>Yes</td>
+        </tr>
+        <tr>
+          <td><strong>action</strong></td>
+          <td>
+            The action to perform. Valid values are "start" and "stop" to
+            respectively start and stop the container.
+          </td>
+          <td>Yes</td>
+        </tr>
+        <tr>
+          <td>testurl</td>
+          <td>
+            A container URL to poll to test if the container has been
+            started/stopped. If specified the task waits until the
+            container has completely started/stopped.
+          </td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td>warfile</td>
+          <td>
+            The WAR file to deploy
+          </td>
+          <td>No. One of warfile and earfile.</td>
+        </tr>
+        <tr>
+          <td>earfile</td>
+          <td>
+            The EAR file to deploy
+          </td>
+          <td>No. One of warfile and earfile.</td>
+        </tr>
+        <tr>
+          <td>resinconf</td>
+          <td>
+            The configuration file to use instead of the default one
+          </td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td>port</td>
+          <td>
+            The TCP port that the container should listen to
+          </td>
+          <td>No, default is 8080</td>
+        </tr>
+        <tr>
+          <td>tmpdir</td>
+          <td>
+            The directory to which the container will be installed for the
+            tests.
+          </td>
+          <td>No (by default the system temporary directory is used)</td>
+        </tr>
+        <tr>
+          <td>output</td>
+          <td>
+            Name of a file to write the output of the container to. If not
+            specified, the standard output will be used
+          </td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td>append</td>
+          <td>
+            Whether output should be appended to or overwrite an existing
+            file.
+          </td>
+          <td>No, default is <em>false</em></td>
+        </tr>
+      </table>
+
+    </section>
+
+    <section name="Examples">
+
+      <p>
+        Start a Resin 3.x instance, wait for it to be started and
+        stop it, waiting for it to be completely stopped:
+      </p>
+<source><![CDATA[
+<parallel>
+  <resin3x dir="${cactus.home.resin3x}" action="start"/>
+  <sequential>
+    <waitfor>
+      <http url="http://localhost:${cactus.port}"/>
+    </waitfor>
+    <resin3x dir="${cactus.home.resin3x}" action="stop"/>
+    <waitfor>
+      <not>
+        <http url="http://localhost:${cactus.port}"/>
+      </not>
+    </waitfor>
+  </sequential>
+</parallel>
+]]></source>
+
+      <p>
+        This is equivalent to the following (notice the use of the
+        'testurl' attribute:
+      </p>
+<source><![CDATA[
+<resin3x dir="${cactus.home.resin3x}" action="start"
+    testurl="http://localhost:${cactus.port}"/>
+<resin3x dir="${cactus.home.resin3x}" action="stop"
+    testurl="http://localhost:${cactus.port}"/>
+]]></source>
+      
+    </section>
+
+  </section>
+
+  </body>
+
+</document>

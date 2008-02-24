@@ -38,7 +38,6 @@
     <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-cactus/integration/maven/</connection>
     <url>http://cvs.apache.org/viewcvs/jakarta-cactus/integration/maven/</url>
   </repository>
-  <url>http://maven.apache.org/reference/plugins/javadoc/index.html</url>
   <developers>
     <developer>
       <name>Vincent Massol</name>
@@ -56,6 +55,19 @@
          <role>Jelly developer</role>
       </roles>
     </developer>
+    <developer>
+      <name>Petar Tahchiev</name>
+      <id>ptahchiev</id>
+      <email>ptahchiev@apache.org</email>
+      <organization>Hewlett Packard</organization>
+    </developer>
   </developers>
+  <dependencies>
+   <dependency>
+     <groupId>jline</groupId>
+     <artifactId>jline</artifactId>
+     <version>0.9.93</version>
+   </dependency>
+  </dependencies>
   <build/>
 </project>

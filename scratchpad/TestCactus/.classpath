@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="var" path="M2_REPO/javax/servlet/servlet-api/2.2/servlet-api-2.2.jar"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="var" path="M2_REPO/org/apache/cactus/javaEE-14-uberjar/1.18-SNAPSHOT/javaEE-14-uberjar-1.18-SNAPSHOT.jar"/>
+	<classpathentry kind="var" path="M2_REPO/junit/junit/3.8.2/junit-3.8.2.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

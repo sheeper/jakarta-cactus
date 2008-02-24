@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Licensed to the Apache Software Foundation (ASF) under one
+	or more contributor license agreements.  See the NOTICE file
+	distributed with this work for additional information
+	regarding copyright ownership.  The ASF licenses this file
+	to you under the Apache License, Version 2.0 (the
+	"License"); you may not use this file except in compliance
+	with the License.  You may obtain a copy of the License at
+	
+	http://www.apache.org/licenses/LICENSE-2.0
+	
+	Unless required by applicable law or agreed to in writing,
+	software distributed under the License is distributed on an
+	"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+	KIND, either express or implied.  See the License for the
+	specific language governing permissions and limitations
+	under the License.   
+-->
+<project>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.apache.cactus</groupId>
+	<artifactId>cactus</artifactId>
+	<name>Cactus Parent Project</name>
+	<version>1.8.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<url>http://jakarta.apache.org/cactus/</url>
+	<scm>
+		<connection>scm:svn:http://svn.apache.org/repos/asf/jakarta/cactus/branches/CACTUS_TRUNK_MAMOUTH/</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/jakarta/cactus/branches/CACTUS_TRUNK_MAMOUTH/</developerConnection>
+	</scm>
+	<prerequisites>
+		<!-- It may work with previous versions of Maven but this hasn't been tested so for safety
+		     we require Maven 2.0.4 -->
+		<maven>2.0.4</maven>
+	</prerequisites>
+	<!-- THESE DEPENDENCIES ARE LISTED HERE SO THAT THE ASSEMBLY PLUGIN CAN PRODUCE THE LIB FOLDER IN THE ASSEMBLIES-->
+	<dependencies>
+			<dependency>
+				<groupId>aspectj</groupId>
+				<artifactId>aspectjrt</artifactId>
+				<version>1.2.1</version>
+			</dependency>
+			<dependency>
+  			<groupId>org.codehaus.cargo</groupId>
+  			<artifactId>cargo-core-uberjar</artifactId>
+  			<version>0.9</version>
+  		</dependency>
+  		<dependency>
+				<groupId>commons-httpclient</groupId>
+				<artifactId>commons-httpclient</artifactId>
+				<version>2.0.2</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-logging</groupId>
+				<artifactId>commons-logging</artifactId>
+				<version>1.0.4</version>
+			</dependency>
+			<dependency>
+				<groupId>httpunit</groupId>
+				<artifactId>httpunit</artifactId>
+				<version>1.6</version>
+			</dependency>
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>3.8.2</version>
+			</dependency>
+			<dependency> <!-- used by httpunit -->
+				<groupId>nekohtml</groupId>
+				<artifactId>nekohtml</artifactId>
+				<version>0.9.1</version>
+			</dependency>
+	</dependencies>
+	
+	
+	<dependencyManagement>
+		<dependencies>
+			<!-- build time only - might want to use plugins for this? -->
+			<dependency>
+				<groupId>antlr</groupId>
+				<artifactId>antlr</artifactId>
+				<version>2.7.2</version>
+			</dependency>
+			<dependency>
+				<groupId>aspectj</groupId>
+				<artifactId>aspectjrt</artifactId>
+				<version>1.2.1</version>
+			</dependency>
+			<dependency>
+				<groupId>aspectj</groupId>
+				<artifactId>aspectjtools</artifactId>
+				<version>1.2.1</version>
+			</dependency>
+			<dependency>
+				<groupId>org.codehaus.cargo</groupId>
+				<artifactId>cargo</artifactId>
+				<version>0.9</version>
+			</dependency>
+  		<dependency>
+  			<groupId>org.codehaus.cargo</groupId>
+  			<artifactId>cargo-core-uberjar</artifactId>
+  			<version>0.9</version>
+  		</dependency>
+  		<dependency>
+  			<groupId>org.codehaus.cargo</groupId>
+  			<artifactId>cargo-ant</artifactId>
+  			<version>0.9</version>
+  		</dependency>
+  		<dependency>
+  			<groupId>ant</groupId>
+  			<artifactId>ant-junit</artifactId>
+  			<version>1.6.5</version>
+  		</dependency>
+			<dependency>
+				<groupId>checkstyle</groupId>
+				<artifactId>checkstyle</artifactId>
+				<version>3.4</version>
+			</dependency>
+			<dependency>
+				<groupId>clover</groupId>
+				<artifactId>clover</artifactId>
+				<version>1.2.3</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-beanutils</groupId>
+				<artifactId>commons-beanutils</artifactId>
+				<version>1.7.0</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-collections</groupId>
+				<artifactId>commons-collections</artifactId>
+				<version>3.1</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-httpclient</groupId>
+				<artifactId>commons-httpclient</artifactId>
+				<version>2.0.2</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-logging</groupId>
+				<artifactId>commons-logging</artifactId>
+				<version>1.0.4</version>
+			</dependency>
+			<dependency>
+				<groupId>httpunit</groupId>
+				<artifactId>httpunit</artifactId>
+				<version>1.6</version>
+				<exclusions>
+					<exclusion>
+						<groupId>xerces</groupId>
+						<artifactId>xmlParserAPIs</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>xerces</groupId>
+						<artifactId>xercesImpl</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>xerces</groupId>
+						<artifactId>xerces</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+			<dependency>
+				<groupId>org.mortbay.jetty</groupId>
+				<artifactId>org.mortbay.jetty</artifactId>
+				<version>5.1.9</version>
+			</dependency>
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>3.8.2</version>
+			</dependency>
+			<dependency>
+				<groupId>log4j</groupId>
+				<artifactId>log4j</artifactId>
+				<version>1.2.8</version>
+			</dependency>
+			<dependency>
+				<groupId>mockobjects</groupId>
+				<artifactId>mockobjects-core</artifactId>
+				<version>0.09</version>
+			</dependency>
+			<dependency> <!-- used by httpunit -->
+				<groupId>nekohtml</groupId>
+				<artifactId>nekohtml</artifactId>
+				<version>0.9.1</version>
+				<exclusions>
+					<exclusion>
+						<groupId>xerces</groupId>
+						<artifactId>xerces</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+	
+	<distributionManagement>
+		<repository>
+			<id>apache.releases</id>
+			<name>Apache Release Distribution Repository</name>
+			<url>scp://people.apache.org/www/people.apache.org/repo/m2-ibiblio-rsync-repository</url>
+		</repository>
+		<snapshotRepository>
+			<id>apache.snapshots</id>
+			<name>Apache Development Snapshot Repository</name>
+			<url>scp://people.apache.org/www/people.apache.org/repo/m2-snapshot-repository</url>
+    </snapshotRepository>
+		<site>
+			<id>cactus-site</id>
+			<name>Cactus Deployment site</name>
+			<url>scp://ptahchiev@people.apache.org:/x1/www/jakarta.apache.org/cactus/</url>
+		</site>
+	</distributionManagement>
+	<reporting>
+		<plugins>
+			<plugin>
+				<artifactId>maven-clover-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<configuration>
+					<aggregate>true</aggregate>
+					<destDir>../../../cactus-site/src/site/resources/api-docs</destDir>
+        </configuration>
+
+      </plugin>
+			<!--plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jxr-plugin</artifactId>
+      </plugin-->
+		</plugins>
+	</reporting>
+	
+	<ciManagement>
+		<system>continuum</system>
+			<notifiers>
+				<notifier>
+					<type>mail</type>
+					<configuration>
+						<address>ptahchiev@apache.org</address>
+					</configuration>
+				</notifier>
+			</notifiers>
+	</ciManagement>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<!-- Apply checkstyle rules and fail the build in case of errors. The checkstyle config
+				files are taken from the build-tools JAR module -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-checkstyle-plugin</artifactId>
+					<dependencies>
+						<dependency>
+						<groupId>org.apache.cactus</groupId>
+						<artifactId>cactus.build.tools</artifactId>
+						<version>1.8.0-SNAPSHOT</version>
+						</dependency>
+					</dependencies>
+					<configuration>
+						<consoleOutput>true</consoleOutput>
+						<configLocation>build-tools/checkstyle.xml</configLocation>
+						<headerLocation>build-tools/checkstyle.license</headerLocation>
+					</configuration>
+					<executions>
+						<execution>
+							<goals>
+								<goal>check</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-clover-plugin</artifactId>
+					<configuration>
+						<targetPercentage>0%</targetPercentage>
+					</configuration>
+					<executions>
+						<execution>
+							<phase>verify</phase>
+							<goals>
+								<goal>check</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-release-plugin</artifactId>
+					<configuration>
+						<tagBase>file:////home/peter/tags/</tagBase>
+					</configuration>
+				</plugin>
+				<plugin>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>2.3</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-jar-plugin</artifactId>
+					<configuration>
+						<archive>
+							<manifestEntries>
+								<mode>development</mode>
+								<url>${pom.url}</url>
+							</manifestEntries>
+						</archive>
+					</configuration>
+				</plugin>
+				<plugin>
+					<artifactId>maven-assembly-plugin</artifactId>
+					<configuration>
+						<descriptors>
+							<descriptor>cactus-src-assembly.xml</descriptor>
+							<descriptor>cactus-bin-assembly.xml</descriptor>
+						</descriptors>
+					</configuration>
+					<executions>
+						<execution>
+							<phase>install</phase>
+							<!--phase>javadoc</phase-->
+							<goals>
+								<goal>assembly</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build> 
+	<modules>
+		<module>build-tools</module>
+		<module>framework</module>
+		<module>integration</module>
+		<module>samples</module>
+		<module>cactus-site</module>
+		<module>cactus-maven-skin</module>
+	</modules>
+</project>

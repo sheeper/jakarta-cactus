@@ -1,0 +1,213 @@
+<?xml version="1.0"?>
+
+<!--
+ * ========================================================================
+ * 
+ * Copyright 2005 The Apache Software Foundation.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * 
+ * ========================================================================
+-->
+
+<document id="news_archives_2003">
+
+  <properties>
+    <title>News and Events - Archives for 2003</title>
+  </properties>
+
+  <body>
+
+    <section name="News and Events - Archives for 2003">
+
+      <table>
+
+        <tr>
+          <th>2003-12-13</th>
+          <td>
+            <a href="http://www.mockejb.org/">MockEJB</a> 0.5 now 
+            <a href="http://www.mockejb.org/documentation.html#cactus">integrates with Cactus</a>.
+          </td>
+        </tr>
+
+        <tr>
+          <th>2003-11-23</th>
+          <td>
+            Cactus 1.5 has been released. Full details can be found
+            in the <a href="http://jakarta.apache.org/cactus/1.5/ANNOUNCEMENT.txt">
+            release announcement</a>.
+          </td>
+        </tr>
+
+        <tr>
+          <th>2003-11-13</th>
+          <td>
+            Jean-Francois El Fouly has translated the
+            <a href="http://www.ressources-java.net/cactus">Cactus web site in French</a>. 
+            It is a first version and not everything is translated yet but it's a very good 
+            start. Thanks Jean-Francois!
+          </td>
+        </tr>
+
+        <tr>
+          <th>2003-10-30</th>
+          <td>
+            The Cactus plugin for Maven, which was previously hosted in Maven
+            CVS itself, has now moved to the Cactus CVS. It will no longer be bundled 
+            in the next Maven release. This is part of an effort to decouple Maven plugins
+            from Maven core. There is a new mechanism to easily install external plugins.
+            (see maven plugin:download).
+          </td>
+        </tr>
+
+        <tr>
+          <th>2003-10-26</th>
+          <td>
+            Cactus 1.5-rc1 has been released.
+          </td>
+        </tr>
+
+        <tr>
+          <th>2003-08-05</th>
+          <td>
+            Tobias has a nice 
+            <a href="http://www.freeroller.net/page/tradem/20030722">blog entry</a> 
+            about performing fileuploads with Cactus, Java NIO and Commons-httpclient.
+          </td>
+        </tr>
+
+        <tr>
+          <th>2003-07-14</th>
+          <td>
+            Cactus 1.5-beta1 has been released.
+          </td>
+        </tr>
+
+        <tr>
+          <th>2003-07-12</th>
+          <td>
+            A new article about using Cactus to unit test webapps has been
+            posted on 
+            <a href="http://www.ftponline.com/javapro/2003_07/online/cactus_kjones_07_08_03/">JavaPro</a>.
+          </td>
+        </tr>
+
+        <tr>
+          <th>2003-07-11</th>
+          <td>
+            <a href="http://www.manning.com/massol">JUnit in Action</a> is 
+            available through Manning Early Access Programme (MEAP). By subscribing,
+            you get the chapters as they are made available (in PDF). There are currently 
+            3 chapters available and a new one is posted every week.
+          </td>
+        </tr>
+
+        <tr>
+          <th>2003-07-04</th>
+          <td>
+            The slides from Vincent's presentation at the TheServerSide Symposium 
+            about "Unit testing J2EE applications" are available
+            <a href="http://blogs.codehaus.org/people/vmassol/archives/000080.html">here</a>.
+          </td>
+        </tr>
+
+        <tr>
+          <th>2003-05-29</th>
+          <td>
+            "JUnit in Action", from 
+            <a href="mailto:vmassol@pivolis.com">Vincent Massol</a> (with 
+            <a href="mailto:ted@husted.com">Ted Husted</a>) is available for pre-order on
+            <a href="http://www.amazon.com/exec/obidos/tg/detail/-/1930110995/qid=1054215451/sr=8-1/ref=sr_8_1/102-2634070-5985761?v=glance&amp;s=books&amp;n=507846">Amazon</a>.
+          </td>
+        </tr>
+
+        <tr>
+          <th>2003-05-15</th>
+          <td>
+            Cactus news are now available as RSS feeds! Point your RSS feed
+            reader to <a href="http://jakarta.apache.org/cactus/news.rdf">here</a>.
+          </td>
+        </tr>
+
+        <tr>
+          <th>2003-05-15</th>
+          <td>
+            <a href="mailto:vmassol@pivolis.com">Vincent Massol</a> and 
+            <a href="mailto:ted@husted.com">Ted Husted</a> are writing "JUnit in Action", 
+            a book on unit testing java applications. Amongst other things, it covers 
+            extensively Cactus 1.5 (about 7 chapters covering Cactus). The book will soon 
+            be available in bookstores.
+          </td>
+        </tr>
+
+        <tr>
+          <th>2003-05-08</th>
+          <td>
+            <a href="http://strutstestcase.sourceforge.net">StrutsTestCase</a>
+            v2.0 has been released. It improves support for Struts 1.1 (including better 
+            support for testing Tiles and sub-applications), provides several requested 
+            enhancements, and fixes many reported defects.
+          </td>
+        </tr>
+
+        <tr>
+          <th>2003-05-04</th>
+          <td>
+            Transition to a new web site stylesheet that more heavily relies
+            on CSS. Apart from easier maintenance, it should provide a more consistent 
+            look as well as far superior printability. Naturally, the new site will 
+            look a bit odd on old browsers like Netscape 4.x, but still should be quite 
+            usable.
+          </td>
+        </tr>
+
+        <tr>
+          <th>2003-04-08</th>
+          <td>
+            Release 2.0 of the 
+            <a href="http://maven.apache.org/reference/plugins/cactus">Cactus plugin for 
+            Maven</a> is out. It is now a pure wrapper around the new Cactus/Ant 
+            Integration.
+          </td>
+        </tr>
+
+        <tr>
+          <th>2003-02-10</th>
+          <td>
+            <a href="mailto:vmassol@pivolis.com">Vincent Massol</a> will
+            be a speaker at the 
+            <a href="http://www.theserverside.com/symposium">TheServerSide Symposium</a> 
+            where he will present 
+            <a href="http://www.theserverside.com/symposium/sessionAbstracts.html#MassolAbstract1">Unit 
+            Testing J2EE Applications</a>, which talks about Cactus, 
+            <a href="http://www.mockobjects.com">Mock Objects</a> and
+            <a href="http://www.eclipse.org/aspectj/">AspectJ</a> (AOP).
+          </td>
+        </tr>
+
+        <tr>
+          <th>2003-01-05</th>
+          <td>
+            <a href="http://strutstestcase.sourceforge.net">StrutsTestCase</a>
+            v1.9.5 has been released. It improves support for Struts 1.1b3 (including 
+            support for testing Tiles and sub-applications), provides several requested 
+            enhancements, and fixes many reported defects.
+          </td>
+        </tr>
+
+      </table>
+
+    </section>
+
+  </body>
+</document>

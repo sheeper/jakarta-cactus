@@ -1,0 +1,168 @@
+<?xml version="1.0"?>
+
+<!--
+ * ========================================================================
+ * 
+ * Copyright 2001-2004 The Apache Software Foundation.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * 
+ * ========================================================================
+-->
+
+<document id="howto_sample">
+
+  <properties>
+    <title>Sample Howto</title>
+  </properties>
+
+  <body>
+
+    <section name="Introduction">
+
+      <p>
+        This tutorial explains where to get Cactus samples and how to use
+        them.
+      </p>
+      <p>
+        There are some samples available as part of the documentation. The
+        samples depend on the kind of test case you are writing (Servlet,
+        Taglibs, Filters, ...). For this reason you'll find some samples
+        in the <a href="howto_testcase.html">TestCase Howto</a>
+        tutorial.
+      </p>
+      <p>
+        However, the majority of Cactus samples are in the form of source
+        samples. These samples are part of the Cactus distribution that
+        you have downloaded (in the <code>sample/src</code> directory).
+      </p>
+      <p>
+        The following section explains how to execute the Cactus Samples
+        using Ant (the Samples are packaged to be executed with Ant).
+        If you wish to integrate them in your own build system or in your
+        favorite IDE, you'll have to understand the principles first and
+        manually install them (read the
+        <a href="getting_started.html">Getting Started</a>
+        and the <a href="howto_config.html">Configuration Howto</a>
+        tutorials). Some detailed explanations for IDE integration
+        are also available in the <a href="howto_ide.html">IDE Howto</a>
+        tutorial.
+      </p>
+
+    </section>
+
+    <section name="Running the Cactus Samples using Ant">
+
+      <subsection name="Prerequisites">
+
+        <p>
+          You need to install the following items prior to building the Cactus
+          Sample application:
+        </p>
+        <ul>
+          <li>
+            A JVM (1.2 or above),
+          </li>
+          <li>
+            A Servlet Engine (Servlet API 2.2 or above). The Cactus Sample
+            Ant build script supports automatic running the Cactus unit
+            tests on several Servlet Engines.
+          </li>
+          <li>
+            Ant (see the <a href="howto_ant_install.html">"Installing
+            Ant"</a> tutorial).
+          </li>
+          <li>
+            A Servlet/J2EE API jar corresponding to the Cactus Sample release
+            you have downloaded (J2EE 1.2 or 1.3). You can download the
+            jar from:
+            <ul>
+              <li>
+                For Servlet API 2.2
+                <ul>
+                  <li>
+                    From
+                    <a href="http://java.sun.com/j2ee/download.html">Sun</a> or from 
+                    the <a href="http://jakarta.apache.org/builds/jakarta-servletapi/">Jakarta reference 
+                    implementation</a>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                For Servlet API 2.3
+                <ul>
+                  <li>
+                    From
+                    <a href="http://java.sun.com/j2ee/download.html">Sun</a> or from 
+                    the <a href="http://jakarta.apache.org/builds/jakarta-servletapi/">Jakarta reference 
+                    implementation</a>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                For the J2EE jar
+                <ul>
+                  <li>
+                    From <a href="http://java.sun.com/j2ee/download.html">J2EE download 
+                    page</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            You can put these libraries anywhere you want on your hard disk.
+            You'll just have to specify the location where they are in the
+            <code>build.properties</code> file, as described below.
+          </li>
+        </ul>
+
+      </subsection>
+
+      <subsection name="Installing the Cactus Sample">
+
+        <p>
+          Follow these steps:
+        </p>
+        <ul>
+          <li>
+            Download the <a href="downloads.html">Cactus Sample</a> and
+            unzip it in a directory. Let's call this directory
+            <em><code>sampleroot</code></em>.
+          </li>
+          <li>
+            Rename (or copy) the
+            <em><code>sampleroot</code></em>
+            <code>/build/build.properties.default</code> file
+            to <code>build.properties</code>. This file defines the dependencies
+            between the Cactus Sample build process and your environment
+            (location of external jars, home directory for installed servlet
+            engine(s), ...). Edit this file to reflect your environment values.
+          </li>
+        </ul>
+
+      </subsection>
+
+      <subsection name="Running the samples">
+
+        <p>
+          Open a shell, cd to the <em><code>sampleroot</code></em>
+          <code>/build</code> directory and type '<code>ant test.all</code>'.
+          The tests will be executed on all the servlet engines you have
+          defined in the <code>build.properties</code> file you have edited.
+        </p>
+
+      </subsection>
+
+    </section>
+
+  </body>
+</document>

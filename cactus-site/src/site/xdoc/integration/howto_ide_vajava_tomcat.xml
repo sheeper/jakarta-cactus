@@ -1,0 +1,94 @@
+<?xml version="1.0"?>
+
+<!--
+ * ========================================================================
+ * 
+ * Copyright 2001-2004 The Apache Software Foundation.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * 
+ * ========================================================================
+-->
+
+<document id="howto_ide_vajava_tomcat">
+
+  <properties>
+    <title>VAJava and Tomcat Test Environment</title>
+  </properties>
+
+  <body>
+
+    <section name="Forewords and Requirements">
+
+      <note>
+        <strong>This tutorial is written for Cactus 1.2 only. It will need
+        to adapted if you're using Cactus 1.3</strong>
+      </note>
+
+      <p>
+        This tutorial explains how to run Cactus tests within VisualAge for
+        Java Tomcat Test Environment.
+      </p>
+      <p>
+        The following tutorial has been tested with VisualAge 3.5.3 and Apache
+        Tomcat Test Environment 3.1. Please tell us if you find that it works
+        with other versions.
+      </p>
+
+    </section>
+
+    <section name="Steps">
+
+      <p>
+        Let's call <strong><code>{VAJava dir}</code></strong> the directory
+        where VAJava is installed. Let's also suppose that the context of our
+        webapp is called <strong><code>myApp</code></strong>.
+      </p>
+
+      <ul>
+        <li>
+          Import Cactus and JUnit into VisualAge as projects,
+        </li>
+        <li>
+          Add the Cactus redirector mappings to your web.xml file (see the
+	  <a href="manual/howto_config.html">Configuration Howto</a>), which is
+          located at
+          <code>{VAJava dir}\ide\project_resources\Apache_Tomcat_Test_Environment\webapps\myApp\WEB-INF\</code>,
+        </li>
+        <li>
+          Make sure the <code>cactus.properties</code> file has the correct
+          URL for the redirectors (see the
+	  <a href="manual/howto_config.html">Configuration Howto</a>). Put the
+          file in
+          <code>{VAJava dir}\ide\project_resources\Apache_Tomcat_Test_Environment\webapps\myApp\WEB-INF\</code>,
+        </li>
+        <li>
+          Add the following directories to JUnit's TestRunner project classpath
+          (project's properties dialog box):
+        </li>
+      </ul>
+<source><![CDATA[
+{VAJava dir}\ide\project_resources\Apache_Tomcat_Test_Environment\webapps\myApp\WEB-INF\;
+{VAJava dir}\ide\project_resources\Apache_Tomcat_Test_Environment\webapps\myApp\WEB-INF\classes\;
+]]></source>
+      <ul>
+        <li>
+          Add the Cactus project to both JUnit's TestRunner and Apache's
+          TomcatRunner project classpath (project properties dialog boxes).
+        </li>
+      </ul>
+
+    </section>
+
+  </body>
+</document>

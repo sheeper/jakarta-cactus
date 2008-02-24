@@ -1,0 +1,31 @@
+<Server port="8005" shutdown="SHUTDOWN" debug="0">
+
+  <GlobalNamingResources>
+    <Resource name="UserDatabase" auth="Container"
+        type="org.apache.catalina.UserDatabase"/>
+    <ResourceParams name="UserDatabase">
+      <parameter>
+        <name>factory</name>
+        <value>org.apache.catalina.users.MemoryUserDatabaseFactory</value>
+      </parameter>
+      <parameter>
+        <name>pathname</name>
+        <value>conf/tomcat-users.xml</value>
+      </parameter>
+    </ResourceParams>
+  </GlobalNamingResources>
+
+  <Service name="Catalina">
+    <Connector className="org.apache.coyote.tomcat5.CoyoteConnector"
+        port="@cactus.port@" minProcessors="5" maxProcessors="100"
+        enableLookups="true" redirectPort="8443" acceptCount="100"
+        connectionTimeout="20000" disableUploadTimeout="true"/>
+    <Engine name="Catalina" defaultHost="localhost" debug="0">
+      <Realm className="org.apache.catalina.realm.UserDatabaseRealm"
+          resourceName="UserDatabase"/>
+      <Host name="localhost" appBase="webapps" unpackWARs="true"
+          autoDeploy="true"/>
+    </Engine>
+  </Service>
+
+</Server>

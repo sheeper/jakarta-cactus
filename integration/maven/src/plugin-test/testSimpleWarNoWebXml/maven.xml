@@ -21,19 +21,12 @@
          xmlns:x="jelly:xml"
          xmlns:util="jelly:util"
 >        
-  <goal name="testPlugin" prereqs="clean,testDefault,test22,test23">
+  <goal name="testPlugin" prereqs="clean,testDefault,test23">
   </goal>
 
   <goal name="testDefault">
     <attainGoal name="cactus:test-war"/>
     <j:set var="expectedDTD" value="http://java.sun.com/dtd/web-app_2_3.dtd"/>
-    <attainGoal name="checkGeneratedWar"/>
-  </goal>
-
-  <goal name="test22">
-    <j:set var="cactus.servlet.version" value="2.2"/>
-    <attainGoal name="cactus:test-war"/>
-    <j:set var="expectedDTD" value="http://java.sun.com/j2ee/dtds/web-app_2_2.dtd"/>
     <attainGoal name="checkGeneratedWar"/>
   </goal>
 

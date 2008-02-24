@@ -3,7 +3,7 @@
 # name if build.properties. Then edit the file and tune it to match your
 # environment.
 #
-# $Id$
+# $Id: build.properties.sample 239203 2005-08-17 04:58:05Z felipeal $
 # -----------------------------------------------------------------------------
 
 # Properties required to upload the Cactus plugin web site

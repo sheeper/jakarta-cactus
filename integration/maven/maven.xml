@@ -32,8 +32,9 @@
        <j:set var="jarsDir" value="${maven.repo.local}/${pom.groupId}/jars"/>
        <ant:echo>Copying Cactus jars to ${jarsDir}</ant:echo>
        <ant:mkdir dir="${jarsDir}"/>
-       <ant:copy tofile="${jarsDir}/cactus-13-${pom.currentVersion}.jar" file="${maven.jar.cactus}"/>
-       <ant:copy tofile="${jarsDir}/cactus-ant-13-${pom.currentVersion}.jar" file="${maven.jar.cactus.ant}"/>
+       <ant:copy todir="${jarsDir}" file="${maven.jar.cactus}"/>
+       <ant:copy todir="${jarsDir}" file="${maven.jar.cactus.ant}"/>
+       <ant:copy todir="${jarsDir}" file="${maven.jar.cactus.share}"/>
      </j:if>
    </goal>
 

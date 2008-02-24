@@ -1,386 +1,201 @@
-<?xml version="1.0"?>
-<!DOCTYPE project [
-  <!ENTITY common SYSTEM "file:../../build-common.xml">
-]>
 
 <!--
   =============================================================================
     Build file for the Cactus EJB Sample subproject.
 
-    $Id$
+    The following Ant tasks need to be available in your ant installation (i.e.
+    the Ant task themselves and their dependent jars need to be put in
+    ANT_HOME/lib) :
+
+        junit                  [REQUIRED] JUnit Ant task
+
+    The mandatory and optional Ant properties are defined in
+    build.properties.sample. Please read and edit that file.
+
+    This script should be started with the following command line :
+
+        ant <target>
+
+    Run "ant -projecthelp" to get a list of available targets. The default
+    target is "dist"
   =============================================================================
 -->
-<project name="Cactus EJB Sample" default="dist" basedir="../..">
 
-  <description>
- Cactus EJB Sample
- ---------------------------------------------------------
- Sample EAR application that demonstrates how Cactus can
- be used using the Ant integration for unit testing EJB
- classes.
+<project name="Cactus EJB Sample"  xmlns:ivy="antlib:org.apache.ivy.ant" default="test"> 
+
+	<description>
+     Cactus Sample
+     ---------------------------------------------------------
+     Sample EAR application that demonstrates how Cactus can
+     be used using the Ant integration for unit testing EJBs
+     classes.
   </description>
-
-  <!-- Base directory for all file related operations -->
-  <property name="base.dir" location="${basedir}/samples/ejb"/>
-
-  <!-- Indicate that this subproject is dependant on the version of the J2EE
-       API available -->
-  <property name="j2ee.dependant" value="true"/>
-
-  <!-- Include properties and targets common to the different subprojects -->
-  &common;
-
-  <!-- Global project properties -->
-  <property name="project.name.text" value="Cactus EJB Sample"/>
-  <property name="project.name.file" value="cactus-sample-ejb"/>
-
-  <!--
+  
+ <!--
      ========================================================================
-       Initialize source, target and dist properties
+       Initialize properties.
      ========================================================================
-  -->
-  <target name="properties">
+  -->	
+	<target name="init" depends="">
+	
+	
+	  <property name="cactus.sample.app.type" value="ejb"/>
+	  <property name="cactus.sample.archive.type" value="ear"/>
+	  
+	  <property file="../build.properties"/>
+		
+		<path id="cactus.classpath">
+			<fileset dir="${ivy.lib.dir}">
+        <include name="*.jar"/>
+      </fileset>
+		</path>
+	</target>
 
-    <!-- Set the properties related to the source tree -->
-    <property name="src.dir" location="${base.dir}/src"/>
-    <property name="src.java.dir" location="${src.dir}/java"/>
-    <property name="src.cactus.dir" location="${src.dir}/test-cactus"/>
-    <property name="src.script.dir" location="${src.dir}/scripts"/>
-    <property name="src.webapp.dir" location="${src.dir}/webapp"/>
-    <property name="src.ejb.dir" location="${src.dir}/ejb"/>
-    <property name="src.application.dir" location="${src.dir}/application"/>
-
-    <!-- Set the properties related to the target area -->
-    <property name="target.sample.dir" location="${target.dir}/sample"/>
-    <property name="target.sample.src.dir"
-        location="${target.sample.dir}/src"/>
-    <property name="target.sample.src.java.dir"
-        location="${target.sample.src.dir}/java"/>
-    <property name="target.sample.src.cactus.dir"
-        location="${target.sample.src.dir}/test-cactus"/>
-    <property name="target.sample.src.webapp.dir" 
-        location="${target.sample.src.dir}/webapp"/>
-    <property name="target.sample.src.ejb.dir" 
-        location="${target.sample.src.dir}/ejb"/>
-    <property name="target.sample.src.application.dir" 
-        location="${target.sample.src.dir}/application"/>
-    <property name="target.sample.lib.dir" 
-        location="${target.sample.dir}/lib"/>
-    <property name="target.test.dir" 
-        location="${target.dir}/test"/>
-
-  </target>
-
-  <!--
+ <!--
      ========================================================================
-       Initialize filters used in copy operations
+       Prepare the folder structure.
      ========================================================================
   -->
-  <target name="init.filters.clover"
-      depends="init.common"
-      if="clover.enable">
+	<target name="prepare" depends="init">
+		<mkdir dir="${build.dir}"/>
+		<mkdir dir="${cactus.build.dir}"/>
+		<mkdir dir="${logs.dir}"/>
+		<mkdir dir="${reports.dir}"/>
+	</target>
 
-    <filterset id="clover.enablement">
-      <filter token="clover.begin" value=""/>
-      <filter token="clover.end" value=""/>
-    </filterset>
-
-  </target>
-
-  <target name="init.filters.noclover"
-      depends="init.common"
-      unless="clover.enable">
-
-    <filterset id="clover.enablement">
-      <filter token="clover.begin" value="!-- "/>
-      <filter token="clover.end" value=" --"/>
-    </filterset>
-
-  </target>
-
-  <target name="init.filters.12" depends="init.common"
-      unless="j2ee13.available">
-
-    <filterset id="container.enablement">
-      <filter token="j2ee12.begin" value=""/>
-      <filter token="j2ee12.end" value=""/>
-      <filter token="j2ee13.begin" value="!-- "/>
-      <filter token="j2ee13.end" value=" --"/>
-    </filterset>
-
-  </target>
-
-  <target name="init.filters.13" depends="init.common"
-      if="j2ee13.available">
-
-    <filterset id="container.enablement">
-      <filter token="j2ee12.begin" value="!-- "/>
-      <filter token="j2ee12.end" value=" --"/>
-      <filter token="j2ee13.begin" value=""/>
-      <filter token="j2ee13.end" value=""/>
-    </filterset>
-
-  </target>
-
-  <target name="init.filters"
-      depends="init.filters.clover, init.filters.noclover,
-               init.filters.12, init.filters.13">
-
-    <!-- Copy scripts -->
-    <basename property="j2ee.jar.name" file="${j2ee.jar}"/>
-    <basename property="j2ee-dist.jar.name" file="${j2ee-dist.jar}"/>
-    <basename property="aspectjrt.jar.name" file="${aspectjrt.jar}"/>
-    <basename property="commons.httpclient.jar.name"
-        file="${commons.httpclient.jar}"/>
-    <basename property="commons.logging.jar.name"
-        file="${commons.logging.jar}"/>
-    <basename property="junit.jar.name" file="${junit.jar}"/>
-    <basename property="cargo.jar.name" file="${cargo.jar}"/>
-    <basename property="cargo.ant.jar.name" file="${cargo.ant.jar}"/>
-
-    <filterset id="jar.names">
-      <filter token="j2ee.jar.name" value="${j2ee.jar.name}"/>
-      <filter token="j2ee-dist.jar.name" value="${j2ee-dist.jar.name}"/>
-      <filter token="aspectjrt.jar.name" value="${aspectjrt.jar.name}"/>
-      <filter token="cactus.ant.jar.name" value="${cactus.ant.jar.name}.jar"/>
-      <filter token="cactus.jar.name" value="${cactus.jar.name}.jar"/>
-      <filter token="cargo.jar.name" value="${cargo.jar.name}"/>
-      <filter token="cargo.ant.jar.name" value="${cargo.ant.jar.name}"/>
-      <filter token="commons.httpclient.jar.name"
-          value="${commons.httpclient.jar.name}"/>
-      <filter token="commons.logging.jar.name"
-          value="${commons.logging.jar.name}"/>
-      <filter token="junit.jar.name" value="${junit.jar.name}"/>
-    </filterset>
-
-    <filter token="project.name.file" value="${project.name.file}"/>
-
-  </target>
-
-  <!--
+ <!--
      ========================================================================
-       Initialize the build. Must be called by all targets
+       Resolve Ivy dependencies.
      ========================================================================
   -->
-  <target name="init" 
-      depends="init.common, init.filters, properties">
-
-    <echo>Dependencies:</echo>
-    <echo>  aspectjrt.jar = [${aspectjrt.jar}]</echo>
-    <echo>  cactus.jar = [${cactus.jar}]</echo>
-    <echo>  cactus.ant.jar = [${cactus.ant.jar}]</echo>
-    <echo>  cargo.jar = [${cargo.jar}]</echo>
-    <echo>  cargo.ant.jar = [${cargo.ant.jar}]</echo>
-    <echo>  commons.httpclient.jar = [${commons.httpclient.jar}]</echo>
-    <echo>  commons.logging.jar = [${commons.logging.jar}]</echo>
-    <echo>  j2ee.jar = [${j2ee.jar}]</echo>
-    <echo>  junit.jar = [${junit.jar}]</echo>
-    <echo>  log4j.jar = [${log4j.jar}]</echo>
-    <echo/>
-    <echo>Options:</echo>
-    <echo>  clover.enable = ${clover.enable}</echo>
-    <echo>  clover.jar = [${clover.jar}]</echo>
-    <echo>  cactus.port = ${cactus.port}</echo>
-
-    <condition property="properties.ok">
-      <and>
-        <available file="${aspectjrt.jar}"/>
-        <available file="${cactus.jar}"/>
-        <available file="${cactus.ant.jar}"/>
-        <available file="${commons.httpclient.jar}"/>
-        <available file="${commons.logging.jar}"/>
-        <available file="${j2ee.jar}"/>
-        <available file="${junit.jar}"/>
-        <available file="${log4j.jar}"/>
-        <!-- Verify that j2ee.jar contains ejb related classes -->
-        <available classname="javax.ejb.EJBObject"
-            classpath="${j2ee.jar}"/>
-        <!-- Check that clover.jar points to a valid file if clover is 
-             enabled -->
-        <or>
-          <and>        
-            <isset property="clover.enable"/>
-            <available file="${clover.jar}"/>
-          </and>
-          <not>
-            <isset property="clover.enable"/>
-          </not>
-        </or>            
-      </and>
-    </condition>
-
-    <fail unless="properties.ok">One or more required dependencies could not
-be resolved or is invalid. Please check you build.properties file, and run 
-Ant with the -verbose option for more details</fail>
-
+	<target name="resolve" description="Retrieve dependencies with ivy" depends="prepare">
+		<ivy:configure file="../ivysettings.xml" />
+		<ivy:retrieve file="../ivy.xml" sync="true"/>
   </target>
 
-  <!--
-      ========================================================================
-        Generate the sample application
-      ========================================================================
-   -->
-  <target name="sample.main" depends="init">
-
-    <!-- Create output directory structure and copy sample files in it -->
-    <mkdir dir="${target.sample.dir}"/>
-    <mkdir dir="${target.sample.src.java.dir}"/>
-    <mkdir dir="${target.sample.src.cactus.dir}"/>
-    <mkdir dir="${target.sample.src.webapp.dir}"/>
-    <mkdir dir="${target.sample.src.application.dir}"/>
-
-    <!-- Copy src files -->
-    <copy todir="${target.sample.src.java.dir}">
-      <fileset dir="${src.java.dir}/share"/>
-    </copy>
-    <copy todir="${target.sample.src.cactus.dir}">
-      <fileset dir="${src.cactus.dir}/share"/>
-    </copy>
-
-    <!-- Copy scripts -->
-    <copy todir="${target.sample.dir}" filtering="on">
-      <fileset dir="${src.script.dir}/share"/>
-      <fileset dir="${src.script.dir}/j2ee${j2ee.api}"/>
-      <filterset refid="clover.enablement"/>
-      <filterset refid="container.enablement"/>
-      <filterset refid="jar.names"/>
-    </copy>
-
-    <!-- Copy webapp files -->
-    <copy todir="${target.sample.src.webapp.dir}">
-      <fileset dir="${src.webapp.dir}/j2ee${j2ee.api}"/>
-    </copy>
-
-    <!-- Copy ejb files -->
-    <copy todir="${target.sample.src.ejb.dir}">
-      <fileset dir="${src.ejb.dir}"/>
-    </copy>
-
-    <!-- Copy EAR files -->
-    <copy todir="${target.sample.src.application.dir}" filtering="on">
-      <fileset dir="${src.application.dir}/j2ee${j2ee.api}"/>
-    </copy>
-
-    <!-- Copy README file -->
-    <copy todir="${target.sample.dir}" file="${base.dir}/README"/>
-
-  </target>
-
-  <target name="sample.clover" depends="sample.main" if="clover.enable">
-
-    <copy todir="${target.sample.lib.dir}" file="${clover.jar}"/>
-
-  </target>
-
-  <target name="sample" depends="sample.clover"
-      description="Generate the sample application"/>
-
-  <!--
+ <!--
      ========================================================================
-       Run the full suite of tests on all defined containers.
+       Load external ant tasks.
      ========================================================================
   -->
-  <target name="test.prepare"
-      depends="sample">
+	<target name="load.tasks" depends="resolve">
+		<taskdef resource="cactus.tasks"
+			 classpathref="cactus.classpath">
+		</taskdef>
+	</target>
+	
+ <!--
+     ========================================================================
+       Compile source classes as well as cactus classes.
+     ========================================================================
+  -->
+	<!--Note that if some dependency is missing in the classpath, instead of compilation errors,
+      Ivy reports to Maven 'No Compiler Found' error. -->
+	<target name="compile" depends="load.tasks" description="Compiles the needed classes.">
 
-    <condition property="test.cactus.jar" value="${cactus.clover.jar}">
-      <isset property="clover.enable"/>
-    </condition>
-    <property name="test.cactus.jar" value="${cactus.jar}"/>
-    <condition property="test.cactus.ant.jar"
-        value="${cactus.ant.clover.jar}">
-      <isset property="clover.enable"/>
-    </condition>
-    <property name="test.cactus.ant.jar" value="${cactus.ant.jar}"/>
+		<javac srcdir="${src.dir}"
+		       destdir="${build.dir}"
+		       classpathref="cactus.classpath"/>
+		
 
-    <mkdir dir="${target.test.dir}"/>
+	</target>
+	
+	<!--
+     ========================================================================
+       Create the runtime ejb-jar file.
+     ========================================================================
+  -->
+  <target name="package-war" depends="compile"
+      description="Generate the runtime war file.">
+      
+    <war destfile="${target.dir}/${ejb.project.name}.war"
+         webxml="${basedir}/src/main/webapp/WEB-INF/web.xml"/>
+         
+  </target>
 
+  <!--
+     ========================================================================
+       Create the runtime ejb-jar file.
+     ========================================================================
+  -->
+  <target name="ejb" depends="compile"
+      description="Generate the runtime ejb-jar">
+
+    <!-- ATM, only support containers which do not need an ejb compilation
+         step. For example: JBoss -->
+    <jar jarfile="${target.dir}/${ejb.project.name}.jar">
+      <fileset dir="${build.dir}"/>
+      <metainf dir="${meta.inf.dir}"/>
+    </jar>
+
+  </target>
+
+  <!--
+     ========================================================================
+       Create the runtime ear file.
+     ========================================================================
+  -->
+  <target name="package-ear" depends="ejb"
+      description="Generate the runtime ear">
+
+    <ear earfile="${ejb.archive.name}"
+        appxml="${src.application.dir}/application.xml">
+      <fileset file="${target.dir}/${ejb.project.name}.jar"/>
+    </ear>
   </target>
   
-  <target name="test" 
-      depends="test.prepare"
-      description="Run the tests on all defined servers">
-
-    <ant dir="${target.sample.dir}" target="test">
-      <property name="src.dir" location="${target.sample.src.dir}"/>
-      <property name="src.java.dir"
-          location="${target.sample.src.java.dir}"/>
-      <property name="src.cactus.dir"
-          location="${target.sample.src.cactus.dir}"/>
-      <property name="src.webapp.dir"
-          location="${target.sample.src.webapp.dir}"/>
-      <property name="src.ejb.dir"
-          location="${target.sample.src.ejb.dir}"/>
-      <property name="src.application.dir"
-          location="${target.sample.src.application.dir}"/>
-      <property name="target.dir" location="${target.test.dir}"/>
-      <property name="target.classes.dir"
-          location="${target.test.dir}/classes"/>
-      <property name="target.classes.java.dir"
-          location="${target.test.dir}/classes/java"/>
-      <property name="target.classes.cactus.dir"
-          location="${target.test.dir}/classes/cactus"/>
-      <property name="target.testreports.dir"
-          location="${target.test.dir}/test-reports"/>
-      <property name="cactus.jar" location="${test.cactus.jar}"/>
-      <property name="cactus.ant.jar" location="${test.cactus.ant.jar}"/>
-      <property name="j2ee.jar" value="${j2ee.jar}"/>
-      <property name="clover.jar" value="${clover.jar}"/>
-    </ant>
-
-  </target>
-
-  <!--
+	<!--
      ========================================================================
-       Generate the distributable files
+       Cactify the ready-made ear file.
      ========================================================================
   -->
-  <target name="dist" depends="checkstyle, test"
-      description="Generate the distributable files">
-
-    <mkdir dir="${dist.bin.dir}"/>
-    <copy todir="${dist.bin.dir}">
-      <fileset dir="${target.sample.dir}"/>
-    </copy>
-
-  </target>
-
-  <!--
+	<target name="cactifyear" depends="package-ear, package-war">
+		<cactifyear srcfile="${ejb.archive.name}" destfile="${cactified.ejb.archive.name}">
+		  <cactuswar srcfile="${target.dir}/${ejb.project.name}.war"
+        destfile="${target.dir}/${ejb.project.name}-cactified.war"
+        mergewebxml="${src.webapp.dir}/WEB-INF/cactus-web.xml"
+        context="/">
+        <classes dir="${build.dir}">
+          <include name="org/apache/cactus/sample/ejb/Test*.class"/>
+        </classes>
+      </cactuswar>
+		</cactifyear>
+		
+	</target>
+	
+	<!--
      ========================================================================
-       Perform a code audit using CheckStyle. Only performs the audit if
-       the checkstyle jar is in the Ant classpasth.
-     ========================================================================
-  -->
-  <target name="checkstyle" depends="init,init.checkstyle" 
-      if="checkstyle.available"
-      description="Perform a code audit using Checkstyle">
-
-    <mkdir dir="${target.dir}"/>
-    <checkstyle config="./checkstyle.xml" failOnViolation="true">
-      <fileset dir="${src.java.dir}">
-        <include name="**/*.java"/>
-      </fileset>
-      <fileset dir="${src.cactus.dir}">
-        <include name="**/*.java"/>
-      </fileset>
-      <formatter type="plain"/>
-      <formatter type="xml" tofile="${target.dir}/checkstyle_results.xml"/>
-      <property key="checkstyle.header.file" file="./checkstyle.license"/>
-    </checkstyle>
-
-  </target>
-
-  <!--
-     ========================================================================
-       Clean generated files (including distributables)
+       Execute the tests.
      ========================================================================
   -->
-  <target name="clean" depends="init.display,init.properties"
-    description="Clean all generated files">
-
-    <delete dir="${target.dir}"/>
-    <delete dir="${dist.dir}"/>
-
-  </target>
-
+	<target name="test" depends="cactifyear">
+	  <echo>Please take a deep breath while Cargo gets JBoss for running the sample ejb tests...</echo>
+		<cactus earfile="${cactified.ejb.archive.name}"
+			printsummary="yes">
+			<classpath>
+				<path refid="cactus.classpath"/>
+				<pathelement location="${build.dir}"/>
+				<pathelement location="${cactus.build.dir}"/>
+			</classpath>
+			<containerset>
+				<cargo containerId="${jboss.container.id}" output="${logs.dir}/output.log" log="${logs.dir}/cargo.log">
+					<zipUrlInstaller
+            installUrl="http://heanet.dl.sourceforge.net/sourceforge/jboss/jboss-4.0.2.zip"
+            installDir="target/${jboss.container.id}"/>
+					<configuration>
+						<property name="cargo.servlet.port" value="${cargo.servlet.port}"/>
+						<property name="cargo.logging" value="${cargo.logging}"/>
+						<deployable type="${cactus.sample.archive.type}" file="${cactified.ejb.archive.name}"/>
+					</configuration>
+				</cargo>
+			</containerset>
+			
+			<formatter type="${cactus.formatter.type}"/>
+			<batchtest todir="${reports.dir}">
+				<fileset dir="${src.dir}">
+					<include name="**/Test*.java"/>
+				</fileset>
+			</batchtest>
+		</cactus>
+	</target>
 </project>

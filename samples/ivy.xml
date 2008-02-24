@@ -1,0 +1,30 @@
+<ivy-module version="2.0">
+	<info organisation="apache" module="hello-ivy"/>
+
+	<dependencies>
+		<dependency org="org.apache.cactus" name="cactus.core.framework.uberjar.javaEE.14" rev="1.8.0-SNAPSHOT"/>
+		<dependency org="org.apache.cactus" name="cactus.integration.ant" rev="1.8.0-SNAPSHOT"/>
+		<dependency org="org.apache.cactus" name="cactus.integration.shared.api" rev="1.8.0-SNAPSHOT"/>
+		
+		<dependency org="commons-httpclient" name="commons-httpclient" rev="2.0.2"/>
+		<dependency org="commons-logging" name="commons-logging" rev="1.0.4"/>
+		
+		<dependency org="junit" name="junit" rev="3.8.2"/>
+		<dependency org="httpunit" name="httpunit" rev="1.6"/>
+		<dependency org="aspectj" name="aspectjrt" rev="1.5.2a"/>
+		<dependency org="org.codehaus.cargo" name="cargo-core-uberjar" rev="0.9"/>
+		<dependency org="org.codehaus.cargo" name="cargo-ant" rev="0.9"/>
+		<dependency org="xerces" name="xercesImpl" rev="2.6.2"/>
+		
+		<dependency org="javax.servlet" name="jsp-api" rev="2.0"/>
+		<dependency org="javax.servlet" name="servlet-api" rev="2.5"/>
+		<dependency org="javax.servlet" name="jstl" rev="1.1.2"/>
+		<dependency org="geronimo-spec" name="geronimo-spec-ejb" rev="2.1-rc4"/>
+		<dependency org="taglibs" name="standard" rev="1.1.2"/>
+		
+		<dependency org="org.mortbay.jetty" name="org.mortbay.jetty" rev="5.1.9"/>
+		<dependency org="tomcat" name="jasper-compiler" rev="4.1.30"/>
+		<dependency org="tomcat" name="jasper-runtime" rev="4.1.30"/>		
+		
+	</dependencies>
+</ivy-module> 

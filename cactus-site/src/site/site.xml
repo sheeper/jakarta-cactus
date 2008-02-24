@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="Jakarta Cactus">
+	<bannerRight>
+		<name>Apache</name>
+		<src>images/jakarta-logo.gif</src>
+		<href>http://jakarta.apache.org/</href>
+	</bannerRight>
+	<bannerLeft>
+		<name>Cactus</name>
+		<src>images/logocactus.gif</src>		
+		<href>http://jakarta.apache.org/cactus/</href>
+	</bannerLeft>
+	<skin>
+    	<groupId>org.apache.cactus</groupId>
+    	<artifactId>cactus.maven.skin</artifactId>
+    	<version>2.0.0</version>
+  </skin>
+	<body>
+	    <breadcrumbs>
+	      <item name="Apache" href="http://www.apache.org/"/>
+	      <item name="Jakarta" href="http://www.jakarta.apache.org/"/>
+	      <item name="Cactus" href="http://jakarta.apache.org/cactus/"/>
+	    </breadcrumbs>
+
+		<menu ref="modules"/>
+		
+		<menu name="About">
+			<item name="Overview" href="index.html"/>
+			<item name="Goals" href="goals.html"/>
+			<item name="Features" href="features.html" />
+			<item name="News" href="news.html"/>
+			<item name="Downloads" href="downloads.html" />
+			<item name="Bug Database" href="http://issues.apache.org/jira/secure/BrowseProject.jspa?id=10471" target="_blank"/>
+			<item name="Mailing Lists" href="mail-lists.html"/>
+			<item name="FAQ" href="faq.html" />
+			<item name="Wiki" href="http://wiki.apache.org/jakarta-cactus/FrontPage" target="_blank"/>
+			<item name="License" href="license.html"/>
+		</menu>	
+		<menu ref="reports"/>
+		<menu name="Documentation">
+			<item name="Getting started" href="getting_started.html"/>
+			<item name="How it works" href="how_it_works.html"/>
+			<item name="Writing tests" href="/writing/howto_ejb.html" collapse="true">
+			   <item name="Howto EJB" href="/writing/howto_ejb_j2eeri.html"/>
+			   <item name="Howto HTTPUnit" href="/writing/howto_httpunit.html"/>
+			   <item name="Howto JSP" href="/writing/howto_jsp.html"/>
+			   <item name="Howto Security" href="/writing/howto_security.html"/>
+			   <item name="Howto TestCase" href="/writing/howto_testcase.html"/>
+			   <item name="Howto TestCase-JSP" href="/writing/howto_testcase_jsp.html"/>
+			   <item name="Howto TestCase-Filter" href="/writing/howto_testcase_filter.html"/>
+			   <item name="Howto TestCase-Servlet" href="/writing/howto_testcase_servlet.html"/>
+			</item>
+			<item name="Running tests" href="/integration/index.html" collapse="true">
+				<item name="Manual" href="integration/manual/index.html"/>
+				<item name="Eclipse" href="integration/eclipse/index.html"/>
+				<item name="Ant" href="integration/ant/index.html"  collapse="true">
+				  <item name="Howto Ant-Cactus" href="integration/ant/howto_ant_cactus.html"/>
+				  <item name="Howto Ant-Install" href="integration/ant/howto_ant_install.html"/>
+				  <item name="Howto Ant-Primer" href="integration/ant/howto_ant_primer.html"/>
+				  <item name="CactifyEar Task" href="integration/ant/task_cactifyear.html"/>
+				  <item name="CactifyWar Task" href="integration/ant/task_cactifywar.html"/>
+				  <item name="Cactus Task" href="integration/ant/task_cactus.html"/>
+				  <item name="Resin Task" href="integration/ant/task_resin.html"/>
+				  <item name="RunServerTests Task" href="integration/ant/task_runservertests.html"/>
+				  <item name="WebXmlMerge Task" href="integration/ant/task_webxmlmerge.html"/>
+				</item>
+				<item name="Browser" href="integration/integration_browser.html"/>
+				<item name="Tomcat" href="integration/howto_tomcat.html"/>
+				<item name="Maven" href="integration/maven/index.html"/>
+				<item name="Various IDEs" href="integration/howto_ide.html"/>
+				<item name="JUnitEE" href="integration/howto_junitee.html"/>
+			</item>
+			<item name="Participating" href="/participating/index.html" collapse="true">
+				<item name="About Us" href="/participating/contributors.html" />
+				<item name="TODO/Open Issues" href="http://issues.apache.org/jira/browse/CACTUS?report=com.atlassian.jira.plugin.system.project:openissues-panel" />
+				<item name="Nightly Build Results" href="/participating/build_results.html" />
+				<item name="Coding Conventions" href="/participating/coding_conventions.html" />
+				<item name="Public API/SPIs" href="/participating/apis.html" />
+				<item name="CVS" href="http://jakarta.apache.org/site/cvsindex.html" />
+				<item name="Build From Source" href="/participating/howto_build.html" />
+				<item name="Code Coverage Reports" href="/participating/coverage.html" />
+				<item name="Release Checklist" href="/participating/release_checklist.html" />
+				<item name="Logos" href="/participating/logos.html" />
+			</item>
+		</menu>
+		<menu name="Miscellanious">
+			<item name="Why the name" href="cactusname.html" />
+			<item name="Mock vs Container" href="mock_vs_cactus.html"/>
+			<item name="Tested On..." href="http://wiki.apache.org/jakarta-cactus/TestedOn"/>
+			<item name="Resources" href="/resources/index.html" collapse="true">
+			   <item name="Books" href="resources/resources_books.html"/>
+			   <item name="Cactus" href="resources/resources_cactus.html"/>
+			   <item name="Testing" href="resources/resources_testing.html"/>
+      </item>
+			<item name="Statistics" href="/stats/index.html"/>
+		</menu>
+		<menu name="Translations">
+			<item name="French" href="http://www.ressources-java.net/cactus" target="_blank"/>
+			<item name="Korean" href="http://jakarta.apache-korea.org/cactus/index.html" target="_blank"/>
+			<item name="Japanese" href="http://www.ingrid.org/jajakarta/cactus/" target="_blank"/>
+		<!--<item name="Xdoc Example" href="xdoc.html"/>-->
+		</menu>
+	</body>
+	<poweredBy>
+	   <logo name="Jakarta Cactus" href="http://jakarta.apache.org/cactus/" img="images/cactusbanner.gif"/>
+	</poweredBy>
+	
+</project>

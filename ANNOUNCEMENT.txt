@@ -10,7 +10,11 @@ Goals
 Main new features
 -----------------
 
-[todo]
+1) new Maven2 based build system
+2) integration between Cargo & Cactus
+3) new Ant tasks (see the sample projects).
+4) the New Cactus web-site (look in cactus-site and execute mvn site:site)
+5) Cactus-eclipse plugin refactored to support Eclipse 3.2 
 
 Changes
 -------

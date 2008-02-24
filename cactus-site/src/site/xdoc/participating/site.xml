@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+
+<!--
+ * ========================================================================
+ * 
+ * Copyright 2001-2004 The Apache Software Foundation.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * 
+ * ========================================================================
+-->
+
+<!DOCTYPE navigation
+  PUBLIC "-//Apache Software Foundation//DTD Cactus Navigation V1.0//EN"
+  "file:../../dtds/navigation-v10.dtd">
+
+<project>
+<body>
+  <menu name="Main Page" id="index"/>
+
+  <menu name="Participating">
+    <item id="participating" label="Introduction"/>
+    <item id="contributors"/>
+    <item id="users"/>
+  </menu>
+
+  <menu label="Developers">
+    <item name="bug_database_cactus_open_issues" label="Todo/Open Issues"/>
+    <item name="build_result" href="build_result.html"/>
+    <item name="coding_conventions" href="coding_conventions.html"/>
+    <item name="apis" href="apis.html"/>
+    <item name="CVS" href=""/>
+    <item name="" href="howto_build.html"/>
+    <item name="coverage" href="coverage.html"/>
+    <item name="" href="release_checklist.html"/>
+  </menu>
+
+  <menu label="Miscellaneous">
+    <item name="logos" href=""/>
+  </menu>
+
+</body>
+</project>

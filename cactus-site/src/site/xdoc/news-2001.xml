@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+
+<!--
+ * ========================================================================
+ * 
+ * Copyright 2001-2004 The Apache Software Foundation.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * 
+ * ========================================================================
+-->
+
+<document id="news_archives_2001">
+
+  <properties>
+    <title>News and Events - Archives for 2001</title>
+  </properties>
+
+  <body>
+
+    <section name="News and Events - Archives for 2001">
+
+      <table>
+
+        <tr>
+          <th>12/2001</th>
+          <td>
+            <a href="ext:strutstestcase">StrutsTestCase for JUnit</a> is 
+            a framework for un it testing Struts code. It provides both mock 
+            objects and a Cactus integration for testing inside and outside of 
+            the container.
+          </td>
+        </tr>
+
+        <tr>
+          <th>11/2001</th>
+          <td>
+            New book on open source tools for XP, including a big chapter on
+            Cactus:
+            <a href="http://www.amazon.com/exec/obidos/ASIN/047120708X/">
+            Java Tools for Extreme Programming: Mastering Open Source Tools,
+            including Ant, JUnit, and Cactus</a>. By Rick Hightower and
+            <a href="mailto:nick@eblox.com">Nicholas Lesiecki</a> from
+            <a href="ext:eblox">eBlox</a>.
+          </td>
+        </tr>
+
+        <tr>
+          <th>12/10/2001</th>
+          <td>
+            Presentation of Cactus at <a href="http://www.jsig.com">London
+            JSIG</a>. Led by <a href="mailto:vmassol@octo.com">Vincent
+            Massol</a> from <a href="ext:octo">OCTO Technology</a>.
+          </td>
+        </tr>
+
+        <tr>
+          <th>28/06/2001</th>
+          <td>
+            Article on Cactus from Earthweb:
+            <a href="http://softwaredev.earthweb.com/java/article/0,,12082_793701,00.html">Cactus:
+            no pity for bugs</a>.
+          </td>
+        </tr>
+
+      </table>
+
+    </section>
+
+  </body>
+</document>

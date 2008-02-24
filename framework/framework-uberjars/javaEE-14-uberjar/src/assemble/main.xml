@@ -1,0 +1,20 @@
+<assembly>
+	<formats>
+		<format>jar</format>
+	</formats>
+	<includeBaseDirectory>false</includeBaseDirectory>
+	<dependencySets>
+		<dependencySet>
+			<outputDirectory>/</outputDirectory>
+			<outputFileNameMapping/>
+			<includes>
+				<include>org.apache.cactus:cactus.core.framework.javaEE.12-13-14:jar</include>
+				<include>org.apache.cactus:cactus.core.framework.javaEE.13-14</include>
+				<include>org.apache.cactus:cactus.core.framework.wrapper.javaEE.14</include>
+			</includes>
+			<unpack>true</unpack>
+			<scope>test</scope>
+		</dependencySet>
+	</dependencySets>
+</assembly>
+ 

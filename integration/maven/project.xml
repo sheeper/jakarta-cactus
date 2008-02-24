@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project>
-  <extend>${basedir}/../../default-project.xml</extend>
-  <id>cactus-maven</id>
+  <id>org.apache.cactus</id>
 
   <!-- Note: Although we inherit from default-project.xml, we still cannot 
   	   remove the <currentVersion> tag as this project.xml is parsed at 
   	   runtime whenever our plugin is called. -->
-  <currentVersion>1.8dev</currentVersion>
+  <currentVersion>1.8.0-SNAPSHOT</currentVersion>
 
   <name>Maven Cactus plugin</name>
   <package>org.apache.cactus.integration.maven</package>
@@ -28,14 +27,19 @@
   </contributors>
   <dependencies>
     <dependency>
-      <groupId>cactus</groupId>
-      <artifactId>cactus</artifactId>
-      <version>13-${pom.currentVersion}</version>
+      <groupId>org.apache.cactus</groupId>
+      <artifactId>cactus.integration.ant</artifactId>
+      <version>${pom.currentVersion}</version>
     </dependency>
     <dependency>
-      <groupId>cactus</groupId>
-      <artifactId>cactus-ant</artifactId>
-      <version>13-${pom.currentVersion}</version>
+      <groupId>org.apache.cactus</groupId>
+      <artifactId>cactus.core.framework.uberjar.javaEE.14</artifactId>
+      <version>${pom.currentVersion}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.cactus</groupId>
+      <artifactId>cactus.integration.shared.api</artifactId>
+      <version>${pom.currentVersion}</version>
     </dependency>
     <dependency>
       <groupId>commons-httpclient</groupId>
@@ -59,12 +63,17 @@
     </dependency>
     <!-- Cactus now depends on Cargo -->
     <dependency>
-      <groupId>cargo</groupId>
+      <groupId>org.codehaus.cargo</groupId>
       <artifactId>cargo-core-uberjar</artifactId>
-      <version>0.8</version>
-      <url>###GO TO ../.. (or ..\..) and run 'ant -f downloads.xml'###</url>
+      <version>0.9</version>
+      <url>http://repo1.maven.org/maven2/org/codehaus/cargo/cargo-core-uberjar/0.9/cargo-core-uberjar-0.9.jar</url>
     </dependency>
-
+    <dependency>
+      <groupId>org.codehaus.cargo</groupId>
+      <artifactId>cargo-ant</artifactId>
+      <version>0.9</version>
+      <url>http://repo1.maven.org/maven2/org/codehaus/cargo/cargo-core-uberjar/0.9/cargo-core-uberjar-0.9.jar</url>
+    </dependency>
     <!-- Note: Dependencies below are needed by HttpUnit. Xerces is also
     	 needed by the XML report used by the junitreport Ant task -->
     <dependency>
@@ -122,7 +131,11 @@
       <artifactId>commons-jelly-tags-xml</artifactId>
       <version>20030211.142705</version>
     </dependency>
-
+   <dependency>
+     <groupId>jline</groupId>
+     <artifactId>jline</artifactId>
+     <version>0.9.93</version>
+   </dependency>
   </dependencies>
   <build>
     <sourceDirectory>src/main</sourceDirectory>

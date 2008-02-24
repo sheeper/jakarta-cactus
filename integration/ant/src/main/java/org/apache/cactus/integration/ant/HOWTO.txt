@@ -1,0 +1,94 @@
+After refactoring the cactus ant task the cactus-cago integration is
+done in the following way: (Example)
+
+ 	    <cactus warfile="test-cactus-ant.war" printsummary="yes"
+ 	        fork="yes" failureproperty="tests.failed" haltonerror="true">
+		
+	 	  <classpath>
+	 	       <path refid="compile.cp"/>
+	 	  </classpath>
+
+ 	      <containerset>
+	 	       <cargo containerId="tomcat5x" home="/home/peter/bin/jakarta/tomcat" output="/home/peter/bin/workspace/TestingCactus/tomcat5x.out" 
+	 	           log="/home/peter/bin/workspace/TestingCactus//cargo.log">
+	 	       	
+	 	         <configuration home="${tomcatconfig.dir}">
+	 	           <property name="cargo.servlet.port" value="8080"/>
+	 	           <property name="cargo.logging" value="high"/>
+	 	           <property name="cactus.toDir" value="./tomcatlog"/>
+	 	           <deployable type="war" file="test-cactus-ant.war"/>
+	 	         	
+	 	         </configuration>
+	 	       </cargo>
+ 	      </containerset>
+
+ 	      <formatter type="brief" usefile="false"/>
+ 	      <formatter type="xml"/>
+
+ 	      <batchtest>
+ 	        <fileset dir="./src/cactus-tests">
+ 	        	<include name="**/Test*.java"/>
+ 	        </fileset>
+ 	      </batchtest>
+ 	    </cactus>
+ 	    
+As you see the only thing you have to do is add the cargo instructions 
+"inside" the <containerset> element of the cactus task. 
+
+----------------------------------
+
+For the RunServerTests no changes in the one has to use the following example:
+
+	 	<runservertests
+	 		testurl="http://localhost:8080/cargocpc"
+	 	    starttarget="cargostart"
+	 	    stoptarget="cargostop"
+	 	    testtarget="test-cactus"/>
+
+
+	<target name="cargostart" depends="war">
+	  <delete dir="${tomcatconfig.dir}" />
+	  <mkdir dir="${tomcatlog.dir}"/>
+	  <mkdir dir="${tomcatconfig.dir}"/>
+	  <echo message="Starting Cargo..."/>
+	  <echo message="Using tomcat.home = ${tomcat.home} "/>
+	  <echo message="Using war = ${pathtowarfile} "/>
+	  <echo message="Jars used = ${cargo-uberjar} , ${cargo-antjar}"/>
+			
+	  <cargo containerId="tomcat5x" home="${tomcat.home}" output="${tomcatlog.dir}/output.log" 
+	      log="${tomcatlog.dir}/cargo.log" action="start" wait="false">
+	    <configuration home="${tomcatconfig.dir}">
+	      <property name="cargo.servlet.port" value="8080"/>
+	      <property name="cargo.logging" value="high"/>
+	      <deployable type="war" file="${pathtowarfile}"/>
+	    </configuration>
+	  </cargo>
+
+	</target>
+	
+	<target name="cargostop" depends="war">
+	  <delete dir="${tomcatconfig.dir}" />
+	  <mkdir dir="${tomcatlog.dir}"/>
+	  <mkdir dir="${tomcatconfig.dir}"/>
+	  <echo message="Stoping Cargo..."/>
+	  <echo message="Using tomcat.home = ${tomcat.home} "/>
+	  <echo message="Using war = ${pathtowarfile} "/>
+	  <echo message="Jars used = ${cargo-uberjar} , ${cargo-antjar}"/>
+			
+	  <cargo containerId="tomcat5x" home="${tomcat.home}" output="${tomcatlog.dir}/output.log" 
+	      log="${tomcatlog.dir}/cargo.log" action="stop">
+	    <configuration home="${tomcatconfig.dir}">
+	      <property name="cargo.servlet.port" value="8080"/>
+	      <property name="cargo.logging" value="high"/>
+	      <deployable type="war" file="${pathtowarfile}"/>
+	    </configuration>
+	  </cargo>
+
+	</target>
+	
+	<target name="test-cactus">
+		<echo>Testing...</echo>
+		</target>
+
+
+

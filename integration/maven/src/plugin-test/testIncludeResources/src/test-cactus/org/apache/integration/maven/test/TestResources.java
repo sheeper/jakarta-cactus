@@ -29,7 +29,7 @@ import java.io.InputStream;
  * cactified WAR. Note that we're testing this by executing this code inside
  * the container.
  *
- * @version $Id$
+ * @version $Id: TestResources.java 239086 2004-11-08 23:18:32Z felipeal $
  */
 public class TestResources extends ServletTestCase
 {

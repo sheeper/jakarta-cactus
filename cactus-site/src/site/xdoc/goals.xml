@@ -1,0 +1,194 @@
+<?xml version="1.0"?>
+
+<!--
+ * ========================================================================
+ * 
+ * Copyright 2001-2004 The Apache Software Foundation.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * 
+ * ========================================================================
+-->
+
+<document id="goals">
+
+  <properties>
+    <title>Cactus goals</title>
+  </properties>
+
+  <body>
+
+    <section name="General goals">
+
+      <ul>
+        <li>
+          Provide a simple unit testing framework focused on server side java 
+          code which tries to cover all J2EE component models and potentially
+          other type of components.
+        </li>
+        <li>
+          Allow fine-grained continuous testing of all files making up  
+          an application: source code but also meta-data files (such as 
+          deployment descriptors, etc) through an in-container approach. 
+          Integration work is costly and Cactus tries to spread this load
+          by doing it during development in an automated way.
+        </li>
+      </ul>          
+        
+    </section>
+
+    <section name="Medium terms goals and ideas">
+
+      <p>
+        The short term goals for Cactus are to continue providing and improving
+        support for J2EE unit testing. More specifically the following areas
+        are being considered and researched:
+      </p>
+        
+      <ul>
+        <li>
+          Integrate Cactus with JUnit4, which will allow
+          to write annotation-based test-cases,
+        </li>
+        <li>
+          Add support for testing Java Portlets and/or Web-services
+        </li>
+        <li>
+          Add support for Servlet API 2.5/JSP 2.2 (by using 
+          Tomcat 5/Resin 3.x),
+        </li>
+        <li>
+          Provide a full servlet container test suite a la Watchdog using Cactus.,
+        </li>
+        <li>
+          Performance unit testing: Add performance extensions to be able to 
+          test each single method in performance.
+        </li>
+        <li>
+          More tutorial on AspectJ testing. Potentially add a Cactus Aspect 
+          extension to allow writing test cases as Aspects (this may allow to
+          remove the need for Cactus redirectors).
+        </li>
+        <li>
+          Add EJB Redirectors to be able to unit test Session Beans, Entity 
+          Beans and MessageDriven Beans          
+        </li>
+        <li>
+          Decouple the Cactus framework into the core and its "plugins". This 
+          means to publish a public API and a public SPI. The SPI would allow
+          to support plugin for testing different type of components (Servlet,
+          Entity EJB, Struts Actions, etc).
+        </li>
+      </ul>
+
+    </section>
+
+    <section name="Long term vision">
+
+      <section name="The Future of Component Unit Testing">
+
+        <p>
+          We believe unit testing server side components is going to get harder
+          and harder in the future, unless something is done about it!
+          Even now, depending on the specifications
+          for a given component model it is more or less easy. Sometimes it is
+          even not feasible to test all kind of code.
+        </p>
+        <p>
+          We believe that we will see more and more components in the future.
+          By components we mean pieces of code that execute in a container.
+          The container will provide more and more services for the components
+          (like transactions, security, life cycle, persistence, interfaces
+          - like web services -, logging, ...). The consequences will be:
+        </p>
+        <ul>
+          <li>
+            testing strategies that are not in-container, like Mock Objects
+            will still very useful but will provide less added value in
+            ensuring that the code behaves ok. Indeed, as the components will
+            rely more and more on the container's services, the confidence that
+            the tests will run well when deployed will decrease and the need
+            for a solution that ensures the code will run correctly in its
+            environment will increase,
+          </li>
+          <li>
+            it will become more and more difficult to offer an in-container
+            unit testing framework that lives outside the container.
+          </li>
+        </ul>
+
+      </section>
+
+      <section name="Long term goals for Cactus">
+
+        <p>
+          Consequently to the above predictions, there are 2 long term goals
+          for Cactus:
+        </p>
+        <ul>
+          <li>
+            Continue with the in-container approach as much as possible. It is
+            a best try effort in order to provide tests in which you can have
+            a good confidence,
+          </li>
+          <li>
+            However, we believe the only satisfactory and long term solution 
+            is to include (unit) testing APIs as <em>part</em> of the container
+            specifications. This could be done in the form of a SPI 
+            (Service Provider Interface) against which a generic unit testing 
+            framework could be plugged, thus leaving the implementation details
+            to an external framework and only providing maybe a generic
+            and simple implementation. Thus, one goal of Cactus is to help
+            specify needed container API/SPI for unit testing, 
+            i.e. create
+            an additional service of the container:  a "unit-testing service"
+            (in addition to the existing Security, Transaction, Life Cycle, ...
+            Services). The ultimate
+            goal will be reached when this new API/SPI is accepted and become
+            a de jure standard. It would then be time to think about 
+            integrating it into the Servlet Specifications 
+            (or other components -like EJBs -
+            specifications). Agreed, this far-streched at the current time
+            but it is the Cactus vision!
+          </li>        
+        </ul>
+
+      </section>
+
+    </section>
+
+    <section name="Feedback needed!">
+
+      <p>
+        Cactus is an open source project where everyone is free to participate
+        (and even encouraged). Thus, we'd really like to have your opinions on
+        the subject of Cactus future.
+      </p>
+      <p>
+        How do you view the future of Cactus?
+      </p>
+      <p>
+        Do you like the goals and vision defined above?
+      </p>
+      <p>
+        Please send all answers to the 
+        <a href="mailinglist.html">Cactus mailing list</a>.
+      </p>
+      <p>
+        Thanks.
+      </p>
+
+    </section>
+
+  </body>
+</document>

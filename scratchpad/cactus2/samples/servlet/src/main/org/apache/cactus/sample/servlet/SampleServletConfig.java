@@ -27,7 +27,7 @@ import javax.servlet.http.HttpServlet;
  * <code>log()</code>, ... (i.e. methods inherited from
  * <code>GenericServlet</code>).
  *
- * @version $Id$
+ * @version $Id: SampleServletConfig.java 238835 2004-03-06 20:59:41Z vmassol $
  */
 public class SampleServletConfig extends HttpServlet
 {
