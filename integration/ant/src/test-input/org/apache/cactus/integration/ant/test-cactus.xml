@@ -1,33 +1,33 @@
 <?xml version="1.0"?>
 
 <project name="test-cactus" basedir="." default="setup">
-
+  <property name="src.dir" location="${basedir}/src/test-input/org/apache/cactus/integration/ant/"/>
   <target name="testNeitherWarFileNorEarFileSet">
     <cactus/>
   </target>
 
   <target name="testWarFileNotExisting">
-    <cactus warfile="idontexist.war"/>
+    <cactus warfile="${src.dir}/idontexist.war"/>
   </target>
 
   <target name="testWarFileNotCactified">
-    <cactus warfile="empty.war"/>
+    <cactus warfile="${src.dir}/empty.war"/>
   </target>
 
   <target name="testWarFileCactified">
-    <cactus warfile="cactified.war"/>
+    <cactus warfile="${src.dir}/cactified.war"/>
   </target>
 
   <target name="testEarFileEmpty">
-    <cactus earfile="empty.ear"/>
+    <cactus earfile="${src.dir}/empty.ear"/>
   </target>
 
   <target name="testEarFileNotCactified">
-    <cactus earfile="notcactified.ear"/>
+    <cactus earfile="${src.dir}/notcactified.ear"/>
   </target>
 
   <target name="testEarFileCactified">
-    <cactus earfile="cactified.ear"/>
+    <cactus earfile="${src.dir}/cactified.ear"/>
   </target>
 
 </project>

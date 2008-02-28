@@ -2,8 +2,8 @@
 
 <project name="test-runservertests" basedir="." default="help">
 
-  <property name="work.dir" location="${basedir}/work"/>
-
+  <property name="work.dir" location="${basedir}/target/work"/>
+  
   <target name="setUp">
     <mkdir dir="${work.dir}"/>
   </target>

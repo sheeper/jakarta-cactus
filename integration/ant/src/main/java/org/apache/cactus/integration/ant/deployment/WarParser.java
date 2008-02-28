@@ -130,7 +130,6 @@ public class WarParser
 	            }
             }
         }
-        System.out.println("Could not find servlet redirs");
         return null;
     }
 

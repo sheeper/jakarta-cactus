@@ -287,6 +287,7 @@ public class CactifyEarTask extends Ear
                             Project.MSG_VERBOSE);
                         EjbRef ref = new EjbRef();
                         ref.setType("Session");
+                        ref.setEjbName(name);
                         ref.setName("ejb/" + name);
                         ref.setEjbInterface(local);
                         ref.setEjbHomeInterface(localHome);
@@ -309,6 +310,7 @@ public class CactifyEarTask extends Ear
                             Project.MSG_VERBOSE);
                         EjbRef ref = new EjbRef();
                         ref.setType("Entity");
+                        ref.setEjbName(name);
                         ref.setName("ejb/" + name);
                         ref.setEjbInterface(local);
                         ref.setEjbHomeInterface(localHome);

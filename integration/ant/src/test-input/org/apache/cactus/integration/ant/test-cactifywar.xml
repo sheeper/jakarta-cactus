@@ -2,47 +2,47 @@
 
 <project name="test-cactifywar" basedir="." default="help">
 
-  <property name="work.dir" location="${basedir}/work"/>
-
+  <property name="work.dir" location="${basedir}/target/work"/>
+  <property name="src.dir" location="${basedir}/src/test-input/org/apache/cactus/integration/ant/"/>
   <target name="setUp">
     <mkdir dir="${work.dir}"/>
   </target>
 
   <target name="testNeitherSrcFileNorVersionSet">
-    <cactifywar destfile="destfile.war"/>
+    <cactifywar destfile="${work.dir}/destfile.war"/>
   </target>
 
   <target name="testDestFileNotSet">
-    <cactifywar srcfile="empty.war"/>
+    <cactifywar srcfile="${src.dir}/empty.war"/>
   </target>
 
   <target name="testSrcFileWithoutWebXml">
-    <cactifywar srcfile="nowebxml.war"
+    <cactifywar srcfile="${src.dir}/nowebxml.war"
         destfile="${work.dir}/destfile.war"/>
   </target>
 
   <target name="testSrcFileWithoutWebXmlNewWebXml22">
-    <cactifywar srcfile="nowebxml.war" version="2.2"
+    <cactifywar srcfile="${src.dir}/nowebxml.war" version="2.2"
         destfile="${work.dir}/destfile.war"/>
   </target>
   
   <target name="testSrcFileWithoutWebXmlNewWebXml23">
-    <cactifywar srcfile="nowebxml.war" version="2.3"
+    <cactifywar srcfile="${src.dir}/nowebxml.war" version="2.3"
         destfile="${work.dir}/destfile.war"/>
   </target>
   
   <target name="testDefaultRedirectorsNoDoctype">
-    <cactifywar srcfile="empty.war"
+    <cactifywar srcfile="${src.dir}/empty.war"
         destfile="${work.dir}/destfile.war"/>
   </target>
 
   <target name="testDefaultRedirectors22Doctype">
-    <cactifywar srcfile="empty-2_2.war"
+    <cactifywar srcfile="${src.dir}/empty-2_2.war"
         destfile="${work.dir}/destfile.war"/>
   </target>
 
   <target name="testDefaultRedirectors23Doctype">
-    <cactifywar srcfile="empty-2_3.war"
+    <cactifywar srcfile="${src.dir}/empty-2_3.war"
         destfile="${work.dir}/destfile.war"/>
   </target>
 
@@ -57,35 +57,35 @@
   </target>
 
   <target name="testCustomServletRedirectorMapping">
-    <cactifywar srcfile="empty-2_3.war"
+    <cactifywar srcfile="${src.dir}/empty-2_3.war"
         destfile="${work.dir}/destfile.war">
       <servletredirector mapping="/test/servletRedirector"/>
     </cactifywar>
   </target>
 
   <target name="testCustomJspRedirectorMapping">
-    <cactifywar srcfile="empty-2_3.war"
+    <cactifywar srcfile="${src.dir}/empty-2_3.war"
         destfile="${work.dir}/destfile.war">
       <jspredirector mapping="/test/jspRedirector"/>
     </cactifywar>
   </target>
 
   <target name="testCustomFilterRedirectorMapping">
-    <cactifywar srcfile="empty-2_3.war"
+    <cactifywar srcfile="${src.dir}/empty-2_3.war"
         destfile="${work.dir}/destfile.war">
       <filterredirector mapping="/test/filterRedirector"/>
     </cactifywar>
   </target>
 
   <target name="testCustomFilterRedirectorMappingIgnored">
-    <cactifywar srcfile="empty-2_2.war"
+    <cactifywar srcfile="${src.dir}/empty-2_2.war"
         destfile="${work.dir}/destfile.war">
       <filterredirector mapping="/test/filterRedirector"/>
     </cactifywar>
   </target>
 
   <target name="testMultipleNamedServletRedirectors">
-    <cactifywar srcfile="empty-2_3.war"
+    <cactifywar srcfile="${src.dir}/empty-2_3.war"
         destfile="${work.dir}/destfile.war">
       <servletredirector name="ServletRedirector"
           mapping="/test/ServletRedirector"/>
@@ -95,7 +95,7 @@
   </target>
 
   <target name="testMultipleNamedJspRedirectors">
-    <cactifywar srcfile="empty-2_3.war"
+    <cactifywar srcfile="${src.dir}/empty-2_3.war"
         destfile="${work.dir}/destfile.war">
       <jspredirector name="JspRedirector"
           mapping="/test/JspRedirector"/>
@@ -105,7 +105,7 @@
   </target>
 
   <target name="testMultipleNamedFilterRedirectors">
-    <cactifywar srcfile="empty-2_3.war"
+    <cactifywar srcfile="${src.dir}/empty-2_3.war"
         destfile="${work.dir}/destfile.war">
       <filterredirector name="FilterRedirector"
           mapping="/test/FilterRedirector"/>
@@ -115,7 +115,7 @@
   </target>
 
   <target name="testSecuredServletRedirector">
-    <cactifywar srcfile="empty-2_3.war"
+    <cactifywar srcfile="${src.dir}/empty-2_3.war"
         destfile="${work.dir}/destfile.war">
       <servletredirector name="ServletRedirectorSecure"
           mapping="/ServletRedirectorSecure"
@@ -124,7 +124,7 @@
   </target>
 
   <target name="testLoginConfigNotOverwritten">
-    <cactifywar srcfile="formloginconfig.war"
+    <cactifywar srcfile="${src.dir}/formloginconfig.war"
         destfile="${work.dir}/destfile.war">
       <servletredirector name="ServletRedirectorSecure"
           mapping="/ServletRedirectorSecure"
@@ -133,16 +133,16 @@
   </target>
 
   <target name="testNoDuplicateJars">
-    <cactifywar srcfile="containscactusjars.war"
+    <cactifywar srcfile="${src.dir}/containscactusjars.war"
         destfile="${work.dir}/destfile.war"/>
   </target>
 
   <target name="testAddWeblogicEjbRefs">
-    <cactifywar srcfile="weblogic.war"
+    <cactifywar srcfile="${src.dir}/weblogic.war"
         destfile="${work.dir}/destfile.war">
         <ejbref name="MyEjb" 
-                localInterface="com.wombat.MyEjb" 
-                localHomeInterface="com.wombat.MyEjbHome"
+                ejbInterface="com.wombat.MyEjb" 
+                ejbHomeInterface="com.wombat.MyEjbHome"
                 jndiName="/wombat/MyEjb"
                 type="Session"/>
     </cactifywar>

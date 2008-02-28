@@ -145,7 +145,7 @@ public class CactusTask extends JUnitTask
 
         addRedirectorNameProperties(deployableFile);
         
-        if (containerSet.getCargos() == null)
+        if (containerSet==null || containerSet.getCargos() == null)
         {
             log("No cargo configurations specified, tests will run locally",
                 Project.MSG_VERBOSE);
