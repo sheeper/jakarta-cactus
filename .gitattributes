@@ -546,16 +546,6 @@ integration/ant/src/main/resources/org/apache/cactus/integration/ant/deployment/
 integration/ant/src/main/resources/org/apache/cactus/integration/ant/deployment/resources/application_1_3.dtd -text
 integration/ant/src/main/resources/org/apache/cactus/integration/ant/deployment/resources/web-app_2_2.dtd -text
 integration/ant/src/main/resources/org/apache/cactus/integration/ant/deployment/resources/web-app_2_3.dtd -text
-integration/ant/src/scripts/j2ee12/build-tests-tomcat3x.xml -text
-integration/ant/src/scripts/j2ee12/build.xml -text
-integration/ant/src/scripts/j2ee13/build-tests-jboss3x.xml -text
-integration/ant/src/scripts/j2ee13/build.xml -text
-integration/ant/src/scripts/share/build-share.xml -text
-integration/ant/src/scripts/share/build-tests-orion1x.xml -text
-integration/ant/src/scripts/share/build-tests-resin2x.xml -text
-integration/ant/src/scripts/share/build-tests-tomcat4x.xml -text
-integration/ant/src/scripts/share/build-tests-weblogic6x.xml -text
-integration/ant/src/scripts/share/build-tests-weblogic7x.xml -text
 integration/ant/src/test-input/org/apache/cactus/integration/ant/cactified.ear -text
 integration/ant/src/test-input/org/apache/cactus/integration/ant/cactified.war -text
 integration/ant/src/test-input/org/apache/cactus/integration/ant/container/resin/test-resin3x.xml -text
