@@ -332,7 +332,8 @@
 					</configuration>
 					<executions>
 						<execution>
-							<phase>install</phase>
+						  <id>make-assembly</id>
+							<phase>package</phase>
 							<!--phase>javadoc</phase-->
 							<goals>
 								<goal>single</goal>

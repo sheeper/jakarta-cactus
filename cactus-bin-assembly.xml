@@ -24,6 +24,7 @@
 				<include>README</include>
 				<include>LICENSE</include>
 				<include>NOTICE</include>
+				<include>ANNOUNCEMENT.txt</include>
 			</includes>
 		</fileSet>
 		<fileSet>
@@ -71,6 +72,20 @@
 			<includes>
 				<include>pom.xml</include>
 			</includes>
+		</fileSet>
+		<fileSet>
+			<directory>descriptors/licenses</directory>
+			<outputDirectory>licenses</outputDirectory>
+			<includes>
+				<include>*.*</include>
+			</includes>
+		</fileSet>
+		<fileSet>
+      <directory>cactus-site/target/site</directory>
+      <outputDirectory>documentation</outputDirectory>
+      <includes>
+        <include>**/*.*</include>
+      </includes>
 		</fileSet>
 </fileSets>
 </assembly>
