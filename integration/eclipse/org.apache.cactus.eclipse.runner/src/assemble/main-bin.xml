@@ -13,6 +13,13 @@
 			<unpack>false</unpack>
 		</dependencySet>
 		<dependencySet>
+			<outputDirectory>lib</outputDirectory>
+			<includes>
+				<include>org.mortbay.jetty:org.mortbay.jetty:jar</include>
+			</includes>
+			<unpack>false</unpack>
+		</dependencySet>
+		<dependencySet>
 			<outputDirectory>lib/common</outputDirectory>
 			<includes>
 				<include>aspectj:aspectjrt:jar</include>
@@ -41,6 +48,13 @@
       <outputDirectory>/</outputDirectory>  
       <includes>
         <include>*-src.zip</include>
+      </includes>
+    </fileSet>
+    <fileSet>
+      <directory>target</directory>
+      <outputDirectory>/</outputDirectory>  
+      <includes>
+        <include>*.jar</include>
       </includes>
     </fileSet>
     <fileSet>
