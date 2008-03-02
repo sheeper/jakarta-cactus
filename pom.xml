@@ -330,16 +330,15 @@
 							<descriptor>cactus-bin-assembly.xml</descriptor>
 						</descriptors>
 					</configuration>
-					<executions>
+					<!--executions>
 						<execution>
 						  <id>make-assembly</id>
 							<phase>package</phase>
-							<!--phase>javadoc</phase-->
 							<goals>
 								<goal>single</goal>
 							</goals>
 						</execution>
-					</executions>
+					</executions-->
 				</plugin>
 			</plugins>
 		</pluginManagement>
