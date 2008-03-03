@@ -650,6 +650,7 @@ integration/maven/src/plugin-resources/jboss3x/jboss-web.xml -text
 integration/maven/src/plugin-resources/jboss3x/roles.properties -text
 integration/maven/src/plugin-resources/jboss3x/users.properties -text
 integration/maven/src/plugin-test/maven.xml -text
+integration/maven/src/plugin-test/project.properties -text
 integration/maven/src/plugin-test/project.xml -text
 integration/maven/src/plugin-test/testBundleProperties/maven.xml -text
 integration/maven/src/plugin-test/testBundleProperties/project.properties -text
