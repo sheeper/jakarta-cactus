@@ -71,6 +71,11 @@
 				<artifactId>nekohtml</artifactId>
 				<version>0.9.1</version>
 			</dependency>
+			<dependency>
+				<groupId>htmlunit</groupId>
+				<artifactId>htmlunit</artifactId>
+				<version>1.10</version>
+			</dependency>
 	</dependencies>
 	
 	

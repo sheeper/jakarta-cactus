@@ -53,9 +53,10 @@ public abstract class TestShareAll
         suite.addTestSuite(TestTearDownException.class);
         suite.addTestSuite(TestBasicAuthentication.class);
         suite.addTestSuite(TestHttpUnitIntegration.class);
+        suite.addTestSuite(TestHtmlUnitIntegration.class);
         suite.addTestSuite(TestServletRedirectorOverride.class);
         suite.addTestSuite(TestHttpParameters.class);
-        suite.addTestSuite(TestHttpSession.class);
+        suite.addTest(TestHttpSession.suite());
         suite.addTestSuite(TestHttpResponse.class);
         suite.addTestSuite(TestCookie.class);
         suite.addTestSuite(TestRequestDispatcher.class);

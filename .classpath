@@ -237,5 +237,7 @@
 	<classpathentry path="C:/eclipse/plugins/org.apache.cactus.eclipse.runner-1.8.0/lib/client/integration-ant-1.8.0-SNAPSHOT.jar" kind="lib"/>
 	<classpathentry path="C:/eclipse/plugins/org.apache.cactus.eclipse.runner-1.8.0/lib/client/nekohtml-0.9.1.jar" kind="lib"/>
 	<classpathentry path="C:/eclipse/plugins/org.apache.cactus.eclipse.runner-1.8.0/lib/client/servlet-api-2.5.jar" kind="lib"/>
+	<classpathentry path="samples/servlet/src/main/java" kind="src"/>
+	<classpathentry path="M2_REPO/htmlunit/htmlunit/1.10/htmlunit-1.10.jar" kind="var"/>
 	<classpathentry path="bin" kind="output"/>
 </classpath>
