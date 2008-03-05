@@ -108,8 +108,6 @@
       <ant:pathelement location="${plugin.getDependencyPath('rhino:js')}"/>
       <ant:pathelement location="${plugin.getDependencyPath('org.codehaus.cargo:cargo-core-uberjar')}"/>
       <ant:pathelement location="${plugin.getDependencyPath('org.codehaus.cargo:cargo-ant')}"/>
-      
-      
     </ant:path>
 
     <ant:taskdef resource="cactus.tasks" classpathref="cactus.classpath"/>
@@ -158,7 +156,8 @@
     <!-- List of supported containers -->
     <!--<j:set var="cargo.containers" 
        value="resin2x,resin3x,tomcat3x,tomcat4x,tomcat5x,orion1x,orion2x,jboss3x,weblogic7x"/>-->
-    <!--util:tokenize var="cargo.containers" delim="," trim="true">${cargo.containersa}</util:tokenize--> 
+    <util:tokenize var="cargo.containers" delim="," trim="true">${cargo.containers}
+    </util:tokenize> 
 
    
 
@@ -297,6 +296,7 @@
  
     <!-- Generate the war artifact -->
     <attainGoal name="${cactus.build.goal.war}"/>
+
     <cactifywar version="${cactus.servlet.version}" destfile="${cactus.war}">
 
       <!-- Only specify a source war to cactify if we are not testing EJBs.
@@ -406,12 +406,10 @@
   -->
   <goal name="cactus:prepare" description="Prepare Cactus tests" 
       prereqs="cactus:init">
-    <j:forEach var="containerGroupId" items="${cargo.containers}">
-        <j:set var="containerGroupName" value="cargo.container.${containerGroupId}.containerId"/>
-        <j:set var="containerId" value="${context.getVariable(containerGroupName)}"/>
+    <j:forEach var="containerId" items="${cargo.containers}">
         <j:set var="containerDirVar" value="cactus.home.${containerId}"/>
         <j:set var="containerDir" value="${context.getVariable(containerDirVar)}"/>
-
+   
         <j:if test="${containerDir != null and !containerDir.trim().equals('')}">  
     
             <!-- Prepare logging output files -->
@@ -429,8 +427,9 @@
                  <ant:touch file="${maven.build.dir}/logging_server.properties"/>
                  <j:set var="logging_server" value="${maven.build.dir}/logging_server.properties"/>
             </j:if>
+
             <j:if test="${context.getVariable('cactus.logging.config.client') != null}">
-                 <j:set var="logging_client" value="${context.getVariable('cactus.logging.config.client')}"/>
+                 <j:set var="logging_client" value="${cactus.logging.config.client}"/>
             </j:if>
             <j:if test="${context.getVariable('cactus.logging.config.client') == null}">
                  <ant:touch file="${maven.build.dir}/logging_client.properties"/>
@@ -490,11 +489,11 @@
        Start up container.
      ========================================================================
   -->
-  <goal name="cactus:start-container" prereqs="cactus:init, cactus:prepare"
+  <goal name="cactus:start-container" 
       description="Start up a test container">
         <ant:echo> "Start up: ${containerId}" </ant:echo>
         <ant:cargo  id="${containerId}" containerId="${containerId}" action="start"
-            home="${containerDir}/" wait="false"
+            home="${containerDir}/"
             log="${maven.build.dir}/${containerId}/cargo_start.log"
             output="${maven.build.dir}/${containerId}/container_start.log">
             <ant:configuration dir="${configdir}">
@@ -518,6 +517,7 @@
             </ant:extraclasspath>
 
           </ant:cargo>
+
   </goal>
             
   <!--
@@ -563,7 +563,7 @@
   	  prereqs="cactus:init,cactus:prepare,cactus:init-report,cactus:cactifywar"
       description="Run all Cactus tests (packaged in a WAR)">
 
-   <ant:echo> ----Running cactus:test-war----- </ant:echo>
+    <ant:echo> ----Running cactus:test-war----- </ant:echo>
    <j:set var="hasWar" value="true"/>
    <j:set var="hasEar" value="false"/>
     <cactus:scanner var="cactusScanner" classpathref="cactus.scanner.classpath">
@@ -572,50 +572,74 @@
         <exclude name="${cactus.test.excludes}"/>
       </fileset>
     </cactus:scanner>
-    <j:forEach var="containerGroupId" items="${cargo.containers}">
-        <j:set var="containerGroupName" value="cargo.container.${containerGroupId}.containerId"/>
-        <j:set var="containerId" value="${context.getVariable(containerGroupName)}"/>
+    <j:forEach var="containerId" items="${cargo.containers}">
         <j:set var="containerDirVar" value="cactus.home.${containerId}"/>
         <j:set var="containerDir" value="${context.getVariable(containerDirVar)}"/>
-        
+        <ant:echo> ${containerDir}</ant:echo>
         <j:if test="${containerDir != null and !containerDir.trim().equals('')}">  
-          <attainGoal name="cactus:start-container"/>
            
-          <!--Using cactustest to carry out the test -->
-          <ant:echo> "Running test ..." +!${reports.dir}! + !${cactus.src.dir}!</ant:echo>
-          
+          <!--attainGoal name="cactus:start-container"/-->
+           
+          <ant:echo> "Running test ..." </ant:echo>
           <cactus warfile="${cactus.war}" printsummary="yes">
-            			
-            <ant:classpath>
+
+              <!-- Pass any user-defined system properties -->
+              <util:tokenize var="listOfProperties" delim=" ">
+                  ${cactus.sysproperties}
+              </util:tokenize>
+              <j:forEach var="someProperty" items="${listOfProperties}">
+              <ant:sysproperty key="${someProperty}" 
+                  value="${context.getVariable(someProperty)}"/>
+              </j:forEach>
+              
+              <containerset>
+                <cargo  id="${containerId}" containerId="${containerId}"
+                    home="${containerDir}/"
+                    log="${maven.build.dir}/${containerId}/cargo_start.log"
+                    output="${maven.build.dir}/${containerId}/container_start.log">
+                    <configuration dir="${configdir}">
+                        <property name="cargo.servlet.port" value="8080"/>
+                        <property name="cargo.logging" value="high"/>
+                        
+                        <j:if test="${hasWar}">
+                           <deployable type="war" file="${cactus.war}"/>
+                        </j:if>
+                        <j:if test="${hasEar}">
+                            <deployable type="ear" file="${cactus.ear}"/>
+                        </j:if> 
+                                       
+                           <!--<ant:ear earfile="${cactus.ear}"/> -->
+                    </configuration>	
+                    <syspropertyset file="${logging_server}"/>
+                    <!-- Additional jars that will be added to the classpath used to start 
+                         the container -->
+                    <extraclasspath>
+                    <!-- pathelement location="${clover.jar}"/ -->
+                    </extraclasspath>
+        
+                  </cargo>
+              </containerset>
+          
+              <ant:classpath>
               <ant:pathelement path="${maven.build.dest}"/>
               <ant:pathelement location="${cactus.target.classes.dir}"/>
               <ant:path refid="maven.dependency.classpath"/>
               <ant:path refid="cactus.classpath"/>
-            </ant:classpath>            			
-            			
-            <containerset>
-              <cargo containerId="${containerId}" home="${containerDir}/" wait="false" output="${maven.build.dir}/${containerId}/container_start.log" log="${maven.build.dir}/${containerId}/cargo_start.log">
-        			 <configuration>
-        						<property name="cargo.servlet.port" value="${cactus.port}"/>
-        						<property name="cargo.logging" value="high"/>
-        						<deployable type="war" file="${cactus.war}"/>
-        			 </configuration>
-        			</cargo>
-            </containerset>
-  			
-  			    <formatter type="xml"/>
-      			<batchtest todir="target/">
-      				<fileset dir="${cactus.src.dir}">
-      					<include name="**/Test*.java"/>
-      				</fileset>
-      			</batchtest>
-            <!--j:forEach var="test" items="${cactusScanner.iterator()}">
-                <test name="${test}"/>
-            </j:forEach-->   
-		    </cactus>
-           
-      </j:if>
+              </ant:classpath>
+              <formatter type="plain" usefile="${cactus.junit.usefile}"/>
+              <formatter type="xml"/>   
+              
+              <j:forEach var="test" items="${cactusScanner.iterator()}">
+                  <test name="${test}"/>
+              </j:forEach>              
+                                
+          </cactus> 
+        
+          <!--attainGoal name="cactus:stop-container"/!-->
+
+        </j:if>
     </j:forEach>
+          
   </goal>
   
   <!--
@@ -646,15 +670,37 @@
         <ant:echo> ${containerDir}</ant:echo>
         <j:if test="${containerDir != null and !containerDir.trim().equals('')}">  
        
-        <attainGoal name="cactus:start-container"/>
+        <!--attainGoal name="cactus:start-container"/-->
    
-          <!--Using cactustest to carry out the test -->
           <ant:echo> "Running test ..." </ant:echo>
-          <cactustests fork="yes" failureproperty="tests.failed" haltonerror="true" 
-              servletport="${cactus.port}"
-              warfile="${cactus.war}"
-              todir="${cactus.reports.dir}/${containerId}" 
-              logs="${logging_client}">
+          <cactus fork="yes" failureproperty="tests.failed" haltonerror="true">
+              <containerset>
+                <cargo  id="${containerId}" containerId="${containerId}"
+                    home="${containerDir}/"
+                    log="${maven.build.dir}/${containerId}/cargo_start.log"
+                    output="${maven.build.dir}/${containerId}/container_start.log">
+                    <configuration dir="${configdir}">
+                        <property name="cargo.servlet.port" value="8080"/>
+                        <property name="cargo.logging" value="high"/>
+                        
+                        <j:if test="${hasWar}">
+                           <deployable type="war" file="${cactus.war}"/>
+                        </j:if>
+                        <j:if test="${hasEar}">
+                            <deployable type="ear" file="${cactus.ear}"/>
+                        </j:if> 
+                                       
+                           <!--<ant:ear earfile="${cactus.ear}"/> -->
+                    </configuration>	
+                    <syspropertyset file="${logging_server}"/>
+                    <!-- Additional jars that will be added to the classpath used to start 
+                         the container -->
+                    <extraclasspath>
+                    <!-- pathelement location="${clover.jar}"/ -->
+                    </extraclasspath>
+        
+                  </cargo>
+              </containerset>
 
               <!-- Pass any user-defined system properties -->
               <util:tokenize var="listOfProperties" delim=" ">
@@ -676,9 +722,9 @@
               <!-- Run only a single testcase passed in via -Dtestcase=my.single.TestCase-->
               <ant:test name="${testcase}"/>    
                                 
-          </cactustests> 
+          </cactus> 
 
-          <attainGoal name="cactus:stop-container"/>
+          <!--attainGoal name="cactus:stop-container"/-->
 
         </j:if>
     </j:forEach>    
@@ -714,15 +760,10 @@
         <ant:echo> ${containerDir}</ant:echo>
         <j:if test="${containerDir != null and !containerDir.trim().equals('')}">  
         
-        <attainGoal name="cactus:start-container"/>
+        <!--attainGoal name="cactus:start-container"-->
    
-          <!--Using cactustest to carry out the test -->
           <ant:echo> "Running test ..." </ant:echo>
-          <cactustests fork="yes" failureproperty="tests.failed" haltonerror="true" 
-              servletport="${cactus.port}"
-              warfile="${cactus.war}"
-              todir="${cactus.reports.dir}/${containerId}" 
-              logs="${logging_client}">
+          <cactus fork="yes" failureproperty="tests.failed" haltonerror="true">
 
               <!-- Pass any user-defined system properties -->
               <util:tokenize var="listOfProperties" delim=" ">
@@ -742,6 +783,34 @@
               <ant:formatter type="plain" usefile="${cactus.junit.usefile}"/>
               <ant:formatter type="xml"/>
 
+              <containerset>
+                <cargo  id="${containerId}" containerId="${containerId}"
+                    home="${containerDir}/"
+                    log="${maven.build.dir}/${containerId}/cargo_start.log"
+                    output="${maven.build.dir}/${containerId}/container_start.log">
+                    <configuration dir="${configdir}">
+                        <property name="cargo.servlet.port" value="8080"/>
+                        <property name="cargo.logging" value="high"/>
+                        
+                        <j:if test="${hasWar}">
+                           <deployable type="war" file="${cactus.war}"/>
+                        </j:if>
+                        <j:if test="${hasEar}">
+                            <deployable type="ear" file="${cactus.ear}"/>
+                        </j:if> 
+                                       
+                           <!--<ant:ear earfile="${cactus.ear}"/> -->
+                    </configuration>	
+                    <syspropertyset file="${logging_server}"/>
+                    <!-- Additional jars that will be added to the classpath used to start 
+                         the container -->
+                    <extraclasspath>
+                    <!-- pathelement location="${clover.jar}"/ -->
+                    </extraclasspath>
+        
+                  </cargo>
+              </containerset>
+
               <!-- Run all testcases matched via -Dtestmatch=FooTest-->
               <ant:batchtest>
                   <ant:fileset dir="${cactus.src.dir}">
@@ -749,9 +818,9 @@
                   </ant:fileset>
               </ant:batchtest>    
                                 
-          </cactustests> 
+          </cactus> 
 
-          <attainGoal name="cactus:stop-container"/>
+          <!--attainGoal name="cactus:stop-container"/-->
 
         </j:if>
     </j:forEach>    
@@ -870,16 +939,41 @@
         
         <j:if test="${containerDir != null and !containerDir.trim().equals('')}">  
         
-        <attainGoal name="cactus:start-container"/>
+        <!--attainGoal name="cactus:start-container"/-->
    
-          <!--Using cactustest to carry out the test -->
           <ant:echo> "Running test ..." </ant:echo>
-          <cactustests fork="yes" failureproperty="tests.failed" haltonerror="true" 
+          <cactus fork="yes" failureproperty="tests.failed" haltonerror="true" 
               servletport="${cactus.port}"
               earfile="${cactus.ear}"
               todir="${cactus.reports.dir}/${containerId}" 
               logs="${logging_client}">
-
+              <containerset>
+                <cargo  id="${containerId}" containerId="${containerId}"
+                    home="${containerDir}/"
+                    log="${maven.build.dir}/${containerId}/cargo_start.log"
+                    output="${maven.build.dir}/${containerId}/container_start.log">
+                    <configuration dir="${configdir}">
+                        <property name="cargo.servlet.port" value="8080"/>
+                        <property name="cargo.logging" value="high"/>
+                        
+                        <j:if test="${hasWar}">
+                           <deployable type="war" file="${cactus.war}"/>
+                        </j:if>
+                        <j:if test="${hasEar}">
+                            <deployable type="ear" file="${cactus.ear}"/>
+                        </j:if> 
+                                       
+                           <!--<ant:ear earfile="${cactus.ear}"/> -->
+                    </configuration>	
+                    <syspropertyset file="${logging_server}"/>
+                    <!-- Additional jars that will be added to the classpath used to start 
+                         the container -->
+                    <extraclasspath>
+                    <!-- pathelement location="${clover.jar}"/ -->
+                    </extraclasspath>
+        
+                  </cargo>
+              </containerset>
               <!-- Pass any user-defined system properties -->
               <util:tokenize var="listOfProperties" delim=" ">
                   ${cactus.sysproperties}
@@ -902,9 +996,9 @@
                    <test name="${test}"/>
               </j:forEach>    
                                 
-          </cactustests> 
+          </cactus> 
 
-          <attainGoal name="cactus:stop-container"/>
+          <!--attainGoal name="cactus:stop-container"/-->
 
         </j:if>
     </j:forEach>    

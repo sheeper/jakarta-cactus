@@ -18,7 +18,7 @@
  * ========================================================================
  */
 
-package org.apache.cactus.test;
+package org.apache.cactus.integration.maven.test;
 
 import java.util.Map;
 
