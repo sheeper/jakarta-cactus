@@ -34,8 +34,8 @@ import org.apache.cactus.integration.ant.container.ContainerWrapper;
 import org.apache.cactus.integration.ant.deployment.DeployableFile;
 import org.apache.cactus.integration.ant.deployment.EarParser;
 import org.apache.cactus.integration.ant.deployment.WarParser;
-
 import org.apache.cactus.integration.ant.util.PropertySet;
+
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.taskdefs.optional.junit.JUnitTask;
@@ -263,6 +263,9 @@ public class CactusTask extends JUnitTask
     public void addSysproperty(Environment.Variable theProperty)
     {
         addCactusServerProperty(theProperty);
+        if(theProperty.getKey() != null && !theProperty.getKey().trim().equals("") &&
+        		theProperty.getValue() != null && !theProperty.getValue().trim().equals(""))	
+        	addCactusClientProperty(theProperty.getKey(), theProperty.getValue());
         super.addSysproperty(theProperty);
     }
 
@@ -346,6 +349,13 @@ public class CactusTask extends JUnitTask
      */
     private void addCactusServerProperty(Variable theProperty)
     {
+    	//TODO We always need to check this below, because null properties
+    	// break the cargo execution
+        if(theProperty.getKey() == null || theProperty.getKey().trim().equals("")||
+        		theProperty.getValue() == null || theProperty.getValue().trim().equals("")) {
+        	return;
+        }
+    	
         log("Adding Cactus server system property [" 
             + theProperty.getKey() + "] with value [" 
             + theProperty.getValue() + "]", Project.MSG_VERBOSE);
