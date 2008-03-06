@@ -20,7 +20,7 @@
   <goal name="testPlugin" prereqs="clean">
     <echo>NOTE: this test is only effective if you set at least one container to run cactus tests</echo>
     <echo>Set maven.compile.target as ${maven.compile.target}</echo>
-    <attainGoal name="cactus:test-ear"/>
+    <!--attainGoal name="cactus:test-ear"/-->
     <attainGoal name="cactus:test-war"/>
     <attainGoal name="cactus:single"/>
     <attainGoal name="cactus:match"/>
