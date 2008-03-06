@@ -192,8 +192,6 @@ public class ContainerWrapper
     {
         if (theProperties != null) 
         {
-            //TODO: If uncommented: the contextURL property has no 
-            //value and breaks the cargo build;
             ((InstalledLocalContainer) container).setSystemProperties(theProperties);
         }
     }
