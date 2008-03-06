@@ -809,8 +809,8 @@ samples/servlet/src/main/resources/README -text
 samples/servlet/src/main/resources/conf/jboss3x/jboss-web.xml -text
 samples/servlet/src/main/resources/conf/jboss3x/roles.properties -text
 samples/servlet/src/main/resources/conf/jboss3x/users.properties -text
-samples/servlet/src/main/resources/logging_client.properties.sample -text
-samples/servlet/src/main/resources/logging_server.properties.sample -text
+samples/servlet/src/main/resources/conf/logging_client.properties -text
+samples/servlet/src/main/resources/conf/logging_server.properties -text
 samples/servlet/src/main/resources/scripts/build.xml -text
 samples/servlet/src/main/webapp/WEB-INF/cactus-report.xsl -text
 samples/servlet/src/main/webapp/WEB-INF/cactus-web.xml -text
