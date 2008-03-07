@@ -734,6 +734,7 @@ samples/jetty/src/main/webapp/test/test.jsp -text
 samples/pom.xml -text
 samples/servlet/build.xml -text
 samples/servlet/pom.xml -text
+samples/servlet/src/main/cactus/org/apache/cactus/integration/maven/test/TestProperties.java -text
 samples/servlet/src/main/cactus/org/apache/cactus/sample/servlet/TestSampleBodyTag.java -text
 samples/servlet/src/main/cactus/org/apache/cactus/sample/servlet/TestSampleFilter.java -text
 samples/servlet/src/main/cactus/org/apache/cactus/sample/servlet/TestSampleServlet.java -text
@@ -745,6 +746,7 @@ samples/servlet/src/main/cactus/org/apache/cactus/sample/servlet/unit/TestClient
 samples/servlet/src/main/cactus/org/apache/cactus/sample/servlet/unit/TestCookie.java -text
 samples/servlet/src/main/cactus/org/apache/cactus/sample/servlet/unit/TestFilterHttpHeaders.java -text
 samples/servlet/src/main/cactus/org/apache/cactus/sample/servlet/unit/TestGlobalBeginEnd.java -text
+samples/servlet/src/main/cactus/org/apache/cactus/sample/servlet/unit/TestHtmlUnitIntegration.java -text
 samples/servlet/src/main/cactus/org/apache/cactus/sample/servlet/unit/TestHttpHeaders.java -text
 samples/servlet/src/main/cactus/org/apache/cactus/sample/servlet/unit/TestHttpParameters.java -text
 samples/servlet/src/main/cactus/org/apache/cactus/sample/servlet/unit/TestHttpRequest.java -text
