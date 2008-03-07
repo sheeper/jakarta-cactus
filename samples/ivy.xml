@@ -8,7 +8,7 @@
 		
 		<dependency org="commons-httpclient" name="commons-httpclient" rev="3.1"/>
 		<dependency org="commons-logging" name="commons-logging" rev="1.0.4"/>
-		
+                <dependency org="ant" name="ant" rev="1.6.5"/>		
 		<dependency org="junit" name="junit" rev="3.8.2"/>
 		<dependency org="httpunit" name="httpunit" rev="1.6"/>
 		<dependency org="htmlunit" name="htmlunit" rev="1.10"/>
