@@ -24,7 +24,7 @@
      <attainGoal name="clean"/>
   </goal>
 
-  <goal name="testPropertiesDefined">
+	<goal name="testPropertiesDefined" prereqs="testCustomProperties">
     <j:if test="${pom.getPluginContext('cactus-maven').getVariable('cactus.war') == null}">
       <fail>Property cactus.war is null</fail>
     </j:if>
