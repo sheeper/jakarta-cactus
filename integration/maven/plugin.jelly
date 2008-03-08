@@ -116,8 +116,8 @@
     <ant:taskdef name="junit"
         classname="org.apache.tools.ant.taskdefs.optional.junit.JUnitTask"/>
 
-    <ant:property name="cactus.target.classes.dir"
-        value="${maven.build.dir}/test-cactus-classes"/>
+    <!--ant:property name="cactus.target.classes.dir"
+        value="${maven.build.dir}/test-cactus-classes"/-->
 
     <!-- Destination locations for the build -->
     <property name="target.dir" location="target"/>
@@ -130,6 +130,8 @@
         location="${target.dir}/test-reports"/>
 
 
+    <ant:property name="cactus.target.classes.dir"
+        	value="${cactus.test.dest}"/>
 
     <util:available file="${cactus.src.dir}">
       <j:set var="cactusSourcePresent" value="true"/>
