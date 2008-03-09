@@ -20,7 +20,7 @@
 package org.apache.cactus.eclipse.runner.containers.jetty;
 
 import java.io.File;
-import java.net.MalformedURLException;
+import java.io.IOException;
 import java.net.URL;
 
 import org.apache.cactus.eclipse.runner.containers.IContainerManager;
@@ -34,6 +34,7 @@ import org.apache.tools.ant.taskdefs.Copy;
 import org.apache.tools.ant.types.FileSet;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.jdt.core.IJavaProject;
 
 /**
@@ -52,8 +53,8 @@ public class JettyContainerManager implements IContainerManager
     /**
      * The name of the jspRedirector.jsp file
      */
-    private static final String JSPREDIRECTOR_PATH =
-        "C:/eclipse/plugins/org.apache.cactus.eclipse.runner-1.8.0/lib/confs/jspRedirector.jsp";
+    private static final Path JSPREDIRECTOR_PATH =
+		 new Path("/lib/confs/jspRedirector.jsp");
 
     /**
      * Directory containg the web application for Jetty
@@ -97,10 +98,8 @@ public class JettyContainerManager implements IContainerManager
         jettyWebappDir.mkdir();
         copyCactusWebappResources(jettyWebappDir);
         Webapp webapp = WebappPlugin.getWebapp(theJavaProject);
-        CactusPlugin.log("Webapp"+ webapp.toString());
         webapp.init();
         File webappDir = webapp.getAbsoluteDir();
-        CactusPlugin.log("Webapp.dir"+webappDir.getAbsolutePath());
         if (webappDir != null && webappDir.exists())
         {
             copyContents(webappDir, jettyWebappDir);
@@ -121,21 +120,21 @@ public class JettyContainerManager implements IContainerManager
         copy.setProject(antProject);
         copy.setTodir(theDir);
         CactusPlugin thePlugin = CactusPlugin.getDefault();
-        URL jspRedirectorURL = null;
-        try{
-        	jspRedirectorURL = new URL("file://"+JSPREDIRECTOR_PATH);
-        } catch(MalformedURLException mde) {
-            throw CactusPlugin.createCoreException(
-                    "CactusLaunch.message.prepare.error.plugin.file",
-                    " : " + mde.getMessage(),
-                    null);
-        }
+        URL jspRedirectorURL = thePlugin.find(JSPREDIRECTOR_PATH);
         if (jspRedirectorURL == null)
         {
             throw CactusPlugin.createCoreException(
                 "CactusLaunch.message.prepare.error.plugin.file",
                 " : " + JSPREDIRECTOR_PATH,
                 null);
+        }
+        try{
+        	jspRedirectorURL = Platform.asLocalURL(jspRedirectorURL);
+        } catch(IOException e) {
+            throw CactusPlugin.createCoreException(
+                    "CactusLaunch.message.prepare.error.plugin.file",
+                    " : " + e.getMessage(),
+                    null);
         }
         CactusPlugin.log(jspRedirectorURL.getPath());
         File jspRedirector = new File(jspRedirectorURL.getPath());

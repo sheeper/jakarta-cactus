@@ -20,6 +20,7 @@
 package org.apache.cactus.eclipse.runner.launcher;
 
 import java.net.URL;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 
@@ -136,14 +137,12 @@ public class CactusLaunchConfiguration
                 try
                 {
                     CactusPlugin.getContainerManager(true).prepare(javaProject);
-                    CactusPlugin.log("Preapred successfully!!!!!!!!!!!!!!!!!!");
                     Display.getDefault().asyncExec(new Runnable()
                     {
                         public void run()
                         {
                             try
                             {
-                            	CactusPlugin.log("After this breaks.");
                                 CactusLaunchConfiguration.super.launch(
                                     cactusConfig,
                                     theMode,
@@ -315,7 +314,6 @@ public class CactusLaunchConfiguration
         {
             return;
         }
-        CactusPlugin.log("Test run ended");
         try
         {
             CactusPlugin.getContainerManager(false).tearDown();

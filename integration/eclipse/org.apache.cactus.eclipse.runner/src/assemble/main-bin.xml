@@ -28,6 +28,10 @@
 				<include>httpunit:httpunit:jar</include>
 				<include>junit:junit:jar</include>
 				<include>log4j:log4j:jar</include>
+				<include>jsp</include>
+				<include>tomcat:jasper-compiler:jar</include>
+				<include>tomcat:jasper-runtime:jar</include>
+				<include>javax.servlet:jsp-api:jar</include>
 			</includes>
 			<unpack>false</unpack>
 		</dependencySet>

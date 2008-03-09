@@ -96,10 +96,7 @@ public class JettyCactusLaunchConfiguration
     private IClasspathEntry[] getJettyClasspath() throws CoreException, MalformedURLException
     {
         CactusPlugin thePlugin = CactusPlugin.getDefault();
-        //CactusPlugin.log("Just here:"+LibraryHelper.getLibPath().toString());
-        
-        //URL libURL = thePlugin.find(LibraryHelper.getLibPath());
-        
+       
         IPath libURL = LibraryHelper.getLibPath();
         
         if (libURL == null)
@@ -145,7 +142,7 @@ public class JettyCactusLaunchConfiguration
                 + VM_ARG_SEPARATOR;
         }
         cactusVMArgs += "-Dcactus.initializer="
-            + "org.apache.cactus.extension.jetty.JettyInitializer";
+            + "org.apache.cactus.extension.jetty.JettyTestSetup";
         return cactusVMArgs;
     }
 
@@ -174,10 +171,8 @@ public class JettyCactusLaunchConfiguration
     private IClasspathEntry[] getLibrariesPaths(
         IPluginDescriptor theDescriptor, String thePackagePrefix) throws MalformedURLException
     {
-    	CactusPlugin.log("PPrefix"+thePackagePrefix);
         Vector result = new Vector();
         URL root = new URL(("file://"+JavaCore.getClasspathVariable("ECLIPSE_HOME").toFile().toURL().getPath()+theDescriptor.getInstallURL().getPath()).replaceAll("plugin","plugins"));
-        CactusPlugin.log("Root"+root.getPath());
         ILibrary[] libraries = theDescriptor.getRuntimeLibraries();
         
         for (int i = 0; i < libraries.length; i++)
@@ -194,7 +189,6 @@ public class JettyCactusLaunchConfiguration
                     result.add(
                         LibraryHelper.getIClasspathEntry(
                             Platform.asLocalURL(url).getPath()));
-                    CactusPlugin.log("Added");
                 }
                 catch (IOException e)
                 {
@@ -215,9 +209,6 @@ public class JettyCactusLaunchConfiguration
      */
     private boolean isContained(String thePackagePrefix, ILibrary theCurrentLib)
     {
-        
-    	//CactusPlugin.log("Path of the lib:"+theCurrentLib.getPath().toString());
-    	
     	String[] prefixes = theCurrentLib.getPackagePrefixes();
         if(prefixes==null || prefixes.length==0) {
         	//CactusPlugin.log("lib: "+theCurrentLib.getPath().toString()+" is not");

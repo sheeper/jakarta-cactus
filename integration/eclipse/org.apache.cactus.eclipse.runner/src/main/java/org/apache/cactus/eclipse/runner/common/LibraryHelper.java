@@ -20,10 +20,12 @@
 package org.apache.cactus.eclipse.runner.common;
 
 import java.io.File;
+import java.io.IOException;
 
 import org.apache.cactus.eclipse.runner.ui.CactusPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.JavaCore;
 
@@ -136,18 +138,13 @@ public class LibraryHelper
     public static IPath getLibPath()
     {
         CactusPlugin thePlugin = CactusPlugin.getDefault();
-        String plPath = "";
-        //URL antLibURL = thePlugin.getDefault().find(new Path(CACTUS_LIBRARY_PATH));
         
-        //We have to replace the underscore because our jar is generated with Maven, and 
-        //Maven places dashes as a delimiter, between the version and the artifactId.
         try {
-            plPath = JavaCore.getClasspathVariable("ECLIPSE_HOME").toFile().toURL().getPath()+
-        		CactusPlugin.getDefault().getDescriptor().getInstallURL().getFile().replaceAll("plugin","plugins").replaceAll("_", "-"); 
-        }  catch(Exception ex) {
-        	CactusPlugin.log(ex);
+				return new Path(Platform.asLocalURL(thePlugin.getBundle().getEntry("/" +CactusPlugin.CACTUS_LIBRARY_PATH)).getPath());
+        }  catch(IOException ex) {
+			   CactusPlugin.log(ex);	// throwing an exception would be preferable
         }
-        return new Path(plPath.concat(CactusPlugin.CACTUS_LIBRARY_PATH));
+        return new Path(CactusPlugin.CACTUS_LIBRARY_PATH);
     }
 
     /**

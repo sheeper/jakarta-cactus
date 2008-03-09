@@ -253,7 +253,6 @@ public class CactusPlugin extends AbstractUIPlugin
         }
         if (CactusPreferences.getJetty())
         {
-        	CactusPlugin.log("Using Jetty...");
             containerManager = new JettyContainerManager();
             return containerManager;
         }

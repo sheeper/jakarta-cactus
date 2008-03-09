@@ -25,6 +25,7 @@ import java.util.Vector;
 import org.apache.cactus.eclipse.runner.common.JarFilenameFilter;
 import org.eclipse.core.internal.resources.Project;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
@@ -68,17 +69,16 @@ public class CactifyActionDelegate implements IObjectActionDelegate
         if (part != null && selectedProject != null)
         {
             CactusPlugin thePlugin = CactusPlugin.getDefault();
-            String libPath = ""; 
+				File commonLibDir = null;
+				File clientLibDir = null;
+
             try {
-            	libPath = JavaCore.getClasspathVariable("ECLIPSE_HOME").toFile().toURL().getPath()+
-    				CactusPlugin.getDefault().getDescriptor().getInstallURL().getFile().replaceAll("plugin","plugins").replaceAll("_", "-").concat(CactusPlugin.CACTUS_LIBRARY_PATH); 
+					commonLibDir = new File(Platform.asLocalURL(thePlugin.getBundle().getEntry("/" +CactusPlugin.CACTUS_LIBRARY_PATH +"/" +CactusPlugin.CACTUS_COMMON_LIBRARY_PATH)).getPath());
+					clientLibDir = new File(Platform.asLocalURL(thePlugin.getBundle().getEntry("/" +CactusPlugin.CACTUS_LIBRARY_PATH +"/" +CactusPlugin.CACTUS_CLIENT_LIBRARY_PATH)).getPath());
             } catch (Exception ex) {
             	CactusPlugin.log(ex);
             }
             
-            File commonLibDir = new File(libPath.concat(CactusPlugin.CACTUS_COMMON_LIBRARY_PATH));
-            File clientLibDir = new File(libPath.concat(CactusPlugin.CACTUS_CLIENT_LIBRARY_PATH));
-	    CactusPlugin.log(libPath);
             IClasspathEntry[] commonEntries =
                 getLibClassPathEntries(commonLibDir);
             IClasspathEntry[] clientEntries =

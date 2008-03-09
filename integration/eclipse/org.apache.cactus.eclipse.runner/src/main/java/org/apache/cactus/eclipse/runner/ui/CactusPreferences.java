@@ -83,7 +83,6 @@ public class CactusPreferences
                 .append("/")
                 .append(store.getString(CONTEXT_URL_PATH));
         String result = buf.toString();
-        CactusPlugin.log("Cactus preference : ContextURL = [" + result + "]");
         return result;
     }
 
@@ -95,8 +94,6 @@ public class CactusPreferences
     {
         IPreferenceStore store = CactusPlugin.getDefault().getPreferenceStore();
         int result = store.getInt(CONTEXT_URL_PORT);
-        CactusPlugin.log(
-            "Cactus preference : ContextURLPort = [" + result + "]");
         return result;
     }
 
@@ -108,8 +105,6 @@ public class CactusPreferences
     {
         IPreferenceStore store = CactusPlugin.getDefault().getPreferenceStore();
         String result = store.getString(CONTEXT_URL_PATH);
-        CactusPlugin.log(
-            "Cactus preference : ContextURLPath = [" + result + "]");
         return result;
     }
 
@@ -121,7 +116,6 @@ public class CactusPreferences
     {
         IPreferenceStore store = CactusPlugin.getDefault().getPreferenceStore();
         String result = store.getString(TEMP_DIR);
-        CactusPlugin.log("Cactus preference : TempDir = [" + result + "]");
         return result;
     }
 
@@ -133,8 +127,6 @@ public class CactusPreferences
     {
         IPreferenceStore store = CactusPlugin.getDefault().getPreferenceStore();
         String result = store.getString(theContainerId);
-        CactusPlugin.log(
-            "Cactus preference : " + theContainerId + "= [" + result + "]");
         return result;
     }
 
@@ -145,7 +137,6 @@ public class CactusPreferences
     {
         IPreferenceStore store = CactusPlugin.getDefault().getPreferenceStore();
         boolean result = store.getBoolean(JETTY);
-        CactusPlugin.log("Cactus preference : Jetty = [" + result + "]");
         return result;
     }
 
@@ -156,7 +147,6 @@ public class CactusPreferences
     {
         IPreferenceStore store = CactusPlugin.getDefault().getPreferenceStore();
         String result = store.getString(JETTY_XML);
-        CactusPlugin.log("Cactus preference : jetty.xml = [" + result + "]");
         return result;
     }
 
@@ -178,8 +168,6 @@ public class CactusPreferences
                 }
 
             }
-        CactusPlugin.log(
-            "Cactus preference : ContainerHomes = [" + containerHomes + "]");
         return containerHomes;
     }
 }

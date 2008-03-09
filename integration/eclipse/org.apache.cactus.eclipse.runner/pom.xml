@@ -255,6 +255,21 @@
 			<artifactId>org.mortbay.jetty</artifactId>
 			<version>5.1.9</version>
 		</dependency>	
+		<dependency>
+		  <groupId>tomcat</groupId>
+			<artifactId>jasper-compiler</artifactId>
+			<version>4.1.30</version>
+		</dependency>
+		<dependency>
+		  <groupId>tomcat</groupId>
+			<artifactId>jasper-runtime</artifactId>
+			<version>4.1.30</version>
+		</dependency>
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>jsp-api</artifactId>
+      <version>2.0</version>
+    </dependency>
 	</dependencies>
 	<build>
 		<plugins>
