@@ -178,11 +178,15 @@ public class CactifyActionDelegate implements IObjectActionDelegate
         for (int i = 0; i < theSecondArray.length; i++)
         {
             IClasspathEntry currentEntry = theSecondArray[i];
+            String currentEntryFileName = currentEntry.getPath().toFile().getName();
             boolean entryAlreadyExists = false;
+            boolean isFile = false;
             for (int j = 0; j < theFirstArray.length; j++)
             {
                 IClasspathEntry comparedEntry = theFirstArray[j];
-                if (comparedEntry.getPath().equals(currentEntry.getPath()))
+                isFile = comparedEntry.getPath().toFile().getAbsolutePath().endsWith(".jar");
+                String comparedFileName = comparedEntry.getPath().toFile().getName();
+                if (comparedEntry.getPath().equals(currentEntry.getPath()) || (comparedFileName.equals(currentEntryFileName) && isFile))
                 {
                     entryAlreadyExists = true;
                     break;

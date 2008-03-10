@@ -64,8 +64,15 @@
     <fileSet>
       <directory>src/conf</directory>
       <outputDirectory>/</outputDirectory>  
+      <excludes>
+        <exclude>jspRedirector.jsp</exclude>
+      </excludes>
+    </fileSet>
+    <fileSet>
+      <directory>src/conf</directory>
+      <outputDirectory>lib/conf</outputDirectory>  
       <includes>
-        <include>*.*</include>
+        <include>jspRedirector.jsp</include>
       </includes>
     </fileSet>
     <fileSet>

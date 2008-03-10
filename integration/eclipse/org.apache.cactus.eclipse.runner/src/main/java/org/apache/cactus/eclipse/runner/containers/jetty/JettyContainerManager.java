@@ -53,8 +53,8 @@ public class JettyContainerManager implements IContainerManager
     /**
      * The name of the jspRedirector.jsp file
      */
-    private static final Path JSPREDIRECTOR_PATH =
-		 new Path("/lib/confs/jspRedirector.jsp");
+    private static final String JSPREDIRECTOR_PATH =
+		 new String("lib/confs/jspRedirector.jsp");
 
     /**
      * Directory containg the web application for Jetty
@@ -120,7 +120,12 @@ public class JettyContainerManager implements IContainerManager
         copy.setProject(antProject);
         copy.setTodir(theDir);
         CactusPlugin thePlugin = CactusPlugin.getDefault();
-        URL jspRedirectorURL = thePlugin.find(JSPREDIRECTOR_PATH);
+        URL jspRedirectorURL = null;
+		try {
+			jspRedirectorURL = Platform.asLocalURL(thePlugin.getBundle().getEntry(JSPREDIRECTOR_PATH));
+		} catch (IOException e1) {
+			//do nothing the exception is called later.
+		}
         if (jspRedirectorURL == null)
         {
             throw CactusPlugin.createCoreException(
@@ -136,7 +141,7 @@ public class JettyContainerManager implements IContainerManager
                     " : " + e.getMessage(),
                     null);
         }
-        CactusPlugin.log(jspRedirectorURL.getPath());
+        //CactusPlugin.log(jspRedirectorURL.getPath());
         File jspRedirector = new File(jspRedirectorURL.getPath());
         FileSet fileSet = new FileSet();
         fileSet.setFile(jspRedirector);
