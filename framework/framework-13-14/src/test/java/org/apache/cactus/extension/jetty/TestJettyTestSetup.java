@@ -79,7 +79,7 @@ public class TestJettyTestSetup extends TestCase
     /**
      * Object to unit test.
      */
-    private JettyTestSetup jettyTestSetup; 
+    private Jetty5xTestSetup jettyTestSetup; 
 
     /**
      * Fake test case object used only to construct an instance of 
@@ -115,7 +115,7 @@ public class TestJettyTestSetup extends TestCase
         mockServletConfiguration.matchAndReturn("getDefaultRedirectorURL",
             testURL.getPath());
         
-        jettyTestSetup = new JettyTestSetup(new SampleTestCase(),
+        jettyTestSetup = new Jetty5xTestSetup(new SampleTestCase(),
             configuration, servletConfiguration, filterConfiguration); 
         
         // Ensure that the Jetty server is not already started.
