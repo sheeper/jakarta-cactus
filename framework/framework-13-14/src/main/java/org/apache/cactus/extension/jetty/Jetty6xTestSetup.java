@@ -374,7 +374,7 @@ public class Jetty6xTestSetup extends TestSetup
         		.invoke(connector, new Object[] {"" + contextURL.getHost().toString()});
         
         server.getClass().getMethod("addConnector", 
-            new Class[] {org.mortbay.jetty.Connector.class})
+            new Class[] {ClassLoaderUtils.loadClass("org.mortbay.jetty.Connector", this.getClass())})
             .invoke(server, new Object[] {connector});
         
         return server;
