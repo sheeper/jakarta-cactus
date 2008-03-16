@@ -175,7 +175,7 @@
       <sysproperty key="cactus.contextURL"
           value="http://localhost:${cargo.servlet.port}/test"/>
       <sysproperty key="cactus.jetty.resourceDir" file="${src.webapp.dir}"/>
-      <sysproperty key="cactus.jetty.config" file="${src.conf.dir}/jetty.xml"/>
+      <sysproperty key="cactus.jetty.config" file="${src.conf.dir}/5x/jetty.xml"/>
       <classpath>
         <path refid="cactus.classpath"/>
         <pathelement location="${build.dir}"/>
