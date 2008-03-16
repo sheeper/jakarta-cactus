@@ -52,7 +52,7 @@ import org.apache.cactus.server.ServletTestRedirector;
  * 
  * @version $Id: JettyTestSetup.java 239036 2004-08-17 10:35:57Z vmassol $
  */
-public class JettyTestSetup extends TestSetup
+public class Jetty5xTestSetup extends TestSetup
 {
     /**
      * Name of optional system property that points to a Jetty XML
@@ -118,7 +118,7 @@ public class JettyTestSetup extends TestSetup
     /**
      * @param theTest the test we are decorating (usually a test suite)
      */
-    public JettyTestSetup(Test theTest)
+    public Jetty5xTestSetup(Test theTest)
     {
         super(theTest);
         this.baseConfiguration = new BaseConfiguration();
@@ -135,7 +135,7 @@ public class JettyTestSetup extends TestSetup
      * @param theFilterConfiguration the filter configuration object used
      *       to configure Jetty
      */
-    public JettyTestSetup(Test theTest, 
+    public Jetty5xTestSetup(Test theTest, 
         Configuration theBaseConfiguration,
         ServletConfiguration theServletConfiguration,
         FilterConfiguration theFilterConfiguration)

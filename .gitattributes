@@ -303,7 +303,7 @@ framework/framework-12-13-14/src/test/java/org/apache/cactus/mock/MockHttpURLCon
 framework/framework-12-13-14/src/test/java/org/apache/cactus/server/runner/TestServletTestRunner.java -text
 framework/framework-13-14/pom.xml -text
 framework/framework-13-14/src/main/java/org/apache/cactus/FilterTestCase.java -text
-framework/framework-13-14/src/main/java/org/apache/cactus/extension/jetty/JettyTestSetup.java -text
+framework/framework-13-14/src/main/java/org/apache/cactus/extension/jetty/Jetty5xTestSetup.java -text
 framework/framework-13-14/src/main/java/org/apache/cactus/extension/jetty/package.html -text
 framework/framework-13-14/src/main/java/org/apache/cactus/extension/jsp/JspTagLifecycle.java -text
 framework/framework-13-14/src/main/java/org/apache/cactus/extension/jsp/package.html -text
