@@ -1,0 +1,72 @@
+<?xml version="1.0"  encoding="ISO-8859-1"?>
+<!DOCTYPE Configure PUBLIC "-//Mort Bay Consulting//DTD Configure//EN" "http://jetty.mortbay.org/configure.dtd">
+<Configure class="org.mortbay.jetty.webapp.WebAppContext">
+
+  <Call name="getContext">
+    <Arg>/test</Arg>
+
+    <!--Call name="getWebApplicationHandler">
+      <Call name="getServletHolder">
+      	<Arg>ServletRedirector</Arg>
+        <Call name="setInitParameter">
+          <Arg>param1</Arg>
+          <Arg>value1 used for testing</Arg>
+        </Call>
+      </Call>
+    </Call>
+
+    <Call name="getWebApplicationHandler">
+      <Call name="getServletHolder">
+        <Arg>JspRedirector</Arg>
+        <Call name="setInitParameter">
+          <Arg>param1</Arg>
+          <Arg>value1 used for testing</Arg>
+        </Call>
+      </Call>
+    </Call-->
+
+    <Call name="getServletHandler">
+      <Call name="newServletHolder">
+        <Arg>org.apache.jasper.servlet.JspServlet</Arg>
+        <Call name="setInitParameter">
+                <Arg>TestJsp</Arg>
+                <Arg>/test/test.jsp</Arg>
+        </Call>
+      </Call>
+    </Call>
+
+    <Call name="getServletHandler">
+      <Call name="newServletHolder">
+          <Arg>org.apache.cactus.server.ServletTestRedirector</Arg>
+          <Call name="setInitParameter">
+          	<Arg>param2</Arg>
+          	<Arg>value2 used for testing</Arg>
+          </Call>
+          <Call name="setForcedPath">
+            <Arg>/ServletRedirectorOverride</Arg>
+          </Call>
+      </Call>
+    </Call>  
+    
+    <!--Call name="addServlet">
+      <Arg>/ServletRedirectorSecure</Arg>
+      <Arg>org.apache.cactus.server.ServletTestRedirector</Arg>
+    </Call>
+  
+    <Call name="setRealm">
+      <Arg>
+        <New class="org.mortbay.http.HashUserRealm"/>
+      </Arg>
+    </Call>
+    
+    <Get name="securityHandler">
+      <Set name="userRealm">
+        <New class="org.mortbay.jetty.security.HashUserRealm">
+              <Set name="name">Cactus Test Realm</Set>
+              <Set name="config">./realm.properties</Set>
+        </New>
+      </Set>
+    </Get-->
+    
+  </Call>
+</Configure>

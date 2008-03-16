@@ -727,7 +727,6 @@ samples/ivysettings.xml -text
 samples/jetty/build.xml -text
 samples/jetty/pom.xml -text
 samples/jetty/src/main/cactus/org/apache/cactus/sample/jetty/TestJettyAll.java -text
-samples/jetty/src/main/resources/conf/jetty.xml -text
 samples/jetty/src/main/webapp/WEB-INF/web.xml -text
 samples/jetty/src/main/webapp/jspRedirector.jsp -text
 samples/jetty/src/main/webapp/test/test.jsp -text
