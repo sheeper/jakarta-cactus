@@ -38,23 +38,6 @@ import org.apache.cactus.internal.configuration.DefaultServletConfiguration;
 import org.apache.cactus.internal.configuration.FilterConfiguration;
 import org.apache.cactus.internal.configuration.ServletConfiguration;
 import org.apache.cactus.internal.util.ClassLoaderUtils;
-import org.apache.cactus.server.FilterTestRedirector;
-import org.apache.cactus.server.ServletTestRedirector;
-import org.mortbay.jetty.Connector;
-import org.mortbay.jetty.Handler;
-import org.mortbay.jetty.Server;
-import org.mortbay.jetty.handler.ContextHandlerCollection;
-import org.mortbay.jetty.handler.DefaultHandler;
-import org.mortbay.jetty.handler.HandlerCollection;
-import org.mortbay.jetty.handler.RequestLogHandler;
-import org.mortbay.jetty.nio.SelectChannelConnector;
-import org.mortbay.jetty.security.Constraint;
-import org.mortbay.jetty.security.ConstraintMapping;
-import org.mortbay.jetty.security.HashUserRealm;
-import org.mortbay.jetty.servlet.Context;
-import org.mortbay.jetty.servlet.ServletHolder;
-import org.mortbay.jetty.webapp.WebAppContext;
-import org.mortbay.xml.XmlConfiguration;
 
 /**
  * Custom JUnit test setup to use to automatically start Jetty. Example:<br/>
@@ -241,12 +224,14 @@ public class Jetty6xTestSetup extends TestSetup
         // command line.
         if (getConfigFile() != null)
         {
-        	XmlConfiguration configuration = new XmlConfiguration(getConfigFile().toURL()); //or use new XmlConfiguration(new FileInputStream("myJetty.xml"));
-        	configuration.configure(server);
+        	Class xmlConfigClass = ClassLoaderUtils.loadClass(
+                    "org.mortbay.xml.XmlConfiguration", this.getClass());
         	
-            //this.server.getClass().getMethod("configure", 
-            //    new Class[] {String.class}).invoke(
-            //        this.server, new Object[] {getConfigFile().toString()});
+        	Object xmlConfiguration = xmlConfigClass.getConstructor(new Class[]{String.class})
+        		.newInstance(new Object[]{getConfigFile().toString()});
+        	
+        	xmlConfiguration.getClass().getMethod("configure", new Class[] {Object.class}).invoke(xmlConfiguration, new Object[] {server});
+
         }
 
         // Start the Jetty server
@@ -376,13 +361,22 @@ public class Jetty6xTestSetup extends TestSetup
         Object server = serverClass.newInstance();
 
         URL contextURL = new URL(theConfiguration.getContextURL());
-        Connector connector = new SelectChannelConnector();
-        connector.setPort(contextURL.getPort());
-        connector.setHost(contextURL.getHost());
-        // Add a listener on the port defined in the Cactus configuration
+        
+        Class serverConnectorClass = ClassLoaderUtils.loadClass(
+        		"org.mortbay.jetty.nio.SelectChannelConnector", this.getClass());
+        Object connector = serverConnectorClass.newInstance();
+        //Connector connector = new SelectChannelConnector();
+        connector.getClass().getMethod(
+        		"setPort", new Class[] {String.class})
+        		.invoke(connector, new Object[] {"" + contextURL.getPort()});
+        connector.getClass().getMethod(
+        		"setHost", new Class[] {String.class})
+        		.invoke(connector, new Object[] {"" + contextURL.getHost().toString()});
+        
         server.getClass().getMethod("addConnector", 
             new Class[] {org.mortbay.jetty.Connector.class})
             .invoke(server, new Object[] {connector});
+        
         return server;
     }
 
@@ -399,48 +393,18 @@ public class Jetty6xTestSetup extends TestSetup
     private Object createContext(Object theServer,
         Configuration theConfiguration) throws Exception
     {
-        // Add a web application. This creates a WebApplicationContext.
-        // Note: We do not put any WEB-INF/, lib/ nor classes/ directory
-        // in the webapp.
+
         URL contextURL = new URL(theConfiguration.getContextURL());
-        //System.out.println(theServer);
-        Server server = (Server) theServer;
-
-        Context context = null;
-        HandlerCollection rootHandler = (HandlerCollection)server.getHandler();
-        if(rootHandler != null) {
-        	ContextHandlerCollection contesti = (ContextHandlerCollection)rootHandler.getChildHandlerByClass(ContextHandlerCollection.class);
-        	context = new Context(contesti, contextURL.getPath());
-        } else {
-        	context = new Context(server,contextURL.getPath(),Context.SESSIONS);
-        }
         
-        org.mortbay.jetty.webapp.WebAppContext c = new WebAppContext();
+        Class contextClass = ClassLoaderUtils.loadClass(
+                "org.mortbay.jetty.servlet.Context", this.getClass());
         
-        c.getServletHandler();
-        
+        Object context = contextClass.getConstructor(new Class[]{Class.class, String.class})
+        	.newInstance(new Object[]{theServer, contextURL.getPath().toString()});
         
 
-        
-        
-        
-        // First you have to create a Context for the servlet and add this to the parent.
-        
-
-        //!!!!!!!!!!!!!!!!!!!!!!!!!
-        
-        //ServletHolder[] s = context.getServletHandler().newServletHolder(ServletTestRedirector.class).setForcedPath(forcedPath)
-        //ServletHolder h = new ServletHolder();
-        //h.setClassName(className);
-        //h.setName(name);
-        //h.setInitParameter(param, value);
-        
-        //!!!!!!!!!!!!!!!!!!!!!!!!! bis hier
-
-        // Needed to allow servlets to find classes, also needed for beanshell
-        context.setClassLoader(getClass().getClassLoader());
-        
-        
+        context.getClass().getMethod("setClassLoader", new Class[]{ClassLoader.class})
+        	.invoke(context, new Object[]{getClass().getClassLoader()});
         
         return context;
     }
@@ -456,18 +420,9 @@ public class Jetty6xTestSetup extends TestSetup
     private void addServletRedirector(Object theContext,
         ServletConfiguration theConfiguration) throws Exception
     {
-    	Context context = (Context) theContext;
-    	context.addServlet(ServletTestRedirector.class.getName(), "/" + theConfiguration.getDefaultRedirectorName());
-    	
-    	
-       /*
-    	theContext.getClass().getMethod("addServlet", 
-            new Class[] {String.class, String.class, String.class})
-            .invoke(theContext, 
-            new Object[] {theConfiguration.getDefaultRedirectorName(),
-            "/" + theConfiguration.getDefaultRedirectorName(), 
-            ServletTestRedirector.class.getName()});
-        */
+   	
+    	theContext.getClass().getMethod("addServlet", new Class[]{String.class, String.class})
+    		.invoke(theContext, new Object[]{"org.apache.cactus.server.ServletTestRedirector", "/" + theConfiguration.getDefaultRedirectorName().toString()});
     }
     
     /**
@@ -488,30 +443,12 @@ public class Jetty6xTestSetup extends TestSetup
                 new Class[] {String.class, String.class})
                 .invoke(theContext, 
                 new Object[] {org.apache.jasper.servlet.JspServlet.class.getName(),"*.jsp"});
-
-            // Get the WebApplicationHandler object in order to be able to 
-            // call the addServlet() method that accepts a forced path.
             
-            /*
-            Object handler = theContext.getClass().getMethod(
-                "getWebApplicationHandler", 
-                new Class[] {}).invoke(theContext, new Object[] {});
-			*/	
+            Object servletHandler = theContext.getClass().getMethod("getServletHandler", new Class[]{}).invoke(theContext, new Object[]{});
             
-            /*
-            handler.getClass().getMethod("addServlet", 
-                new Class[] {String.class, String.class, String.class, 
-                    String.class})
-                .invoke(handler, 
-                new Object[] {
-                    "JspRedirector",
-                    "/JspRedirector",
-                    "org.apache.jasper.servlet.JspServlet",
-                    "/jspRedirector.jsp"});
-                    
-            */
-            Context context = (Context) theContext;
-            context.getServletHandler().addServletWithMapping("org.apache.jasper.servlet.JspServlet", "/jspRedirector.jsp");
+            servletHandler.getClass().getMethod("addServletMapping", new Class[]{String.class, String.class})
+            	.invoke(servletHandler, new Object[]{"org.apache.jasper.servlet.JspServlet", "/jspRedirector.jsp"});
+            
         }
     }
 
@@ -536,38 +473,6 @@ public class Jetty6xTestSetup extends TestSetup
                     new Class[] {String.class, String.class, Integer.TYPE})
                     .invoke(theContext, 
                     new Object[] {org.apache.cactus.server.FilterTestRedirector.class.getName(),theConfiguration.getDefaultRedirectorName(), new Integer(0)});
-        	
-            // Get the WebApplicationHandler object in order to be able to add
-            // the Cactus Filter redirector
-            
-            /*
-            Object handler = theContext.getClass().getMethod(
-                "getWebApplicationHandler", 
-                new Class[] {}).invoke(theContext, new Object[] {});
-    
-            Object filterHolder = handler.getClass().getMethod("defineFilter",
-                new Class[] {String.class, String.class})
-                .invoke(handler, 
-                new Object[] {theConfiguration.getDefaultRedirectorName(),
-                FilterTestRedirector.class.getName()});
-            */
-            
-           // filterHolder.getClass().getMethod("addAppliesTo",
-           //     new Class[] {String.class})
-           //     .invoke(filterHolder, new Object[] {"REQUEST"});        
-    
-
-           // Map the Cactus Filter redirector to a path
-            
-            /*
-            handler.getClass().getMethod("addFilterPathMapping", 
-                new Class[] {String.class, String.class, Integer.TYPE})
-                .invoke(handler, 
-                new Object[] {"/" 
-                + theConfiguration.getDefaultRedirectorName(),
-                theConfiguration.getDefaultRedirectorName(), new Integer(0)});
-                
-                */
         }
     }
 
