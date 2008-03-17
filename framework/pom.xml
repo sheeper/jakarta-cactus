@@ -53,8 +53,8 @@
 			<artifactId>junit</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>mockobjects</groupId>
-			<artifactId>mockobjects-core</artifactId>
+      <groupId>jmock</groupId>
+      <artifactId>jmock</artifactId>
 			<scope>test</scope>
 		</dependency>
 		<dependency>

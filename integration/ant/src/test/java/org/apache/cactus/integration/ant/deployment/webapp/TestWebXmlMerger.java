@@ -32,7 +32,6 @@ import org.codehaus.cargo.module.webapp.WebXml;
 import org.codehaus.cargo.module.webapp.WebXmlIo;
 import org.codehaus.cargo.module.webapp.WebXmlMerger;
 import org.codehaus.cargo.module.webapp.WebXmlTag;
-import org.codehaus.cargo.module.webapp.WebXmlVersion;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 

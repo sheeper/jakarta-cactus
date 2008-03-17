@@ -31,17 +31,17 @@ import junit.framework.TestCase;
 import org.apache.tools.ant.BuildException;
 import org.codehaus.cargo.module.application.ApplicationXml;
 import org.codehaus.cargo.module.application.EarArchive;
+import org.jmock.Mock;
+import org.jmock.MockObjectTestCase;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
-
-import com.mockobjects.dynamic.Mock;
 
 /**
  * Unit tests for {@link EarParser}.
  *
  * @version $Id: TestEarParser.java 239003 2004-05-31 20:05:27Z vmassol $
  */
-public final class TestEarParser extends TestCase
+public final class TestEarParser extends MockObjectTestCase
 {   
     /**
      * This is the actual content of the application.xml
@@ -107,11 +107,14 @@ public final class TestEarParser extends TestCase
 			//This shouldn't happen;
 			e.printStackTrace();
 		}
+		
     	applicationXml = new ApplicationXml(document);
 
         mockArchive = new Mock(EarArchive.class);
         archive = (EarArchive) mockArchive.proxy();
-        mockArchive.expectAndReturn("getApplicationXml", applicationXml); 
+        
+        mockArchive.expects( atLeastOnce() ).method( "getApplicationXml" ).will( returnValue(applicationXml) );
+        //mockArchive.expectAndReturn("getApplicationXml", applicationXml); 
     }
 
     /**

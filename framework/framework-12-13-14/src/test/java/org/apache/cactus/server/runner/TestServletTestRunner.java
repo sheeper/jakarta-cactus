@@ -27,8 +27,9 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.UnavailableException;
 
-import com.mockobjects.dynamic.C;
-import com.mockobjects.dynamic.Mock;
+
+import org.jmock.MockObjectTestCase;
+import org.jmock.Mock;
 
 import junit.framework.TestCase;
 
@@ -37,9 +38,10 @@ import junit.framework.TestCase;
  *
  * @version $Id: TestServletTestRunner.java 238991 2004-05-22 11:34:50Z vmassol $
  */
-public final class TestServletTestRunner extends TestCase
+public final class TestServletTestRunner extends MockObjectTestCase
+
 {   
-    /**
+	/**
      * Control mock for {@link ServletConfig}.
      */
     private Mock mockServletConfig;
@@ -70,14 +72,17 @@ public final class TestServletTestRunner extends TestCase
     protected void setUp()
     {
         mockServletConfig = new Mock(ServletConfig.class);
+        
         servletConfig = (ServletConfig) mockServletConfig.proxy();
 
         mockServletContext = new Mock(ServletContext.class);
         servletContext = (ServletContext) mockServletContext.proxy();
 
-        mockServletConfig.matchAndReturn("getServletContext", servletContext);
-        mockServletConfig.matchAndReturn("getServletName", "TestServlet");
-        mockServletContext.expect("log", C.ANY_ARGS);
+        mockServletConfig.expects( atLeastOnce() ).method( "getServletContext" ).will( returnValue( servletContext) );
+        
+        mockServletConfig.expects( once() ).method( "getServletName" ).will( returnValue("TestServlet") );
+        
+        mockServletContext.expects( once() ).method("log").withAnyArguments();
         
         runner = new ServletTestRunner();
     }
@@ -90,8 +95,7 @@ public final class TestServletTestRunner extends TestCase
      */
     public void testInitWhenNoXslStylesheet() throws ServletException
     {
-        mockServletConfig.expectAndReturn("getInitParameter", 
-            "xsl-stylesheet", null);
+    	mockServletConfig.expects( once() ).method("getInitParameter").with(eq("xsl-stylesheet")).will(returnValue(null));
 
         runner.init(servletConfig);        
     }
@@ -105,10 +109,8 @@ public final class TestServletTestRunner extends TestCase
      */
     public void testInitWhenXslStylesheetNotFound() throws ServletException
     {
-        mockServletConfig.expectAndReturn("getInitParameter", 
-            "xsl-stylesheet", "some-stylesheet.xsl");
-        mockServletContext.expectAndReturn("getResourceAsStream", C.ANY_ARGS, 
-            null);
+    	mockServletConfig.expects( once() ).method("getInitParameter").with(eq("xsl-stylesheet")).will(returnValue("some-stylesheet.xsl"));
+    	mockServletContext.expects( atMostOnce() ).method("getResourceAsStream").withAnyArguments().will(returnValue(null));
         
         try
         {
@@ -130,8 +132,8 @@ public final class TestServletTestRunner extends TestCase
      */
     public void testInitWithXslStylesheet() throws ServletException
     {
-        mockServletConfig.expectAndReturn("getInitParameter", 
-            "xsl-stylesheet", "some-stylesheet.xsl");
+        
+    	mockServletConfig.expects( atLeastOnce() ).method("getInitParameter").with(eq("xsl-stylesheet")).will(returnValue("some-stylesheet.xsl"));
 
         InputStream mockInputStream = new InputStream()
         {
@@ -151,10 +153,8 @@ public final class TestServletTestRunner extends TestCase
                 return -1;
             }
         };
-
-        mockServletContext.expectAndReturn("getResourceAsStream", C.ANY_ARGS, 
-            mockInputStream);
-
+        
+        mockServletContext.expects(once()).method("getResourceAsStream").withAnyArguments().will(returnValue(mockInputStream));
         // Note: There should be no call to log. If there is it means there 
         // has been an error...
 

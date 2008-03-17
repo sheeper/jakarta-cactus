@@ -21,11 +21,12 @@ package org.apache.cactus.extension.jetty;
 
 import java.net.URL;
 
+import org.apache.cactus.extension.jetty.Jetty5xTestSetup;
 import org.apache.cactus.internal.configuration.Configuration;
 import org.apache.cactus.internal.configuration.FilterConfiguration;
 import org.apache.cactus.internal.configuration.ServletConfiguration;
-
-import com.mockobjects.dynamic.Mock;
+import org.jmock.Mock;
+import org.jmock.MockObjectTestCase;
 
 import junit.framework.TestCase;
 
@@ -37,7 +38,7 @@ import junit.framework.TestCase;
  *
  * @version $Id: TestJettyTestSetup.java 238991 2004-05-22 11:34:50Z vmassol $
  */
-public class TestJettyTestSetup extends TestCase
+public class TestJettyTestSetup extends MockObjectTestCase
 {
     /**
      * Control mock for {@link Configuration}.
@@ -105,15 +106,18 @@ public class TestJettyTestSetup extends TestCase
         filterConfiguration = 
             (FilterConfiguration) mockFilterConfiguration.proxy();
 
-        mockConfiguration.matchAndReturn("getContextURL", CONTEXT_URL); 
-        mockServletConfiguration.matchAndReturn("getDefaultRedirectorName",
-            "ServletRedirector");
+        mockConfiguration.expects( atLeastOnce() ).method("getContextURL").will( returnValue(CONTEXT_URL) );
+        //mockConfiguration.matchAndReturn("getContextURL", CONTEXT_URL); 
+        mockServletConfiguration.expects( atLeastOnce() ).method( "getDefaultRedirectorName" ).will( returnValue("ServletRedirector") );
+        //mockServletConfiguration.matchAndReturn("getDefaultRedirectorName",
+        //    "ServletRedirector");
 
         URL testURL = new URL(CONTEXT_URL + "/" 
             + servletConfiguration.getDefaultRedirectorName());
-            
-        mockServletConfiguration.matchAndReturn("getDefaultRedirectorURL",
-            testURL.getPath());
+        
+        mockServletConfiguration.expects( atMostOnce() ).method("getDefaultRedirectorURL").will( returnValue(testURL.getPath()) );
+        //mockServletConfiguration.matchAndReturn("getDefaultRedirectorURL",
+        //    testURL.getPath());
         
         jettyTestSetup = new Jetty5xTestSetup(new SampleTestCase(),
             configuration, servletConfiguration, filterConfiguration); 

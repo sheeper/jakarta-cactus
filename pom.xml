@@ -182,10 +182,10 @@
 				<version>1.2.8</version>
 			</dependency>
 			<dependency>
-				<groupId>mockobjects</groupId>
-				<artifactId>mockobjects-core</artifactId>
-				<version>0.09</version>
-			</dependency>
+        <groupId>jmock</groupId>
+        <artifactId>jmock</artifactId>
+        <version>1.2.0</version>
+      </dependency>
 			<dependency> <!-- used by httpunit -->
 				<groupId>nekohtml</groupId>
 				<artifactId>nekohtml</artifactId>
