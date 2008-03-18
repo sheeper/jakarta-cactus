@@ -21,6 +21,8 @@ package org.apache.cactus.eclipse.quickfix;
 
 import java.util.ArrayList;
 
+import org.apache.cactus.eclipse.runner.ui.CactusMessages;
+import org.apache.cactus.eclipse.runner.ui.CactusPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IJavaProject;
@@ -29,22 +31,37 @@ import org.eclipse.jdt.ui.text.java.IInvocationContext;
 import org.eclipse.jdt.ui.text.java.IJavaCompletionProposal;
 import org.eclipse.jdt.ui.text.java.IProblemLocation;
 import org.eclipse.jdt.ui.text.java.IQuickFixProcessor;
-
+/**
+ * QuickFix processor to propose cactifying of the project.
+ * 
+ * @version $Id: CactusQuickFixProcessor.java 238816 2008-03-18 16:36:46Z ptahchiev $
+ */
 public class CactusQuickFixProcessor implements IQuickFixProcessor {
-
+    /**
+     * Constant for error code when the import is not found
+     */
 	private static final int IMPORT_NOT_FOUND = 268435846;
-	
+    /**
+     * Constant for error code when the classpath is not correct
+     */
 	private static final int IS_CLASSPATH_CORRECT = 16777218;
-	
-	private static final int UNDEFINED_TYPE = 16777218;
-
+    /**
+     * The default relevance constant.
+     */
+	private static final int DEFAULT_RELEVANCE = 90;
+    /**
+     * A method for getting only the corrections we need.
+     */
 	public boolean hasCorrections(final ICompilationUnit unit, final int problemId) {
-		if (problemId == 1000) {
+		if (problemId == IMPORT_NOT_FOUND || problemId == IS_CLASSPATH_CORRECT) {
 			return true;
 		}
 		return false;
 	}
 
+    /**
+     * A method for getting the corrections.
+     */
 	public IJavaCompletionProposal[] getCorrections(
 			final IInvocationContext context,
 			final IProblemLocation[] locations) throws CoreException {
@@ -63,12 +80,15 @@ public class CactusQuickFixProcessor implements IQuickFixProcessor {
 		}
 		return proposals;
 	}
-
+	
+    /**
+     * Process when corrections found.
+     */
 	private void process(
 			final IInvocationContext context,
 			final IProblemLocation problem,
 			final ArrayList proposals) {
-		if (problem.getProblemId() == 0) { // no proposals for none-problem locations
+		if (problem.getProblemId() == 0) { // no proposals
 			return;
 		}
 		
@@ -77,7 +97,7 @@ public class CactusQuickFixProcessor implements IQuickFixProcessor {
 	      source = context.getCompilationUnit().getSource();
 	    }
 	    catch (final JavaModelException e) {
-	      //ignore
+	      CactusPlugin.log(e.getMessage());
 	      return;
 	    }
 	    final int offset = problem.getOffset();
@@ -93,11 +113,15 @@ public class CactusQuickFixProcessor implements IQuickFixProcessor {
 	    						(problem.getProblemId() == IS_CLASSPATH_CORRECT && isCactusPrefixesMatch(substring));
 	    
 		if(cactusProblem) {
-			final String name = "Cactify this project...";
-			proposals.add(new AddCactusClassesCompletionProposal(name, 1, theWorkingProject));
+			final String name = CactusMessages.getString("Cactus.quickFix.name");
+			proposals.add(new AddCactusClassesCompletionProposal(name, DEFAULT_RELEVANCE, theWorkingProject));
 		}
 	}
 	
+    /**
+     * If the error prefix matches some of the Cactus 'keywords'
+     * then we have to add the Cactus correction.
+     */
 	private boolean isCactusPrefixesMatch(String prefix) {
 		return (prefix.startsWith("ServletTestCase") || 
 				prefix.startsWith("JspTestCase") || 
