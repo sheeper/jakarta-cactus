@@ -162,5 +162,15 @@
             library="org.apache.cactus.eclipse.runner-1.8.0-SNAPSHOT-src.zip">
       </extraClasspathEntry>
    </extension>
+   
+   <extension
+         id="org.apache.cactus.runner.quickfix"
+         name="CactusQuickFixProcessor"
+         point="org.eclipse.jdt.ui.quickFixProcessors">
+		<quickFixProcessor
+	            class="org.apache.cactus.eclipse.quickfix.CactusQuickFixProcessor"
+	            id="org.apache.cactus.eclipse.quickfix.CactusQuickFixProcessor">
+	    </quickFixProcessor>
+   </extension>
 
 </plugin>

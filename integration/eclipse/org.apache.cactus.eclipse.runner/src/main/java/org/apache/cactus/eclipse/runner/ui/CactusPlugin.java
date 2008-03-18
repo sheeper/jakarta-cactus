@@ -21,6 +21,7 @@ package org.apache.cactus.eclipse.runner.ui;
 
 import java.io.File;
 import java.io.FilenameFilter;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Vector;
 
@@ -34,6 +35,8 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbench;
@@ -87,6 +90,8 @@ public class CactusPlugin extends AbstractUIPlugin
      * Name of the client libraries folder
      */
     public static final String CACTUS_CLIENT_LIBRARY_PATH = "client";
+
+	public static final String CACTUS_RUN_IMAGE = "cactus.run.image";
     
     
 
@@ -388,5 +393,22 @@ public class CactusPlugin extends AbstractUIPlugin
         }
         return (String[]) containers.toArray(new String[containers.size()]);
     }
+    
+    
+    protected ImageRegistry createImageRegistry() {
+	    final ImageRegistry registry = super.createImageRegistry();
+	    
+		URL url = null;
+		try {
+			url = new URL(CactusPlugin.getDefault().getDescriptor().getInstallURL(),"icons/calaunch.gif");
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    //ImageDescriptor imageDescriptor = ImageDescriptor.createFromURL(CactusPlugin
+	    //    .getDefault().getBundle().getResource("icons/calaunch.gif"));
+	    registry.put(CACTUS_RUN_IMAGE, ImageDescriptor.createFromURL(url));
+	    return registry;
+	}
 
 }

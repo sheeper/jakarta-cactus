@@ -66,15 +66,15 @@ public class CactifyActionDelegate implements IObjectActionDelegate
      */
     public void run(IAction theAction)
     {
-        if (part != null && selectedProject != null)
+        if (selectedProject != null)
         {
             CactusPlugin thePlugin = CactusPlugin.getDefault();
 				File commonLibDir = null;
 				File clientLibDir = null;
 
             try {
-					commonLibDir = new File(Platform.asLocalURL(thePlugin.getBundle().getEntry("/" +CactusPlugin.CACTUS_LIBRARY_PATH +"/" +CactusPlugin.CACTUS_COMMON_LIBRARY_PATH)).getPath());
-					clientLibDir = new File(Platform.asLocalURL(thePlugin.getBundle().getEntry("/" +CactusPlugin.CACTUS_LIBRARY_PATH +"/" +CactusPlugin.CACTUS_CLIENT_LIBRARY_PATH)).getPath());
+				commonLibDir = new File(Platform.asLocalURL(thePlugin.getBundle().getEntry("/" +CactusPlugin.CACTUS_LIBRARY_PATH +"/" +CactusPlugin.CACTUS_COMMON_LIBRARY_PATH)).getPath());
+				clientLibDir = new File(Platform.asLocalURL(thePlugin.getBundle().getEntry("/" +CactusPlugin.CACTUS_LIBRARY_PATH +"/" +CactusPlugin.CACTUS_CLIENT_LIBRARY_PATH)).getPath());
             } catch (Exception ex) {
             	CactusPlugin.log(ex);
             }
@@ -200,4 +200,8 @@ public class CactifyActionDelegate implements IObjectActionDelegate
         return (IClasspathEntry[]) result.toArray(
             new IClasspathEntry[result.size()]);
     }
+
+	public void setSelectedProject(IJavaProject selectedProject) {
+		this.selectedProject = selectedProject;
+	}
 }
