@@ -60,6 +60,7 @@
 				  <item name="CactifyEar Task" href="integration/ant/task_cactifyear.html"/>
 				  <item name="CactifyWar Task" href="integration/ant/task_cactifywar.html"/>
 				  <item name="Cactus Task" href="integration/ant/task_cactus.html"/>
+				  <item name="Cactus Task 1.8" href="integration/ant/task_cactus1.8.html"/>
 				  <item name="Resin Task" href="integration/ant/task_resin.html"/>
 				  <item name="RunServerTests Task" href="integration/ant/task_runservertests.html"/>
 				  <item name="WebXmlMerge Task" href="integration/ant/task_webxmlmerge.html"/>

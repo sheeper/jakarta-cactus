@@ -78,7 +78,7 @@
 maven plugin:download -DgroupId=cactus -DartifactId=cactus-maven -Dversion=<version>
 ]]></source>
        <p>
-	       For more details see the <a href="/integration/maven/installing.html">Maven 
+	       For more details see the <a href="integration/maven/installing.html">Maven 
          Cactus plugin installation page</a>.
        </p>
        

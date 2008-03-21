@@ -103,10 +103,8 @@
         </ul>
 
         <p>
-          Here is an example of what you will get:
-        </p>
-        <p>
-        <img src="../images/servlettestrunner_xml.jpg" alt="XML output of ServletTestRunner"/>
+          Here is an example of what you will get:<br/>
+         <img src="../images/servlettestrunner_xml.jpg" alt="XML output of ServletTestRunner"/>
         </p>
 
         <note>
@@ -117,7 +115,7 @@
         <p>
           Ok, that's nice ... But what if I want HTML instead of XML? Don't
           worry there is a solution. Grab the following
-	  <a href="/misc/cactus-report.xsl">XSLT stylesheet</a>
+	  <a href="../misc/cactus-report.xsl">XSLT stylesheet</a>
           (based on the stylesheet used by the
           <strong>&lt;junitreport&gt;</strong> Ant task), drop it in your
           webapp and name it <code>cactus-report.xsl</code> (in the root

@@ -129,7 +129,6 @@ cactus-site/src/site/xdoc/integration/navigation.xml -text
 cactus-site/src/site/xdoc/javadoc.xml -text
 cactus-site/src/site/xdoc/license.xml -text
 cactus-site/src/site/xdoc/mailinglist.xml -text
-cactus-site/src/site/xdoc/misc/cactus-report.xsl -text
 cactus-site/src/site/xdoc/mock_vs_cactus.xml -text
 cactus-site/src/site/xdoc/navigation.xml -text
 cactus-site/src/site/xdoc/news-2001.xml -text

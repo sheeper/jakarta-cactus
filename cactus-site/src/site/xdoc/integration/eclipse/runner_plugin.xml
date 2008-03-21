@@ -147,6 +147,15 @@
           Log view a la Ant plugin
         </li>
       </ul>
+      <ul>
+        <li>
+          From version 1.8 there is a quickfix feature you can use.<br/>
+          <p>
+          <img src="../../images/eclipse/runner/quickfix.png"
+            alt="Cactus quickfix feature"/>
+          </p>
+        </li>
+      </ul>
     </section>
 
     <a name="installation"/>

@@ -57,7 +57,7 @@
           foundation by using a dedicated continuous integration tool like
 	  <a href="http://cruisecontrol.sourceforge.net/">CruiseControl</a>,
 	  <a href="http://jakarta.apache.org/gump/">Gump</a> or
-	  <a href="http://www.urbancode.com/projects/anthill/">AntHill</a>.
+	  <a href="http://www.urbancode.com/html/default.html">AntHill</a>.
         </p>
         <p>
           Ant is written in Java and provides a wide variety of tasks that
