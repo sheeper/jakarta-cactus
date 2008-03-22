@@ -252,109 +252,63 @@
 
       <p>
         The following example demonstrates how to run a suite of Cactus tests
-        against three contains with builtin support (JBoss 3, Resin 2 and
-        Tomcat 4).
+        against two containers (Tomcat 4 and Tomcat5). The <code>cargo</code> task
+        in this case is configured with the <code>zipurlinstaller</code>, so the 
+        containers will be downloaded from the specified URL and then the execution
+        will proceed. More on configuring the <code>cargo</code> task, you can look on
+        the <a href="http://cargo.codehaus.org/">Cargo site</a>.
       </p>
 <source>
-
-      <![CDATA[
-<cactus warfile="${test.dir}/test.war"
-    printsummary="yes" failureproperty="tests.failed">
-  <classpath>
-    <path refid="cactus.classpath"/>
-    <pathelement location="${build.classes.dir}"/>
-    <pathelement location="${test.classes.dir}"/>
-  </classpath>
-  <containerset>
-    <jboss2x dir="${jboss3x.home}" config="default"
-        todir="${test.reports.dir}/jboss3x"/>
-    <resin2x dir="${resin2x.home}" port="8080"
-        todir="${test.reports.dir}/resin2x"/>
-    <tomcat4x dir="${tomcat4x.home}" port="8080"
-        todir="${test.reports.dir}/tomcat4x"/>
-  </containerset>
-  <formatter type="xml"/>
-  <batchtest>
-    <fileset dir="${src.test.dir}">
-      <include name="**/Test*.java"/>
-      <exclude name="**/TestAll.java"/>
-    </fileset>
-  </batchtest>
-</cactus>
-]]>
-
+<pre>
 <![CDATA[
-		<cactus warfile="${cactified.servlet.archive.name}"
-			printsummary="yes">
-			<classpath>
-				<path refid="cactus.classpath"/>
-				<pathelement location="${build.dir}"/>
-				<pathelement location="${ivy.lib.dir}/htmlunit-1.10.jar"/>
-			</classpath>
-			<containerset>
-				<cargo containerId="${tomcat.container.id}" output="${logs.dir}/output.log" log="${logs.dir}/cargo.log">
-				 <zipUrlInstaller
-            installUrl="http://apache.speedbone.de/tomcat/tomcat-5/v5.5.25/bin/apache-tomcat-5.5.25.zip"
-            installDir="${target.dir}/${tomcat.container.id}"/>
-				<configuration>
-						<property name="cargo.servlet.port" value="${cargo.servlet.port}"/>
-						<property name="cargo.logging" value="${cargo.logging}"/>
-						<deployable type="${cactus.sample.archive.type}" file="${cactified.servlet.archive.name}"/>
-					</configuration>
-				</cargo>
-			</containerset>
-			<sysproperty key="prop1" value="value1"/>
-			<sysproperty key="prop2" value="value2"/>
-			<formatter type="${cactus.formatter.type}"/>
-  			<batchtest todir="${reports.dir}">
-  				<fileset dir="${src.dir}">   <!-- cactus.src.dir ?-->
-  					<include name="**/Test*.java"/>
-  				</fileset>
-  			</batchtest>
-		</cactus>
-]]>
-
-
-
-</source>
-
-      <p>
-        The next example shows the use of the <strong>generic</strong>
-        container element for starting/stopping a custom container. You need
-        to define the two targets <em>mycontainer.start</em> and
-        <em>mycontainer.stop</em>, so that the container is started up (on 
-        port 8080) before the tests are run, and shut down after the tests
-        completed. How these targets are implemented is highly dependant on
-        the container. Most likely you'll need to copy some files and use
-        the <strong>&lt;java&gt;</strong> task to invoke a container-provided
-        Java class that can start/stop the container.
-      </p>
-
-      <source><![CDATA[
-<cactus warfile="${test.dir}/test.war"
-    printsummary="yes" failureproperty="tests.failed">
-  <classpath>
-    <path refid="cactus.runtime.classpath"/>
-    <pathelement location="${build.classes.dir}"/>
-    <pathelement location="${test.classes.dir}"/>
-  </classpath>
-  <containerset>
-    <generic name="My Container" port="8080">
-      <startup target="mycontainer.start"/>
-      <shutdown target="mycontainer.stop"/>
-    </generic>
-  </containerset>
-  <formatter type="xml"/>
-  <batchtest>
-    <fileset dir="${src.test.dir}">
-      <include name="**/Test*.java"/>
-      <exclude name="**/TestAll.java"/>
-    </fileset>
-  </batchtest>
+<cactus warfile="${cactified.servlet.archive.name}"
+printsummary="yes">
+    <classpath>
+        <path refid="cactus.classpath"/>
+        <pathelement location="${build.dir}"/>
+        <pathelement location="${ivy.lib.dir}/htmlunit-1.10.jar"/>
+    </classpath>
+    <containerset>
+        <cargo containerId="tomcat5x" output="${logs.dir}/output.log" log="${logs.dir}/cargo.log">
+            <zipUrlInstaller
+              installUrl="${tomca5x.url}"
+              installDir="${target.dir}/${tomcat.container.id}"/>
+            <configuration>
+                <property name="cargo.servlet.port" value="${cargo.servlet.port}"/>
+                <property name="cargo.logging" value="${cargo.logging}"/>
+                <deployable type="${cactus.sample.archive.type}" 
+                  file="${cactified.servlet.archive.name}"/>
+            </configuration>
+        </cargo>
+    
+        <cargo containerId="tomcat4x" output="${logs.dir}/output.log" log="${logs.dir}/cargo.log">
+            <zipUrlInstaller
+              installUrl="$"{tomcat4x.url}
+              installDir="${target.dir}/${tomcat.container.id}"/>
+            <configuration>
+                <property name="cargo.servlet.port" value="${cargo.servlet.port}"/>
+                <property name="cargo.logging" value="${cargo.logging}"/>
+                <deployable type="${cactus.sample.archive.type}" 
+                  file="${cactified.servlet.archive.name}"/>
+            </configuration>
+        </cargo>
+    </containerset>
+    
+    <sysproperty key="prop1" value="value1"/>
+    <sysproperty key="prop2" value="value2"/>
+    
+    <formatter type="${cactus.formatter.type}"/>
+    
+    <batchtest todir="${reports.dir}">
+      <fileset dir="${cactus.src.dir}">
+        <include name="**/Test*.java"/>
+      </fileset>
+    </batchtest>
 </cactus>
-]]></source>
-
-    </section>
+]]>
+</pre>
+</source>
+</section>
 
   </body>
 </document>

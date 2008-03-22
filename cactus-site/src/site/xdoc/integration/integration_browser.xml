@@ -102,9 +102,11 @@
           </li>
         </ul>
 
-        <p>
+        <p class="image">
           Here is an example of what you will get:<br/>
-         <img src="../images/servlettestrunner_xml.jpg" alt="XML output of ServletTestRunner"/>
+          <center>
+          <img src="../images/servlettestrunner_xml.jpg" alt="XML output of ServletTestRunner"/>
+         </center>
         </p>
 
         <note>
@@ -123,8 +125,10 @@
           <code>http://server:port/mywebapp/ServletTestRunner?suite=mytestcase&amp;xsl=cactus-report.xsl</code>.
           You should see the following:
         </p>
-        <p>
+        <p class="image">
+        <center>
         <img src="../images/servlettestrunner_html.jpg" alt="HTML output of ServletTestRunner"/>
+        </center>
         </p>
         <note>
           This will work with Internet Explorer as the XSL transformation is

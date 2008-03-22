@@ -6,63 +6,68 @@
     <author email="vmassol@apache.org">Vincent Massol</author>
   </properties>
   <body>
-    <goals>
-      <goal>
-        <name>cactus:compile</name>
-        <description>
+    <section name="Goals">
+      <table>
+        <tr>
+          <th>Goal</th>
+          <th>td</th>
+        </tr>
+        <tr>
+        <td>cactus:compile</td>
+        <td>
           Compiles the Cactus tests.
-        </description>
-      </goal>
-      <goal>
-        <name>cactus:cactifywar</name>
-        <description>
+        </td>
+      </tr>
+      <tr>
+        <td>cactus:cactifywar</td>
+        <td>
           Creates a Cactus-ready WAR from the application WAR. To be used
           in WAR projects.
-        </description>
-      </goal>
-      <goal>
-        <name>cactus:cactifyear</name>
-        <description>
+        </td>
+      </tr>
+      <tr>
+        <td>cactus:cactifyear</td>
+        <td>
           Creates a Cactus-ready EAR to unit test EJBs. To be used in EJB
           projects.
-        </description>
-      </goal>
-      <goal>
-        <name>cactus:test</name>
-        <description>
+        </td>
+      </tr>
+      <tr>
+        <td>cactus:test</td>
+        <td>
           Run the Cactus tests (packaged in a WAR) on the containers for which
-          you have defined a <code>cactus.home.[container name]</code> 
+          you have defined a <code>cactus.home.[container td]</code> 
           property.
-        </description>
-      </goal>
-      <goal>
-        <name>cactus:single</name>
-        <description>
+        </td>
+      </tr>
+      <tr>
+        <td>cactus:single</td>
+        <td>
           Run a single Cactus test (packaged in a WAR) on the containers for 
-          which you have defined a <code>cactus.home.[container name]</code> 
-          property.  Pass the name of the testcase in using 
+          which you have defined a <code>cactus.home.[container td]</code> 
+          property.  Pass the td of the testcase in using 
           <code>-Dtestcase=my.single.TestCase</code>.
-        </description>
-      </goal>  
-      <goal>
-        <name>cactus:match</name>
-        <description>
+        </td>
+      </tr>  
+      <tr>
+        <td>cactus:match</td>
+        <td>
           Run all Cactus tests (packaged in a WAR) that match a property 
           <code>-Dtestmatch=MyTestCase</code> on the containers for which you
-          have defined a <code>cactus.home.[container name]</code> property.
-        </description>
-      </goal>           
-      <goal>
-        <name>cactus:test-ear</name>
-        <description>
+          have defined a <code>cactus.home.[container td]</code> property.
+        </td>
+      </tr>           
+      <tr>
+        <td>cactus:test-ear</td>
+        <td>
           Run the Cactus tests (packaged in an EAR) on the containers for which
-          you have defined a <code>cactus.home.[container name]</code> 
+          you have defined a <code>cactus.home.[container td]</code> 
           property.
-        </description>
-      </goal>
-      <goal>
-        <name>cactus:report</name>
-        <description>
+        </td>
+      </tr>
+      <tr>
+        <td>cactus:report</td>
+        <td>
           Generate an HTML report for the Cactus tests that been run. In order
           to get this report as part of the generated web site, add the 
           following to your <code>project.xml</code>:
@@ -73,22 +78,23 @@
     [...]
   </reports>
 ]]></source>
-        </description>
-      </goal>
-      <goal>
-        <name>cactus:jar</name>
-        <description>
+        </td>
+      </tr>
+      <tr>
+        <td>cactus:jar</td>
+        <td>
           Generate a jar containing the Cactus test classes.
-        </description>
-      </goal>
-      <goal>
-        <name>cactus:jar-install</name>
-        <description>
+        </td>
+      </tr>
+      <tr>
+        <td>cactus:jar-install</td>
+        <td>
           Installs the Cactus jar in your local Maven repository. This is
           useful if you wish to put Cactus test classes in one Maven 
           project and execute the Cactus tests in another Maven project.
-        </description>
-      </goal>
-    </goals>
+        </td>
+      </tr>
+    </table>
+    </section>
   </body>
 </document>

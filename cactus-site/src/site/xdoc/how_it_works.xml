@@ -181,13 +181,14 @@
           </li>
         </ul>
 
-        <section title="Servlet Redirector Proxy">
+        <subsection name="Servlet Redirector Proxy">
+          <center>
           <p class="image">
           <img src="images/archi_servlet.jpg"
             alt="Servlet Redirector Architecture"/>
 	        </p> 
-          
-	  <p>
+          </center>
+	        <p>
             The client side opens 2 HTTP connections to the Servlet redirector.
             Once to execute the tests and retrieve the servlet output stream and
             a second time to get the test result. This is to be able to get
@@ -197,12 +198,14 @@
             connection.
           </p>
 
-        </section>
+        </subsection>
 
-        <section title="JSP Redirector Proxy">
+        <subsection name="JSP Redirector Proxy">
+        <center>
         <p class="image">
           <img src="images/archi_jsp.jpg" alt="JSP Redirector Architecture"/>
 	      </p>
+	      </center>
           <p>
             The client side opens 2 HTTP connections to the JSP redirector.
             Once to execute the tests and retrieve the servlet output stream and
@@ -213,13 +216,14 @@
             connection.
           </p>
 
-        </section>
+        </subsection>
 
-        <section title="Filter Redirector Proxy">
+        <subsection name="Filter Redirector Proxy">
+          <center>
           <p class="image">
           <img src="images/archi_filter.jpg" alt="Filter Redirector Architecture"/>
           </p>
-
+          </center>
           <p>
             The client side opens 2 HTTP connections to the Filter redirector.
             Once to execute the tests and retrieve the servlet output stream and
@@ -230,7 +234,7 @@
             connection.
           </p>
 
-        </section>
+        </subsection>
 
       </section>
 

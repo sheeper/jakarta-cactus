@@ -121,18 +121,26 @@
           It is recommended that you copy these JARs into the project for which
           you are writing Cactus tests. A common pattern is to have a
           <code>lib</code> directory in the project directory, and put all the
-          JARs there. So your project might look something like this:
+          JARs there. <br/>
+          <b>WARNING!: Since Cactus 1.8 you need the two <code>cargo-ant.jar</code> 
+          and <code>cargo-uberjar.jar</code> jars
+          in your classpath, since cactus relies on the cargo project.</b> <br/>
+          So your project might look something like this:
           <source><![CDATA[
   [your project]
     |- doc
     |  ...
     |- lib
-    |   |- cactus.jar
+    |   |- cactus.core.framework.uberjar.<VERSION>.jar
+    |   |- cactus.integration.shared.api.<VERSION>.jar
+    |   |- cactus.integration.ant.<VERSION>.jar
     |   |- cactus-ant.jar
     |   |- commons-httpclient.jar
     |   |- commons-logging.jar
     |   |- junit.jar
     |   |- aspectjrt.jar
+    |   |- cargo-ant.jar
+    |   |- cargo-uberjar.jar
     |- src
     |   |- java
     |   |  ...
@@ -157,8 +165,11 @@
 <!-- Define the Cactus tasks -->
 <taskdef resource="cactus.tasks">
   <classpath>
-    <pathelement location="lib/cactus.jar"/>
-    <pathelement location="lib/cactus-ant.jar"/>
+    <pathelement location="lib/cactus.core.framework.uberjar.<VERSION>.jar"/>
+    <pathelement location="cactus.integration.shared.api.<VERSION>.jar"/>
+    <pathelement location="cactus.integration.ant.<VERSION>.jar"/>
+    <pathelement location="cargo-ant.jar"/>
+    <pathelement location="cargo-uberjar.jar"/>
     <pathelement location="lib/commons-httpclient.jar"/>
     <pathelement location="lib/commons-logging.jar"/>
     <pathelement location="lib/aspectjrt.jar"/>

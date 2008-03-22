@@ -67,7 +67,13 @@
 				</item>
 				<item name="Browser" href="integration/integration_browser.html"/>
 				<item name="Tomcat" href="integration/howto_tomcat.html"/>
-				<item name="Maven" href="integration/maven/index.html"/>
+				<item name="Maven" href="integration/maven/index.html" collapse="true">
+				  <item name="Features" href="integration/maven/features.html"/>
+				  <item name="Installing" href="integration/maven/installing.html"/>
+				  <item name="Using" href="integration/maven/using.html"/>
+				  <item name="Goals" href="integration/maven/goals.html"/>
+				  <item name="Properties" href="integration/maven/properties.html"/>
+				</item>
 				<item name="Various IDEs" href="integration/howto_ide.html"/>
 				<item name="JUnitEE" href="integration/howto_junitee.html"/>
 			</item>
@@ -93,7 +99,7 @@
 			   <item name="Cactus" href="resources/resources_cactus.html"/>
 			   <item name="Testing" href="resources/resources_testing.html"/>
       </item>
-			<item name="Statistics" href="/stats/index.html"/>
+			<!--item name="Statistics" href="/stats/index.html"/-->
 		</menu>
 		<menu name="Translations">
 			<item name="French" href="http://www.ressources-java.net/cactus" target="_blank"/>
