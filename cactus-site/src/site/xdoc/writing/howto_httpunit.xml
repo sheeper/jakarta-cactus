@@ -58,7 +58,7 @@
       </ul>
       <p>
         Method 2 is supported through the integration with
-        <link href="http://httpunit.sourceforge.net">HttpUnit</link>, meaning
+        <a href="http://httpunit.sourceforge.net">HttpUnit</a>, meaning
         you'll benefit from the full assertion power of HttpUnit in your
         <code>endXXX()</code> method. Method 1 is a class provided by Cactus.
       </p>

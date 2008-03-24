@@ -68,8 +68,8 @@
       </p>
       <note>
         You may ask yourself how Cactus initializes these objects. The
-        mechanism is described in the <link href="site:how_it_works">How it
-        works</link> guide.
+        mechanism is described in the <a href="../how_it_works.html">How it
+        works</a> guide.
       </note>
 
       <p>
@@ -81,8 +81,8 @@
 
         <p>
          See <code>ServletTestCase</code><code>
-         <jump href="site:howto_testcase_servlet" anchor="servlet_request">request
-         </jump></code> implicit object for documentation.
+         <a href="howto_testcase_servlet.html#servlet_request">request
+         </a></code> implicit object for documentation.
        </p>
 
       </section>
@@ -92,8 +92,8 @@
 
         <p>
          See <code>ServletTestCase</code><code>
-         <jump href="site:howto_testcase_servlet" anchor="servlet_response">response
-         </jump></code> implicit object for documentation.
+         <a href="howto_testcase_servlet.html#servlet_response">response
+         </a></code> implicit object for documentation.
        </p>
 
       </section>

@@ -51,7 +51,7 @@
       <ul>
         <li>
           Configuring Cactus logging has changed. See the
-          <a href="site:howto_config">Config Howto</a> page. Thus, the old
+          <a href="integration/manual/howto_config.html">Config Howto</a> page. Thus, the old
           <code>cactus.enableLogging</code> property no longer has any effect.
         </li>
         <li>

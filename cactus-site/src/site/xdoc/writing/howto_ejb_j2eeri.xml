@@ -57,7 +57,7 @@
         for converting Yen to Dollar.
       </p>
 
-      <section title="EJB Remote">
+      <section name="EJB Remote">
 
 <source><![CDATA[
 package org.apache.cactus.sample.ejb;

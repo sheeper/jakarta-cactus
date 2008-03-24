@@ -70,8 +70,8 @@
         <p>
             For an additional degree of integration testing, you can create a
             JSP that exercises your custom tag and call it from within a regular
-            Cactus test case. See the section on <jump 
-            anchor="further_integration">Further Integration Testing</jump> 
+            Cactus test case. See the section on <a 
+            href="howto_testcase_jsp.html#further_integration">Further Integration Testing</a> 
             for details.
         </p>
         <note>
@@ -81,7 +81,7 @@
           routines, and provides many convenient shortcut methods to test
           tag handlers. For detailled documentation, check out the
           corresponding
-          <link href="site:javadoc_framework_jsptaglifecycle">API documentation</link>.
+          <a href="../api/framework-13/org/apache/cactus/extension/jsp/JspTagLifecycle.html">API documentation</a>.
           Currently, <code>JspTagLifecycle</code> is only available for
           JSP 1.2.
         </note>
@@ -97,8 +97,8 @@
         as instance variables of your test case class).
       </p>
       <note>
-        See the <link href="site:how_it_works">How it
-        works</link> guide for details on how Cactus initializes these objects.
+        See the <a href="../how_it_works.html">How it
+        works</a> guide for details on how Cactus initializes these objects.
       </note>
 
       <p>
@@ -110,8 +110,8 @@
 
         <p>
          See <code>ServletTestCase</code><code>
-         <jump href="site:howto_testcase_servlet" anchor="servlet_request">request
-         </jump></code> implicit object for documentation.
+         <a href="howto_testcase_servlet.html#servlet_request">request
+         </a></code> implicit object for documentation.
        </p>
 
       </section>
@@ -121,8 +121,8 @@
 
         <p>
          See <code>ServletTestCase</code><code>
-         <jump href="site:howto_testcase_servlet" anchor="servlet_response">response
-         </jump></code> implicit object for documentation.
+         <a href="howto_testcase_servlet.html#servlet_response">response
+         </a></code> implicit object for documentation.
         </p>
 
       </section>
@@ -132,8 +132,8 @@
 
         <p>
          See <code>ServletTestCase</code><code>
-         <jump href="site:howto_testcase_servlet" anchor="servlet_config">config
-         </jump></code> implicit object for documentation.
+         <a href="howto_testcase_servlet.html#servlet_config">config
+         </a></code> implicit object for documentation.
         </p>
       </section>
 
@@ -142,8 +142,8 @@
 
         <p>
          See <code>ServletTestCase</code><code>
-         <jump href="site:howto_testcase_servlet" anchor="servlet_session">session
-         </jump></code> implicit object for documentation.
+         <a href="howto_testcase_servlet.html#servlet_session">session
+         </a></code> implicit object for documentation.
         </p>
       </section>
 
@@ -177,7 +177,7 @@
          simulating the body of a tag (if the tag does not modify its body). If
          the tag <strong>does</strong> modify its body, then you will need to 
          generate a BodyContent object before writing out the simualted body.
-         See <jump anchor="body_content"><code>bodyContent</code></jump> for
+         See <a href="howto_testcase_jsp.html#body_content"><code>bodyContent</code></a> for
          details.
         </p>
       </section>
@@ -259,7 +259,7 @@
           quote Sun's API reference on the matter: "Note that the content of
           BodyContent is the result of evaluation, so it will not contain
           actions and the like, but the result of their invocation." 
-          See <jump anchor="using_body_content">Body Tags</jump> 
+          See <a href="howto_testcase_jsp.html#using_body_content">Body Tags</a> 
           for more information.
         </p>
             <note>
@@ -345,7 +345,7 @@ someTag.setBar("11");
                 be sure to also include a call to 
                 <code>pageContext.popBody()</code> after the tag finishes 
                 execution. See the 
-                <jump anchor="using_body_content">Body Tags</jump> section
+                <a href="howto_testcase_jsp.html#using_body_content">Body Tags</a> section
                 for more details.
             </p>
         </section>

@@ -152,7 +152,7 @@
 
       </section>
 
-      <section title="Server side classpath">
+      <section name="Server side classpath">
 
         <p>
           The server side part is a webapp. It can be packaged as a .war file

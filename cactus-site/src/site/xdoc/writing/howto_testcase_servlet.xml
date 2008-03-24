@@ -58,8 +58,8 @@
       </p>
       <note>
         You may ask yourself how Cactus initializes these objects. The
-        mechanism is described in the <link href="site:how_it_works">How it
-        works</link> guide.
+        mechanism is described in the <a href="../how_it_works.html">How it
+        works</a> guide.
       </note>
 
       <p>

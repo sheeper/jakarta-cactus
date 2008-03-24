@@ -112,8 +112,8 @@ maven plugin:download -DgroupId=cactus -DartifactId=cactus-maven -Dversion=<vers
       </p>
 
       <note>
-        You can also check the <link href="site:build_result">Build 
-        result</link> page, which contains information on the status of the
+        You can also check the <a href="participating/build_result.html">Build 
+        result</a> page, which contains information on the status of the
         Cactus nightly builds (yes, they fail from time to time).
       </note>
 

@@ -36,15 +36,15 @@
     </p>
     <ul>
       <li>
-        <jump anchor="ejb_general">General concepts</jump>: explains the
+        <a href="howto_ejb.html#ejb_general">General concepts</a>: explains the
         generic concepts behind EJB unit testing with Cactus,
       </li>
       <li>
-        <jump anchor="ejb_j2eeri">J2EE RI tutorial</jump>: provides a
+        <a href="howto_ejb.html#ejb_j2eeri">J2EE RI tutorial</a>: provides a
         detailed tutorial, on a sample, on how to explicitely perform EJB
         unit testing with the
-        <link href="http://java.sun.com/j2ee/download.html#sdk">J2EE Reference
-        Implementation</link> server from Sun.
+        <a href="http://java.sun.com/j2ee/download.html#sdk">J2EE Reference
+        Implementation</a> server from Sun.
       </li>
     </ul>
 
@@ -124,7 +124,7 @@
   <section name="J2EE RI Tutorial">
 
     <p>
-      This <link href="site:howto_ejb_j2eeri">J2EE RI tutorial</link>
+      This <a href="howto_ejb_j2eeri.html">J2EE RI tutorial</a>
       is a step by step guide for writing Cactus EJB unit test for the
       Sun J2EE RI server.
     </p>

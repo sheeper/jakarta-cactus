@@ -322,7 +322,7 @@
   <resource id="logos_img_vgritsenko" target="images/logos/vgritsenko.jpg"/>
   <resource id="logos_img_vgritsenko2" target="images/logos/vgritsenko2.jpg"/>
 
-  <resource id="mailinglist" target="mailinglist.html"
+  <resource id="mailinglist" target="mail-lists.html"
       name="Mailing Lists">
     Information about the Cactus mailing lists.
   </resource>

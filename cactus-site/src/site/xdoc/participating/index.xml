@@ -42,7 +42,7 @@
     </p>
     <p>
       To begin with, we suggest you to subscribe to the 
-      <a href="../mailinglist.html">Cactus mailing list</a>.
+      <a href="../mail-lists.html">Cactus mailing list</a>.
     </p>
     <p>
 	    Then you can download the <a href="../downloads.html">latest Cactus
@@ -66,7 +66,7 @@
     <ul>
       <li>
         Answering questions on the 
-	<link href="../mailinglist.html">Cactus mailing list</link>;
+		<a href="../mail-lists.html">Cactus mailing list</a>;
         there is often a problem of having too many questioners and not enough
         experts to respond to all the questions.
       </li>
@@ -81,11 +81,11 @@
       </li>
       <li>
         Specifying/analysing/designing new features for Cactus (If you wish to
-	get involved with this, please join the <link href="../mailinglist.html">
-        Cactus mailing list</link>,
+	get involved with this, please join the <a href="../mail-lists.html">
+        Cactus mailing list</a>,
         install and try out Cactus and read some of the mailing list archives.
         In addition, please have a look at the 
-	<link href="../goals.html">Goals</link> page which gives a vision of 
+	<a href="../goals.html">Goals</a> page which gives a vision of 
         where Cactus is heading and provide some high level todos.
       </li>
       <li>

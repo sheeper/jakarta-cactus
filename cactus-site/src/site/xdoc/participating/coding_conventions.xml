@@ -46,8 +46,8 @@
       <p>
          Below is a list of coding conventions that are specific to Cactus,
          everything else not specificially mentioned here should follow the
-         official <link href="ext:sun_coding_conventions">Sun Java Coding 
-         Conventions</link>.
+         official <a href="http://java.sun.com/docs/codeconv/html/CodeConvTOC.doc.html">Sun Java Coding 
+         Conventions</a>.
       </p>
 
     </section>
@@ -61,7 +61,7 @@
       <p>
         The Cactus Ant build file has a <code>checkstyle</code> target which
         performs coding conventions using the
-        <link href="ext:checkstyle">Checkstyle</link> tool. Drop the
+        <a href="http://checkstyle.sf.net/">Checkstyle</a> tool. Drop the
         Checkstyle jars in your <code>ANT_HOME/lib</code>, go in the
         <code>build/</code> directory and type <code>ant checkstyle</code>.
       </p>

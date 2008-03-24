@@ -65,8 +65,8 @@
         MO is a strategy to unit test java classes in general. As such
         it is also applicable to unit test server side code like Servlets,
         Filters, Taglibs, EJBs, ... See the original article
-        <link href="http://mockobjects.sourceforge.net/endotesting.html">
-        "Endo-Testing: Unit Testing with Mock Objects"</link> for full details
+        <a href="http://mockobjects.sourceforge.net/endotesting.html">
+        "Endo-Testing: Unit Testing with Mock Objects"</a> for full details
         on MO. As such it is a challenger to Cactus but we'll see
         in the rest of this article that it is in fact complementary rather than
         a replacement.
@@ -90,7 +90,7 @@
         and develop the mock implementations as they are needed - Note that
         mock objects can even be generated at build time or at run time with
         JDK 1.3 dynamic proxies, see
-        <jump anchor="mo_resources">resources</jump>-).
+        <a href="mock_vs_cactus.html#mo_resources">resources</a>-).
       </p>
       <p>
         Cactus' strategy on the other hand has been to rely on the real
@@ -389,8 +389,8 @@ public void testXXX()
         tests will run fine when deployed.
       </p>
       <p>
-        Also, as described on the <link href="site:goals">Cactus' goals
-        page</link>, we think that a framework like Cactus will be more and
+        Also, as described on the <a href="goals.html">Cactus' goals
+        page</a>, we think that a framework like Cactus will be more and
         more useful as we use more and more components in the future because
         it will provide
         the needed confidence that the code will run ok in the container.
@@ -423,7 +423,7 @@ public void testXXX()
       <p>
         We would very much like to have your feedback on MO vs IC. Please post
         your feedback on the
-        <link href="site:mailinglist">Cactus mailing list</link>.
+        <a href="mail-lists.html">Cactus mailing list</a>.
       </p>
       <p>
         Thanks a lot.

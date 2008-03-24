@@ -28,7 +28,7 @@
 
   <body>
 
-    <section title="Starting Cactus tests">
+    <section name="Starting Cactus tests">
 
       <p>
         The Cactus tests are started using a JUnit Test Runner. There are

@@ -41,13 +41,13 @@
       <ol>
         <li>
           Ensure that all
-          <link href="ext:bug_database_cactus_open_issues">open bugs</link> have 
+          <a href="http://issues.apache.org/jira/browse/CACTUS?report=com.atlassian.jira.plugin.system.project:openissues-panel">open bugs</a> have 
           been either fixed, or added in the announcement file. Note that 
           improvements do not need to be added to the announcement file.
         </li>
         <li>
           Ensure that the Cactus tests have been run on several application
-          servers and update the <link href="ext:cactus_testedon">Tested On</link>
+          servers and update the <a href="http://wiki.apache.org/jakarta-cactus/TestedOn">Tested On</a>
           page accordingly.
         </li>
         <li>
@@ -58,17 +58,17 @@
         </li>
         <li>
           Ensure that the 
-          <link href="ext:bug_database_cactus_open_issues">Todo</link> page 
+          <a href="http://issues.apache.org/jira/secure/BrowseProject.jspa?id=10471">Todo</a> page 
           has no more items for the current version.
         </li>
         <li>
           Update the <code>ANNOUNCEMENT.txt</code> file in CVS with the release
-          notes. A <jump anchor="announcement_template">sample announcement 
-          template</jump> is provided at the bottom of this page.
+          notes. A <a href="release_checklist.html#announcement_template">sample announcement 
+          template</a> is provided at the bottom of this page.
         </li>
         <li>
           Ensure you have added a news item for the new Cactus release on
-          the <link href="site:news">News</link> page.
+          the <a href="news.html">News</a> page.
         </li>
         <li>
           Edit <code>changes.xml</code> and replace "<code>in CVS</code>" with

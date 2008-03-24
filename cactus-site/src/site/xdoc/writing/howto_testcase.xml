@@ -40,10 +40,10 @@
       </p>
       <ul>
         <li>
-          <jump anchor="general_principles">General principles</jump>
+          <a href="howto_testcase.html#general_principles">General principles</a>
         </li>
         <li>
-          <jump anchor="specific_details">TestCase specific details</jump>
+          <a href="howto_testcase.html#specific_details">TestCase specific details</a>
         </li>
       </ul>
 
@@ -329,9 +329,9 @@ public void endXXX(HttpURLConnection theConnection)
           method, depending on whether you need to perform sophisticated
           checks on the content of what is returned or not. For complex
           checking, we have integrated with the
-          <link href="http://httpunit.sourceforge.net">HttpUnit</link>
+          <a href="http://httpunit.sourceforge.net">HttpUnit</a>
           framework. See the
-          <link href="site:howto_httpunit">HttpUnit tutorial</link> for the
+          <a href="howto_httpunit.html">HttpUnit tutorial</a> for the
           end method signatures and a full description.
         </p>
         <p>
@@ -354,16 +354,16 @@ public void endXXX(HttpURLConnection theConnection)
       </p>
       <ul>
         <li>
-          <link href="site:howto_testcase_servlet">ServletTestCase
-          principles</link>,
+          <a href="howto_testcase_servlet.html">ServletTestCase
+          principles</a>,
         </li>
         <li>
-          <link href="site:howto_testcase_jsp">JspTestCase
-          principles</link>,
+          <a href="howto_testcase_jsp.html">JspTestCase
+          principles</a>,
         </li>
         <li>
-          <link href="site:howto_testcase_filter">FilterTestCase
-          principles</link>
+          <a href="howto_testcase_filter.html">FilterTestCase
+          principles</a>
         </li>
       </ul>
 
