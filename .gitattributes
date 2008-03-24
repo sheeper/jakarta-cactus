@@ -176,6 +176,7 @@ cactus-site/src/site/xdoc/writing/howto_testcase_jsp.xml -text
 cactus-site/src/site/xdoc/writing/howto_testcase_servlet.xml -text
 cactus-site/src/site/xdoc/writing/site.xml -text
 /cactus-src-assembly.xml -text
+descriptors/licenses/NOTICE -text
 descriptors/pom.xml -text
 framework/README -text
 framework/framework-12-13-14/pom.xml -text
