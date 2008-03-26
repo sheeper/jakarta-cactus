@@ -28,9 +28,11 @@
 	<artifactId>cactus-site</artifactId>
 	<packaging>pom</packaging>
 	
+	
 	<name>Apache Cactus</name>
 	<description>Cactus framework for testing your server-side code</description>
-	
+	<url>http://jakarta.apache.org/cactus/</url>
+		
 	<organization>
 		<name>Apache Software Foundation</name>
 		<url>http://www.apache.org/</url>
@@ -38,7 +40,13 @@
 	
 	<inceptionYear>2001</inceptionYear>
 	
-	<issueManagement>
+  <scm>
+		<connection>scm:svn:http://svn.apache.org/repos/asf/jakarta/cactus/trunk/</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/jakarta/cactus/trunk/</developerConnection>
+    <tag>HEAD</tag>
+	</scm>
+	
+  <issueManagement>
 		<system>jira</system>
 		<url>https://issues.apache.org/jira/browse/CACTUS</url>
 	</issueManagement>
