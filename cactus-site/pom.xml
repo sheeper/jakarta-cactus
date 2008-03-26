@@ -68,8 +68,8 @@
 		<developer>
 			<name>Vincent Massol</name>
 			<id>vmassol</id>
-			<email>vmassol@pivolis.com</email>
-			<organization>Pivolis</organization>
+			<email>vmassol@apache.org</email>
+			<organization>XWiki</organization>
 		</developer>
 		<developer>
 			<name>Jari Worsley</name>
@@ -129,6 +129,79 @@
 			<email>trajano@yahoo.com</email>
 			<url>http://www.trajano.net/</url>
 		</contributor>
+		<contributor>
+			<name>Philip Aston</name>
+			<email>paston@bea.com</email>
+		</contributor>
+		<contributor>
+			<name>Cedric Chabanois</name>
+			<email>cchabanois@ifrance.com</email>
+		</contributor>
+		<contributor>
+			<name>Bob Davison</name>
+			<email>Bob.Davison@reuters.com</email>
+		</contributor>
+    <contributor>
+			<name>Julien Dubois</name>
+			<email>julien@julien-dubois.com</email>
+		</contributor>
+    <contributor>
+			<name>Andrew B Forman</name>
+			<email>andrew.forman@wcom.com</email>
+		</contributor>
+		<contributor>
+			<name>Jerome Grelier</name>
+			<email>jgrelier@octo.com</email>
+		</contributor>
+		<contributor>
+			<name>Magnus Grimsell</name>
+			<email>grimsell@apache.org</email>
+		</contributor>
+		<contributor>
+			<name>Atsushi Hasegawa</name>
+			<email>ahasegawa@borland.com</email>
+		</contributor>
+		<contributor>
+			<name>Todd Idler</name>
+			<email>Todd_Idler@jdedwards.com</email>
+		</contributor>
+		<contributor>
+			<name>Kaarle Kaila</name>
+			<email>kaarle.kaila@iki.fi</email>
+		</contributor>
+		<contributor>
+			<name>Robert Leftwich</name>
+			<email>digital@ix.net.au</email>
+		</contributor>
+		<contributor>
+			<name>Jason Robertson</name>
+			<email>Jason.Robertson@acs-inc.com</email>
+		</contributor>
+  	<contributor>
+			<name>Matt Sullivan</name>
+			<email>-</email>
+		</contributor>
+		<contributor>
+			<name>Kazuhito Suguri</name>
+			<email>suguri.kazuhito@lab.ntt.co.jp</email>
+		</contributor>
+		<contributor>
+			<name>Kunal Vaishnav</name>
+			<email>Kunal_Vaishnav@jdedwards.com</email>
+		</contributor>
+		<contributor>
+			<name>Hudson Wong</name>
+			<email>hudsoncwwong@yahoo.com</email>
+		</contributor>
+		<contributor>
+			<name>Peter Wong</name>
+			<email>pwong@sct.com</email>
+		</contributor>
+		<contributor>
+			<name>Sean Zhang</name>
+			<email>sean.zhang@verizon.com</email>
+		</contributor>
+		
 	</contributors>
   
 	<reporting>
@@ -150,6 +223,11 @@
 					</reportSet>
 				</reportSets>
 			</plugin-->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-site-plugin</artifactId>
+				<version>2.0-beta-6</version>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-changes-plugin</artifactId>

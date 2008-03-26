@@ -32,7 +32,7 @@
 
       <note>
         Most of these rules are extracted from the excellent 
-        <a href="ext:eclipse_api_usage">How to Use the Eclipse API</a> article
+        <a href="http://www.eclipse.org/articles/Article-API%20use/eclipse-api-usage-rules.html">How to Use the Eclipse API</a> article
         by Jim des Rivieres.
       </note>
 

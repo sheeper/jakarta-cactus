@@ -80,7 +80,7 @@
 			<item name="Participating" href="/participating/index.html" collapse="true">
 				<item name="About Us" href="/participating/contributors.html" />
 				<item name="TODO/Open Issues" href="http://issues.apache.org/jira/browse/CACTUS?report=com.atlassian.jira.plugin.system.project:openissues-panel" />
-				<item name="Nightly Build Results" href="/participating/build_results.html" />
+				<item name="Nightly Build Results" href="/participating/build_result.html" />
 				<item name="Coding Conventions" href="/participating/coding_conventions.html" />
 				<item name="Public API/SPIs" href="/participating/apis.html" />
 				<item name="CVS" href="http://jakarta.apache.org/site/cvsindex.html" />
@@ -90,7 +90,7 @@
 				<item name="Logos" href="/participating/logos.html" />
 			</item>
 		</menu>
-		<menu name="Miscellanious">
+		<menu name="Miscellaneous">
 			<item name="Why the name" href="cactusname.html" />
 			<item name="Mock vs Container" href="mock_vs_cactus.html"/>
 			<item name="Tested On..." href="http://wiki.apache.org/jakarta-cactus/TestedOn"/>
