@@ -1,27 +1,57 @@
 The Cactus project is pleased to announce the release of version 1.8.
 Cactus is a unit testing framework for testing server side java code.
 
-Goals
------
 
-[todo]
+Release Notes - Cactus - Version 1.8
 
 
-Main new features
------------------
+** Bug
+-------------------------
+    * [CACTUS-73] - Tomcat 4.1.x shutdown port should be parameterised
+    * [CACTUS-104] - The <jboss3x> task don't deploy the archive if the container is already started
+    * [CACTUS-105] - Jakarta Cactus does not build due to dependency on j2ee-1.3.jar
+    * [CACTUS-155] - version number in the distribution are not correct
+    * [CACTUS-221] - Can't generate the cactus-maven-plugin using Maven 1.1-beta-1
+    * [CACTUS-222] - Cactus does not work on Resin 3.0.13
+    * [CACTUS-227] - Eclipse V3.1 Plugins
+    * [CACTUS-235] - TestShareAll suite adds TestHttpSession tests incorrectly
+    * [CACTUS-237] - Jetty integration doesn't work with Jetty 5
+    * [CACTUS-250] - URL for Cargo packages in dependencies.xml.default - incorrect
+    * [CACTUS-253] - JettyContainerManager unable to load jspRedirector.jsp
+    * [CACTUS-254] - Eclipse plugin will not work for Maven-generated 'SNAPSHOT' versions
 
-1) new Maven2 based build system
-2) integration between Cargo & Cactus
-3) new Ant tasks (see the sample projects).
-4) the New Cactus web-site (look in cactus-site and execute mvn site:site)
-5) Cactus-eclipse plugin refactored to support Eclipse 3.2 
+** Improvement
+-------------------------
+    * [CACTUS-57] - Make Cactus issue a warning if one of the cactus-related jar files it requires is already in the original war to cactify
+    * [CACTUS-154] - Try Commons HttpClient 3.0
+    * [CACTUS-168] - Move Cactus build to Maven
+    * [CACTUS-169] - Migrate tests cases to use JMock instead of MockObjects
+    * [CACTUS-186] - "cactify" should check if the jars it adds are already in the project build path before adding them
+    * [CACTUS-223] - Allow inclusion of the project's JAR into Cactu's WAR
+    * [CACTUS-232] - Create new property for Cactus classes destination
+    * [CACTUS-236] - CLONE -It's not possible to set a timeout for the containers
 
-Changes
--------
+** New Feature
+-------------------------
+    * [CACTUS-121] - Add support for WebLogic 8.x
+    * [CACTUS-152] - JBoss 4.0 Support
+    * [CACTUS-187] - Add quick fix for adding cactus libraries automatically
+    * [CACTUS-188] - OC4J 10.x Support
+    * [CACTUS-220] - Integration with HtmlUnit
 
-Please check the Changes page at
-http://jakarta.apache.org/cactus/changes.html for a full list of the 
-changes in version 1.8. 
+
+
+** Task
+-------------------------
+    * [CACTUS-151] - Refactor Ant integration to use Cargo
+
+
+
+** Wish
+-------------------------
+    * [CACTUS-160] - Add support for WebSphere 5.x and 6.x
+    * [CACTUS-242] - Remove Xerces dependency
+
 
 Known limitations and bugs
 --------------------------

@@ -54,7 +54,7 @@
 	<distributionManagement>
 			<site>
 				<id>cactus.apache.org</id>
-				<url>file://C:/xampp/htdocs/cactus</url>
+				<url>scp://people.apache.org/www/jakarta.apache.org/cactus/1.8.0</url>
 			</site>
 	</distributionManagement>	
 	<mailingLists>

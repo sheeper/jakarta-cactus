@@ -41,11 +41,6 @@
 				<artifactId>aspectjrt</artifactId>
 				<version>1.2.1</version>
 			</dependency>
-			<dependency>
-  			<groupId>org.codehaus.cargo</groupId>
-  			<artifactId>cargo-core-uberjar</artifactId>
-  			<version>0.9</version>
-  		</dependency>
   		<dependency>
 				<groupId>commons-httpclient</groupId>
 				<artifactId>commons-httpclient</artifactId>
@@ -60,6 +55,32 @@
 				<groupId>httpunit</groupId>
 				<artifactId>httpunit</artifactId>
 				<version>1.6</version>
+				<exclusions>
+					<exclusion>
+						<groupId>xerces</groupId>
+						<artifactId>xmlParserAPIs</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>xerces</groupId>
+						<artifactId>xercesImpl</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>xerces</groupId>
+						<artifactId>xerces</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>junit</groupId>
+						<artifactId>junit</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>rhino</groupId>
+						<artifactId>js</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>jtidy</groupId>
+      			<artifactId>jtidy</artifactId>
+					</exclusion>
+				</exclusions>
 			</dependency>
 			<dependency>
 				<groupId>junit</groupId>
@@ -70,14 +91,14 @@
 				<groupId>nekohtml</groupId>
 				<artifactId>nekohtml</artifactId>
 				<version>0.9.1</version>
-			</dependency>
-			<dependency>
-				<groupId>htmlunit</groupId>
-				<artifactId>htmlunit</artifactId>
-				<version>1.10</version>
+				<exclusions>
+					<exclusion>
+						<groupId>xerces</groupId>
+						<artifactId>xerces</artifactId>
+					</exclusion>
+				</exclusions>
 			</dependency>
 	</dependencies>
-	
 	
 	<dependencyManagement>
 		<dependencies>
@@ -215,7 +236,7 @@
 		<site>
 			<id>cactus-site</id>
 			<name>Cactus Deployment site</name>
-			<url>scp://ptahchiev@people.apache.org:/x1/www/jakarta.apache.org/cactus/</url>
+			<url>scp://ptahchiev@people.apache.org:/www/jakarta.apache.org/cactus/1.8.0/</url>
 		</site>
 	</distributionManagement>
 	<reporting>

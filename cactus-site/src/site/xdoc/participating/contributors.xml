@@ -49,34 +49,34 @@
     <section name="Committers">
       <ul>
         <li>
-          <a href="mailto:vmassol@apache.org">Vincent Massol</a>
+          <p><a href="mailto:vmassol@apache.org">Vincent Massol</a></p>
         </li>
         <li>
-          <a href="mailto:jariw@hyperlink-interactive.co.uk">Jari Worsley</a>
+					<p><a href="mailto:jariw@hyperlink-interactive.co.uk">Jari Worsley</a></p>
         </li>
         <li>
-          <a href="mailto:ndlesiecki@yahoo.com">Nicholas Lesiecki</a>
+					<p><a href="mailto:ndlesiecki@yahoo.com">Nicholas Lesiecki</a></p>
         </li>
         <li>
-          <a href="mailto:jruaux@octo.com">Julien Ruaux</a>
+					<p><a href="mailto:jruaux@octo.com">Julien Ruaux</a></p>
         </li>
         <li>
-          <a href="mailto:cmlenz@gmx.de">Christopher Lenz</a>
+					<p><a href="mailto:cmlenz@gmx.de">Christopher Lenz</a></p>
         </li>
         <li>
-          <a href="mailto:felipeal@apache.org">Felipe Leme</a>
+					<p><a href="mailto:felipeal@apache.org">Felipe Leme</a></p>
         </li>
         <li>
-          <a href="mailto:suguri.kazuhito@lab.ntt.co.jp">Kazuhito Suguri</a>
+					<p><a href="mailto:suguri.kazuhito@lab.ntt.co.jp">Kazuhito Suguri</a></p>
         </li>
         <li>
-          <a href="mailto:grimsell@apache.org">Magnus Grimsell</a>
+					<p><a href="mailto:grimsell@apache.org">Magnus Grimsell</a></p>
         </li>
         <li>
-          <a href="mailto:nchalumeau@apache.org">Nicolas Chalumeau</a>
+					<p><a href="mailto:nchalumeau@apache.org">Nicolas Chalumeau</a></p>
         </li>
 		  <li>
-        <a href="mailto:ptahchiev@apache.org">Petar Tahchiev</a>
+				<p><a href="mailto:ptahchiev@apache.org">Petar Tahchiev</a></p>
       </li>
       </ul>
     </section>
@@ -86,63 +86,61 @@
       <p>By alphabetical order on the last name: </p>
       <ul>
         <li>
-          <a href="mailto:paston@bea.com">Philip Aston</a>
+					<p><a href="mailto:paston@bea.com">Philip Aston</a></p>
         </li>
         <li>
-          <a href="mailto:cchabanois@ifrance.com">Cedric Chabanois</a>
+					<p><a href="mailto:cchabanois@ifrance.com">Cedric Chabanois</a></p>
         </li>
         <li>
-          <a href="mailto:Bob.Davison@reuters.com">Bob Davison</a>
+					<p><a href="mailto:Bob.Davison@reuters.com">Bob Davison</a></p>
         </li>
         <li>
-          <a href="mailto:julien@julien-dubois.com">Julien Dubois</a>
+					<p><a href="mailto:julien@julien-dubois.com">Julien Dubois</a></p>
         </li>
         <li>
-          <a href="mailto:andrew.forman@wcom.com">Andrew B Forman</a>
+					<p><a href="mailto:andrew.forman@wcom.com">Andrew B Forman</a></p>
         </li>
         <li>
-          <a href="mailto:jgrelier@octo.com">Jerome Grelier</a>
+					<p><a href="mailto:jgrelier@octo.com">Jerome Grelier</a></p>
         </li>
         <li>
-          <a href="mailto:ahasegawa@borland.com">Atsushi Hasegawa</a>
+					<p><a href="mailto:ahasegawa@borland.com">Atsushi Hasegawa</a></p>
         </li>
         <li>
-          <a href="mailto:Todd_Idler@jdedwards.com">Todd Idler</a>
+					<p><a href="mailto:Todd_Idler@jdedwards.com">Todd Idler</a></p>
         </li>
         <li>
-          <a href="mailto:kaarle.kaila@iki.fi">Kaarle Kaila</a>
+					<p><a href="mailto:kaarle.kaila@iki.fi">Kaarle Kaila</a></p>
         </li>
         <li>
-          <a href="mailto:digital@ix.net.au">Robert Leftwich</a>
+					<p><a href="mailto:digital@ix.net.au">Robert Leftwich</a></p>
         </li>
         <li>
-          <a href="mailto:alan@digitalmonkey.co.uk">Alan Perfect</a>
+					<p><a href="mailto:alan@digitalmonkey.co.uk">Alan Perfect</a></p>
         </li>
         <li>
-          <a href="mailto:Jason.Robertson@acs-inc.com">Jason Robertson</a>
+					<p><a href="mailto:Jason.Robertson@acs-inc.com">Jason Robertson</a></p>
         </li>
         <li>
-          <a href="#">Matt Sullivan</a>
+					<p><a href="#">Matt Sullivan</a></p>
         </li>
         <li>
-          <a href="mailto:Kunal_Vaishnav@jdedwards.com">Kunal Vaishnav</a>
+					<p><a href="mailto:Kunal_Vaishnav@jdedwards.com">Kunal Vaishnav</a></p>
         </li>
         <li>
-          <a href="mailto:hudsoncwwong@yahoo.com">Hudson Wong</a>
+					<p><a href="mailto:hudsoncwwong@yahoo.com">Hudson Wong</a></p>
         </li>
         <li>
-          <a href="mailto:pwong@sct.com">Peter Wong</a>
+					<p><a href="mailto:pwong@sct.com">Peter Wong</a></p>
         </li>
         <li>
-          <a href="mailto:sean.zhang@verizon.com">Sean Zhang</a>
+					<p><a href="mailto:sean.zhang@verizon.com">Sean Zhang</a></p>
         </li>
       </ul>
     </section>
     
-    <!-- The following paragrpahs must stay until the maven-site plugin resolve the issue
-     with missing paragraphs(see http://www.mail-archive.com/users@maven.apache.org/msg58676.html)-->
-   <p></p>  <p></p>  <p></p>  <p></p>  <p></p>  <p></p>  <p></p>  <p></p>  <p></p> 
 
+	 
     <section name="Special thanks">
 
       <p>
