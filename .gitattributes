@@ -150,7 +150,6 @@ integration/ant/src/test-input/org/apache/cactus/integration/ant/weblogic.ear -t
 integration/ant/src/test-input/org/apache/cactus/integration/ant/weblogic.war -text
 integration/eclipse/org.apache.cactus.eclipse.feature/logocactus.gif -text
 integration/eclipse/org.apache.cactus.eclipse.runner/icons/calaunch.gif -text
-integration/eclipse/org.apache.cactus.eclipse.runner/src/conf/plugin.xml -text
 integration/eclipse/org.apache.cactus.eclipse.webapp/src/main/java/org/apache/cactus/eclipse/webapp/internal/ui/WebAppConfigurationBlock.orig -text
 integration/maven/build.properties.sample -text
 integration/maven/plugin.jelly -text
