@@ -867,6 +867,5 @@ scratchpad/cactus2/samples/servlet/src/test-cactus/org/apache/cactus/sample/serv
 scratchpad/cactus2/samples/servlet/src/webapp/WEB-INF/web.xml -text
 scratchpad/sampleTestApplication/build.xml -text
 scratchpad/sampleTestApplication/metasrc/WEB-INF/web.xml -text
-scratchpad/sampleTestApplication/src/org/apache/cactus/sample/SampleServlet.java -text
 scratchpad/sampleTestApplication/test/org/apache/cactus/sample/test/SampleTest.java -text
 scratchpad/testNG/ant-integration/src/main/java/org/apache/cactus/testng/ant/CactusNGTask.java -text
