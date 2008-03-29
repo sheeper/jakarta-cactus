@@ -3,10 +3,10 @@
 	<parent>
 		<groupId>org.apache.cactus</groupId>
 		<artifactId>cactus.integration.eclipse</artifactId>
-		<version>1.8.0</version>
+		<version>1.8.1-SNAPSHOT</version>
 	</parent>
 	<name>Cactus Eclipse Integration - Webapp</name>
-	<version>1.8.0</version>
+	<version>1.8.1-SNAPSHOT</version>
 	<artifactId>org.apache.cactus.eclipse.webapp</artifactId>
 	<packaging>jar</packaging>
 	
