@@ -42,6 +42,8 @@
 
     <items>
       <rdf:Seq>
+				<rdf:li rdf:resource="http://jakarta.apache.org/cactus/news.html#news33"/>
+				<rdf:li rdf:resource="http://jakarta.apache.org/cactus/news.html#news32"/>
         <rdf:li rdf:resource="http://jakarta.apache.org/cactus/news.html#news31"/>
         <rdf:li rdf:resource="http://jakarta.apache.org/cactus/news.html#news30"/>
         <rdf:li rdf:resource="http://jakarta.apache.org/cactus/news.html#news29"/>
@@ -60,6 +62,19 @@
 
   </channel>
 
+	<item rdf:about="http://jakarta.apache.org/cactus/news.html#news32">
+		<title>Cactus Has a New Cool Web-Site</title>
+		<link>http://jakarta.apache.org/cactus/news.html#news32</link>
+		<description>
+			<![CDATA[
+					Cactus has a new cool web-site. You can write your comments to the
+					<a href="http://jakarta.apache.org/cactus/mail-lists.html">Cactus mailing list</a>.
+			]]>
+		</description>
+		<dc:subject></dc:subject>
+		<dc:creator>ptahchiev</dc:creator>
+		<dc:date>2008-03-28T00:00:00+00:00</dc:date>
+  </item>
   <item rdf:about="http://jakarta.apache.org/cactus/news.html#news32">
     <title>Cactus 1.7.1 released</title>
     <link>http://jakarta.apache.org/cactus/news.html#news32</link>

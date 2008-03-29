@@ -1,3 +1,4 @@
+
 <?xml version="1.0"?>
 <!--
 	Licensed to the Apache Software Foundation (ASF) under one
@@ -283,7 +284,7 @@
     		<version>1.0-beta-2</version>
     		<executions>
       			<execution>
-      			<phase>site:deploy</phase>
+							<phase>pre-site</phase>
        				<goals>
           				<goal>transform</goal>
         			</goals>
@@ -292,7 +293,10 @@
     		<configuration>
       			<transformationSets>
         			<transformationSet>
-          				<dir>src/site/news</dir>
+          				<dir>src/site/resources</dir>
+									<includes>
+										<include>*.xml</include>
+									</includes>
           				<stylesheet>src/site/stylesheets/rdf2document.xsl</stylesheet>
           				<outputDir>src/site/xdoc/</outputDir>
         			</transformationSet>

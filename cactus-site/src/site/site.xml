@@ -104,8 +104,13 @@
 		<menu name="Translations">
 			<item name="French" href="http://www.ressources-java.net/cactus" target="_blank"/>
 			<item name="Korean" href="http://jakarta.apache-korea.org/cactus/index.html" target="_blank"/>
-			<item name="Japanese" href="http://www.ingrid.org/jajakarta/cactus/" target="_blank"/>
+			<item name="Japanese" href="http://www.jajakarta.org/cactus/" target="_blank"/>
 		<!--<item name="Xdoc Example" href="xdoc.html"/>-->
+		</menu>
+		<menu name="See also">
+			<item name="Apache Bookstore" href="http://www.apachebookstore.com/" target="_blank"/>
+			<item name="Planet Apache" href="http://www.planetapache.org/" target="_blank"/>
+			<item name="Apache Sponsors" href="http://apache.org/foundation/thanks.html" target="_blank"/>
 		</menu>
 	</body>
 	<poweredBy>
