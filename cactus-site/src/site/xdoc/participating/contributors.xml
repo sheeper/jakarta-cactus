@@ -324,7 +324,13 @@
     </p>
     <p>
 	     I started working with Cactus when trying to apply for the Google summer of code programme in 2007.
+			 Felipe Leme was my mentor but the project that we proposed was not accepted by the ASF. So I started
+			 to contribute on my own, out of the programme. I set up a repository in SourceForge and managed for 
+			 a little more than 10 months to migrate the build system to Maven2. I also wanted to write a Maven2 plugin for Cactus, but this one is still in my TODO list. At that time I finished the Cactus-Cargo integration, also closed a lot of bugs in the Jira improved the documentation, and made the new website.
 	  </p>
+		<p>
+			I am now starting of thinking for the next release, and after that I want to start developing the next-generation Cactus - Cactus2.
+		</p>
   </section>
 
   </body>
