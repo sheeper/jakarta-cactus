@@ -42,26 +42,26 @@
         <title><xsl:value-of select="channel/title"/></title>
       </properties>
       <body>
-        <section title="Archives">
+        <section name="Archives">
           <ul>
             <li>
-              <link href="site:news_archives_2003">2003 news 
-                archives</link>
+              <a href="news-2003.html">2003 news 
+                archives</a>
             </li>
             <li>
-              <link href="site:news_archives_2002">2002 news 
-                archives</link>
+              <a href="news-2002.html">2002 news 
+                archives</a>
             </li>
             <li>
-              <link href="site:news_archives_2001">2001 news 
-               archives</link>
+              <a href="news-2001.html">2001 news 
+               archives</a>
             </li>
           </ul>
         </section>
-        <section title="News and Events">
-          <link href="site:news_rdf">
+        <section name="News and Events">
+          <a href="http://jakarta.apache.org/cactus/news.xml">
             <img src="images/rss.png"/>
-          </link>          	
+          </a>          	
           <table>
             <xsl:apply-templates select="item"/>
           </table>
@@ -71,7 +71,6 @@
   </xsl:template>
 
   <xsl:template match="item">
-    <anchor id="substring-after(link, '#')"/>
     <tr>
       <th><xsl:value-of select="substring-before(dc:date, 'T')"/></th>
       <td><xsl:value-of select="description" disable-output-escaping="yes"/></td>
