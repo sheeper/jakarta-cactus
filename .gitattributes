@@ -98,11 +98,7 @@ framework/framework-13-14/src/main/java/org/apache/cactus/internal/server/runner
 framework/framework-13-14/src/main/java/org/apache/cactus/internal/util/package.html -text
 framework/framework-13-14/src/main/java/org/apache/cactus/server/package.html -text
 framework/framework-13-14/src/main/java/org/apache/cactus/server/runner/package.html -text
-framework/framework-wrappers/wrapper-javaEE-12/src/main/resources/org/apache/cactus/server/jspRedirector.jsp -text
-framework/framework-wrappers/wrapper-javaEE-13/src/main/resources/org/apache/cactus/server/jspRedirector.jsp -text
-framework/framework-wrappers/wrapper-javaEE-14/src/main/resources/org/apache/cactus/server/jspRedirector.jsp -text
 framework/logging.properties.sample -text
-framework/web/jspRedirector.jsp -text
 integration/ant/src/confs/application_1_2.dtd -text
 integration/ant/src/confs/application_1_3.dtd -text
 integration/ant/src/confs/j2ee12/web-app.dtd -text
@@ -154,9 +150,6 @@ integration/eclipse/org.apache.cactus.eclipse.webapp/src/main/java/org/apache/ca
 integration/maven/build.properties.sample -text
 integration/maven/plugin.jelly -text
 integration/maven/src/plugin-resources/cactus.jsl -text
-samples/jetty/src/main/webapp/jspRedirector.jsp -text
-samples/jetty/src/main/webapp/test/test.jsp -text
-samples/servlet/src/main/webapp/test/test.jsp -text
 scratchpad/TestCactus/.classpath -text
 scratchpad/TestCactus/.project -text
 scratchpad/TestCactus/logs/cargo.log -text
