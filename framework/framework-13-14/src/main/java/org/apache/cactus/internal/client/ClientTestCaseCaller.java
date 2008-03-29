@@ -78,7 +78,7 @@ public class ClientTestCaseCaller extends Assert
     private Log logger;
 
     /**
-     * Pure JUnit Test Case that we are wrapping (if any)
+     * Pure JUnit Test Case that we are wrapping (if any).
      */
     private Test wrappedTest;
 
@@ -193,7 +193,7 @@ public class ClientTestCaseCaller extends Assert
     }
 
     /**
-     * Call the test case end method
+     * Call the test case end method.
      *
      * @param theRequest the request data that were used to open the
      *                   connection.
@@ -333,7 +333,7 @@ public class ClientTestCaseCaller extends Assert
     }
 
     /**
-     * Call a begin method which takes Cactus WebRequest as parameter
+     * Call a begin method which takes Cactus WebRequest as parameter.
      *
      * @param theRequest the request object which will contain data that will
      *        be used to connect to the Cactus server side redirectors.

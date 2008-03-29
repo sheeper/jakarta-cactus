@@ -224,13 +224,16 @@ public class Jetty6xTestSetup extends TestSetup
         // command line.
         if (getConfigFile() != null)
         {
-        	Class xmlConfigClass = ClassLoaderUtils.loadClass(
+            Class xmlConfigClass = ClassLoaderUtils.loadClass(
                     "org.mortbay.xml.XmlConfiguration", this.getClass());
-        	
-        	Object xmlConfiguration = xmlConfigClass.getConstructor(new Class[]{String.class})
-        		.newInstance(new Object[]{getConfigFile().toString()});
-        	
-        	xmlConfiguration.getClass().getMethod("configure", new Class[] {Object.class}).invoke(xmlConfiguration, new Object[] {server});
+        
+            Object xmlConfiguration = xmlConfigClass.getConstructor(
+                    new Class[]{String.class}).newInstance(
+                        new Object[]{getConfigFile().toString()});
+        
+            xmlConfiguration.getClass().getMethod("configure", 
+                    new Class[] {Object.class})
+                    .invoke(xmlConfiguration, new Object[] {server});
 
         }
 
@@ -363,18 +366,21 @@ public class Jetty6xTestSetup extends TestSetup
         URL contextURL = new URL(theConfiguration.getContextURL());
         
         Class serverConnectorClass = ClassLoaderUtils.loadClass(
-        		"org.mortbay.jetty.nio.SelectChannelConnector", this.getClass());
+                "org.mortbay.jetty.nio.SelectChannelConnector", 
+                    this.getClass());
         Object connector = serverConnectorClass.newInstance();
         //Connector connector = new SelectChannelConnector();
         connector.getClass().getMethod(
-        		"setPort", new Class[] {String.class})
-        		.invoke(connector, new Object[] {"" + contextURL.getPort()});
+                "setPort", new Class[] {String.class})
+                .invoke(connector, new Object[] {"" + contextURL.getPort()});
         connector.getClass().getMethod(
-        		"setHost", new Class[] {String.class})
-        		.invoke(connector, new Object[] {"" + contextURL.getHost().toString()});
+                "setHost", new Class[] {String.class})
+                .invoke(connector, 
+                    new Object[] {"" + contextURL.getHost().toString()});
         
         server.getClass().getMethod("addConnector", 
-            new Class[] {ClassLoaderUtils.loadClass("org.mortbay.jetty.Connector", this.getClass())})
+            new Class[] {ClassLoaderUtils.loadClass(
+                    "org.mortbay.jetty.Connector", this.getClass())})
             .invoke(server, new Object[] {connector});
         
         return server;
@@ -399,12 +405,15 @@ public class Jetty6xTestSetup extends TestSetup
         Class contextClass = ClassLoaderUtils.loadClass(
                 "org.mortbay.jetty.servlet.Context", this.getClass());
         
-        Object context = contextClass.getConstructor(new Class[]{Class.class, String.class})
-        	.newInstance(new Object[]{theServer, contextURL.getPath().toString()});
+        Object context = contextClass.getConstructor(
+                new Class[]{Class.class, String.class})
+            .newInstance(new Object[]{theServer, contextURL.getPath()
+                    .toString()});
         
 
-        context.getClass().getMethod("setClassLoader", new Class[]{ClassLoader.class})
-        	.invoke(context, new Object[]{getClass().getClassLoader()});
+        context.getClass().getMethod("setClassLoader", 
+                new Class[]{ClassLoader.class})
+            .invoke(context, new Object[]{getClass().getClassLoader()});
         
         return context;
     }
@@ -420,9 +429,13 @@ public class Jetty6xTestSetup extends TestSetup
     private void addServletRedirector(Object theContext,
         ServletConfiguration theConfiguration) throws Exception
     {
-   	
-    	theContext.getClass().getMethod("addServlet", new Class[]{String.class, String.class})
-    		.invoke(theContext, new Object[]{"org.apache.cactus.server.ServletTestRedirector", "/" + theConfiguration.getDefaultRedirectorName().toString()});
+       
+        theContext.getClass().getMethod(
+                "addServlet", 
+                new Class[]{String.class, String.class})
+            .invoke(theContext, new Object[]{
+                    "org.apache.cactus.server.ServletTestRedirector", "/" 
+                    + theConfiguration.getDefaultRedirectorName().toString()});
     }
     
     /**
@@ -436,18 +449,23 @@ public class Jetty6xTestSetup extends TestSetup
      */
     private void addJspRedirector(Object theContext) throws Exception
     {
-    	
+        
         if (getResourceDir() != null)
         {
             theContext.getClass().getMethod("addServlet", 
                 new Class[] {String.class, String.class})
                 .invoke(theContext, 
-                new Object[] {org.apache.jasper.servlet.JspServlet.class.getName(),"*.jsp"});
+                new Object[] {org.apache.jasper.servlet.JspServlet.class
+                        .getName(), "*.jsp"});
             
-            Object servletHandler = theContext.getClass().getMethod("getServletHandler", new Class[]{}).invoke(theContext, new Object[]{});
+            Object servletHandler = theContext.getClass().getMethod(
+                    "getServletHandler", new Class[]{})
+                    .invoke(theContext, new Object[]{});
             
-            servletHandler.getClass().getMethod("addServletMapping", new Class[]{String.class, String.class})
-            	.invoke(servletHandler, new Object[]{"org.apache.jasper.servlet.JspServlet", "/jspRedirector.jsp"});
+            servletHandler.getClass().getMethod("addServletMapping", 
+                    new Class[]{String.class, String.class})
+                .invoke(servletHandler, new Object[]{
+                "org.apache.jasper.servlet.JspServlet", "/jspRedirector.jsp"});
             
         }
     }
@@ -468,11 +486,13 @@ public class Jetty6xTestSetup extends TestSetup
     {
         if (getResourceDir() != null)
         {
-        	
+            
             theContext.getClass().getMethod("addFilter", 
                     new Class[] {String.class, String.class, Integer.TYPE})
                     .invoke(theContext, 
-                    new Object[] {org.apache.cactus.server.FilterTestRedirector.class.getName(),theConfiguration.getDefaultRedirectorName(), new Integer(0)});
+                    new Object[] {org.apache.cactus.server.FilterTestRedirector
+                            .class.getName(), theConfiguration
+                            .getDefaultRedirectorName(), new Integer(0)});
         }
     }
 
@@ -545,11 +565,14 @@ public class Jetty6xTestSetup extends TestSetup
         {
             byte[] buf = new byte[256];
             InputStream in = null;
-            try {
-            	in = theConnection.getInputStream();
-            } catch (FileNotFoundException fex) {
-            	//JAVA BUG #4160499
-            	return;
+            try 
+            {
+                in = theConnection.getInputStream();
+            } 
+            catch (FileNotFoundException fex) 
+            {
+                //JAVA BUG #4160499
+                return;
             }
             while (in.read(buf) != -1)
             {

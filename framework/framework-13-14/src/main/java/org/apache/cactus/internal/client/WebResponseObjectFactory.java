@@ -19,11 +19,9 @@
  */
 package org.apache.cactus.internal.client;
 
-import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
-
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
@@ -73,7 +71,8 @@ public class WebResponseObjectFactory implements ResponseObjectFactory
 
             // Is it a Html Unit WebResponse ?
         }
-        else if (theClassName.equals("com.gargoylesoftware.htmlunit.WebResponse"))
+        else if (theClassName.equals(
+                "com.gargoylesoftware.htmlunit.WebResponse"))
         {
             responseObject = createHtmlUnitWebResponse(this.connection);
 
@@ -160,13 +159,14 @@ public class WebResponseObjectFactory implements ResponseObjectFactory
         {
             Class responseClass = 
                 Class.forName("com.gargoylesoftware.htmlunit.StringWebResponse");
-            Constructor method = responseClass.getConstructor( 
+            Constructor method = responseClass.getConstructor(
                 new Class[] {String.class, URL.class});
 
             InputStream input = theConnection.getInputStream();
             byte[] buffer = new byte[input.available()];
             input.read(buffer);
-            webResponse = method.newInstance(new Object[] {new String(buffer), theConnection.getURL()});
+            webResponse = method.newInstance(new Object[] {new String(buffer), 
+                    theConnection.getURL()});
         }
         catch (Exception e)
         {

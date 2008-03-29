@@ -78,7 +78,7 @@ public class AssertionFailedErrorWrapper extends AssertionFailedError
     }
 
     /**
-     * Simulates a printing of a stack trace by printing the string stack trace
+     * Simulates a printing of a stack trace by printing the string stack trace.
      *
      * @param thePs the stream to which to output the stack trace
      */
@@ -95,7 +95,7 @@ public class AssertionFailedErrorWrapper extends AssertionFailedError
     }
 
     /**
-     * Simulates a printing of a stack trace by printing the string stack trace
+     * Simulates a printing of a stack trace by printing the string stack trace.
      *
      * @param thePw the writer to which to output the stack trace
      */
