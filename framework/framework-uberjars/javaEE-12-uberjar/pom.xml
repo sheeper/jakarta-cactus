@@ -48,6 +48,12 @@
 				  <descriptors>
 					 <descriptor>src/assemble/main.xml</descriptor>
 					</descriptors>
+					<archive>
+						<manifest>
+							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+              <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+						</manifest>
+          </archive>
 				</configuration>
 				<executions>
 					<execution>
