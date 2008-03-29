@@ -27,8 +27,8 @@
 		<dependency org="taglibs" name="standard" rev="1.1.2"/>
 		
 		<dependency org="org.mortbay.jetty" name="org.mortbay.jetty" rev="5.1.9"/>
-		<dependency org="tomcat" name="jasper-compiler" rev="4.1.30"/>
-		<dependency org="tomcat" name="jasper-runtime" rev="4.1.30"/>	
+		<dependency org="tomcat" name="jasper-compiler" rev="5.5.9"/>
+		<dependency org="tomcat" name="jasper-runtime" rev="5.5.9"/>	
 		
 	  <dependency org="junitperf" name="junitperf" rev="1.8"/>	
 	</dependencies>
