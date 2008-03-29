@@ -42,6 +42,13 @@
 			</includes>
 		</fileSet>
 		<fileSet>
+			<directory>integration/shared-api/target</directory>
+			<outputDirectory>lib</outputDirectory>
+			<includes>
+				<include>*.jar</include>
+			</includes>
+		</fileSet>
+		<fileSet>
 			<directory>cactus-site/src/site/resources/api</directory>
 			<outputDirectory>cactus-site</outputDirectory>
 			<includes>
