@@ -14,7 +14,6 @@ cactus-maven-skin/src/main/resources/images/icon_info_sml.gif -text
 cactus-maven-skin/src/main/resources/images/icon_success_sml.gif -text
 cactus-maven-skin/src/main/resources/images/icon_warning_sml.gif -text
 cactus-site/src/site/fml/faq.fml -text
-cactus-site/src/site/resources/apidocs/package-list -text
 cactus-site/src/site/resources/favicon.ico -text
 cactus-site/src/site/resources/images/archi.jpg -text
 cactus-site/src/site/resources/images/archi_filter.jpg -text
