@@ -214,23 +214,6 @@
   
 	<reporting>
 		<plugins>
-			<!--plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-changes-plugin</artifactId>
-				<reportSets>
-					<reportSet>
-						<id>dual-report</id>
-						<configuration>
-							<type>range</type>
-							<range>30</range>
-						</configuration>
-						<reports>
-							<report>changelog</report>
-							<report>file-activity</report>
-						</reports>
-					</reportSet>
-				</reportSets>
-			</plugin-->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-site-plugin</artifactId>
@@ -273,7 +256,6 @@
 					<smtpPort implementation="java.lang.Integer">25</smtpPort>
 					<toAddresses>
 						<toAddress implementation="java.lang.String">dev@cactus.org</toAddress>
-						<toAddress implementation="java.lang.String">anothersomeone@email.com</toAddress>
 					</toAddresses>
 				</configuration>
 			</plugin>

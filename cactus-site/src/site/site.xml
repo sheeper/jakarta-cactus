@@ -95,9 +95,11 @@
 			<item name="Mock vs Container" href="mock_vs_cactus.html"/>
 			<item name="Tested On..." href="http://wiki.apache.org/jakarta-cactus/TestedOn"/>
 			<item name="Resources" href="/resources/index.html" collapse="true">
-			   <item name="Books" href="resources/resources_books.html"/>
-			   <item name="Cactus" href="resources/resources_cactus.html"/>
-			   <item name="Testing" href="resources/resources_testing.html"/>
+				<item name="Javadoc API" href="apidocs/index.html"/>
+				<item name="Xref API" href="xref/index.html"/>
+				<item name="Books" href="resources/resources_books.html"/>
+				<item name="Cactus" href="resources/resources_cactus.html"/>
+				<item name="Testing" href="resources/resources_testing.html"/>
       </item>
 			<!--item name="Statistics" href="/stats/index.html"/-->
 		</menu>

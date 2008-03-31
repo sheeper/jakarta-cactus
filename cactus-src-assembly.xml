@@ -15,29 +15,15 @@
 			</includes>
 			<excludes>
 				<exclude>**/target/**</exclude>
-				<!--Kate makes such temp files. -->
+				<!--Linux Kate makes such temp files. -->
 				<exclude>**/*.*~</exclude>
-				<!--Eclipse's work directory -->
+				<!--Eclipse's work directory. -->
 				<exclude>bin/**</exclude>
-				<!-- svn directories -->
+				<!-- svn directories. -->
 				<exclude>**/.svn/**</exclude>
 				<exclude>descriptors/**</exclude>
 				<exclude>scratchpad/**</exclude>
       </excludes>
-		</fileSet>
-		<fileSet>
-			<directory>cactus-site/target</directory>
-			<outputDirectory>cactus-site</outputDirectory>
-			<includes>
-				<include>site/**</include>
-			</includes>
-		</fileSet>
-		<fileSet>
-			<directory>cactus-site/src/site/resources</directory>
-			<outputDirectory>cactus-site</outputDirectory>
-			<includes>
-				<include>api-docs</include>
-			</includes>
 		</fileSet>
 	</fileSets>
 </assembly>

@@ -18,8 +18,8 @@
 		</dependencySet>
 	</dependencySets>
 	<fileSets>
-		<useDefaultExcludes>false</useDefaultExcludes>
 		<fileSet>
+			<useDefaultExcludes>false</useDefaultExcludes>
 			<includes>
 				<include>README</include>
 				<include>LICENSE</include>

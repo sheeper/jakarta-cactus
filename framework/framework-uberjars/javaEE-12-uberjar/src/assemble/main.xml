@@ -11,9 +11,24 @@
 				<include>org.apache.cactus:cactus.core.framework.javaEE.12-13-14:jar</include>
 				<include>org.apache.cactus:cactus.core.framework.wrapper.javaEE.12:jar</include>
 			</includes>
+			<unpackOptions>
+				<excludes>
+					<exclude>META-INF/**</exclude>
+				</excludes>
+			</unpackOptions>
 			<unpack>true</unpack>
 			<scope>test</scope>
 		</dependencySet>
 	</dependencySets>
+	<fileSets>
+		<fileSet>
+			<directory>src/conf</directory>
+			<outputDirectory>META-INF</outputDirectory>
+			<includes>
+				<include>NOTICE</include>
+				<include>LICENSE</include>
+			</includes>
+		</fileSet>
+	</fileSets>
 </assembly>
  
