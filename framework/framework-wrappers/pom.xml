@@ -40,6 +40,5 @@
 		<module>wrapper-javaEE-12</module>
 		<module>wrapper-javaEE-13</module>
 		<module>wrapper-javaEE-14</module>
-		<module>wrapper-javaEE-15</module>
 	</modules>
 </project>
