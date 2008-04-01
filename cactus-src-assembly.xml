@@ -36,6 +36,7 @@
 				<exclude>**/target/**</exclude>
 				<!--Linux Kate makes such temp files. -->
 				<exclude>**/*.*~</exclude>
+				<exclude>**/*~</exclude>
 				<!--Eclipse's work directory. -->
 				<exclude>bin/**</exclude>
 				<!-- svn directories. -->
