@@ -1,5 +1,5 @@
 This directory contains the union of all the licenses used by the
-Cactus and thirdparty software. 
+Cactus and third party software.
 
 ServletAPI - Common Development And Distribution License (CDDL) Version 1.0
 AspectJ - Mozilla 1.1
