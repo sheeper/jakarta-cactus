@@ -98,10 +98,6 @@ framework/framework-13-14/src/main/java/org/apache/cactus/internal/server/runner
 framework/framework-13-14/src/main/java/org/apache/cactus/internal/util/package.html -text
 framework/framework-13-14/src/main/java/org/apache/cactus/server/package.html -text
 framework/framework-13-14/src/main/java/org/apache/cactus/server/runner/package.html -text
-framework/framework-uberjars/javaEE-12-uberjar/src/conf/MANIFEST.MF -text
-framework/framework-uberjars/javaEE-13-uberjar/src/conf/MANIFEST.MF -text
-framework/framework-uberjars/javaEE-14-uberjar/src/conf/MANIFEST.MF -text
-framework/framework-uberjars/javaEE-15-uberjar/src/conf/MANIFEST.MF -text
 framework/logging.properties.sample -text
 integration/ant/src/confs/application_1_2.dtd -text
 integration/ant/src/confs/application_1_3.dtd -text
