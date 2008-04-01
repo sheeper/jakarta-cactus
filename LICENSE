@@ -202,100 +202,24 @@
 
 ===================== End of Apache License file V 2.0 ==================
 
-
-
 #########################################################################
 ## APACHE CACTUS   DEPENDENCIES                                        ##
 #########################################################################
 
-A binary distribution of Apache Cactus includes a number of dependent 
-packages with separate copyright notices and license terms. Your use of 
-these dependent packages is subject to the terms and conditions of the 
-following licenses. 
+A binary distribution of Apache Cactus includes a number of dependent
+packages with separate copyright notices and license terms. Your use of
+these dependent packages is subject to the terms and conditions of the
+following licenses.
 
-=========================================================================
-==  JUnit Notice                                                       ==
-=========================================================================
+The JUnit framework is licensed under the Common Public License Version 1.0
+See licences/cpl-1.0.txt
 
-The JUnit framework is licensed 
-under the Common Public License Version 1.0
-
-=========================================================================
-==  AspectJ Notice                                                     ==
-=========================================================================
-
-The AspectJ is licensed under the Eclipse Public License - v 1.0.
-
-
-=========================================================================
-==  HttpUnit Notice                                                    ==
-=========================================================================
+AspectJ is licensed under the Eclipse Public License - v 1.0.
+See licences/epl-v10.html
 
 The HttpUnit framework is is licensed under a specific license:
-
--------------------------------------------------------------------------
-Permission is hereby granted, free of charge, to any person obtaining 
-a copy of this software and associated documentation files (the "Software"),
-to deal in the Software without restriction, including without limitation 
-the rights to use, copy, modify, merge, publish, distribute, sublicense, 
-and/or sell copies of the Software, and to permit persons to whom the 
-Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included 
-in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING 
-FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
-DEALINGS IN THE SOFTWARE.
---------------------------------------------------------------------------
-
-
-=========================================================================
-==  Jetty Notice                                                       ==
-=========================================================================
+See licenses/httpunit.txt
 
 The Jetty software is licensed under the Apache License, Version 2.0.
 
-
-=========================================================================
-==  Commons Logging Notice                                             ==
-=========================================================================
-
-The Commons Logging library is licensed 
-under the Apache License, Version 2.0.
-
-
-=========================================================================
-==  Commons HttpClient Notice                                          ==
-=========================================================================
-
-The Commons HttpClient library is licensed 
-under the Apache License, Version 2.0.
-
-
-=========================================================================
-==  Jasper Compiler Notice                                             ==
-=========================================================================
-
-The Jasper Compiler library is licensed 
-under the Apache License, Version 2.0.
-
-
-=========================================================================
-==  Jasper Runtime Notice                                              ==
-=========================================================================
-
-The Jasper Runtime library is licensed 
-under the Apache License, Version 2.0.
-
-
-=========================================================================
-==  NekoHtml Notice                                                    ==
-=========================================================================
-
-The NekoHtml library is licensed 
-under the Apache License, Version 2.0.
+The NekoHtml library is licensed under the Apache License, Version 2.0.
