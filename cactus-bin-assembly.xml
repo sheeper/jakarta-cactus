@@ -100,6 +100,16 @@
 			</includes>
 		</fileSet>
 		<fileSet>
+			<directory>cactus-site/src/site/resources/</directory>
+			<outputDirectory>documentation</outputDirectory>
+			<includes>
+				<include>**/apidocs/**</include>
+			</includes>
+			<excludes>
+				<exclude>**/xref/**</exclude>
+			</excludes>
+		</fileSet>
+		<fileSet>
 			<directory>descriptors/licenses</directory>
 			<outputDirectory>licenses</outputDirectory>
 			<includes>

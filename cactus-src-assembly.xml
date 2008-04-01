@@ -40,6 +40,8 @@
 				<exclude>bin/**</exclude>
 				<!-- svn directories. -->
 				<exclude>**/.svn/**</exclude>
+				<exclude>**/xref/**</exclude>
+				<exclude>**/apidocs/**</exclude>
 				<exclude>descriptors/**</exclude>
 				<exclude>scratchpad/**</exclude>
       </excludes>

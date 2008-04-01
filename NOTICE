@@ -1,5 +1,111 @@
 Apache Cactus
-Copyright 1998-2008 The Apache Software Foundation
+Copyright 1999-2008 The Apache Software Foundation
 
 This product includes software developed at
 The Apache Software Foundation (http://www.apache.org/).
+
+#########################################################################
+## APACHE CACTUS DEPENDENCIES                                          ##
+#########################################################################
+
+A binary distribution of Apache Cactus includes a number of dependent 
+packages with separate copyright notices and license terms. The following 
+notices apply to these dependencies.
+
+=========================================================================
+==  JUnit Notice                                                       ==
+=========================================================================
+
+This software comes bundled with the JUnit library package,
+which is open source software. The JUnit framework 
+is an open-source project hosted on Sourceforge.net, 
+and is not maintained by Object Mentor.
+
+=========================================================================
+==  AspectJ Notice                                                     ==
+=========================================================================
+
+This software comes bundled with an AspectJ library package,
+which is open source software. The AspectJ software is an 
+open-source project hosted here
+
+http://www.eclipse.org/aspectj/
+
+and is distributed under Eclipse Public License - v 1.0.
+
+
+
+=========================================================================
+==  HttpUnit Notice                                                    ==
+=========================================================================
+This software comes bundled with HttpUnit library package,
+which is open source software. The HttpUnit framework 
+is an open-source project hosted on Sourceforge.net, 
+and is developed by Russell Gold.
+
+=========================================================================
+==  Jetty Notice                                                       ==
+=========================================================================
+
+This software comes bundled with a Jetty library package,
+which is open source software. The Jetty software 
+is an open-source project hosted here
+
+http://www.mortbay.org/
+
+and is distributed under Apache2 license.
+
+
+
+=========================================================================
+==  Commons Logging Notice                                             ==
+=========================================================================
+
+Copyright 2005-2008 The Apache Software Foundation
+
+This product includes software developed by
+The Apache Software Foundation (http://www.apache.org/).
+
+
+
+=========================================================================
+==  Commons HttpClient Notice                                          ==
+=========================================================================
+
+Copyright 2005-2008 The Apache Software Foundation
+
+This product includes software developed by
+The Apache Software Foundation (http://www.apache.org/).
+
+
+
+=========================================================================
+==  Jasper Compiler Notice                                             ==
+=========================================================================
+
+Copyright 2005-2008 The Apache Software Foundation
+
+This product includes software developed by
+The Apache Software Foundation (http://www.apache.org/).
+
+
+
+=========================================================================
+==  Jasper Runtime Notice                                              ==
+=========================================================================
+
+Copyright 2005-2008 The Apache Software Foundation
+
+This product includes software developed by
+The Apache Software Foundation (http://www.apache.org/).
+
+
+
+=========================================================================
+==  NekoHtml Notice                                                    ==
+=========================================================================
+
+This software comes bundled with the NekoHtml library package,
+which is open source software. The NekoHtml software 
+is an open-source project hosted on Sourceforge.net, and distributed
+under Apache2 license.
