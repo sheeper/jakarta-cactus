@@ -122,7 +122,21 @@
               The JUnit unit testing framework.
             </td>
           </tr>
-          <tr>
+					<tr>
+						<td nowrap="true">
+							<a href="http://ant.apache.org/ivy/">ivy-[version].jar</a>
+						</td>
+						<td>
+							No
+						</td>
+						<td nowrap="true">
+							2.0.0-beta1
+						</td>
+						<td>
+							The Ivy dependency management library.
+						</td>
+          </tr>
+					<tr>
             <td nowrap="true">
 		    <a href="http://xml.apache.org/xalan-j/">xalan.jar</a>
             </td>
