@@ -12,3 +12,4 @@ Jasper Compiler - Apache 2.0
 Jasper Runtime - Apache 2.0
 JUnit - Common Public License v1.0
 NekoHtml - Apache 2.0
+Cargo UberJar & Cargo-Ant integration - Apache 2.0

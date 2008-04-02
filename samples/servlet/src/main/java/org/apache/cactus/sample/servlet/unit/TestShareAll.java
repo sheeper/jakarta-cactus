@@ -52,7 +52,7 @@ public abstract class TestShareAll
         suite.addTestSuite(TestSetUpTearDown.class);
         suite.addTestSuite(TestSetURL.class);
         suite.addTestSuite(TestTearDownException.class);
-        suite.addTestSuite(TestBasicAuthentication.class);
+        //suite.addTestSuite(TestBasicAuthentication.class);
         suite.addTestSuite(TestHttpUnitIntegration.class);
         suite.addTestSuite(TestHtmlUnitIntegration.class);
         suite.addTestSuite(TestServletRedirectorOverride.class);
