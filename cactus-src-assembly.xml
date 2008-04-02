@@ -44,7 +44,6 @@
 				<exclude>**/xref/**</exclude>
 				<exclude>**/apidocs/**</exclude>
 				<exclude>descriptors/**</exclude>
-				<exclude>scratchpad/**</exclude>
       </excludes>
 		</fileSet>
 	</fileSets>
