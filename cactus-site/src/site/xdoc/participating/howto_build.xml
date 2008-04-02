@@ -173,7 +173,7 @@
             <td nowrap="true">
 		    <a href="http://www.eclipse.org/aspectj/">aspectjrt.jar</a>
             </td>
-            <td nowrap="true">1.1.1</td>
+            <td nowrap="true">1.1.1 +</td>
             <td>
               The AspectJ runtime.
             </td>
@@ -182,7 +182,7 @@
             <td nowrap="true">
 		    <a href="http://www.eclipse.org/aspectj/">aspectjtools.jar</a>
             </td>
-            <td nowrap="true">1.1.1</td>
+            <td nowrap="true">1.1.1 +</td>
             <td>
               The AspectJ compiler and other tools.
             </td>
@@ -191,7 +191,7 @@
             <td nowrap="true">
 		    <a href="http://jakarta.apache.org/commons/httpclient/">commons-httpclient.jar</a>
             </td>
-            <td nowrap="true">2.0</td>
+            <td nowrap="true">2.0 +</td>
             <td>
               Jakarta Commons HttpClient.
             </td>
@@ -200,7 +200,7 @@
             <td nowrap="true">
 		    <a href="http://jakarta.apache.org/commons/logging/">commons-logging.jar</a>
             </td>
-            <td nowrap="true">1.0.3</td>
+            <td nowrap="true">1.0.3 +</td>
             <td>
               Jakarta Commons Logging.
             </td>
@@ -209,7 +209,7 @@
             <td nowrap="true">
 		    <a href="http://junit.org/">junit.jar</a>
             </td>
-            <td nowrap="true">3.8.1</td>
+            <td nowrap="true">3.8.1 +</td>
             <td>
               The JUnit framework.<br/>
               <em>This JAR file must be placed in the <code>lib</code>
@@ -279,7 +279,7 @@
             <td>
               <a href="http://httpunit.sourceforge.net/">httpunit.jar</a>
             </td>
-            <td nowrap="true">1.5.4</td>
+            <td nowrap="true">1.5.4 +</td>
             <td>
               HttpUnit. Required for testing the
               <a href="../writing/howto_httpunit.html">HttpUnit</a> integration.
@@ -327,7 +327,7 @@
             <td nowrap="true">
               <a href="http://mortbay.org/jetty/">jetty.jar</a>
             </td>
-            <td nowrap="true">4.2.17</td>
+            <td nowrap="true">4.2.17 +</td>
             <td>
               Jetty Servlet container. Required to build and run the Jetty 
               sample project.
@@ -337,7 +337,7 @@
             <td nowrap="true">
               <a href="http://www.ibiblio.org/maven/tomcat/jars">jasper-compiler.jar</a>
             </td>
-            <td nowrap="true">4.1.30</td>
+            <td nowrap="true">4.1.30 +</td>
             <td>
               JSP engine required by Jetty to process JSPs. Required to build
               and run the Jetty sample project.
@@ -347,7 +347,7 @@
             <td nowrap="true">
               <a href="http://www.ibiblio.org/maven/tomcat/jars">jasper-runtime.jar</a>
             </td>
-            <td nowrap="true">4.1.30</td>
+            <td nowrap="true">4.1.30 +</td>
             <td>
               JSP engine required by Jetty to process JSPs. Required to build
               and run the Jetty sample project.
@@ -355,21 +355,30 @@
           </tr>
           <tr>
             <td nowrap="true">
-              <a href="http://www.mockobjects.com/">mockobjects-core.jar</a>
+							<a href="http://www.mockobjects.com/">jmock.jar</a>
             </td>
-            <td nowrap="true">0.09</td>
+						<td nowrap="true">1.2.0</td>
             <td>
               Mock object library used by several unit tests.
             </td>
           </tr>
           <tr>
             <td nowrap="true">
-              <a href="http://cargo.codehaus.org/">cargo.jar</a>
+              <a href="http://cargo.codehaus.org/">cargo-uberjar.jar</a>
             </td>
             <td nowrap="true">0.9</td>
             <td>
               Cargo framework for manipulating the different containers.
             </td>
+          </tr>
+					<tr>
+						<td nowrap="true">
+							<a href="http://cargo.codehaus.org/">cargo-ant.jar</a>
+						</td>
+						<td nowrap="true">0.9</td>
+						<td>
+							Cargo-ant tasks for manipulating the different containers.
+						</td>
           </tr>
         </table>
       </section>
@@ -448,7 +457,7 @@
       </p>
       <ul>
         <li>
-          <strong><code>mvn clean:install</code></strong>: This will 
+          <strong><code>mvn clean install</code></strong>: This will 
           automatically download all the required dependencies. It takes about
           7 minutes on a 512 kbps internet connection the first time. If you're
           behind a firewall, you'll need to read this <a href="http://maven.apache.org/guides/mini/guide-proxies.html">tutorial</a> for specifying a proxy.
@@ -474,6 +483,59 @@
         suite for Cactus. You might want to simply perform a full rebuild to
         be sure that nothing has been negatively affected by your changes.
       </p>
+    </section>
+		
+		<section name="Create the Cactus Archives From Source">
+			
+			<p>
+				So after you have checked out the source of Cactus there is
+				one more step to make in order to get the assemblies. First,
+				as usual, ensure that you are connected to the internet. After
+				that go to the top-folder of the Cactus check-out and 
+				follow these steps.
+			</p>
+			<ul>
+				<li>
+					In order to make the archives you need to prepare the content
+					for the archives. First package all the jars with:
+					<strong><code>mvn clean package</code></strong>:
+					This will make all of the submodules to package their jars.
+				</li>	
+				<li>
+					<strong><code>mvn assembly:assembly -N</code></strong>: This will 
+					automatically start making the assemblies, and once the download
+					of all of the required dependencies is finished you will see a <code>target/</code>
+					folder in the top-level folder. This folder will contain the 
+					assemblies for the Cactus project.
+				</li>
+			</ul>
+    </section>
+		<section name="Generating the Cactus web-site.">
+			
+			<p>
+				If you want to generate the Cactus web-site, this is what you 
+				should do:
+			</p>
+			<ul>
+				<li>
+					Navigate to the top-folder of the Cactus check-out and generate
+					the javadoc:<br/>
+					<strong><code>mvn javadoc:javadoc</code></strong><br/>
+					and XRef:<br/>
+					<strong><code>mvn jxr:jxr</code></strong><br/>
+					contents of the web-site. These two line will generate the reports in the
+					<strong><code>cactus-site/src/site/resources/</code></strong> folder.
+				</li>
+				<li>					
+					After that navigate to the cactus-site submodule:<br/>
+					<strong><code>cd cactus-site/</code></strong><br/>
+					and execute the following:<br/>
+					<strong><code>mvn site:site</code></strong><br/>
+					As a result you will have the Cactus web-site generated in the
+					<strong><code>[CACTUS_ROOT]/cactus-site/target/site</code></strong>
+					folder.
+				</li>	
+			</ul>
     </section>
   </body>
 
