@@ -128,12 +128,3 @@ integration/eclipse/org.apache.cactus.eclipse.webapp/src/main/java/org/apache/ca
 integration/maven/build.properties.sample -text
 integration/maven/plugin.jelly -text
 integration/maven/src/plugin-resources/cactus.jsl -text
-scratchpad/TestCactus/.classpath -text
-scratchpad/TestCactus/.project -text
-scratchpad/TestCactus/logs/cargo.log -text
-scratchpad/TestCactus/logs/output.log -text
-scratchpad/cactus2/LICENSE.cactus -text
-scratchpad/cactus2/documentation/docs/xdocs/original/architecture.ppt -text
-scratchpad/cactus2/documentation/docs/xdocs/original/scope.ppt -text
-scratchpad/cactus2/integration/maven/build.properties.sample -text
-scratchpad/cactus2/integration/maven/plugin.jelly -text

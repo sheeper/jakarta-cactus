@@ -1,8 +1,0 @@
-<project
-  xmlns:j="jelly:core"
-  xmlns:maven="jelly:maven">
-  
-  <goal name="dist" prereqs="aspectwerkz:aspectc,jar:install"/>
-  <goal name="dist-clean" prereqs="clean,dist"/>
-  
-</project>
