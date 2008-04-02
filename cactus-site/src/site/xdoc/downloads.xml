@@ -45,28 +45,26 @@
 
         <ul>
           <li>
-            <strong>jakarta-cactus-12-&lt;version&gt;.zip</strong>
+						<strong>cactus-&lt;version&gt;-bin.&lt;archive.type&gt;</strong>
             <p>
-              The main binary distribution of Cactus for J2EE 1.2. Includes the
+              The main binary distribution of Cactus for J2EE 1.4. or higher. Includes the
               Cactus framework, the complete set of documentation, the Cactus Ant
               tasks and the examples.
             </p>
           </li>
           <li>
-            <strong>jakarta-cactus-13-&lt;version&gt;.zip</strong>
+						<strong>cactus-src-&lt;version&gt;-src.&lt;archive.type&gt;</strong>
             <p>
-              The main binary distribution of Cactus for J2EE 1.3. Includes the
-              Cactus framework, the complete set of documentation, the Cactus Ant
-              tasks and the examples.
-            </p>
-          </li>
-          <li>
-            <strong>jakarta-cactus-src-&lt;version&gt;.zip</strong>
-            <p>
-              The source distribution of Cactus. This corresponds to a clean CVS
+              The source distribution of Cactus. This corresponds to a clean SVN
               checkout of the Cactus sources at the time the version was
               released.
             </p>
+          </li>
+					<li>
+						<p>
+							If you need the cactus framework for an older Java version,
+							you can get it from the <a href="http://repo1.maven.org/maven2/org/apache/cactus/1.8.0/">maven central repository</a>
+						</p>
           </li>
         </ul>
 
