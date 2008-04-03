@@ -22,7 +22,7 @@
 	<parent>
 		<groupId>org.apache.cactus</groupId>
 		<artifactId>cactus.core.framework.wrappers</artifactId>
-		<version>1.8.0-rc</version>
+		<version>1.8.1-SNAPSHOT</version>
 	</parent>
 	<name>Cactus Wrappers - Java EE 1.4</name>
 	<description>Cactus Wrappers and JSP redirector for Java EE 1.4</description>
