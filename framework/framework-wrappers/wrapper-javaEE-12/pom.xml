@@ -22,7 +22,7 @@
 	<parent>
 		<groupId>org.apache.cactus</groupId>
 		<artifactId>cactus.core.framework.wrappers</artifactId>
-		<version>1.8.0-rc</version>
+		<version>1.8.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>cactus.core.framework.wrapper.javaEE.12</artifactId>
 	<packaging>jar</packaging>

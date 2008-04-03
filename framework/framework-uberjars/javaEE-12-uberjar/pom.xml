@@ -22,7 +22,7 @@
 	<parent>
 		<groupId>org.apache.cactus</groupId>
 		<artifactId>cactus.core.framework.uberjars</artifactId>
-		<version>1.8.0-rc</version>
+		<version>1.8.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>cactus.core.framework.uberjar.javaEE.12</artifactId>
 	<name>Cactus Uberjar - Java EE 1.2</name>
