@@ -226,7 +226,7 @@
 					<reportSet>
 						<reports>
 							<report>changes-report</report>
-							<report>jira-report</report>
+							<!--report>jira-report</report-->
 						</reports>
 					</reportSet>
 				</reportSets>
@@ -256,11 +256,11 @@
 					<smtpHost>mail.yourhost.com</smtpHost>
 					<smtpPort implementation="java.lang.Integer">25</smtpPort>
 					<toAddresses>
-						<toAddress implementation="java.lang.String">dev@cactus.org</toAddress>
+						<toAddress implementation="java.lang.String">cactus-dev@jakarta.apache.org</toAddress>
 					</toAddresses>
 				</configuration>
 			</plugin>
-			<plugin>
+			<!--plugin>
     		<groupId>org.codehaus.mojo</groupId>
     		<artifactId>xml-maven-plugin</artifactId>
     		<version>1.0-beta-2</version>
@@ -285,7 +285,7 @@
       			</transformationSets>
    				<extension>xml</extension>
     		</configuration>
-      </plugin>
+      </plugin-->
 		</plugins>
 	</build>
 </project>

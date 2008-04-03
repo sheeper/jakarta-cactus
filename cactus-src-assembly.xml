@@ -43,7 +43,6 @@
 				<exclude>**/.svn/**</exclude>
 				<exclude>**/xref/**</exclude>
 				<exclude>**/apidocs/**</exclude>
-				<exclude>descriptors/**</exclude>
       </excludes>
 		</fileSet>
 	</fileSets>

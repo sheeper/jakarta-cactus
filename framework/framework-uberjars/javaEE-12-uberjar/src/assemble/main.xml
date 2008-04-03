@@ -33,6 +33,7 @@
 			<unpackOptions>
 				<excludes>
 					<exclude>META-INF/**</exclude>
+					<exclude>builddef.lst</exclude>
 				</excludes>
 			</unpackOptions>
 			<unpack>true</unpack>

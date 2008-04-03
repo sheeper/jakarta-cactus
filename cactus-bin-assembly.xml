@@ -69,7 +69,7 @@
 			</includes>
 		</fileSet>
 		<fileSet>
-			<directory>cactus-site/src/site/resources/api</directory>
+			<directory>cactus-site/src/site/resources/apidocs</directory>
 			<outputDirectory>cactus-site</outputDirectory>
 			<includes>
 				<include>**/*</include>
