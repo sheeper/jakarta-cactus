@@ -46,7 +46,10 @@
 						<descriptor>src/assemble/main.xml</descriptor>
 					</descriptors>
 					<archive>
-						<manifestFile>src/conf/MANIFEST.MF</manifestFile>
+						<manifest>
+							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+							<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+						</manifest>
 						
 						<!-- When assembly plugin 2.2-beta-3 is released, we should be able to use
 							this configuration instead of getting the MANIFEST from outside.
