@@ -1,0 +1,38 @@
+Building the project
+====================
+
+Cactus uses Maven 2 as the build mechanism.
+
+Requirements:
+- Java 1.4 or later
+- Maven 2.0.? or later
+
+Creating the jars
+=================
+
+mvn clean install
+
+Running tests
+=============
+
+mvn test
+
+Creating the site documentation
+===============================
+
+cd top-level
+
+mvn jxr:jxr
+mvn javadoc:javadoc
+
+cd cactus-site
+mvn site:site
+
+Creating the distribution
+=========================
+
+Ensure that you have created the site first
+
+change to top-level directory
+
+mvn assembly:assembly -N
