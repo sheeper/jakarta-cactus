@@ -31,7 +31,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.apache.cactus</groupId>
-			<artifactId>cactus.core.framework.wrapper.javaEE.15</artifactId>
+			<artifactId>cactus.core.framework.wrapper.javaEE.14</artifactId>
 			<version>${version}</version>
 		</dependency>
 	</dependencies>
@@ -70,23 +70,6 @@
 						<goals>
 							<goal>single</goal>
 						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<artifactId>maven-remote-resources-plugin</artifactId>
-				<version>1.0-beta-2</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>process</goal>
-						</goals>
-						<configuration>
-							<resourceBundles>
-								<resourceBundle>org.apache:apache-jar-resource-bundle:1.4</resourceBundle>
-							</resourceBundles>
-							<skip>true</skip>
-						</configuration>
 					</execution>
 				</executions>
 			</plugin>

@@ -47,24 +47,23 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
+			<version>3.8.2</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-logging</groupId>
 			<artifactId>commons-logging</artifactId>
+			<version>1.1</version>
 		</dependency>
 		<dependency>
       <groupId>jmock</groupId>
       <artifactId>jmock</artifactId>
+			<version>1.2.0</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>ant</groupId>
 			<artifactId>ant-junit</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.codehaus.cargo</groupId>
-			<artifactId>cargo-core-uberjar</artifactId>
-			<version>0.9</version>
+			<version>1.6.5</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.cactus</groupId>
@@ -73,13 +72,97 @@
 		</dependency>
 		<dependency>
 			<groupId>org.codehaus.cargo</groupId>
+			<artifactId>cargo-core-uberjar</artifactId>
+			<version>0.9</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.codehaus.cargo</groupId>
+					<artifactId>cargo-core-api-generic</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.codehaus.cargo</groupId>
+					<artifactId>cargo-core-container-geronimo</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.codehaus.cargo</groupId>
+					<artifactId>cargo-core-container-jboss</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.codehaus.cargo</groupId>
+					<artifactId>cargo-core-container-jetty</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.codehaus.cargo</groupId>
+					<artifactId>cargo-core-container-jo</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.codehaus.cargo</groupId>
+					<artifactId>cargo-core-container-resin</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.codehaus.cargo</groupId>
+					<artifactId>cargo-core-container-tomcat</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.codehaus.cargo</groupId>
+					<artifactId>cargo-core-container-orion</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.codehaus.cargo</groupId>
+					<artifactId>cargo-core-container-weblogic</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.cargo</groupId>
 			<artifactId>cargo-ant</artifactId>
 			<version>0.9</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.codehaus.cargo</groupId>
+					<artifactId>cargo-core-api-container</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.codehaus.cargo</groupId>
+					<artifactId>cargo-core-api-generic</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.codehaus.cargo</groupId>
+					<artifactId>cargo-core-container-geronimo</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.codehaus.cargo</groupId>
+					<artifactId>cargo-core-container-jboss</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.codehaus.cargo</groupId>
+					<artifactId>cargo-core-container-jetty</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.codehaus.cargo</groupId>
+					<artifactId>cargo-core-container-jo</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.codehaus.cargo</groupId>
+					<artifactId>cargo-core-container-resin</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.codehaus.cargo</groupId>
+					<artifactId>cargo-core-container-tomcat</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.codehaus.cargo</groupId>
+					<artifactId>cargo-core-container-orion</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.codehaus.cargo</groupId>
+					<artifactId>cargo-core-container-weblogic</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 	</dependencies>
 	
 	<build>
-		<pluginManagement>
 			<plugins>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
@@ -95,6 +178,5 @@
 					</configuration>
 				</plugin>
 			</plugins>
-		</pluginManagement>
 	</build>
 </project>
