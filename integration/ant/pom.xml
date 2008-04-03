@@ -32,12 +32,12 @@
 	  <dependency>
 	     <groupId>ant</groupId>
 	     <artifactId>ant-launcher</artifactId>
-	     <version>1.6.5</version>
+			 <version>1.6.5</version>
 	  </dependency>
 	  <dependency>
-	     <groupId>xerces</groupId>
-	     <artifactId>xercesImpl</artifactId>
-	     <version>2.6.2</version>
+			<groupId>xerces</groupId>
+			<artifactId>xercesImpl</artifactId>
+			<version>2.6.2</version>
 	  </dependency>
 		<dependency>
 			<groupId>xml-apis</groupId>
@@ -47,23 +47,19 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>3.8.2</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-logging</groupId>
 			<artifactId>commons-logging</artifactId>
-			<version>1.1</version>
 		</dependency>
 		<dependency>
       <groupId>jmock</groupId>
       <artifactId>jmock</artifactId>
-			<version>1.2.0</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>ant</groupId>
 			<artifactId>ant-junit</artifactId>
-			<version>1.6.5</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.cactus</groupId>
@@ -73,7 +69,6 @@
 		<dependency>
 			<groupId>org.codehaus.cargo</groupId>
 			<artifactId>cargo-core-uberjar</artifactId>
-			<version>0.9</version>
 			<exclusions>
 				<exclusion>
 					<groupId>org.codehaus.cargo</groupId>
@@ -116,7 +111,6 @@
 		<dependency>
 			<groupId>org.codehaus.cargo</groupId>
 			<artifactId>cargo-ant</artifactId>
-			<version>0.9</version>
 			<exclusions>
 				<exclusion>
 					<groupId>org.codehaus.cargo</groupId>
