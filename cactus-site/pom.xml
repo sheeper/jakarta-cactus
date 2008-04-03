@@ -260,7 +260,7 @@
 					</toAddresses>
 				</configuration>
 			</plugin>
-			<!--plugin>
+			<plugin>
     		<groupId>org.codehaus.mojo</groupId>
     		<artifactId>xml-maven-plugin</artifactId>
     		<version>1.0-beta-2</version>
@@ -285,7 +285,7 @@
       			</transformationSets>
    				<extension>xml</extension>
     		</configuration>
-      </plugin-->
+      </plugin>
 		</plugins>
 	</build>
 </project>
