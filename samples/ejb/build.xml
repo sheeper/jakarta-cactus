@@ -87,7 +87,7 @@
   -->
 	<target name="resolve" description="Retrieve dependencies with ivy" depends="prepare">
 		<ivy:configure file="../ivysettings.xml" />
-		<ivy:retrieve file="../ivy.xml" sync="true"/>
+		<ivy:retrieve file="./ivy.xml" sync="true"/>
   </target>
 
  <!--

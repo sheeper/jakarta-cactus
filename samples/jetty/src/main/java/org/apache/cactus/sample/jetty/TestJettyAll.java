@@ -20,7 +20,7 @@
  */
 package org.apache.cactus.sample.jetty;
 
-import org.apache.cactus.extension.jetty.JettyTestSetup;
+import org.apache.cactus.extension.jetty.Jetty5xTestSetup;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
@@ -54,6 +54,6 @@ public class TestJettyAll extends TestCase
          suite.addTestSuite(
              org.apache.cactus.sample.servlet.TestSampleFilter.class);
 
-        return new JettyTestSetup(suite);
+        return new Jetty5xTestSetup(suite);
     }
 }

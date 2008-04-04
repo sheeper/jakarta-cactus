@@ -92,7 +92,7 @@
   -->
 	<target name="resolve" description="Retrieve dependencies with ivy" depends="prepare">
 		<ivy:configure file="../ivysettings.xml" />
-		<ivy:retrieve file="../ivy.xml" sync="true"/>
+		<ivy:retrieve file="./ivy.xml" sync="true"/>
   </target>
 
 <!--
@@ -120,13 +120,6 @@
 		<javac srcdir="${src.dir}"
 		       destdir="${build.dir}"
 		       classpathref="cactus.classpath"/>
-		
-		<javac srcdir="${cactus.src.dir}"
-		       destdir="${build.dir}"
-			     classpathref="cactus.classpath"/>
-		<javac srcdir="${src.webapp.dir}"
-		       destdir="${build.dir}"
-			     classpathref="cactus.classpath"/>
 	</target>
 
   <!--

@@ -30,14 +30,49 @@
 	<packaging>jar</packaging>
 		<dependencies>
 		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>servlet-api</artifactId>
-			<version>2.5</version>
-		</dependency>
-		<dependency>
 			<groupId>org.apache.cactus</groupId>
 			<artifactId>cactus.core.framework.uberjar.javaEE.14</artifactId>
 			<version>${version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cactus</groupId>
+			<artifactId>cactus.integration.ant</artifactId>
+			<version>${version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cactus</groupId>
+			<artifactId>cactus.integration.shared.api</artifactId>
+			<version>${version}</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-httpclient</groupId>
+			<artifactId>commons-httpclient</artifactId>
+			<version>3.1</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.3</version>
+		</dependency>
+		<dependency>
+			<groupId>aspectj</groupId>
+			<artifactId>aspectjrt</artifactId>
+			<version>1.5.3</version>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.cargo</groupId>
+			<artifactId>cargo-core-uberjar</artifactId>
+			<version>0.9</version>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.cargo</groupId>
+			<artifactId>cargo-ant</artifactId>
+			<version>0.9</version>
 		</dependency>
 		<dependency>
 			<groupId>xerces</groupId>
@@ -50,9 +85,9 @@
 			<version>2.0</version>
 		</dependency>
 		<dependency>
-			<groupId>httpunit</groupId>
-			<artifactId>httpunit</artifactId>
-			<version>1.6</version>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -69,11 +104,12 @@
 			<artifactId>ivy</artifactId>
 			<version>2.0.0-beta1</version>
 		</dependency>
+		<dependency> 
+			<groupId>geronimo-spec</groupId>
+			<artifactId>geronimo-spec-ejb</artifactId>
+			<version>2.1-rc4</version>
+		</dependency>
 	</dependencies>
-	<properties>
-		<container.id>tomcat5x</container.id>
-		<container.home>/home/peter/bin/apache/jakarta-tomcat-5.0.28/</container.home>
-	</properties>
 	<build>
 		<plugins>
 		  <plugin>
@@ -100,7 +136,9 @@
 					    <phase>test</phase>
 					    <configuration>
     						<tasks>
-    							    <ant antfile="build.xml"/>
+    							    <ant antfile="build.xml">
+												<property name="cactus.version" value="${pom.version}"/>
+											</ant>
     						</tasks>
 					    </configuration>
 					    <goals>

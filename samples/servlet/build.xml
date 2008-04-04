@@ -86,7 +86,7 @@
   -->
 	<target name="resolve" description="Retrieve dependencies with ivy" depends="prepare">
 		<ivy:configure file="../ivysettings.xml" />
-		<ivy:retrieve file="../ivy.xml" sync="true"/>
+		<ivy:retrieve file="./ivy.xml" sync="true"/>
   </target>
 
  <!--
@@ -113,9 +113,6 @@
 		       destdir="${build.dir}"
 		       classpathref="cactus.classpath"/>
 		
-		<javac srcdir="${cactus.src.dir}"
-		       destdir="${build.dir}"
-			classpathref="cactus.classpath"/>
 	</target>
 	
   <!--
@@ -210,7 +207,7 @@
 			<sysproperty key="prop2" value="value2"/>
 			<formatter type="${cactus.formatter.type}"/>
 			<batchtest todir="${reports.dir}">
-				<fileset dir="${cactus.src.dir}">
+				<fileset dir="${src.dir}">
 					<include name="**/Test*.java"/>
 				</fileset>
 			</batchtest>
