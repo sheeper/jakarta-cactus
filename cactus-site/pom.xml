@@ -231,7 +231,9 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-site-plugin</artifactId>
-				<version>2.0-beta-6</version>
+				<!--If we use the latest beta-6 version then 
+							 the imgmap is ignored.-->
+				<version>2.0-beta-5</version>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
