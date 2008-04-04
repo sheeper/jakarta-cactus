@@ -34,11 +34,17 @@
 			</includes>
 			<excludes>
 				<exclude>**/target/**</exclude>
+				
 				<!--Linux Kate makes such temp files. -->
 				<exclude>**/*.*~</exclude>
 				<exclude>**/*~</exclude>
+				
 				<!--Eclipse's work directory. -->
 				<exclude>bin/**</exclude>
+				<exclude>.project</exclude>
+				<exclude>.profile</exclude>
+				<exclude>.classpath</exclude>
+				
 				<!-- svn directories. -->
 				<exclude>**/.svn/**</exclude>
 				<exclude>**/xref/**</exclude>
