@@ -17,12 +17,12 @@
 		specific language governing permissions and limitations
 		under the License.   
 		-->
-<project>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.apache.cactus</groupId>
 	<artifactId>cactus</artifactId>
 	<name>Cactus Parent Project</name>
-	<version>1.8.0-SNAPSHOT</version>
+	<version>1.8.0</version>
 	<packaging>pom</packaging>
 	<url>http://jakarta.apache.org/cactus/</url>
 	<inceptionYear>2001</inceptionYear>
@@ -38,8 +38,8 @@
 		<url>http://www.apache.org/</url>
 	</organization>
 	<scm>
-		<connection>scm:svn:http://svn.apache.org/repos/asf/jakarta/cactus/trunk/</connection>
-		<developerConnection>scm:svn:https://svn.apache.org/repos/asf/jakarta/cactus/trunk/</developerConnection>
+		<connection>scm:svn:http://svn.apache.org/repos/asf/jakarta/cactus/tags/1.8.0-RC2</connection>
+		<developerConnection>scm:svn:https://svn.apache.org/repos/asf/jakarta/cactus/tags/1.8.0-RC2</developerConnection>
 	</scm>
 	<prerequisites>
 		<!-- It may work with previous versions of Maven but this hasn't been tested so for safety
