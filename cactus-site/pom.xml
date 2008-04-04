@@ -21,7 +21,7 @@
 	<parent>
 		<groupId>org.apache.cactus</groupId>
     <artifactId>cactus</artifactId>
-		<version>1.8.0</version>
+		<version>1.8.1-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.apache.cactus</groupId>
@@ -41,9 +41,8 @@
 	<inceptionYear>2001</inceptionYear>
 	
   <scm>
-		<connection>scm:svn:http://svn.apache.org/repos/asf/jakarta/cactus/tags/1.8.0-RC2</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/jakarta/cactus/tags/1.8.0-RC2</developerConnection>
-    <tag>HEAD</tag>
+		<connection>scm:svn:http://svn.apache.org/repos/asf/jakarta/cactus/trunk/</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/jakarta/cactus/trunk/</developerConnection>
 	</scm>
 	
   <issueManagement>
