@@ -34,7 +34,7 @@
     <module>eclipse</module>
 	</modules>
 	<build>
-	 <pluginManagement>
+	 <plugins>
 	 			<!-- Apply checkstyle rules and fail the build in case of errors. The checkstyle config
 					 files are taken from the build-tools JAR module -->
 			<plugin>
@@ -60,7 +60,7 @@
 					</execution>
 				</executions>
 			</plugin>
-	 </pluginManagement>
+	 </plugins>
 	</build>
 </project>
  
