@@ -17,12 +17,12 @@
 		specific language governing permissions and limitations
 		under the License.   
 		-->
-<project>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.apache.cactus</groupId>
 	<artifactId>cactus</artifactId>
 	<name>Cactus Parent Project</name>
-	<version>1.8.0-SNAPSHOT</version>
+	<version>1.8.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<url>http://jakarta.apache.org/cactus/</url>
 	<inceptionYear>2001</inceptionYear>
@@ -442,31 +442,6 @@
 <build>
 	<pluginManagement>
 		<plugins>
-			<!-- Apply checkstyle rules and fail the build in case of errors. The checkstyle config
-					 files are taken from the build-tools JAR module -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-checkstyle-plugin</artifactId>
-				<dependencies>
-					<dependency>
-						<groupId>org.apache.cactus</groupId>
-						<artifactId>cactus.build.tools</artifactId>
-						<version>${version}</version>
-					</dependency>
-				</dependencies>
-				<configuration>
-					<consoleOutput>true</consoleOutput>
-					<configLocation>build-tools/checkstyle.xml</configLocation>
-					<headerLocation>build-tools/checkstyle.license</headerLocation>
-				</configuration>
-				<executions>
-					<execution>
-						<goals>
-							<goal>check</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
 			<plugin>
 				<executions>
 					<execution>
