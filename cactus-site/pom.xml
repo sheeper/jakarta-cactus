@@ -17,11 +17,11 @@
 	specific language governing permissions and limitations
 	under the License.   
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project>
 	<parent>
 		<groupId>org.apache.cactus</groupId>
     <artifactId>cactus</artifactId>
-		<version>1.8.1-SNAPSHOT</version>
+		<version>1.8.0-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.apache.cactus</groupId>
@@ -43,6 +43,7 @@
   <scm>
 		<connection>scm:svn:http://svn.apache.org/repos/asf/jakarta/cactus/trunk/</connection>
     <developerConnection>scm:svn:https://svn.apache.org/repos/asf/jakarta/cactus/trunk/</developerConnection>
+    <tag>HEAD</tag>
 	</scm>
 	
   <issueManagement>
@@ -86,13 +87,13 @@
 			<name>Jari Worsley</name>
 			<id>jariw</id>
 			<email>jariw@hyperlink-interactive.co.uk</email>
-			<organization />
+			<organization/>
 		</developer>
 		<developer>
 			<name>Nicholas Lesiecki</name>
 			<id>ndlesiecki</id>
 			<email>ndlesiecki@yahoo.com</email>
-			<organization />
+			<organization/>
 			<roles>
 				<role>Emeritus Developer</role>
 			</roles>
@@ -107,7 +108,7 @@
 			<name>Christopher Lenz</name>
 			<id>cmlenz</id>
 			<email>cmlenz@gmx.de</email>
-			<organization />
+			<organization/>
 		</developer>
 		<developer>
 			<name>Felipe Leme</name>
