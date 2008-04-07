@@ -22,7 +22,7 @@
 	<parent>
 		<groupId>org.apache.cactus</groupId>
 		<artifactId>cactus.core.framework</artifactId>
-		<version>1.8.0</version>
+		<version>1.8.1-SNAPSHOT</version>
 	</parent>
 	<name>Cactus Framework - shared all versions</name>
 	<description>Shared classes of Cactus Framework for all Java EE</description>
