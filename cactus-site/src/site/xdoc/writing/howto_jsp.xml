@@ -40,7 +40,7 @@
 	  </p>
 	  <ul>
 	  	<li>
-          <a anchor="howto_jsp.html#jsp_type1">type 1</a>:
+          <a href="howto_jsp.html#jsp_type1">type 1</a>:
           You may simply want to verify the result of the JSP processing,
 	  	  i.e. the HTML, XML or other format it returns.
 	  	</li>

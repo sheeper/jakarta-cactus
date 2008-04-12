@@ -97,12 +97,10 @@
 			<item name="Participating" href="/participating/index.html" collapse="true">
 				<item name="About Us" href="/participating/contributors.html" />
 				<item name="TODO/Open Issues" href="http://issues.apache.org/jira/browse/CACTUS?report=com.atlassian.jira.plugin.system.project:openissues-panel" />
-				<item name="Nightly Build Results" href="/participating/build_result.html" />
 				<item name="Coding Conventions" href="/participating/coding_conventions.html" />
 				<item name="Public API/SPIs" href="/participating/apis.html" />
-				<item name="CVS" href="http://jakarta.apache.org/site/cvsindex.html" />
+				<item name="SVN" href="http://jakarta.apache.org/site/cvsindex.html" />
 				<item name="Build From Source" href="/participating/howto_build.html" />
-				<item name="Code Coverage Reports" href="/participating/coverage.html" />
 				<item name="Release Checklist" href="/participating/release_checklist.html" />
 				<item name="Logos" href="/participating/logos.html" />
 			</item>
