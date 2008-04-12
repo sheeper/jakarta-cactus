@@ -20,8 +20,6 @@
  */
 package org.apache.cactus.internal.server.runner;
 
-import junit.runner.TestSuiteLoader;
-
 import org.apache.cactus.internal.util.ClassLoaderUtils;
 
 /**
@@ -29,7 +27,7 @@ import org.apache.cactus.internal.util.ClassLoaderUtils;
  *
  * @version $Id: WebappTestSuiteLoader.java 238991 2004-05-22 11:34:50Z vmassol $
  */
-public class WebappTestSuiteLoader implements TestSuiteLoader
+public class WebappTestSuiteLoader
 {
     /**
      * Try to load the test suite class using both the context class loader

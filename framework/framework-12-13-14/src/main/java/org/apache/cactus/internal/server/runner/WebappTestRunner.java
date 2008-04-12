@@ -23,7 +23,6 @@ package org.apache.cactus.internal.server.runner;
 import junit.framework.AssertionFailedError;
 import junit.framework.Test;
 import junit.runner.BaseTestRunner;
-import junit.runner.TestSuiteLoader;
 
 /**
  * JUnit Test Runner that can load test cases that are in the classpath of
@@ -46,9 +45,18 @@ public class WebappTestRunner extends BaseTestRunner
      * @return a loader that loads classes using the context class loader or
      *         the webapp class loader.
      */
-    public TestSuiteLoader getLoader()
+    //public TestSuiteLoader getLoader()
+    //{
+    //    return new WebappTestSuiteLoader();
+    //}
+    /**
+     * Returns the loaded Class for a suite name.
+     */
+    public Class loadSuiteClass(String theSuiteClassName) 
+        throws ClassNotFoundException 
     {
-        return new WebappTestSuiteLoader();
+        WebappTestSuiteLoader loader =  new WebappTestSuiteLoader();
+        return loader.load(theSuiteClassName);
     }
 
     /**
