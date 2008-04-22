@@ -25,7 +25,7 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import org.apache.tools.ant.BuildException;
+import org.apache.cactus.integration.api.exception.CactusRuntimeException;
 import org.codehaus.cargo.util.log.Logger;
 
 /**
@@ -154,7 +154,7 @@ public final class ContainerRunner
         {
             if ((System.currentTimeMillis() - startTime) > this.timeout)
             {
-                throw new BuildException("Failed to start the container after "
+                throw new CactusRuntimeException("Failed to start the container after "
                     + "more than [" + this.timeout + "] ms. Trying to connect "
                     + "to the [" + this.testURL + "] test URL yielded a ["
                     + responseCode + "] error code. Please run in debug mode "
@@ -296,7 +296,7 @@ public final class ContainerRunner
      * @return the HTTP response code or -1 if no connection could be 
      *         established
      */
-    private int testConnectivity(URL theUrl)
+    public int testConnectivity(URL theUrl)
     {
         int code;
         try
@@ -397,9 +397,9 @@ public final class ContainerRunner
      * Pauses the current thread for the specified amount.
      *
      * @param theMs The time to sleep in milliseconds
-     * @throws BuildException If the sleeping thread is interrupted
+     * @throws CactusRuntimeException If the sleeping thread is interrupted
      */
-    private void sleep(long theMs) throws BuildException
+    private void sleep(long theMs) throws CactusRuntimeException
     {
         try
         {
@@ -407,7 +407,7 @@ public final class ContainerRunner
         }
         catch (InterruptedException e)
         {
-            throw new BuildException("Interruption during sleep", e);
+            throw new CactusRuntimeException("Interruption during sleep", e);
         }
     }
 }

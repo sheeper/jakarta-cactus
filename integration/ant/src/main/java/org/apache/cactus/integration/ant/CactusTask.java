@@ -22,7 +22,6 @@
 package org.apache.cactus.integration.ant;
 
 import java.io.File;
-import java.lang.reflect.Field;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Enumeration;
@@ -32,11 +31,10 @@ import java.util.ResourceBundle;
 
 import org.apache.cactus.container.ContainerRunner;
 import org.apache.cactus.container.ContainerWrapper;
-import org.apache.cactus.integration.ant.deployment.DeployableFile;
-import org.apache.cactus.integration.ant.deployment.EarParser;
-import org.apache.cactus.integration.ant.deployment.WarParser;
 import org.apache.cactus.integration.ant.util.PropertySet;
-
+import org.apache.cactus.integration.api.deployable.DeployableFile;
+import org.apache.cactus.integration.api.deployable.EarParser;
+import org.apache.cactus.integration.api.deployable.WarParser;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.taskdefs.optional.junit.JUnitTask;
@@ -187,7 +185,7 @@ public class CactusTask extends JUnitTask
                 wrapper.setSystemProperties(this.systemProperties);
 
                 // Add extra classpath entries
-                wrapper.setContainerClasspath(this.containerClasspath);
+                wrapper.setContainerClasspath(this.containerClasspath.list());
                 
                 if (wrapper.isEnabled())
                 {

@@ -18,7 +18,7 @@
  * 
  * ========================================================================
  */
-package org.apache.cactus.integration.ant.deployment;
+package org.apache.cactus.integration.api.deployable;
 
 /**
  * Represents a WAR file to deploy in a container. 

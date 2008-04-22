@@ -18,7 +18,7 @@
  * 
  * ========================================================================
  */
-package org.apache.cactus.integration.ant.deployment;
+package org.apache.cactus.integration.api.deployable;
 
 /**
  * Represents an EAR file to deploy in a container. 

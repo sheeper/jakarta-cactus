@@ -18,7 +18,7 @@
  * 
  * ========================================================================
  */
-package org.apache.cactus.integration.ant.deployment;
+package org.apache.cactus.integration.api.deployable;
 
 import java.io.File;
 import java.io.FileInputStream;

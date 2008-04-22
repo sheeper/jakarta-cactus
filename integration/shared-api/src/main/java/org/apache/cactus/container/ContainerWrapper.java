@@ -23,7 +23,6 @@ package org.apache.cactus.container;
 import java.io.File;
 import java.util.Map;
 
-import org.apache.tools.ant.types.Path;
 import org.codehaus.cargo.container.Container;
 import org.codehaus.cargo.container.InstalledLocalContainer;
 import org.codehaus.cargo.container.property.GeneralPropertySet;
@@ -202,12 +201,12 @@ public class ContainerWrapper
      * @see Container#setContainerClasspath(Path)
      * @since Cactus 1.6
      */
-    public void setContainerClasspath(Path theClasspath)
+    public void setContainerClasspath(String[] theClasspath)
     {
         if (theClasspath != null)
         {
             ((InstalledLocalContainer) container)
-                .setExtraClasspath(theClasspath.list());
+                .setExtraClasspath(theClasspath);
         }
     }
 

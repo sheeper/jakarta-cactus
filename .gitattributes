@@ -96,7 +96,6 @@ framework/framework-13-14/src/main/java/org/apache/cactus/internal/util/package.
 framework/framework-13-14/src/main/java/org/apache/cactus/server/package.html -text
 framework/framework-13-14/src/main/java/org/apache/cactus/server/runner/package.html -text
 integration/ant/src/main/java/org/apache/cactus/integration/ant/container/package.html -text
-integration/ant/src/main/java/org/apache/cactus/integration/ant/deployment/package.html -text
 integration/ant/src/main/java/org/apache/cactus/integration/ant/package.html -text
 integration/ant/src/main/java/org/apache/cactus/integration/ant/util/package.html -text
 integration/ant/src/test-input/org/apache/cactus/integration/ant/cactified.ear -text
@@ -120,3 +119,4 @@ integration/ant/src/test-input/org/apache/cactus/integration/ant/weblogic.war -t
 integration/eclipse/org.apache.cactus.eclipse.feature/logocactus.gif -text
 integration/eclipse/org.apache.cactus.eclipse.runner/icons/calaunch.gif -text
 integration/maven/build.properties.sample -text
+integration/shared-api/src/main/java/org/apache/cactus/integration/api/deployable/package.html -text
