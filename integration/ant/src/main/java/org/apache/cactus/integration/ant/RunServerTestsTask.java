@@ -22,7 +22,7 @@ package org.apache.cactus.integration.ant;
 
 import java.net.URL;
 
-import org.apache.cactus.integration.ant.container.ContainerRunner;
+import org.apache.cactus.container.ContainerRunner;
 import org.apache.cactus.integration.ant.container.GenericContainer;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;

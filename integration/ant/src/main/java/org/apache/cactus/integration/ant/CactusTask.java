@@ -30,8 +30,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-import org.apache.cactus.integration.ant.container.ContainerRunner;
-import org.apache.cactus.integration.ant.container.ContainerWrapper;
+import org.apache.cactus.container.ContainerRunner;
+import org.apache.cactus.container.ContainerWrapper;
 import org.apache.cactus.integration.ant.deployment.DeployableFile;
 import org.apache.cactus.integration.ant.deployment.EarParser;
 import org.apache.cactus.integration.ant.deployment.WarParser;

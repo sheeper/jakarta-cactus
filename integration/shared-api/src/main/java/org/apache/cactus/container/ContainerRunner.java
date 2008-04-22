@@ -18,7 +18,7 @@
  * 
  * ========================================================================
  */
-package org.apache.cactus.integration.ant.container;
+package org.apache.cactus.container;
 
 import java.io.IOException;
 import java.io.InputStream;
