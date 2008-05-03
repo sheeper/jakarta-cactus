@@ -25,8 +25,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Iterator;
 
-import javax.xml.parsers.ParserConfigurationException;
-
 import org.apache.cactus.integration.api.version.Version;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Project;
@@ -42,7 +40,7 @@ import org.codehaus.cargo.module.ejb.EjbJarXml;
 import org.codehaus.cargo.module.ejb.Entity;
 import org.codehaus.cargo.module.ejb.Session;
 import org.codehaus.cargo.module.webapp.EjbRef;
-import org.xml.sax.SAXException;
+import org.jdom.JDOMException;
 
 /**
  * An Ant task that injects elements necessary to run Cactus tests into an
@@ -121,7 +119,16 @@ public class CactifyEarTask extends Ear
         addZipfileset(currentFiles);
         
         // cactify the application.xml
-        ApplicationXml appXml = getOriginalApplicationXml();
+        ApplicationXml appXml = null;
+        try 
+        {
+            appXml = getOriginalApplicationXml();
+        } 
+        catch (JDOMException e) 
+        {
+            throw new BuildException("Unable to get the "
+               + "original application.xml", e);
+        }
         File tmpAppXml = cactifyApplicationXml(appXml);
         setAppxml(tmpAppXml);
         
@@ -135,8 +142,9 @@ public class CactifyEarTask extends Ear
     /**
      * 
      * @return the application.xml from the source ear
+     * @throws JDOMException in case a JDOM exception is thrown
      */
-    private ApplicationXml getOriginalApplicationXml()
+    private ApplicationXml getOriginalApplicationXml() throws JDOMException
     {
         ApplicationXml appXml = null;
         try
@@ -151,18 +159,9 @@ public class CactifyEarTask extends Ear
                     + "deployment descriptor");
             }
         }
-        catch (SAXException e)
-        {
-            throw new BuildException(
-                "Parsing of application.xml deployment descriptor failed", e);
-        }
         catch (IOException e)
         {
             throw new BuildException("Failed to open EAR", e);
-        }
-        catch (ParserConfigurationException e)
-        {
-            throw new BuildException("XML parser configuration error", e);
         }
         
         return appXml;
@@ -209,7 +208,14 @@ public class CactifyEarTask extends Ear
         
         if (addEjbReferences)
         {
-            addEjbReferencesToWar(tmpCactusWar);
+            try 
+            {
+                addEjbReferencesToWar(tmpCactusWar);
+            } 
+            catch (JDOMException e) 
+            {
+                throw new BuildException("Unable to add ejb-references", e);
+            }
         }
         
         cactusWar.execute();
@@ -251,8 +257,9 @@ public class CactifyEarTask extends Ear
      * Add ejb references.
      * 
      * @param theWar temporary cactus war
+     * @throws JDOMException in case a parse exception is thrown 
      */
-    private void addEjbReferencesToWar(File theWar) 
+    private void addEjbReferencesToWar(File theWar) throws JDOMException 
     {
         try
         {
@@ -326,14 +333,6 @@ public class CactifyEarTask extends Ear
         {
             throw new BuildException("Could not merge deployment " 
                                      + "descriptors", e);
-        }
-        catch (SAXException e)
-        {
-            throw new BuildException("Parsing of merge file failed", e);
-        }
-        catch (ParserConfigurationException e)
-        {
-            throw new BuildException("XML parser configuration error", e);
         }
     }
 }

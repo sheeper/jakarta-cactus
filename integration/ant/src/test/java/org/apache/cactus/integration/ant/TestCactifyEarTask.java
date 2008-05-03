@@ -29,6 +29,8 @@ import org.codehaus.cargo.module.application.EarArchive;
 import org.codehaus.cargo.module.webapp.WarArchive;
 import org.codehaus.cargo.module.webapp.WebXml;
 import org.codehaus.cargo.module.webapp.WebXmlTag;
+import org.codehaus.cargo.module.webapp.WebXmlType;
+import org.codehaus.cargo.module.webapp.WebXmlUtils;
 import org.codehaus.cargo.module.webapp.weblogic.WeblogicXml;
 import org.codehaus.cargo.module.webapp.weblogic.WeblogicXmlTag;
 import org.w3c.dom.Element;
@@ -77,7 +79,7 @@ public class TestCactifyEarTask extends AntTestCase
         assertEquals("/cactus", appXml.getWebModuleContextRoot("cactus.war"));
         WarArchive cactusWar = destEar.getWebModule("cactus.war");
         WebXml webXml = cactusWar.getWebXml();
-        assertNotNull(webXml.getServlet("ServletRedirector"));
+        assertNotNull(WebXmlUtils.getServlet(webXml, "ServletRedirector"));
     }
 
     /**
@@ -109,7 +111,7 @@ public class TestCactifyEarTask extends AntTestCase
         
         // test web.xml
         WebXml webXml = cactusWar.getWebXml();
-        Iterator i = webXml.getElements(WebXmlTag.EJB_LOCAL_REF);
+        Iterator i = webXml.getElements(WebXmlType.EJB_LOCAL_REF);
         assertEjbRef((Element) i.next(), "ejb/Session2", "Session", 
                      "com.wombat.Session2", "com.wombat.Session2Home");
         assertEjbRef((Element) i.next(), "ejb/Entity1", "Entity", 

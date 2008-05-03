@@ -27,9 +27,11 @@ import java.util.Iterator;
 
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.apache.tools.ant.BuildException;
+import org.apache.cactus.integration.api.exceptions.CactusRuntimeException;
 import org.codehaus.cargo.module.webapp.DefaultWarArchive;
 import org.codehaus.cargo.module.webapp.WarArchive;
+import org.codehaus.cargo.module.webapp.WebXmlUtils;
+import org.jdom.JDOMException;
 import org.xml.sax.SAXException;
 
 /**
@@ -66,17 +68,22 @@ public class WarParser
         }
         catch (IOException e)
         {
-            throw new BuildException("Failed to parse deployment descriptor "
+            throw new CactusRuntimeException("Failed to parse deployment descriptor "
                 + "for WAR file [" + theDeployableFile + "].", e);
         }
         catch (ParserConfigurationException e)
         {
-            throw new BuildException("Failed to parse deployment descriptor "
+            throw new CactusRuntimeException("Failed to parse deployment descriptor "
                 + "for WAR file [" + theDeployableFile + "].", e);
         }
         catch (SAXException e)
         {
-            throw new BuildException("Failed to parse deployment descriptor "
+            throw new CactusRuntimeException("Failed to parse deployment descriptor "
+                + "for WAR file [" + theDeployableFile + "].", e);
+        }
+        catch (JDOMException e)
+        {
+            throw new CactusRuntimeException("Failed to parse deployment descriptor "
                 + "for WAR file [" + theDeployableFile + "].", e);
         }
         
@@ -113,18 +120,19 @@ public class WarParser
      *         be parsed
      * @throws ParserConfigurationException If there is an XML parser
      *         configration problem
+     * @throws JDOMException 
      */
     static String parseServletRedirectorMapping(WarArchive theWar)
-        throws SAXException, IOException, ParserConfigurationException
+        throws SAXException, IOException, ParserConfigurationException, JDOMException
     {
-        Iterator servletNames = theWar.getWebXml().getServletNamesForClass(
+        Iterator servletNames = WebXmlUtils.getServletNamesForClass(theWar.getWebXml(),
             "org.apache.cactus.server.ServletTestRedirector");
         if (servletNames.hasNext())
         {
             // we iterate over all of the servlet names but return the first met only --//TODO to be fixed
             while(servletNames.hasNext()) {
 	        	String name = (String) servletNames.next(); 
-	            Iterator mappings = theWar.getWebXml().getServletMappings(name);
+	            Iterator mappings = WebXmlUtils.getServletMappings(theWar.getWebXml(), name);
 	            if (mappings.hasNext())
 	            {
 	                return (String) mappings.next();
@@ -148,17 +156,18 @@ public class WarParser
      *         be parsed
      * @throws ParserConfigurationException If there is an XML parser
      *         configration problem
+     * @throws JDOMException 
      */
     static String parseFilterRedirectorMapping(WarArchive theWar)
-        throws IOException, SAXException, ParserConfigurationException
+        throws IOException, SAXException, ParserConfigurationException, JDOMException
     {
-        Iterator filterNames = theWar.getWebXml().getFilterNamesForClass(
+        Iterator filterNames = WebXmlUtils.getFilterNamesForClass(theWar.getWebXml(),
             "org.apache.cactus.server.FilterTestRedirector");
         if (filterNames.hasNext())
         {
             // we only care about the first definition and the first mapping
             String name = (String) filterNames.next(); 
-            Iterator mappings = theWar.getWebXml().getFilterMappings(name);
+            Iterator mappings = WebXmlUtils.getFilterMappings(theWar.getWebXml(), name);
             if (mappings.hasNext())
             {
                 return (String) mappings.next();
@@ -181,9 +190,10 @@ public class WarParser
      *         be parsed
      * @throws ParserConfigurationException If there is an XML parser
      *         configration problem
+     * @throws JDOMException 
      */
     static String parseJspRedirectorMapping(WarArchive theWar)
-        throws IOException, SAXException, ParserConfigurationException
+        throws IOException, SAXException, ParserConfigurationException, JDOMException
     {
         // To get the JSP redirector mapping, we must first get the full path to
         // the corresponding JSP file in the WAR
@@ -191,7 +201,7 @@ public class WarParser
         if (jspRedirectorPath != null)
         {
             jspRedirectorPath = "/" + jspRedirectorPath;
-            Iterator jspNames = theWar.getWebXml().getServletNamesForJspFile(
+            Iterator jspNames = WebXmlUtils.getServletNamesForClass(theWar.getWebXml(),
                 jspRedirectorPath);
             if (jspNames.hasNext())
             {
@@ -199,7 +209,7 @@ public class WarParser
                 // mapping
                 String name = (String) jspNames.next(); 
                 Iterator mappings = 
-                    theWar.getWebXml().getServletMappings(name);
+                	WebXmlUtils.getServletMappings(theWar.getWebXml(),name);
                 if (mappings.hasNext())
                 {
                     return (String) mappings.next();

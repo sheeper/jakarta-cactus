@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 import org.codehaus.cargo.module.webapp.WebXml;
+import org.codehaus.cargo.module.webapp.WebXmlUtils;
 import org.codehaus.cargo.util.log.Logger;
 
 /**
@@ -132,21 +133,21 @@ public abstract class Redirector
         while (tokenizer.hasMoreTokens())
         {
             String role = tokenizer.nextToken().trim();
-            if (!theWebXml.hasSecurityRole(role))
+            if (!WebXmlUtils.hasSecurityRole(theWebXml,role))
             {
-                theWebXml.addSecurityRole(role);
+                WebXmlUtils.addSecurityRole(theWebXml,role);
             }
             roles.add(role);
         }
         if (!roles.isEmpty())
         {
-            if (!theWebXml.hasLoginConfig())
+            if (!WebXmlUtils.hasLoginConfig(theWebXml))
             {
-                theWebXml.setLoginConfig("BASIC", "myrealm");
+                WebXmlUtils.setLoginConfig(theWebXml, "BASIC", "myrealm");
             }
-            if (!theWebXml.hasSecurityConstraint(this.mapping))
+            if (!WebXmlUtils.hasSecurityConstraint(theWebXml,this.mapping))
             {
-                theWebXml.addSecurityConstraint("Cactus Test Redirector",
+                WebXmlUtils.addSecurityConstraint(theWebXml,"Cactus Test Redirector",
                     this.mapping, roles);
             }
         }

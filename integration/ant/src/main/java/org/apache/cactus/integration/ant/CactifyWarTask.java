@@ -29,8 +29,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
-import javax.xml.parsers.ParserConfigurationException;
-
 import org.apache.cactus.integration.api.cactify.FilterRedirector;
 import org.apache.cactus.integration.api.cactify.JspRedirector;
 import org.apache.cactus.integration.api.cactify.Redirector;
@@ -42,17 +40,17 @@ import org.apache.tools.ant.taskdefs.War;
 import org.apache.tools.ant.types.FileSet;
 import org.apache.tools.ant.types.XMLCatalog;
 import org.apache.tools.ant.types.ZipFileSet;
-import org.apache.tools.ant.util.FileUtils;
 import org.codehaus.cargo.container.internal.util.ResourceUtils;
 import org.codehaus.cargo.module.webapp.DefaultWarArchive;
 import org.codehaus.cargo.module.webapp.EjbRef;
 import org.codehaus.cargo.module.webapp.WarArchive;
 import org.codehaus.cargo.module.webapp.WebXml;
 import org.codehaus.cargo.module.webapp.WebXmlIo;
-import org.codehaus.cargo.module.webapp.WebXmlMerger;
+import org.codehaus.cargo.module.webapp.WebXmlUtils;
 import org.codehaus.cargo.module.webapp.WebXmlVersion;
+import org.codehaus.cargo.module.webapp.merge.WebXmlMerger;
 import org.codehaus.cargo.util.log.AntLogger;
-import org.xml.sax.SAXException;
+import org.jdom.JDOMException;
 
 /**
  * An Ant task that injects elements necessary to run Cactus tests into an
@@ -65,7 +63,9 @@ public class CactifyWarTask extends War
 
     // Constants ---------------------------------------------------------------
     
-	//get some non-crypto-grade randomness from various places.
+    /**
+     * Get some non-crypto-grade randomness from various places.
+     */
     private static Random rand = new Random(System.currentTimeMillis()
             + Runtime.getRuntime().freeMemory());
     
@@ -163,7 +163,15 @@ public class CactifyWarTask extends War
             addZipfileset(currentFiles);
 
             // Parse the original deployment descriptor
-            webXml = getOriginalWebXml();
+            try 
+            {
+                webXml = getOriginalWebXml();
+
+            }
+            catch (JDOMException e) 
+            {
+                throw new BuildException("Unable to get the original exception", e);
+            }
         }
         if (this.srcFile == null || webXml == null)
         {
@@ -177,22 +185,27 @@ public class CactifyWarTask extends War
             {
                 webXmlVersion = WebXmlVersion.V2_2;
             }
-            else
+            else if (this.version.equals("2.3"))
             {
                 webXmlVersion = WebXmlVersion.V2_3;
-            }
-            try
+            } 
+            else 
             {
-                webXml = WebXmlIo.newWebXml(webXmlVersion);
+                webXmlVersion = WebXmlVersion.V2_4;
             }
-            catch (ParserConfigurationException pce)
-            {
-                throw new BuildException(
-                    "Could not create deployment descriptor", pce);
-            }
+            
+            webXml = WebXmlIo.newWebXml(webXmlVersion);
         }
 
-        File tmpWebXml = cactifyWebXml(webXml);
+        File tmpWebXml = null;
+        try 
+        {
+            tmpWebXml = cactifyWebXml(webXml);
+        } 
+        catch (JDOMException e) 
+        {
+            throw new BuildException("Unable to cactify your application.", e);
+        }
         setWebxml(tmpWebXml);
 
         addCactusJars();
@@ -402,6 +415,7 @@ public class CactifyWarTask extends War
         // add the user defined redirectors
         for (Iterator i = this.redirectors.iterator(); i.hasNext();)
         {
+        
             Redirector redirector = (Redirector) i.next();
             if (redirector instanceof FilterRedirector)
             {
@@ -442,8 +456,9 @@ public class CactifyWarTask extends War
      * 
      * @param theWebXml The original deployment descriptor
      * @return A temporary file containing the cactified descriptor
+     * @throws JDOMException in case a JDOM exception is thrown.
      */
-    private File cactifyWebXml(WebXml theWebXml)
+    private File cactifyWebXml(WebXml theWebXml) throws JDOMException
     {
         addRedirectorDefinitions(theWebXml);
         addJspRedirector();
@@ -459,20 +474,13 @@ public class CactifyWarTask extends War
                     this.mergeWebXml, this.xmlCatalog);
                 WebXmlMerger merger = new WebXmlMerger(theWebXml);
                 merger.setLogger(new AntLogger(this));
+               
                 merger.merge(parsedMergeWebXml);
             }
             catch (IOException e)
             {
                 throw new BuildException(
                     "Could not merge deployment descriptors", e);
-            }
-            catch (SAXException e)
-            {
-                throw new BuildException("Parsing of merge file failed", e);
-            }
-            catch (ParserConfigurationException e)
-            {
-                throw new BuildException("XML parser configuration error", e);
             }
         }
         
@@ -491,7 +499,7 @@ public class CactifyWarTask extends War
             tmpDir.mkdir();
             File[] files = WebXmlIo.writeAll(theWebXml, 
                 tmpDir.getAbsolutePath());
-        	
+        
             
             for (int i = 0; i < files.length; i++)
             {
@@ -523,8 +531,9 @@ public class CactifyWarTask extends War
      * @return The parsed descriptor or null if not found
      * @throws BuildException If the descriptor could not be 
      *         parsed
+     * @throws JDOMException in case is JDOM exception is thrown.
      */
-    private WebXml getOriginalWebXml() throws BuildException
+    private WebXml getOriginalWebXml() throws BuildException, JDOMException
     {
         // Open the archive as JAR file and extract the deployment descriptor
         WarArchive war = null;
@@ -534,18 +543,9 @@ public class CactifyWarTask extends War
             WebXml webXml = war.getWebXml();
             return webXml;
         }
-        catch (SAXException e)
-        {
-            throw new BuildException(
-                "Parsing of web.xml deployment descriptor failed", e);
-        }
         catch (IOException e)
         {
             throw new BuildException("Failed to open WAR", e);
-        }
-        catch (ParserConfigurationException e)
-        {
-            throw new BuildException("XML parser configuration error", e);
         }
     }
 
@@ -560,28 +560,41 @@ public class CactifyWarTask extends War
         while (i.hasNext())
         {
             EjbRef ref = (EjbRef) i.next();
-            theWebXml.addEjbRef(ref);
+            WebXmlUtils.addEjbRef(theWebXml, ref);
         }
     }
     
-    public File createTempFile(String prefix, String suffix, File parentDir,
-            boolean deleteOnExit) {
-		File result = null;
-		String parent = (parentDir == null)
-			? System.getProperty("java.io.tmpdir")
-			: parentDir.getPath();
-		
-		DecimalFormat fmt = new DecimalFormat("#####");
-		synchronized (rand) {
-			do {
-			result = new File(parent,
-			               prefix + fmt.format(Math.abs(rand.nextInt()))
-			               + suffix);
-			} while (result.exists());
-		}
-		if (deleteOnExit) {
-			result.deleteOnExit();
-		}
-		return result;
-	}
+    /**
+     * A method to create the temporary files.
+     * @param thePrefix the prefix of the filename.
+     * @param theSuffix the suffix of the filename
+     * @param theParentDir the parent directory
+     * @param isDeleteOnExit should we delete the directories on exit?
+     * @return the temporary file
+     */
+    public File createTempFile(String thePrefix, String theSuffix, 
+                                   File theParentDir, boolean isDeleteOnExit) 
+    {
+    File result = null;
+    String parent = (theParentDir == null)
+            ? System.getProperty("java.io.tmpdir")
+            : theParentDir.getPath();
+
+        DecimalFormat fmt = new DecimalFormat("#####");
+        synchronized (rand) 
+        {
+            do 
+            {
+                result = new File(parent,
+                   thePrefix + fmt.format(Math.abs(rand.nextInt()))
+                   + theSuffix);
+            } 
+            while (result.exists());
+        }
+        if (isDeleteOnExit) 
+        {
+            result.deleteOnExit();
+        }
+        return result;
+    }
 }

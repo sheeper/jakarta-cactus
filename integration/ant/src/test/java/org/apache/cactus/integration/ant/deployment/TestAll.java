@@ -24,7 +24,7 @@ import org.apache.cactus.integration.ant.deployment.application.TestApplicationX
 import org.apache.cactus.integration.ant.deployment.application.TestApplicationXmlVersion;
 import org.apache.cactus.integration.ant.deployment.webapp.TestWarArchive;
 import org.apache.cactus.integration.ant.deployment.webapp.TestWebXml;
-import org.apache.cactus.integration.ant.deployment.webapp.TestWebXmlMerger;
+
 import org.apache.cactus.integration.ant.deployment.webapp.TestWebXmlVersion;
 
 import junit.framework.Test;
@@ -50,7 +50,7 @@ public final class TestAll
         suite.addTestSuite(TestApplicationXmlVersion.class);
 
         suite.addTestSuite(TestWebXml.class);
-        suite.addTestSuite(TestWebXmlMerger.class);
+        //suite.addTestSuite(TestWebXmlMerger.class);
         suite.addTestSuite(TestWebXmlVersion.class);
         suite.addTestSuite(TestWarArchive.class);
 

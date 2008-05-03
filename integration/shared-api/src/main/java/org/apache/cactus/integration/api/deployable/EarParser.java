@@ -27,11 +27,12 @@ import java.util.Iterator;
 
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.apache.tools.ant.BuildException;
+import org.apache.cactus.integration.api.exceptions.CactusRuntimeException;
 import org.codehaus.cargo.module.application.ApplicationXml;
 import org.codehaus.cargo.module.application.DefaultEarArchive;
 import org.codehaus.cargo.module.application.EarArchive;
 import org.codehaus.cargo.module.webapp.WarArchive;
+import org.jdom.JDOMException;
 import org.xml.sax.SAXException;
 
 /**
@@ -62,14 +63,14 @@ public class EarParser
             String webUri = getUriOfCactifiedWebModule(earArchive);
             if (webUri == null)
             {
-                throw new BuildException("Could not find cactified web "
+                throw new CactusRuntimeException("Could not find cactified web "
                     + "module in the [" + theDeployableFile + "] EAR.");
             }
 
             WarArchive warArchive = earArchive.getWebModule(webUri);
             if (warArchive == null)
             {
-                throw new BuildException("Could not find the WAR [" + webUri
+                throw new CactusRuntimeException("Could not find the WAR [" + webUri
                     + "] in the [" + theDeployableFile + "] EAR.");
             }
             
@@ -87,17 +88,22 @@ public class EarParser
         }
         catch (IOException e)
         {
-            throw new BuildException("Failed to parse deployment descriptor "
+            throw new CactusRuntimeException("Failed to parse deployment descriptor "
                 + "for EAR file [" + theDeployableFile + "].", e);
         }
         catch (ParserConfigurationException e)
         {
-            throw new BuildException("Failed to parse deployment descriptor "
+            throw new CactusRuntimeException("Failed to parse deployment descriptor "
                 + "for EAR file [" + theDeployableFile + "].", e);
         }
         catch (SAXException e)
         {
-            throw new BuildException("Failed to parse deployment descriptor "
+            throw new CactusRuntimeException("Failed to parse deployment descriptor "
+                + "for EAR file [" + theDeployableFile + "].", e);
+        }
+        catch (JDOMException e)
+        {
+            throw new CactusRuntimeException("Failed to parse deployment descriptor "
                 + "for EAR file [" + theDeployableFile + "].", e);
         }
         
@@ -117,10 +123,11 @@ public class EarParser
      *         be parsed
      * @throws ParserConfigurationException If there is an XML parser
      *         configration problem
+     * @throws JDOMException 
      */
     protected static final String parseTestContext(EarArchive theEar, 
         String theWebUri) 
-        throws ParserConfigurationException, IOException, SAXException
+        throws ParserConfigurationException, IOException, SAXException, JDOMException
     {
         String context = theEar.getApplicationXml()
             .getWebModuleContextRoot(theWebUri);
@@ -128,7 +135,7 @@ public class EarParser
         {
             // The application.xml does not define a <context-root> element.
             // This is wrong!
-            throw new BuildException("Your application.xml must define a "
+            throw new CactusRuntimeException("Your application.xml must define a "
                 + "<context-root> element in the <web> module definition.");
         }
 
@@ -157,9 +164,10 @@ public class EarParser
      *         be parsed
      * @throws ParserConfigurationException If there is an XML parser
      *         configration problem
+     * @throws JDOMException 
      */
     protected static final String getUriOfCactifiedWebModule(EarArchive theEar)
-        throws SAXException, IOException, ParserConfigurationException
+        throws SAXException, IOException, ParserConfigurationException, JDOMException
     {
         ApplicationXml applicationXml = theEar.getApplicationXml();
         for (Iterator i = applicationXml.getWebModuleUris(); i.hasNext();)

@@ -25,7 +25,7 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import org.apache.cactus.integration.api.exception.CactusRuntimeException;
+import org.apache.cactus.integration.api.exceptions.CactusRuntimeException;
 import org.codehaus.cargo.util.log.Logger;
 
 /**

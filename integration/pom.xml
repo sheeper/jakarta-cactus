@@ -31,6 +31,7 @@
 		<module>shared-api</module>
 		<module>ant</module>
 		<module>maven</module>
+		<module>maven2</module>
     <module>eclipse</module>
 	</modules>
 	<build>

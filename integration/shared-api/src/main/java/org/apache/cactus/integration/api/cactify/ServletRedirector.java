@@ -21,12 +21,13 @@
 package org.apache.cactus.integration.api.cactify;
 
 import org.codehaus.cargo.module.webapp.WebXml;
+import org.codehaus.cargo.module.webapp.WebXmlUtils;
 import org.codehaus.cargo.util.log.Logger;
 
 /**
  * Implementation of <code>Redirector</code> for servlet test redirectors. 
  */
-public final class ServletRedirector extends Redirector
+public class ServletRedirector extends Redirector
 {
 
     /**
@@ -64,15 +65,15 @@ public final class ServletRedirector extends Redirector
      */
     public void mergeInto(WebXml theWebXml)
     {
-        if (theWebXml.getServletNamesForClass
-            (SERVLET_REDIRECTOR_CLASS).hasNext() && logger != null) 
+        if (WebXmlUtils.getServletNamesForClass
+            (theWebXml, SERVLET_REDIRECTOR_CLASS).hasNext() && logger != null) 
         {
             logger.warn("WARNING: Your web.xml already includes " 
             + this.name + " mapping. Cactus is adding another one " 
             + "which may prevent your container from starting.", "WARNING");
         }
-        theWebXml.addServlet(this.name, SERVLET_REDIRECTOR_CLASS);
-        theWebXml.addServletMapping(this.name, this.mapping);
+        WebXmlUtils.addServlet(theWebXml, this.name, SERVLET_REDIRECTOR_CLASS);
+        WebXmlUtils.addServletMapping(theWebXml, this.name, this.mapping);
         if (this.roles != null)
         {
             addSecurity(theWebXml);

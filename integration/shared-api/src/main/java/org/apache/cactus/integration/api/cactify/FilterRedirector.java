@@ -21,13 +21,16 @@
 package org.apache.cactus.integration.api.cactify;
 
 import org.codehaus.cargo.module.webapp.WebXml;
+import org.codehaus.cargo.module.webapp.WebXmlTag;
+import org.codehaus.cargo.module.webapp.WebXmlUtils;
 import org.codehaus.cargo.module.webapp.WebXmlVersion;
+import org.codehaus.cargo.module.webapp.elements.FilterMapping;
 import org.codehaus.cargo.util.log.Logger;
 
 /**
  * Implementation of <code>Redirector</code> for filter test redirectors. 
  */
-public final class FilterRedirector extends Redirector
+public class FilterRedirector extends Redirector
 {
 
     /**
@@ -66,17 +69,50 @@ public final class FilterRedirector extends Redirector
      */
     public void mergeInto(WebXml theWebXml)
     {
+    	//If no version is specified then we accept the version is 2.2
+    	//and we don't add the filter redirector.
+    	if(theWebXml.getVersion() == null)
+    		return;
         if (WebXmlVersion.V2_3.compareTo(theWebXml.getVersion()) <= 0)
         {
-            if (theWebXml.getFilterNamesForClass
-                (FILTER_REDIRECTOR_CLASS).hasNext() && logger != null) 
+            if (WebXmlUtils.getFilterNamesForClass
+                (theWebXml,FILTER_REDIRECTOR_CLASS).hasNext() && logger != null) 
             {
                 logger.warn("WARNING: Your web.xml already includes " 
                 + this.name + " mapping. Cactus is adding another one " 
                 + "which may prevent your container from starting.", "WARNING");
             }
-            theWebXml.addFilter(this.name, FILTER_REDIRECTOR_CLASS);
-            theWebXml.addFilterMapping(this.name, this.mapping);
+            WebXmlUtils.addFilter(theWebXml, this.name, FILTER_REDIRECTOR_CLASS);
+              
+            
+//        	WebXmlTag s = new WebXmlTag(theWebXml.getDescriptorType(), "");
+            
+//            Iterator iter = WebXmlUtils.getFilterMappingElements(theWebXml, name);
+            
+            
+            //Element filterMappingElement =
+            //    theWebXml.getDocument().createElement(WebXmlType.FILTER_MAPPING);
+            //filterMappingElement.appendChild(createNestedText(WebXmlTag.FILTER_NAME, filterName));
+            //filterMappingElement.appendChild(createNestedText(WebXmlTag.URL_PATTERN, urlPattern));
+            //addElement(WebXmlTag.FILTER_MAPPING, filterMappingElement, getRootElement());
+            
+            
+            WebXmlTag tag = (WebXmlTag)theWebXml.getDescriptorType().getTagByName("filter-mapping");
+            FilterMapping filterMapping = new FilterMapping(tag);
+            filterMapping.setName(this.name);
+            filterMapping.setUrlPattern(this.mapping);
+            filterMapping.setFilterName(this.name);
+            
+            
+            theWebXml.addTag(filterMapping);
+//            
+//            theWebXml.addTag(filterM);
+//            
+//            FilterMapping filterMapping = new FilterMapping();
+
+
+            
+            WebXmlUtils.addFilterMapping(theWebXml, filterMapping);
             if (this.roles != null)
             {
                 addSecurity(theWebXml);

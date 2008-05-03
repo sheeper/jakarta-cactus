@@ -21,12 +21,13 @@
 package org.apache.cactus.integration.api.cactify;
 
 import org.codehaus.cargo.module.webapp.WebXml;
+import org.codehaus.cargo.module.webapp.WebXmlUtils;
 import org.codehaus.cargo.util.log.Logger;
 
 /**
  * Implementation of <code>Redirector</code> for JSP test redirectors. 
  */
-public final class JspRedirector extends Redirector
+public class JspRedirector extends Redirector
 {
     /**
      * The default mapping of the Cactus JSP redirector.
@@ -60,15 +61,15 @@ public final class JspRedirector extends Redirector
     public void mergeInto(WebXml theWebXml)
     {
         //The iterator is never null
-        if (theWebXml.getServletNamesForJspFile
-                ("/jspRedirector.jsp").hasNext() && logger != null) 
+        if (WebXmlUtils.getServletNamesForJspFile
+                (theWebXml, "/jspRedirector.jsp").hasNext() && logger != null) 
         {
             logger.warn("WARNING: Your web.xml already includes " 
             + this.name + " mapping. Cactus is adding another one " 
             + "which may prevent your container from starting.", "WARNING");
         }
-        theWebXml.addJspFile(this.name, "/jspRedirector.jsp");
-        theWebXml.addServletMapping(this.name, this.mapping);
+        WebXmlUtils.addJspFile(theWebXml, this.name, "/jspRedirector.jsp");
+        WebXmlUtils.addServletMapping(theWebXml, this.name, this.mapping);
         if (this.roles != null)
         {
             addSecurity(theWebXml);

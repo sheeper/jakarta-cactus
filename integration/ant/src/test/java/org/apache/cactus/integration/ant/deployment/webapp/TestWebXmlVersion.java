@@ -27,8 +27,8 @@ import javax.xml.parsers.ParserConfigurationException;
 import junit.framework.TestCase;
 
 import org.codehaus.cargo.module.webapp.WebXmlVersion;
-import org.w3c.dom.DOMImplementation;
-import org.w3c.dom.DocumentType;
+import org.jdom.DefaultJDOMFactory;
+import org.jdom.DocType;
 
 /**
  * Unit tests for {@link WebXmlVersion}.
@@ -38,11 +38,6 @@ import org.w3c.dom.DocumentType;
 public final class TestWebXmlVersion extends TestCase
 {
     /**
-     * The DOM implementation.
-     */
-    private DOMImplementation domImpl;
-
-    /**
      * {@inheritDoc}
      * @see TestCase#setUp
      */
@@ -51,8 +46,6 @@ public final class TestWebXmlVersion extends TestCase
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         factory.setValidating(false);
         factory.setNamespaceAware(false);
-
-        this.domImpl = factory.newDocumentBuilder().getDOMImplementation();
     }
 
     /**
@@ -107,7 +100,7 @@ public final class TestWebXmlVersion extends TestCase
     {
         try
         {
-            WebXmlVersion.valueOf((DocumentType) null);
+            WebXmlVersion.valueOf((DocType) null);
             fail("Expected NullPointerException");
         }
         catch (NullPointerException expected)
@@ -124,8 +117,8 @@ public final class TestWebXmlVersion extends TestCase
      */
     public void testValueOfUnknownDocType() throws Exception
     {
-        DocumentType docType = domImpl.createDocumentType("web-app",
-            "foo", "bar");
+        DocType docType = new DocType("web-app",
+        		"foo", "bar");
         assertNull(WebXmlVersion.valueOf(docType));
     }
 
@@ -137,8 +130,8 @@ public final class TestWebXmlVersion extends TestCase
      */
     public void testValueOfDocType22() throws Exception
     {
-        DocumentType docType = domImpl.createDocumentType("web-app",
-            WebXmlVersion.V2_2.getPublicId(), WebXmlVersion.V2_2.getSystemId());
+        DocType docType = new DocType("web-app",
+                WebXmlVersion.V2_2.getPublicId(), WebXmlVersion.V2_2.getSystemId());
         assertEquals(WebXmlVersion.V2_2, WebXmlVersion.valueOf(docType));
     }
 
@@ -150,8 +143,8 @@ public final class TestWebXmlVersion extends TestCase
      */
     public void testValueOfDocType23() throws Exception
     {
-        DocumentType docType = domImpl.createDocumentType("web-app",
-            WebXmlVersion.V2_3.getPublicId(), WebXmlVersion.V2_3.getSystemId());
+        DocType docType = new DocType("web-app",
+                WebXmlVersion.V2_3.getPublicId(), WebXmlVersion.V2_3.getSystemId());
         assertEquals(WebXmlVersion.V2_3, WebXmlVersion.valueOf(docType));
     }
 

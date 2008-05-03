@@ -31,6 +31,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import junit.framework.TestCase;
 
 import org.codehaus.cargo.module.application.ApplicationXml;
+import org.codehaus.cargo.module.application.ApplicationXmlIo;
 import org.w3c.dom.Document;
 import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
@@ -85,7 +86,7 @@ public final class TestApplicationXml extends TestCase
     {
         try
         {
-            new ApplicationXml(null);
+            new ApplicationXml(null, null);
             fail("Expected NullPointerException");
         }
         catch (NullPointerException npe)
@@ -108,8 +109,7 @@ public final class TestApplicationXml extends TestCase
             + "    <java>javaclient.jar</java>"
             + "  </module>"
             + "</application>";
-        Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
-        ApplicationXml applicationXml = new ApplicationXml(doc);
+        ApplicationXml applicationXml = ApplicationXmlIo.parseApplicationXml(new ByteArrayInputStream(xml.getBytes()),null);
         Iterator webUris = applicationXml.getWebModuleUris();
         assertTrue("No web modules defined", !webUris.hasNext());
     }
@@ -131,8 +131,7 @@ public final class TestApplicationXml extends TestCase
             + "    </web>"
             + "  </module>"
             + "</application>";
-        Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
-        ApplicationXml applicationXml = new ApplicationXml(doc);
+        ApplicationXml applicationXml = ApplicationXmlIo.parseApplicationXml(new ByteArrayInputStream(xml.getBytes()),null);
         Iterator webUris = applicationXml.getWebModuleUris();
         assertEquals("webmodule.jar", webUris.next());
         assertTrue(!webUris.hasNext());
@@ -167,8 +166,7 @@ public final class TestApplicationXml extends TestCase
             + "    </web>"
             + "  </module>"
             + "</application>";
-        Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
-        ApplicationXml applicationXml = new ApplicationXml(doc);
+        ApplicationXml applicationXml = ApplicationXmlIo.parseApplicationXml(new ByteArrayInputStream(xml.getBytes()),null);
         Iterator webUris = applicationXml.getWebModuleUris();
         assertEquals("webmodule1.jar", webUris.next());
         assertEquals("webmodule2.jar", webUris.next());
@@ -190,8 +188,7 @@ public final class TestApplicationXml extends TestCase
             + "    <java>javaclient.jar</java>"
             + "  </module>"
             + "</application>";
-        Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
-        ApplicationXml applicationXml = new ApplicationXml(doc);
+        ApplicationXml applicationXml = ApplicationXmlIo.parseApplicationXml(new ByteArrayInputStream(xml.getBytes()),null);
         try
         {
             applicationXml.getWebModuleContextRoot("webmodule.jar");
@@ -219,8 +216,7 @@ public final class TestApplicationXml extends TestCase
             + "    </web>"
             + "  </module>"
             + "</application>";
-        Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
-        ApplicationXml applicationXml = new ApplicationXml(doc);
+        ApplicationXml applicationXml = ApplicationXmlIo.parseApplicationXml(new ByteArrayInputStream(xml.getBytes()),null);
         assertEquals("/webmodule",
             applicationXml.getWebModuleContextRoot("webmodule.jar"));
     }
@@ -253,8 +249,7 @@ public final class TestApplicationXml extends TestCase
             + "    </web>"
             + "  </module>"
             + "</application>";
-        Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
-        ApplicationXml applicationXml = new ApplicationXml(doc);
+        ApplicationXml applicationXml = ApplicationXmlIo.parseApplicationXml(new ByteArrayInputStream(xml.getBytes()),null);
         assertEquals("/webmodule1",
             applicationXml.getWebModuleContextRoot("webmodule1.jar"));
         assertEquals("/webmodule2",

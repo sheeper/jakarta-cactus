@@ -144,7 +144,7 @@ public class CactusTask extends JUnitTask
 
         addRedirectorNameProperties(deployableFile);
         
-        if (containerSet==null || containerSet.getCargos() == null)
+        if (containerSet == null || containerSet.getCargos() == null)
         {
             log("No cargo configurations specified, tests will run locally",
                 Project.MSG_VERBOSE);
@@ -185,7 +185,11 @@ public class CactusTask extends JUnitTask
                 wrapper.setSystemProperties(this.systemProperties);
 
                 // Add extra classpath entries
-                wrapper.setContainerClasspath(this.containerClasspath.list());
+                if (containerClasspath != null)
+                {
+                    wrapper.setContainerClasspath(this.containerClasspath
+                        .list());
+                }
                 
                 if (wrapper.isEnabled())
                 {
@@ -262,9 +266,14 @@ public class CactusTask extends JUnitTask
     public void addSysproperty(Environment.Variable theProperty)
     {
         addCactusServerProperty(theProperty);
-        if(theProperty.getKey() != null && !theProperty.getKey().trim().equals("") &&
-        		theProperty.getValue() != null && !theProperty.getValue().trim().equals(""))	
-        	addCactusClientProperty(theProperty.getKey(), theProperty.getValue());
+        if (theProperty.getKey() != null 
+            && !theProperty.getKey().trim().equals("") 
+            && theProperty.getValue() != null 
+            && !theProperty.getValue().trim().equals(""))
+        {
+            addCactusClientProperty(theProperty.getKey(), 
+                theProperty.getValue());
+        }
         super.addSysproperty(theProperty);
     }
 
@@ -348,13 +357,16 @@ public class CactusTask extends JUnitTask
      */
     private void addCactusServerProperty(Variable theProperty)
     {
-    	//TODO We always need to check this below, because null properties
-    	// break the cargo execution
-        if(theProperty.getKey() == null || theProperty.getKey().trim().equals("")||
-        		theProperty.getValue() == null || theProperty.getValue().trim().equals("")) {
-        	return;
+        //TODO We always need to check this below, because null properties
+        // break the cargo execution
+        if (theProperty.getKey() == null 
+            || theProperty.getKey().trim().equals("")
+            || theProperty.getValue() == null 
+            || theProperty.getValue().trim().equals("")) 
+        {
+            return;
         }
-    	
+    
         log("Adding Cactus server system property [" 
             + theProperty.getKey() + "] with value [" 
             + theProperty.getValue() + "]", Project.MSG_VERBOSE);
@@ -432,7 +444,7 @@ public class CactusTask extends JUnitTask
     private void executeInContainer(ContainerWrapper theWrapper, 
         DeployableFile theFile)
     {
-    	super.init();
+        super.init();
         log("Starting up container", Project.MSG_VERBOSE);
         ContainerRunner runner = new ContainerRunner(theWrapper);
         runner.setLogger(new AntLogger(getProject()));
@@ -456,7 +468,7 @@ public class CactusTask extends JUnitTask
                     if (test.shouldRun(getProject())
                      && !theWrapper.isExcluded(test.getName()))
                     {
-                    	test.setFork(true);
+                        test.setFork(true);
                         if (theWrapper.getToDir() != null)
                         {
                             test.setTodir(theWrapper.getToDir());

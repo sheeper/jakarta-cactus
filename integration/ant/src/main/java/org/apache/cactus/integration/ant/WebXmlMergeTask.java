@@ -23,17 +23,15 @@ package org.apache.cactus.integration.ant;
 import java.io.File;
 import java.io.IOException;
 
-import javax.xml.parsers.ParserConfigurationException;
-
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.Task;
 import org.apache.tools.ant.types.XMLCatalog;
 import org.codehaus.cargo.module.webapp.WebXml;
 import org.codehaus.cargo.module.webapp.WebXmlIo;
-import org.codehaus.cargo.module.webapp.WebXmlMerger;
+import org.codehaus.cargo.module.webapp.merge.WebXmlMerger;
 import org.codehaus.cargo.util.log.AntLogger;
-import org.xml.sax.SAXException;
+import org.jdom.JDOMException;
 
 /**
  * Ant task that can merge the definitions from two web deployment descriptors
@@ -112,10 +110,28 @@ public class WebXmlMergeTask extends Task
                  || (srcFile.lastModified() > destFile.lastModified())
                  || (mergeFile.lastModified() > destFile.lastModified()))
                 {
-                    WebXml srcWebXml = WebXmlIo.parseWebXmlFromFile(
-                        this.srcFile, this.xmlCatalog);
-                    WebXml mergeWebXml = WebXmlIo.parseWebXmlFromFile(
-                        this.mergeFile, this.xmlCatalog);
+                    WebXml srcWebXml;
+                    try 
+                    {
+                        srcWebXml = WebXmlIo.parseWebXmlFromFile(
+                            this.srcFile, this.xmlCatalog);
+                    } 
+                    catch (JDOMException e) 
+                    {
+                        throw new BuildException("Unable to get the web.xml " 
+                           + "from the specified archive", e);
+                    }
+                    WebXml mergeWebXml = null;
+                    try 
+                    {
+                        mergeWebXml = WebXmlIo.parseWebXmlFromFile(
+                            this.mergeFile, this.xmlCatalog);
+                    } 
+                    catch (JDOMException e) 
+                    {
+                        throw new BuildException("Unable to parse the " 
+                            + "web.xml from the specified file.", e);
+                    }
                     WebXmlMerger merger = new WebXmlMerger(srcWebXml);
                     merger.setLogger(new AntLogger(this));
                     merger.merge(mergeWebXml);
@@ -133,16 +149,6 @@ public class WebXmlMergeTask extends Task
                 throw new BuildException("The [mergefile] attribute is "
                     + "required");
             }
-        }
-        catch (ParserConfigurationException pce)
-        {
-            throw new BuildException("XML parser configuration problem: "
-                + pce.getMessage(), pce);
-        }
-        catch (SAXException saxe)
-        {
-            throw new BuildException("Failed to parse descriptor: "
-                + saxe.getMessage(), saxe);
         }
         catch (IOException ioe)
         {
