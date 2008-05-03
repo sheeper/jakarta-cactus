@@ -39,13 +39,16 @@
 		<dependency org="htmlunit" name="htmlunit" rev="1.10"/>
 
 		<dependency org="aspectj" name="aspectjrt" rev="1.5.3"/>
-		<dependency org="org.codehaus.cargo" name="cargo-core-uberjar" rev="0.9"/>
-		<dependency org="org.codehaus.cargo" name="cargo-ant" rev="0.9"/>
+		<dependency org="org.codehaus.cargo" name="cargo-core-uberjar" rev="1.0-SNAPSHOT"/>
+		<dependency org="org.codehaus.cargo" name="cargo-ant" rev="1.0-SNAPSHOT"/>
 
 		<dependency org="javax.servlet" name="jsp-api" rev="2.0"/>
 		<dependency org="javax.servlet" name="servlet-api" rev="2.5"/>
 		<dependency org="javax.servlet" name="jstl" rev="1.1.2"/>
 		<dependency org="taglibs" name="standard" rev="1.1.2"/>
+		
+    <dependency org="jdom" name="jdom" rev="1.0"/>
+	  <dependency org="jaxen" name="jaxen" rev="1.1.1"/>
 	  
 		<dependency org="junitperf" name="junitperf" rev="1.8"/>	
 	</dependencies>
