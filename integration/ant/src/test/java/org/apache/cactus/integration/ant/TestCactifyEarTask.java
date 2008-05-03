@@ -22,19 +22,16 @@ package org.apache.cactus.integration.ant;
 
 import java.io.File;
 import java.util.Iterator;
+import java.util.List;
 
 import org.codehaus.cargo.module.application.ApplicationXml;
 import org.codehaus.cargo.module.application.DefaultEarArchive;
 import org.codehaus.cargo.module.application.EarArchive;
 import org.codehaus.cargo.module.webapp.WarArchive;
 import org.codehaus.cargo.module.webapp.WebXml;
-import org.codehaus.cargo.module.webapp.WebXmlTag;
 import org.codehaus.cargo.module.webapp.WebXmlType;
 import org.codehaus.cargo.module.webapp.WebXmlUtils;
-import org.codehaus.cargo.module.webapp.weblogic.WeblogicXml;
-import org.codehaus.cargo.module.webapp.weblogic.WeblogicXmlTag;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
+import org.jdom.Element;
 
 /**
  * Test class for the CactifyEar task.
@@ -134,18 +131,18 @@ public class TestCactifyEarTask extends AntTestCase
                               String theType, String theLocal, 
                               String theLocalHome)
     {
-        NodeList nl = theElement.getElementsByTagName("ejb-ref-name");
-        Element f = (Element) nl.item(0);
-        assertEquals(theName, f.getFirstChild().getNodeValue());
-        nl = theElement.getElementsByTagName("ejb-ref-type");
-        f = (Element) nl.item(0);
-        assertEquals(theType, f.getFirstChild().getNodeValue());
-        nl = theElement.getElementsByTagName("local-home");
-        f = (Element) nl.item(0);
-        assertEquals(theLocalHome, f.getFirstChild().getNodeValue());
-        nl = theElement.getElementsByTagName("local");
-        f = (Element) nl.item(0);
-        assertEquals(theLocal, f.getFirstChild().getNodeValue());
+        List nl = theElement.getChildren("ejb-ref-name");
+        Element f = (Element) nl.get(0);
+        assertEquals(theName, f.getValue());
+        nl = theElement.getChildren("ejb-ref-type");
+        f = (Element) nl.get(0);
+        assertEquals(theType, f.getValue());
+        nl = theElement.getChildren("local-home");
+        f = (Element) nl.get(0);
+        assertEquals(theLocalHome, f.getValue());
+        nl = theElement.getChildren("local");
+        f = (Element) nl.get(0);
+        assertEquals(theLocal, f.getValue());
     }
     
     /**
@@ -158,11 +155,11 @@ public class TestCactifyEarTask extends AntTestCase
     private void assertWeblogicEjbRef(Element theElement, String theName, 
                                       String theJndiName)
     {
-        NodeList nl = theElement.getElementsByTagName("ejb-ref-name");
-        Element f = (Element) nl.item(0);
-        assertEquals(theName, f.getFirstChild().getNodeValue());
-        nl = theElement.getElementsByTagName("jndi-name");
-        f = (Element) nl.item(0);
-        assertEquals(theJndiName, f.getFirstChild().getNodeValue());
+        List nl = theElement.getChildren("ejb-ref-name");
+        Element f = (Element) nl.get(0);
+        assertEquals(theName, f.getValue());
+        nl = theElement.getChildren("jndi-name");
+        f = (Element) nl.get(0);
+        assertEquals(theJndiName, f.getValue());
     }
 }

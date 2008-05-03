@@ -196,7 +196,7 @@ public class CactifyWarTask extends War
             
             webXml = WebXmlIo.newWebXml(webXmlVersion);
         }
-
+        
         File tmpWebXml = null;
         try 
         {

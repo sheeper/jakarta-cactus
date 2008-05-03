@@ -144,8 +144,8 @@ public final class TestEarParser extends MockObjectTestCase
      */
     public void testParseTestContextWhenWebUriDefined() throws Exception
     {
-        //String context = EarParser.parseTestContext(archive, "test.war");
-        //	assertEquals("testcontext", context);
+        String context = EarParser.parseTestContext(archive, "test.war");
+        assertEquals("testcontext", context);
     }
 
     /**
@@ -174,7 +174,7 @@ public final class TestEarParser extends MockObjectTestCase
         setUp();
         try
         {
-            //EarParser.parse(archive, "test.war");
+            EarParser.parseTestContext(archive, "test.war");
         }
         catch (BuildException expected)
         {

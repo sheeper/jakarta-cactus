@@ -26,6 +26,8 @@ import java.net.URL;
 
 import org.apache.cactus.Cookie;
 import org.apache.cactus.WebRequest;
+import org.apache.cactus.internal.HttpServiceDefinition;
+import org.apache.cactus.internal.ServiceEnumeration;
 import org.apache.cactus.internal.WebRequestImpl;
 import org.apache.cactus.internal.client.connector.http.HttpClientConnectionHelper;
 import org.apache.cactus.internal.configuration.Configuration;
@@ -274,6 +276,64 @@ public class FormAuthentication extends AbstractAuthentication
                 + "] and was expecting less than 400");
         }
     }
+    
+    /**
+     * @param theRequest a <code>WebRequest</code> value
+     * @param theConfiguration a <code>Configuration</code> value
+     * @exception Exception if the post-auth request results response
+     *    other than 200 (OK).
+     */
+    protected void checkPostAuthRequest(WebRequest theRequest,
+                                        Configuration theConfiguration)
+        throws Exception
+    {
+        HttpURLConnection connection;
+        String resource = null;
+
+        try
+        {
+            // Create a helper that will connect to a restricted resource.
+            WebConfiguration webConfig = (WebConfiguration) theConfiguration;
+            resource = webConfig.getRedirectorURL(theRequest);
+
+            HttpClientConnectionHelper helper =
+                new HttpClientConnectionHelper(resource);
+
+            WebRequest request = getDummyRequest(webConfig);
+            request.addCookie(this.jsessionCookie);
+
+            // Make the connection using a default web request.
+            connection = helper.connect(request, theConfiguration);
+        }
+        catch (Throwable e)
+        {
+            throw new ChainedRuntimeException(
+                "Failed to connect to the secured redirector: " + resource, e);
+        }
+
+        if (connection.getResponseCode() != 200)
+        {
+            throw new Exception("Received a status code ["
+                + connection.getResponseCode()
+                + "] and was expecting 200");
+
+        }
+    }
+
+    /**
+     * @param theWebConfiguration the <code>WebConfiguration</code> value
+     * @return WebReuest instance
+     */
+    private WebRequest getDummyRequest(WebConfiguration theWebConfiguration)
+    {
+        WebRequest request = new WebRequestImpl(theWebConfiguration);
+        request.addParameter(HttpServiceDefinition.SERVICE_NAME_PARAM,
+            ServiceEnumeration.RUN_TEST_SERVICE.toString());
+        return request;
+    }
+
+
+    
 
 
     /**
@@ -304,8 +364,7 @@ public class FormAuthentication extends AbstractAuthentication
             HttpClientConnectionHelper helper = 
                 new HttpClientConnectionHelper(resource);
 
-            WebRequest request =
-                new WebRequestImpl((WebConfiguration) theConfiguration);
+            WebRequest request = getDummyRequest(webConfig);
 
             // Make the connection using a default web request.
             connection = helper.connect(request, theConfiguration);
@@ -378,6 +437,7 @@ public class FormAuthentication extends AbstractAuthentication
                 theConfiguration);
 
             checkAuthResponse(connection);        
+            checkPostAuthRequest(theRequest, theConfiguration);
         }
         catch (Throwable e)
         {

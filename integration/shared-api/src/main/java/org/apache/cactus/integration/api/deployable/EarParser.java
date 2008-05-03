@@ -125,7 +125,7 @@ public class EarParser
      *         configration problem
      * @throws JDOMException 
      */
-    protected static final String parseTestContext(EarArchive theEar, 
+    public static final String parseTestContext(EarArchive theEar, 
         String theWebUri) 
         throws ParserConfigurationException, IOException, SAXException, JDOMException
     {

@@ -3,8 +3,6 @@
 	<classpathentry path="org.eclipse.jdt.launching.JRE_CONTAINER" kind="con"/>
 	<classpathentry path="M2_REPO/commons-logging/commons-logging/1.0.4/commons-logging-1.0.4.jar" kind="var"/>
 	<classpathentry path="M2_REPO/ant/ant/1.6.5/ant-1.6.5.jar" kind="var"/>
-	<classpathentry path="M2_REPO/org/codehaus/cargo/cargo-core-api-container/0.9/cargo-core-api-container-0.9.jar" kind="var"/>
-	<classpathentry path="M2_REPO/org/codehaus/cargo/cargo-core-uberjar/0.9/cargo-core-uberjar-0.9.jar" kind="var"/>
 	<classpathentry path="M2_REPO/ant/ant-junit/1.6.5/ant-junit-1.6.5.jar" kind="var"/>
 	<classpathentry path="M2_REPO/org/codehaus/cargo/cargo-ant/0.9/cargo-ant-0.9.jar" kind="var"/>
 	<classpathentry path="framework/framework-12-13-14/src/main/java" kind="src"/>
@@ -31,5 +29,10 @@
 	<classpathentry path="integration/ant/src/main/java" kind="src"/>
 	<classpathentry path="integration/eclipse/org.apache.cactus.eclipse.runner/src/main/java" kind="src"/>
 	<classpathentry path="samples/jetty/src/main/cactus" kind="src"/>
+	<classpathentry path="M2_REPO/org/codehaus/cargo/cargo-core-uberjar/1.0-SNAPSHOT/cargo-core-uberjar-1.0-SNAPSHOT.jar" kind="var"/>
+	<classpathentry path="integration/ant/src/test/java" kind="src"/>
+	<classpathentry path="M2_REPO/jdom/jdom/1.0/jdom-1.0.jar" kind="var"/>
+	<classpathentry path="M2_REPO/jmock/jmock/1.0.0/jmock-1.0.0.jar" kind="var"/>
+	<classpathentry path="M2_REPO/org/apache/cactus/cactus.integration.shared.api/1.8.1-SNAPSHOT/cactus.integration.shared.api-1.8.1-SNAPSHOT.jar" kind="var"/>
 	<classpathentry path="bin" kind="output"/>
 </classpath>

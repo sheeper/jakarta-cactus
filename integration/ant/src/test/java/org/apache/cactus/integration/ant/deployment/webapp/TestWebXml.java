@@ -21,12 +21,9 @@
 package org.apache.cactus.integration.ant.deployment.webapp;
 
 import java.io.ByteArrayInputStream;
-import java.io.FileNotFoundException;
 import java.io.StringReader;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
-import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -41,12 +38,7 @@ import org.codehaus.cargo.module.webapp.WebXmlUtils;
 import org.codehaus.cargo.module.webapp.WebXmlVersion;
 import org.codehaus.cargo.module.webapp.elements.FilterMapping;
 import org.codehaus.cargo.util.CargoException;
-import org.jdom.Document;
 import org.jdom.Element;
-import org.jdom.JDOMException;
-import org.jdom.input.DOMBuilder;
-import org.jdom.output.DOMOutputter;
-import org.w3c.dom.NodeList;
 import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
