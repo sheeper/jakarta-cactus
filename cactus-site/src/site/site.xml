@@ -91,7 +91,9 @@
 				  <item name="Goals" href="integration/maven/goals.html"/>
 				  <item name="Properties" href="integration/maven/properties.html"/>
 				</item>
-				<item name="Maven2" href="integration/maven2/index.html"/>
+				<item name="Maven2" href="integration/maven2/index.html" collapse="true">
+				  <item name="CactifyWar MOJO" href="integration/maven2/cactifywar.html"/>
+				</item>
 				<item name="Various IDEs" href="integration/howto_ide.html"/>
 				<item name="JUnitEE" href="integration/howto_junitee.html"/>
 			</item>
