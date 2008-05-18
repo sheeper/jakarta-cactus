@@ -11,6 +11,7 @@ import org.codehaus.cargo.module.webapp.DefaultWarArchive;
 import org.codehaus.cargo.module.webapp.WarArchive;
 import org.codehaus.cargo.module.webapp.WebXml;
 import org.codehaus.cargo.util.internal.log.AbstractLogger;
+import org.codehaus.cargo.util.log.Logger;
 
 /**
  * Util class for cactifying purposes.
@@ -25,7 +26,7 @@ public class CactifyUtils {
     /**
      * The abstract cargo logger used both by Ant and Maven2.
      */
-    private AbstractLogger logger;
+    private Logger logger;
 	
 
     /**
@@ -106,7 +107,7 @@ public class CactifyUtils {
      * Getter method for the logger.
      * @return AbstractLogger
      */
-	public AbstractLogger getLogger() {
+	public Logger getLogger() {
 		return logger;
 	}
 	
@@ -114,7 +115,7 @@ public class CactifyUtils {
 	 * Setter method for the logger.
 	 * @param logger
 	 */
-	public void setLogger(AbstractLogger logger) {
+	public void setLogger(Logger logger) {
 		this.logger = logger;
 	}
 

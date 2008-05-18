@@ -82,8 +82,9 @@ public class FilterRedirector extends Redirector
                 + this.name + " mapping. Cactus is adding another one " 
                 + "which may prevent your container from starting.", "WARNING");
             }
+            
             WebXmlUtils.addFilter(theWebXml, this.name, FILTER_REDIRECTOR_CLASS);
-              
+            
             
 //        	WebXmlTag s = new WebXmlTag(theWebXml.getDescriptorType(), "");
             
@@ -104,7 +105,7 @@ public class FilterRedirector extends Redirector
             filterMapping.setFilterName(this.name);
             
             
-            theWebXml.addTag(filterMapping);
+            //theWebXml.addTag(filterMapping);
 //            
 //            theWebXml.addTag(filterM);
 //            

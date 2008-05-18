@@ -32,23 +32,31 @@ import java.util.Random;
 import org.apache.cactus.integration.api.cactify.CactifyUtils;
 import org.apache.maven.archiver.MavenArchiveConfiguration;
 import org.apache.maven.archiver.MavenArchiver;
+import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.DependencyResolutionRequiredException;
 import org.apache.maven.artifact.factory.ArtifactFactory;
+import org.apache.maven.artifact.installer.ArtifactInstallationException;
+import org.apache.maven.artifact.installer.ArtifactInstaller;
+import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugin.assembly.archive.ArchiveExpansionException;
 import org.apache.maven.plugin.assembly.utils.AssemblyFileUtils;
 import org.apache.maven.project.MavenProject;
+import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.types.XMLCatalog;
 import org.codehaus.cargo.container.internal.util.ResourceUtils;
+import org.codehaus.cargo.maven2.log.MavenLogger;
 import org.codehaus.cargo.module.webapp.DefaultWarArchive;
 import org.codehaus.cargo.module.webapp.EjbRef;
 import org.codehaus.cargo.module.webapp.WarArchive;
 import org.codehaus.cargo.module.webapp.WebXml;
 import org.codehaus.cargo.module.webapp.WebXmlIo;
 import org.codehaus.cargo.module.webapp.WebXmlUtils;
+import org.codehaus.cargo.module.webapp.WebXmlVersion;
 import org.codehaus.cargo.module.webapp.merge.WebXmlMerger;
+import org.codehaus.cargo.util.log.Logger;
 import org.codehaus.plexus.archiver.ArchiverException;
 import org.codehaus.plexus.archiver.jar.ManifestException;
 import org.codehaus.plexus.archiver.manager.ArchiverManager;
@@ -73,6 +81,13 @@ public class CactifyWarMojo extends AbstractMojo
      */
     private static Random rand = new Random(System.currentTimeMillis()
             + Runtime.getRuntime().freeMemory());
+    
+    /**
+     * Used to create artifacts
+     *
+     * @component
+     */
+    private ArtifactFactory artifactFactory;
 
     /**
      * For resolving entities such as DTDs.
@@ -155,12 +170,71 @@ public class CactifyWarMojo extends AbstractMojo
      * @plexus.requirement
      */
     private ArtifactFactory factory;
+    
+    /**
+     * @parameter expression="${component.org.apache.maven.artifact.installer.ArtifactInstaller}"
+     * @required
+     * @readonly
+     */
+    protected ArtifactInstaller installer;
   
     /**
      * The file that we want to produce.
      * @parameter
      */
     private File destFile;
+    
+    /**
+     * @parameter expression="${localRepository}"
+     * @required
+     * @readonly
+     */
+    protected ArtifactRepository localRepository;
+    
+    
+    
+    /**
+     * GroupId of the artifact to be installed. Retrieved from POM file if specified.
+     *
+     * @parameter expression="${project.groupId}"
+     */
+    protected String groupId;
+
+    /**
+     * ArtifactId of the artifact to be installed. Retrieved from POM file if specified.
+     *
+     * @parameter expression="${project.artifactId}"
+     */
+    protected String artifactId;
+
+    /**
+     * Version of the artifact to be installed. Retrieved from POM file if specified
+     *
+     * @parameter expression="${project.version}"
+     */
+    protected String projectVersion;
+
+    /**
+     * Version of the artifact to be installed. Retrieved from POM file if specified
+     *
+     * @parameter expression="${project.version}"
+     */
+    protected String version;
+    
+    /**
+     * Packaging type of the artifact to be installed. Retrieved from POM file if specified
+     *
+     * @parameter expression="${project.packaging}"
+     */
+    protected String packaging;
+
+    /**
+     * Classifier type of the artifact to be installed.  For example, "sources" or "javadoc".
+     * Defaults to none which means this is the project's main jar.
+     *
+     * @parameter expression="${project.classifier}"
+     */
+    protected String classifier;
     
     /**
      * The "main" method of the mojo.
@@ -176,35 +250,83 @@ public class CactifyWarMojo extends AbstractMojo
 		}
 		
         WebXml webXml = null;
-        
         MavenArchiver archiver = new MavenArchiver();
-
         archiver.setArchiver( warArchiver );
-
         archiver.setOutputFile( destFile );
         
         File tmpWebXml = null;
+        File tempLocation = null;
         
 		try 
 		{
-			webXml = getOriginalWebXml();
+			if (srcFile != null) 
+			{
+				webXml = getOriginalWebXml();
+				if (webXml == null)
+				{
+					if(this.version == null)
+					{
+						throw new MojoExecutionException("Your source file does not contain a web.xml. Please provide a war with" +
+								"a web.xml or specify the [version] attribute.");
+					}
+		            WebXmlVersion webXmlVersion = null;
+		            if (this.version.equals("2.2"))
+		            {
+		                webXmlVersion = WebXmlVersion.V2_2;
+		            }
+		            else if (this.version.equals("2.3"))
+		            {
+		                webXmlVersion = WebXmlVersion.V2_3;
+		            } 
+		            else 
+		            {
+		                webXmlVersion = WebXmlVersion.V2_4;
+		            }
+					webXml = WebXmlIo.newWebXml(webXmlVersion);
+				}
+			}
+			else
+			{
+				if(this.version == null)
+				{
+					throw new MojoExecutionException("You need to specify either the "
+		                    + "[srcFile] or the [version] attribute");
+				}
+				else
+				{
+		            WebXmlVersion webXmlVersion = null;
+		            if (this.version.equals("2.2"))
+		            {
+		                webXmlVersion = WebXmlVersion.V2_2;
+		            }
+		            else if (this.version.equals("2.3"))
+		            {
+		                webXmlVersion = WebXmlVersion.V2_3;
+		            } 
+		            else 
+		            {
+		                webXmlVersion = WebXmlVersion.V2_4;
+		            }
+					webXml = WebXmlIo.newWebXml(webXmlVersion);
+				}
+			}
 			tmpWebXml = cactifyWebXml(webXml);
 			
 			//Add the required libs for Cactus.
-			warArchiver.addLib(addJarWithClass("org.aspectj.lang.JoinPoint", 
-					"AspectJ Runtime"));
-			warArchiver.addLib(addJarWithClass("org.apache.cactus." +
-					"ServletTestCase", "Cactus Framework"));
-			warArchiver.addLib(addJarWithClass("org.apache.commons.logging.Log",
-		            "Commons-Logging"));
-			warArchiver.addLib(addJarWithClass("org.apache.commons." +
-					"httpclient.HttpClient", "Commons-HttpClient"));
-			warArchiver.addLib(addJarWithClass("junit.framework." +
-					"TestCase", "JUnit"));
+			addJarWithClass("org.aspectj.lang.JoinPoint", 
+			"AspectJ Runtime");
+			addJarWithClass("org.apache.cactus." +
+					"ServletTestCase", "Cactus Framework");
+			addJarWithClass("org.apache.commons.logging.Log",
+            	"Commons-Logging");
+			addJarWithClass("org.apache.commons." +
+					"httpclient.HttpClient", "Commons-HttpClient");
+			addJarWithClass("junit.framework." +
+					"TestCase", "JUnit");
 			
-	        File tempLocation = createTempFile("cactus", "explode.tmp.dir",
+			
+	        tempLocation = createTempFile("cactus", "explode.tmp.dir",
 	                getProject().getBasedir(), true);
-			
 			tempLocation.mkdirs();
 			tempLocation.deleteOnExit();
 			
@@ -218,7 +340,8 @@ public class CactifyWarMojo extends AbstractMojo
 			}
 			
 			try {
-				AssemblyFileUtils.unpack( this.srcFile, tempLocation,
+				if(this.srcFile != null)
+					AssemblyFileUtils.unpack( this.srcFile, tempLocation,
 						archiverManager );
 			} catch (ArchiveExpansionException e) {
 	        	throw new MojoExecutionException("Error extracting the" +
@@ -230,8 +353,27 @@ public class CactifyWarMojo extends AbstractMojo
 			warArchiver.addDirectory(tempLocation);
 			warArchiver.setWebxml(tmpWebXml);
 			archiver.createArchive( getProject(), getArchive() );
+
+			if(installLocally)
+			{
+				getLog().info("Installing "+destFile.getName()+" ...");
+		        Artifact artifact =
+		            artifactFactory.createArtifactWithClassifier( groupId, artifactId, projectVersion, packaging, classifier );
+		        
+	            String localPath = localRepository.pathOf( artifact );
+
+	            File destination = new File( localRepository.getBasedir(), localPath );
+		        
+	            getLog().info("!!!!!!!!"+destination.getAbsolutePath());
+	            
+		        try {
+					installer.install(destFile, artifact, localRepository);
+				} catch (ArtifactInstallationException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 			
-			FileUtils.deleteDirectory(tempLocation);
 		} 
 		catch (ArchiverException e) 
 		{
@@ -258,6 +400,16 @@ public class CactifyWarMojo extends AbstractMojo
         	throw new MojoExecutionException("Error resolving your " +
         			"dependencies", e);
 		}
+		finally
+		{
+			try {
+				if (tempLocation != null)
+					FileUtils.deleteDirectory(tempLocation);
+			} catch (IOException e) {
+	        	throw new MojoExecutionException("Error deleting temporary " +
+	        			"folder", e);
+			}
+		}
 	}
 	
     /**
@@ -273,6 +425,7 @@ public class CactifyWarMojo extends AbstractMojo
     													MojoExecutionException
     {
     	CactifyUtils utils = new CactifyUtils();
+    	utils.setLogger(createLogger());
     	utils.addRedirectorDefinitions(theWebXml, redirectors);
         addJspRedirector();
         addEjbRefs(theWebXml);
@@ -418,6 +571,7 @@ public class CactifyWarMojo extends AbstractMojo
      *        to the user in log messages
      */
     private File addJarWithClass(String theClassName, String theDescription)
+    throws ArchiverException
     {
         String resourceName = "/" + theClassName.replace('.', '/') + ".class";
         if (srcFile != null)
@@ -426,10 +580,11 @@ public class CactifyWarMojo extends AbstractMojo
             {
                 WarArchive srcWar = new DefaultWarArchive(
                     new FileInputStream(srcFile));
+                getLog().info("Inspecting..");
                 if (srcWar.containsClass(theClassName))
                 {
-                    getLog().debug("The " + theDescription + " JAR is " +
-                    		"already present in the WAR");
+                    getLog().info("The " + theDescription + " JAR is " +
+                    		"already present in the WAR. Will skip.");
                     return null;
                 }
             }
@@ -440,6 +595,13 @@ public class CactifyWarMojo extends AbstractMojo
             }
         }
         File file = utils.getResourceLocation(resourceName);
+        
+        if (file !=null)
+        {
+        	getLog().info("Adding: "+file.getName());
+        	warArchiver.addLib(file);
+        }
+
         return file;   
     }
     
@@ -500,5 +662,18 @@ public class CactifyWarMojo extends AbstractMojo
     public MavenArchiveConfiguration getArchive()
     {
         return archive;
+    }
+    
+    /**
+     * Create a logger. If a <code>&lt;log&gt;</code> configuration element has been specified
+     * by the user then use it. If none is specified then log to the Maven 2 logging subsystem.
+     *
+     * @return the logger to use for logging this plugin's activity
+     */
+    protected Logger createLogger()
+    {
+        Logger logger;
+            logger = new MavenLogger(getLog());
+        return logger;
     }
 }
