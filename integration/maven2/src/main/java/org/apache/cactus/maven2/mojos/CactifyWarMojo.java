@@ -44,7 +44,6 @@ import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugin.assembly.archive.ArchiveExpansionException;
 import org.apache.maven.plugin.assembly.utils.AssemblyFileUtils;
 import org.apache.maven.project.MavenProject;
-import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.types.XMLCatalog;
 import org.codehaus.cargo.container.internal.util.ResourceUtils;
 import org.codehaus.cargo.maven2.log.MavenLogger;
@@ -135,13 +134,13 @@ public class CactifyWarMojo extends AbstractMojo
      * The Cactus test redirectors.
      * @parameter
      */
-    private List redirectors = new ArrayList();
+    private final List redirectors = new ArrayList();
     
     /**
      * List of ejb-refs to add to the deployment descriptor 
      * of the cactified war.
      */
-    private List ejbRefs = new ArrayList();
+    private final List ejbRefs = new ArrayList();
     
     /**
      * The cargo ResourceUtils.
@@ -158,7 +157,7 @@ public class CactifyWarMojo extends AbstractMojo
      * Dependencies to be included in the WEB-INF/lib folder.
      * @parameter
      */
-    private List libDependencies = new ArrayList();
+    private final List libDependencies = new ArrayList();
     
     /**
      * Should we install the cactified archive in the local maven repo?
@@ -361,13 +360,7 @@ public class CactifyWarMojo extends AbstractMojo
 		        Artifact artifact =
 		            artifactFactory.createArtifactWithClassifier( groupId, artifactId, projectVersion, packaging, classifier );
 		        
-	            String localPath = localRepository.pathOf( artifact );
-
-	            File destination = new File( localRepository.getBasedir(), localPath );
-		        
-	            getLog().info("!!!!!!!!"+destination.getAbsolutePath());
-	            
-		        try {
+	            try {
 					installer.install(destFile, artifact, localRepository);
 				} catch (ArtifactInstallationException e) {
 					// TODO Auto-generated catch block
