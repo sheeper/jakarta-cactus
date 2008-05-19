@@ -158,7 +158,7 @@ public class CactifyWarMojo extends AbstractMojo
      * Dependencies to be included in the WEB-INF/lib folder.
      * @parameter
      */
-    private List libDependencies;
+    private List libDependencies = new ArrayList();
     
     /**
      * Should we install the cactified archive in the local maven repo?
@@ -331,6 +331,7 @@ public class CactifyWarMojo extends AbstractMojo
 			tempLocation.deleteOnExit();
 			
 			//Now add all of the additional lib files.
+			
 			for (Iterator iter = libDependencies.iterator();iter.hasNext();)
 			{
 				org.apache.cactus.maven2.mojos.Dependency dependency = 
