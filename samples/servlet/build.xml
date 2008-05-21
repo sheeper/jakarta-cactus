@@ -157,7 +157,7 @@
           mapping="/ServletRedirectorSecure" roles="test"/>
       <!-- Orion fails on a servlet filter that is not mapped to an actual
            resource, to trick it -->
-      <filterredirector mapping="/test/filterRedirector.jsp"/>
+      <filterredirector mapping="/test/filterRedirector"/>
       <!-- Files needed for JBoss -->
       <classes dir="${basedir}/src/main/resources/conf/jboss3x">
         <include name="*.properties"/>

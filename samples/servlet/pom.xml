@@ -27,7 +27,7 @@
 	<artifactId>cactus.samples.servlet</artifactId>
 	<name>Cactus Servlet Samples</name>
 	<description>Cactus Servlet Sample Projects</description>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 	<dependencies>
 		<dependency>
 			<groupId>org.apache.cactus</groupId>
@@ -82,26 +82,11 @@
 		</dependency>
 		
 		<dependency>
-			<groupId>ant</groupId>
-			<artifactId>ant-junit</artifactId>
-			<version>1.6.5</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.ivy</groupId>
-			<artifactId>ivy</artifactId>
-			<version>2.0.0-beta1</version>
-		</dependency>
-		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>3.8.2</version>
+			<version>4.4</version>
 		</dependency>
-		<dependency>
-			<groupId>xerces</groupId>
-			<artifactId>xercesImpl</artifactId>
-			<version>2.6.2</version>
-		</dependency>
-		
+
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>jsp-api</artifactId>
@@ -111,7 +96,7 @@
 			<groupId>httpunit</groupId>
 			<artifactId>httpunit</artifactId>
 			<version>1.6</version>
-		</dependency>
+    </dependency>
 		<dependency>
 			<groupId>htmlunit</groupId>
 			<artifactId>htmlunit</artifactId>
@@ -151,42 +136,138 @@
 	</dependencies>
 
 	<build>
-		<plugins>
-		  <plugin>
-			  <artifactId>maven-antrun-plugin</artifactId>
-  			<dependencies>	
-  				<dependency>
-  					<groupId>org.apache.ivy</groupId>
-  					<artifactId>ivy</artifactId>
-  					<version>2.0.0-beta1</version>
-  				</dependency>
-  				<dependency>
-      			<groupId>ant</groupId>
-      			<artifactId>ant-junit</artifactId>
-      			<version>1.6.5</version>
-          </dependency>
-          <dependency>
-      			<groupId>junit</groupId>
-      			<artifactId>junit</artifactId>
-      			<version>3.8.2</version>
-          </dependency>
-  			</dependencies>
-			   <executions>
-				    <execution>
-					    <phase>test</phase>
-					    <configuration>
-    						<tasks>
-									<ant antfile="build.xml">
-										<property name="cactus.version" value="${pom.version}"/>
-									</ant>
-    						</tasks>
-					    </configuration>
-					    <goals>
-						    <goal>run</goal>
-					    </goals>
-				    </execution>
-  			</executions>
-		   </plugin>
+	 <plugins>
+	   <plugin>
+        <groupId>org.apache.cactus</groupId>
+        <artifactId>cactus.integration.maven2</artifactId>
+        <version>1.8.1-SNAPSHOT</version>
+        <configuration>
+          <srcFile>${project.build.directory}/${pom.artifactId}-${pom.version}.war</srcFile>
+          <destFile>${project.build.directory}/${pom.artifactId}-cactified.war</destFile>
+          <!--installLocally>true</installLocally-->
+          <mergeWebXml>src/main/webapp/WEB-INF/cactus-web.xml</mergeWebXml>
+          <libDependencies>
+            <dependency>
+  			       <groupId>javax.servlet</groupId>
+  			       <artifactId>servlet-api</artifactId>
+            </dependency>
+            <dependency>
+              <groupId>httpunit</groupId>
+			        <artifactId>httpunit</artifactId>
+            </dependency>
+          </libDependencies>
+          <redirectors>
+            <servletRedirector>
+              <name>ServletRedirectorSecure</name>
+              <mapping>/ServletRedirectorSecure</mapping>
+              <roles>test</roles>
+            </servletRedirector>
+            <servletRedirector/>
+            <filterRedirector>
+              <name>FilterRedirector</name>
+              <mapping>/test/filterRedirector</mapping>
+            </filterRedirector>
+          </redirectors>  
+        </configuration>
+        <executions>
+          <execution>
+            <id>cactus-cactifywar</id>
+            <phase>pre-integration-test</phase>
+            <goals>
+              <goal>cactifywar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+	 <plugin>
+	   <groupId>org.codehaus.cargo</groupId>
+	   <artifactId>cargo-maven2-plugin</artifactId>
+	   <version>1.0-SNAPSHOT</version>
+	   <executions>
+	     <execution>
+       <id>start-container</id>
+       <phase>pre-integration-test</phase>
+       <goals>
+        <goal>start</goal>
+       </goals>
+      </execution>
+      <execution>
+        <id>stop-container</id>
+        <phase>post-integration-test</phase>
+        <goals>
+          <goal>stop</goal>
+        </goals>
+      </execution>
+      </executions>
+      <configuration>
+        <wait>false</wait>
+        <timeout>20000</timeout>
+        <container>
+          <containerId>tomcat5x</containerId>
+          <log>target/cargo.log</log>
+          <output>target/output.log</output>
+          <zipUrlInstaller>
+            <url>http://apache.speedbone.de/tomcat/tomcat-5/v5.5.25/bin/apache-tomcat-5.5.25.zip</url>
+            <installDir>${basedir}/install</installDir>
+          </zipUrlInstaller>
+        </container>
+        <configuration>
+          <deployables>
+            <deployable>
+              <!--groupId>org.apache.cactus</groupId>
+              <artifactId>cactus.samples.servlet</artifactId-->
+              <!--location>target/samples-servlet-1.8.0-SNAPSHOT-cactified.war</location-->
+              <location>target/cactus.samples.servlet-cactified.war</location>
+              <type>war</type>
+              <properties>
+                <context>/test</context>
+              </properties>
+              <pingURL>http://localhost:8080/</pingURL>
+            </deployable>
+          </deployables>
+        </configuration>
+      </configuration> 
+	 </plugin>
+     <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <skip>true</skip>
+        </configuration>
+        <executions>
+          <execution>
+            <id>surefire-it</id>
+            <phase>integration-test</phase>
+            <goals>
+              <goal>test</goal>
+            </goals>
+            <configuration>
+              <skip>false</skip>
+                <systemProperties>
+                  <property>
+                    <name>cactus.contextURL</name>
+                    <value>http://localhost:8080/test/</value>
+                  </property>
+                  <property>
+                    <name>cactus.filterRedirectorName</name>
+                    <value>test/filterRedirector</value>
+                  </property>
+                </systemProperties>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <artifactId>maven-war-plugin</artifactId>
+        <configuration>
+          <!--useCache>false</useCache-->
+          <webXml>src/main/webapp/WEB-INF/web.xml</webXml>
+          <warSourceIncludes>
+            *, test/*, WEB-INF/classes/**, WEB-INF/lib/standard*, WEB-INF/lib/jstl*, WEB-INF/lib/html*, WEB-INF/lib/http*
+          </warSourceIncludes>
+          <!--warSourceExcludes>WEB-INF/lib/[a-z-[s]]*.jar</warSourceExcludes-->
+        </configuration>        
+      </plugin>
 		</plugins>
 	</build>
 </project>
