@@ -64,6 +64,16 @@
 			<groupId>commons-logging</groupId>
 			<artifactId>commons-logging</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.geronimo.specs</groupId>
+			<artifactId>geronimo-jms_1.1_spec</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.geronimo.specs</groupId>
+			<artifactId>geronimo-ejb_2.1_spec</artifactId>
+			<version>1.0</version>
+		</dependency>
 <!-- TODO: check if really necessary -->
 		<dependency>
 			<groupId>commons-httpclient</groupId>
