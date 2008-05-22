@@ -17,6 +17,14 @@
       <session-type>Stateless</session-type>
       <transaction-type>Container</transaction-type>
     </session>
+    <message-driven>
+      <ejb-name>EmailMDB</ejb-name>
+      <ejb-class>org.apache.cactus.sample.ejb.EmailMDB</ejb-class>
+      <transaction-type>Container</transaction-type>
+      <message-driven-destination>
+        <destination-type>javax.jms.Queue</destination-type>
+      </message-driven-destination>
+    </message-driven>
   </enterprise-beans>
   <assembly-descriptor>
     <container-transaction>

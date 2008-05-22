@@ -22,7 +22,7 @@
 	<parent>
 		<groupId>org.apache.cactus</groupId>
 		<artifactId>cactus.samples</artifactId>
-		<version>1.8.0-SNAPSHOT</version>
+		<version>1.8.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>cactus.samples.ejb</artifactId>
 	<name>Cactus Ejb Samples - Parent Project</name>
@@ -67,12 +67,12 @@
 		<dependency>
 			<groupId>org.codehaus.cargo</groupId>
 			<artifactId>cargo-core-uberjar</artifactId>
-			<version>0.9</version>
+			<version>1.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.codehaus.cargo</groupId>
 			<artifactId>cargo-ant</artifactId>
-			<version>0.9</version>
+			<version>1.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>xerces</groupId>
@@ -104,10 +104,25 @@
 			<artifactId>ivy</artifactId>
 			<version>2.0.0-beta1</version>
 		</dependency>
-		<dependency> 
+		<!--dependency> 
 			<groupId>geronimo-spec</groupId>
 			<artifactId>geronimo-spec-ejb</artifactId>
 			<version>2.1-rc4</version>
+		</dependency-->
+		<dependency>
+			<groupId>org.apache.geronimo.specs</groupId>
+			<artifactId>geronimo-jms_1.1_spec</artifactId>
+			<version>1.0</version>
+		</dependency>	
+		<!--dependency>
+			<groupId>org.apache.geronimo.specs</groupId>
+			<artifactId>geronimo-ejb_2.1_spec</artifactId>
+			<version>1.0</version>
+		</dependency-->
+		<dependency>
+			<groupId>org.apache.geronimo.specs</groupId>
+			<artifactId>geronimo-ejb_3.0_spec</artifactId>
+			<version>1.0</version>
 		</dependency>
 	</dependencies>
 	<build>
