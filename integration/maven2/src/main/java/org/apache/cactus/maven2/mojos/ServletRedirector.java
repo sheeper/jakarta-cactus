@@ -25,4 +25,4 @@ package org.apache.cactus.maven2.mojos;
  * redirector definitions in the <code>pom.xml</code>. 
  */
 public class ServletRedirector 
-extends org.apache.cactus.integration.api.cactify.ServletRedirector {}
+extends org.apache.cactus.integration.api.cactify.ServletRedirector { }

@@ -82,7 +82,7 @@ public class CactifyWarMojo extends AbstractMojo
             + Runtime.getRuntime().freeMemory());
     
     /**
-     * Used to create artifacts
+     * Used to create artifacts.
      *
      * @component
      */
@@ -160,12 +160,6 @@ public class CactifyWarMojo extends AbstractMojo
     private final List libDependencies = new ArrayList();
     
     /**
-     * Should we install the cactified archive in the local maven repo?
-     * @parameter
-     */
-    private boolean installLocally = false;
-    
-    /**
      * @plexus.requirement
      */
     private ArtifactFactory factory;
@@ -190,45 +184,49 @@ public class CactifyWarMojo extends AbstractMojo
      */
     protected ArtifactRepository localRepository;
     
-    
-    
     /**
-     * GroupId of the artifact to be installed. Retrieved from POM file if specified.
+     * GroupId of the artifact to be installed. Retrieved from POM file 
+     * if specified.
      *
      * @parameter expression="${project.groupId}"
      */
     protected String groupId;
 
     /**
-     * ArtifactId of the artifact to be installed. Retrieved from POM file if specified.
+     * ArtifactId of the artifact to be installed. Retrieved from POM file 
+     * if specified.
      *
      * @parameter expression="${project.artifactId}"
      */
     protected String artifactId;
 
     /**
-     * Version of the artifact to be installed. Retrieved from POM file if specified
+     * Version of the artifact to be installed. Retrieved from POM file 
+     * if specified
      *
      * @parameter expression="${project.version}"
      */
     protected String projectVersion;
 
     /**
-     * Version of the artifact to be installed. Retrieved from POM file if specified
+     * Version of the artifact to be installed. Retrieved from POM file 
+     * if specified
      *
      * @parameter expression="${project.version}"
      */
     protected String version;
     
     /**
-     * Packaging type of the artifact to be installed. Retrieved from POM file if specified
+     * Packaging type of the artifact to be installed. Retrieved from POM file 
+     * if specified
      *
      * @parameter expression="${project.packaging}"
      */
     protected String packaging;
 
     /**
-     * Classifier type of the artifact to be installed.  For example, "sources" or "javadoc".
+     * Classifier type of the artifact to be installed.  For example, "sources" 
+     * or "javadoc".
      * Defaults to none which means this is the project's main jar.
      *
      * @parameter expression="${project.classifier}"
@@ -240,172 +238,171 @@ public class CactifyWarMojo extends AbstractMojo
      * @throws MojoExecutionException in case an error occurs.
      * @throws MojoFailureException in case a failure occurs.
      */
-	public void execute() throws MojoExecutionException, MojoFailureException
+    public void execute() throws MojoExecutionException, MojoFailureException
 	{
 		
-		if(this.srcFile != null) 
-		{
+        if(this.srcFile != null) 
+        {
             getLog().info("Analyzing war: " + this.srcFile.getAbsolutePath());
-		}
-		
+        }
+        
         WebXml webXml = null;
         MavenArchiver archiver = new MavenArchiver();
-        archiver.setArchiver( warArchiver );
-        archiver.setOutputFile( destFile );
+        archiver.setArchiver(warArchiver);
+        archiver.setOutputFile(destFile);
         
         File tmpWebXml = null;
         File tempLocation = null;
         
-		try 
-		{
-			if (srcFile != null) 
-			{
-				webXml = getOriginalWebXml();
-				if (webXml == null)
-				{
-					if(this.version == null)
-					{
-						throw new MojoExecutionException("Your source file does not contain a web.xml. Please provide a war with" +
-								"a web.xml or specify the [version] attribute.");
-					}
-		            WebXmlVersion webXmlVersion = null;
-		            if (this.version.equals("2.2"))
-		            {
-		                webXmlVersion = WebXmlVersion.V2_2;
-		            }
-		            else if (this.version.equals("2.3"))
-		            {
-		                webXmlVersion = WebXmlVersion.V2_3;
-		            } 
-		            else 
-		            {
-		                webXmlVersion = WebXmlVersion.V2_4;
-		            }
-					webXml = WebXmlIo.newWebXml(webXmlVersion);
-				}
-			}
-			else
-			{
-				if(this.version == null)
-				{
-					throw new MojoExecutionException("You need to specify either the "
-		                    + "[srcFile] or the [version] attribute");
-				}
-				else
-				{
-		            WebXmlVersion webXmlVersion = null;
-		            if (this.version.equals("2.2"))
-		            {
-		                webXmlVersion = WebXmlVersion.V2_2;
-		            }
-		            else if (this.version.equals("2.3"))
-		            {
-		                webXmlVersion = WebXmlVersion.V2_3;
-		            } 
-		            else 
-		            {
-		                webXmlVersion = WebXmlVersion.V2_4;
-		            }
-					webXml = WebXmlIo.newWebXml(webXmlVersion);
-				}
-			}
-			tmpWebXml = cactifyWebXml(webXml);
-			
-			//Add the required libs for Cactus.
-			addJarWithClass("org.aspectj.lang.JoinPoint", 
-			"AspectJ Runtime");
-			addJarWithClass("org.apache.cactus." +
-					"ServletTestCase", "Cactus Framework");
-			addJarWithClass("org.apache.commons.logging.Log",
-            	"Commons-Logging");
-			addJarWithClass("org.apache.commons." +
-					"httpclient.HttpClient", "Commons-HttpClient");
-			addJarWithClass("junit.framework." +
-					"TestCase", "JUnit");
-			
-			
-	        tempLocation = createTempFile("cactus", "explode.tmp.dir",
-	                getProject().getBasedir(), true);
-			tempLocation.mkdirs();
-			tempLocation.deleteOnExit();
-			
-			//Now add all of the additional lib files.
-			
-			for (Iterator iter = libDependencies.iterator();iter.hasNext();)
-			{
-				org.apache.cactus.maven2.mojos.Dependency dependency = 
-					(org.apache.cactus.maven2.mojos.Dependency) iter.next();
-				warArchiver.addLib(new File(dependency.getDependencyPath(
-					project, getLog())));
-			}
-			
-			try {
-				if(this.srcFile != null)
-					AssemblyFileUtils.unpack( this.srcFile, tempLocation,
-						archiverManager );
-			} catch (ArchiveExpansionException e) {
-	        	throw new MojoExecutionException("Error extracting the" +
-	        			" archive.", e);
-			} catch (NoSuchArchiverException e) {
-	        	throw new MojoExecutionException("Problem reading the " +
-	        			"source archive.", e);
-			}
-			warArchiver.addDirectory(tempLocation);
-			warArchiver.setWebxml(tmpWebXml);
-			archiver.createArchive( getProject(), getArchive() );
-
-			if(installLocally)
-			{
-				getLog().info("Installing "+destFile.getName()+" ...");
-		        Artifact artifact =
-		            artifactFactory.createArtifactWithClassifier( groupId, artifactId, projectVersion, packaging, classifier );
-		        
-	            try {
-					installer.install(destFile, artifact, localRepository);
-				} catch (ArtifactInstallationException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			
-		} 
-		catch (ArchiverException e) 
-		{
-        	throw new MojoExecutionException("Problem reading the " +
-        			"source archive.", e);
-		} 
+        try 
+        {
+            if (srcFile != null) 
+            {
+                webXml = getOriginalWebXml();
+                if (webXml == null)
+                {
+                    if(this.version == null)
+                    {
+                        throw new MojoExecutionException("Your source file "
+                           + "does not contain a web.xml. Please provide a "
+                           + "war with a web.xml or specify the [version] "
+                           + "attribute.");
+                    }
+                    WebXmlVersion webXmlVersion = null;
+                    if (this.version.equals("2.2"))
+                    {
+                        webXmlVersion = WebXmlVersion.V2_2;
+                    }
+                    else if (this.version.equals("2.3"))
+                    {
+                        webXmlVersion = WebXmlVersion.V2_3;
+                    } 
+                    else 
+                    {
+                        webXmlVersion = WebXmlVersion.V2_4;
+                    }
+                    webXml = WebXmlIo.newWebXml(webXmlVersion);
+                }
+            }
+            else
+            {
+                if (this.version == null)
+                {
+                    throw new MojoExecutionException("You need to specify "
+                           + "either the [srcFile] or the [version] attribute");
+                }
+                else
+                {
+                    WebXmlVersion webXmlVersion = null;
+                    if (this.version.equals("2.2"))
+                    {
+                        webXmlVersion = WebXmlVersion.V2_2;
+                    }
+                    else if (this.version.equals("2.3"))
+                    {
+                        webXmlVersion = WebXmlVersion.V2_3;
+                    } 
+                    else 
+                    {
+                        webXmlVersion = WebXmlVersion.V2_4;
+                    }
+                    webXml = WebXmlIo.newWebXml(webXmlVersion);
+                }
+            }
+            tmpWebXml = cactifyWebXml(webXml);
+            
+            //Add the required libs for Cactus.
+            addJarWithClass("org.aspectj.lang.JoinPoint", 
+            "AspectJ Runtime");
+            addJarWithClass("org.apache.cactus."
+                   + "ServletTestCase", "Cactus Framework");
+            addJarWithClass("org.apache.commons.logging.Log",
+                "Commons-Logging");
+            addJarWithClass("org.apache.commons."
+                   + "httpclient.HttpClient", "Commons-HttpClient");
+            addJarWithClass("junit.framework."
+                   + "TestCase", "JUnit");
+            
+            
+            tempLocation = createTempFile("cactus", "explode.tmp.dir",
+                    getProject().getBasedir(), true);
+            tempLocation.mkdirs();
+            tempLocation.deleteOnExit();
+            
+            //Now add all of the additional lib files.
+            
+            for (Iterator iter = libDependencies.iterator(); iter.hasNext();)
+            {
+                org.apache.cactus.maven2.mojos.Dependency dependency = 
+                    (org.apache.cactus.maven2.mojos.Dependency) iter.next();
+                warArchiver.addLib(new File(dependency.getDependencyPath(
+                    project, getLog())));
+            }
+            
+            try 
+            {
+                if(this.srcFile != null)
+                {
+                    AssemblyFileUtils.unpack(this.srcFile, tempLocation,
+                        archiverManager);
+                }
+            } 
+            catch (ArchiveExpansionException e) 
+            {
+                throw new MojoExecutionException("Error extracting the"
+                       + " archive.", e);
+            } 
+            catch (NoSuchArchiverException e) 
+            {
+                throw new MojoExecutionException("Problem reading the "
+                       + "source archive.", e);
+            }
+            warArchiver.addDirectory(tempLocation);
+            warArchiver.setWebxml(tmpWebXml);
+            archiver.createArchive(getProject(), getArchive());
+        } 
+        catch (ArchiverException e) 
+        {
+            throw new MojoExecutionException("Problem reading the "
+                   + "source archive.", e);
+        } 
         catch (JDOMException e) 
-		{
-        	throw new MojoExecutionException("Unable to cactify " +
-        			"your web.xml.", e);
-		}
-		catch (ManifestException e) 
-		{
-        	throw new MojoExecutionException("Problem reading the " +
-        			"source archive.", e);
-		} 
-		catch (IOException e) 
-		{
-        	throw new MojoExecutionException("Input/output error reading the" +
-        			"source archive.", e);
-		} 
-		catch (DependencyResolutionRequiredException e) 
-		{
-        	throw new MojoExecutionException("Error resolving your " +
-        			"dependencies", e);
-		}
-		finally
-		{
-			try {
-				if (tempLocation != null)
-					FileUtils.deleteDirectory(tempLocation);
-			} catch (IOException e) {
-	        	throw new MojoExecutionException("Error deleting temporary " +
-	        			"folder", e);
-			}
-		}
-	}
-	
+        {
+            throw new MojoExecutionException("Unable to cactify "
+                   + "your web.xml.", e);
+        }
+        catch (ManifestException e) 
+        {
+            throw new MojoExecutionException("Problem reading the "
+                   + "source archive.", e);
+        } 
+        catch (IOException e) 
+        {
+            throw new MojoExecutionException("Input/output error reading the"
+                   + "source archive.", e);
+        } 
+        catch (DependencyResolutionRequiredException e) 
+        {
+            throw new MojoExecutionException("Error resolving your "
+                   + "dependencies", e);
+        }
+        finally
+        {
+            try 
+            {
+                if (tempLocation != null)
+                {
+                    FileUtils.deleteDirectory(tempLocation);
+                }
+            } 
+            catch (IOException e) 
+            {
+                throw new MojoExecutionException("Error deleting temporary "
+                       + "folder", e);
+            }
+        }
+    }
+    
     /**
      * Enhances the provided web deployment descriptor with the definitions 
      * required for testing with Cactus.
@@ -416,11 +413,11 @@ public class CactifyWarMojo extends AbstractMojo
      * @throws MojoExecutionException in case any other error occurs.
      */
     private File cactifyWebXml(WebXml theWebXml) throws JDOMException, 
-    													MojoExecutionException
+                                                        MojoExecutionException
     {
-    	CactifyUtils utils = new CactifyUtils();
-    	utils.setLogger(createLogger());
-    	utils.addRedirectorDefinitions(theWebXml, redirectors);
+        CactifyUtils utils = new CactifyUtils();
+        utils.setLogger(createLogger());
+        utils.addRedirectorDefinitions(theWebXml, redirectors);
         addJspRedirector();
         addEjbRefs(theWebXml);
         
@@ -472,18 +469,21 @@ public class CactifyWarMojo extends AbstractMojo
                 }
             }
             String[] strIncludes = new String[includes.size()];
-            int i=0;
-            for(Iterator iter = includes.iterator(); iter.hasNext();)
+            int i = 0;
+            for (Iterator iter = includes.iterator(); iter.hasNext();)
             {
-            	strIncludes[i] = iter.next().toString();
-            	i++;
+                strIncludes[i] = iter.next().toString();
+                i++;
             }
-            try {
-				warArchiver.addWebinf(tmpDir, strIncludes,null);
-			} catch (ArchiverException e) {
-				throw new MojoExecutionException(
-		                "Error reading the source archive.", e);
-			}
+            try 
+            {
+                warArchiver.addWebinf(tmpDir, strIncludes,null);
+            } 
+            catch (ArchiverException e) 
+            {
+                throw new MojoExecutionException(
+                        "Error reading the source archive.", e);
+            }
         }
         catch (IOException ioe)
         {
@@ -528,10 +528,12 @@ public class CactifyWarMojo extends AbstractMojo
         return result;
     }
     
+
     /**
      * Adds the Cactus JSP redirector file to the web application.
+     * @throws MojoExecutionException
      */
-    private void addJspRedirector()
+    private void addJspRedirector() throws MojoExecutionException
     {
         // Now copy the actual JSP redirector file into the web application
         File jspRedirectorFile = new File(
@@ -545,15 +547,17 @@ public class CactifyWarMojo extends AbstractMojo
         }
         catch (IOException e)
         {
-            getLog().warn("Could not copy the JSP redirector (" + 
-            		e.getMessage() + ")");
+            getLog().warn("Could not copy the JSP redirector (" 
+                   + e.getMessage() + ")");
         }
-        try {
-			warArchiver.addFile(jspRedirectorFile, jspRedirectorFile.getName());
-		} catch (ArchiverException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+        try 
+        {
+            warArchiver.addFile(jspRedirectorFile, jspRedirectorFile.getName());
+        } 
+        catch (ArchiverException e) 
+        {
+            throw new MojoExecutionException("Failed to add jsp redirector", e);
+        }
     }
 
     /**
@@ -563,6 +567,8 @@ public class CactifyWarMojo extends AbstractMojo
      * @param theClassName The name of the class that the JAR contains
      * @param theDescription A description of the JAR that should be displayed
      *        to the user in log messages
+     * @return File the jar file
+     * @throws ArchiverException in case an error occurs.
      */
     private File addJarWithClass(String theClassName, String theDescription)
     throws ArchiverException
@@ -577,23 +583,23 @@ public class CactifyWarMojo extends AbstractMojo
                 getLog().info("Inspecting..");
                 if (srcWar.containsClass(theClassName))
                 {
-                    getLog().info("The " + theDescription + " JAR is " +
-                    		"already present in the WAR. Will skip.");
+                    getLog().info("The " + theDescription + " JAR is "
+                           + "already present in the WAR. Will skip.");
                     return null;
                 }
             }
             catch (IOException ioe)
             {
-                getLog().warn("Problem reading source WAR to when " +
-                	"trying to detect already present JAR files (" + ioe + ")");
+                getLog().warn("Problem reading source WAR to when "
+                  + "trying to detect already present JAR files (" + ioe + ")");
             }
         }
         File file = utils.getResourceLocation(resourceName);
         
-        if (file !=null)
+        if (file != null)
         {
-        	getLog().info("Adding: "+file.getName());
-        	warArchiver.addLib(file);
+            getLog().info("Adding: " + file.getName());
+            warArchiver.addLib(file);
         }
 
         return file;   
@@ -609,7 +615,7 @@ public class CactifyWarMojo extends AbstractMojo
      * @throws JDOMException in case is JDOM exception is thrown.
      */
     private WebXml getOriginalWebXml() throws MojoExecutionException, 
-    										  JDOMException
+                                              JDOMException
     {
         // Open the archive as JAR file and extract the deployment descriptor
         WarArchive war = null;
@@ -621,7 +627,8 @@ public class CactifyWarMojo extends AbstractMojo
         }
         catch (IOException e)
         {
-            throw new MojoExecutionException("Failed to open WAR", e);
+            throw new MojoExecutionException("Failed to get the original "
+                    + "web.xml", e);
         }
     }
     
@@ -659,8 +666,9 @@ public class CactifyWarMojo extends AbstractMojo
     }
     
     /**
-     * Create a logger. If a <code>&lt;log&gt;</code> configuration element has been specified
-     * by the user then use it. If none is specified then log to the Maven 2 logging subsystem.
+     * Create a logger. If a <code>&lt;log&gt;</code> configuration element 
+     * has been specified by the user then use it. If none is specified then 
+     * log to the Maven 2 logging subsystem.
      *
      * @return the logger to use for logging this plugin's activity
      */

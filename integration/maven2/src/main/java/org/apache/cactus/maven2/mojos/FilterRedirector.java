@@ -26,4 +26,4 @@ package org.apache.cactus.maven2.mojos;
  */
 public class FilterRedirector 
 extends org.apache.cactus.integration.api.cactify.FilterRedirector 
-{}
+{ }

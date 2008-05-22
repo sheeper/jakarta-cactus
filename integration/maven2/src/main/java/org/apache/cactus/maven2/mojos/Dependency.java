@@ -1,3 +1,23 @@
+/* 
+ * ========================================================================
+ * 
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * 
+ * ========================================================================
+ */
 package org.apache.cactus.maven2.mojos;
 
 import java.io.File;
@@ -14,7 +34,15 @@ import org.apache.maven.project.MavenProject;
 public class Dependency 
 extends org.codehaus.cargo.maven2.configuration.Dependency 
 {
-    public String getDependencyPath(MavenProject project, Log log) throws MojoExecutionException
+    /**
+     * We override this mothod. 
+     * @param theProject
+     * @param theLog
+     * @return
+     * @throws MojoExecutionException
+     */
+    public String getDependencyPath(MavenProject theProject, Log theLog) 
+    throws MojoExecutionException
     {
         String path = getLocation();
 
@@ -22,8 +50,9 @@ extends org.codehaus.cargo.maven2.configuration.Dependency
         {
             if ((getGroupId() == null) || (getArtifactId() == null))
             {
-                throw new MojoExecutionException("You must specify a groupId/artifactId or "
-                    + "a location that points to a directory or JAR");
+                throw new MojoExecutionException("You must specify a "
+                    + "groupId/artifactId or a location that points to a "
+                    + "directory or JAR");
             }
 
             // Default to jar if not type is specified
@@ -32,12 +61,11 @@ extends org.codehaus.cargo.maven2.configuration.Dependency
                 setType("jar");
             }
 
-            path = findArtifactLocation(project.getArtifacts(), log);
+            path = findArtifactLocation(theProject.getArtifacts(), theLog);
         }
 
-        log.debug("Classpath location = [" + new File(path).getPath() + "]");
+        theLog.debug("Classpath location = [" + new File(path).getPath() + "]");
 
         return new File(path).getPath();
-    }	
-
+    }
 }
