@@ -174,6 +174,7 @@ public class CactifyWarMojo extends AbstractMojo
     /**
      * The file that we want to produce.
      * @parameter
+     * @required
      */
     private File destFile;
     
@@ -209,12 +210,11 @@ public class CactifyWarMojo extends AbstractMojo
     protected String projectVersion;
 
     /**
-     * Version of the artifact to be installed. Retrieved from POM file 
-     * if specified
+     * Version of the web.xml to create.
      *
-     * @parameter expression="${project.version}"
+     * @parameter
      */
-    protected String version;
+    protected String version = null;
     
     /**
      * Packaging type of the artifact to be installed. Retrieved from POM file 
@@ -240,7 +240,6 @@ public class CactifyWarMojo extends AbstractMojo
      */
     public void execute() throws MojoExecutionException, MojoFailureException
 	{
-		
         if(this.srcFile != null) 
         {
             getLog().info("Analyzing war: " + this.srcFile.getAbsolutePath());
@@ -286,6 +285,7 @@ public class CactifyWarMojo extends AbstractMojo
             }
             else
             {
+                
                 if (this.version == null)
                 {
                     throw new MojoExecutionException("You need to specify "
@@ -445,7 +445,7 @@ public class CactifyWarMojo extends AbstractMojo
         // so that it can get picked up by the War task
         //FileUtils fileUtils = FileUtils.newFileUtils();
         File tmpDir = createTempFile("cactus", "tmp.dir",
-            getProject().getBasedir(), true);
+            new File("."), true);
         tmpDir.mkdirs();
         tmpDir.deleteOnExit();
         File webXmlFile = null;
