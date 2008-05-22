@@ -66,6 +66,12 @@
         <include name="*.jar"/>
       </fileset>
 		</path>
+		
+		<path id="jboss.client">
+			<fileset dir="${basedir}/jboss-4.0.2/client">
+        <include name="*.jar"/>
+      </fileset>
+    </path>
 	</target>
 
  <!--
@@ -193,12 +199,14 @@
 				<path refid="cactus.classpath"/>
 				<pathelement location="${build.dir}"/>
 				<pathelement location="${cactus.build.dir}"/>
+				<pathelement location="${basedir}/cactus"/>
+				<path refid="jboss.client"/>
 			</classpath>
 			<containerset>
-				<cargo containerId="${jboss.container.id}" output="${logs.dir}/output.log" log="${logs.dir}/cargo.log">
-					<zipUrlInstaller
+				<cargo containerId="${jboss.container.id}" output="${logs.dir}/output.log" log="${logs.dir}/cargo.log" home="jboss-4.0.2">
+					<!--zipUrlInstaller
             installUrl="http://heanet.dl.sourceforge.net/sourceforge/jboss/jboss-4.0.2.zip"
-            installDir="target/${jboss.container.id}"/>
+            installDir="target/${jboss.container.id}"/-->
 					<configuration>
 						<property name="cargo.servlet.port" value="${cargo.servlet.port}"/>
 						<property name="cargo.logging" value="${cargo.logging}"/>
