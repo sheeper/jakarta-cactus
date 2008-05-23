@@ -86,15 +86,8 @@ framework/framework-12-13-14/src/main/java/org/apache/cactus/util/package.html -
 framework/framework-12-13-14/src/main/java/overview.html -text
 framework/framework-13-14/src/main/java/org/apache/cactus/extension/jetty/package.html -text
 framework/framework-13-14/src/main/java/org/apache/cactus/extension/jsp/package.html -text
-framework/framework-13-14/src/main/java/org/apache/cactus/internal/client/connector/http/package.html -text
-framework/framework-13-14/src/main/java/org/apache/cactus/internal/client/package.html -text
 framework/framework-13-14/src/main/java/org/apache/cactus/internal/configuration/package.html -text
-framework/framework-13-14/src/main/java/org/apache/cactus/internal/package.html -text
 framework/framework-13-14/src/main/java/org/apache/cactus/internal/server/package.html -text
-framework/framework-13-14/src/main/java/org/apache/cactus/internal/server/runner/package.html -text
-framework/framework-13-14/src/main/java/org/apache/cactus/internal/util/package.html -text
-framework/framework-13-14/src/main/java/org/apache/cactus/server/package.html -text
-framework/framework-13-14/src/main/java/org/apache/cactus/server/runner/package.html -text
 integration/ant/src/main/java/org/apache/cactus/integration/ant/container/package.html -text
 integration/ant/src/main/java/org/apache/cactus/integration/ant/package.html -text
 integration/ant/src/main/java/org/apache/cactus/integration/ant/util/package.html -text
