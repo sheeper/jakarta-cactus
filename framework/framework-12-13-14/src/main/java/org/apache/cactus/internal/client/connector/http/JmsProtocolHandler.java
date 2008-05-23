@@ -1,3 +1,23 @@
+/* 
+ * ========================================================================
+ * 
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * 
+ * ========================================================================
+ */
 package org.apache.cactus.internal.client.connector.http;
 
 import javax.jms.QueueSession;
@@ -15,6 +35,11 @@ import org.apache.cactus.spi.client.connector.ProtocolHandler;
 import org.apache.cactus.spi.client.connector.ProtocolState;
 import org.apache.cactus.util.JmsConfiguration;
 
+/**
+ * The JMS protocol handler.
+ * @author ptahchiev
+ *
+ */
 public class JmsProtocolHandler implements ProtocolHandler
 {
     /**
@@ -42,13 +67,19 @@ public class JmsProtocolHandler implements ProtocolHandler
 		return new JmsRequest(session);
 	}
 
+    /**
+     * TODO implement this method.
+     */
 	public ResponseObjectFactory createResponseObjectFactory(
 			ProtocolState theState) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public ProtocolState runTest(Test theDelegatedTest, Test theWrappedTest,
+
+    /**
+     * The overriden runTest method.
+     */
+    public ProtocolState runTest(Test theDelegatedTest, Test theWrappedTest,
 			Request theRequest) throws Throwable 
 	{
         // Create the JMS Request object and creates necessary JMS objects
@@ -71,6 +102,7 @@ public class JmsProtocolHandler implements ProtocolHandler
 	
 	
     /**
+     * Returns the configuration data.
      * @return configuration data
      */
     private JmsConfiguration getConfiguration()

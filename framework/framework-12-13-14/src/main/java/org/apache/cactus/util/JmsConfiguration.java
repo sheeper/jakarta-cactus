@@ -44,8 +44,9 @@ public class JmsConfiguration extends ConfigurationInitializer
 
         String property =
             System.getProperty("cactus.jndi.initialContextFactory");
-        if (property == null) {
-            new ChainedRuntimeException("Missing Cactus property [" +
+        if (property == null) 
+        {
+            throw new ChainedRuntimeException("Missing Cactus property [" +
                 "cactus.jndi.initialContextFactory" + "]");
         }
         return property;
@@ -61,8 +62,9 @@ public class JmsConfiguration extends ConfigurationInitializer
 
         String property =
             System.getProperty("cactus.jndi.providerUrl");
-        if (property == null) {
-            new ChainedRuntimeException("Missing Cactus property [" +
+        if (property == null) 
+        {
+            throw new ChainedRuntimeException("Missing Cactus property [" +
                 "cactus.jndi.providerUrl" + "]");
         }
         return property;
@@ -78,8 +80,9 @@ public class JmsConfiguration extends ConfigurationInitializer
 
         String property =
             System.getProperty("cactus.jndi.securityPrincipal");
-        if (property == null) {
-            new ChainedRuntimeException("Missing Cactus property [" +
+        if (property == null) 
+        {
+            throw new ChainedRuntimeException("Missing Cactus property [" +
                 "cactus.jndi.securityPrincipal" + "]");
         }
         return property;
@@ -95,8 +98,9 @@ public class JmsConfiguration extends ConfigurationInitializer
 
         String property =
             System.getProperty("cactus.jndi.securityCredentials");
-        if (property == null) {
-            new ChainedRuntimeException("Missing Cactus property [" +
+        if (property == null) 
+        {
+            throw new ChainedRuntimeException("Missing Cactus property [" +
                 "cactus.jndi.securityCredentials" + "]");
         }
         return property;
@@ -112,8 +116,9 @@ public class JmsConfiguration extends ConfigurationInitializer
 
         String property =
             System.getProperty("cactus.jms.connectionFactoryJndiName");
-        if (property == null) {
-            new ChainedRuntimeException("Missing Cactus property [" +
+        if (property == null) 
+        {
+            throw new ChainedRuntimeException("Missing Cactus property [" +
                 "cactus.jms.connectionFactoryJndiName" + "]");
         }
         return property;
