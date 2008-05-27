@@ -18,34 +18,29 @@
  * 
  * ========================================================================
  */
-package org.apache.cactus.internal.client.connector.http;
+package org.apache.cactus.internal.server;
 
-import org.apache.cactus.spi.client.connector.ProtocolState;
+import org.apache.cactus.spi.server.MessageDrivenBeanImplicitObjects;
 
-public class JmsProtocolState implements ProtocolState 
+/**
+ * Responsible for instanciating the <code>TestCase</code> class on the server
+ * side, set up the implicit objects and call the test method. This class
+ * provides a common abstraction for all test web requests.
+ *
+ * @version $Id: AbstractJMSTestCaller.java 238991 2004-05-22 11:34:50Z ptahchiev $
+ */
+public abstract class AbstractJMSTestCaller 
 {
-//    /**
-//     * HTTP connection that was used to connect to the server side to execute
-//     * the test.
-//     */
-//    private JmsConnection connection;
-//
-//    /**
-//     * @param theConnection the HTTP connection that was used to connect to the
-//     *        server side to execute the test.
-//     */
-//    public void setConnection(HttpURLConnection theConnection)
-//    {
-//        this.connection = theConnection;
-//    }
-//
-//    /**
-//     * @return the HTTP connection that was used to connect to the server side
-//     *         to execute the test.
-//     */
-//    public HttpURLConnection getConnection()
-//    {
-//        return this.connection;
-//    }    
+    /**
+     * The implicit objects (which will be used to set the test case fields
+     * in the <code>setTesCaseFields</code> method.
+     */
+    protected MessageDrivenBeanImplicitObjects mdbImplicitObjects;
+    
+    
+    public AbstractJMSTestCaller(MessageDrivenBeanImplicitObjects mdbObjects)
+    {
+        this.mdbImplicitObjects = mdbObjects;
+    }
 
 }

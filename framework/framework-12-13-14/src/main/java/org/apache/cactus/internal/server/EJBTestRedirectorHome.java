@@ -18,34 +18,24 @@
  * 
  * ========================================================================
  */
-package org.apache.cactus.internal.client.connector.http;
+package org.apache.cactus.internal.server;
 
-import org.apache.cactus.spi.client.connector.ProtocolState;
+import java.rmi.RemoteException;
 
-public class JmsProtocolState implements ProtocolState 
+import javax.ejb.CreateException;
+import javax.ejb.EJBHome;
+
+/**
+ * Prototype of EJBRedirector for Cactus.
+ * @author Siddhartha P. Chandurkar (siddhartha@visioncodified.com)
+ */
+public interface EJBTestRedirectorHome extends EJBHome 
 {
-//    /**
-//     * HTTP connection that was used to connect to the server side to execute
-//     * the test.
-//     */
-//    private JmsConnection connection;
-//
-//    /**
-//     * @param theConnection the HTTP connection that was used to connect to the
-//     *        server side to execute the test.
-//     */
-//    public void setConnection(HttpURLConnection theConnection)
-//    {
-//        this.connection = theConnection;
-//    }
-//
-//    /**
-//     * @return the HTTP connection that was used to connect to the server side
-//     *         to execute the test.
-//     */
-//    public HttpURLConnection getConnection()
-//    {
-//        return this.connection;
-//    }    
-
+    /**
+     * The create method of the home interface.
+     * @return
+     * @throws RemoteException in case an error occurs.
+     * @throws CreateException in case an error occurs.
+     */
+    public EJBTestRedirector create() throws RemoteException, CreateException;
 }

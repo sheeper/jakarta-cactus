@@ -21,7 +21,10 @@
 package org.apache.cactus.spi.server;
 
 import javax.jms.Message;
+import javax.jms.Queue;
 import javax.ejb.MessageDrivenContext;
+
+import org.apache.cactus.JmsRequest;
 
 /**
  * Implicit objects for the Message Driven Bean redirector.
@@ -36,11 +39,40 @@ public class MessageDrivenBeanImplicitObjects implements ImplicitObjects
      * The JMS Message to process.
      */
     private Message message;
+    
+    /**
+     * This is th JMS request instance that we use.
+     */
+    private JmsRequest request;
+    
 
     /**
      * The Message Driven Bean context.
      */
     private MessageDrivenContext context;
+    
+    /**
+     * The queue that will be used to post the request to.
+     */
+    private Queue requestQueue;
+
+    /**
+     * @return the queue that we are supposed to post our request to.
+     */
+    public Queue getRequestQueue() 
+    {
+        return requestQueue;
+    }
+
+    /**
+     * Setter for the queue that we are about to post our request to.
+     * 
+     * @param requestQueue
+     */
+    public void setRequestQueue(Queue theRequestQueue) 
+    {
+        this.requestQueue = theRequestQueue;
+    }
 
     /**
      * Sets the JMS Message as retrieved by the Cactus redirector.
@@ -76,5 +108,23 @@ public class MessageDrivenBeanImplicitObjects implements ImplicitObjects
     public MessageDrivenContext getMessageDrivenBeanContext()
     {
         return this.context;
+    }
+
+    /**
+     * Getter method for the request object.
+     * @return
+     */
+    public JmsRequest getRequest() 
+    {
+        return request;
+    }
+
+    /**
+     * Setter method for the jms request object.
+     * @param theRequest
+     */
+    public void setRequest(JmsRequest theRequest) 
+    {
+        this.request = theRequest;
     }
 }

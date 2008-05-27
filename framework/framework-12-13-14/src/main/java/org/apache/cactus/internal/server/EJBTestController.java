@@ -1,3 +1,4 @@
+package org.apache.cactus.internal.server;
 /* 
  * ========================================================================
  * 
@@ -18,34 +19,11 @@
  * 
  * ========================================================================
  */
-package org.apache.cactus.internal.client.connector.http;
 
-import org.apache.cactus.spi.client.connector.ProtocolState;
-
-public class JmsProtocolState implements ProtocolState 
+/**
+ * Prototype of EJBRedirector for Cactus.
+ * @author Siddhartha P. Chandurkar (siddhartha@visioncodified.com)
+ */
+public class EJBTestController extends AbstractEJBTestController 
 {
-//    /**
-//     * HTTP connection that was used to connect to the server side to execute
-//     * the test.
-//     */
-//    private JmsConnection connection;
-//
-//    /**
-//     * @param theConnection the HTTP connection that was used to connect to the
-//     *        server side to execute the test.
-//     */
-//    public void setConnection(HttpURLConnection theConnection)
-//    {
-//        this.connection = theConnection;
-//    }
-//
-//    /**
-//     * @return the HTTP connection that was used to connect to the server side
-//     *         to execute the test.
-//     */
-//    public HttpURLConnection getConnection()
-//    {
-//        return this.connection;
-//    }    
-
 }

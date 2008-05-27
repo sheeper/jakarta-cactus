@@ -82,9 +82,12 @@ public class JmsRequest implements Request
      */
     public TextMessage createTextMessage(String theText)
     {
-        try {
+        try 
+        {
             this.message = getQueueSession().createTextMessage(theText);
-        } catch (JMSException e) {
+        } 
+        catch (JMSException e) 
+        {
             throw new ChainedRuntimeException(
                 "Failed to create text message", e);
         }
@@ -98,9 +101,12 @@ public class JmsRequest implements Request
      */
     public TextMessage createTextMessage()
     {
-        try {
+        try 
+        {
             this.message = getQueueSession().createTextMessage();
-        } catch (JMSException e) {
+        } 
+        catch (JMSException e) 
+        {
             throw new ChainedRuntimeException(
                 "Failed to create text message", e);
         }

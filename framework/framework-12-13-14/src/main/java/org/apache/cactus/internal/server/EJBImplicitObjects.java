@@ -18,34 +18,41 @@
  * 
  * ========================================================================
  */
-package org.apache.cactus.internal.client.connector.http;
+package org.apache.cactus.internal.server;
 
-import org.apache.cactus.spi.client.connector.ProtocolState;
+import javax.ejb.SessionContext;
+import org.apache.cactus.EJBRequest;
+import org.apache.cactus.spi.server.ImplicitObjects;
 
-public class JmsProtocolState implements ProtocolState 
+/**
+ * Prototype of EJBRedirector for Cactus.
+ * @author Siddhartha P. Chandurkar (siddhartha@visioncodified.com)
+ */
+public interface EJBImplicitObjects extends ImplicitObjects 
 {
-//    /**
-//     * HTTP connection that was used to connect to the server side to execute
-//     * the test.
-//     */
-//    private JmsConnection connection;
-//
-//    /**
-//     * @param theConnection the HTTP connection that was used to connect to the
-//     *        server side to execute the test.
-//     */
-//    public void setConnection(HttpURLConnection theConnection)
-//    {
-//        this.connection = theConnection;
-//    }
-//
-//    /**
-//     * @return the HTTP connection that was used to connect to the server side
-//     *         to execute the test.
-//     */
-//    public HttpURLConnection getConnection()
-//    {
-//        return this.connection;
-//    }    
+
+    /**
+     * Gettermethod for the ejb context.
+     * @return
+     */
+    public SessionContext getEJBContext();
+
+    /**
+     * Setter method for the session context.
+     * @param theContext
+     */
+    public void setEJBContext(SessionContext theContext);
+
+    /**
+     * Setter method for the ejb request.
+     * @param theRequest
+     */
+    public void setEJBRequest(EJBRequest theRequest);
+
+    /**
+     * Getter method for the ejb request.
+     * @return
+     */
+    public EJBRequest getEJBRequest();
 
 }

@@ -18,34 +18,23 @@
  * 
  * ========================================================================
  */
-package org.apache.cactus.internal.client.connector.http;
+package org.apache.cactus.internal.client;
 
-import org.apache.cactus.spi.client.connector.ProtocolState;
+import org.apache.cactus.EJBRequest;
 
-public class JmsProtocolState implements ProtocolState 
+/**
+ * Prototype of EJBRedirector for Cactus.
+ * @author Siddhartha P. Chandurkar (siddhartha@visioncodified.com)
+ */
+public class EJBClient extends AbstractEJBClient 
 {
-//    /**
-//     * HTTP connection that was used to connect to the server side to execute
-//     * the test.
-//     */
-//    private JmsConnection connection;
-//
-//    /**
-//     * @param theConnection the HTTP connection that was used to connect to the
-//     *        server side to execute the test.
-//     */
-//    public void setConnection(HttpURLConnection theConnection)
-//    {
-//        this.connection = theConnection;
-//    }
-//
-//    /**
-//     * @return the HTTP connection that was used to connect to the server side
-//     *         to execute the test.
-//     */
-//    public HttpURLConnection getConnection()
-//    {
-//        return this.connection;
-//    }    
-
+    /**
+     * A method to extract the redirector url from the request.
+     * @param theRequest
+     * @return the string presentation of the url
+     */
+    public String getRedirectorURL(EJBRequest theRequest) 
+    {
+        return null;
+    }
 }

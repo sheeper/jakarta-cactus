@@ -75,11 +75,14 @@ public class JmsClientHelper
     public static synchronized QueueSession getQueueSession()
     {
         if (queueSession == null) {
-            try {
+            try 
+            {
                 queueSession =
                     createQueueConnection().createQueueSession(false,
                         Session.AUTO_ACKNOWLEDGE);
-            } catch (JMSException e) {
+            } 
+            catch (JMSException e) 
+            {
                 throw new ChainedRuntimeException(
                     "Failed to create JMS Queue Session", e);
             }
@@ -94,18 +97,22 @@ public class JmsClientHelper
     public static InitialContext getInitialContext()
     {
         InitialContext context = null;
-        try {
+        try 
+        {
             Hashtable env = new Hashtable();
             env.put(Context.INITIAL_CONTEXT_FACTORY,
                 JmsConfiguration.getJndiInitialContextFactory());
             env.put(Context.PROVIDER_URL,
                 JmsConfiguration.getJndiProviderURL());
-            env.put(Context.SECURITY_PRINCIPAL,
-                JmsConfiguration.getJndiSecurityPrincipal());
-            env.put(Context.SECURITY_CREDENTIALS,
-                JmsConfiguration.getJndiSecurityCredentials());
+            env.put(Context.URL_PKG_PREFIXES,
+                    JmsConfiguration.getJndiUrlPkgPrefixes());
+            env.put("j2ee.clientName", "JmsClientHelper");
+            
             context = new InitialContext(env);
-        } catch (NamingException e) {
+            System.out.println(context);
+        } 
+        catch (NamingException e) 
+        {
             throw new ChainedRuntimeException(
                 "Failed to create JNDI initial context", e);
         }
@@ -119,11 +126,14 @@ public class JmsClientHelper
     public static QueueConnectionFactory getQueueConnnectionFactory()
     {
         QueueConnectionFactory queueConnectionFactory = null;
-        try {
+        try 
+        {
             queueConnectionFactory =
                 (QueueConnectionFactory) (getInitialContext().
                     lookup(JmsConfiguration.getJmsConnectionFactoryJndiName()));
-        } catch (NamingException e) {
+        } 
+        catch (NamingException e) 
+        {
             throw new ChainedRuntimeException(
                 "Failed to lookup [" +
                 JmsConfiguration.getJmsConnectionFactoryJndiName() +
@@ -142,9 +152,12 @@ public class JmsClientHelper
     public static Queue getQueue(String theQueueName)
     {
         Queue queue = null;
-        try {
+        try 
+        {
             queue = (Queue) (getInitialContext().lookup(theQueueName));
-        } catch (NamingException e) {
+        } 
+        catch (NamingException e) 
+        {
             throw new ChainedRuntimeException(
                 "Failed to lookup [" + theQueueName + "] Queue in JNDI", e);
         }
@@ -163,14 +176,16 @@ public class JmsClientHelper
         QueueSession queueSession = getQueueSession();
 
         QueueSender queueSender = null;
-        try {
+        try 
+        {
             queueSender = queueSession.createSender(queue);
-        } catch (JMSException e) {
+        } 
+        catch (JMSException e) 
+        {
             throw new ChainedRuntimeException("Failed to create queue sender" +
                 "for queue [" + queue + "]", e);
         }
 
         return queueSender;
     }
-
 }

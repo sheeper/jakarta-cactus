@@ -1,3 +1,4 @@
+package org.apache.cactus.internal.server;
 /* 
  * ========================================================================
  * 
@@ -18,34 +19,31 @@
  * 
  * ========================================================================
  */
-package org.apache.cactus.internal.client.connector.http;
 
-import org.apache.cactus.spi.client.connector.ProtocolState;
+import org.apache.cactus.internal.AbstractCactusTestCase;
 
-public class JmsProtocolState implements ProtocolState 
+/**
+ * Prototype of EJBRedirector for Cactus.
+ * @author Siddhartha P. Chandurkar (siddhartha@visioncodified.com)
+ */
+public class EJBTestCaller extends AbstractEJBTestCaller 
 {
-//    /**
-//     * HTTP connection that was used to connect to the server side to execute
-//     * the test.
-//     */
-//    private JmsConnection connection;
-//
-//    /**
-//     * @param theConnection the HTTP connection that was used to connect to the
-//     *        server side to execute the test.
-//     */
-//    public void setConnection(HttpURLConnection theConnection)
-//    {
-//        this.connection = theConnection;
-//    }
-//
-//    /**
-//     * @return the HTTP connection that was used to connect to the server side
-//     *         to execute the test.
-//     */
-//    public HttpURLConnection getConnection()
-//    {
-//        return this.connection;
-//    }    
+    /**
+     * A constructor that takes the implicitObjects as a parameter.
+     * @param objects
+     */
+    public EJBTestCaller(EJBImplicitObjects theObjects) 
+    {
+        super(theObjects);
+    }
 
+    /**
+     * A constructor that takes the instance of the test-case as a parameter.
+     * @parameter theTestInstance
+     */
+    protected void setTestCaseFields(AbstractCactusTestCase theTestInstance)
+        throws Exception 
+    {
+        //Does nothing
+    }
 }

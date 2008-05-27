@@ -20,10 +20,21 @@
  */
 package org.apache.cactus.spi.server;
 
+import javax.ejb.CreateException;
+import javax.ejb.EJBException;
 import javax.ejb.MessageDrivenBean;
 import javax.ejb.MessageDrivenContext;
-import javax.ejb.CreateException;
+import javax.jms.JMSException;
 import javax.jms.Message;
+import javax.jms.MessageListener;
+import javax.jms.QueueConnection;
+import javax.jms.QueueConnectionFactory;
+import javax.jms.QueueSession;
+import javax.naming.InitialContext;
+
+import org.apache.cactus.internal.server.MessageDrivenBeanTestController;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * Generic Message Driven Bean redirector that calls a test method on the
@@ -35,12 +46,21 @@ import javax.jms.Message;
  *
  * @version $Id$
  */
-public class MessageDrivenBeanRedirector implements MessageDrivenBean
+public class MessageDrivenBeanRedirector 
+    implements MessageDrivenBean, MessageListener
 {
     /**
      * The Message context.
      */
     private MessageDrivenContext context;
+    QueueConnection connection; 
+    QueueSession session; 
+    
+    /**
+     * The logger.
+     */
+    private static final Log LOGGER = 
+        LogFactory.getLog(MessageDrivenBeanRedirector.class);
 
     /**
      * Sets the Message context (automatically called by the container).
@@ -60,6 +80,22 @@ public class MessageDrivenBeanRedirector implements MessageDrivenBean
      */
     public void ejbCreate() throws CreateException
     {
+        LOGGER.debug("------------- MDB redirector service created");
+        
+        try 
+        {
+            InitialContext initContext = new InitialContext(); 
+            QueueConnectionFactory qcf = (QueueConnectionFactory) 
+            initContext.lookup("java:comp/env/jms/QCF1"); 
+            connection = qcf.createQueueConnection(); 
+            session = connection.createQueueSession(false, 
+                    QueueSession.AUTO_ACKNOWLEDGE); 
+            connection.start(); 
+        } 
+        catch(Exception e) 
+        {
+            throw new EJBException("Failed to initialize MyMDB", e); 
+        } 
     }
 
     /**
@@ -69,6 +105,7 @@ public class MessageDrivenBeanRedirector implements MessageDrivenBean
      */
     public void ejbRemove()
     {
+        LOGGER.debug("------------- MDB redirector service removed");
     }
 
     /**
@@ -79,6 +116,9 @@ public class MessageDrivenBeanRedirector implements MessageDrivenBean
      */
     public void onMessage(Message theMessage)
     {
+        // Mark beginning of test on server side
+        LOGGER.debug("------------- Start MDB service");
+        
         // Gather MDB implicit objects
         MessageDrivenBeanImplicitObjects implicitObjects =
             new MessageDrivenBeanImplicitObjects();
@@ -86,6 +126,17 @@ public class MessageDrivenBeanRedirector implements MessageDrivenBean
         implicitObjects.setMessageDrivenBeanContext(this.context);
 
         // Call the controller to handle the message
+        MessageDrivenBeanTestController controller = new MessageDrivenBeanTestController();
+
+        try 
+        {
+            controller.handleRequest(implicitObjects);
+        } 
+        catch (JMSException e) 
+        {
+            e.printStackTrace();
+        }
+        
     }
 
 }

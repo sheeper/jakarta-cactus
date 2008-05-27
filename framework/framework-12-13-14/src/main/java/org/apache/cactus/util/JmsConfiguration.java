@@ -69,6 +69,24 @@ public class JmsConfiguration extends ConfigurationInitializer
         }
         return property;
     }
+    
+    /**
+     * @return the JNDI Server URL (from which the Queue connection factory
+     *         will be retrieved)
+     */
+    public static String getJndiUrlPkgPrefixes()
+    {
+        initialize();
+
+        String property =
+            System.getProperty("cactus.jndi.urlPkgPrefixes");
+        if (property == null) 
+        {
+            throw new ChainedRuntimeException("Missing Cactus property [" +
+                "cactus.jndi.urlPkgPrefixes" + "]");
+        }
+        return property;
+    }
 
     /**
      * @return the JNDI Server user name (from which the Queue connection

@@ -38,7 +38,6 @@ import org.apache.cactus.util.JmsConfiguration;
 /**
  * The JMS protocol handler.
  * @author ptahchiev
- *
  */
 public class JmsProtocolHandler implements ProtocolHandler
 {
@@ -58,30 +57,42 @@ public class JmsProtocolHandler implements ProtocolHandler
         this.configuration = theConfiguration;
     }
     
-	public void afterTest(ProtocolState theState) throws Exception 
-	{
-		// We simply do nothing here.		
-	}
+    /**
+     * A method that gets executed after the test execution.
+     * @param theProtocolState the state of the protocol after the execution.
+     */
+    public void afterTest(ProtocolState theState) throws Exception 
+    {
+        // We simply do nothing here.        
+    }
 
-	public Request createRequest() {
-		return new JmsRequest(session);
-	}
+    /**
+     * A method to create a request object.
+     * @return Request
+     */
+    public Request createRequest() {
+        return new JmsRequest(session);
+    }
 
     /**
      * TODO implement this method.
      */
-	public ResponseObjectFactory createResponseObjectFactory(
-			ProtocolState theState) {
-		return null;
-	}
+    public ResponseObjectFactory createResponseObjectFactory(
+            ProtocolState theState) {
+        return null;
+    }
 
 
     /**
-     * The overriden runTest method.
+     * The method that actually runs the tests.
+     * 
+     * @param theDelegatedTest
+     * @param theWrappedTest
+     * @param theRequest
      */
     public ProtocolState runTest(Test theDelegatedTest, Test theWrappedTest,
-			Request theRequest) throws Throwable 
-	{
+            Request theRequest) throws Throwable 
+    {
         // Create the JMS Request object and creates necessary JMS objects
         // so that the user can get them in his beginXXX method, so that he
         // can create the message to send.
@@ -98,9 +109,9 @@ public class JmsProtocolHandler implements ProtocolHandler
         new JmsClient().doTest(request);
         
         return new JmsProtocolState();
-	}
-	
-	
+    }
+    
+    
     /**
      * Returns the configuration data.
      * @return configuration data
@@ -120,5 +131,4 @@ public class JmsProtocolHandler implements ProtocolHandler
     {
         return JUnitVersionHelper.getTestCaseName(theDelegatedTest);        
     }
-
 }
