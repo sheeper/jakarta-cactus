@@ -33,6 +33,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
+import org.apache.cactus.JmsRequest;
 import org.apache.cactus.JmsTestCase;
 
 /**
@@ -43,8 +44,8 @@ import org.apache.cactus.JmsTestCase;
 public class TestSampleMDB extends JmsTestCase
 {
     private static String QUEUE_NAME         = "CactusQueue";
-    private static String PROVIDER_URL       = "t3://localhost:7001";
-    private static String CONNECTION_FACTORY = "javax.jms.QueueConnectionFactory";
+    private static String PROVIDER_URL       = "jnp://localhost:1099";
+    private static String CONNECTION_FACTORY = "org.jnp.interfaces.NamingContextFactory";
 
 	private QueueSender  sender;
 	private QueueSession session;
@@ -81,19 +82,16 @@ public class TestSampleMDB extends JmsTestCase
 		super(msg);
 	}
 	
+    public void beginSayHello(JmsRequest jmsRequest)
+    {
+        System.out.println("Client-side message "+message);
+    }
+    
 	public void testSayHello()
 	{
-		
-		
-		// send the mapmessage to the Queue
-        try 
-        {
-			sender.send(message);
-			this.message.setStringProperty("aaaa", "bbbb");
-		} catch (JMSException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+        System.out.println("Message:"+message);
+		//sender.send(message);
+		//this.message.setStringProperty("aaaa", "bbbb");
 	}
 	
 	/**
@@ -105,10 +103,10 @@ public class TestSampleMDB extends JmsTestCase
 	 */
     private Context getInitialContext() throws NamingException {
         Properties env = new Properties();
-        env.put("cactus.jndi.initialContextFactory", "weblogic.jndi.WLInitialContextFactory");
+        env.put("cactus.jndi.initialContextFactory", "org.jnp.interfaces.NamingContextFactory");
         env.put("cactus.jndi.providerUrl", PROVIDER_URL);
         env.put("cactus.jndi.securityPrincipal", "system");
-		env.put("cactus.jndi.securityCredentials", "weblogic");
+		env.put("cactus.jndi.securityCredentials", "jboss");
 
         return new InitialContext(env);
     }
