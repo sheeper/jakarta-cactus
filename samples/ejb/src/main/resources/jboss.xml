@@ -1,10 +1,29 @@
-<?xml version="1.0" encoding="Cp1252"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <jboss>
   <enterprise-beans>
-    <message-driven>
-      <ejb-name>EmailMDB</ejb-name>
-      <configuration-name>Standard Message Driven Bean</configuration-name>
-      <destination-jndi-name>queue/cactusQueue</destination-jndi-name>
+		<!--message-driven> 
+			<ejb-name>SampleMDB</ejb-name> 
+			<destination-jndi-name>queue/cQueue</destination-jndi-name> 
+			<resource-ref> 
+				<res-ref-name>jms/QCF</res-ref-name> 
+				<jndi-name>QueueConnectionFactory</jndi-name> 
+			</resource-ref> 
     </message-driven>
+		<message-driven> 
+			<ejb-name>RedirectorMDB</ejb-name> 
+			<destination-jndi-name>queue/cactusQueue</destination-jndi-name> 
+			<resource-ref> 
+				<res-ref-name>jms/QCF1</res-ref-name> 
+				<jndi-name>QueueConnectionFactory</jndi-name> 
+			</resource-ref> 
+    </message-driven-->
+		<session>
+			<ejb-name>CactusEjbRedirector</ejb-name>
+			<jndi-name>CACTUS/EJBREDIRECTOR</jndi-name>
+		</session>
+		<session>
+			<ejb-name>TEST</ejb-name>
+			<jndi-name>CACTUS/TEST</jndi-name>
+    </session>
   </enterprise-beans>
 </jboss>
