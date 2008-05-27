@@ -17,14 +17,50 @@
       <session-type>Stateless</session-type>
       <transaction-type>Container</transaction-type>
     </session>
-    <message-driven>
-      <ejb-name>EmailMDB</ejb-name>
-      <ejb-class>org.apache.cactus.sample.ejb.EmailMDB</ejb-class>
-      <transaction-type>Container</transaction-type>
-      <message-driven-destination>
-        <destination-type>javax.jms.Queue</destination-type>
-      </message-driven-destination>
-    </message-driven>
+		<session>
+			<ejb-name>CactusEjbRedirector</ejb-name>
+			<home>org.apache.cactus.internal.server.EJBTestRedirectorHome</home>
+			<remote>org.apache.cactus.internal.server.EJBTestRedirector</remote>
+			<ejb-class>org.apache.cactus.internal.server.EJBTestRedirectorBean</ejb-class>
+			<session-type>Stateless</session-type>
+			<transaction-type>Container</transaction-type>
+		</session>
+		<session>
+			<ejb-name>TEST</ejb-name>
+			<home>org.apache.cactus.sample.ejb.redirector.TestHome</home>
+			<remote>org.apache.cactus.sample.ejb.redirector.ITestBean</remote>
+			<ejb-class>org.apache.cactus.sample.ejb.redirector.TestBean</ejb-class>
+			<session-type>Stateless</session-type>
+			<transaction-type>Container</transaction-type>
+    </session>
+		<!--message-driven> 
+			<ejb-name>SampleMDB</ejb-name> 
+			<ejb-class>org.apache.cactus.sample.ejb.SampleMDB</ejb-class> 
+			<transaction-type>Container</transaction-type> 
+			<acknowledge-mode>AUTO_ACKNOWLEDGE</acknowledge-mode> 
+			<message-driven-destination> 
+				<destination-type>javax.jms.Queue</destination-type> 
+			</message-driven-destination> 
+			<resource-ref> 
+				<res-ref-name>jms/QCF</res-ref-name> 
+				<res-type>javax.jms.QueueConnectionFactory</res-type> 
+				<res-auth>Container</res-auth> 
+			</resource-ref> 
+    </message-driven> 
+		<message-driven> 
+			<ejb-name>RedirectorMDB</ejb-name> 
+			<ejb-class>org.apache.cactus.spi.server.MessageDrivenBeanRedirector</ejb-class> 
+			<transaction-type>Container</transaction-type> 
+			<acknowledge-mode>AUTO_ACKNOWLEDGE</acknowledge-mode> 
+			<message-driven-destination> 
+				<destination-type>javax.jms.Queue</destination-type> 
+			</message-driven-destination> 
+			<resource-ref> 
+				<res-ref-name>jms/QCF1</res-ref-name> 
+				<res-type>javax.jms.QueueConnectionFactory</res-type> 
+				<res-auth>Container</res-auth> 
+			</resource-ref> 
+    </message-driven--> 
   </enterprise-beans>
   <assembly-descriptor>
     <container-transaction>
@@ -35,5 +71,19 @@
       </method>
       <trans-attribute>NotSupported</trans-attribute>
     </container-transaction>
+		<!--container-transaction>
+			<method>
+				<ejb-name>RedirectorMDB</ejb-name>
+				<method-name>*</method-name>
+			</method>
+			<trans-attribute>NotSupported</trans-attribute>
+    </container-transaction>
+		<container-transaction>
+			<method>
+				<ejb-name>SampleMDB</ejb-name>
+				<method-name>*</method-name>
+			</method>
+			<trans-attribute>NotSupported</trans-attribute>
+    </container-transaction-->
   </assembly-descriptor>
 </ejb-jar>
