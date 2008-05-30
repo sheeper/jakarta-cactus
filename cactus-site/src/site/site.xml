@@ -60,6 +60,7 @@
 			<item name="Writing tests" href="/writing/howto_ejb.html" collapse="true">
 			   <item name="Howto EJB" href="/writing/howto_ejb_j2eeri.html"/>
 			   <item name="Howto HTTPUnit" href="/writing/howto_httpunit.html"/>
+			   <item name="Howto HTMLUnit" href="/writing/howto_htmlunit.html"/>
 			   <item name="Howto JSP" href="/writing/howto_jsp.html"/>
 			   <item name="Howto Security" href="/writing/howto_security.html"/>
 			   <item name="Howto TestCase" href="/writing/howto_testcase.html"/>

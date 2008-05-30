@@ -159,15 +159,13 @@
             </zipUrlInstaller>
           </container>
           <configuration>
-            <deployables>
+             <deployables>
               <deployable>
-                <groupId>org.apache.cactus</groupId>
-                <artifactId>cactus.samples.servlet</artifactId>
-                <type>war</type>
-                <properties>
-                  <context>/test</context>
-                </properties>
-                <pingURL>http://localhost:8080/</pingURL>
+                 <location>cactifiedByMaven2.war</location>
+                 <pingURL>http://localhost:8080/test/</pingURL>
+                 <properties>
+                    <context>/test</context>
+                 </properties>
               </deployable>
             </deployables>
           </configuration>
