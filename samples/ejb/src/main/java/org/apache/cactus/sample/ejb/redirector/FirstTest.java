@@ -27,10 +27,10 @@ public class FirstTest extends EJBTestCase {
 		System.out.println("Set Up for TestBean");
 		try {
 			Context ctx = new InitialContext();
-			TestHome home =
-				(TestHome) PortableRemoteObject.narrow(
+			HomeTestBean home =
+				(HomeTestBean) PortableRemoteObject.narrow(
 					ctx.lookup("CACTUS/TEST"),
-					TestHome.class);
+					HomeTestBean.class);
 			test = home.create();
 
 		} catch (Exception e) {
