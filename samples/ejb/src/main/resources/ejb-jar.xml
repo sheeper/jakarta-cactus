@@ -17,7 +17,7 @@
       <session-type>Stateless</session-type>
       <transaction-type>Container</transaction-type>
     </session>
-		<session>
+		<!--session>
 			<ejb-name>CactusEjbRedirector</ejb-name>
 			<home>org.apache.cactus.internal.server.EJBTestRedirectorHome</home>
 			<remote>org.apache.cactus.internal.server.EJBTestRedirector</remote>
@@ -33,7 +33,7 @@
 			<session-type>Stateless</session-type>
 			<transaction-type>Container</transaction-type>
     </session>
-		<!--message-driven> 
+		<message-driven> 
 			<ejb-name>SampleMDB</ejb-name> 
 			<ejb-class>org.apache.cactus.sample.ejb.SampleMDB</ejb-class> 
 			<transaction-type>Container</transaction-type> 

@@ -16,7 +16,7 @@
 				<res-ref-name>jms/QCF1</res-ref-name> 
 				<jndi-name>QueueConnectionFactory</jndi-name> 
 			</resource-ref> 
-    </message-driven-->
+    </message-driven>
 		<session>
 			<ejb-name>CactusEjbRedirector</ejb-name>
 			<jndi-name>CACTUS/EJBREDIRECTOR</jndi-name>
@@ -24,6 +24,6 @@
 		<session>
 			<ejb-name>TEST</ejb-name>
 			<jndi-name>CACTUS/TEST</jndi-name>
-    </session>
+    </session-->
   </enterprise-beans>
 </jboss>
