@@ -68,7 +68,7 @@
 		</path>
 		
 		<path id="jboss.client">
-			<fileset dir="${basedir}/jboss-4.0.2/client">
+			<fileset dir="${jboss.home}/client/">
         <include name="*.jar"/>
       </fileset>
     </path>
@@ -203,7 +203,7 @@
 				<path refid="jboss.client"/>
 			</classpath>
 			<containerset>
-				<cargo containerId="${jboss.container.id}" output="${logs.dir}/output.log" log="${logs.dir}/cargo.log" home="jboss-4.0.2">
+				<cargo containerId="${jboss.container.id}" output="${logs.dir}/output.log" log="${logs.dir}/cargo.log" home="${jboss.home}">
 					<!--zipUrlInstaller
             installUrl="http://heanet.dl.sourceforge.net/sourceforge/jboss/jboss-4.0.2.zip"
             installDir="target/${jboss.container.id}"/-->
