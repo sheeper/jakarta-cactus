@@ -9,7 +9,7 @@ import javax.ejb.EJBHome;
  * @author Siddhartha P. Chandurkar (siddhartha@visioncodified.com)
  */
 
-public interface TestHome extends EJBHome {
+public interface HomeTestBean extends EJBHome {
 	public ITestBean create() throws RemoteException, CreateException;
 
 }
