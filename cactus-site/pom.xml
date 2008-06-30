@@ -115,7 +115,7 @@
 			<email>cactus@felipeal.net</email>
 			<organization>Falcon Informatica</organization>
 			<roles>
-				<role>Developer</role>
+				<role>Emeritus Developer</role>
 			</roles>
 		</developer>
 		<developer>
@@ -128,9 +128,12 @@
 			<name>Petar Tahchiev</name>
 			<id>ptahchiev</id>
 			<email>ptahchiev@apache.org</email>
-			<organization>Sofia University</organization>
+			<url>http://phamola.com/</url>
+			<organization>Phamola Inc.</organization>
 			<roles>
-				<role>Developer</role>
+				<role>Lead Developer</role>
+				<role>Release Manager</role>
+				<role>Moderator</role>
 			</roles>
 			<timezone>+3</timezone>
 		</developer>

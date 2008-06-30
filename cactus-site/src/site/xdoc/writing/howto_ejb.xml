@@ -30,7 +30,6 @@
   <body>
 
 	  <section name="Introduction">
-
     <p>
       This document explains how to unit test EJBs with Cactus. It is
       divided in 2 parts:
@@ -52,7 +51,10 @@
     <note>
       EJB unit testing works with Cactus 1.0 or later.
     </note>
-
+		
+		<note>
+			EJB3 unit testing works with Cactus 1.8.1 or later.
+    </note>
   </section>
 
   <anchor id="ejb_general"/>

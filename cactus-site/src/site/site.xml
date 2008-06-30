@@ -59,6 +59,7 @@
 			<item name="How it works" href="how_it_works.html"/>
 			<item name="Writing tests" href="/writing/howto_ejb.html" collapse="true">
 			   <item name="Howto EJB" href="/writing/howto_ejb_j2eeri.html"/>
+				 <item name="Howto EJB3" href="/writing/howto_ejb_3.html"/>
 			   <item name="Howto HTTPUnit" href="/writing/howto_httpunit.html"/>
 			   <item name="Howto HTMLUnit" href="/writing/howto_htmlunit.html"/>
 			   <item name="Howto JSP" href="/writing/howto_jsp.html"/>
