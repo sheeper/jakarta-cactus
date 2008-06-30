@@ -169,7 +169,7 @@
 		<dependency>
 			<groupId>org.codehaus.cargo</groupId>
 			<artifactId>cargo-core-uberjar</artifactId>
-			<version>1.0-SNAPSHOT</version>
+			<version>1.0-alpha-4</version>
 			<exclusions>
 				<exclusion>
 					<groupId>org.codehaus.cargo</groupId>
@@ -212,7 +212,7 @@
 		<dependency>
 			<groupId>org.codehaus.cargo</groupId>
 			<artifactId>cargo-ant</artifactId>
-			<version>1.0-SNAPSHOT</version>
+			<version>1.0-alpha-4</version>
 			<exclusions>
 				<exclusion>
 					<groupId>org.codehaus.cargo</groupId>
@@ -279,17 +279,17 @@
 			<dependency>
 				<groupId>org.codehaus.cargo</groupId>
 				<artifactId>cargo</artifactId>
-				<version>1.0-SNAPSHOT</version>
+				<version>1.0-alpha-4</version>
 			</dependency>
 			<dependency>
 				<groupId>org.codehaus.cargo</groupId>
 				<artifactId>cargo-core-uberjar</artifactId>
-				<version>1.0-SNAPSHOT</version>
+				<version>1.0-alpha-4</version>
 			</dependency>
 			<dependency>
 				<groupId>org.codehaus.cargo</groupId>
 				<artifactId>cargo-ant</artifactId>
-				<version>1.0-SNAPSHOT</version>
+				<version>1.0-alpha-4</version>
 			</dependency>
 			<dependency>
 				<groupId>ant</groupId>
@@ -435,8 +435,8 @@
 </ciManagement>
 
 <properties>
-	<maven.compile.source>1.4</maven.compile.source>
-	<maven.compile.target>1.4</maven.compile.target>
+	<maven.compile.source>5</maven.compile.source>
+	<maven.compile.target>5</maven.compile.target>
 </properties>
 
 <build>

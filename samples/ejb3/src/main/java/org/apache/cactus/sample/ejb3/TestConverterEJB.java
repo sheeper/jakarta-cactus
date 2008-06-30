@@ -22,9 +22,9 @@ package org.apache.cactus.sample.ejb3;
 
 import java.util.Properties;
 
-import javax.naming.Context;
 import javax.naming.InitialContext;
-import javax.rmi.PortableRemoteObject;
+
+import junit.framework.TestCase;
 
 import org.apache.cactus.ServletTestCase;
 
