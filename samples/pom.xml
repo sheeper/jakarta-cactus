@@ -127,6 +127,7 @@
       <modules>
     	  <module>servlet</module>
     	  <module>ejb</module>
+				<module>ejb3</module>
     	  <module>jetty</module>
       </modules>
     </profile>
