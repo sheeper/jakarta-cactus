@@ -10,7 +10,7 @@
      
 <application>
   <display-name>cactus-sample-ejb</display-name>
-  <description>Cactus EJB Sample for J2EE 1.3</description>
+  <description>Cactus EJB Sample</description>
   <module>
     <ejb>samples-ejb-1.8.0-SNAPSHOT.jar</ejb>
   </module>
