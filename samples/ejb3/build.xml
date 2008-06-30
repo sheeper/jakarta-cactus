@@ -1,0 +1,226 @@
+<?xml version="1.0"?>
+<!--
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
+ 
+       http://www.apache.org/licenses/LICENSE-2.0
+ 
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+-->
+
+<!--
+  =============================================================================
+    Build file for the Cactus EJB Sample subproject.
+
+    The following Ant tasks need to be available in your ant installation (i.e.
+    the Ant task themselves and their dependent jars need to be put in
+    ANT_HOME/lib) :
+
+        junit                  [REQUIRED] JUnit Ant task
+
+    The mandatory and optional Ant properties are defined in
+    build.properties.sample. Please read and edit that file.
+
+    This script should be started with the following command line :
+
+        ant <target>
+
+    Run "ant -projecthelp" to get a list of available targets. The default
+    target is "dist"
+  =============================================================================
+-->
+
+<project name="Cactus EJB3 Sample"  xmlns:ivy="antlib:org.apache.ivy.ant" default="test"> 
+
+	<description>
+     Cactus Sample
+     ---------------------------------------------------------
+     Sample EAR application that demonstrates how Cactus can
+     be used using the Ant integration for unit testing EJBs v.3
+     classes.
+  </description>
+  
+ <!--
+     ========================================================================
+       Initialize properties.
+     ========================================================================
+  -->	
+	<target name="init" depends="">
+	
+	
+	  <property name="cactus.sample.app.type" value="ejb"/>
+	  <property name="cactus.sample.archive.type" value="ear"/>
+	  
+	  <property file="../build.properties"/>
+		
+		<path id="cactus.classpath">
+			<fileset dir="${ivy.lib.dir}">
+        <include name="*.jar"/>
+      </fileset>
+		</path>
+		
+		<path id="jboss.client">
+			<fileset dir="${jboss.home}/client/">
+        <include name="*.jar"/>
+      </fileset>
+    </path>
+	</target>
+
+ <!--
+     ========================================================================
+       Prepare the folder structure.
+     ========================================================================
+  -->
+	<target name="prepare" depends="init">
+		<mkdir dir="${build.dir}"/>
+		<mkdir dir="${cactus.build.dir}"/>
+		<mkdir dir="${logs.dir}"/>
+		<mkdir dir="${reports.dir}"/>
+	</target>
+
+ <!--
+     ========================================================================
+       Resolve Ivy dependencies.
+     ========================================================================
+  -->
+	<target name="resolve" description="Retrieve dependencies with ivy" depends="prepare">
+		<ivy:configure file="../ivysettings.xml" />
+		<ivy:retrieve file="./ivy.xml" sync="true"/>
+  </target>
+
+ <!--
+     ========================================================================
+       Load external ant tasks.
+     ========================================================================
+  -->
+	<target name="load.tasks" depends="resolve">
+		<taskdef resource="cactus.tasks"
+			 classpathref="cactus.classpath">
+		</taskdef>
+	</target>
+	
+ <!--
+     ========================================================================
+       Compile source classes as well as cactus classes.
+     ========================================================================
+  -->
+	<!--Note that if some dependency is missing in the classpath, instead of compilation errors,
+      Ivy reports to Maven 'No Compiler Found' error. -->
+	<target name="compile" depends="load.tasks" description="Compiles the needed classes.">
+
+		<javac srcdir="${src.dir}"
+		       destdir="${build.dir}"
+		       classpathref="cactus.classpath"/>
+		
+
+	</target>
+	
+	<!--
+     ========================================================================
+       Create the runtime ejb-jar file.
+     ========================================================================
+  -->
+  <target name="package-war" depends="compile"
+      description="Generate the runtime war file.">
+      
+    <war destfile="${target.dir}/${ejb3.project.name}.war"
+         webxml="${basedir}/src/main/webapp/WEB-INF/web.xml"/>
+         
+  </target>
+
+  <!--
+     ========================================================================
+       Create the runtime ejb-jar file.
+     ========================================================================
+  -->
+  <target name="ejb" depends="compile"
+      description="Generate the runtime ejb-jar">
+
+    <!-- ATM, only support containers which do not need an ejb compilation
+         step. For example: JBoss -->
+    <jar jarfile="${target.dir}/${ejb3.project.name}.ejb3">
+      <fileset dir="${build.dir}"/>
+      <metainf dir="${meta.inf.dir}"/>
+    </jar>
+
+  </target>
+
+  <!--
+     ========================================================================
+       Create the runtime ear file.
+     ========================================================================
+  -->
+  <target name="package-ear" depends="ejb"
+      description="Generate the runtime ear">
+
+    <ear earfile="${ejb3.archive.name}"
+        appxml="${src.application.dir}/application.xml">
+      <fileset file="${target.dir}/${ejb3.project.name}.ejb3"/>
+    </ear>
+  </target>
+  
+	<!--
+     ========================================================================
+       Cactify the ready-made ear file.
+     ========================================================================
+  -->
+	<target name="cactifyear" depends="package-ear, package-war">
+		<cactifyear srcfile="${ejb3.archive.name}" destfile="${cactified.ejb3.archive.name}">
+		  <cactuswar srcfile="${target.dir}/${ejb3.project.name}.war"
+        destfile="${target.dir}/${ejb3.project.name}-cactified.war"
+        mergewebxml="${src.webapp.dir}/WEB-INF/cactus-web.xml"
+        context="/">
+        <classes dir="${build.dir}">
+          <include name="org/apache/cactus/sample/ejb3/Test*.class"/>
+        </classes>
+      </cactuswar>
+		</cactifyear>
+		
+	</target>
+	
+	<!--
+     ========================================================================
+       Execute the tests.
+     ========================================================================
+  -->
+	<target name="test" depends="cactifyear">
+	  <echo>Please take a deep breath while Cargo gets JBoss for running the sample ejb3 tests...</echo>
+		<cactus earfile="${cactified.ejb3.archive.name}"
+			printsummary="yes">
+			<classpath>
+				<path refid="cactus.classpath"/>
+				<pathelement location="${build.dir}"/>
+				<pathelement location="${cactus.build.dir}"/>
+				<pathelement location="${basedir}/cactus"/>
+				<path refid="jboss.client"/>
+			</classpath>
+			<containerset>
+				<cargo containerId="${jboss.container.id}" output="${logs.dir}/output.log" log="${logs.dir}/cargo.log" home="${jboss.home}">
+					<!--zipUrlInstaller
+            installUrl="http://heanet.dl.sourceforge.net/sourceforge/jboss/jboss-4.0.2.zip"
+            installDir="target/${jboss.container.id}"/-->
+					<configuration>
+						<property name="cargo.servlet.port" value="${cargo.servlet.port}"/>
+						<property name="cargo.logging" value="${cargo.logging}"/>
+						<deployable type="${cactus.sample.archive.type}" file="${cactified.ejb3.archive.name}"/>
+					</configuration>
+				</cargo>
+			</containerset>
+			
+			<formatter type="${cactus.formatter.type}"/>
+			<batchtest todir="${reports.dir}">
+				<fileset dir="${src.dir}">
+					<include name="**/Test*.java"/>
+				</fileset>
+			</batchtest>
+		</cactus>
+	</target>
+</project>
