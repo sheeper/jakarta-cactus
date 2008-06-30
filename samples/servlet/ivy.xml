@@ -31,7 +31,7 @@
 		<dependency org="commons-lang" name="commons-lang" rev="2.3"/>
 		<dependency org="commons-codec" name="commons-codec" rev="1.3"/>
 		
-    <dependency org="ant" name="ant" rev="1.6.5"/>		
+    <!--dependency org="ant" name="ant" rev="1.6.5"/-->		
 		<dependency org="xerces" name="xercesImpl" rev="2.6.2"/>
 		<dependency org="junit" name="junit" rev="3.8.2"/>
 		
