@@ -53,7 +53,7 @@ public class CactifyEarTask extends Ear
     /**
      * Cactus war configuration holder.
      */
-    private CactusWar cactusWar;
+    private CactifyWarTask cactusWar;
     
     /**
      * The archive that contains the web-app that should be cactified.
@@ -70,7 +70,7 @@ public class CactifyEarTask extends Ear
      * 
      * @param theCactusWar CactusWar to set
      */
-    public void addConfiguredCactuswar(CactusWar theCactusWar)
+    public void addConfiguredCactuswar(CactifyWarTask theCactusWar)
     {
         cactusWar = theCactusWar;
     }
@@ -217,7 +217,7 @@ public class CactifyEarTask extends Ear
                 throw new BuildException("Unable to add ejb-references", e);
             }
         }
-        
+
         cactusWar.execute();
         
         return tmpCactusWar;
@@ -241,9 +241,9 @@ public class CactifyEarTask extends Ear
      *
      * @return the CactusWar configuration
      */
-    private CactusWar createCactusWarConfig()
+    private CactifyWarTask createCactusWarConfig()
     {
-        CactusWar cactusWarConfig = new CactusWar();
+        CactifyWarTask cactusWarConfig = new CactifyWarTask();
         Version version = new Version();
         version.setValue("2.3");
         cactusWarConfig.setVersion(version);

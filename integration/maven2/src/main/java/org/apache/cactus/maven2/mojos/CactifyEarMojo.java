@@ -25,7 +25,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Iterator;
 
-import org.apache.cactus.integration.ant.CactusWar;
 import org.apache.cactus.integration.api.version.Version;
 import org.apache.maven.archiver.MavenArchiveConfiguration;
 import org.apache.maven.archiver.MavenArchiver;
@@ -47,7 +46,6 @@ import org.codehaus.plexus.archiver.ArchiverException;
 import org.codehaus.plexus.archiver.ear.EarArchiver;
 import org.codehaus.plexus.archiver.jar.ManifestException;
 import org.codehaus.plexus.util.FileUtils;
-
 import org.jdom.JDOMException;
 /**
  * A maven2 mojo that injects elements necessary to run Cactus tests into an
@@ -62,7 +60,7 @@ public class CactifyEarMojo extends AbstractMojo
     /**
      * Cactus war configuration holder.
      */
-    private CactusWar cactusWar;
+    private CactifyWarMojo cactusWar;
     
     /**
      * The archive that contains the web-app that should be cactified.
@@ -180,8 +178,9 @@ public class CactifyEarMojo extends AbstractMojo
      * A helper method to create a temporary file.
      * @return the cactus.war
      * @throws MojoExecutionException in case a runtime error occurs.
+     * @throws MojoFailureException in case a mojo failure occurs.
      */
-    private File createCactusWar() throws MojoExecutionException
+    private File createCactusWar() throws MojoExecutionException, MojoFailureException
     {
         File tmpCactusWar = FileUtils.createTempFile("cactus", "cactus.war",
                                                      getProject().getBasedir());
@@ -365,14 +364,14 @@ public class CactifyEarMojo extends AbstractMojo
      *
      * @return the CactusWar configuration
      */
-    private CactusWar createCactusWarConfig()
+    private CactifyWarMojo createCactusWarConfig()
     {
-        CactusWar cactusWarConfig = new CactusWar();
+        CactifyWarMojo cactusWarConfig = new CactifyWarMojo();
         Version version = new Version();
         version.setValue("2.3");
         cactusWarConfig.setVersion(version);
         cactusWarConfig.setContext("/cactus");
-        cactusWarConfig.setProject(getProject());
+        //cactusWarConfig.setProject(getProject());
         
         return cactusWarConfig;
     }

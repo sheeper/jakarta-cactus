@@ -30,12 +30,11 @@ import java.util.List;
 import java.util.Random;
 
 import org.apache.cactus.integration.api.cactify.CactifyUtils;
+import org.apache.cactus.integration.api.version.Version;
 import org.apache.maven.archiver.MavenArchiveConfiguration;
 import org.apache.maven.archiver.MavenArchiver;
-import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.DependencyResolutionRequiredException;
 import org.apache.maven.artifact.factory.ArtifactFactory;
-import org.apache.maven.artifact.installer.ArtifactInstallationException;
 import org.apache.maven.artifact.installer.ArtifactInstaller;
 import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.plugin.AbstractMojo;
@@ -74,6 +73,15 @@ import org.jdom.JDOMException;
  */
 public class CactifyWarMojo extends AbstractMojo
 {
+    /**
+     * Name of the generated web app file.
+     */
+    private String FILE_NAME = "cactus.war";
+    
+    /**
+     * Context of the cactus web application.
+     */
+    private String context;
 	
     /**
      * Get some non-crypto-grade randomness from various places.
@@ -677,5 +685,62 @@ public class CactifyWarMojo extends AbstractMojo
         Logger logger;
             logger = new MavenLogger(getLog());
         return logger;
+    }
+    
+    /**
+     * Returns the context.
+     * 
+     * @return <code>java.lang.String</code>
+     */
+    public String getContext() {
+        return context;
+    }
+
+    /**
+     * Sets the context.
+     * 
+     * @param context
+     */
+    public void setContext(String context) {
+        this.context = context;
+    }
+    
+    /**
+     * Sets the web-app version to use when creating a WAR file from scratch.
+     * 
+     * @param theVersion The version
+     */
+    public final void setVersion(Version theVersion)
+    {
+        this.version = theVersion.getValue();
+    }
+    
+    /**
+     * Gets the file name.
+     * 
+     * @return the name of the web app file
+     */
+    public String getFileName()
+    {
+        return FILE_NAME;
+    }
+    
+    /**
+     * Setter method for the destFile.
+     * 
+     * @param destFile
+     */
+    public void setDestFile(File destFile) {
+        this.destFile = destFile;
+    }
+    
+    /**
+     * Adds a configured EjbRef instance. Called by Ant.
+     * 
+     * @param theEjbRef the EjbRef to add
+     */
+    public final void addConfiguredEjbref(EjbRef theEjbRef)
+    {
+        ejbRefs.add(theEjbRef);
     }
 }

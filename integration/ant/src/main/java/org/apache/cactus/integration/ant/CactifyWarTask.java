@@ -64,6 +64,16 @@ public class CactifyWarTask extends War
     // Constants ---------------------------------------------------------------
     
     /**
+     * Context of the cactus web application.
+     */
+    private String context;
+    
+    /**
+     * Name of the generated web app file.
+     */
+    private String FILE_NAME = "cactus.war";
+    
+    /**
      * Get some non-crypto-grade randomness from various places.
      */
     private static Random rand = new Random(System.currentTimeMillis()
@@ -141,6 +151,7 @@ public class CactifyWarTask extends War
 
     // Public Methods ----------------------------------------------------------
 
+    
     /**
      * {@inheritDoc}
      * @see org.apache.tools.ant.Task#execute()
@@ -597,4 +608,34 @@ public class CactifyWarTask extends War
         }
         return result;
     }
+    
+    /**
+     * Gets the file name.
+     * 
+     * @return the name of the web app file
+     */
+    public String getFileName()
+    {
+        return FILE_NAME;
+    }
+
+    /**
+     * Returns the context.
+     * 
+     * @return <code>java.lang.String</code>
+     */
+    public String getContext() {
+        return context;
+    }
+
+    /**
+     * Sets the context.
+     * 
+     * @param context
+     */
+    public void setContext(String context) {
+        this.context = context;
+    }
+    
+    
 }
