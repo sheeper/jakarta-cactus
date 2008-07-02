@@ -20,15 +20,22 @@
  */
 package org.apache.cactus.integration.ant;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.cactus.integration.api.version.Version;
+import org.codehaus.cargo.module.webapp.EjbRef;
+
 /**
  * Implements the nested element cactuswar of the cactifyear task.
  * This element can be configured exactly as the cactifywar task 
- * with som additions as context within the ear file.
+ * with some additions as context within the ear file.
  *
  *
  * @version $Id: CactusWar.java 239162 2005-04-26 09:57:59Z grimsell $
  */
-public class CactusWar extends CactifyWarTask
+public class CactusWar
 {
     /**
      * Name of the generated web app file.
@@ -39,6 +46,22 @@ public class CactusWar extends CactifyWarTask
      * Context of the cactus web application.
      */
     private String context;
+    
+    /**
+     * The web-app version to use when creating a WAR from scratch.
+     */
+    private String version = null;
+    
+    /**
+     * List of ejb-refs to add to the deployment descriptor 
+     * of the cactified war.
+     */
+    private List ejbRefs = new ArrayList();
+    
+    /**
+     * The destination file of the cactification process.
+     */
+    private File destFile = null;
     
     /**
      * @return Returns the context.
@@ -63,5 +86,34 @@ public class CactusWar extends CactifyWarTask
     public String getFileName()
     {
         return FILE_NAME;
+    }
+    
+    /**
+     * Sets the web-app version to use when creating a WAR file from scratch.
+     * 
+     * @param theVersion The version
+     */
+    public final void setVersion(Version theVersion)
+    {
+        this.version = theVersion.getValue();
+    }
+    
+    /**
+     * Adds a configured EjbRef instance. Called by Ant.
+     * 
+     * @param theEjbRef the EjbRef to add
+     */
+    public final void addConfiguredEjbref(EjbRef theEjbRef)
+    {
+        ejbRefs.add(theEjbRef);
+    }
+    
+    /**
+     * Setter method for the destination file.
+     * @param destFile
+     */
+    public void setDestFile(File destFile)
+    {
+        this.destFile = destFile;
     }
 }
