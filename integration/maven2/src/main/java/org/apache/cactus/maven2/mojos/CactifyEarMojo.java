@@ -45,6 +45,7 @@ import org.codehaus.cargo.module.webapp.EjbRef;
 import org.codehaus.plexus.archiver.ArchiverException;
 import org.codehaus.plexus.archiver.ear.EarArchiver;
 import org.codehaus.plexus.archiver.jar.ManifestException;
+import org.codehaus.plexus.archiver.war.WarArchiver;
 import org.codehaus.plexus.util.FileUtils;
 import org.jdom.JDOMException;
 /**
@@ -64,12 +65,20 @@ public class CactifyEarMojo extends AbstractMojo
     
     /**
      * The archive that contains the web-app that should be cactified.
+     * @parameter
      */
     private File srcFile;
+    
+    /**
+     * The archive that contains the web-app that should be cactified.
+     * @parameter
+     */
+    private File destFile;
 
     /**
      * Indicates whether or not we should add ejb references to local ejbs
      * in the deployment descriptor.
+     * @parameter
      */
     private boolean addEjbReferences;
     
@@ -80,6 +89,14 @@ public class CactifyEarMojo extends AbstractMojo
      * @required
      */
     private EarArchiver earArchiver;
+    
+    /**
+     * The War archiver.
+     *
+     * @parameter expression="${component.org.codehaus.plexus.archiver.Archiver#war}"
+     * @required
+     */
+    private WarArchiver warArchiver;
     
     /**
      * The maven archive configuration to use.
@@ -143,6 +160,8 @@ public class CactifyEarMojo extends AbstractMojo
         {
             earArchiver.addDirectory(tempLocation);
             earArchiver.setAppxml(tmpAppXml);
+            
+            archiver.setOutputFile(getDestFile());
             archiver.createArchive(getProject(), getArchive());
     
             
@@ -248,6 +267,7 @@ public class CactifyEarMojo extends AbstractMojo
         {
             EarArchive ear = new DefaultEarArchive(
                 new FileInputStream(this.srcFile));
+            
             appXml = ear.getApplicationXml();
             if (appXml == null)
             {
@@ -371,7 +391,8 @@ public class CactifyEarMojo extends AbstractMojo
         version.setValue("2.3");
         cactusWarConfig.setVersion(version);
         cactusWarConfig.setContext("/cactus");
-        //cactusWarConfig.setProject(getProject());
+        cactusWarConfig.setWarArchiver(warArchiver);
+        cactusWarConfig.setProject(getProject());
         
         return cactusWarConfig;
     }
@@ -392,6 +413,14 @@ public class CactifyEarMojo extends AbstractMojo
     public MavenArchiveConfiguration getArchive()
     {
         return archive;
+    }
+    
+    /**
+     * Getter method for the destFile.
+     * @return
+     */
+    public File getDestFile() {
+        return destFile;
     }
 
 }

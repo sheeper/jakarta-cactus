@@ -665,6 +665,15 @@ public class CactifyWarMojo extends AbstractMojo
     }
     
     /**
+     * Setter method for the MavenProject.
+     * @param project
+     */
+    public void setProject(MavenProject project)
+    {
+        this.project = project;
+    }
+    
+    /**
      * Getter method for the MavenArchiveConfiguration.
      * @return the MavenArchiveConfiguration
      */
@@ -742,5 +751,15 @@ public class CactifyWarMojo extends AbstractMojo
     public final void addConfiguredEjbref(EjbRef theEjbRef)
     {
         ejbRefs.add(theEjbRef);
+    }
+
+    /**
+     * Setter for the warArchiver so that the cactifyearmojo
+     * can set it.
+     * 
+     * @param warArchiver
+     */
+    public void setWarArchiver(WarArchiver warArchiver) {
+        this.warArchiver = warArchiver;
     }
 }
