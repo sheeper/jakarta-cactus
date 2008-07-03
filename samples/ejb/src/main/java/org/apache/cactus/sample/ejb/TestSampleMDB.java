@@ -22,7 +22,6 @@ package org.apache.cactus.sample.ejb;
 
 import java.util.Properties;
 
-import javax.jms.JMSException;
 import javax.jms.Queue;
 import javax.jms.QueueConnection;
 import javax.jms.QueueConnectionFactory;
