@@ -192,11 +192,11 @@
 					<wait>false</wait>
 					<timeout>20000</timeout>
 					<container>
-						<containerId>tomcat5x</containerId>
+						<containerId>jboss42x</containerId>
 						<log>target/cargo.log</log>
 						<output>target/output.log</output>
 						<zipUrlInstaller>
-							<url>http://apache.speedbone.de/tomcat/tomcat-5/v5.5.25/bin/apache-tomcat-5.5.25.zip</url>
+							<url>http://heanet.dl.sourceforge.net/sourceforge/jboss/jboss-4.2.2.GA.zip</url>
 							<installDir>${basedir}/install</installDir>
 						</zipUrlInstaller>
 					</container>
