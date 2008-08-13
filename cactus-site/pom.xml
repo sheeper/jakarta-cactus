@@ -137,6 +137,13 @@
 			</roles>
 			<timezone>+3</timezone>
 		</developer>
+		<developer>
+			<name>Magnus Grimsell</name>
+			<id>grimsell</id>
+			<email>grimsell@apache.org</email>
+			<organization>Ida Infront Ab</organization>
+			<timezone>+1</timezone>
+		</developer>                
 	</developers>
 	
 	<contributors>
@@ -165,21 +172,17 @@
 			<name>Bob Davison</name>
 			<email>Bob.Davison@reuters.com</email>
 		</contributor>
-    <contributor>
+                <contributor>
 			<name>Julien Dubois</name>
 			<email>julien@julien-dubois.com</email>
 		</contributor>
-    <contributor>
+                <contributor>
 			<name>Andrew B Forman</name>
 			<email>andrew.forman@wcom.com</email>
 		</contributor>
 		<contributor>
 			<name>Jerome Grelier</name>
 			<email>jgrelier@octo.com</email>
-		</contributor>
-		<contributor>
-			<name>Magnus Grimsell</name>
-			<email>grimsell@apache.org</email>
 		</contributor>
 		<contributor>
 			<name>Atsushi Hasegawa</name>
@@ -201,7 +204,7 @@
 			<name>Jason Robertson</name>
 			<email>Jason.Robertson@acs-inc.com</email>
 		</contributor>
-  	<contributor>
+                <contributor>
 			<name>Matt Sullivan</name>
 			<email>-</email>
 		</contributor>
