@@ -1,21 +1,21 @@
-/* 
+/*
  * ========================================================================
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * ========================================================================
  */
 package org.apache.cactus.integration.ant;
@@ -55,30 +55,30 @@ import org.jdom.JDOMException;
 /**
  * An Ant task that injects elements necessary to run Cactus tests into an
  * existing WAR file.
- * 
+ *
  * @version $Id: CactifyWarTask.java 394252 2006-04-15 04:20:17Z felipeal $
  */
 public class CactifyWarTask extends War
 {
 
     // Constants ---------------------------------------------------------------
-    
+
     /**
      * Context of the cactus web application.
      */
     private String context;
-    
+
     /**
      * Name of the generated web app file.
      */
     private String FILE_NAME = "cactus.war";
-    
+
     /**
      * Get some non-crypto-grade randomness from various places.
      */
     private static Random rand = new Random(System.currentTimeMillis()
             + Runtime.getRuntime().freeMemory());
-    
+
     /**
      * The name of the Cactus filter redirector class.
      */
@@ -108,7 +108,7 @@ public class CactifyWarTask extends War
      */
     private static final String DEFAULT_SERVLET_REDIRECTOR_MAPPING =
         "/ServletRedirector";
-    
+
     // Inner Classes -----------------------------------------------------------
 
     // Instance Variables ------------------------------------------------------
@@ -119,7 +119,7 @@ public class CactifyWarTask extends War
     private File srcFile;
 
     /**
-     * Location of the descriptor of which the content should be merged into 
+     * Location of the descriptor of which the content should be merged into
      * the descriptor of the cactified archive.
      */
     private File mergeWebXml;
@@ -138,9 +138,9 @@ public class CactifyWarTask extends War
      * The web-app version to use when creating a WAR from scratch.
      */
     private String version = null;
-    
+
     /**
-     * List of ejb-refs to add to the deployment descriptor 
+     * List of ejb-refs to add to the deployment descriptor
      * of the cactified war.
      */
     private List ejbRefs = new ArrayList();
@@ -149,9 +149,14 @@ public class CactifyWarTask extends War
      */
     private ResourceUtils utils = new ResourceUtils();
 
+    /**
+     * Determines if cactus jars should be included.
+     */
+    private boolean includeCactusJars = true;
+
     // Public Methods ----------------------------------------------------------
 
-    
+
     /**
      * {@inheritDoc}
      * @see org.apache.tools.ant.Task#execute()
@@ -174,12 +179,12 @@ public class CactifyWarTask extends War
             addZipfileset(currentFiles);
 
             // Parse the original deployment descriptor
-            try 
+            try
             {
                 webXml = getOriginalWebXml();
 
             }
-            catch (JDOMException e) 
+            catch (JDOMException e)
             {
                 throw new BuildException("Unable to get the original exception", e);
             }
@@ -199,27 +204,30 @@ public class CactifyWarTask extends War
             else if (this.version.equals("2.3"))
             {
                 webXmlVersion = WebXmlVersion.V2_3;
-            } 
-            else 
+            }
+            else
             {
                 webXmlVersion = WebXmlVersion.V2_4;
             }
-            
+
             webXml = WebXmlIo.newWebXml(webXmlVersion);
         }
-        
+
         File tmpWebXml = null;
-        try 
+        try
         {
             tmpWebXml = cactifyWebXml(webXml);
-        } 
-        catch (JDOMException e) 
+        }
+        catch (JDOMException e)
         {
             throw new BuildException("Unable to cactify your application.", e);
         }
         setWebxml(tmpWebXml);
 
-        addCactusJars();
+        if(includeCactusJars)
+        {
+            addCactusJars();
+        }
 
         try
         {
@@ -236,7 +244,7 @@ public class CactifyWarTask extends War
 
     /**
      * Adds a Cactus filter test redirector.
-     * 
+     *
      * @param theFilterRedirector The redirector to add
      */
     public final void addFilterRedirector(FilterRedirector theFilterRedirector)
@@ -246,7 +254,7 @@ public class CactifyWarTask extends War
 
     /**
      * Adds a Cactus JSP test redirector.
-     * 
+     *
      * @param theJspRedirector The redirector to add
      */
     public final void addJspRedirector(JspRedirector theJspRedirector)
@@ -256,7 +264,7 @@ public class CactifyWarTask extends War
 
     /**
      * Adds a Cactus servlet test redirector.
-     * 
+     *
      * @param theServletRedirector The redirector to add
      */
     public final void addServletRedirector(
@@ -282,17 +290,17 @@ public class CactifyWarTask extends War
 
     /**
      * Adds a configured EjbRef instance. Called by Ant.
-     * 
+     *
      * @param theEjbRef the EjbRef to add
      */
     public final void addConfiguredEjbref(EjbRef theEjbRef)
     {
         ejbRefs.add(theEjbRef);
     }
-    
+
     /**
      * The descriptor to merge into the original file.
-     * 
+     *
      * @param theMergeFile the <code>web.xml</code> to merge
      */
     public final void setMergeWebXml(File theMergeFile)
@@ -302,8 +310,8 @@ public class CactifyWarTask extends War
 
     /**
      * Sets the web application archive that should be cactified.
-     * 
-     * @param theSrcFile The WAR file to set  
+     *
+     * @param theSrcFile The WAR file to set
      */
     public final void setSrcFile(File theSrcFile)
     {
@@ -312,13 +320,26 @@ public class CactifyWarTask extends War
 
     /**
      * Sets the web-app version to use when creating a WAR file from scratch.
-     * 
+     *
      * @param theVersion The version
      */
     public final void setVersion(Version theVersion)
     {
         this.version = theVersion.getValue();
     }
+
+    /**
+     * Sets whether the cactus jars should be included or not.
+     * If not set, the jars are included by default.
+     *
+     * @param includeCactusJars <code>true</code> if cactus jars should be included,
+     * <code>false</code> otherwise.
+     */
+    public final void setIncludeCactusJars(boolean includeCactusJars)
+    {
+        this.includeCactusJars = includeCactusJars;
+    }
+
 
     // Private Methods ---------------------------------------------------------
 
@@ -340,7 +361,7 @@ public class CactifyWarTask extends War
     /**
      * Adds the JAR file containing the specified resource to the WEB-INF/lib
      * folder of a web-application archive.
-     * 
+     *
      * @param theClassName The name of the class that the JAR contains
      * @param theDescription A description of the JAR that should be displayed
      *        to the user in log messages
@@ -413,8 +434,8 @@ public class CactifyWarTask extends War
 
     /**
      * Adds the definitions corresponding to the nested redirector elements to
-     * the provided deployment descriptor. 
-     * 
+     * the provided deployment descriptor.
+     *
      * @param theWebXml The deployment descriptor
      */
     private void addRedirectorDefinitions(WebXml theWebXml)
@@ -422,11 +443,11 @@ public class CactifyWarTask extends War
         boolean filterRedirectorDefined = false;
         boolean jspRedirectorDefined = false;
         boolean servletRedirectorDefined = false;
-        
+
         // add the user defined redirectors
         for (Iterator i = this.redirectors.iterator(); i.hasNext();)
         {
-        
+
             Redirector redirector = (Redirector) i.next();
             if (redirector instanceof FilterRedirector)
             {
@@ -462,9 +483,9 @@ public class CactifyWarTask extends War
     }
 
     /**
-     * Enhances the provided web deployment descriptor with the definitions 
+     * Enhances the provided web deployment descriptor with the definitions
      * required for testing with Cactus.
-     * 
+     *
      * @param theWebXml The original deployment descriptor
      * @return A temporary file containing the cactified descriptor
      * @throws JDOMException in case a JDOM exception is thrown.
@@ -474,9 +495,9 @@ public class CactifyWarTask extends War
         addRedirectorDefinitions(theWebXml);
         addJspRedirector();
         addEjbRefs(theWebXml);
-        
+
         // If the user has specified a deployment descriptor to merge into the
-        // cactified descriptor, perform the merge 
+        // cactified descriptor, perform the merge
         if (this.mergeWebXml != null)
         {
             try
@@ -485,7 +506,7 @@ public class CactifyWarTask extends War
                     this.mergeWebXml, this.xmlCatalog);
                 WebXmlMerger merger = new WebXmlMerger(theWebXml);
                 merger.setLogger(new AntLogger(this));
-               
+
                 merger.merge(parsedMergeWebXml);
             }
             catch (IOException e)
@@ -494,7 +515,7 @@ public class CactifyWarTask extends War
                     "Could not merge deployment descriptors", e);
             }
         }
-        
+
         // Serialize the cactified deployment descriptor into a temporary file,
         // so that it can get picked up by the War task
         //FileUtils fileUtils = FileUtils.newFileUtils();
@@ -508,10 +529,10 @@ public class CactifyWarTask extends War
             ZipFileSet fileSet = new ZipFileSet();
             fileSet.setDir(tmpDir);
             tmpDir.mkdir();
-            File[] files = WebXmlIo.writeAll(theWebXml, 
+            File[] files = WebXmlIo.writeAll(theWebXml,
                 tmpDir.getAbsolutePath());
-        
-            
+
+
             for (int i = 0; i < files.length; i++)
             {
                 File f = files[i];
@@ -538,9 +559,9 @@ public class CactifyWarTask extends War
     /**
      * Extracts and parses the original web deployment descriptor from the
      * web-app.
-     * 
+     *
      * @return The parsed descriptor or null if not found
-     * @throws BuildException If the descriptor could not be 
+     * @throws BuildException If the descriptor could not be
      *         parsed
      * @throws JDOMException in case is JDOM exception is thrown.
      */
@@ -562,7 +583,7 @@ public class CactifyWarTask extends War
 
     /**
      * Add ejb references to a web.xml.
-     * 
+     *
      * @param theWebXml the web.xml to modify
      */
     private void addEjbRefs(WebXml theWebXml)
@@ -574,7 +595,7 @@ public class CactifyWarTask extends War
             WebXmlUtils.addEjbRef(theWebXml, ref);
         }
     }
-    
+
     /**
      * A method to create the temporary files.
      * @param thePrefix the prefix of the filename.
@@ -583,8 +604,8 @@ public class CactifyWarTask extends War
      * @param isDeleteOnExit should we delete the directories on exit?
      * @return the temporary file
      */
-    public File createTempFile(String thePrefix, String theSuffix, 
-                                   File theParentDir, boolean isDeleteOnExit) 
+    public File createTempFile(String thePrefix, String theSuffix,
+                                   File theParentDir, boolean isDeleteOnExit)
     {
     File result = null;
     String parent = (theParentDir == null)
@@ -592,26 +613,26 @@ public class CactifyWarTask extends War
             : theParentDir.getPath();
 
         DecimalFormat fmt = new DecimalFormat("#####");
-        synchronized (rand) 
+        synchronized (rand)
         {
-            do 
+            do
             {
                 result = new File(parent,
                    thePrefix + fmt.format(Math.abs(rand.nextInt()))
                    + theSuffix);
-            } 
+            }
             while (result.exists());
         }
-        if (isDeleteOnExit) 
+        if (isDeleteOnExit)
         {
             result.deleteOnExit();
         }
         return result;
     }
-    
+
     /**
      * Gets the file name.
-     * 
+     *
      * @return the name of the web app file
      */
     public String getFileName()
@@ -621,7 +642,7 @@ public class CactifyWarTask extends War
 
     /**
      * Returns the context.
-     * 
+     *
      * @return <code>java.lang.String</code>
      */
     public String getContext() {
@@ -630,12 +651,12 @@ public class CactifyWarTask extends War
 
     /**
      * Sets the context.
-     * 
+     *
      * @param context
      */
     public void setContext(String context) {
         this.context = context;
     }
-    
-    
+
+
 }
