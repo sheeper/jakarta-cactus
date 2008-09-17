@@ -27,7 +27,7 @@
 	<artifactId>cactus.samples.ejb</artifactId>
 	<name>Cactus Ejb Samples - Parent Project</name>
 	<description>Cactus Ejb Samples - the parent project</description>
-	<packaging>ear</packaging>
+	<packaging>jar</packaging>
 		<dependencies>
 		<dependency>
 			<groupId>org.apache.cactus</groupId>
@@ -127,12 +127,33 @@
 	</dependencies>
 	<build>
 		<plugins>
-			<plugin>
+		  <plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.2-beta-3-SNAPSHOT</version>
+				<executions>
+					<execution>
+						<id>create-cactus-archive</id>
+						<phase>pre-integration-test</phase>
+						<configuration>
+    					<descriptors>
+    						<descriptor>src/main/app/main.xml</descriptor>
+    					</descriptors>
+    					<archiverConfig>
+                <appxml>src/main/app/application.xml</appxml>
+              </archiverConfig>
+    				</configuration>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
+		  </plugin>
+		  <plugin>
 				<groupId>org.apache.cactus</groupId>
 				<artifactId>cactus.integration.maven2</artifactId>
 				<version>1.8.1-SNAPSHOT</version>
 				<configuration>
-					<srcFile>${project.build.directory}/${pom.artifactId}-${pom.version}.ear</srcFile>
+					<srcFile>target/cactus.samples.ejb-1.8.1-SNAPSHOT-bin.ear</srcFile>
 					<destFile>${project.build.directory}/${pom.artifactId}-cactified.ear</destFile>
 					<!--mergeWebXml>src/main/webapp/WEB-INF/cactus-web.xml</mergeWebXml-->
 					<libDependencies>
@@ -203,7 +224,7 @@
 					<configuration>
 						<deployables>
 							<deployable>
-								<location>target/cactus.samples.ejb-cactified.ear</location>
+								<location>${project.build.directory}/${pom.artifactId}-cactified.ear</location>
 								<type>war</type>
 								<properties>
 									<context>/test</context>
@@ -246,12 +267,7 @@
 						</configuration>
 					</execution>
 				</executions>
-			</plugin>
-			<plugin>
-				<artifactId>maven-ear-plugin</artifactId>
-				<configuration>
-				</configuration>
-			</plugin>
-		</plugins>
+			 </plugin>
+			</plugins>
 	</build>
 </project> 
