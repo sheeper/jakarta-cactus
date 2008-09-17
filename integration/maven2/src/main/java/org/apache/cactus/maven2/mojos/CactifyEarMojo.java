@@ -32,6 +32,8 @@ import org.apache.maven.artifact.DependencyResolutionRequiredException;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
+import org.apache.maven.plugin.assembly.archive.ArchiveExpansionException;
+import org.apache.maven.plugin.assembly.utils.AssemblyFileUtils;
 import org.apache.maven.project.MavenProject;
 import org.codehaus.cargo.module.application.ApplicationXml;
 import org.codehaus.cargo.module.application.ApplicationXmlIo;
@@ -45,6 +47,8 @@ import org.codehaus.cargo.module.webapp.EjbRef;
 import org.codehaus.plexus.archiver.ArchiverException;
 import org.codehaus.plexus.archiver.ear.EarArchiver;
 import org.codehaus.plexus.archiver.jar.ManifestException;
+import org.codehaus.plexus.archiver.manager.ArchiverManager;
+import org.codehaus.plexus.archiver.manager.NoSuchArchiverException;
 import org.codehaus.plexus.archiver.war.WarArchiver;
 import org.codehaus.plexus.util.FileUtils;
 import org.jdom.JDOMException;
@@ -115,6 +119,12 @@ public class CactifyEarMojo extends AbstractMojo
     private MavenProject project;
     
     /**
+     * The archive manager.
+     * @component
+     */
+    private ArchiverManager archiverManager;
+    
+    /**
      * The "main" method of the mojo.
      * @throws MojoExecutionException in case an error occurs.
      * @throws MojoFailureException in case a failure occurs.
@@ -125,7 +135,6 @@ public class CactifyEarMojo extends AbstractMojo
         {
             cactusWar = createCactusWarConfig();
         }
-        
         MavenArchiver archiver = new MavenArchiver();
         archiver.setArchiver(earArchiver);
         
@@ -137,10 +146,35 @@ public class CactifyEarMojo extends AbstractMojo
         tempLocation.mkdirs();
         tempLocation.deleteOnExit();
         
-        //ZipFileSet currentFiles = new ZipFileSet();
-        //currentFiles.setSrc(this.srcFile);
-        //currentFiles.createExclude().setName("META-INF/application.xml");
-        //addZipfileset(currentFiles);
+        try 
+        {
+            if(this.srcFile != null)
+            {
+                AssemblyFileUtils.unpack(this.srcFile, tempLocation,
+                    archiverManager);
+            }
+        } 
+        catch (ArchiveExpansionException e) 
+        {
+            throw new MojoExecutionException("Error extracting the"
+                   + " archive.", e);
+        } 
+        catch (NoSuchArchiverException e) 
+        {
+            throw new MojoExecutionException("Problem reading the "
+                   + "source archive.", e);
+        }
+        
+        try 
+        {
+			earArchiver.addDirectory(tempLocation);
+		} 
+        catch (ArchiverException e1) 
+        {
+			// Cannot add the temp location for some reason.
+        	throw new MojoExecutionException("Problem adding the source " +
+        			"files to the dest. archive ", e1);
+		}
         
         // cactify the application.xml
         ApplicationXml appXml = null;
@@ -162,12 +196,12 @@ public class CactifyEarMojo extends AbstractMojo
             earArchiver.setAppxml(tmpAppXml);
             
             archiver.setOutputFile(getDestFile());
-            archiver.createArchive(getProject(), getArchive());
-    
             
             // create the cactus war
             File cactusWarFile = createCactusWar();
             addFileToEar(cactusWarFile, cactusWar.getFileName());
+            
+            archiver.createArchive(getProject(), getArchive());
         }
         catch(ArchiverException aex)
         {
@@ -189,8 +223,21 @@ public class CactifyEarMojo extends AbstractMojo
             throw new MojoExecutionException("Problem with resolving the"
                     + " dependencies of the project. ", de);
         }
-        
-        //super.execute();
+        finally
+        {
+            try 
+            {
+                if (tempLocation != null)
+                {
+                    FileUtils.deleteDirectory(tempLocation);
+                }
+            } 
+            catch (IOException e) 
+            {
+                throw new MojoExecutionException("Error deleting temporary "
+                       + "folder", e);
+            }
+        }
 	}
     
     /**
