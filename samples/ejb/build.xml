@@ -148,7 +148,7 @@
          step. For example: JBoss -->
     <jar jarfile="${target.dir}/${ejb.project.name}.jar">
       <fileset dir="${build.dir}"/>
-      <metainf dir="${meta.inf.dir}"/>
+      <metainf dir="${meta.inf.dir}/META-INF"/>
     </jar>
 
   </target>

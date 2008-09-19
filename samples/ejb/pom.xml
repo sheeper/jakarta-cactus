@@ -156,28 +156,37 @@
 					<srcFile>target/cactus.samples.ejb-1.8.1-SNAPSHOT-bin.ear</srcFile>
 					<destFile>${project.build.directory}/${pom.artifactId}-cactified.ear</destFile>
 					<!--mergeWebXml>src/main/webapp/WEB-INF/cactus-web.xml</mergeWebXml-->
-					<libDependencies>
-						<dependency>
-							<groupId>javax.servlet</groupId>
-							<artifactId>servlet-api</artifactId>
-						</dependency>
-						<dependency>
-							<groupId>httpunit</groupId>
-							<artifactId>httpunit</artifactId>
-						</dependency>
-					</libDependencies>
-					<redirectors>
-						<servletRedirector>
-							<name>ServletRedirectorSecure</name>
-							<mapping>/ServletRedirectorSecure</mapping>
-							<roles>test</roles>
-						</servletRedirector>
-						<servletRedirector/>
-						<filterRedirector>
-							<name>FilterRedirector</name>
-							<mapping>/test/filterRedirector</mapping>
-						</filterRedirector>
-					</redirectors>  
+					<cactusWar>
+						<redirectors>
+							<servletRedirector>
+								<name>ServletRedirectorSecure</name>
+								<mapping>/ServletRedirectorSecure</mapping>
+								<roles>test</roles>
+							</servletRedirector>
+							<servletRedirector/>
+							<filterRedirector>
+								<name>FilterRedirector</name>
+								<mapping>/test/filterRedirector</mapping>
+							</filterRedirector>
+						</redirectors>
+						<libDependencies>
+							<dependency>
+								<groupId>javax.servlet</groupId>
+								<artifactId>servlet-api</artifactId>
+							</dependency>
+							<dependency>
+								<groupId>httpunit</groupId>
+								<artifactId>httpunit</artifactId>
+							</dependency>
+						</libDependencies>
+						<classes>
+							<directory>target/classes</directory>
+							<includes>
+								<include>**/*Test*.*</include>
+							</includes>
+						</classes>
+						<version>2.3</version>
+					</cactusWar>
 				</configuration>
 				<executions>
 					<execution>
@@ -225,10 +234,7 @@
 						<deployables>
 							<deployable>
 								<location>${project.build.directory}/${pom.artifactId}-cactified.ear</location>
-								<type>war</type>
-								<properties>
-									<context>/test</context>
-								</properties>
+								<type>ear</type>
 								<pingURL>http://localhost:8080/</pingURL>
 							</deployable>
 						</deployables>
@@ -257,7 +263,7 @@
 							<systemProperties>
 								<property>
 									<name>cactus.contextURL</name>
-									<value>http://localhost:8080/test/</value>
+									<value>http://localhost:8080/cactus.samples.ejb-cactified/cactus/</value>
 								</property>
 								<property>
 									<name>cactus.filterRedirectorName</name>
