@@ -112,7 +112,7 @@ public class CactifyWarMojo extends AbstractMojo
      * Test classes.
      * @parameter
      */
-    private FileSet classes;
+    private FileSet testClasses;
     
     /**
      * The War archiver.
@@ -193,6 +193,7 @@ public class CactifyWarMojo extends AbstractMojo
      */
     private File destFile;
     
+ 
     /**
      * @parameter expression="${localRepository}"
      * @required
@@ -343,9 +344,13 @@ public class CactifyWarMojo extends AbstractMojo
             tempLocation.mkdirs();
             tempLocation.deleteOnExit();
 
-            //Add the classes.
-            warArchiver.addClasses(new File(classes.getDirectory()), 
-                    classes.getIncludesArray(), classes.getExcludesArray());
+            if(testClasses != null) 
+            {
+	            //Add the classes.
+	            warArchiver.addClasses(new File(testClasses.getDirectory()), 
+	            								testClasses.getIncludesArray(),
+	            								testClasses.getExcludesArray());
+            }
 
             //Now add all of the additional lib files.
             for (Iterator iter = libDependencies.iterator(); iter.hasNext();)
