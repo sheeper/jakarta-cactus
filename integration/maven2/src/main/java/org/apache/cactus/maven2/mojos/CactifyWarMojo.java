@@ -43,6 +43,7 @@ import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugin.assembly.archive.ArchiveExpansionException;
 import org.apache.maven.plugin.assembly.utils.AssemblyFileUtils;
 import org.apache.maven.project.MavenProject;
+import org.apache.maven.shared.model.fileset.FileSet;
 import org.apache.tools.ant.types.XMLCatalog;
 import org.codehaus.cargo.container.internal.util.ResourceUtils;
 import org.codehaus.cargo.maven2.log.MavenLogger;
@@ -106,6 +107,12 @@ public class CactifyWarMojo extends AbstractMojo
      * @parameter
      */
     private File srcFile;
+    
+    /**
+     * Test classes.
+     * @parameter
+     */
+    private FileSet classes;
     
     /**
      * The War archiver.
@@ -331,14 +338,16 @@ public class CactifyWarMojo extends AbstractMojo
             addJarWithClass("junit.framework."
                    + "TestCase", "JUnit");
             
-            
             tempLocation = createTempFile("cactus", "explode.tmp.dir",
                     getProject().getBasedir(), true);
             tempLocation.mkdirs();
             tempLocation.deleteOnExit();
-            
+
+            //Add the classes.
+            warArchiver.addClasses(new File(classes.getDirectory()), 
+                    classes.getIncludesArray(), classes.getExcludesArray());
+
             //Now add all of the additional lib files.
-            
             for (Iterator iter = libDependencies.iterator(); iter.hasNext();)
             {
                 org.apache.cactus.maven2.mojos.Dependency dependency = 
@@ -704,6 +713,16 @@ public class CactifyWarMojo extends AbstractMojo
     public String getContext() {
         return context;
     }
+    
+    /**
+     * Returns the source file for cactification.
+     * 
+     * @return <code>java.io.File</code>
+     */
+    public File getSrcFile() {
+        return this.srcFile;
+    }
+    
 
     /**
      * Sets the context.
@@ -722,6 +741,16 @@ public class CactifyWarMojo extends AbstractMojo
     public final void setVersion(Version theVersion)
     {
         this.version = theVersion.getValue();
+    }
+    
+    /**
+     * Sets the source file for cactification.
+     * 
+     * @param theSrcFile The source file
+     */
+    public final void setSrcFile(File theSrcFile)
+    {
+        this.srcFile = theSrcFile;
     }
     
     /**
@@ -759,7 +788,8 @@ public class CactifyWarMojo extends AbstractMojo
      * 
      * @param warArchiver
      */
-    public void setWarArchiver(WarArchiver warArchiver) {
+    public void setWarArchiver(WarArchiver warArchiver) 
+    {
         this.warArchiver = warArchiver;
     }
 }

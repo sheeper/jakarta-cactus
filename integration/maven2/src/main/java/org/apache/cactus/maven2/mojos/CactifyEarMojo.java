@@ -64,6 +64,7 @@ public class CactifyEarMojo extends AbstractMojo
 {
     /**
      * Cactus war configuration holder.
+     * @parameter
      */
     private CactifyWarMojo cactusWar;
     
@@ -198,7 +199,7 @@ public class CactifyEarMojo extends AbstractMojo
             archiver.setOutputFile(getDestFile());
             
             // create the cactus war
-            File cactusWarFile = createCactusWar();
+            File cactusWarFile = createCactusWarFile();
             addFileToEar(cactusWarFile, cactusWar.getFileName());
             
             archiver.createArchive(getProject(), getArchive());
@@ -246,12 +247,14 @@ public class CactifyEarMojo extends AbstractMojo
      * @throws MojoExecutionException in case a runtime error occurs.
      * @throws MojoFailureException in case a mojo failure occurs.
      */
-    private File createCactusWar() throws MojoExecutionException, MojoFailureException
+    private File createCactusWarFile() throws MojoExecutionException, MojoFailureException
     {
         File tmpCactusWar = FileUtils.createTempFile("cactus", "cactus.war",
                                                      getProject().getBasedir());
         tmpCactusWar.deleteOnExit();
         cactusWar.setDestFile(tmpCactusWar);
+        cactusWar.setWarArchiver(this.warArchiver);
+        cactusWar.setProject(this.project);
         
         if (addEjbReferences)
         {
