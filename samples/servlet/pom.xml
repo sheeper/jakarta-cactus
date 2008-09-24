@@ -152,6 +152,12 @@
           <destFile>${project.build.directory}/${pom.artifactId}-cactified.war</destFile>
           <!--installLocally>true</installLocally-->
           <mergeWebXml>src/main/webapp/WEB-INF/cactus-web.xml</mergeWebXml>
+          <testClasses>
+            <directory>target/test-classes</directory>
+            <includes>
+              <include>**/**Test*.class</include>
+            </includes>
+          </testClasses>
           <libDependencies>
             <dependency>
   			       <groupId>javax.servlet</groupId>
@@ -251,8 +257,8 @@
               <skip>false</skip>
 							<!--The next line is because we need the tests in src/main/java to ensure
 											that the classes are included in the archive.-->
-							<testSourceDirectory>src/main/java</testSourceDirectory>
-							<testClassesDirectory>target/classes</testClassesDirectory>
+							<!--testSourceDirectory>src/test/java</testSourceDirectory>
+							<testClassesDirectory>target/test-classes</testClassesDirectory-->
                 <systemProperties>
                   <property>
                     <name>cactus.contextURL</name>
