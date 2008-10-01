@@ -113,6 +113,10 @@
 		       destdir="${build.dir}"
 		       classpathref="cactus.classpath"/>
 		
+		<javac srcdir="${src.test.dir}"
+		       destdir="${build.dir}"
+		       classpathref="cactus.classpath"/>
+		       
 	</target>
 	
   <!--
@@ -207,7 +211,7 @@
 			<sysproperty key="prop2" value="value2"/>
 			<formatter type="${cactus.formatter.type}"/>
 			<batchtest todir="${reports.dir}">
-				<fileset dir="${src.dir}">
+				<fileset dir="${src.test.dir}">
 					<include name="**/Test*.java"/>
 				</fileset>
 			</batchtest>
@@ -216,5 +220,14 @@
 			<fileset dir="${target.dir}/${tomcat.container.id}" includes="TEST-*.xml"/>
       <report todir="${reports.dir}" format="frames"/>
     </junitreport>
+	</target>
+	
+	<!--
+     ========================================================================
+       Clean the build directory.
+     ========================================================================
+  -->
+	<target name="clean" depends="init">
+	   <delete dir="${target.dir}"/>
 	</target>
 </project>
