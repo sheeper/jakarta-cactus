@@ -181,7 +181,7 @@
 							</dependency>
 						</libDependencies>
 						<testClasses>
-							<directory>target/classes</directory>
+							<directory>target/test-classes</directory>
 							<includes>
 								<include>**/*Test*.*</include>
 							</includes>
@@ -259,8 +259,8 @@
 							<skip>false</skip>
 							<!--The next line is because we need the tests in src/main/java to ensure
 											that the classes are included in the archive.-->
-							<testSourceDirectory>src/main/java</testSourceDirectory>
-							<testClassesDirectory>target/classes</testClassesDirectory>
+							<!--testSourceDirectory>src/main/java</testSourceDirectory>
+							<testClassesDirectory>target/classes</testClassesDirectory-->
 							<systemProperties>
 								<property>
 									<name>cactus.contextURL</name>
