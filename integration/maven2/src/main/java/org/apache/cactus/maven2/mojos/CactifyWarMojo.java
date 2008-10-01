@@ -81,6 +81,7 @@ public class CactifyWarMojo extends AbstractMojo
     
     /**
      * Context of the cactus web application.
+     * @parameter
      */
     private String context;
 	
