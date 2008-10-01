@@ -55,7 +55,7 @@ public class TestConverterEJB extends ServletTestCase
         InitialContext ctx = new InitialContext(properties);
         
         
-        converter = (IConvertLocal) ctx.lookup("samples-ejb-1.8.1-SNAPSHOT-cactified/"+ConverterBean.class.getSimpleName()+"/local");
+        converter = (IConvertLocal) ctx.lookup("cactus.samples.ejb3-cactified/"+ConverterBean.class.getSimpleName()+"/local");
         
         //ConverterHome home = (ConverterHome) PortableRemoteObject.narrow(
         //    ctx.lookup("Converter"), ConverterHome.class);
