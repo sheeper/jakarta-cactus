@@ -157,6 +157,7 @@
 					<destFile>${project.build.directory}/${pom.artifactId}-cactified.ear</destFile>
 					<!--mergeWebXml>src/main/webapp/WEB-INF/cactus-web.xml</mergeWebXml-->
 					<cactusWar>
+						<context>/</context>
 						<redirectors>
 							<servletRedirector>
 								<name>ServletRedirectorSecure</name>
@@ -179,12 +180,12 @@
 								<artifactId>httpunit</artifactId>
 							</dependency>
 						</libDependencies>
-						<classes>
+						<testClasses>
 							<directory>target/classes</directory>
 							<includes>
 								<include>**/*Test*.*</include>
 							</includes>
-						</classes>
+						</testClasses>
 						<version>2.3</version>
 					</cactusWar>
 				</configuration>
@@ -263,7 +264,7 @@
 							<systemProperties>
 								<property>
 									<name>cactus.contextURL</name>
-									<value>http://localhost:8080/cactus.samples.ejb-cactified/cactus/</value>
+									<value>http://localhost:8080/</value>
 								</property>
 								<property>
 									<name>cactus.filterRedirectorName</name>
