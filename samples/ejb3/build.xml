@@ -120,6 +120,9 @@
 		       destdir="${build.dir}"
 		       classpathref="cactus.classpath"/>
 		
+    <javac srcdir="${src.test.dir}"
+		       destdir="${build.dir}"
+		       classpathref="cactus.classpath"/>
 
 	</target>
 	
@@ -146,7 +149,7 @@
 
     <!-- ATM, only support containers which do not need an ejb compilation
          step. For example: JBoss -->
-    <jar jarfile="${target.dir}/${ejb3.project.name}.ejb3">
+    <jar jarfile="${target.dir}/${ejb3.project.name}.jar">
       <fileset dir="${build.dir}"/>
       <metainf dir="${meta.inf.dir}"/>
     </jar>
@@ -163,7 +166,7 @@
 
     <ear earfile="${ejb3.archive.name}"
         appxml="${src.application.dir}/application.xml">
-      <fileset file="${target.dir}/${ejb3.project.name}.ejb3"/>
+      <fileset file="${target.dir}/${ejb3.project.name}.jar"/>
     </ear>
   </target>
   
@@ -198,15 +201,12 @@
 			<classpath>
 				<path refid="cactus.classpath"/>
 				<pathelement location="${build.dir}"/>
-				<pathelement location="${cactus.build.dir}"/>
-				<pathelement location="${basedir}/cactus"/>
-				<path refid="jboss.client"/>
 			</classpath>
 			<containerset>
-				<cargo containerId="${jboss.container.id}" output="${logs.dir}/output.log" log="${logs.dir}/cargo.log" home="${jboss.home}">
-					<!--zipUrlInstaller
-            installUrl="http://heanet.dl.sourceforge.net/sourceforge/jboss/jboss-4.0.2.zip"
-            installDir="target/${jboss.container.id}"/-->
+				<cargo containerId="${jboss.container.id}" output="${logs.dir}/output.log" log="${logs.dir}/cargo.log">
+					<zipUrlInstaller
+            installUrl="http://heanet.dl.sourceforge.net/sourceforge/jboss/jboss-4.2.2.GA.zip"
+            installDir="install"/>
 					<configuration>
 						<property name="cargo.servlet.port" value="${cargo.servlet.port}"/>
 						<property name="cargo.logging" value="${cargo.logging}"/>
@@ -217,10 +217,19 @@
 			
 			<formatter type="${cactus.formatter.type}"/>
 			<batchtest todir="${reports.dir}">
-				<fileset dir="${src.dir}">
+				<fileset dir="${src.test.dir}">
 					<include name="**/Test*.java"/>
 				</fileset>
 			</batchtest>
 		</cactus>
 	</target>
-</project>
+	
+	<!--
+     ========================================================================
+       Clean the build directory.
+     ========================================================================
+  -->
+	<target name="clean" depends="init">
+	   <delete dir="${target.dir}"/>
+	</target>
+</project>  
