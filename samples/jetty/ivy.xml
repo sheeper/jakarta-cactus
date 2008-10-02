@@ -33,8 +33,8 @@
 		
 		<dependency org="aspectj" name="aspectjrt" rev="1.5.3"/>
 		
-		<dependency org="org.codehaus.cargo" name="cargo-core-uberjar" rev="0.9"/>
-		<dependency org="org.codehaus.cargo" name="cargo-ant" rev="0.9"/>
+		<dependency org="org.codehaus.cargo" name="cargo-core-uberjar" rev="1.0-SNAPSHOT"/>
+		<dependency org="org.codehaus.cargo" name="cargo-ant" rev="1.0-SNAPSHOT"/>
 		
 		<dependency org="javax.servlet" name="jsp-api" rev="2.0"/>
 		<dependency org="javax.servlet" name="servlet-api" rev="2.5"/>
@@ -46,5 +46,6 @@
 		<dependency org="tomcat" name="jasper-runtime" rev="5.5.9"/>
     
     <dependency org="jdom" name="jdom" rev="1.0"/>	
+    <dependency org="junit" name="junit" rev="3.8.2"/>
 	</dependencies>
 </ivy-module> 

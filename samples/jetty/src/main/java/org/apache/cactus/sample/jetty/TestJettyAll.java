@@ -43,14 +43,14 @@ public class TestJettyAll extends TestCase
             "Cactus unit tests executing in Jetty");
 
         // Functional tests
-         suite.addTestSuite(
-             org.apache.cactus.sample.servlet.TestSampleServlet.class);
-         suite.addTestSuite(
-             org.apache.cactus.sample.servlet.TestSampleServletConfig.class);
-         suite.addTestSuite(
-             org.apache.cactus.sample.servlet.TestSampleTag.class);
-         suite.addTestSuite(
-             org.apache.cactus.sample.servlet.TestSampleBodyTag.class);
+        // suite.addTestSuite(
+        //     org.apache.cactus.sample.servlet.TestSampleServlet.class);
+        // suite.addTestSuite(
+        //     org.apache.cactus.sample.servlet.TestSampleServletConfig.class);
+        // suite.addTestSuite(
+        //     org.apache.cactus.sample.servlet.TestSampleTag.class);
+        // suite.addTestSuite(
+        //     org.apache.cactus.sample.servlet.TestSampleBodyTag.class);
          suite.addTestSuite(
              org.apache.cactus.sample.servlet.TestSampleFilter.class);
 
