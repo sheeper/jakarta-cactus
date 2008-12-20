@@ -4,12 +4,13 @@
 	<classpathentry kind="var" path="M2_REPO/commons-logging/commons-logging/1.0.4/commons-logging-1.0.4.jar"/>
 	<classpathentry kind="var" path="M2_REPO/ant/ant/1.6.5/ant-1.6.5.jar"/>
 	<classpathentry kind="var" path="M2_REPO/ant/ant-junit/1.6.5/ant-junit-1.6.5.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/codehaus/cargo/cargo-ant/0.9/cargo-ant-0.9.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/codehaus/cargo/cargo-ant/1.0-SNAPSHOT/cargo-ant-1.0-SNAPSHOT.jar"/>
 	<classpathentry kind="src" path="framework/framework-12-13-14/src/main/java"/>
 	<classpathentry kind="src" path="integration/maven2/src/main/java"/>
 	<classpathentry kind="src" path="samples/ejb/src/main/java"/>
 	<classpathentry kind="src" path="samples/ejb3/src/main/java"/>
-	<classpathentry kind="var" path="M2_REPO/junit/junit/3.8.1/junit-3.8.1.jar"/>
+	<classpathentry kind="src" path="samples/jetty/src/main/java"/>
+	<classpathentry kind="var" path="M2_REPO/junit/junit/3.8.2/junit-3.8.2.jar"/>
 	<classpathentry kind="var" path="M2_REPO/javax/servlet/servlet-api/2.5/servlet-api-2.5.jar"/>
 	<classpathentry kind="var" path="M2_REPO/javax/servlet/jsp-api/2.0/jsp-api-2.0.jar"/>
 	<classpathentry kind="var" path="M2_REPO/commons-httpclient/commons-httpclient/2.0.2/commons-httpclient-2.0.2.jar"/>
@@ -30,13 +31,10 @@
 	<classpathentry kind="src" path="samples/servlet/src/main/java"/>
 	<classpathentry kind="var" path="M2_REPO/htmlunit/htmlunit/1.10/htmlunit-1.10.jar"/>
 	<classpathentry kind="src" path="integration/ant/src/main/java"/>
-	<classpathentry kind="src" path="integration/eclipse/org.apache.cactus.eclipse.runner/src/main/java"/>
-	<classpathentry kind="src" path="samples/jetty/src/main/cactus"/>
 	<classpathentry kind="var" path="M2_REPO/org/codehaus/cargo/cargo-core-uberjar/1.0-SNAPSHOT/cargo-core-uberjar-1.0-SNAPSHOT.jar"/>
 	<classpathentry kind="src" path="integration/ant/src/test/java"/>
 	<classpathentry kind="var" path="M2_REPO/jdom/jdom/1.0/jdom-1.0.jar"/>
-	<classpathentry kind="var" path="M2_REPO/jmock/jmock/1.0.1/jmock-1.0.1.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/apache/cactus/cactus.integration.shared.api/1.8.1-SNAPSHOT/cactus.integration.shared.api-1.8.1-SNAPSHOT.jar"/>
+	<classpathentry kind="var" path="M2_REPO/jmock/jmock/1.2.0/jmock-1.2.0.jar"/>
 	<classpathentry kind="var" path="M2_REPO/tomcat/jasper-compiler/5.5.9/jasper-compiler-5.5.9.jar"/>
 	<classpathentry kind="var" path="M2_REPO/tomcat/jasper-runtime/5.5.9/jasper-runtime-5.5.9.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/apache/geronimo/specs/geronimo-ejb_2.1_spec/1.0/geronimo-ejb_2.1_spec-1.0.jar"/>
@@ -46,5 +44,8 @@
 	<classpathentry kind="var" path="M2_REPO/org/apache/maven/maven-artifact/2.0.9/maven-artifact-2.0.9.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/apache/maven/maven-project/2.0.9/maven-project-2.0.9.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/apache/geronimo/specs/geronimo-ejb_3.0_spec/1.0/geronimo-ejb_3.0_spec-1.0.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/apache/maven/plugins/maven-assembly-plugin/2.2-beta-3-SNAPSHOT/maven-assembly-plugin-2.2-beta-3-SNAPSHOT.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/codehaus/cargo/cargo-maven2-plugin/1.0-SNAPSHOT/cargo-maven2-plugin-1.0-SNAPSHOT.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/apache/cactus/cactus.integration.shared.api/1.8.1-SNAPSHOT/cactus.integration.shared.api-1.8.1-SNAPSHOT.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
