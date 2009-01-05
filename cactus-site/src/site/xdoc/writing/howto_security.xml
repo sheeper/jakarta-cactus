@@ -108,7 +108,7 @@ public void testBasicAuthentication()
 
       <note>
         If you're using the Cactus Ant tasks to execute your Cactus
-        tests, please check the <a href="../task_cactifywar.html">Cactifywar
+        tests, please check the <a href="../integration/ant/task_cactifywar.html">Cactifywar
         task</a> page as the configuration below is only required 
         for manual configuration and is handled automatically by the
         Cactifywar task.
