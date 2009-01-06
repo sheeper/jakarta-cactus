@@ -105,8 +105,7 @@ public class TestCactifyWarMojo extends AbstractMojoTestCase
 //    {
 //        File testPom = new File(getBasedir(), "target/test-classes/unit/"
 //               + "cactify-test-empty-src-file/plugin-config.xml");
-//        CactifyWarMojo mojo = (CactifyWarMojo) lookupMojo("cactifywar", 
-//                 testPom);
+//        CactifyWarMojo mojo = (CactifyWarMojo) lookupMojo("cactifywar", testPom);
 //        assertNotNull(mojo);
 //        try
 //        {
@@ -161,11 +160,11 @@ public class TestCactifyWarMojo extends AbstractMojoTestCase
          }
     }
     
-    /**
-     * Test that if we specify wrong srcFile parameter appropriate 
-     * exception is thrown.
-     * @throws Exception
-     */
+//    /**
+//     * Test that if we specify wrong srcFile parameter appropriate 
+//     * exception is thrown.
+//     * @throws Exception
+//     */
 //    public void testWrongDestFileParameterPassed() throws Exception
 //    {
 //        File testPom = new File(getBasedir(), "target/test-classes/unit/"
@@ -179,8 +178,8 @@ public class TestCactifyWarMojo extends AbstractMojoTestCase
 //         }
 //         catch(MojoExecutionException mx)
 //         {
-//             mx.printStackTrace();
-//             //assertEquals("Failed to get the original web.xml", mx.getMessage());  
+//             //mx.printStackTrace();
+//             assertEquals("Failed to get the original web.xml", mx.getMessage());  
 //         }
 //    }
 }
