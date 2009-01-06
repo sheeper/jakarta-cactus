@@ -112,6 +112,9 @@ integration/ant/src/test-input/org/apache/cactus/integration/ant/weblogic.war -t
 integration/eclipse/org.apache.cactus.eclipse.feature/logocactus.gif -text
 integration/eclipse/org.apache.cactus.eclipse.runner/icons/calaunch.gif -text
 integration/maven/build.properties.sample -text
+integration/maven2/src/test/java/org/apache/cactus/integration/maven2/test/ArtifactStub.java -text
+integration/maven2/src/test/java/org/apache/cactus/integration/maven2/test/CactifyMavenProjectStub.java -text
+integration/maven2/src/test/java/org/apache/cactus/integration/maven2/test/TestCactifyEarMojo.java -text
 integration/maven2/src/test/resources/unit/cactify-test-empty-src-file/nowebxml.war -text
 integration/maven2/src/test/resources/unit/cactify-test-wrong-dest-parameter-passed/empty.war -text
 integration/maven2/src/test/resources/unit/ear/basic-cactify-noDestSpecified/notcactified.ear -text
