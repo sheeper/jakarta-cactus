@@ -257,7 +257,7 @@ public class CactifyWarMojo extends AbstractMojo
      */
     public void execute() throws MojoExecutionException, MojoFailureException
 	{
-        if(this.srcFile != null) 
+        if (this.srcFile != null) 
         {
             getLog().info("Analyzing war: " + this.srcFile.getAbsolutePath());
         }
@@ -277,7 +277,7 @@ public class CactifyWarMojo extends AbstractMojo
                 webXml = getOriginalWebXml();
                 if (webXml == null)
                 {
-                    if(this.version == null)
+                    if (this.version == null)
                     {
                         throw new MojoExecutionException("Your source file "
                            + "does not contain a web.xml. Please provide a "
@@ -345,7 +345,7 @@ public class CactifyWarMojo extends AbstractMojo
             tempLocation.mkdirs();
             tempLocation.deleteOnExit();
 
-            if(testClasses != null) 
+            if (testClasses != null) 
             {
 	            //Add the classes.
 	            warArchiver.addClasses(new File(testClasses.getDirectory()), 
@@ -500,7 +500,7 @@ public class CactifyWarMojo extends AbstractMojo
             }
             try 
             {
-                warArchiver.addWebinf(tmpDir, strIncludes,null);
+                warArchiver.addWebinf(tmpDir, strIncludes, null);
             } 
             catch (ArchiverException e) 
             {
@@ -554,7 +554,7 @@ public class CactifyWarMojo extends AbstractMojo
 
     /**
      * Adds the Cactus JSP redirector file to the web application.
-     * @throws MojoExecutionException
+     * @throws MojoExecutionException in case an error occurs
      */
     private void addJspRedirector() throws MojoExecutionException
     {
@@ -683,9 +683,9 @@ public class CactifyWarMojo extends AbstractMojo
      * Setter method for the MavenProject.
      * @param project
      */
-    public void setProject(MavenProject project)
+    public void setProject(MavenProject theProject)
     {
-        this.project = project;
+        this.project = theProject;
     }
     
     /**
@@ -716,7 +716,8 @@ public class CactifyWarMojo extends AbstractMojo
      * 
      * @return <code>java.lang.String</code>
      */
-    public String getContext() {
+    public String getContext() 
+    {
         return context;
     }
     
@@ -725,7 +726,8 @@ public class CactifyWarMojo extends AbstractMojo
      * 
      * @return <code>java.io.File</code>
      */
-    public File getSrcFile() {
+    public File getSrcFile() 
+    {
         return this.srcFile;
     }
     
@@ -735,8 +737,9 @@ public class CactifyWarMojo extends AbstractMojo
      * 
      * @param context
      */
-    public void setContext(String context) {
-        this.context = context;
+    public void setContext(String theContext) 
+    {
+        this.context = theContext;
     }
     
     /**
@@ -774,8 +777,9 @@ public class CactifyWarMojo extends AbstractMojo
      * 
      * @param destFile
      */
-    public void setDestFile(File destFile) {
-        this.destFile = destFile;
+    public void setDestFile(File theDestFile) 
+    {
+        this.destFile = theDestFile;
     }
     
     /**
@@ -794,8 +798,8 @@ public class CactifyWarMojo extends AbstractMojo
      * 
      * @param warArchiver
      */
-    public void setWarArchiver(WarArchiver warArchiver) 
+    public void setWarArchiver(WarArchiver theWarArchiver) 
     {
-        this.warArchiver = warArchiver;
+        this.warArchiver = theWarArchiver;
     }
 }
