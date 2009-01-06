@@ -36,10 +36,10 @@ extends org.codehaus.cargo.maven2.configuration.Dependency
 {
     /**
      * We override this mothod. 
-     * @param theProject
-     * @param theLog
-     * @return
-     * @throws MojoExecutionException
+     * @param theProject The Maven project parameter
+     * @param theLog The Maven Log parameter
+     * @return the path to the dependency as <code>java.lang.String</code>
+     * @throws MojoExecutionException in case an error occurs
      */
     public String getDependencyPath(MavenProject theProject, Log theLog) 
     throws MojoExecutionException
