@@ -114,4 +114,7 @@ integration/eclipse/org.apache.cactus.eclipse.runner/icons/calaunch.gif -text
 integration/maven/build.properties.sample -text
 integration/maven2/src/test/resources/unit/cactify-test-empty-src-file/nowebxml.war -text
 integration/maven2/src/test/resources/unit/cactify-test-wrong-dest-parameter-passed/empty.war -text
+integration/maven2/src/test/resources/unit/ear/basic-cactify-noDestSpecified/notcactified.ear -text
+integration/maven2/src/test/resources/unit/ear/basic-cactify-noDestSpecified/plugin-config.xml -text
+integration/maven2/src/test/resources/unit/ear/basic-cactify-noparameters/plugin-config.xml -text
 integration/shared-api/src/main/java/org/apache/cactus/integration/api/deployable/package.html -text
