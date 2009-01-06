@@ -24,6 +24,8 @@ under the License.
         <groupId>org.apache.cactus</groupId>
         <artifactId>cactus.integration.maven2</artifactId>
 		<configuration>
+		   <project implementation="org.apache.cactus.integration.maven2.test.CactifyMavenProjectStub" />
+		
 		   <srcFile>target/test-classes/unit/cactify-test-wrong-dest-parameter-passed/empty.war</srcFile>
 		   <destFile>/null</destFile>
 		</configuration>
