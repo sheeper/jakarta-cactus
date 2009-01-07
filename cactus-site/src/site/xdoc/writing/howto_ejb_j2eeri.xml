@@ -32,7 +32,7 @@
 	  <section name="Forewords">
 		<p>
 				This document explains how to unit test EJBs version 2.0 with Cactus. If you want to
-				test EJB version 3.0 with Cactus you can follow <a href="/writing/howto_ejb_3.html">this article</a>, as well as have a look at the
+				test EJB version 3.0 with Cactus you can follow <a href="writing/howto_ejb_3.html">this article</a>, as well as have a look at the
 				sample applications that come with Cactus's distribution in <code>samples/ejb3</code>
     </p>
     <p>
