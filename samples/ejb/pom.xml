@@ -154,8 +154,6 @@
 				<version>1.8.1-SNAPSHOT</version>
 				<configuration>
 					<srcFile>target/cactus.samples.ejb-1.8.1-SNAPSHOT-bin.ear</srcFile>
-					<destFile>${project.build.directory}/${pom.artifactId}-cactified.ear</destFile>
-					<!--mergeWebXml>src/main/webapp/WEB-INF/cactus-web.xml</mergeWebXml-->
 					<cactusWar>
 						<context>/</context>
 						<redirectors>
