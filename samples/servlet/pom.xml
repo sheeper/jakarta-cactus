@@ -286,6 +286,10 @@
           <!--warSourceExcludes>*.jar</warSourceExcludes-->
         </configuration>        
       </plugin>
+      <!-- 
+      	We need the surefire not to fail the build when a test-failure occurs,
+      	because we need this jar in the jetty samples. 
+      -->
       <plugin>
 		<groupId>org.apache.maven.plugins</groupId>
 		<artifactId>maven-surefire-plugin</artifactId>
