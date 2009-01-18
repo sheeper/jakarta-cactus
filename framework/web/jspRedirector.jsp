@@ -15,9 +15,7 @@
  - KIND, either express or implied.  See the License for the
  - specific language governing permissions and limitations
  - under the License.   
---%>
-
-<%@page import="org.apache.cactus.server.*,org.apache.cactus.internal.server.*" session="true" %><%
+--%><%@page import="org.apache.cactus.server.*,org.apache.cactus.internal.server.*" session="true" %><%
 
     /**                                                
      * Note:
