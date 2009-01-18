@@ -48,7 +48,7 @@
     <p>
 	    Then you can download the <a href="../downloads.html">latest Cactus
       release</a> or checkout the latest code from
-<a href="http://svn.apache.org/viewcvs/jakarta/cactus/trunk/">SVN</a>.
+<a href="http://svn.apache.org/repos/asf/jakarta/cactus/trunk/">SVN</a>.
     </p>
     <p>
 	    Last, you can check the <a href="http://issues.apache.org/jira/browse/CACTUS?report=com.atlassian.jira.plugin.system.project:openissues-panel">todo list</a> and 
@@ -116,7 +116,7 @@
       modification (i.e. patch) or a fairly standalone item, and whether you 
       have commit access (committers have been granted access by a vote of 
       confidence, so they are assumed to be trustworthy enough
-      to make changes directly in CVS. If you submit many good patches, you 
+      to make changes directly in SVN. If you submit many good patches, you 
       may be nominated as a committer yourself!)
     </p>
 
@@ -126,8 +126,8 @@
       you have a patch and would like to see it incorporated into the Cactus
       distribution, take note of the Licensing Requirements listed below, and 
       then create a <a href="http://issues.apache.org/jira/secure/BrowseProject.jspa?id=10471">JIRA issue</a> and attach
-      to it  a unified diff (<code>cvs patch</code>) of your changes against 
-      the latest CVS version of the code (CVS HEAD).
+      to it  a unified diff (<code>svn patch</code>) of your changes against 
+      the latest SVN version of the code (SVN HEAD).
     </p>
   
     <section name="Licensing Requirements for the Cactus Distribution">
