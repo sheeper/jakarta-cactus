@@ -44,6 +44,7 @@
 				<exclude>.project</exclude>
 				<exclude>.profile</exclude>
 				<exclude>.classpath</exclude>
+				<exclude>.rdf</exclude>
 				
 				<!-- svn directories. -->
 				<exclude>**/.svn/**</exclude>
