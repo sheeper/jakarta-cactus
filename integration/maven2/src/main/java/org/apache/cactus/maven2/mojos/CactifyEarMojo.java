@@ -70,6 +70,7 @@ public class CactifyEarMojo extends AbstractMojo
     
     /**
      * The archive that contains the web-app that should be cactified.
+     * @required
      * @parameter
      */
     private File srcFile;
@@ -77,6 +78,7 @@ public class CactifyEarMojo extends AbstractMojo
     /**
      * The archive that contains the web-app that should be cactified.
      * @parameter
+     * default-value="${project.build.directory}/${project.artifactId}-cactified.ear"
      */
     private File destFile;
 
@@ -136,6 +138,12 @@ public class CactifyEarMojo extends AbstractMojo
         {
             cactusWar = createCactusWarConfig();
         }
+        
+        if (getSrcFile() == null) 
+        {
+            throw new MojoExecutionException("You need to specify [srcFile] "
+            		+ "attribute for cactification!");
+        }
         MavenArchiver archiver = new MavenArchiver();
         archiver.setArchiver(earArchiver);
         
@@ -149,7 +157,7 @@ public class CactifyEarMojo extends AbstractMojo
         
         try 
         {
-            if(this.srcFile != null)
+            if (this.srcFile != null)
             {
                 AssemblyFileUtils.unpack(this.srcFile, tempLocation,
                     archiverManager);
@@ -204,7 +212,7 @@ public class CactifyEarMojo extends AbstractMojo
             
             archiver.createArchive(getProject(), getArchive());
         }
-        catch(ArchiverException aex)
+        catch (ArchiverException aex)
         {
             throw new MojoExecutionException("Error while performing the "
                     + "cactified archive.", aex);
@@ -469,8 +477,18 @@ public class CactifyEarMojo extends AbstractMojo
      * Getter method for the destFile.
      * @return
      */
-    public File getDestFile() {
+    public File getDestFile() 
+    {
         return destFile;
+    }
+    
+    /**
+     * Getter method for the srcFile.
+     * @return
+     */
+    public File getSrcFile() 
+    {
+        return srcFile;
     }
 
 }
