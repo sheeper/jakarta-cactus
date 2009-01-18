@@ -224,6 +224,8 @@
 						<containerId>jboss42x</containerId>
 						<log>target/cargo.log</log>
 						<output>target/output.log</output>
+						<!--If you don't want cargo to download the container, just comment the bottom
+									 lines and specify a [home] parameter-->
 						<zipUrlInstaller>
 							<url>http://heanet.dl.sourceforge.net/sourceforge/jboss/jboss-4.2.2.GA.zip</url>
 							<installDir>${basedir}/install</installDir>
